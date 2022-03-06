@@ -1,0 +1,3 @@
+id name Tarrasch Toy Engine Beta V0.906
+id author Bill Forster
+option name MultiPV type spin default 1 min 1 max 4

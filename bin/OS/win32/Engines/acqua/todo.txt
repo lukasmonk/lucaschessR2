@@ -1,0 +1,164 @@
+
+
+
+
+
+NON VEDE IL MATTO position startpos moves e2e4 e7e5 g1f3 b8c6 f1b5 a7a6 b5a4 g8f6 e1g1 f8e7 f1e1 b7b5 a4b3 e8g8 c2c3 d7d6 h2h3 c6a5 b3c2 c7c5 d2d4 f6d7 b1d2 e5d4 c3d4 a5c6 d2f1 c5d4 f3d4 c6d4 d1d4 d7e5 f1e3 c8e6 h3h4 g7g5 h4g5 e7g5 f2f4 e5c6 d4c3 g5f4 c3c6 f4e3 c1e3 a8c8 c6a6 c8c2 a6b5 d8h4 g2g3 c2b2 b5b2 h4e4 a2a3 e6d5 a1c1 f7f6 e1d1 e4e3 g1h2 e3e4 h2h3 d5a2 b2a2 e4d5 a2d5 g8g7 d5d6 g7h6 d6f8 h6g5 f8g7 g5f5 g7h7 f5e5 h7e7 e5f5 d1d5 f5g6 e7e4 f6f5 e4e8 g6h7 d5f5 h7h6 e8e3 h6h7 f5f7 h7g6 f7f2 g6h7 e3e7 h7g6 e7e4 g6h6 e4h4 h6g7 h4d4 g7g6 d4g4 g6h7 g4h5 h7g7 h5e5 g7g6 e5e8 g6h7 e8e4 h7g8 e4e8 g8h7 e8d7 h7h6 d7d2 h6h7 d2d3 h7g7 d3d7 g7h6 d7e6 h6h7 f2f7 h7g8
+   ho capito perche', la casa H8 non e' controllata dalla donna bianca, perche' il re Nero blocca la sua azione
+
+
+
+provare buffering stdin
+
+vedere se il cambio conviene (attacco-(meno)difesa)  (suddividere CASE_CONTROLLATE_DAL BIANCO e NERO)
+
+STALLO dai, non è difficile se all'uscita dal ciclo non ci sono mosse valide e non sei sotto scacco => è stallo (Stefano Gemma)
+    (mosse valide vuol dire non -10000)
+
+mettere all'inizio qualche messaggio in output, tipo: "Acqua by...."
+
+il matto e stallo metterli come funzioni indipendenti, e non dentro la funziona CaseMinacciate
+
+
+nelle prossime versioni trasformare la matrice SCACCHIERA in vettore SCACCHIRA[64]
+
+fare comando "keyboard" al posto di "show" e "help"
+fare comando "pieces" che dice i pezzi dove stanno
+fare comando "fen".. che stampa la FEN della posizione
+
+aggiungere anche per G7G5               BonusMossa( "f7f5", cMossa, "p", 0, 10, -1 )
+
+mettere #define per i bonus (unici per bianchi e neri)
+
+
+opposizione
+fare h2h3 per evitare matto su traversa 1
+
+nel main, nel position startpos moves, non togliere le prime 3 parole, ma fare l'AT a "moves"
+se acqua e' in vantaggio materiale, la sua torre puo' occupare una colonna aperta con la torre avversaria
+
+la torre deve anche raddoppiare la riga aperta
+
+8 pedoni < 2 cavalli < 2 alfieri .... ecc ecc
+
+Crear da se le TB (iniziare da KQK)
+se il re avversario e' solo, la torre lo dovrebbe relegare al bordo scacchiera
+
+espandere per le mosse f2f4 g2g4 ecc da 0-10 a 0-30 mossa
+
+togliere SCACCHIERA da FUNCTION aggiorna_scacchiera( SCACCHIERA, acMoves )
+UNIFICARE funzione CaseControllateDalNero/Bianco
+vedere la "Manhattan Distance"
+provare matto 3333 con piu' pezzi
+nel finale non muove le torri, abbassare bonus raddoppi e colonne aperte
+
+Finale KQK: i pezzi devono fare angolo retto.
+la torre deve cercare la colonna piu' libera possibile (con meno pezzi)
+
+
+premiare doppio e triplo pedone avversario (malus  per doppio pedone proprio: fatto)
+fare movimenti piccoli
+cambiare nome TRATTO con TRATTO_CORRENTE (o ATTUALE)
+non deve muovere i pedone di ala di re, per non indebolirlo
+i pezzi propri possono andare in case protette dai propri pezzi
+avvicinarsi di TUTTI i pezzi al re avversario
+avvicinarsi di TUTTI i pezzi al re avversario nel finale (tipo TB 5 men)
+ho notato che i pedoni alla fine non si muovono. dare un bonus
+ottimizzare il codice usando IIF()
+promozione su casa non controllata da avversario: 50 punti
+fare un LOG con tutte le valutazioni delle mosse
+lavorare per pattern
+se un pedone e' super libero, deve promuovere
+il pedone non vale sempre 1 ma il suo valore aumenta al suo avanzare
+nel finale relegare il re avversario all'angolo del colore del proprio alfiere (bonus di avvicimamento all'angolo)
+Unificare BonusAvanzamentoPedone()
+raddoppio torre di 7ma
+scacco a infilata, il re si sposta e si prende il pezzo
+nel finale re e torre o donna, bonus di avvicinamento al bordo
+no case deboli
+cercare di puntare su torri a1 via b2
+fianchetti
+tra 2 pezzi deve catturare il minore
+non deve muovere lo stesso pezzo consecutivam. per piu di 3-4 volte
+deve sapere che un pedone e un alfiere assieme sono indistruttibili e anche pedone e pedone in catena un po' meno
+creare un flag che dice che un certo pezzo e' protetto dai suoi compagni pezzi
+acqua deve mangiare i pedoni piu' vicini alla loro promozione
+nel finale il re si deve avvicinare all'altro re
+determinare la casa di fuoco
+se il re avversario e' solo o quasi, Acqua deve aumentare le probabilita' di promuovere
+fare muovere i pezzi mai mossi
+aggiustare bonus per pedone che promuove
+con il cavallo o alfiere bloccare la promozione (bulla)
+implementare matrice QUANTE_VOLTE_E_STATO_SPOSTATO_QUESTO_PEZZO[8,8]
+rivedere concetto di colonna aperta (es: tc8, Pc7)
+far uscire i cavalli e alfieri per sviluppare torri
+le torri si mettano nelle stesse colonne di quelle avversarie
+torri in comunicazione tra loro (in 1. o 8.traversa)
+bonus di 0.7 per pedone avversario minacciato
+in apertura agevolare mossa b1c3 (b8c6) c1d2 c1f4 ecc
+durante il suo pensamento, inserire messaggi di elaborazione
+forchetta
+le torri dovrebbero stare sempre in 1. riga a fare sentinella
+
+i pezzi di acqua si dovrebbero piazzare nelle case controllate da acqua
+cercare di offendere il Re avversario, anche se ci sono pezzi in mezzo
+
+protendere per h3 o a3 se c'e' alfiere
+il pedone sostenuto da torre e' forte, e la torre deve sostenere il pedone da dietro
+non deve mettere pezzi (pedoni) in case non protette dai propri pezzi 
+calcolare differenze di materiale per scopi futuri
+impedire promozione all'avversario
+certe volte promuove facendo catturare la donna promossa
+Bonus per mosse che controllano piu' case possibili
+Certe volte un pedone spinge, facendosi catturare senza motivo
+vedere se si puo' togliere l'opzione per book interno
+due alfieri vicini sono forti
+fare doppio scacco (al re e al pezzo avversario non custodito)
+stare attenti al doppio dell'avversario
+se l'avversario sta promuovendo in C8 e il pedone e' in C7, Acqua dovrebbe mettere qualche pezzo in C8
+arrocco dell'engine
+spesso si fa catturare torri A1 via B2
+muovere TUTTI i pezzi
+sviluppare
+pedone passato
+centro
+difendere pezzi incustoditi
+nel finale il re di Acqua deve camminare nelle case di colore diverso dall'alfiere avversario
+catene di pedoni
+inchiodatura
+alfieri conquistano diagonali aperte
+
+regola delle 50 mosse
+preferire mangiare i pedoni che si avvecinano alla promozione
+
+stallo (basta vedere il DBF dei movimenti dell'aversario (su altro DBF), se per tutte le mosse il voto <10000 e' stallo) (se e' in vantaggio lo evita, se e' in svantaggio, lo cerca)
+difendersi
+doppio di cavallo a re e donna o re e torre o torre e donna ecc
+regola del quadrato
+RND tra prime mosse dello stesso valore
+non soffocare i propri pedoni
+finale R+D R
+finali TB
+il re di acqua si dovrebbe allontanare dai pezzi avversari, specialmente dalla donna
+Il re, se i pezzi sono pochi, deve aiutare
+attaccare i pedoni alla base della catena
+Adesso c'e' la una sorta di Bitboard: CaseMinacciate che contiene i pezzi che minacciano, invece del Booleano
+
+i 2 cavalli legati tra loro sono fortissimi
+cavalli al centro + forti
+
+liberare casa (1° o 8° traversa) per permettere promozione proprio pedone
+
+appoggio di un pedone con un altro pedone
+appoggiare i propri pezzi
+torre deve conquistare colonna aperta anche col RE avversario
+torre deve conquistare colonna aperta anche un'altra propria torre
+colonne aperte da torre in poi
+
+un pezzo puo fare scacco al re avversario, pur andando in casa minacciata da pezzo, ma quel pezzo è inchiodato.
+
+il Re deve accompagnare il pedone a promozione
+
+
+
+

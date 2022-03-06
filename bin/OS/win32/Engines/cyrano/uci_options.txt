@@ -1,0 +1,12 @@
+id name Cyrano 0.6b17
+id author Harald Johnsen
+option name Hash type spin default 32 min 8 max 1024
+option name OwnBook type check default true
+option name UCI_ShowCurrLine type check default false
+option name UCI_ShowRefutations type check default false
+option name UCI_LimitStrength type check default false
+option name UCI_Elo type spin default 2000 min 2000 max 2000
+option name UCI_AnalyseMode type check default false
+option name BookName type string default test.pbk
+option name egbb_dir type string default .
+option name Use Scorpio bitbases type check default false

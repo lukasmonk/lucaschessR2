@@ -1,0 +1,64 @@
+The format to create a persona file is a follows:
+
+<Name of variable><space>=<space><value>
+
+which is the same as:
+
+<name> = <value>
+
+for example:
+
+PawnValueMg = 123
+KnightValueEg = 321
+KnightMobilityWt = 3
+
+NOTE: There _must_ be a space between the = and the left and right sides
+
+Any unmentioned term will have it's default value used.
+The minimum and maximum values of each term are -10000 and +10000 respectively.
+For ease of use, copy the 'default.txt' and modify the values as you please.
+
+******************************
+* Short Description of terms *
+******************************
+Mg and Eg stand for Middle-game and Endgame. This is very useful for preventing
+undesirable exchanges in the opening and other important things like double bishop
+being worth more as the game progresses.
+
+For example:
+PawnValueMg - Value of pawn in the middle-game.
+PawnValueEg - Value of pawn in the endgame.
+Similarly for KnightValueMg, BishopValueEg etc...
+
+PieceValue(Mg/Eg) - Bonus per piece of this type.
+                        * PawnValue(Mg/Eg)
+                        * KnightValue(Mg/Eg)
+                        * BishopValue(Mg/Eg)
+                        * RookValue(Mg/Eg)
+                        * QueenValue(Mg/Eg)
+
+KingShelterClose(Mg/Eg) - Bonus for having pawns immediately next to the king.
+KingShelterFar(Mg/Eg) - Bonus for having pawns one step ahead of the king.
+DoubledPawns(Mg/Eg) - Bonus for having a pawn in front of another on same file.
+IsolatedPawn(Mg/Eg) - Bonus for having a pawn with no pawn in adjacent files.
+BishopPair(Mg/Eg) - Bonus for having 2 bishops.
+RookOn7th(Mg/Eg) - Bonus for having a rook on the opponent's second rank(7th relative rank).
+RookOpenFile(Mg/Eg) - Bonus for having the rook on a file with no pawns.
+RookSemiOpen(Mg/Eg) - Bonus for having a rook on a file without one of your pawns.
+KnightOutpost(Mg/Eg) - Bonus for having a knight outpost.
+BishopOutpost(Mg/Eg) - Bonus for having a bishop outpost.
+
+PieceKingAtkWt - The weight of attacking each square near opponent's king with "Piece".
+                 Each weight is added and sum is used to get the actual value from a table.
+                 Should not be increased or decreased too much because it is exponential,
+                 small changes in this will cause a huge change of actual playing style.
+                     * KnightKingAtkWt
+                     * BishopKingAtkWt
+                     * RookKingAtkWt
+                     * QueenKingAtkWt
+
+PieceMobilityWt - Bonus for each safe square reachable by the piece.
+                     * KnightMobilityWt
+                     * BishopMobilityWt
+                     * RookMobilityWt
+                     * QueenMobilityWt

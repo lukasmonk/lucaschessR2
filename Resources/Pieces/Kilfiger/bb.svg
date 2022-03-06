@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg2985" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="480" width="480" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+ <title id="title3680">Black Bishop</title>
+ <metadata id="metadata2990">
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title>Black Bishop</dc:title>
+    <cc:license rdf:resource="http://creativecommons.org/licenses/publicdomain/"/>
+    <dc:date>6.1.2013</dc:date>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>James Kilfinger+alfons z!</dc:title>
+     </cc:Agent>
+    </dc:creator>
+    <dc:source>http://openfontlibrary.org/assets/downloads/chess/dd244e4b50bb954610bc0b2372ce2e18/chess.zip</dc:source>
+   </cc:Work>
+   <cc:License rdf:about="http://creativecommons.org/licenses/publicdomain/">
+    <cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction"/>
+    <cc:permits rdf:resource="http://creativecommons.org/ns#Distribution"/>
+    <cc:permits rdf:resource="http://creativecommons.org/ns#DerivativeWorks"/>
+   </cc:License>
+  </rdf:RDF>
+ </metadata>
+ <g id="layer1">
+  <path id="text3456" d="m238.38 55.156-50.719 52.906 70.156 91.781c8.0966 10.795 11.875 14.563 11.875 32.375s-13.486 32.375-30.219 32.375-30.25-14.563-30.25-32.375c0-11.875 3.25-19.989 3.25-28.625 0-20.511-39.412-64.219-52.906-64.219-8.6364 0-30.219 25.366-30.219 25.906-16.193 14.034-38.875 43.713-38.875 77.719 0 46.42 8.6563 53.98 26.469 116.59 37.77-18.89 80.4-28.59 121.43-28.59 41.023 0.53977 83.685 9.7017 121.47 28.594 17.812-62.614 26.438-70.173 26.438-116.59 0-34.006-23.761-62.605-38.875-77.719-0.55-1.08-66.4-66.942-109.04-110.12zm0 331.44c-77.73-0.01-145.74 29.14-188.38 73.4h380c-42.64-44.26-113.9-73.41-191.62-73.41z"/>
+ </g>
+</svg>

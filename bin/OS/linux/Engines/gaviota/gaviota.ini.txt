@@ -1,0 +1,246 @@
+;=========================
+; parameters for Gaviota
+;=========================
+
+;--------------------------------------------------------------
+; Name that the GUI will use for saving games into pgn.
+; It could be modified to indicate a customized version.
+;--------------------------------------------------------------
+
+name        = "Gaviota"
+
+;--------------------------------------------------------------
+; allow_memory_override_by_gui = The user can later modify 
+;                 the default values through the GUI.
+; hashmem     --> hash tables (transposition, refutation).
+; learn_table --> holds information from learn.epd
+;                 (no need to set it bigger than 1 M)
+; pawn_table  --> information about pawn structure.
+;                 keep it small, 1-8 M
+; material_table: information on material scores 1-2 M should
+;                 be enough
+; eval_table  --> evaluation scores are stored for later used
+;                 the bigger, the faster the search
+;                 ~1/4 of hashmem may be recommended
+; G is Gigabytes, M is Megabytes, k kilobytes , b bytes
+;--------------------------------------------------------------
+
+allow_memory_override_by_gui = on
+hashmem     = 16 M
+learn_table = 1 M
+pawn_table  = 1 M
+material_table = 512 k
+eval_table = 1 M
+ 
+;--------------------------------------------------------------
+; LOG HANDLING 
+; max_logs is number of files kept. 
+; When that number is reached, older files will be overwritten
+;--------------------------------------------------------------
+
+log      = on
+max_logs = 200
+log_path = "logs"
+
+;-----------------------------------------------------------------------------
+; PONDER 
+; (thinking while waiting for opponent's move)
+; ponder can have three values, 0, 1, or 2 (recommended).
+; 2: Pondering will be determined by the interface (e.g. winboard, Arena etc.)
+; 1: Ponder is on, hardwired, no matter what the interface wants
+; 0: Ponder is off, hardwired, won't turn on even if the interface wants
+;-----------------------------------------------------------------------------
+
+ponder      = 2
+
+;-----------------------------------------------------------------------------
+; OPENING BOOK HANDLING 
+; book = on/off, will determine if the opening book is used by the engine
+; book_learn = on/off, will save info into the book to avoid or repeat lines
+; book_file1 is the primary book file whereas book_file2 is the one that 
+; the engine relies after "fell out" of book_file. Then, book_file3 follows.
+; book_file1 is supposed to be a customized book
+; book_file2 is supposed to be a general broad book
+; You can even use a third book file, book_file3
+; Learning info is saved to all book files.
+; You can leave one of the book options empty, deleted, or commented out
+; with a semicolon
+;-----------------------------------------------------------------------------
+
+book        = on
+book_learn  = off
+book_file1  = "gavibook-small.bin"
+book_file2  = ""
+book_file3  = ""
+
+;-------------------------------------------------------
+; LEARNING
+; learning of positions when the engine is out of book.
+; learn = on --> will save what just learned,
+; use_learned = on --> will use any previous stored
+; information in the "learn_file"
+; learn_file = "/properpath/whatevername.epd"
+;-------------------------------------------------------
+
+learn       = off
+use_learned = off
+learn_file  = "learn.epd"
+
+;-----------------------------------------------------------------------------
+; VERBOSITY (Output)
+; mute_plies = won't display any information until this iteration is reached
+; terse_plies = it will show only completed iterations, no PV updates
+; root_upates = on/off, if 'on' it will show what current move is being 
+; analyzed (useful only in UCI mode)
+;-----------------------------------------------------------------------------
+
+mute_plies = 8
+terse_plies = 14
+root_updates = off
+
+;---------------------------------------------------------------------------
+; ALERT
+; logs when the node/sec is lower than "alert_nps"
+; it is useful to detect problems.
+;---------------------------------------------------------------------------
+
+alert_nps = 10000
+
+;----------------------------------------------------------------------
+; SCRIPT FILE
+; All the commands included in script_file are run after initialization
+; and before accepting commands from the user.
+; Delete the command if you do not want to have an initial script
+; or comment it out placing a semicolon before.
+;----------------------------------------------------------------------
+
+;script_file = "script.txt"
+
+;---------------------------------------
+; Resign in hopeless position? (on/off)
+;---------------------------------------
+
+resign_mode = on
+
+;------------------------------------------------------------------------
+; Should the engine kibitz info on computer tournaments online? (on/off)
+;------------------------------------------------------------------------
+
+kibitz      = off
+
+;---------------------------------
+; Gaviota Tablebase parameters
+;---------------------------------
+
+use_tablebase         = on
+tb_decoding_scheme    = 4
+tb_probing_hard_depth = 5
+tb_probing_soft_depth = 2
+tb_cache_size         = 64 M
+tb_path_1             = "gtb/"
+tb_path_2             = ""
+tb_path_3             = ""
+tb_path_4             = ""
+tb_long_output        = off 
+
+;-------------------------------------------------------------------------
+; TABLE BASE MODE
+; tb_pouncing_mode is when the engine will try to win positions that are
+; TB draws. It will "pounce" to any mistake committed by the opponent.
+; In addition, it will not try to play any silly move that avoid
+; a TB draw after a capture.
+;-------------------------------------------------------------------------
+
+tb_pouncing_mode = on
+
+;-------------------------------------------------------------------
+; SAN SUPPORT
+; (Standard Algebraic Notation) (e.g. Nf3)
+; on  ==> will try to send and accept SAN moves if GUI supports it
+; off ==> will use default coordinate notation (e.g. g1f3)
+;
+; Some GUIs (Arena, ChessGUI etc.) are NOT fully SAN compliant
+; and send wrong SAN moves. Use SAN = off with those GUIs 
+; It is safe to always have it off.
+;-------------------------------------------------------------------
+
+SAN = off
+
+;------------------------------------------------------------
+; PARALLEL SEARCH
+; cores --> CPU Usage 
+; Gaviota will launch up a number of threads 
+; equal to this value
+; Supported up to 64 cores
+;------------------------------------------------------------
+
+cores = 1
+
+;--------------------------------------------------------------
+; OPENING BOOK TRANSITION ("bt")
+; When out of book, if the engine does not like the position 
+; the game is saved in "bookholes_w.pgn" (white) or 
+; "bookholes_b.pgn" (black) for further evaluation.
+; That is why there are two thresholds, bt_threshold_w and
+; bt_threshold_b, for white and  black respectively.
+; To be saved, the following requirements should me met:
+; 1) evaluation < bt_threshold (in centipawns)
+; 2) The firs requirement should occur during the first moves
+;    out of book. That number is "bt_length".
+;    If bt_length = 0, this feature is inactivated
+;--------------------------------------------------------------
+
+bt_length = 6
+bt_threshold_w = 0
+bt_threshold_b = -50
+
+;-------------------------------------------------------------------------
+; Estimates lag between GUI and engine and takes it into account (on/off)
+;-------------------------------------------------------------------------
+
+consider_lag = on
+
+;-------------------------------------------------------------------------
+; Allow special codes to be included in the variation output (on/off)
+;-------------------------------------------------------------------------
+
+pv_nonmove_codes = on
+
+;----------------------------------------------------------------
+; Allow easy moves to be played faster (on/off)
+;----------------------------------------------------------------
+
+easy_moves_allowed = on
+
+;----------------------------------------------------------------
+; SMP Parameters
+; They control how the parallel search is performed
+;----------------------------------------------------------------
+
+smp_depth = 4
+
+smp_width_default = 1
+smp_width_min_cut = 2
+smp_width_min_all = 1
+smp_width_min_pv  = 1
+
+smp_split_max_cut = 2
+smp_split_max_all = 16
+smp_split_max_pv  = 4
+
+;-------
+; end!
+;-------
+
+
+
+
+
+
+
+
+
+
+
+
+

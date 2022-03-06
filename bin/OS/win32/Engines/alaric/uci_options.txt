@@ -1,0 +1,20 @@
+id name Alaric 707
+id author Peter Fendrich
+option name LazyEval  type check default true
+option name LazyNull type check default false
+option name LMRresearch type check default true
+option name NullEval type check default true
+option name OwnBook type check default true
+option name Ponder type check default true
+option name Log type check default false
+option name Hash type spin default 64 min 16 max 4096
+option name HistoryValue type spin default 60 min 0 max 100
+option name LazyEvalLimit type spin default 200 min 0 max 700
+option name LearnDepth type spin default 8 min 0 max 20
+option name LMRMoveNumber type spin default 3 min 1 max 5
+option name LMRreduction type spin default 100 min 0 max 600
+option name LMRStartDepth type spin default 300 min 0 max 600
+option name NullReduction type spin default 300 min 0 max 600
+option name NullStartDepth type spin default 200 min 0 max 600
+option name BookFile type string default GS_Alaric_3.book
+option name Clear Hash type button

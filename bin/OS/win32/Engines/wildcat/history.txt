@@ -1,0 +1,66 @@
+History:
+
+WildCat 8:
+----------
+09.03.2008
+- UCI support
+- changed time management
+- incremental move generation
+  - underpromotions only at root
+  - execute move from transposition table without verifing
+
+
+WildCat 7:
+----------
+16.11.2006
+- supports analyse (only!) in UCI mode
+- fixed IID
+- improved bishop mobility
+- small improvement of king safety
+- two best moves in transposition table
+
+
+WildCat 6:
+----------
+01.09.2006
+
+- fixed bug with access to incomplete egtb
+
+21.10.2005
+
+- added promotions to SEE
+- fixed minor bug in evaluation
+- fixed small bug in quiscent search evasions
+- late moves reduction
+- changed null move conditions
+- verification search
+- checks at first ply of quiscent search
+- fixed bug in futility reduction
+- fail soft search
+- fixed bug with PV when first move immediatly leads to repetition
+- internal iterative deepening
+- history indexes switched to [type][to] scheme
+- sending full PV to ICS
+
+WildCat 5:
+----------
+2.08.2005
+
+- Razoring at depth == 1	
+- Futility pruning at depth == 1
+- Checks time 10 times per second during search. Before time was checked every 64 KNodes. It cause problems in late endgame with big egtb installed, because speed fall to ~5 KNodes / second. As a result time checks interval above 10 seconds. This can cause time loses.
+- many small tweaks in evaluation
+- don't move instantly when received draw offer
+
+WildCat 4:
+----------
+15.06.2004
+
+- killers implemented in standard way
+
+WildCat 3:
+----------
+31.01.2004
+
+- evaluation rewritten
+

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="48.000000px"
+   height="48.000000px"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.42"
+   sodipodi:docbase="/home/almoo7/Desktop/SnowIsh/SnowIsh-1.0/scalable/emblems"
+   sodipodi:docname="emblem-favorites.svg"
+   inkscape:export-filename="/home/almoo7/Desktop/emblem-favorites.png"
+   inkscape:export-xdpi="16.879999"
+   inkscape:export-ydpi="16.879999">
+  <defs
+     id="defs4">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient8662">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop8664" />
+      <stop
+         style="stop-color:#000000;stop-opacity:0;"
+         offset="1"
+         id="stop8666" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient2038">
+      <stop
+         id="stop2040"
+         offset="0.0000000"
+         style="stop-color:#dd2200;stop-opacity:1.0000000;" />
+      <stop
+         id="stop2042"
+         offset="1.0000000"
+         style="stop-color:#c61e00;stop-opacity:1.0000000;" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient3502">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1.0000000;"
+         offset="0.0000000"
+         id="stop3504" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0.0000000;"
+         offset="1.0000000"
+         id="stop3506" />
+    </linearGradient>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8662"
+       id="radialGradient1376"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.000000,0.000000,0.000000,0.536723,-2.040869e-14,16.87306)"
+       cx="24.837126"
+       cy="36.421127"
+       fx="24.837126"
+       fy="36.421127"
+       r="15.644737" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2038"
+       id="radialGradient1378"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.749714,-0.349721,0.223452,0.479021,-9.442114,301.8797)"
+       cx="318.41055"
+       cy="382.90298"
+       fx="318.41055"
+       fy="382.90298"
+       r="225.86216" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3502"
+       id="linearGradient1380"
+       gradientUnits="userSpaceOnUse"
+       x1="-100.47736"
+       y1="85.371323"
+       x2="593.00525"
+       y2="446.79990" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4000000"
+     inkscape:cx="209.34093"
+     inkscape:cy="14.834103"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1270"
+     inkscape:window-height="924"
+     inkscape:window-x="0"
+     inkscape:window-y="25" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Alexandre Moore</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>Alexandre Moore</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <dc:publisher>
+          <cc:Agent>
+            <dc:title>Alexandre Moore</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/GPL/2.0/" />
+        <dc:title>SnowIsh Icons</dc:title>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/GPL/2.0/">
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/Reproduction" />
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/Distribution" />
+        <cc:requires
+           rdf:resource="http://web.resource.org/cc/Notice" />
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://web.resource.org/cc/ShareAlike" />
+        <cc:requires
+           rdf:resource="http://web.resource.org/cc/SourceCode" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g1369"
+       transform="matrix(0.409329,0.000000,0.000000,0.409329,-2.197065,-4.809294)">
+      <path
+         transform="matrix(3.491415,0.000000,0.000000,0.725903,-22.71669,89.84719)"
+         d="M 40.481863 36.421127 A 15.644737 8.3968935 0 1 1  9.1923885,36.421127 A 15.644737 8.3968935 0 1 1  40.481863 36.421127 z"
+         sodipodi:ry="8.3968935"
+         sodipodi:rx="15.644737"
+         sodipodi:cy="36.421127"
+         sodipodi:cx="24.837126"
+         id="path4435"
+         style="opacity:0.20454545;color:#000000;fill:url(#radialGradient1376);fill-opacity:1.0000000;fill-rule:evenodd;stroke:none;stroke-width:1.0000000;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:10.000000;stroke-dasharray:none;stroke-dashoffset:0.0000000;stroke-opacity:1.0000000;visibility:visible;display:inline;overflow:visible"
+         sodipodi:type="arc" />
+      <g
+         transform="matrix(0.216698,0.000000,0.000000,0.216698,-16.78671,-31.48938)"
+         id="g3508">
+        <path
+           d="M 263.41570,235.14588 C 197.17570,235.14588 143.41575,288.90587 143.41575,355.14588 C 143.41575,489.90139 279.34890,525.23318 371.97820,658.45392 C 459.55244,526.05056 600.54070,485.59932 600.54070,355.14588 C 600.54070,288.90588 546.78080,235.14587 480.54070,235.14588 C 432.49280,235.14588 391.13910,263.51631 371.97820,304.33338 C 352.81740,263.51630 311.46370,235.14587 263.41570,235.14588 z "
+           id="path7"
+           sodipodi:nodetypes="ccccccc"
+           style="fill:#e60000;fill-opacity:1.0000000;stroke:#7a0d0d;stroke-width:10.000000;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:1.0000000" />
+        <path
+           style="fill:url(#radialGradient1378);fill-opacity:1.0000000;stroke:#ffffff;stroke-width:9.6703100;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:0.42105260"
+           sodipodi:nodetypes="ccccccc"
+           id="path2035"
+           d="M 266.99489,242.12389 C 202.93876,242.12389 150.95122,294.11147 150.95122,358.16762 C 150.95122,488.48038 282.40279,522.64732 371.97820,651.47591 C 456.66521,523.43775 593.00523,484.32014 593.00523,358.16762 C 593.00523,294.11148 541.01774,242.12388 476.96151,242.12389 C 430.49770,242.12389 390.50739,269.55898 371.97820,309.03035 C 353.44911,269.55897 313.45880,242.12388 266.99489,242.12389 z " />
+        <path
+           d="M 264.46951,239.09343 C 200.41338,239.09343 147.41569,292.09116 147.41569,356.14731 C 147.41569,421.30369 177.76806,458.39788 200.73107,475.37833 C 363.36232,516.31273 355.14809,312.89157 595.14809,358.16762 C 595.14809,294.11148 542.44631,239.98102 478.39008,239.98103 C 431.92627,239.98103 390.50739,269.55898 371.97820,309.03035 C 353.44911,269.55897 310.93342,239.09342 264.46951,239.09343 z "
+           id="path2772"
+           sodipodi:nodetypes="ccccccc"
+           style="fill:url(#linearGradient1380);fill-opacity:1.0000000;stroke:none;stroke-width:9.6703100;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:0.42105260" />
+      </g>
+    </g>
+  </g>
+</svg>

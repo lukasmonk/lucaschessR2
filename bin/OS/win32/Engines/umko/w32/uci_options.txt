@@ -1,0 +1,8 @@
+id name Umko 0.7
+id author Borko Bošković
+option name Hash type spin default 128 min 1 max 5120
+option name OwnBook type check default true
+option name Book File type string default .\performance.bin
+option name Bitbases Path type string default .\egbb\
+option name Bitbases Cache Size type spin default 32 min 1 max 256
+option name UCI_EngineAbout type string default http://umko.sourceforge.net/

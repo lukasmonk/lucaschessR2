@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg id="svg2" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="100%" width="100%" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 -100 1000 1000">
+ <metadata id="metadata12">
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g id="g4" transform="matrix(1,0,0,-1,0,840)">
+  <path id="path6" fill="currentColor" d="m209 0v28q0 20 2.5 39.5t14.5 44.5 41 28l35 3 38 4 72 7 85 3q22 0 49.5-1t57.5-4q34 0 71-5t63-8 39-34q3-8 8-26t5-39l1-19v-21h-582zm566 517-12 19-4 25q0 27 21 49t50 22q27 0 49.5-21.5t22.5-49.5-18.5-47.5-45.5-24.5l-108-293-125 12-106 5-85-3-72-7-38-4-35-3-106 294q-25 0-45.5 21.5t-20.5 49.5q0 27 21.5 49.5t50.5 22.5q28 0 49.5-21.5t21.5-50.5v-3l-4-16q-3-10-13-24l103-117 43 208q-21 0-38.5 21.5t-17.5 48.5q0 32 23 54t53 22 53-21.5 23-54.5l-1-7v-7q-3-13-11-25.5t-23-21.5l71-206 70 206q-13 10-21.5 26.5t-8.5 34.5q0 32 23 54t53 22 53-21.5 23-54.5q0-27-14-44t-38-26l35-208z"/>
+ </g>
+</svg>

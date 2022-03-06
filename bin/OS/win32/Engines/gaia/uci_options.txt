@@ -1,0 +1,5 @@
+id name Gaia 3.5
+id author Jean-Francois Romang, David Rabel
+option name Hash type spin default 32 min 1 max 4096
+option name Clear Hash type button
+option name Ponder type check default true

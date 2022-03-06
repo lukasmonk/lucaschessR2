@@ -1,0 +1,63 @@
+Change Log
+
+Version 1.7 - August 2006 (Estimated Strength 2100 ELO on SSDF scale)
+
+Added basic understanding of bishop and rook mobility
+
+Change to hash tables to allow previous search results to cutoff at none PV nodes
+
+
+Version 1.6 - June 2006 (Estimated Strength 2080 ELO on SSDF scale) 
+
+Corrected bug that casued Monarch to crash when playing a tournament in Arena
+
+Added Futility Pruning - can be enabled / disabled as a UCI option
+
+
+
+Version 1.5 - June 2006 (Estimated Strength 2040 ELO on SSDF scale) 
+
+Re-write of 80% of the code
+
+Changed from a bitboard and static move table representation to an array format
+
+Greatly simplified the code - replaced all of the color specific elements 
+
+Removed most global variable in preparation for implementing a parallel version at some stage 
+
+Created test routines for all procedures 
+
+Roughly halved the nodes per second compared to version 1.0 but bugs are also greatly reduced
+
+Fixed a nasty UCI interface bug that sometimes caused the engine to freeze up - version 1.5 seems to be 100% rock solid
+
+Improved the stability of the search - there are now far fewer false fail highs
+
+Add knowledge to mate with KQ v K, KR v K, KBB v K and KBN v K
+
+Improved the time management heuristics
+
+Added hashing at first ply of quiescent search 
+
+
+
+VERSION 1.0 - April 2004 (Estimated Strength ELO 1990 on SSDF scale)
+
+Complete rewrite in 'C' (was Delphi) 
+
+Improved stability 
+
+Added UCI 2 support (Current Line and Refutation) 
+
+Enhancements to basic program structure 
+
+Changed the method of draw detection from a small hash table to a move stack 
+
+Added incremental static piece evaluation (was computed at the leaf) 
+
+Speed up of ~80% compared to the Delphi version. I'd estimate that only 10%-15% is due to the better compiler and the remaining speed increase is due to a better structure and incremental evaluation 
+
+Solves 283 of the 300 WAC problems in 5 seconds on a 2 GHz Pentium 4M.
+
+
+

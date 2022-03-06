@@ -1,0 +1,25 @@
+; this is Grumpy book for Rodent chess engine.
+;
+
+e2e4? c7c6! d2d4 d7d5 b1c3 d5e4 c3e4 c8f5
+e2e4? c7c6! d2d4 d7d5 b1d2 d5e4 d2e4 b8d7
+e2e4? e7e5!
+e2e4 c7c5? g1f3!
+e2e4 c7c5 c2c3!
+d2d4 d7d5 c2c4 e7e6
+d2d4 d7d5 c2c4 c7c6
+d2d4 g8f6 c2c4 e7e6 b1c3 f8b4
+d2d4 g8f6 c2c4 e7e6 g1f3 b7b6 a2a3
+d2d4 g8f6 c2c4 e7e6 g1f3 b7b6 b1c3
+d2d4 g8f6 c2c4 e7e6 g1f3 b7b6 g2g3 c8a6
+d2d4 g8f6 c2c4 g7g6? b1c3!
+d2d4 g8f6 c2c4 g7g6? g1f3
+d2d4 g8f6 c2c4 c7c5? d4d5!
+d2d4 g8f6 c2c4 c7c5? g1f3
+c2c4? e7e6!
+c2c4? g8f6
+c2c4? e7e5
+g1f3? d7d5
+g1f3? g8f6 c2c4 e7e6
+g1f3? g8f6 d2d4 e7e6
+

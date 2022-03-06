@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg id="svg2" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="100%" width="100%" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 -410 2048 2048">
+ <metadata id="metadata12">
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g id="g4" transform="matrix(1 0 0 -1 0 1638)">
+  <path id="path6" d="m1024 274h456q-29 82-51 168h-808q-12-44-26-86t-28-82h457zm-387 239h778q-9 37-17 75t-13 77h-720q-14-87-28-152zm35 221l705-1q-4 23-5 70h-695q-1-23-5-69zm695 137q-2 28-2 85 0 45 1 68h-685q2-46 2-68 0-29-2-85h686zm-229 460h330q-35-185-35-375 0-396 149-753h-1116q149 361 149 753 0 190-35 375h330q-11 51-17 73-5 28-5 45 0 55 39.5 95t96.5 40q56 0 95.5-40t39.5-95q0-17-5-45-12-46-16-73zm-73-68q1 64 21 150 6 30 6 36 0 67-68 67t-68-67q0-14 6-36 18-79 21-150h-324q13-84 18-171h695q3 43 6.5 86t9.5 85h-323z" fill="currentColor"/>
+ </g>
+ <path id="path2989" stroke-linejoin="round" d="m598.51 1694.4 23.669-75.932 402.68-2.2297 402.68-2.2296 22.833 78.162 22.833 78.162h-449.18-449.18l23.669-75.932z" transform="translate(0,-410)" fill="#f9f9f9"/>
+ <path id="path2991" stroke-linejoin="round" d="m646 1507.8c2.2895-10.739 8.4984-41.98 13.798-69.424l9.6348-49.898h355.02 355.02l5.0052 23.864c2.7529 13.125 8.6849 40.238 13.182 60.25 4.4974 20.012 8.1771 40.514 8.1771 45.559 0 6.3079-119.34 9.1741-382 9.1741h-382l4.1627-19.525z" transform="translate(0,-410)" fill="#f9f9f9"/>
+ <path id="path2993" stroke-linejoin="round" d="m676.88 1280v-30.373h347.12 347.12v30.373 30.373h-347.12-347.12v-30.373z" transform="translate(0,-410)" fill="#f9f9f9"/>
+ <path id="path2995" stroke-linejoin="round" d="m685.56 1097.8v-73.763h338.44 338.44v73.763 73.763h-338.44-338.44v-73.763z" transform="translate(0,-410)" fill="#f9f9f9"/>
+ <path id="path2997" stroke-linejoin="round" d="m676.82 930.71c-0.0339-13.125-2.5512-50.224-5.5938-82.441l-5.5322-58.576h162.1 162.1l-5.5703-45.559c-3.0636-25.058-8.9603-61.18-13.104-80.271-13.477-62.099-9.9124-97.443 11.329-112.32 24.621-17.245 58.297-17.245 82.918 0 21.242 14.878 24.806 50.222 11.329 112.32-4.1434 19.092-10.04 55.214-13.104 80.271l-5.5703 45.559h162.08 162.08l-5.5752 53.341c-3.0664 29.337-5.5753 66.436-5.5753 82.441v29.1h-347.12-347.12l-0.0617-23.864z" transform="translate(0,-410)" fill="#f9f9f9"/>
+</svg>

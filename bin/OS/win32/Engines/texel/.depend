@@ -1,0 +1,651 @@
+obj64/bitBoard.o objarm/bitBoard.o objarm64/bitBoard.o objdef/bitBoard.o objw32/bitBoard.o objw32old/bitBoard.o objw64bmi/bitBoard.o objw64/bitBoard.o objw64cl/bitBoard.o objw64amd/bitBoard.o objw64old/bitBoard.o: src/bitBoard.cpp src/bitBoard.hpp src/util/util.hpp \
+ src/util/alignedAlloc.hpp src/position.hpp src/move.hpp src/undoInfo.hpp \
+ src/piece.hpp src/material.hpp
+obj64/book.o objarm/book.o objarm64/book.o objdef/book.o objw32/book.o objw32old/book.o objw64bmi/book.o objw64/book.o objw64cl/book.o objw64amd/book.o objw64old/book.o: src/book.cpp src/book.hpp src/move.hpp src/util/util.hpp \
+ src/util/random.hpp src/util/util.hpp src/position.hpp src/undoInfo.hpp \
+ src/bitBoard.hpp src/util/alignedAlloc.hpp src/piece.hpp \
+ src/material.hpp src/moveGen.hpp src/polyglot.hpp src/parameters.hpp \
+ src/textio.hpp src/chessParseError.hpp src/util/timeUtil.hpp
+obj64/cluster.o objarm/cluster.o objarm64/cluster.o objdef/cluster.o objw32/cluster.o objw32old/cluster.o objw64bmi/cluster.o objw64/cluster.o objw64cl/cluster.o objw64amd/cluster.o objw64old/cluster.o: src/cluster.cpp src/cluster.hpp src/parallel.hpp \
+ src/evaluate.hpp src/piece.hpp src/position.hpp src/move.hpp \
+ src/util/util.hpp src/undoInfo.hpp src/bitBoard.hpp \
+ src/util/alignedAlloc.hpp src/material.hpp src/searchUtil.hpp \
+ src/constants.hpp src/treeLogger.hpp src/util/timeUtil.hpp \
+ src/util/util.hpp src/clustertt.hpp src/transpositionTable.hpp \
+ src/tbgen.hpp src/numa.hpp src/util/logger.hpp src/util/timeUtil.hpp
+obj64/clustertt.o objarm/clustertt.o objarm64/clustertt.o objdef/clustertt.o objw32/clustertt.o objw32old/clustertt.o objw64bmi/clustertt.o objw64/clustertt.o objw64cl/clustertt.o objw64amd/clustertt.o objw64old/clustertt.o: src/clustertt.cpp src/clustertt.hpp \
+ src/transpositionTable.hpp src/util/util.hpp src/move.hpp \
+ src/constants.hpp src/util/alignedAlloc.hpp src/tbgen.hpp \
+ src/util/logger.hpp src/util/util.hpp src/util/timeUtil.hpp \
+ src/treeLogger.hpp
+obj64/computerPlayer.o objarm/computerPlayer.o objarm64/computerPlayer.o objdef/computerPlayer.o objw32/computerPlayer.o objw32old/computerPlayer.o objw64bmi/computerPlayer.o objw64/computerPlayer.o objw64cl/computerPlayer.o objw64amd/computerPlayer.o objw64old/computerPlayer.o: src/computerPlayer.cpp src/computerPlayer.hpp \
+ src/player.hpp src/transpositionTable.hpp src/util/util.hpp src/move.hpp \
+ src/constants.hpp src/util/alignedAlloc.hpp src/tbgen.hpp src/book.hpp \
+ src/util/random.hpp src/util/util.hpp src/evaluate.hpp src/piece.hpp \
+ src/position.hpp src/undoInfo.hpp src/bitBoard.hpp src/material.hpp \
+ src/search.hpp src/moveGen.hpp src/searchUtil.hpp src/treeLogger.hpp \
+ src/parallel.hpp src/util/timeUtil.hpp src/parameters.hpp \
+ src/history.hpp src/killerTable.hpp src/clustertt.hpp src/textio.hpp \
+ src/chessParseError.hpp src/tbprobe.hpp
+obj64/endGameEval.o objarm/endGameEval.o objarm64/endGameEval.o objdef/endGameEval.o objw32/endGameEval.o objw32old/endGameEval.o objw64bmi/endGameEval.o objw64/endGameEval.o objw64cl/endGameEval.o objw64amd/endGameEval.o objw64old/endGameEval.o: src/endGameEval.cpp src/endGameEval.hpp src/util/util.hpp \
+ src/position.hpp src/move.hpp src/undoInfo.hpp src/bitBoard.hpp \
+ src/util/alignedAlloc.hpp src/piece.hpp src/material.hpp \
+ src/parameters.hpp
+obj64/evaluate.o objarm/evaluate.o objarm64/evaluate.o objdef/evaluate.o objw32/evaluate.o objw32old/evaluate.o objw64bmi/evaluate.o objw64/evaluate.o objw64cl/evaluate.o objw64amd/evaluate.o objw64old/evaluate.o: src/evaluate.cpp src/evaluate.hpp src/piece.hpp \
+ src/position.hpp src/move.hpp src/util/util.hpp src/undoInfo.hpp \
+ src/bitBoard.hpp src/util/alignedAlloc.hpp src/material.hpp \
+ src/endGameEval.hpp src/constants.hpp src/parameters.hpp
+obj64/game.o objarm/game.o objarm64/game.o objdef/game.o objw32/game.o objw32old/game.o objw64bmi/game.o objw64/game.o objw64cl/game.o objw64amd/game.o objw64old/game.o: src/game.cpp src/game.hpp src/move.hpp src/util/util.hpp \
+ src/undoInfo.hpp src/position.hpp src/bitBoard.hpp \
+ src/util/alignedAlloc.hpp src/piece.hpp src/material.hpp src/player.hpp \
+ src/moveGen.hpp src/textio.hpp src/chessParseError.hpp \
+ src/util/timeUtil.hpp src/util/util.hpp
+obj64/history.o objarm/history.o objarm64/history.o objdef/history.o objw32/history.o objw32old/history.o objw64bmi/history.o objw64/history.o objw64cl/history.o objw64amd/history.o objw64old/history.o: src/history.cpp src/history.hpp src/piece.hpp src/position.hpp \
+ src/move.hpp src/util/util.hpp src/undoInfo.hpp src/bitBoard.hpp \
+ src/util/alignedAlloc.hpp src/material.hpp
+obj64/humanPlayer.o objarm/humanPlayer.o objarm64/humanPlayer.o objdef/humanPlayer.o objw32/humanPlayer.o objw32old/humanPlayer.o objw64bmi/humanPlayer.o objw64/humanPlayer.o objw64cl/humanPlayer.o objw64amd/humanPlayer.o objw64old/humanPlayer.o: src/humanPlayer.cpp src/humanPlayer.hpp src/player.hpp \
+ src/position.hpp src/move.hpp src/util/util.hpp src/undoInfo.hpp \
+ src/bitBoard.hpp src/util/alignedAlloc.hpp src/piece.hpp \
+ src/material.hpp
+obj64/killerTable.o objarm/killerTable.o objarm64/killerTable.o objdef/killerTable.o objw32/killerTable.o objw32old/killerTable.o objw64bmi/killerTable.o objw64/killerTable.o objw64cl/killerTable.o objw64amd/killerTable.o objw64old/killerTable.o: src/killerTable.cpp src/killerTable.hpp src/util/util.hpp \
+ src/move.hpp src/constants.hpp
+obj64/kpkTable.o objarm/kpkTable.o objarm64/kpkTable.o objdef/kpkTable.o objw32/kpkTable.o objw32old/kpkTable.o objw64bmi/kpkTable.o objw64/kpkTable.o objw64cl/kpkTable.o objw64amd/kpkTable.o objw64old/kpkTable.o: src/kpkTable.cpp src/endGameEval.hpp src/util/util.hpp
+obj64/krkpTable.o objarm/krkpTable.o objarm64/krkpTable.o objdef/krkpTable.o objw32/krkpTable.o objw32old/krkpTable.o objw64bmi/krkpTable.o objw64/krkpTable.o objw64cl/krkpTable.o objw64amd/krkpTable.o objw64old/krkpTable.o: src/krkpTable.cpp src/endGameEval.hpp src/util/util.hpp
+obj64/krpkrTable.o objarm/krpkrTable.o objarm64/krpkrTable.o objdef/krpkrTable.o objw32/krpkrTable.o objw32old/krpkrTable.o objw64bmi/krpkrTable.o objw64/krpkrTable.o objw64cl/krpkrTable.o objw64amd/krpkrTable.o objw64old/krpkrTable.o: src/krpkrTable.cpp src/endGameEval.hpp src/util/util.hpp
+obj64/largePageAlloc.o objarm/largePageAlloc.o objarm64/largePageAlloc.o objdef/largePageAlloc.o objw32/largePageAlloc.o objw32old/largePageAlloc.o objw64bmi/largePageAlloc.o objw64/largePageAlloc.o objw64cl/largePageAlloc.o objw64amd/largePageAlloc.o objw64old/largePageAlloc.o: src/largePageAlloc.cpp src/largePageAlloc.hpp
+obj64/material.o objarm/material.o objarm64/material.o objdef/material.o objw32/material.o objw32old/material.o objw64bmi/material.o objw64/material.o objw64cl/material.o objw64amd/material.o objw64old/material.o: src/material.cpp src/material.hpp src/piece.hpp
+obj64/move.o objarm/move.o objarm64/move.o objdef/move.o objw32/move.o objw32old/move.o objw64bmi/move.o objw64/move.o objw64cl/move.o objw64amd/move.o objw64old/move.o: src/move.cpp src/move.hpp src/util/util.hpp
+obj64/moveGen.o objarm/moveGen.o objarm64/moveGen.o objdef/moveGen.o objw32/moveGen.o objw32old/moveGen.o objw64bmi/moveGen.o objw64/moveGen.o objw64cl/moveGen.o objw64amd/moveGen.o objw64old/moveGen.o: src/moveGen.cpp src/moveGen.hpp src/move.hpp src/util/util.hpp \
+ src/position.hpp src/undoInfo.hpp src/bitBoard.hpp \
+ src/util/alignedAlloc.hpp src/piece.hpp src/material.hpp
+obj64/numa.o objarm/numa.o objarm64/numa.o objdef/numa.o objw32/numa.o objw32old/numa.o objw64bmi/numa.o objw64/numa.o objw64cl/numa.o objw64amd/numa.o objw64old/numa.o: src/numa.cpp src/numa.hpp src/util/util.hpp src/util/logger.hpp \
+ src/util/util.hpp src/util/timeUtil.hpp src/bitBoard.hpp \
+ src/util/alignedAlloc.hpp
+obj64/parameters.o objarm/parameters.o objarm64/parameters.o objdef/parameters.o objw32/parameters.o objw32old/parameters.o objw64bmi/parameters.o objw64/parameters.o objw64cl/parameters.o objw64amd/parameters.o objw64old/parameters.o: src/parameters.cpp src/parameters.hpp src/util/util.hpp \
+ src/piece.hpp src/position.hpp src/move.hpp src/undoInfo.hpp \
+ src/bitBoard.hpp src/util/alignedAlloc.hpp src/material.hpp \
+ src/computerPlayer.hpp src/player.hpp src/transpositionTable.hpp \
+ src/constants.hpp src/tbgen.hpp src/book.hpp src/util/random.hpp \
+ src/util/util.hpp src/evaluate.hpp
+obj64/parallel.o objarm/parallel.o objarm64/parallel.o objdef/parallel.o objw32/parallel.o objw32old/parallel.o objw64bmi/parallel.o objw64/parallel.o objw64cl/parallel.o objw64amd/parallel.o objw64old/parallel.o: src/parallel.cpp src/parallel.hpp src/evaluate.hpp \
+ src/piece.hpp src/position.hpp src/move.hpp src/util/util.hpp \
+ src/undoInfo.hpp src/bitBoard.hpp src/util/alignedAlloc.hpp \
+ src/material.hpp src/searchUtil.hpp src/constants.hpp src/treeLogger.hpp \
+ src/util/timeUtil.hpp src/util/util.hpp src/numa.hpp src/cluster.hpp \
+ src/clustertt.hpp src/transpositionTable.hpp src/tbgen.hpp \
+ src/search.hpp src/moveGen.hpp src/parameters.hpp src/tbprobe.hpp \
+ src/history.hpp src/killerTable.hpp src/textio.hpp \
+ src/chessParseError.hpp src/util/logger.hpp src/util/timeUtil.hpp
+obj64/piece.o objarm/piece.o objarm64/piece.o objdef/piece.o objw32/piece.o objw32old/piece.o objw64bmi/piece.o objw64/piece.o objw64cl/piece.o objw64amd/piece.o objw64old/piece.o: src/piece.cpp src/piece.hpp
+obj64/polyglot.o objarm/polyglot.o objarm64/polyglot.o objdef/polyglot.o objw32/polyglot.o objw32old/polyglot.o objw64bmi/polyglot.o objw64/polyglot.o objw64cl/polyglot.o objw64amd/polyglot.o objw64old/polyglot.o: src/polyglot.cpp src/polyglot.hpp src/position.hpp \
+ src/move.hpp src/util/util.hpp src/undoInfo.hpp src/bitBoard.hpp \
+ src/util/alignedAlloc.hpp src/piece.hpp src/material.hpp
+obj64/position.o objarm/position.o objarm64/position.o objdef/position.o objw32/position.o objw32old/position.o objw64bmi/position.o objw64/position.o objw64cl/position.o objw64amd/position.o objw64old/position.o: src/position.cpp src/position.hpp src/move.hpp \
+ src/util/util.hpp src/undoInfo.hpp src/bitBoard.hpp \
+ src/util/alignedAlloc.hpp src/piece.hpp src/material.hpp \
+ src/evaluate.hpp src/textio.hpp src/chessParseError.hpp \
+ src/parameters.hpp
+obj64/search.o objarm/search.o objarm64/search.o objdef/search.o objw32/search.o objw32old/search.o objw64bmi/search.o objw64/search.o objw64cl/search.o objw64amd/search.o objw64old/search.o: src/search.cpp src/search.hpp src/constants.hpp \
+ src/position.hpp src/move.hpp src/util/util.hpp src/undoInfo.hpp \
+ src/bitBoard.hpp src/util/alignedAlloc.hpp src/piece.hpp \
+ src/material.hpp src/evaluate.hpp src/moveGen.hpp src/searchUtil.hpp \
+ src/treeLogger.hpp src/parallel.hpp src/util/timeUtil.hpp \
+ src/util/util.hpp src/parameters.hpp src/history.hpp src/killerTable.hpp \
+ src/numa.hpp src/cluster.hpp src/clustertt.hpp \
+ src/transpositionTable.hpp src/tbgen.hpp src/tbprobe.hpp src/textio.hpp \
+ src/chessParseError.hpp src/util/logger.hpp src/util/timeUtil.hpp
+obj64/tbgen.o objarm/tbgen.o objarm64/tbgen.o objdef/tbgen.o objw32/tbgen.o objw32old/tbgen.o objw64bmi/tbgen.o objw64/tbgen.o objw64cl/tbgen.o objw64amd/tbgen.o objw64old/tbgen.o: src/tbgen.cpp src/tbgen.hpp src/util/util.hpp \
+ src/util/timeUtil.hpp src/util/util.hpp src/textio.hpp \
+ src/chessParseError.hpp src/position.hpp src/move.hpp src/undoInfo.hpp \
+ src/bitBoard.hpp src/util/alignedAlloc.hpp src/piece.hpp \
+ src/material.hpp src/constants.hpp src/transpositionTable.hpp
+obj64/tbprobe.o objarm/tbprobe.o objarm64/tbprobe.o objdef/tbprobe.o objw32/tbprobe.o objw32old/tbprobe.o objw64bmi/tbprobe.o objw64/tbprobe.o objw64cl/tbprobe.o objw64amd/tbprobe.o objw64old/tbprobe.o: src/tbprobe.cpp src/tbprobe.hpp src/transpositionTable.hpp \
+ src/util/util.hpp src/move.hpp src/constants.hpp \
+ src/util/alignedAlloc.hpp src/tbgen.hpp src/position.hpp \
+ src/undoInfo.hpp src/bitBoard.hpp src/piece.hpp src/material.hpp \
+ src/gtb/gtb-probe.h src/syzygy/rtb-probe.hpp src/moveGen.hpp \
+ src/util/timeUtil.hpp src/util/util.hpp
+obj64/textio.o objarm/textio.o objarm64/textio.o objdef/textio.o objw32/textio.o objw32old/textio.o objw64bmi/textio.o objw64/textio.o objw64cl/textio.o objw64amd/textio.o objw64old/textio.o: src/textio.cpp src/textio.hpp src/chessParseError.hpp \
+ src/position.hpp src/move.hpp src/util/util.hpp src/undoInfo.hpp \
+ src/bitBoard.hpp src/util/alignedAlloc.hpp src/piece.hpp \
+ src/material.hpp src/moveGen.hpp
+obj64/transpositionTable.o objarm/transpositionTable.o objarm64/transpositionTable.o objdef/transpositionTable.o objw32/transpositionTable.o objw32old/transpositionTable.o objw64bmi/transpositionTable.o objw64/transpositionTable.o objw64cl/transpositionTable.o objw64amd/transpositionTable.o objw64old/transpositionTable.o: src/transpositionTable.cpp \
+ src/transpositionTable.hpp src/util/util.hpp src/move.hpp \
+ src/constants.hpp src/util/alignedAlloc.hpp src/tbgen.hpp \
+ src/position.hpp src/undoInfo.hpp src/bitBoard.hpp src/piece.hpp \
+ src/material.hpp src/moveGen.hpp src/textio.hpp src/chessParseError.hpp \
+ src/largePageAlloc.hpp
+obj64/treeLogger.o objarm/treeLogger.o objarm64/treeLogger.o objdef/treeLogger.o objw32/treeLogger.o objw32old/treeLogger.o objw64bmi/treeLogger.o objw64/treeLogger.o objw64cl/treeLogger.o objw64amd/treeLogger.o objw64old/treeLogger.o: src/treeLogger.cpp src/treeLogger.hpp src/util/util.hpp \
+ src/move.hpp src/transpositionTable.hpp src/constants.hpp \
+ src/util/alignedAlloc.hpp src/tbgen.hpp src/textio.hpp \
+ src/chessParseError.hpp src/position.hpp src/undoInfo.hpp \
+ src/bitBoard.hpp src/piece.hpp src/material.hpp
+obj64/logger.o objarm/logger.o objarm64/logger.o objdef/logger.o objw32/logger.o objw32old/logger.o objw64bmi/logger.o objw64/logger.o objw64cl/logger.o objw64amd/logger.o objw64old/logger.o: src/util/logger.cpp src/util/logger.hpp src/util/util.hpp \
+ src/util/timeUtil.hpp
+obj64/random.o objarm/random.o objarm64/random.o objdef/random.o objw32/random.o objw32old/random.o objw64bmi/random.o objw64/random.o objw64cl/random.o objw64amd/random.o objw64old/random.o: src/util/random.cpp src/util/random.hpp src/util/util.hpp \
+ src/util/timeUtil.hpp
+obj64/timeUtil.o objarm/timeUtil.o objarm64/timeUtil.o objdef/timeUtil.o objw32/timeUtil.o objw32old/timeUtil.o objw64bmi/timeUtil.o objw64/timeUtil.o objw64cl/timeUtil.o objw64amd/timeUtil.o objw64old/timeUtil.o: src/util/timeUtil.cpp src/util/timeUtil.hpp src/util/util.hpp
+obj64/util.o objarm/util.o objarm64/util.o objdef/util.o objw32/util.o objw32old/util.o objw64bmi/util.o objw64/util.o objw64cl/util.o objw64amd/util.o objw64old/util.o: src/util/util.cpp src/util/util.hpp
+obj64/rtb-probe.o objarm/rtb-probe.o objarm64/rtb-probe.o objdef/rtb-probe.o objw32/rtb-probe.o objw32old/rtb-probe.o objw64bmi/rtb-probe.o objw64/rtb-probe.o objw64cl/rtb-probe.o objw64amd/rtb-probe.o objw64old/rtb-probe.o: src/syzygy/rtb-probe.cpp src/syzygy/../piece.hpp \
+ src/syzygy/../position.hpp src/syzygy/../move.hpp \
+ src/syzygy/../util/util.hpp src/syzygy/../undoInfo.hpp \
+ src/syzygy/../bitBoard.hpp src/syzygy/../util/alignedAlloc.hpp \
+ src/syzygy/../piece.hpp src/syzygy/../material.hpp \
+ src/syzygy/../moveGen.hpp src/syzygy/../position.hpp \
+ src/syzygy/rtb-probe.hpp src/syzygy/rtb-core.hpp \
+ src/syzygy/rtb-core-impl.hpp
+obj64/enginecontrol.o objarm/enginecontrol.o objarm64/enginecontrol.o objdef/enginecontrol.o objw32/enginecontrol.o objw32old/enginecontrol.o objw64bmi/enginecontrol.o objw64/enginecontrol.o objw64cl/enginecontrol.o objw64amd/enginecontrol.o objw64old/enginecontrol.o: src/enginecontrol.cpp src/enginecontrol.hpp \
+ src/transpositionTable.hpp src/util/util.hpp src/move.hpp \
+ src/constants.hpp src/util/alignedAlloc.hpp src/tbgen.hpp \
+ src/position.hpp src/undoInfo.hpp src/bitBoard.hpp src/piece.hpp \
+ src/material.hpp src/parallel.hpp src/evaluate.hpp src/searchUtil.hpp \
+ src/treeLogger.hpp src/util/timeUtil.hpp src/util/util.hpp \
+ src/history.hpp src/killerTable.hpp src/uciprotocol.hpp src/search.hpp \
+ src/moveGen.hpp src/parameters.hpp src/util/random.hpp \
+ src/searchparams.hpp src/book.hpp src/textio.hpp src/chessParseError.hpp \
+ src/util/logger.hpp src/util/timeUtil.hpp src/numa.hpp src/cluster.hpp \
+ src/clustertt.hpp
+obj64/texel.o objarm/texel.o objarm64/texel.o objdef/texel.o objw32/texel.o objw32old/texel.o objw64bmi/texel.o objw64/texel.o objw64cl/texel.o objw64amd/texel.o objw64old/texel.o: src/texel.cpp src/computerPlayer.hpp src/player.hpp \
+ src/transpositionTable.hpp src/util/util.hpp src/move.hpp \
+ src/constants.hpp src/util/alignedAlloc.hpp src/tbgen.hpp src/book.hpp \
+ src/util/random.hpp src/util/util.hpp src/evaluate.hpp src/piece.hpp \
+ src/position.hpp src/undoInfo.hpp src/bitBoard.hpp src/material.hpp \
+ src/humanPlayer.hpp src/tuigame.hpp src/game.hpp src/treeLogger.hpp \
+ src/uciprotocol.hpp src/enginecontrol.hpp src/parallel.hpp \
+ src/searchUtil.hpp src/util/timeUtil.hpp src/history.hpp \
+ src/killerTable.hpp src/search.hpp src/moveGen.hpp src/parameters.hpp \
+ src/numa.hpp src/cluster.hpp
+obj64/tuigame.o objarm/tuigame.o objarm64/tuigame.o objdef/tuigame.o objw32/tuigame.o objw32old/tuigame.o objw64bmi/tuigame.o objw64/tuigame.o objw64cl/tuigame.o objw64amd/tuigame.o objw64old/tuigame.o: src/tuigame.cpp src/tuigame.hpp src/game.hpp src/move.hpp \
+ src/util/util.hpp src/undoInfo.hpp src/position.hpp src/bitBoard.hpp \
+ src/util/alignedAlloc.hpp src/piece.hpp src/material.hpp src/player.hpp \
+ src/uciprotocol.hpp src/enginecontrol.hpp src/transpositionTable.hpp \
+ src/constants.hpp src/tbgen.hpp src/parallel.hpp src/evaluate.hpp \
+ src/searchUtil.hpp src/treeLogger.hpp src/util/timeUtil.hpp \
+ src/util/util.hpp src/history.hpp src/killerTable.hpp src/search.hpp \
+ src/moveGen.hpp src/parameters.hpp src/textio.hpp \
+ src/chessParseError.hpp src/computerPlayer.hpp src/book.hpp \
+ src/util/random.hpp
+obj64/uciprotocol.o objarm/uciprotocol.o objarm64/uciprotocol.o objdef/uciprotocol.o objw32/uciprotocol.o objw32old/uciprotocol.o objw64bmi/uciprotocol.o objw64/uciprotocol.o objw64cl/uciprotocol.o objw64amd/uciprotocol.o objw64old/uciprotocol.o: src/uciprotocol.cpp src/uciprotocol.hpp src/position.hpp \
+ src/move.hpp src/util/util.hpp src/undoInfo.hpp src/bitBoard.hpp \
+ src/util/alignedAlloc.hpp src/piece.hpp src/material.hpp \
+ src/enginecontrol.hpp src/transpositionTable.hpp src/constants.hpp \
+ src/tbgen.hpp src/parallel.hpp src/evaluate.hpp src/searchUtil.hpp \
+ src/treeLogger.hpp src/util/timeUtil.hpp src/util/util.hpp \
+ src/history.hpp src/killerTable.hpp src/search.hpp src/moveGen.hpp \
+ src/parameters.hpp src/searchparams.hpp src/computerPlayer.hpp \
+ src/player.hpp src/book.hpp src/util/random.hpp src/textio.hpp \
+ src/chessParseError.hpp src/util/logger.hpp src/util/timeUtil.hpp \
+ src/cluster.hpp
+obj64/Lzma86Dec.o objarm/Lzma86Dec.o objarm64/Lzma86Dec.o objdef/Lzma86Dec.o objw32/Lzma86Dec.o objw32old/Lzma86Dec.o objw64bmi/Lzma86Dec.o objw64/Lzma86Dec.o objw64cl/Lzma86Dec.o objw64amd/Lzma86Dec.o objw64old/Lzma86Dec.o: src/gtb/compression/lzma/Lzma86Dec.c \
+ src/gtb/compression/lzma/Lzma86Dec.h src/gtb/compression/lzma/Types.h \
+ src/gtb/compression/lzma/Alloc.h src/gtb/compression/lzma/Bra.h \
+ src/gtb/compression/lzma/LzmaDec.h
+obj64/LzFind.o objarm/LzFind.o objarm64/LzFind.o objdef/LzFind.o objw32/LzFind.o objw32old/LzFind.o objw64bmi/LzFind.o objw64/LzFind.o objw64cl/LzFind.o objw64amd/LzFind.o objw64old/LzFind.o: src/gtb/compression/lzma/LzFind.c \
+ src/gtb/compression/lzma/LzFind.h src/gtb/compression/lzma/Types.h \
+ src/gtb/compression/lzma/LzHash.h
+obj64/Lzma86Enc.o objarm/Lzma86Enc.o objarm64/Lzma86Enc.o objdef/Lzma86Enc.o objw32/Lzma86Enc.o objw32old/Lzma86Enc.o objw64bmi/Lzma86Enc.o objw64/Lzma86Enc.o objw64cl/Lzma86Enc.o objw64amd/Lzma86Enc.o objw64old/Lzma86Enc.o: src/gtb/compression/lzma/Lzma86Enc.c \
+ src/gtb/compression/lzma/Lzma86Enc.h src/gtb/compression/lzma/Types.h \
+ src/gtb/compression/lzma/Alloc.h src/gtb/compression/lzma/Bra.h \
+ src/gtb/compression/lzma/LzmaEnc.h
+obj64/LzmaDec.o objarm/LzmaDec.o objarm64/LzmaDec.o objdef/LzmaDec.o objw32/LzmaDec.o objw32old/LzmaDec.o objw64bmi/LzmaDec.o objw64/LzmaDec.o objw64cl/LzmaDec.o objw64amd/LzmaDec.o objw64old/LzmaDec.o: src/gtb/compression/lzma/LzmaDec.c \
+ src/gtb/compression/lzma/LzmaDec.h src/gtb/compression/lzma/Types.h
+obj64/Alloc.o objarm/Alloc.o objarm64/Alloc.o objdef/Alloc.o objw32/Alloc.o objw32old/Alloc.o objw64bmi/Alloc.o objw64/Alloc.o objw64cl/Alloc.o objw64amd/Alloc.o objw64old/Alloc.o: src/gtb/compression/lzma/Alloc.c \
+ src/gtb/compression/lzma/Alloc.h
+obj64/Bra86.o objarm/Bra86.o objarm64/Bra86.o objdef/Bra86.o objw32/Bra86.o objw32old/Bra86.o objw64bmi/Bra86.o objw64/Bra86.o objw64cl/Bra86.o objw64amd/Bra86.o objw64old/Bra86.o: src/gtb/compression/lzma/Bra86.c src/gtb/compression/lzma/Bra.h \
+ src/gtb/compression/lzma/Types.h
+obj64/LzmaEnc.o objarm/LzmaEnc.o objarm64/LzmaEnc.o objdef/LzmaEnc.o objw32/LzmaEnc.o objw32old/LzmaEnc.o objw64bmi/LzmaEnc.o objw64/LzmaEnc.o objw64cl/LzmaEnc.o objw64amd/LzmaEnc.o objw64old/LzmaEnc.o: src/gtb/compression/lzma/LzmaEnc.c \
+ src/gtb/compression/lzma/LzmaEnc.h src/gtb/compression/lzma/Types.h \
+ src/gtb/compression/lzma/LzFind.h
+obj64/wrap.o objarm/wrap.o objarm64/wrap.o objdef/wrap.o objw32/wrap.o objw32old/wrap.o objw64bmi/wrap.o objw64/wrap.o objw64cl/wrap.o objw64amd/wrap.o objw64old/wrap.o: src/gtb/compression/wrap.c src/gtb/compression/wrap.h \
+ src/gtb/compression/lzma/Lzma86Enc.h src/gtb/compression/lzma/Types.h \
+ src/gtb/compression/lzma/Lzma86Dec.h
+obj64/gtb-dec.o objarm/gtb-dec.o objarm64/gtb-dec.o objdef/gtb-dec.o objw32/gtb-dec.o objw32old/gtb-dec.o objw64bmi/gtb-dec.o objw64/gtb-dec.o objw64cl/gtb-dec.o objw64amd/gtb-dec.o objw64old/gtb-dec.o: src/gtb/gtb-dec.c src/gtb/gtb-dec.h src/gtb/compression/wrap.h
+obj64/gtb-att.o objarm/gtb-att.o objarm64/gtb-att.o objdef/gtb-att.o objw32/gtb-att.o objw32old/gtb-att.o objw64bmi/gtb-att.o objw64/gtb-att.o objw64cl/gtb-att.o objw64amd/gtb-att.o objw64old/gtb-att.o: src/gtb/gtb-att.c src/gtb/gtb-att.h src/gtb/sysport/sysport.h
+obj64/sysport.o objarm/sysport.o objarm64/sysport.o objdef/sysport.o objw32/sysport.o objw32old/sysport.o objw64bmi/sysport.o objw64/sysport.o objw64cl/sysport.o objw64amd/sysport.o objw64old/sysport.o: src/gtb/sysport/sysport.c src/gtb/sysport/sysport.h
+obj64/gtb-probe.o objarm/gtb-probe.o objarm64/gtb-probe.o objdef/gtb-probe.o objw32/gtb-probe.o objw32old/gtb-probe.o objw64bmi/gtb-probe.o objw64/gtb-probe.o objw64cl/gtb-probe.o objw64amd/gtb-probe.o objw64old/gtb-probe.o: src/gtb/gtb-probe.c src/gtb/gtb-probe.h \
+ src/gtb/sysport/sysport.h src/gtb/gtb-att.h src/gtb/gtb-types.h \
+ src/gtb/gtb-dec.h
+obj64/bitBoardTest.o objarm/bitBoardTest.o objarm64/bitBoardTest.o objdef/bitBoardTest.o objw32/bitBoardTest.o objw32old/bitBoardTest.o objw64bmi/bitBoardTest.o objw64/bitBoardTest.o objw64cl/bitBoardTest.o objw64amd/bitBoardTest.o objw64old/bitBoardTest.o: test/src/bitBoardTest.cpp test/src/bitBoardTest.hpp \
+ test/src/suiteBase.hpp test/cute/cute_suite.h test/cute/cute_test.h \
+ test/cute/cute_determine_version.h test/cute/cute_determine_library.h \
+ test/cute/cute_demangle.h src/bitBoard.hpp src/util/util.hpp \
+ src/util/alignedAlloc.hpp src/textio.hpp src/chessParseError.hpp \
+ src/position.hpp src/move.hpp src/undoInfo.hpp src/bitBoard.hpp \
+ src/piece.hpp src/material.hpp test/cute/cute.h test/cute/cute_base.h \
+ test/cute/cute_equals.h test/cute/cute_throws.h \
+ test/cute/cute_repeated_test.h test/cute/cute_suite_test.h \
+ test/cute/cute_suite.h test/cute/cute_test_incarnate.h \
+ test/cute/cute_testmember.h test/cute/cute_version.h
+obj64/pieceTest.o objarm/pieceTest.o objarm64/pieceTest.o objdef/pieceTest.o objw32/pieceTest.o objw32old/pieceTest.o objw64bmi/pieceTest.o objw64/pieceTest.o objw64cl/pieceTest.o objw64amd/pieceTest.o objw64old/pieceTest.o: test/src/pieceTest.cpp test/src/pieceTest.hpp \
+ test/src/suiteBase.hpp test/cute/cute_suite.h test/cute/cute_test.h \
+ test/cute/cute_determine_version.h test/cute/cute_determine_library.h \
+ test/cute/cute_demangle.h test/cute/cute.h test/cute/cute_base.h \
+ test/cute/cute_equals.h test/cute/cute_throws.h \
+ test/cute/cute_repeated_test.h test/cute/cute_suite_test.h \
+ test/cute/cute_suite.h test/cute/cute_test_incarnate.h \
+ test/cute/cute_testmember.h test/cute/cute_version.h src/move.hpp \
+ src/util/util.hpp src/piece.hpp
+obj64/bookTest.o objarm/bookTest.o objarm64/bookTest.o objdef/bookTest.o objw32/bookTest.o objw32old/bookTest.o objw64bmi/bookTest.o objw64/bookTest.o objw64cl/bookTest.o objw64amd/bookTest.o objw64old/bookTest.o: test/src/bookTest.cpp test/src/bookTest.hpp \
+ test/src/suiteBase.hpp test/cute/cute_suite.h test/cute/cute_test.h \
+ test/cute/cute_determine_version.h test/cute/cute_determine_library.h \
+ test/cute/cute_demangle.h src/book.hpp src/move.hpp src/util/util.hpp \
+ src/util/random.hpp src/util/util.hpp src/textio.hpp \
+ src/chessParseError.hpp src/position.hpp src/undoInfo.hpp \
+ src/bitBoard.hpp src/util/alignedAlloc.hpp src/piece.hpp \
+ src/material.hpp src/moveGen.hpp test/cute/cute.h test/cute/cute_base.h \
+ test/cute/cute_equals.h test/cute/cute_throws.h \
+ test/cute/cute_repeated_test.h test/cute/cute_suite_test.h \
+ test/cute/cute_suite.h test/cute/cute_test_incarnate.h \
+ test/cute/cute_testmember.h test/cute/cute_version.h
+obj64/positionTest.o objarm/positionTest.o objarm64/positionTest.o objdef/positionTest.o objw32/positionTest.o objw32old/positionTest.o objw64bmi/positionTest.o objw64/positionTest.o objw64cl/positionTest.o objw64amd/positionTest.o objw64old/positionTest.o: test/src/positionTest.cpp test/src/positionTest.hpp \
+ test/src/suiteBase.hpp test/cute/cute_suite.h test/cute/cute_test.h \
+ test/cute/cute_determine_version.h test/cute/cute_determine_library.h \
+ test/cute/cute_demangle.h test/cute/cute.h test/cute/cute_base.h \
+ test/cute/cute_equals.h test/cute/cute_throws.h \
+ test/cute/cute_repeated_test.h test/cute/cute_suite_test.h \
+ test/cute/cute_suite.h test/cute/cute_test_incarnate.h \
+ test/cute/cute_testmember.h test/cute/cute_version.h src/position.hpp \
+ src/move.hpp src/util/util.hpp src/undoInfo.hpp src/bitBoard.hpp \
+ src/util/alignedAlloc.hpp src/piece.hpp src/material.hpp src/piece.hpp \
+ src/material.hpp src/textio.hpp src/chessParseError.hpp src/position.hpp \
+ src/util/timeUtil.hpp src/util/util.hpp
+obj64/computerPlayerTest.o objarm/computerPlayerTest.o objarm64/computerPlayerTest.o objdef/computerPlayerTest.o objw32/computerPlayerTest.o objw32old/computerPlayerTest.o objw64bmi/computerPlayerTest.o objw64/computerPlayerTest.o objw64cl/computerPlayerTest.o objw64amd/computerPlayerTest.o objw64old/computerPlayerTest.o: test/src/computerPlayerTest.cpp \
+ test/src/computerPlayerTest.hpp test/src/suiteBase.hpp \
+ test/cute/cute_suite.h test/cute/cute_test.h \
+ test/cute/cute_determine_version.h test/cute/cute_determine_library.h \
+ test/cute/cute_demangle.h src/computerPlayer.hpp src/player.hpp \
+ src/transpositionTable.hpp src/util/util.hpp src/move.hpp \
+ src/constants.hpp src/util/alignedAlloc.hpp src/tbgen.hpp src/book.hpp \
+ src/util/random.hpp src/util/util.hpp src/evaluate.hpp src/piece.hpp \
+ src/position.hpp src/undoInfo.hpp src/bitBoard.hpp src/material.hpp \
+ src/humanPlayer.hpp src/textio.hpp src/chessParseError.hpp src/game.hpp \
+ test/cute/cute.h test/cute/cute_base.h test/cute/cute_equals.h \
+ test/cute/cute_throws.h test/cute/cute_repeated_test.h \
+ test/cute/cute_suite_test.h test/cute/cute_suite.h \
+ test/cute/cute_test_incarnate.h test/cute/cute_testmember.h \
+ test/cute/cute_version.h
+obj64/searchTest.o objarm/searchTest.o objarm64/searchTest.o objdef/searchTest.o objw32/searchTest.o objw32old/searchTest.o objw64bmi/searchTest.o objw64/searchTest.o objw64cl/searchTest.o objw64amd/searchTest.o objw64old/searchTest.o: test/src/searchTest.cpp test/src/searchTest.hpp \
+ src/transpositionTable.hpp src/util/util.hpp src/move.hpp \
+ src/constants.hpp src/util/alignedAlloc.hpp src/tbgen.hpp src/search.hpp \
+ src/position.hpp src/undoInfo.hpp src/bitBoard.hpp src/piece.hpp \
+ src/material.hpp src/evaluate.hpp src/moveGen.hpp src/searchUtil.hpp \
+ src/treeLogger.hpp src/parallel.hpp src/util/timeUtil.hpp \
+ src/util/util.hpp src/parameters.hpp test/src/suiteBase.hpp \
+ test/cute/cute_suite.h test/cute/cute_test.h \
+ test/cute/cute_determine_version.h test/cute/cute_determine_library.h \
+ test/cute/cute_demangle.h test/src/evaluateTest.hpp \
+ test/src/positionTest.hpp test/src/tbTest.hpp src/constants.hpp \
+ src/position.hpp src/moveGen.hpp src/move.hpp src/history.hpp \
+ src/killerTable.hpp src/clustertt.hpp src/transpositionTable.hpp \
+ src/textio.hpp src/chessParseError.hpp test/cute/cute.h \
+ test/cute/cute_base.h test/cute/cute_equals.h test/cute/cute_throws.h \
+ test/cute/cute_repeated_test.h test/cute/cute_suite_test.h \
+ test/cute/cute_suite.h test/cute/cute_test_incarnate.h \
+ test/cute/cute_testmember.h test/cute/cute_version.h
+obj64/evaluateTest.o objarm/evaluateTest.o objarm64/evaluateTest.o objdef/evaluateTest.o objw32/evaluateTest.o objw32old/evaluateTest.o objw64bmi/evaluateTest.o objw64/evaluateTest.o objw64cl/evaluateTest.o objw64amd/evaluateTest.o objw64old/evaluateTest.o: test/src/evaluateTest.cpp test/src/evaluateTest.hpp \
+ test/src/suiteBase.hpp test/cute/cute_suite.h test/cute/cute_test.h \
+ test/cute/cute_determine_version.h test/cute/cute_determine_library.h \
+ test/cute/cute_demangle.h test/src/positionTest.hpp src/evaluate.hpp \
+ src/piece.hpp src/position.hpp src/move.hpp src/util/util.hpp \
+ src/undoInfo.hpp src/bitBoard.hpp src/util/alignedAlloc.hpp \
+ src/material.hpp src/position.hpp src/textio.hpp src/chessParseError.hpp \
+ src/parameters.hpp test/cute/cute.h test/cute/cute_base.h \
+ test/cute/cute_equals.h test/cute/cute_throws.h \
+ test/cute/cute_repeated_test.h test/cute/cute_suite_test.h \
+ test/cute/cute_suite.h test/cute/cute_test_incarnate.h \
+ test/cute/cute_testmember.h test/cute/cute_version.h
+obj64/tbTest.o objarm/tbTest.o objarm64/tbTest.o objdef/tbTest.o objw32/tbTest.o objw32old/tbTest.o objw64bmi/tbTest.o objw64/tbTest.o objw64cl/tbTest.o objw64amd/tbTest.o objw64old/tbTest.o: test/src/tbTest.cpp test/src/tbTest.hpp test/src/suiteBase.hpp \
+ test/cute/cute_suite.h test/cute/cute_test.h \
+ test/cute/cute_determine_version.h test/cute/cute_determine_library.h \
+ test/cute/cute_demangle.h test/src/evaluateTest.hpp \
+ test/src/searchTest.hpp src/transpositionTable.hpp src/util/util.hpp \
+ src/move.hpp src/constants.hpp src/util/alignedAlloc.hpp src/tbgen.hpp \
+ src/search.hpp src/position.hpp src/undoInfo.hpp src/bitBoard.hpp \
+ src/piece.hpp src/material.hpp src/evaluate.hpp src/moveGen.hpp \
+ src/searchUtil.hpp src/treeLogger.hpp src/parallel.hpp \
+ src/util/timeUtil.hpp src/util/util.hpp src/parameters.hpp \
+ src/position.hpp src/moveGen.hpp src/evaluate.hpp src/textio.hpp \
+ src/chessParseError.hpp src/tbprobe.hpp src/transpositionTable.hpp \
+ src/constants.hpp src/syzygy/rtb-probe.hpp test/cute/cute.h \
+ test/cute/cute_base.h test/cute/cute_equals.h test/cute/cute_throws.h \
+ test/cute/cute_repeated_test.h test/cute/cute_suite_test.h \
+ test/cute/cute_suite.h test/cute/cute_test_incarnate.h \
+ test/cute/cute_testmember.h test/cute/cute_version.h
+obj64/gameTest.o objarm/gameTest.o objarm64/gameTest.o objdef/gameTest.o objw32/gameTest.o objw32old/gameTest.o objw64bmi/gameTest.o objw64/gameTest.o objw64cl/gameTest.o objw64amd/gameTest.o objw64old/gameTest.o: test/src/gameTest.cpp test/src/gameTest.hpp \
+ test/src/suiteBase.hpp test/cute/cute_suite.h test/cute/cute_test.h \
+ test/cute/cute_determine_version.h test/cute/cute_determine_library.h \
+ test/cute/cute_demangle.h src/util/util.hpp src/game.hpp src/move.hpp \
+ src/util/util.hpp src/undoInfo.hpp src/position.hpp src/bitBoard.hpp \
+ src/util/alignedAlloc.hpp src/piece.hpp src/material.hpp src/player.hpp \
+ src/humanPlayer.hpp src/evaluate.hpp src/moveGen.hpp src/textio.hpp \
+ src/chessParseError.hpp src/util/timeUtil.hpp src/util/util.hpp \
+ test/src/evaluateTest.hpp test/cute/cute.h test/cute/cute_base.h \
+ test/cute/cute_equals.h test/cute/cute_throws.h \
+ test/cute/cute_repeated_test.h test/cute/cute_suite_test.h \
+ test/cute/cute_suite.h test/cute/cute_test_incarnate.h \
+ test/cute/cute_testmember.h test/cute/cute_version.h
+obj64/tbgenTest.o objarm/tbgenTest.o objarm64/tbgenTest.o objdef/tbgenTest.o objw32/tbgenTest.o objw32old/tbgenTest.o objw64bmi/tbgenTest.o objw64/tbgenTest.o objw64cl/tbgenTest.o objw64amd/tbgenTest.o objw64old/tbgenTest.o: test/src/tbgenTest.cpp test/src/tbgenTest.hpp \
+ test/src/suiteBase.hpp test/cute/cute_suite.h test/cute/cute_test.h \
+ test/cute/cute_determine_version.h test/cute/cute_determine_library.h \
+ test/cute/cute_demangle.h src/tbgen.hpp src/util/util.hpp \
+ src/moveGen.hpp src/move.hpp src/position.hpp src/undoInfo.hpp \
+ src/bitBoard.hpp src/util/alignedAlloc.hpp src/piece.hpp \
+ src/material.hpp src/textio.hpp src/chessParseError.hpp src/tbprobe.hpp \
+ src/transpositionTable.hpp src/constants.hpp src/tbgen.hpp \
+ test/cute/cute.h test/cute/cute_base.h test/cute/cute_equals.h \
+ test/cute/cute_throws.h test/cute/cute_repeated_test.h \
+ test/cute/cute_suite_test.h test/cute/cute_suite.h \
+ test/cute/cute_test_incarnate.h test/cute/cute_testmember.h \
+ test/cute/cute_version.h
+obj64/historyTest.o objarm/historyTest.o objarm64/historyTest.o objdef/historyTest.o objw32/historyTest.o objw32old/historyTest.o objw64bmi/historyTest.o objw64/historyTest.o objw64cl/historyTest.o objw64amd/historyTest.o objw64old/historyTest.o: test/src/historyTest.cpp test/src/historyTest.hpp \
+ test/src/suiteBase.hpp test/cute/cute_suite.h test/cute/cute_test.h \
+ test/cute/cute_determine_version.h test/cute/cute_determine_library.h \
+ test/cute/cute_demangle.h src/history.hpp src/piece.hpp src/position.hpp \
+ src/move.hpp src/util/util.hpp src/undoInfo.hpp src/bitBoard.hpp \
+ src/util/alignedAlloc.hpp src/material.hpp src/textio.hpp \
+ src/chessParseError.hpp test/cute/cute.h test/cute/cute_base.h \
+ test/cute/cute_equals.h test/cute/cute_throws.h \
+ test/cute/cute_repeated_test.h test/cute/cute_suite_test.h \
+ test/cute/cute_suite.h test/cute/cute_test_incarnate.h \
+ test/cute/cute_testmember.h test/cute/cute_version.h
+obj64/texelTest.o objarm/texelTest.o objarm64/texelTest.o objdef/texelTest.o objw32/texelTest.o objw32old/texelTest.o objw64bmi/texelTest.o objw64/texelTest.o objw64cl/texelTest.o objw64amd/texelTest.o objw64old/texelTest.o: test/src/texelTest.cpp test/cute/cute.h \
+ test/cute/cute_base.h test/cute/cute_equals.h \
+ test/cute/cute_determine_version.h test/cute/cute_demangle.h \
+ test/cute/cute_throws.h test/cute/cute_repeated_test.h \
+ test/cute/cute_test.h test/cute/cute_determine_library.h \
+ test/cute/cute_suite_test.h test/cute/cute_suite.h \
+ test/cute/cute_test_incarnate.h test/cute/cute_testmember.h \
+ test/cute/cute_version.h test/cute/ide_listener.h \
+ test/cute/eclipse_listener.h test/cute/ostream_listener.h \
+ test/cute/cute_listener.h test/cute/vstudio_listener.h \
+ test/cute/cute_runner.h test/src/bitBoardTest.hpp test/src/suiteBase.hpp \
+ test/cute/cute_suite.h test/src/bookTest.hpp \
+ test/src/computerPlayerTest.hpp test/src/evaluateTest.hpp \
+ test/src/gameTest.hpp src/util/util.hpp test/src/historyTest.hpp \
+ test/src/killerTableTest.hpp test/src/moveGenTest.hpp \
+ test/src/moveTest.hpp test/src/pieceTest.hpp test/src/positionTest.hpp \
+ test/src/searchTest.hpp src/transpositionTable.hpp src/util/util.hpp \
+ src/move.hpp src/constants.hpp src/util/alignedAlloc.hpp src/tbgen.hpp \
+ src/search.hpp src/position.hpp src/undoInfo.hpp src/bitBoard.hpp \
+ src/piece.hpp src/material.hpp src/evaluate.hpp src/moveGen.hpp \
+ src/searchUtil.hpp src/treeLogger.hpp src/parallel.hpp \
+ src/util/timeUtil.hpp src/util/util.hpp src/parameters.hpp \
+ test/src/textioTest.hpp test/src/transpositionTableTest.hpp \
+ test/src/parallelTest.hpp test/src/treeLoggerTest.hpp \
+ test/src/utilTest.hpp test/src/tbTest.hpp test/src/tbgenTest.hpp \
+ test/src/polyglotTest.hpp src/computerPlayer.hpp src/player.hpp \
+ src/transpositionTable.hpp src/book.hpp src/util/random.hpp \
+ src/tbprobe.hpp src/parameters.hpp
+obj64/killerTableTest.o objarm/killerTableTest.o objarm64/killerTableTest.o objdef/killerTableTest.o objw32/killerTableTest.o objw32old/killerTableTest.o objw64bmi/killerTableTest.o objw64/killerTableTest.o objw64cl/killerTableTest.o objw64amd/killerTableTest.o objw64old/killerTableTest.o: test/src/killerTableTest.cpp \
+ test/src/killerTableTest.hpp test/src/suiteBase.hpp \
+ test/cute/cute_suite.h test/cute/cute_test.h \
+ test/cute/cute_determine_version.h test/cute/cute_determine_library.h \
+ test/cute/cute_demangle.h src/killerTable.hpp src/util/util.hpp \
+ src/move.hpp src/constants.hpp src/textio.hpp src/chessParseError.hpp \
+ src/position.hpp src/undoInfo.hpp src/bitBoard.hpp \
+ src/util/alignedAlloc.hpp src/piece.hpp src/material.hpp src/piece.hpp \
+ test/cute/cute.h test/cute/cute_base.h test/cute/cute_equals.h \
+ test/cute/cute_throws.h test/cute/cute_repeated_test.h \
+ test/cute/cute_suite_test.h test/cute/cute_suite.h \
+ test/cute/cute_test_incarnate.h test/cute/cute_testmember.h \
+ test/cute/cute_version.h
+obj64/textioTest.o objarm/textioTest.o objarm64/textioTest.o objdef/textioTest.o objw32/textioTest.o objw32old/textioTest.o objw64bmi/textioTest.o objw64/textioTest.o objw64cl/textioTest.o objw64amd/textioTest.o objw64old/textioTest.o: test/src/textioTest.cpp test/src/textioTest.hpp \
+ test/src/suiteBase.hpp test/cute/cute_suite.h test/cute/cute_test.h \
+ test/cute/cute_determine_version.h test/cute/cute_determine_library.h \
+ test/cute/cute_demangle.h src/textio.hpp src/chessParseError.hpp \
+ src/position.hpp src/move.hpp src/util/util.hpp src/undoInfo.hpp \
+ src/bitBoard.hpp src/util/alignedAlloc.hpp src/piece.hpp \
+ src/material.hpp test/cute/cute.h test/cute/cute_base.h \
+ test/cute/cute_equals.h test/cute/cute_throws.h \
+ test/cute/cute_repeated_test.h test/cute/cute_suite_test.h \
+ test/cute/cute_suite.h test/cute/cute_test_incarnate.h \
+ test/cute/cute_testmember.h test/cute/cute_version.h
+obj64/moveGenTest.o objarm/moveGenTest.o objarm64/moveGenTest.o objdef/moveGenTest.o objw32/moveGenTest.o objw32old/moveGenTest.o objw64bmi/moveGenTest.o objw64/moveGenTest.o objw64cl/moveGenTest.o objw64amd/moveGenTest.o objw64old/moveGenTest.o: test/src/moveGenTest.cpp test/src/moveGenTest.hpp \
+ test/src/suiteBase.hpp test/cute/cute_suite.h test/cute/cute_test.h \
+ test/cute/cute_determine_version.h test/cute/cute_determine_library.h \
+ test/cute/cute_demangle.h src/moveGen.hpp src/move.hpp src/util/util.hpp \
+ src/position.hpp src/undoInfo.hpp src/bitBoard.hpp \
+ src/util/alignedAlloc.hpp src/piece.hpp src/material.hpp \
+ test/src/evaluateTest.hpp src/textio.hpp src/chessParseError.hpp \
+ test/cute/cute.h test/cute/cute_base.h test/cute/cute_equals.h \
+ test/cute/cute_throws.h test/cute/cute_repeated_test.h \
+ test/cute/cute_suite_test.h test/cute/cute_suite.h \
+ test/cute/cute_test_incarnate.h test/cute/cute_testmember.h \
+ test/cute/cute_version.h
+obj64/transpositionTableTest.o objarm/transpositionTableTest.o objarm64/transpositionTableTest.o objdef/transpositionTableTest.o objw32/transpositionTableTest.o objw32old/transpositionTableTest.o objw64bmi/transpositionTableTest.o objw64/transpositionTableTest.o objw64cl/transpositionTableTest.o objw64amd/transpositionTableTest.o objw64old/transpositionTableTest.o: test/src/transpositionTableTest.cpp \
+ test/src/transpositionTableTest.hpp test/src/suiteBase.hpp \
+ test/cute/cute_suite.h test/cute/cute_test.h \
+ test/cute/cute_determine_version.h test/cute/cute_determine_library.h \
+ test/cute/cute_demangle.h src/transpositionTable.hpp src/util/util.hpp \
+ src/move.hpp src/constants.hpp src/util/alignedAlloc.hpp src/tbgen.hpp \
+ src/position.hpp src/undoInfo.hpp src/bitBoard.hpp src/piece.hpp \
+ src/material.hpp src/textio.hpp src/chessParseError.hpp src/position.hpp \
+ test/src/searchTest.hpp src/search.hpp src/evaluate.hpp src/moveGen.hpp \
+ src/searchUtil.hpp src/treeLogger.hpp src/parallel.hpp \
+ src/util/timeUtil.hpp src/util/util.hpp src/parameters.hpp \
+ test/cute/cute.h test/cute/cute_base.h test/cute/cute_equals.h \
+ test/cute/cute_throws.h test/cute/cute_repeated_test.h \
+ test/cute/cute_suite_test.h test/cute/cute_suite.h \
+ test/cute/cute_test_incarnate.h test/cute/cute_testmember.h \
+ test/cute/cute_version.h
+obj64/moveTest.o objarm/moveTest.o objarm64/moveTest.o objdef/moveTest.o objw32/moveTest.o objw32old/moveTest.o objw64bmi/moveTest.o objw64/moveTest.o objw64cl/moveTest.o objw64amd/moveTest.o objw64old/moveTest.o: test/src/moveTest.cpp test/src/moveTest.hpp \
+ test/src/suiteBase.hpp test/cute/cute_suite.h test/cute/cute_test.h \
+ test/cute/cute_determine_version.h test/cute/cute_determine_library.h \
+ test/cute/cute_demangle.h test/cute/cute.h test/cute/cute_base.h \
+ test/cute/cute_equals.h test/cute/cute_throws.h \
+ test/cute/cute_repeated_test.h test/cute/cute_suite_test.h \
+ test/cute/cute_suite.h test/cute/cute_test_incarnate.h \
+ test/cute/cute_testmember.h test/cute/cute_version.h src/position.hpp \
+ src/move.hpp src/util/util.hpp src/undoInfo.hpp src/bitBoard.hpp \
+ src/util/alignedAlloc.hpp src/piece.hpp src/material.hpp src/move.hpp \
+ src/piece.hpp
+obj64/treeLoggerTest.o objarm/treeLoggerTest.o objarm64/treeLoggerTest.o objdef/treeLoggerTest.o objw32/treeLoggerTest.o objw32old/treeLoggerTest.o objw64bmi/treeLoggerTest.o objw64/treeLoggerTest.o objw64cl/treeLoggerTest.o objw64amd/treeLoggerTest.o objw64old/treeLoggerTest.o: test/src/treeLoggerTest.cpp test/src/treeLoggerTest.hpp \
+ test/src/suiteBase.hpp test/cute/cute_suite.h test/cute/cute_test.h \
+ test/cute/cute_determine_version.h test/cute/cute_determine_library.h \
+ test/cute/cute_demangle.h src/treeLogger.hpp src/util/util.hpp \
+ src/move.hpp src/position.hpp src/undoInfo.hpp src/bitBoard.hpp \
+ src/util/alignedAlloc.hpp src/piece.hpp src/material.hpp src/textio.hpp \
+ src/chessParseError.hpp src/position.hpp test/cute/cute.h \
+ test/cute/cute_base.h test/cute/cute_equals.h test/cute/cute_throws.h \
+ test/cute/cute_repeated_test.h test/cute/cute_suite_test.h \
+ test/cute/cute_suite.h test/cute/cute_test_incarnate.h \
+ test/cute/cute_testmember.h test/cute/cute_version.h
+obj64/parallelTest.o objarm/parallelTest.o objarm64/parallelTest.o objdef/parallelTest.o objw32/parallelTest.o objw32old/parallelTest.o objw64bmi/parallelTest.o objw64/parallelTest.o objw64cl/parallelTest.o objw64amd/parallelTest.o objw64old/parallelTest.o: test/src/parallelTest.cpp test/src/parallelTest.hpp \
+ test/src/suiteBase.hpp test/cute/cute_suite.h test/cute/cute_test.h \
+ test/cute/cute_determine_version.h test/cute/cute_determine_library.h \
+ test/cute/cute_demangle.h test/src/searchTest.hpp \
+ src/transpositionTable.hpp src/util/util.hpp src/move.hpp \
+ src/constants.hpp src/util/alignedAlloc.hpp src/tbgen.hpp src/search.hpp \
+ src/position.hpp src/undoInfo.hpp src/bitBoard.hpp src/piece.hpp \
+ src/material.hpp src/evaluate.hpp src/moveGen.hpp src/searchUtil.hpp \
+ src/treeLogger.hpp src/parallel.hpp src/util/timeUtil.hpp \
+ src/util/util.hpp src/parameters.hpp src/parallel.hpp src/clustertt.hpp \
+ src/transpositionTable.hpp src/position.hpp src/textio.hpp \
+ src/chessParseError.hpp src/searchUtil.hpp src/util/logger.hpp \
+ src/util/timeUtil.hpp test/cute/cute.h test/cute/cute_base.h \
+ test/cute/cute_equals.h test/cute/cute_throws.h \
+ test/cute/cute_repeated_test.h test/cute/cute_suite_test.h \
+ test/cute/cute_suite.h test/cute/cute_test_incarnate.h \
+ test/cute/cute_testmember.h test/cute/cute_version.h
+obj64/polyglotTest.o objarm/polyglotTest.o objarm64/polyglotTest.o objdef/polyglotTest.o objw32/polyglotTest.o objw32old/polyglotTest.o objw64bmi/polyglotTest.o objw64/polyglotTest.o objw64cl/polyglotTest.o objw64amd/polyglotTest.o objw64old/polyglotTest.o: test/src/polyglotTest.cpp test/src/polyglotTest.hpp \
+ test/src/suiteBase.hpp test/cute/cute_suite.h test/cute/cute_test.h \
+ test/cute/cute_determine_version.h test/cute/cute_determine_library.h \
+ test/cute/cute_demangle.h src/polyglot.hpp src/position.hpp src/move.hpp \
+ src/util/util.hpp src/undoInfo.hpp src/bitBoard.hpp \
+ src/util/alignedAlloc.hpp src/piece.hpp src/material.hpp src/textio.hpp \
+ src/chessParseError.hpp test/cute/cute.h test/cute/cute_base.h \
+ test/cute/cute_equals.h test/cute/cute_throws.h \
+ test/cute/cute_repeated_test.h test/cute/cute_suite_test.h \
+ test/cute/cute_suite.h test/cute/cute_test_incarnate.h \
+ test/cute/cute_testmember.h test/cute/cute_version.h
+obj64/utilTest.o objarm/utilTest.o objarm64/utilTest.o objdef/utilTest.o objw32/utilTest.o objw32old/utilTest.o objw64bmi/utilTest.o objw64/utilTest.o objw64cl/utilTest.o objw64amd/utilTest.o objw64old/utilTest.o: test/src/utilTest.cpp test/src/utilTest.hpp \
+ test/src/suiteBase.hpp test/cute/cute_suite.h test/cute/cute_test.h \
+ test/cute/cute_determine_version.h test/cute/cute_determine_library.h \
+ test/cute/cute_demangle.h src/util/util.hpp src/util/timeUtil.hpp \
+ src/util/util.hpp src/util/histogram.hpp test/cute/cute.h \
+ test/cute/cute_base.h test/cute/cute_equals.h test/cute/cute_throws.h \
+ test/cute/cute_repeated_test.h test/cute/cute_suite_test.h \
+ test/cute/cute_suite.h test/cute/cute_test_incarnate.h \
+ test/cute/cute_testmember.h test/cute/cute_version.h
+obj64/bookbuild.o objarm/bookbuild.o objarm64/bookbuild.o objdef/bookbuild.o objw32/bookbuild.o objw32old/bookbuild.o objw64bmi/bookbuild.o objw64/bookbuild.o objw64cl/bookbuild.o objw64amd/bookbuild.o objw64old/bookbuild.o: util/src/bookbuild.cpp util/src/bookbuild.hpp src/move.hpp \
+ src/util/util.hpp src/position.hpp src/move.hpp src/undoInfo.hpp \
+ src/bitBoard.hpp src/util/alignedAlloc.hpp src/piece.hpp \
+ src/material.hpp src/treeLogger.hpp src/constants.hpp \
+ src/transpositionTable.hpp src/constants.hpp src/tbgen.hpp \
+ src/killerTable.hpp src/history.hpp src/position.hpp src/evaluate.hpp \
+ src/parallel.hpp src/evaluate.hpp src/searchUtil.hpp src/treeLogger.hpp \
+ src/util/timeUtil.hpp src/util/util.hpp src/polyglot.hpp \
+ util/src/gametree.hpp src/util/util.hpp src/moveGen.hpp src/search.hpp \
+ src/moveGen.hpp src/parallel.hpp src/parameters.hpp \
+ src/util/histogram.hpp src/textio.hpp src/chessParseError.hpp
+obj64/chesstool.o objarm/chesstool.o objarm64/chesstool.o objdef/chesstool.o objw32/chesstool.o objw32old/chesstool.o objw64bmi/chesstool.o objw64/chesstool.o objw64cl/chesstool.o objw64amd/chesstool.o objw64old/chesstool.o: util/src/chesstool.cpp util/src/chesstool.hpp \
+ src/position.hpp src/move.hpp src/util/util.hpp src/undoInfo.hpp \
+ src/bitBoard.hpp src/util/alignedAlloc.hpp src/piece.hpp \
+ src/material.hpp src/search.hpp src/constants.hpp src/position.hpp \
+ src/evaluate.hpp src/moveGen.hpp src/searchUtil.hpp src/treeLogger.hpp \
+ src/parallel.hpp src/util/timeUtil.hpp src/util/util.hpp \
+ src/parameters.hpp src/clustertt.hpp src/transpositionTable.hpp \
+ src/tbgen.hpp src/history.hpp src/killerTable.hpp src/textio.hpp \
+ src/chessParseError.hpp util/src/gametree.hpp src/util/util.hpp \
+ src/computerPlayer.hpp src/player.hpp src/book.hpp src/util/random.hpp \
+ src/syzygy/rtb-probe.hpp src/tbprobe.hpp util/src/stloutput.hpp \
+ src/util/timeUtil.hpp
+obj64/gametree.o objarm/gametree.o objarm64/gametree.o objdef/gametree.o objw32/gametree.o objw32old/gametree.o objw64bmi/gametree.o objw64/gametree.o objw64cl/gametree.o objw64amd/gametree.o objw64old/gametree.o: util/src/gametree.cpp util/src/gametree.hpp src/position.hpp \
+ src/move.hpp src/util/util.hpp src/undoInfo.hpp src/bitBoard.hpp \
+ src/util/alignedAlloc.hpp src/piece.hpp src/material.hpp \
+ src/util/util.hpp src/textio.hpp src/chessParseError.hpp \
+ src/position.hpp
+obj64/posgen.o objarm/posgen.o objarm64/posgen.o objdef/posgen.o objw32/posgen.o objw32old/posgen.o objw64bmi/posgen.o objw64/posgen.o objw64cl/posgen.o objw64amd/posgen.o objw64old/posgen.o: util/src/posgen.cpp util/src/posgen.hpp src/textio.hpp \
+ src/chessParseError.hpp src/position.hpp src/move.hpp src/util/util.hpp \
+ src/undoInfo.hpp src/bitBoard.hpp src/util/alignedAlloc.hpp \
+ src/piece.hpp src/material.hpp src/moveGen.hpp src/tbprobe.hpp \
+ src/transpositionTable.hpp src/constants.hpp src/tbgen.hpp \
+ src/search.hpp src/evaluate.hpp src/moveGen.hpp src/searchUtil.hpp \
+ src/treeLogger.hpp src/parallel.hpp src/util/timeUtil.hpp \
+ src/util/util.hpp src/parameters.hpp src/clustertt.hpp src/history.hpp \
+ src/killerTable.hpp src/syzygy/rtb-probe.hpp src/parameters.hpp \
+ src/util/timeUtil.hpp util/src/chesstool.hpp src/position.hpp \
+ src/tbgen.hpp
+obj64/spsa.o objarm/spsa.o objarm64/spsa.o objdef/spsa.o objw32/spsa.o objw32old/spsa.o objw64bmi/spsa.o objw64/spsa.o objw64cl/spsa.o objw64amd/spsa.o objw64old/spsa.o: util/src/spsa.cpp util/src/spsa.hpp src/util/random.hpp \
+ src/util/util.hpp src/util/timeUtil.hpp src/parameters.hpp \
+ src/util/util.hpp src/piece.hpp src/position.hpp src/move.hpp \
+ src/undoInfo.hpp src/bitBoard.hpp src/util/alignedAlloc.hpp \
+ src/material.hpp util/src/chesstool.hpp src/position.hpp \
+ src/chessParseError.hpp
+obj64/proofgame.o objarm/proofgame.o objarm64/proofgame.o objdef/proofgame.o objw32/proofgame.o objw32old/proofgame.o objw64bmi/proofgame.o objw64/proofgame.o objw64cl/proofgame.o objw64amd/proofgame.o objw64old/proofgame.o: util/src/proofgame.cpp util/src/proofgame.hpp \
+ src/util/util.hpp src/position.hpp src/move.hpp src/util/util.hpp \
+ src/undoInfo.hpp src/bitBoard.hpp src/util/alignedAlloc.hpp \
+ src/piece.hpp src/material.hpp util/src/assignment.hpp src/moveGen.hpp \
+ src/position.hpp src/textio.hpp src/chessParseError.hpp \
+ src/util/timeUtil.hpp src/util/util.hpp
+obj64/matchbookcreator.o objarm/matchbookcreator.o objarm64/matchbookcreator.o objdef/matchbookcreator.o objw32/matchbookcreator.o objw32old/matchbookcreator.o objw64bmi/matchbookcreator.o objw64/matchbookcreator.o objw64cl/matchbookcreator.o objw64amd/matchbookcreator.o objw64old/matchbookcreator.o: util/src/matchbookcreator.cpp \
+ util/src/matchbookcreator.hpp src/util/util.hpp src/move.hpp \
+ src/util/util.hpp src/position.hpp src/move.hpp src/undoInfo.hpp \
+ src/bitBoard.hpp src/util/alignedAlloc.hpp src/piece.hpp \
+ src/material.hpp src/moveGen.hpp src/position.hpp src/search.hpp \
+ src/constants.hpp src/evaluate.hpp src/moveGen.hpp src/searchUtil.hpp \
+ src/treeLogger.hpp src/parallel.hpp src/util/timeUtil.hpp \
+ src/util/util.hpp src/parameters.hpp src/transpositionTable.hpp \
+ src/tbgen.hpp src/history.hpp src/killerTable.hpp src/textio.hpp \
+ src/chessParseError.hpp util/src/gametree.hpp src/clustertt.hpp \
+ src/transpositionTable.hpp
+obj64/bookBuildTest.o objarm/bookBuildTest.o objarm64/bookBuildTest.o objdef/bookBuildTest.o objw32/bookBuildTest.o objw32old/bookBuildTest.o objw64bmi/bookBuildTest.o objw64/bookBuildTest.o objw64cl/bookBuildTest.o objw64amd/bookBuildTest.o objw64old/bookBuildTest.o: util/src/test/bookBuildTest.cpp \
+ util/src/test/bookBuildTest.hpp util/src/test/utilSuiteBase.hpp \
+ test/cute/cute_suite.h test/cute/cute_test.h \
+ test/cute/cute_determine_version.h test/cute/cute_determine_library.h \
+ test/cute/cute_demangle.h util/src/bookbuild.hpp src/move.hpp \
+ src/util/util.hpp src/position.hpp src/move.hpp src/undoInfo.hpp \
+ src/bitBoard.hpp src/util/alignedAlloc.hpp src/piece.hpp \
+ src/material.hpp src/treeLogger.hpp src/constants.hpp \
+ src/transpositionTable.hpp src/constants.hpp src/tbgen.hpp \
+ src/killerTable.hpp src/history.hpp src/position.hpp src/evaluate.hpp \
+ src/parallel.hpp src/evaluate.hpp src/searchUtil.hpp src/treeLogger.hpp \
+ src/util/timeUtil.hpp src/util/util.hpp src/textio.hpp \
+ src/chessParseError.hpp test/cute/cute.h test/cute/cute_base.h \
+ test/cute/cute_equals.h test/cute/cute_throws.h \
+ test/cute/cute_repeated_test.h test/cute/cute_suite_test.h \
+ test/cute/cute_suite.h test/cute/cute_test_incarnate.h \
+ test/cute/cute_testmember.h test/cute/cute_version.h
+obj64/proofgameTest.o objarm/proofgameTest.o objarm64/proofgameTest.o objdef/proofgameTest.o objw32/proofgameTest.o objw32old/proofgameTest.o objw64bmi/proofgameTest.o objw64/proofgameTest.o objw64cl/proofgameTest.o objw64amd/proofgameTest.o objw64old/proofgameTest.o: util/src/test/proofgameTest.cpp \
+ util/src/test/proofgameTest.hpp util/src/test/utilSuiteBase.hpp \
+ test/cute/cute_suite.h test/cute/cute_test.h \
+ test/cute/cute_determine_version.h test/cute/cute_determine_library.h \
+ test/cute/cute_demangle.h src/piece.hpp src/util/util.hpp \
+ util/src/proofgame.hpp src/position.hpp src/move.hpp src/util/util.hpp \
+ src/undoInfo.hpp src/bitBoard.hpp src/util/alignedAlloc.hpp \
+ src/piece.hpp src/material.hpp util/src/assignment.hpp src/moveGen.hpp \
+ src/position.hpp src/textio.hpp src/chessParseError.hpp test/cute/cute.h \
+ test/cute/cute_base.h test/cute/cute_equals.h test/cute/cute_throws.h \
+ test/cute/cute_repeated_test.h test/cute/cute_suite_test.h \
+ test/cute/cute_suite.h test/cute/cute_test_incarnate.h \
+ test/cute/cute_testmember.h test/cute/cute_version.h
+obj64/texelutil.o objarm/texelutil.o objarm64/texelutil.o objdef/texelutil.o objw32/texelutil.o objw32old/texelutil.o objw64bmi/texelutil.o objw64/texelutil.o objw64cl/texelutil.o objw64amd/texelutil.o objw64old/texelutil.o: util/src/texelutil.cpp util/src/chesstool.hpp \
+ src/position.hpp src/move.hpp src/util/util.hpp src/undoInfo.hpp \
+ src/bitBoard.hpp src/util/alignedAlloc.hpp src/piece.hpp \
+ src/material.hpp util/src/posgen.hpp util/src/spsa.hpp \
+ src/util/random.hpp src/util/util.hpp util/src/bookbuild.hpp \
+ src/move.hpp src/treeLogger.hpp src/constants.hpp \
+ src/transpositionTable.hpp src/constants.hpp src/tbgen.hpp \
+ src/killerTable.hpp src/history.hpp src/position.hpp src/evaluate.hpp \
+ src/parallel.hpp src/evaluate.hpp src/searchUtil.hpp src/treeLogger.hpp \
+ src/util/timeUtil.hpp util/src/proofgame.hpp src/util/util.hpp \
+ util/src/assignment.hpp util/src/matchbookcreator.hpp src/tbgen.hpp \
+ src/parameters.hpp src/chessParseError.hpp src/computerPlayer.hpp \
+ src/player.hpp src/transpositionTable.hpp src/book.hpp \
+ src/util/random.hpp src/textio.hpp src/chessParseError.hpp \
+ test/cute/cute.h test/cute/cute_base.h test/cute/cute_equals.h \
+ test/cute/cute_determine_version.h test/cute/cute_demangle.h \
+ test/cute/cute_throws.h test/cute/cute_repeated_test.h \
+ test/cute/cute_test.h test/cute/cute_determine_library.h \
+ test/cute/cute_suite_test.h test/cute/cute_suite.h \
+ test/cute/cute_test_incarnate.h test/cute/cute_testmember.h \
+ test/cute/cute_version.h test/cute/ide_listener.h \
+ test/cute/eclipse_listener.h test/cute/ostream_listener.h \
+ test/cute/cute_listener.h test/cute/vstudio_listener.h \
+ test/cute/cute_runner.h util/src/test/bookBuildTest.hpp \
+ util/src/test/utilSuiteBase.hpp test/cute/cute_suite.h \
+ util/src/test/proofgameTest.hpp src/piece.hpp \
+ util/src/test/gameTreeTest.hpp
+obj64/gameTreeTest.o objarm/gameTreeTest.o objarm64/gameTreeTest.o objdef/gameTreeTest.o objw32/gameTreeTest.o objw32old/gameTreeTest.o objw64bmi/gameTreeTest.o objw64/gameTreeTest.o objw64cl/gameTreeTest.o objw64amd/gameTreeTest.o objw64old/gameTreeTest.o: util/src/test/gameTreeTest.cpp \
+ util/src/test/gameTreeTest.hpp util/src/test/utilSuiteBase.hpp \
+ test/cute/cute_suite.h test/cute/cute_test.h \
+ test/cute/cute_determine_version.h test/cute/cute_determine_library.h \
+ test/cute/cute_demangle.h src/textio.hpp src/chessParseError.hpp \
+ src/position.hpp src/move.hpp src/util/util.hpp src/undoInfo.hpp \
+ src/bitBoard.hpp src/util/alignedAlloc.hpp src/piece.hpp \
+ src/material.hpp util/src/gametree.hpp src/position.hpp \
+ src/util/util.hpp test/cute/cute.h test/cute/cute_base.h \
+ test/cute/cute_equals.h test/cute/cute_throws.h \
+ test/cute/cute_repeated_test.h test/cute/cute_suite_test.h \
+ test/cute/cute_suite.h test/cute/cute_test_incarnate.h \
+ test/cute/cute_testmember.h test/cute/cute_version.h
+obj64/bookbuildcontrol.o objarm/bookbuildcontrol.o objarm64/bookbuildcontrol.o objdef/bookbuildcontrol.o objw32/bookbuildcontrol.o objw32old/bookbuildcontrol.o objw64bmi/bookbuildcontrol.o objw64/bookbuildcontrol.o objw64cl/bookbuildcontrol.o objw64amd/bookbuildcontrol.o objw64old/bookbuildcontrol.o: bookgui/src/bookbuildcontrol.cpp \
+ bookgui/src/bookbuildcontrol.hpp util/src/bookbuild.hpp src/move.hpp \
+ src/util/util.hpp src/position.hpp src/move.hpp src/undoInfo.hpp \
+ src/bitBoard.hpp src/util/alignedAlloc.hpp src/piece.hpp \
+ src/material.hpp src/treeLogger.hpp src/constants.hpp \
+ src/transpositionTable.hpp src/constants.hpp src/tbgen.hpp \
+ src/killerTable.hpp src/history.hpp src/position.hpp src/evaluate.hpp \
+ src/parallel.hpp src/evaluate.hpp src/searchUtil.hpp src/treeLogger.hpp \
+ src/util/timeUtil.hpp src/util/util.hpp src/search.hpp src/moveGen.hpp \
+ src/parallel.hpp src/parameters.hpp src/textio.hpp \
+ src/chessParseError.hpp src/clustertt.hpp src/transpositionTable.hpp \
+ src/computerPlayer.hpp src/player.hpp src/book.hpp src/util/random.hpp \
+ util/src/gametree.hpp src/util/util.hpp
+obj64/bookgui.o objarm/bookgui.o objarm64/bookgui.o objdef/bookgui.o objw32/bookgui.o objw32old/bookgui.o objw64bmi/bookgui.o objw64/bookgui.o objw64cl/bookgui.o objw64amd/bookgui.o objw64old/bookgui.o: bookgui/src/bookgui.cpp bookgui/src/bookgui.hpp \
+ bookgui/src/bookbuildcontrol.hpp util/src/bookbuild.hpp src/move.hpp \
+ src/util/util.hpp src/position.hpp src/move.hpp src/undoInfo.hpp \
+ src/bitBoard.hpp src/util/alignedAlloc.hpp src/piece.hpp \
+ src/material.hpp src/treeLogger.hpp src/constants.hpp \
+ src/transpositionTable.hpp src/constants.hpp src/tbgen.hpp \
+ src/killerTable.hpp src/history.hpp src/position.hpp src/evaluate.hpp \
+ src/parallel.hpp src/evaluate.hpp src/searchUtil.hpp src/treeLogger.hpp \
+ src/util/timeUtil.hpp src/util/util.hpp src/search.hpp src/moveGen.hpp \
+ src/parallel.hpp src/parameters.hpp bookgui/src/chessboard.hpp \
+ util/src/gametree.hpp src/util/util.hpp src/moveGen.hpp src/textio.hpp \
+ src/chessParseError.hpp
+obj64/chessboard.o objarm/chessboard.o objarm64/chessboard.o objdef/chessboard.o objw32/chessboard.o objw32old/chessboard.o objw64bmi/chessboard.o objw64/chessboard.o objw64cl/chessboard.o objw64amd/chessboard.o objw64old/chessboard.o: bookgui/src/chessboard.cpp bookgui/src/chessboard.hpp \
+ src/position.hpp src/move.hpp src/util/util.hpp src/undoInfo.hpp \
+ src/bitBoard.hpp src/util/alignedAlloc.hpp src/piece.hpp \
+ src/material.hpp src/textio.hpp src/chessParseError.hpp src/position.hpp
+obj64/resource.o objarm/resource.o objarm64/resource.o objdef/resource.o objw32/resource.o objw32old/resource.o objw64bmi/resource.o objw64/resource.o objw64cl/resource.o objw64amd/resource.o objw64old/resource.o: bookgui/src/resource.cpp

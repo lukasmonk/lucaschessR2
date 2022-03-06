@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg2985" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="480" width="480" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+ <title id="title3771">Black Knight</title>
+ <metadata id="metadata2990">
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title>Black Knight</dc:title>
+    <cc:license rdf:resource="http://creativecommons.org/licenses/publicdomain/"/>
+    <dc:source>http://openfontlibrary.org/assets/downloads/chess/dd244e4b50bb954610bc0b2372ce2e18/chess.zip</dc:source>
+    <dc:date>6.1.2013</dc:date>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>James Kilfinger+alfons z!</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+   <cc:License rdf:about="http://creativecommons.org/licenses/publicdomain/">
+    <cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction"/>
+    <cc:permits rdf:resource="http://creativecommons.org/ns#Distribution"/>
+    <cc:permits rdf:resource="http://creativecommons.org/ns#DerivativeWorks"/>
+   </cc:License>
+  </rdf:RDF>
+ </metadata>
+ <g id="layer1">
+  <path id="text3281" d="m148.97 49.969c-1.0795 2.159-1.625 4.3325-1.625 7.0312 0 8.636 5.4062 19.404 5.4062 27.5 0 5.9373-1.0655 11.344-4.8438 17.281-11.875 19.431-35.62 11.33-51.812 28.062-23.75 24.29-28.087 44.8-46.439 73.41-10.255 16.73-26.968 22.69-26.968 42.66 8.096 11.33 17.798 26.43 28.593 28.59 16.193 0 17.279-21.594 43.188-21.594 8.636 0 16.716 2.1562 24.812 2.1562 30.766 0 26.981-30.219 48.031-30.219 9.7155 0 16.75 10.245 16.75 20.5 0 20.511-22.125 28.623-34 48.594-14.573 24.829-21.603 34.538-32.938 65.844 37.783-18.891 80.416-28.594 121.44-28.594 41.021 0.53975 83.686 9.7025 121.47 28.594-0.53975-26.988-4.3438-44.265-4.3438-57.219 0-24.289 1.625-48.032 1.625-59.906 0-46.419-15.109-70.152-51.812-98.219-29.7-22.67-57.77-28.08-92.85-49.128-25.91-15.652-38.86-27.531-63.69-45.343zm-25.91 101.47c9.1758 0 16.188 7.5657 16.188 17.281 0 9.7155-7.0117 17.281-16.188 17.281-9.1758 0-16.188-7.5657-16.188-17.281 0-9.7155 7.0117-17.281 16.188-17.281zm115.5 235.34c-77.724 0-145.73 29.147-188.38 73.406h380c-42.63-44.26-113.89-73.41-191.62-73.41z"/>
+ </g>
+</svg>

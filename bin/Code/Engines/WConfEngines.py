@@ -1,0 +1,701 @@
+import operator
+import os
+
+from PySide2 import QtCore, QtWidgets
+
+import Code
+from Code import Util
+from Code.Base.Constantes import (
+    POS_TUTOR_VERTICAL,
+    POS_TUTOR_HORIZONTAL_2_1,
+    POS_TUTOR_HORIZONTAL_1_2,
+    POS_TUTOR_HORIZONTAL,
+    QUESTIONABLE_MOVE,
+    BAD_MOVE,
+    VERY_BAD_MOVE
+)
+from Code.Engines import Engines, WEngines
+from Code.Engines import Priorities
+from Code.QT import Colocacion
+from Code.QT import Columnas
+from Code.QT import Controles
+from Code.QT import Delegados
+from Code.QT import FormLayout
+from Code.QT import Grid
+from Code.QT import Iconos
+from Code.QT import LCDialog
+from Code.QT import QTUtil2
+from Code.QT import QTVarios
+
+
+class WConfEngines(LCDialog.LCDialog):
+    def __init__(self, owner):
+        icono = Iconos.ConfEngines()
+        titulo = _("Engines configuration")
+        extparam = "confEngines7"
+        LCDialog.LCDialog.__init__(self, owner, titulo, icono, extparam)
+
+        self.configuration = Code.configuration
+        self.engine = None
+        self.grid_conf = None
+
+        # Toolbar
+        li_acciones = [(_("Close"), Iconos.MainMenu(), self.terminar), None]
+        tb = QTVarios.LCTB(self, li_acciones, style=QtCore.Qt.ToolButtonTextBesideIcon, icon_size=24)
+
+        self.wexternals = WConfExternals(self)
+        self.wconf_tutor = WConfTutor(self)
+        self.wconf_analyzer = WConfAnalyzer(self)
+
+        self.w_current = None
+
+        self.tab = Controles.Tab(self)
+        self.tab.nuevaTab(self.wexternals, _("External engines"))
+        self.tab.nuevaTab(self.wconf_tutor, _("Tutor"))
+        self.tab.nuevaTab(self.wconf_analyzer, _("Analyzer"))
+        self.tab.dispatchChange(self.cambiada_tab)
+
+        o_columns = Columnas.ListaColumnas()
+        o_columns.nueva("OPTION", _("Label"), 240)
+        o_columns.nueva("VALUE", _("Value"), 200, edicion=Delegados.MultiEditor(self))
+        self.grid_conf = Grid.Grid(self, o_columns, siSelecFilas=False, siEditable=True)
+        self.grid_conf.tipoLetra(puntos=self.configuration.x_pgn_fontpoints)
+        self.register_grid(self.grid_conf)
+
+        # Layout
+        ly_left = Colocacion.V().control(tb).control(self.tab).margen(0)
+        w = QtWidgets.QWidget()
+        w.setLayout(ly_left)
+
+        self.splitter = QtWidgets.QSplitter(self)
+        self.splitter.addWidget(w)
+        self.splitter.addWidget(self.grid_conf)
+        self.register_splitter(self.splitter, "conf")
+
+        layout = Colocacion.H().control(self.splitter)
+        self.setLayout(layout)
+
+        dic_def = {"_SIZE_": "1209,540", "SP_conf": [719, 463]}
+        self.restore_video(siTam=True, dicDef=dic_def)
+        self.cambiada_tab(0)
+
+    def cambiada_tab(self, num):
+        if num == 0:
+            w = self.wexternals
+        elif num == 1:
+            w = self.wconf_tutor
+        elif num == 2:
+            w = self.wconf_analyzer
+        else:
+            return
+        w.activate_this()
+        self.w_current = w
+
+    def me_set_editor(self, parent):
+        recno = self.grid_conf.recno()
+        opcion = self.engine.li_uci_options_editable()[recno]
+        key = opcion.name
+        value = opcion.valor
+        for xkey, xvalue in self.engine.liUCI:
+            if xkey == key:
+                value = xvalue
+                break
+        if key is None:
+            return None
+
+        control = lista = minimo = maximo = None
+        tipo = opcion.tipo
+        if tipo == "spin":
+            control = "sb"
+            minimo = opcion.minimo
+            maximo = opcion.maximo
+        elif tipo in ("check", "button"):
+            self.engine.ordenUCI(key, not value)
+            self.grid_conf.refresh()
+        elif tipo == "combo":
+            lista = [(var, var) for var in opcion.li_vars]
+            control = "cb"
+        elif tipo == "string":
+            control = "ed"
+
+        self.me_control = control
+        self.me_key = key
+
+        if control == "ed":
+            return Controles.ED(parent, value)
+        elif control == "cb":
+            return Controles.CB(parent, lista, value)
+        elif control == "sb":
+            return Controles.SB(parent, value, minimo, maximo)
+        return None
+
+    def set_engine(self, engine):
+        self.engine = engine
+        if self.grid_conf:
+            if self.engine:
+                self.grid_conf.refresh()
+                self.grid_conf.gotop()
+                self.grid_conf.show()
+            else:
+                self.grid_conf.hide()
+
+    def me_ponValor(self, editor, valor):
+        if self.me_control == "ed":
+            editor.setText(str(valor))
+        elif self.me_control in ("cb", "sb"):
+            editor.ponValor(valor)
+
+    def me_leeValor(self, editor):
+        if self.me_control == "ed":
+            return editor.texto()
+        elif self.me_control in ("cb", "sb"):
+            return editor.valor()
+
+    def grid_setvalue(self, grid, nfila, column, valor):
+        opcion = self.engine.li_uci_options_editable()[nfila]
+        self.engine.ordenUCI(opcion.name, valor)
+        self.w_current.set_changed()
+
+    def save(self):
+        self.wexternals.save()
+        self.wconf_tutor.save()
+        self.wconf_analyzer.save()
+        self.save_video()
+
+    def terminar(self):
+        self.save()
+        self.accept()
+
+    def closeEvent(self, event):
+        self.save()
+
+    def grid_num_datos(self, grid):
+        return len(self.engine.li_uci_options_editable()) if self.engine else 0
+
+    def grid_dato(self, grid, row, o_column):
+        key = o_column.key
+        op = self.engine.li_uci_options_editable()[row]
+        if key == "OPTION":
+            return op.name
+        else:
+            name = op.name
+            valor = op.valor
+            for xnombre, xvalor in self.engine.liUCI:
+                if xnombre == name:
+                    valor = xvalor
+                    break
+            tv = type(valor)
+            if tv == bool:
+                valor = str(valor).lower()
+            else:
+                valor = str(valor)
+            return valor
+
+
+class WConfExternals(QtWidgets.QWidget):
+    def __init__(self, owner):
+        QtWidgets.QWidget.__init__(self, owner)
+
+        self.owner = owner
+
+        self.lista_motores = Code.configuration.list_external_engines()
+        self.is_changed = False
+
+        # Toolbar
+        li_acciones = [
+            (_("New"), Iconos.TutorialesCrear(), self.nuevo),
+            None,
+            (_("Modify"), Iconos.Modificar(), self.modificar),
+            None,
+            (_("Remove"), Iconos.Borrar(), self.borrar),
+            None,
+            (_("Copy"), Iconos.Copiar(), self.copiar),
+            None,
+            (_("Import"), Iconos.MasDoc(), self.importar),
+            None,
+            (_("Up"), Iconos.Arriba(), self.arriba),
+            None,
+            (_("Down"), Iconos.Abajo(), self.abajo),
+            None,
+            (_("Command"), Iconos.Terminal(), self.command),
+            None,
+        ]
+        tb = QTVarios.LCTB(self, li_acciones)
+
+        # Lista
+        o_columns = Columnas.ListaColumnas()
+        o_columns.nueva("ALIAS", _("Alias"), 114)
+        o_columns.nueva("ENGINE", _("Engine"), 138)
+        o_columns.nueva("AUTOR", _("Author"), 142)
+        o_columns.nueva("INFO", _("Information"), 245)
+        o_columns.nueva("ELO", "ELO", 64, centered=True)
+
+        self.grid = None
+
+        self.grid = Grid.Grid(self, o_columns, siSelecFilas=True)
+        self.owner.register_grid(self.grid)
+
+        layout = Colocacion.V().control(tb).control(self.grid).margen(0)
+        self.setLayout(layout)
+
+        self.grid.gotop()
+        self.grid.setFocus()
+
+    def activate_this(self):
+        row = self.grid.recno()
+        if row >= 0:
+            self.owner.set_engine(self.lista_motores[row])
+        else:
+            self.owner.set_engine(None)
+        self.grid.setFocus()
+
+    def set_changed(self):
+        self.is_changed = True
+
+    def grid_setvalue(self, grid, nfila, column, valor):
+        opcion = self.engine.li_uci_options_editable()[nfila]
+        self.engine.ordenUCI(opcion.name, valor)
+        self.set_changed()
+
+    def save(self):
+        if self.is_changed:
+            self.is_changed = False
+            li = [eng.save() for eng in self.lista_motores]
+            Util.save_pickle(Code.configuration.file_external_engines(), li)
+            Code.configuration.relee_engines()
+
+    def grid_cambiado_registro(self, grid, row, oCol):
+        if grid == self.grid:
+            if row >= 0:
+                self.owner.set_engine(self.lista_motores[row])
+
+    def grid_num_datos(self, grid):
+        return len(self.lista_motores)
+
+    def grid_dato(self, grid, row, o_column):
+        key = o_column.key
+        me = self.lista_motores[row]
+        if key == "AUTOR":
+            return me.autor
+        elif key == "ALIAS":
+            return me.key
+        elif key == "ENGINE":
+            return me.name
+        elif key == "INFO":
+            return me.id_info.replace("\n", "-")
+        elif key == "ELO":
+            return str(me.elo) if me.elo else "-"
+
+    def command(self):
+        separador = FormLayout.separador
+        li_gen = [separador]
+        li_gen.append(separador)
+        config = FormLayout.Fichero(_("File"), "exe" if Code.is_windows else "*", False)
+        li_gen.append((config, ""))
+
+        for num in range(1, 11):
+            li_gen.append(("%s:" % (_("Argument %d") % num), ""))
+        li_gen.append(separador)
+        resultado = FormLayout.fedit(li_gen, title=_("Command"), parent=self, anchoMinimo=600, icon=Iconos.Terminal())
+        if resultado:
+            nada, resp = resultado
+            command = resp[0]
+            liArgs = []
+            if not command or not os.path.isfile(command):
+                return
+            for x in range(1, len(resp)):
+                arg = resp[x].strip()
+                if arg:
+                    liArgs.append(arg)
+
+            um = QTUtil2.unMomento(self)
+            me = Engines.Engine(path_exe=command, args=liArgs)
+            li_uci = me.read_uci_options()
+            um.final()
+            if not li_uci:
+                QTUtil2.message_bold(self, _X(_("The file %1 does not correspond to a UCI engine type."), command))
+                return None
+
+            # Editamos
+            w = WEngineFast(self, self.lista_motores, me)
+            if w.exec_():
+                self.lista_motores.append(me)
+                self.grid.refresh()
+                self.grid.gobottom(0)
+                self.set_changed()
+
+    def nuevo(self):
+        me = WEngines.selectEngine(self)
+        if not me:
+            return
+
+        # Editamos
+        w = WEngineFast(self, self.lista_motores, me)
+        if w.exec_():
+            self.lista_motores.append(me)
+
+            self.grid.refresh()
+            self.grid.gobottom(0)
+            self.set_changed()
+
+    def grid_doubleclick_header(self, grid, o_column):
+        key = o_column.key
+        if key == "ALIAS":
+            key = "key"
+        elif key == "ENGINE":
+            key = "name"
+        elif key == "ELO":
+            key = "elo"
+        else:
+            return
+        self.lista_motores.sort(key=operator.attrgetter(key))
+        self.grid.refresh()
+        self.grid.gotop()
+        self.set_changed()
+
+    def modificar(self):
+        if len(self.lista_motores):
+            row = self.grid.recno()
+            if row >= 0:
+                me = self.lista_motores[row]
+                # Editamos, y graba si hace falta
+                w = WEngineFast(self, self.lista_motores, me)
+                if w.exec_():
+                    self.grid.refresh()
+                    self.set_changed()
+
+    def grid_doble_click(self, grid, row, o_column):
+        self.modificar()
+
+    def arriba(self):
+        row = self.grid.recno()
+        if row > 0:
+            li = self.lista_motores
+            a, b = li[row], li[row - 1]
+            li[row], li[row - 1] = b, a
+            self.grid.goto(row - 1, 0)
+            self.grid.refresh()
+            self.set_changed()
+
+    def abajo(self):
+        row = self.grid.recno()
+        li = self.lista_motores
+        if row < len(li) - 1:
+            a, b = li[row], li[row + 1]
+            li[row], li[row + 1] = b, a
+            self.grid.goto(row + 1, 0)
+            self.grid.refresh()
+            self.set_changed()
+
+    def borrar(self):
+        row = self.grid.recno()
+        if row >= 0:
+            if QTUtil2.pregunta(self, _X(_("Delete %1?"), self.lista_motores[row].key)):
+                del self.lista_motores[row]
+                if row < len(self.lista_motores):
+                    self.grid_cambiado_registro(self.grid, row, None)
+                else:
+                    self.grid.refresh()
+                    self.grid.gobottom()
+                self.set_changed()
+            self.grid.setFocus()
+
+    def copiar(self):
+        row = self.grid.recno()
+        if row >= 0:
+            me = self.lista_motores[row].clone()
+            w = WEngineFast(self, self.lista_motores, me)
+            if w.exec_():
+                self.lista_motores.append(me)
+                self.grid.refresh()
+                self.grid.gobottom(0)
+                self.set_changed()
+
+    def importar(self):
+        menu = QTVarios.LCMenu(self)
+        lista = Code.configuration.comboMotores()
+        nico = QTVarios.rondoPuntos()
+        for name, key in lista:
+            menu.opcion(key, name, nico.otro())
+
+        resp = menu.lanza()
+        if not resp:
+            return
+
+        me = Code.configuration.buscaRival(resp).clone()
+        w = WEngineFast(self, self.lista_motores, me)
+        if w.exec_():
+            me.parent_external = me.key
+            self.lista_motores.append(me)
+            self.grid.refresh()
+            self.grid.gobottom(0)
+            self.set_changed()
+
+
+class WEngineFast(QtWidgets.QDialog):
+    def __init__(self, w_parent, listaMotores, engine, siTorneo=False):
+
+        super(WEngineFast, self).__init__(w_parent)
+
+        self.setWindowTitle(engine.version)
+        self.setWindowIcon(Iconos.Engine())
+        self.setWindowFlags(
+            QtCore.Qt.WindowCloseButtonHint
+            | QtCore.Qt.Dialog
+            | QtCore.Qt.WindowTitleHint
+            | QtCore.Qt.WindowMinimizeButtonHint
+            | QtCore.Qt.WindowMaximizeButtonHint
+        )
+
+        self.motorExterno = engine
+        self.liMotores = listaMotores
+        self.siTorneo = siTorneo
+        self.imported = engine.parent_external is not None
+
+        # Toolbar
+        tb = QTVarios.tbAcceptCancel(self)
+
+        lb_alias = Controles.LB2P(self, _("Alias"))
+        self.edAlias = Controles.ED(self, engine.key).anchoMinimo(360)
+
+        if not self.imported:
+            lb_nombre = Controles.LB2P(self, _("Name"))
+            self.edNombre = Controles.ED(self, engine.name).anchoMinimo(360)
+
+        lb_info = Controles.LB(self, _("Information") + ": ")
+        self.emInfo = Controles.EM(self, engine.id_info, siHTML=False).anchoMinimo(360).altoFijo(60)
+
+        lb_elo = Controles.LB(self, "ELO: ")
+        self.sbElo = Controles.SB(self, engine.elo, 0, 4000)
+
+        lb_exe = Controles.LB(self, "%s: %s" % (_("File"), Util.relative_path(engine.path_exe)))
+
+        # Layout
+        ly = Colocacion.G()
+        ly.controld(lb_alias, 0, 0).control(self.edAlias, 0, 1)
+        if not self.imported:
+            ly.controld(lb_nombre, 1, 0).control(self.edNombre, 1, 1)
+        ly.controld(lb_info, 2, 0).control(self.emInfo, 2, 1)
+        ly.controld(lb_elo, 3, 0).control(self.sbElo, 3, 1)
+        ly.control(lb_exe, 4, 0, 1, 2)
+
+        layout = Colocacion.V().control(tb).otro(ly)
+
+        self.setLayout(layout)
+
+        self.edAlias.setFocus()
+
+    def aceptar(self):
+        alias = self.edAlias.texto().strip()
+        if not alias:
+            QTUtil2.message_error(self, _("You have not indicated any alias"))
+            return
+
+        # Comprobamos que no se repita el alias
+        for engine in self.liMotores:
+            if (self.motorExterno != engine) and (engine.key == alias):
+                QTUtil2.message_error(
+                    self,
+                    _(
+                        "There is already another engine with the same alias, the alias must change in order to have both."
+                    ),
+                )
+                return
+        self.motorExterno.key = alias
+        if not self.imported:
+            name = self.edNombre.texto().strip()
+            self.motorExterno.name = name if name else alias
+        self.motorExterno.id_info = self.emInfo.texto()
+        self.motorExterno.elo = self.sbElo.valor()
+
+        self.accept()
+
+
+class WConfTutor(QtWidgets.QWidget):
+    def __init__(self, owner):
+        QtWidgets.QWidget.__init__(self, owner)
+
+        self.configuration = Code.configuration
+
+        self.owner = owner
+        self.engine = self.configuration.engine_tutor()
+        self.is_changed = False
+
+        lb_engine = Controles.LB2P(self, _("Engine"))
+        self.cb_engine = Controles.CB(self, self.configuration.listaCambioTutor(), self.engine.key)
+        self.cb_engine.capture_changes(self.changed_engine)
+
+        lb_time = Controles.LB2P(self, _("Duration of tutor analysis (secs)"))
+        self.ed_time = Controles.ED(self).tipoFloat(self.configuration.x_tutor_mstime / 1000.0).anchoFijo(40)
+
+        lb_depth = Controles.LB2P(self, _("Depth"))
+        self.ed_depth = Controles.ED(self).tipoInt(self.configuration.x_tutor_depth).anchoFijo(30)
+
+        lb_multipv = Controles.LB2P(self, _("Number of responses evaluated by engine(MultiPV)"))
+        self.ed_multipv = Controles.ED(self).tipoInt(self.configuration.x_tutor_multipv).anchoFijo(30)
+
+        self.chb_disabled = Controles.CHB(
+            self, _("Disabled at the beginning of the game"), not self.configuration.x_default_tutor_active
+        )
+        self.chb_background = Controles.CHB(
+            self, _("Work in the background, when possible"), not self.configuration.x_engine_notbackground
+        )
+        lb_priority = Controles.LB2P(self, _("Process priority"))
+        self.cb_priority = Controles.CB(self, Priorities.priorities.combo(), self.configuration.x_tutor_priority)
+        lb_tutor_position = Controles.LB2P(self, _("Tutor boards position"))
+        li_pos_tutor = [
+            (_("Horizontal"), POS_TUTOR_HORIZONTAL),
+            (_("Horizontal") + " 2+1", POS_TUTOR_HORIZONTAL_2_1),
+            (_("Horizontal") + " 1+2", POS_TUTOR_HORIZONTAL_1_2),
+            (_("Vertical"), POS_TUTOR_VERTICAL),
+        ]
+        self.cb_board_position = Controles.CB(self, li_pos_tutor, self.configuration.x_tutor_view)
+
+        lb_sensitivity = Controles.LB2P(self, _("Launch the tutor when"))
+        li_types = [
+            (_("Always"), 0),
+            (_("Innacuracy"), QUESTIONABLE_MOVE),
+            (_("Error"), BAD_MOVE),
+            (_("Blunder"), VERY_BAD_MOVE),
+        ]
+        self.cb_type = Controles.CB(self, li_types, self.configuration.x_tutor_diftype)
+
+        layout = Colocacion.G()
+        layout.controld(lb_engine, 0, 0).control(self.cb_engine, 0, 1)
+        layout.controld(lb_time, 1, 0).control(self.ed_time, 1, 1)
+        layout.controld(lb_depth, 2, 0).control(self.ed_depth, 2, 1)
+        layout.controld(lb_multipv, 3, 0).control(self.ed_multipv, 3, 1)
+        layout.controld(lb_priority, 4, 0).control(self.cb_priority, 4, 1)
+        layout.controld(lb_tutor_position, 5, 0).control(self.cb_board_position, 5, 1)
+        layout.filaVacia(6, 30)
+        layout.controld(lb_sensitivity, 7, 0).control(self.cb_type, 7, 1)
+        layout.filaVacia(8, 30)
+        layout.control(self.chb_disabled, 9, 0, numColumnas=2)
+        layout.control(self.chb_background, 10, 0, numColumnas=2)
+
+        ly = Colocacion.V().otro(layout).relleno(1)
+        lyh = Colocacion.H().otro(ly).relleno(1).margen(30)
+
+        self.setLayout(lyh)
+
+        self.changed_engine()
+        self.is_changed = False
+
+        for control in (
+            self.chb_background,
+            self.chb_disabled,
+        ):
+            control.capture_changes(self, self.set_changed)
+
+        for control in (
+            self.cb_priority,
+            self.cb_board_position,
+            self.ed_time,
+            self.ed_depth,
+            self.ed_multipv,
+            self.cb_type,
+        ):
+            control.capture_changes(self.set_changed)
+
+    def changed_engine(self):
+        self.engine = self.configuration.dic_engines[self.cb_engine.valor()].clone()
+        self.owner.set_engine(self.engine)
+        self.set_changed()
+
+    def set_changed(self):
+        self.is_changed = True
+
+    def save(self):
+        if self.is_changed:
+            self.is_changed = False
+            self.configuration.x_tutor_clave = self.engine.key
+            self.configuration.x_tutor_mstime = self.ed_time.textoFloat() * 1000
+            self.configuration.x_tutor_depth = self.ed_depth.textoInt()
+            self.configuration.x_tutor_multipv = self.ed_multipv.textoInt()
+            self.configuration.x_tutor_priority = self.cb_priority.valor()
+
+            self.configuration.x_tutor_view = self.cb_board_position.valor()
+            self.configuration.x_engine_notbackground = not self.chb_background.valor()
+            self.configuration.x_default_tutor_active = not self.chb_disabled.valor()
+            self.configuration.x_tutor_diftype = self.cb_type.valor()
+
+            self.configuration.graba()
+
+            dic = self.configuration.read_variables("TUTOR_ANALYZER")
+            dic["TUTOR"] = self.engine.list_uci_added()
+            self.configuration.write_variables("TUTOR_ANALYZER", dic)
+
+    def activate_this(self):
+        self.owner.set_engine(self.engine)
+
+
+class WConfAnalyzer(QtWidgets.QWidget):
+    def __init__(self, owner):
+        QtWidgets.QWidget.__init__(self, owner)
+
+        self.configuration = Code.configuration
+
+        self.owner = owner
+        self.engine = self.configuration.engine_analyzer()
+        self.is_changed = False
+
+        lb_engine = Controles.LB2P(self, _("Engine"))
+        self.cb_engine = Controles.CB(self, self.configuration.listaCambioTutor(), self.engine.key)
+        self.cb_engine.capture_changes(self.changed_engine)
+
+        lb_time = Controles.LB2P(self, _("Duration of analysis (secs)"))
+        self.ed_time = Controles.ED(self).tipoFloat(self.configuration.x_analyzer_mstime / 1000.0).anchoFijo(40)
+
+        lb_depth = Controles.LB2P(self, _("Depth"))
+        self.ed_depth = Controles.ED(self).tipoInt(self.configuration.x_analyzer_depth).anchoFijo(30)
+
+        lb_multipv = Controles.LB2P(self, _("Number of responses evaluated by engine(MultiPV)"))
+        self.ed_multipv = Controles.ED(self).tipoInt(self.configuration.x_analyzer_multipv).anchoFijo(30)
+
+        lb_priority = Controles.LB2P(self, _("Process priority"))
+        self.cb_priority = Controles.CB(self, Priorities.priorities.combo(), self.configuration.x_analyzer_priority)
+
+        layout = Colocacion.G()
+        layout.controld(lb_engine, 0, 0).control(self.cb_engine, 0, 1)
+        layout.controld(lb_time, 1, 0).control(self.ed_time, 1, 1)
+        layout.controld(lb_depth, 2, 0).control(self.ed_depth, 2, 1)
+        layout.controld(lb_multipv, 3, 0).control(self.ed_multipv, 3, 1)
+        layout.controld(lb_priority, 4, 0).control(self.cb_priority, 4, 1)
+
+        ly = Colocacion.V().otro(layout).relleno(1)
+        lyh = Colocacion.H().otro(ly).relleno(1).margen(30)
+
+        self.setLayout(lyh)
+
+        for control in (
+            self.cb_priority,
+            self.ed_multipv,
+            self.ed_depth,
+            self.ed_time,
+        ):
+            control.capture_changes(self.set_changed)
+
+    def changed_engine(self):
+        self.engine = self.configuration.dic_engines[self.cb_engine.valor()].clone()
+        self.owner.set_engine(self.engine)
+        self.set_changed()
+
+    def set_changed(self):
+        self.is_changed = True
+
+    def save(self):
+        if self.is_changed:
+            self.is_changed = False
+
+            self.configuration.x_analyzer_clave = self.engine.key
+            self.configuration.x_analyzer_mstime = self.ed_time.textoFloat() * 1000
+            self.configuration.x_analyzer_depth = self.ed_depth.textoInt()
+            self.configuration.x_analyzer_multipv = self.ed_multipv.textoInt()
+            self.configuration.x_analyzer_priority = self.cb_priority.valor()
+
+            dic = self.configuration.read_variables("TUTOR_ANALYZER")
+            dic["ANALYZER"] = self.engine.list_uci_added()
+            self.configuration.write_variables("TUTOR_ANALYZER", dic)
+
+    def activate_this(self):
+        self.owner.set_engine(self.engine)

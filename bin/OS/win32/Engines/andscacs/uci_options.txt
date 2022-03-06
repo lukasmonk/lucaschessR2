@@ -1,0 +1,14 @@
+id name Andscacs 0.9432n
+id author Daniel Jose
+option name Ponder type check default false
+option name Hash type spin default 128 min 1 max 65536
+option name Clear Hash type button
+option name NullMove type check default true
+option name MultiPV type spin default 1 min 1 max 100
+option name Threads type spin default 1 min 1 max 512
+option name AlwaysFullPv type check default false
+option name Contempt type spin default 0 min -100 max 100
+option name NeverClearHash type check default false
+option name HashFile type string default hash.hsh
+option name SaveHashtoFile type button
+option name LoadHashfromFile type button

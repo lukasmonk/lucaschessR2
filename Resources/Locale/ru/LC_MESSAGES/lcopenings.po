@@ -1,0 +1,5537 @@
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Alapin Opening"
+msgstr "Дебют Алапина"
+
+msgid "Alekhine Defence: Balogh Variation"
+msgstr "Защита Алехина: вариант Балога"
+
+msgid "Alekhine Defence: Brooklyn Defence"
+msgstr "Защита Алехина: бруклинская защита"
+
+msgid "Alekhine Defence: Exchange Variation"
+msgstr "Защита Алехина: разменный вариант"
+
+msgid "Alekhine Defence: Four Pawns Attack, 6...Nc6"
+msgstr "Защита Алехина: атака четырех пешек, 6...Кc6"
+
+msgid "Alekhine Defence: Four Pawns Attack, 7.Be3"
+msgstr "Защита Алехина: атака четырех пешек, 7.Сe3"
+
+msgid "Alekhine Defence: Four Pawns Attack, Fianchetto Variation"
+msgstr "Защита Алехина: атака четырех пешек, вариант с фианкетто"
+
+msgid ""
+"Alekhine Defence: Four Pawns Attack, Ilyin-Genevsky var. Iline-Jenevski"
+msgstr "Защита Алехина: атака четырех пешек, вариант Ильина-Женевского"
+
+msgid "Alekhine Defence: Four Pawns Attack, Korchnoi Variation"
+msgstr "Защита Алехина: атака четырех пешек, вариант Корчного"
+
+msgid "Alekhine Defence: Four Pawns Attack, Planinc Variation"
+msgstr "Защита Алехина: атака четырех пешек, вариант Планинца"
+
+msgid "Alekhine Defence: Four Pawns Attack, Trifunovic Variation"
+msgstr "Защита Алехина: атака четырех пешек, вариант Трифуновича"
+
+msgid "Alekhine Defence: Four Pawns Attack"
+msgstr "Защита Алехина: атака четырех пешек"
+
+msgid "Alekhine Defence: Kmoch Variation"
+msgstr "Защита Алехина: вариант Кмоха"
+
+msgid "Alekhine Defence: Krejcik Variation"
+msgstr "Защита Алехина: вариант Крейчика"
+
+msgid "Alekhine Defence: Maroczy Variation"
+msgstr "Защита Алехина: вариант Мароци"
+
+msgid "Alekhine Defence: Modern Variation, 4...Bg4"
+msgstr "Защита Алехина: современная система, 4...Сg4"
+
+msgid "Alekhine Defence: Modern Variation"
+msgstr "Защита Алехина: современная система"
+
+msgid "Alekhine Defence: Mokele Mbembe (Buecker) Variation"
+msgstr "Защита Алехина: вариант Мокеле Мбембе"
+
+msgid "Alekhine Defence: O'Sullivan Gambit"
+msgstr "Защита Алехина: гамбит О'Салливана"
+
+msgid "Alekhine Defence: Saemisch Attack"
+msgstr "Защита Алехина: атака Земиша"
+
+msgid "Alekhine Defence: Scandinavian Variation"
+msgstr "Защита Алехина: скандинавский вариант"
+
+msgid "Alekhine Defence: Spielmann Variation"
+msgstr "Защита Алехина: вариант Шпильмана"
+
+msgid "Alekhine Defence: Steiner Variation"
+msgstr "Защита Алехина: вариант Стейнера"
+
+msgid "Alekhine Defence: Two Pawns' (Lasker) Attack"
+msgstr "Защита Алехина: атака двух пешек"
+
+msgid "Alekhine Defence: Two Pawns' Attack, Mikenas Variation"
+msgstr "Защита Алехина: атака двух пешек, вариант Микенаса"
+
+msgid "Alekhine Defence: Welling Variation"
+msgstr "Защита Алехина: вариант Уэллинга"
+
+msgid "Alekhine Defence: modern, Alekhine Variation"
+msgstr "Защита Алехина: современная система, вариант Алехина"
+
+msgid "Alekhine Defence: modern, Fianchetto Variation"
+msgstr "Защита Алехина: современная система, вариант с фианкетто"
+
+msgid "Alekhine Defence: modern, Flohr Variation"
+msgstr "Защита Алехина: современная система, вариант Флора"
+
+msgid "Alekhine Defence: modern, Keres Variation"
+msgstr "Защита Алехина: современная система, вариант Кереса"
+
+msgid "Alekhine Defence: modern, Larsen Variation"
+msgstr "Защита Алехина: современная система, вариант Ларсена"
+
+msgid "Alekhine Defence: modern, Panov Variation"
+msgstr "Защита Алехина: современная система, вариант Панова"
+
+msgid "Alekhine Defence: modern, Schmid Variation"
+msgstr "Защита Алехина: современная система, вариант Шмида"
+
+msgid "Alekhine Defence"
+msgstr "Защита Алехина"
+
+msgid "Amar (Paris) Opening"
+msgstr "Дебют Амара"
+
+msgid "Amar Gambit"
+msgstr "Гамбит Амара"
+
+msgid "Amsterdam Attack"
+msgstr "Амстердамская атака"
+
+msgid "Anderssen Opening"
+msgstr "Дебют Андерсена"
+
+msgid "Anti-Borg (Desprez) Opening"
+msgstr "Дебют Деспреса"
+
+msgid "Barnes Defence"
+msgstr "Защита Барнса"
+
+msgid "Battambang Opening"
+msgstr "Баттамбанг"
+
+msgid "Beefeater Defence"
+msgstr "Дебют ферзевой пешки: вариант Бифитер"
+
+msgid "Benko Gambit Accepted"
+msgstr "Принятый волжский гамбит"
+
+msgid "Benko Gambit half Accepted"
+msgstr "Полупринятый волжский гамбит"
+
+msgid "Benko Gambit: 7.e4"
+msgstr "Волжский гамбит: 7. e4"
+
+msgid "Benko Gambit: Fianchetto Variation"
+msgstr "Принятый волжский гамбит: вариант с фианкетто"
+
+msgid "Benko Gambit: Main Line"
+msgstr "Волжский гамбит: основной вариант"
+
+msgid "Benko Gambit: Nd2 Variation"
+msgstr "Принятый волжский гамбит: вариант Кd2"
+
+msgid "Benko Gambit: Ne2 Variation"
+msgstr "Волжский гамбит: вариант с Кe2"
+
+msgid "Benko Gambit: Nescafe Frappe Attack"
+msgstr "Волжский гамбит: атака Нескафе фрап"
+
+msgid "Benko Gambit: Zaitsev System"
+msgstr "Волжский гамбит: система Зайцева"
+
+msgid "Benko Gambit"
+msgstr "Волжский гамбит"
+
+msgid "Benko Opening: Reversed Alekhine"
+msgstr "Староиндийское начало: защита Алехина с переменой цвета фигур"
+
+msgid "Benko Opening"
+msgstr "Староиндийское начало"
+
+msgid "Benoni Defence: 6.e4"
+msgstr "Модерн-Бенони: 6.e4"
+
+msgid "Benoni Defence: Classical with ...Re8 and ...Na6"
+msgstr "Модерн-Бенони: классический вариант с ...Лe8 и ...Кa6"
+
+msgid "Benoni Defence: Classical with ...a6 and 10...Bg4"
+msgstr "Модерн-Бенони: классический вариант с ...a6 и 10...Сg4"
+
+msgid "Benoni Defence: Classical with e4 and Nf3"
+msgstr "Модерн-Бенони: классический вариант с e4 и Кf3"
+
+msgid "Benoni Defence: Classical without 9.O-O"
+msgstr "Модерн-Бенони: классический вариант без 9.O-O"
+
+msgid "Benoni Defence: Classical, 11.f3"
+msgstr "Модерн-Бенони: классический вариант, 11.f3"
+
+msgid "Benoni Defence: Classical, 8.Bg5"
+msgstr "Модерн-Бенони: классический вариант, 8.Сg5"
+
+msgid "Benoni Defence: Classical, 9...Re8, 10.Nd2"
+msgstr "Модерн-Бенони: классический вариант, 9...Лe8, 10.Кd2"
+
+msgid "Benoni Defence: Classical, 9...Re8"
+msgstr "Модерн-Бенони: классический вариант, 9...Лe8"
+
+msgid "Benoni Defence: Classical, 9...a6, 10.a4"
+msgstr "Модерн-Бенони: классический вариант, 9...a6, 10.a4"
+
+msgid "Benoni Defence: Classical, 9.O-O"
+msgstr "Модерн-Бенони: классический вариант, 9.O-O"
+
+msgid "Benoni Defence: Fianchetto Variation"
+msgstr "Модерн-Бенони: вариант с фианкетто"
+
+msgid "Benoni Defence: Fianchetto, 11...Re8"
+msgstr "Модерн-Бенони: вариант с фианкетто, 11...Лe8"
+
+msgid "Benoni Defence: Fianchetto, 9...Nbd7"
+msgstr "Модерн-Бенони: вариант с фианкетто, 9...Кbd7"
+
+msgid "Benoni Defence: Four Pawns Attack, Main Line"
+msgstr "Модерн-Бенони: атака четырех пешек, основной вариант"
+
+msgid "Benoni Defence: Four Pawns Attack"
+msgstr "Модерн-Бенони: атака четырех пешек"
+
+msgid "Benoni Defence: Hromodka System"
+msgstr "Защита Бенони: система Громадки"
+
+msgid "Benoni Defence: Mikenas Variation"
+msgstr "Модерн-Бенони: вариант Микенаса"
+
+msgid "Benoni Defence: Nimzovich (knight tour) Variation"
+msgstr "Модерн-Бенони: вариант Нимцовича"
+
+msgid "Benoni Defence: Pawn Storm Variation"
+msgstr "Модерн-Бенони: вариант пешечного штурма"
+
+msgid "Benoni Defence: Taimanov Variation"
+msgstr "Модерн-Бенони: вариант Тайманова"
+
+msgid "Benoni Defence: Uhlmann Variation"
+msgstr "Модерн-Бенони: вариант Ульмана"
+
+msgid "Benoni Defence"
+msgstr "Защита Бенони"
+
+msgid "Bird Opening: From Gambit, Lasker Variation"
+msgstr "Дебют Берда: гамбит Фрома, вариант Ласкера"
+
+msgid "Bird Opening: From Gambit, Lipke Variation"
+msgstr "Дебют Берда: гамбит Фрома, вариант Липке"
+
+msgid "Bird Opening: From Gambit"
+msgstr "Дебют Берда: гамбит Фрома"
+
+msgid "Bird Opening: Hobbs Gambit"
+msgstr "Дебют Берда: гамбит Гоббса"
+
+msgid "Bird Opening: Lasker Variation"
+msgstr "Дебют Берда: вариант Ласкера"
+
+msgid "Bird Opening: Swiss Gambit"
+msgstr "Дебют Берда: швейцарский гамбит"
+
+msgid "Bird Opening: Williams Gambit"
+msgstr "Дебют Берда: гамбит Уильямса"
+
+msgid "Bird Opening"
+msgstr "Дебют Берда"
+
+msgid "Bishop Opening: Berlin Defence"
+msgstr "Дебют слона: берлинская защита"
+
+msgid "Bishop Opening: Calabrese Counter-Gambit, Jaenisch Variation"
+msgstr "Дебют слона: калабрийский контргамбит, вариант Яниша"
+
+msgid "Bishop Opening: Calabrese Counter-Gambit"
+msgstr "Дебют слона: калабрийский контргамбит"
+
+msgid "Bishop Opening: Classical Variation"
+msgstr "Дебют слона: классический вариант"
+
+msgid "Bishop Opening: Four Pawns' Gambit"
+msgstr "Дебют слона: гамбит четырех пешек"
+
+msgid "Bishop Opening: Greco Gambit"
+msgstr "Дебют слона: гамбит Греко"
+
+msgid "Bishop Opening: Lewis Counter-Gambit"
+msgstr "Дебют слона: контргамбит Льюиса"
+
+msgid "Bishop Opening: Lewis Gambit"
+msgstr "Дебют слона: гамбит Льюиса"
+
+msgid "Bishop Opening: Lisitsyn Variation"
+msgstr "Дебют слона: вариант Лисицына"
+
+msgid "Bishop Opening: Lopez Gambit"
+msgstr "Дебют слона: гамбит Лопеса"
+
+msgid "Bishop Opening: MacDonnell Double Gambit"
+msgstr "Дебют слона: двойной гамбит Мак-Доннелла"
+
+msgid "Bishop Opening: Philidor Counter-Attack"
+msgstr "Дебют слона: контратака Филидора"
+
+msgid "Bishop Opening: Philidor Variation"
+msgstr "Дебют слона: вариант Филидора"
+
+msgid "Bishop Opening: Ponziani Gambit"
+msgstr "Дебют слона: гамбит Понциани"
+
+msgid "Bishop Opening: Pratt Variation"
+msgstr "Дебют слона: вариант Пратта"
+
+msgid "Bishop Opening: Urusov Gambit, Panov Variation"
+msgstr "Дебют слона: гамбит Урусова, вариант Панова"
+
+msgid "Bishop Opening: Urusov Gambit"
+msgstr "Дебют слона: гамбит Урусова"
+
+msgid "Bishop Opening: Wing Gambit"
+msgstr "Дебют слона: фланговый гамбит"
+
+msgid "Bishop Opening: del Rio Variation"
+msgstr "Дебют слона: вариант дель Рио"
+
+msgid "Bishop Opening"
+msgstr "Дебют слона"
+
+msgid "Blackburne shilling Gambit"
+msgstr "Шиллинговый гамбит Блэкберна"
+
+msgid "Blackmar-Diemer Gambit"
+msgstr "Гамбит Блэкмара-Димера"
+
+msgid "Blackmar-Diemer: Euwe Defence"
+msgstr "Гамбит Блэкмара-Димера: защита Эйве"
+
+msgid "Blackmar-Diemer: Lemberg Counter-Gambit"
+msgstr "Гамбит Блэкмара-Димера: лембергский контргамбит"
+
+msgid "Blumenfeld Counter-Gambit Accepted"
+msgstr "Принятый гамбит Блюменфельда"
+
+msgid "Blumenfeld Counter-Gambit, Dus-Chotimirsky Variation"
+msgstr "Гамбит Блюменфельда: вариант Дуз-Хотимирского"
+
+msgid "Blumenfeld Counter-Gambit, Spielmann Variation"
+msgstr "Гамбит Блюменфельда: вариант Шпильмана"
+
+msgid "Blumenfeld Counter-Gambit"
+msgstr "Гамбит Блюменфельда"
+
+msgid "Boden-Kieseritsky Gambit: Lichtenhein Defence"
+msgstr "Гамбит Бодена-Кизерицкого: защита Лихтенхейна"
+
+msgid "Boden-Kieseritsky Gambit"
+msgstr "Гамбит Бодена-Кизерицкого"
+
+msgid "Bogo-Indian Defence: Grünfeld Variation"
+msgstr "Защита Боголюбова: вариант Грюнфельда"
+
+msgid "Bogo-Indian Defence: Nimzovich Variation"
+msgstr "Защита Боголюбова: вариант Нимцовича"
+
+msgid "Bogo-Indian Defence"
+msgstr "Защита Боголюбова"
+
+msgid "Budapest Defence Declined"
+msgstr "Будапештский гамбит"
+
+msgid "Budapest Defence"
+msgstr "Будапештский гамбит"
+
+msgid "Budapest: Adler Variation"
+msgstr "Будапештский гамбит: вариант Адлера"
+
+msgid "Budapest: Alekhine Variation, Balogh Gambit"
+msgstr "Будапештский гамбит: вариант Алехина, гамбит Балога"
+
+msgid "Budapest: Alekhine Variation"
+msgstr "Будапештский гамбит: вариант Алехина"
+
+msgid "Budapest: Alekhine, Abonyi Variation"
+msgstr "Будапештский гамбит: вариант Алехина, вариант Абоньи"
+
+msgid "Budapest: Fajarowicz Variation"
+msgstr "Будапештский гамбит: вариант Фаяровича"
+
+msgid "Budapest: Fajarowicz, Steiner Variation"
+msgstr "Будапештский гамбит: вариант Фаяровича, вариант Стейнера"
+
+msgid "Budapest: Rubinstein Variation"
+msgstr "Будапештский гамбит: вариант Рубинштейна"
+
+msgid "Canard Opening"
+msgstr "Дебют Утка"
+
+msgid "Caro-Kann Defence: 3.Nd2"
+msgstr "Защита Каро-Канн: 3. Кd2"
+
+msgid "Caro-Kann Defence: Advance Variation"
+msgstr "Защита Каро-Канн: закрытая система"
+
+msgid "Caro-Kann Defence: Advance, Short Variation"
+msgstr "Защита Каро-Канн: закрытая система, вариант Шорта"
+
+msgid "Caro-Kann Defence: Alekhine Gambit"
+msgstr "Защита Каро-Канн: гамбит Алехина"
+
+msgid "Caro-Kann Defence: Anti-Anti-Caro-Kann Defence"
+msgstr "Защита Каро-Канн: анти-анти-Каро-Канн"
+
+msgid "Caro-Kann Defence: Anti-Caro-Kann Defence"
+msgstr "Защита Каро-Канн: анти-Каро-Канн"
+
+msgid "Caro-Kann Defence: Bronstein-Larsen Variation"
+msgstr "Защита Каро-Канн: вариант Бронштейна-Ларсена"
+
+msgid "Caro-Kann Defence: Classical Variation"
+msgstr "Защита Каро-Канн: классическая система"
+
+msgid "Caro-Kann Defence: Classical, 6.h4"
+msgstr "Защита Каро-Канн: классическая система, 6.h4"
+
+msgid "Caro-Kann Defence: Classical, 7...Nd7"
+msgstr "Защита Каро-Канн: классическая система, 7...Кd7"
+
+msgid "Caro-Kann Defence: Classical, Flohr Variation"
+msgstr "Защита Каро-Канн: классическая система, вариант Флора"
+
+msgid "Caro-Kann Defence: Classical, Maroczy Attack"
+msgstr "Защита Каро-Канн: классическая система, атака Мароци"
+
+msgid "Caro-Kann Defence: Classical, Spassky Variation"
+msgstr "Защита Каро-Канн: классическая система, вариант Спасского"
+
+msgid "Caro-Kann Defence: Closed (Breyer) Variation"
+msgstr "Защита Каро-Канн: закрытый вариант"
+
+msgid "Caro-Kann Defence: Edinburgh Variation"
+msgstr "Защита Каро-Канн: эдинбургский вариант"
+
+msgid "Caro-Kann Defence: Exchange Variation"
+msgstr "Защита Каро-Канн: разменный вариант"
+
+msgid "Caro-Kann Defence: Exchange, Rubinstein Variation"
+msgstr "Защита Каро-Канн: разменный вариант, вариант Рубинштейна"
+
+msgid "Caro-Kann Defence: Forgacs Variation"
+msgstr "Защита Каро-Канн: вариант Форгача"
+
+msgid "Caro-Kann Defence: Goldman (Spielmann) Variation"
+msgstr "Защита Каро-Канн: вариант Голдмана"
+
+msgid "Caro-Kann Defence: Gurgenidze Counter-Attack"
+msgstr "Защита Каро-Канн: контратака Гургенидзе"
+
+msgid "Caro-Kann Defence: Gurgenidze System"
+msgstr "Защита Каро-Канн: система Гургенидзе"
+
+msgid "Caro-Kann Defence: Hillbilly Attack"
+msgstr "Защита Каро-Канн: деревенская атака"
+
+msgid "Caro-Kann Defence: Panov-Botvinnik Attack, 5...e6"
+msgstr "Защита Каро-Канн: атака Панова, 5...e6"
+
+msgid "Caro-Kann Defence: Panov-Botvinnik Attack, 5...g6"
+msgstr "Защита Каро-Канн: атака Панова, 5...g6"
+
+msgid "Caro-Kann Defence: Panov-Botvinnik Attack"
+msgstr "Защита Каро-Канн: атака Панова"
+
+msgid "Caro-Kann Defence: Panov-Botvinnik, Czerniak Variation"
+msgstr "Защита Каро-Канн: атака Панова, вариант Черняка"
+
+msgid "Caro-Kann Defence: Panov-Botvinnik, Gunderam Attack"
+msgstr "Защита Каро-Канн: атака Панова, атака Гундерама"
+
+msgid "Caro-Kann Defence: Panov-Botvinnik, Herzog Defence"
+msgstr "Защита Каро-Канн: атака Панова, защита Герцога"
+
+msgid "Caro-Kann Defence: Panov-Botvinnik, Reifir (Spielmann) Variation"
+msgstr "Защита Каро-Канн: атака Панова, вариант Шпильмана"
+
+msgid "Caro-Kann Defence: Panov-Botvinnik, normal Variation"
+msgstr "Защита Каро-Канн: атака Панова, общепринятый вариант"
+
+msgid "Caro-Kann Defence: Rasa-Studier Gambit"
+msgstr "Защита Каро-Канн: гамбит Мильнера-Бэрри"
+
+msgid "Caro-Kann Defence: Steinitz Variation"
+msgstr "Защита Каро-Канн: вариант Стейница"
+
+msgid "Caro-Kann Defence: Tartakower (Nimzovich) Variation"
+msgstr "Защита Каро-Канн: система Нимцовича"
+
+msgid "Caro-Kann Defence: Tartakower (fantasy) Variation"
+msgstr "Защита Каро-Канн: вариант Тартаковера"
+
+msgid "Caro-Kann Defence: Two Knights Variation"
+msgstr "Защита Каро-Канн: вариант двух коней"
+
+msgid "Caro-Kann Defence: Two Knights, 3...Bg4"
+msgstr "Защита Каро-Канн: вариант двух коней, 3...Сg4"
+
+msgid "Caro-Kann Defence"
+msgstr "Защита Каро-Канн"
+
+msgid "Caro-Masi Defence"
+msgstr "Защита Каро-Маси"
+
+msgid "Catalan Opening: Closed, 5.Nf3"
+msgstr "Каталонское начало: закрытый вариант, 5.Кf3"
+
+msgid "Catalan Opening: Closed, 6...Nbd7"
+msgstr "Каталонское начало: закрытый вариант, 6...Кbd7"
+
+msgid "Catalan Opening: Closed, 7.Qc2"
+msgstr "Каталонское начало: закрытый вариант, 7.Фc2"
+
+msgid "Catalan Opening: Closed, Botvinnik Variation"
+msgstr "Каталонское начало: закрытый вариант, вариант Ботвинника"
+
+msgid "Catalan Opening: Closed, Main Line"
+msgstr "Каталонское начало: закрытый вариант, основное продолжение"
+
+msgid "Catalan Opening: Closed, Qc2 & b3"
+msgstr "Каталонское начало: закрытый вариант, Фc2 и b3"
+
+msgid "Catalan Opening: Closed, Sokolsky Variation"
+msgstr "Каталонское начало: закрытый вариант, вариант Сокольского"
+
+msgid "Catalan Opening: Closed, Spassky Gambit"
+msgstr "Каталонское начало: закрытый вариант, гамбит Спасского"
+
+msgid "Catalan Opening: Closed, Zagoryansky Variation"
+msgstr "Каталонское начало: закрытый вариант, вариант Загорянского"
+
+msgid "Catalan Opening: Closed"
+msgstr "Каталонское начало: закрытый вариант"
+
+msgid "Catalan Opening: Open, 5.Nf3"
+msgstr "Каталонское начало: открытый вариант, 5.Кf3"
+
+msgid "Catalan Opening: Open, 5.Qa4 Nbd7, 6.Qxc4"
+msgstr "Каталонское начало: открытый вариант, 5.Фa4 Кbd7, 6.Фxc4"
+
+msgid "Catalan Opening: Open, 5.Qa4"
+msgstr "Каталонское начало: открытый вариант, 5.Фa4"
+
+msgid "Catalan Opening: Open, Alekhine Variation"
+msgstr "Каталонское начало: открытый вариант, вариант Алехина"
+
+msgid "Catalan Opening: Open, Classical Line"
+msgstr "Каталонское начало: открытый вариант, классическое продолжение"
+
+msgid "Catalan Opening"
+msgstr "Каталонское начало"
+
+msgid "Centre Game, Kieseritsky Variation"
+msgstr "Центральный дебют: вариант Кизерицкого"
+
+msgid "Centre Game: Berger Variation"
+msgstr "Центральный дебют: вариант Бергера"
+
+msgid "Centre Game: Charousek Variation"
+msgstr "Центральный дебют: вариант Харузека"
+
+msgid "Centre Game: Hall Variation"
+msgstr "Центральный дебют: вариант Холла"
+
+msgid "Centre Game: Kupreichik Variation"
+msgstr "Центральный дебют: вариант Купрейчика"
+
+msgid "Centre Game: Paulsen Attack"
+msgstr "Центральный дебют: атака Паульсена"
+
+msgid "Centre Game: l'Hermet Variation"
+msgstr "Центральный дебют: вариант Эрме"
+
+msgid "Centre Game"
+msgstr "Центральный дебют"
+
+msgid "Clemenz (Mead, Basman or de Klerk) Opening"
+msgstr "Дебют Клеменца"
+
+msgid "Colle System"
+msgstr "Система Колле"
+
+msgid "Corn Stalk Defence"
+msgstr "Защита кукурузного стебля"
+
+msgid "Crab Opening"
+msgstr "Дебют краба"
+
+msgid "Czech Benoni Defence: King Indian System"
+msgstr "Чешский вариант защиты Бенони: староиндийская система"
+
+msgid "Czech Benoni Defence"
+msgstr "Чешский вариант защиты Бенони"
+
+msgid "Damiano Defence"
+msgstr "Защита Дамиано"
+
+msgid "Danish Gambit: Collijn Defence"
+msgstr "Северный гамбит: защита Коллийна"
+
+msgid "Danish Gambit: Schlechter Defence"
+msgstr "Северный гамбит: защита Шлехтера"
+
+msgid "Danish Gambit: Soerensen Defence"
+msgstr "Северный гамбит: защита Серенсена"
+
+msgid "Danish Gambit"
+msgstr "Северный гамбит"
+
+msgid "De Bruycker Defence"
+msgstr "Защита Каро-Канн: защита де Брейкера"
+
+msgid "Doery Defence"
+msgstr "Защита Дери"
+
+msgid "Dresden Opening"
+msgstr "Дрезденское начало"
+
+msgid "Dunst (Sleipner, Heinrichsen) Opening"
+msgstr "Дебют Данста"
+
+msgid "Durkin Attack"
+msgstr "Дебют Дуркина"
+
+msgid "Dutch Defence: 2.Bg5 Variation"
+msgstr "Голландская защита: вариант 2.Сg5"
+
+msgid "Dutch Defence: Alekhine Variation"
+msgstr "Голландская защита: вариант Алехина"
+
+msgid "Dutch Defence: Balogh Defence"
+msgstr "Голландская защита: защита Балога"
+
+msgid "Dutch Defence: Blackburne Variation"
+msgstr "Голландская защита: вариант Блэкберна"
+
+msgid "Dutch Defence: Bladel Variation"
+msgstr "Голландская защита: бладельский вариант"
+
+msgid "Dutch Defence: Classical Variation"
+msgstr "Голландская защита: классический вариант"
+
+msgid "Dutch Defence: Dutch-Indian (Nimzo-Dutch) Variation"
+msgstr "Голландская защита: вариант защиты Нимцовича и Голландской защиты"
+
+msgid "Dutch Defence: Hort-Antoshin System"
+msgstr "Голландская защита: система Горта-Антошина"
+
+msgid "Dutch Defence: Ilyin-Genevsky Variation with Qc2"
+msgstr "Голландская защита: система Ильина-Женевского с Фc2"
+
+msgid "Dutch Defence: Ilyin-Genevsky Variation with b3"
+msgstr "Голландская защита: система Ильина-Женевского с b3"
+
+msgid "Dutch Defence: Ilyin-Genevsky Variation"
+msgstr "Голландская защита: система Ильина-Женевского"
+
+msgid "Dutch Defence: Ilyin-Genevsky, Winter Variation"
+msgstr "Голландская защита: система Ильина-Женевского, вариант Уинтера"
+
+msgid "Dutch Defence: Korchnoi Attack"
+msgstr "Голландская защита: атака Корчного"
+
+msgid "Dutch Defence: Krejcik Gambit"
+msgstr "Голландская защита: гамбит Крейчика"
+
+msgid "Dutch Defence: Leningrad Variation"
+msgstr "Голландская защита: ленинградская система"
+
+msgid "Dutch Defence: Leningrad, Basman System"
+msgstr "Голландская защита: ленинградская система, система Басмана"
+
+msgid "Dutch Defence: Leningrad, Karlsbad Variation"
+msgstr "Голландская защита: ленинградская система, карлсбадский вариант"
+
+msgid "Dutch Defence: Leningrad, Main Variation with Nc6"
+msgstr "Голландская защита: ленинградская система, основной вариант с Кc6"
+
+msgid "Dutch Defence: Leningrad, Main Variation with c6"
+msgstr "Голландская защита: ленинградская система, основной вариант с c6"
+
+msgid "Dutch Defence: Leningrad, Main Variation"
+msgstr "Голландская защита: ленинградская система, основной вариант"
+
+msgid "Dutch Defence: Manhattan (Alapin, Ulvestad) Variation"
+msgstr "Голландская защита: манхэттенский вариант"
+
+msgid "Dutch Defence: Rubinstein Variation"
+msgstr "Голландская защита: вариант Рубинштейна"
+
+msgid "Dutch Defence: Spielmann Gambit"
+msgstr "Голландская защита: гамбит Шпильмана"
+
+msgid "Dutch Defence: Staunton Gambit deferred"
+msgstr "Голландская защита: улучшенный гамбит Стаунтона"
+
+msgid "Dutch Defence: Staunton Gambit, Alekhine Variation"
+msgstr "Голландская защита: гамбит Стаунтона, вариант Алехина"
+
+msgid "Dutch Defence: Staunton Gambit, Chigorin Variation"
+msgstr "Голландская защита: гамбит Стаунтона, вариант Чигорина"
+
+msgid "Dutch Defence: Staunton Gambit, Lasker Variation"
+msgstr "Голландская защита: гамбит Стаунтона, вариант Ласкера"
+
+msgid "Dutch Defence: Staunton Gambit, Nimzovich Variation"
+msgstr "Голландская защита: гамбит Стаунтона, вариант Нимцовича"
+
+msgid "Dutch Defence: Staunton Gambit, Staunton Line"
+msgstr "Голландская защита: гамбит Стаунтона, продолжение Стаунтона"
+
+msgid "Dutch Defence: Staunton Gambit, Tartakower Variation"
+msgstr "Голландская защита: гамбит Стаунтона, вариант Тартаковера"
+
+msgid "Dutch Defence: Staunton Gambit"
+msgstr "Голландская защита: гамбит Стаунтона"
+
+msgid "Dutch Defence: Stonewall Variation"
+msgstr "Голландская защита: система Каменная стена"
+
+msgid "Dutch Defence: Stonewall with Ba3"
+msgstr "Голландская защита: система Каменная стена с Сa3"
+
+msgid "Dutch Defence: Stonewall with Nc3"
+msgstr "Голландская защита: система Каменная стена с Кc3"
+
+msgid "Dutch Defence: Stonewall, Botwinnik Variation"
+msgstr "Голландская защита: система Каменная стена, вариант Ботвинника"
+
+msgid "Dutch Defence: Stonewall, Chekhover Variation"
+msgstr "Голландская защита: система Каменная стена, вариант Чеховера"
+
+msgid "Dutch Defence: Von Pretzel Gambit"
+msgstr "Голландская защита Гамбит фон Претцеля"
+
+msgid "Dutch Defence"
+msgstr "Голландская защита"
+
+msgid "Dutch with c4 & Nc3"
+msgstr "Голландская защита с c4 и Кc3"
+
+msgid "Dutch with c4 & g3"
+msgstr "Голландская защита с c4 и g3"
+
+msgid "Dutch-Indian, Alekhine Variation"
+msgstr "Голландская защита: вариант Алехина"
+
+msgid "Dzindzichashvili Defence"
+msgstr "Защита Джинджихашвили"
+
+msgid "English Opening: 1...Nf6 (Anglo-Indian Defence)"
+msgstr "Английское начало: английская система индийской защиты"
+
+msgid "English Opening: Adorjan Defence"
+msgstr "Английское начало: защита Адорьяна"
+
+msgid "English Opening: Agincourt Variation"
+msgstr "Английское начало: азенкурский вариант"
+
+msgid "English Opening: Anglo-Dutch Defence"
+msgstr "Английское начало: английская система голландской защиты"
+
+msgid "English Opening: Anglo-Grünfeld Defence, Korchnoi Variation"
+msgstr ""
+"Английское начало: английская система защиты Грюнфельда, вариант Корчного"
+
+msgid "English Opening: Anglo-Grünfeld Defence"
+msgstr "Английское начало: английская система защиты Грюнфельда"
+
+msgid "English Opening: Anglo-Grünfeld, Czech Defence"
+msgstr ""
+"Английское начало: английская система защиты Грюнфельда, чешская защита"
+
+msgid "English Opening: Anglo-Grünfeld, Smyslov Defence"
+msgstr ""
+"Английское начало: английская система защиты Грюнфельда, защита Смыслова"
+
+msgid "English Opening: Bellon Gambit"
+msgstr "Английское начало: гамбит Беллона"
+
+msgid "English Opening: Bled Variation"
+msgstr "Английское начало: вариант Бледа"
+
+msgid "English Opening: Botvinnik System"
+msgstr "Английское начало: система Ботвинника"
+
+msgid "English Opening: Bradley Beach Variation"
+msgstr "Английское начало: Брэдли Бич-вариант"
+
+msgid "English Opening: Bremen System with ...g6"
+msgstr "Английское начало: бременская система с ...g6"
+
+msgid "English Opening: Bremen System, Keres Variation"
+msgstr "Английское начало: бременская система, вариант Кереса"
+
+msgid "English Opening: Bremen, Smyslov System"
+msgstr "Английское начало: бременская система, система Смыслова"
+
+msgid "English Opening: Bremen, reverse Dragon"
+msgstr ""
+"Английское начало: бременская система, вариант дракона с переменой цвета "
+"фигур"
+
+msgid "English Opening: Capablanca Variation"
+msgstr "Английское начало: вариант Капабланки"
+
+msgid "English Opening: Carls' Bremen System"
+msgstr "Английское начало: бременская система Карльса"
+
+msgid "English Opening: Caro-Kann Defensive System, Bogolyubov Variation"
+msgstr "Английское начало: система защиты Каро-Канн, вариант Боголюбова"
+
+msgid "English Opening: Caro-Kann Defensive System"
+msgstr "Английское начало: система защиты Каро-Канн"
+
+msgid "English Opening: Closed System (without ...d6)"
+msgstr "Английское начало: закрытая система (без ...d6)"
+
+msgid "English Opening: Closed System"
+msgstr "Английское начало: закрытая система"
+
+msgid "English Opening: Closed, 5.Rb1 Taimanov Variation"
+msgstr "Английское начало: закрытая система, 5.Лb1, вариант Тайманова"
+
+msgid "English Opening: Closed, 5.Rb1"
+msgstr "Английское начало: закрытая система, 5.Лb1"
+
+msgid "English Opening: Closed, Hort Variation"
+msgstr "Английское начало: закрытая система, вариант Горта"
+
+msgid "English Opening: Closed, Taimanov Variation"
+msgstr "Английское начало: закрытая система, вариант Тайманова"
+
+msgid "English Opening: Four Knights System"
+msgstr "Английское начало: система четырех коней"
+
+msgid "English Opening: Four Knights, 4.e3"
+msgstr "Английское начало: система четырех коней, 4.e3"
+
+msgid "English Opening: Four Knights, Capablanca Variation"
+msgstr "Английское начало: система четырех коней, вариант Капабланки"
+
+msgid "English Opening: Four Knights, Kingside Fianchetto"
+msgstr "Английское начало: система четырех коней, королевское фианкетто"
+
+msgid "English Opening: Four Knights, Marini Variation"
+msgstr "Английское начало: система четырех коней, вариант Марини"
+
+msgid "English Opening: Four Knights, Nimzovich Variation"
+msgstr "Английское начало: система четырех коней, вариант Нимцовича"
+
+msgid "English Opening: Four Knights, Romanishin Variation"
+msgstr "Английское начало: система четырех коней, вариант Романишина"
+
+msgid "English Opening: Four Knights, Stean Variation"
+msgstr "Английское начало: система четырех коней, вариант Стина"
+
+msgid "English Opening: Jaenisch Gambit"
+msgstr "Английское начало: контргамбит Яниша"
+
+msgid "English Opening: Keres Variation"
+msgstr "Английское начало: вариант Кереса"
+
+msgid "English Opening: Kramnik-Shirov CounterAttack"
+msgstr "Английское начало: контратака Крамника-Широва"
+
+msgid "English Opening: Kurajica Defence"
+msgstr "Английское начало: защита Кураицы"
+
+msgid "English Opening: London Defensive System"
+msgstr "Английское начало: лондонская защитная система"
+
+msgid "English Opening: Mikenas-Carls Variation"
+msgstr "Английское начало: система Микенаса-Флора"
+
+msgid "English Opening: Mikenas-Carls, Flohr Variation"
+msgstr "Английское начало: система Микенаса-Флора"
+
+msgid "English Opening: Mikenas-Carls, Kevitz Variation"
+msgstr "Английское начало: система Микенаса-Флора, вариант Кевитца"
+
+msgid "English Opening: Mikenas-Carls, Sicilian Variation"
+msgstr "Английское начало: система Микенаса-Флора, сицилианский вариант"
+
+msgid "English Opening: Nenarokov Variation"
+msgstr "Английское начало: вариант Ненарокова"
+
+msgid "English Opening: Neo-Catalan Accepted"
+msgstr "Английское начало: принятое новокаталонское начало"
+
+msgid "English Opening: Neo-Catalan Declined"
+msgstr "Английское начало: отказанное новокаталонское начало"
+
+msgid "English Opening: Neo-Catalan"
+msgstr "Английское начало: новокаталонское начало"
+
+msgid "English Opening: New York (London) Defensive System"
+msgstr "Английское начало: Нью-Йоркская защитная система"
+
+msgid "English Opening: Nimzo-English Opening"
+msgstr "Английское начало: английская система защиты Нимцовича"
+
+msgid "English Opening: Nimzovich Variation"
+msgstr "Английское начало: система Нимцовича"
+
+msgid "English Opening: Nimzovich, Flohr Variation"
+msgstr "Английское начало: система Нимцовича, вариант Флора"
+
+msgid "English Opening: Queens Indian Formation"
+msgstr "Английское начало: новоиндийское построение"
+
+msgid "English Opening: Queens Indian, Romanishin Variation"
+msgstr "Английское начало: новоиндийское построение, вариант Романишина"
+
+msgid "English Opening: Romanishin Gambit"
+msgstr "Английское начало: вариант Романишина"
+
+msgid "English Opening: Sicilian Reversed"
+msgstr "Английское начало: сицилианская защита с переменой цвета фигур"
+
+msgid "English Opening: Smyslov Defence"
+msgstr "Английское начало: защита Смыслова"
+
+msgid "English Opening: Symmetrical Variation"
+msgstr "Английское начало: симметричный вариант"
+
+msgid "English Opening: Symmetrical, Benoni Formation"
+msgstr "Английское начало: симметричный вариант, построение Бенони"
+
+msgid "English Opening: Symmetrical, Botvinnik System Reversed"
+msgstr ""
+"Английское начало: симметричный вариант, система Ботвинника с переменой "
+"цвета фигур"
+
+msgid "English Opening: Symmetrical, Botvinnik System"
+msgstr "Английское начало: симметричный вариант, система Ботвинника"
+
+msgid "English Opening: Symmetrical, Four Knights System"
+msgstr "Английское начало: симметричный вариант, система четырех коней"
+
+msgid "English Opening: Symmetrical, Geller Variation"
+msgstr "Английское начало: симметричный, вариант Геллера"
+
+msgid "English Opening: Symmetrical, Hedgehog System"
+msgstr "Английское начало: симметричный вариант, система ежа"
+
+msgid "English Opening: Symmetrical, Hedgehog, flexible Formation"
+msgstr ""
+"Английское начало: симметричный вариант, система ежа, гибкое построение"
+
+msgid "English Opening: Symmetrical, Main Line with b3"
+msgstr "Английское начало: симметричный вариант, основной вариант с b3"
+
+msgid "English Opening: Symmetrical, Main Line with d3"
+msgstr "Английское начало: симметричный вариант, основной вариант с d3"
+
+msgid "English Opening: Symmetrical, Main Line with d4"
+msgstr "Английское начало: симметричный вариант, основной вариант с d4"
+
+msgid "English Opening: Symmetrical, Rubinstein System"
+msgstr "Английское начало: симметричный вариант, система Рубинштейна"
+
+msgid "English Opening: Symmetrical, Three Knights System"
+msgstr "Английское начало: симметричный вариант, система трех коней"
+
+msgid "English Opening: Three Knights System"
+msgstr "Английское начало: система трех коней"
+
+msgid "English Opening: Torre Defensive System"
+msgstr "Английское начало: система защиты Торре"
+
+msgid "English Opening: Ultra-Symmetrical Variation"
+msgstr "Английское начало: ультрасимметричный вариант"
+
+msgid "English Opening: Wimpey System"
+msgstr "Английское начало: система Уимпи"
+
+msgid "English Opening"
+msgstr "Английское начало"
+
+msgid "English Orangutan"
+msgstr "Английское начало: дебют орангутанга"
+
+msgid "Evans Counter-Gambit"
+msgstr "Контргамбит Эванса"
+
+msgid "Evans Gambit Accepted"
+msgstr "Гамбит Эванса"
+
+msgid "Evans Gambit Declined, 5.a4"
+msgstr "Отказанный гамбит Эванса, 5.a4"
+
+msgid "Evans Gambit Declined, Cordel Variation"
+msgstr "Отказанный гамбит Эванса: вариант Корделя"
+
+msgid "Evans Gambit Declined, Hicken Variation"
+msgstr "Отказанный гамбит Эванса: вариант Хикена"
+
+msgid "Evans Gambit Declined, Hirschbach Variation"
+msgstr "Отказанный гамбит Эванса: вариант Хиршбаха"
+
+msgid "Evans Gambit Declined, Lange Variation"
+msgstr "Отказанный гамбит Эванса: вариант Ланге"
+
+msgid "Evans Gambit Declined, Pavlov Variation"
+msgstr "Отказанный гамбит Эванса: вариант Павлова"
+
+msgid "Evans Gambit Declined, Showalter Variation"
+msgstr "Отказанный гамбит Эванса: вариант Шовальтера"
+
+msgid "Evans Gambit Declined, Vasquez Variation"
+msgstr "Отказанный гамбит Эванса: вариант Васкеса"
+
+msgid "Evans Gambit: 5...Be7"
+msgstr "Гамбит Эванса: 5...Сe7"
+
+msgid "Evans Gambit: Alapin-Steinitz Variation"
+msgstr "Гамбит Эванса: вариант Алапина-Стейница"
+
+msgid "Evans Gambit: Cordel Variation"
+msgstr "Гамбит Эванса: вариант Корделя"
+
+msgid "Evans Gambit: Fraser Attack"
+msgstr "Гамбит Эванса: атака Фрейзера"
+
+msgid "Evans Gambit: Fraser-Mortimer Attack"
+msgstr "Гамбит Эванса: атака Фрейзера-Мортимера"
+
+msgid "Evans Gambit: Goering Attack"
+msgstr "Гамбит Эванса: атака Геринга"
+
+msgid "Evans Gambit: Lasker Defence"
+msgstr "Гамбит Эванса: защита Ласкера"
+
+msgid "Evans Gambit: Leonhardt Variation"
+msgstr "Гамбит Эванса: вариант Леонгардта"
+
+msgid "Evans Gambit: Levenfish Variation"
+msgstr "Гамбит Эванса: вариант Левенфиша"
+
+msgid "Evans Gambit: Mayet Defence"
+msgstr "Гамбит Эванса: защита Майета"
+
+msgid "Evans Gambit: Morphy Attack"
+msgstr "Гамбит Эванса: атака Морфи"
+
+msgid "Evans Gambit: Paulsen Variation"
+msgstr "Гамбит Эванса: вариант Паульсена"
+
+msgid "Evans Gambit: Richardson Attack"
+msgstr "Гамбит Эванса: атака Ричардсона"
+
+msgid "Evans Gambit: Sanders-Alapin Variation"
+msgstr "Гамбит Эванса: вариант Сандерса-Алапина"
+
+msgid "Evans Gambit: Sokolsky Variation"
+msgstr "Гамбит Эванса: вариант Сокольского"
+
+msgid "Evans Gambit: Steinitz Variation"
+msgstr "Гамбит Эванса: вариант Стейница"
+
+msgid "Evans Gambit: Stone-Ware Variation"
+msgstr "Гамбит Эванса: вариант Стоуна-Уэра"
+
+msgid "Evans Gambit: Tartakower Attack"
+msgstr "Гамбит Эванса: атака Тартаковера"
+
+msgid "Evans Gambit: Ulvestad Variation"
+msgstr "Гамбит Эванса: вариант Ульвестада"
+
+msgid "Evans Gambit: Waller Attack"
+msgstr "Гамбит Эванса: атака Уоллера"
+
+msgid "Evans Gambit: compromised Defence, Paulsen Variation"
+msgstr "Гамбит Эванса: скомпрометированная защита, вариант Паульсена"
+
+msgid "Evans Gambit: compromised Defence, Potter Variation"
+msgstr "Гамбит Эванса: скомпрометированная защита, вариант Поттера"
+
+msgid "Evans Gambit: compromised Defence"
+msgstr "Гамбит Эванса: скомпрометированная защита"
+
+msgid "Evans Gambit: normal Variation"
+msgstr "Гамбит Эванса: общепринятый вариант"
+
+msgid "Evans Gambit"
+msgstr "Гамбит Эванса"
+
+msgid "Four Knights Game: Bardeleben Variation"
+msgstr "Дебют четырех коней: вариант Барделебена"
+
+msgid "Four Knights Game: Belgrade Gambit"
+msgstr "Дебют четырех коней: белградский гамбит"
+
+msgid "Four Knights Game: Double Ruy Lopez"
+msgstr "Дебют четырех коней: классический вариант"
+
+msgid "Four Knights Game: Gunsberg Counter-Attack"
+msgstr "Дебют четырех коней: контратака Гунсберга"
+
+msgid "Four Knights Game: Gunsberg Variation"
+msgstr "Дебют четырех коней: вариант Гунсберга"
+
+msgid "Four Knights Game: Italian Variation"
+msgstr "Дебют четырех коней: итальянский вариант"
+
+msgid "Four Knights Game: Janowski Variation"
+msgstr "Дебют четырех коней: вариант Яновского"
+
+msgid "Four Knights Game: Marshall Variation"
+msgstr "Дебют четырех коней: вариант Маршалла"
+
+msgid "Four Knights Game: Nimzovich (Paulsen) Variation"
+msgstr "Дебют четырех коней: вариант Нимцовича"
+
+msgid "Four Knights Game: Ranken Variation"
+msgstr "Дебют четырех коней: вариант Рэнкена"
+
+msgid "Four Knights Game: Rubinstein Counter-Gambit, 5.Be2"
+msgstr "Дебют четырех коней: контргамбит Рубинштейна, 5.Сe2"
+
+msgid "Four Knights Game: Rubinstein Counter-Gambit, Bogolyubov Variation"
+msgstr "Дебют четырех коней: контргамбит Рубинштейна, вариант Боголюбова"
+
+msgid "Four Knights Game: Rubinstein Counter-Gambit, Exchange Variation"
+msgstr "Дебют четырех коней: контргамбит Рубинштейна, разменный вариант"
+
+msgid "Four Knights Game: Rubinstein Counter-Gambit, Henneberger Variation"
+msgstr "Дебют четырех коней: контргамбит Рубинштейна, вариант Хеннебергера"
+
+msgid "Four Knights Game: Rubinstein Counter-Gambit"
+msgstr "Дебют четырех коней: контргамбит Рубинштейна"
+
+msgid "Four Knights Game: Schultze-Mueller Gambit"
+msgstr "Дебют четырех коней: гамбит Шульца-Мюллера"
+
+msgid "Four Knights Game: Scotch Variation"
+msgstr "Дебют четырех коней: шотландский вариант"
+
+msgid "Four Knights Game: Scotch, 4...exd4"
+msgstr "Дебют четырех коней: шотландский вариант, 4...exd4"
+
+msgid "Four Knights Game: Scotch, Krause Variation"
+msgstr "Дебют четырех коней: шотландский вариант, вариант Краузе"
+
+msgid "Four Knights Game: Spanish Variation"
+msgstr "Дебют четырех коней: испанский вариант"
+
+msgid "Four Knights Game: Spanish, Classical Defence"
+msgstr "Дебют четырех коней: испанский вариант, классическая защита"
+
+msgid "Four Knights Game: Spielmann Variation"
+msgstr "Дебют четырех коней: вариант Шпильмана"
+
+msgid "Four Knights Game: Svenonius Variation"
+msgstr "Дебют четырех коней: вариант Свенониуса"
+
+msgid "Four Knights Game: Symmetrical Variation"
+msgstr "Дебют четырех коней: симметричный вариант"
+
+msgid "Four Knights Game: Symmetrical, Blake Variation"
+msgstr "Дебют четырех коней: симметричный вариант, вариант Блейка"
+
+msgid "Four Knights Game: Symmetrical, Capablanca Variation"
+msgstr "Дебют четырех коней: симметричный вариант, вариант Капабланки"
+
+msgid "Four Knights Game: Symmetrical, Maroczy System"
+msgstr "Дебют четырех коней: симметричный вариант, система Мароци"
+
+msgid "Four Knights Game: Symmetrical, Metger unpin"
+msgstr "Дебют четырех коней: симметричный вариант, развязывание по Метгеру"
+
+msgid "Four Knights Game: Symmetrical, Pillsbury Variation"
+msgstr "Дебют четырех коней: симметричный вариант, вариант Пильсбери"
+
+msgid "Four Knights Game: Symmetrical, Tarrasch Variation"
+msgstr "Дебют четырех коней: симметричный вариант, вариант Тарраша"
+
+msgid "Four Knights Game"
+msgstr "Дебют четырех коней"
+
+msgid "Fred"
+msgstr "Защита Фреда"
+
+msgid "French Defence, Steiner Variation"
+msgstr "Французская защита: вариант Стейнера"
+
+msgid "French Defence: Advance Variation"
+msgstr "Французская защита: система Нимцовича"
+
+msgid "French Defence: Advance, Euwe Variation"
+msgstr "Французская защита: система Нимцовича, вариант Эйве"
+
+msgid "French Defence: Advance, Milner-Barry Gambit"
+msgstr "Французская защита: система Нимцовича, гамбит Мильнера-Бэрри"
+
+msgid "French Defence: Advance, Nimzovich System"
+msgstr "Французская защита: система Нимцовича"
+
+msgid "French Defence: Advance, Nimzovich Variation"
+msgstr "Французская защита: система Нимцовича"
+
+msgid "French Defence: Advance, Paulsen Attack"
+msgstr "Французская защита: система Нимцовича, атака Паульсена"
+
+msgid "French Defence: Advance, Steinitz Variation"
+msgstr "Французская защита: система Нимцовича, вариант Стейница"
+
+msgid "French Defence: Advance, Wade Variation"
+msgstr "Французская защита: система Нимцовича, вариант Вейда"
+
+msgid "French Defence: Alapin Variation"
+msgstr "Французская защита: вариант Алапина"
+
+msgid "French Defence: Albin-Alekhine-Chatard Attack, Breyer Variation"
+msgstr "Французская защита: атака Шатара-Алехина, вариант Брейера"
+
+msgid "French Defence: Albin-Alekhine-Chatard Attack, Maroczy Variation"
+msgstr "Французская защита: атака Шатара-Алехина, вариант Мароци"
+
+msgid "French Defence: Albin-Alekhine-Chatard Attack, Spielmann Variation"
+msgstr "Французская защита: атака Шатара-Алехина, вариант Шпильмана"
+
+msgid "French Defence: Albin-Alekhine-Chatard Attack, Teichmann Variation"
+msgstr "Французская защита: атака Шатара-Алехина, вариант Тейхмана"
+
+msgid "French Defence: Albin-Alekhine-Chatard Attack"
+msgstr "Французская защита: атака Шатара-Алехина"
+
+msgid "French Defence: Burn Variation"
+msgstr "Французская защита: вариант Берна"
+
+msgid "French Defence: Chigorin Variation"
+msgstr "Французская защита: система Чигорина"
+
+msgid "French Defence: Classical Variation"
+msgstr "Французская защита: классическая система"
+
+msgid "French Defence: Classical, Alapin Variation"
+msgstr "Французская защита: классическая система, вариант Алапина"
+
+msgid "French Defence: Classical, Anderssen Variation"
+msgstr "Французская защита: классическая система, вариант Андерсена"
+
+msgid "French Defence: Classical, Anderssen-Richter Variation"
+msgstr "Французская защита: классическая система, вариант Андерсена-Рихтера"
+
+msgid "French Defence: Classical, Frankfurt Variation"
+msgstr "Французская защита: классическая система, франкфуртский вариант"
+
+msgid "French Defence: Classical, Pollock Variation"
+msgstr "Французская защита: классическая система, вариант Поллока"
+
+msgid "French Defence: Classical, Rubinstein Variation"
+msgstr "Французская защита: классическая система, вариант Рубинштейна"
+
+msgid "French Defence: Classical, Stahlberg Variation"
+msgstr "Французская защита: классическая система, вариант Штальберга"
+
+msgid "French Defence: Classical, Steinitz Variation"
+msgstr "Французская защита: классическая система, вариант Стейница"
+
+msgid "French Defence: Classical, Tarrasch Variation"
+msgstr "Французская защита: классическая система, вариант Тарраша"
+
+msgid "French Defence: Classical, Tartakower Variation"
+msgstr "Французская защита: классическая система, вариант Тартаковера"
+
+msgid "French Defence: Classical, Vistaneckis (Nimzovich) Variation"
+msgstr "Французская защита: классическая система, вариант Вистанецкиса"
+
+msgid "French Defence: Exchange Variation"
+msgstr "Французская защита: разменный вариант"
+
+msgid "French Defence: Exchange, Bogolyubov Variation"
+msgstr "Французская защита: разменный вариант, вариант Боголюбова"
+
+msgid "French Defence: Exchange, Svenonius Variation"
+msgstr "Французская защита: разменный вариант, вариант Свенониуса"
+
+msgid "French Defence: Fort Knox Variation"
+msgstr "Французская защита: фортноксовский вариант"
+
+msgid "French Defence: Frere (Becker) Variation"
+msgstr "Французская защита: вариант Беккера"
+
+msgid "French Defence: Henneberger Variation"
+msgstr "Французская защита: вариант Хеннебергера"
+
+msgid "French Defence: King Indian Attack"
+msgstr "Французская защита: староиндийская атака"
+
+msgid "French Defence: La Bourdonnais Variation"
+msgstr "Французская защита: вариант Лабурдонне"
+
+msgid "French Defence: MacCutcheon Variation"
+msgstr "Французская защита: вариант Мак-Кэтчона"
+
+msgid "French Defence: MacCutcheon, Advance Variation"
+msgstr "Французская защита: вариант Мак-Кэтчона, вариант с продвижением"
+
+msgid "French Defence: MacCutcheon, Bernstein Variation"
+msgstr "Французская защита: вариант Мак-Кэтчона, вариант Бернштейна"
+
+msgid "French Defence: MacCutcheon, Bogolyubov Variation"
+msgstr "Французская защита: вариант Мак-Кэтчона, вариант Боголюбова"
+
+msgid "French Defence: MacCutcheon, Chigorin Variation"
+msgstr "Французская защита: вариант Мак-Кэтчона, вариант Чигорина"
+
+msgid "French Defence: MacCutcheon, Dr. Olland (Dutch) Variation"
+msgstr "Французская защита: вариант Мак-Кэтчона, голландский вариант"
+
+msgid "French Defence: MacCutcheon, Duras Variation"
+msgstr "Французская защита: вариант Мак-Кэтчона, вариант Дураса"
+
+msgid "French Defence: MacCutcheon, Grigoriev Variation"
+msgstr "Французская защита: вариант Мак-Кэтчона, вариант Григорьева"
+
+msgid "French Defence: MacCutcheon, Janowski Variation"
+msgstr "Французская защита: вариант Мак-Кэтчона, вариант Яновского"
+
+msgid "French Defence: MacCutcheon, Lasker Variation, 8...g6"
+msgstr "Французская защита: вариант Мак-Кэтчона, вариант Ласкера, 8...g6"
+
+msgid "French Defence: MacCutcheon, Lasker Variation"
+msgstr "Французская защита: вариант Мак-Кэтчона, вариант Ласкера"
+
+msgid "French Defence: MacCutcheon, Tartakower Variation"
+msgstr "Французская защита: вариант Мак-Кэтчона, вариант Тартаковера"
+
+msgid "French Defence: Marshall Variation"
+msgstr "Французская защита: вариант Маршалла"
+
+msgid "French Defence: Paulsen Variation"
+msgstr "Французская защита: вариант Паульсена"
+
+msgid "French Defence: Pelikan Variation"
+msgstr "Французская защита: вариант Пеликана"
+
+msgid "French Defence: Reti (Spielmann) Variation"
+msgstr "Французская защита: вариант Рети"
+
+msgid "French Defence: Reversed Philidor Formation"
+msgstr "Французская защита: вариант Филидора с переменой цвета фигур"
+
+msgid "French Defence: Rubinstein Variation"
+msgstr "Французская защита: вариант Рубинштейна"
+
+msgid "French Defence: Rubinstein, Capablanca Line"
+msgstr "Французская защита: вариант Рубинштейна, продолжение Капабланки"
+
+msgid "French Defence: Schlechter Variation"
+msgstr "Французская защита: вариант Шлехтера"
+
+msgid "French Defence: Steinitz Attack"
+msgstr "Французская защита: атака Стейница"
+
+msgid "French Defence: Steinitz Variation"
+msgstr "Французская защита: вариант Стейница"
+
+msgid "French Defence: Steinitz, Boleslavsky Variation"
+msgstr "Французская защита: вариант Стейница, вариант Болеславского"
+
+msgid "French Defence: Steinitz, Bradford Attack"
+msgstr "Французская защита: вариант Стейница, Брэдфордская атака"
+
+msgid "French Defence: Steinitz, Brodsky-Jones Variation"
+msgstr "Французская защита: вариант Стейница, вариант Бродского-Джоунса"
+
+msgid "French Defence: Steinitz, Gledhill Attack"
+msgstr "Французская защита: вариант Стейница, атака Гледхилла"
+
+msgid "French Defence: Swiss Variation"
+msgstr "Французская защита: швейцарский вариант"
+
+msgid "French Defence: Tarrasch, Botvinnik Variation"
+msgstr "Французская защита: система Тарраша, вариант Ботвинника"
+
+msgid "French Defence: Tarrasch, Closed Variation, Main Line"
+msgstr ""
+"Французская защита: система Тарраша, закрытый вариант, основное продолжение"
+
+msgid "French Defence: Tarrasch, Closed Variation"
+msgstr "Французская защита: система Тарраша, закрытый вариант"
+
+msgid "French Defence: Tarrasch, Eliskases Variation"
+msgstr "Французская защита: система Тарраша, вариант Элисказеса"
+
+msgid "French Defence: Tarrasch, Guimard Main Line"
+msgstr "Французская защита: система Тарраша, основной вариант Гимара"
+
+msgid "French Defence: Tarrasch, Guimard Variation"
+msgstr "Французская защита: система Тарраша, вариант Гимара"
+
+msgid "French Defence: Tarrasch, Haberditz Variation"
+msgstr "Французская защита: система Тарраша, вариант Хабердица"
+
+msgid "French Defence: Tarrasch, Leningrad Variation"
+msgstr "Французская защита: система Тарраша, ленинградский вариант"
+
+msgid "French Defence: Tarrasch, Open Variation, Main Line"
+msgstr ""
+"Французская защита: система Тарраша, открытый вариант, основное продолжение"
+
+msgid "French Defence: Tarrasch, Open Variation"
+msgstr "Французская защита: система Тарраша, открытый вариант"
+
+msgid "French Defence: Tarrasch, Open, 4.ed ed"
+msgstr "Французская защита: система Тарраша, открытый вариант с 4.ed ed"
+
+msgid "French Defence: Tarrasch"
+msgstr "Французская защита: система Тарраша"
+
+msgid "French Defence: Two Knights Variation"
+msgstr "Французская защита: вариант двух коней"
+
+msgid "French Defence: Winawer (Nimzovich) Variation"
+msgstr "Французская защита: вариант Винавера"
+
+msgid "French Defence: Winawer, Advance Variation"
+msgstr "Французская защита: вариант Винавера, вариант с продвижением"
+
+msgid "French Defence: Winawer, Advance, 5.a3"
+msgstr "Французская защита: вариант Винавера, вариант с продвижением, 5.a3"
+
+msgid "French Defence: Winawer, Advance, 6...Ne7"
+msgstr "Французская защита: вариант Винавера, вариант с продвижением, 6...Кe7"
+
+msgid "French Defence: Winawer, Advance, Bogolyubov Variation"
+msgstr ""
+"Французская защита: вариант Винавера, вариант с продвижением, вариант "
+"Боголюбова"
+
+msgid "French Defence: Winawer, Advance, Positional Main Line"
+msgstr ""
+"Французская защита: вариант Винавера, вариант с продвижением, основной "
+"позиционный вариант"
+
+msgid "French Defence: Winawer, Advance, Rauzer Variation"
+msgstr ""
+"Французская защита: вариант Винавера, вариант с продвижением, вариант "
+"Раузера"
+
+msgid "French Defence: Winawer, Advance, Russian Variation"
+msgstr ""
+"Французская защита: вариант Винавера, вариант с продвижением, русский "
+"вариант"
+
+msgid "French Defence: Winawer, Advance, Smyslov Variation"
+msgstr ""
+"Французская защита: вариант Винавера, вариант с продвижением, вариант "
+"Смыслова"
+
+msgid "French Defence: Winawer, Advance, poisoned Pawn Variation"
+msgstr ""
+"Французская защита: вариант Винавера, вариант с продвижением, вариант "
+"отравленной пешки"
+
+msgid ""
+"French Defence: Winawer, Advance, poisoned Pawn, Euwe-Gligoric Variation"
+msgstr ""
+"Французская защита: вариант Винавера, вариант с продвижением, вариант "
+"отравленной пешки, вариант Эйве-Глигорича"
+
+msgid ""
+"French Defence: Winawer, Advance, poisoned Pawn, Konstantinopolsky Variation"
+msgstr ""
+"Французская защита: вариант Винавера, вариант с продвижением, вариант "
+"отравленной пешки, вариант Константинопольского"
+
+msgid "French Defence: Winawer, Alekhine (Maroczy) Gambit"
+msgstr "Французская защита: вариант Винавера, гамбит Алехина"
+
+msgid "French Defence: Winawer, Alekhine Gambit, Alatortsev Variation"
+msgstr ""
+"Французская защита: вариант Винавера, гамбит Алехина, вариант Алаторцева"
+
+msgid "French Defence: Winawer, Alekhine Gambit, Kan Variation"
+msgstr "Французская защита: вариант Винавера, гамбит Алехина, вариант Кана"
+
+msgid "French Defence: Winawer, Alekhine Gambit"
+msgstr "Французская защита: вариант Винавера, гамбит Алехина"
+
+msgid "French Defence: Winawer, Classical Variation"
+msgstr "Французская защита: вариант Винавера, классический вариант"
+
+msgid "French Defence: Winawer, Fingerslip Variation"
+msgstr "Французская защита: вариант Винавера, вариант случайного касания"
+
+msgid "French Defence: Winawer, Kondratiyev Variation"
+msgstr "Французская защита: вариант Винавера, вариант Кондратьева"
+
+msgid "French Defence: Winawer, Petrosian Variation"
+msgstr "Французская защита: вариант Винавера, вариант Петросяна"
+
+msgid "French Defence: Wing Gambit"
+msgstr "Французская защита: фланговый гамбит"
+
+msgid "French Defence"
+msgstr "Французская защита"
+
+msgid "Fried Fox Defence"
+msgstr "Вариант жареного лиса"
+
+msgid "Gedult Attack"
+msgstr "Атака Барнса"
+
+msgid "Gedult Opening"
+msgstr "Дебют Барнса"
+
+msgid "Giuoco Pianissimo: Canal Variation"
+msgstr "Итальянская партия: вариант Каналя"
+
+msgid "Giuoco Pianissimo: Dubois Variation"
+msgstr "Итальянская партия: вариант Дюбуа"
+
+msgid "Giuoco Pianissimo: Italian Four Knights Variation"
+msgstr "Итальянская партия: итальянский вариант дебюта четырех коней"
+
+msgid "Giuoco Pianissimo"
+msgstr "Итальянская партия"
+
+msgid "Giuoco Piano: Aitken Variation"
+msgstr "Итальянская партия: вариант Эйткена"
+
+msgid "Giuoco Piano: Anderssen Variation"
+msgstr "Итальянская партия: вариант Андерсена"
+
+msgid "Giuoco Piano: Bernstein Variation"
+msgstr "Итальянская партия: вариант Бернштейна"
+
+msgid "Giuoco Piano: Bird Attack"
+msgstr "Итальянская партия: атака Берда"
+
+msgid "Giuoco Piano: Cracow Variation"
+msgstr "Итальянская партия: краковский вариант"
+
+msgid "Giuoco Piano: Eisinger Variation"
+msgstr "Итальянская партия: вариант Айзингера"
+
+msgid "Giuoco Piano: Four Knights Variation"
+msgstr "Итальянская партия: вариант четырех коней"
+
+msgid "Giuoco Piano: Ghulam Kassim Variation"
+msgstr "Итальянская партия: вариант Гулам Кассима"
+
+msgid "Giuoco Piano: Greco Attack"
+msgstr "Итальянская партия: атака Греко"
+
+msgid "Giuoco Piano: Greco Variation"
+msgstr "Итальянская партия: вариант Греко"
+
+msgid "Giuoco Piano: Holzhausen Attack"
+msgstr "Итальянская партия: атака Гольцгаузена"
+
+msgid "Giuoco Piano: Jerome Gambit"
+msgstr "Итальянская партия: гамбит Джерома"
+
+msgid "Giuoco Piano: Krause Variation"
+msgstr "Итальянская партия: вариант Краузе"
+
+msgid "Giuoco Piano: La Bourdonnais Variation"
+msgstr "Итальянская партия: вариант Лабурдонне"
+
+msgid "Giuoco Piano: Mestel Variation"
+msgstr "Итальянская партия: вариант Местела"
+
+msgid "Giuoco Piano: Moeller (Therkatz) Attack"
+msgstr "Итальянская партия: атака Меллера"
+
+msgid "Giuoco Piano: Moeller, bayonet Attack"
+msgstr "Итальянская партия: атака Меллера, штыковой удар"
+
+msgid "Giuoco Piano: Rosentreter Variation"
+msgstr "Итальянская партия: вариант Розентретера"
+
+msgid "Giuoco Piano: Steinitz Variation"
+msgstr "Итальянская партия: вариант Стейница"
+
+msgid "Giuoco Piano: Tarrasch Variation"
+msgstr "Итальянская партия: вариант Тарраша"
+
+msgid "Giuoco Piano: Therkatz-Herzog Variation"
+msgstr "Итальянская партия: вариант Теркатца-Херцога"
+
+msgid "Giuoco Piano: centre-holding Variation"
+msgstr "Итальянская партия: вариант с удержанием центра"
+
+msgid "Giuoco Piano: close Variation"
+msgstr "Итальянская партия: закрытый вариант"
+
+msgid "Giuoco Piano"
+msgstr "Итальянская партия"
+
+msgid "Global Opening"
+msgstr "Всеохватный дебют"
+
+msgid "Greco Defence"
+msgstr "Защита Греко"
+
+msgid "Grob Attack"
+msgstr "Дебют Гроба"
+
+msgid "Grob Opening: Fritz Gambit"
+msgstr "Дебют Гроба: гамбит Фрица"
+
+msgid "Grob Opening: Romford Counter-Gambit"
+msgstr "Дебют Гроба: контргамбит Ромфорда"
+
+msgid "Grob Opening: Spike Attack"
+msgstr "Дебют Гроба: Гвоздь"
+
+msgid "Grünfeld Defence: 4.Bf4"
+msgstr "Защита Грюнфельда: 4.Сf4"
+
+msgid "Grünfeld Defence: 5.Bf4"
+msgstr "Защита Грюнфельда: 5.Сf4"
+
+msgid "Grünfeld Defence: 5.Bg5"
+msgstr "Защита Грюнфельда: 5.Сg5"
+
+msgid "Grünfeld Defence: 5.e3"
+msgstr "Защита Грюнфельда: 5.e3"
+
+msgid "Grünfeld Defence: Botvinnik Variation"
+msgstr "Защита Грюнфельда: вариант Ботвинника"
+
+msgid "Grünfeld Defence: Exchange Variation"
+msgstr "Защита Грюнфельда: разменный вариант"
+
+msgid "Grünfeld Defence: Exchange, Classical Variation"
+msgstr "Защита Грюнфельда: разменный вариант, классический вариант"
+
+msgid "Grünfeld Defence: Exchange, Larsen Variation"
+msgstr "Защита Грюнфельда: разменный вариант, вариант Ларсена"
+
+msgid "Grünfeld Defence: Exchange, Seville Variation"
+msgstr "Защита Грюнфельда: разменный вариант, севильский вариант"
+
+msgid "Grünfeld Defence: Exchange, Simagin improved Variation"
+msgstr "Защита Грюнфельда: разменный вариант, усиленный вариант Симагина"
+
+msgid "Grünfeld Defence: Exchange, Simagin lesser Variation"
+msgstr ""
+"Защита Грюнфельда: разменный вариант, рекомендованный вариант Симагина"
+
+msgid "Grünfeld Defence: Exchange, Sokolsky Variation"
+msgstr "Защита Грюнфельда: разменный вариант, вариант Сокольского"
+
+msgid "Grünfeld Defence: Exchange, Spassky Variation"
+msgstr "Защита Грюнфельда: разменный вариант, вариант Спасского"
+
+msgid "Grünfeld Defence: Flohr Defence"
+msgstr "Защита Грюнфельда: защита Флора"
+
+msgid "Grünfeld Defence: Flohr Variation"
+msgstr "Защита Грюнфельда: вариант Флора"
+
+msgid "Grünfeld Defence: Grünfeld Gambit Accepted"
+msgstr "Защита Грюнфельда: принятый гамбит Грюнфельда"
+
+msgid "Grünfeld Defence: Grünfeld Gambit, Botvinnik Variation"
+msgstr "Защита Грюнфельда: гамбит Грюнфельда, вариант Ботвинника"
+
+msgid "Grünfeld Defence: Grünfeld Gambit, Capablanca Variation"
+msgstr "Защита Грюнфельда: гамбит Грюнфельда, вариант Капабланки"
+
+msgid "Grünfeld Defence: Grünfeld Gambit"
+msgstr "Защита Грюнфельда: гамбит Грюнфельда"
+
+msgid "Grünfeld Defence: Lundin Variation"
+msgstr "Защита Грюнфельда: вариант Лундина"
+
+msgid "Grünfeld Defence: Makogonov Variation"
+msgstr "Защита Грюнфельда: вариант Макогонова"
+
+msgid "Grünfeld Defence: Modern Exchange Variation"
+msgstr "Защита Грюнфельда: современный разменный вариант"
+
+msgid "Grünfeld Defence: Opovcensky Variation"
+msgstr "Защита Грюнфельда: вариант Опоченского"
+
+msgid "Grünfeld Defence: Pachman Variation"
+msgstr "Защита Грюнфельда: вариант Пахмана"
+
+msgid "Grünfeld Defence: Russian Variation with e4"
+msgstr "Защита Грюнфельда: русская система с e4"
+
+msgid "Grünfeld Defence: Russian Variation"
+msgstr "Защита Грюнфельда: русская система"
+
+msgid "Grünfeld Defence: Russian, Alekhine (Hungarian) Variation"
+msgstr "Защита Грюнфельда: русская система, вариант Алехина"
+
+msgid "Grünfeld Defence: Russian, Byrne (Simagin) Variation"
+msgstr "Защита Грюнфельда: русская система, вариант Бирна"
+
+msgid "Grünfeld Defence: Russian, Keres Variation"
+msgstr "Защита Грюнфельда: русская система, вариант Кереса"
+
+msgid "Grünfeld Defence: Russian, Levenfish Variation"
+msgstr "Защита Грюнфельда: русская система, вариант Левенфиша"
+
+msgid "Grünfeld Defence: Russian, Prins Variation"
+msgstr "Защита Грюнфельда: русская система, вариант Принса"
+
+msgid "Grünfeld Defence: Russian, Smyslov Variation"
+msgstr "Защита Грюнфельда: русская система, вариант Смыслова"
+
+msgid "Grünfeld Defence: Russian, Szabo (Boleslavsky) Variation"
+msgstr "Защита Грюнфельда: русская система, вариант Сабо"
+
+msgid "Grünfeld Defence: Schlechter Variation"
+msgstr "Защита Грюнфельда: вариант Шлехтера"
+
+msgid "Grünfeld Defence: Smyslov Defence"
+msgstr "Защита Грюнфельда: защита Смыслова"
+
+msgid "Grünfeld Defence: Smyslov, Main Line"
+msgstr "Защита Грюнфельда: вариант Смыслова, основное продолжение"
+
+msgid "Grünfeld Defence: Smyslov, Yugoslav Variation"
+msgstr "Защита Грюнфельда: вариант Смыслова, югославский вариант"
+
+msgid "Grünfeld Defence: Spassky Variation, Main Line, 10...cd, 11.cd"
+msgstr ""
+"Защита Грюнфельда: вариант Спасского, основное продолжение, 10...cd, 11.cd"
+
+msgid "Grünfeld Defence: Spassky Variation, Main Line, 13.Bd3"
+msgstr "Защита Грюнфельда: вариант Спасского, основное продолжение, 13.Сd3"
+
+msgid "Grünfeld Defence: Spike Gambit"
+msgstr "Защита Грюнфельда: выпад g4"
+
+msgid "Grünfeld Defence: Stockholm Variation"
+msgstr "Защита Грюнфельда: стокгольмский вариант"
+
+msgid "Grünfeld Defence: Three Knights Variation"
+msgstr "Защита Грюнфельда: вариант трех коней"
+
+msgid "Grünfeld Defence"
+msgstr "Защита Грюнфельда"
+
+msgid "Grünfeld with Bf4 & e3"
+msgstr "Защита Грюнфельда с Сf4 и e3"
+
+msgid "Grünfeld with e3 & Bd3"
+msgstr "Защита Грюнфельда с e3 и Сd3"
+
+msgid "Grünfeld with e3 & Qb3"
+msgstr "Защита Грюнфельда с e3 и Фb3"
+
+msgid "Guatemala Defence"
+msgstr "Гватемальская защита"
+
+msgid "Gunderam Defence"
+msgstr "Защита Гундерама"
+
+msgid "Halasz Gambit"
+msgstr "Гамбит Халаса"
+
+msgid "Hammerschlag (Fried fox/Pork chop Opening)"
+msgstr "Молотобоина"
+
+msgid "Hawk (Habichd) Defence"
+msgstr "Защита ястреба"
+
+msgid "Hippopotamus Defence"
+msgstr "Защита гиппопотама"
+
+msgid "Hungarian Defence: Tartakower Variation"
+msgstr "Венгерская партия: вариант Тартаковера"
+
+msgid "Hungarian Defence"
+msgstr "Венгерская партия"
+
+msgid "Inverted Hanham"
+msgstr "Вариант Хенема с переменой цвета фигур"
+
+msgid "Inverted Hungarian"
+msgstr "Венгерская партия с переменой цвета фигур"
+
+msgid "Irish (Chicago) Gambit"
+msgstr "Ирландский гамбит"
+
+msgid "Italian Opening"
+msgstr "Итальянская партия"
+
+msgid "Kevitz-Trajkovic Defence"
+msgstr "Защита Кевитца-Трайковича"
+
+msgid ""
+"King Gambit Accepted: Abbazia Defence (Classical Defence, Modern Defence[!])"
+msgstr "Принятый королевский гамбит: Аббация-защита"
+
+msgid "King Gambit Accepted: Abbazia Defence, Botvinnik Variation"
+msgstr "Принятый королевский гамбит: Аббация-защита, вариант Ботвинника"
+
+msgid "King Gambit Accepted: Abbazia Defence, Modern Variation"
+msgstr "Принятый королевский гамбит: Аббация-защита, современный вариант"
+
+msgid "King Gambit Accepted: Allgaier Gambit"
+msgstr "Принятый королевский гамбит: гамбит Альгайера"
+
+msgid "King Gambit Accepted: Allgaier, Blackburne Gambit"
+msgstr "Принятый королевский гамбит: гамбит Альгайера, гамбит Блекберна"
+
+msgid "King Gambit Accepted: Allgaier, Cook Variation"
+msgstr "Принятый королевский гамбит: гамбит Альгайера, вариант Кука"
+
+msgid "King Gambit Accepted: Allgaier, Horny Defence"
+msgstr "Принятый королевский гамбит: гамбит Альгайера, защита Хорны"
+
+msgid "King Gambit Accepted: Allgaier, Schlechter Defence"
+msgstr "Принятый королевский гамбит: гамбит Альгайера, защита Шлехтера"
+
+msgid "King Gambit Accepted: Allgaier, ThorOld Variation"
+msgstr "Принятый королевский гамбит: гамбит Альгайера, вариант Торолда"
+
+msgid "King Gambit Accepted: Allgaier, Urusov Attack"
+msgstr "Принятый королевский гамбит: гамбит Альгайера, атака Урусова"
+
+msgid "King Gambit Accepted: Allgaier, Walker Attack"
+msgstr "Принятый королевский гамбит: гамбит Альгайера, атака Уокера"
+
+msgid "King Gambit Accepted: Becker Defence"
+msgstr "Принятый королевский гамбит: защита Беккера"
+
+msgid "King Gambit Accepted: Bishop Gambit, Anderssen Variation"
+msgstr "Принятый королевский гамбит: гамбит слона, вариант Андерсена"
+
+msgid "King Gambit Accepted: Bishop Gambit, Bledow Variation"
+msgstr "Принятый королевский гамбит: гамбит слона, гамбит Бледова"
+
+msgid "King Gambit Accepted: Bishop Gambit, Boden Defence"
+msgstr "Принятый королевский гамбит: гамбит слона, защита Бодена"
+
+msgid "King Gambit Accepted: Bishop Gambit, Bogolyubov Variation"
+msgstr "Принятый королевский гамбит: гамбит слона, вариант Боголюбова"
+
+msgid "King Gambit Accepted: Bishop Gambit, Boren-Svenonius Variation"
+msgstr "Принятый королевский гамбит: гамбит слона, вариант Борена-Свенониуса"
+
+msgid "King Gambit Accepted: Bishop Gambit, Bryan Counter-Gambit"
+msgstr "Принятый королевский гамбит: гамбит слона, контргамбит Брайана"
+
+msgid "King Gambit Accepted: Bishop Gambit, Chigorin Attack"
+msgstr "Принятый королевский гамбит: гамбит слона, атака Чигорина"
+
+msgid "King Gambit Accepted: Bishop Gambit, Classical Defence, Cozio Attack"
+msgstr ""
+"Принятый королевский гамбит: гамбит слона, классическая защита, атака Коцио"
+
+msgid "King Gambit Accepted: Bishop Gambit, Classical Defence"
+msgstr "Принятый королевский гамбит: гамбит слона, классическая защита"
+
+msgid "King Gambit Accepted: Bishop Gambit, Cozio (Morphy) Defence"
+msgstr "Принятый королевский гамбит: гамбит слона, защита Коцио"
+
+msgid "King Gambit Accepted: Bishop Gambit, Fraser Variation"
+msgstr "Принятый королевский гамбит: гамбит слона, вариант Фрейзера"
+
+msgid "King Gambit Accepted: Bishop Gambit, Greco Variation"
+msgstr "Принятый королевский гамбит: гамбит слона, вариант Греко"
+
+msgid "King Gambit Accepted: Bishop Gambit, Grimm Attack"
+msgstr "Принятый королевский гамбит: гамбит слона, атака Гримма"
+
+msgid "King Gambit Accepted: Bishop Gambit, Jaenisch Variation"
+msgstr "Принятый королевский гамбит: гамбит слона, вариант Яниша"
+
+msgid "King Gambit Accepted: Bishop Gambit, Lopez-Gianutio Counter-Gambit"
+msgstr ""
+"Принятый королевский гамбит: гамбит слона, контргамбит Лопеса-Джануцио"
+
+msgid "King Gambit Accepted: Bishop Gambit, Maurian Defence"
+msgstr "Принятый королевский гамбит: гамбит слона, защита Морина"
+
+msgid "King Gambit Accepted: Bishop Gambit, McDonnell Attack"
+msgstr "Принятый королевский гамбит: гамбит слона, атака Мак-Доннелла"
+
+msgid "King Gambit Accepted: Bishop Gambit, Morphy Variation"
+msgstr "Принятый королевский гамбит: гамбит слона, вариант Морфи"
+
+msgid "King Gambit Accepted: Bishop Gambit, Paulsen Attack"
+msgstr "Принятый королевский гамбит: гамбит слона, атака Паульсена"
+
+msgid "King Gambit Accepted: Bishop Gambit, Ruy Lopez Defence"
+msgstr "Принятый королевский гамбит: гамбит слона, защита Руи Лопеса"
+
+msgid "King Gambit Accepted: Bishop Gambit, Steinitz Defence"
+msgstr "Принятый королевский гамбит: гамбит слона, защита Стейница"
+
+msgid "King Gambit Accepted: Bishop Gambit"
+msgstr "Принятый королевский гамбит: гамбит слона"
+
+msgid "King Gambit Accepted: Blachly Gambit"
+msgstr "Принятый королевский гамбит: гамбит Бланчли"
+
+msgid "King Gambit Accepted: Bonsch-Osmolovsky Variation"
+msgstr "Принятый королевский гамбит: вариант Бенша-Осмоловского"
+
+msgid "King Gambit Accepted: Breyer Gambit"
+msgstr "Принятый королевский гамбит: гамбит Брейера"
+
+msgid "King Gambit Accepted: Carrera (Basman) Gambit"
+msgstr "Принятый королевский гамбит: гамбит Карреры"
+
+msgid "King Gambit Accepted: Cochrane Gambit"
+msgstr "Принятый королевский гамбит: гамбит Кохрана"
+
+msgid "King Gambit Accepted: Cunningham Defence"
+msgstr "Принятый королевский гамбит: защита Каннингема"
+
+msgid "King Gambit Accepted: Cunningham, Bertin Gambit"
+msgstr "Принятый королевский гамбит: защита Каннингема, гамбит Бертена"
+
+msgid "King Gambit Accepted: Cunningham, Euwe Defence"
+msgstr "Принятый королевский гамбит: защита Каннингема, защита Эйве"
+
+msgid "King Gambit Accepted: Cunningham, Three Pawns Gambit"
+msgstr "Принятый королевский гамбит: защита Каннингема, гамбит трех пешек"
+
+msgid "King Gambit Accepted: Double Muzio Gambit"
+msgstr "Принятый королевский гамбит: двойной гамбит Муцио"
+
+msgid "King Gambit Accepted: Fischer Defence"
+msgstr "Принятый королевский гамбит: защита Фишера"
+
+msgid "King Gambit Accepted: Ghulam Kassim Gambit"
+msgstr "Принятый королевский гамбит: гамбит Гулам Кассима"
+
+msgid "King Gambit Accepted: Gianutio Counter-Gambit"
+msgstr "Принятый королевский гамбит: контргамбит Джануцио"
+
+msgid "King Gambit Accepted: Greco Gambit"
+msgstr "Принятый королевский гамбит: гамбит Греко"
+
+msgid "King Gambit Accepted: Herzfeld Gambit"
+msgstr "Принятый королевский гамбит: гамбит Герцфельда"
+
+msgid "King Gambit Accepted: Keres (Mason-Steinitz) Gambit"
+msgstr "Принятый королевский гамбит: гамбит Мэзона"
+
+msgid "King Gambit Accepted: Kieseritsky, Berlin Defence, 6.Bc4"
+msgstr ""
+"Принятый королевский гамбит: гамбит Кизерицкого, берлинская защита, 6.Сc4"
+
+msgid "King Gambit Accepted: Kieseritsky, Berlin Defence, Riviere Variation"
+msgstr ""
+"Принятый королевский гамбит: гамбит Кизерицкого, берлинская защита, вариант "
+"Ривьера"
+
+msgid "King Gambit Accepted: Kieseritsky, Berlin Defence"
+msgstr "Принятый королевский гамбит: гамбит Кизерицкого, берлинская защита"
+
+msgid "King Gambit Accepted: Kieseritsky, Brentano (Campbell) Defence"
+msgstr "Принятый королевский гамбит: гамбит Кизерицкого, защита Брентано"
+
+msgid "King Gambit Accepted: Kieseritsky, Brentano Defence, Caro Variation"
+msgstr ""
+"Принятый королевский гамбит: гамбит Кизерицкого, защита Брентано, вариант "
+"Каро"
+
+msgid ""
+"King Gambit Accepted: Kieseritsky, Brentano Defence, Kaplanek Variation"
+msgstr ""
+"Принятый королевский гамбит: гамбит Кизерицкого, защита Брентано, вариант "
+"Капланека"
+
+msgid "King Gambit Accepted: Kieseritsky, Brentano Defence"
+msgstr "Принятый королевский гамбит: гамбит Кизерицкого, защита Брентано"
+
+msgid "King Gambit Accepted: Kieseritsky, Kolisch Defence"
+msgstr "Принятый королевский гамбит: гамбит Кизерицкого, защита Колиша"
+
+msgid "King Gambit Accepted: Kieseritsky, Neumann Defence"
+msgstr "Принятый королевский гамбит: гамбит Кизерицкого, защита Неймана"
+
+msgid "King Gambit Accepted: Kieseritsky, Paulsen Defence"
+msgstr "Принятый королевский гамбит: гамбит Кизерицкого, защита Паульсена"
+
+msgid "King Gambit Accepted: Kieseritsky, Polerio Defence"
+msgstr "Принятый королевский гамбит: гамбит Кизерицкого, защита Полерио"
+
+msgid "King Gambit Accepted: Kieseritsky, Rice Gambit"
+msgstr "Принятый королевский гамбит: гамбит Кизерицкого, гамбит Райса"
+
+msgid "King Gambit Accepted: Kieseritsky, Salvio (Rosenthal) Defence"
+msgstr "Принятый королевский гамбит: гамбит Кизерицкого, защита Сальвио"
+
+msgid "King Gambit Accepted: Kieseritsky, Salvio Defence, Cozio Variation"
+msgstr ""
+"Принятый королевский гамбит: гамбит Кизерицкого, защита Сальвио, вариант "
+"Коцио"
+
+msgid ""
+"King Gambit Accepted: Kieseritsky, long whip (Stockwhip, Classical) Defence"
+msgstr "Принятый королевский гамбит: гамбит Кизерицкого, защита Длинный кнут"
+
+msgid ""
+"King Gambit Accepted: Kieseritsky, long whip Defence, Jaenisch Variation"
+msgstr ""
+"Принятый королевский гамбит: гамбит Кизерицкого, защита Длинный кнут, "
+"вариант Яниша"
+
+msgid "King Gambit Accepted: King knight Gambit"
+msgstr "Принятый королевский гамбит: гамбит Полерио"
+
+msgid ""
+"King Gambit Accepted: Lesser Bishop (Petroff-Jaenisch-Tartakower) Gambit"
+msgstr "Принятый королевский гамбит: гамбит Петрова"
+
+msgid "King Gambit Accepted: Lolli Gambit (wild Muzio Gambit)"
+msgstr "Принятый королевский гамбит: гамбит Лолли"
+
+msgid "King Gambit Accepted: Lolli Gambit, Young Variation"
+msgstr "Принятый королевский гамбит: гамбит Лолли, вариант Янга"
+
+msgid "King Gambit Accepted: Lopez-Gianutio Counter-Gambit, Hein Variation"
+msgstr ""
+"Принятый королевский гамбит: контргамбит Лопеса-Джануцио, вариант Хайна"
+
+msgid "King Gambit Accepted: MacDonnell Gambit"
+msgstr "Принятый королевский гамбит: гамбит Мак-Доннелла"
+
+msgid "King Gambit Accepted: Muzio Gambit, Brentano Defence"
+msgstr "Принятый королевский гамбит: гамбит Муцио, защита Брентано"
+
+msgid "King Gambit Accepted: Muzio Gambit, From Defence"
+msgstr "Принятый королевский гамбит: гамбит Муцио, защита Фрома"
+
+msgid "King Gambit Accepted: Muzio Gambit, Holloway Defence"
+msgstr "Принятый королевский гамбит: гамбит Муцио, защита Холлоуэя"
+
+msgid "King Gambit Accepted: Muzio Gambit, Kling and Horwitz Counter-Attack"
+msgstr ""
+"Принятый королевский гамбит: гамбит Муцио, контратака Клинга и Горвица"
+
+msgid "King Gambit Accepted: Muzio Gambit, Paulsen Variation"
+msgstr "Принятый королевский гамбит: гамбит Муцио, вариант Паульсена"
+
+msgid "King Gambit Accepted: Muzio Gambit"
+msgstr "Принятый королевский гамбит: гамбит Муцио"
+
+msgid "King Gambit Accepted: Orsini Gambit"
+msgstr "Принятый королевский гамбит: гамбит Орсини"
+
+msgid "King Gambit Accepted: Pawn Gambit (Stamma Gambit)"
+msgstr "Принятый королевский гамбит: пешечный гамбит"
+
+msgid "King Gambit Accepted: Philidor Gambit, Schultz Variation"
+msgstr "Принятый королевский гамбит: гамбит Филидора, вариант Шульца"
+
+msgid "King Gambit Accepted: Philidor Gambit"
+msgstr "Принятый королевский гамбит: гамбит Филидора"
+
+msgid "King Gambit Accepted: Quaade Gambit"
+msgstr "Принятый королевский гамбит: гамбит Квааде"
+
+msgid "King Gambit Accepted: Rosentreter Gambit"
+msgstr "Принятый королевский гамбит: гамбит Розентретера"
+
+msgid "King Gambit Accepted: Salvio Gambit, Anderssen Counter-Attack"
+msgstr "Принятый королевский гамбит: гамбит Сальвио, контратака Андерсена"
+
+msgid "King Gambit Accepted: Salvio Gambit"
+msgstr "Принятый королевский гамбит: гамбит Сальвио"
+
+msgid "King Gambit Accepted: Schallop Defence"
+msgstr "Принятый королевский гамбит: защита Шаллопа"
+
+msgid "King Gambit Accepted: Schurig Gambit"
+msgstr "Принятый королевский гамбит: гамбит Шурига"
+
+msgid "King Gambit Accepted: Silberschmidt Gambit"
+msgstr "Принятый королевский гамбит: гамбит Зильбершмидта"
+
+msgid "King Gambit Accepted: Soerensen Gambit"
+msgstr "Принятый королевский гамбит: гамбит Серенсена"
+
+msgid "King Gambit Accepted: Tumbleweed Gambit"
+msgstr "Принятый королевский гамбит: гамбит перекати-поле"
+
+msgid "King Gambit Accepted: Villemson (Steinitz) Gambit"
+msgstr "Принятый королевский гамбит: гамбит Виллемсона"
+
+msgid "King Gambit Accepted"
+msgstr "Принятый королевский гамбит"
+
+msgid "King Gambit Declined: 2...Nf6"
+msgstr "Отказанный королевский гамбит: 2...Кf6"
+
+msgid "King Gambit Declined: Classical Counter-Gambit"
+msgstr "Отказанный королевский гамбит: классический контргамбит"
+
+msgid "King Gambit Declined: Classical Variation"
+msgstr "Отказанный королевский гамбит: классический вариант"
+
+msgid "King Gambit Declined: Classical, 4.c3"
+msgstr "Отказанный королевский гамбит: классический вариант, 4.c3"
+
+msgid "King Gambit Declined: Classical, Hanham Variation"
+msgstr "Отказанный королевский гамбит: классический вариант, вариант Хенема"
+
+msgid "King Gambit Declined: Classical, Heath Variation"
+msgstr "Отказанный королевский гамбит: классический вариант, вариант Хита"
+
+msgid "King Gambit Declined: Classical, Marshall Attack"
+msgstr "Отказанный королевский гамбит: классический вариант, атака Маршалла"
+
+msgid "King Gambit Declined: Classical, Reti Variation"
+msgstr "Отказанный королевский гамбит: классический вариант, вариант Рети"
+
+msgid "King Gambit Declined: Classical, Soldatenkov Variation"
+msgstr ""
+"Отказанный королевский гамбит: классический вариант, вариант Солдатенкова"
+
+msgid "King Gambit Declined: Classical, Svenonius Variation"
+msgstr ""
+"Отказанный королевский гамбит: классический вариант, вариант Свенониуса"
+
+msgid "King Gambit Declined: Falkbeer Counter-Gambit"
+msgstr "Отказанный королевский гамбит: контргамбит Фалькбеера"
+
+msgid "King Gambit Declined: Falkbeer, 3...e4"
+msgstr "Отказанный королевский гамбит: контргамбит Фалькбеера, 3...e4"
+
+msgid "King Gambit Declined: Falkbeer, 4.d3"
+msgstr "Отказанный королевский гамбит: контргамбит Фалькбеера, 4.d3"
+
+msgid "King Gambit Declined: Falkbeer, 5.de"
+msgstr "Отказанный королевский гамбит: контргамбит Фалькбеера, 5.de"
+
+msgid "King Gambit Declined: Falkbeer, Alapin Variation"
+msgstr ""
+"Отказанный королевский гамбит: контргамбит Фалькбеера, вариант Алапина"
+
+msgid "King Gambit Declined: Falkbeer, Charousek Gambit"
+msgstr ""
+"Отказанный королевский гамбит: контргамбит Фалькбеера, гамбит Харузека"
+
+msgid "King Gambit Declined: Falkbeer, Keres Variation"
+msgstr "Отказанный королевский гамбит: контргамбит Фалькбеера, вариант Кереса"
+
+msgid "King Gambit Declined: Falkbeer, Main Line, 7...Bf5"
+msgstr ""
+"Отказанный королевский гамбит: контргамбит Фалькбеера, основной вариант, "
+"7...Сf5"
+
+msgid "King Gambit Declined: Falkbeer, Milner-Barry Variation"
+msgstr ""
+"Отказанный королевский гамбит: контргамбит Фалькбеера, вариант Мильнера-"
+"Бэрри"
+
+msgid "King Gambit Declined: Falkbeer, Morphy Gambit"
+msgstr "Отказанный королевский гамбит: контргамбит Фалькбеера, гамбит Морфи"
+
+msgid "King Gambit Declined: Falkbeer, Nimzovich Variation"
+msgstr ""
+"Отказанный королевский гамбит: контргамбит Фалькбеера, вариант Нимцовича"
+
+msgid "King Gambit Declined: Falkbeer, Reti Variation"
+msgstr "Отказанный королевский гамбит: контргамбит Фалькбеера, вариант Рети"
+
+msgid "King Gambit Declined: Falkbeer, Rubinstein Variation"
+msgstr ""
+"Отказанный королевский гамбит: контргамбит Фалькбеера, вариант Рубинштейна"
+
+msgid "King Gambit Declined: Falkbeer, Tarrasch Variation"
+msgstr ""
+"Отказанный королевский гамбит: контргамбит Фалькбеера, вариант Тарраша"
+
+msgid "King Gambit Declined: Falkbeer, Tartakower Variation"
+msgstr ""
+"Отказанный королевский гамбит: контргамбит Фалькбеера, вариант Тартаковера"
+
+msgid "King Gambit Declined: Keene Defence"
+msgstr "Отказанный королевский гамбит: защита Кина"
+
+msgid "King Gambit Declined: Mafia Defence"
+msgstr "Отказанный королевский гамбит: защита мафии"
+
+msgid "King Gambit Declined: Nimzovich Counter-Gambit"
+msgstr "Отказанный королевский гамбит: контргамбит Нимцовича"
+
+msgid "King Gambit Declined: Norwalde Variation, Buecker Gambit"
+msgstr "Отказанный королевский гамбит: норвальдский вариант, гамбит Бюкера"
+
+msgid "King Gambit Declined: Norwalde Variation"
+msgstr "Отказанный королевский гамбит: норвальдский вариант"
+
+msgid "King Gambit"
+msgstr "Королевский гамбит"
+
+msgid "King Indian Defence, 3.Nc3"
+msgstr "Староиндийская защита: 3.Кc3"
+
+msgid "King Indian Defence: 3.Nf3"
+msgstr "Староиндийская защита: 3.Кf3"
+
+msgid "King Indian Defence: 3.g3"
+msgstr "Староиндийская защита: 3.g3"
+
+msgid "King Indian Defence: 4.e4"
+msgstr "Староиндийская защита: 4.e4"
+
+msgid "King Indian Defence: 5.Be2"
+msgstr "Староиндийская защита: 5.Сe2"
+
+msgid "King Indian Defence: 5.Nf3"
+msgstr "Староиндийская защита: 5.Кf3"
+
+msgid "King Indian Defence: 6.Be2"
+msgstr "Староиндийская защита: 6.Сe2"
+
+msgid "King Indian Defence: Accelerated Averbakh System"
+msgstr "Староиндийская защита: ранняя система Авербаха"
+
+msgid "King Indian Defence: Andersson Variation"
+msgstr "Староиндийская защита: вариант Андерссона"
+
+msgid "King Indian Defence: Anti-Grünfeld"
+msgstr "Староиндийская защита: система анти-Грюнфельда"
+
+msgid "King Indian Defence: Averbakh System"
+msgstr "Староиндийская защита: система Авербаха"
+
+msgid "King Indian Defence: Averbakh, 6...c5"
+msgstr "Староиндийская защита: система Авербаха, 6...c5"
+
+msgid "King Indian Defence: Averbakh, Main Line"
+msgstr "Староиндийская защита: система Авербаха, основное продолжение"
+
+msgid "King Indian Defence: Classical Variation"
+msgstr "Староиндийская защита: классический вариант"
+
+msgid "King Indian Defence: Danube Gambit"
+msgstr "Староиндийская защита: дунайский гамбит"
+
+msgid "King Indian Defence: East Indian Defence"
+msgstr "Староиндийская защита: Ост-индская защита"
+
+msgid "King Indian Defence: Fianchetto Variation"
+msgstr "Староиндийская защита: вариант с фианкетто"
+
+msgid "King Indian Defence: Fianchetto with ...Nc6"
+msgstr "Староиндийская защита: вариант с фианкетто с ...Кc6"
+
+msgid "King Indian Defence: Fianchetto with ...Nd7"
+msgstr "Староиндийская защита: вариант с фианкетто с ...Кd7"
+
+msgid "King Indian Defence: Fianchetto without c4"
+msgstr "Староиндийская защита: фианкетто без c4"
+
+msgid "King Indian Defence: Fianchetto, Classical Main Line"
+msgstr ""
+"Староиндийская защита: вариант с фианкетто, классический вариант, основное "
+"продолжение"
+
+msgid "King Indian Defence: Fianchetto, Classical Variation, 8.e4"
+msgstr ""
+"Староиндийская защита: вариант с фианкетто, классический вариант, 8.e4"
+
+msgid "King Indian Defence: Fianchetto, Classical Variation"
+msgstr "Староиндийская защита: вариант с фианкетто, классический вариант"
+
+msgid "King Indian Defence: Fianchetto, Kavalek (Bronstein) Variation"
+msgstr "Староиндийская защита: вариант с фианкетто, вариант Кавалека"
+
+msgid "King Indian Defence: Fianchetto, Larsen System"
+msgstr "Староиндийская защита: вариант с фианкетто, система Ларсена"
+
+msgid "King Indian Defence: Fianchetto, Panno Variation"
+msgstr "Староиндийская защита: вариант с фианкетто, вариант Панно"
+
+msgid "King Indian Defence: Fianchetto, Simagin Variation"
+msgstr "Староиндийская защита: вариант с фианкетто, вариант Симагина"
+
+msgid "King Indian Defence: Fianchetto, Uhlmann (Szabo) Variation"
+msgstr "Староиндийская защита: вариант с фианкетто, вариант Ульмана"
+
+msgid "King Indian Defence: Fianchetto, Yugoslav Panno"
+msgstr ""
+"Староиндийская защита: вариант с фианкетто, югославская система, вариант "
+"Панно"
+
+msgid "King Indian Defence: Fianchetto, Yugoslav System"
+msgstr "Староиндийская защита: вариант с фианкетто, югославская система"
+
+msgid "King Indian Defence: Fianchetto, Yugoslav, 7.O-O"
+msgstr ""
+"Староиндийская защита: вариант с фианкетто, югославская система, 7.O-O"
+
+msgid "King Indian Defence: Fianchetto, lesser Simagin (Spassky) Variation"
+msgstr ""
+"Староиндийская защита: вариант с фианкетто, рекомендуемый вариант Симагина"
+
+msgid "King Indian Defence: Four Pawns Attack, 6.Be2"
+msgstr "Староиндийская защита: атака четырех пешек, 6.Сe2"
+
+msgid "King Indian Defence: Four Pawns Attack, Florentine Gambit"
+msgstr "Староиндийская защита: атака четырех пешек, флорентийский гамбит"
+
+msgid "King Indian Defence: Four Pawns Attack, Main Line"
+msgstr "Староиндийская защита: атака четырех пешек, основное продолжение"
+
+msgid "King Indian Defence: Four Pawns Attack, dynamic Line"
+msgstr "Староиндийская защита: атака четырех пешек, динамичное продолжение"
+
+msgid "King Indian Defence: Four Pawns Attack, with Be2 and Nf3"
+msgstr "Староиндийская защита: атака четырех пешек с Сe2 и Кf3"
+
+msgid "King Indian Defence: Four Pawns Attack"
+msgstr "Староиндийская защита: атака четырех пешек"
+
+msgid "King Indian Defence: Gligoric-Taimanov System"
+msgstr "Староиндийская защита: система Глигорича-Тайманова"
+
+msgid "King Indian Defence: Kazakh Variation"
+msgstr "Староиндийская защита: казахский вариант"
+
+msgid "King Indian Defence: Kramer System"
+msgstr "Староиндийская защита: система Крамера"
+
+msgid "King Indian Defence: Larsen Variation"
+msgstr "Староиндийская защита: вариант Ларсена"
+
+msgid "King Indian Defence: London System"
+msgstr "Староиндийская защита: лондонская система"
+
+msgid "King Indian Defence: Makagonov System (5.h3)"
+msgstr "Староиндийская защита: система Макогонова"
+
+msgid "King Indian Defence: Petrosian System, Keres Variation"
+msgstr "Староиндийская защита: система Петросяна, вариант Кереса"
+
+msgid "King Indian Defence: Petrosian System, Main Line"
+msgstr "Староиндийская защита: система Петросяна, основное продолжение"
+
+msgid "King Indian Defence: Petrosian System, Stein Variation"
+msgstr "Староиндийская защита: система Петросяна, вариант Стейна"
+
+msgid "King Indian Defence: Petrosian System"
+msgstr "Староиндийская защита: система Петросяна"
+
+msgid "King Indian Defence: Pomar System"
+msgstr "Староиндийская защита: система Помара"
+
+msgid "King Indian Defence: Saemisch Variation"
+msgstr "Староиндийская защита: система Земиша"
+
+msgid "King Indian Defence: Saemisch, 5...O-O"
+msgstr "Староиндийская защита: система Земиша, 5...O-O"
+
+msgid "King Indian Defence: Saemisch, 6...Nc6"
+msgstr "Староиндийская защита: система Земиша, 6...Кc6"
+
+msgid "King Indian Defence: Saemisch, Byrne Variation"
+msgstr "Староиндийская защита: система Земиша, вариант Бирна"
+
+msgid "King Indian Defence: Saemisch, Double Fianchetto Variation"
+msgstr "Староиндийская защита: система Земиша, вариант с двойным фианкетто"
+
+msgid "King Indian Defence: Saemisch, Panno Formation"
+msgstr "Староиндийская защита: система Земиша, построение Панно"
+
+msgid "King Indian Defence: Saemisch, Panno Main Line"
+msgstr "Староиндийская защита: система Земиша, основное продолжение Панно"
+
+msgid "King Indian Defence: Saemisch, Ruban Variation"
+msgstr "Староиндийская защита: система Земиша, вариант Рубана"
+
+msgid "King Indian Defence: Saemisch, orthodox Main Line"
+msgstr ""
+"Староиндийская защита: система Земиша, ортодоксальный вариант, основное "
+"продолжение"
+
+msgid "King Indian Defence: Saemisch, orthodox Variation"
+msgstr "Староиндийская защита: система Земиша, ортодоксальный вариант"
+
+msgid "King Indian Defence: Saemisch, orthodox, 7.Nge2 c6"
+msgstr ""
+"Староиндийская защита: система Земиша, ортодоксальный вариант, 7.Кge2 c6"
+
+msgid "King Indian Defence: Saemisch, orthodox, 7.d5 c6"
+msgstr ""
+"Староиндийская защита: система Земиша, ортодоксальный вариант, 7.d5 c6"
+
+msgid "King Indian Defence: Saemisch, orthodox, 7.d5"
+msgstr "Староиндийская защита: система Земиша, ортодоксальный вариант, 7.d5"
+
+msgid "King Indian Defence: Semi-Averbakh System"
+msgstr "Староиндийская защита: система полу-Авербаха"
+
+msgid "King Indian Defence: Smyslov System"
+msgstr "Староиндийская защита: система Смыслова"
+
+msgid "King Indian Defence: Torre Attack"
+msgstr "Староиндийская защита: атака Торре"
+
+msgid "King Indian Defence: Zinnowitz Variation"
+msgstr "Староиндийская защита: цинновицский вариант"
+
+msgid "King Indian Defence: orthodox Variation"
+msgstr "Староиндийская защита: ортодоксальный вариант"
+
+msgid "King Indian Defence: orthodox, 7...Nbd7, 8.Re1"
+msgstr "Староиндийская защита: ортодоксальный вариант, 7...Кbd7, 8.Лe1"
+
+msgid "King Indian Defence: orthodox, 7...Nbd7, Main Line"
+msgstr ""
+"Староиндийская защита: ортодоксальный вариант, 7...Кbd7, основное "
+"продолжение"
+
+msgid "King Indian Defence: orthodox, 7...Nbd7"
+msgstr "Староиндийская защита: ортодоксальный вариант, 7...Кbd7"
+
+msgid "King Indian Defence: orthodox, Aronin-Taimanov Variation"
+msgstr ""
+"Староиндийская защита: ортодоксальный вариант, вариант Аронина-Тайманова"
+
+msgid "King Indian Defence: orthodox, Aronin-Taimanov, 9.Ne1"
+msgstr ""
+"Староиндийская защита: ортодоксальный вариант, вариант Аронина-Тайманова, "
+"9.Кe1"
+
+msgid "King Indian Defence: orthodox, Aronin-Taimanov, Benko Attack"
+msgstr ""
+"Староиндийская защита: ортодоксальный вариант, вариант Аронина-Тайманова, "
+"атака Бенко"
+
+msgid "King Indian Defence: orthodox, Aronin-Taimanov, Main Line"
+msgstr ""
+"Староиндийская защита: ортодоксальный вариант, вариант Аронина-Тайманова, "
+"основное продолжение"
+
+msgid "King Indian Defence: orthodox, Aronin-Taimanov, bayonet Attack"
+msgstr ""
+"Староиндийская защита: ортодоксальный вариант, вариант Аронина-Тайманова, "
+"штыковой удар"
+
+msgid "King Indian Defence: orthodox, Donner Variation"
+msgstr "Староиндийская защита: ортодоксальный вариант, вариант Доннера"
+
+msgid "King Indian Defence: six Pawns Attack"
+msgstr "Староиндийская защита: атака шести пешек"
+
+msgid "King Indian Defence: with e4 & g3"
+msgstr "Староиндийская защита с e4 и g3"
+
+msgid "King Indian Defence"
+msgstr "Староиндийская защита"
+
+msgid "King Pawn Opening: Colorado Counter"
+msgstr "Дебют королевской пешки: колорадский контргамбит"
+
+msgid "King Pawn Opening: Indian Opening"
+msgstr "Дебют королевской пешки: индийское начало"
+
+msgid "King Pawn Opening: Lopez Opening"
+msgstr "Дебют королевской пешки: дебют Лопеса"
+
+msgid "King Pawn Opening: Mengarini Opening"
+msgstr "Дебют королевской пешки: дебют Менгарини"
+
+msgid "King Pawn Opening: Napoleon Opening"
+msgstr "Дебют королевской пешки: атака Наполеона"
+
+msgid "King Pawn Opening: Nimzovich Defence, Bogolyubov Variation"
+msgstr "Дебют королевской пешки: дебют Нимцовича, вариант Боголюбова"
+
+msgid "King Pawn Opening: Nimzovich Defence, Marshall Gambit"
+msgstr "Дебют королевской пешки: дебют Нимцовича, гамбит Маршалла"
+
+msgid "King Pawn Opening: Nimzovich Defence"
+msgstr "Дебют королевской пешки: дебют Нимцовича"
+
+msgid "King Pawn Opening: Patzer Opening"
+msgstr "Дебют королевской пешки: дебют начинающего"
+
+msgid "King Pawn Opening"
+msgstr "Дебют королевской пешки"
+
+msgid "King knight Gambit"
+msgstr "Принятый королевский гамбит"
+
+msgid "King knight Opening"
+msgstr "Дебют королевского коня"
+
+msgid "Konstantinopolsky Opening"
+msgstr "Дебют Константинопольского"
+
+msgid "Lasker Simul Special"
+msgstr "Специальный вариант Ласкера для сеансов одновременной игры"
+
+msgid "Latvian Counter-Gambit"
+msgstr "Латышский гамбит"
+
+msgid "Latvian Gambit, 3.Bc4"
+msgstr "Латышский гамбит: 3.Сc4"
+
+msgid "Latvian Gambit: Fraser Defence"
+msgstr "Латышский гамбит: защита Фрейзера"
+
+msgid "Latvian Gambit: Nimzovich Variation"
+msgstr "Латышский гамбит: вариант Нимцовича"
+
+msgid "Latvian Gambit: Polerio Variation"
+msgstr "Латышский гамбит: вариант Полерио"
+
+msgid "Latvian Gambit: corkscrew Counter-Gambit"
+msgstr "Латышский гамбит: штопорный контргамбит"
+
+msgid "Lemming Defence"
+msgstr "Защита лемминга"
+
+msgid "Lengfellner System"
+msgstr "Система Ленгфелльнера"
+
+msgid "Levitsky Attack (Queen Bishop Attack)"
+msgstr "Атака Тромповского"
+
+msgid "Mieses Opening"
+msgstr "Дебют Мизеса"
+
+msgid "Modern Defence: Averbakh System, Kotov Variation"
+msgstr "Защита Робача: система Авербаха, вариант Котова"
+
+msgid "Modern Defence: Averbakh System, Randspringer Variation"
+msgstr "Защита Робача: система Авербаха, вариант с конем на краю доски"
+
+msgid "Modern Defence: Averbakh System"
+msgstr "Защита Робача: система Авербаха"
+
+msgid "Modern Defence"
+msgstr "Дебют ферзевой пешки: современная защита"
+
+msgid "Mujannah Opening"
+msgstr "Дебют Мадженна"
+
+msgid "Neo-Grünfeld (Kemeri) Defence"
+msgstr "Нео-Грюнфельд"
+
+msgid "Neo-Grünfeld Defence: 5.Nf3"
+msgstr "Нео-Грюнфельд: 5.Кf3"
+
+msgid "Neo-Grünfeld Defence: 5.cd, Main Line"
+msgstr "Нео-Грюнфельд: 5.cd, основное продолжение"
+
+msgid "Neo-Grünfeld Defence: 5.cd"
+msgstr "Нео-Грюнфельд: 5.cd"
+
+msgid "Neo-Grünfeld Defence: 6.O-O c6"
+msgstr "Нео-Грюнфельд: 6.O-O c6"
+
+msgid "Neo-Grünfeld Defence: 6.O-O, Main Line"
+msgstr "Нео-Грюнфельд: 6.O-O, основное продолжение"
+
+msgid "Neo-Grünfeld Defence: 6.O-O"
+msgstr "Нео-Грюнфельд: 6.O-O"
+
+msgid "Neo-Grünfeld Defence: 6.cd Nxd5, 7.O-O Nb6"
+msgstr "Нео-Грюнфельд: 6.cd Кxd5, 7.O-O Кb6"
+
+msgid "Neo-Grünfeld Defence: 6.cd Nxd5, 7.O-O c5, 8.Nc3"
+msgstr "Нео-Грюнфельд: 6.cd Кxd5, 7.O-O c5, 8.Кc3"
+
+msgid "Neo-Grünfeld Defence: 6.cd Nxd5, 7.O-O c5, 8.dc"
+msgstr "Нео-Грюнфельд: 6.cd Кxd5, 7.O-O c5, 8.dc"
+
+msgid "Neo-Grünfeld Defence: 6.cd Nxd5, 7.O-O"
+msgstr "Нео-Грюнфельд: 6.cd Кxd5, 7.O-O"
+
+msgid "Neo-Grünfeld Defence"
+msgstr "Нео-Грюнфельд"
+
+msgid "Neo-Indian (Seirawan) Attack"
+msgstr "Новоиндийская атака"
+
+msgid "Nimzo-Indian Defence: 4.e3 O-O, 5.Bd3 d5"
+msgstr "Защита Нимцовича: система Рубинштейна, 4...O-O, 5.Сd3 d5"
+
+msgid "Nimzo-Indian Defence: 4.e3 O-O, 5.Bd3"
+msgstr "Защита Нимцовича: система Рубинштейна, 4...O-O, 5.Сd3"
+
+msgid "Nimzo-Indian Defence: 4.e3 O-O"
+msgstr "Защита Нимцовича: система Рубинштейна, 4...O-O"
+
+msgid "Nimzo-Indian Defence: 4.e3 c5, 5.Ne2 (Rubinstein)"
+msgstr "Защита Нимцовича: система Рубинштейна"
+
+msgid "Nimzo-Indian Defence: 4.e3 c5"
+msgstr "Защита Нимцовича: система Рубинштейна, 4...c5"
+
+msgid "Nimzo-Indian Defence: 4.e3 e8g8, 5.Nf3 d7d5"
+msgstr "Защита Нимцовича: система Рубинштейна, 4...O-O, 5.Кf3 d5"
+
+msgid "Nimzo-Indian Defence: 4.e3 e8g8, 5.Nf3, without ...d5"
+msgstr "Защита Нимцовича: система Рубинштейна, 4...O-O, 5.Кf3, без ...d5"
+
+msgid "Nimzo-Indian Defence: 4.e3, Botvinnik System"
+msgstr "Защита Нимцовича: система Рубинштейна, система Ботвинника"
+
+msgid "Nimzo-Indian Defence: 4.e3, Bronstein (Byrne) Variation"
+msgstr "Защита Нимцовича: система Рубинштейна, вариант Бронштейна"
+
+msgid "Nimzo-Indian Defence: 4.e3, Gligoric System with 7...Nbd7"
+msgstr "Защита Нимцовича: система Рубинштейна, система Глигорича с 7...Кbd7"
+
+msgid "Nimzo-Indian Defence: 4.e3, Gligoric System with 7...dc"
+msgstr "Защита Нимцовича: система Рубинштейна, система Глигорича с 7...dc"
+
+msgid "Nimzo-Indian Defence: 4.e3, Gligoric System, Bronstein Variation"
+msgstr ""
+"Защита Нимцовича: система Рубинштейна, система Глигорича, вариант Бронштейна"
+
+msgid "Nimzo-Indian Defence: 4.e3, Gligoric System, Smyslov Variation"
+msgstr ""
+"Защита Нимцовича: система Рубинштейна, система Глигорича, вариант Смыслова"
+
+msgid "Nimzo-Indian Defence: 4.e3, Keres Variation"
+msgstr "Защита Нимцовича: система Рубинштейна, вариант Кереса"
+
+msgid "Nimzo-Indian Defence: 4.e3, Main Line with ...b6"
+msgstr "Защита Нимцовича: система Рубинштейна, основное продолжение с ...b6"
+
+msgid "Nimzo-Indian Defence: 4.e3, Main Line with ...c5"
+msgstr "Защита Нимцовича: система Рубинштейна, основное продолжение с ...c5"
+
+msgid "Nimzo-Indian Defence: 4.e3, Main Line with 7...Nc6"
+msgstr "Защита Нимцовича: система Рубинштейна, основное продолжение с 7...Кc6"
+
+msgid "Nimzo-Indian Defence: 4.e3, Main Line with 8...Bxc3"
+msgstr ""
+"Защита Нимцовича: система Рубинштейна, основное продолжение с 8...Сxc3"
+
+msgid "Nimzo-Indian Defence: 4.e3, Main Line with 8...dc and 9...cd"
+msgstr ""
+"Защита Нимцовича: система Рубинштейна, основное продолжение с 8...dc и "
+"9...cd"
+
+msgid "Nimzo-Indian Defence: 4.e3, Main Line"
+msgstr "Защита Нимцовича: система Рубинштейна, основное продолжение"
+
+msgid "Nimzo-Indian Defence: 4.e3, Ragozin Variation"
+msgstr "Защита Нимцовича: система Рубинштейна, вариант Рагозина"
+
+msgid "Nimzo-Indian Defence: 4.e3, Taimanov Variation"
+msgstr "Защита Нимцовича: система Рубинштейна, вариант Тайманова"
+
+msgid "Nimzo-Indian Defence: 4.e3"
+msgstr "Защита Нимцовича: система Рубинштейна"
+
+msgid "Nimzo-Indian Defence: Classical Variation"
+msgstr "Защита Нимцовича: классический вариант"
+
+msgid "Nimzo-Indian Defence: Classical, 4...Nc6"
+msgstr "Защита Нимцовича: классический вариант, 4...Кc6"
+
+msgid "Nimzo-Indian Defence: Classical, 4...c5"
+msgstr "Защита Нимцовича: классический вариант, 4...c5"
+
+msgid "Nimzo-Indian Defence: Classical, Adorjan Gambit"
+msgstr "Защита Нимцовича: классический вариант, гамбит Адорьяна"
+
+msgid "Nimzo-Indian Defence: Classical, Botvinnik Variation"
+msgstr "Защита Нимцовича: классический вариант, вариант Ботвинника"
+
+msgid "Nimzo-Indian Defence: Classical, Milner-Barry (Zurich) Variation"
+msgstr "Защита Нимцовича: классический вариант, вариант Мильнера-Бэрри"
+
+msgid "Nimzo-Indian Defence: Classical, Noa Variation, 5.a3"
+msgstr "Защита Нимцовича: классический вариант, вариант Ноа, 5.a3"
+
+msgid "Nimzo-Indian Defence: Classical, Noa Variation, 5.cd ed"
+msgstr "Защита Нимцовича: классический вариант, вариант Ноа, 5.cd ed"
+
+msgid "Nimzo-Indian Defence: Classical, Noa Variation, Main Line, 7.Qc2"
+msgstr ""
+"Защита Нимцовича: классический вариант, вариант Ноа, основное продолжение, "
+"7.Фc2"
+
+msgid "Nimzo-Indian Defence: Classical, Noa Variation, Main Line"
+msgstr ""
+"Защита Нимцовича: классический вариант, вариант Ноа, основное продолжение"
+
+msgid "Nimzo-Indian Defence: Classical, Noa Variation"
+msgstr "Защита Нимцовича: классический вариант, вариант Ноа"
+
+msgid "Nimzo-Indian Defence: Classical, Pirc Variation"
+msgstr "Защита Нимцовича: классический вариант, вариант Пирца"
+
+msgid "Nimzo-Indian Defence: Classical, San Remo Variation"
+msgstr "Защита Нимцовича: классический вариант, Сан-Ремо-вариант"
+
+msgid "Nimzo-Indian Defence: Fischer Variation, 5.Ne2"
+msgstr "Защита Нимцовича: вариант Фишера, 5.Кe2"
+
+msgid "Nimzo-Indian Defence: Fischer Variation"
+msgstr "Защита Нимцовича: вариант Фишера"
+
+msgid "Nimzo-Indian Defence: Kmoch Variation"
+msgstr "Защита Нимцовича: вариант Кмоха"
+
+msgid "Nimzo-Indian Defence: Leningrad Variation"
+msgstr "Защита Нимцовича: ленинградский вариант"
+
+msgid "Nimzo-Indian Defence: Leningrad, ...b5 Gambit"
+msgstr "Защита Нимцовича: ленинградский вариант, гамбит ...b5"
+
+msgid "Nimzo-Indian Defence: Leningrad, Main Line"
+msgstr "Защита Нимцовича: ленинградский вариант, основное продолжение"
+
+msgid "Nimzo-Indian Defence: Mikenas Attack"
+msgstr "Защита Нимцовича: атака Микенаса"
+
+msgid "Nimzo-Indian Defence: Reshevsky Variation"
+msgstr "Защита Нимцовича: вариант Решевского"
+
+msgid "Nimzo-Indian Defence: Romanishin-Kasparov (Steiner) System"
+msgstr "Защита Нимцовича: система Романишина-Каспарова"
+
+msgid "Nimzo-Indian Defence: Saemisch Variation"
+msgstr "Защита Нимцовича: система Земиша"
+
+msgid "Nimzo-Indian Defence: Saemisch, Botvinnik Variation"
+msgstr "Защита Нимцовича: система Земиша, вариант Ботвинника"
+
+msgid "Nimzo-Indian Defence: Saemisch, Capablanca Variation"
+msgstr "Защита Нимцовича: система Земиша, вариант Капабланки"
+
+msgid "Nimzo-Indian Defence: Saemisch, Keres Variation"
+msgstr "Защита Нимцовича: система Земиша, вариант Кереса"
+
+msgid "Nimzo-Indian Defence: Saemisch, Main Line"
+msgstr "Защита Нимцовича: система Земиша, основное продолжение"
+
+msgid "Nimzo-Indian Defence: Saemisch, O'Kelly Variation"
+msgstr "Защита Нимцовича: система Земиша, вариант О'Келли"
+
+msgid "Nimzo-Indian Defence: Saemisch, Romanovsky Variation"
+msgstr "Защита Нимцовича: система Земиша, вариант Романовского"
+
+msgid "Nimzo-Indian Defence: Simagin Variation"
+msgstr "Защита Нимцовича: вариант Симагина"
+
+msgid "Nimzo-Indian Defence: Spielmann Variation"
+msgstr "Защита Нимцовича: вариант Шпильмана"
+
+msgid "Nimzo-Indian Defence: Spielmann, 4...c5, 5.dc Nc6"
+msgstr "Защита Нимцовича: вариант Шпильмана, 4...c5, 5.dc Кc6"
+
+msgid "Nimzo-Indian Defence: Spielmann, Karlsbad Variation"
+msgstr "Защита Нимцовича: вариант Шпильмана, карлсбадский вариант"
+
+msgid "Nimzo-Indian Defence: Spielmann, San Remo Variation"
+msgstr "Защита Нимцовича: вариант Шпильмана, Сан-Ремо-вариант"
+
+msgid "Nimzo-Indian Defence: Spielmann, Stahlberg Variation"
+msgstr "Защита Нимцовича: вариант Шпильмана, вариант Штальберга"
+
+msgid "Nimzo-Indian Defence: Three Knights Variation"
+msgstr "Защита Нимцовича: вариант Романишина"
+
+msgid "Nimzo-Indian Defence: Three Knights, Euwe Variation"
+msgstr "Защита Нимцовича: вариант Романишина, вариант Эйве"
+
+msgid "Nimzo-Indian Defence: Three Knights, Korchnoi Variation"
+msgstr "Защита Нимцовича: вариант Романишина, вариант Корчного"
+
+msgid "Nimzo-Indian Defence: e3, Huebner Variation"
+msgstr "Защита Нимцовича: система Рубинштейна, вариант Хюбнера"
+
+msgid "Nimzo-Indian Defence"
+msgstr "Защита Нимцовича"
+
+msgid "Nimzovich-Larsen Attack: Classical Variation"
+msgstr "Дебют Ларсена: классический вариант"
+
+msgid "Nimzovich-Larsen Attack: Dutch Variation"
+msgstr "Дебют Ларсена: голландский вариант"
+
+msgid "Nimzovich-Larsen Attack: English Variation"
+msgstr "Дебют Ларсена: английский вариант"
+
+msgid "Nimzovich-Larsen Attack: Indian Variation"
+msgstr "Дебют Ларсена: индийский вариант"
+
+msgid "Nimzovich-Larsen Attack: Modern Variation"
+msgstr "Дебют Ларсена: современный вариант"
+
+msgid "Nimzovich-Larsen Attack: Polish Variation"
+msgstr "Дебют Ларсена: польский вариант"
+
+msgid "Nimzovich-Larsen Attack: Symmetrical Variation"
+msgstr "Дебют Ларсена: симметричный вариант"
+
+msgid "Nimzovich-Larsen Attack"
+msgstr "Дебют Ларсена"
+
+msgid "Norwegian Defence"
+msgstr "Норвежская защита"
+
+msgid "Novosibirsk Opening"
+msgstr "Новосибирское начало"
+
+msgid "Old Benoni Defence: Franco-Benoni Defence"
+msgstr "Защита Бенони: французская защита с бенониевским ходом c7-c5"
+
+msgid "Old Benoni Defence: Mujannah Formation"
+msgstr "Защита Бенони: построение Мадженна"
+
+msgid "Old Benoni Defence: Schmid System"
+msgstr "Защита Бенони: система Шмида"
+
+msgid "Old Benoni Defence"
+msgstr "Защита Бенони"
+
+msgid "Old Indian Defence: Dus-Khotimirsky Variation"
+msgstr "Староиндийская защита: вариант Дуз-Хотимирского"
+
+msgid "Old Indian Defence: Janowski Variation"
+msgstr "Староиндийская защита: вариант Яновского"
+
+msgid "Old Indian Defence: Main Line"
+msgstr "Староиндийская защита: основной вариант"
+
+msgid "Old Indian Defence: Tartakower (Wade) Variation"
+msgstr "Индийская защита: вариант Тартаковера"
+
+msgid "Old Indian Defence: Ukrainian Variation, 4.Nf3"
+msgstr "Староиндийская защита: украинский вариант, 4.Кf3"
+
+msgid "Old Indian Defence: Ukrainian Variation"
+msgstr "Староиндийская защита: украинский вариант"
+
+msgid "Old Indian Defence"
+msgstr "Индийская защита"
+
+msgid "Owen Defence"
+msgstr "Защита Оуэна"
+
+msgid "Paleface Attack"
+msgstr "Атака бледнолицего"
+
+msgid "Petrov Defence"
+msgstr "Русская партия"
+
+msgid "Philidor Defence: Berger Variation"
+msgstr "Защита Филидора: вариант Бергера"
+
+msgid "Philidor Defence: Boden Variation"
+msgstr "Защита Филидора: вариант Бодена"
+
+msgid "Philidor Defence: Exchange Variation"
+msgstr "Защита Филидора: разменный вариант"
+
+msgid "Philidor Defence: Hanham Variation"
+msgstr "Защита Филидора: вариант Хенема"
+
+msgid "Philidor Defence: Hanham, Berger Variation"
+msgstr "Защита Филидора: вариант Хенема, вариант Бергера"
+
+msgid "Philidor Defence: Hanham, Delmar Variation"
+msgstr "Защита Филидора: вариант Хенема, вариант Делмара"
+
+msgid "Philidor Defence: Hanham, Kmoch Variation"
+msgstr "Защита Филидора: вариант Хенема, вариант Кмоха"
+
+msgid "Philidor Defence: Hanham, Krause Variation"
+msgstr "Защита Филидора: вариант Хенема, вариант Краузе"
+
+msgid "Philidor Defence: Hanham, Schlechter Variation"
+msgstr "Защита Филидора: вариант Хенема, вариант Шлехтера"
+
+msgid "Philidor Defence: Hanham, Steiner Variation"
+msgstr "Защита Филидора: вариант Хенема, вариант Стейнера"
+
+msgid "Philidor Defence: Improved Hanham Variation"
+msgstr "Защита Филидора: улучшенный вариант Хенема"
+
+msgid "Philidor Defence: Larsen Variation"
+msgstr "Защита Филидора: вариант Ларсена"
+
+msgid "Philidor Defence: Lopez Counter-Gambit, Jaenisch Variation"
+msgstr "Защита Филидора: контргамбит Лопеса, вариант Яниша"
+
+msgid "Philidor Defence: Lopez Counter-Gambit"
+msgstr "Защита Филидора: контргамбит Лопеса"
+
+msgid "Philidor Defence: Nimzovich (Jaenisch) Variation"
+msgstr "Защита Филидора: вариант Нимцовича"
+
+msgid "Philidor Defence: Nimzovich Variation"
+msgstr "Защита Филидора: вариант Нимцовича"
+
+msgid "Philidor Defence: Nimzovich, Klein Variation"
+msgstr "Защита Филидора: вариант Нимцовича, вариант Клайна"
+
+msgid "Philidor Defence: Nimzovich, Larobok Variation"
+msgstr "Защита Филидора: вариант Нимцовича, Леробок-вариант"
+
+msgid "Philidor Defence: Nimzovich, Locock Variation"
+msgstr "Защита Филидора: вариант Нимцовича, вариант Локока"
+
+msgid "Philidor Defence: Nimzovich, Rellstab Variation"
+msgstr "Защита Филидора: вариант Нимцовича, вариант Рельштаба"
+
+msgid "Philidor Defence: Nimzovich, Sokolsky Variation"
+msgstr "Защита Филидора: вариант Нимцовича, вариант Сокольского"
+
+msgid "Philidor Defence: Nimzovich, Sozin Variation"
+msgstr "Защита Филидора: вариант Нимцовича, вариант Созина"
+
+msgid "Philidor Defence: Paulsen Attack"
+msgstr "Защита Филидора: атака Паульсена"
+
+msgid "Philidor Defence: Philidor Counter-Gambit, Berger Variation"
+msgstr "Защита Филидора: контргамбит Филидора, вариант Бергера"
+
+msgid "Philidor Defence: Philidor Counter-Gambit, Zukertort Variation"
+msgstr "Защита Филидора: контргамбит Филидора, вариант Цукерторта"
+
+msgid "Philidor Defence: Philidor Counter-Gambit, del Rio Attack"
+msgstr "Защита Филидора: контргамбит Филидора, атака дель Рио"
+
+msgid "Philidor Defence: Philidor Counter-Gambit"
+msgstr "Защита Филидора: контргамбит Филидора"
+
+msgid "Philidor Defence: Steinitz Variation"
+msgstr "Защита Филидора: вариант Стейница"
+
+msgid "Philidor Defence"
+msgstr "Защита Филидора"
+
+msgid "Pirc Defence: 150 Attack"
+msgstr "Защита Пирца-Уфимцева: атака 150"
+
+msgid "Pirc Defence: Austrian Attack, 6.Bd3"
+msgstr "Защита Пирца-Уфимцева: австрийская атака, 6.Сd3"
+
+msgid "Pirc Defence: Austrian Attack, 6.Be3"
+msgstr "Защита Пирца-Уфимцева: австрийская атака, 6.Сe3"
+
+msgid "Pirc Defence: Austrian Attack, 6.e5"
+msgstr "Защита Пирца-Уфимцева: австрийская атака, 6.e5"
+
+msgid "Pirc Defence: Austrian Attack, Dragon Formation"
+msgstr "Защита Пирца-Уфимцева: австрийская атака, построение дракона"
+
+msgid "Pirc Defence: Austrian Attack, Ljubojevic Variation"
+msgstr "Защита Пирца-Уфимцева: австрийская атака, вариант Любоевича"
+
+msgid "Pirc Defence: Austrian Attack"
+msgstr "Защита Пирца-Уфимцева: австрийская атака"
+
+msgid "Pirc Defence: Byrne Variation"
+msgstr "Защита Пирца-Уфимцева: вариант Бирна"
+
+msgid "Pirc Defence: Chinese Variation"
+msgstr "Защита Пирца-Уфимцева: китайский вариант"
+
+msgid "Pirc Defence: Classical (Two Knights) System"
+msgstr "Защита Пирца-Уфимцева: классическая система двух коней"
+
+msgid "Pirc Defence: Classical System, 5.Be2"
+msgstr "Защита Пирца-Уфимцева: классическая система двух коней, 5.Сe2"
+
+msgid "Pirc Defence: Classical, h3 System"
+msgstr "Защита Пирца-Уфимцева: классическая система двух коней, система h3"
+
+msgid "Pirc Defence: Holmov System"
+msgstr "Защита Пирца-Уфимцева: система Холмова"
+
+msgid "Pirc Defence: Sveshnikov System"
+msgstr "Защита Пирца-Уфимцева: система Свешникова"
+
+msgid "Pirc Defence: Ufimtsev-Pytel Variation"
+msgstr "Защита Пирца-Уфимцева: вариант Уфимцева-Пытеля"
+
+msgid "Pirc Defence: bayonet (Mariotti) Attack"
+msgstr "Защита Пирца-Уфимцева: вариант Мариотти"
+
+msgid "Pirc Defence"
+msgstr "Защита Пирца-Уфимцева"
+
+msgid "Polish (Sokolsky) Opening"
+msgstr "Дебют Сокольского"
+
+msgid "Polish (Sokolsky-Orangutan) Opening: Outflank Variation"
+msgstr "Дебют Сокольского: обходной вариант"
+
+msgid "Polish (Sokolsky-Orangutan) Opening: Tuebingen Variation"
+msgstr "Дебют Сокольского: тюбингенский вариант"
+
+msgid "Polish Defence"
+msgstr "Польская защита"
+
+msgid "Ponziani Counter-Gambit, Cordel Variation"
+msgstr "Контргамбит Понциани: вариант Корделя"
+
+msgid "Ponziani Counter-Gambit, Schmidt Attack"
+msgstr "Контргамбит Понциани: атака Шмидта"
+
+msgid "Ponziani Counter-Gambit"
+msgstr "Контргамбит Понциани"
+
+msgid "Ponziani Opening: Caro Variation"
+msgstr "Дебют Понциани: вариант Каро"
+
+msgid "Ponziani Opening: Fraser Defence"
+msgstr "Дебют Понциани: защита Фрейзера"
+
+msgid "Ponziani Opening: Jaenisch Counter-Attack"
+msgstr "Дебют Понциани: контратака Яниша"
+
+msgid "Ponziani Opening: Leonhardt Variation"
+msgstr "Дебют Понциани: вариант Леонгардта"
+
+msgid "Ponziani Opening: Reti Variation"
+msgstr "Дебют Понциани: вариант Рети"
+
+msgid "Ponziani Opening: Romanishin Variation"
+msgstr "Дебют Понциани: вариант Романишина"
+
+msgid "Ponziani Opening: Steinitz Variation"
+msgstr "Дебют Понциани: вариант Стейница"
+
+msgid "Ponziani Opening"
+msgstr "Дебют Понциани"
+
+msgid "Pterodactyl Defence"
+msgstr "Защита птеродактиля"
+
+msgid "Queen Bishop Game"
+msgstr "Атака ферзевого слона"
+
+msgid "Queen Gambit Accepted, 4.Nc3"
+msgstr "Принятый ферзевый гамбит: 4.Кc3"
+
+msgid "Queen Gambit Accepted, 4.e3"
+msgstr "Принятый ферзевый гамбит: 4.e3"
+
+msgid "Queen Gambit Accepted, Bogolyubov Variation"
+msgstr "Принятый ферзевый гамбит: вариант Боголюбова"
+
+msgid "Queen Gambit Accepted, Flohr Variation"
+msgstr "Принятый ферзевый гамбит: вариант Флора"
+
+msgid "Queen Gambit Accepted, Janowsky-Larsen Variation"
+msgstr "Принятый ферзевый гамбит: вариант Яновского-Ларсена"
+
+msgid "Queen Gambit Accepted, Smyslov Variation"
+msgstr "Принятый ферзевый гамбит: вариант Смыслова"
+
+msgid "Queen Gambit Accepted: 3.Nf3"
+msgstr "Принятый ферзевый гамбит: 3.Кf3"
+
+msgid "Queen Gambit Accepted: 3.e4"
+msgstr "Принятый ферзевый гамбит: 3.e4"
+
+msgid "Queen Gambit Accepted: 4...e6"
+msgstr "Принятый ферзевый гамбит: 4...e6"
+
+msgid "Queen Gambit Accepted: Alekhine Defence, Alatortsev Variation"
+msgstr "Принятый ферзевый гамбит: защита Алехина, вариант Алаторцева"
+
+msgid "Queen Gambit Accepted: Alekhine Defence, Borisenko-Furman Variation"
+msgstr "Принятый ферзевый гамбит: защита Алехина, вариант Борисенко-Фурмана"
+
+msgid "Queen Gambit Accepted: Alekhine Defence"
+msgstr "Принятый ферзевый гамбит: защита Алехина"
+
+msgid "Queen Gambit Accepted: Classical Variation, 6.O-O"
+msgstr "Принятый ферзевый гамбит: классический вариант, 6.O-O"
+
+msgid "Queen Gambit Accepted: Classical Variation"
+msgstr "Принятый ферзевый гамбит: классический вариант"
+
+msgid "Queen Gambit Accepted: Classical, 6...a6"
+msgstr "Принятый ферзевый гамбит: классический вариант, 6...a6"
+
+msgid "Queen Gambit Accepted: Classical, 7...b5"
+msgstr "Принятый ферзевый гамбит: классический вариант, 7...b5"
+
+msgid "Queen Gambit Accepted: Classical, 7.Qe2"
+msgstr "Принятый ферзевый гамбит: классический вариант, 7.Фe2"
+
+msgid "Queen Gambit Accepted: Classical, 8...Bb7"
+msgstr "Принятый ферзевый гамбит: классический вариант, 8...Сb7"
+
+msgid "Queen Gambit Accepted: Classical, Geller Variation"
+msgstr "Принятый ферзевый гамбит: классический вариант, вариант Геллера"
+
+msgid "Queen Gambit Accepted: Classical, Rubinstein Variation"
+msgstr "Принятый ферзевый гамбит: классический вариант, вариант Рубинштейна"
+
+msgid "Queen Gambit Accepted: Classical, Smyslov Variation"
+msgstr "Принятый ферзевый гамбит: классический вариант, вариант Смыслова"
+
+msgid "Queen Gambit Accepted: Classical, Steinitz Variation"
+msgstr "Принятый ферзевый гамбит: классический вариант, вариант Стейница"
+
+msgid "Queen Gambit Accepted: Ericson Variation"
+msgstr "Принятый ферзевый гамбит: вариант Эриксона"
+
+msgid "Queen Gambit Accepted: Haberditz Variation"
+msgstr "Принятый ферзевый гамбит: вариант Хабердица"
+
+msgid "Queen Gambit Accepted: Linares Variation"
+msgstr "Принятый ферзевый гамбит: линаресский вариант"
+
+msgid "Queen Gambit Accepted: Mannheim Variation"
+msgstr "Принятый ферзевый гамбит: мангеймский вариант"
+
+msgid "Queen Gambit Accepted: Schwartz Defence"
+msgstr "Принятый ферзевый гамбит: защита Шварца"
+
+msgid "Queen Gambit Accepted"
+msgstr "Принятый ферзевый гамбит"
+
+msgid "Queen Gambit Declined Semi-Slav: 5...Nd7"
+msgstr "Отказанный ферзевый гамбит: славянская защита, 5... Кd7"
+
+msgid "Queen Gambit Declined Semi-Slav: 5.Bg5 dc"
+msgstr "Отказанный ферзевый гамбит: славянская защита, 5.Сg5 dc"
+
+msgid "Queen Gambit Declined Semi-Slav: 5.e3"
+msgstr "Отказанный ферзевый гамбит: славянская защита, 5.e3"
+
+msgid "Queen Gambit Declined Semi-Slav: 6.Bd3"
+msgstr "Отказанный ферзевый гамбит: славянская защита, 6. Сd3"
+
+msgid "Queen Gambit Declined Semi-Slav: 7.Bc4"
+msgstr "Отказанный ферзевый гамбит: славянская защита, 7. Сc4"
+
+msgid ""
+"Queen Gambit Declined Semi-Slav: Accelerated Meran (Alekhine Variation)"
+msgstr ""
+"Отказанный ферзевый гамбит: славянская защита, ранний меранский вариант"
+
+msgid "Queen Gambit Declined Semi-Slav: Anti-Meran Gambit"
+msgstr "Отказанный ферзевый гамбит: славянская защита, анти-Меранский гамбит"
+
+msgid "Queen Gambit Declined Semi-Slav: Anti-Meran, Alatortsev System"
+msgstr ""
+"Отказанный ферзевый гамбит: славянская защита, анти-Меранский гамбит, "
+"система Алаторцева"
+
+msgid "Queen Gambit Declined Semi-Slav: Anti-Meran, Lilienthal Variation"
+msgstr ""
+"Отказанный ферзевый гамбит: славянская защита, анти-Меранский гамбит, "
+"вариант Лилиенталя"
+
+msgid "Queen Gambit Declined Semi-Slav: Anti-Meran, Szabo Variation"
+msgstr ""
+"Отказанный ферзевый гамбит: славянская защита, анти-Меранский гамбит, "
+"вариант Сабо"
+
+msgid "Queen Gambit Declined Semi-Slav: Bogolyubov Variation"
+msgstr "Отказанный ферзевый гамбит: славянская защита, вариант Боголюбова"
+
+msgid "Queen Gambit Declined Semi-Slav: Botvinnik System (Anti-Meran)"
+msgstr "Отказанный ферзевый гамбит: славянская защита, система Ботвинника"
+
+msgid "Queen Gambit Declined Semi-Slav: Chigorin Defence"
+msgstr "Отказанный ферзевый гамбит: славянская защита, защита Чигорина"
+
+msgid "Queen Gambit Declined Semi-Slav: Ekstrom Variation"
+msgstr "Отказанный ферзевый гамбит: славянская защита, вариант Экстрема"
+
+msgid "Queen Gambit Declined Semi-Slav: Hastings Variation"
+msgstr "Отказанный ферзевый гамбит: славянская защита, гастингский вариант"
+
+msgid "Queen Gambit Declined Semi-Slav: Meran Variation"
+msgstr "Отказанный ферзевый гамбит: славянская защита, меранский вариант"
+
+msgid "Queen Gambit Declined Semi-Slav: Meran, 8...a6"
+msgstr ""
+"Отказанный ферзевый гамбит: славянская защита, меранский вариант, 8...a6"
+
+msgid "Queen Gambit Declined Semi-Slav: Meran, Blumenfeld Variation"
+msgstr ""
+"Отказанный ферзевый гамбит: славянская защита, меранский вариант, вариант "
+"Блюменфельда"
+
+msgid "Queen Gambit Declined Semi-Slav: Meran, Old Main Line"
+msgstr ""
+"Отказанный ферзевый гамбит: славянская защита, меранский вариант, устаревшее"
+" основное продолжение"
+
+msgid "Queen Gambit Declined Semi-Slav: Meran, Pirc Variation"
+msgstr ""
+"Отказанный ферзевый гамбит: славянская защита, меранский вариант, вариант "
+"Пирца"
+
+msgid "Queen Gambit Declined Semi-Slav: Meran, Rabinovich Variation"
+msgstr ""
+"Отказанный ферзевый гамбит: славянская защита, меранский вариант, вариант "
+"Рабиновича"
+
+msgid "Queen Gambit Declined Semi-Slav: Meran, Reynolds' Variation"
+msgstr ""
+"Отказанный ферзевый гамбит: славянская защита, меранский вариант, вариант "
+"Рейнолдса"
+
+msgid "Queen Gambit Declined Semi-Slav: Meran, Sozin Variation"
+msgstr ""
+"Отказанный ферзевый гамбит: славянская защита, меранский вариант, вариант "
+"Созина"
+
+msgid "Queen Gambit Declined Semi-Slav: Meran, Stahlberg Variation"
+msgstr ""
+"Отказанный ферзевый гамбит: славянская защита, меранский вариант, вариант "
+"Штальберга"
+
+msgid "Queen Gambit Declined Semi-Slav: Meran, Wade Variation"
+msgstr ""
+"Отказанный ферзевый гамбит: славянская защита, меранский вариант, вариант "
+"Вейда"
+
+msgid "Queen Gambit Declined Semi-Slav: Romih Variation"
+msgstr "Отказанный ферзевый гамбит: славянская защита, вариант Роми"
+
+msgid "Queen Gambit Declined Semi-Slav: Rubinstein (Anti-Meran) System"
+msgstr "Отказанный ферзевый гамбит: славянская защита, система Рубинштейна"
+
+msgid "Queen Gambit Declined Semi-Slav: Stoltz Variation"
+msgstr "Отказанный ферзевый гамбит: славянская защита, вариант Штольца"
+
+msgid "Queen Gambit Declined Semi-Slav: Stonewall Defence"
+msgstr "Отказанный ферзевый гамбит: славянская защита, защита Каменная стена"
+
+msgid "Queen Gambit Declined Semi-Slav: neo-Meran (Lundin Variation)"
+msgstr "Отказанный ферзевый гамбит: славянская защита, неомеранский вариант"
+
+msgid "Queen Gambit Declined Semi-Slav"
+msgstr "Отказанный ферзевый гамбит: славянская защита"
+
+msgid "Queen Gambit Declined Slav Accepted: Alapin Variation"
+msgstr "Отказанный ферзевый гамбит: основной вариант, вариант Алапина"
+
+msgid "Queen Gambit Declined Slav Accepted"
+msgstr "Отказанный ферзевый гамбит: основной вариант"
+
+msgid "Queen Gambit Declined Slav Defence, Alekhine Variation"
+msgstr "Отказанный ферзевый гамбит: славянская защита, вариант Алехина"
+
+msgid "Queen Gambit Declined Slav Defence: Exchange Variation"
+msgstr "Отказанный ферзевый гамбит: славянская защита, разменный вариант"
+
+msgid "Queen Gambit Declined Slav Defence"
+msgstr "Отказанный ферзевый гамбит: славянская защита"
+
+msgid "Queen Gambit Declined Slav: 3.Nf3"
+msgstr "Отказанный ферзевый гамбит: славянская защита, 3.Кf3"
+
+msgid "Queen Gambit Declined Slav: 4.Nc3"
+msgstr "Отказанный ферзевый гамбит: славянская защита, 4.Кc3"
+
+msgid "Queen Gambit Declined Slav: 4.e3 Bf5"
+msgstr "Отказанный ферзевый гамбит: славянская защита, 4.e3 Сf5"
+
+msgid "Queen Gambit Declined Slav: 4.e3"
+msgstr "Отказанный ферзевый гамбит: славянская защита, 4.e3"
+
+msgid "Queen Gambit Declined Slav: 5.e3 (Alekhine Variation)"
+msgstr "Отказанный ферзевый гамбит: славянская защита, 5.e3"
+
+msgid "Queen Gambit Declined Slav: Amsterdam Variation"
+msgstr "Отказанный ферзевый гамбит: славянская защита, амстердамский вариант"
+
+msgid "Queen Gambit Declined Slav: Breyer Variation"
+msgstr "Отказанный ферзевый гамбит: славянская защита, вариант Брейера"
+
+msgid "Queen Gambit Declined Slav: Carlsbad Variation"
+msgstr "Отказанный ферзевый гамбит: славянская защита, карлсбадский вариант"
+
+msgid "Queen Gambit Declined Slav: Czech Defence"
+msgstr "Отказанный ферзевый гамбит: славянская защита, чешский вариант"
+
+msgid "Queen Gambit Declined Slav: Dutch Variation, Main Line"
+msgstr ""
+"Отказанный ферзевый гамбит: славянская защита, голландский вариант, основное"
+" продолжение"
+
+msgid "Queen Gambit Declined Slav: Dutch Variation"
+msgstr "Отказанный ферзевый гамбит: славянская защита, голландский вариант"
+
+msgid "Queen Gambit Declined Slav: Dutch, Lasker Variation"
+msgstr ""
+"Отказанный ферзевый гамбит: славянская защита, голландский вариант, вариант "
+"Ласкера"
+
+msgid "Queen Gambit Declined Slav: Dutch, Saemisch Variation"
+msgstr ""
+"Отказанный ферзевый гамбит: славянская защита, голландский вариант, вариант "
+"Земиша"
+
+msgid "Queen Gambit Declined Slav: Exchange Variation, 6.Bf4 Bf5"
+msgstr ""
+"Отказанный ферзевый гамбит: славянская защита, разменный вариант, 6.Сf4 Сf5"
+
+msgid "Queen Gambit Declined Slav: Exchange Variation"
+msgstr "Отказанный ферзевый гамбит: славянская защита, разменный вариант"
+
+msgid "Queen Gambit Declined Slav: Exchange, Trifunovic Variation"
+msgstr ""
+"Отказанный ферзевый гамбит: славянская защита, разменный вариант, вариант "
+"Трифуновича"
+
+msgid "Queen Gambit Declined Slav: Krause Attack"
+msgstr "Отказанный ферзевый гамбит: славянская защита, атака Краузе"
+
+msgid "Queen Gambit Declined Slav: Semmering Variation"
+msgstr "Отказанный ферзевый гамбит: славянская защита, земмерингский вариант"
+
+msgid "Queen Gambit Declined Slav: Slav Gambit"
+msgstr "Отказанный ферзевый гамбит: славянская защита, славянский гамбит"
+
+msgid "Queen Gambit Declined Slav: Smyslov Variation"
+msgstr "Отказанный ферзевый гамбит: славянская защита, вариант Смыслова"
+
+msgid "Queen Gambit Declined Slav: Soultanbeieff Variation"
+msgstr "Отказанный ферзевый гамбит: славянская защита, вариант Султанбеева"
+
+msgid "Queen Gambit Declined Slav: Steiner Variation"
+msgstr "Отказанный ферзевый гамбит: славянская защита, вариант Стейнера"
+
+msgid "Queen Gambit Declined Slav: Suechting Variation"
+msgstr "Отказанный ферзевый гамбит: славянская защита, вариант Зюхтинга"
+
+msgid "Queen Gambit Declined Slav: Tolush-Geller Gambit"
+msgstr "Отказанный ферзевый гамбит: славянская защита, гамбит Толуша-Геллера"
+
+msgid "Queen Gambit Declined Slav: Wiesbaden Variation"
+msgstr "Отказанный ферзевый гамбит: славянская защита, висбаденский вариант"
+
+msgid "Queen Gambit Declined Slav: Winawer Counter-Gambit"
+msgstr "Отказанный ферзевый гамбит: славянская защита, контргамбит Винавера"
+
+msgid "Queen Gambit Declined: 3...Nf6"
+msgstr "Отказанный ферзевый гамбит: 3...Кf6"
+
+msgid "Queen Gambit Declined: 3.Nc3"
+msgstr "Отказанный ферзевый гамбит: 3.Кc3"
+
+msgid "Queen Gambit Declined: 4.Bg5 Be7, 5.e3 O-O"
+msgstr "Отказанный ферзевый гамбит: 4.Сg5 Сe7, 5.e3 O-O"
+
+msgid "Queen Gambit Declined: 4.Bg5 Be7"
+msgstr "Отказанный ферзевый гамбит: 4.Сg5 Сe7"
+
+msgid "Queen Gambit Declined: 4.Bg5 Nbd7"
+msgstr "Отказанный ферзевый гамбит: 4.Сg5 Кbd7"
+
+msgid "Queen Gambit Declined: 4.Bg5"
+msgstr "Отказанный ферзевый гамбит: 4.Сg5"
+
+msgid "Queen Gambit Declined: 4.Nf3"
+msgstr "Отказанный ферзевый гамбит: 4.Кf3"
+
+msgid "Queen Gambit Declined: 5...c6"
+msgstr "Отказанный ферзевый гамбит: 5...c6"
+
+msgid "Queen Gambit Declined: 6.Nf3"
+msgstr "Отказанный ферзевый гамбит: 6.Кf3"
+
+msgid "Queen Gambit Declined: Alapin Variation"
+msgstr "Отказанный ферзевый гамбит: вариант Алапина"
+
+msgid "Queen Gambit Declined: Albin Counter-Gambit, 5.g3"
+msgstr "Отказанный ферзевый гамбит: контргамбит Альбина, 5.g3"
+
+msgid "Queen Gambit Declined: Albin Counter-Gambit, Alapin Variation"
+msgstr "Отказанный ферзевый гамбит: контргамбит Альбина, вариант Алапина"
+
+msgid "Queen Gambit Declined: Albin Counter-Gambit, Balogh Variation"
+msgstr "Отказанный ферзевый гамбит: контргамбит Альбина, вариант Балога"
+
+msgid "Queen Gambit Declined: Albin Counter-Gambit, Janowski Variation"
+msgstr "Отказанный ферзевый гамбит: контргамбит Альбина, вариант Яновского"
+
+msgid "Queen Gambit Declined: Albin Counter-Gambit, Krenosz Variation"
+msgstr "Отказанный ферзевый гамбит: контргамбит Альбина, вариант Креноса"
+
+msgid "Queen Gambit Declined: Albin Counter-Gambit, Lasker trap"
+msgstr "Отказанный ферзевый гамбит: контргамбит Альбина, ловушка Ласкера"
+
+msgid "Queen Gambit Declined: Albin Counter-Gambit"
+msgstr "Отказанный ферзевый гамбит: контргамбит Альбина"
+
+msgid "Queen Gambit Declined: Alekhine Variation"
+msgstr "Отказанный ферзевый гамбит: вариант Алехина"
+
+msgid "Queen Gambit Declined: Anti-neo-orthodox Variation"
+msgstr "Отказанный ферзевый гамбит: анти-неоортодоксальный вариант"
+
+msgid "Queen Gambit Declined: Been-Koomen Variation"
+msgstr "Отказанный ферзевый гамбит: вариант Бена-Комена"
+
+msgid "Queen Gambit Declined: Cambridge Springs Defence, 7.cd"
+msgstr "Отказанный ферзевый гамбит: Кембридж-Спрингская защита, 7.cd"
+
+msgid "Queen Gambit Declined: Cambridge Springs Defence, Argentine Variation"
+msgstr ""
+"Отказанный ферзевый гамбит: Кембридж-Спрингская защита, аргентинский вариант"
+
+msgid "Queen Gambit Declined: Cambridge Springs Defence, Bogoljubow Variation"
+msgstr ""
+"Отказанный ферзевый гамбит: Кембридж-Спрингская защита, вариант Боголюбова"
+
+msgid "Queen Gambit Declined: Cambridge Springs Defence, Capablanca Variation"
+msgstr ""
+"Отказанный ферзевый гамбит: Кембридж-Спрингская защита, вариант Капабланки"
+
+msgid "Queen Gambit Declined: Cambridge Springs Defence, Rubinstein Variation"
+msgstr ""
+"Отказанный ферзевый гамбит: Кембридж-Спрингская защита, вариант Рубинштейна"
+
+msgid "Queen Gambit Declined: Cambridge Springs Defence, Yugoslav Variation"
+msgstr ""
+"Отказанный ферзевый гамбит: Кембридж-Спрингская защита, югославский вариант"
+
+msgid "Queen Gambit Declined: Cambridge Springs Defence"
+msgstr "Отказанный ферзевый гамбит: Кембридж-Спрингская защита"
+
+msgid "Queen Gambit Declined: Canal (Venice) Variation"
+msgstr "Отказанный ферзевый гамбит: вариант Каналя"
+
+msgid "Queen Gambit Declined: Capablanca Anti-Cambridge Springs Variation"
+msgstr "Отказанный ферзевый гамбит: вариант анти-Кембридж-Спрингс Капабланки"
+
+msgid "Queen Gambit Declined: Capablanca Variation"
+msgstr "Отказанный ферзевый гамбит: вариант Капабланки"
+
+msgid "Queen Gambit Declined: Capablanca-Duras Variation"
+msgstr "Отказанный ферзевый гамбит: вариант Капабланки-Дураса"
+
+msgid "Queen Gambit Declined: Charousek (Petrosian) Variation"
+msgstr "Отказанный ферзевый гамбит: вариант Харузека"
+
+msgid "Queen Gambit Declined: Chigorin Defence, Janowski Variation"
+msgstr "Отказанный ферзевый гамбит: защита Чигорина, вариант Яновского"
+
+msgid "Queen Gambit Declined: Chigorin Defence"
+msgstr "Отказанный ферзевый гамбит: защита Чигорина"
+
+msgid "Queen Gambit Declined: Classical Variation (5.Bf4)"
+msgstr "Отказанный ферзевый гамбит: классический вариант"
+
+msgid "Queen Gambit Declined: Exchange Variation"
+msgstr "Отказанный ферзевый гамбит: разменный вариант"
+
+msgid "Queen Gambit Declined: Exchange, Positional Line, 5...c6"
+msgstr ""
+"Отказанный ферзевый гамбит: разменный вариант, позиционное продолжение, "
+"5...c6"
+
+msgid "Queen Gambit Declined: Exchange, Positional Line, 6.Qc2"
+msgstr ""
+"Отказанный ферзевый гамбит: разменный вариант, позиционное продолжение, "
+"6.Фc2"
+
+msgid "Queen Gambit Declined: Exchange, Positional Line"
+msgstr ""
+"Отказанный ферзевый гамбит: разменный вариант, позиционное продолжение"
+
+msgid "Queen Gambit Declined: Exchange, Saemisch Variation"
+msgstr "Отказанный ферзевый гамбит: разменный вариант, вариант Земиша"
+
+msgid "Queen Gambit Declined: Grau (Sahovic) Defence"
+msgstr "Отказанный ферзевый гамбит: вариант Грау"
+
+msgid "Queen Gambit Declined: Harrwitz Attack"
+msgstr "Отказанный ферзевый гамбит: атака Гарвица"
+
+msgid "Queen Gambit Declined: Janowski Variation"
+msgstr "Отказанный ферзевый гамбит: вариант Яновского"
+
+msgid "Queen Gambit Declined: Lasker Defence, Bernstein Variation"
+msgstr "Отказанный ферзевый гамбит: защита Ласкера, вариант Бернштейна"
+
+msgid "Queen Gambit Declined: Lasker Defence, Main Line"
+msgstr "Отказанный ферзевый гамбит: защита Ласкера, основное продолжение"
+
+msgid "Queen Gambit Declined: Lasker Defence, Teichmann Variation"
+msgstr "Отказанный ферзевый гамбит: защита Ласкера, вариант Тейхмана"
+
+msgid "Queen Gambit Declined: Lasker Defence"
+msgstr "Отказанный ферзевый гамбит: защита Ласкера"
+
+msgid "Queen Gambit Declined: Lasker Variation"
+msgstr "Отказанный ферзевый гамбит: вариант Ласкера"
+
+msgid "Queen Gambit Declined: Manhattan Variation"
+msgstr "Отказанный ферзевый гамбит: манхэттенский вариант"
+
+msgid "Queen Gambit Declined: Marshall Defence"
+msgstr "Отказанный ферзевый гамбит: защита Маршалла"
+
+msgid "Queen Gambit Declined: Neo-orthodox Variation, 7.Bh4"
+msgstr "Отказанный ферзевый гамбит: неоортодоксальный вариант, 7.Сh4"
+
+msgid "Queen Gambit Declined: Neo-orthodox Variation, 7.Bxf6"
+msgstr "Отказанный ферзевый гамбит: неоортодоксальный вариант, 7.Сxf6"
+
+msgid "Queen Gambit Declined: Neo-orthodox Variation"
+msgstr "Отказанный ферзевый гамбит: неоортодоксальный вариант"
+
+msgid "Queen Gambit Declined: Orthodox Defence, 7.Qc2 c5, 8.cd (Rubinstein)"
+msgstr "Отказанный ферзевый гамбит: ортодоксальная защита, 7.Фc2 c5, 8.cd"
+
+msgid "Queen Gambit Declined: Orthodox Defence, 7.Rc1"
+msgstr "Отказанный ферзевый гамбит: ортодоксальная защита, 7.Лc1"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Bd3 Line, 11.O-O"
+msgstr ""
+"Отказанный ферзевый гамбит: ортодоксальная защита, продолжение Сd3, 11.O-O"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Bd3 Line, Alekhine Variation"
+msgstr ""
+"Отказанный ферзевый гамбит: ортодоксальная защита, продолжение Сd3, вариант "
+"Алехина"
+
+msgid ""
+"Queen Gambit Declined: Orthodox Defence, Bd3 Line, Capablanca freeing "
+"manoevre"
+msgstr ""
+"Отказанный ферзевый гамбит: ортодоксальная защита, продолжение Сd3, маневр "
+"Капабланки"
+
+msgid ""
+"Queen Gambit Declined: Orthodox Defence, Bd3 Line, Fianchetto Variation"
+msgstr ""
+"Отказанный ферзевый гамбит: ортодоксальная защита, продолжение Сd3, вариант "
+"с фианкетто"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Bd3 Line, Janowski Variation"
+msgstr ""
+"Отказанный ферзевый гамбит: ортодоксальная защита, продолжение Сd3, вариант "
+"Яновского"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Bd3 Line"
+msgstr "Отказанный ферзевый гамбит: ортодоксальная защита, продолжение Сd3"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Botvinnik Variation"
+msgstr "Отказанный ферзевый гамбит: ортодоксальная защита, вариант Ботвинника"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Capablanca Variation"
+msgstr "Отказанный ферзевый гамбит: ортодоксальная защита, вариант Капабланки"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Classical Variation"
+msgstr ""
+"Отказанный ферзевый гамбит: ортодоксальная защита, классический вариант"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Classical, 13.d1b1 (Maroczy)"
+msgstr ""
+"Отказанный ферзевый гамбит: ортодоксальная защита, классический вариант, "
+"13.Фb1"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Classical, 13.d1c2 (Vidmar)"
+msgstr ""
+"Отказанный ферзевый гамбит: ортодоксальная защита, классический вариант, "
+"13.Фc2"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Classical, 13.de"
+msgstr ""
+"Отказанный ферзевый гамбит: ортодоксальная защита, классический вариант, "
+"13.de"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Pillsbury Attack"
+msgstr "Отказанный ферзевый гамбит: ортодоксальная защита, атака Пильсбери"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Rauzer Variation"
+msgstr "Отказанный ферзевый гамбит: ортодоксальная защита, вариант Раузера"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Rubinstein Attack (with Rc1)"
+msgstr "Отказанный ферзевый гамбит: ортодоксальная защита, атака Рубинштейна"
+
+msgid ""
+"Queen Gambit Declined: Orthodox Defence, Rubinstein Attack, Grünfeld "
+"Variation"
+msgstr ""
+"Отказанный ферзевый гамбит: ортодоксальная защита, атака Рубинштейна, "
+"вариант Грюнфельда"
+
+msgid ""
+"Queen Gambit Declined: Orthodox Defence, Rubinstein Attack, Karlsbad "
+"Variation"
+msgstr ""
+"Отказанный ферзевый гамбит: ортодоксальная защита, атака Рубинштейна, "
+"карлcбадский вариант"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Rubinstein Attack, Main Line"
+msgstr ""
+"Отказанный ферзевый гамбит: ортодоксальная защита, атака Рубинштейна, "
+"основное продолжение"
+
+msgid ""
+"Queen Gambit Declined: Orthodox Defence, Rubinstein Attack, Wolf Variation"
+msgstr ""
+"Отказанный ферзевый гамбит: ортодоксальная защита, атака Рубинштейна, "
+"вариант Вольфа"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Rubinstein Variation"
+msgstr ""
+"Отказанный ферзевый гамбит: ортодоксальная защита, вариант Рубинштейна"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Swiss (Henneberger) Variation"
+msgstr ""
+"Отказанный ферзевый гамбит: ортодоксальная защита, швейцарский вариант"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Swiss, Karlsbad Variation"
+msgstr ""
+"Отказанный ферзевый гамбит: ортодоксальная защита, швейцарский вариант, "
+"карлсбадский вариант"
+
+msgid "Queen Gambit Declined: Orthodox Defence"
+msgstr "Отказанный ферзевый гамбит: ортодоксальная защита"
+
+msgid "Queen Gambit Declined: Petrosian Variation"
+msgstr "Отказанный ферзевый гамбит: вариант Петросяна"
+
+msgid "Queen Gambit Declined: Ragozin Variation"
+msgstr "Отказанный ферзевый гамбит: защита Рагозина"
+
+msgid "Queen Gambit Declined: Ragozin, Vienna Variation"
+msgstr "Отказанный ферзевый гамбит: защита Рагозина, венский вариант"
+
+msgid "Queen Gambit Declined: Rochlin Variation"
+msgstr "Отказанный ферзевый гамбит: вариант Рохлина"
+
+msgid "Queen Gambit Declined: Semi-Slav, Abrahams Variation"
+msgstr "Отказанный ферзевый гамбит: славянская защита, вариант Абрахамса"
+
+msgid "Queen Gambit Declined: Semi-Slav, Junge Variation"
+msgstr "Отказанный ферзевый гамбит: славянская защита, вариант Юнге"
+
+msgid "Queen Gambit Declined: Semi-Slav, Koomen Variation"
+msgstr "Отказанный ферзевый гамбит: славянская защита, вариант Комена"
+
+msgid "Queen Gambit Declined: Semi-Slav, Marshall Gambit"
+msgstr "Отказанный ферзевый гамбит: славянская защита, гамбит Маршалла"
+
+msgid "Queen Gambit Declined: Semi-Slav, Noteboom Variation"
+msgstr "Отказанный ферзевый гамбит: славянская защита, вариант Нотебома"
+
+msgid "Queen Gambit Declined: Semi-Slav"
+msgstr "Отказанный ферзевый гамбит: славянская защита"
+
+msgid "Queen Gambit Declined: Semi-Tarrasch Defence"
+msgstr "Отказанный ферзевый гамбит: улучшенная защита Тарраша"
+
+msgid "Queen Gambit Declined: Semi-Tarrasch with e3"
+msgstr "Отказанный ферзевый гамбит: улучшенная защита Тарраша с e3"
+
+msgid "Queen Gambit Declined: Semi-Tarrasch, 5.cd"
+msgstr "Отказанный ферзевый гамбит: улучшенная защита Тарраша, 5. cxd5"
+
+msgid "Queen Gambit Declined: Semi-Tarrasch, 7.Bd3"
+msgstr "Отказанный ферзевый гамбит: улучшенная защита Тарраша, 7.Сd3"
+
+msgid "Queen Gambit Declined: Semi-Tarrasch, Kmoch Variation"
+msgstr "Отказанный ферзевый гамбит: улучшенная защита Тарраша, вариант Кмоха"
+
+msgid "Queen Gambit Declined: Semi-Tarrasch, Krause Variation"
+msgstr "Отказанный ферзевый гамбит: улучшенная защита Тарраша, вариант Краузе"
+
+msgid "Queen Gambit Declined: Semi-Tarrasch, Primitive Pillsbury Variation"
+msgstr ""
+"Отказанный ферзевый гамбит: улучшенная защита Тарраша, первоначальный "
+"вариант Пильсбери"
+
+msgid "Queen Gambit Declined: Semi-Tarrasch, San Sebastian Variation"
+msgstr ""
+"Отказанный ферзевый гамбит: улучшенная защита Тарраша, Сан-Себастьянский "
+"вариант"
+
+msgid "Queen Gambit Declined: Semi-Tarrasch, Symmetrical Variation"
+msgstr ""
+"Отказанный ферзевый гамбит: улучшенная защита Тарраша, симметричный вариант"
+
+msgid "Queen Gambit Declined: Spielmann Variation"
+msgstr "Отказанный ферзевый гамбит: вариант Шпильмана"
+
+msgid "Queen Gambit Declined: Stonewall Variation"
+msgstr "Отказанный ферзевый гамбит: вариант Каменная стена"
+
+msgid "Queen Gambit Declined: Symmetrical (Austrian) Defence"
+msgstr "Отказанный ферзевый гамбит: симметричная защита"
+
+msgid "Queen Gambit Declined: Tarrasch Defence, 4.cd ed"
+msgstr "Отказанный ферзевый гамбит: защита Тарраша, 4. cd ed"
+
+msgid "Queen Gambit Declined: Tarrasch Defence, Marshall Gambit"
+msgstr "Отказанный ферзевый гамбит: защита Тарраша, гамбит Маршалла"
+
+msgid "Queen Gambit Declined: Tarrasch Defence, Tarrasch Gambit"
+msgstr "Отказанный ферзевый гамбит: защита Тарраша, гамбит Тарраша"
+
+msgid "Queen Gambit Declined: Tarrasch Defence"
+msgstr "Отказанный ферзевый гамбит: защита Тарраша"
+
+msgid "Queen Gambit Declined: Tarrasch, Bogolyubov Variation"
+msgstr "Отказанный ферзевый гамбит: защита Тарраша, вариант Боголюбова"
+
+msgid "Queen Gambit Declined: Tarrasch, Folkestone (Swedish) Variation"
+msgstr "Отказанный ферзевый гамбит: защита Тарраша, шведский вариант"
+
+msgid "Queen Gambit Declined: Tarrasch, Prague Variation, 7...Be7"
+msgstr "Отказанный ферзевый гамбит: защита Тарраша, пражский вариант, 7...Сe7"
+
+msgid "Queen Gambit Declined: Tarrasch, Prague Variation, 9.Bg5"
+msgstr "Отказанный ферзевый гамбит: защита Тарраша, пражский вариант, 9.Сg5"
+
+msgid "Queen Gambit Declined: Tarrasch, Prague Variation, Normal position"
+msgstr ""
+"Отказанный ферзевый гамбит: защита Тарраша, пражский вариант, классический "
+"вариант"
+
+msgid "Queen Gambit Declined: Tarrasch, Prague Variation"
+msgstr "Отказанный ферзевый гамбит: защита Тарраша, пражский вариант"
+
+msgid "Queen Gambit Declined: Tarrasch, Reti Variation"
+msgstr "Отказанный ферзевый гамбит: защита Тарраша, вариант Рети"
+
+msgid ""
+"Queen Gambit Declined: Tarrasch, Schlechter-Rubinstein System, Rey Ardid "
+"Variation"
+msgstr ""
+"Отказанный ферзевый гамбит: защита Тарраша, система Шлехтера-Рубинштейна, "
+"вариант Рея Ардида"
+
+msgid "Queen Gambit Declined: Tarrasch, Schlechter-Rubinstein System"
+msgstr ""
+"Отказанный ферзевый гамбит: защита Тарраша, система Шлехтера-Рубинштейна"
+
+msgid "Queen Gambit Declined: Tarrasch, Stoltz Variation"
+msgstr "Отказанный ферзевый гамбит: защита Тарраша, вариант Штольца"
+
+msgid "Queen Gambit Declined: Tarrasch, Wagner Variation"
+msgstr "Отказанный ферзевый гамбит: защита Тарраша, вариант Вагнера"
+
+msgid "Queen Gambit Declined: Tarrasch, von Hennig-Schara Gambit"
+msgstr "Отказанный ферзевый гамбит: защита Тарраша, гамбит Шара-Геннига"
+
+msgid ""
+"Queen Gambit Declined: Tartakower (Makagonov-Bondarevsky) System, 8.cd Nxd5"
+msgstr ""
+"Отказанный ферзевый гамбит: система Тартаковера-Макогонова-Бондаревского, "
+"8.cd Кxd5"
+
+msgid "Queen Gambit Declined: Tartakower (Makagonov-Bondarevsky) System"
+msgstr ""
+"Отказанный ферзевый гамбит: система Тартаковера-Макогонова-Бондаревского"
+
+msgid "Queen Gambit Declined: Tartakower Variation"
+msgstr "Отказанный ферзевый гамбит: вариант Тартаковера"
+
+msgid "Queen Gambit Declined: Vienna Variation"
+msgstr "Отказанный ферзевый гамбит: венский вариант"
+
+msgid "Queen Gambit Declined"
+msgstr "Отказанный ферзевый гамбит"
+
+msgid "Queen Gambit"
+msgstr "Ферзевый гамбит"
+
+msgid "Queen Indian Accelerated"
+msgstr "Ранняя новоиндийская защита"
+
+msgid "Queen Indian Defence: 4.Nc3, Main Line"
+msgstr "Новоиндийская защита: 4.Кc3, основное продолжение"
+
+msgid "Queen Indian Defence: 4.Nc3"
+msgstr "Новоиндийская защита: 4.Кc3"
+
+msgid "Queen Indian Defence: 4.e3"
+msgstr "Новоиндийская защита: 4.e3"
+
+msgid "Queen Indian Defence: 4.g3 Bb7"
+msgstr "Новоиндийская защита: 4.g3 Сb7"
+
+msgid "Queen Indian Defence: 4.g3"
+msgstr "Новоиндийская защита: 4.g3"
+
+msgid "Queen Indian Defence: 5.Bg2 Be7"
+msgstr "Новоиндийская защита: 5.Сg2 Сe7"
+
+msgid "Queen Indian Defence: Anti-Queen Indian System"
+msgstr "Новоиндийская защита: анти-новоиндийская система"
+
+msgid "Queen Indian Defence: Averbakh Variation"
+msgstr "Новоиндийская защита: вариант Авербаха"
+
+msgid "Queen Indian Defence: Buerger Variation"
+msgstr "Новоиндийская защита: вариант Бюргера"
+
+msgid "Queen Indian Defence: Capablanca Variation"
+msgstr "Новоиндийская защита: вариант Капабланки"
+
+msgid "Queen Indian Defence: Euwe Variation"
+msgstr "Новоиндийская защита: вариант Эйве"
+
+msgid "Queen Indian Defence: Marienbad System, Berg Variation"
+msgstr "Новоиндийская защита: мариенбадская система, вариант Бергса"
+
+msgid "Queen Indian Defence: Marienbad System"
+msgstr "Новоиндийская защита: мариенбадская система"
+
+msgid "Queen Indian Defence: Miles Variation"
+msgstr "Новоиндийская защита: вариант Майлса"
+
+msgid "Queen Indian Defence: Nimzovich Variation (exaggerated Fianchetto)"
+msgstr "Новоиндийская защита: вариант Нимцовича"
+
+msgid "Queen Indian Defence: Old Main Line, 6.O-O"
+msgstr "Новоиндийская защита: устаревшее основное продолжение, 6.O-O"
+
+msgid "Queen Indian Defence: Old Main Line, 7.Nc3"
+msgstr "Новоиндийская защита: устаревшее основное продолжение, 7.Кc3"
+
+msgid "Queen Indian Defence: Old Main Line, 9.Qxc3"
+msgstr "Новоиндийская защита: устаревшее основное продолжение, 9.Фxc3"
+
+msgid "Queen Indian Defence: Opovcensky Variation"
+msgstr "Новоиндийская защита: вариант Опоченского"
+
+msgid "Queen Indian Defence: Petrosian System"
+msgstr "Новоиндийская защита: система Петросяна"
+
+msgid "Queen Indian Defence: Riumin Variation"
+msgstr "Новоиндийская защита: вариант Рюмина"
+
+msgid "Queen Indian Defence: Rubinstein Variation"
+msgstr "Новоиндийская защита: вариант Рубинштейна"
+
+msgid "Queen Indian Defence: Yates Variation"
+msgstr "Новоиндийская защита: вариант Ейтса"
+
+msgid "Queen Indian Defence"
+msgstr "Новоиндийская защита"
+
+msgid "Queen Pawn Game Counter-Gambit (elephant Gambit)"
+msgstr "Гамбит элефанта"
+
+msgid "Queen Pawn Game Counter-Gambit: Maroczy Gambit"
+msgstr "Гамбит элефанта: гамбит Мароци"
+
+msgid "Queen Pawn Game: Bronstein Gambit"
+msgstr "Дебют ферзевой пешки: гамбит Бронштейна"
+
+msgid "Queen Pawn Game: Charlick (Englund) Gambit"
+msgstr "Дебют ферзевой пешки: гамбит Чарлика"
+
+msgid "Queen Pawn Game: Chigorin Variation"
+msgstr "Дебют ферзевых пешек: система Вересова"
+
+msgid "Queen Pawn Game: English Defence"
+msgstr "Дебют ферзевой пешки: английская защита"
+
+msgid "Queen Pawn Game: Franco-Indian (Keres) Defence"
+msgstr ""
+"Дебют ферзевой пешки: гибрид французской защиты и индийских построений"
+
+msgid "Queen Pawn Game: Krause Variation"
+msgstr "Дебют ферзевых пешек: вариант Краузе"
+
+msgid "Queen Pawn Game: Lundin (Kevitz-Mikenas) Defence"
+msgstr "Дебют ферзевой пешки: защита Лундина"
+
+msgid "Queen Pawn Game: Mason Variation, Steinitz Counter-Gambit"
+msgstr "Дебют ферзевых пешек: вариант Мэзона, контргамбит Стейница"
+
+msgid "Queen Pawn Game: Mason Variation"
+msgstr "Дебют ферзевых пешек: вариант Мэзона"
+
+msgid "Queen Pawn Game: Mengarini Attack"
+msgstr "Староиндийская защита: атака Менгарини"
+
+msgid "Queen Pawn Game: Rubinstein (Colle-Zukertort) Variation"
+msgstr "Дебют ферзевых пешек: система Цукерторта"
+
+msgid "Queen Pawn Game: Stonewall Attack"
+msgstr "Дебют ферзевых пешек: атака Каменная стена"
+
+msgid "Queen Pawn Game: Torre Attack, Wagner Gambit"
+msgstr "Дебют ферзевой пешки: атака Торре, гамбит Вагнера"
+
+msgid "Queen Pawn Game: Torre Attack"
+msgstr "Дебют ферзевой пешки: атака Торре"
+
+msgid "Queen Pawn Game: Yusupov-Rubinstein System"
+msgstr "Дебют ферзевой пешки: система Юсупова-Рубинштейна"
+
+msgid "Queen Pawn Game: Zukertort Variation"
+msgstr "Дебют ферзевых пешек: система Цукерторта"
+
+msgid "Queen Pawn Game"
+msgstr "Дебют ферзевой пешки"
+
+msgid "Reti Opening: Accepted, Keres Variation"
+msgstr "Дебют Рети: принятый гамбит Рети, вариант Кереса"
+
+msgid "Reti Opening: Accepted"
+msgstr "Дебют Рети: принятый гамбит Рети"
+
+msgid "Reti Opening: Advance Variation"
+msgstr "Дебют Рети: вариант с продвижением"
+
+msgid "Reti Opening: Herrstroem Gambit"
+msgstr "Дебют Рети: гамбит Херрстрема"
+
+msgid "Reti Opening: King Indian Attack (Barcza System)"
+msgstr "Дебют Рети: староиндийская атака"
+
+msgid "Reti Opening: King Indian Attack (with ...c5)"
+msgstr "Дебют Рети: староиндийская атака (с ...c5)"
+
+msgid "Reti Opening: King Indian Attack, French Variation"
+msgstr "Дебют Рети: староиндийская атака, французский вариант"
+
+msgid "Reti Opening: King Indian Attack, Keres Variation"
+msgstr "Дебют Рети: староиндийская атака, вариант Кереса"
+
+msgid "Reti Opening: King Indian Attack, Pachman System"
+msgstr "Дебют Рети: староиндийская атака, система Пахмана"
+
+msgid "Reti Opening: King Indian Attack, Reti-Smyslov Variation"
+msgstr "Дебют Рети: староиндийская атака, вариант Рети-Смыслова"
+
+msgid "Reti Opening: King Indian Attack, Spassky Variation"
+msgstr "Дебют Рети: староиндийская атака, вариант Спасского"
+
+msgid "Reti Opening: King Indian Attack, Yugoslav Variation"
+msgstr "Дебют Рети: староиндийская атака, югославский вариант"
+
+msgid "Reti Opening: King Indian Attack"
+msgstr "Дебют Рети: староиндийская атака"
+
+msgid "Reti Opening: Lisitsin Gambit deferred"
+msgstr "Дебют Рети: улучшенный гамбит Лисицына"
+
+msgid "Reti Opening: Nimzovich-Larsen Attack"
+msgstr "Дебют Рети: атака Нимцовича-Ларсена"
+
+msgid "Reti Opening: Old Indian Attack"
+msgstr "Дебют Рети: староиндийская атака"
+
+msgid "Reti Opening: Pirc-Lisitsin Gambit"
+msgstr "Дебют Рети: гамбит Пирца-Лисицына"
+
+msgid "Reti Opening"
+msgstr "Дебют Рети"
+
+msgid "Reti v Dutch"
+msgstr "Дебют Рети: голландский вариант"
+
+msgid "Reversed Grob (Borg/Basman Defence/macho Grob)"
+msgstr "Дебют Гроба с переменой цвета фигур"
+
+msgid "Richter-Veresov Attack: Richter Variation"
+msgstr "Дебют Рихтера-Вересова: вариант Рихтера"
+
+msgid "Richter-Veresov Attack: Veresov Variation"
+msgstr "Дебют Рихтера-Вересова: вариант Вересова"
+
+msgid "Richter-Veresov Attack"
+msgstr "Дебют Рихтера-Вересова"
+
+msgid "Robatsch (Modern) Defence: Pseudo-Austrian Attack"
+msgstr "Защита Робача: мнимая австрийская атака"
+
+msgid "Robatsch (Modern) Defence: Three Pawns Attack"
+msgstr "Защита Робача: атака трех пешек"
+
+msgid "Robatsch (Modern) Defence: Two Knights Variation"
+msgstr "Защита Робача: вариант двух коней"
+
+msgid "Robatsch (Modern) Defence: Two Knights, Suttles Variation"
+msgstr "Защита Робача: вариант двух коней, вариант Саттлза"
+
+msgid "Robatsch (Modern) Defence"
+msgstr "Защита Робача"
+
+msgid "Rousseau Gambit"
+msgstr "Гамбит Руссо"
+
+msgid "Russian Game (Petroff Defence): Classical Attack, Berger Variation"
+msgstr "Русская партия: классическая атака, вариант Бергера"
+
+msgid "Russian Game (Petroff Defence): Classical Attack, Chigorin Variation"
+msgstr "Русская партия: классическая атака, вариант Чигорина"
+
+msgid "Russian Game (Petroff Defence): Classical Attack, Jaenisch Variation"
+msgstr "Русская партия: классическая атака, вариант Яниша"
+
+msgid "Russian Game (Petroff Defence): Classical Attack, Krause Variation"
+msgstr "Русская партия: классическая атака, вариант Краузе"
+
+msgid "Russian Game (Petroff Defence): Classical Attack, Maroczy Variation"
+msgstr "Русская партия: классическая атака, вариант Мароци"
+
+msgid "Russian Game (Petroff Defence): Classical Attack, Marshall Variation"
+msgstr "Русская партия: классическая атака, вариант Маршалла"
+
+msgid "Russian Game (Petroff Defence): Classical Attack, Marshall trap"
+msgstr "Русская партия: классическая атака, ловушка Маршалла"
+
+msgid "Russian Game (Petroff Defence): Classical Attack, Mason Variation"
+msgstr "Русская партия: классическая атака, вариант Мэзона"
+
+msgid "Russian Game (Petroff Defence): Classical Attack, Tarrasch Variation"
+msgstr "Русская партия: классическая атака, вариант Тарраша"
+
+msgid "Russian Game (Petroff Defence): Classical Attack, close Variation"
+msgstr "Русская партия: классическая атака, закрытый вариант"
+
+msgid "Russian Game (Petroff Defence): Classical Attack"
+msgstr "Русская партия: классическая атака"
+
+msgid "Russian Game (Petroff Defence): Cochrane Gambit"
+msgstr "Русская партия: гамбит Кохрана"
+
+msgid "Russian Game (Petroff Defence): Cozio (Lasker) Attack"
+msgstr "Русская партия: атака Коцио"
+
+msgid "Russian Game (Petroff Defence): Damiano Variation"
+msgstr "Русская партия: вариант Дамиано"
+
+msgid "Russian Game (Petroff Defence): French Attack"
+msgstr "Русская партия: французская атака"
+
+msgid "Russian Game (Petroff Defence): Italian Variation"
+msgstr "Русская партия: итальянский вариант"
+
+msgid "Russian Game (Petroff Defence): Kaufmann Attack"
+msgstr "Русская партия: атака Кауфмана"
+
+msgid "Russian Game (Petroff Defence): Modern (Steinitz) Attack"
+msgstr "Русская партия: система Стейница"
+
+msgid "Russian Game (Petroff Defence): Modern Attack, Bardeleben Variation"
+msgstr "Русская партия: система Стейница, вариант Барделебена"
+
+msgid "Russian Game (Petroff Defence): Modern Attack, Main Line"
+msgstr "Русская партия: система Стейница, основной вариант"
+
+msgid "Russian Game (Petroff Defence): Modern Attack, Steinitz Variation"
+msgstr "Русская партия: система Стейница"
+
+msgid "Russian Game (Petroff Defence): Modern Attack, Symmetrical Variation"
+msgstr "Русская партия: система Стейница, симметричный вариант"
+
+msgid "Russian Game (Petroff Defence): Modern Attack, Trifunovic Variation"
+msgstr "Русская партия: система Стейница, вариант Трифуновича"
+
+msgid "Russian Game (Petroff Defence): Nimzovich Attack"
+msgstr "Русская партия: атака Нимцовича"
+
+msgid "Russian Game (Petroff Defence): Paulsen Attack"
+msgstr "Русская партия: атака Паульсена"
+
+msgid "Russian Game (Petroff Defence): Three Knights Game"
+msgstr "Русская партия: дебют трех коней"
+
+msgid "Ruy Lopez (Spanish Opening)"
+msgstr "Испанская партия"
+
+msgid "Santasiere folly"
+msgstr "Глупость Сантасьера"
+
+msgid "Saragossa Opening"
+msgstr "Сарагосское начало"
+
+msgid "Scandinavian (Centre Counter) Defence"
+msgstr "Скандинавская защита"
+
+msgid "Scandinavian Defence: Anderssen Counter-Attack, Collijn Variation"
+msgstr "Скандинавская защита: контратака Андерсена, вариант Коллийна"
+
+msgid "Scandinavian Defence: Anderssen Counter-Attack, Goteborg System"
+msgstr "Скандинавская защита: контратака Андерсена, гетеборгский вариант"
+
+msgid "Scandinavian Defence: Anderssen Counter-Attack, orthodox Attack"
+msgstr "Скандинавская защита: контратака Андерсена, классическая атака"
+
+msgid "Scandinavian Defence: Anderssen Counter-Attack"
+msgstr "Скандинавская защита: контратака Андерсена"
+
+msgid "Scandinavian Defence: Grünfeld Variation"
+msgstr "Скандинавская защита: вариант Грюнфельда"
+
+msgid "Scandinavian Defence: Icelandic Gambit"
+msgstr "Скандинавская защита: исландский гамбит"
+
+msgid "Scandinavian Defence: Kiel Variation"
+msgstr "Скандинавская защита: кильский вариант"
+
+msgid "Scandinavian Defence: Lasker Variation"
+msgstr "Скандинавская защита: вариант Ласкера"
+
+msgid "Scandinavian Defence: Marshall Variation"
+msgstr "Скандинавская защита: вариант Маршалла"
+
+msgid "Scandinavian Defence: Mieses-Kotrvc Gambit"
+msgstr "Скандинавская защита: гамбит Мизеса-Котрча"
+
+msgid "Scandinavian Defence: Pytel-Wade Variation"
+msgstr "Скандинавская защита: вариант Пытеля-Вейда"
+
+msgid "Scandinavian Defence: Richter Variation"
+msgstr "Скандинавская защита: вариант Рихтера"
+
+msgid "Scandinavian Defence"
+msgstr "Скандинавская защита"
+
+msgid "Scandinavian Gambit"
+msgstr "Скандинавский гамбит"
+
+msgid "Scotch Gambit: Anderssen (Paulsen, Suhle) Counter-Attack"
+msgstr "Шотландский гамбит: контратака Андерсена"
+
+msgid "Scotch Gambit: Benima Defence"
+msgstr "Шотландский гамбит: защита Бенимы"
+
+msgid "Scotch Gambit: Cochrane Variation"
+msgstr "Шотландский гамбит: вариант Кохрана"
+
+msgid "Scotch Gambit: Cochrane-Shumov Defence"
+msgstr "Шотландский гамбит: защита Кохрана-Шумова"
+
+msgid "Scotch Gambit: Dubois-Reti Defence"
+msgstr "Шотландский гамбит: защита Дюбуа-Рети"
+
+msgid "Scotch Gambit: Hanneken Variation"
+msgstr "Шотландский гамбит: вариант Ганнекена"
+
+msgid "Scotch Gambit: Vitzhum Attack"
+msgstr "Шотландский гамбит: атака Фитцума"
+
+msgid "Scotch Gambit"
+msgstr "Шотландский гамбит"
+
+msgid "Scotch Opening: Berger Variation"
+msgstr "Шотландская партия: вариант Бергера"
+
+msgid "Scotch Opening: Blackburne Attack"
+msgstr "Шотландская партия: атака Блэкберна"
+
+msgid "Scotch Opening: Blumenfeld Attack"
+msgstr "Шотландская партия: атака Блюменфельда"
+
+msgid "Scotch Opening: Cochrane Variation"
+msgstr "Шотландская партия: вариант Кохрана"
+
+msgid "Scotch Opening: Fraser Attack"
+msgstr "Шотландская партия: атака Фрейзера"
+
+msgid "Scotch Opening: Ghulam Kassim Variation"
+msgstr "Шотландская партия: вариант Гулам Кассима"
+
+msgid "Scotch Opening: Goering Gambit, Bardeleben Variation"
+msgstr "Шотландская партия: гамбит Геринга, вариант Барделебена"
+
+msgid "Scotch Opening: Goering Gambit"
+msgstr "Шотландская партия: гамбит Геринга"
+
+msgid "Scotch Opening: Horwitz Attack"
+msgstr "Шотландская партия: атака Горвица"
+
+msgid "Scotch Opening: Lolli Variation"
+msgstr "Шотландская партия: вариант Лолли"
+
+msgid "Scotch Opening: Meitner Variation"
+msgstr "Шотландская партия: вариант Мейтнера"
+
+msgid "Scotch Opening: Mieses Variation"
+msgstr "Шотландская партия: вариант Мизеса"
+
+msgid "Scotch Opening: Paulsen Attack"
+msgstr "Шотландская партия: атака Паульсена"
+
+msgid "Scotch Opening: Paulsen, Gunsberg Defence"
+msgstr "Шотландская партия: атака Паульсена, защита Гунсберга"
+
+msgid "Scotch Opening: Potter Variation"
+msgstr "Шотландская партия: вариант Поттера"
+
+msgid "Scotch Opening: Pulling Counter-Attack"
+msgstr "Шотландская партия: контратака Пуллинга"
+
+msgid "Scotch Opening: Relfsson Gambit ('MacLopez')"
+msgstr "Шотландская партия: вариант Мак-Лопес"
+
+msgid "Scotch Opening: Romanishin Variation"
+msgstr "Шотландская партия: вариант Романишина"
+
+msgid "Scotch Opening: Rosenthal Variation"
+msgstr "Шотландская партия: вариант Розенталя"
+
+msgid "Scotch Opening: Schmidt Variation"
+msgstr "Шотландская партия: вариант Шмидта"
+
+msgid "Scotch Opening: Steinitz Variation"
+msgstr "Шотландская партия: вариант Стейница"
+
+msgid "Scotch Opening: Tartakower Variation"
+msgstr "Шотландская партия: вариант Тартаковера"
+
+msgid "Scotch Opening"
+msgstr "Шотландская партия"
+
+msgid "Semi-Benoni (Blockade Variation)"
+msgstr "Блокадный вариант защиты Бенони"
+
+msgid "Sicilian Defence: 2.c3, Heidenfeld Variation"
+msgstr "Сицилианская защита: вариант Алапина, вариант Хайденфельда"
+
+msgid "Sicilian Defence: Accelerated Fianchetto, Breyer Variation"
+msgstr "Сицилианская защита: ранний дракон, вариант Брейера"
+
+msgid "Sicilian Defence: Accelerated Fianchetto, Exchange Variation"
+msgstr "Сицилианская защита: ранний дракон, разменный вариант"
+
+msgid "Sicilian Defence: Accelerated Fianchetto, Gurgenidze Variation"
+msgstr "Сицилианская защита: ранний дракон, вариант Гургенидзе"
+
+msgid "Sicilian Defence: Accelerated Fianchetto, Maroczy Bind, 5...Bg7"
+msgstr "Сицилианская защита: ранний дракон, система Мароци, 5...Сg7"
+
+msgid "Sicilian Defence: Accelerated Fianchetto, Maroczy Bind, 6.Be3"
+msgstr "Сицилианская защита: ранний дракон, система Мароци, 6.Сe3"
+
+msgid "Sicilian Defence: Accelerated Fianchetto, Maroczy Bind"
+msgstr "Сицилианская защита: ранний дракон, система Мароци"
+
+msgid "Sicilian Defence: Accelerated Fianchetto, Modern Variation with Bc4"
+msgstr "Сицилианская защита: ранний дракон, современный вариант с Сc4"
+
+msgid "Sicilian Defence: Accelerated Fianchetto, Modern Variation"
+msgstr "Сицилианская защита: ранний дракон, современный вариант"
+
+msgid "Sicilian Defence: Accelerated Fianchetto, Simagin Variation"
+msgstr "Сицилианская защита: ранний дракон, вариант Симагина"
+
+msgid "Sicilian Defence: Acton extension"
+msgstr "Сицилианская защита: венгерский вариант"
+
+msgid "Sicilian Defence: Alapin Variation (2.c3)"
+msgstr "Сицилианская защита: вариант Алапина"
+
+msgid "Sicilian Defence: Anderssen Variation"
+msgstr "Сицилианская защита: вариант Андерсена"
+
+msgid "Sicilian Defence: Andreaschek Gambit"
+msgstr "Сицилианская защита: гамбит Андреашека"
+
+msgid "Sicilian Defence: Boleslavsky Variation, 7.Nb3"
+msgstr "Сицилианская защита: вариант Болеславского, 7.Кb3"
+
+msgid "Sicilian Defence: Boleslavsky Variation"
+msgstr "Сицилианская защита: вариант Болеславского"
+
+msgid "Sicilian Defence: Boleslavsky, Louma Variation"
+msgstr "Сицилианская защита: вариант Болеславского, вариант Лоумы"
+
+msgid "Sicilian Defence: Canal-Sokolsky (Nimzovich-Rossolimo, Moscow) Attack"
+msgstr "Сицилианская защита: атака Каналя-Сокольского"
+
+msgid "Sicilian Defence: Canal-Sokolsky Attack, 3...Bd7"
+msgstr "Сицилианская защита: атака Каналя-Сокольского, 3...Сd7"
+
+msgid "Sicilian Defence: Canal-Sokolsky Attack, Bronstein Gambit"
+msgstr "Сицилианская защита: атака Каналя-Сокольского, гамбит Бронштейна"
+
+msgid "Sicilian Defence: Canal-Sokolsky Attack, Sokolsky Variation"
+msgstr "Сицилианская защита: атака Каналя-Сокольского, вариант Сокольского"
+
+msgid "Sicilian Defence: Chameleon Variation"
+msgstr "Сицилианская защита: вариант-хамелеон"
+
+msgid "Sicilian Defence: Chekhover Variation"
+msgstr "Сицилианская защита: вариант Чеховера"
+
+msgid "Sicilian Defence: Chekhover, Zaitsev Variation"
+msgstr "Сицилианская защита: вариант Чеховера, вариант Зайцева"
+
+msgid "Sicilian Defence: Classical"
+msgstr "Сицилианская защита: классический вариант"
+
+msgid "Sicilian Defence: Closed, 2...Nc6"
+msgstr "Сицилианская защита: закрытый вариант, 2...Кc6"
+
+msgid "Sicilian Defence: Closed, 6.Be3"
+msgstr "Сицилианская защита: закрытый вариант, 6.Сe3"
+
+msgid "Sicilian Defence: Closed, 6.Ne2 e5 (Botvinnik)"
+msgstr "Сицилианская защита: закрытый вариант, 6.Кe2 e5"
+
+msgid "Sicilian Defence: Closed, 6.f4 e5 (Botvinnik)"
+msgstr "Сицилианская защита: закрытый вариант, 6.f4 e5"
+
+msgid "Sicilian Defence: Closed, 6.f4"
+msgstr "Сицилианская защита: закрытый вариант, 6.f4"
+
+msgid "Sicilian Defence: Closed, Korchnoi Variation"
+msgstr "Сицилианская защита: закрытый вариант, вариант Корчного"
+
+msgid "Sicilian Defence: Closed, Smyslov Variation"
+msgstr "Сицилианская защита: закрытый вариант, вариант Смыслова"
+
+msgid "Sicilian Defence: Closed"
+msgstr "Сицилианская защита: закрытый вариант"
+
+msgid "Sicilian Defence: Dragon Variation"
+msgstr "Сицилианская защита: вариант дракона"
+
+msgid "Sicilian Defence: Dragon, 6.Be3"
+msgstr "Сицилианская защита: вариант дракона, 6.Сe3"
+
+msgid "Sicilian Defence: Dragon, Classical Attack"
+msgstr "Сицилианская защита: вариант дракона, классическая атака"
+
+msgid "Sicilian Defence: Dragon, Classical, 8.O-O"
+msgstr "Сицилианская защита: вариант дракона, классическая атака, 8.O-O"
+
+msgid "Sicilian Defence: Dragon, Classical, 9.Nb3"
+msgstr "Сицилианская защита: вариант дракона, классическая атака, 9.Кb3"
+
+msgid "Sicilian Defence: Dragon, Classical, Alekhine Variation"
+msgstr ""
+"Сицилианская защита: вариант дракона, классическая атака, вариант Алехина"
+
+msgid "Sicilian Defence: Dragon, Classical, Amsterdam Variation"
+msgstr ""
+"Сицилианская защита: вариант дракона, классическая атака, амстердамский "
+"вариант"
+
+msgid "Sicilian Defence: Dragon, Classical, Bernard Defence"
+msgstr ""
+"Сицилианская защита: вариант дракона, классическая атака, защита Бернарда"
+
+msgid "Sicilian Defence: Dragon, Classical, Grigoriev Variation"
+msgstr ""
+"Сицилианская защита: вариант дракона, классическая атака, вариант Григорьева"
+
+msgid "Sicilian Defence: Dragon, Classical, Nottingham Variation"
+msgstr ""
+"Сицилианская защита: вариант дракона, классическая атака, ноттингемский "
+"вариант"
+
+msgid "Sicilian Defence: Dragon, Classical, Reti-Tartakower Variation"
+msgstr ""
+"Сицилианская защита: вариант дракона, классическая атака, вариант Рети-"
+"Тартаковера"
+
+msgid "Sicilian Defence: Dragon, Classical, Richter Variation"
+msgstr ""
+"Сицилианская защита: вариант дракона, классическая атака, вариант Рихтера"
+
+msgid "Sicilian Defence: Dragon, Classical, Spielmann Variation"
+msgstr ""
+"Сицилианская защита: вариант дракона, классическая атака, вариант Шпильмана"
+
+msgid "Sicilian Defence: Dragon, Classical, Stockholm Attack"
+msgstr ""
+"Сицилианская защита: вариант дракона, классическая атака, стокгольмская "
+"атака"
+
+msgid "Sicilian Defence: Dragon, Classical, Zollner Gambit"
+msgstr ""
+"Сицилианская защита: вариант дракона, классическая атака, гамбит Цолльнера"
+
+msgid "Sicilian Defence: Dragon, Levenfish Variation"
+msgstr "Сицилианская защита: вариант дракона, вариант Левенфиша"
+
+msgid "Sicilian Defence: Dragon, Levenfish; Flohr Variation"
+msgstr ""
+"Сицилианская защита: вариант дракона, вариант Левенфиша, вариант Флора"
+
+msgid "Sicilian Defence: Dragon, Yugoslav Attack, 10.O-O-O"
+msgstr "Сицилианская защита: вариант дракона, югославская атака, 10.O-O-O"
+
+msgid "Sicilian Defence: Dragon, Yugoslav Attack, 12.h4"
+msgstr "Сицилианская защита: вариант дракона, югославская атака, 12.h4"
+
+msgid "Sicilian Defence: Dragon, Yugoslav Attack, 7...O-O"
+msgstr "Сицилианская защита: вариант дракона, югославская атака, 7...O-O"
+
+msgid "Sicilian Defence: Dragon, Yugoslav Attack, 9...Bd7"
+msgstr "Сицилианская защита: вариант дракона, югославская атака, 9...Сd7"
+
+msgid "Sicilian Defence: Dragon, Yugoslav Attack, 9.Bc4"
+msgstr "Сицилианская защита: вариант дракона, югославская атака, 9.Сc4"
+
+msgid "Sicilian Defence: Dragon, Yugoslav Attack, Byrne Variation"
+msgstr ""
+"Сицилианская защита: вариант дракона, югославская атака, вариант Бирна"
+
+msgid "Sicilian Defence: Dragon, Yugoslav Attack, Rauser Variation"
+msgstr ""
+"Сицилианская защита: вариант дракона, югославская атака, вариант Раузера"
+
+msgid "Sicilian Defence: Dragon, Yugoslav Attack"
+msgstr "Сицилианская защита: вариант дракона, югославская атака"
+
+msgid "Sicilian Defence: Flohr Variation"
+msgstr "Сицилианская защита: вариант Флора"
+
+msgid "Sicilian Defence: Gloria Variation"
+msgstr "Сицилианская защита: вариант Глория"
+
+msgid "Sicilian Defence: Grand Prix Attack, Schofman Variation"
+msgstr "Сицилианская защита: Гран-при-атака, вариант Шофмана"
+
+msgid "Sicilian Defence: Grand Prix Attack"
+msgstr "Сицилианская защита: Гран-при-атака"
+
+msgid "Sicilian Defence: Hungarian Variation"
+msgstr "Сицилианская защита: венгерский вариант"
+
+msgid "Sicilian Defence: Kan Variation"
+msgstr "Сицилианская защита: вариант Кана"
+
+msgid "Sicilian Defence: Kan, 5.Bd3"
+msgstr "Сицилианская защита: вариант Кана, 5.Сd3"
+
+msgid "Sicilian Defence: Kan, 5.Nc3"
+msgstr "Сицилианская защита: вариант Кана, 5.Кc3"
+
+msgid "Sicilian Defence: Kan, Gipslis Variation"
+msgstr "Сицилианская защита: вариант Кана, вариант Гипслиса"
+
+msgid "Sicilian Defence: Kan, Maroczy Bind (Reti Variation)"
+msgstr "Сицилианская защита: вариант Кана, система Мароци"
+
+msgid "Sicilian Defence: Kan, Maroczy Bind - Bronstein Variation"
+msgstr "Сицилианская защита: вариант Кана, система Мароци, вариант Бронштейна"
+
+msgid "Sicilian Defence: Kan, Polugaievsky Variation"
+msgstr "Сицилианская защита: вариант Кана, вариант Полугаевского"
+
+msgid "Sicilian Defence: Kan, Swiss cheese Variation"
+msgstr "Сицилианская защита: вариант Кана, вариант Швейцарский сыр"
+
+msgid "Sicilian Defence: Katalimov Variation"
+msgstr "Сицилианская защита: вариант Каталымова"
+
+msgid "Sicilian Defence: Keres Variation (2.Ne2)"
+msgstr "Сицилианская защита: вариант Кереса"
+
+msgid "Sicilian Defence: La Bourdonnais-Loewenthal (Kalashnikov) Variation"
+msgstr ""
+"Сицилианская защита: вариант Лабурдонне-Левенталя, ранний вариант Свешникова"
+
+msgid "Sicilian Defence: La Bourdonnais-Loewenthal Variation"
+msgstr "Сицилианская защита: вариант Лабурдонне-Левенталя"
+
+msgid "Sicilian Defence: Magnus Smith trap"
+msgstr "Сицилианская защита: ловушка Магнуса Смита"
+
+msgid "Sicilian Defence: Marshall Variation"
+msgstr "Сицилианская защита: вариант Маршалла"
+
+msgid "Sicilian Defence: Modern Scheveningen, Main Line with Nb3"
+msgstr "Сицилианская защита: модерн-Схевенинген, основной вариант с Кb3"
+
+msgid "Sicilian Defence: Modern Scheveningen, Main Line"
+msgstr "Сицилианская защита: модерн-Схевенинген, основной вариант"
+
+msgid "Sicilian Defence: Modern Scheveningen"
+msgstr "Сицилианская защита: модерн-Схевенинген"
+
+msgid "Sicilian Defence: Najdorf Variation"
+msgstr "Сицилианская защита: вариант Найдорфа"
+
+msgid "Sicilian Defence: Najdorf, 6...e6"
+msgstr "Сицилианская защита: вариант Найдорфа, 6...e6"
+
+msgid "Sicilian Defence: Najdorf, 6.Bg5"
+msgstr "Сицилианская защита: вариант Найдорфа, 6.Сg5"
+
+msgid "Sicilian Defence: Najdorf, 6.f4"
+msgstr "Сицилианская защита: вариант Найдорфа, 6.f4"
+
+msgid "Sicilian Defence: Najdorf, 7...Be7 Main Line"
+msgstr "Сицилианская защита: вариант Найдорфа, 7...Сe7 основной вариант"
+
+msgid "Sicilian Defence: Najdorf, 7...Be7"
+msgstr "Сицилианская защита: вариант Найдорфа, 7...Сe7"
+
+msgid "Sicilian Defence: Najdorf, 7...Qb6"
+msgstr "Сицилианская защита: вариант Найдорфа, 7...Фb6"
+
+msgid "Sicilian Defence: Najdorf, 7.f4"
+msgstr "Сицилианская защита: вариант Найдорфа, 7.f4"
+
+msgid "Sicilian Defence: Najdorf, Adams Attack"
+msgstr "Сицилианская защита: вариант Найдорфа, атака Адамса"
+
+msgid "Sicilian Defence: Najdorf, Browne Variation"
+msgstr "Сицилианская защита: вариант Найдорфа, вариант Брауна"
+
+msgid "Sicilian Defence: Najdorf, Byrne (English) Attack"
+msgstr "Сицилианская защита: вариант Найдорфа, атака Бирна"
+
+msgid "Sicilian Defence: Najdorf, Goteborg (Argentine) Variation"
+msgstr "Сицилианская защита: вариант Найдорфа, гетеборгский вариант"
+
+msgid "Sicilian Defence: Najdorf, Ivkov Variation"
+msgstr "Сицилианская защита: вариант Найдорфа, вариант Ивкова"
+
+msgid "Sicilian Defence: Najdorf, Lipnitzky Attack"
+msgstr "Сицилианская защита: вариант Найдорфа, атака Липницкого"
+
+msgid "Sicilian Defence: Najdorf, Opovcensky Variation"
+msgstr "Сицилианская защита: вариант Найдорфа, вариант Опоченского"
+
+msgid "Sicilian Defence: Najdorf, Poisoned Pawn Variation"
+msgstr "Сицилианская защита: вариант Найдорфа, вариант отравленной пешки"
+
+msgid "Sicilian Defence: Najdorf, Polugayevsky Variation"
+msgstr "Сицилианская защита: вариант Найдорфа, вариант Полугаевского"
+
+msgid "Sicilian Defence: Najdorf, Polugayevsky, Simagin Variation"
+msgstr ""
+"Сицилианская защита: вариант Найдорфа, вариант Полугаевского, вариант "
+"Симагина"
+
+msgid "Sicilian Defence: Najdorf, Zagreb (Fianchetto) Variation"
+msgstr "Сицилианская защита: вариант Найдорфа, загребский вариант"
+
+msgid "Sicilian Defence: Nimzovich Variation"
+msgstr "Сицилианская защита: вариант Нимцовича"
+
+msgid ""
+"Sicilian Defence: Nimzovich-Rossolimo Attack (with ...g6, without ...d6)"
+msgstr "Сицилианская защита: атака Нимцовича-Россолимо (с ...g6, без ...d6)"
+
+msgid "Sicilian Defence: Nimzovich-Rossolimo Attack (without ...d6)"
+msgstr "Сицилианская защита: атака Нимцовича-Россолимо (без ...d6)"
+
+msgid "Sicilian Defence: Nimzovich-Rossolimo Attack, Gurgenidze Variation"
+msgstr "Сицилианская защита: атака Нимцовича-Россолимо, вариант Гургенидзе"
+
+msgid "Sicilian Defence: Nimzovich-Rubinstein Variation"
+msgstr "Сицилианская защита: вариант Рубинштейна"
+
+msgid "Sicilian Defence: Nimzovich-Rubinstein; Rubinstein Counter-Gambit"
+msgstr "Сицилианская защита: вариант Рубинштейна, контргамбит Рубинштейна"
+
+msgid "Sicilian Defence: O'Kelly Variation"
+msgstr "Сицилианская защита: вариант О'Келли"
+
+msgid "Sicilian Defence: Pelikan (Lasker/Sveshnikov) Variation"
+msgstr "Сицилианская защита: вариант Свешникова"
+
+msgid "Sicilian Defence: Pelikan, Bird Variation"
+msgstr "Сицилианская защита: вариант Свешникова, вариант Берда"
+
+msgid "Sicilian Defence: Pelikan, Chelyabinsk Variation"
+msgstr "Сицилианская защита: вариант Свешникова, челябинский вариант"
+
+msgid "Sicilian Defence: Pin Variation (Sicilian Counter-Attack)"
+msgstr "Сицилианская защита: вариант со связкой"
+
+msgid "Sicilian Defence: Pin, Jaffe Variation"
+msgstr "Сицилианская защита: вариант со связкой, вариант Яффе"
+
+msgid "Sicilian Defence: Pin, Koch Variation"
+msgstr "Сицилианская защита: вариант со связкой, вариант Коха"
+
+msgid "Sicilian Defence: Prins (Moscow) Variation"
+msgstr "Сицилианская защита: вариант Принса"
+
+msgid "Sicilian Defence: Prins Variation, Venice Attack"
+msgstr "Сицилианская защита: вариант Принса, венецианская атака"
+
+msgid "Sicilian Defence: Quinteros Variation"
+msgstr "Сицилианская защита: вариант Кинтероса"
+
+msgid "Sicilian Defence: Richter-Rauzer, 6...e6"
+msgstr "Сицилианская защита: атака Рихтера-Раузера, 6...e6"
+
+msgid "Sicilian Defence: Richter-Rauzer, Bondarevsky Variation"
+msgstr "Сицилианская защита: атака Рихтера-Раузера, вариант Бондаревского"
+
+msgid "Sicilian Defence: Richter-Rauzer, Keres Variation"
+msgstr "Сицилианская защита: атака Рихтера-Раузера, вариант Кереса"
+
+msgid "Sicilian Defence: Richter-Rauzer, Larsen Variation, 7.Qd2"
+msgstr "Сицилианская защита: атака Рихтера-Раузера, вариант Ларсена, 7.Фd2"
+
+msgid "Sicilian Defence: Richter-Rauzer, Larsen Variation"
+msgstr "Сицилианская защита: атака Рихтера-Раузера, вариант Ларсена"
+
+msgid "Sicilian Defence: Richter-Rauzer, Margate (Alekhine) Variation"
+msgstr "Сицилианская защита: атака Рихтера-Раузера, вариант Алехина"
+
+msgid "Sicilian Defence: Richter-Rauzer, Podvebrady Variation"
+msgstr "Сицилианская защита: атака Рихтера-Раузера, подебрадский вариант"
+
+msgid ""
+"Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...Be7 Defence, 9...Nxd4"
+msgstr ""
+"Сицилианская защита: атака Рихтера-Раузера, атака Раузера, защита 7...Сe7, "
+"9...Кxd4"
+
+msgid "Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...Be7 Defence, 9.f4"
+msgstr ""
+"Сицилианская защита: атака Рихтера-Раузера, атака Раузера, 7...Сe7 защита, "
+"9.f4"
+
+msgid "Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...Be7"
+msgstr "Сицилианская защита: атака Рихтера-Раузера, атака Раузера, 7...Сe7"
+
+msgid ""
+"Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...a6 Defence, 11.Bxf6"
+msgstr ""
+"Сицилианская защита: атака Рихтера-Раузера, атака Раузера, защита 7...a6, "
+"11.Сxf6"
+
+msgid ""
+"Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...a6 Defence, 8...Bd7"
+msgstr ""
+"Сицилианская защита: атака Рихтера-Раузера, атака Раузера, защита 7...a6, "
+"8...Сd7"
+
+msgid ""
+"Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...a6 Defence, 9...Be7"
+msgstr ""
+"Сицилианская защита: атака Рихтера-Раузера, атака Раузера, защита 7...a6, "
+"9...Сe7"
+
+msgid "Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...a6"
+msgstr "Сицилианская защита: атака Рихтера-Раузера, атака Раузера, 7...a6"
+
+msgid "Sicilian Defence: Richter-Rauzer, Rauzer Attack, Geller Variation"
+msgstr ""
+"Сицилианская защита: атака Рихтера-Раузера, атака Раузера, вариант Геллера"
+
+msgid "Sicilian Defence: Richter-Rauzer, Rauzer Attack"
+msgstr "Сицилианская защита: атака Рихтера-Раузера, атака Раузера"
+
+msgid "Sicilian Defence: Richter-Rauzer, Richter Attack"
+msgstr "Сицилианская защита: атака Рихтера-Раузера, атака Рихтера"
+
+msgid "Sicilian Defence: Richter-Rauzer"
+msgstr "Сицилианская защита: атака Рихтера-Раузера"
+
+msgid "Sicilian Defence: Scheveningen (Paulsen), Classical Variation"
+msgstr "Сицилианская защита: схевенингенский вариант, классический вариант"
+
+msgid "Sicilian Defence: Scheveningen Variation"
+msgstr "Сицилианская защита: схевенингенский вариант"
+
+msgid "Sicilian Defence: Scheveningen, 6.Be2"
+msgstr "Сицилианская защита: схевенингенский вариант, 6.Сe2"
+
+msgid "Sicilian Defence: Scheveningen, 6.f4"
+msgstr "Сицилианская защита: схевенингенский вариант, 6.f4"
+
+msgid "Sicilian Defence: Scheveningen, Classical Main Line"
+msgstr ""
+"Сицилианская защита: схевенингенский вариант, основное продолжение "
+"классического варианта"
+
+msgid ""
+"Sicilian Defence: Scheveningen, Classical Variation with ...Qc7 and ...Nc6"
+msgstr ""
+"Сицилианская защита: схевенингенский вариант, классический вариант с ...Фc7 "
+"и ...Кc6"
+
+msgid "Sicilian Defence: Scheveningen, Classical, Maroczy System"
+msgstr ""
+"Сицилианская защита: схевенингенский вариант, классический вариант, система "
+"Мароци"
+
+msgid "Sicilian Defence: Scheveningen, Classical, Nd7 System"
+msgstr ""
+"Сицилианская защита: схевенингенский вариант, классический, система Кd7"
+
+msgid "Sicilian Defence: Scheveningen, Classical"
+msgstr "Сицилианская защита: схевенингенский вариант, классический вариант"
+
+msgid "Sicilian Defence: Scheveningen, English Variation"
+msgstr "Сицилианская защита: схевенингенский вариант, английский вариант"
+
+msgid "Sicilian Defence: Scheveningen, Fianchetto Variation"
+msgstr "Сицилианская защита: схевенингенский вариант, вариант с фианкетто"
+
+msgid "Sicilian Defence: Scheveningen, Keres Attack"
+msgstr "Сицилианская защита: схевенингенский вариант, атака Кереса"
+
+msgid "Sicilian Defence: Scheveningen, Tal Variation"
+msgstr "Сицилианская защита: схевенингенский вариант, вариант Таля"
+
+msgid "Sicilian Defence: Scheveningen, Vitolins Variation"
+msgstr "Сицилианская защита: схевенингенский вариант, вариант Витолиньша"
+
+msgid "Sicilian Defence: Smith-Morra Gambit, Chicago Defence"
+msgstr "Сицилианская защита: гамбит Морра, чикагская защита"
+
+msgid "Sicilian Defence: Smith-Morra Gambit"
+msgstr "Сицилианская защита: гамбит Морра"
+
+msgid "Sicilian Defence: Sozin Attack"
+msgstr "Сицилианская защита: атака Созина"
+
+msgid "Sicilian Defence: Sozin with ...a6 and ...b5"
+msgstr "Сицилианская защита: атака Созина с ...a6 и ...b5"
+
+msgid "Sicilian Defence: Sozin, 7.Be3"
+msgstr "Сицилианская защита: атака Созина, 7.Сe3"
+
+msgid "Sicilian Defence: Sozin, Benko Variation"
+msgstr "Сицилианская защита: атака Созина, вариант Бенко"
+
+msgid "Sicilian Defence: Sozin, Fischer Variation"
+msgstr "Сицилианская защита: атака Созина, вариант Фишера"
+
+msgid "Sicilian Defence: Sozin, Leonhardt Variation"
+msgstr "Сицилианская защита: атака Созина, вариант Леонгардта"
+
+msgid "Sicilian Defence: Sozin, not Scheveningen"
+msgstr "Сицилианская защита: атака Созина"
+
+msgid "Sicilian Defence: Steinitz Variation"
+msgstr "Сицилианская защита: вариант Стейница"
+
+msgid "Sicilian Defence: Stiletto (Althouse) Variation"
+msgstr "Сицилианская защита: вариант Стилет"
+
+msgid "Sicilian Defence: Sveshnikov Variation"
+msgstr "Сицилианская защита: вариант Свешникова"
+
+msgid "Sicilian Defence: Szen (Anti-Taimanov) Variation"
+msgstr "Сицилианская защита: вариант Сена"
+
+msgid "Sicilian Defence: Szen Variation, Dely-Kasparov Gambit"
+msgstr "Сицилианская защита: вариант Сена, гамбит Дели-Каспарова"
+
+msgid "Sicilian Defence: Szen, Hedgehog Variation"
+msgstr "Сицилианская защита: вариант Сена, вариант ежа"
+
+msgid "Sicilian Defence: Taimanov (Bastrikov) Variation"
+msgstr "Сицилианская защита: вариант Тайманова"
+
+msgid "Sicilian Defence: Taimanov Variation"
+msgstr "Сицилианская защита: вариант Тайманова"
+
+msgid "Sicilian Defence: Taimanov, American Attack"
+msgstr "Сицилианская защита: вариант Тайманова, американская атака"
+
+msgid "Sicilian Defence: Velimirovic Attack"
+msgstr "Сицилианская защита: атака Велимировича"
+
+msgid "Sicilian Defence: Venice Attack"
+msgstr "Сицилианская защита: венецианская атака"
+
+msgid "Sicilian Defence: Wing Gambit deferred"
+msgstr "Сицилианская защита: гамбит Кереса"
+
+msgid "Sicilian Defence: Wing Gambit, Carlsbad Variation"
+msgstr "Сицилианская защита: сицилианский гамбит, карлсбадский вариант"
+
+msgid "Sicilian Defence: Wing Gambit, Marienbad Variation"
+msgstr "Сицилианская защита: сицилианский гамбит, мариенбадский вариант"
+
+msgid "Sicilian Defence: Wing Gambit, Marshall Variation"
+msgstr "Сицилианская защита: сицилианский гамбит, вариант Маршалла"
+
+msgid "Sicilian Defence: Wing Gambit, Santasiere Variation"
+msgstr "Сицилианская защита: сицилианский гамбит, вариант Сантасьере"
+
+msgid "Sicilian Defence: Wing Gambit"
+msgstr "Сицилианская защита: сицилианский гамбит"
+
+msgid "Sicilian Defence"
+msgstr "Сицилианская защита"
+
+msgid "Spanish, Ruy Lopez: ...b5 & ...d6"
+msgstr "Испанская партия: ...b5 и ...d6"
+
+msgid "Spanish, Ruy Lopez: 5.O-O"
+msgstr "Испанская партия: 5.O-O"
+
+msgid "Spanish, Ruy Lopez: Alapin Defence deferred"
+msgstr "Испанская партия: улучшенная защита Алапина"
+
+msgid "Spanish, Ruy Lopez: Anderssen Variation"
+msgstr "Испанская партия: вариант Андерсена"
+
+msgid "Spanish, Ruy Lopez: Archangelsk (CounterThrust) Variation"
+msgstr "Испанская партия: архангельский вариант"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, 4.O-O, d6"
+msgstr "Испанская партия: берлинская защита, 4.O-O, d6"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, 4.O-O"
+msgstr "Испанская партия: берлинская защита, 4.O-O"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Anderssen Variation"
+msgstr "Испанская партия: берлинская защита, вариант Андерсена"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Beverwijk Variation"
+msgstr "Испанская партия: берлинская защита, бевервейкский вариант"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Cordel Variation"
+msgstr "Испанская партия: берлинская защита, вариант Корделя"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Duras Variation"
+msgstr "Испанская партия: берлинская защита, вариант Дураса"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Hedgehog Variation"
+msgstr "Испанская партия: берлинская защита, вариант ежа"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Kaufmann Variation"
+msgstr "Испанская партия: берлинская защита, вариант Кауфмана"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Minckwitz Variation"
+msgstr "Испанская партия: берлинская защита, вариант Минквица"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Mortimer Variation"
+msgstr "Испанская партия: берлинская защита, вариант Мортимера"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Mortimer trap"
+msgstr "Испанская партия: берлинская защита, ловушка Мортимера"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Nyholm Attack"
+msgstr "Испанская партия: берлинская защита, атака Нюхольма"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Open Variation"
+msgstr "Испанская партия: берлинская защита, открытый вариант"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Pillsbury Variation"
+msgstr "Испанская партия: берлинская защита, вариант Пильсбери"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Rosenthal Variation"
+msgstr "Испанская партия: берлинская защита, вариант Розенталя"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Tarrasch trap"
+msgstr "Испанская партия: берлинская защита, ловушка Тарраша"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Trifunovic Variation"
+msgstr "Испанская партия: берлинская защита, вариант Трифуновича"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Winawer Attack"
+msgstr "Испанская партия: берлинская защита, атака Винавера"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Zukertort Variation"
+msgstr "Испанская партия: берлинская защита, вариант Цукерторта"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence"
+msgstr "Испанская партия: берлинская защита"
+
+msgid "Spanish, Ruy Lopez: Bird Defence deferred"
+msgstr "Испанская партия: улучшенная защита Берда"
+
+msgid "Spanish, Ruy Lopez: Bird Defence, Paulsen Variation"
+msgstr "Испанская партия: защита Берда, вариант Паульсена"
+
+msgid "Spanish, Ruy Lopez: Bird Defence"
+msgstr "Испанская партия: защита Берда"
+
+msgid "Spanish, Ruy Lopez: Brentano Defence"
+msgstr "Испанская партия: защита Брентано"
+
+msgid "Spanish, Ruy Lopez: Caro Variation"
+msgstr "Испанская партия: вариант Каро"
+
+msgid "Spanish, Ruy Lopez: Classical (Cordel) Defence"
+msgstr "Испанская партия: защита Корделя"
+
+msgid "Spanish, Ruy Lopez: Classical Defence deferred"
+msgstr "Испанская партия: улучшенная защита Корделя"
+
+msgid "Spanish, Ruy Lopez: Classical Defence, 4.c3"
+msgstr "Испанская партия: защита Корделя, 4.c3"
+
+msgid "Spanish, Ruy Lopez: Classical Defence, Boden Variation"
+msgstr "Испанская партия: защита Корделя, вариант Бодена"
+
+msgid "Spanish, Ruy Lopez: Classical Defence, Charousek Variation"
+msgstr "Испанская партия: защита Корделя, вариант Харузека"
+
+msgid "Spanish, Ruy Lopez: Classical Defence, Zaitsev Variation"
+msgstr "Испанская партия: защита Корделя, вариант Зайцева"
+
+msgid "Spanish, Ruy Lopez: Closed (10...c5)"
+msgstr "Испанская партия: закрытый вариант"
+
+msgid "Spanish, Ruy Lopez: Closed (8...Na5)"
+msgstr "Испанская партия: закрытый вариант"
+
+msgid "Spanish, Ruy Lopez: Closed (with ...d6)"
+msgstr "Испанская партия: закрытый вариант (с ...d6)"
+
+msgid "Spanish, Ruy Lopez: Closed Berlin Defence, Bernstein Variation"
+msgstr "Испанская партия: закрытая берлинская защита, вариант Бернштейна"
+
+msgid "Spanish, Ruy Lopez: Closed Berlin Defence, Chigorin Variation"
+msgstr "Испанская партия: закрытая берлинская защита, вариант Чигорина"
+
+msgid "Spanish, Ruy Lopez: Closed Berlin Defence, Showalter Variation"
+msgstr "Испанская партия: закрытая берлинская защита, вариант Шовальтера"
+
+msgid "Spanish, Ruy Lopez: Closed Berlin Defence, Wolf Variation"
+msgstr "Испанская партия: закрытая берлинская защита, вариант Вольфа"
+
+msgid "Spanish, Ruy Lopez: Closed Defence"
+msgstr "Испанская партия: закрытый вариант"
+
+msgid "Spanish, Ruy Lopez: Closed, 7...O-O"
+msgstr "Испанская партия: закрытый вариант, 7...O-O"
+
+msgid "Spanish, Ruy Lopez: Closed, 7...d6, 8.d4"
+msgstr "Испанская партия: закрытый вариант, 7...d6, 8.d4"
+
+msgid "Spanish, Ruy Lopez: Closed, 8.c3"
+msgstr "Испанская партия: закрытый вариант, 8.c3"
+
+msgid "Spanish, Ruy Lopez: Closed, 9.d4"
+msgstr "Испанская партия: закрытый вариант, 9.d4"
+
+msgid "Spanish, Ruy Lopez: Closed, 9.h3"
+msgstr "Испанская партия: закрытый вариант, 9.h3"
+
+msgid "Spanish, Ruy Lopez: Closed, Anti-Marshall 8.a4"
+msgstr "Испанская партия: закрытый вариант, система анти-Маршалла 8.a4"
+
+msgid "Spanish, Ruy Lopez: Closed, Averbakh Variation"
+msgstr "Испанская партия: закрытый вариант, вариант Авербаха"
+
+msgid "Spanish, Ruy Lopez: Closed, Balla Variation"
+msgstr "Испанская партия: закрытый вариант, вариант Баллы"
+
+msgid "Spanish, Ruy Lopez: Closed, Basque Gambit (North Spanish Variation)"
+msgstr "Испанская партия: закрытый вариант, баскский гамбит"
+
+msgid "Spanish, Ruy Lopez: Closed, Bogolyubov Variation"
+msgstr "Испанская партия: закрытый вариант, вариант Боголюбова"
+
+msgid "Spanish, Ruy Lopez: Closed, Borisenko Defence"
+msgstr "Испанская партия: закрытый вариант, защита Борисенко"
+
+msgid "Spanish, Ruy Lopez: Closed, Breyer Defence"
+msgstr "Испанская партия: закрытый вариант, защита Брейера"
+
+msgid "Spanish, Ruy Lopez: Closed, Breyer, 10.d4"
+msgstr "Испанская партия: закрытый вариант, защита Брейера, 10.d4"
+
+msgid "Spanish, Ruy Lopez: Closed, Breyer, Borisenko Variation"
+msgstr "Испанская партия: закрытый вариант, защита Брейера, вариант Борисенко"
+
+msgid "Spanish, Ruy Lopez: Closed, Breyer, Gligoric Variation"
+msgstr "Испанская партия: закрытый вариант, защита Брейера, вариант Глигорича"
+
+msgid "Spanish, Ruy Lopez: Closed, Breyer, Simagin Variation"
+msgstr "Испанская партия: закрытый вариант, защита Брейера, вариант Симагина"
+
+msgid "Spanish, Ruy Lopez: Closed, Centre Attack"
+msgstr "Испанская партия: закрытый вариант, атака центра"
+
+msgid "Spanish, Ruy Lopez: Closed, Chigorin Defence"
+msgstr "Испанская партия: закрытый вариант, защита Чигорина"
+
+msgid "Spanish, Ruy Lopez: Closed, Chigorin, 12...Nc6"
+msgstr "Испанская партия: закрытый вариант, защита Чигорина, 12...Кc6"
+
+msgid "Spanish, Ruy Lopez: Closed, Chigorin, 12...c5d4"
+msgstr "Испанская партия: закрытый вариант, защита Чигорина, 12...c5d4"
+
+msgid "Spanish, Ruy Lopez: Closed, Chigorin, Rauzer Attack"
+msgstr "Испанская партия: закрытый вариант, защита Чигорина, атака Раузера"
+
+msgid "Spanish, Ruy Lopez: Closed, Chigorin, Yugoslav System"
+msgstr ""
+"Испанская партия: закрытый вариант, защита Чигорина, югославская система"
+
+msgid ""
+"Spanish, Ruy Lopez: Closed, Flohr-Zaitsev System (Lenzerheide Variation)"
+msgstr "Испанская партия: закрытый вариант, система Флора-Зайцева"
+
+msgid "Spanish, Ruy Lopez: Closed, Keres (...Nd7) Defence"
+msgstr "Испанская партия: закрытый вариант, защита Кереса"
+
+msgid "Spanish, Ruy Lopez: Closed, Keres (9...a5) Variation"
+msgstr "Испанская партия: закрытый вариант, вариант Кереса"
+
+msgid "Spanish, Ruy Lopez: Closed, Kholmov Variation"
+msgstr "Испанская партия: закрытый вариант, вариант Холмова"
+
+msgid "Spanish, Ruy Lopez: Closed, Leonhardt Variation"
+msgstr "Испанская партия: закрытый вариант, вариант Леонгардта"
+
+msgid "Spanish, Ruy Lopez: Closed, Lutikov Variation"
+msgstr "Испанская партия: закрытый вариант, вариант Лутикова"
+
+msgid "Spanish, Ruy Lopez: Closed, Pilnik Variation"
+msgstr "Испанская партия: закрытый вариант, вариант Пильника"
+
+msgid "Spanish, Ruy Lopez: Closed, Ragozin-Petrosian (Keres) Variation"
+msgstr "Испанская партия: закрытый вариант, вариант Рагозина-Петросяна"
+
+msgid "Spanish, Ruy Lopez: Closed, Rossolimo Defence"
+msgstr "Испанская партия: закрытый вариант, защита Россолимо"
+
+msgid "Spanish, Ruy Lopez: Closed, Smyslov Defence"
+msgstr "Испанская партия: закрытый вариант, защита Смыслова"
+
+msgid "Spanish, Ruy Lopez: Closed, Suetin Variation"
+msgstr "Испанская партия: закрытый вариант, вариант Суэтина"
+
+msgid "Spanish, Ruy Lopez: Cordel Gambit"
+msgstr "Испанская партия: гамбит Корделя"
+
+msgid "Spanish, Ruy Lopez: Cozio Defence deferred"
+msgstr "Испанская партия: улучшенная защита Коцио"
+
+msgid "Spanish, Ruy Lopez: Cozio Defence, Paulsen Variation"
+msgstr "Испанская партия: защита Коцио, вариант Паульсена"
+
+msgid "Spanish, Ruy Lopez: Cozio Defence"
+msgstr "Испанская партия: защита Коцио"
+
+msgid "Spanish, Ruy Lopez: Exchange Variation doubly deferred (DERLD)"
+msgstr "Испанская партия: улучшенный разменный вариант"
+
+msgid "Spanish, Ruy Lopez: Exchange Variation, 5.O-O"
+msgstr "Испанская партия: разменный вариант, 5.O-O"
+
+msgid "Spanish, Ruy Lopez: Exchange Variation, Alapin Gambit"
+msgstr "Испанская партия: разменный вариант, гамбит Алапина"
+
+msgid "Spanish, Ruy Lopez: Exchange Variation"
+msgstr "Испанская партия: разменный вариант"
+
+msgid "Spanish, Ruy Lopez: Exchange, Alekhine Variation"
+msgstr "Испанская партия: разменный вариант, вариант Алехина"
+
+msgid "Spanish, Ruy Lopez: Exchange, Bronstein Variation"
+msgstr "Испанская партия: разменный вариант, вариант Бронштейна"
+
+msgid "Spanish, Ruy Lopez: Exchange, Gligoric Variation"
+msgstr "Испанская партия: разменный вариант, вариант Глигорича"
+
+msgid "Spanish, Ruy Lopez: Exchange, Keres Variation"
+msgstr "Испанская партия: разменный вариант, вариант Кереса"
+
+msgid "Spanish, Ruy Lopez: Exchange, Romanovsky Variation"
+msgstr "Испанская партия: разменный вариант, вариант Романовского"
+
+msgid "Spanish, Ruy Lopez: Fianchetto (Smyslov/Barnes) Defence"
+msgstr "Испанская партия: защита Пильсбери"
+
+msgid "Spanish, Ruy Lopez: Fianchetto Defence deferred"
+msgstr "Испанская партия: улучшенная фианкетто-защита"
+
+msgid "Spanish, Ruy Lopez: Four Knights (Tarrasch) Variation"
+msgstr "Испанская партия: вариант четырех коней"
+
+msgid "Spanish, Ruy Lopez: Graz Variation"
+msgstr "Испанская партия: грацский вариант"
+
+msgid "Spanish, Ruy Lopez: Lucena Defence"
+msgstr "Испанская партия: защита Лусены"
+
+msgid "Spanish, Ruy Lopez: Marshall Counter-Attack, 11...c6"
+msgstr "Испанская партия: контратака Маршалла, 11...c6"
+
+msgid "Spanish, Ruy Lopez: Marshall Counter-Attack"
+msgstr "Испанская партия: контратака Маршалла"
+
+msgid "Spanish, Ruy Lopez: Marshall, Herman Steiner Variation"
+msgstr "Испанская партия: контратака Маршалла, вариант Германа Стейнера"
+
+msgid "Spanish, Ruy Lopez: Marshall, Kevitz Variation"
+msgstr "Испанская партия: контратака Маршалла, вариант Кевитца"
+
+msgid "Spanish, Ruy Lopez: Marshall, Main Line, 12.d2d4"
+msgstr "Испанская партия: контратака Маршалла, основное продолжение, 12.d4"
+
+msgid "Spanish, Ruy Lopez: Marshall, Main Line, 14...Qh3"
+msgstr "Испанская партия: контратака Маршалла, основное продолжение, 14...Фh3"
+
+msgid "Spanish, Ruy Lopez: Marshall, Main Line, Spassky Variation"
+msgstr ""
+"Испанская партия: контратака Маршалла, основное продолжение, вариант "
+"Спасского"
+
+msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, 5.O-O"
+msgstr "Испанская партия: улучшенная защита Стейница, 5.O-O"
+
+msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, Alapin Variation"
+msgstr "Испанская партия: улучшенная защита Стейница, вариант Алапина"
+
+msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, Duras (Keres) Variation"
+msgstr "Испанская партия: улучшенная защита Стейница, вариант Дураса"
+
+msgid ""
+"Spanish, Ruy Lopez: Modern Steinitz Defence, Fianchetto (Bronstein) "
+"Variation"
+msgstr "Испанская партия: улучшенная защита Стейница, вариант Бронштейна"
+
+msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, Richter Variation"
+msgstr "Испанская партия: улучшенная защита Стейница, вариант Рихтера"
+
+msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, Rubinstein Variation"
+msgstr "Испанская партия: улучшенная защита Стейница, вариант Рубинштейна"
+
+msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, Three Knights Variation"
+msgstr "Испанская партия: улучшенная защита Стейница, вариант трех коней"
+
+msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, siesta Variation"
+msgstr "Испанская партия: улучшенная защита Стейница, сиестинский вариант"
+
+msgid "Spanish, Ruy Lopez: Modern Steinitz Defence"
+msgstr "Испанская партия: улучшенная защита Стейница"
+
+msgid "Spanish, Ruy Lopez: Moeller Defence"
+msgstr "Испанская партия: система Меллера"
+
+msgid "Spanish, Ruy Lopez: Morphy Defence, Duras Variation"
+msgstr "Испанская партия: защита Морфи, вариант Дураса"
+
+msgid "Spanish, Ruy Lopez: Morphy Defence"
+msgstr "Испанская партия: защита Морфи"
+
+msgid "Spanish, Ruy Lopez: Noah ark trap"
+msgstr "Испанская партия: ловушка Ноев ковчег"
+
+msgid "Spanish, Ruy Lopez: Nuernberg Variation"
+msgstr "Испанская партия: нюрнбергский вариант"
+
+msgid "Spanish, Ruy Lopez: Old Steinitz Defence, Nimzovich Attack"
+msgstr "Испанская партия: защита Стейница, атака Нимцовича"
+
+msgid "Spanish, Ruy Lopez: Old Steinitz Defence, semi-Duras Variation"
+msgstr "Испанская партия: защита Стейница, улучшенный вариант Дураса"
+
+msgid "Spanish, Ruy Lopez: Old Steinitz Defence"
+msgstr "Испанская партия: защита Стейница"
+
+msgid "Spanish, Ruy Lopez: Open (Tarrasch) Defence"
+msgstr "Испанская партия: открытый вариант"
+
+msgid "Spanish, Ruy Lopez: Open Berlin Defence, 5...Be7"
+msgstr "Испанская партия: открытая берлинская защита, 5...Сe7"
+
+msgid "Spanish, Ruy Lopez: Open Berlin Defence, Showalter Variation"
+msgstr "Испанская партия: открытая берлинская защита, вариант Шовальтера"
+
+msgid "Spanish, Ruy Lopez: Open Berlin Defence, l'Hermet Variation"
+msgstr "Испанская партия: открытая берлинская защита, вариант Эрме"
+
+msgid "Spanish, Ruy Lopez: Open, 6.d4 b5"
+msgstr "Испанская партия: открытый вариант, 6.d4 b5"
+
+msgid "Spanish, Ruy Lopez: Open, 6.d4"
+msgstr "Испанская партия: открытый вариант, 6.d4"
+
+msgid "Spanish, Ruy Lopez: Open, 7.Bb3"
+msgstr "Испанская партия: открытый вариант, 7.Сb3"
+
+msgid "Spanish, Ruy Lopez: Open, 8...Be6"
+msgstr "Испанская партия: открытый вариант, 8...Сe6"
+
+msgid "Spanish, Ruy Lopez: Open, 8.de"
+msgstr "Испанская партия: открытый вариант, 8.de"
+
+msgid "Spanish, Ruy Lopez: Open, 9...Be7, 10.Re1"
+msgstr "Испанская партия: открытый вариант, 9...Сe7, 10.Лe1"
+
+msgid "Spanish, Ruy Lopez: Open, 9.c3"
+msgstr "Испанская партия: открытый вариант, 9.c3"
+
+msgid "Spanish, Ruy Lopez: Open, Berger Variation"
+msgstr "Испанская партия: открытый вариант, вариант Бергера"
+
+msgid "Spanish, Ruy Lopez: Open, Berlin Variation"
+msgstr "Испанская партия: открытый вариант, берлинский вариант"
+
+msgid "Spanish, Ruy Lopez: Open, Bernstein Variation, Karpov Gambit"
+msgstr ""
+"Испанская партия: открытый вариант, вариант Бернштейна, гамбит Карпова"
+
+msgid "Spanish, Ruy Lopez: Open, Bernstein Variation"
+msgstr "Испанская партия: открытый вариант, вариант Бернштейна"
+
+msgid "Spanish, Ruy Lopez: Open, Breslau Variation"
+msgstr "Испанская партия: открытый вариант, бреславльский вариант"
+
+msgid "Spanish, Ruy Lopez: Open, Classical Defence"
+msgstr "Испанская партия: открытый вариант, классическая защита"
+
+msgid "Spanish, Ruy Lopez: Open, Dilworth Variation"
+msgstr "Испанская партия: открытый вариант, вариант Дилуорта"
+
+msgid "Spanish, Ruy Lopez: Open, Friess Attack"
+msgstr "Испанская партия: открытый вариант, атака Фриса"
+
+msgid "Spanish, Ruy Lopez: Open, Harksen Gambit"
+msgstr "Испанская партия: открытый вариант, гамбит Харксена"
+
+msgid "Spanish, Ruy Lopez: Open, Howell Attack, Adam Variation"
+msgstr "Испанская партия: открытый вариант, атака Хауэлла, вариант Адама"
+
+msgid "Spanish, Ruy Lopez: Open, Howell Attack, Ekstroem Variation"
+msgstr "Испанская партия: открытый вариант, атака Хауэлла, вариант Экстрема"
+
+msgid "Spanish, Ruy Lopez: Open, Howell Attack"
+msgstr "Испанская партия: открытый вариант, атака Хауэлла"
+
+msgid "Spanish, Ruy Lopez: Open, Italian Variation"
+msgstr "Испанская партия: открытый вариант, итальянский вариант"
+
+msgid "Spanish, Ruy Lopez: Open, Knorre Variation"
+msgstr "Испанская партия: открытый вариант, вариант Кнорре"
+
+msgid "Spanish, Ruy Lopez: Open, Malkin Variation"
+msgstr "Испанская партия: открытый вариант, вартиант Малкина"
+
+msgid "Spanish, Ruy Lopez: Open, Motzko Attack, Nenarokov Variation"
+msgstr "Испанская партия: открытый вариант, атака Моцко, вариант Ненарокова"
+
+msgid "Spanish, Ruy Lopez: Open, Motzko Attack"
+msgstr "Испанская партия: открытый вариант, атака Моцко"
+
+msgid "Spanish, Ruy Lopez: Open, Richter Variation"
+msgstr "Испанская партия: открытый вариант, вариант Рихтера"
+
+msgid "Spanish, Ruy Lopez: Open, Riga Variation"
+msgstr "Испанская партия: открытый вариант, рижский вариант"
+
+msgid "Spanish, Ruy Lopez: Open, Schlechter Defence"
+msgstr "Испанская партия: открытый вариант, защита Шлехтера"
+
+msgid "Spanish, Ruy Lopez: Open, St. Petersburg Variation"
+msgstr "Испанская партия: открытый вариант, Санкт-Петербургский вариант"
+
+msgid "Spanish, Ruy Lopez: Open, Tarrasch trap"
+msgstr "Испанская партия: открытый вариант, ловушка Тарраша"
+
+msgid "Spanish, Ruy Lopez: Open, Tartakower Variation"
+msgstr "Испанская партия: открытый вариант, вариант Тартаковера"
+
+msgid "Spanish, Ruy Lopez: Open, Zukertort Variation"
+msgstr "Испанская партия: открытый вариант, вариант Цукерторта"
+
+msgid "Spanish, Ruy Lopez: Pollock Defence"
+msgstr "Испанская партия: защита Поллока"
+
+msgid "Spanish, Ruy Lopez: Rabinovich Variation"
+msgstr "Испанская партия: вариант Рабиновича"
+
+msgid "Spanish, Ruy Lopez: Schliemann Defence deferred"
+msgstr "Испанская партия: контргамбит Яниша"
+
+msgid "Spanish, Ruy Lopez: Schliemann Defence, Berger Variation"
+msgstr "Испанская партия: гамбит Яниша, вариант Бергера"
+
+msgid "Spanish, Ruy Lopez: Schliemann Defence"
+msgstr "Испанская партия: гамбит Яниша"
+
+msgid "Spanish, Ruy Lopez: Siesta, Kopayev Variation"
+msgstr "Испанская партия: сиестинский вариант, вариант Копаева"
+
+msgid "Spanish, Ruy Lopez: Steinitz Defence deferred (Russian Defence)"
+msgstr "Испанская партия: улучшенная защита Стейница"
+
+msgid "Spanish, Ruy Lopez: Steinitz Defence deferred, Boleslavsky Variation"
+msgstr "Испанская партия: улучшенная защита Стейница, вариант Болеславского"
+
+msgid "Spanish, Ruy Lopez: Steinitz Defence deferred, Lipnitsky Variation"
+msgstr "Испанская партия: улучшенная защита Стейница, вариант Липницкого"
+
+msgid "Spanish, Ruy Lopez: Steinitz Defence deferred, Rubinstein Variation"
+msgstr "Испанская партия: улучшенная защита Стейница, вариант Рубинштейна"
+
+msgid ""
+"Spanish, Ruy Lopez: Taimanov (chase/wing/Accelerated CounterThrust) "
+"Variation"
+msgstr "Испанская партия: вариант Тайманова"
+
+msgid "Spanish, Ruy Lopez: Trajkovic Counter-Attack"
+msgstr "Испанская партия: контратака Трайковича"
+
+msgid ""
+"Spanish, Ruy Lopez: Treybal (Bayreuth) Variation (Exchange var. deferred)"
+msgstr "Испанская партия: улучшенный разменный вариант"
+
+msgid "Spanish, Ruy Lopez: Vinogradov Variation"
+msgstr "Испанская партия: вариант Виноградова"
+
+msgid "Spanish, Ruy Lopez: Wormald (Alapin) Attack"
+msgstr "Испанская партия: атака Уормалда"
+
+msgid "Spanish, Ruy Lopez: Wormald Attack, Grünfeld Variation"
+msgstr "Испанская партия: атака Уормалда, вариант Грюнфельда"
+
+msgid "Spanish, Ruy Lopez: Worrall Attack, Sharp Line"
+msgstr "Испанская партия: атака Уорралла, острое продолжение"
+
+msgid "Spanish, Ruy Lopez: Worrall Attack, solid Line"
+msgstr "Испанская партия: атака Уорралла, надежное продолжение"
+
+msgid "Spanish, Ruy Lopez: Worrall Attack"
+msgstr "Испанская партия: атака Уорралла"
+
+msgid "St. George (Baker) Defence"
+msgstr "Защита Бейкера"
+
+msgid "St. George Defence"
+msgstr "Защита св. Георгия"
+
+msgid "Tayler Opening"
+msgstr "Дебют Тайлера"
+
+msgid "Tennison (Lemberg, Zukertort) Gambit"
+msgstr "Гамбит Теннисона"
+
+msgid "Three Knights Game: Schlechter Variation"
+msgstr "Дебют трех коней: вариант Шлехтера"
+
+msgid "Three Knights Game: Steinitz Variation"
+msgstr "Дебют трех коней: вариант Стейница"
+
+msgid "Three Knights Game: Steinitz, Rosenthal Variation"
+msgstr "Дебют трех коней: вариант Стейница, вариант Розенталя"
+
+msgid "Three Knights Game: Winawer Defence (Gothic Defence)"
+msgstr "Дебют трех коней: защита Винавера"
+
+msgid "Three Knights Game"
+msgstr "Дебют трех коней"
+
+msgid "Torre Attack (Tartakower Variation)"
+msgstr "Атака Торре"
+
+msgid "Trompovsky Attack (Ruth, Opovcensky Opening)"
+msgstr "Атака Тромповского"
+
+msgid "Two Knights Defence (Modern Bishop Opening)"
+msgstr "Защита двух коней"
+
+msgid "Two Knights Defence: Blackburne Variation"
+msgstr "Защита двух коней: вариант Блэкберна"
+
+msgid "Two Knights Defence: Bogolyubov Variation"
+msgstr "Защита двух коней: вариант Боголюбова"
+
+msgid "Two Knights Defence: Canal Variation"
+msgstr "Защита двух коней: вариант Каналя"
+
+msgid "Two Knights Defence: Colman Variation"
+msgstr "Защита двух коней: вариант Колмана"
+
+msgid "Two Knights Defence: Fegatello Attack, Leonhardt Variation"
+msgstr "Защита двух коней: вариант с жертвой коня, вариант Леонгардта"
+
+msgid "Two Knights Defence: Fegatello Attack, Polerio Defence"
+msgstr "Защита двух коней: вариант с жертвой коня, защита Полерио"
+
+msgid "Two Knights Defence: Fegatello Attack"
+msgstr "Защита двух коней: вариант с жертвой коня"
+
+msgid "Two Knights Defence: Fritz Variation"
+msgstr "Защита двух коней: вариант Фрица"
+
+msgid "Two Knights Defence: Fritz, Gruber Variation"
+msgstr "Защита двух коней: вариант Фрица, вариант Грубера"
+
+msgid "Two Knights Defence: Goering Variation"
+msgstr "Защита двух коней: вариант Геринга"
+
+msgid "Two Knights Defence: Kieseritsky Variation"
+msgstr "Защита двух коней: вариант Кизерицкого"
+
+msgid "Two Knights Defence: Knorre Variation"
+msgstr "Защита двух коней: вариант Кнорре"
+
+msgid "Two Knights Defence: Lolli Attack"
+msgstr "Защита двух коней: атака Лолли"
+
+msgid "Two Knights Defence: Maroczy Variation"
+msgstr "Защита двух коней: вариант Мароци"
+
+msgid "Two Knights Defence: Max Lange Attack, Berger Variation"
+msgstr "Защита двух коней: атака Макса Ланге, вариант Бергера"
+
+msgid "Two Knights Defence: Max Lange Attack, Krause Variation"
+msgstr "Защита двух коней: атака Макса Ланге, вариант Краузе"
+
+msgid "Two Knights Defence: Max Lange Attack, Loman Defence"
+msgstr "Защита двух коней: атака Макса Ланге, защита Ломана"
+
+msgid "Two Knights Defence: Max Lange Attack, Marshall Variation"
+msgstr "Защита двух коней: атака Макса Ланге, вариант Маршалла"
+
+msgid "Two Knights Defence: Max Lange Attack, Rubinstein Variation"
+msgstr "Защита двух коней: атака Макса Ланге, вариант Рубинштейна"
+
+msgid "Two Knights Defence: Max Lange Attack, Schlechter Variation"
+msgstr "Защита двух коней: атака Макса Ланге, вариант Шлехтера"
+
+msgid "Two Knights Defence: Max Lange Attack, Steinitz Variation"
+msgstr "Защита двух коней: атака Макса Ланге, вариант Стейница"
+
+msgid "Two Knights Defence: Max Lange Attack"
+msgstr "Защита двух коней: атака Макса Ланге"
+
+msgid "Two Knights Defence: Paoli Variation"
+msgstr "Защита двух коней: вариант Паоли"
+
+msgid "Two Knights Defence: Perreux Variation"
+msgstr "Защита двух коней: вариант Пере"
+
+msgid "Two Knights Defence: Pincus Variation"
+msgstr "Защита двух коней: вариант Пинкуса"
+
+msgid "Two Knights Defence: Steinitz Variation"
+msgstr "Защита двух коней: вариант Стейница"
+
+msgid "Two Knights Defence: Ulvestad Variation"
+msgstr "Защита двух коней: вариант Ульвестада"
+
+msgid "Two Knights Defence: Wilkes Barre (Traxler) Variation"
+msgstr "Защита двух коней: контратака Тракслера"
+
+msgid "Two Knights Defence: Yankovich Variation"
+msgstr "Защита двух коней: вариант Янковича"
+
+msgid "Two Knights Defence: Yurdansky Attack"
+msgstr "Защита двух коней: атака Юрданского"
+
+msgid "Two Knights Defence"
+msgstr "Защита двух коней"
+
+msgid "Valencia Opening"
+msgstr "Валенсийский дебют"
+
+msgid "Van't Kruijs Opening"
+msgstr "Дебют ван Круйса"
+
+msgid "Venezolana Opening"
+msgstr "Венесуэльское начало"
+
+msgid "Vienna Gambit: Bardeleben Variation"
+msgstr "Венский гамбит: вариант Барделебена"
+
+msgid "Vienna Gambit: Breyer Variation"
+msgstr "Венский гамбит: вариант Брейера"
+
+msgid "Vienna Gambit: Heyde Variation"
+msgstr "Венский гамбит: вариант Хейде"
+
+msgid "Vienna Gambit: Kaufmann Variation"
+msgstr "Венский гамбит: вариант Кауфмана"
+
+msgid "Vienna Gambit: Paulsen Attack"
+msgstr "Венский гамбит: атака Паульсена"
+
+msgid "Vienna Gambit: Steinitz Variation"
+msgstr "Венский гамбит: вариант Стейница"
+
+msgid "Vienna Gambit: Wurzburger trap"
+msgstr "Венский гамбит: ловушка Вюрцбургера"
+
+msgid "Vienna Gambit"
+msgstr "Венский гамбит"
+
+msgid "Vienna Game: Adams' Gambit"
+msgstr "Венская партия: гамбит Адамса"
+
+msgid "Vienna Game: Alekhine Variation"
+msgstr "Венская партия: вариант Алехина"
+
+msgid "Vienna Game: Falkbeer Variation"
+msgstr "Венская партия: вариант Фалькбеера"
+
+msgid "Vienna Game: Fyfe Gambit"
+msgstr "Венская партия: гамбит Файфа"
+
+msgid "Vienna Game: Hamppe-Allgaier Gambit, Alapin Variation"
+msgstr "Венская партия: гамбит Гампе-Альгайера, вариант Алапина"
+
+msgid "Vienna Game: Hamppe-Muzio Gambit"
+msgstr "Венская партия: гамбит Гампе-Муцио"
+
+msgid "Vienna Game: Hamppe-Muzio, Dubois Variation"
+msgstr "Венская партия: гамбит Гампе-Муцио, вариант Дюбуа"
+
+msgid "Vienna Game: Max Lange Defence"
+msgstr "Венская партия: защита Макса Ланге"
+
+msgid "Vienna Game: Mengarini Variation"
+msgstr "Венская партия: вариант Менгарини"
+
+msgid "Vienna Game: Paulsen Variation"
+msgstr "Венская партия: вариант Паульсена"
+
+msgid "Vienna Game: Paulsen-Mieses Variation"
+msgstr "Венская партия: вариант Паульсена-Мизеса"
+
+msgid "Vienna Game: Pierce Gambit, Rushmere Attack"
+msgstr "Венская партия: гамбит Пирса, рашмерская атака"
+
+msgid "Vienna Game: Pierce Gambit"
+msgstr "Венская партия: гамбит Пирса"
+
+msgid "Vienna Game: Steinitz Gambit, Fraser-Minckwitz Variation"
+msgstr "Венская партия: гамбит Стейница, вариант Фрейзера-Минквица"
+
+msgid "Vienna Game: Steinitz Gambit, Zukertort Defence"
+msgstr "Венская партия: гамбит Стейница, защита Цукерторта"
+
+msgid "Vienna Game: Steinitz Gambit"
+msgstr "Венская партия: гамбит Стейница"
+
+msgid "Vienna Game"
+msgstr "Венская партия"
+
+msgid "Vulture Defence"
+msgstr "Защита грифа"
+
+msgid "Ware (Meadow Hay) Opening"
+msgstr "Дебют Уэра"
+
+msgid "Woozle Defence"
+msgstr "Защита буки"

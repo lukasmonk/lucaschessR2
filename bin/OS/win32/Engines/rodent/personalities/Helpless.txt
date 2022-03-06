@@ -1,0 +1,5 @@
+; Helpless personality for Rodent chess engine
+; (overwrites default gm settings with low strength)
+setoption name Strength value GM
+setoption name UCI_LimitStrength value true
+setoption name UCI_Elo value 800

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg36220" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="700pt" width="700pt" version="1.0" xmlns:cc="http://web.resource.org/cc/" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/">
+ <defs id="defs36222">
+  <linearGradient id="linearGradient3037">
+   <stop id="stop3039" offset="0"/>
+   <stop id="stop3041" stop-color="#505090" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient3043" y2="274.33" xlink:href="#linearGradient3037" gradientUnits="userSpaceOnUse" x2="689.75" gradientTransform="matrix(1.0452 0 0 1.0145 -33.829 -11.835)" y1="207.66" x1="7.3376"/>
+  <linearGradient id="linearGradient3051" y2="643.2" xlink:href="#linearGradient3037" gradientUnits="userSpaceOnUse" x2="906.1" gradientTransform="matrix(1.0452 0 0 1.0145 -33.829 -11.835)" y1="521.53" x1="218.5"/>
+  <linearGradient id="linearGradient3059" y2="400.73" xlink:href="#linearGradient3037" gradientUnits="userSpaceOnUse" x2="966.59" gradientTransform="matrix(1.0452 0 0 1.0145 -33.829 -11.835)" y1="229.07" x1="153.41"/>
+  <linearGradient id="linearGradient3067" y2="782.07" xlink:href="#linearGradient3037" gradientUnits="userSpaceOnUse" x2="878.59" gradientTransform="matrix(1.0452 0 0 1.0145 -33.829 -11.835)" y1="715.41" x1="193.15"/>
+ </defs>
+ <metadata id="metadata36225">
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Maurizio Monge</dc:title>
+     </cc:Agent>
+    </dc:creator>
+    <dc:rights>
+     <cc:Agent>
+      <dc:title>Maurizio Monge</dc:title>
+     </cc:Agent>
+    </dc:rights>
+    <cc:license rdf:resource="http://creativecommons.org/licenses/GPL/2.0/"/>
+   </cc:Work>
+   <cc:License rdf:about="http://creativecommons.org/licenses/GPL/2.0/">
+    <cc:permits rdf:resource="http://web.resource.org/cc/Reproduction"/>
+    <cc:permits rdf:resource="http://web.resource.org/cc/Distribution"/>
+    <cc:requires rdf:resource="http://web.resource.org/cc/Notice"/>
+    <cc:permits rdf:resource="http://web.resource.org/cc/DerivativeWorks"/>
+    <cc:requires rdf:resource="http://web.resource.org/cc/ShareAlike"/>
+    <cc:requires rdf:resource="http://web.resource.org/cc/SourceCode"/>
+   </cc:License>
+  </rdf:RDF>
+ </metadata>
+ <g id="layer1" stroke-linejoin="round" stroke="gray" stroke-width="16">
+  <path id="path5877" d="m200.3 323.35s3.25-117.23 17.66-156.2c30.1-6.5 89.35-9.56 126.15-4.19 0.42 23.84-5.43 73.99-1.59 96.91 33.45-1.58 101.2 2.48 144.32-2.37 0.96-27.97-7.27-67.57 0.89-98.75 27.37-2.05 89.24-4.23 118.05 8.15-3.84 39.89 0.56 94.73 0.56 94.73l75.53 2.61-11.24 60c-94.31 35.35-411.33 30.1-470.33-0.89z" fill-rule="evenodd" stroke-linecap="round" fill="url(#linearGradient3043)"/>
+  <path id="path30874" d="m250.72 702.48c-23.99 23.95-74.12 48.05-109.86 55.62-5.18 17.11-10.28 36.9 0.24 58.17 127.4 1.16 463.79-0.32 585.52-0.74 6.56-23.74 11.53-40.9 4.96-59.56-37.48-7.41-82.74-18.62-116.25-53.49" fill-rule="evenodd" stroke-linecap="round" fill="url(#linearGradient3067)"/>
+  <path id="path28104" d="m198.04 768.62c149.46 0.08 311.66-5.51 471.51 0.58" stroke-linecap="round" fill="none"/>
+  <path id="path29124" d="m252.74 310.87c-3.77 44.85-4.85 357.29-3.81 394.5 55.17-4.66 311.61-4.96 368.16-0.56-3.2-70.03-2.32-392.96-2.32-392.96" fill-rule="evenodd" fill="url(#linearGradient3051)"/>
+  <path id="path34378" d="m291.38 634.83c39.89-2.94 123.47-6.25 215.44-3.29" stroke-linecap="round" fill="none"/>
+  <path id="path2302" d="m290.02 570.15c50.76-4.89 99.85-6.5 171.3-5.75" stroke-linecap="round" fill="none"/>
+  <path id="path2304" d="m290.56 504.95c72.27-5 74.3-4.47 152.51-5.59" stroke-linecap="round" fill="none"/>
+  <path id="path2306" d="m290.56 441.01c36.68-3.03 58.26-4.61 102.16-3.55" stroke-linecap="round" fill="none"/>
+  <path id="path28065" d="m334.76 457.7c0.88 29.94-0.17-1.33 0.7 24.55" stroke-linecap="round" fill="none"/>
+  <path id="path2309" d="m390.44 521.25c0.88 29.93-0.17-1.34 0.7 24.55" stroke-linecap="round" fill="none"/>
+  <path id="path2311" d="m334.76 585.53c0.88 29.93-0.17-1.34 0.7 24.55" stroke-linecap="round" fill="none"/>
+  <path id="path2313" d="m451.55 583.5c0.88 29.93-0.17 0.69 0.71 26.58" stroke-linecap="round" fill="none"/>
+  <path id="path2315" d="m390.44 652.23c0.88 29.93-0.17 0.7 0.7 26.58" stroke-linecap="round" fill="none"/>
+  <path id="path5035" d="m291.82 383.2c27.86-3.03 42.05-4 65.77-3.55" stroke-linecap="round" fill="none"/>
+  <path id="path29999" d="m131.75 161.28c5.15 28.22 9.05 55 14.05 95.54 32.07 22.36 50.03 30.18 53.46 67.65 96.36-17.36 386.97-13.35 474.36-0.35 6.09-33.78 16.05-39.55 63.13-67.91 5.94-44.36 11.17-65.75 11.5-92.27-14.1-3.43-115.47-33.78-127.99-29.42-4.45 26.39 1.85 49.06-4.01 73.88-37.94 1.91-71.75 0.46-111.02-9.76 0.2-33.18 0.15-51.37 1.78-77.05-16.58-5.91-115.21-6.96-133.81-0.87-3.21 31.98 0.84 49.4-1.73 77.83-33.68 9.53-65.62 7.06-105.84 9.32-3.24-33.8 2.75-45.67 1.99-69.4-16.59-4.53-120.21 17.99-135.87 22.81z" fill-rule="evenodd" stroke-linecap="round" fill="url(#linearGradient3059)"/>
+  <path id="path27172" d="m188.74 262.25c148.65-14.7 368.51-15.61 496.1 3.54" stroke-linecap="round" fill="none"/>
+ </g>
+</svg>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="51.200000pt"
+   height="51.200000pt"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.42"
+   sodipodi:docbase="/home/almoo7/Desktop/SnowIsh/SnowIsh-1.0/scalable/status"
+   sodipodi:docname="dialog-warning.svg"
+   inkscape:export-filename="/home/almoo7/Desktop/dialog-warning.png"
+   inkscape:export-xdpi="16.879999"
+   inkscape:export-ydpi="16.879999">
+  <defs
+     id="defs4">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient2908">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0"
+         id="stop2910" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0;"
+         offset="1"
+         id="stop2912" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient8662">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop8664" />
+      <stop
+         style="stop-color:#000000;stop-opacity:0;"
+         offset="1"
+         id="stop8666" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient2038">
+      <stop
+         id="stop2040"
+         offset="0.0000000"
+         style="stop-color:#dd2200;stop-opacity:1.0000000;" />
+      <stop
+         id="stop2042"
+         offset="1.0000000"
+         style="stop-color:#c61e00;stop-opacity:1.0000000;" />
+    </linearGradient>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8662"
+       id="radialGradient1390"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.000000,0.000000,0.000000,0.536723,-1.837299e-14,16.87306)"
+       cx="24.837126"
+       cy="36.421127"
+       fx="24.837126"
+       fy="36.421127"
+       r="15.644737" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2038"
+       id="radialGradient1392"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.156506,-7.300568e-2,4.664651e-2,9.999769e-2,-112.0937,34.96694)"
+       cx="318.41055"
+       cy="382.90298"
+       fx="318.41055"
+       fy="382.90298"
+       r="225.86216" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2908"
+       id="linearGradient1394"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-100.0000,-1.975850e-15)"
+       x1="107.76138"
+       y1="-3.6071036"
+       x2="202.47206"
+       y2="87.464325" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.9798990"
+     inkscape:cx="158.50472"
+     inkscape:cy="51.323878"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1270"
+     inkscape:window-height="924"
+     inkscape:window-x="0"
+     inkscape:window-y="25" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Alexandre Moore</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>Alexandre Moore</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <dc:publisher>
+          <cc:Agent>
+            <dc:title>Alexandre Moore</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/GPL/2.0/" />
+        <dc:title>SnowIsh Icons</dc:title>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/GPL/2.0/">
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/Reproduction" />
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/Distribution" />
+        <cc:requires
+           rdf:resource="http://web.resource.org/cc/Notice" />
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://web.resource.org/cc/ShareAlike" />
+        <cc:requires
+           rdf:resource="http://web.resource.org/cc/SourceCode" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g1382"
+       transform="matrix(0.528418,0.000000,0.000000,0.528418,-1.818764,-3.911086)">
+      <path
+         transform="matrix(3.491415,0.000000,0.000000,0.725903,-22.71669,89.84719)"
+         d="M 40.481863 36.421127 A 15.644737 8.3968935 0 1 1  9.1923885,36.421127 A 15.644737 8.3968935 0 1 1  40.481863 36.421127 z"
+         sodipodi:ry="8.3968935"
+         sodipodi:rx="15.644737"
+         sodipodi:cy="36.421127"
+         sodipodi:cx="24.837126"
+         id="path4435"
+         style="opacity:0.20454545;color:#000000;fill:url(#radialGradient1390);fill-opacity:1.0000000;fill-rule:evenodd;stroke:none;stroke-width:1.0000000;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:10.000000;stroke-dasharray:none;stroke-dashoffset:0.0000000;stroke-opacity:1.0000000;visibility:visible;display:inline;overflow:visible"
+         sodipodi:type="arc" />
+      <path
+         d="M 14.293110,100.03167 C 13.448960,101.53270 12.765530,103.09567 12.725190,104.06569 L 12.692960,104.84077 C 12.544070,108.42124 15.284360,109.94951 18.183870,109.94951 L 111.87143,109.94951 C 114.77118,109.94951 117.31307,107.53055 117.31307,104.30877 L 117.30170,103.77199 C 117.30170,102.27926 116.49032,101.02115 115.70019,99.562148 L 69.301560,16.330290 C 67.251580,14.052523 63.928100,14.052523 61.877820,16.330599 L 14.293110,100.03167 z "
+         id="path8"
+         sodipodi:nodetypes="csscccccccc"
+         style="opacity:1.0000000;color:#000000;fill:#e60000;fill-opacity:1.0000000;fill-rule:nonzero;stroke:#7a0d0d;stroke-width:2.1669800;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-dashoffset:0.0000000;stroke-opacity:1.0000000;visibility:visible;display:inline;overflow:visible" />
+      <path
+         style="opacity:1.0000000;color:#000000;fill:url(#radialGradient1392);fill-opacity:1.0000000;fill-rule:nonzero;stroke:#ffffff;stroke-width:2.0187168;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-dashoffset:0.0000000;stroke-opacity:0.42105260;visibility:visible;display:inline;overflow:visible"
+         sodipodi:nodetypes="csscccccccc"
+         id="path1418"
+         d="M 16.151980,98.647940 C 15.338770,100.09395 14.680400,101.59962 14.641530,102.53408 L 14.610490,103.28075 C 14.467050,106.72996 17.106890,108.20221 19.900110,108.20221 L 110.15318,108.20221 C 112.94662,108.20221 115.39533,105.87192 115.39533,102.76825 L 115.38438,102.25115 C 115.38438,100.81314 114.60274,99.601150 113.84158,98.195630 L 69.143870,18.014970 C 67.169040,15.820704 63.967400,15.820704 61.992280,18.015268 L 16.151980,98.647940 z " />
+      <path
+         d="M 15.110440,100.81893 C 14.344530,102.18085 13.724440,103.59895 13.687840,104.47907 L 13.658600,105.18231 C 13.523530,108.43092 16.545540,109.28183 19.176310,109.28183 C 50.334410,100.02894 59.974660,48.633195 93.097060,60.273164 L 68.859760,17.196784 C 66.999780,15.130130 63.984340,15.130130 62.124080,17.197064 L 15.110440,100.81893 z "
+         id="path1427"
+         sodipodi:nodetypes="cssccccc"
+         style="opacity:1.0000000;color:#000000;fill:url(#linearGradient1394);fill-opacity:1.0000000;fill-rule:nonzero;stroke:none;stroke-width:1.9013137;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-dashoffset:0.0000000;stroke-opacity:0.42105260;visibility:visible;display:inline;overflow:visible" />
+      <path
+         d="M 35.743325,84.064291 C 35.256266,84.930356 34.861946,85.832152 34.838666,86.391831 L 34.820074,86.839037 C 34.734164,88.904885 36.315253,89.786665 37.988207,89.786665 L 92.043804,89.786665 C 93.716888,89.786665 95.183503,88.390976 95.183503,86.532083 L 95.176945,86.222375 C 95.176945,85.361102 94.708794,84.635201 94.252911,83.793387 L 67.481949,35.770496 C 66.299157,34.456276 64.381587,34.456276 63.198621,35.770674 L 35.743325,84.064291 z "
+         id="path2916"
+         sodipodi:nodetypes="csscccccccc"
+         style="opacity:1.0000000;color:#000000;fill:#ffffff;fill-opacity:1.0000000;fill-rule:nonzero;stroke:#ffffff;stroke-width:1.2090774;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-dashoffset:0.0000000;stroke-opacity:0.42105260;visibility:visible;display:inline;overflow:visible" />
+      <path
+         id="text3144"
+         d="M 61.818206,79.166487 L 67.746175,79.166487 L 67.746175,86.583748 L 61.818206,86.583748 L 61.818206,79.166487 M 61.818206,42.985438 L 67.746175,42.985438 L 67.746175,62.112627 L 67.162139,72.537675 L 62.431444,72.537675 L 61.818206,62.112627 L 61.818206,42.985438"
+         style="font-size:59.805317px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans" />
+    </g>
+  </g>
+</svg>

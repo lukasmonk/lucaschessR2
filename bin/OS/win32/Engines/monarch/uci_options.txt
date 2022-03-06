@@ -1,0 +1,12 @@
+id name Monarch 1.7
+id author Steve Maughan
+option name Hash type spin default 2 min 2 max 1024
+option name Ponder type check default true
+option name UCI_ShowCurrLine type check default false
+option name UCI_ShowRefutations type check default false
+option name UCI_EngineAbout type string default Monarch (v1.7) by Steve Maughan www.monarchchess.com
+option name Show Search Statistics type check default false
+option name Futility Pruning type check default true
+option name ETC Depth type spin default 4 min 0 max 100
+option name IID Depth type spin default 4 min 2 max 100
+option name Enhanced IID Depth type spin default 4 min 2 max 100

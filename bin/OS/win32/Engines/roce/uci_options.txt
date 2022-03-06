@@ -1,0 +1,9 @@
+id name Roce 0.0390
+id author Roman Hartmann
+option name Hash type spin default 32 min 4 max 1024
+option name useInternalOpeningBook type check default false
+option name ponder type check default false
+option name Quiescent Search type check default true
+option name Logging type check default true
+option name NullMove Reduction type spin default 2 min 0 max 4
+option name UCI_Chess960 type check default false

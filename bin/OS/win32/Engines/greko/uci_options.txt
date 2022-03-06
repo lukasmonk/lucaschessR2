@@ -1,0 +1,24 @@
+id name GreKo 12.9
+id author Vladimir Medvedev
+option name Hash type spin default 32 min 1 max 1024
+option name MultiPV type spin default 1 min 1 max 64
+option name UCI_LimitStrength type check default false
+option name UCI_Elo type spin default 2800 min 1600 max 2400
+option name LimitKnps type spin default 9999 min 1 max 9999
+option name Material type spin default 50 min 0 max 100
+option name BoardControl type spin default 60 min 0 max 100
+option name Mobility type spin default 40 min 0 max 100
+option name PawnStruct type spin default 40 min 0 max 100
+option name PawnPassed type spin default 60 min 0 max 100
+option name KingSafety type spin default 50 min 0 max 100
+option name LazyEvalMargin type spin default 200 min 50 max 500
+option name DrawScore type spin default 0 min -1200 max 1200
+option name NullMoveReduction type spin default 3 min 0 max 5
+option name NullMoveReductionPV type spin default 0 min 0 max 5
+option name NullMoveMinDepth type spin default 2 min 1 max 9999
+option name PruningMargin1 type spin default 50 min 1 max 9999
+option name PruningMargin2 type spin default 350 min 1 max 9999
+option name PruningMargin3 type spin default 550 min 1 max 9999
+option name LmrMinDepth type spin default 3 min 1 max 9999
+option name LmrMinMoveNumber type spin default 4 min 1 max 9999
+option name QChecks type spin default 2 min 0 max 64

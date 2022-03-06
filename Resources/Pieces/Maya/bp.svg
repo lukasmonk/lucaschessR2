@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg id="svg2" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="100%" width="100%" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 -410 2048 2048">
+ <metadata id="metadata12">
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g id="g4" transform="matrix(1 0 0 -1 0 1638)">
+  <path id="path6" d="m1018 1378q-80 0-136-11.5t-56-27.5q0-17 56-28t136-11q78 0 135 11t57 28q0 16-57 27.5t-135 11.5zm280-285q7-258 90-436.5t192-178.5h26q70 0 120.5-50.5t50.5-120.5q0-71-50.5-121t-120.5-50h-1164q-72 0-122 50t-50 121q0 70 50 120.5t122 50.5h29q106 0 189.5 178.5t93.5 436.5h-142q-57 0-96.5 39t-39.5 96q0 56 39.5 96t96.5 40h215q-114 92-114 239 0 128 91 219.5t220 91.5q128 0 219-91.5t91-219.5q0-146-112-239h214q55 0 95-40t40-96q0-57-40-96t-95-39h-138zm-478 15q-34 0-34-38 0-37 34-37h408q34 0 34 37 0 38-34 38h-408zm-205-594q-35 0-35-39t35-39h818q35 0 35 39t-35 39h-818z" fill="currentColor"/>
+ </g>
+ <path id="path2989" stroke-linejoin="round" d="m590.1 1589.8c-6.5995-12.331-6.5995-22.381 0-34.712 9.0943-16.993 18.17-17.356 433.9-17.356s424.8 0.363 433.9 17.356c6.5995 12.331 6.5995 22.381 0 34.712-9.0943 16.993-18.17 17.356-433.9 17.356s-424.8-0.363-433.9-17.356z" transform="translate(0,-410)" fill="#ececec"/>
+ <path id="path2991" stroke-linejoin="round" d="m794.77 994.14c-3.0053-7.8317-3.16-21.5-0.34366-30.373 4.8171-15.177 18.403-16.133 229.23-16.133 199.76 0 224.71 1.5474 229.58 14.239 3.0053 7.8317 3.16 21.5 0.3437 30.373-4.8171 15.177-18.403 16.133-229.23 16.133-199.76 0-224.71-1.5475-229.58-14.24z" transform="translate(0,-410)" fill="#ececec"/>
+ <path id="path2993" stroke-linejoin="round" d="m877.84 730.73c-44.179-10.445-52.244-23.476-22.304-36.036 36.847-15.457 249.44-19.36 302.97-5.5628 93.543 24.108 22.556 48.995-138.85 48.678-62.047-0.12176-125.87-3.3075-141.82-7.0795z" transform="translate(0,-410)" fill="#ececec"/>
+</svg>

@@ -1,0 +1,24 @@
+id name Critter 1.6a 32-bit
+id author Richard Vida
+option name Hash type spin default 64 min 8 max 1024
+option name Ponder type check default false
+option name OwnBook type check default true
+option name Book File type string default book.cbk
+option name UCI_Chess960 type check default false
+option name MultiPV type spin default 1 min 1 max 100
+option name Threads type spin default 4 min 1 max 32
+option name Split Depth type spin default 5 min 4 max 15
+option name GaviotaTbPath type string default /gtb
+option name GaviotaTbCache type spin default 32 min 4 max 256
+option name GaviotaTbCompression type combo default cp4 var uncompressed var cp1 var cp2 var cp3 var cp4
+option name Tablebase Usage type combo default Only At Root var Disable var Only At Root var Everywhere
+option name Clear Hash type button
+option name Use Session File type check default false
+option name Session File type string default session.csf
+option name SF Size type spin default 32 min 2 max 1024
+option name SF Write Depth type spin default 8 min 2 max 32
+option name SF Material Limit type spin default 0 min 0 max 32
+option name SF Move Limit type spin default 0 min 0 max 999
+option name Clear SF type button
+option name Resolve Score Drops type check default false
+option name King Safety Weight type spin default 32 min 0 max 100

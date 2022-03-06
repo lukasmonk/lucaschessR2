@@ -1,0 +1,25 @@
+id name Rybka 2.3.2a 32-bit
+id author Vasik Rajlich
+option name Hash type spin min 2 max 4096 default 32
+option name Display PV Tips type check default false
+option name CPU Usage type spin min 1 max 100 default 100
+option name Win Percentage to Hash Usage type check default false
+option name Display Current Move type check default true
+option name NalimovPath type string default <empty>
+option name NalimovCache type spin min 1 max 256 default 1
+option name NalimovUsage type combo default Rarely var Frequently var Normally var Rarely var Never
+option name Preserve Analysis type check default false
+option name Clear Hash type button
+option name Ponder type check default true
+option name MultiPV type spin default 1 min 1 max 100
+option name UCI_LimitStrength type check default false
+option name UCI_Elo type spin default 1200 min 1200 max 2400
+option name Server Buffer type check default false
+option name UCI_AnalyseMode type check default false
+option name UCI_Opponent type string default <empty>
+option name UCI_EngineAbout type string default www.rybkachess.com
+option name Contempt type spin default 0 min -100 max 100
+option name Outlook type combo default Neutral var Very Pessimistic var Slightly Pessimistic var Neutral var Slightly Optimistic var Very Optimistic var Ultra Optimistic
+option name Rate Of Play type combo default Normal var Ultraslow var Slow var Normal var Fast var Ultrafast
+option name Time Usage type combo default Varied var Constant var Varied
+option name Emergency Time Buffer type combo default Medium var Small var Medium var Large

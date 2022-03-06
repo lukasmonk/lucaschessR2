@@ -1,0 +1,21 @@
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Alapin Opening"
+msgstr "Alapinin avaus"
+
+msgid "Alekhine Defence"
+msgstr "Alehinin puolustus"
+
+msgid "French Defence"
+msgstr "ranska"
+
+msgid "Guatemala Defence"
+msgstr "Guatemala"
+
+msgid "Polish Defence"
+msgstr "Puolalainen"

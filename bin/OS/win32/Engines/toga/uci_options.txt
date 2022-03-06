@@ -1,0 +1,51 @@
+id name DeepToga1.9.6nps
+id author WHMoweryJr, Thomas Gaksch and Fabien Letouzey
+option name Hash type spin default 32 min 16 max 4096
+option name MultiPV type spin default 1 min 1 max 40
+option name Ponder type check default false
+option name Number of Threads type spin default 1 min 1 max 16
+option name Threads Per Depth type spin default 1 min 1 max 16
+option name Skip Moves type check default false
+option name Root Alpha type check default true
+option name OwnBook type check default false
+option name BookFile type string default performance.bin
+option name Max Book Moves type spin default 30 min 0 max 40
+option name Use Bitbases type check default false
+option name Bitbases Path type string default c:/egbb/
+option name Bitbases Cache Size type spin default 16 min 4 max 1024
+option name Playing Style type combo default Tactical var Tactical var Positional var Mixed
+option name Positional History Value type spin default 70 min 50 max 100
+option name WSD type check default false
+option name Razor Depth type spin default 1 min 0 max 3
+option name Futility Depth type spin default 5 min 0 max 5
+option name History Drop Depth type spin default 6 min 0 max 6
+option name Mate Threat Depth type spin default 4 min 0 max 64
+option name JD's Hangers Depth type spin default 0 min 0 max 14
+option name Tactical Depth type spin default 64 min 0 max 64
+option name King Attack type spin default 100 min 0 max 200
+option name King Safety type spin default 100 min 0 max 200
+option name Pawn Structure type spin default 100 min 0 max 200
+option name Passed Pawns type spin default 100 min 0 max 200
+option name Piece Square Tables type spin default 100 min 0 max 200
+option name Piece Activity type spin default 100 min 0 max 200
+option name Piece Invasion type spin default 100 min 0 max 200
+option name Material type spin default 100 min 0 max 200
+option name Material Imbalance type spin default 0 min 0 max 200
+option name Toga Exchange Bonus type spin default 20 min 0 max 50
+option name Bishop Pair Opening type spin default 50 min 0 max 100
+option name Bishop Pair Endgame type spin default 70 min 0 max 100
+option name Rook Pair Endgame type spin default 0 min 0 max 50
+option name Pawn Holes type check default false
+option name Debug type check default false
+option name Search Time type spin default 0 min 0 max 3600000
+option name Search Depth type spin default 0 min 0 max 30
+option name MovesToGo Max type spin default 32 min 15 max 120
+option name Quiescence Check Plies type spin default 1 min 0 max 2
+option name Delta Pruning type check default true
+option name Delta Margin type spin default 50 min 0 max 500
+option name Futility Margin 1 type spin default 100 min 0 max 400
+option name Futility Margin 2 type spin default 300 min 0 max 600
+option name Futility Margin 3 type spin default 300 min 0 max 700
+option name Futility Margin 4 type spin default 300 min 0 max 800
+option name Futility Margin 5 type spin default 300 min 0 max 900
+option name Max NPS type spin default 999999 min 1 max 999999

@@ -1,0 +1,14 @@
+id name Houdini 1.5a w32
+id author Robert Houdart
+option name Hash type spin min 4 max 1024 default 128
+option name Clear Hash type button
+option name Threads type spin min 1 max 8 default 8
+option name Split_Depth type spin min 8 max 99 default 10
+option name Ponder type check default false
+option name Contempt type spin min 0 max 2 default 1
+option name Analysis_Contempt type check default false
+option name MultiPV type spin min 1 max 16 default 1
+option name GaviotaTbPath type string default <empty>
+option name GaviotaTbCache type spin min 4 max 1024 default 64
+option name Hard_Probe_Depth type spin min 2 max 99 default 24
+option name Soft_Probe_Depth type spin min 2 max 99 default 16

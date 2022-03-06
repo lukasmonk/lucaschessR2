@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg36220" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" sodipodi:docname="wq.svg" xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd" height="700pt" sodipodi:version="0.32" width="700pt" version="1.0" xmlns:cc="http://web.resource.org/cc/" xmlns:xlink="http://www.w3.org/1999/xlink" sodipodi:docbase="/home/maurizio/out1" xmlns:dc="http://purl.org/dc/elements/1.1/">
+ <defs id="defs36222">
+  <linearGradient id="linearGradient2355">
+   <stop id="stop2357" stop-color="#fff" offset="0"/>
+   <stop id="stop2359" stop-color="#d0b090" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient2361" y2="789.83" xlink:href="#linearGradient2355" gradientUnits="userSpaceOnUse" x2="661.67" y1="789.83" x1="199"/>
+  <linearGradient id="linearGradient2363" y2="746.56" xlink:href="#linearGradient2355" gradientUnits="userSpaceOnUse" x2="718.89" y1="239.89" x1="166.78"/>
+  <linearGradient id="linearGradient2371" y2="587.12" xlink:href="#linearGradient2355" gradientUnits="userSpaceOnUse" x2="466.67" y1="287.12" x1="285.64"/>
+ </defs>
+ <sodipodi:namedview id="base" bordercolor="#666666" pagecolor="#ffffff" borderopacity="1.0"/>
+ <metadata id="metadata36225">
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Maurizio Monge</dc:title>
+     </cc:Agent>
+    </dc:creator>
+    <dc:rights>
+     <cc:Agent>
+      <dc:title>Maurizio Monge</dc:title>
+     </cc:Agent>
+    </dc:rights>
+    <cc:license rdf:resource="http://creativecommons.org/licenses/GPL/2.0/"/>
+   </cc:Work>
+   <cc:License rdf:about="http://creativecommons.org/licenses/LGPL/2.1/">
+    <cc:permits rdf:resource="http://web.resource.org/cc/Reproduction"/>
+    <cc:permits rdf:resource="http://web.resource.org/cc/Distribution"/>
+    <cc:requires rdf:resource="http://web.resource.org/cc/Notice"/>
+    <cc:permits rdf:resource="http://web.resource.org/cc/DerivativeWorks"/>
+    <cc:requires rdf:resource="http://web.resource.org/cc/ShareAlike"/>
+    <cc:requires rdf:resource="http://web.resource.org/cc/SourceCode"/>
+   </cc:License>
+  </rdf:RDF>
+ </metadata>
+ <g id="layer1" stroke-linejoin="round" fill-rule="evenodd" stroke="#000" stroke-linecap="round" stroke-width="16">
+  <path id="path4435" d="m662 149.91c-209.38 627.37-241.73 628.54-425 2.97-1.13 254.93 32.78 434.26 81.91 538.12h238.06c53.84-104.35 95.55-284.78 105.03-541.09z" sodipodi:nodetypes="ccccc" fill="url(#linearGradient2371)"/>
+  <path id="path4433" d="m448.65 107.1c-75.99 411.74-38.71 853.05-360.54 186.32 11.018 203.84 58.82 348.27 143.6 432.59h402.06c86.38-83.26 138.73-225.46 158.78-427.22-307.34 666.88-280.65 220.43-343.9-191.69z" sodipodi:nodetypes="cccccc" fill="url(#linearGradient2363)"/>
+  <rect id="rect4429" height="65" width="446.67" y="757.33" x="207" fill="url(#linearGradient2361)"/>
+ </g>
+</svg>

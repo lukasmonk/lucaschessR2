@@ -1,0 +1,252 @@
+
+Pawny Chess Engine - Version History
+-------------------------------------
+
+* Version 0.3.1
+Date released:  24.11.2011
+
+  (Changes and notes)
+  - Added Gaviota tablebases support. For more information, please visit Gaviota chess engine's website:
+    http://sites.google.com/site/gaviotachessengine/Home/endgame-tablebases-1
+  - Pawn structure evaluation revisited.
+  - Improved Knight and Bishop outposts evaluation. 
+  - Several code cleanups and optimizations.
+
+  (Fixed Bugs)
+  - Fixed bug in static exchange evaluation, related to discovery checks testing.
+
+* Version 0.3
+Date released: 09.09.2011
+	
+  (Changes and notes)
+  - Improved King safety and SEE.
+  - More aggressive reductions, including reduction for "bad" captures.
+  - Several code cleanups (like removing the pv array that is not used anymore).
+	
+  (Fixed Bugs)
+  - Wrong castling flags update, cause by improperly tested rook movement - fixed.
+  - Various SEE bugs - fixed.
+
+* Version 0.2.2
+Date released: 21.07.2011
+	
+  (Fixed Bugs)
+  - Fixed critical bug ñ storing pv moves and zero values after terminated search.
+  - King piece-square tables error fixed.
+  - Fixed critical bug in ëgenerate evasionsí where pawn is tested if on 7th rank instead of 8th after being moved.
+  - Several other code-cleanups, minor adds and fixes.
+
+  (Notes)
+  - This is a bug fix release and no more than 10 ELO gain is expected!
+
+
+* Version 0.2.1
+Date started:  02.07.2010
+Date released: 01.02.2011
+	
+  (Changes and notes)
+  - Root search revisited:
+    - applied LMR, check extension, Pawn Push extension and
+    basically, the root node now looks almost identically to inner nodes.
+  - New psq tables for white pawns, black pawns, white endgame pawns and black endgame pawns.
+  - Several optimization and code cleanups.
+  - PV displaying - if the principal variation from the triangular array is shorter than the depth passed,
+    only then the pv is extracted from the transposition table.
+  - Mate threat extension removed, instead mate_threat is used to restrict LMR and FP now.
+	
+  (Fixed Bugs)
+  - Pawn hash table - Preventing the pawn pst value to enter in the table, since it's a
+    dynamic value.
+  - Mate in # displaying - corrected (STM perspective).
+
+
+* Version 0.2
+Date started:  16.06.2010
+Date released: 01.07.2010
+
+  (Changes and notes)  
+  - New time control management scheme. 
+  The time distribution formula was inspired by Tord Romstad
+  from the early versions of Glaurung and achieves two goals:
+  incomplete iterations are reduced to the minimum and
+  time is distributed better between the moves. 
+  No other changes. Difference in strength - only in matches.
+
+* Version 0.1.9
+Date started:  15.03.2010
+Date released: 16.06.2010
+
+  (Fixed Bugs)
+  - Pawn push extension bug - fixed.
+  - Bug in eval_white_passer - fixed.
+  - 'Bad captures' ordering bug in main search - fixed.
+  - Memory Alignment issues for Trans. And Pawn tables were fixed by writing own aligned allocation functions.
+
+  (Changes and notes)  
+  - New TT (4 entry buckets) + new replacement policy and better indexing.
+  - Pawn Evaluation - rewritten. The array-fields was replaced by incrementally updated bitboards;
+    Added couple of new pawn structure evaluation terms.
+  - Removed couple of restrictions in IID.
+  - Several optimizations (Splitting-up the mobility evaluation to omit piece-list loops, as well as several other minors).
+  - Several code cleanups.
+
+
+* Version 0.1.8
+Date started:  03.03.2010
+Date released: 15.03.2010
+
+  (Fixed Bugs)
+  - Recapture extension - removed entirely. Even after the proper implementation
+    (without the found bug) of the idea, there was no noticeable benefit, so it was removed.
+
+  (Changes and notes) 
+  - Small optimization - Dynamic update of the material count, which relieves the evaluation of collecting it.
+  - Maintenance release.
+
+* Version 0.1.7
+Date started:  15.02.2010
+Date released: 02.03.2010
+
+  (Fixed Bugs)
+  - Reset Timer on Ponderhit conception was fixed. False by default.
+  - Fixed Pondering to do infinite analysis until the stop command is received.
+
+  (Changes and notes)
+  - Evaluation:
+    1. Added center control weights.
+    2. Rook and Knights material imbalance tables.
+    3. New (higher) Knight value.
+    4. Added code for KBNK simple mate.
+  - Movegen: New legal evasions generator.
+  - Ordering: KxB and BxK are now considered as equal captures.
+  - UCI option 'Ponder' added in order to invoke 'ponderhit' in GUIs (like Fritz 11) with no default support of it.
+  - Better Polling.
+  - Several code cleanups (like removing the annoying 'illegal position' hack from qsearch()).
+
+* Version 0.1.6
+Date started:  03.01.2010
+Date released: 14.02.2010
+
+  (Fixed Bugs)
+  - Wrong calculation of the root moves count - fixed.
+
+  (Changes and notes)
+  - Polyglot book support added. 
+  - New attack detection scheme.
+  - SEE rewritten in accordance with the above.
+  - Incremental update of the board state (material and pawns).
+  - Main search and qsearch was revisited in order to eliminate some inaccuracies and errors.
+  - Transposition table entry is being remade to 16 bytes of size.
+  - Improved move ordering.
+
+* Version 0.15
+Date started:  10.12.2009
+Date released: 01.01.2010
+
+  (Fixed Bugs)
+  - 'Reset Time On Ponderhit' command - fixed to work properly.
+  - 1.5 seconds shorter time for the last move in x/x controls to avoid delay and eventual time-loss.
+
+  (Changes and notes)
+  - Reorganized move ordering.
+  - 'òDynamic Time Control' is now added as UCI option. 
+    It is a matter of preference to be turned off and it was designed
+    to be stoppable mainly for human vs engine games. 
+    Turning OFF that option would certainly affect the engine's strength (blitz mostly),
+    but is still not enough tested to be clear how much exactly. 
+    The default parameter is 'true', because Pawny has always use that mechanism since version 0.1 
+    and the preliminarily test shows that it plays better with DTC 'ON'.
+  - Developed built-in 'epd' function for the 'Strategic Test Suite'ù file format in console mode. 
+    The commands are visible trough 'help'.
+
+* Version 0.14
+Date started:  17.11.2009
+Date released: 04.12.2009
+
+  (Changes and notes)
+  - 'ponderhit'ù UCI command's reception - implemented. 
+    The lack of it in the previous versions was costing time losses with ponder ON.
+  - Added 'Reset_Timer_On_Ponderhit'ù UCI option, which is OFF by default. 
+    When the option is ON and the engine receives 'ponderhit' command from the GUI,
+    the time for the next move will be allocated again and the search will continue.
+  - The 'hashfull'ù command's output is now corrected and 
+    displays the amount of saved (or re-written) hash entries during the last search.
+  - Small search changes.
+
+* Version 0.13
+Date started:  01.10.2009
+Date released: 12.10.2009
+
+  (Changes and notes)
+  - Board representation changed to 16*16 for better alignment.
+  - Developed basic pawn hash table with a lot of room for optimization and improvement.
+  - Pawn evaluation code - reorganized to maintain the pawn table.
+  - Added some 'trivial draws' recognition - liable to further improvement.
+	
+
+* Version 0.12
+Date started:  15.09.2009
+Date released: 01.10.2009
+
+  (Fixed Bugs)
+  - Irrelevant 'info score' with possible value of -INFINITY,
+    after the search is completed costs the game result! - fixed.
+  - 'ucinewgame' initialize  TT again with unknown size - fixed.
+  - Too short history stack - fixed.
+  - Too short uci line buffer, causing an exception - fixed.
+  - Improperly calculated material gain for move in futility pruning - fixed.
+  - History stack improperly indexed in the recapture extension - fixed.
+
+  (Changes and notes)
+  - New data structures for move representation.
+  - Some work was done on the info output, still more to be done.
+  - A lot of code was revised regarding new types and sizes.
+  - Better code logic, typecasting and other minor changes.
+
+
+* Version 0.11
+Date started:  03.09.2009
+Date released: 15.09.2009
+
+  (Changes and notes)
+  - New move generator (entirely rewritten). 
+    The board is now represented as 16*14 array, 
+    Piece lists - as array of linked lists.
+  - Evaluation and Knowledge modules was entirely rewritten regarding the
+    new representation. Same for board initialization functions.
+    There is NO new chess knowledge added to the evaluation function - only code optimizations!
+  - Several other optimizations have been made, again regarding the 16*14 rep.
+    (that includes removing the futile 'outside board' checks (during delta attack gen. for example)
+    and double memory references for getting piece information).
+
+* Version 0.1
+Date started:  02.04.2009
+Date released: 03.09.2009
+
+  (The Initial version, with the following features)
+
+  Board
+  0x88 board representation.
+
+  Search:
+  - Iterative deepening
+  - Alpha-Beta PVS + aspiration (1/5 PAWN)
+  - Internal Iterative Deepening
+  - Adaptive Null Move Pruning
+  - Futility Pruning (including Ext. F.P. and Razoring)
+  - Delta Pruning at Quiescence Search, based on SEE  results (1 PAWN value margin)
+  - Late Move Reductions (4 Full depth and Reduction of 2*PLY)
+  - Killer and History Heuristics
+  - Transposition Table (1 table, using 'always' replacement)
+  - Extensions:
+    * Check Extension (1 ply)
+    * Single Reply to Check Extension (1 ply)
+    * Mate Threat Extension (1/2  ply)
+    * Queen Prom. Extension (1/2 ply)
+    * Pawn Push Extension (1/2 ply)
+    * Recapture Extension (1/2 - pv nodes)
+    * Fractional Depth Representation (*4)
+
+  Evaluation:
+  Material, PSQ tables, doubled, hanging, passed, backward pawns.
+  Piece Development, Mobility, King Safety, Distance and support for passed pawns.

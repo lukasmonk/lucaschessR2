@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg id="svg2" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="100%" viewBox="0 -200 1000 1000" width="100%" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+ <metadata id="metadata12">
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs id="defs10">
+  <filter id="filter3022" style="color-interpolation-filters:sRGB">
+   <feFlood id="feFlood3024" flood-color="rgb(0,0,0)" result="flood"/>
+   <feComposite id="feComposite3026" operator="in" in="flood" in2="SourceGraphic" result="composite1"/>
+   <feGaussianBlur id="feGaussianBlur3028" in="composite" stdDeviation="8" result="blur"/>
+   <feOffset id="feOffset3030" dy="4" dx="4" result="offset"/>
+   <feComposite id="feComposite3032" operator="over" in="SourceGraphic" in2="offset" result="fbSourceGraphic"/>
+   <feColorMatrix id="feColorMatrix3034" in="fbSourceGraphic" values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0" result="fbSourceGraphicAlpha"/>
+   <feFlood id="feFlood3036" flood-color="rgb(0,0,0)" in="fbSourceGraphic" result="flood"/>
+   <feComposite id="feComposite3038" operator="in" in="flood" in2="fbSourceGraphic" result="composite1"/>
+   <feGaussianBlur id="feGaussianBlur3040" in="composite" stdDeviation="8" result="blur"/>
+   <feOffset id="feOffset3042" dy="4" dx="4" result="offset"/>
+   <feComposite id="feComposite3044" operator="over" in="fbSourceGraphic" in2="offset" result="composite2"/>
+  </filter>
+ </defs>
+ <rect id="rect2994" opacity=".98" stroke-linejoin="round" rx="91.028" ry="239.52" height="677.97" filter="url(#filter3022)" width="758.47" stroke-linecap="round" y="-30.508" x="131.36" stroke-width="5" fill="#f60"/>
+ <rect id="rect2996" opacity=".98" stroke-linejoin="round" stroke-width="5" rx="91.028" transform="translate(0,-200)" ry="148.31" width="8.4746" stroke-linecap="round" y="427.97" x="576.27" height="148.31" fill="#f60"/>
+ <path id="path2995" opacity=".98" transform="translate(0,-200)" fill="#008066" d="m210.59 842.62c-36.254-14.79-65.625-87.814-74.178-184.43-5.4329-61.364-5.3603-241.92 0.12099-300.99 7.6371-82.299 30.798-149.16 60.258-173.95l12.331-10.375h603.98l14.741 14.316c18.716 18.177 33.656 49.733 46.42 98.047 9.8354 37.23 10.055 42.034 10.055 220.26 0 134.78-1.4492 188.82-5.5683 207.63-14.442 65.938-35.755 109.55-61.081 124.99-13.503 8.2326-21.37 8.4432-306.23 8.197-160.81-0.13898-296.19-1.8086-300.85-3.71zm370.63-369.51c-2.3406-25.504-2.8635-20.39-2.8797 28.159-142.03 21.416 257.06-289.56 2.8811-28.159h-0.001z"/>
+</svg>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg2985" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="480" width="480" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+ <title id="title4248">White Pawn</title>
+ <metadata id="metadata2990">
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title>White Pawn</dc:title>
+    <cc:license rdf:resource="http://creativecommons.org/licenses/publicdomain/"/>
+    <dc:date>6.1.2013</dc:date>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>James Kilfinger+alfons z!</dc:title>
+     </cc:Agent>
+    </dc:creator>
+    <dc:source>http://openfontlibrary.org/assets/downloads/chess/dd244e4b50bb954610bc0b2372ce2e18/chess.zip</dc:source>
+   </cc:Work>
+   <cc:License rdf:about="http://creativecommons.org/licenses/publicdomain/">
+    <cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction"/>
+    <cc:permits rdf:resource="http://creativecommons.org/ns#Distribution"/>
+    <cc:permits rdf:resource="http://creativecommons.org/ns#DerivativeWorks"/>
+   </cc:License>
+  </rdf:RDF>
+ </metadata>
+ <g id="layer1">
+  <path id="text3325" d="m238.53 112.28c-40.258 0-73.156 32.867-73.156 73.125s32.898 73.156 73.156 73.156 73.156-32.898 73.156-73.156-32.898-73.125-73.156-73.125zm0 14.719c32.403 0 58.406 26.003 58.406 58.406s-26.003 58.438-58.406 58.438-58.438-26.034-58.438-58.438c0-32.403 26.034-58.406 58.438-58.406zm0 143.84c-32.894 0-66.288 35.351-115.88 84.938-2.4548 2.4548-2.9548 6.8668-0.5 9.8125s5.9071 3.4416 9.3438 1.9688c33.385-16.692 70.701-25.031 107.03-25.031 36.331 0 73.646 8.3388 107.03 25.031 3.4367 1.4729 6.8577 0.97698 9.3125-1.9688 2.4548-2.9457 1.986-7.3577-0.46875-9.8125-49.587-49.587-82.981-84.938-115.88-84.938zm0 14.719c19.638 0 39.764 16.215 79.531 55-26.021-8.3462-53.02-12.75-79.531-12.75-26.512 0-53.042 4.4038-79.062 12.75 39.276-38.785 59.424-55 79.062-55zm0 92.812c-72.661 0-136.49 27.488-176.75 69.219l-11.78 12.29h380l-11.781-12.281c-40.26-42.23-107.03-69.22-179.69-69.22zm0 14.719c61.369 0 117.82 20.61 155.62 52.031h-308.31c37.313-31.421 91.318-52.031 152.69-52.031z"/>
+ </g>
+ <path id="path3567" stroke-linejoin="round" style="color:#000000" d="m86.923 444.66c1.8431-1.7128 11.169-8.6311 16.246-12.051 69.017-46.497 168.97-52.164 248.39-14.081 8.2836 3.9722 18.657 9.838 25.607 14.479 5.093 3.4016 16.088 11.519 16.088 11.877 0 0.12357-69.033 0.22467-153.41 0.22467-88.728 0-153.2-0.18927-152.92-0.44891z" stroke="#fff" stroke-linecap="round" stroke-width="2.5424" fill="#ececec"/>
+ <path id="path3569" stroke-linejoin="round" style="color:#000000" d="m164.96 335.65c9.5618-9.6916 27.441-25.833 36.349-32.816 21.322-16.714 35.586-20.423 52.5-13.65 12.398 4.9643 30.841 19.42 55.659 43.625 4.3636 4.2558 6.555 6.7118 5.8475 6.5536-0.62239-0.13917-4.907-1.2982-9.5214-2.5757-15.398-4.2629-32.637-7.2367-49.322-8.5082-10.229-0.77952-35.386-0.33849-45 0.7889-14.192 1.6642-30.555 4.9344-43.578 8.7093-3.2727 0.94867-6.1272 1.7248-6.3432 1.7248-0.21603 0 1.3176-1.7336 3.408-3.8524z" stroke="#fff" stroke-linecap="round" stroke-width="2.5424" fill="#ececec"/>
+ <path id="path3571" stroke-linejoin="round" style="color:#000000" d="m227.24 242.36c-8.9986-1.8919-16.301-5.1101-23.134-10.196-22.722-16.911-30.02-46.975-17.579-72.415 6.9801-14.273 19.177-24.795 34.357-29.64 6.8494-2.1862 12.101-2.8356 20.281-2.508 14.678 0.5877 27.565 6.1401 37.934 16.345 19.863 19.547 23.222 49.646 8.15 73.034-8.5963 13.339-23.019 22.911-38.621 25.631-6.1406 1.0708-15.631 0.95946-21.389-0.25099v0z" stroke="#fff" stroke-linecap="round" stroke-width="2.5424" fill="#ececec"/>
+</svg>

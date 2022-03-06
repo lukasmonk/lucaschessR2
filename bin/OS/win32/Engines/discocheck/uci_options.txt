@@ -1,0 +1,7 @@
+id name DiscoCheck 5.2.1
+id author Lucas Braesch
+option name Hash type spin default 16 min 1 max 8192
+option name Clear Hash type button
+option name Contempt type spin default 25 min 0 max 100
+option name Ponder type check default false
+option name Time Buffer type spin default 100 min 0 max 1000

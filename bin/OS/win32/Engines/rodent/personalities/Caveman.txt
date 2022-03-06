@@ -1,0 +1,41 @@
+;
+; "Caveman" personality for Rodent chess engine
+;
+setoption name Safety value quadratic
+setoption name Queen value 975
+setoption name Rook value 500
+setoption name Bishop value 335
+setoption name Knight value 334
+setoption name BishPair value 0
+setoption name OwnMobility value 0
+setoption name OppMobility value 0
+setoption name OwnAttack value 0
+setoption name OppAttack value 0
+setoption name KingTropism value 100
+setoption name PawnStructure value 100
+setoption name PassedPawns value 100
+setoption name PiecePressure value 0
+setoption name BookFilter value 10
+setoption name UseLazyEval value true
+setoption name LazyMarginMg value 210
+setoption name LazyMarginEg value 210
+setoption name Contempt value 12
+setoption name Book value tournament
+setoption name Verbose value false
+setoption name Analyse value false
+setoption name UseBook value true
+setoption name PositionLearning value false
+
+
+
+
+
+
+
+
+
+
+
+
+
+

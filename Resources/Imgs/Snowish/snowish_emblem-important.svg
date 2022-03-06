@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="48.000000px"
+   height="48.000000px"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.42"
+   sodipodi:docbase="/home/almoo7/Desktop/SnowIsh/SnowIsh-1.0/scalable/emblems"
+   sodipodi:docname="emblem-important.svg"
+   inkscape:export-filename="/home/almoo7/Desktop/emblem-important.png"
+   inkscape:export-xdpi="16.875000"
+   inkscape:export-ydpi="16.875000">
+  <defs
+     id="defs4">
+    <linearGradient
+       id="linearGradient8662"
+       inkscape:collect="always">
+      <stop
+         id="stop8664"
+         offset="0"
+         style="stop-color:#000000;stop-opacity:1;" />
+      <stop
+         id="stop8666"
+         offset="1"
+         style="stop-color:#000000;stop-opacity:0;" />
+    </linearGradient>
+    <radialGradient
+       cx="69.124001"
+       cy="69.064903"
+       gradientUnits="userSpaceOnUse"
+       id="XMLID_2_"
+       r="64.235397"
+       gradientTransform="matrix(0.766063,0.000000,0.000000,0.766063,11.77693,11.36486)">
+      <stop
+         id="stop8"
+         offset="0"
+         style="stop-color:#F28888" />
+      <stop
+         id="stop10"
+         offset="1"
+         style="stop-color:#D82A2A" />
+    </radialGradient>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#XMLID_2_"
+       id="radialGradient1385"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.766063,0.000000,0.000000,0.766063,11.77693,11.36486)"
+       cx="69.124001"
+       cy="69.064903"
+       r="64.235397" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8662"
+       id="radialGradient1387"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.000000,0.000000,0.000000,0.536723,-2.582884e-14,16.87306)"
+       cx="24.837126"
+       cy="36.421127"
+       fx="24.837126"
+       fy="36.421127"
+       r="15.644737" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4000000"
+     inkscape:cx="151.05320"
+     inkscape:cy="17.354319"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:window-width="1041"
+     inkscape:window-height="846"
+     inkscape:window-x="0"
+     inkscape:window-y="25" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Alexandre Moore</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>Alexandre Moore</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <dc:publisher>
+          <cc:Agent>
+            <dc:title>Alexandre Moore</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/GPL/2.0/" />
+        <dc:title>SnowIsh Icons</dc:title>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/GPL/2.0/">
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/Reproduction" />
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/Distribution" />
+        <cc:requires
+           rdf:resource="http://web.resource.org/cc/Notice" />
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://web.resource.org/cc/ShareAlike" />
+        <cc:requires
+           rdf:resource="http://web.resource.org/cc/SourceCode" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g1377"
+       transform="matrix(0.398150,0.000000,0.000000,0.398150,-1.965624,-2.733757)">
+      <path
+         style="fill:#970f00"
+         id="path5"
+         d="M 11.776930,64.273001 C 11.776930,91.249144 32.936356,114.52903 59.820571,117.00035 C 86.713213,119.47397 111.87915,100.56141 116.79880,73.966762 C 121.71693,47.374417 105.12171,20.589791 79.061775,13.283082 C 52.993418,5.9725425 24.825281,20.166158 15.211190,45.470751 C 12.935217,51.463662 11.776930,57.862586 11.776930,64.273001" />
+      <path
+         style="fill:url(#radialGradient1385)"
+         id="path12"
+         d="M 15.522212,64.273001 C 15.522212,91.090569 37.913467,113.48106 64.730269,113.48106 C 91.548602,113.48106 113.93833,91.089802 113.93833,64.273001 C 113.93833,37.456200 91.547836,15.064944 64.730269,15.064944 C 37.913467,15.064944 15.522212,37.456200 15.522212,64.273001" />
+      <path
+         style="fill:#b20d0d"
+         id="path14"
+         d="M 20.267972,45.145940 C 16.292105,68.320112 30.133332,91.599234 52.390526,99.182492 C 75.996757,107.22539 102.55999,95.336856 112.43225,72.472173 C 107.68802,100.14390 79.236438,118.33560 52.125468,111.01893 C 24.134292,103.46632 8.7310635,71.835575 20.267972,45.145940" />
+      <path
+         style="fill:#ef5656"
+         id="path16"
+         d="M 33.995821,42.429481 C 40.802291,43.836738 48.636817,34.195836 54.537035,31.743668 C 65.560681,27.160313 79.331430,29.288436 89.318593,35.528785 C 99.882602,42.129184 107.39691,54.805995 108.55214,67.252220 C 108.55597,67.287459 108.55597,67.295120 108.55214,67.271372 C 107.77228,59.735610 108.29934,52.650293 105.42966,45.364268 C 100.67548,33.290349 90.389549,23.834834 77.992351,20.035927 C 65.172287,16.109088 51.153334,18.607986 40.109004,26.093187 C 36.699258,28.404399 23.572768,40.271481 33.995821,42.429481" />
+      <path
+         transform="matrix(3.491415,0.000000,0.000000,0.725903,-21.50096,90.39182)"
+         d="M 40.481863 36.421127 A 15.644737 8.3968935 0 1 1  9.1923885,36.421127 A 15.644737 8.3968935 0 1 1  40.481863 36.421127 z"
+         sodipodi:ry="8.3968935"
+         sodipodi:rx="15.644737"
+         sodipodi:cy="36.421127"
+         sodipodi:cx="24.837126"
+         id="path4435"
+         style="opacity:0.20454545;color:#000000;fill:url(#radialGradient1387);fill-opacity:1.0000000;fill-rule:evenodd;stroke:none;stroke-width:1.0000000;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:10.000000;stroke-dasharray:none;stroke-dashoffset:0.0000000;stroke-opacity:1.0000000;visibility:visible;display:inline;overflow:visible"
+         sodipodi:type="arc" />
+      <path
+         id="text1388"
+         d="M 56.853110,28.879836 L 44.791693,28.879836 L 44.791693,77.997415 L 47.988695,110.40339 L 53.656108,110.40339 L 56.853110,77.997415 L 56.853110,28.879836 M 56.853110,119.70376 L 44.646374,119.70376 L 44.646374,134.81686 L 56.853110,134.81686 L 56.853110,119.70376"
+         style="font-size:145.31828px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-indent:0.0000000;text-align:start;text-decoration:none;line-height:125.00000%;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#ffffff;fill-opacity:1.0000000;fill-rule:nonzero;stroke:#a2271a;stroke-width:1.6615094;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4.0000000;stroke-dashoffset:0.0000000;stroke-opacity:1.0000000;visibility:visible;display:inline;overflow:visible;font-family:Times New Roman"
+         transform="scale(1.261091,0.792964)" />
+    </g>
+  </g>
+</svg>

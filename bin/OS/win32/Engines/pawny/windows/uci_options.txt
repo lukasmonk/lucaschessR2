@@ -1,0 +1,6 @@
+id name Pawny 0.3.1
+id author Mincho Georgiev
+option name Hash type spin default 32 min 8 max 1024
+option name Reset Timer On Ponderhit type check default false
+option name OwnBook type check default true
+option name Ponder type check default false

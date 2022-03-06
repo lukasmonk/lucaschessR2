@@ -1,0 +1,13 @@
+This is the version 707 of Alaric and is designated as Alaric below in this text.
+
+This copyright notice applies to all the files contained in the 
+distribution of Alaric. To contact the author and copyright holder, 
+email: peter@fendrich.se
+
+This package is a freeware. Nobody is allowed to sell copies of Alaric
+or any other file in this package. It may be freely distributed for non-commercial 
+purposes as long as no files in this package are modified.
+
+Please note that the program Alaric and other files in this package, 
+are provided with absolutely no warranty of any kind.
+Use it on your own risk. 

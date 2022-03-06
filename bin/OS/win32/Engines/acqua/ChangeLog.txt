@@ -1,0 +1,155 @@
+
+18 settembre 2016: aggiunto il comando "setoption name LogFile value false" o true
+
+17 giugno 2016: Il Re di Acqua cerca di conquistare l'opposizione con il Re avversario
+17 giugno 2016: La versiona del programma e adesso con STRINGA e non con MACRO __
+
+14 giugno 2016: Implementata gestione del tempo con wtime o btime diviso 40 (Thanks to Stefano Gemma e Luca Lissandrello)
+
+12 giugno 2016: Il flag "AChiTocca" e' adesso "bianco" oppure "nero", invece di 0 o 1
+12 giugno 2016: Acqua sa leggere stringa FEN
+
+10 giugno 2016: Bonus per torri in 8a traversa (o 1ma)
+10 giugno 2016: La funzione TorreConquistaColonnaAperta() adesso ha il parametro  che permette di scegliere la TRAVERSA di competenza
+10 giugno 2016: Da questa versione, il DBF delle mosse candidate e' processato nella main(). In questo modo l'elaborazione e' piu' snella e si rendono piu' semplici le novita' future
+
+08 giugno 2016: Bonus per Torri che guadagnano la 7.ma traversa (Bianco) o la 2.a (Nero)
+
+07 giugno 2016: Aggiunto controllo per triplo pedone
+07 giugno 2016: Aggiunto controllo per doppio pedone
+
+05 giugno 2016: Migliorato il senso di stallo (a volte non vedeva matti e a volte "stallava" in posizione vinta
+05 giugno 2016: Creata funzione RaddoppioDiTorre( "r/R", 0.5 )
+05 giugno 2016: Cambiati commenti da /* */ a //
+05 giugno 2016: Modificati bonus dei pedoni che si avvicinano in 8. traversa
+
+04 giugno 2016: Acqua sa fare MATTO in una mossa (solo re avversario), malus per STALLO (solo re avversario) e bonus con Re avversario bloccato sotto scacco. Il matto in una mossa serve solo per battere i motori deboli
+
+03 giugno 2016: Rinominate funzioni: (PezziNeriSottoScacco, PezziBianchiSottoScacco) in (CaseControllateDalBianco, CaseControllateDalNero)
+03 giugno 2016: Il tempo x mossa e modificabile da una #define
+
+02 giugno 2016: Aggiunto controllo: se Acqua e' su un normale PC, il tempo x mossa e' di 8 sec, se e' nel mio PC il tempo e' di 500 ms.
+02 giugno 2016: Nel PRG e' stato ridotto lo spazio tra una funzione e l'altra
+02 giugno 2016: La versione del programma e' stata riportata alla sola macro __DATE__ (ver. 20160602)
+
+01 giugno 2016: La funzione BonusSeMuoveUnPezzo(cPezzo,nBonus) adesso e' generica e parametrizzata
+01 giugno 2016: Bonus a mosse iniziali che agevolano l'arrocco (sviluppo Alfiere e Cavallo tra Torre e Re)
+01 giugno 2016: Creata la variabile STATIC TRATTO che indica a quale mossa siamo arrivati (1. e2e4 e7e5, 2. c2c4 c7c5, 3. h2h4 h7h4, ecc.)   // y = floor(0.5 + 0.5*x)
+01 giugno 2016: Eliminata funzione BonusPedoniCentraliInApertura()
+01 giugno 2016: AcquaRand e' morto
+01 giugno 2016: Unificato algoritmo di presa en passanr per Bianco e Nero
+01 giugno 2016: Acqua finalmente riconosce la presa ENPASSANT dell'avversario (o GUI) (ma ancora non la sa effettuare)
+01 giugno 2016: Unificate le funzioni Bonus di cattura su: BonusPezzoCheCattura()
+
+31 maggio 2016: La versione del programma e' stata perfezionata con le macro __DATE__ e __TIME__
+31 maggio 2016: Adesso la versione del programma e' calcolata automaticamente sulla data dell'exe
+31 maggio 2016: Creata l'utility "produce.exe" che crea uno ZIP con i files allegati, da mettere sul sito
+31 maggio 2016: I valori pezzi adesso sono messi come #INCLUDE
+31 maggio 2016: Cambiata scala dei valori anche in funzione BonusNeroCheCattura() e BonusBiancoCheCattura() (1+3+5+10+20+10000)
+31 maggio 2016: Adesso, in caso di pezzi minacciati, non li somma tutti, ma solo uno solo, ai fini del Malus. Viene considerato quello di maggior valore (1+3+5+10+20+10000)
+
+30 maggio 2016: Modificati malus per minaccia su pezzi propri
+30 maggio 2016: Bonus per chi minaccia pezzi pesanti e leggeri
+30 maggio 2016: Corretto Bug: la funzione listacandidate() non chiudeva il DBF alla fine
+30 maggio 2016: In molte funzioni adesso il DBF "candidate" e' passato come parametro. Cio' serve per usare altri DBF
+30 maggio 2016: Eliminata la funzione SvuotaCandidate()
+30 maggio 2016: Adesso la matrice CASE_CONTROLLATE[ 8, 8 ] contene le stringhe dei pezzi che minacciano, e non piu' il booleano
+30 maggio 2016: Modificati valori bonus per movimento pezzi (K, Q, R)
+30 maggio 2016: Eliminato Bug per lunghezza risposta UCI: adesso e' di 8192 caratteri
+
+26 maggio 2016: E' nato AcquaRand
+26 maggio 2016: Le Torri sanno conquistare le colonne aperte
+26 maggio 2016: Modificate priorita' dei movimenti dei vari pezzi
+
+25 maggio 2016: Implementato il comando "STOP"
+25 maggio 2016: Creata nuova funzione per calcolare la distanza tra due case: distanza:=max( Abs( x1 - x2 ),Abs( y1 - y2 ))
+
+24 maggio 2016: Bonus per pedoni d2d4, e2e4, d7d5, e7e5
+24 maggio 2016: I DBF e NTX sono in RAM
+24 maggio 2016: Malus per patta triplice ripetizione
+24 maggio 2016: Bonus se muove un pezzo
+24 maggio 2016: Bonus a mosse dei pedoni centrali
+24 maggio 2016: Bonus ai pedoni che avanzano
+24 maggio 2016: Bonus per chi promuove
+24 maggio 2016: Bonus per mosse che fanno scacco al re
+24 maggio 2016: Bonus per mosse che si avvicinano al re avversario
+24 maggio 2016: Bonus per mosse dei pezzi piu' lontani dal re avversario
+24 maggio 2016: Bonus per mosse che percorrono piu' strada
+
+23 maggio 2016: Acqua cerca di catturare pezzi
+23 maggio 2016: Pezzi sotto scacco
+23 maggio 2016: Generazione mosse candidate
+23 maggio 2016: Riscrittura del codice da capo, in un unico PRG
+-------------------------------------------------------------------------------
+23 maggio 2016: Avvicinamento di tutti i pezzi (media distanza)
+23 maggio 2016: Bonus diversi se muove pedoni o pezzi
+23 maggio 2016: Creato comando "candidate" che lista a video il DBF delle mosse candidate
+23 maggio 2016: Ottimizzazioni PRG
+
+22 maggio 2016: Creata funzione di SIMULAZIONE MOSSA
+22 maggio 2016: Ottimizzato codice di contrassegno delle case occupate dal Bianco e dal Nero
+
+20 maggio 2016: Bonus se Acqua fa scacco
+
+19 maggio 2016: Bonus se Acqua cattura pezzi
+19 maggio 2016: Il Bianco sa adesso evitare lo scacco
+19 maggio 2016: Generazione mosse candidate Re Bianco
+19 maggio 2016: Generazione mosse candidate Donne Bianche
+19 maggio 2016: Generazione mosse candidate Torri Bianche
+19 maggio 2016: Generazione mosse candidate Cavalli Bianchi
+19 maggio 2016: Generazione mosse candidate Pedoni Bianchi
+19 maggio 2016: Il programma e' stato suddiviso in tanti PRG diversi
+19 maggio 2016: Non si usa piu' la STATIC SCACCHIERA ma e' LOCAL, passata alle funzioni
+
+15 maggio 2016: Bonus per promozione a Donna
+15 maggio 2016: Acqua sa catturare i pezzi avversari
+15 maggio 2016: I pezzi di Acqua si avvicinano al Re avversario
+15 maggio 2016: Acqua adesso cerca di evitare le minacce a tutti i proprii pezzi neri
+
+14 maggio 2016: Corretto Bug: Arrocco e' "e1g1" & C, solo e "e1" e' un Re
+14 maggio 2016: Adesso Acqua sa giocare (sa solo le mosse)
+14 maggio 2016: Migliorata difesa agli scacchi
+
+13 maggio 2016: Acqua sa parare gli scacchi
+13 maggio 2016: Creazione mosse candidate: re nero
+13 maggio 2016: Creazione mosse candidate: donna nera
+13 maggio 2016: Creazione mosse candidate: torre nera
+13 maggio 2016: Implementata PROMOZIONE del pedone nero
+
+12 maggio 2016: Creazione mosse candidate: alfiere nero
+12 maggio 2016: Creazione mosse candidate: cavallo nero
+12 maggio 2016: Adesso il LOG file "acqua.log" e' in APPEND mode e tiene anche il log passato
+12 maggio 2016: Implementata la possibilita' di ARROCCO da parte dell'avversario di Acqua (mossa len 5: e1g1)
+12 maggio 2016: Implementata la possibilita' di PROMOZIONE da parte dell'avversario di Acqua (mossa len 5: h7h8q)
+12 maggio 2016: Prevista DATEANDTIME nel file di Log
+
+11 maggio 2016: La versione del programma e' stata messa in un #DEFINE
+11 maggio 2016: Creazione mosse candidate: pedone nero cattura (a sinistra e a destra)
+11 maggio 2016: Creazione mosse candidate: pedone nero di 2 passi
+11 maggio 2016: Creazione mosse candidate: pedone nero di 1 passo
+11 maggio 2016: Inizia la GENERAZIONE MOSSE CANDIDATE del Nero, su DBF
+11 maggio 2016: Implementato aggiornamento della matrice SCACCHIERA in base alle mosse
+11 maggio 2016: Ottime notizie: Harbour funziona con STDIN e STDOUT, usando -gtcgi. (a fine riga si da' solo chr(10))
+
+10 maggio 2016: Implementazione scacchiera con pezzi (matrice) e creazione funzione SHOW, per mostrare la scacchiera
+10 maggio 2016: Implementazione sperimentale delle mosse del Bianco e del Nero dell'Engine
+10 maggio 2016: Scoperta funzione "strtok" per dividere una stringa in token e isolare le moves da "position startpos moves e2e4..."
+
+9 maggio 2016: Definito log file per protocollo UCI: acqua.log
+9 maggio 2016: Al momento funziona solo un esempio di mosse da parte del Nero
+
+8 maggio 2016: Finalmente il protocollo funziona
+
+7 maggio 2016: Implementato un esempio comando "go"
+7 maggio 2016: Implementato comando "ucinewgame"
+7 maggio 2016: Implementato comando "quit"
+7 maggio 2016: Implementato comando "isready"
+7 maggio 2016: Implementato comando "stop"
+7 maggio 2016: Implementato comando "UCI"
+7 maggio 2016: Salvataggio comandi da GUI to log file
+7 maggio 2016: E' nato Acqua chess engine (versione 20160507)
+
+---------------------------------
+- Tarrash GUI: OK
+- Arena GUI: OK
+- Crafty GUI: OK

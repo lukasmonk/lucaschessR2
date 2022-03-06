@@ -1,0 +1,5 @@
+id name Delfi 5.4
+id author Fabio Cavicchio
+option name Hash type spin default 16 min 2 max 128
+option name UCI_Elo type spin default 2600 min 1000 max 2600
+option name UCI_LimitStrength type check default false

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg id="svg2" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="100%" width="100%" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 -200 1000 1000">
+ <metadata id="metadata12">
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs id="defs10">
+  <filter id="filter3022" style="color-interpolation-filters:sRGB">
+   <feFlood id="feFlood3024" result="flood" flood-color="rgb(0,0,0)"/>
+   <feComposite id="feComposite3026" operator="in" result="composite1" in2="SourceGraphic" in="flood"/>
+   <feGaussianBlur id="feGaussianBlur3028" result="blur" stdDeviation="8" in="composite"/>
+   <feOffset id="feOffset3030" result="offset" dx="4" dy="4"/>
+   <feComposite id="feComposite3032" operator="over" result="fbSourceGraphic" in2="offset" in="SourceGraphic"/>
+   <feColorMatrix id="feColorMatrix3034" values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0" result="fbSourceGraphicAlpha" in="fbSourceGraphic"/>
+   <feFlood id="feFlood3036" result="flood" flood-color="rgb(0,0,0)" in="fbSourceGraphic"/>
+   <feComposite id="feComposite3038" operator="in" result="composite1" in2="fbSourceGraphic" in="flood"/>
+   <feGaussianBlur id="feGaussianBlur3040" result="blur" stdDeviation="8" in="composite"/>
+   <feOffset id="feOffset3042" result="offset" dx="4" dy="4"/>
+   <feComposite id="feComposite3044" operator="over" result="composite2" in2="offset" in="fbSourceGraphic"/>
+  </filter>
+ </defs>
+ <rect id="rect2994" opacity="0.98" stroke-linejoin="round" rx="91.028" ry="239.52" height="677.97" filter="url(#filter3022)" width="758.47" stroke-linecap="round" y="-30.508" x="131.36" stroke-width="5" fill="#f60"/>
+ <rect id="rect2996" opacity="0.98" ry="148.31" stroke-linejoin="round" rx="91.028" transform="translate(0,-200)" height="148.31" width="8.4746" stroke-linecap="round" y="427.97" x="576.27" stroke-width="5" fill="#f60"/>
+</svg>

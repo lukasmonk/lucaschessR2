@@ -1,0 +1,15 @@
+id name Hannibal 1.4bx32
+id author Sam Hamilton & Edsel Apostol
+option name Hash type spin min 1 max 16384 default 128
+option name Pawn Hash type spin min 1 max 128 default 32
+option name Eval Cache type spin min 1 max 1024 default 64
+option name Clear Hash type button
+option name Ponder type check default false
+option name OwnBook type check default false
+option name Book File type string default HannibalPoly.bin
+option name Book Move Limit type spin min 0 max 256 default 128
+option name Time Buffer type spin min 0 max 10000 default 1000
+option name Threads type spin min 1 max 32 default 1
+option name Min Split Depth type spin min 1 max 16 default 4
+option name Max Split Threads type spin min 2 max 8 default 4
+option name Contempt type spin min -100 max 100 default 0

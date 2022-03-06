@@ -1,0 +1,11 @@
+id name Rhetoric 1.4.3 x32
+id author Alberto Sanjuan
+id country Spain
+option name Hash type spin min 4 max 1024 default 128
+option name Clear Hash type button
+option name Use Log File type check
+option name MultiPV type spin min 1 max 4 default 1
+option name Material type spin min 50 max 200 default 100
+option name UCI_LimitStrength type check default false
+option name UCI_Elo type spin min 1300 max 2600 default 2600
+option name UCI_EngineAbout type string default www.chessrhetoric.com

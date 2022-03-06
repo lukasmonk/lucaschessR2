@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg36220" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" sodipodi:docname="wn.svg" xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd" height="700pt" sodipodi:version="0.32" width="700pt" version="1.0" xmlns:cc="http://web.resource.org/cc/" xmlns:xlink="http://www.w3.org/1999/xlink" sodipodi:docbase="/home/maurizio/chess_set" xmlns:dc="http://purl.org/dc/elements/1.1/">
+ <defs id="defs36222">
+  <linearGradient id="linearGradient2513" y2="814.16" gradientUnits="userSpaceOnUse" x2="741.16" gradientTransform="translate(2,12)" y1="244.16" x1="163.68">
+   <stop id="stop2509" stop-color="#fff" offset="0"/>
+   <stop id="stop2511" stop-color="#d0b090" offset="1"/>
+  </linearGradient>
+ </defs>
+ <sodipodi:namedview id="base" bordercolor="#666666" pagecolor="#ffffff" borderopacity="1.0"/>
+ <metadata id="metadata36225">
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:publisher>
+     <cc:Agent>
+      <dc:title/>
+     </cc:Agent>
+    </dc:publisher>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Maurizio Monge</dc:title>
+     </cc:Agent>
+    </dc:creator>
+    <cc:license rdf:resource="http://creativecommons.org/licenses/GPL/2.0/"/>
+   </cc:Work>
+   <cc:License rdf:about="http://creativecommons.org/licenses/GPL/2.0/">
+    <cc:permits rdf:resource="http://web.resource.org/cc/Reproduction"/>
+    <cc:permits rdf:resource="http://web.resource.org/cc/Distribution"/>
+    <cc:requires rdf:resource="http://web.resource.org/cc/Notice"/>
+    <cc:permits rdf:resource="http://web.resource.org/cc/DerivativeWorks"/>
+    <cc:requires rdf:resource="http://web.resource.org/cc/ShareAlike"/>
+    <cc:requires rdf:resource="http://web.resource.org/cc/SourceCode"/>
+   </cc:License>
+  </rdf:RDF>
+ </metadata>
+ <g id="layer1">
+  <path id="path4618" stroke-linejoin="round" d="m376.26 88.503c-1.69 116.36 4.26 72.417-69.17 18.697 11.33 75.91 3.64 78.41-15.97 110.89-10.74 17.77-20.2 73.74-26.92 86.08-40.7 74.76-134.18 172.35-134.02 204.17 0.2 40.27 48.1 76.32 91.92 33.73-41 60.01 82.76-0.27 134.63-37.28 68.65 42.26 164.56-3.99 166.34-71.89 31.24 153.59-260.49 180.27-276.07 379.5 217.42 49.63 338.52-112.08 471.05 12.97 67.74-196.43 74-524.76-240.95-647.87-42.8-16.73-60.78-59.77-100.84-88.997zm-1.31 216.68c-7.12 10.1-22.09 26.58-35.22 24.17-12.15-2.24-17.03-6.35-17.59-20.73-0.47-12.11 42.43-11.72 52.81-3.44z" fill-rule="evenodd" sodipodi:nodetypes="ccssscccccsccssc" stroke="#000" stroke-linecap="round" stroke-width="16" fill="url(#linearGradient2513)"/>
+ </g>
+</svg>

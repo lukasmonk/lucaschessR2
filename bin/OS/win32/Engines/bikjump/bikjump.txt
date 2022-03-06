@@ -1,0 +1,163 @@
+***********************************
+*** BikJump    UCI Chess Engine ***
+*** (C) 2007-2008 Aart J.C. Bik ***
+***********************************
+***
+*** This BikJump UCI chess engine has been developed by Aart J.C. Bik.
+*** This software is *not* in the public domain. However, it is
+*** freely available without any fee for education, research, and
+*** non-profit purposes. By obtaining copies of this software, you,
+*** the Licensee, agree to abide by the following conditions and
+*** understandings with respect to the copyrighted software:
+***
+*** 1.  The software is copyrighted by Aart J.C. Bik
+*** and he retains ownership of the software.
+***
+*** 2.  Permission to use and modify this software and its documentation
+*** for education, research, and non-profit purposes is hereby granted to
+*** Licensee, provided that the copyright notice, the original author's
+*** name, version identification, and this permission notice appear on
+*** all such works, and that no charge be made for such copies.
+***
+*** 3. Any entity desiring permission to incorporate this software into
+*** commercial products should contact Aart J.C. Bik (http://www.aartbik.com/)
+***
+*** 4.  THE COPYRIGHT HOLDERS MAKE NO REPRESENTATIONS ABOUT THE SUITABILITY
+*** OF THE SOFTWARE FOR ANY PURPOSE.  IT IS PROVIDED "AS IS" WITHOUT EXPRESS
+*** OR IMPLIED WARRANTY.
+***
+*** 5.  The copyright holders shall not be liable for any damages suffered
+*** by Licensee from the use of this software.
+***
+*** 6.  Your courtesy in mentioning the use of this chess engine in any work
+*** that presents results obtained by using (extensions or modifications
+*** of) this software is highly appreciated.
+***
+*** All source code of BikJump (except the probing and decompression code for
+*** the endgame tablebases, which are used with kind permission of Eugene
+*** Nalimov and Andrew Kadatch) has been built from the ground up by Aart as
+*** a simple after-hours project to gain some experience with chess engine
+*** programming and experiment with new ideas.
+***
+************************
+*** Acknowledgements ***
+************************
+***
+*** Thanks to Graham Banks, Patrick Buchmann, Olivier Deville, Leo Dijksman,
+*** Igor Gorelikov, N. Swaminathan, Chris Tatham, Stephan Vermeire and many
+*** others for testing and tournaments. Special thanks to Eugene Nalimov and
+*** Andrew Kadatch for giving explicit permission to use their endgame
+*** tablebases probing and decompression code.
+***
+****************
+*** RELEASES ***
+****************
+***
+*** v1.0 (Jan 2007) approx. 1750RUEL
+*****************************************************************************
+***
+*** (1) UCI compliant chess engine
+*** (2) draw by repetition or fifty move rule detection
+*** (3) iterative deepening with alpha-beta pruning and quiescent search
+*** (4) null move pruning and killer move heuristics
+*** (5) basic search-time control
+***
+*** v1.1 (Feb 2007) approx. 1700RUEL
+*****************************************************************************
+***
+*** (1) enhanced search-time control
+*** (2) transposition table (min 1MB max 1024MB)
+*** (3) aspiration window
+***
+*** v1.1.1 (Mar 2007) approx. 1785RUEL
+*****************************************************************************
+***
+*** (1) fixed bug in panic-time allocation
+*** (2) improved play in basic end games
+*** (3) modified various parameters
+***
+*** v1.2 (Mar 2007) <not-rated>
+*****************************************************************************
+***
+*** (1) principal variation search
+*** (2) tactical extensions
+*** (3) late move reduction
+***
+*** v1.2.1 (Apr 2007) approx. 1785RUEL
+*****************************************************************************
+***
+*** (1) improved move ordering
+*** (2) improved quiescent search
+*** (3) modified search depth extension
+***
+*** v1.3 (June 2007) approx. 1905RUEL
+*****************************************************************************
+***
+*** (1) revised null move pruning
+*** (2) revised quiescent search
+*** (3) revised move ordering
+*** (4) fixed bug in transposition table
+***
+*** v1.4 (July 2007) approx. 1835RUEL
+*****************************************************************************
+***
+*** (1) re-implemented evaluation function
+*** (2) modified various parameters
+***
+*** v1.4.1 (July 2007) approx. 1875RUEL
+*****************************************************************************
+***
+*** (1) fixed bug in ponder-time allocation
+*** (2) restricted depth for late move reduction
+***
+*** v1.5 (Sept 2007) approx. 1885RUEL
+*****************************************************************************
+***
+*** (1) sparse piece list
+*** (2) improved transposition table
+*** (3) revised pruning methods
+*** (4) MVV/LVA move ordering
+*** (5) reduced quiescent search explosion
+*** (6) improved evaluation function
+*** (7) avoid re-computation of now-in-check
+***
+*** ended first (out of 167 engines) in the ChessWar XII promotion group
+***
+*** v1.6 (April 2008) approx. 1950RUEL
+*****************************************************************************
+***
+*** (1) implemented hash-move for move ordering
+*** (2) completely redesigned quiescent search
+*** (3) tuned evaluation function
+***
+*** v1.6.1 (April 2008) approx. 2025RUEL
+*****************************************************************************
+***
+*** (1) revised time management
+*** (2) more tactical extensions
+*** (3) few more draw rules, some king safety
+***
+*** v1.7 (June 2008) approx. 1965RUEL
+*****************************************************************************
+***
+*** (1) bug fix in FEN parsing
+*** (2) revised time management
+*** (3) added ability to query the 3-piece, 4-piece, and 5-piece Nalimov
+***     endgame tablebases during search
+***
+*** v1.8 (June 2008) approx. 2000RUEL
+*****************************************************************************
+***
+*** (1) revised panic time
+*** (2) added more chess rules to evaluation function
+*** (3) revised various search methods
+*** (4) added Nalimov endgame tablebases probing for 6-piece as well
+*** (5) bug fix on missing \n in engine output when tablebases cannot be found
+***
+*** v2.0[1] (Nov 2008)
+*****************************************************************************
+***
+*** (1) complete rewrite of BikJump sources
+*** (2) switched to bitboard representation
+*** (3) v2.01 fixed missing check-flag bug
+***

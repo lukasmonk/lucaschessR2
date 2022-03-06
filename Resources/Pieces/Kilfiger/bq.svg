@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg2985" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="480" width="480" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+ <title id="title3883">Black Queenie</title>
+ <metadata id="metadata2990">
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title>Black Queenie</dc:title>
+    <cc:license rdf:resource="http://creativecommons.org/licenses/publicdomain/"/>
+    <dc:date>6.1.2013</dc:date>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>James Kilfinger+alfons z!</dc:title>
+     </cc:Agent>
+    </dc:creator>
+    <dc:source>http://openfontlibrary.org/assets/downloads/chess/dd244e4b50bb954610bc0b2372ce2e18/chess.zip</dc:source>
+   </cc:Work>
+   <cc:License rdf:about="http://creativecommons.org/licenses/publicdomain/">
+    <cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction"/>
+    <cc:permits rdf:resource="http://creativecommons.org/ns#Distribution"/>
+    <cc:permits rdf:resource="http://creativecommons.org/ns#DerivativeWorks"/>
+   </cc:License>
+  </rdf:RDF>
+ </metadata>
+ <g id="layer1">
+  <path id="text3432" d="m183.19 76c-16.727 0-30.219 14.569-30.219 32.375s13.492 32.375 30.219 32.375 30.219-14.569 30.219-32.375c0-17.811-13.5-32.38-30.22-32.38zm110.06 0c-16.727 0-30.219 14.569-30.219 32.375s13.492 32.375 30.219 32.375 30.219-14.569 30.219-32.375c0-17.811-13.49-32.38-30.22-32.38zm-239.56 70.16c-16.727 0-30.219 14.569-30.219 32.375s13.492 32.375 30.219 32.375 30.219-14.569 30.219-32.375-13.492-32.375-30.219-32.375zm369.06 0c-16.727 0-30.219 14.569-30.219 32.375s13.492 32.375 30.219 32.375 30.219-14.569 30.219-32.375-13.492-32.375-30.219-32.375zm-235.25 7.53c-5.9353 99.281-19.425 123.03-32.375 123.03-18.885 0-55.578-30.765-80.938-56.125 14.029 43.166 26.969 87.953 26.969 137.59v12.438c50.72-24.82 81.487-36.719 137.06-36.719 55.576 0 86.343 11.898 137.06 36.719v-12.438c0-49.641 12.94-94.428 26.969-137.59-25.36 25.36-62.052 56.125-80.938 56.125-12.95 0-26.44-23.21-32.375-123.03-26.979 57.195-23.74 86.344-50.719 86.344-22.662 0-23.74-29.149-50.719-86.344zm50.719 233.09c-77.698 0-145.69 29.161-188.31 73.406h379.84c-42.63-44.25-113.83-73.41-191.53-73.41z"/>
+ </g>
+</svg>

@@ -1,0 +1,33 @@
+id name Hamsters 0.5
+id author Alessandro Scotti
+option name Leader type combo default Fedor (Winter White Russian) var Ham#1 (Chinese) var Ham#2 (Dwarf Campbell Russian) var Igor (Roborovski) var Boris (Syrian) var Fedor (Winter White Russian)
+option name Clear Hash type button
+option name Hash type spin default 32 min 1 max 1024
+option name Pawn Hash (MB) type spin default 1 min 1 max 4
+option name MultiPV type spin default 1 min 1 max 8
+option name Ponder type check default false
+option name UCI_AnalyseMode type check default false
+option name UCI_Chess960 type check default false
+option name UCI_EngineAbout type string default Hamsters 0.5 by Alessandro Scotti, see http://www.ascotti.org/
+option name UCI_LimitStrength type check default false
+option name UCI_Elo type spin default 1000 min 1000 max 2000
+option name Pawn type spin default 100 min 25 max 400
+option name Pawn (endgame) type spin default 100 min 25 max 400
+option name Bishop type spin default 100 min 25 max 400
+option name Bishop (endgame) type spin default 100 min 25 max 400
+option name Knight type spin default 100 min 25 max 400
+option name Knight (endgame) type spin default 100 min 25 max 400
+option name Rook type spin default 100 min 25 max 400
+option name Rook (endgame) type spin default 100 min 25 max 400
+option name Queen type spin default 100 min 25 max 400
+option name Queen (endgame) type spin default 100 min 25 max 400
+option name Piece Activity type spin default 100 min 25 max 400
+option name King Safety type spin default 100 min 25 max 400
+option name Pawn Structure type spin default 100 min 25 max 400
+option name Passed Pawns type spin default 100 min 25 max 400
+option name Blunder type combo default Disabled var Disabled var Normal var Medium var Hard var Very Hard
+option name Limit KNPS type spin default 100 min 10 max 500
+option name Hide Score Threshold type spin default 500 min 0 max 500
+option name Hide PV Threshold type spin default 500 min 0 max 500
+option name Pick Percent Min type spin default 0 min 0 max 100
+option name Pick Percent Max type spin default 10 min 0 max 100

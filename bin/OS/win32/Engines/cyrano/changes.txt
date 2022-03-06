@@ -1,0 +1,342 @@
+v 0.6 beta 17
+======
+- cyrano was playing too fast, changed the time allocation a bit
+- added experimental pthreads support
+- compilable under linux
+- should run under linux (no testing done)
+- some cosmetic change for less warnings in g++ compile
+
+v 0.6 beta 16
+======
+- bug correction :
+	- incorrect end game recognizer used in some positions
+	- incorrect Q vs P eval in some positions
+
+v 0.6 beta 15
+======
+- more traditional search (no node count decision)
+- new time management (update#3, thx Lars)
+
+v 0.6 beta 10
+======
+- added fixed node count support in uci & wb mode (go nodes xxx & sn xxx)
+- increased king safety value
+- increased passed pawn value
+- search uses node count to make decision
+
+v 0.6 beta 8
+======
+- mate distance should be correct now
+
+v 0.6 beta 4
+======
+- bug correction :
+	- incorrect pruning of some kind of moves in qsearch
+
+v 0.6 beta 2
+======
+- bug correction :
+	- storing the pv in the hash table was buggy and could lead to an incorrect search
+
+v 0.6 beta 1
+======
+- changed move ordering to mvv/lva
+- enabled futility pruning at frontier
+
+v 0.5 beta 11
+======
+- code optimization
+- added some endgame eval heuristics
+
+v 0.5 beta 9
+======
+- rewritten the search a bit
+- there was a bug with the eval cache and path dependant eval...
+- removed perpetual check detector because of side effects
+
+v 0.5 beta 7
+======
+- changed the order of captures
+- corrected a lot of bugs
+
+v 0.5 beta 7
+======
+v 0.5 beta 6
+======
+v 0.5 beta 3
+======
+
+v 0.5 beta 2
+======
+- disabled fm extension
+- changed lmr condition (a bit less reductions)
+- reworked eval (mobility and rook constants)
+- more end game recognizers
+- more draw recognizers
+- added eval scalers
+- new king eg pst, pawn pst, knight pst
+
+v 0.4
+======
+- removed some debug spam
+
+v 0.4 beta 7
+======
+- king safety rewritten
+- razoring used instead of futility pruning
+
+v 0.4 beta 6
+======
+- bad lines could be choosen from book
+- new book
+- less reductions/pruning
+
+v 0.4 beta 5
+======
+- added BM extension
+- code optimisation
+- new book
+- new eval
+
+v 0.4 beta 4
+======
+- eval tuned a bit
+- bug correction :
+    - incorrect detection of backward pawns, candidate pawns
+
+v 0.4 beta 3
+======
+- slight change of time control
+- better transposition table aging
+- handling of fixed search depth in uci mode
+- correct a bug in passer eval, king safety, knight outpost
+- tuned a lot in the eval
+- changed the repetition detection
+- bug correction :
+    - the time increment was not used in WB mode
+
+v 0.4 beta 2
+======
+- more reductions
+- stand pat verification in qs
+- better move order in pv with TT score and search
+- eval :
+    - pawn eval
+- bug correction :
+    - incorrect value of minors in end game in some conditions
+    - incorrect backward pawns
+
+v 0.4 beta
+======
+- disabled the PV HT hit extension (it was fun but too many nodes sometimes)
+- allowed more extensions on check
+- nm search stored in hash
+- reduced futility magins
+- re-enabled check in qs
+- added 32bits magics
+- a few optimizations in the move generator
+- lines from the opening book should be a bit random now
+- eval :
+    - trapped bishop
+    - more penality if we can not castle
+    - perhaps less 'yoyo' scores
+    - 'activity' rewritten
+    - more bonus for rook on open files
+    - better passed pawn eval
+    - changed king safety
+- bug correction :
+    - severe shift bug with the Intel compiler in the initialization code (/O2 build)
+    - imbalance material bonus condition was incorrect, bonus was often added...
+    - good promotions could be prunned in QS
+    - candidate pawn detection was erronous
+
+
+v 0.3 
+======
+- adjustment in some eg recognizers
+- probing of Scorpio bitbases (param -bs c:/tb/egbbs_3_4)
+    - disabled
+- handling of UCI_ShowCurrLine
+- disabled check in qs (there is something bugged here)
+- added razoring
+- added an evaluation cache, disabled lazy eval
+- changed knight outpost eval
+- changed mobility to simple eval again
+- bug correction :
+    - wrong bonus for pawn files
+
+
+v 0.3 beta3
+======
+- 4 buckets transposition tables
+- tweaking of lmr conditions
+- better time management
+- bug correction :
+    - bad bounds in hash table
+    - bad lmr condition
+
+
+v 0.3 beta2
+======
+- less re-search after a reduction
+- end game recognizers
+- a few other changes in the eval
+- bug correction :
+    - promotion bug when the pawn captures a pinner
+
+
+v 0.3 beta
+======
+- tweaking of futility pruning and lmr conditions
+- deeper search inside the pv
+- mobility/activity evaluation changed a bit
+- evaluation of interior nodes
+- added a bit of king safety in the eval
+- a few other changes in the eval
+- qs search stops earlier
+- changed a bit the time allocation
+- bug correction :
+    - the engine should not resign in uci mode (wb only)
+    - cyrano could run out of time on his last move in tourney time control
+    - non capture pawn promotion to queen was missing on check evasion
+
+
+v 0.2f
+======
+- bug correction :
+    - non capture pawn promotion to queen was missing on check evasion, thx Dietmar
+
+v 0.2e
+======
+- bug correction :
+    - cyrano could run out of time on his last move in tourney time control, thx Graham
+
+
+v 0.2d
+======
+- changed lmr condition
+- changed check extension (don't extend first check)
+- evaluation tweaking
+- bug correction :
+    - in uci mode, handling of o-o & o-o-o for castling
+    - hash was cleared in setposition, not good for uci mode
+    - hash date was checked (old debug code), not good for tournament
+    - time increment was not handled in uci mode
+
+
+v 0.2c
+======
+- better development in openings
+- bug correction :
+    - bug in parsing of the time control under uci
+
+v 0.2b
+=====
+- uci pv output is from-to now
+- support of longer games in uci mode
+
+v 0.2
+=====
+- added mate killers
+- no null move when stand pat score can not reach Beta
+- better support of uci procotol :
+    - ponder should work
+    - hash table size settable
+    - book file name settable
+- changed evaluation :
+    - better scoring in endgames : minor pieces values, opposite bishop color,
+      pawn structure, king evaluation
+    - backward pawns
+    - center control by pawns, space
+    - better evaluation of king castle, also it should castle earlier now
+    - new computation of mobility
+- bug correction :
+    - eval : serious error in the ratio bonus computation
+    - protocol : overflow in input buffer when replaying long games
+
+
+v 0.1f
+======
+- changed qs pruning margin (less pessimistic now)
+- internal iterative deepening
+- SEE to find out if a capture is bad or good (move ordering)
+- semi safe square move ordering for non capture moves/ or history counters
+- updated futility pruning
+- kpk endgame uses a bitbase now
+- adaptive null move pruning
+- verified null move
+- checks in first ply of QS
+- partial support of uci protocol
+- check extension enabled again, but reductions are now allowed after extension
+- mate threat in null move does not extend the search
+- root move ordering should be more stable now
+- using killers from previous ply too for move ordering
+- a bit of lmr
+- bug correction :
+    - wrong lower/upper bound was stored in hash
+    - corrected (?) mate distance pruning
+    - updated hash mate scores with ply
+    - stand pat score wrongly initialized in QS
+    - wrong search window in some situations
+
+
+v 0.1e
+======
+- pawn push to 7h extension
+- changed the bonus value of candidate/passed pawn in endgames
+- added endgames rules for a/h pawn and bad bishop
+- recapture extension
+- bug correction :
+    - knight/bishop value in endgames
+    - lazy eval was incorrectly used in endgames
+    - white promotions could be pruned
+    - wrong initialization of check flag when setting a position
+    - wrong material value table in QS pruning
+    - stats and killer moves where not intialized when the pondered move was correctly guessed
+    - illegal move was generated with a black king in front of a pinned pawn
+
+
+v 0.1d
+======
+- score was inverted (1-0 instead of 0-1)
+- evaluation changed (pawn defense/attack, position tables)
+- corrected mobility computation
+- corrected a few array overflows
+- corrected optimizer bug in hash.cpp
+- futility pruning enabled again
+- changed move ordering
+- mate threat in null move
+- null move bug corrected
+
+
+v 0.1c (20070913)
+======
+- Annoncement colors where inverted (black resigns instead of white...)
+- check extension and futility pruning was bugged
+- futility pruning disabled for now
+- adjusted the evaluation (piece/square value, tempo counter)
+- a little better time control handling when the pv is worse than the previous pv found
+
+
+
+v 0.1beta is derived from Gerbil with the following changes
+=======================================================
+- null moves are no more done when inside the pv
+- all moves are sorted, not just the four first
+- the aspiration window search was changed to a null window search
+- added killer moves
+- transposition tables only use a depth replacement scheme for now
+- the pawn hash table now contains more data about the pawn structure, not just a score
+    (bitboards are computed for isolated, doubled, blocked, and passed pawns)
+- the eval function was rewritten, it
+    - recognizes some endgame draw positions (insufisant material) and scores them accordingly
+    - gives a stronger bonus for candidate/passed pawns
+    - some basic bonus/malus for bishop and knight
+    - includes the mobility
+    - rooks on open file
+    - primitive board square control
+- quiescent search should better handle mat/pat positions
+- included the magicmoves from Pradyumna Kannan
+- changed the move generator to use bitboards (move generator from Jacob Hales)
+- new book from (polyglot book format)
+- basic futility pruning

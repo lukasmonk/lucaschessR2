@@ -1,0 +1,14 @@
+RookOn7thMg = 60
+RookOn7thEg = 40
+RookOpenFileMg = 30
+RookOpenFileEg = 30
+RookSemiOpenFileMg = 15
+RookSemiOpenFileEg = 15
+KnightKingAtkWt = 8
+BishopKingAtkWt = 8
+RookKingAtkWt = 10
+QueenKingAtkWt = 12
+KnightMobilityWt = 8
+BishopMobilityWt = 8
+RookMobilityWt = 8
+QueenMobilityWt = 10

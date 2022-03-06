@@ -1,0 +1,5 @@
+id name Lime_v66
+id author Richard Allbert
+option name Hash type spin default 16 min 4 max 512
+option name OwnBook type check default false
+option name Ponder type check default true

@@ -1,0 +1,2 @@
+setoption name UCI_LimitStrength value false
+setoption name UCI_Elo value 2600

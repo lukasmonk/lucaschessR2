@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg id="svg2" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="100%" width="100%" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 -200 1000 1000">
+ <metadata id="metadata12">
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs id="defs10">
+  <filter id="filter3048" style="color-interpolation-filters:sRGB" color-interpolation-filters="sRGB">
+   <feGaussianBlur id="feGaussianBlur3050" stdDeviation="5" result="result91"/>
+   <feComposite id="feComposite3052" operator="over" result="fbSourceGraphic" in2="result91" in="SourceGraphic"/>
+   <feColorMatrix id="feColorMatrix3061" values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0" result="fbSourceGraphicAlpha" in="fbSourceGraphic"/>
+   <feFlood id="feFlood3063" result="flood" flood-color="rgb(255,255,255)" in="fbSourceGraphic"/>
+   <feComposite id="feComposite3065" operator="in" result="composite1" in2="fbSourceGraphic" in="flood"/>
+   <feGaussianBlur id="feGaussianBlur3067" result="blur" stdDeviation="12" in="composite"/>
+   <feOffset id="feOffset3069" result="offset" dx="12" dy="12"/>
+   <feComposite id="feComposite3071" operator="over" result="fbSourceGraphic" in2="offset" in="fbSourceGraphic"/>
+   <feColorMatrix id="feColorMatrix3105" values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0" result="fbSourceGraphicAlpha" in="fbSourceGraphic"/>
+   <feGaussianBlur id="feGaussianBlur3107" in="fbSourceGraphic" stdDeviation="1.5" result="result6"/>
+   <feComposite id="feComposite3109" operator="atop" result="result8" in2="result6" in="fbSourceGraphic"/>
+   <feComposite id="feComposite3111" operator="atop" result="fbSourceGraphic" in2="fbSourceGraphicAlpha" in="result8"/>
+   <feColorMatrix id="feColorMatrix3139" values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0" result="fbSourceGraphicAlpha" in="fbSourceGraphic"/>
+   <feColorMatrix id="feColorMatrix3141" in="fbSourceGraphic" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0 " result="fbSourceGraphic"/>
+   <feGaussianBlur id="feGaussianBlur3143" stdDeviation="3" result="result1"/>
+   <feOffset id="feOffset3145" result="result6" dx="2" dy="2"/>
+   <feComposite id="feComposite3147" in2="result1" k2="2" result="result2" in="result6" operator="in"/>
+   <feColorMatrix id="feColorMatrix3149" type="hueRotate" values="110" result="result3"/>
+   <feBlend id="feBlend3151" result="result4" in="result2" in2="result3" mode="screen"/>
+   <feConvolveMatrix id="feConvolveMatrix3153" divisor="2" kernelMatrix="-2 0 2 0 4 0 2 0 2" order="3 3" bias="0" result="result5" targetX="0" in="result4"/>
+   <feComposite id="feComposite3155" operator="atop" in2="result5" in="result2"/>
+  </filter>
+ </defs>
+ <path id="path2995" d="m207.14 310.63-10.161-10.816 10.814-10.159c10.464-9.8304 14.283-10.159 118.07-10.159 106.17 0 107.36 0.10989 117.42 10.816l10.161 10.816-10.814 10.159c-10.464 9.8305-14.283 10.159-118.07 10.159-106.17 0-107.36-0.10989-117.42-10.816z" stroke-miterlimit="3.8" stroke-width="0" fill="none"/>
+ <rect id="rect3034" opacity="0.98" ry="46.61" stroke-linejoin="round" rx="0" transform="translate(0,-200)" height="93.22" width="0" stroke-linecap="round" y="169.49" x="432.2" stroke-width="5" fill="#f60"/>
+ <rect id="rect3046" opacity="0.98" stroke-linejoin="round" transform="matrix(-.17002 .98544 .71138 .70281 -6.9915 3.6441)" rx="189.38" ry="321.98" height="805.95" filter="url(#filter3048)" width="626" stroke-linecap="round" y="231.54" x="-457.72" stroke-width="5" fill="#f60"/>
+</svg>

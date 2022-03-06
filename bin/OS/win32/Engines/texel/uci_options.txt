@@ -1,0 +1,20 @@
+id name Texel 1.07 32-bit
+id author Peter Osterlund
+option name UCI_EngineAbout type string default Texel 1.07 32-bit by Peter Osterlund, see http://hem.bredband.net/petero2b/javachess/index.html#texel
+option name Hash type spin default 16 min 1 max 524288
+option name OwnBook type check default false
+option name BookFile type string default
+option name Ponder type check default true
+option name UCI_AnalyseMode type check default false
+option name UCI_Opponent type string default
+option name Strength type spin default 1000 min 0 max 1000
+option name Threads type spin default 1 min 1 max 512
+option name MultiPV type spin default 1 min 1 max 256
+option name UseNullMove type check default true
+option name GaviotaTbPath type string default
+option name GaviotaTbCache type spin default 1 min 1 max 2047
+option name SyzygyPath type string default
+option name MinProbeDepth type spin default 1 min 0 max 100
+option name AnalysisAgeHash type check default true
+option name Clear Hash type button
+option name BufferTime type spin default 1000 min 1 max 10000

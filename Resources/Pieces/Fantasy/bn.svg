@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg36220" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" sodipodi:docname="bn.svg" xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd" height="700pt" sodipodi:version="0.32" width="700pt" version="1.0" xmlns:cc="http://web.resource.org/cc/" xmlns:xlink="http://www.w3.org/1999/xlink" sodipodi:docbase="/home/maurizio/out1" xmlns:dc="http://purl.org/dc/elements/1.1/">
+ <defs id="defs36222">
+  <linearGradient id="linearGradient2672">
+   <stop id="stop2674" offset="0"/>
+   <stop id="stop2676" stop-color="#505070" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient2230" y2="465.62" xlink:href="#linearGradient2672" gradientUnits="userSpaceOnUse" x2="787.13" gradientTransform="translate(0,4)" y1="378.29" x1="705.29"/>
+  <linearGradient id="linearGradient2233" y2="348.42" xlink:href="#linearGradient2672" gradientUnits="userSpaceOnUse" x2="739.15" gradientTransform="translate(4,4)" y1="299.33" x1="667.03"/>
+  <linearGradient id="linearGradient2236" y2="232.29" xlink:href="#linearGradient2672" gradientUnits="userSpaceOnUse" x2="705.53" gradientTransform="translate(0,4)" y1="209.76" x1="598.68"/>
+  <linearGradient id="linearGradient2239" y2="159.49" xlink:href="#linearGradient2672" gradientUnits="userSpaceOnUse" x2="625.85" gradientTransform="translate(4,-2)" y1="157.91" x1="493.79"/>
+  <linearGradient id="linearGradient2319" y2="854.33" xlink:href="#linearGradient2672" gradientUnits="userSpaceOnUse" x2="753.21" gradientTransform="translate(0,4)" y1="255.94" x1="265.65"/>
+ </defs>
+ <sodipodi:namedview id="base" bordercolor="#666666" pagecolor="#ffffff" borderopacity="1.0"/>
+ <metadata id="metadata36225">
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Maurizio Monge</dc:title>
+     </cc:Agent>
+    </dc:creator>
+    <dc:rights>
+     <cc:Agent>
+      <dc:title>Maurizio Monge</dc:title>
+     </cc:Agent>
+    </dc:rights>
+    <cc:license rdf:resource="http://creativecommons.org/licenses/GPL/2.0/"/>
+   </cc:Work>
+   <cc:License rdf:about="http://creativecommons.org/licenses/GPL/2.0/">
+    <cc:permits rdf:resource="http://web.resource.org/cc/Reproduction"/>
+    <cc:permits rdf:resource="http://web.resource.org/cc/Distribution"/>
+    <cc:requires rdf:resource="http://web.resource.org/cc/Notice"/>
+    <cc:permits rdf:resource="http://web.resource.org/cc/DerivativeWorks"/>
+    <cc:requires rdf:resource="http://web.resource.org/cc/ShareAlike"/>
+    <cc:requires rdf:resource="http://web.resource.org/cc/SourceCode"/>
+   </cc:License>
+  </rdf:RDF>
+ </metadata>
+ <g id="layer1" stroke-linejoin="round" stroke="#808080" stroke-linecap="round" stroke-width="16">
+  <path id="path9661" d="m528.59 401.81c0.21 76.49-88.23 142.65-175.46 109.33-13.36-5.1-134.56 104.81-153.99 89.77-15.32-11.87 16.98-60.77 14.63-54.52-11.18 29.74-60.55 62.84-100.19 20.11-15.503-16.71-10.71-64.78 22.68-103.93 34.78-40.78 70.09-103.58 83.76-139.8 27.49-72.85 16.71-74.44 69.39-140.51 9.9-12.41-16.09-60.59-6.64-92.044 37.31 6.653 51.69 44.164 68.84 59.904 10-23.15 3.29-85.362 21.06-82.463 17.78 2.899 38.23 56.793 67.56 80.463 351.26 108.1 348.39 670.2 250.22 672.02-121.17 2.25-266.24 1.74-388.11-0.2-29.52-0.47-43.19-38.67-37.5-61.5 27.16-108.88 141.84-185.09 198.01-222.85 57.7-38.79 68.26-76.91 65.74-133.78z" fill-rule="evenodd" sodipodi:nodetypes="csssssssccscssssc" fill="url(#linearGradient2319)"/>
+  <path id="path31294" d="m345.01 294.1c-29.08-5.37-54.57 3.08-75.62 24.03" sodipodi:nodetypes="cs" fill="none"/>
+  <path id="path31298" d="m298.14 325.8c10.44 10.64 23.73 11.09 25.92-6.99" sodipodi:nodetypes="cs" fill="none"/>
+  <path id="path31300" d="m150.77 518.29c-13.85-4.79-23.88 17.54-15.04 18.45" sodipodi:nodetypes="cs" fill="none"/>
+  <path id="path31308" d="m316.88 474.3l9.48 11.79" sodipodi:nodetypes="cc" fill="none"/>
+  <path id="path31312" d="m528.75 369.24l0.29-24.92" sodipodi:nodetypes="cc" fill="none"/>
+  <path id="path32040" d="m325.88 162.65l-10.11 5.28" sodipodi:nodetypes="cs" fill="none"/>
+  <path id="path32768" d="m379.27 108.87c30.15 42.12 41.04 50.64 5.19 44.6" sodipodi:nodetypes="cs" fill="none"/>
+  <path id="path1849" d="m454.44 131.13c86.58 25.38 71.97 7.06 90.23 36.79 10.23 16.66 24.41-5.68 58.15-3.56 18.22 1.14-50-27.22-58.9-38.57-12.35-15.74-102.18 1.61-89.48 5.34z" fill-rule="evenodd" sodipodi:nodetypes="cssss" fill="url(#linearGradient2239)"/>
+  <path id="path1851" d="m579.55 199.72c27.19 20.68 47.11-0.32 46.04 35.55-0.74 24.63 32.5 8.17 48.65 18.45 14.87 9.46 29.79-28.72 20.33-28.72-14.23 0-38.4 6.68-34.03-9.39 9.6-35.28-88.8-21.83-80.99-15.89z" fill-rule="evenodd" sodipodi:nodetypes="csssss" fill="url(#linearGradient2236)"/>
+  <path id="path1853" d="m659.53 277.72c5.29 1.85 34.12 21.37 32.79 30.65-6.89 47.87 28.41 44.77 43.6 49.83 21.29 7.09-0.99-18.33-11.73-31.39-10.74-13.07 7.34-18.92 6.08-27.21-4.46-29.16-73.5-22.85-70.74-21.88z" fill-rule="evenodd" sodipodi:nodetypes="csssss" fill="url(#linearGradient2233)"/>
+  <path id="path1855" d="m710.39 378.65c5.06 8.82 16.92 18.81 20.68 32.64 3.76 13.84 5.17 26.17 12.69 41.03s37.77 12.93 50.82 8.57c17.58-5.88-42.5-24.13-28.96-51.96 8.57-17.61-57.96-35.04-55.23-30.28z" fill-rule="evenodd" sodipodi:nodetypes="csssss" fill="url(#linearGradient2230)"/>
+  <path id="path2732" d="m438.15 729.5l-25.78 61.49" fill="none"/>
+ </g>
+</svg>

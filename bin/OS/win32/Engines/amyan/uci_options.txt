@@ -1,0 +1,22 @@
+id name Amyan 1.62
+id author Antonio Dieguez R.
+option name Hash type spin default 8 min 1 max 4000
+option name Oponnent type combo default Computer var Human var Computer
+option name Book type check default true
+option name OwnBook type check default false
+option name Ponder type check default false
+option name UCI_LimitStrength type check default false
+option name UCI_Elo type spin default 1300 min 1000 max 2400
+option name ET01 Center Pawns type spin default 30 min 0 max 99
+option name ET02 Passed Pawns type spin default 30 min 0 max 99
+option name ET03 Weak Pawns type spin default 30 min 0 max 99
+option name ET04 Pawn Avalanches type spin default 30 min 0 max 99
+option name ET05 Horses stuff type spin default 30 min 0 max 99
+option name ET06 Bishops stuff type spin default 30 min 0 max 99
+option name ET07 Rooks stuff type spin default 30 min 0 max 99
+option name ET08 Queens stuff type spin default 30 min 0 max 99
+option name ET09 Minors Development type spin default 30 min 0 max 99
+option name ET10 Pieces Attacking others type spin default 30 min 0 max 99
+option name ET11 Pieces Pinning others type spin default 30 min 0 max 99
+option name ET12 King Position and PawnShield type spin default 30 min 0 max 99
+option name ET13 King Hunting type spin default 30 min 0 max 99

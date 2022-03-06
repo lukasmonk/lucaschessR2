@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg id="svg2" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="100%" width="100%" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 -410 2048 2048">
+ <metadata id="metadata12">
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g id="g4" transform="matrix(1 0 0 -1 0 1638)">
+  <path id="path6" d="m1436 1092h-824q-9 111-32 239h330q-11 51-17 73-5 28-5 45 0 55 39.5 95t96.5 40q56 0 95.5-40t39.5-95q0-17-5-45-12-46-16-73h330q-24-128-32-239zm-823-68h823q-1-18-2-35t-1-33q0-58 1-85h-822q3 40 3 85t-2 68zm832-290h-843q6 46 7 69h830q1-35 6-69zm-853-69h862q11-77 29-152h-918q9 37 15 75t12 77zm-44-223h952q35-129 82-239h-1116q46 110 82 239z" fill="currentColor"/>
+ </g>
+ <path id="path2989" d="m614.36 945.95c2.1112 84.449 2.1112 84.449 2.1112 84.449" transform="translate(0,-410)" stroke="#000" stroke-width="1px" fill="none"/>
+ <path id="path2991" d="m1431.4 945.95v84.449" transform="translate(0,-410)" stroke="#000" stroke-width="1px" fill="none"/>
+ <path id="path2993" d="m612.25 1169.7v84.448" transform="translate(0,-410)" stroke="#000" stroke-width="1px" fill="none"/>
+ <path id="path2995" d="m603.81 1309.1l-12.667 82.337" transform="translate(0,-410)" stroke="#000" stroke-width="1px" fill="none"/>
+ <path id="path2997" d="m570.03 1528.6l-21.112 90.782" transform="translate(0,-410)" stroke="#000" stroke-width="1px" fill="none"/>
+ <path id="path2999" d="m1427.2 1171.8c6.3336 76.004 6.3336 76.004 6.3336 76.004" transform="translate(0,-410)" stroke="#000" stroke-width="1px" fill="none"/>
+ <path id="path3001" d="m1437.7 1307c10.556 88.671 12.667 88.671 12.667 88.671" transform="translate(0,-410)" stroke="#000" stroke-width="1px" fill="none"/>
+ <path id="path3003" d="m1475.7 1530.8c16.89 80.226 19.001 80.226 19.001 80.226" transform="translate(0,-410)" stroke="#000" stroke-width="1px" fill="#ececec"/>
+ <path id="path3005" stroke-linejoin="round" d="m617.89 1016.1c-0.71973-4.3544-1.3191-19.555-1.3318-33.779l-0.0232-25.862h406.41 406.41v33.779 33.779h-405.08-405.08l-1.3086-7.917z" transform="translate(0,-410)" fill="#ececec"/>
+ <path id="path3007" stroke-linejoin="round" d="m614.42 1210.8v-32.724h406.11 406.11l1.4459 21.64c0.7953 11.902 2.0119 26.628 2.7037 32.724l1.2578 11.084h-408.81-408.81v-32.724z" transform="translate(0,-410)" fill="#ececec"/>
+ <path id="path3009" stroke-linejoin="round" d="m598.86 1352.8c2.6236-16.547 4.8229-31.747 4.8874-33.779 0.11129-3.5058 21.411-3.6947 416.79-3.6947h416.68l3.5334 26.918c1.9433 14.805 4.0787 30.006 4.7454 33.779l1.212 6.8615h-426.31-426.31l4.7701-30.085z" transform="translate(0,-410)" fill="#ececec"/>
+ <path id="path3011" stroke-linejoin="round" d="m555.41 1600.9c0.0564-2.0321 3.2366-16.995 7.0673-33.252l6.9649-29.557 453.18-0.5327c249.25-0.2929 453.18-0.1049 453.18 0.4178s3.3252 15.434 7.3893 33.136c4.064 17.702 7.3892 32.478 7.3892 32.834 0 0.3564-210.44 0.648-467.63 0.648-444 0-467.63-0.1868-467.53-3.6946z" transform="translate(0,-410)" fill="#ececec"/>
+</svg>

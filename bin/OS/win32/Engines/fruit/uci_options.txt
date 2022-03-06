@@ -1,0 +1,81 @@
+id name Fruit 2.3.1
+id author Fabien Letouzey, France
+option name Hash type spin default 32 min 4 max 1024
+option name NalimovPath type string default <empty>
+option name NalimovCache type spin default 16 min 1 max 512
+option name EGBB Path type string default egbb\
+option name EGBB Cache type spin default 16 min 16 max 512
+option name Ponder type check default false
+option name OwnBook type check default true
+option name MultiPV type spin default 1 min 1 max 256
+option name UCI_Chess960 type check default false
+option name UCI_EngineAbout type string default Fruit by Fabien Letouzey, see http://www.fruitchess.com/
+option name BookFile type string default book.bin
+option name Time Allocation type spin default 100 min 0 max 400
+option name EGTB type check default true
+option name Verification Search type combo default Always var Always var Endgame var Never
+option name Quiescence Checks type spin default 1 min 1 max 2
+option name Quiescence Checks PV type spin default 2 min 1 max 4
+option name Pruning type combo default Normal var Normal var Aggressive
+option name Use Aspiration search type check default false
+option name Use Fast Eval type check default true
+option name PPExt type check default false
+option name Extend Checks type check default false
+option name Use Search Focus type check default true
+option name Focus Depth type spin default 1 min 0 max 4
+option name Search Focus Ext type check default false
+option name Round Eval type check default false
+option name Play Style type combo default Normal var Cowardly var Passive var Normal var Semi-Aggressive var Aggressive var Very-Aggressive var Gambit
+option name Pawn Shielding Hard type spin default 100 min 0 max 400
+option name Pawn Shielding Soft type spin default 100 min 0 max 400
+option name Knight Tropism type spin default 100 min 0 max 200
+option name Queen Tropism type spin default 100 min 0 max 200
+option name King Center Endgame type spin default 12 min 0 max 20
+option name King Sideline Penalty type check default false
+option name Pawn Opening type spin default 80 min 0 max 2000
+option name Pawn Endgame type spin default 90 min 0 max 2000
+option name Knight Value type spin default 325 min 0 max 2000
+option name Bishop Value type spin default 325 min 0 max 2000
+option name Rook Value type spin default 500 min 0 max 2000
+option name Queen Value type spin default 975 min 0 max 2000
+option name Use PPP type check default true
+option name PPP Level type spin default 15 min 0 max 40
+option name Start Max PP Level type spin default 140 min 0 max 200
+option name Pawn Protected PP Level type spin default 30 min 0 max 50
+option name Pawn Duo PP Level type spin default 30 min 0 max 50
+option name Rook Behind PP Level type spin default 30 min 0 max 50
+option name Rook Behind Opp PP Level type spin default 30 min 0 max 50
+option name King Attack PP Level type spin default 5 min 0 max 50
+option name King Defend PP Level type spin default 20 min 0 max 50
+option name Pawn Duo type check default false
+option name Pawn Duo Weight type spin default 2 min 0 max 10
+option name Pawn Duo Weight (Endgame) type spin default 1 min 0 max 10
+option name Pawn Duo File a+b or g+h type spin default 1 min 0 max 25
+option name Pawn Duo File b+c or f+g type spin default 2 min 0 max 25
+option name Pawn Duo File c+d or e+f type spin default 3 min 0 max 25
+option name Pawn Duo File d+e type spin default 4 min 0 max 25
+option name Pawn Duo File a+b or g+h (Endgame) type spin default 4 min 0 max 25
+option name Pawn Duo File b+c or f+g (Endgame) type spin default 4 min 0 max 25
+option name Pawn Duo File c+d or e+f (Endgame) type spin default 4 min 0 max 25
+option name Pawn Duo File d+e (Endgame) type spin default 4 min 0 max 25
+option name Pawn Duo Rank 2 type spin default 0 min 0 max 25
+option name Pawn Duo Rank 3 type spin default 0 min 0 max 25
+option name Pawn Duo Rank 4 type spin default 4 min 0 max 25
+option name Pawn Duo Rank 5 type spin default 5 min 0 max 25
+option name Pawn Duo Rank 6 type spin default 6 min 0 max 25
+option name Pawn Duo Rank 7 type spin default 7 min 0 max 25
+option name Use Knight in Hole Bonus type check default true
+option name Use Bishop in Hole Bonus type check default false
+option name Use Bad Bishop type check default false
+option name Use Queen in Hole Bonus type check default false
+option name BISHOP PAIR VS NO MINORS type spin default 50 min 50 max 150
+option name Use piece combos type check default true
+option name QB WORSE THAN QN PENALTY type spin default 10 min 0 max 50
+option name RB BETTER THAN RN BONUS type spin default 10 min 0 max 50
+option name QRB BETTER THAN QRN BONUS type spin default 10 min 0 max 50
+option name B BETTER THAN N BONUS type spin default 10 min 0 max 50
+option name Rook Attack type spin default 7 min 5 max 7
+option name Pieces over queen bonus type spin default 0 min 0 max 50
+option name Rook over Knight endgame bonus type spin default 0 min 0 max 100
+option name Piece Pawn Score Adjustment type check default false
+option name Contempt Factor type spin default 0 min -1000 max 1000

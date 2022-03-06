@@ -1,0 +1,5 @@
+To reduce distribution size, two folders are not included from original distribution :
+    \src\precompiled GTB libraries (GCC)
+    \src\gtb\
+
+Complete original distribution can be downloaded from : http://github.com/AaronBecker/daydreamer/downloads

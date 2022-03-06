@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg2998" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="64" width="64" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+ <defs id="defs3000">
+  <filter id="filter3829" height="1.5" width="1.5" color-interpolation-filters="sRGB" y="-.25" x="-.25">
+   <feGaussianBlur id="feGaussianBlur3831" in="SourceAlpha" stdDeviation="3" result="blur"/>
+   <feColorMatrix id="feColorMatrix3833" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 10 -1 " result="result4"/>
+   <feFlood id="feFlood3835" result="result1" in="blur" flood-color="rgb(154,27,74)"/>
+   <feComposite id="feComposite3837" operator="atop" result="result2" in2="result4" in="result1"/>
+   <feComposite id="feComposite3839" operator="atop" result="result3" in2="result2" in="SourceGraphic"/>
+  </filter>
+ </defs>
+ <metadata id="metadata3003">
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <path id="path5250" d="m57.091 29.182a26.273 19 0 1 1 -52.545 0 26.273 19 0 1 1 52.545 0z" transform="matrix(.70404 0 0 1.0027 10.303 2.7392)" filter="url(#filter3829)" stroke="#000" stroke-width="1.6491" fill="#bbfe31"/>
+ <text id="text3010" style="word-spacing:0px;letter-spacing:0px" font-family="Sans" font-weight="bold" xml:space="preserve" transform="scale(1.4957 .66859)" line-height="125%" stroke="#000000" font-size="34.388px" y="68.849457" x="11.256325" stroke-width=".051685" fill="#ebebf6"><tspan id="tspan3012" stroke="#000000" y="68.849457" x="11.256325" stroke-width=".051685" fill="#ebebf6"/></text>
+ <g id="g2999" transform="translate(-4.6906 3.8684)" stroke="#000" stroke-width="1px">
+  <path id="path2995" d="m30.627 20.937v-7.7081l4.2652 0.10278v7.6053h4.2652v-7.5026h4.0596v7.5026h4.2652v4.3165h-4.2652v5.9096h4.2652v4.2138l-4.2652 0.15416v7.5026l-4.0596-0.10278v-7.554h-4.2652v7.4512l-4.2652-0.10278v-7.3484h-4.7276v-4.2138h4.7276v-5.9096h-4.7276v-4.3165z" fill="#dd2a2b"/>
+  <path id="path2997" d="m34.841 24.74 4.3165 0.10278-0.10277 6.4748h-4.2138z" fill="#bbfe31"/>
+ </g>
+</svg>

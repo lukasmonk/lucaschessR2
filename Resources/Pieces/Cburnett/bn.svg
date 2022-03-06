@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg id="svg3128" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="45" width="45" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+ <metadata id="metadata12">
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g id="layer1">
+  <path id="path3491" d="m22 10c10.5 1 16.5 8 16 29h-23c0-9 10-6.5 8-21" fill-rule="evenodd" stroke="#000" stroke-linecap="round" stroke-width="1px"/>
+  <path id="path3495" stroke-linejoin="round" d="m24 18c0.384 2.911-5.553 7.369-8 9-3 2-2.819 4.343-5 4-1.0417-0.944 1.413-3.038 0-3-1 0 0.187 1.232-1 2-1 0-4.0032 1-4-4 0-2 6-12 6-12s1.886-1.902 2-3.5c-0.726-0.9944-0.5-2-0.5-3 1-1 3 2.5 3 2.5h2s0.782-1.9919 2.5-3c1 0 1 3 1 3" fill-rule="evenodd" stroke="#000" stroke-linecap="round" stroke-width="1px"/>
+  <path id="path3499" stroke-linejoin="round" d="m9 23.5a0.5 0.5 0 1 1 -1 0 0.5 0.5 0 1 1 1 0z" transform="translate(.5 2)" stroke="#fff" stroke-linecap="round"/>
+  <path id="path3501" stroke-linejoin="round" d="m15 15.5a0.5 1.5 0 1 1 -1 0 0.5 1.5 0 1 1 1 0z" transform="matrix(.866 .5 -.5 .866 9.6926 -5.1734)" stroke="#fff" stroke-linecap="round"/>
+  <path id="path8049" d="m24.55 10.4l-0.3 1.1 0.55 0.1c3.101 0.477 6.324 2.234 8.575 6.494 2.251 4.259 2.922 10.963 2.425 20.906l-0.05 0.5h1.75v-0.5c0.503-10.057-0.876-16.853-3.25-21.344-2.374-4.49-5.789-6.633-9.187-7.156l-0.513-0.1z" fill-rule="evenodd" fill="#fff"/>
+ </g>
+ <path id="path2989" d="m35.932 33.512c-0.0085-4.6197-0.08391-6.4298-0.33558-8.0552-0.7942-5.1292-2.097-8.1516-4.6111-10.697-1.6917-1.713-3.0899-2.521-5.2952-3.0598-1.1651-0.28466-1.279-0.35442-1.168-0.71606 0.06758-0.22037 0.14005-0.42136 0.16104-0.44663 0.02099-0.02528 0.54661 0.08327 1.168 0.24121 5.9231 1.5054 9.8274 7.2932 11.147 16.524 0.3568 2.4959 0.57482 7.2506 0.4465 9.7371l-0.12547 2.4311h-0.68816-0.68816l-0.01096-5.9587z" stroke-miterlimit="3.8" stroke-width="0" fill="#ececec"/>
+ <path id="path2991" d="m13.379 16.843c-0.27634-0.49378 0.28812-1.877 1.0327-2.5308 1.4724-1.2927 1.8128 0.48073 0.41724 2.1738-0.59901 0.72671-1.1651 0.86611-1.45 0.35706z" stroke-miterlimit="3.8" stroke-width="0" fill="#ececec"/>
+ <path id="path2993" d="m8.428 26.085c-0.40226-0.40226-0.26931-1.0957 0.25596-1.335 0.41517-0.18916 0.5433-0.16236 0.89234 0.18668s0.37585 0.47717 0.18668 0.89234c-0.23933 0.52528-0.93273 0.65823-1.335 0.25596z" stroke-miterlimit="3.8" stroke-width="0" fill="#ececec"/>
+</svg>

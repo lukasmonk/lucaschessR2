@@ -1,0 +1,5 @@
+id name WildCat 8 UCI
+id author Igor Korshunov
+option name Hash type spin default 32 min 1 max 1024
+option name NalimovPath type string default <empty>
+option name NalimovCache type spin default 4 min 1 max 1024

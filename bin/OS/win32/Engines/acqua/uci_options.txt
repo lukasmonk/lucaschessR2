@@ -1,0 +1,3 @@
+id name Acqua (ver. 2.0)
+id author Giovanni Di Maria
+option name LogFile type check default false

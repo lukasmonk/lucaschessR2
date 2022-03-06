@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg36220" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="700pt" width="700pt" version="1.0" xmlns:cc="http://web.resource.org/cc/" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/">
+ <defs id="defs36222">
+  <linearGradient id="linearGradient3099">
+   <stop id="stop3101" offset="0"/>
+   <stop id="stop3103" stop-color="#505090" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient3135" y2="865.1" xlink:href="#linearGradient3099" gradientUnits="userSpaceOnUse" x2="784.78" y1="629.62" x1="136.1"/>
+  <linearGradient id="linearGradient3153" y2="128.46" xlink:href="#linearGradient3099" gradientUnits="userSpaceOnUse" x2="395.43" y1="90.161" x1="321.16"/>
+  <linearGradient id="linearGradient3157" y2="128.46" xlink:href="#linearGradient3099" gradientUnits="userSpaceOnUse" x2="395.43" gradientTransform="translate(139.3 -3.8926)" y1="90.161" x1="321.16"/>
+  <linearGradient id="linearGradient7270" y2="717.34" xlink:href="#linearGradient3099" gradientUnits="userSpaceOnUse" x2="825.78" y1="446.01" x1="192.3"/>
+  <linearGradient id="linearGradient2211" y2="599.38" xlink:href="#linearGradient3099" gradientUnits="userSpaceOnUse" x2="541.27" y1="220.04" x1="721.62"/>
+ </defs>
+ <metadata id="metadata36225">
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:rights>
+     <cc:Agent>
+      <dc:title>Maurizio Monge</dc:title>
+     </cc:Agent>
+    </dc:rights>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Maurizio Monge</dc:title>
+     </cc:Agent>
+    </dc:creator>
+    <cc:license rdf:resource="http://creativecommons.org/licenses/GPL/2.0/"/>
+   </cc:Work>
+   <cc:License rdf:about="http://creativecommons.org/licenses/GPL/2.0/">
+    <cc:permits rdf:resource="http://web.resource.org/cc/Reproduction"/>
+    <cc:permits rdf:resource="http://web.resource.org/cc/Distribution"/>
+    <cc:requires rdf:resource="http://web.resource.org/cc/Notice"/>
+    <cc:permits rdf:resource="http://web.resource.org/cc/DerivativeWorks"/>
+    <cc:requires rdf:resource="http://web.resource.org/cc/ShareAlike"/>
+    <cc:requires rdf:resource="http://web.resource.org/cc/SourceCode"/>
+   </cc:License>
+  </rdf:RDF>
+ </metadata>
+ <g id="layer1" stroke-linejoin="round" stroke-linecap="round" stroke-width="16">
+  <path id="path9790" d="m435.91 216.87c10.82-18.26 39.15-50.49 68.37-67.25 36.24 34.05 85.64 113.37 110.08 189.58 19.05 59.4 23 86.1 23.99 149.55 1 63.46-32.38 125.97-52.86 149.09" fill-rule="evenodd" stroke="#808080" fill="url(#linearGradient2211)"/>
+  <path id="path9792" d="m565.47 687.06c6.04-53.47-294.12-49.52-281.85 3 9.92 21.89 2.1 50.04 2.1 50.04s69.28-9.83 146.38-8.61c77.11 1.23 129.29 7.34 129.29 7.34s-1.96-36.02 4.08-51.77z" fill-rule="evenodd" stroke="#808080" fill="url(#linearGradient7270)"/>
+  <path id="path9786" d="m279.43 682.28c-22.79-8.08-39.38-40.43-53.76-61.07-22.95-32.93-36.48-101.42-23.04-178.23 13.45-76.81 86.49-225.22 161.29-291.05 91.16 65.83 149.95 165.36 196.35 297.98 24.83 70.97 37.15 148.64 14.36 230.06-53.18-10.97-233.25-21.38-295.2 2.31z" fill-rule="evenodd" stroke="#808080" fill="url(#linearGradient7270)"/>
+  <path id="path12426" d="m350.43 138.72c12.48-21.2-19.73-34.72-2.88-49.523 9.46-8.313 25.65-9.145 34.73 1.638 13.11 15.545-22.74 29.035-5.1 47.675" fill-rule="evenodd" stroke="#808080" fill="url(#linearGradient3153)"/>
+  <path id="path13305" d="m436.38 712.35c-9.53-2.58-18.1 1.96-21.6-0.94-4.29-3.55-4.04-18.34-1.2-22.09 2.43-3.21 33.64-3.61 36.7-0.66 2.85 2.75-0.09 20.67-2.73 25.2" stroke="#808080" fill="none"/>
+  <path id="path18555" d="m381.31 348.56c-11.43 1.81-17.11 14.34-15.68 24.97-0.2 9.08 3.78 20.79-3.69 27.91-10.11 3.36-21.05-0.85-31.35-1.73-8.48-0.78-18.71-3.98-26.25 1.48-5.77 6.83 0.97 17.16 8.41 19.47 14.95 6.5 32.71 3.11 47.09 10.81 4.97 4.58 3.95 12.56 5.47 18.65 4.68 36.31 4.43 73.62 15.41 108.79 2.87 7.72 7.36 18.43 16.97 18.5 7.41-2.54 6.48-12.39 6.87-18.75-0.9-39.88-11.96-78.74-13.72-118.54-0.19-3.91 0.16-8.83 5.22-9.24 17.96-5.17 38.95 0.58 55.28-10.35 6.71-3.63 12.31-17.19 1.44-18.97-19.16-2.82-38.52 5.44-57.56 1.85-5.9-2.09-5.38-10.25-6.06-15.38-1.12-12.08 2.55-24.94-2.04-36.47-1.15-2.01-3.46-3.29-5.81-3z" fill-rule="evenodd" stroke="gray"/>
+  <path id="path5000" d="m317.87 803.29c55.82-0.63 82.7-32.38 107.4-32.42 24.71-0.04 47.26 31.64 107.36 31.75 32.24 0.06 202 3.44 192.56-22.29-9.43-25.73-116.64 8.83-152.54-9.47-18.78-9.58-24.3-11.85-48.6-15.53-65.57-9.94-132.61-9.54-191.9-0.38-26.4 4.08-37.13 8.62-52 18.63-25.01 16.83-130.34-18.17-138.63 6.42s108.51 24.05 176.35 23.29z" fill-rule="evenodd" stroke="#808080" fill="url(#linearGradient3135)"/>
+  <path id="path5875" d="m635.69 91.156c-20.59 0.198-35.95 17.094-44.48 34.264-5.65 10.91-15.61 18.85-21.15 29.74-1.16 6.56 8.19 8.69 13.13 7.28 12.05-2.55 21.59-12.08 25.66-23.52 4.83-11.79 15.73-21.07 28.65-21.92 12.69-2.23 24.41 7.74 26.97 19.88 3.69 12.71 2.02 27.7-8.22 36.93-15.99 16.77-40.23 24.27-53.69 43.72-73.84 145.73-147.58 291.55-220.43 437.78-25.87 53.04-53.19 105.48-75.85 159.97-1.76 6.8-7.05 14.34-4.22 21.41 4.47 3.47 10.1-1.9 13.97-4.25 15.93-14.54 24.76-35.08 35.31-53.6 44.48-86.29 86.16-174 129.45-260.9 47-94.89 94.01-189.82 142.02-284.19 13.59-20.1 39.37-26.84 54.6-45.41 9.7-10.65 15.9-24.74 14.34-39.34-1-24.3-15.07-50.594-40.22-56.375-5.16-1.308-10.5-1.707-15.84-1.469z" fill-rule="evenodd" stroke="gray"/>
+  <path id="path3155" d="m489.73 134.83c12.48-21.2-19.74-34.72-2.89-49.526 9.47-8.313 25.65-9.144 34.74 1.639 13.1 15.547-22.74 29.037-5.11 47.677" fill-rule="evenodd" stroke="#808080" fill="url(#linearGradient3157)"/>
+ </g>
+</svg>

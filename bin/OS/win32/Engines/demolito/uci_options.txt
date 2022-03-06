@@ -1,0 +1,7 @@
+id name Demolito
+id author lucasart
+option name UCI_Chess960 type check default false
+option name Hash type spin default 1 min 1 max 1048576
+option name Threads type spin default 1 min 1 max 64
+option name Contempt type spin default 10 min -100 max 100
+option name Time Buffer type spin default 30 min 0 max 1000

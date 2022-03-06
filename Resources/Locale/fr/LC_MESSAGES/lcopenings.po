@@ -1,0 +1,5437 @@
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Alapin Opening"
+msgstr "Ouverture Alapin"
+
+msgid "Alekhine Defence: Balogh Variation"
+msgstr "Défense Alekhine, var. Balogh"
+
+msgid "Alekhine Defence: Brooklyn Defence"
+msgstr "Défense Alekhine, var. de Brooklyn"
+
+msgid "Alekhine Defence: Exchange Variation"
+msgstr "Défense Alekhine, var. d'échange"
+
+msgid "Alekhine Defence: Four Pawns Attack, 6...Nc6"
+msgstr "Défense Alekhine, attaque des quatre pions, 6...Cc6"
+
+msgid "Alekhine Defence: Four Pawns Attack, 7.Be3"
+msgstr "Défense Alekhine, attaque des quatre pions, 7.Fe3"
+
+msgid "Alekhine Defence: Four Pawns Attack, Fianchetto Variation"
+msgstr "Défense Alekhine, attaque des quatre pions, var. du fianchetto"
+
+msgid ""
+"Alekhine Defence: Four Pawns Attack, Ilyin-Genevsky var. Iline-Jenevski"
+msgstr "Défense Alekhine, attaque des quatre pions, var. Iline-Jenevski"
+
+msgid "Alekhine Defence: Four Pawns Attack, Korchnoi Variation"
+msgstr "Défense Alekhine, attaque des quatre pions, var. Kortchnoï"
+
+msgid "Alekhine Defence: Four Pawns Attack, Planinc Variation"
+msgstr "Défense Alekhine, attaque des quatre pions, var. Planinc"
+
+msgid "Alekhine Defence: Four Pawns Attack, Trifunovic Variation"
+msgstr "Défense Alekhine, attaque des quatre pions, var. Trifunović"
+
+msgid "Alekhine Defence: Four Pawns Attack"
+msgstr "Défense Alekhine, attaque des quatre pions"
+
+msgid "Alekhine Defence: Kmoch Variation"
+msgstr "Défense Alekhine, var. Kmoch"
+
+msgid "Alekhine Defence: Krejcik Variation"
+msgstr "Défense Alekhine, var. Krejcik"
+
+msgid "Alekhine Defence: Maroczy Variation"
+msgstr "Défense Alekhine, var. Maroczy"
+
+msgid "Alekhine Defence: Modern Variation, 4...Bg4"
+msgstr "Défense Alekhine, var. moderne, 4...Fg4"
+
+msgid "Alekhine Defence: Modern Variation"
+msgstr "Défense Alekhine, var. moderne"
+
+msgid "Alekhine Defence: Mokele Mbembe (Buecker) Variation"
+msgstr ""
+"Défense Alekhine, var. Mokélé-mbembé ou en langue pygméenne \"celui qui peut"
+" arrêter le flot de la rivière\" (Bücker)"
+
+msgid "Alekhine Defence: O'Sullivan Gambit"
+msgstr "Défense Alekhine, gambit O'Sullivan"
+
+msgid "Alekhine Defence: Saemisch Attack"
+msgstr "Défense Alekhine, attaque Sämisch"
+
+msgid "Alekhine Defence: Scandinavian Variation"
+msgstr "Défense Alekhine, var. scandinave"
+
+msgid "Alekhine Defence: Spielmann Variation"
+msgstr "Défense Alekhine, var. Spielmann"
+
+msgid "Alekhine Defence: Steiner Variation"
+msgstr "Défense Alekhine, var. Steiner"
+
+msgid "Alekhine Defence: Two Pawns' (Lasker) Attack"
+msgstr "Défense Alekhine, attaque des deux pions (Lasker)"
+
+msgid "Alekhine Defence: Two Pawns' Attack, Mikenas Variation"
+msgstr "Défense Alekhine, attaque des deux pions, var. Mikenas"
+
+msgid "Alekhine Defence: Welling Variation"
+msgstr "Défense Alekhine, var. Welling"
+
+msgid "Alekhine Defence: modern, Alekhine Variation"
+msgstr "Défense Alekhine, var. moderne, var. Alekhine"
+
+msgid "Alekhine Defence: modern, Fianchetto Variation"
+msgstr "Défense Alekhine, var. moderne, var. du fianchetto"
+
+msgid "Alekhine Defence: modern, Flohr Variation"
+msgstr "Défense Alekhine, var. moderne, var. Flohr"
+
+msgid "Alekhine Defence: modern, Keres Variation"
+msgstr "Défense Alekhine, var. moderne, var. Keres"
+
+msgid "Alekhine Defence: modern, Larsen Variation"
+msgstr "Défense Alekhine, var. moderne, var. Larsen"
+
+msgid "Alekhine Defence: modern, Panov Variation"
+msgstr "Défense Alekhine, var. moderne, var. Panov"
+
+msgid "Alekhine Defence: modern, Schmid Variation"
+msgstr "Défense Alekhine, var. moderne, var. Schmid"
+
+msgid "Alekhine Defence"
+msgstr "Défense Alekhine"
+
+msgid "Amar (Paris) Opening"
+msgstr "Ouverture Amar ou de Paris ou du cavalier ivre"
+
+msgid "Amar Gambit"
+msgstr "Gambit Amar"
+
+msgid "Amsterdam Attack"
+msgstr "Attaque d'Amsterdam"
+
+msgid "Anderssen Opening"
+msgstr "Ouverture Anderssen"
+
+msgid "Anti-Borg (Desprez) Opening"
+msgstr "Ouverture anti-Borg (Després, Kadas)"
+
+msgid "Barnes Defence"
+msgstr "Défense Barnes"
+
+msgid "Battambang Opening"
+msgstr "Ouverture de Battambang"
+
+msgid "Beefeater Defence"
+msgstr ""
+"Défense de l'hallebardier (en anglais \"Beefeater\" (mangeurs de boeuf) : "
+"les Yeomen Warders portent une hallebarde)"
+
+msgid "Benko Gambit Accepted"
+msgstr "Gambit Benko accepté"
+
+msgid "Benko Gambit half Accepted"
+msgstr "Gambit Benko semi-accepté"
+
+msgid "Benko Gambit: 7.e4"
+msgstr "Gambit Benko, 7.e4"
+
+msgid "Benko Gambit: Fianchetto Variation"
+msgstr "Gambit Benko, var. du fianchetto-roi"
+
+msgid "Benko Gambit: Main Line"
+msgstr "Gambit Benko, ligne principale"
+
+msgid "Benko Gambit: Nd2 Variation"
+msgstr "Gambit Benko, Cd2"
+
+msgid "Benko Gambit: Ne2 Variation"
+msgstr "Gambit Benko, Ce2"
+
+msgid "Benko Gambit: Nescafe Frappe Attack"
+msgstr "Gambit Benko, attaque Nescafé frappé"
+
+msgid "Benko Gambit: Zaitsev System"
+msgstr "Gambit Benko, système Zaitsev"
+
+msgid "Benko Gambit"
+msgstr "Gambit Benko (gambit de la Volga)"
+
+msgid "Benko Opening: Reversed Alekhine"
+msgstr "Ouverture Benko, var. Alekhine inversée"
+
+msgid "Benko Opening"
+msgstr "Ouverture Benko (ouverture du fianchetto-roi)"
+
+msgid "Benoni Defence: 6.e4"
+msgstr "Défense Benoni, 6.e4"
+
+msgid "Benoni Defence: Classical with ...Re8 and ...Na6"
+msgstr "Défense Benoni classique, avec ...Te8 et ...Ca6"
+
+msgid "Benoni Defence: Classical with ...a6 and 10...Bg4"
+msgstr "Défense Benoni classique, avec ...a6 et 10...Fg4"
+
+msgid "Benoni Defence: Classical with e4 and Nf3"
+msgstr "Défense Benoni classique, avec e4 et Cf3"
+
+msgid "Benoni Defence: Classical without 9.O-O"
+msgstr "Défense Benoni classique, sans 9.O-O"
+
+msgid "Benoni Defence: Classical, 11.f3"
+msgstr "Défense Benoni classique, 11.f3"
+
+msgid "Benoni Defence: Classical, 8.Bg5"
+msgstr "Défense Benoni classique, 8.Fg5"
+
+msgid "Benoni Defence: Classical, 9...Re8, 10.Nd2"
+msgstr "Défense Benoni classique, 9...Te8 10.Cd2"
+
+msgid "Benoni Defence: Classical, 9...Re8"
+msgstr "Défense Benoni classique, 9...Te8"
+
+msgid "Benoni Defence: Classical, 9...a6, 10.a4"
+msgstr "Défense Benoni classique, 9...a6 10.a4"
+
+msgid "Benoni Defence: Classical, 9.O-O"
+msgstr "Défense Benoni classique, 9.O-O"
+
+msgid "Benoni Defence: Fianchetto Variation"
+msgstr "Défense Benoni, var. du fianchetto-roi"
+
+msgid "Benoni Defence: Fianchetto, 11...Re8"
+msgstr "Défense Benoni, var. du fianchetto-roi, 11...Te8"
+
+msgid "Benoni Defence: Fianchetto, 9...Nbd7"
+msgstr "Défense Benoni, var. du fianchetto-roi, 9...Cbd7"
+
+msgid "Benoni Defence: Four Pawns Attack, Main Line"
+msgstr "Défense Benoni, attaque des quatre pions, ligne principale"
+
+msgid "Benoni Defence: Four Pawns Attack"
+msgstr "Défense Benoni, attaque des quatre pions"
+
+msgid "Benoni Defence: Hromodka System"
+msgstr "Défense Benoni, système Hromádka"
+
+msgid "Benoni Defence: Mikenas Variation"
+msgstr "Défense Benoni, var. Mikenas"
+
+msgid "Benoni Defence: Nimzovich (knight tour) Variation"
+msgstr "Défense Benoni, var. Nimzowitsch (circuit du cavalier)"
+
+msgid "Benoni Defence: Pawn Storm Variation"
+msgstr "Défense Benoni, var. de la marée de pions"
+
+msgid "Benoni Defence: Taimanov Variation"
+msgstr "Défense Benoni, var. Taïmanov"
+
+msgid "Benoni Defence: Uhlmann Variation"
+msgstr "Défense Benoni, var. Uhlmann"
+
+msgid "Benoni Defence"
+msgstr "Défense Benoni (de l'hébreu \"Fils de ma douleur\")"
+
+msgid "Bird Opening: From Gambit, Lasker Variation"
+msgstr "Ouverture Bird, gambit From, var. Lasker"
+
+msgid "Bird Opening: From Gambit, Lipke Variation"
+msgstr "Ouverture Bird, gambit From, var. Lipke"
+
+msgid "Bird Opening: From Gambit"
+msgstr "Ouverture Bird, gambit From"
+
+msgid "Bird Opening: Hobbs Gambit"
+msgstr "Ouverture Bird, gambit Hobbs"
+
+msgid "Bird Opening: Lasker Variation"
+msgstr "Ouverture Bird, var. Lasker"
+
+msgid "Bird Opening: Swiss Gambit"
+msgstr "Ouverture Bird, gambit suisse"
+
+msgid "Bird Opening: Williams Gambit"
+msgstr "Ouverture Bird, gambit Williams"
+
+msgid "Bird Opening"
+msgstr "Ouverture Bird"
+
+msgid "Bishop Opening: Berlin Defence"
+msgstr "Début du Fou, défense de Berlin"
+
+msgid "Bishop Opening: Calabrese Counter-Gambit, Jaenisch Variation"
+msgstr ""
+"Début du Fou, contre-gambit Gioachino Greco (dit Le Calabrais), var. "
+"Jaenisch"
+
+msgid "Bishop Opening: Calabrese Counter-Gambit"
+msgstr "Début du Fou, contre-gambit Gioachino Greco (dit Le Calabrais)"
+
+msgid "Bishop Opening: Classical Variation"
+msgstr "Début du Fou, var. classique"
+
+msgid "Bishop Opening: Four Pawns' Gambit"
+msgstr "Début du Fou, gambit des quatre pions"
+
+msgid "Bishop Opening: Greco Gambit"
+msgstr "Début du Fou, gambit Greco"
+
+msgid "Bishop Opening: Lewis Counter-Gambit"
+msgstr "Début du Fou, contre-gambit Lewis"
+
+msgid "Bishop Opening: Lewis Gambit"
+msgstr "Début du Fou, gambit Lewis"
+
+msgid "Bishop Opening: Lisitsyn Variation"
+msgstr "Début du Fou, var. Lissitsine"
+
+msgid "Bishop Opening: Lopez Gambit"
+msgstr "Début du Fou, gambit López"
+
+msgid "Bishop Opening: MacDonnell Double Gambit"
+msgstr "Début du Fou, double gambit MacDonnell"
+
+msgid "Bishop Opening: Philidor Counter-Attack"
+msgstr "Début du Fou, contre-attaque Philidor"
+
+msgid "Bishop Opening: Philidor Variation"
+msgstr "Début du Fou, var. Philidor"
+
+msgid "Bishop Opening: Ponziani Gambit"
+msgstr "Début du Fou, gambit Ponziani"
+
+msgid "Bishop Opening: Pratt Variation"
+msgstr "Début du Fou, var. Pratt"
+
+msgid "Bishop Opening: Urusov Gambit, Panov Variation"
+msgstr "Début du Fou, gambit Urusov, var. Panov"
+
+msgid "Bishop Opening: Urusov Gambit"
+msgstr "Début du Fou, gambit Urusov"
+
+msgid "Bishop Opening: Wing Gambit"
+msgstr "Début du Fou, gambit de l'aile"
+
+msgid "Bishop Opening: del Rio Variation"
+msgstr "Début du Fou, var. del Rio"
+
+msgid "Bishop Opening"
+msgstr "Début du Fou"
+
+msgid "Blackburne shilling Gambit"
+msgstr "Gambit Blackburne (gambit du shilling)"
+
+msgid "Blackmar-Diemer Gambit"
+msgstr "Gambit Blackmar - Diemer"
+
+msgid "Blackmar-Diemer: Euwe Defence"
+msgstr "Gambit Blackmar - Diemer, défense Euwe"
+
+msgid "Blackmar-Diemer: Lemberg Counter-Gambit"
+msgstr "Gambit Blackmar - Diemer, contre-gambit de Lemberg"
+
+msgid "Blumenfeld Counter-Gambit Accepted"
+msgstr "Contre-gambit Blumenfeld accepté"
+
+msgid "Blumenfeld Counter-Gambit, Dus-Chotimirsky Variation"
+msgstr "Contre-gambit Blumenfeld, var. Douz-Khotimirski"
+
+msgid "Blumenfeld Counter-Gambit, Spielmann Variation"
+msgstr "Contre-gambit Blumenfeld, var. Spielmann"
+
+msgid "Blumenfeld Counter-Gambit"
+msgstr "Contre-gambit Blumenfeld"
+
+msgid "Boden-Kieseritsky Gambit: Lichtenhein Defence"
+msgstr "Gambit Boden - Kieseritzky, défense Lichtenhein"
+
+msgid "Boden-Kieseritsky Gambit"
+msgstr "Gambit Boden - Kieseritzky"
+
+msgid "Bogo-Indian Defence: Grünfeld Variation"
+msgstr "Défense Bogo-indienne, var. Grünfeld"
+
+msgid "Bogo-Indian Defence: Nimzovich Variation"
+msgstr "Défense Bogo-indienne, var. Nimzowitsch"
+
+msgid "Bogo-Indian Defence"
+msgstr "Défense Bogo-indienne"
+
+msgid "Budapest Defence Declined"
+msgstr "Gambit de Budapest (le code ECO ajoute \"refusé\" ???)"
+
+msgid "Budapest Defence"
+msgstr "Gambit de Budapest (défense de Budapest)"
+
+msgid "Budapest: Adler Variation"
+msgstr "Gambit de Budapest, var. Adler"
+
+msgid "Budapest: Alekhine Variation, Balogh Gambit"
+msgstr "Gambit de Budapest, var. Alekhine, gambit Balogh"
+
+msgid "Budapest: Alekhine Variation"
+msgstr "Gambit de Budapest, var. Alekhine"
+
+msgid "Budapest: Alekhine, Abonyi Variation"
+msgstr "Gambit de Budapest, var. Alekhine, var. Abonyi"
+
+msgid "Budapest: Fajarowicz Variation"
+msgstr "Gambit de Budapest, var. Fajarowicz"
+
+msgid "Budapest: Fajarowicz, Steiner Variation"
+msgstr "Gambit de Budapest, var. Fajarowicz, var. Steiner"
+
+msgid "Budapest: Rubinstein Variation"
+msgstr "Gambit de Budapest, var. Rubinstein"
+
+msgid "Canard Opening"
+msgstr "Ouverture du canard (de fausse nouvelle ou d'avion-canard)"
+
+msgid "Caro-Kann Defence: 3.Nd2"
+msgstr "Caro-Kann, 3.Cd2"
+
+msgid "Caro-Kann Defence: Advance Variation"
+msgstr "Caro-Kann, var. d'avance"
+
+msgid "Caro-Kann Defence: Advance, Short Variation"
+msgstr "Caro-Kann, var. d'avance, var. Short"
+
+msgid "Caro-Kann Defence: Alekhine Gambit"
+msgstr "Caro-Kann, gambit Alekhine"
+
+msgid "Caro-Kann Defence: Anti-Anti-Caro-Kann Defence"
+msgstr "Caro-Kann, défense anti-anti-Caro-Kann"
+
+msgid "Caro-Kann Defence: Anti-Caro-Kann Defence"
+msgstr "Caro-Kann, défense anti-Caro-Kann"
+
+msgid "Caro-Kann Defence: Bronstein-Larsen Variation"
+msgstr "Caro-Kann, var. Bronstein - Larsen"
+
+msgid "Caro-Kann Defence: Classical Variation"
+msgstr "Caro-Kann, var. classique"
+
+msgid "Caro-Kann Defence: Classical, 6.h4"
+msgstr "Caro-Kann classique, 6.h4"
+
+msgid "Caro-Kann Defence: Classical, 7...Nd7"
+msgstr "Caro-Kann classique, 7...Cd7"
+
+msgid "Caro-Kann Defence: Classical, Flohr Variation"
+msgstr "Caro-Kann classique, var. Flohr"
+
+msgid "Caro-Kann Defence: Classical, Maroczy Attack"
+msgstr "Caro-Kann classique, attaque Maroczy"
+
+msgid "Caro-Kann Defence: Classical, Spassky Variation"
+msgstr "Caro-Kann classique, var. Spassky"
+
+msgid "Caro-Kann Defence: Closed (Breyer) Variation"
+msgstr "Caro-Kann, var. fermée (Breyer)"
+
+msgid "Caro-Kann Defence: Edinburgh Variation"
+msgstr "Caro-Kann, var. d'Édimbourg"
+
+msgid "Caro-Kann Defence: Exchange Variation"
+msgstr "Caro-Kann, var. d'échange"
+
+msgid "Caro-Kann Defence: Exchange, Rubinstein Variation"
+msgstr "Caro-Kann, var. d'échange, var. Rubinstein"
+
+msgid "Caro-Kann Defence: Forgacs Variation"
+msgstr "Caro-Kann, var. Forgacs"
+
+msgid "Caro-Kann Defence: Goldman (Spielmann) Variation"
+msgstr "Caro-Kann, var. Goldman (Spielmann)"
+
+msgid "Caro-Kann Defence: Gurgenidze Counter-Attack"
+msgstr "Caro-Kann, contre-attaque Gurgenidze"
+
+msgid "Caro-Kann Defence: Gurgenidze System"
+msgstr "Caro-Kann, système Gurgenidze"
+
+msgid "Caro-Kann Defence: Hillbilly Attack"
+msgstr "Caro-Kann, attaque hillbilly (gars de la colline)"
+
+msgid "Caro-Kann Defence: Panov-Botvinnik Attack, 5...e6"
+msgstr "Caro-Kann, attaque Panov - Botvinnik, 5...e6"
+
+msgid "Caro-Kann Defence: Panov-Botvinnik Attack, 5...g6"
+msgstr "Caro-Kann, attaque Panov - Botvinnik, 5...g6"
+
+msgid "Caro-Kann Defence: Panov-Botvinnik Attack"
+msgstr "Caro-Kann, attaque Panov - Botvinnik"
+
+msgid "Caro-Kann Defence: Panov-Botvinnik, Czerniak Variation"
+msgstr "Caro-Kann, attaque Panov - Botvinnik, var. Czerniak"
+
+msgid "Caro-Kann Defence: Panov-Botvinnik, Gunderam Attack"
+msgstr "Caro-Kann, attaque Panov - Botvinnik, attaque Gunderam"
+
+msgid "Caro-Kann Defence: Panov-Botvinnik, Herzog Defence"
+msgstr "Caro-Kann, attaque Panov - Botvinnik, défense Herzog"
+
+msgid "Caro-Kann Defence: Panov-Botvinnik, Reifir (Spielmann) Variation"
+msgstr "Caro-Kann, attaque Panov - Botvinnik, var. Reifir (Spielmann)"
+
+msgid "Caro-Kann Defence: Panov-Botvinnik, normal Variation"
+msgstr "Caro-Kann, attaque Panov - Botvinnik, var. normale"
+
+msgid "Caro-Kann Defence: Rasa-Studier Gambit"
+msgstr "Caro-Kann, gambit Rasa-Studier"
+
+msgid "Caro-Kann Defence: Steinitz Variation"
+msgstr "Caro-Kann, var. Steinitz"
+
+msgid "Caro-Kann Defence: Tartakower (Nimzovich) Variation"
+msgstr "Caro-Kann, var. Tartakover (Nimzowitsch)"
+
+msgid "Caro-Kann Defence: Tartakower (fantasy) Variation"
+msgstr "Caro-Kann, var. Tartakover (\"fantasy\")"
+
+msgid "Caro-Kann Defence: Two Knights Variation"
+msgstr "Caro-Kann, var. des 2 cavaliers"
+
+msgid "Caro-Kann Defence: Two Knights, 3...Bg4"
+msgstr "Caro-Kann, var. des 2 cavaliers, 3...Fg4"
+
+msgid "Caro-Kann Defence"
+msgstr "Défense Caro - Kann"
+
+msgid "Caro-Masi Defence"
+msgstr "Caro-Kann, var. Masi"
+
+msgid "Catalan Opening: Closed, 5.Nf3"
+msgstr "Catalane fermée, 5.Cf3"
+
+msgid "Catalan Opening: Closed, 6...Nbd7"
+msgstr "Catalane fermée, 6...Cbd7"
+
+msgid "Catalan Opening: Closed, 7.Qc2"
+msgstr "Catalane fermée, 7.Dc2"
+
+msgid "Catalan Opening: Closed, Botvinnik Variation"
+msgstr "Catalane fermée, var. Botvinnik"
+
+msgid "Catalan Opening: Closed, Main Line"
+msgstr "Catalane fermée, ligne principale"
+
+msgid "Catalan Opening: Closed, Qc2 & b3"
+msgstr "Catalane fermée, avec Dc2 et b3"
+
+msgid "Catalan Opening: Closed, Sokolsky Variation"
+msgstr "Catalane fermée, var. Sokolsky"
+
+msgid "Catalan Opening: Closed, Spassky Gambit"
+msgstr "Catalane fermée, gambit Spassky"
+
+msgid "Catalan Opening: Closed, Zagoryansky Variation"
+msgstr "Catalane fermée, var. Zagoryansky"
+
+msgid "Catalan Opening: Closed"
+msgstr "Catalane fermée"
+
+msgid "Catalan Opening: Open, 5.Nf3"
+msgstr "Catalane ouverte, 5.Cf3"
+
+msgid "Catalan Opening: Open, 5.Qa4 Nbd7, 6.Qxc4"
+msgstr "Catalane ouverte, 5.Da4+ Cbd7 6.Dxc4"
+
+msgid "Catalan Opening: Open, 5.Qa4"
+msgstr "Catalane ouverte, 5.Da4+"
+
+msgid "Catalan Opening: Open, Alekhine Variation"
+msgstr "Catalane ouverte, var. Alekhine"
+
+msgid "Catalan Opening: Open, Classical Line"
+msgstr "Catalane ouverte, ligne classique"
+
+msgid "Catalan Opening"
+msgstr "Partie catalane"
+
+msgid "Centre Game, Kieseritsky Variation"
+msgstr "Partie du centre, var. Kieseritzky"
+
+msgid "Centre Game: Berger Variation"
+msgstr "Partie du centre, var. Berger"
+
+msgid "Centre Game: Charousek Variation"
+msgstr "Partie du centre, var. Charousek"
+
+msgid "Centre Game: Hall Variation"
+msgstr "Partie du centre, var. Hall"
+
+msgid "Centre Game: Kupreichik Variation"
+msgstr "Partie du centre, var. Kupreichik"
+
+msgid "Centre Game: Paulsen Attack"
+msgstr "Partie du centre, attaque Paulsen"
+
+msgid "Centre Game: l'Hermet Variation"
+msgstr "Partie du centre, var. L'hermet"
+
+msgid "Centre Game"
+msgstr "Partie du centre"
+
+msgid "Clemenz (Mead, Basman or de Klerk) Opening"
+msgstr "Ouverture Clemenz (Mead, Basman ou de Klerk)"
+
+msgid "Colle System"
+msgstr "Système Colle - Koltanowski"
+
+msgid "Corn Stalk Defence"
+msgstr "Défense de la tige de maïs"
+
+msgid "Crab Opening"
+msgstr "Ouverture du crabe"
+
+msgid "Czech Benoni Defence: King Indian System"
+msgstr "Défense Benoni, var. tchèque, système est-indien"
+
+msgid "Czech Benoni Defence"
+msgstr "Défense Benoni, var. tchèque"
+
+msgid "Damiano Defence"
+msgstr "Défense Damiano ou Damião"
+
+msgid "Danish Gambit: Collijn Defence"
+msgstr "Gambit danois, défense Collijn"
+
+msgid "Danish Gambit: Schlechter Defence"
+msgstr "Gambit danois, défense Schlechter"
+
+msgid "Danish Gambit: Soerensen Defence"
+msgstr "Gambit danois, défense Sørensen"
+
+msgid "Danish Gambit"
+msgstr "Gambit danois (ou gambit du Nord)"
+
+msgid "De Bruycker Defence"
+msgstr "Défense de Bruycker"
+
+msgid "Doery Defence"
+msgstr "Défense Döry"
+
+msgid "Dresden Opening"
+msgstr "Ouverture de Dresde"
+
+msgid "Dunst (Sleipner, Heinrichsen) Opening"
+msgstr ""
+"Début van Geet, Dunst, Heinrichsen, de la Baltique, Sleipnir (cheval à 8 "
+"jambes de la mythologie nordique)"
+
+msgid "Durkin Attack"
+msgstr "Attaque Durkin"
+
+msgid "Dutch Defence: 2.Bg5 Variation"
+msgstr "Défense hollandaise, 2.Fg5"
+
+msgid "Dutch Defence: Alekhine Variation"
+msgstr "Défense hollandaise, var. Alekhine"
+
+msgid "Dutch Defence: Balogh Defence"
+msgstr "Défense hollandaise, défense Balogh"
+
+msgid "Dutch Defence: Blackburne Variation"
+msgstr "Défense hollandaise, var. Blackburne"
+
+msgid "Dutch Defence: Bladel Variation"
+msgstr "Défense hollandaise, var. de Bladel"
+
+msgid "Dutch Defence: Classical Variation"
+msgstr "Défense hollandaise, var. classique"
+
+msgid "Dutch Defence: Dutch-Indian (Nimzo-Dutch) Variation"
+msgstr "Défense hollandaise, var. \"Dutch-Indian (Nimzo-Dutch)\""
+
+msgid "Dutch Defence: Hort-Antoshin System"
+msgstr "Défense hollandaise, système Hort - Antoshin"
+
+msgid "Dutch Defence: Ilyin-Genevsky Variation with Qc2"
+msgstr "Défense hollandaise, var. Iline-Jenevski, avec Dc2"
+
+msgid "Dutch Defence: Ilyin-Genevsky Variation with b3"
+msgstr "Défense hollandaise, var. Iline-Jenevski, avec b3"
+
+msgid "Dutch Defence: Ilyin-Genevsky Variation"
+msgstr "Défense hollandaise, var. Iline-Jenevski"
+
+msgid "Dutch Defence: Ilyin-Genevsky, Winter Variation"
+msgstr "Défense hollandaise, var. Iline-Jenevski, var. Winter"
+
+msgid "Dutch Defence: Korchnoi Attack"
+msgstr "Défense hollandaise, attaque Kortchnoï"
+
+msgid "Dutch Defence: Krejcik Gambit"
+msgstr "Défense hollandaise, gambit Krejcik"
+
+msgid "Dutch Defence: Leningrad Variation"
+msgstr "Défense hollandaise, var. de Saint-Pétersbourg (Léningrad)"
+
+msgid "Dutch Defence: Leningrad, Basman System"
+msgstr "Défense hollandaise, Saint-Pétersbourg (Léningrad), var. Basman"
+
+msgid "Dutch Defence: Leningrad, Karlsbad Variation"
+msgstr ""
+"Défense hollandaise, Saint-Pétersbourg (Léningrad), var. de Carlsbad "
+"(Karlovy Vary)"
+
+msgid "Dutch Defence: Leningrad, Main Variation with Nc6"
+msgstr ""
+"Défense hollandaise, var. de Saint-Pétersbourg (Léningrad), var. principale,"
+" avec Cc6"
+
+msgid "Dutch Defence: Leningrad, Main Variation with c6"
+msgstr ""
+"Défense hollandaise, var. de Saint-Pétersbourg (Léningrad), var. principale,"
+" avec c6"
+
+msgid "Dutch Defence: Leningrad, Main Variation"
+msgstr ""
+"Défense hollandaise, var. de Saint-Pétersbourg (Léningrad), var. principale"
+
+msgid "Dutch Defence: Manhattan (Alapin, Ulvestad) Variation"
+msgstr "Défense hollandaise, var. de Manhattan (Alapin - Ulvestad)"
+
+msgid "Dutch Defence: Rubinstein Variation"
+msgstr "Défense hollandaise, var. Rubinstein"
+
+msgid "Dutch Defence: Spielmann Gambit"
+msgstr "Défense hollandaise, gambit Spielmann"
+
+msgid "Dutch Defence: Staunton Gambit deferred"
+msgstr "Défense hollandaise, gambit Staunton différé"
+
+msgid "Dutch Defence: Staunton Gambit, Alekhine Variation"
+msgstr "Défense hollandaise, gambit Staunton, var. Alekhine"
+
+msgid "Dutch Defence: Staunton Gambit, Chigorin Variation"
+msgstr "Défense hollandaise, gambit Staunton, var. Tchigorine"
+
+msgid "Dutch Defence: Staunton Gambit, Lasker Variation"
+msgstr "Défense hollandaise, gambit Staunton, var. Lasker"
+
+msgid "Dutch Defence: Staunton Gambit, Nimzovich Variation"
+msgstr "Défense hollandaise, gambit Staunton, var. Nimzowitsch"
+
+msgid "Dutch Defence: Staunton Gambit, Staunton Line"
+msgstr "Défense hollandaise, gambit Staunton, ligne Staunton"
+
+msgid "Dutch Defence: Staunton Gambit, Tartakower Variation"
+msgstr "Défense hollandaise, gambit Staunton, var. Tartakover"
+
+msgid "Dutch Defence: Staunton Gambit"
+msgstr "Défense hollandaise, gambit Staunton"
+
+msgid "Dutch Defence: Stonewall Variation"
+msgstr "Défense hollandaise, var. stonewall (mur de pierres)"
+
+msgid "Dutch Defence: Stonewall with Ba3"
+msgstr "Défense hollandaise, var. stonewall, avec Fa3"
+
+msgid "Dutch Defence: Stonewall with Nc3"
+msgstr "Défense hollandaise, var. stonewall, avec Cc3"
+
+msgid "Dutch Defence: Stonewall, Botwinnik Variation"
+msgstr "Défense hollandaise, var. stonewall, var. Botvinnik"
+
+msgid "Dutch Defence: Stonewall, Chekhover Variation"
+msgstr "Défense hollandaise, var. stonewall, var. Tchekhover"
+
+msgid "Dutch Defence: Von Pretzel Gambit"
+msgstr "Défense hollandaise, gambit \"von Pretzel\" [ du bretzel :) ]"
+
+msgid "Dutch Defence"
+msgstr "Défense hollandaise"
+
+msgid "Dutch with c4 & Nc3"
+msgstr "Défense hollandaise, avec c4 et Cc3"
+
+msgid "Dutch with c4 & g3"
+msgstr "Défense hollandaise, avec c4 et g3"
+
+msgid "Dutch-Indian, Alekhine Variation"
+msgstr "Défense hollandaise, var. \"Dutch-Indian\", var. Alekhine"
+
+msgid "Dzindzichashvili Defence"
+msgstr "Défense Dzindzichashvili"
+
+msgid "English Opening: 1...Nf6 (Anglo-Indian Defence)"
+msgstr "Anglaise, 1...Cf6 (défense anglo-indienne)"
+
+msgid "English Opening: Adorjan Defence"
+msgstr "Anglaise, défense Adorjan"
+
+msgid "English Opening: Agincourt Variation"
+msgstr "Anglaise, var. d'Azincourt"
+
+msgid "English Opening: Anglo-Dutch Defence"
+msgstr "Anglaise, défense anglo-hollandaise"
+
+msgid "English Opening: Anglo-Grünfeld Defence, Korchnoi Variation"
+msgstr "Anglaise, système anglo-Grünfeld, var. Kortchnoï"
+
+msgid "English Opening: Anglo-Grünfeld Defence"
+msgstr "Anglaise, système anglo-Grünfeld"
+
+msgid "English Opening: Anglo-Grünfeld, Czech Defence"
+msgstr "Anglaise, système anglo-Grünfeld, défense tchèque"
+
+msgid "English Opening: Anglo-Grünfeld, Smyslov Defence"
+msgstr "Anglaise, système anglo-Grünfeld, défense Smyslov"
+
+msgid "English Opening: Bellon Gambit"
+msgstr "Anglaise, gambit Bellon"
+
+msgid "English Opening: Bled Variation"
+msgstr "Anglaise, var. de Bled"
+
+msgid "English Opening: Botvinnik System"
+msgstr "Anglaise, système Botvinnik"
+
+msgid "English Opening: Bradley Beach Variation"
+msgstr "Anglaise, var. Bradley Beach"
+
+msgid "English Opening: Bremen System with ...g6"
+msgstr "Anglaise, système de Brême, avec ..g6"
+
+msgid "English Opening: Bremen System, Keres Variation"
+msgstr "Anglaise, système de Brême, var. Keres"
+
+msgid "English Opening: Bremen, Smyslov System"
+msgstr "Anglaise, système de Brême, système Smyslov"
+
+msgid "English Opening: Bremen, reverse Dragon"
+msgstr "Anglaise, système de Brême, dragon inversé"
+
+msgid "English Opening: Capablanca Variation"
+msgstr "Anglaise, var. Capablanca"
+
+msgid "English Opening: Carls' Bremen System"
+msgstr "Anglaise, système de Brême"
+
+msgid "English Opening: Caro-Kann Defensive System, Bogolyubov Variation"
+msgstr "Anglaise, système défensif Caro - Kann, var. Bogoljubov"
+
+msgid "English Opening: Caro-Kann Defensive System"
+msgstr "Anglaise, système défensif Caro - Kann"
+
+msgid "English Opening: Closed System (without ...d6)"
+msgstr "Anglaise fermée, sans ..d6"
+
+msgid "English Opening: Closed System"
+msgstr "Anglaise, système fermé"
+
+msgid "English Opening: Closed, 5.Rb1 Taimanov Variation"
+msgstr "Anglaise fermée, 5.Tb1, var. Taïmanov"
+
+msgid "English Opening: Closed, 5.Rb1"
+msgstr "Anglaise fermée, 5.Tb1"
+
+msgid "English Opening: Closed, Hort Variation"
+msgstr "Anglaise fermée, var. Hort"
+
+msgid "English Opening: Closed, Taimanov Variation"
+msgstr "Anglaise fermée, var. Taïmanov"
+
+msgid "English Opening: Four Knights System"
+msgstr "Anglaise, système des 4 cavaliers"
+
+msgid "English Opening: Four Knights, 4.e3"
+msgstr "Anglaise, système des 4 cavaliers, 4.e3"
+
+msgid "English Opening: Four Knights, Capablanca Variation"
+msgstr "Anglaise, système des 4 cavaliers, var. Capablanca"
+
+msgid "English Opening: Four Knights, Kingside Fianchetto"
+msgstr "Anglaise, système des 4 cavaliers, fianchetto-roi"
+
+msgid "English Opening: Four Knights, Marini Variation"
+msgstr "Anglaise, système des 4 cavaliers, var. Marini"
+
+msgid "English Opening: Four Knights, Nimzovich Variation"
+msgstr "Anglaise, système des 4 cavaliers, var. Nimzowitsch"
+
+msgid "English Opening: Four Knights, Romanishin Variation"
+msgstr "Anglaise, système des 4 cavaliers, var. Romanichine"
+
+msgid "English Opening: Four Knights, Stean Variation"
+msgstr "Anglaise, système des 4 cavaliers, var. Stean"
+
+msgid "English Opening: Jaenisch Gambit"
+msgstr "Anglaise, gambit Jaenisch"
+
+msgid "English Opening: Keres Variation"
+msgstr "Anglaise, var. Keres"
+
+msgid "English Opening: Kramnik-Shirov CounterAttack"
+msgstr "Anglaise, contre-attaque Kramnik - Shirov"
+
+msgid "English Opening: Kurajica Defence"
+msgstr "Anglaise, défense Kurajica"
+
+msgid "English Opening: London Defensive System"
+msgstr "Anglaise, système défensif de Londres"
+
+msgid "English Opening: Mikenas-Carls Variation"
+msgstr "Anglaise, var. Mikenas - Carls"
+
+msgid "English Opening: Mikenas-Carls, Flohr Variation"
+msgstr "Anglaise, var. Mikenas - Carls, var. Flohr"
+
+msgid "English Opening: Mikenas-Carls, Kevitz Variation"
+msgstr "Anglaise, var. Mikenas - Carls, var. Kevitz"
+
+msgid "English Opening: Mikenas-Carls, Sicilian Variation"
+msgstr "Anglaise, var. Mikenas - Carls, var. sicilienne"
+
+msgid "English Opening: Nenarokov Variation"
+msgstr "Anglaise, var. Nenarokov"
+
+msgid "English Opening: Neo-Catalan Accepted"
+msgstr "Anglaise, var. néo-catalane acceptée"
+
+msgid "English Opening: Neo-Catalan Declined"
+msgstr "Anglaise, var. néo-catalane refusée"
+
+msgid "English Opening: Neo-Catalan"
+msgstr "Anglaise, var. néo-catalane"
+
+msgid "English Opening: New York (London) Defensive System"
+msgstr "Anglaise, système défensif de New York"
+
+msgid "English Opening: Nimzo-English Opening"
+msgstr "Anglaise, système Nimzo-anglais"
+
+msgid "English Opening: Nimzovich Variation"
+msgstr "Anglaise, var Nimzowitsch"
+
+msgid "English Opening: Nimzovich, Flohr Variation"
+msgstr "Anglaise, var. Nimzowitsch, var. Flohr"
+
+msgid "English Opening: Queens Indian Formation"
+msgstr "Anglaise, formation ouest-indienne"
+
+msgid "English Opening: Queens Indian, Romanishin Variation"
+msgstr "Anglaise, formation ouest-indienne, var. Romanichine"
+
+msgid "English Opening: Romanishin Gambit"
+msgstr "Anglaise, gambit Romanichine"
+
+msgid "English Opening: Sicilian Reversed"
+msgstr "Anglaise, var. sicilienne inversée"
+
+msgid "English Opening: Smyslov Defence"
+msgstr "Anglaise, défense Smyslov"
+
+msgid "English Opening: Symmetrical Variation"
+msgstr "Anglaise, var. symétrique"
+
+msgid "English Opening: Symmetrical, Benoni Formation"
+msgstr "Anglaise symétrique, formation défense Benoni"
+
+msgid "English Opening: Symmetrical, Botvinnik System Reversed"
+msgstr "Anglaise symétrique, système Botvinnik inversé"
+
+msgid "English Opening: Symmetrical, Botvinnik System"
+msgstr "Anglaise symétrique, système Botvinnik"
+
+msgid "English Opening: Symmetrical, Four Knights System"
+msgstr "Anglaise symétrique, système des 4 cavaliers"
+
+msgid "English Opening: Symmetrical, Geller Variation"
+msgstr "Anglaise symétrique, var. Geller"
+
+msgid "English Opening: Symmetrical, Hedgehog System"
+msgstr "Anglaise symétrique, système du hérisson"
+
+msgid "English Opening: Symmetrical, Hedgehog, flexible Formation"
+msgstr "Anglaise symétrique, système du hérisson, formation flexible"
+
+msgid "English Opening: Symmetrical, Main Line with b3"
+msgstr "Anglaise symétrique, ligne principale, avec b3"
+
+msgid "English Opening: Symmetrical, Main Line with d3"
+msgstr "Anglaise symétrique, ligne principale, avec d3"
+
+msgid "English Opening: Symmetrical, Main Line with d4"
+msgstr "Anglaise symétrique, ligne principale, avec d4"
+
+msgid "English Opening: Symmetrical, Rubinstein System"
+msgstr "Anglaise symétrique, système Rubinstein"
+
+msgid "English Opening: Symmetrical, Three Knights System"
+msgstr "Anglaise symétrique, système des 3 cavaliers"
+
+msgid "English Opening: Three Knights System"
+msgstr "Anglaise, système des 3 cavaliers"
+
+msgid "English Opening: Torre Defensive System"
+msgstr "Anglaise, système défensif Torre"
+
+msgid "English Opening: Ultra-Symmetrical Variation"
+msgstr "Anglaise, var. ultra-symétrique"
+
+msgid "English Opening: Wimpey System"
+msgstr "Anglaise, système Wimpey"
+
+msgid "English Opening"
+msgstr "Ouverture anglaise"
+
+msgid "English Orangutan"
+msgstr "Anglaise, système orang-outang"
+
+msgid "Evans Counter-Gambit"
+msgstr "Gambit Evans, contre-gambit"
+
+msgid "Evans Gambit Accepted"
+msgstr "Gambit Evans accepté"
+
+msgid "Evans Gambit Declined, 5.a4"
+msgstr "Gambit Evans refusé, 5.a4"
+
+msgid "Evans Gambit Declined, Cordel Variation"
+msgstr "Gambit Evans refusé, var. Cordel"
+
+msgid "Evans Gambit Declined, Hicken Variation"
+msgstr "Gambit Evans refusé, var. Hicken"
+
+msgid "Evans Gambit Declined, Hirschbach Variation"
+msgstr "Gambit Evans refusé, var. Hirschbach"
+
+msgid "Evans Gambit Declined, Lange Variation"
+msgstr "Gambit Evans refusé, var. Lange"
+
+msgid "Evans Gambit Declined, Pavlov Variation"
+msgstr "Gambit Evans refusé, var Pavlov"
+
+msgid "Evans Gambit Declined, Showalter Variation"
+msgstr "Gambit Evans refusé, var. Showalter"
+
+msgid "Evans Gambit Declined, Vasquez Variation"
+msgstr "Gambit Evans refusé, var. Vasquez"
+
+msgid "Evans Gambit: 5...Be7"
+msgstr "Gambit Evans, 5...Fe7"
+
+msgid "Evans Gambit: Alapin-Steinitz Variation"
+msgstr "Gambit Evans, var. Alapin - Steinitz"
+
+msgid "Evans Gambit: Cordel Variation"
+msgstr "Gambit Evans, var. Cordel"
+
+msgid "Evans Gambit: Fraser Attack"
+msgstr "Gambit Evans, attaque Fraser"
+
+msgid "Evans Gambit: Fraser-Mortimer Attack"
+msgstr "Gambit Evans, attaque Fraser - Mortimer"
+
+msgid "Evans Gambit: Goering Attack"
+msgstr "Gambit Evans, attaque Göring"
+
+msgid "Evans Gambit: Lasker Defence"
+msgstr "Gambit Evans, défense Lasker"
+
+msgid "Evans Gambit: Leonhardt Variation"
+msgstr "Gambit Evans, var. Leonhardt"
+
+msgid "Evans Gambit: Levenfish Variation"
+msgstr "Gambit Evans, var. Levenfish"
+
+msgid "Evans Gambit: Mayet Defence"
+msgstr "Gambit Evans, défense Mayet"
+
+msgid "Evans Gambit: Morphy Attack"
+msgstr "Gambit Evans, attaque Morphy"
+
+msgid "Evans Gambit: Paulsen Variation"
+msgstr "Gambit Evans, var. Paulsen"
+
+msgid "Evans Gambit: Richardson Attack"
+msgstr "Gambit Evans, attaque Richardson"
+
+msgid "Evans Gambit: Sanders-Alapin Variation"
+msgstr "Gambit Evans, var. Sanders - Alapin"
+
+msgid "Evans Gambit: Sokolsky Variation"
+msgstr "Gambit Evans, var. Sokolsky"
+
+msgid "Evans Gambit: Steinitz Variation"
+msgstr "Gambit Evans, var. Steinitz"
+
+msgid "Evans Gambit: Stone-Ware Variation"
+msgstr "Gambit Evans, var. Stone - Ware"
+
+msgid "Evans Gambit: Tartakower Attack"
+msgstr "Gambit Evans, attaque Tartakover"
+
+msgid "Evans Gambit: Ulvestad Variation"
+msgstr "Gambit Evans, var. Ulvestad"
+
+msgid "Evans Gambit: Waller Attack"
+msgstr "Gambit Evans, attaque Waller"
+
+msgid "Evans Gambit: compromised Defence, Paulsen Variation"
+msgstr "Gambit Evans, compromised defence (défense \"compromise\"), var. Paulsen"
+
+msgid "Evans Gambit: compromised Defence, Potter Variation"
+msgstr "Gambit Evans, compromised defence (défense \"compromise\"), var. Potter"
+
+msgid "Evans Gambit: compromised Defence"
+msgstr "Gambit Evans, compromised defence (défense \"compromise\")"
+
+msgid "Evans Gambit: normal Variation"
+msgstr "Gambit Evans, var. normale"
+
+msgid "Evans Gambit"
+msgstr "Gambit Evans"
+
+msgid "Four Knights Game: Bardeleben Variation"
+msgstr "4 cavaliers, var. Bardeleben"
+
+msgid "Four Knights Game: Belgrade Gambit"
+msgstr "4 cavaliers, gambit de Belgrade"
+
+msgid "Four Knights Game: Double Ruy Lopez"
+msgstr "4 cavaliers, var. espagnole double"
+
+msgid "Four Knights Game: Gunsberg Counter-Attack"
+msgstr "4 cavaliers, contre-attaque Gunsberg"
+
+msgid "Four Knights Game: Gunsberg Variation"
+msgstr "4 cavaliers, var. Gunsberg"
+
+msgid "Four Knights Game: Italian Variation"
+msgstr "4 cavaliers, var. italienne"
+
+msgid "Four Knights Game: Janowski Variation"
+msgstr "4 cavaliers, var. Janowski"
+
+msgid "Four Knights Game: Marshall Variation"
+msgstr "4 cavaliers, var. Marshall"
+
+msgid "Four Knights Game: Nimzovich (Paulsen) Variation"
+msgstr "4 cavaliers, var. Nimzowitsch (Paulsen)"
+
+msgid "Four Knights Game: Ranken Variation"
+msgstr "4 cavaliers, var. Ranken"
+
+msgid "Four Knights Game: Rubinstein Counter-Gambit, 5.Be2"
+msgstr "4 cavaliers, contre-gambit Rubinstein, 5.Fe2"
+
+msgid "Four Knights Game: Rubinstein Counter-Gambit, Bogolyubov Variation"
+msgstr "4 cavaliers, contre-gambit Rubinstein, var. Bogoljubov"
+
+msgid "Four Knights Game: Rubinstein Counter-Gambit, Exchange Variation"
+msgstr "4 cavaliers, contre-gambit Rubinstein, var. d'échange"
+
+msgid "Four Knights Game: Rubinstein Counter-Gambit, Henneberger Variation"
+msgstr "4 cavaliers, contre-gambit Rubinstein, var. Henneberger"
+
+msgid "Four Knights Game: Rubinstein Counter-Gambit"
+msgstr "4 cavaliers, contre-gambit Rubinstein"
+
+msgid "Four Knights Game: Schultze-Mueller Gambit"
+msgstr "4 cavaliers, gambit Müller - Schulze (Dupond et Dupont, Halloween)"
+
+msgid "Four Knights Game: Scotch Variation"
+msgstr "4 cavaliers, var. écossaise"
+
+msgid "Four Knights Game: Scotch, 4...exd4"
+msgstr "4 cavaliers, var. écossaise, 4...exd4"
+
+msgid "Four Knights Game: Scotch, Krause Variation"
+msgstr "4 cavaliers, var. écossaise, var. Krause"
+
+msgid "Four Knights Game: Spanish Variation"
+msgstr "4 cavaliers, var. espagnole"
+
+msgid "Four Knights Game: Spanish, Classical Defence"
+msgstr "4 cavaliers, var. espagnole, défense classique"
+
+msgid "Four Knights Game: Spielmann Variation"
+msgstr "4 cavaliers, var. Spielmann"
+
+msgid "Four Knights Game: Svenonius Variation"
+msgstr "4 cavaliers, var. Svenonius"
+
+msgid "Four Knights Game: Symmetrical Variation"
+msgstr "4 cavaliers, var. symétrique"
+
+msgid "Four Knights Game: Symmetrical, Blake Variation"
+msgstr "4 cavaliers symétrique, var. Blake"
+
+msgid "Four Knights Game: Symmetrical, Capablanca Variation"
+msgstr "4 cavaliers symétrique, var. Capablanca"
+
+msgid "Four Knights Game: Symmetrical, Maroczy System"
+msgstr "4 cavaliers symétrique, système Maroczy"
+
+msgid "Four Knights Game: Symmetrical, Metger unpin"
+msgstr "4 cavaliers symétrique, déclouage Metger"
+
+msgid "Four Knights Game: Symmetrical, Pillsbury Variation"
+msgstr "4 cavaliers symétrique, var. Pillsbury"
+
+msgid "Four Knights Game: Symmetrical, Tarrasch Variation"
+msgstr "4 cavaliers symétrique, var. Tarrasch"
+
+msgid "Four Knights Game"
+msgstr "Partie des 4 cavaliers"
+
+msgid "Fred"
+msgstr "Défense Fred (gambit Duras)"
+
+msgid "French Defence, Steiner Variation"
+msgstr "Française, var. Steiner"
+
+msgid "French Defence: Advance Variation"
+msgstr "Française, var. d'avance"
+
+msgid "French Defence: Advance, Euwe Variation"
+msgstr "Française, var. d'avance, var. Euwe"
+
+msgid "French Defence: Advance, Milner-Barry Gambit"
+msgstr "Française, var. d'avance, gambit Milner-Barry"
+
+msgid "French Defence: Advance, Nimzovich System"
+msgstr "Française, var. d'avance, système Nimzowitsch"
+
+msgid "French Defence: Advance, Nimzovich Variation"
+msgstr "Française, var. d'avance, var. Nimzowitsch"
+
+msgid "French Defence: Advance, Paulsen Attack"
+msgstr "Française, var. d'avance, attaque Paulsen"
+
+msgid "French Defence: Advance, Steinitz Variation"
+msgstr "Française, var. d'avance, var. Steinitz"
+
+msgid "French Defence: Advance, Wade Variation"
+msgstr "Française, var. d'avance, var. Wade"
+
+msgid "French Defence: Alapin Variation"
+msgstr "Française, var. Alapin"
+
+msgid "French Defence: Albin-Alekhine-Chatard Attack, Breyer Variation"
+msgstr "Française, attaque Albin - Alekhine - Chatard, var. Breyer"
+
+msgid "French Defence: Albin-Alekhine-Chatard Attack, Maroczy Variation"
+msgstr "Française, attaque Albin - Alekhine - Chatard, var. Maroczy"
+
+msgid "French Defence: Albin-Alekhine-Chatard Attack, Spielmann Variation"
+msgstr "Française, attaque Albin - Alekhine - Chatard, var. Spielmann"
+
+msgid "French Defence: Albin-Alekhine-Chatard Attack, Teichmann Variation"
+msgstr "Française, attaque Albin - Alekhine - Chatard, var. Teichmann"
+
+msgid "French Defence: Albin-Alekhine-Chatard Attack"
+msgstr "Française, attaque Albin - Alekhine - Chatard"
+
+msgid "French Defence: Burn Variation"
+msgstr "Française, var. Burn"
+
+msgid "French Defence: Chigorin Variation"
+msgstr "Française, var. Tchigorine"
+
+msgid "French Defence: Classical Variation"
+msgstr "Française, var. classique"
+
+msgid "French Defence: Classical, Alapin Variation"
+msgstr "Française classique, var. Alapin"
+
+msgid "French Defence: Classical, Anderssen Variation"
+msgstr "Française classique, var. Anderssen"
+
+msgid "French Defence: Classical, Anderssen-Richter Variation"
+msgstr "Française classique, var. Anderssen - Richter"
+
+msgid "French Defence: Classical, Frankfurt Variation"
+msgstr "Française classique, var. de Francfort"
+
+msgid "French Defence: Classical, Pollock Variation"
+msgstr "Française classique, var. Pollock"
+
+msgid "French Defence: Classical, Rubinstein Variation"
+msgstr "Française classique, var. Rubinstein"
+
+msgid "French Defence: Classical, Stahlberg Variation"
+msgstr "Française classique, var. Ståhlberg"
+
+msgid "French Defence: Classical, Steinitz Variation"
+msgstr "Française classique, var. Steinitz"
+
+msgid "French Defence: Classical, Tarrasch Variation"
+msgstr "Française classique, var. Tarrasch"
+
+msgid "French Defence: Classical, Tartakower Variation"
+msgstr "Française classique, var. Tartakover"
+
+msgid "French Defence: Classical, Vistaneckis (Nimzovich) Variation"
+msgstr "Française classique, var Vistaneckis (Nimzowitsch)"
+
+msgid "French Defence: Exchange Variation"
+msgstr "Française, var. d'échange"
+
+msgid "French Defence: Exchange, Bogolyubov Variation"
+msgstr "Française, var. d'échange, var. Bogoljubov"
+
+msgid "French Defence: Exchange, Svenonius Variation"
+msgstr "Française, var. d'échange, var. Svenonius"
+
+msgid "French Defence: Fort Knox Variation"
+msgstr "Française, var. Fort Knox"
+
+msgid "French Defence: Frere (Becker) Variation"
+msgstr "Française, var. Frere (Becker)"
+
+msgid "French Defence: Henneberger Variation"
+msgstr "Française, var. Henneberger"
+
+msgid "French Defence: King Indian Attack"
+msgstr "Française, attaque est-indienne"
+
+msgid "French Defence: La Bourdonnais Variation"
+msgstr "Française, var. La Bourdonnais"
+
+msgid "French Defence: MacCutcheon Variation"
+msgstr "Française, var. MacCutcheon"
+
+msgid "French Defence: MacCutcheon, Advance Variation"
+msgstr "Française, var. MacCutcheon, var. d'avance"
+
+msgid "French Defence: MacCutcheon, Bernstein Variation"
+msgstr "Française, var. MacCutcheon, var. Bernstein"
+
+msgid "French Defence: MacCutcheon, Bogolyubov Variation"
+msgstr "Française, var. MacCutcheon, var. Bogoljubov"
+
+msgid "French Defence: MacCutcheon, Chigorin Variation"
+msgstr "Française, var. MacCutcheon, var. Tchigorine"
+
+msgid "French Defence: MacCutcheon, Dr. Olland (Dutch) Variation"
+msgstr "Française, var. MacCutcheon, var. Dr Olland (hollandaise)"
+
+msgid "French Defence: MacCutcheon, Duras Variation"
+msgstr "Française, var. MacCutcheon, var. Duras"
+
+msgid "French Defence: MacCutcheon, Grigoriev Variation"
+msgstr "Française, var. MacCutcheon, var. Grigoriev"
+
+msgid "French Defence: MacCutcheon, Janowski Variation"
+msgstr "Française, var. MacCutcheon, var. Janowski"
+
+msgid "French Defence: MacCutcheon, Lasker Variation, 8...g6"
+msgstr "Française, var. MacCutcheon, var. Lasker, 8...g6"
+
+msgid "French Defence: MacCutcheon, Lasker Variation"
+msgstr "Française, var. MacCutcheon, var. Lasker"
+
+msgid "French Defence: MacCutcheon, Tartakower Variation"
+msgstr "Française, var. MacCutcheon, var. Tartakover"
+
+msgid "French Defence: Marshall Variation"
+msgstr "Française, var. Marshall"
+
+msgid "French Defence: Paulsen Variation"
+msgstr "Française, var. Paulsen"
+
+msgid "French Defence: Pelikan Variation"
+msgstr "Française, var. Pelikán"
+
+msgid "French Defence: Reti (Spielmann) Variation"
+msgstr "Française, var. Réti (Spielmann)"
+
+msgid "French Defence: Reversed Philidor Formation"
+msgstr "Française, formation Philidor inversée"
+
+msgid "French Defence: Rubinstein Variation"
+msgstr "Française, var. Rubinstein"
+
+msgid "French Defence: Rubinstein, Capablanca Line"
+msgstr "Française, var. Rubinstein, ligne Capablanca"
+
+msgid "French Defence: Schlechter Variation"
+msgstr "Française, var. Schlechter"
+
+msgid "French Defence: Steinitz Attack"
+msgstr "Française, attaque Steinitz"
+
+msgid "French Defence: Steinitz Variation"
+msgstr "Française, var. Steinitz"
+
+msgid "French Defence: Steinitz, Boleslavsky Variation"
+msgstr "Française, var. Steinitz, var. Boleslavsky"
+
+msgid "French Defence: Steinitz, Bradford Attack"
+msgstr "Française, var. Steinitz, attaque Bradford"
+
+msgid "French Defence: Steinitz, Brodsky-Jones Variation"
+msgstr "Française, var. Steinitz, var. Brodsky - Jones"
+
+msgid "French Defence: Steinitz, Gledhill Attack"
+msgstr "Française, var. Steinitz, attaque Gledhill"
+
+msgid "French Defence: Swiss Variation"
+msgstr "Française, var. suisse"
+
+msgid "French Defence: Tarrasch, Botvinnik Variation"
+msgstr "Française, var. Tarrasch, var. Botvinnik"
+
+msgid "French Defence: Tarrasch, Closed Variation, Main Line"
+msgstr "Française, var. Tarrasch, var. fermée, ligne principale"
+
+msgid "French Defence: Tarrasch, Closed Variation"
+msgstr "Française, var. Tarrasch, var. fermée"
+
+msgid "French Defence: Tarrasch, Eliskases Variation"
+msgstr "Française, var. Tarrasch, var. Eliskases"
+
+msgid "French Defence: Tarrasch, Guimard Main Line"
+msgstr "Française, var. Tarrasch, var. Guimard, ligne principale"
+
+msgid "French Defence: Tarrasch, Guimard Variation"
+msgstr "Française, var. Tarrasch, var. Guimard"
+
+msgid "French Defence: Tarrasch, Haberditz Variation"
+msgstr "Française, var. Tarrasch, var. Haberditz"
+
+msgid "French Defence: Tarrasch, Leningrad Variation"
+msgstr "Française, var. Tarrasch, var. de Saint-Pétersbourg (Léningrad)"
+
+msgid "French Defence: Tarrasch, Open Variation, Main Line"
+msgstr "Française, var. Tarrasch, var. ouverte, ligne principale"
+
+msgid "French Defence: Tarrasch, Open Variation"
+msgstr "Française, var. Tarrasch, var. ouverte"
+
+msgid "French Defence: Tarrasch, Open, 4.ed ed"
+msgstr "Française, var. Tarrasch, var. ouverte, 4.ed ed"
+
+msgid "French Defence: Tarrasch"
+msgstr "Française, var. Tarrasch"
+
+msgid "French Defence: Two Knights Variation"
+msgstr "Française, var. des 2 cavaliers"
+
+msgid "French Defence: Winawer (Nimzovich) Variation"
+msgstr "Française, var. Winawer (Nimzowitsch)"
+
+msgid "French Defence: Winawer, Advance Variation"
+msgstr "Française, var. Winawer, var. d'avance"
+
+msgid "French Defence: Winawer, Advance, 5.a3"
+msgstr "Française, var. Winawer, var. d'avance, 5.a3"
+
+msgid "French Defence: Winawer, Advance, 6...Ne7"
+msgstr "Française, var. Winawer, var. d'avance, 6...Ce7"
+
+msgid "French Defence: Winawer, Advance, Bogolyubov Variation"
+msgstr "Française, var. Winawer, var. d'avance, var. Bogoljubov"
+
+msgid "French Defence: Winawer, Advance, Positional Main Line"
+msgstr ""
+"Française, var. Winawer, var. d'avance, ligne principale positionnelle"
+
+msgid "French Defence: Winawer, Advance, Rauzer Variation"
+msgstr "Française, var. Winawer, var. d'avance, var. Rauzer"
+
+msgid "French Defence: Winawer, Advance, Russian Variation"
+msgstr "Française, var. Winawer, var. d'avance, var. russe"
+
+msgid "French Defence: Winawer, Advance, Smyslov Variation"
+msgstr "Française, var. Winawer, var. d'avance, var. Smyslov"
+
+msgid "French Defence: Winawer, Advance, poisoned Pawn Variation"
+msgstr "Française, var. Winawer, var. d'avance, var. du pion empoisonné"
+
+msgid ""
+"French Defence: Winawer, Advance, poisoned Pawn, Euwe-Gligoric Variation"
+msgstr ""
+"Française, var. Winawer, var. d'avance, var. du pion empoisonné, var. Euwe -"
+" Gligorić"
+
+msgid ""
+"French Defence: Winawer, Advance, poisoned Pawn, Konstantinopolsky Variation"
+msgstr ""
+"Française, var. Winawer, var. d'avance, var. du pion empoisonné, var. "
+"Konstantinopolsky"
+
+msgid "French Defence: Winawer, Alekhine (Maroczy) Gambit"
+msgstr "Française, var. Winawer, gambit Alekhine - Maroczy"
+
+msgid "French Defence: Winawer, Alekhine Gambit, Alatortsev Variation"
+msgstr "Française, var. Winawer, gambit Alekhine, var. Alatortsev"
+
+msgid "French Defence: Winawer, Alekhine Gambit, Kan Variation"
+msgstr "Française, var. Winawer, gambit Alekhine, var. Kan"
+
+msgid "French Defence: Winawer, Alekhine Gambit"
+msgstr "Française, var. Winawer, gambit Alekhine"
+
+msgid "French Defence: Winawer, Classical Variation"
+msgstr "Française, var. Winawer, var. classique"
+
+msgid "French Defence: Winawer, Fingerslip Variation"
+msgstr ""
+"Française, var. Winawer, var. fingerslip (faux mouvement qui proviendrait "
+"d'une interversion de coups d'Alekhine dans une partie contre Flohr)"
+
+msgid "French Defence: Winawer, Kondratiyev Variation"
+msgstr "Française, var. Winawer, var. Kondratiyev"
+
+msgid "French Defence: Winawer, Petrosian Variation"
+msgstr "Française, var. Winawer, var. Petrossian"
+
+msgid "French Defence: Wing Gambit"
+msgstr "Française, gambit de l'aile"
+
+msgid "French Defence"
+msgstr "Défense française"
+
+msgid "Fried Fox Defence"
+msgstr "Défense du renard frit"
+
+msgid "Gedult Attack"
+msgstr "Attaque Gedult"
+
+msgid "Gedult Opening"
+msgstr "Ouverture Gedult ou Barnes"
+
+msgid "Giuoco Pianissimo: Canal Variation"
+msgstr "Italienne, système Giuoco Pianissimo, var. Canal"
+
+msgid "Giuoco Pianissimo: Dubois Variation"
+msgstr "Italienne, système Giuoco Pianissimo, var. Dubois"
+
+msgid "Giuoco Pianissimo: Italian Four Knights Variation"
+msgstr "Italienne, système Giuoco Pianissimo, var. italienne des 4 cavaliers"
+
+msgid "Giuoco Pianissimo"
+msgstr "Italienne, système Giuoco Pianissimo"
+
+msgid "Giuoco Piano: Aitken Variation"
+msgstr "Italienne, var. Aitken"
+
+msgid "Giuoco Piano: Anderssen Variation"
+msgstr "Italienne, var. Anderssen"
+
+msgid "Giuoco Piano: Bernstein Variation"
+msgstr "Italienne, var. Bernstein"
+
+msgid "Giuoco Piano: Bird Attack"
+msgstr "Italienne, attaque Bird"
+
+msgid "Giuoco Piano: Cracow Variation"
+msgstr "Italienne, var. de Cracovie"
+
+msgid "Giuoco Piano: Eisinger Variation"
+msgstr "Italienne, var. Eisinger"
+
+msgid "Giuoco Piano: Four Knights Variation"
+msgstr "Italienne, var. des 4 cavaliers"
+
+msgid "Giuoco Piano: Ghulam Kassim Variation"
+msgstr "Italienne, var. Ghulam Kassim"
+
+msgid "Giuoco Piano: Greco Attack"
+msgstr "Italienne, attaque Greco"
+
+msgid "Giuoco Piano: Greco Variation"
+msgstr "Italienne, var. Greco"
+
+msgid "Giuoco Piano: Holzhausen Attack"
+msgstr "Italienne, attaque Holzhausen"
+
+msgid "Giuoco Piano: Jerome Gambit"
+msgstr "Italienne, gambit Jerome"
+
+msgid "Giuoco Piano: Krause Variation"
+msgstr "Italienne, var. Krause"
+
+msgid "Giuoco Piano: La Bourdonnais Variation"
+msgstr "Italienne, var. La Bourdonnais"
+
+msgid "Giuoco Piano: Mestel Variation"
+msgstr "Italienne, var. Mestel"
+
+msgid "Giuoco Piano: Moeller (Therkatz) Attack"
+msgstr "Italienne, attaque Møller (Therkatz)"
+
+msgid "Giuoco Piano: Moeller, bayonet Attack"
+msgstr "Italienne, attaque Møller, attaque à la baïonnette"
+
+msgid "Giuoco Piano: Rosentreter Variation"
+msgstr "Italienne, var. Rosentreter"
+
+msgid "Giuoco Piano: Steinitz Variation"
+msgstr "Italienne, var. Steinitz"
+
+msgid "Giuoco Piano: Tarrasch Variation"
+msgstr "Italienne, var. Tarrasch"
+
+msgid "Giuoco Piano: Therkatz-Herzog Variation"
+msgstr "Italienne, var. Therkatz - Herzog"
+
+msgid "Giuoco Piano: centre-holding Variation"
+msgstr "Italienne, var. du maintien du centre"
+
+msgid "Giuoco Piano: close Variation"
+msgstr "Italienne, var. fermée"
+
+msgid "Giuoco Piano"
+msgstr "Partie italienne (Giuoco Piano)"
+
+msgid "Global Opening"
+msgstr "Ouverture \"Global\""
+
+msgid "Greco Defence"
+msgstr "Défense Greco"
+
+msgid "Grob Attack"
+msgstr "Attaque ou début Grob"
+
+msgid "Grob Opening: Fritz Gambit"
+msgstr "Attaque Grob, gambit Fritz"
+
+msgid "Grob Opening: Romford Counter-Gambit"
+msgstr "Attaque Grob, contre-gambit de Romford"
+
+msgid "Grob Opening: Spike Attack"
+msgstr "Attaque Grob, attaque spike (de la pointe)"
+
+msgid "Grünfeld Defence: 4.Bf4"
+msgstr "Défense Grünfeld, 4.Ff4"
+
+msgid "Grünfeld Defence: 5.Bf4"
+msgstr "Défense Grünfeld, 5.Ff4"
+
+msgid "Grünfeld Defence: 5.Bg5"
+msgstr "Défense Grünfeld, 5.Fg5"
+
+msgid "Grünfeld Defence: 5.e3"
+msgstr "Défense Grünfeld, 5.e3"
+
+msgid "Grünfeld Defence: Botvinnik Variation"
+msgstr "Défense Grünfeld, var. Botvinnik"
+
+msgid "Grünfeld Defence: Exchange Variation"
+msgstr "Défense Grünfeld, var. d'échange"
+
+msgid "Grünfeld Defence: Exchange, Classical Variation"
+msgstr "Défense Grünfeld, var. d'échange, var. classique"
+
+msgid "Grünfeld Defence: Exchange, Larsen Variation"
+msgstr "Défense Grünfeld, var. d'échange, var. Larsen"
+
+msgid "Grünfeld Defence: Exchange, Seville Variation"
+msgstr "Défense Grünfeld, var. d'échange, var. de Séville"
+
+msgid "Grünfeld Defence: Exchange, Simagin improved Variation"
+msgstr "Défense Grünfeld, var. d'échange, 8...Cc6 (var. Simagin améliorée)"
+
+msgid "Grünfeld Defence: Exchange, Simagin lesser Variation"
+msgstr ""
+"Défense Grünfeld, var. d'échange, 8...b6 (petite (ou plus faible) var. "
+"Simagin)"
+
+msgid "Grünfeld Defence: Exchange, Sokolsky Variation"
+msgstr "Défense Grünfeld, var. d'échange, var. Sokolsky"
+
+msgid "Grünfeld Defence: Exchange, Spassky Variation"
+msgstr "Défense Grünfeld, var. d'échange, var. Spassky"
+
+msgid "Grünfeld Defence: Flohr Defence"
+msgstr "Défense Grünfeld, défense Flohr"
+
+msgid "Grünfeld Defence: Flohr Variation"
+msgstr "Défense Grünfeld, var. Flohr"
+
+msgid "Grünfeld Defence: Grünfeld Gambit Accepted"
+msgstr "Défense Grünfeld, gambit Grünfeld accepté"
+
+msgid "Grünfeld Defence: Grünfeld Gambit, Botvinnik Variation"
+msgstr "Défense Grünfeld, gambit Grünfeld, var. Botvinnik"
+
+msgid "Grünfeld Defence: Grünfeld Gambit, Capablanca Variation"
+msgstr "Défense Grünfeld, gambit Grünfeld, var. Capablanca"
+
+msgid "Grünfeld Defence: Grünfeld Gambit"
+msgstr "Défense Grünfeld, gambit Grünfeld"
+
+msgid "Grünfeld Defence: Lundin Variation"
+msgstr "Défense Grünfeld, var. Lundin"
+
+msgid "Grünfeld Defence: Makogonov Variation"
+msgstr "Défense Grünfeld, var. Makogonov"
+
+msgid "Grünfeld Defence: Modern Exchange Variation"
+msgstr "Défense Grünfeld, var. d'échange moderne"
+
+msgid "Grünfeld Defence: Opovcensky Variation"
+msgstr "Défense Grünfeld, var. Opocensky"
+
+msgid "Grünfeld Defence: Pachman Variation"
+msgstr "Défense Grünfeld, var. Pachman"
+
+msgid "Grünfeld Defence: Russian Variation with e4"
+msgstr "Défense Grünfeld, var. russe, avec e4"
+
+msgid "Grünfeld Defence: Russian Variation"
+msgstr "Défense Grünfeld, var. russe"
+
+msgid "Grünfeld Defence: Russian, Alekhine (Hungarian) Variation"
+msgstr "Défense Grünfeld, système russe, var. Alekhine (hongroise)"
+
+msgid "Grünfeld Defence: Russian, Byrne (Simagin) Variation"
+msgstr "Défense Grünfeld, var. russe, var. Byrne (Simagin)"
+
+msgid "Grünfeld Defence: Russian, Keres Variation"
+msgstr "Défense Grünfeld, var. russe, var. Keres"
+
+msgid "Grünfeld Defence: Russian, Levenfish Variation"
+msgstr "Défense Grünfeld, var. russe, var. Levenfish"
+
+msgid "Grünfeld Defence: Russian, Prins Variation"
+msgstr "Défense Grünfeld, var. russe, var. Prins"
+
+msgid "Grünfeld Defence: Russian, Smyslov Variation"
+msgstr "Défense Grünfeld, var. russe, var. Smyslov"
+
+msgid "Grünfeld Defence: Russian, Szabo (Boleslavsky) Variation"
+msgstr "Défense Grünfeld, var. russe, var. Szabó (Boleslavsky)"
+
+msgid "Grünfeld Defence: Schlechter Variation"
+msgstr "Défense Grünfeld, var. Schlechter"
+
+msgid "Grünfeld Defence: Smyslov Defence"
+msgstr "Défense Grünfeld, défense Smyslov"
+
+msgid "Grünfeld Defence: Smyslov, Main Line"
+msgstr "Défense Grünfeld, var. russe, var. Smyslov, ligne principale"
+
+msgid "Grünfeld Defence: Smyslov, Yugoslav Variation"
+msgstr "Défense Grünfeld, var. russe, var. Smyslov, var. yougoslave"
+
+msgid "Grünfeld Defence: Spassky Variation, Main Line, 10...cd, 11.cd"
+msgstr ""
+"Défense Grünfeld, var. d'échange, var. Spassky, ligne principale, 10...cxd4 "
+"11.cxd4"
+
+msgid "Grünfeld Defence: Spassky Variation, Main Line, 13.Bd3"
+msgstr ""
+"Défense Grünfeld, var. d'échange, var. Spassky, ligne principale, 13.Fd3"
+
+msgid "Grünfeld Defence: Spike Gambit"
+msgstr "Défense Grünfeld, gambit spike (de la pointe)"
+
+msgid "Grünfeld Defence: Stockholm Variation"
+msgstr "Défense Grünfeld, var. de Stockholm"
+
+msgid "Grünfeld Defence: Three Knights Variation"
+msgstr "Défense Grünfeld, var. des 3 cavaliers"
+
+msgid "Grünfeld Defence"
+msgstr "Défense Grünfeld"
+
+msgid "Grünfeld with Bf4 & e3"
+msgstr "Défense Grünfeld, avec Ff4 et e3"
+
+msgid "Grünfeld with e3 & Bd3"
+msgstr "Défense Grünfeld, avec e3 et Fd3"
+
+msgid "Grünfeld with e3 & Qb3"
+msgstr "Défense Grünfeld, avec e3 et Db3"
+
+msgid "Guatemala Defence"
+msgstr "Défense du Guatemala"
+
+msgid "Gunderam Defence"
+msgstr "Défense brésilienne ou défense Gunderam"
+
+msgid "Halasz Gambit"
+msgstr "Gambit Halasz"
+
+msgid "Hammerschlag (Fried fox/Pork chop Opening)"
+msgstr "Ouverture Hammerschlag (coup de marteau) ou renard frit ou roi errant"
+
+msgid "Hawk (Habichd) Defence"
+msgstr "Défense du faucon ou Habichd (de l'allemand \"Hab ich dich\")"
+
+msgid "Hippopotamus Defence"
+msgstr "Défense de l'hippopotame"
+
+msgid "Hungarian Defence: Tartakower Variation"
+msgstr "Défense hongroise, var. Tartakover"
+
+msgid "Hungarian Defence"
+msgstr "Défense hongroise"
+
+msgid "Inverted Hanham"
+msgstr "Ouverture Hanham inversée"
+
+msgid "Inverted Hungarian"
+msgstr "Ouverture hongroise (défense hongroise inversée)"
+
+msgid "Irish (Chicago) Gambit"
+msgstr "Gambit irlandais (de Chicago)"
+
+msgid "Italian Opening"
+msgstr "Jeu italien"
+
+msgid "Kevitz-Trajkovic Defence"
+msgstr "Défense Kevitz - Trajkovic"
+
+msgid ""
+"King Gambit Accepted: Abbazia Defence (Classical Defence, Modern Defence[!])"
+msgstr ""
+"Gambit Roi accepté, défense d'Abbazia ou d'Opatija (défense classique, "
+"défense moderne [!])"
+
+msgid "King Gambit Accepted: Abbazia Defence, Botvinnik Variation"
+msgstr "Gambit Roi accepté, défense d'Abbazia (Opatija), var. Botvinnik"
+
+msgid "King Gambit Accepted: Abbazia Defence, Modern Variation"
+msgstr "Gambit Roi accepté, défense d'Abbazia (Opatija), var. moderne"
+
+msgid "King Gambit Accepted: Allgaier Gambit"
+msgstr "Gambit Roi accepté, gambit Allgaier"
+
+msgid "King Gambit Accepted: Allgaier, Blackburne Gambit"
+msgstr "Gambit Roi accepté, gambit Allgaier, gambit Blackburne"
+
+msgid "King Gambit Accepted: Allgaier, Cook Variation"
+msgstr "Gambit Roi accepté, gambit Allgaier, var. Cook"
+
+msgid "King Gambit Accepted: Allgaier, Horny Defence"
+msgstr "Gambit Roi accepté, gambit Allgaier, défense Horny"
+
+msgid "King Gambit Accepted: Allgaier, Schlechter Defence"
+msgstr "Gambit Roi accepté, gambit Allgaier, défense Schlechter"
+
+msgid "King Gambit Accepted: Allgaier, ThorOld Variation"
+msgstr "Gambit Roi accepté, gambit Allgaier, var. Thorold"
+
+msgid "King Gambit Accepted: Allgaier, Urusov Attack"
+msgstr "Gambit Roi accepté, gambit Allgaier, attaque Urusov"
+
+msgid "King Gambit Accepted: Allgaier, Walker Attack"
+msgstr "Gambit Roi accepté, gambit Allgaier, attaque Walker"
+
+msgid "King Gambit Accepted: Becker Defence"
+msgstr "Gambit Roi accepté, défense Becker"
+
+msgid "King Gambit Accepted: Bishop Gambit, Anderssen Variation"
+msgstr "Gambit Roi accepté, gambit du fou, var. Anderssen"
+
+msgid "King Gambit Accepted: Bishop Gambit, Bledow Variation"
+msgstr "Gambit Roi accepté, gambit du fou, var. Bledow"
+
+msgid "King Gambit Accepted: Bishop Gambit, Boden Defence"
+msgstr "Gambit Roi accepté, gambit du fou, défense Boden"
+
+msgid "King Gambit Accepted: Bishop Gambit, Bogolyubov Variation"
+msgstr "Gambit Roi accepté, gambit du fou, var. Bogoljubov"
+
+msgid "King Gambit Accepted: Bishop Gambit, Boren-Svenonius Variation"
+msgstr "Gambit Roi accepté, gambit du fou, var. Boren - Svenonius"
+
+msgid "King Gambit Accepted: Bishop Gambit, Bryan Counter-Gambit"
+msgstr "Gambit Roi accepté, gambit du fou, contre-gambit Bryan"
+
+msgid "King Gambit Accepted: Bishop Gambit, Chigorin Attack"
+msgstr "Gambit Roi accepté, gambit du fou, attaque Tchigorine"
+
+msgid "King Gambit Accepted: Bishop Gambit, Classical Defence, Cozio Attack"
+msgstr "Gambit Roi accepté, gambit du fou, défense classique, attaque Cozio"
+
+msgid "King Gambit Accepted: Bishop Gambit, Classical Defence"
+msgstr "Gambit Roi accepté, gambit du fou, défense classique"
+
+msgid "King Gambit Accepted: Bishop Gambit, Cozio (Morphy) Defence"
+msgstr "Gambit Roi accepté, gambit du fou, défense Cozio (Morphy)"
+
+msgid "King Gambit Accepted: Bishop Gambit, Fraser Variation"
+msgstr "Gambit Roi accepté, gambit du fou, var. Fraser"
+
+msgid "King Gambit Accepted: Bishop Gambit, Greco Variation"
+msgstr "Gambit Roi accepté, gambit du fou, var. Greco"
+
+msgid "King Gambit Accepted: Bishop Gambit, Grimm Attack"
+msgstr "Gambit Roi accepté, gambit du fou, attaque Grimm"
+
+msgid "King Gambit Accepted: Bishop Gambit, Jaenisch Variation"
+msgstr "Gambit Roi accepté, gambit du fou, var. Jaenisch"
+
+msgid "King Gambit Accepted: Bishop Gambit, Lopez-Gianutio Counter-Gambit"
+msgstr "Gambit Roi accepté, gambit du fou, contre-gambit López - Gianuzio"
+
+msgid "King Gambit Accepted: Bishop Gambit, Maurian Defence"
+msgstr "Gambit Roi accepté, gambit du fou, défense Maurian"
+
+msgid "King Gambit Accepted: Bishop Gambit, McDonnell Attack"
+msgstr "Gambit Roi accepté, gambit du fou, attaque MacDonnell"
+
+msgid "King Gambit Accepted: Bishop Gambit, Morphy Variation"
+msgstr "Gambit Roi accepté, gambit du fou, var. Morphy"
+
+msgid "King Gambit Accepted: Bishop Gambit, Paulsen Attack"
+msgstr "Gambit Roi accepté, gambit du fou, attaque Paulsen"
+
+msgid "King Gambit Accepted: Bishop Gambit, Ruy Lopez Defence"
+msgstr "Gambit Roi accepté, gambit du fou, défense Ruy López"
+
+msgid "King Gambit Accepted: Bishop Gambit, Steinitz Defence"
+msgstr "Gambit Roi accepté, gambit du fou, défense Steinitz"
+
+msgid "King Gambit Accepted: Bishop Gambit"
+msgstr "Gambit Roi accepté, 3.Fc4 (gambit du fou)"
+
+msgid "King Gambit Accepted: Blachly Gambit"
+msgstr "Gambit Roi accepté, gambit Blachly"
+
+msgid "King Gambit Accepted: Bonsch-Osmolovsky Variation"
+msgstr "Gambit Roi accepté, var. Bonch-Osmolovsky"
+
+msgid "King Gambit Accepted: Breyer Gambit"
+msgstr "Gambit Roi accepté, gambit Breyer"
+
+msgid "King Gambit Accepted: Carrera (Basman) Gambit"
+msgstr "Gambit Roi accepté, gambit Carrera (Basman)"
+
+msgid "King Gambit Accepted: Cochrane Gambit"
+msgstr "Gambit Roi accepté, gambit Cochrane"
+
+msgid "King Gambit Accepted: Cunningham Defence"
+msgstr "Gambit Roi accepté, défense Cunningham"
+
+msgid "King Gambit Accepted: Cunningham, Bertin Gambit"
+msgstr "Gambit Roi accepté, défense Cunningham, gambit Bertin"
+
+msgid "King Gambit Accepted: Cunningham, Euwe Defence"
+msgstr "Gambit Roi accepté, défense Cunningham, défense Euwe"
+
+msgid "King Gambit Accepted: Cunningham, Three Pawns Gambit"
+msgstr "Gambit Roi accepté, défense Cunningham, gambit des trois pions"
+
+msgid "King Gambit Accepted: Double Muzio Gambit"
+msgstr "Gambit Roi accepté, double gambit Muzio"
+
+msgid "King Gambit Accepted: Fischer Defence"
+msgstr "Gambit Roi accepté, défense Fischer"
+
+msgid "King Gambit Accepted: Ghulam Kassim Gambit"
+msgstr "Gambit Roi accepté, gambit Ghulam Kassim"
+
+msgid "King Gambit Accepted: Gianutio Counter-Gambit"
+msgstr "Gambit Roi accepté, contre-gambit Gianuzio"
+
+msgid "King Gambit Accepted: Greco Gambit"
+msgstr "Gambit Roi accepté, gambit Greco"
+
+msgid "King Gambit Accepted: Herzfeld Gambit"
+msgstr "Gambit Roi accepté, gambit Herzfeld"
+
+msgid "King Gambit Accepted: Keres (Mason-Steinitz) Gambit"
+msgstr "Gambit Roi accepté, gambit Keres (Mason - Steinitz)"
+
+msgid "King Gambit Accepted: Kieseritsky, Berlin Defence, 6.Bc4"
+msgstr "Gambit Roi accepté, gambit Kieseritzky, défense de Berlin, 6.Fc4"
+
+msgid "King Gambit Accepted: Kieseritsky, Berlin Defence, Riviere Variation"
+msgstr ""
+"Gambit Roi accepté, gambit Kieseritzky, défense de Berlin, var. Rivière"
+
+msgid "King Gambit Accepted: Kieseritsky, Berlin Defence"
+msgstr "Gambit Roi accepté, gambit Kieseritzky, défense de Berlin"
+
+msgid "King Gambit Accepted: Kieseritsky, Brentano (Campbell) Defence"
+msgstr "Gambit Roi accepté, gambit Kieseritzky, défense Brentano (Campbell)"
+
+msgid "King Gambit Accepted: Kieseritsky, Brentano Defence, Caro Variation"
+msgstr "Gambit Roi accepté, gambit Kieseritzky, défense Brentano, var. Caro"
+
+msgid ""
+"King Gambit Accepted: Kieseritsky, Brentano Defence, Kaplanek Variation"
+msgstr ""
+"Gambit Roi accepté, gambit Kieseritzky, défense Brentano, var. Kaplanek"
+
+msgid "King Gambit Accepted: Kieseritsky, Brentano Defence"
+msgstr "Gambit Roi accepté, gambit Kieseritzky, défense Brentano"
+
+msgid "King Gambit Accepted: Kieseritsky, Kolisch Defence"
+msgstr "Gambit Roi accepté, gambit Kieseritzky, défense Kolisch"
+
+msgid "King Gambit Accepted: Kieseritsky, Neumann Defence"
+msgstr "Gambit Roi accepté, gambit Kieseritzky, défense Neumann"
+
+msgid "King Gambit Accepted: Kieseritsky, Paulsen Defence"
+msgstr "Gambit Roi accepté, gambit Kieseritzky, défense Paulsen"
+
+msgid "King Gambit Accepted: Kieseritsky, Polerio Defence"
+msgstr "Gambit Roi accepté, gambit Kieseritzky, défense Polerio"
+
+msgid "King Gambit Accepted: Kieseritsky, Rice Gambit"
+msgstr "Gambit Roi accepté, gambit Kieseritzky, gambit Rice"
+
+msgid "King Gambit Accepted: Kieseritsky, Salvio (Rosenthal) Defence"
+msgstr "Gambit Roi accepté, gambit Kieseritzky, défense Salvio (Rosenthal)"
+
+msgid "King Gambit Accepted: Kieseritsky, Salvio Defence, Cozio Variation"
+msgstr "Gambit Roi accepté, gambit Kieseritzky, défense Salvio, var. Cozio"
+
+msgid ""
+"King Gambit Accepted: Kieseritsky, long whip (Stockwhip, Classical) Defence"
+msgstr ""
+"Gambit Roi accepté, gambit Kieseritzky, défense du grand fouet (classique)"
+
+msgid ""
+"King Gambit Accepted: Kieseritsky, long whip Defence, Jaenisch Variation"
+msgstr ""
+"Gambit Roi accepté, gambit Kieseritzky, défense du grand fouet, var. "
+"Jaenisch"
+
+msgid "King Gambit Accepted: King knight Gambit"
+msgstr "Gambit Roi accepté, gambit du cavalier roi"
+
+msgid ""
+"King Gambit Accepted: Lesser Bishop (Petroff-Jaenisch-Tartakower) Gambit"
+msgstr ""
+"Gambit Roi accepté, 3.Fe2 (gambit du fou réduit ou plus faible (Petrov - "
+"Jaenisch - Tartakover))"
+
+msgid "King Gambit Accepted: Lolli Gambit (wild Muzio Gambit)"
+msgstr "Gambit Roi accepté, gambit Lolli (gambit Muzio sauvage)"
+
+msgid "King Gambit Accepted: Lolli Gambit, Young Variation"
+msgstr "Gambit Roi accepté, gambit Lolli, var. Young"
+
+msgid "King Gambit Accepted: Lopez-Gianutio Counter-Gambit, Hein Variation"
+msgstr "Gambit Roi accepté, contre-gambit López - Gianuzio, var. Hein"
+
+msgid "King Gambit Accepted: MacDonnell Gambit"
+msgstr "Gambit Roi accepté, gambit MacDonnell"
+
+msgid "King Gambit Accepted: Muzio Gambit, Brentano Defence"
+msgstr "Gambit Roi accepté, gambit Muzio (Polerio, Cascio), défense Brentano"
+
+msgid "King Gambit Accepted: Muzio Gambit, From Defence"
+msgstr "Gambit Roi accepté, gambit Muzio (Polerio, Cascio), défense From"
+
+msgid "King Gambit Accepted: Muzio Gambit, Holloway Defence"
+msgstr "Gambit Roi accepté, gambit Muzio (Polerio, Cascio), défense Holloway"
+
+msgid "King Gambit Accepted: Muzio Gambit, Kling and Horwitz Counter-Attack"
+msgstr ""
+"Gambit Roi accepté, gambit Muzio (Polerio, Cascio), contre-attaque Kling - "
+"Horwitz"
+
+msgid "King Gambit Accepted: Muzio Gambit, Paulsen Variation"
+msgstr "Gambit Roi accepté, gambit Muzio (Polerio, Cascio), var. Paulsen"
+
+msgid "King Gambit Accepted: Muzio Gambit"
+msgstr ""
+"Gambit Roi accepté, gambit Muzio (ou Polerio, et en fait, sans une probable "
+"erreur de traduction, Cascio)"
+
+msgid "King Gambit Accepted: Orsini Gambit"
+msgstr "Gambit Roi accepté, gambit Orsini"
+
+msgid "King Gambit Accepted: Pawn Gambit (Stamma Gambit)"
+msgstr "Gambit Roi accepté, gambit du pion (Stamma)"
+
+msgid "King Gambit Accepted: Philidor Gambit, Schultz Variation"
+msgstr "Gambit Roi accepté, gambit Philidor, var. Schultz"
+
+msgid "King Gambit Accepted: Philidor Gambit"
+msgstr "Gambit Roi accepté, gambit Philidor"
+
+msgid "King Gambit Accepted: Quaade Gambit"
+msgstr "Gambit Roi accepté, gambit Quaade"
+
+msgid "King Gambit Accepted: Rosentreter Gambit"
+msgstr "Gambit Roi accepté, gambit Rosentreter"
+
+msgid "King Gambit Accepted: Salvio Gambit, Anderssen Counter-Attack"
+msgstr "Gambit Roi accepté, gambit Salvio, contre-attaque Anderssen"
+
+msgid "King Gambit Accepted: Salvio Gambit"
+msgstr "Gambit Roi accepté, gambit Salvio"
+
+msgid "King Gambit Accepted: Schallop Defence"
+msgstr "Gambit Roi accepté, défense Schallop"
+
+msgid "King Gambit Accepted: Schurig Gambit"
+msgstr "Gambit Roi accepté, gambit Schurig"
+
+msgid "King Gambit Accepted: Silberschmidt Gambit"
+msgstr "Gambit Roi accepté, gambit Silberschmidt"
+
+msgid "King Gambit Accepted: Soerensen Gambit"
+msgstr "Gambit Roi accepté, gambit Sørensen"
+
+msgid "King Gambit Accepted: Tumbleweed Gambit"
+msgstr "Gambit Roi accepté, gambit tumbleweed (du virevoltant)"
+
+msgid "King Gambit Accepted: Villemson (Steinitz) Gambit"
+msgstr "Gambit Roi accepté, gambit Villemson (Steinitz)"
+
+msgid "King Gambit Accepted"
+msgstr "Gambit Roi accepté"
+
+msgid "King Gambit Declined: 2...Nf6"
+msgstr "Gambit Roi refusé, 2...Cf6"
+
+msgid "King Gambit Declined: Classical Counter-Gambit"
+msgstr "Gambit Roi refusé classique, contre-gambit"
+
+msgid "King Gambit Declined: Classical Variation"
+msgstr "Gambit Roi refusé, var. classique"
+
+msgid "King Gambit Declined: Classical, 4.c3"
+msgstr "Gambit Roi refusé classique, 4.c3"
+
+msgid "King Gambit Declined: Classical, Hanham Variation"
+msgstr "Gambit Roi refusé classique, var. Hanham"
+
+msgid "King Gambit Declined: Classical, Heath Variation"
+msgstr "Gambit Roi refusé classique, var. Heath"
+
+msgid "King Gambit Declined: Classical, Marshall Attack"
+msgstr "Gambit Roi refusé classique, attaque Marshall"
+
+msgid "King Gambit Declined: Classical, Reti Variation"
+msgstr "Gambit Roi refusé classique, var. Réti"
+
+msgid "King Gambit Declined: Classical, Soldatenkov Variation"
+msgstr "Gambit Roi refusé classique, var. Soldatenkov"
+
+msgid "King Gambit Declined: Classical, Svenonius Variation"
+msgstr "Gambit Roi refusé classique, var. Svenonius"
+
+msgid "King Gambit Declined: Falkbeer Counter-Gambit"
+msgstr "Gambit Roi refusé, contre-gambit Falkbeer"
+
+msgid "King Gambit Declined: Falkbeer, 3...e4"
+msgstr "Gambit Roi refusé, contre-gambit Falkbeer, 3...e4"
+
+msgid "King Gambit Declined: Falkbeer, 4.d3"
+msgstr "Gambit Roi refusé, contre-gambit Falkbeer, 4.d3"
+
+msgid "King Gambit Declined: Falkbeer, 5.de"
+msgstr "Gambit Roi refusé, contre-gambit Falkbeer, 5.dxe4"
+
+msgid "King Gambit Declined: Falkbeer, Alapin Variation"
+msgstr "Gambit Roi refusé, contre-gambit Falkbeer, var. Alapin"
+
+msgid "King Gambit Declined: Falkbeer, Charousek Gambit"
+msgstr "Gambit Roi refusé, contre-gambit Falkbeer, gambit Charousek"
+
+msgid "King Gambit Declined: Falkbeer, Keres Variation"
+msgstr "Gambit Roi refusé, contre-gambit Falkbeer, var. Keres"
+
+msgid "King Gambit Declined: Falkbeer, Main Line, 7...Bf5"
+msgstr "Gambit Roi refusé, contre-gambit Falkbeer, ligne principale, 7...Ff5"
+
+msgid "King Gambit Declined: Falkbeer, Milner-Barry Variation"
+msgstr "Gambit Roi refusé, contre-gambit Falkbeer, var. Milner-Barry"
+
+msgid "King Gambit Declined: Falkbeer, Morphy Gambit"
+msgstr "Gambit Roi refusé, contre-gambit Falkbeer, gambit Morphy"
+
+msgid "King Gambit Declined: Falkbeer, Nimzovich Variation"
+msgstr "Gambit Roi refusé, contre-gambit Falkbeer, var. Nimzowitsch"
+
+msgid "King Gambit Declined: Falkbeer, Reti Variation"
+msgstr "Gambit Roi refusé, contre-gambit Falkbeer, var. Réti"
+
+msgid "King Gambit Declined: Falkbeer, Rubinstein Variation"
+msgstr "Gambit Roi refusé, contre-gambit Falkbeer, var. Rubinstein"
+
+msgid "King Gambit Declined: Falkbeer, Tarrasch Variation"
+msgstr "Gambit Roi refusé, contre-gambit Falkbeer, var. Tarrasch"
+
+msgid "King Gambit Declined: Falkbeer, Tartakower Variation"
+msgstr "Gambit Roi refusé, contre-gambit Falkbeer, var. Tartakover"
+
+msgid "King Gambit Declined: Keene Defence"
+msgstr "Gambit Roi refusé, défense Keene"
+
+msgid "King Gambit Declined: Mafia Defence"
+msgstr "Gambit Roi refusé, défense de la mafia"
+
+msgid "King Gambit Declined: Nimzovich Counter-Gambit"
+msgstr "Gambit Roi refusé, contre-gambit Nimzowitsch"
+
+msgid "King Gambit Declined: Norwalde Variation, Buecker Gambit"
+msgstr ""
+"Gambit Roi refusé, var. Norwalde (club d'échecs à Greven en Allemagne), "
+"gambit Bücker"
+
+msgid "King Gambit Declined: Norwalde Variation"
+msgstr ""
+"Gambit Roi refusé, var. Norwalde (club d'échecs à Greven en Allemagne)"
+
+msgid "King Gambit"
+msgstr "Gambit Roi"
+
+msgid "King Indian Defence, 3.Nc3"
+msgstr "Défense est-indienne, 3.Cc3"
+
+msgid "King Indian Defence: 3.Nf3"
+msgstr "Défense est-indienne, 3.Cf3"
+
+msgid "King Indian Defence: 3.g3"
+msgstr "Défense est-indienne, 3.g3"
+
+msgid "King Indian Defence: 4.e4"
+msgstr "Défense est-indienne, 4.e4"
+
+msgid "King Indian Defence: 5.Be2"
+msgstr "Défense est-indienne, 5.Fe2"
+
+msgid "King Indian Defence: 5.Nf3"
+msgstr "Défense est-indienne, 5.Cf3"
+
+msgid "King Indian Defence: 6.Be2"
+msgstr "Défense est-indienne, 6.Fe2"
+
+msgid "King Indian Defence: Accelerated Averbakh System"
+msgstr "Défense est-indienne, système Averbakh accéléré"
+
+msgid "King Indian Defence: Andersson Variation"
+msgstr "Défense est-indienne, var. Andersson"
+
+msgid "King Indian Defence: Anti-Grünfeld"
+msgstr "Défense est-indienne, var. anti-Grünfeld"
+
+msgid "King Indian Defence: Averbakh System"
+msgstr "Défense est-indienne, système Averbakh"
+
+msgid "King Indian Defence: Averbakh, 6...c5"
+msgstr "Défense est-indienne, système Averbakh, 6...c5"
+
+msgid "King Indian Defence: Averbakh, Main Line"
+msgstr "Défense est-indienne, système Averbakh, ligne principale"
+
+msgid "King Indian Defence: Classical Variation"
+msgstr "Défense est-indienne, var. classique"
+
+msgid "King Indian Defence: Danube Gambit"
+msgstr "Défense est-indienne, gambit du Danube"
+
+msgid "King Indian Defence: East Indian Defence"
+msgstr "Défense est-indienne, \"East Indian defence\""
+
+msgid "King Indian Defence: Fianchetto Variation"
+msgstr "Défense est-indienne, var. du fianchetto-roi"
+
+msgid "King Indian Defence: Fianchetto with ...Nc6"
+msgstr "Défense est-indienne, var. du fianchetto-roi, avec ...Cc6"
+
+msgid "King Indian Defence: Fianchetto with ...Nd7"
+msgstr "Défense est-indienne, var. du fianchetto-roi, avec ...Cd7"
+
+msgid "King Indian Defence: Fianchetto without c4"
+msgstr "Défense est-indienne, var. du fianchetto-roi, sans c4"
+
+msgid "King Indian Defence: Fianchetto, Classical Main Line"
+msgstr ""
+"Défense est-indienne, var. du fianchetto-roi, var. classique, ligne "
+"principale"
+
+msgid "King Indian Defence: Fianchetto, Classical Variation, 8.e4"
+msgstr "Défense est-indienne, var. du fianchetto-roi, var. classique, 8.e4"
+
+msgid "King Indian Defence: Fianchetto, Classical Variation"
+msgstr "Défense est-indienne, var. du fianchetto-roi, var. classique"
+
+msgid "King Indian Defence: Fianchetto, Kavalek (Bronstein) Variation"
+msgstr ""
+"Défense est-indienne, var. du fianchetto-roi, var. Kavalek (Bronstein)"
+
+msgid "King Indian Defence: Fianchetto, Larsen System"
+msgstr "Défense est-indienne, var. du fianchetto-roi, système Larsen"
+
+msgid "King Indian Defence: Fianchetto, Panno Variation"
+msgstr "Défense est-indienne, var. du fianchetto-roi, var. Panno"
+
+msgid "King Indian Defence: Fianchetto, Simagin Variation"
+msgstr "Défense est-indienne, var. du fianchetto-roi, 7...Fg4 (var. Simagin)"
+
+msgid "King Indian Defence: Fianchetto, Uhlmann (Szabo) Variation"
+msgstr "Défense est-indienne, var. du fianchetto-roi, var. Uhlmann (Szabó)"
+
+msgid "King Indian Defence: Fianchetto, Yugoslav Panno"
+msgstr ""
+"Défense est-indienne, var. du fianchetto-roi, système yougoslave, var. Panno"
+
+msgid "King Indian Defence: Fianchetto, Yugoslav System"
+msgstr "Défense est-indienne, var. du fianchetto-roi, système yougoslave"
+
+msgid "King Indian Defence: Fianchetto, Yugoslav, 7.O-O"
+msgstr ""
+"Défense est-indienne, var. du fianchetto-roi, système yougoslave, 7.O-O"
+
+msgid "King Indian Defence: Fianchetto, lesser Simagin (Spassky) Variation"
+msgstr ""
+"Défense est-indienne, var. du fianchetto-roi, 7...Ff5 (var. Simagin réduite "
+"et plus forte (Spassky))"
+
+msgid "King Indian Defence: Four Pawns Attack, 6.Be2"
+msgstr "Défense est-indienne, attaque des quatre pions, 6.Fe2"
+
+msgid "King Indian Defence: Four Pawns Attack, Florentine Gambit"
+msgstr "Défense est-indienne, attaque des quatre pions, gambit florentin"
+
+msgid "King Indian Defence: Four Pawns Attack, Main Line"
+msgstr "Défense est-indienne, attaque des quatre pions, ligne principale"
+
+msgid "King Indian Defence: Four Pawns Attack, dynamic Line"
+msgstr "Défense est-indienne, attaque des quatre pions, ligne dynamique"
+
+msgid "King Indian Defence: Four Pawns Attack, with Be2 and Nf3"
+msgstr "Défense est-indienne, attaque des quatre pions, avec Fe2 et Cf3"
+
+msgid "King Indian Defence: Four Pawns Attack"
+msgstr "Défense est-indienne, attaque des quatre pions"
+
+msgid "King Indian Defence: Gligoric-Taimanov System"
+msgstr "Défense est-indienne, système Gligorić - Taïmanov"
+
+msgid "King Indian Defence: Kazakh Variation"
+msgstr "Défense est-indienne, var. kazakh"
+
+msgid "King Indian Defence: Kramer System"
+msgstr "Défense est-indienne, système Kramer"
+
+msgid "King Indian Defence: Larsen Variation"
+msgstr "Défense est-indienne, var. Larsen"
+
+msgid "King Indian Defence: London System"
+msgstr "Défense est-indienne, système de Londres"
+
+msgid "King Indian Defence: Makagonov System (5.h3)"
+msgstr "Défense est-indienne, système Makogonov, 5.h3"
+
+msgid "King Indian Defence: Petrosian System, Keres Variation"
+msgstr "Défense est-indienne, système Petrossian, var. Keres"
+
+msgid "King Indian Defence: Petrosian System, Main Line"
+msgstr "Défense est-indienne, système Petrossian, ligne principale"
+
+msgid "King Indian Defence: Petrosian System, Stein Variation"
+msgstr "Défense est-indienne, système Petrossian, var. Stein"
+
+msgid "King Indian Defence: Petrosian System"
+msgstr "Défense est-indienne, système Petrossian"
+
+msgid "King Indian Defence: Pomar System"
+msgstr "Défense est-indienne, système Pomar"
+
+msgid "King Indian Defence: Saemisch Variation"
+msgstr "Défense est-indienne, var. Sämisch"
+
+msgid "King Indian Defence: Saemisch, 5...O-O"
+msgstr "Défense est-indienne, var. Sämisch, 5...O-O"
+
+msgid "King Indian Defence: Saemisch, 6...Nc6"
+msgstr "Défense est-indienne, var. Sämisch, 6...Cc6"
+
+msgid "King Indian Defence: Saemisch, Byrne Variation"
+msgstr "Défense est-indienne, var. Sämisch, var. Byrne"
+
+msgid "King Indian Defence: Saemisch, Double Fianchetto Variation"
+msgstr "Défense est-indienne, var. Sämisch, var. du double fianchetto"
+
+msgid "King Indian Defence: Saemisch, Panno Formation"
+msgstr "Défense est-indienne, var. Sämisch, formation Panno"
+
+msgid "King Indian Defence: Saemisch, Panno Main Line"
+msgstr "Défense est-indienne, var. Sämisch, formation Panno, ligne principale"
+
+msgid "King Indian Defence: Saemisch, Ruban Variation"
+msgstr "Défense est-indienne, var. Sämisch, var. Ruban"
+
+msgid "King Indian Defence: Saemisch, orthodox Main Line"
+msgstr "Défense est-indienne, var. Sämisch, var. orthodoxe, ligne principale"
+
+msgid "King Indian Defence: Saemisch, orthodox Variation"
+msgstr "Défense est-indienne, var. Sämisch, var. orthodoxe"
+
+msgid "King Indian Defence: Saemisch, orthodox, 7.Nge2 c6"
+msgstr "Défense est-indienne, var. Sämisch, var. orthodoxe, 7.Cge2 c6"
+
+msgid "King Indian Defence: Saemisch, orthodox, 7.d5 c6"
+msgstr "Défense est-indienne, var. Sämisch, var. orthodoxe, 7.d5 c6"
+
+msgid "King Indian Defence: Saemisch, orthodox, 7.d5"
+msgstr "Défense est-indienne, var. Sämisch, var. orthodoxe, 7.d5"
+
+msgid "King Indian Defence: Semi-Averbakh System"
+msgstr "Défense est-indienne, système semi-Averbakh"
+
+msgid "King Indian Defence: Smyslov System"
+msgstr "Défense est-indienne, système Smyslov"
+
+msgid "King Indian Defence: Torre Attack"
+msgstr "Défense est-indienne, attaque Torre"
+
+msgid "King Indian Defence: Zinnowitz Variation"
+msgstr "Défense est-indienne, var. de Zinnowitz"
+
+msgid "King Indian Defence: orthodox Variation"
+msgstr "Défense est-indienne, var. orthodoxe"
+
+msgid "King Indian Defence: orthodox, 7...Nbd7, 8.Re1"
+msgstr "Défense est-indienne, var. orthodoxe, 7...Cbd7 8.Te1"
+
+msgid "King Indian Defence: orthodox, 7...Nbd7, Main Line"
+msgstr "Défense est-indienne, var. orthodoxe, 7...Cbd7, ligne principale"
+
+msgid "King Indian Defence: orthodox, 7...Nbd7"
+msgstr "Défense est-indienne, var. orthodoxe, 7...Cbd7"
+
+msgid "King Indian Defence: orthodox, Aronin-Taimanov Variation"
+msgstr "Défense est-indienne, var. orthodoxe, var. Aronine - Taïmanov"
+
+msgid "King Indian Defence: orthodox, Aronin-Taimanov, 9.Ne1"
+msgstr "Défense est-indienne, var. orthodoxe, var. Aronine - Taïmanov, 9.Ce1"
+
+msgid "King Indian Defence: orthodox, Aronin-Taimanov, Benko Attack"
+msgstr ""
+"Défense est-indienne, var. orthodoxe, var. Aronine - Taïmanov, attaque Benko"
+
+msgid "King Indian Defence: orthodox, Aronin-Taimanov, Main Line"
+msgstr ""
+"Défense est-indienne, var. orthodoxe, var. Aronine - Taïmanov, ligne "
+"principale"
+
+msgid "King Indian Defence: orthodox, Aronin-Taimanov, bayonet Attack"
+msgstr ""
+"Défense est-indienne, var. orthodoxe, var. Aronine - Taïmanov, attaque à la"
+"  baïonnette"
+
+msgid "King Indian Defence: orthodox, Donner Variation"
+msgstr "Défense est-indienne, var. orthodoxe, var. Donner"
+
+msgid "King Indian Defence: six Pawns Attack"
+msgstr "Défense est-indienne, attaque des six pions"
+
+msgid "King Indian Defence: with e4 & g3"
+msgstr "Défense est-indienne, avec e4 et g3"
+
+msgid "King Indian Defence"
+msgstr "Défense est-indienne"
+
+msgid "King Pawn Opening: Colorado Counter"
+msgstr "Début du pion Roi, contre-attaque du Colorado"
+
+msgid "King Pawn Opening: Indian Opening"
+msgstr "Début du pion Roi, ouverture indienne"
+
+msgid "King Pawn Opening: Lopez Opening"
+msgstr "Début du pion Roi, ouverture López ou attaque MacLeod"
+
+msgid "King Pawn Opening: Mengarini Opening"
+msgstr "Début du pion Roi, ouverture Mengarini"
+
+msgid "King Pawn Opening: Napoleon Opening"
+msgstr "Début du pion Roi, ouverture Napoléon"
+
+msgid "King Pawn Opening: Nimzovich Defence, Bogolyubov Variation"
+msgstr "Début du pion Roi, défense Nimzowitsch, var. Bogoljubov"
+
+msgid "King Pawn Opening: Nimzovich Defence, Marshall Gambit"
+msgstr "Début du pion Roi, défense Nimzowitsch, gambit Marshall"
+
+msgid "King Pawn Opening: Nimzovich Defence"
+msgstr "Début du pion Roi, défense Nimzowitsch"
+
+msgid "King Pawn Opening: Patzer Opening"
+msgstr "Début du pion Roi, ouverture de l'excursion de la dame"
+
+msgid "King Pawn Opening"
+msgstr "Début du pion Roi"
+
+msgid "King knight Gambit"
+msgstr "Gambit Roi accepté, gambit du cavalier roi"
+
+msgid "King knight Opening"
+msgstr "Ouverture du cavalier roi"
+
+msgid "Konstantinopolsky Opening"
+msgstr "Début Konstantinopolsky"
+
+msgid "Lasker Simul Special"
+msgstr "Ouverture Lasker \"simul special\""
+
+msgid "Latvian Counter-Gambit"
+msgstr "Gambit letton (ou contre-gambit Greco)"
+
+msgid "Latvian Gambit, 3.Bc4"
+msgstr "Gambit letton, 3.Fc4"
+
+msgid "Latvian Gambit: Fraser Defence"
+msgstr "Gambit letton, défense Fraser"
+
+msgid "Latvian Gambit: Nimzovich Variation"
+msgstr "Gambit letton, var. Nimzowitsch"
+
+msgid "Latvian Gambit: Polerio Variation"
+msgstr "Gambit letton, var. Polerio"
+
+msgid "Latvian Gambit: corkscrew Counter-Gambit"
+msgstr "Gambit letton, contre-gambit du tire-bouchon"
+
+msgid "Lemming Defence"
+msgstr "Défense du lemming"
+
+msgid "Lengfellner System"
+msgstr "Système Lengfellner"
+
+msgid "Levitsky Attack (Queen Bishop Attack)"
+msgstr "Attaque Levitsky (attaque du fou dame)"
+
+msgid "Mieses Opening"
+msgstr "Ouverture Mieses"
+
+msgid "Modern Defence: Averbakh System, Kotov Variation"
+msgstr "Défense moderne, système Averbakh, var. Kotov"
+
+msgid "Modern Defence: Averbakh System, Randspringer Variation"
+msgstr ""
+"Défense moderne, système Averbakh, var. du cavalier sur la bande "
+"(Randspringer)"
+
+msgid "Modern Defence: Averbakh System"
+msgstr "Défense moderne, système Averbakh"
+
+msgid "Modern Defence"
+msgstr "Défense moderne"
+
+msgid "Mujannah Opening"
+msgstr "Ouverture Mujannah (du persan \"ouverture par le flanc\")"
+
+msgid "Neo-Grünfeld (Kemeri) Defence"
+msgstr "Défense néo-Grünfeld de Kemeri"
+
+msgid "Neo-Grünfeld Defence: 5.Nf3"
+msgstr "Défense néo-Grünfeld, 5.Cf3"
+
+msgid "Neo-Grünfeld Defence: 5.cd, Main Line"
+msgstr "Défense néo-Grünfeld, 5.cxd5, ligne principale"
+
+msgid "Neo-Grünfeld Defence: 5.cd"
+msgstr "Défense néo-Grünfeld, 5.cxd5"
+
+msgid "Neo-Grünfeld Defence: 6.O-O c6"
+msgstr "Défense néo-Grünfeld, 6.O-O c6"
+
+msgid "Neo-Grünfeld Defence: 6.O-O, Main Line"
+msgstr "Défense néo-Grünfeld, 6.O-O, ligne principale"
+
+msgid "Neo-Grünfeld Defence: 6.O-O"
+msgstr "Défense néo-Grünfeld, 6.O-O"
+
+msgid "Neo-Grünfeld Defence: 6.cd Nxd5, 7.O-O Nb6"
+msgstr "Défense néo-Grünfeld, 6.cxd5 Cxd5 7.O-O Cb6"
+
+msgid "Neo-Grünfeld Defence: 6.cd Nxd5, 7.O-O c5, 8.Nc3"
+msgstr "Défense néo-Grünfeld, 6.cxd5 Cxd5 7.O-O c5 8.Cc3"
+
+msgid "Neo-Grünfeld Defence: 6.cd Nxd5, 7.O-O c5, 8.dc"
+msgstr "Défense néo-Grünfeld, 6.cxd5 Cxd5 7.O-O c5 8.dxc5"
+
+msgid "Neo-Grünfeld Defence: 6.cd Nxd5, 7.O-O"
+msgstr "Défense néo-Grünfeld, 6.cxd5 Cxd5 7.O-O"
+
+msgid "Neo-Grünfeld Defence"
+msgstr "Défense néo-Grünfeld"
+
+msgid "Neo-Indian (Seirawan) Attack"
+msgstr "Attaque néo-indienne (Seirawan)"
+
+msgid "Nimzo-Indian Defence: 4.e3 O-O, 5.Bd3 d5"
+msgstr "Défense Nimzo-indienne, 4.e3 O-O 5.Fd3 d5"
+
+msgid "Nimzo-Indian Defence: 4.e3 O-O, 5.Bd3"
+msgstr "Défense Nimzo-indienne, 4.e3 O-O 5.Fd3"
+
+msgid "Nimzo-Indian Defence: 4.e3 O-O"
+msgstr "Défense Nimzo-indienne, 4.e3 O-O"
+
+msgid "Nimzo-Indian Defence: 4.e3 c5, 5.Ne2 (Rubinstein)"
+msgstr "Défense Nimzo-indienne, 4.e3 c5 5.Ce2 (Rubinstein)"
+
+msgid "Nimzo-Indian Defence: 4.e3 c5"
+msgstr "Défense Nimzo-indienne, 4.e3 c5"
+
+msgid "Nimzo-Indian Defence: 4.e3 e8g8, 5.Nf3 d7d5"
+msgstr "Défense Nimzo-indienne, 4.e3 O-O 5.Cf3 d5"
+
+msgid "Nimzo-Indian Defence: 4.e3 e8g8, 5.Nf3, without ...d5"
+msgstr "Défense Nimzo-indienne, 4.e3 O-O 5.Cf3, sans ..d5"
+
+msgid "Nimzo-Indian Defence: 4.e3, Botvinnik System"
+msgstr "Défense Nimzo-indienne, 4.e3, système Botvinnik"
+
+msgid "Nimzo-Indian Defence: 4.e3, Bronstein (Byrne) Variation"
+msgstr "Défense Nimzo-indienne, 4.e3, var. Bronstein (Byrne)"
+
+msgid "Nimzo-Indian Defence: 4.e3, Gligoric System with 7...Nbd7"
+msgstr "Défense Nimzo-indienne, 4.e3, système Gligorić, 7...Cbd7"
+
+msgid "Nimzo-Indian Defence: 4.e3, Gligoric System with 7...dc"
+msgstr "Défense Nimzo-indienne, 4.e3, système Gligorić, 7...dc"
+
+msgid "Nimzo-Indian Defence: 4.e3, Gligoric System, Bronstein Variation"
+msgstr "Défense Nimzo-indienne, 4.e3, système Gligorić, var. Bronstein"
+
+msgid "Nimzo-Indian Defence: 4.e3, Gligoric System, Smyslov Variation"
+msgstr "Défense Nimzo-indienne, 4.e3, système Gligorić, var. Smyslov"
+
+msgid "Nimzo-Indian Defence: 4.e3, Keres Variation"
+msgstr "Défense Nimzo-indienne, 4.e3, var. Keres"
+
+msgid "Nimzo-Indian Defence: 4.e3, Main Line with ...b6"
+msgstr "Défense Nimzo-indienne, 4.e3, ligne principale, avec ...b6"
+
+msgid "Nimzo-Indian Defence: 4.e3, Main Line with ...c5"
+msgstr "Défense Nimzo-indienne, 4.e3, ligne principale, avec ...c5"
+
+msgid "Nimzo-Indian Defence: 4.e3, Main Line with 7...Nc6"
+msgstr "Défense Nimzo-indienne, 4.e3, ligne principale, 7...Cc6"
+
+msgid "Nimzo-Indian Defence: 4.e3, Main Line with 8...Bxc3"
+msgstr "Défense Nimzo-indienne, 4.e3, ligne principale, 8...Fxc3"
+
+msgid "Nimzo-Indian Defence: 4.e3, Main Line with 8...dc and 9...cd"
+msgstr "Défense Nimzo-indienne, 4.e3, ligne principale, 8...dxc4 et 9...cxd4"
+
+msgid "Nimzo-Indian Defence: 4.e3, Main Line"
+msgstr "Défense Nimzo-indienne, 4.e3, ligne principale"
+
+msgid "Nimzo-Indian Defence: 4.e3, Ragozin Variation"
+msgstr "Défense Nimzo-indienne, 4.e3, var. Ragozin"
+
+msgid "Nimzo-Indian Defence: 4.e3, Taimanov Variation"
+msgstr "Défense Nimzo-indienne, 4.e3, var. Taïmanov"
+
+msgid "Nimzo-Indian Defence: 4.e3"
+msgstr "Défense Nimzo-indienne, 4.e3"
+
+msgid "Nimzo-Indian Defence: Classical Variation"
+msgstr "Défense Nimzo-indienne, var. classique"
+
+msgid "Nimzo-Indian Defence: Classical, 4...Nc6"
+msgstr "Défense Nimzo-indienne classique, 4...Cc6"
+
+msgid "Nimzo-Indian Defence: Classical, 4...c5"
+msgstr "Défense Nimzo-indienne classique, 4...c5"
+
+msgid "Nimzo-Indian Defence: Classical, Adorjan Gambit"
+msgstr "Défense Nimzo-indienne classique, gambit Adorjan"
+
+msgid "Nimzo-Indian Defence: Classical, Botvinnik Variation"
+msgstr "Défense Nimzo-indienne classique, var. Botvinnik"
+
+msgid "Nimzo-Indian Defence: Classical, Milner-Barry (Zurich) Variation"
+msgstr "Défense Nimzo-indienne classique, var. Milner-Barry (de Zurich)"
+
+msgid "Nimzo-Indian Defence: Classical, Noa Variation, 5.a3"
+msgstr "Défense Nimzo-indienne classique, var. Noa, 5.a3"
+
+msgid "Nimzo-Indian Defence: Classical, Noa Variation, 5.cd ed"
+msgstr "Défense Nimzo-indienne classique, var. Noa, 5.cd ed"
+
+msgid "Nimzo-Indian Defence: Classical, Noa Variation, Main Line, 7.Qc2"
+msgstr "Défense Nimzo-indienne classique, var. Noa, ligne principale, 7.Dc2"
+
+msgid "Nimzo-Indian Defence: Classical, Noa Variation, Main Line"
+msgstr "Défense Nimzo-indienne classique, var. Noa, ligne principale"
+
+msgid "Nimzo-Indian Defence: Classical, Noa Variation"
+msgstr "Défense Nimzo-indienne classique, var. Noa"
+
+msgid "Nimzo-Indian Defence: Classical, Pirc Variation"
+msgstr "Défense Nimzo-indienne classique, var. Pirc"
+
+msgid "Nimzo-Indian Defence: Classical, San Remo Variation"
+msgstr "Défense Nimzo-indienne classique, var. de San Remo"
+
+msgid "Nimzo-Indian Defence: Fischer Variation, 5.Ne2"
+msgstr "Défense Nimzo-indienne, var. Fischer, 5.Ce2"
+
+msgid "Nimzo-Indian Defence: Fischer Variation"
+msgstr "Défense Nimzo-indienne, var. Fischer"
+
+msgid "Nimzo-Indian Defence: Kmoch Variation"
+msgstr "Défense Nimzo-indienne, var. Kmoch"
+
+msgid "Nimzo-Indian Defence: Leningrad Variation"
+msgstr "Défense Nimzo-indienne, var. de Saint-Pétersbourg (Léningrad)"
+
+msgid "Nimzo-Indian Defence: Leningrad, ...b5 Gambit"
+msgstr ""
+"Défense Nimzo-indienne, var. de Saint-Pétersbourg (Léningrad), gambit ...b5"
+
+msgid "Nimzo-Indian Defence: Leningrad, Main Line"
+msgstr ""
+"Défense Nimzo-indienne, var. de Saint-Pétersbourg (Léningrad), ligne "
+"principale"
+
+msgid "Nimzo-Indian Defence: Mikenas Attack"
+msgstr "Défense Nimzo-indienne, attaque Mikenas"
+
+msgid "Nimzo-Indian Defence: Reshevsky Variation"
+msgstr "Défense Nimzo-indienne, var. Rzeszewski"
+
+msgid "Nimzo-Indian Defence: Romanishin-Kasparov (Steiner) System"
+msgstr "Défense Nimzo-indienne, système Romanichine - Kasparov (Steiner)"
+
+msgid "Nimzo-Indian Defence: Saemisch Variation"
+msgstr "Défense Nimzo-indienne, var. Sämisch"
+
+msgid "Nimzo-Indian Defence: Saemisch, Botvinnik Variation"
+msgstr "Défense Nimzo-indienne, var. Sämisch, var. Botvinnik"
+
+msgid "Nimzo-Indian Defence: Saemisch, Capablanca Variation"
+msgstr "Défense Nimzo-indienne, var. Sämisch, var. Capablanca"
+
+msgid "Nimzo-Indian Defence: Saemisch, Keres Variation"
+msgstr "Défense Nimzo-indienne, var. Sämisch, var. Keres"
+
+msgid "Nimzo-Indian Defence: Saemisch, Main Line"
+msgstr "Défense Nimzo-indienne, var. Sämisch, ligne principale"
+
+msgid "Nimzo-Indian Defence: Saemisch, O'Kelly Variation"
+msgstr "Défense Nimzo-indienne, var. Sämisch, var. O'Kelly"
+
+msgid "Nimzo-Indian Defence: Saemisch, Romanovsky Variation"
+msgstr "Défense Nimzo-indienne, var. Sämisch, var. Romanovsky"
+
+msgid "Nimzo-Indian Defence: Simagin Variation"
+msgstr "Défense Nimzo-indienne, var. Simagin"
+
+msgid "Nimzo-Indian Defence: Spielmann Variation"
+msgstr "Défense Nimzo-indienne, var. Spielmann"
+
+msgid "Nimzo-Indian Defence: Spielmann, 4...c5, 5.dc Nc6"
+msgstr "Défense Nimzo-indienne, var. Spielmann, 4...c5 5.dxc5 Cc6"
+
+msgid "Nimzo-Indian Defence: Spielmann, Karlsbad Variation"
+msgstr ""
+"Défense Nimzo-indienne, var. Spielmann, var. de Carlsbad (Karlovy Vary)"
+
+msgid "Nimzo-Indian Defence: Spielmann, San Remo Variation"
+msgstr "Défense Nimzo-indienne, var. Spielmann, var. de San Remo"
+
+msgid "Nimzo-Indian Defence: Spielmann, Stahlberg Variation"
+msgstr "Défense Nimzo-indienne, var. Spielmann, var. Ståhlberg"
+
+msgid "Nimzo-Indian Defence: Three Knights Variation"
+msgstr "Défense Nimzo-indienne, var. des 3 cavaliers"
+
+msgid "Nimzo-Indian Defence: Three Knights, Euwe Variation"
+msgstr "Défense Nimzo-indienne, var. des 3 cavaliers, var. Euwe"
+
+msgid "Nimzo-Indian Defence: Three Knights, Korchnoi Variation"
+msgstr "Défense Nimzo-indienne, var. des 3 cavaliers, var. Kortchnoï"
+
+msgid "Nimzo-Indian Defence: e3, Huebner Variation"
+msgstr "Défense Nimzo-indienne, e3, var. Hübner"
+
+msgid "Nimzo-Indian Defence"
+msgstr "Défense Nimzo-indienne"
+
+msgid "Nimzovich-Larsen Attack: Classical Variation"
+msgstr "Attaque Nimzowitsch - Larsen, var. classique"
+
+msgid "Nimzovich-Larsen Attack: Dutch Variation"
+msgstr "Attaque Nimzowitsch - Larsen, var. hollandaise"
+
+msgid "Nimzovich-Larsen Attack: English Variation"
+msgstr "Attaque Nimzowitsch - Larsen, var. anglaise"
+
+msgid "Nimzovich-Larsen Attack: Indian Variation"
+msgstr "Attaque Nimzowitsch - Larsen, var. indienne"
+
+msgid "Nimzovich-Larsen Attack: Modern Variation"
+msgstr "Attaque Nimzowitsch - Larsen, var. moderne"
+
+msgid "Nimzovich-Larsen Attack: Polish Variation"
+msgstr "Attaque Nimzowitsch - Larsen, var. polonaise"
+
+msgid "Nimzovich-Larsen Attack: Symmetrical Variation"
+msgstr "Attaque Nimzowitsch - Larsen, var. symétrique"
+
+msgid "Nimzovich-Larsen Attack"
+msgstr "Attaque Nimzowitsch - Larsen"
+
+msgid "Norwegian Defence"
+msgstr "Défense norvégienne"
+
+msgid "Novosibirsk Opening"
+msgstr "Ouverture de Novossibirsk"
+
+msgid "Old Benoni Defence: Franco-Benoni Defence"
+msgstr "Défense Benoni ancienne, var. franco-Benoni"
+
+msgid "Old Benoni Defence: Mujannah Formation"
+msgstr ""
+"Défense Benoni ancienne, formation Mujannah (du persan \"ouverture par le "
+"flanc\")"
+
+msgid "Old Benoni Defence: Schmid System"
+msgstr "Défense Benoni ancienne, système Schmid"
+
+msgid "Old Benoni Defence"
+msgstr "Défense Benoni ancienne"
+
+msgid "Old Indian Defence: Dus-Khotimirsky Variation"
+msgstr "Défense vieille-indienne, var. Douz-Khotimirski"
+
+msgid "Old Indian Defence: Janowski Variation"
+msgstr "Défense vieille-indienne, var. Janowski"
+
+msgid "Old Indian Defence: Main Line"
+msgstr "Défense vieille-indienne, ligne principale"
+
+msgid "Old Indian Defence: Tartakower (Wade) Variation"
+msgstr "Défense vieille-indienne, var. Tartakover (Wade)"
+
+msgid "Old Indian Defence: Ukrainian Variation, 4.Nf3"
+msgstr "Défense vieille-indienne, var. ukrainienne, 4.Cf3"
+
+msgid "Old Indian Defence: Ukrainian Variation"
+msgstr "Défense vieille-indienne, var. ukrainienne"
+
+msgid "Old Indian Defence"
+msgstr "Défense vieille-indienne"
+
+msgid "Owen Defence"
+msgstr "Défense Owen"
+
+msgid "Paleface Attack"
+msgstr "Attaque \"Paleface\" [ visage pâle :) ]"
+
+msgid "Petrov Defence"
+msgstr "Défense Petrov (défense russe)"
+
+msgid "Philidor Defence: Berger Variation"
+msgstr "Défense Philidor, var. Berger"
+
+msgid "Philidor Defence: Boden Variation"
+msgstr "Défense Philidor, var. Boden"
+
+msgid "Philidor Defence: Exchange Variation"
+msgstr "Défense Philidor, var. d'échange"
+
+msgid "Philidor Defence: Hanham Variation"
+msgstr "Défense Philidor, var. Hanham"
+
+msgid "Philidor Defence: Hanham, Berger Variation"
+msgstr "Défense Philidor, var. Hanham, var. Berger"
+
+msgid "Philidor Defence: Hanham, Delmar Variation"
+msgstr "Défense Philidor, var. Hanham, var. Delmar"
+
+msgid "Philidor Defence: Hanham, Kmoch Variation"
+msgstr "Défense Philidor, var. Hanham, var. Kmoch"
+
+msgid "Philidor Defence: Hanham, Krause Variation"
+msgstr "Défense Philidor, var. Hanham, var. Krause"
+
+msgid "Philidor Defence: Hanham, Schlechter Variation"
+msgstr "Défense Philidor, var. Hanham, var. Schlechter"
+
+msgid "Philidor Defence: Hanham, Steiner Variation"
+msgstr "Défense Philidor, var. Hanham, var. Steiner"
+
+msgid "Philidor Defence: Improved Hanham Variation"
+msgstr "Défense Philidor, var. Hanham améliorée"
+
+msgid "Philidor Defence: Larsen Variation"
+msgstr "Défense Philidor, var. Larsen"
+
+msgid "Philidor Defence: Lopez Counter-Gambit, Jaenisch Variation"
+msgstr "Défense Philidor, contre-gambit López, var. Jaenisch"
+
+msgid "Philidor Defence: Lopez Counter-Gambit"
+msgstr "Défense Philidor, contre-gambit López"
+
+msgid "Philidor Defence: Nimzovich (Jaenisch) Variation"
+msgstr "Défense Philidor, var. Nimzowitsch (Jaenisch)"
+
+msgid "Philidor Defence: Nimzovich Variation"
+msgstr "Défense Philidor, var. Nimzowitsch"
+
+msgid "Philidor Defence: Nimzovich, Klein Variation"
+msgstr "Défense Philidor, var. Nimzowitsch, var. Klein"
+
+msgid "Philidor Defence: Nimzovich, Larobok Variation"
+msgstr ""
+"Défense Philidor, var. Nimzowitsch, var. Lärobok (manuel de Ludvig et Gustav"
+" Collijn)"
+
+msgid "Philidor Defence: Nimzovich, Locock Variation"
+msgstr "Défense Philidor, var. Nimzowitsch, var. Locock"
+
+msgid "Philidor Defence: Nimzovich, Rellstab Variation"
+msgstr "Défense Philidor, var. Nimzowitsch, var. Rellstab"
+
+msgid "Philidor Defence: Nimzovich, Sokolsky Variation"
+msgstr "Défense Philidor, var. Nimzowitsch, var. Sokolsky"
+
+msgid "Philidor Defence: Nimzovich, Sozin Variation"
+msgstr "Défense Philidor, var. Nimzowitsch, var. Sozin"
+
+msgid "Philidor Defence: Paulsen Attack"
+msgstr "Défense Philidor, attaque Paulsen"
+
+msgid "Philidor Defence: Philidor Counter-Gambit, Berger Variation"
+msgstr "Défense Philidor, contre-gambit Philidor, var. Berger"
+
+msgid "Philidor Defence: Philidor Counter-Gambit, Zukertort Variation"
+msgstr "Défense Philidor, contre-gambit Philidor, var. Zukertort"
+
+msgid "Philidor Defence: Philidor Counter-Gambit, del Rio Attack"
+msgstr "Défense Philidor, contre-gambit Philidor, attaque del Rio"
+
+msgid "Philidor Defence: Philidor Counter-Gambit"
+msgstr "Défense Philidor, contre-gambit Philidor"
+
+msgid "Philidor Defence: Steinitz Variation"
+msgstr "Défense Philidor, var. Steinitz"
+
+msgid "Philidor Defence"
+msgstr "Défense Philidor"
+
+msgid "Pirc Defence: 150 Attack"
+msgstr ""
+"Défense Pirc, attaque 150 (ECF 150 = Elo 1800 et la position permettrait "
+"d'obtenir à ce niveau un jeu fort sans aucune théorie)"
+
+msgid "Pirc Defence: Austrian Attack, 6.Bd3"
+msgstr "Défense Pirc, attaque autrichienne, 6.Fd3"
+
+msgid "Pirc Defence: Austrian Attack, 6.Be3"
+msgstr "Défense Pirc, attaque autrichienne, 6.Fe3"
+
+msgid "Pirc Defence: Austrian Attack, 6.e5"
+msgstr "Défense Pirc, attaque autrichienne, 6.e5"
+
+msgid "Pirc Defence: Austrian Attack, Dragon Formation"
+msgstr "Défense Pirc, attaque autrichienne, formation dragon"
+
+msgid "Pirc Defence: Austrian Attack, Ljubojevic Variation"
+msgstr "Défense Pirc, attaque autrichienne, var. Ljubojevic"
+
+msgid "Pirc Defence: Austrian Attack"
+msgstr "Défense Pirc, attaque autrichienne"
+
+msgid "Pirc Defence: Byrne Variation"
+msgstr "Défense Pirc, var. Byrne"
+
+msgid "Pirc Defence: Chinese Variation"
+msgstr "Défense Pirc, var. chinoise"
+
+msgid "Pirc Defence: Classical (Two Knights) System"
+msgstr "Défense Pirc, système classique (2 cavaliers)"
+
+msgid "Pirc Defence: Classical System, 5.Be2"
+msgstr "Défense Pirc, système classique (2 cavaliers), 5.Fe2"
+
+msgid "Pirc Defence: Classical, h3 System"
+msgstr "Défense Pirc, système classique (2 cavaliers), 5.h3"
+
+msgid "Pirc Defence: Holmov System"
+msgstr "Défense Pirc, système Holmov"
+
+msgid "Pirc Defence: Sveshnikov System"
+msgstr "Défense Pirc, système Sveshnikov"
+
+msgid "Pirc Defence: Ufimtsev-Pytel Variation"
+msgstr "Défense Pirc, var. Ufimtsev - Pytel"
+
+msgid "Pirc Defence: bayonet (Mariotti) Attack"
+msgstr "Défense Pirc, attaque à la baïonnette (Mariotti)"
+
+msgid "Pirc Defence"
+msgstr "Défense Pirc"
+
+msgid "Polish (Sokolsky) Opening"
+msgstr "Ouverture polonaise (Sokolsky, de l'orang-outang)"
+
+msgid "Polish (Sokolsky-Orangutan) Opening: Outflank Variation"
+msgstr "Ouverture polonaise, var. \"outflank\""
+
+msgid "Polish (Sokolsky-Orangutan) Opening: Tuebingen Variation"
+msgstr "Ouverture polonaise, var. de Tübingen"
+
+msgid "Polish Defence"
+msgstr "Défense polonaise"
+
+msgid "Ponziani Counter-Gambit, Cordel Variation"
+msgstr "Début Ponziani, contre-gambit, var. Cordel"
+
+msgid "Ponziani Counter-Gambit, Schmidt Attack"
+msgstr "Début Ponziani, contre-gambit, attaque Schmidt"
+
+msgid "Ponziani Counter-Gambit"
+msgstr "Début Ponziani, contre-gambit"
+
+msgid "Ponziani Opening: Caro Variation"
+msgstr "Début Ponziani, var. Caro"
+
+msgid "Ponziani Opening: Fraser Defence"
+msgstr "Début Ponziani, défense Fraser"
+
+msgid "Ponziani Opening: Jaenisch Counter-Attack"
+msgstr "Début Ponziani, contre-attaque Jaenisch"
+
+msgid "Ponziani Opening: Leonhardt Variation"
+msgstr "Début Ponziani, var. Leonhardt"
+
+msgid "Ponziani Opening: Reti Variation"
+msgstr "Début Ponziani, var. Réti"
+
+msgid "Ponziani Opening: Romanishin Variation"
+msgstr "Début Ponziani, var. Romanichine"
+
+msgid "Ponziani Opening: Steinitz Variation"
+msgstr "Début Ponziani, var. Steinitz"
+
+msgid "Ponziani Opening"
+msgstr "Début Ponziani"
+
+msgid "Pterodactyl Defence"
+msgstr "Défense du ptérodactyle"
+
+msgid "Queen Bishop Game"
+msgstr "Système de Londres"
+
+msgid "Queen Gambit Accepted, 4.Nc3"
+msgstr "Gambit Dame accepté, 4.Cc3"
+
+msgid "Queen Gambit Accepted, 4.e3"
+msgstr "Gambit Dame accepté, 4.e3"
+
+msgid "Queen Gambit Accepted, Bogolyubov Variation"
+msgstr "Gambit Dame accepté, var. Bogoljubov"
+
+msgid "Queen Gambit Accepted, Flohr Variation"
+msgstr "Gambit Dame accepté, var. Flohr"
+
+msgid "Queen Gambit Accepted, Janowsky-Larsen Variation"
+msgstr "Gambit Dame accepté, var. Janowski - Larsen"
+
+msgid "Queen Gambit Accepted, Smyslov Variation"
+msgstr "Gambit Dame accepté, var. Smyslov"
+
+msgid "Queen Gambit Accepted: 3.Nf3"
+msgstr "Gambit Dame accepté, 3.Cf3"
+
+msgid "Queen Gambit Accepted: 3.e4"
+msgstr "Gambit Dame accepté, 3.e4"
+
+msgid "Queen Gambit Accepted: 4...e6"
+msgstr "Gambit Dame accepté, 4...e6"
+
+msgid "Queen Gambit Accepted: Alekhine Defence, Alatortsev Variation"
+msgstr "Gambit Dame accepté, défense Alekhine, var. Alatortsev"
+
+msgid "Queen Gambit Accepted: Alekhine Defence, Borisenko-Furman Variation"
+msgstr "Gambit Dame accepté, défense Alekhine, var. Borisenko - Furman"
+
+msgid "Queen Gambit Accepted: Alekhine Defence"
+msgstr "Gambit Dame accepté, défense Alekhine"
+
+msgid "Queen Gambit Accepted: Classical Variation, 6.O-O"
+msgstr "Gambit Dame accepté classique, 6.O-O"
+
+msgid "Queen Gambit Accepted: Classical Variation"
+msgstr "Gambit Dame accepté, var. classique"
+
+msgid "Queen Gambit Accepted: Classical, 6...a6"
+msgstr "Gambit Dame accepté classique, 6...a6"
+
+msgid "Queen Gambit Accepted: Classical, 7...b5"
+msgstr "Gambit Dame accepté classique, 7...b5"
+
+msgid "Queen Gambit Accepted: Classical, 7.Qe2"
+msgstr "Gambit Dame accepté classique, 7.De2"
+
+msgid "Queen Gambit Accepted: Classical, 8...Bb7"
+msgstr "Gambit Dame accepté classique, 8...Fb7"
+
+msgid "Queen Gambit Accepted: Classical, Geller Variation"
+msgstr "Gambit Dame accepté classique, var. Geller"
+
+msgid "Queen Gambit Accepted: Classical, Rubinstein Variation"
+msgstr "Gambit Dame accepté classique, var. Rubinstein"
+
+msgid "Queen Gambit Accepted: Classical, Smyslov Variation"
+msgstr "Gambit Dame accepté classique, var. Smyslov"
+
+msgid "Queen Gambit Accepted: Classical, Steinitz Variation"
+msgstr "Gambit Dame accepté classique, var. Steinitz"
+
+msgid "Queen Gambit Accepted: Ericson Variation"
+msgstr "Gambit Dame accepté, var. Ericson"
+
+msgid "Queen Gambit Accepted: Haberditz Variation"
+msgstr "Gambit Dame accepté, var. Haberditz"
+
+msgid "Queen Gambit Accepted: Linares Variation"
+msgstr "Gambit Dame accepté, var. de Linares"
+
+msgid "Queen Gambit Accepted: Mannheim Variation"
+msgstr "Gambit Dame accepté, var. de Mannheim"
+
+msgid "Queen Gambit Accepted: Schwartz Defence"
+msgstr "Gambit Dame accepté, défense Schwartz"
+
+msgid "Queen Gambit Accepted"
+msgstr "Gambit Dame accepté"
+
+msgid "Queen Gambit Declined Semi-Slav: 5...Nd7"
+msgstr "Gambit Dame refusé, semi-slave, 5...Cd7"
+
+msgid "Queen Gambit Declined Semi-Slav: 5.Bg5 dc"
+msgstr "Gambit Dame refusé, semi-slave, 5.Fg5 dxc4"
+
+msgid "Queen Gambit Declined Semi-Slav: 5.e3"
+msgstr "Gambit Dame refusé, semi-slave, 5.e3"
+
+msgid "Queen Gambit Declined Semi-Slav: 6.Bd3"
+msgstr "Gambit Dame refusé, semi-slave, 6.Fd3"
+
+msgid "Queen Gambit Declined Semi-Slav: 7.Bc4"
+msgstr "Gambit Dame refusé, semi-slave, 7.Fc4"
+
+msgid ""
+"Queen Gambit Declined Semi-Slav: Accelerated Meran (Alekhine Variation)"
+msgstr "Gambit Dame refusé, semi-slave, var. de Méran accélérée (Alekhine)"
+
+msgid "Queen Gambit Declined Semi-Slav: Anti-Meran Gambit"
+msgstr "Gambit Dame refusé, semi-slave, gambit anti-variante de Méran"
+
+msgid "Queen Gambit Declined Semi-Slav: Anti-Meran, Alatortsev System"
+msgstr ""
+"Gambit Dame refusé, semi-slave, gambit anti-variante de Méran, système "
+"Alatortsev"
+
+msgid "Queen Gambit Declined Semi-Slav: Anti-Meran, Lilienthal Variation"
+msgstr ""
+"Gambit Dame refusé, semi-slave, gambit anti-variante de Méran, var. "
+"Lilienthal"
+
+msgid "Queen Gambit Declined Semi-Slav: Anti-Meran, Szabo Variation"
+msgstr ""
+"Gambit Dame refusé, semi-slave, gambit anti-variante de Méran, var. Szabó"
+
+msgid "Queen Gambit Declined Semi-Slav: Bogolyubov Variation"
+msgstr "Gambit Dame refusé, semi-slave, var. Bogoljubov"
+
+msgid "Queen Gambit Declined Semi-Slav: Botvinnik System (Anti-Meran)"
+msgstr ""
+"Gambit Dame refusé, semi-slave, système Botvinnik anti-variante de Méran"
+
+msgid "Queen Gambit Declined Semi-Slav: Chigorin Defence"
+msgstr "Gambit Dame refusé, semi-slave, défense Tchigorine"
+
+msgid "Queen Gambit Declined Semi-Slav: Ekstrom Variation"
+msgstr "Gambit Dame refusé, semi-slave, var. Ekström"
+
+msgid "Queen Gambit Declined Semi-Slav: Hastings Variation"
+msgstr "Gambit Dame refusé, semi-slave, var. d'Hastings"
+
+msgid "Queen Gambit Declined Semi-Slav: Meran Variation"
+msgstr "Gambit Dame refusé, semi-slave, var. de Méran"
+
+msgid "Queen Gambit Declined Semi-Slav: Meran, 8...a6"
+msgstr "Gambit Dame refusé, semi-slave, var. de Méran, 8...a6"
+
+msgid "Queen Gambit Declined Semi-Slav: Meran, Blumenfeld Variation"
+msgstr "Gambit Dame refusé, semi-slave, var. de Méran, var. Blumenfeld"
+
+msgid "Queen Gambit Declined Semi-Slav: Meran, Old Main Line"
+msgstr ""
+"Gambit Dame refusé, semi-slave, var. de Méran, ancienne ligne principale"
+
+msgid "Queen Gambit Declined Semi-Slav: Meran, Pirc Variation"
+msgstr "Gambit Dame refusé, semi-slave, var. de Méran, var. Pirc"
+
+msgid "Queen Gambit Declined Semi-Slav: Meran, Rabinovich Variation"
+msgstr "Gambit Dame refusé, semi-slave, var. de Méran, var. Rabinovich"
+
+msgid "Queen Gambit Declined Semi-Slav: Meran, Reynolds' Variation"
+msgstr "Gambit Dame refusé, semi-slave, var. de Méran, var. Reynolds"
+
+msgid "Queen Gambit Declined Semi-Slav: Meran, Sozin Variation"
+msgstr "Gambit Dame refusé, semi-slave, var. de Méran, var. Sozin"
+
+msgid "Queen Gambit Declined Semi-Slav: Meran, Stahlberg Variation"
+msgstr "Gambit Dame refusé, semi-slave, var. de Méran, var. Ståhlberg"
+
+msgid "Queen Gambit Declined Semi-Slav: Meran, Wade Variation"
+msgstr "Gambit Dame refusé, semi-slave, var. de Méran, var. Wade"
+
+msgid "Queen Gambit Declined Semi-Slav: Romih Variation"
+msgstr "Gambit Dame refusé, semi-slave, var. Romih"
+
+msgid "Queen Gambit Declined Semi-Slav: Rubinstein (Anti-Meran) System"
+msgstr ""
+"Gambit Dame refusé, semi-slave, système Rubinstein anti-variante de Méran"
+
+msgid "Queen Gambit Declined Semi-Slav: Stoltz Variation"
+msgstr "Gambit Dame refusé, semi-slave, var. Stoltz"
+
+msgid "Queen Gambit Declined Semi-Slav: Stonewall Defence"
+msgstr "Gambit Dame refusé, semi-slave, défense stonewall (mur de pierres)"
+
+msgid "Queen Gambit Declined Semi-Slav: neo-Meran (Lundin Variation)"
+msgstr "Gambit Dame refusé, semi-slave, var. néo-Méran (Lundin)"
+
+msgid "Queen Gambit Declined Semi-Slav"
+msgstr "Gambit Dame refusé, défense semi-slave"
+
+msgid "Queen Gambit Declined Slav Accepted: Alapin Variation"
+msgstr "Gambit Dame refusé (1), défense slave, accepté (2), var. Alapin"
+
+msgid "Queen Gambit Declined Slav Accepted"
+msgstr "Gambit Dame refusé (1), défense slave, accepté (2)"
+
+msgid "Queen Gambit Declined Slav Defence, Alekhine Variation"
+msgstr "Gambit Dame refusé, défense slave, var. Alekhine"
+
+msgid "Queen Gambit Declined Slav Defence: Exchange Variation"
+msgstr "Gambit Dame refusé, défense slave, var. d'échange"
+
+msgid "Queen Gambit Declined Slav Defence"
+msgstr "Gambit Dame refusé, défense slave"
+
+msgid "Queen Gambit Declined Slav: 3.Nf3"
+msgstr "Gambit Dame refusé, défense slave, 3.Cf3"
+
+msgid "Queen Gambit Declined Slav: 4.Nc3"
+msgstr "Gambit Dame refusé, défense slave, 4.Cc3"
+
+msgid "Queen Gambit Declined Slav: 4.e3 Bf5"
+msgstr "Gambit Dame refusé, défense slave, 4.e3 Ff5"
+
+msgid "Queen Gambit Declined Slav: 4.e3"
+msgstr "Gambit Dame refusé, défense slave, 4.e3"
+
+msgid "Queen Gambit Declined Slav: 5.e3 (Alekhine Variation)"
+msgstr "Gambit Dame refusé, défense slave, 5.e3, var. Alekhine"
+
+msgid "Queen Gambit Declined Slav: Amsterdam Variation"
+msgstr "Gambit Dame refusé, défense slave, var. d'Amsterdam"
+
+msgid "Queen Gambit Declined Slav: Breyer Variation"
+msgstr "Gambit Dame refusé, défense slave, var. Breyer"
+
+msgid "Queen Gambit Declined Slav: Carlsbad Variation"
+msgstr "Gambit Dame refusé, défense slave, var. de Carlsbad (Karlovy Vary)"
+
+msgid "Queen Gambit Declined Slav: Czech Defence"
+msgstr "Gambit Dame refusé, défense slave, défense tchèque"
+
+msgid "Queen Gambit Declined Slav: Dutch Variation, Main Line"
+msgstr "Gambit Dame refusé, défense slave, var. hollandaise, ligne principale"
+
+msgid "Queen Gambit Declined Slav: Dutch Variation"
+msgstr "Gambit Dame refusé, défense slave, var. hollandaise"
+
+msgid "Queen Gambit Declined Slav: Dutch, Lasker Variation"
+msgstr "Gambit Dame refusé, défense slave, var. hollandaise, var. Lasker"
+
+msgid "Queen Gambit Declined Slav: Dutch, Saemisch Variation"
+msgstr "Gambit Dame refusé, défense slave, var. hollandaise, var. Sämisch"
+
+msgid "Queen Gambit Declined Slav: Exchange Variation, 6.Bf4 Bf5"
+msgstr "Gambit Dame refusé, défense slave, var. d'échange, 6.Ff4 Ff5"
+
+msgid "Queen Gambit Declined Slav: Exchange Variation"
+msgstr "Gambit Dame refusé, défense slave, var. d'échange"
+
+msgid "Queen Gambit Declined Slav: Exchange, Trifunovic Variation"
+msgstr "Gambit Dame refusé, défense slave, var. d'échange, var. Trifunović"
+
+msgid "Queen Gambit Declined Slav: Krause Attack"
+msgstr "Gambit Dame refusé, défense slave, attaque Krause"
+
+msgid "Queen Gambit Declined Slav: Semmering Variation"
+msgstr "Gambit Dame refusé, défense slave, var. de Semmering"
+
+msgid "Queen Gambit Declined Slav: Slav Gambit"
+msgstr "Gambit Dame refusé, défense slave, gambit slave"
+
+msgid "Queen Gambit Declined Slav: Smyslov Variation"
+msgstr "Gambit Dame refusé, défense slave, var. Smyslov"
+
+msgid "Queen Gambit Declined Slav: Soultanbeieff Variation"
+msgstr "Gambit Dame refusé, défense slave, var. Soultanbeieff"
+
+msgid "Queen Gambit Declined Slav: Steiner Variation"
+msgstr "Gambit Dame refusé, défense slave, var. Steiner"
+
+msgid "Queen Gambit Declined Slav: Suechting Variation"
+msgstr "Gambit Dame refusé, défense slave, var. Süchting"
+
+msgid "Queen Gambit Declined Slav: Tolush-Geller Gambit"
+msgstr "Gambit Dame refusé, défense slave, gambit Tolush - Geller"
+
+msgid "Queen Gambit Declined Slav: Wiesbaden Variation"
+msgstr "Gambit Dame refusé, défense slave, var. de Wiesbaden"
+
+msgid "Queen Gambit Declined Slav: Winawer Counter-Gambit"
+msgstr "Gambit Dame refusé, défense slave, contre-gambit Winawer"
+
+msgid "Queen Gambit Declined: 3...Nf6"
+msgstr "Gambit Dame refusé, 3...Cf6"
+
+msgid "Queen Gambit Declined: 3.Nc3"
+msgstr "Gambit Dame refusé, 3.Cc3"
+
+msgid "Queen Gambit Declined: 4.Bg5 Be7, 5.e3 O-O"
+msgstr "Gambit Dame refusé, 4.Fg5 Fe7 5.e3 O-O"
+
+msgid "Queen Gambit Declined: 4.Bg5 Be7"
+msgstr "Gambit Dame refusé, 4.Fg5 Fe7"
+
+msgid "Queen Gambit Declined: 4.Bg5 Nbd7"
+msgstr "Gambit Dame refusé, 4.Fg5 Cbd7"
+
+msgid "Queen Gambit Declined: 4.Bg5"
+msgstr "Gambit Dame refusé, 4.Fg5"
+
+msgid "Queen Gambit Declined: 4.Nf3"
+msgstr "Gambit Dame refusé, 4.Cf3"
+
+msgid "Queen Gambit Declined: 5...c6"
+msgstr "Gambit dame refusé, 5...c6"
+
+msgid "Queen Gambit Declined: 6.Nf3"
+msgstr "Gambit Dame refusé, 6.Cf3"
+
+msgid "Queen Gambit Declined: Alapin Variation"
+msgstr "Gambit Dame refusé, var. Alapin"
+
+msgid "Queen Gambit Declined: Albin Counter-Gambit, 5.g3"
+msgstr "Gambit Dame refusé, contre-gambit Albin, 5.g3"
+
+msgid "Queen Gambit Declined: Albin Counter-Gambit, Alapin Variation"
+msgstr "Gambit Dame refusé, contre-gambit Albin, var. Alapin"
+
+msgid "Queen Gambit Declined: Albin Counter-Gambit, Balogh Variation"
+msgstr "Gambit Dame refusé, contre-gambit Albin, var. Balogh"
+
+msgid "Queen Gambit Declined: Albin Counter-Gambit, Janowski Variation"
+msgstr "Gambit Dame refusé, contre-gambit Albin, var. Janowski"
+
+msgid "Queen Gambit Declined: Albin Counter-Gambit, Krenosz Variation"
+msgstr "Gambit Dame refusé, contre-gambit Albin, var. Krenosz"
+
+msgid "Queen Gambit Declined: Albin Counter-Gambit, Lasker trap"
+msgstr "Gambit Dame refusé, contre-gambit Albin, piège de Lasker"
+
+msgid "Queen Gambit Declined: Albin Counter-Gambit"
+msgstr "Gambit Dame refusé, contre-gambit Albin"
+
+msgid "Queen Gambit Declined: Alekhine Variation"
+msgstr "Gambit Dame refusé, var. Alekhine"
+
+msgid "Queen Gambit Declined: Anti-neo-orthodox Variation"
+msgstr "Gambit Dame refusé, var. anti-néo-orthodoxe"
+
+msgid "Queen Gambit Declined: Been-Koomen Variation"
+msgstr "Gambit Dame refusé, var. Been - Koomen"
+
+msgid "Queen Gambit Declined: Cambridge Springs Defence, 7.cd"
+msgstr "Gambit Dame refusé, défense de Cambridge Springs, 7.cxd5"
+
+msgid "Queen Gambit Declined: Cambridge Springs Defence, Argentine Variation"
+msgstr "Gambit Dame refusé, défense de Cambridge Springs, var. argentine"
+
+msgid "Queen Gambit Declined: Cambridge Springs Defence, Bogoljubow Variation"
+msgstr "Gambit Dame refusé, défense de Cambridge Springs, var. Bogoljubov"
+
+msgid "Queen Gambit Declined: Cambridge Springs Defence, Capablanca Variation"
+msgstr "Gambit Dame refusé, défense de Cambridge Springs, var. Capablanca"
+
+msgid "Queen Gambit Declined: Cambridge Springs Defence, Rubinstein Variation"
+msgstr "Gambit Dame refusé, défense de Cambridge Springs, var. Rubinstein"
+
+msgid "Queen Gambit Declined: Cambridge Springs Defence, Yugoslav Variation"
+msgstr "Gambit Dame refusé, défense de Cambridge Springs, var. yougoslave"
+
+msgid "Queen Gambit Declined: Cambridge Springs Defence"
+msgstr "Gambit Dame refusé, défense de Cambridge Springs"
+
+msgid "Queen Gambit Declined: Canal (Venice) Variation"
+msgstr "Gambit Dame refusé, var. Canal (ou var. de Venise)"
+
+msgid "Queen Gambit Declined: Capablanca Anti-Cambridge Springs Variation"
+msgstr "Gambit Dame refusé, var. Capablanca anti-défense de Cambridge Springs"
+
+msgid "Queen Gambit Declined: Capablanca Variation"
+msgstr "Gambit Dame refusé, var. Capablanca"
+
+msgid "Queen Gambit Declined: Capablanca-Duras Variation"
+msgstr "Gambit Dame refusé, var. Capablanca - Duras"
+
+msgid "Queen Gambit Declined: Charousek (Petrosian) Variation"
+msgstr "Gambit Dame refusé, var. Charousek (Petrossian)"
+
+msgid "Queen Gambit Declined: Chigorin Defence, Janowski Variation"
+msgstr "Gambit Dame refusé, défense Tchigorine, var. Janowski"
+
+msgid "Queen Gambit Declined: Chigorin Defence"
+msgstr "Gambit Dame refusé, défense Tchigorine"
+
+msgid "Queen Gambit Declined: Classical Variation (5.Bf4)"
+msgstr "Gambit Dame refusé, var. classique, 5.Ff4"
+
+msgid "Queen Gambit Declined: Exchange Variation"
+msgstr "Gambit Dame refusé, var. d'échange"
+
+msgid "Queen Gambit Declined: Exchange, Positional Line, 5...c6"
+msgstr "Gambit Dame refusé, var. d'échange, ligne positionnelle, 5...c6"
+
+msgid "Queen Gambit Declined: Exchange, Positional Line, 6.Qc2"
+msgstr "Gambit Dame refusé, var. d'échange, ligne positionnelle, 6.Dc2"
+
+msgid "Queen Gambit Declined: Exchange, Positional Line"
+msgstr "Gambit Dame refusé, var. d'échange, ligne positionnelle"
+
+msgid "Queen Gambit Declined: Exchange, Saemisch Variation"
+msgstr "Gambit Dame refusé, var. d'échange, var. Sämisch"
+
+msgid "Queen Gambit Declined: Grau (Sahovic) Defence"
+msgstr "Gambit Dame refusé, défense Grau (Šahović)"
+
+msgid "Queen Gambit Declined: Harrwitz Attack"
+msgstr "Gambit Dame refusé, attaque Harrwitz"
+
+msgid "Queen Gambit Declined: Janowski Variation"
+msgstr "Gambit Dame refusé, var. Janowski"
+
+msgid "Queen Gambit Declined: Lasker Defence, Bernstein Variation"
+msgstr "Gambit Dame refusé, défense Lasker, var. Bernstein"
+
+msgid "Queen Gambit Declined: Lasker Defence, Main Line"
+msgstr "Gambit Dame refusé, défense Lasker, ligne principale"
+
+msgid "Queen Gambit Declined: Lasker Defence, Teichmann Variation"
+msgstr "Gambit Dame refusé, défense Lasker, var. Teichmann"
+
+msgid "Queen Gambit Declined: Lasker Defence"
+msgstr "Gambit Dame refusé, défense Lasker"
+
+msgid "Queen Gambit Declined: Lasker Variation"
+msgstr "Gambit Dame refusé, var. Lasker"
+
+msgid "Queen Gambit Declined: Manhattan Variation"
+msgstr "Gambit Dame refusé, var. de Manhattan"
+
+msgid "Queen Gambit Declined: Marshall Defence"
+msgstr "Gambit Dame refusé, défense Marshall"
+
+msgid "Queen Gambit Declined: Neo-orthodox Variation, 7.Bh4"
+msgstr "Gambit Dame refusé, var. néo-orthodoxe, 7.Fh4"
+
+msgid "Queen Gambit Declined: Neo-orthodox Variation, 7.Bxf6"
+msgstr "Gambit Dame refusé, var. néo-orthodoxe, 7.Fxf6"
+
+msgid "Queen Gambit Declined: Neo-orthodox Variation"
+msgstr "Gambit Dame refusé, var. néo-orthodoxe"
+
+msgid "Queen Gambit Declined: Orthodox Defence, 7.Qc2 c5, 8.cd (Rubinstein)"
+msgstr ""
+"Gambit Dame refusé, défense orthodoxe, 7.Dc2 c5, 8.cd (var. Rubinstein)"
+
+msgid "Queen Gambit Declined: Orthodox Defence, 7.Rc1"
+msgstr "Gambit Dame refusé, défense orthodoxe, 7.Tc1"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Bd3 Line, 11.O-O"
+msgstr "Gambit Dame refusé, défense orthodoxe, 8.Fd3, 11.O-O"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Bd3 Line, Alekhine Variation"
+msgstr "Gambit Dame refusé, défense orthodoxe, avec Fd3, var. Alekhine"
+
+msgid ""
+"Queen Gambit Declined: Orthodox Defence, Bd3 Line, Capablanca freeing "
+"manoevre"
+msgstr ""
+"Gambit Dame refusé, défense orthodoxe, 8.Fd3, manoeuvre de libération de "
+"Capablanca"
+
+msgid ""
+"Queen Gambit Declined: Orthodox Defence, Bd3 Line, Fianchetto Variation"
+msgstr "Gambit Dame refusé, défense orthodoxe, avec Fd3, var. du fianchetto"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Bd3 Line, Janowski Variation"
+msgstr "Gambit Dame refusé, défense orthodoxe, 8.Fd3, var. Janowski"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Bd3 Line"
+msgstr "Gambit Dame refusé, défense orthodoxe, 8.Fd3"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Botvinnik Variation"
+msgstr "Gambit Dame refusé, défense orthodoxe, var. Botvinnik"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Capablanca Variation"
+msgstr "Gambit Dame refusé, défense orthodoxe, var. Capablanca"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Classical Variation"
+msgstr "Gambit Dame refusé, défense orthodoxe, var. classique"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Classical, 13.d1b1 (Maroczy)"
+msgstr ""
+"Gambit Dame refusé, défense orthodoxe, var. classique, 13.Db1 (Maroczy)"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Classical, 13.d1c2 (Vidmar)"
+msgstr ""
+"Gambit Dame refusé, défense orthodoxe, var. classique, 13.Dc2 (Vidmar)"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Classical, 13.de"
+msgstr "Gambit Dame refusé, défense orthodoxe, var. classique, 13.dxe5"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Pillsbury Attack"
+msgstr "Gambit Dame refusé, défense orthodoxe, attaque Pillsbury"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Rauzer Variation"
+msgstr "Gambit Dame refusé, défense orthodoxe, var. Rauzer"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Rubinstein Attack (with Rc1)"
+msgstr "Gambit Dame refusé, défense orthodoxe, attaque Rubinstein, avec Tc1"
+
+msgid ""
+"Queen Gambit Declined: Orthodox Defence, Rubinstein Attack, Grünfeld "
+"Variation"
+msgstr ""
+"Gambit Dame refusé, défense orthodoxe, attaque Rubinstein, var. Grünfeld"
+
+msgid ""
+"Queen Gambit Declined: Orthodox Defence, Rubinstein Attack, Karlsbad "
+"Variation"
+msgstr ""
+"Gambit Dame refusé, défense orthodoxe, attaque Rubinstein, var. de Carlsbad "
+"(Karlovy Vary)"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Rubinstein Attack, Main Line"
+msgstr ""
+"Gambit Dame refusé, défense orthodoxe, attaque Rubinstein, ligne principale"
+
+msgid ""
+"Queen Gambit Declined: Orthodox Defence, Rubinstein Attack, Wolf Variation"
+msgstr "Gambit Dame refusé, défense orthodoxe, attaque Rubinstein, var. Wolf"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Rubinstein Variation"
+msgstr "Gambit Dame refusé, défense orthodoxe, 7.Dc2 (var. Rubinstein)"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Swiss (Henneberger) Variation"
+msgstr "Gambit Dame refusé, défense orthodoxe, var. suisse (Henneberger)"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Swiss, Karlsbad Variation"
+msgstr ""
+"Gambit Dame refusé, défense orthodoxe, var. suisse, var. de Carlsbad "
+"(Karlovy Vary)"
+
+msgid "Queen Gambit Declined: Orthodox Defence"
+msgstr "Gambit Dame refusé, défense orthodoxe"
+
+msgid "Queen Gambit Declined: Petrosian Variation"
+msgstr "Gambit Dame refusé, var. Petrossian"
+
+msgid "Queen Gambit Declined: Ragozin Variation"
+msgstr "Gambit Dame refusé, var. Ragozin"
+
+msgid "Queen Gambit Declined: Ragozin, Vienna Variation"
+msgstr "Gambit Dame refusé, var. Ragozin, var. de Vienne"
+
+msgid "Queen Gambit Declined: Rochlin Variation"
+msgstr "Gambit Dame refusé, var. Rokhlin"
+
+msgid "Queen Gambit Declined: Semi-Slav, Abrahams Variation"
+msgstr "Gambit Dame refusé, semi-slave, var. Abrahams"
+
+msgid "Queen Gambit Declined: Semi-Slav, Junge Variation"
+msgstr "Gambit Dame refusé, semi-slave, var. Junge"
+
+msgid "Queen Gambit Declined: Semi-Slav, Koomen Variation"
+msgstr "Gambit Dame refusé, semi-slave, var. Koomen"
+
+msgid "Queen Gambit Declined: Semi-Slav, Marshall Gambit"
+msgstr "Gambit Dame refusé, semi-slave, gambit Marshall"
+
+msgid "Queen Gambit Declined: Semi-Slav, Noteboom Variation"
+msgstr "Gambit Dame refusé, semi-slave, var. Noteboom"
+
+msgid "Queen Gambit Declined: Semi-Slav"
+msgstr "Gambit Dame refusé, défense semi-slave"
+
+msgid "Queen Gambit Declined: Semi-Tarrasch Defence"
+msgstr "Gambit Dame refusé, défense semi-Tarrasch"
+
+msgid "Queen Gambit Declined: Semi-Tarrasch with e3"
+msgstr "Gambit Dame refusé, défense semi-Tarrasch, avec e3"
+
+msgid "Queen Gambit Declined: Semi-Tarrasch, 5.cd"
+msgstr "Gambit Dame refusé, défense semi-Tarrasch, 5.cxd5"
+
+msgid "Queen Gambit Declined: Semi-Tarrasch, 7.Bd3"
+msgstr "Gambit Dame refusé, défense semi-Tarrasch, 7.Fd3"
+
+msgid "Queen Gambit Declined: Semi-Tarrasch, Kmoch Variation"
+msgstr "Gambit Dame refusé, défense semi-Tarrasch, var. Kmoch"
+
+msgid "Queen Gambit Declined: Semi-Tarrasch, Krause Variation"
+msgstr "Gambit Dame refusé, défense semi-Tarrasch, var. Krause"
+
+msgid "Queen Gambit Declined: Semi-Tarrasch, Primitive Pillsbury Variation"
+msgstr "Gambit Dame refusé, défense semi-Tarrasch, var. Pillsbury primitive"
+
+msgid "Queen Gambit Declined: Semi-Tarrasch, San Sebastian Variation"
+msgstr "Gambit Dame refusé, défense semi-Tarrasch, var. de San Sebastián"
+
+msgid "Queen Gambit Declined: Semi-Tarrasch, Symmetrical Variation"
+msgstr "Gambit Dame refusé, défense semi-Tarrasch, var. symétrique"
+
+msgid "Queen Gambit Declined: Spielmann Variation"
+msgstr "Gambit Dame refusé, var. Spielmann"
+
+msgid "Queen Gambit Declined: Stonewall Variation"
+msgstr "Gambit Dame refusé, var. stonewall (mur de pierres)"
+
+msgid "Queen Gambit Declined: Symmetrical (Austrian) Defence"
+msgstr "Gambit Dame refusé, défense symétrique (autrichienne)"
+
+msgid "Queen Gambit Declined: Tarrasch Defence, 4.cd ed"
+msgstr "Gambit Dame refusé, défense Tarrasch, 4.cd ed"
+
+msgid "Queen Gambit Declined: Tarrasch Defence, Marshall Gambit"
+msgstr "Gambit Dame refusé, défense Tarrasch, gambit Marshall"
+
+msgid "Queen Gambit Declined: Tarrasch Defence, Tarrasch Gambit"
+msgstr "Gambit Dame refusé, défense Tarrasch, gambit Tarrasch"
+
+msgid "Queen Gambit Declined: Tarrasch Defence"
+msgstr "Gambit Dame refusé, défense Tarrasch"
+
+msgid "Queen Gambit Declined: Tarrasch, Bogolyubov Variation"
+msgstr "Gambit Dame refusé, défense Tarrasch, var. Bogoljubov"
+
+msgid "Queen Gambit Declined: Tarrasch, Folkestone (Swedish) Variation"
+msgstr "Gambit Dame refusé, défense Tarrasch, var. de Folkestone (suédoise)"
+
+msgid "Queen Gambit Declined: Tarrasch, Prague Variation, 7...Be7"
+msgstr "Gambit Dame refusé, défense Tarrasch, var. de Prague, 7...Fe7"
+
+msgid "Queen Gambit Declined: Tarrasch, Prague Variation, 9.Bg5"
+msgstr "Gambit Dame refusé, défense Tarrasch, var. de Prague, 9.Fg5"
+
+msgid "Queen Gambit Declined: Tarrasch, Prague Variation, Normal position"
+msgstr ""
+"Gambit Dame refusé, défense Tarrasch, var. de Prague, position normale"
+
+msgid "Queen Gambit Declined: Tarrasch, Prague Variation"
+msgstr "Gambit Dame refusé, défense Tarrasch, var. de Prague"
+
+msgid "Queen Gambit Declined: Tarrasch, Reti Variation"
+msgstr "Gambit Dame refusé, défense Tarrasch, var. Réti"
+
+msgid ""
+"Queen Gambit Declined: Tarrasch, Schlechter-Rubinstein System, Rey Ardid "
+"Variation"
+msgstr ""
+"Gambit Dame refusé, défense Tarrasch, système Schlechter - Rubinstein, var. "
+"Rey Ardid"
+
+msgid "Queen Gambit Declined: Tarrasch, Schlechter-Rubinstein System"
+msgstr "Gambit Dame refusé, défense Tarrasch, système Schlechter - Rubinstein"
+
+msgid "Queen Gambit Declined: Tarrasch, Stoltz Variation"
+msgstr "Gambit Dame refusé, défense Tarrasch, var. Stoltz"
+
+msgid "Queen Gambit Declined: Tarrasch, Wagner Variation"
+msgstr "Gambit Dame refusé, défense Tarrasch, var. Wagner"
+
+msgid "Queen Gambit Declined: Tarrasch, von Hennig-Schara Gambit"
+msgstr "Gambit Dame refusé, défense Tarrasch, gambit von Hennig - Schara"
+
+msgid ""
+"Queen Gambit Declined: Tartakower (Makagonov-Bondarevsky) System, 8.cd Nxd5"
+msgstr ""
+"Gambit Dame refusé, système Tartakover - Makogonov - Bondarevsky, 8.cd Cxd5"
+
+msgid "Queen Gambit Declined: Tartakower (Makagonov-Bondarevsky) System"
+msgstr "Gambit Dame refusé, système Tartakover - Makogonov - Bondarevsky"
+
+msgid "Queen Gambit Declined: Tartakower Variation"
+msgstr "Gambit Dame refusé, var. Tartakover"
+
+msgid "Queen Gambit Declined: Vienna Variation"
+msgstr "Gambit Dame refusé, var. de Vienne"
+
+msgid "Queen Gambit Declined"
+msgstr "Gambit Dame refusé"
+
+msgid "Queen Gambit"
+msgstr "Gambit Dame"
+
+msgid "Queen Indian Accelerated"
+msgstr "Défense ouest-indienne accélérée"
+
+msgid "Queen Indian Defence: 4.Nc3, Main Line"
+msgstr "Défense ouest-indienne, 4.Cc3, ligne principale"
+
+msgid "Queen Indian Defence: 4.Nc3"
+msgstr "Défense ouest-indienne, 4.Cc3"
+
+msgid "Queen Indian Defence: 4.e3"
+msgstr "Défense ouest-indienne, 4.e3"
+
+msgid "Queen Indian Defence: 4.g3 Bb7"
+msgstr "Défense ouest-indienne, 4.g3 Fb7"
+
+msgid "Queen Indian Defence: 4.g3"
+msgstr "Défense ouest-indienne, 4.g3"
+
+msgid "Queen Indian Defence: 5.Bg2 Be7"
+msgstr "Défense ouest-indienne, 5.Fg2 Fe7"
+
+msgid "Queen Indian Defence: Anti-Queen Indian System"
+msgstr "Défense ouest-indienne, système anti-défense ouest-indienne"
+
+msgid "Queen Indian Defence: Averbakh Variation"
+msgstr "Défense ouest-indienne, var. Averbakh"
+
+msgid "Queen Indian Defence: Buerger Variation"
+msgstr "Défense ouest-indienne, var. Buerger"
+
+msgid "Queen Indian Defence: Capablanca Variation"
+msgstr "Défense ouest-indienne, var. Capablanca"
+
+msgid "Queen Indian Defence: Euwe Variation"
+msgstr "Défense ouest-indienne, var. Euwe"
+
+msgid "Queen Indian Defence: Marienbad System, Berg Variation"
+msgstr "Défense ouest-indienne, système de Marienbad, var. Berg"
+
+msgid "Queen Indian Defence: Marienbad System"
+msgstr "Défense ouest-indienne, système de Marienbad"
+
+msgid "Queen Indian Defence: Miles Variation"
+msgstr "Défense ouest-indienne, var. Miles"
+
+msgid "Queen Indian Defence: Nimzovich Variation (exaggerated Fianchetto)"
+msgstr "Défense ouest-indienne, var. Nimzowitsch (fianchetto exagéré)"
+
+msgid "Queen Indian Defence: Old Main Line, 6.O-O"
+msgstr "Défense ouest-indienne, ancienne ligne principale, 6.O-O"
+
+msgid "Queen Indian Defence: Old Main Line, 7.Nc3"
+msgstr "Défense ouest-indienne, ancienne ligne principale, 7.Cc3"
+
+msgid "Queen Indian Defence: Old Main Line, 9.Qxc3"
+msgstr "Défense ouest-indienne, ancienne ligne principale, 9.Dxc3"
+
+msgid "Queen Indian Defence: Opovcensky Variation"
+msgstr "Défense ouest-indienne, var. Opocensky"
+
+msgid "Queen Indian Defence: Petrosian System"
+msgstr "Défense ouest-indienne, système Petrossian"
+
+msgid "Queen Indian Defence: Riumin Variation"
+msgstr "Défense ouest-indienne, var. Riumin"
+
+msgid "Queen Indian Defence: Rubinstein Variation"
+msgstr "Défense ouest-indienne, var. Rubinstein"
+
+msgid "Queen Indian Defence: Yates Variation"
+msgstr "Défense ouest-indienne, var. Yates"
+
+msgid "Queen Indian Defence"
+msgstr "Défense ouest-indienne"
+
+msgid "Queen Pawn Game Counter-Gambit (elephant Gambit)"
+msgstr "Contre-gambit du pion Dame (gambit de l'éléphant)"
+
+msgid "Queen Pawn Game Counter-Gambit: Maroczy Gambit"
+msgstr "Contre-gambit du pion Dame, gambit Maroczy"
+
+msgid "Queen Pawn Game: Bronstein Gambit"
+msgstr "Début du pion Dame, gambit Bronstein"
+
+msgid "Queen Pawn Game: Charlick (Englund) Gambit"
+msgstr "Début du pion Dame, gambit Charlick"
+
+msgid "Queen Pawn Game: Chigorin Variation"
+msgstr "Début du pion Dame, var. Tchigorine"
+
+msgid "Queen Pawn Game: English Defence"
+msgstr "Début du pion Dame, défense anglaise"
+
+msgid "Queen Pawn Game: Franco-Indian (Keres) Defence"
+msgstr "Début du pion Dame, défense franco-indienne (Keres)"
+
+msgid "Queen Pawn Game: Krause Variation"
+msgstr "Début du pion Dame, var. Krause"
+
+msgid "Queen Pawn Game: Lundin (Kevitz-Mikenas) Defence"
+msgstr "Début du pion Dame, défense Lundin (Kevitz - Mikenas)"
+
+msgid "Queen Pawn Game: Mason Variation, Steinitz Counter-Gambit"
+msgstr "Début du pion Dame, var. Mason, contre-gambit Steinitz"
+
+msgid "Queen Pawn Game: Mason Variation"
+msgstr "Début du pion Dame, var. Mason"
+
+msgid "Queen Pawn Game: Mengarini Attack"
+msgstr "Début du pion Dame, attaque Mengarini"
+
+msgid "Queen Pawn Game: Rubinstein (Colle-Zukertort) Variation"
+msgstr "Début du pion Dame, var. Rubinstein (dit système Colle - Zukertort)"
+
+msgid "Queen Pawn Game: Stonewall Attack"
+msgstr "Début du pion Dame, attaque stonewall (mur de pierres)"
+
+msgid "Queen Pawn Game: Torre Attack, Wagner Gambit"
+msgstr "Début du pion Dame, attaque Torre, gambit Wagner"
+
+msgid "Queen Pawn Game: Torre Attack"
+msgstr "Début du pion Dame, attaque Torre"
+
+msgid "Queen Pawn Game: Yusupov-Rubinstein System"
+msgstr "Début du pion Dame, système Youssoupov - Rubinstein"
+
+msgid "Queen Pawn Game: Zukertort Variation"
+msgstr "Début du pion Dame, var. Zukertort"
+
+msgid "Queen Pawn Game"
+msgstr "Début du pion Dame"
+
+msgid "Reti Opening: Accepted, Keres Variation"
+msgstr "Réti accepté, var. Keres"
+
+msgid "Reti Opening: Accepted"
+msgstr "Réti accepté"
+
+msgid "Reti Opening: Advance Variation"
+msgstr "Réti, var. d'avance"
+
+msgid "Reti Opening: Herrstroem Gambit"
+msgstr "Réti, gambit Herrstroem"
+
+msgid "Reti Opening: King Indian Attack (Barcza System)"
+msgstr "Réti, attaque est-indienne, système Barcza"
+
+msgid "Reti Opening: King Indian Attack (with ...c5)"
+msgstr "Réti, attaque est-indienne, avec ...c5"
+
+msgid "Reti Opening: King Indian Attack, French Variation"
+msgstr "Réti, attaque est-indienne, var. française"
+
+msgid "Reti Opening: King Indian Attack, Keres Variation"
+msgstr "Réti, attaque est-indienne, var. Keres"
+
+msgid "Reti Opening: King Indian Attack, Pachman System"
+msgstr "Réti, attaque est-indienne, système Pachman"
+
+msgid "Reti Opening: King Indian Attack, Reti-Smyslov Variation"
+msgstr "Réti, attaque est-indienne, var. Réti - Smyslov"
+
+msgid "Reti Opening: King Indian Attack, Spassky Variation"
+msgstr "Réti, attaque est-indienne, var. Spassky"
+
+msgid "Reti Opening: King Indian Attack, Yugoslav Variation"
+msgstr "Réti, attaque est-indienne, var. yougoslave"
+
+msgid "Reti Opening: King Indian Attack"
+msgstr "Réti, attaque est-indienne"
+
+msgid "Reti Opening: Lisitsin Gambit deferred"
+msgstr "Réti, gambit Lissitsine différé"
+
+msgid "Reti Opening: Nimzovich-Larsen Attack"
+msgstr "Réti, attaque Nimzowitsch - Larsen"
+
+msgid "Reti Opening: Old Indian Attack"
+msgstr "Réti, attaque vieille-indienne"
+
+msgid "Reti Opening: Pirc-Lisitsin Gambit"
+msgstr "Réti, gambit Pirc - Lissitsine"
+
+msgid "Reti Opening"
+msgstr "Début Réti (ouverture Zukertort - Réti)"
+
+msgid "Reti v Dutch"
+msgstr "Réti, var. hollandaise"
+
+msgid "Reversed Grob (Borg/Basman Defence/macho Grob)"
+msgstr "Défense Basman ou Borg (référence au début Grob)"
+
+msgid "Richter-Veresov Attack: Richter Variation"
+msgstr "Attaque Richter - Veresov, var. Richter"
+
+msgid "Richter-Veresov Attack: Veresov Variation"
+msgstr "Attaque Richter - Veresov, var. Veresov"
+
+msgid "Richter-Veresov Attack"
+msgstr "Attaque Richter - Veresov"
+
+msgid "Robatsch (Modern) Defence: Pseudo-Austrian Attack"
+msgstr "Défense Robatsch, \"Pseudo-Austrian attack\""
+
+msgid "Robatsch (Modern) Defence: Three Pawns Attack"
+msgstr "Défense Robatsch, attaque des trois pions"
+
+msgid "Robatsch (Modern) Defence: Two Knights Variation"
+msgstr "Défense Robatsch, var. des 2 cavaliers"
+
+msgid "Robatsch (Modern) Defence: Two Knights, Suttles Variation"
+msgstr "Défense Robatsch, var. des 2 cavaliers, var. Suttles"
+
+msgid "Robatsch (Modern) Defence"
+msgstr "Défense Robatsch"
+
+msgid "Rousseau Gambit"
+msgstr "Gambit Rousseau"
+
+msgid "Russian Game (Petroff Defence): Classical Attack, Berger Variation"
+msgstr "Défense Petrov, attaque classique, var. Berger"
+
+msgid "Russian Game (Petroff Defence): Classical Attack, Chigorin Variation"
+msgstr "Défense Petrov, attaque classique, var. Tchigorine"
+
+msgid "Russian Game (Petroff Defence): Classical Attack, Jaenisch Variation"
+msgstr "Défense Petrov, attaque classique, var. Jaenisch"
+
+msgid "Russian Game (Petroff Defence): Classical Attack, Krause Variation"
+msgstr "Défense Petrov, attaque classique, var. Krause"
+
+msgid "Russian Game (Petroff Defence): Classical Attack, Maroczy Variation"
+msgstr "Défense Petrov, attaque classique, var. Maroczy"
+
+msgid "Russian Game (Petroff Defence): Classical Attack, Marshall Variation"
+msgstr "Défense Petrov, attaque classique, var. Marshall"
+
+msgid "Russian Game (Petroff Defence): Classical Attack, Marshall trap"
+msgstr "Défense Petrov, attaque classique, piège de Marshall"
+
+msgid "Russian Game (Petroff Defence): Classical Attack, Mason Variation"
+msgstr "Défense Petrov, attaque classique, var. Mason"
+
+msgid "Russian Game (Petroff Defence): Classical Attack, Tarrasch Variation"
+msgstr "Défense Petrov, attaque classique, var. Tarrasch"
+
+msgid "Russian Game (Petroff Defence): Classical Attack, close Variation"
+msgstr "Défense Petrov, attaque classique, var. fermée"
+
+msgid "Russian Game (Petroff Defence): Classical Attack"
+msgstr "Défense Petrov, attaque classique"
+
+msgid "Russian Game (Petroff Defence): Cochrane Gambit"
+msgstr "Défense Petrov, gambit Cochrane"
+
+msgid "Russian Game (Petroff Defence): Cozio (Lasker) Attack"
+msgstr "Défense Petrov, attaque Cozio (Lasker)"
+
+msgid "Russian Game (Petroff Defence): Damiano Variation"
+msgstr "Défense Petrov, var. Damiano ou Damião"
+
+msgid "Russian Game (Petroff Defence): French Attack"
+msgstr "Défense Petrov, attaque française"
+
+msgid "Russian Game (Petroff Defence): Italian Variation"
+msgstr "Défense Petrov, var. italienne"
+
+msgid "Russian Game (Petroff Defence): Kaufmann Attack"
+msgstr "Défense Petrov, attaque Kaufmann"
+
+msgid "Russian Game (Petroff Defence): Modern (Steinitz) Attack"
+msgstr "Défense Petrov, attaque moderne (Steinitz)"
+
+msgid "Russian Game (Petroff Defence): Modern Attack, Bardeleben Variation"
+msgstr "Défense Petrov, attaque moderne, var. Bardeleben"
+
+msgid "Russian Game (Petroff Defence): Modern Attack, Main Line"
+msgstr "Défense Petrov, attaque moderne, ligne principale"
+
+msgid "Russian Game (Petroff Defence): Modern Attack, Steinitz Variation"
+msgstr "Défense Petrov, attaque moderne, var. Steinitz"
+
+msgid "Russian Game (Petroff Defence): Modern Attack, Symmetrical Variation"
+msgstr "Défense Petrov, attaque moderne, var. symétrique"
+
+msgid "Russian Game (Petroff Defence): Modern Attack, Trifunovic Variation"
+msgstr "Défense Petrov, attaque moderne, var. Trifunović"
+
+msgid "Russian Game (Petroff Defence): Nimzovich Attack"
+msgstr "Défense Petrov, attaque Nimzowitsch"
+
+msgid "Russian Game (Petroff Defence): Paulsen Attack"
+msgstr "Défense Petrov, attaque Paulsen"
+
+msgid "Russian Game (Petroff Defence): Three Knights Game"
+msgstr "Défense Petrov, var. des 3 cavaliers"
+
+msgid "Ruy Lopez (Spanish Opening)"
+msgstr "Partie espagnole (Ruy López)"
+
+msgid "Santasiere folly"
+msgstr "Ouverture folie de Santasiere"
+
+msgid "Saragossa Opening"
+msgstr "Ouverture de Saragosse"
+
+msgid "Scandinavian (Centre Counter) Defence"
+msgstr "Défense scandinave (ou du contre au centre)"
+
+msgid "Scandinavian Defence: Anderssen Counter-Attack, Collijn Variation"
+msgstr "Défense scandinave, contre-attaque Anderssen, var. Collijn"
+
+msgid "Scandinavian Defence: Anderssen Counter-Attack, Goteborg System"
+msgstr "Défense scandinave, contre-attaque Anderssen, système de Göteborg"
+
+msgid "Scandinavian Defence: Anderssen Counter-Attack, orthodox Attack"
+msgstr "Défense scandinave, contre-attaque Anderssen, attaque orthodoxe"
+
+msgid "Scandinavian Defence: Anderssen Counter-Attack"
+msgstr "Défense scandinave, contre-attaque Anderssen"
+
+msgid "Scandinavian Defence: Grünfeld Variation"
+msgstr "Défense scandinave, var. Grünfeld"
+
+msgid "Scandinavian Defence: Icelandic Gambit"
+msgstr "Défense scandinave, gambit islandais"
+
+msgid "Scandinavian Defence: Kiel Variation"
+msgstr "Défense scandinave, var. de Kiel"
+
+msgid "Scandinavian Defence: Lasker Variation"
+msgstr "Défense scandinave, var. Lasker"
+
+msgid "Scandinavian Defence: Marshall Variation"
+msgstr "Défense scandinave, var. Marshall"
+
+msgid "Scandinavian Defence: Mieses-Kotrvc Gambit"
+msgstr "Défense scandinave, gambit Mieses - Kotrč"
+
+msgid "Scandinavian Defence: Pytel-Wade Variation"
+msgstr "Défense scandinave, var. Pytel - Wade"
+
+msgid "Scandinavian Defence: Richter Variation"
+msgstr "Défense scandinave, var. Richter"
+
+msgid "Scandinavian Defence"
+msgstr "Défense scandinave"
+
+msgid "Scandinavian Gambit"
+msgstr "Défense scandinave, gambit scandinave"
+
+msgid "Scotch Gambit: Anderssen (Paulsen, Suhle) Counter-Attack"
+msgstr "Gambit écossais, contre-attaque Anderssen (Paulsen, Suhle)"
+
+msgid "Scotch Gambit: Benima Defence"
+msgstr "Gambit écossais, défense Benima"
+
+msgid "Scotch Gambit: Cochrane Variation"
+msgstr "Gambit écossais, var. Cochrane"
+
+msgid "Scotch Gambit: Cochrane-Shumov Defence"
+msgstr "Gambit écossais, défense Cochrane - Shumov"
+
+msgid "Scotch Gambit: Dubois-Reti Defence"
+msgstr "Gambit écossais, défense Dubois - Réti"
+
+msgid "Scotch Gambit: Hanneken Variation"
+msgstr "Gambit écossais, var. Hanneken"
+
+msgid "Scotch Gambit: Vitzhum Attack"
+msgstr "Gambit écossais, attaque Vitzthum"
+
+msgid "Scotch Gambit"
+msgstr "Gambit écossais"
+
+msgid "Scotch Opening: Berger Variation"
+msgstr "Écossaise, var. Berger"
+
+msgid "Scotch Opening: Blackburne Attack"
+msgstr "Écossaise, attaque Blackburne"
+
+msgid "Scotch Opening: Blumenfeld Attack"
+msgstr "Écossaise, attaque Blumenfeld"
+
+msgid "Scotch Opening: Cochrane Variation"
+msgstr "Écossaise, var. Cochrane"
+
+msgid "Scotch Opening: Fraser Attack"
+msgstr "Écossaise, attaque Fraser"
+
+msgid "Scotch Opening: Ghulam Kassim Variation"
+msgstr "Écossaise, var. Ghulam Kassim"
+
+msgid "Scotch Opening: Goering Gambit, Bardeleben Variation"
+msgstr "Écossaise, gambit Göring, var. Bardeleben"
+
+msgid "Scotch Opening: Goering Gambit"
+msgstr "Écossaise, gambit Göring"
+
+msgid "Scotch Opening: Horwitz Attack"
+msgstr "Écossaise, attaque Horwitz"
+
+msgid "Scotch Opening: Lolli Variation"
+msgstr "Écossaise, var. Lolli"
+
+msgid "Scotch Opening: Meitner Variation"
+msgstr "Écossaise, var. Meitner"
+
+msgid "Scotch Opening: Mieses Variation"
+msgstr "Écossaise, var. Mieses"
+
+msgid "Scotch Opening: Paulsen Attack"
+msgstr "Écossaise, attaque Paulsen"
+
+msgid "Scotch Opening: Paulsen, Gunsberg Defence"
+msgstr "Écossaise, attaque Paulsen, défense Gunsberg"
+
+msgid "Scotch Opening: Potter Variation"
+msgstr "Écossaise, var. Potter"
+
+msgid "Scotch Opening: Pulling Counter-Attack"
+msgstr "Écossaise, contre-attaque Pulling"
+
+msgid "Scotch Opening: Relfsson Gambit ('MacLopez')"
+msgstr ""
+"Écossaise, gambit Relfsson (ou MacLópez qui évoque l'Écossaise et "
+"l'Espagnole)"
+
+msgid "Scotch Opening: Romanishin Variation"
+msgstr "Écossaise, var. Romanichine"
+
+msgid "Scotch Opening: Rosenthal Variation"
+msgstr "Écossaise, var. Rosenthal"
+
+msgid "Scotch Opening: Schmidt Variation"
+msgstr "Écossaise, var. Schmidt"
+
+msgid "Scotch Opening: Steinitz Variation"
+msgstr "Écossaise, var. Steinitz"
+
+msgid "Scotch Opening: Tartakower Variation"
+msgstr "Écossaise, var. Tartakover"
+
+msgid "Scotch Opening"
+msgstr "Partie écossaise"
+
+msgid "Semi-Benoni (Blockade Variation)"
+msgstr "Semi-défense Benoni, var. de blocage"
+
+msgid "Sicilian Defence: 2.c3, Heidenfeld Variation"
+msgstr "Sicilienne, 2.c3 (var. Alapin), var. Heidenfeld"
+
+msgid "Sicilian Defence: Accelerated Fianchetto, Breyer Variation"
+msgstr "Sicilienne, dragon accéléré, var. Breyer"
+
+msgid "Sicilian Defence: Accelerated Fianchetto, Exchange Variation"
+msgstr "Sicilienne, dragon accéléré, var. d'échange"
+
+msgid "Sicilian Defence: Accelerated Fianchetto, Gurgenidze Variation"
+msgstr "Sicilienne, dragon accéléré, var. Gurgenidze"
+
+msgid "Sicilian Defence: Accelerated Fianchetto, Maroczy Bind, 5...Bg7"
+msgstr "Sicilienne, dragon accéléré, étau de Maroczy, 5...Fg7"
+
+msgid "Sicilian Defence: Accelerated Fianchetto, Maroczy Bind, 6.Be3"
+msgstr "Sicilienne, dragon accéléré, étau de Maroczy, 6.Fe3"
+
+msgid "Sicilian Defence: Accelerated Fianchetto, Maroczy Bind"
+msgstr "Sicilienne, dragon accéléré, étau de Maroczy"
+
+msgid "Sicilian Defence: Accelerated Fianchetto, Modern Variation with Bc4"
+msgstr "Sicilienne, dragon accéléré, var. moderne, avec Fc4"
+
+msgid "Sicilian Defence: Accelerated Fianchetto, Modern Variation"
+msgstr "Sicilienne, dragon accéléré, var. moderne"
+
+msgid "Sicilian Defence: Accelerated Fianchetto, Simagin Variation"
+msgstr "Sicilienne, dragon accéléré, var. Simagin"
+
+msgid "Sicilian Defence: Acton extension"
+msgstr "Sicilienne, \"Acton extension\""
+
+msgid "Sicilian Defence: Alapin Variation (2.c3)"
+msgstr "Sicilienne, 2.c3 (var. Alapin)"
+
+msgid "Sicilian Defence: Anderssen Variation"
+msgstr "Sicilienne, var. Anderssen"
+
+msgid "Sicilian Defence: Andreaschek Gambit"
+msgstr "Sicilienne, gambit Andreaschek"
+
+msgid "Sicilian Defence: Boleslavsky Variation, 7.Nb3"
+msgstr "Sicilienne, var. Boleslavsky, 7.Cb3"
+
+msgid "Sicilian Defence: Boleslavsky Variation"
+msgstr "Sicilienne, var. Boleslavsky"
+
+msgid "Sicilian Defence: Boleslavsky, Louma Variation"
+msgstr "Sicilienne, var. Boleslavsky, var. Louma"
+
+msgid "Sicilian Defence: Canal-Sokolsky (Nimzovich-Rossolimo, Moscow) Attack"
+msgstr "Sicilienne, attaque Canal - Sokolsky (ou var. de Moscou)"
+
+msgid "Sicilian Defence: Canal-Sokolsky Attack, 3...Bd7"
+msgstr "Sicilienne, attaque Canal - Sokolsky (ou var. de Moscou), 3...Fd7"
+
+msgid "Sicilian Defence: Canal-Sokolsky Attack, Bronstein Gambit"
+msgstr ""
+"Sicilienne, attaque Canal - Sokolsky (ou var. de Moscou), gambit Bronstein"
+
+msgid "Sicilian Defence: Canal-Sokolsky Attack, Sokolsky Variation"
+msgstr ""
+"Sicilienne, attaque Canal - Sokolsky (ou var. de Moscou), var. Sokolsky"
+
+msgid "Sicilian Defence: Chameleon Variation"
+msgstr "Sicilienne, var. caméléon"
+
+msgid "Sicilian Defence: Chekhover Variation"
+msgstr "Sicilienne, var. Tchekhover"
+
+msgid "Sicilian Defence: Chekhover, Zaitsev Variation"
+msgstr "Sicilienne, var. Tchekhover, var. Zaitsev"
+
+msgid "Sicilian Defence: Classical"
+msgstr "Sicilienne, var. classique"
+
+msgid "Sicilian Defence: Closed, 2...Nc6"
+msgstr "Sicilienne fermée, 2...Cc6"
+
+msgid "Sicilian Defence: Closed, 6.Be3"
+msgstr "Sicilienne fermée, 6.Fe3"
+
+msgid "Sicilian Defence: Closed, 6.Ne2 e5 (Botvinnik)"
+msgstr "Sicilienne fermée, 6.Ce2 e5 (Botvinnik)"
+
+msgid "Sicilian Defence: Closed, 6.f4 e5 (Botvinnik)"
+msgstr "Sicilienne fermée, 6.f4 e5 (Botvinnik)"
+
+msgid "Sicilian Defence: Closed, 6.f4"
+msgstr "Sicilienne fermée, 6.f4"
+
+msgid "Sicilian Defence: Closed, Korchnoi Variation"
+msgstr "Sicilienne fermée, var. Kortchnoï"
+
+msgid "Sicilian Defence: Closed, Smyslov Variation"
+msgstr "Sicilienne fermée, var. Smyslov"
+
+msgid "Sicilian Defence: Closed"
+msgstr "Sicilienne fermée"
+
+msgid "Sicilian Defence: Dragon Variation"
+msgstr "Sicilienne, var. du dragon"
+
+msgid "Sicilian Defence: Dragon, 6.Be3"
+msgstr "Sicilienne, dragon, 6.Fe3"
+
+msgid "Sicilian Defence: Dragon, Classical Attack"
+msgstr "Sicilienne, dragon, variante (parfois \"attaque\" en anglais) classique"
+
+msgid "Sicilian Defence: Dragon, Classical, 8.O-O"
+msgstr "Sicilienne, dragon classique, 8.O-O"
+
+msgid "Sicilian Defence: Dragon, Classical, 9.Nb3"
+msgstr "Sicilienne, dragon classique, 9.Cb3"
+
+msgid "Sicilian Defence: Dragon, Classical, Alekhine Variation"
+msgstr "Sicilienne, dragon classique, var. Alekhine"
+
+msgid "Sicilian Defence: Dragon, Classical, Amsterdam Variation"
+msgstr "Sicilienne, dragon classique, var. d'Amsterdam"
+
+msgid "Sicilian Defence: Dragon, Classical, Bernard Defence"
+msgstr "Sicilienne, dragon classique, défense Bernard"
+
+msgid "Sicilian Defence: Dragon, Classical, Grigoriev Variation"
+msgstr "Sicilienne, dragon classique, var. Grigoriev"
+
+msgid "Sicilian Defence: Dragon, Classical, Nottingham Variation"
+msgstr "Sicilienne, dragon classique, var. de Nottingham"
+
+msgid "Sicilian Defence: Dragon, Classical, Reti-Tartakower Variation"
+msgstr "Sicilienne, dragon classique, var. Réti - Tartakover"
+
+msgid "Sicilian Defence: Dragon, Classical, Richter Variation"
+msgstr "Sicilienne, dragon classique, var. Richter"
+
+msgid "Sicilian Defence: Dragon, Classical, Spielmann Variation"
+msgstr "Sicilienne, dragon classique, var. Spielmann"
+
+msgid "Sicilian Defence: Dragon, Classical, Stockholm Attack"
+msgstr "Sicilienne, dragon classique, attaque de Stockholm"
+
+msgid "Sicilian Defence: Dragon, Classical, Zollner Gambit"
+msgstr "Sicilienne, dragon classique, gambit Zollner"
+
+msgid "Sicilian Defence: Dragon, Levenfish Variation"
+msgstr "Sicilienne, dragon, variante (parfois \"attaque\" en anglais) Levenfish"
+
+msgid "Sicilian Defence: Dragon, Levenfish; Flohr Variation"
+msgstr "Sicilienne, dragon, var. Levenfish, var. Flohr"
+
+msgid "Sicilian Defence: Dragon, Yugoslav Attack, 10.O-O-O"
+msgstr "Sicilienne, dragon, attaque yougoslave, 10.O-O-O"
+
+msgid "Sicilian Defence: Dragon, Yugoslav Attack, 12.h4"
+msgstr "Sicilienne, dragon, attaque yougoslave, 12.h4"
+
+msgid "Sicilian Defence: Dragon, Yugoslav Attack, 7...O-O"
+msgstr "Sicilienne, dragon, attaque yougoslave, 7...O-O"
+
+msgid "Sicilian Defence: Dragon, Yugoslav Attack, 9...Bd7"
+msgstr "Sicilienne, dragon, attaque yougoslave, 9...Fd7"
+
+msgid "Sicilian Defence: Dragon, Yugoslav Attack, 9.Bc4"
+msgstr "Sicilienne, dragon, attaque yougoslave, 9.Fc4"
+
+msgid "Sicilian Defence: Dragon, Yugoslav Attack, Byrne Variation"
+msgstr "Sicilienne, dragon, attaque yougoslave, var. Byrne"
+
+msgid "Sicilian Defence: Dragon, Yugoslav Attack, Rauser Variation"
+msgstr "Sicilienne, dragon, attaque yougoslave, var. Rauzer"
+
+msgid "Sicilian Defence: Dragon, Yugoslav Attack"
+msgstr "Sicilienne, dragon, attaque yougoslave"
+
+msgid "Sicilian Defence: Flohr Variation"
+msgstr "Sicilienne, var. Flohr"
+
+msgid "Sicilian Defence: Gloria Variation"
+msgstr "Sicilienne, var. Gloria"
+
+msgid "Sicilian Defence: Grand Prix Attack, Schofman Variation"
+msgstr "Sicilienne, attaque Grand Prix, var. Shofman"
+
+msgid "Sicilian Defence: Grand Prix Attack"
+msgstr "Sicilienne, attaque Grand Prix"
+
+msgid "Sicilian Defence: Hungarian Variation"
+msgstr "Sicilienne, var. hongroise"
+
+msgid "Sicilian Defence: Kan Variation"
+msgstr "Sicilienne, var. Kan"
+
+msgid "Sicilian Defence: Kan, 5.Bd3"
+msgstr "Sicilienne, var. Kan, 5.Fd3"
+
+msgid "Sicilian Defence: Kan, 5.Nc3"
+msgstr "Sicilienne, var. Kan, 5.Cc3"
+
+msgid "Sicilian Defence: Kan, Gipslis Variation"
+msgstr "Sicilienne, var. Kan, var. Gipslis"
+
+msgid "Sicilian Defence: Kan, Maroczy Bind (Reti Variation)"
+msgstr "Sicilienne, var. Kan, étau de Maroczy (var. Réti)"
+
+msgid "Sicilian Defence: Kan, Maroczy Bind - Bronstein Variation"
+msgstr "Sicilienne, var. Kan, étau de Maroczy, var. Bronstein"
+
+msgid "Sicilian Defence: Kan, Polugaievsky Variation"
+msgstr "Sicilienne, var. Kan, var. Polougaïevski"
+
+msgid "Sicilian Defence: Kan, Swiss cheese Variation"
+msgstr "Sicilienne, var. Kan, var. du fromage suisse"
+
+msgid "Sicilian Defence: Katalimov Variation"
+msgstr "Sicilienne, var. Katalymov"
+
+msgid "Sicilian Defence: Keres Variation (2.Ne2)"
+msgstr "Sicilienne, 2.Ce2 (var. Keres)"
+
+msgid "Sicilian Defence: La Bourdonnais-Loewenthal (Kalashnikov) Variation"
+msgstr "Sicilienne, var. La Bourdonnais - Löwenthal, var. Kalashnikov"
+
+msgid "Sicilian Defence: La Bourdonnais-Loewenthal Variation"
+msgstr "Sicilienne, var. La Bourdonnais - Löwenthal"
+
+msgid "Sicilian Defence: Magnus Smith trap"
+msgstr "Sicilienne, piège de Magnus Smith"
+
+msgid "Sicilian Defence: Marshall Variation"
+msgstr "Sicilienne, var. Marshall"
+
+msgid "Sicilian Defence: Modern Scheveningen, Main Line with Nb3"
+msgstr "Sicilienne, var. de Scheveningue moderne, ligne principale, avec Cb3"
+
+msgid "Sicilian Defence: Modern Scheveningen, Main Line"
+msgstr "Sicilienne, var. de Scheveningue moderne, ligne principale"
+
+msgid "Sicilian Defence: Modern Scheveningen"
+msgstr "Sicilienne, var. de Scheveningue moderne"
+
+msgid "Sicilian Defence: Najdorf Variation"
+msgstr "Sicilienne, var. Najdorf"
+
+msgid "Sicilian Defence: Najdorf, 6...e6"
+msgstr "Sicilienne, var. Najdorf, 6...e6"
+
+msgid "Sicilian Defence: Najdorf, 6.Bg5"
+msgstr "Sicilienne, var. Najdorf, 6.Fg5"
+
+msgid "Sicilian Defence: Najdorf, 6.f4"
+msgstr "Sicilienne, var. Najdorf, 6.f4"
+
+msgid "Sicilian Defence: Najdorf, 7...Be7 Main Line"
+msgstr "Sicilienne, var. Najdorf, 7...Fe7, ligne principale"
+
+msgid "Sicilian Defence: Najdorf, 7...Be7"
+msgstr "Sicilienne, var. Najdorf, 7...Fe7"
+
+msgid "Sicilian Defence: Najdorf, 7...Qb6"
+msgstr "Sicilienne, var. Najdorf, 7...Db6"
+
+msgid "Sicilian Defence: Najdorf, 7.f4"
+msgstr "Sicilienne, var. Najdorf, 7.f4"
+
+msgid "Sicilian Defence: Najdorf, Adams Attack"
+msgstr "Sicilienne, var. Najdorf, attaque Adams"
+
+msgid "Sicilian Defence: Najdorf, Browne Variation"
+msgstr "Sicilienne, var. Najdorf, var. Browne"
+
+msgid "Sicilian Defence: Najdorf, Byrne (English) Attack"
+msgstr "Sicilienne, var. Najdorf, attaque Byrne (anglaise)"
+
+msgid "Sicilian Defence: Najdorf, Goteborg (Argentine) Variation"
+msgstr "Sicilienne, var. Najdorf, var. de Göteborg (argentine)"
+
+msgid "Sicilian Defence: Najdorf, Ivkov Variation"
+msgstr "Sicilienne, var. Najdorf, var. Ivkov"
+
+msgid "Sicilian Defence: Najdorf, Lipnitzky Attack"
+msgstr "Sicilienne, var. Najdorf, attaque Lipnitsky"
+
+msgid "Sicilian Defence: Najdorf, Opovcensky Variation"
+msgstr "Sicilienne, var. Najdorf, var. Opocensky"
+
+msgid "Sicilian Defence: Najdorf, Poisoned Pawn Variation"
+msgstr ""
+"Sicilienne, var. Najdorf, var. du pion empoisonné (l'est-il vraiment ?)"
+
+msgid "Sicilian Defence: Najdorf, Polugayevsky Variation"
+msgstr "Sicilienne, var. Najdorf, var. Polougaïevski"
+
+msgid "Sicilian Defence: Najdorf, Polugayevsky, Simagin Variation"
+msgstr "Sicilienne, var. Najdorf, var. Polougaïevski, var. Simagin"
+
+msgid "Sicilian Defence: Najdorf, Zagreb (Fianchetto) Variation"
+msgstr "Sicilienne, var. Najdorf, var. de Zagreb (fianchetto-roi)"
+
+msgid "Sicilian Defence: Nimzovich Variation"
+msgstr "Sicilienne, var. Nimzowitsch"
+
+msgid ""
+"Sicilian Defence: Nimzovich-Rossolimo Attack (with ...g6, without ...d6)"
+msgstr "Sicilienne, attaque Nimzowitsch - Rossolimo, avec ...g6, sans ...d6"
+
+msgid "Sicilian Defence: Nimzovich-Rossolimo Attack (without ...d6)"
+msgstr "Sicilienne, attaque Nimzowitsch - Rossolimo, sans ...d6"
+
+msgid "Sicilian Defence: Nimzovich-Rossolimo Attack, Gurgenidze Variation"
+msgstr "Sicilienne, attaque Nimzowitsch - Rossolimo, var. Gurgenidze"
+
+msgid "Sicilian Defence: Nimzovich-Rubinstein Variation"
+msgstr "Sicilienne, var. Nimzowitsch - Rubinstein"
+
+msgid "Sicilian Defence: Nimzovich-Rubinstein; Rubinstein Counter-Gambit"
+msgstr "Sicilienne, var. Nimzowitsch - Rubinstein, contre-gambit Rubinstein"
+
+msgid "Sicilian Defence: O'Kelly Variation"
+msgstr "Sicilienne, var. O'Kelly"
+
+msgid "Sicilian Defence: Pelikan (Lasker/Sveshnikov) Variation"
+msgstr "Sicilienne, var. Sveshnikov (Lasker - Pelikán)"
+
+msgid "Sicilian Defence: Pelikan, Bird Variation"
+msgstr "Sicilienne, var. Pelikán, var. Bird"
+
+msgid "Sicilian Defence: Pelikan, Chelyabinsk Variation"
+msgstr "Sicilienne, var. Pelikán, var. de Tcheliabinsk"
+
+msgid "Sicilian Defence: Pin Variation (Sicilian Counter-Attack)"
+msgstr "Sicilienne, var. de clouage (ou contre-attaque sicilienne)"
+
+msgid "Sicilian Defence: Pin, Jaffe Variation"
+msgstr ""
+"Sicilienne, var. de clouage (ou contre-attaque sicilienne), var. Jaffe"
+
+msgid "Sicilian Defence: Pin, Koch Variation"
+msgstr "Sicilienne, var. de clouage (ou contre-attaque sicilienne), var. Koch"
+
+msgid "Sicilian Defence: Prins (Moscow) Variation"
+msgstr "Sicilienne, var. Prins (de Moscou)"
+
+msgid "Sicilian Defence: Prins Variation, Venice Attack"
+msgstr "Sicilienne, var. Prins, attaque de Venise"
+
+msgid "Sicilian Defence: Quinteros Variation"
+msgstr "Sicilienne, var. Quinteros"
+
+msgid "Sicilian Defence: Richter-Rauzer, 6...e6"
+msgstr "Sicilienne, attaque Richter - Rauzer, 6...e6"
+
+msgid "Sicilian Defence: Richter-Rauzer, Bondarevsky Variation"
+msgstr "Sicilienne, attaque Richter - Rauzer, var. Bondarevsky"
+
+msgid "Sicilian Defence: Richter-Rauzer, Keres Variation"
+msgstr "Sicilienne, attaque Richter - Rauzer, var. Keres"
+
+msgid "Sicilian Defence: Richter-Rauzer, Larsen Variation, 7.Qd2"
+msgstr "Sicilienne, attaque Richter - Rauzer, var. Larsen, 7.Dd2"
+
+msgid "Sicilian Defence: Richter-Rauzer, Larsen Variation"
+msgstr "Sicilienne, attaque Richter - Rauzer, var. Larsen"
+
+msgid "Sicilian Defence: Richter-Rauzer, Margate (Alekhine) Variation"
+msgstr "Sicilienne, attaque Richter - Rauzer, var. de Margate (Alekhine)"
+
+msgid "Sicilian Defence: Richter-Rauzer, Podvebrady Variation"
+msgstr "Sicilienne, attaque Richter - Rauzer, var. de Poděbrady"
+
+msgid ""
+"Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...Be7 Defence, 9...Nxd4"
+msgstr ""
+"Sicilienne, attaque Richter - Rauzer, attaque Rauzer, défense 7...Fe7, "
+"9...Cxd4"
+
+msgid "Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...Be7 Defence, 9.f4"
+msgstr ""
+"Sicilienne, attaque Richter - Rauzer, attaque Rauzer, défense 7...Fe7, 9.f4"
+
+msgid "Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...Be7"
+msgstr "Sicilienne, attaque Richter - Rauzer, attaque Rauzer, 7...Fe7"
+
+msgid ""
+"Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...a6 Defence, 11.Bxf6"
+msgstr ""
+"Sicilienne, attaque Richter - Rauzer, attaque Rauzer, défense 7...a6, "
+"11.Fxf6"
+
+msgid ""
+"Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...a6 Defence, 8...Bd7"
+msgstr ""
+"Sicilienne, attaque Richter - Rauzer, attaque Rauzer, défense 7...a6, "
+"8...Fd7"
+
+msgid ""
+"Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...a6 Defence, 9...Be7"
+msgstr ""
+"Sicilienne, attaque Richter - Rauzer, attaque Rauzer, défense 7...a6, "
+"9...Fe7"
+
+msgid "Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...a6"
+msgstr "Sicilienne, attaque Richter - Rauzer, attaque Rauzer, 7...a6"
+
+msgid "Sicilian Defence: Richter-Rauzer, Rauzer Attack, Geller Variation"
+msgstr "Sicilienne, attaque Richter - Rauzer, attaque Rauzer, var. Geller"
+
+msgid "Sicilian Defence: Richter-Rauzer, Rauzer Attack"
+msgstr "Sicilienne, attaque Richter - Rauzer, attaque Rauzer"
+
+msgid "Sicilian Defence: Richter-Rauzer, Richter Attack"
+msgstr "Sicilienne, attaque Richter - Rauzer, attaque Richter"
+
+msgid "Sicilian Defence: Richter-Rauzer"
+msgstr "Sicilienne, attaque (ou variante) Richter - Rauzer"
+
+msgid "Sicilian Defence: Scheveningen (Paulsen), Classical Variation"
+msgstr "Sicilienne, var. de Scheveningue (Paulsen), var. classique"
+
+msgid "Sicilian Defence: Scheveningen Variation"
+msgstr "Sicilienne, var. de Scheveningue"
+
+msgid "Sicilian Defence: Scheveningen, 6.Be2"
+msgstr "Sicilienne, var de Scheveningue, 6.Fe2"
+
+msgid "Sicilian Defence: Scheveningen, 6.f4"
+msgstr "Sicilienne, var. de Scheveningue, 6.f4"
+
+msgid "Sicilian Defence: Scheveningen, Classical Main Line"
+msgstr "Sicilienne, var. de Scheveningue, var. classique, ligne principale"
+
+msgid ""
+"Sicilian Defence: Scheveningen, Classical Variation with ...Qc7 and ...Nc6"
+msgstr ""
+"Sicilienne, var. de Scheveningue, var. classique, avec ...Dc7 et ...Cc6"
+
+msgid "Sicilian Defence: Scheveningen, Classical, Maroczy System"
+msgstr "Sicilienne, var. de Scheveningue, var. classique, système Maroczy"
+
+msgid "Sicilian Defence: Scheveningen, Classical, Nd7 System"
+msgstr "Sicilienne, var. de Scheveningue, var. classique, système Cbd7"
+
+msgid "Sicilian Defence: Scheveningen, Classical"
+msgstr "Sicilienne, var. de Scheveningue, var. classique"
+
+msgid "Sicilian Defence: Scheveningen, English Variation"
+msgstr "Sicilienne, var. de Scheveningue, var. anglaise"
+
+msgid "Sicilian Defence: Scheveningen, Fianchetto Variation"
+msgstr "Sicilienne, var. de Scheveningue, var. du fianchetto"
+
+msgid "Sicilian Defence: Scheveningen, Keres Attack"
+msgstr "Sicilienne, var. de Scheveningue, attaque Keres"
+
+msgid "Sicilian Defence: Scheveningen, Tal Variation"
+msgstr "Sicilienne, var. de Scheveningue, var. Tal"
+
+msgid "Sicilian Defence: Scheveningen, Vitolins Variation"
+msgstr "Sicilienne, var. de Scheveningue, var. Vītoliņš"
+
+msgid "Sicilian Defence: Smith-Morra Gambit, Chicago Defence"
+msgstr "Sicilienne, gambit Smith - Morra, défense de Chicago"
+
+msgid "Sicilian Defence: Smith-Morra Gambit"
+msgstr "Sicilienne, gambit Smith - Morra"
+
+msgid "Sicilian Defence: Sozin Attack"
+msgstr "Sicilienne, attaque Sozin"
+
+msgid "Sicilian Defence: Sozin with ...a6 and ...b5"
+msgstr "Sicilienne, Sozin, avec ...a6 et ...b5"
+
+msgid "Sicilian Defence: Sozin, 7.Be3"
+msgstr "Sicilienne, Sozin, 7.Fe3"
+
+msgid "Sicilian Defence: Sozin, Benko Variation"
+msgstr "Sicilienne, Sozin, var. Benko"
+
+msgid "Sicilian Defence: Sozin, Fischer Variation"
+msgstr "Sicilienne, Sozin, var. Fischer"
+
+msgid "Sicilian Defence: Sozin, Leonhardt Variation"
+msgstr "Sicilienne, Sozin, var. Leonhardt"
+
+msgid "Sicilian Defence: Sozin, not Scheveningen"
+msgstr "Sicilienne, Sozin, \"not Scheveningen\""
+
+msgid "Sicilian Defence: Steinitz Variation"
+msgstr "Sicilienne, var. Steinitz"
+
+msgid "Sicilian Defence: Stiletto (Althouse) Variation"
+msgstr "Sicilienne, var. \"Stiletto (Althouse)\""
+
+msgid "Sicilian Defence: Sveshnikov Variation"
+msgstr "Sicilienne, var. Sveshnikov"
+
+msgid "Sicilian Defence: Szen (Anti-Taimanov) Variation"
+msgstr "Sicilienne, var. Szen anti-Taïmanov"
+
+msgid "Sicilian Defence: Szen Variation, Dely-Kasparov Gambit"
+msgstr "Sicilienne, var. Szen, gambit Dely - Kasparov"
+
+msgid "Sicilian Defence: Szen, Hedgehog Variation"
+msgstr "Sicilienne, var. Szen, var. du hérisson"
+
+msgid "Sicilian Defence: Taimanov (Bastrikov) Variation"
+msgstr "Sicilienne, var. Taïmanov (Bastrikov)"
+
+msgid "Sicilian Defence: Taimanov Variation"
+msgstr "Sicilienne, var Taïmanov"
+
+msgid "Sicilian Defence: Taimanov, American Attack"
+msgstr "Sicilienne, var. Taïmanov, attaque américaine"
+
+msgid "Sicilian Defence: Velimirovic Attack"
+msgstr "Sicilienne, attaque Velimirović"
+
+msgid "Sicilian Defence: Venice Attack"
+msgstr "Sicilienne, attaque de Venise"
+
+msgid "Sicilian Defence: Wing Gambit deferred"
+msgstr "Sicilienne, gambit de l'aile différé"
+
+msgid "Sicilian Defence: Wing Gambit, Carlsbad Variation"
+msgstr "Sicilienne, gambit de l'aile, var. de Carlsbad (Karlovy Vary)"
+
+msgid "Sicilian Defence: Wing Gambit, Marienbad Variation"
+msgstr "Sicilienne, gambit de l'aile, var. de Marienbad"
+
+msgid "Sicilian Defence: Wing Gambit, Marshall Variation"
+msgstr "Sicilienne, gambit de l'aile, var. Marshall"
+
+msgid "Sicilian Defence: Wing Gambit, Santasiere Variation"
+msgstr "Sicilienne, gambit de l'aile, var. Santasiere"
+
+msgid "Sicilian Defence: Wing Gambit"
+msgstr "Sicilienne, gambit de l'aile"
+
+msgid "Sicilian Defence"
+msgstr "Défense sicilienne"
+
+msgid "Spanish, Ruy Lopez: ...b5 & ...d6"
+msgstr "Espagnole, avec ...b5 et ...d6"
+
+msgid "Spanish, Ruy Lopez: 5.O-O"
+msgstr "Espagnole, 5.O-O"
+
+msgid "Spanish, Ruy Lopez: Alapin Defence deferred"
+msgstr "Espagnole, défense Alapin différée"
+
+msgid "Spanish, Ruy Lopez: Anderssen Variation"
+msgstr "Espagnole, var. Anderssen"
+
+msgid "Spanish, Ruy Lopez: Archangelsk (CounterThrust) Variation"
+msgstr "Espagnole, var. d'Arkhangelsk"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, 4.O-O, d6"
+msgstr "Espagnole, défense berlinoise, 4.O-O d6"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, 4.O-O"
+msgstr "Espagnole, défense berlinoise, 4.O-O"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Anderssen Variation"
+msgstr "Espagnole, défense berlinoise, var. Anderssen"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Beverwijk Variation"
+msgstr "Espagnole, défense berlinoise, var. de Beverwijk"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Cordel Variation"
+msgstr "Espagnole, défense berlinoise, var. Cordel"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Duras Variation"
+msgstr "Espagnole, défense berlinoise, var. Duras"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Hedgehog Variation"
+msgstr "Espagnole, défense berlinoise, var. du hérisson"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Kaufmann Variation"
+msgstr "Espagnole, défense berlinoise, var. Kaufmann"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Minckwitz Variation"
+msgstr "Espagnole, défense berlinoise, var. Minckwitz"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Mortimer Variation"
+msgstr "Espagnole, défense berlinoise, var. Mortimer"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Mortimer trap"
+msgstr "Espagnole, défense berlinoise, piège de Mortimer"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Nyholm Attack"
+msgstr "Espagnole, défense berlinoise, attaque Nyholm"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Open Variation"
+msgstr "Espagnole, défense berlinoise, var. ouverte"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Pillsbury Variation"
+msgstr "Espagnole, défense berlinoise, var. Pillsbury"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Rosenthal Variation"
+msgstr "Espagnole, défense berlinoise, var. Rosenthal"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Tarrasch trap"
+msgstr "Espagnole, défense berlinoise, piège de Tarrasch"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Trifunovic Variation"
+msgstr "Espagnole, défense berlinoise, var. Trifunović"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Winawer Attack"
+msgstr "Espagnole, défense berlinoise, attaque Winawer"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Zukertort Variation"
+msgstr "Espagnole, défense berlinoise, var. Zukertort"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence"
+msgstr "Espagnole, défense berlinoise"
+
+msgid "Spanish, Ruy Lopez: Bird Defence deferred"
+msgstr "Espagnole, défense Bird différée"
+
+msgid "Spanish, Ruy Lopez: Bird Defence, Paulsen Variation"
+msgstr "Espagnole, défense Bird, var. Paulsen"
+
+msgid "Spanish, Ruy Lopez: Bird Defence"
+msgstr "Espagnole, défense Bird"
+
+msgid "Spanish, Ruy Lopez: Brentano Defence"
+msgstr "Espagnole, défense Brentano"
+
+msgid "Spanish, Ruy Lopez: Caro Variation"
+msgstr "Espagnole, var. Caro"
+
+msgid "Spanish, Ruy Lopez: Classical (Cordel) Defence"
+msgstr "Espagnole, défense classique (Cordel)"
+
+msgid "Spanish, Ruy Lopez: Classical Defence deferred"
+msgstr "Espagnole, défense classique différée"
+
+msgid "Spanish, Ruy Lopez: Classical Defence, 4.c3"
+msgstr "Espagnole, défense classique (Cordel), 4.c3"
+
+msgid "Spanish, Ruy Lopez: Classical Defence, Boden Variation"
+msgstr "Espagnole, défense classique (Cordel), var. Boden"
+
+msgid "Spanish, Ruy Lopez: Classical Defence, Charousek Variation"
+msgstr "Espagnole, défense classique (Cordel), var. Charousek"
+
+msgid "Spanish, Ruy Lopez: Classical Defence, Zaitsev Variation"
+msgstr "Espagnole, défense classique (Cordel), var. Zaitsev"
+
+msgid "Spanish, Ruy Lopez: Closed (10...c5)"
+msgstr "Espagnole fermée, 10...c5"
+
+msgid "Spanish, Ruy Lopez: Closed (8...Na5)"
+msgstr "Espagnole fermée, 8...Ca5"
+
+msgid "Spanish, Ruy Lopez: Closed (with ...d6)"
+msgstr "Espagnole fermée, avec ...d6"
+
+msgid "Spanish, Ruy Lopez: Closed Berlin Defence, Bernstein Variation"
+msgstr "Espagnole, défense berlinoise fermée, var. Bernstein"
+
+msgid "Spanish, Ruy Lopez: Closed Berlin Defence, Chigorin Variation"
+msgstr "Espagnole, défense berlinoise fermée, var. Tchigorine"
+
+msgid "Spanish, Ruy Lopez: Closed Berlin Defence, Showalter Variation"
+msgstr "Espagnole, défense berlinoise fermée, var. Showalter"
+
+msgid "Spanish, Ruy Lopez: Closed Berlin Defence, Wolf Variation"
+msgstr "Espagnole, défense berlinoise fermée, var. Wolf"
+
+msgid "Spanish, Ruy Lopez: Closed Defence"
+msgstr "Espagnole, variante (parfois \"défense\" en anglais) fermée"
+
+msgid "Spanish, Ruy Lopez: Closed, 7...O-O"
+msgstr "Espagnole fermée, 7...O-O"
+
+msgid "Spanish, Ruy Lopez: Closed, 7...d6, 8.d4"
+msgstr "Espagnole fermée, 7...d6 8.d4"
+
+msgid "Spanish, Ruy Lopez: Closed, 8.c3"
+msgstr "Espagnole fermée, 8.c3"
+
+msgid "Spanish, Ruy Lopez: Closed, 9.d4"
+msgstr "Espagnole fermée, 9.d4"
+
+msgid "Spanish, Ruy Lopez: Closed, 9.h3"
+msgstr "Espagnole fermée, 9.h3"
+
+msgid "Spanish, Ruy Lopez: Closed, Anti-Marshall 8.a4"
+msgstr "Espagnole fermée, système anti-Marshall, 8.a4"
+
+msgid "Spanish, Ruy Lopez: Closed, Averbakh Variation"
+msgstr "Espagnole fermée, var. Averbakh"
+
+msgid "Spanish, Ruy Lopez: Closed, Balla Variation"
+msgstr "Espagnole fermée, var. Balla"
+
+msgid "Spanish, Ruy Lopez: Closed, Basque Gambit (North Spanish Variation)"
+msgstr "Espagnole fermée, gambit basque (var. nord-espagnole)"
+
+msgid "Spanish, Ruy Lopez: Closed, Bogolyubov Variation"
+msgstr "Espagnole fermée, var. Bogoljubov"
+
+msgid "Spanish, Ruy Lopez: Closed, Borisenko Defence"
+msgstr "Espagnole fermée, défense Borisenko"
+
+msgid "Spanish, Ruy Lopez: Closed, Breyer Defence"
+msgstr "Espagnole fermée, défense Breyer"
+
+msgid "Spanish, Ruy Lopez: Closed, Breyer, 10.d4"
+msgstr "Espagnole fermée, défense Breyer, 10.d4"
+
+msgid "Spanish, Ruy Lopez: Closed, Breyer, Borisenko Variation"
+msgstr "Espagnole fermée, défense Breyer, var. Borisenko"
+
+msgid "Spanish, Ruy Lopez: Closed, Breyer, Gligoric Variation"
+msgstr "Espagnole fermée, défense Breyer, var. Gligorić"
+
+msgid "Spanish, Ruy Lopez: Closed, Breyer, Simagin Variation"
+msgstr "Espagnole fermée, défense Breyer, var. Simagin"
+
+msgid "Spanish, Ruy Lopez: Closed, Centre Attack"
+msgstr "Espagnole fermée, attaque du centre"
+
+msgid "Spanish, Ruy Lopez: Closed, Chigorin Defence"
+msgstr "Espagnole fermée, défense Tchigorine"
+
+msgid "Spanish, Ruy Lopez: Closed, Chigorin, 12...Nc6"
+msgstr "Espagnole fermée, défense Tchigorine, 12...Cc6"
+
+msgid "Spanish, Ruy Lopez: Closed, Chigorin, 12...c5d4"
+msgstr "Espagnole fermée, défense Tchigorine, 12...cxd4"
+
+msgid "Spanish, Ruy Lopez: Closed, Chigorin, Rauzer Attack"
+msgstr "Espagnole fermée, défense Tchigorine, attaque Rauzer"
+
+msgid "Spanish, Ruy Lopez: Closed, Chigorin, Yugoslav System"
+msgstr "Espagnole fermée, défense Tchigorine, système yougoslave"
+
+msgid ""
+"Spanish, Ruy Lopez: Closed, Flohr-Zaitsev System (Lenzerheide Variation)"
+msgstr "Espagnole fermée, système Flohr - Zaitsev (de Lenzerheide)"
+
+msgid "Spanish, Ruy Lopez: Closed, Keres (...Nd7) Defence"
+msgstr "Espagnole fermée, avec ...Cd7 (défense Keres)"
+
+msgid "Spanish, Ruy Lopez: Closed, Keres (9...a5) Variation"
+msgstr "Espagnole fermée, 9...a5 (var. Keres)"
+
+msgid "Spanish, Ruy Lopez: Closed, Kholmov Variation"
+msgstr "Espagnole fermée, var. Kholmov"
+
+msgid "Spanish, Ruy Lopez: Closed, Leonhardt Variation"
+msgstr "Espagnole fermée, var. Leonhardt"
+
+msgid "Spanish, Ruy Lopez: Closed, Lutikov Variation"
+msgstr "Espagnole fermée, var. Lutikov"
+
+msgid "Spanish, Ruy Lopez: Closed, Pilnik Variation"
+msgstr "Espagnole fermée, var. Pilnik"
+
+msgid "Spanish, Ruy Lopez: Closed, Ragozin-Petrosian (Keres) Variation"
+msgstr "Espagnole fermée, var. Ragozin - Petrossian (Keres)"
+
+msgid "Spanish, Ruy Lopez: Closed, Rossolimo Defence"
+msgstr "Espagnole fermée, défense Rossolimo"
+
+msgid "Spanish, Ruy Lopez: Closed, Smyslov Defence"
+msgstr "Espagnole fermée, défense Smyslov"
+
+msgid "Spanish, Ruy Lopez: Closed, Suetin Variation"
+msgstr "Espagnole fermée, var. Suetin"
+
+msgid "Spanish, Ruy Lopez: Cordel Gambit"
+msgstr "Espagnole, gambit Cordel"
+
+msgid "Spanish, Ruy Lopez: Cozio Defence deferred"
+msgstr "Espagnole, défense Cozio différée"
+
+msgid "Spanish, Ruy Lopez: Cozio Defence, Paulsen Variation"
+msgstr "Espagnole, défense Cozio, var. Paulsen"
+
+msgid "Spanish, Ruy Lopez: Cozio Defence"
+msgstr "Espagnole, défense Cozio"
+
+msgid "Spanish, Ruy Lopez: Exchange Variation doubly deferred (DERLD)"
+msgstr ""
+"Espagnole, var. d'échange deux fois différé (Delayed Exchange Ruy López "
+"Deferred)"
+
+msgid "Spanish, Ruy Lopez: Exchange Variation, 5.O-O"
+msgstr "Espagnole, var. d'échange, 5.O-O"
+
+msgid "Spanish, Ruy Lopez: Exchange Variation, Alapin Gambit"
+msgstr "Espagnole, var. d'échange, gambit Alapin"
+
+msgid "Spanish, Ruy Lopez: Exchange Variation"
+msgstr "Espagnole, var. d'échange"
+
+msgid "Spanish, Ruy Lopez: Exchange, Alekhine Variation"
+msgstr "Espagnole, var. d'échange, var. Alekhine"
+
+msgid "Spanish, Ruy Lopez: Exchange, Bronstein Variation"
+msgstr "Espagnole, var. d'échange, var. Bronstein"
+
+msgid "Spanish, Ruy Lopez: Exchange, Gligoric Variation"
+msgstr "Espagnole, var. d'échange, var. Gligorić"
+
+msgid "Spanish, Ruy Lopez: Exchange, Keres Variation"
+msgstr "Espagnole, var. d'échange, var. Keres"
+
+msgid "Spanish, Ruy Lopez: Exchange, Romanovsky Variation"
+msgstr "Espagnole, var. d'échange, var. Romanovsky"
+
+msgid "Spanish, Ruy Lopez: Fianchetto (Smyslov/Barnes) Defence"
+msgstr "Espagnole, défense du fianchetto (Smyslov, Barnes)"
+
+msgid "Spanish, Ruy Lopez: Fianchetto Defence deferred"
+msgstr "Espagnole, défense du fianchetto différé"
+
+msgid "Spanish, Ruy Lopez: Four Knights (Tarrasch) Variation"
+msgstr "Espagnole, var. des 4 cavaliers (Tarrasch)"
+
+msgid "Spanish, Ruy Lopez: Graz Variation"
+msgstr "Espagnole, var. de Graz"
+
+msgid "Spanish, Ruy Lopez: Lucena Defence"
+msgstr "Espagnole, défense Lucena"
+
+msgid "Spanish, Ruy Lopez: Marshall Counter-Attack, 11...c6"
+msgstr "Espagnole, gambit Marshall, 11...c6"
+
+msgid "Spanish, Ruy Lopez: Marshall Counter-Attack"
+msgstr "Espagnole, gambit (ou contre-attaque ou attaque) Marshall"
+
+msgid "Spanish, Ruy Lopez: Marshall, Herman Steiner Variation"
+msgstr "Espagnole, gambit Marshall, var. Herman Steiner"
+
+msgid "Spanish, Ruy Lopez: Marshall, Kevitz Variation"
+msgstr "Espagnole, gambit Marshall, var. Kevitz"
+
+msgid "Spanish, Ruy Lopez: Marshall, Main Line, 12.d2d4"
+msgstr "Espagnole, gambit Marshall, ligne principale, 12.d4"
+
+msgid "Spanish, Ruy Lopez: Marshall, Main Line, 14...Qh3"
+msgstr "Espagnole, gambit Marshall, ligne principale, 14...Dh3"
+
+msgid "Spanish, Ruy Lopez: Marshall, Main Line, Spassky Variation"
+msgstr "Espagnole, gambit Marshall, ligne principale, var. Spassky"
+
+msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, 5.O-O"
+msgstr "Espagnole, défense Steinitz moderne, 5.O-O"
+
+msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, Alapin Variation"
+msgstr "Espagnole, défense Steinitz moderne, var. Alapin"
+
+msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, Duras (Keres) Variation"
+msgstr "Espagnole, défense Steinitz moderne, var. Duras (Keres)"
+
+msgid ""
+"Spanish, Ruy Lopez: Modern Steinitz Defence, Fianchetto (Bronstein) "
+"Variation"
+msgstr "Espagnole, défense Steinitz moderne, var. du fianchetto (Bronstein)"
+
+msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, Richter Variation"
+msgstr "Espagnole, défense Steinitz moderne, var. Richter"
+
+msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, Rubinstein Variation"
+msgstr "Espagnole, défense Steinitz moderne, var. Rubinstein"
+
+msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, Three Knights Variation"
+msgstr "Espagnole, défense Steinitz moderne, var. des 3 cavaliers"
+
+msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, siesta Variation"
+msgstr ""
+"Espagnole, défense Steinitz moderne, var Siesta (du nom d'un sanatorium à "
+"Budapest)"
+
+msgid "Spanish, Ruy Lopez: Modern Steinitz Defence"
+msgstr "Espagnole, défense Steinitz moderne"
+
+msgid "Spanish, Ruy Lopez: Moeller Defence"
+msgstr "Espagnole, défense Møller"
+
+msgid "Spanish, Ruy Lopez: Morphy Defence, Duras Variation"
+msgstr "Espagnole, défense Morphy, var. Duras"
+
+msgid "Spanish, Ruy Lopez: Morphy Defence"
+msgstr "Espagnole, défense Morphy"
+
+msgid "Spanish, Ruy Lopez: Noah ark trap"
+msgstr "Espagnole, piège de l'arche de Noé"
+
+msgid "Spanish, Ruy Lopez: Nuernberg Variation"
+msgstr "Espagnole, var. de Nuremberg"
+
+msgid "Spanish, Ruy Lopez: Old Steinitz Defence, Nimzovich Attack"
+msgstr "Espagnole, défense Steinitz ancienne, attaque Nimzowitsch"
+
+msgid "Spanish, Ruy Lopez: Old Steinitz Defence, semi-Duras Variation"
+msgstr "Espagnole, défense Steinitz ancienne, var. semi-Duras"
+
+msgid "Spanish, Ruy Lopez: Old Steinitz Defence"
+msgstr "Espagnole, défense Steinitz ancienne"
+
+msgid "Spanish, Ruy Lopez: Open (Tarrasch) Defence"
+msgstr "Espagnole, variante (parfois \"défense\" en anglais) ouverte"
+
+msgid "Spanish, Ruy Lopez: Open Berlin Defence, 5...Be7"
+msgstr "Espagnole, défense berlinoise ouverte, 5...Fe7"
+
+msgid "Spanish, Ruy Lopez: Open Berlin Defence, Showalter Variation"
+msgstr "Espagnole, défense berlinoise ouverte, var. Showalter"
+
+msgid "Spanish, Ruy Lopez: Open Berlin Defence, l'Hermet Variation"
+msgstr "Espagnole, défense berlinoise ouverte, var. L'hermet"
+
+msgid "Spanish, Ruy Lopez: Open, 6.d4 b5"
+msgstr "Espagnole ouverte, 6.d4 b5"
+
+msgid "Spanish, Ruy Lopez: Open, 6.d4"
+msgstr "Espagnole ouverte, 6.d4"
+
+msgid "Spanish, Ruy Lopez: Open, 7.Bb3"
+msgstr "Espagnole ouverte, 7.Fb3"
+
+msgid "Spanish, Ruy Lopez: Open, 8...Be6"
+msgstr "Espagnole ouverte, 8...Fe6"
+
+msgid "Spanish, Ruy Lopez: Open, 8.de"
+msgstr "Espagnole ouverte, 8.dxe5"
+
+msgid "Spanish, Ruy Lopez: Open, 9...Be7, 10.Re1"
+msgstr "Espagnole ouverte, 9...Fe7 10.Te1"
+
+msgid "Spanish, Ruy Lopez: Open, 9.c3"
+msgstr "Espagnole ouverte, 9.c3"
+
+msgid "Spanish, Ruy Lopez: Open, Berger Variation"
+msgstr "Espagnole ouverte, var. Berger"
+
+msgid "Spanish, Ruy Lopez: Open, Berlin Variation"
+msgstr "Espagnole ouverte, var. de Berlin"
+
+msgid "Spanish, Ruy Lopez: Open, Bernstein Variation, Karpov Gambit"
+msgstr "Espagnole ouverte, var. Bernstein, gambit Karpov"
+
+msgid "Spanish, Ruy Lopez: Open, Bernstein Variation"
+msgstr "Espagnole ouverte, var. Bernstein"
+
+msgid "Spanish, Ruy Lopez: Open, Breslau Variation"
+msgstr "Espagnole ouverte, var. de Wrocław (Breslau)"
+
+msgid "Spanish, Ruy Lopez: Open, Classical Defence"
+msgstr "Espagnole ouverte, défense classique"
+
+msgid "Spanish, Ruy Lopez: Open, Dilworth Variation"
+msgstr "Espagnole ouverte, var. Dilworth"
+
+msgid "Spanish, Ruy Lopez: Open, Friess Attack"
+msgstr "Espagnole ouverte, attaque Friess"
+
+msgid "Spanish, Ruy Lopez: Open, Harksen Gambit"
+msgstr "Espagnole ouverte, gambit Harksen"
+
+msgid "Spanish, Ruy Lopez: Open, Howell Attack, Adam Variation"
+msgstr "Espagnole ouverte, attaque Howell, var. Adam"
+
+msgid "Spanish, Ruy Lopez: Open, Howell Attack, Ekstroem Variation"
+msgstr "Espagnole ouverte, attaque Howell, var. Ekstroem"
+
+msgid "Spanish, Ruy Lopez: Open, Howell Attack"
+msgstr "Espagnole ouverte, attaque Howell"
+
+msgid "Spanish, Ruy Lopez: Open, Italian Variation"
+msgstr "Espagnole ouverte, var. italienne"
+
+msgid "Spanish, Ruy Lopez: Open, Knorre Variation"
+msgstr "Espagnole ouverte, var. Knorre"
+
+msgid "Spanish, Ruy Lopez: Open, Malkin Variation"
+msgstr "Espagnole ouverte, var. Malkin"
+
+msgid "Spanish, Ruy Lopez: Open, Motzko Attack, Nenarokov Variation"
+msgstr "Espagnole ouverte, attaque Motzko, var. Nenarokov"
+
+msgid "Spanish, Ruy Lopez: Open, Motzko Attack"
+msgstr "Espagnole ouverte, attaque Motzko"
+
+msgid "Spanish, Ruy Lopez: Open, Richter Variation"
+msgstr "Espagnole ouverte, var. Richter"
+
+msgid "Spanish, Ruy Lopez: Open, Riga Variation"
+msgstr "Espagnole ouverte, var. de Riga"
+
+msgid "Spanish, Ruy Lopez: Open, Schlechter Defence"
+msgstr "Espagnole ouverte, défense Schlechter"
+
+msgid "Spanish, Ruy Lopez: Open, St. Petersburg Variation"
+msgstr "Espagnole ouverte, var. de Saint-Pétersbourg"
+
+msgid "Spanish, Ruy Lopez: Open, Tarrasch trap"
+msgstr "Espagnole ouverte, piège de Tarrasch"
+
+msgid "Spanish, Ruy Lopez: Open, Tartakower Variation"
+msgstr "Espagnole ouverte, var. Tartakover"
+
+msgid "Spanish, Ruy Lopez: Open, Zukertort Variation"
+msgstr "Espagnole ouverte, var. Zukertort"
+
+msgid "Spanish, Ruy Lopez: Pollock Defence"
+msgstr "Espagnole, défense Pollock"
+
+msgid "Spanish, Ruy Lopez: Rabinovich Variation"
+msgstr "Espagnole, var. Rabinovich"
+
+msgid "Spanish, Ruy Lopez: Schliemann Defence deferred"
+msgstr "Espagnole, défense Schliemann différée"
+
+msgid "Spanish, Ruy Lopez: Schliemann Defence, Berger Variation"
+msgstr "Espagnole, défense Schliemann, var. Berger"
+
+msgid "Spanish, Ruy Lopez: Schliemann Defence"
+msgstr "Espagnole, défense Schliemann ou gambit Jaenisch"
+
+msgid "Spanish, Ruy Lopez: Siesta, Kopayev Variation"
+msgstr ""
+"Espagnole, var. Siesta (du nom d'un sanatorium à Budapest), var. Kopaev"
+
+msgid "Spanish, Ruy Lopez: Steinitz Defence deferred (Russian Defence)"
+msgstr "Espagnole, défense Steinitz différée (défense russe)"
+
+msgid "Spanish, Ruy Lopez: Steinitz Defence deferred, Boleslavsky Variation"
+msgstr "Espagnole, défense Steinitz différée, var. Boleslavsky"
+
+msgid "Spanish, Ruy Lopez: Steinitz Defence deferred, Lipnitsky Variation"
+msgstr "Espagnole, défense Steinitz différée, var. Lipnitsky"
+
+msgid "Spanish, Ruy Lopez: Steinitz Defence deferred, Rubinstein Variation"
+msgstr "Espagnole, défense Steinitz différée, var. Rubinstein"
+
+msgid ""
+"Spanish, Ruy Lopez: Taimanov (chase/wing/Accelerated CounterThrust) "
+"Variation"
+msgstr "Espagnole, var. Taïmanov"
+
+msgid "Spanish, Ruy Lopez: Trajkovic Counter-Attack"
+msgstr "Espagnole, contre-attaque Trajkovic"
+
+msgid ""
+"Spanish, Ruy Lopez: Treybal (Bayreuth) Variation (Exchange var. deferred)"
+msgstr "Espagnole, var. Treybal ou de Bayreuth (var. d'échange différé)"
+
+msgid "Spanish, Ruy Lopez: Vinogradov Variation"
+msgstr "Espagnole, défense (ou variante) Vinogradov"
+
+msgid "Spanish, Ruy Lopez: Wormald (Alapin) Attack"
+msgstr "Espagnole, attaque Wormald (Alapin)"
+
+msgid "Spanish, Ruy Lopez: Wormald Attack, Grünfeld Variation"
+msgstr "Espagnole, attaque Wormald, var. Grünfeld"
+
+msgid "Spanish, Ruy Lopez: Worrall Attack, Sharp Line"
+msgstr "Espagnole, attaque Worrall, \"sharp line\""
+
+msgid "Spanish, Ruy Lopez: Worrall Attack, solid Line"
+msgstr "Espagnole, attaque Worrall, \"solid line\""
+
+msgid "Spanish, Ruy Lopez: Worrall Attack"
+msgstr "Espagnole, attaque Worrall"
+
+msgid "St. George (Baker) Defence"
+msgstr "Défense Saint-Georges (Baker)"
+
+msgid "St. George Defence"
+msgstr "Défense Saint-Georges (ECO C00)"
+
+msgid "Tayler Opening"
+msgstr "Ouverture Tayler"
+
+msgid "Tennison (Lemberg, Zukertort) Gambit"
+msgstr "Réti, gambit Tennison (de Lemberg, Zukertort)"
+
+msgid "Three Knights Game: Schlechter Variation"
+msgstr "Partie des 3 cavaliers, var. Schlechter"
+
+msgid "Three Knights Game: Steinitz Variation"
+msgstr "Partie des 3 cavaliers, var. Steinitz"
+
+msgid "Three Knights Game: Steinitz, Rosenthal Variation"
+msgstr "Partie des 3 cavaliers, Steinitz, var. Rosenthal"
+
+msgid "Three Knights Game: Winawer Defence (Gothic Defence)"
+msgstr "Partie des 3 cavaliers, défense Winawer (gothique)"
+
+msgid "Three Knights Game"
+msgstr "Partie des 3 cavaliers"
+
+msgid "Torre Attack (Tartakower Variation)"
+msgstr "Attaque Torre, var. Tartakover"
+
+msgid "Trompovsky Attack (Ruth, Opovcensky Opening)"
+msgstr "Attaque Trompowsky (ouverture Ruth ou Opocensky)"
+
+msgid "Two Knights Defence (Modern Bishop Opening)"
+msgstr "Défense des 2 cavaliers (ouverture moderne du fou)"
+
+msgid "Two Knights Defence: Blackburne Variation"
+msgstr "Défense des 2 cavaliers, var. Blackburne"
+
+msgid "Two Knights Defence: Bogolyubov Variation"
+msgstr "Défense des 2 cavaliers, var. Bogoljubov"
+
+msgid "Two Knights Defence: Canal Variation"
+msgstr "Défense des 2 cavaliers, var. Canal"
+
+msgid "Two Knights Defence: Colman Variation"
+msgstr "Défense des 2 cavaliers, var. Colman"
+
+msgid "Two Knights Defence: Fegatello Attack, Leonhardt Variation"
+msgstr "Défense des 2 cavaliers, attaque fegatello, var. Leonhardt"
+
+msgid "Two Knights Defence: Fegatello Attack, Polerio Defence"
+msgstr "Défense des 2 cavaliers, attaque fegatello, défense Polerio"
+
+msgid "Two Knights Defence: Fegatello Attack"
+msgstr "Défense des 2 cavaliers, attaque fegatello (fried liver ou foie frit)"
+
+msgid "Two Knights Defence: Fritz Variation"
+msgstr "Défense des 2 cavaliers, var. Fritz"
+
+msgid "Two Knights Defence: Fritz, Gruber Variation"
+msgstr "Défense des 2 cavaliers, var. Fritz, var. Gruber"
+
+msgid "Two Knights Defence: Goering Variation"
+msgstr "Défense des 2 cavaliers, var. Göring"
+
+msgid "Two Knights Defence: Kieseritsky Variation"
+msgstr "Défense des 2 cavaliers, var. Kieseritzky"
+
+msgid "Two Knights Defence: Knorre Variation"
+msgstr "Défense des 2 cavaliers, var. Knorre"
+
+msgid "Two Knights Defence: Lolli Attack"
+msgstr "Défense des 2 cavaliers, attaque Lolli"
+
+msgid "Two Knights Defence: Maroczy Variation"
+msgstr "Défense des 2 cavaliers, var. Maroczy"
+
+msgid "Two Knights Defence: Max Lange Attack, Berger Variation"
+msgstr "Défense des 2 cavaliers, attaque Max Lange, var. Berger"
+
+msgid "Two Knights Defence: Max Lange Attack, Krause Variation"
+msgstr "Défense des 2 cavaliers, attaque Max Lange, var. Krause"
+
+msgid "Two Knights Defence: Max Lange Attack, Loman Defence"
+msgstr "Défense des 2 cavaliers, attaque Max Lange, défense Loman"
+
+msgid "Two Knights Defence: Max Lange Attack, Marshall Variation"
+msgstr "Défense des 2 cavaliers, attaque Max Lange, var. Marshall"
+
+msgid "Two Knights Defence: Max Lange Attack, Rubinstein Variation"
+msgstr "Défense des 2 cavaliers, attaque Max Lange, var. Rubinstein"
+
+msgid "Two Knights Defence: Max Lange Attack, Schlechter Variation"
+msgstr "Défense des 2 cavaliers, attaque Max Lange, var. Schlechter"
+
+msgid "Two Knights Defence: Max Lange Attack, Steinitz Variation"
+msgstr "Défense des 2 cavaliers, attaque Max Lange, var. Steinitz"
+
+msgid "Two Knights Defence: Max Lange Attack"
+msgstr "Défense des 2 cavaliers, attaque Max Lange"
+
+msgid "Two Knights Defence: Paoli Variation"
+msgstr "Défense des 2 cavaliers, var. Paoli"
+
+msgid "Two Knights Defence: Perreux Variation"
+msgstr "Défense des 2 cavaliers, var. de Perreux"
+
+msgid "Two Knights Defence: Pincus Variation"
+msgstr "Défense des 2 cavaliers, var. Pinkus"
+
+msgid "Two Knights Defence: Steinitz Variation"
+msgstr "Défense des 2 cavaliers, var. Steinitz"
+
+msgid "Two Knights Defence: Ulvestad Variation"
+msgstr "Défense des 2 cavaliers, var. Ulvestad"
+
+msgid "Two Knights Defence: Wilkes Barre (Traxler) Variation"
+msgstr "Défense des 2 cavaliers, var. de Wilkes-Barre (Traxler)"
+
+msgid "Two Knights Defence: Yankovich Variation"
+msgstr "Défense des 2 cavaliers, var. Yankovich"
+
+msgid "Two Knights Defence: Yurdansky Attack"
+msgstr "Défense des 2 cavaliers, attaque Yurdansky"
+
+msgid "Two Knights Defence"
+msgstr "Défense des 2 cavaliers"
+
+msgid "Valencia Opening"
+msgstr "Ouverture de Valencia"
+
+msgid "Van't Kruijs Opening"
+msgstr "Ouverture van't Kruijs"
+
+msgid "Venezolana Opening"
+msgstr "Ouverture vénézuélienne"
+
+msgid "Vienna Gambit: Bardeleben Variation"
+msgstr "Gambit viennois, var. Bardeleben"
+
+msgid "Vienna Gambit: Breyer Variation"
+msgstr "Gambit viennois, var. Breyer"
+
+msgid "Vienna Gambit: Heyde Variation"
+msgstr "Gambit viennois, var. Heyde"
+
+msgid "Vienna Gambit: Kaufmann Variation"
+msgstr "Gambit viennois, var. Kaufmann"
+
+msgid "Vienna Gambit: Paulsen Attack"
+msgstr "Gambit viennois, attaque Paulsen"
+
+msgid "Vienna Gambit: Steinitz Variation"
+msgstr "Gambit viennois, var. Steinitz"
+
+msgid "Vienna Gambit: Wurzburger trap"
+msgstr "Gambit viennois, piège de Würzburger"
+
+msgid "Vienna Gambit"
+msgstr "Gambit viennois"
+
+msgid "Vienna Game: Adams' Gambit"
+msgstr "Viennoise, gambit Adams"
+
+msgid "Vienna Game: Alekhine Variation"
+msgstr "Viennoise, var. Alekhine"
+
+msgid "Vienna Game: Falkbeer Variation"
+msgstr "Viennoise, var. Falkbeer"
+
+msgid "Vienna Game: Fyfe Gambit"
+msgstr "Viennoise, gambit Fyfe"
+
+msgid "Vienna Game: Hamppe-Allgaier Gambit, Alapin Variation"
+msgstr "Viennoise, gambit Hamppe - Allgaier, var. Alapin"
+
+msgid "Vienna Game: Hamppe-Muzio Gambit"
+msgstr "Viennoise, gambit Hamppe - Muzio"
+
+msgid "Vienna Game: Hamppe-Muzio, Dubois Variation"
+msgstr "Viennoise, gambit Hamppe - Muzio, var. Dubois"
+
+msgid "Vienna Game: Max Lange Defence"
+msgstr "Viennoise, défense Max Lange"
+
+msgid "Vienna Game: Mengarini Variation"
+msgstr "Viennoise, var. Mengarini"
+
+msgid "Vienna Game: Paulsen Variation"
+msgstr "Viennoise, var. Paulsen"
+
+msgid "Vienna Game: Paulsen-Mieses Variation"
+msgstr "Viennoise, var. Paulsen - Mieses"
+
+msgid "Vienna Game: Pierce Gambit, Rushmere Attack"
+msgstr "Viennoise, gambit Pierce, attaque Rushmere"
+
+msgid "Vienna Game: Pierce Gambit"
+msgstr "Viennoise, gambit Pierce"
+
+msgid "Vienna Game: Steinitz Gambit, Fraser-Minckwitz Variation"
+msgstr "Viennoise, gambit Steinitz, var. Fraser - Minckwitz"
+
+msgid "Vienna Game: Steinitz Gambit, Zukertort Defence"
+msgstr "Viennoise, gambit Steinitz, défense Zukertort"
+
+msgid "Vienna Game: Steinitz Gambit"
+msgstr "Viennoise, gambit Steinitz"
+
+msgid "Vienna Game"
+msgstr "Partie viennoise"
+
+msgid "Vulture Defence"
+msgstr "Défense du vautour"
+
+msgid "Ware (Meadow Hay) Opening"
+msgstr "Ouverture Ware ou meadow hay (foin de prairie)"
+
+msgid "Woozle Defence"
+msgstr ""
+"Défense Woozle (premier nom des Fraggles ou référence à Winnie l'ourson qui "
+"essaie de capturer un Woozle ?)"

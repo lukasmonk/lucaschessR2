@@ -1,0 +1,13 @@
+id name Arminius 2017-01-01
+id author Volker Annuss
+option name Hash type spin default 3 min 1 max 1000
+option name Ponder type check default true
+option name OwnBook type check default true
+option name Clear Hash type button
+option name MultiPV type spin default 1 min 1 max 10
+option name MultiPV_Score type spin default 0 min 0 max 1000
+option name UCI_Chess960 type check default false
+option name BookFile type string default Arminius.opn
+option name UCI_Opponent type string default none none human none
+option name NumberOfProcessors type spin default 1 min 1 max 32
+option name TimeLogfile type string default nul:

@@ -1,0 +1,71 @@
+<html>
+<h2>ROCE-Roman's Own Chess Engine</h2>
+<h5>Readme, (27.06.2009) </h5>
+<h3>Intro</h3>
+<p>Roce is yet another chess engine that probably no one needs. Still it's a lot of fun to work on it. I started writing Roce around christmas time in 2003. At first it was supposed to be a weeks or months project mainly meant to improve my knowledge of the C programming language. But the project turned out to be more challenging and timeconsuming than I expected it to be. </p>
+
+<h3>How to run Roce</h3>
+<p>If you intend to play against Roce you should get a nice GUI like Arena or something else that supports the UCI-protocol. Roce should also work under the Fritz or under the Shredder classic Interface. In fact any GUI that supports the UCI-protocol should do. </p>
+
+
+<h3>Playing strength </h3>
+<p>Roce is still a rather weak engine. It won't miss simple tactics but it still lacks a lot of chess knowledge and will play unsound moves in many situations. On the other hand it plays with a rather risky and attacking style and even mediocre players have a good chance to win or draw a game so depending on your strength it might be an interesting opponent to play with. </p>
+
+<h3>History</h3>
+<ul>
+<li> x-mas 2003, start to write a move generator </li>
+<li> february 2004, HD failure on my notebook, sources are lost </li>
+<li> march 2004, start coding again </li>
+<li> august 2004, move generator works fine up to ply 5 </li>
+<li> septembre 2004, fixed an ep-bug, move generator seems to work fine now </li>
+<li> decembre 2004, implemented minimax/negamax and a simple material eval </li>
+<li> january 2005, implemented a NegaMax search </li>
+<li> february 2005, added a pieces/square table in order to improve move ordering for alpha beta </li>
+<li> june 2005, replaced the material-only eval with a material/square-evaluation </li>
+<li> june/july 2005, added parts of the UCI protocol to the engine </li>
+<li> july 2005, Roce 0.034 played the first games against other engines (and lost most of them) </li>
+<li> july/august 2005, fixed several bugs (promotion bugs, input/output problems) new version 0.0344</li>
+<li> February 2006, fixed some bugs in the movegenerator, console output format changed, search modified, new version 0.0345 </li>
+<li> july 2006, added a QS to the search, new version 0.0350 </li>
+<li> march 2007, Chess960 capability added and some other minor changes, new version 0.0360 </li>
+<li> january 2008, ep-bug fixed, search and QS improved, new version 0.0370 </li>
+<li> july 2008, another ep-bug fixed, verification search added, problem with zobrist keys fixed </li>
+<li> june 2009, a few bugs fixed, transposition table added, new version 0.0390 </li>
+</ul>
+
+<h3>A few technical details</h3>
+<p>Roce is using the rather old fashioned 10x12 board representation.
+
+<p>Roce generates most of the time only legal moves unlike most other chess engines which usually depend on pseudo move generation. While legal move generation is rather timeconsuming it simplifies also some things. Mate and stalemate can be detected by the move generator already and information regarding mobility is always up to date. In the quiescent search I'm generating pseudo captures beginning with version 0.036 on though and only switch to legal move generation if the side to move is in check.</p>
+
+<h5>Tech. specs in detail</h5>
+<ul>
+	<li>10x12 array for board representation</li>
+	<li>piece list, incrementally updated in makemove</li>
+	<li>eval, incrementally updated in makemove</li>
+	<li>plain alpha-beta-search, negamax-design with beta-cutoffs </li>
+	<li>nullmove, R=2, verification search</li>
+	<li>in-check-extension, not in qs</li>
+	<li>quiescent search, move ordering by MVV/LVA</li>
+	<li>hash table, always overwrite</li> 
+</ul>
+
+<h3>What is RoceConfig.exe good for?</h3>
+<p>Thanks to the effort of Patrick Jansen Roce (versions beginning from 0.0344) comes together with a nice configuration tool which makes changing settings very easy. RoceConfig helps you to adjust the settings of Roce to your needs without having to fiddle around with the configuration file directly. </p>
+
+<h3>What is the file perfttestsuite.epd good for?</h3>
+<p>The file consists of a testsuite of positions which are usefull to check if the movegenerator works properly. This feature is mainly used to check if the move generation and move making part is still working properly after some modifications have been made to the sources. The test can be started by entering the command 'testmovegen' and takes -depending on the speed of your computer- a few minutes to hours to finnish. It's sufficient to run this command only once on a certain computer to make sure it's working properly as some aggressive optimization might cause problems on some processors. Most of the positions and numbers in the file were posted by Andrew Wagner on the Chess Computer Club (CCC) in 2004. </p>
+
+<h3>Legal stuff</h3>
+<p>The binary of Roce is currently available for free but I preserve the right to change that at any time (although it's very unrealistic that Roce will ever go commercial, of course). The source code won't be released most probably as there are already more than enough sources of engines available.</p>
+
+<h3>Credits</h3>
+<p>The chess engine Roce is written entirely by me. The name is program. But of course I was able to recycle a lot of great ideas from smart people. The main reason I got interested in chess programming was due an article that appeared in the German Computer Journal DOS in 1997. The article 'Der PC lernt Schach-Das Spiel der Koenige' was written by Chrilly Donninger and Klaus Manhart. Later when I was writing on my engine I also learnt a lot about the matter from Bruce Morelands excellent site. Several ideas I got by reading and asking questions on several chess forums like the Winboard forum or the Chess Computer Club. </p>
+
+<p>Furthermore I would like to thank all those who are running computer chess tournaments. Always very interesting to have a look at the games or at the results even though Roce is usually to be found at the end of those lists. Many thanks to Leo Dijksma, Guenther Simon, Olivier Deville and Karl-Heinz Soentges for letting Roce compete in their tournaments. Maybe there are more tournaments where Roce is participating I'm not even aware of. Let me know if that should be the case. </p>
+
+Roman Hartmann <br>
+rhartmann[nospamplease]@bluewin.ch
+
+
+</html>

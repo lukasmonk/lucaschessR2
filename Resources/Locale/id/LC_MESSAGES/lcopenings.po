@@ -1,0 +1,5329 @@
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Alapin Opening"
+msgstr "Pembukaan Alapin"
+
+msgid "Alekhine Defence: Balogh Variation"
+msgstr "Pembelaan Alekhine: Varian Balogh"
+
+msgid "Alekhine Defence: Brooklyn Defence"
+msgstr "Pembelaan Alekhine: Varian Brooklyn"
+
+msgid "Alekhine Defence: Exchange Variation"
+msgstr "Pembelaan Alekhine: Varian Tukar"
+
+msgid "Alekhine Defence: Four Pawns Attack, 6...Nc6"
+msgstr "Pembelaan Alekhine: Serangan 4 Bidak, 6....Kc6"
+
+msgid "Alekhine Defence: Four Pawns Attack, 7.Be3"
+msgstr "Pembelaan Alekhine: Serangan 4 Bidak, 6....Ge3"
+
+msgid "Alekhine Defence: Four Pawns Attack, Fianchetto Variation"
+msgstr "Pembelaan Alekhine: Serangan 4 Bidak, Varian Fianchetto"
+
+msgid ""
+"Alekhine Defence: Four Pawns Attack, Ilyin-Genevsky var. Iline-Jenevski"
+msgstr "Pembelaan Alekhine: Serangan 4 Bidak, Varian Ilyin-Genevsky"
+
+msgid "Alekhine Defence: Four Pawns Attack, Korchnoi Variation"
+msgstr "Pembelaan Alekhine: Serangan 4 Bidak, Varian Korchnoi"
+
+msgid "Alekhine Defence: Four Pawns Attack, Planinc Variation"
+msgstr "Pembelaan Alekhine: Serangan 4 Bidak, Varian Planinc"
+
+msgid "Alekhine Defence: Four Pawns Attack, Trifunovic Variation"
+msgstr "Pembelaan Alekhine: Serangan 4 Bidak, Varian Trifunovic"
+
+msgid "Alekhine Defence: Four Pawns Attack"
+msgstr "Pembelaan Alekhine: Serangan 4 Bidak"
+
+msgid "Alekhine Defence: Kmoch Variation"
+msgstr "Pembelaan Alekhine: Varian Kmoch"
+
+msgid "Alekhine Defence: Krejcik Variation"
+msgstr "Pembelaan Alekhine: Varian Krejcik"
+
+msgid "Alekhine Defence: Maroczy Variation"
+msgstr "Pembelaan Alekhine: Varian Maroczy"
+
+msgid "Alekhine Defence: Modern Variation, 4...Bg4"
+msgstr "Pembelaan Alekhine: Varian Modern, 4....Gg4"
+
+msgid "Alekhine Defence: Modern Variation"
+msgstr "Pembelaan Alekhine: Varian Modern"
+
+msgid "Alekhine Defence: Mokele Mbembe (Buecker) Variation"
+msgstr "Pembelaan Alekhine: Varian Mokele Mbembe (Bluecker)"
+
+msgid "Alekhine Defence: O'Sullivan Gambit"
+msgstr "Pembelaan Alekhine: Varian O'Sullivan"
+
+msgid "Alekhine Defence: Saemisch Attack"
+msgstr "Pembelaan Alekhine: Serangan Saemisch"
+
+msgid "Alekhine Defence: Scandinavian Variation"
+msgstr "Pembelaan Alekhine: Varian Skandinavia"
+
+msgid "Alekhine Defence: Spielmann Variation"
+msgstr "Pembelaan Alekhine: Varian Spielmann"
+
+msgid "Alekhine Defence: Steiner Variation"
+msgstr "Pembelaan Alekhine: Varian Steiner"
+
+msgid "Alekhine Defence: Two Pawns' (Lasker) Attack"
+msgstr "Pembelaan Alekhine: Serangan 2 Bidak (Lasker)"
+
+msgid "Alekhine Defence: Two Pawns' Attack, Mikenas Variation"
+msgstr "Pembelaan Alekhine: Serangan 2 Bidak, Varian Mikenas"
+
+msgid "Alekhine Defence: Welling Variation"
+msgstr "Pembelaan Alekhine: Varian Welling"
+
+msgid "Alekhine Defence: modern, Alekhine Variation"
+msgstr "Pembelaan Alekhine: Varian Modern, Alekhine"
+
+msgid "Alekhine Defence: modern, Fianchetto Variation"
+msgstr "Pembelaan Alekhine: Varian Modern, Fianchetto"
+
+msgid "Alekhine Defence: modern, Flohr Variation"
+msgstr "Pembelaan Alekhine: Varian Modern, Flohr"
+
+msgid "Alekhine Defence: modern, Keres Variation"
+msgstr "Pembelaan Alekhine: Varian Modern, Keres"
+
+msgid "Alekhine Defence: modern, Larsen Variation"
+msgstr "Pembelaan Alekhine: Varian Modern, Larsen"
+
+msgid "Alekhine Defence: modern, Panov Variation"
+msgstr "Pembelaan Alekhine: Varian Modern, Panov"
+
+msgid "Alekhine Defence: modern, Schmid Variation"
+msgstr "Pembelaan Alekhine: Varian Modern, Schmid"
+
+msgid "Alekhine Defence"
+msgstr "Pembelaan Alekhine"
+
+msgid "Amar (Paris) Opening"
+msgstr "Pembukaan Amar (Paris)"
+
+msgid "Amar Gambit"
+msgstr "Gambit Amar"
+
+msgid "Amsterdam Attack"
+msgstr "Serangan Amsterdam"
+
+msgid "Anderssen Opening"
+msgstr "Pembukaan Anderssen"
+
+msgid "Anti-Borg (Desprez) Opening"
+msgstr "Pembukaan Anti-Borg (Desprez)"
+
+msgid "Barnes Defence"
+msgstr "Pembelaan Barnes"
+
+msgid "Battambang Opening"
+msgstr "Pembukaan Battambang"
+
+msgid "Beefeater Defence"
+msgstr "Pembelaan Beefeater"
+
+msgid "Benko Gambit Accepted"
+msgstr "Gambit Benko Diterima"
+
+msgid "Benko Gambit half Accepted"
+msgstr "Gambit Benko Setengah Diterima"
+
+msgid "Benko Gambit: 7.e4"
+msgstr "Gambit Benko: 7.e4"
+
+msgid "Benko Gambit: Fianchetto Variation"
+msgstr "Gambit Benko: Varian Fianchetto"
+
+msgid "Benko Gambit: Main Line"
+msgstr "Gambit Benko: Jalur Utama"
+
+msgid "Benko Gambit: Nd2 Variation"
+msgstr "Gambit Benko: Varian Kd2"
+
+msgid "Benko Gambit: Ne2 Variation"
+msgstr "Gambit Benko: Varian Ke2"
+
+msgid "Benko Gambit: Nescafe Frappe Attack"
+msgstr "Gambit Benko: Serangan Nescafe Frappe"
+
+msgid "Benko Gambit: Zaitsev System"
+msgstr "Gambit Benko: Sistem Zaitsev"
+
+msgid "Benko Gambit"
+msgstr "Gambit Benko"
+
+msgid "Benko Opening: Reversed Alekhine"
+msgstr "Pembukaan Benko: Alekhine Terbalik"
+
+msgid "Benko Opening"
+msgstr "Pembukaan Benko"
+
+msgid "Benoni Defence: 6.e4"
+msgstr "Benoni: 6.e4"
+
+msgid "Benoni Defence: Classical with ...Re8 and ...Na6"
+msgstr "Benoni: Klasik dg ...Bd8 dan ...Ka6"
+
+msgid "Benoni Defence: Classical with ...a6 and 10...Bg4"
+msgstr "Benoni: Klasik dg ...a6 dan 10...Gg4"
+
+msgid "Benoni Defence: Classical with e4 and Nf3"
+msgstr "Benoni: Klasik dg e4 dan Kf3"
+
+msgid "Benoni Defence: Classical without 9.O-O"
+msgstr "Benoni: Klasik tanpa 9.0-0"
+
+msgid "Benoni Defence: Classical, 11.f3"
+msgstr "Benoni: Klasik, 11.f3"
+
+msgid "Benoni Defence: Classical, 8.Bg5"
+msgstr "Benoni: Klasik, 8.Gg5"
+
+msgid "Benoni Defence: Classical, 9...Re8, 10.Nd2"
+msgstr "Benoni: Klasik, 9...Be8, 10.Kd2"
+
+msgid "Benoni Defence: Classical, 9...Re8"
+msgstr "Benoni: Klasik, 9...Be8"
+
+msgid "Benoni Defence: Classical, 9...a6, 10.a4"
+msgstr "Benoni: Klasik, 9...a6, 10.a4"
+
+msgid "Benoni Defence: Classical, 9.O-O"
+msgstr "Benoni: Klasik, 9.0-0"
+
+msgid "Benoni Defence: Fianchetto Variation"
+msgstr "Benoni: Varian Fianchetto"
+
+msgid "Benoni Defence: Fianchetto, 11...Re8"
+msgstr "Benoni: Fianchetto, 11...Be8"
+
+msgid "Benoni Defence: Fianchetto, 9...Nbd7"
+msgstr "Benoni: Fianchetto, 9...Kbd7"
+
+msgid "Benoni Defence: Four Pawns Attack, Main Line"
+msgstr "Benoni: Serangan 4 Bidak, Jalur Utama"
+
+msgid "Benoni Defence: Four Pawns Attack"
+msgstr "Benoni: Serangan 4 Bidak"
+
+msgid "Benoni Defence: Hromodka System"
+msgstr "Pembelaan Benoni: Sistem Hromodka"
+
+msgid "Benoni Defence: Mikenas Variation"
+msgstr "Benoni: Varian Mikenas"
+
+msgid "Benoni Defence: Nimzovich (knight tour) Variation"
+msgstr "Benoni: Varian Nimzowitch (Kuda Tur)"
+
+msgid "Benoni Defence: Pawn Storm Variation"
+msgstr "Benoni: Varian Bidak Listrik"
+
+msgid "Benoni Defence: Taimanov Variation"
+msgstr "Benoni: Varian Taimanov"
+
+msgid "Benoni Defence: Uhlmann Variation"
+msgstr "Benoni: Varian Uhlmann"
+
+msgid "Benoni Defence"
+msgstr "Pembelaan Benoni"
+
+msgid "Bird Opening: From Gambit, Lasker Variation"
+msgstr "Bird: Gambit Form, Varian Lasker"
+
+msgid "Bird Opening: From Gambit, Lipke Variation"
+msgstr "Bird: Gambit Form, Varian Lipke"
+
+msgid "Bird Opening: From Gambit"
+msgstr "Bird: Gambit Form"
+
+msgid "Bird Opening: Hobbs Gambit"
+msgstr "Bird: Gambit Hobbs"
+
+msgid "Bird Opening: Lasker Variation"
+msgstr "Bird: Varian Lasker"
+
+msgid "Bird Opening: Swiss Gambit"
+msgstr "Bird: Gambit Swiss"
+
+msgid "Bird Opening: Williams Gambit"
+msgstr "Bird: Gambit William"
+
+msgid "Bird Opening"
+msgstr "Pembukaan Bird"
+
+msgid "Bishop Opening: Berlin Defence"
+msgstr "Pembukaan Gajah: Pembelaan Berlin"
+
+msgid "Bishop Opening: Calabrese Counter-Gambit, Jaenisch Variation"
+msgstr "Pembukaan Gajah: Gambit Balasan Calabrese, Varian Jaenisch"
+
+msgid "Bishop Opening: Calabrese Counter-Gambit"
+msgstr "Pembukaan Gajah: Gambit Balasan Calabrese"
+
+msgid "Bishop Opening: Classical Variation"
+msgstr "Pembukaan Gajah: Varian Klasik"
+
+msgid "Bishop Opening: Four Pawns' Gambit"
+msgstr "Pembukaan Gajah: Gambit 4 Bidak"
+
+msgid "Bishop Opening: Greco Gambit"
+msgstr "Pembukaan Gajah: Gambit Greco"
+
+msgid "Bishop Opening: Lewis Counter-Gambit"
+msgstr "Pembukaan Gajah: Gambit Balasan Lewis"
+
+msgid "Bishop Opening: Lewis Gambit"
+msgstr "Pembukaan Gajah: Gambit Lewis"
+
+msgid "Bishop Opening: Lisitsyn Variation"
+msgstr "Pembukaan Gajah: Varian Lisitsyn"
+
+msgid "Bishop Opening: Lopez Gambit"
+msgstr "Pembukaan Gajah: Gambit Lopez"
+
+msgid "Bishop Opening: MacDonnell Double Gambit"
+msgstr "Pembukaan Gajah: Gambit Ganda MacDonnel"
+
+msgid "Bishop Opening: Philidor Counter-Attack"
+msgstr "Pembukaan Gajah: Serangan Balik Philidor"
+
+msgid "Bishop Opening: Philidor Variation"
+msgstr "Pembukaan Gajah: Varian Philidor"
+
+msgid "Bishop Opening: Ponziani Gambit"
+msgstr "Pembukaan Gajah: Gambit Ponziani"
+
+msgid "Bishop Opening: Pratt Variation"
+msgstr "Pembukaan Gajah: Varian Pratt"
+
+msgid "Bishop Opening: Urusov Gambit, Panov Variation"
+msgstr "Pembukaan Gajah: Gambit Urusov, Varian Panov"
+
+msgid "Bishop Opening: Urusov Gambit"
+msgstr "Pembukaan Gajah: Gambit Urusov"
+
+msgid "Bishop Opening: Wing Gambit"
+msgstr "Pembukaan Gajah: Gambit Sayap"
+
+msgid "Bishop Opening: del Rio Variation"
+msgstr "Pembukaan Gajah: Varian del Rio"
+
+msgid "Bishop Opening"
+msgstr "Pembukaan Gajah"
+
+msgid "Blackburne shilling Gambit"
+msgstr "Gambit Blackburne Shilling"
+
+msgid "Blackmar-Diemer Gambit"
+msgstr "Gambit Blackmar-Diemer"
+
+msgid "Blackmar-Diemer: Euwe Defence"
+msgstr "Gambit Blackmar-Diemer: Pembelaan Euwe"
+
+msgid "Blackmar-Diemer: Lemberg Counter-Gambit"
+msgstr "Gambit Blackmar-Diemer: Gambit Balasa Lemberg"
+
+msgid "Blumenfeld Counter-Gambit Accepted"
+msgstr "Gambit Balasan Blumenfeld Diterima"
+
+msgid "Blumenfeld Counter-Gambit, Dus-Chotimirsky Variation"
+msgstr "Gambit Balasan Blumenfeld: Varian Dus-Chotimirsky"
+
+msgid "Blumenfeld Counter-Gambit, Spielmann Variation"
+msgstr "Gambit Balasan Blumenfeld: Varian Spielmann"
+
+msgid "Blumenfeld Counter-Gambit"
+msgstr "Gambit Balasan Blumenfeld"
+
+msgid "Boden-Kieseritsky Gambit: Lichtenhein Defence"
+msgstr "Gambit Boden-Kieseritsky: Pembelaan Lichtenhein"
+
+msgid "Boden-Kieseritsky Gambit"
+msgstr "Gambit Boden-Kieseritsky"
+
+msgid "Bogo-Indian Defence: Grünfeld Variation"
+msgstr "Pembelaan Hindia Bogo: Varian Grunfeld"
+
+msgid "Bogo-Indian Defence: Nimzovich Variation"
+msgstr "Pembelaan Hindia Bogo: Varian Nimzowitch"
+
+msgid "Bogo-Indian Defence"
+msgstr "Pembelaan Hindia Bogo"
+
+msgid "Budapest Defence Declined"
+msgstr "Pembelaan Budapest Ditolak"
+
+msgid "Budapest Defence"
+msgstr "Pembelaan Budapest"
+
+msgid "Budapest: Adler Variation"
+msgstr "Budapest: Varian Adler"
+
+msgid "Budapest: Alekhine Variation, Balogh Gambit"
+msgstr "Budapest: Varian Alekhine, Gambit Balogh"
+
+msgid "Budapest: Alekhine Variation"
+msgstr "Budapest: Varian Alekhine"
+
+msgid "Budapest: Alekhine, Abonyi Variation"
+msgstr "Budapest: Varian  Alekhine, Variasi Abonyi"
+
+msgid "Budapest: Fajarowicz Variation"
+msgstr "Budapest: Varian Fajarowicz"
+
+msgid "Budapest: Fajarowicz, Steiner Variation"
+msgstr "Budapest: Varian Fajarowicz, Variasi Steiner"
+
+msgid "Budapest: Rubinstein Variation"
+msgstr "Budapest: Varian Rubenstein"
+
+msgid "Canard Opening"
+msgstr "Pembukaan Canard"
+
+msgid "Caro-Kann Defence: 3.Nd2"
+msgstr "Caro-Kann: 3.Kd2"
+
+msgid "Caro-Kann Defence: Advance Variation"
+msgstr "Caro-Kann: Varian Maju"
+
+msgid "Caro-Kann Defence: Advance, Short Variation"
+msgstr "Caro-Kann: Varian Maju, Variasi Short"
+
+msgid "Caro-Kann Defence: Alekhine Gambit"
+msgstr "Caro-Kann: Gambit Alekhine"
+
+msgid "Caro-Kann Defence: Anti-Anti-Caro-Kann Defence"
+msgstr "Caro-Kann: Anti Anti-Caro-Kann"
+
+msgid "Caro-Kann Defence: Anti-Caro-Kann Defence"
+msgstr "Caro-Kann: Anti Caro-Kann"
+
+msgid "Caro-Kann Defence: Bronstein-Larsen Variation"
+msgstr "Caro-Kann: Varian Bronstein-Larsen"
+
+msgid "Caro-Kann Defence: Classical Variation"
+msgstr "Caro-Kann: Varian Klasik"
+
+msgid "Caro-Kann Defence: Classical, 6.h4"
+msgstr "Caro-Kann: Klasik, 6.h4"
+
+msgid "Caro-Kann Defence: Classical, 7...Nd7"
+msgstr "Caro-Kann: Klasik, 7... Kd7"
+
+msgid "Caro-Kann Defence: Classical, Flohr Variation"
+msgstr "Caro-Kann: Klasik, Varian Flohr"
+
+msgid "Caro-Kann Defence: Classical, Maroczy Attack"
+msgstr "Caro-Kann: Klasik, Serangan Maroczy"
+
+msgid "Caro-Kann Defence: Classical, Spassky Variation"
+msgstr "Caro-Kann: Klasik, Varian Spassky"
+
+msgid "Caro-Kann Defence: Closed (Breyer) Variation"
+msgstr "Caro-Kann: Varian Tertutup (Breyer)"
+
+msgid "Caro-Kann Defence: Edinburgh Variation"
+msgstr "Caro-Kann: Varian Edinburgh"
+
+msgid "Caro-Kann Defence: Exchange Variation"
+msgstr "Caro-Kann: Varian Tukar"
+
+msgid "Caro-Kann Defence: Exchange, Rubinstein Variation"
+msgstr "Caro-Kann: Tukar, Varian Rubenstein"
+
+msgid "Caro-Kann Defence: Forgacs Variation"
+msgstr "Caro-Kann: Varian Forgacs"
+
+msgid "Caro-Kann Defence: Goldman (Spielmann) Variation"
+msgstr "Caro-Kann: Varian Goldman (Spielmann)"
+
+msgid "Caro-Kann Defence: Gurgenidze Counter-Attack"
+msgstr "Caro-Kann: Serangan Balik Gurgenidze"
+
+msgid "Caro-Kann Defence: Gurgenidze System"
+msgstr "Caro-Kann: Sistem Gurgenidze"
+
+msgid "Caro-Kann Defence: Hillbilly Attack"
+msgstr "Caro-Kann: Serangan Hillibly"
+
+msgid "Caro-Kann Defence: Panov-Botvinnik Attack, 5...e6"
+msgstr "Caro-Kann: Serangan Panov-Botvinnik, 5...e6"
+
+msgid "Caro-Kann Defence: Panov-Botvinnik Attack, 5...g6"
+msgstr "Caro-Kann: Serangan Panov-Botvinnik, 5...g6"
+
+msgid "Caro-Kann Defence: Panov-Botvinnik Attack"
+msgstr "Caro-Kann: Serangan Panov-Botvinnik"
+
+msgid "Caro-Kann Defence: Panov-Botvinnik, Czerniak Variation"
+msgstr "Caro-Kann: Serangan Panov-Botvinnik, Varian Czerniak"
+
+msgid "Caro-Kann Defence: Panov-Botvinnik, Gunderam Attack"
+msgstr "Caro-Kann: Serangan Panov-Botvinnik, Gunderman"
+
+msgid "Caro-Kann Defence: Panov-Botvinnik, Herzog Defence"
+msgstr "Caro-Kann: Serangan Panov-Botvinnik, Pembelaan Herzog"
+
+msgid "Caro-Kann Defence: Panov-Botvinnik, Reifir (Spielmann) Variation"
+msgstr "Caro-Kann: Serangan Panov-Botvinnik, Varian Reifir (Spielmann)"
+
+msgid "Caro-Kann Defence: Panov-Botvinnik, normal Variation"
+msgstr "Caro-Kann: Serangan Panov-Botvinnik, Varian Normal"
+
+msgid "Caro-Kann Defence: Rasa-Studier Gambit"
+msgstr "Caro-Kann: Gambit Rasa-Studier"
+
+msgid "Caro-Kann Defence: Steinitz Variation"
+msgstr "Caro-Kann: Varian Steinitz"
+
+msgid "Caro-Kann Defence: Tartakower (Nimzovich) Variation"
+msgstr "Caro-Kann: Varian Tartakower (Nimzowtich)"
+
+msgid "Caro-Kann Defence: Tartakower (fantasy) Variation"
+msgstr "Caro-Kann: Varian Tartakower (Fantasy)"
+
+msgid "Caro-Kann Defence: Two Knights Variation"
+msgstr "Caro-Kann: Varian 2 Kuda"
+
+msgid "Caro-Kann Defence: Two Knights, 3...Bg4"
+msgstr "Caro-Kann: 2 Kuda, 3... Gg4"
+
+msgid "Caro-Kann Defence"
+msgstr "Pembelaan Caro-Kann"
+
+msgid "Caro-Masi Defence"
+msgstr "Pembelaan Caro-Masi"
+
+msgid "Catalan Opening: Closed, 5.Nf3"
+msgstr "Katalan: Tertutup, 5.Kf3"
+
+msgid "Catalan Opening: Closed, 6...Nbd7"
+msgstr "Katalan: Tertutup, 6... Kbd7"
+
+msgid "Catalan Opening: Closed, 7.Qc2"
+msgstr "Katalan: Tertutup, 7.Mc2"
+
+msgid "Catalan Opening: Closed, Botvinnik Variation"
+msgstr "Katalan: Tertutup, Varian Botwinnik"
+
+msgid "Catalan Opening: Closed, Main Line"
+msgstr "Katalan: Tertutup, Jalur Utama"
+
+msgid "Catalan Opening: Closed, Qc2 & b3"
+msgstr "Katalan: Tertutup, Mc2 dan b3"
+
+msgid "Catalan Opening: Closed, Sokolsky Variation"
+msgstr "Katalan: Tertutup, Varian Sokolsky"
+
+msgid "Catalan Opening: Closed, Spassky Gambit"
+msgstr "Katalan: Tertutup, Gambit Spassky"
+
+msgid "Catalan Opening: Closed, Zagoryansky Variation"
+msgstr "Katalan: Tertutup, Varian Zagoryansky"
+
+msgid "Catalan Opening: Closed"
+msgstr "Katalan: Varian Tertutup"
+
+msgid "Catalan Opening: Open, 5.Nf3"
+msgstr "Katalan: Terbuka, 5.Kf3"
+
+msgid "Catalan Opening: Open, 5.Qa4 Nbd7, 6.Qxc4"
+msgstr "Katalan: Terbuka, 5.Ma4 Kbd7 6.Mxc4 "
+
+msgid "Catalan Opening: Open, 5.Qa4"
+msgstr "Katalan: Terbuka, 5.Ma4"
+
+msgid "Catalan Opening: Open, Alekhine Variation"
+msgstr "Katalan: Terbuka, Varian Alekhine"
+
+msgid "Catalan Opening: Open, Classical Line"
+msgstr "Katalan: Terbuka, Varian Klasik"
+
+msgid "Catalan Opening"
+msgstr "Pembukaan Katalan"
+
+msgid "Centre Game, Kieseritsky Variation"
+msgstr "Pembukaan Tengah: Varian Kieseritsky"
+
+msgid "Centre Game: Berger Variation"
+msgstr "Pembukaan Tengah: Varian Berger"
+
+msgid "Centre Game: Charousek Variation"
+msgstr "Pembukaan Tengah: Varian Charousek"
+
+msgid "Centre Game: Hall Variation"
+msgstr "Pembukaan Tengah: Varian Hall"
+
+msgid "Centre Game: Kupreichik Variation"
+msgstr "Pembukaan Tengah: Varian Kupreichik"
+
+msgid "Centre Game: Paulsen Attack"
+msgstr "Pembukaan Tengah: Varian Paulsen"
+
+msgid "Centre Game: l'Hermet Variation"
+msgstr "Pembukaan Tengah: Varian I'Helmet"
+
+msgid "Centre Game"
+msgstr "Pembukaan Tengah"
+
+msgid "Clemenz (Mead, Basman or de Klerk) Opening"
+msgstr "Pembukaan Clemenz (Meda, Basman, de Klerk)"
+
+msgid "Colle System"
+msgstr "Sistem Colle"
+
+msgid "Corn Stalk Defence"
+msgstr "Pembelaan Corn Stalk"
+
+msgid "Crab Opening"
+msgstr "Pembukaan Crab"
+
+msgid "Czech Benoni Defence: King Indian System"
+msgstr "Pembelaan Czenhya Benoni: Sistem Hindia Raja"
+
+msgid "Czech Benoni Defence"
+msgstr "Pembelaan Czenhya Benoni"
+
+msgid "Damiano Defence"
+msgstr "Pembelaan Damiano"
+
+msgid "Danish Gambit: Collijn Defence"
+msgstr "Gambit Denmark: Pembelaan Collijn"
+
+msgid "Danish Gambit: Schlechter Defence"
+msgstr "Gambit Denmark: Pembelaan Schelecther"
+
+msgid "Danish Gambit: Soerensen Defence"
+msgstr "Gambit Denmark: Pembelaan Soerensen"
+
+msgid "Danish Gambit"
+msgstr "Gambit Denmark"
+
+msgid "De Bruycker Defence"
+msgstr "Pembelaan de Bruycker"
+
+msgid "Doery Defence"
+msgstr "Pembelaan Doery"
+
+msgid "Dresden Opening"
+msgstr "Pembukaan Dresden"
+
+msgid "Dunst (Sleipner, Heinrichsen) Opening"
+msgstr "Pembukaan Dunst (Sleipner, Heinrichsen)"
+
+msgid "Durkin Attack"
+msgstr "Serangan Durkin"
+
+msgid "Dutch Defence: 2.Bg5 Variation"
+msgstr "Belanda, Varian 2.Gg5"
+
+msgid "Dutch Defence: Alekhine Variation"
+msgstr "Pembelaan Belanda: Varian Alekhine"
+
+msgid "Dutch Defence: Balogh Defence"
+msgstr "Belanda, Pembelaan Balogh"
+
+msgid "Dutch Defence: Blackburne Variation"
+msgstr "Pembelaan Belanda: Varian Blackburne"
+
+msgid "Dutch Defence: Bladel Variation"
+msgstr "Pembelaan Belanda: Varian Bladel"
+
+msgid "Dutch Defence: Classical Variation"
+msgstr "Belanda: Varian Klasik"
+
+msgid "Dutch Defence: Dutch-Indian (Nimzo-Dutch) Variation"
+msgstr "Pembelaan Belanda: Varian Hindia-Belanda (Nimzo Belanda)"
+
+msgid "Dutch Defence: Hort-Antoshin System"
+msgstr "Belanda, SIstem Hort-Antoshin"
+
+msgid "Dutch Defence: Ilyin-Genevsky Variation with Qc2"
+msgstr "Belanda, Varian Ilyin-Genevsky dg Me2"
+
+msgid "Dutch Defence: Ilyin-Genevsky Variation with b3"
+msgstr "Belanda, Varian Ilyin-Genevsky dg b3"
+
+msgid "Dutch Defence: Ilyin-Genevsky Variation"
+msgstr "Belanda, Varian Ilyin-Genevsky"
+
+msgid "Dutch Defence: Ilyin-Genevsky, Winter Variation"
+msgstr "Belanda, Varian Ilyin-Genevsky, Varian Winter"
+
+msgid "Dutch Defence: Korchnoi Attack"
+msgstr "Belanda, Serangan Korchnoi"
+
+msgid "Dutch Defence: Krejcik Gambit"
+msgstr "Belanda, Gambit Krejcik"
+
+msgid "Dutch Defence: Leningrad Variation"
+msgstr "Belanda, Varian Leningrad"
+
+msgid "Dutch Defence: Leningrad, Basman System"
+msgstr "Belanda, Lenigrad, Sistem Basman"
+
+msgid "Dutch Defence: Leningrad, Karlsbad Variation"
+msgstr "Belanda: Lenigrad, Varian Karlsbad"
+
+msgid "Dutch Defence: Leningrad, Main Variation with Nc6"
+msgstr "Belanda: Lenigrad, Varian Utama dg Kc6"
+
+msgid "Dutch Defence: Leningrad, Main Variation with c6"
+msgstr "Belanda: Lenigrad, Varian Utama dg c6"
+
+msgid "Dutch Defence: Leningrad, Main Variation"
+msgstr "Belanda: Lenigrad, Varian Utama"
+
+msgid "Dutch Defence: Manhattan (Alapin, Ulvestad) Variation"
+msgstr "Belanda, Varian Manhattan (Alapin, Ulvestad)"
+
+msgid "Dutch Defence: Rubinstein Variation"
+msgstr "Pembelaan Belanda: Varian Rubenstein"
+
+msgid "Dutch Defence: Spielmann Gambit"
+msgstr "Belanda, Gambit Spielmann"
+
+msgid "Dutch Defence: Staunton Gambit deferred"
+msgstr "Belanda: Gambit Staunton Ditunda"
+
+msgid "Dutch Defence: Staunton Gambit, Alekhine Variation"
+msgstr "Belanda: Gambit Staunton, Varian Alekhine"
+
+msgid "Dutch Defence: Staunton Gambit, Chigorin Variation"
+msgstr "Belanda: Gambit Staunton, Varian Chigorin"
+
+msgid "Dutch Defence: Staunton Gambit, Lasker Variation"
+msgstr "Belanda: Gambit Staunton, Varian Lasker"
+
+msgid "Dutch Defence: Staunton Gambit, Nimzovich Variation"
+msgstr "Belanda: Gambit Staunton, Varian Nimzowitch"
+
+msgid "Dutch Defence: Staunton Gambit, Staunton Line"
+msgstr "Belanda: Gambit Staunton, Jalur Staunton"
+
+msgid "Dutch Defence: Staunton Gambit, Tartakower Variation"
+msgstr "Belanda: Gambit Staunton, Varian Tartakower"
+
+msgid "Dutch Defence: Staunton Gambit"
+msgstr "Belanda: Gambit Staunton"
+
+msgid "Dutch Defence: Stonewall Variation"
+msgstr "Belanda: Varian Tembok Batu"
+
+msgid "Dutch Defence: Stonewall with Ba3"
+msgstr "Belanda: Tembok Batu dg Ga3"
+
+msgid "Dutch Defence: Stonewall with Nc3"
+msgstr "Belanda: Tembok Batu dg Kc3"
+
+msgid "Dutch Defence: Stonewall, Botwinnik Variation"
+msgstr "Belanda: Tembok Batu, Varian Botwinnik"
+
+msgid "Dutch Defence: Stonewall, Chekhover Variation"
+msgstr "Belanda: Tembok Batu, Varian Chekhover"
+
+msgid "Dutch Defence: Von Pretzel Gambit"
+msgstr "Belanda, Gambit Von Pretzel"
+
+msgid "Dutch Defence"
+msgstr "Pembelaan Belanda"
+
+msgid "Dutch with c4 & Nc3"
+msgstr "Belanda dg c4 dan Kc3"
+
+msgid "Dutch with c4 & g3"
+msgstr "Belanda dg c4 dan g3"
+
+msgid "Dutch-Indian, Alekhine Variation"
+msgstr "Hindia Belanda, Varian Alekhine"
+
+msgid "Dzindzichashvili Defence"
+msgstr "Pembelaan Dzindzikhashvili"
+
+msgid "English Opening: 1...Nf6 (Anglo-Indian Defence)"
+msgstr "Inggris: 1... Kf6 (Pembelaan Hindia-Anglo)"
+
+msgid "English Opening: Adorjan Defence"
+msgstr "Inggris: Pembelaan Adorjan"
+
+msgid "English Opening: Agincourt Variation"
+msgstr "Pembukaan Inggris: Varian Agincourt"
+
+msgid "English Opening: Anglo-Dutch Defence"
+msgstr "Inggris: Pembelaan Belanda-Anglo"
+
+msgid "English Opening: Anglo-Grünfeld Defence, Korchnoi Variation"
+msgstr "Inggris: Pembelaan Anglo-Grundfeld, Varian Korchnoi"
+
+msgid "English Opening: Anglo-Grünfeld Defence"
+msgstr "Inggris: Pembelaan Anglo-Grundfled"
+
+msgid "English Opening: Anglo-Grünfeld, Czech Defence"
+msgstr "Inggris: Pembelaan Anglo-Grundfeld, Pembelaan Czechnya"
+
+msgid "English Opening: Anglo-Grünfeld, Smyslov Defence"
+msgstr "Inggris: Pembelaan Anglo-Grundfeld, Pembelaan Smyslov"
+
+msgid "English Opening: Bellon Gambit"
+msgstr "Inggris: Gambit Bellon"
+
+msgid "English Opening: Bled Variation"
+msgstr "Inggris: Varian Bled"
+
+msgid "English Opening: Botvinnik System"
+msgstr "Inggris: Sistem Botwinnik"
+
+msgid "English Opening: Bradley Beach Variation"
+msgstr "Inggris: Varian Bradley Beach"
+
+msgid "English Opening: Bremen System with ...g6"
+msgstr "Inggris: SIstem Bremen dg ...g6"
+
+msgid "English Opening: Bremen System, Keres Variation"
+msgstr "Inggris: Sistem Bremen, Varian Keres"
+
+msgid "English Opening: Bremen, Smyslov System"
+msgstr "Inggris: Sistem Bremen, SIstem Smyslov"
+
+msgid "English Opening: Bremen, reverse Dragon"
+msgstr "Inggris: Sistem Bremen, Dragon Terbalik"
+
+msgid "English Opening: Capablanca Variation"
+msgstr "Inggris: Varian Capablanca"
+
+msgid "English Opening: Carls' Bremen System"
+msgstr "Inggris: Sistem Carl Bremen"
+
+msgid "English Opening: Caro-Kann Defensive System, Bogolyubov Variation"
+msgstr "Inggris: Sistem Bertahan Caro-Kann, Varian Bogolyubov"
+
+msgid "English Opening: Caro-Kann Defensive System"
+msgstr "Inggris: Sistem Bertahan Caro-Kann"
+
+msgid "English Opening: Closed System (without ...d6)"
+msgstr "Inggris: Sistem Tertutup (tanpa ...d6)"
+
+msgid "English Opening: Closed System"
+msgstr "Inggris: Sistem Tertutup"
+
+msgid "English Opening: Closed, 5.Rb1 Taimanov Variation"
+msgstr "Inggris: Sistem Tertutup, 5.Bb1, Varian Taimanov"
+
+msgid "English Opening: Closed, 5.Rb1"
+msgstr "Inggris: Sistem Tertutup, 5.Bb1"
+
+msgid "English Opening: Closed, Hort Variation"
+msgstr "Inggris: Sistem Tertutup, Varian Hort"
+
+msgid "English Opening: Closed, Taimanov Variation"
+msgstr "Inggris: Sistem Tertutup, Varian Taimanov"
+
+msgid "English Opening: Four Knights System"
+msgstr "Inggris: Sistem 4 Kuda"
+
+msgid "English Opening: Four Knights, 4.e3"
+msgstr "Inggris: Sistem 4 Kuda, 4.e3"
+
+msgid "English Opening: Four Knights, Capablanca Variation"
+msgstr "Inggris: Sistem 4 Kuda, Varian Capablanca"
+
+msgid "English Opening: Four Knights, Kingside Fianchetto"
+msgstr "Inggris: Sistem 4 Kuda, Fianchetto Gajah Raja"
+
+msgid "English Opening: Four Knights, Marini Variation"
+msgstr "Inggris: Sistem 4 Kuda, Varian Marini"
+
+msgid "English Opening: Four Knights, Nimzovich Variation"
+msgstr "Inggris: Sistem 4 Kuda, Varian Nimzowitch"
+
+msgid "English Opening: Four Knights, Romanishin Variation"
+msgstr "Inggris: Sistem 4 Kuda, Varian Romanishin"
+
+msgid "English Opening: Four Knights, Stean Variation"
+msgstr "Inggris: Sistem 4 Kuda, Varian Stean"
+
+msgid "English Opening: Jaenisch Gambit"
+msgstr "Inggris: Gambit Jaenisch"
+
+msgid "English Opening: Keres Variation"
+msgstr "Inggris: Serangan Keres"
+
+msgid "English Opening: Kramnik-Shirov CounterAttack"
+msgstr "Inggris: Serangan Balik Kramnik-Shirov"
+
+msgid "English Opening: Kurajica Defence"
+msgstr "Inggris: Pembelaan Kurajica"
+
+msgid "English Opening: London Defensive System"
+msgstr "Inggris: Sistem Pertahanan London"
+
+msgid "English Opening: Mikenas-Carls Variation"
+msgstr "Inggris: Varian Mikenas-Carls"
+
+msgid "English Opening: Mikenas-Carls, Flohr Variation"
+msgstr "Inggris: Varian Mikenas-Carls, Varian Flohr"
+
+msgid "English Opening: Mikenas-Carls, Kevitz Variation"
+msgstr "Inggris: Varian Mikenas-Carls, Varian Kevitz"
+
+msgid "English Opening: Mikenas-Carls, Sicilian Variation"
+msgstr "Inggris: Varian Mikenas-Carls, Varian Sisilia"
+
+msgid "English Opening: Nenarokov Variation"
+msgstr "Inggris: Varian Nenarokov"
+
+msgid "English Opening: Neo-Catalan Accepted"
+msgstr "Inggris: Neo Katalan Diterima"
+
+msgid "English Opening: Neo-Catalan Declined"
+msgstr "Inggris: Neo Katalan Ditolak"
+
+msgid "English Opening: Neo-Catalan"
+msgstr "Inggris: Neo Katalan"
+
+msgid "English Opening: New York (London) Defensive System"
+msgstr "Inggris: Sistem Pertahanan New York (London)"
+
+msgid "English Opening: Nimzo-English Opening"
+msgstr "Inggris: Pembukaan Nimzo-Inggris"
+
+msgid "English Opening: Nimzovich Variation"
+msgstr "Inggris: Varian Nimzowtich"
+
+msgid "English Opening: Nimzovich, Flohr Variation"
+msgstr "Inggris: Varian Nimzowtich, Flohr"
+
+msgid "English Opening: Queens Indian Formation"
+msgstr "Inggris: Formasi Hindia Menteri"
+
+msgid "English Opening: Queens Indian, Romanishin Variation"
+msgstr "Inggris: Hindia Menteri, Varian Romanishin"
+
+msgid "English Opening: Romanishin Gambit"
+msgstr "Inggris: Gambit Romanishin"
+
+msgid "English Opening: Sicilian Reversed"
+msgstr "Inggris: Sisilia Terbalik"
+
+msgid "English Opening: Smyslov Defence"
+msgstr "Inggris: Pembelaan Smyslov"
+
+msgid "English Opening: Symmetrical Variation"
+msgstr "Inggris: Varian Simetris"
+
+msgid "English Opening: Symmetrical, Benoni Formation"
+msgstr "Inggris: Varian Simetris, Formasi Benoni"
+
+msgid "English Opening: Symmetrical, Botvinnik System Reversed"
+msgstr "Inggris: Varian Simetris, Sistem Botwinnik Terbalik"
+
+msgid "English Opening: Symmetrical, Botvinnik System"
+msgstr "Inggris: Varian Simetris, Sistem Botwinnik"
+
+msgid "English Opening: Symmetrical, Four Knights System"
+msgstr "Inggris: Varian Simetris, Sistem 4 Kuda"
+
+msgid "English Opening: Symmetrical, Geller Variation"
+msgstr "Inggris: Varian Simetris, Varian Geller"
+
+msgid "English Opening: Symmetrical, Hedgehog System"
+msgstr "Inggris: Varian Simetris. Sistem Hedgehog"
+
+msgid "English Opening: Symmetrical, Hedgehog, flexible Formation"
+msgstr "Inggris: Varian Simetris, Hedgehog, Formasi Fleksibel"
+
+msgid "English Opening: Symmetrical, Main Line with b3"
+msgstr "Inggris: Varian Simetris, Jalur Utama dg b3"
+
+msgid "English Opening: Symmetrical, Main Line with d3"
+msgstr "Inggris: Varian Simetris, Jalur Utama dg d3"
+
+msgid "English Opening: Symmetrical, Main Line with d4"
+msgstr "Inggris: Varian Simetris, Jalur Utama dg d4"
+
+msgid "English Opening: Symmetrical, Rubinstein System"
+msgstr "Inggris: Varian Simetris, Sistem Rubenstein"
+
+msgid "English Opening: Symmetrical, Three Knights System"
+msgstr "Inggris: Varian Simetris, Sistem 3 Kuda"
+
+msgid "English Opening: Three Knights System"
+msgstr "Inggris: Sistem 3 Kuda"
+
+msgid "English Opening: Torre Defensive System"
+msgstr "Inggris: Sistem Pertahanan Torre"
+
+msgid "English Opening: Ultra-Symmetrical Variation"
+msgstr "Inggris: Varian Ultra Simetris"
+
+msgid "English Opening: Wimpey System"
+msgstr "Inggris: Sistem Wimpey"
+
+msgid "English Opening"
+msgstr "Pembukaan Inggris"
+
+msgid "English Orangutan"
+msgstr "Inggris Orang Utan"
+
+msgid "Evans Counter-Gambit"
+msgstr "Gambit Balasan Evans"
+
+msgid "Evans Gambit Accepted"
+msgstr "Gambit Evans Diterima"
+
+msgid "Evans Gambit Declined, 5.a4"
+msgstr "Gambit Evans Ditolak, 5.a4"
+
+msgid "Evans Gambit Declined, Cordel Variation"
+msgstr "Gambit Evans Ditolak, Varian Cordel"
+
+msgid "Evans Gambit Declined, Hicken Variation"
+msgstr "Gambit Evans Ditolak, Varian Hicken"
+
+msgid "Evans Gambit Declined, Hirschbach Variation"
+msgstr "Gambit Evans Ditolak, Varian Hirschbach"
+
+msgid "Evans Gambit Declined, Lange Variation"
+msgstr "Gambit Evans Ditolak, Varian Lange"
+
+msgid "Evans Gambit Declined, Pavlov Variation"
+msgstr "Gambit Evans Ditolak, Varian Pavlov"
+
+msgid "Evans Gambit Declined, Showalter Variation"
+msgstr "Gambit Evans Ditolak, Varian Showalter"
+
+msgid "Evans Gambit Declined, Vasquez Variation"
+msgstr "Gambit Evans Ditolak, Varian Vasquez"
+
+msgid "Evans Gambit: 5...Be7"
+msgstr "Gambit Evans, 5....Ge7"
+
+msgid "Evans Gambit: Alapin-Steinitz Variation"
+msgstr "Gambit Evans: Varian Alapin-Steinitz"
+
+msgid "Evans Gambit: Cordel Variation"
+msgstr "Gambit Evans: Varian Cordel"
+
+msgid "Evans Gambit: Fraser Attack"
+msgstr "Gambit Evans: Serangan Fraser"
+
+msgid "Evans Gambit: Fraser-Mortimer Attack"
+msgstr "Gambit Evans: Serangan Fraser-Mortimer"
+
+msgid "Evans Gambit: Goering Attack"
+msgstr "Gambit Evans: Serangan Goering"
+
+msgid "Evans Gambit: Lasker Defence"
+msgstr "Gambit Evans: Pembelaan Lasker"
+
+msgid "Evans Gambit: Leonhardt Variation"
+msgstr "Gambit Evans: Varian Leonhardt"
+
+msgid "Evans Gambit: Levenfish Variation"
+msgstr "Gambit Evans: Varian Levenfish"
+
+msgid "Evans Gambit: Mayet Defence"
+msgstr "Gambit Evans: Pembelaan Mayet"
+
+msgid "Evans Gambit: Morphy Attack"
+msgstr "Gambit Evans: Serangan Morphy"
+
+msgid "Evans Gambit: Paulsen Variation"
+msgstr "Gambit Evans: Varian Paulsen"
+
+msgid "Evans Gambit: Richardson Attack"
+msgstr "Gambit Evans: Serangan Richardson"
+
+msgid "Evans Gambit: Sanders-Alapin Variation"
+msgstr "Gambit Evans: Varian Sanders-Alapin"
+
+msgid "Evans Gambit: Sokolsky Variation"
+msgstr "Gambit Evans: Varian Sokolsky"
+
+msgid "Evans Gambit: Steinitz Variation"
+msgstr "Gambit Evans: Varian Steinitz"
+
+msgid "Evans Gambit: Stone-Ware Variation"
+msgstr "Gambit Evans: Varian Stone-Ware"
+
+msgid "Evans Gambit: Tartakower Attack"
+msgstr "Gambit Evans: Serangan Tartakower"
+
+msgid "Evans Gambit: Ulvestad Variation"
+msgstr "Gambit Evans: Varian Ulvestad"
+
+msgid "Evans Gambit: Waller Attack"
+msgstr "Gambit Evans: Serangan Waller"
+
+msgid "Evans Gambit: compromised Defence, Paulsen Variation"
+msgstr "Gambit Evans: Pembelaan Compromised, Varian Paulsen"
+
+msgid "Evans Gambit: compromised Defence, Potter Variation"
+msgstr "Gambit Evans: Pembelaan Compromised, Varian Potter"
+
+msgid "Evans Gambit: compromised Defence"
+msgstr "Gambit Evans: Pembelaan Compromised"
+
+msgid "Evans Gambit: normal Variation"
+msgstr "Gambit Evans: Pembelaan Compromised, Varian Normal"
+
+msgid "Evans Gambit"
+msgstr "Gambit Evans"
+
+msgid "Four Knights Game: Bardeleben Variation"
+msgstr "4 Kuda: Varian Bardebelen"
+
+msgid "Four Knights Game: Belgrade Gambit"
+msgstr "4 Kuda: Gambit Belgrade"
+
+msgid "Four Knights Game: Double Ruy Lopez"
+msgstr "4 Kuda: Varian Spanyol Dobel"
+
+msgid "Four Knights Game: Gunsberg Counter-Attack"
+msgstr "4 Kuda: Serangan Balik Gunsberg"
+
+msgid "Four Knights Game: Gunsberg Variation"
+msgstr "4 Kuda: Varian Gunsberg"
+
+msgid "Four Knights Game: Italian Variation"
+msgstr "4 Kuda: Varian Italia"
+
+msgid "Four Knights Game: Janowski Variation"
+msgstr "4 Kuda: Varian Janowski"
+
+msgid "Four Knights Game: Marshall Variation"
+msgstr "4 Kuda: Varian Marshall"
+
+msgid "Four Knights Game: Nimzovich (Paulsen) Variation"
+msgstr "4 Kuda: Varian Nimzowitch (Paulsen)"
+
+msgid "Four Knights Game: Ranken Variation"
+msgstr "4 Kuda: Varian Ranken"
+
+msgid "Four Knights Game: Rubinstein Counter-Gambit, 5.Be2"
+msgstr "4 Kuda: Gambit Balasan Rubenstein, 5.Ge2"
+
+msgid "Four Knights Game: Rubinstein Counter-Gambit, Bogolyubov Variation"
+msgstr "4 Kuda: Gambit Balasan Rubenstein, Varian Bogolyubov"
+
+msgid "Four Knights Game: Rubinstein Counter-Gambit, Exchange Variation"
+msgstr "4 Kuda: Gambit Balasan Rubenstein, Varian Tukar"
+
+msgid "Four Knights Game: Rubinstein Counter-Gambit, Henneberger Variation"
+msgstr "4 Kuda: Gambit Balasan Rubenstein, Varian Henneberger"
+
+msgid "Four Knights Game: Rubinstein Counter-Gambit"
+msgstr "4 Kuda: Gambit Balasan Rubenstein"
+
+msgid "Four Knights Game: Schultze-Mueller Gambit"
+msgstr "4 Kuda: Gambit Schultze-Mueler"
+
+msgid "Four Knights Game: Scotch Variation"
+msgstr "4 Kuda: Varian Skot"
+
+msgid "Four Knights Game: Scotch, 4...exd4"
+msgstr "4 Kuda: Skot, 4....exd4"
+
+msgid "Four Knights Game: Scotch, Krause Variation"
+msgstr "4 Kuda: Skot, Varian Krause"
+
+msgid "Four Knights Game: Spanish Variation"
+msgstr "4 Kuda: Varian Spanyol"
+
+msgid "Four Knights Game: Spanish, Classical Defence"
+msgstr "4 Kuda: Varian Spanyol, Pembelaan Klasik"
+
+msgid "Four Knights Game: Spielmann Variation"
+msgstr "4 Kuda: Varian Spielmann"
+
+msgid "Four Knights Game: Svenonius Variation"
+msgstr "4 Kuda: Varian Svenonius"
+
+msgid "Four Knights Game: Symmetrical Variation"
+msgstr "4 Kuda: Varian Simetris"
+
+msgid "Four Knights Game: Symmetrical, Blake Variation"
+msgstr "4 Kuda: Simetris, Varian Blake"
+
+msgid "Four Knights Game: Symmetrical, Capablanca Variation"
+msgstr "4 Kuda: Simetris, Varian Capablanca"
+
+msgid "Four Knights Game: Symmetrical, Maroczy System"
+msgstr "4 Kuda: Simetris, Sistem Maroczy"
+
+msgid "Four Knights Game: Symmetrical, Metger unpin"
+msgstr "4 Kuda: Simetris, Unpin Metger"
+
+msgid "Four Knights Game: Symmetrical, Pillsbury Variation"
+msgstr "4 Kuda: Simetris, Varian Pillsburry"
+
+msgid "Four Knights Game: Symmetrical, Tarrasch Variation"
+msgstr "4 Kuda: Simetris, Varian Tarrasch"
+
+msgid "Four Knights Game"
+msgstr "Permainan 4 Kuda"
+
+msgid "Fred"
+msgstr "Pembukaan Fred"
+
+msgid "French Defence, Steiner Variation"
+msgstr "Pembelaan Perancis, Varian Steiner"
+
+msgid "French Defence: Advance Variation"
+msgstr "Pembelaan Perancis: Varian Maju"
+
+msgid "French Defence: Advance, Euwe Variation"
+msgstr "Pembelaan Perancis: Maju, Varian Euwe"
+
+msgid "French Defence: Advance, Milner-Barry Gambit"
+msgstr "Pembelaan Perancis: Maju, Gambit Milner-Barry"
+
+msgid "French Defence: Advance, Nimzovich System"
+msgstr "Pembelaan Perancis: Maju, Sistem Nimzowitch"
+
+msgid "French Defence: Advance, Nimzovich Variation"
+msgstr "Pembelaan Perancis: Maju, Varian Nimzowitch"
+
+msgid "French Defence: Advance, Paulsen Attack"
+msgstr "Pembelaan Perancis: Maju, Serangan Paulsen"
+
+msgid "French Defence: Advance, Steinitz Variation"
+msgstr "Pembelaan Perancis: Maju, Varian Steinitz"
+
+msgid "French Defence: Advance, Wade Variation"
+msgstr "Pembelaan Perancis: Maju, Varian Wade"
+
+msgid "French Defence: Alapin Variation"
+msgstr "Pembelaan Perancis, Varian Alapin"
+
+msgid "French Defence: Albin-Alekhine-Chatard Attack, Breyer Variation"
+msgstr "Pembelaan Perancis: Serangan Albin-Alekhine-Chattard, Varian Breyer"
+
+msgid "French Defence: Albin-Alekhine-Chatard Attack, Maroczy Variation"
+msgstr "Pembelaan Perancis: Serangan Albin-Alekhine-Chattard, Varian Maroczy"
+
+msgid "French Defence: Albin-Alekhine-Chatard Attack, Spielmann Variation"
+msgstr ""
+"Pembelaan Perancis: Serangan Albin-Alekhine-Chattard, Varian Spielmann"
+
+msgid "French Defence: Albin-Alekhine-Chatard Attack, Teichmann Variation"
+msgstr ""
+"Pembelaan Perancis: Serangan Albin-Alekhine-Chattard, Varian Teichmann"
+
+msgid "French Defence: Albin-Alekhine-Chatard Attack"
+msgstr "Pembelaan Perancis: Serangan Albin-Alekhine-Chattard"
+
+msgid "French Defence: Burn Variation"
+msgstr "Pembelaan Perancis, Varian Burn"
+
+msgid "French Defence: Chigorin Variation"
+msgstr "Pembelaan Perancis, Varian Chigorin"
+
+msgid "French Defence: Classical Variation"
+msgstr "Pembelaan Perancis: Varian Klasik"
+
+msgid "French Defence: Classical, Alapin Variation"
+msgstr "Pembelaan Perancis: Klasik, Varian Alapin"
+
+msgid "French Defence: Classical, Anderssen Variation"
+msgstr "Pembelaan Perancis: Klasik, Varian Andersen"
+
+msgid "French Defence: Classical, Anderssen-Richter Variation"
+msgstr "Pembelaan Perancis: Klasik, Varian Andersen-Richter"
+
+msgid "French Defence: Classical, Frankfurt Variation"
+msgstr "Pembelaan Perancis: Klasik, Varian Frankfurt"
+
+msgid "French Defence: Classical, Pollock Variation"
+msgstr "Pembelaan Perancis: Klasik, Varian Pollock"
+
+msgid "French Defence: Classical, Rubinstein Variation"
+msgstr "Pembelaan Perancis: Klasik, Varian Rubenstein"
+
+msgid "French Defence: Classical, Stahlberg Variation"
+msgstr "Pembelaan Perancis: Klasik, Varian Stahlberg"
+
+msgid "French Defence: Classical, Steinitz Variation"
+msgstr "Pembelaan Perancis: Klasik, Varian Steinitz"
+
+msgid "French Defence: Classical, Tarrasch Variation"
+msgstr "Pembelaan Perancis: Klasik, Varian Tarrasch"
+
+msgid "French Defence: Classical, Tartakower Variation"
+msgstr "Pembelaan Perancis: Klasik, Varian Tartakower"
+
+msgid "French Defence: Classical, Vistaneckis (Nimzovich) Variation"
+msgstr "Pembelaan Perancis: Klasik, Varian Vistaneckis (Nimzowitch)"
+
+msgid "French Defence: Exchange Variation"
+msgstr "Pembelaan Perancis: Varian Tukar"
+
+msgid "French Defence: Exchange, Bogolyubov Variation"
+msgstr "Pembelaan Perancis: Tukar, Varian Bogolyubov"
+
+msgid "French Defence: Exchange, Svenonius Variation"
+msgstr "Pembelaan Perancis: Tukar, Varian Svenonius"
+
+msgid "French Defence: Fort Knox Variation"
+msgstr "Pembelaan Perancis, Varian Fort Knox"
+
+msgid "French Defence: Frere (Becker) Variation"
+msgstr "Pembelaan Perancis, Varian Frere (Becker)"
+
+msgid "French Defence: Henneberger Variation"
+msgstr "Pembelaan Perancis, Varian Henneberger"
+
+msgid "French Defence: King Indian Attack"
+msgstr "Pembelaan Perancis: Serangan Hindia Raja"
+
+msgid "French Defence: La Bourdonnais Variation"
+msgstr "Pembelaan Perancis, Varian Labourdanis"
+
+msgid "French Defence: MacCutcheon Variation"
+msgstr "Pembelaan Perancis, Varian MacCutcheon"
+
+msgid "French Defence: MacCutcheon, Advance Variation"
+msgstr "Pembelaan Perancis: MacChutcheon, Varian Maju"
+
+msgid "French Defence: MacCutcheon, Bernstein Variation"
+msgstr "Pembelaan Perancis: MacChutcheon, Varian Bernstein"
+
+msgid "French Defence: MacCutcheon, Bogolyubov Variation"
+msgstr "Pembelaan Perancis: MacChutcheon, Varian Bogolyubov"
+
+msgid "French Defence: MacCutcheon, Chigorin Variation"
+msgstr "Pembelaan Perancis: MacChutcheon, Varian Chigorin"
+
+msgid "French Defence: MacCutcheon, Dr. Olland (Dutch) Variation"
+msgstr "Pembelaan Perancis: MacChutcheon, Varian Dr. Olland (Belanda)"
+
+msgid "French Defence: MacCutcheon, Duras Variation"
+msgstr "Pembelaan Perancis: MacChutcheon, Varian Duras"
+
+msgid "French Defence: MacCutcheon, Grigoriev Variation"
+msgstr "Pembelaan Perancis: MacChutcheon, Varian Grigoriev"
+
+msgid "French Defence: MacCutcheon, Janowski Variation"
+msgstr "Pembelaan Perancis: MacChutcheon, Varian Janowski"
+
+msgid "French Defence: MacCutcheon, Lasker Variation, 8...g6"
+msgstr "Pembelaan Perancis: MacChutcheon, Varian Lasker, 8. ...g6"
+
+msgid "French Defence: MacCutcheon, Lasker Variation"
+msgstr "Pembelaan Perancis: MacChutcheon, Varian Lasker"
+
+msgid "French Defence: MacCutcheon, Tartakower Variation"
+msgstr "Pembelaan Perancis: MacChutcheon, Varian Tartakower"
+
+msgid "French Defence: Marshall Variation"
+msgstr "Pembelaan Perancis, Varian Marshall"
+
+msgid "French Defence: Paulsen Variation"
+msgstr "Pembelaan Perancis, Varian Paulsen"
+
+msgid "French Defence: Pelikan Variation"
+msgstr "Pembelaan Perancis, Varian Pelikan"
+
+msgid "French Defence: Reti (Spielmann) Variation"
+msgstr "Pembelaan Perancis, Varian Reti/Speilmann"
+
+msgid "French Defence: Reversed Philidor Formation"
+msgstr "Pembelaan Perancis: Formasi Philidor Terbalik"
+
+msgid "French Defence: Rubinstein Variation"
+msgstr "Pembelaan Perancis, Varian Rubinstein"
+
+msgid "French Defence: Rubinstein, Capablanca Line"
+msgstr "Pembelaan Perancis: Rubenstein, Jalur Capablanca"
+
+msgid "French Defence: Schlechter Variation"
+msgstr "Pembelaan Perancis, Varian Schlechter"
+
+msgid "French Defence: Steinitz Attack"
+msgstr "Pembelaan Perancis: Serangan Steinitz"
+
+msgid "French Defence: Steinitz Variation"
+msgstr "Pembelaan Perancis, Varian Steinitz"
+
+msgid "French Defence: Steinitz, Boleslavsky Variation"
+msgstr "Pembelaan Perancis: Steinitz, Varian Boleslavsky"
+
+msgid "French Defence: Steinitz, Bradford Attack"
+msgstr "Pembelaan Perancis: Steinitz, Serangan Bradford"
+
+msgid "French Defence: Steinitz, Brodsky-Jones Variation"
+msgstr "Pembelaan Perancis: Steinitz, Varian Brodsky-Jones"
+
+msgid "French Defence: Steinitz, Gledhill Attack"
+msgstr "Pembelaan Perancis: Steinitz, Serangan Gledhill"
+
+msgid "French Defence: Swiss Variation"
+msgstr "Pembelaan Perancis, Varian Swiss"
+
+msgid "French Defence: Tarrasch, Botvinnik Variation"
+msgstr "Pembelaan Perancis: Tarrasch, Varian Botwinnik"
+
+msgid "French Defence: Tarrasch, Closed Variation, Main Line"
+msgstr "Pembelaan Perancis: Tarrasch, Varian Tertutup, Jalur Utama"
+
+msgid "French Defence: Tarrasch, Closed Variation"
+msgstr "Pembelaan Perancis: Tarrasch, Varian Tertutup"
+
+msgid "French Defence: Tarrasch, Eliskases Variation"
+msgstr "Pembelaan Perancis: Tarrasch, Varian Eliskases"
+
+msgid "French Defence: Tarrasch, Guimard Main Line"
+msgstr "Pembelaan Perancis: Tarrasch, Jalur Utama Guimard"
+
+msgid "French Defence: Tarrasch, Guimard Variation"
+msgstr "Pembelaan Perancis: Tarrasch, Varian Guimard"
+
+msgid "French Defence: Tarrasch, Haberditz Variation"
+msgstr "Pembelaan Perancis: Tarrasch, Varian Haberditz"
+
+msgid "French Defence: Tarrasch, Leningrad Variation"
+msgstr "Pembelaan Perancis: Tarrasch, Varian Leningrad"
+
+msgid "French Defence: Tarrasch, Open Variation, Main Line"
+msgstr "Pembelaan Perancis: Tarrasch, Varian Terbuka, Jalur Utama"
+
+msgid "French Defence: Tarrasch, Open Variation"
+msgstr "Pembelaan Perancis: Tarrasch, Varian Terbuka"
+
+msgid "French Defence: Tarrasch, Open, 4.ed ed"
+msgstr "Pembelaan Perancis: Tarrasch, Varian Terbuka, 4.ed ed"
+
+msgid "French Defence: Tarrasch"
+msgstr "Pembelaan Perancis, Varian Tarrasch"
+
+msgid "French Defence: Two Knights Variation"
+msgstr "Pembelaan Perancis: Varian 2 Kuda"
+
+msgid "French Defence: Winawer (Nimzovich) Variation"
+msgstr "Pembelaan Perancis: Varian Winawer (Nimzowitch)"
+
+msgid "French Defence: Winawer, Advance Variation"
+msgstr "Pembelaan Perancis: Winawer, Varian Maju"
+
+msgid "French Defence: Winawer, Advance, 5.a3"
+msgstr "Pembelaan Perancis Winwer: Maju, 5.a3"
+
+msgid "French Defence: Winawer, Advance, 6...Ne7"
+msgstr "Pembelaan Perancis Winawer: Maju, 6... Ke7"
+
+msgid "French Defence: Winawer, Advance, Bogolyubov Variation"
+msgstr "Pembelaan Perancis Winawer: Maju, Varian Bogolyubov"
+
+msgid "French Defence: Winawer, Advance, Positional Main Line"
+msgstr "Pembelaan Perancis Winawer: Maju, Jalur Posisional"
+
+msgid "French Defence: Winawer, Advance, Rauzer Variation"
+msgstr "Pembelaan Perancis Winawer: Maju, Varian Rauzer"
+
+msgid "French Defence: Winawer, Advance, Russian Variation"
+msgstr "Pembelaan Perancis Winawer: Maju , Varian Rusia"
+
+msgid "French Defence: Winawer, Advance, Smyslov Variation"
+msgstr "Pembelaan Perancis Winawer: Maju, Varian Smyslov"
+
+msgid "French Defence: Winawer, Advance, poisoned Pawn Variation"
+msgstr "Pembelaan Perancis Winawer: Maju, Varian Bidak Beracun"
+
+msgid ""
+"French Defence: Winawer, Advance, poisoned Pawn, Euwe-Gligoric Variation"
+msgstr ""
+"Pembelaan Perancis Winawer: Maju, Varian Bidak Beracun, Varian Euwe-Gligoric"
+
+msgid ""
+"French Defence: Winawer, Advance, poisoned Pawn, Konstantinopolsky Variation"
+msgstr ""
+"Pembelaan Perancis Winawer: Maju, Varian Bidak Beracun, Varian "
+"Konstantinopolsky"
+
+msgid "French Defence: Winawer, Alekhine (Maroczy) Gambit"
+msgstr "Pembelaan Perancis: Winawer, Gambit Alekhine (Maroczy)"
+
+msgid "French Defence: Winawer, Alekhine Gambit, Alatortsev Variation"
+msgstr "Pembelaan Perancis: Winawer, Gambit Alekhine, Varian Alatorsev"
+
+msgid "French Defence: Winawer, Alekhine Gambit, Kan Variation"
+msgstr "Pembelaan Perancis: Winawer, Gambit Alekhine, Varian Kan"
+
+msgid "French Defence: Winawer, Alekhine Gambit"
+msgstr "Pembelaan Perancis: Winawer, Gambit Alekhine"
+
+msgid "French Defence: Winawer, Classical Variation"
+msgstr "Pembelaan Perancis Winawer: Maju, Varian Klasik"
+
+msgid "French Defence: Winawer, Fingerslip Variation"
+msgstr "Pembelaan Perancis Winawer: Maju, Varian Fingerslip"
+
+msgid "French Defence: Winawer, Kondratiyev Variation"
+msgstr "Pembelaan Perancis: Winawer, Varian Kondratijev"
+
+msgid "French Defence: Winawer, Petrosian Variation"
+msgstr "Pembelaan Perancis: Winawer, Varian Petrosian"
+
+msgid "French Defence: Wing Gambit"
+msgstr "Pembelaan Perancis: Gambit Sayap"
+
+msgid "French Defence"
+msgstr "Pembelaan Perancis"
+
+msgid "Fried Fox Defence"
+msgstr "Pembelaan Fried FOX"
+
+msgid "Gedult Attack"
+msgstr "Serangan Gedult"
+
+msgid "Gedult Opening"
+msgstr "Pembukaan Gedult"
+
+msgid "Giuoco Pianissimo: Canal Variation"
+msgstr "Giuoco Pianissimo: Varian Canal"
+
+msgid "Giuoco Pianissimo: Dubois Variation"
+msgstr "Giuoco Pianissimo: Varian Dubois"
+
+msgid "Giuoco Pianissimo: Italian Four Knights Variation"
+msgstr "Giuoco Pianissimo: Varian 4 Kuda"
+
+msgid "Giuoco Pianissimo"
+msgstr "Giuoco Pianissimo"
+
+msgid "Giuoco Piano: Aitken Variation"
+msgstr "Giuoco Piano: Varian Aitken"
+
+msgid "Giuoco Piano: Anderssen Variation"
+msgstr "Giuoco Piano: Varian Andersen"
+
+msgid "Giuoco Piano: Bernstein Variation"
+msgstr "Giuoco Piano: Varian Bernstein"
+
+msgid "Giuoco Piano: Bird Attack"
+msgstr "Giuoco Piano: Serangan Bird"
+
+msgid "Giuoco Piano: Cracow Variation"
+msgstr "Giuoco Piano: Varian Cracow"
+
+msgid "Giuoco Piano: Eisinger Variation"
+msgstr "Giuoco Piano: Varian Eisinger"
+
+msgid "Giuoco Piano: Four Knights Variation"
+msgstr "Giuoco Piano: Varian 4 Kuda"
+
+msgid "Giuoco Piano: Ghulam Kassim Variation"
+msgstr "Giuoco Piano: Varian Ghulam Kassim"
+
+msgid "Giuoco Piano: Greco Attack"
+msgstr "Giuoco Piano: Serangan Grecco"
+
+msgid "Giuoco Piano: Greco Variation"
+msgstr "Giuoco Piano: Varian Grecco"
+
+msgid "Giuoco Piano: Holzhausen Attack"
+msgstr "Giuoco Piano: Serangan Holzhausen"
+
+msgid "Giuoco Piano: Jerome Gambit"
+msgstr "Giuoco Piano: Gambit Jerome"
+
+msgid "Giuoco Piano: Krause Variation"
+msgstr "Giuoco Piano: Varian Krause"
+
+msgid "Giuoco Piano: La Bourdonnais Variation"
+msgstr "Giuoco Piano: Varian Labourdannais"
+
+msgid "Giuoco Piano: Mestel Variation"
+msgstr "Giuoco Piano: Varian Mestel"
+
+msgid "Giuoco Piano: Moeller (Therkatz) Attack"
+msgstr "Giuoco Piano: Serangan Moeller (Therkatz)"
+
+msgid "Giuoco Piano: Moeller, bayonet Attack"
+msgstr "Giuoco Piano: Serangan Moeller, Bayonet"
+
+msgid "Giuoco Piano: Rosentreter Variation"
+msgstr "Giuoco Piano: Varian Rosentreter"
+
+msgid "Giuoco Piano: Steinitz Variation"
+msgstr "Giuoco Piano: Varian Steinitz"
+
+msgid "Giuoco Piano: Tarrasch Variation"
+msgstr "Giuoco Piano: Varian Tarrasch"
+
+msgid "Giuoco Piano: Therkatz-Herzog Variation"
+msgstr "Giuoco Piano: Varian Therkatz-Herzog"
+
+msgid "Giuoco Piano: centre-holding Variation"
+msgstr "Giuoco Piano: Varian  Centre-Holding"
+
+msgid "Giuoco Piano: close Variation"
+msgstr "Giuoco Piano: Varian Tertutup"
+
+msgid "Giuoco Piano"
+msgstr "Pembelaan Italia (Giuoco Piano)"
+
+msgid "Global Opening"
+msgstr "Pembukaan Global"
+
+msgid "Greco Defence"
+msgstr "Pembelaan Greco"
+
+msgid "Grob Attack"
+msgstr "Serangan Grob"
+
+msgid "Grob Opening: Fritz Gambit"
+msgstr "Grob: Gambit Fritz"
+
+msgid "Grob Opening: Romford Counter-Gambit"
+msgstr "Grob: Gambit Balasan Romford"
+
+msgid "Grob Opening: Spike Attack"
+msgstr "Grob: Serangan Spike"
+
+msgid "Grünfeld Defence: 4.Bf4"
+msgstr "Gruendfeld: 4.Gf4"
+
+msgid "Grünfeld Defence: 5.Bf4"
+msgstr "Gruendfeld: 5.Gf4"
+
+msgid "Grünfeld Defence: 5.Bg5"
+msgstr "Gruendfeld: 5.Gg5"
+
+msgid "Grünfeld Defence: 5.e3"
+msgstr "Gruendfeld: 5.e3"
+
+msgid "Grünfeld Defence: Botvinnik Variation"
+msgstr "Gruendfeld: Varian Botwinnik"
+
+msgid "Grünfeld Defence: Exchange Variation"
+msgstr "Gruendfeld: Varian Tukar"
+
+msgid "Grünfeld Defence: Exchange, Classical Variation"
+msgstr "Gruendfeld: Tukar, Varian Klasik"
+
+msgid "Grünfeld Defence: Exchange, Larsen Variation"
+msgstr "Gruendfeld: Tukar, Varian Larsen"
+
+msgid "Grünfeld Defence: Exchange, Seville Variation"
+msgstr "Gruendfeld: Tukar, Varian Seville"
+
+msgid "Grünfeld Defence: Exchange, Simagin improved Variation"
+msgstr "Gruendfeld: Tukar, Varian Simagin Diperbarui"
+
+msgid "Grünfeld Defence: Exchange, Simagin lesser Variation"
+msgstr "Gruendfeld: Tukar, Varian Simagin Lesser"
+
+msgid "Grünfeld Defence: Exchange, Sokolsky Variation"
+msgstr "Gruendfeld: Tukar, Varian Sokolsky"
+
+msgid "Grünfeld Defence: Exchange, Spassky Variation"
+msgstr "Gruendfeld: Tukar, Varian Spassky"
+
+msgid "Grünfeld Defence: Flohr Defence"
+msgstr "Gruendfeld: Pembelaan Flohr"
+
+msgid "Grünfeld Defence: Flohr Variation"
+msgstr "Gruendfeld: Varian Flohr"
+
+msgid "Grünfeld Defence: Grünfeld Gambit Accepted"
+msgstr "Gruendfeld: Gambit Gruendfeld Diterima"
+
+msgid "Grünfeld Defence: Grünfeld Gambit, Botvinnik Variation"
+msgstr "Gruendfeld: Gambit Gruendfeld, Varian Botwnnik"
+
+msgid "Grünfeld Defence: Grünfeld Gambit, Capablanca Variation"
+msgstr "Gruendfeld: Gambit Gruendfeld, Varian Capablanca"
+
+msgid "Grünfeld Defence: Grünfeld Gambit"
+msgstr "Gruendfeld: Gambit Gruendfeld"
+
+msgid "Grünfeld Defence: Lundin Variation"
+msgstr "Gruendfeld: Varian Lundin"
+
+msgid "Grünfeld Defence: Makogonov Variation"
+msgstr "Gruendfeld: Varian Makogonov"
+
+msgid "Grünfeld Defence: Modern Exchange Variation"
+msgstr "Gruendfeld: Tukar, Varian Modern"
+
+msgid "Grünfeld Defence: Opovcensky Variation"
+msgstr "Gruendfeld: Varian Opovcensky"
+
+msgid "Grünfeld Defence: Pachman Variation"
+msgstr "Gruendfeld: Varian Pachman"
+
+msgid "Grünfeld Defence: Russian Variation with e4"
+msgstr "Gruendfeld: Varian Rusia dg e4"
+
+msgid "Grünfeld Defence: Russian Variation"
+msgstr "Gruendfeld: Varian Rusia"
+
+msgid "Grünfeld Defence: Russian, Alekhine (Hungarian) Variation"
+msgstr "Gruendfeld: Rusia, Varian Alekhine (Hungaria)"
+
+msgid "Grünfeld Defence: Russian, Byrne (Simagin) Variation"
+msgstr "Gruendfeld: Rusia, Varian Buyrne (Simagin)"
+
+msgid "Grünfeld Defence: Russian, Keres Variation"
+msgstr "Gruendfeld: Rusia, Varian Keres"
+
+msgid "Grünfeld Defence: Russian, Levenfish Variation"
+msgstr "Gruendfeld: Rusia, Varian Levenfish"
+
+msgid "Grünfeld Defence: Russian, Prins Variation"
+msgstr "Gruendfeld: Rusia, Varian Prins"
+
+msgid "Grünfeld Defence: Russian, Smyslov Variation"
+msgstr "Gruendfeld: Rusia, Varian Smyslov"
+
+msgid "Grünfeld Defence: Russian, Szabo (Boleslavsky) Variation"
+msgstr "Gruendfeld: Rusia, Varian Szabo (Boleslavsky)"
+
+msgid "Grünfeld Defence: Schlechter Variation"
+msgstr "Gruendfeld: Varian Schlechter"
+
+msgid "Grünfeld Defence: Smyslov Defence"
+msgstr "Gruendfeld: Pembelaan Symslov"
+
+msgid "Grünfeld Defence: Smyslov, Main Line"
+msgstr "Pembelaan Gruenfeld Symslov, Jalur Utama"
+
+msgid "Grünfeld Defence: Smyslov, Yugoslav Variation"
+msgstr "Pembelaan Gruenfeld Symslov, Varian Yugoslavia"
+
+msgid "Grünfeld Defence: Spassky Variation, Main Line, 10...cd, 11.cd"
+msgstr "Gruendfeld: Varian Spassky, Jalur Utama, 10... cd 11.cd"
+
+msgid "Grünfeld Defence: Spassky Variation, Main Line, 13.Bd3"
+msgstr "Gruendfeld: Varian Spassky, Jalur Utama, 13. Gd3"
+
+msgid "Grünfeld Defence: Spike Gambit"
+msgstr "Gruendfeld: Gambit Spike"
+
+msgid "Grünfeld Defence: Stockholm Variation"
+msgstr "Gruendfeld: Varian Stockholm"
+
+msgid "Grünfeld Defence: Three Knights Variation"
+msgstr "Gruendfeld: Varian 3 Kuda"
+
+msgid "Grünfeld Defence"
+msgstr "Pembelaan Gruenfeld"
+
+msgid "Grünfeld with Bf4 & e3"
+msgstr "Gruendfeld dg Gf4 dan e3"
+
+msgid "Grünfeld with e3 & Bd3"
+msgstr "Gruendfeld dg e3 dan Gd3"
+
+msgid "Grünfeld with e3 & Qb3"
+msgstr "Gruendfeld dg e3 dan Mb3"
+
+msgid "Guatemala Defence"
+msgstr "Pembelaan Guatemala"
+
+msgid "Gunderam Defence"
+msgstr "Pembelaan Gunderam"
+
+msgid "Halasz Gambit"
+msgstr "Gambit Halasz"
+
+msgid "Hammerschlag (Fried fox/Pork chop Opening)"
+msgstr "Pembukaan Hammerschlag"
+
+msgid "Hawk (Habichd) Defence"
+msgstr "Pembelaan Hawk (Habichd)"
+
+msgid "Hippopotamus Defence"
+msgstr "Pembelaan Hippotamus"
+
+msgid "Hungarian Defence: Tartakower Variation"
+msgstr "Pembelaan Hungaria, Varian Tartakower"
+
+msgid "Hungarian Defence"
+msgstr "Pembelaan Hungaria"
+
+msgid "Inverted Hanham"
+msgstr "Pembukaan Hanman Terbalik"
+
+msgid "Inverted Hungarian"
+msgstr "Pembukaan Hungaria Terbalik"
+
+msgid "Irish (Chicago) Gambit"
+msgstr "Gambit Irlandia (Chicago)"
+
+msgid "Italian Opening"
+msgstr "Pembukaan Italia"
+
+msgid "Kevitz-Trajkovic Defence"
+msgstr "Pembelaan Kevitz-Trajkovic"
+
+msgid ""
+"King Gambit Accepted: Abbazia Defence (Classical Defence, Modern Defence[!])"
+msgstr "KGA: Pembelaan Abbazia"
+
+msgid "King Gambit Accepted: Abbazia Defence, Botvinnik Variation"
+msgstr "KGA: Pembelaan Abbazia. Varian Botwinnik"
+
+msgid "King Gambit Accepted: Abbazia Defence, Modern Variation"
+msgstr "KGA: Pembelaan Abbazia. Varian Modern"
+
+msgid "King Gambit Accepted: Allgaier Gambit"
+msgstr "KGA: Gambit Algaer"
+
+msgid "King Gambit Accepted: Allgaier, Blackburne Gambit"
+msgstr "KGA: Algaer, Gambit Blackburne"
+
+msgid "King Gambit Accepted: Allgaier, Cook Variation"
+msgstr "KGA: Algaer, Varian Cook"
+
+msgid "King Gambit Accepted: Allgaier, Horny Defence"
+msgstr "KGA: Algaer, Pembelaan Horny"
+
+msgid "King Gambit Accepted: Allgaier, Schlechter Defence"
+msgstr "KGA: Algaer, Pembelaan Schlechter"
+
+msgid "King Gambit Accepted: Allgaier, ThorOld Variation"
+msgstr "KGA: Algaer, Varian Thorold"
+
+msgid "King Gambit Accepted: Allgaier, Urusov Attack"
+msgstr "KGA: Algaer, Serangan Urusov"
+
+msgid "King Gambit Accepted: Allgaier, Walker Attack"
+msgstr "KGA: Algaer, Serangan Walker"
+
+msgid "King Gambit Accepted: Becker Defence"
+msgstr "KGA: Algaer, Pembelaan Becker"
+
+msgid "King Gambit Accepted: Bishop Gambit, Anderssen Variation"
+msgstr "KGA: Gambit Gajah, Varian Andersen"
+
+msgid "King Gambit Accepted: Bishop Gambit, Bledow Variation"
+msgstr "KGA: Gambit Gajah, Varian Bledow"
+
+msgid "King Gambit Accepted: Bishop Gambit, Boden Defence"
+msgstr "KGA: Gambit Gajah, Pembelaan Boden"
+
+msgid "King Gambit Accepted: Bishop Gambit, Bogolyubov Variation"
+msgstr "KGA: Gambit Gajah, Varian Bogolyubov"
+
+msgid "King Gambit Accepted: Bishop Gambit, Boren-Svenonius Variation"
+msgstr "KGA: Gambit Gajah, Varian Boren-Svenoius"
+
+msgid "King Gambit Accepted: Bishop Gambit, Bryan Counter-Gambit"
+msgstr "KGA: Gambit Gajah, Gambit Balasan Bryan"
+
+msgid "King Gambit Accepted: Bishop Gambit, Chigorin Attack"
+msgstr "KGA: Gambit Gajah, Varian Serangan Chigorin"
+
+msgid "King Gambit Accepted: Bishop Gambit, Classical Defence, Cozio Attack"
+msgstr "KGA: Gambit Gajah, Pembelaan Klasik, Serangan Cozio"
+
+msgid "King Gambit Accepted: Bishop Gambit, Classical Defence"
+msgstr "KGA: Gambit Gajah, Varian Pembelaan Klasik"
+
+msgid "King Gambit Accepted: Bishop Gambit, Cozio (Morphy) Defence"
+msgstr "KGA: Gambit Gajah, Pembelaan Cozio (Morphy)"
+
+msgid "King Gambit Accepted: Bishop Gambit, Fraser Variation"
+msgstr "KGA: Gambit Gajah, Varian Frase"
+
+msgid "King Gambit Accepted: Bishop Gambit, Greco Variation"
+msgstr "KGA: Gambit Gajah, Varian Grecco"
+
+msgid "King Gambit Accepted: Bishop Gambit, Grimm Attack"
+msgstr "KGA: Gambit Gajah, Serangan Grimm"
+
+msgid "King Gambit Accepted: Bishop Gambit, Jaenisch Variation"
+msgstr "KGA: Gambit Gajah, Varian Jaenisch"
+
+msgid "King Gambit Accepted: Bishop Gambit, Lopez-Gianutio Counter-Gambit"
+msgstr "KGA: Gambit Gajah, Gambit Balasan Lopez-Gianutio"
+
+msgid "King Gambit Accepted: Bishop Gambit, Maurian Defence"
+msgstr "KGA: Gambit Gajah, Pembelaan Maurian"
+
+msgid "King Gambit Accepted: Bishop Gambit, McDonnell Attack"
+msgstr "KGA: Gambit Gajah, Serangan McDonnel"
+
+msgid "King Gambit Accepted: Bishop Gambit, Morphy Variation"
+msgstr "KGA: Gambit Gajah, Varian Morphy"
+
+msgid "King Gambit Accepted: Bishop Gambit, Paulsen Attack"
+msgstr "KGA: Gambit Gajah, Serangan Paulsen"
+
+msgid "King Gambit Accepted: Bishop Gambit, Ruy Lopez Defence"
+msgstr "KGA: Gambit Gajah, Pembelaan Ruy Lopez"
+
+msgid "King Gambit Accepted: Bishop Gambit, Steinitz Defence"
+msgstr "KGA: Gambit Gajah, Pembelaan Steinitz"
+
+msgid "King Gambit Accepted: Bishop Gambit"
+msgstr "KGA: Gambit Gajah"
+
+msgid "King Gambit Accepted: Blachly Gambit"
+msgstr "KGA: Gambit Blachly"
+
+msgid "King Gambit Accepted: Bonsch-Osmolovsky Variation"
+msgstr "KGA: Varian Bonsch-Osmolovsky"
+
+msgid "King Gambit Accepted: Breyer Gambit"
+msgstr "KGA: Gambit Breyer"
+
+msgid "King Gambit Accepted: Carrera (Basman) Gambit"
+msgstr "KGA: Gambit Carrera (Basman)"
+
+msgid "King Gambit Accepted: Cochrane Gambit"
+msgstr "KGA: Gambit Cochrane"
+
+msgid "King Gambit Accepted: Cunningham Defence"
+msgstr "KGA: Pembalaan Cunnigham"
+
+msgid "King Gambit Accepted: Cunningham, Bertin Gambit"
+msgstr "KGA: Cunnigham, Gambit Bertin"
+
+msgid "King Gambit Accepted: Cunningham, Euwe Defence"
+msgstr "KGA: Cunnigham, Pembelaan Euwe"
+
+msgid "King Gambit Accepted: Cunningham, Three Pawns Gambit"
+msgstr "KGA: Cunnigham, Gambit 3 Bidak"
+
+msgid "King Gambit Accepted: Double Muzio Gambit"
+msgstr "KGA: Gambit Dobel Muzio"
+
+msgid "King Gambit Accepted: Fischer Defence"
+msgstr "KGA: Pembelaan Fischer"
+
+msgid "King Gambit Accepted: Ghulam Kassim Gambit"
+msgstr "KGA: Gambit Ghulam Kassim"
+
+msgid "King Gambit Accepted: Gianutio Counter-Gambit"
+msgstr "KGA: Gambit Balasan Gianutio"
+
+msgid "King Gambit Accepted: Greco Gambit"
+msgstr "KGA: Gambit Grecco"
+
+msgid "King Gambit Accepted: Herzfeld Gambit"
+msgstr "KGA: Gambit Herzfeld"
+
+msgid "King Gambit Accepted: Keres (Mason-Steinitz) Gambit"
+msgstr "KGA: Gambit Keres (Mason-Steinitz)"
+
+msgid "King Gambit Accepted: Kieseritsky, Berlin Defence, 6.Bc4"
+msgstr "KGA: Kieseritsky, Pembelaan Berlin, 6.Gc4"
+
+msgid "King Gambit Accepted: Kieseritsky, Berlin Defence, Riviere Variation"
+msgstr "KGA: Kieseritsky, Pembelaan Berlin, Varian Riviere"
+
+msgid "King Gambit Accepted: Kieseritsky, Berlin Defence"
+msgstr "KGA: Kieseritsky, Pembelaan Berlin"
+
+msgid "King Gambit Accepted: Kieseritsky, Brentano (Campbell) Defence"
+msgstr "KGA: Kieseritsky, Pembelaan Brentano (Capmbell)"
+
+msgid "King Gambit Accepted: Kieseritsky, Brentano Defence, Caro Variation"
+msgstr "KGA: Kieseritsky, Pembelaan Brentano, Varian Caro"
+
+msgid ""
+"King Gambit Accepted: Kieseritsky, Brentano Defence, Kaplanek Variation"
+msgstr "KGA: Kieseritsky, Pembelaan Brentano, Varian Kaplanek"
+
+msgid "King Gambit Accepted: Kieseritsky, Brentano Defence"
+msgstr "KGA: Kieseritsky, Pembelaan Brentano"
+
+msgid "King Gambit Accepted: Kieseritsky, Kolisch Defence"
+msgstr "KGA: Kieseritsky, Pembelaan Kolisch"
+
+msgid "King Gambit Accepted: Kieseritsky, Neumann Defence"
+msgstr "KGA: Kieseritsky, Pembelaan Neumann"
+
+msgid "King Gambit Accepted: Kieseritsky, Paulsen Defence"
+msgstr "KGA: Kieseritsky, Pembelaan Paulsen"
+
+msgid "King Gambit Accepted: Kieseritsky, Polerio Defence"
+msgstr "KGA: Kieseritsky, Pembelaan Polerio"
+
+msgid "King Gambit Accepted: Kieseritsky, Rice Gambit"
+msgstr "KGA: Kieseritsky, Gambir Rice"
+
+msgid "King Gambit Accepted: Kieseritsky, Salvio (Rosenthal) Defence"
+msgstr "KGA: Kieseritsky, Pembelaan Slavio (Rosenthal)"
+
+msgid "King Gambit Accepted: Kieseritsky, Salvio Defence, Cozio Variation"
+msgstr "KGA: Kieseritsky, Pembelaan Slavio, Varian Coziio"
+
+msgid ""
+"King Gambit Accepted: Kieseritsky, long whip (Stockwhip, Classical) Defence"
+msgstr "KGA: Kieseritsky, Pembelaan Long Whip"
+
+msgid ""
+"King Gambit Accepted: Kieseritsky, long whip Defence, Jaenisch Variation"
+msgstr "KGA: Kieseritsky, Pembelaan Long Whipm, Varian Jaenisch"
+
+msgid "King Gambit Accepted: King knight Gambit"
+msgstr "KGA: Gambit Kuda Raja"
+
+msgid ""
+"King Gambit Accepted: Lesser Bishop (Petroff-Jaenisch-Tartakower) Gambit"
+msgstr "KGA: Gambit Gajah (Petroff-Jaenisch-Tartakower)"
+
+msgid "King Gambit Accepted: Lolli Gambit (wild Muzio Gambit)"
+msgstr "KGA: Gambit Lolli (Muzio)"
+
+msgid "King Gambit Accepted: Lolli Gambit, Young Variation"
+msgstr "KGA: Gambit Muzio, Varian Young"
+
+msgid "King Gambit Accepted: Lopez-Gianutio Counter-Gambit, Hein Variation"
+msgstr "KGA: Varian Gambit Balasan Lopez-Gianutio, Varian Hein"
+
+msgid "King Gambit Accepted: MacDonnell Gambit"
+msgstr "KGA: MacDonnel Gambit"
+
+msgid "King Gambit Accepted: Muzio Gambit, Brentano Defence"
+msgstr "KGA: Gambit Muzio, Pembelaan Brentano"
+
+msgid "King Gambit Accepted: Muzio Gambit, From Defence"
+msgstr "KGA: Gambit Muzio, Pembelaan From"
+
+msgid "King Gambit Accepted: Muzio Gambit, Holloway Defence"
+msgstr "KGA: Gambit Muzio, Pembelaan Holloway"
+
+msgid "King Gambit Accepted: Muzio Gambit, Kling and Horwitz Counter-Attack"
+msgstr "KGA: Gambit Muzio, Serangan Balik Kling & Horwitz"
+
+msgid "King Gambit Accepted: Muzio Gambit, Paulsen Variation"
+msgstr "KGA: Gambit Muzio, Varian Paulsen"
+
+msgid "King Gambit Accepted: Muzio Gambit"
+msgstr "KGA: Gambit Muzio"
+
+msgid "King Gambit Accepted: Orsini Gambit"
+msgstr "KGA: Gambit Orsini"
+
+msgid "King Gambit Accepted: Pawn Gambit (Stamma Gambit)"
+msgstr "KGA: Gambit Stamma"
+
+msgid "King Gambit Accepted: Philidor Gambit, Schultz Variation"
+msgstr "KGA: Gambit Philidor, Varian Schultz"
+
+msgid "King Gambit Accepted: Philidor Gambit"
+msgstr "KGA: Gambit Philidor"
+
+msgid "King Gambit Accepted: Quaade Gambit"
+msgstr "KGA: Gambit Qaade"
+
+msgid "King Gambit Accepted: Rosentreter Gambit"
+msgstr "KGA: Gambit Rosenreter"
+
+msgid "King Gambit Accepted: Salvio Gambit, Anderssen Counter-Attack"
+msgstr "KGA: Gambit Salvio, Serangan Balasan Andersen"
+
+msgid "King Gambit Accepted: Salvio Gambit"
+msgstr "KGA: Gambit Salvio"
+
+msgid "King Gambit Accepted: Schallop Defence"
+msgstr "KGA: Gambit Schallop"
+
+msgid "King Gambit Accepted: Schurig Gambit"
+msgstr "KGA: Gambit Schurig"
+
+msgid "King Gambit Accepted: Silberschmidt Gambit"
+msgstr "KGA: Gambit Silberschmidt"
+
+msgid "King Gambit Accepted: Soerensen Gambit"
+msgstr "KGA: Gambit Soerensen"
+
+msgid "King Gambit Accepted: Tumbleweed Gambit"
+msgstr "KGA: Gambit Tumbleweed"
+
+msgid "King Gambit Accepted: Villemson (Steinitz) Gambit"
+msgstr "KGA: Gambit Villemson (Steinitz)"
+
+msgid "King Gambit Accepted"
+msgstr "Gambit Raja Diterima (KGA)"
+
+msgid "King Gambit Declined: 2...Nf6"
+msgstr "KGD: 2... Kf6"
+
+msgid "King Gambit Declined: Classical Counter-Gambit"
+msgstr "KGD: Gambit Balasan Klasik"
+
+msgid "King Gambit Declined: Classical Variation"
+msgstr "KGD: Varian Klasik"
+
+msgid "King Gambit Declined: Classical, 4.c3"
+msgstr "KGD: Klasik, 4.c3"
+
+msgid "King Gambit Declined: Classical, Hanham Variation"
+msgstr "KGD: Klasik, Varian Hanham"
+
+msgid "King Gambit Declined: Classical, Heath Variation"
+msgstr "KGD: Klasik, Varian Health"
+
+msgid "King Gambit Declined: Classical, Marshall Attack"
+msgstr "KGD: Klasik, Serangan Marshall"
+
+msgid "King Gambit Declined: Classical, Reti Variation"
+msgstr "KGD: Klasik, Varian Reti"
+
+msgid "King Gambit Declined: Classical, Soldatenkov Variation"
+msgstr "KGD: Klasik, Varian Soldatenkov"
+
+msgid "King Gambit Declined: Classical, Svenonius Variation"
+msgstr "KGD: Klasik, Varian Svenonius"
+
+msgid "King Gambit Declined: Falkbeer Counter-Gambit"
+msgstr "KGD: Gamnbit Balasan Falkbeer"
+
+msgid "King Gambit Declined: Falkbeer, 3...e4"
+msgstr "KGD: Falkbeer, 3.... e4"
+
+msgid "King Gambit Declined: Falkbeer, 4.d3"
+msgstr "KGD: Falkbeer, 4.d3"
+
+msgid "King Gambit Declined: Falkbeer, 5.de"
+msgstr "KGD: Falkbeer, 5.de"
+
+msgid "King Gambit Declined: Falkbeer, Alapin Variation"
+msgstr "KGD: Falkbeer, Varian Alapin"
+
+msgid "King Gambit Declined: Falkbeer, Charousek Gambit"
+msgstr "KGD: Falkbeer, Gambit Charousek"
+
+msgid "King Gambit Declined: Falkbeer, Keres Variation"
+msgstr "KGD: Falkbeer, Varian Keres"
+
+msgid "King Gambit Declined: Falkbeer, Main Line, 7...Bf5"
+msgstr "KGD: Falkbeer, Jalur Utama, 7.... Gf5"
+
+msgid "King Gambit Declined: Falkbeer, Milner-Barry Variation"
+msgstr "KGD: Falkbeer, Varian Milner-Barry"
+
+msgid "King Gambit Declined: Falkbeer, Morphy Gambit"
+msgstr "KGD: Falkbeer, Gambit Morphy"
+
+msgid "King Gambit Declined: Falkbeer, Nimzovich Variation"
+msgstr "KGD: Falkbeer, Varian Nimnzowitch"
+
+msgid "King Gambit Declined: Falkbeer, Reti Variation"
+msgstr "KGD: Falkbeer, Varian Reti"
+
+msgid "King Gambit Declined: Falkbeer, Rubinstein Variation"
+msgstr "KGD: Falkbeer, Varian Rubenstein"
+
+msgid "King Gambit Declined: Falkbeer, Tarrasch Variation"
+msgstr "KGD: Falkbeer, Varian Tarrasch"
+
+msgid "King Gambit Declined: Falkbeer, Tartakower Variation"
+msgstr "KGD: Falkbeer, Varian Tartakower"
+
+msgid "King Gambit Declined: Keene Defence"
+msgstr "KGD: Pembelaan Keene"
+
+msgid "King Gambit Declined: Mafia Defence"
+msgstr "KGD: Pembelaan Mafia"
+
+msgid "King Gambit Declined: Nimzovich Counter-Gambit"
+msgstr "KGD: Gambit Balasan Nimzowitch"
+
+msgid "King Gambit Declined: Norwalde Variation, Buecker Gambit"
+msgstr "KGD: Varian Norwalde, Gambit Buecker"
+
+msgid "King Gambit Declined: Norwalde Variation"
+msgstr "KGD: Varian Norwalde"
+
+msgid "King Gambit"
+msgstr "Gambit Raja"
+
+msgid "King Indian Defence, 3.Nc3"
+msgstr "Pembelaan Hindia Raja, 3.Kc3"
+
+msgid "King Indian Defence: 3.Nf3"
+msgstr "Hindia Raja, 3.Kf3"
+
+msgid "King Indian Defence: 3.g3"
+msgstr "Hindia Raja, 3.g3"
+
+msgid "King Indian Defence: 4.e4"
+msgstr "Hindia Raja, 4.e4"
+
+msgid "King Indian Defence: 5.Be2"
+msgstr "Hindia Raja, 5.Ge2"
+
+msgid "King Indian Defence: 5.Nf3"
+msgstr "Hindia Raja, 5.Kf3"
+
+msgid "King Indian Defence: 6.Be2"
+msgstr "Hindia Raja, 6.Ge2"
+
+msgid "King Indian Defence: Accelerated Averbakh System"
+msgstr "Hindia Raja, Sistem Averbakh Dipercepat"
+
+msgid "King Indian Defence: Andersson Variation"
+msgstr "Hindia Raja, Varian Anderson"
+
+msgid "King Indian Defence: Anti-Grünfeld"
+msgstr "Hindia Raja, Anti Gruenfeld"
+
+msgid "King Indian Defence: Averbakh System"
+msgstr "Hindia Raja, Sistem Averbakh"
+
+msgid "King Indian Defence: Averbakh, 6...c5"
+msgstr "Hindia Raja, Averbakh, 6... c5"
+
+msgid "King Indian Defence: Averbakh, Main Line"
+msgstr "Hindia Raja, Averbakh, Jalur Utama"
+
+msgid "King Indian Defence: Classical Variation"
+msgstr "Hindia Raja Varian Klasik"
+
+msgid "King Indian Defence: Danube Gambit"
+msgstr "Hindia Raja, Gambit Danube"
+
+msgid "King Indian Defence: East Indian Defence"
+msgstr "Hindia Raja, Pembelaan Hindia Timur"
+
+msgid "King Indian Defence: Fianchetto Variation"
+msgstr "Hindia Raja Varian Fianchetto"
+
+msgid "King Indian Defence: Fianchetto with ...Nc6"
+msgstr "Hindia Raja Fianchetto dg ...Kc6"
+
+msgid "King Indian Defence: Fianchetto with ...Nd7"
+msgstr "Hindia Raja Fianchetto dg ...Kd7"
+
+msgid "King Indian Defence: Fianchetto without c4"
+msgstr "Hindia Raja Fianchetto Tanpa c4"
+
+msgid "King Indian Defence: Fianchetto, Classical Main Line"
+msgstr "Hindia Raja Fianchetto, Jalur Utama"
+
+msgid "King Indian Defence: Fianchetto, Classical Variation, 8.e4"
+msgstr "Hindia Raja Fianchetto, Klasik, 8.e4"
+
+msgid "King Indian Defence: Fianchetto, Classical Variation"
+msgstr "Hindia Raja Fianchetto, Varian Klasik"
+
+msgid "King Indian Defence: Fianchetto, Kavalek (Bronstein) Variation"
+msgstr "Hindia Raja Fianchetto, Varian Kavalek (Bronstein)"
+
+msgid "King Indian Defence: Fianchetto, Larsen System"
+msgstr "Hindia Raja Fianchetto, Sistem Larsen"
+
+msgid "King Indian Defence: Fianchetto, Panno Variation"
+msgstr "Hindia Raja Fianchetto, Varian Panno"
+
+msgid "King Indian Defence: Fianchetto, Simagin Variation"
+msgstr "Hindia Raja Fianchetto, Varian SImagin"
+
+msgid "King Indian Defence: Fianchetto, Uhlmann (Szabo) Variation"
+msgstr "Hindia Raja Fianchetto, Varian Uhlmann"
+
+msgid "King Indian Defence: Fianchetto, Yugoslav Panno"
+msgstr "Hindia Raja Fianchetto, Panno Yugoslavia"
+
+msgid "King Indian Defence: Fianchetto, Yugoslav System"
+msgstr "Hindia Raja Fianchetto, SIstem Yugoslavia"
+
+msgid "King Indian Defence: Fianchetto, Yugoslav, 7.O-O"
+msgstr "Hindia Raja Fianchetto, Yugoslav, 7.0-0"
+
+msgid "King Indian Defence: Fianchetto, lesser Simagin (Spassky) Variation"
+msgstr "Hindia Raja Fianchetto, Varian Spassky"
+
+msgid "King Indian Defence: Four Pawns Attack, 6.Be2"
+msgstr "Hindia Raja, Serangan 4 Bidak, 6.Ge2"
+
+msgid "King Indian Defence: Four Pawns Attack, Florentine Gambit"
+msgstr "Hindia Raja, Serangan 4 Bidak, Gambit Florentine"
+
+msgid "King Indian Defence: Four Pawns Attack, Main Line"
+msgstr "Hindia Raja, Serangan 4 Bidak, Jalur Utama"
+
+msgid "King Indian Defence: Four Pawns Attack, dynamic Line"
+msgstr "Hindia Raja, Serangan 4 Bidak, Jalur Dinamis"
+
+msgid "King Indian Defence: Four Pawns Attack, with Be2 and Nf3"
+msgstr "Hindia Raja, Serangan 4 Bidak, dg Ge2 dan Kf3"
+
+msgid "King Indian Defence: Four Pawns Attack"
+msgstr "Hindia Raja, Serangan 4 Bidak"
+
+msgid "King Indian Defence: Gligoric-Taimanov System"
+msgstr "Hindia Raja, Sistem Gligoric-Taimanov"
+
+msgid "King Indian Defence: Kazakh Variation"
+msgstr "Hindia Raja, Varian Kazakh"
+
+msgid "King Indian Defence: Kramer System"
+msgstr "Hindia Raja, Sistem Kramer"
+
+msgid "King Indian Defence: Larsen Variation"
+msgstr "Hindia Raja, Varian Larsen"
+
+msgid "King Indian Defence: London System"
+msgstr "Hindia Raja, Sistem London"
+
+msgid "King Indian Defence: Makagonov System (5.h3)"
+msgstr "Hindia Raja, Sistem Makogonov (5.h3)"
+
+msgid "King Indian Defence: Petrosian System, Keres Variation"
+msgstr "Hindia Raja, Sistem Petrosian, Varian Keres"
+
+msgid "King Indian Defence: Petrosian System, Main Line"
+msgstr "Hindia Raja, Sistem Petrosian, Jalur Utama"
+
+msgid "King Indian Defence: Petrosian System, Stein Variation"
+msgstr "Hindia Raja, Sistem Petrosian, Varian Stein"
+
+msgid "King Indian Defence: Petrosian System"
+msgstr "Hindia Raja, Sistem Petrosian"
+
+msgid "King Indian Defence: Pomar System"
+msgstr "Hindia Raja, Sistem Pomar"
+
+msgid "King Indian Defence: Saemisch Variation"
+msgstr "Hindia Raja, Varian Saemisch"
+
+msgid "King Indian Defence: Saemisch, 5...O-O"
+msgstr "Hindia Raja, Saemisch, 5.... 0-0"
+
+msgid "King Indian Defence: Saemisch, 6...Nc6"
+msgstr "Hindia Raja, Saemisch, 6... Kc6"
+
+msgid "King Indian Defence: Saemisch, Byrne Variation"
+msgstr "Hindia Raja, Saemisch, Varian Byrne"
+
+msgid "King Indian Defence: Saemisch, Double Fianchetto Variation"
+msgstr "Hindia Raja, Saemisch, Varian Dobel Fianchetto Ganda"
+
+msgid "King Indian Defence: Saemisch, Panno Formation"
+msgstr "Hindia Raja, Saemisch, Formasi Panno"
+
+msgid "King Indian Defence: Saemisch, Panno Main Line"
+msgstr "Hindia Raja, Saemisch, Panno Jalur Utama"
+
+msgid "King Indian Defence: Saemisch, Ruban Variation"
+msgstr "Hindia Raja, Saemisch, Varian Ruban"
+
+msgid "King Indian Defence: Saemisch, orthodox Main Line"
+msgstr "Hindia Raja, Saemisch, Orthdox Jalur Utama"
+
+msgid "King Indian Defence: Saemisch, orthodox Variation"
+msgstr "Hindia Raja, Saemisch, Varian Orthodox"
+
+msgid "King Indian Defence: Saemisch, orthodox, 7.Nge2 c6"
+msgstr "Hindia Raja, Saemisch, Orthodox, 7.Kge2 c6"
+
+msgid "King Indian Defence: Saemisch, orthodox, 7.d5 c6"
+msgstr "Hindia Raja, Saemisch, Orthodox, 7.d5 c6"
+
+msgid "King Indian Defence: Saemisch, orthodox, 7.d5"
+msgstr "Hindia Raja, Saemisch, Orthodox, 7.d5"
+
+msgid "King Indian Defence: Semi-Averbakh System"
+msgstr "Hindia Raja, Sistem Semi Averbakh"
+
+msgid "King Indian Defence: Smyslov System"
+msgstr "Hindia Raja, Sistem Smyslov"
+
+msgid "King Indian Defence: Torre Attack"
+msgstr "Hindia Raja, Serangan Torre"
+
+msgid "King Indian Defence: Zinnowitz Variation"
+msgstr "Hindia Raja, Varian Zinnowitz"
+
+msgid "King Indian Defence: orthodox Variation"
+msgstr "Hindia Raja Varian Orthodox"
+
+msgid "King Indian Defence: orthodox, 7...Nbd7, 8.Re1"
+msgstr "Hindia Raja Orthodox, 7...Kbd7 8.Be1"
+
+msgid "King Indian Defence: orthodox, 7...Nbd7, Main Line"
+msgstr "Hindia Raja Orthodox, 7...Kbd7, Jalur Utama"
+
+msgid "King Indian Defence: orthodox, 7...Nbd7"
+msgstr "Hindia Raja Orthodox, 7....Kbd7"
+
+msgid "King Indian Defence: orthodox, Aronin-Taimanov Variation"
+msgstr "Hindia Raja Orthodox, Varian Aronin-Taimanov"
+
+msgid "King Indian Defence: orthodox, Aronin-Taimanov, 9.Ne1"
+msgstr "Hindia Raja Orthodox, Aronin-Taimanov, 9.Ke1"
+
+msgid "King Indian Defence: orthodox, Aronin-Taimanov, Benko Attack"
+msgstr "Hindia Raja Orthodox, Aronin-Taimanov, Serangan Benko"
+
+msgid "King Indian Defence: orthodox, Aronin-Taimanov, Main Line"
+msgstr "Hindia Raja Orthodox, Aronin-Taimanov, Jalur Utama"
+
+msgid "King Indian Defence: orthodox, Aronin-Taimanov, bayonet Attack"
+msgstr "Hindia Raja Orthodox, Aronin-Taimanov, Serangan Bayonet"
+
+msgid "King Indian Defence: orthodox, Donner Variation"
+msgstr "Hindia Raja Orthodox, Varian Donner"
+
+msgid "King Indian Defence: six Pawns Attack"
+msgstr "Hindia Raja, Serangan 6 Bidak"
+
+msgid "King Indian Defence: with e4 & g3"
+msgstr "Hindia Raja dg e4 & g3"
+
+msgid "King Indian Defence"
+msgstr "Pembelaan Hindia Raja"
+
+msgid "King Pawn Opening: Colorado Counter"
+msgstr "KP: Serangan Balik Colorado"
+
+msgid "King Pawn Opening: Indian Opening"
+msgstr "KP: Pembukaan Hindia"
+
+msgid "King Pawn Opening: Lopez Opening"
+msgstr "KP: Pembukaan Lopez"
+
+msgid "King Pawn Opening: Mengarini Opening"
+msgstr "KP: Pembulaam Mengarini"
+
+msgid "King Pawn Opening: Napoleon Opening"
+msgstr "KP: Pembukaan Naopelon"
+
+msgid "King Pawn Opening: Nimzovich Defence, Bogolyubov Variation"
+msgstr "KP: Pembelaan Nizmowitch, Varian Bogolyubov"
+
+msgid "King Pawn Opening: Nimzovich Defence, Marshall Gambit"
+msgstr "KP: Pembelaan Nimzowitch, Gambit Marhsall"
+
+msgid "King Pawn Opening: Nimzovich Defence"
+msgstr "KP: Pembelaan Nimzowitch"
+
+msgid "King Pawn Opening: Patzer Opening"
+msgstr "KP: Pembukaan Patzer"
+
+msgid "King Pawn Opening"
+msgstr "Pembukaan Bidak Raja"
+
+msgid "King knight Gambit"
+msgstr "Gamit Raja Gambit Kuda"
+
+msgid "King knight Opening"
+msgstr "Pembukaan Kuda Raja"
+
+msgid "Konstantinopolsky Opening"
+msgstr "Pembukaan Konstantinopolsky"
+
+msgid "Lasker Simul Special"
+msgstr "Simulasi Spesial Lasker"
+
+msgid "Latvian Counter-Gambit"
+msgstr "Gambit Balasan Latvian"
+
+msgid "Latvian Gambit, 3.Bc4"
+msgstr "Gambit Latvian, 3.Gc4"
+
+msgid "Latvian Gambit: Fraser Defence"
+msgstr "Gambit Latvian, Varian Fraser"
+
+msgid "Latvian Gambit: Nimzovich Variation"
+msgstr "Gambit Latvian, Varian Nimzowitch"
+
+msgid "Latvian Gambit: Polerio Variation"
+msgstr "Gambit Latvian, Varian Polerio"
+
+msgid "Latvian Gambit: corkscrew Counter-Gambit"
+msgstr "Gambit Latvian, Bambit Balasan Corksrew"
+
+msgid "Lemming Defence"
+msgstr "Pembelaan Lemming"
+
+msgid "Lengfellner System"
+msgstr "Sistem Lenggellner"
+
+msgid "Levitsky Attack (Queen Bishop Attack)"
+msgstr "Serangan Levitsky (Serangan Gajah Menteri)"
+
+msgid "Mieses Opening"
+msgstr "Pembukaan Miesses"
+
+msgid "Modern Defence: Averbakh System, Kotov Variation"
+msgstr "Pembelaan Modern, Sistem Averbakh, Varian Kotov"
+
+msgid "Modern Defence: Averbakh System, Randspringer Variation"
+msgstr "Pembelaan Modern, Sistem Averbakh, Varian Randspringer"
+
+msgid "Modern Defence: Averbakh System"
+msgstr "Pembelaan Modern, Sistem Averbakh"
+
+msgid "Modern Defence"
+msgstr "Pembelaan Modern"
+
+msgid "Mujannah Opening"
+msgstr "Pembukaan Mujannah"
+
+msgid "Neo-Grünfeld (Kemeri) Defence"
+msgstr "Pembelaan Neo Gruendfeld (Kemeri)"
+
+msgid "Neo-Grünfeld Defence: 5.Nf3"
+msgstr "Neo Gruendfeld: 5.Kf3"
+
+msgid "Neo-Grünfeld Defence: 5.cd, Main Line"
+msgstr "Neo Gruendfeld, 5.cd, Jalur Utama"
+
+msgid "Neo-Grünfeld Defence: 5.cd"
+msgstr "Neo Gruendfeld, 5.cd"
+
+msgid "Neo-Grünfeld Defence: 6.O-O c6"
+msgstr "Neo Gruendfeld, 6.0-0 c6"
+
+msgid "Neo-Grünfeld Defence: 6.O-O, Main Line"
+msgstr "Neo Gruendfeld, 6.0-0, Jalur Utama"
+
+msgid "Neo-Grünfeld Defence: 6.O-O"
+msgstr "Neo Gruendfeld, 6.0-0"
+
+msgid "Neo-Grünfeld Defence: 6.cd Nxd5, 7.O-O Nb6"
+msgstr "Neo Gruendfeld, 6.cd Kxd5 7.0-0 Kb6"
+
+msgid "Neo-Grünfeld Defence: 6.cd Nxd5, 7.O-O c5, 8.Nc3"
+msgstr "Neo Gruendfeld, 6.cd Kxd5 7.0-0 c5 8.Kc3"
+
+msgid "Neo-Grünfeld Defence: 6.cd Nxd5, 7.O-O c5, 8.dc"
+msgstr "Neo Gruendfeld, 6.cd Kxd5 7.0-0 c5 8.dc"
+
+msgid "Neo-Grünfeld Defence: 6.cd Nxd5, 7.O-O"
+msgstr "Neo Gruendfeld, 6.cd Kxd5 7.0-0"
+
+msgid "Neo-Grünfeld Defence"
+msgstr "Pembelaan Neo Gruendfeld "
+
+msgid "Neo-Indian (Seirawan) Attack"
+msgstr "Serangan Neo Hindia (Seirawan)"
+
+msgid "Nimzo-Indian Defence: 4.e3 O-O, 5.Bd3 d5"
+msgstr "Nimzo Hindia: 4.e3 0-0 5.Gd3 d5"
+
+msgid "Nimzo-Indian Defence: 4.e3 O-O, 5.Bd3"
+msgstr "Nimzo Hindia: 4.e3 0-0 5.Gd3"
+
+msgid "Nimzo-Indian Defence: 4.e3 O-O"
+msgstr "Nimzo Hindia: 4.e3 0-0"
+
+msgid "Nimzo-Indian Defence: 4.e3 c5, 5.Ne2 (Rubinstein)"
+msgstr "Nimzo Hindia: 4.e3 c5 5.Ke2 (Rubenstein)"
+
+msgid "Nimzo-Indian Defence: 4.e3 c5"
+msgstr "Nimzo Hindia: 4.e3 c5"
+
+msgid "Nimzo-Indian Defence: 4.e3 e8g8, 5.Nf3 d7d5"
+msgstr "Nimzo Hindia: 4.e3 e8g8, 5.Kf3 d7d5"
+
+msgid "Nimzo-Indian Defence: 4.e3 e8g8, 5.Nf3, without ...d5"
+msgstr "Nimzo Hindia: 4.e3 e8g8, 5.Kf3 tanpa ...d5"
+
+msgid "Nimzo-Indian Defence: 4.e3, Botvinnik System"
+msgstr "Nimzo Hindia: 4.e3, Sistem Botwinnik"
+
+msgid "Nimzo-Indian Defence: 4.e3, Bronstein (Byrne) Variation"
+msgstr "Nimzo Hindia: 4.e3, Varian Bronstein (Byrne)"
+
+msgid "Nimzo-Indian Defence: 4.e3, Gligoric System with 7...Nbd7"
+msgstr "Nimzo Hindia: 4.e3, Sistem Gligoric dg 7.... Kbd7"
+
+msgid "Nimzo-Indian Defence: 4.e3, Gligoric System with 7...dc"
+msgstr "Nimzo Hindia: 4.e3, Sistem Gligoric dg 7.... dc"
+
+msgid "Nimzo-Indian Defence: 4.e3, Gligoric System, Bronstein Variation"
+msgstr "Nimzo Hindia: 4.e3, Sistem Gligoric, Varian Bronstein"
+
+msgid "Nimzo-Indian Defence: 4.e3, Gligoric System, Smyslov Variation"
+msgstr "Nimzo Hindia: 4.e3, Sistem Gligoric, Varian Smyslov"
+
+msgid "Nimzo-Indian Defence: 4.e3, Keres Variation"
+msgstr "Nimzo Hindia: 4.e3, Sistem Gligoric, Varian Keres"
+
+msgid "Nimzo-Indian Defence: 4.e3, Main Line with ...b6"
+msgstr "Nimzo Hindia: 4.e3, Jalur Utama dg ...b6"
+
+msgid "Nimzo-Indian Defence: 4.e3, Main Line with ...c5"
+msgstr "Nimzo Hindia: 4.e3, Jalur Utama dg ...c5"
+
+msgid "Nimzo-Indian Defence: 4.e3, Main Line with 7...Nc6"
+msgstr "Nimzo Hindia: 4.e3, Jalur Utama dg 7.... Kc6"
+
+msgid "Nimzo-Indian Defence: 4.e3, Main Line with 8...Bxc3"
+msgstr "Nimzo Hindia: 4.e3, Jalur Utama dg 8.... Gxc3"
+
+msgid "Nimzo-Indian Defence: 4.e3, Main Line with 8...dc and 9...cd"
+msgstr "Nimzo Hindia: 4.e3, Jalur Utama dg 8.... dc dan 9. ... cd"
+
+msgid "Nimzo-Indian Defence: 4.e3, Main Line"
+msgstr "Nimzo Hindia: 4.e3, Jalur Utama"
+
+msgid "Nimzo-Indian Defence: 4.e3, Ragozin Variation"
+msgstr "Nimzo Hindia: 4.e3, Varian Ragozin"
+
+msgid "Nimzo-Indian Defence: 4.e3, Taimanov Variation"
+msgstr "Nimzo Hindia: 4.e3, Varian Taimanov"
+
+msgid "Nimzo-Indian Defence: 4.e3"
+msgstr "Nimzo Hindia: 4.e3"
+
+msgid "Nimzo-Indian Defence: Classical Variation"
+msgstr "Nimzo Hindia, Varian Klasik"
+
+msgid "Nimzo-Indian Defence: Classical, 4...Nc6"
+msgstr "Nimzo Hindia, Klasik, 4... Kc6"
+
+msgid "Nimzo-Indian Defence: Classical, 4...c5"
+msgstr "Nimzo Hindia, Klasik, 4....c5"
+
+msgid "Nimzo-Indian Defence: Classical, Adorjan Gambit"
+msgstr "Nimzo Hindia, Klasik, Gambit Adorjan"
+
+msgid "Nimzo-Indian Defence: Classical, Botvinnik Variation"
+msgstr "Nimzo Hindia, Klasik, Varian Botwinnik"
+
+msgid "Nimzo-Indian Defence: Classical, Milner-Barry (Zurich) Variation"
+msgstr "Nimzo Hindia, Klasik, Varian Milner-Barry (Zurich)"
+
+msgid "Nimzo-Indian Defence: Classical, Noa Variation, 5.a3"
+msgstr "Nimzo Hindia, Klasik, Varian Noa, 5.a3"
+
+msgid "Nimzo-Indian Defence: Classical, Noa Variation, 5.cd ed"
+msgstr "Nimzo Hindia, Klasik, Varian Noa, 5.cd ed"
+
+msgid "Nimzo-Indian Defence: Classical, Noa Variation, Main Line, 7.Qc2"
+msgstr "Nimzo Hindia, Klasik, Varian Noa, Jalur Utama, 7.Mc2"
+
+msgid "Nimzo-Indian Defence: Classical, Noa Variation, Main Line"
+msgstr "Nimzo Hindia, Klasik, Varian Noa, Jalur Utama"
+
+msgid "Nimzo-Indian Defence: Classical, Noa Variation"
+msgstr "Nimzo Hindia, Klasik, Varian Noa"
+
+msgid "Nimzo-Indian Defence: Classical, Pirc Variation"
+msgstr "Nimzo Hindia, Klasik, Varian Pirc"
+
+msgid "Nimzo-Indian Defence: Classical, San Remo Variation"
+msgstr "Nimzo Hindia, Klasik, Varian San Remo"
+
+msgid "Nimzo-Indian Defence: Fischer Variation, 5.Ne2"
+msgstr "Nimzo Hindia: Varian Fischer, 5.Ke2"
+
+msgid "Nimzo-Indian Defence: Fischer Variation"
+msgstr "Nimzo Hindia: Varian Fischer"
+
+msgid "Nimzo-Indian Defence: Kmoch Variation"
+msgstr "Nimzo Hindia: Varian Kmoch"
+
+msgid "Nimzo-Indian Defence: Leningrad Variation"
+msgstr "Nimzo Hindia: Varian Leningrad"
+
+msgid "Nimzo-Indian Defence: Leningrad, ...b5 Gambit"
+msgstr "Nimzo Hindia: Leningrad, ... gambit b5"
+
+msgid "Nimzo-Indian Defence: Leningrad, Main Line"
+msgstr "Nimzo Hindia: Leningrad, Jalur Utama"
+
+msgid "Nimzo-Indian Defence: Mikenas Attack"
+msgstr "Nimzo Hindia: Serangan Mikenas"
+
+msgid "Nimzo-Indian Defence: Reshevsky Variation"
+msgstr "Nimzo Hindia: Varian Reshevsky"
+
+msgid "Nimzo-Indian Defence: Romanishin-Kasparov (Steiner) System"
+msgstr "Nimzo Hindia: Sistem Romanishin-Kasparov"
+
+msgid "Nimzo-Indian Defence: Saemisch Variation"
+msgstr "Nimzo Hindia: Varian Saemisch"
+
+msgid "Nimzo-Indian Defence: Saemisch, Botvinnik Variation"
+msgstr "Nimzo Hindia: Saemisch, Varian Botwinnik"
+
+msgid "Nimzo-Indian Defence: Saemisch, Capablanca Variation"
+msgstr "Nimzo Hindia: Saemisch, Varian Capablanca"
+
+msgid "Nimzo-Indian Defence: Saemisch, Keres Variation"
+msgstr "Nimzo Hindia: Saemisch, Varian Keres"
+
+msgid "Nimzo-Indian Defence: Saemisch, Main Line"
+msgstr "Nimzo Hindia: Saemisch, Jalur Utama"
+
+msgid "Nimzo-Indian Defence: Saemisch, O'Kelly Variation"
+msgstr "Nimzo Hindia: Saemisch, Varian O'Kelly"
+
+msgid "Nimzo-Indian Defence: Saemisch, Romanovsky Variation"
+msgstr "Nimzo Hindia: Saemisch, Varian Romanovsky"
+
+msgid "Nimzo-Indian Defence: Simagin Variation"
+msgstr "Nimzo Hindia: Varian SImagin"
+
+msgid "Nimzo-Indian Defence: Spielmann Variation"
+msgstr "Nimzo Hindia: Varian Spielmann"
+
+msgid "Nimzo-Indian Defence: Spielmann, 4...c5, 5.dc Nc6"
+msgstr "Nimzo Hindia: Spielmann, 4... c5, 5.dc Kc6"
+
+msgid "Nimzo-Indian Defence: Spielmann, Karlsbad Variation"
+msgstr "Nimzo Hindia: Spielmann, Varian Karlsbad"
+
+msgid "Nimzo-Indian Defence: Spielmann, San Remo Variation"
+msgstr "Nimzo Hindia, Spielmann, Varian San Remo"
+
+msgid "Nimzo-Indian Defence: Spielmann, Stahlberg Variation"
+msgstr "Nimzo Hindia, Spielmann, Varian Stahlberg"
+
+msgid "Nimzo-Indian Defence: Three Knights Variation"
+msgstr "Nimzo Hindia,  Varian 3 Kuda"
+
+msgid "Nimzo-Indian Defence: Three Knights, Euwe Variation"
+msgstr "Nimzo Hindia,  3 Kuda, Varian Euwe"
+
+msgid "Nimzo-Indian Defence: Three Knights, Korchnoi Variation"
+msgstr "Nimzo Hindia,  3 Kuda, Varian Korchnoi"
+
+msgid "Nimzo-Indian Defence: e3, Huebner Variation"
+msgstr "Nimzo Hindia, e3, Varian Huebner"
+
+msgid "Nimzo-Indian Defence"
+msgstr "Pembelaan Nimzo Hindia"
+
+msgid "Nimzovich-Larsen Attack: Classical Variation"
+msgstr "Serangan Nimzowitch-Larsen, Varian Klasik"
+
+msgid "Nimzovich-Larsen Attack: Dutch Variation"
+msgstr "Serangan Nimzowitch-Larsen: Varian Belanda"
+
+msgid "Nimzovich-Larsen Attack: English Variation"
+msgstr "Serangan Nimzowitch-Larsen: Varian Inggris"
+
+msgid "Nimzovich-Larsen Attack: Indian Variation"
+msgstr "Serangan Nimzowitch-Larsen: Varian Hindia"
+
+msgid "Nimzovich-Larsen Attack: Modern Variation"
+msgstr "Serangan Nimzowitch-Larsen: Varian Modern"
+
+msgid "Nimzovich-Larsen Attack: Polish Variation"
+msgstr "Serangan Nimzowitch-Larsen: Varian Polandia"
+
+msgid "Nimzovich-Larsen Attack: Symmetrical Variation"
+msgstr "Serangan Nimzowitch-Larsen, Varian Simetris"
+
+msgid "Nimzovich-Larsen Attack"
+msgstr "Serangan Nimzowitch-Larsen"
+
+msgid "Norwegian Defence"
+msgstr "Pembelaan Norwegia"
+
+msgid "Novosibirsk Opening"
+msgstr "Pembukaan Novosibirsk"
+
+msgid "Old Benoni Defence: Franco-Benoni Defence"
+msgstr "Benoni Tua: Pembelaan Franco-Benoni"
+
+msgid "Old Benoni Defence: Mujannah Formation"
+msgstr "Benoni Tua: Formasi Mujannah"
+
+msgid "Old Benoni Defence: Schmid System"
+msgstr "Benoni Tua: SIstem Schmid"
+
+msgid "Old Benoni Defence"
+msgstr "Pembelaan Benoni Tua"
+
+msgid "Old Indian Defence: Dus-Khotimirsky Variation"
+msgstr "Hindia Tua: Varian Dus-Khotimirsky"
+
+msgid "Old Indian Defence: Janowski Variation"
+msgstr "Hindia Tua: Varian Janowski"
+
+msgid "Old Indian Defence: Main Line"
+msgstr "Hindia Tua: Jalur Utama"
+
+msgid "Old Indian Defence: Tartakower (Wade) Variation"
+msgstr "Hindia Tua: Varian Tartakower (Wade)"
+
+msgid "Old Indian Defence: Ukrainian Variation, 4.Nf3"
+msgstr "Hindia Tua: Varian Ukraina, 4.Kf3"
+
+msgid "Old Indian Defence: Ukrainian Variation"
+msgstr "Hindia Tua: Varian Ukraina"
+
+msgid "Old Indian Defence"
+msgstr "Pembelaan Hindia Tua"
+
+msgid "Owen Defence"
+msgstr "Pembelaan Owen"
+
+msgid "Paleface Attack"
+msgstr "Serangan Paleface"
+
+msgid "Petrov Defence"
+msgstr "Pembelaan Petroff"
+
+msgid "Philidor Defence: Berger Variation"
+msgstr "Philidor: Varian Berger"
+
+msgid "Philidor Defence: Boden Variation"
+msgstr "Philidor: Varian Boden"
+
+msgid "Philidor Defence: Exchange Variation"
+msgstr "Philidor: Varian Tukar"
+
+msgid "Philidor Defence: Hanham Variation"
+msgstr "Philidor: Varian Hanham"
+
+msgid "Philidor Defence: Hanham, Berger Variation"
+msgstr "Philidor: Hanham, Varian Berger"
+
+msgid "Philidor Defence: Hanham, Delmar Variation"
+msgstr "Philidor: Hanham, Varian Delmar"
+
+msgid "Philidor Defence: Hanham, Kmoch Variation"
+msgstr "Philidor: Hanham, Varian Kmoch"
+
+msgid "Philidor Defence: Hanham, Krause Variation"
+msgstr "Philidor: Hanham, Varian Krause"
+
+msgid "Philidor Defence: Hanham, Schlechter Variation"
+msgstr "Philidor: Hanham, Varian Schlechter"
+
+msgid "Philidor Defence: Hanham, Steiner Variation"
+msgstr "Philidor: Hanham, Varian Steiner"
+
+msgid "Philidor Defence: Improved Hanham Variation"
+msgstr "Philidor: Hanham, Varian Diperbarui"
+
+msgid "Philidor Defence: Larsen Variation"
+msgstr "Philidor: Varian Larsen"
+
+msgid "Philidor Defence: Lopez Counter-Gambit, Jaenisch Variation"
+msgstr "Philidor: Gambit Balasan Lopez, Varian Jaenisch"
+
+msgid "Philidor Defence: Lopez Counter-Gambit"
+msgstr "Philidor: Gambit Balasan Lopez"
+
+msgid "Philidor Defence: Nimzovich (Jaenisch) Variation"
+msgstr "Philidor: Varian Nimzowitch (Jaenisch)"
+
+msgid "Philidor Defence: Nimzovich Variation"
+msgstr "Philidor: Varian Nimzowitch"
+
+msgid "Philidor Defence: Nimzovich, Klein Variation"
+msgstr "Philidor: Nimzowitch, Varian Klein"
+
+msgid "Philidor Defence: Nimzovich, Larobok Variation"
+msgstr "Philidor: Nimzowitch, Varian Larobok"
+
+msgid "Philidor Defence: Nimzovich, Locock Variation"
+msgstr "Philidor: Nimzowitch, Varian Locock"
+
+msgid "Philidor Defence: Nimzovich, Rellstab Variation"
+msgstr "Philidor: Nimzowitch, Varian Rellstab"
+
+msgid "Philidor Defence: Nimzovich, Sokolsky Variation"
+msgstr "Philidor: Nimzowitch, Varian  Sokolsky"
+
+msgid "Philidor Defence: Nimzovich, Sozin Variation"
+msgstr "Philidor: Nimzowitch, Varian Sozin"
+
+msgid "Philidor Defence: Paulsen Attack"
+msgstr "Philidor: Serangan Paulsen"
+
+msgid "Philidor Defence: Philidor Counter-Gambit, Berger Variation"
+msgstr "Philidor: Gambit Balasan Philidor, Varian Berger"
+
+msgid "Philidor Defence: Philidor Counter-Gambit, Zukertort Variation"
+msgstr "Philidor: Gambit Balasan Philidor, Varian Zukertot"
+
+msgid "Philidor Defence: Philidor Counter-Gambit, del Rio Attack"
+msgstr "Philidor: Gambit Balasan Philidor, Serangan Rio Attack"
+
+msgid "Philidor Defence: Philidor Counter-Gambit"
+msgstr "Philidor: Gambit Balasan Philidor"
+
+msgid "Philidor Defence: Steinitz Variation"
+msgstr "Philidor: Varian Steinitz"
+
+msgid "Philidor Defence"
+msgstr "Pembelaan Philidor"
+
+msgid "Pirc Defence: 150 Attack"
+msgstr "Pirc: Serangan 150"
+
+msgid "Pirc Defence: Austrian Attack, 6.Bd3"
+msgstr "Pirc: Serangan Austria, 6.Gd3"
+
+msgid "Pirc Defence: Austrian Attack, 6.Be3"
+msgstr "Pirc: Serangan Austria, 6.Ge3"
+
+msgid "Pirc Defence: Austrian Attack, 6.e5"
+msgstr "Pirc: Serangan Austria, 6.e5"
+
+msgid "Pirc Defence: Austrian Attack, Dragon Formation"
+msgstr "Pirc: Serangan Austria, Formasi Naga"
+
+msgid "Pirc Defence: Austrian Attack, Ljubojevic Variation"
+msgstr "Pirc: Serangan Austria, Varian Ljubojevic"
+
+msgid "Pirc Defence: Austrian Attack"
+msgstr "Pirc: Serangan Austria"
+
+msgid "Pirc Defence: Byrne Variation"
+msgstr "Pirc: Varian Byrne"
+
+msgid "Pirc Defence: Chinese Variation"
+msgstr "Pirc: Varian China"
+
+msgid "Pirc Defence: Classical (Two Knights) System"
+msgstr "Pirc: Sistem Klasik (2 Kuda)"
+
+msgid "Pirc Defence: Classical System, 5.Be2"
+msgstr "Pirc: Klasik, 5.Ge2"
+
+msgid "Pirc Defence: Classical, h3 System"
+msgstr "Pirc: Klasik, Sistem h3"
+
+msgid "Pirc Defence: Holmov System"
+msgstr "Pirc: Sistem Holomov"
+
+msgid "Pirc Defence: Sveshnikov System"
+msgstr "Pirc: Sistem Sveshnikov"
+
+msgid "Pirc Defence: Ufimtsev-Pytel Variation"
+msgstr "Pirc: Varian Ufimtsev-Pytel"
+
+msgid "Pirc Defence: bayonet (Mariotti) Attack"
+msgstr "Pirc: Serangan Bayonet (Mariotti)"
+
+msgid "Pirc Defence"
+msgstr "Pembelaan Pirc"
+
+msgid "Polish (Sokolsky) Opening"
+msgstr "Pembukaan Polandia (Sokolsky)"
+
+msgid "Polish (Sokolsky-Orangutan) Opening: Outflank Variation"
+msgstr "Polandia: Varian Outflank"
+
+msgid "Polish (Sokolsky-Orangutan) Opening: Tuebingen Variation"
+msgstr "Pirc: Varian Tuebingen"
+
+msgid "Polish Defence"
+msgstr "Pembelaan Polandia"
+
+msgid "Ponziani Counter-Gambit, Cordel Variation"
+msgstr "Gambit Balasan Ponziani: Varian Cordel"
+
+msgid "Ponziani Counter-Gambit, Schmidt Attack"
+msgstr "Gambit Balasan Ponziani: Serangan Schmidt"
+
+msgid "Ponziani Counter-Gambit"
+msgstr "Gambit Balasan Ponziani"
+
+msgid "Ponziani Opening: Caro Variation"
+msgstr "Ponziani: Varian Caro"
+
+msgid "Ponziani Opening: Fraser Defence"
+msgstr "Ponziani: Pembelaan Fraser"
+
+msgid "Ponziani Opening: Jaenisch Counter-Attack"
+msgstr "Ponziani: Serangan Balik Jaenisch"
+
+msgid "Ponziani Opening: Leonhardt Variation"
+msgstr "Ponziani: Varian Leonhardt"
+
+msgid "Ponziani Opening: Reti Variation"
+msgstr "Ponziani: Varian Reti"
+
+msgid "Ponziani Opening: Romanishin Variation"
+msgstr "Ponziani: Varian Romanishin"
+
+msgid "Ponziani Opening: Steinitz Variation"
+msgstr "Ponziani: Varian Steinitz"
+
+msgid "Ponziani Opening"
+msgstr "Pembukaan Ponziani"
+
+msgid "Pterodactyl Defence"
+msgstr "Pembelaan Pterodactyl"
+
+msgid "Queen Bishop Game"
+msgstr "Permainan Gajah Menteri"
+
+msgid "Queen Gambit Accepted, 4.Nc3"
+msgstr "QGA, 4.Kc3"
+
+msgid "Queen Gambit Accepted, 4.e3"
+msgstr "QGA, 4.e3"
+
+msgid "Queen Gambit Accepted, Bogolyubov Variation"
+msgstr "QGA, Varian Bogolyubov"
+
+msgid "Queen Gambit Accepted, Flohr Variation"
+msgstr "QGA, Varian Flohr"
+
+msgid "Queen Gambit Accepted, Janowsky-Larsen Variation"
+msgstr "QGA, Varian Janowsky-Larsen"
+
+msgid "Queen Gambit Accepted, Smyslov Variation"
+msgstr "QGA, Varian Symslov"
+
+msgid "Queen Gambit Accepted: 3.Nf3"
+msgstr "QGA, 4.Kc3"
+
+msgid "Queen Gambit Accepted: 3.e4"
+msgstr "QGA, 4.e4"
+
+msgid "Queen Gambit Accepted: 4...e6"
+msgstr "QGA: 4....e6"
+
+msgid "Queen Gambit Accepted: Alekhine Defence, Alatortsev Variation"
+msgstr "QGA: Pembelaan Alekhine, Varian Alatortsev"
+
+msgid "Queen Gambit Accepted: Alekhine Defence, Borisenko-Furman Variation"
+msgstr "QGA: Pembelaan Alekhine, Varian Borisenko-Furman"
+
+msgid "Queen Gambit Accepted: Alekhine Defence"
+msgstr "QGA: Pembelaan Alekhine"
+
+msgid "Queen Gambit Accepted: Classical Variation, 6.O-O"
+msgstr "QGA: Klasik, 6.0-0"
+
+msgid "Queen Gambit Accepted: Classical Variation"
+msgstr "QGA: Varian Klasik"
+
+msgid "Queen Gambit Accepted: Classical, 6...a6"
+msgstr "QGA: Klasik, 6... a6"
+
+msgid "Queen Gambit Accepted: Classical, 7...b5"
+msgstr "QGA: Klasik, 7... b5"
+
+msgid "Queen Gambit Accepted: Classical, 7.Qe2"
+msgstr "QGA: Klasik, 7.Me2"
+
+msgid "Queen Gambit Accepted: Classical, 8...Bb7"
+msgstr "QGA: Klasik, 8...Gb7"
+
+msgid "Queen Gambit Accepted: Classical, Geller Variation"
+msgstr "QGA: Klasik, Varian Geller"
+
+msgid "Queen Gambit Accepted: Classical, Rubinstein Variation"
+msgstr "QGA: Klasik, Varian Rubenstein"
+
+msgid "Queen Gambit Accepted: Classical, Smyslov Variation"
+msgstr "QGA: Klasik, Varian Smyslov"
+
+msgid "Queen Gambit Accepted: Classical, Steinitz Variation"
+msgstr "QGA: Klasik, Varian Steinitz"
+
+msgid "Queen Gambit Accepted: Ericson Variation"
+msgstr "QGA: Varian Ericson"
+
+msgid "Queen Gambit Accepted: Haberditz Variation"
+msgstr "QGA: Varian Haberditz"
+
+msgid "Queen Gambit Accepted: Linares Variation"
+msgstr "QGA: Varian Linares"
+
+msgid "Queen Gambit Accepted: Mannheim Variation"
+msgstr "QGA: Varian Mannheim"
+
+msgid "Queen Gambit Accepted: Schwartz Defence"
+msgstr "QGA: Pembelaan Schwartz"
+
+msgid "Queen Gambit Accepted"
+msgstr "Gambit Menteri Diterima"
+
+msgid "Queen Gambit Declined Semi-Slav: 5...Nd7"
+msgstr "QGD: Semi Slavia, 5... Kd7"
+
+msgid "Queen Gambit Declined Semi-Slav: 5.Bg5 dc"
+msgstr "QGD: Semi Slavia, 5.Gg5 dc"
+
+msgid "Queen Gambit Declined Semi-Slav: 5.e3"
+msgstr "QGD: Semi Slavia, 5.e3"
+
+msgid "Queen Gambit Declined Semi-Slav: 6.Bd3"
+msgstr "QGD: Semi Slavia, 6.Gd3"
+
+msgid "Queen Gambit Declined Semi-Slav: 7.Bc4"
+msgstr "QGD: Semi Slavia, 7.Gc4"
+
+msgid ""
+"Queen Gambit Declined Semi-Slav: Accelerated Meran (Alekhine Variation)"
+msgstr "QGD: Semi Slavia, Meran Dipercepat"
+
+msgid "Queen Gambit Declined Semi-Slav: Anti-Meran Gambit"
+msgstr "QGD: Semi Slavia, Gambit Anti-Meran"
+
+msgid "Queen Gambit Declined Semi-Slav: Anti-Meran, Alatortsev System"
+msgstr "QGD: Semi Slavia, Anti-Meran, Sistem Alatortsev"
+
+msgid "Queen Gambit Declined Semi-Slav: Anti-Meran, Lilienthal Variation"
+msgstr "QGD: Semi Slavia, Gambit Anti-Meran, Varian Lilienthal"
+
+msgid "Queen Gambit Declined Semi-Slav: Anti-Meran, Szabo Variation"
+msgstr "QGD: Semi Slavia, Gambit Anti-Meran, Varian Szabo"
+
+msgid "Queen Gambit Declined Semi-Slav: Bogolyubov Variation"
+msgstr "QGD: Semi Slavia, Varian Bogolyubov"
+
+msgid "Queen Gambit Declined Semi-Slav: Botvinnik System (Anti-Meran)"
+msgstr "QGD: Semi Slavia, Sistem Botwinnik (Anti Meran)"
+
+msgid "Queen Gambit Declined Semi-Slav: Chigorin Defence"
+msgstr "QGD: Semi Slavia, Pembelaan Chigorin"
+
+msgid "Queen Gambit Declined Semi-Slav: Ekstrom Variation"
+msgstr "QGD: Semi Slavia, Varian Ekstrom"
+
+msgid "Queen Gambit Declined Semi-Slav: Hastings Variation"
+msgstr "QGD: Semi Slavia, Varian Hastings"
+
+msgid "Queen Gambit Declined Semi-Slav: Meran Variation"
+msgstr "QGD: Semi Slavia, Varian Meran"
+
+msgid "Queen Gambit Declined Semi-Slav: Meran, 8...a6"
+msgstr "QGD: Semi Slavia, Meran, 8... a6"
+
+msgid "Queen Gambit Declined Semi-Slav: Meran, Blumenfeld Variation"
+msgstr "QGD: Semi Slavia, Meran, Varian Blumenfeld"
+
+msgid "Queen Gambit Declined Semi-Slav: Meran, Old Main Line"
+msgstr "QGD: Semi Slavia, Meran, Jalur Lama"
+
+msgid "Queen Gambit Declined Semi-Slav: Meran, Pirc Variation"
+msgstr "QGD: Semi Slavia, Meran, Varian Pirc"
+
+msgid "Queen Gambit Declined Semi-Slav: Meran, Rabinovich Variation"
+msgstr "QGD: Semi Slavia, Meran, Varian Rabinovich"
+
+msgid "Queen Gambit Declined Semi-Slav: Meran, Reynolds' Variation"
+msgstr "QGD: Semi Slavia, Meran, Varian Reynolds"
+
+msgid "Queen Gambit Declined Semi-Slav: Meran, Sozin Variation"
+msgstr "QGD: Semi Slavia, Meran, Varian Sozin"
+
+msgid "Queen Gambit Declined Semi-Slav: Meran, Stahlberg Variation"
+msgstr "QGD: Semi Slavia, Meran, Varian Stahlberg"
+
+msgid "Queen Gambit Declined Semi-Slav: Meran, Wade Variation"
+msgstr "QGD: Semi Slavia, Meran, Varian Wade"
+
+msgid "Queen Gambit Declined Semi-Slav: Romih Variation"
+msgstr "QGD: Semi Slavia, Varian Romih"
+
+msgid "Queen Gambit Declined Semi-Slav: Rubinstein (Anti-Meran) System"
+msgstr "QGD: Semi Slavia, Sistem Rubenstein (Anti-Meran)"
+
+msgid "Queen Gambit Declined Semi-Slav: Stoltz Variation"
+msgstr "QGD: Semi Slavia, Varian Stoltz"
+
+msgid "Queen Gambit Declined Semi-Slav: Stonewall Defence"
+msgstr "QGD: Semi Slavia, Pembelaan Tembok Batu"
+
+msgid "Queen Gambit Declined Semi-Slav: neo-Meran (Lundin Variation)"
+msgstr "QGD: Semi Slavia, Neo Meran (Varian Lundin)"
+
+msgid "Queen Gambit Declined Semi-Slav"
+msgstr "QGD: Semi Slavia"
+
+msgid "Queen Gambit Declined Slav Accepted: Alapin Variation"
+msgstr "QGD, Slavia Diterima, Varian Alapin"
+
+msgid "Queen Gambit Declined Slav Accepted"
+msgstr "QGD, Slavia Diterima"
+
+msgid "Queen Gambit Declined Slav Defence, Alekhine Variation"
+msgstr "QGD, Pembelaan Slavia, Varian Alekhine"
+
+msgid "Queen Gambit Declined Slav Defence: Exchange Variation"
+msgstr "QGD, Pembelaan Slavia, Varian Tukar"
+
+msgid "Queen Gambit Declined Slav Defence"
+msgstr "QGD, Pembelaan Slavia"
+
+msgid "Queen Gambit Declined Slav: 3.Nf3"
+msgstr "QGD: Slavia, 3.Kf3"
+
+msgid "Queen Gambit Declined Slav: 4.Nc3"
+msgstr "QGD: Slavia, 4.Kc3"
+
+msgid "Queen Gambit Declined Slav: 4.e3 Bf5"
+msgstr "QGD: Slavia, 4.e3 Gf5"
+
+msgid "Queen Gambit Declined Slav: 4.e3"
+msgstr "QGD: Slavia, 4.e3"
+
+msgid "Queen Gambit Declined Slav: 5.e3 (Alekhine Variation)"
+msgstr "QGD: Slavia, 5.e3 (Varian Alekhine)"
+
+msgid "Queen Gambit Declined Slav: Amsterdam Variation"
+msgstr "QGD: Slavia, Varian Amsterdam"
+
+msgid "Queen Gambit Declined Slav: Breyer Variation"
+msgstr "QGD: Slavia, Varian Breyer"
+
+msgid "Queen Gambit Declined Slav: Carlsbad Variation"
+msgstr "QGD: Slavia, Varian Carlsbad"
+
+msgid "Queen Gambit Declined Slav: Czech Defence"
+msgstr "QGD: Slavia, Pembalaan Czechnya"
+
+msgid "Queen Gambit Declined Slav: Dutch Variation, Main Line"
+msgstr "QGD: Slavia, Belanda, Jalur Utama"
+
+msgid "Queen Gambit Declined Slav: Dutch Variation"
+msgstr "QGD: Slavia, Varian Belanda"
+
+msgid "Queen Gambit Declined Slav: Dutch, Lasker Variation"
+msgstr "QGD: Slavia, Belanda, Varian Lasker"
+
+msgid "Queen Gambit Declined Slav: Dutch, Saemisch Variation"
+msgstr "QGD: Slavia, Belanda, Varian Saemisch"
+
+msgid "Queen Gambit Declined Slav: Exchange Variation, 6.Bf4 Bf5"
+msgstr "QGD: Slavia, Tukar, 6.Gf4 Gf5"
+
+msgid "Queen Gambit Declined Slav: Exchange Variation"
+msgstr "QGD: Slavia, Varian Tukar"
+
+msgid "Queen Gambit Declined Slav: Exchange, Trifunovic Variation"
+msgstr "QGD: Slavia, Tukar, Varian Trifunovic"
+
+msgid "Queen Gambit Declined Slav: Krause Attack"
+msgstr "QGD: Slavia, Serangan Krause"
+
+msgid "Queen Gambit Declined Slav: Semmering Variation"
+msgstr "QGD: Slavia, Varian Semmering"
+
+msgid "Queen Gambit Declined Slav: Slav Gambit"
+msgstr "QGD: Slavia, Gambit Slavia"
+
+msgid "Queen Gambit Declined Slav: Smyslov Variation"
+msgstr "QGD: Slavia, Varian Smyslov"
+
+msgid "Queen Gambit Declined Slav: Soultanbeieff Variation"
+msgstr "QGD: Slavia, Varian Soultanbeieff"
+
+msgid "Queen Gambit Declined Slav: Steiner Variation"
+msgstr "QGD: Slavia, Varian Steiner"
+
+msgid "Queen Gambit Declined Slav: Suechting Variation"
+msgstr "QGD: Slavia, Varian Suechting"
+
+msgid "Queen Gambit Declined Slav: Tolush-Geller Gambit"
+msgstr "QGD: Slavia, Gambit Tolush-Geller"
+
+msgid "Queen Gambit Declined Slav: Wiesbaden Variation"
+msgstr "QGD: Slavia, Varian Wiesbaden"
+
+msgid "Queen Gambit Declined Slav: Winawer Counter-Gambit"
+msgstr "QGD: Slavia, Gambit Balasan Winawer"
+
+msgid "Queen Gambit Declined: 3...Nf6"
+msgstr "QGD: 3.... Kf6"
+
+msgid "Queen Gambit Declined: 3.Nc3"
+msgstr "QGD: 3.Kc3"
+
+msgid "Queen Gambit Declined: 4.Bg5 Be7, 5.e3 O-O"
+msgstr "QGD: 4.Gg5 Ge7, 5.e3 0-0"
+
+msgid "Queen Gambit Declined: 4.Bg5 Be7"
+msgstr "QGD: 4.Gg5 Ge7"
+
+msgid "Queen Gambit Declined: 4.Bg5 Nbd7"
+msgstr "QGD: 4.Gg5 Kbd7"
+
+msgid "Queen Gambit Declined: 4.Bg5"
+msgstr "QGD: 4.Gg5"
+
+msgid "Queen Gambit Declined: 4.Nf3"
+msgstr "QGD: 4.Kf3"
+
+msgid "Queen Gambit Declined: 5...c6"
+msgstr "QGD: 5.... c6"
+
+msgid "Queen Gambit Declined: 6.Nf3"
+msgstr "QGD: 6.Kc3"
+
+msgid "Queen Gambit Declined: Alapin Variation"
+msgstr "QGD: Varian Alapin"
+
+msgid "Queen Gambit Declined: Albin Counter-Gambit, 5.g3"
+msgstr "QGD: Gambit Balasan Albin, 5.g3"
+
+msgid "Queen Gambit Declined: Albin Counter-Gambit, Alapin Variation"
+msgstr "QGD: Gambit Balasan Albin, Varian Alapin"
+
+msgid "Queen Gambit Declined: Albin Counter-Gambit, Balogh Variation"
+msgstr "QGD: Gambit Balasan Albin, Varian Balogh"
+
+msgid "Queen Gambit Declined: Albin Counter-Gambit, Janowski Variation"
+msgstr "QGD: Gambit Balasan Albin, Varian Janowski"
+
+msgid "Queen Gambit Declined: Albin Counter-Gambit, Krenosz Variation"
+msgstr "QGD: Gambit Balasan Albin, Varian Kresnosz"
+
+msgid "Queen Gambit Declined: Albin Counter-Gambit, Lasker trap"
+msgstr "QGD: Gambit Balasan Albin, Jebakan Lasker"
+
+msgid "Queen Gambit Declined: Albin Counter-Gambit"
+msgstr "QGD: Gambit Balasan Albin"
+
+msgid "Queen Gambit Declined: Alekhine Variation"
+msgstr "QGD: Varian Alekhine"
+
+msgid "Queen Gambit Declined: Anti-neo-orthodox Variation"
+msgstr "QGD: Varian Anti Neo-Orthodox"
+
+msgid "Queen Gambit Declined: Been-Koomen Variation"
+msgstr "QGD: Varian Been-Koomen"
+
+msgid "Queen Gambit Declined: Cambridge Springs Defence, 7.cd"
+msgstr "QGD: Pembelaan Cambridge Springs, 7.cd"
+
+msgid "Queen Gambit Declined: Cambridge Springs Defence, Argentine Variation"
+msgstr "QGD: Pembelaan Cambridge Springs, Varian Argentina"
+
+msgid "Queen Gambit Declined: Cambridge Springs Defence, Bogoljubow Variation"
+msgstr "QGD: Pembelaan Cambridge Springs, Varian Bogolyubov"
+
+msgid "Queen Gambit Declined: Cambridge Springs Defence, Capablanca Variation"
+msgstr "QGD: Pembelaan Cambridge Springs, Varian Capablanca"
+
+msgid "Queen Gambit Declined: Cambridge Springs Defence, Rubinstein Variation"
+msgstr "QGD: Pembelaan Cambridge Springs, Varian Rubenstein"
+
+msgid "Queen Gambit Declined: Cambridge Springs Defence, Yugoslav Variation"
+msgstr "QGD: Pembelaan Cambridge Springs, Varian Yugoslavia"
+
+msgid "Queen Gambit Declined: Cambridge Springs Defence"
+msgstr "QGD: Pembelaan Cambridge Springs"
+
+msgid "Queen Gambit Declined: Canal (Venice) Variation"
+msgstr "QGD: Varian Canal (Venice)"
+
+msgid "Queen Gambit Declined: Capablanca Anti-Cambridge Springs Variation"
+msgstr "QGD: Varian Anti Cambridge Springs"
+
+msgid "Queen Gambit Declined: Capablanca Variation"
+msgstr "QGD: Varian Capablanca"
+
+msgid "Queen Gambit Declined: Capablanca-Duras Variation"
+msgstr "QGD: Varian Capablanca-Duras"
+
+msgid "Queen Gambit Declined: Charousek (Petrosian) Variation"
+msgstr "QGD: Varian Charousek (Petrosian)"
+
+msgid "Queen Gambit Declined: Chigorin Defence, Janowski Variation"
+msgstr "QGD: Pembelaan Chigorin, Varian Janowski"
+
+msgid "Queen Gambit Declined: Chigorin Defence"
+msgstr "QGD: Pembelaan Chigorin"
+
+msgid "Queen Gambit Declined: Classical Variation (5.Bf4)"
+msgstr "QGD: Varian Klasik (5.Gf4)"
+
+msgid "Queen Gambit Declined: Exchange Variation"
+msgstr "QGD: Varian Tukar"
+
+msgid "Queen Gambit Declined: Exchange, Positional Line, 5...c6"
+msgstr "QGD: Tukar, Posisional, 5.... c6"
+
+msgid "Queen Gambit Declined: Exchange, Positional Line, 6.Qc2"
+msgstr "QGD: Tukar, Posisional, 6.Mc2"
+
+msgid "Queen Gambit Declined: Exchange, Positional Line"
+msgstr "QGD: Tukar, Jalur Posisional"
+
+msgid "Queen Gambit Declined: Exchange, Saemisch Variation"
+msgstr "QGD: Tukar, Varian Saemisch"
+
+msgid "Queen Gambit Declined: Grau (Sahovic) Defence"
+msgstr "QGD: Pembelaan Grau (Sahovic)"
+
+msgid "Queen Gambit Declined: Harrwitz Attack"
+msgstr "QGD: Serangan Harrwitz"
+
+msgid "Queen Gambit Declined: Janowski Variation"
+msgstr "QGD: Varian Janowski"
+
+msgid "Queen Gambit Declined: Lasker Defence, Bernstein Variation"
+msgstr "QGD: Lasker, Varian Bernstein"
+
+msgid "Queen Gambit Declined: Lasker Defence, Main Line"
+msgstr "QGD: Lasker, Jalur Utama"
+
+msgid "Queen Gambit Declined: Lasker Defence, Teichmann Variation"
+msgstr "QGD: Lasker, Varian Teichmann"
+
+msgid "Queen Gambit Declined: Lasker Defence"
+msgstr "QGD: Pembelaan Lasker"
+
+msgid "Queen Gambit Declined: Lasker Variation"
+msgstr "QGD: Varian Lasker"
+
+msgid "Queen Gambit Declined: Manhattan Variation"
+msgstr "QGD: Varian Manhattan"
+
+msgid "Queen Gambit Declined: Marshall Defence"
+msgstr "QGD: Pembelaan Marshall"
+
+msgid "Queen Gambit Declined: Neo-orthodox Variation, 7.Bh4"
+msgstr "QGD: Neo-Orthodox, 7.Gh4"
+
+msgid "Queen Gambit Declined: Neo-orthodox Variation, 7.Bxf6"
+msgstr "QGD: Neo-Orthodox, 7.Gxf6"
+
+msgid "Queen Gambit Declined: Neo-orthodox Variation"
+msgstr "QGD: Varian Neo-Orthodox"
+
+msgid "Queen Gambit Declined: Orthodox Defence, 7.Qc2 c5, 8.cd (Rubinstein)"
+msgstr "QGD: Pembelaan Orthodox, 7.Mc2 c5, 8.cd (Rubinstein)"
+
+msgid "Queen Gambit Declined: Orthodox Defence, 7.Rc1"
+msgstr "QGD: Pembelaan Orthodox, 7.Bc1"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Bd3 Line, 11.O-O"
+msgstr "QGD: Pembelaan Orthodox, Gd3, 11.0-0"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Bd3 Line, Alekhine Variation"
+msgstr "QGD: Pembelaan Orthodox, Gd3, Varian Alekhine"
+
+msgid ""
+"Queen Gambit Declined: Orthodox Defence, Bd3 Line, Capablanca freeing "
+"manoevre"
+msgstr "QGD: Pembelaan Orthodox, Gd3, Manuver Capablanca"
+
+msgid ""
+"Queen Gambit Declined: Orthodox Defence, Bd3 Line, Fianchetto Variation"
+msgstr "QGD: Pembelaan Orthodox, Gd3, Varian Fianchetto"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Bd3 Line, Janowski Variation"
+msgstr "QGD: Pembelaan Orthodox, Gd3, Varian Janowski"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Bd3 Line"
+msgstr "QGD: Pembelaan Orthodox, Gd3"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Botvinnik Variation"
+msgstr "QGD: Pembelaan Orthodox, Varian Botwinnik"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Capablanca Variation"
+msgstr "QGD: Pembelaan Orthodox, Varian Capablanca"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Classical Variation"
+msgstr "QGD: Pembelaan Orthodox, Varian Klasik"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Classical, 13.d1b1 (Maroczy)"
+msgstr "QGD: Pembelaan Orthodox, Klasik, 13.db1 (Maroczy)"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Classical, 13.d1c2 (Vidmar)"
+msgstr "QGD: Pembelaan Orthodox, Klasik, 13.d1c2 (Vidmar)"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Classical, 13.de"
+msgstr "QGD: Pembelaan Orthodox, Klasik. 13.de"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Pillsbury Attack"
+msgstr "QGD: Pembelaan Orthodox, Serangan Pillsburry"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Rauzer Variation"
+msgstr "QGD: Pembelaan Orthodox, Varian Rauzer"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Rubinstein Attack (with Rc1)"
+msgstr "QGD: Pembelaan Orthodox, Serangan Rubinstein (dg Bc1)"
+
+msgid ""
+"Queen Gambit Declined: Orthodox Defence, Rubinstein Attack, Grünfeld "
+"Variation"
+msgstr "QGD: Pembelaan Orthodox, Serangan Rubenstein, Varian Gruendfeld"
+
+msgid ""
+"Queen Gambit Declined: Orthodox Defence, Rubinstein Attack, Karlsbad "
+"Variation"
+msgstr "QGD: Pembelaan Orthodox, Serangan Rubinstein, Varian Karlsbad"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Rubinstein Attack, Main Line"
+msgstr "QGD: Pembelaan Orthodox, Serangan Rubinstein, Jalur Utama"
+
+msgid ""
+"Queen Gambit Declined: Orthodox Defence, Rubinstein Attack, Wolf Variation"
+msgstr "QGD: Pembelaan Orthodox, Serangan Rubinstein, Varian Wolf"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Rubinstein Variation"
+msgstr "QGD: Pembelaan Orthodox, Varian Rubinstein"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Swiss (Henneberger) Variation"
+msgstr "QGD: Pembelaan Orthodox, Varian Swiss (Henneberger)"
+
+msgid "Queen Gambit Declined: Orthodox Defence, Swiss, Karlsbad Variation"
+msgstr "QGD: Pembelaan Orthodox, Swiss, Varian Karlsbad"
+
+msgid "Queen Gambit Declined: Orthodox Defence"
+msgstr "QGD: Pembelaan Orthodox"
+
+msgid "Queen Gambit Declined: Petrosian Variation"
+msgstr "QGD: Varian Petrosian"
+
+msgid "Queen Gambit Declined: Ragozin Variation"
+msgstr "QGD: Varian Ragozin"
+
+msgid "Queen Gambit Declined: Ragozin, Vienna Variation"
+msgstr "QGD: Ragozin, Varian Wina"
+
+msgid "Queen Gambit Declined: Rochlin Variation"
+msgstr "QGD: Varian Rochin"
+
+msgid "Queen Gambit Declined: Semi-Slav, Abrahams Variation"
+msgstr "QGD: Semi Slavia, Varian Abraham"
+
+msgid "Queen Gambit Declined: Semi-Slav, Junge Variation"
+msgstr "QGD: Semi Slavia, Varian Junger"
+
+msgid "Queen Gambit Declined: Semi-Slav, Koomen Variation"
+msgstr "QGD: Semi Slavia, Varian Koomen"
+
+msgid "Queen Gambit Declined: Semi-Slav, Marshall Gambit"
+msgstr "QGD: Semi Slavia, Gambit Marshall"
+
+msgid "Queen Gambit Declined: Semi-Slav, Noteboom Variation"
+msgstr "QGD: Semi Slavia, Varian Noteboom"
+
+msgid "Queen Gambit Declined: Semi-Slav"
+msgstr "QGD: Semi Slavia"
+
+msgid "Queen Gambit Declined: Semi-Tarrasch Defence"
+msgstr "QGD: Pembelaan Semi Tarrasch"
+
+msgid "Queen Gambit Declined: Semi-Tarrasch with e3"
+msgstr "QGD: Semi Tarrasch dg e3"
+
+msgid "Queen Gambit Declined: Semi-Tarrasch, 5.cd"
+msgstr "QGD: Semi Tarrasch, 5.cd"
+
+msgid "Queen Gambit Declined: Semi-Tarrasch, 7.Bd3"
+msgstr "QGD: Semi Tarrasch, 7.Gd3"
+
+msgid "Queen Gambit Declined: Semi-Tarrasch, Kmoch Variation"
+msgstr "QGD: Semi Tarrasch, Varian Kmoch"
+
+msgid "Queen Gambit Declined: Semi-Tarrasch, Krause Variation"
+msgstr "QGD: Semi Tarrasch, Varian Krause"
+
+msgid "Queen Gambit Declined: Semi-Tarrasch, Primitive Pillsbury Variation"
+msgstr "QGD: Semi Tarrasch, Varian Primitive Pillsbury"
+
+msgid "Queen Gambit Declined: Semi-Tarrasch, San Sebastian Variation"
+msgstr "QGD: Semi Tarrasch, Varian San Sebastian"
+
+msgid "Queen Gambit Declined: Semi-Tarrasch, Symmetrical Variation"
+msgstr "QGD: Semi Tarrasch, Varian Simetris"
+
+msgid "Queen Gambit Declined: Spielmann Variation"
+msgstr "QGD: Varian Spielmann"
+
+msgid "Queen Gambit Declined: Stonewall Variation"
+msgstr "QGD: Varian Tembok Batu"
+
+msgid "Queen Gambit Declined: Symmetrical (Austrian) Defence"
+msgstr "QGD: Pembelaan Simetris (Austria)"
+
+msgid "Queen Gambit Declined: Tarrasch Defence, 4.cd ed"
+msgstr "QGD: Tarrasch, 4.cd ed"
+
+msgid "Queen Gambit Declined: Tarrasch Defence, Marshall Gambit"
+msgstr "QGD: Tarrasch, Gambit Marshall"
+
+msgid "Queen Gambit Declined: Tarrasch Defence, Tarrasch Gambit"
+msgstr "QGD: Tarrasch, Gambit Tarrasch"
+
+msgid "Queen Gambit Declined: Tarrasch Defence"
+msgstr "QGD: Varian Tarrasch"
+
+msgid "Queen Gambit Declined: Tarrasch, Bogolyubov Variation"
+msgstr "QGD: Tarrasch, Varian Bogolyubov"
+
+msgid "Queen Gambit Declined: Tarrasch, Folkestone (Swedish) Variation"
+msgstr "QGD: Tarrasch, Varian Folkestone"
+
+msgid "Queen Gambit Declined: Tarrasch, Prague Variation, 7...Be7"
+msgstr "QGD: Tarrasch, Varian Prague, 7...Ge7"
+
+msgid "Queen Gambit Declined: Tarrasch, Prague Variation, 9.Bg5"
+msgstr "QGD: Tarrasch, Varian Prague, 9.Gg5"
+
+msgid "Queen Gambit Declined: Tarrasch, Prague Variation, Normal position"
+msgstr "QGD: Tarrasch, Varian Prague, Posisi Normal"
+
+msgid "Queen Gambit Declined: Tarrasch, Prague Variation"
+msgstr "QGD: Tarrasch, Varian Prague"
+
+msgid "Queen Gambit Declined: Tarrasch, Reti Variation"
+msgstr "QGD: Tarrasch, Varian Reti"
+
+msgid ""
+"Queen Gambit Declined: Tarrasch, Schlechter-Rubinstein System, Rey Ardid "
+"Variation"
+msgstr "QGD: Tarrasch, Sistem Schlechter-Rubinstein, Varian Rey Ardid"
+
+msgid "Queen Gambit Declined: Tarrasch, Schlechter-Rubinstein System"
+msgstr "QGD: Tarrasch, Sistem Schlechter-Rubinstein"
+
+msgid "Queen Gambit Declined: Tarrasch, Stoltz Variation"
+msgstr "QGD: Tarrasch, Varian Stoltz"
+
+msgid "Queen Gambit Declined: Tarrasch, Wagner Variation"
+msgstr "QGD: Tarrasch, Varian Wagner"
+
+msgid "Queen Gambit Declined: Tarrasch, von Hennig-Schara Gambit"
+msgstr "QGD: Tarrasch, Gambit Hennig-Schara"
+
+msgid ""
+"Queen Gambit Declined: Tartakower (Makagonov-Bondarevsky) System, 8.cd Nxd5"
+msgstr "QGD: Tarrasch, Sistem Tartakower, 8.cd Kxd5"
+
+msgid "Queen Gambit Declined: Tartakower (Makagonov-Bondarevsky) System"
+msgstr "QGD: Tarrasch, Sistem Tartakower"
+
+msgid "Queen Gambit Declined: Tartakower Variation"
+msgstr "QGD: Varian Tartakower"
+
+msgid "Queen Gambit Declined: Vienna Variation"
+msgstr "QGD: Varian Wina"
+
+msgid "Queen Gambit Declined"
+msgstr "Gambit Menteri Ditolak"
+
+msgid "Queen Gambit"
+msgstr "Gambit Menteri"
+
+msgid "Queen Indian Accelerated"
+msgstr "Hindia Menteri Dipercepat"
+
+msgid "Queen Indian Defence: 4.Nc3, Main Line"
+msgstr "Hindia Menteri, 4.Kc3, Varian Utama"
+
+msgid "Queen Indian Defence: 4.Nc3"
+msgstr "Hindia Menteri, 4.Kc3"
+
+msgid "Queen Indian Defence: 4.e3"
+msgstr "Hindia Menteri, 4.e3"
+
+msgid "Queen Indian Defence: 4.g3 Bb7"
+msgstr "Hindia Menteri, 4.g3 Gb7"
+
+msgid "Queen Indian Defence: 4.g3"
+msgstr "Hindia Menteri, 4.g3"
+
+msgid "Queen Indian Defence: 5.Bg2 Be7"
+msgstr "Hindia Menteri, 5.Gg2 Ge7"
+
+msgid "Queen Indian Defence: Anti-Queen Indian System"
+msgstr "Hindia Menteri, Sistem Anti-Hindia Menteri"
+
+msgid "Queen Indian Defence: Averbakh Variation"
+msgstr "Hindia Menteri, Varian Averbakh"
+
+msgid "Queen Indian Defence: Buerger Variation"
+msgstr "Hindia Menteri, Varian Buerger"
+
+msgid "Queen Indian Defence: Capablanca Variation"
+msgstr "Hindia Menteri, Varian Capablanca"
+
+msgid "Queen Indian Defence: Euwe Variation"
+msgstr "Hindia Menteri, Varian Euwe"
+
+msgid "Queen Indian Defence: Marienbad System, Berg Variation"
+msgstr "Hindia Menteri, Sistem Marienbad, Varian Berg"
+
+msgid "Queen Indian Defence: Marienbad System"
+msgstr "Hindia Menteri, Sistem Marienbad"
+
+msgid "Queen Indian Defence: Miles Variation"
+msgstr "Hindia Menteri, Varian Miles"
+
+msgid "Queen Indian Defence: Nimzovich Variation (exaggerated Fianchetto)"
+msgstr "Hindia Menteri, Varian Nimzowitch"
+
+msgid "Queen Indian Defence: Old Main Line, 6.O-O"
+msgstr "Hindia Menteri, Jalur Lama, 6.0-0"
+
+msgid "Queen Indian Defence: Old Main Line, 7.Nc3"
+msgstr "Hindia Menteri, Jalur Lama, 7.Kc3"
+
+msgid "Queen Indian Defence: Old Main Line, 9.Qxc3"
+msgstr "Hindia Menteri, Jalur Lama, 9.Mxc3"
+
+msgid "Queen Indian Defence: Opovcensky Variation"
+msgstr "Hindia Menteri, Varian Opovcensky"
+
+msgid "Queen Indian Defence: Petrosian System"
+msgstr "Hindia Menteri, SIstem Petrosian"
+
+msgid "Queen Indian Defence: Riumin Variation"
+msgstr "Hindia Menteri, Varian Riumin"
+
+msgid "Queen Indian Defence: Rubinstein Variation"
+msgstr "Hindia Menteri, Varian Rubenstein"
+
+msgid "Queen Indian Defence: Yates Variation"
+msgstr "Hindia Menteri, Varian Yates"
+
+msgid "Queen Indian Defence"
+msgstr "Pembelaan Hindia Menteri"
+
+msgid "Queen Pawn Game Counter-Gambit (elephant Gambit)"
+msgstr "QP Gambit Balasan (Gambit Elephant)"
+
+msgid "Queen Pawn Game Counter-Gambit: Maroczy Gambit"
+msgstr "QP Gambit Balasan Maroczy"
+
+msgid "Queen Pawn Game: Bronstein Gambit"
+msgstr "Bidak Menteri: Gambit Bronstein"
+
+msgid "Queen Pawn Game: Charlick (Englund) Gambit"
+msgstr "Bidak Menteri: Gambit Charlick"
+
+msgid "Queen Pawn Game: Chigorin Variation"
+msgstr "Bidak Menteri: Varian Chigorin"
+
+msgid "Queen Pawn Game: English Defence"
+msgstr "Bidak Menteri: Pembelaan Inggris"
+
+msgid "Queen Pawn Game: Franco-Indian (Keres) Defence"
+msgstr "Bidak Menteri: Pembelaan Franco-Hindia"
+
+msgid "Queen Pawn Game: Krause Variation"
+msgstr "Bidak Menteri: Varian Krause"
+
+msgid "Queen Pawn Game: Lundin (Kevitz-Mikenas) Defence"
+msgstr "Bidak Menteri: Pembelaan Lundin"
+
+msgid "Queen Pawn Game: Mason Variation, Steinitz Counter-Gambit"
+msgstr "Bidak Menteri: Varian Mason. Gambit Balasan Steinitz"
+
+msgid "Queen Pawn Game: Mason Variation"
+msgstr "Bidak Menteri: Varian Mason"
+
+msgid "Queen Pawn Game: Mengarini Attack"
+msgstr "Bidak Menteri: Serangan Mengarini"
+
+msgid "Queen Pawn Game: Rubinstein (Colle-Zukertort) Variation"
+msgstr "Bidak Menteri: Varian Rubinstein"
+
+msgid "Queen Pawn Game: Stonewall Attack"
+msgstr "Bidak Menteri: Serangan Tembok Batu"
+
+msgid "Queen Pawn Game: Torre Attack, Wagner Gambit"
+msgstr "Bidak Menteri: Serangan Torre, Gambit Wagner"
+
+msgid "Queen Pawn Game: Torre Attack"
+msgstr "Bidak Menteri: Serangan Torre"
+
+msgid "Queen Pawn Game: Yusupov-Rubinstein System"
+msgstr "Bidak Menteri: Sistem Yusupov-Rubinstein"
+
+msgid "Queen Pawn Game: Zukertort Variation"
+msgstr "Bidak Menteri: Varian Zukertort"
+
+msgid "Queen Pawn Game"
+msgstr "Permainan Bidak Menteri"
+
+msgid "Reti Opening: Accepted, Keres Variation"
+msgstr "Reti Diterima: Varian Keres"
+
+msgid "Reti Opening: Accepted"
+msgstr "Reti Diterima"
+
+msgid "Reti Opening: Advance Variation"
+msgstr "Reti: Varian Maju"
+
+msgid "Reti Opening: Herrstroem Gambit"
+msgstr "Reti: Gambit Herrstroem"
+
+msgid "Reti Opening: King Indian Attack (Barcza System)"
+msgstr "Reti: Serangan Hindia Raja, Sistem Barcza"
+
+msgid "Reti Opening: King Indian Attack (with ...c5)"
+msgstr "Reti: Serangan Hindia Raja, ...c5"
+
+msgid "Reti Opening: King Indian Attack, French Variation"
+msgstr "Reti: Serangan Hindia Raja, Varian Perancis"
+
+msgid "Reti Opening: King Indian Attack, Keres Variation"
+msgstr "Reti: Serangan Hindia Raja, Varian Keres"
+
+msgid "Reti Opening: King Indian Attack, Pachman System"
+msgstr "Reti: Serangan Hindia Raja, Varian Pachman"
+
+msgid "Reti Opening: King Indian Attack, Reti-Smyslov Variation"
+msgstr "Reti: Serangan Hindia Raja, Varian Reti-Smyslov"
+
+msgid "Reti Opening: King Indian Attack, Spassky Variation"
+msgstr "Reti: Serangan Hindia Raja, Varian Spassky"
+
+msgid "Reti Opening: King Indian Attack, Yugoslav Variation"
+msgstr "Reti: Serangan Hindia Raja, Varian Yugoslavia"
+
+msgid "Reti Opening: King Indian Attack"
+msgstr "Reti: Serangan Hindia Raja"
+
+msgid "Reti Opening: Lisitsin Gambit deferred"
+msgstr "Reti: Gambit Lisitsin Ditunda"
+
+msgid "Reti Opening: Nimzovich-Larsen Attack"
+msgstr "Reti: Serangan Nimzowitch-Larsen"
+
+msgid "Reti Opening: Old Indian Attack"
+msgstr "Reti: Serangan Hindia Tua"
+
+msgid "Reti Opening: Pirc-Lisitsin Gambit"
+msgstr "Reti: Gambit Pirc-Lisitsin"
+
+msgid "Reti Opening"
+msgstr "Pembukaan Reti"
+
+msgid "Reti v Dutch"
+msgstr "Reti vs Belanda"
+
+msgid "Reversed Grob (Borg/Basman Defence/macho Grob)"
+msgstr "Grob Terbalik"
+
+msgid "Richter-Veresov Attack: Richter Variation"
+msgstr "Serangan Richter-Urusov, Varian Richter"
+
+msgid "Richter-Veresov Attack: Veresov Variation"
+msgstr "Serangan Richter-Urusov, Varian Veresov"
+
+msgid "Richter-Veresov Attack"
+msgstr "Serangan Richter-Urusov"
+
+msgid "Robatsch (Modern) Defence: Pseudo-Austrian Attack"
+msgstr "Robatch: Serangan Pseduo-Austria"
+
+msgid "Robatsch (Modern) Defence: Three Pawns Attack"
+msgstr "Pembelaan Robatch, Serangan 3 Bidak"
+
+msgid "Robatsch (Modern) Defence: Two Knights Variation"
+msgstr "Pembelaan Robatch, Varian 2 Kuda"
+
+msgid "Robatsch (Modern) Defence: Two Knights, Suttles Variation"
+msgstr "Pembelaan Robatch, 2 Kuda, Varian Suttles"
+
+msgid "Robatsch (Modern) Defence"
+msgstr "Pembelaan Robatch"
+
+msgid "Rousseau Gambit"
+msgstr "Gambit Rousseau"
+
+msgid "Russian Game (Petroff Defence): Classical Attack, Berger Variation"
+msgstr "Petroff: Varian Klasik, Varian Berger"
+
+msgid "Russian Game (Petroff Defence): Classical Attack, Chigorin Variation"
+msgstr "Petroff: Varian Klasik, Varian Chigorin"
+
+msgid "Russian Game (Petroff Defence): Classical Attack, Jaenisch Variation"
+msgstr "Petroff: Varian Klasik, Varian Jaenisch"
+
+msgid "Russian Game (Petroff Defence): Classical Attack, Krause Variation"
+msgstr "Petroff: Varian Klasik, Varian Krause"
+
+msgid "Russian Game (Petroff Defence): Classical Attack, Maroczy Variation"
+msgstr "Petroff: Varian Klasik, Varian Maroczy"
+
+msgid "Russian Game (Petroff Defence): Classical Attack, Marshall Variation"
+msgstr "Petroff: Varian Klasik, Varian Marshall"
+
+msgid "Russian Game (Petroff Defence): Classical Attack, Marshall trap"
+msgstr "Petroff: Varian Klasik, Jebakan Marshall"
+
+msgid "Russian Game (Petroff Defence): Classical Attack, Mason Variation"
+msgstr "Petroff: Varian Klasik, Varian Mason"
+
+msgid "Russian Game (Petroff Defence): Classical Attack, Tarrasch Variation"
+msgstr "Petroff: Varian Klasik, Varian Tarrasch"
+
+msgid "Russian Game (Petroff Defence): Classical Attack, close Variation"
+msgstr "Petroff: Varian Klasik, Varian Tertutup"
+
+msgid "Russian Game (Petroff Defence): Classical Attack"
+msgstr "Petroff: Varian Klasik"
+
+msgid "Russian Game (Petroff Defence): Cochrane Gambit"
+msgstr "Petroff: Gambit Cochrane"
+
+msgid "Russian Game (Petroff Defence): Cozio (Lasker) Attack"
+msgstr "Petroff: Serangan Cozio (Lasker)"
+
+msgid "Russian Game (Petroff Defence): Damiano Variation"
+msgstr "Petroff: Varian Damiano"
+
+msgid "Russian Game (Petroff Defence): French Attack"
+msgstr "Petroff: Serangan Perancis"
+
+msgid "Russian Game (Petroff Defence): Italian Variation"
+msgstr "Petroff: Varian Italia"
+
+msgid "Russian Game (Petroff Defence): Kaufmann Attack"
+msgstr "Petroff: Serangan Kaufmann"
+
+msgid "Russian Game (Petroff Defence): Modern (Steinitz) Attack"
+msgstr "Petroff: Serangan Modern (Steinitz)"
+
+msgid "Russian Game (Petroff Defence): Modern Attack, Bardeleben Variation"
+msgstr "Petroff: Serangan Modern, Varian Bardebelen"
+
+msgid "Russian Game (Petroff Defence): Modern Attack, Main Line"
+msgstr "Petroff: Serangan Modern, Jalur Utama"
+
+msgid "Russian Game (Petroff Defence): Modern Attack, Steinitz Variation"
+msgstr "Petroff: Serangan Modern, Varian Steinitz"
+
+msgid "Russian Game (Petroff Defence): Modern Attack, Symmetrical Variation"
+msgstr "Petroff: Serangan Modern, Varian Simetris"
+
+msgid "Russian Game (Petroff Defence): Modern Attack, Trifunovic Variation"
+msgstr "Petroff: Serangan Modern, Varian Trifunovic"
+
+msgid "Russian Game (Petroff Defence): Nimzovich Attack"
+msgstr "Petroff: Serangan Nimzowitch"
+
+msgid "Russian Game (Petroff Defence): Paulsen Attack"
+msgstr "Petroff: Serangan Paulsen"
+
+msgid "Russian Game (Petroff Defence): Three Knights Game"
+msgstr "Permainan Petroff 3 Kuda"
+
+msgid "Ruy Lopez (Spanish Opening)"
+msgstr "Ruy Lopez (Pembukaan Spanyol)"
+
+msgid "Santasiere folly"
+msgstr "Pembukaan Santasiere"
+
+msgid "Saragossa Opening"
+msgstr "Pembukaan Saragossa"
+
+msgid "Scandinavian (Centre Counter) Defence"
+msgstr "Pembelaan Skandinavia (Centre-Counter)"
+
+msgid "Scandinavian Defence: Anderssen Counter-Attack, Collijn Variation"
+msgstr "Skandinavia, Serangan Balasan Anderssen, Varian Collijn"
+
+msgid "Scandinavian Defence: Anderssen Counter-Attack, Goteborg System"
+msgstr "Skandinavia, Serangan Balasan Anderssen, SIstem Goteborg"
+
+msgid "Scandinavian Defence: Anderssen Counter-Attack, orthodox Attack"
+msgstr "Skandinavia, Serangan Balasan Anderssen, Serangan Orthodox"
+
+msgid "Scandinavian Defence: Anderssen Counter-Attack"
+msgstr "Skandinavia, Serangan Balasan Anderssen"
+
+msgid "Scandinavian Defence: Grünfeld Variation"
+msgstr "Pembelaan Skandinavia, Varian Gruendfled"
+
+msgid "Scandinavian Defence: Icelandic Gambit"
+msgstr "Skandinavia, Gambit Islandia"
+
+msgid "Scandinavian Defence: Kiel Variation"
+msgstr "Skandinavia, Varian Kiel"
+
+msgid "Scandinavian Defence: Lasker Variation"
+msgstr "Pembelaan Skandinavia, Varian Lasker"
+
+msgid "Scandinavian Defence: Marshall Variation"
+msgstr "Skandinavia, Varian Marshall"
+
+msgid "Scandinavian Defence: Mieses-Kotrvc Gambit"
+msgstr "Skandinavia, Gambit Mieses-Kotrvc"
+
+msgid "Scandinavian Defence: Pytel-Wade Variation"
+msgstr "Skandinavia, Varian Pytel-Wade"
+
+msgid "Scandinavian Defence: Richter Variation"
+msgstr "Skandinavia, Varian Richter"
+
+msgid "Scandinavian Defence"
+msgstr "Pembelaan Skandinavia"
+
+msgid "Scandinavian Gambit"
+msgstr "Pembelaan Skandinavia Gambit"
+
+msgid "Scotch Gambit: Anderssen (Paulsen, Suhle) Counter-Attack"
+msgstr "Gambit Skotlandia, Serangan Balasan Anderssen"
+
+msgid "Scotch Gambit: Benima Defence"
+msgstr "Gambit Skotlandia, Pembelaan Benima"
+
+msgid "Scotch Gambit: Cochrane Variation"
+msgstr "Gambit Skotlandia, Varian Cochrane"
+
+msgid "Scotch Gambit: Cochrane-Shumov Defence"
+msgstr "Gambit Skotlandia, Pembelaan Chochrane-Shumov"
+
+msgid "Scotch Gambit: Dubois-Reti Defence"
+msgstr "Gambit Skotlandia, Pembelaan Dubois-Reti"
+
+msgid "Scotch Gambit: Hanneken Variation"
+msgstr "Gambit Skotlandia, Varian Hanneken"
+
+msgid "Scotch Gambit: Vitzhum Attack"
+msgstr "Gambit Skotlandia, Serangan Vitzhum"
+
+msgid "Scotch Gambit"
+msgstr "Gambit Skotlandia"
+
+msgid "Scotch Opening: Berger Variation"
+msgstr "Skotlandia, Varian Berger"
+
+msgid "Scotch Opening: Blackburne Attack"
+msgstr "Skotlandia, Serangan Blackburne"
+
+msgid "Scotch Opening: Blumenfeld Attack"
+msgstr "Skotlandia, Serangan Blumenfeld"
+
+msgid "Scotch Opening: Cochrane Variation"
+msgstr "Skotlandia, Varian Cochrane"
+
+msgid "Scotch Opening: Fraser Attack"
+msgstr "Skotlandia, Serangan Fraser"
+
+msgid "Scotch Opening: Ghulam Kassim Variation"
+msgstr "Skotlandia, Varian Ghulam-Kassim"
+
+msgid "Scotch Opening: Goering Gambit, Bardeleben Variation"
+msgstr "Skotlandia, Gambit Goering, Varian Bardebelen"
+
+msgid "Scotch Opening: Goering Gambit"
+msgstr "Skotlandia, Gambit Goering"
+
+msgid "Scotch Opening: Horwitz Attack"
+msgstr "Skotlandia, Serangan Horwitz"
+
+msgid "Scotch Opening: Lolli Variation"
+msgstr "Skotlandia, Varian Lolli"
+
+msgid "Scotch Opening: Meitner Variation"
+msgstr "Skotlandia, Varian Meitner"
+
+msgid "Scotch Opening: Mieses Variation"
+msgstr "Skotlandia, Varian Mieses"
+
+msgid "Scotch Opening: Paulsen Attack"
+msgstr "Skotlandia, Serangan Paulsen"
+
+msgid "Scotch Opening: Paulsen, Gunsberg Defence"
+msgstr "Skotlandia, Pembelaan Gunsberg"
+
+msgid "Scotch Opening: Potter Variation"
+msgstr "Skotlandia, Varian Potter"
+
+msgid "Scotch Opening: Pulling Counter-Attack"
+msgstr "Skotlandia, Serangan Balasan Pulling"
+
+msgid "Scotch Opening: Relfsson Gambit ('MacLopez')"
+msgstr "Skotlandia, Gambit Relfsson"
+
+msgid "Scotch Opening: Romanishin Variation"
+msgstr "Skotlandia, Varian Romanishin"
+
+msgid "Scotch Opening: Rosenthal Variation"
+msgstr "Skotlandia, Varian Rosenthal"
+
+msgid "Scotch Opening: Schmidt Variation"
+msgstr "Skotlandia, Varian Schmidt"
+
+msgid "Scotch Opening: Steinitz Variation"
+msgstr "Skotlandia, Varian Steinitz"
+
+msgid "Scotch Opening: Tartakower Variation"
+msgstr "Skotlandia, Varian Tartakower"
+
+msgid "Scotch Opening"
+msgstr "Pembukaan Skotlandia"
+
+msgid "Semi-Benoni (Blockade Variation)"
+msgstr "Semi Benoni"
+
+msgid "Sicilian Defence: 2.c3, Heidenfeld Variation"
+msgstr "Sisilia, 2.c3, Varian Heidenfeld"
+
+msgid "Sicilian Defence: Accelerated Fianchetto, Breyer Variation"
+msgstr "Sisilia Fianchetto Dipercepat, Varian Breyer"
+
+msgid "Sicilian Defence: Accelerated Fianchetto, Exchange Variation"
+msgstr "Sisilia Fianchetto Dipercepat, Varian Tukar"
+
+msgid "Sicilian Defence: Accelerated Fianchetto, Gurgenidze Variation"
+msgstr "Sisilia Fianchetto Dipercepat, Varian Gurgenidze"
+
+msgid "Sicilian Defence: Accelerated Fianchetto, Maroczy Bind, 5...Bg7"
+msgstr "Sisilia Fianchetto Dipercepat, Ikatan Maroczy, 5... Gg7"
+
+msgid "Sicilian Defence: Accelerated Fianchetto, Maroczy Bind, 6.Be3"
+msgstr "Sisilia Fianchetto Dipercepat, Ikatan Maroczy, 6.Ge3"
+
+msgid "Sicilian Defence: Accelerated Fianchetto, Maroczy Bind"
+msgstr "Sisilia Fianchetto Dipercepat, Ikatan Maroczy"
+
+msgid "Sicilian Defence: Accelerated Fianchetto, Modern Variation with Bc4"
+msgstr "Sisilia Fianchetto Dipercepat, Varian Modern dg Gc4"
+
+msgid "Sicilian Defence: Accelerated Fianchetto, Modern Variation"
+msgstr "Sisilia Fianchetto Dipercepat, Varian Modern"
+
+msgid "Sicilian Defence: Accelerated Fianchetto, Simagin Variation"
+msgstr "Sisilia Fianchetto Dipercepat, Varian Simagin"
+
+msgid "Sicilian Defence: Acton extension"
+msgstr "Sisilia, Esktensi Acton"
+
+msgid "Sicilian Defence: Alapin Variation (2.c3)"
+msgstr "Sisilia Varian Alapin (2.c3)"
+
+msgid "Sicilian Defence: Anderssen Variation"
+msgstr "Sisilia Varian Anderssen"
+
+msgid "Sicilian Defence: Andreaschek Gambit"
+msgstr "Sisilia Gambit Andreaschek"
+
+msgid "Sicilian Defence: Boleslavsky Variation, 7.Nb3"
+msgstr "Sisilia, Varian Boleslavsky, 7.Kb3"
+
+msgid "Sicilian Defence: Boleslavsky Variation"
+msgstr "Sisilia, Varian Boleslavsky"
+
+msgid "Sicilian Defence: Boleslavsky, Louma Variation"
+msgstr "Sisilia, Boleslavsky, Varian Louma"
+
+msgid "Sicilian Defence: Canal-Sokolsky (Nimzovich-Rossolimo, Moscow) Attack"
+msgstr "Sisilia, Serangan Canal-Sokolsky"
+
+msgid "Sicilian Defence: Canal-Sokolsky Attack, 3...Bd7"
+msgstr "Sisilia, Serangan Canal-Sokolsky, 3... Gd7"
+
+msgid "Sicilian Defence: Canal-Sokolsky Attack, Bronstein Gambit"
+msgstr "Sisilia, Serangan Canal-Sokolsky, Gambit Bronstein"
+
+msgid "Sicilian Defence: Canal-Sokolsky Attack, Sokolsky Variation"
+msgstr "Sisilia, Serangan Canal-Sokolsky, Varian Sokolsky"
+
+msgid "Sicilian Defence: Chameleon Variation"
+msgstr "Sisilia Varian Chameleon"
+
+msgid "Sicilian Defence: Chekhover Variation"
+msgstr "Sisilia Varian Chekhover"
+
+msgid "Sicilian Defence: Chekhover, Zaitsev Variation"
+msgstr "Sisilia, Chekhover, Varian Zaitsev"
+
+msgid "Sicilian Defence: Classical"
+msgstr "Sisilia Klasik"
+
+msgid "Sicilian Defence: Closed, 2...Nc6"
+msgstr "Tertutup, 2... Kc6"
+
+msgid "Sicilian Defence: Closed, 6.Be3"
+msgstr "Sisilia Tertutup, 6.Ge3"
+
+msgid "Sicilian Defence: Closed, 6.Ne2 e5 (Botvinnik)"
+msgstr "Sisilia Tertutup, 6.Ge2 e5 (Botwinnik)"
+
+msgid "Sicilian Defence: Closed, 6.f4 e5 (Botvinnik)"
+msgstr "Sisilia Tertutup, 6.f4 e5 (Botwinnik)"
+
+msgid "Sicilian Defence: Closed, 6.f4"
+msgstr "Sisilia Tertutup, 6.f4"
+
+msgid "Sicilian Defence: Closed, Korchnoi Variation"
+msgstr "Sisilia Tertutup, Varian Korchnoi"
+
+msgid "Sicilian Defence: Closed, Smyslov Variation"
+msgstr "Sisilia Tertutup, Varian Smyslov"
+
+msgid "Sicilian Defence: Closed"
+msgstr "Sisilia Tertutup"
+
+msgid "Sicilian Defence: Dragon Variation"
+msgstr "Sisilia Varian Naga"
+
+msgid "Sicilian Defence: Dragon, 6.Be3"
+msgstr "Sisilia Naga, 6.Ge3"
+
+msgid "Sicilian Defence: Dragon, Classical Attack"
+msgstr "Sisilia Naga, Serangan Klasik"
+
+msgid "Sicilian Defence: Dragon, Classical, 8.O-O"
+msgstr "Sisilia Naga, Klasik, 8.0-0"
+
+msgid "Sicilian Defence: Dragon, Classical, 9.Nb3"
+msgstr "Sisilia Naga, Klasik, 9.Kb3"
+
+msgid "Sicilian Defence: Dragon, Classical, Alekhine Variation"
+msgstr "Sisilia Naga, Klasik, Varian Alekhine"
+
+msgid "Sicilian Defence: Dragon, Classical, Amsterdam Variation"
+msgstr "Sisilia Naga, Klasik, Varian Amsterdam"
+
+msgid "Sicilian Defence: Dragon, Classical, Bernard Defence"
+msgstr "Sisilia Naga, Klasik, Pembelaan Bernard"
+
+msgid "Sicilian Defence: Dragon, Classical, Grigoriev Variation"
+msgstr "Sisilia Naga, Klasik, Varian Grigoriev"
+
+msgid "Sicilian Defence: Dragon, Classical, Nottingham Variation"
+msgstr "Sisilia Naga, Klasik, Varian Nottingham"
+
+msgid "Sicilian Defence: Dragon, Classical, Reti-Tartakower Variation"
+msgstr "Sisilia Naga, Klasik, Varian Reti-Tartakower"
+
+msgid "Sicilian Defence: Dragon, Classical, Richter Variation"
+msgstr "Sisilia Naga, Klasik, Varian Richter"
+
+msgid "Sicilian Defence: Dragon, Classical, Spielmann Variation"
+msgstr "Sisilia Naga: Klasik, Varian Spielmann"
+
+msgid "Sicilian Defence: Dragon, Classical, Stockholm Attack"
+msgstr "Sisilia Naga: Klasik, Serangan Stockholm"
+
+msgid "Sicilian Defence: Dragon, Classical, Zollner Gambit"
+msgstr "Sisilia Naga: Klasik, Gambit Zollner"
+
+msgid "Sicilian Defence: Dragon, Levenfish Variation"
+msgstr "Sisilia Naga, Varian Levenfish"
+
+msgid "Sicilian Defence: Dragon, Levenfish; Flohr Variation"
+msgstr "Sisilia Naga, Varian Levenfish, Varian Flohr"
+
+msgid "Sicilian Defence: Dragon, Yugoslav Attack, 10.O-O-O"
+msgstr "Sisilia Naga, Serangan Yugoslavia, 10.0-0-0"
+
+msgid "Sicilian Defence: Dragon, Yugoslav Attack, 12.h4"
+msgstr "Sisilia Naga, Serangan Yugoslavia, 12.h4"
+
+msgid "Sicilian Defence: Dragon, Yugoslav Attack, 7...O-O"
+msgstr "Sisilia Naga, Serangan Yugoslavia, 7...0-0"
+
+msgid "Sicilian Defence: Dragon, Yugoslav Attack, 9...Bd7"
+msgstr "Sisilia Naga, Serangan Yugoslavia, 9... Gd7"
+
+msgid "Sicilian Defence: Dragon, Yugoslav Attack, 9.Bc4"
+msgstr "Sisilia Naga, Serangan Yugoslavia, 9.Gc4"
+
+msgid "Sicilian Defence: Dragon, Yugoslav Attack, Byrne Variation"
+msgstr "Sisilia Naga, Serangan Yugoslavia, Varian Byrne"
+
+msgid "Sicilian Defence: Dragon, Yugoslav Attack, Rauser Variation"
+msgstr "Sisilia Naga, Serangan Yugoslavia, Varian Rauzer"
+
+msgid "Sicilian Defence: Dragon, Yugoslav Attack"
+msgstr "Sisilia Naga, Serangan Yugoslavia"
+
+msgid "Sicilian Defence: Flohr Variation"
+msgstr "Sisilia, Varian Flohr"
+
+msgid "Sicilian Defence: Gloria Variation"
+msgstr "Sisilia, Varian Gloria"
+
+msgid "Sicilian Defence: Grand Prix Attack, Schofman Variation"
+msgstr "Sisilia, Serangan Grand Prix, Variasi Schofman"
+
+msgid "Sicilian Defence: Grand Prix Attack"
+msgstr "Sisilia, Serangan Grand Prix"
+
+msgid "Sicilian Defence: Hungarian Variation"
+msgstr "Sisilia Varian Hungaria"
+
+msgid "Sicilian Defence: Kan Variation"
+msgstr "Sisilia Varian Kan"
+
+msgid "Sicilian Defence: Kan, 5.Bd3"
+msgstr "Sisilia Kan, 5.Gd3"
+
+msgid "Sicilian Defence: Kan, 5.Nc3"
+msgstr "Sisilia Kan, 5.Kc3"
+
+msgid "Sicilian Defence: Kan, Gipslis Variation"
+msgstr "Sisilia Kan, Varian Gipsilis"
+
+msgid "Sicilian Defence: Kan, Maroczy Bind (Reti Variation)"
+msgstr "Sisilia Kan, Ikatan Maroczy"
+
+msgid "Sicilian Defence: Kan, Maroczy Bind - Bronstein Variation"
+msgstr "Sisilia Kan, Ikatan Maroczy, Varian Bronstein"
+
+msgid "Sicilian Defence: Kan, Polugaievsky Variation"
+msgstr "Sisilia Kan, Varian Polugaevsky"
+
+msgid "Sicilian Defence: Kan, Swiss cheese Variation"
+msgstr "Sisilia Kan, Varian Keju Swiss"
+
+msgid "Sicilian Defence: Katalimov Variation"
+msgstr "Sisilia Varian Katalimov"
+
+msgid "Sicilian Defence: Keres Variation (2.Ne2)"
+msgstr "Sisilia Varian Keres (2.Ke2)"
+
+msgid "Sicilian Defence: La Bourdonnais-Loewenthal (Kalashnikov) Variation"
+msgstr "Sisilia Varian Labourdonnais-Lowenthal (Kalashnikov)"
+
+msgid "Sicilian Defence: La Bourdonnais-Loewenthal Variation"
+msgstr "Sisilia Varian Labourdonnais-Lowenthal "
+
+msgid "Sicilian Defence: Magnus Smith trap"
+msgstr "Sisilia Jebakan Magnus Smith"
+
+msgid "Sicilian Defence: Marshall Variation"
+msgstr "Sisilia Serangan Marshall"
+
+msgid "Sicilian Defence: Modern Scheveningen, Main Line with Nb3"
+msgstr "Sisilia: Scheveningen Modern, Jalur Utama Nb3"
+
+msgid "Sicilian Defence: Modern Scheveningen, Main Line"
+msgstr "Sisilia: Scheveningen Modern, Jalur Utama"
+
+msgid "Sicilian Defence: Modern Scheveningen"
+msgstr "Sisilia: Scheveningen Modern"
+
+msgid "Sicilian Defence: Najdorf Variation"
+msgstr "Sisilia Varian Najdorf"
+
+msgid "Sicilian Defence: Najdorf, 6...e6"
+msgstr "Sisilia Najdorf, 6...a6"
+
+msgid "Sicilian Defence: Najdorf, 6.Bg5"
+msgstr "Sisilia Najdorf, 6.Gg5"
+
+msgid "Sicilian Defence: Najdorf, 6.f4"
+msgstr "Sisilia Najdorf, 6.f4"
+
+msgid "Sicilian Defence: Najdorf, 7...Be7 Main Line"
+msgstr "Sisilia Najdorf, 7....Ge7, Jalur Utama"
+
+msgid "Sicilian Defence: Najdorf, 7...Be7"
+msgstr "Sisilia Najdorf, 7....Ge7"
+
+msgid "Sicilian Defence: Najdorf, 7...Qb6"
+msgstr "Sisilia Najdorf, 7....Mb6"
+
+msgid "Sicilian Defence: Najdorf, 7.f4"
+msgstr "Sisilia Najdorf, 7.f4"
+
+msgid "Sicilian Defence: Najdorf, Adams Attack"
+msgstr "Sisilia Najdorf, Serangan Adam"
+
+msgid "Sicilian Defence: Najdorf, Browne Variation"
+msgstr "Sisilia Najdorf, Varian Browne"
+
+msgid "Sicilian Defence: Najdorf, Byrne (English) Attack"
+msgstr "Sisilia Najdorf, Serangan Byrne"
+
+msgid "Sicilian Defence: Najdorf, Goteborg (Argentine) Variation"
+msgstr "Sisilia Najdorf, Varian Goterborg"
+
+msgid "Sicilian Defence: Najdorf, Ivkov Variation"
+msgstr "Sisilia Najdorf, Varian Ivkov"
+
+msgid "Sicilian Defence: Najdorf, Lipnitzky Attack"
+msgstr "Sisilia Najdorf, Serangan Lipnitzky"
+
+msgid "Sicilian Defence: Najdorf, Opovcensky Variation"
+msgstr "Sisilia Najdorf, Varian Opovcensky"
+
+msgid "Sicilian Defence: Najdorf, Poisoned Pawn Variation"
+msgstr "Sisilia Najdorf, Varian Bidak Beracun"
+
+msgid "Sicilian Defence: Najdorf, Polugayevsky Variation"
+msgstr "Sisilia Najdorf, Varian Polugaevsky"
+
+msgid "Sicilian Defence: Najdorf, Polugayevsky, Simagin Variation"
+msgstr "Sisilia Najdorf, Varian Polugaevsky, Varian Simagin"
+
+msgid "Sicilian Defence: Najdorf, Zagreb (Fianchetto) Variation"
+msgstr "Sisilia Najdorf, Varian Zagreb"
+
+msgid "Sicilian Defence: Nimzovich Variation"
+msgstr "Sisila Varian Nimzowitch"
+
+msgid ""
+"Sicilian Defence: Nimzovich-Rossolimo Attack (with ...g6, without ...d6)"
+msgstr "Sisila Serangan Nimzowitch-Rossolimo (tanpa ...g6 tanpa ...d6)"
+
+msgid "Sicilian Defence: Nimzovich-Rossolimo Attack (without ...d6)"
+msgstr "Sisila Serangan Nimzowitch-Rossolimo (tanpa ...d6)"
+
+msgid "Sicilian Defence: Nimzovich-Rossolimo Attack, Gurgenidze Variation"
+msgstr "Sisila Serangan Nimzowitch-Rossolimo, Varian Gurgenidze"
+
+msgid "Sicilian Defence: Nimzovich-Rubinstein Variation"
+msgstr "Sisilia Varian Nimzowitch-Rubenstein"
+
+msgid "Sicilian Defence: Nimzovich-Rubinstein; Rubinstein Counter-Gambit"
+msgstr "Sisilia Nimzowitch-Rubenstein, Gambit Balasan Rubinstein"
+
+msgid "Sicilian Defence: O'Kelly Variation"
+msgstr "Sisilia Varian O'Kelly"
+
+msgid "Sicilian Defence: Pelikan (Lasker/Sveshnikov) Variation"
+msgstr "Sisilia Variann Pelikan (Lasker/Sveshnikov)"
+
+msgid "Sicilian Defence: Pelikan, Bird Variation"
+msgstr "Sisilia Pelikan, Varian Bird"
+
+msgid "Sicilian Defence: Pelikan, Chelyabinsk Variation"
+msgstr "Sisilia Pelikan, Varian Chelyabinsk"
+
+msgid "Sicilian Defence: Pin Variation (Sicilian Counter-Attack)"
+msgstr "Sisilia Varian Pakuan (Serangan Balik Sisilia) "
+
+msgid "Sicilian Defence: Pin, Jaffe Variation"
+msgstr "Sisilia Pakuan, Varian Jaffe"
+
+msgid "Sicilian Defence: Pin, Koch Variation"
+msgstr "Sisilia Pakuan, Varian Koch"
+
+msgid "Sicilian Defence: Prins (Moscow) Variation"
+msgstr "Sisilia Varian Prins (Moskow)"
+
+msgid "Sicilian Defence: Prins Variation, Venice Attack"
+msgstr "Sisilia Varian Prins, Serangan Venice"
+
+msgid "Sicilian Defence: Quinteros Variation"
+msgstr "Sisilia Varian Quinteros"
+
+msgid "Sicilian Defence: Richter-Rauzer, 6...e6"
+msgstr "Sisilia Richter Rauzer, 6... e6"
+
+msgid "Sicilian Defence: Richter-Rauzer, Bondarevsky Variation"
+msgstr "Sisilia Richter Rauzer, Varian Bondarevsky"
+
+msgid "Sicilian Defence: Richter-Rauzer, Keres Variation"
+msgstr "Sisilia Richter Rauzer, Varian Keres"
+
+msgid "Sicilian Defence: Richter-Rauzer, Larsen Variation, 7.Qd2"
+msgstr "Sisilia Richter Rauzer, Varian Larsen, 7.Mc2"
+
+msgid "Sicilian Defence: Richter-Rauzer, Larsen Variation"
+msgstr "Sisilia Richter Rauzer, Varian Larsen"
+
+msgid "Sicilian Defence: Richter-Rauzer, Margate (Alekhine) Variation"
+msgstr "Sisilia Richter Rauzer, Varian Margate"
+
+msgid "Sicilian Defence: Richter-Rauzer, Podvebrady Variation"
+msgstr "Sisilia Richter Rauzer, Varian Podvebrady"
+
+msgid ""
+"Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...Be7 Defence, 9...Nxd4"
+msgstr "Sisilia Richter Rauzer, Serangan Rauzer, 7... Ge7, 9... Kxd4"
+
+msgid "Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...Be7 Defence, 9.f4"
+msgstr "Sisilia Richter Rauzer, Serangan Rauzer, 7... Ge7, 9.f4"
+
+msgid "Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...Be7"
+msgstr "Sisilia Richter Rauzer, Serangan Rauzer, 7... Ge7"
+
+msgid ""
+"Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...a6 Defence, 11.Bxf6"
+msgstr "Sisilia Richter Rauzer, Serangan Rauzer, 7...a6, 11.Gxf6"
+
+msgid ""
+"Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...a6 Defence, 8...Bd7"
+msgstr "Sisilia Richter Rauzer, Serangan Rauzer, 7...a6, 8... Gd7"
+
+msgid ""
+"Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...a6 Defence, 9...Be7"
+msgstr "Sisilia Richter Rauzer, Serangan Rauzer, 7...a6, 8... Ge7"
+
+msgid "Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...a6"
+msgstr "Sisilia Richter Rauzer, Serangan Rauzer, 7...a6"
+
+msgid "Sicilian Defence: Richter-Rauzer, Rauzer Attack, Geller Variation"
+msgstr "Sisilia Richter Rauzer, Serangan Rauzer, Varian Geller"
+
+msgid "Sicilian Defence: Richter-Rauzer, Rauzer Attack"
+msgstr "Sisilia Richter Rauzer, Serangan Rauzer"
+
+msgid "Sicilian Defence: Richter-Rauzer, Richter Attack"
+msgstr "Sisilia Richter Rauzer, Serangan Rauzer"
+
+msgid "Sicilian Defence: Richter-Rauzer"
+msgstr "Sisilia Richter Rauzer"
+
+msgid "Sicilian Defence: Scheveningen (Paulsen), Classical Variation"
+msgstr "Sisilia Scheveningen (Paulsen), Varian Klasik"
+
+msgid "Sicilian Defence: Scheveningen Variation"
+msgstr "Sisilia Varian Scheveningen"
+
+msgid "Sicilian Defence: Scheveningen, 6.Be2"
+msgstr "Sisilia Scheveningen, 6.Ge2"
+
+msgid "Sicilian Defence: Scheveningen, 6.f4"
+msgstr "Sisilia Varian Scheveningen, 6.f4"
+
+msgid "Sicilian Defence: Scheveningen, Classical Main Line"
+msgstr "Sisilia Varian Scheveningen, Varian Klasik, Jalur Utama"
+
+msgid ""
+"Sicilian Defence: Scheveningen, Classical Variation with ...Qc7 and ...Nc6"
+msgstr "Sisilia Varian Scheveningen, Varian Klasik, dg ...Mc7 dan ...Kc6"
+
+msgid "Sicilian Defence: Scheveningen, Classical, Maroczy System"
+msgstr "Sisilia Varian Scheveningen, Varian Klasik, Sistem Maroczy"
+
+msgid "Sicilian Defence: Scheveningen, Classical, Nd7 System"
+msgstr "Sisilia Scheveningen, Klasik, Sistem Kd7"
+
+msgid "Sicilian Defence: Scheveningen, Classical"
+msgstr "Sisilia Varian Scheveningen, Varian Klasik"
+
+msgid "Sicilian Defence: Scheveningen, English Variation"
+msgstr "Sisilia Varian Scheveningenm, Serangan Inggris"
+
+msgid "Sicilian Defence: Scheveningen, Fianchetto Variation"
+msgstr "Sisilia Scheveningen, Varian Fianchetto"
+
+msgid "Sicilian Defence: Scheveningen, Keres Attack"
+msgstr "Sisilia Varian Scheveningen, Serangan Keres"
+
+msgid "Sicilian Defence: Scheveningen, Tal Variation"
+msgstr "Sisilia Varian Scheveningen, Varian Tal"
+
+msgid "Sicilian Defence: Scheveningen, Vitolins Variation"
+msgstr "Sisilia Varian Scheveningen, Varian Vitolins"
+
+msgid "Sicilian Defence: Smith-Morra Gambit, Chicago Defence"
+msgstr "Sisilia Gambit Smith-Morra, Pembelaan Chicago"
+
+msgid "Sicilian Defence: Smith-Morra Gambit"
+msgstr "Sisilia Gambit Smith-Morra"
+
+msgid "Sicilian Defence: Sozin Attack"
+msgstr "Sisilia Serangan Sozin"
+
+msgid "Sicilian Defence: Sozin with ...a6 and ...b5"
+msgstr "Sisilia Sozin: dg ...a6 dan ...b5"
+
+msgid "Sicilian Defence: Sozin, 7.Be3"
+msgstr "Sisilia Sozin: 7.Ge3"
+
+msgid "Sicilian Defence: Sozin, Benko Variation"
+msgstr "Sisilia Sozin: Varian Benko"
+
+msgid "Sicilian Defence: Sozin, Fischer Variation"
+msgstr "Sisilia Sozin: Varian Fischer"
+
+msgid "Sicilian Defence: Sozin, Leonhardt Variation"
+msgstr "Sisilia Sozin: Leonhardt"
+
+msgid "Sicilian Defence: Sozin, not Scheveningen"
+msgstr "Sisilia Sozin: Bukan Scheveningen"
+
+msgid "Sicilian Defence: Steinitz Variation"
+msgstr "Sisilia Varian Steinitz"
+
+msgid "Sicilian Defence: Stiletto (Althouse) Variation"
+msgstr "Sisilia Varian Stilletto"
+
+msgid "Sicilian Defence: Sveshnikov Variation"
+msgstr "Sisilia Varian Sveshnikov"
+
+msgid "Sicilian Defence: Szen (Anti-Taimanov) Variation"
+msgstr "Sisilia Varian Szen (Anti-Taimanov)"
+
+msgid "Sicilian Defence: Szen Variation, Dely-Kasparov Gambit"
+msgstr "Sisilia, Varian Szen, Gambit Dely-Kasparov"
+
+msgid "Sicilian Defence: Szen, Hedgehog Variation"
+msgstr "Sisilia, Varian Szen, Varian Hedgehog"
+
+msgid "Sicilian Defence: Taimanov (Bastrikov) Variation"
+msgstr "Sisilia Varian Taimanov (Bastrikov)"
+
+msgid "Sicilian Defence: Taimanov Variation"
+msgstr "Sisilia Varian Taimanov"
+
+msgid "Sicilian Defence: Taimanov, American Attack"
+msgstr "Sisilia Taimanov, Serangan Amerika"
+
+msgid "Sicilian Defence: Velimirovic Attack"
+msgstr "Sisilia Serangan Velimirovic"
+
+msgid "Sicilian Defence: Venice Attack"
+msgstr "Sisilia Serangan Venice"
+
+msgid "Sicilian Defence: Wing Gambit deferred"
+msgstr "Sisilia: Gambit Sayap Ditunda"
+
+msgid "Sicilian Defence: Wing Gambit, Carlsbad Variation"
+msgstr "Sisilia: Gambit Sayap, Varian Carlsbad"
+
+msgid "Sicilian Defence: Wing Gambit, Marienbad Variation"
+msgstr "Sisilia: Gambit Sayap, Varian Marienbad"
+
+msgid "Sicilian Defence: Wing Gambit, Marshall Variation"
+msgstr "Sisilia: Gambit Sayap, Varian Marhsall"
+
+msgid "Sicilian Defence: Wing Gambit, Santasiere Variation"
+msgstr "Sisilia: Gambit Sayap, Varian Santasiere"
+
+msgid "Sicilian Defence: Wing Gambit"
+msgstr "Sisilia: Gambit Sayap"
+
+msgid "Sicilian Defence"
+msgstr "Pembelaan Sisilia"
+
+msgid "Spanish, Ruy Lopez: ...b5 & ...d6"
+msgstr "Ruy Lopez: ...b5 & ...d6"
+
+msgid "Spanish, Ruy Lopez: 5.O-O"
+msgstr "Ruy Lopez: 5.0-0"
+
+msgid "Spanish, Ruy Lopez: Alapin Defence deferred"
+msgstr "Ruy Lopez: Pembelaan Alapin Ditunda"
+
+msgid "Spanish, Ruy Lopez: Anderssen Variation"
+msgstr "Ruy Lopez: Varian Andersen"
+
+msgid "Spanish, Ruy Lopez: Archangelsk (CounterThrust) Variation"
+msgstr "Ruy Lopez: Varian Archangelsk"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, 4.O-O, d6"
+msgstr "Ruy Lopez: Berlin, 4.0-0, d6"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, 4.O-O"
+msgstr "Ruy Lopez: Berlin 4.0-0"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Anderssen Variation"
+msgstr "Ruy Lopez: Berlin, Varian Anderssen"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Beverwijk Variation"
+msgstr "Ruy Lopez: Berlin, Varian Beverwijk"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Cordel Variation"
+msgstr "Ruy Lopez: Berlin, Varian Cordel"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Duras Variation"
+msgstr "Ruy Lopez: Berlin, Varian Duras"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Hedgehog Variation"
+msgstr "Ruy Lopez: Berlin, Varian Hedgehog"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Kaufmann Variation"
+msgstr "Ruy Lopez: Berlin, Varian Kaufmann"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Minckwitz Variation"
+msgstr "Ruy Lopez: Berlin, Varian Minckwitz"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Mortimer Variation"
+msgstr "Ruy Lopez: Berlin, Varian Mortimer"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Mortimer trap"
+msgstr "Ruy Lopez: Berlin, Jebakan Mortimer"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Nyholm Attack"
+msgstr "Ruy Lopez: Berlin, Serangan Nyholm"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Open Variation"
+msgstr "Ruy Lopez: Berlin, Varian Terbuka"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Pillsbury Variation"
+msgstr "Ruy Lopez: Berlin, Varian Pillsburry"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Rosenthal Variation"
+msgstr "Ruy Lopez: Berlin, Varian Rosenthal"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Tarrasch trap"
+msgstr "Ruy Lopez: Berlin, Jebakan Tarrasch"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Trifunovic Variation"
+msgstr "Ruy Lopez: Berlin, Varian Trifunovic"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Winawer Attack"
+msgstr "Ruy Lopez: Berlin, Serangan Winawer"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence, Zukertort Variation"
+msgstr "Ruy Lopez: Berlin, Varian Zukertort"
+
+msgid "Spanish, Ruy Lopez: Berlin Defence"
+msgstr "Ruy Lopez: Pembelaan Berlin"
+
+msgid "Spanish, Ruy Lopez: Bird Defence deferred"
+msgstr "Ruy Lopez: Pembelaan Bird Ditunda"
+
+msgid "Spanish, Ruy Lopez: Bird Defence, Paulsen Variation"
+msgstr "Ruy Lopez: Pembelaan Bird, Varian Paulsen"
+
+msgid "Spanish, Ruy Lopez: Bird Defence"
+msgstr "Ruy Lopez: Pembelaan Bird"
+
+msgid "Spanish, Ruy Lopez: Brentano Defence"
+msgstr "Ruy Lopez: Pembelaan Brentano"
+
+msgid "Spanish, Ruy Lopez: Caro Variation"
+msgstr "Ruy Lopez: Varian Caro"
+
+msgid "Spanish, Ruy Lopez: Classical (Cordel) Defence"
+msgstr "Ruy Lopez: Pembelaan Klasik (Cordel)"
+
+msgid "Spanish, Ruy Lopez: Classical Defence deferred"
+msgstr "Ruy Lopez: Pembelaan Klasik Ditunda"
+
+msgid "Spanish, Ruy Lopez: Classical Defence, 4.c3"
+msgstr "Ruy Lopez: Klasik, 4.c3"
+
+msgid "Spanish, Ruy Lopez: Classical Defence, Boden Variation"
+msgstr "Ruy Lopez: Klasik, Varian Boden"
+
+msgid "Spanish, Ruy Lopez: Classical Defence, Charousek Variation"
+msgstr "Ruy Lopez: Klasik, Varian Charousek"
+
+msgid "Spanish, Ruy Lopez: Classical Defence, Zaitsev Variation"
+msgstr "Ruy Lopez: Klasik, Varian Zaitsev"
+
+msgid "Spanish, Ruy Lopez: Closed (10...c5)"
+msgstr "Ruy Lopez: Tertutup, 10... c5"
+
+msgid "Spanish, Ruy Lopez: Closed (8...Na5)"
+msgstr "Ruy Lopez: Tertutup, 8.... Ka5"
+
+msgid "Spanish, Ruy Lopez: Closed (with ...d6)"
+msgstr "Ruy Lopez: Tertutup, ... d6"
+
+msgid "Spanish, Ruy Lopez: Closed Berlin Defence, Bernstein Variation"
+msgstr "Ruy Lopez: Tertutup, Berlin, Varian Bernstein"
+
+msgid "Spanish, Ruy Lopez: Closed Berlin Defence, Chigorin Variation"
+msgstr "Ruy Lopez: Tertutup, Berlin, Varian Chigorin"
+
+msgid "Spanish, Ruy Lopez: Closed Berlin Defence, Showalter Variation"
+msgstr "Ruy Lopez: Tertutup, Berlin, Varian Showalter"
+
+msgid "Spanish, Ruy Lopez: Closed Berlin Defence, Wolf Variation"
+msgstr "Ruy Lopez: Tertutup, Berlin, Varian Wolf"
+
+msgid "Spanish, Ruy Lopez: Closed Defence"
+msgstr "Ruy Lopez: Pembelan Tertutup"
+
+msgid "Spanish, Ruy Lopez: Closed, 7...O-O"
+msgstr "Ruy Lopez: Tertutup, 7... 0-0"
+
+msgid "Spanish, Ruy Lopez: Closed, 7...d6, 8.d4"
+msgstr "Ruy Lopez: Tertutup, 7... d6, 8.d4"
+
+msgid "Spanish, Ruy Lopez: Closed, 8.c3"
+msgstr "Ruy Lopez: Tertutup, 8.c3"
+
+msgid "Spanish, Ruy Lopez: Closed, 9.d4"
+msgstr "Ruy Lopez: Tertutup, 9.d4"
+
+msgid "Spanish, Ruy Lopez: Closed, 9.h3"
+msgstr "Ruy Lopez: Tertutup, 9.h3"
+
+msgid "Spanish, Ruy Lopez: Closed, Anti-Marshall 8.a4"
+msgstr "Ruy Lopez: Tertutup, Anti Marshall 8.a4"
+
+msgid "Spanish, Ruy Lopez: Closed, Averbakh Variation"
+msgstr "Ruy Lopez: Tertutup, Varian Averbakh"
+
+msgid "Spanish, Ruy Lopez: Closed, Balla Variation"
+msgstr "Ruy Lopez: Tertutup, Varian Balla"
+
+msgid "Spanish, Ruy Lopez: Closed, Basque Gambit (North Spanish Variation)"
+msgstr "Ruy Lopez: Tertutup, Gambit Basque"
+
+msgid "Spanish, Ruy Lopez: Closed, Bogolyubov Variation"
+msgstr "Ruy Lopez: Tertutup, Varian Bogolyubov"
+
+msgid "Spanish, Ruy Lopez: Closed, Borisenko Defence"
+msgstr "Ruy Lopez: Tertutup, Pembelaan Borisenkko"
+
+msgid "Spanish, Ruy Lopez: Closed, Breyer Defence"
+msgstr "Pembelaan Breyer"
+
+msgid "Spanish, Ruy Lopez: Closed, Breyer, 10.d4"
+msgstr "Ruy Lopez: Tertutup, Breyer, 10.d4"
+
+msgid "Spanish, Ruy Lopez: Closed, Breyer, Borisenko Variation"
+msgstr "Ruy Lopez: Tertutup, Breyer, Varian Borisenko"
+
+msgid "Spanish, Ruy Lopez: Closed, Breyer, Gligoric Variation"
+msgstr "Ruy Lopez: Tertutup, Breyer, Varian Gligoric"
+
+msgid "Spanish, Ruy Lopez: Closed, Breyer, Simagin Variation"
+msgstr "Ruy Lopez: Tertutup, Breyer, Varian Simagin"
+
+msgid "Spanish, Ruy Lopez: Closed, Centre Attack"
+msgstr "Ruy Lopez: Tertutup, Serangan Pusat"
+
+msgid "Spanish, Ruy Lopez: Closed, Chigorin Defence"
+msgstr "Ruy Lopez: Tertutup, Pembelaan Chigorin"
+
+msgid "Spanish, Ruy Lopez: Closed, Chigorin, 12...Nc6"
+msgstr "Ruy Lopez: Tertutup, Chigorin, 12... Kc6"
+
+msgid "Spanish, Ruy Lopez: Closed, Chigorin, 12...c5d4"
+msgstr "Ruy Lopez: Tertutup, Chigorin, 12... c5d4"
+
+msgid "Spanish, Ruy Lopez: Closed, Chigorin, Rauzer Attack"
+msgstr "Ruy Lopez: Tertutup, Chigorin, Serangan Rauzer"
+
+msgid "Spanish, Ruy Lopez: Closed, Chigorin, Yugoslav System"
+msgstr "Ruy Lopez: Tertutup, Chigorin, Sistem Yugoslavia"
+
+msgid ""
+"Spanish, Ruy Lopez: Closed, Flohr-Zaitsev System (Lenzerheide Variation)"
+msgstr "Ruy Lopez: Tertutup, Sistem Flohr-Zaitsev"
+
+msgid "Spanish, Ruy Lopez: Closed, Keres (...Nd7) Defence"
+msgstr "Ruy Lopez: Tertutup, Pembelaan Keres (... Kd7)"
+
+msgid "Spanish, Ruy Lopez: Closed, Keres (9...a5) Variation"
+msgstr "Ruy Lopez: Tertutup, Pembelaan Keres (9... a5)"
+
+msgid "Spanish, Ruy Lopez: Closed, Kholmov Variation"
+msgstr "Ruy Lopez: Tertutup, Varian Kholmov"
+
+msgid "Spanish, Ruy Lopez: Closed, Leonhardt Variation"
+msgstr "Ruy Lopez: Tertutup, Varian Leonhardt"
+
+msgid "Spanish, Ruy Lopez: Closed, Lutikov Variation"
+msgstr "Ruy Lopez: Tertutup, Varian Lutikov"
+
+msgid "Spanish, Ruy Lopez: Closed, Pilnik Variation"
+msgstr "Ruy Lopez: Tertutup, Varian Pilnik"
+
+msgid "Spanish, Ruy Lopez: Closed, Ragozin-Petrosian (Keres) Variation"
+msgstr "Ruy Lopez: Tertutup, Varian Ragozin-Petrosian"
+
+msgid "Spanish, Ruy Lopez: Closed, Rossolimo Defence"
+msgstr "Ruy Lopez: Tertutup, Pembelaan Rossolimo"
+
+msgid "Spanish, Ruy Lopez: Closed, Smyslov Defence"
+msgstr "Ruy Lopez: Tertutup, Pembelaan Smyslov"
+
+msgid "Spanish, Ruy Lopez: Closed, Suetin Variation"
+msgstr "Ruy Lopez: Tertutup, Varian Suetin"
+
+msgid "Spanish, Ruy Lopez: Cordel Gambit"
+msgstr "Ruy Lopez: Gambit Cordel"
+
+msgid "Spanish, Ruy Lopez: Cozio Defence deferred"
+msgstr "Ruy Lopez: Pembelaan Cozio Ditunda"
+
+msgid "Spanish, Ruy Lopez: Cozio Defence, Paulsen Variation"
+msgstr "Ruy Lopez: Pembelaan Cozio, Varian Paulsen"
+
+msgid "Spanish, Ruy Lopez: Cozio Defence"
+msgstr "Ruy Lopez: Pembelaan Cozio"
+
+msgid "Spanish, Ruy Lopez: Exchange Variation doubly deferred (DERLD)"
+msgstr "Ruy Lopez: Varian Tukar DERLD"
+
+msgid "Spanish, Ruy Lopez: Exchange Variation, 5.O-O"
+msgstr "Ruy Lopez: Tukar, 5.0-0"
+
+msgid "Spanish, Ruy Lopez: Exchange Variation, Alapin Gambit"
+msgstr "Ruy Lopez: Tukar, Gambit Alapin"
+
+msgid "Spanish, Ruy Lopez: Exchange Variation"
+msgstr "Ruy Lopez: Varian Tukar"
+
+msgid "Spanish, Ruy Lopez: Exchange, Alekhine Variation"
+msgstr "Ruy Lopez: Tukar, Varian Alekhine"
+
+msgid "Spanish, Ruy Lopez: Exchange, Bronstein Variation"
+msgstr "Ruy Lopez: Tukar, Varian Bronstein"
+
+msgid "Spanish, Ruy Lopez: Exchange, Gligoric Variation"
+msgstr "Ruy Lopez: Tukar, Varian Gligoric"
+
+msgid "Spanish, Ruy Lopez: Exchange, Keres Variation"
+msgstr "Ruy Lopez: Tukar, Varian Keres"
+
+msgid "Spanish, Ruy Lopez: Exchange, Romanovsky Variation"
+msgstr "Ruy Lopez: Tukar, Varian Romanovsky"
+
+msgid "Spanish, Ruy Lopez: Fianchetto (Smyslov/Barnes) Defence"
+msgstr "Ruy Lopez: Pembelaan Fianhetto"
+
+msgid "Spanish, Ruy Lopez: Fianchetto Defence deferred"
+msgstr "Ruy Lopez: Pembelaan Fianchetto Ditunda"
+
+msgid "Spanish, Ruy Lopez: Four Knights (Tarrasch) Variation"
+msgstr "Ruy Lopez: Varian 4 Kuda"
+
+msgid "Spanish, Ruy Lopez: Graz Variation"
+msgstr "Ruy Lopez: Varian Graz"
+
+msgid "Spanish, Ruy Lopez: Lucena Defence"
+msgstr "Ruy Lopez: Pembelaan Lucena"
+
+msgid "Spanish, Ruy Lopez: Marshall Counter-Attack, 11...c6"
+msgstr "Ruy Lopez: Marshal, 11... c6"
+
+msgid "Spanish, Ruy Lopez: Marshall Counter-Attack"
+msgstr "Ruy Lopez: Gambit Balasan Marshal"
+
+msgid "Spanish, Ruy Lopez: Marshall, Herman Steiner Variation"
+msgstr "Ruy Lopez: Marshal, Varian Herman Steiner"
+
+msgid "Spanish, Ruy Lopez: Marshall, Kevitz Variation"
+msgstr "Ruy Lopez: Marshal, Varian Kevitz"
+
+msgid "Spanish, Ruy Lopez: Marshall, Main Line, 12.d2d4"
+msgstr "Ruy Lopez: Marshal, Jalur Utama 12.d2d4"
+
+msgid "Spanish, Ruy Lopez: Marshall, Main Line, 14...Qh3"
+msgstr "Ruy Lopez: Marshal, Jalur Utama, 14... Mh3"
+
+msgid "Spanish, Ruy Lopez: Marshall, Main Line, Spassky Variation"
+msgstr "Ruy Lopez: Marshal, Jalur Utama, Varian Spassky"
+
+msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, 5.O-O"
+msgstr "Ruy Lopez: Pembelaan Modern Steinitz, 5.0-0"
+
+msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, Alapin Variation"
+msgstr "Ruy Lopez: Pembelaan Modern Steinitz, Varian Alapin"
+
+msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, Duras (Keres) Variation"
+msgstr "Ruy Lopez Pembelaan Modern Steinitz, Varian Duras"
+
+msgid ""
+"Spanish, Ruy Lopez: Modern Steinitz Defence, Fianchetto (Bronstein) "
+"Variation"
+msgstr "Ruy Lopez Pembelaan Modern Steinitz, Varian Fianchetto"
+
+msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, Richter Variation"
+msgstr "Ruy Lopez Pembelaan Modern Steinitz, Varian Richter"
+
+msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, Rubinstein Variation"
+msgstr "Ruy Lopez Pembelaan Modern Steinitz, Varian Rubenstein"
+
+msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, Three Knights Variation"
+msgstr "Ruy Lopez Pembelaan Modern Steinitz, Varian 3 Kuda"
+
+msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, siesta Variation"
+msgstr "Ruy Lopez Pembelaan Modern Steinitz, Varian Siesta"
+
+msgid "Spanish, Ruy Lopez: Modern Steinitz Defence"
+msgstr "Ruy Lopez: Pembelaan Modern Steinitz"
+
+msgid "Spanish, Ruy Lopez: Moeller Defence"
+msgstr "Ruy Lopez: Pembelaan Moeller"
+
+msgid "Spanish, Ruy Lopez: Morphy Defence, Duras Variation"
+msgstr "Ruy Lopez: Pembelaan Morphy, Varian Duras"
+
+msgid "Spanish, Ruy Lopez: Morphy Defence"
+msgstr "Ruy Lopez: Pembelaan Morphy"
+
+msgid "Spanish, Ruy Lopez: Noah ark trap"
+msgstr "Ruy Lopez: Jebakah Kapal Nuh"
+
+msgid "Spanish, Ruy Lopez: Nuernberg Variation"
+msgstr "Ruy Lopez: Varian Nuernberg"
+
+msgid "Spanish, Ruy Lopez: Old Steinitz Defence, Nimzovich Attack"
+msgstr "Ruy Lopez Pembelaan Steinitz Lama, Serangan Nimzowitch"
+
+msgid "Spanish, Ruy Lopez: Old Steinitz Defence, semi-Duras Variation"
+msgstr "Ruy Lopez Pembelaan Steinitz Lama, Varian Semi-Duras"
+
+msgid "Spanish, Ruy Lopez: Old Steinitz Defence"
+msgstr "Ruy Lopez Pembelaan Steinitz Lama"
+
+msgid "Spanish, Ruy Lopez: Open (Tarrasch) Defence"
+msgstr "Ruy Lopez Pembelaan Terbuka"
+
+msgid "Spanish, Ruy Lopez: Open Berlin Defence, 5...Be7"
+msgstr "Ruy Lopez Terbuka, Pembelaan Berlin, 5....Ge7"
+
+msgid "Spanish, Ruy Lopez: Open Berlin Defence, Showalter Variation"
+msgstr "Ruy Lopez Terbuka, Pembelaan Berlin, Varian Showalter"
+
+msgid "Spanish, Ruy Lopez: Open Berlin Defence, l'Hermet Variation"
+msgstr "Ruy Lopez Terbuka, Pembelaan Berlin, Varian I'Helmet"
+
+msgid "Spanish, Ruy Lopez: Open, 6.d4 b5"
+msgstr "Ruy Lopez Terbuka, 6.d4 b5"
+
+msgid "Spanish, Ruy Lopez: Open, 6.d4"
+msgstr "Ruy Lopez Terbuka, 6.d4"
+
+msgid "Spanish, Ruy Lopez: Open, 7.Bb3"
+msgstr "Ruy Lopez Terbuka, 7.Gb3"
+
+msgid "Spanish, Ruy Lopez: Open, 8...Be6"
+msgstr "Ruy Lopez Terbuka, 8...Ge6"
+
+msgid "Spanish, Ruy Lopez: Open, 8.de"
+msgstr "Ruy Lopez Terbuka, 8.de"
+
+msgid "Spanish, Ruy Lopez: Open, 9...Be7, 10.Re1"
+msgstr "Ruy Lopez Terbuka, 9...Ge7, 10.Be1"
+
+msgid "Spanish, Ruy Lopez: Open, 9.c3"
+msgstr "Ruy Lopez Terbuka, 9.c3"
+
+msgid "Spanish, Ruy Lopez: Open, Berger Variation"
+msgstr "Ruy Lopez Terbuka, Varian Berger"
+
+msgid "Spanish, Ruy Lopez: Open, Berlin Variation"
+msgstr "Ruy Lopez Terbuka, Varian Berlin"
+
+msgid "Spanish, Ruy Lopez: Open, Bernstein Variation, Karpov Gambit"
+msgstr "Ruy Lopez Terbuka, Varian Bernstein, Gambit Karpov"
+
+msgid "Spanish, Ruy Lopez: Open, Bernstein Variation"
+msgstr "Ruy Lopez Terbuka, Bernstein"
+
+msgid "Spanish, Ruy Lopez: Open, Breslau Variation"
+msgstr "Ruy Lopez Terbuka, Varian Breslau"
+
+msgid "Spanish, Ruy Lopez: Open, Classical Defence"
+msgstr "Ruy Lopez Terbuka, Pembelaan Klasik"
+
+msgid "Spanish, Ruy Lopez: Open, Dilworth Variation"
+msgstr "Ruy Lopez Terbuka, Varian Dilworth"
+
+msgid "Spanish, Ruy Lopez: Open, Friess Attack"
+msgstr "Ruy Lopez Terbuka, Varian Friess"
+
+msgid "Spanish, Ruy Lopez: Open, Harksen Gambit"
+msgstr "Ruy Lopez Terbuka, Gambit Harksen"
+
+msgid "Spanish, Ruy Lopez: Open, Howell Attack, Adam Variation"
+msgstr "Ruy Lopez Terbuka, Serangan Howell, Varian Adam"
+
+msgid "Spanish, Ruy Lopez: Open, Howell Attack, Ekstroem Variation"
+msgstr "Ruy Lopez Terbuka, Serangan Howell, Varian Ekstroem"
+
+msgid "Spanish, Ruy Lopez: Open, Howell Attack"
+msgstr "Ruy Lopez Terbuka, Serangan Howell"
+
+msgid "Spanish, Ruy Lopez: Open, Italian Variation"
+msgstr "Ruy Lopez Terbuka, Varian Italia"
+
+msgid "Spanish, Ruy Lopez: Open, Knorre Variation"
+msgstr "Ruy Lopez Terbuka, Varian Knoree"
+
+msgid "Spanish, Ruy Lopez: Open, Malkin Variation"
+msgstr "Ruy Lopez Terbuka, Varian Malkin"
+
+msgid "Spanish, Ruy Lopez: Open, Motzko Attack, Nenarokov Variation"
+msgstr "Ruy Lopez Terbuka, Serangan Motzko, Varian Nenarokov"
+
+msgid "Spanish, Ruy Lopez: Open, Motzko Attack"
+msgstr "Ruy Lopez Terbuka, Serangan Motzko"
+
+msgid "Spanish, Ruy Lopez: Open, Richter Variation"
+msgstr "Ruy Lopez Terbuka, Varian Richter"
+
+msgid "Spanish, Ruy Lopez: Open, Riga Variation"
+msgstr "Ruy Lopez Terbuka, Varian Riga"
+
+msgid "Spanish, Ruy Lopez: Open, Schlechter Defence"
+msgstr "Ruy Lopez Terbuka, Pembelaan Schlechter"
+
+msgid "Spanish, Ruy Lopez: Open, St. Petersburg Variation"
+msgstr "Ruy Lopez Terbuka, Varian St. Petersburg"
+
+msgid "Spanish, Ruy Lopez: Open, Tarrasch trap"
+msgstr "Ruy Lopez Terbuka, Jebakan Tarrasch"
+
+msgid "Spanish, Ruy Lopez: Open, Tartakower Variation"
+msgstr "Ruy Lopez Terbuka, Varian Tartakower"
+
+msgid "Spanish, Ruy Lopez: Open, Zukertort Variation"
+msgstr "Ruy Lopez Terbuka, Varian Zukertort"
+
+msgid "Spanish, Ruy Lopez: Pollock Defence"
+msgstr "Ruy Lopez: Pembelaan Pollock"
+
+msgid "Spanish, Ruy Lopez: Rabinovich Variation"
+msgstr "Ruy Lopez: Varian Rabinovich"
+
+msgid "Spanish, Ruy Lopez: Schliemann Defence deferred"
+msgstr "Ruy Lopez: Pembelaan Schielmann Ditunda"
+
+msgid "Spanish, Ruy Lopez: Schliemann Defence, Berger Variation"
+msgstr "Ruy Lopez: Pembelaan Schielmann, Varian Berger"
+
+msgid "Spanish, Ruy Lopez: Schliemann Defence"
+msgstr "Ruy Lopez: Pembelaan Schielmann"
+
+msgid "Spanish, Ruy Lopez: Siesta, Kopayev Variation"
+msgstr "Ruy Lopez: Siesta, Varian Kopayev"
+
+msgid "Spanish, Ruy Lopez: Steinitz Defence deferred (Russian Defence)"
+msgstr "Ruy Lopez: Varian Steinitz Ditunda"
+
+msgid "Spanish, Ruy Lopez: Steinitz Defence deferred, Boleslavsky Variation"
+msgstr "Ruy Lopez: Steinitz Ditunda, Varian Boleslavsky"
+
+msgid "Spanish, Ruy Lopez: Steinitz Defence deferred, Lipnitsky Variation"
+msgstr "Ruy Lopez: Steinitz Ditunda, Varian Lipnitsky"
+
+msgid "Spanish, Ruy Lopez: Steinitz Defence deferred, Rubinstein Variation"
+msgstr "Ruy Lopez: Steinitz Ditunda, Varian Rubinstein"
+
+msgid ""
+"Spanish, Ruy Lopez: Taimanov (chase/wing/Accelerated CounterThrust) "
+"Variation"
+msgstr "Ruy Lopez: Varian Taimanov"
+
+msgid "Spanish, Ruy Lopez: Trajkovic Counter-Attack"
+msgstr "Ruy Lopez: Serangan Balasan Trajkovic"
+
+msgid ""
+"Spanish, Ruy Lopez: Treybal (Bayreuth) Variation (Exchange var. deferred)"
+msgstr "Ruy Lopez: Varian Treybal"
+
+msgid "Spanish, Ruy Lopez: Vinogradov Variation"
+msgstr "Ruy Lopez: Varian Vinogradov"
+
+msgid "Spanish, Ruy Lopez: Wormald (Alapin) Attack"
+msgstr "Ruy Lopez: Serangan Wormald (Alapin)"
+
+msgid "Spanish, Ruy Lopez: Wormald Attack, Grünfeld Variation"
+msgstr "Ruy Lopez: Serangan Wormald, Varian Gruendfeld"
+
+msgid "Spanish, Ruy Lopez: Worrall Attack, Sharp Line"
+msgstr "Ruy Lopez: Serangan Worral, Jalur Tajam"
+
+msgid "Spanish, Ruy Lopez: Worrall Attack, solid Line"
+msgstr "Ruy Lopez: Serangan Worral, Jalur Solid"
+
+msgid "Spanish, Ruy Lopez: Worrall Attack"
+msgstr "Ruy Lopez: Serangan Worral"
+
+msgid "St. George (Baker) Defence"
+msgstr "Pembelaan St. George (Baker)"
+
+msgid "St. George Defence"
+msgstr "Pembelaan St. George"
+
+msgid "Tayler Opening"
+msgstr "Pembukaan Tayler"
+
+msgid "Tennison (Lemberg, Zukertort) Gambit"
+msgstr "Gambit Tennison"
+
+msgid "Three Knights Game: Schlechter Variation"
+msgstr "3 Kuda: Varian Schlechter"
+
+msgid "Three Knights Game: Steinitz Variation"
+msgstr "3 Kuda: Varian Steinitz"
+
+msgid "Three Knights Game: Steinitz, Rosenthal Variation"
+msgstr "3 Kuda: Varian Rosenthal"
+
+msgid "Three Knights Game: Winawer Defence (Gothic Defence)"
+msgstr "3 Kuda: Pembelaan Winawer"
+
+msgid "Three Knights Game"
+msgstr "Permainan 3 Kuda"
+
+msgid "Torre Attack (Tartakower Variation)"
+msgstr "Serangan Torre"
+
+msgid "Trompovsky Attack (Ruth, Opovcensky Opening)"
+msgstr "Serangan Trompowsky"
+
+msgid "Two Knights Defence (Modern Bishop Opening)"
+msgstr "2 Kuda, Pembukaan Gajah Modern"
+
+msgid "Two Knights Defence: Blackburne Variation"
+msgstr "2 Kuda: Varian Blackburne"
+
+msgid "Two Knights Defence: Bogolyubov Variation"
+msgstr "2 Kuda: Varian Bogolyubov"
+
+msgid "Two Knights Defence: Canal Variation"
+msgstr "2 Kuda: Varian Canal"
+
+msgid "Two Knights Defence: Colman Variation"
+msgstr "2 Kuda: Varian Colman"
+
+msgid "Two Knights Defence: Fegatello Attack, Leonhardt Variation"
+msgstr "2 Kuda: Serangan Fegatelo, Varian Leonhardt"
+
+msgid "Two Knights Defence: Fegatello Attack, Polerio Defence"
+msgstr "2 Kuda: Serangan Fegatelo, Pembelaan Polerio"
+
+msgid "Two Knights Defence: Fegatello Attack"
+msgstr "2 Kuda: Serangan Fegatello"
+
+msgid "Two Knights Defence: Fritz Variation"
+msgstr "2 Kuda: Varian Fritz"
+
+msgid "Two Knights Defence: Fritz, Gruber Variation"
+msgstr "2 Kuda: Varian Fritz, Varian Gruber"
+
+msgid "Two Knights Defence: Goering Variation"
+msgstr "2 Kuda: Varian Goering"
+
+msgid "Two Knights Defence: Kieseritsky Variation"
+msgstr "2 Kuda: Varian Kieseritsky"
+
+msgid "Two Knights Defence: Knorre Variation"
+msgstr "2 Kuda: Varian Knorre"
+
+msgid "Two Knights Defence: Lolli Attack"
+msgstr "2 Kuda: Serangan Lolli"
+
+msgid "Two Knights Defence: Maroczy Variation"
+msgstr "2 Kuda: Varian Maroczy"
+
+msgid "Two Knights Defence: Max Lange Attack, Berger Variation"
+msgstr "2 Kuda: Serangan Max Lange, Varian Berger"
+
+msgid "Two Knights Defence: Max Lange Attack, Krause Variation"
+msgstr "2 Kuda: Serangan Max Lange, Varian Krause"
+
+msgid "Two Knights Defence: Max Lange Attack, Loman Defence"
+msgstr "2 Kuda: Serangan Max Lange, Pembelaan Loman"
+
+msgid "Two Knights Defence: Max Lange Attack, Marshall Variation"
+msgstr "2 Kuda: Serangan Max Lange, Varian Marshall"
+
+msgid "Two Knights Defence: Max Lange Attack, Rubinstein Variation"
+msgstr "2 Kuda: Serangan Max Lange, Varian Rubenstein"
+
+msgid "Two Knights Defence: Max Lange Attack, Schlechter Variation"
+msgstr "2 Kuda: Serangan Max Lange, Varian Schlechter"
+
+msgid "Two Knights Defence: Max Lange Attack, Steinitz Variation"
+msgstr "2 Kuda: Serangan Max Lange, Varian Stenitz"
+
+msgid "Two Knights Defence: Max Lange Attack"
+msgstr "2 Kuda: Serangan Max Lange"
+
+msgid "Two Knights Defence: Paoli Variation"
+msgstr "2 Kuda: Varian Paoli"
+
+msgid "Two Knights Defence: Perreux Variation"
+msgstr "2 Kuda, Varian Perreux"
+
+msgid "Two Knights Defence: Pincus Variation"
+msgstr "2 Kuda: Varian Pincus"
+
+msgid "Two Knights Defence: Steinitz Variation"
+msgstr "2 Kuda: Varian Steinitz"
+
+msgid "Two Knights Defence: Ulvestad Variation"
+msgstr "2 Kuda: Varian Ulvestad"
+
+msgid "Two Knights Defence: Wilkes Barre (Traxler) Variation"
+msgstr "2 Kuda: Serangan Wilkes Barre (Traxler)"
+
+msgid "Two Knights Defence: Yankovich Variation"
+msgstr "2 Kuda: Varian Yankovich"
+
+msgid "Two Knights Defence: Yurdansky Attack"
+msgstr "2 Kuda: Serangan Yurdansky"
+
+msgid "Two Knights Defence"
+msgstr "Pembelaan 2 Kuda"
+
+msgid "Valencia Opening"
+msgstr "Pembukaan Valencia"
+
+msgid "Van't Kruijs Opening"
+msgstr "Pembukaan Van't Kruijs"
+
+msgid "Venezolana Opening"
+msgstr "Pembukaan Venezolana"
+
+msgid "Vienna Gambit: Bardeleben Variation"
+msgstr "Gambit Wina, Varian Bardebelen"
+
+msgid "Vienna Gambit: Breyer Variation"
+msgstr "Gambit Wina, Varian Breyer"
+
+msgid "Vienna Gambit: Heyde Variation"
+msgstr "Gambit Wina, Varian Heyde"
+
+msgid "Vienna Gambit: Kaufmann Variation"
+msgstr "Gambit Wina, Varian Kaufmann"
+
+msgid "Vienna Gambit: Paulsen Attack"
+msgstr "Gambit Wina, Serangan Paulsen"
+
+msgid "Vienna Gambit: Steinitz Variation"
+msgstr "Gambit Wina, Varian Steinitz"
+
+msgid "Vienna Gambit: Wurzburger trap"
+msgstr "Gambit Wina, Jebakan Wurzburger"
+
+msgid "Vienna Gambit"
+msgstr "Gambit Wina"
+
+msgid "Vienna Game: Adams' Gambit"
+msgstr "Wina, Gambit Adam"
+
+msgid "Vienna Game: Alekhine Variation"
+msgstr "Wina, Varian Alekhine"
+
+msgid "Vienna Game: Falkbeer Variation"
+msgstr "Wina, Varian Falkbeer"
+
+msgid "Vienna Game: Fyfe Gambit"
+msgstr "Wina, Gambit Fyfe"
+
+msgid "Vienna Game: Hamppe-Allgaier Gambit, Alapin Variation"
+msgstr "Wina, Gambit Hamppe-Allgaier, Varian Alapin"
+
+msgid "Vienna Game: Hamppe-Muzio Gambit"
+msgstr "Wina, Gambit Hamppe-Muzio"
+
+msgid "Vienna Game: Hamppe-Muzio, Dubois Variation"
+msgstr "Wina, Gambit Hamppe-Muzio, Varian Dubois"
+
+msgid "Vienna Game: Max Lange Defence"
+msgstr "Wina, Pembelaan Max Lange"
+
+msgid "Vienna Game: Mengarini Variation"
+msgstr "Wina, Varian Mengarini"
+
+msgid "Vienna Game: Paulsen Variation"
+msgstr "Wina, Varian Paulsen"
+
+msgid "Vienna Game: Paulsen-Mieses Variation"
+msgstr "Wina, Varian Paulsen-Mieses"
+
+msgid "Vienna Game: Pierce Gambit, Rushmere Attack"
+msgstr "Wina, Gambit Pierce, Serangan Rushmere"
+
+msgid "Vienna Game: Pierce Gambit"
+msgstr "Wina, Gambit Pierce"
+
+msgid "Vienna Game: Steinitz Gambit, Fraser-Minckwitz Variation"
+msgstr "Wina, Gambit Steinitz, Varian Fraser"
+
+msgid "Vienna Game: Steinitz Gambit, Zukertort Defence"
+msgstr "Wina, Gambit Steinitz, Pembelaan Zukertot"
+
+msgid "Vienna Game: Steinitz Gambit"
+msgstr "Wina, Gambit Steinitz"
+
+msgid "Vienna Game"
+msgstr "Permainan Wina"
+
+msgid "Vulture Defence"
+msgstr "Pembelaan Vulture"
+
+msgid "Ware (Meadow Hay) Opening"
+msgstr "Pembukaan Ware"
+
+msgid "Woozle Defence"
+msgstr "Pembelaan Woozle"

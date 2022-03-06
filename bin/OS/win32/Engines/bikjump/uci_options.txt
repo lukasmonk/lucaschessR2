@@ -1,0 +1,7 @@
+id name BikJump v2.01 (32-bit)
+id author Aart J.C. Bik
+option name Hash type spin default 32 min 1 max 2048
+option name NalimovPath type string default <empty>
+option name NalimovCache type spin default 8 min 1 max 2048
+option name Hash type spin default 32 min 1 max 2048
+option name Ponder type check default true

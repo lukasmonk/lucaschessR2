@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg id="svg2" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="100%" width="100%" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 0 2048 2048">
+ <metadata id="metadata12">
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g id="g4" transform="matrix(1 0 0 -1 0 2048)">
+  <path id="path6" d="m768 683q-5-39-26-82h564q-18 36-26 82h-512zm495 73l46 73q-142 49-285 47-144 2-285-47l46-73q118 40 239 38 120 2 239-38zm-432-227h-207q67 116 72 229-114 119-162 223.5t-6 223.5q33 96 118 189.5t312 246.5q-17 11-46 36t-29 79q0 58 41 96t100 38q58 0 99.5-38t41.5-96q0-54-29.5-79t-45.5-36q226-153 311-246.5t119-189.5q42-119-6-223.5t-162-223.5q4-113 72-229h-207q-2 4 10-16 33-53 70-60t89-7h250q76 0 141.5-62t65.5-179h-495q-123 0-223.5 84.5t-100.5 198.5q0-114-101-198.5t-223-84.5h-495q0 117 65 179t142 62h250q51 0 88 7t71 60q12 20 10 16zm146 701h-95v-89h95v-165h94v165h95v89h-95v104h-94v-104z" fill="currentColor"/>
+ </g>
+ <path id="path2989" d="m761.54 1406.7 12.856-39.051h249.6 249.6l12.856 39.051 12.856 39.051h-275.32-275.32l12.856-39.051z" stroke-miterlimit="3.8" stroke-width="0" fill="#ececec"/>
+ <path id="path2991" d="m765.08 1250.9-17.653-29.92 44.999-13.068c84.665-24.587 172.41-33.595 274.97-28.23 54.888 2.8715 113.46 8.9793 130.17 13.573 16.705 4.5936 46.779 12.606 66.831 17.806l36.458 9.4541-17.79 30.152c-20.327 34.452-23.311 34.992-91.585 16.586-68.72-18.527-266.23-18.527-334.95 0-68.23 18.395-71.266 17.852-91.448-16.353z" stroke-miterlimit="3.8" stroke-width="0" fill="#ececec"/>
+ <path id="path2993" d="m980.61 981.48v-82.441h-47.729-47.729v-39.051-39.051h47.729 47.729v-52.068-52.068h43.39 43.39v52.068 52.068h47.729 47.729v39.051 39.051h-47.729-47.729v82.441 82.441h-43.39-43.39v-82.441z" stroke-miterlimit="3.8" stroke-width="0" fill="#ececec"/>
+</svg>

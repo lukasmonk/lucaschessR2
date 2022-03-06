@@ -1,0 +1,51 @@
+g1f3!
+c2c4!
+g2g3!
+b2b3!
+e2e4?
+d2d4?
+;
+e2e4 g8f6 e4e5 f6d5
+e2e4 d7d6 d2d4 g8f6
+e2e4 g7g6 d2d4 f8g7
+e2e4 d7d6 d2d4 g7g6
+e2e4 g7g6 d2d4 d7d6
+;
+e2e4 c7c5 g1f3 d7d6
+e2e4 c7c5 g1f3 g8f6
+e2e4 c7c5 g1f3 b8c6
+;
+d2d4 g8f6 c2c4 e7e6 b1c3 f8b4
+d2d4 g8f6 c2c4 e7e6 b1c3 c7c5
+d2d4 g8f6 c2c4 e7e6 g1f3 f8b4
+d2d4 g8f6 c2c4 e7e6 g1f3 b7b6
+d2d4 g8f6 c2c4 e7e6 g1f3 c7c5
+d2d4 g8f6 c2c4 g7g6 b1c3 d7d5
+d2d4 g8f6 c2c4 g7g6 b1c3 f8g7
+d2d4 g8f6 c2c4 g7g6 g2g3 f8g7
+d2d4 g8f6 c2c4 g7g6 g2g3 d7d6
+d2d4 g8f6 c2c4 c7c5
+d2d4 g8f6 c2c4 e7e5
+d2d4 d7d6 c2c4 g7g6
+d2d4 g7g6 c2c4 f8g7
+;
+g1f3 d7d5? c2c4 c7c6 b2b3
+g1f3 d7d5 g2g3 c7c6 f1g2
+g1f3 d7d5 b2b3
+g1f3 g8f6 c2c4
+g1f3 g8f6 g2g3
+g1f3 c7c5 c2c4
+g1f3 c7c5 g2g3
+g1f3 b7b6
+g1d3 g7g6
+
+;
+c2c4 e7e5? b1c3
+c2c4 e7e5? g2g3
+c2c4 g8f6 g2g3
+c2c4 g8f6 b1c3 e7e6 g1f3
+c2c4 g8f6 g1f3 e7e6 g2g3
+c2c4 g7g6 g1f3
+c2c4 g7g6 g2g3
+c2c4 g7g6 b1c3 f8g7 g1f3
+c2c4 g7g6 b1c3 g8f6 g1f3

@@ -1,0 +1,58 @@
+ANDSCACS
+========
+http://www.andscacs.com/
+
+Andscacs és un mòdul d'anàlisi d'escacs. Està en estat alpha, és a dir en estat inicial de desenvolupament, i no ofereix cap garantia de cap mena. Així doncs useu-lo sota la vostra pròpia responsabilitat!
+
+Està fet per Daniel José Queraltó cdani @ yahoo.com.
+
+És un mòdul UCI, per tant requereix una interfície gràfica compatible per usar-lo.
+Per exemple es pot usar l'entorn gràfic gratuït Arena:
+http://www.playwitharena.com/
+
+O el comercial Chessbase
+http://chessbase-shop.com/es
+
+Vull agrair la molta gent que publica informació sobre programació de mòduls d'anàlisi d'escacs a internet, especialment http://chessprogramming.wikispaces.com/, http://talkchess.com!
+També fer menció especial a mòduls de codi obert que son molt instructius, com Stockfish, Crafty, Protector, Discocheck, Gull, Texel...
+
+
+Versions
+========
+Teniu quatre versions al zip:
+* andscacs.exe Windows 64 bits, requereix una Cpu amb suport per la instrucció POPCNT i és una mica més ràpida que les dues següents: (http://en.wikipedia.org/wiki/Bit_Manipulation_Instruction_Sets).
+* andscacs_no_popcnt.exe Windows 64 bits, no requereix cap instrucció especial. Més lenta.
+* andscacs_32_no_popcnt.exe per qualsevol Windows 32 bits. És uns 50 punts d'elo més dèbil. La més lenta.
+* linux/andscacs, una versió x64 popcnt per Linux.
+
+
+Exemples d'instal·lació
+=======================
+
+Primer posa el fitxer andscacs.exe a qualsevol carpeta que es vulgui.
+
+Amb arena, anar a "Engines" -> "Install new engine". Busca andscacs.exe. Selecciona Uci com a tipus de mòdul.
+
+Al Chessbase, començar una nova partida, anar a "Módulos" -> "Crear módulo UCI".
+Amb el botó "...", busca el fitxer andscacs.exe.
+
+
+Opcions especials UCI
+=====================
+
+He afegit a Andscacs la capacitat de guardar la memòria hash completa, per permetre a l'usuari recuperar una sessió d'anàlisi anterior i continuar.
+L'arxiu hash guardat tindrà la mateixa grandària que la memòria hash, per la qual cosa si va definir 4 GB de hash, tal serà la grandària de l'arxiu. Guardar i carregar arxius tan grans pot portar algun temps.
+
+Per poder fer-ho he afegit 4 nous paràmetres uci:
+
+option name NeverClearHash type check default false
+option name HashFile type string default hash.hsh
+option name SaveHashtoFile type button
+option name LoadHashfromFile type button
+
+Pot activar l'opció NeverClearHash per evitar que el hash pugui ser esborrat per una comanda Clear Hash o ucinewgame.
+El paràmetre HashFile és el nom complet de l'arxiu amb la informació de ruta. Si no es defineix la ruta, es guardarà a la carpeta actual. Per defecte és hash.hsh.
+Per guardar el hash, pari l'anàlisi i premi el botó SaveHashtoFile en la pantalla d'opcions de uci del GUI.
+Per carregar l'arxiu hash, carregui la partida que li interessi, carregui el motor sense arrencar-lo i premi el botó LoadHashfromFile en la pantalla d'opcions de uci de la GUI. Ara pot iniciar l'anàlisi.
+
+AlwaysFullPv és una opció de uci que quan està activa intenta mostrar una variació principal més llarga.

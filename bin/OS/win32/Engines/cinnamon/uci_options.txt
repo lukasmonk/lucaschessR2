@@ -1,0 +1,15 @@
+id name Cinnamon 1.2c
+id author Giuseppe Cannella
+option name Hash type spin default 64 min 1 max 32768
+option name Clear Hash type button
+option name Nullmove type check default true
+option name Book File type string default cinnamon.bin
+option name OwnBook type check default false
+option name Ponder type check default false
+option name TB Endgame type combo default none var Gaviota var none
+option name GaviotaTbPath type string default gtb/gtb4
+option name GaviotaTbCache type spin default 32 min 1 max 1024
+option name GaviotaTbScheme type combo default cp4 var none var cp1 var cp2 var cp3 var cp4
+option name TB Pieces installed type combo default 3 var none var 3 var 4 var 5
+option name TB probing depth type spin default 0 min 0 max 5
+option name TB Restart type button

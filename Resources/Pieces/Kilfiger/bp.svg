@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg3125" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="480" width="480" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+ <title id="title3827">Black Pawn</title>
+ <metadata id="metadata3130">
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title>Black Pawn</dc:title>
+    <cc:license rdf:resource="http://creativecommons.org/licenses/publicdomain/"/>
+    <dc:date>6.1.2013</dc:date>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>James Kilfinger+alfons z!</dc:title>
+     </cc:Agent>
+    </dc:creator>
+    <dc:source>http://openfontlibrary.org/assets/downloads/chess/dd244e4b50bb954610bc0b2372ce2e18/chess.zip</dc:source>
+   </cc:Work>
+   <cc:License rdf:about="http://creativecommons.org/licenses/publicdomain/">
+    <cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction"/>
+    <cc:permits rdf:resource="http://creativecommons.org/ns#Distribution"/>
+    <cc:permits rdf:resource="http://creativecommons.org/ns#DerivativeWorks"/>
+   </cc:License>
+  </rdf:RDF>
+ </metadata>
+ <g id="layer1" transform="translate(0 -572.36)">
+  <path id="text3135" d="m238.38 92.938c-39.943 0-72.312 32.401-72.312 72.344s32.369 72.344 72.312 72.344 72.344-32.401 72.344-72.344-32.401-72.344-72.344-72.344zm0.5625 175.44c-30.227 0-76.653 46.977-108.5 82.062 41.02-11.88 65.32-19.44 108.5-19.44 43.182 0 67.986 7.0142 108.47 19.969-32.93-35.63-73.39-82.59-108.47-82.59zm-0.56 118.21c-77.73 0-145.74 29.15-188.38 73.41h380c-42.64-44.26-113.9-73.41-191.62-73.41z" transform="translate(0 572.36)"/>
+ </g>
+</svg>

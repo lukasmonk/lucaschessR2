@@ -1,0 +1,15 @@
+Cassandre is a free chess playing program which can be used as an engine
+in interfaces supporting either the Xboard/Winboard protocol or the UCI
+protocol.
+
+Cassandre is released under the GNU GPL (see file COPYING for details.)
+
+For latest information visit:
+- http://cassandre.sourceforge.net
+- http://www.sourceforge.net/projects/cassandre
+
+See INSTALL for installation instructions.
+
+If you notice any bugs, be sure to contact me at jromang@users.sourceforge.net !
+
+Thank you !

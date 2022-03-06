@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg2985" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="480" width="480" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+ <title id="title3932">Black Rook</title>
+ <metadata id="metadata2990">
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title>Black Rook</dc:title>
+    <cc:license rdf:resource="http://creativecommons.org/licenses/publicdomain/"/>
+    <dc:date>6.1.2013</dc:date>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>James Kilfinger+alfons z!</dc:title>
+     </cc:Agent>
+    </dc:creator>
+    <dc:source>http://openfontlibrary.org/assets/downloads/chess/dd244e4b50bb954610bc0b2372ce2e18/chess.zip</dc:source>
+   </cc:Work>
+   <cc:License rdf:about="http://creativecommons.org/licenses/publicdomain/">
+    <cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction"/>
+    <cc:permits rdf:resource="http://creativecommons.org/ns#Distribution"/>
+    <cc:permits rdf:resource="http://creativecommons.org/ns#DerivativeWorks"/>
+   </cc:License>
+  </rdf:RDF>
+ </metadata>
+ <g id="layer1">
+  <path id="text3384" d="m238.38 69.219c-32.386 0-36.145 49.094-68.531 49.094-18.892 0-27.011-25.344-48.062-25.344-10.795 0-18.875 10.244-18.875 20.5 0 8.6364 2.6961 50.73 43.719 89.594 26.449-8.6364 57.744-14.031 91.75-14.031s65.332 5.3949 91.781 14.031c41.562-44.801 43.719-84.196 43.719-89.594 0-10.256-8.1108-20.5-18.906-20.5-21.051 0-29.139 25.344-48.031 25.344-32.386 0-36.176-49.094-68.562-49.094zm-6.1562 166.25c-30.603 0.25302-59.123 2.4205-82.906 6.4688 0 23.75-4.8523 58.301-22.125 114.44 35.62-16.74 72.32-25.38 111.19-25.38 41.023 0 83.685 9.7017 121.47 28.594-26.449-62.614-29.71-99.313-30.25-117.12-25.909-4.3182-57.213-7-91.219-7-2.0579 0-4.116-0.0169-6.1562 0zm6.1562 151.12c-77.73 0-145.74 29.15-188.38 73.41h380c-42.64-44.26-113.9-73.41-191.62-73.41z"/>
+ </g>
+</svg>

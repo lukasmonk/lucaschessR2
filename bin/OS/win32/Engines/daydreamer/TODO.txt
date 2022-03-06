@@ -1,0 +1,48 @@
+
+Search
+    Better time management when resolving root failures
+        We really shouldn't stop when resolving a fail low unless we have to
+    Better statistics gathering/reporting
+    recognize singular replies
+    Try multiple moves in TT, instead of PV cache
+    Make pawn eval and king safety scores available inside search
+    shrink trans table entry size, reevaluate TT code structure
+
+Tablebases
+    Add WDL support for GTBs
+    try different strategies for different board populations
+    try different compression schemes
+    try SSD/Flash memory
+
+Interface
+    ECO classification
+    PGN parsing
+    Better uci options support, with more feedback and fewer special handlers
+    Way better logging support
+    Write an optimizer that will determine the best value of various options
+        (particularly threading options) for the current hardware.
+
+Evaluation
+    Try alternate king safety implementations
+    rewrite eval to always work from white's perspective
+    static mate threats
+    evaluation hashing
+
+Bugs
+    I'm concerned about a root fail-high bug for e7e4 in this position:
+    1r1r2k1/2p1qp1p/6p1/ppQB1b2/5Pn1/2R1P1P1/PP5P/R1B3K1 b
+        This might be a case of poor mate threat detection. It takes a pretty
+        deep search before the eval for e7e4 spikes, and a really long search
+        to find the mate, even when only searching e7e4.
+        This hits two consecutive fail highs at depth 17 and 18; then the open
+        window search at depth 19 takes just about forever.
+        Better window size management might be a solution, or insisting on a
+        resolved search at each depth.
+
+    Similar problem here: (bm b1h7)
+    1qrrbbk1/1p1nnppp/p3p3/4P3/2P5/1PN1N3/PB2Q1PP/1B2RR1K w - - 0 21
+
+    Doesn't understand this simple endgame at all:
+    8/8/3k4/7p/R3K1bP/8/8/8 w - - 0 1
+        I think MCTS might be a good approach for positions like this
+

@@ -1,0 +1,41 @@
+option name Ponder type check default false
+option name UCI_AnalyseMode type check default false
+option name OwnBook type check default true
+option name Hash type spin default 16 min 8 max 16384
+option name Cores type spin default 1 min 1 max 64
+option name MultiPV type spin default 1 min 1 max 32
+option name Easy moves allowed type check default true
+option name Mute_plies type spin default 8 min 1 max 64
+option name Terse_plies type spin default 14 min 1 max 64
+option name Current move info type check default false
+option name Book use type check default true
+option name Book file 1 type string default gavibook-small.bin
+option name Book file 2 type string default
+option name Book file 3 type string default
+option name Book file 4 type string default
+option name Book file 5 type string default
+option name Book Restart type button
+option name Log type check default true
+option name Log files (max) type spin default 100 min 1 max 100
+option name Log Path type string default logs
+option name SMP depth (min) type spin default 4 min 0 max 10
+option name SMP width (min) default type spin default 1 min 1 max 5
+option name SMP width (min) cut type spin default 2 min 1 max 5
+option name SMP width (min) all type spin default 1 min 1 max 5
+option name SMP width (min) pv type spin default 1 min 1 max 5
+option name SMP split (max) cut type spin default 2 min 0 max 32
+option name SMP split (max) all type spin default 16 min 0 max 32
+option name SMP split (max) pv type spin default 4 min 0 max 32
+option name Nullmove type check default true
+option name Consider lag type check default true
+option name GaviotaTbPath type string default gtb/
+option name GaviotaTbCache type spin default 8 min 1 max 2048
+option name GaviotaTbScheme type combo default cp4 var none var cp1 var cp2 var cp3 var cp4
+option name TB Endgame type combo default Gaviota var Gaviota var none
+option name TB probing hard depth type spin default 5 min 0 max 10
+option name TB probing soft depth type spin default 2 min 0 max 10
+option name TB Restart type button
+option name TB pouncing mode type check default true
+option name TB long output type check default false
+id name Gaviota
+id author Miguel A. Ballicora

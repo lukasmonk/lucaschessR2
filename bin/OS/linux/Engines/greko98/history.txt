@@ -1,0 +1,723 @@
+GREKO CHESS ENGINE
+(c) 2002-2012 Vladimir Medvedev <vrm@bk.ru>
+
+Version 9.8
+-----------
+31-Dec-2012
+
+(new) * Randomizing eval UCI/config parameter (just for fun).
+(chg) * Evaluation: PSQ-tables changed, bonus for moving forward.
+(chg) * SEE and MVV/LVA code updated, more clean design.
+(chg) * Small tweaks in search.
+(chg) * Mate threats extensions.
+(chg) * Bitboards code reformatted.
+
+Version 9.7
+-----------
+31-Aug-2012
+
+(chg) * Endgame heuristics for KBP-K and opposite color bishops.
+(chg) * Depth limits for null-move and LMR modified.
+(chg) * Hash overwriting rule modified (simpler).
+
+Version 9.6
+-----------
+05-Aug-2012
+
+(chg) * Return to scheme with one killer move per ply (plays better).
+(chg) * LMR: history condition restored.
+(chg) * UCI parameters for evaluation modified.
+(chg) * Elo/Knps formula modified: play weaker at handicap levels.
+(chg) * Code cleanup. Return to C++98 Standard.
+
+Version 9.5
+-----------
+24-June-2012
+
+(fix) * Config file parameter names fixed.
+(new) * Evaluation weights: config and UCI options.
+(chg) * LMR conditions modified.
+
+Version 9.3.1
+-------------
+15-June-2012
+
+(fix) * 'position fen ...' UCI command fixed.
+
+Version 9.3
+-----------
+12-June-2012
+
+(fix) * Fixed pv output in UCI mode.
+(fix) * Claim draw after 3rd repetition.
+(new) * 'uci go depth ...' option added.
+(chg) * Checks in qsearch code modified.
+
+Version 9.2
+-----------
+15-May-2012
+
+(chg) * Source code refactoring. No changes in search/eval.
+(chg) * New formula for Elo/Knps settings.
+
+Version 9.0
+-----------
+31-Dec-2011
+
+(chg) * MVV/LVA instead of SEE in sorting moves (works much faster).
+(chg) * Small optimization for sorting procedure in qsearch.
+(chg) * Conditions for LMR modified.
+(chg) * Null move on PV granted.
+(chg) * Using std::vector for game history and undo information.
+
+Version 8.2
+-----------
+01-Aug-2011
+
+(chg) * Search code refactoring: 
+        global functions and variables converted to class members.
+(chg) * History counters scheme changed.
+(chg) * Use history condition in LMR.
+(chg) * New terms in evaluation: 
+        - king-pawn distance in endgame, 
+        - knight mobility, 
+        - trapped bishop.
+(chg) * Evaluation weights tuned.
+(chg) * Small optimization in hash table.
+(chg) * Hash overwriting logic changed.
+
+Version 8.1.1
+-------------
+08-July-2011
+
+(fix) * Fixed bug in opening book lookup code: added check for moves legality.
+
+Version 8.1
+-----------
+05-July-2011
+
+(chg) * Futility code optimized.
+(chg) * Fixed a typo in evaluation.
+(chg) * Small code refactoring.
+
+Version 8.0
+-----------
+31-Dec-2010
+
+(new) * Mating moves in sort ordering.
+(chg) * LMR conditions changed; verification when LMR score exceeds alpha.
+(chg) * Evaluation function completely rewritten.
+
+Version 7.2
+-----------
+05-Aug-2010
+
+(chg) * Returned to pseudo-legal move generator. Faster, simpler.
+(chg) * Single reply extensions removed.
+(chg) * Late move reduction in a very basic form. No verification re-search.
+(chg) * Limited strength levels tuned.
+
+Version 7.1
+-----------
+19-July-2010
+
+(new) * New options: UCI_LimitStrength, UCI_Elo and LimitKNPS.
+(chg) * Time management tuned.
+
+Version 7.0
+-----------
+21-June-2010
+
+(chg) * Search modified.
+
+Version 6.5
+-----------
+01-June-2009
+
+(new) * Fixed nodes and fixed depth modes, under UCI and WB.
+(new) * Evaluation weights now can be set with UCI 'setoption' command.
+(chg) * Removed not used bitboard masks.
+(chg) * Time allocation algorithm changed.
+(chg) * Command parser reorganized.
+(chg) * Removed many terms in eval. Modified some other. Added TEMPO term.
+(chg) * Futility conditions changed.
+(chg) * Delta pruning conditions changed.
+(chg) * Nodes counters changed to int64.
+(chg) * Overall code cleanup and reformatting.
+(chg) * Makefile simplified.
+
+Version 6.4
+-----------
+14-May-2009
+
+(fix) * Single reply extensions restricted to PV-nodes only. Prevents from search explosion in some won positions.
+(new) * GreKo.ini file added, with evaluation weights - sort of "personality settings". Not tuned at all.
+(new) * Makefile.linux added.
+(chg) * Command line parameters (-hash and -log) are not used anymore. Moved to GreKo.ini file.
+(chg) * Code clean-up and reformatting - a lot of obsolete code removed or changed.
+
+Version 6.31
+------------
+29-Apr-2009
+
+(chg) * Removed non-used field "flags" in hash entry, effective hash capacity increased.
+(chg) * Hash allocation simplified.
+(chg) * Code clean-up and reformatting.
+
+Version 6.30
+------------
+05-Feb-2009
+
+A lot of clean-up work without significant changes in core algorithms.
+
+(chg) * Small change in CountBits() function.
+(chg) * Time management scheme simplified.
+(chg) * Sort values increased, to make less history scalings.
+(chg) * Adjust mate scores in hash only for real mates.
+(chg) * Pruning conditions changed for nullmove, futility, LMR and delta pruning.
+(chg) * Removed some evaluation terms.
+(chg) * Mobility evaluation changed.
+(chg) * Passed pawns evaluation changed.
+(chg) * Weights tuned a little.
+
+Version 6.25
+------------
+15-Dec-2008
+
+(fix) * Fixed bug with "..." in UCI mode under Arena.
+(fix) * Fixed: do not leave search with empty root pv.
+(chg) * Faster search: do not copy pv in beta nodes.
+(chg) * Turned off nullmove and LMR on PV.
+(chg) * Generate checks in qsearch only on qply == 0.
+(chg) * SEE delta pruning in qsearch on qply > 1.
+(chg) * Small changes in code formatting.
+(chg) * Small changes in popcount function.
+
+Version 6.1
+-----------
+24-Oct-2008
+
+(fix) * Fixed "book import" and "book load" commands to make correct book merges.
+(fix) * Fixed setup from FEN: correct hash for positions with black to move.
+(fix) * Fixed short notation recognizer: now accepts "O-O" and "O-O-O".
+(chg) * Pawn hash is now a separate 32-bit field, not a part of the main 64-bit hash.
+(chg) * New opening book (not compatible with 6.0 book).
+(chg) * Time management scheme tuned a little.
+(chg) * Small changes in search (qchecks, pvs, extensions).
+(chg) * Small speed-up in evaluation.
+
+Version 6.0
+-----------
+29-Sept-2008
+
+(fix) * Fixed bugs in move generator (en-passant) and incremental check detector (en-passant, castlings);
+        all of them could lead to making illegal moves.
+
+(new) * Opening book: internal binary format and PGN-like text files supported.
+(chg) * More compact magic lookup tables (nothing special, just conventional variable bits per square approach).
+(chg) * More reliable search.
+(chg) * Short notation support in command line.
+
+When GreKo starts, it reads book.bin file. If there is no book.bin, it tries to read book.txt.
+
+You can create your own book.txt, or import games from PGN and save them as book.bin. Source PGN file
+should not contain comments or variations.
+
+How to create book (example):
+
+White(1): book clean
+White(1): book import file1.pgn 40 w
+maxPly = 40
+white's moves only
+Games: 1193, nodes: 22730
+White(1): book import file2.pgn 40 b
+maxPly = 40
+black's moves only
+Games: 1157, nodes: 44409
+White(1): book import file3.pgn
+maxPly = 20
+Games: 1919, nodes: 52633
+White(1): book save book.bin
+writing book.bin...
+White(1): bk
+ e4 54%, d4 33%, Nf3 8%, c4 2%, g3 0%, Nc3 0%, b3 0%
+
+Version 5.9
+-----------
+02-Aug-2008
+
+(fix) * Fix in reporting NPS under UCI
+(fix) * Check extensions fixed
+(chg) * Make the move instantly when checkmate is found
+(chg) * Draw recognizer modified
+(chg) * Bishop and bishop pair values tuned
+(chg) * Small changes in search
+
+Version 5.8.5
+-------------
+16-July-2008
+
+Changes in move generator and in search:
+
+(new) * Magic bitboards (can be turned off when MAGIC is not #defined in bitboards.h).
+(new) * Legal-only move generation on all stages. At last GreKo can cheat in perft
+        by not actually making moves at depth = 1 :)
+(new) * Simple checks generation on first levels in qsearch.
+(new) * Static exchange evaluation for captures (with batteries, without pins 
+        and promotions on ply > 0).
+(chg) * Pruning decisions do not rely on pv/non-pv node type, again. 
+(chg) * Futility pruning turned off, again.
+(chg) * Use SEE score for delta pruning in qsearch instead of VALUE[captured].
+(fix) * Fixed incorrect PGN disambiguation code (introduced in 5.8, but does not affect
+        playing games, just in epdtest mode) -- thanks to Dann Corbit for bug report.
+
+Tactical abilities seem to increase:
+
+        WACNew   WACNew   NewIQ
+        1 sec.   5 sec.   10 sec.
+
+5.7.1   271      287      243
+5.8     270      286      239  (-1...-4 solved positions - due to PGN bug)
+5.8.5   290      297      276
+
+This version could be named 5.9 since it has so many changes, but I prefer to save 
+numbering space for some possible improvements.
+
+Version 5.8
+-----------
+10-July-2008
+
+The main goal of this version is source code refactoring. Core datastructures
+are now more "C++ style". Position and Move data encapsulated in classes.
+Got rid of pointers, some #defines etc. Small optimization for all bitscan loops.
+
+As a result the source code is 5% more compact than 5.7.1. Perft and search run
+20-30% faster (at least in the initial position).
+
+Small changes in the move generator (castlings). Search and evaluation algorithms 
+are almost unchanged except for a little fix in the hashing scheme. En-passant 
+and castling rights were not taken into account in the hash code, now they are.
+
+Time management scheme changed a little, to prevent possible losses on time 
+in 3+3 games. Thanks to Volker Pittlik for mentioning the bug. Multi-PV UCI mode
+modified, however it is still slow and non-optimized.
+
+Version 5.7.1
+-------------
+25-May-2008
+
+(fix) Fixed bug in PVS code.
+
+Version 5.7
+-----------
+19-May-2008
+
+(fix) Mate scores in hash now handled correctly
+(fix) Do not skip draw scores in hash
+(fix) PV update code: replaced "for" statement with "memcpy" call
+(chg) Time management tuned a little
+(chg) Source code reformatted
+(new) MSVC8 project file added
+
+Version 5.6
+-----------
+12-Apr-2008
+
+(fix) Fix in MVV/LVA sorting
+(fix) Fix in "stop" command processing - don't report it is incorrect
+(new) Futility pruning at non-PV nodes, depth = 1
+(new) Delta pruning in qsearch
+(chg) Replaced get_new_depth() function with more clear code
+(chg) Principal variation search (PVS) instead of plain alpha-beta
+(chg) Nullmove conditions changed (R = 4, etc.)
+(chg) LMR conditions changed
+(chg) Fifty moves draw condition - after checkmate detection
+(chg) Reply to checks in qsearch (coming back)
+(chg) Time management scheme changed (use more time in increment games)
+(chg) Trapped bishop evaluation changed
+(chg) Repetition handling changed
+
+Version 5.5
+-----------
+31-Dec-2007
+
+*** HAPPY NEW YEAR!!! ***
+
+(chg) Hash lock 32-bit instead of 64.
+(chg) New hash allocation scheme.
+(chg) Futility pruning turned off.
+
+Version 5.4
+24-Jul-2007
+-----------
+
+(chg) Minor change in storing generated moves.
+(chg) Recompiled as C++ code with MSVC 2005 Express (Windows) and g++ 3.3.3 (Linux).
+
+Version 5.3
+20-May-2007
+-----------
+
+(chg) Using hash eval from previous iteration for pruning
+(chg) Small optimization in attack detector
+(chg) Small optimization in PV handling
+(fix) Fixed crash on epd-files ended with empty lines
+
+Version 5.2.5
+23-Feb-2007
+-------------
+
+(chg) Adjust checkmate scores in hash
+(chg) Minor changes in evaluation (mobility, bishops pair etc.)
+
+Version 5.2
+12-Feb-2007
+-----------
+
+(fix) Main hash table size is not divided by 2 anymore.
+
+(new) Added futility pruning, in a very simple and straightforward form.
+
+(chg) Search: tuned some conditions for LMR and Nullmove.
+(chg) Eval: King safety value scaled up a little.
+
+Overall improvement in strength is 50...70 points for blitz games.
+
+Version 5.1
+17-Jan-2007
+-----------
+
+(new) New terms in evaluation: weak fields, pieces on strong fields, etc.
+(chg) Piece-square tables tuned a little.
+
+Version 5.05
+8-Jan-2007
+------------
+
+(fix) Reply to "isready" command in thinking mode
+(fix) Fixed bug with undo buffer overflow in UCI at move ~150
+
+(new) Currentmove and nps info under UCI
+(new) K+B or K+N can't win regardless of opponent's material
+(new) Far passed pawns bonus
+
+(chg) More robust and stable search
+(chg) New time management scheme: not it does not lose on time in 1+0 games under Arena
+(chg) Piece values tuned
+
+Version 5.0
+31-Dec-2006
+-----------
+
+Engine completely rewritten in pure C.
+
+* Both winboard/xboard and UCI support
+* Multi-PV mode in UCI
+* No pondering
+* No opening book and learning
+* Strength is about +20 points compared to version 2.817
+
+Command line keys for xboard:
+
+-log        write all input and output in greko.log file
+-hash 32    set hash size no more than 32 Mb (for example)
+
+Version 3.3a
+16-Jul-2006
+-----------
+
+(fix)   * Few lines in pondering code fixed. 
+          Now seems to work corectly (at least, under Winboard and Arena).
+
+Version 3.3
+14-Jul-2006
+-----------
+
+1. Bugfixes.
+2. Search clean-up.
+
+(fix)   * Fixed bug in UpdateHistory which caused assertion fails from time to time (incorrect constant).
+(fix)   * Now "force" command stops pondering mode. Thanks to Volker Pittlik for bug report.
+
+(chg)   * Futility pruning thrown away from search. 
+(chg)   * Out-of-check extension changed to 0.75 ply - always.
+(chg)   * Nullmove parameter changed from R = (3 or 4) to const R = 3, more safe.
+(chg)   * Bitboard operation PopLSB() inlined.
+
+
+Version 3.2
+26-Apr-2006
+-----------
+
+1. Bugfixes and code stability.
+2. Evaluation clean-up. 
+
+(fix)   * Wrong comment in MainCommandProcessor() fixed. Multithreading is not mentioned anymore,
+          current GreKo is a single-threaded program.
+(fix)   * A really gross bug with negative depth in UpdateHistory() & RecordHash() fixed.
+          Now the depth is checked to be positive in both functions.
+(chg)   * Evaluation: A lot of alchemy with attacks and mobility removed from StaticEval().
+          Added very basic evaluation of R, N, B mobility instead. Works faster and better.
+(chg)   * Out-of-board field index constant changed from -1 to NF = 64. Now all field index 
+          variables expected to be unsigned: 0...63 for fields, 64 for offboard.
+(chg)   * Mailbox arrays U[64], L[64], UR[64], ... converted to single array STEPS [8][64].
+
+(src)   * Begin to re-format source code. Indentation style: all tabs replaced by spaces.
+
+
+Version 3.1
+8-Jan-2006
+-----------
+
+After one-year meditations GreKo 3.x branch is again in development. 
+This version goals: 1. bugfixes, 2. some changes in search 3. reviewing old code 
+
+(fix)   * Buffer-overrun safety code in user input. Many thanks to Dann Corbit!
+(fix)   * Single-reply extension (1 ply) __really__ turned on (it worked only like simple check 
+          extension in 3.0).
+(fix)   * Mate threat detection now works correctly (in 3.0 it was never triggered because of 
+          too small search window in nullmove).
+
+(new)   * "perft <depth> explain" command: shows perft values for all subtrees in the root.
+
+(chg)   * Win32 binary built with MSVC 6.0 + STLPort. Works faster than MSVC's STL version.
+(chg)   * Makefile for gcc (MinGW, Linux, FreeBSD) simplified. Filenames corrected.
+          No more ../bin and ../obj directories.
+(chg)   * Out-of-check and pawn-on-7th extensions restricted for far-behind and far-ahead
+          matearial balance, respectively.
+(chg)   * Window size in root diminished to +/-50 centipawns.
+(chg)   * Recapture extensions diminished from ply to ply/2.
+(chg)   * Default setting: ShowEvalForWhite = 0.
+   
+
+Version 3.0
+1-Jan-2005
+-----------
+
+   * Optimizations in speed.
+   * Built-in random generator instead of standard rand() function.
+   * Opening book now is compiler-independent (MSVC, gcc at least).
+
+Version 2.85
+31-Dec-2004
+------------
+
+        * Fixed: incorrect resignation in some drawn endgames (incorrect pruning in QSearch).
+        * New feature: GreKo now can create opening book from PGN for selected player.
+        * A lot of changes in evaluation (more realistic), minor changes in search (extensions, pruning).
+        * Anti-zeitnot code for blitz without increment, now GreKo loses on time more rarely.
+
+Version 2.817
+01-Nov-2004
+
+        * Fixed: bug with small hash size specified in .ini file.
+        * New command: "perft verify" for testing legality of move generator.
+        * Some speedup in move generator and evaluator (less bitboard operations etc.)
+
+Version 2.815
+01-Sept-2004
+
+   * Evaluation rolled back to 2.69 SNG.
+   * Search and other stuff like in 2.812.
+   * 50 Elo stronger compared to 2.812 in my tests.
+
+Version 2.812
+23-July-2004
+
+   * Search: inefficient copying of internal fail high/low pv's deleted.
+   * Evaluation: passed pawn weights diminished.
+   * Time management scheme for fail high/low in the root simplified.
+   * More statistics in "epdtest" routine.
+
+   This version is approx. 50 Elo points stronger in blitz than ver. 2.81.
+
+Version 2.81
+01-June-2004
+
+   * Overall code clenup for some basic operations (bitboard functions, make/unmake moves etc.),
+     that gives +3...5% performance in various tests.
+
+   * Some kind of futility pruning implemented in search.
+
+   * "epdtest" command output modified, time and nodes calculations in test suites corrected.
+
+   * New default settings: Learning=0, ShowEvalForWhite=0.
+
+Version 2.80
+15-May-2004
+
+   * Fixed bug in QSearch checks generator.
+
+Version 2.71
+15-Mar-2004
+
+   * Hash structure optimized: sizeof(CHashEntry) reduced from 32 to 16 bytes,
+     sizeof(CPawnHashEntry) reduced as well.
+   * New console command:     book digest <pgnfile> <depth>
+     Creates plain text list of all opening lines in pgn file, useful for creation
+     GreKo's repertoire file.
+
+Version 2.70
+01-Mar-2004
+
+   * Internal iterative deepening added.
+   * Opening repertoire file added.
+
+Version 2.69 SNG
+17-Feb-2004
+
+Private version for participation in CIS Computer Championship.
+
+   * Evaluation for pawn structure tuned. Now at last it can solve WAC-100.
+   * Weak pawns are penalized less if they are not on the semi-open lines 
+          (or opponent does not have rooks).
+
+Version 2.68   
+09-Feb-2004
+
+   * First check in row is extended now by 1 halfmove, and second in a row - by 0.75.
+   * New term in evaluation: Queen near weak King (in addition to Q-K tropism).
+   * Display evaluation either for White or for engine (configurable).
+   * Piece-field tables changed (now like in Crafty). Two new tables for K in endgame.
+
+Version 2.67
+05-Feb-2004
+
+   * Move generator changed: under check generate only candidates to check evasion.
+     Significant speedup in tactical positions and test suites.
+   * New evaluation terms: pinned pieces (currently only pinned to King and Queen).
+   * New parameter in GreKo.ini: OfferDraw, 0 or 1. (To avoid pop-up messagebox in games vs. Plywood :))
+
+Version 2.65
+31-Jan-2004
+
+   * All move sorting (both in QSearch and normal search) use now SEE instead of MVV/LVA.
+   * New time management scheme: add more time after fail high/low in the root.
+
+Version 2.64
+27-Jan-2004
+
+   * Fixed GREAT bug in QSearch pruning (now it does not prune first capture).
+   * Does not prune captures on first ply of QSearch at all.
+
+Version 2.63
+20-Jan-2003
+
+   * Optimized mobility evaluation.
+   * Tweaking extensions.
+   * Added pawn phalangues and blocked on initial field in pawn evaluation.
+
+Version 2.62
+12-Jan-2004
+
+   * Added simple checks on the first ply of QSearch.
+   * Tweaks in evaluation.
+   * Check extension returned back to 1 halfmove.
+   * Yet another bugfix in KBPK endgame (wrong field color tests for black bishop).
+
+Version 2.61
+7-Jan-2004
+
+   * Faster PopCount function (pure arithmetics instead of table lookup).
+   * Tweaks in evaluation.
+   * Fixed output of fail high/low PV's in epdtest routine.
+
+Version 2.60
+22-Dec-2003
+
+   * Fixed bug in KBPK endgame (did not test file=a/h for black pawn).
+   * Changes in QSearch: under check always generate all legal moves, 
+          do not return static eval
+   * New opening book format - more compact .bin file and more detailed "bk" command output.
+   * New parameter for configuring book logic: learn weight (see GreKo.ini file).
+   * Binary book and learn files now have headers with version signature.
+   * Fixed (?) bug in making book from big PGN.
+   * SAN parser improved for faster detection of protocol commands which are non-moves.
+   * Adding more time for thinking when fail-low at the root.
+
+Version 2.59a
+08-Dec-2003
+
+   * Check extensions hadnling fixed.
+
+Version 2.59
+07-Dec-2003
+
+   * Some critical fixes in time management for better stability
+     (got rid (?) of sudden wrong mate claiming bugs)
+   * New check extension scheme: the first check is extended by 1 ply, then by 0.75
+   * BAD_TRADE weight reduced to 0.40 pawn
+   * "result" command parsing in pondering mode - fixed
+
+
+Version 2.58
+01-Dec-2003
+
+   * g_ThinkPos replaced with CPosition parameter in all AlphaBeta() functions
+   * check extension returned back to 1 halfmove (was 0.75)
+   * extend only at ply <= 2 * g_IterDepth (was g_IterDepth + 11)
+   * QUEEN_AND KNIGHT and BISHOP_AND ROOK returned back to static eval
+   * Knight-to-King tropism only with friendly Queen on the board
+   * no new hash hit after extension, just check the depth field in hash entry
+
+Version 2.57
+23-Nov-2003
+
+   * New statistics format; more correct time calculation
+   * if( !ppv0->empty() ) check before assigning PV to approved PV
+   * do not print PV for unfinished iteration
+   * minor tuning in eval coeffs
+
+Version 2.56
+7-Nov-2003
+
+   * Changes in extensions using SEE score
+   * More valuable passed pawns when opponent has little piece material
+
+Version 2.54
+
+   * New routine for bit-scan operation (LSB) using magic 0x78291ACF constant.
+   * File History.txt added to source package.
+
+Version 2.53
+15-Oct-2003
+
+   * Source code is now portable to Linux and FreeBSD. Many thanks to Andrey Shytov.
+   * Got rid of all 0x88 stuff in board representation and moves generation.
+   * More accurate evaluation of passed pawns and possible draw in KBP-K endgame.
+   * Static exchange evaluator used in move sorting instead of old MVV/LVA scheme.
+   * Mate threat extensions added.
+   * Check extension value changed from 1.0 to 0.75 halfmove.
+
+Version 2.45
+1-Aug-2003
+
+   * This version was included in DVD disc attached to "Game.EXE" #9/2003
+     (Russian magazine about computer games)
+
+Version 2.32
+June 2003
+
+   Bitboards added. Hybrid scheme (0x88 + bitboards).
+
+Version 2.01
+December 2002
+
+   After half a year of development GreKo was re-written from scratch to improve 
+   data structures and overall design. 0x88 move generator.
+
+
+Version 1.10
+July 2002
+
+   Stable version with analyze and pondering support.
+
+Version 0.41
+11-May-2002
+
+   * Hashtable implemented (using Zobrist scheme).
+
+Version 0.36
+1-Apr-2002
+
+   * First public release of GreKo. Only basic features.
