@@ -643,7 +643,7 @@ class MaiaEngine(RunEngine):
         self.book_select.extend(["ap"] * ap)
         self.book_select.extend(["au"] * au)
 
-        dic_nodes = {1100: 1, 1200: 3, 1300: 6, 1400: 16, 1500: 39, 1600: 98, 1700: 244, 1800: 610, 1900: 1526}
+        dic_nodes = {1100: 1, 1200: 2, 1300: 5, 1400: 12, 1500: 30, 1600: 60, 1700: 130, 1800: 300, 1900: 450}
         self.nodes = dic_nodes.get(level, 1)
 
     def play_bestmove_time(self, play_return, game, time_white, time_black, inc_time_move):
@@ -669,3 +669,10 @@ class MaiaEngine(RunEngine):
                 self.mrm.ordena()
                 return True
         return False
+
+    def work_bestmove(self, orden, msmax_time):
+        self.reset()
+        orden = "go nodes %d" % self.nodes
+        self.put_line(orden)
+        self.wait_mrm("bestmove", msmax_time)
+

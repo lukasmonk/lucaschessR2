@@ -155,7 +155,6 @@ class Manager:
         self.game.set_tag("Date", "%d.%02d.%02d" % (hoy.year, hoy.month, hoy.day))
 
     def ponFinJuego(self, with_takeback=False):
-        Code.eboard.deactivate()
         self.runSound.close()
         if len(self.game):
             self.state = ST_ENDGAME
@@ -170,8 +169,10 @@ class Manager:
 
             self.main_window.pon_toolbar(li_options, with_eboard=self.with_eboard)
             self.remove_hints(siQuitarAtras=not with_takeback)
+            self.main_window.deactivate_eboard()
         else:
             self.procesador.reset()
+            self.main_window.deactivate_eboard()
 
     def set_toolbar(self, li_options):
         self.main_window.pon_toolbar(li_options, with_eboard=self.with_eboard)
@@ -1031,7 +1032,7 @@ class Manager:
         elif key == TB_EBOARD:
             if Code.eboard and self.with_eboard:
                 if Code.eboard.driver:
-                    Code.eboard.deactivate()
+                    self.main_window.deactivate_eboard(100)
                 else:
                     Code.eboard.activate(self.board.dispatch_eboard)
                     Code.eboard.set_position(self.board.last_position)

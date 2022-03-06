@@ -167,8 +167,7 @@ class ManagerSolo(Manager.Manager):
     def end_game(self):
         self.board.setAcceptDropPGNs(None)
 
-        if Code.eboard:
-            Code.eboard.deactivate()
+        self.main_window.deactivate_eboard(100)
 
         # Comprobamos que no haya habido cambios from_sq el ultimo grabado
         if self.is_changed() and len(self.game):

@@ -483,3 +483,13 @@ class MainWindow(LCDialog.LCDialog):
 
         if self.work_translate.check_commits():
             QtCore.QTimer.singleShot(salto, self.check_translated_received)
+
+    def deactivate_eboard(self, ms=500):
+        if Code.eboard and Code.eboard.driver:
+            QTUtil.refresh_gui()
+
+            def deactive():
+                Code.eboard.deactivate()
+                self.set_title_toolbar_eboard()
+
+            QtCore.QTimer.singleShot(ms, deactive)

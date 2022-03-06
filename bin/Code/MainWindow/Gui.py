@@ -169,7 +169,6 @@ def run_gui(procesador):
     QtGui.QFontDatabase.addApplicationFont(Code.path_resource("IntFiles", "ChessAlpha2.ttf"))
 
     if configuration.x_font_family:
-        print(configuration.x_font_family)
         font = Controles.TipoLetra(configuration.x_font_family)
         app.setFont(font)
 

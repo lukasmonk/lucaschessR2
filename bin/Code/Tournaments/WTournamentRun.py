@@ -555,12 +555,12 @@ class WTournamentRun(QtWidgets.QWidget):
                 else:
                     if not si_w:
                         mate = -mate
-                    info = "(M%+d)" % mate
+                    info = "M%+d" % mate
             else:
                 pts = rm.puntos
                 if not si_w:
                     pts = -pts
-                info = "(%+0.2f)" % float(pts / 100.0)
+                info = "%+0.2f" % float(pts / 100.0)
 
             nag, color_nag = mrm.set_nag_color(self.configuration, rm)
             stNAGS.add(nag)

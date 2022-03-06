@@ -93,6 +93,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
     last_time_show_arrows = None
     rival_is_thinking = False
     humanize = False
+    unlimited_minutes = 5
 
     def start(self, dic_var):
         self.base_inicio(dic_var)
