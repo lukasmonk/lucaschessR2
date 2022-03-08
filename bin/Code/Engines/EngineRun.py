@@ -185,7 +185,7 @@ class RunEngine:
                             self.liBuffer.append("info string humanizing")
                             lock.release()
                         self.end_time_humanize = None
-                prlk(self.name, line)
+                Code.prlk(self.name, line)
                 lock.acquire()
                 self.liBuffer.append(line)
                 if self.direct_dispatch:

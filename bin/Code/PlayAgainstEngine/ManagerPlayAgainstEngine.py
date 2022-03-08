@@ -721,7 +721,6 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                 self.state = ST_PLAYING
                 self.toolbar_state = None
                 self.pon_toolbar()
-            self.check_boards_setposition()
             self.play_next_move()
 
     def testBook(self):

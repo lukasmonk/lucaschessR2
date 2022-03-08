@@ -16,6 +16,7 @@ class Eboard:
         self.setup = False
         self.fen_eboard = None
         self.dispatch = None
+        self.side_takeback = None
 
     def envia(self, quien, dato):
         # assert Code.prln(quien, dato, self.dispatch)
@@ -85,17 +86,30 @@ class Eboard:
         return self.envia("blackMove", self.dgt2pv(dato))
 
     def registerWhiteTakeBackFunc(self):
-        # assert Code.prln("registerWhiteTakeBackFunc")
-        return self.envia("whiteTakeBack", True)
+        # assert Code.prln("registerWhiteTakeBackFunc trying")
+        if self.side_takeback is None:
+            self.side_takeback = True
+        if self.side_takeback:
+            # assert Code.prln("registerWhiteTakeBackFunc")
+            return self.envia("whiteTakeBack", True)
+        else:
+            return 0
 
     def registerBlackTakeBackFunc(self):
-        # assert Code.prln("registerBlackTakeBackFunc")
-        return self.envia("blackTakeBack", True)
+        # assert Code.prln("registerBlackTakeBackFunc trying")
+        if self.side_takeback is None:
+            self.side_takeback = False
+        if not self.side_takeback:
+            # assert Code.prln("registerBlackTakeBackFunc")
+            return self.envia("blackTakeBack", True)
+        else:
+            return 0
 
     def activate(self, dispatch):
         # assert Code.prln("activate")
         self.fen_eboard = None
         self.driver = driver = None
+        self.side_takeback = None
         self.dispatch = dispatch
         if Code.is_linux:
             functype = ctypes.CFUNCTYPE

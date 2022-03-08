@@ -2285,11 +2285,9 @@ class Board(QtWidgets.QGraphicsView):
     def dispatch_eboard(self, quien, a1h8):
         if self.mensajero and self.pieces_are_active:
             if quien == "whiteMove":
-                Code.eboard.allowHumanTB = False
                 if not self.side_pieces_active:
                     return 0
             elif quien == "blackMove":
-                Code.eboard.allowHumanTB = False
                 if self.side_pieces_active:
                     return 0
             elif quien == "scan":
