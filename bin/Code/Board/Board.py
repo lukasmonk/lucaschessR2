@@ -2285,24 +2285,30 @@ class Board(QtWidgets.QGraphicsView):
     def dispatch_eboard(self, quien, a1h8):
         if self.mensajero and self.pieces_are_active:
             if quien == "whiteMove":
+                Code.eboard.allowHumanTB = False
                 if not self.side_pieces_active:
                     return 0
             elif quien == "blackMove":
+                Code.eboard.allowHumanTB = False
                 if self.side_pieces_active:
                     return 0
             elif quien == "scan":
                 QTUtil.ponPortapapeles(a1h8)
                 return 1
             elif quien == "whiteTakeBack":
-                # if not self.last_position.is_white:
-                self.exec_kb_buffer(Qt.Key_Backspace, 0)
-                return 1
-                # return 0
+                if self.last_position.is_white and Code.eboard.allowHumanTB:
+                    Code.eboard.allowHumanTB = False
+                    self.exec_kb_buffer(Qt.Key_Backspace, 0)
+                    return 1
+                Code.eboard.allowHumanTB = True
+                return 0
             elif quien == "blackTakeBack":
-                # if self.last_position.is_white:
-                self.exec_kb_buffer(Qt.Key_Backspace, 0)
-                return 1
-                # return 0
+                if not self.last_position.is_white and Code.eboard.allowHumanTB:
+                    Code.eboard.allowHumanTB = False
+                    self.exec_kb_buffer(Qt.Key_Backspace, 0)
+                    return 1
+                Code.eboard.allowHumanTB = True
+                return 0
             else:
                 return 1
 

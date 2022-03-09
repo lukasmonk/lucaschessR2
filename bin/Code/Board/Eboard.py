@@ -16,7 +16,7 @@ class Eboard:
         self.setup = False
         self.fen_eboard = None
         self.dispatch = None
-        self.side_takeback = None
+        self.allowHumanTB = False
 
     def envia(self, quien, dato):
         # assert Code.prln(quien, dato, self.dispatch)
@@ -87,23 +87,12 @@ class Eboard:
 
     def registerWhiteTakeBackFunc(self):
         # assert Code.prln("registerWhiteTakeBackFunc trying")
-        if self.side_takeback is None:
-            self.side_takeback = True
-        if self.side_takeback:
-            # assert Code.prln("registerWhiteTakeBackFunc")
-            return self.envia("whiteTakeBack", True)
-        else:
-            return 0
+        # assert Code.prln("registerWhiteTakeBackFunc")
+        return self.envia("whiteTakeBack", True)
 
     def registerBlackTakeBackFunc(self):
         # assert Code.prln("registerBlackTakeBackFunc trying")
-        if self.side_takeback is None:
-            self.side_takeback = False
-        if not self.side_takeback:
-            # assert Code.prln("registerBlackTakeBackFunc")
-            return self.envia("blackTakeBack", True)
-        else:
-            return 0
+        return self.envia("blackTakeBack", True)
 
     def activate(self, dispatch):
         # assert Code.prln("activate")
@@ -282,6 +271,7 @@ class Eboard:
             # log( "Enviado a la DGT" + cposicion )
             self.driver._DGTDLL_WritePosition(cposicion.encode())
             self.fen_eboard = cposicion
+            Code.eboard.allowHumanTB = False
 
     def writeClocks(self, wclock, bclock):
         # assert Code.prln("writeclocks")
