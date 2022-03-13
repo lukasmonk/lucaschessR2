@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-03-13 08:15+0100\n"
+"POT-Creation-Date: 2022-03-13 13:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -81,7 +81,7 @@ msgstr ""
 msgid "Themes"
 msgstr ""
 
-#: .\About\AboutBase.py:15 .\Board\Board.py:770 .\Board\WindowColors.py:404
+#: .\About\AboutBase.py:15 .\Board\Board.py:769 .\Board\WindowColors.py:404
 #: .\Sound\WindowSonido.py:515
 msgid "Pieces"
 msgstr ""
@@ -144,7 +144,7 @@ msgstr ""
 msgid "Permission of author"
 msgstr ""
 
-#: .\About\AboutBase.py:309 .\Board\Board.py:768 .\Board\WindowColors.py:232
+#: .\About\AboutBase.py:309 .\Board\Board.py:767 .\Board\WindowColors.py:232
 #: .\Board\WindowColors.py:620 .\Board\WindowColors.py:975 .\Procesador.py:630
 msgid "Colors"
 msgstr ""
@@ -261,7 +261,7 @@ msgid "Analyzing the move...."
 msgstr ""
 
 #: .\Analysis\Analysis.py:396 .\Analysis\WindowAnalysis.py:173
-#: .\Board\Board.py:145
+#: .\Board\Board.py:144
 msgid "FEN is in clipboard"
 msgstr ""
 
@@ -534,7 +534,7 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: .\Analysis\Histogram.py:448 .\Board\Board.py:171
+#: .\Analysis\Histogram.py:448 .\Board\Board.py:170
 #: .\Director\WindowDirector.py:674 .\Manager.py:1517 .\Manager.py:1599
 #: .\Manager.py:1636 .\ManagerSolo.py:327 .\Odt\WOdt.py:20
 #: .\QT\FormLayout.py:254 .\QT\WindowManualSave.py:106
@@ -826,7 +826,7 @@ msgid "Duration of engine analysis (secs)"
 msgstr ""
 
 #: .\Analysis\WindowAnalysisParam.py:185 .\Analysis\WindowAnalysisParam.py:405
-#: .\Board\Board.py:776 .\Board\Board.py:2420 .\Board\WindowColors.py:296
+#: .\Board\Board.py:775 .\Board\Board.py:2419 .\Board\WindowColors.py:296
 #: .\Board\WindowColors.py:349 .\Config\WindowConfig.py:77
 #: .\Databases\WDB_Utils.py:340 .\Engines\WEngines.py:358
 #: .\Engines\WEngines.py:414 .\Expeditions\WindowEverest.py:62
@@ -1043,95 +1043,95 @@ msgstr ""
 msgid "Unknown"
 msgstr ""
 
-#: .\Board\Board.py:167
+#: .\Board\Board.py:166
 msgid "Board image is in clipboard"
 msgstr ""
 
-#: .\Board\Board.py:711
+#: .\Board\Board.py:710
 msgid "Board menu"
 msgstr ""
 
-#: .\Board\Board.py:711 .\Board\Board.py:713 .\Board\Board.py:717
-#: .\Board\Board.py:720 .\Board\Board.py:723 .\Board\Board.py:726
-#: .\Board\Board.py:737 .\Board\Board.py:739 .\Board\Board.py:746
-#: .\Board\Board.py:784 .\Board\Board.py:787 .\Menus\BasicMenus.py:283
+#: .\Board\Board.py:710 .\Board\Board.py:712 .\Board\Board.py:716
+#: .\Board\Board.py:719 .\Board\Board.py:722 .\Board\Board.py:725
+#: .\Board\Board.py:736 .\Board\Board.py:738 .\Board\Board.py:745
+#: .\Board\Board.py:783 .\Board\Board.py:786 .\Menus\BasicMenus.py:283
 #: .\Menus\BasicMenus.py:366
 msgid "ALT"
 msgstr ""
 
-#: .\Board\Board.py:713 .\Board\Board.py:784 .\QT\Voyager.py:111
+#: .\Board\Board.py:712 .\Board\Board.py:783 .\QT\Voyager.py:111
 msgid "Flip the board"
 msgstr ""
 
-#: .\Board\Board.py:715
+#: .\Board\Board.py:714
 msgid "Copy FEN to clipboard"
 msgstr ""
 
-#: .\Board\Board.py:715 .\Board\Board.py:718 .\Board\Board.py:720
-#: .\Board\Board.py:724 .\Board\Board.py:726 .\Director\WindowTab.py:109
+#: .\Board\Board.py:714 .\Board\Board.py:717 .\Board\Board.py:719
+#: .\Board\Board.py:723 .\Board\Board.py:725 .\Director\WindowTab.py:109
 #: .\Manager.py:1451 .\ManagerSolo.py:500 .\ManagerSolo.py:635
 #: .\ManagerSolo.py:636 .\ManagerSolo.py:637 .\ManagerSolo.py:638
 msgid "CTRL"
 msgstr ""
 
-#: .\Board\Board.py:717 .\Board\Board.py:718 .\Board\Board.py:721
+#: .\Board\Board.py:716 .\Board\Board.py:717 .\Board\Board.py:720
 msgid "Copy board as image to clipboard"
 msgstr ""
 
-#: .\Board\Board.py:718 .\Board\Board.py:724
+#: .\Board\Board.py:717 .\Board\Board.py:723
 msgid "without border"
 msgstr ""
 
-#: .\Board\Board.py:721 .\Board\Board.py:727
+#: .\Board\Board.py:720 .\Board\Board.py:726
 msgid "without coordinates"
 msgstr ""
 
-#: .\Board\Board.py:723 .\Board\Board.py:724 .\Board\Board.py:727
+#: .\Board\Board.py:722 .\Board\Board.py:723 .\Board\Board.py:726
 msgid "Copy board as image to a file"
 msgstr ""
 
-#: .\Board\Board.py:732
+#: .\Board\Board.py:731
 msgid "To indicate origin and destination of a move"
 msgstr ""
 
-#: .\Board\Board.py:737
+#: .\Board\Board.py:736
 msgid "Show/Hide PGN information"
 msgstr ""
 
-#: .\Board\Board.py:739
+#: .\Board\Board.py:738
 msgid "Activate/Deactivate non distract mode"
 msgstr ""
 
-#: .\Board\Board.py:746
+#: .\Board\Board.py:745
 msgid "Open position in LiChess"
 msgstr ""
 
-#: .\Board\Board.py:748
+#: .\Board\Board.py:747
 msgid "Full screen On/Off"
 msgstr ""
 
-#: .\Board\Board.py:749
+#: .\Board\Board.py:748
 msgid "Minimize to the tray icon"
 msgstr ""
 
-#: .\Board\Board.py:753 .\Board\Board.py:787
+#: .\Board\Board.py:752 .\Board\Board.py:786
 msgid "Active keys"
 msgstr ""
 
-#: .\Board\Board.py:773 .\Board\Board.py:2399
+#: .\Board\Board.py:772 .\Board\Board.py:2398
 msgid "Change board size"
 msgstr ""
 
-#: .\Board\Board.py:780
+#: .\Board\Board.py:779
 msgid "F1-F10"
 msgstr ""
 
-#: .\Board\Board.py:780 .\Director\WindowDirector.py:34
+#: .\Board\Board.py:779 .\Director\WindowDirector.py:34
 #: .\Director\WindowDirector.py:402
 msgid "Director"
 msgstr ""
 
-#: .\Board\Board.py:795 .\Databases\WDB_Games.py:91
+#: .\Board\Board.py:794 .\Databases\WDB_Games.py:91
 #: .\Director\WindowTab.py:167 .\Director\WindowTab.py:170
 #: .\Director\WindowTab.py:369 .\Director\WindowTab.py:372
 #: .\Engines\WindowSTS.py:584 .\Openings\WindowOpeningLines.py:44
@@ -1140,63 +1140,63 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: .\Board\Board.py:1962 .\QT\Voyager.py:301 .\QT\Voyager.py:306
+#: .\Board\Board.py:1961 .\QT\Voyager.py:301 .\QT\Voyager.py:306
 #: .\QT\WindowMemoria.py:183 .\QT\WindowMemoria.py:186
 #: .\QT\WindowPotencia.py:284 .\QT\WindowPuente.py:242
 #: .\Translations\TrListas.py:39
 msgid "Bishop"
 msgstr ""
 
-#: .\Board\Board.py:1962 .\QT\Voyager.py:301 .\QT\Voyager.py:306
+#: .\Board\Board.py:1961 .\QT\Voyager.py:301 .\QT\Voyager.py:306
 #: .\QT\WindowMemoria.py:183 .\QT\WindowMemoria.py:186
 #: .\QT\WindowPotencia.py:284 .\QT\WindowPuente.py:242
 #: .\Translations\TrListas.py:39
 msgid "Knight"
 msgstr ""
 
-#: .\Board\Board.py:1962 .\QT\Voyager.py:301 .\QT\Voyager.py:306
+#: .\Board\Board.py:1961 .\QT\Voyager.py:301 .\QT\Voyager.py:306
 #: .\QT\WindowMemoria.py:183 .\QT\WindowMemoria.py:186
 #: .\QT\WindowPotencia.py:284 .\QT\WindowPuente.py:242
 #: .\Translations\TrListas.py:39
 msgid "Queen"
 msgstr ""
 
-#: .\Board\Board.py:1962 .\QT\Voyager.py:301 .\QT\Voyager.py:306
+#: .\Board\Board.py:1961 .\QT\Voyager.py:301 .\QT\Voyager.py:306
 #: .\QT\WindowMemoria.py:183 .\QT\WindowMemoria.py:186
 #: .\QT\WindowPotencia.py:284 .\QT\WindowPuente.py:242
 #: .\Translations\TrListas.py:39
 msgid "Rook"
 msgstr ""
 
-#: .\Board\Board.py:2412
+#: .\Board\Board.py:2411
 msgid "Very large"
 msgstr ""
 
-#: .\Board\Board.py:2413
+#: .\Board\Board.py:2412
 msgid "Large"
 msgstr ""
 
-#: .\Board\Board.py:2414 .\QT\WindowWorkMap.py:111 .\WorkMap.py:364
+#: .\Board\Board.py:2413 .\QT\WindowWorkMap.py:111 .\WorkMap.py:364
 msgid "Medium"
 msgstr ""
 
-#: .\Board\Board.py:2415
+#: .\Board\Board.py:2414
 msgid "Medium-small"
 msgstr ""
 
-#: .\Board\Board.py:2416
+#: .\Board\Board.py:2415
 msgid "Small"
 msgstr ""
 
-#: .\Board\Board.py:2417
+#: .\Board\Board.py:2416
 msgid "Very small"
 msgstr ""
 
-#: .\Board\Board.py:2418
+#: .\Board\Board.py:2417
 msgid "Custom size"
 msgstr ""
 
-#: .\Board\Board.py:2419
+#: .\Board\Board.py:2418
 msgid "Initial size"
 msgstr ""
 

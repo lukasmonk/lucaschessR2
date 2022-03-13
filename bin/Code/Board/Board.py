@@ -95,7 +95,6 @@ class Board(QtWidgets.QGraphicsView):
         self.pendingRelease = None
 
         self.siPermitidoResizeExterno = True
-        # TODO self.siPermitidoResizeExterno se ha cambiado a True, que efecto tendrá ?
         self.mensajero = None
 
         self.si_borraMovibles = True

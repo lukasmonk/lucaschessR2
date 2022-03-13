@@ -104,7 +104,7 @@ class WKibEngine(WKibCommon.WKibCommon):
                         if len(self.li_moves) > 256:
                             self.li_moves = self.li_moves[:128]
 
-                    # TODO mirar si es de posicion previa o porterior
+                    # TODO mirar si es de posicion previa o posterior
                     game = Game.Game(first_position=self.game.last_position)
                     game.read_pv(rm.pv)
                     if len(game):

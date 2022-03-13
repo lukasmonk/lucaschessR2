@@ -255,8 +255,8 @@ class PGNreader:
                 break
 
             ln = linea.strip()
-            if not ln:
-                break
+            #if not ln:
+            #    break
             if ln[:1] == b"[" and ln[-1:] == b"]" and ln.count(b'"') >= 2 and ln.count(b"[") == 1 and ln.count(b"]") == 1:
                 self.f.seek(self.f.tell() - len(linea))
                 break
