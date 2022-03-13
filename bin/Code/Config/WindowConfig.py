@@ -193,7 +193,7 @@ def options(parent, configuration):
     form.separador()
     form.folder(_("Gaviota Tablebases"), configuration.x_carpeta_gaviota, configuration.carpeta_gaviota_defecto())
 
-    form.add_tab(_("Tablebases"))
+    form.add_tab(_("Endgame tablebases"))
 
 
     resultado = form.run()

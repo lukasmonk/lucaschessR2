@@ -8,6 +8,7 @@ from Code import Util
 class ThanksTo:
     def __init__(self):
         self.dic = {
+            "maincontributors": _("Main contributors"),
             "contributors": _("Contributors"),
             "translators": _("Translators"),
             "images": _("Images"),
@@ -78,6 +79,25 @@ class ThanksTo:
     def dl_end():
         return "</dl></blockquote>"
 
+
+
+    def maincontributors(self):
+        li = (
+            ("Michele Tumbarello", "Definition of Tourney-elo engines and the formulae for calculating the indices."),
+            ("Alfonso Solbes", "His work was an essential help (saved many hours) in the transition from Python 2.7 (version 11) to Python 3 (version R)."),
+            ("Eric", "Main betatester."),
+            ("Johannes Bolzano", "Code improvements and ideas to Find best move training and more. Programme wiki administrator"),
+            ("Laudecir Daniel", "Main promoter of the Linux version, he did the selection and compilation of engines, as well as the establishment of the working Linux version."),
+            ('<a href="https://goneill.co.nz/index.php">Graham O\'Neill</a>', "Author of the drivers for the use of the electronic boards (except the official DGT ones). Also co-operator in the development of the interface code with the electronic boards."),
+        )
+
+        txt = self.dl_ini()
+        for person, task in li:
+            txt += self.dl_tit(person)
+            txt += self.dl_elem(task) + "<hr>"
+        txt += self.dl_end()
+        return txt
+
     def contributors(self):
         txt = self.dl_ini()
 
@@ -101,16 +121,12 @@ class ThanksTo:
 
         # Version R
         li_base = [
-            "Alfonso Solbes",
             "Alan Lee",
-            '<a href="https://goneill.co.nz/index.php">Graham O\'Neill</a>',
-            "Eric",
-            "Laudecir Daniel",
             "Nambi",
-            "Johannes Bolzano",
+            '<a href="https://github.com/phihag">Philipp Hagemeister</a>'
         ]
         li_resto = []
-        txt += version("R", li_base, li_resto, True)
+        txt += version("R", li_base, li_resto, False)
 
         # Version 11
         li_base = [

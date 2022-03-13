@@ -554,7 +554,7 @@ class WConfTutor(QtWidgets.QWidget):
         lb_sensitivity = Controles.LB2P(self, _("Launch the tutor when"))
         li_types = [
             (_("Always"), 0),
-            (_("Innacuracy"), QUESTIONABLE_MOVE),
+            (_("Inaccuracy"), QUESTIONABLE_MOVE),
             (_("Error"), BAD_MOVE),
             (_("Blunder"), VERY_BAD_MOVE),
         ]
