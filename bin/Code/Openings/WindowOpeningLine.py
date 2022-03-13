@@ -642,7 +642,7 @@ class WLines(LCDialog.LCDialog):
         if w.exec_():
             ap = w.resultado()
             game = Game.Game()
-            game.read_pv(ap.uci)
+            game.read_pv(ap.a1h8)
             self.addPartida(game)
 
     def import_param_books(self, titulo, with_excltrans):

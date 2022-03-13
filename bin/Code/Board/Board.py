@@ -12,6 +12,8 @@ import Code
 import Code.Board.WindowColors as WindowColores
 from Code import Util
 from Code.Base.Constantes import (
+    WHITE,
+    BLACK,
     TB_TAKEBACK,
     BLINDFOLD_CONFIG,
     ZVALUE_PIECE,
@@ -126,7 +128,7 @@ class Board(QtWidgets.QGraphicsView):
                 return
 
         if key in (Qt.Key_Backspace, Qt.Key_Delete):
-            if hasattr(self.main_window, "manager") and hasattr(self.main_window.manager, "run_action"):
+            if self.allow_takeback():
                 self.main_window.manager.run_action(TB_TAKEBACK)
                 return
 
@@ -433,8 +435,6 @@ class Board(QtWidgets.QGraphicsView):
         self.siInicializado = True
         self.init_kb_buffer()
 
-        # self.setMinimumSize(QtCore.QSize(self.ancho+6, self.ancho+6))
-
     def rehaz(self):
         self.escena.clear()
         self.liPiezas = []
@@ -498,7 +498,7 @@ class Board(QtWidgets.QGraphicsView):
         base_casillas_f.grosor = self.tamFrontera
         base_casillas_f.physical_pos.x = base_casillas_f.physical_pos.y = self.margenCentro
         base_casillas_f.physical_pos.alto = base_casillas_f.physical_pos.ancho = (
-            self.width_square * 8  + self.tamFrontera
+            self.width_square * 8 + self.tamFrontera
         )
         base_casillas_f.physical_pos.orden = 3
         base_casillas_f.colorRelleno = -1
@@ -642,7 +642,7 @@ class Board(QtWidgets.QGraphicsView):
         self.side_indicator_sc = BoardElements.CirculoSC(self.escena, indicador, rutina=self.intentaRotarBoard)
 
         if self.transSideIndicator != 100.0:
-            self.side_indicator_sc.setOpacity((100.0 - self.transSideIndicator * 1.0)/100.0)
+            self.side_indicator_sc.setOpacity((100.0 - self.transSideIndicator * 1.0) / 100.0)
 
         # Lanzador de menu visual
         self.indicadorSC_menu = None
@@ -1320,11 +1320,11 @@ class Board(QtWidgets.QGraphicsView):
         self.dbVisual.show_allways(alm.dbVisual_show_allways)
 
     def set_last_position(self, position):
-        if Code.eboard:
-            Code.eboard.set_position(position)
         self.init_kb_buffer()
         self.close_visual_script()
         self.last_position = position
+        if Code.eboard:
+            Code.eboard.set_position(position)
         if self.siDirectorIcon or self.dbVisual.show_allways():
             fenm2 = position.fenm2()
             if self.lastFenM2 != fenm2:
@@ -1791,8 +1791,8 @@ class Board(QtWidgets.QGraphicsView):
         bf = copy.deepcopy(self.config_board.fTransicion())
         bf.a1h8 = desdeA1h8 + hastaA1h8
         bf.opacity = max(factor, 0.20)
-        bf.ancho = max(bf.ancho * 2 * (factor ** 2.2), bf.ancho / 3)
-        bf.altocabeza = max(bf.altocabeza * (factor ** 2.2), bf.altocabeza / 3)
+        bf.ancho = max(bf.ancho * 2 * (factor**2.2), bf.ancho / 3)
+        bf.altocabeza = max(bf.altocabeza * (factor**2.2), bf.altocabeza / 3)
         bf.vuelo = bf.altocabeza / 3
         bf.grosor = 1
         bf.redondeos = True
@@ -1901,6 +1901,13 @@ class Board(QtWidgets.QGraphicsView):
             bf = self.config_board.fTransicion().copia()
             bf.opacity = float(resto) / 100.0
             bf.width_square = self.width_square
+
+        elif modo.startswith("tb"): #takeback eboard
+            bf = self.config_board.fTransicion().copia()
+            bf.opacity = 0.5
+            bf.width_square = self.width_square
+            bf.destino = "m"
+            bf.physical_pos.orden = ZVALUE_PIECE + 1
 
         if self.anchoPieza > 24:
             bf.grosor = bf.grosor * 15 / 10
@@ -2282,8 +2289,80 @@ class Board(QtWidgets.QGraphicsView):
         if self.dirvisual:
             self.dirvisual.terminar()
 
+    def allow_takeback(self):
+        return (
+            hasattr(self.main_window, "manager")
+            and hasattr(self.main_window.manager, "run_action")
+            and hasattr(self.main_window.manager, "takeback")
+        )
+
+    def set_tmp_position(self, position):
+        self.pieces_are_active = False
+        self.removePieces()
+
+        squares = position.squares
+        for k in squares.keys():
+            if squares[k]:
+                self.ponPieza(squares[k], k)
+
+        self.escena.update()
+        if self.hard_focus:
+            self.setFocus()
+        self.set_side_indicator(position.is_white)
+        if self.flechaSC:
+            self.xremoveItem(self.flechaSC)
+            del self.flechaSC
+            self.flechaSC = None
+            self.remove_arrows()
+        self.init_kb_buffer()
+        self.pieces_are_active = True
+        QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.ExcludeUserInputEvents)
+
+    def try_eboard_takeback(self, side):
+        if self.allow_takeback():
+            game = self.main_window.manager.game
+
+            against_engine = self.main_window.manager.xrival is not None
+            if against_engine and hasattr(self.main_window.manager, "play_against_engine"):
+                against_engine = self.main_window.manager.play_against_engine
+
+            if against_engine:
+                allow_human_takeback = Code.eboard.allowHumanTB and self.last_position.is_white == side
+                two_moves = len(game) >= 2
+            else:
+                allow_human_takeback = True
+                two_moves = False
+
+            if allow_human_takeback:
+                Code.eboard.allowHumanTB = False
+                self.exec_kb_buffer(Qt.Key_Backspace, 0)
+                return 1
+
+            # if len(game) > 0:
+            #     m_1 = game.move(-1)
+            #     if two_moves:
+            #         self.set_tmp_position(m_1.position_before)
+            #     m_2 = game.move(-2) if two_moves else None
+            #     if self.flechaSC:
+            #         self.flechaSC.hide()
+            #     self.creaFlechaMov(m_1.to_sq, m_1.from_sq, "tb")
+            #     if two_moves:
+            #         self.creaFlechaMov(m_2.to_sq, m_2.from_sq, "tb")
+            
+            if two_moves:
+                m_1 = game.move(-1)
+                self.set_tmp_position(m_1.position_before)
+                m_2 = game.move(-2)
+                if self.flechaSC:
+                    self.flechaSC.hide()
+                self.creaFlechaMov(m_2.to_sq, m_2.from_sq, "tb")
+
+            Code.eboard.allowHumanTB = True
+        return 0
+
     def dispatch_eboard(self, quien, a1h8):
         if self.mensajero and self.pieces_are_active:
+
             if quien == "whiteMove":
                 Code.eboard.allowHumanTB = False
                 if not self.side_pieces_active:
@@ -2295,20 +2374,13 @@ class Board(QtWidgets.QGraphicsView):
             elif quien == "scan":
                 QTUtil.ponPortapapeles(a1h8)
                 return 1
+
             elif quien == "whiteTakeBack":
-                if self.last_position.is_white and Code.eboard.allowHumanTB:
-                    Code.eboard.allowHumanTB = False
-                    self.exec_kb_buffer(Qt.Key_Backspace, 0)
-                    return 1
-                Code.eboard.allowHumanTB = True
-                return 0
+                return self.try_eboard_takeback(WHITE)
+
             elif quien == "blackTakeBack":
-                if not self.last_position.is_white and Code.eboard.allowHumanTB:
-                    Code.eboard.allowHumanTB = False
-                    self.exec_kb_buffer(Qt.Key_Backspace, 0)
-                    return 1
-                Code.eboard.allowHumanTB = True
-                return 0
+                return self.try_eboard_takeback(BLACK)
+
             else:
                 return 1
 

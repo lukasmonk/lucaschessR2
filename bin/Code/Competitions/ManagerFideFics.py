@@ -176,7 +176,7 @@ class ManagerFideFics(Manager.Manager):
             self.configurar(siSonidos=True)
 
         elif key == TB_TAKEBACK:
-            self.takeback()
+            return #disable
 
         elif key == TB_UTILITIES:
             self.utilidadesElo()
@@ -479,14 +479,3 @@ class ManagerFideFics(Manager.Manager):
         previo = dd.get(key, random.randint(0, 1) == 0)
         dd.close()
         return not previo
-
-    def takeback(self):
-        if len(self.game) > 2:
-            self.analyze_end()
-            ndel = self.game.anulaUltimoMovimiento(self.human_side)
-            self.game.assign_opening()
-            self.posJugadaObj -= ndel
-            self.analysis = None
-            self.goto_end()
-            self.refresh()
-            self.play_next_move()

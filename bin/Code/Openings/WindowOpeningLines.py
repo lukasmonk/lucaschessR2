@@ -220,7 +220,7 @@ class WOpeningLines(LCDialog.LCDialog):
         w = WindowOpenings.WOpenings(self, self.configuration, None)
         if w.exec_():
             ap = w.resultado()
-            pv = ap.uci if ap else ""
+            pv = ap.a1h8 if ap else ""
             name = ap.name if ap else ""
         else:
             return

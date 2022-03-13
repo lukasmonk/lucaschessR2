@@ -524,7 +524,7 @@ class WPlayer(QtWidgets.QWidget):
                     "pdrawwinc": color2(draw + win, draw + lost),
                 }
                 p = Game.Game()
-                p.read_pv(ap.uci)
+                p.read_pv(ap.a1h8)
                 dic["game"] = p
                 dtemp.append(dic)
 

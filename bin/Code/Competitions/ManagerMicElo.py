@@ -259,9 +259,6 @@ class ManagerMicElo(Manager.Manager):
         elif key == TB_CONFIG:
             self.configurar(siSonidos=True)
 
-        elif key == TB_TAKEBACK:
-            self.takeback()
-
         elif key == TB_UTILITIES:
             self.utilidadesElo()
 
@@ -593,11 +590,3 @@ class ManagerMicElo(Manager.Manager):
                     self.main_window.set_clock_white(eti, eti2)
                 else:
                     self.main_window.set_clock_black(eti, eti2)
-
-    def takeback(self):
-        if len(self.game) > 2:
-            self.game.anulaUltimoMovimiento(self.human_side)
-            self.game.assign_opening()
-            self.goto_end()
-            self.refresh()
-            self.play_next_move()

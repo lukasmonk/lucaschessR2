@@ -125,7 +125,7 @@ class ManagerOpeningEngines(Manager.Manager):
 
         self.game = Game.Game()
 
-        self.main_window.pon_toolbar((TB_CLOSE, TB_RESIGN, TB_REINIT))
+        self.set_toolbar((TB_CLOSE, TB_RESIGN, TB_REINIT))
         self.main_window.activaJuego(True, False, siAyudas=False)
         self.set_dispatcher(self.player_has_moved)
         self.set_position(self.game.last_position)

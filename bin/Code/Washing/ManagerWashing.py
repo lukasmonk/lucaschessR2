@@ -491,7 +491,7 @@ class ManagerWashingCreate(Manager.Manager):
         self.set_label1(
             "%s: %s\n%s: %s\n %s: %s" % (_("Opponent"), self.engine.name, _("Task"), self.engine.lbState(), _("Tutor"), self.xtutor.name)
         )
-        self.ponRotuloDatos()
+        self.put_data_label()
 
         self.ponCapInfoPorDefecto()
 
@@ -516,7 +516,7 @@ class ManagerWashingCreate(Manager.Manager):
 
         self.play_next_move()
 
-    def ponRotuloDatos(self):
+    def put_data_label(self):
         datos = "%s: %d | %s: %d/%d | %s: %s" % (
             _("Games"),
             self.engine.games,
@@ -736,17 +736,17 @@ class ManagerWashingCreate(Manager.Manager):
 
     def add_hint(self):
         self.dbwashing.add_hint()
-        self.ponRotuloDatos()
+        self.put_data_label()
 
     def add_time(self):
         secs = self.timekeeper.stop()
         if secs:
             self.dbwashing.add_time(secs)
-            self.ponRotuloDatos()
+            self.put_data_label()
 
     def add_game(self):
         self.dbwashing.add_game()
-        self.ponRotuloDatos()
+        self.put_data_label()
 
     def saveGame(self, siFinal):
         self.dbwashing.saveGame(self.game, siFinal)

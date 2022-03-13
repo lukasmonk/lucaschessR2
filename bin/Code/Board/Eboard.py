@@ -86,12 +86,11 @@ class Eboard:
         return self.envia("blackMove", self.dgt2pv(dato))
 
     def registerWhiteTakeBackFunc(self):
-        # assert Code.prln("registerWhiteTakeBackFunc trying")
         # assert Code.prln("registerWhiteTakeBackFunc")
         return self.envia("whiteTakeBack", True)
 
     def registerBlackTakeBackFunc(self):
-        # assert Code.prln("registerBlackTakeBackFunc trying")
+        # assert Code.prln("registerBlackTakeBackFunc")
         return self.envia("blackTakeBack", True)
 
     def activate(self, dispatch):
