@@ -1,0 +1,6 @@
+RECEIVE: uci
+SEND: id name FracTal
+SEND: id author Visan Alexandru
+SEND: uciok
+RECEIVE: ucinewgame
+RECEIVE: quit

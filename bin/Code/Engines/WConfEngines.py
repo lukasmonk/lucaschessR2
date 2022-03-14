@@ -551,12 +551,12 @@ class WConfTutor(QtWidgets.QWidget):
         ]
         self.cb_board_position = Controles.CB(self, li_pos_tutor, self.configuration.x_tutor_view)
 
-        lb_sensitivity = Controles.LB2P(self, _("Launch the tutor when"))
+        lb_sensitivity = Controles.LB2P(self, _("Tutor appearance condition"))
         li_types = [
             (_("Always"), 0),
-            (_("Inaccuracy"), QUESTIONABLE_MOVE),
-            (_("Error"), BAD_MOVE),
-            (_("Blunder"), VERY_BAD_MOVE),
+            (_("Inaccuracy") + " (?!)", QUESTIONABLE_MOVE),
+            (_("Mistake") + " (?)", BAD_MOVE),
+            (_("Blunder") + " (??)", VERY_BAD_MOVE),
         ]
         self.cb_type = Controles.CB(self, li_types, self.configuration.x_tutor_diftype)
 

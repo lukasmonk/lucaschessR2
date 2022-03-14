@@ -1,0 +1,8 @@
+id name Octochess
+id author Tim Kosse
+option name Hash type spin default 957 min 4 max 1048576
+option name Threads type spin default 1 min 1 max 1
+option name OwnBook type check default false
+option name Ponder type check default true
+option name MultiPV type spin default 1 min 1 max 99
+option name UCI_Chess960 type check default false

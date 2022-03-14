@@ -1,0 +1,4 @@
+id author Eric Silverman
+option name Hash type spin default 64 min 4 max 1024
+option name Book type check default true
+option name SyzygyPath type string default syzygy

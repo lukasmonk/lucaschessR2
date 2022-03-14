@@ -1,0 +1,83 @@
+Mid_Pawn 110 -39 7 87 60 -5
+Mid_PawnPassedBlocked 15 32 -4 0 0 0
+Mid_PawnPassedFree 1 37 -1 46 14 -4
+Mid_PawnPassedKingDistance 3 -52
+Mid_PawnPassedSquare -75 38 -13 66 15 23
+Mid_PawnDoubled -15 13 3 19 5 -6
+Mid_PawnIsolated -8 -11 -3 -21 24 -4
+Mid_PawnBackwards -1 -5 0 -1 43 0
+Mid_PawnPhalangue 12 5 1 -44 24 0
+Mid_PawnRam 0 5 3 2 -20 9
+Mid_PawnLast -99
+Mid_Knight 361 -34 5 -17 -9 3
+Mid_KnightMobility 75 -45
+Mid_KnightKingDistance -33 -39
+Mid_KnightStrong 36 6 12 -107 24 2
+Mid_KnightAttack 0 25 75 38
+Mid_Bishop 269 -9 6 -14 -11 14
+Mid_BishopMobility 245 -162
+Mid_BishopKingDistance -19 -2
+Mid_BishopStrong 36 -20 -9 32 17 25
+Mid_BishopAttack 15 0 58 62
+Mid_Rook 271 -15 6 68 24 4
+Mid_RookMobility 50 10
+Mid_RookKingDistance -147 49
+Mid_RookOpen 51
+Mid_RookSemiOpen 19
+Mid_Rook7th 1
+Mid_RookAttack 8 16 -56 71
+Mid_Queen 1102 3 -2 31 -42 10
+Mid_QueenMobility 197 -139
+Mid_QueenKingDistance -79 -52
+Mid_Queen7th -4
+Mid_QueenAttack -1 3 0 0
+Mid_King 0 3 -2 -50 -26 0
+Mid_KingPawnShield -21 -39
+Mid_KingPawnStorm -63 4
+Mid_KingExposed -24 -24
+Mid_PiecePairs -16 0 11 -8 2 37 -3 0 4 -5 174 -13 -6 0 -14 -355
+Mid_AttackKing 63 255
+Mid_BoardControl -17 41
+Mid_Tempo 20
+
+End_Pawn 112 1 -1 94 43 -1
+End_PawnPassedBlocked 3 -8 0 -167 -34 14
+End_PawnPassedFree 19 2 7 -25 67 11
+End_PawnPassedKingDistance 142 -96
+End_PawnPassedSquare 55 1 4 52 111 -21
+End_PawnDoubled -3 -26 4 -12 17 0
+End_PawnIsolated -14 0 0 -22 0 3
+End_PawnBackwards 6 5 7 -14 35 18
+End_PawnPhalangue 15 -13 0 17 56 5
+End_PawnRam 0 10 1 4 -11 -4
+End_PawnLast 37
+End_Knight 298 -26 2 -54 21 -9
+End_KnightMobility 96 -27
+End_KnightKingDistance 52 -56
+End_KnightStrong 24 -10 -5 -13 22 4
+End_KnightAttack 0 62 36 63
+End_Bishop 286 2 -4 0 20 -3
+End_BishopMobility 193 -61
+End_BishopKingDistance 44 -33
+End_BishopStrong 23 -1 5 18 -50 11
+End_BishopAttack 49 0 59 122
+End_Rook 603 5 -3 -31 26 -1
+End_RookMobility 224 -131
+End_RookKingDistance 34 16
+End_RookOpen -12
+End_RookSemiOpen 12
+End_Rook7th 19
+End_RookAttack 25 27 -39 79
+End_Queen 954 14 7 9 74 0
+End_QueenMobility 317 -3
+End_QueenKingDistance -75 -170
+End_Queen7th 3
+End_QueenAttack 7 47 15 0
+End_King 0 -58 0 -56 50 0
+End_KingPawnShield -5 -15
+End_KingPawnStorm 40 -19
+End_KingExposed -14 -94
+End_PiecePairs 19 -5 2 2 0 37 6 9 0 0 -37 49 2 13 54 -130
+End_AttackKing 3 77
+End_BoardControl -17 121
+End_Tempo 17

@@ -8,21 +8,25 @@ from Code.Engines import Engines
 def read_engines(folder_engines):
     dic_engines = {}
 
-    def mas(clave, autor, version, url, exe, elo):
-        path_exe = os.path.join(folder_engines, clave, exe)
-        engine = Engines.Engine(clave, autor, version, url, path_exe)
+    def mas(clave, autor, version, url, exe, elo, folder=None):
+        if folder is None:
+            folder = clave
+        path_exe = os.path.join(folder_engines, folder, exe)
+        engine = Engines.Engine(clave, autor, version, url, path_exe, )
         engine.elo = elo
         engine.ordenUCI("Log", "false")
         engine.ordenUCI("Ponder", "false")
         engine.ordenUCI("Hash", "16")
         engine.ordenUCI("Threads", "1")
         dic_engines[clave] = engine
+        # engine.read_uci_options()
         return engine
 
     bmi2 = "-bmi2" if FasterCode.bmi2() else ""
 
     for level in range(1100, 2000, 100):
-        cm = mas("maia-%d" % level, "Reid McIlroy-Young,Ashton Anderson,Siddhartha Sen,Jon Kleinberg,Russell Wang + LcZero team", "%d" % level, "https://maiachess.com/", "Lc0-0.27.0", level)
+        cm = mas("maia-%d" % level, "Reid McIlroy-Young,Ashton Anderson,Siddhartha Sen,Jon Kleinberg,Russell Wang + LcZero team",
+                 "%d" % level, "https://maiachess.com/", "Lc0-0.27.0", level, folder="maia")
         cm.ordenUCI("WeightsFile", "maia-%d.pb.gz" % level)
         cm.path_exe = os.path.join(folder_engines, "maia", "Lc0-0.27.0")
         cm.name = "maia-%d" % level
@@ -84,9 +88,9 @@ def read_engines(folder_engines):
 
     mas("dragontooth", "Dylan Hunn", "0.2", "https://github.com/dylhunn/dragontooth", "Dragontooth-0.2", 1225)
 
-    mas("drofa", "Alexander Litov", "2.2.0", "https://github.com/justNo4b/Drofa", "Drofa-2.2.0", 2642)
+    mas("drofa", "Rhys Rustad-Elliott and Alexander Litov", "3.3.0", "https://github.com/justNo4b/Drofa", "Drofa-3.3.0", 2642)
 
-    mas("ethereal", "Andrew Grant", "12.75", "https://github.com/AndyGrant/Ethereal", "Ethereal-12.75", 3392)
+    mas("ethereal", "Andrew Grant, Alayan & Laldon", "12.75", "https://github.com/AndyGrant/Ethereal", "Ethereal-12.75", 3392)
 
     mas("fractal", "Visan Alexandru", "1.0", "https://github.com/visanalexandru/FracTal-ChessEngine", "FracTal-1.0", 2010)
 

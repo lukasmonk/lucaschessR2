@@ -1,0 +1,7 @@
+id name Supernova 2.3
+id author Minkai Yang
+option name Hash type spin default 32 min 1 max 4096
+option name Clear Hash type button
+option name Ponder type check default false
+option name SyzygyPath type string default <empty>
+option name SyzygyProbeDepth type spin default 1 min 1 max 100

@@ -1,0 +1,22 @@
+id name Daydreamer 1.75 JA
+id author Aaron Becker
+option name Hash type spin default 64 min 1 max 4096
+option name Clear Hash type button
+option name Ponder type check default false
+option name MultiPV type spin default 1 min 1 max 256
+option name OwnBook type check default false
+option name Book file type string default book.bin
+option name UCI_Chess960 type check default false
+option name Arena-style 960 castling type check default false
+option name Use Gaviota tablebases type check default false
+option name Gaviota tablebase path type string default .
+option name Gaviota compression scheme type combo default cp4 var uncompressed var cp1 var cp2 var cp3 var cp4
+option name Gaviota tablebase cache size type spin default 32 min 0 max 4096
+option name Load tablebases in a separate thread type check default true
+option name Tablebase pieces type spin default 5 min 3 max 6
+option name Use Scorpio bitbases type check default false
+option name Scorpio bitbase path type string default .
+option name Pawn cache size type spin default 1 min 1 max 128
+option name PV cache size type spin default 32 min 1 max 1024
+option name Output Delay type spin default 2000 min 0 max 1000000
+option name Verbosity type combo default low var low var medium var high

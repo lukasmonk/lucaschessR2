@@ -1,0 +1,7 @@
+id name zurichess neuchatel
+id author Alexandru Moșoi
+option name Hash type spin default 64 min 1 max 65536
+option name MultiPV type spin default 1 min 1 max 16
+option name Ponder type check default true
+option name Handicap Level type spin default 0 min 0 max 20
+option name UCI_AnalyseMode type check default false

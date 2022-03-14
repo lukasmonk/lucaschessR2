@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-03-13 13:16+0100\n"
+"POT-Creation-Date: 2022-03-14 19:28+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,8 +23,8 @@ msgstr ""
 msgid "version %1"
 msgstr ""
 
-#: .\About\About.py:27 .\About\AboutBase.py:284 .\About\AboutBase.py:310
-#: .\About\AboutBase.py:452
+#: .\About\About.py:27 .\About\AboutBase.py:300 .\About\AboutBase.py:326
+#: .\About\AboutBase.py:468
 #: .\CompetitionWithTutor\WCompetitionWithTutor.py:169
 #: .\CompetitionWithTutor\WCompetitionWithTutor.py:183
 #: .\Engines\WConfEngines.py:229 .\Kibitzers\WindowKibitzers.py:388
@@ -32,13 +32,13 @@ msgstr ""
 msgid "Author"
 msgstr ""
 
-#: .\About\About.py:34 .\About\AboutBase.py:285 .\About\AboutBase.py:312
-#: .\About\AboutBase.py:418 .\Procesador.py:1148
+#: .\About\About.py:34 .\About\AboutBase.py:301 .\About\AboutBase.py:328
+#: .\About\AboutBase.py:434 .\Procesador.py:1148
 msgid "License"
 msgstr ""
 
-#: .\About\About.py:57 .\About\AboutBase.py:17 .\About\AboutBase.py:18
-#: .\About\AboutBase.py:19 .\About\AboutBase.py:20 .\About\AboutBase.py:21
+#: .\About\About.py:57 .\About\AboutBase.py:18 .\About\AboutBase.py:19
+#: .\About\AboutBase.py:20 .\About\AboutBase.py:21 .\About\AboutBase.py:22
 #: .\Menus\BasicMenus.py:92 .\Tournaments\WTournament.py:186
 #: .\Tournaments\WTournament.py:312 .\Tournaments\WTournament.py:747
 #: .\Washing\WindowWashing.py:94
@@ -64,33 +64,37 @@ msgid "Continue"
 msgstr ""
 
 #: .\About\AboutBase.py:11
-msgid "Contributors"
+msgid "Main contributors"
 msgstr ""
 
 #: .\About\AboutBase.py:12
+msgid "Contributors"
+msgstr ""
+
+#: .\About\AboutBase.py:13
 msgid "Translators"
 msgstr ""
 
-#: .\About\AboutBase.py:13 .\Director\WindowDirector.py:815
+#: .\About\AboutBase.py:14 .\Director\WindowDirector.py:815
 #: .\Director\WindowTab.py:128 .\Director\WindowTab.py:345
 #: .\Director\WindowTabVSVGs.py:159
 msgid "Images"
 msgstr ""
 
-#: .\About\AboutBase.py:14 .\Board\WindowColors.py:468
+#: .\About\AboutBase.py:15 .\Board\WindowColors.py:468
 msgid "Themes"
 msgstr ""
 
-#: .\About\AboutBase.py:15 .\Board\Board.py:769 .\Board\WindowColors.py:404
+#: .\About\AboutBase.py:16 .\Board\Board.py:769 .\Board\WindowColors.py:404
 #: .\Sound\WindowSonido.py:515
 msgid "Pieces"
 msgstr ""
 
-#: .\About\AboutBase.py:16 .\About\AboutBase.py:416
+#: .\About\AboutBase.py:17 .\About\AboutBase.py:432
 msgid "Training"
 msgstr ""
 
-#: .\About\AboutBase.py:22 .\Databases\WDB_Games.py:249
+#: .\About\AboutBase.py:23 .\Databases\WDB_Games.py:249
 #: .\Databases\WDB_Players.py:122 .\Databases\WDB_Players.py:123
 #: .\Databases\WDB_Players.py:138 .\Databases\WDB_Summary.py:60
 #: .\Databases\WDB_Summary.py:61 .\Databases\WDB_Summary.py:429
@@ -105,79 +109,79 @@ msgstr ""
 msgid "Games"
 msgstr ""
 
-#: .\About\AboutBase.py:23
+#: .\About\AboutBase.py:24
 msgid "Programming"
 msgstr ""
 
-#: .\About\AboutBase.py:24
+#: .\About\AboutBase.py:25
 msgid "Dedicated to"
 msgstr ""
 
-#: .\About\AboutBase.py:87
+#: .\About\AboutBase.py:107
 msgid "Version %s"
 msgstr ""
 
-#: .\About\AboutBase.py:235 .\Databases\WDB_Summary.py:79
+#: .\About\AboutBase.py:251 .\Databases\WDB_Summary.py:79
 #: .\MainWindow\WBase.py:169 .\QT\WindowSavePGN.py:33
 #: .\QT\WindowSavePGN.py:206 .\Tactics\WindowTactics.py:267
 #: .\TurnOnLights\WindowTurnOnLights.py:51
 msgid "Previous"
 msgstr ""
 
-#: .\About\AboutBase.py:240 .\About\AboutBase.py:417 .\About\AboutBase.py:453
+#: .\About\AboutBase.py:256 .\About\AboutBase.py:433 .\About\AboutBase.py:469
 #: .\CompetitionWithTutor\WCompetitionWithTutor.py:171
 msgid "Web"
 msgstr ""
 
-#: .\About\AboutBase.py:261 .\About\AboutBase.py:357 .\About\AboutBase.py:359
-#: .\About\AboutBase.py:360 .\About\AboutBase.py:361 .\About\AboutBase.py:429
+#: .\About\AboutBase.py:277 .\About\AboutBase.py:373 .\About\AboutBase.py:375
+#: .\About\AboutBase.py:376 .\About\AboutBase.py:377 .\About\AboutBase.py:445
 msgid "Freeware"
 msgstr ""
 
-#: .\About\AboutBase.py:289 .\About\AboutBase.py:290 .\About\AboutBase.py:291
-#: .\About\AboutBase.py:292 .\About\AboutBase.py:293 .\About\AboutBase.py:294
-#: .\About\AboutBase.py:295 .\About\AboutBase.py:296 .\About\AboutBase.py:297
-#: .\About\AboutBase.py:298 .\About\AboutBase.py:340 .\About\AboutBase.py:341
-#: .\About\AboutBase.py:352 .\About\AboutBase.py:353 .\About\AboutBase.py:382
-#: .\About\AboutBase.py:387 .\About\AboutBase.py:425 .\About\AboutBase.py:427
-#: .\About\AboutBase.py:428 .\About\AboutBase.py:430 .\About\AboutBase.py:435
+#: .\About\AboutBase.py:305 .\About\AboutBase.py:306 .\About\AboutBase.py:307
+#: .\About\AboutBase.py:308 .\About\AboutBase.py:309 .\About\AboutBase.py:310
+#: .\About\AboutBase.py:311 .\About\AboutBase.py:312 .\About\AboutBase.py:313
+#: .\About\AboutBase.py:314 .\About\AboutBase.py:356 .\About\AboutBase.py:357
+#: .\About\AboutBase.py:368 .\About\AboutBase.py:369 .\About\AboutBase.py:398
+#: .\About\AboutBase.py:403 .\About\AboutBase.py:441 .\About\AboutBase.py:443
+#: .\About\AboutBase.py:444 .\About\AboutBase.py:446 .\About\AboutBase.py:451
 msgid "Permission of author"
 msgstr ""
 
-#: .\About\AboutBase.py:309 .\Board\Board.py:767 .\Board\WindowColors.py:232
+#: .\About\AboutBase.py:325 .\Board\Board.py:767 .\Board\WindowColors.py:232
 #: .\Board\WindowColors.py:620 .\Board\WindowColors.py:975 .\Procesador.py:630
 msgid "Colors"
 msgstr ""
 
-#: .\About\AboutBase.py:366
+#: .\About\AboutBase.py:382
 msgid "Free for personal non-commercial use"
 msgstr ""
 
-#: .\About\AboutBase.py:423 .\Translations\TrListas.py:62
+#: .\About\AboutBase.py:439 .\Translations\TrListas.py:62
 msgid "Checkmates by Eduardo Sadier"
 msgstr ""
 
-#: .\About\AboutBase.py:427 .\Translations\TrListas.py:72
+#: .\About\AboutBase.py:443 .\Translations\TrListas.py:72
 msgid "Endgames by Rui Grafino"
 msgstr ""
 
-#: .\About\AboutBase.py:428 .\Translations\TrListas.py:123
+#: .\About\AboutBase.py:444 .\Translations\TrListas.py:123
 msgid "Varied positions by Joaquin Alvarez"
 msgstr ""
 
-#: .\About\AboutBase.py:429 .\Translations\TrListas.py:100
+#: .\About\AboutBase.py:445 .\Translations\TrListas.py:100
 msgid "Tactics by Uwe Auerswald"
 msgstr ""
 
-#: .\About\AboutBase.py:430 .\Translations\TrListas.py:130
+#: .\About\AboutBase.py:446 .\Translations\TrListas.py:130
 msgid "Endgames by Victor Perez"
 msgstr ""
 
-#: .\About\AboutBase.py:432 .\Translations\TrListas.py:134
+#: .\About\AboutBase.py:448 .\Translations\TrListas.py:134
 msgid "Tactics by UNED chess school"
 msgstr ""
 
-#: .\About\AboutBase.py:451 .\Analysis\WindowAnalysisParam.py:166
+#: .\About\AboutBase.py:467 .\Analysis\WindowAnalysisParam.py:166
 #: .\Analysis\WindowAnalysisParam.py:385
 #: .\CompetitionWithTutor\WCompetitionWithTutor.py:168
 #: .\CompetitionWithTutor\WCompetitionWithTutor.py:182
@@ -199,25 +203,25 @@ msgstr ""
 msgid "Engine"
 msgstr ""
 
-#: .\About\AboutBase.py:474 .\About\AboutBase.py:490 .\About\AboutBase.py:491
-#: .\About\AboutBase.py:497 .\About\AboutBase.py:505 .\About\AboutBase.py:506
-#: .\About\AboutBase.py:507
+#: .\About\AboutBase.py:490 .\About\AboutBase.py:506 .\About\AboutBase.py:507
+#: .\About\AboutBase.py:513 .\About\AboutBase.py:521 .\About\AboutBase.py:522
+#: .\About\AboutBase.py:523
 msgid "Created by %1"
 msgstr ""
 
-#: .\About\AboutBase.py:488
+#: .\About\AboutBase.py:504
 msgid "Programming language"
 msgstr ""
 
-#: .\About\AboutBase.py:489
+#: .\About\AboutBase.py:505
 msgid "GUI"
 msgstr ""
 
-#: .\About\AboutBase.py:493
+#: .\About\AboutBase.py:509
 msgid "Polyglot books"
 msgstr ""
 
-#: .\About\AboutBase.py:494
+#: .\About\AboutBase.py:510
 msgid "Based on work by %1"
 msgstr ""
 
@@ -2109,7 +2113,7 @@ msgid "Gaviota Tablebases"
 msgstr ""
 
 #: .\Config\WindowConfig.py:196
-msgid "Tablebases"
+msgid "Endgame tablebases"
 msgstr ""
 
 #: .\Config\WindowConfig.py:297
@@ -2254,7 +2258,7 @@ msgid "Ended"
 msgstr ""
 
 #: .\Coordinates\WRunCoordinatesBasic.py:113
-#: .\Coordinates\WRunCoordinatesBlocks.py:153 .\Engines\WConfEngines.py:558
+#: .\Coordinates\WRunCoordinatesBlocks.py:153
 #: .\Openings\ManagerOPLPositions.py:230
 #: .\Openings\ManagerOPLSequential.py:288 .\Openings\ManagerOPLStatic.py:288
 #: .\QT\QTUtil2.py:545 .\QT\QTUtil2.py:551 .\Sound\Sound.py:140
@@ -3706,7 +3710,7 @@ msgid "Vertical"
 msgstr ""
 
 #: .\Engines\WConfEngines.py:554
-msgid "Launch the tutor when"
+msgid "Tutor appearance condition"
 msgstr ""
 
 #: .\Engines\WConfEngines.py:556
@@ -3714,7 +3718,11 @@ msgid "Always"
 msgstr ""
 
 #: .\Engines\WConfEngines.py:557
-msgid "Innacuracy"
+msgid "Inaccuracy"
+msgstr ""
+
+#: .\Engines\WConfEngines.py:558
+msgid "Mistake"
 msgstr ""
 
 #: .\Engines\WConfEngines.py:559

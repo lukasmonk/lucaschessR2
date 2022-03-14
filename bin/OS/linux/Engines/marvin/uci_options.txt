@@ -1,0 +1,11 @@
+id name Marvin 5.0.0
+id author Martin Danielsson
+option name Hash type spin default 32 min 1 max 131072
+option name OwnBook type check default true
+option name Ponder type check default false
+option name SyzygyPath type string default <empty>
+option name Threads type spin default 1 min 1 max 512
+option name MultiPV type spin default 1 min 1 max 32
+option name LogLevel type spin default 0 min 0 max 2
+option name UseNNUE type check default false
+option name EvalFile type string default net-3f7389e.nnue

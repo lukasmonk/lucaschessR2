@@ -39,11 +39,11 @@ from PIL import Image
 import sortedcontainers
 import audioop
 import psutil
+import polib
 from PySide2 import QtCore, QtGui, QtWidgets, QtSvg, QtMultimedia
 import chardet.universaldetector
 import chess
 from chess import gaviota, engine, pgn, svg
-import polib
 
 import marshal
 

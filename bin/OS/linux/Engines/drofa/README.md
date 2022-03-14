@@ -12,22 +12,24 @@ During my Drofa experiments huge chunk of knowlenge were received from:
  - <a href="https://github.com/peterwankman/vice">VICE</a> chess engine and tutorials.
  - <a href="https://www.chessprogramming.org">Chessprogramming WIKI</a> great place for all chessprogramming-related knowledge.
  - <a href="https://github.com/TerjeKir/weiss">Weiss</a> chess engine, with clean and understandable implementations of complex features. Drofa use Weiss 1.0
-LMP and LMR base reduction formulas. Althouth Adagrad tuning implementation is not copy-pasted from Weiss, Drofa implementation closesy follows Weiss logic and can be considered a c++ rewrite of it.
+LMP base reduction formulas. Althouth Adagrad tuning implementation is not copy-pasted from Weiss, Drofa implementation closesy follows Weiss logic and can be considered a c++ rewrite of it.
  - Several open source engines, mostly <a href="https://github.com/AndyGrant/Ethereal">Ethereal</a> and <a href="https://github.com/official-stockfish/Stockfish">Stockfish</a>
 
 Special thanks to:
  - Terje Kirstihagen (Weiss author)
- - Andrew Grant (AdaGrad paper and Ethereal chess engine are great sources of knowledge; Ethereal tuning dataset was a great help in tuning)
+ - Andrew Grant. AdaGrad paper and Ethereal chess engine are great sources of knowledge; Ethereal tuning dataset was a great help in tuning. As well as allowing me on main OpenBench instance
  - Kim Kahre, Finn Eggers and Eugenio Bruno (Koivisto team) for allowing Drofa on Koi OpenBench instance and motivating me to work on the engine
  - OpenBench community for helping me in finding bugs, teaching me (even if unknowingly) good programming practices and interesting discussions
 
 ## Strength (ccrl blitz elo):
 ```
-Drofa 1.0.0 64-bit	2061	
-Drofa 2.0.0 64-bit	2458	
-Drofa 3.0.0 64-bit  ????
+Drofa 1.0.0 64-bit    2061
+Drofa 2.0.0 64-bit    2458
+Drofa 3.0.0 64-bit    2891
+Drofa 3.1.0 64-bit    2968
+Drofa 3.2.0 64-bit    ????
 ```
-Historycally Drofa scales a bit better in LTC.
+Historically Drofa scales a bit better in LTC.
 
 ## Changes from Shallow Blue
 With Drofa 3.0 many features was added on top of the Shallow Blue, adding up to ~1000 elo.
@@ -36,6 +38,8 @@ Almost-full changelog with elo-gains measured for some of the features can be fo
  - ShallowBlue -> Drofa 1.0.0 in the `Drofa_changelog` file.
  - Drofa 1.0.0 -> Drofa 2.0.0 in the `Drofa_changelog_2` file
  - Drofa 2.0.0 -> Drofa 3.0.0 in the `Drofa_changelog_3` file
+ - Drofa 3.0.0 -> Drofa 3.1.0 in the `Drofa_changelog_4` file
+ - Drofa 3.1.0 -> Drofa 3.2.0 in the `Drofa_changelog_5` file
 
 ## Building
 
@@ -69,8 +73,8 @@ Drofa 3.0.0 supports following UCI commands:
 
 - BookPath
 - OwnBook
-- Threads (1 to 172),   but tested only up to 10 threads
-- Hash    (16 to 65536) tested only up to 4098.
+- Threads (1 to 172),
+- Hash    (16 to 65536)
 
 These options can be set from your chess GUI or the UCI interface as follows:
 
@@ -97,5 +101,5 @@ So it is under the same MIT license as Shallow Blue.
 
 2017 - 2019 © Rhys Rustad-Elliott (original Shallow Blue creator)
 
-2020 - 2021 © Litov Alexander 
+2020 - 2021 © Litov Alexander
 

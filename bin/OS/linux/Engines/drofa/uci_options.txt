@@ -1,0 +1,6 @@
+id name Drofa 3.3.0
+id authors Rhys Rustad-Elliott and Alexander Litov
+option name BookPath type string default book.bin
+option name Hash type spin default 8 min 8 max 65536
+option name OwnBook type check default false
+option name Threads type spin default 1 min 1 max 172

@@ -1,0 +1,8 @@
+parse_options_file(): couldn't open zappa.ini, using defaults.
+game_start_thread(0): spawning worker thread!
+hash_reallocate(): Allocated pawn hash table: 1024K
+hash_reallocate(): Allocated king hash table: 8M
+worker_cpu(): CPU0 starting.
+hash_reallocate(): Allocated transposition table: 64M
+game_stop_thread(): stopping CPU0
+worker_cpu(): CPU0 exiting.

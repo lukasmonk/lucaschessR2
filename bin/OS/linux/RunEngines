@@ -57,7 +57,7 @@ echo ">> Simplex" && chmod 755 ./Engines/simplex/Simplex-0.9.8
 echo ">> Sissa" && chmod 755 ./Engines/sissa/Sissa-2.0
 echo ">> SpaceDog" && chmod 755 ./Engines/spacedog/SpaceDog-0.97.7
 echo ">> Stash" && chmod 755 ./Engines/stash/Stash-29.0
-echo ">> Stockfish" && chmod 755 ./Engines/stockfish/Stockfish_14_x64
+echo ">> Stockfish" && chmod 755 ./Engines/stockfish/Stockfish_14_1_x64
 echo ">> Stockfish" && chmod 755 ./Engines/stockfish/Stockfish_14_1_x64-bmi2
 echo ">> Supernova" && chmod 755 ./Engines/supernova/Supernova-2.3
 echo ">> Teki" && chmod 755 ./Engines/teki/Teki-2

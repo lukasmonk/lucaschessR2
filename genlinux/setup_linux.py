@@ -2,6 +2,7 @@ import os
 import shutil
 import subprocess
 import chardet
+import polib
 
 import psutil
 from PySide2 import QtCore, QtWidgets
@@ -9,7 +10,6 @@ from PySide2 import QtCore, QtWidgets
 import Code
 from Code.Translations import Translate
 from Code.QT import Iconos, Controles, Colocacion, QTUtil, QTUtil2
-import polib
 
 FONDO = "#5e6983"
 COLOR_TITULO = "black"
@@ -408,6 +408,6 @@ class Data:
 
 
 app = QtWidgets.QApplication([])
-Translate.install(None)
+Translate.install("en")
 wsetup = WSetup(app)
 wsetup.exec_()

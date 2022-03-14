@@ -21,7 +21,7 @@ def read_engines(folder_engines):
         engine.ordenUCI("Hash", "16")
         engine.ordenUCI("Threads", "1")
         dic_engines[alias] = engine
-        # engine.read_uci_options()
+        engine.read_uci_options()
         return engine
 
     mas("acqua", "Giovanni Di Maria", "2.0", "http://www.elektrosoft.it/scacchi/acqua/acqua.asp", "acqua.exe", 844)
@@ -228,6 +228,7 @@ def read_engines(folder_engines):
             "https://maiachess.com/",
             "lc0.exe",
             level,
+            folder="maia"
         )
         cm.ordenUCI("WeightsFile", "maia-%d.pb.gz" % level)
         cm.path_exe = os.path.join(folder_engines, "maia", "lc0.exe")

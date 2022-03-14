@@ -1,0 +1,18 @@
+id name Arasan v22.2.0
+id author Jon Dart
+option name Hash type spin default 32 min 4 max 64000
+option name Ponder type check default true
+option name Contempt type spin default 0 min -200 max 200
+option name Use tablebases type check default false
+option name SyzygyTbPath type string default syzygy
+option name SyzygyUse50MoveRule type check default true
+option name SyzygyProbeDepth type spin default 4 min 0 max 64
+option name MultiPV type spin default 1 min 1 max 10
+option name OwnBook type check default true
+option name Favor frequent book moves type spin default 50 min 0 max 100
+option name Favor best book moves type spin default 50 min 0 max 100
+option name Favor high-weighted book moves type spin default 50 min 0 max 100
+option name Threads type spin default 1 min 1 max 256
+option name UCI_LimitStrength type check default false
+option name UCI_Elo type spin default 2600 min 1000 max 2600
+option name Move overhead type spin default 30 min 0 max 1000

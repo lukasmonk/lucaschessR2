@@ -1,0 +1,7 @@
+id name Amoeba 2.6.l64p-g
+id author Richard Delorme
+option name Ponder type check default false
+option name Hash type spin default 64 min 1 max 65536
+option name Log type check default false
+option name MultiPV type spin default 1 min 1 max 256
+option name UCI_AnalyseMode type check default false

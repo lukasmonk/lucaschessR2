@@ -1,0 +1,43 @@
+id name Zappa 1.1
+id author Anthony Cozzie
+option name Threads type spin default 1 min 1 max 16
+option name NalimovPath type string default C:\
+option name NalimovCache type spin default 8 min 0 max 128
+option name TB Min Depth type spin default 6 min 1 max 128
+option name Hash type spin default 64 min 4 max 1024
+option name KHash type spin default 8 min 1 max 64
+option name PHash type spin default 1 min 1 max 8
+option name Resign Score type spin default -1000 min -10000 max 10000
+option name Force Qsearch Evasions type check default true
+option name Checks In Qsearch type check default true
+option name Probe In Qsearch type check default true
+option name Enable Null Move type check default true
+option name Null Move R3 Min Depth type spin default 0 min 0 max 100
+option name Null Move R4 Min Depth type spin default 13 min 0 max 100
+option name Enable Futility Pruning type check default false
+option name Futility Margin type spin default 350 min 50 max 1000
+option name Enable Singular Extensions type check default false
+option name Singular Extension Ply type spin default 4 min 1 max 4
+option name Singular Margin type spin default 75 min 5 max 200
+option name Singular Extension Max Depth type spin default 100 min 1 max 100
+option name Singular Extension Min Depth type spin default 4 min 1 max 100
+option name Singular Extension Ply type spin default 4 min 1 max 4
+option name Singular Extension in Check type check default true
+option name Enable Mate Extensions type check default false
+option name Mate Extension Ply type spin default 4 min 1 max 4
+option name Mate Extension Max Depth type spin default 100 min 1 max 100
+option name Enable Check Evasion Extension type check default true
+option name Check Evasion Extension Max Depth type spin default 100 min 1 max 100
+option name Check Evasion Extension Ply type spin default 4 min 1 max 4
+option name Enable Check Extension type check default false
+option name Check Extension Max Depth type spin default 100 min 1 max 100
+option name Check Extension Ply type spin default 4 min 1 max 4
+option name Enable One Rep Extension type check default false
+option name One Rep Extension Max Depth type spin default 100 min 1 max 100
+option name One Rep Extension Ply type spin default 4 min 1 max 4
+option name Eval Passed Pawn Scoring type spin default 100 min 0 max 500
+option name Eval Pawn Scoring type spin default 100 min 0 max 500
+option name Eval Minor Scoring type spin default 100 min 0 max 500
+option name Eval Major Scoring type spin default 100 min 0 max 500
+option name Eval Static Kingsafety Scoring type spin default 100 min 0 max 500
+option name Eval Dynamic Kingsafety Scoring type spin default 100 min 0 max 500

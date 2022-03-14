@@ -1,0 +1,7 @@
+id name Weiss 1.2
+id author Terje Kirstihagen
+option name Hash type spin default 32 min 2 max 65536
+option name Threads type spin default 1 min 1 max 2048
+option name SyzygyPath type string default <empty>
+option name NoobBook type check default false
+option name NoobBookLimit type spin default 0 min 0 max 1000
