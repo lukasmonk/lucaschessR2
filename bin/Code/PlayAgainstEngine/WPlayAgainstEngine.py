@@ -126,7 +126,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         bt_cancelar_depth = Controles.PB(self, "", rutina=self.cancelar_depth).ponIcono(Iconos.S_Cancelar())
         ly_depth = Colocacion.H().control(self.edRdepth).control(bt_cancelar_depth).relleno(1)
 
-        self.lb_unlimited = Controles.LB2P(self, "The engine's thinking has no limit, select its response").ponFuente(font)
+        self.lb_unlimited = Controles.LB2P(self, _("The engine's thinking has no limit, select its response")).ponFuente(font)
         li_unlimited = ((_("Very slow"), 12), (_("Slow"), 8), (_("Normal"), 3), (_("Fast"), 1), (_("Very fast"), 0.5))
         self.cb_unlimited = Controles.CB(self, li_unlimited, 3).ponFuente(font)
 

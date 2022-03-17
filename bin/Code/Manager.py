@@ -881,9 +881,12 @@ class Manager:
         w = WConfEngines.WConfEngines(self.main_window)
         w.exec_()
         self.procesador.cambiaXTutor()
-        self.xtutor = self.procesador.XTutor()
+        self.xtutor = self.procesador.xtutor
         self.set_label2(_("Tutor") + ": <b>" + self.xtutor.name)
         self.is_analyzed_by_tutor = False
+
+        self.procesador.cambiaXAnalyzer()
+        self.xanalyzer = self.procesador.xanalyzer
 
         if self.game_type == GT_AGAINST_ENGINE:
             self.analyze_begin()
@@ -952,16 +955,14 @@ class Manager:
             self.main_window.base.tb.setDisabled(True)
             if siCancelar:
                 ya_cancelado = [False]
-
+                tm_ini = time.time()
                 def test_me(rm):
                     if self.main_window.base.is_canceled():
                         if not ya_cancelado[0]:
                             self.xanalyzer.stop()
                             ya_cancelado[0] = True
                     else:
-                        tm = rm.time
-                        if tm:
-                            tm /= 1000
+                        tm = time.time() - tm_ini
                         self.main_window.base.change_message(
                             '%s\n%s: %d %s: %.01f"' % (mens, _("Depth"), rm.depth, _("Time"), tm)
                         )

@@ -7,17 +7,32 @@ import Code
 import Code.Nags.Nags
 from Code import Util
 from Code.Base import Position
+from Code.Base.Constantes import (
+    NAG_1,
+    NAG_2,
+    NAG_3,
+    NAG_4,
+    NAG_5,
+    NAG_6,
+    SPECULATIVE_MOVE,
+    GOOD_MOVE,
+    BAD_MOVE,
+    VERY_GOOD_MOVE,
+    VERY_BAD_MOVE,
+    QUESTIONABLE_MOVE,
+    dicHTMLnags
+)
 from Code.Board import Board, BoardArrows, ConfBoards
 from Code.Director import WindowTabVFlechas
 from Code.QT import Colocacion
 from Code.QT import Controles
 from Code.QT import FormLayout
 from Code.QT import Iconos
+from Code.QT import LCDialog
 from Code.QT import QTUtil
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
 from Code.QT import SelectFiles
-from Code.QT import LCDialog
 
 
 class BotonTema(QtWidgets.QPushButton):
@@ -935,22 +950,23 @@ def cambiaColores(parent, configuration):
     liPGN.append(separador)
 
     dic_nags = Code.Nags.Nags.dic_nags()
-    config = FormLayout.Colorbox(dic_nags[1], 40, 20, siSTR=True)
+
+    config = FormLayout.Colorbox(dic_nags[GOOD_MOVE] + " (%s)"%dicHTMLnags[NAG_1], 40, 20, siSTR=True)
     liPGN.append((config, configuration.x_color_nag1))
 
-    config = FormLayout.Colorbox(dic_nags[2], 40, 20, siSTR=True)
+    config = FormLayout.Colorbox(dic_nags[BAD_MOVE] + " (%s)"%dicHTMLnags[NAG_2], 40, 20, siSTR=True)
     liPGN.append((config, configuration.x_color_nag2))
 
-    config = FormLayout.Colorbox(dic_nags[3], 40, 20, siSTR=True)
+    config = FormLayout.Colorbox(dic_nags[VERY_GOOD_MOVE] + " (%s)"%dicHTMLnags[NAG_3], 40, 20, siSTR=True)
     liPGN.append((config, configuration.x_color_nag3))
 
-    config = FormLayout.Colorbox(dic_nags[4], 40, 20, siSTR=True)
+    config = FormLayout.Colorbox(dic_nags[VERY_BAD_MOVE] + " (%s)"%dicHTMLnags[NAG_4], 40, 20, siSTR=True)
     liPGN.append((config, configuration.x_color_nag4))
 
-    config = FormLayout.Colorbox(dic_nags[5], 40, 20, siSTR=True)
+    config = FormLayout.Colorbox(dic_nags[SPECULATIVE_MOVE] + " (%s)"%dicHTMLnags[NAG_5], 40, 20, siSTR=True)
     liPGN.append((config, configuration.x_color_nag5))
 
-    config = FormLayout.Colorbox(dic_nags[6], 40, 20, siSTR=True)
+    config = FormLayout.Colorbox(dic_nags[QUESTIONABLE_MOVE] + " (%s)"%dicHTMLnags[NAG_6], 40, 20, siSTR=True)
     liPGN.append((config, configuration.x_color_nag6))
 
     li_others = []

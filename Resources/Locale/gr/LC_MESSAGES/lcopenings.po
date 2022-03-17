@@ -5,109 +5,6 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "Alapin Opening"
-msgstr "Άνοιγμα Αλαπίν"
-
-msgid "Alekhine Defence: Balogh Variation"
-msgstr "Άμυνα Αλιέχιν: βαριάντα Balogh"
-
-msgid "Alekhine Defence: Brooklyn Defence"
-msgstr "Άμυνα Αλιέχιν: άμυνα Brooklyn"
-
-msgid "Alekhine Defence: Exchange Variation"
-msgstr "Άμυνα Αλιέχιν: βαριάντα αλλαγής"
-
-msgid "Alekhine Defence: Four Pawns Attack, 6...Nc6"
-msgstr "Άμυνα Αλιέχιν: επίθεση τεσσάρων πιονιών, 6...Nc6"
-
-msgid "Alekhine Defence: Four Pawns Attack, 7.Be3"
-msgstr "Άμυνα του Αλιέχιν: επίθεση τεσσάρων πιονιών, 7.Be3"
-
-msgid "Alekhine Defence: Four Pawns Attack, Fianchetto Variation"
-msgstr "Άμυνα του Αλιέχιν: επίθεση τεσσάρων πιονιών, βαριάντα φιανκέτο"
-
-msgid ""
-"Alekhine Defence: Four Pawns Attack, Ilyin-Genevsky var. Iline-Jenevski"
-msgstr "Άμυνα του Αλιέχιν: επίθεση τεσσάρων πιονιών, βαριάντα Ilyin-Genevsky"
-
-msgid "Alekhine Defence: Four Pawns Attack, Korchnoi Variation"
-msgstr "Άμυνα του Αλιέχιν: επίθεση τεσσάρων πιονιών, βαριάντα Κορτσνόι"
-
-msgid "Alekhine Defence: Four Pawns Attack, Planinc Variation"
-msgstr "Άμυνα του Αλιέχιν: επίθεση τεσσάρων πιονιών, βαριάντα Planinc"
-
-msgid "Alekhine Defence: Four Pawns Attack, Trifunovic Variation"
-msgstr "Άμυνα του Αλιέχιν: επίθεση τεσσάρων πιονιών, βαριάντα Trifunovic"
-
-msgid "Alekhine Defence: Four Pawns Attack"
-msgstr "Άμυνα Αλιέχιν: επίθεση τεσσάρων πιονιών"
-
-msgid "Alekhine Defence: Kmoch Variation"
-msgstr "Άμυνα Αλιέχιν: βαριάντα Kmoch"
-
-msgid "Alekhine Defence: Krejcik Variation"
-msgstr "Άμυνα Αλιέχιν: βαριάντα Krejcik"
-
-msgid "Alekhine Defence: Maroczy Variation"
-msgstr "Άμυνα Αλιέχιν: βαριάντα Maroczy"
-
-msgid "Alekhine Defence: Modern Variation, 4...Bg4"
-msgstr "Άμυνα του Αλιέχιν: μοντέρνα βαριάντα, 4...Bg4"
-
-msgid "Alekhine Defence: Modern Variation"
-msgstr "Άμυνα του Αλιέχιν: μοντέρνα βαριάντα"
-
-msgid "Alekhine Defence: Mokele Mbembe (Buecker) Variation"
-msgstr "Άμυνα Αλιέχιν: βαριάντα Maroczy Mokele Mbembe (Buecker)"
-
-msgid "Alekhine Defence: O'Sullivan Gambit"
-msgstr "Άμυνα Αλιέχιν: γκαμπί O'Sullivan"
-
-msgid "Alekhine Defence: Saemisch Attack"
-msgstr "Άμυνα Αλιέχιν: επίθεση Σάμιτς"
-
-msgid "Alekhine Defence: Scandinavian Variation"
-msgstr "Άμυνα Αλιέχιν: Σκανδιναβική βαριάντα"
-
-msgid "Alekhine Defence: Spielmann Variation"
-msgstr "Άμυνα Αλιέχιν: βαριάντα Spielmann"
-
-msgid "Alekhine Defence: Steiner Variation"
-msgstr "Άμυνα Αλιέχιν: βαριάντα Steiner"
-
-msgid "Alekhine Defence: Two Pawns' (Lasker) Attack"
-msgstr "Άμυνα του Αλιέχιν: επίθεση δύο πιονιών (Λάσκερ)"
-
-msgid "Alekhine Defence: Two Pawns' Attack, Mikenas Variation"
-msgstr "Άμυνα Αλιέχιν: επίθεση δύο πιονιών, βαριάντα Mikenas"
-
-msgid "Alekhine Defence: Welling Variation"
-msgstr "Άμυνα Αλιέχιν: βαριάντα Welling"
-
-msgid "Alekhine Defence: modern, Alekhine Variation"
-msgstr "Άμυνα του Αλιέχιν: μοντέρνα, βαριάντα Αλιέχιν"
-
-msgid "Alekhine Defence: modern, Fianchetto Variation"
-msgstr "Άμυνα του Αλιέχιν: μοντέρνα, βαριάντα φιανκέτο"
-
-msgid "Alekhine Defence: modern, Flohr Variation"
-msgstr "Άμυνα του Αλιέχιν: μοντέρνα, βαριάντα Flohr"
-
-msgid "Alekhine Defence: modern, Keres Variation"
-msgstr "Άμυνα του Αλιέχιν: μοντέρνα, βαριάντα Κέρες"
-
-msgid "Alekhine Defence: modern, Larsen Variation"
-msgstr "Άμυνα του Αλιέχιν: μοντέρνα, βαριάντα Λάρσεν"
-
-msgid "Alekhine Defence: modern, Panov Variation"
-msgstr "Άμυνα του Αλιέχιν: μοντέρνα, βαριάντα Panov"
-
-msgid "Alekhine Defence: modern, Schmid Variation"
-msgstr "Άμυνα του Αλιέχιν: μοντέρνα, βαριάντα Schmid"
-
-msgid "Alekhine Defence"
-msgstr "Άμυνα Αλιέχιν"
-
 msgid "Amar (Paris) Opening"
 msgstr "Άνοιγμα Αμάρ (Παρίσι)"
 
@@ -116,9 +13,6 @@ msgstr "Γκαμπί Αμάρ"
 
 msgid "Amsterdam Attack"
 msgstr "Επίθεση Άμστερνταμ"
-
-msgid "Anderssen Opening"
-msgstr "Άνοιγμα Άντερσεν"
 
 msgid "Anti-Borg (Desprez) Opening"
 msgstr "Άνοιγμα Anti-Borg (Ντεσπρέζ)"
@@ -161,12 +55,6 @@ msgstr "Γκαμπί Μπένκο: σύστημα Zaitsev"
 
 msgid "Benko Gambit"
 msgstr "Γκαμπί Μπένκο"
-
-msgid "Benko Opening: Reversed Alekhine"
-msgstr "Άνοιγμα Μπένκο: αντεστραμμένο Αλιέχιν"
-
-msgid "Benko Opening"
-msgstr "Άνοιγμα Μπένκο"
 
 msgid "Benoni Defence: 6.e4"
 msgstr "Benoni: 6.e4"
@@ -216,14 +104,8 @@ msgstr "Benoni: επίθεση τεσσάρων πιονιών, κύρια συ�
 msgid "Benoni Defence: Four Pawns Attack"
 msgstr "Benoni: επίθεση τεσσάρων πιονιών"
 
-msgid "Benoni Defence: Hromodka System"
-msgstr "Άμυνα Benoni, σύστημα Hromodka"
-
 msgid "Benoni Defence: Mikenas Variation"
 msgstr "Benoni: βαριάντα Mikenas"
-
-msgid "Benoni Defence: Nimzovich (knight tour) Variation"
-msgstr "Benoni: βαριάντα Νίμζοβιτς (περιοδεία του ίππου)"
 
 msgid "Benoni Defence: Pawn Storm Variation"
 msgstr "Benoni: βαριάντα θύελλας πιονιών"
@@ -236,90 +118,6 @@ msgstr "Benoni: βαριάντα Uhlmann"
 
 msgid "Benoni Defence"
 msgstr "Άμυνα Benoni"
-
-msgid "Bird Opening: From Gambit, Lasker Variation"
-msgstr "Μπερντ: γκαμπί Φρομ, βαριάντα Λάσκερ"
-
-msgid "Bird Opening: From Gambit, Lipke Variation"
-msgstr "Μπερντ: γκαμπί Φρομ, βαριάντα Lipke"
-
-msgid "Bird Opening: From Gambit"
-msgstr "Μπερντ: γκαμπί Φρομ"
-
-msgid "Bird Opening: Hobbs Gambit"
-msgstr "Μπερντ: γκαμπί του Hobbs"
-
-msgid "Bird Opening: Lasker Variation"
-msgstr "Άνοιγμα Μπερντ: βαριάντα Λάσκερ"
-
-msgid "Bird Opening: Swiss Gambit"
-msgstr "Άνοιγμα Μπερντ, Ελβετικό γκαμπί"
-
-msgid "Bird Opening: Williams Gambit"
-msgstr "Άνοιγμα Μπερντ: γκαμπί του William"
-
-msgid "Bird Opening"
-msgstr "Άνοιγμα Μπερντ"
-
-msgid "Bishop Opening: Berlin Defence"
-msgstr "Άνοιγμα ενός αξιωματικού: άμυνα Βερολίνου"
-
-msgid "Bishop Opening: Calabrese Counter-Gambit, Jaenisch Variation"
-msgstr "Άνοιγμα ενός αξιωματικού: αντιγκαμπί Καλαβρίας, βαριάντα Jaenisch"
-
-msgid "Bishop Opening: Calabrese Counter-Gambit"
-msgstr "Άνοιγμα ενός αξιωματικού: αντιγκαμπί Καλαβρίας"
-
-msgid "Bishop Opening: Classical Variation"
-msgstr "Άνοιγμα ενός αξιωματικού: κλασική βαριάντα"
-
-msgid "Bishop Opening: Four Pawns' Gambit"
-msgstr "Άνοιγμα ενός αξιωματικού: γκαμπί τεσσάρων πιονιών'"
-
-msgid "Bishop Opening: Greco Gambit"
-msgstr "Άνοιγμα ενός αξιωματικού: γκαμπί Γκρέκο"
-
-msgid "Bishop Opening: Lewis Counter-Gambit"
-msgstr "Άνοιγμα ενός αξιωματικού: αντιγκαμπί Lewis"
-
-msgid "Bishop Opening: Lewis Gambit"
-msgstr "Άνοιγμα ενός αξιωματικού: γκαμπί Lewis"
-
-msgid "Bishop Opening: Lisitsyn Variation"
-msgstr "Άνοιγμα ενός αξιωματικού: βαριάντα Lisitsyn"
-
-msgid "Bishop Opening: Lopez Gambit"
-msgstr "Άνοιγμα ενός αξιωματικού: γκαμπί Λοπέζ"
-
-msgid "Bishop Opening: MacDonnell Double Gambit"
-msgstr "Άνοιγμα ενός αξιωματικού: διπλό γκαμπί MacDonnell"
-
-msgid "Bishop Opening: Philidor Counter-Attack"
-msgstr "Άνοιγμα ενός αξιωματικού: αντεπίθεση Φιλιντόρ"
-
-msgid "Bishop Opening: Philidor Variation"
-msgstr "Άνοιγμα ενός αξιωματικού: βαριάντα Φιλιντόρ"
-
-msgid "Bishop Opening: Ponziani Gambit"
-msgstr "Άνοιγμα ενός αξιωματικού: γκαμπί Πονζιάνι"
-
-msgid "Bishop Opening: Pratt Variation"
-msgstr "Άνοιγμα ενός αξιωματικού: βαριάντα Pratt"
-
-msgid "Bishop Opening: Urusov Gambit, Panov Variation"
-msgstr "Άνοιγμα ενός αξιωματικού: γκαμπί Urusov, βαριάντα Panov"
-
-msgid "Bishop Opening: Urusov Gambit"
-msgstr "Άνοιγμα ενός αξιωματικού: γκαμπί Urusov"
-
-msgid "Bishop Opening: Wing Gambit"
-msgstr "Άνοιγμα ενός αξιωματικού: γκαμπί Wing"
-
-msgid "Bishop Opening: del Rio Variation"
-msgstr "Άνοιγμα ενός αξιωματικού: βαριάντα del Rio"
-
-msgid "Bishop Opening"
-msgstr "Άνοιγμα ενός αξιωματικού"
 
 msgid "Blackburne shilling Gambit"
 msgstr "Γκαμπί σελίνι Blackburne"
@@ -350,12 +148,6 @@ msgstr "Γκαμπί Μπόντεν-Kieseritsky: άμυνα Lichtenhein"
 
 msgid "Boden-Kieseritsky Gambit"
 msgstr "Γκαμπί Μπόντεν-Kieseritsky"
-
-msgid "Bogo-Indian Defence: Grünfeld Variation"
-msgstr "Bogo-Ινδική άμυνα, βαριάντα Γκρίνφελντ"
-
-msgid "Bogo-Indian Defence: Nimzovich Variation"
-msgstr "Bogo-Ινδική άμυνα, βαριάντα Νίμζοβιτς"
 
 msgid "Bogo-Indian Defence"
 msgstr "Bogo-Ινδική άμυνα"
@@ -401,12 +193,6 @@ msgstr "Κάρο-Κανν: προχωρημένη, Σύντομη βαριάντ
 
 msgid "Caro-Kann Defence: Alekhine Gambit"
 msgstr "Κάρο-Κανν: γκαμπί Αλιέχιν"
-
-msgid "Caro-Kann Defence: Anti-Anti-Caro-Kann Defence"
-msgstr "Κάρο-Κανν: άμυνα αντι-αντι-Κάρο-Κανν"
-
-msgid "Caro-Kann Defence: Anti-Caro-Kann Defence"
-msgstr "Κάρο-Κανν: άμυνα αντι-Κάρο-Κανν"
 
 msgid "Caro-Kann Defence: Bronstein-Larsen Variation"
 msgstr "Κάρο-Κανν: βαριάντα Μπρονστάιν-Λάρσεν"
@@ -471,9 +257,6 @@ msgstr "Κάρο-Κανν: Panov-Μποτβίνικ, βαριάντα Czerniak"
 msgid "Caro-Kann Defence: Panov-Botvinnik, Gunderam Attack"
 msgstr "Κάρο-Κανν: Panov-Μποτβίνικ, επίθεση Gunderam"
 
-msgid "Caro-Kann Defence: Panov-Botvinnik, Herzog Defence"
-msgstr "Κάρο-Κανν: Panov-Μποτβίνικ, άμυνα Herzog"
-
 msgid "Caro-Kann Defence: Panov-Botvinnik, Reifir (Spielmann) Variation"
 msgstr "Κάρο-Κανν: Panov-Μποτβίνικ, βαριάντα Reifir (Spielmann)"
 
@@ -504,51 +287,6 @@ msgstr "Άμυνα Κάρο-Κανν"
 msgid "Caro-Masi Defence"
 msgstr "Άμυνα Caro-Masi"
 
-msgid "Catalan Opening: Closed, 5.Nf3"
-msgstr "Καταλανικό: κλειστό, 5.Nf3"
-
-msgid "Catalan Opening: Closed, 6...Nbd7"
-msgstr "Καταλανικό: κλειστό, 6...Nbd7"
-
-msgid "Catalan Opening: Closed, 7.Qc2"
-msgstr "Καταλανικό: κλειστό, 7.Qc2"
-
-msgid "Catalan Opening: Closed, Botvinnik Variation"
-msgstr "Καταλανικό: κλειστό, βαριάντα Μποτβίνικ"
-
-msgid "Catalan Opening: Closed, Main Line"
-msgstr "Καταλανικό: κλειστό, κύρια συνέχεια"
-
-msgid "Catalan Opening: Closed, Qc2 & b3"
-msgstr "Καταλανικό: κλειστό, Qc2 & b3"
-
-msgid "Catalan Opening: Closed, Sokolsky Variation"
-msgstr "Καταλανικό: κλειστό, βαριάντα Σοκόλσκι"
-
-msgid "Catalan Opening: Closed, Spassky Gambit"
-msgstr "Καταλανικό: κλειστό, γκαμπί Spassky"
-
-msgid "Catalan Opening: Closed, Zagoryansky Variation"
-msgstr "Καταλανικό: κλειστό, βαριάντα Zagoryansky"
-
-msgid "Catalan Opening: Closed"
-msgstr "Καταλανικό: κλειστό"
-
-msgid "Catalan Opening: Open, 5.Nf3"
-msgstr "Καταλανικό: ανοιχτή, 5.Nf3"
-
-msgid "Catalan Opening: Open, 5.Qa4 Nbd7, 6.Qxc4"
-msgstr "Καταλανικό: ανοιχτή, 5.Qa4 Nbd7, 6.Qxc4"
-
-msgid "Catalan Opening: Open, 5.Qa4"
-msgstr "Καταλανικό: ανοιχτή, 5.Qa4"
-
-msgid "Catalan Opening: Open, Alekhine Variation"
-msgstr "Καταλανικό: ανοιχτή, βαριάντα Αλιέχιν"
-
-msgid "Catalan Opening: Open, Classical Line"
-msgstr "Καταλανικό: ανοιχτή, κλασική γραμμή"
-
 msgid "Catalan Opening"
 msgstr "Καταλανικό άνοιγμα"
 
@@ -576,9 +314,6 @@ msgstr "Παρτίδα κέντρου: βαριάντα l'Hermet"
 msgid "Centre Game"
 msgstr "Παρτίδα κέντρου"
 
-msgid "Clemenz (Mead, Basman or de Klerk) Opening"
-msgstr "Άνοιγμα Κλέμενς (Mead's, Basman's ή de Klerk's)"
-
 msgid "Colle System"
 msgstr "Σύστημα Colle"
 
@@ -588,14 +323,8 @@ msgstr "Άμυνα του στελέχους του καλαμποκιού"
 msgid "Crab Opening"
 msgstr "Άνοιγμα καβουριού"
 
-msgid "Czech Benoni Defence: King Indian System"
-msgstr "Τσεχική Benoni: Ινδικό σύστημα του βασιλιά"
-
 msgid "Czech Benoni Defence"
 msgstr "Τσέχικη άμυνα Benoni"
-
-msgid "Damiano Defence"
-msgstr "Άμυνα Νταμιάνο"
 
 msgid "Danish Gambit: Collijn Defence"
 msgstr "Δανέζικο γκαμπί: άμυνα Collijn"
@@ -621,21 +350,6 @@ msgstr "Άνοιγμα Dresden"
 msgid "Dunst (Sleipner, Heinrichsen) Opening"
 msgstr "Άνοιγμα Ντανστ (Sleipner, Heinrichsen)"
 
-msgid "Durkin Attack"
-msgstr "Επίθεση Ντάρκιν"
-
-msgid "Dutch Defence: 2.Bg5 Variation"
-msgstr "Ολλανδική, βαριάντα 2.Bg5"
-
-msgid "Dutch Defence: Alekhine Variation"
-msgstr "Ολλανδική άμυνα, βαριάντα Αλιέχιν"
-
-msgid "Dutch Defence: Balogh Defence"
-msgstr "Ολλανδική: άμυνα Balogh"
-
-msgid "Dutch Defence: Blackburne Variation"
-msgstr "Ολλανδική άμυνα, βαριάντα Blackburne"
-
 msgid "Dutch Defence: Bladel Variation"
 msgstr "Ολλανδική άμυνα: βαριάντα Bladel"
 
@@ -660,12 +374,6 @@ msgstr "Ολανδική: βαριάντα llyin-Genevsky"
 msgid "Dutch Defence: Ilyin-Genevsky, Winter Variation"
 msgstr "Ολλανδική: Ilyin-Genevsky, βαριάντα Winter"
 
-msgid "Dutch Defence: Korchnoi Attack"
-msgstr "Ολλανδική, επίθεση Κορτσνόι"
-
-msgid "Dutch Defence: Krejcik Gambit"
-msgstr "Ολλανδική, γκαμπί Κορτσνόι Krejcik"
-
 msgid "Dutch Defence: Leningrad Variation"
 msgstr "Ολλανδική: βαριάντα Leningrad"
 
@@ -684,15 +392,6 @@ msgstr "Ολλανδική: Leningrad, κύρια βαριάντα με c6"
 msgid "Dutch Defence: Leningrad, Main Variation"
 msgstr "Ολλανδική: Leningrad, κύρια βαριάντα"
 
-msgid "Dutch Defence: Manhattan (Alapin, Ulvestad) Variation"
-msgstr "Ολλανδική, βαριάντα Μανχάταν (Αλαπίν, Univiator)"
-
-msgid "Dutch Defence: Rubinstein Variation"
-msgstr "Ολλανδική άμυνα, βαριάντα Ρουμπινστάιν"
-
-msgid "Dutch Defence: Spielmann Gambit"
-msgstr "Ολλανδική, γκαμπί Spielmann"
-
 msgid "Dutch Defence: Staunton Gambit deferred"
 msgstr "Ολλανδική: αναβαλλόμενο γκαμπί Στόντον"
 
@@ -707,9 +406,6 @@ msgstr "Ολλανδική: γκαμπί Στόντον, βαριάντα Λάσ
 
 msgid "Dutch Defence: Staunton Gambit, Nimzovich Variation"
 msgstr "Ολλανδική: γκαμπί Στόντον, βαριάντα Νίμζοβιτς"
-
-msgid "Dutch Defence: Staunton Gambit, Staunton Line"
-msgstr "Ολλανδική: γκαμπί Στόντον, γραμμή του Staunton"
 
 msgid "Dutch Defence: Staunton Gambit, Tartakower Variation"
 msgstr "Ολλανδική: γκαμπί Στόντον, βαριάντα Ταρτακόβερ"
@@ -732,9 +428,6 @@ msgstr "Ολλανδική: stonewall, βαριάντα Μποτβίνικ"
 msgid "Dutch Defence: Stonewall, Chekhover Variation"
 msgstr "Ολλανδική: stonewall, βαριάντα Chekhover"
 
-msgid "Dutch Defence: Von Pretzel Gambit"
-msgstr "Ολλανδική, γκαμπί Von ppreepl"
-
 msgid "Dutch Defence"
 msgstr "Ολλανδική άμυνα"
 
@@ -750,224 +443,8 @@ msgstr "Ολλανδική-Ιδική, βαριάντα Αλιέχιν"
 msgid "Dzindzichashvili Defence"
 msgstr "Άμυνα Dzindzichashvili"
 
-msgid "English Opening: 1...Nf6 (Anglo-Indian Defence)"
-msgstr "Αγγλικό, 1...Nf6 (αγγλο-ινδική άμυνα)"
-
-msgid "English Opening: Adorjan Defence"
-msgstr "Αγγλικό: άμυνα Adorjan"
-
 msgid "English Opening: Agincourt Variation"
 msgstr "Αγγλικό άνοιγμα: βαριάντα Agincourt"
-
-msgid "English Opening: Anglo-Dutch Defence"
-msgstr "Αγγλικό: Αγγλο-ολλανδική άμυνα"
-
-msgid "English Opening: Anglo-Grünfeld Defence, Korchnoi Variation"
-msgstr "Αγγλικό: άμυνα Αγγλο-Γκρίνφελντ, βαριάντα Κορτσνόι"
-
-msgid "English Opening: Anglo-Grünfeld Defence"
-msgstr "Αγγλικό: άμυνα Αγγλο-Γκρίνφελντ"
-
-msgid "English Opening: Anglo-Grünfeld, Czech Defence"
-msgstr "Αγγλικό: Αγγλο-Γκρίνφελντ, Τσεχική άμυνα"
-
-msgid "English Opening: Anglo-Grünfeld, Smyslov Defence"
-msgstr "Αγγλικό: Αγγλο-Γκρίνφελντ, άμυνα Σμισλόφ"
-
-msgid "English Opening: Bellon Gambit"
-msgstr "Αγγλικό: γκαμπί Bellon"
-
-msgid "English Opening: Bled Variation"
-msgstr "Αγγλικό: βαριάντα Bled"
-
-msgid "English Opening: Botvinnik System"
-msgstr "Αγγλικό: σύστημα Μποτβίνικ"
-
-msgid "English Opening: Bradley Beach Variation"
-msgstr "Αγγλικό: βαριάντα Bradley Beach"
-
-msgid "English Opening: Bremen System with ...g6"
-msgstr "Αγγλικό: σύστημα Βρέμης με ...g6"
-
-msgid "English Opening: Bremen System, Keres Variation"
-msgstr "Αγγλικό: σύστημα Βρέμης, βαριάντα Κέρες"
-
-msgid "English Opening: Bremen, Smyslov System"
-msgstr "Αγγλικό: Βρέμη, σύστημα Σμισλόφ"
-
-msgid "English Opening: Bremen, reverse Dragon"
-msgstr "Αγγλικό: Βρέμη, αντεστραμμένος Δράκος"
-
-msgid "English Opening: Capablanca Variation"
-msgstr "Αγγλικό: βαριάντα Καπαμπλάνκα"
-
-msgid "English Opening: Carls' Bremen System"
-msgstr "Αγγλικό: σύστημα Carls' Βρέμης"
-
-msgid "English Opening: Caro-Kann Defensive System, Bogolyubov Variation"
-msgstr "Αγγλικό: αμυντικό σύστημα Κάρο-Κανν, βαριάντα Μπογκολιούμποφ"
-
-msgid "English Opening: Caro-Kann Defensive System"
-msgstr "Αγγλικό: αμυντικό σύστημα Κάρο-Κανν"
-
-msgid "English Opening: Closed System (without ...d6)"
-msgstr "Αγγλικό: κλειστό σύστημα (χωρίς ...d6)"
-
-msgid "English Opening: Closed System"
-msgstr "Αγγλικό: κλειστό σύστημα"
-
-msgid "English Opening: Closed, 5.Rb1 Taimanov Variation"
-msgstr "Αγγλικό: κλειστό, 5.Rb1 βαριάντα Ταϊμάνοβ"
-
-msgid "English Opening: Closed, 5.Rb1"
-msgstr "Αγγλικό: κλειστό, 5.Rb1"
-
-msgid "English Opening: Closed, Hort Variation"
-msgstr "Αγγλικό: κλειστό, βαριάντα Hort"
-
-msgid "English Opening: Closed, Taimanov Variation"
-msgstr "Αγγλικό: κλειστό, βαριάντα Ταϊμάνοβ"
-
-msgid "English Opening: Four Knights System"
-msgstr "Αγγλικό: σύστημα τεσσάρων ίππων"
-
-msgid "English Opening: Four Knights, 4.e3"
-msgstr "Αγγλικό: τέσσερις ίπποι, 4.e3"
-
-msgid "English Opening: Four Knights, Capablanca Variation"
-msgstr "Αγγλικό: τέσσερις ίπποι, βαριάντα Καπαμπλάνκα"
-
-msgid "English Opening: Four Knights, Kingside Fianchetto"
-msgstr "Αγγλικό: τέσσερις ίπποι, φιανκέτο στην πλευρά του βασιλιά"
-
-msgid "English Opening: Four Knights, Marini Variation"
-msgstr "Αγγλικό: τέσσερις ίπποι, βαριάντα Marini"
-
-msgid "English Opening: Four Knights, Nimzovich Variation"
-msgstr "Αγγλικό: τέσσερις ίπποι, βαριάντα Νίμζοβιτς"
-
-msgid "English Opening: Four Knights, Romanishin Variation"
-msgstr "Αγγλικό: τέσσερις ίπποι, βαριάντα Romanishin"
-
-msgid "English Opening: Four Knights, Stean Variation"
-msgstr "Αγγλικό: τέσσερις ίπποι, βαριάντα Stean"
-
-msgid "English Opening: Jaenisch Gambit"
-msgstr "Αγγλικό: γκαμπί Jaenisch"
-
-msgid "English Opening: Keres Variation"
-msgstr "Αγγλικό, βαριάντα Κέρες"
-
-msgid "English Opening: Kramnik-Shirov CounterAttack"
-msgstr "Αγγλικό, αντεπίθεση Kramnik-Shirov"
-
-msgid "English Opening: Kurajica Defence"
-msgstr "Αγγλικό: άμυνα Kurajica"
-
-msgid "English Opening: London Defensive System"
-msgstr "Αγγλικό: αμυντικό σύστημα Λονδίνου"
-
-msgid "English Opening: Mikenas-Carls Variation"
-msgstr "Αγγλικό: βαριάντα Mikenas-Carls"
-
-msgid "English Opening: Mikenas-Carls, Flohr Variation"
-msgstr "Αγγλικό: Mikenas-Carls, βαριάντα Flohr"
-
-msgid "English Opening: Mikenas-Carls, Kevitz Variation"
-msgstr "Αγγλικό: Mikenas-Carls, βαριάντα Kevitz"
-
-msgid "English Opening: Mikenas-Carls, Sicilian Variation"
-msgstr "Αγγλικό: Mikenas-Carls, Σικελική βαριάντα"
-
-msgid "English Opening: Nenarokov Variation"
-msgstr "Αγγλικό: βαριάντα Nenarokov"
-
-msgid "English Opening: Neo-Catalan Accepted"
-msgstr "Αγγλικό: Νεο-καταλανική αποδεκτή"
-
-msgid "English Opening: Neo-Catalan Declined"
-msgstr "Αγγλικό: Νεο-καταλανικό μη αποδεκτό"
-
-msgid "English Opening: Neo-Catalan"
-msgstr "Αγγλικό: Νεο-καταλανική"
-
-msgid "English Opening: New York (London) Defensive System"
-msgstr "Αγγλικό: αμυντικό σύστημα Νέας Υόρκης (Λονδίνο)"
-
-msgid "English Opening: Nimzo-English Opening"
-msgstr "Αγγλικό: Νιμζο-Αγγλικό άνοιγμα"
-
-msgid "English Opening: Nimzovich Variation"
-msgstr "Αγγλικό, βαριάντα Νίμζοβιτς"
-
-msgid "English Opening: Nimzovich, Flohr Variation"
-msgstr "Αγγλικό, Νίμζοβιτς, βαριάντα Flohr"
-
-msgid "English Opening: Queens Indian Formation"
-msgstr "Αγγλικό: σχηματισμός Ινδικών Βασιλισσών"
-
-msgid "English Opening: Queens Indian, Romanishin Variation"
-msgstr "Αγγλικό: Ινδικών Βασιλισσών, βαριάντα Romanishin"
-
-msgid "English Opening: Romanishin Gambit"
-msgstr "Αγγλικό: γκαμπί Romanishin"
-
-msgid "English Opening: Sicilian Reversed"
-msgstr "Αγγλικό: Σικελικό αντεστραμμένο"
-
-msgid "English Opening: Smyslov Defence"
-msgstr "Αγγλικό, άμυνα Σμισλόφ"
-
-msgid "English Opening: Symmetrical Variation"
-msgstr "Αγγλικό: συμμετρική βαριάντα"
-
-msgid "English Opening: Symmetrical, Benoni Formation"
-msgstr "Αγγλικό: συμμετρική, σχηματισμός Benoni"
-
-msgid "English Opening: Symmetrical, Botvinnik System Reversed"
-msgstr "Αγγλικό: συμμετρική, αντεστραμμένο σύστημα Μποτβίνικ"
-
-msgid "English Opening: Symmetrical, Botvinnik System"
-msgstr "Αγγλικό: συμμετρική, σύστημα Μποτβίνικ"
-
-msgid "English Opening: Symmetrical, Four Knights System"
-msgstr "Αγγλικό: συμμετρική, σύστημα τεσσάρων ίππων"
-
-msgid "English Opening: Symmetrical, Geller Variation"
-msgstr "Αγγλικό: συμμετρική, βαριάντα Geller"
-
-msgid "English Opening: Symmetrical, Hedgehog System"
-msgstr "Αγγλικό: συμμετρική, σύστημα σκαντζόχοιρου"
-
-msgid "English Opening: Symmetrical, Hedgehog, flexible Formation"
-msgstr "Αγγλικό: συμμετρική, σκαντζόχοιρου, ευέλικτος σχηματισμός"
-
-msgid "English Opening: Symmetrical, Main Line with b3"
-msgstr "Αγγλικό: συμμετρική, κύρια συνέχεια με b3"
-
-msgid "English Opening: Symmetrical, Main Line with d3"
-msgstr "Αγγλικό: συμμετρική, κύρια συνέχεια με d3"
-
-msgid "English Opening: Symmetrical, Main Line with d4"
-msgstr "Αγγλικό: συμμετρική, κύρια συνέχεια με d4"
-
-msgid "English Opening: Symmetrical, Rubinstein System"
-msgstr "Αγγλικό: συμμετρική, σύστημα Ρουμπινστάιν"
-
-msgid "English Opening: Symmetrical, Three Knights System"
-msgstr "Αγγλικό: συμμετρική, σύστημα τριών ίππων"
-
-msgid "English Opening: Three Knights System"
-msgstr "Αγγλικό: σύστημα τριών ίππων"
-
-msgid "English Opening: Torre Defensive System"
-msgstr "Αγγλικό: αμυντικό σύστημα Τόρρε"
-
-msgid "English Opening: Ultra-Symmetrical Variation"
-msgstr "Αγγλικό: υπερβολικά συμμετρική βαριάντα"
-
-msgid "English Opening: Wimpey System"
-msgstr "Αγγλικό: σύστημα Wimpey"
 
 msgid "English Opening"
 msgstr "Αγγλικό άνοιγμα"
@@ -1080,96 +557,6 @@ msgstr "Γκαμπί του Έβανς: κανονική βαριάντα"
 msgid "Evans Gambit"
 msgstr "Γκαμπί του Έβανς"
 
-msgid "Four Knights Game: Bardeleben Variation"
-msgstr "Τέσσερις ίπποι: βαριάντα Bardeleben"
-
-msgid "Four Knights Game: Belgrade Gambit"
-msgstr "Τέσσερις ίπποι: γκαμπί Βελιγραδίου"
-
-msgid "Four Knights Game: Double Ruy Lopez"
-msgstr "Τέσσερις ίπποι: διπλή Ισπανική παρτίδα"
-
-msgid "Four Knights Game: Gunsberg Counter-Attack"
-msgstr "Τέσσερις ίπποι: αντεπίθεση Gunsberg"
-
-msgid "Four Knights Game: Gunsberg Variation"
-msgstr "Τέσσερις ίπποι: βαριάντα Gunsberg"
-
-msgid "Four Knights Game: Italian Variation"
-msgstr "Τέσσερις ίπποι: Ιταλική βαριάντα"
-
-msgid "Four Knights Game: Janowski Variation"
-msgstr "Τέσσερις ίπποι: βαριάντα Janowski"
-
-msgid "Four Knights Game: Marshall Variation"
-msgstr "Τέσσερις ίπποι: βαριάντα Μάρσαλ"
-
-msgid "Four Knights Game: Nimzovich (Paulsen) Variation"
-msgstr "Τέσσερις ίπποι: βαριάντα Νίμζοβιτς (Paulsen)"
-
-msgid "Four Knights Game: Ranken Variation"
-msgstr "Τέσσερις ίπποι: βαριάντα Ranken"
-
-msgid "Four Knights Game: Rubinstein Counter-Gambit, 5.Be2"
-msgstr "Τέσσερις ίπποι: αντιγκαμπί Ρουμπινστάιν, 5.Be2"
-
-msgid "Four Knights Game: Rubinstein Counter-Gambit, Bogolyubov Variation"
-msgstr "Τέσσερις ίπποι: αντιγκαμπί Ρουμπινστάιν, βαριάντα Μπογκολιούμποφ"
-
-msgid "Four Knights Game: Rubinstein Counter-Gambit, Exchange Variation"
-msgstr "Τέσσερις ίπποι: αντιγκαμπί Ρουμπινστάιν, βαριάντα αλλαγής"
-
-msgid "Four Knights Game: Rubinstein Counter-Gambit, Henneberger Variation"
-msgstr "Τέσσερις ίπποι: αντιγκαμπί Ρουμπινστάιν, βαριάντα Henneberger"
-
-msgid "Four Knights Game: Rubinstein Counter-Gambit"
-msgstr "Τέσσερις ίπποι: αντιγκαμπί Ρουμπινστάιν"
-
-msgid "Four Knights Game: Schultze-Mueller Gambit"
-msgstr "Τέσσερις ίπποι: γκαμπί Schultze-Mueller"
-
-msgid "Four Knights Game: Scotch Variation"
-msgstr "Τέσσερις ίπποι: Σκωτική βαριάντα"
-
-msgid "Four Knights Game: Scotch, 4...exd4"
-msgstr "Τέσσερις ίπποι: Σκωτική, 4...exd4"
-
-msgid "Four Knights Game: Scotch, Krause Variation"
-msgstr "Τέσσερις ίπποι: Σκωτική, βαριάντα Krause"
-
-msgid "Four Knights Game: Spanish Variation"
-msgstr "Τέσσερις ίπποι: Ισπανική βαριάντα"
-
-msgid "Four Knights Game: Spanish, Classical Defence"
-msgstr "Τέσσερις ίπποι: Ισπανική, κλασική άμυνα"
-
-msgid "Four Knights Game: Spielmann Variation"
-msgstr "Τέσσερις ίπποι: βαριάντα Spielmann"
-
-msgid "Four Knights Game: Svenonius Variation"
-msgstr "Τέσσερις ίπποι: βαριάντα Svenonius"
-
-msgid "Four Knights Game: Symmetrical Variation"
-msgstr "Τέσσερις ίπποι: συμμετρική βαριάντα"
-
-msgid "Four Knights Game: Symmetrical, Blake Variation"
-msgstr "Τέσσερις ίπποι: συμμετρική, βαριάντα Blake"
-
-msgid "Four Knights Game: Symmetrical, Capablanca Variation"
-msgstr "Τέσσερις ίπποι: συμμετρική, βαριάντα Καπαμπλάνκα"
-
-msgid "Four Knights Game: Symmetrical, Maroczy System"
-msgstr "Τέσσερις ίπποι: συμμετρική, σύστημα Maroczy"
-
-msgid "Four Knights Game: Symmetrical, Metger unpin"
-msgstr "Τέσσερις ίπποι: συμμετρική, ξεκάρφωμα Metger"
-
-msgid "Four Knights Game: Symmetrical, Pillsbury Variation"
-msgstr "Τέσσερις ίπποι: συμμετρική, βαριάντα Pillsbury"
-
-msgid "Four Knights Game: Symmetrical, Tarrasch Variation"
-msgstr "Τέσσερις ίπποι: συμμετρική, βαριάντα Τάρας"
-
 msgid "Four Knights Game"
 msgstr "Παρτίδα τεσσάρων ίππων"
 
@@ -1280,9 +667,6 @@ msgstr "Γαλλική: βαριάντα Frere (Becker)"
 
 msgid "French Defence: Henneberger Variation"
 msgstr "Γαλλική: βαριάντα Henneberger"
-
-msgid "French Defence: King Indian Attack"
-msgstr "Γαλλική: Ινδική επίθεση του βασιλιά"
 
 msgid "French Defence: La Bourdonnais Variation"
 msgstr "Γαλλική: βαριάντα λα Μπουρντοναί"
@@ -1485,9 +869,6 @@ msgstr "Άμυνα τηγανιτής αλεπούς"
 msgid "Gedult Attack"
 msgstr "Επίθεση Gedult"
 
-msgid "Gedult Opening"
-msgstr "Άνοιγμα Gedult"
-
 msgid "Giuoco Pianissimo: Canal Variation"
 msgstr "Τζουόκο πιανίσιμο: βαριάντα Canal"
 
@@ -1509,9 +890,6 @@ msgstr "Giuoco Piano: βαριάντα Άντερσεν"
 msgid "Giuoco Piano: Bernstein Variation"
 msgstr "Giuoco Piano: βαριάντα Μπερνστάιν"
 
-msgid "Giuoco Piano: Bird Attack"
-msgstr "Giuoco Piano: επίθεση Μπερντ"
-
 msgid "Giuoco Piano: Cracow Variation"
 msgstr "Giuoco Piano: βαριάντα Κρακοβίας"
 
@@ -1523,9 +901,6 @@ msgstr "Giuoco Piano: βαριάντα τεσσάρων ίππων"
 
 msgid "Giuoco Piano: Ghulam Kassim Variation"
 msgstr "Giuoco Piano: βαριάντα Ghulam Kassim"
-
-msgid "Giuoco Piano: Greco Attack"
-msgstr "Giuoco Piano: επίθεση Γκρέκο"
 
 msgid "Giuoco Piano: Greco Variation"
 msgstr "Giuoco Piano: βαριάντα Γκρέκο"
@@ -1578,156 +953,6 @@ msgstr "Παγκόσμιο άνοιγμα"
 msgid "Greco Defence"
 msgstr "Άμυνα Γκρέκο"
 
-msgid "Grob Attack"
-msgstr "Επίθεση Γκρομπ"
-
-msgid "Grob Opening: Fritz Gambit"
-msgstr "Γκρομπ: γκαμπί Fritz"
-
-msgid "Grob Opening: Romford Counter-Gambit"
-msgstr "Γκρομπ: αντιγκαμπί Romford"
-
-msgid "Grob Opening: Spike Attack"
-msgstr "Γκρομπ: επίθεση Σπάικ"
-
-msgid "Grünfeld Defence: 4.Bf4"
-msgstr "Γκρίνφελντ: 4.Bf4"
-
-msgid "Grünfeld Defence: 5.Bf4"
-msgstr "Γκρίνφελντ: 5.Bf4"
-
-msgid "Grünfeld Defence: 5.Bg5"
-msgstr "Γκρίνφελντ: 5.Bg5"
-
-msgid "Grünfeld Defence: 5.e3"
-msgstr "Γκρίνφελντ: 5.e3"
-
-msgid "Grünfeld Defence: Botvinnik Variation"
-msgstr "Γκρίνφελντ: βαριάντα Μποτβίνικ"
-
-msgid "Grünfeld Defence: Exchange Variation"
-msgstr "Γκρίνφελντ: βαριάντα αλλαγής"
-
-msgid "Grünfeld Defence: Exchange, Classical Variation"
-msgstr "Γκρίνφελντ: διαφορά, κλασική βαριάντα"
-
-msgid "Grünfeld Defence: Exchange, Larsen Variation"
-msgstr "Γκρίνφελντ: διαφορά, βαριάντα Λάρσεν"
-
-msgid "Grünfeld Defence: Exchange, Seville Variation"
-msgstr "Γκρίνφελντ: διαφορά, βαριάντα Σεβίλλης"
-
-msgid "Grünfeld Defence: Exchange, Simagin improved Variation"
-msgstr "Γκρίνφελντ: διαφορά, βελτιωμένη βαριάντα Simagin"
-
-msgid "Grünfeld Defence: Exchange, Simagin lesser Variation"
-msgstr "Γκρίνφελντ: διαφορά, μικρότερη βαριάντα Simagin"
-
-msgid "Grünfeld Defence: Exchange, Sokolsky Variation"
-msgstr "Γκρίνφελντ: διαφορά, βαριάντα Σοκόλσκι"
-
-msgid "Grünfeld Defence: Exchange, Spassky Variation"
-msgstr "Γκρίνφελντ: διαφορά, βαριάντα Spassky"
-
-msgid "Grünfeld Defence: Flohr Defence"
-msgstr "Γκρίνφελντ: άμυνα Flohr"
-
-msgid "Grünfeld Defence: Flohr Variation"
-msgstr "Γκρίνφελντ: βαριάντα Flohr"
-
-msgid "Grünfeld Defence: Grünfeld Gambit Accepted"
-msgstr "Γκρίνφελντ: αποδεκτό γκαμπί Γκρίνφελντ"
-
-msgid "Grünfeld Defence: Grünfeld Gambit, Botvinnik Variation"
-msgstr "Γκρίνφελντ: γκαμπί Γκρίνφελντ, βαριάντα Μποτβίνικ"
-
-msgid "Grünfeld Defence: Grünfeld Gambit, Capablanca Variation"
-msgstr "Γκρίνφελντ: γκαμπί Γκρίνφελντ, βαριάντα Καπαμπλάνκα"
-
-msgid "Grünfeld Defence: Grünfeld Gambit"
-msgstr "Γκρίνφελντ: γκαμπί Γκρίνφελντ"
-
-msgid "Grünfeld Defence: Lundin Variation"
-msgstr "Γκρίνφελντ: βαριάντα Lundin"
-
-msgid "Grünfeld Defence: Makogonov Variation"
-msgstr "Γκρίνφελντ: βαριάντα Μακογκόνοβ"
-
-msgid "Grünfeld Defence: Modern Exchange Variation"
-msgstr "Γκρίνφελντ: μοντέρνα βαριάντα αλλαγής"
-
-msgid "Grünfeld Defence: Opovcensky Variation"
-msgstr "Γκρίνφελντ: βαριάντα Opovcensky"
-
-msgid "Grünfeld Defence: Pachman Variation"
-msgstr "Γκρίνφελντ: βαριάντα Pachman"
-
-msgid "Grünfeld Defence: Russian Variation with e4"
-msgstr "Γκρίνφελντ: Ρωσική βαριάντα με e4"
-
-msgid "Grünfeld Defence: Russian Variation"
-msgstr "Γκρίνφελντ: Ρωσική βαριάντα"
-
-msgid "Grünfeld Defence: Russian, Alekhine (Hungarian) Variation"
-msgstr "Γκρίνφελντ: Ρωσική, βαριάντα Αλιέχιν (Ουγγρική)"
-
-msgid "Grünfeld Defence: Russian, Byrne (Simagin) Variation"
-msgstr "Γκρίνφελντ: Ρωσική, βαριάντα Byrne (Simagin)"
-
-msgid "Grünfeld Defence: Russian, Keres Variation"
-msgstr "Γκρίνφελντ: Ρωσική, βαριάντα Κέρες"
-
-msgid "Grünfeld Defence: Russian, Levenfish Variation"
-msgstr "Γκρίνφελντ: Ρωσική, βαριάντα Levenfish"
-
-msgid "Grünfeld Defence: Russian, Prins Variation"
-msgstr "Γκρίνφελντ: Ρωσική, βαριάντα Prins"
-
-msgid "Grünfeld Defence: Russian, Smyslov Variation"
-msgstr "Γκρίνφελντ: Ρωσική, βαριάντα Σμισλόφ"
-
-msgid "Grünfeld Defence: Russian, Szabo (Boleslavsky) Variation"
-msgstr "Γκρίνφελντ: Ρωσική, βαριάντα Szabo (Μπολεσλάβσκι)"
-
-msgid "Grünfeld Defence: Schlechter Variation"
-msgstr "Γκρίνφελντ: βαριάντα Schlechter"
-
-msgid "Grünfeld Defence: Smyslov Defence"
-msgstr "Γκρίνφελντ: άμυνα Σμισλόφ"
-
-msgid "Grünfeld Defence: Smyslov, Main Line"
-msgstr "Άμυνα Γκρίνφελντ: Σμισλόφ, κύρια συνέχεια"
-
-msgid "Grünfeld Defence: Smyslov, Yugoslav Variation"
-msgstr "Άμυνα Γκρίνφελντ: Σμισλόφ, Γιουγκοσλαβική βαριάντα"
-
-msgid "Grünfeld Defence: Spassky Variation, Main Line, 10...cd, 11.cd"
-msgstr "Γκρίνφελντ: βαριάντα Spassky, κύρια συνέχεια, 10...cd, 11.cd"
-
-msgid "Grünfeld Defence: Spassky Variation, Main Line, 13.Bd3"
-msgstr "Γκρίνφελντ: βαριάντα Spassky, κύρια συνέχεια, 13.Bd3"
-
-msgid "Grünfeld Defence: Spike Gambit"
-msgstr "Γκρίνφελντ: γκαμπί Σπάικ"
-
-msgid "Grünfeld Defence: Stockholm Variation"
-msgstr "Γκρίνφελντ: βαριάντα Στοκχόλμης"
-
-msgid "Grünfeld Defence: Three Knights Variation"
-msgstr "Γκρίνφελντ: βαριάντα τριών ίππων"
-
-msgid "Grünfeld Defence"
-msgstr "Άμυνα Γκρίνφελντ"
-
-msgid "Grünfeld with Bf4 & e3"
-msgstr "Γκρίνφελντ με Bf4 & e3"
-
-msgid "Grünfeld with e3 & Bd3"
-msgstr "Γκρίνφελντ με e3 & Bd3"
-
-msgid "Grünfeld with e3 & Qb3"
-msgstr "Γκρίνφελντ με e3 & Qb3"
-
 msgid "Guatemala Defence"
 msgstr "Άμυνα Γουατεμάλας"
 
@@ -1767,684 +992,6 @@ msgstr "Ιταλικό άνοιγμα"
 msgid "Kevitz-Trajkovic Defence"
 msgstr "Άμυνα Kevitz-Trajkovic"
 
-msgid ""
-"King Gambit Accepted: Abbazia Defence (Classical Defence, Modern Defence[!])"
-msgstr ""
-"Αποδεκτό γκαμπί του βασιλιά: άμυνα Abbazia (κλασική άμυνα, μοντέρνα "
-"άμυνα[!])"
-
-msgid "King Gambit Accepted: Abbazia Defence, Botvinnik Variation"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: άμυνα Abbazia, βαριάντα Μποτβίνικ"
-
-msgid "King Gambit Accepted: Abbazia Defence, Modern Variation"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: άμυνα Abbazia, μοντέρνα βαριάντα"
-
-msgid "King Gambit Accepted: Allgaier Gambit"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί Αλγκάερ"
-
-msgid "King Gambit Accepted: Allgaier, Blackburne Gambit"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: Αλγκάερ, γκαμπί Blackburne"
-
-msgid "King Gambit Accepted: Allgaier, Cook Variation"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: Αλγκάερ, βαριάντα Cook"
-
-msgid "King Gambit Accepted: Allgaier, Horny Defence"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: Αλγκάερ, άμυνα Horny"
-
-msgid "King Gambit Accepted: Allgaier, Schlechter Defence"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: Αλγκάερ, άμυνα Schlechter"
-
-msgid "King Gambit Accepted: Allgaier, ThorOld Variation"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: Αλγκάερ, βαριάντα Thorold"
-
-msgid "King Gambit Accepted: Allgaier, Urusov Attack"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: Αλγκάερ, επίθεση Urusov"
-
-msgid "King Gambit Accepted: Allgaier, Walker Attack"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: Αλγκάερ, επίθεση Walker"
-
-msgid "King Gambit Accepted: Becker Defence"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: άμυνα Becker"
-
-msgid "King Gambit Accepted: Bishop Gambit, Anderssen Variation"
-msgstr ""
-"Αποδεκτό γκαμπί του βασιλιά: γκαμπί ενός αξιωματικού, βαριάντα Άντερσεν"
-
-msgid "King Gambit Accepted: Bishop Gambit, Bledow Variation"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί ενός αξιωματικού, βαριάντα Bledow"
-
-msgid "King Gambit Accepted: Bishop Gambit, Boden Defence"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί ενός αξιωματικού, άμυνα Μπόντεν"
-
-msgid "King Gambit Accepted: Bishop Gambit, Bogolyubov Variation"
-msgstr ""
-"Αποδεκτό γκαμπί του βασιλιά: γκαμπί ενός αξιωματικού, βαριάντα "
-"Μπογκολιούμποφ"
-
-msgid "King Gambit Accepted: Bishop Gambit, Boren-Svenonius Variation"
-msgstr ""
-"Αποδεκτό γκαμπί του βασιλιά: γκαμπί ενός αξιωματικού, βαριάντα Boren-"
-"Svenonius"
-
-msgid "King Gambit Accepted: Bishop Gambit, Bryan Counter-Gambit"
-msgstr ""
-"Αποδεκτό γκαμπί του βασιλιά: γκαμπί ενός αξιωματικού, αντιγκαμπί Bryan"
-
-msgid "King Gambit Accepted: Bishop Gambit, Chigorin Attack"
-msgstr ""
-"Αποδεκτό γκαμπί του βασιλιά: γκαμπί ενός αξιωματικού, επίθεση Τσιγκόριν"
-
-msgid "King Gambit Accepted: Bishop Gambit, Classical Defence, Cozio Attack"
-msgstr ""
-"Αποδεκτό γκαμπί του βασιλιά: γκαμπί ενός αξιωματικού, κλασική άμυνα, επίθεση"
-" Cozio"
-
-msgid "King Gambit Accepted: Bishop Gambit, Classical Defence"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί ενός αξιωματικού, κλασική άμυνα"
-
-msgid "King Gambit Accepted: Bishop Gambit, Cozio (Morphy) Defence"
-msgstr ""
-"Αποδεκτό γκαμπί του βασιλιά: γκαμπί ενός αξιωματικού, άμυνα Cozio (Μόρφι)"
-
-msgid "King Gambit Accepted: Bishop Gambit, Fraser Variation"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί ενός αξιωματικού, βαριάντα Fraser"
-
-msgid "King Gambit Accepted: Bishop Gambit, Greco Variation"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί ενός αξιωματικού, βαριάντα Γκρέκο"
-
-msgid "King Gambit Accepted: Bishop Gambit, Grimm Attack"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί ενός αξιωματικού, επίθεση Grimm"
-
-msgid "King Gambit Accepted: Bishop Gambit, Jaenisch Variation"
-msgstr ""
-"Αποδεκτό γκαμπί του βασιλιά: γκαμπί ενός αξιωματικού, βαριάντα Jaenisch"
-
-msgid "King Gambit Accepted: Bishop Gambit, Lopez-Gianutio Counter-Gambit"
-msgstr ""
-"Αποδεκτό γκαμπί του βασιλιά: γκαμπί ενός αξιωματικού, αντιγκαμπί Λοπέζ-"
-"Gianutio"
-
-msgid "King Gambit Accepted: Bishop Gambit, Maurian Defence"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί ενός αξιωματικού, άμυνα Maurian"
-
-msgid "King Gambit Accepted: Bishop Gambit, McDonnell Attack"
-msgstr ""
-"Αποδεκτό γκαμπί του βασιλιά: γκαμπί ενός αξιωματικού, επίθεση McDonnell"
-
-msgid "King Gambit Accepted: Bishop Gambit, Morphy Variation"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί ενός αξιωματικού, βαριάντα Μόρφι"
-
-msgid "King Gambit Accepted: Bishop Gambit, Paulsen Attack"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί ενός αξιωματικού, επίθεση Paulsen"
-
-msgid "King Gambit Accepted: Bishop Gambit, Ruy Lopez Defence"
-msgstr ""
-"Αποδεκτό γκαμπί του βασιλιά: γκαμπί ενός αξιωματικού, άμυνα Ισπανικής "
-"παρτίδας"
-
-msgid "King Gambit Accepted: Bishop Gambit, Steinitz Defence"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί ενός αξιωματικού, άμυνα Στάινιτς"
-
-msgid "King Gambit Accepted: Bishop Gambit"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί ενός αξιωματικού"
-
-msgid "King Gambit Accepted: Blachly Gambit"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί Blachly"
-
-msgid "King Gambit Accepted: Bonsch-Osmolovsky Variation"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: βαριάντα Bonsch-Osmolovsky"
-
-msgid "King Gambit Accepted: Breyer Gambit"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί Breyer"
-
-msgid "King Gambit Accepted: Carrera (Basman) Gambit"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί Carrera (Basman)"
-
-msgid "King Gambit Accepted: Cochrane Gambit"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί Cochrane"
-
-msgid "King Gambit Accepted: Cunningham Defence"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: άμυνα Κάνινγκχαμ"
-
-msgid "King Gambit Accepted: Cunningham, Bertin Gambit"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: Κάνινγκχαμ, γκαμπί Bertin"
-
-msgid "King Gambit Accepted: Cunningham, Euwe Defence"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: Κάνινγκχαμ, άμυνα Όυβε"
-
-msgid "King Gambit Accepted: Cunningham, Three Pawns Gambit"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: Κάνινγκχαμ, γκαμπί τριών πιονιών"
-
-msgid "King Gambit Accepted: Double Muzio Gambit"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: διπλό γκαμπί Muzio"
-
-msgid "King Gambit Accepted: Fischer Defence"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: άμυνα Φίσερ"
-
-msgid "King Gambit Accepted: Ghulam Kassim Gambit"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί Ghulam Kassim"
-
-msgid "King Gambit Accepted: Gianutio Counter-Gambit"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: αντιγκαμπί Gianutio"
-
-msgid "King Gambit Accepted: Greco Gambit"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί Γκρέκο"
-
-msgid "King Gambit Accepted: Herzfeld Gambit"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί Herzfeld"
-
-msgid "King Gambit Accepted: Keres (Mason-Steinitz) Gambit"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί Κέρες (Mason-Στάινιτς)"
-
-msgid "King Gambit Accepted: Kieseritsky, Berlin Defence, 6.Bc4"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: Kieseritsky, άμυνα Βερολίνου, 6.Bc4"
-
-msgid "King Gambit Accepted: Kieseritsky, Berlin Defence, Riviere Variation"
-msgstr ""
-"Αποδεκτό γκαμπί του βασιλιά: Kieseritsky, άμυνα Βερολίνου, βαριάντα Riviere"
-
-msgid "King Gambit Accepted: Kieseritsky, Berlin Defence"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: Kieseritsky, άμυνα Βερολίνου"
-
-msgid "King Gambit Accepted: Kieseritsky, Brentano (Campbell) Defence"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: Kieseritsky, άμυνα Brentano (Campbell)"
-
-msgid "King Gambit Accepted: Kieseritsky, Brentano Defence, Caro Variation"
-msgstr ""
-"Αποδεκτό γκαμπί του βασιλιά: Kieseritsky, άμυνα Brentano, βαριάντα Caro"
-
-msgid ""
-"King Gambit Accepted: Kieseritsky, Brentano Defence, Kaplanek Variation"
-msgstr ""
-"Αποδεκτό γκαμπί του βασιλιά: Kieseritsky, άμυνα Brentano, βαριάντα Kaplanek"
-
-msgid "King Gambit Accepted: Kieseritsky, Brentano Defence"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: Kieseritsky, άμυνα Brentano"
-
-msgid "King Gambit Accepted: Kieseritsky, Kolisch Defence"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: Kieseritsky, άμυνα Kolisch"
-
-msgid "King Gambit Accepted: Kieseritsky, Neumann Defence"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: Kieseritsky, άμυνα Neumann"
-
-msgid "King Gambit Accepted: Kieseritsky, Paulsen Defence"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: Kieseritsky, άμυνα Paulsen"
-
-msgid "King Gambit Accepted: Kieseritsky, Polerio Defence"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: Kieseritsky, άμυνα Polerio"
-
-msgid "King Gambit Accepted: Kieseritsky, Rice Gambit"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: Kieseritsky, γκαμπί Rice"
-
-msgid "King Gambit Accepted: Kieseritsky, Salvio (Rosenthal) Defence"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: Kieseritsky, άμυνα Salvio (Rosenthal)"
-
-msgid "King Gambit Accepted: Kieseritsky, Salvio Defence, Cozio Variation"
-msgstr ""
-"Αποδεκτό γκαμπί του βασιλιά: Kieseritsky, άμυνα Salvio, βαριάντα Cozio"
-
-msgid ""
-"King Gambit Accepted: Kieseritsky, long whip (Stockwhip, Classical) Defence"
-msgstr ""
-"Αποδεκτό γκαμπί του βασιλιά: Kieseritsky, άμυνα long whip (Stockwhip, "
-"κλασική)"
-
-msgid ""
-"King Gambit Accepted: Kieseritsky, long whip Defence, Jaenisch Variation"
-msgstr ""
-"Αποδεκτό γκαμπί του βασιλιά: Kieseritsky, άμυνα long whip, βαριάντα Jaenisch"
-
-msgid "King Gambit Accepted: King knight Gambit"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί του ίππου του Βασιλιά"
-
-msgid ""
-"King Gambit Accepted: Lesser Bishop (Petroff-Jaenisch-Tartakower) Gambit"
-msgstr ""
-"Αποδεκτό γκαμπί του βασιλιά: Μικρότερο γκαμπί αξιωματικού (Petroff-Jaenisch-"
-"Ταρτακόβερ)"
-
-msgid "King Gambit Accepted: Lolli Gambit (wild Muzio Gambit)"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί Lolli (γκαμπί wild Muzio)"
-
-msgid "King Gambit Accepted: Lolli Gambit, Young Variation"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί Lolli, βαριάντα Young"
-
-msgid "King Gambit Accepted: Lopez-Gianutio Counter-Gambit, Hein Variation"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: αντιγκαμπί Λοπέζ-Gianutio, βαριάντα Hein"
-
-msgid "King Gambit Accepted: MacDonnell Gambit"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί MacDonnell"
-
-msgid "King Gambit Accepted: Muzio Gambit, Brentano Defence"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί Muzio, άμυνα Brentano"
-
-msgid "King Gambit Accepted: Muzio Gambit, From Defence"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί Muzio, άμυνα Φρομ"
-
-msgid "King Gambit Accepted: Muzio Gambit, Holloway Defence"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί Muzio, άμυνα Holloway"
-
-msgid "King Gambit Accepted: Muzio Gambit, Kling and Horwitz Counter-Attack"
-msgstr ""
-"Αποδεκτό γκαμπί του βασιλιά: γκαμπί Muzio, αντεπίθεση Kling και Horwitz"
-
-msgid "King Gambit Accepted: Muzio Gambit, Paulsen Variation"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί Muzio, βαριάντα Paulsen"
-
-msgid "King Gambit Accepted: Muzio Gambit"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί Muzio"
-
-msgid "King Gambit Accepted: Orsini Gambit"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί Orsini"
-
-msgid "King Gambit Accepted: Pawn Gambit (Stamma Gambit)"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί του πιονιού (γκαμπί Stamma)"
-
-msgid "King Gambit Accepted: Philidor Gambit, Schultz Variation"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί Φιλιντόρ, βαριάντα Schultz"
-
-msgid "King Gambit Accepted: Philidor Gambit"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί Φιλιντόρ"
-
-msgid "King Gambit Accepted: Quaade Gambit"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί Quaade"
-
-msgid "King Gambit Accepted: Rosentreter Gambit"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί Rosentreter"
-
-msgid "King Gambit Accepted: Salvio Gambit, Anderssen Counter-Attack"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί Salvio, αντεπίθεση Άντερσεν"
-
-msgid "King Gambit Accepted: Salvio Gambit"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί Salvio"
-
-msgid "King Gambit Accepted: Schallop Defence"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: άμυνα Schallop"
-
-msgid "King Gambit Accepted: Schurig Gambit"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί Schurig"
-
-msgid "King Gambit Accepted: Silberschmidt Gambit"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί Silberschmidt"
-
-msgid "King Gambit Accepted: Soerensen Gambit"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί Soerensen"
-
-msgid "King Gambit Accepted: Tumbleweed Gambit"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί Tumbleweed"
-
-msgid "King Gambit Accepted: Villemson (Steinitz) Gambit"
-msgstr "Αποδεκτό γκαμπί του βασιλιά: γκαμπί Villemson (Στάινιτς)"
-
-msgid "King Gambit Accepted"
-msgstr "Αποδεκτό γκαμπί του βασιλιά"
-
-msgid "King Gambit Declined: 2...Nf6"
-msgstr "Μη αποδεκτό γκαμπί του βασιλιά: 2...Nf6"
-
-msgid "King Gambit Declined: Classical Counter-Gambit"
-msgstr "Μη αποδεκτό γκαμπί του βασιλιά: κλασικό αντιγκαμπί"
-
-msgid "King Gambit Declined: Classical Variation"
-msgstr "Μη αποδεκτό γκαμπί του βασιλιά: κλασική βαριάντα"
-
-msgid "King Gambit Declined: Classical, 4.c3"
-msgstr "Μη αποδεκτό γκαμπί του βασιλιά: κλασική, 4.c3"
-
-msgid "King Gambit Declined: Classical, Hanham Variation"
-msgstr "Μη αποδεκτό γκαμπί του βασιλιά: κλασική, βαριάντα Hanham"
-
-msgid "King Gambit Declined: Classical, Heath Variation"
-msgstr "Μη αποδεκτό γκαμπί του βασιλιά: κλασική, βαριάντα Heath"
-
-msgid "King Gambit Declined: Classical, Marshall Attack"
-msgstr "Μη αποδεκτό γκαμπί του βασιλιά: κλασική, επίθεση Μάρσαλ"
-
-msgid "King Gambit Declined: Classical, Reti Variation"
-msgstr "Μη αποδεκτό γκαμπί του βασιλιά: κλασική, βαριάντα Ρέτι"
-
-msgid "King Gambit Declined: Classical, Soldatenkov Variation"
-msgstr "Μη αποδεκτό γκαμπί του βασιλιά: κλασική, βαριάντα Soldatenkov"
-
-msgid "King Gambit Declined: Classical, Svenonius Variation"
-msgstr "Μη αποδεκτό γκαμπί του βασιλιά: κλασική, βαριάντα Svenonius"
-
-msgid "King Gambit Declined: Falkbeer Counter-Gambit"
-msgstr "Μη αποδεκτό γκαμπί του βασιλιά: αντιγκαμπί Falkbeer"
-
-msgid "King Gambit Declined: Falkbeer, 3...e4"
-msgstr "Μη αποδεκτό γκαμπί του βασιλιά: Falkbeer, 3...e4"
-
-msgid "King Gambit Declined: Falkbeer, 4.d3"
-msgstr "Μη αποδεκτό γκαμπί του βασιλιά: Falkbeer, 4.d3"
-
-msgid "King Gambit Declined: Falkbeer, 5.de"
-msgstr "Μη αποδεκτό γκαμπί του βασιλιά: Falkbeer, 5.de"
-
-msgid "King Gambit Declined: Falkbeer, Alapin Variation"
-msgstr "Μη αποδεκτό γκαμπί του βασιλιά: Falkbeer, βαριάντα Αλαπίν"
-
-msgid "King Gambit Declined: Falkbeer, Charousek Gambit"
-msgstr "Μη αποδεκτό γκαμπί του βασιλιά: Falkbeer, γκαμπί Charousek"
-
-msgid "King Gambit Declined: Falkbeer, Keres Variation"
-msgstr "Μη αποδεκτό γκαμπί του βασιλιά: Falkbeer, βαριάντα Κέρες"
-
-msgid "King Gambit Declined: Falkbeer, Main Line, 7...Bf5"
-msgstr "Μη αποδεκτό γκαμπί του βασιλιά: Falkbeer, κύρια συνέχεια, 7...Bf5"
-
-msgid "King Gambit Declined: Falkbeer, Milner-Barry Variation"
-msgstr "Μη αποδεκτό γκαμπί του βασιλιά: Falkbeer, βαριάντα Milner-Barry"
-
-msgid "King Gambit Declined: Falkbeer, Morphy Gambit"
-msgstr "Μη αποδεκτό γκαμπί του βασιλιά: Falkbeer, γκαμπί Μόρφι"
-
-msgid "King Gambit Declined: Falkbeer, Nimzovich Variation"
-msgstr "Μη αποδεκτό γκαμπί του βασιλιά: Falkbeer, βαριάντα Νίμζοβιτς"
-
-msgid "King Gambit Declined: Falkbeer, Reti Variation"
-msgstr "Μη αποδεκτό γκαμπί του βασιλιά: Falkbeer, βαριάντα Ρέτι"
-
-msgid "King Gambit Declined: Falkbeer, Rubinstein Variation"
-msgstr "Μη αποδεκτό γκαμπί του βασιλιά: Falkbeer, βαριάντα Ρουμπινστάιν"
-
-msgid "King Gambit Declined: Falkbeer, Tarrasch Variation"
-msgstr "Μη αποδεκτό γκαμπί του βασιλιά: Falkbeer, βαριάντα Τάρας"
-
-msgid "King Gambit Declined: Falkbeer, Tartakower Variation"
-msgstr "Μη αποδεκτό γκαμπί του βασιλιά: Falkbeer, βαριάντα Ταρτακόβερ"
-
-msgid "King Gambit Declined: Keene Defence"
-msgstr "Μη αποδεκτό γκαμπί του βασιλιά: άμυνα Keene"
-
-msgid "King Gambit Declined: Mafia Defence"
-msgstr "Μη αποδεκτό γκαμπί του βασιλιά: Άμυνα Mafia"
-
-msgid "King Gambit Declined: Nimzovich Counter-Gambit"
-msgstr "Μη αποδεκτό γκαμπί του βασιλιά: αντιγκαμπί Νίμζοβιτς"
-
-msgid "King Gambit Declined: Norwalde Variation, Buecker Gambit"
-msgstr "Μη αποδεκτό γκαμπί του βασιλιά: βαριάντα Norwalde, γκαμπί Buecker"
-
-msgid "King Gambit Declined: Norwalde Variation"
-msgstr "Μη αποδεκτό γκαμπί του βασιλιά: βαριάντα Norwalde"
-
-msgid "King Gambit"
-msgstr "Γκαμπί του βασιλιά"
-
-msgid "King Indian Defence, 3.Nc3"
-msgstr "Ινδική άμυνα του βασιλιά, 3.Nc3"
-
-msgid "King Indian Defence: 3.Nf3"
-msgstr "Ινδική του βασιλιά, 3.Nf3"
-
-msgid "King Indian Defence: 3.g3"
-msgstr "Ινδική του βασιλιά: 3.g3"
-
-msgid "King Indian Defence: 4.e4"
-msgstr "Ινδική του βασιλιά: 4.e4"
-
-msgid "King Indian Defence: 5.Be2"
-msgstr "Ινδική του βασιλιά: 5.Be2"
-
-msgid "King Indian Defence: 5.Nf3"
-msgstr "Ινδική του βασιλιά: 5.Nf3"
-
-msgid "King Indian Defence: 6.Be2"
-msgstr "Ινδική του βασιλιά: 6.Be2"
-
-msgid "King Indian Defence: Accelerated Averbakh System"
-msgstr "Ινδική του βασιλιά: επιταχυνόμενο σύστημα Άβερμπαχ"
-
-msgid "King Indian Defence: Andersson Variation"
-msgstr "Ινδική του βασιλιά: βαριάντα Andersson"
-
-msgid "King Indian Defence: Anti-Grünfeld"
-msgstr "Ινδική του βασιλιά: Αντι-Γκρίνφελντ"
-
-msgid "King Indian Defence: Averbakh System"
-msgstr "Ινδική του βασιλιά: σύστημα Άβερμπαχ"
-
-msgid "King Indian Defence: Averbakh, 6...c5"
-msgstr "Ινδική του βασιλιά: Άβερμπαχ, 6...c5"
-
-msgid "King Indian Defence: Averbakh, Main Line"
-msgstr "Ινδική του βασιλιά: Άβερμπαχ, κύρια συνέχεια"
-
-msgid "King Indian Defence: Classical Variation"
-msgstr "Ινδική του βασιλιά: κλασική βαριάντα"
-
-msgid "King Indian Defence: Danube Gambit"
-msgstr "Ινδική του βασιλιά: γκαμπί του Δούναβη"
-
-msgid "King Indian Defence: East Indian Defence"
-msgstr "Ινδική του βασιλιά: άμυνα Ανατολικής Ινδίας"
-
-msgid "King Indian Defence: Fianchetto Variation"
-msgstr "Ινδική του βασιλιά: βαριάντα φιανκέτο"
-
-msgid "King Indian Defence: Fianchetto with ...Nc6"
-msgstr "Ινδική του βασιλιά: φιανκέτο με ...Nc6"
-
-msgid "King Indian Defence: Fianchetto with ...Nd7"
-msgstr "Ινδική του βασιλιά: φιανκέτο με ...Nd7"
-
-msgid "King Indian Defence: Fianchetto without c4"
-msgstr "Ινδική του βασιλιά: φιανκέτο χωρίς c4"
-
-msgid "King Indian Defence: Fianchetto, Classical Main Line"
-msgstr "Ινδική του βασιλιά: φιανκέτο, κλασική κύρια συνέχεια"
-
-msgid "King Indian Defence: Fianchetto, Classical Variation, 8.e4"
-msgstr "Ινδική του βασιλιά: φιανκέτο, κλασική βαριάντα, 8.e4"
-
-msgid "King Indian Defence: Fianchetto, Classical Variation"
-msgstr "Ινδική του βασιλιά: φιανκέτο, κλασική βαριάντα"
-
-msgid "King Indian Defence: Fianchetto, Kavalek (Bronstein) Variation"
-msgstr "Ινδική του βασιλιά: φιανκέτο, βαριάντα Kavalek (Μπρονστάιν)"
-
-msgid "King Indian Defence: Fianchetto, Larsen System"
-msgstr "Ινδική του βασιλιά: φιανκέτο, σύστημα Λάρσεν"
-
-msgid "King Indian Defence: Fianchetto, Panno Variation"
-msgstr "Ινδική του βασιλιά: φιανκέτο, βαριάντα Panno"
-
-msgid "King Indian Defence: Fianchetto, Simagin Variation"
-msgstr "Ινδική του βασιλιά: φιανκέτο, βαριάντα Simagin"
-
-msgid "King Indian Defence: Fianchetto, Uhlmann (Szabo) Variation"
-msgstr "Ινδική του βασιλιά: φιανκέτο, βαριάντα Uhlmann (Szabo)"
-
-msgid "King Indian Defence: Fianchetto, Yugoslav Panno"
-msgstr "Ινδική του βασιλιά: φιανκέτο, Γιουγκοσλαβικό Panno"
-
-msgid "King Indian Defence: Fianchetto, Yugoslav System"
-msgstr "Ινδική του βασιλιά: φιανκέτο, Γιουγκοσλαβικό σύστημα"
-
-msgid "King Indian Defence: Fianchetto, Yugoslav, 7.O-O"
-msgstr "Ινδική του βασιλιά: φιανκέτο, Γιουγκοσλαβικό, 7.O-O"
-
-msgid "King Indian Defence: Fianchetto, lesser Simagin (Spassky) Variation"
-msgstr "Ινδική του βασιλιά: φιανκέτο, μικρότερη βαριάντα Simagin (Spassky)"
-
-msgid "King Indian Defence: Four Pawns Attack, 6.Be2"
-msgstr "Ινδική του βασιλιά: επίθεση τεσσάρων πιονιών, 6.Be2"
-
-msgid "King Indian Defence: Four Pawns Attack, Florentine Gambit"
-msgstr "Ινδική του βασιλιά: επίθεση τεσσάρων πιονιών, γκαμπί Φλωρεντίας"
-
-msgid "King Indian Defence: Four Pawns Attack, Main Line"
-msgstr "Ινδική του βασιλιά: επίθεση τεσσάρων πιονιών, κύρια συνέχεια"
-
-msgid "King Indian Defence: Four Pawns Attack, dynamic Line"
-msgstr "Ινδική του βασιλιά: επίθεση τεσσάρων πιονιών, δυναμική γραμμή"
-
-msgid "King Indian Defence: Four Pawns Attack, with Be2 and Nf3"
-msgstr "Ινδική του βασιλιά: επίθεση τεσσάρων πιονιών, με Be2 και Nf3"
-
-msgid "King Indian Defence: Four Pawns Attack"
-msgstr "Ινδική του βασιλιά: επίθεση τεσσάρων πιονιών"
-
-msgid "King Indian Defence: Gligoric-Taimanov System"
-msgstr "Ινδική του βασιλιά: σύστημα Γκλίγκοριτς-Ταϊμάνοβ"
-
-msgid "King Indian Defence: Kazakh Variation"
-msgstr "Ινδική του βασιλιά: Καζακική βαριάντα"
-
-msgid "King Indian Defence: Kramer System"
-msgstr "Ινδική του βασιλιά: σύστημα Kramer"
-
-msgid "King Indian Defence: Larsen Variation"
-msgstr "Ινδική του βασιλιά: βαριάντα Λάρσεν"
-
-msgid "King Indian Defence: London System"
-msgstr "Ινδική του βασιλιά: σύστημα Λονδίνου"
-
-msgid "King Indian Defence: Makagonov System (5.h3)"
-msgstr "Ινδική του βασιλιά: σύστημα Makagonov (5.h3)"
-
-msgid "King Indian Defence: Petrosian System, Keres Variation"
-msgstr "Ινδική του βασιλιά: σύστημα Πετροσιάν, βαριάντα Κέρες"
-
-msgid "King Indian Defence: Petrosian System, Main Line"
-msgstr "Ινδική του βασιλιά: σύστημα Πετροσιάν, κύρια συνέχεια"
-
-msgid "King Indian Defence: Petrosian System, Stein Variation"
-msgstr "Ινδική του βασιλιά: σύστημα Πετροσιάν, βαριάντα Stein"
-
-msgid "King Indian Defence: Petrosian System"
-msgstr "Ινδική του βασιλιά: σύστημα Πετροσιάν"
-
-msgid "King Indian Defence: Pomar System"
-msgstr "Ινδική του βασιλιά: σύστημα Pomar"
-
-msgid "King Indian Defence: Saemisch Variation"
-msgstr "Ινδική του βασιλιά: βαριάντα Σάμιτς"
-
-msgid "King Indian Defence: Saemisch, 5...O-O"
-msgstr "Ινδική του βασιλιά: Σάμιτς, 5...O-O"
-
-msgid "King Indian Defence: Saemisch, 6...Nc6"
-msgstr "Ινδική του βασιλιά: Σάμιτς, 6...Nc6"
-
-msgid "King Indian Defence: Saemisch, Byrne Variation"
-msgstr "Ινδική του βασιλιά: Σάμιτς, βαριάντα Byrne"
-
-msgid "King Indian Defence: Saemisch, Double Fianchetto Variation"
-msgstr "Ινδική του βασιλιά: Σάμιτς, βαριάντα διπλό φιανκέτο"
-
-msgid "King Indian Defence: Saemisch, Panno Formation"
-msgstr "Ινδική του βασιλιά: Σάμιτς, σχηματισμός Panno"
-
-msgid "King Indian Defence: Saemisch, Panno Main Line"
-msgstr "Ινδική του βασιλιά: Σάμιτς, Panno κύρια συνέχεια"
-
-msgid "King Indian Defence: Saemisch, Ruban Variation"
-msgstr "Ινδική του βασιλιά: Σάμιτς, βαριάντα Ruban"
-
-msgid "King Indian Defence: Saemisch, orthodox Main Line"
-msgstr "Ινδική του βασιλιά: Σάμιτς, ορθόδοξη κύρια συνέχεια"
-
-msgid "King Indian Defence: Saemisch, orthodox Variation"
-msgstr "Ινδική του βασιλιά: Σάμιτς, ορθόδοξη βαριάντα"
-
-msgid "King Indian Defence: Saemisch, orthodox, 7.Nge2 c6"
-msgstr "Ινδική του βασιλιά: Σάμιτς, ορθόδοξη, 7.Nge2 c6"
-
-msgid "King Indian Defence: Saemisch, orthodox, 7.d5 c6"
-msgstr "Ινδική του βασιλιά: Σάμιτς, ορθόδοξη, 7.d5 c6"
-
-msgid "King Indian Defence: Saemisch, orthodox, 7.d5"
-msgstr "Ινδική του βασιλιά: Σάμιτς, ορθόδοξη, 7.d5"
-
-msgid "King Indian Defence: Semi-Averbakh System"
-msgstr "Ινδική του βασιλιά: σύστημα ημι-Άβερμπαχ"
-
-msgid "King Indian Defence: Smyslov System"
-msgstr "Ινδική του βασιλιά: σύστημα Σμισλόφ"
-
-msgid "King Indian Defence: Torre Attack"
-msgstr "Ινδική του βασιλιά: επίθεση Τόρρε"
-
-msgid "King Indian Defence: Zinnowitz Variation"
-msgstr "Ινδική του βασιλιά: βαριάντα Zinnowitz"
-
-msgid "King Indian Defence: orthodox Variation"
-msgstr "Ινδική του βασιλιά: ορθόδοξη βαριάντα"
-
-msgid "King Indian Defence: orthodox, 7...Nbd7, 8.Re1"
-msgstr "Ινδική του βασιλιά: ορθόδοξη, 7...Nbd7, 8.Re1"
-
-msgid "King Indian Defence: orthodox, 7...Nbd7, Main Line"
-msgstr "Ινδική του βασιλιά: ορθόδοξη, 7...Nbd7, κύρια συνέχεια"
-
-msgid "King Indian Defence: orthodox, 7...Nbd7"
-msgstr "Ινδική του βασιλιά: ορθόδοξη, 7...Nbd7"
-
-msgid "King Indian Defence: orthodox, Aronin-Taimanov Variation"
-msgstr "Ινδική του βασιλιά: ορθόδοξη, βαριάντα Aronin-Ταϊμάνοβ"
-
-msgid "King Indian Defence: orthodox, Aronin-Taimanov, 9.Ne1"
-msgstr "Ινδική του βασιλιά: ορθόδοξη, Aronin-Ταϊμάνοβ, 9.Ne1"
-
-msgid "King Indian Defence: orthodox, Aronin-Taimanov, Benko Attack"
-msgstr "Ινδική του βασιλιά: ορθόδοξη, Aronin-Ταϊμάνοβ, επίθεση Μπένκο"
-
-msgid "King Indian Defence: orthodox, Aronin-Taimanov, Main Line"
-msgstr "Ινδική του βασιλιά: ορθόδοξη, Aronin-Ταϊμάνοβ, κύρια συνέχεια"
-
-msgid "King Indian Defence: orthodox, Aronin-Taimanov, bayonet Attack"
-msgstr "Ινδική του βασιλιά: ορθόδοξη, Aronin-Ταϊμάνοβ, επίθεση bayonet"
-
-msgid "King Indian Defence: orthodox, Donner Variation"
-msgstr "Ινδική του βασιλιά: ορθόδοξη, βαριάντα Donner"
-
-msgid "King Indian Defence: six Pawns Attack"
-msgstr "Ινδική του βασιλιά: επίθεση έξι πιονιών"
-
-msgid "King Indian Defence: with e4 & g3"
-msgstr "Ινδική του βασιλιά με e4 & g3"
-
-msgid "King Indian Defence"
-msgstr "Ινδική άμυνα του βασιλιά"
-
-msgid "King Pawn Opening: Colorado Counter"
-msgstr "Πιόνι του βασιλιά: μετρητής Colorado"
-
-msgid "King Pawn Opening: Indian Opening"
-msgstr "Πιόνι του βασιλιά: Ινδικό άνοιγμα"
-
-msgid "King Pawn Opening: Lopez Opening"
-msgstr "Πιόνι του βασιλιά: άνοιγμα Λοπέζ"
-
-msgid "King Pawn Opening: Mengarini Opening"
-msgstr "Πιόνι του βασιλιά: άνοιγμα Mengarini"
-
-msgid "King Pawn Opening: Napoleon Opening"
-msgstr "Πιόνι του βασιλιά: Ναπολεόντειο άνοιγμα"
-
-msgid "King Pawn Opening: Nimzovich Defence, Bogolyubov Variation"
-msgstr "Πιόνι του βασιλιά: άμυνα Νίμζοβιτς, βαριάντα Μπογκολιούμποφ"
-
-msgid "King Pawn Opening: Nimzovich Defence, Marshall Gambit"
-msgstr "Πιόνι του βασιλιά: άμυνα Νίμζοβιτς, γκαμπί Μάρσαλ"
-
-msgid "King Pawn Opening: Nimzovich Defence"
-msgstr "Πιόνι του βασιλιά: άμυνα Νίμζοβιτς"
-
-msgid "King Pawn Opening: Patzer Opening"
-msgstr "Πιόνι του βασιλιά: άνοιγμα μαζέτα"
-
-msgid "King Pawn Opening"
-msgstr "Άνοιγμα του πιονιού του βασιλιά"
-
-msgid "King knight Gambit"
-msgstr "Γκαμπί του ίππου του βασιλιά"
-
-msgid "King knight Opening"
-msgstr "Άνοιγμα του ίππου του βασιλιά"
-
 msgid "Konstantinopolsky Opening"
 msgstr "Άνοιγμα Κωνσταντινοπόλσκυ"
 
@@ -2457,26 +1004,11 @@ msgstr "Λετονικό αντιγκαμπί"
 msgid "Latvian Gambit, 3.Bc4"
 msgstr "Λετονικό γκαμπί, 3.Bc4"
 
-msgid "Latvian Gambit: Fraser Defence"
-msgstr "Λετονικό: άμυνα Fraser"
-
-msgid "Latvian Gambit: Nimzovich Variation"
-msgstr "Λετονικό: βαριάντα Νίμζοβιτς"
-
-msgid "Latvian Gambit: Polerio Variation"
-msgstr "Λετονικό: βαριάντα Polerio"
-
-msgid "Latvian Gambit: corkscrew Counter-Gambit"
-msgstr "Λετονικό: αντιγκαμπί corkscrew"
-
 msgid "Lemming Defence"
 msgstr "Άμυνα Lemming"
 
 msgid "Lengfellner System"
 msgstr "Σύστημα Lengfellner"
-
-msgid "Levitsky Attack (Queen Bishop Attack)"
-msgstr "Επίθεση Levitsky (επίθεση αξιωματικού της βασίλισσας)"
 
 msgid "Mieses Opening"
 msgstr "Άνοιγμα Mieses"
@@ -2495,42 +1027,6 @@ msgstr "Μοντέρνα άμυνα"
 
 msgid "Mujannah Opening"
 msgstr "Άνοιγμα Mujannah"
-
-msgid "Neo-Grünfeld (Kemeri) Defence"
-msgstr "Άμυνα Νεο-Γκρίνφελντ (Kemeri)"
-
-msgid "Neo-Grünfeld Defence: 5.Nf3"
-msgstr "Νεο-Γκρίνφελντ, 5.Nf3"
-
-msgid "Neo-Grünfeld Defence: 5.cd, Main Line"
-msgstr "Νεο-Γκρίνφελντ, 5.cd, κύρια συνέχεια"
-
-msgid "Neo-Grünfeld Defence: 5.cd"
-msgstr "Νεο-Γκρίνφελντ, 5.cd"
-
-msgid "Neo-Grünfeld Defence: 6.O-O c6"
-msgstr "Νεο-Γκρίνφελντ, 6.O-O c6"
-
-msgid "Neo-Grünfeld Defence: 6.O-O, Main Line"
-msgstr "Νεο-Γκρίνφελντ, 6.O-O, κύρια συνέχεια"
-
-msgid "Neo-Grünfeld Defence: 6.O-O"
-msgstr "Νεο-Γκρίνφελντ, 6.O-O"
-
-msgid "Neo-Grünfeld Defence: 6.cd Nxd5, 7.O-O Nb6"
-msgstr "Νεο-Γκρίνφελντ, 6.cd Nxd5, 7.O-O Nb6"
-
-msgid "Neo-Grünfeld Defence: 6.cd Nxd5, 7.O-O c5, 8.Nc3"
-msgstr "Νεο-Γκρίνφελντ, 6.cd Nxd5, 7.O-O c5, 8.Nc3"
-
-msgid "Neo-Grünfeld Defence: 6.cd Nxd5, 7.O-O c5, 8.dc"
-msgstr "Νεο-Γκρίνφελντ, 6.cd Nxd5, 7.O-O c5, 8.dc"
-
-msgid "Neo-Grünfeld Defence: 6.cd Nxd5, 7.O-O"
-msgstr "Νεο-Γκρίνφελντ, 6.cd Nxd5, 7.O-O"
-
-msgid "Neo-Grünfeld Defence"
-msgstr "Άμυνα Νεο-Γκρίνφελντ"
 
 msgid "Neo-Indian (Seirawan) Attack"
 msgstr "Νεο-Ινδική επίθεση (Seirawan)"
@@ -2754,14 +1250,8 @@ msgstr "Νορβηγική άμυνα"
 msgid "Novosibirsk Opening"
 msgstr "Άνοιγμα Novosibirsk"
 
-msgid "Old Benoni Defence: Franco-Benoni Defence"
-msgstr "Παλιά Benoni: άμυνα Γαλλο-Benoni"
-
 msgid "Old Benoni Defence: Mujannah Formation"
 msgstr "Παλιά Benoni: σχηματισμός Mujannah"
-
-msgid "Old Benoni Defence: Schmid System"
-msgstr "Παλιά Benoni: σύστημα Schmid"
 
 msgid "Old Benoni Defence"
 msgstr "Παλιά άμυνα Benoni"
@@ -2792,9 +1282,6 @@ msgstr "Άμυνα Όουεν"
 
 msgid "Paleface Attack"
 msgstr "Επίθεση Paleface"
-
-msgid "Petrov Defence"
-msgstr "Άμυνα Petrov"
 
 msgid "Philidor Defence: Berger Variation"
 msgstr "Φιλιντόρ: βαριάντα Berger"
@@ -2880,9 +1367,6 @@ msgstr "Φιλιντόρ: αντιγκαμπί Φιλιντόρ"
 msgid "Philidor Defence: Steinitz Variation"
 msgstr "Φιλιντόρ: βαριάντα Στάινιτς"
 
-msgid "Philidor Defence"
-msgstr "Άμυνα Φιλιντόρ"
-
 msgid "Pirc Defence: 150 Attack"
 msgstr "Πιρτς: επίθεση 150"
 
@@ -2937,12 +1421,6 @@ msgstr "Άμυνα Πιρτς"
 msgid "Polish (Sokolsky) Opening"
 msgstr "Πολωνικό άνοιγμα (Σοκόλσκι)"
 
-msgid "Polish (Sokolsky-Orangutan) Opening: Outflank Variation"
-msgstr "Πολωνικό: βαριάντα περικύκλωσης"
-
-msgid "Polish (Sokolsky-Orangutan) Opening: Tuebingen Variation"
-msgstr "Πολωνικό: βαριάντα Τύμπιγκεν"
-
 msgid "Polish Defence"
 msgstr "Πολωνική άμυνα"
 
@@ -2955,921 +1433,11 @@ msgstr "Αντιγκαμπί Πονζιάνι, επίθεση Schmidt"
 msgid "Ponziani Counter-Gambit"
 msgstr "Αντιγκαμπί Πονζιάνι"
 
-msgid "Ponziani Opening: Caro Variation"
-msgstr "Πονζιάνι: βαριάντα Caro"
-
-msgid "Ponziani Opening: Fraser Defence"
-msgstr "Πονζιάνι: άμυνα Fraser"
-
-msgid "Ponziani Opening: Jaenisch Counter-Attack"
-msgstr "Πονζιάνι: αντεπίθεση Jaenisch"
-
-msgid "Ponziani Opening: Leonhardt Variation"
-msgstr "Πονζιάνι: βαριάντα Leonhardt"
-
-msgid "Ponziani Opening: Reti Variation"
-msgstr "Πονζιάνι: βαριάντα Ρέτι"
-
-msgid "Ponziani Opening: Romanishin Variation"
-msgstr "Πονζιάνι: βαριάντα Romanishin"
-
-msgid "Ponziani Opening: Steinitz Variation"
-msgstr "Πονζιάνι: βαριάντα Στάινιτς"
-
 msgid "Ponziani Opening"
 msgstr "Άνοιγμα Πονζιάνι"
 
 msgid "Pterodactyl Defence"
 msgstr "Άμυνα Πτεροδάκτυλου"
-
-msgid "Queen Bishop Game"
-msgstr "Παρτίδα αξιωματικού της βασίλισσας"
-
-msgid "Queen Gambit Accepted, 4.Nc3"
-msgstr "ΑΓΒ, 4.Nc3"
-
-msgid "Queen Gambit Accepted, 4.e3"
-msgstr "ΑΓΒ, 4.e3"
-
-msgid "Queen Gambit Accepted, Bogolyubov Variation"
-msgstr "ΑΓΒ, βαριάντα Μπογκολιούμποφ"
-
-msgid "Queen Gambit Accepted, Flohr Variation"
-msgstr "ΑΓΒ, βαριάντα Flohr"
-
-msgid "Queen Gambit Accepted, Janowsky-Larsen Variation"
-msgstr "ΑΓΒ, βαριάντα Janowsky-Λάρσεν"
-
-msgid "Queen Gambit Accepted, Smyslov Variation"
-msgstr "ΑΓΒ, βαριάντα Σμισλόφ"
-
-msgid "Queen Gambit Accepted: 3.Nf3"
-msgstr "Αποδεκτό γκαμπί της βασίλισσας: 3.Nf3"
-
-msgid "Queen Gambit Accepted: 3.e4"
-msgstr "Αποδεκτό γκαμπί της βασίλισσας: 3.e4"
-
-msgid "Queen Gambit Accepted: 4...e6"
-msgstr "Αποδεκτό γκαμπί της βασίλισσας: 4...e6"
-
-msgid "Queen Gambit Accepted: Alekhine Defence, Alatortsev Variation"
-msgstr "Αποδεκτό γκαμπί της βασίλισσας: άμυνα Αλιέχιν, βαριάντα Alatortsev"
-
-msgid "Queen Gambit Accepted: Alekhine Defence, Borisenko-Furman Variation"
-msgstr ""
-"Αποδεκτό γκαμπί της βασίλισσας: άμυνα Αλιέχιν, βαριάντα Borisenko-Furman"
-
-msgid "Queen Gambit Accepted: Alekhine Defence"
-msgstr "Αποδεκτό γκαμπί της βασίλισσας: άμυνα Αλιέχιν"
-
-msgid "Queen Gambit Accepted: Classical Variation, 6.O-O"
-msgstr "Αποδεκτό γκαμπί της βασίλισσας: κλασική βαριάντα, 6.O-O"
-
-msgid "Queen Gambit Accepted: Classical Variation"
-msgstr "Αποδεκτό γκαμπί της βασίλισσας: κλασική βαριάντα"
-
-msgid "Queen Gambit Accepted: Classical, 6...a6"
-msgstr "Αποδεκτό γκαμπί της βασίλισσας: κλασική, 6...a6"
-
-msgid "Queen Gambit Accepted: Classical, 7...b5"
-msgstr "Αποδεκτό γκαμπί της βασίλισσας: κλασική, 7...b5"
-
-msgid "Queen Gambit Accepted: Classical, 7.Qe2"
-msgstr "Αποδεκτό γκαμπί της βασίλισσας: κλασική, 7.Qe2"
-
-msgid "Queen Gambit Accepted: Classical, 8...Bb7"
-msgstr "Αποδεκτό γκαμπί της βασίλισσας: κλασική, 8...Bb7"
-
-msgid "Queen Gambit Accepted: Classical, Geller Variation"
-msgstr "Αποδεκτό γκαμπί της βασίλισσας: κλασική, βαριάντα Geller"
-
-msgid "Queen Gambit Accepted: Classical, Rubinstein Variation"
-msgstr "Αποδεκτό γκαμπί της βασίλισσας: κλασική, βαριάντα Ρουμπινστάιν"
-
-msgid "Queen Gambit Accepted: Classical, Smyslov Variation"
-msgstr "Αποδεκτό γκαμπί της βασίλισσας: κλασική, βαριάντα Σμισλόφ"
-
-msgid "Queen Gambit Accepted: Classical, Steinitz Variation"
-msgstr "Αποδεκτό γκαμπί της βασίλισσας: κλασική, βαριάντα Στάινιτς"
-
-msgid "Queen Gambit Accepted: Ericson Variation"
-msgstr "Αποδεκτό γκαμπί της βασίλισσας: βαριάντα Ericson"
-
-msgid "Queen Gambit Accepted: Haberditz Variation"
-msgstr "Αποδεκτό γκαμπί της βασίλισσας: βαριάντα Haberditz"
-
-msgid "Queen Gambit Accepted: Linares Variation"
-msgstr "Αποδεκτό γκαμπί της βασίλισσας: βαριάντα Linares"
-
-msgid "Queen Gambit Accepted: Mannheim Variation"
-msgstr "Αποδεκτό γκαμπί της βασίλισσας: βαριάντα Μάνχαϊμ"
-
-msgid "Queen Gambit Accepted: Schwartz Defence"
-msgstr "Αποδεκτό γκαμπί της βασίλισσας: άμυνα Schwartz"
-
-msgid "Queen Gambit Accepted"
-msgstr "Αποδεκτό γκαμπί της βασίλισσας"
-
-msgid "Queen Gambit Declined Semi-Slav: 5...Nd7"
-msgstr "ΓΒΑ Ημισλαβική: 5...Nd7"
-
-msgid "Queen Gambit Declined Semi-Slav: 5.Bg5 dc"
-msgstr "ΓΒΑ Ημισλαβική: 5.Bg5 dc"
-
-msgid "Queen Gambit Declined Semi-Slav: 5.e3"
-msgstr "ΓΒΑ Ημισλαβική: 5.e3"
-
-msgid "Queen Gambit Declined Semi-Slav: 6.Bd3"
-msgstr "ΓΒΑ Ημισλαβική: 6.Bd3"
-
-msgid "Queen Gambit Declined Semi-Slav: 7.Bc4"
-msgstr "ΓΒΑ Ημισλαβική: 7.Bc4"
-
-msgid ""
-"Queen Gambit Declined Semi-Slav: Accelerated Meran (Alekhine Variation)"
-msgstr "ΓΒΑ Ημισλαβική: επιταχυνόμενη Meran (βαριάντα Αλιέχιν)"
-
-msgid "Queen Gambit Declined Semi-Slav: Anti-Meran Gambit"
-msgstr "ΓΒΑ Ημισλαβική: γκαμπί αντι-Meran"
-
-msgid "Queen Gambit Declined Semi-Slav: Anti-Meran, Alatortsev System"
-msgstr "ΓΒΑ Ημισλαβική: αντι-Meran, σύστημα Alatortsev"
-
-msgid "Queen Gambit Declined Semi-Slav: Anti-Meran, Lilienthal Variation"
-msgstr "ΓΒΑ Ημισλαβική: αντι-Meran, βαριάντα Lilienthal"
-
-msgid "Queen Gambit Declined Semi-Slav: Anti-Meran, Szabo Variation"
-msgstr "ΓΒΑ Ημισλαβική: αντι-Meran, βαριάντα Szabo"
-
-msgid "Queen Gambit Declined Semi-Slav: Bogolyubov Variation"
-msgstr "ΓΒΑ Ημισλαβική: βαριάντα Μπογκολιούμποφ"
-
-msgid "Queen Gambit Declined Semi-Slav: Botvinnik System (Anti-Meran)"
-msgstr "ΓΒΑ Ημισλαβική: σύστημα Μποτβίνικ (αντι-Meran)"
-
-msgid "Queen Gambit Declined Semi-Slav: Chigorin Defence"
-msgstr "ΓΒΑ Ημισλαβική: άμυνα Τσιγκόριν"
-
-msgid "Queen Gambit Declined Semi-Slav: Ekstrom Variation"
-msgstr "ΓΒΑ Ημισλαβική: βαριάντα Ekstrom"
-
-msgid "Queen Gambit Declined Semi-Slav: Hastings Variation"
-msgstr "ΓΒΑ Ημισλαβική: βαριάντα Hastings"
-
-msgid "Queen Gambit Declined Semi-Slav: Meran Variation"
-msgstr "ΓΒΑ Ημισλαβική: βαριάντα Meran"
-
-msgid "Queen Gambit Declined Semi-Slav: Meran, 8...a6"
-msgstr "ΓΒΑ Ημισλαβική: Meran, 8...a6"
-
-msgid "Queen Gambit Declined Semi-Slav: Meran, Blumenfeld Variation"
-msgstr "ΓΒΑ Ημισλαβική: Meran, βαριάντα Blumenfeld"
-
-msgid "Queen Gambit Declined Semi-Slav: Meran, Old Main Line"
-msgstr "ΓΒΑ Ημισλαβική: Meran, παλιά κύρια συνέχεια"
-
-msgid "Queen Gambit Declined Semi-Slav: Meran, Pirc Variation"
-msgstr "ΓΒΑ Ημισλαβική: Meran, βαριάντα Πιρτς"
-
-msgid "Queen Gambit Declined Semi-Slav: Meran, Rabinovich Variation"
-msgstr "ΓΒΑ Ημισλαβική: Meran, βαριάντα Rabinovich"
-
-msgid "Queen Gambit Declined Semi-Slav: Meran, Reynolds' Variation"
-msgstr "ΓΒΑ Ημισλαβική: Meran, βαριάντα Reynolds'"
-
-msgid "Queen Gambit Declined Semi-Slav: Meran, Sozin Variation"
-msgstr "ΓΒΑ Ημισλαβική: Meran, βαριάντα Sozin"
-
-msgid "Queen Gambit Declined Semi-Slav: Meran, Stahlberg Variation"
-msgstr "ΓΒΑ Ημισλαβική: Meran, βαριάντα Stahlberg"
-
-msgid "Queen Gambit Declined Semi-Slav: Meran, Wade Variation"
-msgstr "ΓΒΑ Ημισλαβική: Meran, βαριάντα Wade"
-
-msgid "Queen Gambit Declined Semi-Slav: Romih Variation"
-msgstr "ΓΒΑ Ημισλαβική: βαριάντα Romih"
-
-msgid "Queen Gambit Declined Semi-Slav: Rubinstein (Anti-Meran) System"
-msgstr "ΓΒΑ Ημισλαβική: σύστημα Ρουμπινστάιν (αντι-Meran)"
-
-msgid "Queen Gambit Declined Semi-Slav: Stoltz Variation"
-msgstr "ΓΒΑ Ημισλαβική: βαριάντα Stoltz"
-
-msgid "Queen Gambit Declined Semi-Slav: Stonewall Defence"
-msgstr "ΓΒΑ Ημισλαβική: άμυνα stonewall"
-
-msgid "Queen Gambit Declined Semi-Slav: neo-Meran (Lundin Variation)"
-msgstr "ΓΒΑ Ημισλαβική: νεο-Meran (βαριάντα Lundin)"
-
-msgid "Queen Gambit Declined Semi-Slav"
-msgstr "ΓΒΑ Ημισλαβική"
-
-msgid "Queen Gambit Declined Slav Accepted: Alapin Variation"
-msgstr "ΓΒΑ Σλαβική αποδεκτό: βαριάντα Αλαπίν"
-
-msgid "Queen Gambit Declined Slav Accepted"
-msgstr "ΓΒΑ Σλαβική αποδεκτό"
-
-msgid "Queen Gambit Declined Slav Defence, Alekhine Variation"
-msgstr "ΓΒΑ Σλαβική άμυνα, βαριάντα Αλιέχιν"
-
-msgid "Queen Gambit Declined Slav Defence: Exchange Variation"
-msgstr "ΓΒΑ Σλαβική άμυνα, βαριάντα αλλαγής"
-
-msgid "Queen Gambit Declined Slav Defence"
-msgstr "ΓΒΑ Σλαβική άμυνα"
-
-msgid "Queen Gambit Declined Slav: 3.Nf3"
-msgstr "ΓΒΑ Σλαβική: 3.Nf3"
-
-msgid "Queen Gambit Declined Slav: 4.Nc3"
-msgstr "ΓΒΑ Σλαβική: 4.Nc3"
-
-msgid "Queen Gambit Declined Slav: 4.e3 Bf5"
-msgstr "ΓΒΑ Σλαβική: 4.e3 Bf5"
-
-msgid "Queen Gambit Declined Slav: 4.e3"
-msgstr "ΓΒΑ Σλαβική: 4.e3"
-
-msgid "Queen Gambit Declined Slav: 5.e3 (Alekhine Variation)"
-msgstr "ΓΒΑ Σλαβική: 5.e3 (βαριάντα Αλιέχιν)"
-
-msgid "Queen Gambit Declined Slav: Amsterdam Variation"
-msgstr "ΓΒΑ Σλαβική: βαριάντα Άμστερνταμ"
-
-msgid "Queen Gambit Declined Slav: Breyer Variation"
-msgstr "ΓΒΑ Σλαβική: βαριάντα Breyer"
-
-msgid "Queen Gambit Declined Slav: Carlsbad Variation"
-msgstr "ΓΒΑ Σλαβική: βαριάντα Carlsbad"
-
-msgid "Queen Gambit Declined Slav: Czech Defence"
-msgstr "ΓΒΑ Σλαβική: Τσέχικη άμυνα"
-
-msgid "Queen Gambit Declined Slav: Dutch Variation, Main Line"
-msgstr "ΓΒΑ Σλαβική: Ολλανδική βαριάντα, κύρια συνέχεια"
-
-msgid "Queen Gambit Declined Slav: Dutch Variation"
-msgstr "ΓΒΑ Σλαβική: Ολλανδική βαριάντα"
-
-msgid "Queen Gambit Declined Slav: Dutch, Lasker Variation"
-msgstr "ΓΒΑ Σλαβική: Ολλανδική, βαριάντα Λάσκερ"
-
-msgid "Queen Gambit Declined Slav: Dutch, Saemisch Variation"
-msgstr "ΓΒΑ Σλαβική: Ολλανδική, βαριάντα Σάμιτς"
-
-msgid "Queen Gambit Declined Slav: Exchange Variation, 6.Bf4 Bf5"
-msgstr "ΓΒΑ Σλαβική: βαριάντα αλλαγής, 6.Bf4 Bf5"
-
-msgid "Queen Gambit Declined Slav: Exchange Variation"
-msgstr "ΓΒΑ Σλαβική: βαριάντα αλλαγής"
-
-msgid "Queen Gambit Declined Slav: Exchange, Trifunovic Variation"
-msgstr "ΓΒΑ Σλαβική: διαφορά, βαριάντα Trifunovic"
-
-msgid "Queen Gambit Declined Slav: Krause Attack"
-msgstr "ΓΒΑ Σλαβική: επίθεση Krause"
-
-msgid "Queen Gambit Declined Slav: Semmering Variation"
-msgstr "ΓΒΑ Σλαβική: βαριάντα Semmering"
-
-msgid "Queen Gambit Declined Slav: Slav Gambit"
-msgstr "ΓΒΑ Σλαβική: Σλαβικό γκαμπί"
-
-msgid "Queen Gambit Declined Slav: Smyslov Variation"
-msgstr "ΓΒΑ Σλαβική: βαριάντα Σμισλόφ"
-
-msgid "Queen Gambit Declined Slav: Soultanbeieff Variation"
-msgstr "ΓΒΑ Σλαβική: βαριάντα Soultanbeieff"
-
-msgid "Queen Gambit Declined Slav: Steiner Variation"
-msgstr "ΓΒΑ Σλαβική: βαριάντα Steiner"
-
-msgid "Queen Gambit Declined Slav: Suechting Variation"
-msgstr "ΓΒΑ Σλαβική: βαριάντα Suechting"
-
-msgid "Queen Gambit Declined Slav: Tolush-Geller Gambit"
-msgstr "ΓΒΑ Σλαβική: γκαμπί Tolush-Geller"
-
-msgid "Queen Gambit Declined Slav: Wiesbaden Variation"
-msgstr "ΓΒΑ Σλαβική: βαριάντα Βίζμπαντεν"
-
-msgid "Queen Gambit Declined Slav: Winawer Counter-Gambit"
-msgstr "ΓΒΑ Σλαβική: αντιγκαμπί Winawer"
-
-msgid "Queen Gambit Declined: 3...Nf6"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: 3...Nf6"
-
-msgid "Queen Gambit Declined: 3.Nc3"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: 3.Nc3"
-
-msgid "Queen Gambit Declined: 4.Bg5 Be7, 5.e3 O-O"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: 4.Bg5 Be7, 5.e3 O-O"
-
-msgid "Queen Gambit Declined: 4.Bg5 Be7"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: 4.Bg5 Be7"
-
-msgid "Queen Gambit Declined: 4.Bg5 Nbd7"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: 4.Bg5 Nbd7"
-
-msgid "Queen Gambit Declined: 4.Bg5"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: 4.Bg5"
-
-msgid "Queen Gambit Declined: 4.Nf3"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: 4.Nf3"
-
-msgid "Queen Gambit Declined: 5...c6"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: 5...c6"
-
-msgid "Queen Gambit Declined: 6.Nf3"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: 6.Nf3"
-
-msgid "Queen Gambit Declined: Alapin Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: βαριάντα Αλαπίν"
-
-msgid "Queen Gambit Declined: Albin Counter-Gambit, 5.g3"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: αντιγκαμπί Άλμπιν, 5.g3"
-
-msgid "Queen Gambit Declined: Albin Counter-Gambit, Alapin Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: αντιγκαμπί Άλμπιν, βαριάντα Αλαπίν"
-
-msgid "Queen Gambit Declined: Albin Counter-Gambit, Balogh Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: αντιγκαμπί Άλμπιν, βαριάντα Balogh"
-
-msgid "Queen Gambit Declined: Albin Counter-Gambit, Janowski Variation"
-msgstr ""
-"Μη αποδεκτό γκαμπί της βασίλισσας: αντιγκαμπί Άλμπιν, βαριάντα Janowski"
-
-msgid "Queen Gambit Declined: Albin Counter-Gambit, Krenosz Variation"
-msgstr ""
-"Μη αποδεκτό γκαμπί της βασίλισσας: αντιγκαμπί Άλμπιν, βαριάντα Krenosz"
-
-msgid "Queen Gambit Declined: Albin Counter-Gambit, Lasker trap"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: αντιγκαμπί Άλμπιν, παγίδα Λάσκερ"
-
-msgid "Queen Gambit Declined: Albin Counter-Gambit"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: αντιγκαμπί Άλμπιν"
-
-msgid "Queen Gambit Declined: Alekhine Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: βαριάντα Αλιέχιν"
-
-msgid "Queen Gambit Declined: Anti-neo-orthodox Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: Αντι-νεο-ορθόδοξη βαριάντα"
-
-msgid "Queen Gambit Declined: Been-Koomen Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: βαριάντα Been-Koomen"
-
-msgid "Queen Gambit Declined: Cambridge Springs Defence, 7.cd"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: άμυνα Cambridge Springs, 7.cd"
-
-msgid "Queen Gambit Declined: Cambridge Springs Defence, Argentine Variation"
-msgstr ""
-"Μη αποδεκτό γκαμπί της βασίλισσας: άμυνα Cambridge Springs, βαριάντα "
-"Αργεντινής"
-
-msgid "Queen Gambit Declined: Cambridge Springs Defence, Bogoljubow Variation"
-msgstr ""
-"Μη αποδεκτό γκαμπί της βασίλισσας: άμυνα Cambridge Springs, βαριάντα "
-"Μπογκολιούμποφ"
-
-msgid "Queen Gambit Declined: Cambridge Springs Defence, Capablanca Variation"
-msgstr ""
-"Μη αποδεκτό γκαμπί της βασίλισσας: άμυνα Cambridge Springs, βαριάντα "
-"Καπαμπλάνκα"
-
-msgid "Queen Gambit Declined: Cambridge Springs Defence, Rubinstein Variation"
-msgstr ""
-"Μη αποδεκτό γκαμπί της βασίλισσας: άμυνα Cambridge Springs, βαριάντα "
-"Ρουμπινστάιν"
-
-msgid "Queen Gambit Declined: Cambridge Springs Defence, Yugoslav Variation"
-msgstr ""
-"Μη αποδεκτό γκαμπί της βασίλισσας: άμυνα Cambridge Springs, Γιουγκοσλαβική "
-"βαριάντα"
-
-msgid "Queen Gambit Declined: Cambridge Springs Defence"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: άμυνα Cambridge Springs"
-
-msgid "Queen Gambit Declined: Canal (Venice) Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: βαριάντα Canal (Βενετία)"
-
-msgid "Queen Gambit Declined: Capablanca Anti-Cambridge Springs Variation"
-msgstr ""
-"Μη αποδεκτό γκαμπί της βασίλισσας: βαριάντα Καπαμπλάνκα αντι-Cambridge "
-"Springs"
-
-msgid "Queen Gambit Declined: Capablanca Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: βαριάντα Καπαμπλάνκα"
-
-msgid "Queen Gambit Declined: Capablanca-Duras Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: βαριάντα Καπαμπλάνκα-Duras"
-
-msgid "Queen Gambit Declined: Charousek (Petrosian) Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: βαριάντα Charousek (Πετροσιάν)"
-
-msgid "Queen Gambit Declined: Chigorin Defence, Janowski Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: άμυνα Τσιγκόριν, βαριάντα Janowski"
-
-msgid "Queen Gambit Declined: Chigorin Defence"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: άμυνα Τσιγκόριν"
-
-msgid "Queen Gambit Declined: Classical Variation (5.Bf4)"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: κλασική βαριάντα (5.Bf4)"
-
-msgid "Queen Gambit Declined: Exchange Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: βαριάντα αλλαγής"
-
-msgid "Queen Gambit Declined: Exchange, Positional Line, 5...c6"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: διαφορά, γραμμή θέσεως, 5...c6"
-
-msgid "Queen Gambit Declined: Exchange, Positional Line, 6.Qc2"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: διαφορά, γραμμή θέσεως, 6.Qc2"
-
-msgid "Queen Gambit Declined: Exchange, Positional Line"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: διαφορά, γραμμή θέσεως"
-
-msgid "Queen Gambit Declined: Exchange, Saemisch Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: διαφορά, βαριάντα Σάμιτς"
-
-msgid "Queen Gambit Declined: Grau (Sahovic) Defence"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: άμυνα Grau (Sahovic)"
-
-msgid "Queen Gambit Declined: Harrwitz Attack"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: επίθεση Harrwitz"
-
-msgid "Queen Gambit Declined: Janowski Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: βαριάντα Janowski"
-
-msgid "Queen Gambit Declined: Lasker Defence, Bernstein Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: άμυνα Λάσκερ, βαριάντα Μπερνστάιν"
-
-msgid "Queen Gambit Declined: Lasker Defence, Main Line"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: άμυνα Λάσκερ, κύρια συνέχεια"
-
-msgid "Queen Gambit Declined: Lasker Defence, Teichmann Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: άμυνα Λάσκερ, βαριάντα Teichmann"
-
-msgid "Queen Gambit Declined: Lasker Defence"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: άμυνα Λάσκερ"
-
-msgid "Queen Gambit Declined: Lasker Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: βαριάντα Λάσκερ"
-
-msgid "Queen Gambit Declined: Manhattan Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: βαριάντα Μανχάταν"
-
-msgid "Queen Gambit Declined: Marshall Defence"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: άμυνα Μάρσαλ"
-
-msgid "Queen Gambit Declined: Neo-orthodox Variation, 7.Bh4"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: Νεο-ορθόδοξη βαριάντα, 7.Bh4"
-
-msgid "Queen Gambit Declined: Neo-orthodox Variation, 7.Bxf6"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: Νεο-ορθόδοξη βαριάντα, 7.Bxf6"
-
-msgid "Queen Gambit Declined: Neo-orthodox Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: Νεο-ορθόδοξη βαριάντα"
-
-msgid "Queen Gambit Declined: Orthodox Defence, 7.Qc2 c5, 8.cd (Rubinstein)"
-msgstr ""
-"Μη αποδεκτό γκαμπί της βασίλισσας: Ορθόδοξη άμυνα, 7.Qc2 c5, 8.cd "
-"(Ρουμπινστάιν)"
-
-msgid "Queen Gambit Declined: Orthodox Defence, 7.Rc1"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: Ορθόδοξη άμυνα, 7.Rc1"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Bd3 Line, 11.O-O"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: Ορθόδοξη άμυνα, Bd3 γραμμή, 11.O-O"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Bd3 Line, Alekhine Variation"
-msgstr ""
-"Μη αποδεκτό γκαμπί της βασίλισσας: Ορθόδοξη άμυνα, Bd3 γραμμή, βαριάντα "
-"Αλιέχιν"
-
-msgid ""
-"Queen Gambit Declined: Orthodox Defence, Bd3 Line, Capablanca freeing "
-"manoevre"
-msgstr ""
-"Μη αποδεκτό γκαμπί της βασίλισσας: Ορθόδοξη άμυνα, Bd3 γραμμή, Καπαμπλάνκα "
-"ελιγμός απελευθέρωσης"
-
-msgid ""
-"Queen Gambit Declined: Orthodox Defence, Bd3 Line, Fianchetto Variation"
-msgstr ""
-"Μη αποδεκτό γκαμπί της βασίλισσας: Ορθόδοξη άμυνα, Bd3 γραμμή, βαριάντα "
-"φιανκέτο"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Bd3 Line, Janowski Variation"
-msgstr ""
-"Μη αποδεκτό γκαμπί της βασίλισσας: Ορθόδοξη άμυνα, Bd3 γραμμή, βαριάντα "
-"Janowski"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Bd3 Line"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: Ορθόδοξη άμυνα, Bd3 γραμμή"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Botvinnik Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: Ορθόδοξη άμυνα, βαριάντα Μποτβίνικ"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Capablanca Variation"
-msgstr ""
-"Μη αποδεκτό γκαμπί της βασίλισσας: Ορθόδοξη άμυνα, βαριάντα Καπαμπλάνκα"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Classical Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: Ορθόδοξη άμυνα, κλασική βαριάντα"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Classical, 13.d1b1 (Maroczy)"
-msgstr ""
-"Μη αποδεκτό γκαμπί της βασίλισσας: Ορθόδοξη άμυνα, κλασική, 13.d1b1 "
-"(Maroczy)"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Classical, 13.d1c2 (Vidmar)"
-msgstr ""
-"Μη αποδεκτό γκαμπί της βασίλισσας: Ορθόδοξη άμυνα, κλασική, 13.d1c2 (Vidmar)"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Classical, 13.de"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: Ορθόδοξη άμυνα, κλασική, 13.de"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Pillsbury Attack"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: Ορθόδοξη άμυνα, επίθεση Pillsbury"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Rauzer Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: Ορθόδοξη άμυνα, βαριάντα Ράουζερ"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Rubinstein Attack (with Rc1)"
-msgstr ""
-"Μη αποδεκτό γκαμπί της βασίλισσας: Ορθόδοξη άμυνα, επίθεση Ρουμπινστάιν (με "
-"Rc1)"
-
-msgid ""
-"Queen Gambit Declined: Orthodox Defence, Rubinstein Attack, Grünfeld "
-"Variation"
-msgstr ""
-"Μη αποδεκτό γκαμπί της βασίλισσας: Ορθόδοξη άμυνα, επίθεση Ρουμπινστάιν, "
-"βαριάντα Γκρίνφελντ"
-
-msgid ""
-"Queen Gambit Declined: Orthodox Defence, Rubinstein Attack, Karlsbad "
-"Variation"
-msgstr ""
-"Μη αποδεκτό γκαμπί της βασίλισσας: Ορθόδοξη άμυνα, επίθεση Ρουμπινστάιν, "
-"βαριάντα Karlsbad"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Rubinstein Attack, Main Line"
-msgstr ""
-"Μη αποδεκτό γκαμπί της βασίλισσας: Ορθόδοξη άμυνα, επίθεση Ρουμπινστάιν, "
-"κύρια συνέχεια"
-
-msgid ""
-"Queen Gambit Declined: Orthodox Defence, Rubinstein Attack, Wolf Variation"
-msgstr ""
-"Μη αποδεκτό γκαμπί της βασίλισσας: Ορθόδοξη άμυνα, επίθεση Ρουμπινστάιν, "
-"βαριάντα Λύκου"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Rubinstein Variation"
-msgstr ""
-"Μη αποδεκτό γκαμπί της βασίλισσας: Ορθόδοξη άμυνα, βαριάντα Ρουμπινστάιν"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Swiss (Henneberger) Variation"
-msgstr ""
-"Μη αποδεκτό γκαμπί της βασίλισσας: Ορθόδοξη άμυνα, Ελβετική βαριάντα "
-"(Henneberger)"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Swiss, Karlsbad Variation"
-msgstr ""
-"Μη αποδεκτό γκαμπί της βασίλισσας: Ορθόδοξη άμυνα, Ελβετική, βαριάντα "
-"Karlsbad"
-
-msgid "Queen Gambit Declined: Orthodox Defence"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: Ορθόδοξη άμυνα"
-
-msgid "Queen Gambit Declined: Petrosian Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: βαριάντα Πετροσιάν"
-
-msgid "Queen Gambit Declined: Ragozin Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: βαριάντα Ragozin"
-
-msgid "Queen Gambit Declined: Ragozin, Vienna Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: Ragozin, βαριάντα Βιέννης"
-
-msgid "Queen Gambit Declined: Rochlin Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: βαριάντα Rochlin"
-
-msgid "Queen Gambit Declined: Semi-Slav, Abrahams Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: Ημισλαβική, βαριάντα Abrahams"
-
-msgid "Queen Gambit Declined: Semi-Slav, Junge Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: Ημισλαβική, βαριάντα Junge"
-
-msgid "Queen Gambit Declined: Semi-Slav, Koomen Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: Ημισλαβική, βαριάντα Koomen"
-
-msgid "Queen Gambit Declined: Semi-Slav, Marshall Gambit"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: Ημισλαβική, γκαμπί Μάρσαλ"
-
-msgid "Queen Gambit Declined: Semi-Slav, Noteboom Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: Ημισλαβική, βαριάντα Noteboom"
-
-msgid "Queen Gambit Declined: Semi-Slav"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: Ημισλαβική"
-
-msgid "Queen Gambit Declined: Semi-Tarrasch Defence"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: άμυνα Ημι-Τάρας"
-
-msgid "Queen Gambit Declined: Semi-Tarrasch with e3"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: Ημι-Τάρας με e3"
-
-msgid "Queen Gambit Declined: Semi-Tarrasch, 5.cd"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: Ημι-Τάρας, 5.cd"
-
-msgid "Queen Gambit Declined: Semi-Tarrasch, 7.Bd3"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: Ημι-Τάρας, 7.Bd3"
-
-msgid "Queen Gambit Declined: Semi-Tarrasch, Kmoch Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: Ημι-Τάρας, βαριάντα Kmoch"
-
-msgid "Queen Gambit Declined: Semi-Tarrasch, Krause Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: Ημι-Τάρας, βαριάντα Krause"
-
-msgid "Queen Gambit Declined: Semi-Tarrasch, Primitive Pillsbury Variation"
-msgstr ""
-"Μη αποδεκτό γκαμπί της βασίλισσας: Ημι-Τάρας, Πρωτόγονη βαριάντα Pillsbury"
-
-msgid "Queen Gambit Declined: Semi-Tarrasch, San Sebastian Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: Ημι-Τάρας, βαριάντα San Sebastian"
-
-msgid "Queen Gambit Declined: Semi-Tarrasch, Symmetrical Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: Ημι-Τάρας, συμμετρική βαριάντα"
-
-msgid "Queen Gambit Declined: Spielmann Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: βαριάντα Spielmann"
-
-msgid "Queen Gambit Declined: Stonewall Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: βαριάντα Stonewall"
-
-msgid "Queen Gambit Declined: Symmetrical (Austrian) Defence"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: συμμετρική άμυνα (Αυστριακή)"
-
-msgid "Queen Gambit Declined: Tarrasch Defence, 4.cd ed"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: άμυνα Τάρας, 4.cd ed"
-
-msgid "Queen Gambit Declined: Tarrasch Defence, Marshall Gambit"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: άμυνα Τάρας, γκαμπί Μάρσαλ"
-
-msgid "Queen Gambit Declined: Tarrasch Defence, Tarrasch Gambit"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: άμυνα Τάρας, γκαμπί Τάρας"
-
-msgid "Queen Gambit Declined: Tarrasch Defence"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: άμυνα Τάρας"
-
-msgid "Queen Gambit Declined: Tarrasch, Bogolyubov Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: Τάρας, βαριάντα Μπογκολιούμποφ"
-
-msgid "Queen Gambit Declined: Tarrasch, Folkestone (Swedish) Variation"
-msgstr ""
-"Μη αποδεκτό γκαμπί της βασίλισσας: Τάρας, βαριάντα Folkestone (Σουηδικά)"
-
-msgid "Queen Gambit Declined: Tarrasch, Prague Variation, 7...Be7"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: Τάρας, βαριάντα Πράγας, 7...Be7"
-
-msgid "Queen Gambit Declined: Tarrasch, Prague Variation, 9.Bg5"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: Τάρας, βαριάντα Πράγας, 9.Bg5"
-
-msgid "Queen Gambit Declined: Tarrasch, Prague Variation, Normal position"
-msgstr ""
-"Μη αποδεκτό γκαμπί της βασίλισσας: Τάρας, βαριάντα Πράγας, Κανονική θέση"
-
-msgid "Queen Gambit Declined: Tarrasch, Prague Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: Τάρας, βαριάντα Πράγας"
-
-msgid "Queen Gambit Declined: Tarrasch, Reti Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: Τάρας, βαριάντα Ρέτι"
-
-msgid ""
-"Queen Gambit Declined: Tarrasch, Schlechter-Rubinstein System, Rey Ardid "
-"Variation"
-msgstr ""
-"Μη αποδεκτό γκαμπί της βασίλισσας: Τάρας, σύστημα Schlechter-Ρουμπινστάιν, "
-"βαριάντα Rey Ardid"
-
-msgid "Queen Gambit Declined: Tarrasch, Schlechter-Rubinstein System"
-msgstr ""
-"Μη αποδεκτό γκαμπί της βασίλισσας: Τάρας, σύστημα Schlechter-Ρουμπινστάιν"
-
-msgid "Queen Gambit Declined: Tarrasch, Stoltz Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: Τάρας, βαριάντα Stoltz"
-
-msgid "Queen Gambit Declined: Tarrasch, Wagner Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: Τάρας, βαριάντα Wagner"
-
-msgid "Queen Gambit Declined: Tarrasch, von Hennig-Schara Gambit"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: Τάρας, γκαμπί von Hennig-Schara"
-
-msgid ""
-"Queen Gambit Declined: Tartakower (Makagonov-Bondarevsky) System, 8.cd Nxd5"
-msgstr ""
-"Μη αποδεκτό γκαμπί της βασίλισσας: Σύστημα Ταρτακόβερ (Makagonov-"
-"Bondarevsky), 8.cd Nxd5"
-
-msgid "Queen Gambit Declined: Tartakower (Makagonov-Bondarevsky) System"
-msgstr ""
-"Μη αποδεκτό γκαμπί της βασίλισσας: Σύστημα Ταρτακόβερ (Makagonov-"
-"Bondarevsky)"
-
-msgid "Queen Gambit Declined: Tartakower Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: βαριάντα Ταρτακόβερ"
-
-msgid "Queen Gambit Declined: Vienna Variation"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας: βαριάντα Βιέννης"
-
-msgid "Queen Gambit Declined"
-msgstr "Μη αποδεκτό γκαμπί της βασίλισσας"
-
-msgid "Queen Gambit"
-msgstr "Γκαμπί της βασίλισσας"
-
-msgid "Queen Indian Accelerated"
-msgstr "Ινδική της βασίλισσας επιταχυνόμενη"
-
-msgid "Queen Indian Defence: 4.Nc3, Main Line"
-msgstr "Ινδική της βασίλισσας: 4.Nc3, κύρια συνέχεια"
-
-msgid "Queen Indian Defence: 4.Nc3"
-msgstr "Ινδική της βασίλισσας: 4.Nc3"
-
-msgid "Queen Indian Defence: 4.e3"
-msgstr "Ινδική της βασίλισσας: 4.e3"
-
-msgid "Queen Indian Defence: 4.g3 Bb7"
-msgstr "Ινδική της βασίλισσας: 4.g3 Bb7"
-
-msgid "Queen Indian Defence: 4.g3"
-msgstr "Ινδική της βασίλισσας: 4.g3"
-
-msgid "Queen Indian Defence: 5.Bg2 Be7"
-msgstr "Ινδική της βασίλισσας: 5.Bg2 Be7"
-
-msgid "Queen Indian Defence: Anti-Queen Indian System"
-msgstr "Ινδική της βασίλισσας: Ινδικό σύστημα της αντι-βασίλισσας"
-
-msgid "Queen Indian Defence: Averbakh Variation"
-msgstr "Ινδική της βασίλισσας: βαριάντα Άβερμπαχ"
-
-msgid "Queen Indian Defence: Buerger Variation"
-msgstr "Ινδική της βασίλισσας: βαριάντα Buerger"
-
-msgid "Queen Indian Defence: Capablanca Variation"
-msgstr "Ινδική της βασίλισσας: βαριάντα Καπαμπλάνκα"
-
-msgid "Queen Indian Defence: Euwe Variation"
-msgstr "Ινδική της βασίλισσας: βαριάντα Όυβε"
-
-msgid "Queen Indian Defence: Marienbad System, Berg Variation"
-msgstr "Ινδική της βασίλισσας: σύστημα Marienbad, βαριάντα Berg"
-
-msgid "Queen Indian Defence: Marienbad System"
-msgstr "Ινδική της βασίλισσας: σύστημα Marienbad"
-
-msgid "Queen Indian Defence: Miles Variation"
-msgstr "Ινδική της βασίλισσας: βαριάντα Miles"
-
-msgid "Queen Indian Defence: Nimzovich Variation (exaggerated Fianchetto)"
-msgstr "Ινδική της βασίλισσας: βαριάντα Νίμζοβιτς (υπερβολικό φιανκέτο)"
-
-msgid "Queen Indian Defence: Old Main Line, 6.O-O"
-msgstr "Ινδική της βασίλισσας: παλιά κύρια συνέχεια, 6.O-O"
-
-msgid "Queen Indian Defence: Old Main Line, 7.Nc3"
-msgstr "Ινδική της βασίλισσας: παλιά κύρια συνέχεια, 7.Nc3"
-
-msgid "Queen Indian Defence: Old Main Line, 9.Qxc3"
-msgstr "Ινδική της βασίλισσας: παλιά κύρια συνέχεια, 9.Qxc3"
-
-msgid "Queen Indian Defence: Opovcensky Variation"
-msgstr "Ινδική της βασίλισσας: βαριάντα Opovcensky"
-
-msgid "Queen Indian Defence: Petrosian System"
-msgstr "Ινδική της βασίλισσας: σύστημα Πετροσιάν"
-
-msgid "Queen Indian Defence: Riumin Variation"
-msgstr "Ινδική της βασίλισσας: βαριάντα Ριούμιν"
-
-msgid "Queen Indian Defence: Rubinstein Variation"
-msgstr "Ινδική της βασίλισσας: βαριάντα Ρουμπινστάιν"
-
-msgid "Queen Indian Defence: Yates Variation"
-msgstr "Ινδική της βασίλισσας: βαριάντα Yates"
-
-msgid "Queen Indian Defence"
-msgstr "Ινδική άμυνα της βασίλισσας"
-
-msgid "Queen Pawn Game Counter-Gambit (elephant Gambit)"
-msgstr "Πιόνι της βασίλισσας αντιγκαμπί (γκαμπί ελέφαντα)"
-
-msgid "Queen Pawn Game Counter-Gambit: Maroczy Gambit"
-msgstr "Πιόνι της βασίλισσας αντιγκαμπί: γκαμπί Maroczy"
-
-msgid "Queen Pawn Game: Bronstein Gambit"
-msgstr "Πιόνι της βασίλισσας: γκαμπί Μπρονστάιν"
-
-msgid "Queen Pawn Game: Charlick (Englund) Gambit"
-msgstr "Πιόνι της βασίλισσας: γκαμπί Charlick (Englund)"
-
-msgid "Queen Pawn Game: Chigorin Variation"
-msgstr "Πιόνι της βασίλισσας: βαριάντα τσιγκόριν"
-
-msgid "Queen Pawn Game: English Defence"
-msgstr "Πιόνι της βασίλισσας: Αγγλική άμυνα"
-
-msgid "Queen Pawn Game: Franco-Indian (Keres) Defence"
-msgstr "Πιόνι της βασίλισσας: Γαλλο-ινδική άμυνα (Κέρες)"
-
-msgid "Queen Pawn Game: Krause Variation"
-msgstr "Παρτίδα πιονιού της βασίλισσας, βαριάντα Krause"
-
-msgid "Queen Pawn Game: Lundin (Kevitz-Mikenas) Defence"
-msgstr "Πιόνι της βασίλισσας: άμυνα Lundin (Kevitz-Mikenas)"
-
-msgid "Queen Pawn Game: Mason Variation, Steinitz Counter-Gambit"
-msgstr "Πιόνι της βασίλισσας, βαριάντα Mason, αντιγκαμπί Στάινιτς"
-
-msgid "Queen Pawn Game: Mason Variation"
-msgstr "Πιόνι της βασίλισσας, βαριάντα Mason"
-
-msgid "Queen Pawn Game: Mengarini Attack"
-msgstr "Πιόνι της βασίλισσας: επίθεση Mengarini"
-
-msgid "Queen Pawn Game: Rubinstein (Colle-Zukertort) Variation"
-msgstr ""
-"Παρτίδα πιονιού της βασίλισσας, βαριάντα Ρουμπινστάιν (Colle-Τσούκερτορτ)"
-
-msgid "Queen Pawn Game: Stonewall Attack"
-msgstr "Πιόνι της βασίλισσας: επίθεση stonewall"
-
-msgid "Queen Pawn Game: Torre Attack, Wagner Gambit"
-msgstr "Πιόνι της βασίλισσας: επίθεση Τόρρε, γκαμπί Wagner"
-
-msgid "Queen Pawn Game: Torre Attack"
-msgstr "Πιόνι της βασίλισσας: επίθεση Τόρρε"
-
-msgid "Queen Pawn Game: Yusupov-Rubinstein System"
-msgstr "Πιόνι της βασίλισσας: σύστημα Yusupov-Ρουμπινστάιν"
-
-msgid "Queen Pawn Game: Zukertort Variation"
-msgstr "Παρτίδα πιονιού της βασίλισσας, βαριάντα Τσούκερτορτ"
-
-msgid "Queen Pawn Game"
-msgstr "Παρτίδα πιονιού της βασίλισσας"
-
-msgid "Reti Opening: Accepted, Keres Variation"
-msgstr "Ρέτι αποδεκτό: βαριάντα Κέρες"
-
-msgid "Reti Opening: Accepted"
-msgstr "Ρέτι αποδεκτό"
-
-msgid "Reti Opening: Advance Variation"
-msgstr "Ρέτι: προχωρημένη βαριάντα"
-
-msgid "Reti Opening: Herrstroem Gambit"
-msgstr "Ρέτι: γκαμπί Herrstrom"
-
-msgid "Reti Opening: King Indian Attack (Barcza System)"
-msgstr "Ρέτι: Ινδική επίθεση του βασιλιά (σύστημα Μπάρτζα)"
-
-msgid "Reti Opening: King Indian Attack (with ...c5)"
-msgstr "Ρέτι: Ινδική επίθεση του βασιλιά (με ...c5)"
-
-msgid "Reti Opening: King Indian Attack, French Variation"
-msgstr "Ρέτι: Ινδική επίθεση του βασιλιά, Γαλλική βαριάντα"
-
-msgid "Reti Opening: King Indian Attack, Keres Variation"
-msgstr "Ρέτι: Ινδική επίθεση του βασιλιά, βαριάντα Κέρες"
-
-msgid "Reti Opening: King Indian Attack, Pachman System"
-msgstr "Ρέτι: Ινδική επίθεση του βασιλιά, σύστημα Pachman"
-
-msgid "Reti Opening: King Indian Attack, Reti-Smyslov Variation"
-msgstr "Ρέτι: Ινδική επίθεση του βασιλιά, βαριάντα Reti-Σμισλόφ"
-
-msgid "Reti Opening: King Indian Attack, Spassky Variation"
-msgstr "Ρέτι: Ινδική επίθεση του βασιλιά, βαριάντα του Spassky"
-
-msgid "Reti Opening: King Indian Attack, Yugoslav Variation"
-msgstr "Ρέτι: Ινδική επίθεση του βασιλιά, Γιουγκοσλαβική βαριάντα"
-
-msgid "Reti Opening: King Indian Attack"
-msgstr "Ρέτι: Ινδική επίθεση του βασιλιά"
-
-msgid "Reti Opening: Lisitsin Gambit deferred"
-msgstr "Ρέτι: αναβαλλόμενο γκαμπί Λισίτσιν"
-
-msgid "Reti Opening: Nimzovich-Larsen Attack"
-msgstr "Ρέτι: επίθεση Νίμζοβιτς-Λάρσεν"
-
-msgid "Reti Opening: Old Indian Attack"
-msgstr "Ρέτι: παλιά Ινδική επίθεση"
-
-msgid "Reti Opening: Pirc-Lisitsin Gambit"
-msgstr "Ρέτι: γκαμπί Πιρτς-Λισίτσιν"
 
 msgid "Reti Opening"
 msgstr "Άνοιγμα Ρέτι"
@@ -3880,116 +1448,17 @@ msgstr "Ρέτι v Ολλανδική"
 msgid "Reversed Grob (Borg/Basman Defence/macho Grob)"
 msgstr "Αντεστραμμένο Γκρομπ (Borg/άμυνα Basman/macho Γκρομπ)"
 
-msgid "Richter-Veresov Attack: Richter Variation"
-msgstr "Επίθεση Ρίχτερ-Βερέσοβ, βαριάντα Ρίχτερ"
-
-msgid "Richter-Veresov Attack: Veresov Variation"
-msgstr "Επίθεση Ρίχτερ-Βερέσοβ, βαριάντα Βερέσοβ"
-
 msgid "Richter-Veresov Attack"
 msgstr "Επίθεση Ρίχτερ-Βερέσοβ"
 
-msgid "Robatsch (Modern) Defence: Pseudo-Austrian Attack"
-msgstr "Άμυνα Robatsch: Ψευδο-Αυστριακή επίθεση"
-
-msgid "Robatsch (Modern) Defence: Three Pawns Attack"
-msgstr "Άμυνα Robatsch: επίθεση τριών πιονιών"
-
-msgid "Robatsch (Modern) Defence: Two Knights Variation"
-msgstr "Άμυνα Robatsch: βαριάντα δύο ίππων"
-
-msgid "Robatsch (Modern) Defence: Two Knights, Suttles Variation"
-msgstr "Άμυνα Robatsch: δύο ίπποι, βαριάντα Suttles"
-
 msgid "Robatsch (Modern) Defence"
-msgstr "Άμυνα Robatsch"
+msgstr "Άμυνα Robatsch (μοντέρνα)"
 
 msgid "Rousseau Gambit"
 msgstr "Γκαμπί Ρουσσώ"
 
-msgid "Russian Game (Petroff Defence): Classical Attack, Berger Variation"
-msgstr "Petrov: κλασική επίθεση, βαριάντα Berger"
-
-msgid "Russian Game (Petroff Defence): Classical Attack, Chigorin Variation"
-msgstr "Petrov: κλασική επίθεση, βαριάντα Τσιγκόριν"
-
-msgid "Russian Game (Petroff Defence): Classical Attack, Jaenisch Variation"
-msgstr "Petrov: κλασική επίθεση, βαριάντα Jaenisch"
-
-msgid "Russian Game (Petroff Defence): Classical Attack, Krause Variation"
-msgstr "Petrov: κλασική επίθεση, βαριάντα Krause"
-
-msgid "Russian Game (Petroff Defence): Classical Attack, Maroczy Variation"
-msgstr "Petrov: κλασική επίθεση, βαριάντα Maroczy"
-
-msgid "Russian Game (Petroff Defence): Classical Attack, Marshall Variation"
-msgstr "Petrov: κλασική επίθεση, βαριάντα Μάρσαλ"
-
-msgid "Russian Game (Petroff Defence): Classical Attack, Marshall trap"
-msgstr "Petrov: κλασική επίθεση, παγίδα Μάρσαλ"
-
-msgid "Russian Game (Petroff Defence): Classical Attack, Mason Variation"
-msgstr "Petrov: κλασική επίθεση, βαριάντα Mason"
-
-msgid "Russian Game (Petroff Defence): Classical Attack, Tarrasch Variation"
-msgstr "Petrov: κλασική επίθεση, βαριάντα Τάρας"
-
-msgid "Russian Game (Petroff Defence): Classical Attack, close Variation"
-msgstr "Petrov: κλασική επίθεση, κλειστή βαριάντα"
-
-msgid "Russian Game (Petroff Defence): Classical Attack"
-msgstr "Petrov: κλασική επίθεση"
-
-msgid "Russian Game (Petroff Defence): Cochrane Gambit"
-msgstr "Petrov: γκαμπί Cochrane"
-
-msgid "Russian Game (Petroff Defence): Cozio (Lasker) Attack"
-msgstr "Petrov: επίθεση Cozio (Λάσκερ)"
-
-msgid "Russian Game (Petroff Defence): Damiano Variation"
-msgstr "Petrov: βαριάντα Νταμιάνο"
-
-msgid "Russian Game (Petroff Defence): French Attack"
-msgstr "Petrov: Γαλλική επίθεση"
-
-msgid "Russian Game (Petroff Defence): Italian Variation"
-msgstr "Petrov: Ιταλική βαριάντα"
-
-msgid "Russian Game (Petroff Defence): Kaufmann Attack"
-msgstr "Petrov: επίθεση Kaufmann"
-
-msgid "Russian Game (Petroff Defence): Modern (Steinitz) Attack"
-msgstr "Petrov: μοντέρνα επίθεση (Στάινιτς)"
-
-msgid "Russian Game (Petroff Defence): Modern Attack, Bardeleben Variation"
-msgstr "Petrov: μοντέρνα επίθεση, βαριάντα Bardeleben"
-
-msgid "Russian Game (Petroff Defence): Modern Attack, Main Line"
-msgstr "Petrov: μοντέρνα επίθεση, κύρια συνέχεια"
-
-msgid "Russian Game (Petroff Defence): Modern Attack, Steinitz Variation"
-msgstr "Petrov: μοντέρνα επίθεση, βαριάντα Στάινιτς"
-
-msgid "Russian Game (Petroff Defence): Modern Attack, Symmetrical Variation"
-msgstr "Petrov: μοντέρνα επίθεση, συμμετρική βαριάντα"
-
-msgid "Russian Game (Petroff Defence): Modern Attack, Trifunovic Variation"
-msgstr "Petrov: μοντέρνα επίθεση, βαριάντα Trifunovic"
-
-msgid "Russian Game (Petroff Defence): Nimzovich Attack"
-msgstr "Petrov: επίθεση Νίμζοβιτς"
-
-msgid "Russian Game (Petroff Defence): Paulsen Attack"
-msgstr "Petrov: επίθεση Paulsen"
-
-msgid "Russian Game (Petroff Defence): Three Knights Game"
-msgstr "Petrov: παρτίδα τριών ίππων"
-
 msgid "Ruy Lopez (Spanish Opening)"
 msgstr "Ισπανική παρτίδα (Ισπανικό άνοιγμα)"
-
-msgid "Santasiere folly"
-msgstr "Τρέλα του Santasiere"
 
 msgid "Saragossa Opening"
 msgstr "Άνοιγμα Σαραγόσας"
@@ -4009,23 +1478,14 @@ msgstr "Σκανδιναβική: αντεπίθεση Άντερσεν, ορθ�
 msgid "Scandinavian Defence: Anderssen Counter-Attack"
 msgstr "Σκανδιναβική: αντεπίθεση Άντερσεν"
 
-msgid "Scandinavian Defence: Grünfeld Variation"
-msgstr "Σκανδιναβική άμυνα, βαριάντα Γκρίνφελντ"
-
 msgid "Scandinavian Defence: Icelandic Gambit"
 msgstr "Σκανδιναβική: Ισλανδικό γκαμπί"
 
 msgid "Scandinavian Defence: Kiel Variation"
 msgstr "Σκανδιναβική: βαριάντα Kiel"
 
-msgid "Scandinavian Defence: Lasker Variation"
-msgstr "Σκανδιναβική άμυνα, βαριάντα Λάσκερ"
-
 msgid "Scandinavian Defence: Marshall Variation"
 msgstr "Σκανδιναβική: βαριάντα Μάρσαλ"
-
-msgid "Scandinavian Defence: Mieses-Kotrvc Gambit"
-msgstr "Σκανδιναβική, γκαμπί Mieses-Kotrvc"
 
 msgid "Scandinavian Defence: Pytel-Wade Variation"
 msgstr "Σκανδιναβική: βαριάντα Pytel-Wade"
@@ -4063,77 +1523,8 @@ msgstr "Σκωτικό γκαμπί: επίθεση Vitzhum"
 msgid "Scotch Gambit"
 msgstr "Σκωτικό γκαμπί"
 
-msgid "Scotch Opening: Berger Variation"
-msgstr "Σκωτικό: βαριάντα Berger"
-
-msgid "Scotch Opening: Blackburne Attack"
-msgstr "Σκωτικό: επίθεση Blackburne"
-
-msgid "Scotch Opening: Blumenfeld Attack"
-msgstr "Σκωτικό: επίθεση Blumenfeld"
-
-msgid "Scotch Opening: Cochrane Variation"
-msgstr "Σκωτικό: βαριάντα Cochrane"
-
-msgid "Scotch Opening: Fraser Attack"
-msgstr "Σκωτικό: επίθεση Fraser"
-
-msgid "Scotch Opening: Ghulam Kassim Variation"
-msgstr "Σκωτικό: βαριάντα Ghulam Kassim"
-
-msgid "Scotch Opening: Goering Gambit, Bardeleben Variation"
-msgstr "Σκωτικό: γκαμπί Goering, βαριάντα Bardeleben"
-
-msgid "Scotch Opening: Goering Gambit"
-msgstr "Σκωτικό: γκαμπί Goering"
-
-msgid "Scotch Opening: Horwitz Attack"
-msgstr "Σκωτικό: επίθεση Horwitz"
-
-msgid "Scotch Opening: Lolli Variation"
-msgstr "Σκωτικό: βαριάντα Lolli"
-
-msgid "Scotch Opening: Meitner Variation"
-msgstr "Σκωτικό: βαριάντα Meitner"
-
-msgid "Scotch Opening: Mieses Variation"
-msgstr "Σκωτικό: βαριάντα Mieses"
-
-msgid "Scotch Opening: Paulsen Attack"
-msgstr "Σκωτικό: επίθεση Paulsen"
-
-msgid "Scotch Opening: Paulsen, Gunsberg Defence"
-msgstr "Σκωτικό: Paulsen, άμυνα Gunsberg"
-
-msgid "Scotch Opening: Potter Variation"
-msgstr "Σκωτικό: βαριάντα Potter"
-
-msgid "Scotch Opening: Pulling Counter-Attack"
-msgstr "Σκωτικό: αντεπίθεση Pulling"
-
-msgid "Scotch Opening: Relfsson Gambit ('MacLopez')"
-msgstr "Σκωτικό: γκαμπί Relfsson ('MacLopez')"
-
-msgid "Scotch Opening: Romanishin Variation"
-msgstr "Σκωτικό: βαριάντα Romanishin"
-
-msgid "Scotch Opening: Rosenthal Variation"
-msgstr "Σκωτικό: βαριάντα Rosenthal"
-
-msgid "Scotch Opening: Schmidt Variation"
-msgstr "Σκωτικό: βαριάντα Schmidt"
-
-msgid "Scotch Opening: Steinitz Variation"
-msgstr "Σκωτικό: βαριάντα Στάινιτς"
-
-msgid "Scotch Opening: Tartakower Variation"
-msgstr "Σκωτικό: βαριάντα Ταρτακόβερ"
-
 msgid "Scotch Opening"
 msgstr "Σκωτικό άνοιγμα"
-
-msgid "Semi-Benoni (Blockade Variation)"
-msgstr "Hμι-Benoni (`βαριάντα μπλοκαρίσματος')"
 
 msgid "Sicilian Defence: 2.c3, Heidenfeld Variation"
 msgstr "Σικελική: 2.c3, βαριάντα Heidenfeld"
@@ -4168,9 +1559,6 @@ msgstr "Σικελική: επιταχυνόμενο φιανκέτο, βαρι�
 msgid "Sicilian Defence: Acton extension"
 msgstr "Σικελική: επέκταση Acton"
 
-msgid "Sicilian Defence: Alapin Variation (2.c3)"
-msgstr "Σικελική: βαριάντα Αλαπίν (2.c3)"
-
 msgid "Sicilian Defence: Anderssen Variation"
 msgstr "Σικελική: βαριάντα Άντερσεν"
 
@@ -4200,9 +1588,6 @@ msgstr "Σικελική: επίθεση Canal-Σοκόλσκι, βαριάντ�
 
 msgid "Sicilian Defence: Chameleon Variation"
 msgstr "Σικελική: βαριάντα χαμαιλέοντα"
-
-msgid "Sicilian Defence: Chekhover Variation"
-msgstr "Σικελική, βαριάντα Chekhover"
 
 msgid "Sicilian Defence: Chekhover, Zaitsev Variation"
 msgstr "Σικελική: Chekhover, βαριάντα Zaitsev"
@@ -4254,9 +1639,6 @@ msgstr "Σικελική: δράκου, κλασική, βαριάντα Αλι�
 
 msgid "Sicilian Defence: Dragon, Classical, Amsterdam Variation"
 msgstr "Σικελική: δράκου, κλασική, βαριάντα Άμστερνταμ"
-
-msgid "Sicilian Defence: Dragon, Classical, Bernard Defence"
-msgstr "Σικελική: δράκου, κλασική, άμυνα Bernard"
 
 msgid "Sicilian Defence: Dragon, Classical, Grigoriev Variation"
 msgstr "Σικελική: δράκου, κλασική, βαριάντα Grigoriev"
@@ -4502,27 +1884,8 @@ msgstr "Σικελική: Ρίχτερ-Ράουζερ, βαριάντα Margate 
 msgid "Sicilian Defence: Richter-Rauzer, Podvebrady Variation"
 msgstr "Σικελική: Ρίχτερ-Ράουζερ, βαριάντα Podvebrady"
 
-msgid ""
-"Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...Be7 Defence, 9...Nxd4"
-msgstr "Σικελική: Ρίχτερ-Ράουζερ, επίθεση Ράουζερ, 7...Be7 άμυνα, 9...Nxd4"
-
-msgid "Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...Be7 Defence, 9.f4"
-msgstr "Σικελική: Ρίχτερ-Ράουζερ, επίθεση Ράουζερ, 7...Be7 άμυνα, 9.f4"
-
 msgid "Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...Be7"
 msgstr "Σικελική: Ρίχτερ-Ράουζερ, επίθεση Ράουζερ, 7...Be7"
-
-msgid ""
-"Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...a6 Defence, 11.Bxf6"
-msgstr "Σικελική: Ρίχτερ-Ράουζερ, επίθεση Ράουζερ, 7...a6 άμυνα, 11.Bxf6"
-
-msgid ""
-"Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...a6 Defence, 8...Bd7"
-msgstr "Σικελική: Ρίχτερ-Ράουζερ, επίθεση Ράουζερ, 7...a6 άμυνα, 8...Bd7"
-
-msgid ""
-"Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...a6 Defence, 9...Be7"
-msgstr "Σικελική: Ρίχτερ-Ράουζερ, επίθεση Ράουζερ, 7...a6 άμυνα, 9...Be7"
 
 msgid "Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...a6"
 msgstr "Σικελική: Ρίχτερ-Ράουζερ, επίθεση Ράουζερ, 7...a6"
@@ -4582,9 +1945,6 @@ msgstr "Σικελική: Σεβενίνγκεν, βαριάντα Tal"
 msgid "Sicilian Defence: Scheveningen, Vitolins Variation"
 msgstr "Σικελική: Σεβενίνγκεν, βαριάντα Vitolins"
 
-msgid "Sicilian Defence: Smith-Morra Gambit, Chicago Defence"
-msgstr "Σικελική: γκαμπί Smith-Morra, άμυνα Σικάγου"
-
 msgid "Sicilian Defence: Smith-Morra Gambit"
 msgstr "Σικελική: γκαμπί Smith-Morra"
 
@@ -4617,15 +1977,6 @@ msgstr "Σικελική: βαριάντα Stiletto (Althouse)"
 
 msgid "Sicilian Defence: Sveshnikov Variation"
 msgstr "Σικελική: βαριάντα Sveshnikov"
-
-msgid "Sicilian Defence: Szen (Anti-Taimanov) Variation"
-msgstr "Σικελική, βαριάντα Szen (`αντι-Ταϊμάνοβ')"
-
-msgid "Sicilian Defence: Szen Variation, Dely-Kasparov Gambit"
-msgstr "Σικελική, βαριάντα Szen, γκαμπί Dely-Κασπάροφ"
-
-msgid "Sicilian Defence: Szen, Hedgehog Variation"
-msgstr "Σικελική, Szen, βαριάντα σκατζόχοιρου"
 
 msgid "Sicilian Defence: Taimanov (Bastrikov) Variation"
 msgstr "Σικελική: βαριάντα Ταϊμάνοβ (Bastrikov)"
@@ -4663,536 +2014,6 @@ msgstr "Σικελική: γκαμπί Wing"
 msgid "Sicilian Defence"
 msgstr "Σικελική άμυνα"
 
-msgid "Spanish, Ruy Lopez: ...b5 & ...d6"
-msgstr "Ισπανική παρτίδα: ...b5 & ...d6"
-
-msgid "Spanish, Ruy Lopez: 5.O-O"
-msgstr "Ισπανική παρτίδα: 5.O-O"
-
-msgid "Spanish, Ruy Lopez: Alapin Defence deferred"
-msgstr "Ισπανική παρτίδα: αναβαλλόμενη άμυνα Αλαπίν"
-
-msgid "Spanish, Ruy Lopez: Anderssen Variation"
-msgstr "Ισπανική παρτίδα: βαριάντα Άντερσεν"
-
-msgid "Spanish, Ruy Lopez: Archangelsk (CounterThrust) Variation"
-msgstr "Ισπανική παρτίδα: βαριάντα Archangelsk (counterthrust)"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, 4.O-O, d6"
-msgstr "Ισπανική παρτίδα: άμυνα Βερολίνου, 4.O-O, d6"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, 4.O-O"
-msgstr "Ισπανική παρτίδα: άμυνα Βερολίνου, 4.O-O"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Anderssen Variation"
-msgstr "Ισπανική παρτίδα: άμυνα Βερολίνου, βαριάντα Άντερσεν"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Beverwijk Variation"
-msgstr "Ισπανική παρτίδα: άμυνα Βερολίνου, βαριάντα Beverwijk"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Cordel Variation"
-msgstr "Ισπανική παρτίδα: άμυνα Βερολίνου, βαριάντα Cordel"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Duras Variation"
-msgstr "Ισπανική παρτίδα: άμυνα Βερολίνου, βαριάντα Duras"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Hedgehog Variation"
-msgstr "Ισπανική παρτίδα: άμυνα Βερολίνου, βαριάντα σκατζόχοιρου"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Kaufmann Variation"
-msgstr "Ισπανική παρτίδα: άμυνα Βερολίνου, βαριάντα Kaufmann"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Minckwitz Variation"
-msgstr "Ισπανική παρτίδα: άμυνα Βερολίνου, βαριάντα Minckwitz"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Mortimer Variation"
-msgstr "Ισπανική παρτίδα: άμυνα Βερολίνου, βαριάντα Mortimer"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Mortimer trap"
-msgstr "Ισπανική παρτίδα: άμυνα Βερολίνου, παγίδα Mortimer"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Nyholm Attack"
-msgstr "Ισπανική παρτίδα: άμυνα Βερολίνου, επίθεση Nyholm"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Open Variation"
-msgstr "Ισπανική παρτίδα: άμυνα Βερολίνου, ανοιχτή βαριάντα"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Pillsbury Variation"
-msgstr "Ισπανική παρτίδα: άμυνα Βερολίνου, βαριάντα Pillsbury"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Rosenthal Variation"
-msgstr "Ισπανική παρτίδα: άμυνα Βερολίνου, βαριάντα Rosenthal"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Tarrasch trap"
-msgstr "Ισπανική παρτίδα: άμυνα Βερολίνου, παγίδα Τάρας"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Trifunovic Variation"
-msgstr "Ισπανική παρτίδα: άμυνα Βερολίνου, βαριάντα Trifunovic"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Winawer Attack"
-msgstr "Ισπανική παρτίδα: άμυνα Βερολίνου, επίθεση Winawer"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Zukertort Variation"
-msgstr "Ισπανική παρτίδα: άμυνα Βερολίνου, βαριάντα Τσούκερτορτ"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence"
-msgstr "Ισπανική παρτίδα: άμυνα Βερολίνου"
-
-msgid "Spanish, Ruy Lopez: Bird Defence deferred"
-msgstr "Ισπανική παρτίδα: αναβαλλόμενη άμυνα Μπερντ"
-
-msgid "Spanish, Ruy Lopez: Bird Defence, Paulsen Variation"
-msgstr "Ισπανική παρτίδα: άμυνα Μπερντ, βαριάντα Paulsen"
-
-msgid "Spanish, Ruy Lopez: Bird Defence"
-msgstr "Ισπανική παρτίδα: άμυνα Μπερντ"
-
-msgid "Spanish, Ruy Lopez: Brentano Defence"
-msgstr "Ισπανική παρτίδα: άμυνα Brentano"
-
-msgid "Spanish, Ruy Lopez: Caro Variation"
-msgstr "Ισπανική παρτίδα: βαριάντα Caro"
-
-msgid "Spanish, Ruy Lopez: Classical (Cordel) Defence"
-msgstr "Ισπανική παρτίδα: κλασική άμυνα (Cordel)"
-
-msgid "Spanish, Ruy Lopez: Classical Defence deferred"
-msgstr "Ισπανική παρτίδα: κλασική αναβαλλόμενη άμυνα"
-
-msgid "Spanish, Ruy Lopez: Classical Defence, 4.c3"
-msgstr "Ισπανική παρτίδα: κλασική άμυνα, 4.c3"
-
-msgid "Spanish, Ruy Lopez: Classical Defence, Boden Variation"
-msgstr "Ισπανική παρτίδα: κλασική άμυνα, βαριάντα Μπόντεν"
-
-msgid "Spanish, Ruy Lopez: Classical Defence, Charousek Variation"
-msgstr "Ισπανική παρτίδα: κλασική άμυνα, βαριάντα Charousek"
-
-msgid "Spanish, Ruy Lopez: Classical Defence, Zaitsev Variation"
-msgstr "Ισπανική παρτίδα: κλασική άμυνα, βαριάντα Zaitsev"
-
-msgid "Spanish, Ruy Lopez: Closed (10...c5)"
-msgstr "Ισπανική παρτίδα: κλειστή (10...c5)"
-
-msgid "Spanish, Ruy Lopez: Closed (8...Na5)"
-msgstr "Ισπανική παρτίδα: κλειστή (8...Na5)"
-
-msgid "Spanish, Ruy Lopez: Closed (with ...d6)"
-msgstr "Ισπανική παρτίδα: κλειστή (με ...d6)"
-
-msgid "Spanish, Ruy Lopez: Closed Berlin Defence, Bernstein Variation"
-msgstr "Ισπανική παρτίδα: κλειστή άμυνα Βερολίνου, βαριάντα Μπερνστάιν"
-
-msgid "Spanish, Ruy Lopez: Closed Berlin Defence, Chigorin Variation"
-msgstr "Ισπανική παρτίδα: κλειστή άμυνα Βερολίνου, βαριάντα Τσιγκόριν"
-
-msgid "Spanish, Ruy Lopez: Closed Berlin Defence, Showalter Variation"
-msgstr "Ισπανική παρτίδα: κλειστή άμυνα Βερολίνου, βαριάντα Showalter"
-
-msgid "Spanish, Ruy Lopez: Closed Berlin Defence, Wolf Variation"
-msgstr "Ισπανική παρτίδα: κλειστή άμυνα Βερολίνου, βαριάντα Λύκου"
-
-msgid "Spanish, Ruy Lopez: Closed Defence"
-msgstr "Ισπανική παρτίδα: κλειστή άμυνα"
-
-msgid "Spanish, Ruy Lopez: Closed, 7...O-O"
-msgstr "Ισπανική παρτίδα: κλειστή, 7...O-O"
-
-msgid "Spanish, Ruy Lopez: Closed, 7...d6, 8.d4"
-msgstr "Ισπανική παρτίδα: κλειστή, 7...d6, 8.d4"
-
-msgid "Spanish, Ruy Lopez: Closed, 8.c3"
-msgstr "Ισπανική παρτίδα: κλειστή, 8.c3"
-
-msgid "Spanish, Ruy Lopez: Closed, 9.d4"
-msgstr "Ισπανική παρτίδα: κλειστή, 9.d4"
-
-msgid "Spanish, Ruy Lopez: Closed, 9.h3"
-msgstr "Ισπανική παρτίδα: κλειστή, 9.h3"
-
-msgid "Spanish, Ruy Lopez: Closed, Anti-Marshall 8.a4"
-msgstr "Ισπανική παρτίδα: κλειστή, αντι-Μάρσαλ 8.a4"
-
-msgid "Spanish, Ruy Lopez: Closed, Averbakh Variation"
-msgstr "Ισπανική παρτίδα: κλειστή, βαριάντα Άβερμπαχ"
-
-msgid "Spanish, Ruy Lopez: Closed, Balla Variation"
-msgstr "Ισπανική παρτίδα: κλειστή, βαριάντα Balla"
-
-msgid "Spanish, Ruy Lopez: Closed, Basque Gambit (North Spanish Variation)"
-msgstr "Ισπανική παρτίδα: κλειστή, Βασκικό γκαμπί (Βόρεια Ισπανική βαριάντα)"
-
-msgid "Spanish, Ruy Lopez: Closed, Bogolyubov Variation"
-msgstr "Ισπανική παρτίδα: κλειστή, βαριάντα Μπογκολιούμποφ"
-
-msgid "Spanish, Ruy Lopez: Closed, Borisenko Defence"
-msgstr "Ισπανική παρτίδα: κλειστή, άμυνα Borisenko"
-
-msgid "Spanish, Ruy Lopez: Closed, Breyer Defence"
-msgstr "Ισπανική παρτίδα: κλειστή, άμυνα Breyer"
-
-msgid "Spanish, Ruy Lopez: Closed, Breyer, 10.d4"
-msgstr "Ισπανική παρτίδα: κλειστή, Breyer, 10.d4"
-
-msgid "Spanish, Ruy Lopez: Closed, Breyer, Borisenko Variation"
-msgstr "Ισπανική παρτίδα: κλειστή, Breyer, βαριάντα Borisenko"
-
-msgid "Spanish, Ruy Lopez: Closed, Breyer, Gligoric Variation"
-msgstr "Ισπανική παρτίδα: κλειστή, Breyer, βαριάντα Γκλίγκοριτς"
-
-msgid "Spanish, Ruy Lopez: Closed, Breyer, Simagin Variation"
-msgstr "Ισπανική παρτίδα: κλειστή, Breyer, βαριάντα Simagin"
-
-msgid "Spanish, Ruy Lopez: Closed, Centre Attack"
-msgstr "Ισπανική παρτίδα: κλειστή, επίθεση κέντρου"
-
-msgid "Spanish, Ruy Lopez: Closed, Chigorin Defence"
-msgstr "Ισπανική παρτίδα: κλειστή, άμυνα Τσιγκόριν"
-
-msgid "Spanish, Ruy Lopez: Closed, Chigorin, 12...Nc6"
-msgstr "Ισπανική παρτίδα: κλειστή, Τσιγκόριν, 12...Nc6"
-
-msgid "Spanish, Ruy Lopez: Closed, Chigorin, 12...c5d4"
-msgstr "Ισπανική παρτίδα: κλειστή, Τσιγκόριν, 12...c5d4"
-
-msgid "Spanish, Ruy Lopez: Closed, Chigorin, Rauzer Attack"
-msgstr "Ισπανική παρτίδα: κλειστή, Τσιγκόριν, επίθεση Ράουζερ"
-
-msgid "Spanish, Ruy Lopez: Closed, Chigorin, Yugoslav System"
-msgstr "Ισπανική παρτίδα: κλειστή, Τσιγκόριν, Γιουγκοσλαβικό σύστημα"
-
-msgid ""
-"Spanish, Ruy Lopez: Closed, Flohr-Zaitsev System (Lenzerheide Variation)"
-msgstr ""
-"Ισπανική παρτίδα: κλειστή, σύστημα Flohr-Zaitsev (βαριάντα Lenzerheide)"
-
-msgid "Spanish, Ruy Lopez: Closed, Keres (...Nd7) Defence"
-msgstr "Ισπανική παρτίδα: κλειστή, άμυνα Κέρες (...Nd7)"
-
-msgid "Spanish, Ruy Lopez: Closed, Keres (9...a5) Variation"
-msgstr "Ισπανική παρτίδα: κλειστή, βαριάντα Κέρες (9...a5)"
-
-msgid "Spanish, Ruy Lopez: Closed, Kholmov Variation"
-msgstr "Ισπανική παρτίδα: κλειστή, βαριάντα Kholmov"
-
-msgid "Spanish, Ruy Lopez: Closed, Leonhardt Variation"
-msgstr "Ισπανική παρτίδα: κλειστή, βαριάντα Leonhardt"
-
-msgid "Spanish, Ruy Lopez: Closed, Lutikov Variation"
-msgstr "Ισπανική παρτίδα: κλειστή, βαριάντα Lutikov"
-
-msgid "Spanish, Ruy Lopez: Closed, Pilnik Variation"
-msgstr "Ισπανική παρτίδα: κλειστή, βαριάντα Pilnik"
-
-msgid "Spanish, Ruy Lopez: Closed, Ragozin-Petrosian (Keres) Variation"
-msgstr "Ισπανική παρτίδα: κλειστή, βαριάντα Ragozin-Πετροσιάν (`Κέρες')"
-
-msgid "Spanish, Ruy Lopez: Closed, Rossolimo Defence"
-msgstr "Ισπανική παρτίδα: κλειστή, άμυνα Rossolimo"
-
-msgid "Spanish, Ruy Lopez: Closed, Smyslov Defence"
-msgstr "Ισπανική παρτίδα: κλειστή, άμυνα Σμισλόφ"
-
-msgid "Spanish, Ruy Lopez: Closed, Suetin Variation"
-msgstr "Ισπανική παρτίδα: κλειστή, βαριάντα Suetin"
-
-msgid "Spanish, Ruy Lopez: Cordel Gambit"
-msgstr "Ισπανική παρτίδα: γκαμπί Cordel"
-
-msgid "Spanish, Ruy Lopez: Cozio Defence deferred"
-msgstr "Ισπανική παρτίδα: αναβαλλόμενη άμυνα Cozio"
-
-msgid "Spanish, Ruy Lopez: Cozio Defence, Paulsen Variation"
-msgstr "Ισπανική παρτίδα: άμυνα Cozio, βαριάντα Paulsen"
-
-msgid "Spanish, Ruy Lopez: Cozio Defence"
-msgstr "Ισπανική παρτίδα: άμυνα Cozio"
-
-msgid "Spanish, Ruy Lopez: Exchange Variation doubly deferred (DERLD)"
-msgstr "Ισπανική παρτίδα: βαριάντα αλλαγής διπλά αναβαλλόμενη (DERLD)"
-
-msgid "Spanish, Ruy Lopez: Exchange Variation, 5.O-O"
-msgstr "Ισπανική παρτίδα: βαριάντα αλλαγής, 5.O-O"
-
-msgid "Spanish, Ruy Lopez: Exchange Variation, Alapin Gambit"
-msgstr "Ισπανική παρτίδα: βαριάντα αλλαγής, γκαμπί Αλαπίν"
-
-msgid "Spanish, Ruy Lopez: Exchange Variation"
-msgstr "Ισπανική παρτίδα: βαριάντα αλλαγής"
-
-msgid "Spanish, Ruy Lopez: Exchange, Alekhine Variation"
-msgstr "Ισπανική παρτίδα: διαφορά, βαριάντα Αλιέχιν"
-
-msgid "Spanish, Ruy Lopez: Exchange, Bronstein Variation"
-msgstr "Ισπανική παρτίδα: διαφορά, βαριάντα Μπρονστάιν"
-
-msgid "Spanish, Ruy Lopez: Exchange, Gligoric Variation"
-msgstr "Ισπανική παρτίδα: διαφορά, βαριάντα Γκλίγκοριτς"
-
-msgid "Spanish, Ruy Lopez: Exchange, Keres Variation"
-msgstr "Ισπανική παρτίδα: διαφορά, βαριάντα Κέρες"
-
-msgid "Spanish, Ruy Lopez: Exchange, Romanovsky Variation"
-msgstr "Ισπανική παρτίδα: διαφορά, βαριάντα Romanovsky"
-
-msgid "Spanish, Ruy Lopez: Fianchetto (Smyslov/Barnes) Defence"
-msgstr "Ισπανική παρτίδα: άμυνα φιανκέτο (Σμισλόφ/Μπάρνς)"
-
-msgid "Spanish, Ruy Lopez: Fianchetto Defence deferred"
-msgstr "Ισπανική παρτίδα: αναβαλλόμενη άμυνα φιανκέτο"
-
-msgid "Spanish, Ruy Lopez: Four Knights (Tarrasch) Variation"
-msgstr "Ισπανική παρτίδα: βαριάντα τεσσάρων ίππων (Τάρας)"
-
-msgid "Spanish, Ruy Lopez: Graz Variation"
-msgstr "Ισπανική παρτίδα: βαριάντα Γκρατς"
-
-msgid "Spanish, Ruy Lopez: Lucena Defence"
-msgstr "Ισπανική παρτίδα: άμυνα Lucena"
-
-msgid "Spanish, Ruy Lopez: Marshall Counter-Attack, 11...c6"
-msgstr "Ισπανική παρτίδα: αντεπίθεση Μάρσαλ, 11...c6"
-
-msgid "Spanish, Ruy Lopez: Marshall Counter-Attack"
-msgstr "Ισπανική παρτίδα: αντεπίθεση Μάρσαλ"
-
-msgid "Spanish, Ruy Lopez: Marshall, Herman Steiner Variation"
-msgstr "Ισπανική παρτίδα: Μάρσαλ, βαριάντα Herman Steiner"
-
-msgid "Spanish, Ruy Lopez: Marshall, Kevitz Variation"
-msgstr "Ισπανική παρτίδα: Μάρσαλ, βαριάντα Kevitz"
-
-msgid "Spanish, Ruy Lopez: Marshall, Main Line, 12.d2d4"
-msgstr "Ισπανική παρτίδα: Μάρσαλ, κύρια συνέχεια, 12.d2d4"
-
-msgid "Spanish, Ruy Lopez: Marshall, Main Line, 14...Qh3"
-msgstr "Ισπανική παρτίδα: Μάρσαλ, κύρια συνέχεια, 14...Qh3"
-
-msgid "Spanish, Ruy Lopez: Marshall, Main Line, Spassky Variation"
-msgstr "Ισπανική παρτίδα: Μάρσαλ, κύρια συνέχεια, βαριάντα Spassky"
-
-msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, 5.O-O"
-msgstr "Ισπανική παρτίδα: μοντέρνα άμυνα Στάινιτς, 5.O-O"
-
-msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, Alapin Variation"
-msgstr "Ισπανική παρτίδα: μοντέρνα άμυνα Στάινιτς, βαριάντα Αλαπίν"
-
-msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, Duras (Keres) Variation"
-msgstr "Ισπανική παρτίδα: μοντέρνα άμυνα Στάινιτς, βαριάντα Duras (Κέρες)"
-
-msgid ""
-"Spanish, Ruy Lopez: Modern Steinitz Defence, Fianchetto (Bronstein) "
-"Variation"
-msgstr ""
-"Ισπανική παρτίδα: μοντέρνα άμυνα Στάινιτς, βαριάντα φιανκέτο (Μπρονστάιν)"
-
-msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, Richter Variation"
-msgstr "Ισπανική παρτίδα: μοντέρνα άμυνα Στάινιτς, βαριάντα Ρίχτερ"
-
-msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, Rubinstein Variation"
-msgstr "Ισπανική παρτίδα: μοντέρνα άμυνα Στάινιτς, βαριάντα Ρουμπινστάιν"
-
-msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, Three Knights Variation"
-msgstr "Ισπανική παρτίδα: μοντέρνα άμυνα Στάινιτς, βαριάντα τριών ίππων"
-
-msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, siesta Variation"
-msgstr "Ισπανική παρτίδα: μοντέρνα άμυνα Στάινιτς, βαριάντα siesta"
-
-msgid "Spanish, Ruy Lopez: Modern Steinitz Defence"
-msgstr "Ισπανική παρτίδα: μοντέρνα άμυνα Στάινιτς"
-
-msgid "Spanish, Ruy Lopez: Moeller Defence"
-msgstr "Ισπανική παρτίδα: άμυνα Moeller"
-
-msgid "Spanish, Ruy Lopez: Morphy Defence, Duras Variation"
-msgstr "Ισπανική παρτίδα: άμυνα Μόρφι, βαριάντα Duras"
-
-msgid "Spanish, Ruy Lopez: Morphy Defence"
-msgstr "Ισπανική παρτίδα: άμυνα Μόρφι"
-
-msgid "Spanish, Ruy Lopez: Noah ark trap"
-msgstr "Ισπανική παρτίδα: παγίδα της Κιβωτού του Νώε"
-
-msgid "Spanish, Ruy Lopez: Nuernberg Variation"
-msgstr "Ισπανική παρτίδα: βαριάντα Νυρεμβέργης"
-
-msgid "Spanish, Ruy Lopez: Old Steinitz Defence, Nimzovich Attack"
-msgstr "Ισπανική παρτίδα: παλιά άμυνα Στάινιτς, επίθεση Νίμζοβιτς"
-
-msgid "Spanish, Ruy Lopez: Old Steinitz Defence, semi-Duras Variation"
-msgstr "Ισπανική παρτίδα: παλιά άμυνα Στάινιτς, βαριάντα ημι-Duras"
-
-msgid "Spanish, Ruy Lopez: Old Steinitz Defence"
-msgstr "Ισπανική παρτίδα: παλιά άμυνα Στάινιτς"
-
-msgid "Spanish, Ruy Lopez: Open (Tarrasch) Defence"
-msgstr "Ισπανική παρτίδα: ανοιχτή άμυνα (Τάρας)"
-
-msgid "Spanish, Ruy Lopez: Open Berlin Defence, 5...Be7"
-msgstr "Ισπανική παρτίδα: ανοιχτή άμυνα Βερολίνου, 5...Be7"
-
-msgid "Spanish, Ruy Lopez: Open Berlin Defence, Showalter Variation"
-msgstr "Ισπανική παρτίδα: ανοιχτή άμυνα Βερολίνου, βαριάντα Showalter"
-
-msgid "Spanish, Ruy Lopez: Open Berlin Defence, l'Hermet Variation"
-msgstr "Ισπανική παρτίδα: ανοιχτή άμυνα Βερολίνου, βαριάντα l'Hermet"
-
-msgid "Spanish, Ruy Lopez: Open, 6.d4 b5"
-msgstr "Ισπανική παρτίδα: ανοιχτή, 6.d4 b5"
-
-msgid "Spanish, Ruy Lopez: Open, 6.d4"
-msgstr "Ισπανική παρτίδα: ανοιχτή, 6.d4"
-
-msgid "Spanish, Ruy Lopez: Open, 7.Bb3"
-msgstr "Ισπανική παρτίδα: ανοιχτή, 7.Bb3"
-
-msgid "Spanish, Ruy Lopez: Open, 8...Be6"
-msgstr "Ισπανική παρτίδα: ανοιχτή, 8...Be6"
-
-msgid "Spanish, Ruy Lopez: Open, 8.de"
-msgstr "Ισπανική παρτίδα: ανοιχτή, 8.de"
-
-msgid "Spanish, Ruy Lopez: Open, 9...Be7, 10.Re1"
-msgstr "Ισπανική παρτίδα: ανοιχτή, 9...Be7, 10.Re1"
-
-msgid "Spanish, Ruy Lopez: Open, 9.c3"
-msgstr "Ισπανική παρτίδα: ανοιχτή, 9.c3"
-
-msgid "Spanish, Ruy Lopez: Open, Berger Variation"
-msgstr "Ισπανική παρτίδα: ανοιχτή, βαριάντα Berger"
-
-msgid "Spanish, Ruy Lopez: Open, Berlin Variation"
-msgstr "Ισπανική παρτίδα: ανοιχτή, βαριάντα Βερολίνου"
-
-msgid "Spanish, Ruy Lopez: Open, Bernstein Variation, Karpov Gambit"
-msgstr "Ισπανική παρτίδα: ανοιχτή, βαριάντα Μπερνστάιν, γκαμπί Karpov"
-
-msgid "Spanish, Ruy Lopez: Open, Bernstein Variation"
-msgstr "Ισπανική παρτίδα: ανοιχτή, βαριάντα Μπερνστάιν"
-
-msgid "Spanish, Ruy Lopez: Open, Breslau Variation"
-msgstr "Ισπανική παρτίδα: ανοιχτή, βαριάντα Βρότσλαβ"
-
-msgid "Spanish, Ruy Lopez: Open, Classical Defence"
-msgstr "Ισπανική παρτίδα: ανοιχτή, κλασική άμυνα"
-
-msgid "Spanish, Ruy Lopez: Open, Dilworth Variation"
-msgstr "Ισπανική παρτίδα: ανοιχτή, βαριάντα Dilworth"
-
-msgid "Spanish, Ruy Lopez: Open, Friess Attack"
-msgstr "Ισπανική παρτίδα: ανοιχτή, επίθεση Friess"
-
-msgid "Spanish, Ruy Lopez: Open, Harksen Gambit"
-msgstr "Ισπανική παρτίδα: ανοιχτή, γκαμπί Harksen"
-
-msgid "Spanish, Ruy Lopez: Open, Howell Attack, Adam Variation"
-msgstr "Ισπανική παρτίδα: ανοιχτή, επίθεση Howell, βαριάντα Adam"
-
-msgid "Spanish, Ruy Lopez: Open, Howell Attack, Ekstroem Variation"
-msgstr "Ισπανική παρτίδα: ανοιχτή, επίθεση Howell, βαριάντα Ekstroem"
-
-msgid "Spanish, Ruy Lopez: Open, Howell Attack"
-msgstr "Ισπανική παρτίδα: ανοιχτή, επίθεση Howell"
-
-msgid "Spanish, Ruy Lopez: Open, Italian Variation"
-msgstr "Ισπανική παρτίδα: ανοιχτή, Ιταλική βαριάντα"
-
-msgid "Spanish, Ruy Lopez: Open, Knorre Variation"
-msgstr "Ισπανική παρτίδα: ανοιχτή, βαριάντα Κνόρε"
-
-msgid "Spanish, Ruy Lopez: Open, Malkin Variation"
-msgstr "Ισπανική παρτίδα: ανοιχτή, βαριάντα Malkin"
-
-msgid "Spanish, Ruy Lopez: Open, Motzko Attack, Nenarokov Variation"
-msgstr "Ισπανική παρτίδα: ανοιχτή, επίθεση Motzko, βαριάντα Nenarokov"
-
-msgid "Spanish, Ruy Lopez: Open, Motzko Attack"
-msgstr "Ισπανική παρτίδα: ανοιχτή, επίθεση Motzko"
-
-msgid "Spanish, Ruy Lopez: Open, Richter Variation"
-msgstr "Ισπανική παρτίδα: ανοιχτή, βαριάντα Ρίχτερ"
-
-msgid "Spanish, Ruy Lopez: Open, Riga Variation"
-msgstr "Ισπανική παρτίδα: ανοιχτή, βαριάντα Ρίγας"
-
-msgid "Spanish, Ruy Lopez: Open, Schlechter Defence"
-msgstr "Ισπανική παρτίδα: ανοιχτή, άμυνα Schlechter"
-
-msgid "Spanish, Ruy Lopez: Open, St. Petersburg Variation"
-msgstr "Ισπανική παρτίδα: ανοιχτή, βαριάντα Αγίας Πετρούπολης"
-
-msgid "Spanish, Ruy Lopez: Open, Tarrasch trap"
-msgstr "Ισπανική παρτίδα: ανοιχτή, παγίδα Τάρας"
-
-msgid "Spanish, Ruy Lopez: Open, Tartakower Variation"
-msgstr "Ισπανική παρτίδα: ανοιχτή, βαριάντα Ταρτακόβερ"
-
-msgid "Spanish, Ruy Lopez: Open, Zukertort Variation"
-msgstr "Ισπανική παρτίδα: ανοιχτή, βαριάντα Τσούκερτορτ"
-
-msgid "Spanish, Ruy Lopez: Pollock Defence"
-msgstr "Ισπανική παρτίδα: άμυνα Pollock"
-
-msgid "Spanish, Ruy Lopez: Rabinovich Variation"
-msgstr "Ισπανική παρτίδα: βαριάντα Rabinovich"
-
-msgid "Spanish, Ruy Lopez: Schliemann Defence deferred"
-msgstr "Ισπανική παρτίδα: αναβαλλόμενη άμυνα Schliemann"
-
-msgid "Spanish, Ruy Lopez: Schliemann Defence, Berger Variation"
-msgstr "Ισπανική παρτίδα: άμυνα Schliemann, βαριάντα Berger"
-
-msgid "Spanish, Ruy Lopez: Schliemann Defence"
-msgstr "Ισπανική παρτίδα: άμυνα Schliemann"
-
-msgid "Spanish, Ruy Lopez: Siesta, Kopayev Variation"
-msgstr "Ισπανική παρτίδα: Siesta, βαριάντα Kopayev"
-
-msgid "Spanish, Ruy Lopez: Steinitz Defence deferred (Russian Defence)"
-msgstr "Ισπανική παρτίδα: αναβαλλόμενη άμυνα Στάινιτς (Ρωσική άμυνα)"
-
-msgid "Spanish, Ruy Lopez: Steinitz Defence deferred, Boleslavsky Variation"
-msgstr "Ισπανική παρτίδα: αναβαλλόμενη άμυνα Στάινιτς, βαριάντα Μπολεσλάβσκι"
-
-msgid "Spanish, Ruy Lopez: Steinitz Defence deferred, Lipnitsky Variation"
-msgstr "Ισπανική παρτίδα: αναβαλλόμενη άμυνα Στάινιτς, βαριάντα Lipnitsky"
-
-msgid "Spanish, Ruy Lopez: Steinitz Defence deferred, Rubinstein Variation"
-msgstr "Ισπανική παρτίδα: αναβαλλόμενη άμυνα Στάινιτς, βαριάντα Ρουμπινστάιν"
-
-msgid ""
-"Spanish, Ruy Lopez: Taimanov (chase/wing/Accelerated CounterThrust) "
-"Variation"
-msgstr ""
-"Ισπανική παρτίδα: βαριάντα Ταϊμάνοβ (chase/wing/επιταχυνόμενη counterthrust)"
-
-msgid "Spanish, Ruy Lopez: Trajkovic Counter-Attack"
-msgstr "Ισπανική παρτίδα: αντεπίθεση Trajkovic"
-
-msgid ""
-"Spanish, Ruy Lopez: Treybal (Bayreuth) Variation (Exchange var. deferred)"
-msgstr ""
-"Ισπανική παρτίδα: βαριάντα Treybal (Bayreuth) (αναβαλλόμενη βαριάντα "
-"αλλαγής)"
-
-msgid "Spanish, Ruy Lopez: Vinogradov Variation"
-msgstr "Ισπανική παρτίδα: βαριάντα Vinogradov"
-
-msgid "Spanish, Ruy Lopez: Wormald (Alapin) Attack"
-msgstr "Ισπανική παρτίδα: επίθεση Wormald (Αλαπίν)"
-
-msgid "Spanish, Ruy Lopez: Wormald Attack, Grünfeld Variation"
-msgstr "Ισπανική παρτίδα: επίθεση Wormald, βαριάντα Γκρίνφελντ"
-
-msgid "Spanish, Ruy Lopez: Worrall Attack, Sharp Line"
-msgstr "Ισπανική παρτίδα: επίθεση Worrall, αιχμηρή γραμμή"
-
-msgid "Spanish, Ruy Lopez: Worrall Attack, solid Line"
-msgstr "Ισπανική παρτίδα: επίθεση Worrall, συμπαγής γραμμή"
-
-msgid "Spanish, Ruy Lopez: Worrall Attack"
-msgstr "Ισπανική παρτίδα: επίθεση Worrall"
-
 msgid "St. George (Baker) Defence"
 msgstr "Άμυνα Αγίου Γεωργίου (Baker)"
 
@@ -5205,18 +2026,6 @@ msgstr "Άνοιγμα Τέιλερ"
 msgid "Tennison (Lemberg, Zukertort) Gambit"
 msgstr "Γκαμπί Tennison (Lemberg, Τσούκερτορτ)"
 
-msgid "Three Knights Game: Schlechter Variation"
-msgstr "Τρεις ίπποι: βαριάντα Schlechter"
-
-msgid "Three Knights Game: Steinitz Variation"
-msgstr "Τρεις ίπποι: βαριάντα Στάινιτς"
-
-msgid "Three Knights Game: Steinitz, Rosenthal Variation"
-msgstr "Τρεις ίπποι: Στάινιτς, βαριάντα Rosenthal"
-
-msgid "Three Knights Game: Winawer Defence (Gothic Defence)"
-msgstr "Τρεις ίπποι: άμυνα Winawer (άμυνα Gothic)"
-
 msgid "Three Knights Game"
 msgstr "Παρτίδα τριών ίππων"
 
@@ -5225,9 +2034,6 @@ msgstr "Επίθεση Τόρρε (βαριάντα Ταρτακόβερ)"
 
 msgid "Trompovsky Attack (Ruth, Opovcensky Opening)"
 msgstr "Επίθεση Τρομπόφσκι (Ruth, άνοιγμα Opovcensky)"
-
-msgid "Two Knights Defence (Modern Bishop Opening)"
-msgstr "Άμυνα δύο ίππων (Μοντέρνο άνοιγμα ενός αξιωματικού)"
 
 msgid "Two Knights Defence: Blackburne Variation"
 msgstr "Άμυνα δύο ίππων: βαριάντα Blackburne"
@@ -5277,9 +2083,6 @@ msgstr "Δύο ίπποι: Επίθεση Μαξ Λάνγκε, βαριάντα 
 msgid "Two Knights Defence: Max Lange Attack, Krause Variation"
 msgstr "Δύο ίπποι: Επίθεση Μαξ Λάνγκε, βαριάντα Krause"
 
-msgid "Two Knights Defence: Max Lange Attack, Loman Defence"
-msgstr "δύο ίπποι: Επίθεση Μαξ Λάνγκε, άμυνα Loman"
-
 msgid "Two Knights Defence: Max Lange Attack, Marshall Variation"
 msgstr "Δύο ίπποι: Επίθεση Μαξ Λάνγκε, βαριάντα Μάρσαλ"
 
@@ -5297,9 +2100,6 @@ msgstr "δύο ίπποι: Επίθεση Μαξ Λάνγκε"
 
 msgid "Two Knights Defence: Paoli Variation"
 msgstr "Άμυνα δύο ίππων: βαριάντα Paoli"
-
-msgid "Two Knights Defence: Perreux Variation"
-msgstr "Άμυνα δύο ίππων, βαριάντα Perreux"
 
 msgid "Two Knights Defence: Pincus Variation"
 msgstr "Άμυνα δύο ίππων: βαριάντα Pincus"
@@ -5346,62 +2146,8 @@ msgstr "Βιεννέζικο γκαμπί: βαριάντα Kaufmann"
 msgid "Vienna Gambit: Paulsen Attack"
 msgstr "Βιεννέζικο γκαμπί: επίθεση Paulsen"
 
-msgid "Vienna Gambit: Steinitz Variation"
-msgstr "Βιεννέζικο γκαμπί, βαριάντα Στάινιτς"
-
-msgid "Vienna Gambit: Wurzburger trap"
-msgstr "Βιεννέζικο γκαμπί, παγίδα Wurzburger"
-
 msgid "Vienna Gambit"
 msgstr "Βιεννέζικο γκαμπί"
-
-msgid "Vienna Game: Adams' Gambit"
-msgstr "Βιεννέζικη: γκαμπί Adams'"
-
-msgid "Vienna Game: Alekhine Variation"
-msgstr "Βιεννέζικη: βαριάντα Αλιέχιν"
-
-msgid "Vienna Game: Falkbeer Variation"
-msgstr "Βιεννέζικη: βαριάντα Falkbeer"
-
-msgid "Vienna Game: Fyfe Gambit"
-msgstr "Βιεννέζικη: γκαμπί Fyfe"
-
-msgid "Vienna Game: Hamppe-Allgaier Gambit, Alapin Variation"
-msgstr "Βιεννέζικη: γκαμπί Hamppe-Αλγκάερ, βαριάντα Αλαπίν"
-
-msgid "Vienna Game: Hamppe-Muzio Gambit"
-msgstr "Βιεννέζικη: γκαμπί Hamppe-Muzio"
-
-msgid "Vienna Game: Hamppe-Muzio, Dubois Variation"
-msgstr "Βιεννέζικη: Hamppe-Muzio, βαριάντα Dubois"
-
-msgid "Vienna Game: Max Lange Defence"
-msgstr "Βιεννέζικη παρτίδα, άμυνα Μαξ Λάνγκε"
-
-msgid "Vienna Game: Mengarini Variation"
-msgstr "Βιεννέζικη: βαριάντα Mengarini"
-
-msgid "Vienna Game: Paulsen Variation"
-msgstr "Βιεννέζικη: βαριάντα Paulsen"
-
-msgid "Vienna Game: Paulsen-Mieses Variation"
-msgstr "Βιεννέζικη: βαριάντα Paulsen-Mieses"
-
-msgid "Vienna Game: Pierce Gambit, Rushmere Attack"
-msgstr "Βιεννέζικη: γκαμπί Pierce, επίθεση Rushmere"
-
-msgid "Vienna Game: Pierce Gambit"
-msgstr "Βιεννέζικη: γκαμπί Pierce"
-
-msgid "Vienna Game: Steinitz Gambit, Fraser-Minckwitz Variation"
-msgstr "Βιεννέζικη: γκαμπί Στάινιτς, βαριάντα Fraser-Minckwitz"
-
-msgid "Vienna Game: Steinitz Gambit, Zukertort Defence"
-msgstr "Βιεννέζικη: γκαμπί Στάινιτς, άμυνα Τσούκερτορτ"
-
-msgid "Vienna Game: Steinitz Gambit"
-msgstr "Βιεννέζικη: γκαμπί Στάινιτς"
 
 msgid "Vienna Game"
 msgstr "Βιεννέζικη παρτίδα"

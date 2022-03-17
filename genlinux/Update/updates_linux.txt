@@ -1,0 +1,6 @@
+A 0126 http://lucaschess.pythonanywhere.com/static/updater/update_linux0126.zip 29867979
+A 0127 http://lucaschess.pythonanywhere.com/static/updater/update_linux0127.zip 8827933
+A 0127a http://lucaschess.pythonanywhere.com/static/updater/update_linux0127a.zip 30255
+A 0128 http://lucaschess.pythonanywhere.com/static/updater/update_linux0128.zip 14557027
+A 0129c http://lucaschess.pythonanywhere.com/static/updater/update_linux0129c.zip 37655237
+A 0130 http://lucaschess.pythonanywhere.com/static/updater/update_linux0130.zip 2949712 

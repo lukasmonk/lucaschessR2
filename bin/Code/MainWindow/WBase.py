@@ -386,10 +386,12 @@ class WBase(QtWidgets.QWidget):
         return kopcion in self.dic_toolbar and self.dic_toolbar[kopcion].isEnabled()
 
     def enable_option_toolbar(self, kopcion, siHabilitar):
-        self.dic_toolbar[kopcion].setEnabled(siHabilitar)
+        if kopcion in self.dic_toolbar:
+            self.dic_toolbar[kopcion].setEnabled(siHabilitar)
 
     def show_option_toolbar(self, kopcion, must_show):
-        self.dic_toolbar[kopcion].setVisible(must_show)
+        if kopcion in self.dic_toolbar:
+            self.dic_toolbar[kopcion].setVisible(must_show)
 
     def set_title_toolbar_eboard(self):
         if Code.eboard:

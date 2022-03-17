@@ -1,6 +1,7 @@
 import FasterCode
 
 import Code
+from Code.Base import Position
 from Code.Translations import TrListas
 from Code import Util
 
@@ -87,7 +88,7 @@ class ListaOpeningsStd:
             for x in range(num):
                 pv = " ".join(li_uci[: x + 1])
                 fen = FasterCode.make_pv(pv)
-                fm2 = FasterCode.fen_fenm2(fen)
+                fm2 = Position.legal_fenm2(fen)
                 self.st_fenm2_test.add(fm2)
                 if x == num-1:
                     self.dic_fenm2_op[fm2] = op
@@ -108,7 +109,7 @@ class ListaOpeningsStd:
 
             else:
                 without += 1
-                if without == 3:
+                if without == 10:
                     game.pending_opening = False
                     return
 
@@ -135,7 +136,7 @@ class ListaOpeningsStd:
         for n, pv in enumerate(lipv):
             FasterCode.make_move(pv)
             fen = FasterCode.get_fen()
-            fenm2 = FasterCode.fen_fenm2(fen)
+            fenm2 = Position.legal_fenm2(fen)
             if fenm2 in self.dic_fenm2_op:
                 last_ap = self.dic_fenm2_op[fenm2]
         return last_ap

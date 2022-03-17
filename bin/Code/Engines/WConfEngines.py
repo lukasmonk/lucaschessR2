@@ -71,6 +71,8 @@ class WConfEngines(LCDialog.LCDialog):
         self.splitter.addWidget(w)
         self.splitter.addWidget(self.grid_conf)
         self.register_splitter(self.splitter, "conf")
+        self.splitter.setCollapsible(0, False)
+        self.splitter.setCollapsible(1, False)
 
         layout = Colocacion.H().control(self.splitter)
         self.setLayout(layout)
@@ -176,7 +178,13 @@ class WConfEngines(LCDialog.LCDialog):
         key = o_column.key
         op = self.engine.li_uci_options_editable()[row]
         if key == "OPTION":
-            return op.name
+            if op.minimo != op.maximo:
+                if op.minimo < 0:
+                    return op.name + " (%d - %+d /%d)" % (op.minimo, op.maximo, op.default)
+                else:
+                    return op.name + " (%d - %d /%d)" % (op.minimo, op.maximo, op.default)
+            else:
+                return op.name
         else:
             name = op.name
             valor = op.valor
@@ -598,7 +606,10 @@ class WConfTutor(QtWidgets.QWidget):
             control.capture_changes(self.set_changed)
 
     def changed_engine(self):
-        self.engine = self.configuration.dic_engines[self.cb_engine.valor()].clone()
+        key = self.cb_engine.valor()
+        if key is None:
+            key = "stockfish"
+        self.engine = self.configuration.dic_engines[key].clone()
         self.owner.set_engine(self.engine)
         self.set_changed()
 
@@ -626,6 +637,8 @@ class WConfTutor(QtWidgets.QWidget):
             self.configuration.write_variables("TUTOR_ANALYZER", dic)
 
     def activate_this(self):
+        valor = self.cb_engine.valor()
+        self.cb_engine.rehacer(self.configuration.listaCambioTutor(), valor)
         self.owner.set_engine(self.engine)
 
 
@@ -676,7 +689,10 @@ class WConfAnalyzer(QtWidgets.QWidget):
             control.capture_changes(self.set_changed)
 
     def changed_engine(self):
-        self.engine = self.configuration.dic_engines[self.cb_engine.valor()].clone()
+        key = self.cb_engine.valor()
+        if key is None:
+            key = "stockfish"
+        self.engine = self.configuration.dic_engines[key].clone()
         self.owner.set_engine(self.engine)
         self.set_changed()
 
@@ -698,4 +714,5 @@ class WConfAnalyzer(QtWidgets.QWidget):
             self.configuration.write_variables("TUTOR_ANALYZER", dic)
 
     def activate_this(self):
+        self.cb_engine.rehacer(self.configuration.listaCambioTutor(), self.engine.key)
         self.owner.set_engine(self.engine)

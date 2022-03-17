@@ -86,7 +86,7 @@ def relative_root(path):
 
 
 BASE_VERSION = "B"  # Para el control de updates que necesitan reinstalar entero
-VERSION = "R2.0"
+VERSION = "R2.0a"
 DEBUG = False
 DEBUG_ENGINE = False
 

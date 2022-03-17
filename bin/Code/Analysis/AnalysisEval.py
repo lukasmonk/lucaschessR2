@@ -15,7 +15,7 @@ class AnalysisEval:
     max_score = 3500
     max_mate = 15
     blunder = 2.0
-    error = 1.0
+    error = 0.9
     innacuracy = 0.3
     very_good_depth = 6
     good_depth = 3

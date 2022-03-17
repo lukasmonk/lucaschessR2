@@ -148,6 +148,8 @@ class Eboard:
                         path_dll = os.path.join(path, "MCL_DLL.dll")
                     elif Code.configuration.x_digital_board == "Citrine":
                         path_dll = os.path.join(path, "CIT_DLL.dll")
+                    elif Code.configuration.x_digital_board == "Pegasus":
+                        path_dll = os.path.join(path, "PEG_DLL.dll")
                     else:
                         path_dll = os.path.join(path, "UCB_DLL.dll")
                     if os.path.isfile(path_dll):
@@ -331,7 +333,7 @@ class Eboard:
         board = self.name
         if board == "DGT":
             return Iconos.DGT()
-        elif board == "DGT-gon":
+        elif board in ("DGT-gon", "Pegasus"):
             return Iconos.DGTB()
         elif board == "Certabo":
             return Iconos.Certabo()

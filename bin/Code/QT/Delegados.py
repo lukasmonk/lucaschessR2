@@ -453,7 +453,7 @@ class EtiquetaPOS(QtWidgets.QStyledItemDelegate):
             elif pgn[-1] in "QBRN":
                 fin_pz = pgn[-1] if is_white else pgn[-1].lower()
                 pgn = pgn[:-1]
-            elif pgn[-2] in "QBRN":
+            elif len(pgn) > 2 and pgn[-2] in "QBRN":
                 fin_pz = pgn[-2] if is_white else pgn[-2].lower()
                 post_pz = pgn[-1]
                 pgn = pgn[:-2]

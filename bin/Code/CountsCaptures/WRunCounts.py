@@ -40,7 +40,7 @@ class WRunCounts(LCDialog.LCDialog):
 
         self.lb_result = Controles.LB(self).ponTipoLetra(puntos=10, peso=500).anchoFijo(254).altoFijo(32).set_wrap()
         self.lb_info = (
-            Controles.LB(self).ponTipoLetra(puntos=14, peso=500).anchoFijo(254).set_foreground_backgound("white", "#496075").align_center()
+            Controles.LB(self).ponTipoLetra(puntos=14, peso=500).set_foreground_backgound("white", "#496075").align_center()
         )
 
         # Botones
@@ -72,7 +72,7 @@ class WRunCounts(LCDialog.LCDialog):
         self.setLayout(ly)
 
         self.restore_video()
-        self.adjustSize()
+        # self.adjustSize()
 
         # Tiempo
         self.time_base = time.time()

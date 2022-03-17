@@ -5,109 +5,6 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "Alapin Opening"
-msgstr "Alapinen irekiera"
-
-msgid "Alekhine Defence: Balogh Variation"
-msgstr "Alekhinen defentsa: Balogh aldaera"
-
-msgid "Alekhine Defence: Brooklyn Defence"
-msgstr "Alekhinen defentsa: Brooklyn defentsa"
-
-msgid "Alekhine Defence: Exchange Variation"
-msgstr "Alekhinen defentsa: Truke aldaera"
-
-msgid "Alekhine Defence: Four Pawns Attack, 6...Nc6"
-msgstr "Alekhinen defentsa: lau peoien erasoa, 6...Zc6"
-
-msgid "Alekhine Defence: Four Pawns Attack, 7.Be3"
-msgstr "Alekhinen defentsa: lau peoien erasoa 7.Ae3"
-
-msgid "Alekhine Defence: Four Pawns Attack, Fianchetto Variation"
-msgstr "Alekhinen defentsa: lau peoien erasoa, fianchetto aldaera"
-
-msgid ""
-"Alekhine Defence: Four Pawns Attack, Ilyin-Genevsky var. Iline-Jenevski"
-msgstr "Alekhinen defentsa: lau peoien erasoa, Ilyin-Genevsky aldaera."
-
-msgid "Alekhine Defence: Four Pawns Attack, Korchnoi Variation"
-msgstr "Alekhinen defentsa: lau peoien erasoa, Korchnoi aldaera"
-
-msgid "Alekhine Defence: Four Pawns Attack, Planinc Variation"
-msgstr "Alekhinen defentsa: lau peoien erasoa, Planinc aldaera"
-
-msgid "Alekhine Defence: Four Pawns Attack, Trifunovic Variation"
-msgstr "Alekhinen defentsa: lau peoien erasao, Trifunovic aldaera"
-
-msgid "Alekhine Defence: Four Pawns Attack"
-msgstr "Alekhinen defentsa: lau peoien erasoa"
-
-msgid "Alekhine Defence: Kmoch Variation"
-msgstr "Alekhinen defentsa: Kmoch aldaera"
-
-msgid "Alekhine Defence: Krejcik Variation"
-msgstr "Alekhinen defentsa: Krejcik aldaera"
-
-msgid "Alekhine Defence: Maroczy Variation"
-msgstr "Alekhinen defentsa: Maroczy aldaera"
-
-msgid "Alekhine Defence: Modern Variation, 4...Bg4"
-msgstr "Alekhinen defentsa: aldaera modernoa, Ag4"
-
-msgid "Alekhine Defence: Modern Variation"
-msgstr "Alekhinen defentsa: aldaera modernoa"
-
-msgid "Alekhine Defence: Mokele Mbembe (Buecker) Variation"
-msgstr "Alekhinen defentsa: Mokele Mbembe (Buecker) aldaera"
-
-msgid "Alekhine Defence: O'Sullivan Gambit"
-msgstr "Alekhinen defentsa: O 'Sullivan ganbitoa"
-
-msgid "Alekhine Defence: Saemisch Attack"
-msgstr "Alekhinen defentsa: Saemisch erasoa"
-
-msgid "Alekhine Defence: Scandinavian Variation"
-msgstr "Alekhinen defentsa: Eskandinaviar aldaera"
-
-msgid "Alekhine Defence: Spielmann Variation"
-msgstr "Alekhinen defentsa: Spielmann aldaera"
-
-msgid "Alekhine Defence: Steiner Variation"
-msgstr "Alekhinen defentsa: Steiner aldaera"
-
-msgid "Alekhine Defence: Two Pawns' (Lasker) Attack"
-msgstr "Alekhinen defentsa: bi peoien (Laskerren) erasoa"
-
-msgid "Alekhine Defence: Two Pawns' Attack, Mikenas Variation"
-msgstr "Alekhinen defentsa: bi peoien erasoa, Mikenas aldaera"
-
-msgid "Alekhine Defence: Welling Variation"
-msgstr "Alekhinen defentsa: Welling aldaera"
-
-msgid "Alekhine Defence: modern, Alekhine Variation"
-msgstr "Alekhinen defentsa: modernoa, Alekhine aldaera"
-
-msgid "Alekhine Defence: modern, Fianchetto Variation"
-msgstr "Alekhinen defentsa: gaur egungo fianchetto aldaera"
-
-msgid "Alekhine Defence: modern, Flohr Variation"
-msgstr "Alekhinen defentsa: modernoa, Flohr aldaera"
-
-msgid "Alekhine Defence: modern, Keres Variation"
-msgstr "Alekhinen defentsa: modernoa, Keres aldaera"
-
-msgid "Alekhine Defence: modern, Larsen Variation"
-msgstr "Alekhinen defentsa: modernoa, Larsen aldaera"
-
-msgid "Alekhine Defence: modern, Panov Variation"
-msgstr "Alekhinen defentsa: modernoa, Panov aldaera"
-
-msgid "Alekhine Defence: modern, Schmid Variation"
-msgstr "Alekhinen defentsa: modernoa, Schmid aldaera"
-
-msgid "Alekhine Defence"
-msgstr "Alekhinen defentsa"
-
 msgid "Amar (Paris) Opening"
 msgstr "Amar (Paris) irekiera"
 
@@ -116,9 +13,6 @@ msgstr "Amar ganbitoa"
 
 msgid "Amsterdam Attack"
 msgstr "Amsterdameko erasoa"
-
-msgid "Anderssen Opening"
-msgstr "Anderssenen irekiera"
 
 msgid "Anti-Borg (Desprez) Opening"
 msgstr "Anti-Borg (Desprez) irekiera"
@@ -161,12 +55,6 @@ msgstr "Benko ganbitoa: Zaitsev sistema"
 
 msgid "Benko Gambit"
 msgstr "Benko ganbitoa"
-
-msgid "Benko Opening: Reversed Alekhine"
-msgstr "Benkoren irekiera: Alekhine alderantzizkatua"
-
-msgid "Benko Opening"
-msgstr "Benkoren irekiera"
 
 msgid "Benoni Defence: 6.e4"
 msgstr "Benoni: 6.e4"
@@ -216,14 +104,8 @@ msgstr "Benoni: lau peoien erasoa, lerro nagusia"
 msgid "Benoni Defence: Four Pawns Attack"
 msgstr "Benoni: lau peoien erasoa"
 
-msgid "Benoni Defence: Hromodka System"
-msgstr "Benoni defentsa, Hromodka sistema"
-
 msgid "Benoni Defence: Mikenas Variation"
 msgstr "Benoni: Mikenas aldaera"
-
-msgid "Benoni Defence: Nimzovich (knight tour) Variation"
-msgstr "Benoni: Nimzovich (zaldunaren bira) aldaera"
 
 msgid "Benoni Defence: Pawn Storm Variation"
 msgstr "Benoni: peoi ekaitza aldaera"
@@ -236,90 +118,6 @@ msgstr "Benoni: Uhlmann aldaera"
 
 msgid "Benoni Defence"
 msgstr "Benoni defentsa"
-
-msgid "Bird Opening: From Gambit, Lasker Variation"
-msgstr "Bird: From Ganbitoa, Lasker aldaera"
-
-msgid "Bird Opening: From Gambit, Lipke Variation"
-msgstr "Bird: From Ganbitoa, Lipke aldaera"
-
-msgid "Bird Opening: From Gambit"
-msgstr "Bird: From Ganbitoa"
-
-msgid "Bird Opening: Hobbs Gambit"
-msgstr "Bird: Hobbs ganbitoa"
-
-msgid "Bird Opening: Lasker Variation"
-msgstr "Bird irekiera: Lasker aldaera"
-
-msgid "Bird Opening: Swiss Gambit"
-msgstr "Bird irekiera, Suitzako ganbitoa"
-
-msgid "Bird Opening: Williams Gambit"
-msgstr "Bird irekiera: Williams ganbitoa"
-
-msgid "Bird Opening"
-msgstr "Bird irekiera"
-
-msgid "Bishop Opening: Berlin Defence"
-msgstr "Alfilaren irekiera: Berlingo defentsa"
-
-msgid "Bishop Opening: Calabrese Counter-Gambit, Jaenisch Variation"
-msgstr "Alfilaren irekiera: kontra-ganbito kalabriarra, Jaenisch aldaera"
-
-msgid "Bishop Opening: Calabrese Counter-Gambit"
-msgstr "Alfilaren irekiera: kontra-ganbito kalabriarra"
-
-msgid "Bishop Opening: Classical Variation"
-msgstr "Alfilaren irekiera: aldaera klasikoa"
-
-msgid "Bishop Opening: Four Pawns' Gambit"
-msgstr "Alfilaren irekiera: lau peoien ganbitoa"
-
-msgid "Bishop Opening: Greco Gambit"
-msgstr "Alfilaren irekiera: Greco ganbitoa"
-
-msgid "Bishop Opening: Lewis Counter-Gambit"
-msgstr "Alfilaren irekiera: Lewisen kontra-ganbitoa"
-
-msgid "Bishop Opening: Lewis Gambit"
-msgstr "Alfilaren irekiera: Lewis ganbitoa"
-
-msgid "Bishop Opening: Lisitsyn Variation"
-msgstr "Alfilaren irekiera: Lisitsyn aldaera"
-
-msgid "Bishop Opening: Lopez Gambit"
-msgstr "Alfilaren irekiera: Lopez ganbitoa"
-
-msgid "Bishop Opening: MacDonnell Double Gambit"
-msgstr "Alfilaren irekiera: MacDonnell ganbito bikoitza"
-
-msgid "Bishop Opening: Philidor Counter-Attack"
-msgstr "Alfilaren irekiera: Philidorren kontraerasoa"
-
-msgid "Bishop Opening: Philidor Variation"
-msgstr "Alfilaren irekiera: Philidor aldaera"
-
-msgid "Bishop Opening: Ponziani Gambit"
-msgstr "Alfilaren irekiera: Ponziani ganbitoa"
-
-msgid "Bishop Opening: Pratt Variation"
-msgstr "Alfilaren irekiera: Pratt aldaera"
-
-msgid "Bishop Opening: Urusov Gambit, Panov Variation"
-msgstr "Alfilaren irekiera: Urusov ganbitoa, Panov aldaera"
-
-msgid "Bishop Opening: Urusov Gambit"
-msgstr "Alfilaren irekiera: Urusov ganbitoa"
-
-msgid "Bishop Opening: Wing Gambit"
-msgstr "Alfilaren irekiera: hegaleko ganbitoa"
-
-msgid "Bishop Opening: del Rio Variation"
-msgstr "Alfilaren irekiera: del Rio aldaera"
-
-msgid "Bishop Opening"
-msgstr "Alfilaren irekiera"
 
 msgid "Blackburne shilling Gambit"
 msgstr "Blackburneren txelinaren ganbitoa"
@@ -350,12 +148,6 @@ msgstr "Boden-Kieseritsky ganbitoa: Lichtenheinen defentsa"
 
 msgid "Boden-Kieseritsky Gambit"
 msgstr "Boden-Kieseritsky ganbitoa"
-
-msgid "Bogo-Indian Defence: Grünfeld Variation"
-msgstr "Bogo-Indiar defentsa, Gruenfeld aldaera"
-
-msgid "Bogo-Indian Defence: Nimzovich Variation"
-msgstr "Bogo-Indiar defentsa, Nimzovich aldaera"
 
 msgid "Bogo-Indian Defence"
 msgstr "Bogo-Indiar defentsa"
@@ -401,12 +193,6 @@ msgstr "Caro-Kann: aurrerapena, Shorten aldaera"
 
 msgid "Caro-Kann Defence: Alekhine Gambit"
 msgstr "Caro-Kann: Alekhinen ganbitoa"
-
-msgid "Caro-Kann Defence: Anti-Anti-Caro-Kann Defence"
-msgstr "Caro-Kann: Kontra-kontra-Caro-Kann defentsa"
-
-msgid "Caro-Kann Defence: Anti-Caro-Kann Defence"
-msgstr "Caro-Kann: Caro-Kann aurkako defentsa"
 
 msgid "Caro-Kann Defence: Bronstein-Larsen Variation"
 msgstr "Caro-Kann: Bronstein-Larsen aldaera"
@@ -471,9 +257,6 @@ msgstr "Caro-Kann: Panov-Botvinnik, Czerniak aldaera"
 msgid "Caro-Kann Defence: Panov-Botvinnik, Gunderam Attack"
 msgstr "Caro-Kann: Panov-Botvinnik, Gunderam erasoa"
 
-msgid "Caro-Kann Defence: Panov-Botvinnik, Herzog Defence"
-msgstr "Caro-Kann: Panov-Botvinnik, Herzog defentsa"
-
 msgid "Caro-Kann Defence: Panov-Botvinnik, Reifir (Spielmann) Variation"
 msgstr "Caro-Kann: Panov-Botvinnik, Reifir (Spielmann) aldaera"
 
@@ -504,51 +287,6 @@ msgstr "Caro-Kann defentsa"
 msgid "Caro-Masi Defence"
 msgstr "Caro-Kann: Caro-Masi defentsa"
 
-msgid "Catalan Opening: Closed, 5.Nf3"
-msgstr "Katalana: itxia, 5.Zf3"
-
-msgid "Catalan Opening: Closed, 6...Nbd7"
-msgstr "Katalana: itxia, 6...Zbd7"
-
-msgid "Catalan Opening: Closed, 7.Qc2"
-msgstr "Katalana: itxia, 7.Dc2"
-
-msgid "Catalan Opening: Closed, Botvinnik Variation"
-msgstr "Katalana: itxia, Botvinnik aldaera"
-
-msgid "Catalan Opening: Closed, Main Line"
-msgstr "Katalana: itxia, lerro nagusia"
-
-msgid "Catalan Opening: Closed, Qc2 & b3"
-msgstr "Katalana: itxia, Dc2 & b3"
-
-msgid "Catalan Opening: Closed, Sokolsky Variation"
-msgstr "Katalana: itxia, Sokolsky aldaera"
-
-msgid "Catalan Opening: Closed, Spassky Gambit"
-msgstr "Katalana: itxia, Spassky ganbitoa"
-
-msgid "Catalan Opening: Closed, Zagoryansky Variation"
-msgstr "Katalana: itxia, Zagoryansky irekiera"
-
-msgid "Catalan Opening: Closed"
-msgstr "Katalana: itxia"
-
-msgid "Catalan Opening: Open, 5.Nf3"
-msgstr "Katalana: irekia, 5.Zf3"
-
-msgid "Catalan Opening: Open, 5.Qa4 Nbd7, 6.Qxc4"
-msgstr "Katalana: irekia, 5.Da4 Zbd7, 6.Dxc4"
-
-msgid "Catalan Opening: Open, 5.Qa4"
-msgstr "Katalana: irekia, 5.Da4"
-
-msgid "Catalan Opening: Open, Alekhine Variation"
-msgstr "Katalana: irekia, Alekhine aldaera"
-
-msgid "Catalan Opening: Open, Classical Line"
-msgstr "Katalana: irekia, lerro klasikoa"
-
 msgid "Catalan Opening"
 msgstr "Irekiera katalana"
 
@@ -576,9 +314,6 @@ msgstr "Erdiko partida: l'Hermet aldaera"
 msgid "Centre Game"
 msgstr "Erdiko partida"
 
-msgid "Clemenz (Mead, Basman or de Klerk) Opening"
-msgstr "Clemenz (Mead's, Basman's edo de Klerk's) aldaera"
-
 msgid "Colle System"
 msgstr "Colle sistema"
 
@@ -588,14 +323,8 @@ msgstr "Arto-zurtoinaren defentsa"
 msgid "Crab Opening"
 msgstr "Karramarroaren irekiera"
 
-msgid "Czech Benoni Defence: King Indian System"
-msgstr "Txekiar Benoni: Erregearen Indiar sistema"
-
 msgid "Czech Benoni Defence"
 msgstr "Txekiar Benoni defentsa"
-
-msgid "Damiano Defence"
-msgstr "Damianoren defentsa"
 
 msgid "Danish Gambit: Collijn Defence"
 msgstr "Danimarkako ganbitoa: Collijn defentsa"
@@ -621,21 +350,6 @@ msgstr "Dresde irekiera"
 msgid "Dunst (Sleipner, Heinrichsen) Opening"
 msgstr "Dunst (Sleipner, Heinrichsen) irekiera"
 
-msgid "Durkin Attack"
-msgstr "Durkinen erasoa"
-
-msgid "Dutch Defence: 2.Bg5 Variation"
-msgstr "Holandarra 2Ag5 aldaera"
-
-msgid "Dutch Defence: Alekhine Variation"
-msgstr "Holandako defentsa, Alekhine aldaera"
-
-msgid "Dutch Defence: Balogh Defence"
-msgstr "Holandarra: Balogh defentsa"
-
-msgid "Dutch Defence: Blackburne Variation"
-msgstr "Holandako defentsa, Blackburne aldaera"
-
 msgid "Dutch Defence: Bladel Variation"
 msgstr "Holandako defentsa: Bladel aldaera"
 
@@ -660,12 +374,6 @@ msgstr "Holandarra: Ilyin-Genevsky aldaera"
 msgid "Dutch Defence: Ilyin-Genevsky, Winter Variation"
 msgstr "Holandarra: Ilyin-Genevsky, Winter aldaera"
 
-msgid "Dutch Defence: Korchnoi Attack"
-msgstr "Holandarra, Korchnoi erasoa"
-
-msgid "Dutch Defence: Krejcik Gambit"
-msgstr "Holandarra, Krejcik ganbitoa"
-
 msgid "Dutch Defence: Leningrad Variation"
 msgstr "Holandarra: Leningrado aldaera"
 
@@ -684,15 +392,6 @@ msgstr "Holandarra: Leningrado, c6-rekin aldaera nagusia"
 msgid "Dutch Defence: Leningrad, Main Variation"
 msgstr "Holandarra: Leningrado, aldaera nagusia"
 
-msgid "Dutch Defence: Manhattan (Alapin, Ulvestad) Variation"
-msgstr "Holandarra, Manhattan (Alapin, Ulvestad) aldaera"
-
-msgid "Dutch Defence: Rubinstein Variation"
-msgstr "Holandako defentsa, Rubinstein aldaera"
-
-msgid "Dutch Defence: Spielmann Gambit"
-msgstr "Holandarra, Spielmann ganbitoa"
-
 msgid "Dutch Defence: Staunton Gambit deferred"
 msgstr "Holandarra: Staunton ganbito atzeratua"
 
@@ -707,9 +406,6 @@ msgstr "Holandera: Staunton ganbitoa, Lasker aldaera"
 
 msgid "Dutch Defence: Staunton Gambit, Nimzovich Variation"
 msgstr "Holandarra: Staunton ganbitoa, Nimzovich aldaera"
-
-msgid "Dutch Defence: Staunton Gambit, Staunton Line"
-msgstr "Holandarra: Staunton ganbitoa, Staunton-en lerroa"
 
 msgid "Dutch Defence: Staunton Gambit, Tartakower Variation"
 msgstr "Holandarra: Staunton ganbitoa, Tartakower aldaera"
@@ -732,9 +428,6 @@ msgstr "Holandarra: stonewall, Botwinnik aldaera"
 msgid "Dutch Defence: Stonewall, Chekhover Variation"
 msgstr "Holandarra: stonewall, Chekhover aldaera"
 
-msgid "Dutch Defence: Von Pretzel Gambit"
-msgstr "Holandarra, Von Pretzel ganbitoa"
-
 msgid "Dutch Defence"
 msgstr "Holandako defentsa"
 
@@ -750,224 +443,8 @@ msgstr "Holandar-indiarra, Alekhine aldaera"
 msgid "Dzindzichashvili Defence"
 msgstr "Dzindzichashvili defentsa"
 
-msgid "English Opening: 1...Nf6 (Anglo-Indian Defence)"
-msgstr "Ingelesa, 1...Zf6 (defentsa anglo-indiarra)"
-
-msgid "English Opening: Adorjan Defence"
-msgstr "Ingelesa: Adorjan defentsa"
-
 msgid "English Opening: Agincourt Variation"
 msgstr "Irekiera ingelesa: Agincourt aldaera"
-
-msgid "English Opening: Anglo-Dutch Defence"
-msgstr "Ingelesa: defentsa anglo-holandarra"
-
-msgid "English Opening: Anglo-Grünfeld Defence, Korchnoi Variation"
-msgstr "Ingelesa: Anglo-Gruenfeld defentsa, Korchnoi aldaera"
-
-msgid "English Opening: Anglo-Grünfeld Defence"
-msgstr "Ingelesa: Anglo-Gruenfeld defentsa"
-
-msgid "English Opening: Anglo-Grünfeld, Czech Defence"
-msgstr "Ingelesa: Anglo-Gruenfeld, txekiar defentsa"
-
-msgid "English Opening: Anglo-Grünfeld, Smyslov Defence"
-msgstr "Ingelesa: Anglo-Gruenfeld, Smyslov defentsa"
-
-msgid "English Opening: Bellon Gambit"
-msgstr "Ingelesa: Bellon ganbitoa"
-
-msgid "English Opening: Bled Variation"
-msgstr "Ingelesa: Bled aldaera"
-
-msgid "English Opening: Botvinnik System"
-msgstr "Ingelesa: Botvinnik sistema"
-
-msgid "English Opening: Bradley Beach Variation"
-msgstr "Ingelesa: Bradley Beach aldaera"
-
-msgid "English Opening: Bremen System with ...g6"
-msgstr "Ingelesa: Bremen sistema ...g6rekin"
-
-msgid "English Opening: Bremen System, Keres Variation"
-msgstr "Ingelesa: Bremen sistema, Keres aldaera"
-
-msgid "English Opening: Bremen, Smyslov System"
-msgstr "Ingelesa: Bremen, Smyslov sistema"
-
-msgid "English Opening: Bremen, reverse Dragon"
-msgstr "Ingelesa: Bremen, Dragoi aldaera alderantzikatua"
-
-msgid "English Opening: Capablanca Variation"
-msgstr "Ingelesa: Capablancaren aldaera"
-
-msgid "English Opening: Carls' Bremen System"
-msgstr "Ingelesa: Carls' Bremen sistema"
-
-msgid "English Opening: Caro-Kann Defensive System, Bogolyubov Variation"
-msgstr "Ingelesa: Caro-Kann defentsa-sistema, Bogolyubov aldaera"
-
-msgid "English Opening: Caro-Kann Defensive System"
-msgstr "Ingelesa: Caro-Kann defentsa-sistema"
-
-msgid "English Opening: Closed System (without ...d6)"
-msgstr "Ingelesa: Sistema itxia (...d6 gabe)"
-
-msgid "English Opening: Closed System"
-msgstr "Ingelesa: Sistema itxia"
-
-msgid "English Opening: Closed, 5.Rb1 Taimanov Variation"
-msgstr "Ingelesa: Itxia, 5.Gb1 Taimanov aldaera"
-
-msgid "English Opening: Closed, 5.Rb1"
-msgstr "Ingelesa: Itxia, 5.Gb1"
-
-msgid "English Opening: Closed, Hort Variation"
-msgstr "Ingelesa: Itxia, Hort aldaera"
-
-msgid "English Opening: Closed, Taimanov Variation"
-msgstr "Ingelesa: Itxia, Taimanov aldaera"
-
-msgid "English Opening: Four Knights System"
-msgstr "Ingelesa: lau zaldunen sistema"
-
-msgid "English Opening: Four Knights, 4.e3"
-msgstr "Ingelesa: lau zaldunak, 4.e3"
-
-msgid "English Opening: Four Knights, Capablanca Variation"
-msgstr "Ingelesa: lau zaldunak, Capablanca aldaera"
-
-msgid "English Opening: Four Knights, Kingside Fianchetto"
-msgstr "Ingelesa: lau zaldunak, Errege aldeko fianchetto-a"
-
-msgid "English Opening: Four Knights, Marini Variation"
-msgstr "Ingelesa: lau zaldunak, Marini aldaera"
-
-msgid "English Opening: Four Knights, Nimzovich Variation"
-msgstr "Ingelesa: lau zaldunak, Nimzovich aldaera"
-
-msgid "English Opening: Four Knights, Romanishin Variation"
-msgstr "Ingelesa: lau zaldunak, Romanishin aldaera"
-
-msgid "English Opening: Four Knights, Stean Variation"
-msgstr "Ingelesa: lau zaldunak, Stean aldaera"
-
-msgid "English Opening: Jaenisch Gambit"
-msgstr "Ingelesa: Jaenisch ganbitoa"
-
-msgid "English Opening: Keres Variation"
-msgstr "Ingelesa, Keres aldaera"
-
-msgid "English Opening: Kramnik-Shirov CounterAttack"
-msgstr "Ingelesa, Kramnik-Shirov kontraerasoa"
-
-msgid "English Opening: Kurajica Defence"
-msgstr "Ingelesa: Kurajica defentsa"
-
-msgid "English Opening: London Defensive System"
-msgstr "Ingelesa: Londresko defentsa-sistema"
-
-msgid "English Opening: Mikenas-Carls Variation"
-msgstr "Ingelesa: Mikenas-Carls aldaera"
-
-msgid "English Opening: Mikenas-Carls, Flohr Variation"
-msgstr "Ingelesa: Mikenas-Carls, Flohr aldaera"
-
-msgid "English Opening: Mikenas-Carls, Kevitz Variation"
-msgstr "Ingelesa: Mikenas-Carls, Kevitz aldaera"
-
-msgid "English Opening: Mikenas-Carls, Sicilian Variation"
-msgstr "Ingelesa: Mikenas-Carls, siziliar aldaera"
-
-msgid "English Opening: Nenarokov Variation"
-msgstr "Ingelesa: Nenarokov aldaera"
-
-msgid "English Opening: Neo-Catalan Accepted"
-msgstr "Ingelesa: Neo-katalana onartua"
-
-msgid "English Opening: Neo-Catalan Declined"
-msgstr "Ingelesa: Neo-katalana ukatua"
-
-msgid "English Opening: Neo-Catalan"
-msgstr "Ingelesa: Neo-katalana"
-
-msgid "English Opening: New York (London) Defensive System"
-msgstr "Ingelesa: New York (Londres) defentsa-sistema"
-
-msgid "English Opening: Nimzo-English Opening"
-msgstr "Ingelesa: Nimzo-English irekiera"
-
-msgid "English Opening: Nimzovich Variation"
-msgstr "Ingelesa, Nimzovich aldaera"
-
-msgid "English Opening: Nimzovich, Flohr Variation"
-msgstr "Ingelesa, Nimzovich, Flohr aldaera"
-
-msgid "English Opening: Queens Indian Formation"
-msgstr "Ingelesa: Queens Indian formazioa"
-
-msgid "English Opening: Queens Indian, Romanishin Variation"
-msgstr "Ingelesa: Queens Indian, Romanishin aldaera"
-
-msgid "English Opening: Romanishin Gambit"
-msgstr "Ingelesa: Romanishin ganbitoa"
-
-msgid "English Opening: Sicilian Reversed"
-msgstr "Ingelesa: Siziliarra alderantzikatua"
-
-msgid "English Opening: Smyslov Defence"
-msgstr "Ingelesa, Smyslov defentsa"
-
-msgid "English Opening: Symmetrical Variation"
-msgstr "Ingelesa: aldaera simetrikoa"
-
-msgid "English Opening: Symmetrical, Benoni Formation"
-msgstr "Ingelesa: simetrikoa, Benoni formazioa"
-
-msgid "English Opening: Symmetrical, Botvinnik System Reversed"
-msgstr "Ingelesa: simetrikoa, Botvinnik sistema alderantziz"
-
-msgid "English Opening: Symmetrical, Botvinnik System"
-msgstr "Ingelesa: simetrikoa, Botvinnik sistema"
-
-msgid "English Opening: Symmetrical, Four Knights System"
-msgstr "Ingelesa: simetrikoa, lau zaldunen sistema"
-
-msgid "English Opening: Symmetrical, Geller Variation"
-msgstr "Ingelesa: simetrikoa, Geller aldaera"
-
-msgid "English Opening: Symmetrical, Hedgehog System"
-msgstr "Ingelesa: simetrikoa, hedgehog sistema"
-
-msgid "English Opening: Symmetrical, Hedgehog, flexible Formation"
-msgstr "Ingelesa: simetrikoa, trikua, formazio malgua"
-
-msgid "English Opening: Symmetrical, Main Line with b3"
-msgstr "Ingelesa: simetrikoa, lerro nagusia b3rekin"
-
-msgid "English Opening: Symmetrical, Main Line with d3"
-msgstr "Ingelesa: simetrikoa, lerro nagusia d3rekin"
-
-msgid "English Opening: Symmetrical, Main Line with d4"
-msgstr "Ingelesa: simetrikoa, lerro nagusia d4rekin"
-
-msgid "English Opening: Symmetrical, Rubinstein System"
-msgstr "Ingelesa: simetrikoa, Rubinstein sistema"
-
-msgid "English Opening: Symmetrical, Three Knights System"
-msgstr "Ingelesa: simetrikoa, hiru zaldunen sistema"
-
-msgid "English Opening: Three Knights System"
-msgstr "Ingelesa: hiru zaldunen sistema"
-
-msgid "English Opening: Torre Defensive System"
-msgstr "Ingelesa: Torre defentsa-sistema"
-
-msgid "English Opening: Ultra-Symmetrical Variation"
-msgstr "Ingelesa: aldaera ultra-simetrikoa"
-
-msgid "English Opening: Wimpey System"
-msgstr "Ingelesa: Wimpey sistema"
 
 msgid "English Opening"
 msgstr "Irekiera ingelesa"
@@ -1080,96 +557,6 @@ msgstr "Evans-en ganbitoa: aldaera normala"
 msgid "Evans Gambit"
 msgstr "Evans-en ganbitoa"
 
-msgid "Four Knights Game: Bardeleben Variation"
-msgstr "Lau zaldun: Bardeleben aldaera"
-
-msgid "Four Knights Game: Belgrade Gambit"
-msgstr "Lau zaldun: Belgradoko aldaera"
-
-msgid "Four Knights Game: Double Ruy Lopez"
-msgstr "Lau zaldun: Ruy Lopez bikoitza"
-
-msgid "Four Knights Game: Gunsberg Counter-Attack"
-msgstr "Lau zaldun: Gunsbergen kontraerasoa"
-
-msgid "Four Knights Game: Gunsberg Variation"
-msgstr "Lau zaldun: Gunsberg aldaera"
-
-msgid "Four Knights Game: Italian Variation"
-msgstr "Lau zaldun: Italiako aldaera"
-
-msgid "Four Knights Game: Janowski Variation"
-msgstr "Lau zaldun: Janowskiren aldaera"
-
-msgid "Four Knights Game: Marshall Variation"
-msgstr "Lau zaldun: Marshall aldaera"
-
-msgid "Four Knights Game: Nimzovich (Paulsen) Variation"
-msgstr "Lau zaldun: Nimzovich (Paulsen) aldaera"
-
-msgid "Four Knights Game: Ranken Variation"
-msgstr "Lau zaldun: Ranken aldaera"
-
-msgid "Four Knights Game: Rubinstein Counter-Gambit, 5.Be2"
-msgstr "Lau zaldun: Rubinstein kontra-ganbitoa, 5.Ae2"
-
-msgid "Four Knights Game: Rubinstein Counter-Gambit, Bogolyubov Variation"
-msgstr "Lau zaldun: Rubinstein kontra-ganbitoa, Bogolyubov aldaera"
-
-msgid "Four Knights Game: Rubinstein Counter-Gambit, Exchange Variation"
-msgstr "Lau zaldun: Rubinstein kontra-ganbitoa, truke aldaera"
-
-msgid "Four Knights Game: Rubinstein Counter-Gambit, Henneberger Variation"
-msgstr "Lau zaldun: Rubinstein kontra-ganbitoa, Henneberger aldaera"
-
-msgid "Four Knights Game: Rubinstein Counter-Gambit"
-msgstr "Lau zaldun: Rubinsteinen kontra-ganbitoa"
-
-msgid "Four Knights Game: Schultze-Mueller Gambit"
-msgstr "Lau zaldun: Schultze-Mueller ganbitoa"
-
-msgid "Four Knights Game: Scotch Variation"
-msgstr "Lau zaldun: Eskoziar aldaera"
-
-msgid "Four Knights Game: Scotch, 4...exd4"
-msgstr "Lau zaldun: Eskoziarra, 4...exd4"
-
-msgid "Four Knights Game: Scotch, Krause Variation"
-msgstr "Lau zaldun: Eskoziarra, Krause aldaera"
-
-msgid "Four Knights Game: Spanish Variation"
-msgstr "Lau zaldun: espainiar aldaera"
-
-msgid "Four Knights Game: Spanish, Classical Defence"
-msgstr "Lau zaldun: espainiarra, defentsa klasikoa"
-
-msgid "Four Knights Game: Spielmann Variation"
-msgstr "Lau zaldun: Spielmannen aldaera"
-
-msgid "Four Knights Game: Svenonius Variation"
-msgstr "Lau zaldun: Svenonius aldaera"
-
-msgid "Four Knights Game: Symmetrical Variation"
-msgstr "Lau zaldun: aldaera simetrikoa"
-
-msgid "Four Knights Game: Symmetrical, Blake Variation"
-msgstr "Lau zaldun: simetrikoa, Blake aldaera"
-
-msgid "Four Knights Game: Symmetrical, Capablanca Variation"
-msgstr "Lau zaldun: simetrikoa, Capablanca aldaera"
-
-msgid "Four Knights Game: Symmetrical, Maroczy System"
-msgstr "Lau zaldun: simetrikoa, Maroczy sistema"
-
-msgid "Four Knights Game: Symmetrical, Metger unpin"
-msgstr "Lau zaldun: simetrikoa, Metger desiltzatzea"
-
-msgid "Four Knights Game: Symmetrical, Pillsbury Variation"
-msgstr "Lau zaldun: simetrikoa, Pillsbury aldaera"
-
-msgid "Four Knights Game: Symmetrical, Tarrasch Variation"
-msgstr "Lau zaldun: simetrikoa, Tarrasch aldaera"
-
 msgid "Four Knights Game"
 msgstr "Lau zaldunen partida"
 
@@ -1280,9 +667,6 @@ msgstr "Frantsesa: Frere (Becker) aldaera"
 
 msgid "French Defence: Henneberger Variation"
 msgstr "Frantsesa: Henneberger aldaera"
-
-msgid "French Defence: King Indian Attack"
-msgstr "Frantsesa: Erregearen Indiar erasoa"
 
 msgid "French Defence: La Bourdonnais Variation"
 msgstr "Frantsesa: La Bourdonnais aldaera"
@@ -1482,9 +866,6 @@ msgstr "Azeri frijituaren defentsa"
 msgid "Gedult Attack"
 msgstr "Gedult erasoa"
 
-msgid "Gedult Opening"
-msgstr "Gedulten irekiera"
-
 msgid "Giuoco Pianissimo: Canal Variation"
 msgstr "Giuoco Pianissimo: Canal aldaera"
 
@@ -1506,9 +887,6 @@ msgstr "Giuoco Piano: Anderssen aldaera"
 msgid "Giuoco Piano: Bernstein Variation"
 msgstr "Giuoco Piano: Bernstein aldaera"
 
-msgid "Giuoco Piano: Bird Attack"
-msgstr "Giuoco Piano: Bird-en erasoa"
-
 msgid "Giuoco Piano: Cracow Variation"
 msgstr "Giuoco Piano: Cracow aldaera"
 
@@ -1520,9 +898,6 @@ msgstr "Giuoco Piano: lau zaldunen aldaera"
 
 msgid "Giuoco Piano: Ghulam Kassim Variation"
 msgstr "Giuoco Piano: Ghulam Kassim aldaera"
-
-msgid "Giuoco Piano: Greco Attack"
-msgstr "Giuoco Piano: Grecoren erasoa"
 
 msgid "Giuoco Piano: Greco Variation"
 msgstr "Giuoco Piano: Greco aldaera"
@@ -1575,156 +950,6 @@ msgstr "Global Irekiera"
 msgid "Greco Defence"
 msgstr "Greko defentsa"
 
-msgid "Grob Attack"
-msgstr "Grob erasoa"
-
-msgid "Grob Opening: Fritz Gambit"
-msgstr "Grob: Fritz ganbitoa"
-
-msgid "Grob Opening: Romford Counter-Gambit"
-msgstr "Grob: Romford kontra-ganbitoa"
-
-msgid "Grob Opening: Spike Attack"
-msgstr "Grob: Spike erasoa"
-
-msgid "Grünfeld Defence: 4.Bf4"
-msgstr "Gruenfeld: 4.Af4"
-
-msgid "Grünfeld Defence: 5.Bf4"
-msgstr "Gruenfeld: 5.Af4"
-
-msgid "Grünfeld Defence: 5.Bg5"
-msgstr "Gruenfeld: 5.Ag5"
-
-msgid "Grünfeld Defence: 5.e3"
-msgstr "Gruenfeld: 5.e3"
-
-msgid "Grünfeld Defence: Botvinnik Variation"
-msgstr "Gruenfeld: Botvinnik aldaera"
-
-msgid "Grünfeld Defence: Exchange Variation"
-msgstr "Gruenfeld: truke-aldaera"
-
-msgid "Grünfeld Defence: Exchange, Classical Variation"
-msgstr "Gruenfeld: trukea, aldaera klasikoa"
-
-msgid "Grünfeld Defence: Exchange, Larsen Variation"
-msgstr "Gruenfeld: trukea, Larsen aldaera"
-
-msgid "Grünfeld Defence: Exchange, Seville Variation"
-msgstr "Gruenfeld: trukea, Sevillako aldaera"
-
-msgid "Grünfeld Defence: Exchange, Simagin improved Variation"
-msgstr "Gruenfeld: trukea, Simagin-en aldaera hobetua"
-
-msgid "Grünfeld Defence: Exchange, Simagin lesser Variation"
-msgstr "Gruenfeld: trukea, Simagin-en aldaera txikiagoa"
-
-msgid "Grünfeld Defence: Exchange, Sokolsky Variation"
-msgstr "Gruenfeld: trukea, Sokolsky aldaera"
-
-msgid "Grünfeld Defence: Exchange, Spassky Variation"
-msgstr "Gruenfeld: trukea, Spassky aldaera"
-
-msgid "Grünfeld Defence: Flohr Defence"
-msgstr "Gruenfeld: Flohr defentsa"
-
-msgid "Grünfeld Defence: Flohr Variation"
-msgstr "Gruenfeld: Flohr aldaera"
-
-msgid "Grünfeld Defence: Grünfeld Gambit Accepted"
-msgstr "Gruenfeld: Gruenfeld-en ganbitoa onartua"
-
-msgid "Grünfeld Defence: Grünfeld Gambit, Botvinnik Variation"
-msgstr "Gruenfeld: Gruenfeld ganbitoa, Botvinnik aldaera"
-
-msgid "Grünfeld Defence: Grünfeld Gambit, Capablanca Variation"
-msgstr "Gruenfeld: Gruenfeld ganbitoa, Capablanca aldaera"
-
-msgid "Grünfeld Defence: Grünfeld Gambit"
-msgstr "Gruenfeld: Gruenfeld ganbitoa"
-
-msgid "Grünfeld Defence: Lundin Variation"
-msgstr "Gruenfeld: Lundin aldaera"
-
-msgid "Grünfeld Defence: Makogonov Variation"
-msgstr "Gruenfeld: Makogonov aldaera"
-
-msgid "Grünfeld Defence: Modern Exchange Variation"
-msgstr "Gruenfeld: truke-aldaera modernoa"
-
-msgid "Grünfeld Defence: Opovcensky Variation"
-msgstr "Gruenfeld: Opovcensky aldaera"
-
-msgid "Grünfeld Defence: Pachman Variation"
-msgstr "Gruenfeld: Pachman aldaera"
-
-msgid "Grünfeld Defence: Russian Variation with e4"
-msgstr "Gruenfeld: errusiarra e4rekin"
-
-msgid "Grünfeld Defence: Russian Variation"
-msgstr "Gruenfeld: Errusiako aldaera"
-
-msgid "Grünfeld Defence: Russian, Alekhine (Hungarian) Variation"
-msgstr "Gruenfeld: errusiarra, Alekhine (hungariarra) aldaera"
-
-msgid "Grünfeld Defence: Russian, Byrne (Simagin) Variation"
-msgstr "Gruenfeld: errusiarra, Byrne (Simagin) aldaera"
-
-msgid "Grünfeld Defence: Russian, Keres Variation"
-msgstr "Gruenfeld: errusiarra, Keres aldaera"
-
-msgid "Grünfeld Defence: Russian, Levenfish Variation"
-msgstr "Gruenfeld: errusiarra, Levenfish aldaera"
-
-msgid "Grünfeld Defence: Russian, Prins Variation"
-msgstr "Gruenfeld: errusiarra, Prins aldaera"
-
-msgid "Grünfeld Defence: Russian, Smyslov Variation"
-msgstr "Gruenfeld: errusiarra, Smyslov aldaera"
-
-msgid "Grünfeld Defence: Russian, Szabo (Boleslavsky) Variation"
-msgstr "Gruenfeld: errusiarra, Szabo (Boleslavsky) aldaera"
-
-msgid "Grünfeld Defence: Schlechter Variation"
-msgstr "Gruenfeld: Schlechter aldaera"
-
-msgid "Grünfeld Defence: Smyslov Defence"
-msgstr "Gruenfeld: Smyslov defentsa"
-
-msgid "Grünfeld Defence: Smyslov, Main Line"
-msgstr "Gruenfelden defentsa: Smyslov, lerro nagusia"
-
-msgid "Grünfeld Defence: Smyslov, Yugoslav Variation"
-msgstr "Gruenfelden defentsa: Smyslov, Jugoslaviar aldaera"
-
-msgid "Grünfeld Defence: Spassky Variation, Main Line, 10...cd, 11.cd"
-msgstr "Gruenfeld: Spassky aldaera, lerro nagusia, 10...cd, 11.cd"
-
-msgid "Grünfeld Defence: Spassky Variation, Main Line, 13.Bd3"
-msgstr "Gruenfeld: Spassky aldaera, lerro nagusia, 13.Ad3"
-
-msgid "Grünfeld Defence: Spike Gambit"
-msgstr "Gruenfeld: Spike ganbitoa"
-
-msgid "Grünfeld Defence: Stockholm Variation"
-msgstr "Gruenfeld: Stockholmeko aldaera"
-
-msgid "Grünfeld Defence: Three Knights Variation"
-msgstr "Gruenfeld: hiru zaldunen aldaera"
-
-msgid "Grünfeld Defence"
-msgstr "Gruenfelden defentsa"
-
-msgid "Grünfeld with Bf4 & e3"
-msgstr "Gruenfeld Af4 eta e3rekin"
-
-msgid "Grünfeld with e3 & Bd3"
-msgstr "Gruenfeld e3 eta Ad3-rekin"
-
-msgid "Grünfeld with e3 & Qb3"
-msgstr "Gruenfeld e3 eta Db3-rekin"
-
 msgid "Guatemala Defence"
 msgstr "Guatemala Defentsa"
 
@@ -1764,668 +989,6 @@ msgstr "Italiar irekiera"
 msgid "Kevitz-Trajkovic Defence"
 msgstr "Kevitz-Trajkovic defentsa"
 
-msgid ""
-"King Gambit Accepted: Abbazia Defence (Classical Defence, Modern Defence[!])"
-msgstr ""
-"Errege Ganbito Onartua: Abbaziako defentsa (defentsa klasikoa, defentsa "
-"modernoa[!])"
-
-msgid "King Gambit Accepted: Abbazia Defence, Botvinnik Variation"
-msgstr "Errege Ganbito Onartua: Abbaziako defentsa, Botvinnik aldaera"
-
-msgid "King Gambit Accepted: Abbazia Defence, Modern Variation"
-msgstr "Errege Ganbito Onartua: Abbaziako defentsa, aldaera modernoa"
-
-msgid "King Gambit Accepted: Allgaier Gambit"
-msgstr "Errege Ganbito Onartua: Allgaier ganbitoa"
-
-msgid "King Gambit Accepted: Allgaier, Blackburne Gambit"
-msgstr "Errege Ganbito Onartua: Allgaier, Blackburne ganbitoa"
-
-msgid "King Gambit Accepted: Allgaier, Cook Variation"
-msgstr "Errege Ganbito Onartua: Allgaier, Cook aldaera"
-
-msgid "King Gambit Accepted: Allgaier, Horny Defence"
-msgstr "Errege Ganbito Onartua: Allgaier, Horny defentsa"
-
-msgid "King Gambit Accepted: Allgaier, Schlechter Defence"
-msgstr "Errege Ganbito Onartua: Allgaier, Schlechter defentsa"
-
-msgid "King Gambit Accepted: Allgaier, ThorOld Variation"
-msgstr "Errege Ganbito Onartua: Allgaier, Thorold aldaera"
-
-msgid "King Gambit Accepted: Allgaier, Urusov Attack"
-msgstr "Errege Ganbito Onartua: Allgaier, Urusov erasoa"
-
-msgid "King Gambit Accepted: Allgaier, Walker Attack"
-msgstr "Errege Ganbito Onartua: Allgaier, Walker erasoa"
-
-msgid "King Gambit Accepted: Becker Defence"
-msgstr "Errege Ganbito Onartua: Becker defentsa"
-
-msgid "King Gambit Accepted: Bishop Gambit, Anderssen Variation"
-msgstr "Errege Ganbito Onartua: alfilaren ganbitoa, Anderssen aldaera"
-
-msgid "King Gambit Accepted: Bishop Gambit, Bledow Variation"
-msgstr "Errege Ganbito Onartua: alfilaren ganbitoa, Bledow aldaera"
-
-msgid "King Gambit Accepted: Bishop Gambit, Boden Defence"
-msgstr "Errege Ganbito Onartua: alfilaren ganbitoa, Boden defentsa"
-
-msgid "King Gambit Accepted: Bishop Gambit, Bogolyubov Variation"
-msgstr "Errege Ganbito Onartua: alfilaren ganbitoa, Bogolyubov aldaera"
-
-msgid "King Gambit Accepted: Bishop Gambit, Boren-Svenonius Variation"
-msgstr "Errege Ganbito Onartua: alfilaren ganbitoa, Boren-Svenonius aldaera"
-
-msgid "King Gambit Accepted: Bishop Gambit, Bryan Counter-Gambit"
-msgstr "Errege Ganbito Onartua: alfilaren ganbitoa, Bryan kontra-ganbitoa"
-
-msgid "King Gambit Accepted: Bishop Gambit, Chigorin Attack"
-msgstr "Errege Ganbito Onartua: alfilaren ganbitoa, Chigorinen erasoa"
-
-msgid "King Gambit Accepted: Bishop Gambit, Classical Defence, Cozio Attack"
-msgstr ""
-"Errege Ganbito Onartua: alfilaren ganbitoa, defentsa klasikoa, Cozio erasoa"
-
-msgid "King Gambit Accepted: Bishop Gambit, Classical Defence"
-msgstr "Errege Ganbito Onartua: alfilaren ganbitoa, defentsa klasikoa"
-
-msgid "King Gambit Accepted: Bishop Gambit, Cozio (Morphy) Defence"
-msgstr "Errege Ganbito Onartua: alfilaren ganbitoa, Cozio (Morphy) defentsa"
-
-msgid "King Gambit Accepted: Bishop Gambit, Fraser Variation"
-msgstr "Errege Ganbito Onartua: alfilaren ganbitoa, Fraser aldaera"
-
-msgid "King Gambit Accepted: Bishop Gambit, Greco Variation"
-msgstr "Errege Ganbito Onartua: alfilaren ganbitoa, Greco aldaera"
-
-msgid "King Gambit Accepted: Bishop Gambit, Grimm Attack"
-msgstr "Errege Ganbito Onartua: alfilaren ganbitoa, Grimm erasoa"
-
-msgid "King Gambit Accepted: Bishop Gambit, Jaenisch Variation"
-msgstr "Errege Ganbito Onartua: alfilaren ganbitoa, Jaenisch aldaera"
-
-msgid "King Gambit Accepted: Bishop Gambit, Lopez-Gianutio Counter-Gambit"
-msgstr ""
-"Errege Ganbito Onartua: apezpiku ganbitoa, Lopez-Gianutio kontra-ganbitoa"
-
-msgid "King Gambit Accepted: Bishop Gambit, Maurian Defence"
-msgstr "Errege Ganbito Onartua: alfilaren ganbitoa, Maurian defentsa"
-
-msgid "King Gambit Accepted: Bishop Gambit, McDonnell Attack"
-msgstr "Errege Ganbito Onartua: alfilaren ganbitoa, McDonnell-en erasoa"
-
-msgid "King Gambit Accepted: Bishop Gambit, Morphy Variation"
-msgstr "Errege Ganbito Onartua: alfilaren ganbitoa, Morphy aldaera"
-
-msgid "King Gambit Accepted: Bishop Gambit, Paulsen Attack"
-msgstr "Errege Ganbito Onartua: alfilaren ganbitoa, Paulsen erasoa"
-
-msgid "King Gambit Accepted: Bishop Gambit, Ruy Lopez Defence"
-msgstr "Errege Ganbito Onartua: alfilaren ganbitoa, Ruy Lopezen defentsa"
-
-msgid "King Gambit Accepted: Bishop Gambit, Steinitz Defence"
-msgstr "Errege Ganbito Onartua: alfilaren ganbitoa, Steinitz defentsa"
-
-msgid "King Gambit Accepted: Bishop Gambit"
-msgstr "Errege Ganbito Onartua: alfilaren ganbitoa"
-
-msgid "King Gambit Accepted: Blachly Gambit"
-msgstr "Errege Ganbito Onartua: Blachly ganbitoa"
-
-msgid "King Gambit Accepted: Bonsch-Osmolovsky Variation"
-msgstr "Errege Ganbito Onartua: Bonsch-Osmolovsky aldaera"
-
-msgid "King Gambit Accepted: Breyer Gambit"
-msgstr "Errege Ganbito Onartua: Breyer ganbitoa"
-
-msgid "King Gambit Accepted: Carrera (Basman) Gambit"
-msgstr "Errege Ganbito Onartua: Carrera (Basman) ganbitoa"
-
-msgid "King Gambit Accepted: Cochrane Gambit"
-msgstr "Errege Ganbito Onartua: Cochrane ganbitoa"
-
-msgid "King Gambit Accepted: Cunningham Defence"
-msgstr "Errege Ganbito Onartua: Cunningham defentsa"
-
-msgid "King Gambit Accepted: Cunningham, Bertin Gambit"
-msgstr "Errege Ganbito Onartua: Cunningham, Bertin ganbitoa"
-
-msgid "King Gambit Accepted: Cunningham, Euwe Defence"
-msgstr "Errege Ganbito Onartua: Cunningham, Euwe defentsa"
-
-msgid "King Gambit Accepted: Cunningham, Three Pawns Gambit"
-msgstr "Errege Ganbito Onartua: Cunningham, hiru peoien ganbitoa"
-
-msgid "King Gambit Accepted: Double Muzio Gambit"
-msgstr "Errege Ganbito Onartua: Muzio ganbito bikoitza"
-
-msgid "King Gambit Accepted: Fischer Defence"
-msgstr "Errege Ganbito Onartua: Fischer defentsa"
-
-msgid "King Gambit Accepted: Ghulam Kassim Gambit"
-msgstr "Errege Ganbito Onartua: Ghulam Kassim ganbitoa"
-
-msgid "King Gambit Accepted: Gianutio Counter-Gambit"
-msgstr "Errege Ganbito Onartua: Gianutio kontra-ganbitoa"
-
-msgid "King Gambit Accepted: Greco Gambit"
-msgstr "Errege Ganbito Onartua: Greco ganbitoa"
-
-msgid "King Gambit Accepted: Herzfeld Gambit"
-msgstr "Errege Ganbito Onartua: Herzfeld ganbitoa"
-
-msgid "King Gambit Accepted: Keres (Mason-Steinitz) Gambit"
-msgstr "Errege Ganbito Onartua: Keres (Mason-Steinitz) ganbitoa"
-
-msgid "King Gambit Accepted: Kieseritsky, Berlin Defence, 6.Bc4"
-msgstr "Errege Ganbito Onartua: Kieseritsky, Berlingo defentsa, 6.Ac4"
-
-msgid "King Gambit Accepted: Kieseritsky, Berlin Defence, Riviere Variation"
-msgstr ""
-"Errege Ganbito Onartua: Kieseritsky, Berlingo defentsa, Riviere aldaera"
-
-msgid "King Gambit Accepted: Kieseritsky, Berlin Defence"
-msgstr "Errege Ganbito Onartua: Kieseritsky, Berlingo defentsa"
-
-msgid "King Gambit Accepted: Kieseritsky, Brentano (Campbell) Defence"
-msgstr "Errege Ganbito Onartua: Kieseritsky, Brentano (Campbell) defentsa"
-
-msgid "King Gambit Accepted: Kieseritsky, Brentano Defence, Caro Variation"
-msgstr "Errege Ganbito Onartua: Kieseritsky, Brentano defentsa, Caro aldaera"
-
-msgid ""
-"King Gambit Accepted: Kieseritsky, Brentano Defence, Kaplanek Variation"
-msgstr ""
-"Errege Ganbito Onartua: Kieseritsky, Brentano defentsa, Kaplanek aldaera"
-
-msgid "King Gambit Accepted: Kieseritsky, Brentano Defence"
-msgstr "Errege Ganbito Onartua: Kieseritsky, Brentano defentsa"
-
-msgid "King Gambit Accepted: Kieseritsky, Kolisch Defence"
-msgstr "Errege Ganbito Onartua: Kieseritsky, Kolisch defentsa"
-
-msgid "King Gambit Accepted: Kieseritsky, Neumann Defence"
-msgstr "Errege Ganbito Onartua: Kieseritsky, Neumann defentsa"
-
-msgid "King Gambit Accepted: Kieseritsky, Paulsen Defence"
-msgstr "Errege Ganbito Onartua: Kieseritsky, Paulsen defentsa"
-
-msgid "King Gambit Accepted: Kieseritsky, Polerio Defence"
-msgstr "Errege Ganbito Onartua: Kieseritsky, Polerio defentsa"
-
-msgid "King Gambit Accepted: Kieseritsky, Rice Gambit"
-msgstr "Errege Ganbito Onartua: Kieseritsky, Rice ganbitoa"
-
-msgid "King Gambit Accepted: Kieseritsky, Salvio (Rosenthal) Defence"
-msgstr "Errege Ganbito Onartua: Kieseritsky, Salvio (Rosenthal) defentsa"
-
-msgid "King Gambit Accepted: Kieseritsky, Salvio Defence, Cozio Variation"
-msgstr "Errege Ganbito Onartua: Kieseritsky, Salvio defentsa, Cozio aldaera"
-
-msgid ""
-"King Gambit Accepted: Kieseritsky, long whip (Stockwhip, Classical) Defence"
-msgstr ""
-"Errege Ganbito Onartua: Kieseritsky, Zartailu Luzearen (Stockwhip, klasikoa)"
-" defentsa"
-
-msgid ""
-"King Gambit Accepted: Kieseritsky, long whip Defence, Jaenisch Variation"
-msgstr ""
-"Errege Ganbito Onartua: Kieseritsky,Zartailu Luzearen defentsa, Jaenisch "
-"aldaera"
-
-msgid "King Gambit Accepted: King knight Gambit"
-msgstr "Errege Ganbito Onartua: Erregearen zaldunaren ganbitoa"
-
-msgid ""
-"King Gambit Accepted: Lesser Bishop (Petroff-Jaenisch-Tartakower) Gambit"
-msgstr ""
-"Errege Ganbito Onartua: Alfil eskasa (Petroff-Jaenisch-Tartakower) ganbitoa"
-
-msgid "King Gambit Accepted: Lolli Gambit (wild Muzio Gambit)"
-msgstr "Errege Ganbito Onartua: Lolli ganbitoa (Muzio ganbito basatia)"
-
-msgid "King Gambit Accepted: Lolli Gambit, Young Variation"
-msgstr "Errege Ganbito Onartua: Lolli ganbitoa, Young aldaera"
-
-msgid "King Gambit Accepted: Lopez-Gianutio Counter-Gambit, Hein Variation"
-msgstr "Errege Ganbito Onartua: Lopez-Gianutio kontra-ganbitoa, Hein aldaera"
-
-msgid "King Gambit Accepted: MacDonnell Gambit"
-msgstr "Errege Ganbito Onartua: MacDonnell ganbitoa"
-
-msgid "King Gambit Accepted: Muzio Gambit, Brentano Defence"
-msgstr "Errege Ganbito Onartua: Muzio ganbitoa, Brentano defentsa"
-
-msgid "King Gambit Accepted: Muzio Gambit, From Defence"
-msgstr "Errege Ganbito Onartua: Muzio ganbitoa, From defentsa"
-
-msgid "King Gambit Accepted: Muzio Gambit, Holloway Defence"
-msgstr "Errege Ganbito Onartua: Muzio ganbitoa, Holloway defentsa"
-
-msgid "King Gambit Accepted: Muzio Gambit, Kling and Horwitz Counter-Attack"
-msgstr ""
-"Errege Ganbito Onartua: Muzio ganbitoa, Kling eta Horwitz kontraerasoa"
-
-msgid "King Gambit Accepted: Muzio Gambit, Paulsen Variation"
-msgstr "Errege Ganbito Onartua: Muzio ganbitoa, Paulsen aldaera"
-
-msgid "King Gambit Accepted: Muzio Gambit"
-msgstr "Errege Ganbito Onartua: Muzio ganbitoa"
-
-msgid "King Gambit Accepted: Orsini Gambit"
-msgstr "Errege Ganbito Onartua: Orsini ganbitoa"
-
-msgid "King Gambit Accepted: Pawn Gambit (Stamma Gambit)"
-msgstr "Errege Ganbito Onartua: Peoiaren ganbitoa (Stamma ganbitoa)"
-
-msgid "King Gambit Accepted: Philidor Gambit, Schultz Variation"
-msgstr "Errege Ganbito Onartua: Philidor ganbitoa, Schultz aldaera"
-
-msgid "King Gambit Accepted: Philidor Gambit"
-msgstr "Errege Ganbito Onartua: Philidor ganbitoa"
-
-msgid "King Gambit Accepted: Quaade Gambit"
-msgstr "Errege Ganbito Onartua: Quaade ganbitoa"
-
-msgid "King Gambit Accepted: Rosentreter Gambit"
-msgstr "Errege Ganbito Onartua: Rosentreter ganbitoa"
-
-msgid "King Gambit Accepted: Salvio Gambit, Anderssen Counter-Attack"
-msgstr "Errege Ganbito Onartua: Salvio ganbitoa, Anderssen kontraerasoa"
-
-msgid "King Gambit Accepted: Salvio Gambit"
-msgstr "Errege Ganbito Onartua: Salvio ganbitoa"
-
-msgid "King Gambit Accepted: Schallop Defence"
-msgstr "Errege Ganbito Onartua: Schallop defentsa"
-
-msgid "King Gambit Accepted: Schurig Gambit"
-msgstr "Errege Ganbito Onartua: Schurig ganbitoa"
-
-msgid "King Gambit Accepted: Silberschmidt Gambit"
-msgstr "Errege Ganbito Onartua: Silberschmidt ganbitoa"
-
-msgid "King Gambit Accepted: Soerensen Gambit"
-msgstr "Errege Ganbito Onartua: Soerensen ganbitoa"
-
-msgid "King Gambit Accepted: Tumbleweed Gambit"
-msgstr "Errege Ganbito Onartua: Tumbleweed ganbitoa"
-
-msgid "King Gambit Accepted: Villemson (Steinitz) Gambit"
-msgstr "Errege Ganbito Onartua: Villemson (Steinitz) ganbitoa"
-
-msgid "King Gambit Accepted"
-msgstr "Erregearen ganbito onartua"
-
-msgid "King Gambit Declined: 2...Nf6"
-msgstr "Errege Ganbito Ukatua: 2...Zf6"
-
-msgid "King Gambit Declined: Classical Counter-Gambit"
-msgstr "Errege Ganbito Ukatua: kontra-ganbito klasikoa"
-
-msgid "King Gambit Declined: Classical Variation"
-msgstr "Errege Ganbito Ukatua: aldaera klasikoa"
-
-msgid "King Gambit Declined: Classical, 4.c3"
-msgstr "Errege Ganbito Ukatua: klasikoa, 4.c3"
-
-msgid "King Gambit Declined: Classical, Hanham Variation"
-msgstr "Errege Ganbito Ukatua: klasikoa, Hanham aldaera"
-
-msgid "King Gambit Declined: Classical, Heath Variation"
-msgstr "Errege Ganbito Ukatua: klasikoa, Heath aldaera"
-
-msgid "King Gambit Declined: Classical, Marshall Attack"
-msgstr "Errege Ganbito Ukatua: klasikoa, Marshall erasoa"
-
-msgid "King Gambit Declined: Classical, Reti Variation"
-msgstr "Errege Ganbito Ukatua: klasikoa, Reti aldaera"
-
-msgid "King Gambit Declined: Classical, Soldatenkov Variation"
-msgstr "Errege Ganbito Ukatua: klasikoa, Soldatenkov aldaera"
-
-msgid "King Gambit Declined: Classical, Svenonius Variation"
-msgstr "Errege Ganbito Ukatua: klasikoa, Svenonius aldaera"
-
-msgid "King Gambit Declined: Falkbeer Counter-Gambit"
-msgstr "Errege Ganbito Ukatua: Falkbeer kontra-ganbitoa"
-
-msgid "King Gambit Declined: Falkbeer, 3...e4"
-msgstr "Errege Ganbito Ukatua: Falkbeer, 3...e4"
-
-msgid "King Gambit Declined: Falkbeer, 4.d3"
-msgstr "Errege Ganbito Ukatua: Falkbeer, 4.d3"
-
-msgid "King Gambit Declined: Falkbeer, 5.de"
-msgstr "Errege Ganbito Ukatua: Falkbeer, 5.de"
-
-msgid "King Gambit Declined: Falkbeer, Alapin Variation"
-msgstr "Errege Ganbito Ukatua: Falkbeer, Alapin aldaera"
-
-msgid "King Gambit Declined: Falkbeer, Charousek Gambit"
-msgstr "Errege Ganbito Ukatua: Falkbeer, Charousek ganbitoa"
-
-msgid "King Gambit Declined: Falkbeer, Keres Variation"
-msgstr "Errege Ganbito Ukatua: Falkbeer, Keres aldaera"
-
-msgid "King Gambit Declined: Falkbeer, Main Line, 7...Bf5"
-msgstr "Errege Ganbito Ukatua: Falkbeer, lerro nagusia, 7...Af5"
-
-msgid "King Gambit Declined: Falkbeer, Milner-Barry Variation"
-msgstr "Errege Ganbito Ukatua: Falkbeer, Milner-Barry aldaera"
-
-msgid "King Gambit Declined: Falkbeer, Morphy Gambit"
-msgstr "Errege Ganbito Ukatua: Falkbeer, Morphy ganbitoa"
-
-msgid "King Gambit Declined: Falkbeer, Nimzovich Variation"
-msgstr "Errege Ganbito Ukatua: Falkbeer, Nimzovich aldaera"
-
-msgid "King Gambit Declined: Falkbeer, Reti Variation"
-msgstr "Errege Ganbito Ukatua: Falkbeer, Reti aldaera"
-
-msgid "King Gambit Declined: Falkbeer, Rubinstein Variation"
-msgstr "Errege Ganbito Ukatua: Falkbeer, Rubinstein aldaera"
-
-msgid "King Gambit Declined: Falkbeer, Tarrasch Variation"
-msgstr "Errege Ganbito Ukatua: Falkbeer, Tarrasch aldaera"
-
-msgid "King Gambit Declined: Falkbeer, Tartakower Variation"
-msgstr "Errege Ganbito Ukatua: Falkbeer, Tartakower aldaera"
-
-msgid "King Gambit Declined: Keene Defence"
-msgstr "Errege Ganbito Ukatua: Keeneren defentsa"
-
-msgid "King Gambit Declined: Mafia Defence"
-msgstr "Errege Ganbito Ukatua: Mafiaren defentsa"
-
-msgid "King Gambit Declined: Nimzovich Counter-Gambit"
-msgstr "Errege Ganbito Ukatua: Nimzovich kontra-ganbitoa"
-
-msgid "King Gambit Declined: Norwalde Variation, Buecker Gambit"
-msgstr "Errege Ganbito Ukatua: Norwalde aldaera, Buecker ganbitoa"
-
-msgid "King Gambit Declined: Norwalde Variation"
-msgstr "Errege Ganbito Ukatua: Norwalde aldaera"
-
-msgid "King Gambit"
-msgstr "Erregearen ganbitoa"
-
-msgid "King Indian Defence, 3.Nc3"
-msgstr "Erregearen indiar defentsa, 3.Zc3"
-
-msgid "King Indian Defence: 3.Nf3"
-msgstr "Erregearen indiarra: 3.Zf3"
-
-msgid "King Indian Defence: 3.g3"
-msgstr "Erregearen indiarra: 3.g3"
-
-msgid "King Indian Defence: 4.e4"
-msgstr "Erregearen indiarra: 4.e4"
-
-msgid "King Indian Defence: 5.Be2"
-msgstr "Erregearen indiarra: 5.Ae2"
-
-msgid "King Indian Defence: 5.Nf3"
-msgstr "Erregearen indiarra: 5.Zf3"
-
-msgid "King Indian Defence: 6.Be2"
-msgstr "Erregearen indiarra: 6.Ae2"
-
-msgid "King Indian Defence: Accelerated Averbakh System"
-msgstr "Erregearen indiarra: Averbakh sistema bizkortua"
-
-msgid "King Indian Defence: Andersson Variation"
-msgstr "Erregearen indiarra: Andersson aldaera"
-
-msgid "King Indian Defence: Anti-Grünfeld"
-msgstr "Erregearen indiarra: Anti-Gruenfeld"
-
-msgid "King Indian Defence: Averbakh System"
-msgstr "Erregearen indiarra: Averbakh sistema"
-
-msgid "King Indian Defence: Averbakh, 6...c5"
-msgstr "Erregearen indiarra: Averbakh, 6...c5"
-
-msgid "King Indian Defence: Averbakh, Main Line"
-msgstr "Erregearen indiarra: Averbakh, lerro nagusia"
-
-msgid "King Indian Defence: Classical Variation"
-msgstr "Erregearen indiarra: aldaera klasikoa"
-
-msgid "King Indian Defence: Danube Gambit"
-msgstr "Erregearen indiarra: Danubio ganbitoa"
-
-msgid "King Indian Defence: East Indian Defence"
-msgstr "Erregearen indiarra: Ekialdeko Indiako defentsa"
-
-msgid "King Indian Defence: Fianchetto Variation"
-msgstr "Erregearen indiarra: fianchetto aldaera"
-
-msgid "King Indian Defence: Fianchetto with ...Nc6"
-msgstr "Erregearen indiarra: fianchetto ...Zc6rekin"
-
-msgid "King Indian Defence: Fianchetto with ...Nd7"
-msgstr "Erregearen indiarra: fianchetto ...Zd7rekin"
-
-msgid "King Indian Defence: Fianchetto without c4"
-msgstr "Erregearen indiarra: fianchetto c4 gabe"
-
-msgid "King Indian Defence: Fianchetto, Classical Main Line"
-msgstr "Erregearen indiarra: fianchetto, lerro nagusi klasikoa"
-
-msgid "King Indian Defence: Fianchetto, Classical Variation, 8.e4"
-msgstr "Erregearen indiarra: fianchetto, aldaera klasikoa, 8.e4"
-
-msgid "King Indian Defence: Fianchetto, Classical Variation"
-msgstr "Erregearen indiarra: fianchetto, aldaera klasikoa"
-
-msgid "King Indian Defence: Fianchetto, Kavalek (Bronstein) Variation"
-msgstr "Erregearen indiarra: fianchetto, Kavalek (Bronstein) aldaera"
-
-msgid "King Indian Defence: Fianchetto, Larsen System"
-msgstr "Erregearen indiarra: fianchetto, Larsen sistema"
-
-msgid "King Indian Defence: Fianchetto, Panno Variation"
-msgstr "Erregearen indiarra: fianchetto, Panno aldaera"
-
-msgid "King Indian Defence: Fianchetto, Simagin Variation"
-msgstr "Erregearen indiarra: fianchetto, Simagin aldaera"
-
-msgid "King Indian Defence: Fianchetto, Uhlmann (Szabo) Variation"
-msgstr "Erregearen indiarra: fianchetto, Uhlmann (Szabo) aldaera"
-
-msgid "King Indian Defence: Fianchetto, Yugoslav Panno"
-msgstr "Erregearen indiarra: fianchetto, Jugoslaviar Panno"
-
-msgid "King Indian Defence: Fianchetto, Yugoslav System"
-msgstr "Erregearen indiarra: fianchetto, Jugoslaviar sistema"
-
-msgid "King Indian Defence: Fianchetto, Yugoslav, 7.O-O"
-msgstr "Erregearen indiarra: fianchetto, Jugoslaviarra, 7.O-O"
-
-msgid "King Indian Defence: Fianchetto, lesser Simagin (Spassky) Variation"
-msgstr "Erregearen indiarra: fianchetto, Simagin (Spassky) aldaera txikia"
-
-msgid "King Indian Defence: Four Pawns Attack, 6.Be2"
-msgstr "Erregearen indiarra: lau peoiko erasoa, 6.Ae2"
-
-msgid "King Indian Defence: Four Pawns Attack, Florentine Gambit"
-msgstr "Erregearen indiarra: lau peoiko erasoa, Florentziako ganbitoa"
-
-msgid "King Indian Defence: Four Pawns Attack, Main Line"
-msgstr "Erregearen indiarra: lau peoiko erasoa, lerro nagusia"
-
-msgid "King Indian Defence: Four Pawns Attack, dynamic Line"
-msgstr "Erregearen indiarra: lau peoiko erasoa, lerro dinamikoa"
-
-msgid "King Indian Defence: Four Pawns Attack, with Be2 and Nf3"
-msgstr "Erregearen indiarra: lau peoiko erasoa, Ae2 eta Zf3rekin"
-
-msgid "King Indian Defence: Four Pawns Attack"
-msgstr "Erregearen indiarra: lau peoiko erasoa"
-
-msgid "King Indian Defence: Gligoric-Taimanov System"
-msgstr "Erregearen indiarra: Gligoric-Taimanov sistema"
-
-msgid "King Indian Defence: Kazakh Variation"
-msgstr "Erregearen indiarra: Kazakh aldaera"
-
-msgid "King Indian Defence: Kramer System"
-msgstr "Erregearen indiarra: Kramer sistema"
-
-msgid "King Indian Defence: Larsen Variation"
-msgstr "Erregearen indiarra: Larsen aldaera"
-
-msgid "King Indian Defence: London System"
-msgstr "Erregearen indiarra: Londresko sistema"
-
-msgid "King Indian Defence: Makagonov System (5.h3)"
-msgstr "Erregearen indiarra: Makagonov sistema (5.h3)"
-
-msgid "King Indian Defence: Petrosian System, Keres Variation"
-msgstr "Erregearen indiarra: Petrosianen sistema, Keres aldaera"
-
-msgid "King Indian Defence: Petrosian System, Main Line"
-msgstr "Erregearen indioa: Petrosianen sistema, lerro nagusia"
-
-msgid "King Indian Defence: Petrosian System, Stein Variation"
-msgstr "Erregearen indiarra: Petrosianen sistema, Stein aldaera"
-
-msgid "King Indian Defence: Petrosian System"
-msgstr "Erregearen indioa: Petrosianen sistema"
-
-msgid "King Indian Defence: Pomar System"
-msgstr "Erregearen indiarra: Pomar sistema"
-
-msgid "King Indian Defence: Saemisch Variation"
-msgstr "Erregearen indiarra: Saemisch aldaera"
-
-msgid "King Indian Defence: Saemisch, 5...O-O"
-msgstr "Erregearen indiarra: Saemisch, 5...O-O"
-
-msgid "King Indian Defence: Saemisch, 6...Nc6"
-msgstr "Erregearen indiarra: Saemisch, 6...Zc6"
-
-msgid "King Indian Defence: Saemisch, Byrne Variation"
-msgstr "Erregearen indiarra: Saemisch, Byrne aldaera"
-
-msgid "King Indian Defence: Saemisch, Double Fianchetto Variation"
-msgstr "Erregearen indiarra: Saemisch, fianchetto bikoitzaren aldaera"
-
-msgid "King Indian Defence: Saemisch, Panno Formation"
-msgstr "Erregearen indiarra: Saemisch, Panno formazioa"
-
-msgid "King Indian Defence: Saemisch, Panno Main Line"
-msgstr "Erregearen indiarra: Saemisch, Panno lerro nagusia"
-
-msgid "King Indian Defence: Saemisch, Ruban Variation"
-msgstr "Erregearen indiarra: Saemisch, Ruban aldaera"
-
-msgid "King Indian Defence: Saemisch, orthodox Main Line"
-msgstr "Erregearen indiarra: Saemisch, ortodoxoa lerro nagusia"
-
-msgid "King Indian Defence: Saemisch, orthodox Variation"
-msgstr "Erregearen indiarra: Saemisch, ortodoxoa aldaera"
-
-msgid "King Indian Defence: Saemisch, orthodox, 7.Nge2 c6"
-msgstr "Erregearen indiarra: Saemisch, ortodoxoa, 7.Zge2 c6"
-
-msgid "King Indian Defence: Saemisch, orthodox, 7.d5 c6"
-msgstr "Erregearen indiarra: Saemisch, ortodoxoa, 7.d5 c6"
-
-msgid "King Indian Defence: Saemisch, orthodox, 7.d5"
-msgstr "Erregearen indiarra: Saemisch, ortodoxoa, 7.d5"
-
-msgid "King Indian Defence: Semi-Averbakh System"
-msgstr "Erregearen indiarra: Semi-Averbakh sistema"
-
-msgid "King Indian Defence: Smyslov System"
-msgstr "Erregearen indiarra: Smyslov sistema"
-
-msgid "King Indian Defence: Torre Attack"
-msgstr "Erregearen indiarra: Torre erasoa"
-
-msgid "King Indian Defence: Zinnowitz Variation"
-msgstr "Erregearen indiarra: Zinnowitz aldaera"
-
-msgid "King Indian Defence: orthodox Variation"
-msgstr "Erregearen indiarra: aldaera ortodoxoa"
-
-msgid "King Indian Defence: orthodox, 7...Nbd7, 8.Re1"
-msgstr "Erregearen indiarra: ortodoxoa, 7...Zbd7, 8.Ge1"
-
-msgid "King Indian Defence: orthodox, 7...Nbd7, Main Line"
-msgstr "Erregearen indiarra: ortodoxoa, 7...Zbd7, lerro nagusia"
-
-msgid "King Indian Defence: orthodox, 7...Nbd7"
-msgstr "Erregearen indioa: ortodoxoa, 7...Zbd7"
-
-msgid "King Indian Defence: orthodox, Aronin-Taimanov Variation"
-msgstr "Erregearen indiarra: ortodoxoa, Aronin-Taimanov aldaera"
-
-msgid "King Indian Defence: orthodox, Aronin-Taimanov, 9.Ne1"
-msgstr "Erregearen indiarra: ortodoxoa, Aronin-Taimanov, 9.Ze1"
-
-msgid "King Indian Defence: orthodox, Aronin-Taimanov, Benko Attack"
-msgstr "Erregearen indiarra: ortodoxoa, Aronin-Taimanov, Benko erasoa"
-
-msgid "King Indian Defence: orthodox, Aronin-Taimanov, Main Line"
-msgstr "Erregearen indiarra: ortodoxoa, Aronin-Taimanov, lerro nagusia"
-
-msgid "King Indian Defence: orthodox, Aronin-Taimanov, bayonet Attack"
-msgstr "Erregearen indiarra: ortodoxoa, Aronin-Taimanov, baioneta erasoa"
-
-msgid "King Indian Defence: orthodox, Donner Variation"
-msgstr "Erregearen indiarra: ortodoxoa, Donner aldaera"
-
-msgid "King Indian Defence: six Pawns Attack"
-msgstr "Erregearen indiarra: sei peoien erasoa"
-
-msgid "King Indian Defence: with e4 & g3"
-msgstr "Erregearen indiarra e4 eta g3-rekin"
-
-msgid "King Indian Defence"
-msgstr "Erregearen indiar defentsa"
-
-msgid "King Pawn Opening: Colorado Counter"
-msgstr "KP: Colorado counter"
-
-msgid "King Pawn Opening: Indian Opening"
-msgstr "KP: Indiako irekiera"
-
-msgid "King Pawn Opening: Lopez Opening"
-msgstr "KP: Lopez irekiera"
-
-msgid "King Pawn Opening: Mengarini Opening"
-msgstr "KP: Mengariniren irekiera"
-
-msgid "King Pawn Opening: Napoleon Opening"
-msgstr "KP: Napoleonen irekiera"
-
-msgid "King Pawn Opening: Nimzovich Defence, Bogolyubov Variation"
-msgstr "KP: Nimzovich defentsa, Bogolyubov aldaera"
-
-msgid "King Pawn Opening: Nimzovich Defence, Marshall Gambit"
-msgstr "KP: Nimzovich defentsa, Marshall ganbitoa"
-
-msgid "King Pawn Opening: Nimzovich Defence"
-msgstr "KP: Nimzovich defentsa"
-
-msgid "King Pawn Opening: Patzer Opening"
-msgstr "KP: Patzer irekiera"
-
-msgid "King Pawn Opening"
-msgstr "Erregearen peoiaren irekiera"
-
-msgid "King knight Gambit"
-msgstr "Erregearen zaldunaren ganbitoa"
-
-msgid "King knight Opening"
-msgstr "Erregearen zaldunaren irekiera"
-
 msgid "Konstantinopolsky Opening"
 msgstr "Konstantinopolsky irekiera"
 
@@ -2438,26 +1001,11 @@ msgstr "Letoniako kontra-ganbitoa"
 msgid "Latvian Gambit, 3.Bc4"
 msgstr "Letoniako ganbitoa, 3.Ac4"
 
-msgid "Latvian Gambit: Fraser Defence"
-msgstr "Letoniera: Fraser defentsa"
-
-msgid "Latvian Gambit: Nimzovich Variation"
-msgstr "Letoniera: Nimzovich aldaera"
-
-msgid "Latvian Gambit: Polerio Variation"
-msgstr "Letoniera: Polerio aldaera"
-
-msgid "Latvian Gambit: corkscrew Counter-Gambit"
-msgstr "Letoniera: Kortxo-kentzekoaren kontra-ganbitoa"
-
 msgid "Lemming Defence"
 msgstr "Lemming defentsa"
 
 msgid "Lengfellner System"
 msgstr "Lengfellner sistema"
-
-msgid "Levitsky Attack (Queen Bishop Attack)"
-msgstr "Levitsky erasoa (Damaren alfilaren erasoa)"
 
 msgid "Mieses Opening"
 msgstr "Mieses irekiera"
@@ -2476,42 +1024,6 @@ msgstr "Defentsa modernoa"
 
 msgid "Mujannah Opening"
 msgstr "Mujannah irekiera"
-
-msgid "Neo-Grünfeld (Kemeri) Defence"
-msgstr "Neo-Gruenfeld (Kemeri) defentsa"
-
-msgid "Neo-Grünfeld Defence: 5.Nf3"
-msgstr "Neo-Gruenfeld, 5.Zf3"
-
-msgid "Neo-Grünfeld Defence: 5.cd, Main Line"
-msgstr "Neo-Gruenfeld, 5.cd, lerro nagusia"
-
-msgid "Neo-Grünfeld Defence: 5.cd"
-msgstr "Neo-Gruenfeld, 5.cd"
-
-msgid "Neo-Grünfeld Defence: 6.O-O c6"
-msgstr "Neo-Gruenfeld, 6.O-O c6"
-
-msgid "Neo-Grünfeld Defence: 6.O-O, Main Line"
-msgstr "Neo-Gruenfeld, 6.O-O, lerro nagusia"
-
-msgid "Neo-Grünfeld Defence: 6.O-O"
-msgstr "Neo-Gruenfeld, 6.O-O"
-
-msgid "Neo-Grünfeld Defence: 6.cd Nxd5, 7.O-O Nb6"
-msgstr "Neo-Gruenfeld, 6.cd Zxd5, 7.O-O Zb6"
-
-msgid "Neo-Grünfeld Defence: 6.cd Nxd5, 7.O-O c5, 8.Nc3"
-msgstr "Neo-Gruenfeld, 6.cd Zxd5, 7.O-O c5, 8.Zc3"
-
-msgid "Neo-Grünfeld Defence: 6.cd Nxd5, 7.O-O c5, 8.dc"
-msgstr "Neo-Gruenfeld, 6.cd Zxd5, 7.O-O c5, 8.dc"
-
-msgid "Neo-Grünfeld Defence: 6.cd Nxd5, 7.O-O"
-msgstr "Neo-Gruenfeld, 6.cd Zxd5, 7.O-O"
-
-msgid "Neo-Grünfeld Defence"
-msgstr "Neo-Gruenfeld defentsa"
 
 msgid "Neo-Indian (Seirawan) Attack"
 msgstr "Neoindiarren (Seirawan) erasoa"
@@ -2736,14 +1248,8 @@ msgstr "Norvegiako defentsa"
 msgid "Novosibirsk Opening"
 msgstr "Novosibirsk irekiera"
 
-msgid "Old Benoni Defence: Franco-Benoni Defence"
-msgstr "Benoni zaharra: Franco-Benoni defentsa"
-
 msgid "Old Benoni Defence: Mujannah Formation"
 msgstr "Benoni zaharra: Mujannah formazioa"
-
-msgid "Old Benoni Defence: Schmid System"
-msgstr "Benoni zaharra: Schmid-en sistema"
 
 msgid "Old Benoni Defence"
 msgstr "Benoni defentsa zaharra"
@@ -2774,9 +1280,6 @@ msgstr "Owen defentsa"
 
 msgid "Paleface Attack"
 msgstr "Musu-zuriaren erasoa"
-
-msgid "Petrov Defence"
-msgstr "Petrov defentsa"
 
 msgid "Philidor Defence: Berger Variation"
 msgstr "Philidor: Berger aldaera"
@@ -2862,9 +1365,6 @@ msgstr "Philidor: Philidor kontra-ganbitoa"
 msgid "Philidor Defence: Steinitz Variation"
 msgstr "Philidor: Steinitz aldaera"
 
-msgid "Philidor Defence"
-msgstr "Philidor defentsa"
-
 msgid "Pirc Defence: 150 Attack"
 msgstr "Pirc: 150 erasoa"
 
@@ -2919,12 +1419,6 @@ msgstr "Pirc defentsa"
 msgid "Polish (Sokolsky) Opening"
 msgstr "Poloniar (Sokolsky) irekiera"
 
-msgid "Polish (Sokolsky-Orangutan) Opening: Outflank Variation"
-msgstr "Poloniarra: Outflank aldaera"
-
-msgid "Polish (Sokolsky-Orangutan) Opening: Tuebingen Variation"
-msgstr "Poloniarra: Tubingen aldaera"
-
 msgid "Polish Defence"
 msgstr "Poloniar defentsa"
 
@@ -2937,911 +1431,11 @@ msgstr "Ponziani kontra-ganbitoa, Schmidten erasoa"
 msgid "Ponziani Counter-Gambit"
 msgstr "Ponziani kontra-ganbitoa"
 
-msgid "Ponziani Opening: Caro Variation"
-msgstr "Ponziani: Caro aldaera"
-
-msgid "Ponziani Opening: Fraser Defence"
-msgstr "Ponziani: Fraser defentsa"
-
-msgid "Ponziani Opening: Jaenisch Counter-Attack"
-msgstr "Ponziani: Jaenischen kontraerasoa"
-
-msgid "Ponziani Opening: Leonhardt Variation"
-msgstr "Ponziani: Leonhardt aldaera"
-
-msgid "Ponziani Opening: Reti Variation"
-msgstr "Ponziani: Reti aldaera"
-
-msgid "Ponziani Opening: Romanishin Variation"
-msgstr "Ponziani: Romanishin aldaera"
-
-msgid "Ponziani Opening: Steinitz Variation"
-msgstr "Ponziani: Steinitz aldaera"
-
 msgid "Ponziani Opening"
 msgstr "Ponziani irekiera"
 
 msgid "Pterodactyl Defence"
 msgstr "Pterodaktiloaren defentsa"
-
-msgid "Queen Bishop Game"
-msgstr "Damaren alfilaren irekiera"
-
-msgid "Queen Gambit Accepted, 4.Nc3"
-msgstr "Damaren Ganbito Onartua, 4.Zc3"
-
-msgid "Queen Gambit Accepted, 4.e3"
-msgstr "Damaren Ganbito Onartua, 4.e3"
-
-msgid "Queen Gambit Accepted, Bogolyubov Variation"
-msgstr "Damaren Ganbito Onartua, Bogolyubov aldaera"
-
-msgid "Queen Gambit Accepted, Flohr Variation"
-msgstr "Damaren Ganbito Onartua, Flohr aldaera"
-
-msgid "Queen Gambit Accepted, Janowsky-Larsen Variation"
-msgstr "Damaren Ganbito Onartua, Janowsky-Larsen aldaera"
-
-msgid "Queen Gambit Accepted, Smyslov Variation"
-msgstr "Damaren Ganbito Onartua, Smyslov aldaera"
-
-msgid "Queen Gambit Accepted: 3.Nf3"
-msgstr "Damaren Ganbito Onartua: 3.Zf3"
-
-msgid "Queen Gambit Accepted: 3.e4"
-msgstr "Damaren Ganbito Onartua: 3.e4"
-
-msgid "Queen Gambit Accepted: 4...e6"
-msgstr "Damaren Ganbito Onartua: 4...e6"
-
-msgid "Queen Gambit Accepted: Alekhine Defence, Alatortsev Variation"
-msgstr "Damaren Ganbito Onartua: Alekhine defentsa, Alatortsev aldaera"
-
-msgid "Queen Gambit Accepted: Alekhine Defence, Borisenko-Furman Variation"
-msgstr "Damaren Ganbito Onartua: Alekhine defentsa, Borisenko-Furman aldaera"
-
-msgid "Queen Gambit Accepted: Alekhine Defence"
-msgstr "Damaren Ganbito Onartua: Alekhine defentsa"
-
-msgid "Queen Gambit Accepted: Classical Variation, 6.O-O"
-msgstr "Damaren Ganbito Onartua: aldaera klasikoa, 6.O-O"
-
-msgid "Queen Gambit Accepted: Classical Variation"
-msgstr "Damaren Ganbito Onartua: aldaera klasikoa"
-
-msgid "Queen Gambit Accepted: Classical, 6...a6"
-msgstr "Damaren Ganbito Onartua: klasikoa, 6...a6"
-
-msgid "Queen Gambit Accepted: Classical, 7...b5"
-msgstr "Damaren Ganbito Onartua: klasikoa, 7...b5"
-
-msgid "Queen Gambit Accepted: Classical, 7.Qe2"
-msgstr "Damaren Ganbito Onartua: klasikoa, 7.De2"
-
-msgid "Queen Gambit Accepted: Classical, 8...Bb7"
-msgstr "Damaren Ganbito Onartua: klasikoa, 8...Ab7"
-
-msgid "Queen Gambit Accepted: Classical, Geller Variation"
-msgstr "Damaren Ganbito Onartua: klasikoa, Geller aldaera"
-
-msgid "Queen Gambit Accepted: Classical, Rubinstein Variation"
-msgstr "Damaren Ganbito Onartua: klasikoa, Rubinstein aldaera"
-
-msgid "Queen Gambit Accepted: Classical, Smyslov Variation"
-msgstr "Damaren Ganbito Onartua: klasikoa, Smyslov aldaera"
-
-msgid "Queen Gambit Accepted: Classical, Steinitz Variation"
-msgstr "Damaren Ganbito Onartua: klasikoa, Steinitz aldaera"
-
-msgid "Queen Gambit Accepted: Ericson Variation"
-msgstr "Damaren Ganbito Onartua: Ericson aldaera"
-
-msgid "Queen Gambit Accepted: Haberditz Variation"
-msgstr "Damaren Ganbito Onartua: Haberditz aldaera"
-
-msgid "Queen Gambit Accepted: Linares Variation"
-msgstr "Damaren Ganbito Onartua: Linares aldaera"
-
-msgid "Queen Gambit Accepted: Mannheim Variation"
-msgstr "Damaren Ganbito Onartua: Mannheim aldaera"
-
-msgid "Queen Gambit Accepted: Schwartz Defence"
-msgstr "Damaren Ganbito Onartua: Schwartz defentsa"
-
-msgid "Queen Gambit Accepted"
-msgstr "Damaren ganbito onartua"
-
-msgid "Queen Gambit Declined Semi-Slav: 5...Nd7"
-msgstr "Damaren Ganbito Ukatua erdi-eslaviarra: 5...Zd7"
-
-msgid "Queen Gambit Declined Semi-Slav: 5.Bg5 dc"
-msgstr "Damaren Ganbito Ukatua erdi-eslaviarra: 5.Ag5 dc"
-
-msgid "Queen Gambit Declined Semi-Slav: 5.e3"
-msgstr "Damaren Ganbito Ukatua erdi-eslaviarra: 5.e3"
-
-msgid "Queen Gambit Declined Semi-Slav: 6.Bd3"
-msgstr "Damaren Ganbito Ukatua erdi-eslaviarra: 6.Ad3"
-
-msgid "Queen Gambit Declined Semi-Slav: 7.Bc4"
-msgstr "Damaren Ganbito Ukatua erdi-eslaviarra: 7.Ac4"
-
-msgid ""
-"Queen Gambit Declined Semi-Slav: Accelerated Meran (Alekhine Variation)"
-msgstr ""
-"Damaren Ganbito Ukatua erdi-eslaviarra: Meran azeleratua (Alekhine aldaera)"
-
-msgid "Queen Gambit Declined Semi-Slav: Anti-Meran Gambit"
-msgstr ""
-"Damaren Ganbito Ukatua erdi-eslaviarra: Meran aldaeraren aurkako ganbitoa"
-
-msgid "Queen Gambit Declined Semi-Slav: Anti-Meran, Alatortsev System"
-msgstr ""
-"Damaren Ganbito Ukatua erdi-eslaviarra: Meran aldaeraren aurkakoa, "
-"Alatortsev sistema"
-
-msgid "Queen Gambit Declined Semi-Slav: Anti-Meran, Lilienthal Variation"
-msgstr ""
-"Damaren Ganbito Ukatua erdi-eslaviarra: Meran aldaeraren aurkakoa, "
-"Lilienthal aldaera"
-
-msgid "Queen Gambit Declined Semi-Slav: Anti-Meran, Szabo Variation"
-msgstr ""
-"Damaren Ganbito Ukatua erdi-eslaviarra: Meran aldaeraren aurkakoa, Szabo "
-"aldaera"
-
-msgid "Queen Gambit Declined Semi-Slav: Bogolyubov Variation"
-msgstr "Damaren Ganbito Ukatua erdi-eslaviarra: Bogolyubov aldaera"
-
-msgid "Queen Gambit Declined Semi-Slav: Botvinnik System (Anti-Meran)"
-msgstr ""
-"Damaren Ganbito Ukatua erdi-eslaviarra: Botvinnik sistema (Meran aldaeraren "
-"aurkakoa)"
-
-msgid "Queen Gambit Declined Semi-Slav: Chigorin Defence"
-msgstr "Damaren Ganbito Ukatua erdi-eslaviarra: Chigorin defentsa"
-
-msgid "Queen Gambit Declined Semi-Slav: Ekstrom Variation"
-msgstr "Damaren Ganbito Ukatua erdi-eslaviarra: Ekstrom aldaera"
-
-msgid "Queen Gambit Declined Semi-Slav: Hastings Variation"
-msgstr "Damaren Ganbito Ukatua erdi-eslaviarra: Hastings aldaera"
-
-msgid "Queen Gambit Declined Semi-Slav: Meran Variation"
-msgstr "Damaren Ganbito Ukatua erdi-eslaviarra: Merano aldaera"
-
-msgid "Queen Gambit Declined Semi-Slav: Meran, 8...a6"
-msgstr "Damaren Ganbito Ukatua erdi-eslaviarra: Meran, 8...a6"
-
-msgid "Queen Gambit Declined Semi-Slav: Meran, Blumenfeld Variation"
-msgstr "Damaren Ganbito Ukatua erdi-eslaviarra: Meran, Blumenfeld aldaera"
-
-msgid "Queen Gambit Declined Semi-Slav: Meran, Old Main Line"
-msgstr "Damaren Ganbito Ukatua erdi-eslaviarra: Meran, lerro nagusi zaharra"
-
-msgid "Queen Gambit Declined Semi-Slav: Meran, Pirc Variation"
-msgstr "Damaren Ganbito Ukatua erdi-eslaviarra: Meran, Pirc aldaera"
-
-msgid "Queen Gambit Declined Semi-Slav: Meran, Rabinovich Variation"
-msgstr "Damaren Ganbito Ukatua erdi-eslaviarra: Meran, Rabinovich aldaera"
-
-msgid "Queen Gambit Declined Semi-Slav: Meran, Reynolds' Variation"
-msgstr "Damaren Ganbito Ukatua erdi-eslaviarra: Meran, Reynoldsen aldaera"
-
-msgid "Queen Gambit Declined Semi-Slav: Meran, Sozin Variation"
-msgstr "Damaren Ganbito Ukatua erdi-eslaviarra: Meran, Sozin aldaera"
-
-msgid "Queen Gambit Declined Semi-Slav: Meran, Stahlberg Variation"
-msgstr "Damaren Ganbito Ukatua erdi-eslaviarra: Meran, Stahlberg aldaera"
-
-msgid "Queen Gambit Declined Semi-Slav: Meran, Wade Variation"
-msgstr "Damaren Ganbito Ukatua erdi-eslaviarra: Meran, Wade aldaera"
-
-msgid "Queen Gambit Declined Semi-Slav: Romih Variation"
-msgstr "Damaren Ganbito Ukatua erdi-eslaviarra: Romih aldaera"
-
-msgid "Queen Gambit Declined Semi-Slav: Rubinstein (Anti-Meran) System"
-msgstr ""
-"Damaren Ganbito Ukatua erdi-eslaviarra: Rubinstein (Meran aldaeraren "
-"aurkako) sistema"
-
-msgid "Queen Gambit Declined Semi-Slav: Stoltz Variation"
-msgstr "Damaren Ganbito Ukatua erdi-eslaviarra: Stoltz aldaera"
-
-msgid "Queen Gambit Declined Semi-Slav: Stonewall Defence"
-msgstr "Damaren Ganbito Ukatua erdi-eslaviarra: harrizko murrua defentsa"
-
-msgid "Queen Gambit Declined Semi-Slav: neo-Meran (Lundin Variation)"
-msgstr "Damaren Ganbito Ukatua erdi-eslaviarra: Meran berria (Lundin aldaera)"
-
-msgid "Queen Gambit Declined Semi-Slav"
-msgstr "Damaren Ganbito Ukatua erdi-eslaviarra"
-
-msgid "Queen Gambit Declined Slav Accepted: Alapin Variation"
-msgstr "Damaren Ganbito Ukatua eslaviarra onartua: Alapin aldaera"
-
-msgid "Queen Gambit Declined Slav Accepted"
-msgstr "Damaren Ganbito Ukatua eslaviarra onartua"
-
-msgid "Queen Gambit Declined Slav Defence, Alekhine Variation"
-msgstr "Damaren Ganbito Ukatua Defentsa eslaviarra, Alekhine aldaera"
-
-msgid "Queen Gambit Declined Slav Defence: Exchange Variation"
-msgstr "Damaren Ganbito Ukatua Defentsa eslaviarra: truke-aldaera"
-
-msgid "Queen Gambit Declined Slav Defence"
-msgstr "Damaren Ganbito Ukatua Defentsa eslaviarra"
-
-msgid "Queen Gambit Declined Slav: 3.Nf3"
-msgstr "Damaren Ganbito Ukatua Defentsa eslaviarra: 3.Zf3"
-
-msgid "Queen Gambit Declined Slav: 4.Nc3"
-msgstr "Damaren Ganbito Ukatua Defentsa eslaviarra: 4.Zc3"
-
-msgid "Queen Gambit Declined Slav: 4.e3 Bf5"
-msgstr "Damaren Ganbito Ukatua Defentsa eslaviarra: 4.e3 Af5"
-
-msgid "Queen Gambit Declined Slav: 4.e3"
-msgstr "Damaren Ganbito Ukatua Defentsa eslaviarra: 4.e3"
-
-msgid "Queen Gambit Declined Slav: 5.e3 (Alekhine Variation)"
-msgstr "Damaren Ganbito Ukatua Defentsa eslaviarra: 5.e3 (Alekhine aldaera)"
-
-msgid "Queen Gambit Declined Slav: Amsterdam Variation"
-msgstr "Damaren Ganbito Ukatua Defentsa eslaviarra: Amsterdam aldaera"
-
-msgid "Queen Gambit Declined Slav: Breyer Variation"
-msgstr "Damaren Ganbito Ukatua Defentsa eslaviarra: Breyer aldaera"
-
-msgid "Queen Gambit Declined Slav: Carlsbad Variation"
-msgstr "Damaren Ganbito Ukatua Defentsa eslaviarra: Carlsbad aldaera"
-
-msgid "Queen Gambit Declined Slav: Czech Defence"
-msgstr "Damaren Ganbito Ukatua Defentsa eslaviarra: Txekiar defentsa"
-
-msgid "Queen Gambit Declined Slav: Dutch Variation, Main Line"
-msgstr ""
-"Damaren Ganbito Ukatua Defentsa eslaviarra: Holandako aldaera, lerro nagusia"
-
-msgid "Queen Gambit Declined Slav: Dutch Variation"
-msgstr "Damaren Ganbito Ukatua Defentsa eslaviarra: Holandako aldaera"
-
-msgid "Queen Gambit Declined Slav: Dutch, Lasker Variation"
-msgstr ""
-"Damaren Ganbito Ukatua Defentsa eslaviarra: holandarra, Lasker aldaera"
-
-msgid "Queen Gambit Declined Slav: Dutch, Saemisch Variation"
-msgstr ""
-"Damaren Ganbito Ukatua Defentsa eslaviarra: holandarra, Saemisch aldaera"
-
-msgid "Queen Gambit Declined Slav: Exchange Variation, 6.Bf4 Bf5"
-msgstr "Damaren Ganbito Ukatua Defentsa eslaviarra: truke aldaera, 6.Af4 Af5"
-
-msgid "Queen Gambit Declined Slav: Exchange Variation"
-msgstr "Damaren Ganbito Ukatua Defentsa eslaviarra: truke-aldaera"
-
-msgid "Queen Gambit Declined Slav: Exchange, Trifunovic Variation"
-msgstr ""
-"Damaren Ganbito Ukatua Defentsa eslaviarra: trukea, Trifunovic aldaera"
-
-msgid "Queen Gambit Declined Slav: Krause Attack"
-msgstr "Damaren Ganbito Ukatua Defentsa eslaviarra: Krause erasoa"
-
-msgid "Queen Gambit Declined Slav: Semmering Variation"
-msgstr "Damaren Ganbito Ukatua Defentsa eslaviarra: Semmering aldaera"
-
-msgid "Queen Gambit Declined Slav: Slav Gambit"
-msgstr ""
-"Damaren Ganbito Ukatua eDefentsa eslaviarraa: eDefentsa eslaviarraiar "
-"ganbitoa"
-
-msgid "Queen Gambit Declined Slav: Smyslov Variation"
-msgstr "Damaren Ganbito Ukatua Defentsa eslaviarra: Smyslov aldaera"
-
-msgid "Queen Gambit Declined Slav: Soultanbeieff Variation"
-msgstr "Damaren Ganbito Ukatua Defentsa eslaviarra: Soultanbeieff aldaera"
-
-msgid "Queen Gambit Declined Slav: Steiner Variation"
-msgstr "Damaren Ganbito Ukatua Defentsa eslaviarra: Steiner aldaera"
-
-msgid "Queen Gambit Declined Slav: Suechting Variation"
-msgstr "Damaren Ganbito Ukatua Defentsa eslaviarra: Suechting aldaera"
-
-msgid "Queen Gambit Declined Slav: Tolush-Geller Gambit"
-msgstr "Damaren Ganbito Ukatua Defentsa eslaviarra: Tolush-Geller ganbitoa"
-
-msgid "Queen Gambit Declined Slav: Wiesbaden Variation"
-msgstr "Damaren Ganbito Ukatua Defentsa eslaviarra: Wiesbaden aldaera"
-
-msgid "Queen Gambit Declined Slav: Winawer Counter-Gambit"
-msgstr "Damaren Ganbito Ukatua Defentsa eslaviarra: Winawer kontra-ganbitoa"
-
-msgid "Queen Gambit Declined: 3...Nf6"
-msgstr "Damaren Ganbito Ukatua: 3...Zf6"
-
-msgid "Queen Gambit Declined: 3.Nc3"
-msgstr "Damaren Ganbito Ukatua: 3.Zc3"
-
-msgid "Queen Gambit Declined: 4.Bg5 Be7, 5.e3 O-O"
-msgstr "Damaren Ganbito Ukatua: 4.Ag5 Ae7, 5.e3 O-O"
-
-msgid "Queen Gambit Declined: 4.Bg5 Be7"
-msgstr "Damaren Ganbito Ukatua: 4.Ag5 Ae7"
-
-msgid "Queen Gambit Declined: 4.Bg5 Nbd7"
-msgstr "Damaren Ganbito Ukatua: 4.Ag5 Zbd7"
-
-msgid "Queen Gambit Declined: 4.Bg5"
-msgstr "Damaren Ganbito Ukatua: 4.Ag5"
-
-msgid "Queen Gambit Declined: 4.Nf3"
-msgstr "Damaren Ganbito Ukatua: 4.Zf3"
-
-msgid "Queen Gambit Declined: 5...c6"
-msgstr "Damaren Ganbito Ukatua: 5...c6"
-
-msgid "Queen Gambit Declined: 6.Nf3"
-msgstr "Damaren Ganbito Ukatua: 6.Zf3"
-
-msgid "Queen Gambit Declined: Alapin Variation"
-msgstr "Damaren Ganbito Ukatua: Alapin aldaera"
-
-msgid "Queen Gambit Declined: Albin Counter-Gambit, 5.g3"
-msgstr "Damaren Ganbito Ukatua: Albin kontra-ganbitoa, 5.g3"
-
-msgid "Queen Gambit Declined: Albin Counter-Gambit, Alapin Variation"
-msgstr "Damaren Ganbito Ukatua: Albin kontra-ganbitoa, Alapin aldaera"
-
-msgid "Queen Gambit Declined: Albin Counter-Gambit, Balogh Variation"
-msgstr "Damaren Ganbito Ukatua: Albin kontra-ganbitoa, Balogh aldaera"
-
-msgid "Queen Gambit Declined: Albin Counter-Gambit, Janowski Variation"
-msgstr "Damaren Ganbito Ukatua: Albin kontra-ganbitoa, Janowski aldaera"
-
-msgid "Queen Gambit Declined: Albin Counter-Gambit, Krenosz Variation"
-msgstr "Damaren Ganbito Ukatua: Albin kontra-ganbitoa, Krenosz aldaera"
-
-msgid "Queen Gambit Declined: Albin Counter-Gambit, Lasker trap"
-msgstr "Damaren Ganbito Ukatua: Albin kontra-ganbitoa, Lasker tranpa"
-
-msgid "Queen Gambit Declined: Albin Counter-Gambit"
-msgstr "Damaren Ganbito Ukatua: Albin kontra-ganbitoa"
-
-msgid "Queen Gambit Declined: Alekhine Variation"
-msgstr "Damaren Ganbito Ukatua: Alekhine aldaera"
-
-msgid "Queen Gambit Declined: Anti-neo-orthodox Variation"
-msgstr "Damaren Ganbito Ukatua: aldaera anti-neo-ortodoxoa"
-
-msgid "Queen Gambit Declined: Been-Koomen Variation"
-msgstr "Damaren Ganbito Ukatua: Been-Koomen aldaera"
-
-msgid "Queen Gambit Declined: Cambridge Springs Defence, 7.cd"
-msgstr "Damaren Ganbito Ukatua: Cambridge Springs defentsa, 7.cxd5"
-
-msgid "Queen Gambit Declined: Cambridge Springs Defence, Argentine Variation"
-msgstr ""
-"Damaren Ganbito Ukatua: Cambridge Springs defentsa, Argentinako aldaera"
-
-msgid "Queen Gambit Declined: Cambridge Springs Defence, Bogoljubow Variation"
-msgstr ""
-"Damaren Ganbito Ukatua: Cambridge Springs defentsa, Bogoljubow aldaera"
-
-msgid "Queen Gambit Declined: Cambridge Springs Defence, Capablanca Variation"
-msgstr ""
-"Damaren Ganbito Ukatua: Cambridge Springs defentsa, Capablanca aldaera"
-
-msgid "Queen Gambit Declined: Cambridge Springs Defence, Rubinstein Variation"
-msgstr ""
-"Damaren Ganbito Ukatua: Cambridge Springs defentsa, Rubinstein aldaera"
-
-msgid "Queen Gambit Declined: Cambridge Springs Defence, Yugoslav Variation"
-msgstr ""
-"Damaren Ganbito Ukatua: Cambridge Springs defentsa, Jugoslaviar aldaera"
-
-msgid "Queen Gambit Declined: Cambridge Springs Defence"
-msgstr "Damaren Ganbito Ukatua: Cambridge Springs defentsa"
-
-msgid "Queen Gambit Declined: Canal (Venice) Variation"
-msgstr "Damaren Ganbito Ukatua: Canal (Venezia) aldaera"
-
-msgid "Queen Gambit Declined: Capablanca Anti-Cambridge Springs Variation"
-msgstr ""
-"Damaren Ganbito Ukatua: Capablanca-ren aurkako Cambridge Springs aldaera"
-
-msgid "Queen Gambit Declined: Capablanca Variation"
-msgstr "Damaren Ganbito Ukatua: Capablanca aldaera"
-
-msgid "Queen Gambit Declined: Capablanca-Duras Variation"
-msgstr "Damaren Ganbito Ukatua: Capablanca-Duras aldaera"
-
-msgid "Queen Gambit Declined: Charousek (Petrosian) Variation"
-msgstr "Damaren Ganbito Ukatua: Charousek (Petrosian) aldaera"
-
-msgid "Queen Gambit Declined: Chigorin Defence, Janowski Variation"
-msgstr "Damaren Ganbito Ukatua: Chigorin defentsa, Janowski aldaera"
-
-msgid "Queen Gambit Declined: Chigorin Defence"
-msgstr "Damaren Ganbito Ukatua: Chigorin defentsa"
-
-msgid "Queen Gambit Declined: Classical Variation (5.Bf4)"
-msgstr "Damaren Ganbito Ukatua: aldaera klasikoa (5.Af4)"
-
-msgid "Queen Gambit Declined: Exchange Variation"
-msgstr "Damaren Ganbito Ukatua: truke-aldaera"
-
-msgid "Queen Gambit Declined: Exchange, Positional Line, 5...c6"
-msgstr "Damaren Ganbito Ukatua: trukea, lerro posizionala, 5...c6"
-
-msgid "Queen Gambit Declined: Exchange, Positional Line, 6.Qc2"
-msgstr "Damaren Ganbito Ukatua: trukea, lerro posizionala, 6.Dc2"
-
-msgid "Queen Gambit Declined: Exchange, Positional Line"
-msgstr "Damaren Ganbito Ukatua: trukea, lerro posizionala"
-
-msgid "Queen Gambit Declined: Exchange, Saemisch Variation"
-msgstr "Damaren Ganbito Ukatua: trukea, Saemisch aldaera"
-
-msgid "Queen Gambit Declined: Grau (Sahovic) Defence"
-msgstr "Damaren Ganbito Ukatua: Grau (Sahovic) defentsa"
-
-msgid "Queen Gambit Declined: Harrwitz Attack"
-msgstr "Damaren Ganbito Ukatua: Harrwitz erasoa"
-
-msgid "Queen Gambit Declined: Janowski Variation"
-msgstr "Damaren Ganbito Ukatua: Janowskiren aldaera"
-
-msgid "Queen Gambit Declined: Lasker Defence, Bernstein Variation"
-msgstr "Damaren Ganbito Ukatua: Lasker defentsa, Bernstein aldaera"
-
-msgid "Queen Gambit Declined: Lasker Defence, Main Line"
-msgstr "Damaren Ganbito Ukatua: Lasker defentsa, lerro nagusia"
-
-msgid "Queen Gambit Declined: Lasker Defence, Teichmann Variation"
-msgstr "Damaren Ganbito Ukatua: Lasker defentsa, Teichmann aldaera"
-
-msgid "Queen Gambit Declined: Lasker Defence"
-msgstr "Damaren Ganbito Ukatua: Lasker defentsa"
-
-msgid "Queen Gambit Declined: Lasker Variation"
-msgstr "Damaren Ganbito Ukatua: Lasker aldaera"
-
-msgid "Queen Gambit Declined: Manhattan Variation"
-msgstr "Damaren Ganbito Ukatua: Manhattan aldaera"
-
-msgid "Queen Gambit Declined: Marshall Defence"
-msgstr "Damaren Ganbito Ukatua: Marshall defentsa"
-
-msgid "Queen Gambit Declined: Neo-orthodox Variation, 7.Bh4"
-msgstr "Damaren Ganbito Ukatua: aldaera neo-ortodoxoa, 7.Ah4"
-
-msgid "Queen Gambit Declined: Neo-orthodox Variation, 7.Bxf6"
-msgstr "Damaren Ganbito Ukatua: aldaera neo-ortodoxoa, 7.Axf6"
-
-msgid "Queen Gambit Declined: Neo-orthodox Variation"
-msgstr "Damaren Ganbito Ukatua: aldaera neo-ortodoxoa"
-
-msgid "Queen Gambit Declined: Orthodox Defence, 7.Qc2 c5, 8.cd (Rubinstein)"
-msgstr ""
-"Damaren Ganbito Ukatua: Defentsa ortodoxoa, 7.Dc2 c5, 8.cxd5 (Rubinstein)"
-
-msgid "Queen Gambit Declined: Orthodox Defence, 7.Rc1"
-msgstr "Damaren Ganbito Ukatua: Defentsa ortodoxoa, 7.Gc1"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Bd3 Line, 11.O-O"
-msgstr "Damaren Ganbito Ukatua: Defentsa ortodoxoa, Ad3 lerroa, 11.O-O"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Bd3 Line, Alekhine Variation"
-msgstr ""
-"Damaren Ganbito Ukatua: Defentsa ortodoxoa, Ad3 lerroa, Alekhine aldaera"
-
-msgid ""
-"Queen Gambit Declined: Orthodox Defence, Bd3 Line, Capablanca freeing "
-"manoevre"
-msgstr ""
-"Damaren Ganbito Ukatua: Defentsa ortodoxoa, Ad3 lerroa, Capablanca garbiketa"
-" maniobra"
-
-msgid ""
-"Queen Gambit Declined: Orthodox Defence, Bd3 Line, Fianchetto Variation"
-msgstr ""
-"Damaren Ganbito Ukatua: Defentsa ortodoxoa, Ad3 lerroa, fianchetto aldaera"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Bd3 Line, Janowski Variation"
-msgstr ""
-"Damaren Ganbito Ukatua: Defentsa ortodoxoa, Ad3 lerroa, Janowski aldaera"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Bd3 Line"
-msgstr "Damaren Ganbito Ukatua: Defentsa ortodoxoa, Ad3 lerroa"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Botvinnik Variation"
-msgstr "Damaren Ganbito Ukatua: Defentsa ortodoxoa, Botvinnik aldaera"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Capablanca Variation"
-msgstr "Damaren Ganbito Ukatua: Defentsa ortodoxoa, Capablanca aldaera"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Classical Variation"
-msgstr "Damaren Ganbito Ukatua: Defentsa ortodoxoa, aldaera klasikoa"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Classical, 13.d1b1 (Maroczy)"
-msgstr ""
-"Damaren Ganbito Ukatua: Defentsa ortodoxoa, klasikoa, 13.Db1 (Maroczy)"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Classical, 13.d1c2 (Vidmar)"
-msgstr "Damaren Ganbito Ukatua: Defentsa ortodoxoa, klasikoa, 13.Dc2 (Vidmar)"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Classical, 13.de"
-msgstr "Damaren Ganbito Ukatua: Defentsa ortodoxoa, klasikoa, 13.dxe5"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Pillsbury Attack"
-msgstr "Damaren Ganbito Ukatua: Defentsa ortodoxoa, Pillsbury erasoa"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Rauzer Variation"
-msgstr "Damaren Ganbito Ukatua: Defentsa ortodoxoa, Rauzer aldaera"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Rubinstein Attack (with Rc1)"
-msgstr ""
-"Damaren Ganbito Ukatua: Defentsa ortodoxoa, Rubinsteinen erasoa (Gc1-rekin)"
-
-msgid ""
-"Queen Gambit Declined: Orthodox Defence, Rubinstein Attack, Grünfeld "
-"Variation"
-msgstr ""
-"Damaren Ganbito Ukatua: Defentsa ortodoxoa, Rubinsteinen erasoa, Gruenfelden"
-" aldaera"
-
-msgid ""
-"Queen Gambit Declined: Orthodox Defence, Rubinstein Attack, Karlsbad "
-"Variation"
-msgstr ""
-"Damaren Ganbito Ukatua: Defentsa ortodoxoa, Rubinsteinen erasoa, Karlsbad "
-"aldaera"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Rubinstein Attack, Main Line"
-msgstr ""
-"Damaren Ganbito Ukatua: Defentsa ortodoxoa, Rubinsteinen erasoa, lerro "
-"nagusia"
-
-msgid ""
-"Queen Gambit Declined: Orthodox Defence, Rubinstein Attack, Wolf Variation"
-msgstr ""
-"Damaren Ganbito Ukatua: Defentsa ortodoxoa, Rubinsteinen erasoa, Wolf "
-"aldaera"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Rubinstein Variation"
-msgstr "Damaren Ganbito Ukatua: Defentsa ortodoxoa, Rubinstein aldaera"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Swiss (Henneberger) Variation"
-msgstr ""
-"Damaren Ganbito Ukatua: Defentsa ortodoxoa, Suitzako (Henneberger) aldaera"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Swiss, Karlsbad Variation"
-msgstr "Damaren Ganbito Ukatua: Defentsa ortodoxoa, Suitza, Karlsbad aldaera"
-
-msgid "Queen Gambit Declined: Orthodox Defence"
-msgstr "Damaren Ganbito Ukatua: Defentsa ortodoxoa"
-
-msgid "Queen Gambit Declined: Petrosian Variation"
-msgstr "Damaren Ganbito Ukatua: Petrosiar aldaera"
-
-msgid "Queen Gambit Declined: Ragozin Variation"
-msgstr "Damaren Ganbito Ukatua: Ragozin aldaera"
-
-msgid "Queen Gambit Declined: Ragozin, Vienna Variation"
-msgstr "Damaren Ganbito Ukatua: Ragozin, Vienako aldaera"
-
-msgid "Queen Gambit Declined: Rochlin Variation"
-msgstr "Damaren Ganbito Ukatua: Rochlin aldaera"
-
-msgid "Queen Gambit Declined: Semi-Slav, Abrahams Variation"
-msgstr "Damaren Ganbito Ukatua: erdi-eslaviarra, Abrahams aldaera"
-
-msgid "Queen Gambit Declined: Semi-Slav, Junge Variation"
-msgstr "Damaren Ganbito Ukatua: erdi-eslaviarra, Junge aldaera"
-
-msgid "Queen Gambit Declined: Semi-Slav, Koomen Variation"
-msgstr "Damaren Ganbito Ukatua: erdi-eslaviarra, Koomen aldaera"
-
-msgid "Queen Gambit Declined: Semi-Slav, Marshall Gambit"
-msgstr "Damaren Ganbito Ukatua: erdi-eslaviarra, Marshall ganbitoa"
-
-msgid "Queen Gambit Declined: Semi-Slav, Noteboom Variation"
-msgstr "Damaren Ganbito Ukatua: erdi-eslaviarra, Noteboom aldaera"
-
-msgid "Queen Gambit Declined: Semi-Slav"
-msgstr "Damaren Ganbito Ukatua: erdi-eslaviarra"
-
-msgid "Queen Gambit Declined: Semi-Tarrasch Defence"
-msgstr "Damaren Ganbito Ukatua: Semi-Tarrasch defentsa"
-
-msgid "Queen Gambit Declined: Semi-Tarrasch with e3"
-msgstr "Damaren Ganbito Ukatua: Semi-Tarrasch e3rekin"
-
-msgid "Queen Gambit Declined: Semi-Tarrasch, 5.cd"
-msgstr "Damaren Ganbito Ukatua: Semi-Tarrasch, 5.cd"
-
-msgid "Queen Gambit Declined: Semi-Tarrasch, 7.Bd3"
-msgstr "Damaren Ganbito Ukatua: Semi-Tarrasch, 7.Ad3"
-
-msgid "Queen Gambit Declined: Semi-Tarrasch, Kmoch Variation"
-msgstr "Damaren Ganbito Ukatua: Semi-Tarrasch, Kmoch aldaera"
-
-msgid "Queen Gambit Declined: Semi-Tarrasch, Krause Variation"
-msgstr "Damaren Ganbito Ukatua: Semi-Tarrasch, Krause aldaera"
-
-msgid "Queen Gambit Declined: Semi-Tarrasch, Primitive Pillsbury Variation"
-msgstr "Damaren Ganbito Ukatua: Semi-Tarrasch, Jatorrizko Pillsbury aldaera"
-
-msgid "Queen Gambit Declined: Semi-Tarrasch, San Sebastian Variation"
-msgstr "Damaren Ganbito Ukatua: Semi-Tarrasch, Donostia aldaera"
-
-msgid "Queen Gambit Declined: Semi-Tarrasch, Symmetrical Variation"
-msgstr "Damaren Ganbito Ukatua: Semi-Tarrasch, aldaera simetrikoa"
-
-msgid "Queen Gambit Declined: Spielmann Variation"
-msgstr "Damaren Ganbito Ukatua: Spielmannen aldaera"
-
-msgid "Queen Gambit Declined: Stonewall Variation"
-msgstr "Damaren Ganbito Ukatua: Stonewall aldaera"
-
-msgid "Queen Gambit Declined: Symmetrical (Austrian) Defence"
-msgstr "Damaren Ganbito Ukatua: defentsa simetrikoa (austriarra)"
-
-msgid "Queen Gambit Declined: Tarrasch Defence, 4.cd ed"
-msgstr "Damaren Ganbito Ukatua: Tarrasch defentsa, 4.cxd5 exd5"
-
-msgid "Queen Gambit Declined: Tarrasch Defence, Marshall Gambit"
-msgstr "Damaren Ganbito Ukatua: Tarrasch defentsa, Marshall ganbitoa"
-
-msgid "Queen Gambit Declined: Tarrasch Defence, Tarrasch Gambit"
-msgstr "Damaren Ganbito Ukatua: Tarrasch defentsa, Tarrasch ganbitoa"
-
-msgid "Queen Gambit Declined: Tarrasch Defence"
-msgstr "Damaren Ganbito Ukatua: Tarrasch defentsa"
-
-msgid "Queen Gambit Declined: Tarrasch, Bogolyubov Variation"
-msgstr "Damaren Ganbito Ukatua: Tarrasch, Bogolyubov aldaera"
-
-msgid "Queen Gambit Declined: Tarrasch, Folkestone (Swedish) Variation"
-msgstr "Damaren Ganbito Ukatua: Tarrasch, Folkestone (suediar) aldaera"
-
-msgid "Queen Gambit Declined: Tarrasch, Prague Variation, 7...Be7"
-msgstr "Damaren Ganbito Ukatua: Tarrasch, Pragako aldaera, 7...Ae7"
-
-msgid "Queen Gambit Declined: Tarrasch, Prague Variation, 9.Bg5"
-msgstr "Damaren Ganbito Ukatua: Tarrasch, Pragako aldaera, 9.Ag5"
-
-msgid "Queen Gambit Declined: Tarrasch, Prague Variation, Normal position"
-msgstr "Damaren Ganbito Ukatua: Tarrasch, Pragako aldaera, Posizio normala"
-
-msgid "Queen Gambit Declined: Tarrasch, Prague Variation"
-msgstr "Damaren Ganbito Ukatua: Tarrasch, Pragako aldaera"
-
-msgid "Queen Gambit Declined: Tarrasch, Reti Variation"
-msgstr "Damaren Ganbito Ukatua: Tarrasch, Reti aldaera"
-
-msgid ""
-"Queen Gambit Declined: Tarrasch, Schlechter-Rubinstein System, Rey Ardid "
-"Variation"
-msgstr ""
-"Damaren Ganbito Ukatua: Tarrasch, Schlechter-Rubinstein sistema, Rey Ardid "
-"aldaera"
-
-msgid "Queen Gambit Declined: Tarrasch, Schlechter-Rubinstein System"
-msgstr "Damaren Ganbito Ukatua: Tarrasch, Schlechter-Rubinstein sistema"
-
-msgid "Queen Gambit Declined: Tarrasch, Stoltz Variation"
-msgstr "Damaren Ganbito Ukatua: Tarrasch, Stoltz aldaera"
-
-msgid "Queen Gambit Declined: Tarrasch, Wagner Variation"
-msgstr "Damaren Ganbito Ukatua: Tarrasch, Wagner aldaera"
-
-msgid "Queen Gambit Declined: Tarrasch, von Hennig-Schara Gambit"
-msgstr "Damaren Ganbito Ukatua: Tarrasch, von Hennig-Schara ganbitoa"
-
-msgid ""
-"Queen Gambit Declined: Tartakower (Makagonov-Bondarevsky) System, 8.cd Nxd5"
-msgstr ""
-"Damaren Ganbito Ukatua: Tartakower (Makagonov-Bondarevsky) sistema, 8.cxd5 "
-"Zxd5"
-
-msgid "Queen Gambit Declined: Tartakower (Makagonov-Bondarevsky) System"
-msgstr "Damaren Ganbito Ukatua: Tartakower (Makagonov-Bondarevsky) sistema"
-
-msgid "Queen Gambit Declined: Tartakower Variation"
-msgstr "Damaren Ganbito Ukatua: Tartakower aldaera"
-
-msgid "Queen Gambit Declined: Vienna Variation"
-msgstr "Damaren Ganbito Ukatua: Vienako aldaera"
-
-msgid "Queen Gambit Declined"
-msgstr "Damaren ganbito ukatua"
-
-msgid "Queen Gambit"
-msgstr "Damaren Ganbitoa"
-
-msgid "Queen Indian Accelerated"
-msgstr "Damaren Indiarra azeleratua"
-
-msgid "Queen Indian Defence: 4.Nc3, Main Line"
-msgstr "Damaren Indiar Defentsa: 4.Zc3, lerro nagusia"
-
-msgid "Queen Indian Defence: 4.Nc3"
-msgstr "Damaren Indiar Defentsa: 4.Zc3"
-
-msgid "Queen Indian Defence: 4.e3"
-msgstr "Damaren Indiar Defentsa: 4.e3"
-
-msgid "Queen Indian Defence: 4.g3 Bb7"
-msgstr "Damaren Indiar Defentsa: 4.g3 Ab7"
-
-msgid "Queen Indian Defence: 4.g3"
-msgstr "Damaren Indiar Defentsa: 4.g3"
-
-msgid "Queen Indian Defence: 5.Bg2 Be7"
-msgstr "Damaren Indiar Defentsa: 5.Ag2 Ae7"
-
-msgid "Queen Indian Defence: Anti-Queen Indian System"
-msgstr "Damaren Indiar Defentsa: Damaren indiarraren aurkako sistema"
-
-msgid "Queen Indian Defence: Averbakh Variation"
-msgstr "Damaren Indiar Defentsa: Averbakh aldaera"
-
-msgid "Queen Indian Defence: Buerger Variation"
-msgstr "Damaren Indiar Defentsa: Buerger aldaera"
-
-msgid "Queen Indian Defence: Capablanca Variation"
-msgstr "Damaren Indiar Defentsa: Capablanca aldaera"
-
-msgid "Queen Indian Defence: Euwe Variation"
-msgstr "Damaren indiarra: Euwe aldaera"
-
-msgid "Queen Indian Defence: Marienbad System, Berg Variation"
-msgstr "Damaren Indiar Defentsa: Marienbad sistema, Berg aldaera"
-
-msgid "Queen Indian Defence: Marienbad System"
-msgstr "Damaren indiarra: Marienbad sistema"
-
-msgid "Queen Indian Defence: Miles Variation"
-msgstr "Damaren Indiar Defentsa: Miles aldaera"
-
-msgid "Queen Indian Defence: Nimzovich Variation (exaggerated Fianchetto)"
-msgstr "Damaren Indiar Defentsa: Nimzovich aldaera (gehiegizko fianchettoa)"
-
-msgid "Queen Indian Defence: Old Main Line, 6.O-O"
-msgstr "Damaren Indiar Defentsa: lerro nagusia zaharra, 6.O-O"
-
-msgid "Queen Indian Defence: Old Main Line, 7.Nc3"
-msgstr "Damaren Indiar Defentsa: lerro nagusi zaharra, 7.Zc3"
-
-msgid "Queen Indian Defence: Old Main Line, 9.Qxc3"
-msgstr "Damaren Indiar Defentsa: lerro nagusi zaharra, 9.Dxc3"
-
-msgid "Queen Indian Defence: Opovcensky Variation"
-msgstr "Damaren indiarra: Opovcensky aldaera"
-
-msgid "Queen Indian Defence: Petrosian System"
-msgstr "Damaren Indiar Defentsa: Petrosianen sistema"
-
-msgid "Queen Indian Defence: Riumin Variation"
-msgstr "Damaren Indiar Defentsa: Riumin aldaera"
-
-msgid "Queen Indian Defence: Rubinstein Variation"
-msgstr "Damaren Indiar Defentsa: Rubinstein aldaera"
-
-msgid "Queen Indian Defence: Yates Variation"
-msgstr "Damaren Indiar Defentsa: Yates aldaera"
-
-msgid "Queen Indian Defence"
-msgstr "Damaren Indiar Defentsa"
-
-msgid "Queen Pawn Game Counter-Gambit (elephant Gambit)"
-msgstr "QP kontra-ganbitoa (elefantearen ganbitoa)"
-
-msgid "Queen Pawn Game Counter-Gambit: Maroczy Gambit"
-msgstr "QP kontra-ganbitoa: Maroczy ganbitoa"
-
-msgid "Queen Pawn Game: Bronstein Gambit"
-msgstr "Damaren peoia: Bronstein ganbitoa"
-
-msgid "Queen Pawn Game: Charlick (Englund) Gambit"
-msgstr "Damaren peoia: Charlick (Englund) ganbitoa"
-
-msgid "Queen Pawn Game: Chigorin Variation"
-msgstr "Damaren peoia: Chigorin aldaera"
-
-msgid "Queen Pawn Game: English Defence"
-msgstr "Damaren peoia: Defentsa ingelesa"
-
-msgid "Queen Pawn Game: Franco-Indian (Keres) Defence"
-msgstr "Damaren peoia: Franko-indiar (Keres) defentsa"
-
-msgid "Queen Pawn Game: Krause Variation"
-msgstr "Damaren peoiaren partida, Krause aldaera"
-
-msgid "Queen Pawn Game: Lundin (Kevitz-Mikenas) Defence"
-msgstr "Damaren peoia: Lundin (Kevitz-Mikenas) defentsa"
-
-msgid "Queen Pawn Game: Mason Variation, Steinitz Counter-Gambit"
-msgstr "Damaren peoia, Mason aldaera, Steinitz kontra-ganbitoa"
-
-msgid "Queen Pawn Game: Mason Variation"
-msgstr "Damaren peoia, Mason aldaera"
-
-msgid "Queen Pawn Game: Mengarini Attack"
-msgstr "Damaren peoia: Mengarini erasoa"
-
-msgid "Queen Pawn Game: Rubinstein (Colle-Zukertort) Variation"
-msgstr "Damaren peoiaren partida, Rubinstein (Colle-Zukertort) aldaera"
-
-msgid "Queen Pawn Game: Stonewall Attack"
-msgstr "Damaren peoia: harrizko murruaren erasoa"
-
-msgid "Queen Pawn Game: Torre Attack, Wagner Gambit"
-msgstr "Damaren peoia: Torre erasoa, Wagner ganbitoa"
-
-msgid "Queen Pawn Game: Torre Attack"
-msgstr "Damaren peoia: Torre erasoa"
-
-msgid "Queen Pawn Game: Yusupov-Rubinstein System"
-msgstr "Damaren peoia: Yusupov-Rubinstein sistema"
-
-msgid "Queen Pawn Game: Zukertort Variation"
-msgstr "Damaren peoiaren partida, Zukertort aldaera"
-
-msgid "Queen Pawn Game"
-msgstr "Damaren peoiaren partida"
-
-msgid "Reti Opening: Accepted, Keres Variation"
-msgstr "Reti onartua: Keres aldaera"
-
-msgid "Reti Opening: Accepted"
-msgstr "Reti onartua"
-
-msgid "Reti Opening: Advance Variation"
-msgstr "Reti: aurrerapen aldaera"
-
-msgid "Reti Opening: Herrstroem Gambit"
-msgstr "Reti: Herrstroem ganbitoa"
-
-msgid "Reti Opening: King Indian Attack (Barcza System)"
-msgstr "Reti: Erregearen Indiar erasoa (Barcza sistema)"
-
-msgid "Reti Opening: King Indian Attack (with ...c5)"
-msgstr "Reti: Erregearen Indiar erasoa (... c5-rekin)"
-
-msgid "Reti Opening: King Indian Attack, French Variation"
-msgstr "Reti: Erregearen indiar erasoa, aldaera frantsesa"
-
-msgid "Reti Opening: King Indian Attack, Keres Variation"
-msgstr "Reti: Erregearen Indiar erasoa, Keres aldaera"
-
-msgid "Reti Opening: King Indian Attack, Pachman System"
-msgstr "Reti: Erregearen Indiar erasoa, Pachman sistema"
-
-msgid "Reti Opening: King Indian Attack, Reti-Smyslov Variation"
-msgstr "Reti: Erregearen Indiar erasoa, Reti-Smyslov aldaera"
-
-msgid "Reti Opening: King Indian Attack, Spassky Variation"
-msgstr "Reti: Erregearen Indiar erasoa, Spasskyren aldaera"
-
-msgid "Reti Opening: King Indian Attack, Yugoslav Variation"
-msgstr "Reti: Erregearen indiar erasoa, Jugoslaviar aldaera"
-
-msgid "Reti Opening: King Indian Attack"
-msgstr "Reti: Erregearen indiar erasoa"
-
-msgid "Reti Opening: Lisitsin Gambit deferred"
-msgstr "Reti: Lisitsin ganbito atzeratua"
-
-msgid "Reti Opening: Nimzovich-Larsen Attack"
-msgstr "Reti: Nimzovich-Larsen erasoa"
-
-msgid "Reti Opening: Old Indian Attack"
-msgstr "Reti: Indiako eraso zaharra"
-
-msgid "Reti Opening: Pirc-Lisitsin Gambit"
-msgstr "Reti: Pirc-Lisitsin ganbitoa"
 
 msgid "Reti Opening"
 msgstr "Reti irekiera"
@@ -3852,116 +1446,17 @@ msgstr "Reti holandar aldaera"
 msgid "Reversed Grob (Borg/Basman Defence/macho Grob)"
 msgstr "Grob alderantzikatua (Borg/Basman defentsa/Grob matxista)"
 
-msgid "Richter-Veresov Attack: Richter Variation"
-msgstr "Richter-Veresov erasoa, Richter aldaera"
-
-msgid "Richter-Veresov Attack: Veresov Variation"
-msgstr "Richter-Veresov erasoa, Veresov aldaera"
-
 msgid "Richter-Veresov Attack"
 msgstr "Richter-Veresov erasoa"
 
-msgid "Robatsch (Modern) Defence: Pseudo-Austrian Attack"
-msgstr "Robatsch-en defentsa: eraso sasi-austriarra"
-
-msgid "Robatsch (Modern) Defence: Three Pawns Attack"
-msgstr "Robatsch defentsa: hiru peoi erasoa"
-
-msgid "Robatsch (Modern) Defence: Two Knights Variation"
-msgstr "Robatsch defentsa: bi zaldunen aldaera"
-
-msgid "Robatsch (Modern) Defence: Two Knights, Suttles Variation"
-msgstr "Robatsch defentsa: bi zaldun, Suttles aldaera"
-
 msgid "Robatsch (Modern) Defence"
-msgstr "Robatsch defentsa"
+msgstr "Robatsch defentsa (modernoa)"
 
 msgid "Rousseau Gambit"
 msgstr "Rousseau ganbitoa"
 
-msgid "Russian Game (Petroff Defence): Classical Attack, Berger Variation"
-msgstr "Petrov: eraso klasikoa, Berger aldaera"
-
-msgid "Russian Game (Petroff Defence): Classical Attack, Chigorin Variation"
-msgstr "Petrov: eraso klasikoa, Chigorin aldaera"
-
-msgid "Russian Game (Petroff Defence): Classical Attack, Jaenisch Variation"
-msgstr "Petrov: eraso klasikoa, Jaenisch aldaera"
-
-msgid "Russian Game (Petroff Defence): Classical Attack, Krause Variation"
-msgstr "Petrov: eraso klasikoa, Krause aldaera"
-
-msgid "Russian Game (Petroff Defence): Classical Attack, Maroczy Variation"
-msgstr "Petrov: eraso klasikoa, Maroczy aldaera"
-
-msgid "Russian Game (Petroff Defence): Classical Attack, Marshall Variation"
-msgstr "Petrov: eraso klasikoa, Marshall aldaera"
-
-msgid "Russian Game (Petroff Defence): Classical Attack, Marshall trap"
-msgstr "Petrov: eraso klasikoa, Marshall tranpa"
-
-msgid "Russian Game (Petroff Defence): Classical Attack, Mason Variation"
-msgstr "Petrov: eraso klasikoa, Mason aldaera"
-
-msgid "Russian Game (Petroff Defence): Classical Attack, Tarrasch Variation"
-msgstr "Petrov: eraso klasikoa, Tarrasch aldaera"
-
-msgid "Russian Game (Petroff Defence): Classical Attack, close Variation"
-msgstr "Petrov: eraso klasikoa, aldaera itxia"
-
-msgid "Russian Game (Petroff Defence): Classical Attack"
-msgstr "Petrov: eraso klasikoa"
-
-msgid "Russian Game (Petroff Defence): Cochrane Gambit"
-msgstr "Petrov: Cochrane ganbitoa"
-
-msgid "Russian Game (Petroff Defence): Cozio (Lasker) Attack"
-msgstr "Petrov: Cozio (Lasker) erasoa"
-
-msgid "Russian Game (Petroff Defence): Damiano Variation"
-msgstr "Petrov: Damiano aldaera"
-
-msgid "Russian Game (Petroff Defence): French Attack"
-msgstr "Petrov: Frantziar erasoa"
-
-msgid "Russian Game (Petroff Defence): Italian Variation"
-msgstr "Petrov: Italiako aldaera"
-
-msgid "Russian Game (Petroff Defence): Kaufmann Attack"
-msgstr "Petrov: Kaufmannen erasoa"
-
-msgid "Russian Game (Petroff Defence): Modern (Steinitz) Attack"
-msgstr "Petrov: eraso modernoa (Steinitz)"
-
-msgid "Russian Game (Petroff Defence): Modern Attack, Bardeleben Variation"
-msgstr "Petrov: eraso modernoa, Bardeleben aldaera"
-
-msgid "Russian Game (Petroff Defence): Modern Attack, Main Line"
-msgstr "Petrov: eraso modernoa, lerro nagusia"
-
-msgid "Russian Game (Petroff Defence): Modern Attack, Steinitz Variation"
-msgstr "Petrov: eraso modernoa, Steinitz aldaera"
-
-msgid "Russian Game (Petroff Defence): Modern Attack, Symmetrical Variation"
-msgstr "Petrov: eraso modernoa, aldaera simetrikoa"
-
-msgid "Russian Game (Petroff Defence): Modern Attack, Trifunovic Variation"
-msgstr "Petrov: eraso modernoa, Trifunovic aldaera"
-
-msgid "Russian Game (Petroff Defence): Nimzovich Attack"
-msgstr "Petrov: Nimzovich erasoa"
-
-msgid "Russian Game (Petroff Defence): Paulsen Attack"
-msgstr "Petrov: Paulsen erasoa"
-
-msgid "Russian Game (Petroff Defence): Three Knights Game"
-msgstr "Petrov: hiru zaldunen partida"
-
 msgid "Ruy Lopez (Spanish Opening)"
 msgstr "Ruy Lopez (Espainiar irekiera)"
-
-msgid "Santasiere folly"
-msgstr "Reti Irekiera, Santasiereren erokeria"
 
 msgid "Saragossa Opening"
 msgstr "Zaragozar irekiera"
@@ -3981,23 +1476,14 @@ msgstr "Eskandinaviarra: Anderssen kontraerasoa, eraso ortodoxoa"
 msgid "Scandinavian Defence: Anderssen Counter-Attack"
 msgstr "Eskandinaviarra: Anderssen kontraerasoa"
 
-msgid "Scandinavian Defence: Grünfeld Variation"
-msgstr "Eskandinaviako defentsa, Gruenfeld aldaera"
-
 msgid "Scandinavian Defence: Icelandic Gambit"
 msgstr "Eskandinaviarra: Islandiako ganbitoa"
 
 msgid "Scandinavian Defence: Kiel Variation"
 msgstr "Eskandinaviarra: Kiel aldaera"
 
-msgid "Scandinavian Defence: Lasker Variation"
-msgstr "Eskandinaviako defentsa, Lasker aldaera"
-
 msgid "Scandinavian Defence: Marshall Variation"
 msgstr "Eskandinaviarra: Marshall aldaera"
-
-msgid "Scandinavian Defence: Mieses-Kotrvc Gambit"
-msgstr "Eskandinaviarra, Mieses-Kotrvc ganbitoa"
 
 msgid "Scandinavian Defence: Pytel-Wade Variation"
 msgstr "Eskandinaviarra: Pytel-Wade aldaera"
@@ -4035,77 +1521,8 @@ msgstr "Eskoziar ganbitoa: Vitzhum erasoa"
 msgid "Scotch Gambit"
 msgstr "Eskoziar ganbitoa"
 
-msgid "Scotch Opening: Berger Variation"
-msgstr "Eskoziarra: Berger aldaera"
-
-msgid "Scotch Opening: Blackburne Attack"
-msgstr "Eskoziarra: Blackburne erasoa"
-
-msgid "Scotch Opening: Blumenfeld Attack"
-msgstr "Eskoziarra: Blumenfelden erasoa"
-
-msgid "Scotch Opening: Cochrane Variation"
-msgstr "Eskoziarra: Cochrane aldaera"
-
-msgid "Scotch Opening: Fraser Attack"
-msgstr "Eskoziarra: Fraser erasoa"
-
-msgid "Scotch Opening: Ghulam Kassim Variation"
-msgstr "Eskoziarra: Ghulam Kassim aldaera"
-
-msgid "Scotch Opening: Goering Gambit, Bardeleben Variation"
-msgstr "Eskoziarra: Goering ganbitoa, Bardeleben aldaera"
-
-msgid "Scotch Opening: Goering Gambit"
-msgstr "Eskoziarra: Goering ganbitoa"
-
-msgid "Scotch Opening: Horwitz Attack"
-msgstr "Eskoziarra: Horwitz erasoa"
-
-msgid "Scotch Opening: Lolli Variation"
-msgstr "Eskoziarra: Lolli aldaera"
-
-msgid "Scotch Opening: Meitner Variation"
-msgstr "Eskoziarra: Meitner aldaera"
-
-msgid "Scotch Opening: Mieses Variation"
-msgstr "Eskoziarra: Mieses aldaera"
-
-msgid "Scotch Opening: Paulsen Attack"
-msgstr "Eskoziarra: Paulsen erasoa"
-
-msgid "Scotch Opening: Paulsen, Gunsberg Defence"
-msgstr "Eskoziarra: Paulsen, Gunsberg defentsa"
-
-msgid "Scotch Opening: Potter Variation"
-msgstr "Eskoziarra: Potter aldaera"
-
-msgid "Scotch Opening: Pulling Counter-Attack"
-msgstr "Eskoziarra: Pulling kontra-erasoa"
-
-msgid "Scotch Opening: Relfsson Gambit ('MacLopez')"
-msgstr "Eskoziarra: Relfsson ganbitoa ('MacLopez')"
-
-msgid "Scotch Opening: Romanishin Variation"
-msgstr "Eskoziarra: Romanishin aldaera"
-
-msgid "Scotch Opening: Rosenthal Variation"
-msgstr "Eskoziarra: Rosenthal aldaera"
-
-msgid "Scotch Opening: Schmidt Variation"
-msgstr "Eskoziarra: Schmidt aldaera"
-
-msgid "Scotch Opening: Steinitz Variation"
-msgstr "Eskoziarra: Steinitz aldaera"
-
-msgid "Scotch Opening: Tartakower Variation"
-msgstr "Eskoziarra: Tartakower aldaera"
-
 msgid "Scotch Opening"
 msgstr "Eskoziar irekiera"
-
-msgid "Semi-Benoni (Blockade Variation)"
-msgstr "Semi-Benoni ('blokeoaren aldaera')"
 
 msgid "Sicilian Defence: 2.c3, Heidenfeld Variation"
 msgstr "Siziliarra: 2.c3, Heidenfelden aldaera"
@@ -4140,9 +1557,6 @@ msgstr "Siziliarra: fianchetto azeleratua, Simagin aldaera"
 msgid "Sicilian Defence: Acton extension"
 msgstr "Siziliarra: Acton luzapena"
 
-msgid "Sicilian Defence: Alapin Variation (2.c3)"
-msgstr "Siziliarra: Alapinen aldaera (2.c3)"
-
 msgid "Sicilian Defence: Anderssen Variation"
 msgstr "Siziliarra: Anderssen aldaera"
 
@@ -4172,9 +1586,6 @@ msgstr "Siziliarra: Canal-Sokolsky erasoa, Sokolsky aldaera"
 
 msgid "Sicilian Defence: Chameleon Variation"
 msgstr "Siziliarra: kamaleoiaren aldaera"
-
-msgid "Sicilian Defence: Chekhover Variation"
-msgstr "Siziliarra, Txekhover aldaera"
 
 msgid "Sicilian Defence: Chekhover, Zaitsev Variation"
 msgstr "Siziliarra: Cxekhover, Zaitsev aldaera"
@@ -4226,9 +1637,6 @@ msgstr "Siziliarra: dragoia, klasikoa, Alekhine aldaera"
 
 msgid "Sicilian Defence: Dragon, Classical, Amsterdam Variation"
 msgstr "Siziliarra: dragoia, klasikoa, Amsterdam aldaera"
-
-msgid "Sicilian Defence: Dragon, Classical, Bernard Defence"
-msgstr "Siziliarra: dragoia, klasikoa, Bernarden defentsa"
 
 msgid "Sicilian Defence: Dragon, Classical, Grigoriev Variation"
 msgstr "Siziliarra: dragoia, klasikoa, Grigoriev aldaera"
@@ -4474,27 +1882,8 @@ msgstr "Siziliarra: Richter-Rauzer, Margate (Alekhine) aldaera"
 msgid "Sicilian Defence: Richter-Rauzer, Podvebrady Variation"
 msgstr "Siziliarra: Richter-Rauzer, Podvebrady aldaera"
 
-msgid ""
-"Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...Be7 Defence, 9...Nxd4"
-msgstr "Siziliarra: Richter-Rauzer, Rauzer erasoa, 7...Ae7 defentsa, 9...Zxd4"
-
-msgid "Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...Be7 Defence, 9.f4"
-msgstr "Siziliarra: Richter-Rauzer, Rauzer erasoa, 7...Ae7 defentsa, 9.f4"
-
 msgid "Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...Be7"
 msgstr "Siziliarra: Richter-Rauzer, Rauzer erasoa, 7...Ae7"
-
-msgid ""
-"Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...a6 Defence, 11.Bxf6"
-msgstr "Siziliarra: Richter-Rauzer, Rauzer erasoa, 7...a6 defentsa, 11.Axf6"
-
-msgid ""
-"Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...a6 Defence, 8...Bd7"
-msgstr "Siziliarra: Richter-Rauzer, Rauzer erasoa, 7...a6 defentsa, 8...Ad7"
-
-msgid ""
-"Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...a6 Defence, 9...Be7"
-msgstr "Siziliarra: Richter-Rauzer, Rauzer erasoa, 7...a6 defentsa, 9...Ae7"
 
 msgid "Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...a6"
 msgstr "Siziliarra: Richter-Rauzer, Rauzer erasoa, 7...a6"
@@ -4554,9 +1943,6 @@ msgstr "Siziliarra: Scheveningen, Tal aldaera"
 msgid "Sicilian Defence: Scheveningen, Vitolins Variation"
 msgstr "Siziliarra: Scheveningen, Vitolins aldaera"
 
-msgid "Sicilian Defence: Smith-Morra Gambit, Chicago Defence"
-msgstr "Siziliarra: Smith-Morra ganbitoa, Chicagoko defentsa"
-
 msgid "Sicilian Defence: Smith-Morra Gambit"
 msgstr "Siziliarra: Smith-Morra ganbitoa"
 
@@ -4589,15 +1975,6 @@ msgstr "Siziliarra: Stiletto (Althouse) aldaera"
 
 msgid "Sicilian Defence: Sveshnikov Variation"
 msgstr "Siziliarra: Sveshnikov aldaera"
-
-msgid "Sicilian Defence: Szen (Anti-Taimanov) Variation"
-msgstr "Siziliarra, Szen ('Taimanov-en aurkako') aldaera"
-
-msgid "Sicilian Defence: Szen Variation, Dely-Kasparov Gambit"
-msgstr "Siziliarra, Szen aldaera, Dely-Kasparov ganbitoa"
-
-msgid "Sicilian Defence: Szen, Hedgehog Variation"
-msgstr "Siziliarra, Szen, trikuaren aldaera"
 
 msgid "Sicilian Defence: Taimanov (Bastrikov) Variation"
 msgstr "Siziliarra: Taimanov (Bastrikov) aldaera"
@@ -4635,532 +2012,6 @@ msgstr "Siziliar: hegaleko ganbitoa"
 msgid "Sicilian Defence"
 msgstr "Siziliar defentsa"
 
-msgid "Spanish, Ruy Lopez: ...b5 & ...d6"
-msgstr "Ruy Lopez: ...b5 eta ...d6"
-
-msgid "Spanish, Ruy Lopez: 5.O-O"
-msgstr "Ruy Lopez: 5.O-O"
-
-msgid "Spanish, Ruy Lopez: Alapin Defence deferred"
-msgstr "Ruy Lopez: Alapinen defentsa atzeratua"
-
-msgid "Spanish, Ruy Lopez: Anderssen Variation"
-msgstr "Ruy Lopez: Anderssen aldaera"
-
-msgid "Spanish, Ruy Lopez: Archangelsk (CounterThrust) Variation"
-msgstr "Ruy Lopez: Archangelsk (kontrako bultzada) aldaera"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, 4.O-O, d6"
-msgstr "Ruy Lopez: Berlingo defentsa, 4.O-O, d6"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, 4.O-O"
-msgstr "Ruy Lopez: Berlingo defentsa, 4.O-O"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Anderssen Variation"
-msgstr "Ruy Lopez: Berlingo defentsa, Anderssen aldaera"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Beverwijk Variation"
-msgstr "Ruy Lopez: Berlingo defentsa, Beverwijk aldaera"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Cordel Variation"
-msgstr "Ruy Lopez: Berlingo defentsa, Cordel aldaera"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Duras Variation"
-msgstr "Ruy Lopez: Berlingo defentsa, Duras aldaera"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Hedgehog Variation"
-msgstr "Ruy Lopez: Berlingo defentsa, trikuaren aldaera"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Kaufmann Variation"
-msgstr "Ruy Lopez: Berlingo defentsa, Kaufmann aldaera"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Minckwitz Variation"
-msgstr "Ruy Lopez: Berlingo defentsa, Minckwitz aldaera"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Mortimer Variation"
-msgstr "Ruy Lopez: Berlingo defentsa, Mortimer aldaera"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Mortimer trap"
-msgstr "Ruy Lopez: Berlingo defentsa, Mortimer tranpa"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Nyholm Attack"
-msgstr "Ruy Lopez: Berlingo defentsa, Nyholm erasoa"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Open Variation"
-msgstr "Ruy Lopez: Berlingo defentsa, aldaera irekia"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Pillsbury Variation"
-msgstr "Ruy Lopez: Berlingo defentsa, Pillsbury aldaera"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Rosenthal Variation"
-msgstr "Ruy Lopez: Berlingo defentsa, Rosenthal aldaera"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Tarrasch trap"
-msgstr "Ruy Lopez: Berlingo defentsa, Tarrasch tranpa"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Trifunovic Variation"
-msgstr "Ruy Lopez: Berlingo defentsa, Trifunovic aldaera"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Winawer Attack"
-msgstr "Ruy Lopez: Berlingo defentsa, Winawer erasoa"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Zukertort Variation"
-msgstr "Ruy Lopez: Berlingo defentsa, Zukertort aldaera"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence"
-msgstr "Ruy Lopez: Berlingo defentsa"
-
-msgid "Spanish, Ruy Lopez: Bird Defence deferred"
-msgstr "Ruy Lopez: Bird-en defentsa atzeratua"
-
-msgid "Spanish, Ruy Lopez: Bird Defence, Paulsen Variation"
-msgstr "Ruy Lopez: Bird-en defentsa, Paulsen aldaera"
-
-msgid "Spanish, Ruy Lopez: Bird Defence"
-msgstr "Ruy Lopez: Bird-en defentsa"
-
-msgid "Spanish, Ruy Lopez: Brentano Defence"
-msgstr "Ruy Lopez: Brentano defentsa"
-
-msgid "Spanish, Ruy Lopez: Caro Variation"
-msgstr "Ruy Lopez: Caro aldaera"
-
-msgid "Spanish, Ruy Lopez: Classical (Cordel) Defence"
-msgstr "Ruy Lopez: defentsa klasikoa (Cordel)"
-
-msgid "Spanish, Ruy Lopez: Classical Defence deferred"
-msgstr "Ruy Lopez: Defentsa klasiko atzeratua"
-
-msgid "Spanish, Ruy Lopez: Classical Defence, 4.c3"
-msgstr "Ruy Lopez: defentsa klasikoa, 4.c3"
-
-msgid "Spanish, Ruy Lopez: Classical Defence, Boden Variation"
-msgstr "Ruy Lopez: defentsa klasikoa, Boden aldaera"
-
-msgid "Spanish, Ruy Lopez: Classical Defence, Charousek Variation"
-msgstr "Ruy Lopez: defentsa klasikoa, Charousek aldaera"
-
-msgid "Spanish, Ruy Lopez: Classical Defence, Zaitsev Variation"
-msgstr "Ruy Lopez: defentsa klasikoa, Zaitsev aldaera"
-
-msgid "Spanish, Ruy Lopez: Closed (10...c5)"
-msgstr "Ruy Lopez: itxia (10...c5)"
-
-msgid "Spanish, Ruy Lopez: Closed (8...Na5)"
-msgstr "Ruy Lopez: itxia (8...Za5)"
-
-msgid "Spanish, Ruy Lopez: Closed (with ...d6)"
-msgstr "Ruy Lopez: itxia (...d6rekin)"
-
-msgid "Spanish, Ruy Lopez: Closed Berlin Defence, Bernstein Variation"
-msgstr "Ruy Lopez: Berlingo defentsa itxia, Bernstein aldaera"
-
-msgid "Spanish, Ruy Lopez: Closed Berlin Defence, Chigorin Variation"
-msgstr "Ruy Lopez: Berlingo defentsa itxia, Chigorin aldaera"
-
-msgid "Spanish, Ruy Lopez: Closed Berlin Defence, Showalter Variation"
-msgstr "Ruy Lopez: Berlingo defentsa itxia, Showalterren aldaera"
-
-msgid "Spanish, Ruy Lopez: Closed Berlin Defence, Wolf Variation"
-msgstr "Ruy Lopez: Berlingo defentsa itxia, Wolf aldaera"
-
-msgid "Spanish, Ruy Lopez: Closed Defence"
-msgstr "Ruy Lopez: defentsa itxia"
-
-msgid "Spanish, Ruy Lopez: Closed, 7...O-O"
-msgstr "Ruy Lopez: itxia, 7...O-O"
-
-msgid "Spanish, Ruy Lopez: Closed, 7...d6, 8.d4"
-msgstr "Ruy Lopez: itxia, 7...d6, 8.d4"
-
-msgid "Spanish, Ruy Lopez: Closed, 8.c3"
-msgstr "Ruy Lopez: itxia, 8.c3"
-
-msgid "Spanish, Ruy Lopez: Closed, 9.d4"
-msgstr "Ruy Lopez: itxia, 9.d4"
-
-msgid "Spanish, Ruy Lopez: Closed, 9.h3"
-msgstr "Ruy Lopez: itxia, 9.h3"
-
-msgid "Spanish, Ruy Lopez: Closed, Anti-Marshall 8.a4"
-msgstr "Ruy Lopez: itxia, Marshallen aurkakoa 8.a4"
-
-msgid "Spanish, Ruy Lopez: Closed, Averbakh Variation"
-msgstr "Ruy Lopez: itxia, Averbakh aldaera"
-
-msgid "Spanish, Ruy Lopez: Closed, Balla Variation"
-msgstr "Ruy Lopez: itxia, Balla aldaera"
-
-msgid "Spanish, Ruy Lopez: Closed, Basque Gambit (North Spanish Variation)"
-msgstr "Ruy Lopez: itxia, Euskal ganbitoa"
-
-msgid "Spanish, Ruy Lopez: Closed, Bogolyubov Variation"
-msgstr "Ruy Lopez: itxia, Bogolyubov aldaera"
-
-msgid "Spanish, Ruy Lopez: Closed, Borisenko Defence"
-msgstr "Ruy Lopez: itxia, Borisenko defentsa"
-
-msgid "Spanish, Ruy Lopez: Closed, Breyer Defence"
-msgstr "Ruy Lopez: itxia, Breyer defentsa"
-
-msgid "Spanish, Ruy Lopez: Closed, Breyer, 10.d4"
-msgstr "Ruy Lopez: itxia, Breyer, 10.d4"
-
-msgid "Spanish, Ruy Lopez: Closed, Breyer, Borisenko Variation"
-msgstr "Ruy Lopez: itxia, Breyer, Borisenko aldaera"
-
-msgid "Spanish, Ruy Lopez: Closed, Breyer, Gligoric Variation"
-msgstr "Ruy Lopez: itxia, Breyer, Gligoric aldaera"
-
-msgid "Spanish, Ruy Lopez: Closed, Breyer, Simagin Variation"
-msgstr "Ruy Lopez: itxia, Breyer, Simagin aldaera"
-
-msgid "Spanish, Ruy Lopez: Closed, Centre Attack"
-msgstr "Ruy Lopez: itxia, erdiko erasoa"
-
-msgid "Spanish, Ruy Lopez: Closed, Chigorin Defence"
-msgstr "Ruy Lopez: itxia, Chigorin defentsa"
-
-msgid "Spanish, Ruy Lopez: Closed, Chigorin, 12...Nc6"
-msgstr "Ruy Lopez: itxia, Chigorin, 12...Zc6"
-
-msgid "Spanish, Ruy Lopez: Closed, Chigorin, 12...c5d4"
-msgstr "Ruy Lopez: itxia, Chigorin, 12...cxd4"
-
-msgid "Spanish, Ruy Lopez: Closed, Chigorin, Rauzer Attack"
-msgstr "Ruy Lopez: itxia, Chigorin, Rauzer erasoa"
-
-msgid "Spanish, Ruy Lopez: Closed, Chigorin, Yugoslav System"
-msgstr "Ruy Lopez: itxia, Chigorin, Jugoslaviar sistema"
-
-msgid ""
-"Spanish, Ruy Lopez: Closed, Flohr-Zaitsev System (Lenzerheide Variation)"
-msgstr "Ruy Lopez: itxia, Flohr-Zaitsev sistema (Lenzerheide aldaera)"
-
-msgid "Spanish, Ruy Lopez: Closed, Keres (...Nd7) Defence"
-msgstr "Ruy Lopez: itxia, Keres (...Zd7) defentsa"
-
-msgid "Spanish, Ruy Lopez: Closed, Keres (9...a5) Variation"
-msgstr "Ruy Lopez: itxia, Keres (9...a5) aldaera"
-
-msgid "Spanish, Ruy Lopez: Closed, Kholmov Variation"
-msgstr "Ruy Lopez: itxia, Kholmov aldaera"
-
-msgid "Spanish, Ruy Lopez: Closed, Leonhardt Variation"
-msgstr "Ruy Lopez: itxia, Leonhardt aldaera"
-
-msgid "Spanish, Ruy Lopez: Closed, Lutikov Variation"
-msgstr "Ruy Lopez: itxia, Lutikov aldaera"
-
-msgid "Spanish, Ruy Lopez: Closed, Pilnik Variation"
-msgstr "Ruy Lopez: itxia, Pilnik aldaera"
-
-msgid "Spanish, Ruy Lopez: Closed, Ragozin-Petrosian (Keres) Variation"
-msgstr "Ruy Lopez: itxia, Ragozin-Petrosian ('Keres') aldaera"
-
-msgid "Spanish, Ruy Lopez: Closed, Rossolimo Defence"
-msgstr "Ruy Lopez: itxia, Rossolimo defentsa"
-
-msgid "Spanish, Ruy Lopez: Closed, Smyslov Defence"
-msgstr "Ruy Lopez: itxia, Smyslov defentsa"
-
-msgid "Spanish, Ruy Lopez: Closed, Suetin Variation"
-msgstr "Ruy Lopez: itxia, Suetin aldaera"
-
-msgid "Spanish, Ruy Lopez: Cordel Gambit"
-msgstr "Ruy Lopez: Cordel ganbitoa"
-
-msgid "Spanish, Ruy Lopez: Cozio Defence deferred"
-msgstr "Ruy Lopez: Cozio defentsa atzeratua"
-
-msgid "Spanish, Ruy Lopez: Cozio Defence, Paulsen Variation"
-msgstr "Ruy Lopez: Cozio defentsa, Paulsen aldaera"
-
-msgid "Spanish, Ruy Lopez: Cozio Defence"
-msgstr "Ruy Lopez: Cozio defentsa"
-
-msgid "Spanish, Ruy Lopez: Exchange Variation doubly deferred (DERLD)"
-msgstr "Ruy Lopez: Trukearen aldaera bi bider atzeratua"
-
-msgid "Spanish, Ruy Lopez: Exchange Variation, 5.O-O"
-msgstr "Ruy Lopez: truke aldaera, 5.O-O"
-
-msgid "Spanish, Ruy Lopez: Exchange Variation, Alapin Gambit"
-msgstr "Ruy Lopez: truke aldaera, Alapin ganbitoa"
-
-msgid "Spanish, Ruy Lopez: Exchange Variation"
-msgstr "Ruy Lopez: truke aldaera"
-
-msgid "Spanish, Ruy Lopez: Exchange, Alekhine Variation"
-msgstr "Ruy Lopez: trukea, Alekhine aldaera"
-
-msgid "Spanish, Ruy Lopez: Exchange, Bronstein Variation"
-msgstr "Ruy Lopez: trukea, Bronstein aldaera"
-
-msgid "Spanish, Ruy Lopez: Exchange, Gligoric Variation"
-msgstr "Ruy Lopez: trukea, Glikoriken aldaera"
-
-msgid "Spanish, Ruy Lopez: Exchange, Keres Variation"
-msgstr "Ruy Lopez: trukea, Keres aldaera"
-
-msgid "Spanish, Ruy Lopez: Exchange, Romanovsky Variation"
-msgstr "Ruy Lopez: trukea, Romanovsky aldaera"
-
-msgid "Spanish, Ruy Lopez: Fianchetto (Smyslov/Barnes) Defence"
-msgstr "Ruy Lopez: fianchetto (Smyslov/Barnes) defentsa"
-
-msgid "Spanish, Ruy Lopez: Fianchetto Defence deferred"
-msgstr "Ruy Lopez: fianchetto defentsa atzeratua"
-
-msgid "Spanish, Ruy Lopez: Four Knights (Tarrasch) Variation"
-msgstr "Ruy Lopez: lau zaldunen (Tarrasch) aldaera"
-
-msgid "Spanish, Ruy Lopez: Graz Variation"
-msgstr "Ruy Lopez: Graz aldaera"
-
-msgid "Spanish, Ruy Lopez: Lucena Defence"
-msgstr "Ruy Lopez: Lucena defentsa"
-
-msgid "Spanish, Ruy Lopez: Marshall Counter-Attack, 11...c6"
-msgstr "Ruy Lopez: Marshall kontraerasoa, 11...c6"
-
-msgid "Spanish, Ruy Lopez: Marshall Counter-Attack"
-msgstr "Ruy Lopez: Marshallen kontraerasoa"
-
-msgid "Spanish, Ruy Lopez: Marshall, Herman Steiner Variation"
-msgstr "Ruy Lopez: Marshall, Herman Steiner aldaera"
-
-msgid "Spanish, Ruy Lopez: Marshall, Kevitz Variation"
-msgstr "Ruy Lopez: Marshall, Kevitz aldaera"
-
-msgid "Spanish, Ruy Lopez: Marshall, Main Line, 12.d2d4"
-msgstr "Ruy Lopez: Marshall, lerro nagusia, 12.d2d4"
-
-msgid "Spanish, Ruy Lopez: Marshall, Main Line, 14...Qh3"
-msgstr "Ruy Lopez: Marshall, lerro nagusia, 14...Dh3"
-
-msgid "Spanish, Ruy Lopez: Marshall, Main Line, Spassky Variation"
-msgstr "Ruy Lopez: Marshall, lerro nagusia, Spassky aldaera"
-
-msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, 5.O-O"
-msgstr "Ruy Lopez: Steinitz defentsa modernoa, 5.O-O"
-
-msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, Alapin Variation"
-msgstr "Ruy Lopez: Steinitz defentsa modernoa, Alapin aldaera"
-
-msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, Duras (Keres) Variation"
-msgstr "Ruy Lopez: Steinitz defentsa modernoa, Duras (Keres) aldaera"
-
-msgid ""
-"Spanish, Ruy Lopez: Modern Steinitz Defence, Fianchetto (Bronstein) "
-"Variation"
-msgstr "Ruy Lopez: Steinitz defentsa modernoa, fianchetto (Bronstein) aldaera"
-
-msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, Richter Variation"
-msgstr "Ruy Lopez: Steinitz defentsa modernoa, Richter aldaera"
-
-msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, Rubinstein Variation"
-msgstr "Ruy Lopez: Steinitz defentsa modernoa, Rubinstein aldaera"
-
-msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, Three Knights Variation"
-msgstr "Ruy Lopez: Steinitz defentsa modernoa, Hiru zaldunen aldaera"
-
-msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, siesta Variation"
-msgstr "Ruy Lopez: Steinitz defentsa modernoa, siesta aldaera"
-
-msgid "Spanish, Ruy Lopez: Modern Steinitz Defence"
-msgstr "Ruy Lopez: Steinitz defentsa modernoa"
-
-msgid "Spanish, Ruy Lopez: Moeller Defence"
-msgstr "Ruy Lopez: Moeller defentsa"
-
-msgid "Spanish, Ruy Lopez: Morphy Defence, Duras Variation"
-msgstr "Ruy Lopez: Morphy defentsa, Duras aldaera"
-
-msgid "Spanish, Ruy Lopez: Morphy Defence"
-msgstr "Ruy Lopez: Morphy defentsa"
-
-msgid "Spanish, Ruy Lopez: Noah ark trap"
-msgstr "Ruy Lopez: Noeren arkaren tranpa"
-
-msgid "Spanish, Ruy Lopez: Nuernberg Variation"
-msgstr "Ruy Lopez: Nuernberg aldaera"
-
-msgid "Spanish, Ruy Lopez: Old Steinitz Defence, Nimzovich Attack"
-msgstr "Ruy Lopez: Steinitz defentsa zaharra, Nimzovich erasoa"
-
-msgid "Spanish, Ruy Lopez: Old Steinitz Defence, semi-Duras Variation"
-msgstr "Ruy Lopez: Steinitz defentsa zaharra, erdi-Duras aldaera"
-
-msgid "Spanish, Ruy Lopez: Old Steinitz Defence"
-msgstr "Ruy Lopez: Steinitz defentsa zaharra"
-
-msgid "Spanish, Ruy Lopez: Open (Tarrasch) Defence"
-msgstr "Ruy Lopez: defentsa irekia (Tarrasch)"
-
-msgid "Spanish, Ruy Lopez: Open Berlin Defence, 5...Be7"
-msgstr "Ruy Lopez: Berlingo defentsa irekia, 5...Ae7"
-
-msgid "Spanish, Ruy Lopez: Open Berlin Defence, Showalter Variation"
-msgstr "Ruy Lopez: Berlingo defentsa irekia, Showalter aldaera"
-
-msgid "Spanish, Ruy Lopez: Open Berlin Defence, l'Hermet Variation"
-msgstr "Ruy Lopez: Berlingo defentsa irekia, l'Hermet aldaera"
-
-msgid "Spanish, Ruy Lopez: Open, 6.d4 b5"
-msgstr "Ruy Lopez: irekia, 6.d4 b5"
-
-msgid "Spanish, Ruy Lopez: Open, 6.d4"
-msgstr "Ruy Lopez: irekia, 6.d4"
-
-msgid "Spanish, Ruy Lopez: Open, 7.Bb3"
-msgstr "Ruy Lopez: irekia, 7.Ab3"
-
-msgid "Spanish, Ruy Lopez: Open, 8...Be6"
-msgstr "Ruy Lopez: irekia, 8...Ae6"
-
-msgid "Spanish, Ruy Lopez: Open, 8.de"
-msgstr "Ruy Lopez: irekia, 8.de"
-
-msgid "Spanish, Ruy Lopez: Open, 9...Be7, 10.Re1"
-msgstr "Ruy Lopez: irekia, 9...Ae7, 10.Ge1"
-
-msgid "Spanish, Ruy Lopez: Open, 9.c3"
-msgstr "Ruy Lopez: irekia, 9.c3"
-
-msgid "Spanish, Ruy Lopez: Open, Berger Variation"
-msgstr "Ruy Lopez: irekia, Berger aldaera"
-
-msgid "Spanish, Ruy Lopez: Open, Berlin Variation"
-msgstr "Ruy Lopez: irekia, Berlin aldaera"
-
-msgid "Spanish, Ruy Lopez: Open, Bernstein Variation, Karpov Gambit"
-msgstr "Ruy Lopez: irekia, Bernstein aldaera, Karpov ganbitoa"
-
-msgid "Spanish, Ruy Lopez: Open, Bernstein Variation"
-msgstr "Ruy Lopez: irekia, Bernstein aldaera"
-
-msgid "Spanish, Ruy Lopez: Open, Breslau Variation"
-msgstr "Ruy Lopez: irekia, Breslau aldaera"
-
-msgid "Spanish, Ruy Lopez: Open, Classical Defence"
-msgstr "Ruy Lopez: defentsa irekia, klasikoa"
-
-msgid "Spanish, Ruy Lopez: Open, Dilworth Variation"
-msgstr "Ruy Lopez: irekia, Dilworth aldaera"
-
-msgid "Spanish, Ruy Lopez: Open, Friess Attack"
-msgstr "Ruy Lopez: irekia, Friessen erasoa"
-
-msgid "Spanish, Ruy Lopez: Open, Harksen Gambit"
-msgstr "Ruy Lopez: irekia, Harksen ganbitoa"
-
-msgid "Spanish, Ruy Lopez: Open, Howell Attack, Adam Variation"
-msgstr "Ruy Lopez: irekia, Howell erasoa, Adam aldaera"
-
-msgid "Spanish, Ruy Lopez: Open, Howell Attack, Ekstroem Variation"
-msgstr "Ruy Lopez: irekia, Howell erasoa, Ekstroem aldaera"
-
-msgid "Spanish, Ruy Lopez: Open, Howell Attack"
-msgstr "Ruy Lopez: irekia, Howell erasoa"
-
-msgid "Spanish, Ruy Lopez: Open, Italian Variation"
-msgstr "Ruy Lopez: irekia, italiar aldaera"
-
-msgid "Spanish, Ruy Lopez: Open, Knorre Variation"
-msgstr "Ruy Lopez: irekia, Knorre aldaera"
-
-msgid "Spanish, Ruy Lopez: Open, Malkin Variation"
-msgstr "Ruy Lopez: irekia, Malkin aldaera"
-
-msgid "Spanish, Ruy Lopez: Open, Motzko Attack, Nenarokov Variation"
-msgstr "Ruy Lopez: irekia, Motzko erasoa, Nenarokov aldaera"
-
-msgid "Spanish, Ruy Lopez: Open, Motzko Attack"
-msgstr "Ruy Lopez: irekia, Motzko erasoa"
-
-msgid "Spanish, Ruy Lopez: Open, Richter Variation"
-msgstr "Ruy Lopez: irekia, Richter aldaera"
-
-msgid "Spanish, Ruy Lopez: Open, Riga Variation"
-msgstr "Ruy Lopez: irekia, Riga aldaera"
-
-msgid "Spanish, Ruy Lopez: Open, Schlechter Defence"
-msgstr "Ruy Lopez: irekia, Schlechter defentsa"
-
-msgid "Spanish, Ruy Lopez: Open, St. Petersburg Variation"
-msgstr "Ruy Lopez: irekia, San Petersburgo aldaera"
-
-msgid "Spanish, Ruy Lopez: Open, Tarrasch trap"
-msgstr "Ruy Lopez: irekia, Tarrasch tranpa"
-
-msgid "Spanish, Ruy Lopez: Open, Tartakower Variation"
-msgstr "Ruy Lopez: irekia, Tartakower aldaera"
-
-msgid "Spanish, Ruy Lopez: Open, Zukertort Variation"
-msgstr "Ruy Lopez: irekia, Zukertort aldaera"
-
-msgid "Spanish, Ruy Lopez: Pollock Defence"
-msgstr "Ruy Lopez: Pollock defentsa"
-
-msgid "Spanish, Ruy Lopez: Rabinovich Variation"
-msgstr "Ruy Lopez: Rabinovich aldaera"
-
-msgid "Spanish, Ruy Lopez: Schliemann Defence deferred"
-msgstr "Ruy Lopez: Schliemannen defentsa atzeratua"
-
-msgid "Spanish, Ruy Lopez: Schliemann Defence, Berger Variation"
-msgstr "Ruy Lopez: Schliemannen defentsa, Berger aldaera"
-
-msgid "Spanish, Ruy Lopez: Schliemann Defence"
-msgstr "Ruy Lopez: Schliemannen defentsa"
-
-msgid "Spanish, Ruy Lopez: Siesta, Kopayev Variation"
-msgstr "Ruy Lopez: Siesta, Kopayev aldaera"
-
-msgid "Spanish, Ruy Lopez: Steinitz Defence deferred (Russian Defence)"
-msgstr "Ruy Lopez: Steinitz defentsa atzeratua (Errusiar defentsa)"
-
-msgid "Spanish, Ruy Lopez: Steinitz Defence deferred, Boleslavsky Variation"
-msgstr "Ruy Lopez: Steinitz defentsa atzeratua, Boleslavsky aldaera"
-
-msgid "Spanish, Ruy Lopez: Steinitz Defence deferred, Lipnitsky Variation"
-msgstr "Ruy Lopez: Steinitz defentsa atzeratua, Lipnitsky aldaera"
-
-msgid "Spanish, Ruy Lopez: Steinitz Defence deferred, Rubinstein Variation"
-msgstr "Ruy Lopez: Steinitz defentsa atzeratua, Rubinstein aldaera"
-
-msgid ""
-"Spanish, Ruy Lopez: Taimanov (chase/wing/Accelerated CounterThrust) "
-"Variation"
-msgstr ""
-"Ruy Lopez: Taimanov (jazarpen/hegal/kontrako bultzada bizkortua) aldaera"
-
-msgid "Spanish, Ruy Lopez: Trajkovic Counter-Attack"
-msgstr "Ruy Lopez: Trajkovic kontraerasoa"
-
-msgid ""
-"Spanish, Ruy Lopez: Treybal (Bayreuth) Variation (Exchange var. deferred)"
-msgstr "Ruy Lopez: Treybal (Bayreuth) aldaera (truke aldaera atzeratua)"
-
-msgid "Spanish, Ruy Lopez: Vinogradov Variation"
-msgstr "Ruy Lopez: Vinogradov aldaera"
-
-msgid "Spanish, Ruy Lopez: Wormald (Alapin) Attack"
-msgstr "Ruy Lopez: Wormald (Alapin) erasoa"
-
-msgid "Spanish, Ruy Lopez: Wormald Attack, Grünfeld Variation"
-msgstr "Ruy Lopez: Wormld erasoa, Gruenfeld aldaera"
-
-msgid "Spanish, Ruy Lopez: Worrall Attack, Sharp Line"
-msgstr "Ruy Lopez: Worrall erasoa, lerro zorrotza"
-
-msgid "Spanish, Ruy Lopez: Worrall Attack, solid Line"
-msgstr "Ruy Lopez: Worrall erasoa, lerro sendoa"
-
-msgid "Spanish, Ruy Lopez: Worrall Attack"
-msgstr "Ruy Lopez: Worrall erasoa"
-
 msgid "St. George (Baker) Defence"
 msgstr "San Jorge (Baker) defentsa"
 
@@ -5173,18 +2024,6 @@ msgstr "Tayler irekiera"
 msgid "Tennison (Lemberg, Zukertort) Gambit"
 msgstr "Tennison (Lemberg, Zukertort) ganbitoa"
 
-msgid "Three Knights Game: Schlechter Variation"
-msgstr "Hiru zaldunak: Schlechter aldaera"
-
-msgid "Three Knights Game: Steinitz Variation"
-msgstr "Hiru zaldunak: Steinitz aldaera"
-
-msgid "Three Knights Game: Steinitz, Rosenthal Variation"
-msgstr "Hiru zaldunak: Steinitz, Rosenthal aldaera"
-
-msgid "Three Knights Game: Winawer Defence (Gothic Defence)"
-msgstr "Hiru zaldunak: Winawer defentsa (defentsa gotikoa)"
-
 msgid "Three Knights Game"
 msgstr "Hiru zaldunen partida"
 
@@ -5193,9 +2032,6 @@ msgstr "Torre erasoa (Tartakower aldaera)"
 
 msgid "Trompovsky Attack (Ruth, Opovcensky Opening)"
 msgstr "Trompovsky erasoa (Ruth, Opovcensky irekiera)"
-
-msgid "Two Knights Defence (Modern Bishop Opening)"
-msgstr "Bi zaldunen defentsa (Alfilaren irekiera modernoa)"
 
 msgid "Two Knights Defence: Blackburne Variation"
 msgstr "Bi zaldunen defentsa: Blackburne aldaera"
@@ -5245,9 +2081,6 @@ msgstr "Bi zaldun: Max Lange erasoa, Berger aldaera"
 msgid "Two Knights Defence: Max Lange Attack, Krause Variation"
 msgstr "Bi zaldun: Max Lange erasoa, Krause aldaera"
 
-msgid "Two Knights Defence: Max Lange Attack, Loman Defence"
-msgstr "Bi zaldun: Max Lange erasoa, Loman defentsa"
-
 msgid "Two Knights Defence: Max Lange Attack, Marshall Variation"
 msgstr "Bi zaldun: Max Lange erasoa, Marshall aldaera"
 
@@ -5265,9 +2098,6 @@ msgstr "Bi zaldun: Max Lange erasoa"
 
 msgid "Two Knights Defence: Paoli Variation"
 msgstr "Bi zaldunen defentsa: Paoli aldaera"
-
-msgid "Two Knights Defence: Perreux Variation"
-msgstr "Bi zaldunen defentsa, Perreux aldaera"
 
 msgid "Two Knights Defence: Pincus Variation"
 msgstr "Bi zaldunen defentsa: Pincus aldaera"
@@ -5314,62 +2144,8 @@ msgstr "Vienako ganbitoa: Kaufmannen aldaera"
 msgid "Vienna Gambit: Paulsen Attack"
 msgstr "Vienako ganbitoa: Paulsenen erasoa"
 
-msgid "Vienna Gambit: Steinitz Variation"
-msgstr "Vienako ganbitoa, Steinitz aldaera"
-
-msgid "Vienna Gambit: Wurzburger trap"
-msgstr "Vienako ganbitoa, Wurzburger tranpa"
-
 msgid "Vienna Gambit"
 msgstr "Vienako ganbitoa"
-
-msgid "Vienna Game: Adams' Gambit"
-msgstr "Viena: Adamsen ganbitoa"
-
-msgid "Vienna Game: Alekhine Variation"
-msgstr "Viena: Alekhine aldaera"
-
-msgid "Vienna Game: Falkbeer Variation"
-msgstr "Viena: Falkbeer aldaera"
-
-msgid "Vienna Game: Fyfe Gambit"
-msgstr "Viena: Fyfe ganbitoa"
-
-msgid "Vienna Game: Hamppe-Allgaier Gambit, Alapin Variation"
-msgstr "Viena: Hamppe-Allgaier ganbitoa, Alapin aldaera"
-
-msgid "Vienna Game: Hamppe-Muzio Gambit"
-msgstr "Viena: Hamppe-Muzio ganbitoa"
-
-msgid "Vienna Game: Hamppe-Muzio, Dubois Variation"
-msgstr "Viena: Hamppe-Muzio, Dubois aldaera"
-
-msgid "Vienna Game: Max Lange Defence"
-msgstr "Vienako partida, Max Lange defentsa"
-
-msgid "Vienna Game: Mengarini Variation"
-msgstr "Viena: Mengarini aldaera"
-
-msgid "Vienna Game: Paulsen Variation"
-msgstr "Viena: Paulsen aldaera"
-
-msgid "Vienna Game: Paulsen-Mieses Variation"
-msgstr "Viena: Paulsen-Mieses aldaera"
-
-msgid "Vienna Game: Pierce Gambit, Rushmere Attack"
-msgstr "Viena: Pierce ganbitoa, Rushmere erasoa"
-
-msgid "Vienna Game: Pierce Gambit"
-msgstr "Viena: Pierce ganbitoa"
-
-msgid "Vienna Game: Steinitz Gambit, Fraser-Minckwitz Variation"
-msgstr "Viena: Steinitz ganbitoa, Fraser-Minckwitz aldaera"
-
-msgid "Vienna Game: Steinitz Gambit, Zukertort Defence"
-msgstr "Viena: Steinitz ganbitoa, Zukertort defentsa"
-
-msgid "Vienna Game: Steinitz Gambit"
-msgstr "Viena: Steinitz ganbitoa"
 
 msgid "Vienna Game"
 msgstr "Vienako partida"

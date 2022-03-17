@@ -206,6 +206,7 @@ def read_engines(folder_engines):
     if is64:
         cm = mas("lc0", "The LCZero Authors", "v0.27.0", "https://github.com/LeelaChessZero", "lc0.exe", 3300)
         cm.ordenUCI("Threads", "2")
+        cm.set_multipv(20, 500)
 
     cm = mas(
         "stockfish",

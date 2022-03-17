@@ -46,10 +46,23 @@ class Position:
         # En passant target square in algebraic notation. If there's no en passant target square, this is "-".
         # If a pawn has just made a two-square move, this is the position "behind" the pawn. This is recorded
         # regardless of whether there is a pawn in position to make an en passant capture
-        if len(self.en_passant) == 2:
-            if not (self.en_passant[1] in "36"):
-                self.en_passant = "-"
-        else:
+        ok = len(self.en_passant) == 2
+        if ok:
+            ep = self.en_passant
+            lt, nm = self.en_passant[0], self.en_passant[1]
+            if not (nm in "36"):
+                ok = False
+            else:
+                pawn = "P" if nm == "6" else "p"
+                bq_nm = "4" if nm == '3' else "5"
+                ok = False
+                if lt > 'a':
+                    pz = self.squares.get(chr(ord(lt)-1) + bq_nm)
+                    ok = pz == pawn
+                if not ok and lt < 'h':
+                    pz = self.squares.get(chr(ord(lt)+1) + bq_nm)
+                    ok = pz == pawn
+        if not ok:
             self.en_passant = "-"
 
     def is_valid_fen(self, fen):
@@ -571,3 +584,9 @@ class Position:
 
 def distancia(from_sq, to_sq):
     return ((ord(from_sq[0]) - ord(to_sq[0])) ** 2 + (ord(from_sq[1]) - ord(to_sq[1])) ** 2) ** 0.5
+
+
+def legal_fenm2(fen):
+    p = Position()
+    p.read_fen(fen)
+    return p.fenm2()

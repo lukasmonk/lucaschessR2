@@ -108,7 +108,7 @@ class Engine:
                 self.multiPV = self.maxMultiPV
 
     def can_be_tutor(self):
-        return self.maxMultiPV >= 4
+        return self.maxMultiPV >= 4 and "maia" not in self.key
 
     def remove_log(self, fich):
         Util.remove_file(os.path.join(os.path.dirname(self.path_exe), fich))
@@ -163,6 +163,8 @@ class Engine:
                 if op.lee(line):
                     self.__li_uci_options.append(op)
                     dc_op[op.name] = op
+                    if op.name == "MultiPV":
+                        self.set_multipv(op.default, op.maximo)
 
         for comando, valor in self.liUCI:
             if comando in dc_op:

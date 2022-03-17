@@ -5,109 +5,6 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "Alapin Opening"
-msgstr "Khai cuộc của Alapin"
-
-msgid "Alekhine Defence: Balogh Variation"
-msgstr "Phòng thủ Alekhine: biến thể Balogh"
-
-msgid "Alekhine Defence: Brooklyn Defence"
-msgstr "Phòng thủ Alekhine: Phòng thủ Brooklyn"
-
-msgid "Alekhine Defence: Exchange Variation"
-msgstr "Phòng thủ Alekhine: Biến thể đổi quân"
-
-msgid "Alekhine Defence: Four Pawns Attack, 6...Nc6"
-msgstr "Phòng thủ Alekhine: bốn tốt tấn công, 6 ... Nc6"
-
-msgid "Alekhine Defence: Four Pawns Attack, 7.Be3"
-msgstr "Phòng thủ Alekhine: bốn tốt tấn công, 7.Be3"
-
-msgid "Alekhine Defence: Four Pawns Attack, Fianchetto Variation"
-msgstr "Phòng thủ Alekhine: bốn tốt tấn công, biến thể fianchetto"
-
-msgid ""
-"Alekhine Defence: Four Pawns Attack, Ilyin-Genevsky var. Iline-Jenevski"
-msgstr "Phòng thủ Alekhine: bốn tốt tấn công, Ilyin-Genevsky var. "
-
-msgid "Alekhine Defence: Four Pawns Attack, Korchnoi Variation"
-msgstr "Phòng thủ Alekhine: bốn tốt tấn công, biến thể Korchnoi"
-
-msgid "Alekhine Defence: Four Pawns Attack, Planinc Variation"
-msgstr "Phòng thủ Alekhine: bốn tốt tấn công, biến thể Planinc"
-
-msgid "Alekhine Defence: Four Pawns Attack, Trifunovic Variation"
-msgstr "Phòng thủ Alekhine: bốn tốt tấn công, biến thể Trifunovic"
-
-msgid "Alekhine Defence: Four Pawns Attack"
-msgstr "Phòng thủ Alekhine: bốn tốt tấn công"
-
-msgid "Alekhine Defence: Kmoch Variation"
-msgstr "Phòng thủ Alekhine: biến thể Kmoch"
-
-msgid "Alekhine Defence: Krejcik Variation"
-msgstr "Phòng thủ Alekhine: biến thể Krejcik"
-
-msgid "Alekhine Defence: Maroczy Variation"
-msgstr "Phòng thủ Alekhine: biến thể Maroczy"
-
-msgid "Alekhine Defence: Modern Variation, 4...Bg4"
-msgstr "Phòng thủ Alekhine: biến thể hiện đại, 4 ... Bg4"
-
-msgid "Alekhine Defence: Modern Variation"
-msgstr "Phòng thủ Alekhine: biến thể hiện đại"
-
-msgid "Alekhine Defence: Mokele Mbembe (Buecker) Variation"
-msgstr "Phòng thủ Alekhine: biến thể Mokele Mbembe (Buecker)"
-
-msgid "Alekhine Defence: O'Sullivan Gambit"
-msgstr "Phòng thủ Alekhine: thí quân O'Sullivan"
-
-msgid "Alekhine Defence: Saemisch Attack"
-msgstr "Phòng thủ Alekhine: tấn công Saemisch"
-
-msgid "Alekhine Defence: Scandinavian Variation"
-msgstr "Phòng thủ Alekhine: biến thể Scandinavia"
-
-msgid "Alekhine Defence: Spielmann Variation"
-msgstr "Phòng thủ Alekhine: Biến thể Spielmann"
-
-msgid "Alekhine Defence: Steiner Variation"
-msgstr "Phòng thủ Alekhine: Biến thể Steiner"
-
-msgid "Alekhine Defence: Two Pawns' (Lasker) Attack"
-msgstr "Phòng thủ Alekhine: tấn công hai tốt (Lasker)"
-
-msgid "Alekhine Defence: Two Pawns' Attack, Mikenas Variation"
-msgstr "Phòng thủ Alekhine: tấn công hai tốt, biến thể Mikenas"
-
-msgid "Alekhine Defence: Welling Variation"
-msgstr "Phòng thủ Alekhine: Biến thể Welling"
-
-msgid "Alekhine Defence: modern, Alekhine Variation"
-msgstr "Phòng thủ Alekhine: hiện đại, biến thể Alekhine"
-
-msgid "Alekhine Defence: modern, Fianchetto Variation"
-msgstr "Phòng thủ Alekhine: hiện đại, biến thể fianchetto"
-
-msgid "Alekhine Defence: modern, Flohr Variation"
-msgstr "Phòng thủ Alekhine: hiện đại, biến thể Flohr"
-
-msgid "Alekhine Defence: modern, Keres Variation"
-msgstr "Phòng thủ Alekhine: hiện đại, biến thể Keres"
-
-msgid "Alekhine Defence: modern, Larsen Variation"
-msgstr "Phòng thủ Alekhine: hiện đại, biến thể Larsen"
-
-msgid "Alekhine Defence: modern, Panov Variation"
-msgstr "Phòng thủ Alekhine: hiện đại, biến thể Panov"
-
-msgid "Alekhine Defence: modern, Schmid Variation"
-msgstr "Phòng thủ Alekhine: hiện đại, biến thể Schmid"
-
-msgid "Alekhine Defence"
-msgstr "Phòng thủ Alekhine"
-
 msgid "Amar (Paris) Opening"
 msgstr "Khai cuộc Amar (Paris)"
 
@@ -116,9 +13,6 @@ msgstr "Thí quân Amar"
 
 msgid "Amsterdam Attack"
 msgstr "Tấn công Amsterdam"
-
-msgid "Anderssen Opening"
-msgstr "Khai cuộc của Anderssen"
 
 msgid "Anti-Borg (Desprez) Opening"
 msgstr "Khai cuộc Chống Borg (Desprez)"
@@ -161,12 +55,6 @@ msgstr "Thí quân Benko: hệ thống Zaitsev"
 
 msgid "Benko Gambit"
 msgstr "Thí quân Benko"
-
-msgid "Benko Opening: Reversed Alekhine"
-msgstr "Khai cuộc Benko: đảo ngược Alekhine"
-
-msgid "Benko Opening"
-msgstr "Khai cuộc Benko"
 
 msgid "Benoni Defence: 6.e4"
 msgstr "Benoni: 6.e4"
@@ -216,14 +104,8 @@ msgstr "Benoni: tấn công bốn tốt, dòng chính"
 msgid "Benoni Defence: Four Pawns Attack"
 msgstr "Benoni: tấn công bốn tốt"
 
-msgid "Benoni Defence: Hromodka System"
-msgstr "Phòng thủ Benoni , hệ thống Hromodka"
-
 msgid "Benoni Defence: Mikenas Variation"
 msgstr "Benoni: biến thể Mikenas"
-
-msgid "Benoni Defence: Nimzovich (knight tour) Variation"
-msgstr "Benoni: biến thể Nimzovich (hành trình của quân mã)"
 
 msgid "Benoni Defence: Pawn Storm Variation"
 msgstr "Benoni: biến thể bão tốt"
@@ -236,90 +118,6 @@ msgstr "Benoni: biến thể Uhlmann"
 
 msgid "Benoni Defence"
 msgstr "Phòng thủ Benoni"
-
-msgid "Bird Opening: From Gambit, Lasker Variation"
-msgstr "Bird: Từ gambit, biến thể Lasker"
-
-msgid "Bird Opening: From Gambit, Lipke Variation"
-msgstr "Bird: Từ gambit, biến thể Lipke"
-
-msgid "Bird Opening: From Gambit"
-msgstr "Bird: Từ gambit"
-
-msgid "Bird Opening: Hobbs Gambit"
-msgstr "Bird: Hobbs Gambit"
-
-msgid "Bird Opening: Lasker Variation"
-msgstr "Khai cuộc Bird: biến Lasker"
-
-msgid "Bird Opening: Swiss Gambit"
-msgstr "Khai cuộc Bird, thí quân Thụy Sĩ"
-
-msgid "Bird Opening: Williams Gambit"
-msgstr "Khai cuộc Bird: Williams Gambit"
-
-msgid "Bird Opening"
-msgstr "Khai cuộc Bird"
-
-msgid "Bishop Opening: Berlin Defence"
-msgstr "Khai cuộc Tịnh: Phòng thủ Berlin"
-
-msgid "Bishop Opening: Calabrese Counter-Gambit, Jaenisch Variation"
-msgstr "Khai cuộc Tịnh: Calabrese chống Gambit, biến thể Jaenisch"
-
-msgid "Bishop Opening: Calabrese Counter-Gambit"
-msgstr "Khai cuộc Tịnh: Calabrese chống Gambit"
-
-msgid "Bishop Opening: Classical Variation"
-msgstr "Khai cuộc Tịnh: biến thể cổ điển"
-
-msgid "Bishop Opening: Four Pawns' Gambit"
-msgstr "Khai cuộc Tịnh: cờ Bốn tốt gambit"
-
-msgid "Bishop Opening: Greco Gambit"
-msgstr "Khai cuộc Tịnh: Greco Gambit"
-
-msgid "Bishop Opening: Lewis Counter-Gambit"
-msgstr "Khai cuộc Tịnh: Lewis phản Gambit"
-
-msgid "Bishop Opening: Lewis Gambit"
-msgstr "Khai cuộc Tịnh: Lewis Gambit"
-
-msgid "Bishop Opening: Lisitsyn Variation"
-msgstr "Khai cuộc Tịnh: biến thể Lisitsyn"
-
-msgid "Bishop Opening: Lopez Gambit"
-msgstr "Khai cuộc Tịnh: Lopez Gambit"
-
-msgid "Bishop Opening: MacDonnell Double Gambit"
-msgstr "Khai cuộc Tịnh: MacDonnell đôi Gambit"
-
-msgid "Bishop Opening: Philidor Counter-Attack"
-msgstr "Khai cuộc Tịnh: phản công Philidor"
-
-msgid "Bishop Opening: Philidor Variation"
-msgstr "Khai cuộc Tịnh: biến thể Philidor"
-
-msgid "Bishop Opening: Ponziani Gambit"
-msgstr "Khai cuộc Tịnh: Ponziani Gambit"
-
-msgid "Bishop Opening: Pratt Variation"
-msgstr "Khai cuộc Tịnh: biến thể Pratt"
-
-msgid "Bishop Opening: Urusov Gambit, Panov Variation"
-msgstr "Khai cuộc Tịnh: Urusov gambit, biến thể Panov"
-
-msgid "Bishop Opening: Urusov Gambit"
-msgstr "Khai cuộc Tịnh: Urusov Gambit"
-
-msgid "Bishop Opening: Wing Gambit"
-msgstr "Khai cuộc Tịnh: Wing gambit"
-
-msgid "Bishop Opening: del Rio Variation"
-msgstr "Khai cuộc Tịnh: biến del Rio"
-
-msgid "Bishop Opening"
-msgstr "Khai cuộc Tịnh"
 
 msgid "Blackburne shilling Gambit"
 msgstr "Blackburne shilling Gambit"
@@ -350,12 +148,6 @@ msgstr "Thí quân Boden-Kieseritsky: Phòng thủ Lichtenhein"
 
 msgid "Boden-Kieseritsky Gambit"
 msgstr "Boden-Kieseritsky Gambit"
-
-msgid "Bogo-Indian Defence: Grünfeld Variation"
-msgstr "Phòng thủ Bogo-Ấn Độ, biến thể Gruenfeld"
-
-msgid "Bogo-Indian Defence: Nimzovich Variation"
-msgstr "Phòng thủ Bogo-Ấn Độ, biến thể Nimzovich"
 
 msgid "Bogo-Indian Defence"
 msgstr "Phòng thủ Bogo-Ấn Độ"
@@ -401,12 +193,6 @@ msgstr "Caro-Kann: ưu thế, biến thể ngắn"
 
 msgid "Caro-Kann Defence: Alekhine Gambit"
 msgstr "Caro-Kann: Alekhine Gambit"
-
-msgid "Caro-Kann Defence: Anti-Anti-Caro-Kann Defence"
-msgstr "Caro-Kann: phòng thủ chống-chống-Caro-Kann"
-
-msgid "Caro-Kann Defence: Anti-Caro-Kann Defence"
-msgstr "Caro-Kann: phòng thủ chống Caro-Kann"
 
 msgid "Caro-Kann Defence: Bronstein-Larsen Variation"
 msgstr "Caro-Kann: biến Bronstein-Larsen"
@@ -471,9 +257,6 @@ msgstr "Caro-Kann: Panov-Botvinnik, biến Czerniak"
 msgid "Caro-Kann Defence: Panov-Botvinnik, Gunderam Attack"
 msgstr "Caro-Kann: Panov-Botvinnik, tấn công Gunderam"
 
-msgid "Caro-Kann Defence: Panov-Botvinnik, Herzog Defence"
-msgstr "Caro-Kann: Panov-Botvinnik, phòng thủ Herzog"
-
 msgid "Caro-Kann Defence: Panov-Botvinnik, Reifir (Spielmann) Variation"
 msgstr "Caro-Kann: Panov-Botvinnik, biến thể Reifir (Spielmann)"
 
@@ -504,51 +287,6 @@ msgstr "Phòng thủ Caro-Kann"
 msgid "Caro-Masi Defence"
 msgstr "Phòng thủ Carô-Masi"
 
-msgid "Catalan Opening: Closed, 5.Nf3"
-msgstr "Catalan: Đóng, 5.Nf3"
-
-msgid "Catalan Opening: Closed, 6...Nbd7"
-msgstr "Catalan: kĐóng, 6 ... Nbd7"
-
-msgid "Catalan Opening: Closed, 7.Qc2"
-msgstr "Catalan: Đóng, 7.Qc2"
-
-msgid "Catalan Opening: Closed, Botvinnik Variation"
-msgstr "Catalan: Đóng, biến thể Botvinnik"
-
-msgid "Catalan Opening: Closed, Main Line"
-msgstr "Catalan: biến , dòng chính"
-
-msgid "Catalan Opening: Closed, Qc2 & b3"
-msgstr "Catalan: Đóng, Qc2 & b3"
-
-msgid "Catalan Opening: Closed, Sokolsky Variation"
-msgstr "Catalan: Đóng, biến thể Sokolsky"
-
-msgid "Catalan Opening: Closed, Spassky Gambit"
-msgstr "Catalan: Đóng, thí quân Spassky"
-
-msgid "Catalan Opening: Closed, Zagoryansky Variation"
-msgstr "Catalan: Đóng, biến thể Zagoryansky"
-
-msgid "Catalan Opening: Closed"
-msgstr "Catalan: Đóng"
-
-msgid "Catalan Opening: Open, 5.Nf3"
-msgstr "Catalan: khai cuộc, 5.Nf3"
-
-msgid "Catalan Opening: Open, 5.Qa4 Nbd7, 6.Qxc4"
-msgstr "Catalan: khai cuộc, 5.Qa4 Nbd7, 6.Qxc4"
-
-msgid "Catalan Opening: Open, 5.Qa4"
-msgstr "Catalan: khai cuộc, 5.Qa4"
-
-msgid "Catalan Opening: Open, Alekhine Variation"
-msgstr "Catalan: khai cuộc, biến thể Alekhine"
-
-msgid "Catalan Opening: Open, Classical Line"
-msgstr "Catalan: khai cuộc, nhánh cổ điển"
-
 msgid "Catalan Opening"
 msgstr "Khai cuộc Catalan"
 
@@ -576,9 +314,6 @@ msgstr "Ván cờ trung tâm : biến thể l'Hermet"
 msgid "Centre Game"
 msgstr "Ván cờ trung tâm"
 
-msgid "Clemenz (Mead, Basman or de Klerk) Opening"
-msgstr "Khai cuộc Clemenz (Mead, Basman hoặc de Klerk)"
-
 msgid "Colle System"
 msgstr "Hệ thống Colle"
 
@@ -588,14 +323,8 @@ msgstr "Phòng thủ Corn Stalk"
 msgid "Crab Opening"
 msgstr "Khai cuộc Crab"
 
-msgid "Czech Benoni Defence: King Indian System"
-msgstr "Séc Benoni: hệ thống vua Ấn Độ"
-
 msgid "Czech Benoni Defence"
 msgstr "Phòng thủ Séc Benoni"
-
-msgid "Damiano Defence"
-msgstr "Phòng thủ Damiano"
 
 msgid "Danish Gambit: Collijn Defence"
 msgstr "Thí quân Đan Mạch: Phòng thủ Collijn"
@@ -621,21 +350,6 @@ msgstr "Khai cuộc Dresden"
 msgid "Dunst (Sleipner, Heinrichsen) Opening"
 msgstr "Khai cuộc Dunst (Sleipner, Heinrichsen)"
 
-msgid "Durkin Attack"
-msgstr "Tấn công Durkin"
-
-msgid "Dutch Defence: 2.Bg5 Variation"
-msgstr "Hà Lan, biến 2.Bg5"
-
-msgid "Dutch Defence: Alekhine Variation"
-msgstr "Phòng thủ Hà Lan, biến thể Alekhine"
-
-msgid "Dutch Defence: Balogh Defence"
-msgstr "Hà Lan: Phòng thủ Balogh"
-
-msgid "Dutch Defence: Blackburne Variation"
-msgstr "Phòng thủ Hà Lan, biến thể Blackburne"
-
 msgid "Dutch Defence: Bladel Variation"
 msgstr "Phòng thủ Hà Lan: biến Bladel"
 
@@ -660,12 +374,6 @@ msgstr "Hà Lan: biến thể Ilyin-Genevsky"
 msgid "Dutch Defence: Ilyin-Genevsky, Winter Variation"
 msgstr "Hà Lan: Ilyin-Genevsky, biến thể Winter"
 
-msgid "Dutch Defence: Korchnoi Attack"
-msgstr "Hà Lan, tấn công  Korchnoi"
-
-msgid "Dutch Defence: Krejcik Gambit"
-msgstr "Hà Lan, Krejcik Gambit"
-
 msgid "Dutch Defence: Leningrad Variation"
 msgstr "Hà Lan: biến thể Leningrad"
 
@@ -684,15 +392,6 @@ msgstr "Hà Lan: Leningrad, biến thể chính với c6"
 msgid "Dutch Defence: Leningrad, Main Variation"
 msgstr "Hà Lan: Leningrad, biến thể chính"
 
-msgid "Dutch Defence: Manhattan (Alapin, Ulvestad) Variation"
-msgstr "Hà Lan, biến thể  Manhattan (Alapin, Ulvestad)"
-
-msgid "Dutch Defence: Rubinstein Variation"
-msgstr "Phòng thủ Hà Lan, biến thể Rubinstein"
-
-msgid "Dutch Defence: Spielmann Gambit"
-msgstr "Hà Lan, Thí quân Spielmann"
-
 msgid "Dutch Defence: Staunton Gambit deferred"
 msgstr "Hà Lan: Staunton Gambit đã hoãn"
 
@@ -707,9 +406,6 @@ msgstr "Hà Lan: Staunton gambit, biến Lasker"
 
 msgid "Dutch Defence: Staunton Gambit, Nimzovich Variation"
 msgstr "Hà Lan: Staunton gambit, biến thể Nimzovich"
-
-msgid "Dutch Defence: Staunton Gambit, Staunton Line"
-msgstr "Hà Lan: Thí quân Staunton, nhánh Staunton"
 
 msgid "Dutch Defence: Staunton Gambit, Tartakower Variation"
 msgstr "Hà Lan: Thí quân Staunton, biến Tartakower"
@@ -732,9 +428,6 @@ msgstr "Hà Lan: Stonewall, biến Botwinnik"
 msgid "Dutch Defence: Stonewall, Chekhover Variation"
 msgstr "Hà Lan: Stonewall: biến Chekhover"
 
-msgid "Dutch Defence: Von Pretzel Gambit"
-msgstr "Hà Lan, Thí quân Von Pretzel"
-
 msgid "Dutch Defence"
 msgstr "Phòng thủ Hà Lan"
 
@@ -750,224 +443,8 @@ msgstr "Hà Lan, Ấn Độ, biến thể Alekhine"
 msgid "Dzindzichashvili Defence"
 msgstr "Phòng thủ  Dzindzikhashvili"
 
-msgid "English Opening: 1...Nf6 (Anglo-Indian Defence)"
-msgstr "Anh, 1 ... Nf6 (Phòng thủ Anh-Ấn)"
-
-msgid "English Opening: Adorjan Defence"
-msgstr "Anh: Phòng thủ Adorján"
-
 msgid "English Opening: Agincourt Variation"
 msgstr "Khai cuộc Anh: biến thể Agincourt"
-
-msgid "English Opening: Anglo-Dutch Defence"
-msgstr "Anh: Phòng thủ Anh-Hà Lan"
-
-msgid "English Opening: Anglo-Grünfeld Defence, Korchnoi Variation"
-msgstr "Anh: Phòng thủ Anh-Gruenfeld, biến thể Korchnoi"
-
-msgid "English Opening: Anglo-Grünfeld Defence"
-msgstr "Anh: Phòng thủ Anh-Gruenfeld"
-
-msgid "English Opening: Anglo-Grünfeld, Czech Defence"
-msgstr "Anh: Anh-Gruenfeld, Phòng thủ Czech"
-
-msgid "English Opening: Anglo-Grünfeld, Smyslov Defence"
-msgstr "Anh: Anh-Gruenfeld, Phòng thủ Smyslov"
-
-msgid "English Opening: Bellon Gambit"
-msgstr "Anh: Thí quân Bellon"
-
-msgid "English Opening: Bled Variation"
-msgstr "Anh: Biến thể Bled"
-
-msgid "English Opening: Botvinnik System"
-msgstr "Anh: hệ thống Botvinnik"
-
-msgid "English Opening: Bradley Beach Variation"
-msgstr "Anh: biến Bradley Beach"
-
-msgid "English Opening: Bremen System with ...g6"
-msgstr "Anh: hệ thống Bremen với ... g6"
-
-msgid "English Opening: Bremen System, Keres Variation"
-msgstr "Anh: hệ thống Bremen, biến Keres"
-
-msgid "English Opening: Bremen, Smyslov System"
-msgstr "Anh: Bremen, hệ thống Smyslov"
-
-msgid "English Opening: Bremen, reverse Dragon"
-msgstr "Anh: Bremen, rồng ngược"
-
-msgid "English Opening: Capablanca Variation"
-msgstr "Anh: biến thể của Capablanca"
-
-msgid "English Opening: Carls' Bremen System"
-msgstr "Anh: hệ thống Carls Bremen"
-
-msgid "English Opening: Caro-Kann Defensive System, Bogolyubov Variation"
-msgstr "Anh: hệ thống phòng thủ Caro-Kann, biến Bogolyubov"
-
-msgid "English Opening: Caro-Kann Defensive System"
-msgstr "Anh: hệ thống phòng thủ Caro-Kann"
-
-msgid "English Opening: Closed System (without ...d6)"
-msgstr "Anh: Hệ thống đóng (không có ... D6)"
-
-msgid "English Opening: Closed System"
-msgstr "Anh: Hệ thống đóng"
-
-msgid "English Opening: Closed, 5.Rb1 Taimanov Variation"
-msgstr "Anh: đóng, biến thể 5.Rb1 Taimanov"
-
-msgid "English Opening: Closed, 5.Rb1"
-msgstr "Anh: đóng, 5.Rb1"
-
-msgid "English Opening: Closed, Hort Variation"
-msgstr "Anh: đóng, biến thể Hort"
-
-msgid "English Opening: Closed, Taimanov Variation"
-msgstr "Anh: đóng, biến Taimanov"
-
-msgid "English Opening: Four Knights System"
-msgstr "Anh: hệ thống bốn mã"
-
-msgid "English Opening: Four Knights, 4.e3"
-msgstr "Anh: bốn mã, 4.e3"
-
-msgid "English Opening: Four Knights, Capablanca Variation"
-msgstr "Anh: bốn mã, biến thể Capablanca"
-
-msgid "English Opening: Four Knights, Kingside Fianchetto"
-msgstr "Anh: bốn mã, cánh Vua fianchetto"
-
-msgid "English Opening: Four Knights, Marini Variation"
-msgstr "Anh: bốn mã, biến thể Marini"
-
-msgid "English Opening: Four Knights, Nimzovich Variation"
-msgstr "Anh: bốn mã, biến thể Nimzovich"
-
-msgid "English Opening: Four Knights, Romanishin Variation"
-msgstr "Anh: bốn mã, biến thể Romanishin biến"
-
-msgid "English Opening: Four Knights, Stean Variation"
-msgstr "Anh: bốn mã, biến thể Stean"
-
-msgid "English Opening: Jaenisch Gambit"
-msgstr "Anh: Jaenisch Gambit"
-
-msgid "English Opening: Keres Variation"
-msgstr "Anh, biến Keres"
-
-msgid "English Opening: Kramnik-Shirov CounterAttack"
-msgstr "Anh, Kramnik-Shirov pha phản công "
-
-msgid "English Opening: Kurajica Defence"
-msgstr "Anh: Phòng thủ Kurajica"
-
-msgid "English Opening: London Defensive System"
-msgstr "Anh: hệ thống phòng thủ London"
-
-msgid "English Opening: Mikenas-Carls Variation"
-msgstr "Anh: biến Mikenas-Carls"
-
-msgid "English Opening: Mikenas-Carls, Flohr Variation"
-msgstr "Anh: Mikenas-Carls, biến Flohr"
-
-msgid "English Opening: Mikenas-Carls, Kevitz Variation"
-msgstr "Anh: Mikenas-Carls, biến Kevitz"
-
-msgid "English Opening: Mikenas-Carls, Sicilian Variation"
-msgstr "Anh: Mikenas-Carls, biến Sicilian"
-
-msgid "English Opening: Nenarokov Variation"
-msgstr "Anh: biến Nenarokov"
-
-msgid "English Opening: Neo-Catalan Accepted"
-msgstr "Anh: Neo-Catalan chấp nhận"
-
-msgid "English Opening: Neo-Catalan Declined"
-msgstr "Anh: Neo-Catalan từ chối"
-
-msgid "English Opening: Neo-Catalan"
-msgstr "Anh: Neo-Catalan"
-
-msgid "English Opening: New York (London) Defensive System"
-msgstr "Anh: hệ thống phòng thủ New York (London)"
-
-msgid "English Opening: Nimzo-English Opening"
-msgstr "Anh: khai cuộc Nimzo-Anh"
-
-msgid "English Opening: Nimzovich Variation"
-msgstr "Anh, biến Nimzovich"
-
-msgid "English Opening: Nimzovich, Flohr Variation"
-msgstr "Anh, Nimzovich, biến Flohr"
-
-msgid "English Opening: Queens Indian Formation"
-msgstr "Anh: Cơ cấu Hậu Ấn Độ"
-
-msgid "English Opening: Queens Indian, Romanishin Variation"
-msgstr "Anh: Hậu Ấn Độ, biến Romanishin "
-
-msgid "English Opening: Romanishin Gambit"
-msgstr "Anh: Romanishin Gambit"
-
-msgid "English Opening: Sicilian Reversed"
-msgstr "Anh: nghịch Sicilian"
-
-msgid "English Opening: Smyslov Defence"
-msgstr "Anh, Phòng thủ Smyslov"
-
-msgid "English Opening: Symmetrical Variation"
-msgstr "Anh: Biến thể đối xứng"
-
-msgid "English Opening: Symmetrical, Benoni Formation"
-msgstr "Anh: đối xứng, hình thành Benoni"
-
-msgid "English Opening: Symmetrical, Botvinnik System Reversed"
-msgstr "Anh: đối xứng, hệ thống Botvinnik đảo ngược"
-
-msgid "English Opening: Symmetrical, Botvinnik System"
-msgstr "Anh: đối xứng, hệ thống Botvinnik"
-
-msgid "English Opening: Symmetrical, Four Knights System"
-msgstr "Tiếng Anh: đối xứng, bốn hệ thống hiệp sĩ "
-
-msgid "English Opening: Symmetrical, Geller Variation"
-msgstr "Anh: đối xứng, biến thể Geller"
-
-msgid "English Opening: Symmetrical, Hedgehog System"
-msgstr "Tiếng Anh: đối xứng, hệ thống hedgehog "
-
-msgid "English Opening: Symmetrical, Hedgehog, flexible Formation"
-msgstr "Tiếng Anh: đối xứng, hedgehog, hình linh hoạt "
-
-msgid "English Opening: Symmetrical, Main Line with b3"
-msgstr "Tiếng Anh: đối xứng, dòng chính với b3 "
-
-msgid "English Opening: Symmetrical, Main Line with d3"
-msgstr "Tiếng Anh: đối xứng, dòng chính với d3 "
-
-msgid "English Opening: Symmetrical, Main Line with d4"
-msgstr "Tiếng Anh: đối xứng, dòng chính với d4 "
-
-msgid "English Opening: Symmetrical, Rubinstein System"
-msgstr "Tiếng Anh: đối xứng, hệ thống Rubinstein "
-
-msgid "English Opening: Symmetrical, Three Knights System"
-msgstr "Tiếng Anh: đối xứng, ba hệ thống hiệp sĩ "
-
-msgid "English Opening: Three Knights System"
-msgstr "Tiếng Anh: ba hệ thống hiệp sĩ "
-
-msgid "English Opening: Torre Defensive System"
-msgstr "Anh: hệ thống phòng thủ Torre"
-
-msgid "English Opening: Ultra-Symmetrical Variation"
-msgstr "Tiếng Anh: biến siêu đối xứng "
-
-msgid "English Opening: Wimpey System"
-msgstr "Anh: hệ thống Wimpey"
 
 msgid "English Opening"
 msgstr "Khai cuộc Anh"
@@ -1080,96 +557,6 @@ msgstr "Evans cờ: biến đổi bình thường "
 msgid "Evans Gambit"
 msgstr "Evans Gambit "
 
-msgid "Four Knights Game: Bardeleben Variation"
-msgstr "Bốn hiệp sĩ: Bardeleben biến "
-
-msgid "Four Knights Game: Belgrade Gambit"
-msgstr "Bốn hiệp sĩ: Belgrade Gambit "
-
-msgid "Four Knights Game: Double Ruy Lopez"
-msgstr "Bốn hiệp sĩ: đôi Ruy Lopez "
-
-msgid "Four Knights Game: Gunsberg Counter-Attack"
-msgstr "Bốn hiệp sĩ: Gunsberg phản công "
-
-msgid "Four Knights Game: Gunsberg Variation"
-msgstr "Bốn hiệp sĩ: Gunsberg biến "
-
-msgid "Four Knights Game: Italian Variation"
-msgstr "Tứ Mã: Biến thể Ý"
-
-msgid "Four Knights Game: Janowski Variation"
-msgstr "Bốn hiệp sĩ: Janowski biến "
-
-msgid "Four Knights Game: Marshall Variation"
-msgstr "Bốn hiệp sĩ: Marshall biến "
-
-msgid "Four Knights Game: Nimzovich (Paulsen) Variation"
-msgstr "Bốn hiệp sĩ: Nimzovich (Paulsen) biến thể "
-
-msgid "Four Knights Game: Ranken Variation"
-msgstr "Bốn hiệp sĩ: Ranken biến "
-
-msgid "Four Knights Game: Rubinstein Counter-Gambit, 5.Be2"
-msgstr "Bốn hiệp sĩ: Rubinstein phản Gambit, 5.Be2 "
-
-msgid "Four Knights Game: Rubinstein Counter-Gambit, Bogolyubov Variation"
-msgstr "Bốn hiệp sĩ: Rubinstein phản Gambit, Bogolyubov biến "
-
-msgid "Four Knights Game: Rubinstein Counter-Gambit, Exchange Variation"
-msgstr "Bốn hiệp sĩ: Rubinstein phản cờ, thay đổi ngoại tệ "
-
-msgid "Four Knights Game: Rubinstein Counter-Gambit, Henneberger Variation"
-msgstr "Bốn hiệp sĩ: Rubinstein phản Gambit, Henneberger biến "
-
-msgid "Four Knights Game: Rubinstein Counter-Gambit"
-msgstr "Bốn hiệp sĩ: Rubinstein phản Gambit "
-
-msgid "Four Knights Game: Schultze-Mueller Gambit"
-msgstr "Bốn hiệp sĩ: Schultze-Mueller Gambit "
-
-msgid "Four Knights Game: Scotch Variation"
-msgstr "Tứ Mã: Biến thể Scotch"
-
-msgid "Four Knights Game: Scotch, 4...exd4"
-msgstr "Bốn hiệp sĩ: Scotch, 4 ... exd4 "
-
-msgid "Four Knights Game: Scotch, Krause Variation"
-msgstr "Bốn hiệp sĩ: Scotch, Krause biến "
-
-msgid "Four Knights Game: Spanish Variation"
-msgstr "Tứ Mã: Biến thể Tây Ban Nha"
-
-msgid "Four Knights Game: Spanish, Classical Defence"
-msgstr "Bốn mã, phòng thủ Tây Ban Nha cổ điển"
-
-msgid "Four Knights Game: Spielmann Variation"
-msgstr "Bốn hiệp sĩ: Spielmann biến "
-
-msgid "Four Knights Game: Svenonius Variation"
-msgstr "Bốn hiệp sĩ: Svenonius biến "
-
-msgid "Four Knights Game: Symmetrical Variation"
-msgstr "Tứ Mã: Biến thể đối xứng"
-
-msgid "Four Knights Game: Symmetrical, Blake Variation"
-msgstr "Bốn hiệp sĩ: đối xứng, Blake biến "
-
-msgid "Four Knights Game: Symmetrical, Capablanca Variation"
-msgstr "Bốn hiệp sĩ: đối xứng, Capablanca biến "
-
-msgid "Four Knights Game: Symmetrical, Maroczy System"
-msgstr "Bốn hiệp sĩ: đối xứng, hệ thống Maroczy "
-
-msgid "Four Knights Game: Symmetrical, Metger unpin"
-msgstr "Bốn hiệp sĩ: đối xứng, Metger unpin "
-
-msgid "Four Knights Game: Symmetrical, Pillsbury Variation"
-msgstr "Bốn hiệp sĩ: đối xứng, Pillsbury biến "
-
-msgid "Four Knights Game: Symmetrical, Tarrasch Variation"
-msgstr "Bốn hiệp sĩ: đối xứng, Tarrasch biến "
-
 msgid "Four Knights Game"
 msgstr "Bốn trò chơi hiệp sĩ "
 
@@ -1280,9 +667,6 @@ msgstr "Pháp: Frere (Becker) biến thể "
 
 msgid "French Defence: Henneberger Variation"
 msgstr "Pháp: Henneberger biến "
-
-msgid "French Defence: King Indian Attack"
-msgstr "Pháp: tấn công Ấn Độ King "
 
 msgid "French Defence: La Bourdonnais Variation"
 msgstr "Pháp: Labourdonnais biến "
@@ -1481,9 +865,6 @@ msgstr "Phòng thủ Chiên cáo"
 msgid "Gedult Attack"
 msgstr "Gedult tấn công "
 
-msgid "Gedult Opening"
-msgstr "Khai cuộc Gedult"
-
 msgid "Giuoco Pianissimo: Canal Variation"
 msgstr "Giuoco pianissimo: Biến thể Canal"
 
@@ -1505,9 +886,6 @@ msgstr "Giuoco Piano: Anderssen biến "
 msgid "Giuoco Piano: Bernstein Variation"
 msgstr "Giuoco Piano: Bernstein biến "
 
-msgid "Giuoco Piano: Bird Attack"
-msgstr "Giuoco Piano: tấn công chim "
-
 msgid "Giuoco Piano: Cracow Variation"
 msgstr "Giuoco Piano: Cracow biến "
 
@@ -1519,9 +897,6 @@ msgstr "Giuoco Piano: bốn hiệp sĩ biến thể "
 
 msgid "Giuoco Piano: Ghulam Kassim Variation"
 msgstr "Giuoco Piano: Ghulam Kassim biến "
-
-msgid "Giuoco Piano: Greco Attack"
-msgstr "Giuoco Piano: Tấn công Hy Lạp"
 
 msgid "Giuoco Piano: Greco Variation"
 msgstr "Giuoco Piano: Greco biến "
@@ -1574,156 +949,6 @@ msgstr "Khai cuộc toàn cục"
 msgid "Greco Defence"
 msgstr "Phòng thủ Greco"
 
-msgid "Grob Attack"
-msgstr "Tấn công Grob"
-
-msgid "Grob Opening: Fritz Gambit"
-msgstr "Grob: Fritz Gambit "
-
-msgid "Grob Opening: Romford Counter-Gambit"
-msgstr "Grob: Romford phản Gambit "
-
-msgid "Grob Opening: Spike Attack"
-msgstr "Grob: tăng đột biến tấn công "
-
-msgid "Grünfeld Defence: 4.Bf4"
-msgstr "Gruenfeld: 4.Bf4 "
-
-msgid "Grünfeld Defence: 5.Bf4"
-msgstr "Gruenfeld: 5.Bf4 "
-
-msgid "Grünfeld Defence: 5.Bg5"
-msgstr "Gruenfeld: 5.Bg5 "
-
-msgid "Grünfeld Defence: 5.e3"
-msgstr "Gruenfeld: 5.e3 "
-
-msgid "Grünfeld Defence: Botvinnik Variation"
-msgstr "Gruenfeld: Botvinnik biến "
-
-msgid "Grünfeld Defence: Exchange Variation"
-msgstr "Gruenfeld: ngoại tệ thay đổi "
-
-msgid "Grünfeld Defence: Exchange, Classical Variation"
-msgstr "Gruenfeld: trao đổi, biến thể cổ điển "
-
-msgid "Grünfeld Defence: Exchange, Larsen Variation"
-msgstr "Gruenfeld: trao đổi, Larsen biến "
-
-msgid "Grünfeld Defence: Exchange, Seville Variation"
-msgstr "Gruenfeld: trao đổi, Seville biến "
-
-msgid "Grünfeld Defence: Exchange, Simagin improved Variation"
-msgstr "Gruenfeld: trao đổi, cải thiện sự biến đổi của Simagin "
-
-msgid "Grünfeld Defence: Exchange, Simagin lesser Variation"
-msgstr "Gruenfeld: đổi quân, biến thể ít hơn của Simagin"
-
-msgid "Grünfeld Defence: Exchange, Sokolsky Variation"
-msgstr "Gruenfeld: trao đổi, Sokolsky biến "
-
-msgid "Grünfeld Defence: Exchange, Spassky Variation"
-msgstr "Gruenfeld: trao đổi, Spassky biến "
-
-msgid "Grünfeld Defence: Flohr Defence"
-msgstr "Gruenfeld: Phòng thủ Flohr"
-
-msgid "Grünfeld Defence: Flohr Variation"
-msgstr "Gruenfeld: Flohr biến "
-
-msgid "Grünfeld Defence: Grünfeld Gambit Accepted"
-msgstr "Gruenfeld: Gruenfeld cờ chấp nhận "
-
-msgid "Grünfeld Defence: Grünfeld Gambit, Botvinnik Variation"
-msgstr "Gruenfeld: Gruenfeld cờ, Botvinnik biến "
-
-msgid "Grünfeld Defence: Grünfeld Gambit, Capablanca Variation"
-msgstr "Gruenfeld: Gruenfeld cờ, Capablanca biến "
-
-msgid "Grünfeld Defence: Grünfeld Gambit"
-msgstr "Gruenfeld: Gruenfeld Gambit "
-
-msgid "Grünfeld Defence: Lundin Variation"
-msgstr "Gruenfeld: Lundin biến "
-
-msgid "Grünfeld Defence: Makogonov Variation"
-msgstr "Gruenfeld: Makogonov biến "
-
-msgid "Grünfeld Defence: Modern Exchange Variation"
-msgstr "Gruenfeld: biến thể đối quân hiện đại "
-
-msgid "Grünfeld Defence: Opovcensky Variation"
-msgstr "Gruenfeld: Opovcensky biến "
-
-msgid "Grünfeld Defence: Pachman Variation"
-msgstr "Gruenfeld: Pachman biến "
-
-msgid "Grünfeld Defence: Russian Variation with e4"
-msgstr "Gruenfeld: biến thể của Nga với e4 "
-
-msgid "Grünfeld Defence: Russian Variation"
-msgstr "Gruenfeld: Biến thể Nga"
-
-msgid "Grünfeld Defence: Russian, Alekhine (Hungarian) Variation"
-msgstr "Gruenfeld: Nga, Alekhine (Hungary) biến thể "
-
-msgid "Grünfeld Defence: Russian, Byrne (Simagin) Variation"
-msgstr "Gruenfeld: Nga, Byrne (Simagin) biến thể "
-
-msgid "Grünfeld Defence: Russian, Keres Variation"
-msgstr "Gruenfeld: Nga, Keres biến "
-
-msgid "Grünfeld Defence: Russian, Levenfish Variation"
-msgstr "Gruenfeld: Nga, biến thể Levenfish "
-
-msgid "Grünfeld Defence: Russian, Prins Variation"
-msgstr "Gruenfeld: Nga, Prins biến "
-
-msgid "Grünfeld Defence: Russian, Smyslov Variation"
-msgstr "Gruenfeld: Nga, Smyslov biến "
-
-msgid "Grünfeld Defence: Russian, Szabo (Boleslavsky) Variation"
-msgstr "Gruenfeld: Nga, Szabo (Boleslavsky) biến thể "
-
-msgid "Grünfeld Defence: Schlechter Variation"
-msgstr "Gruenfeld: Schlechter biến "
-
-msgid "Grünfeld Defence: Smyslov Defence"
-msgstr "Gruenfeld: Phòng thủ Smyslov"
-
-msgid "Grünfeld Defence: Smyslov, Main Line"
-msgstr "Phòng thủ Gruenfeld: Smyslov, dòng chính"
-
-msgid "Grünfeld Defence: Smyslov, Yugoslav Variation"
-msgstr "Phòng thủ Gruenfeld: biến thể Smyslov, Nam Tư"
-
-msgid "Grünfeld Defence: Spassky Variation, Main Line, 10...cd, 11.cd"
-msgstr "Gruenfeld: Biến thể Spassky, dòng chính, 10 ... cd, 11.cd"
-
-msgid "Grünfeld Defence: Spassky Variation, Main Line, 13.Bd3"
-msgstr "Gruenfeld: Biến thể Spassky, dòng chính, 13.Bd3"
-
-msgid "Grünfeld Defence: Spike Gambit"
-msgstr "Gruenfeld: Spike Gambit "
-
-msgid "Grünfeld Defence: Stockholm Variation"
-msgstr "Gruenfeld: Stockholm biến "
-
-msgid "Grünfeld Defence: Three Knights Variation"
-msgstr "Gruenfeld: Ba hiệp sĩ biến thể "
-
-msgid "Grünfeld Defence"
-msgstr "Phòng thủ Gruenfeld"
-
-msgid "Grünfeld with Bf4 & e3"
-msgstr "Gruenfeld với Bf4 e3 "
-
-msgid "Grünfeld with e3 & Bd3"
-msgstr "Gruenfeld với e3 Bd3 "
-
-msgid "Grünfeld with e3 & Qb3"
-msgstr "Gruenfeld với e3 & Qb3 "
-
 msgid "Guatemala Defence"
 msgstr "Phòng thủ Guatemala"
 
@@ -1763,656 +988,6 @@ msgstr "Khai cuộc Italia"
 msgid "Kevitz-Trajkovic Defence"
 msgstr "Phòng thủ Kevitz-Trajkovich"
 
-msgid ""
-"King Gambit Accepted: Abbazia Defence (Classical Defence, Modern Defence[!])"
-msgstr "KGA: Phòng thủ Abbazia (phòng thủ cổ điển, Phòng thủ hiện đại [!])"
-
-msgid "King Gambit Accepted: Abbazia Defence, Botvinnik Variation"
-msgstr "KGA: Phòng thủ Abbazia, biến thể Botvinnik"
-
-msgid "King Gambit Accepted: Abbazia Defence, Modern Variation"
-msgstr "KGA: Phòng thủ Abbazia, biến thể hiện đại"
-
-msgid "King Gambit Accepted: Allgaier Gambit"
-msgstr "KGA: Allgaier Gambit "
-
-msgid "King Gambit Accepted: Allgaier, Blackburne Gambit"
-msgstr "KGA: Allgaier, Blackburne Gambit "
-
-msgid "King Gambit Accepted: Allgaier, Cook Variation"
-msgstr "KGA: Allgaier, Cook biến "
-
-msgid "King Gambit Accepted: Allgaier, Horny Defence"
-msgstr "KGA: Allgaier, Phòng thủ Horny"
-
-msgid "King Gambit Accepted: Allgaier, Schlechter Defence"
-msgstr "KGA: Allgaier, phòng thủ Schlechter"
-
-msgid "King Gambit Accepted: Allgaier, ThorOld Variation"
-msgstr "KGA: Allgaier, Thorold biến "
-
-msgid "King Gambit Accepted: Allgaier, Urusov Attack"
-msgstr "KGA: Allgaier, Urusov tấn công "
-
-msgid "King Gambit Accepted: Allgaier, Walker Attack"
-msgstr "KGA: Allgaier, Walker tấn công "
-
-msgid "King Gambit Accepted: Becker Defence"
-msgstr "KGA: Phòng thủ Becker"
-
-msgid "King Gambit Accepted: Bishop Gambit, Anderssen Variation"
-msgstr "KGA: cờ, Anderssen biến giám mục "
-
-msgid "King Gambit Accepted: Bishop Gambit, Bledow Variation"
-msgstr "KGA: cờ, biến Bledow giám mục "
-
-msgid "King Gambit Accepted: Bishop Gambit, Boden Defence"
-msgstr "KGA: thí quân Tịnh, phòng thủ Boden"
-
-msgid "King Gambit Accepted: Bishop Gambit, Bogolyubov Variation"
-msgstr "KGA: cờ, Bogolyubov biến giám mục "
-
-msgid "King Gambit Accepted: Bishop Gambit, Boren-Svenonius Variation"
-msgstr "KGA: cờ, Boren-Svenonius biến giám mục "
-
-msgid "King Gambit Accepted: Bishop Gambit, Bryan Counter-Gambit"
-msgstr "KGA: cờ giám mục, Bryan phản Gambit "
-
-msgid "King Gambit Accepted: Bishop Gambit, Chigorin Attack"
-msgstr "KGA: thí Tịnh, Tấn công Chigorin"
-
-msgid "King Gambit Accepted: Bishop Gambit, Classical Defence, Cozio Attack"
-msgstr "KGA: thí quân Tịnh, phòng thủ cổ điển, tấn công Cozio"
-
-msgid "King Gambit Accepted: Bishop Gambit, Classical Defence"
-msgstr "KGA: thí quân Tịnh, phòng thủ cổ điển"
-
-msgid "King Gambit Accepted: Bishop Gambit, Cozio (Morphy) Defence"
-msgstr "KGA: thí quân Tịnh, phòng thủ Cozio (Morphy)"
-
-msgid "King Gambit Accepted: Bishop Gambit, Fraser Variation"
-msgstr "KGA: cờ, Fraser biến giám mục "
-
-msgid "King Gambit Accepted: Bishop Gambit, Greco Variation"
-msgstr "KGA: cờ, Hy Lạp thay đổi giám mục "
-
-msgid "King Gambit Accepted: Bishop Gambit, Grimm Attack"
-msgstr "KGA: cờ giám mục, Grimm tấn công "
-
-msgid "King Gambit Accepted: Bishop Gambit, Jaenisch Variation"
-msgstr "KGA: cờ, Jaenisch biến giám mục "
-
-msgid "King Gambit Accepted: Bishop Gambit, Lopez-Gianutio Counter-Gambit"
-msgstr "KGA: cờ giám mục, Lopez-Gianutio phản Gambit "
-
-msgid "King Gambit Accepted: Bishop Gambit, Maurian Defence"
-msgstr "KGA: cờ giám mục, phòng thủ Maurian"
-
-msgid "King Gambit Accepted: Bishop Gambit, McDonnell Attack"
-msgstr "KGA: cờ giám mục, McDonnell tấn công "
-
-msgid "King Gambit Accepted: Bishop Gambit, Morphy Variation"
-msgstr "KGA: thi quân tịnh, biến thể Morphy"
-
-msgid "King Gambit Accepted: Bishop Gambit, Paulsen Attack"
-msgstr "KGA: cờ giám mục, Paulsen tấn công "
-
-msgid "King Gambit Accepted: Bishop Gambit, Ruy Lopez Defence"
-msgstr "KGA: thí quân Tịnh, phòng thủ Ruy Lopez"
-
-msgid "King Gambit Accepted: Bishop Gambit, Steinitz Defence"
-msgstr "KGA: thí quân Tịnh, phòng thủ Steinitz"
-
-msgid "King Gambit Accepted: Bishop Gambit"
-msgstr "KGA: cờ giám mục "
-
-msgid "King Gambit Accepted: Blachly Gambit"
-msgstr "KGA: Blachly Gambit "
-
-msgid "King Gambit Accepted: Bonsch-Osmolovsky Variation"
-msgstr "KGA: biến thể Bonsch-Osmolovsky"
-
-msgid "King Gambit Accepted: Breyer Gambit"
-msgstr "KGA: Breyer Gambit "
-
-msgid "King Gambit Accepted: Carrera (Basman) Gambit"
-msgstr "KGA: Carrera (Basman) Gambit "
-
-msgid "King Gambit Accepted: Cochrane Gambit"
-msgstr "KGA: Cochrane Gambit "
-
-msgid "King Gambit Accepted: Cunningham Defence"
-msgstr "KGA: Phòng thủ Cunningham"
-
-msgid "King Gambit Accepted: Cunningham, Bertin Gambit"
-msgstr "KGA: Cunningham, Bertin Gambit "
-
-msgid "King Gambit Accepted: Cunningham, Euwe Defence"
-msgstr "KGA: Cunningham, Phòng thủ Euwe"
-
-msgid "King Gambit Accepted: Cunningham, Three Pawns Gambit"
-msgstr "KGA: Cunningham, ba con cờ cờ "
-
-msgid "King Gambit Accepted: Double Muzio Gambit"
-msgstr "KGA: đôi Muzio Gambit "
-
-msgid "King Gambit Accepted: Fischer Defence"
-msgstr "KGA: Phòng thủ Fischer"
-
-msgid "King Gambit Accepted: Ghulam Kassim Gambit"
-msgstr "KGA: Ghulam Kassim Gambit "
-
-msgid "King Gambit Accepted: Gianutio Counter-Gambit"
-msgstr "KGA: Gianutio phản Gambit "
-
-msgid "King Gambit Accepted: Greco Gambit"
-msgstr "KGA: Greco Gambit "
-
-msgid "King Gambit Accepted: Herzfeld Gambit"
-msgstr "KGA: Herzfeld Gambit "
-
-msgid "King Gambit Accepted: Keres (Mason-Steinitz) Gambit"
-msgstr "KGA: Keres (Mason-Steinitz) Gambit "
-
-msgid "King Gambit Accepted: Kieseritsky, Berlin Defence, 6.Bc4"
-msgstr "KGA: Kieseritsky, Phòng thủ Berlin, 6.Bc4"
-
-msgid "King Gambit Accepted: Kieseritsky, Berlin Defence, Riviere Variation"
-msgstr "KGA: Kieseritsky, Phòng thủ Berlin, Riviere biến"
-
-msgid "King Gambit Accepted: Kieseritsky, Berlin Defence"
-msgstr "KGA: Kieseritsky, Phòng thủ Berlin"
-
-msgid "King Gambit Accepted: Kieseritsky, Brentano (Campbell) Defence"
-msgstr "KGA: Kieseritsky, Phòng thủ Brentano (Campbell)"
-
-msgid "King Gambit Accepted: Kieseritsky, Brentano Defence, Caro Variation"
-msgstr "KGA: Kieseritsky, Phòng thủ Brentano, biến thể Carô"
-
-msgid ""
-"King Gambit Accepted: Kieseritsky, Brentano Defence, Kaplanek Variation"
-msgstr "KGA: Kieseritsky, Phòng thủ Brentano, Kaplanek"
-
-msgid "King Gambit Accepted: Kieseritsky, Brentano Defence"
-msgstr "KGA: Kieseritsky, Phòng thủ Brentano"
-
-msgid "King Gambit Accepted: Kieseritsky, Kolisch Defence"
-msgstr "KGA: Kieseritsky, Phòng thủ Kolisch"
-
-msgid "King Gambit Accepted: Kieseritsky, Neumann Defence"
-msgstr "KGA: Kieseritsky, Phòng thủ Neumann"
-
-msgid "King Gambit Accepted: Kieseritsky, Paulsen Defence"
-msgstr "KGA: Kieseritsky, Phòng thủ Paulsen"
-
-msgid "King Gambit Accepted: Kieseritsky, Polerio Defence"
-msgstr "KGA: Kieseritsky, Phòng thủ Polerio "
-
-msgid "King Gambit Accepted: Kieseritsky, Rice Gambit"
-msgstr "KGA: Kieseritsky, gạo Gambit "
-
-msgid "King Gambit Accepted: Kieseritsky, Salvio (Rosenthal) Defence"
-msgstr "KGA: Kieseritsky, Phòng thủ Salvio (Rosenthal)"
-
-msgid "King Gambit Accepted: Kieseritsky, Salvio Defence, Cozio Variation"
-msgstr "KGA: Kieseritsky, Phòng thủ Salvio, biến thể Cozio"
-
-msgid ""
-"King Gambit Accepted: Kieseritsky, long whip (Stockwhip, Classical) Defence"
-msgstr "KGA: Kieseritsky, Phòng thủ roi dài (Stockwhip, cổ điển)"
-
-msgid ""
-"King Gambit Accepted: Kieseritsky, long whip Defence, Jaenisch Variation"
-msgstr "KGA: Kieseritsky, Phòng thủ roi dài, biến thể Jaenisch"
-
-msgid "King Gambit Accepted: King knight Gambit"
-msgstr "KGA: cờ vua của những hiệp sỹ "
-
-msgid ""
-"King Gambit Accepted: Lesser Bishop (Petroff-Jaenisch-Tartakower) Gambit"
-msgstr "KGA: (Petroff-Jaenisch-Tartakower) Gambit Lesser giám mục "
-
-msgid "King Gambit Accepted: Lolli Gambit (wild Muzio Gambit)"
-msgstr "KGA: Lolli Gambit (hoang dã Muzio Gambit) "
-
-msgid "King Gambit Accepted: Lolli Gambit, Young Variation"
-msgstr "KGA: Lolli cờ, biến trẻ "
-
-msgid "King Gambit Accepted: Lopez-Gianutio Counter-Gambit, Hein Variation"
-msgstr "KGA: Lopez-Gianutio phản Gambit, Hein biến "
-
-msgid "King Gambit Accepted: MacDonnell Gambit"
-msgstr "KGA: MacDonnell Gambit "
-
-msgid "King Gambit Accepted: Muzio Gambit, Brentano Defence"
-msgstr "KGA: Thí quân Muzio, phòng thủ Brentano"
-
-msgid "King Gambit Accepted: Muzio Gambit, From Defence"
-msgstr "KGA: Thí quân Muzio, từ phòng thủ"
-
-msgid "King Gambit Accepted: Muzio Gambit, Holloway Defence"
-msgstr "KGA: Thí quân Muzio, phòng thủ Holloway"
-
-msgid "King Gambit Accepted: Muzio Gambit, Kling and Horwitz Counter-Attack"
-msgstr "KGA: Muzio cờ, Kling và Horwitz phản công "
-
-msgid "King Gambit Accepted: Muzio Gambit, Paulsen Variation"
-msgstr "KGA: Muzio cờ, Paulsen biến "
-
-msgid "King Gambit Accepted: Muzio Gambit"
-msgstr "KGA: Muzio Gambit "
-
-msgid "King Gambit Accepted: Orsini Gambit"
-msgstr "KGA: Orsini Gambit "
-
-msgid "King Gambit Accepted: Pawn Gambit (Stamma Gambit)"
-msgstr "KGA: Thí tốt (thí quân Stamma)"
-
-msgid "King Gambit Accepted: Philidor Gambit, Schultz Variation"
-msgstr "KGA: Philidor cờ, Schultz biến "
-
-msgid "King Gambit Accepted: Philidor Gambit"
-msgstr "KGA: Philidor Gambit "
-
-msgid "King Gambit Accepted: Quaade Gambit"
-msgstr "KGA: Quaade Gambit "
-
-msgid "King Gambit Accepted: Rosentreter Gambit"
-msgstr "KGA: Rosentreter Gambit "
-
-msgid "King Gambit Accepted: Salvio Gambit, Anderssen Counter-Attack"
-msgstr "KGA: Salvio cờ, Anderssen phản công "
-
-msgid "King Gambit Accepted: Salvio Gambit"
-msgstr "KGA: Salvio Gambit "
-
-msgid "King Gambit Accepted: Schallop Defence"
-msgstr "KGA: Phòng thủ Schallop"
-
-msgid "King Gambit Accepted: Schurig Gambit"
-msgstr "KGA: Schurig Gambit "
-
-msgid "King Gambit Accepted: Silberschmidt Gambit"
-msgstr "KGA: Silberschmidt Gambit "
-
-msgid "King Gambit Accepted: Soerensen Gambit"
-msgstr "KGA: Soerensen Gambit "
-
-msgid "King Gambit Accepted: Tumbleweed Gambit"
-msgstr "KGA: Tumbleweed Gambit "
-
-msgid "King Gambit Accepted: Villemson (Steinitz) Gambit"
-msgstr "KGA: Villemson (Steinitz) Gambit "
-
-msgid "King Gambit Accepted"
-msgstr "Vua cờ chấp nhận "
-
-msgid "King Gambit Declined: 2...Nf6"
-msgstr "KGD: 2 ... Nf6 "
-
-msgid "King Gambit Declined: Classical Counter-Gambit"
-msgstr "KGD: cổ điển phản Gambit "
-
-msgid "King Gambit Declined: Classical Variation"
-msgstr "Biến thể cổ điển: KGD "
-
-msgid "King Gambit Declined: Classical, 4.c3"
-msgstr "KGD: cổ điển, 4.c3 "
-
-msgid "King Gambit Declined: Classical, Hanham Variation"
-msgstr "KGD: cổ điển, Hanham biến "
-
-msgid "King Gambit Declined: Classical, Heath Variation"
-msgstr "KGD: cổ điển, Heath biến "
-
-msgid "King Gambit Declined: Classical, Marshall Attack"
-msgstr "KGD: cổ điển, Marshall tấn công "
-
-msgid "King Gambit Declined: Classical, Reti Variation"
-msgstr "KGD: cổ điển, Reti biến "
-
-msgid "King Gambit Declined: Classical, Soldatenkov Variation"
-msgstr "KGD: cổ điển, Soldatenkov biến "
-
-msgid "King Gambit Declined: Classical, Svenonius Variation"
-msgstr "KGD: cổ điển, biến thể Svenonius "
-
-msgid "King Gambit Declined: Falkbeer Counter-Gambit"
-msgstr "KGD: Falkbeer phản Gambit "
-
-msgid "King Gambit Declined: Falkbeer, 3...e4"
-msgstr "KGD: Falkbeer, 3 ... e4 "
-
-msgid "King Gambit Declined: Falkbeer, 4.d3"
-msgstr "KGD: Falkbeer, 4.d3 "
-
-msgid "King Gambit Declined: Falkbeer, 5.de"
-msgstr "KGD: Falkbeer, 5.de "
-
-msgid "King Gambit Declined: Falkbeer, Alapin Variation"
-msgstr "KGD: Falkbeer, Alapin biến "
-
-msgid "King Gambit Declined: Falkbeer, Charousek Gambit"
-msgstr "KGD: Falkbeer, Charousek Gambit "
-
-msgid "King Gambit Declined: Falkbeer, Keres Variation"
-msgstr "KGD: Falkbeer, Keres biến "
-
-msgid "King Gambit Declined: Falkbeer, Main Line, 7...Bf5"
-msgstr "KGD: Falkbeer, dòng chính, 7 ... BF5 "
-
-msgid "King Gambit Declined: Falkbeer, Milner-Barry Variation"
-msgstr "KGD: Falkbeer, Milner-Barry biến "
-
-msgid "King Gambit Declined: Falkbeer, Morphy Gambit"
-msgstr "KGD: Falkbeer, thí quân Morphy"
-
-msgid "King Gambit Declined: Falkbeer, Nimzovich Variation"
-msgstr "KGD: Falkbeer, Nimzovich biến "
-
-msgid "King Gambit Declined: Falkbeer, Reti Variation"
-msgstr "KGD: Falkbeer, Reti biến "
-
-msgid "King Gambit Declined: Falkbeer, Rubinstein Variation"
-msgstr "KGD: Falkbeer, Rubinstein biến "
-
-msgid "King Gambit Declined: Falkbeer, Tarrasch Variation"
-msgstr "KGD: Falkbeer, Tarrasch biến "
-
-msgid "King Gambit Declined: Falkbeer, Tartakower Variation"
-msgstr "KGD: Falkbeer, Tartakower biến "
-
-msgid "King Gambit Declined: Keene Defence"
-msgstr "KGD: phòng thủ Keene"
-
-msgid "King Gambit Declined: Mafia Defence"
-msgstr "KGD: phòng thủ Mafia"
-
-msgid "King Gambit Declined: Nimzovich Counter-Gambit"
-msgstr "KGD: Nimzovich phản Gambit "
-
-msgid "King Gambit Declined: Norwalde Variation, Buecker Gambit"
-msgstr "KGD: biến thể Norwalde, Buecker Gambit "
-
-msgid "King Gambit Declined: Norwalde Variation"
-msgstr "KGD: biến thể Norwalde "
-
-msgid "King Gambit"
-msgstr "Vua của Gambit "
-
-msgid "King Indian Defence, 3.Nc3"
-msgstr "Bảo vệ vua của Ấn Độ, 3.Nc3 "
-
-msgid "King Indian Defence: 3.Nf3"
-msgstr "Vua của Ấn Độ, 3.Nf3 "
-
-msgid "King Indian Defence: 3.g3"
-msgstr "Vua của Ấn Độ: 3.g3 "
-
-msgid "King Indian Defence: 4.e4"
-msgstr "Vua của Ấn Độ: 4.e4 "
-
-msgid "King Indian Defence: 5.Be2"
-msgstr "Vua của Ấn Độ: 5.Be2 "
-
-msgid "King Indian Defence: 5.Nf3"
-msgstr "Vua của Ấn Độ: 5.Nf3 "
-
-msgid "King Indian Defence: 6.Be2"
-msgstr "Vua của Ấn Độ: 6.Be2 "
-
-msgid "King Indian Defence: Accelerated Averbakh System"
-msgstr "Hệ thống Averbakh nhanh: Ấn Độ vua của "
-
-msgid "King Indian Defence: Andersson Variation"
-msgstr "Vua của Ấn Độ: Andersson biến "
-
-msgid "King Indian Defence: Anti-Grünfeld"
-msgstr "Của vua Ấn Độ: Anti-Gruenfeld "
-
-msgid "King Indian Defence: Averbakh System"
-msgstr "Hệ thống Averbakh: Ấn Độ vua của "
-
-msgid "King Indian Defence: Averbakh, 6...c5"
-msgstr "Vua của Ấn Độ: Averbakh, 6 ... c5 "
-
-msgid "King Indian Defence: Averbakh, Main Line"
-msgstr "Ấn Độ vua: Averbakh, dòng chính "
-
-msgid "King Indian Defence: Classical Variation"
-msgstr "Biến thể cổ điển: Ấn Độ vua của "
-
-msgid "King Indian Defence: Danube Gambit"
-msgstr "Vua của Ấn Độ: Danube Gambit "
-
-msgid "King Indian Defence: East Indian Defence"
-msgstr "Vua của Ấn Độ: phòng thủ Đông Ấn Độ "
-
-msgid "King Indian Defence: Fianchetto Variation"
-msgstr "Vua của Ấn Độ: biến thể fianchetto "
-
-msgid "King Indian Defence: Fianchetto with ...Nc6"
-msgstr "Vua của Ấn Độ: fianchetto với ... Nc6 "
-
-msgid "King Indian Defence: Fianchetto with ...Nd7"
-msgstr "Vua của Ấn Độ: fianchetto với ... Nd7 "
-
-msgid "King Indian Defence: Fianchetto without c4"
-msgstr "Vua của Ấn Độ: fianchetto mà không c4 "
-
-msgid "King Indian Defence: Fianchetto, Classical Main Line"
-msgstr "Của vua Ấn Độ: fianchetto, dòng chính cổ điển "
-
-msgid "King Indian Defence: Fianchetto, Classical Variation, 8.e4"
-msgstr "Ấn Độ vua: fianchetto, biến thể cổ điển, 8.e4 "
-
-msgid "King Indian Defence: Fianchetto, Classical Variation"
-msgstr "Của vua Ấn Độ: fianchetto, biến thể cổ điển "
-
-msgid "King Indian Defence: Fianchetto, Kavalek (Bronstein) Variation"
-msgstr "Vua của Ấn Độ: fianchetto, Kavalek (Bronstein) biến thể "
-
-msgid "King Indian Defence: Fianchetto, Larsen System"
-msgstr "Của vua Ấn Độ: fianchetto, hệ thống Larsen "
-
-msgid "King Indian Defence: Fianchetto, Panno Variation"
-msgstr "Vua của Ấn Độ: fianchetto, Panno biến "
-
-msgid "King Indian Defence: Fianchetto, Simagin Variation"
-msgstr "Vua của Ấn Độ: fianchetto, Simagin biến "
-
-msgid "King Indian Defence: Fianchetto, Uhlmann (Szabo) Variation"
-msgstr "Vua của Ấn Độ: fianchetto, Uhlmann (Szabo) biến thể "
-
-msgid "King Indian Defence: Fianchetto, Yugoslav Panno"
-msgstr "Vua của Ấn Độ: fianchetto, Nam Tư Panno "
-
-msgid "King Indian Defence: Fianchetto, Yugoslav System"
-msgstr "Của vua Ấn Độ: fianchetto, hệ thống Nam Tư "
-
-msgid "King Indian Defence: Fianchetto, Yugoslav, 7.O-O"
-msgstr "Của vua Ấn Độ: fianchetto, Nam Tư, 7.O-O "
-
-msgid "King Indian Defence: Fianchetto, lesser Simagin (Spassky) Variation"
-msgstr "Vua của Ấn Độ: fianchetto, ít Simagin (Spassky) biến thể "
-
-msgid "King Indian Defence: Four Pawns Attack, 6.Be2"
-msgstr "Bốn con cờ tấn công, 6.Be2: Ấn Độ vua của "
-
-msgid "King Indian Defence: Four Pawns Attack, Florentine Gambit"
-msgstr "Bốn con cờ tấn công, Florentine cờ: Ấn Độ vua của "
-
-msgid "King Indian Defence: Four Pawns Attack, Main Line"
-msgstr "Ấn Độ vua: con tốt Bốn tấn công, dòng chính "
-
-msgid "King Indian Defence: Four Pawns Attack, dynamic Line"
-msgstr "Bốn con cờ tấn công, dòng năng động: Ấn Độ vua của "
-
-msgid "King Indian Defence: Four Pawns Attack, with Be2 and Nf3"
-msgstr "Bốn con cờ tấn công, với Be 2 và NF3: Ấn Độ vua của "
-
-msgid "King Indian Defence: Four Pawns Attack"
-msgstr "Bốn con cờ tấn công: Ấn Độ vua của "
-
-msgid "King Indian Defence: Gligoric-Taimanov System"
-msgstr "Ấn Độ vua của: hệ thống Gligoric-Taimanov "
-
-msgid "King Indian Defence: Kazakh Variation"
-msgstr "Biến Kazakhstan: Ấn Độ vua của "
-
-msgid "King Indian Defence: Kramer System"
-msgstr "Vua của Ấn Độ: hệ thống Kramer "
-
-msgid "King Indian Defence: Larsen Variation"
-msgstr "Vua của Ấn Độ: Larsen biến "
-
-msgid "King Indian Defence: London System"
-msgstr "Vua của Ấn Độ: hệ thống London "
-
-msgid "King Indian Defence: Makagonov System (5.h3)"
-msgstr "Vua của Ấn Độ: hệ thống Makagonov (5.h3) "
-
-msgid "King Indian Defence: Petrosian System, Keres Variation"
-msgstr "Ấn Độ vua của: hệ thống Petrosian, Keres biến "
-
-msgid "King Indian Defence: Petrosian System, Main Line"
-msgstr "Ấn Độ vua của: hệ thống Petrosian, dòng chính "
-
-msgid "King Indian Defence: Petrosian System, Stein Variation"
-msgstr "Của vua Ấn Độ: hệ thống Petrosian, Stein biến "
-
-msgid "King Indian Defence: Petrosian System"
-msgstr "Hệ thống Petrosian: Ấn Độ vua của "
-
-msgid "King Indian Defence: Pomar System"
-msgstr "Hệ thống Pomar: Ấn Độ vua của "
-
-msgid "King Indian Defence: Saemisch Variation"
-msgstr "Vua của Ấn Độ: biến thể Saemisch "
-
-msgid "King Indian Defence: Saemisch, 5...O-O"
-msgstr "Vua của Ấn Độ: Saemisch, 5 ... O-O "
-
-msgid "King Indian Defence: Saemisch, 6...Nc6"
-msgstr "Vua của Ấn Độ: Saemisch, 6 ... Nc6 "
-
-msgid "King Indian Defence: Saemisch, Byrne Variation"
-msgstr "Vua của Ấn Độ: Saemisch, Byrne biến "
-
-msgid "King Indian Defence: Saemisch, Double Fianchetto Variation"
-msgstr "Vua của Ấn Độ: Saemisch, biến fianchetto đôi "
-
-msgid "King Indian Defence: Saemisch, Panno Formation"
-msgstr "Vua của Ấn Độ: Saemisch, hình Panno "
-
-msgid "King Indian Defence: Saemisch, Panno Main Line"
-msgstr "Vua của Ấn Độ: Saemisch, Panno dòng chính "
-
-msgid "King Indian Defence: Saemisch, Ruban Variation"
-msgstr "Vua của Ấn Độ: Saemisch, Ruban biến "
-
-msgid "King Indian Defence: Saemisch, orthodox Main Line"
-msgstr "Vua của Ấn Độ: Saemisch, chính thống dòng chính "
-
-msgid "King Indian Defence: Saemisch, orthodox Variation"
-msgstr "Vua Ấn Độ: Saemisch, biến thể chính thống"
-
-msgid "King Indian Defence: Saemisch, orthodox, 7.Nge2 c6"
-msgstr "Vua của Ấn Độ: Saemisch, chính thống, 7.Nge2 c6 "
-
-msgid "King Indian Defence: Saemisch, orthodox, 7.d5 c6"
-msgstr "Vua của Ấn Độ: Saemisch, chính thống, 7.d5 c6 "
-
-msgid "King Indian Defence: Saemisch, orthodox, 7.d5"
-msgstr "Vua của Ấn Độ: Saemisch, chính thống, 7.d5 "
-
-msgid "King Indian Defence: Semi-Averbakh System"
-msgstr "Hệ thống bán Averbakh: Ấn Độ vua của "
-
-msgid "King Indian Defence: Smyslov System"
-msgstr "Vua của Ấn Độ: hệ thống Smyslov "
-
-msgid "King Indian Defence: Torre Attack"
-msgstr "Vua của Ấn Độ: Torre tấn công "
-
-msgid "King Indian Defence: Zinnowitz Variation"
-msgstr "Vua của Ấn Độ: Zinnowitz biến "
-
-msgid "King Indian Defence: orthodox Variation"
-msgstr "Vua Ấn Độ: biến thể chính thống"
-
-msgid "King Indian Defence: orthodox, 7...Nbd7, 8.Re1"
-msgstr "Vua Ấn Độ: chính thống, 7 ... Nbd7, 8.Re1"
-
-msgid "King Indian Defence: orthodox, 7...Nbd7, Main Line"
-msgstr "Của vua Ấn Độ: chính thống, 7 ... Nbd7, dòng chính "
-
-msgid "King Indian Defence: orthodox, 7...Nbd7"
-msgstr "Của vua Ấn Độ: chính thống, 7 ... Nbd7 "
-
-msgid "King Indian Defence: orthodox, Aronin-Taimanov Variation"
-msgstr "Chính thống, Aronin-Taimanov biến thể: Ấn Độ vua của "
-
-msgid "King Indian Defence: orthodox, Aronin-Taimanov, 9.Ne1"
-msgstr "Vua Ấn Độ: chính thống, Aronin-Taimanov, 9.Ne1"
-
-msgid "King Indian Defence: orthodox, Aronin-Taimanov, Benko Attack"
-msgstr "Chính thống, Aronin-Taimanov, Benko tấn công: Ấn Độ vua của "
-
-msgid "King Indian Defence: orthodox, Aronin-Taimanov, Main Line"
-msgstr "Chính thống, Aronin-Taimanov, dòng chính: Ấn Độ vua của "
-
-msgid "King Indian Defence: orthodox, Aronin-Taimanov, bayonet Attack"
-msgstr "Của vua Ấn Độ: chính thống, Aronin-Taimanov, tấn công lưỡi lê "
-
-msgid "King Indian Defence: orthodox, Donner Variation"
-msgstr "Chính thống, Donner biến thể: Ấn Độ vua của "
-
-msgid "King Indian Defence: six Pawns Attack"
-msgstr "Con cờ tấn công Sáu: Ấn Độ vua của "
-
-msgid "King Indian Defence: with e4 & g3"
-msgstr "Vua của Ấn Độ với e4 & g3 "
-
-msgid "King Indian Defence"
-msgstr "Phòng thủ Vua kiểu Ấn Độ"
-
-msgid "King Pawn Opening: Colorado Counter"
-msgstr "KP: Colorado truy cập "
-
-msgid "King Pawn Opening: Indian Opening"
-msgstr "KP: Khai cuộc Ấn Độ"
-
-msgid "King Pawn Opening: Lopez Opening"
-msgstr "KP: Khai cuộc Lopez"
-
-msgid "King Pawn Opening: Mengarini Opening"
-msgstr "KP: Khai cuộc Mengarini"
-
-msgid "King Pawn Opening: Napoleon Opening"
-msgstr "KP: Khai cuộc của Napoleon"
-
-msgid "King Pawn Opening: Nimzovich Defence, Bogolyubov Variation"
-msgstr "KP: phòng thủ Nimzovich, biến thể Bogolyubov"
-
-msgid "King Pawn Opening: Nimzovich Defence, Marshall Gambit"
-msgstr "KP: phòng thủ Nimzovich, thí quân Marshall"
-
-msgid "King Pawn Opening: Nimzovich Defence"
-msgstr "KP: phòng thủ Nimzovich"
-
-msgid "King Pawn Opening: Patzer Opening"
-msgstr "KP: Khai cuộc Patzer"
-
-msgid "King Pawn Opening"
-msgstr "Khai cuộc tốt Vua"
-
-msgid "King knight Gambit"
-msgstr "Cờ vua của hiệp sĩ của "
-
-msgid "King knight Opening"
-msgstr "Khai cuộc Mã Vua "
-
 msgid "Konstantinopolsky Opening"
 msgstr "Khai cuộc Konstantinopolsky"
 
@@ -2425,26 +1000,11 @@ msgstr "Latvia phản Gambit "
 msgid "Latvian Gambit, 3.Bc4"
 msgstr "Latvia cờ, 3.Bc4 "
 
-msgid "Latvian Gambit: Fraser Defence"
-msgstr "Latvia: Phòng thủ Fraser"
-
-msgid "Latvian Gambit: Nimzovich Variation"
-msgstr "Latvia: Nimzovich biến "
-
-msgid "Latvian Gambit: Polerio Variation"
-msgstr "Latvia: Polerio biến "
-
-msgid "Latvian Gambit: corkscrew Counter-Gambit"
-msgstr "Latvia: xoắn ốc phản Gambit "
-
 msgid "Lemming Defence"
 msgstr "Phòng thủ Lemming"
 
 msgid "Lengfellner System"
 msgstr "Hệ thống Lengfellner "
-
-msgid "Levitsky Attack (Queen Bishop Attack)"
-msgstr "Levitsky tấn công (tấn công giám mục Queen) "
 
 msgid "Mieses Opening"
 msgstr "Khai cuộc Mieses"
@@ -2463,42 +1023,6 @@ msgstr "Phòng thủ hiện đại"
 
 msgid "Mujannah Opening"
 msgstr "Khai cuộc Mujannah"
-
-msgid "Neo-Grünfeld (Kemeri) Defence"
-msgstr "Phòng thủ Neo-Gruenfeld (Kemeri)"
-
-msgid "Neo-Grünfeld Defence: 5.Nf3"
-msgstr "Neo-Gruenfeld, 5.Nf3 "
-
-msgid "Neo-Grünfeld Defence: 5.cd, Main Line"
-msgstr "Neo-Gruenfeld, 5.cd, dòng chính "
-
-msgid "Neo-Grünfeld Defence: 5.cd"
-msgstr "Neo-Gruenfeld, 5.cd "
-
-msgid "Neo-Grünfeld Defence: 6.O-O c6"
-msgstr "Neo-Gruenfeld, 6.O-O c6 "
-
-msgid "Neo-Grünfeld Defence: 6.O-O, Main Line"
-msgstr "Neo-Gruenfeld, 6.O-O, dòng chính "
-
-msgid "Neo-Grünfeld Defence: 6.O-O"
-msgstr "Neo-Gruenfeld, 6.O-O "
-
-msgid "Neo-Grünfeld Defence: 6.cd Nxd5, 7.O-O Nb6"
-msgstr "Neo-Gruenfeld, 6.cd Nxd5, 7.O-O Nb6 "
-
-msgid "Neo-Grünfeld Defence: 6.cd Nxd5, 7.O-O c5, 8.Nc3"
-msgstr "Neo-Gruenfeld, 6.cd Nxd5, 7.O-O C5, 8.Nc3 "
-
-msgid "Neo-Grünfeld Defence: 6.cd Nxd5, 7.O-O c5, 8.dc"
-msgstr "Neo-Gruenfeld, 6.cd Nxd5, 7.O-O C5, 8.dc "
-
-msgid "Neo-Grünfeld Defence: 6.cd Nxd5, 7.O-O"
-msgstr "Neo-Gruenfeld, 6.cd Nxd5, 7.O-O "
-
-msgid "Neo-Grünfeld Defence"
-msgstr "Phòng thủ Neo-Gruenfeld"
 
 msgid "Neo-Indian (Seirawan) Attack"
 msgstr "Neo-Ấn Độ (Seirawan) tấn công "
@@ -2722,14 +1246,8 @@ msgstr "Phòng thủ Na Uy"
 msgid "Novosibirsk Opening"
 msgstr "Khai cuộc Novosibirsk"
 
-msgid "Old Benoni Defence: Franco-Benoni Defence"
-msgstr "Old Benoni: Phòng thủ Pháp-Benoni"
-
 msgid "Old Benoni Defence: Mujannah Formation"
 msgstr "Cũ Benoni: hình Mujannah "
-
-msgid "Old Benoni Defence: Schmid System"
-msgstr "Benoni cũ: hệ thống Schmid của "
 
 msgid "Old Benoni Defence"
 msgstr "Phòng thủ Old Benoni"
@@ -2760,9 +1278,6 @@ msgstr "Phòng thủ Owen"
 
 msgid "Paleface Attack"
 msgstr "Mặt tái xanh tấn công "
-
-msgid "Petrov Defence"
-msgstr "Phòng thủ Petrov"
 
 msgid "Philidor Defence: Berger Variation"
 msgstr "Philidor: Berger biến "
@@ -2848,9 +1363,6 @@ msgstr "Philidor: Philidor phản Gambit "
 msgid "Philidor Defence: Steinitz Variation"
 msgstr "Philidor: Steinitz biến "
 
-msgid "Philidor Defence"
-msgstr "Phòng thủ Philidor"
-
 msgid "Pirc Defence: 150 Attack"
 msgstr "Pirc: tấn công 150"
 
@@ -2905,12 +1417,6 @@ msgstr "Phòng thủ Pirc"
 msgid "Polish (Sokolsky) Opening"
 msgstr "Khai cuộc Ba Lan (Sokolsky)"
 
-msgid "Polish (Sokolsky-Orangutan) Opening: Outflank Variation"
-msgstr "Ba Lan: dùng mưu lừa biến "
-
-msgid "Polish (Sokolsky-Orangutan) Opening: Tuebingen Variation"
-msgstr "Ba Lan: Tuebingen biến "
-
 msgid "Polish Defence"
 msgstr "Phòng thủ Ba Lan"
 
@@ -2923,866 +1429,11 @@ msgstr "Ponziani phản Gambit, Schmidt tấn công "
 msgid "Ponziani Counter-Gambit"
 msgstr "Ponziani phản Gambit "
 
-msgid "Ponziani Opening: Caro Variation"
-msgstr "Ponziani: Caro biến "
-
-msgid "Ponziani Opening: Fraser Defence"
-msgstr "Ponziani: phòng thủ Fraser"
-
-msgid "Ponziani Opening: Jaenisch Counter-Attack"
-msgstr "Ponziani: Jaenisch phản công "
-
-msgid "Ponziani Opening: Leonhardt Variation"
-msgstr "Ponziani: Leonhardt biến "
-
-msgid "Ponziani Opening: Reti Variation"
-msgstr "Ponziani: Reti biến "
-
-msgid "Ponziani Opening: Romanishin Variation"
-msgstr "Ponziani: Romanishin biến "
-
-msgid "Ponziani Opening: Steinitz Variation"
-msgstr "Ponziani: Steinitz biến "
-
 msgid "Ponziani Opening"
 msgstr "Ponziani mở "
 
 msgid "Pterodactyl Defence"
 msgstr "Phòng thủ Pterodactyl"
-
-msgid "Queen Bishop Game"
-msgstr "Trò chơi nữ hoàng của giám mục "
-
-msgid "Queen Gambit Accepted, 4.Nc3"
-msgstr "QGA, 4.Nc3 "
-
-msgid "Queen Gambit Accepted, 4.e3"
-msgstr "QGA, 4.e3 "
-
-msgid "Queen Gambit Accepted, Bogolyubov Variation"
-msgstr "QGA, Bogolyubov biến "
-
-msgid "Queen Gambit Accepted, Flohr Variation"
-msgstr "QGA, Flohr biến "
-
-msgid "Queen Gambit Accepted, Janowsky-Larsen Variation"
-msgstr "QGA, Janowsky-Larsen biến "
-
-msgid "Queen Gambit Accepted, Smyslov Variation"
-msgstr "QGA, Smyslov biến "
-
-msgid "Queen Gambit Accepted: 3.Nf3"
-msgstr "QGA: 3.Nf3 "
-
-msgid "Queen Gambit Accepted: 3.e4"
-msgstr "QGA: 3.e4 "
-
-msgid "Queen Gambit Accepted: 4...e6"
-msgstr "QGA: 4 ... e6 "
-
-msgid "Queen Gambit Accepted: Alekhine Defence, Alatortsev Variation"
-msgstr "QGA: Phòng thủ Alekhine, biến thể Alatortsev"
-
-msgid "Queen Gambit Accepted: Alekhine Defence, Borisenko-Furman Variation"
-msgstr "QGA: Phòng thủ Alekhine, biến thể Borisenko-Furman"
-
-msgid "Queen Gambit Accepted: Alekhine Defence"
-msgstr "QGA: Phòng thủ Alekhine"
-
-msgid "Queen Gambit Accepted: Classical Variation, 6.O-O"
-msgstr "QGA: biến thể cổ điển, 6.O-O "
-
-msgid "Queen Gambit Accepted: Classical Variation"
-msgstr "QGA: biến thể cổ điển "
-
-msgid "Queen Gambit Accepted: Classical, 6...a6"
-msgstr "QGA: cổ điển, 6 ... a6 "
-
-msgid "Queen Gambit Accepted: Classical, 7...b5"
-msgstr "QGA: cổ điển, 7 ... b5 "
-
-msgid "Queen Gambit Accepted: Classical, 7.Qe2"
-msgstr "QGA: cổ điển, 7.Qe2 "
-
-msgid "Queen Gambit Accepted: Classical, 8...Bb7"
-msgstr "QGA: cổ điển, 8 ... BB7 "
-
-msgid "Queen Gambit Accepted: Classical, Geller Variation"
-msgstr "QGA: cổ điển, biến thể Geller "
-
-msgid "Queen Gambit Accepted: Classical, Rubinstein Variation"
-msgstr "QGA: cổ điển, Rubinstein biến "
-
-msgid "Queen Gambit Accepted: Classical, Smyslov Variation"
-msgstr "QGA: cổ điển, Smyslov biến "
-
-msgid "Queen Gambit Accepted: Classical, Steinitz Variation"
-msgstr "QGA: cổ điển, Steinitz biến "
-
-msgid "Queen Gambit Accepted: Ericson Variation"
-msgstr "QGA: Ericson biến "
-
-msgid "Queen Gambit Accepted: Haberditz Variation"
-msgstr "QGA: Haberditz biến "
-
-msgid "Queen Gambit Accepted: Linares Variation"
-msgstr "QGA: Linares biến "
-
-msgid "Queen Gambit Accepted: Mannheim Variation"
-msgstr "QGA: Mannheim biến "
-
-msgid "Queen Gambit Accepted: Schwartz Defence"
-msgstr "QGA: Phòng thủ Schwartz"
-
-msgid "Queen Gambit Accepted"
-msgstr "Gambit nữ hoàng chấp nhận "
-
-msgid "Queen Gambit Declined Semi-Slav: 5...Nd7"
-msgstr "QGD bán Slav: 5 ... Nd7 "
-
-msgid "Queen Gambit Declined Semi-Slav: 5.Bg5 dc"
-msgstr "QGD bán Slav: 5.Bg5 dc "
-
-msgid "Queen Gambit Declined Semi-Slav: 5.e3"
-msgstr "QGD bán Slav: 5.e3 "
-
-msgid "Queen Gambit Declined Semi-Slav: 6.Bd3"
-msgstr "QGD bán Slav: 6.Bd3 "
-
-msgid "Queen Gambit Declined Semi-Slav: 7.Bc4"
-msgstr "QGD bán Slav: 7.Bc4 "
-
-msgid ""
-"Queen Gambit Declined Semi-Slav: Accelerated Meran (Alekhine Variation)"
-msgstr "QGD bán Slav: tăng tốc Meran (Alekhine biến thể) "
-
-msgid "Queen Gambit Declined Semi-Slav: Anti-Meran Gambit"
-msgstr "QGD bán Slav: thí quân chống-Meran"
-
-msgid "Queen Gambit Declined Semi-Slav: Anti-Meran, Alatortsev System"
-msgstr "QGD bán Slav: chống Meran, hệ thống Alatortsev"
-
-msgid "Queen Gambit Declined Semi-Slav: Anti-Meran, Lilienthal Variation"
-msgstr "QGD bán Slav: chống Meran, biến thể Lilienthal"
-
-msgid "Queen Gambit Declined Semi-Slav: Anti-Meran, Szabo Variation"
-msgstr "QGD bán Slav: chống Meran, biến thể Szabo"
-
-msgid "Queen Gambit Declined Semi-Slav: Bogolyubov Variation"
-msgstr "QGD bán Slav: Bogolyubov biến "
-
-msgid "Queen Gambit Declined Semi-Slav: Botvinnik System (Anti-Meran)"
-msgstr "QGD bán Slav: hệ thống Botvinnik (chống Meran)"
-
-msgid "Queen Gambit Declined Semi-Slav: Chigorin Defence"
-msgstr "QGD bán Slav: Phòng thủ Chigorin"
-
-msgid "Queen Gambit Declined Semi-Slav: Ekstrom Variation"
-msgstr "QGD bán Slav: Ekstrom biến "
-
-msgid "Queen Gambit Declined Semi-Slav: Hastings Variation"
-msgstr "QGD bán Slav: Hastings biến "
-
-msgid "Queen Gambit Declined Semi-Slav: Meran Variation"
-msgstr "QGD bán Slav: Meran biến "
-
-msgid "Queen Gambit Declined Semi-Slav: Meran, 8...a6"
-msgstr "QGD bán Slav: Meran, 8 ... a6 "
-
-msgid "Queen Gambit Declined Semi-Slav: Meran, Blumenfeld Variation"
-msgstr "QGD bán Slav: Meran, Blumenfeld biến "
-
-msgid "Queen Gambit Declined Semi-Slav: Meran, Old Main Line"
-msgstr "QGD bán Slav: Meran, dòng chính cũ "
-
-msgid "Queen Gambit Declined Semi-Slav: Meran, Pirc Variation"
-msgstr "QGD bán Slav: Meran, Pirc biến "
-
-msgid "Queen Gambit Declined Semi-Slav: Meran, Rabinovich Variation"
-msgstr "QGD bán Slav: Meran, Rabinovich biến "
-
-msgid "Queen Gambit Declined Semi-Slav: Meran, Reynolds' Variation"
-msgstr "QGD bán Slav: Meran, biến Reynolds "
-
-msgid "Queen Gambit Declined Semi-Slav: Meran, Sozin Variation"
-msgstr "QGD bán Slav: Meran, Sozin biến "
-
-msgid "Queen Gambit Declined Semi-Slav: Meran, Stahlberg Variation"
-msgstr "QGD bán Slav: Meran, Ståhlberg biến "
-
-msgid "Queen Gambit Declined Semi-Slav: Meran, Wade Variation"
-msgstr "QGD bán Slav: Meran, Wade biến "
-
-msgid "Queen Gambit Declined Semi-Slav: Romih Variation"
-msgstr "QGD bán Slav: Romih biến "
-
-msgid "Queen Gambit Declined Semi-Slav: Rubinstein (Anti-Meran) System"
-msgstr "QGD bán Slav: hệ thống Rubinstein (chống Meran)"
-
-msgid "Queen Gambit Declined Semi-Slav: Stoltz Variation"
-msgstr "QGD bán Slav: Stoltz biến "
-
-msgid "Queen Gambit Declined Semi-Slav: Stonewall Defence"
-msgstr "QGD bán Slav: phòng thủ Stonewall"
-
-msgid "Queen Gambit Declined Semi-Slav: neo-Meran (Lundin Variation)"
-msgstr "QGD bán Slav: tân Meran (Lundin biến thể) "
-
-msgid "Queen Gambit Declined Semi-Slav"
-msgstr "QGD bán Slav "
-
-msgid "Queen Gambit Declined Slav Accepted: Alapin Variation"
-msgstr "QGD Slav chấp nhận: Alapin biến "
-
-msgid "Queen Gambit Declined Slav Accepted"
-msgstr "QGD Slav chấp nhận "
-
-msgid "Queen Gambit Declined Slav Defence, Alekhine Variation"
-msgstr "QGD phòng thủ Slav, biến thể Alekhine"
-
-msgid "Queen Gambit Declined Slav Defence: Exchange Variation"
-msgstr "QGD phòng thủ Slav, biến thể đổi quân"
-
-msgid "Queen Gambit Declined Slav Defence"
-msgstr "QGD phòng thủ Slav"
-
-msgid "Queen Gambit Declined Slav: 3.Nf3"
-msgstr "QGD Slav: 3.Nf3 "
-
-msgid "Queen Gambit Declined Slav: 4.Nc3"
-msgstr "QGD Slav: 4.Nc3 "
-
-msgid "Queen Gambit Declined Slav: 4.e3 Bf5"
-msgstr "QGD Slav: 4.e3 BF5 "
-
-msgid "Queen Gambit Declined Slav: 4.e3"
-msgstr "QGD Slav: 4.e3 "
-
-msgid "Queen Gambit Declined Slav: 5.e3 (Alekhine Variation)"
-msgstr "QGD Slav: 5.e3 (Alekhine biến thể) "
-
-msgid "Queen Gambit Declined Slav: Amsterdam Variation"
-msgstr "QGD Slav: Amsterdam biến "
-
-msgid "Queen Gambit Declined Slav: Breyer Variation"
-msgstr "QGD Slav: Breyer biến "
-
-msgid "Queen Gambit Declined Slav: Carlsbad Variation"
-msgstr "QGD Slav: Carlsbad biến "
-
-msgid "Queen Gambit Declined Slav: Czech Defence"
-msgstr "QGD Slav: Phòng thủ kiểu Séc"
-
-msgid "Queen Gambit Declined Slav: Dutch Variation, Main Line"
-msgstr "QGD Slav: biến Hà Lan, dòng chính "
-
-msgid "Queen Gambit Declined Slav: Dutch Variation"
-msgstr "QGD Slav: biến Hà Lan "
-
-msgid "Queen Gambit Declined Slav: Dutch, Lasker Variation"
-msgstr "QGD Slav: Hà Lan, Lasker biến "
-
-msgid "Queen Gambit Declined Slav: Dutch, Saemisch Variation"
-msgstr "QGD Slav: Hà Lan, Saemisch biến "
-
-msgid "Queen Gambit Declined Slav: Exchange Variation, 6.Bf4 Bf5"
-msgstr "QGD Slav: ngoại tệ thay đổi, 6.Bf4 BF5 "
-
-msgid "Queen Gambit Declined Slav: Exchange Variation"
-msgstr "QGD Slav: ngoại tệ thay đổi "
-
-msgid "Queen Gambit Declined Slav: Exchange, Trifunovic Variation"
-msgstr "QGD Slav: trao đổi, Trifunović biến "
-
-msgid "Queen Gambit Declined Slav: Krause Attack"
-msgstr "QGD Slav: Krause tấn công "
-
-msgid "Queen Gambit Declined Slav: Semmering Variation"
-msgstr "QGD Slav: biến thể Semmering "
-
-msgid "Queen Gambit Declined Slav: Slav Gambit"
-msgstr "QGD Slav: Slav Gambit "
-
-msgid "Queen Gambit Declined Slav: Smyslov Variation"
-msgstr "QGD Slav: Smyslov biến "
-
-msgid "Queen Gambit Declined Slav: Soultanbeieff Variation"
-msgstr "QGD Slav: Soultanbeieff biến "
-
-msgid "Queen Gambit Declined Slav: Steiner Variation"
-msgstr "QGD Slav: Steiner biến "
-
-msgid "Queen Gambit Declined Slav: Suechting Variation"
-msgstr "QGD Slav: Suechting biến "
-
-msgid "Queen Gambit Declined Slav: Tolush-Geller Gambit"
-msgstr "QGD Slav: Tolush-Geller Gambit "
-
-msgid "Queen Gambit Declined Slav: Wiesbaden Variation"
-msgstr "QGD Slav: Wiesbaden biến "
-
-msgid "Queen Gambit Declined Slav: Winawer Counter-Gambit"
-msgstr "QGD Slav: Winawer phản Gambit "
-
-msgid "Queen Gambit Declined: 3...Nf6"
-msgstr "QGD: 3 ... Nf6 "
-
-msgid "Queen Gambit Declined: 3.Nc3"
-msgstr "QGD: 3.Nc3 "
-
-msgid "Queen Gambit Declined: 4.Bg5 Be7, 5.e3 O-O"
-msgstr "QGD: 4.Bg5 Be7, 5.e3 O-O "
-
-msgid "Queen Gambit Declined: 4.Bg5 Be7"
-msgstr "QGD: 4.Bg5 Be7 "
-
-msgid "Queen Gambit Declined: 4.Bg5 Nbd7"
-msgstr "QGD: 4.Bg5 Nbd7 "
-
-msgid "Queen Gambit Declined: 4.Bg5"
-msgstr "QGD: 4.Bg5 "
-
-msgid "Queen Gambit Declined: 4.Nf3"
-msgstr "QGD: 4.Nf3 "
-
-msgid "Queen Gambit Declined: 5...c6"
-msgstr "QGD: 5 ... c6 "
-
-msgid "Queen Gambit Declined: 6.Nf3"
-msgstr "QGD: 6.Nf3 "
-
-msgid "Queen Gambit Declined: Alapin Variation"
-msgstr "QGD: Alapin biến "
-
-msgid "Queen Gambit Declined: Albin Counter-Gambit, 5.g3"
-msgstr "QGD: Albin phản Gambit, 5.g3 "
-
-msgid "Queen Gambit Declined: Albin Counter-Gambit, Alapin Variation"
-msgstr "QGD: Albin phản Gambit, Alapin biến "
-
-msgid "Queen Gambit Declined: Albin Counter-Gambit, Balogh Variation"
-msgstr "QGD: Albin phản Gambit, Balogh biến "
-
-msgid "Queen Gambit Declined: Albin Counter-Gambit, Janowski Variation"
-msgstr "QGD: Albin phản Gambit, Janowski biến "
-
-msgid "Queen Gambit Declined: Albin Counter-Gambit, Krenosz Variation"
-msgstr "QGD: Albin phản Gambit, Krenosz biến "
-
-msgid "Queen Gambit Declined: Albin Counter-Gambit, Lasker trap"
-msgstr "QGD: Albin phản Gambit, Lasker bẫy "
-
-msgid "Queen Gambit Declined: Albin Counter-Gambit"
-msgstr "QGD: Albin phản Gambit "
-
-msgid "Queen Gambit Declined: Alekhine Variation"
-msgstr "QGD: biến thể Alekhine "
-
-msgid "Queen Gambit Declined: Anti-neo-orthodox Variation"
-msgstr "QGD: Biến thể chống neo-orthodox"
-
-msgid "Queen Gambit Declined: Been-Koomen Variation"
-msgstr "QGD: biến thể Been-Koomen "
-
-msgid "Queen Gambit Declined: Cambridge Springs Defence, 7.cd"
-msgstr "QGD: Phòng thủ Cambridge Springs, 7.cd"
-
-msgid "Queen Gambit Declined: Cambridge Springs Defence, Argentine Variation"
-msgstr "QGD: Phòng thủ Cambridge Springs, biến thể Argentina"
-
-msgid "Queen Gambit Declined: Cambridge Springs Defence, Bogoljubow Variation"
-msgstr "QGD: Phòng thủ Cambridge Springs, biến thể Bogoljubow"
-
-msgid "Queen Gambit Declined: Cambridge Springs Defence, Capablanca Variation"
-msgstr "QGD: Phòng thủ Cambridge Springs, biến thể Capablanca"
-
-msgid "Queen Gambit Declined: Cambridge Springs Defence, Rubinstein Variation"
-msgstr "QGD: Phòng thủ Cambridge Springs, biến thể Rubinstein"
-
-msgid "Queen Gambit Declined: Cambridge Springs Defence, Yugoslav Variation"
-msgstr "QGD: Phòng thủ Cambridge Springs, biến thể Nam Tư"
-
-msgid "Queen Gambit Declined: Cambridge Springs Defence"
-msgstr "QGD: Phòng thủ Cambridge Springs"
-
-msgid "Queen Gambit Declined: Canal (Venice) Variation"
-msgstr "QGD: Kênh (Venice) biến thể "
-
-msgid "Queen Gambit Declined: Capablanca Anti-Cambridge Springs Variation"
-msgstr "QGD: Capablanca biến thể chống Cambridge Springs"
-
-msgid "Queen Gambit Declined: Capablanca Variation"
-msgstr "QGD: Capablanca biến "
-
-msgid "Queen Gambit Declined: Capablanca-Duras Variation"
-msgstr "QGD: Capablanca-Duras biến "
-
-msgid "Queen Gambit Declined: Charousek (Petrosian) Variation"
-msgstr "QGD: Charousek (Petrosian) biến thể "
-
-msgid "Queen Gambit Declined: Chigorin Defence, Janowski Variation"
-msgstr "QGD: Phòng thủ Chigorin, biến thể Janowski"
-
-msgid "Queen Gambit Declined: Chigorin Defence"
-msgstr "QGD: Phòng thủ Chigorin"
-
-msgid "Queen Gambit Declined: Classical Variation (5.Bf4)"
-msgstr "Biến thể cổ điển (5.Bf4): QGD "
-
-msgid "Queen Gambit Declined: Exchange Variation"
-msgstr "QGD: ngoại tệ thay đổi "
-
-msgid "Queen Gambit Declined: Exchange, Positional Line, 5...c6"
-msgstr "QGD: đổi quân, nhánh thế cờ, 5 ... c6"
-
-msgid "Queen Gambit Declined: Exchange, Positional Line, 6.Qc2"
-msgstr "QGD: đổi quân, nhánh thế cờ, 6.Qc2"
-
-msgid "Queen Gambit Declined: Exchange, Positional Line"
-msgstr "QGD: đổi quân, nhánh thế cờ"
-
-msgid "Queen Gambit Declined: Exchange, Saemisch Variation"
-msgstr "QGD: trao đổi, Saemisch biến "
-
-msgid "Queen Gambit Declined: Grau (Sahovic) Defence"
-msgstr "QGD: Phòng thủ Grau (Sahovic)"
-
-msgid "Queen Gambit Declined: Harrwitz Attack"
-msgstr "QGD: Harrwitz tấn công "
-
-msgid "Queen Gambit Declined: Janowski Variation"
-msgstr "QGD: Janowski biến "
-
-msgid "Queen Gambit Declined: Lasker Defence, Bernstein Variation"
-msgstr "QGD: Phòng thủ Lasker, biến thể Bernstein"
-
-msgid "Queen Gambit Declined: Lasker Defence, Main Line"
-msgstr "QGD: Phòng thủ Lasker, dòng chính "
-
-msgid "Queen Gambit Declined: Lasker Defence, Teichmann Variation"
-msgstr "QGD: Phòng thủ Lasker, biến thể Teichmann"
-
-msgid "Queen Gambit Declined: Lasker Defence"
-msgstr "QGD: Phòng thủ Lasker"
-
-msgid "Queen Gambit Declined: Lasker Variation"
-msgstr "QGD: Lasker biến "
-
-msgid "Queen Gambit Declined: Manhattan Variation"
-msgstr "QGD: Manhattan biến "
-
-msgid "Queen Gambit Declined: Marshall Defence"
-msgstr "QGD: Phòng thủ Marshall"
-
-msgid "Queen Gambit Declined: Neo-orthodox Variation, 7.Bh4"
-msgstr "QGD: biến Neo chính thống, 7.Bh4 "
-
-msgid "Queen Gambit Declined: Neo-orthodox Variation, 7.Bxf6"
-msgstr "QGD: biến Neo chính thống, 7.Bxf6 "
-
-msgid "Queen Gambit Declined: Neo-orthodox Variation"
-msgstr "Biến Neo chính thống: QGD "
-
-msgid "Queen Gambit Declined: Orthodox Defence, 7.Qc2 c5, 8.cd (Rubinstein)"
-msgstr "QGD: Phòng thủ Orthodox, 7.Qc2 C5, 8.cd (Rubinstein) "
-
-msgid "Queen Gambit Declined: Orthodox Defence, 7.Rc1"
-msgstr "QGD: Phòng thủ Orthodox, 7.Rc1"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Bd3 Line, 11.O-O"
-msgstr "QGD: Phòng thủ Orthodox, đường Bd3, 11.O-O"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Bd3 Line, Alekhine Variation"
-msgstr "QGD: Phòng thủ Orthodox, đi nước Bd3, biến Alekhine"
-
-msgid ""
-"Queen Gambit Declined: Orthodox Defence, Bd3 Line, Capablanca freeing "
-"manoevre"
-msgstr "QGD: Phòng thủ Orthodox, đi nước Bd3, Capablanca freeing manoevre"
-
-msgid ""
-"Queen Gambit Declined: Orthodox Defence, Bd3 Line, Fianchetto Variation"
-msgstr "QGD: phòng thủ Orthodox, nước đi Bd3, biến fianchetto"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Bd3 Line, Janowski Variation"
-msgstr "QGD: Phòng thủ Orthodox, đi nước Bd3, biến thể Janowski"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Bd3 Line"
-msgstr "QGD: Phòng thủ Orthodox, đi nước Bd3"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Botvinnik Variation"
-msgstr "QGD: phòng thủ Orthodox, biến thể Botvinnik"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Capablanca Variation"
-msgstr "QGD: phòng thủ Orthodox, biến thể, Capablanca"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Classical Variation"
-msgstr "QGD: Chính thống phòng thủ, biến thể cổ điển "
-
-msgid "Queen Gambit Declined: Orthodox Defence, Classical, 13.d1b1 (Maroczy)"
-msgstr "QGD: Phòng thủ Orthodox, cổ điển, 13.d1b1 (Maroczy)"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Classical, 13.d1c2 (Vidmar)"
-msgstr "QGD: Phòng thủ Orthodox, cổ điển, 13.d1c2 (Vidmar)"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Classical, 13.de"
-msgstr "QGD: Phòng thủ Orthodox, cổ điển, 13.de"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Pillsbury Attack"
-msgstr "QGD: phòng thủ Orthodox, tấn công Pillsbury"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Rauzer Variation"
-msgstr "QGD: phòng thủ Orthodox, biến thể Rauzer"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Rubinstein Attack (with Rc1)"
-msgstr "QGD: Phòng thủ Orthodox, tấn công Rubinstein (với Rc1)"
-
-msgid ""
-"Queen Gambit Declined: Orthodox Defence, Rubinstein Attack, Grünfeld "
-"Variation"
-msgstr "QGD: phòng thủ Orthodox, tấn công Rubinstein, biến Gruenfeld"
-
-msgid ""
-"Queen Gambit Declined: Orthodox Defence, Rubinstein Attack, Karlsbad "
-"Variation"
-msgstr "QGD: phòng thủ Orthodox, tấn công Rubinstein, biến Karlsbad"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Rubinstein Attack, Main Line"
-msgstr "QGD: phòng thủ Orthodox, tấn công Rubinstein, dòng chính"
-
-msgid ""
-"Queen Gambit Declined: Orthodox Defence, Rubinstein Attack, Wolf Variation"
-msgstr "QGD: phòng thủ Orthodox, tấn công Rubinstein, biến Wolf"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Rubinstein Variation"
-msgstr "QGD: phòng thủ Orthodox, biến thể Rubinstein "
-
-msgid "Queen Gambit Declined: Orthodox Defence, Swiss (Henneberger) Variation"
-msgstr "QGD: phòng thủ Orthodox, biến thể Thụy Sĩ (Henneberger)"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Swiss, Karlsbad Variation"
-msgstr "QGD: phòng thủ Orthodox, Thụy Sĩ, biến Karlsbad "
-
-msgid "Queen Gambit Declined: Orthodox Defence"
-msgstr "QGD: Chính thống phòng thủ "
-
-msgid "Queen Gambit Declined: Petrosian Variation"
-msgstr "Biến Petrosian: QGD "
-
-msgid "Queen Gambit Declined: Ragozin Variation"
-msgstr "QGD: Ragozin biến "
-
-msgid "Queen Gambit Declined: Ragozin, Vienna Variation"
-msgstr "QGD: Ragozin, Vienna biến "
-
-msgid "Queen Gambit Declined: Rochlin Variation"
-msgstr "QGD: Rochlin biến "
-
-msgid "Queen Gambit Declined: Semi-Slav, Abrahams Variation"
-msgstr "QGD: bán Slav, Abrahams biến "
-
-msgid "Queen Gambit Declined: Semi-Slav, Junge Variation"
-msgstr "QGD: bán Slav, Junge biến "
-
-msgid "Queen Gambit Declined: Semi-Slav, Koomen Variation"
-msgstr "QGD: bán Slav, Koomen biến "
-
-msgid "Queen Gambit Declined: Semi-Slav, Marshall Gambit"
-msgstr "QGD: bán Slav, Marshall Gambit "
-
-msgid "Queen Gambit Declined: Semi-Slav, Noteboom Variation"
-msgstr "QGD: bán Slav, Noteboom biến "
-
-msgid "Queen Gambit Declined: Semi-Slav"
-msgstr "QGD: bán Slav "
-
-msgid "Queen Gambit Declined: Semi-Tarrasch Defence"
-msgstr "QGD: Phòng thủ Bán Tarrasch"
-
-msgid "Queen Gambit Declined: Semi-Tarrasch with e3"
-msgstr "QGD: Bán Tarrasch với e3 "
-
-msgid "Queen Gambit Declined: Semi-Tarrasch, 5.cd"
-msgstr "QGD: Bán Tarrasch, 5.cd "
-
-msgid "Queen Gambit Declined: Semi-Tarrasch, 7.Bd3"
-msgstr "QGD: Bán Tarrasch, 7.Bd3 "
-
-msgid "Queen Gambit Declined: Semi-Tarrasch, Kmoch Variation"
-msgstr "QGD: Bán Tarrasch, Kmoch biến "
-
-msgid "Queen Gambit Declined: Semi-Tarrasch, Krause Variation"
-msgstr "QGD: Bán Tarrasch, Krause biến "
-
-msgid "Queen Gambit Declined: Semi-Tarrasch, Primitive Pillsbury Variation"
-msgstr "QGD: Bán Tarrasch, nguyên thủy Pillsbury biến "
-
-msgid "Queen Gambit Declined: Semi-Tarrasch, San Sebastian Variation"
-msgstr "QGD: Bán Tarrasch, San Sebastian biến "
-
-msgid "Queen Gambit Declined: Semi-Tarrasch, Symmetrical Variation"
-msgstr "QGD: Bán Tarrasch, biến đổi đối xứng "
-
-msgid "Queen Gambit Declined: Spielmann Variation"
-msgstr "QGD: Spielmann biến "
-
-msgid "Queen Gambit Declined: Stonewall Variation"
-msgstr "QGD: Stonewall biến "
-
-msgid "Queen Gambit Declined: Symmetrical (Austrian) Defence"
-msgstr "QGD: phòng thủ đối xứng (Áo) "
-
-msgid "Queen Gambit Declined: Tarrasch Defence, 4.cd ed"
-msgstr "QGD: phòng thủ Tarrasch, 4.cd ed"
-
-msgid "Queen Gambit Declined: Tarrasch Defence, Marshall Gambit"
-msgstr "QGD: phòng thủ Tarrasch, thí quân Marshall"
-
-msgid "Queen Gambit Declined: Tarrasch Defence, Tarrasch Gambit"
-msgstr "QGD: phòng thủ Tarrasch, thí quân Tarrasch"
-
-msgid "Queen Gambit Declined: Tarrasch Defence"
-msgstr "QGD: phòng thủ Tarrasch"
-
-msgid "Queen Gambit Declined: Tarrasch, Bogolyubov Variation"
-msgstr "QGD: Tarrasch, Bogolyubov biến "
-
-msgid "Queen Gambit Declined: Tarrasch, Folkestone (Swedish) Variation"
-msgstr "QGD: Tarrasch, Folkestone (Thụy Điển) biến thể "
-
-msgid "Queen Gambit Declined: Tarrasch, Prague Variation, 7...Be7"
-msgstr "QGD: Tarrasch, Praha biến, 7 ... Be7 "
-
-msgid "Queen Gambit Declined: Tarrasch, Prague Variation, 9.Bg5"
-msgstr "QGD: Tarrasch, Praha biến, 9.Bg5 "
-
-msgid "Queen Gambit Declined: Tarrasch, Prague Variation, Normal position"
-msgstr "QGD: Tarrasch, biến thể Praha, thế cờ bình thường"
-
-msgid "Queen Gambit Declined: Tarrasch, Prague Variation"
-msgstr "QGD: Tarrasch, Praha biến "
-
-msgid "Queen Gambit Declined: Tarrasch, Reti Variation"
-msgstr "QGD: Tarrasch, Reti biến "
-
-msgid ""
-"Queen Gambit Declined: Tarrasch, Schlechter-Rubinstein System, Rey Ardid "
-"Variation"
-msgstr "QGD: Tarrasch, hệ thống Schlechter-Rubinstein, Rey Ardid biến "
-
-msgid "Queen Gambit Declined: Tarrasch, Schlechter-Rubinstein System"
-msgstr "QGD: Tarrasch, hệ thống Schlechter-Rubinstein "
-
-msgid "Queen Gambit Declined: Tarrasch, Stoltz Variation"
-msgstr "QGD: Tarrasch, Stoltz biến "
-
-msgid "Queen Gambit Declined: Tarrasch, Wagner Variation"
-msgstr "QGD: Tarrasch, Wagner biến "
-
-msgid "Queen Gambit Declined: Tarrasch, von Hennig-Schara Gambit"
-msgstr "QGD: Tarrasch, von Hennig-Schara Gambit "
-
-msgid ""
-"Queen Gambit Declined: Tartakower (Makagonov-Bondarevsky) System, 8.cd Nxd5"
-msgstr "QGD: Tartakower hệ thống (Makagonov-Bondarevsky), 8.cd Nxd5 "
-
-msgid "Queen Gambit Declined: Tartakower (Makagonov-Bondarevsky) System"
-msgstr "QGD: Tartakower (Makagonov-Bondarevsky) hệ thống "
-
-msgid "Queen Gambit Declined: Tartakower Variation"
-msgstr "QGD: Tartakower biến "
-
-msgid "Queen Gambit Declined: Vienna Variation"
-msgstr "QGD: Vienna biến "
-
-msgid "Queen Gambit Declined"
-msgstr "Gambit của nữ hoàng từ chối "
-
-msgid "Queen Gambit"
-msgstr "Gambit của nữ hoàng "
-
-msgid "Queen Indian Accelerated"
-msgstr "Nữ hoàng của Ấn Độ tăng tốc "
-
-msgid "Queen Indian Defence: 4.Nc3, Main Line"
-msgstr "Ấn Độ Queen: 4.Nc3, dòng chính "
-
-msgid "Queen Indian Defence: 4.Nc3"
-msgstr "Nữ hoàng của Ấn Độ: 4.Nc3 "
-
-msgid "Queen Indian Defence: 4.e3"
-msgstr "Nữ hoàng của Ấn Độ: 4.e3 "
-
-msgid "Queen Indian Defence: 4.g3 Bb7"
-msgstr "4.g3 BB7: Ấn Độ của nữ hoàng "
-
-msgid "Queen Indian Defence: 4.g3"
-msgstr "Nữ hoàng của Ấn Độ: 4.g3 "
-
-msgid "Queen Indian Defence: 5.Bg2 Be7"
-msgstr "5.Bg2 Be7: Ấn Độ của nữ hoàng "
-
-msgid "Queen Indian Defence: Anti-Queen Indian System"
-msgstr "Hậu Ấn Độ: hệ thống chống Hậu Ấn Độ"
-
-msgid "Queen Indian Defence: Averbakh Variation"
-msgstr "Biến Averbakh: Ấn Độ của nữ hoàng "
-
-msgid "Queen Indian Defence: Buerger Variation"
-msgstr "Nữ hoàng của Ấn Độ: Buerger biến "
-
-msgid "Queen Indian Defence: Capablanca Variation"
-msgstr "Nữ hoàng của Ấn Độ: Capablanca biến "
-
-msgid "Queen Indian Defence: Euwe Variation"
-msgstr "Biến Euwe: Ấn Độ của nữ hoàng "
-
-msgid "Queen Indian Defence: Marienbad System, Berg Variation"
-msgstr "Ấn Độ Queen: hệ thống Marienbad, Berg biến "
-
-msgid "Queen Indian Defence: Marienbad System"
-msgstr "Hệ thống Marienbad: Ấn Độ của nữ hoàng "
-
-msgid "Queen Indian Defence: Miles Variation"
-msgstr "Ấn Độ Queen: Miles biến "
-
-msgid "Queen Indian Defence: Nimzovich Variation (exaggerated Fianchetto)"
-msgstr "Nữ hoàng của Ấn Độ: Nimzovich biến (fianchetto phóng đại) "
-
-msgid "Queen Indian Defence: Old Main Line, 6.O-O"
-msgstr "Dòng chính cũ, 6.O-O: Ấn Độ của nữ hoàng "
-
-msgid "Queen Indian Defence: Old Main Line, 7.Nc3"
-msgstr "Dòng chính cũ, 7.Nc3: Ấn Độ của nữ hoàng "
-
-msgid "Queen Indian Defence: Old Main Line, 9.Qxc3"
-msgstr "Dòng chính cũ, 9.Qxc3: Ấn Độ của nữ hoàng "
-
-msgid "Queen Indian Defence: Opovcensky Variation"
-msgstr "Nữ hoàng của Ấn Độ: biến thể Opovcensky "
-
-msgid "Queen Indian Defence: Petrosian System"
-msgstr "Hệ thống Petrosian: Ấn Độ của nữ hoàng "
-
-msgid "Queen Indian Defence: Riumin Variation"
-msgstr "Biến Riumin: Ấn Độ của nữ hoàng "
-
-msgid "Queen Indian Defence: Rubinstein Variation"
-msgstr "Nữ hoàng của Ấn Độ: Rubinstein biến "
-
-msgid "Queen Indian Defence: Yates Variation"
-msgstr "Nữ hoàng của Ấn Độ: Yates biến "
-
-msgid "Queen Indian Defence"
-msgstr "Bảo vệ nữ hoàng của Ấn Độ "
-
-msgid "Queen Pawn Game Counter-Gambit (elephant Gambit)"
-msgstr "QP phản cờ (cờ voi) "
-
-msgid "Queen Pawn Game Counter-Gambit: Maroczy Gambit"
-msgstr "QP phản cờ: cờ Maroczy "
-
-msgid "Queen Pawn Game: Bronstein Gambit"
-msgstr "Ván cờ tốt hậu: thí quân Bronstein"
-
-msgid "Queen Pawn Game: Charlick (Englund) Gambit"
-msgstr "Nữ hoàng cầm đồ: Charlick (Englund) Gambit "
-
-msgid "Queen Pawn Game: Chigorin Variation"
-msgstr "Ván cờ tốt hậu: biến thể Chigorin"
-
-msgid "Queen Pawn Game: English Defence"
-msgstr "Ván cờ tốt hậu: phòng thủ kiểu Anh"
-
-msgid "Queen Pawn Game: Franco-Indian (Keres) Defence"
-msgstr "Ván cờ tốt hậu: phòng thủ Pháp-Ấn Độ (Keres)"
-
-msgid "Queen Pawn Game: Krause Variation"
-msgstr "Ván cờ tốt hậu, biến thể Krause"
-
-msgid "Queen Pawn Game: Lundin (Kevitz-Mikenas) Defence"
-msgstr "Ván cờ tốt hậu: phòng thủ Lundin (Kevitz-Mikenas)"
-
-msgid "Queen Pawn Game: Mason Variation, Steinitz Counter-Gambit"
-msgstr "Ván cờ tốt hậu, biến thể Mason, phản thí quân Steinitz"
-
-msgid "Queen Pawn Game: Mason Variation"
-msgstr "Ván cờ tốt hậu, biến thể Mason"
-
-msgid "Queen Pawn Game: Mengarini Attack"
-msgstr "Nữ hoàng cầm đồ: Mengarini tấn công "
-
-msgid "Queen Pawn Game: Rubinstein (Colle-Zukertort) Variation"
-msgstr "Ván cờ tốt hậu, biến thể Rubinstein (Colle-Zukertort)"
-
-msgid "Queen Pawn Game: Stonewall Attack"
-msgstr "Nữ hoàng cầm đồ: Stonewall tấn công "
-
-msgid "Queen Pawn Game: Torre Attack, Wagner Gambit"
-msgstr "Nữ hoàng cầm đồ: Torre tấn công, Wagner Gambit "
-
-msgid "Queen Pawn Game: Torre Attack"
-msgstr "Nữ hoàng cầm đồ: Torre tấn công "
-
-msgid "Queen Pawn Game: Yusupov-Rubinstein System"
-msgstr "Nữ hoàng cầm đồ: hệ thống Yusupov-Rubinstein "
-
-msgid "Queen Pawn Game: Zukertort Variation"
-msgstr "Ván cờ tốt hậu, biến thể Zukertort"
-
-msgid "Queen Pawn Game"
-msgstr "Ván cờ tốt Hậu"
-
-msgid "Reti Opening: Accepted, Keres Variation"
-msgstr "Reti chấp nhận: Keres biến "
-
-msgid "Reti Opening: Accepted"
-msgstr "Reti chấp nhận "
-
-msgid "Reti Opening: Advance Variation"
-msgstr "Reti: biến thể nâng cao"
-
-msgid "Reti Opening: Herrstroem Gambit"
-msgstr "Reti: Herrstroem Gambit "
-
-msgid "Reti Opening: King Indian Attack (Barcza System)"
-msgstr "Reti: tấn công Ấn Độ King (hệ thống Barcza) "
-
-msgid "Reti Opening: King Indian Attack (with ...c5)"
-msgstr "Reti: tấn công Ấn Độ King (với ... c5) "
-
-msgid "Reti Opening: King Indian Attack, French Variation"
-msgstr "Tấn công Ấn Độ King, biến Pháp: Reti "
-
-msgid "Reti Opening: King Indian Attack, Keres Variation"
-msgstr "Reti: tấn công Ấn Độ King, Keres biến "
-
-msgid "Reti Opening: King Indian Attack, Pachman System"
-msgstr "Reti: tấn công Ấn Độ King, hệ thống Pachman "
-
-msgid "Reti Opening: King Indian Attack, Reti-Smyslov Variation"
-msgstr "Reti: tấn công Ấn Độ King, Reti-Smyslov biến "
-
-msgid "Reti Opening: King Indian Attack, Spassky Variation"
-msgstr "Reti: Tấn công Vua Ấn Độ, biến thể Spassky"
-
-msgid "Reti Opening: King Indian Attack, Yugoslav Variation"
-msgstr "Reti: tấn công Ấn Độ King, Nam Tư biến "
-
-msgid "Reti Opening: King Indian Attack"
-msgstr "Tấn công Ấn Độ King: Reti "
-
-msgid "Reti Opening: Lisitsin Gambit deferred"
-msgstr "Reti: Lisitsin cờ hoãn lại "
-
-msgid "Reti Opening: Nimzovich-Larsen Attack"
-msgstr "Reti: tấn công Nimzovich-Larsen"
-
-msgid "Reti Opening: Old Indian Attack"
-msgstr "Reti: tấn công cũ Ấn Độ "
-
-msgid "Reti Opening: Pirc-Lisitsin Gambit"
-msgstr "Reti: Pirc-Lisitsin Gambit "
 
 msgid "Reti Opening"
 msgstr "Khai cuộc Reti"
@@ -3793,116 +1444,17 @@ msgstr "Reti v Hà Lan "
 msgid "Reversed Grob (Borg/Basman Defence/macho Grob)"
 msgstr "Đảo ngược Grob (Borg / Basman phòng / Grob nam nhi) "
 
-msgid "Richter-Veresov Attack: Richter Variation"
-msgstr "Richter-Veresov tấn công, Richter biến "
-
-msgid "Richter-Veresov Attack: Veresov Variation"
-msgstr "Richter-Veresov tấn công, Veresov biến "
-
 msgid "Richter-Veresov Attack"
 msgstr "Richter-Veresov tấn công "
 
-msgid "Robatsch (Modern) Defence: Pseudo-Austrian Attack"
-msgstr "Phòng thủ Robatsch: tấn công Pseudo-Áo"
-
-msgid "Robatsch (Modern) Defence: Three Pawns Attack"
-msgstr "Phòng thủ Robatsch: ba tốt tấn công "
-
-msgid "Robatsch (Modern) Defence: Two Knights Variation"
-msgstr "Robatsch vệ: hai hiệp sĩ biến thể "
-
-msgid "Robatsch (Modern) Defence: Two Knights, Suttles Variation"
-msgstr "Robatsch vệ: hai hiệp sĩ, Suttles biến "
-
 msgid "Robatsch (Modern) Defence"
-msgstr "Phòng thủ Robatsch"
+msgstr "Phòng thủ Robatsch (hiện đại)"
 
 msgid "Rousseau Gambit"
 msgstr "Rousseau Gambit "
 
-msgid "Russian Game (Petroff Defence): Classical Attack, Berger Variation"
-msgstr "Petrov: cổ điển tấn công, Berger biến "
-
-msgid "Russian Game (Petroff Defence): Classical Attack, Chigorin Variation"
-msgstr "Petrov: tấn công cổ điển, Chigorin biến "
-
-msgid "Russian Game (Petroff Defence): Classical Attack, Jaenisch Variation"
-msgstr "Petrov: tấn công cổ điển, Jaenisch biến "
-
-msgid "Russian Game (Petroff Defence): Classical Attack, Krause Variation"
-msgstr "Petrov: cổ điển tấn công, Krause biến "
-
-msgid "Russian Game (Petroff Defence): Classical Attack, Maroczy Variation"
-msgstr "Petrov: tấn công, thay đổi Maroczy cổ điển "
-
-msgid "Russian Game (Petroff Defence): Classical Attack, Marshall Variation"
-msgstr "Petrov: cổ điển tấn công, Marshall thay đổi "
-
-msgid "Russian Game (Petroff Defence): Classical Attack, Marshall trap"
-msgstr "Petrov: tấn công cổ điển, Marshall bẫy "
-
-msgid "Russian Game (Petroff Defence): Classical Attack, Mason Variation"
-msgstr "Petrov: cổ điển tấn công, Mason biến "
-
-msgid "Russian Game (Petroff Defence): Classical Attack, Tarrasch Variation"
-msgstr "Petrov: cổ điển tấn công, Tarrasch biến "
-
-msgid "Russian Game (Petroff Defence): Classical Attack, close Variation"
-msgstr "Petrov: tấn công, biến thể gần cổ điển "
-
-msgid "Russian Game (Petroff Defence): Classical Attack"
-msgstr "Petrov: tấn công cổ điển "
-
-msgid "Russian Game (Petroff Defence): Cochrane Gambit"
-msgstr "Petrov: Cochrane Gambit "
-
-msgid "Russian Game (Petroff Defence): Cozio (Lasker) Attack"
-msgstr "Petrov: Cozio (Lasker) tấn công "
-
-msgid "Russian Game (Petroff Defence): Damiano Variation"
-msgstr "Petrov: Damiano biến "
-
-msgid "Russian Game (Petroff Defence): French Attack"
-msgstr "Petrov: tấn công Pháp "
-
-msgid "Russian Game (Petroff Defence): Italian Variation"
-msgstr "Petrov: biến Ý "
-
-msgid "Russian Game (Petroff Defence): Kaufmann Attack"
-msgstr "Petrov: Kaufmann tấn công "
-
-msgid "Russian Game (Petroff Defence): Modern (Steinitz) Attack"
-msgstr "Petrov: tấn công hiện đại (Steinitz)"
-
-msgid "Russian Game (Petroff Defence): Modern Attack, Bardeleben Variation"
-msgstr "Petrov: tấn công hiện đại, biến thể Bardeleben"
-
-msgid "Russian Game (Petroff Defence): Modern Attack, Main Line"
-msgstr "Petrov: tấn công, dòng chính hiện đại "
-
-msgid "Russian Game (Petroff Defence): Modern Attack, Steinitz Variation"
-msgstr "Petrov: tấn công hiện đại, biến thể Steinitz "
-
-msgid "Russian Game (Petroff Defence): Modern Attack, Symmetrical Variation"
-msgstr "Petrov: tấn công, biến thể đối xứng hiện đại "
-
-msgid "Russian Game (Petroff Defence): Modern Attack, Trifunovic Variation"
-msgstr "Petrov: tấn công, biến thể hiện đại Trifunović "
-
-msgid "Russian Game (Petroff Defence): Nimzovich Attack"
-msgstr "Petrov: Nimzovich tấn công "
-
-msgid "Russian Game (Petroff Defence): Paulsen Attack"
-msgstr "Petrov: Paulsen tấn công "
-
-msgid "Russian Game (Petroff Defence): Three Knights Game"
-msgstr "Petrov ba hiệp sĩ trò chơi "
-
 msgid "Ruy Lopez (Spanish Opening)"
 msgstr "Ruy Lopez (khai mạc Tây Ban Nha) "
-
-msgid "Santasiere folly"
-msgstr "Sự điên rồ của Santasiere "
 
 msgid "Saragossa Opening"
 msgstr "Khai cuộc Saragossa"
@@ -3922,23 +1474,14 @@ msgstr "Scandinavia: Anderssen phản công chính thống tấn công "
 msgid "Scandinavian Defence: Anderssen Counter-Attack"
 msgstr "Scandinavia: Anderssen phản công "
 
-msgid "Scandinavian Defence: Grünfeld Variation"
-msgstr "Phòng thủ Scandinavian, biến thể Gruenfeld"
-
 msgid "Scandinavian Defence: Icelandic Gambit"
 msgstr "Scandinavia: Iceland Gambit "
 
 msgid "Scandinavian Defence: Kiel Variation"
 msgstr "Scandinavia: Kiel biến "
 
-msgid "Scandinavian Defence: Lasker Variation"
-msgstr "Phòng thủ Scandinavian, biến thể Lasker"
-
 msgid "Scandinavian Defence: Marshall Variation"
 msgstr "Scandinavia: Marshall biến "
-
-msgid "Scandinavian Defence: Mieses-Kotrvc Gambit"
-msgstr "Scandinavia, Mieses-Kotrvc Gambit "
 
 msgid "Scandinavian Defence: Pytel-Wade Variation"
 msgstr "Scandinavia: Pytel-Wade biến "
@@ -3976,77 +1519,8 @@ msgstr "Scotch cờ: Vitzhum tấn công "
 msgid "Scotch Gambit"
 msgstr "Scotch Gambit "
 
-msgid "Scotch Opening: Berger Variation"
-msgstr "Scotch: Berger biến "
-
-msgid "Scotch Opening: Blackburne Attack"
-msgstr "Scotch: Blackburne tấn công "
-
-msgid "Scotch Opening: Blumenfeld Attack"
-msgstr "Scotch: Blumenfeld tấn công "
-
-msgid "Scotch Opening: Cochrane Variation"
-msgstr "Scotch: biến thể Cochrane "
-
-msgid "Scotch Opening: Fraser Attack"
-msgstr "Scotch: Fraser tấn công "
-
-msgid "Scotch Opening: Ghulam Kassim Variation"
-msgstr "Scotch: Ghulam Kassim biến "
-
-msgid "Scotch Opening: Goering Gambit, Bardeleben Variation"
-msgstr "Scotch: Goering cờ, Bardeleben biến "
-
-msgid "Scotch Opening: Goering Gambit"
-msgstr "Scotch: Goering Gambit "
-
-msgid "Scotch Opening: Horwitz Attack"
-msgstr "Scotch: Horwitz tấn công "
-
-msgid "Scotch Opening: Lolli Variation"
-msgstr "Scotch: Lolli biến "
-
-msgid "Scotch Opening: Meitner Variation"
-msgstr "Scotch: Meitner biến "
-
-msgid "Scotch Opening: Mieses Variation"
-msgstr "Scotch: Mieses biến "
-
-msgid "Scotch Opening: Paulsen Attack"
-msgstr "Scotch: Paulsen tấn công "
-
-msgid "Scotch Opening: Paulsen, Gunsberg Defence"
-msgstr "Scotch: phòng thủ Paulsen, Gunsberg"
-
-msgid "Scotch Opening: Potter Variation"
-msgstr "Scotch: Potter biến "
-
-msgid "Scotch Opening: Pulling Counter-Attack"
-msgstr "Scotch: Kéo phản công "
-
-msgid "Scotch Opening: Relfsson Gambit ('MacLopez')"
-msgstr "Scotch: Relfsson Gambit ('MacLopez') "
-
-msgid "Scotch Opening: Romanishin Variation"
-msgstr "Scotch: Romanishin biến "
-
-msgid "Scotch Opening: Rosenthal Variation"
-msgstr "Scotch: Rosenthal biến "
-
-msgid "Scotch Opening: Schmidt Variation"
-msgstr "Scotch: Schmidt biến "
-
-msgid "Scotch Opening: Steinitz Variation"
-msgstr "Scotch: Steinitz biến "
-
-msgid "Scotch Opening: Tartakower Variation"
-msgstr "Scotch: biến thể Tartakower "
-
 msgid "Scotch Opening"
 msgstr "Khai cuộc Scotch"
-
-msgid "Semi-Benoni (Blockade Variation)"
-msgstr "Bán Benoni (`phong tỏa biến thể ') "
 
 msgid "Sicilian Defence: 2.c3, Heidenfeld Variation"
 msgstr "Sicilia: 2.c3, Heidenfeld biến "
@@ -4081,9 +1555,6 @@ msgstr "Sicilia: tăng tốc fianchetto, Simagin biến "
 msgid "Sicilian Defence: Acton extension"
 msgstr "Sicilia: mở rộng Acton"
 
-msgid "Sicilian Defence: Alapin Variation (2.c3)"
-msgstr "Sicilia: biến thể của Alapin (2.c3) "
-
 msgid "Sicilian Defence: Anderssen Variation"
 msgstr "Sicilia: Anderssen biến "
 
@@ -4113,9 +1584,6 @@ msgstr "Sicilia: Canal-Sokolsky tấn công, Sokolsky biến "
 
 msgid "Sicilian Defence: Chameleon Variation"
 msgstr "Sicilia: tắc kè hoa thay đổi "
-
-msgid "Sicilian Defence: Chekhover Variation"
-msgstr "Sicilian, Chekhover biến "
 
 msgid "Sicilian Defence: Chekhover, Zaitsev Variation"
 msgstr "Sicilia: Chekhover, Zaitsev biến "
@@ -4167,9 +1635,6 @@ msgstr "Sicilia: long, cổ điển, Alekhine biến "
 
 msgid "Sicilian Defence: Dragon, Classical, Amsterdam Variation"
 msgstr "Sicilia: long, cổ điển, Amsterdam biến "
-
-msgid "Sicilian Defence: Dragon, Classical, Bernard Defence"
-msgstr "Sicilia: dragon, cổ điển, phòng thủ Bernard"
 
 msgid "Sicilian Defence: Dragon, Classical, Grigoriev Variation"
 msgstr "Sicilia: long, cổ điển, Grigoriev biến "
@@ -4415,30 +1880,8 @@ msgstr "Sicilia: Richter-Rauzer, Margate (Alekhine) biến thể "
 msgid "Sicilian Defence: Richter-Rauzer, Podvebrady Variation"
 msgstr "Sicilia: Richter-Rauzer, Podvebrady biến "
 
-msgid ""
-"Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...Be7 Defence, 9...Nxd4"
-msgstr ""
-"Sicilian: Richter-Rauzer, tấn công Rauzer, 7 ... Be7 phòng thủ, 9 ... Nxd4"
-
-msgid "Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...Be7 Defence, 9.f4"
-msgstr "Sicilian: Richter-Rauzer, tấn công Rauzer, 7 ... Be7 phòng thủ, 9.f4"
-
 msgid "Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...Be7"
 msgstr "Sicilia: Richter-Rauzer, Rauzer tấn công, 7 ... Be7 "
-
-msgid ""
-"Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...a6 Defence, 11.Bxf6"
-msgstr "Sicilia: tấn công Richter-Rauzer, Rauzer, phòng thủ 7 ... a6, 11.Bxf6"
-
-msgid ""
-"Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...a6 Defence, 8...Bd7"
-msgstr ""
-"Sicilian: Richter-Rauzer, tấn công Rauzer, 7 ... Be7 phòng thủ, 8 ... Bd7"
-
-msgid ""
-"Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...a6 Defence, 9...Be7"
-msgstr ""
-"Sicilian: Richter-Rauzer, tấn công Rauzer, 7 ... phòng thủ a6, 9 ... Be7"
 
 msgid "Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...a6"
 msgstr "Sicilia: Richter-Rauzer, Rauzer tấn công, 7 ... a6 "
@@ -4498,9 +1941,6 @@ msgstr "Sicilia: Scheveningen, biến Tal "
 msgid "Sicilian Defence: Scheveningen, Vitolins Variation"
 msgstr "Sicilia: Scheveningen, Vitolins biến "
 
-msgid "Sicilian Defence: Smith-Morra Gambit, Chicago Defence"
-msgstr "Sicilia: thí quân Smith-Morra, phòng thủ Chicago"
-
 msgid "Sicilian Defence: Smith-Morra Gambit"
 msgstr "Sicilia: thí quân Smith-Morra"
 
@@ -4533,15 +1973,6 @@ msgstr "Sicilia: Stiletto (Althouse) biến thể "
 
 msgid "Sicilian Defence: Sveshnikov Variation"
 msgstr "Sicilia: Sveshnikov biến "
-
-msgid "Sicilian Defence: Szen (Anti-Taimanov) Variation"
-msgstr "Sicilian, biến thể Szen (`chống Taimanov')"
-
-msgid "Sicilian Defence: Szen Variation, Dely-Kasparov Gambit"
-msgstr "Sicilian, Szen biến, Dely-Kasparov Gambit "
-
-msgid "Sicilian Defence: Szen, Hedgehog Variation"
-msgstr "Sicilian, Szen, hedgehog biến "
 
 msgid "Sicilian Defence: Taimanov (Bastrikov) Variation"
 msgstr "Sicilia: Taimanov (Bastrikov) biến thể "
@@ -4579,532 +2010,6 @@ msgstr "Sicilia: Gambit cánh "
 msgid "Sicilian Defence"
 msgstr "Phòng thủ Sicilian"
 
-msgid "Spanish, Ruy Lopez: ...b5 & ...d6"
-msgstr "Ruy Lopez: ... b5 & ... D6 "
-
-msgid "Spanish, Ruy Lopez: 5.O-O"
-msgstr "Ruy Lopez: 5.O-O "
-
-msgid "Spanish, Ruy Lopez: Alapin Defence deferred"
-msgstr "Ruy Lopez: Trì hoãn phòng thủ Alapin"
-
-msgid "Spanish, Ruy Lopez: Anderssen Variation"
-msgstr "Ruy Lopez: Anderssen biến "
-
-msgid "Spanish, Ruy Lopez: Archangelsk (CounterThrust) Variation"
-msgstr "Ruy Lopez: Archangelsk (counterthrust) biến thể "
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, 4.O-O, d6"
-msgstr "Ruy Lopez: Phòng thủ Berlin, 4.O-O, D6"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, 4.O-O"
-msgstr "Ruy Lopez: Phòng thủ Berlin, 4.O-O"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Anderssen Variation"
-msgstr "Ruy Lopez: Phòng thủ Berlin, biến thể Anderssen"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Beverwijk Variation"
-msgstr "Ruy Lopez: Phòng thủ Berlin, biến thể Beverwijk"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Cordel Variation"
-msgstr "Ruy Lopez: Phòng thủ Berlin, biến thể Cordel"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Duras Variation"
-msgstr "Ruy Lopez: Phòng thủ Berlin, biến thể Duras"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Hedgehog Variation"
-msgstr "Ruy Lopez: Phòng thủ Berlin, biến thể hedgehog"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Kaufmann Variation"
-msgstr "Ruy Lopez: Phòng thủ Berlin, biến thể Kaufmann"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Minckwitz Variation"
-msgstr "Ruy Lopez: Phòng thủ Berlin, biến thể Minckwitz"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Mortimer Variation"
-msgstr "Ruy Lopez: Phòng thủ Berlin, biến thể Mortimer"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Mortimer trap"
-msgstr "Ruy Lopez: Phòng thủ Berlin, bẫy Mortimer"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Nyholm Attack"
-msgstr "Ruy Lopez: Phòng thủ Berlin, tấn công Nyholm"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Open Variation"
-msgstr "Ruy Lopez: Phòng thủ Berlin, biến thể mở"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Pillsbury Variation"
-msgstr "Ruy Lopez: Phòng thủ Berlin, biến thể Pillsbury"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Rosenthal Variation"
-msgstr "Ruy Lopez: Phòng thủ Berlin, biến thể Rosenthal"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Tarrasch trap"
-msgstr "Ruy Lopez: Phòng thủ Berlin, bẫy Tarrasch"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Trifunovic Variation"
-msgstr "Ruy Lopez: Phòng thủ Berlin, biến thể Trifunovic"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Winawer Attack"
-msgstr "Ruy Lopez: Phòng thủ Berlin, tấn công Winawer"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Zukertort Variation"
-msgstr "Ruy Lopez: Phòng thủ Berlin, biến thể Zukertort"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence"
-msgstr "Ruy Lopez: Phòng thủ Berlin"
-
-msgid "Spanish, Ruy Lopez: Bird Defence deferred"
-msgstr "Ruy Lopez: bảo vệ chim chậm "
-
-msgid "Spanish, Ruy Lopez: Bird Defence, Paulsen Variation"
-msgstr "Ruy Lopez: bảo vệ chim, Paulsen biến "
-
-msgid "Spanish, Ruy Lopez: Bird Defence"
-msgstr "Ruy Lopez: bảo vệ chim "
-
-msgid "Spanish, Ruy Lopez: Brentano Defence"
-msgstr "Ruy Lopez: Phòng thủ Brentano"
-
-msgid "Spanish, Ruy Lopez: Caro Variation"
-msgstr "Ruy Lopez: Caro biến "
-
-msgid "Spanish, Ruy Lopez: Classical (Cordel) Defence"
-msgstr "Ruy Lopez: Phòng thủ cổ điển (Cordel)"
-
-msgid "Spanish, Ruy Lopez: Classical Defence deferred"
-msgstr "Ruy Lopez: Phòng thủ Cổ điển trì hoãn"
-
-msgid "Spanish, Ruy Lopez: Classical Defence, 4.c3"
-msgstr "Ruy Lopez: Phòng thủ cổ điển, 4.c3"
-
-msgid "Spanish, Ruy Lopez: Classical Defence, Boden Variation"
-msgstr "Ruy Lopez: Phòng thủ cổ điển, biến thể Boden"
-
-msgid "Spanish, Ruy Lopez: Classical Defence, Charousek Variation"
-msgstr "Ruy Lopez: Phòng thủ cổ điển, biến thể Charousek"
-
-msgid "Spanish, Ruy Lopez: Classical Defence, Zaitsev Variation"
-msgstr "Ruy Lopez: Phòng thủ cổ điển, biến thể Zaitsev"
-
-msgid "Spanish, Ruy Lopez: Closed (10...c5)"
-msgstr "Ruy Lopez: đóng (10 ... c5)"
-
-msgid "Spanish, Ruy Lopez: Closed (8...Na5)"
-msgstr "Ruy Lopez: đóng (8 ... Na5) "
-
-msgid "Spanish, Ruy Lopez: Closed (with ...d6)"
-msgstr "Ruy Lopez: đóng (với ... D6) "
-
-msgid "Spanish, Ruy Lopez: Closed Berlin Defence, Bernstein Variation"
-msgstr "Ruy Lopez: Phòng thủ Berlin đóng, biến thể Bernstein"
-
-msgid "Spanish, Ruy Lopez: Closed Berlin Defence, Chigorin Variation"
-msgstr "Ruy Lopez: Phòng thủ Berlin đóng, biến thể Chigorin"
-
-msgid "Spanish, Ruy Lopez: Closed Berlin Defence, Showalter Variation"
-msgstr "Ruy Lopez: Phòng thủ Berlin đóng, biến thể Showalter"
-
-msgid "Spanish, Ruy Lopez: Closed Berlin Defence, Wolf Variation"
-msgstr "Ruy Lopez: Phòng thủ Berlin đóng, biến thể Wolf"
-
-msgid "Spanish, Ruy Lopez: Closed Defence"
-msgstr "Ruy Lopez: kín phòng "
-
-msgid "Spanish, Ruy Lopez: Closed, 7...O-O"
-msgstr "Ruy Lopez: đóng cửa, 7 ... O-O "
-
-msgid "Spanish, Ruy Lopez: Closed, 7...d6, 8.d4"
-msgstr "Ruy Lopez: đóng cửa, 7 ... D6, 8.d4 "
-
-msgid "Spanish, Ruy Lopez: Closed, 8.c3"
-msgstr "Ruy Lopez: khép kín, 8.c3 "
-
-msgid "Spanish, Ruy Lopez: Closed, 9.d4"
-msgstr "Ruy Lopez: khép kín, 9.d4 "
-
-msgid "Spanish, Ruy Lopez: Closed, 9.h3"
-msgstr "Ruy Lopez: khép kín, 9.h3 "
-
-msgid "Spanish, Ruy Lopez: Closed, Anti-Marshall 8.a4"
-msgstr "Ruy Lopez: đóng, chống Marshall 8.a4"
-
-msgid "Spanish, Ruy Lopez: Closed, Averbakh Variation"
-msgstr "Ruy Lopez: khép kín, Averbach biến "
-
-msgid "Spanish, Ruy Lopez: Closed, Balla Variation"
-msgstr "Ruy Lopez: khép kín, Balla biến "
-
-msgid "Spanish, Ruy Lopez: Closed, Basque Gambit (North Spanish Variation)"
-msgstr "Ruy Lopez: khép kín, Basque Gambit (Bắc Tây Ban Nha thay đổi) "
-
-msgid "Spanish, Ruy Lopez: Closed, Bogolyubov Variation"
-msgstr "Ruy Lopez: khép kín, Bogolyubov biến "
-
-msgid "Spanish, Ruy Lopez: Closed, Borisenko Defence"
-msgstr "Ruy Lopez: Phòng thủ Borisenko đóng"
-
-msgid "Spanish, Ruy Lopez: Closed, Breyer Defence"
-msgstr "Ruy Lopez: Phòng thủ Breyer đóng"
-
-msgid "Spanish, Ruy Lopez: Closed, Breyer, 10.d4"
-msgstr "Ruy Lopez: đóng, Breyer, 10.d4"
-
-msgid "Spanish, Ruy Lopez: Closed, Breyer, Borisenko Variation"
-msgstr "Ruy Lopez: khép kín, Breyer, Borisenko biến "
-
-msgid "Spanish, Ruy Lopez: Closed, Breyer, Gligoric Variation"
-msgstr "Ruy Lopez: khép kín, Breyer, biến Gligoric "
-
-msgid "Spanish, Ruy Lopez: Closed, Breyer, Simagin Variation"
-msgstr "Ruy Lopez: khép kín, Breyer, Simagin biến "
-
-msgid "Spanish, Ruy Lopez: Closed, Centre Attack"
-msgstr "Ruy Lopez: khép kín, trung tâm tấn công "
-
-msgid "Spanish, Ruy Lopez: Closed, Chigorin Defence"
-msgstr "Ruy Lopez: Phòng thủ Chigorin quốc đóng"
-
-msgid "Spanish, Ruy Lopez: Closed, Chigorin, 12...Nc6"
-msgstr "Ruy Lopez: đóng, Chigorin, 12 ... Nc6"
-
-msgid "Spanish, Ruy Lopez: Closed, Chigorin, 12...c5d4"
-msgstr "Ruy Lopez: đóng, Chigorin, 12 ... c5d4"
-
-msgid "Spanish, Ruy Lopez: Closed, Chigorin, Rauzer Attack"
-msgstr "Ruy Lopez: khép kín, Chigorin, Rauzer tấn công "
-
-msgid "Spanish, Ruy Lopez: Closed, Chigorin, Yugoslav System"
-msgstr "Ruy Lopez: khép kín, Chigorin, hệ thống Nam Tư "
-
-msgid ""
-"Spanish, Ruy Lopez: Closed, Flohr-Zaitsev System (Lenzerheide Variation)"
-msgstr "Ruy Lopez: khép kín, Flohr-Zaitsev hệ thống (Lenzerheide biến thể) "
-
-msgid "Spanish, Ruy Lopez: Closed, Keres (...Nd7) Defence"
-msgstr "Ruy Lopez: Phòng thủ Keres (... Nd7) đóng"
-
-msgid "Spanish, Ruy Lopez: Closed, Keres (9...a5) Variation"
-msgstr "Ruy Lopez: khép kín, Keres (9 ... a5) biến thể "
-
-msgid "Spanish, Ruy Lopez: Closed, Kholmov Variation"
-msgstr "Ruy Lopez: khép kín, Kholmov biến "
-
-msgid "Spanish, Ruy Lopez: Closed, Leonhardt Variation"
-msgstr "Ruy Lopez: khép kín, Leonhardt biến "
-
-msgid "Spanish, Ruy Lopez: Closed, Lutikov Variation"
-msgstr "Ruy Lopez: khép kín, Lutikov biến "
-
-msgid "Spanish, Ruy Lopez: Closed, Pilnik Variation"
-msgstr "Ruy Lopez: khép kín, Pilnik biến "
-
-msgid "Spanish, Ruy Lopez: Closed, Ragozin-Petrosian (Keres) Variation"
-msgstr "Ruy Lopez: khép kín, Ragozin-Petrosian (`Keres ') biến thể "
-
-msgid "Spanish, Ruy Lopez: Closed, Rossolimo Defence"
-msgstr "Ruy Lopez: Phòng thủ Rossolimo đóng"
-
-msgid "Spanish, Ruy Lopez: Closed, Smyslov Defence"
-msgstr "Ruy Lopez: Phòng thủ Smyslov đóng"
-
-msgid "Spanish, Ruy Lopez: Closed, Suetin Variation"
-msgstr "Ruy Lopez: khép kín, Suetin biến "
-
-msgid "Spanish, Ruy Lopez: Cordel Gambit"
-msgstr "Ruy Lopez: Cordel Gambit "
-
-msgid "Spanish, Ruy Lopez: Cozio Defence deferred"
-msgstr "Ruy Lopez: Cozio vệ thu nhập hoãn lại "
-
-msgid "Spanish, Ruy Lopez: Cozio Defence, Paulsen Variation"
-msgstr "Ruy Lopez: Phòng thủ Cozio, biến thể Paulsen"
-
-msgid "Spanish, Ruy Lopez: Cozio Defence"
-msgstr "Ruy Lopez: Phòng thủ Cozio"
-
-msgid "Spanish, Ruy Lopez: Exchange Variation doubly deferred (DERLD)"
-msgstr "Ruy Lopez: Trao đổi biến thể gấp đôi thu nhập hoãn lại (DERLD) "
-
-msgid "Spanish, Ruy Lopez: Exchange Variation, 5.O-O"
-msgstr "Ruy Lopez: ngoại tệ thay đổi, 5.O-O "
-
-msgid "Spanish, Ruy Lopez: Exchange Variation, Alapin Gambit"
-msgstr "Ruy Lopez: ngoại tệ thay đổi, Alapin Gambit "
-
-msgid "Spanish, Ruy Lopez: Exchange Variation"
-msgstr "Ruy Lopez: ngoại tệ thay đổi "
-
-msgid "Spanish, Ruy Lopez: Exchange, Alekhine Variation"
-msgstr "Ruy Lopez: trao đổi, Alekhine biến "
-
-msgid "Spanish, Ruy Lopez: Exchange, Bronstein Variation"
-msgstr "Ruy Lopez: trao đổi, Bronstein biến "
-
-msgid "Spanish, Ruy Lopez: Exchange, Gligoric Variation"
-msgstr "Ruy Lopez: đổi quân, biến thể Gligoric"
-
-msgid "Spanish, Ruy Lopez: Exchange, Keres Variation"
-msgstr "Ruy Lopez: trao đổi, Keres biến "
-
-msgid "Spanish, Ruy Lopez: Exchange, Romanovsky Variation"
-msgstr "Ruy Lopez: trao đổi, Romanovsky biến "
-
-msgid "Spanish, Ruy Lopez: Fianchetto (Smyslov/Barnes) Defence"
-msgstr "Ruy Lopez: Phòng thủ fianchetto (Smyslov / Barnes)"
-
-msgid "Spanish, Ruy Lopez: Fianchetto Defence deferred"
-msgstr "Ruy Lopez: fianchetto vệ thu nhập hoãn lại "
-
-msgid "Spanish, Ruy Lopez: Four Knights (Tarrasch) Variation"
-msgstr "Ruy Lopez: bốn hiệp sĩ (Tarrasch) biến thể "
-
-msgid "Spanish, Ruy Lopez: Graz Variation"
-msgstr "Ruy Lopez: Graz biến "
-
-msgid "Spanish, Ruy Lopez: Lucena Defence"
-msgstr "Ruy Lopez: Phòng thủ Lucena"
-
-msgid "Spanish, Ruy Lopez: Marshall Counter-Attack, 11...c6"
-msgstr "Ruy Lopez: phản công Marshall, 11 ... c6"
-
-msgid "Spanish, Ruy Lopez: Marshall Counter-Attack"
-msgstr "Ruy Lopez: Marshall phản công "
-
-msgid "Spanish, Ruy Lopez: Marshall, Herman Steiner Variation"
-msgstr "Ruy Lopez: Marshall, Herman Steiner biến "
-
-msgid "Spanish, Ruy Lopez: Marshall, Kevitz Variation"
-msgstr "Ruy Lopez: Marshall, Kevitz biến "
-
-msgid "Spanish, Ruy Lopez: Marshall, Main Line, 12.d2d4"
-msgstr "Ruy Lopez: Marshall, dòng chính, 12.d2d4"
-
-msgid "Spanish, Ruy Lopez: Marshall, Main Line, 14...Qh3"
-msgstr "Ruy Lopez: Marshall, dòng chính, 14 ... Qh3"
-
-msgid "Spanish, Ruy Lopez: Marshall, Main Line, Spassky Variation"
-msgstr "Ruy Lopez: Marshall, dòng chính, Spassky biến "
-
-msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, 5.O-O"
-msgstr "Ruy Lopez: Phòng thủ Steinitz, 5.O-O"
-
-msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, Alapin Variation"
-msgstr "Ruy Lopez: phòng thủ Steinitz hiện đại, biến thể Alapin"
-
-msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, Duras (Keres) Variation"
-msgstr "Ruy Lopez: phòng thủ Steinitz hiện đại, biến thể Duras (Keres)"
-
-msgid ""
-"Spanish, Ruy Lopez: Modern Steinitz Defence, Fianchetto (Bronstein) "
-"Variation"
-msgstr ""
-"Ruy Lopez: phòng thủ Steinitz hiện đại, biến thể fianchetto (Bronstein)"
-
-msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, Richter Variation"
-msgstr "Ruy Lopez: phòng thủ Steinitz hiện đại, biến thể Richter"
-
-msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, Rubinstein Variation"
-msgstr "Ruy Lopez: phòng thủ Steinitz hiện đại, biến thể Rubinstein"
-
-msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, Three Knights Variation"
-msgstr "Ruy Lopez: phòng thủ Steinitz hiện đại, biến thể tam mã"
-
-msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, siesta Variation"
-msgstr "Ruy Lopez: phòng thủ Steinitz hiện đại, biến thể siesta"
-
-msgid "Spanish, Ruy Lopez: Modern Steinitz Defence"
-msgstr "Ruy Lopez: Phòng thủ Steinitz hiện đại"
-
-msgid "Spanish, Ruy Lopez: Moeller Defence"
-msgstr "Ruy Lopez: Phòng thủ Moeller"
-
-msgid "Spanish, Ruy Lopez: Morphy Defence, Duras Variation"
-msgstr "Ruy Lopez: Phòng thủ Morphy, biến thể Duras"
-
-msgid "Spanish, Ruy Lopez: Morphy Defence"
-msgstr "Ruy Lopez: Phòng thủ Morphy"
-
-msgid "Spanish, Ruy Lopez: Noah ark trap"
-msgstr "Ruy Lopez: Noah của hòm bẫy "
-
-msgid "Spanish, Ruy Lopez: Nuernberg Variation"
-msgstr "Ruy Lopez: Nuernberg biến "
-
-msgid "Spanish, Ruy Lopez: Old Steinitz Defence, Nimzovich Attack"
-msgstr "Ruy Lopez: Steinitz phòng thủ lâu đời, Nimzovich tấn công "
-
-msgid "Spanish, Ruy Lopez: Old Steinitz Defence, semi-Duras Variation"
-msgstr "Ruy Lopez: Phòng thủ Steinitz cổ, biến thể bán Duras"
-
-msgid "Spanish, Ruy Lopez: Old Steinitz Defence"
-msgstr "Ruy Lopez: Phòng thủ Steinitz cổ"
-
-msgid "Spanish, Ruy Lopez: Open (Tarrasch) Defence"
-msgstr "Ruy Lopez: Phòng thủ mở (Tarrasch)"
-
-msgid "Spanish, Ruy Lopez: Open Berlin Defence, 5...Be7"
-msgstr "Ruy Lopez: Phòng thủ Berlin mở, 5 ... Be7"
-
-msgid "Spanish, Ruy Lopez: Open Berlin Defence, Showalter Variation"
-msgstr "Ruy Lopez: Phòng thủ Berlin mở, biến thể Showalte"
-
-msgid "Spanish, Ruy Lopez: Open Berlin Defence, l'Hermet Variation"
-msgstr "Ruy Lopez: Phòng thủ Berlin mở, biến thể l'Hermet"
-
-msgid "Spanish, Ruy Lopez: Open, 6.d4 b5"
-msgstr "Ruy Lopez: khai cuộc, b5 6.d4"
-
-msgid "Spanish, Ruy Lopez: Open, 6.d4"
-msgstr "Ruy Lopez: khai cuộc, 6.d4"
-
-msgid "Spanish, Ruy Lopez: Open, 7.Bb3"
-msgstr "Ruy Lopez: khai cuộc, 7.Bb3"
-
-msgid "Spanish, Ruy Lopez: Open, 8...Be6"
-msgstr "Ruy Lopez: khai cuộc, 8 ... Be6"
-
-msgid "Spanish, Ruy Lopez: Open, 8.de"
-msgstr "Ruy Lopez: khai cuộc, 8.de"
-
-msgid "Spanish, Ruy Lopez: Open, 9...Be7, 10.Re1"
-msgstr "Ruy Lopez: khai cuộc, 9 ... Be7, 10.Re1"
-
-msgid "Spanish, Ruy Lopez: Open, 9.c3"
-msgstr "Ruy Lopez: khai cuộc, 9.c3"
-
-msgid "Spanish, Ruy Lopez: Open, Berger Variation"
-msgstr "Ruy Lopez: khai cuộc, biến Berger"
-
-msgid "Spanish, Ruy Lopez: Open, Berlin Variation"
-msgstr "Ruy Lopez: khai cuộc, biến thể Berlin "
-
-msgid "Spanish, Ruy Lopez: Open, Bernstein Variation, Karpov Gambit"
-msgstr "Ruy Lopez: khai cuộc, biến thể Bernstein, thí quân Karpov"
-
-msgid "Spanish, Ruy Lopez: Open, Bernstein Variation"
-msgstr "Ruy Lopez: khai cuộc, biến thể Bernstein"
-
-msgid "Spanish, Ruy Lopez: Open, Breslau Variation"
-msgstr "Ruy Lopez: khai cuộc, biến thể Breslau"
-
-msgid "Spanish, Ruy Lopez: Open, Classical Defence"
-msgstr "Ruy Lopez: khai cuộc, Phòng thủ cổ điển"
-
-msgid "Spanish, Ruy Lopez: Open, Dilworth Variation"
-msgstr "Ruy Lopez: khai cuộc, biến thể Dilworth"
-
-msgid "Spanish, Ruy Lopez: Open, Friess Attack"
-msgstr "Ruy Lopez: khai cuộc, tấn công Friess"
-
-msgid "Spanish, Ruy Lopez: Open, Harksen Gambit"
-msgstr "Ruy Lopez: khai cuộc, thí quân Harksen"
-
-msgid "Spanish, Ruy Lopez: Open, Howell Attack, Adam Variation"
-msgstr "Ruy Lopez: khai cuộc, tấn công Howell, biến thể Adam"
-
-msgid "Spanish, Ruy Lopez: Open, Howell Attack, Ekstroem Variation"
-msgstr "Ruy Lopez: khai cuộc, tấn công Howell, biến thể Ekstroem"
-
-msgid "Spanish, Ruy Lopez: Open, Howell Attack"
-msgstr "Ruy Lopez: khai cuộc, tấn công Howell"
-
-msgid "Spanish, Ruy Lopez: Open, Italian Variation"
-msgstr "Ruy Lopez: khai cuộc, biến thể Ý"
-
-msgid "Spanish, Ruy Lopez: Open, Knorre Variation"
-msgstr "Ruy Lopez: khai cuộc, biến thể Knorre"
-
-msgid "Spanish, Ruy Lopez: Open, Malkin Variation"
-msgstr "Ruy Lopez: khai cuộc, biến thể Malkin"
-
-msgid "Spanish, Ruy Lopez: Open, Motzko Attack, Nenarokov Variation"
-msgstr "Ruy Lopez: khai cuộc, tấn công Motzko, biến thể Nenarokov"
-
-msgid "Spanish, Ruy Lopez: Open, Motzko Attack"
-msgstr "Ruy Lopez: khai cuộc, tấn công Motzko"
-
-msgid "Spanish, Ruy Lopez: Open, Richter Variation"
-msgstr "Ruy Lopez: khai cuộc, biến thể Richter"
-
-msgid "Spanish, Ruy Lopez: Open, Riga Variation"
-msgstr "Ruy Lopez: khai cuộc, biến thể Riga"
-
-msgid "Spanish, Ruy Lopez: Open, Schlechter Defence"
-msgstr "Ruy Lopez: khai cuộc, Phòng thủ Schlechter"
-
-msgid "Spanish, Ruy Lopez: Open, St. Petersburg Variation"
-msgstr "Ruy Lopez: khai cuộc, biến thể St Petersburg"
-
-msgid "Spanish, Ruy Lopez: Open, Tarrasch trap"
-msgstr "Ruy Lopez: khai cuộc, bẫy Tarrasch"
-
-msgid "Spanish, Ruy Lopez: Open, Tartakower Variation"
-msgstr "Ruy Lopez: khai cuộc, biến thể Tartakower"
-
-msgid "Spanish, Ruy Lopez: Open, Zukertort Variation"
-msgstr "Ruy Lopez: khai cuộc, biến thể Zukertort"
-
-msgid "Spanish, Ruy Lopez: Pollock Defence"
-msgstr "Ruy Lopez: Phòng thủ Pollock"
-
-msgid "Spanish, Ruy Lopez: Rabinovich Variation"
-msgstr "Ruy Lopez: Rabinovich biến "
-
-msgid "Spanish, Ruy Lopez: Schliemann Defence deferred"
-msgstr "Ruy Lopez: Schliemann vệ thu nhập hoãn lại "
-
-msgid "Spanish, Ruy Lopez: Schliemann Defence, Berger Variation"
-msgstr "Ruy Lopez: Phòng thủ Schliemann, biến thể Berger"
-
-msgid "Spanish, Ruy Lopez: Schliemann Defence"
-msgstr "Ruy Lopez: Phòng thủ Schliemann"
-
-msgid "Spanish, Ruy Lopez: Siesta, Kopayev Variation"
-msgstr "Ruy Lopez: Siesta, Kopayev biến "
-
-msgid "Spanish, Ruy Lopez: Steinitz Defence deferred (Russian Defence)"
-msgstr "Ruy Lopez: Phòng thủ trì hoãn Steinitz (phòng thủ Nga) "
-
-msgid "Spanish, Ruy Lopez: Steinitz Defence deferred, Boleslavsky Variation"
-msgstr "Ruy Lopez: Steinitz vệ chậm, Boleslavsky biến "
-
-msgid "Spanish, Ruy Lopez: Steinitz Defence deferred, Lipnitsky Variation"
-msgstr "Ruy Lopez: Steinitz vệ chậm, biến đổi Lipnitsky "
-
-msgid "Spanish, Ruy Lopez: Steinitz Defence deferred, Rubinstein Variation"
-msgstr "Ruy Lopez: Steinitz vệ chậm, Rubinstein biến "
-
-msgid ""
-"Spanish, Ruy Lopez: Taimanov (chase/wing/Accelerated CounterThrust) "
-"Variation"
-msgstr "Ruy Lopez: Taimanov (đuổi / cánh / tăng tốc counterthrust) biến thể "
-
-msgid "Spanish, Ruy Lopez: Trajkovic Counter-Attack"
-msgstr "Ruy Lopez: Trajkovic phản công "
-
-msgid ""
-"Spanish, Ruy Lopez: Treybal (Bayreuth) Variation (Exchange var. deferred)"
-msgstr "Ruy Lopez: Treybal (Bayreuth) biến thể (trao đổi var hoãn lại.) "
-
-msgid "Spanish, Ruy Lopez: Vinogradov Variation"
-msgstr "Ruy Lopez: Vinogradov biến "
-
-msgid "Spanish, Ruy Lopez: Wormald (Alapin) Attack"
-msgstr "Ruy Lopez: Wormald (Alapin) tấn công "
-
-msgid "Spanish, Ruy Lopez: Wormald Attack, Grünfeld Variation"
-msgstr "Ruy Lopez: Wormald tấn công, Gruenfeld biến "
-
-msgid "Spanish, Ruy Lopez: Worrall Attack, Sharp Line"
-msgstr "Ruy Lopez: Worrall tấn công, đường nét "
-
-msgid "Spanish, Ruy Lopez: Worrall Attack, solid Line"
-msgstr "Ruy Lopez: Worrall tấn công, dòng rắn "
-
-msgid "Spanish, Ruy Lopez: Worrall Attack"
-msgstr "Ruy Lopez: tấn công Worrall "
-
 msgid "St. George (Baker) Defence"
 msgstr "Phòng thủ St. George (Baker)"
 
@@ -5117,18 +2022,6 @@ msgstr "Khai cuộc Tayler"
 msgid "Tennison (Lemberg, Zukertort) Gambit"
 msgstr "Tennison (Lemberg, Zukertort) Gambit "
 
-msgid "Three Knights Game: Schlechter Variation"
-msgstr "Ba hiệp sĩ: Schlechter biến "
-
-msgid "Three Knights Game: Steinitz Variation"
-msgstr "Ba hiệp sĩ: Steinitz biến "
-
-msgid "Three Knights Game: Steinitz, Rosenthal Variation"
-msgstr "Ba hiệp sĩ: Steinitz, Rosenthal biến "
-
-msgid "Three Knights Game: Winawer Defence (Gothic Defence)"
-msgstr "Tam mã: phòng thủ Winawer (phòng thủ Gothic)"
-
 msgid "Three Knights Game"
 msgstr "Ba hiệp sĩ trò chơi "
 
@@ -5137,9 +2030,6 @@ msgstr "Torre tấn công (Tartakower biến thể) "
 
 msgid "Trompovsky Attack (Ruth, Opovcensky Opening)"
 msgstr "Trompovsky tấn công (Ruth, khai cuộc Opovcensky) "
-
-msgid "Two Knights Defence (Modern Bishop Opening)"
-msgstr "Phòng thủ nhị mã (Khai cuộc hiện đại Tịnh) "
 
 msgid "Two Knights Defence: Blackburne Variation"
 msgstr "hai hiệp sĩ bảo vệ: Blackburne biến "
@@ -5189,9 +2079,6 @@ msgstr "hai hiệp sĩ: Max Lange tấn công, Berger biến "
 msgid "Two Knights Defence: Max Lange Attack, Krause Variation"
 msgstr "hai hiệp sĩ: Max Lange tấn công, Krause biến "
 
-msgid "Two Knights Defence: Max Lange Attack, Loman Defence"
-msgstr "hai hiệp sĩ: Max Lange tấn công, phòng thủ Loman "
-
 msgid "Two Knights Defence: Max Lange Attack, Marshall Variation"
 msgstr "hai hiệp sĩ: Max Lange tấn công, Marshall thay đổi "
 
@@ -5209,9 +2096,6 @@ msgstr "hai hiệp sĩ: Max Lange tấn công "
 
 msgid "Two Knights Defence: Paoli Variation"
 msgstr "hai hiệp sĩ bảo vệ: Paoli biến "
-
-msgid "Two Knights Defence: Perreux Variation"
-msgstr "Hai hiệp sĩ bảo vệ, Perreux biến "
 
 msgid "Two Knights Defence: Pincus Variation"
 msgstr "hai hiệp sĩ bảo vệ: Pincus biến "
@@ -5258,62 +2142,8 @@ msgstr "Vienna cờ: Kaufmann biến "
 msgid "Vienna Gambit: Paulsen Attack"
 msgstr "Vienna cờ: Paulsen tấn công "
 
-msgid "Vienna Gambit: Steinitz Variation"
-msgstr "Vienna cờ, Steinitz biến "
-
-msgid "Vienna Gambit: Wurzburger trap"
-msgstr "Vienna cờ, Wurzburger bẫy "
-
 msgid "Vienna Gambit"
 msgstr "Vienna cờ "
-
-msgid "Vienna Game: Adams' Gambit"
-msgstr "Vienna: Adams Gambit "
-
-msgid "Vienna Game: Alekhine Variation"
-msgstr "Vienna: Alekhine biến "
-
-msgid "Vienna Game: Falkbeer Variation"
-msgstr "Vienna: Falkbeer biến "
-
-msgid "Vienna Game: Fyfe Gambit"
-msgstr "Vienna: Fyfe Gambit "
-
-msgid "Vienna Game: Hamppe-Allgaier Gambit, Alapin Variation"
-msgstr "Vienna: Hamppe-Allgaier cờ, Alapin biến "
-
-msgid "Vienna Game: Hamppe-Muzio Gambit"
-msgstr "Vienna: Hamppe-Muzio Gambit "
-
-msgid "Vienna Game: Hamppe-Muzio, Dubois Variation"
-msgstr "Vienna: Hamppe-Muzio, Dubois biến "
-
-msgid "Vienna Game: Max Lange Defence"
-msgstr "Ván cờ Vienna, phòng thủ Max Lange"
-
-msgid "Vienna Game: Mengarini Variation"
-msgstr "Vienna: Mengarini biến "
-
-msgid "Vienna Game: Paulsen Variation"
-msgstr "Vienna: Paulsen biến "
-
-msgid "Vienna Game: Paulsen-Mieses Variation"
-msgstr "Vienna: Paulsen-Mieses biến "
-
-msgid "Vienna Game: Pierce Gambit, Rushmere Attack"
-msgstr "Vienna: Pierce cờ, Rushmere tấn công "
-
-msgid "Vienna Game: Pierce Gambit"
-msgstr "Vienna: Pierce Gambit "
-
-msgid "Vienna Game: Steinitz Gambit, Fraser-Minckwitz Variation"
-msgstr "Vienna: Steinitz cờ, Fraser-Minckwitz biến "
-
-msgid "Vienna Game: Steinitz Gambit, Zukertort Defence"
-msgstr "Vienna: thí quân Steinitz, phòng thủ Zukertort"
-
-msgid "Vienna Game: Steinitz Gambit"
-msgstr "Vienna: Steinitz Gambit "
 
 msgid "Vienna Game"
 msgstr "Vienna trò chơi "

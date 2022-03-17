@@ -258,7 +258,7 @@ class Configuration:
         return self.x_pgn_headerbackground if self.x_pgn_headerbackground else "#EDEDE4"
 
     def carpeta_gaviota_defecto(self):
-        return Code.relative_root(Code.path_resource("Gaviota"))
+        return Code.path_resource("Gaviota")
 
     def carpeta_gaviota(self):
         if not Util.exist_file(os.path.join(self.x_carpeta_gaviota, "kbbk.gtb.cp4")):
@@ -274,7 +274,6 @@ class Configuration:
     def pieces_speed_porc(self):
         sp = min(self.x_pieces_speed, 300)
         return sp / 100.0
-
 
     def set_player(self, value):
         self.x_player = value
@@ -392,7 +391,7 @@ class Configuration:
         return "%s/PlayGame.db" % self.carpeta_results
 
     def file_learn_game(self):
-         return "%s/LearnPGN.db" % self.carpeta_results
+        return "%s/LearnPGN.db" % self.carpeta_results
 
     def file_gms(self):
         return "%s/gm.pke" % self.carpeta_config
@@ -549,7 +548,7 @@ class Configuration:
         self.x_color_nag3 = "#820082"
         self.x_color_nag4 = "#FF0606"
         self.x_color_nag5 = "#008500"
-        self.x_color_nag6 = "#ECC70A"
+        self.x_color_nag6 = "#BD9F07"
 
     def graba(self):
         dic = {}
@@ -741,6 +740,7 @@ class Configuration:
 
     def clean_tmp_folder(self):
         try:
+
             def remove_folder(folder, root):
                 if "UserData" in folder and "tmp" in folder:
                     entry: os.DirEntry
@@ -751,6 +751,7 @@ class Configuration:
                             Util.remove_file(entry.path)
                     if not root:
                         os.rmdir(folder)
+
             remove_folder(self.carpetaTemporal(), True)
         except:
             pass

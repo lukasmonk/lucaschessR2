@@ -5,109 +5,6 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "Alapin Opening"
-msgstr "افتتاح ألابين"
-
-msgid "Alekhine Defence: Balogh Variation"
-msgstr "دفاع إليخين: بالوغ تفريع"
-
-msgid "Alekhine Defence: Brooklyn Defence"
-msgstr "دفاع إليخين: بروكلين دفاع"
-
-msgid "Alekhine Defence: Exchange Variation"
-msgstr "دفاع إليخين: التكسير تفريع"
-
-msgid "Alekhine Defence: Four Pawns Attack, 6...Nc6"
-msgstr "دفاع إليخين: الأربعة بيادق هجوم, 6...Nc7"
-
-msgid "Alekhine Defence: Four Pawns Attack, 7.Be3"
-msgstr "دفاع إليخين: الأربعة بيادق هجوم, 7.Be4"
-
-msgid "Alekhine Defence: Four Pawns Attack, Fianchetto Variation"
-msgstr "دفاع إليخين: الأربعة بيادق هجوم, فيل الوتر الطويل تفريع"
-
-msgid ""
-"Alekhine Defence: Four Pawns Attack, Ilyin-Genevsky var. Iline-Jenevski"
-msgstr "دفاع إليخين: الأربعة بيادق هجوم, الين-جينفرسكي تفريع"
-
-msgid "Alekhine Defence: Four Pawns Attack, Korchnoi Variation"
-msgstr "دفاع إليخين: الأربعة بيادق هجوم, تفريع كورشنوي"
-
-msgid "Alekhine Defence: Four Pawns Attack, Planinc Variation"
-msgstr "دفاع إليخين: الأربعة بيادق هجوم, بلانينك تفريع"
-
-msgid "Alekhine Defence: Four Pawns Attack, Trifunovic Variation"
-msgstr "دفاع إليخين: الأربعة بيادق هجوم, تريفونوفيك تفريع"
-
-msgid "Alekhine Defence: Four Pawns Attack"
-msgstr "دفاع إليخين: الأربعة بيادق هجوم"
-
-msgid "Alekhine Defence: Kmoch Variation"
-msgstr "دفاع إليخين: كنوش تفريع"
-
-msgid "Alekhine Defence: Krejcik Variation"
-msgstr "دفاع إليخين: كرجيك تفريع"
-
-msgid "Alekhine Defence: Maroczy Variation"
-msgstr "دفاع إليخين: ماركوتزي تفريع"
-
-msgid "Alekhine Defence: Modern Variation, 4...Bg4"
-msgstr "دفاع إليخين: حديث تفريع, 4...Bg5"
-
-msgid "Alekhine Defence: Modern Variation"
-msgstr "دفاع إليخين: حديث تفريع"
-
-msgid "Alekhine Defence: Mokele Mbembe (Buecker) Variation"
-msgstr "دفاع إليخين: موكلي ميمبي (بويكر) تفريع"
-
-msgid "Alekhine Defence: O'Sullivan Gambit"
-msgstr "دفاع إليخين: أوسوليفان جامبيت"
-
-msgid "Alekhine Defence: Saemisch Attack"
-msgstr "دفاع إليخين: ساميش هجوم"
-
-msgid "Alekhine Defence: Scandinavian Variation"
-msgstr "دفاع إليخين: إسكندينافى تفريع"
-
-msgid "Alekhine Defence: Spielmann Variation"
-msgstr "دفاع إليخين: سبيلمان تفريع"
-
-msgid "Alekhine Defence: Steiner Variation"
-msgstr "دفاع إليخين: شتاينر تفريع"
-
-msgid "Alekhine Defence: Two Pawns' (Lasker) Attack"
-msgstr "دفاع إليخين: بيدقين(لاسكر) هجوم"
-
-msgid "Alekhine Defence: Two Pawns' Attack, Mikenas Variation"
-msgstr "دفاع إليخين: بيدقين هجوم, ميكناس تفريع"
-
-msgid "Alekhine Defence: Welling Variation"
-msgstr "دفاع إليخين:ويلينج تفريع"
-
-msgid "Alekhine Defence: modern, Alekhine Variation"
-msgstr "دفاع إليخين: حديث, اليخين تفريع"
-
-msgid "Alekhine Defence: modern, Fianchetto Variation"
-msgstr "دفاع إليخين: حديث, فيل الوتر الطويل تفريع"
-
-msgid "Alekhine Defence: modern, Flohr Variation"
-msgstr "دفاع إليخين: حديث, فلوهر تفريع"
-
-msgid "Alekhine Defence: modern, Keres Variation"
-msgstr "دفاع إليخين: حديث,كيريس تفريع"
-
-msgid "Alekhine Defence: modern, Larsen Variation"
-msgstr "دفاع إليخين: حديث, لارسن تفريع"
-
-msgid "Alekhine Defence: modern, Panov Variation"
-msgstr "دفاع إليخين: حديث, بانوف تفريع"
-
-msgid "Alekhine Defence: modern, Schmid Variation"
-msgstr "دفاع إليخين: حديث, شميد تفريع"
-
-msgid "Alekhine Defence"
-msgstr "دفاع إليخين"
-
 msgid "Amar (Paris) Opening"
 msgstr "أمار (باريس) افتتاح"
 
@@ -116,9 +13,6 @@ msgstr "أمار جامبيت"
 
 msgid "Amsterdam Attack"
 msgstr "أمستردام هجوم"
-
-msgid "Anderssen Opening"
-msgstr "أندرسن افتتاح"
 
 msgid "Anti-Borg (Desprez) Opening"
 msgstr "ضد-بورج (ديسبرتز) افتتاح"
@@ -161,12 +55,6 @@ msgstr "جامبيت بينكو: زايتسيف نظام"
 
 msgid "Benko Gambit"
 msgstr "جامبيت بينكو"
-
-msgid "Benko Opening: Reversed Alekhine"
-msgstr "افتتاح بينكو: المعكوس اليخين"
-
-msgid "Benko Opening"
-msgstr "افتتاح بينكو"
 
 msgid "Benoni Defence: 6.e4"
 msgstr "بينوني: 6.e5"
@@ -216,14 +104,8 @@ msgstr "بينوني: الأربعة بيادق هجوم, الخط الرئيس�
 msgid "Benoni Defence: Four Pawns Attack"
 msgstr "بينوني: الأربعة بيادق هجوم"
 
-msgid "Benoni Defence: Hromodka System"
-msgstr "بينوني دفاع, هرومودوكا نظام"
-
 msgid "Benoni Defence: Mikenas Variation"
 msgstr "بينوني: ميكناس تفريع"
-
-msgid "Benoni Defence: Nimzovich (knight tour) Variation"
-msgstr "بينوني: نيمزوفيتش تفريع ( جولة الحصان)"
 
 msgid "Benoni Defence: Pawn Storm Variation"
 msgstr "بينوني:  تفريع عاصفة البيدق"
@@ -236,90 +118,6 @@ msgstr "بينوني: أولمان تفريع"
 
 msgid "Benoni Defence"
 msgstr "بينوني دفاع"
-
-msgid "Bird Opening: From Gambit, Lasker Variation"
-msgstr "بيرد: جامبيت فروم, لاسكر تفريع"
-
-msgid "Bird Opening: From Gambit, Lipke Variation"
-msgstr "بيرد: جامبيت فروم, ليبكي تفريع"
-
-msgid "Bird Opening: From Gambit"
-msgstr "بيرد: جامبيت فروم"
-
-msgid "Bird Opening: Hobbs Gambit"
-msgstr "بيرد: هوبس جامبيت"
-
-msgid "Bird Opening: Lasker Variation"
-msgstr "بيرد افتتاح: لاسكر تفريع"
-
-msgid "Bird Opening: Swiss Gambit"
-msgstr "بيرد افتتاح, السويسري جامبيت"
-
-msgid "Bird Opening: Williams Gambit"
-msgstr "بيرد افتتاح: ويليامس جامبيت"
-
-msgid "Bird Opening"
-msgstr "بيرد افتتاح"
-
-msgid "Bishop Opening: Berlin Defence"
-msgstr "افتتاح الفيل: دفاع بيرلين"
-
-msgid "Bishop Opening: Calabrese Counter-Gambit, Jaenisch Variation"
-msgstr "افتتاح الفيل: كالابريس الجامبيت المضاد, جينيش تفريع"
-
-msgid "Bishop Opening: Calabrese Counter-Gambit"
-msgstr "افتتاح الفيل: كالابريس الجامبيت المضاد"
-
-msgid "Bishop Opening: Classical Variation"
-msgstr "افتتاح الفيل: التفريع الكلاسيكي"
-
-msgid "Bishop Opening: Four Pawns' Gambit"
-msgstr "افتتاح الفيل: الأربعة بيادق' جامبيت"
-
-msgid "Bishop Opening: Greco Gambit"
-msgstr "افتتاح الفيل: جريكو جامبيت"
-
-msgid "Bishop Opening: Lewis Counter-Gambit"
-msgstr "افتتاح الفيل: لويس الجامبيت المضاد"
-
-msgid "Bishop Opening: Lewis Gambit"
-msgstr "افتتاح الفيل: لويس جامبيت"
-
-msgid "Bishop Opening: Lisitsyn Variation"
-msgstr "افتتاح الفيل: ليزيتسين تفريع"
-
-msgid "Bishop Opening: Lopez Gambit"
-msgstr "افتتاح الفيل: لوبيز جامبيت"
-
-msgid "Bishop Opening: MacDonnell Double Gambit"
-msgstr "افتتاح الفيل: ماكدونالد المزدوج جامبيت"
-
-msgid "Bishop Opening: Philidor Counter-Attack"
-msgstr "افتتاح الفيل:  فيليدور الهجوم المضاد"
-
-msgid "Bishop Opening: Philidor Variation"
-msgstr "افتتاح الفيل:  فيليدور تفريع"
-
-msgid "Bishop Opening: Ponziani Gambit"
-msgstr "افتتاح الفيل: بونزياني جامبيت"
-
-msgid "Bishop Opening: Pratt Variation"
-msgstr "افتتاح الفيل: برات تفريع"
-
-msgid "Bishop Opening: Urusov Gambit, Panov Variation"
-msgstr "افتتاح الفيل: يوروزوف جامبيت, بانوف تفريع"
-
-msgid "Bishop Opening: Urusov Gambit"
-msgstr "افتتاح الفيل: يوروزوف جامبيت"
-
-msgid "Bishop Opening: Wing Gambit"
-msgstr "افتتاح الفيل: الجناح جامبيت"
-
-msgid "Bishop Opening: del Rio Variation"
-msgstr "افتتاح الفيل: ديل ريو تفريع"
-
-msgid "Bishop Opening"
-msgstr "افتتاح الفيل"
 
 msgid "Blackburne shilling Gambit"
 msgstr "برنبلاك شيلنج جامبيت"
@@ -350,12 +148,6 @@ msgstr "بودن-كايزرتسكي جامبيت: ليشتنهاين دفاع"
 
 msgid "Boden-Kieseritsky Gambit"
 msgstr "بودن-كايزرتسكي جامبيت"
-
-msgid "Bogo-Indian Defence: Grünfeld Variation"
-msgstr "بوجو الهندي دفاع, جرونفلد تفريع"
-
-msgid "Bogo-Indian Defence: Nimzovich Variation"
-msgstr "بوجو الهندي دفاع, نيمزوفيتش تفريع"
 
 msgid "Bogo-Indian Defence"
 msgstr "بوجو الهندي دفاع"
@@ -401,12 +193,6 @@ msgstr "كاروكان: تقديم, شورت تفريع"
 
 msgid "Caro-Kann Defence: Alekhine Gambit"
 msgstr "كاروكان: اليخين جامبيت"
-
-msgid "Caro-Kann Defence: Anti-Anti-Caro-Kann Defence"
-msgstr "كاروكان: ضد-ضد-دفاع كاروكان"
-
-msgid "Caro-Kann Defence: Anti-Caro-Kann Defence"
-msgstr "كاروكان: ضد-دفاع كاروكان"
 
 msgid "Caro-Kann Defence: Bronstein-Larsen Variation"
 msgstr "كاروكان: برونشتاين-لارسن تفريع"
@@ -471,9 +257,6 @@ msgstr "كاروكان: بانوف-بوتفنيك, سزرنياك تفريع"
 msgid "Caro-Kann Defence: Panov-Botvinnik, Gunderam Attack"
 msgstr "كاروكان: بانوف-بوتفنيك, جاندرام هجوم"
 
-msgid "Caro-Kann Defence: Panov-Botvinnik, Herzog Defence"
-msgstr "كاروكان: بانوف-بوتفنيك, هرزوج دفاع"
-
 msgid "Caro-Kann Defence: Panov-Botvinnik, Reifir (Spielmann) Variation"
 msgstr "كاروكان: بانوف-بوتفنيك, ريفير (سبيلمان) تفريع"
 
@@ -504,51 +287,6 @@ msgstr "دفاع كاروكان"
 msgid "Caro-Masi Defence"
 msgstr "كارو-مازي دفاع"
 
-msgid "Catalan Opening: Closed, 5.Nf3"
-msgstr "كاتالان: المغلق, 5.Nf4"
-
-msgid "Catalan Opening: Closed, 6...Nbd7"
-msgstr "كاتالان: المغلق, 6...Nbd8"
-
-msgid "Catalan Opening: Closed, 7.Qc2"
-msgstr "كاتالان: المغلق, 7.Qc3"
-
-msgid "Catalan Opening: Closed, Botvinnik Variation"
-msgstr "كاتالان: المغلق, بوتفنيك تفريع"
-
-msgid "Catalan Opening: Closed, Main Line"
-msgstr "كاتالان: المغلق, الخط الرئيسي"
-
-msgid "Catalan Opening: Closed, Qc2 & b3"
-msgstr "كاتالان: المغلق, Qc2 & b4"
-
-msgid "Catalan Opening: Closed, Sokolsky Variation"
-msgstr "كاتالان: المغلق, سوكولوسكي تفريع"
-
-msgid "Catalan Opening: Closed, Spassky Gambit"
-msgstr "كاتالان: المغلق, سباسكي جامبيت"
-
-msgid "Catalan Opening: Closed, Zagoryansky Variation"
-msgstr "كاتالان: المغلق, زاجوريانسكي تفريع"
-
-msgid "Catalan Opening: Closed"
-msgstr "كاتالان: المغلق"
-
-msgid "Catalan Opening: Open, 5.Nf3"
-msgstr "كاتالان: المفتوح , 5.Nf4"
-
-msgid "Catalan Opening: Open, 5.Qa4 Nbd7, 6.Qxc4"
-msgstr "كاتالان: المفتوح , 5.Qa4 Nbd7, 6.Qxc5"
-
-msgid "Catalan Opening: Open, 5.Qa4"
-msgstr "كاتالان: المفتوح , 5.Qa5"
-
-msgid "Catalan Opening: Open, Alekhine Variation"
-msgstr "كاتالان: المفتوح , اليخين تفريع"
-
-msgid "Catalan Opening: Open, Classical Line"
-msgstr "كاتالان: المفتوح , الكلاسيكي الخط"
-
 msgid "Catalan Opening"
 msgstr "افتتاح كاتالان"
 
@@ -576,9 +314,6 @@ msgstr "الوسط مباراة: لوهيرمت تفريع"
 msgid "Centre Game"
 msgstr "الوسط مباراة"
 
-msgid "Clemenz (Mead, Basman or de Klerk) Opening"
-msgstr "كليمينز (ميد, باسمان أو ديل كليرك) افتتاح"
-
 msgid "Colle System"
 msgstr "نظام كولي"
 
@@ -588,14 +323,8 @@ msgstr "كورن ستالك دفاع"
 msgid "Crab Opening"
 msgstr "كراب افتتاح"
 
-msgid "Czech Benoni Defence: King Indian System"
-msgstr "التشيكي بينوني: الملك الهندي نظام"
-
 msgid "Czech Benoni Defence"
 msgstr "التشيكي بينوني دفاع"
-
-msgid "Damiano Defence"
-msgstr "داميانو دفاع"
 
 msgid "Danish Gambit: Collijn Defence"
 msgstr "الجامبيت الدانمركي: كوليجن دفاع"
@@ -621,21 +350,6 @@ msgstr "درسدن افتتاح"
 msgid "Dunst (Sleipner, Heinrichsen) Opening"
 msgstr "دانست (سليبنر, هينريشسن) افتتاح"
 
-msgid "Durkin Attack"
-msgstr "دوركين هجوم"
-
-msgid "Dutch Defence: 2.Bg5 Variation"
-msgstr "الهولندي, 2.Bg5 تفريع"
-
-msgid "Dutch Defence: Alekhine Variation"
-msgstr "الدفاع لهولندي, اليخين تفريع"
-
-msgid "Dutch Defence: Balogh Defence"
-msgstr "الهولندي: بالوغ دفاع"
-
-msgid "Dutch Defence: Blackburne Variation"
-msgstr "الدفاع لهولندي, برنبلاك تفريع"
-
 msgid "Dutch Defence: Bladel Variation"
 msgstr "الدفاع لهولندي: بلادل تفريع"
 
@@ -660,12 +374,6 @@ msgstr "الهولندي: الين-جينفرسكي تفريع"
 msgid "Dutch Defence: Ilyin-Genevsky, Winter Variation"
 msgstr "الهولندي: الين-جينفرسكي, وينتر تفريع"
 
-msgid "Dutch Defence: Korchnoi Attack"
-msgstr "الهولندي, كورشنوي هجوم"
-
-msgid "Dutch Defence: Krejcik Gambit"
-msgstr "الهولندي, كرجيك جامبيت"
-
 msgid "Dutch Defence: Leningrad Variation"
 msgstr "الهولندي: لينينغراد تفريع"
 
@@ -684,15 +392,6 @@ msgstr "الهولندي: لينينغراد, الرئيسي تفريع مع c7"
 msgid "Dutch Defence: Leningrad, Main Variation"
 msgstr "الهولندي: لينينغراد, الرئيسي تفريع"
 
-msgid "Dutch Defence: Manhattan (Alapin, Ulvestad) Variation"
-msgstr "الهولندي, مانهاتن (الابين, يوليفستاد) تفريع"
-
-msgid "Dutch Defence: Rubinstein Variation"
-msgstr "الدفاع لهولندي, روبينشتاين تفريع"
-
-msgid "Dutch Defence: Spielmann Gambit"
-msgstr "الهولندي, سبيلمان جامبيت"
-
 msgid "Dutch Defence: Staunton Gambit deferred"
 msgstr "الهولندي: ستاونتون جامبيت ديفيرد"
 
@@ -707,9 +406,6 @@ msgstr "الهولندي: ستاونتون جامبيت, لاسكر تفريع"
 
 msgid "Dutch Defence: Staunton Gambit, Nimzovich Variation"
 msgstr "الهولندي: ستاونتون جامبيت, نيمزوفيتش تفريع"
-
-msgid "Dutch Defence: Staunton Gambit, Staunton Line"
-msgstr "الهولندي: ستاونتون جامبيت, ستاونتون's الخط"
 
 msgid "Dutch Defence: Staunton Gambit, Tartakower Variation"
 msgstr "الهولندي: ستاونتون جامبيت, تارتاكوفر تفريع"
@@ -732,9 +428,6 @@ msgstr "الهولندي: الحائط الصخري, بوتفنيك تفريع"
 msgid "Dutch Defence: Stonewall, Chekhover Variation"
 msgstr "الهولندي: الحائط الصخري: تشيكهوفر تفريع"
 
-msgid "Dutch Defence: Von Pretzel Gambit"
-msgstr "الهولندي, فون بريتزال جامبيت"
-
 msgid "Dutch Defence"
 msgstr "الدفاع لهولندي"
 
@@ -750,224 +443,8 @@ msgstr "الهندي الهولندي, اليخين تفريع"
 msgid "Dzindzichashvili Defence"
 msgstr "دزيندزيكهاشفيلي دفاع"
 
-msgid "English Opening: 1...Nf6 (Anglo-Indian Defence)"
-msgstr "الانجليزي, 1...Nf6 (أنجلو-الهندي دفاع)"
-
-msgid "English Opening: Adorjan Defence"
-msgstr "الانجليزي : أدورجان دفاع"
-
 msgid "English Opening: Agincourt Variation"
 msgstr "الافتتاح الانجليزي: اجنكورت تفريع"
-
-msgid "English Opening: Anglo-Dutch Defence"
-msgstr "الانجليزي : أنجلو-الهولندي دفاع"
-
-msgid "English Opening: Anglo-Grünfeld Defence, Korchnoi Variation"
-msgstr "الانجليزي : أنجلو-جرونفلد دفاع, تفريع كورشنوي"
-
-msgid "English Opening: Anglo-Grünfeld Defence"
-msgstr "الانجليزي : أنجلو-جرونفلد دفاع"
-
-msgid "English Opening: Anglo-Grünfeld, Czech Defence"
-msgstr "الانجليزي : أنجلو-جرونفلد, التشيكي دفاع"
-
-msgid "English Opening: Anglo-Grünfeld, Smyslov Defence"
-msgstr "الانجليزي : أنجلو-جرونفلد, سيمسلوف دفاع"
-
-msgid "English Opening: Bellon Gambit"
-msgstr "الانجليزي : بيلون جامبيت"
-
-msgid "English Opening: Bled Variation"
-msgstr "الانجليزي : بلد تفريع"
-
-msgid "English Opening: Botvinnik System"
-msgstr "الانجليزي : نظام بوتفنيك"
-
-msgid "English Opening: Bradley Beach Variation"
-msgstr "الانجليزي : تفريع شاطئ برادلي"
-
-msgid "English Opening: Bremen System with ...g6"
-msgstr "الانجليزي : بريمين نظام مع ...g7"
-
-msgid "English Opening: Bremen System, Keres Variation"
-msgstr "الانجليزي : بريمين نظام,كيريس تفريع"
-
-msgid "English Opening: Bremen, Smyslov System"
-msgstr "الانجليزي : بريمين, سيمسلوف نظام"
-
-msgid "English Opening: Bremen, reverse Dragon"
-msgstr "الانجليزي : بريمين, معكوس التنين"
-
-msgid "English Opening: Capablanca Variation"
-msgstr "الانجليزي : كابابلانكا's تفريع"
-
-msgid "English Opening: Carls' Bremen System"
-msgstr "الانجليزي : كارلس بريمين نظام"
-
-msgid "English Opening: Caro-Kann Defensive System, Bogolyubov Variation"
-msgstr "الانجليزي : كاروكان دفاعي نظام, تفريع وجوليوبوف"
-
-msgid "English Opening: Caro-Kann Defensive System"
-msgstr "الانجليزي : كاروكان دفاعي نظام"
-
-msgid "English Opening: Closed System (without ...d6)"
-msgstr "الانجليزي : المغلق نظام (بدون ...d6)"
-
-msgid "English Opening: Closed System"
-msgstr "الانجليزي : المغلق نظام"
-
-msgid "English Opening: Closed, 5.Rb1 Taimanov Variation"
-msgstr "الانجليزي : المغلق, 5.Rb1 تيمانوف تفريع"
-
-msgid "English Opening: Closed, 5.Rb1"
-msgstr "الانجليزي : المغلق, 5.Rb2"
-
-msgid "English Opening: Closed, Hort Variation"
-msgstr "الانجليزي : المغلق, هورت تفريع"
-
-msgid "English Opening: Closed, Taimanov Variation"
-msgstr "الانجليزي : المغلق, تيمانوف تفريع"
-
-msgid "English Opening: Four Knights System"
-msgstr "الانجليزي : الأربعة أحصنة نظام"
-
-msgid "English Opening: Four Knights, 4.e3"
-msgstr "الانجليزي : الأربعة أحصنة, 4.e4"
-
-msgid "English Opening: Four Knights, Capablanca Variation"
-msgstr "الانجليزي : الأربعة أحصنة, كابابلانكا تفريع"
-
-msgid "English Opening: Four Knights, Kingside Fianchetto"
-msgstr "الانجليزي : الأربعة أحصنة, جناح الملك فيل الوتر الطويل"
-
-msgid "English Opening: Four Knights, Marini Variation"
-msgstr "الانجليزي : الأربعة أحصنة, ماريني تفريع"
-
-msgid "English Opening: Four Knights, Nimzovich Variation"
-msgstr "الانجليزي : الأربعة أحصنة, نيمزوفيتش تفريع"
-
-msgid "English Opening: Four Knights, Romanishin Variation"
-msgstr "الانجليزي : الأربعة أحصنة, رومانشين تفريع"
-
-msgid "English Opening: Four Knights, Stean Variation"
-msgstr "الانجليزي : الأربعة أحصنة, استيان تفريع"
-
-msgid "English Opening: Jaenisch Gambit"
-msgstr "الانجليزي : جينيش جامبيت"
-
-msgid "English Opening: Keres Variation"
-msgstr "الانجليزي,كيريس تفريع"
-
-msgid "English Opening: Kramnik-Shirov CounterAttack"
-msgstr "الانجليزي, كرامنيك-شيروف االهجوم المضاد"
-
-msgid "English Opening: Kurajica Defence"
-msgstr "الانجليزي : كوراجيكا دفاع"
-
-msgid "English Opening: London Defensive System"
-msgstr "الانجليزي : لندن دفاعي نظام"
-
-msgid "English Opening: Mikenas-Carls Variation"
-msgstr "الانجليزي : ميكناس-كارلس تفريع"
-
-msgid "English Opening: Mikenas-Carls, Flohr Variation"
-msgstr "الانجليزي : ميكناس-كارلس, فلوهر تفريع"
-
-msgid "English Opening: Mikenas-Carls, Kevitz Variation"
-msgstr "الانجليزي : ميكناس-كارلس, كيفيتس تفريع"
-
-msgid "English Opening: Mikenas-Carls, Sicilian Variation"
-msgstr "الانجليزي : ميكناس-كارلس, صقلي تفريع"
-
-msgid "English Opening: Nenarokov Variation"
-msgstr "الانجليزي : نيناروكوف تفريع"
-
-msgid "English Opening: Neo-Catalan Accepted"
-msgstr "الانجليزي : المستحدث-كاتالان المقبول"
-
-msgid "English Opening: Neo-Catalan Declined"
-msgstr "الانجليزي : المستحدث-كاتالان المرفوض"
-
-msgid "English Opening: Neo-Catalan"
-msgstr "الانجليزي : المستحدث-كاتالان"
-
-msgid "English Opening: New York (London) Defensive System"
-msgstr "الانجليزي : نيو يورك (لندن) دفاعي نظام"
-
-msgid "English Opening: Nimzo-English Opening"
-msgstr "الانجليزي : نيمزو-الافتتاح الانجليزي"
-
-msgid "English Opening: Nimzovich Variation"
-msgstr "الانجليزي, نيمزوفيتش تفريع"
-
-msgid "English Opening: Nimzovich, Flohr Variation"
-msgstr "الانجليزي, نيمزوفيتش, فلوهر تفريع"
-
-msgid "English Opening: Queens Indian Formation"
-msgstr "الانجليزي : الوزير الهندي تشكيل"
-
-msgid "English Opening: Queens Indian, Romanishin Variation"
-msgstr "الانجليزي : الوزير الهندي, رومانشين تفريع"
-
-msgid "English Opening: Romanishin Gambit"
-msgstr "الانجليزي : رومانشين جامبيت"
-
-msgid "English Opening: Sicilian Reversed"
-msgstr "الانجليزي : صقلي المعكوس"
-
-msgid "English Opening: Smyslov Defence"
-msgstr "الانجليزي, سيمسلوف دفاع"
-
-msgid "English Opening: Symmetrical Variation"
-msgstr "الانجليزي : التفريع المتناظر"
-
-msgid "English Opening: Symmetrical, Benoni Formation"
-msgstr "الانجليزي : متناظر, بينوني تشكيل"
-
-msgid "English Opening: Symmetrical, Botvinnik System Reversed"
-msgstr "الانجليزي : متناظر, نظام بوتفنيك المعكوس"
-
-msgid "English Opening: Symmetrical, Botvinnik System"
-msgstr "الانجليزي : متناظر, نظام بوتفنيك"
-
-msgid "English Opening: Symmetrical, Four Knights System"
-msgstr "الانجليزي : متناظر, الأربعة أحصنة نظام"
-
-msgid "English Opening: Symmetrical, Geller Variation"
-msgstr "الانجليزي : متناظر, جيلر تفريع"
-
-msgid "English Opening: Symmetrical, Hedgehog System"
-msgstr "الانجليزي : متناظر, هيدجيهوج نظام"
-
-msgid "English Opening: Symmetrical, Hedgehog, flexible Formation"
-msgstr "الانجليزي : متناظر, هيدجيهوج, مرن تشكيل"
-
-msgid "English Opening: Symmetrical, Main Line with b3"
-msgstr "الانجليزي : متناظر, الخط الرئيسي مع b4"
-
-msgid "English Opening: Symmetrical, Main Line with d3"
-msgstr "الانجليزي : متناظر, الخط الرئيسي مع d3"
-
-msgid "English Opening: Symmetrical, Main Line with d4"
-msgstr "الانجليزي : متناظر, الخط الرئيسي مع d4"
-
-msgid "English Opening: Symmetrical, Rubinstein System"
-msgstr "الانجليزي : متناظر, روبينشتاين نظام"
-
-msgid "English Opening: Symmetrical, Three Knights System"
-msgstr "الانجليزي : متناظر, الثلاثة أفراس نظام"
-
-msgid "English Opening: Three Knights System"
-msgstr "الانجليزي : الثلاثة أفراس نظام"
-
-msgid "English Opening: Torre Defensive System"
-msgstr "الانجليزي : توري دفاعي نظام"
-
-msgid "English Opening: Ultra-Symmetrical Variation"
-msgstr "الانجليزي : الفائق-التفريع المتناظر"
-
-msgid "English Opening: Wimpey System"
-msgstr "الانجليزي : ويمبي نظام"
 
 msgid "English Opening"
 msgstr "الافتتاح الانجليزي"
@@ -1080,96 +557,6 @@ msgstr "جامبيت إيفانس: عادي تفريع"
 msgid "Evans Gambit"
 msgstr "جامبيت إيفانس"
 
-msgid "Four Knights Game: Bardeleben Variation"
-msgstr "الأربعة أحصنة: بارديليبين تفريع"
-
-msgid "Four Knights Game: Belgrade Gambit"
-msgstr "الأربعة أحصنة: بلجراد جامبيت"
-
-msgid "Four Knights Game: Double Ruy Lopez"
-msgstr "الأربعة أحصنة: المزدوج روي لوبيز"
-
-msgid "Four Knights Game: Gunsberg Counter-Attack"
-msgstr "الأربعة أحصنة: جونسبرج الهجوم المضاد"
-
-msgid "Four Knights Game: Gunsberg Variation"
-msgstr "الأربعة أحصنة: جونسبرج تفريع"
-
-msgid "Four Knights Game: Italian Variation"
-msgstr "الأربعة أحصنة: إيطالي تفريع"
-
-msgid "Four Knights Game: Janowski Variation"
-msgstr "الأربعة أحصنة: جناوسكاي تفريع"
-
-msgid "Four Knights Game: Marshall Variation"
-msgstr "الأربعة أحصنة: تفريع مارشال"
-
-msgid "Four Knights Game: Nimzovich (Paulsen) Variation"
-msgstr "الأربعة أحصنة: نيمزوفيتش (بولسن) تفريع"
-
-msgid "Four Knights Game: Ranken Variation"
-msgstr "الأربعة أحصنة: رانكن تفريع"
-
-msgid "Four Knights Game: Rubinstein Counter-Gambit, 5.Be2"
-msgstr "الأربعة أحصنة: روبينشتاين الجامبيت المضاد, 5.Be3"
-
-msgid "Four Knights Game: Rubinstein Counter-Gambit, Bogolyubov Variation"
-msgstr "الأربعة أحصنة: روبينشتاين الجامبيت المضاد, تفريع وجوليوبوف"
-
-msgid "Four Knights Game: Rubinstein Counter-Gambit, Exchange Variation"
-msgstr "الأربعة أحصنة: روبينشتاين الجامبيت المضاد, التكسير تفريع"
-
-msgid "Four Knights Game: Rubinstein Counter-Gambit, Henneberger Variation"
-msgstr "الأربعة أحصنة: روبينشتاين الجامبيت المضاد, هنبيرجر تفريع"
-
-msgid "Four Knights Game: Rubinstein Counter-Gambit"
-msgstr "الأربعة أحصنة: روبينشتاين الجامبيت المضاد"
-
-msgid "Four Knights Game: Schultze-Mueller Gambit"
-msgstr "الأربعة أحصنة: سكولتز-مولر جامبيت"
-
-msgid "Four Knights Game: Scotch Variation"
-msgstr "الأربعة أحصنة: سكوتش تفريع"
-
-msgid "Four Knights Game: Scotch, 4...exd4"
-msgstr "الأربعة أحصنة: سكوتش, 4...exd5"
-
-msgid "Four Knights Game: Scotch, Krause Variation"
-msgstr "الأربعة أحصنة: سكوتش, كراوز تفريع"
-
-msgid "Four Knights Game: Spanish Variation"
-msgstr "الأربعة أحصنة:التفريع الأسباني"
-
-msgid "Four Knights Game: Spanish, Classical Defence"
-msgstr "الأربعة أحصنة: أسباني, الدفاع الكلاسيكي"
-
-msgid "Four Knights Game: Spielmann Variation"
-msgstr "الأربعة أحصنة: سبيلمان تفريع"
-
-msgid "Four Knights Game: Svenonius Variation"
-msgstr "الأربعة أحصنة: سفنونيوس تفريع"
-
-msgid "Four Knights Game: Symmetrical Variation"
-msgstr "الأربعة أحصنة: التفريع المتناظر"
-
-msgid "Four Knights Game: Symmetrical, Blake Variation"
-msgstr "الأربعة أحصنة: متناظر, بليك تفريع"
-
-msgid "Four Knights Game: Symmetrical, Capablanca Variation"
-msgstr "الأربعة أحصنة: متناظر, كابابلانكا تفريع"
-
-msgid "Four Knights Game: Symmetrical, Maroczy System"
-msgstr "الأربعة أحصنة: متناظر, ماركوتزي نظام"
-
-msgid "Four Knights Game: Symmetrical, Metger unpin"
-msgstr "الأربعة أحصنة: متناظر, متجر غير مربوط"
-
-msgid "Four Knights Game: Symmetrical, Pillsbury Variation"
-msgstr "الأربعة أحصنة: متناظر, بيلسبوري تفريع"
-
-msgid "Four Knights Game: Symmetrical, Tarrasch Variation"
-msgstr "الأربعة أحصنة: متناظر, تفريع تاراش"
-
 msgid "Four Knights Game"
 msgstr "الأربعة أحصنة مباراة"
 
@@ -1280,9 +667,6 @@ msgstr "فرنسي: فرير (بيكر) تفريع"
 
 msgid "French Defence: Henneberger Variation"
 msgstr "فرنسي: هنبيرجر تفريع"
-
-msgid "French Defence: King Indian Attack"
-msgstr "فرنسي: هجوم الملك الهندي"
 
 msgid "French Defence: La Bourdonnais Variation"
 msgstr "فرنسي: لابوردينيه تفريع"
@@ -1481,9 +865,6 @@ msgstr "فريد فوكس دفاع"
 msgid "Gedult Attack"
 msgstr "جدولت هجوم"
 
-msgid "Gedult Opening"
-msgstr "جدولت افتتاح"
-
 msgid "Giuoco Pianissimo: Canal Variation"
 msgstr "الجيكو بيانسيمو: كانال تفريع"
 
@@ -1505,9 +886,6 @@ msgstr "الجيكو بيانو ( الهاديء ): أندرسن تفريع"
 msgid "Giuoco Piano: Bernstein Variation"
 msgstr "الجيكو بيانو ( الهاديء ): بيىشتاين تفريع"
 
-msgid "Giuoco Piano: Bird Attack"
-msgstr "الجيكو بيانو ( الهاديء ): بيرد هجوم"
-
 msgid "Giuoco Piano: Cracow Variation"
 msgstr "الجيكو بيانو ( الهاديء ): كراكو تفريع"
 
@@ -1519,9 +897,6 @@ msgstr "الجيكو بيانو ( الهاديء ): الأربعة أحصنة ت
 
 msgid "Giuoco Piano: Ghulam Kassim Variation"
 msgstr "الجيكو بيانو ( الهاديء ): غوم قاسم تفريع"
-
-msgid "Giuoco Piano: Greco Attack"
-msgstr "الجيكو بيانو ( الهاديء ): جريكو هجوم"
 
 msgid "Giuoco Piano: Greco Variation"
 msgstr "الجيكو بيانو ( الهاديء ): جريكو تفريع"
@@ -1574,156 +949,6 @@ msgstr "افتتاح جلوبال"
 msgid "Greco Defence"
 msgstr "جريكو دفاع"
 
-msgid "Grob Attack"
-msgstr "جروب هجوم"
-
-msgid "Grob Opening: Fritz Gambit"
-msgstr "جروب: فريتز جامبيت"
-
-msgid "Grob Opening: Romford Counter-Gambit"
-msgstr "جروب: رومفورد الجامبيت المضاد"
-
-msgid "Grob Opening: Spike Attack"
-msgstr "جروب: سبايك هجوم"
-
-msgid "Grünfeld Defence: 4.Bf4"
-msgstr "جرونفلد: 4.Bf5"
-
-msgid "Grünfeld Defence: 5.Bf4"
-msgstr "جرونفلد: 5.Bf5"
-
-msgid "Grünfeld Defence: 5.Bg5"
-msgstr "جرونفلد: 5.Bg6"
-
-msgid "Grünfeld Defence: 5.e3"
-msgstr "جرونفلد: 5.e4"
-
-msgid "Grünfeld Defence: Botvinnik Variation"
-msgstr "جرونفلد: بوتفنيك تفريع"
-
-msgid "Grünfeld Defence: Exchange Variation"
-msgstr "جرونفلد: التكسير تفريع"
-
-msgid "Grünfeld Defence: Exchange, Classical Variation"
-msgstr "جرونفلد: التكسير, التفريع الكلاسيكي"
-
-msgid "Grünfeld Defence: Exchange, Larsen Variation"
-msgstr "جرونفلد: التكسير, لارسن تفريع"
-
-msgid "Grünfeld Defence: Exchange, Seville Variation"
-msgstr "جرونفلد: التكسير, سيفيل تفريع"
-
-msgid "Grünfeld Defence: Exchange, Simagin improved Variation"
-msgstr "جرونفلد: التكسير, سيماجين المحسن تفريع"
-
-msgid "Grünfeld Defence: Exchange, Simagin lesser Variation"
-msgstr "جرونفلد: التكسير, سيماجين المصغر تفريع"
-
-msgid "Grünfeld Defence: Exchange, Sokolsky Variation"
-msgstr "جرونفلد: التكسير, سوكولوسكي تفريع"
-
-msgid "Grünfeld Defence: Exchange, Spassky Variation"
-msgstr "جرونفلد: التكسير, تفريع سباسكي"
-
-msgid "Grünfeld Defence: Flohr Defence"
-msgstr "جرونفلد: فلوهر دفاع"
-
-msgid "Grünfeld Defence: Flohr Variation"
-msgstr "جرونفلد: فلوهر تفريع"
-
-msgid "Grünfeld Defence: Grünfeld Gambit Accepted"
-msgstr "جرونفلد: جامبيت المقبول"
-
-msgid "Grünfeld Defence: Grünfeld Gambit, Botvinnik Variation"
-msgstr "جرونفلد: جرونفلد جامبيت, بوتفنيك تفريع"
-
-msgid "Grünfeld Defence: Grünfeld Gambit, Capablanca Variation"
-msgstr "جرونفلد: جرونفلد جامبيت, كابابلانكا تفريع"
-
-msgid "Grünfeld Defence: Grünfeld Gambit"
-msgstr "جرونفلد: جرونفلد جامبيت"
-
-msgid "Grünfeld Defence: Lundin Variation"
-msgstr "جرونفلد: لوندين تفريع"
-
-msgid "Grünfeld Defence: Makogonov Variation"
-msgstr "جرونفلد: ماكوجونوف تفريع"
-
-msgid "Grünfeld Defence: Modern Exchange Variation"
-msgstr "جرونفلد: حديث التكسير تفريع"
-
-msgid "Grünfeld Defence: Opovcensky Variation"
-msgstr "جرونفلد: اوبوفسينسكي تفريع"
-
-msgid "Grünfeld Defence: Pachman Variation"
-msgstr "جرونفلد: باخمان تفريع"
-
-msgid "Grünfeld Defence: Russian Variation with e4"
-msgstr "جرونفلد: التفريع الروسي مع e5"
-
-msgid "Grünfeld Defence: Russian Variation"
-msgstr "جرونفلد: التفريع الروسي"
-
-msgid "Grünfeld Defence: Russian, Alekhine (Hungarian) Variation"
-msgstr "جرونفلد:, اليخين التفريع االروسي (المجري)"
-
-msgid "Grünfeld Defence: Russian, Byrne (Simagin) Variation"
-msgstr "جرونفلد:التفريع االروسي, بايرن (سيماجين) "
-
-msgid "Grünfeld Defence: Russian, Keres Variation"
-msgstr "جرونفلد:التفريع االروسي,كيريس "
-
-msgid "Grünfeld Defence: Russian, Levenfish Variation"
-msgstr "جرونفلد: التفريع االروسي, ليفنفنيش"
-
-msgid "Grünfeld Defence: Russian, Prins Variation"
-msgstr "جرونفلد: التفريع االروسي, برينس"
-
-msgid "Grünfeld Defence: Russian, Smyslov Variation"
-msgstr "جرونفلد: التفريع االروسي, سيمسلوف"
-
-msgid "Grünfeld Defence: Russian, Szabo (Boleslavsky) Variation"
-msgstr "جرونفلد: التفريع االروسي, سزابو (بولسلافسكي)"
-
-msgid "Grünfeld Defence: Schlechter Variation"
-msgstr "جرونفلد:شيليشتر تفريع"
-
-msgid "Grünfeld Defence: Smyslov Defence"
-msgstr "جرونفلد: سيمسلوف دفاع"
-
-msgid "Grünfeld Defence: Smyslov, Main Line"
-msgstr "جرونفلد دفاع: سيمسلوف, الخط الرئيسي"
-
-msgid "Grünfeld Defence: Smyslov, Yugoslav Variation"
-msgstr "جرونفلد دفاع: سيمسلوف, اليوغسلافي تفريع"
-
-msgid "Grünfeld Defence: Spassky Variation, Main Line, 10...cd, 11.cd"
-msgstr "جرونفلد: تفريع سباسكي, الخط الرئيسي, 10...cd, 11.cd"
-
-msgid "Grünfeld Defence: Spassky Variation, Main Line, 13.Bd3"
-msgstr "جرونفلد: تفريع سباسكي, الخط الرئيسي, 13.Bd4"
-
-msgid "Grünfeld Defence: Spike Gambit"
-msgstr "جرونفلد: سبايك جامبيت"
-
-msgid "Grünfeld Defence: Stockholm Variation"
-msgstr "جرونفلد: استكهولم تفريع"
-
-msgid "Grünfeld Defence: Three Knights Variation"
-msgstr "جرونفلد: الثلاثة أفراس تفريع"
-
-msgid "Grünfeld Defence"
-msgstr "جرونفلد دفاع"
-
-msgid "Grünfeld with Bf4 & e3"
-msgstr "جرونفلد مع Bf4 & e4"
-
-msgid "Grünfeld with e3 & Bd3"
-msgstr "جرونفلد مع e3 & Bd4"
-
-msgid "Grünfeld with e3 & Qb3"
-msgstr "جرونفلد مع e3 & Qb4"
-
 msgid "Guatemala Defence"
 msgstr "غواتيمالا دفاع"
 
@@ -1763,656 +988,6 @@ msgstr "إيطالي افتتاح"
 msgid "Kevitz-Trajkovic Defence"
 msgstr "كيفيتس-تراجكوفيك دفاع"
 
-msgid ""
-"King Gambit Accepted: Abbazia Defence (Classical Defence, Modern Defence[!])"
-msgstr "هجوم الملك الهندي : ابازيا دفاع (الدفاع الكلاسيكي, حديث دفاع[!])"
-
-msgid "King Gambit Accepted: Abbazia Defence, Botvinnik Variation"
-msgstr "هجوم الملك الهندي : ابازيا دفاع, بوتفنيك تفريع"
-
-msgid "King Gambit Accepted: Abbazia Defence, Modern Variation"
-msgstr "هجوم الملك الهندي : ابازيا دفاع, حديث تفريع"
-
-msgid "King Gambit Accepted: Allgaier Gambit"
-msgstr "هجوم الملك الهندي : جامبيت أولجير"
-
-msgid "King Gambit Accepted: Allgaier, Blackburne Gambit"
-msgstr "هجوم الملك الهندي : أولجير, برنبلاك جامبيت"
-
-msgid "King Gambit Accepted: Allgaier, Cook Variation"
-msgstr "هجوم الملك الهندي : أولجير, تفريع كوك"
-
-msgid "King Gambit Accepted: Allgaier, Horny Defence"
-msgstr "هجوم الملك الهندي : أولجير, دفاع هورني"
-
-msgid "King Gambit Accepted: Allgaier, Schlechter Defence"
-msgstr "هجوم الملك الهندي : أولجير, دفاع شيليشتر"
-
-msgid "King Gambit Accepted: Allgaier, ThorOld Variation"
-msgstr "هجوم الملك الهندي : أولجير,تفريع ثورولد"
-
-msgid "King Gambit Accepted: Allgaier, Urusov Attack"
-msgstr "هجوم الملك الهندي : أولجير, يوروزوف هجوم"
-
-msgid "King Gambit Accepted: Allgaier, Walker Attack"
-msgstr "هجوم الملك الهندي : أولجير, هجوم ووكر"
-
-msgid "King Gambit Accepted: Becker Defence"
-msgstr "هجوم الملك الهندي : بيكر دفاع"
-
-msgid "King Gambit Accepted: Bishop Gambit, Anderssen Variation"
-msgstr "هجوم الملك الهندي : جامبيت الفيل, أندرسن تفريع"
-
-msgid "King Gambit Accepted: Bishop Gambit, Bledow Variation"
-msgstr "هجوم الملك الهندي : جامبيت الفيل, بلدو تفريع"
-
-msgid "King Gambit Accepted: Bishop Gambit, Boden Defence"
-msgstr "هجوم الملك الهندي : جامبيت الفيل, بودن دفاع"
-
-msgid "King Gambit Accepted: Bishop Gambit, Bogolyubov Variation"
-msgstr "هجوم الملك الهندي : جامبيت الفيل, تفريع وجوليوبوف"
-
-msgid "King Gambit Accepted: Bishop Gambit, Boren-Svenonius Variation"
-msgstr "هجوم الملك الهندي : جامبيت الفيل, بورن-سفنونيوس تفريع"
-
-msgid "King Gambit Accepted: Bishop Gambit, Bryan Counter-Gambit"
-msgstr "هجوم الملك الهندي : جامبيت الفيل, بريان الجامبيت المضاد"
-
-msgid "King Gambit Accepted: Bishop Gambit, Chigorin Attack"
-msgstr "هجوم الملك الهندي : جامبيت الفيل, تشجورين's هجوم"
-
-msgid "King Gambit Accepted: Bishop Gambit, Classical Defence, Cozio Attack"
-msgstr "هجوم الملك الهندي : جامبيت الفيل, الدفاع الكلاسيكي, كوزيو هجوم"
-
-msgid "King Gambit Accepted: Bishop Gambit, Classical Defence"
-msgstr "هجوم الملك الهندي : جامبيت الفيل, الدفاع الكلاسيكي"
-
-msgid "King Gambit Accepted: Bishop Gambit, Cozio (Morphy) Defence"
-msgstr "هجوم الملك الهندي : جامبيت الفيل, كوزيو (مورفي) دفاع"
-
-msgid "King Gambit Accepted: Bishop Gambit, Fraser Variation"
-msgstr "هجوم الملك الهندي : جامبيت الفيل, فرازر تفريع"
-
-msgid "King Gambit Accepted: Bishop Gambit, Greco Variation"
-msgstr "هجوم الملك الهندي : جامبيت الفيل, جريكو تفريع"
-
-msgid "King Gambit Accepted: Bishop Gambit, Grimm Attack"
-msgstr "هجوم الملك الهندي : جامبيت الفيل, جريم هجوم"
-
-msgid "King Gambit Accepted: Bishop Gambit, Jaenisch Variation"
-msgstr "هجوم الملك الهندي : جامبيت الفيل, جينيش تفريع"
-
-msgid "King Gambit Accepted: Bishop Gambit, Lopez-Gianutio Counter-Gambit"
-msgstr "هجوم الملك الهندي : جامبيت الفيل, لوبيز-جيانتيو الجامبيت المضاد"
-
-msgid "King Gambit Accepted: Bishop Gambit, Maurian Defence"
-msgstr "هجوم الملك الهندي : جامبيت الفيل, موريان دفاع"
-
-msgid "King Gambit Accepted: Bishop Gambit, McDonnell Attack"
-msgstr "هجوم الملك الهندي : جامبيت الفيل, مكدونالد هجوم"
-
-msgid "King Gambit Accepted: Bishop Gambit, Morphy Variation"
-msgstr "هجوم الملك الهندي : جامبيت الفيل, مورفي تفريع"
-
-msgid "King Gambit Accepted: Bishop Gambit, Paulsen Attack"
-msgstr "هجوم الملك الهندي : جامبيت الفيل, بولسن هجوم"
-
-msgid "King Gambit Accepted: Bishop Gambit, Ruy Lopez Defence"
-msgstr "هجوم الملك الهندي : جامبيت الفيل, روي لوبيز دفاع"
-
-msgid "King Gambit Accepted: Bishop Gambit, Steinitz Defence"
-msgstr "هجوم الملك الهندي : جامبيت الفيل, شتاينتز دفاع"
-
-msgid "King Gambit Accepted: Bishop Gambit"
-msgstr "هجوم الملك الهندي : جامبيت الفيل"
-
-msgid "King Gambit Accepted: Blachly Gambit"
-msgstr "هجوم الملك الهندي : بلاشلي جامبيت"
-
-msgid "King Gambit Accepted: Bonsch-Osmolovsky Variation"
-msgstr "هجوم الملك الهندي : بونش-اوسمولوفسكي تفريع"
-
-msgid "King Gambit Accepted: Breyer Gambit"
-msgstr "هجوم الملك الهندي : برير جامبيت"
-
-msgid "King Gambit Accepted: Carrera (Basman) Gambit"
-msgstr "هجوم الملك الهندي : كاريرا (باسمان) جامبيت"
-
-msgid "King Gambit Accepted: Cochrane Gambit"
-msgstr "هجوم الملك الهندي : كوتشرين جامبيت"
-
-msgid "King Gambit Accepted: Cunningham Defence"
-msgstr "هجوم الملك الهندي : كانينغهام دفاع"
-
-msgid "King Gambit Accepted: Cunningham, Bertin Gambit"
-msgstr "هجوم الملك الهندي : كانينغهام, بيرتن جامبيت"
-
-msgid "King Gambit Accepted: Cunningham, Euwe Defence"
-msgstr "هجوم الملك الهندي : كانينغهام, إيوي دفاع"
-
-msgid "King Gambit Accepted: Cunningham, Three Pawns Gambit"
-msgstr "هجوم الملك الهندي : كانينغهام, ثلاثة بيادق جامبيت"
-
-msgid "King Gambit Accepted: Double Muzio Gambit"
-msgstr "هجوم الملك الهندي : المزدوج موزيو جامبيت"
-
-msgid "King Gambit Accepted: Fischer Defence"
-msgstr "هجوم الملك الهندي : فيشر دفاع"
-
-msgid "King Gambit Accepted: Ghulam Kassim Gambit"
-msgstr "هجوم الملك الهندي : غوم قاسم جامبيت"
-
-msgid "King Gambit Accepted: Gianutio Counter-Gambit"
-msgstr "هجوم الملك الهندي : جيانتيو الجامبيت المضاد"
-
-msgid "King Gambit Accepted: Greco Gambit"
-msgstr "هجوم الملك الهندي : جريكو جامبيت"
-
-msgid "King Gambit Accepted: Herzfeld Gambit"
-msgstr "هجوم الملك الهندي : هرزفيلد جامبيت"
-
-msgid "King Gambit Accepted: Keres (Mason-Steinitz) Gambit"
-msgstr "هجوم الملك الهندي :كيريس مازون-شتاينتز) جامبيت"
-
-msgid "King Gambit Accepted: Kieseritsky, Berlin Defence, 6.Bc4"
-msgstr "هجوم الملك الهندي : كايزرتسكي, دفاع بيرلين, 6.Bc5"
-
-msgid "King Gambit Accepted: Kieseritsky, Berlin Defence, Riviere Variation"
-msgstr "هجوم الملك الهندي : كايزرتسكي, دفاع بيرلين, ريفيير تفريع"
-
-msgid "King Gambit Accepted: Kieseritsky, Berlin Defence"
-msgstr "هجوم الملك الهندي : كايزرتسكي, دفاع بيرلين"
-
-msgid "King Gambit Accepted: Kieseritsky, Brentano (Campbell) Defence"
-msgstr "هجوم الملك الهندي : كايزرتسكي, برينتانو (كامبل) دفاع"
-
-msgid "King Gambit Accepted: Kieseritsky, Brentano Defence, Caro Variation"
-msgstr "هجوم الملك الهندي : كايزرتسكي, برينتانو دفاع, كارو تفريع"
-
-msgid ""
-"King Gambit Accepted: Kieseritsky, Brentano Defence, Kaplanek Variation"
-msgstr "هجوم الملك الهندي : كايزرتسكي, برينتانو دفاع, كابلانك تفريع"
-
-msgid "King Gambit Accepted: Kieseritsky, Brentano Defence"
-msgstr "هجوم الملك الهندي : كايزرتسكي, برينتانو دفاع"
-
-msgid "King Gambit Accepted: Kieseritsky, Kolisch Defence"
-msgstr "هجوم الملك الهندي : كايزرتسكي, كوليش دفاع"
-
-msgid "King Gambit Accepted: Kieseritsky, Neumann Defence"
-msgstr "هجوم الملك الهندي : كايزرتسكي, نيومان دفاع"
-
-msgid "King Gambit Accepted: Kieseritsky, Paulsen Defence"
-msgstr "هجوم الملك الهندي : كايزرتسكي, بولسن دفاع"
-
-msgid "King Gambit Accepted: Kieseritsky, Polerio Defence"
-msgstr "هجوم الملك الهندي : كايزرتسكي, بوليريو دفاع"
-
-msgid "King Gambit Accepted: Kieseritsky, Rice Gambit"
-msgstr "هجوم الملك الهندي : كايزرتسكي, رايس جامبيت"
-
-msgid "King Gambit Accepted: Kieseritsky, Salvio (Rosenthal) Defence"
-msgstr "هجوم الملك الهندي : كايزرتسكي, سالفيو (روزنتال) دفاع"
-
-msgid "King Gambit Accepted: Kieseritsky, Salvio Defence, Cozio Variation"
-msgstr "هجوم الملك الهندي : كايزرتسكي, سالفيو دفاع, كوزيو تفريع"
-
-msgid ""
-"King Gambit Accepted: Kieseritsky, long whip (Stockwhip, Classical) Defence"
-msgstr "هجوم الملك الهندي : كايزرتسكي, لونج ويب (ستوكويب, الكلاسيكي) دفاع"
-
-msgid ""
-"King Gambit Accepted: Kieseritsky, long whip Defence, Jaenisch Variation"
-msgstr "هجوم الملك الهندي : كايزرتسكي, لونج ويب دفاع, جينيش تفريع"
-
-msgid "King Gambit Accepted: King knight Gambit"
-msgstr "هجوم الملك الهندي : حصان جامبيت الملك"
-
-msgid ""
-"King Gambit Accepted: Lesser Bishop (Petroff-Jaenisch-Tartakower) Gambit"
-msgstr "هجوم الملك الهندي : المصغر الفيل (بيتروف-جينيش-تارتاكوفر) جامبيت"
-
-msgid "King Gambit Accepted: Lolli Gambit (wild Muzio Gambit)"
-msgstr "هجوم الملك الهندي : لولي جامبيت (ويلد موزيو جامبيت)"
-
-msgid "King Gambit Accepted: Lolli Gambit, Young Variation"
-msgstr "هجوم الملك الهندي : لولي جامبيت, الصغير تفريع"
-
-msgid "King Gambit Accepted: Lopez-Gianutio Counter-Gambit, Hein Variation"
-msgstr "هجوم الملك الهندي : لوبيز-جيانتيو الجامبيت المضاد, هاين تفريع"
-
-msgid "King Gambit Accepted: MacDonnell Gambit"
-msgstr "هجوم الملك الهندي : ماكدونالد جامبيت"
-
-msgid "King Gambit Accepted: Muzio Gambit, Brentano Defence"
-msgstr "هجوم الملك الهندي : موزيو جامبيت, برينتانو دفاع"
-
-msgid "King Gambit Accepted: Muzio Gambit, From Defence"
-msgstr "هجوم الملك الهندي : موزيو جامبيت, من دفاع"
-
-msgid "King Gambit Accepted: Muzio Gambit, Holloway Defence"
-msgstr "هجوم الملك الهندي : موزيو جامبيت, هولواي دفاع"
-
-msgid "King Gambit Accepted: Muzio Gambit, Kling and Horwitz Counter-Attack"
-msgstr "هجوم الملك الهندي : موزيو جامبيت, كلينج و هورويتز الهجوم المضاد"
-
-msgid "King Gambit Accepted: Muzio Gambit, Paulsen Variation"
-msgstr "هجوم الملك الهندي : موزيو جامبيت, بولسن تفريع"
-
-msgid "King Gambit Accepted: Muzio Gambit"
-msgstr "هجوم الملك الهندي : موزيو جامبيت"
-
-msgid "King Gambit Accepted: Orsini Gambit"
-msgstr "هجوم الملك الهندي : اورزيني جامبيت"
-
-msgid "King Gambit Accepted: Pawn Gambit (Stamma Gambit)"
-msgstr "هجوم الملك الهندي : جامبيت البيدق (ستاما جامبيت)"
-
-msgid "King Gambit Accepted: Philidor Gambit, Schultz Variation"
-msgstr "هجوم الملك الهندي :  جامبيت فيليدور, شولتز تفريع"
-
-msgid "King Gambit Accepted: Philidor Gambit"
-msgstr "هجوم الملك الهندي :  جامبيت فيليدور"
-
-msgid "King Gambit Accepted: Quaade Gambit"
-msgstr "هجوم الملك الهندي : كوادي جامبيت"
-
-msgid "King Gambit Accepted: Rosentreter Gambit"
-msgstr "هجوم الملك الهندي : روزنترتر جامبيت"
-
-msgid "King Gambit Accepted: Salvio Gambit, Anderssen Counter-Attack"
-msgstr "هجوم الملك الهندي : سالفيو جامبيت, أندرسن الهجوم المضاد"
-
-msgid "King Gambit Accepted: Salvio Gambit"
-msgstr "هجوم الملك الهندي : سالفيو جامبيت"
-
-msgid "King Gambit Accepted: Schallop Defence"
-msgstr "هجوم الملك الهندي :  دفاع شالوب"
-
-msgid "King Gambit Accepted: Schurig Gambit"
-msgstr "هجوم الملك الهندي : شوريج جامبيت"
-
-msgid "King Gambit Accepted: Silberschmidt Gambit"
-msgstr "هجوم الملك الهندي : سيلبرشميدت جامبيت"
-
-msgid "King Gambit Accepted: Soerensen Gambit"
-msgstr "هجوم الملك الهندي : سويرنسن جامبيت"
-
-msgid "King Gambit Accepted: Tumbleweed Gambit"
-msgstr "هجوم الملك الهندي : تامبلويد جامبيت"
-
-msgid "King Gambit Accepted: Villemson (Steinitz) Gambit"
-msgstr "هجوم الملك الهندي : فيلمسون (شتاينتز) جامبيت"
-
-msgid "King Gambit Accepted"
-msgstr "جامبيت الملك المقبول"
-
-msgid "King Gambit Declined: 2...Nf6"
-msgstr "جامبيت الملك المرفوض: 2...Nf7"
-
-msgid "King Gambit Declined: Classical Counter-Gambit"
-msgstr "جامبيت الملك المرفوض: الكلاسيكي الجامبيت المضاد"
-
-msgid "King Gambit Declined: Classical Variation"
-msgstr "جامبيت الملك المرفوض: التفريع الكلاسيكي"
-
-msgid "King Gambit Declined: Classical, 4.c3"
-msgstr "جامبيت الملك المرفوض: الكلاسيكي, 4.c4"
-
-msgid "King Gambit Declined: Classical, Hanham Variation"
-msgstr "جامبيت الملك المرفوض: الكلاسيكي, هانهام تفريع"
-
-msgid "King Gambit Declined: Classical, Heath Variation"
-msgstr "جامبيت الملك المرفوض: الكلاسيكي, هيث تفريع"
-
-msgid "King Gambit Declined: Classical, Marshall Attack"
-msgstr "جامبيت الملك المرفوض: الكلاسيكي, هجوم مارشال"
-
-msgid "King Gambit Declined: Classical, Reti Variation"
-msgstr "جامبيت الملك المرفوض: الكلاسيكي, ريتي تفريع"
-
-msgid "King Gambit Declined: Classical, Soldatenkov Variation"
-msgstr "جامبيت الملك المرفوض: الكلاسيكي, سولداكتينوف تفريع"
-
-msgid "King Gambit Declined: Classical, Svenonius Variation"
-msgstr "جامبيت الملك المرفوض: الكلاسيكي, سفنونيوس تفريع"
-
-msgid "King Gambit Declined: Falkbeer Counter-Gambit"
-msgstr "جامبيت الملك المرفوض: فالكبير الجامبيت المضاد"
-
-msgid "King Gambit Declined: Falkbeer, 3...e4"
-msgstr "جامبيت الملك المرفوض: فالكبير, 3...e5"
-
-msgid "King Gambit Declined: Falkbeer, 4.d3"
-msgstr "جامبيت الملك المرفوض: فالكبير, 4.d4"
-
-msgid "King Gambit Declined: Falkbeer, 5.de"
-msgstr "جامبيت الملك المرفوض: فالكبير, 5.de"
-
-msgid "King Gambit Declined: Falkbeer, Alapin Variation"
-msgstr "جامبيت الملك المرفوض: فالكبير, تفريع الابين"
-
-msgid "King Gambit Declined: Falkbeer, Charousek Gambit"
-msgstr "جامبيت الملك المرفوض: فالكبير, تشاروسك جامبيت"
-
-msgid "King Gambit Declined: Falkbeer, Keres Variation"
-msgstr "جامبيت الملك المرفوض: فالكبير,كيريس تفريع"
-
-msgid "King Gambit Declined: Falkbeer, Main Line, 7...Bf5"
-msgstr "جامبيت الملك المرفوض: فالكبير, الخط الرئيسي, 7...Bf6"
-
-msgid "King Gambit Declined: Falkbeer, Milner-Barry Variation"
-msgstr "جامبيت الملك المرفوض: فالكبير, ميلنر-باري تفريع"
-
-msgid "King Gambit Declined: Falkbeer, Morphy Gambit"
-msgstr "جامبيت الملك المرفوض: فالكبير, مورفي جامبيت"
-
-msgid "King Gambit Declined: Falkbeer, Nimzovich Variation"
-msgstr "جامبيت الملك المرفوض: فالكبير, نيمزوفيتش تفريع"
-
-msgid "King Gambit Declined: Falkbeer, Reti Variation"
-msgstr "جامبيت الملك المرفوض: فالكبير, ريتي تفريع"
-
-msgid "King Gambit Declined: Falkbeer, Rubinstein Variation"
-msgstr "جامبيت الملك المرفوض: فالكبير, روبينشتاين تفريع"
-
-msgid "King Gambit Declined: Falkbeer, Tarrasch Variation"
-msgstr "جامبيت الملك المرفوض: فالكبير, تفريع تاراش"
-
-msgid "King Gambit Declined: Falkbeer, Tartakower Variation"
-msgstr "جامبيت الملك المرفوض: فالكبير, تارتاكوفر تفريع"
-
-msgid "King Gambit Declined: Keene Defence"
-msgstr "جامبيت الملك المرفوض: كين دفاع"
-
-msgid "King Gambit Declined: Mafia Defence"
-msgstr "جامبيت الملك المرفوض: مافيا دفاع"
-
-msgid "King Gambit Declined: Nimzovich Counter-Gambit"
-msgstr "جامبيت الملك المرفوض: نيمزوفيتش الجامبيت المضاد"
-
-msgid "King Gambit Declined: Norwalde Variation, Buecker Gambit"
-msgstr "جامبيت الملك المرفوض: نورولد تفريع, بويكر جامبيت"
-
-msgid "King Gambit Declined: Norwalde Variation"
-msgstr "جامبيت الملك المرفوض: نورولد تفريع"
-
-msgid "King Gambit"
-msgstr "جامبيت الملك"
-
-msgid "King Indian Defence, 3.Nc3"
-msgstr "دفاع الملك الهندي, 3.Nc4"
-
-msgid "King Indian Defence: 3.Nf3"
-msgstr "الملك الهندي, 3.Nf4"
-
-msgid "King Indian Defence: 3.g3"
-msgstr "الملك الهندي: 3.g4"
-
-msgid "King Indian Defence: 4.e4"
-msgstr "الملك الهندي: 4.e5"
-
-msgid "King Indian Defence: 5.Be2"
-msgstr "الملك الهندي: 5.Be3"
-
-msgid "King Indian Defence: 5.Nf3"
-msgstr "الملك الهندي: 5.Nf4"
-
-msgid "King Indian Defence: 6.Be2"
-msgstr "الملك الهندي: 6.Be3"
-
-msgid "King Indian Defence: Accelerated Averbakh System"
-msgstr "الملك الهندي: المتسارع أفرباخ نظام"
-
-msgid "King Indian Defence: Andersson Variation"
-msgstr "الملك الهندي: أندرسون تفريع"
-
-msgid "King Indian Defence: Anti-Grünfeld"
-msgstr "الملك الهندي: ضد-جرونفلد"
-
-msgid "King Indian Defence: Averbakh System"
-msgstr "الملك الهندي: أفرباخ نظام"
-
-msgid "King Indian Defence: Averbakh, 6...c5"
-msgstr "الملك الهندي: أفرباخ, 6...c6"
-
-msgid "King Indian Defence: Averbakh, Main Line"
-msgstr "الملك الهندي: أفرباخ, الخط الرئيسي"
-
-msgid "King Indian Defence: Classical Variation"
-msgstr "الملك الهندي: التفريع الكلاسيكي"
-
-msgid "King Indian Defence: Danube Gambit"
-msgstr "الملك الهندي: دانوب جامبيت"
-
-msgid "King Indian Defence: East Indian Defence"
-msgstr "الملك الهندي: الشرقي الهندي دفاع"
-
-msgid "King Indian Defence: Fianchetto Variation"
-msgstr "الملك الهندي: فيل الوتر الطويل تفريع"
-
-msgid "King Indian Defence: Fianchetto with ...Nc6"
-msgstr "الملك الهندي: فيل الوتر الطويل مع ...Nc7"
-
-msgid "King Indian Defence: Fianchetto with ...Nd7"
-msgstr "الملك الهندي: فيل الوتر الطويل مع ...Nd8"
-
-msgid "King Indian Defence: Fianchetto without c4"
-msgstr "الملك الهندي: فيل الوتر الطويل بدون c5"
-
-msgid "King Indian Defence: Fianchetto, Classical Main Line"
-msgstr "الملك الهندي: فيل الوتر الطويل, الكلاسيكي الخط الرئيسي"
-
-msgid "King Indian Defence: Fianchetto, Classical Variation, 8.e4"
-msgstr "الملك الهندي: فيل الوتر الطويل, التفريع الكلاسيكي, 8.e5"
-
-msgid "King Indian Defence: Fianchetto, Classical Variation"
-msgstr "الملك الهندي: فيل الوتر الطويل, التفريع الكلاسيكي"
-
-msgid "King Indian Defence: Fianchetto, Kavalek (Bronstein) Variation"
-msgstr "الملك الهندي: فيل الوتر الطويل, كافالك (برونشتاين) تفريع"
-
-msgid "King Indian Defence: Fianchetto, Larsen System"
-msgstr "الملك الهندي: فيل الوتر الطويل, لارسن نظام"
-
-msgid "King Indian Defence: Fianchetto, Panno Variation"
-msgstr "الملك الهندي: فيل الوتر الطويل, بانو تفريع"
-
-msgid "King Indian Defence: Fianchetto, Simagin Variation"
-msgstr "الملك الهندي: فيل الوتر الطويل, سيماجين تفريع"
-
-msgid "King Indian Defence: Fianchetto, Uhlmann (Szabo) Variation"
-msgstr "الملك الهندي: فيل الوتر الطويل, أولمان (سزابو) تفريع"
-
-msgid "King Indian Defence: Fianchetto, Yugoslav Panno"
-msgstr "الملك الهندي: فيل الوتر الطويل, اليوغسلافي بانو"
-
-msgid "King Indian Defence: Fianchetto, Yugoslav System"
-msgstr "الملك الهندي: فيل الوتر الطويل, اليوغسلافي نظام"
-
-msgid "King Indian Defence: Fianchetto, Yugoslav, 7.O-O"
-msgstr "الملك الهندي: فيل الوتر الطويل, اليوغسلافي, 7.O-O"
-
-msgid "King Indian Defence: Fianchetto, lesser Simagin (Spassky) Variation"
-msgstr "الملك الهندي: فيل الوتر الطويل, المصغر سيماجين (سباسكي) تفريع"
-
-msgid "King Indian Defence: Four Pawns Attack, 6.Be2"
-msgstr "الملك الهندي: الأربعة بيادق هجوم, 6.Be3"
-
-msgid "King Indian Defence: Four Pawns Attack, Florentine Gambit"
-msgstr "الملك الهندي: الأربعة بيادق هجوم, قلورنتاين جامبيت"
-
-msgid "King Indian Defence: Four Pawns Attack, Main Line"
-msgstr "الملك الهندي: الأربعة بيادق هجوم, الخط الرئيسي"
-
-msgid "King Indian Defence: Four Pawns Attack, dynamic Line"
-msgstr "الملك الهندي: الأربعة بيادق هجوم, ديناميكي الخط"
-
-msgid "King Indian Defence: Four Pawns Attack, with Be2 and Nf3"
-msgstr "الملك الهندي: الأربعة بيادق هجوم, مع Be2 و Nf4"
-
-msgid "King Indian Defence: Four Pawns Attack"
-msgstr "الملك الهندي: الأربعة بيادق هجوم"
-
-msgid "King Indian Defence: Gligoric-Taimanov System"
-msgstr "الملك الهندي: جليجوريك-تيمانوف نظام"
-
-msgid "King Indian Defence: Kazakh Variation"
-msgstr "الملك الهندي: كازاخ تفريع"
-
-msgid "King Indian Defence: Kramer System"
-msgstr "الملك الهندي: كرامر نظام"
-
-msgid "King Indian Defence: Larsen Variation"
-msgstr "الملك الهندي: لارسن تفريع"
-
-msgid "King Indian Defence: London System"
-msgstr "الملك الهندي: لندن نظام"
-
-msgid "King Indian Defence: Makagonov System (5.h3)"
-msgstr "الملك الهندي: ماكاجونوف نظام (5.h3)"
-
-msgid "King Indian Defence: Petrosian System, Keres Variation"
-msgstr "الملك الهندي: بيتروسيان نظام,كيريس تفريع"
-
-msgid "King Indian Defence: Petrosian System, Main Line"
-msgstr "الملك الهندي: بيتروسيان نظام, الخط الرئيسي"
-
-msgid "King Indian Defence: Petrosian System, Stein Variation"
-msgstr "الملك الهندي: بيتروسيان نظام, شتاين تفريع"
-
-msgid "King Indian Defence: Petrosian System"
-msgstr "الملك الهندي: بيتروسيان نظام"
-
-msgid "King Indian Defence: Pomar System"
-msgstr "الملك الهندي: بومار نظام"
-
-msgid "King Indian Defence: Saemisch Variation"
-msgstr "الملك الهندي: ساميش تفريع"
-
-msgid "King Indian Defence: Saemisch, 5...O-O"
-msgstr "الملك الهندي: ساميش, 5...O-O"
-
-msgid "King Indian Defence: Saemisch, 6...Nc6"
-msgstr "الملك الهندي: ساميش, 6...Nc7"
-
-msgid "King Indian Defence: Saemisch, Byrne Variation"
-msgstr "الملك الهندي: ساميش, بايرن تفريع"
-
-msgid "King Indian Defence: Saemisch, Double Fianchetto Variation"
-msgstr "الملك الهندي: ساميش, المزدوج فيل الوتر الطويل تفريع"
-
-msgid "King Indian Defence: Saemisch, Panno Formation"
-msgstr "الملك الهندي: ساميش, بانو تشكيل"
-
-msgid "King Indian Defence: Saemisch, Panno Main Line"
-msgstr "الملك الهندي: ساميش, بانو الخط الرئيسي"
-
-msgid "King Indian Defence: Saemisch, Ruban Variation"
-msgstr "الملك الهندي: ساميش, روبان تفريع"
-
-msgid "King Indian Defence: Saemisch, orthodox Main Line"
-msgstr "الملك الهندي: ساميش, الأرثوذكسي الخط الرئيسي"
-
-msgid "King Indian Defence: Saemisch, orthodox Variation"
-msgstr "الملك الهندي: ساميش, الأرثوذكسي تفريع"
-
-msgid "King Indian Defence: Saemisch, orthodox, 7.Nge2 c6"
-msgstr "الملك الهندي: ساميش, الأرثوذكسي, 7.Nge2 c7"
-
-msgid "King Indian Defence: Saemisch, orthodox, 7.d5 c6"
-msgstr "الملك الهندي: ساميش, الأرثوذكسي, 7.d5 c7"
-
-msgid "King Indian Defence: Saemisch, orthodox, 7.d5"
-msgstr "الملك الهندي: ساميش, الأرثوذكسي, 7.d6"
-
-msgid "King Indian Defence: Semi-Averbakh System"
-msgstr "الملك الهندي: النصف-أفرباخ نظام"
-
-msgid "King Indian Defence: Smyslov System"
-msgstr "الملك الهندي: سيمسلوف نظام"
-
-msgid "King Indian Defence: Torre Attack"
-msgstr "الملك الهندي: توري هجوم"
-
-msgid "King Indian Defence: Zinnowitz Variation"
-msgstr "الملك الهندي: زينوفيتش تفريع"
-
-msgid "King Indian Defence: orthodox Variation"
-msgstr "الملك الهندي: الأرثوذكسي تفريع"
-
-msgid "King Indian Defence: orthodox, 7...Nbd7, 8.Re1"
-msgstr "الملك الهندي: الأرثوذكسي, 7...Nbd7, 8.Re2"
-
-msgid "King Indian Defence: orthodox, 7...Nbd7, Main Line"
-msgstr "الملك الهندي: الأرثوذكسي, 7...Nbd7, الخط الرئيسي"
-
-msgid "King Indian Defence: orthodox, 7...Nbd7"
-msgstr "الملك الهندي: الأرثوذكسي, 7...Nbd8"
-
-msgid "King Indian Defence: orthodox, Aronin-Taimanov Variation"
-msgstr "الملك الهندي: الأرثوذكسي, أرونين-تيمانوف تفريع"
-
-msgid "King Indian Defence: orthodox, Aronin-Taimanov, 9.Ne1"
-msgstr "الملك الهندي: الأرثوذكسي, أرونين-تيمانوف, 9.Ne2"
-
-msgid "King Indian Defence: orthodox, Aronin-Taimanov, Benko Attack"
-msgstr "الملك الهندي: الأرثوذكسي, أرونين-تيمانوف, بينكو هجوم"
-
-msgid "King Indian Defence: orthodox, Aronin-Taimanov, Main Line"
-msgstr "الملك الهندي: الأرثوذكسي, أرونين-تيمانوف, الخط الرئيسي"
-
-msgid "King Indian Defence: orthodox, Aronin-Taimanov, bayonet Attack"
-msgstr "الملك الهندي: الأرثوذكسي, أرونين-تيمانوف, بايونيت هجوم"
-
-msgid "King Indian Defence: orthodox, Donner Variation"
-msgstr "الملك الهندي: الأرثوذكسي, دونر تفريع"
-
-msgid "King Indian Defence: six Pawns Attack"
-msgstr "الملك الهندي: ستة بيادق هجوم"
-
-msgid "King Indian Defence: with e4 & g3"
-msgstr "الملك الهندي مع e4 & g4"
-
-msgid "King Indian Defence"
-msgstr "دفاع الملك الهندي"
-
-msgid "King Pawn Opening: Colorado Counter"
-msgstr "بيدق الملك: كولورادو المضاد"
-
-msgid "King Pawn Opening: Indian Opening"
-msgstr "بيدق الملك: الهندي افتتاح"
-
-msgid "King Pawn Opening: Lopez Opening"
-msgstr "بيدق الملك: لوبيز افتتاح"
-
-msgid "King Pawn Opening: Mengarini Opening"
-msgstr "بيدق الملك: منجاريني افتتاح"
-
-msgid "King Pawn Opening: Napoleon Opening"
-msgstr "بيدق الملك: نابليون افتتاح"
-
-msgid "King Pawn Opening: Nimzovich Defence, Bogolyubov Variation"
-msgstr "بيدق الملك: نيمزوفيتش دفاع, تفريع وجوليوبوف"
-
-msgid "King Pawn Opening: Nimzovich Defence, Marshall Gambit"
-msgstr "بيدق الملك: نيمزوفيتش دفاع, جامبيت مارشال"
-
-msgid "King Pawn Opening: Nimzovich Defence"
-msgstr "بيدق الملك: نيمزوفيتش دفاع"
-
-msgid "King Pawn Opening: Patzer Opening"
-msgstr "بيدق الملك: باتزر افتتاح"
-
-msgid "King Pawn Opening"
-msgstr "بيدق الملك افتتاح"
-
-msgid "King knight Gambit"
-msgstr "حصان جامبيت الملك"
-
-msgid "King knight Opening"
-msgstr "افتتاح حصان الملك"
-
 msgid "Konstantinopolsky Opening"
 msgstr "كونستانتينوبولسكي افتتاح"
 
@@ -2425,26 +1000,11 @@ msgstr "لاتيفان الجامبيت المضاد"
 msgid "Latvian Gambit, 3.Bc4"
 msgstr "لاتيفان جامبيت, 3.Bc5"
 
-msgid "Latvian Gambit: Fraser Defence"
-msgstr "لاتيفان: فرازر دفاع"
-
-msgid "Latvian Gambit: Nimzovich Variation"
-msgstr "لاتيفان: نيمزوفيتش تفريع"
-
-msgid "Latvian Gambit: Polerio Variation"
-msgstr "لاتيفان: بوليريو تفريع"
-
-msgid "Latvian Gambit: corkscrew Counter-Gambit"
-msgstr "لاتيفان: البرامة الجامبيت المضاد"
-
 msgid "Lemming Defence"
 msgstr "ليمنج دفاع"
 
 msgid "Lengfellner System"
 msgstr "لينجفلنر نظام"
-
-msgid "Levitsky Attack (Queen Bishop Attack)"
-msgstr "ليفيتسكي هجوم (الوزير الفيل هجوم)"
 
 msgid "Mieses Opening"
 msgstr "مايزس افتتاح"
@@ -2463,42 +1023,6 @@ msgstr "حديث دفاع"
 
 msgid "Mujannah Opening"
 msgstr "موجانه افتتاح"
-
-msgid "Neo-Grünfeld (Kemeri) Defence"
-msgstr "المستحدث-جرونفلد (كميري) دفاع"
-
-msgid "Neo-Grünfeld Defence: 5.Nf3"
-msgstr "المستحدث-جرونفلد, 5.Nf4"
-
-msgid "Neo-Grünfeld Defence: 5.cd, Main Line"
-msgstr "المستحدث-جرونفلد, 5.cd, الخط الرئيسي"
-
-msgid "Neo-Grünfeld Defence: 5.cd"
-msgstr "المستحدث-جرونفلد, 5.cd"
-
-msgid "Neo-Grünfeld Defence: 6.O-O c6"
-msgstr "المستحدث-جرونفلد, 6.O-O c7"
-
-msgid "Neo-Grünfeld Defence: 6.O-O, Main Line"
-msgstr "المستحدث-جرونفلد, 6.O-O, الخط الرئيسي"
-
-msgid "Neo-Grünfeld Defence: 6.O-O"
-msgstr "المستحدث-جرونفلد, 6.O-O"
-
-msgid "Neo-Grünfeld Defence: 6.cd Nxd5, 7.O-O Nb6"
-msgstr "المستحدث-جرونفلد, 6.cd Nxd5, 7.O-O Nb7"
-
-msgid "Neo-Grünfeld Defence: 6.cd Nxd5, 7.O-O c5, 8.Nc3"
-msgstr "المستحدث-جرونفلد, 6.cd Nxd5, 7.O-O c5, 8.Nc4"
-
-msgid "Neo-Grünfeld Defence: 6.cd Nxd5, 7.O-O c5, 8.dc"
-msgstr "المستحدث-جرونفلد, 6.cd Nxd5, 7.O-O c5, 8.dc"
-
-msgid "Neo-Grünfeld Defence: 6.cd Nxd5, 7.O-O"
-msgstr "المستحدث-جرونفلد, 6.cd Nxd5, 7.O-O"
-
-msgid "Neo-Grünfeld Defence"
-msgstr "المستحدث-جرونفلد دفاع"
 
 msgid "Neo-Indian (Seirawan) Attack"
 msgstr "المستحدث-الهندي (Seirawan) هجوم"
@@ -2722,14 +1246,8 @@ msgstr "الدفاع النرويجي"
 msgid "Novosibirsk Opening"
 msgstr "افتتاح نوفوسيبيرسك"
 
-msgid "Old Benoni Defence: Franco-Benoni Defence"
-msgstr "بينوني القديم: فرانكو-بينوني دفاع"
-
 msgid "Old Benoni Defence: Mujannah Formation"
 msgstr "بينوني القديم: موجانه تشكيل"
-
-msgid "Old Benoni Defence: Schmid System"
-msgstr "بينوني القديم: شميد's نظام"
 
 msgid "Old Benoni Defence"
 msgstr "بينوني القديم دفاع"
@@ -2760,9 +1278,6 @@ msgstr "أوين دفاع"
 
 msgid "Paleface Attack"
 msgstr "بيلفيس هجوم"
-
-msgid "Petrov Defence"
-msgstr "بتروف's دفاع"
 
 msgid "Philidor Defence: Berger Variation"
 msgstr " فيليدور: بيرجر تفريع"
@@ -2848,9 +1363,6 @@ msgstr " فيليدور:  فيليدور الجامبيت المضاد"
 msgid "Philidor Defence: Steinitz Variation"
 msgstr " فيليدور: تفريع شتاينتز"
 
-msgid "Philidor Defence"
-msgstr "دفاع فيليدور"
-
 msgid "Pirc Defence: 150 Attack"
 msgstr "بيرك: 150 هجوم"
 
@@ -2905,12 +1417,6 @@ msgstr "بيرك دفاع"
 msgid "Polish (Sokolsky) Opening"
 msgstr "بولندي (سوكولوسكي) افتتاح"
 
-msgid "Polish (Sokolsky-Orangutan) Opening: Outflank Variation"
-msgstr "بولندي: الجناح الخارجي تفريع"
-
-msgid "Polish (Sokolsky-Orangutan) Opening: Tuebingen Variation"
-msgstr "بولندي: توبنجن تفريع"
-
 msgid "Polish Defence"
 msgstr "بولندي دفاع"
 
@@ -2923,871 +1429,11 @@ msgstr "بونزياني الجامبيت المضاد, شميدt هجوم"
 msgid "Ponziani Counter-Gambit"
 msgstr "بونزياني الجامبيت المضاد"
 
-msgid "Ponziani Opening: Caro Variation"
-msgstr "بونزياني: كارو تفريع"
-
-msgid "Ponziani Opening: Fraser Defence"
-msgstr "بونزياني: فرازر دفاع"
-
-msgid "Ponziani Opening: Jaenisch Counter-Attack"
-msgstr "بونزياني: جينيش الهجوم المضاد"
-
-msgid "Ponziani Opening: Leonhardt Variation"
-msgstr "بونزياني: ليونهاردت تفريع"
-
-msgid "Ponziani Opening: Reti Variation"
-msgstr "بونزياني: ريتي تفريع"
-
-msgid "Ponziani Opening: Romanishin Variation"
-msgstr "بونزياني: رومانشين تفريع"
-
-msgid "Ponziani Opening: Steinitz Variation"
-msgstr "بونزياني: تفريع شتاينتز"
-
 msgid "Ponziani Opening"
 msgstr "بونزياني افتتاح"
 
 msgid "Pterodactyl Defence"
 msgstr "دفاع بيتروديكتل الزاحف المجنح"
-
-msgid "Queen Bishop Game"
-msgstr "الوزير الفيل مباراة"
-
-msgid "Queen Gambit Accepted, 4.Nc3"
-msgstr "جامبيت الوزير المقبول, 4.Nc4"
-
-msgid "Queen Gambit Accepted, 4.e3"
-msgstr "جامبيت الوزير المقبول, 4.e4"
-
-msgid "Queen Gambit Accepted, Bogolyubov Variation"
-msgstr "جامبيت الوزير المقبول, تفريع وجوليوبوف"
-
-msgid "Queen Gambit Accepted, Flohr Variation"
-msgstr "جامبيت الوزير المقبول, فلوهر تفريع"
-
-msgid "Queen Gambit Accepted, Janowsky-Larsen Variation"
-msgstr "جامبيت الوزير المقبول, Jaالأنsky-لارسن تفريع"
-
-msgid "Queen Gambit Accepted, Smyslov Variation"
-msgstr "جامبيت الوزير المقبول, سيمسلوف تفريع"
-
-msgid "Queen Gambit Accepted: 3.Nf3"
-msgstr "جامبيت الوزير المقبول: 3.Nf4"
-
-msgid "Queen Gambit Accepted: 3.e4"
-msgstr "جامبيت الوزير المقبول: 3.e5"
-
-msgid "Queen Gambit Accepted: 4...e6"
-msgstr "جامبيت الوزير المقبول: 4...e7"
-
-msgid "Queen Gambit Accepted: Alekhine Defence, Alatortsev Variation"
-msgstr "جامبيت الوزير المقبول: اليخين دفاع, الاتورتسف تفريع"
-
-msgid "Queen Gambit Accepted: Alekhine Defence, Borisenko-Furman Variation"
-msgstr "جامبيت الوزير المقبول: اليخين دفاع, بوريزنكو-فورمان تفريع"
-
-msgid "Queen Gambit Accepted: Alekhine Defence"
-msgstr "جامبيت الوزير المقبول: اليخين دفاع"
-
-msgid "Queen Gambit Accepted: Classical Variation, 6.O-O"
-msgstr "جامبيت الوزير المقبول: التفريع الكلاسيكي, 6.O-O"
-
-msgid "Queen Gambit Accepted: Classical Variation"
-msgstr "جامبيت الوزير المقبول: التفريع الكلاسيكي"
-
-msgid "Queen Gambit Accepted: Classical, 6...a6"
-msgstr "جامبيت الوزير المقبول: الكلاسيكي, 6...a7"
-
-msgid "Queen Gambit Accepted: Classical, 7...b5"
-msgstr "جامبيت الوزير المقبول: الكلاسيكي, 7...b6"
-
-msgid "Queen Gambit Accepted: Classical, 7.Qe2"
-msgstr "جامبيت الوزير المقبول: الكلاسيكي, 7.Qe3"
-
-msgid "Queen Gambit Accepted: Classical, 8...Bb7"
-msgstr "جامبيت الوزير المقبول: الكلاسيكي, 8...Bb8"
-
-msgid "Queen Gambit Accepted: Classical, Geller Variation"
-msgstr "جامبيت الوزير المقبول: الكلاسيكي, جيلر تفريع"
-
-msgid "Queen Gambit Accepted: Classical, Rubinstein Variation"
-msgstr "جامبيت الوزير المقبول: الكلاسيكي, روبينشتاين تفريع"
-
-msgid "Queen Gambit Accepted: Classical, Smyslov Variation"
-msgstr "جامبيت الوزير المقبول: الكلاسيكي, سيمسلوف تفريع"
-
-msgid "Queen Gambit Accepted: Classical, Steinitz Variation"
-msgstr "جامبيت الوزير المقبول: الكلاسيكي, تفريع شتاينتز"
-
-msgid "Queen Gambit Accepted: Ericson Variation"
-msgstr "جامبيت الوزير المقبول: اريكسون تفريع"
-
-msgid "Queen Gambit Accepted: Haberditz Variation"
-msgstr "جامبيت الوزير المقبول: هابرديتز تفريع"
-
-msgid "Queen Gambit Accepted: Linares Variation"
-msgstr "جامبيت الوزير المقبول: لاينارس تفريع"
-
-msgid "Queen Gambit Accepted: Mannheim Variation"
-msgstr "جامبيت الوزير المقبول: مانهيم تفريع"
-
-msgid "Queen Gambit Accepted: Schwartz Defence"
-msgstr "جامبيت الوزير المقبول: شفارتز دفاع"
-
-msgid "Queen Gambit Accepted"
-msgstr "الوزير جامبيت المقبول"
-
-msgid "Queen Gambit Declined Semi-Slav: 5...Nd7"
-msgstr "جامبيت الوزير المرفوض النصف-السلافي: 5...Nd8"
-
-msgid "Queen Gambit Declined Semi-Slav: 5.Bg5 dc"
-msgstr "جامبيت الوزير المرفوض النصف-السلافي: 5.Bg5 dc"
-
-msgid "Queen Gambit Declined Semi-Slav: 5.e3"
-msgstr "جامبيت الوزير المرفوض النصف-السلافي: 5.e4"
-
-msgid "Queen Gambit Declined Semi-Slav: 6.Bd3"
-msgstr "جامبيت الوزير المرفوض النصف-السلافي: 6.Bd4"
-
-msgid "Queen Gambit Declined Semi-Slav: 7.Bc4"
-msgstr "جامبيت الوزير المرفوض النصف-السلافي: 7.Bc5"
-
-msgid ""
-"Queen Gambit Declined Semi-Slav: Accelerated Meran (Alekhine Variation)"
-msgstr "جامبيت الوزير المرفوض النصف-السلافي: المتسارع ميران (اليخين تفريع)"
-
-msgid "Queen Gambit Declined Semi-Slav: Anti-Meran Gambit"
-msgstr "جامبيت الوزير المرفوض النصف-السلافي: ضد-ميران جامبيت"
-
-msgid "Queen Gambit Declined Semi-Slav: Anti-Meran, Alatortsev System"
-msgstr "جامبيت الوزير المرفوض النصف-السلافي: ضد-ميران, الاتورتسف نظام"
-
-msgid "Queen Gambit Declined Semi-Slav: Anti-Meran, Lilienthal Variation"
-msgstr "جامبيت الوزير المرفوض النصف-السلافي: ضد-ميران, ليلينتال تفريع"
-
-msgid "Queen Gambit Declined Semi-Slav: Anti-Meran, Szabo Variation"
-msgstr "جامبيت الوزير المرفوض النصف-السلافي: ضد-ميران, سزابو تفريع"
-
-msgid "Queen Gambit Declined Semi-Slav: Bogolyubov Variation"
-msgstr "جامبيت الوزير المرفوض النصف-السلافي: تفريع وجوليوبوف"
-
-msgid "Queen Gambit Declined Semi-Slav: Botvinnik System (Anti-Meran)"
-msgstr "جامبيت الوزير المرفوض النصف-السلافي: نظام بوتفنيك (ضد-ميران)"
-
-msgid "Queen Gambit Declined Semi-Slav: Chigorin Defence"
-msgstr "جامبيت الوزير المرفوض النصف-السلافي: تشجورين دفاع"
-
-msgid "Queen Gambit Declined Semi-Slav: Ekstrom Variation"
-msgstr "جامبيت الوزير المرفوض النصف-السلافي: اكستروم تفريع"
-
-msgid "Queen Gambit Declined Semi-Slav: Hastings Variation"
-msgstr "جامبيت الوزير المرفوض النصف-السلافي: هاستنس تفريع"
-
-msgid "Queen Gambit Declined Semi-Slav: Meran Variation"
-msgstr "جامبيت الوزير المرفوض النصف-السلافي: ميران تفريع"
-
-msgid "Queen Gambit Declined Semi-Slav: Meran, 8...a6"
-msgstr "جامبيت الوزير المرفوض النصف-السلافي: ميران, 8...a7"
-
-msgid "Queen Gambit Declined Semi-Slav: Meran, Blumenfeld Variation"
-msgstr "جامبيت الوزير المرفوض النصف-السلافي: ميران, بلومنفلد تفريع"
-
-msgid "Queen Gambit Declined Semi-Slav: Meran, Old Main Line"
-msgstr "جامبيت الوزير المرفوض النصف-السلافي: ميران, القديم الخط الرئيسي"
-
-msgid "Queen Gambit Declined Semi-Slav: Meran, Pirc Variation"
-msgstr "جامبيت الوزير المرفوض النصف-السلافي: ميران, بيرك تفريع"
-
-msgid "Queen Gambit Declined Semi-Slav: Meran, Rabinovich Variation"
-msgstr "جامبيت الوزير المرفوض النصف-السلافي: ميران, رابينوفيتش تفريع"
-
-msgid "Queen Gambit Declined Semi-Slav: Meran, Reynolds' Variation"
-msgstr "جامبيت الوزير المرفوض النصف-السلافي: ميران, رينولدز تفريع"
-
-msgid "Queen Gambit Declined Semi-Slav: Meran, Sozin Variation"
-msgstr "جامبيت الوزير المرفوض النصف-السلافي: ميران, سوزين تفريع"
-
-msgid "Queen Gambit Declined Semi-Slav: Meran, Stahlberg Variation"
-msgstr "جامبيت الوزير المرفوض النصف-السلافي: ميران, ستاهلبرج تفريع"
-
-msgid "Queen Gambit Declined Semi-Slav: Meran, Wade Variation"
-msgstr "جامبيت الوزير المرفوض النصف-السلافي: ميران, ويد تفريع"
-
-msgid "Queen Gambit Declined Semi-Slav: Romih Variation"
-msgstr "جامبيت الوزير المرفوض النصف-السلافي: روميه تفريع"
-
-msgid "Queen Gambit Declined Semi-Slav: Rubinstein (Anti-Meran) System"
-msgstr "جامبيت الوزير المرفوض النصف-السلافي: روبينشتاين (ضد-ميران) نظام"
-
-msgid "Queen Gambit Declined Semi-Slav: Stoltz Variation"
-msgstr "جامبيت الوزير المرفوض النصف-السلافي: ستولتز تفريع"
-
-msgid "Queen Gambit Declined Semi-Slav: Stonewall Defence"
-msgstr "جامبيت الوزير المرفوض النصف-السلافي: دفاع الحائط الصخري"
-
-msgid "Queen Gambit Declined Semi-Slav: neo-Meran (Lundin Variation)"
-msgstr "جامبيت الوزير المرفوض النصف-السلافي: المستحدث-ميران (لوندين تفريع)"
-
-msgid "Queen Gambit Declined Semi-Slav"
-msgstr "جامبيت الوزير المرفوض النصف-السلافي"
-
-msgid "Queen Gambit Declined Slav Accepted: Alapin Variation"
-msgstr "جامبيت الوزير المرفوض السلافي المقبول: تفريع الابين"
-
-msgid "Queen Gambit Declined Slav Accepted"
-msgstr "جامبيت الوزير المرفوض السلافي المقبول"
-
-msgid "Queen Gambit Declined Slav Defence, Alekhine Variation"
-msgstr "جامبيت الوزير المرفوض السلافي دفاع, اليخين تفريع"
-
-msgid "Queen Gambit Declined Slav Defence: Exchange Variation"
-msgstr "جامبيت الوزير المرفوض السلافي دفاع: التكسير تفريع"
-
-msgid "Queen Gambit Declined Slav Defence"
-msgstr "جامبيت الوزير المرفوض السلافي دفاع"
-
-msgid "Queen Gambit Declined Slav: 3.Nf3"
-msgstr "جامبيت الوزير المرفوض السلافي: 3.Nf4"
-
-msgid "Queen Gambit Declined Slav: 4.Nc3"
-msgstr "جامبيت الوزير المرفوض السلافي: 4.Nc4"
-
-msgid "Queen Gambit Declined Slav: 4.e3 Bf5"
-msgstr "جامبيت الوزير المرفوض السلافي: 4.e3 Bf6"
-
-msgid "Queen Gambit Declined Slav: 4.e3"
-msgstr "جامبيت الوزير المرفوض السلافي: 4.e4"
-
-msgid "Queen Gambit Declined Slav: 5.e3 (Alekhine Variation)"
-msgstr "جامبيت الوزير المرفوض السلافي: 5.e3 (اليخين تفريع)"
-
-msgid "Queen Gambit Declined Slav: Amsterdam Variation"
-msgstr "جامبيت الوزير المرفوض السلافي: أمستردام تفريع"
-
-msgid "Queen Gambit Declined Slav: Breyer Variation"
-msgstr "جامبيت الوزير المرفوض السلافي: برير تفريع"
-
-msgid "Queen Gambit Declined Slav: Carlsbad Variation"
-msgstr "جامبيت الوزير المرفوض السلافي: كارلسباد تفريع"
-
-msgid "Queen Gambit Declined Slav: Czech Defence"
-msgstr "جامبيت الوزير المرفوض السلافي: التشيكي دفاع"
-
-msgid "Queen Gambit Declined Slav: Dutch Variation, Main Line"
-msgstr "جامبيت الوزير المرفوض السلافي: التفريع الهولندي, الخط الرئيسي"
-
-msgid "Queen Gambit Declined Slav: Dutch Variation"
-msgstr "جامبيت الوزير المرفوض السلافي: التفريع الهولندي"
-
-msgid "Queen Gambit Declined Slav: Dutch, Lasker Variation"
-msgstr "جامبيت الوزير المرفوض السلافي: الهولندي, لاسكر تفريع"
-
-msgid "Queen Gambit Declined Slav: Dutch, Saemisch Variation"
-msgstr "جامبيت الوزير المرفوض السلافي: الهولندي, ساميش تفريع"
-
-msgid "Queen Gambit Declined Slav: Exchange Variation, 6.Bf4 Bf5"
-msgstr "جامبيت الوزير المرفوض السلافي: التكسير تفريع, 6.Bf4 Bf6"
-
-msgid "Queen Gambit Declined Slav: Exchange Variation"
-msgstr "جامبيت الوزير المرفوض السلافي: التكسير تفريع"
-
-msgid "Queen Gambit Declined Slav: Exchange, Trifunovic Variation"
-msgstr "جامبيت الوزير المرفوض السلافي: التكسير, تريفونوفيك تفريع"
-
-msgid "Queen Gambit Declined Slav: Krause Attack"
-msgstr "جامبيت الوزير المرفوض السلافي: كراوز هجوم"
-
-msgid "Queen Gambit Declined Slav: Semmering Variation"
-msgstr "جامبيت الوزير المرفوض السلافي: سمرينغ تفريع"
-
-msgid "Queen Gambit Declined Slav: Slav Gambit"
-msgstr "جامبيت الوزير المرفوض السلافي: السلافي جامبيت"
-
-msgid "Queen Gambit Declined Slav: Smyslov Variation"
-msgstr "جامبيت الوزير المرفوض السلافي: سيمسلوف تفريع"
-
-msgid "Queen Gambit Declined Slav: Soultanbeieff Variation"
-msgstr "جامبيت الوزير المرفوض السلافي: سلطانبيف تفريع"
-
-msgid "Queen Gambit Declined Slav: Steiner Variation"
-msgstr "جامبيت الوزير المرفوض السلافي: شتاينر تفريع"
-
-msgid "Queen Gambit Declined Slav: Suechting Variation"
-msgstr "جامبيت الوزير المرفوض السلافي: سوشتينج تفريع"
-
-msgid "Queen Gambit Declined Slav: Tolush-Geller Gambit"
-msgstr "جامبيت الوزير المرفوض السلافي: تولوش-جيلر جامبيت"
-
-msgid "Queen Gambit Declined Slav: Wiesbaden Variation"
-msgstr "جامبيت الوزير المرفوض السلافي: فيسبادن تفريع"
-
-msgid "Queen Gambit Declined Slav: Winawer Counter-Gambit"
-msgstr "جامبيت الوزير المرفوض السلافي: ويناور الجامبيت المضاد"
-
-msgid "Queen Gambit Declined: 3...Nf6"
-msgstr "جامبيت الوزير المرفوض: 3...Nf7"
-
-msgid "Queen Gambit Declined: 3.Nc3"
-msgstr "جامبيت الوزير المرفوض: 3.Nc4"
-
-msgid "Queen Gambit Declined: 4.Bg5 Be7, 5.e3 O-O"
-msgstr "جامبيت الوزير المرفوض: 4.Bg5 Be7, 5.e3 O-O"
-
-msgid "Queen Gambit Declined: 4.Bg5 Be7"
-msgstr "جامبيت الوزير المرفوض: 4.Bg5 Be8"
-
-msgid "Queen Gambit Declined: 4.Bg5 Nbd7"
-msgstr "جامبيت الوزير المرفوض: 4.Bg5 Nbd8"
-
-msgid "Queen Gambit Declined: 4.Bg5"
-msgstr "جامبيت الوزير المرفوض: 4.Bg6"
-
-msgid "Queen Gambit Declined: 4.Nf3"
-msgstr "جامبيت الوزير المرفوض: 4.Nf4"
-
-msgid "Queen Gambit Declined: 5...c6"
-msgstr "جامبيت الوزير المرفوض: 5...c7"
-
-msgid "Queen Gambit Declined: 6.Nf3"
-msgstr "جامبيت الوزير المرفوض: 6.Nf4"
-
-msgid "Queen Gambit Declined: Alapin Variation"
-msgstr "جامبيت الوزير المرفوض: تفريع الابين"
-
-msgid "Queen Gambit Declined: Albin Counter-Gambit, 5.g3"
-msgstr "جامبيت الوزير المرفوض: ألبين الجامبيت المضاد, 5.g4"
-
-msgid "Queen Gambit Declined: Albin Counter-Gambit, Alapin Variation"
-msgstr "جامبيت الوزير المرفوض: ألبين الجامبيت المضاد, تفريع الابين"
-
-msgid "Queen Gambit Declined: Albin Counter-Gambit, Balogh Variation"
-msgstr "جامبيت الوزير المرفوض: ألبين الجامبيت المضاد, بالوغ تفريع"
-
-msgid "Queen Gambit Declined: Albin Counter-Gambit, Janowski Variation"
-msgstr "جامبيت الوزير المرفوض: ألبين الجامبيت المضاد, جناوسكاي تفريع"
-
-msgid "Queen Gambit Declined: Albin Counter-Gambit, Krenosz Variation"
-msgstr "جامبيت الوزير المرفوض: ألبين الجامبيت المضاد, Krenosz تفريع"
-
-msgid "Queen Gambit Declined: Albin Counter-Gambit, Lasker trap"
-msgstr "جامبيت الوزير المرفوض: ألبين الجامبيت المضاد, لاسكر فخ"
-
-msgid "Queen Gambit Declined: Albin Counter-Gambit"
-msgstr "جامبيت الوزير المرفوض: ألبين الجامبيت المضاد"
-
-msgid "Queen Gambit Declined: Alekhine Variation"
-msgstr "جامبيت الوزير المرفوض: اليخين تفريع"
-
-msgid "Queen Gambit Declined: Anti-neo-orthodox Variation"
-msgstr "جامبيت الوزير المرفوض: ضد-المستحدث-الأرثوذكسي تفريع"
-
-msgid "Queen Gambit Declined: Been-Koomen Variation"
-msgstr "جامبيت الوزير المرفوض: بيين-كومن تفريع"
-
-msgid "Queen Gambit Declined: Cambridge Springs Defence, 7.cd"
-msgstr "جامبيت الوزير المرفوض: دفاع كامبريدج سبرنجس, 7.cd"
-
-msgid "Queen Gambit Declined: Cambridge Springs Defence, Argentine Variation"
-msgstr "جامبيت الوزير المرفوض: دفاع كامبريدج سبرنجس, ارجنتين تفريع"
-
-msgid "Queen Gambit Declined: Cambridge Springs Defence, Bogoljubow Variation"
-msgstr "جامبيت الوزير المرفوض: دفاع كامبريدج سبرنجس, بوجولجوبو تفريع"
-
-msgid "Queen Gambit Declined: Cambridge Springs Defence, Capablanca Variation"
-msgstr "جامبيت الوزير المرفوض: دفاع كامبريدج سبرنجس, كابابلانكا تفريع"
-
-msgid "Queen Gambit Declined: Cambridge Springs Defence, Rubinstein Variation"
-msgstr "جامبيت الوزير المرفوض: دفاع كامبريدج سبرنجس, روبينشتاين تفريع"
-
-msgid "Queen Gambit Declined: Cambridge Springs Defence, Yugoslav Variation"
-msgstr "جامبيت الوزير المرفوض: دفاع كامبريدج سبرنجس, اليوغسلافي تفريع"
-
-msgid "Queen Gambit Declined: Cambridge Springs Defence"
-msgstr "جامبيت الوزير المرفوض: دفاع كامبريدج سبرنجس"
-
-msgid "Queen Gambit Declined: Canal (Venice) Variation"
-msgstr "جامبيت الوزير المرفوض: كانال (فينيسيا) تفريع"
-
-msgid "Queen Gambit Declined: Capablanca Anti-Cambridge Springs Variation"
-msgstr "جامبيت الوزير المرفوض: كابابلانكا ضد-كامبريدج سبرنجس تفريع"
-
-msgid "Queen Gambit Declined: Capablanca Variation"
-msgstr "جامبيت الوزير المرفوض: كابابلانكا تفريع"
-
-msgid "Queen Gambit Declined: Capablanca-Duras Variation"
-msgstr "جامبيت الوزير المرفوض: كابابلانكا-دوراس تفريع"
-
-msgid "Queen Gambit Declined: Charousek (Petrosian) Variation"
-msgstr "جامبيت الوزير المرفوض: تشاروسك (بيتروسيان) تفريع"
-
-msgid "Queen Gambit Declined: Chigorin Defence, Janowski Variation"
-msgstr "جامبيت الوزير المرفوض: تشجورين دفاع, جناوسكاي تفريع"
-
-msgid "Queen Gambit Declined: Chigorin Defence"
-msgstr "جامبيت الوزير المرفوض: تشجورين دفاع"
-
-msgid "Queen Gambit Declined: Classical Variation (5.Bf4)"
-msgstr "جامبيت الوزير المرفوض: التفريع الكلاسيكي (5.Bf4)"
-
-msgid "Queen Gambit Declined: Exchange Variation"
-msgstr "جامبيت الوزير المرفوض: التكسير تفريع"
-
-msgid "Queen Gambit Declined: Exchange, Positional Line, 5...c6"
-msgstr "جامبيت الوزير المرفوض: التكسير, الموقفي الخط, 5...c7"
-
-msgid "Queen Gambit Declined: Exchange, Positional Line, 6.Qc2"
-msgstr "جامبيت الوزير المرفوض: التكسير, الموقفي الخط, 6.Qc3"
-
-msgid "Queen Gambit Declined: Exchange, Positional Line"
-msgstr "جامبيت الوزير المرفوض: التكسير, الموقفي الخط"
-
-msgid "Queen Gambit Declined: Exchange, Saemisch Variation"
-msgstr "جامبيت الوزير المرفوض: التكسير, ساميش تفريع"
-
-msgid "Queen Gambit Declined: Grau (Sahovic) Defence"
-msgstr "جامبيت الوزير المرفوض: غراو (ساهوفيتش) دفاع"
-
-msgid "Queen Gambit Declined: Harrwitz Attack"
-msgstr "جامبيت الوزير المرفوض: هارويتز هجوم"
-
-msgid "Queen Gambit Declined: Janowski Variation"
-msgstr "جامبيت الوزير المرفوض: جناوسكاي تفريع"
-
-msgid "Queen Gambit Declined: Lasker Defence, Bernstein Variation"
-msgstr "جامبيت الوزير المرفوض: لاسكر دفاع, بيىشتاين تفريع"
-
-msgid "Queen Gambit Declined: Lasker Defence, Main Line"
-msgstr "جامبيت الوزير المرفوض: لاسكر دفاع, الخط الرئيسي"
-
-msgid "Queen Gambit Declined: Lasker Defence, Teichmann Variation"
-msgstr "جامبيت الوزير المرفوض: لاسكر دفاع, تيكمان تفريع"
-
-msgid "Queen Gambit Declined: Lasker Defence"
-msgstr "جامبيت الوزير المرفوض: لاسكر دفاع"
-
-msgid "Queen Gambit Declined: Lasker Variation"
-msgstr "جامبيت الوزير المرفوض: لاسكر تفريع"
-
-msgid "Queen Gambit Declined: Manhattan Variation"
-msgstr "جامبيت الوزير المرفوض: مانهاتن تفريع"
-
-msgid "Queen Gambit Declined: Marshall Defence"
-msgstr "جامبيت الوزير المرفوض: دفاع مارشال"
-
-msgid "Queen Gambit Declined: Neo-orthodox Variation, 7.Bh4"
-msgstr "جامبيت الوزير المرفوض: المستحدث-الأرثوذكسي تفريع, 7.Bh5"
-
-msgid "Queen Gambit Declined: Neo-orthodox Variation, 7.Bxf6"
-msgstr "جامبيت الوزير المرفوض: المستحدث-الأرثوذكسي تفريع, 7.Bxf7"
-
-msgid "Queen Gambit Declined: Neo-orthodox Variation"
-msgstr "جامبيت الوزير المرفوض: المستحدث-الأرثوذكسي تفريع"
-
-msgid "Queen Gambit Declined: Orthodox Defence, 7.Qc2 c5, 8.cd (Rubinstein)"
-msgstr "جامبيت الوزير المرفوض: الأرثوذكسي دفاع, 7.Qc2 c5, 8.cd (روبينشتاين)"
-
-msgid "Queen Gambit Declined: Orthodox Defence, 7.Rc1"
-msgstr "جامبيت الوزير المرفوض: الأرثوذكسي دفاع, 7.Rc2"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Bd3 Line, 11.O-O"
-msgstr "جامبيت الوزير المرفوض: الأرثوذكسي دفاع, Bd3 الخط, 11.O-O"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Bd3 Line, Alekhine Variation"
-msgstr "جامبيت الوزير المرفوض: الأرثوذكسي دفاع, Bd3 الخط, اليخين تفريع"
-
-msgid ""
-"Queen Gambit Declined: Orthodox Defence, Bd3 Line, Capablanca freeing "
-"manoevre"
-msgstr ""
-"جامبيت الوزير المرفوض: الأرثوذكسي دفاع, Bd3 الخط, كابابلانكا مناورة التحرير"
-
-msgid ""
-"Queen Gambit Declined: Orthodox Defence, Bd3 Line, Fianchetto Variation"
-msgstr ""
-"جامبيت الوزير المرفوض: الأرثوذكسي دفاع, Bd3 الخط, فيل الوتر الطويل تفريع"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Bd3 Line, Janowski Variation"
-msgstr "جامبيت الوزير المرفوض: الأرثوذكسي دفاع, Bd3 الخط, جناوسكاي تفريع"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Bd3 Line"
-msgstr "جامبيت الوزير المرفوض: الأرثوذكسي دفاع, Bd3 الخط"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Botvinnik Variation"
-msgstr "جامبيت الوزير المرفوض: الأرثوذكسي دفاع, بوتفنيك تفريع"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Capablanca Variation"
-msgstr "جامبيت الوزير المرفوض: الأرثوذكسي دفاع, كابابلانكا تفريع"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Classical Variation"
-msgstr "جامبيت الوزير المرفوض: الأرثوذكسي دفاع, التفريع الكلاسيكي"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Classical, 13.d1b1 (Maroczy)"
-msgstr "جامبيت الوزير المرفوض: الأرثوذكسي دفاع, الكلاسيكي, 13.d1b1 (ماركوتزي)"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Classical, 13.d1c2 (Vidmar)"
-msgstr "جامبيت الوزير المرفوض: الأرثوذكسي دفاع, الكلاسيكي, 13.d1c2 (فيدمار)"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Classical, 13.de"
-msgstr "جامبيت الوزير المرفوض: الأرثوذكسي دفاع, الكلاسيكي, 13.de"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Pillsbury Attack"
-msgstr "جامبيت الوزير المرفوض: الأرثوذكسي دفاع, بيلسبوري هجوم"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Rauzer Variation"
-msgstr "جامبيت الوزير المرفوض: الأرثوذكسي دفاع, روزر تفريع"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Rubinstein Attack (with Rc1)"
-msgstr "جامبيت الوزير المرفوض: الأرثوذكسي دفاع, روبينشتاين هجوم (مع Rc1)"
-
-msgid ""
-"Queen Gambit Declined: Orthodox Defence, Rubinstein Attack, Grünfeld "
-"Variation"
-msgstr ""
-"جامبيت الوزير المرفوض: الأرثوذكسي دفاع, روبينشتاين هجوم, جرونفلد تفريع"
-
-msgid ""
-"Queen Gambit Declined: Orthodox Defence, Rubinstein Attack, Karlsbad "
-"Variation"
-msgstr ""
-"جامبيت الوزير المرفوض: الأرثوذكسي دفاع, روبينشتاين هجوم, كارلسباد تفريع"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Rubinstein Attack, Main Line"
-msgstr "جامبيت الوزير المرفوض: الأرثوذكسي دفاع, روبينشتاين هجوم, الخط الرئيسي"
-
-msgid ""
-"Queen Gambit Declined: Orthodox Defence, Rubinstein Attack, Wolf Variation"
-msgstr "جامبيت الوزير المرفوض: الأرثوذكسي دفاع, روبينشتاين هجوم, تفريع وولف"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Rubinstein Variation"
-msgstr "جامبيت الوزير المرفوض: الأرثوذكسي دفاع, روبينشتاين تفريع"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Swiss (Henneberger) Variation"
-msgstr "جامبيت الوزير المرفوض: الأرثوذكسي دفاع, السويسري (هنبيرجر) تفريع"
-
-msgid "Queen Gambit Declined: Orthodox Defence, Swiss, Karlsbad Variation"
-msgstr "جامبيت الوزير المرفوض: الأرثوذكسي دفاع, السويسري, كارلسباد تفريع"
-
-msgid "Queen Gambit Declined: Orthodox Defence"
-msgstr "جامبيت الوزير المرفوض: الأرثوذكسي دفاع"
-
-msgid "Queen Gambit Declined: Petrosian Variation"
-msgstr "جامبيت الوزير المرفوض: بيتروسيان تفريع"
-
-msgid "Queen Gambit Declined: Ragozin Variation"
-msgstr "جامبيت الوزير المرفوض: راجوزين تفريع"
-
-msgid "Queen Gambit Declined: Ragozin, Vienna Variation"
-msgstr "جامبيت الوزير المرفوض: راجوزين, فيينا تفريع"
-
-msgid "Queen Gambit Declined: Rochlin Variation"
-msgstr "جامبيت الوزير المرفوض: روشلين تفريع"
-
-msgid "Queen Gambit Declined: Semi-Slav, Abrahams Variation"
-msgstr "جامبيت الوزير المرفوض: النصف-السلافي, ابراهامس تفريع"
-
-msgid "Queen Gambit Declined: Semi-Slav, Junge Variation"
-msgstr "جامبيت الوزير المرفوض: النصف-السلافي, جانج تفريع"
-
-msgid "Queen Gambit Declined: Semi-Slav, Koomen Variation"
-msgstr "جامبيت الوزير المرفوض: النصف-السلافي, كومن تفريع"
-
-msgid "Queen Gambit Declined: Semi-Slav, Marshall Gambit"
-msgstr "جامبيت الوزير المرفوض: النصف-السلافي, جامبيت مارشال"
-
-msgid "Queen Gambit Declined: Semi-Slav, Noteboom Variation"
-msgstr "جامبيت الوزير المرفوض: النصف-السلافي, نوتيبوم تفريع"
-
-msgid "Queen Gambit Declined: Semi-Slav"
-msgstr "جامبيت الوزير المرفوض: النصف-السلافي"
-
-msgid "Queen Gambit Declined: Semi-Tarrasch Defence"
-msgstr "جامبيت الوزير المرفوض: النصف-دفاع تاراش"
-
-msgid "Queen Gambit Declined: Semi-Tarrasch with e3"
-msgstr "جامبيت الوزير المرفوض: النصف-تاراش مع e4"
-
-msgid "Queen Gambit Declined: Semi-Tarrasch, 5.cd"
-msgstr "جامبيت الوزير المرفوض: النصف-تاراش, 5.cd"
-
-msgid "Queen Gambit Declined: Semi-Tarrasch, 7.Bd3"
-msgstr "جامبيت الوزير المرفوض: النصف-تاراش, 7.Bd4"
-
-msgid "Queen Gambit Declined: Semi-Tarrasch, Kmoch Variation"
-msgstr "جامبيت الوزير المرفوض: النصف-تاراش, كنوش تفريع"
-
-msgid "Queen Gambit Declined: Semi-Tarrasch, Krause Variation"
-msgstr "جامبيت الوزير المرفوض: النصف-تاراش, كراوز تفريع"
-
-msgid "Queen Gambit Declined: Semi-Tarrasch, Primitive Pillsbury Variation"
-msgstr "جامبيت الوزير المرفوض: النصف-تاراش, بريمتيف بيلسبوري تفريع"
-
-msgid "Queen Gambit Declined: Semi-Tarrasch, San Sebastian Variation"
-msgstr "جامبيت الوزير المرفوض: النصف-تاراش, سان سيباستيان تفريع"
-
-msgid "Queen Gambit Declined: Semi-Tarrasch, Symmetrical Variation"
-msgstr "جامبيت الوزير المرفوض: النصف-تاراش, التفريع المتناظر"
-
-msgid "Queen Gambit Declined: Spielmann Variation"
-msgstr "جامبيت الوزير المرفوض: سبيلمان تفريع"
-
-msgid "Queen Gambit Declined: Stonewall Variation"
-msgstr "جامبيت الوزير المرفوض: الحائط الصخري تفريع"
-
-msgid "Queen Gambit Declined: Symmetrical (Austrian) Defence"
-msgstr "جامبيت الوزير المرفوض: متناظر (النمسا) دفاع"
-
-msgid "Queen Gambit Declined: Tarrasch Defence, 4.cd ed"
-msgstr "جامبيت الوزير المرفوض: دفاع تاراش, 4.cd ed"
-
-msgid "Queen Gambit Declined: Tarrasch Defence, Marshall Gambit"
-msgstr "جامبيت الوزير المرفوض: دفاع تاراش, جامبيت مارشال"
-
-msgid "Queen Gambit Declined: Tarrasch Defence, Tarrasch Gambit"
-msgstr "جامبيت الوزير المرفوض: دفاع تاراش, تاراش جامبيت"
-
-msgid "Queen Gambit Declined: Tarrasch Defence"
-msgstr "جامبيت الوزير المرفوض: دفاع تاراش"
-
-msgid "Queen Gambit Declined: Tarrasch, Bogolyubov Variation"
-msgstr "جامبيت الوزير المرفوض: تاراش, تفريع وجوليوبوف"
-
-msgid "Queen Gambit Declined: Tarrasch, Folkestone (Swedish) Variation"
-msgstr "جامبيت الوزير المرفوض: تاراش, فولكستون (سويدي) تفريع"
-
-msgid "Queen Gambit Declined: Tarrasch, Prague Variation, 7...Be7"
-msgstr "جامبيت الوزير المرفوض: تفريع تاراش, براجو, 7...Be8"
-
-msgid "Queen Gambit Declined: Tarrasch, Prague Variation, 9.Bg5"
-msgstr "جامبيت الوزير المرفوض: تفريع تاراش, براجو, 9.Bg6"
-
-msgid "Queen Gambit Declined: Tarrasch, Prague Variation, Normal position"
-msgstr "جامبيت الوزير المرفوض: تفريع تاراش, براجو, عادي موقف"
-
-msgid "Queen Gambit Declined: Tarrasch, Prague Variation"
-msgstr "جامبيت الوزير المرفوض: تفريع تاراش, براجو"
-
-msgid "Queen Gambit Declined: Tarrasch, Reti Variation"
-msgstr "جامبيت الوزير المرفوض: تاراش, ريتي تفريع"
-
-msgid ""
-"Queen Gambit Declined: Tarrasch, Schlechter-Rubinstein System, Rey Ardid "
-"Variation"
-msgstr "جامبيت الوزير المرفوض: تاراش,شيليشتر-روبينشتاين نظام, ري ارديد تفريع"
-
-msgid "Queen Gambit Declined: Tarrasch, Schlechter-Rubinstein System"
-msgstr "جامبيت الوزير المرفوض: تاراش,شيليشتر-روبينشتاين نظام"
-
-msgid "Queen Gambit Declined: Tarrasch, Stoltz Variation"
-msgstr "جامبيت الوزير المرفوض: تاراش, ستولتز تفريع"
-
-msgid "Queen Gambit Declined: Tarrasch, Wagner Variation"
-msgstr "جامبيت الوزير المرفوض: تاراش, فاجنر تفريع"
-
-msgid "Queen Gambit Declined: Tarrasch, von Hennig-Schara Gambit"
-msgstr "جامبيت الوزير المرفوض: تاراش, فون هينيج-سكارا جامبيت"
-
-msgid ""
-"Queen Gambit Declined: Tartakower (Makagonov-Bondarevsky) System, 8.cd Nxd5"
-msgstr ""
-"جامبيت الوزير المرفوض: تارتاكوفر (ماكاجونوف-بوندرفسكي) نظام, 8.cd Nxd6"
-
-msgid "Queen Gambit Declined: Tartakower (Makagonov-Bondarevsky) System"
-msgstr "جامبيت الوزير المرفوض: تارتاكوفر (ماكاجونوف-بوندرفسكي) نظام"
-
-msgid "Queen Gambit Declined: Tartakower Variation"
-msgstr "جامبيت الوزير المرفوض: تارتاكوفر تفريع"
-
-msgid "Queen Gambit Declined: Vienna Variation"
-msgstr "جامبيت الوزير المرفوض: فيينا تفريع"
-
-msgid "Queen Gambit Declined"
-msgstr "الوزير جامبيت المرفوض"
-
-msgid "Queen Gambit"
-msgstr "الوزير جامبيت"
-
-msgid "Queen Indian Accelerated"
-msgstr "الوزير الهندي المتسارع"
-
-msgid "Queen Indian Defence: 4.Nc3, Main Line"
-msgstr "الوزير الهندي: 4.Nc3, الخط الرئيسي"
-
-msgid "Queen Indian Defence: 4.Nc3"
-msgstr "الوزير الهندي: 4.Nc4"
-
-msgid "Queen Indian Defence: 4.e3"
-msgstr "الوزير الهندي: 4.e4"
-
-msgid "Queen Indian Defence: 4.g3 Bb7"
-msgstr "الوزير الهندي: 4.g3 Bb8"
-
-msgid "Queen Indian Defence: 4.g3"
-msgstr "الوزير الهندي: 4.g4"
-
-msgid "Queen Indian Defence: 5.Bg2 Be7"
-msgstr "الوزير الهندي: 5.Bg2 Be8"
-
-msgid "Queen Indian Defence: Anti-Queen Indian System"
-msgstr "الوزير الهندي: ضد-الوزير الهندي نظام"
-
-msgid "Queen Indian Defence: Averbakh Variation"
-msgstr "الوزير الهندي: أفرباخ تفريع"
-
-msgid "Queen Indian Defence: Buerger Variation"
-msgstr "الوزير الهندي: بورغر تفريع"
-
-msgid "Queen Indian Defence: Capablanca Variation"
-msgstr "الوزير الهندي: كابابلانكا تفريع"
-
-msgid "Queen Indian Defence: Euwe Variation"
-msgstr "الوزير الهندي: تفريع إيوي"
-
-msgid "Queen Indian Defence: Marienbad System, Berg Variation"
-msgstr "الوزير الهندي: مارينباد نظام, بيرج تفريع"
-
-msgid "Queen Indian Defence: Marienbad System"
-msgstr "الوزير الهندي: مارينباد نظام"
-
-msgid "Queen Indian Defence: Miles Variation"
-msgstr "الوزير الهندي: مايلز تفريع"
-
-msgid "Queen Indian Defence: Nimzovich Variation (exaggerated Fianchetto)"
-msgstr "الوزير الهندي: نيمزوفيتش تفريع (المبالغ فيه فيل الوتر الطويل)"
-
-msgid "Queen Indian Defence: Old Main Line, 6.O-O"
-msgstr "الوزير الهندي: القديم الخط الرئيسي, 6.O-O"
-
-msgid "Queen Indian Defence: Old Main Line, 7.Nc3"
-msgstr "الوزير الهندي: القديم الخط الرئيسي, 7.Nc4"
-
-msgid "Queen Indian Defence: Old Main Line, 9.Qxc3"
-msgstr "الوزير الهندي: القديم الخط الرئيسي, 9.Qxc4"
-
-msgid "Queen Indian Defence: Opovcensky Variation"
-msgstr "الوزير الهندي: اوبوفسينسكي تفريع"
-
-msgid "Queen Indian Defence: Petrosian System"
-msgstr "الوزير الهندي: بيتروسيان نظام"
-
-msgid "Queen Indian Defence: Riumin Variation"
-msgstr "الوزير الهندي: ريومين تفريع"
-
-msgid "Queen Indian Defence: Rubinstein Variation"
-msgstr "الوزير الهندي: روبينشتاين تفريع"
-
-msgid "Queen Indian Defence: Yates Variation"
-msgstr "الوزير الهندي: يايتس تفريع"
-
-msgid "Queen Indian Defence"
-msgstr "الوزير الهندي دفاع"
-
-msgid "Queen Pawn Game Counter-Gambit (elephant Gambit)"
-msgstr "QP الجامبيت المضاد (الفيل جامبيت)"
-
-msgid "Queen Pawn Game Counter-Gambit: Maroczy Gambit"
-msgstr "QP الجامبيت المضاد: ماركوتزي جامبيت"
-
-msgid "Queen Pawn Game: Bronstein Gambit"
-msgstr "بيدق الوزير: برونشتاين جامبيت"
-
-msgid "Queen Pawn Game: Charlick (Englund) Gambit"
-msgstr "بيدق الوزير: شارليك (انجلند) جامبيت"
-
-msgid "Queen Pawn Game: Chigorin Variation"
-msgstr "بيدق الوزير: تشجورين تفريع"
-
-msgid "Queen Pawn Game: English Defence"
-msgstr "بيدق الوزير: الانجليزي دفاع"
-
-msgid "Queen Pawn Game: Franco-Indian (Keres) Defence"
-msgstr "بيدق الوزير: فرانكو هندي (كيريس) دفاع"
-
-msgid "Queen Pawn Game: Krause Variation"
-msgstr "بيدق الوزير مباراة, كراوز تفريع"
-
-msgid "Queen Pawn Game: Lundin (Kevitz-Mikenas) Defence"
-msgstr "بيدق الوزير: لوندين (كيفيتس-ميكناس) دفاع"
-
-msgid "Queen Pawn Game: Mason Variation, Steinitz Counter-Gambit"
-msgstr "بيدق الوزير, ماسون تفريع, شتاينتز الجامبيت المضاد"
-
-msgid "Queen Pawn Game: Mason Variation"
-msgstr "بيدق الوزير, ماسون تفريع"
-
-msgid "Queen Pawn Game: Mengarini Attack"
-msgstr "بيدق الوزير: منجاريني هجوم"
-
-msgid "Queen Pawn Game: Rubinstein (Colle-Zukertort) Variation"
-msgstr "بيدق الوزير مباراة, روبينشتاين (كوللي-زكرتوت) تفريع"
-
-msgid "Queen Pawn Game: Stonewall Attack"
-msgstr "بيدق الوزير: الحائط الصخري هجوم"
-
-msgid "Queen Pawn Game: Torre Attack, Wagner Gambit"
-msgstr "بيدق الوزير: توري هجوم, فاجنر جامبيت"
-
-msgid "Queen Pawn Game: Torre Attack"
-msgstr "بيدق الوزير: توري هجوم"
-
-msgid "Queen Pawn Game: Yusupov-Rubinstein System"
-msgstr "بيدق الوزير: يوسوبوف-روبينشتاين نظام"
-
-msgid "Queen Pawn Game: Zukertort Variation"
-msgstr "بيدق الوزير مباراة, زكرتوت تفريع"
-
-msgid "Queen Pawn Game"
-msgstr "بيدق الوزير مباراة"
-
-msgid "Reti Opening: Accepted, Keres Variation"
-msgstr "ريتي المقبول:كيريس تفريع"
-
-msgid "Reti Opening: Accepted"
-msgstr "ريتي المقبول"
-
-msgid "Reti Opening: Advance Variation"
-msgstr "ريتي: تقديم تفريع"
-
-msgid "Reti Opening: Herrstroem Gambit"
-msgstr "ريتي: هيررستوم جامبيت"
-
-msgid "Reti Opening: King Indian Attack (Barcza System)"
-msgstr "ريتي: هجوم الملك الهندي (باركزا نظام)"
-
-msgid "Reti Opening: King Indian Attack (with ...c5)"
-msgstr "ريتي: هجوم الملك الهندي (مع ...c5)"
-
-msgid "Reti Opening: King Indian Attack, French Variation"
-msgstr "ريتي: هجوم الملك الهندي, فرنسي تفريع"
-
-msgid "Reti Opening: King Indian Attack, Keres Variation"
-msgstr "ريتي: هجوم الملك الهندي,كيريس تفريع"
-
-msgid "Reti Opening: King Indian Attack, Pachman System"
-msgstr "ريتي: هجوم الملك الهندي, باخمان نظام"
-
-msgid "Reti Opening: King Indian Attack, Reti-Smyslov Variation"
-msgstr "ريتي: هجوم الملك الهندي, ريتي-سيمسلوف تفريع"
-
-msgid "Reti Opening: King Indian Attack, Spassky Variation"
-msgstr "ريتي: هجوم الملك الهندي, سباسكي's تفريع"
-
-msgid "Reti Opening: King Indian Attack, Yugoslav Variation"
-msgstr "ريتي: هجوم الملك الهندي, اليوغسلافي تفريع"
-
-msgid "Reti Opening: King Indian Attack"
-msgstr "ريتي: هجوم الملك الهندي"
-
-msgid "Reti Opening: Lisitsin Gambit deferred"
-msgstr "ريتي: ليستين جامبيت ديفيرد"
-
-msgid "Reti Opening: Nimzovich-Larsen Attack"
-msgstr "ريتي: هجوم نيمزوفيتش-لارسن"
-
-msgid "Reti Opening: Old Indian Attack"
-msgstr "ريتي: الهندي القديم هجوم"
-
-msgid "Reti Opening: Pirc-Lisitsin Gambit"
-msgstr "ريتي: بيرك-ليستين جامبيت"
 
 msgid "Reti Opening"
 msgstr "ريتي افتتاح"
@@ -3798,116 +1444,17 @@ msgstr "ريتي v الهولندي"
 msgid "Reversed Grob (Borg/Basman Defence/macho Grob)"
 msgstr "جروب المعكوس (بورج/باسمان دفاع/ماشو جروب)"
 
-msgid "Richter-Veresov Attack: Richter Variation"
-msgstr "ريشتر-فيرسوف هجوم, ريشتر تفريع"
-
-msgid "Richter-Veresov Attack: Veresov Variation"
-msgstr "ريشتر-فيرسوف هجوم, فيرسوف تفريع"
-
 msgid "Richter-Veresov Attack"
 msgstr "ريشتر-فيرسوف هجوم"
 
-msgid "Robatsch (Modern) Defence: Pseudo-Austrian Attack"
-msgstr "روباتش دفاع: الخادع-الهجوم النمساوي"
-
-msgid "Robatsch (Modern) Defence: Three Pawns Attack"
-msgstr "روباتش دفاع: ثلاثة بيادق هجوم"
-
-msgid "Robatsch (Modern) Defence: Two Knights Variation"
-msgstr "روباتش دفاع: الفرسين تفريع"
-
-msgid "Robatsch (Modern) Defence: Two Knights, Suttles Variation"
-msgstr "روباتش دفاع: الفرسين, ساتلس تفريع"
-
 msgid "Robatsch (Modern) Defence"
-msgstr "روباتش دفاع"
+msgstr "روباتش (حديث) دفاع"
 
 msgid "Rousseau Gambit"
 msgstr "جامبيت روسو"
 
-msgid "Russian Game (Petroff Defence): Classical Attack, Berger Variation"
-msgstr "بتروف: الهجوم الكلاسيكي, بيرجر تفريع"
-
-msgid "Russian Game (Petroff Defence): Classical Attack, Chigorin Variation"
-msgstr "بتروف: الهجوم الكلاسيكي, تشجورين تفريع"
-
-msgid "Russian Game (Petroff Defence): Classical Attack, Jaenisch Variation"
-msgstr "بتروف: الهجوم الكلاسيكي, جينيش تفريع"
-
-msgid "Russian Game (Petroff Defence): Classical Attack, Krause Variation"
-msgstr "بتروف: الهجوم الكلاسيكي, كراوز تفريع"
-
-msgid "Russian Game (Petroff Defence): Classical Attack, Maroczy Variation"
-msgstr "بتروف: الهجوم الكلاسيكي, ماركوتزي تفريع"
-
-msgid "Russian Game (Petroff Defence): Classical Attack, Marshall Variation"
-msgstr "بتروف: الهجوم الكلاسيكي, تفريع مارشال"
-
-msgid "Russian Game (Petroff Defence): Classical Attack, Marshall trap"
-msgstr "بتروف: الهجوم الكلاسيكي, فخ مارشال"
-
-msgid "Russian Game (Petroff Defence): Classical Attack, Mason Variation"
-msgstr "بتروف: الهجوم الكلاسيكي, ماسون تفريع"
-
-msgid "Russian Game (Petroff Defence): Classical Attack, Tarrasch Variation"
-msgstr "بتروف: الهجوم الكلاسيكي, تفريع تاراش"
-
-msgid "Russian Game (Petroff Defence): Classical Attack, close Variation"
-msgstr "بتروف: الهجوم الكلاسيكي, التفريع المغلق"
-
-msgid "Russian Game (Petroff Defence): Classical Attack"
-msgstr "بتروف: الهجوم الكلاسيكي"
-
-msgid "Russian Game (Petroff Defence): Cochrane Gambit"
-msgstr "بتروف: كوتشرين جامبيت"
-
-msgid "Russian Game (Petroff Defence): Cozio (Lasker) Attack"
-msgstr "بتروف: كوزيو (لاسكر) هجوم"
-
-msgid "Russian Game (Petroff Defence): Damiano Variation"
-msgstr "بتروف: داميانو تفريع"
-
-msgid "Russian Game (Petroff Defence): French Attack"
-msgstr "بتروف: فرنسي هجوم"
-
-msgid "Russian Game (Petroff Defence): Italian Variation"
-msgstr "بتروف: إيطالي تفريع"
-
-msgid "Russian Game (Petroff Defence): Kaufmann Attack"
-msgstr "بتروف: كوفمان هجوم"
-
-msgid "Russian Game (Petroff Defence): Modern (Steinitz) Attack"
-msgstr "بتروف: حديث (شتاينتز) هجوم"
-
-msgid "Russian Game (Petroff Defence): Modern Attack, Bardeleben Variation"
-msgstr "بتروف: حديث هجوم, بارديليبين تفريع"
-
-msgid "Russian Game (Petroff Defence): Modern Attack, Main Line"
-msgstr "بتروف: حديث هجوم, الخط الرئيسي"
-
-msgid "Russian Game (Petroff Defence): Modern Attack, Steinitz Variation"
-msgstr "بتروف: حديث هجوم, تفريع شتاينتز"
-
-msgid "Russian Game (Petroff Defence): Modern Attack, Symmetrical Variation"
-msgstr "بتروف: حديث هجوم, التفريع المتناظر"
-
-msgid "Russian Game (Petroff Defence): Modern Attack, Trifunovic Variation"
-msgstr "بتروف: حديث هجوم, تريفونوفيك تفريع"
-
-msgid "Russian Game (Petroff Defence): Nimzovich Attack"
-msgstr "بتروف: نيمزوفيتش هجوم"
-
-msgid "Russian Game (Petroff Defence): Paulsen Attack"
-msgstr "بتروف: بولسن هجوم"
-
-msgid "Russian Game (Petroff Defence): Three Knights Game"
-msgstr "بتروف الثلاثة أفراس مباراة"
-
 msgid "Ruy Lopez (Spanish Opening)"
 msgstr "روي لوبيز (الافتتاح الاسباني)"
-
-msgid "Santasiere folly"
-msgstr "حماقة سانتازير"
 
 msgid "Saragossa Opening"
 msgstr "ساراجوسا افتتاح"
@@ -3927,23 +1474,14 @@ msgstr "إسكندينافى: أندرسن الهجوم المضاد الأرث�
 msgid "Scandinavian Defence: Anderssen Counter-Attack"
 msgstr "إسكندينافى: أندرسن الهجوم المضاد"
 
-msgid "Scandinavian Defence: Grünfeld Variation"
-msgstr "إسكندينافى دفاع, جرونفلد تفريع"
-
 msgid "Scandinavian Defence: Icelandic Gambit"
 msgstr "إسكندينافى: الآيسلندي جامبيت"
 
 msgid "Scandinavian Defence: Kiel Variation"
 msgstr "إسكندينافى: كيل تفريع"
 
-msgid "Scandinavian Defence: Lasker Variation"
-msgstr "إسكندينافى دفاع, لاسكر تفريع"
-
 msgid "Scandinavian Defence: Marshall Variation"
 msgstr "إسكندينافى: تفريع مارشال"
-
-msgid "Scandinavian Defence: Mieses-Kotrvc Gambit"
-msgstr "إسكندينافى, مايزس-كوترفك جامبيت"
 
 msgid "Scandinavian Defence: Pytel-Wade Variation"
 msgstr "إسكندينافى: بايتل-ويد تفريع"
@@ -3981,77 +1519,8 @@ msgstr "سكوتش جامبيت: فيتزهوم هجوم"
 msgid "Scotch Gambit"
 msgstr "سكوتش جامبيت"
 
-msgid "Scotch Opening: Berger Variation"
-msgstr "سكوتش: بيرجر تفريع"
-
-msgid "Scotch Opening: Blackburne Attack"
-msgstr "سكوتش: برنبلاك هجوم"
-
-msgid "Scotch Opening: Blumenfeld Attack"
-msgstr "سكوتش: بلومنفلد هجوم"
-
-msgid "Scotch Opening: Cochrane Variation"
-msgstr "سكوتش: كوتشرين تفريع"
-
-msgid "Scotch Opening: Fraser Attack"
-msgstr "سكوتش: فرازر هجوم"
-
-msgid "Scotch Opening: Ghulam Kassim Variation"
-msgstr "سكوتش: غوم قاسم تفريع"
-
-msgid "Scotch Opening: Goering Gambit, Bardeleben Variation"
-msgstr "سكوتش: جورنج جامبيت, بارديليبين تفريع"
-
-msgid "Scotch Opening: Goering Gambit"
-msgstr "سكوتش: جورنج جامبيت"
-
-msgid "Scotch Opening: Horwitz Attack"
-msgstr "سكوتش: هورويتز هجوم"
-
-msgid "Scotch Opening: Lolli Variation"
-msgstr "سكوتش: لولي تفريع"
-
-msgid "Scotch Opening: Meitner Variation"
-msgstr "سكوتش: ميتنر تفريع"
-
-msgid "Scotch Opening: Mieses Variation"
-msgstr "سكوتش: مايزس تفريع"
-
-msgid "Scotch Opening: Paulsen Attack"
-msgstr "سكوتش: بولسن هجوم"
-
-msgid "Scotch Opening: Paulsen, Gunsberg Defence"
-msgstr "سكوتش: بولسن, جونسبرج دفاع"
-
-msgid "Scotch Opening: Potter Variation"
-msgstr "سكوتش: بوتر تفريع"
-
-msgid "Scotch Opening: Pulling Counter-Attack"
-msgstr "سكوتش: بولينج الهجوم المضاد"
-
-msgid "Scotch Opening: Relfsson Gambit ('MacLopez')"
-msgstr "سكوتش: ريفلسون جامبيت ('ماكلوبيز')"
-
-msgid "Scotch Opening: Romanishin Variation"
-msgstr "سكوتش: رومانشين تفريع"
-
-msgid "Scotch Opening: Rosenthal Variation"
-msgstr "سكوتش: روزنتال تفريع"
-
-msgid "Scotch Opening: Schmidt Variation"
-msgstr "سكوتش: شميدt تفريع"
-
-msgid "Scotch Opening: Steinitz Variation"
-msgstr "سكوتش: تفريع شتاينتز"
-
-msgid "Scotch Opening: Tartakower Variation"
-msgstr "سكوتش: تارتاكوفر تفريع"
-
 msgid "Scotch Opening"
 msgstr "سكوتش افتتاح"
-
-msgid "Semi-Benoni (Blockade Variation)"
-msgstr "النصف-بينوني (`عائق تفريع')"
 
 msgid "Sicilian Defence: 2.c3, Heidenfeld Variation"
 msgstr "صقلي: 2.c3, هايدنفيلد تفريع"
@@ -4086,9 +1555,6 @@ msgstr "صقلي: المتسارع فيل الوتر الطويل, سيماجي�
 msgid "Sicilian Defence: Acton extension"
 msgstr "صقلي: أكتون الممتد"
 
-msgid "Sicilian Defence: Alapin Variation (2.c3)"
-msgstr "صقلي: ألابين تفريع (2.c3)"
-
 msgid "Sicilian Defence: Anderssen Variation"
 msgstr "صقلي: أندرسن تفريع"
 
@@ -4118,9 +1584,6 @@ msgstr "صقلي: كانال-سوكولوسكي هجوم, سوكولوسكي ت�
 
 msgid "Sicilian Defence: Chameleon Variation"
 msgstr "صقلي: شاميليون تفريع"
-
-msgid "Sicilian Defence: Chekhover Variation"
-msgstr "صقلي, تشيكهوفر تفريع"
 
 msgid "Sicilian Defence: Chekhover, Zaitsev Variation"
 msgstr "صقلي: تشيكهوفر, زايتسيف تفريع"
@@ -4172,9 +1635,6 @@ msgstr "صقلي: التنين, الكلاسيكي, اليخين تفريع"
 
 msgid "Sicilian Defence: Dragon, Classical, Amsterdam Variation"
 msgstr "صقلي: التنين, الكلاسيكي, أمستردام تفريع"
-
-msgid "Sicilian Defence: Dragon, Classical, Bernard Defence"
-msgstr "صقلي: التنين, الكلاسيكي, بيرنارد دفاع"
 
 msgid "Sicilian Defence: Dragon, Classical, Grigoriev Variation"
 msgstr "صقلي: التنين, الكلاسيكي, جريجوريف تفريع"
@@ -4420,27 +1880,8 @@ msgstr "صقلي: ريشتر-روزر, مارجيت (اليخين) تفريع"
 msgid "Sicilian Defence: Richter-Rauzer, Podvebrady Variation"
 msgstr "صقلي: ريشتر-روزر, بودفيربرادي تفريع"
 
-msgid ""
-"Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...Be7 Defence, 9...Nxd4"
-msgstr "صقلي: ريشتر-روزر, روزر هجوم, 7...Be7 دفاع, 9...Nxd5"
-
-msgid "Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...Be7 Defence, 9.f4"
-msgstr "صقلي: ريشتر-روزر, روزر هجوم, 7...Be7 دفاع, 9.f5"
-
 msgid "Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...Be7"
 msgstr "صقلي: ريشتر-روزر, روزر هجوم, 7...Be8"
-
-msgid ""
-"Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...a6 Defence, 11.Bxf6"
-msgstr "صقلي: ريشتر-روزر, روزر هجوم, 7...a6 دفاع, 11.Bxf7"
-
-msgid ""
-"Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...a6 Defence, 8...Bd7"
-msgstr "صقلي: ريشتر-روزر, روزر هجوم, 7...a6 دفاع, 8...Bd8"
-
-msgid ""
-"Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...a6 Defence, 9...Be7"
-msgstr "صقلي: ريشتر-روزر, روزر هجوم, 7...a6 دفاع, 9...Be8"
 
 msgid "Sicilian Defence: Richter-Rauzer, Rauzer Attack, 7...a6"
 msgstr "صقلي: ريشتر-روزر, روزر هجوم, 7...a7"
@@ -4500,9 +1941,6 @@ msgstr "صقلي: شيفينينغن, Tal تفريع"
 msgid "Sicilian Defence: Scheveningen, Vitolins Variation"
 msgstr "صقلي: شيفينينغن, فيتولينس تفريع"
 
-msgid "Sicilian Defence: Smith-Morra Gambit, Chicago Defence"
-msgstr "صقلي: سميث-مورا جامبيت, شيكاغو دفاع"
-
 msgid "Sicilian Defence: Smith-Morra Gambit"
 msgstr "صقلي: سميث-مورا جامبيت"
 
@@ -4535,15 +1973,6 @@ msgstr "صقلي: استيليتو (الذوز) تفريع"
 
 msgid "Sicilian Defence: Sveshnikov Variation"
 msgstr "صقلي: سفيشنيكوف تفريع"
-
-msgid "Sicilian Defence: Szen (Anti-Taimanov) Variation"
-msgstr "صقلي, سيزن (`ضد-تيمانوف') تفريع"
-
-msgid "Sicilian Defence: Szen Variation, Dely-Kasparov Gambit"
-msgstr "صقلي, سيزن تفريع, ديلاي-كاسباروف جامبيت"
-
-msgid "Sicilian Defence: Szen, Hedgehog Variation"
-msgstr "صقلي, سيزن, هيدجيهوج تفريع"
 
 msgid "Sicilian Defence: Taimanov (Bastrikov) Variation"
 msgstr "صقلي: تيمانوف (ياستريكوف) تفريع"
@@ -4581,531 +2010,6 @@ msgstr "صقلي: الجناح جامبيت"
 msgid "Sicilian Defence"
 msgstr "صقلي دفاع"
 
-msgid "Spanish, Ruy Lopez: ...b5 & ...d6"
-msgstr "روي لوبيز: ...b5 & ...d7"
-
-msgid "Spanish, Ruy Lopez: 5.O-O"
-msgstr "روي لوبيز: 5.O-O"
-
-msgid "Spanish, Ruy Lopez: Alapin Defence deferred"
-msgstr "روي لوبيز: ألابين دفاع ديفيرد"
-
-msgid "Spanish, Ruy Lopez: Anderssen Variation"
-msgstr "روي لوبيز: أندرسن تفريع"
-
-msgid "Spanish, Ruy Lopez: Archangelsk (CounterThrust) Variation"
-msgstr "روي لوبيز: ارشانجلسك (المضاد الاتجاه) تفريع"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, 4.O-O, d6"
-msgstr "روي لوبيز: دفاع بيرلين, 4.O-O, d7"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, 4.O-O"
-msgstr "روي لوبيز: دفاع بيرلين, 4.O-O"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Anderssen Variation"
-msgstr "روي لوبيز: دفاع بيرلين, أندرسن تفريع"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Beverwijk Variation"
-msgstr "روي لوبيز: دفاع بيرلين, بيفيروجك تفريع"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Cordel Variation"
-msgstr "روي لوبيز: دفاع بيرلين, كوردل تفريع"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Duras Variation"
-msgstr "روي لوبيز: دفاع بيرلين, دوراس تفريع"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Hedgehog Variation"
-msgstr "روي لوبيز: دفاع بيرلين, هيدجيهوج تفريع"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Kaufmann Variation"
-msgstr "روي لوبيز: دفاع بيرلين, كوفمان تفريع"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Minckwitz Variation"
-msgstr "روي لوبيز: دفاع بيرلين, مينكويتز تفريع"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Mortimer Variation"
-msgstr "روي لوبيز: دفاع بيرلين, مورتليمر تفريع"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Mortimer trap"
-msgstr "روي لوبيز: دفاع بيرلين, مورتليمر فخ"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Nyholm Attack"
-msgstr "روي لوبيز: دفاع بيرلين, نيهولم هجوم"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Open Variation"
-msgstr "روي لوبيز: دفاع بيرلين, التفريع المفتوح"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Pillsbury Variation"
-msgstr "روي لوبيز: دفاع بيرلين, بيلسبوري تفريع"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Rosenthal Variation"
-msgstr "روي لوبيز: دفاع بيرلين, روزنتال تفريع"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Tarrasch trap"
-msgstr "روي لوبيز: دفاع بيرلين, تاراش فخ"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Trifunovic Variation"
-msgstr "روي لوبيز: دفاع بيرلين, تريفونوفيك تفريع"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Winawer Attack"
-msgstr "روي لوبيز: دفاع بيرلين, ويناور هجوم"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence, Zukertort Variation"
-msgstr "روي لوبيز: دفاع بيرلين, زكرتوت تفريع"
-
-msgid "Spanish, Ruy Lopez: Berlin Defence"
-msgstr "روي لوبيز: دفاع بيرلين"
-
-msgid "Spanish, Ruy Lopez: Bird Defence deferred"
-msgstr "روي لوبيز: بيرد دفاع ديفيرد"
-
-msgid "Spanish, Ruy Lopez: Bird Defence, Paulsen Variation"
-msgstr "روي لوبيز: بيرد دفاع, بولسن تفريع"
-
-msgid "Spanish, Ruy Lopez: Bird Defence"
-msgstr "روي لوبيز: بيرد دفاع"
-
-msgid "Spanish, Ruy Lopez: Brentano Defence"
-msgstr "روي لوبيز: برينتانو دفاع"
-
-msgid "Spanish, Ruy Lopez: Caro Variation"
-msgstr "روي لوبيز: كارو تفريع"
-
-msgid "Spanish, Ruy Lopez: Classical (Cordel) Defence"
-msgstr "روي لوبيز: الكلاسيكي (كوردل) دفاع"
-
-msgid "Spanish, Ruy Lopez: Classical Defence deferred"
-msgstr "روي لوبيز: الدفاع الكلاسيكي ديفيرد"
-
-msgid "Spanish, Ruy Lopez: Classical Defence, 4.c3"
-msgstr "روي لوبيز: الدفاع الكلاسيكي, 4.c4"
-
-msgid "Spanish, Ruy Lopez: Classical Defence, Boden Variation"
-msgstr "روي لوبيز: الدفاع الكلاسيكي, بودن تفريع"
-
-msgid "Spanish, Ruy Lopez: Classical Defence, Charousek Variation"
-msgstr "روي لوبيز: الدفاع الكلاسيكي, تشاروسك تفريع"
-
-msgid "Spanish, Ruy Lopez: Classical Defence, Zaitsev Variation"
-msgstr "روي لوبيز: الدفاع الكلاسيكي, زايتسيف تفريع"
-
-msgid "Spanish, Ruy Lopez: Closed (10...c5)"
-msgstr "روي لوبيز: المغلق (10...c5)"
-
-msgid "Spanish, Ruy Lopez: Closed (8...Na5)"
-msgstr "روي لوبيز: المغلق (8...Na5)"
-
-msgid "Spanish, Ruy Lopez: Closed (with ...d6)"
-msgstr "روي لوبيز: المغلق (مع ...d6)"
-
-msgid "Spanish, Ruy Lopez: Closed Berlin Defence, Bernstein Variation"
-msgstr "روي لوبيز: المغلق دفاع بيرلين, بيىشتاين تفريع"
-
-msgid "Spanish, Ruy Lopez: Closed Berlin Defence, Chigorin Variation"
-msgstr "روي لوبيز: المغلق دفاع بيرلين, تشجورين تفريع"
-
-msgid "Spanish, Ruy Lopez: Closed Berlin Defence, Showalter Variation"
-msgstr "روي لوبيز: المغلق دفاع بيرلين, تفريع شولتر"
-
-msgid "Spanish, Ruy Lopez: Closed Berlin Defence, Wolf Variation"
-msgstr "روي لوبيز: المغلق دفاع بيرلين, تفريع وولف"
-
-msgid "Spanish, Ruy Lopez: Closed Defence"
-msgstr "روي لوبيز: المغلق دفاع"
-
-msgid "Spanish, Ruy Lopez: Closed, 7...O-O"
-msgstr "روي لوبيز: المغلق, 7...O-O"
-
-msgid "Spanish, Ruy Lopez: Closed, 7...d6, 8.d4"
-msgstr "روي لوبيز: المغلق, 7...d6, 8.d5"
-
-msgid "Spanish, Ruy Lopez: Closed, 8.c3"
-msgstr "روي لوبيز: المغلق, 8.c4"
-
-msgid "Spanish, Ruy Lopez: Closed, 9.d4"
-msgstr "روي لوبيز: المغلق, 9.d5"
-
-msgid "Spanish, Ruy Lopez: Closed, 9.h3"
-msgstr "روي لوبيز: المغلق, 9.h4"
-
-msgid "Spanish, Ruy Lopez: Closed, Anti-Marshall 8.a4"
-msgstr "روي لوبيز: المغلق, ضد- مارشال 8.a5"
-
-msgid "Spanish, Ruy Lopez: Closed, Averbakh Variation"
-msgstr "روي لوبيز: المغلق, أفرباخ تفريع"
-
-msgid "Spanish, Ruy Lopez: Closed, Balla Variation"
-msgstr "روي لوبيز: المغلق, تفريع بولا"
-
-msgid "Spanish, Ruy Lopez: Closed, Basque Gambit (North Spanish Variation)"
-msgstr "روي لوبيز: المغلق, جامبيت باسقي (تفريع شمال أسبانيا)"
-
-msgid "Spanish, Ruy Lopez: Closed, Bogolyubov Variation"
-msgstr "روي لوبيز: المغلق, تفريع وجوليوبوف"
-
-msgid "Spanish, Ruy Lopez: Closed, Borisenko Defence"
-msgstr "روي لوبيز: المغلق, بوريزنكو دفاع"
-
-msgid "Spanish, Ruy Lopez: Closed, Breyer Defence"
-msgstr "روي لوبيز: المغلق, برير دفاع"
-
-msgid "Spanish, Ruy Lopez: Closed, Breyer, 10.d4"
-msgstr "روي لوبيز: المغلق, برير, 10.d5"
-
-msgid "Spanish, Ruy Lopez: Closed, Breyer, Borisenko Variation"
-msgstr "روي لوبيز: المغلق, برير, بوريزنكو تفريع"
-
-msgid "Spanish, Ruy Lopez: Closed, Breyer, Gligoric Variation"
-msgstr "روي لوبيز: المغلق, برير, جليجوريك تفريع"
-
-msgid "Spanish, Ruy Lopez: Closed, Breyer, Simagin Variation"
-msgstr "روي لوبيز: المغلق, برير, سيماجين تفريع"
-
-msgid "Spanish, Ruy Lopez: Closed, Centre Attack"
-msgstr "روي لوبيز: المغلق, الوسط هجوم"
-
-msgid "Spanish, Ruy Lopez: Closed, Chigorin Defence"
-msgstr "روي لوبيز: المغلق, تشجورين دفاع"
-
-msgid "Spanish, Ruy Lopez: Closed, Chigorin, 12...Nc6"
-msgstr "روي لوبيز: المغلق, تشجورين, 12...Nc7"
-
-msgid "Spanish, Ruy Lopez: Closed, Chigorin, 12...c5d4"
-msgstr "روي لوبيز: المغلق, تشجورين, 12...c5d5"
-
-msgid "Spanish, Ruy Lopez: Closed, Chigorin, Rauzer Attack"
-msgstr "روي لوبيز: المغلق, تشجورين, روزر هجوم"
-
-msgid "Spanish, Ruy Lopez: Closed, Chigorin, Yugoslav System"
-msgstr "روي لوبيز: المغلق, تشجورين, اليوغسلافي نظام"
-
-msgid ""
-"Spanish, Ruy Lopez: Closed, Flohr-Zaitsev System (Lenzerheide Variation)"
-msgstr "روي لوبيز: المغلق, فلوهر-زايتسيف نظام (لينتسرهايدي تفريع)"
-
-msgid "Spanish, Ruy Lopez: Closed, Keres (...Nd7) Defence"
-msgstr "روي لوبيز: المغلق,كيريس (...Nd7) دفاع"
-
-msgid "Spanish, Ruy Lopez: Closed, Keres (9...a5) Variation"
-msgstr "روي لوبيز: المغلق,كيريس (9...a5) تفريع"
-
-msgid "Spanish, Ruy Lopez: Closed, Kholmov Variation"
-msgstr "روي لوبيز: المغلق, Kهولموف تفريع"
-
-msgid "Spanish, Ruy Lopez: Closed, Leonhardt Variation"
-msgstr "روي لوبيز: المغلق, ليونهاردت تفريع"
-
-msgid "Spanish, Ruy Lopez: Closed, Lutikov Variation"
-msgstr "روي لوبيز: المغلق, لوتيكوف تفريع"
-
-msgid "Spanish, Ruy Lopez: Closed, Pilnik Variation"
-msgstr "روي لوبيز: المغلق, بيلينك تفريع"
-
-msgid "Spanish, Ruy Lopez: Closed, Ragozin-Petrosian (Keres) Variation"
-msgstr "روي لوبيز: المغلق, راجوزين-بيتروسيان (`كيريس') تفريع"
-
-msgid "Spanish, Ruy Lopez: Closed, Rossolimo Defence"
-msgstr "روي لوبيز: المغلق, روسوليمو دفاع"
-
-msgid "Spanish, Ruy Lopez: Closed, Smyslov Defence"
-msgstr "روي لوبيز: المغلق, سيمسلوف دفاع"
-
-msgid "Spanish, Ruy Lopez: Closed, Suetin Variation"
-msgstr "روي لوبيز: المغلق, سيوتين تفريع"
-
-msgid "Spanish, Ruy Lopez: Cordel Gambit"
-msgstr "روي لوبيز: كوردل جامبيت"
-
-msgid "Spanish, Ruy Lopez: Cozio Defence deferred"
-msgstr "روي لوبيز: كوزيو دفاع ديفيرد"
-
-msgid "Spanish, Ruy Lopez: Cozio Defence, Paulsen Variation"
-msgstr "روي لوبيز: كوزيو دفاع, بولسن تفريع"
-
-msgid "Spanish, Ruy Lopez: Cozio Defence"
-msgstr "روي لوبيز: كوزيو دفاع"
-
-msgid "Spanish, Ruy Lopez: Exchange Variation doubly deferred (DERLD)"
-msgstr "روي لوبيز: التكسير تفريع المزدوج ديفيرد (ديرلد)"
-
-msgid "Spanish, Ruy Lopez: Exchange Variation, 5.O-O"
-msgstr "روي لوبيز: التكسير تفريع, 5.O-O"
-
-msgid "Spanish, Ruy Lopez: Exchange Variation, Alapin Gambit"
-msgstr "روي لوبيز: التكسير تفريع, الابين جامبيت"
-
-msgid "Spanish, Ruy Lopez: Exchange Variation"
-msgstr "روي لوبيز: التكسير تفريع"
-
-msgid "Spanish, Ruy Lopez: Exchange, Alekhine Variation"
-msgstr "روي لوبيز: التكسير, اليخين تفريع"
-
-msgid "Spanish, Ruy Lopez: Exchange, Bronstein Variation"
-msgstr "روي لوبيز: التكسير, برونشتاين تفريع"
-
-msgid "Spanish, Ruy Lopez: Exchange, Gligoric Variation"
-msgstr "روي لوبيز: التكسير, جليجوريك تفريع"
-
-msgid "Spanish, Ruy Lopez: Exchange, Keres Variation"
-msgstr "روي لوبيز: التكسير,كيريس تفريع"
-
-msgid "Spanish, Ruy Lopez: Exchange, Romanovsky Variation"
-msgstr "روي لوبيز: التكسير, رومانوفسكي تفريع"
-
-msgid "Spanish, Ruy Lopez: Fianchetto (Smyslov/Barnes) Defence"
-msgstr "روي لوبيز: فيل الوتر الطويل (سيمسلوف/يارنيس) دفاع"
-
-msgid "Spanish, Ruy Lopez: Fianchetto Defence deferred"
-msgstr "روي لوبيز: فيل الوتر الطويل دفاع ديفيرد"
-
-msgid "Spanish, Ruy Lopez: Four Knights (Tarrasch) Variation"
-msgstr "روي لوبيز: الأربعة أحصنة (تاراش) تفريع"
-
-msgid "Spanish, Ruy Lopez: Graz Variation"
-msgstr "روي لوبيز: غراتس تفريع"
-
-msgid "Spanish, Ruy Lopez: Lucena Defence"
-msgstr "روي لوبيز: لوسينا دفاع"
-
-msgid "Spanish, Ruy Lopez: Marshall Counter-Attack, 11...c6"
-msgstr "روي لوبيز:  مارشال الهجوم المضاد, 11...c7"
-
-msgid "Spanish, Ruy Lopez: Marshall Counter-Attack"
-msgstr "روي لوبيز:  مارشال الهجوم المضاد"
-
-msgid "Spanish, Ruy Lopez: Marshall, Herman Steiner Variation"
-msgstr "روي لوبيز:  مارشال, هيرمان شتاينر تفريع"
-
-msgid "Spanish, Ruy Lopez: Marshall, Kevitz Variation"
-msgstr "روي لوبيز:  مارشال, كيفيتس تفريع"
-
-msgid "Spanish, Ruy Lopez: Marshall, Main Line, 12.d2d4"
-msgstr "روي لوبيز:  مارشال, الخط الرئيسي, 12.d2d5"
-
-msgid "Spanish, Ruy Lopez: Marshall, Main Line, 14...Qh3"
-msgstr "روي لوبيز:  مارشال, الخط الرئيسي, 14...Qh4"
-
-msgid "Spanish, Ruy Lopez: Marshall, Main Line, Spassky Variation"
-msgstr "روي لوبيز:  مارشال, الخط الرئيسي, تفريع سباسكي"
-
-msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, 5.O-O"
-msgstr "روي لوبيز: حديث شتاينتز دفاع, 5.O-O"
-
-msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, Alapin Variation"
-msgstr "روي لوبيز: حديث شتاينتز دفاع, تفريع الابين"
-
-msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, Duras (Keres) Variation"
-msgstr "روي لوبيز: حديث شتاينتز دفاع, دوراس (كيريس) تفريع"
-
-msgid ""
-"Spanish, Ruy Lopez: Modern Steinitz Defence, Fianchetto (Bronstein) "
-"Variation"
-msgstr "روي لوبيز: حديث شتاينتز دفاع, فيل الوتر الطويل (برونشتاين) تفريع"
-
-msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, Richter Variation"
-msgstr "روي لوبيز: حديث شتاينتز دفاع, ريشتر تفريع"
-
-msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, Rubinstein Variation"
-msgstr "روي لوبيز: حديث شتاينتز دفاع, روبينشتاين تفريع"
-
-msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, Three Knights Variation"
-msgstr "روي لوبيز: حديث شتاينتز دفاع, الثلاثة أفراس تفريع"
-
-msgid "Spanish, Ruy Lopez: Modern Steinitz Defence, siesta Variation"
-msgstr "روي لوبيز: حديث شتاينتز دفاع, سيستا تفريع"
-
-msgid "Spanish, Ruy Lopez: Modern Steinitz Defence"
-msgstr "روي لوبيز: حديث شتاينتز دفاع"
-
-msgid "Spanish, Ruy Lopez: Moeller Defence"
-msgstr "روي لوبيز: موللر دفاع"
-
-msgid "Spanish, Ruy Lopez: Morphy Defence, Duras Variation"
-msgstr "روي لوبيز: دفاع مورفي, دوراس تفريع"
-
-msgid "Spanish, Ruy Lopez: Morphy Defence"
-msgstr "روي لوبيز: دفاع مورفي"
-
-msgid "Spanish, Ruy Lopez: Noah ark trap"
-msgstr "روي لوبيز:  فخ سفينة نوح"
-
-msgid "Spanish, Ruy Lopez: Nuernberg Variation"
-msgstr "روي لوبيز: نورنبيرج تفريع"
-
-msgid "Spanish, Ruy Lopez: Old Steinitz Defence, Nimzovich Attack"
-msgstr "روي لوبيز: القديم شتاينتز دفاع, نيمزوفيتش هجوم"
-
-msgid "Spanish, Ruy Lopez: Old Steinitz Defence, semi-Duras Variation"
-msgstr "روي لوبيز: القديم شتاينتز دفاع, النصف-دوراس تفريع"
-
-msgid "Spanish, Ruy Lopez: Old Steinitz Defence"
-msgstr "روي لوبيز: القديم شتاينتز دفاع"
-
-msgid "Spanish, Ruy Lopez: Open (Tarrasch) Defence"
-msgstr "روي لوبيز: المفتوح (تاراش) دفاع"
-
-msgid "Spanish, Ruy Lopez: Open Berlin Defence, 5...Be7"
-msgstr "روي لوبيز: دفاع بيرلين المفتوح, 5...Be8"
-
-msgid "Spanish, Ruy Lopez: Open Berlin Defence, Showalter Variation"
-msgstr "روي لوبيز: دفاع بيرلين المفتوح, تفريع شولتر"
-
-msgid "Spanish, Ruy Lopez: Open Berlin Defence, l'Hermet Variation"
-msgstr "روي لوبيز: دفاع بيرلين المفتوح, لوهيرمت تفريع"
-
-msgid "Spanish, Ruy Lopez: Open, 6.d4 b5"
-msgstr "روي لوبيز: المفتوح , 6.d4 b6"
-
-msgid "Spanish, Ruy Lopez: Open, 6.d4"
-msgstr "روي لوبيز: المفتوح , 6.d5"
-
-msgid "Spanish, Ruy Lopez: Open, 7.Bb3"
-msgstr "روي لوبيز: المفتوح , 7.Bb4"
-
-msgid "Spanish, Ruy Lopez: Open, 8...Be6"
-msgstr "روي لوبيز: المفتوح , 8...Be7"
-
-msgid "Spanish, Ruy Lopez: Open, 8.de"
-msgstr "روي لوبيز: المفتوح , 8.de"
-
-msgid "Spanish, Ruy Lopez: Open, 9...Be7, 10.Re1"
-msgstr "روي لوبيز: المفتوح , 9...Be7, 10.Re2"
-
-msgid "Spanish, Ruy Lopez: Open, 9.c3"
-msgstr "روي لوبيز: المفتوح , 9.c4"
-
-msgid "Spanish, Ruy Lopez: Open, Berger Variation"
-msgstr "روي لوبيز: المفتوح , بيرجر تفريع"
-
-msgid "Spanish, Ruy Lopez: Open, Berlin Variation"
-msgstr "روي لوبيز: المفتوح , بيرلين تفريع"
-
-msgid "Spanish, Ruy Lopez: Open, Bernstein Variation, Karpov Gambit"
-msgstr "روي لوبيز: المفتوح , بيىشتاين تفريع, كاربوف جامبيت"
-
-msgid "Spanish, Ruy Lopez: Open, Bernstein Variation"
-msgstr "روي لوبيز: المفتوح , بيىشتاين تفريع"
-
-msgid "Spanish, Ruy Lopez: Open, Breslau Variation"
-msgstr "روي لوبيز: المفتوح , براسلو تفريع"
-
-msgid "Spanish, Ruy Lopez: Open, Classical Defence"
-msgstr "روي لوبيز: المفتوح , الدفاع الكلاسيكي"
-
-msgid "Spanish, Ruy Lopez: Open, Dilworth Variation"
-msgstr "روي لوبيز: المفتوح , ديلورث تفريع"
-
-msgid "Spanish, Ruy Lopez: Open, Friess Attack"
-msgstr "روي لوبيز: المفتوح , فرايس هجوم"
-
-msgid "Spanish, Ruy Lopez: Open, Harksen Gambit"
-msgstr "روي لوبيز: المفتوح , هاركسن جامبيت"
-
-msgid "Spanish, Ruy Lopez: Open, Howell Attack, Adam Variation"
-msgstr "روي لوبيز: المفتوح , هاول هجوم, أدم تفريع"
-
-msgid "Spanish, Ruy Lopez: Open, Howell Attack, Ekstroem Variation"
-msgstr "روي لوبيز: المفتوح , هاول هجوم, ايكسترويم تفريع"
-
-msgid "Spanish, Ruy Lopez: Open, Howell Attack"
-msgstr "روي لوبيز: المفتوح , هاول هجوم"
-
-msgid "Spanish, Ruy Lopez: Open, Italian Variation"
-msgstr "روي لوبيز: المفتوح , إيطالي تفريع"
-
-msgid "Spanish, Ruy Lopez: Open, Knorre Variation"
-msgstr "روي لوبيز: المفتوح , كنوري تفريع"
-
-msgid "Spanish, Ruy Lopez: Open, Malkin Variation"
-msgstr "روي لوبيز: المفتوح , مالكين تفريع"
-
-msgid "Spanish, Ruy Lopez: Open, Motzko Attack, Nenarokov Variation"
-msgstr "روي لوبيز: المفتوح , موتزكو هجوم, نيناروكوف تفريع"
-
-msgid "Spanish, Ruy Lopez: Open, Motzko Attack"
-msgstr "روي لوبيز: المفتوح , موتزكو هجوم"
-
-msgid "Spanish, Ruy Lopez: Open, Richter Variation"
-msgstr "روي لوبيز: المفتوح , ريشتر تفريع"
-
-msgid "Spanish, Ruy Lopez: Open, Riga Variation"
-msgstr "روي لوبيز: المفتوح , ريجا تفريع"
-
-msgid "Spanish, Ruy Lopez: Open, Schlechter Defence"
-msgstr "روي لوبيز: المفتوح , دفاع شيليشتر"
-
-msgid "Spanish, Ruy Lopez: Open, St. Petersburg Variation"
-msgstr "روي لوبيز: المفتوح , سانت بطرسبورغ تفريع"
-
-msgid "Spanish, Ruy Lopez: Open, Tarrasch trap"
-msgstr "روي لوبيز: المفتوح , تاراش فخ"
-
-msgid "Spanish, Ruy Lopez: Open, Tartakower Variation"
-msgstr "روي لوبيز: المفتوح , تارتاكوفر تفريع"
-
-msgid "Spanish, Ruy Lopez: Open, Zukertort Variation"
-msgstr "روي لوبيز: المفتوح , زكرتوت تفريع"
-
-msgid "Spanish, Ruy Lopez: Pollock Defence"
-msgstr "روي لوبيز: بولوك دفاع"
-
-msgid "Spanish, Ruy Lopez: Rabinovich Variation"
-msgstr "روي لوبيز: رابينوفيتش تفريع"
-
-msgid "Spanish, Ruy Lopez: Schliemann Defence deferred"
-msgstr "روي لوبيز: دفاع شيلمان ديفيرد"
-
-msgid "Spanish, Ruy Lopez: Schliemann Defence, Berger Variation"
-msgstr "روي لوبيز: دفاع شيلمان, بيرجر تفريع"
-
-msgid "Spanish, Ruy Lopez: Schliemann Defence"
-msgstr "روي لوبيز: دفاع شيلمان"
-
-msgid "Spanish, Ruy Lopez: Siesta, Kopayev Variation"
-msgstr "روي لوبيز: سيستا, كوبايف تفريع"
-
-msgid "Spanish, Ruy Lopez: Steinitz Defence deferred (Russian Defence)"
-msgstr "روي لوبيز: شتاينتز دفاع ديفيرد (الدفاع الروسي)"
-
-msgid "Spanish, Ruy Lopez: Steinitz Defence deferred, Boleslavsky Variation"
-msgstr "روي لوبيز: شتاينتز دفاع ديفيرد, بولسلافسكي تفريع"
-
-msgid "Spanish, Ruy Lopez: Steinitz Defence deferred, Lipnitsky Variation"
-msgstr "روي لوبيز: شتاينتز دفاع ديفيرد, ليبنيتسكي تفريع"
-
-msgid "Spanish, Ruy Lopez: Steinitz Defence deferred, Rubinstein Variation"
-msgstr "روي لوبيز: شتاينتز دفاع ديفيرد, روبينشتاين تفريع"
-
-msgid ""
-"Spanish, Ruy Lopez: Taimanov (chase/wing/Accelerated CounterThrust) "
-"Variation"
-msgstr "روي لوبيز: تيمانوف ( المطاردة/الجناح/المتسارع المضاد الاتجاه) تفريع"
-
-msgid "Spanish, Ruy Lopez: Trajkovic Counter-Attack"
-msgstr "روي لوبيز: تراجكوفيك الهجوم المضاد"
-
-msgid ""
-"Spanish, Ruy Lopez: Treybal (Bayreuth) Variation (Exchange var. deferred)"
-msgstr "روي لوبيز: ترايبال (بايروث) تفريع (التكسير تفريع ديفيرد)"
-
-msgid "Spanish, Ruy Lopez: Vinogradov Variation"
-msgstr "روي لوبيز: فينوجرادوف تفريع"
-
-msgid "Spanish, Ruy Lopez: Wormald (Alapin) Attack"
-msgstr "روي لوبيز: ورمالد (الابين) هجوم"
-
-msgid "Spanish, Ruy Lopez: Wormald Attack, Grünfeld Variation"
-msgstr "روي لوبيز: ورمالد هجوم, جرونفلد تفريع"
-
-msgid "Spanish, Ruy Lopez: Worrall Attack, Sharp Line"
-msgstr "روي لوبيز: هجوم وراول, الحاد الخط"
-
-msgid "Spanish, Ruy Lopez: Worrall Attack, solid Line"
-msgstr "روي لوبيز: هجوم وراول, صلب الخط"
-
-msgid "Spanish, Ruy Lopez: Worrall Attack"
-msgstr "روي لوبيز: هجوم وراول"
-
 msgid "St. George (Baker) Defence"
 msgstr "سانت جورج (بيكرr) دفاع"
 
@@ -5118,18 +2022,6 @@ msgstr "افتتاح تايلر"
 msgid "Tennison (Lemberg, Zukertort) Gambit"
 msgstr "تينسون (ليمبرج, زكرتوت) جامبيت"
 
-msgid "Three Knights Game: Schlechter Variation"
-msgstr "الثلاثة أفراس:شيليشتر تفريع"
-
-msgid "Three Knights Game: Steinitz Variation"
-msgstr "الثلاثة أفراس: تفريع شتاينتز"
-
-msgid "Three Knights Game: Steinitz, Rosenthal Variation"
-msgstr "الثلاثة أفراس: شتاينتز, روزنتال تفريع"
-
-msgid "Three Knights Game: Winawer Defence (Gothic Defence)"
-msgstr "الثلاثة أفراس: ويناور دفاع (القوطي دفاع)"
-
 msgid "Three Knights Game"
 msgstr "الثلاثة أفراس مباراة"
 
@@ -5138,9 +2030,6 @@ msgstr "توري هجوم (تارتاكوفر تفريع)"
 
 msgid "Trompovsky Attack (Ruth, Opovcensky Opening)"
 msgstr "ترومبوقسكي هجوم (راث, اوبوفسينسكي افتتاح)"
-
-msgid "Two Knights Defence (Modern Bishop Opening)"
-msgstr "دفاع الفرسين (حديث افتتاح الفيل)"
 
 msgid "Two Knights Defence: Blackburne Variation"
 msgstr "دفاع الفرسين: برنبلاك تفريع"
@@ -5190,9 +2079,6 @@ msgstr "الفرسين: ماكس لانج هجوم, بيرجر تفريع"
 msgid "Two Knights Defence: Max Lange Attack, Krause Variation"
 msgstr "الفرسين: ماكس لانج هجوم, كراوز تفريع"
 
-msgid "Two Knights Defence: Max Lange Attack, Loman Defence"
-msgstr "الفرسين: ماكس لانج هجوم, لومان دفاع"
-
 msgid "Two Knights Defence: Max Lange Attack, Marshall Variation"
 msgstr "الفرسين: ماكس لانج هجوم, تفريع مارشال"
 
@@ -5210,9 +2096,6 @@ msgstr "الفرسين: ماكس لانج هجوم"
 
 msgid "Two Knights Defence: Paoli Variation"
 msgstr "دفاع الفرسين: باولي تفريع"
-
-msgid "Two Knights Defence: Perreux Variation"
-msgstr "دفاع الفرسين, بيروكس تفريع"
 
 msgid "Two Knights Defence: Pincus Variation"
 msgstr "دفاع الفرسين: تفريع بينكوس"
@@ -5259,62 +2142,8 @@ msgstr "جامبيت فيينا: كوفمان تفريع"
 msgid "Vienna Gambit: Paulsen Attack"
 msgstr "جامبيت فيينا: بولسن هجوم"
 
-msgid "Vienna Gambit: Steinitz Variation"
-msgstr "جامبيت فيينا, تفريع شتاينتز"
-
-msgid "Vienna Gambit: Wurzburger trap"
-msgstr "جامبيت فيينا, فورزبرجر فخ"
-
 msgid "Vienna Gambit"
 msgstr "جامبيت فيينا"
-
-msgid "Vienna Game: Adams' Gambit"
-msgstr "فيينا: أدمs' جامبيت"
-
-msgid "Vienna Game: Alekhine Variation"
-msgstr "فيينا: اليخين تفريع"
-
-msgid "Vienna Game: Falkbeer Variation"
-msgstr "فيينا: فالكبير تفريع"
-
-msgid "Vienna Game: Fyfe Gambit"
-msgstr "فيينا: فيايف جامبيت"
-
-msgid "Vienna Game: Hamppe-Allgaier Gambit, Alapin Variation"
-msgstr "فيينا: هامبي-جامبيت أولجير, تفريع الابين"
-
-msgid "Vienna Game: Hamppe-Muzio Gambit"
-msgstr "فيينا: هامبي-موزيو جامبيت"
-
-msgid "Vienna Game: Hamppe-Muzio, Dubois Variation"
-msgstr "فيينا: هامبي-موزيو, دوببيوس تفريع"
-
-msgid "Vienna Game: Max Lange Defence"
-msgstr "طابق فيينا, دفاع ماكس لانج"
-
-msgid "Vienna Game: Mengarini Variation"
-msgstr "فيينا: منجاريني تفريع"
-
-msgid "Vienna Game: Paulsen Variation"
-msgstr "فيينا: بولسن تفريع"
-
-msgid "Vienna Game: Paulsen-Mieses Variation"
-msgstr "فيينا: بولسن-مايزس تفريع"
-
-msgid "Vienna Game: Pierce Gambit, Rushmere Attack"
-msgstr "فيينا: بييرس جامبيت, روشمير هجوم"
-
-msgid "Vienna Game: Pierce Gambit"
-msgstr "فيينا: بييرس جامبيت"
-
-msgid "Vienna Game: Steinitz Gambit, Fraser-Minckwitz Variation"
-msgstr "فيينا: جامبيت شتاينتز, فرازر-مينكويتز تفريع"
-
-msgid "Vienna Game: Steinitz Gambit, Zukertort Defence"
-msgstr "فيينا: جامبيت شتاينتز, زكرتوت دفاع"
-
-msgid "Vienna Game: Steinitz Gambit"
-msgstr "فيينا: جامبيت شتاينتز"
 
 msgid "Vienna Game"
 msgstr "طابق فيينا"
