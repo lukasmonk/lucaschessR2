@@ -150,3 +150,16 @@ class ListaOpeningsStd:
 
 
 ap = ListaOpeningsStd()
+
+
+# Borrar en la versión 3.0---------------------------------
+
+class OpeningStd(Opening):
+    def __init__(self, key):
+        Opening.__init__(self, key)
+
+    @property
+    def tr_name(self):
+        return self.trNombre
+
+# ^^^^Borrar en la versión 3.0---------------------------------

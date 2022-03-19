@@ -715,6 +715,7 @@ class WindowArbol(LCDialog.LCDialog):
     def __init__(self, w_parent, game, nj, procesador):
 
         main_window = w_parent
+        parent_board = main_window.board
 
         self.procesador = procesador
 
@@ -736,7 +737,7 @@ class WindowArbol(LCDialog.LCDialog):
         tb.new(_("Save"), Iconos.Grabar(), self.grabar)
         tb.new(_("Cancel"), Iconos.Cancelar(), self.cancelar)
 
-        self.infoMove = InfoMove(position.is_white)
+        self.infoMove = InfoMove(parent_board.is_white_bottom)
 
         w = QtWidgets.QWidget(self)
         ly = Colocacion.V().control(tb).control(self.infoMove)

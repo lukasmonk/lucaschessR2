@@ -129,7 +129,7 @@ class ManagerTactics(Manager.Manager):
                 li_opciones.insert(1, TB_CHANGE)
         # elif modo == "first_move"
 
-        self.set_toolbar(li_opciones)
+        Manager.Manager.set_toolbar(self, li_opciones)
 
     def show_label_positions(self):
         html = self.tactic.work_info_position()
@@ -301,11 +301,11 @@ class ManagerTactics(Manager.Manager):
 
         self.pos_obj += 1
 
-        self.put_arrow_sc(move.from_sq, move.to_sq)
         self.beepExtendido(si_nuestra)
 
         self.pgnRefresh(self.game.last_position.is_white)
         self.board.set_position(move.position)
+        self.put_arrow_sc(move.from_sq, move.to_sq)
         self.refresh()
 
     def cambiar(self):

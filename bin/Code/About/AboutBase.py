@@ -489,6 +489,7 @@ class ThanksTo:
             ("Norman Pollock", "http://www.nk-qy.info/40h/"),
             ("STS<br>" + _X(_("Created by %1"), "Dan Corbit,Swaminathan"), "https://sites.google.com/site/strategictestsuite/about-1"),
             ("liChess database", "https://database.lichess.org"),
+            ("lichess openings", "https://github.com/lichess-org/chess-openings"),
         )
         txt = '<center><table border="1" cellpadding="5" cellspacing="0" >'
         for nom, web in li:
@@ -522,7 +523,6 @@ class ThanksTo:
             ("sortedcontainers", _X(_("Created by %1"), "Grant Jenks"), "http://www.grantjenks.com/docs/sortedcontainers/"),
             ("lichess-puzzler", _X(_("Created by %1"), "Thibault Duplessis"), "https://github.com/ornicar/lichess-puzzler"),
             ("polib", "David Jean Louis and others", "https://github.com/izimobil/polib"),
-            ("ECO codes", "Christopher Conkie", ""),
         )
         txt = self.table_ini()
 

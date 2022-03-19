@@ -175,7 +175,7 @@ def options(parent, configuration):
 
     form.add_tab("%s 2" % _("Appearance"))
 
-    # Modo no competitivo ############################################################################################
+    # ELOS ############################################################################################
     form.separador()
     form.spinbox(_("Lucas-Elo"), 0, 3200, 70, configuration.x_elo)
     form.separador()
@@ -301,6 +301,8 @@ def options(parent, configuration):
                 ):
                     dboard = ""
             configuration.x_digital_board = dboard
+
+        configuration.x_elo, configuration.x_michelo, configuration.x_fics, configuration.x_fide, configuration.x_lichess = li_nc
 
         return True
     else:

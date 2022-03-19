@@ -48,7 +48,6 @@ class Position:
         # regardless of whether there is a pawn in position to make an en passant capture
         ok = len(self.en_passant) == 2
         if ok:
-            ep = self.en_passant
             lt, nm = self.en_passant[0], self.en_passant[1]
             if not (nm in "36"):
                 ok = False

@@ -618,7 +618,7 @@ class Configuration:
             if os.path.isfile(fini):
                 dic = Util.ini_dic(fini)
                 li.append((uno.name, dic["NAME"], int(dic["%"]), dic["AUTHOR"]))
-        li = sorted(li, key=lambda lng: lng[0])
+        li = sorted(li, key=lambda lng: "AAA" + lng[0] if lng[1] > "Z" else lng[1])
         return li
 
     def eloActivo(self):
