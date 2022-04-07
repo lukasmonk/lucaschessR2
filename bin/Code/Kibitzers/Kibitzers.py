@@ -102,6 +102,11 @@ class Kibitzer(Engines.Engine):
             if self.pointofview == key:
                 return txt
 
+    def read_uci_options(self):
+        if self.tipo in (KIB_GAVIOTA, KIB_POLYGLOT):
+            return
+        Engines.Engine.read_uci_options(self)
+
 
 class Kibitzers:
     def __init__(self):
