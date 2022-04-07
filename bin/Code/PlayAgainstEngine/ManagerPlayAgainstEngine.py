@@ -546,6 +546,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         self.goto_end()
 
     def close_position(self, key):
+        self.main_window.deactivate_eboard(100)
         if key == TB_CLOSE:
             self.procesador.run_action(TB_QUIT)
         else:
@@ -1320,6 +1321,12 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         if self.timed:
             self.main_window.stop_clock()
 
+        if Code.eboard and Code.eboard.driver:
+            self.main_window.delay_routine(300, self.muestra_resultado_delayed)  # Para que eboard siga su proceso y no se pare por la pregunta
+        else:
+            self.muestra_resultado_delayed()
+
+    def muestra_resultado_delayed(self):
         mensaje, beep, player_win = self.game.label_resultado_player(self.human_side)
 
         self.beepResultado(beep)
@@ -1328,10 +1335,8 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         QTUtil.refresh_gui()
         p0 = self.main_window.base.pgn.pos()
         p = self.main_window.mapToGlobal(p0)
-        if QTUtil2.pregunta(self.main_window, mensaje + "\n\n" + _("Do you want to play again?"), px=p.x(), py=p.y()):
-            self.reiniciar(False)
-        else:
-            self.ponFinJuego(self.with_takeback)
+        QTUtil2.message(self.main_window, mensaje, px=p.x(), py=p.y(), si_bold=True)
+        self.ponFinJuego(self.with_takeback)
 
     def ponAyudasEM(self):
         self.ponAyudas(self.hints, siQuitarAtras=False)

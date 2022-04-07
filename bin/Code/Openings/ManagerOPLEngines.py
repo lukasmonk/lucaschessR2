@@ -15,7 +15,7 @@ from Code.Base.Constantes import (
     TB_UTILITIES,
     GOOD_MOVE,
     GT_OPENING_LINES,
-    QUESTIONABLE_MOVE,
+    INACCURACY,
 )
 from Code.Openings import OpeningLines
 from Code.Polyglots import Books
@@ -429,7 +429,7 @@ class ManagerOpeningEngines(Manager.Manager):
                 if fenm2 in self.dicFENm2:
                     moves = self.dicFENm2[fenm2]
                     if not (move.movimiento() in moves):
-                        move.add_nag(QUESTIONABLE_MOVE)
+                        move.add_nag(INACCURACY)
                         if jg_inicial is None:
                             jg_inicial = move
                 elif jg_inicial is None:

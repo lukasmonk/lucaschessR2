@@ -1137,14 +1137,14 @@ class MultiEngineResponse:
                     return
 
     def set_nag_color(self, configuration, rm):
-        if rm.level_brilliant():
-            return VERY_GOOD_MOVE, VERY_GOOD_MOVE
         mj_pts = self.li_rm[0].centipawns_abs()
         rm_pts = rm.centipawns_abs()
         nb = mj_pts - rm_pts
-        if nb:
+        if nb > 5:
             ev = Code.analysis_eval.evaluate(self.li_rm[0], rm)
             return ev, ev
+        if rm.level_brilliant():
+            return VERY_GOOD_MOVE, VERY_GOOD_MOVE
 
         libest = self.bestmoves()
         if not (rm in libest):
@@ -1167,7 +1167,7 @@ class MultiEngineResponse:
                     pts = dicDepth[mv]
                     ok = True
                     for m, v in dicDepth.items():
-                        if v > pts:
+                        if v > pts+5:
                             ok = False
                             break
                     if ok:

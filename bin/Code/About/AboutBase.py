@@ -86,7 +86,7 @@ class ThanksTo:
             ("Michele Tumbarello", "Definition of Tourney-elo engines and the formulae for calculating the indices."),
             ("Alfonso Solbes", "His work was an essential help (saved many hours) in the transition from Python 2.7 (version 11) to Python 3 (version R)."),
             ("Eric", "Main betatester."),
-            ("Johannes Bolzano", "Code improvements and ideas to Find best move training and more. Programme wiki administrator"),
+            ("Johannes Bolzano", "Code improvements and ideas to Find best move training and more."), # Programme wiki administrator"),
             ("Laudecir Daniel", "Main promoter of the Linux version, he did the selection and compilation of engines, as well as the establishment of the working Linux version."),
             ('<a href="https://goneill.co.nz/index.php">Graham O\'Neill</a>', "Author of the drivers for the use of the electronic boards (except the official DGT ones). Also co-operator in the development of the interface code with the electronic boards."),
         )
@@ -123,7 +123,8 @@ class ThanksTo:
         li_base = [
             "Alan Lee",
             "Nambi",
-            '<a href="https://github.com/phihag">Philipp Hagemeister</a>'
+            '<a href="https://github.com/phihag">Philipp Hagemeister</a>',
+            '<a href="https://github.com/futurelauncher">futurelauncher</a>',
         ]
         li_resto = []
         txt += version("R", li_base, li_resto, False)

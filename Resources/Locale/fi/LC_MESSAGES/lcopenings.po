@@ -5,11 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "French Defence"
-msgstr "ranska"
+msgid "Alapin's opening"
+msgstr "Alapinin avaus"
 
-msgid "Guatemala Defence"
-msgstr "Guatemala"
-
-msgid "Polish Defence"
-msgstr "Puolalainen"
+msgid "Alekhine's defence"
+msgstr "Alehinin puolustus"

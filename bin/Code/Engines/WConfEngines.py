@@ -10,9 +10,9 @@ from Code.Base.Constantes import (
     POS_TUTOR_HORIZONTAL_2_1,
     POS_TUTOR_HORIZONTAL_1_2,
     POS_TUTOR_HORIZONTAL,
-    QUESTIONABLE_MOVE,
-    BAD_MOVE,
-    VERY_BAD_MOVE
+    INACCURACY,
+    MISTAKE,
+    BLUNDER
 )
 from Code.Engines import Engines, WEngines
 from Code.Engines import Priorities
@@ -49,7 +49,7 @@ class WConfEngines(LCDialog.LCDialog):
 
         self.w_current = None
 
-        self.tab = Controles.Tab(self)
+        self.tab = QTVarios.LCTab(self)
         self.tab.nuevaTab(self.wexternals, _("External engines"))
         self.tab.nuevaTab(self.wconf_tutor, _("Tutor"))
         self.tab.nuevaTab(self.wconf_analyzer, _("Analyzer"))
@@ -562,9 +562,9 @@ class WConfTutor(QtWidgets.QWidget):
         lb_sensitivity = Controles.LB2P(self, _("Tutor appearance condition"))
         li_types = [
             (_("Always"), 0),
-            (_("Inaccuracy") + " (?!)", QUESTIONABLE_MOVE),
-            (_("Mistake") + " (?)", BAD_MOVE),
-            (_("Blunder") + " (??)", VERY_BAD_MOVE),
+            (_("Inaccuracy") + " (?!)", INACCURACY),
+            (_("Mistake") + " (?)", MISTAKE),
+            (_("Blunder") + " (??)", BLUNDER),
         ]
         self.cb_type = Controles.CB(self, li_types, self.configuration.x_tutor_diftype)
 

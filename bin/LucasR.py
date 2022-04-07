@@ -5,6 +5,11 @@
 # Blog : http://lucaschess.blogspot.com
 # Licence : GPL 3.0
 # ==============================================================================
+"""Conversion table:
+When the position is a winning one, it goes from 0 to a maximum, and from that maximum up to 5, mates will be assigned.
+If the centipeons determined by the engine are greater than the maximum indicated, it is converted to that maximum. As for the dunks, a maximum is also determined, which operates in the same way.
+"""
+
 import sys
 import warnings
 

@@ -30,8 +30,8 @@ class WAbout(QtWidgets.QDialog):
         head += ' - <a style="font-size:10pt; color:2D2B2B" href="%s">%s</a>' % (procesador.web, procesador.web)
         head += ' - <a style="font-size:10pt; color:2D2B2B" href="%s">Blog : Fresh news</a>' % (procesador.blog,)
         head += ' - <a style="font-size:10pt; color:2D2B2B" href="%s">Sources: github</a>' % (procesador.github,)
-        head += ' - <a style="font-size:10pt; color:2D2B2B" href="%s">Wiki</a><br>' % (procesador.wiki,)
-        head += '%s <a style="font-size:10pt; color:2D2B2B" href="http://www.gnu.org/copyleft/gpl.html"> GPL</a>' % _("License")
+        # head += ' - <a style="font-size:10pt; color:2D2B2B" href="%s">Wiki</a><br>' % (procesador.wiki,)
+        head += ' - %s <a style="font-size:10pt; color:2D2B2B" href="http://www.gnu.org/copyleft/gpl.html"> GPL</a>' % _("License")
 
         lb_ico = Controles.LB(self).ponImagen(Iconos.pmAplicacion64())
         lb_titulo = Controles.LB(self, head)

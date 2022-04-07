@@ -214,6 +214,8 @@ class Procesador:
             self.start()
 
     def reset(self):
+        self.main_window.deactivate_eboard(0)
+
         self.main_window.activaCapturas(False)
         self.main_window.activaInformacionPGN(False)
         if self.manager:
@@ -520,6 +522,7 @@ class Procesador:
 
     def run_action(self, key):
         self.stop_engines()
+        self.main_window.deactivate_eboard(0)
         if self.siPresentacion:
             self.presentacion(False)
 
@@ -1231,7 +1234,7 @@ class ProcesadorVariations(Procesador):
 
         self.main_window = MainWindow.MainWindow(self, window, extparam="mainv")
         self.main_window.set_manager_active(self)
-        self.main_window.restore_video()
+        self.main_window.xrestore_video()
 
         self.board = self.main_window.board
 

@@ -110,8 +110,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         # # Motores
 
         # ## Rival
-        self.rival = self.configuration.x_rival_inicial
-        self.rivalTipo = SelectEngines.INTERNO
+        self.rivalTipo, self.rival = self.motores.busca(SelectEngines.INTERNO, self.configuration.x_rival_inicial)
         self.btRival = Controles.PB(self, "", self.cambiaRival, plano=False).ponFuente(font).altoFijo(48)
 
         lbTiempoSegundosR = Controles.LB2P(self, _("Fixed time in seconds")).ponFuente(font)
@@ -427,8 +426,6 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         self.ajustesCambiado()
         self.motores.rehazMotoresExternos()
 
-
-
     def grid_num_datos(self, grid):
         return len(self.rival.li_uci_options_editable()) if self.tab_advanced_active else 0
 
@@ -557,7 +554,11 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
             self.ponRival()
 
     def ponRival(self):
-        self.btRival.set_text("   %s   " % self.rival.name)
+        if self.rival.is_external:
+            name = self.rival.key
+        else:
+            name = self.rival.name
+        self.btRival.set_text("   %s   " % name)
         self.btRival.ponIcono(self.motores.dicIconos[self.rivalTipo])
         self.si_edit_uci = False
         si_multi = False

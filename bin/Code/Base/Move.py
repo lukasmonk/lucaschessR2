@@ -37,10 +37,9 @@ class Move:
         self.is_book = False
 
         self.elo = None
-        self.elo_factor = None
         self.questionable_move = None
         self.bad_move = None
-        self.very_bad_move = None
+        self.verybad_move = None
 
     def set_time_ms(self, ms):
         self.time_ms = ms
@@ -244,19 +243,9 @@ class Move:
             self.elo, self.questionable_move, self.bad_move, self.verybad_move = \
                 Code.analysis_eval.elo_bad_vbad(rm_j, rm_c)
 
-            li = list({rm.centipawns_abs() for rm in mrm.li_rm})
-            li.sort()
-            ant = li[0]
-            nfactor = 1
-            for x in range(1, len(li)):
-                nue = li[x]
-                if nue - ant > 15:
-                    nfactor += 1
-                    ant = nue
-            self.elo_factor = nfactor
-
         else:
             self.elo = 0
+            self.questionable_move = False
             self.bad_move = False
             self.verybad_move = False
 

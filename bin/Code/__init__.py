@@ -86,7 +86,7 @@ def relative_root(path):
 
 
 BASE_VERSION = "B"  # Para el control de updates que necesitan reinstalar entero
-VERSION = "R 2.00c"
+VERSION = "R 2.01"
 DEBUG = False
 DEBUG_ENGINE = False
 
@@ -129,6 +129,6 @@ if DEBUG:
 
     if DEBUG_ENGINE:
         tdbg = [time.time()]
-        xpr("", "Modo debug engine")
+        prln("", "Modo debug engine")
 
     prln("Modo debug PYLCR2")

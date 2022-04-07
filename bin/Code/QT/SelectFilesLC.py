@@ -209,7 +209,10 @@ class SelectFile(LCDialog.LCDialog):
         self.assign_path(Code.configuration.carpeta)
 
     def explorer(self):
-        Code.startfile(self.ed_folder.text())
+        if Code.is_windows:
+            Code.startfile(self.ed_folder.text())
+        elif Code.is_linux:
+            Code.startfile('xdg-open "%s"' % self.ed_folder.text())
 
     def folder_create(self):
         folder = self.ed_folder.texto().strip()
@@ -332,6 +335,8 @@ class SelectFile(LCDialog.LCDialog):
         return path
 
     def assign_path(self, path):
+        if not path:  # could be None
+            path = ""
         idx = self.filesystem_model.index(path)
         self.tree_view.setCurrentIndex(idx)
         self.tree_view.resizeColumnToContents(0)

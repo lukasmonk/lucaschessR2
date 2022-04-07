@@ -21,7 +21,7 @@ from Code.QT import QTUtil
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
 from Code.QT import SelectFiles
-from Code.Translations import WorkTranslate
+from Code.Translations import WorkTranslate, RunTranslateOpenings
 
 
 class WTranslate(LCDialog.LCDialog):
@@ -69,8 +69,6 @@ class WTranslate(LCDialog.LCDialog):
         li_acciones = (
             ("Close", Iconos.FinPartida(), self.cerrar),
             None,
-            ("Quit mode", Iconos.MainMenu(), self.quit_mode),
-            None,
             ("Edit", Iconos.EditColumns(), self.editar),
             None,
             ("Config", Iconos.Configurar(), self.config),
@@ -79,10 +77,14 @@ class WTranslate(LCDialog.LCDialog):
             None,
             ("Help", Iconos.AyudaGR(), self.help),
             None,
+            ("Openings", Iconos.Book(), self.openings),
+            None,
+            ("Quit mode", Iconos.MainMenu(), self.quit_mode),
+            None,
         )
         self.tb = QTVarios.LCTB(self, li_acciones, icon_size=24)
 
-        self.lb_porcentage = Controles.LB(self, "").ponTipoLetra(puntos=20, peso=300).anchoFijo(150).align_right()
+        self.lb_porcentage = Controles.LB(self, "").ponTipoLetra(puntos=18, peso=300).anchoFijo(114).align_right()
 
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("CURRENT", self.language, 280, edicion=Delegados.LineaTextoUTF8(), siEditable=True)
@@ -119,6 +121,9 @@ class WTranslate(LCDialog.LCDialog):
         self.save()
         self.accept()
 
+    def openings(self):
+        w = RunTranslateOpenings.WTranslateOpenings(self)
+        w.exec_()
 
     def set_porcentage(self):
         total = len(self.dic_translate)
@@ -554,7 +559,7 @@ class WTranslate(LCDialog.LCDialog):
 
         folder = self.configuration.read_variables("PATH_PO")
         if not folder or not os.path.isdir(folder):
-            folder = self.configuration.carpeta_translations()
+            folder = self.configuration.folder_translations()
         path_po = SelectFiles.salvaFichero(self, "Save .po file", folder, "po")
         if path_po:
             path_po = os.path.abspath(path_po)
@@ -578,7 +583,7 @@ class WTranslate(LCDialog.LCDialog):
 
         folder = self.configuration.read_variables("PATH_MO")
         if not folder or not os.path.isdir(folder):
-            folder = self.configuration.carpeta_translations()
+            folder = self.configuration.folder_translations()
         path_mo = SelectFiles.leeFichero(self, folder, "mo", ".mo file downloaded from poeditor")
         if path_mo:
             path_mo = os.path.abspath(path_mo)
@@ -662,7 +667,8 @@ class WTranslate(LCDialog.LCDialog):
 
 
 def run_wtranslation(path_db):
-    sys.stderr = Util.Log("./bug.wtranslation")
+    if not Code.DEBUG:
+        sys.stderr = Util.Log("./bug.wtranslation")
     configuration = Code.configuration = Configuration.Configuration("")
     configuration.lee()
 

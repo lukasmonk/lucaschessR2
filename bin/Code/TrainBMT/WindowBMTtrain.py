@@ -60,7 +60,9 @@ class WTrainBMT(LCDialog.LCDialog):
         # Datos ----------------------------------------------------------------
         self.dbf = dbf
         self.recnoActual = self.dbf.recno
-        self.bmt_lista = Util.zip2var_change_import(dbf.leeOtroCampo(self.recnoActual, "BMT_LISTA"), b"Code.BMT", b"Code.TrainBMT.BMT")
+        self.bmt_lista = Util.zip2var_change_import(
+            dbf.leeOtroCampo(self.recnoActual, "BMT_LISTA"), b"Code.BMT", b"Code.TrainBMT.BMT"
+        )
         self.bmt_lista.patch()
         self.bmt_lista.check_color()
         self.historial = Util.zip2var(dbf.leeOtroCampo(self.recnoActual, "HISTORIAL"))
@@ -95,7 +97,8 @@ class WTrainBMT(LCDialog.LCDialog):
         self.ptsPrimero = 0
         self.lbPrimera = Controles.LB(self, self.texto_lbPrimera)
         f = Controles.TipoLetra(puntos=8)
-        self.lbCondiciones = Controles.LB(self, "").ponFuente(f)
+        self.lb_conditions = Controles.LB(self, "").ponFuente(f)
+        self.lb_game = Controles.LB(self, "").ponFuente(f)
 
         # Grid-PGN ---------------------------------------------------------------
         o_columns = Columnas.ListaColumnas()
@@ -176,7 +179,6 @@ class WTrainBMT(LCDialog.LCDialog):
             (_("Start"), Iconos.Empezar(), "empezar"),
             (_("Actual game"), Iconos.PartidaOriginal(), "original"),
             (_("Next"), Iconos.Siguiente(), "seguir"),
-
         )
         self.tb = Controles.TB(self, li_acciones)
 
@@ -185,7 +187,14 @@ class WTrainBMT(LCDialog.LCDialog):
         # Colocamos ---------------------------------------------------------------
         lyPS = Colocacion.H().relleno().control(self.lbPuntos).relleno(2).control(self.lbSegundos).relleno()
         lyV = Colocacion.V().otro(lyPS).control(self.pgn).control(self.gbRM).control(self.lbPrimera)
-        lyT = Colocacion.V().control(self.lbJuegan).control(self.board).control(self.lbCondiciones).relleno()
+        lyT = (
+            Colocacion.V()
+            .control(self.lbJuegan)
+            .control(self.board)
+            .control(self.lb_conditions)
+            .control(self.lb_game)
+            .relleno()
+        )
         lyTV = Colocacion.H().otro(lyT).otro(lyV).control(gbBT).margen(5)
         ly = Colocacion.V().control(self.tb).otro(lyTV).margen(2).relleno()
 
@@ -199,7 +208,17 @@ class WTrainBMT(LCDialog.LCDialog):
         self.muestraControles(False)
 
     def muestraControles(self, si):
-        for control in (self.lbJuegan, self.board, self.lbPuntos, self.lbSegundos, self.lbPrimera, self.lbCondiciones, self.pgn, self.gbRM):
+        for control in (
+            self.lbJuegan,
+            self.board,
+            self.lbPuntos,
+            self.lbSegundos,
+            self.lbPrimera,
+            self.lb_conditions,
+            self.lb_game,
+            self.pgn,
+            self.gbRM,
+        ):
             control.setVisible(si)
 
     def seguir(self):
@@ -212,7 +231,12 @@ class WTrainBMT(LCDialog.LCDialog):
     def opciones(self):
         form = FormLayout.FormLayout(self, "Training settings", Iconos.Opciones(), anchoMinimo=500)
         form.separador()
-        form.editbox(_("Tolerance: How many centipawns below the best move are accepted"), tipo=int, ancho=50, init_value=self.pts_tolerance)
+        form.editbox(
+            _("Tolerance: How many centipawns below the best move are accepted"),
+            tipo=int,
+            ancho=50,
+            init_value=self.pts_tolerance,
+        )
         resultado = form.run()
         if not resultado:
             return
@@ -323,7 +347,14 @@ class WTrainBMT(LCDialog.LCDialog):
                     num_pos_estate[y] += 1
 
         num_pos_estate[9] = nposic
-        labels_score = {9: _("Repeat all"), 8: _("Best move"), 7: _("Excellent"), 6: _("Very good"), 5: _("Good"), 4: _("Acceptable")}
+        labels_score = {
+            9: _("Repeat all"),
+            8: _("Best move"),
+            7: _("Excellent"),
+            6: _("Very good"),
+            5: _("Good"),
+            4: _("Acceptable"),
+        }
 
         li_gen = [(None, None)]
         liJ = []
@@ -615,7 +646,9 @@ class WTrainBMT(LCDialog.LCDialog):
                 self.activaJugada1(n)
             self.bmt_uno.finished = True
             diferenciaPtsPrimero = self.ptsPrimero - self.ptsMejor
-            self.lbPrimera.set_text("%s (%s %s)" % (self.texto_lbPrimera, "%+0.2f" % (diferenciaPtsPrimero / 100.0), _("pws")))
+            self.lbPrimera.set_text(
+                "%s (%s %s)" % (self.texto_lbPrimera, "%0.2f" % (-diferenciaPtsPrimero / 100.0),  _("pws lost"))
+            )
             self.muestra(num)
             self.ponPuntos(0)
             bt = self.liBT[self.actualP]
@@ -630,8 +663,10 @@ class WTrainBMT(LCDialog.LCDialog):
 
     def activaPosicion(self, num):
         self.finalizaTiempo()  # Para que guarde el vtime, si no es el primero
+        self.muestraControles(True)
 
         self.bmt_uno = bmt_uno = self.bmt_lista.dame_uno(num)
+
         mrm = bmt_uno.mrm
         tm = mrm.max_time
         dp = mrm.max_depth
@@ -670,7 +705,8 @@ class WTrainBMT(LCDialog.LCDialog):
         if mens:
             mens = mens.strip()
 
-        self.lbCondiciones.set_text(txt_engine + "\n" + mens)
+        self.lb_conditions.set_text(txt_engine + "\n" + mens)
+        self.lb_game.set_text("")
         self.lbPrimera.set_text(self.texto_lbPrimera)
 
         self.board.dbvisual_set_show_allways(False)
@@ -769,6 +805,32 @@ class WTrainBMT(LCDialog.LCDialog):
         txtPartida = self.bmt_lista.dic_games[self.bmt_uno.cl_game]
         self.game.restore(txtPartida)
 
+        def tag(ctag):
+            t = self.game.get_tag(ctag)
+            if t:
+                if "?" in t:
+                    if t != "?":
+                        t = t.replace("?", "")
+                        t = t.strip(".")
+                    else:
+                        t = ""
+            return t
+
+        event = tag("EVENT")
+        site = tag("SITE")
+        result = tag("RESULT")
+        white = tag("WHITE")
+        white = "%s: %s" % (_("White"), white) if white else ""
+        black = tag("BLACK")
+        black = "%s: %s" % (_("Black"), black) if black else ""
+        date = tag("DATE")
+        info = event + " " + site + " " + date + "\n" + white + " - " + black + " " + result
+        info = info.strip()
+        while "  " in info:
+            info = info.replace("  ", " ")
+        self.lb_game.set_text(info)
+        self.lb_game.setToolTip(self.game.pgn_tags())
+
         siW = self.position.is_white
         fen = self.position.fen()
         row = 0
@@ -845,5 +907,6 @@ class WTrainBMT(LCDialog.LCDialog):
             return
 
         max_recursion = 9999
-        Analysis.show_analysis(self.procesador, self.procesador.XTutor(), move, is_white, max_recursion, pos, main_window=self)
-
+        Analysis.show_analysis(
+            self.procesador, self.procesador.XTutor(), move, is_white, max_recursion, pos, main_window=self
+        )

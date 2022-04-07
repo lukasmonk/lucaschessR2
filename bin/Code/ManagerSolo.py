@@ -167,7 +167,7 @@ class ManagerSolo(Manager.Manager):
     def end_game(self):
         self.board.setAcceptDropPGNs(None)
 
-        self.main_window.deactivate_eboard(100)
+        # self.main_window.deactivate_eboard(100)
 
         # Comprobamos que no haya habido cambios from_sq el ultimo grabado
         if self.is_changed() and len(self.game):
@@ -603,7 +603,7 @@ class ManagerSolo(Manager.Manager):
                 dic = self.creaDic()
                 dic["GAME"] = ptxt
                 dic["WHITEBOTTOM"] = self.board.is_white_bottom
-                self.reiniciar(dic)
+                self.start(dic)
 
     def basic_initial_position(self):
         if len(self.game) > 0:
@@ -642,12 +642,13 @@ class ManagerSolo(Manager.Manager):
         if Code.eboard and Code.eboard.deactivate():
             self.main_window.set_title_toolbar_eboard()
 
-        position = Voyager.voyager_position(self.main_window, self.game.first_position)
+        position, is_white_bottom = Voyager.voyager_position(self.main_window, self.game.first_position, resp_side_bottom=True)
         if position is not None:
-            if self.game.first_position == position:
-                return
+
+            self.board.set_side_bottom(is_white_bottom)
             self.game = Game.Game(first_position=position, li_tags=self.game.li_tags)
             self.game.set_tag("FEN", None if self.game.siFenInicial() else position.fen())
+            self.state = ST_PLAYING
             self.game.order_tags()
             self.xfichero = None
             self.xpgn = None

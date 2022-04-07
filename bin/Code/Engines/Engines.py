@@ -1,10 +1,10 @@
 import copy
-import os, os.path
+import os
+import os.path
 
 import Code
 from Code import Util
 from Code.Engines import EngineRunDirect
-from Code.SQL import UtilSQL
 
 
 class Engine:
@@ -43,6 +43,10 @@ class Engine:
             conf_parent = Code.configuration.dic_engines.get(self.parent_external)
             if conf_parent:
                 self.path_exe = conf_parent.path_exe
+        self.read_uci_options()
+
+    def exists(self):
+        return os.path.isfile(self.path_exe)
 
     def set_extern(self):
         self.is_external = True
@@ -80,12 +84,6 @@ class Engine:
                     op.valor = valor
                     break
 
-    # def removeUCI(self, del_comando):
-    #     for n, (comando, valor) in enumerate(self.liUCI):
-    #         if comando == del_comando:
-    #             del self.liUCI[n]
-    #             return
-    #
     def set_multipv(self, num, maximo):
         self.multiPV = num
         self.maxMultiPV = maximo
@@ -168,7 +166,10 @@ class Engine:
 
         for comando, valor in self.liUCI:
             if comando in dc_op:
-                dc_op[comando].valor = valor
+                op = dc_op[comando]
+                op.valor = valor
+                if op.name == "MultiPV":
+                    self.set_multipv(valor, op.maximo)
 
         return self.__li_uci_options
 
@@ -357,14 +358,6 @@ def engine_from_txt(pk_txt):
     engine = Engine()
     engine.restore(pk_txt)
     return engine
-
-
-def lee_external_engines(configuration):
-    file = configuration.file_external_engines()
-    db = UtilSQL.DictRawSQL(file)
-    dic = db.as_dictionary()
-    db.close()
-    return dic
 
 
 def read_engine_uci(exe, args=None):

@@ -90,6 +90,14 @@ def xrefresh_gui():
     QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.ExcludeUserInputEvents)
 
 
+def send_key_widget(widget, key, ckey):
+    event_press = QtGui.QKeyEvent(QtGui.QKeyEvent.KeyPress, key, QtCore.Qt.NoModifier, ckey)
+    event_release = QtGui.QKeyEvent(QtGui.QKeyEvent.KeyRelease, key, QtCore.Qt.NoModifier, ckey)
+    QtCore.QCoreApplication.postEvent(widget, event_press)
+    QtCore.QCoreApplication.postEvent(widget, event_release)
+    refresh_gui()
+
+
 dAlineacion = {"i": QtCore.Qt.AlignLeft, "d": QtCore.Qt.AlignRight, "c": QtCore.Qt.AlignCenter}
 
 

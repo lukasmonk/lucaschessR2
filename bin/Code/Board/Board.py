@@ -481,8 +481,8 @@ class Board(QtWidgets.QGraphicsView):
         else:
             baseCasillas = BoardTypes.Caja()
             baseCasillas.colorRelleno = self.colorFondo
-        baseCasillas.physical_pos.x = baseCasillas.physical_pos.y = self.margenCentro
-        baseCasillas.physical_pos.alto = baseCasillas.physical_pos.ancho = self.width_square * 8 + self.tamFrontera
+        baseCasillas.physical_pos.x = baseCasillas.physical_pos.y = self.margenCentro + self.tamFrontera/2
+        baseCasillas.physical_pos.alto = baseCasillas.physical_pos.ancho = self.width_square * 8
         baseCasillas.physical_pos.orden = 2
         baseCasillas.tipo = 0
         if self.png64Fondo:

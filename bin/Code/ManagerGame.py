@@ -324,12 +324,13 @@ class ManagerGame(Manager.Manager):
 
         elif resp == "position":
             ini_position = self.game.first_position
-            new_position = Voyager.voyager_position(self.main_window, ini_position)
+            new_position, is_white_bottom = Voyager.voyager_position(self.main_window, ini_position, resp_side_bottom=True)
             if new_position and new_position != ini_position:
                 self.game.set_position(new_position)
                 self.start(self.game, self.is_complete, self.only_consult, self.with_previous_next, self.save_routine)
                 self.changed = True
                 self.put_toolbar()
+                self.board.set_side_bottom(is_white_bottom)
 
         elif resp == "pasteposicion":
             texto = QTUtil.traePortapapeles()

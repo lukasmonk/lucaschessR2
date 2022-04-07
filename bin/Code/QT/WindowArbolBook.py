@@ -10,6 +10,7 @@ from Code.QT import Colocacion
 from Code.QT import Controles
 from Code.QT import Iconos
 from Code.QT import QTVarios
+from Code.QT import QTUtil
 from Code.QT import SelectFiles
 from Code.QT import LCDialog
 
@@ -261,7 +262,7 @@ class WMoves(QtWidgets.QWidget):
 
     def rama(self):
         if self.tree.currentMov():
-            self.tree.mas()
+            QTUtil.send_key_widget(self.tree, QtCore.Qt.Key_Plus, "+")
 
 
 class InfoMove(QtWidgets.QWidget):

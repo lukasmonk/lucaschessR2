@@ -290,7 +290,7 @@ class WAtajos(LCDialog.LCDialog):
         return dic.get("LABEL", name) if o_column.key == "LABEL" else name
 
     def grid_setvalue(self, grid, row, o_column, valor):  # ? necesario al haber delegados
-        if 0 <= row < len(self.favoritos):
+        if 0 <= row < len(self.li_favoritos):
             dic = self.li_favoritos[row]
             dato = self.dic_data.get(dic["OPCION"], None)
             if dato is not None:
@@ -416,8 +416,8 @@ def menu_information(procesador):
     menu.separador()
     menu.opcion("blog", "Fresh news", Iconos.Blog())
     menu.separador()
-    menu.opcion("wiki", "Wiki", Iconos.Wiki())
-    menu.separador()
+    # menu.opcion("wiki", "Wiki", Iconos.Wiki())
+    # menu.separador()
     menu.opcion("mail", _("Contact") + " (%s)" % "lukasmonk@gmail.com", Iconos.Mail())
     menu.separador()
     if procesador.configuration.is_main:

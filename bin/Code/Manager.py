@@ -169,10 +169,10 @@ class Manager:
 
             self.main_window.pon_toolbar(li_options, with_eboard=self.with_eboard)
             self.remove_hints(siQuitarAtras=not with_takeback)
-            self.main_window.deactivate_eboard()
+            # self.main_window.deactivate_eboard()
         else:
             self.procesador.reset()
-            self.main_window.deactivate_eboard()
+            # self.main_window.deactivate_eboard()
 
     def set_toolbar(self, li_options):
         self.main_window.pon_toolbar(li_options, with_eboard=self.with_eboard)

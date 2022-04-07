@@ -972,7 +972,10 @@ class Opening:
 
         for game in li_games:
             cp = game.last_position
-            hazFEN(cp.fen(), game.lipv(), control)
+            try:
+                hazFEN(cp.fen(), game.lipv(), control)
+            except RecursionError:
+                pass
 
         bp.ponRotulo(_("Writing..."))
 

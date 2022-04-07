@@ -7,6 +7,7 @@ from PySide2 import QtCore, QtGui, QtWidgets
 import Code
 from Code import Util
 from Code.Base import Game, Move, Position
+from Code.Base.Constantes import BLACK
 from Code.Board import Board
 from Code.QT import Colocacion
 from Code.QT import Columnas
@@ -442,6 +443,7 @@ class WPosicion(QtWidgets.QWidget):
             )
 
             if os.path.isfile(fich_png) and Util.filesize(fich_png):
+                self.chb_scanner_flip.ponValor(sc.side == BLACK)
                 self.scanner_read_png(fich_png)
                 self.pixmap = QtGui.QPixmap(fich_png)
                 tc = self.board.width_square * 8
@@ -830,6 +832,9 @@ class Voyager(LCDialog.LCDialog):
 
         self.restore_video(siTam=False)
 
+    def is_white_bottom(self):
+        return self.wPos.board.is_white_bottom
+
     def ponModo(self, modo):
         self.modo = modo
         if modo == MODO_POSICION:
@@ -854,7 +859,7 @@ class Voyager(LCDialog.LCDialog):
         self.reject()
 
 
-def voyager_position(wowner, position, si_esconde: bool = True, wownerowner=None):
+def voyager_position(wowner, position, si_esconde: bool = True, wownerowner=None, resp_side_bottom=False):
     pos_ownerowner = None
     pos = None
     if si_esconde:
@@ -875,6 +880,8 @@ def voyager_position(wowner, position, si_esconde: bool = True, wownerowner=None
         wowner.move(pos)
         QTUtil.refresh_gui()
         time.sleep(0.01)
+    if resp_side_bottom:
+        return resp, dlg.is_white_bottom()
     return resp
 
 

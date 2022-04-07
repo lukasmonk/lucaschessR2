@@ -270,6 +270,9 @@ class Game:
         txt += "\n%s" % self.pgnBase()
         return txt
 
+    def pgn_tags(self):
+        return "\n".join(['[%s "%s"]' % (k, v) for k, v in self.li_tags])
+
     def titulo(self, *litags):
         li = []
         for key in litags:
@@ -691,8 +694,6 @@ class Game:
             move.analysis = None
 
     def calc_elo_color(self, is_white):
-        bad_moves = {OPENING: 0, MIDDLEGAME: 0, ENDGAME: 0}
-        verybad_moves = {OPENING: 0, MIDDLEGAME: 0, ENDGAME: 0}
         nummoves = {OPENING: 0, MIDDLEGAME: 0, ENDGAME: 0}
         sumelos = {OPENING: 0, MIDDLEGAME: 0, ENDGAME: 0}
         factormoves = {OPENING: 0, MIDDLEGAME: 0, ENDGAME: 0}
@@ -718,64 +719,54 @@ class Game:
                 move.stateOME = std
                 last = std
                 move.calc_elo()
+                elo_factor = 1
                 if move.bad_move:
-                    bad_moves[std] += 1
+                    elo_factor = Code.configuration.x_eval_bad_factor
                 elif move.verybad_move:
-                    verybad_moves[std] += 1
+                    elo_factor = Code.configuration.x_eval_very_bad_factor
+                elif move.questionable_move:
+                    elo_factor = Code.configuration.x_eval_questionable_factor
                 nummoves[std] += 1
-                sumelos[std] += move.elo * move.elo_factor
-                factormoves[std] += move.elo_factor
+                sumelos[std] += move.elo * elo_factor
+                factormoves[std] += elo_factor
 
-                ############### Calc averages
-                xtopes = {}
                 xelos = {}
                 for std in (OPENING, MIDDLEGAME, ENDGAME):
                     sume = sumelos[std]
                     numf = factormoves[std]
-                    tope = xtopes[std] = Code.analysis_eval.limit(verybad_moves[std], bad_moves[std], nummoves[std])
                     if numf:
-                        xelos[std] = int((sume * 1.0 / numf) * tope / Code.analysis_eval.limit_max)
+                        xelos[std] = int(sume * 1.0 / numf)
                     else:
                         xelos[std] = 0
 
                 sume = 0
                 numf = 0
-                tope = Code.analysis_eval.limit_max
                 for std in (OPENING, MIDDLEGAME, ENDGAME):
                     sume += sumelos[std]
                     numf += factormoves[std]
-                    if xtopes[std] < tope:
-                        tope = xtopes[std]
 
                 if numf:
-                    move.elo_avg = int((sume * 1.0 / numf) * tope / Code.analysis_eval.limit_max)
+                    move.elo_avg = int(sume * 1.0 / numf)
                 else:
                     move.elo_avg = 0
 
-                ###############
-
-        topes = {}
         elos = {}
         for std in (OPENING, MIDDLEGAME, ENDGAME):
             sume = sumelos[std]
             numf = factormoves[std]
-            tope = topes[std] = Code.analysis_eval.limit(verybad_moves[std], bad_moves[std], nummoves[std])
             if numf:
-                elos[std] = int((sume * 1.0 / numf) * tope / Code.analysis_eval.limit_max)
+                elos[std] = int(sume * 1.0 / numf)
             else:
                 elos[std] = 0
 
         sume = 0
         numf = 0
-        tope = Code.analysis_eval.limit_max
         for std in (OPENING, MIDDLEGAME, ENDGAME):
             sume += sumelos[std]
             numf += factormoves[std]
-            if topes[std] < tope:
-                tope = topes[std]
 
         if numf:
-            elos[ALLGAME] = int((sume * 1.0 / numf) * tope / Code.analysis_eval.limit_max)
+            elos[ALLGAME] = int(sume * 1.0 / numf)
         else:
             elos[ALLGAME] = 0
 

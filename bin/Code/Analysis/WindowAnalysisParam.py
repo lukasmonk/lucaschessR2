@@ -229,7 +229,7 @@ def analysis_parameters(parent, configuration, siModoAmpliado, siTodosMotores=Fa
         li_gen.append((config, defecto))
 
         li_gen.append(
-            (_("Automatically assign themes using Lichess/Thibault code") + " (experimental):", alm.themes_lichess)
+            (_("Automatically assign themes using Lichess/Thibault code") + ":", alm.themes_lichess)
         )
 
         li_gen.append((_("Redo any existing prior analysis (if they exist)") + ":", alm.delete_previous))
@@ -453,7 +453,7 @@ def massive_analysis_parameters(parent, configuration, siVariosSeleccionados, si
     li_gen.append((config, defecto))
 
     li_gen.append(
-        (_("Automatically assign themes using Lichess/Thibault code") + " (experimental):", alm.themes_lichess)
+        (_("Automatically assign themes using Lichess/Thibault code") + ":", alm.themes_lichess)
     )
 
     li_gen.append((_("Start from the end of the game") + ":", alm.from_last_move))

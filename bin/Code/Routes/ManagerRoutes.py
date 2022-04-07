@@ -5,7 +5,6 @@ import FasterCode
 
 import Code
 from Code import Manager
-from Code import Util
 from Code.Base import Game, Move, Position
 from Code.Base.Constantes import (
     ST_ENDGAME,
@@ -203,6 +202,14 @@ class ManagerRoutesPlay(ManagerRoutes):
 
         self.check_boards_setposition()
 
+        self.game.set_tag("Event", _("Transsiberian Railway"))
+        lbe = self.engine.name
+        white, black = self.configuration.x_player, lbe
+        if not self.human_side:
+            white, black = black, white
+        self.game.set_tag("White", white)
+        self.game.set_tag("Black", black)
+
         self.play_next_move()
 
     def end_game(self):
@@ -340,32 +347,6 @@ class ManagerRoutesPlay(ManagerRoutes):
             else:
                 QTUtil2.message(self.main_window, mensaje)
                 self.route.end_playing()
-
-    def current_pgn(self):
-        resp = '[Event "%s"]\n' % _("Transsiberian Railway")
-        hoy = Util.today()
-        resp += '[Date "%d-%d-%d"]\n' % (hoy.year, hoy.month, hoy.day)
-
-        lbe = self.engine.name
-
-        white, black = self.configuration.x_player, lbe
-        if not self.human_side:
-            white, black = black, white
-
-        resp += '[White "%s"]\n' % white
-        resp += '[Black "%s"]\n' % black
-
-        result = self.game.resultado()
-
-        resp += '[Result "%s"]\n' % result
-
-        ap = self.game.opening
-        resp += '[ECO "%s"]\n' % ap.eco
-        resp += '[Opening "%s"]\n' % ap.tr_name
-
-        resp += "\n" + self.game.pgnBase() + " " + result
-
-        return resp
 
 
 class ManagerRoutesEndings(ManagerRoutes):

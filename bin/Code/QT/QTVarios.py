@@ -608,6 +608,11 @@ class LCMenuPiezas(Controles.Menu):
         return menu
 
 
+class LCTab(Controles.Tab):
+    def __init__(self, parent):
+        Controles.Tab.__init__(self, parent)
+        self.ponTipoLetra(peso=100, puntos=Code.configuration.x_pgn_fontpoints)
+
 class ImportarFichero(QtWidgets.QDialog):
     def __init__(self, parent, titulo, siErroneos, siWorkDone, icono):
         QtWidgets.QDialog.__init__(self, parent)

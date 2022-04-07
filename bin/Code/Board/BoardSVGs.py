@@ -209,8 +209,6 @@ class SVGSC(BoardBlocks.BloqueEspSC):
         return pm
 
     def paint(self, painter, option, widget):
-
-        self.physical_pos2xy()
         bm = self.bloqueDatos
 
         physical_pos = bm.physical_pos

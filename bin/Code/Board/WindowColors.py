@@ -16,10 +16,10 @@ from Code.Base.Constantes import (
     NAG_6,
     SPECULATIVE_MOVE,
     GOOD_MOVE,
-    BAD_MOVE,
+    MISTAKE,
     VERY_GOOD_MOVE,
-    VERY_BAD_MOVE,
-    QUESTIONABLE_MOVE,
+    BLUNDER,
+    INACCURACY,
     dicHTMLnags
 )
 from Code.Board import Board, BoardArrows, ConfBoards
@@ -269,7 +269,7 @@ class WColores(LCDialog.LCDialog):
 
         ly_temas = Colocacion.V()
         self.lista_bt_temas = []
-        for i in range(12):
+        for i in range(24):
             ly = Colocacion.H()
             for j in range(6):
                 bt = BotonTema(self, self.cambia_tema)
@@ -278,7 +278,16 @@ class WColores(LCDialog.LCDialog):
                 self.lista_bt_temas.append(bt)
             ly.relleno(1)
             ly_temas.otro(ly)
-        ly_temas.relleno(1)
+        ly_temas.relleno(1).margen(1)
+
+        scroll = QtWidgets.QScrollArea()
+        scroll.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        scroll.setWidgetResizable(True)
+        scroll.setFrameStyle(QtWidgets.QFrame.NoFrame)
+        w_themes = QtWidgets.QWidget()
+        w_themes.setLayout(ly_temas)
+        scroll.setWidget(w_themes)
+        scroll.setFixedHeight(64*2 + 10)
 
         def crea_lb(txt):
             return Controles.LB(self, txt + ": ").align_right()
@@ -353,7 +362,7 @@ class WColores(LCDialog.LCDialog):
         gbActual = Controles.GB(self, _("Active theme"), lyActual)
 
         lySecciones = Colocacion.H().control(self.lbSecciones).control(self.cbSecciones).control(self.lb_help).relleno()
-        ly = Colocacion.V().control(self.cbTemas).otro(lySecciones).otro(ly_temas).control(gbActual).relleno()
+        ly = Colocacion.V().control(self.cbTemas).otro(lySecciones).control(scroll).control(gbActual).relleno()
         gbTemas = Controles.GB(self, "", ly)
         gbTemas.setFlat(True)
 
@@ -954,19 +963,19 @@ def cambiaColores(parent, configuration):
     config = FormLayout.Colorbox(dic_nags[GOOD_MOVE] + " (%s)"%dicHTMLnags[NAG_1], 40, 20, siSTR=True)
     liPGN.append((config, configuration.x_color_nag1))
 
-    config = FormLayout.Colorbox(dic_nags[BAD_MOVE] + " (%s)"%dicHTMLnags[NAG_2], 40, 20, siSTR=True)
+    config = FormLayout.Colorbox(dic_nags[MISTAKE] + " (%s)"%dicHTMLnags[NAG_2], 40, 20, siSTR=True)
     liPGN.append((config, configuration.x_color_nag2))
 
     config = FormLayout.Colorbox(dic_nags[VERY_GOOD_MOVE] + " (%s)"%dicHTMLnags[NAG_3], 40, 20, siSTR=True)
     liPGN.append((config, configuration.x_color_nag3))
 
-    config = FormLayout.Colorbox(dic_nags[VERY_BAD_MOVE] + " (%s)"%dicHTMLnags[NAG_4], 40, 20, siSTR=True)
+    config = FormLayout.Colorbox(dic_nags[BLUNDER] + " (%s)"%dicHTMLnags[NAG_4], 40, 20, siSTR=True)
     liPGN.append((config, configuration.x_color_nag4))
 
     config = FormLayout.Colorbox(dic_nags[SPECULATIVE_MOVE] + " (%s)"%dicHTMLnags[NAG_5], 40, 20, siSTR=True)
     liPGN.append((config, configuration.x_color_nag5))
 
-    config = FormLayout.Colorbox(dic_nags[QUESTIONABLE_MOVE] + " (%s)"%dicHTMLnags[NAG_6], 40, 20, siSTR=True)
+    config = FormLayout.Colorbox(dic_nags[INACCURACY] + " (%s)"%dicHTMLnags[NAG_6], 40, 20, siSTR=True)
     liPGN.append((config, configuration.x_color_nag6))
 
     li_others = []

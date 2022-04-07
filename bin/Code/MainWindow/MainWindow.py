@@ -492,4 +492,10 @@ class MainWindow(LCDialog.LCDialog):
                 Code.eboard.deactivate()
                 self.set_title_toolbar_eboard()
 
-            QtCore.QTimer.singleShot(ms, deactive)
+            if ms > 0:
+                QtCore.QTimer.singleShot(ms, deactive)
+            else:
+                deactive()
+
+    def delay_routine(self, ms, routine):
+        QtCore.QTimer.singleShot(ms, routine)

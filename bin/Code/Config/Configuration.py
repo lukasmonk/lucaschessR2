@@ -13,7 +13,7 @@ from Code.QT import QTUtil
 from Code.SQL import UtilSQL
 from Code.Engines import Priorities
 from Code.Analysis import AnalysisEval
-from Code.Base.Constantes import MENU_PLAY_BOTH, POS_TUTOR_HORIZONTAL
+from Code.Base.Constantes import MENU_PLAY_BOTH, POS_TUTOR_HORIZONTAL, INACCURACY
 
 import OSEngines  # in OS folder
 
@@ -184,7 +184,7 @@ class Configuration:
         self.tutor_default = "stockfish"
         self.x_tutor_clave = self.tutor_default
         self.x_tutor_multipv = 10  # 0: maximo
-        self.x_tutor_diftype = 0
+        self.x_tutor_diftype = INACCURACY
         self.x_tutor_mstime = 3000
         self.x_tutor_depth = 0
         self.x_tutor_priority = Priorities.priorities.low
@@ -196,6 +196,19 @@ class Configuration:
         self.x_analyzer_mstime = 3000
         self.x_analyzer_depth = 0
         self.x_analyzer_priority = Priorities.priorities.low
+
+        self.x_eval_lines = [(100.0, 0.9), (300, 2.0), (800, 3.0), (3500, 4.0)]
+        self.x_eval_blunder = 1.5
+        self.x_eval_error = 0.7
+        self.x_eval_inaccuracy = 0.3
+        self.x_eval_very_good_depth = 7
+        self.x_eval_good_depth = 4
+        self.x_eval_max_mate = 15
+        self.x_eval_max_elo = 3300.0
+        self.x_eval_min_elo = 800.0
+        self.x_eval_very_bad_factor = 12
+        self.x_eval_bad_factor = 4
+        self.x_eval_questionable_factor = 2
 
         self.x_sound_beep = False
         self.x_sound_our = False
@@ -227,7 +240,7 @@ class Configuration:
 
         self.x_translation_mode = False
 
-    def carpeta_translations(self):
+    def folder_translations(self):
         folder = os.path.join(self.carpetaBase, "Translations")
         if not os.path.isdir(folder):
             Util.create_folder(folder)
@@ -306,6 +319,9 @@ class Configuration:
 
     def file_competition_with_tutor(self):
         return os.path.join(self.carpeta_results, "CompetitionWithTutor.db")
+
+    def folder_userdata(self):
+        return self.carpeta
 
     def folder_tournaments(self):
         return self.create_base_folder("Tournaments")
@@ -652,7 +668,7 @@ class Configuration:
         self.x_lichess = elo
 
     def po_saved(self):
-        return os.path.join(self.carpeta_translations(), "%s.po" % self.x_translator)
+        return os.path.join(self.folder_translations(), "%s.po" % self.x_translator)
 
     def list_internal_engines(self):
         li = [cm for k, cm in self.dic_engines.items() if not cm.is_external]
@@ -672,13 +688,14 @@ class Configuration:
             for x in li:
                 eng = Engines.Engine()
                 eng.restore(x)
-                key = eng.key
-                n = 0
-                while eng.key in self.dic_engines:
-                    n += 1
-                    eng.key = "%s-%d" % (key, n)
-                eng.set_extern()
-                self.dic_engines[eng.key] = eng
+                if eng.exists():
+                    key = eng.key
+                    n = 0
+                    while eng.key in self.dic_engines:
+                        n += 1
+                        eng.key = "%s-%d" % (key, n)
+                    eng.set_extern()
+                    self.dic_engines[eng.key] = eng
 
     def list_engines(self, si_externos=True):
         li = []

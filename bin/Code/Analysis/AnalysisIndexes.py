@@ -8,10 +8,10 @@ from Code.Base.Constantes import (
     MIDDLEGAME,
     ENDGAME,
     GOOD_MOVE,
-    BAD_MOVE,
+    MISTAKE,
     VERY_GOOD_MOVE,
-    VERY_BAD_MOVE,
-    QUESTIONABLE_MOVE,
+    BLUNDER,
+    INACCURACY,
 )
 from Code.Openings import OpeningsStd
 
@@ -346,11 +346,11 @@ def gen_indexes(game, elos, elos_form, alm):
                 moves_very_good[is_white] += 1
             elif nag_color == GOOD_MOVE:
                 moves_good[is_white] += 1
-            elif nag_color == BAD_MOVE:
+            elif nag_color == MISTAKE:
                 moves_bad[is_white] += 1
-            elif nag_color == VERY_BAD_MOVE:
+            elif nag_color == BLUNDER:
                 moves_very_bad[is_white] += 1
-            elif nag_color == QUESTIONABLE_MOVE:
+            elif nag_color == INACCURACY:
                 moves_questionable[is_white] += 1
 
     t = n[True] + n[False]

@@ -4,6 +4,8 @@ from PySide2 import QtCore, QtGui, QtWidgets
 
 from Code.QT import QTUtil
 from Code import Util
+from Code.QT import Iconos
+from Code.Base.Constantes import WHITE, BLACK
 
 
 class Scanner_vars:
@@ -51,10 +53,13 @@ class Scanner(QtWidgets.QDialog):
         self.setWindowOpacity(self.vars.opacity)
         self.setGeometry(QtWidgets.QDesktopWidget().availableGeometry())
 
+        self.setCursor(QtGui.QCursor(Iconos.pmCursorScanner()))
+
         self.path = None
         self.selecting = False
         self.selected = False
         self.x = self.y = self.width = self.height = 0
+        self.side = WHITE
 
     def quit(self, ok):
         self.hide()
@@ -74,7 +79,9 @@ class Scanner(QtWidgets.QDialog):
     def paintEvent(self, event):
         if self.path:
             painter = QtGui.QPainter(self)
-            painter.setPen(QtGui.QPen(QtCore.Qt.red))
+            pen = QtGui.QPen(QtCore.Qt.red)
+            # pen.setStyle(QtCore.Qt.DotLine)
+            painter.setPen(pen)
             painter.drawPath(self.path)
 
     def setPath(self, point):
@@ -93,24 +100,12 @@ class Scanner(QtWidgets.QDialog):
                 self.setPathW()
 
     def setPathW(self):
-        celdaw = self.width // 8
-        self.width = celdaw * 8
-        celdah = self.height // 8
-        self.height = celdah * 8
         rect = QtGui.QPainterPath()
-        x = self.x
-        y = self.y
-        for c in range(8):
-            dx = x + c * celdaw
-            rect.moveTo(dx, y)
-            rect.lineTo(dx + celdaw, y)
-            rect.lineTo(dx + celdaw, y + self.height)
-            rect.lineTo(dx, y + self.height)
-            rect.lineTo(dx, y)
-        for f in range(1, 8):
-            dy = y + f * celdah
-            rect.moveTo(x, dy)
-            rect.lineTo(x + self.width, dy)
+        rect.moveTo(self.x, self.y)
+        rect.lineTo(self.x + self.width, self.y)
+        rect.lineTo(self.x + self.width, self.y + self.height)
+        rect.lineTo(self.x, self.y + self.height)
+        rect.lineTo(self.x, self.y)
         rect.closeSubpath()
 
         self.path = rect
@@ -121,7 +116,7 @@ class Scanner(QtWidgets.QDialog):
             self.setPath(eventMouse.pos())
 
     def mousePressEvent(self, eventMouse):
-        if eventMouse.button() == QtCore.Qt.LeftButton:
+        if eventMouse.button() in (QtCore.Qt.LeftButton, QtCore.Qt.RightButton):
             self.selecting = True
             self.selected = False
             origin = eventMouse.pos()
@@ -129,9 +124,7 @@ class Scanner(QtWidgets.QDialog):
             self.y = origin.y()
             self.width = 0
             self.height = 0
-        elif eventMouse.button() == QtCore.Qt.RightButton:
-            self.quit(True)
-            self.close()
+            self.side = WHITE if eventMouse.button() == QtCore.Qt.LeftButton else BLACK
         eventMouse.ignore()
 
     def mouseReleaseEvent(self, eventMouse):
@@ -145,6 +138,7 @@ class Scanner(QtWidgets.QDialog):
         else:
             self.vars.last_width = self.width
             self.vars.last_height = self.height
+            self.quit(True)
 
     def keyPressEvent(self, event):
         k = event.key()
@@ -177,34 +171,34 @@ class Scanner(QtWidgets.QDialog):
         else:
             if k == QtCore.Qt.Key_Right:
                 if is_ctrl:
-                    width += 8
-                    height += 8
+                    width += 1
+                    height += 1
                 elif is_alt:
-                    width += 8
+                    width += 1
                 else:
                     x += 1
             elif k == QtCore.Qt.Key_Left:
                 if is_ctrl:
-                    width -= 8
-                    height -= 8
+                    width -= 1
+                    height -= 1
                 elif is_alt:
-                    width -= 8
+                    width -= 1
                 else:
                     x -= 1
             elif k == QtCore.Qt.Key_Up:
                 if is_ctrl:
-                    height -= 8
-                    width -= 8
+                    height -= 1
+                    width -= 1
                 elif is_alt:
-                    height -= 8
+                    height -= 1
                 else:
                     y -= 1
             elif k == QtCore.Qt.Key_Down:
                 if is_ctrl:
-                    height += 8
-                    width += 8
+                    height += 1
+                    width += 1
                 elif is_alt:
-                    height += 8
+                    height += 1
                 else:
                     y += 1
 

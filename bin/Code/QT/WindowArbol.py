@@ -12,9 +12,9 @@ from Code.Base.Constantes import (
     VERY_GOOD_MOVE,
     NO_RATING,
     SPECULATIVE_MOVE,
-    QUESTIONABLE_MOVE,
-    BAD_MOVE,
-    VERY_BAD_MOVE,
+    INACCURACY,
+    MISTAKE,
+    BLUNDER,
 )
 from Code.Board import Board
 from Code.QT import Colocacion
@@ -218,9 +218,9 @@ class ListaMoves:
             VERY_GOOD_MOVE: 0,
             GOOD_MOVE: 1000,
             SPECULATIVE_MOVE: 1300,
-            QUESTIONABLE_MOVE: 1700,
-            BAD_MOVE: 2000,
-            VERY_BAD_MOVE: 3000,
+            INACCURACY: 1700,
+            MISTAKE: 2000,
+            BLUNDER: 3000,
             NO_RATING: 4000,
         }
         for mov in self.liMovesInicial:
@@ -304,10 +304,10 @@ class TreeMoves(QtWidgets.QTreeWidget):
         self.dicValoracion = collections.OrderedDict()
         self.dicValoracion["1"] = (VERY_GOOD_MOVE, dic_nags[3])
         self.dicValoracion["2"] = (GOOD_MOVE, dic_nags[1])
-        self.dicValoracion["3"] = (BAD_MOVE, dic_nags[2])
-        self.dicValoracion["4"] = (VERY_BAD_MOVE, dic_nags[4])
+        self.dicValoracion["3"] = (MISTAKE, dic_nags[2])
+        self.dicValoracion["4"] = (BLUNDER, dic_nags[4])
         self.dicValoracion["5"] = (SPECULATIVE_MOVE, dic_nags[5])
-        self.dicValoracion["6"] = (QUESTIONABLE_MOVE, dic_nags[6])
+        self.dicValoracion["6"] = (INACCURACY, dic_nags[6])
         self.dicValoracion["0"] = (NO_RATING, _("No rating"))
 
         ftxt = Controles.TipoLetra(puntos=9)
@@ -352,6 +352,7 @@ class TreeMoves(QtWidgets.QTreeWidget):
                 item = QtWidgets.QTreeWidgetItem(padre, [titulo, mov.etiPuntos(False), mov.comment])
                 item.setTextAlignment(1, QtCore.Qt.AlignRight)
                 item.setTextAlignment(3, QtCore.Qt.AlignCenter)
+                item.setToolTip(2, mov.comment)
                 if mov.siOculto:
                     qm = self.indexFromItem(item, 0)
                     self.setRowHidden(qm.row(), qm.parent(), True)
@@ -394,11 +395,11 @@ class TreeMoves(QtWidgets.QTreeWidget):
 
         li_gen = [(None, None)]
 
-        config = FormLayout.Editbox(_("Comments"), ancho=230)
+        config = FormLayout.Editbox(_("Comments"))
         li_gen.append((config, mov.comment))
 
         resultado = FormLayout.fedit(
-            li_gen, title=_("Comments") + " " + mov.titulo, parent=self, anchoMinimo=200, icon=Iconos.ComentarioEditar()
+            li_gen, title=_("Comments") + " " + mov.titulo, parent=self, anchoMinimo=400, icon=Iconos.ComentarioEditar()
         )
         if resultado is None:
             return
@@ -407,6 +408,7 @@ class TreeMoves(QtWidgets.QTreeWidget):
         mov.comment = liResp[0]
 
         item.setText(2, mov.comment)
+        item.setToolTip(2, mov.comment)
 
     def editValoracion(self, item, mov):
         menu = QTVarios.LCMenu(self)
@@ -438,7 +440,7 @@ class TreeMoves(QtWidgets.QTreeWidget):
         board = wowner.infoMove.board
         import Code.Variations as Variations
 
-        Variations.edit_variation_moves(
+        game_resp = Variations.edit_variation_moves(
             self.procesador,
             wowner,
             board.is_white_bottom,
@@ -446,6 +448,10 @@ class TreeMoves(QtWidgets.QTreeWidget):
             lineaPGN,
             titulo=mov.titulo + " - " + mov.etiPuntos(True),
         )
+        if game_resp:
+            if game_resp.pv() != rm.pv and game_resp.first_position.fen() == game.first_position.fen():
+                rm.pv = game_resp.pv()
+
 
     def mostrarOcultar(self, item, mov):
         lm = mov.listaMovesPadre
@@ -777,23 +783,21 @@ class WindowArbol(LCDialog.LCDialog):
     def muestra(self, mov):
         self.infoMove.muestra(mov)
 
-    def salvarVideo(self):
+    def save_video(self):
         dic_extended = {"SPLITTER": self.splitter.sizes()}
         for x in range(1, 6):
             dic_extended["TREE_%d" % x] = self.wmoves.tree.columnWidth(x)
 
-        self.save_video(dic_extended)
+        LCDialog.LCDialog.save_video(self, dic_extended)
 
     def grabar(self):
         self.listaMoves.guardaCache()
         self.dbCache.close()
-        self.salvarVideo()
 
         self.accept()
 
     def cancelar(self):
         self.dbCache.close()
-        self.salvarVideo()
         self.reject()
 
     def closeEvent(self, event):

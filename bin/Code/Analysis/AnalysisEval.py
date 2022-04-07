@@ -1,68 +1,116 @@
 import Code
-from Code import Util
 from Code.Base.Constantes import (
     NO_RATING,
-    BAD_MOVE,
-    VERY_BAD_MOVE,
-    QUESTIONABLE_MOVE,
+    MISTAKE,
+    BLUNDER,
+    INACCURACY,
 )
 
 
-class AnalysisEval:
-    escala_1 = 100
-    escala_2 = 300
-    escala_3 = 800
-    max_score = 3500
-    max_mate = 15
-    blunder = 2.0
-    error = 0.9
-    innacuracy = 0.3
-    very_good_depth = 6
-    good_depth = 3
+class EvalPoint:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
 
-    limit_max = 3500.0
-    limit_min = 800.0
-    lost_factor = 15.0
-    lost_exp = 1.35
+    def value(self):
+        return self.x, self.y
 
-    questionable = 30
-    very_bad_lostp = 200
-    bad_lostp = 90
-    bad_limit_min = 1200.0
-    very_bad_factor = 8
-    bad_factor = 2
+
+class EvalLine:
+    def __init__(self, p1, p2):
+        self.p1 = p1
+        self.p2 = p2
+        self.factor = (self.p2.y - self.p1.y) / (self.p2.x - self.p1.x)
+
+    def value(self, x):
+        return self.p1.y + (x - self.p1.x) * self.factor
+
+    def contiene(self, x):
+        return self.p1.x <= x <= self.p2.x
+
+
+class EvalLines:
+    li_lines: list
+    p0: EvalPoint
+    last_p: EvalPoint
 
     def __init__(self):
-        path = Code.path_resource("IntFiles", "eval.ini")
-        dic = Util.ini_base2dic(path)
-        self.escala_1 = int(dic.get("EQUALITY", self.escala_1))
-        self.escala_2 = int(dic.get("ADVANTAGE", self.escala_2))
-        self.escala_3 = int(dic.get("WINNING", self.escala_3))
-        self.max_score = int(dic.get("MAXSCORE", self.max_score))
-        self.max_mate = int(dic.get("MAXMATE", self.max_mate))
-        self.blunder = float(dic.get("BLUNDER", self.blunder))
-        self.error = float(dic.get("ERROR", self.error))
-        self.innacuracy = float(dic.get("INNACURACY", self.innacuracy))
+        self.li_lines = []
+        self.p0 = EvalPoint(0, 0)
+        self.last_p = self.p0
 
-        self.very_good_depth = int(dic.get("DEPTHVERYGOODMOVE", self.very_good_depth))
-        self.good_depth = int(dic.get("DEPTHGOODMOVE", self.very_good_depth))
+    def add_point(self, p: EvalPoint):
+        line = EvalLine(self.last_p, p)
+        self.li_lines.append(line)
+        self.last_p = p
 
+    def add_xy(self, x, y):
+        self.add_point(EvalPoint(x, y))
+
+    def value(self, x):
+        for line in self.li_lines:
+            if line.contiene(x):
+                return line.value(x)
+        return 0
+
+    def max_y(self):
+        return self.last_p.y
+
+    def max_x(self):
+        return self.last_p.x
+
+    def save_list(self):
+        return [(line.p2.x, line.p2.y) for line in self.li_lines]
+
+    def restore_list(self, li):
+        for x, y in li:
+            self.add_xy(x, y)
+
+
+class AnalysisEval:
+    eval_lines: EvalLines
+    eval_lines_max_y: float
+    eval_lines_max_x: float
+    blunder: float
+    error: float
+    inaccuracy: float
+    very_good_depth: int
+    good_depth: int
+    max_mate: int
+    max_elo: float
+    min_elo: float
+    very_bad_factor: float
+    bad_factor: float
+
+    def __init__(self):
+        conf = Code.configuration
+
+        self.eval_lines = EvalLines()
+        self.eval_lines.restore_list(conf.x_eval_lines)
+        self.eval_lines_max_y = self.eval_lines.max_y()
+        self.eval_lines_max_x = self.eval_lines.max_x()
+
+        self.blunder = conf.x_eval_blunder
+        self.error = conf.x_eval_error
+        self.inaccuracy = conf.x_eval_inaccuracy
+        self.very_good_depth = conf.x_eval_very_good_depth
+        self.good_depth = conf.x_eval_good_depth
+        self.max_mate = conf.x_eval_max_mate
+        self.max_elo = conf.x_eval_max_elo
+        self.min_elo = conf.x_eval_min_elo
+        self.very_bad_factor = conf.x_eval_very_bad_factor
+        self.bad_factor = conf.x_eval_bad_factor
+    
     def escala10(self, rm):
         if rm.mate:
             mt = min(abs(rm.mate), self.max_mate)
-            v = (mt-1)/(self.max_mate-1)
+            v = (mt - 1) / (self.max_mate - 1)
+            rep = 5.0 - self.eval_lines_max_y
+            v = rep * v
             return (10.0 - v) if rm.mate > 0 else v
 
-        pt = min(abs(rm.puntos), self.max_score)
-        if pt <= self.escala_1:
-            v = pt/self.escala_1
-        elif pt <= self.escala_2:
-            v = 1.0 + (pt-self.escala_1)/(self.escala_2-self.escala_1)
-        elif pt <= self.escala_3:
-            v = 2.0 + (pt-self.escala_2)/(self.escala_3-self.escala_2)
-        else:
-            v = 3.0 + (pt - self.escala_3) / (self.max_score - self.escala_3)
-
+        pt = min(abs(rm.puntos), self.eval_lines_max_x)
+        v = self.eval_lines.value(pt)
         return (5.0 + v) if rm.puntos > 0 else (5.0 - v)
 
     def evaluate(self, rm_j, rm_c):
@@ -70,35 +118,37 @@ class AnalysisEval:
         v_c = self.escala10(rm_c)
         dif = v_j - v_c
         if dif >= self.blunder:
-            return VERY_BAD_MOVE
+            return BLUNDER
         if dif >= self.error:
-            return BAD_MOVE
-        if dif >= self.innacuracy:
-            return QUESTIONABLE_MOVE
+            return MISTAKE
+        if dif >= self.inaccuracy:
+            return INACCURACY
         return NO_RATING
 
     def elo(self, rm_j, rm_c):
         v_j = self.escala10(rm_j)
         v_c = self.escala10(rm_c)
-        return int((v_c*2700.0)/v_j + 800.0) if v_j > 0 else 3500.0
+        df = v_j - v_c
+        mx = self.max_elo
+        mn = self.min_elo
+        bl2 = self.blunder*1.5
+        if df > bl2:
+            return mn
+        elif df == 0:
+            return mx
+        elif df > self.blunder:
+            mx *= .5
+        elif df > self.error:
+            mx *= .75
+        elif df > self.inaccuracy:
+            mx *= .9
+        rg = max(mx - mn, 0)
+        return int((bl2-df)*rg/bl2 + mn)
 
     def elo_bad_vbad(self, rm_j, rm_c):
         elo = self.elo(rm_j, rm_c)
         ev = self.evaluate(rm_j, rm_c)
-        bad = ev == BAD_MOVE
-        vbad = ev == VERY_BAD_MOVE
-        quest = ev == QUESTIONABLE_MOVE
+        bad = ev == MISTAKE
+        vbad = ev == BLUNDER
+        quest = ev == INACCURACY
         return elo, quest, bad, vbad
-
-    def limit(self, verybad, bad, nummoves):
-        if verybad or bad:
-            return int(
-                max(
-                    self.limit_max - self.very_bad_factor * 1000.0 * verybad / nummoves - self.bad_factor * 1000.0 * bad / nummoves,
-                    self.bad_limit_min,
-                )
-            )
-        else:
-            return self.limit_max
-
-

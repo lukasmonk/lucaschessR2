@@ -8,10 +8,10 @@ from Code.Base.Constantes import (
     GOOD_MOVE,
     VERY_GOOD_MOVE,
     NO_RATING,
-    BAD_MOVE,
-    VERY_BAD_MOVE,
+    MISTAKE,
+    BLUNDER,
     SPECULATIVE_MOVE,
-    QUESTIONABLE_MOVE,
+    INACCURACY,
 )
 from Code.Board import Board
 from Code.Board import WindowColors
@@ -112,11 +112,11 @@ class BoardLines(QtWidgets.QWidget):
         dic_nags = Code.Nags.Nags.dic_nags()
         self.dicValoracion = collections.OrderedDict()
         self.dicValoracion[GOOD_MOVE] = (dic_nags[1], WindowColors.nag2ico(1, 16))
-        self.dicValoracion[BAD_MOVE] = (dic_nags[2], WindowColors.nag2ico(2, 16))
+        self.dicValoracion[MISTAKE] = (dic_nags[2], WindowColors.nag2ico(2, 16))
         self.dicValoracion[VERY_GOOD_MOVE] = (dic_nags[3], WindowColors.nag2ico(3, 16))
-        self.dicValoracion[VERY_BAD_MOVE] = (dic_nags[4], WindowColors.nag2ico(4, 16))
+        self.dicValoracion[BLUNDER] = (dic_nags[4], WindowColors.nag2ico(4, 16))
         self.dicValoracion[SPECULATIVE_MOVE] = (dic_nags[5], WindowColors.nag2ico(5, 16))
-        self.dicValoracion[QUESTIONABLE_MOVE] = (dic_nags[6], WindowColors.nag2ico(6, 16))
+        self.dicValoracion[INACCURACY] = (dic_nags[6], WindowColors.nag2ico(6, 16))
         self.dicValoracion[NO_RATING] = (_("No rating"), QtGui.QIcon())
 
         self.dicVentaja = collections.OrderedDict()

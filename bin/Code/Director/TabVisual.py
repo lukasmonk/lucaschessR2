@@ -277,7 +277,7 @@ class GT_SVG(GT_Item):
         def f(n):
             return float(n * 1.0 / bd.width_square)
 
-        return (f(p.x), f(p.y), f(p.ancho), f(p.alto))
+        return f(p.x), f(p.y), f(p.ancho), f(p.alto)
 
     def set_datos(self, col, fil, ancho, alto):
         bd = self._itemSC.bloqueDatos
