@@ -249,6 +249,17 @@ class Move:
             self.bad_move = False
             self.verybad_move = False
 
+    def factor_elo(self):
+        elo_factor = 1
+        if self.analysis:
+            if self.bad_move:
+                elo_factor = Code.configuration.eval_bad_factor
+            elif self.verybad_move:
+                elo_factor = Code.configuration.eval_very_bad_factor
+            elif self.questionable_move:
+                elo_factor = Code.configuration.eval_questionable_factor
+        return elo_factor
+
     def distancia(self):
         return Position.distancia(self.from_sq, self.to_sq)
 

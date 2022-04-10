@@ -86,20 +86,20 @@ class AnalysisEval:
         conf = Code.configuration
 
         self.eval_lines = EvalLines()
-        self.eval_lines.restore_list(conf.x_eval_lines)
+        self.eval_lines.restore_list(conf.eval_lines)
         self.eval_lines_max_y = self.eval_lines.max_y()
         self.eval_lines_max_x = self.eval_lines.max_x()
 
-        self.blunder = conf.x_eval_blunder
-        self.error = conf.x_eval_error
-        self.inaccuracy = conf.x_eval_inaccuracy
-        self.very_good_depth = conf.x_eval_very_good_depth
-        self.good_depth = conf.x_eval_good_depth
-        self.max_mate = conf.x_eval_max_mate
-        self.max_elo = conf.x_eval_max_elo
-        self.min_elo = conf.x_eval_min_elo
-        self.very_bad_factor = conf.x_eval_very_bad_factor
-        self.bad_factor = conf.x_eval_bad_factor
+        self.blunder = conf.eval_blunder
+        self.error = conf.eval_error
+        self.inaccuracy = conf.eval_inaccuracy
+        self.very_good_depth = conf.eval_very_good_depth
+        self.good_depth = conf.eval_good_depth
+        self.max_mate = conf.eval_max_mate
+        self.max_elo = conf.eval_max_elo
+        self.min_elo = conf.eval_min_elo
+        self.very_bad_factor = conf.eval_very_bad_factor
+        self.bad_factor = conf.eval_bad_factor
     
     def escala10(self, rm):
         if rm.mate:

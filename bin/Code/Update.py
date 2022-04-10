@@ -1,12 +1,15 @@
+import os
 import shutil
 import urllib.request
 import zipfile
 
 import Code
 from Code import Util
-from Code.QT import QTUtil2
+from Code.QT import QTUtil2, SelectFiles
 
-WEBUPDATES = "https://lucaschess.pythonanywhere.com/static/updater/updates_%s.txt" % ("win32" if Code.is_windows else "linux")
+WEBUPDATES = "https://lucaschess.pythonanywhere.com/static/updater/updates_%s.txt" % (
+    "win32" if Code.is_windows else "linux"
+)
 
 
 def update_file(titulo, urlfichero, tam):
@@ -70,7 +73,9 @@ def update(main_window):
                     if base == base_version:
                         if current_version < version:
                             if not update_file(_X(_("version %1"), version.decode()), urlfichero.decode(), int(tam)):
-                                mens_error = _X(_("An error has occurred during the upgrade to version %1"), version.decode())
+                                mens_error = _X(
+                                    _("An error has occurred during the upgrade to version %1"), version.decode()
+                                )
                             else:
                                 done_update = True
 
@@ -121,3 +126,35 @@ def test_update(procesador):
     elif nresp == 3:
         procesador.configuration.x_check_for_update = False
         procesador.configuration.graba()
+
+
+def update_manual(main_window):
+    config = Code.configuration
+
+    dic = config.read_variables("MANUAL_UPDATE")
+
+    folder = dic.get("FOLDER", config.folder_userdata())
+
+    path_zip = SelectFiles.leeFichero(main_window, folder, "zip")
+    if not path_zip or not Util.exist_file(path_zip):
+        return
+
+    dic["FOLDER"] = os.path.dirname(path_zip)
+    config.write_variables("MANUAL_UPDATE", dic)
+
+    folder_actual = os.path.join(Code.folder_root, "bin", "actual")
+    shutil.rmtree(folder_actual, ignore_errors=True)
+    Util.create_folder(folder_actual)
+
+    shutil.copy(path_zip, folder_actual)
+
+    local_file = os.path.join(folder_actual, os.path.basename(path_zip))
+
+    zp = zipfile.ZipFile(local_file, "r")
+    zp.extractall(folder_actual)
+
+    path_act_py = os.path.join(folder_actual, "act.py")
+
+    exec(open(path_act_py).read())
+
+    return True

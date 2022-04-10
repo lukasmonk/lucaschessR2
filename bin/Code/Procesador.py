@@ -1140,6 +1140,9 @@ class Procesador:
         elif resp == "actualiza":
             self.actualiza()
 
+        elif resp == "actualiza_manual":
+            self.actualiza_manual()
+
     def adTitulo(self):
         return "<b>" + Code.lucas_chess + "</b><br>" + _X(_("version %1"), self.version)
 
@@ -1157,6 +1160,10 @@ class Procesador:
 
     def actualiza(self):
         if Update.update(self.main_window):
+            self.reiniciar()
+
+    def actualiza_manual(self):
+        if Update.update_manual(self.main_window):
             self.reiniciar()
 
     def unMomento(self, mensaje=None):

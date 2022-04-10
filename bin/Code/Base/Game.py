@@ -719,13 +719,13 @@ class Game:
                 move.stateOME = std
                 last = std
                 move.calc_elo()
-                elo_factor = 1
-                if move.bad_move:
-                    elo_factor = Code.configuration.x_eval_bad_factor
-                elif move.verybad_move:
-                    elo_factor = Code.configuration.x_eval_very_bad_factor
-                elif move.questionable_move:
-                    elo_factor = Code.configuration.x_eval_questionable_factor
+                elo_factor = move.factor_elo()
+                # if move.bad_move:
+                #     elo_factor = Code.configuration.eval_bad_factor
+                # elif move.verybad_move:
+                #     elo_factor = Code.configuration.eval_very_bad_factor
+                # elif move.questionable_move:
+                #     elo_factor = Code.configuration.eval_questionable_factor
                 nummoves[std] += 1
                 sumelos[std] += move.elo * elo_factor
                 factormoves[std] += elo_factor
@@ -1203,6 +1203,6 @@ def calc_formula_elo(move):  # , limit=200.0):
         #         q.write(",".join(titLG) + "\r\n")
         #     q.write(",".join(dataLG) + "\r\n")
 
-        return min(3500, max(0, x))
+        return min(3500, x if x > 0 else 0)
     except:
         return 0.0

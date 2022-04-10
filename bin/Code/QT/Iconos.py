@@ -3932,3 +3932,19 @@ def Engine():
     return QtGui.QIcon(pmEngine())
 
 
+def pmZip():
+    return PM(980552,981448)
+
+
+def Zip():
+    return QtGui.QIcon(pmZip())
+
+
+def pmUpdate():
+    return PM(981448,982532)
+
+
+def Update():
+    return QtGui.QIcon(pmUpdate())
+
+

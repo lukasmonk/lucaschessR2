@@ -197,18 +197,44 @@ class Configuration:
         self.x_analyzer_depth = 0
         self.x_analyzer_priority = Priorities.priorities.low
 
-        self.x_eval_lines = [(100.0, 0.9), (300, 2.0), (800, 3.0), (3500, 4.0)]
-        self.x_eval_blunder = 1.5
-        self.x_eval_error = 0.7
-        self.x_eval_inaccuracy = 0.3
-        self.x_eval_very_good_depth = 7
-        self.x_eval_good_depth = 4
-        self.x_eval_max_mate = 15
-        self.x_eval_max_elo = 3300.0
-        self.x_eval_min_elo = 800.0
-        self.x_eval_very_bad_factor = 12
-        self.x_eval_bad_factor = 4
-        self.x_eval_questionable_factor = 2
+        # self.x_eval_lines = [(100.0, 0.9), (300, 2.0), (800, 3.0), (3500, 4.0)]
+        # self.x_eval_blunder = 1.5
+        # self.x_eval_error = 0.7
+        # self.x_eval_inaccuracy = 0.3
+        # self.x_eval_very_good_depth = 7
+        # self.x_eval_good_depth = 4
+        # self.x_eval_max_mate = 15
+        # self.x_eval_max_elo = 3300.0
+        # self.x_eval_min_elo = 800.0
+        # self.x_eval_very_bad_factor = 12
+        # self.x_eval_bad_factor = 4
+        # self.x_eval_questionable_factor = 2
+
+        self.eval_lines = [(100.0, 0.9), (300, 2.0), (800, 3.0), (3500, 4.0)]
+        self.eval_blunder = 1.75
+        self.eval_error = 0.75
+        self.eval_inaccuracy = 0.33
+        self.eval_very_good_depth = 7
+        self.eval_good_depth = 4
+        self.eval_max_mate = 15
+        self.eval_max_elo = 3300.0
+        self.eval_min_elo = 200.0
+        self.eval_very_bad_factor = 12
+        self.eval_bad_factor = 6
+        self.eval_questionable_factor = 2
+
+        # self.eval_lines = [(150.0, 0.91), (390, 2.07), (530, 3.07), (775, 3.8), (900, 4.5)]
+        # self.eval_blunder = 1.84
+        # self.eval_error = 0.76
+        # self.eval_inaccuracy = 0.33
+        # self.eval_very_good_depth = 7
+        # self.eval_good_depth = 4
+        # self.eval_max_mate = 10
+        # self.eval_max_elo = 3300.0
+        # self.eval_min_elo = 0.0
+        # self.eval_very_bad_factor = 2.25
+        # self.eval_bad_factor = 2
+        # self.eval_questionable_factor = 1.1
 
         self.x_sound_beep = False
         self.x_sound_our = False

@@ -770,7 +770,7 @@ class FormTabWidget(QtWidgets.QWidget):
         super(FormTabWidget, self).__init__(parent)
         layout = Colocacion.V()
         self.tabwidget = QtWidgets.QTabWidget()
-        self.tabwidget.setFont(Controles.TipoLetra(peso=100, puntos=Code.configuration.x_pgn_fontpoints))
+        self.tabwidget.setFont(Controles.TipoLetra(puntos=Code.configuration.x_pgn_fontpoints))
         layout.control(self.tabwidget)
         self.setLayout(layout)
         self.widgetlist = []
