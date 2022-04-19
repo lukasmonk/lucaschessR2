@@ -96,20 +96,21 @@ def options(parent, configuration):
     if Code.is_windows:
         li_db = [
             (_("None"), ""),
-            (_("DGT"), "DGT"),
-            (_("Alternative to DGT driver") + x, "DGT-gon"),
-            (_("DGT Pegasus") + x, "Pegasus"),
             (_("Certabo") + x, "Certabo"),
+            # (_("Chessnut Air") + x, "Chessnut"),
+            (_("DGT"), "DGT"),
+            (_("DGT (Alternative)") + x, "DGT-gon"),
+            (_("DGT Pegasus") + x, "Pegasus"),
             (_("Millennium") + x, "Millennium"),
             (_("Novag Citrine") + x, "Citrine"),
             (_("Novag UCB") + x, "Novag UCB"),
+            (_("Square Off Pro") + x, "Square Off"),
         ]
     else:
         li_db = [
             (_("None"), ""),
             (_("DGT") + x, "DGT-gon"),
             (_("Certabo") + x, "Certabo"),
-            # ("%s (%s) %s" % (_("Certabo"), _("Bluetooth"), x), "CertaboBT"),
             (_("Millennium") + x, "Millennium"),
             (_("Novag Citrine") + x, "Citrine"),
             (_("Novag UCB") + x, "Novag UCB"),

@@ -140,16 +140,20 @@ class Eboard:
                 try:
                     if Code.configuration.x_digital_board == "DGT":
                         path_dll = os.path.join(path, "DGTEBDLL.dll")
-                    elif Code.configuration.x_digital_board == "DGT-gon":
-                        path_dll = os.path.join(path, "DGT_DLL.dll")
                     elif Code.configuration.x_digital_board == "Certabo":
                         path_dll = os.path.join(path, "CER_DLL.dll")
+                    elif Code.configuration.x_digital_board == "Chessnut":
+                        path_dll = os.path.join(path, "NUT_DLL.dll")
+                    elif Code.configuration.x_digital_board == "DGT-gon":
+                        path_dll = os.path.join(path, "DGT_DLL.dll")
+                    elif Code.configuration.x_digital_board == "Pegasus":
+                        path_dll = os.path.join(path, "PEG_DLL.dll")
                     elif Code.configuration.x_digital_board == "Millennium":
                         path_dll = os.path.join(path, "MCL_DLL.dll")
                     elif Code.configuration.x_digital_board == "Citrine":
                         path_dll = os.path.join(path, "CIT_DLL.dll")
-                    elif Code.configuration.x_digital_board == "Pegasus":
-                        path_dll = os.path.join(path, "PEG_DLL.dll")
+                    elif Code.configuration.x_digital_board == "Square Off":
+                        path_dll = os.path.join(path, "SOP_DLL.dll")
                     else:
                         path_dll = os.path.join(path, "UCB_DLL.dll")
                     if os.path.isfile(path_dll):
@@ -337,10 +341,11 @@ class Eboard:
             return Iconos.DGTB()
         elif board == "Certabo":
             return Iconos.Certabo()
+        elif board == "Chessnut":
+            return Iconos.Chessnut()
         elif board == "Millennium":
             return Iconos.Millenium()
-        elif board == "Citrine":
-            return Iconos.Novag()
+        elif board == "Square Off":
+            return Iconos.SquareOff()
         else:
-            return Iconos.DGT()
-        
+            return Iconos.Novag()

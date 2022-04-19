@@ -248,11 +248,12 @@ class MenuTrainings:
                                 trTraining(name),
                                 nico.otro(),
                             )
-                            menu_t.separador()
+                            submenu.separador()
                             lista.append((carpeta, name))
                         else:
                             submenu1 = submenu.submenu(entry.name, nico.otro())
                             menu_tacticas(submenu1, tipo, carpeta, lista)
+            menu_t.separador()
             return lista
 
         menu_tacticas(menu_t, TACTICS_BASIC, Code.path_resource("Tactics"), [])
@@ -266,6 +267,7 @@ class MenuTrainings:
                 menub = menu_t.submenu(_("Remove"), ico)
                 for carpeta, name in lista:
                     xopcion(menub, "remtactica|%s|%s" % (carpeta, name), trTraining(name), ico)
+                    menub.separador()
         menu_tactics.separador()
 
         xopcion(menu_tactics, "bmt", _("Find best move"), Iconos.BMT())

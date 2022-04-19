@@ -245,7 +245,7 @@ class MainWindow(LCDialog.LCDialog):
         self.refresh()
 
     def ajustaTamH(self):
-        if not self.isMaximized():
+        if not (self.isMaximized() or self.board.siF11):
             for n in range(3):
                 self.adjustSize()
                 self.refresh()
@@ -356,7 +356,8 @@ class MainWindow(LCDialog.LCDialog):
 
     def activaJuego(self, siActivar=True, siReloj=False, siAyudas=None):
         self.base.activaJuego(siActivar, siReloj, siAyudas)
-        self.ajustaTamH()
+        if not self.board.siF11:
+            self.ajustaTamH()
 
     def ponDatosReloj(self, bl, rb, ng, rn):
         self.base.ponDatosReloj(bl, rb, ng, rn)

@@ -137,11 +137,11 @@ class AnalysisEval:
         elif df == 0:
             return mx
         elif df > self.blunder:
-            mx *= .5
+            mx *= .2
         elif df > self.error:
-            mx *= .75
+            mx *= .5
         elif df > self.inaccuracy:
-            mx *= .9
+            mx *= .8
         rg = max(mx - mn, 0)
         return int((bl2-df)*rg/bl2 + mn)
 

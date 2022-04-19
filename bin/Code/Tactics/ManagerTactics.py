@@ -144,11 +144,6 @@ class ManagerTactics(Manager.Manager):
             self.end_game()
 
         elif key == TB_CONFIG:
-            if self.with_automatic_jump:
-                liMasOpciones = [("lmo_stop", _("Stop after solving"), Iconos.Stop())]
-            else:
-                liMasOpciones = [("lmo_jump", _("Jump to the next after solving"), Iconos.Jump())]
-            liMasOpciones.append((None, None, None))
             if self.tactic.advanced:
                 txt = _("Disable")
                 ico = Iconos.Remove1()
@@ -156,6 +151,12 @@ class ManagerTactics(Manager.Manager):
                 txt = _("Enable")
                 ico = Iconos.Add()
             liMasOpciones = [("lmo_advanced", "%s: %s" % (txt, _("Advanced mode")), ico)]
+            liMasOpciones.append((None, None, None))
+            if self.with_automatic_jump:
+                liMasOpciones.append(("lmo_stop", _("Stop after solving"), Iconos.Stop()))
+            else:
+                liMasOpciones.append(("lmo_jump", _("Jump to the next after solving"), Iconos.Jump()))
+
             resp = self.configurar(siSonidos=True, siCambioTutor=False, liMasOpciones=liMasOpciones)
             if resp in ("lmo_stop", "lmo_jump"):
                 self.with_automatic_jump = resp == "lmo_jump"

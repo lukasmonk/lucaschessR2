@@ -172,7 +172,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
             ly.control(self.chb_eboard)
         self.chb_humanize = Controles.CHB(
             self, _("To humanize the time it takes for the engine to respond"), False
-        ).ponFuente(Controles.TipoLetra(font))
+        ).ponFuente(font)
         ly.control(self.chb_humanize)
 
         nueva_tab(ly, _("Basic configuration"))

@@ -36,8 +36,6 @@ is_linux = sys.platform.startswith("linux")
 is_windows = not is_linux
 
 if is_linux:
-    if not os.environ.get("PYTHONHTTPSVERIFY", "") and getattr(ssl, "_create_unverified_context", None):
-        ssl._create_default_https_context = ssl._create_unverified_context
     startfile = os.system
 else:
     if not sys.argv[0].endswith(".py"):
@@ -47,6 +45,8 @@ else:
         )
     startfile = os.startfile
 
+if not os.environ.get("PYTHONHTTPSVERIFY", "") and getattr(ssl, "_create_unverified_context", None):
+    ssl._create_default_https_context = getattr(ssl, "_create_unverified_context")
 
 configuration = None
 procesador = None
@@ -86,7 +86,7 @@ def relative_root(path):
 
 
 BASE_VERSION = "B"  # Para el control de updates que necesitan reinstalar entero
-VERSION = "R 2.01a"
+VERSION = "R 2.01b"
 DEBUG = False
 DEBUG_ENGINE = False
 
