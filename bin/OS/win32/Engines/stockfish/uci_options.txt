@@ -1,4 +1,4 @@
-id name Stockfish 15
+id name Stockfish 190422
 id author the Stockfish developers (see AUTHORS file)
 option name Debug Log File type string default
 option name Threads type spin default 1 min 1 max 512
@@ -20,4 +20,4 @@ option name SyzygyProbeDepth type spin default 1 min 1 max 100
 option name Syzygy50MoveRule type check default true
 option name SyzygyProbeLimit type spin default 7 min 0 max 7
 option name Use NNUE type check default true
-option name EvalFile type string default nn-6877cd24400e.nnue
+option name EvalFile type string default nn-d0b74ce1e5eb.nnue
