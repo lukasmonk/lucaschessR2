@@ -300,7 +300,7 @@ class ManagerPlayGame(Manager.Manager):
         if analysis:
             move.analysis = analysis
         if comment:
-            move.comment = comment
+            move.set_comment(comment)
 
         self.game.add_move(move)
         self.check_boards_setposition()

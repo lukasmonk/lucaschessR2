@@ -64,8 +64,8 @@ class CircleSC(BoardBlocks.BloqueEspSC):
 
         f = lambda xy: int(round(float(xy) / float(ac), 0))
 
-        dc = f(physical_pos.x-tf/2) + 1
-        df = f(physical_pos.y-tf/2) + 1
+        dc = f(physical_pos.x - tf / 2) + 1
+        df = f(physical_pos.y - tf / 2) + 1
         hc = f(physical_pos.x + physical_pos.ancho)
         hf = f(physical_pos.y + physical_pos.alto)
 
@@ -210,10 +210,10 @@ class CircleSC(BoardBlocks.BloqueEspSC):
         p = bm.physical_pos
 
         # bm.grosor *= 2
-        p.x = bm.grosor*2
-        p.y = bm.grosor*2
+        p.x = bm.grosor * 2
+        p.y = bm.grosor * 2
 
-        pm = QtGui.QPixmap(p.ancho+bm.grosor*3, p.alto+bm.grosor*3)
+        pm = QtGui.QPixmap(p.ancho + bm.grosor * 3, p.alto + bm.grosor * 3)
         pm.fill(QtCore.Qt.transparent)
 
         painter = QtGui.QPainter()

@@ -13,7 +13,7 @@ from Code.QT import Grid
 from Code.QT import Iconos
 from Code.QT import QTUtil2, SelectFiles
 from Code.QT import QTVarios
-from Code.QT import Voyager
+from Code.Voyager import Voyager
 from Code.QT import LCDialog
 
 
@@ -73,8 +73,12 @@ class WManualSave(LCDialog.LCDialog):
         ##
         self.em_solucion = Controles.EM(self, siHTML=False).altoMinimo(40).capturaCambios(self.reset_game)
         ##
-        self.bt_solucion = Controles.PB(self, "   " + _("Save solution"), self.savesolucion, plano=False).ponIcono(Iconos.Grabar(), 24)
-        self.bt_edit = Controles.PB(self, "   " + _("Edit"), self.edit_solucion, plano=False).ponIcono(Iconos.PlayGame())
+        self.bt_solucion = Controles.PB(self, "   " + _("Save solution"), self.savesolucion, plano=False).ponIcono(
+            Iconos.Grabar(), 24
+        )
+        self.bt_edit = Controles.PB(self, "   " + _("Edit"), self.edit_solucion, plano=False).ponIcono(
+            Iconos.PlayGame()
+        )
         ly = Colocacion.V().control(self.em_solucion).control(self.bt_edit)
         gb = Controles.GB(self, _("Solution"), ly)
         ###
@@ -107,9 +111,9 @@ class WManualSave(LCDialog.LCDialog):
 
         # Labels + correlativo
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("LABEL", _("Label"), 80, edicion=Delegados.LineaTextoUTF8(), centered=True)
+        o_columns.nueva("LABEL", _("Label"), 80, edicion=Delegados.LineaTextoUTF8(), align_center=True)
         o_columns.nueva("VALUE", _("Value"), 280, edicion=Delegados.LineaTextoUTF8())
-        self.grid_labels = Grid.Grid(self, o_columns, siEditable=True, xid=1)
+        self.grid_labels = Grid.Grid(self, o_columns, is_editable=True, xid=1)
         n = self.grid_labels.anchoColumnas()
         self.grid_labels.setFixedWidth(n + 20)
         self.register_grid(self.grid_labels)
@@ -132,13 +136,15 @@ class WManualSave(LCDialog.LCDialog):
 
         lb_engine = Controles.LB(self, _("Engine") + ":")
         liMotores = self.configuration.comboMotores()
-        self.cb_engine = Controles.CB(self, liMotores, self.configuration.x_tutor_clave).capture_changes(self.reset_motor)
+        self.cb_engine = Controles.CB(self, liMotores, self.configuration.x_tutor_clave).capture_changes(
+            self.reset_motor
+        )
 
         lb_multipv = Controles.LB(self, _("Multi PV") + ": ")
         self.sb_multipv = Controles.SB(self, 1, 1, 500).tamMaximo(50)
         ##
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("PDT", _("Evaluation"), 100, centered=True)
+        o_columns.nueva("PDT", _("Evaluation"), 100, align_center=True)
         o_columns.nueva("PGN", _("Solution"), 360)
         self.grid_analysis = Grid.Grid(self, o_columns, siSelecFilas=True)
         self.register_grid(self.grid_analysis)
@@ -187,15 +193,15 @@ class WManualSave(LCDialog.LCDialog):
             self.fns = dic_vars.get("FNS", "")
             self.bt_fns.set_text(self.fns)
 
-            self.cb_codecs.ponValor(dic_vars.get("CODEC", ""))
+            self.cb_codecs.set_value(dic_vars.get("CODEC", ""))
 
             self.li_labels = dic_vars.get("LI_LABELS", [])
 
-            self.sb_number.ponValor(dic_vars.get("NUMBER", 0))
+            self.sb_number.set_value(dic_vars.get("NUMBER", 0))
 
-            self.cb_engine.ponValor(dic_vars.get("ENGINE", self.configuration.tutor_default))
+            self.cb_engine.set_value(dic_vars.get("ENGINE", self.configuration.tutor_default))
 
-            self.sb_multipv.ponValor(dic_vars.get("MULTIPV", 1))
+            self.sb_multipv.set_value(dic_vars.get("MULTIPV", 1))
 
         self.board.set_position(self.position)
         self.reset_motor()
@@ -373,7 +379,7 @@ class WManualSave(LCDialog.LCDialog):
             self.position = resp
             self.board.set_position(self.position)
 
-            self.sb_number.ponValor(self.sb_number.valor() + 1)
+            self.sb_number.set_value(self.sb_number.valor() + 1)
 
         if prev:
             self.start()

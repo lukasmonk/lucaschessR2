@@ -213,7 +213,9 @@ class ManagerTrainBooks(Manager.Manager):
                 self.board.creaFlechaMulti(jug[0] + jug[1], siMain=simain, opacity=opacity)
 
             if self.show_menu:
-                resp = WindowBooks.eligeJugadaBooks(self.main_window, self.list_moves, self.human_side, siSelectSiempre=False)
+                resp = WindowBooks.eligeJugadaBooks(
+                    self.main_window, self.list_moves, self.human_side, siSelectSiempre=False
+                )
                 self.board.remove_arrows()
             else:
                 resp = None
@@ -333,7 +335,7 @@ class ManagerTrainBooks(Manager.Manager):
             if siLineas:
                 comentario += linea
 
-        jg.comment = comentario
+        jg.set_comment(comentario)
 
     def play_rival(self, book_response):
         xfrom = book_response.from_sq
@@ -358,7 +360,12 @@ class ManagerTrainBooks(Manager.Manager):
     def txt_matches(self):
         if self.movimientos:
             self.game.set_tag("Score", "%d/%d" % (self.aciertos, self.movimientos))
-            return "%s : %d/%d (%0.2f%%)" % (_("Score"), self.aciertos, self.movimientos, 100.0 * self.aciertos / self.movimientos)
+            return "%s : %d/%d (%0.2f%%)" % (
+                _("Score"),
+                self.aciertos,
+                self.movimientos,
+                100.0 * self.aciertos / self.movimientos,
+            )
         else:
             return ""
 

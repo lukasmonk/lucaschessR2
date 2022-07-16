@@ -31,7 +31,9 @@ class WBaseSave(QtWidgets.QWidget):
 
         lb_file = Controles.LB(self, _("File to save") + ": ")
         bt_history = Controles.PB(self, "", self.history).ponIcono(Iconos.Favoritos(), 24).ponToolTip(_("Previous"))
-        bt_boxrooms = Controles.PB(self, "", self.boxrooms).ponIcono(Iconos.BoxRooms(), 24).ponToolTip(_("Boxrooms PGN"))
+        bt_boxrooms = (
+            Controles.PB(self, "", self.boxrooms).ponIcono(Iconos.BoxRooms(), 24).ponToolTip(_("Boxrooms PGN"))
+        )
         self.bt_file = Controles.PB(self, "", self.file_select, plano=False).anchoMinimo(300)
 
         # Codec
@@ -140,7 +142,9 @@ class WBaseSave(QtWidgets.QWidget):
                     boxrooms.delete(ntras)
 
             elif op == 1:
-                resp = SelectFiles.salvaFichero(self, _("Boxrooms PGN"), self.configuration.x_save_folder + "/", "pgn", False)
+                resp = SelectFiles.salvaFichero(
+                    self, _("Boxrooms PGN"), self.configuration.x_save_folder + "/", "pgn", False
+                )
                 if resp:
                     resp = os.path.realpath(resp)
                     folder, boxroom = os.path.split(resp)
@@ -203,8 +207,12 @@ class WSave(LCDialog.LCDialog):
 
         # Tab-file -----------------------------------------------------------------------------------------------
         lb_file = Controles.LB(self, _("File to save") + ": ").ponFuente(f)
-        bt_history = Controles.PB(self, "", self.history).ponIcono(Iconos.Favoritos(), 24).ponToolTip(_("Previous")).ponFuente(f)
-        bt_boxrooms = Controles.PB(self, "", self.boxrooms).ponIcono(Iconos.BoxRooms(), 24).ponToolTip(_("Boxrooms PGN"))
+        bt_history = (
+            Controles.PB(self, "", self.history).ponIcono(Iconos.Favoritos(), 24).ponToolTip(_("Previous")).ponFuente(f)
+        )
+        bt_boxrooms = (
+            Controles.PB(self, "", self.boxrooms).ponIcono(Iconos.BoxRooms(), 24).ponToolTip(_("Boxrooms PGN"))
+        )
         self.bt_file = Controles.PB(self, "", self.file_select, plano=False).anchoMinimo(300).ponFuente(f)
 
         # Codec
@@ -222,10 +230,18 @@ class WSave(LCDialog.LCDialog):
 
         lyF = Colocacion.H().control(lb_file).control(self.bt_file).control(bt_history).control(bt_boxrooms).relleno(1)
         lyC = Colocacion.H().control(lb_codec).control(self.cb_codecs).relleno(1)
-        ly = Colocacion.V().espacio(15).otro(lyF).otro(lyC).control(self.chb_overwrite).control(self.chb_remove_c_v).relleno(1)
+        ly = (
+            Colocacion.V()
+            .espacio(15)
+            .otro(lyF)
+            .otro(lyC)
+            .control(self.chb_overwrite)
+            .control(self.chb_remove_c_v)
+            .relleno(1)
+        )
         w = QtWidgets.QWidget()
         w.setLayout(ly)
-        tabs.nuevaTab(w, _("File"))
+        tabs.new_tab(w, _("File"))
         self.chb_overwrite.hide()
 
         # Tab-labels -----------------------------------------------------------------------------------------------
@@ -246,7 +262,7 @@ class WSave(LCDialog.LCDialog):
         o_columns.nueva("ETIQUETA", _("Label"), 150, edicion=Delegados.LineaTextoUTF8())
         o_columns.nueva("VALOR", _("Value"), 420, edicion=Delegados.LineaTextoUTF8())
 
-        self.grid_labels = Grid.Grid(self, o_columns, siEditable=True)
+        self.grid_labels = Grid.Grid(self, o_columns, is_editable=True)
         self.grid_labels.ponFuente(f)
         n = self.grid_labels.anchoColumnas()
         self.grid_labels.setFixedWidth(n + 20)
@@ -255,11 +271,11 @@ class WSave(LCDialog.LCDialog):
         ly = Colocacion.V().control(tb_labels).control(self.grid_labels).margen(3)
         w = QtWidgets.QWidget()
         w.setLayout(ly)
-        tabs.nuevaTab(w, _("Labels"))
+        tabs.new_tab(w, _("Labels"))
 
         # Tab-Body -----------------------------------------------------------------------------------------------
         self.em_body = Controles.EM(self, self.body, siHTML=False).ponFuente(f)
-        tabs.nuevaTab(self.em_body, _("Body"))
+        tabs.new_tab(self.em_body, _("Body"))
 
         layout = Colocacion.V().control(tb).control(tabs)
 
@@ -352,7 +368,9 @@ class WSave(LCDialog.LCDialog):
                     boxrooms.delete(ntras)
 
             elif op == 1:
-                resp = SelectFiles.salvaFichero(self, _("Boxrooms PGN"), self.configuration.x_save_folder + "/", "pgn", False)
+                resp = SelectFiles.salvaFichero(
+                    self, _("Boxrooms PGN"), self.configuration.x_save_folder + "/", "pgn", False
+                )
                 if resp:
                     resp = os.path.realpath(resp)
                     folder, boxroom = os.path.split(resp)
@@ -533,7 +551,12 @@ class WSaveVarios(LCDialog.LCDialog):
         self.configuration = configuration
 
         # Opciones
-        li_options = [(_("Save"), Iconos.GrabarFichero(), self.aceptar), None, (_("Cancel"), Iconos.Cancelar(), self.reject), None]
+        li_options = [
+            (_("Save"), Iconos.GrabarFichero(), self.aceptar),
+            None,
+            (_("Cancel"), Iconos.Cancelar(), self.reject),
+            None,
+        ]
         self.tb = QTVarios.LCTB(self, li_options)
 
         self.wbase = WBaseSave(self, configuration)

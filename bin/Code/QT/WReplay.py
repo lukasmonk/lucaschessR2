@@ -138,7 +138,7 @@ class Replay:
         move = self.li_moves[self.current_position]
         self.board.set_position(move.position_before)
         if self.current_position > 0:
-            if not self.sleep_refresh(self.seconds/self.rapidez):
+            if not self.sleep_refresh(self.seconds / self.rapidez):
                 return
 
         liMovs = [("b", move.to_sq), ("m", move.from_sq, move.to_sq)]
@@ -169,7 +169,7 @@ class Replay:
                     dc = ord(from_sq[0]) - ord(to_sq[0])
                     df = int(from_sq[1]) - int(to_sq[1])
                     # Maxima distancia = 9.9 ( 9,89... sqrt(7**2+7**2)) = 4 seconds
-                    dist = (dc ** 2 + df ** 2) ** 0.5
+                    dist = (dc**2 + df**2) ** 0.5
                     rp = self.rapidez if self.rapidez > 1.0 else 1.0
                     secs = 4.0 * dist / (9.9 * rp)
                 cpu.muevePieza(from_sq, to_sq, secs)

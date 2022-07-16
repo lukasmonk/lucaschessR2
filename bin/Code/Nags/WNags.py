@@ -42,11 +42,11 @@ class WNags(LCDialog.LCDialog):
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("SELECTED", "", 20, siChecked=True)
         o_columns.nueva("ICON", "", 16, edicion=Delegados.PmIconosBMT(self, self.nags.dic_pm(), x=8))
-        o_columns.nueva("NUMBER", "", 30, centered=True)
+        o_columns.nueva("NUMBER", "", 30, align_center=True)
         o_columns.nueva("TITLE", "", 240)
 
         self.o_columnas = o_columns
-        self.grid = Grid.Grid(self, o_columns, siEditable=True, altoCabecera=4)
+        self.grid = Grid.Grid(self, o_columns, is_editable=True, altoCabecera=4)
         font = Controles.TipoLetra(puntos=Code.configuration.x_pgn_fontpoints)
         self.grid.ponFuente(font)
 

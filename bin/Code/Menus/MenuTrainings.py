@@ -146,7 +146,7 @@ class MenuTrainings:
             5: ("N", "Cburnett", _("Basic test") + ": e4"),
         }
         menu2 = menu_basic.submenu(_("Becoming a knight tamer"), Iconos.Knight())
-        vicon = Code.todasPiezas.icono
+        vicon = Code.all_pieces.icono
         icl, icn, tit = hd[1]
         menu3 = menu2.submenu(tit, vicon(icl, icn))
         xopcion(menu3, "horses_1", tit, vicon(icl, icn))
@@ -422,7 +422,7 @@ class MenuTrainings:
                 elif resp.startswith("horses_"):
                     test = int(resp[7])
                     icl, icn, tit = self.horsesDef[test]
-                    icon = Code.todasPiezas.icono(icl, icn)
+                    icon = Code.all_pieces.icono(icl, icn)
                     self.horses(test, tit, icon)
 
                 elif resp.startswith("ep_"):

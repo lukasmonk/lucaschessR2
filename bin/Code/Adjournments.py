@@ -14,7 +14,16 @@ class Adjournments:
     def add(self, tp: int, dic: dict, label_menu: str):
         with self.open() as db:
             now = Util.today()
-            key = "%d|%d|%d|%d|%d|%d|%d|%s" % (now.year, now.month, now.day, now.hour, now.minute, now.second, tp, label_menu)
+            key = "%d|%d|%d|%d|%d|%d|%d|%s" % (
+                now.year,
+                now.month,
+                now.day,
+                now.hour,
+                now.minute,
+                now.second,
+                tp,
+                label_menu,
+            )
             db[key] = dic
 
     def get(self, key):
@@ -34,7 +43,14 @@ class Adjournments:
             li_resp = []
             for key in li:
                 year, month, day, hour, minute, second, tp, label_menu = key.split("|")
-                label = "%d-%02d-%02d %02d:%02d:%02d " % (int(year), int(month), int(day), int(hour), int(minute), int(second))
+                label = "%d-%02d-%02d %02d:%02d:%02d " % (
+                    int(year),
+                    int(month),
+                    int(day),
+                    int(hour),
+                    int(minute),
+                    int(second),
+                )
                 tp = int(tp)
                 li_resp.append((key, label + label_menu, tp))
             return li_resp

@@ -102,7 +102,7 @@ class WTrainBMT(LCDialog.LCDialog):
 
         # Grid-PGN ---------------------------------------------------------------
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("NUMBER", _("N."), 35, centered=True)
+        o_columns.nueva("NUMBER", _("N."), 35, align_center=True)
         with_figurines = self.configuration.x_pgn_withfigurines
         o_columns.nueva("WHITE", _("White"), 100, edicion=Delegados.EtiquetaPGN(True if with_figurines else None))
         o_columns.nueva("BLACK", _("Black"), 100, edicion=Delegados.EtiquetaPGN(False if with_figurines else None))
@@ -647,7 +647,7 @@ class WTrainBMT(LCDialog.LCDialog):
             self.bmt_uno.finished = True
             diferenciaPtsPrimero = self.ptsPrimero - self.ptsMejor
             self.lbPrimera.set_text(
-                "%s (%s %s)" % (self.texto_lbPrimera, "%0.2f" % (-diferenciaPtsPrimero / 100.0),  _("pws lost"))
+                "%s (%s %s)" % (self.texto_lbPrimera, "%0.2f" % (-diferenciaPtsPrimero / 100.0), _("pws lost"))
             )
             self.muestra(num)
             self.ponPuntos(0)

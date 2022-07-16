@@ -41,11 +41,11 @@ class WUsuarios(LCDialog.LCDialog):
 
         # Lista
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("NUMBER", _("N."), 40, centered=True)
+        o_columns.nueva("NUMBER", _("N."), 40, align_center=True)
         o_columns.nueva("USUARIO", _("User"), 140, edicion=Delegados.LineaTextoUTF8())
         # o_columns.nueva("PASSWORD", _("Password"), 100, edicion=Delegados.LineaTextoUTF8(siPassword=True))
 
-        self.grid = Grid.Grid(self, o_columns, siEditable=True)
+        self.grid = Grid.Grid(self, o_columns, is_editable=True)
 
         # Layout
         layout = Colocacion.V().control(tb).control(self.grid).margen(3)
@@ -167,7 +167,9 @@ def set_password(procesador):
         config = FormLayout.Editbox(_("Repeat"), ancho=120, siPassword=True)
         li_gen.append((config, ""))
 
-        resultado = FormLayout.fedit(li_gen, title=_("Set password"), parent=procesador.main_window, icon=Iconos.Password())
+        resultado = FormLayout.fedit(
+            li_gen, title=_("Set password"), parent=procesador.main_window, icon=Iconos.Password()
+        )
 
         if resultado:
             previa, nueva, repite = resultado[1]

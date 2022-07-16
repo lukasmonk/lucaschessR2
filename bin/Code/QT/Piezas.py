@@ -71,7 +71,7 @@ class ConjuntoPiezas:
         return QtGui.QCursor(self.pixmap(pieza))
 
 
-class TodasPiezas:
+class AllPieces:
     def __init__(self):
         self.dicConjuntos = {}
 
@@ -337,8 +337,8 @@ class WBlindfold(LCDialog.LCDialog):
                 dpz = self.config.saved(cual)
                 for pz in "kqrbnp":
                     lbPZw, cbPZw, lbPZ, lbPZb, cbPZb, tipoW, tipoB = self.dicWidgets[pz]
-                    cbPZw.ponValor(dpz[pz.upper()])
-                    cbPZb.ponValor(dpz[pz])
+                    cbPZw.set_value(dpz[pz.upper()])
+                    cbPZb.set_value(dpz[pz])
                 self.reset()
             else:
                 li_gen = [(None, None)]
@@ -392,8 +392,8 @@ class WBlindfold(LCDialog.LCDialog):
                 dpz = dic["_" + cual]
                 for pz in "kqrbnp":
                     lbPZw, cbPZw, lbPZ, lbPZb, cbPZb, tipoW, tipoB = self.dicWidgets[pz]
-                    cbPZw.ponValor(dpz[pz.upper()])
-                    cbPZb.ponValor(dpz[pz])
+                    cbPZw.set_value(dpz[pz.upper()])
+                    cbPZb.set_value(dpz[pz])
                 self.reset()
             else:
                 li_gen = [(None, None)]
@@ -423,14 +423,14 @@ class WBlindfold(LCDialog.LCDialog):
         tp = self.cbAll.valor()
         for pzB in "rnbqkp":
             lbPZw, cbPZw, lbPZ, lbPZb, cbPZb, tipoW, tipoB = self.dicWidgets[pzB]
-            cbPZw.ponValor(tp)
+            cbPZw.set_value(tp)
         self.reset()
 
     def allBlack(self):
         tp = self.cbAll.valor()
         for pzB in "rnbqkp":
             lbPZw, cbPZw, lbPZ, lbPZb, cbPZb, tipoW, tipoB = self.dicWidgets[pzB]
-            cbPZb.ponValor(tp)
+            cbPZb.set_value(tp)
         self.reset()
 
     def swap(self):
@@ -438,8 +438,8 @@ class WBlindfold(LCDialog.LCDialog):
             lbPZw, cbPZw, lbPZ, lbPZb, cbPZb, tipoW, tipoB = self.dicWidgets[pzB]
             tpB = cbPZb.valor()
             tpW = cbPZw.valor()
-            cbPZb.ponValor(tpW)
-            cbPZw.ponValor(tpB)
+            cbPZb.set_value(tpW)
+            cbPZw.set_value(tpB)
         self.reset()
 
     def reset(self):

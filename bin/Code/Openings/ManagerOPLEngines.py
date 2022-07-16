@@ -276,7 +276,6 @@ class ManagerOpeningEngines(Manager.Manager):
         self.pgnRefresh(self.game.last_position.is_white)
         self.refresh()
 
-
     def muestraInformacion(self):
         li = []
         li.extend(self.li_info)

@@ -55,12 +55,11 @@ def letterPiece(piece):
     return dConvTR[0].get(p, p)
 
 
-
-
 def dicTraining():
     d = {
         "Checkmates by Eduardo Sadier": _("Checkmates by Eduardo Sadier"),
-        "%d positions of mate in two" % Code.mate_en_dos: _("50000 positions of mate in two").replace("50000", "%d" % Code.mate_en_dos),
+        "%d positions of mate in two"
+        % Code.mate_en_dos: _("50000 positions of mate in two").replace("50000", "%d" % Code.mate_en_dos),
         "Mate in one (derived from mate in two)": _("Mate in one (derived from mate in two)"),
         "Checkmates from FICS database": _("Checkmates from FICS database"),
         "Attacking the king in the castle M1": _("Attacking the king in the castle M1"),
@@ -170,7 +169,7 @@ def STS():
         _("Activity of the King"),
         _("Center Control"),
         _("Pawn Play in the Center"),
-        _("Queens and Rooks to the 7th rank"),
+        _("Queens and Rooks to the 7th Rank"),
         _("Avoid Pointless Exchange"),
     ]
 

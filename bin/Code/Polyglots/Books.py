@@ -170,7 +170,9 @@ class ListBooks:
                     pgn = move.pgn_translated()
                     puntos = "%7.02f%%" % pc if ok else "   ???"
 
-                    liResp.append(("%d|%d" % (nlibro, njug), "%s%-5s%s - %s" % (previo, pgn, posterior, puntos), ico, liOp))
+                    liResp.append(
+                        ("%d|%d" % (nlibro, njug), "%s%-5s%s - %s" % (previo, pgn, posterior, puntos), ico, liOp)
+                    )
                     if not ok:
                         break
 
@@ -382,14 +384,14 @@ class Entry:
 
 class Polyglot:
     """
-        fen = "rnbqkbnr/pppppppp/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
-        fich = "varied.bin"
+    fen = "rnbqkbnr/pppppppp/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+    fich = "varied.bin"
 
-        p = Polyglot()
-        li = p.lista( fich, fen )
+    p = Polyglot()
+    li = p.lista( fich, fen )
 
-        for entry in li:
-            p rint entry.pv(), entry.weight
+    for entry in li:
+        p rint entry.pv(), entry.weight
     """
 
     random64 = (

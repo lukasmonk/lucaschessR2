@@ -188,7 +188,8 @@ class ManagerFindAllMoves(Manager.Manager):
         if resp:
             if resp == "remove":
                 if QTUtil2.pregunta(
-                    self.main_window, _("Are you sure you want to delete all results of all levels and start again from scratch?")
+                    self.main_window,
+                    _("Are you sure you want to delete all results of all levels and start again from scratch?"),
                 ):
                     self.pgn.remove_all()
                     self.pgnRefresh(True)
@@ -346,7 +347,9 @@ class ManagerFindAllMoves(Manager.Manager):
             mens = '<b><span style="color:green">%s</span></b>' % _("Congratulations, goal achieved")
             QTUtil2.message(self.main_window, mens)
         else:
-            QTUtil2.mensajeTemporal(self.main_window, mensaje, 3 if siRecord else 2, background="#FFCD43" if siRecord else None)
+            QTUtil2.mensajeTemporal(
+                self.main_window, mensaje, 3 if siRecord else 2, background="#FFCD43" if siRecord else None
+            )
 
     def analize_position(self, row, key):
         if self.state == ST_PLAYING:
@@ -355,7 +358,10 @@ class ManagerFindAllMoves(Manager.Manager):
         if row <= self.pgn.primeroSinHacer():
             pos_with_error = self.pgn.pos_with_error()
             if pos_with_error < row:
-                QTUtil2.message(self.main_window, _("To be able to play at this level, the previous levels must be solved without errors."))
+                QTUtil2.message(
+                    self.main_window,
+                    _("To be able to play at this level, the previous levels must be solved without errors."),
+                )
                 return
             self.jugar(row)
 

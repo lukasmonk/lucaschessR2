@@ -190,7 +190,9 @@ class WKibLinea(QtWidgets.QDialog):
         args = self.kibitzer.args
         li_uci = self.kibitzer.liUCI
         self.numMultiPV = 0
-        return EngineRun.RunEngine(self.nom_engine, exe, li_uci, self.numMultiPV, priority=self.cpu.prioridad, args=args)
+        return EngineRun.RunEngine(
+            self.nom_engine, exe, li_uci, self.numMultiPV, priority=self.cpu.prioridad, args=args
+        )
 
     def closeEvent(self, event):
         self.finalizar()

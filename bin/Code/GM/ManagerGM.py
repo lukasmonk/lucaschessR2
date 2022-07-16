@@ -204,7 +204,7 @@ class ManagerGM(Manager.Manager):
         siRival = is_white == self.is_engine_side_white
 
         if self.jugInicial > 1:
-            si_jug_inicial = len(self.game) < (self.jugInicial-1)*2
+            si_jug_inicial = len(self.game) < (self.jugInicial - 1) * 2
         else:
             si_jug_inicial = False
 
@@ -313,7 +313,9 @@ class ManagerGM(Manager.Manager):
                     else:
                         self.book = False
         else:
-            siAnalizaJuez = self.with_adjudicator and self.mostrar is None  # None es ver siempre False no ver nunca True ver si diferentes
+            siAnalizaJuez = (
+                self.with_adjudicator and self.mostrar is None
+            )  # None es ver siempre False no ver nunca True ver si diferentes
             if len(movimiento) == 5:
                 promotion = movimiento[4].lower()
             desdeGM, hastaGM, promotionGM = from_sq, to_sq, promotion
@@ -349,7 +351,15 @@ class ManagerGM(Manager.Manager):
 
             if self.mostrar is None or ((self.mostrar is True) and not isValid):
                 w = WindowJuicio.WJuicio(
-                    self, self.xtutor, self.nombreGM, position, mrm, rmGM, rmUsu, analysis, is_competitive=not self.show_evals
+                    self,
+                    self.xtutor,
+                    self.nombreGM,
+                    position,
+                    mrm,
+                    rmGM,
+                    rmUsu,
+                    analysis,
+                    is_competitive=not self.show_evals,
                 )
                 w.exec_()
 
@@ -370,7 +380,12 @@ class ManagerGM(Manager.Manager):
             self.ponRotuloSecundario()
 
             if not isValid:
-                jgGM.comment = (comentario0 + comentario1 + comentario2).replace("<b>", "").replace("</b>", "").replace("<br>", "\n")
+                jgGM.set_comment(
+                    (comentario0 + comentario1 + comentario2)
+                    .replace("<b>", "")
+                    .replace("</b>", "")
+                    .replace("<br>", "\n")
+                )
 
         self.analyze_end()
 

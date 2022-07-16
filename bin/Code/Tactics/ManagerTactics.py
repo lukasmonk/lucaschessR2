@@ -99,7 +99,7 @@ class ManagerTactics(Manager.Manager):
             self.play_next_move()
 
     def advanced_return(self, solved):
-        self.tactic.masSegundos(time.time()-self.ini_clock)
+        self.tactic.masSegundos(time.time() - self.ini_clock)
         self.wsolve.hide()
         self.board.showCoordenadas(True)
         more_errors = self.wsolve.errors
@@ -312,7 +312,10 @@ class ManagerTactics(Manager.Manager):
     def cambiar(self):
         if self.tactic.w_next_position >= 0:
             pos = WCompetitionWithTutor.edit_training_position(
-                self.main_window, self.tactic.title_extended(), self.tactic.w_next_position, pos=self.tactic.w_next_position
+                self.main_window,
+                self.tactic.title_extended(),
+                self.tactic.w_next_position,
+                pos=self.tactic.w_next_position,
             )
             if pos is not None:
                 self.tactic.w_next_position = pos - 1

@@ -23,7 +23,7 @@ from Code.QT import Iconos
 from Code.QT import QTUtil
 from Code.QT import QTUtil2, SelectFiles
 from Code.QT import QTVarios
-from Code.QT import Voyager
+from Code.Voyager import Voyager
 from Code.QT import WindowSavePGN
 from Code.QT import LCDialog
 
@@ -176,7 +176,9 @@ class WLines(LCDialog.LCDialog):
         form.separador()
 
         form.combobox(
-            _("Engine"), self.configuration.comboMotoresMultiPV10(4), dicVar.get("ENGINE", self.configuration.engine_tutor())
+            _("Engine"),
+            self.configuration.comboMotoresMultiPV10(4),
+            dicVar.get("ENGINE", self.configuration.engine_tutor()),
         )
         form.separador()
 
@@ -421,7 +423,7 @@ class WLines(LCDialog.LCDialog):
         )
         li_gen.append((config, num_engines))
 
-        likeys = [("%s %d" %(_("Group"), pos), x) for pos, x in enumerate(li_engines,1) if x in dic_engines]
+        likeys = [("%s %d" % (_("Group"), pos), x) for pos, x in enumerate(li_engines, 1) if x in dic_engines]
         config = FormLayout.Combobox("%s: %s" % (_("Automatic selection"), _("bunch of engines")), likeys)
         li_gen.append((config, key_engine))
         li_gen.append(separador)
@@ -566,7 +568,7 @@ class WLines(LCDialog.LCDialog):
         return game
 
     def voyager2(self, game):
-        ptxt = Voyager.voyagerPartida(self, game)
+        ptxt = Voyager.voyager_game(self, game)
         if ptxt:
             game = Game.Game()
             game.restore(ptxt)
@@ -694,7 +696,7 @@ class WLines(LCDialog.LCDialog):
         if nomfichgames:
             dicData = self.import_param_books(_("Database opening explorer"), False)
             if dicData:
-                db = DBgames.DBgames(nomfichgames) # por el problema de los externos
+                db = DBgames.DBgames(nomfichgames)  # por el problema de los externos
                 ficheroSummary = db.db_stat.nom_fichero
                 db.close()
                 depth, siWhite, onlyone, minMoves = (
@@ -871,7 +873,6 @@ class WLines(LCDialog.LCDialog):
                             li_nags.append(str(v))
             else:
                 pgn = ""
-
 
         return pgn, iswhite, color, info, indicadorInicial, li_nags, agrisar, siLine
 

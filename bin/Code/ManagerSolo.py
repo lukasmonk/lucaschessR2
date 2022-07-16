@@ -33,13 +33,13 @@ from Code.QT import Iconos
 from Code.QT import QTUtil
 from Code.QT import QTUtil2, SelectFiles
 from Code.QT import QTVarios
-from Code.QT import Voyager
+from Code.Voyager import Voyager
 from Code.QT import WindowPgnTags
 from Code.Translations import TrListas
 
 
 class ManagerSolo(Manager.Manager):
-    reinicio=None
+    reinicio = None
 
     def start(self, dic=None):
         self.game_type = GT_ALONE
@@ -304,7 +304,6 @@ class ManagerSolo(Manager.Manager):
         dic = self.creaDic()
         dic["GAME"] = self.game.save()
         dic["LAST_FILE"] = Util.relative_path(file)
-        dic["WHITEBOTTOM"] = self.board.is_white_bottom
         if Util.save_pickle(file, dic):
             self.valor_inicial = self.dame_valor_actual()
             self.guardaDir(file)
@@ -363,7 +362,7 @@ class ManagerSolo(Manager.Manager):
         self.xfichero = None
         self.xpgn = None
         self.xjugadaInicial = None
-        self.reiniciar(dic)
+        self.start(dic)
         self.pon_toolbar()
         self.guardarHistorico(fich)
 
@@ -501,17 +500,17 @@ class ManagerSolo(Manager.Manager):
         liMasOpciones = (
             (None, _("Change the starting position"), Iconos.PGN()),
             sep,
-            ("position", _("Board editor") + " [%sS]"%ctrl, Iconos.Datos()),
+            ("position", _("Board editor") + " [%sS]" % ctrl, Iconos.Datos()),
             sep,
-            ("initial", _("Basic position") + " [%sB]"%ctrl, Iconos.Board()),
+            ("initial", _("Basic position") + " [%sB]" % ctrl, Iconos.Board()),
             sep,
             ("opening", _("Opening"), Iconos.Opening()),
             sep,
-            ("pasteposicion", _("Paste FEN position") + " [%sV]"%ctrl, Iconos.Pegar16()),
+            ("pasteposicion", _("Paste FEN position") + " [%sV]" % ctrl, Iconos.Pegar16()),
             sep,
             ("leerpgn", _("Read PGN file"), Iconos.PGN_Importar()),
             sep,
-            ("pastepgn", _("Paste PGN") + " [%sV]"%ctrl, Iconos.Pegar16()),
+            ("pastepgn", _("Paste PGN") + " [%sV]" % ctrl, Iconos.Pegar16()),
             sep,
             ("voyager", _("Voyager 2"), Iconos.Voyager()),
             (None, None, True),
@@ -595,7 +594,7 @@ class ManagerSolo(Manager.Manager):
                 self.cambioRival()
 
         elif resp == "voyager":
-            ptxt = Voyager.voyagerPartida(self.main_window, self.game)
+            ptxt = Voyager.voyager_game(self.main_window, self.game)
             if ptxt:
                 self.xfichero = None
                 self.xpgn = None
@@ -642,7 +641,9 @@ class ManagerSolo(Manager.Manager):
         if Code.eboard and Code.eboard.deactivate():
             self.main_window.set_title_toolbar_eboard()
 
-        position, is_white_bottom = Voyager.voyager_position(self.main_window, self.game.first_position, resp_side_bottom=True)
+        position, is_white_bottom = Voyager.voyager_position(
+            self.main_window, self.game.first_position, resp_side_bottom=True
+        )
         if position is not None:
 
             self.board.set_side_bottom(is_white_bottom)

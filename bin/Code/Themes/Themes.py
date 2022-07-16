@@ -25,7 +25,7 @@ class Themes:
             "hangingPiece": _("Hanging piece"),
             "interference": _("Interference"),
             "isolatedPawn": _("Isolated pawn"),
-            "openFile": _("Open file"),
+            "openFile": _("Open file ||Tactic theme"),
             "overload": _("Overload"),
             "outpost": _("Outpost"),
             "passedPawn": _("Passed pawn"),

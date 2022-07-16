@@ -43,7 +43,19 @@ class PMarker(BoardTypes.Marker):
         self.id = None
 
 
-TP_FLECHA, TP_MARCO, TP_TEXTO, TP_SVG, TP_MARKER, TP_PIEZACREA, TP_PIEZAMUEVE, TP_PIEZABORRA, TP_ACTION, TP_CONFIGURATION, TP_CIRCLE = (
+(
+    TP_FLECHA,
+    TP_MARCO,
+    TP_TEXTO,
+    TP_SVG,
+    TP_MARKER,
+    TP_PIEZACREA,
+    TP_PIEZAMUEVE,
+    TP_PIEZABORRA,
+    TP_ACTION,
+    TP_CONFIGURATION,
+    TP_CIRCLE,
+) = (
     "F",
     "M",
     "T",
@@ -65,7 +77,7 @@ class GTarea:
         self._tp = tp
         self._marcado = False
         self._orden = 0
-        self._nombre = None
+        self._name = None
         self._registro = None
         self.xmarcadoOwner = False
 
@@ -87,8 +99,8 @@ class GTarea:
 
     def name(self, name=None):
         if name is not None:
-            self._nombre = name
-        return self._nombre if self._nombre else ""
+            self._name = name
+        return self._name if self._name else ""
 
     def registro(self, valores=None):
         if valores:
@@ -143,10 +155,10 @@ class GT_Item(GTarea):
 
     def name(self, name=None):
         if name is not None:
-            self._nombre = name
-        if self._nombre:
-            return self._nombre
-        return self._nombre if self._nombre else getattr(self._itemSC.bloqueDatos, "name", "")
+            self._name = name
+        if self._name:
+            return self._name
+        return self._name if self._name else getattr(self._itemSC.bloqueDatos, "name", "")
 
     def coordina(self):
         if self.xitemSCOwner:
@@ -328,7 +340,13 @@ class GT_Marker(GT_Item):
 
 class GT_Action(GTarea):
     def __init__(self, guion):
-        self.GTA_INICIO, self.GTA_MAINARROW_REMOVE, self.GTA_PIECES_REMOVEALL, self.GTA_GRAPHICS_REMOVEALL, self.GTA_PIZARRA_REMOVE = (
+        (
+            self.GTA_INICIO,
+            self.GTA_MAINARROW_REMOVE,
+            self.GTA_PIECES_REMOVEALL,
+            self.GTA_GRAPHICS_REMOVEALL,
+            self.GTA_PIZARRA_REMOVE,
+        ) = (
             "I",
             "MAR",
             "PRA",
@@ -541,7 +559,11 @@ class Guion:
     def writePizarra(self, tarea):
         if self.pizarra is None:
             self.pizarra = BoardTypes.Pizarra(
-                self, self.board, self.anchoPizarra, edit_mode=self.winDirector is not None, with_continue=tarea.continuar()
+                self,
+                self.board,
+                self.anchoPizarra,
+                edit_mode=self.winDirector is not None,
+                with_continue=tarea.continuar(),
             )
             self.pizarra.mensaje.setFocus()
         self.pizarra.write(tarea)
@@ -761,7 +783,9 @@ class Guion:
 
 class DBManagerVisual:
     def __init__(self, file, show_allways=False, saveAllways=False):
-        self._dbFEN = self._dbConfig = self._dbFlechas = self._dbMarcos = self._dbSVGs = self._dbMarkers = self._dbCircles = None
+        self._dbFEN = (
+            self._dbConfig
+        ) = self._dbFlechas = self._dbMarcos = self._dbSVGs = self._dbMarkers = self._dbCircles = None
         self._show_allways = show_allways
         self._saveAllways = saveAllways
         self.set_file(file)
@@ -869,10 +893,20 @@ class DBManagerVisual:
         return self._dbMarkers
 
     def close(self):
-        for db in (self._dbFEN, self._dbConfig, self._dbFlechas, self._dbMarcos, self._dbCircles, self._dbSVGs, self._dbMarkers):
+        for db in (
+            self._dbFEN,
+            self._dbConfig,
+            self._dbFlechas,
+            self._dbMarcos,
+            self._dbCircles,
+            self._dbSVGs,
+            self._dbMarkers,
+        ):
             if db is not None:
                 db.close()
-        self._dbFEN = self._dbConfig = self._dbFlechas = self._dbMarcos = self._dbCircles = self._dbSVGs = self._dbMarkers = None
+        self._dbFEN = (
+            self._dbConfig
+        ) = self._dbFlechas = self._dbMarcos = self._dbCircles = self._dbSVGs = self._dbMarkers = None
 
 
 # def readGraphLive(configuration):

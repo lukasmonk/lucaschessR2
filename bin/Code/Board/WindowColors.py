@@ -20,7 +20,7 @@ from Code.Base.Constantes import (
     VERY_GOOD_MOVE,
     BLUNDER,
     INACCURACY,
-    dicHTMLnags
+    dicHTMLnags,
 )
 from Code.Board import Board, BoardArrows, ConfBoards
 from Code.Director import WindowTabVFlechas
@@ -228,16 +228,16 @@ class DialNum(Colocacion.H):
         self.control(self.dial)
         self.control(self.lb)
 
-        self.ponValor()
+        self.set_value()
 
-    def ponValor(self):
+    def set_value(self):
         nvalor = self.rut_actual()
         self.dial.setValue(nvalor)
         self.lb.setText("%2d%%" % nvalor)
 
     def movido(self, valor):
         self.rut_actual(valor)
-        self.ponValor()
+        self.set_value()
         self.rut_actualiza()
 
 
@@ -271,7 +271,7 @@ class WColores(LCDialog.LCDialog):
         self.lista_bt_temas = []
         for i in range(24):
             ly = Colocacion.H()
-            for j in range(6):
+            for j in range(5):
                 bt = BotonTema(self, self.cambia_tema)
                 ly.control(bt)
                 bt.pon_tema(None)
@@ -287,7 +287,7 @@ class WColores(LCDialog.LCDialog):
         w_themes = QtWidgets.QWidget()
         w_themes.setLayout(ly_temas)
         scroll.setWidget(w_themes)
-        scroll.setFixedHeight(64*2 + 10)
+        scroll.setFixedHeight((64 + 4) * 3 + 4)
 
         def crea_lb(txt):
             return Controles.LB(self, txt + ": ").align_right()
@@ -312,14 +312,16 @@ class WColores(LCDialog.LCDialog):
         lbFondo = crea_lb(_("Background"))
         self.btFondo = BotonColor(self, self.config_board.colorFondo, self.actualizaBoard)
         self.btFondoPNG = BotonImagen(self, self.config_board.png64Fondo, self.actualizaBoard, self.btFondo)
-        self.chbExtended = Controles.CHB(self, _("Extended to outer border"), self.config_board.extendedColor()).capture_changes(
-            self, self.extendedColor
-        )
+        self.chbExtended = Controles.CHB(
+            self, _("Extended to outer border"), self.config_board.extendedColor()
+        ).capture_changes(self, self.extendedColor)
 
         # Actual
-        self.chbTemas = Controles.CHB(self, _("Default"), self.config_board.siDefTema()).capture_changes(self, self.defectoTemas)
+        self.chbTemas = Controles.CHB(self, _("Default"), self.config_board.siDefTema()).capture_changes(
+            self, self.defectoTemas
+        )
         if self.is_base:
-            self.chbTemas.ponValor(False)
+            self.chbTemas.set_value(False)
             self.chbTemas.setVisible(False)
         # Exterior
         lbExterior = crea_lb(_("Outer Border"))
@@ -335,22 +337,34 @@ class WColores(LCDialog.LCDialog):
 
         # Flechas
         lbFlecha = crea_lb(_("Move indicator"))
-        self.lyF = BotonFlecha(self, self.config_board.fTransicion, self.config_board.flechaDefecto, self.actualizaBoard)
+        self.lyF = BotonFlecha(
+            self, self.config_board.fTransicion, self.config_board.flechaDefecto, self.actualizaBoard
+        )
         lbFlechaAlternativa = crea_lb(_("Arrow alternative"))
         self.lyFAlternativa = BotonFlecha(
             self, self.config_board.fAlternativa, self.config_board.flechaAlternativaDefecto, self.actualizaBoard
         )
         lbFlechaActivo = crea_lb(_("Active moves"))
-        self.lyFActual = BotonFlecha(self, self.config_board.fActivo, self.config_board.flechaActivoDefecto, self.actualizaBoard)
+        self.lyFActual = BotonFlecha(
+            self, self.config_board.fActivo, self.config_board.flechaActivoDefecto, self.actualizaBoard
+        )
         lbFlechaRival = crea_lb(_("Opponent moves"))
-        self.lyFRival = BotonFlecha(self, self.config_board.fRival, self.config_board.flechaRivalDefecto, self.actualizaBoard)
+        self.lyFRival = BotonFlecha(
+            self, self.config_board.fRival, self.config_board.flechaRivalDefecto, self.actualizaBoard
+        )
 
         lyActual = Colocacion.G()
         lyActual.control(self.chbTemas, 0, 0)
         lyActual.controlc(lbPNG, 0, 2).controlc(lbTrans, 0, 3)
-        lyActual.controld(lbBlancas, 1, 0).control(self.btBlancas, 1, 1).otroc(self.btBlancasPNG, 1, 2).otroc(self.dialBlancasTrans, 1, 3)
-        lyActual.controld(lbNegras, 2, 0).control(self.btNegras, 2, 1).otroc(self.btNegrasPNG, 2, 2).otroc(self.dialNegrasTrans, 2, 3)
-        lyActual.controld(lbFondo, 3, 0).control(self.btFondo, 3, 1).otroc(self.btFondoPNG, 3, 2).control(self.chbExtended, 3, 3)
+        lyActual.controld(lbBlancas, 1, 0).control(self.btBlancas, 1, 1).otroc(self.btBlancasPNG, 1, 2).otroc(
+            self.dialBlancasTrans, 1, 3
+        )
+        lyActual.controld(lbNegras, 2, 0).control(self.btNegras, 2, 1).otroc(self.btNegrasPNG, 2, 2).otroc(
+            self.dialNegrasTrans, 2, 3
+        )
+        lyActual.controld(lbFondo, 3, 0).control(self.btFondo, 3, 1).otroc(self.btFondoPNG, 3, 2).control(
+            self.chbExtended, 3, 3
+        )
         lyActual.controld(lbExterior, 4, 0).control(self.btExterior, 4, 1).otroc(self.btExteriorPNG, 4, 2)
         lyActual.controld(lbTexto, 5, 0).control(self.btTexto, 5, 1)
         lyActual.controld(lbFrontera, 6, 0).control(self.btFrontera, 6, 1)
@@ -387,7 +401,9 @@ class WColores(LCDialog.LCDialog):
         # _nCoordenadas
         lbCoordenadas = crea_lb(_("Number"))
         li_options = [("0", 0), ("4", 4), ("2a", 2), ("2b", 3), ("2c", 5), ("2d", 6)]
-        self.cbCoordenadas = Controles.CB(self, li_options, self.config_board.nCoordenadas()).capture_changes(self.actualizaBoardM)
+        self.cbCoordenadas = Controles.CB(self, li_options, self.config_board.nCoordenadas()).capture_changes(
+            self.actualizaBoardM
+        )
         self.chbDefCoordenadas = xDefecto(self.config_board.siDefCoordenadas())
         l2mas1(lyG, 0, lbCoordenadas, self.cbCoordenadas, self.chbDefCoordenadas)
 
@@ -402,20 +418,26 @@ class WColores(LCDialog.LCDialog):
         l2mas1(lyG, 1, lbTipoLetra, self.cbTipoLetra, self.chbDefTipoLetra)
 
         # _cBold
-        self.chbBold = Controles.CHB(self, _("Bold"), self.config_board.siBold()).capture_changes(self, self.actualizaBoardM)
+        self.chbBold = Controles.CHB(self, _("Bold"), self.config_board.siBold()).capture_changes(
+            self, self.actualizaBoardM
+        )
         self.chbDefBold = xDefecto(self.config_board.siDefBold())
         l2mas1(lyG, 2, None, self.chbBold, self.chbDefBold)
 
         # _tamLetra
         lbTamLetra = crea_lb(_("Size") + " %")
-        self.sbTamLetra = Controles.SB(self, self.config_board.tamLetra(), 1, 200).tamMaximo(50).capture_changes(self.actualizaBoardM)
+        self.sbTamLetra = (
+            Controles.SB(self, self.config_board.tamLetra(), 1, 200).tamMaximo(50).capture_changes(self.actualizaBoardM)
+        )
         self.chbDefTamLetra = xDefecto(self.config_board.siDefTamLetra())
         l2mas1(lyG, 3, lbTamLetra, self.sbTamLetra, self.chbDefTamLetra)
 
         # _sepLetras
         lbSepLetras = crea_lb(_("Separation") + " %")
         self.sbSepLetras = (
-            Controles.SB(self, self.config_board.sepLetras(), -1000, 1000).tamMaximo(50).capture_changes(self.actualizaBoardM)
+            Controles.SB(self, self.config_board.sepLetras(), -1000, 1000)
+            .tamMaximo(50)
+            .capture_changes(self.actualizaBoardM)
         )
         self.chbDefSepLetras = xDefecto(self.config_board.siDefSepLetras())
         l2mas1(lyG, 4, lbSepLetras, self.sbSepLetras, self.chbDefSepLetras)
@@ -437,7 +459,9 @@ class WColores(LCDialog.LCDialog):
         # _tamRecuadro
         lbTamRecuadro = crea_lb(_("Outer Border Size") + " %")
         self.sbTamRecuadro = (
-            Controles.SB(self, self.config_board.tamRecuadro(), 0, 10000).tamMaximo(50).capture_changes(self.actualizaBoardM)
+            Controles.SB(self, self.config_board.tamRecuadro(), 0, 10000)
+            .tamMaximo(50)
+            .capture_changes(self.actualizaBoardM)
         )
         self.chbDefTamRecuadro = xDefecto(self.config_board.siDefTamRecuadro())
         l2mas1(ly_otros, 1, lbTamRecuadro, self.sbTamRecuadro, self.chbDefTamRecuadro)
@@ -445,7 +469,9 @@ class WColores(LCDialog.LCDialog):
         # _tamFrontera
         lbTamFrontera = crea_lb(_("Inner Border Size") + " %")
         self.sbTamFrontera = (
-            Controles.SB(self, self.config_board.tamFrontera(), 0, 10000).tamMaximo(50).capture_changes(self.actualizaBoardM)
+            Controles.SB(self, self.config_board.tamFrontera(), 0, 10000)
+            .tamMaximo(50)
+            .capture_changes(self.actualizaBoardM)
         )
         self.chbDefTamFrontera = xDefecto(self.config_board.siDefTamFrontera())
         l2mas1(ly_otros, 2, lbTamFrontera, self.sbTamFrontera, self.chbDefTamFrontera)
@@ -489,8 +515,8 @@ class WColores(LCDialog.LCDialog):
         lyT = Colocacion.V().control(tb).control(self.board).controli(self.lbTamBoard).relleno(1).margen(3)
 
         self.tab = Controles.Tab()
-        self.tab.nuevaTab(gbTemas, _("Themes"))
-        self.tab.nuevaTab(gbOtros, _("Other options"))
+        self.tab.new_tab(gbTemas, _("Themes"))
+        self.tab.new_tab(gbOtros, _("Other options"))
         ly = Colocacion.H().otro(lyT).control(self.tab).margen(3)
 
         self.setLayout(ly)
@@ -506,7 +532,6 @@ class WColores(LCDialog.LCDialog):
             "o_base": self.config_board.grabaBase(),
         }
         self.own_theme_selected = False
-        self.cambiadoTema()
         self.defectoTemas()
 
         self.extendedColor()
@@ -514,6 +539,9 @@ class WColores(LCDialog.LCDialog):
         self.siActualizando = False
 
         self.restore_video(siTam=False)
+
+        self.show()  # necesario para que se vean bien la primera vez
+        self.cambiadoTema()
 
     def extendedColor(self):
         siExt = self.chbExtended.valor()
@@ -536,7 +564,7 @@ class WColores(LCDialog.LCDialog):
         self.lb_help.setVisible(self.own_theme_selected)
 
         if not self.li_themes:
-            self.cbTemas.ponValor(Code.path_resource("Themes", "Lucas.lktheme3"))
+            self.cbTemas.set_value(Code.path_resource("Themes", "Lucas.lktheme3"))
             self.cambiadoTema()
         else:
             self.ponSecciones()
@@ -678,14 +706,15 @@ class WColores(LCDialog.LCDialog):
                     seccion = tema.get("SECCION", "")
                     if seccion:
                         name += "/" + seccion
-                    if QTUtil2.pregunta(self, "Are you sure you want to remove %s?" % name):
-                        self.li_themes.remove(tema)
-                        self.save_own_themes()
-                        self.ponSecciones()
+                    if QTUtil2.pregunta(self, _("Are you sure you want to remove %s?") % name):
+                        if tema in self.li_themes:
+                            self.li_themes.remove(tema)
+                            self.save_own_themes()
+                            self.ponSecciones()
 
     def pon_tema(self, tema):
         ct = self.config_board
-        self.chbTemas.ponValor(False)
+        self.chbTemas.set_value(False)
         self.defectoTemas()
         self.sinElegir = False
         ct.leeTema(tema["o_tema"])
@@ -709,24 +738,24 @@ class WColores(LCDialog.LCDialog):
         self.lyFActual.ponImagen()
         self.lyFRival.ponImagen()
 
-        self.cbCoordenadas.ponValor(ct.nCoordenadas())
-        self.chbDefCoordenadas.ponValor(ct.siDefCoordenadas())
+        self.cbCoordenadas.set_value(ct.nCoordenadas())
+        self.chbDefCoordenadas.set_value(ct.siDefCoordenadas())
         self.cbTipoLetra.setCurrentFont(QtGui.QFont(ct.tipoLetra()))
-        self.chbDefTipoLetra.ponValor(ct.siDefTipoLetra())
-        self.chbBold.ponValor(ct.siBold())
-        self.chbDefBold.ponValor(ct.siDefBold())
-        self.sbTamLetra.ponValor(ct.tamLetra())
-        self.chbDefTamLetra.ponValor(ct.siDefTamLetra())
-        self.sbSepLetras.ponValor(ct.sepLetras())
-        self.chbDefSepLetras.ponValor(ct.siDefSepLetras())
-        self.cbPiezas.ponValor(ct.nomPiezas())
-        self.chbDefPiezas.ponValor(ct.siDefPiezas())
-        self.sbTamRecuadro.ponValor(ct.tamRecuadro())
-        self.chbDefTamRecuadro.ponValor(ct.siDefTamRecuadro())
-        self.sbTamFrontera.ponValor(ct.tamFrontera())
-        self.chbDefTamFrontera.ponValor(ct.siDefTamFrontera())
+        self.chbDefTipoLetra.set_value(ct.siDefTipoLetra())
+        self.chbBold.set_value(ct.siBold())
+        self.chbDefBold.set_value(ct.siDefBold())
+        self.sbTamLetra.set_value(ct.tamLetra())
+        self.chbDefTamLetra.set_value(ct.siDefTamLetra())
+        self.sbSepLetras.set_value(ct.sepLetras())
+        self.chbDefSepLetras.set_value(ct.siDefSepLetras())
+        self.cbPiezas.set_value(ct.nomPiezas())
+        self.chbDefPiezas.set_value(ct.siDefPiezas())
+        self.sbTamRecuadro.set_value(ct.tamRecuadro())
+        self.chbDefTamRecuadro.set_value(ct.siDefTamRecuadro())
+        self.sbTamFrontera.set_value(ct.tamFrontera())
+        self.chbDefTamFrontera.set_value(ct.siDefTamFrontera())
 
-        self.chbExtended.ponValor(ct.extendedColor())
+        self.chbExtended.set_value(ct.extendedColor())
 
         self.actualizaBoard()
 
@@ -748,7 +777,7 @@ class WColores(LCDialog.LCDialog):
             (self.chbDefTamFrontera, self.sbTamFrontera, ct.tamFrontera),
         ):
             if chb.valor():
-                obj.ponValor(xv())
+                obj.set_value(xv())
                 obj.setEnabled(False)
             else:
                 obj.setEnabled(True)
@@ -852,7 +881,7 @@ class WColores(LCDialog.LCDialog):
     def save_own_themes(self):
         Util.save_pickle(self.configuration.ficheroTemas, self.li_themes)
         if self.cbTemas.valor() != self.configuration.ficheroTemas:
-            self.cbTemas.ponValor(self.configuration.ficheroTemas)
+            self.cbTemas.set_value(self.configuration.ficheroTemas)
             self.cambiadoTema()
 
     def rename_theme(self, tema):
@@ -960,22 +989,22 @@ def cambiaColores(parent, configuration):
 
     dic_nags = Code.Nags.Nags.dic_nags()
 
-    config = FormLayout.Colorbox(dic_nags[GOOD_MOVE] + " (%s)"%dicHTMLnags[NAG_1], 40, 20, siSTR=True)
+    config = FormLayout.Colorbox(dic_nags[GOOD_MOVE] + " (%s)" % dicHTMLnags[NAG_1], 40, 20, siSTR=True)
     liPGN.append((config, configuration.x_color_nag1))
 
-    config = FormLayout.Colorbox(dic_nags[MISTAKE] + " (%s)"%dicHTMLnags[NAG_2], 40, 20, siSTR=True)
+    config = FormLayout.Colorbox(dic_nags[MISTAKE] + " (%s)" % dicHTMLnags[NAG_2], 40, 20, siSTR=True)
     liPGN.append((config, configuration.x_color_nag2))
 
-    config = FormLayout.Colorbox(dic_nags[VERY_GOOD_MOVE] + " (%s)"%dicHTMLnags[NAG_3], 40, 20, siSTR=True)
+    config = FormLayout.Colorbox(dic_nags[VERY_GOOD_MOVE] + " (%s)" % dicHTMLnags[NAG_3], 40, 20, siSTR=True)
     liPGN.append((config, configuration.x_color_nag3))
 
-    config = FormLayout.Colorbox(dic_nags[BLUNDER] + " (%s)"%dicHTMLnags[NAG_4], 40, 20, siSTR=True)
+    config = FormLayout.Colorbox(dic_nags[BLUNDER] + " (%s)" % dicHTMLnags[NAG_4], 40, 20, siSTR=True)
     liPGN.append((config, configuration.x_color_nag4))
 
-    config = FormLayout.Colorbox(dic_nags[SPECULATIVE_MOVE] + " (%s)"%dicHTMLnags[NAG_5], 40, 20, siSTR=True)
+    config = FormLayout.Colorbox(dic_nags[SPECULATIVE_MOVE] + " (%s)" % dicHTMLnags[NAG_5], 40, 20, siSTR=True)
     liPGN.append((config, configuration.x_color_nag5))
 
-    config = FormLayout.Colorbox(dic_nags[INACCURACY] + " (%s)"%dicHTMLnags[NAG_6], 40, 20, siSTR=True)
+    config = FormLayout.Colorbox(dic_nags[INACCURACY] + " (%s)" % dicHTMLnags[NAG_6], 40, 20, siSTR=True)
     liPGN.append((config, configuration.x_color_nag6))
 
     li_others = []
@@ -1398,12 +1427,21 @@ class WNameTheme(QtWidgets.QDialog):
 
         lb_section = Controles.LB2P(self, _("Section"))
         self.ed_section = Controles.ED(self, theme.get("SECCION", ""))
-        bt_section = Controles.PB(self, "", self.mira_section).ponIcono(Iconos.BuscarC(), 16).ponToolTip(_("Section lists"))
-        ly_section = Colocacion.H().control(lb_section).control(self.ed_section).espacio(-10).control(bt_section).relleno(1)
+        bt_section = (
+            Controles.PB(self, "", self.mira_section).ponIcono(Iconos.BuscarC(), 16).ponToolTip(_("Section lists"))
+        )
+        ly_section = (
+            Colocacion.H().control(lb_section).control(self.ed_section).espacio(-10).control(bt_section).relleno(1)
+        )
 
         self.chb_pieces_set = Controles.CHB(self, _("Change piece set"), theme.get("CHANGE_PIECES", True))
 
-        li_acciones = [(_("Save"), Iconos.Aceptar(), self.aceptar), None, (_("Cancel"), Iconos.Cancelar(), self.reject), None]
+        li_acciones = [
+            (_("Save"), Iconos.Aceptar(), self.aceptar),
+            None,
+            (_("Cancel"), Iconos.Cancelar(), self.reject),
+            None,
+        ]
         self.tb = QTVarios.LCTB(self, li_acciones)
 
         layout = Colocacion.V().control(self.tb).espacio(16)

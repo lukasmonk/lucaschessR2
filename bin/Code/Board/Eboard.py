@@ -349,3 +349,12 @@ class Eboard:
             return Iconos.SquareOff()
         else:
             return Iconos.Novag()
+
+
+def version():
+    path_version = os.path.join(Code.folder_OS, "DigitalBoards", "version")
+    version = "0"
+    if os.path.isfile(path_version):
+        with open(path_version, "rt") as f:
+            version = f.read().strip()
+    return version

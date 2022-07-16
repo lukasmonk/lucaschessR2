@@ -71,7 +71,7 @@ class SelectFile(LCDialog.LCDialog):
             filter = QtCore.QDir.Dirs | QtCore.QDir.NoDotAndDotDot
         else:
             if not title:
-                title = _("Open file")
+                title = _("Open file ||To open a disk file")
                 if extension:
                     title += " *.%s" % extension
             filter = QtCore.QDir.Files | QtCore.QDir.AllDirs | QtCore.QDir.NoDotAndDotDot

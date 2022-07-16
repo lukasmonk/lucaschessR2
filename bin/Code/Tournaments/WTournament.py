@@ -21,9 +21,10 @@ from Code.QT import QTUtil
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
 from Code.QT import SelectFiles
-from Code.QT import Voyager
+from Code.Voyager import Voyager
 from Code.QT import WindowSavePGN
 from Code.Tournaments import Tournament
+from Code.Engines import SelectEngines
 
 GRID_ALIAS, GRID_VALUES, GRID_GAMES_QUEUED, GRID_GAMES_FINISHED, GRID_RESULTS = range(5)
 
@@ -39,6 +40,7 @@ class WTournament(LCDialog.LCDialog):
         LCDialog.LCDialog.__init__(self, w_parent, titulo, icono, extparam)
 
         self.configuration = Code.configuration
+        self.internal_engines = SelectEngines.SelectEngines()
 
         # Datos
 
@@ -66,10 +68,10 @@ class WTournament(LCDialog.LCDialog):
 
         # Draw-plys
         lbDrawMinPly = Controles.LB(self, "%s (%s): " % (_("Minimum moves to assign draw"), "0=%s" % _("Disable")))
-        self.ed_draw_min_ply = Controles.ED(self).ponInt(torneo.drawMinPly()).anchoFijo(30).align_right()
+        self.ed_draw_min_ply = Controles.ED(self).ponInt(torneo.draw_min_ply()).anchoFijo(30).align_right()
         # Draw-puntos
         lb_draw_range = Controles.LB(self, _("Maximum centipawns to assign draw") + ": ")
-        self.ed_draw_range = Controles.ED(self).tipoInt(torneo.drawRange()).anchoFijo(30)
+        self.ed_draw_range = Controles.ED(self).tipoInt(torneo.draw_range()).anchoFijo(30)
         bt_draw_range = Controles.PB(self, "", rutina=self.borra_draw_range).ponIcono(Iconos.Reciclar())
 
         # adjudicator
@@ -107,8 +109,16 @@ class WTournament(LCDialog.LCDialog):
         self.fen = torneo.fen()
         self.btPosicion = Controles.PB(self, " " * 5 + _("Change") + " " * 5, self.posicionEditar).ponPlano(False)
         self.btPosicionQuitar = Controles.PB(self, "", self.posicionQuitar).ponIcono(Iconos.Motor_No())
-        self.btPosicionPegar = Controles.PB(self, "", self.posicionPegar).ponIcono(Iconos.Pegar16()).ponToolTip(_("Paste FEN position"))
-        lyFEN = Colocacion.H().control(self.btPosicionQuitar).control(self.btPosicion).control(self.btPosicionPegar).relleno()
+        self.btPosicionPegar = (
+            Controles.PB(self, "", self.posicionPegar).ponIcono(Iconos.Pegar16()).ponToolTip(_("Paste FEN position"))
+        )
+        lyFEN = (
+            Colocacion.H()
+            .control(self.btPosicionQuitar)
+            .control(self.btPosicion)
+            .control(self.btPosicionPegar)
+            .relleno()
+        )
 
         # Norman Pollock
         lbNorman = Controles.LB(
@@ -135,7 +145,7 @@ class WTournament(LCDialog.LCDialog):
 
         # Creamos
         w.setLayout(layoutH)
-        tab.nuevaTab(w, _("Configuration"))
+        tab.new_tab(w, _("Configuration"))
 
         # Tab-engines --------------------------------------------------
         self.splitterEngines = QtWidgets.QSplitter(self)
@@ -157,7 +167,7 @@ class WTournament(LCDialog.LCDialog):
 
         # Grid engine
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("NUM", _("N."), 50, centered=True)
+        o_columns.nueva("NUM", _("N."), 50, align_center=True)
         o_columns.nueva("ALIAS", _("Alias"), 209)
         self.gridEnginesAlias = Grid.Grid(self, o_columns, siSelecFilas=True, siSeleccionMultiple=True, xid=GRID_ALIAS)
         self.register_grid(self.gridEnginesAlias)
@@ -168,7 +178,7 @@ class WTournament(LCDialog.LCDialog):
         self.splitterEngines.addWidget(w)
 
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("CAMPO", _("Label"), 200, siDerecha=True)
+        o_columns.nueva("CAMPO", _("Label"), 200, align_right=True)
         o_columns.nueva("VALOR", _("Value"), 286)
         self.gridEnginesValores = Grid.Grid(self, o_columns, siSelecFilas=False, xid=GRID_VALUES)
         self.register_grid(self.gridEnginesValores)
@@ -183,7 +193,7 @@ class WTournament(LCDialog.LCDialog):
         w = QtWidgets.QWidget()
         ly = Colocacion.V().control(tbEnA).control(self.splitterEngines)
         w.setLayout(ly)
-        tab.nuevaTab(w, _("Engines"))
+        tab.new_tab(w, _("Engines"))
 
         # Creamos
 
@@ -199,19 +209,21 @@ class WTournament(LCDialog.LCDialog):
         tbEnG = Controles.TBrutina(self, li_acciones, icon_size=16, style=QtCore.Qt.ToolButtonTextBesideIcon)
 
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("NUM", _("N."), 50, centered=True)
-        o_columns.nueva("WHITE", _("White"), 190, centered=True)
-        o_columns.nueva("BLACK", _("Black"), 190, centered=True)
-        o_columns.nueva("TIME", _("Time"), 170, centered=True)
-        # o_columns.nueva("STATE", _("State"), 190, centered=True)
-        self.gridGamesQueued = Grid.Grid(self, o_columns, siSelecFilas=True, siSeleccionMultiple=True, xid=GRID_GAMES_QUEUED)
+        o_columns.nueva("NUM", _("N."), 50, align_center=True)
+        o_columns.nueva("WHITE", _("White"), 190, align_center=True)
+        o_columns.nueva("BLACK", _("Black"), 190, align_center=True)
+        o_columns.nueva("TIME", _("Time"), 170, align_center=True)
+        # o_columns.nueva("STATE", _("State"), 190, align_center=True)
+        self.gridGamesQueued = Grid.Grid(
+            self, o_columns, siSelecFilas=True, siSeleccionMultiple=True, xid=GRID_GAMES_QUEUED
+        )
         self.register_grid(self.gridGamesQueued)
         # Layout
         layout = Colocacion.V().control(tbEnG).control(self.gridGamesQueued)
 
         # Creamos
         w.setLayout(layout)
-        tab.nuevaTab(w, _("Games queued"))
+        tab.new_tab(w, _("Games queued"))
 
         # Tab-games terminados--------------------------------------------------
         w = QtWidgets.QWidget()
@@ -229,19 +241,21 @@ class WTournament(LCDialog.LCDialog):
         tbEnGt = Controles.TBrutina(self, li_acciones, icon_size=16, style=QtCore.Qt.ToolButtonTextBesideIcon)
 
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("NUM", _("N."), 50, centered=True)
-        o_columns.nueva("WHITE", _("White"), 190, centered=True)
-        o_columns.nueva("BLACK", _("Black"), 190, centered=True)
-        o_columns.nueva("TIME", _("Time"), 170, centered=True)
-        o_columns.nueva("RESULT", _("Result"), 190, centered=True)
-        self.gridGamesFinished = Grid.Grid(self, o_columns, siSelecFilas=True, siSeleccionMultiple=True, xid=GRID_GAMES_FINISHED)
+        o_columns.nueva("NUM", _("N."), 50, align_center=True)
+        o_columns.nueva("WHITE", _("White"), 190, align_center=True)
+        o_columns.nueva("BLACK", _("Black"), 190, align_center=True)
+        o_columns.nueva("TIME", _("Time"), 170, align_center=True)
+        o_columns.nueva("RESULT", _("Result"), 190, align_center=True)
+        self.gridGamesFinished = Grid.Grid(
+            self, o_columns, siSelecFilas=True, siSeleccionMultiple=True, xid=GRID_GAMES_FINISHED
+        )
         self.register_grid(self.gridGamesFinished)
         # Layout
         layout = Colocacion.V().control(tbEnGt).control(self.gridGamesFinished)
 
         # Creamos
         w.setLayout(layout)
-        tab.nuevaTab(w, _("Games finished"))
+        tab.new_tab(w, _("Games finished"))
 
         # Tab-resultado --------------------------------------------------
         w = QtWidgets.QWidget()
@@ -250,19 +264,19 @@ class WTournament(LCDialog.LCDialog):
         wh = _("W.")
         bl = _("B.")
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("NUM", _("N."), 35, centered=True)
-        o_columns.nueva("ENGINE", _("Engine"), 120, centered=True)
-        o_columns.nueva("SCORE", _("Score") + "%", 50, centered=True)
-        o_columns.nueva("WIN", _("Wins"), 50, centered=True)
-        o_columns.nueva("DRAW", _("Draws"), 50, centered=True)
-        o_columns.nueva("LOST", _("Losses"), 50, centered=True)
-        o_columns.nueva("WIN-WHITE", "%s %s" % (wh, _("Wins")), 60, centered=True)
-        o_columns.nueva("DRAW-WHITE", "%s %s" % (wh, _("Draws")), 60, centered=True)
-        o_columns.nueva("LOST-WHITE", "%s %s" % (wh, _("Losses")), 60, centered=True)
-        o_columns.nueva("WIN-BLACK", "%s %s" % (bl, _("Wins")), 60, centered=True)
-        o_columns.nueva("DRAW-BLACK", "%s %s" % (bl, _("Draws")), 60, centered=True)
-        o_columns.nueva("LOST-BLACK", "%s %s" % (bl, _("Losses")), 60, centered=True)
-        o_columns.nueva("GAMES", _("Games"), 50, centered=True)
+        o_columns.nueva("NUM", _("N."), 35, align_center=True)
+        o_columns.nueva("ENGINE", _("Engine"), 120, align_center=True)
+        o_columns.nueva("SCORE", _("Score") + "%", 50, align_center=True)
+        o_columns.nueva("WIN", _("Wins"), 50, align_center=True)
+        o_columns.nueva("DRAW", _("Draws"), 50, align_center=True)
+        o_columns.nueva("LOST", _("Losses"), 50, align_center=True)
+        o_columns.nueva("WIN-WHITE", "%s %s" % (wh, _("Wins")), 60, align_center=True)
+        o_columns.nueva("DRAW-WHITE", "%s %s" % (wh, _("Draws")), 60, align_center=True)
+        o_columns.nueva("LOST-WHITE", "%s %s" % (wh, _("Losses")), 60, align_center=True)
+        o_columns.nueva("WIN-BLACK", "%s %s" % (bl, _("Wins")), 60, align_center=True)
+        o_columns.nueva("DRAW-BLACK", "%s %s" % (bl, _("Draws")), 60, align_center=True)
+        o_columns.nueva("LOST-BLACK", "%s %s" % (bl, _("Losses")), 60, align_center=True)
+        o_columns.nueva("GAMES", _("Games"), 50, align_center=True)
         self.gridResults = Grid.Grid(self, o_columns, siSelecFilas=True, xid=GRID_RESULTS)
         self.register_grid(self.gridResults)
 
@@ -277,7 +291,7 @@ class WTournament(LCDialog.LCDialog):
 
         # Creamos
         w.setLayout(layout)
-        tab.nuevaTab(w, _("Results"))
+        tab.new_tab(w, _("Results"))
 
         # Layout
         # tab.set_position("W")
@@ -309,9 +323,9 @@ class WTournament(LCDialog.LCDialog):
         self.save_video()
 
     def rotulos_tabs(self):
-        self.tab.ponValor(1, "%d %s" % (self.torneo.num_engines(), _("Engines")))
-        self.tab.ponValor(2, "%d %s" % (self.torneo.num_games_queued(), _("Games queued")))
-        self.tab.ponValor(3, "%d %s" % (self.torneo.num_games_finished(), _("Games finished")))
+        self.tab.set_value(1, "%d %s" % (self.torneo.num_engines(), _("Engines")))
+        self.tab.set_value(2, "%d %s" % (self.torneo.num_games_queued(), _("Games queued")))
+        self.tab.set_value(3, "%d %s" % (self.torneo.num_games_finished(), _("Games finished")))
         self.calc_results()
 
     def calc_results(self):
@@ -347,7 +361,7 @@ class WTournament(LCDialog.LCDialog):
             label = self.fen
             self.btPosicionQuitar.show()
             self.btPosicionPegar.show()
-            self.chbNorman.ponValor(False)
+            self.chbNorman.set_value(False)
         else:
             label = _("Change")
             self.btPosicionQuitar.hide()
@@ -550,8 +564,8 @@ class WTournament(LCDialog.LCDialog):
         if self.torneo:
             changed = (
                 self.torneo.resign() != self.ed_resign.textoInt()
-                or self.torneo.drawMinPly() != self.ed_draw_min_ply.textoInt()
-                or self.torneo.drawRange() != self.ed_draw_range.textoInt()
+                or self.torneo.draw_min_ply() != self.ed_draw_min_ply.textoInt()
+                or self.torneo.draw_range() != self.ed_draw_range.textoInt()
                 or self.torneo.fen() != self.fen
                 or self.torneo.norman() != self.chbNorman.valor()
                 or self.torneo.slow_pieces() != self.chb_slow.valor()
@@ -578,8 +592,8 @@ class WTournament(LCDialog.LCDialog):
     def grabar(self):
         if self.torneo:
             self.torneo.resign(self.ed_resign.textoInt())
-            self.torneo.drawMinPly(self.ed_draw_min_ply.textoInt())
-            self.torneo.drawRange(self.ed_draw_range.textoInt())
+            self.torneo.draw_min_ply(self.ed_draw_min_ply.textoInt())
+            self.torneo.draw_range(self.ed_draw_range.textoInt())
             self.torneo.fen(self.fen)
             self.torneo.norman(self.chbNorman.valor())
             self.torneo.slow_pieces(self.chb_slow.valor())
@@ -629,19 +643,17 @@ class WTournament(LCDialog.LCDialog):
         self.rotulos_tabs()
 
     def enImportar(self):
-        menu = QTVarios.LCMenu(self)
-        lista = self.configuration.comboMotores()
-        nico = QTVarios.rondoPuntos()
-        for name, key in lista:
-            menu.opcion(key, name, nico.otro())
-
-        resp = menu.lanza()
+        resp = self.internal_engines.menu(self)
         if not resp:
             return
 
         me = Tournament.EngineTournament()
         me.pon_huella(self.torneo)
-        me.read_exist_engine(resp)
+        me.restore(resp.save())
+        me.alias = me.key = me.name
+        if hasattr(me, "fixed_depth") and me.fixed_depth:
+            me.depth = me.fixed_depth
+
         self.torneo.save_engine(me)
         self.gridEnginesAlias.refresh()
         self.gridEnginesAlias.gobottom(0)

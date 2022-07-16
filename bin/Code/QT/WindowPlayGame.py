@@ -83,11 +83,23 @@ class WPlayGameBase(LCDialog.LCDialog):
         # Historico
         o_columns = Columnas.ListaColumnas()
 
-        def creaCol(key, label, centered=True):
-            o_columns.nueva(key, label, 80, centered=centered)
+        def creaCol(key, label, align_center=True):
+            o_columns.nueva(key, label, 80, align_center=align_center)
 
         # # Claves segun orden estandar
-        self.li_keys = liBasic = ("EVENT", "SITE", "DATE", "ROUND", "WHITE", "BLACK", "RESULT", "ECO", "FEN", "WHITEELO", "BLACKELO")
+        self.li_keys = liBasic = (
+            "EVENT",
+            "SITE",
+            "DATE",
+            "ROUND",
+            "WHITE",
+            "BLACK",
+            "RESULT",
+            "ECO",
+            "FEN",
+            "WHITEELO",
+            "BLACKELO",
+        )
         for key in liBasic:
             label = TrListas.pgnLabel(key)
             creaCol(key, label, key != "EVENT")
@@ -200,15 +212,19 @@ class WPlay1(LCDialog.LCDialog):
         um = QTUtil2.unMomento(self)
         self.game.restore(self.registro["GAME"])
 
-        self.lbRotulo = Controles.LB(self, self.db.label(recno)).ponTipoLetra(puntos=12).set_foreground_backgound("#076C9F", "#EFEFEF")
+        self.lbRotulo = (
+            Controles.LB(self, self.db.label(recno))
+            .ponTipoLetra(puntos=12)
+            .set_foreground_backgound("#076C9F", "#EFEFEF")
+        )
 
         self.liIntentos = self.registro.get("LIINTENTOS", [])
 
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("DATE", _("Date"), 80, centered=True)
-        o_columns.nueva("COLOR", _("Side you play with"), 80, centered=True)
-        o_columns.nueva("POINTS", _("Score"), 80, centered=True)
-        o_columns.nueva("TIME", _("Time"), 80, centered=True)
+        o_columns.nueva("DATE", _("Date"), 80, align_center=True)
+        o_columns.nueva("COLOR", _("Side you play with"), 80, align_center=True)
+        o_columns.nueva("POINTS", _("Score"), 80, align_center=True)
+        o_columns.nueva("TIME", _("Time"), 80, align_center=True)
         self.grid = Grid.Grid(self, o_columns, siSelecFilas=True, siSeleccionMultiple=True)
         self.grid.setMinimumWidth(self.grid.anchoColumnas() + 20)
 

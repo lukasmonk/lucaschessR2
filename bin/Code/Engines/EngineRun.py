@@ -123,7 +123,10 @@ class RunEngine:
             if self.log:
                 self.log.write(">>> %s\n" % line)
             self.stdin.write(line + b"\n")
-            self.stdin.flush()
+            try:
+                self.stdin.flush()
+            except:
+                pass
             self.stdin_lock.release()
 
     def get_lines(self):
@@ -360,7 +363,7 @@ class RunEngine:
         if max_time:
             ms_time = max_time + 5000
         elif max_depth:
-            ms_time = int(max_depth * ms_time / 3.0) * 100 * 10000000  # non stop
+            ms_time = 10000000000  # non stop
 
         self.reset()
         if is_savelines:
@@ -644,6 +647,9 @@ class MaiaEngine(RunEngine):
         self.book_select.extend(["au"] * au)
 
         dic_nodes = {1100: 1, 1200: 2, 1300: 5, 1400: 12, 1500: 30, 1600: 60, 1700: 130, 1800: 300, 1900: 450}
+        if not Code.configuration.x_maia_nodes_exponential:
+            for elo in dic_nodes:
+                dic_nodes[elo] = 1
         self.nodes = dic_nodes.get(level, 1)
 
     def play_bestmove_time(self, play_return, game, time_white, time_black, inc_time_move):
@@ -675,4 +681,3 @@ class MaiaEngine(RunEngine):
         orden = "go nodes %d" % self.nodes
         self.put_line(orden)
         self.wait_mrm("bestmove", msmax_time)
-

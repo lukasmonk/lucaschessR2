@@ -8,7 +8,7 @@ from Code.Base.Constantes import (
     TB_CONFIG,
     TB_ACCEPT,
     TB_ADJOURN,
-    TB_Adjournments,
+    TB_ADJOURNMENTS,
     TB_BOXROOMS_PGN,
     TB_CANCEL,
     TB_CHANGE,
@@ -125,8 +125,10 @@ class WBase(QtWidgets.QWidget):
 
         dic_opciones = self.dic_opciones_tb()
         if Code.eboard:
-            dic_opciones[TB_EBOARD] = ["%s/%s %s" % (_("Enable"), _("Disable"), self.configuration.x_digital_board),
-                                       Code.eboard.icon_eboard()]
+            dic_opciones[TB_EBOARD] = [
+                "%s/%s %s" % (_("Enable"), _("Disable"), self.configuration.x_digital_board),
+                Code.eboard.icon_eboard(),
+            ]
 
         cf = self.manager.configuration
         peso = 75 if cf.x_tb_bold else 50
@@ -163,7 +165,7 @@ class WBase(QtWidgets.QWidget):
             TB_REINIT: (_("Reinit"), Iconos.Reiniciar()),
             TB_TAKEBACK: (_("Takeback"), Iconos.Atras()),
             TB_ADJOURN: (_("Adjourn"), Iconos.Aplazar()),
-            TB_Adjournments: (_("Adjournments"), Iconos.Aplazamientos()),
+            TB_ADJOURNMENTS: (_("Adjournments"), Iconos.Aplazamientos()),
             TB_END_GAME: (_("End game"), Iconos.FinPartida()),
             TB_CLOSE: (_("Close"), Iconos.MainMenu()),
             TB_PREVIOUS: (_("Previous"), Iconos.Anterior()),
@@ -243,7 +245,7 @@ class WBase(QtWidgets.QWidget):
         nAnchoLabels = max(int((width_pgn - 3) // 2), 140)
         # # Pgn
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("NUMBER", _("N."), 52, centered=True)
+        o_columns.nueva("NUMBER", _("N."), 52, align_center=True)
         with_figurines = configuration.x_pgn_withfigurines
         o_columns.nueva(
             "WHITE", _("White"), with_each_color, edicion=Delegados.EtiquetaPGN(True if with_figurines else None)
@@ -510,7 +512,6 @@ class WBase(QtWidgets.QWidget):
                 nag, color_nag = mrm.set_nag_color(self.configuration, rm)
                 st_nags.add(nag)
 
-
         if move.in_the_opening or move.comment or move.variations:
             indicadorInicial = "O" if move.in_the_opening else ""
             if len(move.variations) > 0:
@@ -608,7 +609,7 @@ class WBase(QtWidgets.QWidget):
             self.lb_clock_white,
             self.lb_clock_black,
             self.wsolve,
-            self.wmessage
+            self.wmessage,
         ):
             if control.isVisible():
                 self.li_hide_replay.append(control)
@@ -640,7 +641,7 @@ class WBase(QtWidgets.QWidget):
                 self.lb_capt_black,
                 self.parent.informacionPGN,
                 self.wsolve,
-                self.wmessage
+                self.wmessage,
             ):
                 if widget.isVisible():
                     nonDistract.append(widget)
@@ -793,4 +794,3 @@ class WMessage(QtWidgets.QWidget):
     def cancel(self):
         self.canceled = True
         self.bt_cancel.setText(_("Canceled"))
-

@@ -1,4 +1,3 @@
-
 dic_special = {
     "&": "&amp;",
     "<": "&lt;",
@@ -6,6 +5,7 @@ dic_special = {
     "'": "&apos;",
     '"': "&quot;",
 }
+
 
 class Element:
     def __init__(self, name, dic_params=None):
@@ -38,7 +38,7 @@ class Element:
     def to_str(self):
         content_root = self.name
         if self.params:
-            content_root +=" " + " ".join(['%s="%s"' % (key, value) for key, value in self.params.items()])
+            content_root += " " + " ".join(['%s="%s"' % (key, value) for key, value in self.params.items()])
         if len(self.sub_elements) == 0 and not self.value:
             txt = "<%s/>" % content_root
         else:
@@ -86,4 +86,3 @@ class XML(Element):
     def save(self, path_file):
         with open(path_file, "wt", encoding="utf-8") as q:
             q.write(self.to_str())
-

@@ -85,5 +85,5 @@ class WOdt(LCDialog.LCDialog):
     def set_routine(self, routine):
         self.routine = routine
 
-    def pulsada_celda(self, x): #Compatibility
+    def pulsada_celda(self, x):  # Compatibility
         pass

@@ -1,18 +1,18 @@
-import os
-import datetime
-import random
-import inspect
-import pickle
-import zlib
-import urllib.request
 import collections
+import datetime
 import glob
 import hashlib
+import inspect
+import os
+import pickle
+import random
 import shutil
 import time
-import psutil
+import urllib.request
+import zlib
 
 import chardet.universaldetector
+import psutil
 
 
 def md5_lc(x: str) -> int:
@@ -124,17 +124,26 @@ def temporary_file(pathTemp: str, ext: str) -> str:
             return fich
 
 
-def list_vars_values(obj):
+def list_vars_values(obj, li_exclude: [list, None] = None):
+    if li_exclude is None:
+        li_exclude = []
     li = []
     for name, value in inspect.getmembers(obj):
-        if not ("__" in name):
+        if not ("__" in name) and name not in li_exclude:
             if not inspect.ismethod(value):
                 li.append((name, value))
     return li
 
 
-def save_obj_pickle(obj):
-    dic = {var: value for var, value in list_vars_values(obj)}
+def restore_list_vars_values(obj, li_vars_values):
+    for name, value in li_vars_values:
+        if hasattr(obj, name):
+            setattr(obj, name, value)
+
+
+def save_obj_pickle(obj, li_exclude: [list, None] = None):
+    li_vars_values = list_vars_values(obj, li_exclude)
+    dic = {var: value for var, value in li_vars_values}
     return pickle.dumps(dic)
 
 
@@ -157,7 +166,7 @@ def ini_dic(file: str) -> dict:
                     n = line.find("=")
                     if n:
                         key = line[:n].strip()
-                        value = line[n + 1 :].strip()
+                        value = line[n + 1:].strip()
                         dic[key] = value
     return dic
 
@@ -169,26 +178,52 @@ def today():
 def new_id() -> int:
     d = datetime.datetime.now()
     r = random.randint
-    t = (((((r(1, d.year) * 12 + r(1, d.month)) * 31 + d.day) * 24 + d.hour) * 60 + d.minute) * 60 + d.second) * 1000 + r(
-        1, d.microsecond + 737
-    ) // 1000
+    t = (
+        ((((r(1, d.year) * 12 + r(1, d.month)) * 31 + d.day) * 24 + d.hour) * 60 + d.minute) * 60 + d.second
+    ) * 1000 + r(1, d.microsecond + 737) // 1000
     return t
+
+
+ORDERED_NUMBER = [0]
+
+
+def huella() -> str:
+    d = datetime.datetime.now()
+    ORDERED_NUMBER[0] += 1
+    txt = "%2d%02d%02d%02d%02d%02d%06d%04d" % (
+        d.year % 100,
+        d.month,
+        d.day,
+        d.hour,
+        d.minute,
+        d.second,
+        d.microsecond,
+        ORDERED_NUMBER[0],
+    )
+
+    def conv(num100: int) -> str:
+        if num100 < 9:
+            return chr(49 + num100)
+        if num100 < 35:
+            return chr(65 - 9 + num100)
+        if num100 < 61:
+            return chr(97 - 35 + num100)
+        return chr(122) + conv(num100 - 61)
+
+    li = []
+    for n in range(len(txt) // 2):
+        num = int(txt[n * 2: n * 2 + 2])
+        li.append(conv(num))
+    return "".join(li)
 
 
 def str_id() -> str:
     d = datetime.datetime.now()
     r = random.randint
-    t = (((((r(1, d.year) * 12 + r(1, d.month)) * 31 + d.day) * 24 + d.hour) * 60 + d.minute) * 60 + d.second) * 1000 + r(
-        1, d.microsecond + 737
-    ) // 1000
+    t = (
+        ((((r(1, d.year) * 12 + r(1, d.month)) * 31 + d.day) * 24 + d.hour) * 60 + d.minute) * 60 + d.second
+    ) * 1000 + r(1, d.microsecond + 737) // 1000
     return str(t)
-
-
-def huella():
-    m = hashlib.md5()
-    s = str(random.random()) + str(today())
-    m.update(s.encode("utf-8"))
-    return m.hexdigest()
 
 
 def save_pickle(fich: str, obj) -> bool:
@@ -286,7 +321,9 @@ def dtostr_hm(f):
 
 def stodext(txt):
     if txt and len(txt) == 14 and txt.isdigit():
-        return datetime.datetime(int(txt[:4]), int(txt[4:6]), int(txt[6:8]), int(txt[8:10]), int(txt[10:12]), int(txt[12:]))
+        return datetime.datetime(
+            int(txt[:4]), int(txt[4:6]), int(txt[6:8]), int(txt[8:10]), int(txt[10:12]), int(txt[12:])
+        )
     return None
 
 
@@ -296,7 +333,9 @@ def primera_mayuscula(txt):
 
 def microsegundos_rnd():
     d = datetime.datetime.now()
-    return random.randint(0, 1000) + 1000 * (d.microsecond + 1000000 * (d.second + 60 * (d.minute + 60 * (d.hour + 24 * d.toordinal()))))
+    return random.randint(0, 1000) + 1000 * (
+        d.microsecond + 1000000 * (d.second + 60 * (d.minute + 60 * (d.hour + 24 * d.toordinal())))
+    )
 
 
 def ini2dic(file):
@@ -316,7 +355,7 @@ def ini2dic(file):
                         n = linea.find("=")
                         if n > 0:
                             clave1 = linea[:n].strip()
-                            valor = linea[n + 1 :].strip()
+                            valor = linea[n + 1:].strip()
                             dic[clave1] = valor
 
     return dic_base
@@ -344,7 +383,7 @@ def ini_base2dic(file):
                     n = linea.find("=")
                     if n:
                         key = linea[:n].strip()
-                        valor = linea[n + 1 :].strip()
+                        valor = linea[n + 1:].strip()
                         dic[key] = valor
 
     return dic
@@ -791,7 +830,7 @@ class Timer2:
             if move.is_white() == self.side:
                 ms += move.time_ms
                 num_moves += 1
-        self.pending_time = self.total_time - ms/1000.0 + num_moves * self.seconds_per_move
+        self.pending_time = self.total_time - ms / 1000.0 + num_moves * self.seconds_per_move
 
     def save(self):
         self.recalc()
@@ -1000,7 +1039,6 @@ def div_list(list, max_group):
     xfrom = 0
     li_groups = []
     while xfrom < nlist:
-        li_groups.append(list[xfrom : xfrom + max_group])
+        li_groups.append(list[xfrom: xfrom + max_group])
         xfrom += max_group
     return li_groups
-

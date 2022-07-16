@@ -17,7 +17,7 @@ from Code.Base.Constantes import (
     GT_BOOK,
     GT_RESISTANCE,
     GT_ELO,
-    GT_MICELO
+    GT_MICELO,
 )
 
 

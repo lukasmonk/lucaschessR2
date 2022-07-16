@@ -17,12 +17,14 @@ class WMate15(LCDialog.LCDialog):
         LCDialog.LCDialog.__init__(self, procesador.main_window, title, icon, extconfig)
 
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("POS", _("N."), 70, centered=True)
-        o_columns.nueva("DATE", _("Date"), 120, centered=True)
+        o_columns.nueva("POS", _("N."), 70, align_center=True)
+        o_columns.nueva("DATE", _("Date"), 120, align_center=True)
         o_columns.nueva("INFO", _("Information"), 360)
-        o_columns.nueva("TRIES", _("Tries"), 70, centered=True)
-        o_columns.nueva("RESULT", _("Result"), 70, centered=True)
-        self.glista = Grid.Grid(self, o_columns, siSelecFilas=True, siSeleccionMultiple=True, altoFila=configuration.x_pgn_rowheight)
+        o_columns.nueva("TRIES", _("Tries"), 70, align_center=True)
+        o_columns.nueva("RESULT", _("Result"), 70, align_center=True)
+        self.glista = Grid.Grid(
+            self, o_columns, siSelecFilas=True, siSeleccionMultiple=True, altoFila=configuration.x_pgn_rowheight
+        )
         f = Controles.TipoLetra(puntos=configuration.x_pgn_fontpoints)
         self.glista.ponFuente(f)
 

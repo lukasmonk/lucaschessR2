@@ -114,7 +114,7 @@ class TareaBorraPiezaSecs(Tarea):
 
         pasos = int(self.seconds * 1000.0 / cpu.ms_step)
         self.liPasos = [False] * pasos
-        self.liPasos[int(pasos*0.9)] = True
+        self.liPasos[int(pasos * 0.9)] = True
         self.totalPasos = len(self.liPasos)
         self.pasoActual = 0
 

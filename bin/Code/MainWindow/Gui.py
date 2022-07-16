@@ -250,7 +250,7 @@ def pide_usuario(liUsuarios):
             menu.separador()
 
             for usuario in liUsuarios:
-                menu.opcion(usuario, usuario.name, Iconos.Naranja() if usuario.number >0 else Iconos.Verde())
+                menu.opcion(usuario, usuario.name, Iconos.Naranja() if usuario.number > 0 else Iconos.Verde())
                 menu.separador()
 
             usuario = menu.lanza()

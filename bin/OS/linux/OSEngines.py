@@ -44,7 +44,7 @@ def read_engines(folder_engines):
     cm.ordenUCI("Threads", "2")
     cm.set_multipv(20, 500)
 
-    cm = mas("komodo", "Don Dailey, Larry Kaufman", f"12.1.1{bmi2}", "http://komodochess.com/", f"Komodo-12.1.1{bmi2}", 3240)
+    cm = mas("komodo", "Don Dailey, Larry Kaufman", f"13.02{bmi2}", "http://komodochess.com/", f"komodo-13.02-linux{bmi2}", 3240)
     cm.ordenUCI("Hash", "64")
     cm.ordenUCI("Threads", "2")
     cm.set_multipv(20, 218)
@@ -116,7 +116,7 @@ def read_engines(folder_engines):
 
     mas("igel", "Volodymyr Shcherbyna", "3.0.0", "https://github.com/vshcherbyna/igel/", "Igel-3.0.0", 3402)
 
-    mas("irina", "Lucas Monge", "0.15", "https://github.com/lukasmonk/irina", "Irina-0.15", 1200)
+    mas("irina", "Lucas Monge", "0.15", "https://github.com/lukasmonk/irina", "Irina-0.15", 1500)
 
     mas("jabba", "Richard Allbert", "1.0", "http://jabbachess.blogspot.com/", "Jabba-1.0", 2078)
 
@@ -194,5 +194,6 @@ def dict_engines_fixed_elo(folder_engines):
             cm.ordenUCI("UCI_LimitStrength", "true")
             cm.name += " (%d)" % elo
             cm.key += " (%d)" % elo
+            cm.elo = elo
             dic[elo].append(cm)
     return dic

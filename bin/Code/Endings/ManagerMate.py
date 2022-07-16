@@ -41,7 +41,11 @@ class BlockMate:
         self.seconds = 0
 
     def save(self):
-        return {"errors": self.errors, "seconds": self.seconds, "li_positions": [position.save() for position in self.li_positions]}
+        return {
+            "errors": self.errors,
+            "seconds": self.seconds,
+            "li_positions": [position.save() for position in self.li_positions],
+        }
 
     def restore(self, dic):
         self.errors = dic["errors"]
@@ -182,11 +186,14 @@ class ControlMate:
         if self.mate == 1:
             parte_sadier = total_positions * 75 // 100
             li_pos = get_positions_fns(
-                Code.path_resource("Trainings", "Checkmates in GM games", "Mate in 1.fns"), total_positions - parte_sadier
+                Code.path_resource("Trainings", "Checkmates in GM games", "Mate in 1.fns"),
+                total_positions - parte_sadier,
             )
             li_pos.extend(
                 get_positions_fns(
-                    Code.path_resource("Trainings", "Checkmates by Eduardo Sadier", "Mate in one (derived from mate in two).fns"),
+                    Code.path_resource(
+                        "Trainings", "Checkmates by Eduardo Sadier", "Mate in one (derived from mate in two).fns"
+                    ),
                     parte_sadier,
                 )
             )
@@ -194,11 +201,16 @@ class ControlMate:
         elif self.mate == 2:
             parte_sadier = total_positions * 75 // 100
             li_pos = get_positions_fns(
-                Code.path_resource("Trainings", "Checkmates in GM games", "Mate in 2.fns"), total_positions - parte_sadier
+                Code.path_resource("Trainings", "Checkmates in GM games", "Mate in 2.fns"),
+                total_positions - parte_sadier,
             )
             li_pos.extend(
                 get_positions_fns(
-                    Code.path_resource("Trainings", "Checkmates by Eduardo Sadier", "%d positions of mate in two.fns" % Code.mate_en_dos),
+                    Code.path_resource(
+                        "Trainings",
+                        "Checkmates by Eduardo Sadier",
+                        "%d positions of mate in two.fns" % Code.mate_en_dos,
+                    ),
                     parte_sadier,
                 )
             )
@@ -424,7 +436,9 @@ class ManagerMate(Manager.Manager):
         menu.opcion("reset", _("Recreate all levels and start over"), Iconos.Refresh())
         resp = menu.lanza()
         if resp == "reset":
-            if QTUtil2.pregunta(self.main_window, "%s\n%s" % (_("Recreate all levels and start over"), _("Are you sure?"))):
+            if QTUtil2.pregunta(
+                self.main_window, "%s\n%s" % (_("Recreate all levels and start over"), _("Are you sure?"))
+            ):
                 Util.remove_file(self.control_mate.file_path)
                 self.start(self.mate)
 
@@ -459,7 +473,12 @@ class ManagerMate(Manager.Manager):
         if position_mate is None:
             # Hemos terminado el bloque
             siRecord, vtime = self.control_mate.work_end(self.errores)
-            txt = "<center><h3> %s : %d</h3><h3>%s : %d </h3></center>" % (_("Errors"), self.errores, _("Second(s)"), vtime)
+            txt = "<center><h3> %s : %d</h3><h3>%s : %d </h3></center>" % (
+                _("Errors"),
+                self.errores,
+                _("Second(s)"),
+                vtime,
+            )
 
             if siRecord:
                 txt += "<h3>%s</h3>" % _("Congratulations you have achieved a new record in this block.")
@@ -575,8 +594,7 @@ class ManagerMate(Manager.Manager):
             return
         self.jugar(row)
 
-
     def jugadaActual(self):
         """Necesario para que funcionen los atajos de ratón"""
         num_moves = len(self.game)
-        return num_moves, num_moves-1, num_moves // 2, self.game.last_position.is_white
+        return num_moves, num_moves - 1, num_moves // 2, self.game.last_position.is_white

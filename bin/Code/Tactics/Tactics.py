@@ -62,7 +62,12 @@ class Reinforcement:
         self.save()
 
     def save(self):
-        dic = {"li_num_fens": self.li_num_fens, "li_work_fens": self.li_work_fens, "pos_active": self.pos_active, "active": self.active}
+        dic = {
+            "li_num_fens": self.li_num_fens,
+            "li_work_fens": self.li_work_fens,
+            "pos_active": self.pos_active,
+            "active": self.active,
+        }
         with self.tactica.dbdatos() as db:
             db["DICREINFORCEMENT"] = dic
 
@@ -120,43 +125,43 @@ class Reinforcement:
 
 class Tactics:
     """# Numero de puzzles en cada entrenamiento, menos si no hay tantos
-PUZZLES=100
+    PUZZLES=100
 
-# Saltos de repeticion, 3 = entrenam1,otro,otro,otro,entrenam1, se cumple cuando se puede
-JUMPS=3,5,9,17
+    # Saltos de repeticion, 3 = entrenam1,otro,otro,otro,entrenam1, se cumple cuando se puede
+    JUMPS=3,5,9,17
 
-# Repeticion, 0:No, 1:igual, 2:random
-REPEAT=1,2
+    # Repeticion, 0:No, 1:igual, 2:random
+    REPEAT=1,2
 
-# Penalizacion en caso de error, se divide el total de puzzles por los grupos de penalizacion y se aplica
-# ej. 100 puzzles, 1-25:1, 26-50:2,....
-PENALIZATION=1,2,3,4
+    # Penalizacion en caso de error, se divide el total de puzzles por los grupos de penalizacion y se aplica
+    # ej. 100 puzzles, 1-25:1, 26-50:2,....
+    PENALIZATION=1,2,3,4
 
-SHOWTEXT=1
+    SHOWTEXT=1
 
-FOLDER=../Resources/Trainings/Checkmates in GM games
+    FOLDER=../Resources/Trainings/Checkmates in GM games
 
-[ALIAS]
-M1=Mate in 1.fns
-M2=Mate in 2.fns
-M3=Mate in 3.fns
-M4=Mate in 4.fns
-M5=Mate in 5.fns
-M6=Mate in 6.fns
-M7=Mate in 7.fns
+    [ALIAS]
+    M1=Mate in 1.fns
+    M2=Mate in 2.fns
+    M3=Mate in 3.fns
+    M4=Mate in 4.fns
+    M5=Mate in 5.fns
+    M6=Mate in 6.fns
+    M7=Mate in 7.fns
 
-[TACTIC1]
-MENU=Mate in 1
-# Fichero:Peso[:xfrom:xto]
-FILESW=M1:100
+    [TACTIC1]
+    MENU=Mate in 1
+    # Fichero:Peso[:xfrom:xto]
+    FILESW=M1:100
 
-[TACTIC2]
-MENU=Mate in 2
-FILESW=M2:100
+    [TACTIC2]
+    MENU=Mate in 2
+    FILESW=M2:100
 
-[TACTIC3]
-MENU=Mate in 3
-FILESW=M3:100
+    [TACTIC3]
+    MENU=Mate in 3
+    FILESW=M3:100
     """
 
     def __init__(self, tipo, name, carpeta, ini):
@@ -522,7 +527,6 @@ class Tactic:
         with self.dbdatos() as db:
             db["ADVANCED"] = enable
 
-
     def current_position(self):
         with self.dbdatos() as db:
             return db["POSACTIVE"]
@@ -580,7 +584,13 @@ class Tactic:
             liHisto = db["HISTO"]
             if not liHisto:
                 liHisto = []
-                dicActual = {"FINICIAL": Util.today(), "FFINAL": None, "SECONDS": 0.0, "POS": self.total_positions(), "ERRORS": 0}
+                dicActual = {
+                    "FINICIAL": Util.today(),
+                    "FFINAL": None,
+                    "SECONDS": 0.0,
+                    "POS": self.total_positions(),
+                    "ERRORS": 0,
+                }
                 liHisto.insert(0, dicActual)
             liHisto[0]["FFINAL"] = Util.today()
             liHisto[0]["SECONDS"] = db["SECONDS"]
@@ -672,7 +682,9 @@ class Tactic:
         n = len(self.showtext)
         if n == 0:
             return True
-        current_position = self.current_position()  # debemos utilizar los estandar y no los work ya que no serían correctos si reinforcing
+        current_position = (
+            self.current_position()
+        )  # debemos utilizar los estandar y no los work ya que no serían correctos si reinforcing
         total_positions = self.total_positions()
         bloque = total_positions * 1.0 / n
         ns = int(current_position / bloque)
@@ -718,7 +730,15 @@ class Tactic:
             '<table border="1" with="100%%" align="center" cellpadding="5" cellspacing="0">'
             "%s"
             '<tr><td  align="center"><h4>%s: %d/%d<br><font color="%s">%s</font></h4></td></tr>'
-            "</table>" % (reinforcement_title, _("Current position"), self.w_current_position + 1, self.w_total_positions, color, txt)
+            "</table>"
+            % (
+                reinforcement_title,
+                _("Current position"),
+                self.w_current_position + 1,
+                self.w_total_positions,
+                color,
+                txt,
+            )
         )
         return html
 
@@ -731,7 +751,9 @@ class Tactic:
             self.w_next_position = 0
         else:
             self.reinforcement.add_error(self.w_current_position)
-            self.w_next_position = self.w_current_position - self.penalization_positions(self.w_current_position, self.w_total_positions)
+            self.w_next_position = self.w_current_position - self.penalization_positions(
+                self.w_current_position, self.w_total_positions
+            )
             if self.w_next_position < 0:
                 self.w_next_position = 0
 

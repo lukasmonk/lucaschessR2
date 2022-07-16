@@ -1,17 +1,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Last-Translator: ZOUSHEN\n"
-"Language-Team: \n"
-"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.0.1\n"
 
 msgid "Alapin's opening"
 msgstr "阿拉宾开局"
@@ -27,9 +19,6 @@ msgstr "阿廖欣防御：布鲁克林防御"
 
 msgid "Alekhine's defence: Buckley Attack"
 msgstr "阿廖欣防御巴克利进攻"
-
-msgid "Alekhine's defence: Exchange Variation, Karpov Variation"
-msgstr "阿廖欣防御交换变化, 卡尔波夫变化"
 
 msgid "Alekhine's defence: Hunt Variation, Lasker Simul Gambit"
 msgstr "阿廖欣防御:亨特变化, 拉斯克模拟弃兵"
@@ -235,17 +224,11 @@ msgstr "平科接受弃兵:德鲁吉变化"
 msgid "Benko Gambit Accepted: Fianchetto Variation"
 msgstr "平科接受弃兵:费恩切托变化"
 
-msgid "Benko Gambit Accepted: King Walk Variation"
-msgstr "平科接受弃兵:王行变化"
-
 msgid "Benko Gambit Accepted: Modern Variation"
 msgstr "平科接受弃兵:现代变化"
 
 msgid "Benko Gambit Accepted: Pawn Return Variation"
 msgstr "平科接受弃兵:卒返变化"
-
-msgid "Benko Gambit Accepted: Yugoslav"
-msgstr "平科接受弃兵:南斯拉夫"
 
 msgid "Benko Gambit Declined: Bishop Attack"
 msgstr "平科拒弃兵:象的进攻"
@@ -325,20 +308,8 @@ msgstr "贝诺尼防务:贝诺尼-印度防御"
 msgid "Benoni Defence: Benoni-Staunton Gambit"
 msgstr "别诺尼防御:贝诺尼-斯汤顿弃兵"
 
-msgid "Benoni Defence: Classical Variation, Argentine CounterAttack"
-msgstr "别诺尼防御:古典变化，阿根廷式反攻"
-
-msgid "Benoni Defence: Classical Variation, Averbakh-Grivas Attack"
-msgstr "别诺尼防御:古典变化，阿维巴克-格里瓦斯进攻"
-
-msgid "Benoni Defence: Classical Variation, Czerniak Defence"
-msgstr "别诺尼防御:古典变化，捷尔尼亚克防御"
-
 msgid "Benoni Defence: Classical Variation, New York Variation"
 msgstr "别诺尼防御:古典变化，纽约变化"
-
-msgid "Benoni Defence: Classical Variation, Traditional Variation"
-msgstr "别诺尼防御:古典变化，传统变化"
 
 msgid "Benoni Defence: Classical Variation"
 msgstr "别诺尼防御:古典变化"
@@ -346,29 +317,11 @@ msgstr "别诺尼防御:古典变化"
 msgid "Benoni Defence: Cormorant Gambit"
 msgstr "别诺尼防御:鸬鹚弃兵"
 
-msgid "Benoni Defence: Fianchetto Variation, Hastings Defence, Main Line"
-msgstr "别诺尼防御:费安切托变化、黑斯廷斯防御、主线"
-
-msgid "Benoni Defence: Fianchetto Variation, Hastings Defence"
-msgstr "别诺尼防御:费安切托变化，黑斯廷斯防御"
-
 msgid "Benoni Defence: Fianchetto Variation"
 msgstr "别诺尼防御:费安切托变化"
 
-msgid "Benoni Defence: Four Pawns Attack, Main Line"
-msgstr "别诺尼防御:四兵进攻，主线"
-
 msgid "Benoni Defence: Franco-Sicilian Hybrid"
 msgstr "别诺尼防御:法国-西西里混合体"
-
-msgid "Benoni Defence: French Benoni"
-msgstr "别诺尼防御:法兰西别诺尼"
-
-msgid "Benoni Defence: Hawk Variation"
-msgstr "别诺尼防御:鹰式变化"
-
-msgid "Benoni Defence: Knight's Tour Variation"
-msgstr "别诺尼防御:骑士巡回赛的变化"
 
 msgid "Benoni Defence: Modern Variation, Snake Variation"
 msgstr "别诺尼防御:现代变化，蛇形变化"
@@ -381,9 +334,6 @@ msgstr "贝诺尼防务:老贝诺尼"
 
 msgid "Benoni Defence: Snail Variation"
 msgstr "别诺尼防御:蜗牛变化"
-
-msgid "Benoni Defence: Uhlmann Variation"
-msgstr "别诺尼防御:乌尔曼变化"
 
 msgid "Benoni Defence: Weenink Variation"
 msgstr "别诺尼防御:韦宁克变化"
@@ -550,12 +500,6 @@ msgstr "伯德开局：霍布斯弃兵"
 msgid "Bishop's Opening: Anderssen Gambit"
 msgstr "飞象开局:安德森开局"
 
-msgid "Bishop's Opening: Boden-Kieseritzky Gambit, Lichtenhein Defence"
-msgstr "飞象开局:博登-基塞里茨基开局，利希滕海因防御"
-
-msgid "Bishop's Opening: Boden-Kieseritzky Gambit"
-msgstr "飞象开局:博登-基谢里茨基开局"
-
 msgid "Bishop's Opening: Horwitz Gambit"
 msgstr "飞象开局:霍维茨弃兵"
 
@@ -715,9 +659,6 @@ msgstr "布莱克马尔-迪梅尔的弃兵:迪梅尔-罗森伯格进攻"
 msgid "Blackmar-Diemer Gambit: Euwe Defence, Zilbermints Gambit"
 msgstr "布莱克马尔-迪梅尔弃兵:欧维防御，齐尔伯明特弃兵"
 
-msgid "Blackmar-Diemer Gambit: Euwe Defence"
-msgstr "布莱克马尔-迪梅尔弃兵:欧维防御"
-
 msgid "Blackmar-Diemer Gambit: Fritz Attack"
 msgstr "布莱克马尔-迪梅尔弃兵:弗里茨进攻"
 
@@ -799,9 +740,6 @@ msgstr "布莱克马尔 - 迪默尔：尤伟防御"
 msgid "Blackmar-Diemer: Lemberg counter-gambit"
 msgstr "布莱克马尔 - 迪默尔弃兵：伦贝格反弃兵"
 
-msgid "Blumenfeld CounterGambit: Spielmann Variation"
-msgstr "布卢门菲尔德反戈一击:斯皮尔曼变化"
-
 msgid "Blumenfeld CounterGambit"
 msgstr "布卢门菲尔德的反戈一击"
 
@@ -828,9 +766,6 @@ msgstr "波刚印度防御:交换变化"
 
 msgid "Bogo-Indian Defence: Haiti Variation"
 msgstr "波刚-印度防御:海地变化"
-
-msgid "Bogo-Indian Defence: Monticelli Trap"
-msgstr "波刚-印度防御，蒙蒂切利陷阱"
 
 msgid "Bogo-Indian Defence: New England Variation"
 msgstr "波刚-印度防御:新英格兰变化"
@@ -941,26 +876,11 @@ msgstr "卡罗康防御:推进变化，范德维尔进攻"
 msgid "Caro-Kann Defence: Breyer Variation, Stein Attack"
 msgstr "卡罗康防御:布雷耶变化，斯坦因进攻"
 
-msgid "Caro-Kann Defence: Classical Variation, Flohr Variation"
-msgstr "卡罗康防御:古典变化，弗洛尔变化"
-
 msgid "Caro-Kann Defence: Classical Variation, Lobron System"
 msgstr "卡罗康防御:古典变化，洛布伦体系"
 
-msgid "Caro-Kann Defence: Classical Variation, Main Line"
-msgstr "卡罗康防御:古典变化，主线"
-
-msgid "Caro-Kann Defence: Classical Variation, Maróczy Attack"
-msgstr "卡罗康防御:古典变化，马尔奇进攻"
-
 msgid "Caro-Kann Defence: Classical Variation, Seirawan Variation"
 msgstr "卡罗康防御:古典变化，塞拉万变化"
-
-msgid "Caro-Kann Defence: Classical Variation, Spassky Variation"
-msgstr "卡罗康防御:古典变化, 斯帕斯基变化"
-
-msgid "Caro-Kann Defence: Classical Variation"
-msgstr "卡罗康防御:古典变化"
 
 msgid "Caro-Kann Defence: De Bruycker Defence"
 msgstr "卡罗康防御法:德布鲁克防御"
@@ -986,7 +906,8 @@ msgstr "卡罗康防御:山地人的进攻，谢弗弃兵"
 msgid "Caro-Kann Defence: Karpov Variation, Modern Main Line"
 msgstr "卡罗康防御:卡尔波夫变化，现代主线"
 
-msgid "Caro-Kann Defence: Karpov Variation, Modern Variation, Ivanchuk Defence"
+msgid ""
+"Caro-Kann Defence: Karpov Variation, Modern Variation, Ivanchuk Defence"
 msgstr "卡罗康防御:卡尔波夫变化、现代变化、伊万丘克防御"
 
 msgid "Caro-Kann Defence: Karpov Variation, Modern Variation, Kasparov Attack"
@@ -1003,9 +924,6 @@ msgstr "卡罗康防御:卡尔波夫变化, 斯米斯洛夫变化"
 
 msgid "Caro-Kann Defence: Karpov Variation, Tiviakov-Fischer Attack"
 msgstr "卡罗康防御:卡尔波夫变化，蒂维亚科夫-费舍尔进攻"
-
-msgid "Caro-Kann Defence: Karpov Variation"
-msgstr "卡罗康防御:卡尔波夫变化"
 
 msgid "Caro-Kann Defence: Labahn Attack, Double Gambit"
 msgstr "卡罗康防御:拉巴恩进攻，双重弃兵"
@@ -1058,7 +976,8 @@ msgstr "卡罗康防御:钉子变化"
 msgid "Caro-Kann Defence: Toikkanen Gambit"
 msgstr "卡罗康防御:托伊卡宁弃兵"
 
-msgid "Caro-Kann Defence: Two Knights Attack, Mindeno Variation, Exchange Line"
+msgid ""
+"Caro-Kann Defence: Two Knights Attack, Mindeno Variation, Exchange Line"
 msgstr "卡罗康防御:双骑士进攻，明德诺变化，交换线"
 
 msgid "Caro-Kann Defence: Two Knights Attack, Mindeno Variation, Retreat Line"
@@ -1198,21 +1117,6 @@ msgstr "卡塔兰开局:封闭式变化, 拉比诺维奇式变化"
 
 msgid "Catalan Opening: Closed Variation, Traditional Variation"
 msgstr "卡塔兰开局:封闭式变化, 传统式变化"
-
-msgid "Catalan Opening: Closed, Botvinnik Variation"
-msgstr "卡塔兰开局:封闭, 博特文尼克变化"
-
-msgid "Catalan Opening: Closed, Main Line"
-msgstr "卡塔兰开局:封闭，主线"
-
-msgid "Catalan Opening: Closed, Spassky Gambit"
-msgstr "卡塔兰开局:封闭, 斯帕斯基开局"
-
-msgid "Catalan Opening: Closed, Zagoryansky Variation"
-msgstr "卡塔兰开局:封闭, 扎戈里亚斯基变化"
-
-msgid "Catalan Opening: Closed"
-msgstr "卡塔兰开局:封闭"
 
 msgid "Catalan Opening: Hungarian Gambit"
 msgstr "卡塔兰开局:匈牙利人的开局"
@@ -1400,9 +1304,6 @@ msgstr "邓斯特（SLEIPNER，Heinrichsen）开局"
 msgid "Durkin's attack"
 msgstr "德金的进攻"
 
-msgid "Dutch Defence: Alekhine Variation"
-msgstr "荷兰防御，阿廖欣变化"
-
 msgid "Dutch Defence: Blackmar's Second Gambit"
 msgstr "荷兰防御:布莱克马的第二种弃兵"
 
@@ -1415,28 +1316,6 @@ msgstr "荷兰防御:古典变化，布宜诺斯艾利斯变化"
 msgid "Dutch Defence: Classical Variation, Huisl Variation"
 msgstr "荷兰防御:古典变化，惠斯勒变化"
 
-msgid ""
-"Dutch Defence: Classical Variation, Ilyin-Zhenevsky Variation, Alatortsev-"
-"Lisitsyn Line"
-msgstr "荷兰防御:古典变化，伊林-珍尼夫斯基变化，阿拉托尔采夫-利西岑线"
-
-msgid ""
-"Dutch Defence: Classical Variation, Ilyin-Zhenevsky Variation, Modern Main "
-"Line"
-msgstr "荷兰防御:古典变化、伊林-珍尼夫斯基变化、现代主线"
-
-msgid ""
-"Dutch Defence: Classical Variation, Ilyin-Zhenevsky Variation, Winter "
-"Variation"
-msgstr "荷兰防御:古典变化, 伊林-珍尼夫斯基变化, 冬季变化"
-
-msgid "Dutch Defence: Classical Variation, Ilyin-Zhenevsky Variation"
-msgstr "荷兰防御:古典变化，伊林-珍尼夫斯基变化"
-
-msgid ""
-"Dutch Defence: Classical Variation, Stonewall Variation, Botvinnik Variation"
-msgstr "荷兰防御:古典变化、石墙变化、博特文尼克变化"
-
 msgid "Dutch Defence: Classical Variation, Stonewall Variation"
 msgstr "荷兰防御:古典变化，石墙变化"
 
@@ -1445,9 +1324,6 @@ msgstr "荷兰防御:古典变化"
 
 msgid "Dutch Defence: Hevendehl Gambit"
 msgstr "荷兰防御:赫文德尔弃兵"
-
-msgid "Dutch Defence: Hort-Antoshin System"
-msgstr "荷兰防御:霍特-安托辛体系"
 
 msgid "Dutch Defence: Janzen-Korchnoi Gambit"
 msgstr "荷兰防御:杨森-科尔奇诺伊弃兵"
@@ -1461,15 +1337,6 @@ msgstr "荷兰防御:克劳斯变化"
 msgid "Dutch Defence: Krejcik Gambit, Tate Gambit"
 msgstr "荷兰防御:克雷吉克弃兵、塔特弃兵"
 
-msgid "Dutch Defence: Leningrad Variation, Matulovic Variation"
-msgstr "荷兰防御:列宁格勒变化，马图洛维奇变化"
-
-msgid "Dutch Defence: Leningrad Variation, Warsaw Variation"
-msgstr "荷兰防御:列宁格勒变化、华沙变化"
-
-msgid "Dutch Defence: Leningrad, Basman System"
-msgstr "荷兰防御:列宁格勒，巴斯曼体系"
-
 msgid "Dutch Defence: Manhattan Gambit, Anti-Leningrad"
 msgstr "荷兰防御:曼哈顿弃兵，反列宁格勒"
 
@@ -1479,12 +1346,6 @@ msgstr "荷兰防御:曼哈顿弃兵，反现代"
 msgid "Dutch Defence: Manhattan Gambit, Anti-Stonewall"
 msgstr "荷兰防御:曼哈顿弃兵，反石墙"
 
-msgid "Dutch Defence: Nimzo-Dutch Variation, Alekhine Variation"
-msgstr "荷兰防御:尼姆佐-荷兰变化, 阿廖欣变化"
-
-msgid "Dutch Defence: Nimzo-Dutch Variation"
-msgstr "荷兰防御:尼姆佐-荷兰变化"
-
 msgid "Dutch Defence: Normal Variation"
 msgstr "荷兰防御:普通变化"
 
@@ -1493,9 +1354,6 @@ msgstr "荷兰防御:欧米茄-艾斯弃兵"
 
 msgid "Dutch Defence: Raphael Variation"
 msgstr "荷兰防御:拉斐尔变化"
-
-msgid "Dutch Defence: Rubinstein Variation"
-msgstr "荷兰防御，鲁宾斯坦变化"
 
 msgid "Dutch Defence: Semi-Leningrad Variation"
 msgstr "荷兰防御:半列宁格勒变化"
@@ -1511,9 +1369,6 @@ msgstr "荷兰防御:斯汤顿弃兵，美国进攻"
 
 msgid "Dutch Defence: Stonewall Variation, Modern Variation"
 msgstr "荷兰防御:石墙变化，现代变化"
-
-msgid "Dutch Defence: Stonewall Variation"
-msgstr "荷兰防御:石墙变化"
 
 msgid "Dutch Defence"
 msgstr "荷兰防御"
@@ -1674,29 +1529,14 @@ msgstr "英国式开局:阿基里斯-奥米加开局"
 msgid "English Opening: Agincourt Defence, Bogoljubov Defence"
 msgstr "英国式开局:阿金库尔防御, 波戈尔久博夫防御"
 
-msgid "English Opening: Agincourt Defence, Catalan Defence Accepted"
-msgstr "英国式开局:阿金库尔防御，加泰罗尼亚防御被接受"
-
 msgid "English Opening: Agincourt Defence, Catalan Defence, Semi-Slav Defence"
 msgstr "英国式开局:阿金库尔防御，加泰罗尼亚防御，半斯拉夫防御"
 
 msgid "English Opening: Agincourt Defence, Catalan Defence"
 msgstr "英国式开局:阿金库尔防御，加泰罗尼亚防御"
 
-msgid "English Opening: Agincourt Defence, Keres Defence"
-msgstr "英国式开局:阿金库尔防御, 凯瑞斯防御"
-
-msgid "English Opening: Agincourt Defence, Kurajica Defence"
-msgstr "英国式开局:阿金库尔防御，库拉吉卡防御"
-
-msgid "English Opening: Agincourt Defence, Neo-Catalan Declined"
-msgstr "英国式开局:阿金库尔防御, 新卡塔兰退步"
-
 msgid "English Opening: Agincourt Defence, Tarrasch Defence"
 msgstr "英国式开局:阿金库尔防御, 塔拉什防御"
-
-msgid "English Opening: Agincourt Defence, Wimpy System"
-msgstr "英国式开局:阿金库尔防御, 维姆比体系"
 
 msgid "English Opening: Agincourt Defence"
 msgstr "英国式开局:阿金库尔防御"
@@ -1709,9 +1549,6 @@ msgstr "英国式开局:盎格鲁-荷兰变化, 查巴农弃兵"
 
 msgid "English Opening: Anglo-Dutch Variation, Ferenc Gambit"
 msgstr "英国式开局:盎格鲁-荷兰变化, 费伦茨开局"
-
-msgid "English Opening: Anglo-Grünfeld Defence, Korchnoi Variation"
-msgstr "英国式开局:盎格鲁-格林菲尔德防御, 科尔奇诺伊变化"
 
 msgid "English Opening: Anglo-Indian Defence, Anglo-Grünfeld Variation"
 msgstr "英国式开局:盎格鲁-印度防御, 盎格鲁-格林菲尔德变化"
@@ -1740,9 +1577,6 @@ msgstr "英国式开局:英印防御, 国王翼印度度阵型"
 
 msgid "English Opening: Anglo-Indian Defence, King's Knight Variation"
 msgstr "英国式开局:英印防御, 国王骑士变化"
-
-msgid "English Opening: Anglo-Indian Defence, Nimzo-English"
-msgstr "英国式开局:英印防御, 尼姆佐-英式"
 
 msgid "English Opening: Anglo-Indian Defence, Old Indian Formation"
 msgstr "英国式开局:英印防御，老印度阵型"
@@ -1785,14 +1619,8 @@ msgstr "英国式开局:盎格鲁-斯堪的纳维亚防御, 舒尔茨弃兵"
 msgid "English Opening: Anglo-Scandinavian Defence"
 msgstr "英国式开局:盎格鲁-斯堪的纳维亚防御"
 
-msgid "English Opening: Closed, Taimanov Variation"
-msgstr "英国式开局:封闭, 泰曼诺夫变化"
-
 msgid "English Opening: Drill Variation"
 msgstr "英国式开局:操练变化"
-
-msgid "English Opening: Four Knights System, Nimzowitsch Variation"
-msgstr "英国式开局:四骑士体系, 尼姆佐维茨变化"
 
 msgid "English Opening: Great Snake Variation"
 msgstr "英国式开局:大蛇变化"
@@ -1802,44 +1630,15 @@ msgid ""
 "Pass System"
 msgstr "英国式开局:国王英语变化, 博特文尼克体系, 挑衅性兵种体系"
 
-msgid "English Opening: King's English Variation, Closed System, Full Symmetry"
+msgid ""
+"English Opening: King's English Variation, Closed System, Full Symmetry"
 msgstr "英国式开局:英王变化, 封闭体系, 完全对称性"
-
-msgid ""
-"English Opening: King's English Variation, Four Knights Variation, Bradley "
-"Beach Variation"
-msgstr "英国式开局:英王变化, 四骑士变化, 布拉德利海滩变化"
-
-msgid ""
-"English Opening: King's English Variation, Four Knights Variation, "
-"Fianchetto Line"
-msgstr "英国式开局:英王变化, 四骑士变化, 费安切托线"
-
-msgid ""
-"English Opening: King's English Variation, Four Knights Variation, Flexible "
-"Line"
-msgstr "英国式开局:英王变化, 四骑士变化, 灵活路线"
-
-msgid ""
-"English Opening: King's English Variation, Four Knights Variation, Korchnoi "
-"Line"
-msgstr "英国式开局:英王变化, 四骑士变化, 科尔奇诺伊线"
-
-msgid ""
-"English Opening: King's English Variation, Four Knights Variation, Quiet Line"
-msgstr "英国式开局:英王变化, 四骑士变化, 安静线"
-
-msgid "English Opening: King's English Variation, Four Knights Variation"
-msgstr "英国式开局:英王变化, 四骑士变化"
 
 msgid "English Opening: King's English Variation, Kahiko-Hula Gambit"
 msgstr "英国式开局:国王英语变化, 卡希科-胡拉弃兵"
 
 msgid "English Opening: King's English Variation, Reversed Sicilian"
 msgstr "英国式开局:英王变化, 反转西西里宫"
-
-msgid "English Opening: King's English Variation, Troger Defence"
-msgstr "英国式开局:英王变化, 特罗格防御"
 
 msgid "English Opening: King's English Variation, Two Knights Variation"
 msgstr "英国式开局:英王变化, 双骑士变化"
@@ -1859,66 +1658,28 @@ msgstr "英国式开局:迈尔斯变化"
 msgid "English Opening: Neo-Catalan Declined"
 msgstr "英国式开局:新卡塔拉开局"
 
-msgid "English Opening: Neo-Catalan"
-msgstr "英国式开局:新加泰罗尼亚语"
-
 msgid "English Opening: Porcupine Variation"
 msgstr "英国式开局:豪猪变化"
-
-msgid "English Opening: Romanishin Gambit"
-msgstr "英国式开局:罗曼尼辛开局"
-
-msgid ""
-"English Opening: Symmetrical Variation, Anti-Benoni Variation, Geller "
-"Variation"
-msgstr "英国式开局:对称变化, 反贝诺尼变化, 盖勒变化"
 
 msgid ""
 "English Opening: Symmetrical Variation, Anti-Benoni Variation, Spielmann "
 "Defence"
 msgstr "英国式开局:对称变化, 反贝诺尼变化, 斯皮尔曼防御"
 
-msgid "English Opening: Symmetrical Variation, Anti-Benoni Variation"
-msgstr "英国式开局:对称性变化, 反贝诺尼变化"
-
 msgid "English Opening: Symmetrical Variation, Botvinnik System Reversed"
 msgstr "英国式开局:对称变化, 博特文尼克体系反转"
-
-msgid "English Opening: Symmetrical Variation, Botvinnik System"
-msgstr "英国式开局:对称性变化, 博特文尼克体系"
-
-msgid "English Opening: Symmetrical Variation, Duchamp Variation"
-msgstr "英国式开局:对称变化, 杜尚变化"
 
 msgid "English Opening: Symmetrical Variation, Fianchetto Variation"
 msgstr "英国式开局:对称性变化, 费安切托变化"
 
-msgid "English Opening: Symmetrical Variation, Four Knights Variation"
-msgstr "英国式开局:对称性变化, 四骑士变化"
-
 msgid "English Opening: Symmetrical Variation, Full Symmetry Line"
 msgstr "英国式开局:对称变化, 完全对称线"
-
-msgid "English Opening: Symmetrical Variation, Hedgehog Defence"
-msgstr "英国式开局:对称性变化, 刺猬防御"
-
-msgid "English Opening: Symmetrical Variation, Mecking Variation"
-msgstr "英国式开局:对称性变化, 梅金变化"
 
 msgid "English Opening: Symmetrical Variation, Napolitano Gambit"
 msgstr "英国式开局:对称变化, 纳波利塔诺开局"
 
 msgid "English Opening: Symmetrical Variation, Normal Variation"
 msgstr "英国式开局:对称变化, 正常变化"
-
-msgid "English Opening: Symmetrical Variation, Rubinstein Variation"
-msgstr "英国式开局:对称性变化, 鲁宾斯坦变化"
-
-msgid "English Opening: Symmetrical Variation, Symmetrical Variation"
-msgstr "英国式开局:对称的变化, 对称的变化"
-
-msgid "English Opening: Symmetrical Variation, Three Knights Variation"
-msgstr "英国式开局:对称性变化, 三骑士变化"
 
 msgid "English Opening: Symmetrical Variation, Two Knights Line"
 msgstr "英国式开局:对称变化, 双骑士路线"
@@ -1928,9 +1689,6 @@ msgstr "英国式开局:对称性变化, 两骑士变化"
 
 msgid "English Opening: Symmetrical Variation"
 msgstr "英国式开局:对称的变化"
-
-msgid "English Opening: Symmetrical, Hedgehog, Flexible Formation"
-msgstr "英国式开局:对称式, 刺猬式, 灵活阵型"
 
 msgid "English Opening: The Whale"
 msgstr "英国式开局:鲸鱼"
@@ -2340,9 +2098,6 @@ msgstr "编队:羞涩的进攻"
 msgid "Four Knights Game: Double Spanish"
 msgstr "四个骑士的游戏:双人西班牙"
 
-msgid "Four Knights Game: Gunsberg CounterAttack"
-msgstr "四个骑士的游戏:贡斯堡反击战"
-
 msgid "Four Knights Game: Halloween Gambit, Oldtimer Variation"
 msgstr "四马开局：万圣节弃兵，老手变化"
 
@@ -2351,15 +2106,6 @@ msgstr "四马开局：万圣节弃兵，血浆变化"
 
 msgid "Four Knights Game: Italian Variation, Noa Gambit"
 msgstr "四马开局:意大利变化，诺亚弃兵"
-
-msgid "Four Knights Game: Italian Variation"
-msgstr "四马开局:意大利变化"
-
-msgid "Four Knights Game: Marshall Variation"
-msgstr "四马开局:马歇尔变化"
-
-msgid "Four Knights Game: Rubinstein CounterGambit, Henneberger Variation"
-msgstr "四马开局:鲁宾斯坦反戈一击，亨内博格变化"
 
 msgid "Four Knights Game: Scotch Variation, Belgrade Gambit, Modern Defence"
 msgstr "四马开局:苏格兰变化、贝尔格莱德弃兵、现代防御"
@@ -2376,12 +2122,6 @@ msgstr "四马开局:苏格兰变化，施密特防御"
 msgid ""
 "Four Knights Game: Spanish Variation, Classical Variation, Marshall Gambit"
 msgstr "四马开局:西班牙变化、古典变化、马歇尔弃兵"
-
-msgid "Four Knights Game: Spanish Variation, Rubinstein Variation"
-msgstr "四马开局:西班牙变化，鲁宾斯坦变化"
-
-msgid "Four Knights Game: Symmetrical, Tarrasch Variation"
-msgstr "四马开局:对称的，塔拉什变化"
 
 msgid "Four knights game"
 msgstr "四马开局"
@@ -2551,9 +2291,6 @@ msgstr "法兰西防御:迪梅尔-杜姆弃兵"
 msgid "French Defence: Exchange Variation, Monte Carlo Variation"
 msgstr "法兰西防御:交换变化，蒙特卡洛变化"
 
-msgid "French Defence: Exchange Variation, Svenonius Variation"
-msgstr "法兰西防御:交换变化，斯维诺纽斯变化"
-
 msgid "French Defence: Franco-Hiva Gambit Accepted"
 msgstr "法兰西防御:弗朗克-希瓦弃兵被接受"
 
@@ -2575,14 +2312,8 @@ msgstr "法兰西防御:骑士变化"
 msgid "French Defence: La Bourdonnais Variation, Reuter Gambit"
 msgstr "法兰西防御:布尔多尼亚变化，鲁特弃兵"
 
-msgid "French Defence: MacCutcheon Variation, Duras Variation"
-msgstr "法兰西防御:麦克库切恩变化，杜拉斯变化"
-
 msgid "French Defence: MacCutcheon Variation, Exchange Variation"
 msgstr "法兰西防御:麦克库切恩变化，交换变化"
-
-msgid "French Defence: MacCutcheon Variation, Grigoriev Variation"
-msgstr "法兰西防御:麦克库切恩变化，格里戈里耶夫变化"
 
 msgid "French Defence: MacCutcheon Variation, Wolf Gambit"
 msgstr "法兰西防御:麦克库切恩变化，狼堡垒"
@@ -2650,9 +2381,6 @@ msgstr "法兰西防御:塔拉什变化，开放体系，苏赫丁线"
 msgid "French Defence: Tarrasch Variation, Pawn Center Variation"
 msgstr "法兰西防御:塔拉什变化, 兵中心变化"
 
-msgid "French Defence: Two Knights Variation"
-msgstr "法兰西防御:双骑士变化"
-
 msgid "French Defence: Winawer Variation, Advance Variation"
 msgstr "法兰西防御:维纳沃变化，前进变化"
 
@@ -2673,7 +2401,8 @@ msgstr "法兰西防御:维纳沃变化，指滑变化，库宁双重弃兵"
 msgid "French Defence: Winawer Variation, Fingerslip Variation, Main Line"
 msgstr "法兰西防御:维纳沃变化、指滑变化、主线"
 
-msgid "French Defence: Winawer Variation, Fingerslip Variation, Schwarz's Line"
+msgid ""
+"French Defence: Winawer Variation, Fingerslip Variation, Schwarz's Line"
 msgstr "法兰西防御:维纳沃变化，指滑变化，施瓦茨线"
 
 msgid "French Defence: Winawer Variation, Maróczy-Wallis Variation"
@@ -3313,32 +3042,14 @@ msgstr "格林菲尔德防御:交换变化, 现代交换变化, 抢卒线"
 msgid "Grünfeld Defence: Exchange Variation, Nadanian Attack"
 msgstr "格林菲尔德防御:交换变化，纳达尼安进攻"
 
-msgid "Grünfeld Defence: Exchange Variation, Seville Variation"
-msgstr "格林菲尔德防御:交换变化，塞维利亚变化"
-
-msgid "Grünfeld Defence: Exchange Variation, Sokolsky Variation"
-msgstr "格林菲尔德防御:交换变化, 索科尔斯基变化"
-
-msgid "Grünfeld Defence: Exchange Variation, Spassky Variation"
-msgstr "格林菲尔德防御:交换变化, 斯帕斯基变化"
-
-msgid "Grünfeld Defence: Flohr Defence"
-msgstr "格林菲尔德防御弗洛尔防御"
-
 msgid "Grünfeld Defence: Lutikov Variation, Murrey Attack"
 msgstr "格林菲尔德防御:卢蒂科夫变化，穆雷进攻"
 
 msgid "Grünfeld Defence: Lutikov Variation"
 msgstr "格林菲尔德防御:卢蒂科夫变化"
 
-msgid "Grünfeld Defence: Pachman Variation"
-msgstr "格林菲尔德防御:帕克曼变化"
-
 msgid "Grünfeld Defence: Russian Variation"
 msgstr "格林菲尔德防御:俄罗斯变化"
-
-msgid "Grünfeld Defence: Smyslov Defence"
-msgstr "格林菲尔德防御:斯米斯洛夫防御"
 
 msgid ""
 "Grünfeld Defence: Three Knights Variation, Burille Variation, Reversed "
@@ -3371,9 +3082,6 @@ msgstr "河马防御"
 
 msgid "Hippopotamus defence"
 msgstr "河马防御"
-
-msgid "Horwitz Defence: Dutch Defence, Bellon Gambit"
-msgstr "霍维茨防御:荷兰防御，贝隆弃兵"
 
 msgid "Horwitz Defence: Zilbermints Gambit"
 msgstr "霍维茨防御:齐伯明特弃兵"
@@ -3577,9 +3285,6 @@ msgstr "意大利开局:古典变化, 格雷科弃兵, 传统路线"
 msgid "Italian Game: Classical Variation, Greco Gambit"
 msgstr "意大利开局:古典变化，格雷科弃兵"
 
-msgid "Italian Game: Classical Variation, Tarrasch Variation"
-msgstr "意大利开局:古典变化，塔拉什变化"
-
 msgid "Italian Game: Classical Variation"
 msgstr "意大利开局:古典变化"
 
@@ -3619,9 +3324,6 @@ msgstr "意大利开局:埃文斯弃兵，麦克唐纳防御法"
 msgid "Italian Game: Evans Gambit, Mieses Defence"
 msgstr "意大利开局:埃文斯弃兵，米塞斯防御"
 
-msgid "Italian Game: Evans Gambit, Morphy Attack"
-msgstr "意大利开局:埃文斯弃兵，莫菲进攻"
-
 msgid "Italian Game: Evans Gambit, Mortimer-Evans Gambit"
 msgstr "意大利开局:埃文斯弃兵, 莫蒂默-埃文斯弃兵"
 
@@ -3630,9 +3332,6 @@ msgstr "意大利开局:埃文斯弃兵，皮尔斯防御"
 
 msgid "Italian Game: Evans Gambit, Slow Variation"
 msgstr "意大利开局:埃文斯弃兵，慢速变化"
-
-msgid "Italian Game: Evans Gambit, Waller Attack"
-msgstr "意大利开局:埃文斯弃兵，沃勒进攻"
 
 msgid "Italian Game: Evans Gambit"
 msgstr "意大利开局:埃文斯弃兵"
@@ -3658,23 +3357,11 @@ msgstr "意大利开局:苏格兰弃兵、安德森进攻、主线"
 msgid "Italian Game: Scotch Gambit, Anderssen Attack"
 msgstr "意大利开局:苏格兰弃兵，安德森进攻"
 
-msgid "Italian Game: Scotch Gambit, Canal Variation"
-msgstr "意大利开局:苏格兰弃兵，运河变化"
-
 msgid "Italian Game: Scotch Gambit, Double Gambit Accepted"
 msgstr "意大利开局:苏格兰弃兵，接受双重弃兵"
 
 msgid "Italian Game: Scotch Gambit, Janowski Defence"
 msgstr "意大利开局:苏格兰弃兵，雅诺夫斯基防御"
-
-msgid "Italian Game: Scotch Gambit, Max Lange Attack Accepted"
-msgstr "意大利开局:苏格兰弃兵，马克斯-兰格进攻被接受"
-
-msgid "Italian Game: Scotch Gambit, Max Lange Attack, Long Variation"
-msgstr "意大利开局:苏格兰弃兵，马克斯-兰格进攻，长变化"
-
-msgid "Italian Game: Scotch Gambit, Max Lange Attack, Spielmann Defence"
-msgstr "意大利开局:苏格兰弃兵、马克斯-兰格进攻、斯皮尔曼防御"
 
 msgid "Italian Game: Scotch Gambit, Max Lange Attack"
 msgstr "意大利开局:苏格兰弃兵，马克斯-兰格进攻"
@@ -3699,12 +3386,6 @@ msgstr "意大利开局:双骑士防御，骑士进攻，普通变化"
 
 msgid "Italian Game: Two Knights Defence, Knight Attack"
 msgstr "意大利开局:两个骑士的防御，骑士的进攻"
-
-msgid "Italian Game: Two Knights Defence, Max Lange Attack, Loman Defence"
-msgstr "意大利开局:双骑士防御，马克斯-兰格进攻，洛曼防御"
-
-msgid "Italian Game: Two Knights Defence, Max Lange Attack"
-msgstr "意大利开局:双骑士防御，马克斯-兰格进攻"
 
 msgid "Italian Game: Two Knights Defence, Open Variation"
 msgstr "意大利开局:双骑士防御，公开变化"
@@ -3739,9 +3420,6 @@ msgstr "意大利开局:双骑士防御, 特拉克斯勒变化, 特伦茨克-特
 
 msgid "Italian Game: Two Knights Defence, Ulvestad Variation, Kurkin Gambit"
 msgstr "意大利开局:双骑士防御，乌尔维斯塔德变化，库尔金弃兵"
-
-msgid "Italian Game: Two Knights Defence, Yurdansky Attack"
-msgstr "意大利开局:双骑士防御，尤尔丹斯基进攻"
 
 msgid "Italian Game: Two Knights Defence"
 msgstr "意大利开局:双骑士防御"
@@ -4256,9 +3934,6 @@ msgstr "王翼接受弃兵:主教弃着、基塞里茨基弃着"
 msgid "King's Gambit Accepted: Bishop's Gambit, McDonnell Attack"
 msgstr "王翼接受弃兵:主教弃兵，麦克唐纳进攻"
 
-msgid "King's Gambit Accepted: Blachly Gambit"
-msgstr "王翼接受弃兵:布莱克利弃兵"
-
 msgid "King's Gambit Accepted: Carrera Gambit"
 msgstr "王翼接受弃兵:卡雷拉弃兵"
 
@@ -4339,9 +4014,6 @@ msgstr "王翼接受弃兵:穆齐奥弃兵，萨拉特防御"
 msgid "King's Gambit Accepted: Paris Gambit"
 msgstr "王翼接受弃兵:巴黎弃兵"
 
-msgid "King's Gambit Accepted: Philidor Gambit, Schultz Variation"
-msgstr "王翼接受弃兵:菲利道尔弃兵，舒尔茨变例"
-
 msgid "King's Gambit Accepted: Rosentreter Gambit, Bird Gambit"
 msgstr "王翼接受弃兵:罗森泰特弃兵，鸟人弃兵"
 
@@ -4369,16 +4041,8 @@ msgstr "王翼接受弃兵:塔塔科瓦弃兵，魏斯防御"
 msgid "King's Gambit Accepted: Traditional Variation"
 msgstr "王翼接受弃兵:传统变化"
 
-msgid "King's Gambit Declined: Classical, Svenonius Variation"
-msgstr "王翼拒弃兵古典，斯维诺纽斯变化"
-
 msgid "King's Gambit Declined: Falkbeer CounterGambit Accepted"
 msgstr "王翼拒弃兵:法尔克比尔反戈一击被接受"
-
-msgid ""
-"King's Gambit Declined: Falkbeer CounterGambit, Charousek Gambit, Morphy "
-"Defence"
-msgstr "王翼拒弃兵:法尔克比尔反戈一击, 查鲁斯克反戈一击, 莫菲防御"
 
 msgid "King's Gambit Declined: Falkbeer CounterGambit, Hinrichsen Gambit"
 msgstr "王翼拒弃兵:法尔克比尔反戈一击, 欣里奇森弃兵"
@@ -4398,14 +4062,8 @@ msgstr "王翼拒弃兵霍布斯-齐尔伯明特弃兵"
 msgid "King's Gambit Declined: Keene's Defence"
 msgstr "王翼拒弃兵:基恩的防御"
 
-msgid "King's Gambit Declined: Mafia Defence"
-msgstr "王翼拒弃兵:黑手党防御"
-
 msgid "King's Gambit Declined: Miles Defence"
 msgstr "王翼拒弃兵:迈尔斯防御"
-
-msgid "King's Gambit Declined: Norwalde Variation, Bücker Gambit"
-msgstr "王翼拒弃兵诺瓦尔德变例, 布克弃兵"
 
 msgid "King's Gambit Declined: Norwalde Variation, Schubert Variation"
 msgstr "王翼拒弃兵:诺瓦尔德变例, 舒伯特变例"
@@ -4462,9 +4120,6 @@ msgstr "王翼印度进攻:西西里变化"
 msgid "King's Indian Attack: Wahls Defence"
 msgstr "王翼印度进攻:华氏防御"
 
-msgid "King's Indian Attack: Yugoslav Variation"
-msgstr "王翼印度进攻，南斯拉夫变化"
-
 msgid "King's Indian Attack"
 msgstr "法国：王翼印度进攻"
 
@@ -4473,7 +4128,8 @@ msgid ""
 msgstr "王翼印度防御:阿维尔巴赫变化、别诺尼防御、前进变化"
 
 msgid ""
-"King's Indian Defence: Averbakh Variation, Benoni Defence, Exchange Variation"
+"King's Indian Defence: Averbakh Variation, Benoni Defence, Exchange "
+"Variation"
 msgstr "王翼印度防御:阿维尔巴赫变化，别诺尼防御，交换变化"
 
 msgid "King's Indian Defence: Averbakh Variation, Flexible Defence"
@@ -4482,7 +4138,8 @@ msgstr "王翼印度防御:阿维尔巴赫变化，灵活防御"
 msgid "King's Indian Defence: Averbakh Variation, Geller Defence"
 msgstr "王翼印度防御:阿维尔巴赫变化，盖勒防御"
 
-msgid "King's Indian Defence: Averbakh Variation, Modern Defence, Burgess Line"
+msgid ""
+"King's Indian Defence: Averbakh Variation, Modern Defence, Burgess Line"
 msgstr "王翼印度防御:阿维尔巴赫变化、现代防御、布尔吉斯线"
 
 msgid "King's Indian Defence: Averbakh Variation, Modern Defence"
@@ -4497,35 +4154,11 @@ msgstr "王翼印度防御:阿维尔巴赫变化，西班牙防御"
 msgid "King's Indian Defence: Fianchetto Variation, Benjamin Defence"
 msgstr "王翼印度防御:费安切托变化，本杰明防御"
 
-msgid "King's Indian Defence: Fianchetto Variation, Classical Fianchetto"
-msgstr "王翼印度防御:费安切托变化，古典费安切托"
-
-msgid "King's Indian Defence: Fianchetto Variation, Classical Main Line"
-msgstr "王翼印度防御:费安切托变化，古典主线"
-
-msgid "King's Indian Defence: Fianchetto Variation, Classical Variation"
-msgstr "王翼印度防御:费恩切托变化，古典变化"
-
-msgid "King's Indian Defence: Fianchetto Variation, Debrecen Defence"
-msgstr "王翼印度防御:费安切托变化，德布勒森防御"
-
 msgid "King's Indian Defence: Fianchetto Variation, Double Fianchetto Attack"
 msgstr "王翼印度防御:费安切托变化，双费安切托进攻"
 
 msgid "King's Indian Defence: Fianchetto Variation, Hungarian Variation"
 msgstr "王翼印度防御:费安切托变化，匈牙利变化"
-
-msgid "King's Indian Defence: Fianchetto Variation, Karlsbad Variation"
-msgstr "王翼印度防御:费安切托变化, 卡尔斯巴德变化"
-
-msgid "King's Indian Defence: Fianchetto Variation, Kavalek Defence"
-msgstr "王翼印度防御:费安切托变化，卡瓦列克防御"
-
-msgid "King's Indian Defence: Fianchetto Variation, Larsen Defence"
-msgstr "王翼印度防御:费安切托变化，拉尔森防御"
-
-msgid "King's Indian Defence: Fianchetto Variation, Lesser Simagin (Spassky)"
-msgstr "王翼印度防御:费安切托变化，小西马金(斯帕斯基)"
 
 msgid "King's Indian Defence: Fianchetto Variation, Long Variation"
 msgstr "王翼印度防御:费恩切托变化，长变化"
@@ -4542,57 +4175,22 @@ msgid ""
 "King's Indian Defence: Fianchetto Variation, Panno Variation, Korchnoi Line"
 msgstr "王翼印度防御:费安切托变化、潘诺变化、科尔奇诺伊线"
 
-msgid "King's Indian Defence: Fianchetto Variation, Panno Variation"
-msgstr "王翼印度防御:费安切托变化、潘诺变化"
-
 msgid "King's Indian Defence: Fianchetto Variation, Pterodactyl Variation"
 msgstr "王翼印度防御:费安切托变化, 翼龙变化"
 
-msgid "King's Indian Defence: Fianchetto Variation, Simagin Variation"
-msgstr "王翼印度防御:费安切托变化，西马金变化"
-
-msgid "King's Indian Defence: Fianchetto Variation, Uhlmann-Szabo System"
-msgstr "王翼印度防御:费安切托变化，乌尔曼-斯扎博体系"
-
 msgid "King's Indian Defence: Fianchetto Variation, Yugoslav System"
 msgstr "王翼印度防御:费安切托变化，南斯拉夫体系"
-
-msgid ""
-"King's Indian Defence: Fianchetto Variation, Yugoslav Variation, Advance Line"
-msgstr "王翼印度防御:费安切托变化，南斯拉夫变化，前进线"
 
 msgid ""
 "King's Indian Defence: Fianchetto Variation, Yugoslav Variation, Exchange "
 "Line"
 msgstr "王翼印度防御:费安切托变化、南斯拉夫变化、交换线"
 
-msgid ""
-"King's Indian Defence: Fianchetto Variation, Yugoslav Variation, Rare Line"
-msgstr "王翼印度防御:费安切托变化、南斯拉夫变化、罕见线"
-
-msgid "King's Indian Defence: Fianchetto Variation, Yugoslav Variation"
-msgstr "王翼印度防御:费安切托变化、南斯拉夫变化"
-
-msgid "King's Indian Defence: Four Pawns Attack, Exchange Variation"
-msgstr "王翼印度防御战:四兵进攻，交换变化"
-
-msgid "King's Indian Defence: Four Pawns Attack, Florentine Gambit"
-msgstr "王翼印度防御:四兵进攻，佛罗伦萨弃兵"
-
-msgid "King's Indian Defence: Four Pawns Attack, Fluid Attack"
-msgstr "王翼印度防御战:四兵进攻、流体进攻"
-
 msgid "King's Indian Defence: Four Pawns Attack, Modern Defence"
 msgstr "王翼印度防御:四兵进攻，现代防御"
 
 msgid "King's Indian Defence: Four Pawns Attack, Normal Attack"
 msgstr "王翼印度防御战:四兵进攻，普通进攻"
-
-msgid "King's Indian Defence: Four Pawns Attack"
-msgstr "王翼印度防御战:四兵进攻"
-
-msgid "King's Indian Defence: Normal Variation, King's Knight Variation"
-msgstr "王翼印度防御:普通变化，国王的马变化"
 
 msgid "King's Indian Defence: Normal Variation"
 msgstr "王翼印度防御:普通变化"
@@ -4627,9 +4225,6 @@ msgid ""
 "King's Indian Defence: Orthodox Variation, Positional Defence, Closed Line"
 msgstr "王翼印度防御:正统变化、位置防御、封闭线"
 
-msgid "King's Indian Defence: Orthodox Variation, Positional Defence"
-msgstr "王翼印度防御:正统变化，局面防御"
-
 msgid "King's Indian Defence: Orthodox Variation, Ukrainian Defence"
 msgstr "王翼印度防御:东正教变化、乌克兰防御"
 
@@ -4661,12 +4256,6 @@ msgstr "王翼印度防御:塞米什变化, 波波茨诺夫-科尔沁-佩特罗�
 
 msgid "King's Indian Defence: Sämisch Variation, Bronstein Defence"
 msgstr "王翼印度防御:塞米什变化，布隆斯坦防御"
-
-msgid "King's Indian Defence: Sämisch Variation, Closed Variation, Main Line"
-msgstr "王翼印度防御:塞米什变化、封闭变化、主线"
-
-msgid "King's Indian Defence: Zinnowitz Variation"
-msgstr "王翼印度防御:津诺维茨变化"
 
 msgid "King's Indian defence, 3.Nc3"
 msgstr "王翼印度防御，3.Nc3"
@@ -5091,9 +4680,6 @@ msgstr "米凯纳斯防御:波扎雷克弃兵"
 msgid "Modern Defence: Anti-Modern"
 msgstr "现代防御:反现代"
 
-msgid "Modern Defence: Averbakh System"
-msgstr "现代防御：Averbakh体系"
-
 msgid "Modern Defence: Averbakh Variation, Pseudo-Sämisch"
 msgstr "现代防御:阿维尔巴赫变化, 伪萨米什"
 
@@ -5111,9 +4697,6 @@ msgstr "现代防御:邓华西变化"
 
 msgid "Modern Defence: Fianchetto Gambit"
 msgstr "现代防御:费安切托弃兵"
-
-msgid "Modern Defence: Kotov Variation"
-msgstr "现代防御:科托夫变化"
 
 msgid "Modern Defence: Lizard Defence, Mittenberger Gambit"
 msgstr "现代防御:蜥蜴防御，米滕伯格弃兵"
@@ -5142,16 +4725,15 @@ msgstr "现代防御:挪威防御"
 msgid "Modern Defence: Pterodactyl Variation"
 msgstr "现代防御:翼龙变化"
 
-msgid "Modern Defence: Randspringer Variation"
-msgstr "现代防御:兰斯普林格变化"
-
 msgid "Modern Defence: Semi-Averbakh Variation, Polish Variation"
 msgstr "现代防御:半阿维巴赫变化，波兰变化"
 
-msgid "Modern Defence: Semi-Averbakh Variation, Pterodactyl Variation Accepted"
+msgid ""
+"Modern Defence: Semi-Averbakh Variation, Pterodactyl Variation Accepted"
 msgstr "现代防御:半阿维巴赫变化，翼龙变化被接受"
 
-msgid "Modern Defence: Semi-Averbakh Variation, Pterodactyl Variation Declined"
+msgid ""
+"Modern Defence: Semi-Averbakh Variation, Pterodactyl Variation Declined"
 msgstr "现代防御:半阿维巴赫变化，翼龙变化被拒绝"
 
 msgid "Modern Defence: Semi-Averbakh Variation, Pterodactyl Variation"
@@ -5162,9 +4744,6 @@ msgstr "现代防御:标准防御"
 
 msgid "Modern Defence: Two Knights Variation, Suttles Variation, Tal Gambit"
 msgstr "现代防御:双骑士变化、苏特尔斯变化、塔尔弃兵"
-
-msgid "Modern Defence: Two Knights Variation, Suttles Variation"
-msgstr "现代防御:双骑士变化，苏特尔斯变化"
 
 msgid "Modern Defence: Westermann Gambit"
 msgstr "现代防御:威斯特曼弃兵"
@@ -5232,26 +4811,11 @@ msgstr "新格林菲尔德，6.cd Nxd5，7.OO"
 msgid "Neo-Grünfeld Defence: Classical Variation, Modern Defence"
 msgstr "新格林菲尔德防御:古典变化，现代防御"
 
-msgid "Neo-Grünfeld Defence: Classical Variation, Original Defence"
-msgstr "新格林菲尔德防御:古典变化，原始防御"
-
 msgid "Neo-Grünfeld Defence: Classical Variation, Polgar Variation"
 msgstr "新格林菲尔德防御:古典变化，波尔加变化"
 
-msgid "Neo-Grünfeld Defence: Classical Variation"
-msgstr "新格林菲尔德防御:古典变化"
-
-msgid "Neo-Grünfeld Defence: Delayed Exchange Variation"
-msgstr "新格林菲尔德防御:延迟交换的变化"
-
-msgid "Neo-Grünfeld Defence: Exchange Variation"
-msgstr "新格林菲尔德防御:交换变化"
-
 msgid "Neo-Grünfeld Defence: Non- or Delayed Fianchetto"
 msgstr "新格林菲尔德防御:非或延迟的费安切托"
-
-msgid "Neo-Grünfeld Defence: Ultra-delayed Exchange Variation"
-msgstr "新格林菲尔德防御:超延迟的交换变化"
 
 msgid "Neo-Indian (Seirawan) attack"
 msgstr "新印（Seirawan）进攻"
@@ -5271,7 +4835,8 @@ msgstr "尼姆佐-印度防御:古典变化、柏林变化、斯坦纳变化"
 msgid "Nimzo-Indian Defence: Classical Variation, Keres Defence"
 msgstr "尼姆佐-印度防御:古典变化，凯瑞斯防御"
 
-msgid "Nimzo-Indian Defence: Hübner Variation, Rubinstein Variation, Main Line"
+msgid ""
+"Nimzo-Indian Defence: Hübner Variation, Rubinstein Variation, Main Line"
 msgstr "尼姆佐-印度防御:胡布纳变化、鲁宾斯坦变化、主线"
 
 msgid ""
@@ -5279,40 +4844,8 @@ msgid ""
 "Attack"
 msgstr "尼姆佐-印度防御:胡布纳变化、鲁宾斯坦变化、谢尔巴科夫进攻"
 
-msgid ""
-"Nimzo-Indian Defence: Normal Variation, Bernstein Defence, Exchange Line"
-msgstr "尼姆佐-印度防御:普通变化，伯恩斯坦防御，交换线"
-
-msgid "Nimzo-Indian Defence: Normal Variation, Bernstein Defence"
-msgstr "尼姆佐-印度防御:正常变化，伯恩斯坦防御"
-
-msgid ""
-"Nimzo-Indian Defence: Normal Variation, Gligoric System, Bernstein Defence"
-msgstr "尼姆佐-印第安防御:普通变化、格利高里体系、伯恩斯坦防御"
-
-msgid ""
-"Nimzo-Indian Defence: Normal Variation, Gligoric System, Bronstein Variation"
-msgstr "尼姆佐-印度防御:普通变化、格利高里体系、布隆斯坦变化"
-
-msgid "Nimzo-Indian Defence: Normal Variation, Gligoric System, Exchange at c4"
-msgstr "尼姆佐-印度防御:正常变化, 格里高利体系, c4处的交换"
-
-msgid ""
-"Nimzo-Indian Defence: Normal Variation, Gligoric System, Keres Variation"
-msgstr "尼姆佐-印度防御:普通变化、格利高里体系、凯瑞斯变化"
-
-msgid ""
-"Nimzo-Indian Defence: Normal Variation, Gligoric System, Smyslov Variation"
-msgstr "尼姆佐-印度防御:普通变化, 格里高利体系, 斯米斯洛夫变化"
-
-msgid "Nimzo-Indian Defence: Normal Variation, Gligoric System"
-msgstr "尼姆佐-印度防御:普通变化，格利高里体系"
-
 msgid "Nimzo-Indian Defence: Normal Variation, Hübner Deferred"
 msgstr "尼姆佐-印度防御:正常变化，Hübner延期"
-
-msgid "Nimzo-Indian Defence: Normal Variation, Schlechter Defence"
-msgstr "尼姆佐-印度防御:正常变化，施莱赫特防御"
 
 msgid "Nimzo-Indian Defence: Normal Variation, Sämisch Deferred"
 msgstr "尼姆佐-印度防御:普通变化，塞米什延期"
@@ -5320,32 +4853,18 @@ msgstr "尼姆佐-印度防御:普通变化，塞米什延期"
 msgid "Nimzo-Indian Defence: Ragozin Defence"
 msgstr "尼姆佐-印度防御:拉戈津防御"
 
-msgid "Nimzo-Indian Defence: Ragozin Variation"
-msgstr "尼姆佐-印度防御:拉戈津变化"
-
 msgid "Nimzo-Indian Defence: Romanishin Variation, English Hybrid"
 msgstr "尼姆佐-印度防御:罗曼尼辛变化，英国混合体"
 
 msgid "Nimzo-Indian Defence: Romanishin Variation"
 msgstr "尼姆佐-印度防御:罗曼辛变化"
 
-msgid "Nimzo-Indian Defence: Sämisch Variation, Botvinnik Variation"
-msgstr "尼姆佐-印度防御:塞米什变化, 博特文尼克变化"
-
-msgid "Nimzo-Indian Defence: Sämisch Variation, Capablanca Variation"
-msgstr "尼姆佐-印度防御:萨米奇变化, 卡帕布兰卡变化"
-
-msgid "Nimzo-Indian Defence: Sämisch Variation, Keres Variation"
-msgstr "尼姆佐-印度防御:塞米什变化, 凯瑞斯变化"
-
-msgid "Nimzo-Indian Defence: Sämisch Variation, Romanovsky Variation"
-msgstr "尼姆佐-印度防御:塞米什变化, 罗曼诺夫斯基变化"
-
 msgid "Nimzo-Indian Defence: Sämisch Variation"
 msgstr "尼姆佐-印度防御:塞米什变化"
 
 msgid ""
-"Nimzo-Indian Defence: Three Knights Variation, Duchamp Variation, Modern Line"
+"Nimzo-Indian Defence: Three Knights Variation, Duchamp Variation, Modern "
+"Line"
 msgstr "尼姆佐-印度防御:三骑士变化、杜尚变化、现代线"
 
 msgid "Nimzo-Indian Defence: Three Knights Variation, Duchamp Variation"
@@ -5741,9 +5260,6 @@ msgstr "古印度防御:雅诺夫斯基变化，格林伯格弃兵"
 msgid "Old Indian Defence: Janowski Variation, Main Line"
 msgstr "古印度防御:亚诺夫斯基变化，主线"
 
-msgid "Old Indian Defence: Normal Variation"
-msgstr "古印度防御:普通变化"
-
 msgid "Old Indian Defence: Tartakower-Indian"
 msgstr "古老的印度防御:塔塔库尔-印第安人"
 
@@ -5905,12 +5421,6 @@ msgstr "菲利道尔防御:狮子变化, 狮子的爪子"
 
 msgid "Philidor Defence: Lion Variation, Shirov Gambit"
 msgstr "菲利道尔防御:狮子变化，希罗夫弃兵"
-
-msgid "Philidor Defence: Lion Variation, Sozin Variation"
-msgstr "菲利道尔防御:狮子变化，索津变化"
-
-msgid "Philidor Defence: Lopez CounterGambit, Jaenisch Variation"
-msgstr "菲利道尔防御:洛佩兹反戈一击，雅尼什变化"
 
 msgid "Philidor Defence: Morphy Gambit"
 msgstr "菲利道尔防御:莫非弃兵"
@@ -6122,7 +5632,8 @@ msgid ""
 msgstr "波兰式(索科尔斯基-奥兰多)开局:印第安王变化, 希夫勒进攻"
 
 msgid ""
-"Polish (Sokolsky-Orangutan) Opening: King's Indian Variation, Sokolsky Attack"
+"Polish (Sokolsky-Orangutan) Opening: King's Indian Variation, Sokolsky "
+"Attack"
 msgstr "波兰式(索科尔斯基-奥兰多)开局:印度国王变化, 索科尔斯基进攻"
 
 msgid "Polish (Sokolsky-Orangutan) Opening: King's Indian Variation"
@@ -6329,9 +5840,6 @@ msgstr "翼手龙的防御:西方人，Rhamphorhynchus"
 
 msgid "Pterodactyl Defence: Western, Siroccopteryx"
 msgstr "翼龙的防御:西方人，Siroccopteryx"
-
-msgid "Pterodactyl Defence"
-msgstr "翼龙防御"
 
 msgid "Pterodactyl defence"
 msgstr "翼龙防御"
@@ -7041,9 +6549,6 @@ msgstr "后翼接受弃兵:中央变化, 鲁宾斯坦防御, 耶菲莫夫弃子"
 msgid "Queen's Gambit Accepted: Central Variation, Rubinstein Defence"
 msgstr "后翼接受弃兵:中央变化，鲁宾斯坦防御"
 
-msgid "Queen's Gambit Accepted: Classical Defence, Russian Gambit"
-msgstr "后翼接受弃兵:古典防御, 俄罗斯弃子"
-
 msgid ""
 "Queen's Gambit Accepted: Classical Defence, Steinitz Variation, Development "
 "Variation"
@@ -7082,9 +6587,6 @@ msgstr "后翼接受弃兵:罗森塔尔变化"
 msgid "Queen's Gambit Accepted"
 msgstr "后翼接受弃兵"
 
-msgid "Queen's Gambit Declined: Alapin Variation"
-msgstr "后翼拒弃兵:阿拉宾变化"
-
 msgid ""
 "Queen's Gambit Declined: Albin CounterGambit, Fianchetto Variation, Be6 Line"
 msgstr "后翼拒弃兵:阿尔宾反戈一击, 费安切托变化, Be6线"
@@ -7102,15 +6604,6 @@ msgstr "后翼拒弃兵:阿尔宾反戈一击，普通路线"
 
 msgid "Queen's Gambit Declined: Albin CounterGambit, Tartakower Defence"
 msgstr "后翼拒弃兵:阿尔宾反戈一击, 塔塔科瓦防御"
-
-msgid "Queen's Gambit Declined: Alekhine Variation"
-msgstr "后翼拒弃兵:阿廖欣变化"
-
-msgid "Queen's Gambit Declined: Anti-Tartakower Variation, Petrosian Variation"
-msgstr "后翼拒弃兵:反塔尔塔科瓦变化, 彼得罗辛变化"
-
-msgid "Queen's Gambit Declined: Anti-Tartakower Variation"
-msgstr "后翼拒弃兵:反塔塔库尔变化"
 
 msgid "Queen's Gambit Declined: Austrian Attack, Salvio CounterGambit"
 msgstr "后翼拒弃兵:奥地利的进攻，萨尔维奥的反戈一击"
@@ -7138,23 +6631,6 @@ msgstr "后翼拒弃兵:波罗的海防御，皇后进攻"
 
 msgid "Queen's Gambit Declined: Barmen Variation"
 msgstr "后翼拒弃兵:巴门变化"
-
-msgid ""
-"Queen's Gambit Declined: Cambridge Springs Defence, Bogoljubov Variation"
-msgstr "后翼拒弃兵:剑桥斯普林斯防御，博戈尔久博夫变化"
-
-msgid ""
-"Queen's Gambit Declined: Cambridge Springs Defence, Rubinstein Variation"
-msgstr "后翼拒弃兵:剑桥弹簧防御，鲁宾斯坦变化"
-
-msgid "Queen's Gambit Declined: Cambridge Springs Defence, Yugoslav Variation"
-msgstr "后翼拒弃兵:剑桥弹簧防御，南斯拉夫变化"
-
-msgid "Queen's Gambit Declined: Cambridge Springs Defence"
-msgstr "后翼拒弃兵:剑桥弹簧防御"
-
-msgid "Queen's Gambit Declined: Capablanca Variation"
-msgstr "后翼拒弃兵卡帕布兰卡变化"
 
 msgid "Queen's Gambit Declined: Charousek Variation, Miladinovic Gambit"
 msgstr "后翼拒弃兵:夏鲁塞克变例, 米拉迪诺维奇弃子"
@@ -7185,21 +6661,6 @@ msgstr "后翼拒弃兵:契戈林防御，塔尔塔科韦尔弃兵"
 msgid "Queen's Gambit Declined: Chigorin Defence"
 msgstr "后翼拒弃兵:奇戈林防御"
 
-msgid "Queen's Gambit Declined: Exchange Variation, Positional Variation"
-msgstr "后翼拒弃兵:交换变例, 位置变例"
-
-msgid "Queen's Gambit Declined: Exchange Variation, Reshevsky Variation"
-msgstr "后翼拒弃兵:交换变例, 雷舍夫斯基变例"
-
-msgid "Queen's Gambit Declined: Exchange Variation, Sämisch Variation"
-msgstr "后翼拒弃兵:交换变化, 塞米什变化"
-
-msgid "Queen's Gambit Declined: Exchange Variation"
-msgstr "后翼拒弃兵:交换变化"
-
-msgid "Queen's Gambit Declined: Exchange, Chameleon Variation"
-msgstr "后翼拒弃兵:交换，变色龙变化"
-
 msgid "Queen's Gambit Declined: Harrwitz Attack, Fianchetto Defence"
 msgstr "后翼拒弃兵:哈尔维茨进攻，费安切托防御"
 
@@ -7219,9 +6680,6 @@ msgstr "后翼拒弃兵:哈尔维茨进攻，双骑士防御"
 msgid "Queen's Gambit Declined: Harrwitz Attack"
 msgstr "后翼拒弃兵:哈尔维茨进攻"
 
-msgid "Queen's Gambit Declined: Hastings Variation"
-msgstr "后翼拒弃兵:黑斯廷斯变化"
-
 msgid "Queen's Gambit Declined: Knight Defence, Alekhine Gambit"
 msgstr "后翼拒弃兵:骑士防御，阿廖欣弃兵"
 
@@ -7229,18 +6687,6 @@ msgid ""
 "Queen's Gambit Declined: Lasker Defence, Bernstein Variation, Mar del Plata "
 "Gambit"
 msgstr "后翼拒弃兵:拉斯克防御，伯恩斯坦变化，马德普拉塔弃兵"
-
-msgid "Queen's Gambit Declined: Lasker Defence, Bernstein Variation"
-msgstr "后翼拒弃兵:拉斯克防御，伯恩斯坦变例"
-
-msgid "Queen's Gambit Declined: Lasker Defence, Main Line"
-msgstr "后翼拒弃兵:拉斯克防御，主要路线"
-
-msgid "Queen's Gambit Declined: Lasker Defence, Teichmann Variation"
-msgstr "后翼拒弃兵:拉斯克防御，泰赫曼变化"
-
-msgid "Queen's Gambit Declined: Lasker Defence"
-msgstr "后翼拒弃兵:拉斯克防御"
 
 msgid "Queen's Gambit Declined: Marshall Defence, Tan Gambit"
 msgstr "后翼拒弃兵:马歇尔防御，陈氏弃兵"
@@ -7254,102 +6700,17 @@ msgstr "后翼拒弃兵:现代变化，赫拉尔变化"
 msgid "Queen's Gambit Declined: Modern Variation, Knight Defence"
 msgstr "后翼拒弃兵:现代变化，骑士防御"
 
-msgid "Queen's Gambit Declined: Modern Variation, Normal Line"
-msgstr "后翼拒弃兵:现代变化，普通路线"
-
-msgid "Queen's Gambit Declined: Neo-Orthodox Variation, Main Line"
-msgstr "后翼拒弃兵:新正统变化，主线"
-
-msgid "Queen's Gambit Declined: Neo-Orthodox Variation"
-msgstr "后翼拒弃兵:新正统变化"
-
 msgid "Queen's Gambit Declined: Orthodox Defence, Bd3 Line"
 msgstr "后翼拒弃兵:东正教防御，Bd3线"
-
-msgid "Queen's Gambit Declined: Orthodox Defence, Botvinnik Variation"
-msgstr "后翼拒弃兵:东正教防御，博特文尼克变化"
-
-msgid "Queen's Gambit Declined: Orthodox Defence, Capablanca Variation"
-msgstr "后翼拒弃兵:东正教防御，卡帕布兰卡变化"
-
-msgid "Queen's Gambit Declined: Orthodox Defence, Classical Variation"
-msgstr "后翼拒弃兵:东正教防御，古典变化"
-
-msgid "Queen's Gambit Declined: Orthodox Defence, Fianchetto Variation"
-msgstr "后翼拒弃兵:东正教防御，费安切托变化"
-
-msgid "Queen's Gambit Declined: Orthodox Defence, Henneberger Variation"
-msgstr "后翼拒弃兵:东正教防御，亨内博格变化"
-
-msgid "Queen's Gambit Declined: Orthodox Defence, Janowski Variation"
-msgstr "后翼拒弃兵:东正教防御，雅诺夫斯基变化"
 
 msgid "Queen's Gambit Declined: Orthodox Defence, Main Line"
 msgstr "后翼拒弃兵:东正教防御，主要路线"
 
-msgid "Queen's Gambit Declined: Orthodox Defence, Pillsbury Variation"
-msgstr "后翼拒弃兵:东正教防御，皮尔斯伯里变化"
-
-msgid "Queen's Gambit Declined: Orthodox Defence, Rauzer Variation"
-msgstr "后翼拒弃兵:正统防御，劳泽变化"
-
-msgid "Queen's Gambit Declined: Orthodox Defence, Rubinstein Attack"
-msgstr "后翼拒弃兵:东正教防御，鲁宾斯坦进攻"
-
-msgid ""
-"Queen's Gambit Declined: Orthodox Defence, Rubinstein Variation, Flohr Line"
-msgstr "后翼拒弃兵:正统防御, 鲁宾斯坦变化, 弗洛尔线"
-
-msgid "Queen's Gambit Declined: Orthodox Defence, Rubinstein Variation"
-msgstr "后翼拒弃兵:东正教防御，鲁宾斯坦变化"
-
-msgid "Queen's Gambit Declined: Orthodox Defence, Swiss, Karlsbad Variation"
-msgstr "后翼拒弃兵:东正教防御，瑞士，卡尔斯巴德变化"
-
-msgid "Queen's Gambit Declined: Orthodox Defence"
-msgstr "后翼拒弃兵:东正教防御"
-
-msgid "Queen's Gambit Declined: Pillsbury Attack"
-msgstr "后翼拒弃兵:皮尔斯伯里进攻"
-
 msgid "Queen's Gambit Declined: Ragozin Defence, Alekhine Variation"
 msgstr "后翼拒弃兵:拉戈津防御，阿莱金变化"
 
-msgid "Queen's Gambit Declined: Ragozin Defence, Vienna Variation"
-msgstr "后翼拒弃兵:拉戈津防御，维也纳变化"
-
-msgid "Queen's Gambit Declined: Ragozin Defence"
-msgstr "后翼拒弃兵:拉戈津防御"
-
-msgid "Queen's Gambit Declined: Semi-Slav, Junge Variation"
-msgstr "后翼拒弃兵:半斯拉夫，容格变化"
-
-msgid "Queen's Gambit Declined: Semi-Slav, Koomen Variation"
-msgstr "后翼拒弃兵:半斯拉夫，库门变化"
-
 msgid "Queen's Gambit Declined: Semi-Tarrasch Defence, Exchange Variation"
 msgstr "后翼拒弃兵:半塔拉什防御，交换变化"
-
-msgid "Queen's Gambit Declined: Semi-Tarrasch Defence, Main Line"
-msgstr "后翼拒弃兵:半塔拉什防御，主线"
-
-msgid "Queen's Gambit Declined: Semi-Tarrasch Defence, Pillsbury Variation"
-msgstr "后翼拒弃兵:半塔拉什防御，皮尔斯伯里变化"
-
-msgid "Queen's Gambit Declined: Semi-Tarrasch Defence, San Sebastian Variation"
-msgstr "后翼拒弃兵:半塔拉什防御，圣塞巴斯蒂安变化"
-
-msgid "Queen's Gambit Declined: Semi-Tarrasch Defence, Symmetrical Variation"
-msgstr "后翼拒弃兵:半塔拉什防御，对称变化"
-
-msgid "Queen's Gambit Declined: Semi-Tarrasch Defence"
-msgstr "后翼拒弃兵:半塔拉什防御"
-
-msgid "Queen's Gambit Declined: Semmering Variation"
-msgstr "后翼拒弃兵:塞默林变化"
-
-msgid "Queen's Gambit Declined: Stonewall Variation"
-msgstr "后翼拒弃兵:石墙变化"
 
 msgid ""
 "Queen's Gambit Declined: Tarrasch Defence, Pseudo-Tarrasch Bishop Attack"
@@ -7358,24 +6719,8 @@ msgstr "后翼拒弃兵:塔拉什防御，伪塔拉什主教进攻"
 msgid "Queen's Gambit Declined: Tarrasch Defence, Pseudo-Tarrasch"
 msgstr "后翼拒弃兵:塔拉什防御，伪塔拉什"
 
-msgid "Queen's Gambit Declined: Tarrasch Defence, Stoltz Variation"
-msgstr "后翼拒弃兵:塔拉什防御，斯托尔茨变例"
-
 msgid "Queen's Gambit Declined: Tartakower Defence, Exchange Variation"
 msgstr "后翼拒弃兵:塔塔科瓦防御，交换变化"
-
-msgid ""
-"Queen's Gambit Declined: Tartakower Defence, Makogonov Exchange Variation"
-msgstr "后翼拒弃兵:塔塔科瓦防御，马科戈诺夫交换变化"
-
-msgid "Queen's Gambit Declined: Tartakower Defence"
-msgstr "后翼拒弃兵:塔塔库尔防御"
-
-msgid "Queen's Gambit Declined: Three Knights Variation"
-msgstr "后翼拒弃兵:三骑士变化"
-
-msgid "Queen's Gambit Declined: Traditional Variation"
-msgstr "后翼拒弃兵:传统变化"
 
 msgid "Queen's Gambit Declined: Uhlmann Variation"
 msgstr "后翼拒弃兵:乌尔曼变化"
@@ -7397,12 +6742,6 @@ msgstr "拒后翼弃兵"
 
 msgid "Queen's Gambit"
 msgstr "后翼弃兵"
-
-msgid "Queen's Indian Defence: Averbakh Variation"
-msgstr "后翼印度防御:阿韦尔巴赫变化"
-
-msgid "Queen's Indian Defence: Buerger Variation"
-msgstr "后翼印度防御:布尔格变化"
 
 msgid "Queen's Indian Defence: Classical Variation, Polugaevsky Gambit"
 msgstr "后翼印度防御:古典变化，波鲁加耶夫斯基弃兵"
@@ -7451,9 +6790,6 @@ msgstr "后翼印度防御:费安切托变化, 尼姆佐维契变化, 蒂姆曼�
 msgid "Queen's Indian Defence: Fianchetto Variation, Sämisch Variation"
 msgstr "后翼印度防御:费安切托变化, 塞米什变化"
 
-msgid "Queen's Indian Defence: Kasparov Variation"
-msgstr "后翼印度防御:卡斯帕拉变化"
-
 msgid ""
 "Queen's Indian Defence: Kasparov-Petrosian Variation, Andersson Variation"
 msgstr "后翼印度防御:卡斯帕罗夫-佩特罗辛变化, 安德森变化"
@@ -7484,10 +6820,12 @@ msgstr "后翼印度防御:卡斯帕罗夫-彼得罗辛变化，彼得罗辛进�
 msgid "Queen's Indian Defence: Kasparov-Petrosian Variation, Polovodin Gambit"
 msgstr "后翼印度防御:卡斯帕罗夫-佩特罗辛变化，波洛沃丁弃兵"
 
-msgid "Queen's Indian Defence: Kasparov-Petrosian Variation, Rashkovsky Attack"
+msgid ""
+"Queen's Indian Defence: Kasparov-Petrosian Variation, Rashkovsky Attack"
 msgstr "后翼印度防御:卡斯帕罗夫-佩特罗辛变化，拉什科夫斯基进攻"
 
-msgid "Queen's Indian Defence: Kasparov-Petrosian Variation, Romanishin Attack"
+msgid ""
+"Queen's Indian Defence: Kasparov-Petrosian Variation, Romanishin Attack"
 msgstr "后翼印度防御:卡斯帕罗夫-佩特罗辛变化，罗曼尼辛进攻"
 
 msgid "Queen's Indian Defence: Kasparov-Petrosian Variation"
@@ -7495,9 +6833,6 @@ msgstr "后翼印度防御:卡斯帕罗夫-佩特罗辛变化"
 
 msgid "Queen's Indian Defence: Petrosian Variation, Farago Defence"
 msgstr "后翼印度防御:彼得罗辛变化，法拉戈防御"
-
-msgid "Queen's Indian Defence: Yates Variation"
-msgstr "后翼印度防御:耶茨变化"
 
 msgid "Queen's Indian Defence"
 msgstr "后翼印度防御"
@@ -7616,9 +6951,6 @@ msgstr "后兵开局:科尔体系，反科勒"
 msgid "Queen's Pawn: Colle System, Grünfeld Formation"
 msgstr "后兵开局:科尔体系，格林菲尔德阵型"
 
-msgid "Queen's Pawn: Colle System, Traditional Colle"
-msgstr "后兵开局:科尔体系，传统科尔"
-
 msgid "Queen's Pawn: Colle System"
 msgstr "后兵开局:科尔体系"
 
@@ -7673,17 +7005,11 @@ msgstr "后兵开局:韦列索夫进攻，古典防御"
 msgid "Queen's Pawn: Veresov Attack, Dutch System"
 msgstr "后兵开局:韦列索夫进攻，荷兰体系"
 
-msgid "Queen's Pawn: Veresov Attack, Richter Variation"
-msgstr "后兵开局:韦列索夫进攻，里希特变化"
-
 msgid "Queen's Pawn: Veresov Attack, Two Knights System, Grünfeld Defence"
 msgstr "后兵开局:韦列索夫进攻，双骑士体系，格林菲尔德防御"
 
 msgid "Queen's Pawn: Veresov Attack, Two Knights System"
 msgstr "后兵开局:韦列索夫进攻，双骑士体系"
-
-msgid "Queen's Pawn: Veresov Attack, Veresov Variation"
-msgstr "后兵开局韦列索夫进攻，韦列索夫变化"
 
 msgid "Queen's Pawn: Veresov, Richter Attack"
 msgstr "后兵开局:韦列索夫、里希特进攻"
@@ -7784,9 +7110,6 @@ msgstr "老鼠防御:加速古吉尼德兹"
 msgid "Rat Defence: Antal Defence"
 msgstr "老鼠防御:安塔尔防御体系"
 
-msgid "Rat Defence: Balogh Defence"
-msgstr "老鼠防御:巴洛格防御"
-
 msgid "Rat Defence: English Rat, Lisbon Gambit"
 msgstr "老鼠防御:英式老鼠，里斯本弃兵"
 
@@ -7802,17 +7125,11 @@ msgstr "老鼠防御:和谐主义者"
 msgid "Rat Defence: Petruccioli Attack"
 msgstr "老鼠防御:佩特鲁奇利进攻"
 
-msgid "Rat Defence: Small Center Defence"
-msgstr "老鼠防御:小中心防御"
-
 msgid "Rat Defence: Spike Attack"
 msgstr "老鼠防御:钉子进攻"
 
 msgid "Reti Opening: Advance Variation, Michel Gambit"
 msgstr "列蒂开局:前进变化, 米歇尔开局"
-
-msgid "Reti Opening: Anglo-Slav Variation, Bled Variation"
-msgstr "列蒂开局:盎格鲁-斯拉夫变化, 布莱德变化"
 
 msgid ""
 "Reti Opening: Anglo-Slav Variation, Bogoljubov Variation, Stonewall Line"
@@ -7820,18 +7137,6 @@ msgstr "列蒂开局:盎格鲁-斯拉夫变化, 波戈尔久博夫变化, 石墙
 
 msgid "Reti Opening: Anglo-Slav Variation, Bogoljubov Variation"
 msgstr "列蒂开局:盎格鲁-斯拉夫变化, 博戈尔尤博夫变化"
-
-msgid "Reti Opening: Anglo-Slav Variation, Capablanca Variation"
-msgstr "列蒂开局:盎格鲁-斯拉夫变化, 卡帕布兰卡变化"
-
-msgid "Reti Opening: Anglo-Slav Variation, London Defensive System"
-msgstr "列蒂开局:盎格鲁-斯拉夫变化，伦敦防御体系"
-
-msgid "Reti Opening: Anglo-Slav Variation, New York System"
-msgstr "列蒂开局:盎格鲁-斯拉夫变化, 纽约体系"
-
-msgid "Reti Opening: Anglo-Slav Variation, Torre System"
-msgstr "列蒂开局:盎格鲁-斯拉夫变化, 托雷体系"
 
 msgid "Reti Opening: Penguin Variation"
 msgstr "列蒂开局:企鹅变化"
@@ -7917,9 +7222,6 @@ msgstr "里赫特尔 - 威列索夫进攻，Veresov变例"
 msgid "Richter-Veresov attack"
 msgstr "里赫特尔 - 威列索夫进攻"
 
-msgid "Robatsch (Modern) Defence"
-msgstr "Robatsch（现代）防御"
-
 msgid "Robatsch (modern) defence"
 msgstr "罗巴特什（现代）防御"
 
@@ -7959,24 +7261,15 @@ msgstr "鲁宾斯坦开局:古典防御"
 msgid "Rubinstein Opening: Semi-Slav Defence"
 msgstr "鲁宾斯坦开局:半斯拉夫防御"
 
-msgid "Rubinstein Opening"
-msgstr "鲁宾斯坦开局"
-
 msgid ""
-"Russian Game (Petroff Defence): Classical Attack, Chigorin Variation, Browne "
-"Attack"
+"Russian Game (Petroff Defence): Classical Attack, Chigorin Variation, Browne"
+" Attack"
 msgstr "俄罗斯（彼得罗夫防御）:古典进攻，奇戈林变化，布朗进攻"
 
 msgid ""
 "Russian Game (Petroff Defence): Classical Attack, Chigorin Variation, Main "
 "Line"
 msgstr "俄罗斯（彼得罗夫防御）:古典进攻、契戈林变化、主线"
-
-msgid "Russian Game (Petroff Defence): Classical Attack, Jaenisch Variation"
-msgstr "俄罗斯（彼得罗夫防御）:古典进攻，雅尼什变化"
-
-msgid "Russian Game (Petroff Defence): Classical Attack, Krause Variation"
-msgstr "俄罗斯（彼得罗夫防御）:古典进攻，克劳斯变化"
 
 msgid ""
 "Russian Game (Petroff Defence): Classical Attack, Marshall Variation, "
@@ -8575,9 +7868,6 @@ msgstr "萨拉戈萨开局"
 msgid "Scandinavian (centre counter) defence"
 msgstr "斯堪的纳维亚（中心反击）防御"
 
-msgid "Scandinavian Defence: Anderssen CounterAttack, Orthodox Attack"
-msgstr "斯堪的纳维亚防御:安德森的反击，东正教的进攻"
-
 msgid "Scandinavian Defence: Blackburne Gambit"
 msgstr "斯堪的纳维亚防御:布莱克伯恩弃兵"
 
@@ -8680,9 +7970,6 @@ msgstr "斯堪的纳维亚：里氏变例"
 msgid "Scotch Opening: Alekhine Gambit"
 msgstr "苏格兰开局:阿廖欣开局"
 
-msgid "Scotch Opening: Benima Defence"
-msgstr "苏格兰人的开场:贝尼玛防御"
-
 msgid "Scotch Opening: Braune Variation"
 msgstr "苏格兰开局:布劳恩变化"
 
@@ -8694,9 +7981,6 @@ msgstr "苏格兰开局:古典变化, 千年变化"
 
 msgid "Scotch Opening: Classical Variation"
 msgstr "苏格兰开局:古典变化"
-
-msgid "Scotch Opening: Göring Gambit, Bardeleben Variation"
-msgstr "苏格兰开局:戈林开局, 巴德莱本变化"
 
 msgid "Scotch Opening: Göring Gambit, Double Pawn Sacrifice"
 msgstr "苏格兰开局:戈林弃兵, 双卒牺牲"
@@ -8730,9 +8014,6 @@ msgstr "苏格兰开局:保尔森变化"
 
 msgid "Scotch Opening: Scotch Gambit, Advance Variation"
 msgstr "苏格兰开局:苏格兰开局, 提前变化"
-
-msgid "Scotch Opening: Scotch Gambit, Dubois Réti Defence"
-msgstr "苏格兰开局:苏格兰开局, 杜布瓦-雷蒂防御"
 
 msgid "Scotch Opening: Scotch Gambit, Göring Gambit Declined"
 msgstr "苏格兰开局:苏格兰开局, 戈林开局被拒绝"
@@ -8854,41 +8135,14 @@ msgstr "苏格兰：塔塔科维变例"
 msgid "Semi-Benoni (`blockade variation')"
 msgstr "半别诺尼（`封锁变例“）"
 
-msgid "Semi-Slav Defence: Accelerated Meran Variation"
-msgstr "半斯拉夫防御:加速梅朗变化"
-
 msgid "Semi-Slav Defence: Anti-Moscow Gambit"
 msgstr "半斯拉夫防御:反莫斯科弃兵"
 
 msgid "Semi-Slav Defence: Anti-Noteboom, Stonewall Variation, Portisch Gambit"
 msgstr "半斯拉夫防御:反诺特博姆，石墙变化，波尔蒂什弃兵"
 
-msgid "Semi-Slav Defence: Bogoljubov Variation"
-msgstr "半斯拉夫防御:博戈尔久博夫变化"
-
-msgid "Semi-Slav Defence: Botvinnik Variation, Alatortsev System"
-msgstr "半斯拉夫防御:博特文尼克变化，阿拉托塞夫体系"
-
-msgid "Semi-Slav Defence: Botvinnik Variation, Ekstrom Variation"
-msgstr "半斯拉夫防御:博特文尼克变化、埃克斯特罗姆变化"
-
-msgid "Semi-Slav Defence: Botvinnik Variation, Lilienthal Variation"
-msgstr "半斯拉夫防御:博特文尼克变化、利连塔尔变化"
-
-msgid "Semi-Slav Defence: Botvinnik Variation, Szabo Variation"
-msgstr "半斯拉夫防御:博特文尼克变化、萨博变化"
-
-msgid "Semi-Slav Defence: Botvinnik Variation"
-msgstr "半斯拉夫防御:博特文尼克变化"
-
-msgid "Semi-Slav Defence: Chigorin Defence"
-msgstr "半斯拉夫防御:奇戈林防御"
-
 msgid "Semi-Slav Defence: Gunderam Gambit"
 msgstr "半斯拉夫防御:昆德拉姆弃兵"
-
-msgid "Semi-Slav Defence: Main Line"
-msgstr "半斯拉夫防御:主线"
 
 msgid "Semi-Slav Defence: Marshall Gambit, Forgotten Variation"
 msgstr "半斯拉夫防御:马歇尔弃兵，被遗忘的变化"
@@ -8899,47 +8153,14 @@ msgstr "半斯拉夫防御:马歇尔弃兵，主线"
 msgid "Semi-Slav Defence: Marshall Gambit, Tolush Variation"
 msgstr "半斯拉夫防御:马歇尔弃兵，托鲁什变化"
 
-msgid "Semi-Slav Defence: Meran Variation, Blumenfeld Variation"
-msgstr "半斯拉夫防御:梅朗变化, 布卢门菲尔德变化"
-
-msgid "Semi-Slav Defence: Meran Variation, Lundin Variation"
-msgstr "半斯拉夫防御:梅朗变化, 伦丁变化"
-
-msgid "Semi-Slav Defence: Meran Variation, Old Variation"
-msgstr "半斯拉夫防御:梅朗变化，旧变化"
-
-msgid "Semi-Slav Defence: Meran Variation, Pirc Variation"
-msgstr "半斯拉夫防御:梅朗变化, 普尔变化"
-
-msgid "Semi-Slav Defence: Meran Variation, Rabinovich Variation"
-msgstr "半斯拉夫防御:梅朗变化, 拉比诺维奇变化"
-
-msgid "Semi-Slav Defence: Meran Variation, Rellstab Attack"
-msgstr "半斯拉夫防御:梅朗变化，雷尔斯塔布进攻"
-
-msgid "Semi-Slav Defence: Meran Variation, Reynolds' Variation"
-msgstr "半斯拉夫防御:梅朗变化, 雷诺兹变化"
-
 msgid "Semi-Slav Defence: Meran Variation, Sozin Variation"
 msgstr "半斯拉夫防御:梅朗变化、索津变化"
-
-msgid "Semi-Slav Defence: Meran Variation, Stahlberg Variation"
-msgstr "半斯拉夫防御:梅朗变化, 斯塔尔贝格变化"
 
 msgid "Semi-Slav Defence: Meran Variation, Wade Variation, Kaidanov Gambit"
 msgstr "半斯拉夫防御:梅朗变化、韦德变化、凯达诺夫弃兵"
 
 msgid "Semi-Slav Defence: Meran Variation, Wade Variation, Larsen Variation"
 msgstr "半斯拉夫防御:梅朗变化, 韦德变化, 拉尔森变化"
-
-msgid "Semi-Slav Defence: Meran Variation, Wade Variation"
-msgstr "半斯拉夫防御:梅朗变化、韦德变化"
-
-msgid "Semi-Slav Defence: Meran Variation"
-msgstr "半斯拉夫防御:梅朗变化"
-
-msgid "Semi-Slav Defence: Normal Variation"
-msgstr "半斯拉夫防御:普通变化"
 
 msgid "Semi-Slav Defence: Noteboom Variation, Abrahams Variation"
 msgstr "半斯拉夫防御:诺特博姆变化，亚伯拉罕变化"
@@ -8958,15 +8179,6 @@ msgstr "半斯拉夫防御:诺特博姆变化，反诺特博姆变化"
 msgid "Semi-Slav Defence: Quiet Variation"
 msgstr "半斯拉夫防御:安静的变化"
 
-msgid "Semi-Slav Defence: Romih Variation"
-msgstr "半斯拉夫防御:罗米赫变化"
-
-msgid "Semi-Slav Defence: Rubinstein System"
-msgstr "半斯拉夫防御:鲁宾斯坦体系"
-
-msgid "Semi-Slav Defence: Semi-Meran Variation"
-msgstr "半斯拉夫防御:半马兰变化"
-
 msgid ""
 "Semi-Slav Defence: Stoltz Variation, Center Variation, Mikhalchishin Line"
 msgstr "半斯拉夫防御:斯托尔茨变化，中心变化，米哈尔基申线"
@@ -8977,20 +8189,8 @@ msgstr "半斯拉夫防御:斯托尔茨变化，中心变化"
 msgid "Semi-Slav Defence: Stoltz Variation, Shabalov Attack"
 msgstr "半斯拉夫防御:斯托尔茨变化，沙巴洛夫进攻"
 
-msgid "Semi-Slav Defence: Stoltz Variation"
-msgstr "半斯拉夫防御:斯托尔茨变化"
-
-msgid "Semi-Slav Defence: Stonewall Defence"
-msgstr "半斯拉夫防御:石墙防御"
-
-msgid "Semi-Slav Defence"
-msgstr "半斯拉夫防御"
-
 msgid "Sicilian Defence: Accelerated Dragon"
 msgstr "西西里防御:加速的龙"
-
-msgid "Sicilian Defence: Accelerated Fianchetto, Simagin Variation"
-msgstr "西西里防御:加速的费安切托，西马金变化"
 
 msgid "Sicilian Defence: Alapin Variation, Barmen Defence, Central Exchange"
 msgstr "西西里防御:阿拉宾变化、巴门防御、中央交换"
@@ -8998,7 +8198,8 @@ msgstr "西西里防御:阿拉宾变化、巴门防御、中央交换"
 msgid "Sicilian Defence: Alapin Variation, Barmen Defence, EndGame Variation"
 msgstr "西西里防御:阿拉宾变化、巴门防御、端庄变化"
 
-msgid "Sicilian Defence: Alapin Variation, Barmen Defence, Milner-Barry Attack"
+msgid ""
+"Sicilian Defence: Alapin Variation, Barmen Defence, Milner-Barry Attack"
 msgstr "西西里防御:阿拉宾变化、巴门防御、米尔纳-巴里进攻"
 
 msgid "Sicilian Defence: Alapin Variation, Barmen Defence, Modern Line"
@@ -9025,9 +8226,6 @@ msgstr "西西里防御:亚马逊进攻"
 msgid "Sicilian Defence: Big Clamp Formation"
 msgstr "西西里防御:大夹子阵"
 
-msgid "Sicilian Defence: Boleslavsky Variation"
-msgstr "西西里防御:博列斯拉夫斯基变化"
-
 msgid "Sicilian Defence: Bowdler Attack"
 msgstr "西西里防御:鲍德勒进攻"
 
@@ -9045,9 +8243,6 @@ msgstr "西西里防御:运河进攻，多夫曼弃兵"
 
 msgid "Sicilian Defence: Canal Attack, Moscow Gambit"
 msgstr "西西里防御:运河进攻，莫斯科弃兵"
-
-msgid "Sicilian Defence: Classical Variation, Anti-Sozin Variation"
-msgstr "西西里防御:古典变化，反索津变化"
 
 msgid "Sicilian Defence: Classical Variation, Dragon Transfer"
 msgstr "西西里防御:古典变化，龙形转移"
@@ -9089,45 +8284,8 @@ msgstr "西西里防御:拖延的阿拉平，巴斯曼-帕拉特尼克弃兵"
 msgid "Sicilian Defence: Double-Dutch Gambit"
 msgstr "西西里防御:双重荷兰人弃兵"
 
-msgid "Sicilian Defence: Dragon Variation, Classical Variation, Alekhine Line"
-msgstr "西西里防御:龙形变化、古典变化、阿列克金线"
-
-msgid ""
-"Sicilian Defence: Dragon Variation, Classical Variation, Amsterdam Variation"
-msgstr "西西里防御:龙形变化、古典变化、阿姆斯特丹变化"
-
-msgid ""
-"Sicilian Defence: Dragon Variation, Classical Variation, Battery Variation"
-msgstr "西西里防御:龙形变化、古典变化、炮台变化"
-
-msgid ""
-"Sicilian Defence: Dragon Variation, Classical Variation, Bernard Defence"
-msgstr "西西里防御:龙形变式、古典变式、伯纳德防御"
-
-msgid ""
-"Sicilian Defence: Dragon Variation, Classical Variation, Grigoriev Variation"
-msgstr "西西里防御:龙形变化, 古典变化, 格里戈里耶夫变化"
-
 msgid "Sicilian Defence: Dragon Variation, Classical Variation, Maróczy Line"
 msgstr "西西里防御:龙形变化，古典变化，马洛奇线"
-
-msgid "Sicilian Defence: Dragon Variation, Classical Variation, Normal Line"
-msgstr "西西里防御:龙形变化、古典变化、普通线"
-
-msgid ""
-"Sicilian Defence: Dragon Variation, Classical Variation, Spielmann Variation"
-msgstr "西西里防御:龙形变化, 古典变化, 斯皮尔曼变化"
-
-msgid ""
-"Sicilian Defence: Dragon Variation, Classical Variation, Stockholm Attack"
-msgstr "西西里防御:龙形变化、古典变化、斯德哥尔摩进攻"
-
-msgid ""
-"Sicilian Defence: Dragon Variation, Classical Variation, Tartakower Line"
-msgstr "西西里防御:龙形变化, 古典变化, 塔塔考尔线"
-
-msgid "Sicilian Defence: Dragon Variation, Classical Variation, Zollner Gambit"
-msgstr "西西里防御:龙形变化、古典变化、佐尔纳弃兵"
 
 msgid "Sicilian Defence: Dragon Variation, Classical Variation"
 msgstr "西西里防御:龙形变化，古典变化"
@@ -9141,11 +8299,9 @@ msgstr "西西里防御:龙形变化, 现代Bc4变化"
 msgid "Sicilian Defence: Dragon Variation, Yugoslav Attack, Belezky Line"
 msgstr "西西里防御:龙形变化，南斯拉夫进攻，贝勒兹基线"
 
-msgid "Sicilian Defence: Dragon Variation, Yugoslav Attack, Czerniak Variation"
+msgid ""
+"Sicilian Defence: Dragon Variation, Yugoslav Attack, Czerniak Variation"
 msgstr "西西里防御:龙形变化、南斯拉夫进攻、捷尔尼亚克变化"
-
-msgid "Sicilian Defence: Dragon Variation, Yugoslav Attack, Modern Line"
-msgstr "西西里防御:龙形变化、南斯拉夫进攻、现代线"
 
 msgid "Sicilian Defence: Dragon Variation, Yugoslav Attack, Old Line"
 msgstr "西西里防御:龙形变化、南斯拉夫进攻、旧线"
@@ -9279,12 +8435,6 @@ msgid ""
 "Peresypkin's Sacrifice"
 msgstr "西西里防御:拉斯克-佩利坎变化, 斯维什尼科夫变化, 佩雷西普金的牺牲品"
 
-msgid "Sicilian Defence: Magnus Smith Trap"
-msgstr "西西里防御:马格努斯-史密斯陷阱"
-
-msgid "Sicilian Defence: Marshall Gambit"
-msgstr "西西里防御:马歇尔弃兵"
-
 msgid "Sicilian Defence: McDonnell Attack, Tal Gambit"
 msgstr "西西里防御:麦克唐纳进攻，塔尔弃兵"
 
@@ -9305,9 +8455,6 @@ msgstr "西西里防御:现代变化，主线"
 
 msgid "Sicilian Defence: Modern Variations, Tartakower"
 msgstr "西西里防御:现代变化，塔尔塔库尔"
-
-msgid "Sicilian Defence: Morphy Gambit, Andreaschek Gambit"
-msgstr "西西里防御:莫非弃兵，安德烈斯切克弃兵"
 
 msgid "Sicilian Defence: Morphy Gambit"
 msgstr "西西里防御:莫非弃兵"
@@ -9333,9 +8480,6 @@ msgstr "西西里防御:纳吉多夫变化、奥波岑斯基变化、现代线"
 msgid ""
 "Sicilian Defence: Najdorf Variation, Opocensky Variation, Traditional Line"
 msgstr "西西里防御:纳伊多夫变化、奥波岑斯基变化、传统线"
-
-msgid "Sicilian Defence: Najdorf Variation, Scheveningen Variation"
-msgstr "西西里防御:纳伊多夫变化、谢维宁根变化"
 
 msgid "Sicilian Defence: Nimzowitsch Variation, Advance Variation"
 msgstr "西西里防御:尼姆佐维茨变化，前进变化"
@@ -9444,36 +8588,11 @@ msgstr "西西里防御:里希特-劳泽变化, 古典变化, 康采恩线"
 msgid "Sicilian Defence: Richter-Rauzer Variation, Classical Variation"
 msgstr "西西里防御:里希特-劳泽变化，古典变化"
 
-msgid "Sicilian Defence: Richter-Rauzer Variation, Dragon Variation"
-msgstr "西西里防御:里希特-劳泽变化，龙变化"
-
 msgid "Sicilian Defence: Richter-Rauzer Variation, Ivanov Variation"
 msgstr "西西里防御:里希特-劳泽变化，伊万诺夫变化"
 
-msgid "Sicilian Defence: Richter-Rauzer Variation, Modern Variation"
-msgstr "西西里防御:里希特-劳泽变化，现代变化"
-
-msgid ""
-"Sicilian Defence: Richter-Rauzer Variation, Neo-Modern Variation, "
-"Nyezhmetdinov Attack"
-msgstr "西西里防御:里希特-劳泽变化，新现代变化，涅日梅迪诺夫进攻"
-
-msgid "Sicilian Defence: Richter-Rauzer Variation, Neo-Modern Variation"
-msgstr "西西里防御:里希特-劳泽变化，新现代变化"
-
-msgid "Sicilian Defence: Richter-Rauzer Variation, Podebrady Variation"
-msgstr "西西里防御:里希特-劳泽变化, 波德布拉迪变化"
-
 msgid "Sicilian Defence: Rossolimo Variation, Brooklyn Retreat Defence"
 msgstr "西西里防御:罗索里莫变化，布鲁克林退却防御"
-
-msgid "Sicilian Defence: Scheveningen Variation, Classical Main Line"
-msgstr "西西里防御:谢维宁根变化，古典主线"
-
-msgid ""
-"Sicilian Defence: Scheveningen Variation, Classical Variation, Paulsen "
-"Variation"
-msgstr "西西里防御:谢维宁根变化, 古典变化, 保尔森变化"
 
 msgid "Sicilian Defence: Scheveningen Variation, Classical Variation"
 msgstr "西西里防御:谢维宁根变化，古典变化"
@@ -9488,27 +8607,6 @@ msgstr "西西里防御:谢维宁根变化，延迟的凯尔斯进攻"
 
 msgid "Sicilian Defence: Scheveningen Variation, English Attack"
 msgstr "西西里防御:谢维宁根变化，英式进攻"
-
-msgid "Sicilian Defence: Scheveningen Variation, Fianchetto Variation"
-msgstr "西西里防御:谢维宁根变化、费安切托变化"
-
-msgid "Sicilian Defence: Scheveningen Variation, Keres Attack"
-msgstr "西西里防御:谢维宁根变化，凯雷斯进攻"
-
-msgid "Sicilian Defence: Scheveningen Variation, Matanovic Attack"
-msgstr "西西里防御:谢维宁根变化，马塔诺维奇进攻"
-
-msgid "Sicilian Defence: Scheveningen Variation, Modern Variation"
-msgstr "西西里防御:谢维宁根变化、现代变化"
-
-msgid "Sicilian Defence: Scheveningen Variation, Tal Variation"
-msgstr "西西里防御:谢维宁根变化，塔尔变化"
-
-msgid "Sicilian Defence: Scheveningen Variation, Vitolins Variation"
-msgstr "西西里防御:谢维宁根变化，维托林变化"
-
-msgid "Sicilian Defence: Scheveningen Variation"
-msgstr "西西里防御:谢维宁根变化"
 
 msgid "Sicilian Defence: Smith-Morra Gambit Accepted, Chicago Defence"
 msgstr "西西里防御:接受史密斯-莫拉弃兵，芝加哥防御"
@@ -9567,9 +8665,6 @@ msgstr "西西里防御:史密斯-莫拉弃兵被拒绝，翼形结构"
 msgid "Sicilian Defence: Smith-Morra Gambit Deferred"
 msgstr "西西里防御:史密斯-莫拉弃兵的推迟"
 
-msgid "Sicilian Defence: Smith-Morra Gambit, Chicago Defence"
-msgstr "西西里防御:史密斯-莫拉弃兵，芝加哥防御"
-
 msgid "Sicilian Defence: Smith-Morra Gambit, Danish Variation"
 msgstr "西西里防御:史密斯-莫拉弃兵，丹麦变化"
 
@@ -9582,26 +8677,8 @@ msgstr "西西里防御:斯奈德变化，皇后费安切托变化"
 msgid "Sicilian Defence: Snyder Variation"
 msgstr "西西里防御:斯奈德变化"
 
-msgid "Sicilian Defence: Sozin Attack, Fischer Variation"
-msgstr "西西里防御:索津进攻，费舍尔变化"
-
-msgid "Sicilian Defence: Sozin Attack, Flank Variation"
-msgstr "西西里防御:索津进攻，侧翼变化"
-
-msgid "Sicilian Defence: Sozin Attack, Leonhardt Variation"
-msgstr "西西里防御:索津进攻，莱昂哈特变化"
-
 msgid "Sicilian Defence: Sozin Attack, Main Line, Sherbakov Variation"
 msgstr "西西里防御:索津进攻，主线，谢尔巴科夫变化"
-
-msgid "Sicilian Defence: Sozin Attack, Main Line"
-msgstr "西西里防御:索津进攻，主线"
-
-msgid "Sicilian Defence: Sozin Attack"
-msgstr "西西里防御:索津进攻"
-
-msgid "Sicilian Defence: Sozin, not Scheveningen"
-msgstr "西西里防御:索津，而不是谢维宁根"
 
 msgid "Sicilian Defence: Spielmann Variation"
 msgstr "西西里防御:斯皮尔曼变化"
@@ -9622,9 +8699,6 @@ msgstr "西西里防御:泰曼诺夫变化, 巴斯特里科夫变化"
 
 msgid "Sicilian Defence: Taimanov Variation"
 msgstr "西西里防御:塔伊曼诺夫变化"
-
-msgid "Sicilian Defence: Velimirovic Attack"
-msgstr "西西里防御:维利米罗维奇进攻"
 
 msgid "Sicilian Defence: Wing Gambit Deferred"
 msgstr "西西里防御:翼形弃兵的推迟"
@@ -10181,7 +9255,8 @@ msgstr "斯拉夫防御:变色龙变化"
 msgid "Slav Defence: Czech Variation, Bled Attack"
 msgstr "斯拉夫防御:捷克变化，布莱德进攻"
 
-msgid "Slav Defence: Czech Variation, Carlsbad Variation, Morozevich Variation"
+msgid ""
+"Slav Defence: Czech Variation, Carlsbad Variation, Morozevich Variation"
 msgstr "斯拉夫防御:捷克变化, 卡尔斯巴德变化, 莫罗泽维奇变化"
 
 msgid "Slav Defence: Czech Variation, Dutch Variation"
@@ -10195,12 +9270,6 @@ msgstr "斯拉夫防御:捷克变化、威斯巴登变化、尖锐线"
 
 msgid "Slav Defence: Diemer Gambit"
 msgstr "斯拉夫防御:戴默尔弃兵"
-
-msgid "Slav Defence: Exchange Variation, Schallopp Variation"
-msgstr "斯拉夫防御:交换变化，沙洛普变化"
-
-msgid "Slav Defence: Exchange Variation, Symmetrical Line"
-msgstr "斯拉夫防御:交换变化, 对称线"
 
 msgid "Slav Defence: Exchange Variation"
 msgstr "QGD斯拉夫防御：外汇变化"
@@ -10244,14 +9313,12 @@ msgstr "西班牙，鲁伊-洛佩斯：柏林防御，柏林墙"
 msgid "Spanish, Ruy Lopez: Berlin Defence, Fishing Pole Variation"
 msgstr "西班牙，鲁伊-洛佩斯：柏林防御，钓鱼竿变化"
 
-msgid "Spanish, Ruy Lopez: Berlin Defence, Tarrasch Trap"
-msgstr "西班牙，鲁伊-洛佩斯：柏林防御，塔拉什陷阱"
-
 msgid ""
 "Spanish, Ruy Lopez: Berlin Defence, l'Hermet Variation, Berlin Wall Defence"
 msgstr "西班牙, Ruy Lopez: 柏林防御, l'Hermet变化, 柏林墙防御"
 
-msgid "Spanish, Ruy Lopez: Berlin Defence, l'Hermet Variation, Westerinen Line"
+msgid ""
+"Spanish, Ruy Lopez: Berlin Defence, l'Hermet Variation, Westerinen Line"
 msgstr "西班牙，鲁伊-洛佩斯：柏林防御，赫尔梅特变化，韦斯特里宁线"
 
 msgid "Spanish, Ruy Lopez: Berlin Defence, l'Hermet Variation"
@@ -10265,9 +9332,6 @@ msgstr "西班牙，鲁伊-洛佩斯：保加利亚变化"
 
 msgid "Spanish, Ruy Lopez: Central CounterGambit"
 msgstr "西班牙，鲁伊-洛佩斯:中央对抗赛"
-
-msgid "Spanish, Ruy Lopez: Classical Defence, Benelux Variation"
-msgstr "西班牙，鲁伊-洛佩兹:古典防御, 贝内卢变化"
 
 msgid "Spanish, Ruy Lopez: Classical Variation, Konikowski Gambit"
 msgstr "西班牙, Ruy Lopez:古典变化, 科尼科夫斯基弃兵"
@@ -10284,41 +9348,11 @@ msgstr "西班牙，鲁伊-洛佩斯:古典变化, 祖克特弃兵"
 msgid "Spanish, Ruy Lopez: Closed, Alekhine Gambit"
 msgstr "西班牙，鲁伊-洛佩斯:封闭式, 阿列克金弃兵"
 
-msgid "Spanish, Ruy Lopez: Closed, Bogoljubov Variation"
-msgstr "西班牙, Ruy Lopez:封闭式, 博戈尔久博夫变化"
-
-msgid "Spanish, Ruy Lopez: Closed, Borisenko Variation"
-msgstr "西班牙, Ruy Lopez:封闭式, 鲍尔森科变化"
-
-msgid "Spanish, Ruy Lopez: Closed, Breyer Defence"
-msgstr "西班牙，鲁伊-洛佩斯:封闭，布雷耶防御"
-
 msgid "Spanish, Ruy Lopez: Closed, Center Attack, Basque Gambit"
 msgstr "西班牙, 鲁伊-洛佩斯:封闭式，中心进攻，巴斯克弃兵"
 
-msgid "Spanish, Ruy Lopez: Closed, Chigorin Defence"
-msgstr "西班牙，鲁伊-洛佩斯:封闭式, 奇戈林防御"
-
-msgid "Spanish, Ruy Lopez: Closed, Chigorin, Yugoslav System"
-msgstr "西班牙，鲁伊-洛佩兹:封闭, 奇戈林, 南斯拉夫体系"
-
-msgid "Spanish, Ruy Lopez: Closed, Closed Defence"
-msgstr "西班牙, 鲁伊-洛佩斯:封闭式, 封闭式防御"
-
-msgid "Spanish, Ruy Lopez: Closed, Flohr System"
-msgstr "西班牙, Ruy Lopez:封闭式，弗洛尔体系"
-
 msgid "Spanish, Ruy Lopez: Closed, Kecskemet Variation"
 msgstr "西班牙, Ruy Lopez:封闭式, Kecskemet变化"
-
-msgid "Spanish, Ruy Lopez: Closed, Keres Defence"
-msgstr "西班牙，鲁伊-洛佩斯:封闭式, Keres防御"
-
-msgid "Spanish, Ruy Lopez: Closed, Kholmov Variation"
-msgstr "西班牙, Ruy Lopez:封闭, 克霍莫夫变化"
-
-msgid "Spanish, Ruy Lopez: Closed, Lutikov Variation"
-msgstr "西班牙, 鲁伊-洛佩斯:封闭, 卢蒂科夫变化"
 
 msgid "Spanish, Ruy Lopez: Closed, Martinez Variation"
 msgstr "西班牙，鲁伊-洛佩斯:封闭, 马丁内斯变化"
@@ -10326,29 +9360,14 @@ msgstr "西班牙，鲁伊-洛佩斯:封闭, 马丁内斯变化"
 msgid "Spanish, Ruy Lopez: Closed, Morphy Attack"
 msgstr "西班牙, 鲁伊-洛佩斯:封闭, 莫菲进攻"
 
-msgid "Spanish, Ruy Lopez: Closed, Pilnik Variation"
-msgstr "西班牙, Ruy Lopez:闭关, 皮尔尼克变化"
-
-msgid "Spanish, Ruy Lopez: Closed, Smyslov Defence"
-msgstr "西班牙, 鲁伊-洛佩斯:封闭式, 斯米斯洛夫防御"
-
 msgid "Spanish, Ruy Lopez: Closed, Smyslov-Breyer-Zaitsev Hybrid"
 msgstr "西班牙, Ruy Lopez:封闭式, 斯米斯洛夫-布雷尔-扎伊采夫混合式"
-
-msgid "Spanish, Ruy Lopez: Closed, Suetin Variation"
-msgstr "西班牙，鲁伊-洛佩斯:封闭, Suetin变化"
 
 msgid "Spanish, Ruy Lopez: Closed, Yates Variation, Short Attack"
 msgstr "西班牙, 鲁伊-洛佩斯:封闭式, 耶茨变化, 短距离进攻"
 
-msgid "Spanish, Ruy Lopez: Closed, Yates Variation"
-msgstr "西班牙, Ruy Lopez:闭关, 耶茨变化"
-
 msgid "Spanish, Ruy Lopez: Closed, Zaitsev System"
 msgstr "西班牙，鲁伊-洛佩斯:封闭式, Zaitsev体系"
-
-msgid "Spanish, Ruy Lopez: Closed"
-msgstr "西班牙，鲁伊-洛佩斯:封闭"
 
 msgid "Spanish, Ruy Lopez: Cozio Defence, Tartakower Gambit"
 msgstr "西班牙，鲁伊-洛佩兹:科西奥防御, 塔塔考尔弃兵"
@@ -10374,25 +9393,11 @@ msgstr "西班牙，鲁伊-洛佩兹马歇尔进攻，原始马歇尔进攻"
 msgid "Spanish, Ruy Lopez: Morphy Defence, Breyer Defence, Quiet Variation"
 msgstr "西班牙，鲁伊-洛佩兹:莫菲防御，布雷耶防御，静止变化"
 
-msgid "Spanish, Ruy Lopez: Morphy Defence, Breyer Defence, Zaitsev Hybrid"
-msgstr "西班牙，鲁伊-洛佩兹:莫菲防御，布雷耶防御，扎伊采夫混合体"
-
-msgid "Spanish, Ruy Lopez: Morphy Defence, Breyer Defence"
-msgstr "西班牙，鲁伊-洛佩兹:莫菲防御，布雷耶防御"
-
-msgid "Spanish, Ruy Lopez: Morphy Defence, Chigorin Defence, Panov System"
-msgstr "西班牙，鲁伊-洛佩兹:莫菲防御、奇戈林防御、帕诺夫体系"
-
 msgid "Spanish, Ruy Lopez: Morphy Defence, Jaffe Gambit"
 msgstr "西班牙, Ruy Lopez:莫菲防御，贾菲弃兵"
 
 msgid "Spanish, Ruy Lopez: Morphy Defence, Mackenzie Variation"
 msgstr "西班牙，鲁伊-洛佩兹:莫菲防御, 麦肯锡变化"
-
-msgid ""
-"Spanish, Ruy Lopez: Morphy Defence, Modern Steinitz Defence, Fianchetto "
-"Variation"
-msgstr "西班牙, Ruy Lopez:莫菲防御，现代斯坦尼茨防御，费安切托变化"
 
 msgid "Spanish, Ruy Lopez: Morphy Defence, Modern Steinitz Defence"
 msgstr "西班牙，鲁伊-洛佩兹:莫菲防御，现代斯坦尼茨防御"
@@ -10414,9 +9419,6 @@ msgstr "西班牙，鲁伊-洛佩兹诺亚方舟的陷阱"
 
 msgid "Spanish, Ruy Lopez: Open, Bernstein Variation, Luther Line"
 msgstr "西班牙, 鲁伊-洛佩斯:公开, 伯恩斯坦变化, 路德线"
-
-msgid "Spanish, Ruy Lopez: Open, Classical Defence, Main Line"
-msgstr "西班牙, 鲁伊-洛佩斯:公开赛、古典防御、主线"
 
 msgid "Spanish, Ruy Lopez: Open, Skipworth Gambit"
 msgstr "西班牙，鲁伊-洛佩兹:公开赛, 斯基普沃斯弃兵"
@@ -10494,9 +9496,6 @@ msgstr "体系:双鸭子阵型"
 
 msgid "Tarrasch Defence: Classical Variation, Advance Variation"
 msgstr "塔拉什防御:古典变化，前进变化"
-
-msgid "Tarrasch Defence: Classical Variation, Bogoljubov Variation"
-msgstr "塔拉什防御:古典变化, 波戈尔久博夫变化"
 
 msgid "Tarrasch Defence: Classical Variation, Chandler Variation"
 msgstr "塔拉什防御:古典变化, 钱德勒变化"
@@ -10692,9 +9691,6 @@ msgstr "双马：最大兰格进攻"
 
 msgid "Valencia opening"
 msgstr "瓦伦西亚开局"
-
-msgid "Van Geet Opening: Battambang Variation"
-msgstr "范吉特开局:马德望变化"
 
 msgid "Van Geet Opening: Berlin Gambit"
 msgstr "范吉特开局:柏林赌城"
@@ -11071,9 +10067,6 @@ msgstr "祖克托尔开局:反转墨西哥防御"
 msgid "Zukertort Opening: Ross Gambit"
 msgstr "祖克托尔开局:罗斯弃兵"
 
-msgid "Zukertort Opening: Santasiere's Folly"
-msgstr "祖克多特开局:桑塔西尔的愚蠢"
-
 msgid "Zukertort Opening: Shabalov Gambit"
 msgstr "祖克托尔开局:沙巴罗夫开局"
 
@@ -11088,9 +10081,6 @@ msgstr "祖克托尔开局:斯佩尔梅特开局"
 
 msgid "Zukertort Opening: St. George Defence"
 msgstr "祖克托尔开局:圣乔治防御"
-
-msgid "Zukertort Opening: Tennison Gambit"
-msgstr "祖克托尔开局:泰尼森弃兵"
 
 msgid "Zukertort Opening: The Potato"
 msgstr "祖克托尔开局:马铃薯"

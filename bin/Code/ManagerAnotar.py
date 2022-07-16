@@ -160,7 +160,16 @@ class ManagerAnotar(Manager.Manager):
         if numjug > 0:
             self.set_label2(
                 '%s: <b>%d</b><br>%s: %0.2f"<br>%s: <b>%d</b><br>%s: <b>%d</b>'
-                % (_("Half-moves"), numjug, _("Average time"), self.vtime / numjug, _("Errors"), self.errores, _("Hints"), self.ayudas_recibidas)
+                % (
+                    _("Half-moves"),
+                    numjug,
+                    _("Average time"),
+                    self.vtime / numjug,
+                    _("Errors"),
+                    self.errores,
+                    _("Hints"),
+                    self.ayudas_recibidas,
+                )
             )
             if numjug > 2:
                 db = UtilSQL.DictSQL(self.configuration.ficheroAnotar)

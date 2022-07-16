@@ -82,8 +82,8 @@ class CPU:
     def runLineal(self):
         self.start()
         while self.dicTareas:
-             time.sleep(self.ms_step/1000.0)
-             QtWidgets.QApplication.processEvents()
+            time.sleep(self.ms_step / 1000.0)
+            QtWidgets.QApplication.processEvents()
 
     def run(self):
         li = sorted(self.dicTareas.keys())
@@ -110,4 +110,3 @@ class CPU:
         if len(self.dicTareas) == 0:
             self.stop()
         QtWidgets.QApplication.processEvents()
-

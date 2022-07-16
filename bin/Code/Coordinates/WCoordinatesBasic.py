@@ -18,9 +18,9 @@ class WCoordinatesBasic(LCDialog.LCDialog):
         LCDialog.LCDialog.__init__(self, procesador.main_window, title, icon, extconfig)
 
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("DATE", _("Date"), 140, centered=True)
-        o_columns.nueva("SIDE", _("Side"), 100, centered=True)
-        o_columns.nueva("SCORE", _("Score"), 90, centered=True)
+        o_columns.nueva("DATE", _("Date"), 140, align_center=True)
+        o_columns.nueva("SIDE", _("Side"), 100, align_center=True)
+        o_columns.nueva("SCORE", _("Score"), 90, align_center=True)
         self.glista = Grid.Grid(self, o_columns, siSelecFilas=True, siSeleccionMultiple=True)
         f = Controles.TipoLetra(puntos=configuration.x_menu_points)
         self.glista.ponFuente(f)

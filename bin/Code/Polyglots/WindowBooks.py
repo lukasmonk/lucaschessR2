@@ -57,7 +57,12 @@ class WBooksCrear(QtWidgets.QDialog):
         ly.controlc(self.chbUniform, 6, 0, 1, 2)
 
         # Toolbar
-        li_acciones = [(_("Accept"), Iconos.Aceptar(), "aceptar"), None, (_("Cancel"), Iconos.Cancelar(), "cancelar"), None]
+        li_acciones = [
+            (_("Accept"), Iconos.Aceptar(), "aceptar"),
+            None,
+            (_("Cancel"), Iconos.Cancelar(), "cancelar"),
+            None,
+        ]
         tb = Controles.TB(self, li_acciones)
 
         # Layout
@@ -153,7 +158,9 @@ def polyglotUnir(owner):
     lista.append((_("Book to create") + ":", dictr))
 
     while True:
-        resultado = FormLayout.fedit(lista, title=_("Merge two books in one"), parent=owner, anchoMinimo=460, icon=Iconos.Libros())
+        resultado = FormLayout.fedit(
+            lista, title=_("Merge two books in one"), parent=owner, anchoMinimo=460, icon=Iconos.Libros()
+        )
         if resultado:
             resultado = resultado[1]
             error = None

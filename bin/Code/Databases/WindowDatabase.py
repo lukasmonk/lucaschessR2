@@ -44,12 +44,12 @@ class WBDatabase(LCDialog.LCDialog):
         self.ultFocus = None
 
         self.tab = Controles.Tab()
-        self.tab.nuevaTab(self.wgames, _("Games"))
+        self.tab.new_tab(self.wgames, _("Games"))
         if siSummary:
-            self.tab.nuevaTab(self.wsummary, _("Opening explorer"))
+            self.tab.new_tab(self.wsummary, _("Opening explorer"))
             self.tab.dispatchChange(self.tabChanged)
         if not si_select:
-            self.tab.nuevaTab(self.wplayer, _("Players"))
+            self.tab.new_tab(self.wplayer, _("Players"))
         self.tab.ponTipoLetra(puntos=procesador.configuration.x_tb_fontpoints)
 
         if self.owner and not self.is_temporary:

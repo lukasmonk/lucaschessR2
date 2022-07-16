@@ -191,7 +191,7 @@ class Opening:
         self.db_history = UtilSQL.DictSQL(nom_fichero, tabla="HISTORY")
         self.db_cache_engines = None
         self.basePV = self.getconfig("BASEPV", "")
-        self.title = self.getconfig("TITLE", os.path.basename(nom_fichero).split(".")[0])
+        self.title = self.getconfig("TITLE", os.path.basename(nom_fichero)[:-4])
 
         # Check visual
         if not UtilSQL.check_table_in_db(nom_fichero, "Flechas"):
@@ -774,7 +774,6 @@ class Opening:
                 self.db_cache_engines.close()
                 self.db_cache_engines = None
 
-
             if self.board:
                 self.board.dbvisual_close()
                 self.board = None
@@ -798,11 +797,11 @@ class Opening:
             self._conexion.close()
             self._conexion = None
 
-    def importarPGN(self, owner, gamebase, ficheroPGN, maxDepth, with_variations, with_comments):
+    def importarPGN(self, owner, gamebase, path_pgn, max_depth, with_variations, with_comments):
 
-        dlTmp = QTUtil2.BarraProgreso(owner, _("Import"), _("Working..."), Util.filesize(ficheroPGN)).mostrar()
+        dlTmp = QTUtil2.BarraProgreso(owner, _("Import"), _("Working..."), Util.filesize(path_pgn)).mostrar()
 
-        self.save_history(_("Import"), _("PGN with variations"), os.path.basename(ficheroPGN))
+        self.save_history(_("Import"), _("PGN with variations"), os.path.basename(path_pgn))
 
         dic_comments = {}
 
@@ -813,12 +812,14 @@ class Opening:
         sql_insert = "INSERT INTO LINES( XPV ) VALUES( ? )"
         sql_update = "UPDATE LINES SET XPV=? WHERE XPV=?"
 
-        for n, (nbytes, game) in enumerate(Game.read_games(ficheroPGN)):
+        for n, (nbytes, game) in enumerate(Game.read_games(path_pgn)):
             dlTmp.pon(nbytes)
 
             li_pv = game.all_pv("", with_variations)
+            if not game.siFenInicial():
+                continue
             for pv in li_pv:
-                li = pv.split(" ")[:maxDepth]
+                li = pv.split(" ")[:max_depth]
                 pv = " ".join(li)
 
                 if base and not pv.startswith(base) or base == pv:
@@ -852,7 +853,7 @@ class Opening:
                             elif 0 < nag < 7:
                                 d["VALORACION"] = nag
                     if d:
-                        dic_comments[fenm2] =  d
+                        dic_comments[fenm2] = d
 
             if n % 50:
                 self._conexion.commit()
@@ -916,7 +917,9 @@ class Opening:
         self._conexion.commit()
         self.li_xpv.sort()
 
-    def import_polyglot(self, ventana, game, bookW, bookB, titulo, depth, siWhite, onlyone, minMoves, excl_transpositions):
+    def import_polyglot(
+        self, ventana, game, bookW, bookB, titulo, depth, siWhite, onlyone, minMoves, excl_transpositions
+    ):
         bp = QTUtil2.BarraProgreso1(ventana, titulo, formato1="%m")
         bp.ponTotal(0)
         bp.ponRotulo(_X(_("Reading %1"), "..."))
@@ -1073,7 +1076,6 @@ class Opening:
         alm.one_move_variation = False
         alm.si_pdt = True
 
-
         for recno in range(total):
             ws.pb_pos(recno + 1)
             if ws.pb_cancel():
@@ -1090,7 +1092,7 @@ class Opening:
                 if dic:
                     comment = dic.get("COMENTARIO")
                     if comment:
-                        move.add_comment(comment)
+                        move.set_comment(comment)
                     nag = dic.get("VALORACION")
                     if nag:
                         move.add_nag(nag)

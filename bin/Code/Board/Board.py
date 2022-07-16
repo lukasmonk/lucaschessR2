@@ -314,7 +314,7 @@ class Board(QtWidgets.QGraphicsView):
         if self.blindfold:
             self.piezas = Piezas.Blindfold(nom_pieces_ori, self.blindfold)
         else:
-            self.piezas = Code.todasPiezas.selecciona(nom_pieces_ori)
+            self.piezas = Code.all_pieces.selecciona(nom_pieces_ori)
         self.anchoPieza = self.config_board.anchoPieza()
         self.margenPieza = 2
 
@@ -481,7 +481,7 @@ class Board(QtWidgets.QGraphicsView):
         else:
             baseCasillas = BoardTypes.Caja()
             baseCasillas.colorRelleno = self.colorFondo
-        baseCasillas.physical_pos.x = baseCasillas.physical_pos.y = self.margenCentro + self.tamFrontera/2
+        baseCasillas.physical_pos.x = baseCasillas.physical_pos.y = self.margenCentro + self.tamFrontera / 2
         baseCasillas.physical_pos.alto = baseCasillas.physical_pos.ancho = self.width_square * 8
         baseCasillas.physical_pos.orden = 2
         baseCasillas.tipo = 0
@@ -817,7 +817,7 @@ class Board(QtWidgets.QGraphicsView):
             for x in Util.listdir(Code.path_resource("Pieces")):
                 try:
                     if x.is_dir():
-                        ico = Code.todasPiezas.icono("K", x.name)
+                        ico = Code.all_pieces.icono("K", x.name)
                         li.append((x.name, ico))
                 except:
                     pass
@@ -905,7 +905,7 @@ class Board(QtWidgets.QGraphicsView):
 
         if self.config_board.is_base:
             nom_pieces_ori = self.config_board.nomPiezas()
-            Code.todasPiezas.save_all_png(nom_pieces_ori, 30)
+            Code.all_pieces.save_all_png(nom_pieces_ori, 30)
             Delegados.generaPM(self.piezas)
             self.main_window.pgnRefresh()
             if hasattr(self.main_window.manager, "put_view"):
@@ -1901,7 +1901,7 @@ class Board(QtWidgets.QGraphicsView):
             bf.opacity = float(resto) / 100.0
             bf.width_square = self.width_square
 
-        elif modo.startswith("tb"): #takeback eboard
+        elif modo.startswith("tb"):  # takeback eboard
             bf = self.config_board.fTransicion().copia()
             bf.opacity = 0.5
             bf.width_square = self.width_square
@@ -2347,7 +2347,7 @@ class Board(QtWidgets.QGraphicsView):
             #     self.creaFlechaMov(m_1.to_sq, m_1.from_sq, "tb")
             #     if two_moves:
             #         self.creaFlechaMov(m_2.to_sq, m_2.from_sq, "tb")
-            
+
             if two_moves:
                 m_1 = game.move(-1)
                 self.set_tmp_position(m_1.position_before)
@@ -2479,17 +2479,17 @@ class WTamBoard(QtWidgets.QDialog):
         elif tam == -1:
             tpz = self.antes
             ct.anchoPieza(tpz)
-            self.cb.ponValor(self.anchoParaCB(tpz))
+            self.cb.set_value(self.anchoParaCB(tpz))
             self.cambiaAncho()
         elif tam == -2:
-            self.cb.ponValor(self.anchoParaCB(ct.ponDefAnchoPieza()))
+            self.cb.set_value(self.anchoParaCB(ct.ponDefAnchoPieza()))
             self.cambiaAncho()
         else:
             ct.anchoPieza(tam)
             self.cambiaAncho()
 
-        self.sb.ponValor(self.board.anchoPieza)
-        self.sl.ponValor(self.board.anchoPieza)
+        self.sb.set_value(self.board.anchoPieza)
+        self.sl.set_value(self.board.anchoPieza)
         self.siOcupado = False
         self.dispatch()
 
@@ -2499,9 +2499,9 @@ class WTamBoard(QtWidgets.QDialog):
         self.siOcupado = True
         tam = self.sb.valor()
         self.config_board.anchoPieza(tam)
-        self.cb.ponValor(self.anchoParaCB(tam))
+        self.cb.set_value(self.anchoParaCB(tam))
         self.cambiaAncho()
-        self.sl.ponValor(tam)
+        self.sl.set_value(tam)
         self.siOcupado = False
         self.dispatch()
 
@@ -2511,8 +2511,8 @@ class WTamBoard(QtWidgets.QDialog):
         self.siOcupado = True
         tam = self.sl.valor()
         self.config_board.anchoPieza(tam)
-        self.cb.ponValor(self.anchoParaCB(tam))
-        self.sb.ponValor(tam)
+        self.cb.set_value(self.anchoParaCB(tam))
+        self.sb.set_value(tam)
         self.cambiaAncho()
         self.siOcupado = False
         self.dispatch()

@@ -220,7 +220,6 @@ class TallerSonido:
         self.ioDevice = self.audio_input.start()
         self.ioDevice.readyRead.connect(self.mic_record)
 
-
     def mic_record(self):
         self.datos.append(self.ioDevice.readAll())
 
@@ -233,7 +232,7 @@ class TallerSonido:
         io = BytesIO()
         wf = wave.open(io, "wb")
         wf.setnchannels(self.CHANNELS)
-        wf.setsampwidth(self.FORMAT//8)
+        wf.setsampwidth(self.FORMAT // 8)
         wf.setframerate(self.SAMPLE_RATE)
         wf.writeframes(frames)
         self.wav = io.getvalue()
@@ -271,7 +270,7 @@ class TallerSonido:
         if self.owner.is_canceled:
             return
         t1 = time.time()
-        centesimas = (t1 - self.ini_time)*100 + self.cent_desde
+        centesimas = (t1 - self.ini_time) * 100 + self.cent_desde
         try:
             if centesimas >= self.cent_hasta:
                 centesimas = self.cent_desde

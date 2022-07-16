@@ -9,7 +9,7 @@ from Code.Base.Position import Position
 
 class T4:
     def __init__(self, configuration):
-        self.tb = chess.gaviota.open_tablebase(configuration.carpeta_gaviota())
+        self.tb = chess.gaviota.open_tablebase(configuration.folder_gaviota())
 
     def better_moves(self, fen, move):
         dic = self.checkFen(fen)

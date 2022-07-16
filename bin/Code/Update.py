@@ -5,9 +5,18 @@ import zipfile
 
 import Code
 from Code import Util
+from Code.Board import Eboard
 from Code.QT import QTUtil2, SelectFiles
 
 WEBUPDATES = "https://lucaschess.pythonanywhere.com/static/updater/updates_%s.txt" % (
+    "win32" if Code.is_windows else "linux"
+)
+
+WEBUPDATES_EBOARD_VERSION = "https://lucaschess.pythonanywhere.com/static/updater/version_eboards_%s.txt" % (
+    "win32" if Code.is_windows else "linux"
+)
+
+WEBUPDATES_EBOARD_ZIP = "https://lucaschess.pythonanywhere.com/static/updater/eboards_%s.zip" % (
     "win32" if Code.is_windows else "linux"
 )
 
@@ -55,7 +64,51 @@ def update_file(titulo, urlfichero, tam):
     return True
 
 
+def update_eboard(main_window):
+    version_local = Eboard.version()
+
+    ftxt = Code.configuration.ficheroTemporal("txt")
+    ok = Util.urlretrieve(WEBUPDATES_EBOARD_VERSION, ftxt)
+
+    if not ok:
+        return
+
+    with open(ftxt, "rt") as f:
+        version_remote = f.read().strip()
+
+    if version_local == version_remote:
+        return
+
+    um = QTUtil2.unMomento(main_window, _("Downloading eboards drivers"))
+
+    fzip = Code.configuration.ficheroTemporal("zip")
+    ok = Util.urlretrieve(WEBUPDATES_EBOARD_ZIP, fzip)
+
+    um.final()
+
+    if ok:
+        zfobj = zipfile.ZipFile(fzip)
+        for name in zfobj.namelist():
+            path_dll = os.path.join(Code.folder_OS, "DigitalBoards", name)
+            with open(path_dll, "wb") as outfile:
+                outfile.write(zfobj.read(name))
+        zfobj.close()
+
+        with open(os.path.join(Code.folder_OS, "DigitalBoards", "news"), "rt", encoding="utf-8") as f:
+            news = f.read().strip()
+
+        QTUtil2.message(main_window, _("Updated the eboards drivers") + "\n %s: %s\n%s" % (_("Version"), version_remote, news))
+
+    else:
+
+        QTUtil2.message_error(main_window, _("It has not been possible to update the eboards drivers"))
+
+
 def update(main_window):
+
+    if Code.configuration.x_digital_board:
+        update_eboard(main_window)
+
     # version = "R 1.01 -> R01.01 -> 01.01 -> 0101 -> bytes
     current_version = Code.VERSION.replace(" ", "0").replace(".", "")[1:].encode()
     base_version = Code.BASE_VERSION.encode()

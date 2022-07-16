@@ -15,7 +15,7 @@ from Code.Base.Constantes import (
 )
 from Code.Openings import Opening
 from Code.PlayAgainstEngine import ManagerPlayAgainstEngine
-from Code.QT import Iconos
+from Code.QT import QTVarios
 
 
 class ManagerPerson(ManagerPlayAgainstEngine.ManagerPlayAgainstEngine):
@@ -48,12 +48,15 @@ class ManagerPerson(ManagerPlayAgainstEngine.ManagerPlayAgainstEngine):
 
         cmrival = self.configuration.buscaRival("irina", None)
         self.xrival = self.procesador.creaManagerMotor(cmrival, None, 2)
-        self.rival_name = dic_var["RIVAL"]
-        self.xrival.set_option("Personality", self.rival_name)
+        for name, trans, ico, elo in QTVarios.list_irina():
+            if name == dic_var["RIVAL"]:
+                self.xrival.name = trans
+                imagen = ico.pixmap(ico.availableSizes()[0])
+                break
+        self.xrival.set_option("Personality", dic_var["RIVAL"])
         if not dic_var["FASTMOVES"]:
             self.xrival.set_option("Max Time", "5")
             self.xrival.set_option("Min Time", "1")
-        self.xrival.name = _F(self.rival_name)
 
         self.lirm_engine = []
         self.next_test_resign = 0
@@ -105,9 +108,7 @@ class ManagerPerson(ManagerPlayAgainstEngine.ManagerPlayAgainstEngine):
         self.remove_hints(True, siQuitarAtras=False)
         self.put_pieces_bottom(is_white)
 
-        imagen = getattr(Iconos, "pm%s" % self.rival_name)
-
-        self.main_window.base.lbRotulo1.ponImagen(imagen())
+        self.main_window.base.lbRotulo1.ponImagen(imagen)
         self.main_window.base.lbRotulo1.show()
 
         self.ponCapInfoPorDefecto()

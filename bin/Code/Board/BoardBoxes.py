@@ -64,8 +64,8 @@ class MarcoSC(BoardBlocks.BloqueEspSC):
 
         f = lambda xy: int(round(float(xy) / float(ac), 0))
 
-        dc = f(physical_pos.x-tf/2) + 1
-        df = f(physical_pos.y-tf/2) + 1
+        dc = f(physical_pos.x - tf / 2) + 1
+        df = f(physical_pos.y - tf / 2) + 1
         hc = f(physical_pos.x + physical_pos.ancho)
         hf = f(physical_pos.y + physical_pos.alto)
 

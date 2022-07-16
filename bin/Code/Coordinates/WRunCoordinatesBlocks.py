@@ -108,7 +108,11 @@ class WRunCoordinatesBlocks(LCDialog.LCDialog):
         si_pasa_block, si_final = self.coordinates.new_done(self.current_score)
         self.db_coordinates.save(self.coordinates)
         if si_final:
-            QTUtil2.message(self, "%s\n\n%s: %d/%d\n" % (_("Ended"), _("Result"), self.coordinates.min_score_white, self.coordinates.min_score_black))
+            QTUtil2.message(
+                self,
+                "%s\n\n%s: %d/%d\n"
+                % (_("Ended"), _("Result"), self.coordinates.min_score_white, self.coordinates.min_score_black),
+            )
             self.terminar()
             return
         else:

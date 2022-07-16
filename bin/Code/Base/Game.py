@@ -20,6 +20,7 @@ from Code.Base.Constantes import (
     TERMINATION_RESIGN,
     TERMINATION_UNKNOWN,
     TERMINATION_WIN_ON_TIME,
+    TERMINATION_ENGINE_MALFUNCTION,
     STANDARD_TAGS,
     NONE,
     ALL,
@@ -902,6 +903,7 @@ class Game:
             TERMINATION_ADJUDICATION: _("Adjudication"),
             TERMINATION_WIN_ON_TIME: _("Won on time"),
             TERMINATION_UNKNOWN: _("Unknown"),
+            TERMINATION_ENGINE_MALFUNCTION: _("Engine malfunction"),
         }.get(self.termination, "")
 
     def shrink(self, until_move: int):
@@ -1001,7 +1003,7 @@ def pgn_game(pgn):
             pos = kv.find(" ")
             if pos > 0:
                 lb = kv[:pos]
-                vl = kv[pos + 1 :].strip()
+                vl = kv[pos + 1:].strip()
                 lbup = lb.upper()
                 if lbup == "FEN":
                     FasterCode.set_fen(vl)
@@ -1043,7 +1045,7 @@ def pgn_game(pgn):
                 if jg_activa:
                     if jg_activa.comment:
                         jg_activa.comment += "\n"
-                    jg_activa.comment += comment
+                    jg_activa.comment += comment.replace("}", "]")
                 else:
                     game.set_first_comment(comment)
 

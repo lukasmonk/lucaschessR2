@@ -226,10 +226,10 @@ class Tournament:
     def slow_pieces(self, valor=None):
         return self.config("slow_pieces", valor, False)
 
-    def drawMinPly(self, valor=None):
+    def draw_min_ply(self, valor=None):
         return self.config("drawminply", valor, 50)
 
-    def drawRange(self, valor=None):
+    def draw_range(self, valor=None):
         return self.config("drawrange", valor, 10)
 
     def adjudicator_active(self, valor=None):

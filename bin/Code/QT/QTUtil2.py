@@ -3,14 +3,7 @@ import time
 from PySide2 import QtCore, QtWidgets
 
 import Code
-from Code.Base.Constantes import (
-    GO_BACK,
-    GO_END,
-    GO_FORWARD,
-    GO_START,
-    ZVALUE_PIECE,
-    ZVALUE_PIECE_MOVING
-)
+from Code.Base.Constantes import GO_BACK, GO_END, GO_FORWARD, GO_START, ZVALUE_PIECE, ZVALUE_PIECE_MOVING
 from Code.QT import Colocacion
 from Code.QT import Controles
 from Code.QT import Iconos
@@ -19,12 +12,14 @@ from Code.QT import QTVarios
 
 
 def dic_keys():
-    return {QtCore.Qt.Key.Key_Left: GO_BACK,
-            QtCore.Qt.Key.Key_Right: GO_FORWARD,
-            QtCore.Qt.Key.Key_Up: GO_BACK,
-            QtCore.Qt.Key.Key_Down: GO_FORWARD,
-            QtCore.Qt.Key.Key_Home: GO_START,
-            QtCore.Qt.Key.Key_End: GO_END}
+    return {
+        QtCore.Qt.Key.Key_Left: GO_BACK,
+        QtCore.Qt.Key.Key_Right: GO_FORWARD,
+        QtCore.Qt.Key.Key_Up: GO_BACK,
+        QtCore.Qt.Key.Key_Down: GO_FORWARD,
+        QtCore.Qt.Key.Key_Home: GO_START,
+        QtCore.Qt.Key.Key_End: GO_END,
+    }
 
 
 class MensEspera(QtWidgets.QWidget):
@@ -42,12 +37,19 @@ class MensEspera(QtWidgets.QWidget):
         pmImagen=None,
         puntos=12,
         conImagen=True,
-        siParentNone=False
+        siParentNone=False,
     ):
 
-        super(MensEspera, self).__init__(None if siParentNone else parent)  # No se indica parent cuando le afecta el disable general, cuando se analiza posicion por ejemplo
+        super(MensEspera, self).__init__(
+            None if siParentNone else parent
+        )  # No se indica parent cuando le afecta el disable general, cuando se analiza posicion por ejemplo
 
-        self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Window | QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint)
+        self.setWindowFlags(
+            QtCore.Qt.WindowCloseButtonHint
+            | QtCore.Qt.Window
+            | QtCore.Qt.FramelessWindowHint
+            | QtCore.Qt.WindowStaysOnTopHint
+        )
         self.setStyleSheet("QWidget, QLabel { background: %s }" % background)
         if conImagen:
             lbi = QtWidgets.QLabel(self)
@@ -61,14 +63,20 @@ class MensEspera(QtWidgets.QWidget):
         if physical_pos == "tb":
             fixedSize = parent.width()
 
-        self.lb = lb = Controles.LB(parent, resalta(mensaje)).ponFuente(Controles.TipoLetra(puntos=puntos)).align_center()
+        self.lb = lb = (
+            Controles.LB(parent, resalta(mensaje)).ponFuente(Controles.TipoLetra(puntos=puntos)).align_center()
+        )
         if fixedSize is not None:
             lb.set_wrap().anchoFijo(fixedSize - 60)
 
         if siCancelar:
             if not titCancelar:
                 titCancelar = _("Cancel")
-            self.btCancelar = Controles.PB(self, titCancelar, rutina=self.cancelar, plano=False).ponIcono(Iconos.Cancelar()).anchoFijo(100)
+            self.btCancelar = (
+                Controles.PB(self, titCancelar, rutina=self.cancelar, plano=False)
+                .ponIcono(Iconos.Cancelar())
+                .anchoFijo(100)
+            )
 
         ly = Colocacion.G()
         if conImagen:
@@ -125,7 +133,7 @@ class MensEspera(QtWidgets.QWidget):
             y = v.y() + (v.height() - s.height()) // 2
 
         # p = self.owner.mapToGlobal(QtCore.QPoint(x,y))
-        p = QtCore.QPoint(x,y)
+        p = QtCore.QPoint(x, y)
         self.move(p)
         QTUtil.refresh_gui()
         return self
@@ -156,14 +164,26 @@ class ControlMensEspera:
         pmImagen=None,
         puntos=11,
         conImagen=True,
-        siParentNone=False
+        siParentNone=False,
     ):
         if self.me:
             self.final()
         if background is None:
             background = "#D3E3EC"
         self.me = MensEspera(
-            parent, mensaje, siCancelar, siMuestraYa, opacity, physical_pos, fixedSize, titCancelar, background, pmImagen, puntos, conImagen, siParentNone=siParentNone
+            parent,
+            mensaje,
+            siCancelar,
+            siMuestraYa,
+            opacity,
+            physical_pos,
+            fixedSize,
+            titCancelar,
+            background,
+            pmImagen,
+            puntos,
+            conImagen,
+            siParentNone=siParentNone,
         )
         QTUtil.refresh_gui()
         return self
@@ -211,7 +231,15 @@ mensEspera = ControlMensEspera()
 
 
 def mensajeTemporal(
-    main_window, mensaje, seconds, background=None, pmImagen=None, physical_pos="c", fixedSize=None, siCancelar=None, titCancelar=None
+    main_window,
+    mensaje,
+    seconds,
+    background=None,
+    pmImagen=None,
+    physical_pos="c",
+    fixedSize=None,
+    siCancelar=None,
+    titCancelar=None,
 ):
     if siCancelar is None:
         siCancelar = seconds > 3.0
@@ -234,7 +262,13 @@ def mensajeTemporal(
 
 def mensajeTemporalSinImagen(main_window, mensaje, seconds, background=None, puntos=12, physical_pos="c"):
     me = mensEspera.start(
-        main_window, mensaje, physical_pos=physical_pos, conImagen=False, puntos=puntos, fixedSize=None, background=background
+        main_window,
+        mensaje,
+        physical_pos=physical_pos,
+        conImagen=False,
+        puntos=puntos,
+        fixedSize=None,
+        background=background,
     )
     if seconds:
         me.time(seconds)
@@ -278,7 +312,10 @@ class BarraProgreso2(QtWidgets.QDialog):
         self.cerrar()
 
     def mostrar(self):
-        self.move(self.owner.x() + (self.owner.width() - self.width()) / 2, self.owner.y() + (self.owner.height() - self.height()) / 2)
+        self.move(
+            self.owner.x() + (self.owner.width() - self.width()) / 2,
+            self.owner.y() + (self.owner.height() - self.height()) / 2,
+        )
         self.show()
         return self
 
@@ -343,7 +380,10 @@ class BarraProgreso1(QtWidgets.QDialog):
         self.cerrar()
 
     def mostrar(self):
-        self.move(self.owner.x() + (self.owner.width() - self.width()) / 2, self.owner.y() + (self.owner.height() - self.height()) / 2)
+        self.move(
+            self.owner.x() + (self.owner.width() - self.width()) / 2,
+            self.owner.y() + (self.owner.height() - self.height()) / 2,
+        )
         self.show()
         return self
 
@@ -393,7 +433,10 @@ class BarraProgreso(QtWidgets.QProgressDialog):
         self.actual = 0
         self.setWindowModality(QtCore.Qt.WindowModal)
         self.setWindowFlags(
-            QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Dialog | QtCore.Qt.WindowTitleHint | QtCore.Qt.WindowMinimizeButtonHint
+            QtCore.Qt.WindowCloseButtonHint
+            | QtCore.Qt.Dialog
+            | QtCore.Qt.WindowTitleHint
+            | QtCore.Qt.WindowMinimizeButtonHint
         )
         self.setWindowTitle(titulo)
         self.owner = owner
@@ -402,7 +445,10 @@ class BarraProgreso(QtWidgets.QProgressDialog):
 
     def mostrar(self):
         if self.owner:
-            self.move(self.owner.x() + (self.owner.width() - self.width()) / 2, self.owner.y() + (self.owner.height() - self.height()) / 2)
+            self.move(
+                self.owner.x() + (self.owner.width() - self.width()) / 2,
+                self.owner.y() + (self.owner.height() - self.height()) / 2,
+            )
         self.show()
         return self
 
@@ -633,5 +679,3 @@ def preguntaCancelar123(parent, title, mens, si, no, cancel):
     else:
         resp = 0
     return resp
-
-

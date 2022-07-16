@@ -18,8 +18,8 @@ class WGaviota(WKibCommon.WKibCommon):
 
         o_columns = Columnas.ListaColumnas()
         delegado = Delegados.EtiquetaPOS(True, siLineas=False) if self.with_figurines else None
-        o_columns.nueva("MOVE", _("Move"), 80, centered=True, edicion=delegado)
-        o_columns.nueva("DTM", "DTM", 60, centered=True)
+        o_columns.nueva("MOVE", _("Move"), 80, align_center=True, edicion=delegado)
+        o_columns.nueva("DTM", "DTM", 60, align_center=True)
         self.grid = Grid.Grid(self, o_columns, dicVideo=self.dicVideo, siSelecFilas=True)
 
         li_acciones = (

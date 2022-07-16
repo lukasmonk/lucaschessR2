@@ -66,9 +66,7 @@ class ManagerCompeticion(Manager.Manager):
         self.rival_conf = self.dbm.get_current_rival()
         self.xrival = self.procesador.creaManagerMotor(self.rival_conf, None, nivel)
 
-        self.set_toolbar(
-            (TB_CANCEL, TB_RESIGN, TB_TAKEBACK, TB_REINIT, TB_ADJOURN, TB_CONFIG, TB_UTILITIES)
-        )
+        self.set_toolbar((TB_CANCEL, TB_RESIGN, TB_TAKEBACK, TB_REINIT, TB_ADJOURN, TB_CONFIG, TB_UTILITIES))
         self.main_window.activaJuego(True, False)
         self.set_dispatcher(self.player_has_moved)
         self.set_position(self.game.last_position)

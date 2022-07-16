@@ -1,16 +1,16 @@
 import os
+import random
 import sqlite3
 import time
-import random
 
 import FasterCode
-from Code.Base.Constantes import STANDARD_TAGS, FEN_INITIAL
 
-from Code.Base import Game
-from Code import Util
-from Code.SQL import UtilSQL
 import Code
+from Code import Util
+from Code.Base import Game
+from Code.Base.Constantes import STANDARD_TAGS, FEN_INITIAL
 from Code.Databases import DBgamesST
+from Code.SQL import UtilSQL
 
 pos_a1 = FasterCode.pos_a1
 a1_pos = FasterCode.a1_pos
@@ -60,16 +60,16 @@ class DBgames:
 
         summary_depth = self.read_config("SUMMARY_DEPTH", 0)
         self.with_db_stat = summary_depth > 0
-
-        self.db_stat = DBgamesST.TreeSTAT(self.nom_fichero + ".st1", summary_depth)
+        if self.with_db_stat:
+            self.db_stat = DBgamesST.TreeSTAT(self.nom_fichero + ".st1", summary_depth)
+        else:
+            self.db_stat = None
 
         self.li_row_ids = []
 
         self.rowidReader = UtilSQL.RowidReader(self.nom_fichero, "Games")
 
         self.with_plycount = "PLYCOUNT" in self.read_config("dcabs", {})
-
-
 
     def read_options(self):
         self.allows_duplicates = self.read_config("ALLOWS_DUPLICATES", True)
@@ -286,7 +286,7 @@ class DBgames:
             return "%s (%s)" % (Code.relative_root(self.nom_fichero), Code.relative_root(self.link_file))
 
     def depth_stat(self):
-        return self.db_stat.depth if self.db_stat else 0
+        return self.db_stat.depth if self.with_db_stat else 0
 
     def read_xpv(self, xpv):
         if xpv.startswith("|"):
@@ -327,11 +327,15 @@ class DBgames:
         self.conexion.commit()
 
     def get_summary(self, pvBase, dicAnalisis, with_figurines, allmoves=True):
-        return self.db_stat.get_summary(pvBase, dicAnalisis, with_figurines, allmoves)
+        return self.db_stat.get_summary(pvBase, dicAnalisis, with_figurines, allmoves) if self.with_db_stat else []
 
     def rebuild_stat(self, dispatch, depth):
         if not ("RESULT" in self.li_fields):
             return
+
+        if not self.with_db_stat:
+            self.with_db_stat = True
+            self.db_stat = DBgamesST.TreeSTAT(self.nom_fichero + ".st1", depth)
 
         self.save_config("SUMMARY_DEPTH", depth)
         self.db_stat.depth = depth
@@ -572,7 +576,11 @@ class DBgames:
                     if n == next_n:
                         if time.time() - t1 > 0.8:
                             if not dlTmp.actualiza(
-                                erroneos + duplicados + importados, erroneos, duplicados, importados, btell * 100.0 / bsize
+                                erroneos + duplicados + importados,
+                                erroneos,
+                                duplicados,
+                                importados,
+                                btell * 100.0 / bsize,
                             ):
                                 break
                             t1 = time.time()
@@ -735,7 +743,9 @@ class DBgames:
         for btell, recno in enumerate(liRecnos):
             if btell == next_n:
                 if time.time() - t1 > 0.9:
-                    if not dlTmp.actualiza(erroneos + duplicados + importados, erroneos, duplicados, importados, btell * 100.0 / bsize):
+                    if not dlTmp.actualiza(
+                        erroneos + duplicados + importados, erroneos, duplicados, importados, btell * 100.0 / bsize
+                    ):
                         break
                     t1 = time.time()
                 next_n = btell + random.randint(1000, 2000)

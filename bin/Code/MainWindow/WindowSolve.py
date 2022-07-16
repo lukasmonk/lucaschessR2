@@ -84,8 +84,7 @@ padding: 2px;"""
         lb_info = (
             Controles.LB(
                 self,
-                "<b>%s<br>%s - %s</b>"
-                % (_("[ENTER] to add line"), _("F10 to check"), _("F1 help")),
+                "<b>%s<br>%s - %s</b>" % (_("[ENTER] to add line"), _("F10 to check"), _("F1 help")),
             )
             .align_center()
             .ponTipoLetra(puntos=7)
@@ -115,7 +114,7 @@ padding: 2px;"""
         nmoves = len(game)
         self.is_white = first_position.is_white
         num_jugada = first_position.num_moves
-        rows = (nmoves-1) // 2 + 1
+        rows = (nmoves - 1) // 2 + 1
         for row, lb in enumerate(self.li_labels):
             if row < rows:
                 lb.setText("%3d." % (row + num_jugada))

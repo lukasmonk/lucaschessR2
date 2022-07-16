@@ -53,7 +53,7 @@ class LCDialog(QtWidgets.QDialog):
             dic = dicDef
 
         if QtWidgets.QDesktopWidget().screenCount() > 1:
-            wE = hE = 1024*1024
+            wE = hE = 1024 * 1024
         else:
             wE, hE = QTUtil.tamEscritorio()
         if dic:

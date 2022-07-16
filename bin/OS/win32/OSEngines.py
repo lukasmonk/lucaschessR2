@@ -40,7 +40,7 @@ def read_engines(folder_engines):
 
     mas("roce", "Roman Hartmann", "0.0390", "http://www.rocechess.ch/rocee.html", "roce39.exe", 1854)
 
-    cm = mas("cinnamon", "Giuseppe Cannella", "1.2c", "http://cinnamonchess.altervista.org/", "cinnamon_1.2c-generic.exe", 1930)
+    cm = mas("cinnamon", "Giuseppe Cannella", "1.2c", "https://github.com/gekomad/Cinnamon", "cinnamon_1.2c-generic.exe", 1930)
     cm.ordenUCI("Hash", "32")
 
     mas("bikjump", "Aart J.C. Bik", "2.01 (32-bit)", "http://www.aartbik.com/", "bikjump.exe", 2026)
@@ -118,7 +118,7 @@ def read_engines(folder_engines):
     mas("gull", "Vadim Demichev", "3 32bit", "https://sourceforge.net/projects/gullchess/", "Gull 3 w32 XP.exe", 3125)
     # cm.set_multipv(20, 64) Da problemas
 
-    mas("irina", "Lucas Monge", "0.15", "https://github.com/lukasmonk/irina", "irina.exe", 1200)
+    mas("irina", "Lucas Monge", "0.15", "https://github.com/lukasmonk/irina", "irina.exe", 1500)
 
     mas("rodentII", "Pawel Koziol", "0.9.64", "http://www.pkoziol.cal24.pl/rodent/rodent.htm", "RodentII_x32.exe", 2912)
 
@@ -185,26 +185,38 @@ def read_engines(folder_engines):
         2750,
     )
 
+
     is64 = platform.machine().endswith("64")
     t32_64 = "64" if is64 else "32"
     if is64:
         if FasterCode.bmi2() == 1:
             t32_64 = "64-bmi2"
 
-    cm = mas(
-        "komodo",
-        "Don Dailey, Larry Kaufman, Mark Lefler",
-        f"12.1.1 {t32_64}",
-        "https://komodochess.com/",
-        f"komodo-12.1.1-{t32_64}.exe",
-        3300,
-    )
+    # 32 bits permanece Komodo 12
+    if is64:
+        cm = mas(
+            "komodo",
+            "Don Dailey, Larry Kaufman, Mark Lefler",
+            f"13.02 {t32_64}",
+            "https://komodochess.com/",
+            "komodo-13.02-64bit.exe" if t32_64 == "64" else "komodo-13.02-64bit-bmi2.exe",
+            3300,
+        )
+    else:
+        cm = mas(
+            "komodo",
+            "Don Dailey, Larry Kaufman, Mark Lefler",
+            "12.1.1 32",
+            "https://komodochess.com/",
+            "komodo-12.1.1-32.exe",
+            3300,
+        )
     cm.ordenUCI("Hash", "64")
     cm.ordenUCI("Threads", "2" if is64 else "1")
     cm.set_multipv(20, 218)
 
     if is64:
-        cm = mas("lc0", "The LCZero Authors", "v0.27.0", "https://github.com/LeelaChessZero", "lc0.exe", 3300)
+        cm = mas("lc0", "The LCZero Authors", "v0.28.2", "https://github.com/LeelaChessZero", "lc0.exe", 3300)
         cm.ordenUCI("Threads", "2")
         cm.set_multipv(20, 500)
 
@@ -260,5 +272,6 @@ def dict_engines_fixed_elo(folder_engines):
             cm.ordenUCI("UCI_LimitStrength", "true")
             cm.name += " (%d)" % elo
             cm.key += " (%d)" % elo
+            cm.elo = elo
             dic[elo].append(cm)
     return dic

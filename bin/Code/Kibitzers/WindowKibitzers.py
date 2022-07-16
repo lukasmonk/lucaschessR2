@@ -1,6 +1,6 @@
 import os
 
-from PySide2 import QtWidgets
+from PySide2 import QtWidgets, QtCore, QtGui
 
 from Code.Engines import Priorities
 from Code.Kibitzers import Kibitzers
@@ -58,10 +58,19 @@ class WKibitzers(LCDialog.LCDialog):
         self.register_splitter(self.splitter, "kibitzers")
 
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("TYPE", "", 30, centered=True, edicion=Delegados.PmIconosBMT(self, dicIconos=self.tipos.dicDelegado()))
+        o_columns.nueva(
+            "TYPE", "", 30, align_center=True, edicion=Delegados.PmIconosBMT(self, dicIconos=self.tipos.dicDelegado())
+        )
         o_columns.nueva("NOMBRE", _("Kibitzer"), 209)
         self.grid_kibitzers = Grid.Grid(self, o_columns, siSelecFilas=True, siSeleccionMultiple=True, xid="kib")
         self.grid_kibitzers.tipoLetra(puntos=self.configuration.x_pgn_fontpoints)
+        self.grid_kibitzers.setAlternatingRowColors(False)
+
+        p = self.grid_kibitzers.palette()
+        p.setColor(QtGui.QPalette.Active, QtGui.QPalette.Highlight, QtCore.Qt.darkCyan)
+        p.setColor(QtGui.QPalette.Inactive, QtGui.QPalette.Highlight, QtCore.Qt.cyan)
+        self.grid_kibitzers.setPalette(p)
+
         self.register_grid(self.grid_kibitzers)
 
         w = QtWidgets.QWidget()
@@ -70,9 +79,9 @@ class WKibitzers(LCDialog.LCDialog):
         self.splitter.addWidget(w)
 
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("CAMPO", _("Label"), 152, siDerecha=True)
+        o_columns.nueva("CAMPO", _("Label"), 152, align_right=True)
         o_columns.nueva("VALOR", _("Value"), 390, edicion=Delegados.MultiEditor(self))
-        self.gridValores = Grid.Grid(self, o_columns, siSelecFilas=False, xid="val", siEditable=True)
+        self.gridValores = Grid.Grid(self, o_columns, siSelecFilas=False, xid="val", is_editable=True)
         self.gridValores.tipoLetra(puntos=self.configuration.x_pgn_fontpoints)
         self.register_grid(self.gridValores)
 
@@ -125,7 +134,7 @@ class WKibitzers(LCDialog.LCDialog):
                 minimo = opcion.minimo
                 maximo = opcion.maximo
             elif tipo in ("check", "button"):
-                opcion.valor = not valor
+                kibitzer.ordenUCI(opcion.name, not valor)
                 self.kibitzers.save()
                 self.goto(nk)
             elif tipo == "combo":
@@ -145,11 +154,11 @@ class WKibitzers(LCDialog.LCDialog):
             return Controles.SB(parent, valor, minimo, maximo)
         return None
 
-    def me_ponValor(self, editor, valor):
+    def me_set_value(self, editor, valor):
         if self.me_control == "ed":
             editor.setText(str(valor))
         elif self.me_control in ("cb", "sb"):
-            editor.ponValor(valor)
+            editor.set_value(valor)
 
     def me_leeValor(self, editor):
         if self.me_control == "ed":
@@ -416,13 +425,18 @@ class WKibitzerLive(LCDialog.LCDialog):
         self.li_options = self.leeOpciones()
         self.liOriginal = self.leeOpciones()
 
-        li_acciones = ((_("Save"), Iconos.Grabar(), self.grabar), None, (_("Cancel"), Iconos.Cancelar(), self.reject), None)
+        li_acciones = (
+            (_("Save"), Iconos.Grabar(), self.grabar),
+            None,
+            (_("Cancel"), Iconos.Cancelar(), self.reject),
+            None,
+        )
         tb = QTVarios.LCTB(self, li_acciones)
 
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("CAMPO", _("Label"), 152, siDerecha=True)
+        o_columns.nueva("CAMPO", _("Label"), 152, align_right=True)
         o_columns.nueva("VALOR", _("Value"), 390, edicion=Delegados.MultiEditor(self))
-        self.gridValores = Grid.Grid(self, o_columns, siSelecFilas=False, xid="val", siEditable=True)
+        self.gridValores = Grid.Grid(self, o_columns, siSelecFilas=False, xid="val", is_editable=True)
         self.gridValores.tipoLetra(puntos=self.configuration.x_pgn_fontpoints)
         self.register_grid(self.gridValores)
 
@@ -515,11 +529,11 @@ class WKibitzerLive(LCDialog.LCDialog):
             return Controles.SB(parent, valor, minimo, maximo)
         return None
 
-    def me_ponValor(self, editor, valor):
+    def me_set_value(self, editor, valor):
         if self.me_control == "ed":
             editor.setText(str(valor))
         elif self.me_control in ("cb", "sb"):
-            editor.ponValor(valor)
+            editor.set_value(valor)
 
     def me_leeValor(self, editor):
         if self.me_control == "ed":

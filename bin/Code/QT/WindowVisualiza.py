@@ -23,7 +23,9 @@ from Code.QT import LCDialog
 class WControl(LCDialog.LCDialog):
     def __init__(self, procesador, path_bloque):
 
-        LCDialog.LCDialog.__init__(self, procesador.main_window, _("The board at a glance"), Iconos.Gafas(), "visualizaBase")
+        LCDialog.LCDialog.__init__(
+            self, procesador.main_window, _("The board at a glance"), Iconos.Gafas(), "visualizaBase"
+        )
 
         self.procesador = procesador
         self.configuration = procesador.configuration
@@ -36,16 +38,16 @@ class WControl(LCDialog.LCDialog):
 
         # Historico
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("SITE", _("Site"), 100, centered=True)
-        o_columns.nueva("DATE", _("Date"), 100, centered=True)
-        o_columns.nueva("LEVEL", _("Level"), 80, centered=True)
-        o_columns.nueva("TIME", _("Time used"), 80, centered=True)
-        o_columns.nueva("ERRORS", _("Errors"), 80, centered=True)
-        o_columns.nueva("INTERVAL", _("Interval"), 100, centered=True)
-        o_columns.nueva("POSITION", _("Position"), 80, centered=True)
-        o_columns.nueva("COLOR", _("Square color"), 80, centered=True)
-        o_columns.nueva("ISATTACKED", _("Is attacked?"), 80, centered=True)
-        o_columns.nueva("ISATTACKING", _("Is attacking?"), 80, centered=True)
+        o_columns.nueva("SITE", _("Site"), 100, align_center=True)
+        o_columns.nueva("DATE", _("Date"), 100, align_center=True)
+        o_columns.nueva("LEVEL", _("Level"), 80, align_center=True)
+        o_columns.nueva("TIME", _("Time used"), 80, align_center=True)
+        o_columns.nueva("ERRORS", _("Errors"), 80, align_center=True)
+        o_columns.nueva("INTERVAL", _("Interval"), 100, align_center=True)
+        o_columns.nueva("POSITION", _("Position"), 80, align_center=True)
+        o_columns.nueva("COLOR", _("Square color"), 80, align_center=True)
+        o_columns.nueva("ISATTACKED", _("Is attacked?"), 80, align_center=True)
+        o_columns.nueva("ISATTACKING", _("Is attacking?"), 80, align_center=True)
         self.ghistorico = Grid.Grid(self, o_columns, siSelecFilas=True, siSeleccionMultiple=True)
         self.ghistorico.setMinimumWidth(self.ghistorico.anchoColumnas() + 20)
 
@@ -180,7 +182,9 @@ class WControl(LCDialog.LCDialog):
         li_gen.append((_("Is attacked?") + ":", esatacadaPre))
         li_gen.append((_("Is attacking?") + ":", esatacantePre))
 
-        resultado = FormLayout.fedit(li_gen, title=_("Configuration"), parent=self, icon=Iconos.Gafas(), anchoMinimo=360)
+        resultado = FormLayout.fedit(
+            li_gen, title=_("Configuration"), parent=self, icon=Iconos.Gafas(), anchoMinimo=360
+        )
         if resultado:
             accion, li_gen = resultado
 
@@ -363,14 +367,27 @@ class WPlay(LCDialog.LCDialog):
         f = Controles.TipoLetra("", 11, 80, False, False, False, None)
 
         bt = Controles.PB(self, _("Close"), self.terminar, plano=False).ponIcono(Iconos.MainMenu()).ponFuente(f)
-        self.btBoard = Controles.PB(self, _("Go to board"), self.activaBoard, plano=False).ponIcono(Iconos.Board()).ponFuente(f)
+        self.btBoard = (
+            Controles.PB(self, _("Go to board"), self.activaBoard, plano=False).ponIcono(Iconos.Board()).ponFuente(f)
+        )
         self.btComprueba = (
-            Controles.PB(self, _("Test the solution"), self.compruebaSolucion, plano=False).ponIcono(Iconos.Check()).ponFuente(f)
+            Controles.PB(self, _("Test the solution"), self.compruebaSolucion, plano=False)
+            .ponIcono(Iconos.Check())
+            .ponFuente(f)
         )
         self.btGotoNextLevel = (
-            Controles.PB(self, _("Go to next level"), self.gotoNextLevel, plano=False).ponIcono(Iconos.GoToNext()).ponFuente(f)
+            Controles.PB(self, _("Go to next level"), self.gotoNextLevel, plano=False)
+            .ponIcono(Iconos.GoToNext())
+            .ponFuente(f)
         )
-        ly0 = Colocacion.H().control(bt).relleno().control(self.btBoard).control(self.btComprueba).control(self.btGotoNextLevel)
+        ly0 = (
+            Colocacion.H()
+            .control(bt)
+            .relleno()
+            .control(self.btBoard)
+            .control(self.btComprueba)
+            .control(self.btGotoNextLevel)
+        )
 
         lyBase = Colocacion.H().control(self.gbBoard).control(self.gbSolucion)
 
@@ -438,7 +455,7 @@ class WPlay(LCDialog.LCDialog):
             if siVisible:
                 bloque[0].ponImagen(self.pmNada)
                 pz = "K" if x == 0 else ("k" if x == 1 else "P")
-                bloque[1].ponValor(pz)
+                bloque[1].set_value(pz)
                 pos = 1
                 if self.position:
                     pos += 1

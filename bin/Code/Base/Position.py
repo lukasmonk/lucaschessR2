@@ -34,7 +34,12 @@ class Position:
 
     def legal(self):
         if self.castles != "-":
-            dic = {"K": ("K", "R", "e1", "h1"), "k": ("k", "r", "e8", "h8"), "Q": ("K", "R", "e1", "a1"), "q": ("k", "r", "e8", "a8")}
+            dic = {
+                "K": ("K", "R", "e1", "h1"),
+                "k": ("k", "r", "e8", "h8"),
+                "Q": ("K", "R", "e1", "a1"),
+                "q": ("k", "r", "e8", "a8"),
+            }
             enr = ""
             for tipo in self.castles:
                 king, rook, pos_king, pos_rook = dic[tipo]
@@ -53,13 +58,13 @@ class Position:
                 ok = False
             else:
                 pawn = "P" if nm == "6" else "p"
-                bq_nm = "4" if nm == '3' else "5"
+                bq_nm = "4" if nm == "3" else "5"
                 ok = False
-                if lt > 'a':
-                    pz = self.squares.get(chr(ord(lt)-1) + bq_nm)
+                if lt > "a":
+                    pz = self.squares.get(chr(ord(lt) - 1) + bq_nm)
                     ok = pz == pawn
-                if not ok and lt < 'h':
-                    pz = self.squares.get(chr(ord(lt)+1) + bq_nm)
+                if not ok and lt < "h":
+                    pz = self.squares.get(chr(ord(lt) + 1) + bq_nm)
                     ok = pz == pawn
         if not ok:
             self.en_passant = "-"
@@ -305,7 +310,8 @@ class Position:
         for c in pgn:
             if c in "NBRQK":
                 li.append(
-                    '<img src="../Resources/IntFiles/Figs/%s%s.png" width="20" height="20" style="vertical-align:bottom">' % (tp, c.lower())
+                    '<img src="../Resources/IntFiles/Figs/%s%s.png" width="20" height="20" style="vertical-align:bottom">'
+                    % (tp, c.lower())
                 )
             else:
                 li.append(c)

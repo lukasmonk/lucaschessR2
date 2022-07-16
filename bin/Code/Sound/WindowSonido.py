@@ -140,9 +140,19 @@ class MesaSonido(QtWidgets.QGraphicsView):
 
 
 class WEdicionSonido(LCDialog.LCDialog):
-    ks_aceptar, ks_cancelar, ks_microfono, ks_wav, ks_play, ks_stopplay, ks_stopmic, ks_record, ks_cancelmic, ks_limpiar, ks_grabar = range(
-        11
-    )
+    (
+        ks_aceptar,
+        ks_cancelar,
+        ks_microfono,
+        ks_wav,
+        ks_play,
+        ks_stopplay,
+        ks_stopmic,
+        ks_record,
+        ks_cancelmic,
+        ks_limpiar,
+        ks_grabar,
+    ) = range(11)
 
     def __init__(self, owner, titulo, wav=None, maxTime=None, name=None):
 
@@ -394,8 +404,8 @@ class WSonidos(LCDialog.LCDialog):
 
         # Lista
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("SONIDO", _("Sound"), 300, centered=True)
-        o_columns.nueva("DURACION", _("Duration"), 80, centered=True)
+        o_columns.nueva("SONIDO", _("Sound"), 300, align_center=True)
+        o_columns.nueva("DURACION", _("Duration"), 80, align_center=True)
 
         self.grid = Grid.Grid(self, o_columns, siSelecFilas=True, altoFila=Code.configuration.x_pgn_rowheight)
         font = Controles.TipoLetra(puntos=Code.configuration.x_pgn_fontpoints)
@@ -424,7 +434,7 @@ class WSonidos(LCDialog.LCDialog):
         self.db.close()
 
     def modificar(self):
-       self.grid_doble_click(None, self.grid.recno(), None)
+        self.grid_doble_click(None, self.grid.recno(), None)
 
     def grid_num_datos(self, grid):
         return len(self.li_sounds)
@@ -487,7 +497,7 @@ class WSonidos(LCDialog.LCDialog):
     def create_soundslist(self):
         dic_relations = Code.runSound.relations
         li_sounds = []
-        
+
         def xadd(key):
             li_sounds.append([key, dic_relations[key]["NAME"], None])
 

@@ -125,14 +125,14 @@ class Tutor:
             game.read_pv(rm.getPV())
 
             jgvar = game.move(0)
-            jgvar.comment = rm.texto()
+            jgvar.set_comment(rm.texto())
 
             move.add_variation(game)
 
             txt = self.gameUsuario.pgnBaseRAW(numJugada)
             puntos = self.rmUsuario.texto()
             vusu = "%s : %s" % (puntos, txt)
-            move.comment = vusu.replace("\n", "")
+            move.set_comment(vusu.replace("\n", ""))
 
     def do_lirm(self, posUsuario):
         li = []
@@ -388,8 +388,10 @@ class Tutor:
 def launch_tutor(mrm_tutor, rm_usuario):
     tp = Code.configuration.x_tutor_diftype
     rm_tutor = mrm_tutor.mejorMov()
-    if tp == 0: # ALWAYS
-        return (rm_tutor.movimiento() != rm_usuario.movimiento()) and (rm_tutor.centipawns_abs() > rm_usuario.centipawns_abs())
+    if tp == 0:  # ALWAYS
+        return (rm_tutor.movimiento() != rm_usuario.movimiento()) and (
+            rm_tutor.centipawns_abs() > rm_usuario.centipawns_abs()
+        )
     else:
         ev = Code.analysis_eval.evaluate(rm_tutor, rm_usuario)
         return ev >= tp

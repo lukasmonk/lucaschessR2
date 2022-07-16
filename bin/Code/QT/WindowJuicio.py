@@ -46,11 +46,13 @@ class WJuicio(LCDialog.LCDialog):
         self.board.set_side_bottom(position.is_white)
 
         liMas = ((_("Close"), "close", Iconos.AceptarPeque()),)
-        lyBM, tbBM = QTVarios.lyBotonesMovimiento(self, "", siLibre=False, icon_size=24, siMas=manager.continueTt, liMasAcciones=liMas)
+        lyBM, tbBM = QTVarios.lyBotonesMovimiento(
+            self, "", siLibre=False, icon_size=24, siMas=manager.continueTt, liMasAcciones=liMas
+        )
 
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("POSREAL", "#", 40, centered=True)
-        o_columns.nueva("JUGADAS", "%d %s" % (len(self.list_rm), _("Moves")), 120, centered=True)
+        o_columns.nueva("POSREAL", "#", 40, align_center=True)
+        o_columns.nueva("JUGADAS", "%d %s" % (len(self.list_rm), _("Moves")), 120, align_center=True)
         o_columns.nueva("PLAYER", _("Player"), 120)
 
         self.grid = Grid.Grid(self, o_columns, siSelecFilas=True)

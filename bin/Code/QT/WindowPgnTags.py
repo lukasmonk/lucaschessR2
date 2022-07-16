@@ -40,7 +40,7 @@ class WTagsPGN(LCDialog.LCDialog):
         o_columns.nueva("ETIQUETA", _("Label"), 150, edicion=Delegados.LineaTextoUTF8())
         o_columns.nueva("VALOR", _("Value"), 400, edicion=Delegados.LineaTextoUTF8())
 
-        self.grid = Grid.Grid(self, o_columns, siEditable=True)
+        self.grid = Grid.Grid(self, o_columns, is_editable=True)
         n = self.grid.anchoColumnas()
         self.grid.setFixedWidth(n + 20)
         self.register_grid(self.grid)

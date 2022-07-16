@@ -139,5 +139,3 @@ class MetaINF(XML.XML):
         os.mkdir(folder_meta)
         path_manifest = os.path.join(folder_meta, "manifest.xml")
         self.save(path_manifest)
-
-

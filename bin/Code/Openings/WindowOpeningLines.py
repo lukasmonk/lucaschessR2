@@ -27,12 +27,14 @@ class WOpeningLines(LCDialog.LCDialog):
         self.resultado = None
         self.listaOpenings = OpeningLines.ListaOpenings(self.configuration)
 
-        LCDialog.LCDialog.__init__(self, procesador.main_window, self.getTitulo(), Iconos.OpeningLines(), "openingLines")
+        LCDialog.LCDialog.__init__(
+            self, procesador.main_window, self.getTitulo(), Iconos.OpeningLines(), "openingLines"
+        )
 
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("TITLE", _("Name"), 240)
         o_columns.nueva("BASEPV", _("First moves"), 280)
-        o_columns.nueva("NUMLINES", _("Lines"), 80, centered=True)
+        o_columns.nueva("NUMLINES", _("Lines"), 80, align_center=True)
         o_columns.nueva("FILE", _("File"), 200)
         self.glista = Grid.Grid(self, o_columns, siSelecFilas=True, siSeleccionMultiple=True)
 
@@ -158,7 +160,9 @@ class WOpeningLines(LCDialog.LCDialog):
                         li_gen.append(FormLayout.separador)
                         li_gen.append((None, error))
 
-                    resultado = FormLayout.fedit(li_gen, title=nof, parent=self, icon=Iconos.OpeningLines(), anchoMinimo=460)
+                    resultado = FormLayout.fedit(
+                        li_gen, title=nof, parent=self, icon=Iconos.OpeningLines(), anchoMinimo=460
+                    )
                     if resultado:
                         accion, liResp = resultado
                         name = liResp[0].strip()
@@ -245,7 +249,9 @@ class WOpeningLines(LCDialog.LCDialog):
     def get_nombre(self, name):
         li_gen = [(None, None)]
         li_gen.append((_("Opening studio name") + ":", name))
-        resultado = FormLayout.fedit(li_gen, title=_("Opening studio name"), parent=self, icon=Iconos.OpeningLines(), anchoMinimo=460)
+        resultado = FormLayout.fedit(
+            li_gen, title=_("Opening studio name"), parent=self, icon=Iconos.OpeningLines(), anchoMinimo=460
+        )
         if resultado:
             accion, liResp = resultado
             name = liResp[0].strip()
@@ -354,9 +360,9 @@ class WStaticTraining(LCDialog.LCDialog):
         # Lista
         ancho = 42
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("FILA", "", 36, centered=True)
+        o_columns.nueva("FILA", "", 36, align_center=True)
         for x in range(self.elems_fila):
-            o_columns.nueva("COL%d" % x, "%d" % (x + 1,), ancho, centered=True, edicion=Delegados.PmIconosWeather())
+            o_columns.nueva("COL%d" % x, "%d" % (x + 1,), ancho, align_center=True, edicion=Delegados.PmIconosWeather())
 
         self.grid = Grid.Grid(self, o_columns, altoFila=ancho, background="white")
         self.grid.setAlternatingRowColors(False)

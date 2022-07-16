@@ -39,15 +39,15 @@ class EditCols(QtWidgets.QDialog):
         # Grid
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("SIMOSTRAR", "", 20, siChecked=True)
-        o_columns.nueva("CLAVE", _("Key"), 80, centered=True)
+        o_columns.nueva("CLAVE", _("Key"), 80, align_center=True)
         o_columns.nueva("CABECERA", _("Title"), 150, edicion=Delegados.LineaTexto())
-        o_columns.nueva("ANCHO", _("Width"), 60, edicion=Delegados.LineaTexto(siEntero=True), siDerecha=True)
+        o_columns.nueva("ANCHO", _("Width"), 60, edicion=Delegados.LineaTexto(siEntero=True), align_right=True)
 
         self.liAlin = [_("Left"), _("Center"), _("Right")]
-        o_columns.nueva("ALINEACION", _("Alignment"), 100, centered=True, edicion=Delegados.ComboBox(self.liAlin))
-        o_columns.nueva("CTEXTO", _("Foreground"), 80, centered=True)
-        o_columns.nueva("CFONDO", _("Background"), 80, centered=True)
-        self.grid = Grid.Grid(self, o_columns, siEditable=True)
+        o_columns.nueva("ALINEACION", _("Alignment"), 100, align_center=True, edicion=Delegados.ComboBox(self.liAlin))
+        o_columns.nueva("CTEXTO", _("Foreground"), 80, align_center=True)
+        o_columns.nueva("CFONDO", _("Background"), 80, align_center=True)
+        self.grid = Grid.Grid(self, o_columns, is_editable=True)
 
         layout = Colocacion.V().control(tb).control(self.grid).margen(3)
         self.setLayout(layout)

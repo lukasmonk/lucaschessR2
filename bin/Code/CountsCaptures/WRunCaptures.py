@@ -25,9 +25,9 @@ class WRunCaptures(LCDialog.LCDialog):
         self.board.crea()
 
         # Rotulo informacion
-        self.lb_info_game = Controles.LB(self, self.capture.game.titulo("DATE", "EVENT", "WHITE", "BLACK", "RESULT")).ponTipoLetra(
-            puntos=self.configuration.x_pgn_fontpoints
-        )
+        self.lb_info_game = Controles.LB(
+            self, self.capture.game.titulo("DATE", "EVENT", "WHITE", "BLACK", "RESULT")
+        ).ponTipoLetra(puntos=self.configuration.x_pgn_fontpoints)
 
         # Movimientos
         self.liwm_captures = []
@@ -117,7 +117,9 @@ class WRunCaptures(LCDialog.LCDialog):
         if num_move >= len(self.capture.game):
             self.position_obj = self.capture.game.move(-1).position
         else:
-            self.position_obj = self.capture.game.move(self.capture.current_posmove + self.capture.current_depth).position_before
+            self.position_obj = self.capture.game.move(
+                self.capture.current_posmove + self.capture.current_depth
+            ).position_before
         self.board.set_position(self.move_base.position_before)
 
     def pon_info_posic(self):
@@ -156,7 +158,7 @@ class WRunCaptures(LCDialog.LCDialog):
                         return
 
     def test_celdas(self):
-        if len(self.liwm_captures[self.visible_captures-1].movimiento()) == 4:
+        if len(self.liwm_captures[self.visible_captures - 1].movimiento()) == 4:
             complete = True
             for num, wm in enumerate(self.liwm_captures):
                 if num >= self.visible_captures:
@@ -170,7 +172,7 @@ class WRunCaptures(LCDialog.LCDialog):
                     if num < self.visible_captures:
                         if not wm.isVisible():
                             wm.setVisible(True)
-        if len(self.liwm_threats[self.visible_threats-1].movimiento()) == 4:
+        if len(self.liwm_threats[self.visible_threats - 1].movimiento()) == 4:
             complete = True
             for num, wm in enumerate(self.liwm_threats):
                 if num >= self.visible_threats:
@@ -297,7 +299,9 @@ class WRunCaptures(LCDialog.LCDialog):
                 if self.capture.current_posmove < 0:
                     self.capture.current_posmove = 0
                 self.capture.current_depth = 0
-                self.lb_result.set_text("%s (%d)" % (_("Wrong, return to the last position solved"), self.capture.current_posmove + 1))
+                self.lb_result.set_text(
+                    "%s (%d)" % (_("Wrong, return to the last position solved"), self.capture.current_posmove + 1)
+                )
                 self.lb_result.set_foreground("red")
             else:
                 self.lb_result.set_text(_("Wrong, you must repeat this position"))

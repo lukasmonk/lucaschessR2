@@ -181,7 +181,9 @@ class EtiquetaPGN(QtWidgets.QStyledItemDelegate):
         y_total = rect.y()
 
         if option.state & QtWidgets.QStyle.State_Selected:
-            painter.fillRect(rect, QtGui.QColor(Code.configuration.pgn_selbackground()))  # sino no se ve en CDE-Motif-Windows
+            painter.fillRect(
+                rect, QtGui.QColor(Code.configuration.pgn_selbackground())
+            )  # sino no se ve en CDE-Motif-Windows
         elif self.si_fondo:
             fondo = index.model().getFondo(index)
             if fondo:
@@ -224,7 +226,7 @@ class EtiquetaPGN(QtWidgets.QStyledItemDelegate):
 
         if ini_pz:
             painter.save()
-            painter.translate(x, y+1)
+            painter.translate(x, y + 1)
             pm = dicPZ[ini_pz]
             pmRect = QtCore.QRectF(0, 0, hx, hx)
             pm.render(painter, pmRect)
@@ -239,7 +241,7 @@ class EtiquetaPGN(QtWidgets.QStyledItemDelegate):
 
         if fin_pz:
             painter.save()
-            painter.translate(x - 0.3 * wpz, y+1)
+            painter.translate(x - 0.3 * wpz, y + 1)
             pm = dicPZ[fin_pz]
             pmRect = QtCore.QRectF(0, 0, hx, hx)
             pm.render(painter, pmRect)
@@ -262,12 +264,12 @@ class EtiquetaPGN(QtWidgets.QStyledItemDelegate):
         if li_nags:
             for rndr in li_nags:
                 painter.save()
-                painter.translate(x - 0.2 * wpz, y-1)
-                df = hx*0.2
-                pmRect = QtCore.QRectF(df, df, hx-df, hx-df)
+                painter.translate(x - 0.2 * wpz, y - 1)
+                df = hx * 0.2
+                pmRect = QtCore.QRectF(df, df, hx - df, hx - df)
                 rndr.render(painter, pmRect)
                 painter.restore()
-                x += wpz*0.8
+                x += wpz * 0.8
 
         if txt_analysis:
             document_analysis = QtGui.QTextDocument()
@@ -277,7 +279,7 @@ class EtiquetaPGN(QtWidgets.QStyledItemDelegate):
             document_analysis.setHtml(txt_analysis)
             w_analysis = document_analysis.idealWidth()
             painter.save()
-            painter.translate(x_total + (w_total - w_analysis) , y)
+            painter.translate(x_total + (w_total - w_analysis), y)
             document_analysis.drawContents(painter)
             painter.restore()
 
@@ -318,7 +320,7 @@ class PmIconosBMT(QtWidgets.QStyledItemDelegate):
 
 
 class PmIconosColor(QtWidgets.QStyledItemDelegate):
-    """ Usado en TurnOnLigths"""
+    """Usado en TurnOnLigths"""
 
     def __init__(self, parent=None):
         QtWidgets.QStyledItemDelegate.__init__(self, parent)
@@ -405,7 +407,7 @@ class MultiEditor(QtWidgets.QItemDelegate):
 
     def setEditorData(self, editor, index):
         value = index.model().data(index, QtCore.Qt.DisplayRole)
-        self.win_me.me_ponValor(editor, value)
+        self.win_me.me_set_value(editor, value)
 
     def setModelData(self, editor, model, index):
         value = self.win_me.me_leeValor(editor)
@@ -465,7 +467,9 @@ class EtiquetaPOS(QtWidgets.QStyledItemDelegate):
         x0 = rect.x()
         y0 = rect.y()
         if option.state & QtWidgets.QStyle.State_Selected:
-            painter.fillRect(rect, QtGui.QColor(Code.configuration.pgn_selbackground()))  # sino no se ve en CDE-Motif-Windows
+            painter.fillRect(
+                rect, QtGui.QColor(Code.configuration.pgn_selbackground())
+            )  # sino no se ve en CDE-Motif-Windows
         elif self.siFondo:
             fondo = index.model().getFondo(index)
             if fondo:
@@ -510,7 +514,7 @@ class EtiquetaPOS(QtWidgets.QStyledItemDelegate):
 
         if ini_pz:
             painter.save()
-            painter.translate(x, y+1)
+            painter.translate(x, y + 1)
             pm = dicPZ[ini_pz]
             pmRect = QtCore.QRectF(0, 0, hx, hx)
             pm.render(painter, pmRect)
@@ -525,7 +529,7 @@ class EtiquetaPOS(QtWidgets.QStyledItemDelegate):
 
         if fin_pz:
             painter.save()
-            painter.translate(x - 0.3 * wpz, y+1)
+            painter.translate(x - 0.3 * wpz, y + 1)
             pm = dicPZ[fin_pz]
             pmRect = QtCore.QRectF(0, 0, hx, hx)
             pm.render(painter, pmRect)
@@ -563,7 +567,7 @@ class EtiquetaPOS(QtWidgets.QStyledItemDelegate):
             document_analysis.setHtml(txt_analysis)
             w_analysis = document_analysis.idealWidth()
             painter.save()
-            painter.translate(x0 + (width - w_analysis) , y)
+            painter.translate(x0 + (width - w_analysis), y)
             document_analysis.drawContents(painter)
             painter.restore()
 

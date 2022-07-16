@@ -211,12 +211,11 @@ class Content(XML.XML):
     def table_styles(self):
         pass
 
-
-    def writeln(self, txt, bold, centered):
+    def writeln(self, txt, bold, align_center):
         if bold:
-            style = "PARA_BOLD_CENTERED" if centered else "PARA_BOLD"
+            style = "PARA_BOLD_CENTERED" if align_center else "PARA_BOLD"
         else:
-            style = "PARA_CENTERED" if centered else "Standard"
+            style = "PARA_CENTERED" if align_center else "Standard"
 
         element = XML.Element("text:p")
         element.add_param("text:style-name", style)
@@ -281,5 +280,3 @@ class Content(XML.XML):
         element.add_content(element2)
         element2.set_value(txt)
         self.office_text.add_content(element)
-
-

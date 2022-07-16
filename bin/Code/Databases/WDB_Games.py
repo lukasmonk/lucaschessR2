@@ -178,17 +178,17 @@ class WGames(QtWidgets.QWidget):
     def lista_columnas(self):
         dcabs = self.dbGames.read_config("dcabs", DBgames.drots.copy())
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("__num__", _("N."), 60, centered=True)
+        o_columns.nueva("__num__", _("N."), 60, align_center=True)
         li_tags = self.dbGames.li_tags()
         st100 = {"Event", "Site", "White", "Black"}
         for tag in li_tags:
             label = TrListas.pgnLabel(tag)
             if label == tag:
                 label = dcabs.get(label, label)
-            centered = not (tag in ("Event", "Site"))
+            align_center = not (tag in ("Event", "Site"))
             ancho = 100 if tag in st100 else 80
-            o_columns.nueva(tag, label, ancho, centered=centered)
-        o_columns.nueva("rowid", _("Row ID"), 60, centered=True)
+            o_columns.nueva(tag, label, ancho, align_center=align_center)
+        o_columns.nueva("rowid", _("Row ID"), 60, align_center=True)
         return o_columns
 
     def rehaz_columnas(self):
@@ -215,7 +215,7 @@ class WGames(QtWidgets.QWidget):
                 label = TrListas.pgnLabel(tag)
                 if label == tag:
                     label = dcabs.get(label, label)
-                o_columns.nueva(tag, label, 100 if tag in st100 else 70, centered=not (tag in ("Event", "Site")))
+                o_columns.nueva(tag, label, 100 if tag in st100 else 70, align_center=not (tag in ("Event", "Site")))
                 si_cambios = True
 
         if si_cambios:
@@ -706,7 +706,6 @@ class WGames(QtWidgets.QWidget):
                 reinit = True
                 must_close = True
 
-
         if new_is_internal and old_is_external:
             os.remove(self.dbGames.link_file)
 
@@ -720,7 +719,6 @@ class WGames(QtWidgets.QWidget):
 
         if reinit:
             self.wb_database.reinit_sinsalvar(must_close)  # para que no cree de nuevo al salvar configuración
-
 
     def tw_tags(self):
         w = WTags(self, self.dbGames)
@@ -1384,7 +1382,7 @@ class WOptionsDatabase(QtWidgets.QDialog):
         x1 = -8
         ly_group = Colocacion.V().otro(ly_group).espacio(x1).otro(ly_subgroup_l1).espacio(x1).otro(ly_subgroup_l2)
 
-        gb_group = Controles.GB(self, "%s (%s)" % (_("Group"), "optional"), ly_group)
+        gb_group = Controles.GB(self, "%s (%s)" % (_("Group"), _("optional")), ly_group)
 
         lb_summary = Controles.LB2P(self, _("Opening explorer depth (0=disable)"))
         self.sb_summary = Controles.SB(self, dic_data.get("SUMMARY_DEPTH", 12), 0, 999)
@@ -1590,16 +1588,18 @@ class WTags(LCDialog.LCDialog):
             self.li_data.append(dic)
 
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("KEY", _("Key"), 80, centered=True)
-        o_columns.nueva("LABEL", _("PGN Label"), 80, centered=True, edicion=Delegados.LineaTexto(rx="[A-Za-z_0-9]*"))
+        o_columns.nueva("KEY", _("Key"), 80, align_center=True)
+        o_columns.nueva(
+            "LABEL", _("PGN Label"), 80, align_center=True, edicion=Delegados.LineaTexto(rx="[A-Za-z_0-9]*")
+        )
 
         self.fill_column = _("Fill column with value")
         self.remove_column = _("Remove column")
         self.nothing = "-"
         self.li_actions = [self.nothing, self.fill_column, self.remove_column]
-        o_columns.nueva("ACTION", _("Action"), 80, centered=True, edicion=Delegados.ComboBox(self.li_actions))
+        o_columns.nueva("ACTION", _("Action"), 80, align_center=True, edicion=Delegados.ComboBox(self.li_actions))
         o_columns.nueva("VALUE", self.fill_column, 200, edicion=Delegados.LineaTextoUTF8())
-        self.gtags = Grid.Grid(self, o_columns, siEditable=True)
+        self.gtags = Grid.Grid(self, o_columns, is_editable=True)
 
         li_acciones = (
             (_("Save"), Iconos.Aceptar(), self.aceptar),

@@ -44,7 +44,9 @@ class AnalyzeGame:
         self.kblunders = alm.kblunders
         self.kblunders_porc = alm.kblunders_porc
         self.tacticblunders = (
-            os.path.join(self.configuration.personal_training_folder, "../Tactics", alm.tacticblunders) if alm.tacticblunders else None
+            os.path.join(self.configuration.personal_training_folder, "../Tactics", alm.tacticblunders)
+            if alm.tacticblunders
+            else None
         )
         self.pgnblunders = alm.pgnblunders
         self.oriblunders = alm.oriblunders
@@ -227,7 +229,7 @@ FILESW=%s:100
             pblunder.set_position(move.position_before)
             pblunder.read_pv(rm.pv)
             jg0 = pblunder.move(0)
-            jg0.comment = rm.texto()
+            jg0.set_comment(rm.texto())
 
         p = Game.Game()
         p.set_position(move.position_before)
@@ -248,7 +250,7 @@ FILESW=%s:100
             t = t[:-1]
         eti_t = "%s %s" % (t, _("Second(s)"))
 
-        jg0.comment = "%s %s: %s\n" % (name, eti_t, rm.texto())
+        jg0.set_comment("%s %s: %s\n" % (name, eti_t, rm.texto()))
         if mj:
             jg0.add_variation(pblunder)
 
@@ -520,7 +522,7 @@ FILESW=%s:100
                     if nag:
                         move.add_nag(nag)
 
-                if self.themes_lichess and (mj.mate != 0 or dif > 0 ):
+                if self.themes_lichess and (mj.mate != 0 or dif > 0):
                     move.assign_themes_lichess()
 
         # Ponemos el texto original en la ultima

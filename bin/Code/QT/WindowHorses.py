@@ -122,10 +122,10 @@ class WHorsesBase(LCDialog.LCDialog):
 
         # Historico
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("FECHA", _("Date"), 120, centered=True)
-        o_columns.nueva("MOVES", _("Moves"), 100, centered=True)
-        o_columns.nueva("SECONDS", _("Second(s)"), 80, centered=True)
-        o_columns.nueva("HINTS", _("Hints"), 90, centered=True)
+        o_columns.nueva("FECHA", _("Date"), 120, align_center=True)
+        o_columns.nueva("MOVES", _("Moves"), 100, align_center=True)
+        o_columns.nueva("SECONDS", _("Second(s)"), 80, align_center=True)
+        o_columns.nueva("HINTS", _("Hints"), 90, align_center=True)
         self.ghistorico = Grid.Grid(self, o_columns, siSelecFilas=True, siSeleccionMultiple=True)
         self.ghistorico.setMinimumWidth(self.ghistorico.anchoColumnas() + 20)
 

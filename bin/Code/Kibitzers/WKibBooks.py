@@ -19,9 +19,9 @@ class WPolyglot(WKibCommon.WKibCommon):
 
         o_columns = Columnas.ListaColumnas()
         delegado = Delegados.EtiquetaPOS(True, siLineas=False) if self.with_figurines else None
-        o_columns.nueva("MOVE", _("Move"), 80, centered=True, edicion=delegado)
-        o_columns.nueva("PORC", "%", 60, centered=True)
-        o_columns.nueva("WEIGHT", _("Weight"), 80, siDerecha=True)
+        o_columns.nueva("MOVE", _("Move"), 80, align_center=True, edicion=delegado)
+        o_columns.nueva("PORC", "%", 60, align_center=True)
+        o_columns.nueva("WEIGHT", _("Weight"), 80, align_right=True)
         self.grid = Grid.Grid(self, o_columns, dicVideo=self.dicVideo, siSelecFilas=True)
 
         li_acciones = (
@@ -105,4 +105,3 @@ class WPolyglot(WKibCommon.WKibCommon):
             self.grid.gotop()
             self.grid.refresh()
             self.ponFlecha(0)
-

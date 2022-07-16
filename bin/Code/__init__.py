@@ -51,7 +51,7 @@ if not os.environ.get("PYTHONHTTPSVERIFY", "") and getattr(ssl, "_create_unverif
 configuration = None
 procesador = None
 
-todasPiezas = None
+all_pieces = None
 
 tbook = path_resource("Openings", "GMopenings.bin")
 tbookPTZ = path_resource("Openings", "fics15.bin")
@@ -86,7 +86,7 @@ def relative_root(path):
 
 
 BASE_VERSION = "B"  # Para el control de updates que necesitan reinstalar entero
-VERSION = "R 2.01c2"
+VERSION = "R 2.02"
 DEBUG = False
 DEBUG_ENGINE = False
 
@@ -132,3 +132,6 @@ if DEBUG:
         prln("", "Modo debug engine")
 
     prln("Modo debug PYLCR2")
+    import builtins
+
+    builtins.__dict__["stack"] = stack

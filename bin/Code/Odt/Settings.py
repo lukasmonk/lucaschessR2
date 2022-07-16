@@ -625,5 +625,3 @@ class Settings(XML.XML):
     def run(self, folder):
         path = os.path.join(folder, "settings.xml")
         self.save(path)
-
-

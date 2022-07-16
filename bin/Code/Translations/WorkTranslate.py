@@ -46,7 +46,7 @@ class WorkTranslate(object):
                 x = traceback.format_stack()[-3]
                 x0 = x.split('"')[1]
                 li = x0.split(os.sep)
-                li = li[li.index("bin") + 1:]
+                li = li[li.index("bin") + 1 :]
                 where = "\\".join(li)[:-3]
                 if where.startswith("Code"):
                     where = "." + where[4:] + ".py"

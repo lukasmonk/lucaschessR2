@@ -1,22 +1,23 @@
 import os
 import pickle
-import threading
-import sqlite3
 import random
-import sortedcontainers
+import sqlite3
+import threading
+
 import psutil
+import sortedcontainers
 
 import Code
 from Code import Util
 
 
 class DictSQL(object):
-    def __init__(self, nom_db, tabla="Data", max_cache=2048):
+    def __init__(self, path_db, tabla="Data", max_cache=2048):
         self.tabla = tabla
         self.max_cache = max_cache
         self.cache = {}
 
-        self.conexion = sqlite3.connect(nom_db)
+        self.conexion = sqlite3.connect(path_db)
 
         self.conexion.execute("CREATE TABLE IF NOT EXISTS %s( KEY TEXT PRIMARY KEY, VALUE BLOB );" % tabla)
 
@@ -145,9 +146,9 @@ class DictSQL(object):
 
 
 class DictObjSQL(DictSQL):
-    def __init__(self, nom_db, class_storage, tabla="Data", max_cache=2048):
+    def __init__(self, path_db, class_storage, tabla="Data", max_cache=2048):
         self.class_storage = class_storage
-        DictSQL.__init__(self, nom_db, tabla, max_cache)
+        DictSQL.__init__(self, path_db, tabla, max_cache)
 
     def __setitem__(self, key, obj):
         dato = Util.save_obj_pickle(obj)
@@ -193,8 +194,8 @@ class DictObjSQL(DictSQL):
 
 
 class DictRawSQL(DictSQL):
-    def __init__(self, nom_db, tabla="Data"):
-        DictSQL.__init__(self, nom_db, tabla, max_cache=0)
+    def __init__(self, path_db, tabla="Data"):
+        DictSQL.__init__(self, path_db, tabla, max_cache=0)
 
 
 class ListSQL:
@@ -622,3 +623,22 @@ def check_table_in_db(path_db: str, table: str):
     resp = cursor.fetchone()[0] == 1
     conexion.close()
     return resp
+
+
+def list_tables(path_db: str):
+    conexion = sqlite3.connect(path_db)
+    cursor = conexion.cursor()
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
+    li_resp = cursor.fetchall()
+    if li_resp:
+        return [row[0] for row in li_resp]
+    return []
+
+
+def remove_table(path_db: str, table: str):
+    conexion = sqlite3.connect(path_db)
+    cursor = conexion.cursor()
+    cursor.execute("DROP TABLE IF EXISTS %s" % table)
+    conexion.execute("VACUUM")
+    conexion.commit()
+    conexion.close()

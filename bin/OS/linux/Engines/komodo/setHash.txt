@@ -1,0 +1,35 @@
+﻿How should I set the hash table size?
+=====================================
+
+
+In general the default hash table size setting in Komodo will work well for you.  However, if you want optimal performance you may wish to tweak this value.  We are providing some guidelines here.
+
+
+The optimal hash table size setting for Komodo is when the program utilizes half, or less, of the hash table.  When the percentage exceeds 50% you will see a decline in performance.  In modern chess programs the hash tables can fill very quickly, so it may not be possible to provide the optimal hash table size, especially when doing deep searches or using the program for deep analysis or where the amount of memory on a given machine is limited.  So the rule of thumb in these cases is to set the hash table size as large as reasonably possible without sacrificing too much system performance.
+
+
+Keep in mind that very heavy memory usage can impact the speed of the program and the underlying operating system. If you find your machine is less responsive, try a small hash table size.
+
+
+We have devised a general rule of thumb for determining how large to set the hash table based on the time control you wish to play. Machine vary in speed, but these rule will help you set a p[roper hash table size. We consider sudden death or Fischer time controls but these guidelines can be extrapolated to other time controls.  There are system considerations too so this is not a hard rule but really just a general guideline and does not take into consideration the memory caching performance of your machine.  Nevertheless, most modern PC's will do well with these settings:
+
+
+  1. Take the main time in minutes and add the increment in seconds (for sudden death the increment is zero.) Example a 5 minute plus 1 sec increment game would be 5 + 1 = 6.
+
+
+  2. Multiply the value obtained in step 1 by 3. In the above example, 5x3 = 15.
+
+
+  3. From the opening position, do a fixed time search of exactly this  amount of time in seconds. (15 seconds in this example)
+
+
+  4. Note the hash table utilization as reported by the GUI.  
+
+
+  5. If the hash table utilization is much above 40%,  double the hash table size and repeat this test.
+
+
+  6. If the hash table utilization is too small, for example well below 20%, you are probably setting your table higher than it needs to be.  
+
+
+For technical reasons, setting a hash table that is much larger than it needs to be will have a negative impact on the performance of your chess program (and the rest of the system) as it place more demands on the memory sub-system and cache.  However the impact is generally pretty minor up to about half of the total RAM on your system. Going beyond that is risky. In general, all other things being equal, you should err on the side of being too large rather than being too small, as long as you don't exceed half of total memory.  We generally suggest choosing the smallest hash table size that gives no more than about 40% utilization using this test.

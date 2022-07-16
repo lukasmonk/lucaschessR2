@@ -114,7 +114,22 @@ class ManagerMotorAlbum:
 
 
 class Cromo:
-    def __init__(self, key, name, nivel, bien, aleatorio, captura, esquivo, similar, dif_puntos, aterrizaje, mate, engine, opening):
+    def __init__(
+        self,
+        key,
+        name,
+        nivel,
+        bien,
+        aleatorio,
+        captura,
+        esquivo,
+        similar,
+        dif_puntos,
+        aterrizaje,
+        mate,
+        engine,
+        opening,
+    ):
         self.key = key
         self.name = name
         self.nivel = nivel

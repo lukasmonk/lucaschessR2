@@ -37,9 +37,9 @@ class WKibEngine(WKibCommon.WKibCommon):
 
         o_columns = Columnas.ListaColumnas()
         if not self.is_candidates:
-            o_columns.nueva("DEPTH", "^", 40, centered=True)
-        o_columns.nueva("BESTMOVE", rotulo, 80, centered=True, edicion=delegado)
-        o_columns.nueva("EVALUATION", _("Evaluation"), 85, centered=True)
+            o_columns.nueva("DEPTH", "^", 40, align_center=True)
+        o_columns.nueva("BESTMOVE", rotulo, 80, align_center=True, edicion=delegado)
+        o_columns.nueva("EVALUATION", _("Evaluation"), 85, align_center=True)
         o_columns.nueva("MAINLINE", _("Main line"), 400)
         self.grid = Grid.Grid(self, o_columns, dicVideo=self.dicVideo, siSelecFilas=True)
 
@@ -218,7 +218,9 @@ class WKibEngine(WKibCommon.WKibCommon):
             sys.exit()
         args = self.kibitzer.args
         li_uci = self.kibitzer.liUCI
-        return EngineRun.RunEngine(self.nom_engine, exe, li_uci, self.numMultiPV, priority=self.cpu.prioridad, args=args)
+        return EngineRun.RunEngine(
+            self.nom_engine, exe, li_uci, self.numMultiPV, priority=self.cpu.prioridad, args=args
+        )
 
     def valid_to_play(self):
         if self.game is None:
@@ -246,7 +248,7 @@ class WKibEngine(WKibCommon.WKibCommon):
             p = Game.Game(fen=fen)
             p.read_pv(rm.pv)
             jg0 = p.move(0)
-            jg0.comment = rm.abrTextoPDT() + " " + self.nom_engine
+            jg0.set_comment(rm.abrTextoPDT() + " " + self.nom_engine)
             pgn = p.pgnBaseRAW()
             resp = '[FEN "%s"]\n\n%s' % (fen, pgn)
             QTUtil.ponPortapapeles(resp)

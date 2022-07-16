@@ -22,7 +22,15 @@ class GMgame:
         self.len_pv = len(self.li_pv)
 
     def toline(self):
-        return "%s|%s|%s|%s|%s|%s|%s" % (self.xpv, self.event, self.oponent, self.date, self.opening, self.result, self.color)
+        return "%s|%s|%s|%s|%s|%s|%s" % (
+            self.xpv,
+            self.event,
+            self.oponent,
+            self.date,
+            self.opening,
+            self.result,
+            self.color,
+        )
 
     def is_white(self, is_white):
         if is_white:
@@ -184,7 +192,9 @@ class GM:
     def gen_toselect(self):
         li_regs = []
         for num, part in enumerate(self.li_gm_games):
-            dic = dict(NOMBRE=part.oponent, FECHA=part.date, ECO=part.opening, RESULT=part.result, NUMBER=num, EVENT=part.event)
+            dic = dict(
+                NOMBRE=part.oponent, FECHA=part.date, ECO=part.opening, RESULT=part.result, NUMBER=num, EVENT=part.event
+            )
             li_regs.append(dic)
         return li_regs
 
@@ -365,7 +375,9 @@ class FabGM:
 
         xpv = pv_xpv(pv)
         if xpv not in self.st_xpv:
-            self.write("%s|%s|%s|%s|%s|%s|%s\n" % (xpv, nopipe(event), nopipe(oponente), nopipe(date), eco, result, color))
+            self.write(
+                "%s|%s|%s|%s|%s|%s|%s\n" % (xpv, nopipe(event), nopipe(oponente), nopipe(date), eco, result, color)
+            )
             self.st_xpv.add(xpv)
 
     def xprocesa(self):

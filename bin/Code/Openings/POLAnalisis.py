@@ -55,9 +55,9 @@ class TabEngine(QtWidgets.QWidget):
         )
 
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("PDT", "", 120, centered=True)
+        o_columns.nueva("PDT", "", 120, align_center=True)
         delegado = Delegados.EtiquetaPOS(True, siLineas=False) if self.with_figurines else None
-        o_columns.nueva("SOL", "", 100, centered=True, edicion=delegado)
+        o_columns.nueva("SOL", "", 100, align_center=True, edicion=delegado)
         o_columns.nueva("PGN", _("Solution"), 860)
 
         self.grid_analysis = Grid.Grid(self, o_columns, siSelecFilas=True, altoCabecera=4)
@@ -224,7 +224,7 @@ class TabEngine(QtWidgets.QWidget):
             if len(self.li_analysis) > 1:
                 li_options.append((_("All"), "all"))
                 if len(self.li_analysis) > 2 and row > 0:
-                    li_options.append((("Previous"), "previous"))
+                    li_options.append((_("Previous"), "previous"))
             form.combobox(_("Variations to add"), li_options, tp)
             form.separador()
             form.spinbox(_("Movements to add in each variation"), 0, 999, 50, plies)
@@ -287,7 +287,7 @@ class TabBook(QtWidgets.QWidget):
         o_columns = Columnas.ListaColumnas()
         delegado = Delegados.EtiquetaPOS(True, siLineas=False) if self.with_figurines else None
         for x in range(20):
-            o_columns.nueva(x, "", 80, centered=True, edicion=delegado)
+            o_columns.nueva(x, "", 80, align_center=True, edicion=delegado)
         self.grid_moves = Grid.Grid(
             self, o_columns, siSelecFilas=True, siCabeceraMovible=False, siCabeceraVisible=False
         )
@@ -355,28 +355,32 @@ class TabBook(QtWidgets.QWidget):
         elif resp == "previous":
             lst_rows = list(range(row))
         elif resp == "level":
-            lst_rows = [row,]
+            lst_rows = [
+                row,
+            ]
             lv = self.li_moves[row].nivel
-            for r in range(row-1, -1, -1):
+            for r in range(row - 1, -1, -1):
                 alm = self.li_moves[r]
                 if alm.nivel == lv:
                     lst_rows.append(r)
                 elif alm.nivel < lv:
                     break
-            for r in range(row+1, len(self.li_moves)):
+            for r in range(row + 1, len(self.li_moves)):
                 alm = self.li_moves[r]
                 if alm.nivel == lv:
                     lst_rows.append(r)
                 elif alm.nivel < lv:
                     break
         else:
-            lst_rows = [row,]
+            lst_rows = [
+                row,
+            ]
 
         refresh = False
         for row in lst_rows:
             pv = self.li_moves[row].pv
             lv = self.li_moves[row].nivel
-            for r in range(row-1, -1, -1):
+            for r in range(row - 1, -1, -1):
                 alm = self.li_moves[r]
                 if alm.nivel < lv:
                     pv = alm.pv + " " + pv
@@ -392,7 +396,6 @@ class TabBook(QtWidgets.QWidget):
         self.position = position
         self.pv = pv
         self.start()
-
 
     def borra_subnivel(self, row):
         alm = self.li_moves[row]
@@ -487,6 +490,7 @@ class InfoMoveReplace:
 
     def modoPartida(self, x, y):
         return True
+
 
 class TabDatabase(QtWidgets.QWidget):
     def __init__(self, tabsAnalisis, procesador, db):
@@ -677,8 +681,8 @@ class TabsAnalisis(QtWidgets.QWidget):
         self.tabs = Controles.Tab(panelOpening)
         self.tabs.ponTipoLetra(puntos=self.configuration.x_pgn_fontpoints)
         self.tabs.setTabIcon(0, Iconos.Engine())
-        self.tabs.nuevaTab(self.tabengine, _("Engine"))
-        self.tabs.nuevaTab(self.tabtree, _("Tree"))
+        self.tabs.new_tab(self.tabengine, _("Engine"))
+        self.tabs.new_tab(self.tabtree, _("Tree"))
         self.tabs.setTabIcon(1, Iconos.Arbol())
 
         self.tabs.dispatchChange(self.tabChanged)
@@ -737,7 +741,7 @@ class TabsAnalisis(QtWidgets.QWidget):
                 tabbook = TabBook(self, book, self.configuration)
                 self.li_tabs.append((resp, tabbook))
                 pos = len(self.li_tabs) - 1
-                self.tabs.nuevaTab(tabbook, book.name, pos)
+                self.tabs.new_tab(tabbook, book.name, pos)
                 self.tabs.setTabIcon(pos, Iconos.Libros())
                 self.setPosicion(self.game, self.njg, pos)
 
@@ -745,7 +749,7 @@ class TabsAnalisis(QtWidgets.QWidget):
         #     tabtree = TabTree(self, self.configuration)
         #     self.li_tabs.append(("tree", tabtree))
         #     pos = len(self.li_tabs)-1
-        #     self.tabs.nuevaTab(tabtree, _("Tree"), pos)
+        #     self.tabs.new_tab(tabtree, _("Tree"), pos)
         #     self.tabs.setTabIcon(pos, Iconos.Arbol())
         #     tabtree.bt_update()
 
@@ -758,7 +762,7 @@ class TabsAnalisis(QtWidgets.QWidget):
                 pos = len(self.li_tabs) - 1
                 self.setPosicion(self.game, self.njg, pos)
                 name = os.path.basename(nomfichgames)[:-5]
-                self.tabs.nuevaTab(tabdb, name, pos)
+                self.tabs.new_tab(tabdb, name, pos)
                 self.tabs.setTabIcon(pos, Iconos.Arbol())
         elif resp == "database":
             nomfichgames = QTVarios.select_db(self, self.configuration, True, False)
@@ -769,7 +773,7 @@ class TabsAnalisis(QtWidgets.QWidget):
                 pos = len(self.li_tabs) - 1
                 self.setPosicion(self.game, self.njg, pos)
                 name = os.path.basename(nomfichgames)[:-5]
-                self.tabs.nuevaTab(tabdb, name, pos)
+                self.tabs.new_tab(tabdb, name, pos)
                 self.tabs.setTabIcon(pos, Iconos.Database())
         self.tabs.activa(pos)
 

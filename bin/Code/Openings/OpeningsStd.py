@@ -90,7 +90,7 @@ class ListaOpeningsStd:
                 fen = FasterCode.make_pv(pv)
                 fm2 = Position.legal_fenm2(fen)
                 self.st_fenm2_test.add(fm2)
-                if x == num-1:
+                if x == num - 1:
                     self.dic_fenm2_op[fm2] = op
                     op.fm2 = fm2
 
@@ -154,6 +154,7 @@ ap = ListaOpeningsStd()
 
 # Borrar en la versión 3.0---------------------------------
 
+
 class OpeningStd(Opening):
     def __init__(self, key):
         Opening.__init__(self, key)
@@ -161,5 +162,6 @@ class OpeningStd(Opening):
     @property
     def tr_name(self):
         return self.trNombre
+
 
 # ^^^^Borrar en la versión 3.0---------------------------------

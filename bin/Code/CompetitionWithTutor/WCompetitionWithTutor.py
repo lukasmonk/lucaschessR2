@@ -39,7 +39,12 @@ def dameCategoria(w_parent, configuration, procesador):
 
     menu.opcion(None, "%s: %d %s" % (_("Total score"), dbm.puntuacion(), _("pts")), Iconos.NuevaPartida())
     menu.separador()
-    menu.opcion(None, "%s: %s [%d %s]" % (_("Opponent"), rival.name, categorias.puntuacion(), _("pts")), Iconos.Engine(), is_disabled=False)
+    menu.opcion(
+        None,
+        "%s: %s [%d %s]" % (_("Opponent"), rival.name, categorias.puntuacion(), _("pts")),
+        Iconos.Engine(),
+        is_disabled=False,
+    )
     menu.separador()
 
     # ---------- CATEGORIAS
@@ -99,7 +104,12 @@ def dameCategoria(w_parent, configuration, procesador):
         for rv in grupo.li_rivales:
             siActual = rv.key == rival.key
             ico = icoActual if siActual else icoM
-            submenu.opcion("MT_" + rv.key, "%s: [%d %s]" % (rv.name, dbm.get_puntos_rival(rv.key), _("pts")), ico, siDes or siActual)
+            submenu.opcion(
+                "MT_" + rv.key,
+                "%s: [%d %s]" % (rv.name, dbm.get_puntos_rival(rv.key), _("pts")),
+                ico,
+                siDes or siActual,
+            )
         menuRival.separador()
 
     # ----------- RIVAL
@@ -165,8 +175,12 @@ class wDatos(QtWidgets.QDialog):
         self.rb_black.clicked.connect(self.ponMaxPuntos)
 
         # Rival
-        lbRMotor = Controles.LB(self, "<b>%s</b> : %s" % (_("Engine"), rival.name)).ponFuente(flb).set_wrap().anchoFijo(400)
-        lbRAutor = Controles.LB(self, "<b>%s</b> : %s" % (_("Author"), rival.autor)).ponFuente(flb).set_wrap().anchoFijo(400)
+        lbRMotor = (
+            Controles.LB(self, "<b>%s</b> : %s" % (_("Engine"), rival.name)).ponFuente(flb).set_wrap().anchoFijo(400)
+        )
+        lbRAutor = (
+            Controles.LB(self, "<b>%s</b> : %s" % (_("Author"), rival.autor)).ponFuente(flb).set_wrap().anchoFijo(400)
+        )
         lbRWeb = (
             Controles.LB(self, '<b>%s</b> : <a href="%s">%s</a>' % (_("Web"), rival.url, rival.url))
             .set_wrap()
@@ -179,8 +193,12 @@ class wDatos(QtWidgets.QDialog):
 
         # Tutor
         tutor = configuration.engine_tutor()
-        lbTMotor = Controles.LB(self, "<b>%s</b> : %s" % (_("Engine"), tutor.name)).ponFuente(flb).set_wrap().anchoFijo(400)
-        lbTAutor = Controles.LB(self, "<b>%s</b> : %s" % (_("Author"), tutor.autor)).ponFuente(flb).set_wrap().anchoFijo(400)
+        lbTMotor = (
+            Controles.LB(self, "<b>%s</b> : %s" % (_("Engine"), tutor.name)).ponFuente(flb).set_wrap().anchoFijo(400)
+        )
+        lbTAutor = (
+            Controles.LB(self, "<b>%s</b> : %s" % (_("Author"), tutor.autor)).ponFuente(flb).set_wrap().anchoFijo(400)
+        )
         siURL = hasattr(tutor, "url")
         if siURL:
             lbTWeb = (
@@ -201,7 +219,17 @@ class wDatos(QtWidgets.QDialog):
 
         lyNivel = Colocacion.H().control(lb).control(self.ed).espacio(10).control(self.lbPuntos).relleno()
 
-        vlayout = Colocacion.V().otro(lyNivel).espacio(10).control(gbColor).espacio(10).control(gbR).espacio(10).control(gbT).margen(30)
+        vlayout = (
+            Colocacion.V()
+            .otro(lyNivel)
+            .espacio(10)
+            .control(gbColor)
+            .espacio(10)
+            .control(gbR)
+            .espacio(10)
+            .control(gbT)
+            .margen(30)
+        )
 
         layout = Colocacion.V().control(tb).otro(vlayout).margen(3)
 
@@ -272,4 +300,3 @@ class WNumEntrenamiento(QtWidgets.QDialog):
     def aceptar(self):
         self.number = self.ed.value()
         self.accept()
-

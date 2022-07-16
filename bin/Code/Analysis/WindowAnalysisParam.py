@@ -228,9 +228,7 @@ def analysis_parameters(parent, configuration, siModoAmpliado, siTodosMotores=Fa
         config = FormLayout.Combobox(_("Do not scan the opening moves based on book"), li)
         li_gen.append((config, defecto))
 
-        li_gen.append(
-            (_("Automatically assign themes using Lichess/Thibault code") + ":", alm.themes_lichess)
-        )
+        li_gen.append((_("Automatically assign themes using Lichess/Thibault code") + ":", alm.themes_lichess))
 
         li_gen.append((_("Redo any existing prior analysis (if they exist)") + ":", alm.delete_previous))
 
@@ -452,9 +450,7 @@ def massive_analysis_parameters(parent, configuration, siVariosSeleccionados, si
     config = FormLayout.Combobox(_("Do not scan the opening moves based on book"), li)
     li_gen.append((config, defecto))
 
-    li_gen.append(
-        (_("Automatically assign themes using Lichess/Thibault code") + ":", alm.themes_lichess)
-    )
+    li_gen.append((_("Automatically assign themes using Lichess/Thibault code") + ":", alm.themes_lichess))
 
     li_gen.append((_("Start from the end of the game") + ":", alm.from_last_move))
 
@@ -538,17 +534,32 @@ def massive_analysis_parameters(parent, configuration, siVariosSeleccionados, si
         alm.li_players = cjug.upper().split(";") if cjug else None
         alm.book_name = alm.book.name if alm.book else None
 
-        alm.kblunders, alm.kblunders_porc, alm.tacticblunders, alm.pgnblunders, alm.oriblunders, alm.bmtblunders = (
-            liBlunders
-        )
+        (
+            alm.kblunders,
+            alm.kblunders_porc,
+            alm.tacticblunders,
+            alm.pgnblunders,
+            alm.oriblunders,
+            alm.bmtblunders,
+        ) = liBlunders
 
-        alm.include_variations, alm.limiteinclude_variations, alm.best_variation, alm.info_variation, alm.si_pdt, alm.one_move_variation = (
-            liVar
-        )
+        (
+            alm.include_variations,
+            alm.limiteinclude_variations,
+            alm.best_variation,
+            alm.info_variation,
+            alm.si_pdt,
+            alm.one_move_variation,
+        ) = liVar
 
-        alm.dpbrilliancies, alm.ptbrilliancies, alm.fnsbrilliancies, alm.pgnbrilliancies, alm.oribrilliancies, alm.bmtbrilliancies = (
-            liBrilliancies
-        )
+        (
+            alm.dpbrilliancies,
+            alm.ptbrilliancies,
+            alm.fnsbrilliancies,
+            alm.pgnbrilliancies,
+            alm.oribrilliancies,
+            alm.bmtbrilliancies,
+        ) = liBrilliancies
 
         dic = {}
         for x in dir(alm):

@@ -14,7 +14,7 @@ from Code.QT import Iconos
 from Code.QT import Piezas
 from Code.QT import QTUtil
 from Code.QT import QTVarios
-from Code.QT import Voyager
+from Code.Voyager import Voyager
 
 
 class WKibIndex(QtWidgets.QDialog):
@@ -39,22 +39,27 @@ class WKibIndex(QtWidgets.QDialog):
         self.setWindowIcon(Iconos.Engine())
 
         self.setWindowFlags(
-            QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Dialog | QtCore.Qt.WindowTitleHint | QtCore.Qt.WindowMinimizeButtonHint
+            QtCore.Qt.WindowCloseButtonHint
+            | QtCore.Qt.Dialog
+            | QtCore.Qt.WindowTitleHint
+            | QtCore.Qt.WindowMinimizeButtonHint
         )
 
         self.setBackgroundRole(QtGui.QPalette.Light)
 
-        Code.todasPiezas = Piezas.TodasPiezas()
+        Code.all_pieces = Piezas.AllPieces()
         config_board = cpu.configuration.config_board("kib" + cpu.kibitzer.huella, 24)
         self.board = Board.Board(self, config_board)
         self.board.crea()
         self.board.set_dispatcher(self.mensajero)
 
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("titulo", "", 110, siDerecha=True)
-        o_columns.nueva("valor", "", 100, centered=True)
+        o_columns.nueva("titulo", "", 110, align_right=True)
+        o_columns.nueva("valor", "", 100, align_center=True)
         o_columns.nueva("info", "", 110)
-        self.grid = Grid.Grid(self, o_columns, dicVideo=dicVideo, siSelecFilas=True, siCabeceraVisible=True, altoCabecera=4)
+        self.grid = Grid.Grid(
+            self, o_columns, dicVideo=dicVideo, siSelecFilas=True, siCabeceraVisible=True, altoCabecera=4
+        )
 
         li_acciones = (
             (_("Continue"), Iconos.Kibitzer_Play(), self.play),

@@ -89,13 +89,13 @@ class WNewExpedition(LCDialog.LCDialog):
         tolerance_min = self.sbtolerance_min.valor()
         self.sbtolerance_max.setMinimum(tolerance_min)
         if self.sbtolerance_max.valor() < tolerance_min:
-            self.sbtolerance_max.ponValor(tolerance_min)
+            self.sbtolerance_max.set_value(tolerance_min)
 
     def tries_changed(self):
         tries_min = self.sbtries_min.valor()
         self.sbtries_max.setMinimum(tries_min)
         if self.sbtries_max.valor() < tries_min:
-            self.sbtries_max.ponValor(tries_min)
+            self.sbtries_max.set_value(tries_min)
 
     def mas(self):
         path_pgn = SelectFiles.select_pgn(self)
@@ -222,14 +222,14 @@ class WExpedition(LCDialog.LCDialog):
             lyRot.control(lb_rotulo)
 
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("ROUTE", _("Route"), 240, centered=True)
-        o_columns.nueva("GAMES", _("Games"), 80, centered=True)
-        o_columns.nueva("DONE", _("Done"), 80, centered=True)
-        o_columns.nueva("TIME", _("Time"), 80, centered=True)
-        o_columns.nueva("MTIME", _("Average time"), 80, centered=True)
-        o_columns.nueva("MPOINTS", _("Average centipawns lost"), 80, centered=True)
-        o_columns.nueva("TRIES", _("Max tries"), 80, centered=True)
-        o_columns.nueva("TOLERANCE", _("Tolerance"), 80, centered=True)
+        o_columns.nueva("ROUTE", _("Route"), 240, align_center=True)
+        o_columns.nueva("GAMES", _("Games"), 80, align_center=True)
+        o_columns.nueva("DONE", _("Done"), 80, align_center=True)
+        o_columns.nueva("TIME", _("Time"), 80, align_center=True)
+        o_columns.nueva("MTIME", _("Average time"), 80, align_center=True)
+        o_columns.nueva("MPOINTS", _("Average centipawns lost"), 80, align_center=True)
+        o_columns.nueva("TRIES", _("Max tries"), 80, align_center=True)
+        o_columns.nueva("TOLERANCE", _("Tolerance"), 80, align_center=True)
         grid = Grid.Grid(self, o_columns, siSelecFilas=True, siSeleccionMultiple=False)
         grid.setMinimumWidth(grid.anchoColumnas() + 20)
         grid.coloresAlternados()
@@ -309,13 +309,13 @@ class WEverest(LCDialog.LCDialog):
         self.selected = None
 
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("NAME", _("Expedition"), 120, centered=True)
-        o_columns.nueva("DATE_INIT", _("Start date"), 120, centered=True)
-        o_columns.nueva("DATE_END", _("Final date"), 100, centered=True)
-        o_columns.nueva("NUM_GAMES", _("Games"), 80, centered=True)
-        o_columns.nueva("TIMES", _("Time"), 120, centered=True)
-        o_columns.nueva("TOLERANCE", _("Tolerance"), 90, centered=True)
-        o_columns.nueva("TRIES", _("Tries"), 90, centered=True)
+        o_columns.nueva("NAME", _("Expedition"), 120, align_center=True)
+        o_columns.nueva("DATE_INIT", _("Start date"), 120, align_center=True)
+        o_columns.nueva("DATE_END", _("Final date"), 100, align_center=True)
+        o_columns.nueva("NUM_GAMES", _("Games"), 80, align_center=True)
+        o_columns.nueva("TIMES", _("Time"), 120, align_center=True)
+        o_columns.nueva("TOLERANCE", _("Tolerance"), 90, align_center=True)
+        o_columns.nueva("TRIES", _("Tries"), 90, align_center=True)
         self.grid = Grid.Grid(self, o_columns, siSelecFilas=True, siSeleccionMultiple=True)
         self.grid.setMinimumWidth(self.grid.anchoColumnas() + 20)
 

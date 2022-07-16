@@ -173,7 +173,9 @@ class ManagerMicElo(Manager.Manager):
         self.whiteElo = eloplayer if is_white else eloengine
         self.blackElo = eloplayer if not is_white else eloengine
 
-        self.xrival = self.procesador.creaManagerMotor(self.engine_rival, None, None, siMultiPV=self.engine_rival.multiPV > 0)
+        self.xrival = self.procesador.creaManagerMotor(
+            self.engine_rival, None, None, siMultiPV=self.engine_rival.multiPV > 0
+        )
         self.xrival.check_engine()
 
         self.pte_tool_resigndraw = False
@@ -287,7 +289,7 @@ class ManagerMicElo(Manager.Manager):
             "ptablas": self.engine_rival.ptablas,
             "ppierde": self.engine_rival.ppierde,
             "alias": self.engine_rival.alias,
-            "human_side": self.human_side
+            "human_side": self.human_side,
         }
 
         return dic
@@ -339,7 +341,9 @@ class ManagerMicElo(Manager.Manager):
         if self.state == ST_ENDGAME:
             return True
         if (len(self.game) > 0) and not self.pte_tool_resigndraw:
-            if not QTUtil2.pregunta(self.main_window, _("Do you want to resign?") + " (%d)" % self.engine_rival.ppierde):
+            if not QTUtil2.pregunta(
+                self.main_window, _("Do you want to resign?") + " (%d)" % self.engine_rival.ppierde
+            ):
                 return False  # no abandona
             self.game.resign(self.human_side)
             self.show_result()

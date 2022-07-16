@@ -1,5 +1,3 @@
-
-
 import os
 from Code.Odt import XML
 
@@ -609,7 +607,7 @@ class Styles(XML.XML):
         self.save(path)
 
     def landscape(self):
-        """        element71 = XML.Element("style:page-layout-properties")
+        """element71 = XML.Element("style:page-layout-properties")
         element71.add_param("fo:page-width", "21.001cm")
         element71.add_param("fo:page-height", "29.7cm")
         element71.add_param("style:num-format", "1")

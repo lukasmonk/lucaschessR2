@@ -37,8 +37,8 @@ echo ">> Igel" && chmod 755 ./Engines/igel/Igel-3.0.10
 echo ">> Irina" && chmod 755 ./Engines/irina/Irina-0.15
 echo ">> Jabba" && chmod 755 ./Engines/jabba/Jabba-1.0
 echo ">> K2" && chmod 755 ./Engines/k2/K2-0.99
-echo ">> Komodo" && chmod 755 ./Engines/komodo/Komodo-12.1.1-bmi2
-echo ">> Komodo" && chmod 755 ./Engines/komodo/Komodo-12.1.1
+echo ">> Komodo" && chmod 755 ./Engines/komodo/komodo-13.02-linux
+echo ">> Komodo" && chmod 755 ./Engines/komodo/komodo-13.02-linux-bmi2
 echo ">> Laser" && chmod 755 ./Engines/laser/Laser-1.17
 echo ">> Lc0" && chmod 755 ./Engines/lc0/Lc0-0.27.0
 echo ">> Maia" && chmod 755 ./Engines/maia/Lc0-0.27.0

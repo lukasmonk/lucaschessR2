@@ -31,7 +31,7 @@ class GR_Engine:
         self.level = nlevel
         if nlevel == 0:
             self.manager = None
-            self._nombre = self._label
+            self._name = self._label
         else:
             dEngines = self.elos()
             x = +1 if nlevel < 6 else -1
@@ -45,8 +45,8 @@ class GR_Engine:
                         nlevel = 1
             rival = self.configuration.buscaRival(nom_engine)
             self.manager = procesador.creaManagerMotor(rival, None, depth)
-            self._nombre = "%s %s %d" % (rival.name, _("Depth"), depth)
-            self._label += "\n%s\n%s: %d" % (self._nombre, _("Estimated elo"), elo)
+            self._name = "%s %s %d" % (rival.name, _("Depth"), depth)
+            self._label += "\n%s\n%s: %d" % (self._name, _("Estimated elo"), elo)
 
     def close(self):
         if self.manager and self.manager != self:
@@ -59,7 +59,7 @@ class GR_Engine:
 
     @property
     def name(self):
-        return self._nombre
+        return self._name
 
     def play(self, fen):
         if self.manager:
@@ -302,7 +302,9 @@ class ManagerRoutesPlay(ManagerRoutes):
                     QTUtil2.mensajeTemporal(self.main_window, _("Wrong move"), 2)
                     self.run_action(TB_REINIT)
                 else:
-                    QTUtil2.message_error(self.main_window, "%s\n%s" % (_("Wrong move"), _("Right move: %s") % Game.pv_san(fen, op_pv)))
+                    QTUtil2.message_error(
+                        self.main_window, "%s\n%s" % (_("Wrong move"), _("Right move: %s") % Game.pv_san(fen, op_pv))
+                    )
                     self.sigueHumano()
                 return False
             self.posOpening += 1

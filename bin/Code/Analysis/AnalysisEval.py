@@ -100,7 +100,7 @@ class AnalysisEval:
         self.min_elo = conf.eval_min_elo
         self.very_bad_factor = conf.eval_very_bad_factor
         self.bad_factor = conf.eval_bad_factor
-    
+
     def escala10(self, rm):
         if rm.mate:
             mt = min(abs(rm.mate), self.max_mate)
@@ -131,19 +131,19 @@ class AnalysisEval:
         df = v_j - v_c
         mx = self.max_elo
         mn = self.min_elo
-        bl2 = self.blunder*1.5
+        bl2 = self.blunder * 1.5
         if df > bl2:
             return mn
         elif df == 0:
             return mx
         elif df > self.blunder:
-            mx *= .2
+            mx *= 0.2
         elif df > self.error:
-            mx *= .5
+            mx *= 0.5
         elif df > self.inaccuracy:
-            mx *= .8
+            mx *= 0.8
         rg = max(mx - mn, 0)
-        return int((bl2-df)*rg/bl2 + mn)
+        return int((bl2 - df) * rg / bl2 + mn)
 
     def elo_bad_vbad(self, rm_j, rm_c):
         elo = self.elo(rm_j, rm_c)

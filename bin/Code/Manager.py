@@ -404,7 +404,7 @@ class Manager:
                         dc = ord(from_sq[0]) - ord(to_sq[0])
                         df = int(from_sq[1]) - int(to_sq[1])
                         # Maxima distancia = 9.9 ( 9,89... sqrt(7**2+7**2)) = 4 seconds
-                        dist = (dc ** 2 + df ** 2) ** 0.5
+                        dist = (dc**2 + df**2) ** 0.5
                         seconds = 4.0 * dist / (9.9 * rapidez)
                     if self.procesador.manager:
                         cpu.muevePieza(movim[1], movim[2], seconds)
@@ -499,8 +499,9 @@ class Manager:
     def mira_kibitzers(self, all_kibitzers):
         row, column = self.main_window.pgnPosActual()
         pos_move, move = self.pgn.move(row, column.key)
-        if column.key == "NUMBER":
-            pos_move -= 1
+        if pos_move is not None:
+            if column.key == "NUMBER" and pos_move != -1:
+                pos_move -= 1
         game_run = self.game.copy_raw(pos_move)
         self.kibitzers_manager.put_game(game_run, self.board.is_white_bottom, not all_kibitzers)
 
@@ -588,7 +589,7 @@ class Manager:
             if len(self.game):
                 move = self.game.move(-1)
                 self.runSound.play_list(move.listaSonidos())
-        elif self.configuration.x_sound_beep:
+        if self.configuration.x_sound_beep:
             self.runSound.playBeep()
 
     def beepZeitnot(self):
@@ -956,6 +957,7 @@ class Manager:
             if siCancelar:
                 ya_cancelado = [False]
                 tm_ini = time.time()
+
                 def test_me(rm):
                     if self.main_window.base.is_canceled():
                         if not ya_cancelado[0]:
@@ -1356,9 +1358,12 @@ class Manager:
             liSon, title=_("Sounds"), parent=self.main_window, anchoMinimo=250, icon=Iconos.S_Play()
         )
         if resultado:
-            self.configuration.x_sound_beep, self.configuration.x_sound_results, self.configuration.x_sound_move, self.configuration.x_sound_our = resultado[
-                1
-            ]
+            (
+                self.configuration.x_sound_beep,
+                self.configuration.x_sound_results,
+                self.configuration.x_sound_move,
+                self.configuration.x_sound_our,
+            ) = resultado[1]
             self.configuration.graba()
 
     def utilidades(self, liMasOpciones=None, siArbol=True):
@@ -1552,9 +1557,15 @@ class Manager:
         elos = self.game.calc_elos(self.configuration)
         elosFORM = self.game.calc_elosFORM(self.configuration)
         alm = Histogram.genHistograms(self.game)
-        alm.indexesHTML, alm.indexesHTMLelo, alm.indexesHTMLmoves, alm.indexesRAW, alm.eloW, alm.eloB, alm.eloT = AnalysisIndexes.gen_indexes(
-            self.game, elos, elosFORM, alm
-        )
+        (
+            alm.indexesHTML,
+            alm.indexesHTMLelo,
+            alm.indexesHTMLmoves,
+            alm.indexesRAW,
+            alm.eloW,
+            alm.eloB,
+            alm.eloT,
+        ) = AnalysisIndexes.gen_indexes(self.game, elos, elosFORM, alm)
         alm.is_white_bottom = self.board.is_white_bottom
         um.final()
         if len(alm.lijg) == 0:

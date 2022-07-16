@@ -41,7 +41,7 @@ class ManagerOpeningLinesPositions(Manager.Manager):
             for tr in game_info["TRIES"]:
                 self.tm += tr["TIME"]
 
-        self.liMensBasic = ["%s: %d/%d" % (_("Movement"), self.pos_active+1, len(self.li_trainPositions))]
+        self.liMensBasic = ["%s: %d/%d" % (_("Movement"), self.pos_active + 1, len(self.li_trainPositions))]
 
         self.siAyuda = False
         self.with_automatic_jump = self.training.get("AUTOJUMP_TRAINPOSITIONS", True)
@@ -122,8 +122,11 @@ class ManagerOpeningLinesPositions(Manager.Manager):
             self.pos_active += 1
             self.trposition["NOERROR"] += 1
             if self.pos_active >= len(self.li_trainPositions):
-                QTUtil2.message(self.main_window, "%s\n\n%s" % (_("Congratulations, goal achieved"),
-                                                                _("Next time you will start from the first position")))
+                QTUtil2.message(
+                    self.main_window,
+                    "%s\n\n%s"
+                    % (_("Congratulations, goal achieved"), _("Next time you will start from the first position")),
+                )
                 self.pos_active = 0
                 is_finished = True
             self.training["POS_TRAINPOSITIONS"] = self.pos_active
@@ -249,4 +252,3 @@ class ManagerOpeningLinesPositions(Manager.Manager):
 
         self.pgnRefresh(self.game.last_position.is_white)
         self.refresh()
-

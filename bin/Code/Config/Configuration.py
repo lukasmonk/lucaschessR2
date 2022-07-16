@@ -13,10 +13,9 @@ from Code.QT import QTUtil
 from Code.SQL import UtilSQL
 from Code.Engines import Priorities
 from Code.Analysis import AnalysisEval
-from Code.Base.Constantes import MENU_PLAY_BOTH, POS_TUTOR_HORIZONTAL, INACCURACY
+from Code.Base.Constantes import MENU_PLAY_BOTH, POS_TUTOR_HORIZONTAL, INACCURACY, ENG_FIXED
 
 import OSEngines  # in OS folder
-
 
 LCFILEFOLDER: str = os.path.realpath("../lc.folder")
 LCBASEFOLDER: str = os.path.realpath("../UserData")
@@ -197,6 +196,8 @@ class Configuration:
         self.x_analyzer_depth = 0
         self.x_analyzer_priority = Priorities.priorities.low
 
+        self.x_maia_nodes_exponential = False
+
         # self.x_eval_lines = [(100.0, 0.9), (300, 2.0), (800, 3.0), (3500, 4.0)]
         # self.x_eval_blunder = 1.5
         # self.x_eval_error = 0.7
@@ -299,14 +300,14 @@ class Configuration:
     def carpeta_gaviota_defecto(self):
         return Code.path_resource("Gaviota")
 
-    def carpeta_gaviota(self):
+    def folder_gaviota(self):
         if not Util.exist_file(os.path.join(self.x_carpeta_gaviota, "kbbk.gtb.cp4")):
             self.x_carpeta_gaviota = self.carpeta_gaviota_defecto()
             self.graba()
         return self.x_carpeta_gaviota
 
-    def piezas_gaviota(self):
-        if Util.exist_file(os.path.join(self.carpeta_gaviota(), "kbbkb.gtb.cp4")):
+    def pieces_gaviota(self):
+        if Util.exist_file(os.path.join(self.folder_gaviota(), "kbbkb.gtb.cp4")):
             return 5
         return 4
 
@@ -354,6 +355,9 @@ class Configuration:
 
     def folder_tournaments_workers(self):
         return self.create_base_folder("Tournaments/Workers")
+
+    def folder_leagues(self):
+        return self.create_base_folder("Leagues")
 
     def folder_openings(self):
         dic = self.read_variables("OPENING_LINES")
@@ -566,7 +570,7 @@ class Configuration:
     def comboMotoresMultiPV10(self, minimo=10):  # %#
         liMotores = []
         for key, cm in self.dic_engines.items():
-            if cm.maxMultiPV >= minimo:
+            if cm.maxMultiPV >= minimo and not cm.is_maia():
                 liMotores.append((cm.nombre_ext(), key))
 
         li = sorted(liMotores, key=operator.itemgetter(0))
@@ -750,7 +754,12 @@ class Configuration:
         return li_resp
 
     def dict_engines_fixed_elo(self):
-        return OSEngines.dict_engines_fixed_elo(Code.folder_engines)
+        d = OSEngines.dict_engines_fixed_elo(Code.folder_engines)
+        for elo, lien in d.items():
+            for cm in lien:
+                cm.type = ENG_FIXED
+                cm.elo = elo
+        return d
 
     def engine_tutor(self):
         if self.x_tutor_clave in self.dic_engines:

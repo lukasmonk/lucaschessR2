@@ -141,7 +141,7 @@ class ControlGrid(QtCore.QAbstractTableModel):
 
         flag = QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable
         column = self.oColumnasR.column(index.column())
-        if column.siEditable:
+        if column.is_editable:
             flag |= QtCore.Qt.ItemIsEditable
 
         if column.siChecked:
@@ -224,7 +224,7 @@ class Grid(QtWidgets.QTableView):
         siSelecFilas=False,
         siSeleccionMultiple=False,
         siLineas=True,
-        siEditable=False,
+        is_editable=False,
         siCabeceraMovible=True,
         xid=None,
         background="",
@@ -296,7 +296,7 @@ class Grid(QtWidgets.QTableView):
 
         self.set_widthsColumnas()  # es necesario llamarlo from_sq aqui
 
-        self.siEditable = siEditable
+        self.is_editable = is_editable
         self.starting = False
 
         self.right_button_without_rows = False
@@ -379,7 +379,7 @@ class Grid(QtWidgets.QTableView):
         cada doble click, llamando a la rutina correspondiente si existe (grid_doble_click)
         con el number de row y el objeto column como argumentos
         """
-        if self.siEditable:
+        if self.is_editable:
             QtWidgets.QTableView.mouseDoubleClickEvent(self, event)
         if hasattr(self.w_parent, "grid_doble_click") and event.button() == 1:
             fil, column = self.current_position()

@@ -81,7 +81,9 @@ class PotenciaHistorico:
             if self.dbf.existe_column("MOTOR"):
                 self.dbf.copy_column("MOTOR", "ENGINE")
             self.dbf.cerrar()
-            self.dbf = self.db.dbf(self.tabla, "REF,FECHA,SCORE,ENGINE,SEGUNDOS,MIN_MIN,MIN_MAX,LINE", orden="FECHA DESC")
+            self.dbf = self.db.dbf(
+                self.tabla, "REF,FECHA,SCORE,ENGINE,SEGUNDOS,MIN_MIN,MIN_MAX,LINE", orden="FECHA DESC"
+            )
 
         self.dbf.leer()
 
@@ -197,13 +199,23 @@ class WEdMove(QtWidgets.QWidget):
         self.promocion = " "
 
         self.origen = (
-            EDCelda(self, "").caracteres(2).controlrx("(|[a-h][1-8])").anchoFijo(24).align_center().capture_changes(self.miraPromocion)
+            EDCelda(self, "")
+            .caracteres(2)
+            .controlrx("(|[a-h][1-8])")
+            .anchoFijo(24)
+            .align_center()
+            .capture_changes(self.miraPromocion)
         )
 
         self.arrow = arrow = Controles.LB(self).ponImagen(Iconos.pmMover())
 
         self.destino = (
-            EDCelda(self, "").caracteres(2).controlrx("(|[a-h][1-8])").anchoFijo(24).align_center().capture_changes(self.miraPromocion)
+            EDCelda(self, "")
+            .caracteres(2)
+            .controlrx("(|[a-h][1-8])")
+            .anchoFijo(24)
+            .align_center()
+            .capture_changes(self.miraPromocion)
         )
 
         self.pbPromocion = Controles.PB(self, "", self.pulsadoPromocion, plano=False).anchoFijo(24)
@@ -369,7 +381,9 @@ class WBlqMove(QtWidgets.QWidget):
 class WPotenciaBase(LCDialog.LCDialog):
     def __init__(self, procesador):
 
-        LCDialog.LCDialog.__init__(self, procesador.main_window, _("Determine your calculating power"), Iconos.Potencia(), "potenciaBase")
+        LCDialog.LCDialog.__init__(
+            self, procesador.main_window, _("Determine your calculating power"), Iconos.Potencia(), "potenciaBase"
+        )
 
         self.procesador = procesador
         self.configuration = procesador.configuration
@@ -380,13 +394,13 @@ class WPotenciaBase(LCDialog.LCDialog):
 
         # Historico
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("REF", _("N."), 35, centered=True)
-        o_columns.nueva("FECHA", _("Date"), 120, centered=True)
-        o_columns.nueva("SCORE", _("Score"), 100, centered=True)
-        o_columns.nueva("ENGINE", _("Engine"), 120, centered=True)
-        o_columns.nueva("SEGUNDOS", _("Second(s)"), 80, centered=True)
-        o_columns.nueva("MIN_MIN", _("Minimum minutes"), 100, centered=True)
-        o_columns.nueva("MIN_MAX", _("Maximum minutes"), 100, centered=True)
+        o_columns.nueva("REF", _("N."), 35, align_center=True)
+        o_columns.nueva("FECHA", _("Date"), 120, align_center=True)
+        o_columns.nueva("SCORE", _("Score"), 100, align_center=True)
+        o_columns.nueva("ENGINE", _("Engine"), 120, align_center=True)
+        o_columns.nueva("SEGUNDOS", _("Second(s)"), 80, align_center=True)
+        o_columns.nueva("MIN_MIN", _("Minimum minutes"), 100, align_center=True)
+        o_columns.nueva("MIN_MAX", _("Maximum minutes"), 100, align_center=True)
         self.ghistorico = Grid.Grid(self, o_columns, siSelecFilas=True, siSeleccionMultiple=True)
         self.ghistorico.setMinimumWidth(self.ghistorico.anchoColumnas() + 20)
 
@@ -546,7 +560,9 @@ class WPotencia(LCDialog.LCDialog):
 
         super(WPotencia, self).__init__(owner, _("Determine your calculating power"), Iconos.Potencia(), "potencia")
 
-        self.game, self.dicPGN, info, self.jugadaInicial, self.linea = lee_1_linea_mfn(linea) if linea else lee_linea_mfn()
+        self.game, self.dicPGN, info, self.jugadaInicial, self.linea = (
+            lee_1_linea_mfn(linea) if linea else lee_linea_mfn()
+        )
         self.fen = self.game.move(self.jugadaInicial).position.fen()
         self.ref = ref
 
@@ -832,7 +848,9 @@ class WPotencia(LCDialog.LCDialog):
 
         move = self.li_analysis[position]
         is_white = move.position_before.is_white
-        Analysis.show_analysis(self.procesador, self.xtutor, move, is_white, 9999999, 1, main_window=self, must_save=False)
+        Analysis.show_analysis(
+            self.procesador, self.xtutor, move, is_white, 9999999, 1, main_window=self, must_save=False
+        )
 
 
 def windowPotencia(procesador):

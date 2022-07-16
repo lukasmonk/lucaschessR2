@@ -145,8 +145,8 @@ class BlancasNegras(QtWidgets.QDialog):
         super(BlancasNegras, self).__init__(parent)
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Dialog | QtCore.Qt.WindowTitleHint)
 
-        icoP = Code.todasPiezas.default_icon("K")
-        icop = Code.todasPiezas.default_icon("k")
+        icoP = Code.all_pieces.default_icon("K")
+        icop = Code.all_pieces.default_icon("k")
         self.setWindowTitle(_("Choose a color"))
         self.setWindowIcon(icoP)
 
@@ -176,8 +176,8 @@ class BlancasNegrasTiempo(QtWidgets.QDialog):
         QtWidgets.QDialog.__init__(self, parent)
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Dialog | QtCore.Qt.WindowTitleHint)
 
-        icoP = Code.todasPiezas.default_icon("K")
-        icop = Code.todasPiezas.default_icon("k")
+        icoP = Code.all_pieces.default_icon("K")
+        icop = Code.all_pieces.default_icon("k")
         self.setWindowTitle(_("Choose a color"))
         self.setWindowIcon(icoP)
         self.key_saved = "BLANCASNEGRASTIEMPO"
@@ -214,9 +214,9 @@ class BlancasNegrasTiempo(QtWidgets.QDialog):
         fast_moves = dic.get("FAST_MOVES", False)
         self.gbT.setChecked(with_time)
         if with_time:
-            self.edMinutos.ponValor(minutes)
-            self.edSegundos.ponValor(seconds)
-        self.chb_fastmoves.ponValor(fast_moves)
+            self.edMinutos.set_value(minutes)
+            self.edSegundos.set_value(seconds)
+        self.chb_fastmoves.set_value(fast_moves)
         self.muestra_tiempo(with_time)
 
     def save(self):
@@ -611,7 +611,8 @@ class LCMenuPiezas(Controles.Menu):
 class LCTab(Controles.Tab):
     def __init__(self, parent):
         Controles.Tab.__init__(self, parent)
-        self.ponTipoLetra(peso=100, puntos=Code.configuration.x_pgn_fontpoints)
+        self.ponTipoLetra(puntos=Code.configuration.x_pgn_fontpoints)
+
 
 class ImportarFichero(QtWidgets.QDialog):
     def __init__(self, parent, titulo, siErroneos, siWorkDone, icono):
@@ -827,14 +828,15 @@ class MensajeFide(QtWidgets.QDialog):
 
 def list_irina():
     return (
-        ("Monkey", _("Monkey"), Iconos.Monkey()),
-        ("Donkey", _("Donkey"), Iconos.Donkey()),
-        ("Bull", _("Bull"), Iconos.Bull()),
-        ("Wolf", _("Wolf"), Iconos.Wolf()),
-        ("Lion", _("Lion"), Iconos.Lion()),
-        ("Rat", _("Rat"), Iconos.Rat()),
-        ("Snake", _("Snake"), Iconos.Snake()),
-        ("Steven", _("Steven"), Iconos.Steven()),
+        ("Monkey", _("Monkey"), Iconos.Monkey(), 50),
+        ("Donkey", _("Donkey"), Iconos.Donkey(), 158),
+        ("Bull", _("Bull"), Iconos.Bull(), 266),
+        ("Wolf", _("Wolf"), Iconos.Wolf(), 374),
+        ("Lion", _("Lion"), Iconos.Lion(), 482),
+        ("Rat", _("Rat"), Iconos.Rat(), 590),
+        ("Snake", _("Snake"), Iconos.Snake(), 698),
+        ("Knight", _("Knight || Medieval knight"), Iconos.KnightMan(), 1200),
+        ("Steven", _("Steven"), Iconos.Steven(), 1400),
     )
 
 

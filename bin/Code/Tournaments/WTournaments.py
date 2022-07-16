@@ -53,7 +53,7 @@ class WTournaments(LCDialog.LCDialog):
         # grid
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("NOMBRE", _("Name"), 240)
-        o_columns.nueva("FECHA", _("Date"), 120, centered=True)
+        o_columns.nueva("FECHA", _("Date"), 120, align_center=True)
 
         self.grid = Grid.Grid(self, o_columns, siSelecFilas=True)
         self.register_grid(self.grid)

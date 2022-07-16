@@ -48,7 +48,7 @@ class WThemes(LCDialog.LCDialog):
         o_columns.nueva("THEME", "", 280)
 
         self.o_columnas = o_columns
-        self.grid = Grid.Grid(self, o_columns, siEditable=True, altoCabecera=4)
+        self.grid = Grid.Grid(self, o_columns, is_editable=True, altoCabecera=4)
         font = Controles.TipoLetra(puntos=Code.configuration.x_pgn_fontpoints)
         self.grid.ponFuente(font)
 
@@ -129,7 +129,9 @@ class WThemes(LCDialog.LCDialog):
     def add_custom(self):
         li_gen = [(None, None)]
         li_gen.append((_("Name") + ":", ""))
-        resultado = FormLayout.fedit(li_gen, title=_("Add a custom theme"), parent=self, anchoMinimo=560, icon=Iconos.Themes())
+        resultado = FormLayout.fedit(
+            li_gen, title=_("Add a custom theme"), parent=self, anchoMinimo=560, icon=Iconos.Themes()
+        )
 
         if resultado:
             accion, li_gen = resultado

@@ -29,7 +29,7 @@ class DBendings:
         return key
 
     def keylist(self, examples=True, own=True):
-        pzs_gaviota = Code.configuration.piezas_gaviota()
+        pzs_gaviota = Code.configuration.pieces_gaviota()
         lst = []
         if examples:
             lst.extend(self.db_examples.keys())
@@ -59,7 +59,9 @@ class DBendings:
         if order == "random":
             random.shuffle(self.current_listfen)
         elif order == "difficulty":
-            self.current_listfen.sort(key=lambda x: self.current_dicfen[x]["MATE"] if self.current_dicfen[x]["MATE"] > 0 else 999)
+            self.current_listfen.sort(
+                key=lambda x: self.current_dicfen[x]["MATE"] if self.current_dicfen[x]["MATE"] > 0 else 999
+            )
 
         return len(self.current_listfen)
 

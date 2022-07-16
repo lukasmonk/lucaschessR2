@@ -56,7 +56,7 @@ class WMuestra(QtWidgets.QWidget):
             "JUGADAS",
             "%d %s" % (len(self.list_rm_name), _("Movements")),
             with_col,
-            centered=True,
+            align_center=True,
             edicion=Delegados.EtiquetaPGN(tab_analysis.move.is_white() if self.with_figurines else None),
         )
         self.wrm = Grid.Grid(self, o_columns, siLineas=False)
@@ -118,10 +118,10 @@ class WMuestra(QtWidgets.QWidget):
         return self.tab_analysis.is_selected(row)
 
     def grid_dato(self, grid, row, o_column):
-        #pgn, color, txt_analysis, indicadorInicial, li_nags
+        # pgn, color, txt_analysis, indicadorInicial, li_nags
         txt = self.list_rm_name[row][1]
         pgn, resto = txt.split("(")
-        txt_analysis = resto[:-1] # + " %0.02f" % Code.analysis_eval.escala10(self.list_rm_name[row][0])
+        txt_analysis = resto[:-1]  # + " %0.02f" % Code.analysis_eval.escala10(self.list_rm_name[row][0])
         return pgn, self.list_rm_name[row][0].is_white, txt_analysis, None, None
         # return self.list_rm_name[row][1]
 
@@ -252,9 +252,7 @@ class WAnalisis(LCDialog.LCDialog):
 
         self.lb_engine = Controles.LB(self).align_center()
         self.lb_time = Controles.LB(self).align_center()
-        self.lbPuntuacion = (
-            Controles.LB(self).align_center().ponTipoLetra(puntos=configuration.x_pgn_fontpoints)
-        )
+        self.lbPuntuacion = Controles.LB(self).align_center().ponTipoLetra(puntos=configuration.x_pgn_fontpoints)
         self.lbPGN = Controles.LB(self)
         self.lbPGN.set_wrap().ponTipoLetra(puntos=configuration.x_pgn_fontpoints)
         self.lbPGN.setAlignment(QtCore.Qt.AlignTop)

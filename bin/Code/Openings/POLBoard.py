@@ -83,7 +83,9 @@ class BoardLines(QtWidgets.QWidget):
 
         lybt, bt = QTVarios.lyBotonesMovimiento(self, "", siTiempo=True, siLibre=False, icon_size=24)
 
-        self.lbPGN = LBKey(self, " ").set_wrap()  # Por alguna razón es necesario ese espacio en blanco, para aperturas sin movs iniciales
+        self.lbPGN = LBKey(
+            self, " "
+        ).set_wrap()  # Por alguna razón es necesario ese espacio en blanco, para aperturas sin movs iniciales
         self.lbPGN.setAlignment(QtCore.Qt.AlignTop)
         self.lbPGN.setStyleSheet(
             "QLabel{ border-style: groove; border-width: 1px; border-color: LightSlateGray; padding-right: 18px;}"
@@ -105,7 +107,7 @@ class BoardLines(QtWidgets.QWidget):
         # w_pgn = QtWidgets.QWidget()
         # w_pgn.setLayout(ly)
         scroll.setWidget(self.lbPGN)
-        scroll.setMaximumHeight(configuration.x_pgn_fontpoints*6)
+        scroll.setMaximumHeight(configuration.x_pgn_fontpoints * 6)
 
         self.with_figurines = configuration.x_pgn_withfigurines
 
@@ -221,8 +223,8 @@ class BoardLines(QtWidgets.QWidget):
             self.panelOpening.player_has_moved(game)
 
     def resetValues(self):
-        self.cbValoracion.ponValor(NO_RATING)
-        self.cbVentaja.ponValor(V_SIN)
+        self.cbValoracion.set_value(NO_RATING)
+        self.cbVentaja.set_value(V_SIN)
         self.emComentario.set_text("")
 
     def colocatePartida(self, pos):
@@ -283,8 +285,8 @@ class BoardLines(QtWidgets.QWidget):
         valoracion = dic.get("VALORACION", NO_RATING)
         ventaja = dic.get("VENTAJA", V_SIN)
         comment = dic.get("COMENTARIO", "")
-        self.cbValoracion.ponValor(valoracion)
-        self.cbVentaja.ponValor(ventaja)
+        self.cbValoracion.set_value(valoracion)
+        self.cbVentaja.set_value(ventaja)
         self.emComentario.set_text(comment)
 
         self.board.set_position(position)

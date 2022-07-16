@@ -19,7 +19,7 @@ from Code.QT import QTUtil
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
 from Code.QT import SelectFiles
-from Code.QT import Voyager
+from Code.Voyager import Voyager
 from Code.QT import LCDialog
 
 PLAY_STOP, PLAY_NEXT_SOLVED, PLAY_NEXT_BESTMOVES = range(3)
@@ -33,7 +33,9 @@ class WEndingsGTB(LCDialog.LCDialog):
         self.db = EndingsGTB.DBendings(self.configuration)
         self.t4 = LibChess.T4(self.configuration)
 
-        LCDialog.LCDialog.__init__(self, procesador.main_window, _("Endings with Gaviota Tablebases"), Iconos.Finales(), "endings_gtb")
+        LCDialog.LCDialog.__init__(
+            self, procesador.main_window, _("Endings with Gaviota Tablebases"), Iconos.Finales(), "endings_gtb"
+        )
 
         self.game = Game.Game()
         self.act_recno = -1
@@ -48,7 +50,9 @@ class WEndingsGTB(LCDialog.LCDialog):
         )
         tb = QTVarios.LCTB(self, li_acciones)
 
-        ly_bt, self.bt_movs = QTVarios.lyBotonesMovimiento(self, "", siTiempo=True, siLibre=False, rutina=self.run_botones, icon_size=24)
+        ly_bt, self.bt_movs = QTVarios.lyBotonesMovimiento(
+            self, "", siTiempo=True, siLibre=False, rutina=self.run_botones, icon_size=24
+        )
 
         self.chb_help = Controles.CHB(self, _("Help mode"), False).capture_changes(self, self.help_changed)
         self.bt_back = Controles.PB(self, _("Takeback"), self.takeback, plano=False).ponIcono(Iconos.Atras())
@@ -79,12 +83,12 @@ class WEndingsGTB(LCDialog.LCDialog):
 
         ly_top = Colocacion.H().control(tb).relleno().control(self.wpzs).relleno().control(self.tb_run)
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("NUM", _("N."), 50, centered=True)
-        o_columns.nueva("XFEN", _("Position"), 140, centered=True)
-        o_columns.nueva("MATE", _("Mate"), 60, centered=True)
-        o_columns.nueva("TRIES", _("Tries"), 50, centered=True)
-        o_columns.nueva("MOVES", _("Minimum moves"), 120, centered=True)
-        o_columns.nueva("TIMEMS", _("Minimum time"), 120, centered=True)
+        o_columns.nueva("NUM", _("N."), 50, align_center=True)
+        o_columns.nueva("XFEN", _("Position"), 140, align_center=True)
+        o_columns.nueva("MATE", _("Mate"), 60, align_center=True)
+        o_columns.nueva("TRIES", _("Tries"), 50, align_center=True)
+        o_columns.nueva("MOVES", _("Minimum moves"), 120, align_center=True)
+        o_columns.nueva("TIMEMS", _("Minimum time"), 120, align_center=True)
         self.grid = Grid.Grid(self, o_columns, siSelecFilas=True)
         self.grid.tipoLetra(puntos=self.configuration.x_pgn_fontpoints)
         self.grid.ponAltoFila(self.configuration.x_pgn_rowheight)
@@ -117,7 +121,7 @@ class WEndingsGTB(LCDialog.LCDialog):
         dic = self.configuration.read_variables("endingsGTB")
 
         self.key = key = dic.get("KEY")
-        if (not key) or len(key) > self.configuration.piezas_gaviota():
+        if (not key) or len(key) > self.configuration.pieces_gaviota():
             key = "KPk"
         self.db.set_examples_auto(dic.get("EXAMPLES_AUTO", True))
         self.set_key(key)
@@ -182,7 +186,9 @@ class WEndingsGTB(LCDialog.LCDialog):
             self.db.register_empty_try(row)
             self.grid.refresh()
 
-        if self.t4.dtm(self.game.first_position.fen()) is None:  # En el caso de que se desinstale g5 y se trate de resolver un 5pzs
+        if (
+            self.t4.dtm(self.game.first_position.fen()) is None
+        ):  # En el caso de que se desinstale g5 y se trate de resolver un 5pzs
             QTUtil2.message_error(self, _("Invalid, this position is not evaluated by Gaviota Tablebases"))
             return
 
@@ -544,7 +550,9 @@ class WEndingsGTB(LCDialog.LCDialog):
         submenu.separador()
         submenusubmenu2 = submenu.submenu(_("Results"), Iconos.Reciclar())
         submenusubmenu2.opcion("remr_all", _("Remove results of all positions"), Iconos.PuntoNaranja())
-        submenusubmenu2.opcion("remr_all_group", _("Remove results of all positions of current group"), Iconos.PuntoNaranja())
+        submenusubmenu2.opcion(
+            "remr_all_group", _("Remove results of all positions of current group"), Iconos.PuntoNaranja()
+        )
         menu.separador()
         resp = menu.lanza()
         if resp is None:

@@ -123,15 +123,15 @@ class WSelectEngineElo(LCDialog.LCDialog):
 
         # Lista
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("NUMBER", _("N."), 35, centered=True)
+        o_columns.nueva("NUMBER", _("N."), 35, align_center=True)
         o_columns.nueva("ENGINE", _("Name"), 140)
-        o_columns.nueva("ELO", _("Elo"), 60, siDerecha=True)
+        o_columns.nueva("ELO", _("Elo"), 60, align_right=True)
         if not self.siMicPer:
-            o_columns.nueva("GANA", _("Win"), 80, centered=True)
-            o_columns.nueva("TABLAS", _("Draw"), 80, centered=True)
-            o_columns.nueva("PIERDE", _("Loss"), 80, centered=True)
+            o_columns.nueva("GANA", _("Win"), 80, align_center=True)
+            o_columns.nueva("TABLAS", _("Draw"), 80, align_center=True)
+            o_columns.nueva("PIERDE", _("Loss"), 80, align_center=True)
         if self.siMic:
-            o_columns.nueva("INFO", _("Information"), 300, centered=True)
+            o_columns.nueva("INFO", _("Information"), 300, align_center=True)
 
         self.grid = Grid.Grid(self, o_columns, siSelecFilas=True, siCabeceraMovible=False, altoFila=24)
         n = self.grid.anchoColumnas()

@@ -39,7 +39,9 @@ class ManagerChallenge101:
             if not (random_pos in self.st_randoms):
                 self.st_randoms.add(random_pos)
                 break
-        self.fen, self.result, self.pgn_result, self.pgn, self.difficult = self.li_lineas_posicion[random_pos].strip().split("|")
+        self.fen, self.result, self.pgn_result, self.pgn, self.difficult = (
+            self.li_lineas_posicion[random_pos].strip().split("|")
+        )
         self.difficult = int(self.difficult)
 
         self.cp = Position.Position()
@@ -127,13 +129,22 @@ class ManagerChallenge101:
             menu.opcion(None, ("+%d" % (self.puntos_ultimo)).center(30), Iconos.PuntoNegro(), tipoLetra=fbold)
         if self.pendientes == 0:
             if not ok_en_lista:
-                menu.opcion(None, ("%s: %d" % (_("Score"), self.puntos_totales)).center(30), Iconos.Gris(), tipoLetra=fbold)
+                menu.opcion(
+                    None, ("%s: %d" % (_("Score"), self.puntos_totales)).center(30), Iconos.Gris(), tipoLetra=fbold
+                )
             menu.separador()
             menu.opcion("close", _("GAME OVER").center(30), Iconos.Terminar())
         else:
-            menu.opcion(None, ("%s: %d" % (_("Score"), self.puntos_totales)).center(30), Iconos.PuntoNegro(), tipoLetra=fbold)
+            menu.opcion(
+                None, ("%s: %d" % (_("Score"), self.puntos_totales)).center(30), Iconos.PuntoNegro(), tipoLetra=fbold
+            )
             menu.separador()
-            menu.opcion(None, ("%s: %d" % (_("Positions left"), self.pendientes)).center(30), Iconos.PuntoNegro(), tipoLetra=fbold)
+            menu.opcion(
+                None,
+                ("%s: %d" % (_("Positions left"), self.pendientes)).center(30),
+                Iconos.PuntoNegro(),
+                tipoLetra=fbold,
+            )
             menu.separador()
             menu.opcion(None, "", Iconos.PuntoNegro())
             menu.separador()

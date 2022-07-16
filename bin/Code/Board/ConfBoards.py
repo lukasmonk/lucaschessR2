@@ -312,7 +312,9 @@ class ConfigBoard(JS):
     def transSideIndicator(self, nTrans=None):
         if nTrans is not None:
             self.o_tema.x_transSideIndicator = nTrans
-        return self.confPadre().transSideIndicator() if self.o_tema.x_siTemaDefecto else self.o_tema.x_transSideIndicator
+        return (
+            self.confPadre().transSideIndicator() if self.o_tema.x_siTemaDefecto else self.o_tema.x_transSideIndicator
+        )
 
     def png64Blancas(self, png64=None):
         if png64 is not None:

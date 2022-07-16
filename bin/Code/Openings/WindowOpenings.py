@@ -44,7 +44,8 @@ class WOpenings(LCDialog.LCDialog):
         self.lbPGN = Controles.LB(self, "").set_wrap().ponTipoLetra(puntos=10, peso=75)
         ly = Colocacion.H().control(self.lbPGN)
         gb = Controles.GB(self, _("Selected opening"), ly).ponTipoLetra(puntos=11, peso=75).align_center()
-        gb.setStyleSheet("""QGroupBox {
+        gb.setStyleSheet(
+            """QGroupBox {
     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                       stop: 0 #E0E0E0, stop: 1 #FFFFFF);
     border: 2px solid gray;
@@ -58,7 +59,8 @@ QGroupBox::title {
     padding: 3px;
     margin-top: -3px; /* leave space at the top for the title */
 }
-""")
+"""
+        )
 
         # Movimiento
         self.is_moving_time = False
@@ -449,9 +451,9 @@ class OpeningsPersonales(LCDialog.LCDialog):
         # Lista
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("NOMBRE", _("Name"), 240)
-        o_columns.nueva("ECO", "ECO", 70, centered=True)
+        o_columns.nueva("ECO", "ECO", 70, align_center=True)
         o_columns.nueva("PGN", "PGN", 280)
-        o_columns.nueva("ESTANDAR", _("Add to standard list"), 120, centered=True)
+        o_columns.nueva("ESTANDAR", _("Add to standard list"), 120, align_center=True)
 
         self.grid = Grid.Grid(self, o_columns, siSelecFilas=True)
         n = self.grid.anchoColumnas()

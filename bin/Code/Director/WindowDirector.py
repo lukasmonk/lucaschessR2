@@ -4,7 +4,15 @@ from PySide2 import QtWidgets, QtCore, QtGui
 
 from Code import Util
 from Code.Translations import TrListas
-from Code.Director import TabVisual, WindowTab, WindowTabVFlechas, WindowTabVMarcos, WindowTabVMarkers, WindowTabVSVGs, WindowTabVCircles
+from Code.Director import (
+    TabVisual,
+    WindowTab,
+    WindowTabVFlechas,
+    WindowTabVMarcos,
+    WindowTabVMarkers,
+    WindowTabVSVGs,
+    WindowTabVCircles,
+)
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles
@@ -62,16 +70,18 @@ class WPanelDirector(LCDialog.LCDialog):
         self.tb.setAccionVisible(self.grabar, False)
 
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("NUMBER", _("N."), 20, centered=True)
-        o_columns.nueva("MARCADO", "", 20, centered=True, siChecked=True)
-        o_columns.nueva("TYPE", _("Type"), 50, centered=True)
-        o_columns.nueva("NOMBRE", _("Name"), 100, centered=True, edicion=Delegados.LineaTextoUTF8())
-        o_columns.nueva("INFO", _("Information"), 100, centered=True)
-        self.g_guion = Grid.Grid(self, o_columns, siCabeceraMovible=False, siEditable=True, siSeleccionMultiple=True)
+        o_columns.nueva("NUMBER", _("N."), 20, align_center=True)
+        o_columns.nueva("MARCADO", "", 20, align_center=True, siChecked=True)
+        o_columns.nueva("TYPE", _("Type"), 50, align_center=True)
+        o_columns.nueva("NOMBRE", _("Name"), 100, align_center=True, edicion=Delegados.LineaTextoUTF8())
+        o_columns.nueva("INFO", _("Information"), 100, align_center=True)
+        self.g_guion = Grid.Grid(self, o_columns, siCabeceraMovible=False, is_editable=True, siSeleccionMultiple=True)
 
         self.register_grid(self.g_guion)
 
-        self.chbSaveWhenFinished = Controles.CHB(self, _("Save when finished"), self.dbConfig.get("SAVEWHENFINISHED", False))
+        self.chbSaveWhenFinished = Controles.CHB(
+            self, _("Save when finished"), self.dbConfig.get("SAVEWHENFINISHED", False)
+        )
 
         # Visuales
         self.selectBanda = WindowTab.SelectBanda(self)
@@ -846,7 +856,16 @@ class WPanelDirector(LCDialog.LCDialog):
                 "vuelo",
                 "descuelgue",
             ),
-            TabVisual.TP_MARCO: ("name", "color", "colorinterior", "colorinterior2", "grosor", "redEsquina", "tipo", "opacity"),
+            TabVisual.TP_MARCO: (
+                "name",
+                "color",
+                "colorinterior",
+                "colorinterior2",
+                "grosor",
+                "redEsquina",
+                "tipo",
+                "opacity",
+            ),
             TabVisual.TP_CIRCLE: ("name", "color", "colorinterior", "colorinterior2", "grosor", "tipo", "opacity"),
             TabVisual.TP_SVG: ("name", "opacity"),
             TabVisual.TP_MARKER: ("name", "opacity"),

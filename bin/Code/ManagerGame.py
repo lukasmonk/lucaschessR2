@@ -25,7 +25,7 @@ from Code.QT import Iconos
 from Code.QT import QTUtil
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
-from Code.QT import Voyager
+from Code.Voyager import Voyager
 from Code.QT import WindowPgnTags
 from Code.Translations import TrListas
 
@@ -303,13 +303,15 @@ class ManagerGame(Manager.Manager):
                 ]
             )
 
-        li_mas_opciones.extend( [
-            sep,
-            ("leerpgn", _("Read PGN file"), Iconos.PGN_Importar()),
-            sep,
-            ("pastepgn", _("Paste PGN"), Iconos.Pegar16()),
-            sep,
-        ] )
+        li_mas_opciones.extend(
+            [
+                sep,
+                ("leerpgn", _("Read PGN file"), Iconos.PGN_Importar()),
+                sep,
+                ("pastepgn", _("Paste PGN"), Iconos.Pegar16()),
+                sep,
+            ]
+        )
 
         li_mas_opciones.extend([(None, None, True), sep, ("books", _("Consult a book"), Iconos.Libros())])
 
@@ -324,7 +326,9 @@ class ManagerGame(Manager.Manager):
 
         elif resp == "position":
             ini_position = self.game.first_position
-            new_position, is_white_bottom = Voyager.voyager_position(self.main_window, ini_position, resp_side_bottom=True)
+            new_position, is_white_bottom = Voyager.voyager_position(
+                self.main_window, ini_position, resp_side_bottom=True
+            )
             if new_position and new_position != ini_position:
                 self.game.set_position(new_position)
                 self.start(self.game, self.is_complete, self.only_consult, self.with_previous_next, self.save_routine)
@@ -358,7 +362,7 @@ class ManagerGame(Manager.Manager):
             self.paste_pgn()
 
         elif resp == "voyager":
-            game = Voyager.voyagerPartida(self.main_window, self.game)
+            game = Voyager.voyager_game(self.main_window, self.game)
             self.replace_game(game)
 
     def replace_game(self, game):

@@ -8,7 +8,7 @@ import Code
 from Code import Util
 from Code.Base import Position
 from Code.Board import Board
-from Code.Engines import WEngines, STS
+from Code.Engines import WEngines, STS, SelectEngines
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles
@@ -50,8 +50,8 @@ class WRun(LCDialog.LCDialog):
         # Area resultados
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("GROUP", _("Group"), 180)
-        o_columns.nueva("DONE", _("Done"), 100, centered=True)
-        o_columns.nueva("WORK", _("Result"), 120, centered=True)
+        o_columns.nueva("DONE", _("Done"), 100, align_center=True)
+        o_columns.nueva("WORK", work.ref, 120, align_center=True)
 
         self.dworks = self.read_works()
         self.calc_max()
@@ -60,7 +60,7 @@ class WRun(LCDialog.LCDialog):
             if work != self.work:
                 key = "OTHER%d" % x
                 reg = self.dworks[key]
-                o_columns.nueva(key, reg.title, 120, centered=True)
+                o_columns.nueva(key, reg.title, 120, align_center=True)
 
         self.grid = Grid.Grid(self, o_columns, siSelecFilas=True)
 
@@ -195,7 +195,7 @@ class WRun(LCDialog.LCDialog):
             return self.dworks[column].labels[row].label
 
     def read_work(self, work):
-        tm = '%d"' % work.seconds if work.seconds else ""
+        tm = '%0.02f"' % work.seconds if work.seconds else ""
         dp = "%d^" % work.depth if work.depth else ""
         r = Util.Record()
         r.title = "%s %s%s" % (work.ref, tm, dp)
@@ -268,8 +268,8 @@ class WRun2(LCDialog.LCDialog):
         # Area resultados
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("GROUP", _("Group"), 180)
-        o_columns.nueva("DONE", _("Done"), 100, centered=True)
-        o_columns.nueva("WORK", _("Result"), 120, centered=True)
+        o_columns.nueva("DONE", _("Done"), 100, align_center=True)
+        o_columns.nueva("WORK", work.ref, 120, align_center=True)
 
         self.dworks = self.read_works()
         self.calc_max()
@@ -278,7 +278,7 @@ class WRun2(LCDialog.LCDialog):
             if work != self.work:
                 key = "OTHER%d" % x
                 reg = self.dworks[key]
-                o_columns.nueva(key, reg.title, 120, centered=True)
+                o_columns.nueva(key, reg.title, 120, align_center=True)
 
         self.grid = Grid.Grid(self, o_columns, siSelecFilas=True)
 
@@ -493,11 +493,11 @@ class WWork(QtWidgets.QDialog):
 
         w = QtWidgets.QWidget()
         w.setLayout(ly)
-        tab.nuevaTab(w, _("Basic data"))
+        tab.new_tab(w, _("Basic data"))
 
         # Tab-Engine
         scrollArea = WEngines.wgen_options_engine(self, work.me)
-        tab.nuevaTab(scrollArea, _("Engine options"))
+        tab.new_tab(scrollArea, _("Engine options"))
 
         # Tab-Groups
         btAll = Controles.PB(self, _("All"), self.setAll, plano=False)
@@ -521,7 +521,7 @@ class WWork(QtWidgets.QDialog):
 
         w = QtWidgets.QWidget()
         w.setLayout(ly)
-        tab.nuevaTab(w, _("Groups"))
+        tab.new_tab(w, _("Groups"))
 
         layout = Colocacion.V().control(tb).control(tab).margen(8)
         self.setLayout(layout)
@@ -534,17 +534,17 @@ class WWork(QtWidgets.QDialog):
         p = self.sender()
         if vEnd < vIni:
             if p.isIni:
-                self.sbEnd.ponValor(vIni)
+                self.sbEnd.set_value(vIni)
             else:
-                self.sbIni.ponValor(vEnd)
+                self.sbIni.set_value(vEnd)
 
     def setAll(self):
         for group in self.liGroups:
-            group.ponValor(True)
+            group.set_value(True)
 
     def setNone(self):
         for group in self.liGroups:
-            group.ponValor(False)
+            group.set_value(False)
 
     def aceptar(self):
         self.work.ref = self.edRef.texto()
@@ -567,6 +567,8 @@ class WUnSTS(LCDialog.LCDialog):
         extparam = "unsts"
         LCDialog.LCDialog.__init__(self, w_parent, titulo, icono, extparam)
 
+        self.select_engines = SelectEngines.SelectEngines()
+
         # Datos
         self.sts = sts
         self.procesador = procesador
@@ -580,6 +582,8 @@ class WUnSTS(LCDialog.LCDialog):
             ("+%s" % _("Board"), Iconos.Run2(), self.wkRun2),
             None,
             (_("New"), Iconos.NuevoMas(), self.wkNew),
+            None,
+            (_("Import"), Iconos.Import8(), self.wkImport),
             None,
             (_("Edit"), Iconos.Modificar(), self.wkEdit),
             None,
@@ -599,17 +603,17 @@ class WUnSTS(LCDialog.LCDialog):
 
         # # Grid works
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("POS", _("N."), 30, centered=True)
+        o_columns.nueva("POS", _("N."), 30, align_center=True)
         o_columns.nueva("REF", _("Reference"), 100)
-        o_columns.nueva("TIME", _("Time"), 50, centered=True)
-        o_columns.nueva("DEPTH", _("Depth"), 50, centered=True)
-        o_columns.nueva("SAMPLE", _("Sample"), 50, centered=True)
-        o_columns.nueva("RESULT", _("Result"), 150, centered=True)
-        o_columns.nueva("ELO", _("Elo"), 80, centered=True)
-        o_columns.nueva("WORKTIME", _("Work time"), 80, centered=True)
+        o_columns.nueva("TIME", _("Time"), 50, align_center=True)
+        o_columns.nueva("DEPTH", _("Depth"), 50, align_center=True)
+        o_columns.nueva("SAMPLE", _("Sample"), 50, align_center=True)
+        o_columns.nueva("RESULT", _("Result"), 150, align_center=True)
+        o_columns.nueva("ELO", _("Elo"), 80, align_center=True)
+        o_columns.nueva("WORKTIME", _("Work time"), 80, align_center=True)
         for x in range(len(sts.groups)):
             group = sts.groups.group(x)
-            o_columns.nueva("T%d" % x, group.name, 140, centered=True)
+            o_columns.nueva("T%d" % x, group.name, 140, align_center=True)
         self.grid = Grid.Grid(self, o_columns, siSelecFilas=True, siSeleccionMultiple=True)
         self.register_grid(self.grid)
 
@@ -642,7 +646,9 @@ class WUnSTS(LCDialog.LCDialog):
                 li_gen.append((config, X))
                 config = FormLayout.Editbox("K", 100, tipo=float, decimales=4)
                 li_gen.append((config, K))
-                resultado = FormLayout.fedit(li_gen, title=_("Formula to calculate elo"), parent=self, icon=Iconos.Elo(), if_default=True)
+                resultado = FormLayout.fedit(
+                    li_gen, title=_("Formula to calculate elo"), parent=self, icon=Iconos.Elo(), if_default=True
+                )
                 if resultado:
                     resp, valor = resultado
                     if resp == "defecto":
@@ -704,6 +710,26 @@ class WUnSTS(LCDialog.LCDialog):
             if not me:
                 return
             work = self.sts.createWork(me)
+        else:
+            work.workTime = 0.0
+
+        w = WWork(self, self.sts, work)
+        if w.exec_():
+            self.sts.addWork(work)
+            self.sts.save()
+            self.grid.refresh()
+            self.grid.gobottom()
+        return work
+
+    def wkImport(self, work=None):
+        if work is None or not work:
+            me = self.select_engines.menu(self)
+            if not me:
+                return
+            work = self.sts.createWork(me)
+            work.ref = me.name
+            work.info = me.id_info
+
         else:
             work.workTime = 0.0
 
@@ -800,7 +826,7 @@ class WSTS(LCDialog.LCDialog):
         # grid
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("NOMBRE", _("Name"), 240)
-        o_columns.nueva("FECHA", _("Date"), 120, centered=True)
+        o_columns.nueva("FECHA", _("Date"), 120, align_center=True)
 
         self.grid = Grid.Grid(self, o_columns, siSelecFilas=True)
         self.register_grid(self.grid)

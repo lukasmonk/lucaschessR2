@@ -60,9 +60,18 @@ class EngineResponse:
         return li
 
     def restore(self, li):
-        self.mate, self.puntos, self.pv, self.from_sq, self.to_sq, self.promotion, self.depth, self.nodes, self.nps, self.seldepth = (
-            li
-        )
+        (
+            self.mate,
+            self.puntos,
+            self.pv,
+            self.from_sq,
+            self.to_sq,
+            self.promotion,
+            self.depth,
+            self.nodes,
+            self.nps,
+            self.seldepth,
+        ) = li
         self.sinInicializar = False
 
     def movimiento(self):
@@ -1167,7 +1176,7 @@ class MultiEngineResponse:
                     pts = dicDepth[mv]
                     ok = True
                     for m, v in dicDepth.items():
-                        if v > pts+5:
+                        if v > pts + 5:
                             ok = False
                             break
                     if ok:
@@ -1189,4 +1198,3 @@ class MultiEngineResponse:
             return nag, color
 
         return GOOD_MOVE, GOOD_MOVE
-

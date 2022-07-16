@@ -61,8 +61,8 @@ class WLearnBase(LCDialog.LCDialog):
 
         o_columns = Columnas.ListaColumnas()
 
-        def crea_col(key, label, centered=True):
-            o_columns.nueva(key, label, 80, centered=centered)
+        def crea_col(key, label, align_center=True):
+            o_columns.nueva(key, label, 80, align_center=align_center)
 
         # # Claves segun orden estandar
         liBasic = ("EVENT", "SITE", "DATE", "ROUND", "WHITE", "BLACK", "RESULT", "ECO", "FEN", "WHITEELO", "BLACKELO")
@@ -164,7 +164,7 @@ class WLearnBase(LCDialog.LCDialog):
         recno = self.grid.recno()
         if 0 < recno < len(self.db):
             r0 = recno
-            r1 = recno-1
+            r1 = recno - 1
             reg0 = self.db.leeRegistro(r0)
             reg1 = self.db.leeRegistro(r1)
             self.db.cambiaRegistro(r0, reg1)
@@ -181,9 +181,9 @@ class WLearnBase(LCDialog.LCDialog):
 
     def tw_down(self):
         recno = self.grid.recno()
-        if 0 <= recno < len(self.db)-1:
+        if 0 <= recno < len(self.db) - 1:
             r0 = recno
-            r1 = recno+1
+            r1 = recno + 1
             reg0 = self.db.leeRegistro(r0)
             reg1 = self.db.leeRegistro(r1)
             self.db.cambiaRegistro(r0, reg1)
@@ -214,17 +214,19 @@ class WLearn1(LCDialog.LCDialog):
         self.game = Game.Game()
         self.game.restore(self.registro["GAME"])
 
-        self.lbRotulo = Controles.LB(self, self.label()).ponTipoLetra(puntos=12).set_foreground_backgound("#076C9F", "#EFEFEF")
+        self.lbRotulo = (
+            Controles.LB(self, self.label()).ponTipoLetra(puntos=12).set_foreground_backgound("#076C9F", "#EFEFEF")
+        )
 
         self.liIntentos = self.registro.get("LIINTENTOS", [])
 
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("DATE", _("Date"), 100, centered=True)
-        o_columns.nueva("LEVEL", _("Level"), 80, centered=True)
-        o_columns.nueva("COLOR", _("Side you play with"), 80, centered=True)
-        o_columns.nueva("ERRORS", _("Errors"), 80, centered=True)
-        o_columns.nueva("HINTS", _("Hints"), 80, centered=True)
-        o_columns.nueva("TIME", _("Time"), 80, centered=True)
+        o_columns.nueva("DATE", _("Date"), 100, align_center=True)
+        o_columns.nueva("LEVEL", _("Level"), 80, align_center=True)
+        o_columns.nueva("COLOR", _("Side you play with"), 80, align_center=True)
+        o_columns.nueva("ERRORS", _("Errors"), 80, align_center=True)
+        o_columns.nueva("HINTS", _("Hints"), 80, align_center=True)
+        o_columns.nueva("TIME", _("Time"), 80, align_center=True)
         self.grid = Grid.Grid(self, o_columns, siSelecFilas=True, siSeleccionMultiple=True)
         self.grid.setMinimumWidth(self.grid.anchoColumnas() + 20)
 
@@ -325,7 +327,9 @@ class WLearn1(LCDialog.LCDialog):
         li_gen.append((None, None))
         li_gen.append((_("Show clock"), dic.get("CLOCK", True)))
 
-        resultado = FormLayout.fedit(li_gen, title=_("New try"), anchoMinimo=200, parent=self, icon=Iconos.TutorialesCrear())
+        resultado = FormLayout.fedit(
+            li_gen, title=_("New try"), anchoMinimo=200, parent=self, icon=Iconos.TutorialesCrear()
+        )
         if resultado is None:
             return
 
@@ -374,18 +378,32 @@ class WLearnPuente(LCDialog.LCDialog):
         self.boardIni = Board.Board(self, config_board)
         self.boardIni.crea()
         self.boardIni.set_dispatcher(self.player_has_moved, None)
-        self.lbIni = Controles.LB(self).align_center().set_foreground_backgound("#076C9F", "#EFEFEF").anchoMinimo(self.boardIni.ancho)
+        self.lbIni = (
+            Controles.LB(self)
+            .align_center()
+            .set_foreground_backgound("#076C9F", "#EFEFEF")
+            .anchoMinimo(self.boardIni.ancho)
+        )
         lyIni = Colocacion.V().control(self.boardIni).control(self.lbIni)
 
         self.boardFin = Board.BoardEstatico(self, config_board)
         self.boardFin.crea()
-        self.lbFin = Controles.LB(self).align_center().set_foreground_backgound("#076C9F", "#EFEFEF").anchoMinimo(self.boardFin.ancho)
+        self.lbFin = (
+            Controles.LB(self)
+            .align_center()
+            .set_foreground_backgound("#076C9F", "#EFEFEF")
+            .anchoMinimo(self.boardFin.ancho)
+        )
         lyFin = Colocacion.V().control(self.boardFin).control(self.lbFin)
 
         # Rotulo vtime
         f = Controles.TipoLetra(puntos=30, peso=75)
         self.lbReloj = (
-            Controles.LB(self, "00:00").ponFuente(f).align_center().set_foreground_backgound("#076C9F", "#EFEFEF").anchoMinimo(200)
+            Controles.LB(self, "00:00")
+            .ponFuente(f)
+            .align_center()
+            .set_foreground_backgound("#076C9F", "#EFEFEF")
+            .anchoMinimo(200)
         )
         self.lbReloj.setFrameStyle(QtWidgets.QFrame.Box | QtWidgets.QFrame.Raised)
 

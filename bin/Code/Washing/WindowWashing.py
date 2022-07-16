@@ -91,7 +91,11 @@ class WWashing(LCDialog.LCDialog):
             plant = '<tr><td align="right">%s:</td><td><b>%s</b></td></tr>'
             hints, times, games = self.washing.totals()
             nEngines = self.washing.num_engines()
-            html = '<h2><center>%s: %d %s</center></h2><br><table cellpadding="4">' % (_("Finished"), nEngines, _("Engines"))
+            html = '<h2><center>%s: %d %s</center></h2><br><table cellpadding="4">' % (
+                _("Finished"),
+                nEngines,
+                _("Engines"),
+            )
             for x in range(3):
                 html += plant
             html += "</table>"
@@ -144,16 +148,16 @@ class WWashing(LCDialog.LCDialog):
 
         # Lista
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("STEP", _("Washing"), 50, centered=True)
-        o_columns.nueva("ENGINE", _("Engine"), 170, centered=True)
-        o_columns.nueva("ELO", _("Elo"), 50, centered=True)
-        o_columns.nueva("COLOR", _("Color"), 70, centered=True)
-        o_columns.nueva("STATE", _("State"), 90, centered=True)
-        o_columns.nueva("HINTS", _("Hints"), 60, centered=True)
-        o_columns.nueva("GAMES", _("Games"), 60, centered=True)
-        o_columns.nueva("TIME", _("Time"), 60, centered=True)
-        o_columns.nueva("DATE", _("Date"), 120, centered=True)
-        o_columns.nueva("INDEX", _("Index"), 60, centered=True)
+        o_columns.nueva("STEP", _("Washing"), 50, align_center=True)
+        o_columns.nueva("ENGINE", _("Engine"), 170, align_center=True)
+        o_columns.nueva("ELO", _("Elo"), 50, align_center=True)
+        o_columns.nueva("COLOR", _("Color"), 70, align_center=True)
+        o_columns.nueva("STATE", _("State"), 90, align_center=True)
+        o_columns.nueva("HINTS", _("Hints"), 60, align_center=True)
+        o_columns.nueva("GAMES", _("Games"), 60, align_center=True)
+        o_columns.nueva("TIME", _("Time"), 60, align_center=True)
+        o_columns.nueva("DATE", _("Date"), 120, align_center=True)
+        o_columns.nueva("INDEX", _("Index"), 60, align_center=True)
 
         self.grid = grid = Grid.Grid(self, o_columns, siSelecFilas=True)
         nAnchoPgn = self.grid.anchoColumnas() + 20
@@ -164,8 +168,8 @@ class WWashing(LCDialog.LCDialog):
         gbDatos = Controles.GB(self, "", ly0)
 
         self.tab = Controles.Tab()
-        self.tab.nuevaTab(gbCurrent, _("Current"))
-        self.tab.nuevaTab(gbDatos, _("Data"))
+        self.tab.new_tab(gbCurrent, _("Current"))
+        self.tab.new_tab(gbDatos, _("Data"))
 
         # Colocamos ---------------------------------------------------------------
         ly = Colocacion.V().control(tb).control(self.tab)
@@ -235,14 +239,18 @@ class WWashing(LCDialog.LCDialog):
                 menu.opcion(fich, fich, Iconos.PuntoRojo())
             resp = menu.lanza()
             if resp:
-                if QTUtil2.pregunta(self, "%s\n%s" % (_("Current data will be removed and overwritten."), _("Are you sure?"))):
+                if QTUtil2.pregunta(
+                    self, "%s\n%s" % (_("Current data will be removed and overwritten."), _("Are you sure?"))
+                ):
                     shutil.copy(os.path.join(self.configuration.carpeta_results, resp + ".wsm"), self.dbwashing.file)
                     self.wreload = True
                     self.save_video()
                     self.accept()
         elif resp.startswith("new_"):
             tactic = resp[4:]
-            if QTUtil2.pregunta(self, "%s\n%s" % (_("Current data will be removed and overwritten."), _("Are you sure?"))):
+            if QTUtil2.pregunta(
+                self, "%s\n%s" % (_("Current data will be removed and overwritten."), _("Are you sure?"))
+            ):
                 self.dbwashing.new(tactic)
                 self.wreload = True
                 self.save_video()

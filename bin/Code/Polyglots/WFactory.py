@@ -26,12 +26,14 @@ class WFactoryPolyglots(LCDialog.LCDialog):
 
         self.list_db = self.index_polyglots.list()
 
-        LCDialog.LCDialog.__init__(self, procesador.main_window, "Polyglot book factory", Iconos.FactoryPolyglot(), "factorypolyglots")
+        LCDialog.LCDialog.__init__(
+            self, procesador.main_window, _("Polyglot book factory"), Iconos.FactoryPolyglot(), "factorypolyglots"
+        )
 
         o_columnas = Columnas.ListaColumnas()
         o_columnas.nueva("NAME", _("Name"), 240)
-        o_columnas.nueva("MTIME", _("Last modification"), 100, centered=True)
-        o_columnas.nueva("SIZE", _("Moves"), 100, siDerecha=True)
+        o_columnas.nueva("MTIME", _("Last modification"), 100, align_center=True)
+        o_columnas.nueva("SIZE", _("Moves"), 100, align_right=True)
         self.glista = Grid.Grid(self, o_columnas, siSelecFilas=True, siSeleccionMultiple=True)
 
         li_acciones = (

@@ -51,7 +51,9 @@ class WRunMate15(LCDialog.LCDialog):
         ly.filaVacia(10, 20)
         ly.controlc(self.bt_check, 11, 0, numColumnas=3)
         ly.controlc(self.lb_result, 12, 0, numColumnas=3)
-        self.gb = Controles.GB(self, _("Next moves and their solutions"), ly).ponFuente(Controles.TipoLetra(puntos=10, peso=75))
+        self.gb = Controles.GB(self, _("Next moves and their solutions"), ly).ponFuente(
+            Controles.TipoLetra(puntos=10, peso=75)
+        )
         self.gb.hide()
 
         li_acciones = (
@@ -66,7 +68,15 @@ class WRunMate15(LCDialog.LCDialog):
 
         ly_left = Colocacion.V().control(self.tb).control(self.board)
 
-        ly_right = Colocacion.V().controlc(self.lb_info).espacio(40).controlc(self.lb_first_move).espacio(20).control(self.gb).relleno()
+        ly_right = (
+            Colocacion.V()
+            .controlc(self.lb_info)
+            .espacio(40)
+            .controlc(self.lb_first_move)
+            .espacio(20)
+            .control(self.gb)
+            .relleno()
+        )
 
         ly_center = Colocacion.H().otro(ly_left).otro(ly_right).margen(3)
 

@@ -114,7 +114,9 @@ class PolyglotImport:
 
     def menu_collisions(self):
         menu = QTVarios.LCMenu(self.wpolyglot)
-        menu.opcion("", _("What to do in case of collisions"), is_disabled=True, tipoLetra=Controles.TipoLetra(peso=700))
+        menu.opcion(
+            "", _("What to do in case of collisions"), is_disabled=True, tipoLetra=Controles.TipoLetra(peso=700)
+        )
         menu.separador()
         menu.opcion("replace", _("Replace"), Iconos.Recuperar())
         menu.separador()
@@ -369,7 +371,9 @@ class ImportarPGNDB(QtWidgets.QDialog):
                 minutos = previsto // 60
                 seconds = previsto % 60
                 lb_min = _("minutes") if minutos > 1 else _("minute")
-                self.lb_previsto.set_text("%s: %d %s %d %s" % (_("Pending time"), minutos, lb_min, seconds, _("seconds")))
+                self.lb_previsto.set_text(
+                    "%s: %d %s %d %s" % (_("Pending time"), minutos, lb_min, seconds, _("seconds"))
+                )
 
         QTUtil.refresh_gui()
         return not self.is_canceled

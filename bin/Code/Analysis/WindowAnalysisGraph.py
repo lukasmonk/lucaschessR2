@@ -56,12 +56,14 @@ class WAnalisisGraph(LCDialog.LCDialog):
 
         def xcol():
             o_columns = Columnas.ListaColumnas()
-            o_columns.nueva("NUM", _("N."), 50, centered=True)
-            o_columns.nueva("MOVE", _("Move"), 120, centered=True, edicion=Delegados.EtiquetaPGN(True, True, True))
-            o_columns.nueva("BEST", _("Best move"), 120, centered=True, edicion=Delegados.EtiquetaPGN(True, True, True))
-            o_columns.nueva("DIF", _("Difference"), 80, centered=True)
-            o_columns.nueva("PORC", "%", 80, centered=True)
-            o_columns.nueva("ELO", _("Elo"), 80, centered=True)
+            o_columns.nueva("NUM", _("N."), 50, align_center=True)
+            o_columns.nueva("MOVE", _("Move"), 120, align_center=True, edicion=Delegados.EtiquetaPGN(True, True, True))
+            o_columns.nueva(
+                "BEST", _("Best move"), 120, align_center=True, edicion=Delegados.EtiquetaPGN(True, True, True)
+            )
+            o_columns.nueva("DIF", _("Difference"), 80, align_center=True)
+            o_columns.nueva("PORC", "%", 80, align_center=True)
+            o_columns.nueva("ELO", _("Elo"), 80, align_center=True)
             return o_columns
 
         self.dicLiJG = {"A": self.alm.lijg, "W": self.alm.lijgW, "B": self.alm.lijgB}
@@ -96,12 +98,12 @@ class WAnalisisGraph(LCDialog.LCDialog):
         w_moves.setLayout(ly)
 
         self.tabGrid = tabGrid = Controles.Tab()
-        tabGrid.nuevaTab(gridAll, _("All moves"))
-        tabGrid.nuevaTab(gridW, _("White"))
-        tabGrid.nuevaTab(gridB, _("Black"))
-        tabGrid.nuevaTab(wIdx, _("Indexes"))
-        tabGrid.nuevaTab(w_elo, _("Elo"))
-        tabGrid.nuevaTab(w_moves, _("Moves"))
+        tabGrid.new_tab(gridAll, _("All moves"))
+        tabGrid.new_tab(gridW, _("White"))
+        tabGrid.new_tab(gridB, _("Black"))
+        tabGrid.new_tab(wIdx, _("Indexes"))
+        tabGrid.new_tab(w_elo, _("Elo"))
+        tabGrid.new_tab(w_moves, _("Moves"))
         tabGrid.dispatchChange(self.tabChanged)
         self.tabActive = 0
 
@@ -249,7 +251,7 @@ class WAnalisisGraph(LCDialog.LCDialog):
             if nrecno > 0:
                 grid.goto(nrecno - 1, 0)
         else:
-            return True # que siga con el resto de teclas
+            return True  # que siga con el resto de teclas
 
     def grid_color_fondo(self, grid, row, o_column):
         if grid.id == "A":
@@ -326,4 +328,3 @@ class WAnalisisGraph(LCDialog.LCDialog):
 def showGraph(wowner, manager, alm, show_analysis):
     w = WAnalisisGraph(wowner, manager, alm, show_analysis)
     w.exec_()
-

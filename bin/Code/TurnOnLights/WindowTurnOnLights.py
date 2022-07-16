@@ -67,7 +67,7 @@ class WTurnOnLights(LCDialog.LCDialog):
             self.dicIconos[k] = QtGui.QIcon(pm)
 
         for x in range(self.tol.num_blocks):
-            o_columns.nueva("BLOCK%d" % x, "%d" % (x + 1,), 42, centered=True, edicion=edicionIconos)
+            o_columns.nueva("BLOCK%d" % x, "%d" % (x + 1,), 42, align_center=True, edicion=edicionIconos)
 
         self.grid = grid = Grid.Grid(self, o_columns, altoFila=42, background="white")
         self.grid.setAlternatingRowColors(False)
@@ -246,7 +246,9 @@ class WTurnOnLights(LCDialog.LCDialog):
                 self.cambiar_one_line()
 
     def rebuild(self):
-        if not QTUtil2.pregunta(self, _("Are you sure you want to delete all results of all levels and start again from scratch?")):
+        if not QTUtil2.pregunta(
+            self, _("Are you sure you want to delete all results of all levels and start again from scratch?")
+        ):
             return
         if self.one_line:
             self.tol.new()

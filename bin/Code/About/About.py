@@ -21,7 +21,10 @@ class WAbout(QtWidgets.QDialog):
 
         f = Controles.TipoLetra(puntos=10)  # 0, peso=75 )
 
-        head = '<span style="font-size:30pt; font-weight="700"; font-family:arial; color:#2D2B2B">%s</span><br>' % Code.lucas_chess
+        head = (
+            '<span style="font-size:30pt; font-weight="700"; font-family:arial; color:#2D2B2B">%s</span><br>'
+            % Code.lucas_chess
+        )
         head += '<span style="font-size:15pt;">%s</span><br>' % _X(_("version %1"), procesador.version)
         head += '<span style="font-size:10pt;color:2D2B2B">%s: %s</span>' % (
             _("Author"),
@@ -31,7 +34,10 @@ class WAbout(QtWidgets.QDialog):
         head += ' - <a style="font-size:10pt; color:2D2B2B" href="%s">Blog : Fresh news</a>' % (procesador.blog,)
         head += ' - <a style="font-size:10pt; color:2D2B2B" href="%s">Sources: github</a>' % (procesador.github,)
         # head += ' - <a style="font-size:10pt; color:2D2B2B" href="%s">Wiki</a><br>' % (procesador.wiki,)
-        head += ' - %s <a style="font-size:10pt; color:2D2B2B" href="http://www.gnu.org/copyleft/gpl.html"> GPL</a>' % _("License")
+        head += (
+            ' - %s <a style="font-size:10pt; color:2D2B2B" href="http://www.gnu.org/copyleft/gpl.html"> GPL</a>'
+            % _("License")
+        )
 
         lb_ico = Controles.LB(self).ponImagen(Iconos.pmAplicacion64())
         lb_titulo = Controles.LB(self, head)
@@ -191,6 +197,7 @@ class WAbout(QtWidgets.QDialog):
 #
 #         q.write("\n".join(li))
 #
+
 
 class WInfo(QtWidgets.QDialog):
     def __init__(self, wparent, titulo, head, txt, min_tam, pm_icon):

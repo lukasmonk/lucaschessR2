@@ -12,7 +12,7 @@ from Code.Base.Constantes import (
     POS_TUTOR_HORIZONTAL,
     INACCURACY,
     MISTAKE,
-    BLUNDER
+    BLUNDER,
 )
 from Code.Engines import Engines, WEngines
 from Code.Engines import Priorities
@@ -26,6 +26,7 @@ from Code.QT import Iconos
 from Code.QT import LCDialog
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
+from Code.QT import SelectFiles
 
 
 class WConfEngines(LCDialog.LCDialog):
@@ -46,19 +47,21 @@ class WConfEngines(LCDialog.LCDialog):
         self.wexternals = WConfExternals(self)
         self.wconf_tutor = WConfTutor(self)
         self.wconf_analyzer = WConfAnalyzer(self)
+        self.wconf_more = WConfMore(self)
 
         self.w_current = None
 
         self.tab = QTVarios.LCTab(self)
-        self.tab.nuevaTab(self.wexternals, _("External engines"))
-        self.tab.nuevaTab(self.wconf_tutor, _("Tutor"))
-        self.tab.nuevaTab(self.wconf_analyzer, _("Analyzer"))
+        self.tab.new_tab(self.wexternals, _("External engines"))
+        self.tab.new_tab(self.wconf_tutor, _("Tutor"))
+        self.tab.new_tab(self.wconf_analyzer, _("Analyzer"))
+        self.tab.new_tab(self.wconf_more, _("More"))
         self.tab.dispatchChange(self.cambiada_tab)
 
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("OPTION", _("Label"), 240)
         o_columns.nueva("VALUE", _("Value"), 200, edicion=Delegados.MultiEditor(self))
-        self.grid_conf = Grid.Grid(self, o_columns, siSelecFilas=False, siEditable=True)
+        self.grid_conf = Grid.Grid(self, o_columns, siSelecFilas=False, is_editable=True)
         self.grid_conf.tipoLetra(puntos=self.configuration.x_pgn_fontpoints)
         self.register_grid(self.grid_conf)
 
@@ -141,11 +144,11 @@ class WConfEngines(LCDialog.LCDialog):
             else:
                 self.grid_conf.hide()
 
-    def me_ponValor(self, editor, valor):
+    def me_set_value(self, editor, valor):
         if self.me_control == "ed":
             editor.setText(str(valor))
         elif self.me_control in ("cb", "sb"):
-            editor.ponValor(valor)
+            editor.set_value(valor)
 
     def me_leeValor(self, editor):
         if self.me_control == "ed":
@@ -236,7 +239,7 @@ class WConfExternals(QtWidgets.QWidget):
         o_columns.nueva("ENGINE", _("Engine"), 138)
         o_columns.nueva("AUTOR", _("Author"), 142)
         o_columns.nueva("INFO", _("Information"), 245)
-        o_columns.nueva("ELO", "ELO", 64, centered=True)
+        o_columns.nueva("ELO", "ELO", 64, align_center=True)
 
         self.grid = None
 
@@ -716,3 +719,61 @@ class WConfAnalyzer(QtWidgets.QWidget):
     def activate_this(self):
         self.cb_engine.rehacer(self.configuration.listaCambioTutor(), self.engine.key)
         self.owner.set_engine(self.engine)
+
+
+class WConfMore(QtWidgets.QWidget):
+    def __init__(self, owner):
+        QtWidgets.QWidget.__init__(self, owner)
+
+        self.configuration = Code.configuration
+
+        self.owner = owner
+        self.is_changed = False
+
+        lb_maia = Controles.LB2P(self, _("Nodes used with Maia engines"))
+        li_options = [
+            (_("1 node as advised by the authors"), False),
+            (_("From 1 (1100) to 450 nodes (1900), similar strength as other engines"), True),
+        ]
+        self.cb_maia = Controles.CB(self, li_options, Code.configuration.x_maia_nodes_exponential).capture_changes(
+            self.save
+        )
+
+        lb_gaviota = Controles.LB2P(self, _("Gaviota Tablebases"))
+        self.gaviota = Code.configuration.folder_gaviota()
+        self.bt_gaviota = Controles.PB(self, self.gaviota, self.change_gaviota, plano=False)
+        self.bt_gaviota_remove = Controles.PB(self, "", self.remove_gaviota).ponIcono(Iconos.Delete())
+        ly_gav = Colocacion.H().control(self.bt_gaviota).control(self.bt_gaviota_remove).relleno()
+
+        layout = Colocacion.G().margen(30)
+        layout.controld(lb_maia, 0, 0)
+        layout.control(self.cb_maia, 0, 1)
+        layout.filaVacia(1, 30)
+        layout.controld(lb_gaviota, 2, 0)
+        layout.otro(ly_gav, 2, 1)
+
+        layoutg = Colocacion.V().espacio(30).otro(layout).relleno()
+
+        self.setLayout(layoutg)
+
+        self.set_gaviota()
+
+    def set_gaviota(self):
+        self.bt_gaviota.set_text("   %s   " % self.gaviota)
+
+    def change_gaviota(self):
+        folder = SelectFiles.get_existing_directory(self, self.gaviota, _("Gaviota Tablebases"))
+        if folder:
+            self.gaviota = folder
+            self.set_gaviota()
+            self.save()
+
+    def remove_gaviota(self):
+        self.gaviota = Code.configuration.carpeta_gaviota_defecto()
+        self.set_gaviota()
+        self.save()
+
+    def save(self):
+        self.configuration.x_carpeta_gaviota = self.gaviota
+        self.configuration.x_maia_nodes_exponential = self.cb_maia.valor()
+        Code.configuration.graba()

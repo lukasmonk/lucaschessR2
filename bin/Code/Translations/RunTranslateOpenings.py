@@ -31,7 +31,6 @@ class WTranslateOpenings(LCDialog.LCDialog):
         self.read_po_openings()
         self.li_labels = list(self.dic_translate.keys())
 
-
         self.color_new = QTUtil.qtColor("#840C24")
 
         li_acciones = (
@@ -45,11 +44,11 @@ class WTranslateOpenings(LCDialog.LCDialog):
         self.lb_porcentage = Controles.LB(self, "").ponTipoLetra(puntos=18, peso=300).anchoFijo(114).align_right()
 
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("CURRENT", self.language, 480, edicion=Delegados.LineaTextoUTF8(), siEditable=True)
+        o_columns.nueva("CURRENT", self.language, 480, edicion=Delegados.LineaTextoUTF8(), is_editable=True)
         o_columns.nueva("BASE", "To translate", 480)
 
         self.grid = None
-        self.grid = Grid.Grid(self, o_columns, altoFila=Code.configuration.x_pgn_rowheight+14, siEditable=True)
+        self.grid = Grid.Grid(self, o_columns, altoFila=Code.configuration.x_pgn_rowheight + 14, is_editable=True)
         self.grid.tipoLetra(puntos=10)
         self.grid.setAlternatingRowColors(True)
         self.register_grid(self.grid)
@@ -77,13 +76,7 @@ class WTranslateOpenings(LCDialog.LCDialog):
         with open(path, "rt", encoding="utf-8") as q:
             for linea in q:
                 name, a1h8, pgn, eco, basic, fenm2, hijos, parent = linea.strip().split("|")
-                dic[name] = {
-                    "A1H8": a1h8,
-                    "PGN": pgn,
-                    "ECO": eco,
-                    "TRANS": "",
-                    "NEW": ""
-                }
+                dic[name] = {"A1H8": a1h8, "PGN": pgn, "ECO": eco, "TRANS": "", "NEW": ""}
         return dic
 
     def path_current_pofile(self):
@@ -333,4 +326,3 @@ class WTranslateOpenings(LCDialog.LCDialog):
             num = self.add_po_file(path_po, "NEW")
 
             QTUtil2.message(self, "Imported %d labels\n%s" % (num, path_po))
-

@@ -40,18 +40,18 @@ class TournamentRun:
         self.file_tournament = file_tournament
         with self.tournament() as torneo:
             self.run_name = torneo.name()
-            self.run_drawRange = torneo.drawRange()
-            self.run_drawMinPly = torneo.drawMinPly()
+            self.run_drawRange = torneo.draw_range()
+            self.run_drawMinPly = torneo.draw_min_ply()
             self.run_resign = torneo.resign()
             self.run_bookDepth = torneo.bookDepth()
 
     def name(self):
         return self.run_name
 
-    def drawRange(self):
+    def draw_range(self):
         return self.run_drawRange
 
-    def drawMinPly(self):
+    def draw_min_ply(self):
         return self.run_drawMinPly
 
     def resign(self):
@@ -66,8 +66,8 @@ class TournamentRun:
     def get_game_queued(self, file_work, times=0):
         with self.tournament() as torneo:
             self.run_name = torneo.name()
-            self.run_drawRange = torneo.drawRange()
-            self.run_drawMinPly = torneo.drawMinPly()
+            self.run_drawRange = torneo.draw_range()
+            self.run_drawMinPly = torneo.draw_min_ply()
             self.run_resign = torneo.resign()
             self.run_bookDepth = torneo.bookDepth()
             game_tournament = torneo.get_game_queued(file_work)
@@ -187,7 +187,7 @@ class WTournamentRun(QtWidgets.QWidget):
         n_ancho_labels = max(int((n_ancho_pgn - 3) // 2), 140)
         # # Pgn
         o_columnas = Columnas.ListaColumnas()
-        o_columnas.nueva("NUMBER", _("N."), 52, centered=True)
+        o_columnas.nueva("NUMBER", _("N."), 52, align_center=True)
         with_figurines = configuration.x_pgn_withfigurines
         o_columnas.nueva(
             "WHITE", _("White"), n_ancho_color, edicion=Delegados.EtiquetaPGN(True if with_figurines else None)
@@ -248,14 +248,14 @@ class WTournamentRun(QtWidgets.QWidget):
     def grid_num_datos(self, grid):
         return self.pgn.num_rows()
 
-    def busca_trabajo(self):
+    def looking_for_work(self):
         if self.torneo:
             self.tournament_game = self.torneo.get_game_queued(self.file_work)
             if self.tournament_game is None:
                 return
             self.procesa_game()
             if not self.is_closed:
-                self.busca_trabajo()
+                self.looking_for_work()
 
     def procesa_game(self):
         self.pon_estado(ST_PLAYING)
@@ -626,8 +626,8 @@ class WTournamentRun(QtWidgets.QWidget):
         # Draw
         pUlt = rmUlt.centipawns_abs()
         pAnt = rmAnt.centipawns_abs()
-        dr = self.torneo.drawRange()
-        if dr > 0 and num_moves >= self.torneo.drawMinPly():
+        dr = self.torneo.draw_range()
+        if dr > 0 and num_moves >= self.torneo.draw_min_ply():
             if abs(pUlt) <= dr and abs(pAnt) <= dr:
                 if self.xadjudicator:
                     mrmTut = self.xadjudicator.analiza(self.game.last_position.fen())
@@ -680,7 +680,7 @@ class WTournamentRun(QtWidgets.QWidget):
                         dc = ord(from_sq[0]) - ord(to_sq[0])
                         df = int(from_sq[1]) - int(to_sq[1])
                         # Maxima distancia = 9.9 ( 9,89... sqrt(7**2+7**2)) = 4 seconds
-                        dist = (dc ** 2 + df ** 2) ** 0.5
+                        dist = (dc**2 + df**2) ** 0.5
                         seconds = 4.0 * dist / (9.9 * rapidez)
                     cpu.muevePieza(movim[1], movim[2], siExclusiva=False, seconds=seconds)
 

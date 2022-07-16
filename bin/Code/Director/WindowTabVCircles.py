@@ -145,7 +145,7 @@ class WTV_Circles(LCDialog.LCDialog):
 
         # Lista
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("NUMBER", _("N."), 60, centered=True)
+        o_columns.nueva("NUMBER", _("N."), 60, align_center=True)
         o_columns.nueva("NOMBRE", _("Name"), 256)
 
         self.grid = Grid.Grid(self, o_columns, xid="M", siSelecFilas=True)

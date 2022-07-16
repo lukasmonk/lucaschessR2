@@ -198,7 +198,8 @@ def fork(puzzle: Puzzle) -> bool:
                 if piece.piece_type == PAWN:
                     continue
                 if util.king_values[piece.piece_type] > util.king_values[util.moved_piece_type(node)] or (
-                    util.is_hanging(board, piece, square) and square not in board.attackers(not puzzle.pov, node.move.to_square)
+                    util.is_hanging(board, piece, square)
+                    and square not in board.attackers(not puzzle.pov, node.move.to_square)
                 ):
                     nb += 1
             if nb > 1:
@@ -215,11 +216,17 @@ def hanging_piece(puzzle: Puzzle) -> bool:
         if util.is_hanging(puzzle.mainline[0].board(), captured, to):
             op_move = puzzle.mainline[0].move
             op_capture = puzzle.game.board().piece_at(op_move.to_square)
-            if op_capture and util.values[op_capture.piece_type] >= util.values[captured.piece_type] and op_move.to_square == to:
+            if (
+                op_capture
+                and util.values[op_capture.piece_type] >= util.values[captured.piece_type]
+                and op_move.to_square == to
+            ):
                 return False
             if len(puzzle.mainline) < 4:
                 return True
-            if material_diff(puzzle.mainline[3].board(), puzzle.pov) >= material_diff(puzzle.mainline[1].board(), puzzle.pov):
+            if material_diff(puzzle.mainline[3].board(), puzzle.pov) >= material_diff(
+                puzzle.mainline[1].board(), puzzle.pov
+            ):
                 return True
     return False
 
@@ -364,7 +371,10 @@ def deflection(puzzle: Puzzle) -> bool:
             prev_player_move = grandpa.move
             prev_player_capture = grandpa.parent.board().piece_at(prev_player_move.to_square)
             if (
-                (not prev_player_capture or util.values[prev_player_capture.piece_type] < util.moved_piece_type(grandpa))
+                (
+                    not prev_player_capture
+                    or util.values[prev_player_capture.piece_type] < util.moved_piece_type(grandpa)
+                )
                 and square != prev_op_move.to_square
                 and square != prev_player_move.to_square
                 and (prev_op_move.to_square == prev_player_move.to_square or grandpa.board().is_check())
@@ -418,9 +428,9 @@ def skewer(puzzle: Puzzle) -> bool:
             assert op_move
             if op_move.to_square == node.move.to_square or not op_move.from_square in between:
                 continue
-            if util.king_values[util.moved_piece_type(prev)] > util.king_values[capture.piece_type] and util.is_in_bad_spot(
-                prev.board(), node.move.to_square
-            ):
+            if util.king_values[util.moved_piece_type(prev)] > util.king_values[
+                capture.piece_type
+            ] and util.is_in_bad_spot(prev.board(), node.move.to_square):
                 return True
     return False
 
@@ -503,7 +513,10 @@ def pin_prevents_attack(puzzle: Puzzle) -> bool:
                     attacked
                     and attacked.color == puzzle.pov
                     and not attack in pin_dir
-                    and (util.values[attacked.piece_type] > util.values[piece.piece_type] or util.is_hanging(board, attacked, attack))
+                    and (
+                        util.values[attacked.piece_type] > util.values[piece.piece_type]
+                        or util.is_hanging(board, attacked, attack)
+                    )
                 ):
                     return True
     return False
@@ -528,7 +541,11 @@ def pin_prevents_escape(puzzle: Puzzle) -> bool:
                     if (
                         util.is_hanging(board, pinned_piece, pinned_square)
                         and pinned_square not in board.attackers(not puzzle.pov, attacker_square)
-                        and [m for m in board.pseudo_legal_moves if m.from_square == pinned_square and m.to_square not in pin_dir]
+                        and [
+                            m
+                            for m in board.pseudo_legal_moves
+                            if m.from_square == pinned_square and m.to_square not in pin_dir
+                        ]
                     ):
                         return True
     return False
@@ -657,7 +674,11 @@ def capturing_defender(puzzle: Puzzle) -> bool:
                 init_board = prev.parent.board()
                 defender_square = prev.move.to_square
                 defender = init_board.piece_at(defender_square)
-                if defender and defender_square in init_board.attackers(defender.color, node.move.to_square) and not init_board.is_check():
+                if (
+                    defender
+                    and defender_square in init_board.attackers(defender.color, node.move.to_square)
+                    and not init_board.is_check()
+                ):
                     return True
     return False
 
@@ -743,7 +764,10 @@ def arabian_mate(puzzle: Puzzle) -> bool:
             if (
                 knight
                 and knight.piece_type == KNIGHT
-                and (abs(square_rank(knight_square) - square_rank(king)) == 2 and abs(square_file(knight_square) - square_file(king)) == 2)
+                and (
+                    abs(square_rank(knight_square) - square_rank(king)) == 2
+                    and abs(square_file(knight_square) - square_file(king)) == 2
+                )
             ):
                 return True
     return False

@@ -32,7 +32,12 @@ class WBooksTrain(LCDialog.LCDialog):
         dic_data = self.restore()
 
         # Toolbar
-        liAcciones = [(_("Accept"), Iconos.Aceptar(), self.aceptar), None, (_("Cancel"), Iconos.Cancelar(), self.cancelar), None]
+        liAcciones = [
+            (_("Accept"), Iconos.Aceptar(), self.aceptar),
+            None,
+            (_("Cancel"), Iconos.Cancelar(), self.cancelar),
+            None,
+        ]
         tb = QTVarios.LCTB(self, liAcciones)
 
         # Side
@@ -65,7 +70,9 @@ class WBooksTrain(LCDialog.LCDialog):
         btNuevo = Controles.PB(self, "", self.nuevo, plano=False).ponIcono(Iconos.Nuevo(), icon_size=16)
         btBorrar = Controles.PB(self, "", self.borrar, plano=False).ponIcono(Iconos.Borrar(), icon_size=16)
 
-        self.chb_highest = Controles.CHB(self, _("Always the highest percentage"), dic_data.get(self.ALWAYS_HIGHEST, False))
+        self.chb_highest = Controles.CHB(
+            self, _("Always the highest percentage"), dic_data.get(self.ALWAYS_HIGHEST, False)
+        )
 
         lybook = Colocacion.H().relleno().control(self.cb_player).control(btNuevo).control(btBorrar).relleno()
         ly_select = Colocacion.H().relleno().control(self.chb_highest).relleno()
@@ -95,9 +102,11 @@ class WBooksTrain(LCDialog.LCDialog):
         ly = Colocacion.V().controlc(self.cb_rival).espacio(10).controlc(self.cb_resp_rival)
         gb_rival = Controles.GB(self, _("Rival book"), ly).ponFuente(flb)
 
-        self.chb_showmenu = Controles.CHB(self, _("Display a menu of alternatives if move is invalid"), dic_data.get(self.SHOW_MENU, True))
+        self.chb_showmenu = Controles.CHB(
+            self, _("Display a menu of alternatives if move is invalid"), dic_data.get(self.SHOW_MENU, True)
+        )
         if Code.configuration.x_digital_board:
-            self.chb_showmenu.ponValor(False)
+            self.chb_showmenu.set_value(False)
             self.chb_showmenu.hide()
 
         vlayout = Colocacion.V()

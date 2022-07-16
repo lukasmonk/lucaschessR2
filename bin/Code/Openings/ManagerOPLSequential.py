@@ -168,8 +168,11 @@ class ManagerOpeningLinesSequential(Manager.Manager):
         is_finished = self.num_linea + 1 >= len(self.liGames)
         self.muestraInformacion()
         if is_finished:
-            QTUtil2.message(self.main_window, "%s\n\n%s" % (_("Congratulations, goal achieved"),
-                                                            _("Next time you will start from the first position")) )
+            QTUtil2.message(
+                self.main_window,
+                "%s\n\n%s"
+                % (_("Congratulations, goal achieved"), _("Next time you will start from the first position")),
+            )
             self.training["NUMLINEA_SEQUENTIAL"] = 0
 
         self.dbop.setTraining(self.training)

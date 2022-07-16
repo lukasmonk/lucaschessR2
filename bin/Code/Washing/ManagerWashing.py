@@ -209,7 +209,9 @@ class ManagerWashingReplay(Manager.Manager):
             self.set_position(move.position_before)
 
         # Creamos un move sin analysis
-        ok, self.error, move = Move.get_game_move(self.game, self.game.last_position, jgObj.from_sq, jgObj.to_sq, jgObj.promotion)
+        ok, self.error, move = Move.get_game_move(
+            self.game, self.game.last_position, jgObj.from_sq, jgObj.to_sq, jgObj.promotion
+        )
 
         self.move_the_pieces(move.liMovs)
         self.add_move(move, True)
@@ -389,7 +391,9 @@ class ManagerWashingTactics(Manager.Manager):
 
             self.mensajeEnPGN(mens)
         else:
-            QTUtil2.message_error(self.main_window, "%s: %d, %s: %d" % (_("Errors"), self.errores, _("Hints"), self.hints))
+            QTUtil2.message_error(
+                self.main_window, "%s: %d, %s: %d" % (_("Errors"), self.errores, _("Hints"), self.hints)
+            )
 
     def player_has_moved(self, from_sq, to_sq, promotion=""):
         move = self.check_human_move(from_sq, to_sq, promotion)
@@ -489,7 +493,8 @@ class ManagerWashingCreate(Manager.Manager):
         self.put_pieces_bottom(is_white)
 
         self.set_label1(
-            "%s: %s\n%s: %s\n %s: %s" % (_("Opponent"), self.engine.name, _("Task"), self.engine.lbState(), _("Tutor"), self.xtutor.name)
+            "%s: %s\n%s: %s\n %s: %s"
+            % (_("Opponent"), self.engine.name, _("Task"), self.engine.lbState(), _("Tutor"), self.xtutor.name)
         )
         self.put_data_label()
 
@@ -692,7 +697,9 @@ class ManagerWashingCreate(Manager.Manager):
                         from_sq = tutor.from_sq
                         to_sq = tutor.to_sq
                         promotion = tutor.promotion
-                        ok, mens, jgTutor = Move.get_game_move(self.game, self.game.last_position, from_sq, to_sq, promotion)
+                        ok, mens, jgTutor = Move.get_game_move(
+                            self.game, self.game.last_position, from_sq, to_sq, promotion
+                        )
                         if ok:
                             move = jgTutor
                             self.add_hint()

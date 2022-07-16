@@ -195,7 +195,7 @@ class ControlAnalysis:
 
         if len(variation) > 0:
             comment = "%s %s %s" % (rm.abrTexto(), name, vtime)
-            variation.move(0).comment = comment.strip()
+            variation.move(0).set_comment(comment.strip())
         self.move.add_variation(variation)
 
     def put_view_manager(self):
@@ -309,7 +309,9 @@ class AnalisisVariations:
         else:
             segundos_pensando = 3
 
-        self.w = WindowAnalysisVariations.WAnalisisVariations(self, self.owner, segundos_pensando, self.is_white, cbase_points, max_recursion)
+        self.w = WindowAnalysisVariations.WAnalisisVariations(
+            self, self.owner, segundos_pensando, self.is_white, cbase_points, max_recursion
+        )
         self.reset()
         self.w.exec_()
 

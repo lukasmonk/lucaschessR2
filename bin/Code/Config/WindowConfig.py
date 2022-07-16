@@ -48,7 +48,6 @@ def options(parent, configuration):
 
     form.checkbox(_("Check for updates at startup"), configuration.x_check_for_update)
 
-
     form.add_tab(_("General"))
 
     # Sonidos ########################################################################################################
@@ -190,19 +189,12 @@ def options(parent, configuration):
 
     form.add_tab(_("Change elos"))
 
-    # Gaviota ##############################################################################################
-    form.separador()
-    form.folder(_("Gaviota Tablebases"), configuration.x_carpeta_gaviota, configuration.carpeta_gaviota_defecto())
-
-    form.add_tab(_("Endgame tablebases"))
-
-
     resultado = form.run()
 
     if resultado:
         accion, resp = resultado
 
-        li_gen, li_son, li_b, li_asp1, li_asp2, li_nc, li_gv = resp
+        li_gen, li_son, li_b, li_asp1, li_asp2, li_nc = resp
 
         (
             configuration.x_player,
@@ -267,13 +259,6 @@ def options(parent, configuration):
             configuration.x_sound_error,
         ) = li_son
 
-
-        (
-            configuration.x_carpeta_gaviota,
-        ) = li_gv
-
-
-
         (
             configuration.x_show_effects,
             rapidezMovPiezas,
@@ -303,7 +288,13 @@ def options(parent, configuration):
                     dboard = ""
             configuration.x_digital_board = dboard
 
-        configuration.x_elo, configuration.x_michelo, configuration.x_fics, configuration.x_fide, configuration.x_lichess = li_nc
+        (
+            configuration.x_elo,
+            configuration.x_michelo,
+            configuration.x_fics,
+            configuration.x_fide,
+            configuration.x_lichess,
+        ) = li_nc
 
         return True
     else:

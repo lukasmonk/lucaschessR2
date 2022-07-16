@@ -25,7 +25,9 @@ class WDatos(QtWidgets.QDialog):
 
         f = Controles.TipoLetra(puntos=12, peso=75)
 
-        self.ed, lb = QTUtil2.spinBoxLB(self, max_level, 1, max_level, etiqueta=txtcategoria + " " + _("Level"), maxTam=40)
+        self.ed, lb = QTUtil2.spinBoxLB(
+            self, max_level, 1, max_level, etiqueta=txtcategoria + " " + _("Level"), maxTam=40
+        )
         lb.ponFuente(f)
 
         ly = Colocacion.H().control(lb).control(self.ed).margen(20)
@@ -102,13 +104,23 @@ class WMemoria(LCDialog.LCDialog):
 
         # Rotulo de vtime
         self.rotuloDispone = (
-            Controles.LB(self, _X(_("You have %1 seconds to remember the position of %2 pieces"), str(self.seconds), str(self.nivel + 3)))
+            Controles.LB(
+                self,
+                _X(
+                    _("You have %1 seconds to remember the position of %2 pieces"),
+                    str(self.seconds),
+                    str(self.nivel + 3),
+                ),
+            )
             .set_wrap()
             .ponFuente(f)
             .align_center()
         )
         self.rotuloDispone1 = (
-            Controles.LB(self, _("when you know you can press the Continue button")).set_wrap().ponFuente(f).align_center()
+            Controles.LB(self, _("when you know you can press the Continue button"))
+            .set_wrap()
+            .ponFuente(f)
+            .align_center()
         )
         ly = Colocacion.V().control(self.rotuloDispone).control(self.rotuloDispone1)
         self.gbTiempo = Controles.GB(self, "", ly)
@@ -180,10 +192,14 @@ class WMemoria(LCDialog.LCDialog):
         li_options = []
         if not siK:
             li_options.append((_("King"), "K"))
-        li_options.extend([(_("Queen"), "Q"), (_("Rook"), "R"), (_("Bishop"), "B"), (_("Knight"), "N"), (_("Pawn"), "P")])
+        li_options.extend(
+            [(_("Queen"), "Q"), (_("Rook"), "R"), (_("Bishop"), "B"), (_("Knight"), "N"), (_("Pawn"), "P")]
+        )
         if not sik:
             li_options.append((_("King"), "k"))
-        li_options.extend([(_("Queen"), "q"), (_("Rook"), "r"), (_("Bishop"), "b"), (_("Knight"), "n"), (_("Pawn"), "p")])
+        li_options.extend(
+            [(_("Queen"), "q"), (_("Rook"), "r"), (_("Bishop"), "b"), (_("Knight"), "n"), (_("Pawn"), "p")]
+        )
 
         for txt, pieza in li_options:
             icono = self.board.piezas.icono(pieza)
@@ -282,7 +298,9 @@ class WMemoria(LCDialog.LCDialog):
         # Quitamos seguir y ponemos comprobar
         self.pon_toolbar(["comprobar"])
 
-        self.rotuloDispone1.set_text(_X(_("When you've loaded the %1 pieces you can click the Check button"), str(self.nivel + 3)))
+        self.rotuloDispone1.set_text(
+            _X(_("When you've loaded the %1 pieces you can click the Check button"), str(self.nivel + 3))
+        )
         self.rotuloDispone.setVisible(False)
 
         self.iniTiempo = time.time()
@@ -366,7 +384,11 @@ class WMemoria(LCDialog.LCDialog):
         self.pending_time -= 1
 
         self.rotuloDispone.set_text(
-            _X(_("You have %1 seconds to remember the position of %2 pieces"), str(self.pending_time), str(self.nivel + 3))
+            _X(
+                _("You have %1 seconds to remember the position of %2 pieces"),
+                str(self.pending_time),
+                str(self.nivel + 3),
+            )
         )
         if self.pending_time == 0:
             self.seguir()

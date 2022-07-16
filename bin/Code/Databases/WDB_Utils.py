@@ -173,20 +173,20 @@ class WFiltrar(QtWidgets.QDialog):
                 union, par0, campo, condicion, valor, par1 = None, False, None, None, "", False
             c_union, c_par0, c_campo, c_condicion, c_valor, c_par1 = self.liC[i]
             if c_union:
-                c_union.ponValor(union)
-            c_par0.ponValor(par0)
-            c_campo.ponValor(campo)
-            c_condicion.ponValor(condicion)
+                c_union.set_value(union)
+            c_par0.set_value(par0)
+            c_campo.set_value(campo)
+            c_condicion.set_value(condicion)
             c_valor.set_text(valor)
-            c_par1.ponValor(par1)
+            c_par1.set_value(par1)
 
     def reiniciar(self):
         for i in range(self.numC):
-            self.liC[i][1].ponValor(False)
+            self.liC[i][1].set_value(False)
             self.liC[i][2].setCurrentIndex(0)
             self.liC[i][3].setCurrentIndex(0)
             self.liC[i][4].set_text("")
-            self.liC[i][5].ponValor(False)
+            self.liC[i][5].set_value(False)
             if i > 0:
                 self.liC[i][0].setCurrentIndex(0)
         self.aceptar()
@@ -245,7 +245,12 @@ class WFiltrar(QtWidgets.QDialog):
             if par0:
                 where += "("
             if condicion in ("=", "<>") and not valor:
-                where += "(( %s %s ) OR (%s %s ''))" % (campo, "IS NULL" if condicion == "=" else "IS NOT NULL", campo, condicion)
+                where += "(( %s %s ) OR (%s %s ''))" % (
+                    campo,
+                    "IS NULL" if condicion == "=" else "IS NOT NULL",
+                    campo,
+                    condicion,
+                )
             else:
                 valor = valor.upper()
                 if valor.isupper():
@@ -293,7 +298,12 @@ class WFiltrarRaw(LCDialog.LCDialog):
         ly = Colocacion.H().control(lbRaw).control(self.edRaw)
 
         # Toolbar
-        li_acciones = [(_("Accept"), Iconos.Aceptar(), self.aceptar), None, (_("Cancel"), Iconos.Cancelar(), self.reject), None]
+        li_acciones = [
+            (_("Accept"), Iconos.Aceptar(), self.aceptar),
+            None,
+            (_("Cancel"), Iconos.Cancelar(), self.reject),
+            None,
+        ]
         tb = QTVarios.LCTB(self, li_acciones)
 
         # Layout
@@ -462,7 +472,7 @@ def create_tactics(procesador, wowner, li_registros, rutina_datos, name):
         add_titulo(wb)
         add_titulo(themes)
         if gameurl:
-            add_titulo("<a href=\"%s\">%s</a>" % (gameurl, gameurl))
+            add_titulo('<a href="%s">%s</a>' % (gameurl, gameurl))
         for other in ("TASK", "SOURCE"):
             v = xdic(other)
             add_titulo(v)

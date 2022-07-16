@@ -235,7 +235,12 @@ class Pieza(Bloque):
     column: int
 
     def __init__(self):
-        li_vars = [("physical_pos", "o", Physicalphysical_pos(0, 0, 80, 1, 0)), ("pieza", "t", "p"), ("row", "n", 1), ("column", "n", 1)]
+        li_vars = [
+            ("physical_pos", "o", Physicalphysical_pos(0, 0, 80, 1, 0)),
+            ("pieza", "t", "p"),
+            ("row", "n", 1),
+            ("column", "n", 1),
+        ]
         Bloque.__init__(self, li_vars)
 
 
@@ -504,7 +509,7 @@ class Pizarra(QtWidgets.QWidget):
         self.tarea = tarea
         if self.chb:
             ok = self.tarea.continuar()
-            self.chb.ponValor(False if ok is None else ok)
+            self.chb.set_value(False if ok is None else ok)
 
     def save(self):
         if not self.tarea:

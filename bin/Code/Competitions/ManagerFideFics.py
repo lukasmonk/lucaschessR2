@@ -176,7 +176,7 @@ class ManagerFideFics(Manager.Manager):
             self.configurar(siSonidos=True)
 
         elif key == TB_TAKEBACK:
-            return #disable
+            return  # disable
 
         elif key == TB_UTILITIES:
             self.utilidadesElo()
@@ -401,7 +401,7 @@ class ManagerFideFics(Manager.Manager):
         if analysis:
             move.analysis = analysis
         if comment:
-            move.comment = comment
+            move.set_comment(comment)
 
         if comment:
             self.comment = comment.replace("\n", "<br><br>") + "<br>"

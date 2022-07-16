@@ -53,7 +53,7 @@ class EngineManager:
         self.key = confMotor.key
         self.num_multipv = 0
         self.mstime_engine = None
-        self.depth_engine = None
+        self.depth_engine = getattr(confMotor, "fixed_depth", 0)
 
         self.function = _("Opponent").lower()  # para distinguir entre tutor y analizador
 
@@ -198,6 +198,11 @@ class EngineManager:
             return mrm.mejorMovAjustado(nAjustado) if nAjustado != ADJUST_SELECTED_BY_PLAYER else mrm
         else:
             return mrm.mejorMov()
+
+    def play_fixed_depth_time_tourney(self, game):
+        self.check_engine()
+
+        return self.engine.bestmove_game(game, self.mstime_engine, self.depth_engine)
 
     def play_time_tourney(self, game, seconds_white, seconds_black, seconds_move):
         self.check_engine()
@@ -464,7 +469,7 @@ class EngineManager:
 
         if humanize:
             if self.mstime_engine or self.depth_engine:
-                seconds_white, seconds_black, seconds_move = 15.0*60, 15.0*60, 6
+                seconds_white, seconds_black, seconds_move = 15.0 * 60, 15.0 * 60, 6
             self.humanize(game, seconds_white, seconds_black, seconds_move)
         else:
             self.engine.not_humanize()
@@ -493,25 +498,25 @@ class EngineManager:
 
         porc = 100.0
         if last_position.num_moves < 40:
-            porc = 10.0 + last_position.num_moves*90.0/30.0
+            porc = 10.0 + last_position.num_moves * 90.0 / 30.0
 
         nmoves = min(20, len(last_position.get_exmoves()))
         if nmoves == 1:
             self.engine.not_humanize()
             return
         x = 70.0 + nmoves * 30.0 / 20.0
-        porc *= x/100.0
+        porc *= x / 100.0
 
         x = 80.0 + random.randint(1, 40)
-        porc *= x/100.0
+        porc *= x / 100.0
 
-        movetime *= porc/100.0
+        movetime *= porc / 100.0
 
         movetime = max(random.randint(1, 4), movetime)
 
         average_previous_user = game.average_mstime_user(5)
         if average_previous_user:
-            movetime = max(min(0.8*average_previous_user/1000, 60), movetime) # max 1 minute
+            movetime = max(min(0.8 * average_previous_user / 1000, 60), movetime)  # max 1 minute
 
         self.engine.set_humanize(movetime)
 

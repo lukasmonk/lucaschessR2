@@ -19,13 +19,13 @@ def run(user, file_tournament, file_work):
     configuration.leeConfBoards()
     configuration.load_translation()
     OpeningsStd.ap.reset()
-    Code.todasPiezas = Piezas.TodasPiezas()
+    Code.all_pieces = Piezas.AllPieces()
 
     app.setStyle(QtWidgets.QStyleFactory.create(configuration.x_style))
     QtWidgets.QApplication.setPalette(QtWidgets.QApplication.style().standardPalette())
 
     w = WTournamentRun.WTournamentRun(file_tournament, file_work)
     w.show()
-    w.busca_trabajo()
+    w.looking_for_work()
 
     # app.exec_()

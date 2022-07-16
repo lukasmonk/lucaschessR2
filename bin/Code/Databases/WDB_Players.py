@@ -119,36 +119,48 @@ class WPlayer(QtWidgets.QWidget):
         ancho = 54
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("opening", _("Opening"), 200)
-        o_columns.nueva("games", _("Games"), ancho, siDerecha=True)
-        o_columns.nueva("pgames", "% " + _("Games"), 70, siDerecha=True)
-        o_columns.nueva("win", _("Win"), ancho, siDerecha=True)
-        o_columns.nueva("draw", _("Draw"), ancho, siDerecha=True)
-        o_columns.nueva("lost", _("Loss"), ancho, siDerecha=True)
-        o_columns.nueva("pwin", "% " + _("Win"), ancho, siDerecha=True)
-        o_columns.nueva("pdraw", "% " + _("Draw"), ancho, siDerecha=True)
-        o_columns.nueva("plost", "% " + _("Loss"), ancho, siDerecha=True)
-        o_columns.nueva("pdrawwin", "%% %s" % _("W+D"), ancho, siDerecha=True)
-        o_columns.nueva("pdrawlost", "%% %s" % _("L+D"), ancho, siDerecha=True)
+        o_columns.nueva("games", _("Games"), ancho, align_right=True)
+        o_columns.nueva("pgames", "% " + _("Games"), 70, align_right=True)
+        o_columns.nueva("win", _("Win"), ancho, align_right=True)
+        o_columns.nueva("draw", _("Draw"), ancho, align_right=True)
+        o_columns.nueva("lost", _("Loss"), ancho, align_right=True)
+        o_columns.nueva("pwin", "% " + _("Win"), ancho, align_right=True)
+        o_columns.nueva("pdraw", "% " + _("Draw"), ancho, align_right=True)
+        o_columns.nueva("plost", "% " + _("Loss"), ancho, align_right=True)
+        o_columns.nueva("pdrawwin", "%% %s" % _("W+D"), ancho, align_right=True)
+        o_columns.nueva("pdrawlost", "%% %s" % _("L+D"), ancho, align_right=True)
 
         self.gridOpeningWhite = Grid.Grid(self, o_columns, siSelecFilas=True)
         self.gridOpeningBlack = Grid.Grid(self, o_columns, siSelecFilas=True)
 
         # GridWhite/GridBlack
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("games", _("Games"), ancho, siDerecha=True)
-        o_columns.nueva("win", _("Win"), ancho, siDerecha=True)
-        o_columns.nueva("draw", _("Draw"), ancho, siDerecha=True)
-        o_columns.nueva("lost", _("Loss"), ancho, siDerecha=True)
-        o_columns.nueva("pwin", "% " + _("Win"), ancho, siDerecha=True)
-        o_columns.nueva("pdraw", "% " + _("Draw"), ancho, siDerecha=True)
-        o_columns.nueva("plost", "% " + _("Loss"), ancho, siDerecha=True)
+        o_columns.nueva("games", _("Games"), ancho, align_right=True)
+        o_columns.nueva("win", _("Win"), ancho, align_right=True)
+        o_columns.nueva("draw", _("Draw"), ancho, align_right=True)
+        o_columns.nueva("lost", _("Loss"), ancho, align_right=True)
+        o_columns.nueva("pwin", "% " + _("Win"), ancho, align_right=True)
+        o_columns.nueva("pdraw", "% " + _("Draw"), ancho, align_right=True)
+        o_columns.nueva("plost", "% " + _("Loss"), ancho, align_right=True)
 
         ancho_col = 40
         with_figurines = self.configuration.x_pgn_withfigurines
         for x in range(1, 50):
             num = (x - 1) * 2
-            o_columns.nueva(str(num), "%d." % x, ancho_col, centered=True, edicion=Delegados.EtiquetaPOS(with_figurines, siLineas=False))
-            o_columns.nueva(str(num + 1), "...", ancho_col, centered=True, edicion=Delegados.EtiquetaPOS(with_figurines, siLineas=False))
+            o_columns.nueva(
+                str(num),
+                "%d." % x,
+                ancho_col,
+                align_center=True,
+                edicion=Delegados.EtiquetaPOS(with_figurines, siLineas=False),
+            )
+            o_columns.nueva(
+                str(num + 1),
+                "...",
+                ancho_col,
+                align_center=True,
+                edicion=Delegados.EtiquetaPOS(with_figurines, siLineas=False),
+            )
 
         self.gridMovesWhite = Grid.Grid(self, o_columns, siSelecFilas=True)
         self.gridMovesBlack = Grid.Grid(self, o_columns, siSelecFilas=True)
@@ -164,13 +176,18 @@ class WPlayer(QtWidgets.QWidget):
         wblack.setLayout(ly)
 
         tabs = Controles.Tab(self)
-        tabs.nuevaTab(self.gridOpeningWhite, _("White openings"))
-        tabs.nuevaTab(self.gridOpeningBlack, _("Black openings"))
-        tabs.nuevaTab(wWhite, _("White moves"))
-        tabs.nuevaTab(wblack, _("Black moves"))
+        tabs.new_tab(self.gridOpeningWhite, _("White openings"))
+        tabs.new_tab(self.gridOpeningBlack, _("Black openings"))
+        tabs.new_tab(wWhite, _("White moves"))
+        tabs.new_tab(wblack, _("Black moves"))
 
         # ToolBar
-        liAccionesWork = [("", Iconos.Usuarios(), self.tw_changeplayer), None, (_("Rebuild"), Iconos.Reindexar(), self.tw_rebuild), None]
+        liAccionesWork = [
+            ("", Iconos.Usuarios(), self.tw_changeplayer),
+            None,
+            (_("Rebuild"), Iconos.Reindexar(), self.tw_rebuild),
+            None,
+        ]
 
         self.tbWork = QTVarios.LCTB(self, liAccionesWork)
         self.tbWork.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
@@ -179,7 +196,11 @@ class WPlayer(QtWidgets.QWidget):
         layout = Colocacion.V().otro(lyTB).control(tabs).margen(1)
 
         self.setLayout(layout)
-        self.qtColor = (QTUtil.qtColorRGB(221, 255, 221), QTUtil.qtColorRGB(247, 247, 247), QTUtil.qtColorRGB(255, 217, 217))
+        self.qtColor = (
+            QTUtil.qtColorRGB(221, 255, 221),
+            QTUtil.qtColorRGB(247, 247, 247),
+            QTUtil.qtColorRGB(255, 217, 217),
+        )
 
         self.setdbGames(dbGames)
         self.setPlayer(self.leeVariable("PLAYER", ""))
@@ -320,8 +341,7 @@ class WPlayer(QtWidgets.QWidget):
         elif k == QtCore.Qt.Key_End:
             grid.gobottom()
         else:
-            return True # que siga con el resto de teclas
-
+            return True  # que siga con el resto de teclas
 
     def leeVariable(self, var, default=None):
         return self.dbGames.read_config(var, default)

@@ -13,14 +13,14 @@ class Columna:
         key,
         head,
         ancho=100,
-        centered=False,
-        siDerecha=False,
+        align_center=False,
+        align_right=False,
         rgbTexto=None,
         rgbFondo=None,
         siOrden=True,
         estadoOrden=0,
         edicion=None,
-        siEditable=None,
+        is_editable=None,
         must_show=True,
         siChecked=False,
     ):
@@ -29,15 +29,15 @@ class Columna:
         @param key: referencia de la column.
         @param head: texto mostrado en el grid como head.
         @param ancho: anchura en pixels.
-        @param centered: alineacion
-        @param siDerecha: alineacion, se ha diferenciado la alineacion, para que al definir
+        @param align_center: alineacion
+        @param align_right: alineacion, se ha diferenciado la alineacion, para que al definir
             columnas sea mas facilmente visible el tipo de alineacion, cuando no es a la izquierda.
         @param rgbTexto: color del texto como un entero.
         @param rgbFondo: color de fondo.
         @param siOrden: si se puede ordenar por este campo
         @param estadoOrden: indica cual es el orden inicial de la column  -1 Desc, 0 No, 1 Asc
         @param edicion: objeto delegate usado para la edicion de los campos de esta column
-        @param siEditable: este parametro se usa cuando aunque la column tiene un delegate asociado para mostrarla, sin embargo no es editable.
+        @param is_editable: este parametro se usa cuando aunque la column tiene un delegate asociado para mostrarla, sin embargo no es editable.
         @param must_show: si se muestra o no.
         @param siChecked: si es un campo de chequeo.
         """
@@ -47,9 +47,9 @@ class Columna:
         self.anchoDef = self.ancho = ancho
 
         alineacion = "i"
-        if centered:
+        if align_center:
             alineacion = "c"
-        if siDerecha:
+        if align_right:
             alineacion = "d"
         self.alineacionDef = self.alineacion = alineacion
 
@@ -62,18 +62,18 @@ class Columna:
         self.stateOrden = estadoOrden  # -1 Desc, 0 No, 1 Asc
 
         self.edicion = edicion
-        self.siEditable = False
+        self.is_editable = False
         if self.edicion:
-            self.siEditable = True
-            if siEditable is not None:
-                self.siEditable = siEditable
+            self.is_editable = True
+            if is_editable is not None:
+                self.is_editable = is_editable
 
         self.siMostrarDef = self.must_show = must_show
         self.siChecked = siChecked
 
         if siChecked:
             self.edicion = Delegados.PmIconosCheck()
-            self.siEditable = True
+            self.is_editable = True
 
         self.ponQT()
 
@@ -197,14 +197,14 @@ class ListaColumnas:
         key,
         head="",
         ancho=100,
-        centered=False,
-        siDerecha=False,
+        align_center=False,
+        align_right=False,
         rgbTexto=None,
         rgbFondo=None,
         siOrden=True,
         estadoOrden=0,
         edicion=None,
-        siEditable=None,
+        is_editable=None,
         must_show=True,
         siChecked=False,
     ):
@@ -214,22 +214,34 @@ class ListaColumnas:
         @param key: referencia de la column.
         @param head: texto mostrado en el grid como head.
         @param ancho: anchura en pixels.
-        @param centered: alineacion
-        @param siDerecha: alineacion, se ha diferenciado la alineacion, para que al definir
+        @param align_center: alineacion
+        @param align_right: alineacion, se ha diferenciado la alineacion, para que al definir
             columnas sea mas facilmente visible el tipo de alineacion, cuando no es a la izquierda.
         @param rgbTexto: color del texto como un entero.
         @param rgbFondo: color de fondo.
         @param siOrden: si se puede ordenar por este campo
         @param estadoOrden: indica cual es el orden inicial de la column  -1 Desc, 0 No, 1 Asc
         @param edicion: objeto delegate usado para la edicion de los campos de esta column
-        @param siEditable: este parametro se usa cuando aunque la column tiene un delegate asociado para mostrarla, sin embargo no es editable.
+        @param is_editable: este parametro se usa cuando aunque la column tiene un delegate asociado para mostrarla, sin embargo no es editable.
         @param must_show: si se muestra o no.
         @param siChecked: si es un campo de chequeo.
 
         @return: la column creada.
         """
         column = Columna(
-            key, head, ancho, centered, siDerecha, rgbTexto, rgbFondo, siOrden, estadoOrden, edicion, siEditable, must_show, siChecked
+            key,
+            head,
+            ancho,
+            align_center,
+            align_right,
+            rgbTexto,
+            rgbFondo,
+            siOrden,
+            estadoOrden,
+            edicion,
+            is_editable,
+            must_show,
+            siChecked,
         )
         self.li_columns.append(column)
         self.posCreacion += 1
@@ -279,14 +291,14 @@ class ListaColumnas:
                 col.key,
                 head=col.head,
                 ancho=col.ancho,
-                centered=col.alineacion == "c",
-                siDerecha=col.alineacion == "d",
+                align_center=col.alineacion == "c",
+                align_right=col.alineacion == "d",
                 rgbTexto=col.rgbTexto,
                 rgbFondo=col.rgbFondo,
                 siOrden=col.siOrden,
                 estadoOrden=col.stateOrden,
                 edicion=col.edicion,
-                siEditable=col.siEditable,
+                is_editable=col.is_editable,
                 must_show=col.must_show,
                 siChecked=col.siChecked,
             )

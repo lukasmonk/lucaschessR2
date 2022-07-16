@@ -49,8 +49,8 @@ class ODT:
     def set_header(self, txt):
         self.styles.header(txt)
 
-    def add_paragraph(self, txt, bold=False, centered=False):
-        self.content.writeln(txt, bold, centered)
+    def add_paragraph(self, txt, bold=False, align_center=False):
+        self.content.writeln(txt, bold, align_center)
 
     def add_paragraph8(self, txt):
         self.content.writeln8(txt)
@@ -68,18 +68,18 @@ class ODT:
     def add_hyperlink(self, http, txt):
         self.content.add_hyperlink(http, txt)
 
+
 # odt = ODT()
 #
 # # odt.landscape()
 # # odt.header("Lucas Chess, bmt")
-# odt.writeln("1.c3", bold=True, centered=True)
+# odt.writeln("1.c3", bold=True, align_center=True)
 # odt.line_break()
 # odt.line_break()
-# odt.writeln("1.c3", bold=True, centered=True)
+# odt.writeln("1.c3", bold=True, align_center=True)
 # odt.page_break()
-# odt.writeln("1.c3", bold=True, centered=True)
+# odt.writeln("1.c3", bold=True, align_center=True)
 # odt.line_break()
 # odt.add_png(r"c:\lucaschess\pyLCR2\.utilities\odt\data\img1.png", 12.0)
 # odt.line_break()
 # odt.create("x1.odt")
-

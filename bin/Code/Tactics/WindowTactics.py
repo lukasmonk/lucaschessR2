@@ -28,13 +28,13 @@ class WHistoricoTacticas(LCDialog.LCDialog):
 
         # Historico
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("REFERENCE", _("Reference"), 120, centered=True)
-        o_columns.nueva("FINICIAL", _("Start date"), 120, centered=True)
-        o_columns.nueva("FFINAL", _("End date"), 120, centered=True)
-        o_columns.nueva("TIME", "%s - %s:%s" % (_("Days"), _("Hours"), _("Minutes")), 120, centered=True)
-        o_columns.nueva("POSICIONES", _("Num. puzzles"), 100, centered=True)
-        o_columns.nueva("SECONDS", _("Working time"), 100, centered=True)
-        o_columns.nueva("ERRORS", _("Errors"), 100, centered=True)
+        o_columns.nueva("REFERENCE", _("Reference"), 120, align_center=True)
+        o_columns.nueva("FINICIAL", _("Start date"), 120, align_center=True)
+        o_columns.nueva("FFINAL", _("End date"), 120, align_center=True)
+        o_columns.nueva("TIME", "%s - %s:%s" % (_("Days"), _("Hours"), _("Minutes")), 120, align_center=True)
+        o_columns.nueva("POSICIONES", _("Num. puzzles"), 100, align_center=True)
+        o_columns.nueva("SECONDS", _("Working time"), 100, align_center=True)
+        o_columns.nueva("ERRORS", _("Errors"), 100, align_center=True)
         self.ghistorico = Grid.Grid(self, o_columns, siSelecFilas=True, siSeleccionMultiple=True)
         self.ghistorico.setMinimumWidth(self.ghistorico.anchoColumnas() + 20)
 
@@ -248,9 +248,11 @@ class WConfTactics(QtWidgets.QWidget):
             self.liJUMPS = tactica.jumps[:]
         tb = tb_gen("jumps")
         o_col = Columnas.ListaColumnas()
-        o_col.nueva("NUMBER", _("Repetition"), 80, centered=True)
-        o_col.nueva("JUMPS_SEPARATION", _("Separation"), 80, centered=True, edicion=Delegados.LineaTexto(siEntero=True))
-        self.grid_jumps = Grid.Grid(self, o_col, siSelecFilas=True, siEditable=True, xid="j")
+        o_col.nueva("NUMBER", _("Repetition"), 80, align_center=True)
+        o_col.nueva(
+            "JUMPS_SEPARATION", _("Separation"), 80, align_center=True, edicion=Delegados.LineaTexto(siEntero=True)
+        )
+        self.grid_jumps = Grid.Grid(self, o_col, siSelecFilas=True, is_editable=True, xid="j")
         self.grid_jumps.setMinimumWidth(self.grid_jumps.anchoColumnas() + 20)
         ly = Colocacion.V().control(tb).control(self.grid_jumps)
         gb_jumps = Controles.GB(self, _("Repetitions of each puzzle"), ly).ponFuente(f)
@@ -263,10 +265,10 @@ class WConfTactics(QtWidgets.QWidget):
             self.liREPEAT = tactica.repeat[:]
         tb = tb_gen("repeat")
         o_col = Columnas.ListaColumnas()
-        o_col.nueva("NUMBER", _("Block"), 40, centered=True)
+        o_col.nueva("NUMBER", _("Block"), 40, align_center=True)
         self.liREPEATtxt = (_("Original"), _("Random"), _("Previous"))
-        o_col.nueva("REPEAT_ORDER", _("Order"), 100, centered=True, edicion=Delegados.ComboBox(self.liREPEATtxt))
-        self.grid_repeat = Grid.Grid(self, o_col, siSelecFilas=True, siEditable=True, xid="r")
+        o_col.nueva("REPEAT_ORDER", _("Order"), 100, align_center=True, edicion=Delegados.ComboBox(self.liREPEATtxt))
+        self.grid_repeat = Grid.Grid(self, o_col, siSelecFilas=True, is_editable=True, xid="r")
         self.grid_repeat.setMinimumWidth(self.grid_repeat.anchoColumnas() + 20)
         ly = Colocacion.V().control(tb).control(self.grid_repeat)
         gb_repeat = Controles.GB(self, _("Blocks"), ly).ponFuente(f)
@@ -279,10 +281,12 @@ class WConfTactics(QtWidgets.QWidget):
             self.liPENAL = tactica.penalization[:]
         tb = tb_gen("penal")
         o_col = Columnas.ListaColumnas()
-        o_col.nueva("NUMBER", _("N."), 20, centered=True)
-        o_col.nueva("PENAL_POSITIONS", _("Positions"), 100, centered=True, edicion=Delegados.LineaTexto(siEntero=True))
-        o_col.nueva("PENAL_%", _("Affected"), 100, centered=True)
-        self.grid_penal = Grid.Grid(self, o_col, siSelecFilas=True, siEditable=True, xid="p")
+        o_col.nueva("NUMBER", _("N."), 20, align_center=True)
+        o_col.nueva(
+            "PENAL_POSITIONS", _("Positions"), 100, align_center=True, edicion=Delegados.LineaTexto(siEntero=True)
+        )
+        o_col.nueva("PENAL_%", _("Affected"), 100, align_center=True)
+        self.grid_penal = Grid.Grid(self, o_col, siSelecFilas=True, is_editable=True, xid="p")
         self.grid_penal.setMinimumWidth(self.grid_penal.anchoColumnas() + 20)
         ly = Colocacion.V().control(tb).control(self.grid_penal)
         gb_penal = Controles.GB(self, _("Penalties"), ly).ponFuente(f)
@@ -296,10 +300,12 @@ class WConfTactics(QtWidgets.QWidget):
         tb = tb_gen("show")
         o_col = Columnas.ListaColumnas()
         self.liSHOWTEXTtxt = (_("No"), _("Yes"))
-        o_col.nueva("NUMBER", _("N."), 20, centered=True)
-        o_col.nueva("SHOW_VISIBLE", _("Visible"), 100, centered=True, edicion=Delegados.ComboBox(self.liSHOWTEXTtxt))
-        o_col.nueva("SHOW_%", _("Affected"), 100, centered=True)
-        self.grid_show = Grid.Grid(self, o_col, siSelecFilas=True, siEditable=True, xid="s")
+        o_col.nueva("NUMBER", _("N."), 20, align_center=True)
+        o_col.nueva(
+            "SHOW_VISIBLE", _("Visible"), 100, align_center=True, edicion=Delegados.ComboBox(self.liSHOWTEXTtxt)
+        )
+        o_col.nueva("SHOW_%", _("Affected"), 100, align_center=True)
+        self.grid_show = Grid.Grid(self, o_col, siSelecFilas=True, is_editable=True, xid="s")
         self.grid_show.setMinimumWidth(self.grid_show.anchoColumnas() + 20)
         ly = Colocacion.V().control(tb).control(self.grid_show)
         gbShow = Controles.GB(self, _("Show the reference associated with each puzzle"), ly).ponFuente(f)
@@ -319,7 +325,12 @@ class WConfTactics(QtWidgets.QWidget):
         lb_r_cycles = Controles.LB(self, _("Cycles") + ": ")
         self.sb_reinf_cycles = Controles.SB(self, self.reinforcement_cycles, 1, 10)
         ly = (
-            Colocacion.H().control(lb_r_errors).control(self.cb_reinf_errors).espacio(30).control(lb_r_cycles).control(self.sb_reinf_cycles)
+            Colocacion.H()
+            .control(lb_r_errors)
+            .control(self.cb_reinf_errors)
+            .espacio(30)
+            .control(lb_r_cycles)
+            .control(self.sb_reinf_cycles)
         )
         gb_reinforcement = Controles.GB(self, _("Reinforcement"), ly).ponFuente(f)
 
@@ -340,12 +351,12 @@ class WConfTactics(QtWidgets.QWidget):
                     d, h = h, d
                 self.liFILES.append([fich, w, d, h])
         o_col = Columnas.ListaColumnas()
-        o_col.nueva("FILE", _("File"), 220, centered=True)
-        o_col.nueva("WEIGHT", _("Weight"), 100, centered=True, edicion=Delegados.LineaTexto(siEntero=True))
-        o_col.nueva("TOTAL", _("Total"), 100, centered=True)
-        o_col.nueva("FROM", _("From"), 100, centered=True, edicion=Delegados.LineaTexto(siEntero=True))
-        o_col.nueva("TO", _("To"), 100, centered=True, edicion=Delegados.LineaTexto(siEntero=True))
-        self.grid_files = Grid.Grid(self, o_col, siSelecFilas=True, siEditable=True, xid="f")
+        o_col.nueva("FILE", _("File"), 220, align_center=True)
+        o_col.nueva("WEIGHT", _("Weight"), 100, align_center=True, edicion=Delegados.LineaTexto(siEntero=True))
+        o_col.nueva("TOTAL", _("Total"), 100, align_center=True)
+        o_col.nueva("FROM", _("From"), 100, align_center=True, edicion=Delegados.LineaTexto(siEntero=True))
+        o_col.nueva("TO", _("To"), 100, align_center=True, edicion=Delegados.LineaTexto(siEntero=True))
+        self.grid_files = Grid.Grid(self, o_col, siSelecFilas=True, is_editable=True, xid="f")
         self.grid_files.setMinimumWidth(self.grid_files.anchoColumnas() + 20)
         ly = Colocacion.V().control(self.grid_files)
         gb_files = Controles.GB(self, _("FNS files"), ly).ponFuente(f)
@@ -577,7 +588,9 @@ class WConfTactics(QtWidgets.QWidget):
 class WEditaTactica(LCDialog.LCDialog):
     def __init__(self, owner, tactica, ncopia):
 
-        LCDialog.LCDialog.__init__(self, owner, _X(_("Configuration of %1"), tactica.title), Iconos.Tacticas(), "editTactica")
+        LCDialog.LCDialog.__init__(
+            self, owner, _X(_("Configuration of %1"), tactica.title), Iconos.Tacticas(), "editTactica"
+        )
 
         self.tactica = tactica
 

@@ -19,14 +19,8 @@ from Code import Util
 from Code.About import About
 from Code.Base import Position
 from Code.Base.Constantes import (
-    GT_ALONE,
     ST_PLAYING,
-    GT_AGAINST_PGN,
-    GT_AGAINST_GM,
-    GT_BOOK,
-    GT_ELO,
-    GT_MICELO,
-    TB_Adjournments,
+    TB_ADJOURNMENTS,
     TB_COMPETE,
     TB_INFORMATION,
     TB_OPTIONS,
@@ -34,6 +28,11 @@ from Code.Base.Constantes import (
     TB_QUIT,
     TB_TOOLS,
     TB_TRAIN,
+    GT_AGAINST_GM,
+    GT_BOOK,
+    GT_ELO,
+    GT_MICELO,
+    GT_AGAINST_ENGINE_LEAGUE,
     GT_AGAINST_CHILD_ENGINE,
     GT_AGAINST_ENGINE,
     GT_ALBUM,
@@ -53,6 +52,8 @@ from Code.Engines import EngineManager, WEngines, WConfEngines, WindowSTS
 from Code.Expeditions import WindowEverest, ManagerEverest
 from Code.GM import ManagerGM
 from Code.Kibitzers import KibitzersManager
+from Code.Leagues import ManagerLeague
+from Code.Leagues import WLeagues
 from Code.MainWindow import MainWindow, Presentacion
 from Code.Menus import MenuTrainings, BasicMenus
 from Code.Openings import ManagerOPLPositions, ManagerOPLEngines, ManagerOPLSequential, ManagerOPLStatic
@@ -123,14 +124,13 @@ class Procesador:
         if Code.configuration.x_digital_board:
             Code.eboard = Eboard.Eboard()
 
-
         if len(sys.argv) == 1:  # si no no funcionan los kibitzers en linux
             self.configuration.clean_tmp_folder()
 
         # Tras crear configuración miramos si hay Adjournments
         self.test_opcion_Adjournments()
 
-        Code.todasPiezas = Piezas.TodasPiezas()
+        Code.all_pieces = Piezas.AllPieces()
 
         self.manager = None
 
@@ -149,13 +149,13 @@ class Procesador:
 
     def test_opcion_Adjournments(self):
         must_adjourn = len(Adjournments.Adjournments()) > 0
-        if TB_Adjournments in self.li_opciones_inicio:
+        if TB_ADJOURNMENTS in self.li_opciones_inicio:
             if not must_adjourn:
-                pos = self.li_opciones_inicio.index(TB_Adjournments)
+                pos = self.li_opciones_inicio.index(TB_ADJOURNMENTS)
                 del self.li_opciones_inicio[pos]
         else:
             if must_adjourn:
-                self.li_opciones_inicio.insert(1, TB_Adjournments)
+                self.li_opciones_inicio.insert(1, TB_ADJOURNMENTS)
 
     def set_version(self, version):
         self.version = version
@@ -186,17 +186,8 @@ class Procesador:
         if len(sys.argv) > 1:
             comando = sys.argv[1]
             comandoL = comando.lower()
-            if comandoL.endswith(".pgn"):
-                aplazamiento = {}
-                aplazamiento["TIPOJUEGO"] = GT_AGAINST_PGN
-                aplazamiento["ISWHITE"] = True  # Compatibilidad
-                self.juegaAplazada(aplazamiento)
-                return
-            elif comandoL.endswith(".lcsb"):
-                aplazamiento = {}
-                aplazamiento["TIPOJUEGO"] = GT_ALONE
-                aplazamiento["ISWHITE"] = True  # Compatibilidad
-                self.juegaAplazada(aplazamiento)
+            if comandoL.endswith(".lcsb"):
+                self.jugarSoloExtern(comando)
                 return
             elif comandoL.endswith(".lcdb"):
                 self.externDatabase(comando)
@@ -269,38 +260,38 @@ class Procesador:
             self.board.activaMenuVisual(True)
             Presentacion.ManagerChallenge101(self)
 
-    def juegaAplazada(self, aplazamiento):
-        self.cpu = CPU.CPU(self.main_window)
-
-        type_play = aplazamiento["TIPOJUEGO"]
-        is_white = aplazamiento["ISWHITE"]
-
-        if type_play == GT_COMPETITION_WITH_TUTOR:
-            categoria = self.configuration.rival.categorias.segun_clave(aplazamiento["CATEGORIA"])
-            nivel = aplazamiento["LEVEL"]
-            puntos = aplazamiento["PUNTOS"]
-            self.manager = ManagerCompeticion.ManagerCompeticion(self)
-            self.manager.start(categoria, nivel, is_white, puntos, aplazamiento)
-        elif type_play == GT_AGAINST_ENGINE:
-            if aplazamiento["MODO"] == "Basic":
-                self.entrenaMaquina(aplazamiento)
-            else:
-                self.playPersonAplazada(aplazamiento)
-        elif type_play == GT_ELO:
-            self.manager = ManagerElo.ManagerElo(self)
-            self.manager.start(aplazamiento)
-        elif type_play == GT_MICELO:
-            self.manager = ManagerMicElo.ManagerMicElo(self)
-            self.manager.start(None, 0, 0, aplazamiento)
-        elif type_play == GT_ALBUM:
-            self.manager = ManagerAlbum.ManagerAlbum(self)
-            self.manager.start(None, None, aplazamiento)
-        elif type_play == GT_AGAINST_PGN:
-            self.read_pgn(sys.argv[1])
-        elif type_play in (GT_FICS, GT_FIDE, GT_LICHESS):
-            self.manager = ManagerFideFics.ManagerFideFics(self)
-            self.manager.selecciona(type_play)
-            self.manager.start(aplazamiento["IDGAME"], aplazamiento=aplazamiento)
+    # def juegaAplazada(self, aplazamiento):
+    #     self.cpu = CPU.CPU(self.main_window)
+    #
+    #     type_play = aplazamiento["TIPOJUEGO"]
+    #     is_white = aplazamiento["ISWHITE"]
+    #
+    #     if type_play == GT_COMPETITION_WITH_TUTOR:
+    #         categoria = self.configuration.rival.categorias.segun_clave(aplazamiento["CATEGORIA"])
+    #         nivel = aplazamiento["LEVEL"]
+    #         puntos = aplazamiento["PUNTOS"]
+    #         self.manager = ManagerCompeticion.ManagerCompeticion(self)
+    #         self.manager.start(categoria, nivel, is_white, puntos, aplazamiento)
+    #     elif type_play == GT_AGAINST_ENGINE:
+    #         if aplazamiento["MODO"] == "Basic":
+    #             self.entrenaMaquina(aplazamiento)
+    #         else:
+    #             self.playPersonAplazada(aplazamiento)
+    #     elif type_play == GT_ELO:
+    #         self.manager = ManagerElo.ManagerElo(self)
+    #         self.manager.start(aplazamiento)
+    #     elif type_play == GT_MICELO:
+    #         self.manager = ManagerMicElo.ManagerMicElo(self)
+    #         self.manager.start(None, 0, 0, aplazamiento)
+    #     elif type_play == GT_ALBUM:
+    #         self.manager = ManagerAlbum.ManagerAlbum(self)
+    #         self.manager.start(None, None, aplazamiento)
+    #     elif type_play == GT_AGAINST_PGN:
+    #         self.read_pgn(sys.argv[1])
+    #     elif type_play in (GT_FICS, GT_FIDE, GT_LICHESS):
+    #         self.manager = ManagerFideFics.ManagerFideFics(self)
+    #         self.manager.selecciona(type_play)
+    #         self.manager.start(aplazamiento["IDGAME"], aplazamiento=aplazamiento)
 
     def XTutor(self):
         if self.xtutor is None or not self.xtutor.activo:
@@ -346,9 +337,9 @@ class Procesador:
             self.xanalyzer.terminar()
         self.creaXAnalyzer()
 
-    def creaManagerMotor(self, confMotor, vtime, nivel, siMultiPV=False, priority=None):
+    def creaManagerMotor(self, confMotor, vtime, depth, siMultiPV=False, priority=None):
         xmanager = EngineManager.EngineManager(self, confMotor)
-        xmanager.options(vtime, nivel, siMultiPV)
+        xmanager.options(vtime, depth, siMultiPV)
         xmanager.set_priority(priority)
         return xmanager
 
@@ -550,7 +541,7 @@ class Procesador:
         elif key == TB_INFORMATION:
             self.informacion()
 
-        elif key == TB_Adjournments:
+        elif key == TB_ADJOURNMENTS:
             self.Adjournments()
 
     def Adjournments(self):
@@ -588,6 +579,8 @@ class Procesador:
                 elif tp in (GT_FIDE, GT_FICS, GT_LICHESS):
                     self.manager = ManagerFideFics.ManagerFideFics(self)
                     self.manager.selecciona(tp)
+                elif tp == GT_AGAINST_ENGINE_LEAGUE:
+                    self.manager = ManagerLeague.ManagerLeague(self)
                 else:
                     return
                 self.manager.run_adjourn(dic)
@@ -686,7 +679,9 @@ class Procesador:
 
     def folder_change(self):
         carpeta = SelectFiles.get_existing_directory(
-            self.main_window, self.configuration.carpeta, _("Change the folder where all data is saved") + ". " + _("Be careful please")
+            self.main_window,
+            self.configuration.carpeta,
+            _("Change the folder where all data is saved") + ". " + _("Be careful please"),
         )
         if carpeta and os.path.isdir(carpeta):
             self.configuration.changeActiveFolder(carpeta)
@@ -767,6 +762,9 @@ class Procesador:
             self.sts()
         elif resp == "kibitzers":
             self.kibitzers_manager.edit()
+        elif resp == "leagues":
+            WLeagues.leagues(self.main_window)
+
         elif resp == "manual_save":
             self.manual_save()
 
@@ -1056,6 +1054,10 @@ class Procesador:
         self.manager = ManagerSolo.ManagerSolo(self)
         self.manager.start()
 
+    def jugarSoloExtern(self, file_lcsb):
+        self.manager = ManagerSolo.ManagerSolo(self)
+        self.manager.leeFichero(file_lcsb)
+
     def entrenaPos(self, position, nPosiciones, titentreno, liEntrenamientos, entreno, with_tutor, jump, advanced):
         self.manager = ManagerEntPos.ManagerEntPos(self)
         self.manager.set_training(entreno)
@@ -1167,7 +1169,9 @@ class Procesador:
             self.reiniciar()
 
     def unMomento(self, mensaje=None):
-        return QTUtil2.mensEspera.start(self.main_window, mensaje if mensaje else _("One moment please..."), physical_pos="ad")
+        return QTUtil2.mensEspera.start(
+            self.main_window, mensaje if mensaje else _("One moment please..."), physical_pos="ad"
+        )
 
     def num_rows(self):
         return 0
@@ -1188,10 +1192,16 @@ class Procesador:
         return True
 
     def clonVariations(self, window, xtutor=None, is_competitive=False):
-        return ProcesadorVariations(window, xtutor, is_competitive=is_competitive, kibitzers_manager=self.kibitzers_manager)
+        return ProcesadorVariations(
+            window, xtutor, is_competitive=is_competitive, kibitzers_manager=self.kibitzers_manager
+        )
 
-    def manager_game(self, window, game, is_complete, only_consult, father_board, with_previous_next=None, save_routine=None):
-        clon_procesador = ProcesadorVariations(window, self.xtutor, is_competitive=False, kibitzers_manager=self.kibitzers_manager)
+    def manager_game(
+        self, window, game, is_complete, only_consult, father_board, with_previous_next=None, save_routine=None
+    ):
+        clon_procesador = ProcesadorVariations(
+            window, self.xtutor, is_competitive=False, kibitzers_manager=self.kibitzers_manager
+        )
         clon_procesador.manager = ManagerGame.ManagerGame(clon_procesador)
         clon_procesador.manager.start(game, is_complete, only_consult, with_previous_next, save_routine)
 
@@ -1218,10 +1228,13 @@ class Procesador:
     def gaviota_endings(self):
         WEndingsGTB.train_gtb(self)
 
+    def play_league_human(self, league, match, division):
+        self.manager = ManagerLeague.ManagerLeague(self)
+        self.manager.start(league, match, division)
+
 
 class ProcesadorVariations(Procesador):
     def __init__(self, window, xtutor, is_competitive=False, kibitzers_manager=None):
-
         self.kibitzers_manager = kibitzers_manager
         self.is_competitive = is_competitive
 

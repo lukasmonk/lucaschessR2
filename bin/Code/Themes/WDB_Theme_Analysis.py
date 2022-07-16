@@ -30,13 +30,13 @@ class WDBMoveAnalysis(LCDialog.LCDialog):
 
         # Lista
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("theme", _("Theme"), 120, centered=True)
-        o_columns.nueva("games", _("Games"), 100, centered=True)
-        o_columns.nueva("centipawns_lost", _("Centipawns lost"), 104, centered=True)
-        o_columns.nueva("count", _("Occurrences"), 80, centered=True)
+        o_columns.nueva("theme", _("Theme"), 120, align_center=True)
+        o_columns.nueva("games", _("Games"), 100, align_center=True)
+        o_columns.nueva("centipawns_lost", _("Centipawns lost"), 104, align_center=True)
+        o_columns.nueva("count", _("Occurrences"), 80, align_center=True)
         symbol = "\u2605"
-        o_columns.nueva("occ_game", symbol + " " + _("Occ / game"), 90, centered=True)
-        o_columns.nueva("loss_game", symbol + " " + _("Loss / game"), 90, centered=True)
+        o_columns.nueva("occ_game", symbol + " " + _("Occ / game"), 90, align_center=True)
+        o_columns.nueva("loss_game", symbol + " " + _("Loss / game"), 90, align_center=True)
 
         self.grid = grid = Grid.Grid(self, o_columns, xid=False, siSelecFilas=True, siSeleccionMultiple=True)
         self.register_grid(grid)
@@ -113,7 +113,10 @@ class SelectedGameThemeAnalyzer:
             )
 
         if len(self.li_games_missing_themes):
-            self.missing_tags_output = " -  %s: %s" % (_("Games without themes"), " ,".join(self.li_games_missing_themes))
+            self.missing_tags_output = " -  %s: %s" % (
+                _("Games without themes"),
+                " ,".join(self.li_games_missing_themes),
+            )
 
         self.title = "%s - %d %s  (%d %s)" % (
             _("Statistics on tactical themes"),

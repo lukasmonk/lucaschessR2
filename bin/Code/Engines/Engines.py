@@ -5,6 +5,7 @@ import os.path
 import Code
 from Code import Util
 from Code.Engines import EngineRunDirect
+from Code.Base.Constantes import ENG_EXTERNAL, ENG_INTERNAL
 
 
 class Engine:
@@ -19,11 +20,10 @@ class Engine:
         self.maxMultiPV = 0
         self.siDebug = False
         self.nomDebug = None
-        self.is_external = False
         self.parent_external = None
         self.url = url
         self.path_exe = Util.relative_path(path_exe) if path_exe else ""
-        self._nombre = None
+        self._name = None
         self.elo = 0
         self.id_info = ""
         self.max_depth = 0
@@ -31,6 +31,10 @@ class Engine:
         self.id_name = key
         self.id_author = autor
         self.book = None
+
+        self.menu = key
+        self.type = ENG_INTERNAL
+        self.fixed_depth = None
 
         self.__li_uci_options = None
 
@@ -49,7 +53,15 @@ class Engine:
         return os.path.isfile(self.path_exe)
 
     def set_extern(self):
-        self.is_external = True
+        self.type = ENG_EXTERNAL
+
+    @property
+    def is_external(self):
+        return self.type == ENG_EXTERNAL
+
+    @is_external.setter
+    def is_external(self, value):
+        self.type = ENG_EXTERNAL if value else ENG_INTERNAL
 
     def nombre_ext(self):
         name = self.name
@@ -106,20 +118,23 @@ class Engine:
                 self.multiPV = self.maxMultiPV
 
     def can_be_tutor(self):
-        return self.maxMultiPV >= 4 and "maia" not in self.key
+        return self.maxMultiPV >= 4 and not self.is_maia()
+
+    def is_maia(self):
+        return "maia" in self.key
 
     def remove_log(self, fich):
         Util.remove_file(os.path.join(os.path.dirname(self.path_exe), fich))
 
     @property
     def name(self):
-        if self._nombre:
-            return self._nombre
+        if self._name:
+            return self._name
         return Util.primera_mayuscula(self.key) + " " + self.version
 
     @name.setter
     def name(self, value):
-        self._nombre = value
+        self._name = value
 
     def clona(self):
         return copy.deepcopy(self)
@@ -195,6 +210,9 @@ class Engine:
 
     def list_uci_added(self):
         return self.liUCI
+
+    def xhash(self):
+        return hash(self.name + self.key)
 
 
 class OpcionUCI:
@@ -377,9 +395,8 @@ def read_engine_uci(exe, args=None):
             elif linea.startswith("id author"):
                 id_author = linea[10:]
         me = Engine(id_name, id_author, id_name, "", path_exe)
-        me._nombre = id_name
+        me._name = id_name
     else:
         me = None
     engine.close()
     return me
-

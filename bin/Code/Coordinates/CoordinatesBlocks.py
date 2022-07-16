@@ -60,7 +60,17 @@ class CoordinatesBlocks:
 
     @property
     def lista_blocks(self):
-        li = (("a1", "d4"), ("e1", "h4"), ("a5", "d8"), ("e5", "h8"), ("a1", "d8"), ("e1", "h8"), ("a1", "h4"), ("a5", "h8"), ("a1", "h8"))
+        li = (
+            ("a1", "d4"),
+            ("e1", "h4"),
+            ("a5", "d8"),
+            ("e5", "h8"),
+            ("a1", "d8"),
+            ("e1", "h8"),
+            ("a1", "h4"),
+            ("a5", "h8"),
+            ("a1", "h8"),
+        )
         li_resp = []
         for xfrom, xto in li:
             for side in (WHITE, BLACK):

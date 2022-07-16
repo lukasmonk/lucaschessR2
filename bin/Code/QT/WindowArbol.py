@@ -452,7 +452,6 @@ class TreeMoves(QtWidgets.QTreeWidget):
             if game_resp.pv() != rm.pv and game_resp.first_position.fen() == game.first_position.fen():
                 rm.pv = game_resp.pv()
 
-
     def mostrarOcultar(self, item, mov):
         lm = mov.listaMovesPadre
         nVisibles, nOcultos = lm.numVisiblesOcultos()

@@ -168,7 +168,9 @@ class TreeMoves(QtWidgets.QTreeWidget):
             moveOwner = listaMoves.moveOwner
             padre = self if moveOwner is None else moveOwner.item
             for n, mov in enumerate(liMoves):
-                item = QtWidgets.QTreeWidgetItem(padre, [mov.pgn, mov.porcentaje, mov.absoluto, "%07d" % int(mov.absoluto)])
+                item = QtWidgets.QTreeWidgetItem(
+                    padre, [mov.pgn, mov.porcentaje, mov.absoluto, "%07d" % int(mov.absoluto)]
+                )
                 item.setTextAlignment(1, QtCore.Qt.AlignRight)
                 item.setTextAlignment(2, QtCore.Qt.AlignRight)
 

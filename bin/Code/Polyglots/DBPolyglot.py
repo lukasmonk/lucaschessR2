@@ -16,7 +16,9 @@ class DBPolyglot:
         created = os.path.isfile(path)
         self.conexion = sqlite3.connect(path)
         if not created:
-            self.conexion.execute("CREATE TABLE IF NOT EXISTS BOOK( CKEY TEXT, MOVE INT, WEIGHT INT, SCORE INT, DEPTH INT, LEARN INT);")
+            self.conexion.execute(
+                "CREATE TABLE IF NOT EXISTS BOOK( CKEY TEXT, MOVE INT, WEIGHT INT, SCORE INT, DEPTH INT, LEARN INT);"
+            )
             self.conexion.execute("CREATE INDEX IF NOT EXISTS CKEY_INDEX ON BOOK( CKEY );")
             self.import_previous()
 

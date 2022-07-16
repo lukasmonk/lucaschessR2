@@ -8,7 +8,7 @@ from Code.Kibitzers import Kibitzers
 from Code.QT import Piezas
 from Code.Board import Board
 from Code.QT import Delegados
-from Code.QT import Voyager
+from Code.Voyager import Voyager
 from Code.QT import QTUtil
 from Code.QT import QTVarios
 from Code.QT import Iconos
@@ -37,12 +37,15 @@ class WKibCommon(QtWidgets.QDialog):
         self.nArrows = self.dicVideo.get("NARROWS", 1 if cpu.tipo == Kibitzers.KIB_THREATS else 2)
 
         self.setWindowFlags(
-            QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Dialog | QtCore.Qt.WindowTitleHint | QtCore.Qt.WindowMinimizeButtonHint
+            QtCore.Qt.WindowCloseButtonHint
+            | QtCore.Qt.Dialog
+            | QtCore.Qt.WindowTitleHint
+            | QtCore.Qt.WindowMinimizeButtonHint
         )
 
         self.setBackgroundRole(QtGui.QPalette.Light)
 
-        Code.todasPiezas = Piezas.TodasPiezas()
+        Code.all_pieces = Piezas.AllPieces()
         config_board = cpu.configuration.config_board("kib" + cpu.kibitzer.huella, 24)
         self.board = Board.Board(self, config_board)
         self.board.crea()
@@ -195,4 +198,3 @@ class WKibCommon(QtWidgets.QDialog):
     def stop(self):
         # Para que no den error los que no lo incluyen
         pass
-

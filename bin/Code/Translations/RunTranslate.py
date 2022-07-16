@@ -87,11 +87,11 @@ class WTranslate(LCDialog.LCDialog):
         self.lb_porcentage = Controles.LB(self, "").ponTipoLetra(puntos=18, peso=300).anchoFijo(114).align_right()
 
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("CURRENT", self.language, 280, edicion=Delegados.LineaTextoUTF8(), siEditable=True)
+        o_columns.nueva("CURRENT", self.language, 280, edicion=Delegados.LineaTextoUTF8(), is_editable=True)
         o_columns.nueva("BASE", "To translate", 280)
 
         self.grid = None
-        self.grid = Grid.Grid(self, o_columns, altoFila=Code.configuration.x_pgn_rowheight, siEditable=True)
+        self.grid = Grid.Grid(self, o_columns, altoFila=Code.configuration.x_pgn_rowheight, is_editable=True)
         self.grid.tipoLetra(puntos=10)
         self.grid.setAlternatingRowColors(False)
         self.register_grid(self.grid)
@@ -640,6 +640,8 @@ class WTranslate(LCDialog.LCDialog):
         if li_received:
 
             for key, where in li_received:
+                if key not in self.dic_translate:
+                    continue
                 dic = self.dic_translate[key]
                 dic["WHERE"] = where
                 dic["WHEN"] = datetime.datetime.now()

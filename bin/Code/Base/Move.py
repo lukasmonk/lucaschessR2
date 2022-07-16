@@ -117,8 +117,8 @@ class Move:
     def del_comment(self):
         self.comment = ""
 
-    def add_comment(self, comment):
-        self.comment = comment
+    def set_comment(self, comment):
+        self.comment = comment.replace("}", "]")
 
     def del_analysis(self):
         self.analysis = None
@@ -240,8 +240,9 @@ class Move:
             mrm, pos = self.analysis
             rm_j = mrm.li_rm[0]
             rm_c = mrm.li_rm[pos]
-            self.elo, self.questionable_move, self.bad_move, self.verybad_move = \
-                Code.analysis_eval.elo_bad_vbad(rm_j, rm_c)
+            self.elo, self.questionable_move, self.bad_move, self.verybad_move = Code.analysis_eval.elo_bad_vbad(
+                rm_j, rm_c
+            )
 
         else:
             self.elo = 0
@@ -452,7 +453,7 @@ class Variations:
         tmp_game.read_pv(rm.pv)
         move = tmp_game.move(0)
         puntuacion = rm.abrTextoPDT() if si_pdt else rm.abrTexto()
-        move.comment = "%s%s" % (puntuacion, eti_t)
+        move.set_comment("%s%s" % (puntuacion, eti_t))
         gm = tmp_game.copia(0 if si_un_move else None)
         self.li_variations.append(gm)
 

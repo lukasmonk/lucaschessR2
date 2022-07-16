@@ -36,7 +36,12 @@ class WTV_Marker(QtWidgets.QDialog):
             if name:
                 regMarker.name = name
 
-        li_acciones = [(_("Save"), Iconos.Aceptar(), self.grabar), None, (_("Cancel"), Iconos.Cancelar(), self.reject), None]
+        li_acciones = [
+            (_("Save"), Iconos.Aceptar(), self.grabar),
+            None,
+            (_("Cancel"), Iconos.Cancelar(), self.reject),
+            None,
+        ]
         tb = QTVarios.LCTB(self, li_acciones)
 
         # Board
@@ -140,7 +145,7 @@ class WTV_Markers(LCDialog.LCDialog):
 
         # Lista
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("NUMBER", _("N."), 60, centered=True)
+        o_columns.nueva("NUMBER", _("N."), 60, align_center=True)
         o_columns.nueva("NOMBRE", _("Name"), 256)
 
         self.grid = Grid.Grid(self, o_columns, xid="M", siSelecFilas=True)

@@ -215,7 +215,7 @@ class ManagerVariations(Manager.Manager):
     def activeEngine(self):
         dicBase = self.configuration.read_variables("ENG_VARIANTES")
         if dicBase:
-            self.ponRival(dicBase)
+            self.set_rival(dicBase)
         else:
             self.cambioRival()
 
@@ -233,9 +233,9 @@ class ManagerVariations(Manager.Manager):
         )
 
         if dic:
-            self.ponRival(dic)
+            self.set_rival(dic)
 
-    def ponRival(self, dic):
+    def set_rival(self, dic):
         dr = dic["RIVAL"]
         rival = dr["CM"]
         if not Util.exist_file(rival.path_exe):

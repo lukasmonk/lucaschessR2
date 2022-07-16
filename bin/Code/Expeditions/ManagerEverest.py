@@ -300,7 +300,9 @@ class ManagerEverest(Manager.Manager):
                 self.analyze_begin()
                 um.final()
 
-            w = WindowJuicio.WJuicio(self, self.xanalyzer, self.nombreObj, position, mrm, rmObj, rmUsu, analysis, is_competitive=False)
+            w = WindowJuicio.WJuicio(
+                self, self.xanalyzer, self.nombreObj, position, mrm, rmObj, rmUsu, analysis, is_competitive=False
+            )
             w.exec_()
 
             if not saved:
@@ -347,7 +349,7 @@ class ManagerEverest(Manager.Manager):
         if analysis:
             move.analysis = analysis
         if comment:
-            move.comment = comment
+            move.set_comment(comment)
 
         self.game.add_move(move)
         self.check_boards_setposition()

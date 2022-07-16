@@ -36,8 +36,11 @@ from Code.Base.Constantes import (
     ADJUST_BETTER,
     ADJUST_SELECTED_BY_PLAYER,
     ST_PAUSE,
+    ENG_MICPER,
+    ENG_MICGM,
+    ENG_ELO,
 )
-from Code.Engines import EngineResponse, SelectEngines
+from Code.Engines import EngineResponse
 from Code.Openings import Opening
 from Code.PlayAgainstEngine import WPlayAgainstEngine, Personalities
 from Code.Polyglots import Books, WindowBooks
@@ -151,7 +154,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             self.book_rival_depth = dic_var.get("BOOKRDEPTH", 0)
             self.book_rival.polyglot()
             self.book_rival_select = dic_var.get("BOOKRR", "mp")
-        elif dic_var["RIVAL"].get("TYPE", None) in (SelectEngines.MICGM, SelectEngines.MICPER):
+        elif dic_var["RIVAL"].get("TYPE", None) in (ENG_MICGM, ENG_MICPER):
             if self.conf_engine.book:
                 self.book_rival_active = True
                 self.book_rival = Books.Book("P", self.conf_engine.book, self.conf_engine.book, True)
@@ -202,7 +205,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         rival = dr["CM"]
         self.unlimited_minutes = dr.get("ENGINE_UNLIMITED", 5)
 
-        if dr["TYPE"] == SelectEngines.ELO:
+        if dr["TYPE"] == ENG_ELO:
             r_t = 0
             r_p = rival.fixed_depth
             self.nAjustarFuerza = ADJUST_BETTER
@@ -481,9 +484,13 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             if self.state == ST_PLAYING:
                 liMasOpciones.append((None, None, None))
                 liMasOpciones.append(("rival", _("Change opponent"), Iconos.Engine()))
+                liMasOpciones.append((None, None, None))
+                liMasOpciones.append(("moverival", _("Change opponent move"), Iconos.TOLchange()))
             resp = self.configurar(liMasOpciones, siSonidos=True, siCambioTutor=self.ayudas_iniciales > 0)
             if resp == "rival":
                 self.cambioRival()
+            elif resp == "moverival":
+                self.change_last_move_engine()
 
         elif key == TB_UTILITIES:
             liMasOpciones = []
@@ -1322,7 +1329,9 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             self.main_window.stop_clock()
 
         if Code.eboard and Code.eboard.driver:
-            self.main_window.delay_routine(300, self.muestra_resultado_delayed)  # Para que eboard siga su proceso y no se pare por la pregunta
+            self.main_window.delay_routine(
+                300, self.muestra_resultado_delayed
+            )  # Para que eboard siga su proceso y no se pare por la pregunta
         else:
             self.muestra_resultado_delayed()
 
@@ -1417,25 +1426,6 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             self.set_label3("<br>".join(li) + "</span>")
             QTUtil.refresh_gui()
 
-    def analize_position(self, row, key):
-        if row < 0:
-            return
-
-        move, is_white, siUltimo, tam_lj, pos = self.dameJugadaEn(row, key)
-        if not move:
-            return
-
-        max_recursion = 9999
-
-        if not (hasattr(move, "analysis") and move.analysis):
-            me = QTUtil2.mensEspera.start(self.main_window, _("Analyzing the move...."), physical_pos="ad")
-            mrm, pos = self.xanalyzer.analysis_move(move, self.xanalyzer.mstime_engine, self.xanalyzer.depth_engine)
-            move.analysis = mrm, pos
-            me.final()
-
-        Analysis.show_analysis(self.procesador, self.xanalyzer, move, self.board.is_white_bottom, max_recursion, pos)
-        self.put_view()
-
     def show_clocks(self, with_recalc=False):
         if not self.vtime:
             return
@@ -1464,3 +1454,44 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             self.analyze_end()
         elif self.human_is_playing:
             self.analyze_begin()
+
+    def change_last_move_engine(self):
+        if self.state != ST_PLAYING or not self.human_is_playing or len(self.game) == 0:
+            return
+        self.main_window.cursorFueraBoard()
+        menu = QTVarios.LCMenu(self.main_window)
+        last_move = self.game.move(-1)
+        position = last_move.position_before
+        li_exmoves = position.get_exmoves()
+        icono = Iconos.PuntoNaranja() if position.is_white else Iconos.PuntoNegro()
+
+        for mj in li_exmoves:
+            rm = EngineResponse.EngineResponse("", position.is_white)
+            rm.from_sq = mj.xfrom()
+            rm.to_sq = mj.xto()
+            rm.promotion = mj.promotion()
+            rm.puntos = None
+            txt = position.pgn_translated(rm.from_sq, rm.to_sq, rm.promotion)
+            menu.opcion(rm, txt, icono)
+        rm = menu.lanza()
+        if rm is None:
+            return
+
+        self.analizaTerminar()
+
+        last_move = self.game.move(-1)
+        self.game.anulaSoloUltimoMovimiento()
+        self.set_position(position)
+        ok, self.error, move = Move.get_game_move(
+            self.game, self.game.last_position, rm.from_sq, rm.to_sq, rm.promotion
+        )
+        self.rm_rival = rm
+        move.set_time_ms(last_move.time_ms)
+        fen_ultimo = self.last_fen()
+        self.add_move(move, False)
+        self.move_the_pieces(move.liMovs, True)
+        if hasattr(last_move, "cacheTime"):
+            move.cacheTime = last_move.cacheTime
+        self.cache[fen_ultimo] = move
+        self.check_boards_setposition()
+        self.play_next_move()

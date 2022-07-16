@@ -45,7 +45,12 @@ class WTranssiberian(LCDialog.LCDialog):
         return Controles.LB(_("From %s to %s") % (st_from, st_to)).align_center().ponTipoLetra(puntos=puntos, peso=peso)
 
     def KM(self, km, puntos, peso=50):
-        return Controles.LB(Routes.km_mi(km, self.route.is_miles)).align_center().ponTipoLetra(puntos=puntos, peso=peso).anchoFijo(100)
+        return (
+            Controles.LB(Routes.km_mi(km, self.route.is_miles))
+            .align_center()
+            .ponTipoLetra(puntos=puntos, peso=peso)
+            .anchoFijo(100)
+        )
 
     def set_border(self, *lb):
         for l in lb:
@@ -64,7 +69,12 @@ class WTranssiberian(LCDialog.LCDialog):
         # Line
         line = route.get_line()
         tt = route.tool_tip_line()
-        lbTip = Controles.LB(_("Stage") + " %d/%d" % (line.stage, route.num_stages)).ponTipoLetra(puntos=11).anchoFijo(120).align_center()
+        lbTip = (
+            Controles.LB(_("Stage") + " %d/%d" % (line.stage, route.num_stages))
+            .ponTipoLetra(puntos=11)
+            .anchoFijo(120)
+            .align_center()
+        )
         lbTip.setToolTip(tt)
         lbTit = self.LINE(line.st_from.name, line.st_to.name, 11)
         lbTit.setToolTip(tt)
@@ -79,7 +89,10 @@ class WTranssiberian(LCDialog.LCDialog):
         st_from, st_to = route.get_track()
         tt = route.tool_tip_track()
         lbTip = (
-            Controles.LB(_("Track") + " %d/%d" % (route.num_track, line.num_stations)).ponTipoLetra(puntos=11).anchoFijo(120).align_center()
+            Controles.LB(_("Track") + " %d/%d" % (route.num_track, line.num_stations))
+            .ponTipoLetra(puntos=11)
+            .anchoFijo(120)
+            .align_center()
         )
         lbTip.setToolTip(tt)
         lbTit = self.LINE(st_from.name, st_to.name, 11)
@@ -109,7 +122,12 @@ class WTranssiberian(LCDialog.LCDialog):
         tb.new(_("Config"), Iconos.Configurar(), self.config)
         tb.new(_("Close"), Iconos.MainMenu(), self.mainMenu)
         tb.setFixedWidth(206)
-        lbTim = Controles.LB("%s: %s" % (_("Time"), route.time())).ponTipoLetra(puntos=11, peso=500).align_center().anchoFijo(206)
+        lbTim = (
+            Controles.LB("%s: %s" % (_("Time"), route.time()))
+            .ponTipoLetra(puntos=11, peso=500)
+            .align_center()
+            .anchoFijo(206)
+        )
         lbTim.setToolTip(
             "%s %s\n%s %s\n%s %s\n%s %s"
             % (
