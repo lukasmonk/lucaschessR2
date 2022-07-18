@@ -96,7 +96,7 @@ def options(parent, configuration):
         li_db = [
             (_("None"), ""),
             (_("Certabo") + x, "Certabo"),
-            # (_("Chessnut Air") + x, "Chessnut"),
+            (_("Chessnut Air") + x, "Chessnut"),
             (_("DGT"), "DGT"),
             (_("DGT (Alternative)") + x, "DGT-gon"),
             (_("DGT Pegasus") + x, "Pegasus"),

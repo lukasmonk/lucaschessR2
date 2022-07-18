@@ -186,7 +186,7 @@ class WorkTranslate(object):
         if not key:
             return ""
         key = key.strip()
-        t = self._F(key)
+        t = self.F(key)
         if t == key:
             li = []
             for x in key.split(" "):

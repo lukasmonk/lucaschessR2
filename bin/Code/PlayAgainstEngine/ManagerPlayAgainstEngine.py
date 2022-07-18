@@ -484,8 +484,9 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             if self.state == ST_PLAYING:
                 liMasOpciones.append((None, None, None))
                 liMasOpciones.append(("rival", _("Change opponent"), Iconos.Engine()))
-                liMasOpciones.append((None, None, None))
-                liMasOpciones.append(("moverival", _("Change opponent move"), Iconos.TOLchange()))
+                if len(self.game) > 0:
+                    liMasOpciones.append((None, None, None))
+                    liMasOpciones.append(("moverival", _("Change opponent move"), Iconos.TOLchange()))
             resp = self.configurar(liMasOpciones, siSonidos=True, siCambioTutor=self.ayudas_iniciales > 0)
             if resp == "rival":
                 self.cambioRival()

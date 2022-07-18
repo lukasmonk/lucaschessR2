@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-07-15 11:01+0200\n"
+"POT-Creation-Date: 2022-07-17 14:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -402,7 +402,7 @@ msgstr ""
 #: .\Openings\WindowOpeningLine.py:408 .\Openings\WindowOpeningLine.py:783
 #: .\Openings\WindowOpeningLine.py:991 .\Openings\WindowOpeningLine.py:1050
 #: .\Openings\WindowOpeningLine.py:1057
-#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:855
+#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:856
 #: .\PlayAgainstEngine\WPlayAgainstEngine.py:1025
 #: .\Polyglots\PolyglotImportExports.py:473 .\Polyglots\WindowBooks.py:218
 #: .\Polyglots\WindowBooksTrain.py:44 .\Polyglots\WindowBooksTrain.py:188
@@ -439,7 +439,7 @@ msgstr ""
 #: .\Openings\WindowOpeningLine.py:408 .\Openings\WindowOpeningLine.py:783
 #: .\Openings\WindowOpeningLine.py:993 .\Openings\WindowOpeningLine.py:1050
 #: .\Openings\WindowOpeningLine.py:1057
-#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:855
+#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:856
 #: .\PlayAgainstEngine\WPlayAgainstEngine.py:1026
 #: .\Polyglots\PolyglotImportExports.py:473 .\Polyglots\WindowBooks.py:218
 #: .\Polyglots\WindowBooksTrain.py:46 .\Polyglots\WindowBooksTrain.py:188
@@ -461,7 +461,7 @@ msgstr ""
 #: .\Analysis\AnalysisIndexes.py:381 .\Databases\WDB_Summary.py:183
 #: .\Databases\WDB_Summary.py:496 .\Openings\ManagerOPLPositions.py:107
 #: .\Openings\ManagerOPLSequential.py:116 .\Openings\ManagerOPLStatic.py:119
-#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:1309
+#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:1310
 #: .\Routes\WindowRoutes.py:135 .\Tactics\WindowTactics.py:356
 msgid "Total"
 msgstr ""
@@ -1017,7 +1017,7 @@ msgstr ""
 #: .\Base\Game.py:896 .\Endings\WEndingsGTB.py:88
 #: .\Engines\EngineResponse.py:699 .\Engines\EngineResponse.py:777
 #: .\Engines\EngineResponse.py:889 .\Openings\ManagerOPLEngines.py:447
-#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:1173 .\WorkMap.py:371
+#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:1174 .\WorkMap.py:371
 msgid "Mate"
 msgstr ""
 
@@ -1674,7 +1674,7 @@ msgstr ""
 #: .\CompetitionWithTutor\ManagerCompeticion.py:102
 #: .\CompetitionWithTutor\WCompetitionWithTutor.py:215
 #: .\Engines\WConfEngines.py:56 .\Manager.py:886
-#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:1294 .\Procesador.py:303
+#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:1295 .\Procesador.py:303
 #: .\Washing\ManagerWashing.py:497
 msgid "Tutor"
 msgstr ""
@@ -1682,7 +1682,7 @@ msgstr ""
 #: .\CompetitionWithTutor\ManagerCompeticion.py:132
 #: .\Expeditions\ManagerEverest.py:78 .\GM\ManagerGM.py:153
 #: .\ManagerPlayGame.py:118
-#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:579
+#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:580
 #: .\Resistence\ManagerResistance.py:125 .\Washing\ManagerWashing.py:779
 msgid "Restart the game?"
 msgstr ""
@@ -1691,12 +1691,12 @@ msgstr ""
 #: .\Competitions\ManagerElo.py:350 .\Competitions\ManagerFideFics.py:194
 #: .\Competitions\ManagerMicElo.py:318 .\GM\ManagerGM.py:511
 #: .\Leagues\ManagerLeague.py:290 .\PlayAgainstEngine\ManagerAlbum.py:102
-#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:593
+#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:594
 msgid "Do you want to adjourn the game?"
 msgstr ""
 
 #: .\CompetitionWithTutor\ManagerCompeticion.py:181
-#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:654
+#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:655
 msgid "End game?"
 msgstr ""
 
@@ -1704,7 +1704,7 @@ msgstr ""
 #: .\Competitions\ManagerElo.py:429 .\Competitions\ManagerFideFics.py:226
 #: .\Competitions\ManagerMicElo.py:345 .\Leagues\ManagerLeague.py:343
 #: .\PlayAgainstEngine\ManagerAlbum.py:142
-#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:691
+#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:692
 #: .\QT\WindowDailyTest.py:281
 msgid "Do you want to resign?"
 msgstr ""
@@ -1872,7 +1872,7 @@ msgstr ""
 
 #: .\Config\WindowConfig.py:37 .\Menus\BasicMenus.py:150
 #: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:231
-#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:597 .\Procesador.py:886
+#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:598 .\Procesador.py:886
 msgid "Play against an engine"
 msgstr ""
 
@@ -2424,7 +2424,7 @@ msgid "Wrong, you must repeat this position"
 msgstr ""
 
 #: .\CountsCaptures\WRunCounts.py:39
-#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:1295
+#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:1296
 msgid "Number of moves"
 msgstr ""
 
@@ -3173,11 +3173,11 @@ msgstr ""
 #: .\Openings\WindowOpeningLines.py:38 .\Polyglots\WindowBooks.py:154
 #: .\Polyglots\WindowBooks.py:156 .\Polyglots\WindowBooks.py:174
 #: .\Polyglots\WindowBooks.py:176 .\Polyglots\WindowBooks.py:178
-#: .\QT\SelectFiles.py:64 .\QT\SelectFiles.py:71 .\QT\SelectFilesLC.py:96
-#: .\QT\WindowDailyTest.py:44 .\QT\WindowDailyTest.py:147
-#: .\QT\WindowSavePGN.py:244 .\Tactics\WindowTactics.py:354
-#: .\Tournaments\WTournament.py:525 .\TurnOnLights\WindowTurnOnLights.py:313
-#: .\Washing\WindowWashing.py:46
+#: .\QT\SelectFiles.py:42 .\QT\SelectFiles.py:49 .\QT\SelectFiles.py:130
+#: .\QT\SelectFiles.py:137 .\QT\SelectFilesLC.py:96 .\QT\WindowDailyTest.py:44
+#: .\QT\WindowDailyTest.py:147 .\QT\WindowSavePGN.py:244
+#: .\Tactics\WindowTactics.py:354 .\Tournaments\WTournament.py:525
+#: .\TurnOnLights\WindowTurnOnLights.py:313 .\Washing\WindowWashing.py:46
 msgid "File"
 msgstr ""
 
@@ -4115,9 +4115,9 @@ msgid "Average time"
 msgstr ""
 
 #: .\Expeditions\WindowEverest.py:230
-#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:1300
-#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:1306
-#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:1311
+#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:1301
+#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:1307
+#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:1312
 msgid "Average centipawns lost"
 msgstr ""
 
@@ -4502,7 +4502,7 @@ msgid "League"
 msgstr ""
 
 #: .\Leagues\WLeagueConfig.py:44
-msgid "Remove seasons"
+msgid "Remove all seasons"
 msgstr ""
 
 #: .\Leagues\WLeagueConfig.py:50
@@ -4906,7 +4906,7 @@ msgstr ""
 
 #: .\Manager.py:1804 .\ManagerGame.py:316 .\ManagerSolo.py:518
 #: .\ManagerVariations.py:99 .\Openings\ManagerOPLEngines.py:496
-#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:498
+#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:499
 #: .\QT\WindowArbolBook.py:353 .\QT\WindowArbolBook.py:442
 #: .\Tutor\WindowTutor.py:94
 msgid "Consult a book"
@@ -6747,39 +6747,39 @@ msgstr ""
 msgid "Add time and keep playing?"
 msgstr ""
 
-#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:488
+#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:489
 msgid "Change opponent move"
 msgstr ""
 
-#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:1169
+#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:1170
 msgid "There are %d best moves"
 msgstr ""
 
-#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:1174
+#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:1175
 msgid "Show tutor"
 msgstr ""
 
-#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:1176
+#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:1177
 msgid "Try again"
 msgstr ""
 
-#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:1180
+#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:1181
 msgid "Select my move"
 msgstr ""
 
-#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:1296
+#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:1297
 msgid "Same move"
 msgstr ""
 
-#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:1297
+#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:1298
 msgid "Accepted"
 msgstr ""
 
-#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:1303
+#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:1304
 msgid "Rejected"
 msgstr ""
 
-#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:1316
+#: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:1317
 msgid "Average time (seconds)"
 msgstr ""
 
@@ -7416,7 +7416,7 @@ msgid "Rat"
 msgstr ""
 
 #: .\QT\QTVarios.py:838
-msgid "Knight || human knight"
+msgid "Knight || Medieval knight"
 msgstr ""
 
 #: .\QT\QTVarios.py:839
@@ -7435,7 +7435,7 @@ msgstr ""
 msgid "Duration of interval (secs)"
 msgstr ""
 
-#: .\QT\SelectFiles.py:31 .\QT\SelectFiles.py:53 .\QT\SelectFilesLC.py:70
+#: .\QT\SelectFiles.py:30 .\QT\SelectFiles.py:119 .\QT\SelectFilesLC.py:70
 msgid "Open Directory"
 msgstr ""
 
@@ -7444,7 +7444,7 @@ msgid "Date Modified"
 msgstr ""
 
 #: .\QT\SelectFilesLC.py:74
-msgid "Open file ||To open a file disk"
+msgid "Open file ||To open a disk file"
 msgstr ""
 
 #: .\QT\SelectFilesLC.py:130
@@ -9922,7 +9922,7 @@ msgid "Downloading eboards drivers"
 msgstr ""
 
 #: .\Update.py:100
-msgid "Updated eboards"
+msgid "Updated the eboards drivers"
 msgstr ""
 
 #: .\Update.py:100
