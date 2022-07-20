@@ -50,6 +50,7 @@ class ManagerLeague(Manager.Manager):
     premove = None
     last_time_show_arrows = None
     rival_is_thinking = False
+    humanize = False
 
     def start(self, league: Leagues.League, match: Leagues.Match, division: int):
         self.base_inicio(league, match, division)
@@ -75,6 +76,8 @@ class ManagerLeague(Manager.Manager):
         self.rival_is_thinking = False
         self.plays_instead_of_me_option = False
         self.state = ST_PLAYING
+
+        self.humanize = league.humanize
 
         self.human_side = WHITE if opponent_w.is_human() else BLACK
         self.engine_side = WHITE if self.human_side == BLACK else BLACK
@@ -423,6 +426,7 @@ class ManagerLeague(Manager.Manager):
             seconds_white,
             seconds_black,
             seconds_move,
+            humanize=self.humanize
         )
 
     def mueve_rival_base(self):

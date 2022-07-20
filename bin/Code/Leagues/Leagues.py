@@ -296,6 +296,7 @@ class League:
         self.time_engine_human = (15.0, 6)
         self.time_engine_engine = (3.0, 0)
         self.migration = 3
+        self.humanize = False
 
         self.current_num_season = None
 
@@ -436,6 +437,7 @@ class League:
             "MIGRATION": self.migration,
             "SAVED_OPPONENTS": [opponent.save() for opponent in self.li_opponents],
             "CURRENT_NUM_SEASON": self.current_num_season,
+            "HUMANIZE": self.humanize,
         }
         with UtilSQL.DictRawSQL(self.path(), "LEAGUE") as dbl:
             for key, value in dic.items():
@@ -456,6 +458,7 @@ class League:
         self.time_engine_engine = dic_data.get("TIME_ENGINE_ENGINE", self.time_engine_engine)
         self.migration = dic_data.get("MIGRATION", self.migration)
         self.current_num_season = dic_data.get("CURRENT_NUM_SEASON", self.current_num_season)
+        self.humanize = dic_data.get("HUMANIZE", self.humanize)
         self.li_opponents = []
         for saved in dic_data.get("SAVED_OPPONENTS", []):
             op = Opponent()

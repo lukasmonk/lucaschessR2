@@ -76,7 +76,7 @@ class SelectEngines:
         self.liMotoresClavePV = self.configuration.comboMotoresMultiPV10()
 
     def gen_engines_rodent(self):
-        cmbase = self.configuration.buscaRival("rodentII")
+        cmbase = self.configuration.buscaRival("rodentii")
         path_personalities = os.path.join(os.path.dirname(cmbase.path_exe), "personalities")
         path_ini = os.path.join(path_personalities, "personalities.ini")
         dict_ini = Util.ini2dic(path_ini)

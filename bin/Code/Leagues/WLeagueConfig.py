@@ -123,7 +123,13 @@ class WLeagueConfig(LCDialog.LCDialog):
         ly = Colocacion.H().control(lb_minutes).control(self.ed_minutes_eng_human)
         ly.control(lb_seconds).control(self.sb_seconds_eng_human)
 
-        gb_time_eng_human = Controles.GB(self, _("Engine vs human"), ly)
+        self.chb_humanize = Controles.CHB(
+            self, _("To humanize the time it takes for the engine to respond"), self.league.humanize
+        )
+        lyv = Colocacion.V().otro(ly)
+        lyv.control(self.chb_humanize)
+
+        gb_time_eng_human = Controles.GB(self, _("Engine vs human"), lyv)
 
         self.sb_migration, lb_migration = QTUtil2.spinBoxLB(
             self, self.league.migration, 1, 5, maxTam=35, etiqueta=_("Opponents who change divisions every season")
@@ -239,6 +245,7 @@ class WLeagueConfig(LCDialog.LCDialog):
         self.league.time_engine_engine = (self.ed_minutes_eng_eng.textoFloat(), self.sb_seconds_eng_eng.valor())
         self.league.time_engine_human = (self.ed_minutes_eng_human.textoFloat(), self.sb_seconds_eng_human.valor())
         self.league.migration = self.sb_migration.valor()
+        self.league.humanize = self.chb_humanize.valor()
         self.league.save()
         if self.remove_seasons_delayed:
             self.league.remove_seasons()
