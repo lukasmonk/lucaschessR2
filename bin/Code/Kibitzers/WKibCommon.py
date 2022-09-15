@@ -134,8 +134,8 @@ class WKibCommon(QtWidgets.QDialog):
             flags &= ~QtCore.Qt.WindowStaysOnTopHint
         flags |= QtCore.Qt.WindowCloseButtonHint
         self.setWindowFlags(flags)
-        self.tb.setAccionVisible(self.windowTop, not self.siTop)
-        self.tb.setAccionVisible(self.windowBottom, self.siTop)
+        self.tb.set_action_visible(self.windowTop, not self.siTop)
+        self.tb.set_action_visible(self.windowBottom, self.siTop)
         self.show()
 
     def windowTop(self):
@@ -152,13 +152,13 @@ class WKibCommon(QtWidgets.QDialog):
 
     def pause(self):
         self.siPlay = False
-        self.tb.setPosVisible(1, True)
-        self.tb.setPosVisible(2, False)
+        self.tb.set_pos_visible(1, True)
+        self.tb.set_pos_visible(2, False)
 
     def play(self):
         self.siPlay = True
-        self.tb.setPosVisible(1, False)
-        self.tb.setPosVisible(2, True)
+        self.tb.set_pos_visible(1, False)
+        self.tb.set_pos_visible(2, True)
         self.orden_game(self.game)
 
     def closeEvent(self, event):

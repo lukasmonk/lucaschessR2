@@ -39,6 +39,8 @@ from Code.Base.Constantes import (
     BEEP_WIN_OPPONENT_TIME,
     BEEP_WIN_PLAYER,
     BEEP_WIN_PLAYER_TIME,
+)
+from Code.Nags.Nags import (
     NAG_1,
     NAG_2,
     NAG_3,
@@ -116,7 +118,7 @@ class Game:
         if self.get_tag("Result"):
             self.set_tag("Result", RESULT_UNKNOWN)
 
-    def tag_timestart(self):
+    def add_tag_timestart(self):
         t = Util.today()
         self.set_tag("TimeStart", str(t)[:19].replace("-", "."))
 
@@ -274,13 +276,14 @@ class Game:
     def pgn_tags(self):
         return "\n".join(['[%s "%s"]' % (k, v) for k, v in self.li_tags])
 
-    def titulo(self, *litags):
+    def titulo(self, *litags, sep=" ∣ "):
         li = []
         for key in litags:
             tag = self.get_tag(key)
-            if tag:
+            tagi = tag.replace("?", "").replace(".", "")
+            if tagi:
                 li.append(tag)
-        return " | ".join(li)
+        return sep.join(li)
 
     def primeraJugada(self):
         return self.first_position.num_moves
@@ -291,7 +294,7 @@ class Game:
         except:
             return self.li_moves[-1] if len(self) > 0 else None
 
-    def check(self):
+    def verify(self):
         if self.pending_opening:
             self.assign_opening()
         if len(self.li_moves) == 0:
@@ -316,7 +319,7 @@ class Game:
 
     def add_move(self, move):
         self.li_moves.append(move)
-        self.check()
+        self.verify()
 
     def siFenInicial(self):
         return self.first_position.fen() == FEN_INITIAL
@@ -651,6 +654,12 @@ class Game:
                 p.set_unknown()
         return p
 
+    def copy_until_move(self, seek_move):
+        for pos, move in enumerate(self.li_moves):
+            if seek_move == move:
+                return self.copia(pos - 1)
+        return self.copia(-1)
+
     def copiaDesde(self, desdeJugada):
         if desdeJugada == 0:
             cp = self.first_position
@@ -849,7 +858,7 @@ class Game:
             if nom_other:
                 mensaje = _X(_("Congratulations you have won against %1."), nom_other)
             else:
-                mensaje = _("Congratulations you have won")
+                mensaje = _("Congratulations you have won.")
             if self.termination == TERMINATION_WIN_ON_TIME:
                 beep = BEEP_WIN_PLAYER_TIME
             else:
@@ -1003,7 +1012,7 @@ def pgn_game(pgn):
             pos = kv.find(" ")
             if pos > 0:
                 lb = kv[:pos]
-                vl = kv[pos + 1:].strip()
+                vl = kv[pos + 1 :].strip()
                 lbup = lb.upper()
                 if lbup == "FEN":
                     FasterCode.set_fen(vl)
@@ -1071,7 +1080,7 @@ def pgn_game(pgn):
     if si_fen:
         game.pending_opening = False
     if jg_activa:
-        game.check()
+        game.verify()
     return True, game
 
 

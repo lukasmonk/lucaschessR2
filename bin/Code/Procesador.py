@@ -7,12 +7,10 @@ import webbrowser
 import Code
 from Code import Adjournments
 from Code import CPU
-from Code import ManagerAnotar
 from Code import ManagerEntPos
 from Code import ManagerGame
 from Code import ManagerMateMap
 from Code import ManagerPlayGame
-from Code import ManagerSingularM
 from Code import ManagerSolo
 from Code import Update
 from Code import Util
@@ -68,17 +66,17 @@ from Code.QT import QTUtil
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
 from Code.QT import SelectFiles
-from Code.QT import WindowAnotar
 from Code.QT import WindowLearnGame
 from Code.QT import WindowManualSave
 from Code.QT import WindowPlayGame
-from Code.QT import WindowSingularM
+from Code.SingularMoves import WindowSingularM, ManagerSingularM
 from Code.QT import WindowWorkMap
 from Code.Routes import Routes, WindowRoutes, ManagerRoutes
 from Code.Sound import WindowSonido
 from Code.Tournaments import WTournaments
 from Code.TrainBMT import WindowBMT
 from Code.Washing import ManagerWashing, WindowWashing
+from Code.WritingDown import WritingDown, ManagerWritingDown
 
 
 class Procesador:
@@ -96,7 +94,7 @@ class Procesador:
 
         self.web = "https://lucaschess.pythonanywhere.com"
         self.blog = "https://lucaschess.blogspot.com"
-        self.github = "https://github.com/lukasmonk/lucaschessR"
+        self.github = "https://github.com/lukasmonk/lucaschessR2"
         self.wiki = "https://chessionate.com/lucaswiki"
 
         self.main_window = None
@@ -218,6 +216,7 @@ class Procesador:
         self.test_opcion_Adjournments()
         self.main_window.pon_toolbar(self.li_opciones_inicio, atajos=True)
         self.main_window.activaJuego(False, False)
+        self.main_window.thinking(False)
         self.board.exePulsadoNum = None
         self.board.set_position(self.posicionInicial)
         self.board.borraMovibles()
@@ -322,7 +321,7 @@ class Procesador:
 
     def creaXAnalyzer(self):
         xanalyzer = EngineManager.EngineManager(self, self.configuration.engine_analyzer())
-        xanalyzer.function = _("analyzer")
+        xanalyzer.function = _("Analyzer")
         xanalyzer.options(self.configuration.x_analyzer_mstime, self.configuration.x_analyzer_depth, True)
         if self.configuration.x_analyzer_multipv == 0:
             xanalyzer.maximize_multipv()
@@ -331,6 +330,15 @@ class Procesador:
 
         self.xanalyzer = xanalyzer
         Code.xanalyzer = xanalyzer
+
+    def analyzer_clone(self, mstime, depth, multipv):
+        xclone = EngineManager.EngineManager(self, self.configuration.engine_analyzer())
+        xclone.options(mstime, depth, True)
+        if multipv == 0:
+            xclone.maximize_multipv()
+        else:
+            xclone.set_multipv(multipv)
+        return xclone
 
     def cambiaXAnalyzer(self):
         if self.xanalyzer:
@@ -398,7 +406,7 @@ class Procesador:
             self.albumVehicles(name)
 
     def albumAnimales(self, animal):
-        albumes = Albums.AlbumesAnimales()
+        albumes = Albums.AlbumAnimales()
         album = albumes.get_album(animal)
         album.event = _("Album of animals")
         album.test_finished()
@@ -413,7 +421,7 @@ class Procesador:
         self.manager.start(album, cromo)
 
     def albumVehicles(self, character):
-        albumes = Albums.AlbumesVehicles()
+        albumes = Albums.AlbumVehicles()
         album = albumes.get_album(character)
         album.event = _("Album of vehicles")
         album.test_finished()
@@ -703,10 +711,14 @@ class Procesador:
     def motoresExternos(self):
         w = WConfEngines.WConfEngines(self.main_window)
         w.exec_()
+        self.cambiaXTutor()
+        self.cambiaXAnalyzer()
 
     def engines(self):
         w = WConfEngines.WConfEngines(self.main_window)
         w.exec_()
+        self.cambiaXAnalyzer()
+        self.cambiaXTutor()
 
     def aperturaspers(self):
         w = WindowOpenings.OpeningsPersonales(self)
@@ -826,11 +838,11 @@ class Procesador:
         WindowBMT.windowBMT(self)
 
     def anotar(self, game, siblancasabajo):
-        self.manager = ManagerAnotar.ManagerAnotar(self)
+        self.manager = ManagerWritingDown.ManagerWritingDown(self)
         self.manager.start(game, siblancasabajo)
 
     def show_anotar(self):
-        w = WindowAnotar.WAnotar(self)
+        w = WritingDown.WritingDown(self)
         if w.exec_():
             pc, siblancasabajo = w.resultado
             if pc is None:
@@ -1014,7 +1026,7 @@ class Procesador:
     def polyglot_install(self):
         list_books = Books.ListBooks()
         list_books.restore_pickle(self.configuration.file_books)
-        list_books.check()
+        list_books.verify()
         menu = QTVarios.LCMenu(self.main_window)
         for book in list_books.lista:
             if not Util.same_path(book.path, Code.tbook):
@@ -1208,12 +1220,12 @@ class Procesador:
         board = clon_procesador.main_window.board
         if father_board:
             board.dbvisual_set_file(father_board.dbVisual.file)
-            board.dbvisual_set_show_allways(father_board.dbVisual.show_allways)
+            board.dbvisual_set_show_always(father_board.dbVisual.show_always)
 
         resp = clon_procesador.main_window.show_variations(clon_procesador.manager.window_title())
         if father_board:
             father_board.dbvisual_set_file(father_board.dbVisual.file)
-            father_board.dbvisual_set_show_allways(father_board.dbVisual.show_allways())
+            father_board.dbvisual_set_show_always(father_board.dbVisual.show_always())
 
         if resp:
             return clon_procesador.manager.game

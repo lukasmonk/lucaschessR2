@@ -3,6 +3,7 @@ import FasterCode
 import Code
 from Code.Analysis import Analysis
 from Code.Base import Game
+from Code.Base.Constantes import INACCURACY, MISTAKE, BLUNDER
 from Code.QT import QTUtil2
 from Code.Tutor import WindowTutor
 
@@ -21,7 +22,7 @@ class Tutor:
         self.to_sq = to_sq
         self.mrmTutor = manager.mrmTutor
         self.rm_rival = manager.rm_rival
-        self.is_white = manager.human_side
+        self.is_white = manager.is_human_side_white
         self.siEntrenando = siEntrenando
         self.list_rm = None  # necesario
 
@@ -82,7 +83,7 @@ class Tutor:
             pvBloque = self.rm_rival.getPV()
             n = pvBloque.find(" ")
             if n > 0:
-                pvBloque = pvBloque[n + 1 :].strip()
+                pvBloque = pvBloque[n + 1:].strip()
             else:
                 pvBloque = ""
 
@@ -252,11 +253,12 @@ class Tutor:
             self.pos_tutor = self.max_tutor - 1
 
         move = self.game_tutor.move(self.pos_tutor if self.pos_tutor > -1 else 0)
-        if is_base:
-            self.boardTutor.set_position(move.position_before)
-        else:
-            self.boardTutor.set_position(move.position)
-            self.boardTutor.put_arrow_sc(move.from_sq, move.to_sq)
+        if move:
+            if is_base:
+                self.boardTutor.set_position(move.position_before)
+            else:
+                self.boardTutor.set_position(move.position)
+                self.boardTutor.put_arrow_sc(move.from_sq, move.to_sq)
 
     def play_rival(self, si_inicio=False, n_saltar=0, siFinal=False, is_base=False):
         if n_saltar:
@@ -394,7 +396,12 @@ def launch_tutor(mrm_tutor, rm_usuario):
         )
     else:
         ev = Code.analysis_eval.evaluate(rm_tutor, rm_usuario)
-        return ev >= tp
+        if tp == INACCURACY:
+            return ev in (INACCURACY, BLUNDER, MISTAKE)
+        elif tp == MISTAKE:
+            return ev in (BLUNDER, MISTAKE)
+        else:
+            return ev == BLUNDER
 
 
 def launch_tutor_movimiento(mrm_tutor, a1h8_user):

@@ -2,7 +2,7 @@ from PySide2 import QtCore, QtWidgets
 
 import Code
 from Code.Analysis import Histogram
-from Code.Base.Constantes import NAG_1, NAG_2, NAG_3, NAG_4, NAG_5, NAG_6
+from Code.Nags.Nags import NAG_1, NAG_2, NAG_3, NAG_4, NAG_5, NAG_6
 from Code.Board import Board
 from Code.Openings import OpeningsStd
 from Code.QT import Colocacion
@@ -234,7 +234,6 @@ class WAnalisisGraph(LCDialog.LCDialog):
             self.procesador.xtutor,
             move,
             self.board.is_white_bottom,
-            999999,
             pos,
             main_window=self,
             must_save=False,

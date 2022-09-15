@@ -13,8 +13,17 @@ from Code.Base.Constantes import (
     SPECULATIVE_MOVE,
     INACCURACY,
 )
+from Code.Nags.Nags import (
+    NAG_1,
+    NAG_2,
+    NAG_3,
+    NAG_4,
+    NAG_5,
+    NAG_6,
+    dic_symbol_nags,
+)
+
 from Code.Board import Board
-from Code.Board import WindowColors
 from Code.QT import Colocacion
 from Code.QT import Controles
 from Code.QT import Iconos
@@ -23,7 +32,7 @@ from Code.QT import QTVarios
 
 V_SIN, V_IGUAL, V_BLANCAS, V_NEGRAS, V_BLANCAS_MAS, V_NEGRAS_MAS, V_BLANCAS_MAS_MAS, V_NEGRAS_MAS_MAS = (
     0,
-    11,
+    10,
     14,
     15,
     16,
@@ -70,8 +79,8 @@ class BoardLines(QtWidgets.QWidget):
         self.board.set_dispatcher(self.player_has_moved)
         self.board.dispatchSize(self.ajustaAncho)
         self.board.dbvisual_set_file(self.dbop.nom_fichero)
-        self.board.dbvisual_set_show_allways(True)
-        self.board.dbvisual_set_save_allways(True)
+        self.board.dbvisual_set_show_always(True)
+        self.board.dbvisual_set_save_always(True)
 
         self.board.set_side_bottom(self.dbop.getconfig("WHITEBOTTOM", True))
 
@@ -112,27 +121,27 @@ class BoardLines(QtWidgets.QWidget):
         self.with_figurines = configuration.x_pgn_withfigurines
 
         dic_nags = Code.Nags.Nags.dic_nags()
-        self.dicValoracion = collections.OrderedDict()
-        self.dicValoracion[GOOD_MOVE] = (dic_nags[1], WindowColors.nag2ico(1, 16))
-        self.dicValoracion[MISTAKE] = (dic_nags[2], WindowColors.nag2ico(2, 16))
-        self.dicValoracion[VERY_GOOD_MOVE] = (dic_nags[3], WindowColors.nag2ico(3, 16))
-        self.dicValoracion[BLUNDER] = (dic_nags[4], WindowColors.nag2ico(4, 16))
-        self.dicValoracion[SPECULATIVE_MOVE] = (dic_nags[5], WindowColors.nag2ico(5, 16))
-        self.dicValoracion[INACCURACY] = (dic_nags[6], WindowColors.nag2ico(6, 16))
-        self.dicValoracion[NO_RATING] = (_("No rating"), QtGui.QIcon())
+        dicValoracion = collections.OrderedDict()
+        dicValoracion[GOOD_MOVE] = (dic_nags[NAG_1].text, dic_symbol_nags(NAG_1))
+        dicValoracion[MISTAKE] = (dic_nags[NAG_2].text, dic_symbol_nags(NAG_2))
+        dicValoracion[VERY_GOOD_MOVE] = (dic_nags[NAG_3].text, dic_symbol_nags(NAG_3))
+        dicValoracion[BLUNDER] = (dic_nags[NAG_4].text, dic_symbol_nags(NAG_4))
+        dicValoracion[SPECULATIVE_MOVE] = (dic_nags[NAG_5].text, dic_symbol_nags(NAG_5))
+        dicValoracion[INACCURACY] = (dic_nags[NAG_6].text, dic_symbol_nags(NAG_6))
+        dicValoracion[NO_RATING] = (_("No rating"), "")
 
         self.dicVentaja = collections.OrderedDict()
         self.dicVentaja[V_SIN] = (_("Undefined"), QtGui.QIcon())
-        self.dicVentaja[V_IGUAL] = (dic_nags[11], Iconos.V_Blancas_Igual_Negras())
-        self.dicVentaja[V_BLANCAS] = (dic_nags[14], Iconos.V_Blancas())
-        self.dicVentaja[V_BLANCAS_MAS] = (dic_nags[16], Iconos.V_Blancas_Mas())
-        self.dicVentaja[V_BLANCAS_MAS_MAS] = (dic_nags[18], Iconos.V_Blancas_Mas_Mas())
-        self.dicVentaja[V_NEGRAS] = (dic_nags[15], Iconos.V_Negras())
-        self.dicVentaja[V_NEGRAS_MAS] = (dic_nags[17], Iconos.V_Negras_Mas())
-        self.dicVentaja[V_NEGRAS_MAS_MAS] = (dic_nags[19], Iconos.V_Negras_Mas_Mas())
+        self.dicVentaja[V_IGUAL] = (dic_nags[10].text, Iconos.V_Blancas_Igual_Negras())
+        self.dicVentaja[V_BLANCAS] = (dic_nags[14].text, Iconos.V_Blancas())
+        self.dicVentaja[V_BLANCAS_MAS] = (dic_nags[16].text, Iconos.V_Blancas_Mas())
+        self.dicVentaja[V_BLANCAS_MAS_MAS] = (dic_nags[18].text, Iconos.V_Blancas_Mas_Mas())
+        self.dicVentaja[V_NEGRAS] = (dic_nags[15].text, Iconos.V_Negras())
+        self.dicVentaja[V_NEGRAS_MAS] = (dic_nags[17].text, Iconos.V_Negras_Mas())
+        self.dicVentaja[V_NEGRAS_MAS_MAS] = (dic_nags[19].text, Iconos.V_Negras_Mas_Mas())
 
         # Valoracion
-        li_options = [(tit[0], k, tit[1]) for k, tit in self.dicValoracion.items()]
+        li_options = [(tit[1] + " " + tit[0], k) for k, tit in dicValoracion.items()]
         self.cbValoracion = Controles.CB(self, li_options, 0).capture_changes(self.cambiadoValoracion)
         self.cbValoracion.ponFuente(tipo_letra)
 
@@ -184,6 +193,8 @@ class BoardLines(QtWidgets.QWidget):
             dic = self.dbop.getfenvalue(self.fenm2)
             dic[key] = valor
             self.dbop.setfenvalue(self.fenm2, dic)
+
+            self.panelOpening.refresh_glines()
 
     def cambiadoValoracion(self):
         self.setvalue("VALORACION", self.cbValoracion.valor())

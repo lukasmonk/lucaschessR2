@@ -1,6 +1,4 @@
-import time
-
-from PySide2 import QtCore, QtWidgets
+from PySide2 import QtCore, QtWidgets, QtGui
 
 import Code
 from Code.Base.Constantes import GO_BACK, GO_END, GO_FORWARD, GO_START, ZVALUE_PIECE, ZVALUE_PIECE_MOVING
@@ -24,20 +22,20 @@ def dic_keys():
 
 class MensEspera(QtWidgets.QWidget):
     def __init__(
-        self,
-        parent,
-        mensaje,
-        siCancelar,
-        siMuestraYa,
-        opacity,
-        physical_pos,
-        fixedSize,
-        titCancelar,
-        background,
-        pmImagen=None,
-        puntos=12,
-        conImagen=True,
-        siParentNone=False,
+            self,
+            parent,
+            mensaje,
+            siCancelar,
+            siMuestraYa,
+            opacity,
+            physical_pos,
+            fixedSize,
+            titCancelar,
+            background,
+            pmImagen=None,
+            puntos=12,
+            conImagen=True,
+            siParentNone=False,
     ):
 
         super(MensEspera, self).__init__(
@@ -74,8 +72,8 @@ class MensEspera(QtWidgets.QWidget):
                 titCancelar = _("Cancel")
             self.btCancelar = (
                 Controles.PB(self, titCancelar, rutina=self.cancelar, plano=False)
-                .ponIcono(Iconos.Cancelar())
-                .anchoFijo(100)
+                    .ponIcono(Iconos.Cancelar())
+                    .anchoFijo(100)
             )
 
         ly = Colocacion.G()
@@ -139,11 +137,13 @@ class MensEspera(QtWidgets.QWidget):
         return self
 
     def final(self):
-        QTUtil.refresh_gui()
-        self.hide()
-        self.close()
-        self.destroy()
-        QTUtil.refresh_gui()
+        try:
+            self.hide()
+            self.close()
+            self.destroy()
+            QTUtil.refresh_gui()
+        except RuntimeError:
+            pass
 
 
 class ControlMensEspera:
@@ -151,20 +151,20 @@ class ControlMensEspera:
         self.me = None
 
     def start(
-        self,
-        parent,
-        mensaje,
-        siCancelar=False,
-        siMuestraYa=True,
-        opacity=0.90,
-        physical_pos="c",
-        fixedSize=None,
-        titCancelar=None,
-        background=None,
-        pmImagen=None,
-        puntos=11,
-        conImagen=True,
-        siParentNone=False,
+            self,
+            parent,
+            mensaje,
+            siCancelar=False,
+            siMuestraYa=True,
+            opacity=0.90,
+            physical_pos="c",
+            fixedSize=None,
+            titCancelar=None,
+            background=None,
+            pmImagen=None,
+            puntos=11,
+            conImagen=True,
+            siParentNone=False,
     ):
         if self.me:
             self.final()
@@ -231,15 +231,15 @@ mensEspera = ControlMensEspera()
 
 
 def mensajeTemporal(
-    main_window,
-    mensaje,
-    seconds,
-    background=None,
-    pmImagen=None,
-    physical_pos="c",
-    fixedSize=None,
-    siCancelar=None,
-    titCancelar=None,
+        main_window,
+        mensaje,
+        seconds,
+        background=None,
+        pmImagen=None,
+        physical_pos="c",
+        fixedSize=None,
+        siCancelar=None,
+        titCancelar=None,
 ):
     if siCancelar is None:
         siCancelar = seconds > 3.0
@@ -493,7 +493,7 @@ def tbAcceptCancel(parent, if_default=False, siReject=True):
     ]
     if if_default:
         li_acciones.append(None)
-        li_acciones.append((_("Default"), Iconos.Defecto(), parent.defecto))
+        li_acciones.append((_("By default"), Iconos.Defecto(), parent.defecto))
     li_acciones.append(None)
 
     return QTVarios.LCTB(parent, li_acciones)
@@ -553,8 +553,8 @@ def unMomento(owner, mensaje=None, physical_pos=None):
     return mensEspera.start(owner, mensaje, physical_pos=physical_pos)
 
 
-def analizando(owner):
-    return mensEspera.start(owner, _("Analyzing the move...."), physical_pos="ad")
+def analizando(owner, siCancelar=False):
+    return mensEspera.start(owner, _("Analyzing the move...."), physical_pos="ad", siCancelar=siCancelar)
 
 
 def ponIconosMotores(lista):
@@ -564,31 +564,37 @@ def ponIconosMotores(lista):
     return liResp
 
 
-def message(owner, texto, explanation=None, titulo=None, pixmap=None, px=None, py=None, si_bold=False):
-    msg = QtWidgets.QMessageBox(owner)
-    if pixmap is None:
-        msg.setIconPixmap(Iconos.pmMensInfo())
+def message(owner, texto, explanation=None, titulo=None, pixmap=None, px=None, py=None, si_bold=False, delayed=False):
+    def send():
+        msg = QtWidgets.QMessageBox(owner)
+        if pixmap is None:
+            msg.setIconPixmap(Iconos.pmMensInfo())
+        else:
+            msg.setIconPixmap(pixmap)
+        msg.setText(texto)
+        msg.setFont(Controles.TipoLetra(puntos=Code.configuration.x_menu_points, peso=300 if si_bold else 50))
+        if explanation:
+            msg.setInformativeText(explanation)
+        msg.setWindowTitle(_("Message") if titulo is None else titulo)
+        if px is not None:
+            msg.move(px, py)  # topright: owner.x() + owner.width() - msg.width() - 46, owner.y()+4)
+        msg.addButton(_("Continue"), QtWidgets.QMessageBox.ActionRole)
+        msg.setFixedWidth(800)
+
+        msg.exec_()
+
+    if delayed:
+        QtCore.QTimer.singleShot(50, send)
     else:
-        msg.setIconPixmap(pixmap)
-    msg.setText(texto)
-    msg.setFont(Controles.TipoLetra(puntos=Code.configuration.x_menu_points, peso=300 if si_bold else 50))
-    if explanation:
-        msg.setInformativeText(explanation)
-    if titulo is None:
-        titulo = _("Message")
-    msg.setWindowTitle(titulo)
-    if px is not None:
-        msg.move(px, py)  # topright: owner.x() + owner.width() - msg.width() - 46, owner.y()+4)
-    msg.addButton(_("Continue"), QtWidgets.QMessageBox.ActionRole)
-    msg.exec_()
+        send()
 
 
-def message_accept(owner, texto, explanation=None, titulo=None):
-    message(owner, texto, explanation=explanation, titulo=titulo, pixmap=Iconos.pmAceptar())
+def message_accept(owner, texto, explanation=None, titulo=None, delayed=False):
+    message(owner, texto, explanation=explanation, titulo=titulo, pixmap=Iconos.pmAceptar(), delayed=delayed)
 
 
-def message_error(owner, texto):
-    message(owner, texto, titulo=_("Error"), pixmap=Iconos.pmMensError())
+def message_error(owner, texto, delayed=False):
+    message(owner, texto, titulo=_("Error"), pixmap=Iconos.pmMensError(), delayed=delayed)
 
 
 def message_error_control(owner, mens, control):
@@ -597,35 +603,12 @@ def message_error_control(owner, mens, control):
     message(owner, mens, titulo=_("Error"), pixmap=Iconos.pmCancelar(), px=px, py=py)
 
 
-def message_bold(owner, mens, titulo=None):
-    message(owner, mens, titulo=titulo, si_bold=True)
+def message_bold(owner, mens, titulo=None, delayed=False):
+    message(owner, mens, titulo=titulo, si_bold=True, delayed=delayed)
 
 
-class QWMessage(QtWidgets.QWidget):
-    def __init__(self, owner, message):
-        QtWidgets.QWidget.__init__(self, owner)
-        self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Dialog | QtCore.Qt.WindowTitleHint)
-
-        lb = Controles.LB(self, message)
-        lb.setFont(Controles.TipoLetra(puntos=Code.configuration.x_menu_points, peso=300))
-        titulo = _("Message")
-        self.setWindowTitle(titulo)
-        bt = Controles.PB(self, _("Continue"), self.continuar, plano=False)
-        layout = Colocacion.V().control(lb).espacio(20).control(bt)
-        self.setLayout(layout)
-        self.activo = True
-
-    def continuar(self):
-        self.close()
-        self.activo = False
-
-
-def message_nomodal(owner, message):
-    w = QWMessage(owner, message)
-    w.show()
-    while w.activo:
-        QTUtil.refresh_gui()
-        time.sleep(0.1)
+def message_result(window, txt):
+    message(window, "<big><b>%s</b></big>" % txt, titulo=_("Result"), pixmap=Iconos.pmInformation())
 
 
 def pregunta(parent, mens, label_yes=None, label_no=None, si_top=False, px=None, py=None):
@@ -679,3 +662,85 @@ def preguntaCancelar123(parent, title, mens, si, no, cancel):
     else:
         resp = 0
     return resp
+
+
+def message_menu(owner, main, message, delayed):
+    def show():
+
+        previo = QtGui.QCursor.pos()
+
+        p = owner.mapToGlobal(QtCore.QPoint(0, 0))
+        QtGui.QCursor.setPos(p)
+
+        menu = QTVarios.LCMenu(owner)
+
+        menu.setStyleSheet("""
+    QMenu {
+        background-color: white;
+        margin: 2px; /* some spacing around the menu */
+    }
+
+    QMenu::item {
+        padding: 2px 2px 2px 10px;
+        border: 1px solid transparent; /* reserve space for selection border */
+    }
+
+    QMenu::item:selected {
+        border-color: darkblue;
+        background: rgba(100, 100, 100, 150);
+    }
+
+    QMenu::separator {
+        height: 1px;
+        background: lightblue;
+        margin-left: 10px;
+        margin-right: 5px;
+    }
+
+    QMenu::indicator {
+        width: 5px;
+        height: 5px;
+    }
+
+    """)
+        f = Controles.TipoLetra(puntos=11)
+        menu.ponFuente(f)
+
+        menu.separador()
+        menu.opcion(None, main)
+        menu.separador()
+        menu.separador_blank()
+
+        q = QtGui.QTextDocument(message, owner)
+        q.setDefaultFont(f)
+        q.setTextWidth(owner.width())
+        q.setUseDesignMetrics(True)
+        qto = QtGui.QTextOption()
+        qto.setWrapMode(qto.WordWrap)
+        q.setDefaultTextOption(qto)
+        q.adjustSize()
+
+        ret = []
+        tb = q.begin()
+        while tb.isValid():
+            blockText = tb.text()
+            if not tb.layout():
+                continue
+            for i in range(tb.layout().lineCount()):
+                line = tb.layout().lineAt(i)
+                ret.append(blockText[line.textStart():line.textStart() + line.textLength()])
+            tb = tb.next()
+
+        for linea in ret:
+            menu.opcion("k", linea)
+
+        def vuelve():
+            QtGui.QCursor.setPos(previo)
+
+        QtCore.QTimer.singleShot(50, vuelve)
+        menu.lanza()
+
+    if delayed:
+        QtCore.QTimer.singleShot(50, show)
+    else:
+        show()

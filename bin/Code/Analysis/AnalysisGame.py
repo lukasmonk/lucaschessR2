@@ -4,7 +4,7 @@ import os
 from Code import Util
 from Code.Analysis import AnalysisIndexes, WindowAnalysisParam
 from Code.Base import Game
-from Code.Base.Constantes import NAG_3
+from Code.Nags.Nags import NAG_3
 from Code.Databases import WDB_Utils
 from Code.QT import QTUtil2
 from Code.TrainBMT import BMT
@@ -19,10 +19,14 @@ class AnalyzeGame:
         self.si_bmt_brilliancies = False
 
         self.configuration = procesador.configuration
-        conf_engine = copy.deepcopy(self.configuration.buscaRival(alm.engine))
-        if alm.multiPV:
-            conf_engine.update_multipv(alm.multiPV)
-        self.xmanager = procesador.creaManagerMotor(conf_engine, alm.vtime, alm.depth, True, priority=alm.priority)
+        if alm.engine == "default":
+            self.xmanager = procesador.analyzer_clone(alm.vtime, alm.depth, alm.multiPV)
+            self.xmanager.set_priority(alm.priority)
+        else:
+            conf_engine = copy.deepcopy(self.configuration.buscaRival(alm.engine))
+            if alm.multiPV:
+                conf_engine.update_multipv(alm.multiPV)
+            self.xmanager = procesador.creaManagerMotor(conf_engine, alm.vtime, alm.depth, True, priority=alm.priority)
         self.vtime = alm.vtime
         self.depth = alm.depth
 
@@ -392,7 +396,7 @@ FILESW=%s:100
                     return
 
                 move = game.move(mov)
-                if xlibro_aperturas.get_list_moves(move.position_before.fen()):
+                if xlibro_aperturas.get_list_moves(move.position.fen()):
                     st_borrar.add(mov)
                     continue
                 else:
@@ -428,102 +432,102 @@ FILESW=%s:100
                 self.xmanager.remove_gui_dispatch()
                 return
 
-                # # Fin de game
-                # if move.siJaqueMate or move.is_draw:
-                # continue
+            li_moves_games = move.list_all_moves() if self.alm.analyze_variations else [(move, game, pos_move)]
 
-            # # white y black
-            white_move = move.position_before.is_white
-            if white_move:
-                if not is_white:
-                    continue
-            else:
-                if not is_black:
-                    continue
+            for move, game_move, pos_current_move in li_moves_games:
 
-            # -# previos
-            if self.delete_previous:
-                move.analysis = None
-
-            # -# Procesamos
-            if move.analysis is None:
-                resp = self.xmanager.analizaJugadaPartida(
-                    game,
-                    pos_move,
-                    self.vtime,
-                    depth=self.depth,
-                    brDepth=self.dpbrilliancies,
-                    brPuntos=self.ptbrilliancies,
-                    stability=self.stability,
-                    st_centipawns=self.st_centipawns,
-                    st_depths=self.st_depths,
-                    st_timelimit=self.st_timelimit,
-                )
-                if not resp:
-                    self.xmanager.remove_gui_dispatch()
-                    return
-
-                move.analysis = resp
-            cp = move.position_before
-            mrm, pos_act = move.analysis
-            move.complexity = AnalysisIndexes.calc_complexity(cp, mrm)
-            move.winprobability = AnalysisIndexes.calc_winprobability(cp, mrm)
-            move.narrowness = AnalysisIndexes.calc_narrowness(cp, mrm)
-            move.efficientmobility = AnalysisIndexes.calc_efficientmobility(cp, mrm)
-            move.piecesactivity = AnalysisIndexes.calc_piecesactivity(cp, mrm)
-            move.exchangetendency = AnalysisIndexes.calc_exchangetendency(cp, mrm)
-
-            if si_blunders or si_brilliancies or self.with_variations or self.themes_lichess:
-                rm = mrm.li_rm[pos_act]
-                rm.ponBlunder(0)
-                mj = mrm.li_rm[0]
-                rm_pts = rm.centipawns_abs()
-
-                dif = mj.centipawns_abs() - rm_pts
-
-                mx = max(abs(mj.centipawns_abs()), abs(rm_pts))
-                dif_porc = int(dif * 100 / mx) if mx > 0 else 0
-
-                fen = move.position_before.fen()
-
-                if self.with_variations:
-                    limite = self.alm.limit_include_variations
-                    if (limite == 0) or (dif >= limite):
-                        if not (self.alm.best_variation and dif == 0):
-                            move.analisis2variantes(self.alm, self.delete_previous)
-
-                ok_blunder = dif >= self.kblunders
-                if ok_blunder and self.kblunders_porc > 0:
-                    ok_blunder = dif_porc >= self.kblunders_porc
-                if ok_blunder:
-                    rm.ponBlunder(dif)
-
-                    self.graba_tactic(game, pos_move, mrm, pos_act)
-
-                    if self.save_pgn(self.pgnblunders, mrm.name, game.dicTags(), fen, move, rm, mj):
-                        si_poner_pgn_original_blunders = True
-
-                    if self.bmtblunders:
-                        self.save_bmt(True, fen, mrm, pos_act, cl_game, txt_game)
-                        self.si_bmt_blunders = True
-
-                if rm.level_brilliant():
-                    move.add_nag(NAG_3)
-                    self.save_fns(self.fnsbrilliancies, fen)
-
-                    if self.save_pgn(self.pgnbrilliancies, mrm.name, game.dicTags(), fen, move, rm, None):
-                        si_poner_pgn_original_brilliancies = True
-
-                    if self.bmtbrilliancies:
-                        self.save_bmt(False, fen, mrm, pos_act, cl_game, txt_game)
-                        self.si_bmt_brilliancies = True
+                # # white y black
+                white_move = move.position_before.is_white
+                if white_move:
+                    if not is_white:
+                        continue
                 else:
-                    nag, color = mrm.set_nag_color(self.configuration, rm)
-                    if nag:
-                        move.add_nag(nag)
+                    if not is_black:
+                        continue
 
-                if self.themes_lichess and (mj.mate != 0 or dif > 0):
-                    move.assign_themes_lichess()
+                # -# previos
+                if self.delete_previous:
+                    move.analysis = None
+
+                # -# Procesamos
+                if move.analysis is None:
+                    resp = self.xmanager.analizaJugadaPartida(
+                        game_move,
+                        pos_current_move,
+                        self.vtime,
+                        depth=self.depth,
+                        brDepth=self.dpbrilliancies,
+                        brPuntos=self.ptbrilliancies,
+                        stability=self.stability,
+                        st_centipawns=self.st_centipawns,
+                        st_depths=self.st_depths,
+                        st_timelimit=self.st_timelimit,
+                    )
+                    if not resp:
+                        self.xmanager.remove_gui_dispatch()
+                        return
+
+                    move.analysis = resp
+                cp = move.position_before
+                mrm, pos_act = move.analysis
+                move.complexity = AnalysisIndexes.calc_complexity(cp, mrm)
+                move.winprobability = AnalysisIndexes.calc_winprobability(cp, mrm)
+                move.narrowness = AnalysisIndexes.calc_narrowness(cp, mrm)
+                move.efficientmobility = AnalysisIndexes.calc_efficientmobility(cp, mrm)
+                move.piecesactivity = AnalysisIndexes.calc_piecesactivity(cp, mrm)
+                move.exchangetendency = AnalysisIndexes.calc_exchangetendency(cp, mrm)
+
+                if si_blunders or si_brilliancies or self.with_variations or self.themes_lichess:
+                    rm = mrm.li_rm[pos_act]
+                    rm.ponBlunder(0)
+                    mj = mrm.li_rm[0]
+                    rm_pts = rm.centipawns_abs()
+
+                    dif = mj.centipawns_abs() - rm_pts
+
+                    mx = max(abs(mj.centipawns_abs()), abs(rm_pts))
+                    dif_porc = int(dif * 100 / mx) if mx > 0 else 0
+
+                    fen = move.position_before.fen()
+
+                    if self.with_variations:
+                        limite = self.alm.limit_include_variations
+                        if (limite == 0) or (dif >= limite):
+                            if not (self.alm.best_variation and dif == 0):
+                                move.analisis2variantes(self.alm, self.delete_previous)
+
+                    ok_blunder = dif >= self.kblunders
+                    if ok_blunder and self.kblunders_porc > 0:
+                        ok_blunder = dif_porc >= self.kblunders_porc
+                    if ok_blunder:
+                        rm.ponBlunder(dif)
+
+                        self.graba_tactic(game, pos_move, mrm, pos_act)
+
+                        if self.save_pgn(self.pgnblunders, mrm.name, game.dicTags(), fen, move, rm, mj):
+                            si_poner_pgn_original_blunders = True
+
+                        if self.bmtblunders:
+                            self.save_bmt(True, fen, mrm, pos_act, cl_game, txt_game)
+                            self.si_bmt_blunders = True
+
+                    if rm.level_brilliant():
+                        move.add_nag(NAG_3)
+                        self.save_fns(self.fnsbrilliancies, fen)
+
+                        if self.save_pgn(self.pgnbrilliancies, mrm.name, game.dicTags(), fen, move, rm, None):
+                            si_poner_pgn_original_brilliancies = True
+
+                        if self.bmtbrilliancies:
+                            self.save_bmt(False, fen, mrm, pos_act, cl_game, txt_game)
+                            self.si_bmt_brilliancies = True
+                    else:
+                        nag, color = mrm.set_nag_color(rm)
+                        if nag:
+                            move.add_nag(nag)
+
+                    if self.themes_lichess and (mj.mate != 0 or dif > 0):
+                        move.assign_themes_lichess()
 
         # Ponemos el texto original en la ultima
         if si_poner_pgn_original_blunders and self.oriblunders:

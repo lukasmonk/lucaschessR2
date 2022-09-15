@@ -27,18 +27,19 @@ class Engine:
         self.elo = 0
         self.id_info = ""
         self.max_depth = 0
-        self.max_time = 0
+        self.max_time = 0  # Seconds
         self.id_name = key
         self.id_author = autor
         self.book = None
 
         self.menu = key
         self.type = ENG_INTERNAL
-        self.fixed_depth = None
+        # self.fixed_depth = None
 
         self.__li_uci_options = None
 
     def save(self):
+
         return Util.save_obj_pickle(self)
 
     def restore(self, txt):

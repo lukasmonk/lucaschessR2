@@ -76,7 +76,7 @@ class MainWindow(LCDialog.LCDialog):
 
         self.resizing = None
 
-        self.cursor_pensado = False
+        self.cursor_pensando = False
 
         self.work_translate = None
 
@@ -386,10 +386,8 @@ class MainWindow(LCDialog.LCDialog):
             del self.timer
             self.timer = None
 
-    def columnas60(self, siPoner, cNivel=None):
-        if cNivel is None:
-            cNivel = _("Level")
-        self.base.columnas60(siPoner, cNivel)
+    def columnas60(self, siPoner, cNivel=None, cWhite=None, cBlack=None):
+        self.base.columnas60(siPoner, cNivel, cWhite, cBlack)
 
     def pressed_shortcut_Ctrl1(self):
         if self.manager and hasattr(self.manager, "control1"):
@@ -416,22 +414,22 @@ class MainWindow(LCDialog.LCDialog):
 
     def thinking(self, si_pensando):
         if si_pensando:
-            if not self.cursor_pensado:
+            if not self.cursor_pensando:
                 QtWidgets.QApplication.setOverrideCursor(self.cursorthinking_rival)
         else:
-            if self.cursor_pensado:
+            if self.cursor_pensando:
                 QtWidgets.QApplication.restoreOverrideCursor()
-        self.cursor_pensado = si_pensando
+        self.cursor_pensando = si_pensando
         self.refresh()
 
     def pensando_tutor(self, si_pensando):
         if si_pensando:
-            if not self.cursor_pensado:
+            if not self.cursor_pensando:
                 QtWidgets.QApplication.setOverrideCursor(self.cursorthinking)
         else:
-            if self.cursor_pensado:
+            if self.cursor_pensando:
                 QtWidgets.QApplication.restoreOverrideCursor()
-        self.cursor_pensado = si_pensando
+        self.cursor_pensando = si_pensando
         self.refresh()
 
     def save_video(self, dic_extended=None):

@@ -90,7 +90,7 @@ class TrainingDir:
         icoOp = Iconos.PuntoNaranja()
         icoDr = Iconos.Carpeta()
         for folder in self.folders:
-            submenu1 = bmenu.submenu(folder.name, icoDr)
+            submenu1 = bmenu.submenu(_F(folder.name), icoDr)
             folder.menu(submenu1, xopcion)
         for xfile in self.files:
             xopcion(bmenu, "ep_%s" % xfile.path, xfile.name, icoOp)
@@ -359,7 +359,7 @@ class MenuTrainings:
 
         return menu, dicMenu
 
-    def check(self):
+    def verify(self):
         if self.menu is None:
             self.menu, self.dicMenu = self.creaMenu()
 
@@ -367,7 +367,7 @@ class MenuTrainings:
         self.menu, self.dicMenu = self.creaMenu()
 
     def lanza(self):
-        self.check()
+        self.verify()
 
         resp = self.menu.lanza()
         self.menu_run(resp)
@@ -542,11 +542,11 @@ class MenuTrainings:
                     for x in range(len(lista) - 1):
                         t += "|%s" % lista[x]
                         if not (t in dmenu):
-                            v_trad = dic_training.get(lista[x], lista[x])
+                            v_trad = dic_training.get(lista[x], _F(lista[x]))
                             dmenu[t] = actmenu.submenu(v_trad, nico.otro())
                             actmenu.separador()
                         actmenu = dmenu[t]
-                actmenu.opcion(valor, dic_training.get(lista[-1], lista[-1]), nico.otro())
+                actmenu.opcion(valor, _F(dic_training.get(lista[-1], lista[-1])), nico.otro())
                 actmenu.separador()
             um.final()
             resp = menu.lanza()

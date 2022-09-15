@@ -103,7 +103,7 @@ class WWashing(LCDialog.LCDialog):
             html = html % (
                 _("Hints"),
                 "%d (%0.02f)" % (hints, hints * 1.0 / nEngines),
-                _("Games"),
+                _("Repetitions"),
                 "%d (%0.02f)" % (games, games * 1.0 / nEngines),
                 _("Time"),
                 "%s (%s)" % (Util.secs2str(times), Util.secs2str(int(times / nEngines))),
@@ -130,7 +130,7 @@ class WWashing(LCDialog.LCDialog):
                 _("White") if eng.color else _("Black"),
                 _("Hints"),
                 "%d/%d" % (eng.hints_current, eng.hints),
-                _("Games"),
+                _("Repetitions"),
                 eng.games,
                 _("Time"),
                 eng.lbTime(),
@@ -154,7 +154,7 @@ class WWashing(LCDialog.LCDialog):
         o_columns.nueva("COLOR", _("Color"), 70, align_center=True)
         o_columns.nueva("STATE", _("State"), 90, align_center=True)
         o_columns.nueva("HINTS", _("Hints"), 60, align_center=True)
-        o_columns.nueva("GAMES", _("Games"), 60, align_center=True)
+        o_columns.nueva("GAMES", _("Repetitions"), 80, align_center=True)
         o_columns.nueva("TIME", _("Time"), 60, align_center=True)
         o_columns.nueva("DATE", _("Date"), 120, align_center=True)
         o_columns.nueva("INDEX", _("Index"), 60, align_center=True)
@@ -187,7 +187,7 @@ class WWashing(LCDialog.LCDialog):
         menu.separador()
         menu.opcion("restorefrom", _("Restore from"), Iconos.Recuperar())
         menu.separador()
-        submenu = menu.submenu(_("Create new"), Iconos.Nuevo())
+        submenu = menu.submenu(_("Restart with tactics taken from"), Iconos.Nuevo())
         submenu.opcion("new_UNED", _("UNED chess school"), Iconos.Uned())
         submenu.separador()
         submenu.opcion("new_UWE", _("Uwe Auerswald"), Iconos.Uwe())

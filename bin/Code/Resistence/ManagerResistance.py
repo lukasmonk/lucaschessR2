@@ -31,7 +31,7 @@ class ManagerResistance(Manager.Manager):
         self.human_is_playing = False
         self.state = ST_PLAYING
 
-        self.human_side = is_white
+        self.is_human_side_white = is_white
         self.is_engine_side_white = not is_white
 
         self.siBoxing = True
@@ -48,7 +48,7 @@ class ManagerResistance(Manager.Manager):
         rival = self.configuration.buscaRival(engine)
         self.xrival = self.procesador.creaManagerMotor(rival, self.seconds * 1000, None)
 
-        self.main_window.pon_toolbar((TB_RESIGN, TB_REINIT, TB_CONFIG, TB_UTILITIES))
+        self.set_toolbar((TB_RESIGN, TB_REINIT, TB_CONFIG, TB_UTILITIES))
         self.main_window.activaJuego(True, False, siAyudas=False)
         self.set_dispatcher(self.player_has_moved)
         self.set_position(self.game.last_position)
@@ -87,7 +87,7 @@ class ManagerResistance(Manager.Manager):
         self.set_label1(label)
 
     def ponRotuloActual(self):
-        label = "<b>%s</b>: %d" % (_("Half-moves"), self.movimientos)
+        label = "<b>%s</b>: %d" % (_("Moves"), self.movimientos)
 
         color = "black"
         if self.puntosRival != 0:
@@ -113,7 +113,7 @@ class ManagerResistance(Manager.Manager):
             self.configurar(siSonidos=True, siCambioTutor=False, siBlinfold=False)
 
         elif key == TB_UTILITIES:
-            self.utilidades(siArbol=self.state == ST_ENDGAME)
+            self.utilities(siArbol=self.state == ST_ENDGAME)
 
         elif key in self.procesador.li_opciones_inicio:
             self.procesador.run_action(key)
@@ -124,6 +124,7 @@ class ManagerResistance(Manager.Manager):
     def reiniciar(self):
         if len(self.game) and QTUtil2.pregunta(self.main_window, _("Restart the game?")):
             self.game.set_position()
+            self.main_window.activaInformacionPGN(False)
             self.start(self.resistance, self.numEngine, self.key)
 
     def final_x(self):
@@ -144,7 +145,7 @@ class ManagerResistance(Manager.Manager):
         if self.game.is_finished():
             self.autosave()
             if self.game.is_mate():
-                si_ganado = self.human_side != is_white
+                si_ganado = self.is_human_side_white != is_white
                 if si_ganado:
                     self.movimientos += 2000
                 self.finJuego(True)
@@ -178,7 +179,7 @@ class ManagerResistance(Manager.Manager):
                 lostmovepoints = self.puntosRival - puntosRivalPrevio
                 if self.siBoxing and self.moves_rival > 1:
                     if (self.puntosRival > self.puntos) or (self.maxerror and lostmovepoints > self.maxerror):
-                        if self.check():
+                        if self.verify():
                             return
                 self.play_next_move()
 
@@ -187,7 +188,7 @@ class ManagerResistance(Manager.Manager):
             self.human_is_playing = True
             self.activate_side(is_white)
 
-    def check(self):
+    def verify(self):
         if len(self.game) < (3 if self.is_engine_side_white else 4):
             return False
         self.disable_all()
@@ -246,7 +247,7 @@ class ManagerResistance(Manager.Manager):
                 self.ponRotuloObjetivo()
 
             if siFinPartida:
-                self.mensajeEnPGN(txt)
+                self.message_on_pgn(txt)
             else:
                 resp = QTUtil2.pregunta(
                     self.main_window,

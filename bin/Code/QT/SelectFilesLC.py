@@ -224,7 +224,7 @@ class SelectFile(LCDialog.LCDialog):
     def folder_remove(self):
         folder = self.ed_folder.texto().strip()
         if folder and os.path.isdir(folder):
-            if QTUtil2.pregunta(self, _X(_("Delete %1 ?"), folder)):
+            if QTUtil2.pregunta(self, _X(_("Delete %1?"), folder)):
                 try:
                     os.rmdir(folder)
                 except:

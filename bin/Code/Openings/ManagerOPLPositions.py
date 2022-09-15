@@ -11,15 +11,16 @@ from Code.Base.Constantes import (
     TB_HELP,
     TB_NEXT,
     TB_UTILITIES,
+    TB_COMMENTS,
     GT_OPENING_LINES,
 )
-from Code.Openings import OpeningLines
+from Code.Openings import OpeningLines, ManagerOPL
 from Code.QT import Iconos
 from Code.QT import QTUtil
 from Code.QT import QTUtil2
 
 
-class ManagerOpeningLinesPositions(Manager.Manager):
+class ManagerOpeningLinesPositions(ManagerOPL.ManagerOpeningLines):
     def start(self, pathFichero):
         self.pathFichero = pathFichero
         dbop = OpeningLines.Opening(pathFichero)
@@ -56,7 +57,7 @@ class ManagerOpeningLinesPositions(Manager.Manager):
         self.is_human_side_white = self.training["COLOR"] == "WHITE"
         self.is_engine_side_white = not self.is_human_side_white
 
-        self.main_window.pon_toolbar((TB_CLOSE, TB_HELP, TB_CONFIG))
+        self.tb_with_comments([TB_CLOSE, TB_HELP, TB_CONFIG])
         self.main_window.activaJuego(True, False, siAyudas=False)
         self.set_dispatcher(self.player_has_moved)
         self.set_position(cp)
@@ -78,9 +79,9 @@ class ManagerOpeningLinesPositions(Manager.Manager):
         self.muestraInformacion()
         self.play_next_move()
 
-    def ayuda(self):
+    def get_help(self):
         self.siAyuda = True
-        self.main_window.pon_toolbar((TB_CLOSE, TB_CONFIG))
+        self.set_toolbar((TB_CLOSE, TB_CONFIG))
 
         self.muestraAyuda()
         self.muestraInformacion()
@@ -147,7 +148,7 @@ class ManagerOpeningLinesPositions(Manager.Manager):
                 li_nuevo.insert(salto, self.trposition)
             self.training["LITRAINPOSITIONS"] = li_nuevo
 
-        self.main_window.pon_toolbar((TB_CLOSE, TB_NEXT, TB_CONFIG))
+        self.set_toolbar((TB_CLOSE, TB_NEXT, TB_CONFIG))
 
         self.dbop.setTraining(self.training)
         self.state = ST_ENDGAME
@@ -180,13 +181,16 @@ class ManagerOpeningLinesPositions(Manager.Manager):
                 self.training["AUTOJUMP_TRAINPOSITIONS"] = self.with_automatic_jump
 
         elif key == TB_UTILITIES:
-            self.utilidades()
+            self.utilities()
 
         elif key == TB_NEXT:
             self.reinicio(self.dbop)
 
         elif key == TB_HELP:
-            self.ayuda()
+            self.get_help()
+
+        elif key == TB_COMMENTS:
+            self.change_comments()
 
         else:
             Manager.Manager.rutinaAccionDef(self, key)

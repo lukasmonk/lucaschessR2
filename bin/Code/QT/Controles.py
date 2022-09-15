@@ -128,6 +128,8 @@ class ED(QtWidgets.QLineEdit):
 
     def textoFloat(self):
         txt = self.text()
+        if "," in txt:
+            txt = txt.replace(",", ".")
         return round(float(txt), self.decimales) if txt else 0.0
 
     def tipoInt(self, valor=0):
@@ -138,6 +140,12 @@ class ED(QtWidgets.QLineEdit):
         self.setValidator(QtGui.QIntValidator(self))
         self.setAlignment(QtCore.Qt.AlignRight)
         self.ponInt(valor)
+        return self
+
+    def tipoIntPositive(self, valor):
+        self.controlrx("^[0-9]+$")
+        self.ponInt(valor)
+        self.align_right()
         return self
 
     def ponInt(self, valor):
@@ -246,6 +254,16 @@ class CB(QtWidgets.QComboBox):
     def capture_changes(self, rutina):
         self.currentIndexChanged.connect(rutina)
         return self
+
+    def set_multiline(self, max_px):
+        self.setFixedWidth(max_px)
+        listView = QtWidgets.QListView()
+        # Turn On the word wrap
+        listView.setWordWrap(True)
+        # set popup view widget into the combo box
+        self.setView(listView)
+        return self
+
 
 
 class CHB(QtWidgets.QCheckBox):
@@ -783,7 +801,7 @@ class TB(QtWidgets.QToolBar):
         self.setOrientation(QtCore.Qt.Vertical)
         return self
 
-    def setAccionVisible(self, key, value):
+    def set_action_visible(self, key, value):
         for accion in self.li_acciones:
             if accion.key == key:
                 accion.setVisible(value)
@@ -877,10 +895,10 @@ class TBrutina(QtWidgets.QToolBar):
         self.setOrientation(QtCore.Qt.Vertical)
         return self
 
-    def setPosVisible(self, pos, value):
+    def set_pos_visible(self, pos, value):
         self.li_acciones[pos].setVisible(value)
 
-    def setAccionVisible(self, key, value):
+    def set_action_visible(self, key, value):
         accion = self.dic_toolbar.get(key, None)
         if accion:
             accion.setVisible(value)

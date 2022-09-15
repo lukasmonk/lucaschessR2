@@ -156,6 +156,7 @@ class Configuration:
         self.x_sizefont_infolabels = 11
 
         self.x_pgn_selbackground = None
+        self.x_pgn_selforeground = None
         self.x_pgn_headerbackground = None
 
         self.x_pgn_width = 348
@@ -166,6 +167,8 @@ class Configuration:
         self.x_pgn_english = False
 
         self.x_autopromotion_q = False
+
+        self.x_copy_ctrl = True  # False = Alt C
 
         self.x_font_family = ""
 
@@ -200,7 +203,7 @@ class Configuration:
 
         # self.x_eval_lines = [(100.0, 0.9), (300, 2.0), (800, 3.0), (3500, 4.0)]
         # self.x_eval_blunder = 1.5
-        # self.x_eval_error = 0.7
+        # self.x_eval_mistake = 0.7
         # self.x_eval_inaccuracy = 0.3
         # self.x_eval_very_good_depth = 7
         # self.x_eval_good_depth = 4
@@ -211,22 +214,26 @@ class Configuration:
         # self.x_eval_bad_factor = 4
         # self.x_eval_questionable_factor = 2
 
-        self.eval_lines = [(100.0, 0.9), (300, 2.0), (800, 3.0), (3500, 4.0)]
-        self.eval_blunder = 1.75
-        self.eval_error = 0.75
+        self.eval_lines = [(100, 0.9), (300, 2.0), (800, 3.0), (3500, 4.0)]
+        self.eval_blunder = 1.55
+        self.eval_mistake = 0.75
         self.eval_inaccuracy = 0.33
-        self.eval_very_good_depth = 7
-        self.eval_good_depth = 4
+
+        self.eval_very_good_depth = 8
+        self.eval_good_depth = 5
+        self.eval_speculative_depth = 3
+        # Limits
         self.eval_max_mate = 15
         self.eval_max_elo = 3300.0
         self.eval_min_elo = 200.0
+        # Factor effect to ELO
         self.eval_very_bad_factor = 12
         self.eval_bad_factor = 6
         self.eval_questionable_factor = 2
 
         # self.eval_lines = [(150.0, 0.91), (390, 2.07), (530, 3.07), (775, 3.8), (900, 4.5)]
         # self.eval_blunder = 1.84
-        # self.eval_error = 0.76
+        # self.eval_mistake = 0.76
         # self.eval_inaccuracy = 0.33
         # self.eval_very_good_depth = 7
         # self.eval_good_depth = 4
@@ -259,13 +266,15 @@ class Configuration:
 
         self.li_favoritos = None
 
-        self.liPersonalidades = []
+        self.li_personalities = []
 
         self.relee_engines()
 
         self.rival = self.buscaRival(self.x_rival_inicial)
 
         self.x_translation_mode = False
+
+        self.x_mode_select_lc = Code.is_linux
 
     def folder_translations(self):
         folder = os.path.join(self.carpetaBase, "Translations")
@@ -292,7 +301,10 @@ class Configuration:
         return _("Player") if not self.x_player else self.x_player
 
     def pgn_selbackground(self):
-        return self.x_pgn_selbackground if self.x_pgn_selbackground else "#51708C"
+        return self.x_pgn_selbackground if self.x_pgn_selbackground else "#6287a8"
+
+    def pgn_selforeground(self):
+        return self.x_pgn_selforeground if self.x_pgn_selforeground else "#f0f0f0"
 
     def pgn_headerbackground(self):
         return self.x_pgn_headerbackground if self.x_pgn_headerbackground else "#EDEDE4"
@@ -552,12 +564,22 @@ class Configuration:
         li.insert(0, self.x_tutor_clave)
         return li
 
-    def listaCambioTutor(self):
+    def formlayout_combo_analyzer(self, only_multipv):
+        li = []
+        for key, cm in self.dic_engines.items():
+            if not only_multipv or cm.can_be_tutor():
+                li.append((key, cm.nombre_ext()))
+        li = sorted(li, key=operator.itemgetter(1))
+        li.insert(0, ("default", _("Default analyzer")))
+        li.insert(0, "default")
+        return li
+
+    def help_multipv_engines(self):
         li = []
         for key, cm in self.dic_engines.items():
             if cm.can_be_tutor():
                 li.append((cm.nombre_ext(), key))
-        li = sorted(li, key=operator.itemgetter(1))
+        li.sort(key=operator.itemgetter(1))
         return li
 
     def comboMotores(self):
@@ -602,6 +624,7 @@ class Configuration:
             if x.startswith("x_"):
                 dic[x] = getattr(self, x)
         dic["PALETTE"] = self.palette
+        dic["PERSONALITIES"] = self.li_personalities
         Util.save_pickle(self.file, dic)
 
     def lee(self):
@@ -612,9 +635,8 @@ class Configuration:
                     if x in dic:
                         setattr(self, x, dic[x])
 
-            palette = dic.get("PALETTE")
-            if palette:
-                self.palette = palette
+            self.palette = dic.get("PALETTE", self.palette)
+            self.li_personalities = dic.get("PERSONALITIES", self.li_personalities)
 
         for x in os.listdir("../.."):
             if x.endswith(".pon"):
@@ -814,16 +836,16 @@ class Configuration:
         db.close()
         return resp if resp else {}
 
-        # "DicMicElos": _("Tourney-Elo")
-        # "ENG_MANAGERSOLO": _("Create your own game")
-        # "FICH_MANAGERSOLO": _("Create your own game")
-        # "ENG_VARIANTES": _("Variations") _("Edition")
-        # "TRANSSIBERIAN": _("Transsiberian Railway")
-        # "STSFORMULA": _("Formula to calculate elo") -  _("STS: Strategic Test Suite")
-        # "WindowColores": _("Colors")
-        # "PCOLORES": _("Colors")
-        # "manual_save": _("Save positions to FNS/PGN")
-        # "FOLDER_ENGINES": _("External engines")
+        # "DicMicElos": Tourney-Elo")
+        # "ENG_MANAGERSOLO": Create your own game")
+        # "FICH_MANAGERSOLO": Create your own game")
+        # "ENG_VARIANTES": Variations") Edition")
+        # "TRANSSIBERIAN": Transsiberian Railway")
+        # "STSFORMULA": Formula to calculate elo") -  STS: Strategic Test Suite")
+        # "WindowColores": Colors")
+        # "PCOLORES": Colors")
+        # "manual_save": Save positions to FNS/PGN")
+        # "FOLDER_ENGINES": External engines")
         # "MICELO":
         # "MICPER":
         # "SAVEPGN":

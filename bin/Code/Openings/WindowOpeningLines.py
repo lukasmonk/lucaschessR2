@@ -93,7 +93,7 @@ class WOpeningLines(LCDialog.LCDialog):
         self.setLayout(ly)
 
         self.register_grid(self.glista)
-        self.restore_video(anchoDefecto=self.glista.anchoColumnas() + 20)
+        self.restore_video(anchoDefecto=self.glista.anchoColumnas() + 20, altoDefecto=640)
 
         self.wtrain.setVisible(False)
         self.glista.gotop()
@@ -318,10 +318,10 @@ class WOpeningLines(LCDialog.LCDialog):
 
         if ok_ssp or ok_eng:
             self.wtrain.setVisible(True)
-            self.tbtrain.setAccionVisible(self.tr_sequential, ok_ssp)
-            self.tbtrain.setAccionVisible(self.tr_static, ok_ssp)
-            self.tbtrain.setAccionVisible(self.tr_positions, ok_ssp)
-            self.tbtrain.setAccionVisible(self.tr_engines, ok_eng)
+            self.tbtrain.set_action_visible(self.tr_sequential, ok_ssp)
+            self.tbtrain.set_action_visible(self.tr_static, ok_ssp)
+            self.tbtrain.set_action_visible(self.tr_positions, ok_ssp)
+            self.tbtrain.set_action_visible(self.tr_engines, ok_eng)
         else:
             self.wtrain.setVisible(False)
 

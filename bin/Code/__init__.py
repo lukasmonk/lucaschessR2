@@ -1,6 +1,6 @@
-import sys
 import os
 import ssl
+import sys
 
 current_dir = os.path.abspath(os.path.realpath(os.path.dirname(sys.argv[0])))
 if current_dir:
@@ -74,6 +74,7 @@ eboard = None
 
 
 def relative_root(path):
+    # Used only for titles/labels
     try:
         path = os.path.abspath(path)
         rel = os.path.relpath(path, folder_root)
@@ -86,9 +87,9 @@ def relative_root(path):
 
 
 BASE_VERSION = "B"  # Para el control de updates que necesitan reinstalar entero
-VERSION = "R 2.02a"
+VERSION = "R 2.03 rc1"
 DEBUG = False
-DEBUG_ENGINE = False
+DEBUG_ENGINES = False
 
 if DEBUG:
     import traceback
@@ -109,6 +110,14 @@ if DEBUG:
         sys.stdout.write("\n")
         return True
 
+    def prlns(*x):
+        prln("-" * 80)
+        prlk(*x)
+        sys.stdout.write("\n")
+        stack()
+        prln("-" * 80)
+        return True
+
     def stack(si_previo=False):
         if si_previo:
             prlk("-" * 80 + "\n")
@@ -127,7 +136,7 @@ if DEBUG:
         tdbg[0] = t
         return True
 
-    if DEBUG_ENGINE:
+    if DEBUG_ENGINES:
         tdbg = [time.time()]
         prln("", "Modo debug engine")
 

@@ -95,6 +95,36 @@ class ManagerChallenge101:
         main_window = self.procesador.main_window
         main_window.cursorFueraBoard()
         menu = QTVarios.LCMenu(main_window)
+
+        menu.setStyleSheet("""
+QMenu {
+    background-color: white;
+    margin: 2px; /* some spacing around the menu */
+}
+
+QMenu::item {
+    padding: 2px 25px 2px 20px;
+    border: 1px solid transparent; /* reserve space for selection border */
+}
+
+QMenu::item:selected {
+    border-color: darkblue;
+    background: rgba(100, 100, 100, 150);
+}
+
+QMenu::separator {
+    height: 1px;
+    background: lightblue;
+    margin-left: 10px;
+    margin-right: 5px;
+}
+
+QMenu::indicator {
+    width: 13px;
+    height: 13px;
+}
+
+""")
         f = Controles.TipoLetra(name=Code.font_mono, puntos=12)
         fbold = Controles.TipoLetra(name=Code.font_mono, puntos=12, peso=700)
         fbolds = Controles.TipoLetra(name=Code.font_mono, puntos=12, peso=500, is_underlined=True)

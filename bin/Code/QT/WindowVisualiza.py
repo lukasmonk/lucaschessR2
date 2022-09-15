@@ -168,7 +168,7 @@ class WControl(LCDialog.LCDialog):
 
         # # Intervals
         li_gen.append((None, _("Seconds of every glance") + ":"))
-        li_gen.append((FormLayout.Spinbox(_("Seconds"), 1, 100, 50), intervaloPre))
+        li_gen.append((FormLayout.Spinbox(_("Second(s)"), 1, 100, 50), intervaloPre))
 
         liTypes = ((_("By piece"), True), (_("Time fixed"), False))
         config = FormLayout.Combobox(_("Type"), liTypes)

@@ -108,7 +108,7 @@ class ListBooks:
 
         return liResp
 
-    def check(self):
+    def verify(self):
         for x in range(len(self.lista) - 1, -1, -1):
             book = self.lista[x]
             if not book.existe():

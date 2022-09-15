@@ -76,6 +76,7 @@ class AnalysisEval:
     inaccuracy: float
     very_good_depth: int
     good_depth: int
+    speculative_depth: int
     max_mate: int
     max_elo: float
     min_elo: float
@@ -91,10 +92,11 @@ class AnalysisEval:
         self.eval_lines_max_x = self.eval_lines.max_x()
 
         self.blunder = conf.eval_blunder
-        self.error = conf.eval_error
+        self.error = conf.eval_mistake
         self.inaccuracy = conf.eval_inaccuracy
         self.very_good_depth = conf.eval_very_good_depth
         self.good_depth = conf.eval_good_depth
+        self.speculative_depth = conf.eval_speculative_depth
         self.max_mate = conf.eval_max_mate
         self.max_elo = conf.eval_max_elo
         self.min_elo = conf.eval_min_elo

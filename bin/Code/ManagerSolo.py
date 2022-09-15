@@ -2,7 +2,6 @@ import os
 import time
 
 import FasterCode
-
 from PySide2 import QtCore
 
 import Code
@@ -17,8 +16,6 @@ from Code.Base.Constantes import (
     TB_REINIT,
     TB_TAKEBACK,
     TB_CONFIG,
-    TB_CANCEL,
-    TB_END_GAME,
     TB_FILE,
     TB_HELP_TO_MOVE,
     TB_PGN_LABELS,
@@ -33,9 +30,9 @@ from Code.QT import Iconos
 from Code.QT import QTUtil
 from Code.QT import QTUtil2, SelectFiles
 from Code.QT import QTVarios
-from Code.Voyager import Voyager
 from Code.QT import WindowPgnTags
 from Code.Translations import TrListas
+from Code.Voyager import Voyager
 
 
 class ManagerSolo(Manager.Manager):
@@ -43,8 +40,6 @@ class ManagerSolo(Manager.Manager):
 
     def start(self, dic=None):
         self.game_type = GT_ALONE
-
-        # self.pgn.set_variations_mode(True)
 
         game_new = True
         if dic:
@@ -63,7 +58,7 @@ class ManagerSolo(Manager.Manager):
         self.reinicio = dic
 
         self.human_is_playing = True
-        self.human_side = True
+        self.is_human_side_white = True
 
         self.board.setAcceptDropPGNs(self.dropPGN)
 
@@ -102,10 +97,11 @@ class ManagerSolo(Manager.Manager):
         self.goto_end()
 
         if "SICAMBIORIVAL" in dic:
-            self.cambioRival()
+            self.change_rival()
             del dic["SICAMBIORIVAL"]  # que no lo vuelva a pedir
 
         self.valor_inicial = self.dame_valor_actual()
+        self.game.add_tag_timestart()
 
         self.play_next_move()
 
@@ -148,8 +144,8 @@ class ManagerSolo(Manager.Manager):
         elif key == TB_PGN_LABELS:
             self.informacion()
 
-        elif key in (TB_CANCEL, TB_END_GAME):
-            self.main_window.reject()
+        # elif key in (TB_CANCEL, TB_END_GAME):
+        #     self.main_window.reject()
 
         elif key == TB_SAVE_AS:
             self.grabarComo()
@@ -195,7 +191,7 @@ class ManagerSolo(Manager.Manager):
         self.put_view()
 
         is_white = self.game.last_position.is_white
-        self.human_side = is_white  # Compatibilidad, sino no funciona el cambio en pgn
+        self.is_human_side_white = is_white  # Compatibilidad, sino no funciona el cambio en pgn
 
         if self.auto_rotate:
             time.sleep(1)
@@ -203,7 +199,7 @@ class ManagerSolo(Manager.Manager):
                 self.board.rotaBoard()
 
         if self.game.is_finished():
-            self.muestra_resultado()
+            self.show_result()
             return
 
         self.set_side_indicator(is_white)
@@ -239,7 +235,7 @@ class ManagerSolo(Manager.Manager):
         self.pgnRefresh(self.game.last_position.is_white)
         self.refresh()
 
-    def muestra_resultado(self):
+    def show_result(self):
         self.state = ST_ENDGAME
         self.disable_all()
 
@@ -269,6 +265,7 @@ class ManagerSolo(Manager.Manager):
         if dic is None:
             dic = self.creaDic()
         dic["WHITEBOTTOM"] = self.board.is_white_bottom
+        self.main_window.activaInformacionPGN(False)
         self.start(dic)
 
     def editEtiquetasPGN(self):
@@ -521,7 +518,7 @@ class ManagerSolo(Manager.Manager):
             sep,
         )
 
-        resp = self.utilidades(liMasOpciones)
+        resp = self.utilities(liMasOpciones)
         if resp == "books":
             liMovs = self.librosConsulta(True)
             if liMovs:
@@ -591,7 +588,7 @@ class ManagerSolo(Manager.Manager):
                     self.xrival = None
                 self.play_against_engine = False
             else:
-                self.cambioRival()
+                self.change_rival()
 
         elif resp == "voyager":
             ptxt = Voyager.voyager_game(self.main_window, self.game)
@@ -602,7 +599,7 @@ class ManagerSolo(Manager.Manager):
                 dic = self.creaDic()
                 dic["GAME"] = ptxt
                 dic["WHITEBOTTOM"] = self.board.is_white_bottom
-                self.start(dic)
+                self.reiniciar(dic)
 
     def basic_initial_position(self):
         if len(self.game) > 0:
@@ -617,24 +614,26 @@ class ManagerSolo(Manager.Manager):
 
     def control_teclado(self, nkey, modifiers):
         if (modifiers & QtCore.Qt.ControlModifier) > 0:
-            if nkey == ord("V"):
+            if nkey == QtCore.Qt.Key_V:
                 self.paste(QTUtil.traePortapapeles())
-            elif nkey == ord("T"):
+            elif nkey == QtCore.Qt.Key_T:
                 li = [self.game.first_position.fen(), "", self.game.pgnBaseRAW()]
                 self.saveSelectedPosition("|".join(li))
-            elif nkey == ord("S"):
+            elif nkey == QtCore.Qt.Key_S:
                 self.startPosition()
-            elif nkey == ord("B"):
+            elif nkey == QtCore.Qt.Key_B:
                 is_control = (modifiers & QtCore.Qt.ControlModifier) > 0
                 if is_control:
                     self.basic_initial_position()
 
     def listHelpTeclado(self):
+        ctrl = _("CTRL") + " "
         return [
-            (_("CTRL") + " V", _("Paste position")),
-            (_("CTRL") + " T", _("Save position in 'Selected positions' file")),
-            (_("CTRL") + " S", _("Board editor")),
-            (_("CTRL") + " B", _("Basic position")),
+            (ctrl + "V", _("Paste position")),
+            (ctrl + "T", _("Save position in 'Selected positions' file")),
+            (ctrl + "S", _("Board editor")),
+            (ctrl + "B", _("Basic position")),
+            (ctrl + "1", _("Play instead of me")),
         ]
 
     def startPosition(self):
@@ -687,14 +686,14 @@ class ManagerSolo(Manager.Manager):
             if rm.from_sq:
                 self.player_has_moved(rm.from_sq, rm.to_sq, rm.promotion)
 
-    def cambioRival(self):
+    def change_rival(self):
         if self.dicRival:
             dicBase = self.dicRival
         else:
             dicBase = self.configuration.read_variables("ENG_MANAGERSOLO")
 
-        dic = self.dicRival = WPlayAgainstEngine.cambioRival(
-            self.main_window, self.configuration, dicBase, siManagerSolo=True
+        dic = self.dicRival = WPlayAgainstEngine.change_rival(
+            self.main_window, self.configuration, dicBase, is_create_own_game=True
         )
 
         if dic:
@@ -722,8 +721,8 @@ class ManagerSolo(Manager.Manager):
             self.set_label1(dic["ROTULO1"])
             self.play_against_engine = True
             self.configuration.write_variables("ENG_MANAGERSOLO", dic)
-            self.human_side = dic["ISWHITE"]
-            if self.game.last_position.is_white != self.human_side and not self.game.siEstaTerminada():
+            self.is_human_side_white = dic["ISWHITE"]
+            if self.game.last_position.is_white != self.is_human_side_white and not self.game.siEstaTerminada():
                 self.play_against_engine = False
                 self.disable_all()
                 self.juegaRival()

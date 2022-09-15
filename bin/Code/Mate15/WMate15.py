@@ -1,3 +1,4 @@
+import Code
 from Code import Util
 from Code.QT import Colocacion, Columnas, Controles, Grid, Iconos, QTUtil2, QTVarios
 from Code.QT import LCDialog
@@ -14,6 +15,9 @@ class WMate15(LCDialog.LCDialog):
         extconfig = "mate15"
         self.db = Mate15.DBMate15(path)
 
+        self.use_pgn = True
+        self.read_configuration()
+
         LCDialog.LCDialog.__init__(self, procesador.main_window, title, icon, extconfig)
 
         o_columns = Columnas.ListaColumnas()
@@ -21,7 +25,7 @@ class WMate15(LCDialog.LCDialog):
         o_columns.nueva("DATE", _("Date"), 120, align_center=True)
         o_columns.nueva("INFO", _("Information"), 360)
         o_columns.nueva("TRIES", _("Tries"), 70, align_center=True)
-        o_columns.nueva("RESULT", _("Result"), 70, align_center=True)
+        o_columns.nueva("RESULT", _("Best time"), 90, align_center=True)
         self.glista = Grid.Grid(
             self, o_columns, siSelecFilas=True, siSeleccionMultiple=True, altoFila=configuration.x_pgn_rowheight
         )
@@ -38,6 +42,8 @@ class WMate15(LCDialog.LCDialog):
             (_("Repeat"), Iconos.Copiar(), self.repetir),
             None,
             (_("Remove"), Iconos.Borrar(), self.borrar),
+            None,
+            (_("Config"), Iconos.Configurar(), self.configurar),
             None,
         )
         tb = QTVarios.LCTB(self, li_acciones)
@@ -111,6 +117,24 @@ class WMate15(LCDialog.LCDialog):
         recno = self.glista.recno()
         if recno >= 0:
             m15 = self.db.mate15(recno)
-            w = WRunMate15.WRunMate15(self, self.db, m15)
+            w = WRunMate15.WRunMate15(self, self.db, m15, self.use_pgn)
             w.exec_()
             self.glista.refresh()
+
+    def read_configuration(self):
+        dic = Code.configuration.read_variables("MATE15")
+        self.use_pgn = dic.get("use_pgn", self.use_pgn)
+
+    def write_configuration(self):
+        Code.configuration.write_variables("MATE15", {"use_pgn": self.use_pgn})
+
+    def configurar(self):
+        menu = QTVarios.LCMenu(self)
+        submenu = menu.submenu(_("How to indicate moves"))
+        submenu.opcion("pgn", _("With standard algebraic notation"), siChecked=self.use_pgn)
+        submenu.opcion("coord", _("With coordinates"), siChecked=not self.use_pgn)
+        resp = menu.lanza()
+        if resp is None:
+            return
+        self.use_pgn = resp == "pgn"
+        self.write_configuration()

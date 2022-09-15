@@ -244,6 +244,24 @@ class Opening:
         cursor.close()
         return li_xpv
 
+    def pack_database(self):
+        cursor = self._conexion.cursor()
+        sql = "select ROWID, XPV from LINES ORDER BY XPV"
+        cursor.execute(sql)
+        li_xpv_r = list(cursor.fetchall())
+        li_remove = []
+        for pos in range(len(li_xpv_r) - 1):
+            rowid0, xpv0 = li_xpv_r[pos]
+            rowid1, xpv1 = li_xpv_r[pos + 1]
+            if xpv1.startswith(xpv0):
+                li_remove.append(rowid0)
+        if li_remove:
+            sql = "DELETE FROM LINES WHERE ROWID=?"
+            cursor.executemany(sql, li_remove)
+            self._conexion.commit()
+        cursor.execute("VACUUM")
+        cursor.close()
+
     def setdbVisual_Board(self, board):
         self.board = board
 
@@ -260,10 +278,16 @@ class Opening:
 
     def getfenvalue(self, fenm2):
         resp = self.db_fenvalues[fenm2]
+        if resp and resp.get("VENTAJA") == 11:  # error antiguo
+            resp["VENTAJA"] = 10
+            self.setfenvalue(fenm2, resp)
         return resp if resp else {}
 
     def setfenvalue(self, fenm2, dic):
         self.db_fenvalues[fenm2] = dic
+
+    def dicfenvalues(self):
+        return self.db_fenvalues.as_dictionary()
 
     def removeAnalisis(self, tmpBP, mensaje):
         for n, fenm2 in enumerate(self.db_fenvalues.keys()):
@@ -686,7 +710,7 @@ class Opening:
             li_games.append(game)
         return li_games
 
-    def removeLines(self, li, label):
+    def remove_list_lines(self, li, label):
         self.save_history(_("Removing"), label)
         li.sort(reverse=True)
         cursor = self._conexion.cursor()
@@ -699,6 +723,11 @@ class Opening:
             del self.li_xpv[num]
         self._conexion.commit()
         cursor.close()
+
+    def remove_pv(self, pgn, a1h8):
+        xpv = FasterCode.pv_xpv(a1h8)
+        li = [pos for pos, xpv1 in enumerate(self.li_xpv) if xpv1.startswith(xpv)]
+        self.remove_list_lines(li, pgn)
 
     def remove_lastmove(self, is_white, label):
         self.save_history(_("Removing"), label)
@@ -732,6 +761,9 @@ class Opening:
         d = datetime.datetime.now()
         s = "%s-%s" % (d.strftime("%Y-%m-%d %H:%M:%S"), ",".join(label))
         self.db_history[s] = self.li_xpv[:]
+
+    def remove_all_history(self):
+        self.db_history.zap()
 
     def recovering_history(self, key):
         self.save_history(_("Recovering"), key)
@@ -797,7 +829,7 @@ class Opening:
             self._conexion.close()
             self._conexion = None
 
-    def importarPGN(self, owner, gamebase, path_pgn, max_depth, with_variations, with_comments):
+    def import_pgn(self, owner, gamebase, path_pgn, max_depth, with_variations, with_comments):
 
         dlTmp = QTUtil2.BarraProgreso(owner, _("Import"), _("Working..."), Util.filesize(path_pgn)).mostrar()
 
@@ -805,12 +837,7 @@ class Opening:
 
         dic_comments = {}
 
-        cursor = self._conexion.cursor()
-
         base = gamebase.pv() if gamebase else self.getconfig("BASEPV")
-
-        sql_insert = "INSERT INTO LINES( XPV ) VALUES( ? )"
-        sql_update = "UPDATE LINES SET XPV=? WHERE XPV=?"
 
         for n, (nbytes, game) in enumerate(Game.read_games(path_pgn)):
             dlTmp.pon(nbytes)
@@ -831,13 +858,11 @@ class Opening:
                         updated = True
                         break
                     if xpv.startswith(xpv_ant) and xpv > xpv_ant:
-                        cursor.execute(sql_update, (xpv, xpv_ant))
                         self.li_xpv[npos] = xpv
                         updated = True
                         break
                 if not updated:
                     if len(xpv) > 0:
-                        cursor.execute(sql_insert, (xpv,))
                         self.li_xpv.append(xpv)
 
             if with_comments:
@@ -848,19 +873,27 @@ class Opening:
                         d["COMENTARIO"] = dic["C"]
                     if "N" in dic:
                         for nag in dic["N"]:
-                            if nag in (11, 14, 15, 16, 17, 18, 19):
+                            if nag in (10, 14, 15, 16, 17, 18, 19):
                                 d["VENTAJA"] = nag
                             elif 0 < nag < 7:
                                 d["VALORACION"] = nag
                     if d:
                         dic_comments[fenm2] = d
 
-            if n % 50:
-                self._conexion.commit()
-
-        cursor.close()
-        self.li_xpv.sort()
+        self._conexion.execute("DELETE FROM LINES")
         self._conexion.commit()
+        self._conexion.execute("VACUUM")
+        self._conexion.commit()
+
+        st = set(self.li_xpv)
+        self.li_xpv = list(st)
+        self.li_xpv.sort()
+
+        sql_insert = "INSERT INTO LINES( XPV ) VALUES( ? )"
+        for xpv in self.li_xpv:
+            self._conexion.execute(sql_insert, (xpv,))
+        self._conexion.commit()
+
         dlTmp.cerrar()
         if with_comments and dic_comments:
             self.db_fenvalues.set_faster_mode()
@@ -935,7 +968,7 @@ class Opening:
         control.with_history = True
         control.label = "%s,%s,%s" % (_("Polyglot book"), bookW.name, bookB.name)
 
-        def hazFEN(fen, lipv_ant, control):
+        def haz_fen(fen, lipv_ant, control):
             if bp.is_canceled():
                 return
             if len(lipv_ant) > depth:
@@ -946,9 +979,9 @@ class Opening:
                     return
                 st_fenm2.add(fen_m2)
 
-            siWhite1 = " w " in fen
-            book = bookW if siWhite1 else bookB
-            li_posible_moves = book.miraListaPV(fen, siWhite1 == siWhite, onlyone=onlyone)
+            si_white1 = " w " in fen
+            book = bookW if si_white1 else bookB
+            li_posible_moves = book.miraListaPV(fen, si_white1 == siWhite, onlyone=onlyone)
             if li_posible_moves and len(lipv_ant) < depth:
                 for pv in li_posible_moves:
                     set_fen(fen)
@@ -956,7 +989,7 @@ class Opening:
                     fenN = get_fen()
                     lipv_nue = lipv_ant[:]
                     lipv_nue.append(pv)
-                    hazFEN(fenN, lipv_nue, control)
+                    haz_fen(fenN, lipv_nue, control)
             else:
                 p = Game.Game()
                 p.leerLIPV(lipv_ant)
@@ -976,7 +1009,7 @@ class Opening:
         for game in li_games:
             cp = game.last_position
             try:
-                hazFEN(cp.fen(), game.lipv(), control)
+                haz_fen(cp.fen(), game.lipv(), control)
             except RecursionError:
                 pass
 
@@ -984,12 +1017,13 @@ class Opening:
 
         if control.liPartidas:
             self.guardaPartidas(control.label, control.liPartidas, minMoves, with_history=control.with_history)
+        self.pack_database()
         bp.cerrar()
 
         return True
 
-    def importarSummary(self, ventana, gamebase, ficheroSummary, depth, siWhite, onlyone, minMoves):
-        titulo = _("Importing the summary of a database")
+    def import_dbopening_explorer(self, ventana, gamebase, ficheroSummary, depth, siWhite, onlyone, minMoves):
+        titulo = _("Importing the opening explorer of a database")
         bp = QTUtil2.BarraProgreso1(ventana, titulo)
         bp.ponTotal(0)
         bp.ponRotulo(_X(_("Reading %1"), os.path.basename(ficheroSummary)))
@@ -1043,7 +1077,8 @@ class Opening:
         hazPV(pvBase.split(" ") if pvBase else [])
 
         bp.ponRotulo(_("Writing..."))
-        self.guardaPartidas("%s,%s" % (_("Database summary"), os.path.basename(ficheroSummary)), liPartidas)
+        self.guardaPartidas("%s,%s" % (_("Database opening explorer"), os.path.basename(ficheroSummary)), liPartidas)
+        self.pack_database()
         bp.cerrar()
 
         return True
@@ -1059,6 +1094,7 @@ class Opening:
                     lista.append(xpv)
         self.guardaLiXPV("%s,%s" % (_("Other opening lines"), otra.title), lista)
         self.db_fenvalues.copy_from(otra.db_fenvalues)
+        self.pack_database()
         otra.close()
 
     def exportarPGN(self, ws, result):

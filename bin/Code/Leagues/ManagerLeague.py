@@ -50,7 +50,6 @@ class ManagerLeague(Manager.Manager):
     premove = None
     last_time_show_arrows = None
     rival_is_thinking = False
-    humanize = False
 
     def start(self, league: Leagues.League, match: Leagues.Match, division: int):
         self.base_inicio(league, match, division)
@@ -77,10 +76,8 @@ class ManagerLeague(Manager.Manager):
         self.plays_instead_of_me_option = False
         self.state = ST_PLAYING
 
-        self.humanize = league.humanize
-
-        self.human_side = WHITE if opponent_w.is_human() else BLACK
-        self.engine_side = WHITE if self.human_side == BLACK else BLACK
+        self.is_human_side_white = WHITE if opponent_w.is_human() else BLACK
+        self.engine_side = WHITE if self.is_human_side_white == BLACK else BLACK
         self.is_engine_side_white = self.engine_side == WHITE
 
         opponent_engine = match.get_engine(league, self.engine_side)
@@ -92,9 +89,9 @@ class ManagerLeague(Manager.Manager):
 
         self.main_window.set_activate_tutor(False)
 
-        depth = self.conf_engine.fixed_depth if hasattr(self.conf_engine, "fixed_depth") else None
-
-        self.xrival = self.procesador.creaManagerMotor(self.conf_engine, None, depth)
+        self.xrival = self.procesador.creaManagerMotor(
+            self.conf_engine, self.conf_engine.max_time * 1000, self.conf_engine.max_depth
+        )
         self.resign_limit = league.resign
 
         self.game.set_tag("Event", _("Chess leagues"))
@@ -109,25 +106,28 @@ class ManagerLeague(Manager.Manager):
         minutes, self.seconds_per_move = league.time_engine_human
         self.max_seconds = minutes * 60.0
 
-        self.vtime = {
-            WHITE: Util.Timer2(self.game, WHITE, self.max_seconds, self.seconds_per_move),
-            BLACK: Util.Timer2(self.game, BLACK, self.max_seconds, self.seconds_per_move),
-        }
+        self.timed = minutes > 0.0
 
-        time_control = "%d" % int(self.max_seconds)
-        if self.seconds_per_move:
-            time_control += "+%d" % self.seconds_per_move
-        self.game.set_tag("TimeControl", time_control)
+        if self.timed:
+            self.vtime = {
+                WHITE: Util.Timer2(self.game, WHITE, self.max_seconds, self.seconds_per_move),
+                BLACK: Util.Timer2(self.game, BLACK, self.max_seconds, self.seconds_per_move),
+            }
+
+            time_control = "%d" % int(self.max_seconds)
+            if self.seconds_per_move:
+                time_control += "+%d" % self.seconds_per_move
+            self.game.set_tag("TimeControl", time_control)
 
         self.pon_toolbar()
 
-        self.main_window.activaJuego(True, True)
+        self.main_window.activaJuego(True, self.timed)
 
         self.set_dispatcher(self.player_has_moved)
         self.set_position(self.game.last_position)
         self.show_side_indicator(True)
         self.remove_hints(siQuitarAtras=True)
-        self.put_pieces_bottom(self.human_side)
+        self.put_pieces_bottom(self.is_human_side_white)
 
         self.ponCapInfoPorDefecto()
 
@@ -136,16 +136,18 @@ class ManagerLeague(Manager.Manager):
         bl = opponent_w.name()
         ng = opponent_b.name()
 
-        tp_bl = self.vtime[True].etiqueta()
-        tp_ng = self.vtime[False].etiqueta()
-
-        self.main_window.ponDatosReloj(bl, tp_bl, ng, tp_ng)
-        self.refresh()
-        self.main_window.start_clock(self.set_clock, 1000)
+        if self.timed:
+            tp_bl = self.vtime[True].etiqueta()
+            tp_ng = self.vtime[False].etiqueta()
+            self.main_window.ponDatosReloj(bl, tp_bl, ng, tp_ng)
+            self.refresh()
+            self.main_window.start_clock(self.set_clock, 1000)
+        else:
+            self.main_window.base.change_player_labels(bl, ng)
 
         self.main_window.set_notify(self.mueve_rival_base)
 
-        self.game.tag_timestart()
+        self.game.add_tag_timestart()
 
         self.check_boards_setposition()
 
@@ -179,7 +181,7 @@ class ManagerLeague(Manager.Manager):
         self.toolbar_state = self.state
 
     def show_time(self, siUsuario):
-        is_white = siUsuario == self.human_side
+        is_white = siUsuario == self.is_human_side_white
         ot = self.vtime[is_white]
         eti, eti2 = ot.etiquetaDif2()
         if eti:
@@ -189,6 +191,9 @@ class ManagerLeague(Manager.Manager):
                 self.main_window.set_clock_black(eti, eti2)
 
     def set_clock(self):
+        if not self.timed:
+            return
+
         if self.state == ST_ENDGAME:
             self.main_window.stop_clock()
             return
@@ -205,12 +210,12 @@ class ManagerLeague(Manager.Manager):
                 else:
                     self.main_window.set_clock_black(eti, eti2)
 
-            siJugador = self.human_side == xis_white
+            siJugador = self.is_human_side_white == xis_white
             if ot.time_is_consumed():
                 self.game.set_termination(TERMINATION_WIN_ON_TIME, RESULT_WIN_BLACK if xis_white else RESULT_WIN_WHITE)
                 self.state = ST_ENDGAME  # necesario que esté antes de stop_clock para no entrar en bucle
                 self.stop_clock(siJugador)
-                self.muestra_resultado()
+                self.show_result()
                 return
 
             elif siJugador and ot.is_zeitnot():
@@ -222,19 +227,21 @@ class ManagerLeague(Manager.Manager):
             Code.eboard.writeClocks(self.vtime[True].label_dgt(), self.vtime[False].label_dgt())
 
         if self.human_is_playing:
-            is_white = self.human_side
+            is_white = self.is_human_side_white
         else:
-            is_white = not self.human_side
+            is_white = not self.is_human_side_white
         mira(is_white)
 
     def start_clock(self, siUsuario):
-        self.vtime[siUsuario == self.human_side].start_marker()
-        self.vtime[not siUsuario].recalc()
-        self.vtime[siUsuario == self.human_side].set_zeinot(self.zeitnot)
+        if self.timed:
+            self.vtime[siUsuario == self.is_human_side_white].start_marker()
+            self.vtime[not siUsuario].recalc()
+            self.vtime[siUsuario == self.is_human_side_white].set_zeinot(self.zeitnot)
 
     def stop_clock(self, siUsuario):
-        self.vtime[siUsuario == self.human_side].stop_marker()
-        self.show_time(siUsuario)
+        if self.timed:
+            self.vtime[siUsuario == self.is_human_side_white].stop_marker()
+            self.show_time(siUsuario)
 
     def run_action(self, key):
         if key == TB_RESIGN:
@@ -250,7 +257,7 @@ class ManagerLeague(Manager.Manager):
             self.configurar([], siSonidos=True)
 
         elif key == TB_UTILITIES:
-            self.utilidades()
+            self.utilities()
 
         elif key == TB_ADJOURN:
             self.adjourn()
@@ -268,11 +275,13 @@ class ManagerLeague(Manager.Manager):
             "match_saved": self.match.save(),
             "division": self.division,
             "game_save": self.game.save(),
+            "timed": self.timed,
         }
 
-        self.main_window.stop_clock()
-        dic["time_white"] = self.vtime[WHITE].save()
-        dic["time_black"] = self.vtime[BLACK].save()
+        if self.timed:
+            self.main_window.stop_clock()
+            dic["time_white"] = self.vtime[WHITE].save()
+            dic["time_black"] = self.vtime[BLACK].save()
 
         return dic
 
@@ -284,8 +293,9 @@ class ManagerLeague(Manager.Manager):
         self.base_inicio(league, match, division)
         self.game.restore(dic["game_save"])
 
-        self.vtime[WHITE].restore(dic["time_white"])
-        self.vtime[BLACK].restore(dic["time_black"])
+        if dic.get("timed"):
+            self.vtime[WHITE].restore(dic["time_white"])
+            self.vtime[BLACK].restore(dic["time_black"])
 
         self.goto_end()
 
@@ -367,7 +377,7 @@ class ManagerLeague(Manager.Manager):
         is_white = self.game.is_white()
 
         if self.game.is_finished():
-            self.muestra_resultado()
+            self.show_result()
             return
 
         self.set_side_indicator(is_white)
@@ -414,19 +424,22 @@ class ManagerLeague(Manager.Manager):
         self.rival_is_thinking = True
         self.rm_rival = None
         self.pon_toolbar()
-        self.activate_side(self.human_side)
+        self.activate_side(self.is_human_side_white)
 
         self.thinking(True)
-        seconds_white = self.vtime[True].pending_time
-        seconds_black = self.vtime[False].pending_time
-        seconds_move = self.seconds_per_move
+        if self.timed:
+            seconds_white = self.vtime[True].pending_time
+            seconds_black = self.vtime[False].pending_time
+            seconds_move = self.seconds_per_move
+        else:
+            seconds_black = seconds_white = 10 * 60
+            seconds_move = 0
         self.xrival.play_time_routine(
             self.game,
             self.main_window.notify,
             seconds_white,
             seconds_black,
             seconds_move,
-            humanize=self.humanize
         )
 
     def mueve_rival_base(self):
@@ -443,7 +456,7 @@ class ManagerLeague(Manager.Manager):
 
         self.lirm_engine.append(rm_rival)
         if not self.valoraRMrival():
-            self.muestra_resultado()
+            self.show_result()
             return True
 
         ok, self.error, move = Move.get_game_move(
@@ -503,7 +516,7 @@ class ManagerLeague(Manager.Manager):
 
         self.refresh()
 
-    def muestra_resultado(self):
+    def show_result(self):
         self.save_match()
         self.state = ST_ENDGAME
         self.disable_all()
@@ -518,7 +531,7 @@ class ManagerLeague(Manager.Manager):
             self.muestra_resultado_delayed()
 
     def muestra_resultado_delayed(self):
-        mensaje, beep, player_win = self.game.label_resultado_player(self.human_side)
+        mensaje, beep, player_win = self.game.label_resultado_player(self.is_human_side_white)
 
         self.beepResultado(beep)
         self.autosave()

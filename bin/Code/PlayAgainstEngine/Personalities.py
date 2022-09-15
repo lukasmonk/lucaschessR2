@@ -43,9 +43,9 @@ class Personalities:
             ("-" * 30, None),
             (_("Move selected by the player"), ADJUST_SELECTED_BY_PLAYER),
         ]
-        if siTodos and self.configuration.liPersonalidades:
+        if siTodos and self.configuration.li_personalities:
             liAjustes.append(("-" * 30, None))
-            for num, una in enumerate(self.configuration.liPersonalidades):
+            for num, una in enumerate(self.configuration.li_personalities):
                 liAjustes.append((una["NOMBRE"], 1000 + num))
         return liAjustes
 
@@ -207,15 +207,15 @@ class Personalities:
 
         menu.opcion(("c", None), _("New personality"), icoCrear)
 
-        liPersonalidades = self.configuration.liPersonalidades
-        if liPersonalidades:
+        li_personalities = self.configuration.li_personalities
+        if li_personalities:
             menu.separador()
             menuMod = menu.submenu(_("Edit"), icoEditar)
-            for num, una in enumerate(liPersonalidades):
+            for num, una in enumerate(li_personalities):
                 menuMod.opcion(("e", num), una["NOMBRE"], icoVerde)
             menu.separador()
             menuBor = menu.submenu(_("Delete"), icoBorrar)
-            for num, una in enumerate(liPersonalidades):
+            for num, una in enumerate(li_personalities):
                 menuBor.opcion(("b", num), una["NOMBRE"], icoRojo)
         resp = menu.lanza()
         if resp:
@@ -224,16 +224,16 @@ class Personalities:
             if accion == "c":
                 una = self.edit(None, icoCrear)
                 if una:
-                    liPersonalidades.append(una)
+                    li_personalities.append(una)
                     siRehacer = True
             elif accion == "e":
-                una = self.edit(liPersonalidades[num], icoEditar)
+                una = self.edit(li_personalities[num], icoEditar)
                 if una:
-                    liPersonalidades[num] = una
+                    li_personalities[num] = una
                     siRehacer = True
             elif accion == "b":
-                if QTUtil2.pregunta(self.owner, _X(_("Delete %1?"), liPersonalidades[num]["NOMBRE"])):
-                    del liPersonalidades[num]
+                if QTUtil2.pregunta(self.owner, _X(_("Delete %1?"), li_personalities[num]["NOMBRE"])):
+                    del li_personalities[num]
                     siRehacer = True
 
             if siRehacer:

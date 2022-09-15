@@ -218,7 +218,7 @@ class Album:
         self.put_db(self.claveDB, None)
 
 
-class Albumes:
+class Albums:
     def __init__(self, pre_clave):
         self.ficheroDB = Code.configuration.ficheroAlbumes
         self.preClave = pre_clave
@@ -305,15 +305,9 @@ class Albumes:
         return dic
 
 
-class AlbumesAnimales(Albumes):
+class AlbumAnimales(Albums):
     def __init__(self):
-        Albumes.__init__(self, "animales")
-
-        # dic = { "animales_Ant":True, "animales_Bee":True, "animales_Turtle":True, "animales_Chicken":True,
-        # "animales_Eagle":True, "animales_Panda":True,
-        # "animales_Hippo":True, "animales_Rabbit":True, "animales_Giraffe":True, "animales_Shark":True,
-        # "animales_Wolf":True }
-        # self.putDB( ALBUMSHECHOS, dic )
+        Albums.__init__(self, "animales")
 
     def configura(self):
         dic = collections.OrderedDict()
@@ -440,9 +434,9 @@ class AlbumesAnimales(Albumes):
         return li
 
 
-class AlbumesVehicles(Albumes):
+class AlbumVehicles(Albums):
     def __init__(self):
-        Albumes.__init__(self, "vehicles")
+        Albums.__init__(self, "vehicles")
 
         # dic = { "animales_Ant":True, "animales_Bee":True, "animales_Turtle":True, "animales_Chicken":True,
         # "animales_Eagle":True, "animales_Panda":True,
@@ -531,3 +525,5 @@ class AlbumesVehicles(Albumes):
             Cromo("Airplane", _("Airplane"), 5, 99, 0, 0, 10, 26, 300, 150, 1, "k", 999),
         ]
         return li
+
+

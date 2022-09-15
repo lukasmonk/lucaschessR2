@@ -12,13 +12,15 @@ from Code.CountsCaptures import WRunCommon
 
 
 class WRunMate15(LCDialog.LCDialog):
-    def __init__(self, owner, db_mate15, mate15):
+    def __init__(self, owner, db_mate15, mate15, use_pgn):
 
         LCDialog.LCDialog.__init__(self, owner, _X(_("Mate in %1"), "1½"), Iconos.Mate15(), "runmate15")
 
         self.configuration = Code.configuration
         self.mate15 = mate15
         self.db_mate15 = db_mate15
+
+        self.use_pgn = use_pgn
 
         conf_board = self.configuration.config_board("RUNMATE15", 64)
 
@@ -32,7 +34,7 @@ class WRunMate15(LCDialog.LCDialog):
 
         self.lb_first_move = Controles.LB(self).ponTipoLetra(puntos=12, peso=500)
 
-        self.bt_check = Controles.PB(self, _("Verify"), self.check, False).ponIcono(Iconos.Check(), icon_size=20)
+        self.bt_check = Controles.PB(self, _("Verify"), self.verify, False).ponIcono(Iconos.Check(), icon_size=20)
 
         self.lb_result = Controles.LB(self).ponTipoLetra(puntos=12, peso=500)
 
@@ -41,13 +43,14 @@ class WRunMate15(LCDialog.LCDialog):
         ly = Colocacion.G().margen(4)
         for row in range(10):
             lb = Controles.LB(self).ponTipoLetra(puntos=12, peso=500)
-            wm = WRunCommon.WEdMove(self)
+            wm = WRunCommon.WEdMovePGN(self) if use_pgn else WRunCommon.WEdMove(self)
             self.li_lb_wm.append((lb, wm))
             ly.controld(lb, row, 0)
             ly.columnaVacia(1, 20)
             ly.control(wm, row, 2)
             lb.hide()
             wm.hide()
+
         ly.filaVacia(10, 20)
         ly.controlc(self.bt_check, 11, 0, numColumnas=3)
         ly.controlc(self.lb_result, 12, 0, numColumnas=3)
@@ -128,6 +131,9 @@ class WRunMate15(LCDialog.LCDialog):
         self.time_base = time.time()
 
     def pulsada_celda(self, celda):
+        if self.use_pgn:
+            return
+
         if self.ultimaCelda:
             self.ultimaCelda.set_text(celda)
 
@@ -160,7 +166,7 @@ class WRunMate15(LCDialog.LCDialog):
             self.save_video()
             self.reject()
         elif accion == "comprobar":
-            self.check()
+            self.verify()
         elif accion == "seguir":
             self.seguir()
 
@@ -170,7 +176,7 @@ class WRunMate15(LCDialog.LCDialog):
 
     def show_tb(self, *lista):
         for opc in self.tb.dic_toolbar:
-            self.tb.setAccionVisible(opc, opc in lista)
+            self.tb.set_action_visible(opc, opc in lista)
         QTUtil.refresh_gui()
 
     def begin(self):
@@ -183,7 +189,7 @@ class WRunMate15(LCDialog.LCDialog):
         self.mate15 = self.db_mate15.create_new()
         self.set_position()
 
-    def check(self):
+    def verify(self):
         self.bt_check.hide()
 
         cp = Position.Position()
@@ -196,11 +202,17 @@ class WRunMate15(LCDialog.LCDialog):
         si_error = False
 
         for pos, (move, resp) in enumerate(self.mate15.resp.items()):
-            cp.read_fen(fen)
-            cp.mover(move[:2], move[2:4], move[4:])
 
             wm = self.li_lb_wm[pos][1]
             mv_done = wm.movimiento()
+            if self.use_pgn:
+                cp.read_fen(fen)
+                cp.mover(move[:2], move[2:4], move[4:])
+                mv_done = mv_done.lower().replace(" ", "")
+                if not mv_done.endswith("#"):
+                    mv_done += "#"
+                resp = cp.pgn_translated(resp[:2], resp[2:4], resp[4:]).lower()
+
             if mv_done == resp:
                 wm.correcta()
             else:

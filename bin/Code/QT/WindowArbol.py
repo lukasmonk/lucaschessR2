@@ -22,7 +22,6 @@ from Code.QT import Controles
 from Code.QT import FormLayout
 from Code.QT import Iconos
 from Code.QT import LCDialog
-from Code.QT import QTUtil
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
 from Code.SQL import UtilSQL
@@ -150,9 +149,9 @@ class ListaMoves:
         dicCache = self.dbCache[self.fenm2]
 
         FasterCode.set_fen(self.fenm2 + " 0 1")
-        liMov = [xpv[1:] for xpv in FasterCode.get_moves()]
-
+        liMov = [pv_pz for pv_pz in FasterCode.get_moves()]
         liMov.sort()
+        liMov = [pv_pz[1:] for pv_pz in liMov]
         liMoves = []
         for pv in liMov:
             um = UnMove(self, pv, dicCache)
@@ -199,7 +198,7 @@ class ListaMoves:
         return len(self.liMoves) - n, n
 
     def nomAnalisis(self):
-        if self.analisisActivo is None:
+        if self.analisisActivo is None or len(self.li_analysis) <= self.analisisActivo:
             return ""
         mrm = self.li_analysis[self.analisisActivo]
         return mrm.label
@@ -235,6 +234,13 @@ class ListaMoves:
         self.liMoves = liMov
 
     def ponAnalisisActivo(self, num):
+
+        if num is not None and num >= len(self.li_analysis):
+            if len(self.li_analysis) > 0:
+                num = len(self.li_analysis) - 1
+            else:
+                num = None
+
         self.analisisActivo = num
 
         if num is None:
@@ -302,15 +308,15 @@ class TreeMoves(QtWidgets.QTreeWidget):
 
         dic_nags = Code.Nags.Nags.dic_nags()
         self.dicValoracion = collections.OrderedDict()
-        self.dicValoracion["1"] = (VERY_GOOD_MOVE, dic_nags[3])
-        self.dicValoracion["2"] = (GOOD_MOVE, dic_nags[1])
-        self.dicValoracion["3"] = (MISTAKE, dic_nags[2])
-        self.dicValoracion["4"] = (BLUNDER, dic_nags[4])
-        self.dicValoracion["5"] = (SPECULATIVE_MOVE, dic_nags[5])
-        self.dicValoracion["6"] = (INACCURACY, dic_nags[6])
-        self.dicValoracion["0"] = (NO_RATING, _("No rating"))
+        self.dicValoracion["1"] = (VERY_GOOD_MOVE, dic_nags[3].text, Iconos.NAG_3())
+        self.dicValoracion["2"] = (GOOD_MOVE, dic_nags[1].text, Iconos.NAG_1())
+        self.dicValoracion["3"] = (MISTAKE, dic_nags[2].text, Iconos.NAG_2())
+        self.dicValoracion["4"] = (BLUNDER, dic_nags[4].text, Iconos.NAG_4())
+        self.dicValoracion["5"] = (SPECULATIVE_MOVE, dic_nags[5].text, Iconos.NAG_5())
+        self.dicValoracion["6"] = (INACCURACY, dic_nags[6].text, Iconos.NAG_6())
+        self.dicValoracion["0"] = (NO_RATING, _("No rating"), Iconos.NAG_0())
 
-        ftxt = Controles.TipoLetra(puntos=9)
+        ftxt = Controles.TipoLetra(puntos=Code.configuration.x_pgn_fontpoints)
 
         self.setFont(ftxt)
 
@@ -389,23 +395,22 @@ class TreeMoves(QtWidgets.QTreeWidget):
             self.editAnalisis(item, mov)
 
         elif col == 2:
-            self.editComentario(item, mov)
+            self.edit_comment(item, mov)
 
-    def editComentario(self, item, mov):
+    def edit_comment(self, item, mov):
+        form = FormLayout.FormLayout(self, ("Comments") + " " + mov.titulo, Iconos.ComentarioEditar(), anchoMinimo=400)
 
-        li_gen = [(None, None)]
+        form.separador()
 
-        config = FormLayout.Editbox(_("Comments"))
-        li_gen.append((config, mov.comment))
+        form.editbox(_("Comments"), mov.comment, alto=5, init_value=mov.comment)
+        form.separador()
 
-        resultado = FormLayout.fedit(
-            li_gen, title=_("Comments") + " " + mov.titulo, parent=self, anchoMinimo=400, icon=Iconos.ComentarioEditar()
-        )
+        resultado = form.run()
         if resultado is None:
             return
 
-        accion, liResp = resultado
-        mov.comment = liResp[0]
+        accion, li_resp = resultado
+        mov.comment = li_resp[0].rstrip()
 
         item.setText(2, mov.comment)
         item.setToolTip(2, mov.comment)
@@ -413,8 +418,8 @@ class TreeMoves(QtWidgets.QTreeWidget):
     def editValoracion(self, item, mov):
         menu = QTVarios.LCMenu(self)
         for k in self.dicValoracion:
-            cl, titulo = self.dicValoracion[k]
-            menu.opcion(cl, "%s) %s" % (k, titulo), self.iconoValoracion(cl))
+            cl, titulo, icono = self.dicValoracion[k]
+            menu.opcion(cl, titulo, icono)
             menu.separador()
 
         resp = menu.lanza()
@@ -426,7 +431,7 @@ class TreeMoves(QtWidgets.QTreeWidget):
 
     def editAnalisis(self, item, mov):
         # Hay un analysis -> se muestra en variantes
-        # Analisis.show_analysis( self.procesador, self.xtutor, move, is_white, max_recursion, pos )
+        # Analisis.show_analysis( self.procesador, self.xtutor, move, is_white, pos )
         fen = mov.game.last_position.fen()
 
         rm = mov.analysis()
@@ -435,7 +440,7 @@ class TreeMoves(QtWidgets.QTreeWidget):
 
         game = Game.Game(mov.game.last_position)
         game.read_pv(rm.pv)
-        lineaPGN = game.pgnBaseRAW()
+        linea_pgn = game.pgnBaseRAW()
         wowner = self.owner
         board = wowner.infoMove.board
         import Code.Variations as Variations
@@ -445,7 +450,7 @@ class TreeMoves(QtWidgets.QTreeWidget):
             wowner,
             board.is_white_bottom,
             fen,
-            lineaPGN,
+            linea_pgn,
             titulo=mov.titulo + " - " + mov.etiPuntos(True),
         )
         if game_resp:
@@ -454,29 +459,29 @@ class TreeMoves(QtWidgets.QTreeWidget):
 
     def mostrarOcultar(self, item, mov):
         lm = mov.listaMovesPadre
-        nVisibles, nOcultos = lm.numVisiblesOcultos()
-        if nVisibles <= 1 and nOcultos == 0:
+        n_visibles, n_ocultos = lm.numVisiblesOcultos()
+        if n_visibles <= 1 and n_ocultos == 0:
             return
 
-        listaMovsSiguientes = lm.listaMovsSiguientes(mov)
+        lista_movs_siguientes = lm.listaMovsSiguientes(mov)
 
         menu = QTVarios.LCMenu(self)
 
-        if nVisibles > 1:
+        if n_visibles > 1:
             smenu = menu.submenu(_("Hide"), Iconos.Ocultar())
             smenu.opcion("actual", _("Selected move"), Iconos.PuntoNaranja())
             smenu.separador()
-            if listaMovsSiguientes:
+            if lista_movs_siguientes:
                 smenu.opcion("siguientes", _("Next moves"), Iconos.PuntoRojo())
                 smenu.separador()
 
             for k in self.dicValoracion:
-                valoracion, titulo = self.dicValoracion[k]
+                valoracion, titulo, icono = self.dicValoracion[k]
                 if lm.listaMovsValoracionVisibles(valoracion):
-                    smenu.opcion("val_%d" % valoracion, titulo, self.iconoValoracion(valoracion))
+                    smenu.opcion("val_%d" % valoracion, titulo, icono)
                     smenu.separador()
 
-        if nOcultos:
+        if n_ocultos:
             menu.opcion("mostrar", _("Show what is hidden"), Iconos.Mostrar())
 
         resp = menu.lanza()
@@ -487,16 +492,16 @@ class TreeMoves(QtWidgets.QTreeWidget):
             mov.siOculto = True
 
         elif resp == "siguientes":
-            for mv in listaMovsSiguientes:
+            for mv in lista_movs_siguientes:
                 mv.siOculto = True
 
         elif resp.startswith("val_"):
             valoracion = int(resp[4])
             for mv in lm.listaMovsValoracionVisibles(valoracion):
-                if nVisibles == 1:
+                if n_visibles == 1:
                     break
                 mv.siOculto = True
-                nVisibles -= 1
+                n_visibles -= 1
 
         elif resp == "mostrar":
             for mv in lm.liMoves:
@@ -512,18 +517,7 @@ class TreeMoves(QtWidgets.QTreeWidget):
         self.owner.wmoves.menuContexto()
 
     def iconoValoracion(self, valoracion):
-        cnf = Code.configuration
-
-        dic = {
-            0: "lightgray",
-            1: cnf.x_color_nag1,
-            2: cnf.x_color_nag2,
-            3: cnf.x_color_nag3,
-            4: cnf.x_color_nag4,
-            5: cnf.x_color_nag5,
-            6: cnf.x_color_nag6,
-        }
-        return QTUtil.colorIcon(dic[valoracion], 8, 8)
+        return Iconos.icono("NAG_%d" % valoracion)
 
     def ponIconoValoracion(self, item, valoracion):
         item.setIcon(0, self.iconoValoracion(valoracion))
@@ -538,7 +532,6 @@ class TreeMoves(QtWidgets.QTreeWidget):
         mov = mov.listaMovesPadre.buscaMovVisibleDesde(mov)
         self.setCurrentItem(mov.item)
         self.owner.muestra(mov)
-        # self.owner.wmoves.setFocus()
         self.setFocus()
 
     def seleccionado(self, item, itemA):
@@ -548,14 +541,14 @@ class TreeMoves(QtWidgets.QTreeWidget):
     def keyPressEvent(self, event):
         resp = QtWidgets.QTreeWidget.keyPressEvent(self, event)
         k = event.key()
-        if k == 43:
+        if k == QtCore.Qt.Key_Plus:
             self.mas()
         elif k in (QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace):
             self.menos()
-        elif 48 <= k <= 52:
+        elif 48 <= k <= 54:
             item = self.currentItem()
             if item:
-                cl, titulo = self.dicValoracion[chr(k)]
+                cl, titulo, icono = self.dicValoracion[chr(k)]
                 self.ponIconoValoracion(item, cl)
                 mov = self.dicItemMoves[str(item)]
                 mov.valoracion = cl
@@ -577,11 +570,10 @@ class TreeMoves(QtWidgets.QTreeWidget):
         if mov is None:
             item = self.currentItem()
             mov = self.dicItemMoves[str(item)]
-        else:
-            item = mov.item
+
         lm = mov.listaMovesPadre
-        nVisibles, nOcultos = lm.numVisiblesOcultos()
-        if nVisibles <= 1:
+        n_visibles, n_ocultos = lm.numVisiblesOcultos()
+        if n_visibles <= 1:
             return
 
         qm = self.currentIndex()
@@ -612,7 +604,7 @@ class WMoves(QtWidgets.QWidget):
         self.tb = Controles.TBrutina(self, with_text=False, icon_size=24)
         self.tb.new(_("Open new branch"), Iconos.Mas(), self.rama)
         self.tb.new(_("Show") + "/" + _("Hide"), Iconos.Mostrar(), self.mostrar)
-        self.tb.new(_("Rating"), self.tree.iconoValoracion(3), self.valorar)
+        self.tb.new(_("Rating"), self.tree.iconoValoracion(0), self.valorar)
         self.tb.new(_("Analyze"), Iconos.Analizar(), self.analizar)
         self.tb.new(_("Comments"), Iconos.ComentarioEditar(), self.comment)
 
@@ -642,7 +634,7 @@ class WMoves(QtWidgets.QWidget):
         mov = self.tree.currentMov()
         if not mov:
             return
-        self.tree.editComentario(mov.item, mov)
+        self.tree.edit_comment(mov.item, mov)
 
     def mostrar(self):
         mov = self.tree.currentMov()
@@ -735,7 +727,7 @@ class WindowArbol(LCDialog.LCDialog):
         if nj >= 0:
             position = game.move(nj).position
         else:
-            position = game.last_position
+            position = game.first_position
         self.listaMoves = ListaMoves(None, position.fen(), self.dbCache)
 
         tb = QTVarios.LCTB(self)
@@ -745,7 +737,7 @@ class WindowArbol(LCDialog.LCDialog):
         self.infoMove = InfoMove(parent_board.is_white_bottom)
 
         w = QtWidgets.QWidget(self)
-        ly = Colocacion.V().control(tb).control(self.infoMove)
+        ly = Colocacion.V().control(tb).control(self.infoMove).margen(3)
         w.setLayout(ly)
 
         self.wmoves = WMoves(self, procesador)
@@ -768,13 +760,13 @@ class WindowArbol(LCDialog.LCDialog):
                 "TREE_3": 27,
                 "SPLITTER": [260 - 242 + anchoBoard, 617],
                 "TREE_1": 49,
-                "TREE_2": 383,
+                "TREE_2": 300,
                 "TREE_4": 25,
             }
         sz = dicVideo.get("SPLITTER", None)
         if sz:
             self.splitter.setSizes(sz)
-        for x in range(1, 6):
+        for x in range(1, 2):
             w = dicVideo.get("TREE_%d" % x, None)
             if w:
                 self.wmoves.tree.setColumnWidth(x, w)
@@ -801,7 +793,7 @@ class WindowArbol(LCDialog.LCDialog):
 
     def closeEvent(self, event):
         self.dbCache.close()
-        self.salvarVideo()
+        self.save_video()
 
     def analizar(self, mov):
         if mov.listaMovesPadre:
@@ -823,7 +815,7 @@ class WindowArbol(LCDialog.LCDialog):
                 menu.opcion(-999998, _("Hide analysis"), Iconos.Ocultar())
                 menu.separador()
 
-            menu1 = menu.submenu(_("Remove"), Iconos.Delete())
+            menu1 = menu.submenu(_("Delete analysis of"), Iconos.Delete())
             for n, mrm in enumerate(lm.li_analysis):
                 menu1.opcion(-n - 1, mrm.label, Iconos.PuntoRojo())
                 menu1.separador()
@@ -847,7 +839,7 @@ class WindowArbol(LCDialog.LCDialog):
             else:
                 num = -resp - 1
                 mrm = lm.li_analysis[num]
-                if QTUtil2.pregunta(self, _X(_("Delete %1?"), mrm.label)):
+                if QTUtil2.pregunta(self, _X(_("Delete analysis of %1?"), mrm.label)):
                     self.quitaAnalisis(lm, num)
                 return
 
@@ -859,24 +851,34 @@ class WindowArbol(LCDialog.LCDialog):
         alm = WindowAnalysisParam.analysis_parameters(self, Code.configuration, False, siTodosMotores=True)
         if alm is None:
             return
-        confMotor = Code.configuration.buscaRival(alm.engine)
-        confMotor.update_multipv(alm.multiPV)
-        # confMotor.debug( "rival" )
+        if alm.engine == "default":
+            xengine = self.procesador.analyzer_clone(alm.vtime, alm.depth, alm.multiPV)
+        else:
+            confMotor = Code.configuration.buscaRival(alm.engine)
+            confMotor.update_multipv(alm.multiPV)
+            xengine = self.procesador.creaManagerMotor(confMotor, alm.vtime, alm.depth, siMultiPV=True)
 
-        xengine = self.procesador.creaManagerMotor(confMotor, alm.vtime, alm.depth, siMultiPV=True)
+        me = QTUtil2.analizando(self, True)
 
-        me = QTUtil2.analizando(self)
+        def test_me(rm):
+            if me.cancelado():
+                xengine.stop()
+            return True
+
+        xengine.set_gui_dispatch(test_me)
+
         mrm = xengine.analiza(fen)
-        mrm.vtime = alm.vtime / 1000.0
-        mrm.depth = alm.depth
-
-        tipo = "%s=%d" % (_("Depth"), mrm.depth) if mrm.depth else '%.0f"' % mrm.vtime
-        mrm.label = "%s %s" % (mrm.name, tipo)
         xengine.terminar()
+        cancelado = me.cancelado()
         me.final()
+        if not cancelado:
+            mrm.vtime = alm.vtime / 1000.0
+            mrm.depth = alm.depth
 
-        lm.li_analysis.append(mrm)
-        self.ponAnalisis(lm, len(lm.li_analysis) - 1)
+            tipo = "%s=%d" % (_("Depth"), mrm.depth) if mrm.depth else '%.0f"' % mrm.vtime
+            mrm.label = "%s %s" % (mrm.name, tipo)
+            lm.li_analysis.append(mrm)
+            self.ponAnalisis(lm, len(lm.li_analysis) - 1)
 
     def ponAnalisis(self, lm, num):
 

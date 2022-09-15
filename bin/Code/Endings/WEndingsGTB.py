@@ -4,6 +4,7 @@ import time
 import FasterCode
 from PySide2 import QtWidgets, QtCore
 
+import Code
 from Code.Base import Game, Move
 from Code.Board import Board
 from Code.Databases import DBgames
@@ -40,15 +41,42 @@ class WEndingsGTB(LCDialog.LCDialog):
         self.game = Game.Game()
         self.act_recno = -1
 
-        li_acciones = (
+        li_acciones = [
             (_("Close"), Iconos.MainMenu(), self.terminar),
             None,
             (_("Config"), Iconos.Configurar(), self.configurar),
             None,
-            (_("Utilities"), Iconos.Utilidades(), self.utilidades),
+            (_("Utilities"), Iconos.Utilidades(), self.utilities),
             None,
-        )
-        tb = QTVarios.LCTB(self, li_acciones)
+        ]
+        if Code.eboard:
+            li_acciones.append((_("Enable"), Code.eboard.icon_eboard(), self.eboard))
+            li_acciones.append(None)
+        #     dic_opciones[TB_EBOARD] = [
+        #         "%s/%s %s" % (_("Enable"), _("Disable"), self.configuration.x_digital_board),
+        #         Code.eboard.icon_eboard(),
+        #     ]
+        # if with_eboard:
+        #     li_acciones = list(li_acciones)
+        #     if TB_CONFIG in li_acciones:
+        #         pos = li_acciones.index(TB_CONFIG)
+        #         li_acciones.insert(pos, TB_EBOARD)
+        #     else:
+        #         li_acciones.append(TB_EBOARD)
+        #     title = _("Disable") if Code.eboard.driver else _("Enable")
+        #     self.dic_toolbar[TB_EBOARD].setIconText(title)
+        # elif key == TB_EBOARD:
+        #     if Code.eboard and self.with_eboard:
+        #         if Code.eboard.driver:
+        #             self.main_window.deactivate_eboard(100)
+        #         else:
+        #             Code.eboard.activate(self.board.dispatch_eboard)
+        #             Code.eboard.set_position(self.board.last_position)
+        #         self.main_window.set_title_toolbar_eboard()
+        #
+
+
+        self.tb_base = QTVarios.LCTB(self, li_acciones)
 
         ly_bt, self.bt_movs = QTVarios.lyBotonesMovimiento(
             self, "", siTiempo=True, siLibre=False, rutina=self.run_botones, icon_size=24
@@ -81,18 +109,22 @@ class WEndingsGTB(LCDialog.LCDialog):
         )
         self.tb_run = Controles.TBrutina(self, li_acciones, icon_size=32, puntos=self.configuration.x_tb_fontpoints)
 
-        ly_top = Colocacion.H().control(tb).relleno().control(self.wpzs).relleno().control(self.tb_run)
+        ly_top = Colocacion.H().control(self.tb_base).relleno().control(self.wpzs).relleno().control(self.tb_run)
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("NUM", _("N."), 50, align_center=True)
         o_columns.nueva("XFEN", _("Position"), 140, align_center=True)
         o_columns.nueva("MATE", _("Mate"), 60, align_center=True)
         o_columns.nueva("TRIES", _("Tries"), 50, align_center=True)
-        o_columns.nueva("MOVES", _("Minimum moves"), 120, align_center=True)
-        o_columns.nueva("TIMEMS", _("Minimum time"), 120, align_center=True)
+        o_columns.nueva("TRIES_OK", _("Success"), 50, align_center=True)
+        o_columns.nueva("MOVES", _("Moves"), 120, align_center=True)
+        o_columns.nueva("TIMEMS", _("Time"), 120, align_center=True)
+        o_columns.nueva("AVERAGE", "⨊", 100, align_center=True)
         self.grid = Grid.Grid(self, o_columns, siSelecFilas=True)
         self.grid.tipoLetra(puntos=self.configuration.x_pgn_fontpoints)
         self.grid.ponAltoFila(self.configuration.x_pgn_rowheight)
         self.grid.setSizePolicy(QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding))
+
+        self.register_grid(self.grid)
 
         ly_pos = Colocacion.V().control(self.grid)
 
@@ -132,6 +164,23 @@ class WEndingsGTB(LCDialog.LCDialog):
         self.pos_game = -1
         self.help_changed()
         self.restart()
+
+    @staticmethod
+    def deactivate_eboard(ms):
+        if Code.eboard and Code.eboard.driver:
+            QTUtil.refresh_gui()
+            QtCore.QTimer.singleShot(ms, Code.eboard.deactivate)
+
+    def eboard(self):
+        if Code.eboard.driver:
+            self.deactivate_eboard(100)
+            title = _("Enable")
+        else:
+            Code.eboard.activate(self.board.dispatch_eboard)
+            Code.eboard.set_position(self.board.last_position)
+            title = _("Disable")
+
+        self.tb_base.set_action_title(self.eboard, title)
 
     def help_changed(self):
         self.test_help()
@@ -213,7 +262,7 @@ class WEndingsGTB(LCDialog.LCDialog):
     def remove(self):
         row = self.grid.recno()
         if row >= 0:
-            if QTUtil2.pregunta(self, "Do you want to remove this position?"):
+            if QTUtil2.pregunta(self, _("Do you want to delete this position?")):
                 self.db.remove(row)
                 self.grid.refresh()
                 self.grid_cambiado_registro(None, row, None)
@@ -294,28 +343,43 @@ class WEndingsGTB(LCDialog.LCDialog):
         key = ocol.key
         if key == "NUM":
             return str(row + 1)
+        elif key == "AVERAGE":
+            timems = self.db.current_fen_field(row, "TIMEMS", None)
+            if timems is None:
+                return ""
+            mt = self.db.current_fen_field(row, "MATE")
+            if mt == 0:
+                moves = self.db.current_fen_field(row, "MOVES")
+            else:
+                moves = (mt + 1) // 2
+            factor = timems / (moves * 1000)
+            return "%.1f" % factor
         else:
             data = self.db.current_fen_field(row, ocol.key, None)
             if data is None:
                 return ""
             if key == "MATE":
-                tok = self.db.current_fen_field(row, "TRIES_OK")
+                # tok = self.db.current_fen_field(row, "TRIES_OK")
                 if data == 0:
                     return _("Draw")
                 else:
                     return str((data + 1) // 2)
             elif key == "TIMEMS":
-                mt = self.db.current_fen_field(row, "MATE")
-                if mt == 0:
-                    moves = self.db.current_fen_field(row, "MOVES")
-                else:
-                    moves = (mt + 1) // 2
-                factor = data / (moves * 1000)
-                return "%.1f (%.1f)" % (data / 1000, factor)
+                #     mt = self.db.current_fen_field(row, "MATE")
+                #     if mt == 0:
+                #         moves = self.db.current_fen_field(row, "MOVES")
+                #     else:
+                #         moves = (mt + 1) // 2
+                #     factor = data / (moves * 1000)
+                #     return "%.1f (%.1f)" % (data / 1000, factor)
+                return "%.1f" % (data / 1000,)
 
-            elif key == "TRIES":
-                tok = self.db.current_fen_field(row, "TRIES_OK")
-                return "%d/%d" % (data, tok)
+            # elif key == "TRIES":
+            #     tok = self.db.current_fen_field(row, "TRIES_OK")
+            #     return "%d/%d" % (data, tok)
+            # elif key == "TRIES":
+            #     tok = self.db.current_fen_field(row, "TRIES_OK")
+            #     return "%d/%d" % (data, tok)
             return str(data)
 
     def grid_cambiado_registro(self, grid, row, column):
@@ -349,6 +413,7 @@ class WEndingsGTB(LCDialog.LCDialog):
         self.db.close()
         self.t4.close()
         self.procesador.stop_engines()
+        self.deactivate_eboard(500)
         self.accept()
 
     def closeEvent(self, event):
@@ -408,9 +473,9 @@ class WEndingsGTB(LCDialog.LCDialog):
                     go_next = False
 
                 if not go_next:
-                    QTUtil2.message_accept(self, _("Done"), explanation=mensaje)
+                    QTUtil2.message_accept(self, _("Done"), explanation=mensaje, delayed=True)
             else:
-                QTUtil2.message_error(self, _("Failed attempt") + "\n\n" + self.game.label_termination())
+                QTUtil2.message_error(self, _("Failed attempt") + "\n\n" + self.game.label_termination(), delayed=True)
 
             self.bt_movs.show()
             self.pos_game = len(self.game) - 1
@@ -438,7 +503,9 @@ class WEndingsGTB(LCDialog.LCDialog):
             elif movim[0] == "c":
                 self.board.cambiaPieza(movim[1], movim[2])
         self.timer = time.time()
+        self.board.set_raw_last_position(self.game.last_position)
         self.sigueHumano()
+
 
     def player_has_moved(self, from_sq, to_sq, promotion=""):
         if self.timer:
@@ -529,7 +596,7 @@ class WEndingsGTB(LCDialog.LCDialog):
             self.pos_game = len(self.game) - 1
         self.set_position()
 
-    def utilidades(self):
+    def utilities(self):
         menu = QTVarios.LCMenu(self)
 
         submenu = menu.submenu(_("Import"), Iconos.Import8())

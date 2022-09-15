@@ -4,19 +4,18 @@ import os
 import chardet.universaldetector
 from PySide2 import QtWidgets
 
-from Code.Base import Game
+from Code import Util
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles
 from Code.QT import Delegados
 from Code.QT import Grid
 from Code.QT import Iconos
+from Code.QT import LCDialog
 from Code.QT import QTUtil
 from Code.QT import QTUtil2, SelectFiles
 from Code.QT import QTVarios
 from Code.Translations import TrListas
-from Code import Util
-from Code.QT import LCDialog
 
 
 class WBaseSave(QtWidgets.QWidget):
@@ -226,7 +225,9 @@ class WSave(LCDialog.LCDialog):
 
         # Rest
         self.chb_overwrite = Controles.CHB(self, _("Overwrite"), False).ponFuente(f)
-        self.chb_remove_c_v = Controles.CHB(self, _("Remove comments and variations"), self.remove_c_v).ponFuente(f)
+        self.chb_remove_comments = Controles.CHB(self, _("Remove comments"), self.remove_comments).ponFuente(f)
+        self.chb_remove_variations = Controles.CHB(self, _("Remove variations"), self.remove_variations).ponFuente(f)
+        self.chb_remove_nags = Controles.CHB(self, _("Remove NAGs"), self.remove_nags).ponFuente(f)
 
         lyF = Colocacion.H().control(lb_file).control(self.bt_file).control(bt_history).control(bt_boxrooms).relleno(1)
         lyC = Colocacion.H().control(lb_codec).control(self.cb_codecs).relleno(1)
@@ -235,8 +236,12 @@ class WSave(LCDialog.LCDialog):
             .espacio(15)
             .otro(lyF)
             .otro(lyC)
+            .espacio(10)
             .control(self.chb_overwrite)
-            .control(self.chb_remove_c_v)
+            .espacio(10)
+            .control(self.chb_remove_comments)
+            .control(self.chb_remove_variations)
+            .control(self.chb_remove_nags)
             .relleno(1)
         )
         w = QtWidgets.QWidget()
@@ -319,13 +324,17 @@ class WSave(LCDialog.LCDialog):
         dicVariables = self.configuration.read_variables("SAVEPGN")
         self.history_list = dicVariables.get("LIHISTORICO", [])
         self.codec = dicVariables.get("CODEC", "default")
-        self.remove_c_v = dicVariables.get("REMCOMMENTSVAR", False)
+        self.remove_comments = dicVariables.get("REMCOMMENTS", False)
+        self.remove_variations = dicVariables.get("REMVARIATIONS", False)
+        self.remove_nags = dicVariables.get("REMNAGS", False)
 
     def vars_save(self):
         dicVariables = {}
         dicVariables["LIHISTORICO"] = self.history_list
         dicVariables["CODEC"] = self.cb_codecs.valor()
-        dicVariables["REMCOMMENTSVAR"] = self.chb_remove_c_v.isChecked()
+        dicVariables["REMCOMMENTS"] = self.chb_remove_comments.isChecked()
+        dicVariables["REMVARIATIONS"] = self.chb_remove_variations.isChecked()
+        dicVariables["REMNAGS"] = self.chb_remove_nags.isChecked()
         self.configuration.write_variables("SAVEPGN", dicVariables)
 
     def history(self):
@@ -390,44 +399,52 @@ class WSave(LCDialog.LCDialog):
         body = self.em_body.texto().strip()
         if not body:
             body = "*"
-        elif self.chb_remove_c_v.isChecked():
-            lic = []
-            npar = 0
-            nkey = 0
-            for c in body:
-                if nkey:
-                    if c == "}":
-                        nkey -= 1
-                    elif c == "{":
+        else:
+
+            def remove(xbody, ini, end):
+                lic = []
+                nkey = 0
+                for c in xbody:
+                    if nkey:
+                        if c == end:
+                            nkey -= 1
+                        elif c == ini:
+                            nkey += 1
+                        continue
+                    if c == ini:
                         nkey += 1
-                    continue
-                if npar:
-                    if c == ")":
-                        npar -= 1
-                    elif c == "(":
-                        npar += 1
-                    continue
-                if c == "{":
-                    nkey += 1
-                    continue
-                if c == "(":
-                    npar += 1
-                    continue
-                lic.append(c)
-            body = "".join(lic)
+                        continue
+                    lic.append(c)
+                return "".join(lic)
+
+            if self.chb_remove_comments.isChecked():
+                body = remove(body, "{", "}")
+
+            if self.chb_remove_variations.isChecked():
+                body = remove(body, "(", ")")
+
+            if self.chb_remove_nags.isChecked():
+                lic = []
+                nag = False
+                for c in body:
+                    if nag:
+                        if c.isdigit():
+                            continue
+                        nag = False
+                    if c in "?!":
+                        continue
+                    if c == "$":
+                        nag = True
+                        continue
+                    if c == " ":
+                        if lic and lic[-1] == " ":
+                            continue
+                    lic.append(c)
+                body = "".join(lic)
 
         pgn += "\n%s\n" % body
         if "\r\n" in pgn:
             pgn = pgn.replace("\r\n", "\n")
-
-        if self.chb_remove_c_v.isChecked():
-            ok, p = Game.pgn_game(pgn)
-
-            pgn = ""
-            for k, v in p.li_tags:
-                pgn += '[%s "%s"]\n' % (k, v)
-            pgn += "\n\n"
-            pgn += p.pgnBase()
 
         return pgn
 
@@ -570,7 +587,7 @@ class WSaveVarios(LCDialog.LCDialog):
         self.check_toolbar()
 
     def check_toolbar(self):
-        self.tb.setPosVisible(0, len(self.wbase.file) > 0)
+        self.tb.set_pos_visible(0, len(self.wbase.file) > 0)
 
     def aceptar(self):
         if self.wbase.file:

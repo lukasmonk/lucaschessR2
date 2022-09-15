@@ -54,12 +54,12 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
 
         self.personalidades = Personalities.Personalities(self, self.configuration)
 
-        self.motores = SelectEngines.SelectEngines()
+        self.motores = SelectEngines.SelectEngines(procesador.main_window)
 
         fvar = self.configuration.file_books
         self.list_books = Books.ListBooks()
         self.list_books.restore_pickle(fvar)
-        self.list_books.check()
+        self.list_books.verify()
         li_books = [(x.name, x) for x in self.list_books.lista]
 
         # Toolbar
@@ -203,7 +203,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
 
         # # Tutor
         lbAyudas = Controles.LB2P(self, _("Available hints")).ponFuente(font)
-        liAyudas = [(_("Maximum"), 999)]
+        liAyudas = [(_("Always"), 999)]
         for i in range(1, 21):
             liAyudas.append((str(i), i))
         for i in range(25, 51, 5):
@@ -546,7 +546,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
                 dic = dbc[k]
                 self.restore_dic(dic)
             elif op == BORRA:
-                if QTUtil2.pregunta(self, _X(_("Delete %1 ?"), k)):
+                if QTUtil2.pregunta(self, _X(_("Delete %1?"), k)):
                     del dbc[k]
             elif op == AGREGA:
                 li_gen = [(None, None)]
@@ -599,7 +599,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
 
         elif self.rival.type == ENG_ELO:
             self.edRtiempo.ponFloat(0.0)
-            self.edRdepth.ponInt(self.rival.fixed_depth)
+            self.edRdepth.ponInt(self.rival.max_depth)
             limpia_time_depth = False
             hide_time_depth = True
 
@@ -618,6 +618,9 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
 
         elif self.rival.type == ENG_EXTERNAL:
             si_multi = self.rival.has_multipv()
+            if self.rival.max_depth or self.rival.max_time:
+                self.edRdepth.ponInt(self.rival.max_depth)
+                self.edRtiempo.ponFloat(self.rival.max_time)
             limpia_time_depth = False
 
         if limpia_time_depth:
@@ -633,6 +636,8 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
 
         self.lb_path_engine.set_text(Util.relative_path(self.rival.path_exe))
         self.tab_advanced_active = False
+
+        self.test_unlimited()
 
     def cambiada_tab(self, num):
         if num == self.tab_advanced:
@@ -999,7 +1004,7 @@ def play_position(procesador, titulo, is_white):
 
 
 class WCambioRival(QtWidgets.QDialog):
-    def __init__(self, w_parent, configuration, dic, siManagerSolo):
+    def __init__(self, w_parent, configuration, dic, si_manager_solo):
         super(WCambioRival, self).__init__(w_parent)
 
         if not dic:
@@ -1026,15 +1031,14 @@ class WCambioRival(QtWidgets.QDialog):
         self.rb_black = Controles.RB(self, _("Black"))
 
         # Motores
-        self.motores = SelectEngines.SelectEngines()
+        self.motores = SelectEngines.SelectEngines(w_parent)
 
         liDepths = [("--", 0)]
         for x in range(1, 31):
             liDepths.append((str(x), x))
 
         # # Rival
-        self.rival = configuration.x_rival_inicial
-        self.rival.type = ENG_INTERNAL
+        self.rival = self.motores.busca(ENG_INTERNAL, configuration.x_rival_inicial)
         self.btRival = Controles.PB(self, "", self.cambiaRival, plano=False)
         self.edRtiempo = Controles.ED(self).tipoFloat().anchoMaximo(50)
         self.cbRdepth = Controles.CB(self, liDepths, 0).capture_changes(self.change_depth)
@@ -1044,7 +1048,7 @@ class WCambioRival(QtWidgets.QDialog):
         # # Ajustar rival
         liAjustes = self.personalidades.listaAjustes(True)
         self.cbAjustarRival = Controles.CB(self, liAjustes, ADJUST_BETTER).capture_changes(self.ajustesCambiado)
-        lbAjustarRival = Controles.LB2P(self, _("Set strength"))
+        self.lbAjustarRival = Controles.LB2P(self, _("Set strength"))
         self.btAjustarRival = Controles.PB(self, "", self.cambiaPersonalidades, plano=False).ponIcono(
             Iconos.Nuevo(), icon_size=16
         )
@@ -1064,7 +1068,13 @@ class WCambioRival(QtWidgets.QDialog):
         ly.controlc(self.btRival, 0, 0, 1, 4)
         ly.controld(lbTiempoSegundosR, 1, 0).controld(self.edRtiempo, 1, 1)
         ly.controld(lbNivel, 1, 2).control(self.cbRdepth, 1, 3)
-        lyH = Colocacion.H().control(lbAjustarRival).control(self.cbAjustarRival).control(self.btAjustarRival).relleno()
+        lyH = (
+            Colocacion.H()
+            .control(self.lbAjustarRival)
+            .control(self.cbAjustarRival)
+            .control(self.btAjustarRival)
+            .relleno()
+        )
         ly.otroc(lyH, 2, 0, 1, 4)
         gbR = Controles.GB(self, _("Opponent"), ly)
 
@@ -1081,6 +1091,10 @@ class WCambioRival(QtWidgets.QDialog):
         self.restore_dic()
 
         self.ajustesCambiado()
+        if si_manager_solo:
+            self.lbAjustarRival.setVisible(False)
+            self.cbAjustarRival.setVisible(False)
+            self.btAjustarRival.setVisible(False)
         self.show_rival()
 
     def cambiaRival(self):
@@ -1149,8 +1163,8 @@ class WCambioRival(QtWidgets.QDialog):
             self.cbAjustarRival.rehacer(self.personalidades.listaAjustes(True), actual)
 
 
-def cambioRival(parent, configuration, dic, siManagerSolo=False):
-    w = WCambioRival(parent, configuration, dic, siManagerSolo)
+def change_rival(parent, configuration, dic, is_create_own_game=False):
+    w = WCambioRival(parent, configuration, dic, is_create_own_game)
 
     if w.exec_():
         return w.dic

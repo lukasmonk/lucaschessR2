@@ -27,13 +27,13 @@ class WStEval(WKibCommon.WKibCommon):
             ("%s: %s" % (_("Disable"), _("window on top")), Iconos.Kibitzer_Down(), self.windowBottom),
         )
         self.tb = Controles.TBrutina(self, li_acciones, with_text=False, icon_size=24)
-        self.tb.setAccionVisible(self.play, False)
+        self.tb.set_action_visible(self.play, False)
 
         ly1 = Colocacion.H().control(self.board).control(self.em).margen(3)
         layout = Colocacion.V().control(self.tb).espacio(-10).otro(ly1).margen(3)
         self.setLayout(layout)
 
-        self.engine = self.lanzaMotor()
+        self.engine = self.launch_engine()
 
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.cpu.compruebaInput)
@@ -59,7 +59,7 @@ class WStEval(WKibCommon.WKibCommon):
             self.engine = None
             self.siPlay = False
 
-    def lanzaMotor(self):
+    def launch_engine(self):
         self.nom_engine = self.kibitzer.name
         exe = self.kibitzer.path_exe
         if not Util.exist_file(exe):

@@ -352,7 +352,7 @@ class WConfigOneLineTOL(LCDialog.LCDialog):
 
     def calc_lines_fns(self, fns):
         nl = 0
-        with open(fns) as f:
+        with open(fns, "rt", encoding="utf-8", errors="ignore") as f:
             for linea in f:
                 li = linea.split("|")
                 if len(li) >= 3:

@@ -698,7 +698,7 @@ class WPGN(QtWidgets.QWidget):
             None,
             (_("Clear"), Iconos.Borrar(), self.limpia),
             None,
-            (_("Take back"), Iconos.Atras(), self.atras),
+            (_("Takeback"), Iconos.Atras(), self.atras),
             None,
         )
 
@@ -755,7 +755,7 @@ class WPGN(QtWidgets.QWidget):
         self.wparent.ponModo(MODO_POSICION)
 
     def play_next_move(self):
-        self.tb.setAccionVisible(self.inicial, len(self.game) == 0)
+        self.tb.set_action_visible(self.inicial, len(self.game) == 0)
         if self.game.is_finished():
             self.board.disable_all()
             return
@@ -830,14 +830,14 @@ class Voyager(LCDialog.LCDialog):
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Window | QtCore.Qt.WindowStaysOnTopHint)
 
         self.is_game = is_game
-        self.game = game
+        self.game = game.copia()
         self.resultado = None
 
         is_white_bottom = True
         if hasattr(owner, "board"):
             is_white_bottom = owner.board.is_white_bottom
-        self.wPos = WPosicion(self, is_game, game, is_white_bottom)
-        self.wPGN = WPGN(self, game)
+        self.wPos = WPosicion(self, is_game, self.game, is_white_bottom)
+        self.wPGN = WPGN(self, self.game)
 
         ly = Colocacion.V().control(self.wPos).control(self.wPGN).margen(0)
         self.setLayout(ly)

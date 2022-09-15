@@ -8,7 +8,6 @@ from Code.Base.Constantes import (
     ST_ENDGAME,
     ST_PLAYING,
     TB_CLOSE,
-    TB_REINIT,
     TB_CONFIG,
     TB_CANCEL,
     TB_UTILITIES,
@@ -32,8 +31,8 @@ class ManagerEverest(Manager.Manager):
         self.human_is_playing = False
         self.analysis = None
         self.comment = None
-        self.siAnalizando = False
-        self.human_side = self.expedition.is_white
+        self.if_analyzing = False
+        self.is_human_side_white = self.expedition.is_white
         self.is_engine_side_white = not self.expedition.is_white
         self.gameObj = self.expedition.game
         self.game.set_tags(self.gameObj.li_tags)
@@ -48,14 +47,14 @@ class ManagerEverest(Manager.Manager):
 
         self.book = Opening.OpeningPol(999)
 
-        self.main_window.pon_toolbar((TB_CANCEL, TB_REINIT, TB_CONFIG))
+        self.set_toolbar((TB_CANCEL, TB_CONFIG))
 
         self.main_window.activaJuego(True, False, siAyudas=False)
         self.remove_hints(True, True)
 
         self.set_dispatcher(self.player_has_moved)
         self.set_position(self.game.last_position)
-        self.put_pieces_bottom(self.human_side)
+        self.put_pieces_bottom(self.is_human_side_white)
         self.show_side_indicator(True)
         self.set_label1(self.expedition.label())
         self.set_label2("")
@@ -73,15 +72,6 @@ class ManagerEverest(Manager.Manager):
     def run_action(self, key):
         if key == TB_CANCEL:
             self.cancelar()
-
-        elif key == TB_REINIT:
-            if not QTUtil2.pregunta(self.main_window, _("Restart the game?")):
-                return
-            change_game = self.restart(False)
-            if change_game:
-                self.terminar()
-            else:
-                self.reiniciar()
 
         elif key == TB_CONFIG:
             self.configurar(siSonidos=True)
@@ -114,6 +104,7 @@ class ManagerEverest(Manager.Manager):
         self.procesador.showEverest(self.expedition.recno)
 
     def reiniciar(self):
+        self.main_window.activaInformacionPGN(False)
         self.game.set_position()
         self.posJugadaObj = 0
         self.puntos = 0
@@ -142,16 +133,15 @@ class ManagerEverest(Manager.Manager):
         if change_game:
             licoment.append(_("You have exceeded the limit of tries, you will fall back to the previous."))
         elif lost_points:
-            licoment.append(_("You must repeat the game from beginning."))
+            licoment.append(_("You must repeat the game"))
         if licoment:
             comment = "\n".join(licoment)
-            w = WindowJuicio.MensajeF(self.main_window, comment)
-            w.mostrar()
+            QTUtil2.message_result(self.main_window, comment)
         return change_game
 
     def analyze_begin(self):
         self.xanalyzer.ac_inicio(self.game)
-        self.siAnalizando = True
+        self.if_analyzing = True
 
     def analyze_minimum(self, minTime):
         self.mrm = copy.deepcopy(self.xanalyzer.ac_minimo(minTime, False))
@@ -163,13 +153,13 @@ class ManagerEverest(Manager.Manager):
         return self.mrm
 
     def analyze_end(self):
-        if self.siAnalizando:
-            self.siAnalizando = False
+        if self.if_analyzing:
+            self.if_analyzing = False
             self.xanalyzer.ac_final(-1)
 
     def analizaTerminar(self):
-        if self.siAnalizando:
-            self.siAnalizando = False
+        if self.if_analyzing:
+            self.if_analyzing = False
             self.xanalyzer.terminar()
 
     def analizaNoContinuo(self):
@@ -199,12 +189,8 @@ class ManagerEverest(Manager.Manager):
         if self.puntos < -self.expedition.tolerance:
             self.restart(True)
             self.state = ST_ENDGAME
-            self.main_window.pon_toolbar((TB_CLOSE, TB_REINIT, TB_CONFIG, TB_UTILITIES))
+            self.set_toolbar((TB_CLOSE, TB_CONFIG, TB_UTILITIES))
             return
-            # if change_game:
-            #     self.terminar()
-            #     return
-            # self.reiniciar()
 
         self.state = ST_PLAYING
 
@@ -263,8 +249,7 @@ class ManagerEverest(Manager.Manager):
                         jgUsu.pgn_translated(),
                         bmove,
                     )
-                    w = WindowJuicio.MensajeF(self.main_window, comment)
-                    w.mostrar()
+                    QTUtil2.message_result(self.main_window, comment)
                 siAnalizaJuez = False
             else:
                 siAnalizaJuez = True
@@ -374,9 +359,8 @@ class ManagerEverest(Manager.Manager):
             mensaje = _("Congratulations, goal achieved")
             if is_last_last:
                 mensaje += "\n\n" + _("You have climbed Everest!")
-            self.mensaje(mensaje)
         else:
             mensaje = _("Congratulations you have passed this game.")
-            self.mensajeEnPGN(mensaje)
+        self.mensaje(mensaje)
 
         self.terminar()

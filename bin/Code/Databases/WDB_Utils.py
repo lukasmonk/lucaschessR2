@@ -31,9 +31,9 @@ class WFiltrar(QtWidgets.QDialog):
         nFiltro = len(liFiltro)
         self.dbSaveNom = dbSaveNom
 
-        li_fields = [(x.head, '"%s"' % x.key) for x in o_columns.li_columns if x.key != "number" and x.key != "opening"]
+        li_fields = [(x.head, '"%s"' % x.key) for x in o_columns.li_columns if x.key not in ("__num__", "opening")]
         li_fields.insert(0, ("", None))
-        liCondicion = [
+        li_condicion = [
             ("", None),
             (_("Equal"), "="),
             (_("Not equal"), "<>"),
@@ -45,20 +45,20 @@ class WFiltrar(QtWidgets.QDialog):
             (_("Not like (wildcard = *)"), "NOT LIKE"),
         ]
 
-        liUnion = [("", None), (_("AND"), "AND"), (_("OR"), "OR")]
+        li_union = [("", None), (_("AND"), "AND"), (_("OR"), "OR")]
 
         f = Controles.TipoLetra(puntos=12)  # 0, peso=75 )
 
-        lbCol = Controles.LB(self, _("Column")).ponFuente(f)
-        lbPar0 = Controles.LB(self, "(").ponFuente(f)
-        lbPar1 = Controles.LB(self, ")").ponFuente(f)
-        lbCon = Controles.LB(self, _("Condition")).ponFuente(f)
-        lbVal = Controles.LB(self, _("Value")).ponFuente(f)
-        lbUni = Controles.LB(self, "+").ponFuente(f)
+        lb_col = Controles.LB(self, _("Column")).ponFuente(f)
+        lb_par0 = Controles.LB(self, "(").ponFuente(f)
+        lb_par1 = Controles.LB(self, ")").ponFuente(f)
+        lb_con = Controles.LB(self, _("Condition")).ponFuente(f)
+        lb_val = Controles.LB(self, _("Value")).ponFuente(f)
+        lb_uni = Controles.LB(self, "+").ponFuente(f)
 
         ly = Colocacion.G()
-        ly.controlc(lbUni, 0, 0).controlc(lbPar0, 0, 1).controlc(lbCol, 0, 2)
-        ly.controlc(lbCon, 0, 3).controlc(lbVal, 0, 4).controlc(lbPar1, 0, 5)
+        ly.controlc(lb_uni, 0, 0).controlc(lb_par0, 0, 1).controlc(lb_col, 0, 2)
+        ly.controlc(lb_con, 0, 3).controlc(lb_val, 0, 4).controlc(lb_par1, 0, 5)
 
         self.numC = 8
         liC = []
@@ -66,7 +66,7 @@ class WFiltrar(QtWidgets.QDialog):
         union, par0, campo, condicion, valor, par1 = None, False, None, None, "", False
         for i in range(self.numC):
             if i > 0:
-                c_union = Controles.CB(self, liUnion, union)
+                c_union = Controles.CB(self, li_union, union)
                 ly.controlc(c_union, i + 1, 0)
             else:
                 c_union = None
@@ -75,7 +75,7 @@ class WFiltrar(QtWidgets.QDialog):
             ly.controlc(c_par0, i + 1, 1)
             c_campo = Controles.CB(self, li_fields, campo)
             ly.controlc(c_campo, i + 1, 2)
-            c_condicion = Controles.CB(self, liCondicion, condicion)
+            c_condicion = Controles.CB(self, li_condicion, condicion)
             ly.controlc(c_condicion, i + 1, 3)
             c_valor = Controles.ED(self, valor)
             ly.controlc(c_valor, i + 1, 4)
@@ -144,7 +144,7 @@ class WFiltrar(QtWidgets.QDialog):
                     liFiltro = dbc[name]
                     self.lee_filtro(liFiltro)
                 elif op == BORRA:
-                    if QTUtil2.pregunta(self, _X(_("Delete %1 ?"), name)):
+                    if QTUtil2.pregunta(self, _X(_("Delete %1?"), name)):
                         del dbc[name]
                 elif op == GRABA:
                     if self.lee_filtro_actual():
@@ -254,7 +254,8 @@ class WFiltrar(QtWidgets.QDialog):
             else:
                 valor = valor.upper()
                 if valor.isupper():
-                    where += "UPPER(%s) %s '%s'" % (campo, condicion, valor)  # fonkap patch
+                    # where += "UPPER(%s) %s '%s'" % (campo, condicion, valor)  # fonkap patch
+                    where += "%s %s '%s' COLLATE NOCASE" % (campo, condicion, valor)  # fonkap patch
                 elif valor.isdigit():  # fonkap patch
                     where += "CAST(%s as decimal) %s %s" % (campo, condicion, valor)  # fonkap patch
                 else:
@@ -337,21 +338,25 @@ def mensajeEntrenamientos(owner, liCreados, liNoCreados):
     QTUtil2.message_bold(owner, txt)
 
 
-def create_tactics(procesador, wowner, li_registros, rutina_datos, name):
-    nregs = len(li_registros)
+def create_tactics(procesador, wowner, li_registros_selected, li_registros_total, rutina_datos, name):
+    nregs = len(li_registros_selected)
 
     form = FormLayout.FormLayout(wowner, _("Create tactics training"), Iconos.Tacticas())
 
-    form.apart_simple_np("%s: %d" % (_("Number of positions"), nregs))
     form.separador()
     form.edit(_("Name"), name)
 
     form.separador()
-    li_j = [(_("Default"), 0), (_("White"), 1), (_("Black"), 2)]
+    li_j = [(_("By default"), 0), (_("White"), 1), (_("Black"), 2)]
     form.combobox(_("Point of view"), li_j, 0)
 
     form.separador()
     form.checkbox(_("Skip the first move"), False)
+
+    form.separador()
+    selected = nregs > 1
+    form.checkbox("%s (%d)" % (_("Only selected games"), nregs), selected)
+    form.separador()
 
     resultado = form.run()
 
@@ -365,6 +370,10 @@ def create_tactics(procesador, wowner, li_registros, rutina_datos, name):
         return
     pointview = str(li_gen[1])
     skip_first = li_gen[2]
+    only_selected = li_gen[3]
+
+    li_registros = li_registros_selected if only_selected else li_registros_total
+    nregs = len(li_registros)
 
     rest_dir = Util.valid_filename(menuname)
     nom_dir = os.path.join(Code.configuration.folder_tactics(), rest_dir)
@@ -497,16 +506,27 @@ def create_tactics(procesador, wowner, li_registros, rutina_datos, name):
 
     Util.dic2ini_base(nom_ini, dic_ini)
 
+    def sp(num):
+        return " " * num
+
     QTUtil2.message_bold(
         wowner,
         (
-            "%s<br>%s<br>  %s<br>    ➔%s<br>        ➔%s"
+            "%s<br>%s<br><br>%s<br>%s<br>%s"
             % (
                 _("Tactic training %s created.") % menuname,
                 _("You can access this training from"),
-                _("Trainings"),
-                _("Learn tactics by repetition"),
-                rest_dir,
+                "%s/%s" % (_("Trainings"), _("Tactics")),
+                "%s1) %s / %s <br>%s➔ %s"
+                % (sp(5), _("Training positions"), _("Tactics"), sp(12), _("for a standard training")),
+                "%s2) %s / %s <br>%s➔ %s"
+                % (
+                    sp(5),
+                    _("Learn tactics by repetition"),
+                    _("Personal tactics"),
+                    sp(12),
+                    _("for a training by repetition"),
+                ),
             )
         ),
     )

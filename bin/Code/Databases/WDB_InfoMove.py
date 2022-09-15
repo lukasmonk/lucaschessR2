@@ -76,6 +76,7 @@ class WInfomove(QtWidgets.QWidget):
         scroll.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         scroll.setWidgetResizable(True)
         scroll.setFrameStyle(QtWidgets.QFrame.NoFrame)
+        self.scroll = scroll
 
         ly = Colocacion.V().control(self.lbPGN).relleno(1).margen(0)
         w = QtWidgets.QWidget()

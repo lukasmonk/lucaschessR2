@@ -320,7 +320,7 @@ class ControlMate:
         for num_level, level in enumerate(self.li_levels, 1):
             s = level.seconds()
             if s > 0:
-                txt = "%5d %s" % (s, _("Seconds"))
+                txt = "%5d %s" % (s, _("Second(s)"))
                 if level.is_done():
                     txt += " - %s" % _("Done")
                 else:
@@ -413,7 +413,7 @@ class ManagerMate(Manager.Manager):
         self.ponRotuloBloque(False)
         self.main_window.base.pgn.show()
 
-        self.main_window.pon_toolbar((TB_QUIT, TB_LEVEL, TB_CONFIG))
+        self.set_toolbar((TB_QUIT, TB_LEVEL, TB_CONFIG))
         self.disable_all()
         self.state = ST_ENDGAME
         self.refresh()
@@ -483,7 +483,7 @@ class ManagerMate(Manager.Manager):
             if siRecord:
                 txt += "<h3>%s</h3>" % _("Congratulations you have achieved a new record in this block.")
 
-            self.mensajeEnPGN(txt)
+            self.message_on_pgn(txt)
             self.finJuego()
 
         else:
@@ -518,7 +518,7 @@ class ManagerMate(Manager.Manager):
         cp.read_fen(position_mate.fen)
         self.set_position(cp)
         self.activate_side(cp.is_white)
-        self.human_side = cp.is_white
+        self.is_human_side_white = cp.is_white
         self.board.remove_arrows()
         self.board.set_side_bottom(cp.is_white)
         self.game = Game.Game(cp)
@@ -550,13 +550,13 @@ class ManagerMate(Manager.Manager):
         self.siguienteMate()
 
     def player_has_moved(self, from_sq, to_sq, promotion=""):
-        self.human_is_playing = True  # necesario para el check
+        self.human_is_playing = True  # necesario
         move = self.check_human_move(from_sq, to_sq, promotion)
         if not move:
             return False
 
         self.game.add_move(move)
-        self.game.check()
+        self.game.verify()
         if self.siAyuda:
             self.board.remove_arrows()
         self.move_the_pieces(move.liMovs, False)
@@ -585,7 +585,7 @@ class ManagerMate(Manager.Manager):
         if self.is_finished():
             self.repiteMate(True, True)
             return
-        self.activate_side(self.human_side)  # Caso en que hay promotion, sino no se activa la dama
+        self.activate_side(self.is_human_side_white)  # Caso en que hay promotion, sino no se activa la dama
 
     def analize_position(self, row, key):
         # Doble click lanza el bloque

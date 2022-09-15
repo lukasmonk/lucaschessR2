@@ -248,6 +248,8 @@ class Eboard:
             except:
                 pass
 
+        driver._DGTDLL_ShowDialog(ctypes.c_int(1))
+
         self.driver = driver
         return True
 
@@ -255,6 +257,9 @@ class Eboard:
         if self.driver:
             # assert Code.prln("deactivate")
             self.driver._DGTDLL_HideDialog(ctypes.c_int(1))
+            if Code.is_windows:
+                handle = self.driver._handle
+                ctypes.windll.kernel32.FreeLibrary(handle)
             del self.driver
             self.driver = None
             return True
@@ -276,6 +281,7 @@ class Eboard:
             # log( "Enviado a la DGT" + cposicion )
             self.driver._DGTDLL_WritePosition(cposicion.encode())
             self.fen_eboard = cposicion
+            # self.envia("stableBoard", cposicion.encode())
             Code.eboard.allowHumanTB = False
 
     def writeClocks(self, wclock, bclock):

@@ -34,7 +34,7 @@ class ManagerPerson(ManagerPlayAgainstEngine.ManagerPlayAgainstEngine):
         self.with_summary = dic_var.get("SUMMARY", False)
 
         is_white = dic_var["ISWHITE"]
-        self.human_side = is_white
+        self.is_human_side_white = is_white
         self.is_engine_side_white = not is_white
 
         w, b = self.configuration.nom_player(), _F(dic_var["RIVAL"])
@@ -48,6 +48,7 @@ class ManagerPerson(ManagerPlayAgainstEngine.ManagerPlayAgainstEngine):
 
         cmrival = self.configuration.buscaRival("irina", None)
         self.xrival = self.procesador.creaManagerMotor(cmrival, None, 2)
+        imagen = None
         for name, trans, ico, elo in QTVarios.list_irina():
             if name == dic_var["RIVAL"]:
                 self.xrival.name = trans
@@ -66,7 +67,7 @@ class ManagerPerson(ManagerPlayAgainstEngine.ManagerPlayAgainstEngine):
 
         self.human_is_playing = False
         self.state = ST_PLAYING
-        self.siAnalizando = False
+        self.if_analyzing = False
 
         self.aperturaStd = Opening.OpeningPol(1)
 
@@ -88,7 +89,10 @@ class ManagerPerson(ManagerPlayAgainstEngine.ManagerPlayAgainstEngine):
             self.seconds_per_move = dic_var["SEGUNDOS"]
             self.secs_extra = dic_var.get("MINEXTRA", 0) * 60.0
 
-            self.vtime = {WHITE: Util.Timer(self.max_seconds), BLACK: Util.Timer(self.max_seconds)}
+            self.vtime = {
+                WHITE: Util.Timer2(self.game, WHITE, self.max_seconds, self.seconds_per_move),
+                BLACK: Util.Timer2(self.game, BLACK, self.max_seconds, self.seconds_per_move),
+            }
 
             time_control = "%d" % int(self.max_seconds)
             if self.seconds_per_move:
@@ -133,4 +137,4 @@ class ManagerPerson(ManagerPlayAgainstEngine.ManagerPlayAgainstEngine):
 
         self.check_boards_setposition()
 
-        self.game.tag_timestart()
+        self.game.add_tag_timestart()

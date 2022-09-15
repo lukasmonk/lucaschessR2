@@ -135,6 +135,7 @@ class ThanksTo:
             "Nambi",
             '<a href="https://github.com/phihag">Philipp Hagemeister</a>',
             '<a href="https://github.com/futurelauncher">futurelauncher</a>',
+            "Reinhard",
         ]
         li_resto = []
         txt += version("R", li_base, li_resto, False)
@@ -453,7 +454,7 @@ class ThanksTo:
                 _("Permission of author"),
             ),
             (
-                "Book Classic<br>Book Diagram",
+                "Book Classic<br>Book Diagram<br>Book Strategie",
                 '<a href="https://www.linkedin.com/in/benjamin-citak-04982714">Ben Citak</a>',
                 _("Permission of author"),
             ),
@@ -537,13 +538,13 @@ class ThanksTo:
         li = (
             ("Jordi Gonzalez Boada", "http://www.jordigonzalezboada.com/ajedrez/aperturas.php"),
             ("PGN Mentor", "http://www.pgnmentor.com/files.html"),
-            ("Dan Corbit", "http://cap.connx.com/"),
+            ("Dann Corbit", "http://cap.connx.com/"),
             ("The Week in Chess", "http://theweekinchess.com/"),
             ("Wikipedia", "http://en.wikipedia.org/wiki/List_of_chess_games"),
             ("fics", "http://ficsgames.org/cgi-bin/download.cgi"),
             ("Norman Pollock", "http://www.nk-qy.info/40h/"),
             (
-                "STS<br>" + _X(_("Created by %1"), "Dan Corbit,Swaminathan"),
+                "STS<br>" + _X(_("Created by %1"), "Dann Corbit, Swaminathan"),
                 "https://sites.google.com/site/strategictestsuite/about-1",
             ),
             ("liChess database", "https://database.lichess.org"),
@@ -572,7 +573,7 @@ class ThanksTo:
             ("python-chess", _X(_("Created by %1"), "Niklas Fiekas"), "https://github.com/niklasf/python-chess"),
             (
                 "pillow",
-                "Copyright 1995-2015, Fredrik Lundh and Contributors,<br>Alex Clark and Contributors",
+                "Copyright 2010-2022, Alex Clark and Contributors",
                 "https://github.com/python-pillow/Pillow",
             ),
             ("photohash", "Chris Pickett and others", "https://github.com/bunchesofdonald/photohash"),

@@ -221,7 +221,7 @@ class WHorses(LCDialog.LCDialog):
             None,
             (_("Reinit"), Iconos.Reiniciar(), self.reiniciar),
             None,
-            (_("Help"), Iconos.AyudaGR(), self.ayuda),
+            (_("Help"), Iconos.AyudaGR(), self.get_help),
         )
         self.tb = QTVarios.LCTB(self, li_acciones)
 
@@ -247,7 +247,7 @@ class WHorses(LCDialog.LCDialog):
         self.timer = time.time()
         self.moves = 0
         self.hints = 0
-        self.nayuda = 0  # para que haga un rondo al elegir en la ayuda de todos los caminos uno de ellos
+        self.nayuda = 0  # para que haga un rondo al elegir en la get_help de todos los caminos uno de ellos
         self.ponSiguiente()
 
     def ponNumMoves(self):
@@ -395,7 +395,7 @@ class WHorses(LCDialog.LCDialog):
         else:
             self.ponSiguiente()
 
-    def ayuda(self):
+    def get_help(self):
         self.hints += 1
         self.board.remove_arrows()
         self.ponSiguiente()

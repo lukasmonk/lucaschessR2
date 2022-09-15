@@ -1,9 +1,8 @@
-import struct
+import time
 
 import psutil
 from PySide2 import QtCore
 
-import Code
 from Code import Util
 from Code.Base import Game
 from Code.Engines import EngineRun
@@ -50,7 +49,11 @@ class WKibEngine(WKibCommon.WKibCommon):
             (_("Continue"), Iconos.Kibitzer_Play(), self.play),
             (_("Pause"), Iconos.Kibitzer_Pause(), self.pause),
             (_("Takeback"), Iconos.Kibitzer_Back(), self.takeback),
-            (_("The line selected is saved on clipboard"), Iconos.Kibitzer_Clipboard(), self.portapapelesJugSelected),
+            (
+                _("The line selected is saved to the clipboard"),
+                Iconos.Kibitzer_Clipboard(),
+                self.portapapelesJugSelected,
+            ),
             (_("Analyze only color"), Iconos.Kibitzer_Side(), self.color),
             (_("Show/hide board"), Iconos.Kibitzer_Board(), self.config_board),
             (_("Manual position"), Iconos.Kibitzer_Voyager(), self.set_position),
@@ -61,7 +64,7 @@ class WKibEngine(WKibCommon.WKibCommon):
         if cpu.tipo == Kibitzers.KIB_THREATS:
             del li_acciones[4]
         self.tb = Controles.TBrutina(self, li_acciones, with_text=False, icon_size=24)
-        self.tb.setAccionVisible(self.play, False)
+        self.tb.set_action_visible(self.play, False)
 
         ly1 = Colocacion.H().control(self.tb).relleno().control(self.lbDepth).margen(0)
         ly2 = Colocacion.H().control(self.board).control(self.grid).margen(0)
@@ -77,7 +80,7 @@ class WKibEngine(WKibCommon.WKibCommon):
         self.restore_video(self.dicVideo)
         self.ponFlags()
 
-        self.engine = self.lanzaMotor()
+        self.engine = self.launch_engine()
 
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.compruebaInput)
@@ -85,46 +88,52 @@ class WKibEngine(WKibCommon.WKibCommon):
         self.depth = 0
         self.veces = 0
 
+        self.time_init = time.time()
+        self.stopped = False
+
     def compruebaInput(self):
         if not self.engine:
             return
-        self.veces += 1
-        if self.veces == 3:
-            self.veces = 0
-            if self.valid_to_play():
-                mrm = self.engine.ac_estado()
-                rm = mrm.rmBest()
-                if rm and rm.depth > self.depth:
-                    self.depth = rm.depth
-                    if self.is_candidates:
-                        self.li_moves = mrm.li_rm
-                        self.lbDepth.set_text("%s: %d" % (_("Depth"), rm.depth))
-                    else:
-                        self.li_moves.insert(0, rm.copia())
-                        if len(self.li_moves) > 256:
-                            self.li_moves = self.li_moves[:128]
+        if self.valid_to_play():
+            mrm = self.engine.ac_estado()
+            rm = mrm.rmBest()
+            if self.kibitzer.max_time and (time.time() - self.time_init) > self.kibitzer.max_time:
+                if not self.stopped:
+                    self.engine.ac_final(0)
+                    self.stopped = True
+                else:
+                    self.depth = 999
+            if rm and rm.depth > self.depth:
+                self.depth = rm.depth
+                if self.is_candidates:
+                    self.li_moves = mrm.li_rm
+                    self.lbDepth.set_text("%s: %d" % (_("Depth"), rm.depth))
+                else:
+                    self.li_moves.insert(0, rm.copia())
+                    if len(self.li_moves) > 256:
+                        self.li_moves = self.li_moves[:128]
 
-                    # TODO mirar si es de posicion previa o posterior
-                    game = Game.Game(first_position=self.game.last_position)
-                    game.read_pv(rm.pv)
-                    if len(game):
-                        self.board.remove_arrows()
-                        tipo = "mt"
-                        opacity = 100
-                        salto = (80 - 15) * 2 // (self.nArrows - 1) if self.nArrows > 1 else 1
-                        cambio = max(30, salto)
+                # TODO mirar si es de posicion previa o posterior
+                game = Game.Game(first_position=self.game.last_position)
+                game.read_pv(rm.pv)
+                if len(game):
+                    self.board.remove_arrows()
+                    tipo = "mt"
+                    opacity = 100
+                    salto = (80 - 15) * 2 // (self.nArrows - 1) if self.nArrows > 1 else 1
+                    cambio = max(30, salto)
 
-                        for njg in range(min(len(game), self.nArrows)):
-                            tipo = "ms" if tipo == "mt" else "mt"
-                            move = game.move(njg)
-                            self.board.creaFlechaMov(move.from_sq, move.to_sq, tipo + str(opacity))
-                            if njg % 2 == 1:
-                                opacity -= cambio
-                                cambio = salto
+                    for njg in range(min(len(game), self.nArrows)):
+                        tipo = "ms" if tipo == "mt" else "mt"
+                        move = game.move(njg)
+                        self.board.creaFlechaMov(move.from_sq, move.to_sq, tipo + str(opacity))
+                        if njg % 2 == 1:
+                            opacity -= cambio
+                            cambio = salto
 
-                    self.grid.refresh()
+                self.grid.refresh()
 
-                QTUtil.refresh_gui()
+            QTUtil.refresh_gui()
 
         self.cpu.compruebaInput()
 
@@ -134,12 +143,12 @@ class WKibEngine(WKibCommon.WKibCommon):
         if w.exec_():
             xprioridad = w.result_xprioridad
             if xprioridad is not None:
-                pid = self.engine.pid()
-                if Code.is_windows:
-                    hp, ht, pid, dt = struct.unpack("PPII", pid.asstring(16))
+                pid = self.engine.process.pid
                 p = psutil.Process(pid)
                 p.nice(xprioridad)
+            self.cpu.kibitzer.prioridad = xprioridad
             self.cpu.kibitzer.pointofview = w.result_xpointofview
+            self.cpu.kibitzer.max_time = w.result_max_time
             if w.result_opciones:
                 for opcion, valor in w.result_opciones:
                     if valor is None:
@@ -149,6 +158,7 @@ class WKibEngine(WKibCommon.WKibCommon):
                             valor = str(valor).lower()
                         orden = "setoption name %s value %s" % (opcion, valor)
                     self.engine.put_line(orden)
+            self.cpu.reprocesa()
         self.play()
 
     def stop(self):
@@ -201,7 +211,7 @@ class WKibEngine(WKibCommon.WKibCommon):
     def grid_bold(self, grid, row, o_column):
         return o_column.key in ("EVALUATION", "BESTMOVE", "DEPTH")
 
-    def lanzaMotor(self):
+    def launch_engine(self):
         if self.is_candidates:
             self.numMultiPV = self.kibitzer.current_multipv()
             if self.numMultiPV <= 1:
@@ -255,6 +265,8 @@ class WKibEngine(WKibCommon.WKibCommon):
             QTUtil2.mensajeTemporal(self, _("The line selected is saved to the clipboard"), 0.7)
 
     def orden_game(self, game: Game.Game):
+        if game is None:
+            return
         posicion = game.last_position
 
         is_white = posicion.is_white
@@ -270,4 +282,8 @@ class WKibEngine(WKibCommon.WKibCommon):
 
         if self.valid_to_play():
             self.engine.ac_inicio(game)
+
+            # Para kibitzer con tiempo fijo
+            self.time_init = time.time()
+            self.stopped = False
         self.grid.refresh()

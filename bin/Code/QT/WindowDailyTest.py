@@ -105,7 +105,7 @@ class WDailyTestBase(LCDialog.LCDialog):
             if fns:
                 return os.path.basename(fns)
             else:
-                return _("Default")
+                return _("By default")
 
     def calcListaHistorico(self):
         self.li_histo = self.historico.keys(si_ordenados=True, si_reverse=True)
@@ -489,7 +489,6 @@ class WDailyTest(LCDialog.LCDialog):
             self.xtutor,
             self.move,
             self.position.is_white,
-            9999999,
             1,
             main_window=self,
             must_save=False,

@@ -53,7 +53,7 @@ class ManagerMateMap(Manager.Manager):
         self.state = ST_PLAYING
         self.plays_instead_of_me_option = False
 
-        self.human_side = is_white
+        self.is_human_side_white = is_white
         self.is_engine_side_white = not is_white
 
         self.rm_rival = None
@@ -101,7 +101,7 @@ class ManagerMateMap(Manager.Manager):
             self.configurar(siSonidos=True, siCambioTutor=True)
 
         elif key == TB_UTILITIES:
-            self.utilidades()
+            self.utilities()
 
         else:
             Manager.Manager.rutinaAccionDef(self, key)
@@ -109,6 +109,7 @@ class ManagerMateMap(Manager.Manager):
     def reiniciar(self):
         if self.is_rival_thinking:
             return
+        self.main_window.activaInformacionPGN(False)
         self.start(self.workmap)
 
     def end_game(self):
@@ -131,7 +132,7 @@ class ManagerMateMap(Manager.Manager):
         is_white = self.game.last_position.is_white
 
         if self.game.is_finished():
-            self.muestra_resultado()
+            self.show_result()
             return
 
         self.set_side_indicator(is_white)
@@ -195,12 +196,12 @@ class ManagerMateMap(Manager.Manager):
             self.error = mens
             return False
 
-    def muestra_resultado(self):
+    def show_result(self):
         self.disable_all()
         self.human_is_playing = False
         self.state = ST_ENDGAME
 
-        mensaje, beep_result, player_win = self.game.label_resultado_player(self.human_side)
+        mensaje, beep_result, player_win = self.game.label_resultado_player(self.is_human_side_white)
 
         self.player_win = player_win
 
@@ -210,7 +211,7 @@ class ManagerMateMap(Manager.Manager):
             mensaje = _("Congratulations you have won %s.") % self.workmap.nameAim()
             self.workmap.winAim(self.game.pv())
 
-        self.mensajeEnPGN(mensaje)
+        self.message_on_pgn(mensaje)
 
         self.disable_all()
         self.refresh()

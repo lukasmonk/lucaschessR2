@@ -345,15 +345,6 @@ class Histogram(QtWidgets.QGraphicsView):
                 y = bottom - height * d / 3600 - height / 42
                 rot = str(d)
                 painter.drawText(x - 120, y, w + 100, h, align_right, rot)
-            # pen = painter.pen()
-            # pen.setWidth(4)
-            # pen.setColor(QtCore.Qt.darkGreen)
-            # painter.setPen(pen)
-            # y = bottom - height * self.elo_medio / 3600
-            # painter.drawLine(left, y, right, y)
-            # painter.drawText(
-            #     right + 5, y - height / 42, 500, h * 2, QtCore.Qt.AlignLeft, "%d %s" % (self.elo_medio, _("Average"))
-            # )
 
             # Lineas referencia horizontal
             painter.setPen(QtGui.QColor("#D9D9D9"))
@@ -513,12 +504,10 @@ def genHistograms(game):
 
             tooltip = label + " %+0.02f" % pts
             if lostp:
-                tooltip += " ?%0.02f" % lostp
-            else:
-                tooltip += "!"
+                tooltip += "  ↓%0.02f" % lostp
 
             avg = move.elo_avg
-            tooltip += " (%d)" % avg
+            # tooltip += " (%d)" % avg
             hp = HPoint(nj, pts, lostp, lostp_abs, tooltip, avg)
             hgame.addPoint(hp)
             if is_white:

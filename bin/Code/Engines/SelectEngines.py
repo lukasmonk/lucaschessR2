@@ -19,7 +19,7 @@ from Code.Engines import Engines
 from Code.Engines import EnginesMicElo
 from Code.QT import Iconos
 from Code.QT import LCDialog, Grid, Columnas, Colocacion, Controles
-from Code.QT import QTVarios
+from Code.QT import QTVarios, QTUtil2
 
 
 def read_uci_rodent(cm):
@@ -45,7 +45,8 @@ def get_dict_type_names():
 
 
 class SelectEngines:
-    def __init__(self):
+    def __init__(self, owner):
+        um = QTUtil2.unMomento(owner, _("Reading the list of engines"))
         self.configuration = Code.configuration
         self.dicIconos = {
             ENG_INTERNAL: Iconos.Engine(),
@@ -71,12 +72,14 @@ class SelectEngines:
 
         self.li_engines = None
 
+        um.final()
+
     def redo_external_engines(self):
         self.liMotoresExternos = self.configuration.list_external_engines()
         self.liMotoresClavePV = self.configuration.comboMotoresMultiPV10()
 
     def gen_engines_rodent(self):
-        cmbase = self.configuration.buscaRival("rodentii")
+        cmbase = self.configuration.buscaRival("rodentII")
         path_personalities = os.path.join(os.path.dirname(cmbase.path_exe), "personalities")
         path_ini = os.path.join(path_personalities, "personalities.ini")
         dict_ini = Util.ini2dic(path_ini)
@@ -119,7 +122,7 @@ class SelectEngines:
                 cm.menu = "%d - %s" % (elo, name)
                 cm.name = name
                 cm.key = cm.menu
-                cm.fixed_depth = depth
+                cm.max_depth = depth
                 cm.elo = elo
                 cm.type = ENG_ELO
                 li.append(cm)
@@ -420,16 +423,17 @@ class WSelectEngines(LCDialog.LCDialog):
         font = Controles.TipoLetra(puntos=Code.configuration.x_pgn_fontpoints)
         self.grid.ponFuente(font)
 
-        ly_head = Colocacion.H().control(tb).control(self.lb_number).margen(0)
+        ly_head = Colocacion.H().control(tb).control(self.lb_number).margen(3)
 
         layout = Colocacion.V().otro(ly_head).control(self.grid).margen(3)
         self.setLayout(layout)
 
-        self.restore_video(anchoDefecto=self.grid.anchoColumnas() + 48)
+        self.restore_video(anchoDefecto=self.grid.anchoColumnas() + 48, altoDefecto=640)
 
     def clear_all(self):
         self.st_selected = set()
         self.grid.refresh()
+        self.show_count()
 
     def aceptar(self):
         self.accept()
@@ -464,7 +468,7 @@ class WSelectEngines(LCDialog.LCDialog):
                 self.st_selected.remove(xhash)
             else:
                 self.st_selected.add(xhash)
-            self.lb_number.set_text(str(len(self.st_selected)))
+            self.show_count()
             self.grid.refresh()
 
     def grid_doubleclick_header(self, grid, col):
@@ -480,3 +484,6 @@ class WSelectEngines(LCDialog.LCDialog):
         self.list_all_engines.sort(key=lmbd, reverse=self.reversed)
         self.reversed = not self.reversed
         self.grid.refresh()
+
+    def show_count(self):
+        self.lb_number.set_text(str(len(self.st_selected)))

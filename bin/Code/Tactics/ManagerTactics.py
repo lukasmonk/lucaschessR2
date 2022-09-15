@@ -31,12 +31,14 @@ class ManagerTactics(Manager.Manager):
         self.ayudas_iniciales = 0
         self.is_competitive = True
         self.game_obj, self.game_base = self.tactic.work_read_position()
-        self.reinicia()
+        self.reiniciar()
 
-    def reinicia(self):
+    def reiniciar(self):
         if self.reiniciando:
             return
         self.reiniciando = True
+
+        self.main_window.activaInformacionPGN(False)
 
         self.pointView = self.tactic.pointView()
 
@@ -48,7 +50,7 @@ class ManagerTactics(Manager.Manager):
         is_white = cp.is_white
         if self.pointView:
             is_white = self.pointView == 1
-        self.human_side = is_white
+        self.is_human_side_white = is_white
         self.is_engine_side_white = not is_white
 
         if self.game_base:
@@ -85,7 +87,7 @@ class ManagerTactics(Manager.Manager):
         self.show_label_positions()
         self.state = ST_PLAYING
         self.reiniciando = False
-        self.board.dbvisual_set_show_allways(False)
+        self.board.dbvisual_set_show_always(False)
 
         self.num_bad_tries = 0
         if self.tactic.advanced:
@@ -110,7 +112,7 @@ class ManagerTactics(Manager.Manager):
             for move in self.game_obj.li_moves:
                 self.game.add_move(move)
             self.goto_end()
-            self.pgnRefresh(self.human_side)
+            self.pgnRefresh(self.is_human_side_white)
             self.end_line()
 
         else:
@@ -164,13 +166,13 @@ class ManagerTactics(Manager.Manager):
             elif resp == "lmo_advanced":
                 self.tactic.advanced = not self.tactic.advanced
                 self.tactic.set_advanced(self.tactic.advanced)
-                self.reinicia()
+                self.reiniciar()
 
         elif key == TB_REINIT:
-            self.reinicia()
+            self.reiniciar()
 
         elif key == TB_UTILITIES:
-            self.utilidades()
+            self.utilities()
 
         elif key == TB_NEXT:
             self.ent_siguiente()
@@ -254,7 +256,7 @@ class ManagerTactics(Manager.Manager):
             self.set_label1(self.tactic.w_label)
             self.set_toolbar("end")
             if self.configuration.x_director_icon is not None:
-                self.board.dbvisual_set_show_allways(True)
+                self.board.dbvisual_set_show_always(True)
 
         return True
 
@@ -326,5 +328,5 @@ class ManagerTactics(Manager.Manager):
     def end_training(self):
         self.tactic.end_training()
         mensaje = "<big>%s<br>%s</big>" % (_("Congratulations, goal achieved"), _("GAME OVER"))
-        self.mensajeEnPGN(mensaje)
+        self.message_on_pgn(mensaje)
         self.end_game()

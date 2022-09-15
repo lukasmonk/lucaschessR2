@@ -153,7 +153,7 @@ class WSelectEngineElo(LCDialog.LCDialog):
         self.restore_video()
 
     def removeReset(self):
-        self.tb.setAccionVisible(self.reset, False)
+        self.tb.set_action_visible(self.reset, False)
 
     def filtrar(self):
         cb = self.cbElo.valor()
@@ -341,7 +341,7 @@ class WEngineExtend(QtWidgets.QDialog):
         lb_exe = Controles.LB(self, "%s: %s" % (_("File"), Util.relative_path(engine.path_exe)))
 
         if siTorneo:
-            lb_depth = Controles.LB(self, _("Maximum depth") + ": ")
+            lb_depth = Controles.LB(self, _("Max depth") + ": ")
             self.sbDepth = Controles.SB(self, engine.depth, 0, 50)
 
             lb_time = Controles.LB(self, _("Maximum seconds to think") + ": ")
@@ -352,10 +352,10 @@ class WEngineExtend(QtWidgets.QDialog):
             self.list_books = Books.ListBooks()
             self.list_books.restore_pickle(fvar)
             # # Comprobamos que todos esten accesibles
-            self.list_books.check()
+            self.list_books.verify()
             li = [(x.name, x.path) for x in self.list_books.lista]
             li.insert(0, ("* " + _("None"), "-"))
-            li.insert(0, ("* " + _("Default"), "*"))
+            li.insert(0, ("* " + _("By default"), "*"))
             self.cbBooks = Controles.CB(self, li, engine.book)
             bt_nuevo_book = Controles.PB(self, "", self.nuevoBook, plano=False).ponIcono(Iconos.Nuevo(), icon_size=16)
             # # Respuesta rival
@@ -411,7 +411,7 @@ class WEngineExtend(QtWidgets.QDialog):
             self.list_books.save_pickle(fvar)
             li = [(x.name, x.path) for x in self.list_books.lista]
             li.insert(0, ("* " + _("Engine book"), "-"))
-            li.insert(0, ("* " + _("Default"), "*"))
+            li.insert(0, ("* " + _("By default"), "*"))
             self.cbBooks.rehacer(li, b.path)
 
     def aceptar(self):

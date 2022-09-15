@@ -43,7 +43,7 @@ class ManagerCompeticion(Manager.Manager):
 
         self.plays_instead_of_me_option = True
 
-        self.human_side = is_white
+        self.is_human_side_white = is_white
         self.is_engine_side_white = not is_white
 
         self.rm_rival = None
@@ -86,7 +86,7 @@ class ManagerCompeticion(Manager.Manager):
 
         player = self.configuration.nom_player()
         other = "%s (%s %d)" % (self.xrival.name, _("Level"), self.nivelJugado)
-        w, b = (player, other) if self.human_side else (other, player)
+        w, b = (player, other) if self.is_human_side_white else (other, player)
         self.game.set_tag("White", w)
         self.game.set_tag("Black", b)
 
@@ -94,7 +94,7 @@ class ManagerCompeticion(Manager.Manager):
 
         self.check_boards_setposition()
 
-        self.game.tag_timestart()
+        self.game.add_tag_timestart()
 
     def xrotulo2(self):
         self.set_label2(
@@ -120,7 +120,7 @@ class ManagerCompeticion(Manager.Manager):
             self.configurar(siSonidos=True, siCambioTutor=True)
 
         elif key == TB_UTILITIES:
-            self.utilidades(siArbol=False)
+            self.utilities(siArbol=False)
 
         elif key == TB_ADJOURN:
             self.adjourn()
@@ -133,6 +133,7 @@ class ManagerCompeticion(Manager.Manager):
             self.game.set_position()
             categoria, nivel, is_white = self.liReiniciar
             self.procesador.stop_engines()
+            self.main_window.activaInformacionPGN(False)
             self.start(self.categorias, categoria, nivel, is_white, self.puntos)
 
     def adjourn(self):
@@ -141,7 +142,7 @@ class ManagerCompeticion(Manager.Manager):
             label_menu = _("Competition with tutor") + ". " + self.xrival.name
 
             dic = {
-                "ISWHITE": self.human_side,
+                "ISWHITE": self.is_human_side_white,
                 "GAME_SAVE": self.game.save(),
                 "SITUTOR": self.is_tutor_enabled,
                 "HINTS": self.hints,
@@ -195,7 +196,7 @@ class ManagerCompeticion(Manager.Manager):
             if not QTUtil2.pregunta(self.main_window, _("Do you want to resign?")):
                 return False  # no abandona
             self.resultado = RS_WIN_OPPONENT
-            self.game.resign(self.human_side)
+            self.game.resign(self.is_human_side_white)
             self.ponFinJuego()
             self.autosave()
         else:
@@ -208,7 +209,7 @@ class ManagerCompeticion(Manager.Manager):
             if QTUtil2.pregunta(self.main_window, _("Do you want to go back in the last movement?")):
                 self.hints -= 1
                 self.ponAyudas(self.hints)
-                self.game.anulaUltimoMovimiento(self.human_side)
+                self.game.anulaUltimoMovimiento(self.is_human_side_white)
                 self.in_the_opening = False
                 self.game.assign_opening()
                 self.goto_end()
@@ -227,7 +228,7 @@ class ManagerCompeticion(Manager.Manager):
         is_white = self.game.last_position.is_white
 
         if self.game.is_finished():
-            self.muestra_resultado()
+            self.show_result()
             return
 
         if self.hints == 0:
@@ -271,16 +272,16 @@ class ManagerCompeticion(Manager.Manager):
             self.activate_side(is_white)
             self.analyze_begin()
 
-    def muestra_resultado(self):
+    def show_result(self):
         self.state = ST_ENDGAME
         self.disable_all()
         self.human_is_playing = False
 
-        mensaje, beep, player_win = self.game.label_resultado_player(self.human_side)
+        mensaje, beep, player_win = self.game.label_resultado_player(self.is_human_side_white)
 
         self.beepResultado(beep)
         if player_win:
-            hecho = "B" if self.human_side else "N"
+            hecho = "B" if self.is_human_side_white else "N"
             if self.categorias.put_result(self.categoria, self.nivelJugado, hecho):
                 mensaje += "\n\n%s: %d (%s)" % (
                     _("Move to the next level"),
@@ -304,22 +305,22 @@ class ManagerCompeticion(Manager.Manager):
         self.autosave()
 
     def analyze_begin(self):
-        self.siAnalizando = False
+        self.if_analyzing = False
         self.is_analyzed_by_tutor = False
         if self.is_tutor_enabled:
             self.is_analyzed_by_tutor = False
             if not self.is_finished():
-                self.siAnalizando = True
+                self.if_analyzing = True
                 if self.continueTt:
                     self.xtutor.ac_inicio(self.game)
                 else:
                     self.xtutor.ac_inicio_limit(self.game)
 
     def analyze_end(self):
-        if self.siAnalizando:
+        if self.if_analyzing:
             self.mrmTutor = self.xtutor.ac_final(-1)
             self.is_analyzed_by_tutor = True
-            self.siAnalizando = False
+            self.if_analyzing = False
 
     def change_tutor_active(self):
         previous = self.is_tutor_enabled

@@ -582,10 +582,10 @@ class LCMenuRondo(LCMenu):
         LCMenu.__init__(self, parent, puntos)
         self.rondo = rondoPuntos()
 
-    def opcion(self, key, label, icono=None, is_disabled=False, tipoLetra=None, siChecked=None):
+    def opcion(self, key, label, icono=None, is_disabled=False, tipoLetra=None, siChecked=None, toolTip: str = ""):
         if icono is None:
             icono = self.rondo.otro()
-        LCMenu.opcion(self, key, label, icono, is_disabled, tipoLetra, siChecked)
+        LCMenu.opcion(self, key, label, icono, is_disabled, tipoLetra, siChecked, toolTip)
 
     # def submenu(self, label, icono=None, is_disabled=False):
     #     if icono is None:
@@ -932,13 +932,19 @@ def select_db(owner, configuration, siAll, siNew, remove_autosave=False):
     return menu.lanza()
 
 
-def menuDB(submenu, configuration, siAll, indicador_previo=None, remove_autosave=False):
+def menuDB(submenu, configuration, siAll, indicador_previo=None, remove_autosave=False, siNew=False):
     lista = lista_db(configuration, siAll, remove_autosave=remove_autosave)
-    if lista.is_empty():
+    if lista.is_empty() and not siNew:
         return None
 
     rp = rondoPuntos()
     lista.add_submenu(submenu, rp, indicador_previo=indicador_previo)
+    if siNew:
+        submenu.separador()
+        indicador = ":n"
+        if indicador_previo:
+            indicador = indicador_previo + indicador
+        submenu.opcion(indicador, _("Create new"), Iconos.DatabaseMas())
 
 
 class ReadAnnotation(QtWidgets.QDialog):
@@ -949,7 +955,7 @@ class ReadAnnotation(QtWidgets.QDialog):
         self.edAnotacion = Controles.ED(self, "").ponTipoLetra(puntos=Code.configuration.x_menu_points).anchoFijo(70)
         btAceptar = Controles.PB(self, "", rutina=self.aceptar).ponIcono(Iconos.Aceptar(), 32)
         btCancelar = Controles.PB(self, "", rutina=self.cancelar).ponIcono(Iconos.MainMenu(), 32)
-        btAyuda = Controles.PB(self, "", rutina=self.ayuda).ponIcono(Iconos.AyudaGR(), 32)
+        btAyuda = Controles.PB(self, "", rutina=self.get_help).ponIcono(Iconos.AyudaGR(), 32)
 
         self.objetivo = objetivo
         self.conAyuda = False
@@ -987,7 +993,7 @@ class ReadAnnotation(QtWidgets.QDialog):
     def cancelar(self):
         self.reject()
 
-    def ayuda(self):
+    def get_help(self):
         self.conAyuda = True
         self.edAnotacion.set_text(self.objetivo)
 
@@ -1032,7 +1038,7 @@ def tbAcceptCancel(parent, if_default=False, siReject=True):
     ]
     if if_default:
         li_acciones.append(None)
-        li_acciones.append((_("Default"), Iconos.Defecto(), parent.defecto))
+        li_acciones.append((_("By default"), Iconos.Defecto(), parent.defecto))
     li_acciones.append(None)
 
     return LCTB(parent, li_acciones)

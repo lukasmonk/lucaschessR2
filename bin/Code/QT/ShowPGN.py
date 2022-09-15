@@ -93,19 +93,22 @@ class ShowPGN(QtWidgets.QScrollArea):
                 return
 
     def right_click(self, lb_sender):
-        # num_lb = None
-        # for num, lb in enumerate(self.li_variations):
-        #     if lb == lb_sender:
-        #         num_lb = num
-        #         break
+        text = lb_sender.text()
+        if not text or 'href="' not in text:
+            return
+        if not self.selected_link or 'href="%s"' % self.selected_link not in text:
+            bq = text.split('href="')[1]
+            href = bq.split('"')[0]
+            self.wowner.link_variation_pressed(href)
+            self.selected_link = href
+
         menu = QTVarios.LCMenu(self)
         menu.opcion("remove_line", _("Remove line"), Iconos.DeleteRow())
-        if self.selected_link and self.selected_link in lb_sender.text():  # move selected in variation
-            if not self.selected_link.endswith("|0"):  # si no es el primero
-                menu.separador()
-                menu.opcion("remove_move", _("Remove move"), Iconos.DeleteColumn())
+        if not self.selected_link.endswith("|0"):  # si no es el primero
             menu.separador()
-            menu.opcion("comment", _("Edit comment"), Iconos.ComentarioEditar())
+            menu.opcion("remove_move", _("Remove move"), Iconos.DeleteColumn())
+        menu.separador()
+        menu.opcion("comment", _("Edit comment"), Iconos.ComentarioEditar())
 
         resp = menu.lanza()
         if resp is None:

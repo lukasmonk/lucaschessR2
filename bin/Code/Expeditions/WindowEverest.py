@@ -14,10 +14,11 @@ from Code.QT import Controles
 from Code.QT import FormLayout
 from Code.QT import Grid
 from Code.QT import Iconos
+from Code.QT import LCDialog
+from Code.QT import QTUtil
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
 from Code.QT import SelectFiles
-from Code.QT import LCDialog
 
 
 class WNewExpedition(LCDialog.LCDialog):
@@ -32,7 +33,7 @@ class WNewExpedition(LCDialog.LCDialog):
         self.selected = None
 
         # Torneo
-        li = [("%s (%d)" % (_F(tourney["TOURNEY"]), len(tourney["GAMES"])), tourney) for tourney in self.litourneys]
+        li = [("%s (%d)" % (_FO(tourney["TOURNEY"]), len(tourney["GAMES"])), tourney) for tourney in self.litourneys]
         li.sort(key=lambda x: x[0])
         self.cbtourney, lbtourney = QTUtil2.comboBoxLB(self, li, li[0], _("Expedition"))
         btmas = Controles.PB(self, "", self.mas).ponIcono(Iconos.Mas22())
@@ -59,7 +60,7 @@ class WNewExpedition(LCDialog.LCDialog):
         gbtries = Controles.GB(self, _("Tries"), layout)
 
         # color
-        liColors = ((_("Default"), "D"), (_("White"), "W"), (_("Black"), "B"))
+        liColors = ((_("By default"), "D"), (_("White"), "W"), (_("Black"), "B"))
         self.cbcolor = Controles.CB(self, liColors, "D")
         layout = Colocacion.H().relleno(1).control(self.cbcolor).relleno(1)
         gbcolor = Controles.GB(self, _("Color"), layout)
@@ -197,6 +198,10 @@ class WExpedition(LCDialog.LCDialog):
 
         self.selected = False
 
+        self.color_negativo = QTUtil.qtColorRGB(255, 0, 0)
+        self.color_positivo = QTUtil.qtColor("#2b7d15")
+
+
         wsvg = QtSvg.QSvgWidget()
         wsvg.load(QtCore.QByteArray(svg))
         wsvg.setFixedSize(762, int(762.0 * 520.0 / 1172.0))
@@ -210,7 +215,7 @@ class WExpedition(LCDialog.LCDialog):
         )
         tb = Controles.TBrutina(self, li_acciones).vertical()
         if self.current is None:
-            tb.setAccionVisible(self.climb, False)
+            tb.set_action_visible(self.climb, False)
 
         lyRot = Colocacion.H()
         for elem in label:
@@ -227,7 +232,7 @@ class WExpedition(LCDialog.LCDialog):
         o_columns.nueva("DONE", _("Done"), 80, align_center=True)
         o_columns.nueva("TIME", _("Time"), 80, align_center=True)
         o_columns.nueva("MTIME", _("Average time"), 80, align_center=True)
-        o_columns.nueva("MPOINTS", _("Average centipawns lost"), 80, align_center=True)
+        o_columns.nueva("MPOINTS", _("Average cps"), 80, align_center=True)
         o_columns.nueva("TRIES", _("Max tries"), 80, align_center=True)
         o_columns.nueva("TOLERANCE", _("Tolerance"), 80, align_center=True)
         grid = Grid.Grid(self, o_columns, siSelecFilas=True, siSeleccionMultiple=False)
@@ -249,7 +254,27 @@ class WExpedition(LCDialog.LCDialog):
         return 12
 
     def grid_dato(self, grid, row, o_column):
-        return self.li_routes[row][o_column.key]
+        key = o_column.key
+        val = self.li_routes[row][key]
+        if key == "MPOINTS":
+            if val:
+                val = int(val)
+                if val:
+                    sym = "↓" if val > 0 else "↑"
+                    val = "%s  %d  %s" % (sym, abs(val), sym)
+                else:
+                    val = "0" if int(self.li_routes[row]["DONE"]) else ""
+        elif key == "TRIES":
+            val = str(int(val) + 1)
+        return val
+
+    def grid_color_texto(self, grid, row, o_column):
+        if o_column.key == "MPOINTS":
+            mpoints = self.li_routes[row]["MPOINTS"]
+            if mpoints:
+                v = int(mpoints)
+                if v:
+                    return self.color_positivo if v < 0 else self.color_negativo
 
     def grid_bold(self, grid, row, o_column):
         return self.current is not None and row == self.current
@@ -311,7 +336,7 @@ class WEverest(LCDialog.LCDialog):
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("NAME", _("Expedition"), 120, align_center=True)
         o_columns.nueva("DATE_INIT", _("Start date"), 120, align_center=True)
-        o_columns.nueva("DATE_END", _("Final date"), 100, align_center=True)
+        o_columns.nueva("DATE_END", _("End date"), 100, align_center=True)
         o_columns.nueva("NUM_GAMES", _("Games"), 80, align_center=True)
         o_columns.nueva("TIMES", _("Time"), 120, align_center=True)
         o_columns.nueva("TOLERANCE", _("Tolerance"), 90, align_center=True)

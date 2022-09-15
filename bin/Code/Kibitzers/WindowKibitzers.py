@@ -125,6 +125,9 @@ class WKibitzers(LCDialog.LCDialog):
         elif key == "info":
             control = "ed"
             valor = kibitzer.id_info
+        elif key == "max_time":
+            control = "ed"
+            valor = str(kibitzer.max_time)
         elif key.startswith("opcion"):
             opcion = kibitzer.li_uci_options_editable()[int(key[7:])]
             tipo = opcion.tipo
@@ -181,6 +184,11 @@ class WKibitzers(LCDialog.LCDialog):
             kibitzer.pointofview = valor
         elif self.me_key == "info":
             kibitzer.id_info = valor.strip()
+        elif self.me_key == "max_time":
+            try:
+                kibitzer.max_time = float(valor)
+            except ValueError:
+                pass
         elif self.me_key.startswith("opcion"):
             opcion = kibitzer.li_uci_options_editable()[int(self.me_key[7:])]
             opcion.valor = valor
@@ -206,7 +214,7 @@ class WKibitzers(LCDialog.LCDialog):
         submenu = menu.submenu(_("Polyglot book"), Iconos.Book())
         list_books = Books.ListBooks()
         list_books.restore_pickle(self.configuration.file_books)
-        list_books.check()
+        list_books.verify()
         rondo = QTVarios.rondoPuntos()
         for book in list_books.lista:
             submenu.opcion(("book", book), book.name, rondo.otro())
@@ -275,16 +283,19 @@ class WKibitzers(LCDialog.LCDialog):
         form.combobox(_("Point of view"), Kibitzers.cb_pointofview_options(), Kibitzers.KIB_AFTER_MOVE)
         form.separador()
 
+        form.float("%s (0=%s)" % (_("Fixed time in seconds"), _("all the time thinking")), 0.0)
+        form.separador()
+
         resultado = form.run()
 
         if resultado:
             accion, resp = resultado
 
-            name, engine, tipo, prioridad, pointofview = resp
+            name, engine, tipo, prioridad, pointofview, fixed_time = resp
 
             # Indexes only with Rodent II
             if tipo == "I":
-                engine = "rodentii"
+                engine = "rodentII"
                 if not name:  # para que no repita rodent II
                     name = _("Indexes") + " - RodentII"
 
@@ -293,7 +304,7 @@ class WKibitzers(LCDialog.LCDialog):
                 for label, key in liTipos:
                     if key == tipo:
                         name = "%s: %s" % (label, engine)
-            num = self.kibitzers.nuevo_engine(name, engine, tipo, prioridad, pointofview)
+            num = self.kibitzers.nuevo_engine(name, engine, tipo, prioridad, pointofview, fixed_time)
             self.goto(num)
 
     def remove(self):
@@ -401,6 +412,7 @@ class WKibitzers(LCDialog.LCDialog):
 
         if not (tipo in (Kibitzers.KIB_POLYGLOT, Kibitzers.KIB_GAVIOTA, Kibitzers.KIB_INDEXES)):
             self.liKibActual.append((_("Information"), me.id_info, "info"))
+            self.liKibActual.append((_("Fixed time in seconds"), me.max_time, "max_time"))
 
             for num, opcion in enumerate(me.li_uci_options_editable()):
                 default = opcion.label_default()
@@ -453,6 +465,7 @@ class WKibitzerLive(LCDialog.LCDialog):
         li = []
         li.append([_("Priority"), self.kibitzer.cpriority(), "prioridad"])
         li.append([_("Point of view"), self.kibitzer.cpointofview(), "pointofview"])
+        li.append([_("Fixed time in seconds"), self.kibitzer.max_time, "max_time"])
         for num, opcion in enumerate(self.kibitzer.li_uci_options_editable()):
             default = opcion.label_default()
             label_default = " (%s)" % default if default else ""
@@ -468,6 +481,7 @@ class WKibitzerLive(LCDialog.LCDialog):
         xprioridad = None
         xposicionBase = None
         xpointofview = None
+        xmax_time = None
         for x in range(len(self.li_options)):
             if self.li_options[x][1] != self.liOriginal[x][1]:
                 key = self.li_options[x][2]
@@ -477,6 +491,8 @@ class WKibitzerLive(LCDialog.LCDialog):
                     xprioridad = priorities.value(prioridad)
                 elif key == "pointofview":
                     xpointofview = self.kibitzer.pointofview
+                elif key == "max_time":
+                    xmax_time = self.kibitzer.max_time
                 else:
                     opcion = self.kibitzer.li_uci_options_editable()[int(key)]
                     lidif_opciones.append((opcion.name, opcion.valor))
@@ -485,6 +501,8 @@ class WKibitzerLive(LCDialog.LCDialog):
         self.result_xpointofview = xpointofview
         self.result_opciones = lidif_opciones
         self.result_posicionBase = xposicionBase
+        self.result_posicionBase = xposicionBase
+        self.result_max_time = xmax_time
         self.save_video()
         self.accept()
 
@@ -500,6 +518,9 @@ class WKibitzerLive(LCDialog.LCDialog):
             control = "cb"
             lista = Kibitzers.cb_pointofview_options()
             valor = self.kibitzer.pointofview
+        elif key == "max_time":
+            control = "ed"
+            valor = str(self.kibitzer.max_time)
         else:
             opcion = self.kibitzer.li_uci_options_editable()[int(key)]
             tipo = opcion.tipo
@@ -548,11 +569,18 @@ class WKibitzerLive(LCDialog.LCDialog):
         elif self.me_key == "pointofview":
             self.kibitzer.pointofview = valor
             self.li_options[1][1] = self.kibitzer.cpointofview()
+        elif self.me_key == "max_time":
+            try:
+                self.kibitzer.max_time = float(valor)
+                self.li_options[2][1] = self.kibitzer.max_time
+            except ValueError:
+                pass
+
         else:
             nopcion = int(self.me_key)
             opcion = self.kibitzer.li_uci_options_editable()[nopcion]
             opcion.valor = valor
-            self.li_options[nopcion + 2][1] = valor
+            self.li_options[nopcion + 3][1] = valor
             self.kibitzer.ordenUCI(opcion.name, valor)
 
     def grid_num_datos(self, grid):

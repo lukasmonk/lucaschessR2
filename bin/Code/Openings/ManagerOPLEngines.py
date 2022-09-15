@@ -120,7 +120,7 @@ class ManagerOpeningEngines(Manager.Manager):
         self.dicFENm2 = self.trainingEngines["DICFENM2"]
 
         self.siAyuda = False
-        self.board.dbvisual_set_show_allways(False)
+        self.board.dbvisual_set_show_always(False)
         self.hints = 9999  # Para que analice sin problemas
 
         self.game = Game.Game()
@@ -250,7 +250,7 @@ class ManagerOpeningEngines(Manager.Manager):
                         self.ponFinJuego()
                         return True
                 else:
-                    self.mensajeEnPGN(_("This is not the move in the opening lines, you must repeat the game"))
+                    self.message_on_pgn(_("This is not the move in the opening lines, you must repeat the game"))
                     self.ponFinJuego()
                     return True
 
@@ -367,7 +367,7 @@ class ManagerOpeningEngines(Manager.Manager):
             self.li_info.append(mens)
             self.muestraInformacion()
             self.dbop.setconfig("ENG_ENGINE", self.numengine + 1)
-            self.mensajeEnPGN(mens)
+            self.message_on_pgn(mens)
             self.siAprobado = True
 
         def suspendido():
@@ -375,7 +375,7 @@ class ManagerOpeningEngines(Manager.Manager):
             self.li_info.append("")
             self.li_info.append(mens)
             self.muestraInformacion()
-            self.mensajeEnPGN(mens)
+            self.message_on_pgn(mens)
 
         def calculaJG(move, siinicio):
             fen = move.position_before.fen() if siinicio else move.position.fen()
@@ -513,7 +513,7 @@ class ManagerOpeningEngines(Manager.Manager):
             liMasOpciones.append((None, None, None))
             liMasOpciones.append(("add_line", _("Add this line"), Iconos.OpeningLines()))
 
-            resp = self.utilidades(liMasOpciones)
+            resp = self.utilities(liMasOpciones)
             if resp == "books":
                 self.librosConsulta(False)
 
@@ -565,6 +565,7 @@ class ManagerOpeningEngines(Manager.Manager):
         return False
 
     def reiniciar(self):
+        self.main_window.activaInformacionPGN(False)
         self.reinicio(self.dbop)
 
     def ponFinJuego(self):

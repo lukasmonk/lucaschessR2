@@ -16,7 +16,7 @@ from Code.Base.Constantes import (
     TB_CONTINUE,
     TB_CONTINUE_REPLAY,
     TB_DRAW,
-    TB_END_GAME,
+    TB_COMMENTS,
     TB_END_REPLAY,
     TB_FAST_REPLAY,
     TB_FILE,
@@ -24,7 +24,6 @@ from Code.Base.Constantes import (
     TB_HELP_TO_MOVE,
     TB_INFORMATION,
     TB_LEVEL,
-    TB_MY_GAMES,
     TB_NEXT,
     TB_OPEN,
     TB_OPTIONS,
@@ -43,7 +42,6 @@ from Code.Base.Constantes import (
     TB_RESIGN,
     TB_SAVE,
     TB_SAVE_AS,
-    TB_SEND,
     TB_SHOW_TEXT,
     TB_SLOW_REPLAY,
     TB_STOP,
@@ -52,6 +50,8 @@ from Code.Base.Constantes import (
     TB_UTILITIES,
     TB_VARIATIONS,
     TB_EBOARD,
+)
+from Code.Nags.Nags import (
     NAG_0,
     NAG_1,
     NAG_2,
@@ -166,7 +166,7 @@ class WBase(QtWidgets.QWidget):
             TB_TAKEBACK: (_("Takeback"), Iconos.Atras()),
             TB_ADJOURN: (_("Adjourn"), Iconos.Aplazar()),
             TB_ADJOURNMENTS: (_("Adjournments"), Iconos.Aplazamientos()),
-            TB_END_GAME: (_("End game"), Iconos.FinPartida()),
+            # TB_END_GAME: (_("End game"), Iconos.FinPartida()),
             TB_CLOSE: (_("Close"), Iconos.MainMenu()),
             TB_PREVIOUS: (_("Previous"), Iconos.Anterior()),
             TB_NEXT: (_("Next"), Iconos.Siguiente()),
@@ -175,7 +175,6 @@ class WBase(QtWidgets.QWidget):
             TB_READ_PGN: (_("Read PGN file"), Iconos.Fichero()),
             TB_PGN_LABELS: (_("PGN labels"), Iconos.InformacionPGN()),
             TB_OTHER_GAME: (_("Other game"), Iconos.FicheroRepite()),
-            TB_MY_GAMES: (_("My games"), Iconos.NuestroFichero()),
             TB_DRAW: (_("Draw"), Iconos.Tablas()),
             TB_BOXROOMS_PGN: (_("Boxrooms PGN"), Iconos.BoxRooms()),
             TB_END_REPLAY: (_("End"), Iconos.MainMenu()),
@@ -199,8 +198,8 @@ class WBase(QtWidgets.QWidget):
             TB_CHANGE: (_("Change"), Iconos.Cambiar()),
             TB_SHOW_TEXT: (_("Show text"), Iconos.Modificar()),
             TB_HELP_TO_MOVE: (_("Help to move"), Iconos.BotonAyuda()),
-            TB_SEND: (_("Send"), Iconos.Enviar()),
             TB_STOP: (_("Play now"), Iconos.Stop()),
+            TB_COMMENTS: (_("Disable"), Iconos.Comment32()),
         }
 
     def lanzaAtajos(self):
@@ -221,11 +220,17 @@ class WBase(QtWidgets.QWidget):
 
         Delegados.generaPM(self.board.piezas)
 
-    def columnas60(self, siPoner, cNivel):
+    def columnas60(self, siPoner, cNivel, cWhite, cBlack):
+        if cNivel is None:
+            cNivel = _("Level")
+        if cWhite is None:
+            cWhite = _("Errors")
+        if cBlack is None:
+            cBlack = _("Second(s)")
         o_columns = self.pgn.o_columns
         o_columns.li_columns[0].head = cNivel if siPoner else _("N.")
-        o_columns.li_columns[1].head = _("Errors") if siPoner else _("White")
-        o_columns.li_columns[2].head = _("Second(s)") if siPoner else _("Black")
+        o_columns.li_columns[1].head = cWhite if siPoner else _("White")
+        o_columns.li_columns[2].head = cBlack if siPoner else _("Black")
         o_columns.li_columns[0].key = "LEVEL" if siPoner else "NUMBER"
         o_columns.li_columns[1].key = "ERRORS" if siPoner else "WHITE"
         o_columns.li_columns[2].key = "TIME" if siPoner else "BLACK"
@@ -237,6 +242,15 @@ class WBase(QtWidgets.QWidget):
         o_columns = self.pgn.o_columns
         o_columns.li_columns[1].head = white if white else _("White")
         o_columns.li_columns[2].head = black if black else _("Black")
+
+    def reset_widths(self):
+        configuration = self.manager.configuration
+        width_pgn = configuration.x_pgn_width
+        n_ancho_labels = max(int((width_pgn - 3) // 2), 140)
+        self.lb_player_white.anchoFijo(n_ancho_labels)
+        self.lb_player_black.anchoFijo(n_ancho_labels)
+        self.lb_capt_white.anchoFijo(n_ancho_labels)
+        self.lb_capt_black.anchoFijo(n_ancho_labels)
 
     def creaBloqueInformacion(self):
         configuration = self.manager.configuration
@@ -395,10 +409,13 @@ class WBase(QtWidgets.QWidget):
         if kopcion in self.dic_toolbar:
             self.dic_toolbar[kopcion].setVisible(must_show)
 
+    def set_title_toolbar(self, key, title):
+        self.dic_toolbar[key].setIconText(title)
+
     def set_title_toolbar_eboard(self):
         if Code.eboard:
             title = _("Disable") if Code.eboard.driver else _("Enable")
-            self.dic_toolbar[TB_EBOARD].setIconText(title)
+            self.set_title_toolbar(TB_EBOARD, title)
 
     def set_activate_tutor(self, siActivar):
         self.si_tutor = siActivar
@@ -453,6 +470,7 @@ class WBase(QtWidgets.QWidget):
             QTUtil.refresh_gui()
             self.manager.configuration.x_pgn_width = nAnchoPgn
             self.manager.configuration.graba()
+            self.reset_widths()
 
     def grid_tecla_control(self, grid, k, is_shift, is_control, is_alt):
         self.teclaPulsada("G", k)
@@ -509,7 +527,7 @@ class WBase(QtWidgets.QWidget):
                 info = "%+0.2f" % float(pts / 100.0)
 
             if color_nag == NAG_0:  # Son prioritarios los nags manuales
-                nag, color_nag = mrm.set_nag_color(self.configuration, rm)
+                nag, color_nag = mrm.set_nag_color(rm)
                 st_nags.add(nag)
 
         if move.in_the_opening or move.comment or move.variations:
@@ -752,8 +770,10 @@ class WBase(QtWidgets.QWidget):
             tm += '<br><FONT SIZE="-4">' + tm2
         self.lb_clock_black.set_text(tm)
 
-    def show_message(self, txt, with_cancel):
+    def show_message(self, txt, with_cancel, tit_cancel=None):
         self.wmessage.set_message(txt, with_cancel)
+        if with_cancel:
+            self.wmessage.bt_cancel.set_text(_("Cancel") if tit_cancel is None else tit_cancel)
         self.wmessage.show()
 
     def change_message(self, txt):
@@ -792,5 +812,6 @@ class WMessage(QtWidgets.QWidget):
         self.lb_message.setText(message)
 
     def cancel(self):
+        self.close()
         self.canceled = True
-        self.bt_cancel.setText(_("Canceled"))
+        # self.bt_cancel.setText(_("Canceled"))

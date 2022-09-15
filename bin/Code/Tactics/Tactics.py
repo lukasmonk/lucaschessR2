@@ -122,6 +122,10 @@ class Reinforcement:
         else:
             self.save()
 
+    def remove_data(self):
+        with self.tactica.dbdatos() as db:
+            del db["DICREINFORCEMENT"]
+
 
 class Tactics:
     """# Numero de puzzles en cada entrenamiento, menos si no hay tantos
@@ -702,16 +706,15 @@ class Tactic:
         if self.reinforcement.is_working():
             return False
         else:
-            return (self.w_next_position == self.w_total_positions) and len(self.reinforcement) == 0
+            return (self.w_next_position > self.w_total_positions) and len(self.reinforcement) == 0
 
     def work_info_position(self):
+        reinforcement_title, reinforcement_state = self.reinforcement.label()
         if self.w_next_position == self.w_total_positions:
             if self.w_reinforcement_working:
                 mens = _("End reinforcement")
                 color = "blue"
-            elif len(self.reinforcement) > 0:
-                mens = _("Reinforcement")
-                color = "orange"
+                reinforcement_title = '<tr><td  align="center"><h4>%s</h4></td></tr>' % reinforcement_title
             else:
                 mens = _("Endgame")
                 color = "DarkMagenta"
@@ -720,11 +723,14 @@ class Tactic:
             txt = "%s: %d" % (_("Next"), self.w_next_position + 1)
             color = "red" if self.w_next_position <= self.w_current_position else "blue"
 
-        reinforcement_title, reinforcement_state = self.reinforcement.label()
-        if reinforcement_title:
-            reinforcement_title = '<tr><td  align="center"><h4>%s</h4></td></tr>' % reinforcement_title
-        if reinforcement_state:
-            txt += reinforcement_state
+            if self.reinforcement.is_working() and not self.w_reinforcement_working:
+                txt = "%s: %s" % (_("Next"), _("Reinforcement"))
+
+            else:
+                if reinforcement_title:
+                    reinforcement_title = '<tr><td  align="center"><h4>%s</h4></td></tr>' % reinforcement_title
+                if reinforcement_state:
+                    txt += reinforcement_state
 
         html = (
             '<table border="1" with="100%%" align="center" cellpadding="5" cellspacing="0">'
@@ -776,3 +782,7 @@ class Tactic:
         else:
             with self.dbdatos() as db:
                 db["POSACTIVE"] = self.w_next_position
+
+    def remove_reinforcement(self):
+        self.reinforcement.remove_data()
+

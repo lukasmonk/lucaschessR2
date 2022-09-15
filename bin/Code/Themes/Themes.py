@@ -147,7 +147,7 @@ class Themes:
     def str_themes(self, move):
         return ", ".join(self.name(theme) for theme in move.li_themes)
 
-    def check(self, st_themes):
+    def verify(self, st_themes):
         for theme in st_themes:
             if theme not in self.dic_standard and theme not in self.li_custom:
                 self.add_custom(theme)

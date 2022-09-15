@@ -10,7 +10,7 @@ from Code.QT import QTVarios
 
 
 class WAnalisisVariations(QtWidgets.QDialog):
-    def __init__(self, oBase, ventana, segundosPensando, is_white, cPuntos, max_recursion):
+    def __init__(self, oBase, ventana, segundosPensando, is_white, cPuntos):
         super(WAnalisisVariations, self).__init__(ventana)
 
         self.oBase = oBase
@@ -39,10 +39,7 @@ class WAnalisisVariations(QtWidgets.QDialog):
         btTerminar = Controles.PB(self, _("Close"), self.close).ponPlano(False)
         btReset = Controles.PB(self, _("Another change"), oBase.reset).ponIcono(Iconos.MoverLibre()).ponPlano(False)
         liMasAcciones = (("FEN:%s" % _("Copy to clipboard"), "MoverFEN", Iconos.Clipboard()),)
-        lytbTutor, self.tb = QTVarios.lyBotonesMovimiento(
-            self, "", siLibre=max_recursion > 0, liMasAcciones=liMasAcciones
-        )
-        self.max_recursion = max_recursion - 1
+        lytbTutor, self.tb = QTVarios.lyBotonesMovimiento(self, "", siLibre=True, liMasAcciones=liMasAcciones)
 
         self.seconds, lbSegundos = QTUtil2.spinBoxLB(self, segundosPensando, 1, 999, maxTam=40, etiqueta=_("Second(s)"))
 
@@ -70,7 +67,7 @@ class WAnalisisVariations(QtWidgets.QDialog):
         self.lbPuntuacionNueva.set_text(pts)
 
     def process_toolbar(self):
-        self.oBase.process_toolbar(self.sender().key, self.max_recursion)
+        self.oBase.process_toolbar(self.sender().key)
 
     def start_clock(self, funcion):
         if not hasattr(self, "timer"):
@@ -106,4 +103,4 @@ class WAnalisisVariations(QtWidgets.QDialog):
             return
         else:
             return
-        self.oBase.process_toolbar(key, self.max_recursion)
+        self.oBase.process_toolbar(key)

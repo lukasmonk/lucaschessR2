@@ -3,9 +3,9 @@ from PySide2 import QtWidgets, QtCore
 import Code
 from Code import Variations
 from Code.Base import Game
+from Code.Nags import WNags, Nags
 from Code.QT import Colocacion, Controles, Iconos, QTVarios, ShowPGN, QTUtil2, FormLayout
 from Code.Themes import WThemes, Themes
-from Code.Nags import WNags, Nags
 
 
 class Information(QtWidgets.QWidget):
@@ -51,7 +51,7 @@ class Information(QtWidgets.QWidget):
         sp.setHorizontalPolicy(QtWidgets.QSizePolicy.Expanding)
         self.lb_cpws_lost.setSizePolicy(sp)
 
-        self.lb_time = Controles.LB(self).ponFuente(font7).set_wrap().align_right().anchoFijo(42)
+        self.lb_time = Controles.LB(self).ponFuente(font7).set_wrap().align_center().anchoFijo(42)
         self.lb_time.hide()
         self.lb_time.setStyleSheet("*{ border: 1px solid lightgray; padding:1px; background: #a7f2f5}")
         ly_pw_tm = Colocacion.H().control(self.lb_cpws_lost).espacio(-8).controld(self.lb_time)
@@ -94,6 +94,11 @@ class Information(QtWidgets.QWidget):
         splitter.addWidget(self.variantes)
         splitter.setSizes([1, 1])
         self.sp_sizes = None
+
+        def save_sizes_splitter(xx, zz):
+            self.sp_sizes = self.splitter.sizes()
+
+        splitter.splitterMoved.connect(save_sizes_splitter)
 
         layout = Colocacion.V()
         layout.control(self.lb_opening)
@@ -304,7 +309,7 @@ class WVariations(QtWidgets.QWidget):
         for num in li_variation_move[1:]:
             if is_num_variation:
                 variation = var_move.variations.get(num)
-            else:
+            elif variation:
                 var_move = variation.move(num)
                 num_var_move = num
             is_num_variation = not is_num_variation

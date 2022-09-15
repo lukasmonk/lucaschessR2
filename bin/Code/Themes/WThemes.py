@@ -27,7 +27,7 @@ class WThemes(LCDialog.LCDialog):
 
         self.themes = themes
 
-        self.themes.check(self.st_current_themes)
+        self.themes.verify(self.st_current_themes)
         self.qt_custom = QTUtil.qtColor("#bf5b16")
 
         self.configuration = Code.configuration

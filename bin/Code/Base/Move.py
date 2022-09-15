@@ -2,7 +2,7 @@ import Code
 import Code.Base.Game  # To prevent recursivity in Variations -> import direct
 from Code import Util
 from Code.Base import Position
-from Code.Base.Constantes import NAG_4, NAG_6, NAG_2, html_nag_txt
+from Code.Nags.Nags import NAG_4, NAG_6, NAG_2, html_nag_txt
 from Code.Engines import EngineResponse
 from Code.Themes.Lichess import cook
 from Code.Translations import TrListas
@@ -93,7 +93,6 @@ class Move:
     @property
     def pgnBase(self):
         pgnBase = self.position_before.pgn(self.from_sq, self.to_sq, self.promotion)
-        assert pgnBase is not None
         return pgnBase
 
     def add_nag(self, nag):
@@ -112,7 +111,7 @@ class Move:
         self.li_nags = []
 
     def del_variations(self):
-        self.variations.zap()
+        self.variations.clear()
 
     def del_comment(self):
         self.comment = ""
@@ -122,6 +121,9 @@ class Move:
 
     def del_analysis(self):
         self.analysis = None
+
+    def del_themes(self):
+        self.li_themes = []
 
     def is_white(self):
         return self.position_before.is_white
@@ -201,11 +203,18 @@ class Move:
         return li
 
     def pgnEN(self):
-        return self.pgnBase + self.resto()
+        resto = self.resto()
+        if resto:
+            if not (resto[0] in "?!"):
+                resto = " " + resto
+            return self.pgnBase + resto
+        else:
+            return self.pgnBase
 
     def resto(self, with_variations=True):
         resp = ""
         if self.li_nags:
+            self.li_nags.sort()
             resp += " ".join([html_nag_txt(nag) for nag in self.li_nags])
 
         comment = self.comment
@@ -216,10 +225,18 @@ class Move:
             for txt in comment.strip().split("\n"):
                 if txt:
                     resp += "{%s}" % txt.strip()
+        if self.time_ms:
+            s = self.time_ms / 1000
+            if int(s * 100) > 0:
+                h = int(s / 3600)
+                s -= h * 3600
+                m = int(s / 60)
+                s -= m * 60
+                resp += "{[%%emt :%02d:%02d:%02.2f:]}" % (h, m, s)
         if with_variations and len(self.variations):
             resp += " " + self.variations.get_pgn()
 
-        return (" %s" % resp.strip()) if resp else ""
+        return resp.strip()
 
     def analisis2variantes(self, almVariations, delete_previous):
         if not self.analysis:
@@ -314,6 +331,8 @@ class Move:
 
     def clone(self, other_game):
         m = Move(other_game)
+        m.position_before = self.position_before.copia()
+        m.position = self.position.copia()
         m.restore(self.save())
         return m
 
@@ -343,11 +362,27 @@ class Move:
                     if len(li_pv) < 3:
                         return
                     pv = " ".join(li_pv[1:])
-                    li_themes = cook.get_tags(self.position.fen(), pv, rm.puntos)
-                    if li_themes:
-                        for theme in li_themes:
-                            self.add_theme(theme)
+                    try:
+                        li_themes = cook.get_tags(self.position.fen(), pv, rm.puntos)
+                        if li_themes:
+                            for theme in li_themes:
+                                self.add_theme(theme)
+                    except:
+                        pass
                     return
+
+    def list_all_moves(self):
+        # Analysis including variations
+        pos_current_move = 0
+        for pos_move, move in enumerate(self.game.li_moves):
+            if move == self:
+                pos_current_move = pos_move
+                break
+        li = [(self, self.game, pos_current_move)]
+        for game in self.variations.list_games():
+            for move in game.li_moves:
+                li.extend(move.list_all_moves())
+        return li
 
 
 def get_game_move(game, position_before, from_sq, to_sq, promotion):
@@ -452,10 +487,11 @@ class Variations:
         tmp_game.set_position(self.move_base.position_before)
         tmp_game.read_pv(rm.pv)
         move = tmp_game.move(0)
-        puntuacion = rm.abrTextoPDT() if si_pdt else rm.abrTexto()
-        move.set_comment("%s%s" % (puntuacion, eti_t))
-        gm = tmp_game.copia(0 if si_un_move else None)
-        self.li_variations.append(gm)
+        if move:
+            puntuacion = rm.abrTextoPDT() if si_pdt else rm.abrTexto()
+            move.set_comment("%s%s" % (puntuacion, eti_t))
+            gm = tmp_game.copia(0 if si_un_move else None)
+            self.li_variations.append(gm)
 
     def add_variation(self, game):
         pv_add = game.pv()
@@ -473,6 +509,3 @@ class Variations:
             self.li_variations.append(gm)
         else:
             self.li_variations[pos_add] = gm
-
-    def zap(self):
-        self.li_variations = []

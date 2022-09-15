@@ -71,7 +71,7 @@ class WRunCaptures(LCDialog.LCDialog):
             (_("Close"), Iconos.MainMenu(), self.terminar),
             None,
             (_("Begin"), Iconos.Empezar(), self.begin),
-            (_("Verify"), Iconos.Check(), self.check),
+            (_("Verify"), Iconos.Check(), self.verify),
             (_("Continue"), Iconos.Pelicula_Seguir(), self.seguir),
         )
         self.tb = QTVarios.LCTB(self, li_acciones, icon_size=32)
@@ -199,7 +199,7 @@ class WRunCaptures(LCDialog.LCDialog):
 
     def show_tb(self, *lista):
         for opc in self.tb.dic_toolbar:
-            self.tb.setAccionVisible(opc, opc in lista)
+            self.tb.set_action_visible(opc, opc in lista)
         self.tb.setEnabled(True)
         QTUtil.refresh_gui()
 
@@ -242,7 +242,7 @@ class WRunCaptures(LCDialog.LCDialog):
                 QTUtil.refresh_gui()
 
         # Ponemos el toolbar
-        self.show_tb(self.check, self.terminar)
+        self.show_tb(self.verify, self.terminar)
 
         # Activamos capturas
         self.gb_captures.setEnabled(True)
@@ -253,7 +253,7 @@ class WRunCaptures(LCDialog.LCDialog):
 
         self.liwm_captures[0].activa()
 
-    def check(self):
+    def verify(self):
         tiempo = time.time() - self.time_base
 
         def test(liwm, si_mb):

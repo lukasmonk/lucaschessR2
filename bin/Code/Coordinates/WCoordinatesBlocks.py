@@ -18,7 +18,7 @@ class WCoordinatesBlocks(LCDialog.LCDialog):
         LCDialog.LCDialog.__init__(self, procesador.main_window, title, icon, extconfig)
 
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("DATE_INI", _("Initial date"), 140, align_center=True)
+        o_columns.nueva("DATE_INI", _("Start date"), 140, align_center=True)
         o_columns.nueva("DATE_END", _("End date"), 140, align_center=True)
         o_columns.nueva("DONE", _("Done"), 100, align_center=True)
         o_columns.nueva("TRIES", _("Tries"), 90, align_center=True)

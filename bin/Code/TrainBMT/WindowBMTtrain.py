@@ -85,6 +85,7 @@ class WTrainBMT(LCDialog.LCDialog):
         self.board = Board.Board(self, config_board)
         self.board.crea()
         self.board.set_dispatcher(self.player_has_moved)
+        self.board.dbvisual_set_show_always(False)
 
         # Info -------------------------------------------------------------------
         colorFondo = QTUtil.qtColor(config_board.colorNegras())
@@ -709,7 +710,7 @@ class WTrainBMT(LCDialog.LCDialog):
         self.lb_game.set_text("")
         self.lbPrimera.set_text(self.texto_lbPrimera)
 
-        self.board.dbvisual_set_show_allways(False)
+        self.board.dbvisual_set_show_always(False)
         self.board.set_position(self.position)
 
         self.liBT[self.actualP].ponPlano(True)
@@ -906,7 +907,4 @@ class WTrainBMT(LCDialog.LCDialog):
         if move.is_mate:
             return
 
-        max_recursion = 9999
-        Analysis.show_analysis(
-            self.procesador, self.procesador.XTutor(), move, is_white, max_recursion, pos, main_window=self
-        )
+        Analysis.show_analysis(self.procesador, self.procesador.XTutor(), move, is_white, pos, main_window=self)

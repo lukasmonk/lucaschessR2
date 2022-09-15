@@ -35,7 +35,7 @@ class ManagerAlbum(Manager.Manager):
         self.human_is_playing = False
         self.state = ST_PLAYING
 
-        self.human_side = is_white
+        self.is_human_side_white = is_white
         self.is_engine_side_white = not is_white
 
         self.is_tutor_enabled = False
@@ -43,7 +43,7 @@ class ManagerAlbum(Manager.Manager):
         self.ayudas_iniciales = self.hints = 0
 
         self.xrival = Albums.ManagerMotorAlbum(self, self.cromo)
-        self.main_window.pon_toolbar((TB_RESIGN, TB_ADJOURN, TB_CONFIG, TB_UTILITIES))
+        self.set_toolbar((TB_RESIGN, TB_ADJOURN, TB_CONFIG, TB_UTILITIES))
 
         self.main_window.activaJuego(True, False, siAyudas=False)
         self.set_dispatcher(self.player_has_moved)
@@ -61,13 +61,13 @@ class ManagerAlbum(Manager.Manager):
 
         player = self.configuration.nom_player()
         other = self.cromo.name
-        w, b = (player, other) if self.human_side else (_F(other), player)
+        w, b = (player, other) if self.is_human_side_white else (_F(other), player)
 
         self.game.set_tag("Event", album.event)
         self.game.set_tag("White", w)
         self.game.set_tag("Black", b)
 
-        self.game.tag_timestart()
+        self.game.add_tag_timestart()
 
     def save_state(self):
         dic = {
@@ -84,9 +84,9 @@ class ManagerAlbum(Manager.Manager):
         pos_cromo = dic["POS_CROMO"]
         game_save = dic["GAME_SAVE"]
         if preclave == "animales":
-            albumes = Albums.AlbumesAnimales()
+            albumes = Albums.AlbumAnimales()
         else:
-            albumes = Albums.AlbumesVehicles()
+            albumes = Albums.AlbumVehicles()
 
         album = albumes.get_album(alias)
         cromo = album.get_cromo(pos_cromo)
@@ -117,7 +117,7 @@ class ManagerAlbum(Manager.Manager):
             self.configurar(siSonidos=True)
 
         elif key == TB_UTILITIES:
-            self.utilidades()
+            self.utilities()
 
         elif key == TB_ADJOURN:
             self.adjourn()
@@ -141,10 +141,10 @@ class ManagerAlbum(Manager.Manager):
         if len(self.game) > 1:
             if not QTUtil2.pregunta(self.main_window, _("Do you want to resign?")):
                 return False  # no abandona
-            self.game.resign(self.human_side)
+            self.game.resign(self.is_human_side_white)
             self.ponFinJuego()
             self.xrival.cerrar()
-            self.main_window.pon_toolbar((TB_CLOSE, TB_CONFIG, TB_UTILITIES))
+            self.set_toolbar((TB_CLOSE, TB_CONFIG, TB_UTILITIES))
             self.autosave()
         else:
             self.procesador.start()
@@ -161,7 +161,7 @@ class ManagerAlbum(Manager.Manager):
         self.put_view()
 
         if self.game.is_finished():
-            self.muestra_resultado()
+            self.show_result()
             return
 
         is_white = self.game.last_position.is_white
@@ -225,12 +225,12 @@ class ManagerAlbum(Manager.Manager):
             self.error = mens
             return False
 
-    def muestra_resultado(self):
+    def show_result(self):
         self.state = ST_ENDGAME
         self.disable_all()
         self.human_is_playing = False
 
-        mensaje, beep, player_win = self.game.label_resultado_player(self.human_side)
+        mensaje, beep, player_win = self.game.label_resultado_player(self.is_human_side_white)
 
         self.beepResultado(beep)
 
@@ -248,4 +248,4 @@ class ManagerAlbum(Manager.Manager):
         self.ponFinJuego()
         self.xrival.cerrar()
         self.autosave()
-        self.main_window.pon_toolbar((TB_CLOSE, TB_CONFIG, TB_UTILITIES))
+        self.set_toolbar((TB_CLOSE, TB_CONFIG, TB_UTILITIES))

@@ -294,6 +294,12 @@ int pgn_read(char * body, char * fen)
             c++;
             if(raw) raw = false;
             break;
+			
+		case '!':
+		case '?':
+            c++;
+            if(raw) raw = false;
+            break;
 
         default:
             c++;

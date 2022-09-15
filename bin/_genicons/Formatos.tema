@@ -516,8 +516,8 @@ Pack windows8 icons8_Collapse_32px.png
 
 Home nuvola folder_home.png
 
-Import8 windows8 icons8_Upload_32px.png
-Export8 windows8 Download_32px.png
+Import8 windows8 Download_32px.png
+Export8 windows8 upload_32px.png
 
 Tablas8 windows8 Exposure_32px.png
 
@@ -600,6 +600,7 @@ West windows8 icons8_West_Direction_32px.png
 Opening windows8 icons8_read_16px.png
 Variation windows8 icons8_tree_structure_16px.png
 Comment windows8 icons8_chat_room_16px.png
+Comment32 windows8 icons8_comments_32px.png
 
 VariationComment windows8 icons8_tree_structure_16px_2.png
 OpeningVariation windows8 icons8_books_16px.png
@@ -710,3 +711,17 @@ League windows8 icons8_trophy_32px.png
 
 Journey windows8 icons8_clock_24px.png
 Classification windows8 icons8_leaderboard_32px.png
+
+NAGs otros $14.png
+
+Season windows8 date_span_32px.png
+
+NAG_0 otros $0.png
+NAG_1 otros $1.png
+NAG_2 otros $2.png
+NAG_3 otros $3.png
+NAG_4 otros $4.png
+NAG_5 otros $5.png
+NAG_6 otros $6.png
+
+Information windows8 icons8_circled_right_80px.png

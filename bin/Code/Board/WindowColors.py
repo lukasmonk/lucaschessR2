@@ -8,19 +8,21 @@ import Code.Nags.Nags
 from Code import Util
 from Code.Base import Position
 from Code.Base.Constantes import (
-    NAG_1,
-    NAG_2,
-    NAG_3,
-    NAG_4,
-    NAG_5,
-    NAG_6,
     SPECULATIVE_MOVE,
     GOOD_MOVE,
     MISTAKE,
     VERY_GOOD_MOVE,
     BLUNDER,
     INACCURACY,
-    dicHTMLnags,
+)
+from Code.Nags.Nags import (
+    NAG_1,
+    NAG_2,
+    NAG_3,
+    NAG_4,
+    NAG_5,
+    NAG_6,
+    dic_symbol_nags,
 )
 from Code.Board import Board, BoardArrows, ConfBoards
 from Code.Director import WindowTabVFlechas
@@ -317,7 +319,7 @@ class WColores(LCDialog.LCDialog):
         ).capture_changes(self, self.extendedColor)
 
         # Actual
-        self.chbTemas = Controles.CHB(self, _("Default"), self.config_board.siDefTema()).capture_changes(
+        self.chbTemas = Controles.CHB(self, _("By default"), self.config_board.siDefTema()).capture_changes(
             self, self.defectoTemas
         )
         if self.is_base:
@@ -384,7 +386,7 @@ class WColores(LCDialog.LCDialog):
         def xDefecto(if_default):
             if self.is_base:
                 if_default = False
-            chb = Controles.CHB(self, _("Default"), if_default).capture_changes(self, self.defectoBoardM)
+            chb = Controles.CHB(self, _("By default"), if_default).capture_changes(self, self.defectoBoardM)
             if self.is_base:
                 chb.setVisible(False)
             return chb
@@ -701,6 +703,7 @@ class WColores(LCDialog.LCDialog):
                 resp = menu.lanza()
                 if resp == "rename":
                     self.rename_theme(tema)
+                    self.save_own_themes()
                 elif resp == "delete":
                     name = tema.get("NOMBRE", "")
                     seccion = tema.get("SECCION", "")
@@ -928,12 +931,12 @@ def eligeTema(parent, fichTema):
     return None if resp is None else liTemas[int(resp)]
 
 
-def nag2ico(nag, tam):
-    with open(Code.path_resource("IntFiles", "NAGs", "Color", "nag_%d.svg" % nag), "rb") as f:
-        dato = f.read()
-        color = getattr(Code.configuration, "x_color_nag%d" % nag)
-        dato = dato.replace(b"#3139ae", color.encode())
-    return QTVarios.svg2ico(dato, tam)
+# def nag2ico(nag, tam):
+#     with open(Code.path_resource("IntFiles", "NAGs", "Color", "nag_%d.svg" % nag), "rb") as f:
+#         dato = f.read()
+#         color = getattr(Code.configuration, "x_color_nag%d" % nag)
+#         dato = dato.replace(b"#3139ae", color.encode())
+#     return QTVarios.svg2ico(dato, tam)
 
 
 def cambiaColores(parent, configuration):
@@ -989,22 +992,22 @@ def cambiaColores(parent, configuration):
 
     dic_nags = Code.Nags.Nags.dic_nags()
 
-    config = FormLayout.Colorbox(dic_nags[GOOD_MOVE] + " (%s)" % dicHTMLnags[NAG_1], 40, 20, siSTR=True)
+    config = FormLayout.Colorbox(dic_nags[GOOD_MOVE].text + " (%s)" % dic_symbol_nags(NAG_1), 40, 20, siSTR=True)
     liPGN.append((config, configuration.x_color_nag1))
 
-    config = FormLayout.Colorbox(dic_nags[MISTAKE] + " (%s)" % dicHTMLnags[NAG_2], 40, 20, siSTR=True)
+    config = FormLayout.Colorbox(dic_nags[MISTAKE].text + " (%s)" % dic_symbol_nags(NAG_2), 40, 20, siSTR=True)
     liPGN.append((config, configuration.x_color_nag2))
 
-    config = FormLayout.Colorbox(dic_nags[VERY_GOOD_MOVE] + " (%s)" % dicHTMLnags[NAG_3], 40, 20, siSTR=True)
+    config = FormLayout.Colorbox(dic_nags[VERY_GOOD_MOVE].text + " (%s)" % dic_symbol_nags(NAG_3), 40, 20, siSTR=True)
     liPGN.append((config, configuration.x_color_nag3))
 
-    config = FormLayout.Colorbox(dic_nags[BLUNDER] + " (%s)" % dicHTMLnags[NAG_4], 40, 20, siSTR=True)
+    config = FormLayout.Colorbox(dic_nags[BLUNDER].text + " (%s)" % dic_symbol_nags(NAG_4), 40, 20, siSTR=True)
     liPGN.append((config, configuration.x_color_nag4))
 
-    config = FormLayout.Colorbox(dic_nags[SPECULATIVE_MOVE] + " (%s)" % dicHTMLnags[NAG_5], 40, 20, siSTR=True)
+    config = FormLayout.Colorbox(dic_nags[SPECULATIVE_MOVE].text + " (%s)" % dic_symbol_nags(NAG_5), 40, 20, siSTR=True)
     liPGN.append((config, configuration.x_color_nag5))
 
-    config = FormLayout.Colorbox(dic_nags[INACCURACY] + " (%s)" % dicHTMLnags[NAG_6], 40, 20, siSTR=True)
+    config = FormLayout.Colorbox(dic_nags[INACCURACY].text + " (%s)" % dic_symbol_nags(NAG_6), 40, 20, siSTR=True)
     liPGN.append((config, configuration.x_color_nag6))
 
     li_others = []
@@ -1015,6 +1018,9 @@ def cambiaColores(parent, configuration):
     li_others.append((None, _("Tables")))
     config = FormLayout.Colorbox(_("Background of selected row"), 40, 20, siSTR=True)
     color = configuration.pgn_selbackground()
+    li_others.append((config, color))
+    config = FormLayout.Colorbox(_("Text color of selected row"), 40, 20, siSTR=True)
+    color = configuration.pgn_selforeground()
     li_others.append((config, color))
     config = FormLayout.Colorbox(_("Background of header"), 40, 20, siSTR=True)
     color = configuration.x_pgn_headerbackground
@@ -1058,10 +1064,12 @@ def cambiaColores(parent, configuration):
 
         if li_others[0]:
             configuration.x_pgn_selbackground = None
+            configuration.x_pgn_selforeground = None
             configuration.x_pgn_headerbackground = None
         else:
             configuration.x_pgn_selbackground = li_others[1]
-            configuration.x_pgn_headerbackground = li_others[2]
+            configuration.x_pgn_selforeground = li_others[2]
+            configuration.x_pgn_headerbackground = li_others[3]
 
         configuration.graba()
 

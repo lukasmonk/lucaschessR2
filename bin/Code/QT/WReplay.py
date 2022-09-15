@@ -94,6 +94,7 @@ class Replay:
 
         self.li_moves = self.manager.game.li_moves
         self.current_position = 0 if if_start else self.jugInicial
+        self.initial_position = self.current_position
 
         self.siStop = False
 
@@ -137,7 +138,7 @@ class Replay:
 
         move = self.li_moves[self.current_position]
         self.board.set_position(move.position_before)
-        if self.current_position > 0:
+        if self.current_position > self.initial_position:
             if not self.sleep_refresh(self.seconds / self.rapidez):
                 return
 
@@ -196,9 +197,9 @@ class Replay:
 
         self.manager.put_view()
 
-        cpu.reset()
-        cpu.duerme(self.seconds / self.rapidez)
-        cpu.runLineal()
+        # cpu.reset()
+        # cpu.duerme(self.seconds / self.rapidez)
+        # cpu.runLineal()
 
     def muestraPausa(self, si_pausa, si_continue):
         self.main_window.show_option_toolbar(TB_PAUSE_REPLAY, si_pausa)

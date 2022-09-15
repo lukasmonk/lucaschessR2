@@ -80,7 +80,7 @@ class ControlFindAllMoves:
                 return "-"
             tiempo = vtime / 100.0
             tm = tiempo / (row + 1)
-            return "%0.02f / %0.02f" % (tiempo, tm)
+            return '%0.02f" / %0.02f"' % (tiempo, tm)
         else:
             return "-" if vtime == 0 else str(errores)
 
@@ -102,13 +102,14 @@ class ControlFindAllMoves:
         else:
             siRecord = True
 
-        mensaje = "<b>%s</b> : %d<br><b>%s</b> : %d<br><b>%s</b> : %.02f/%.02f" % (
+        mensaje = "<b>%s</b> : %d<br><b>%s</b> : %d<br><b>%s:</b> %.02f<br><b>%s: </b>%.02f<br>" % (
             _("Level"),
             number + 1,
             _("Errors"),
             errores,
             _("Time"),
             vtime / 100.0,
+            _("Average"),
             tm / 100.0,
         )
         if siRecord:
@@ -140,7 +141,7 @@ class ManagerFindAllMoves(Manager.Manager):
 
         self.pgn = ControlFindAllMoves(self, siJugador)
 
-        self.main_window.columnas60(True)
+        self.main_window.columnas60(True, cBlack="%s / %s" % (_("Time"), _("Avg || Abrev. of Average")))
 
         self.finJuego()
 
@@ -237,7 +238,7 @@ class ManagerFindAllMoves(Manager.Manager):
         self.number = number
         cp = Position.Position()
         cp.read_fen(fen)
-        self.human_side = self.is_white = cp.is_white
+        self.is_human_side_white = self.is_white = cp.is_white
         if self.is_white:
             siP = self.siJugador
         else:
@@ -347,9 +348,7 @@ class ManagerFindAllMoves(Manager.Manager):
             mens = '<b><span style="color:green">%s</span></b>' % _("Congratulations, goal achieved")
             QTUtil2.message(self.main_window, mens)
         else:
-            QTUtil2.mensajeTemporal(
-                self.main_window, mensaje, 3 if siRecord else 2, background="#FFCD43" if siRecord else None
-            )
+            QTUtil2.mensajeTemporal(self.main_window, mensaje, 10, background="#FFCD43" if siRecord else None)
 
     def analize_position(self, row, key):
         if self.state == ST_PLAYING:

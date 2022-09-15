@@ -114,13 +114,13 @@ def dameCategoria(w_parent, configuration, procesador):
 
     # ----------- RIVAL
     menu.separador()
-    menu.opcion("ayuda", _("Help"), Iconos.Ayuda())
+    menu.opcion("get_help", _("Help"), Iconos.Ayuda())
 
     cursor = QtGui.QCursor.pos()
     resp = menu.lanza()
     if resp is None:
         return None
-    elif resp == "ayuda":
+    elif resp == "get_help":
         titulo = _("Competition")
         ancho, alto = QTUtil.tamEscritorio()
         ancho = min(ancho, 700)

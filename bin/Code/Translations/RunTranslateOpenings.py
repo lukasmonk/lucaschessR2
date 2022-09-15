@@ -1,7 +1,7 @@
 import os
 
 import polib
-from PySide2 import QtCore
+from PySide2 import QtCore, QtWidgets
 
 import Code
 from Code.QT import Colocacion
@@ -53,9 +53,13 @@ class WTranslateOpenings(LCDialog.LCDialog):
         self.grid.setAlternatingRowColors(True)
         self.register_grid(self.grid)
 
+        tooltip = "F3 to search forward\nshift F3 to search backward"
+
         self.lb_seek = Controles.LB(self, "Find (Ctrl F):").ponTipoLetra(puntos=10).anchoFijo(74)
         self.ed_seek = Controles.ED(self, "").ponTipoLetra(puntos=10).capture_enter(self.siguiente)
+        self.ed_seek.setToolTip(tooltip)
         self.f3_seek = Controles.PB(self, "F3", self.siguiente, plano=False).ponTipoLetra(puntos=10).anchoFijo(30)
+        self.f3_seek.setToolTip(tooltip)
         ly_seek = Colocacion.H().control(self.lb_seek).control(self.ed_seek).control(self.f3_seek).margen(0)
 
         laytb = Colocacion.H().control(self.tb).control(self.lb_porcentage)
@@ -228,10 +232,19 @@ class WTranslateOpenings(LCDialog.LCDialog):
         self.order_by_type(key_col)
 
     def siguiente(self):
+        modifiers = QtWidgets.QApplication.keyboardModifiers()
+        is_shift = modifiers == QtCore.Qt.ShiftModifier
+
         pos = self.grid.recno()
         txt = self.ed_seek.texto().strip().upper()
         mirar = list(range(pos + 1, len(self.li_labels)))
         mirar.extend(range(pos + 1))
+
+        if is_shift:
+            mirar = list(reversed(mirar))
+            m = mirar[0]
+            del mirar[0]
+            mirar.append(m)
 
         for row in mirar:
             key = self.li_labels[row]

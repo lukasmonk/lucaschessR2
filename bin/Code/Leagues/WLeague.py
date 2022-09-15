@@ -2,10 +2,10 @@ from PySide2 import QtWidgets, QtCore
 
 import Code
 from Code import XRun
-from Code.Base.Constantes import RESULT_WIN_WHITE, RESULT_DRAW, RESULT_WIN_BLACK
 from Code.Base import Game
-from Code.Databases import DBgames
-from Code.Leagues import LeaguesWork
+from Code.Base.Constantes import RESULT_WIN_WHITE, RESULT_DRAW, RESULT_WIN_BLACK
+from Code.Databases import DBgames, WDB_Games
+from Code.Leagues import LeaguesWork, Leagues
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles
@@ -25,18 +25,21 @@ class WLeague(LCDialog.LCDialog):
 
         titulo = "%s - %s %d" % (league.name(), _("Season"), league.get_current_season() + 1)
         icono = Iconos.League()
-        extparam = "league"
+        extparam = "league4"
         LCDialog.LCDialog.__init__(self, w_parent, titulo, icono, extparam)
 
         self.league = league
         self.season = league.read_season()
-        self.li_panels = self.season.gen_panels()
+        self.li_panels = self.season.gen_panels_classification()
+        self.li_matches = self.season.get_all_matches()
+        self.current_journey = self.season.get_current_journey()
+        self.max_journeys = self.season.get_max_journeys()
         self.dic_xid_name = self.league.dic_names()
         self.terminated = False
         self.play_human = None
         self.result = NONE
         self.timer = QtCore.QTimer(self)
-        self.timer.timeout.connect(self.update_matchs)
+        self.timer.timeout.connect(self.update_matches)
 
         self.color_win = QTUtil.qtColor("#007aae")
         self.color_lost = QTUtil.qtColor("#f47378")
@@ -47,10 +50,11 @@ class WLeague(LCDialog.LCDialog):
             None,
             (_("Launch a worker"), Iconos.Lanzamiento(), self.launch_worker),
             None,
-            (_("Update"), Iconos.Update(), self.update_matchs),
+            (_("Update"), Iconos.Update(), self.update_matches),
             None,
-            (_("Utilities"), Iconos.Utilidades(), self.utilities),
+            (_("Export"), Iconos.Export8(), self.export),
             None,
+            (_("Seasons"), Iconos.Season(), self.seasons),
         )
         self.tb = QTVarios.LCTB(self, li_acciones)
 
@@ -59,9 +63,19 @@ class WLeague(LCDialog.LCDialog):
 
         self.li_grids_divisions = []
         ly = Colocacion.H()
-        li_nom_divisions = [_("First Division"), _("Second Division"), _("Third Division")]
+        li_nom_divisions = [
+            _("First Division"),
+            _("Second Division"),
+            _("Third Division"),
+            _("Fourth Division"),
+            _("Fifth Division"),
+        ]
+        num_divisions = self.league.num_divisions()
+        if num_divisions > 5:
+            for dv in range(6, num_divisions + 1):
+                li_nom_divisions.append("%d %s" % (dv, _("Division")))
         tr = Controles.Tab(self).ponTipoLetra(puntos=10).set_position("S")
-        for division in range(3):
+        for division in range(num_divisions):
             o_col = Columnas.ListaColumnas()
             o_col.nueva("ORDER", "", 40, align_center=True)
             o_col.nueva("OPPONENT", _("Opponent"), 200)
@@ -70,7 +84,6 @@ class WLeague(LCDialog.LCDialog):
             o_col.nueva("WIN", _("W ||Games won"), 50, align_center=True)
             o_col.nueva("DRAW", _("D ||Games drawn"), 50, align_center=True)
             o_col.nueva("LOST", _("L ||Games lost"), 50, align_center=True)
-            # o_col.nueva("TB", _("TB||Tie-break"), 50, align_center=True)
             o_col.nueva("ACT_ELO", _("Current ELO"), 90, align_center=True)
             o_col.nueva("DIF_ELO", "∆", 60, align_center=True)
             o_col.nueva("INI_ELO", _("Initial ELO"), 90, align_center=True)
@@ -83,44 +96,138 @@ class WLeague(LCDialog.LCDialog):
 
         w = QtWidgets.QWidget(self)
         w.setLayout(ly)
+
         self.tab.addTab(w, "")
         self.tab.setIconSize(QtCore.QSize(32, 32))
         self.tab.ponIcono(0, Iconos.Classification())
 
-        self.li_grids_journeys = []
-        for journey in range(18):
-            ly = Colocacion.H()
-            tr = Controles.Tab(self).ponTipoLetra(puntos=10).set_position("S")
-            for division in range(3):
-                o_col = Columnas.ListaColumnas()
-                o_col.nueva("WHITE", _("White"), 240, align_center=True)
-                o_col.nueva("BLACK", _("Black"), 240, align_center=True)
-                o_col.nueva("RESULT", _("Result"), 240, align_center=True)
-                grid = Grid.Grid(self, o_col, xid="J%dD%d" % (journey, division), altoFila=48, siSelecFilas=True)
-                self.register_grid(grid)
-                self.li_grids_journeys.append(grid)
-                grid.setFont(font)
-                tr.addTab(grid, li_nom_divisions[division])
-            ly.control(tr)
+        # Matches
+        o_col = Columnas.ListaColumnas()
+        o_col.nueva("DIVISION", _("Division"), 60, align_center=True)
+        o_col.nueva("WHITE", _("White"), 240)
+        o_col.nueva("BLACK", _("Black"), 240)
+        o_col.nueva("RESULT", _("Result"), 180, align_center=True)
+        self.grid_matches = Grid.Grid(self, o_col, siSelecFilas=True)
+        self.register_grid(self.grid_matches)
+        self.grid_matches.setFont(font)
 
-            w = QtWidgets.QWidget(self)
-            w.setLayout(ly)
-            self.tab.addTab(w, str(journey + 1))
+        self.dic_order = {}
 
-        self.current_journey = self.season.get_current_journey()
-        self.tab.ponIcono(self.current_journey + 1, Iconos.Journey())
+        tbj = QTVarios.LCTB(self, with_text=False, icon_size=24, style=QtCore.Qt.ToolButtonIconOnly)
+        tbj.new("", Iconos.MoverInicio(), self.journey_first, False)
+        tbj.new("", Iconos.MoverAtras(), self.journey_previous, False)
+        tbj.new("", Iconos.Journey(), self.journey_active, False)
+        tbj.new("", Iconos.MoverAdelante(), self.journey_next, False)
+        tbj.new("", Iconos.MoverFinal(), self.journey_last, False)
+
+        fontd = Controles.TipoLetra(puntos=12)
+
+        lb_journey = Controles.LB(self, _("Matchday") + ": ").ponFuente(fontd)
+        self.sb_journey = Controles.SB(self, self.current_journey + 1, 1, self.max_journeys).ponFuente(fontd)
+        self.sb_journey.setFixedWidth(50)
+        self.sb_journey.capture_changes(self.change_sb)
+        lb_info_journey = Controles.LB(self, "/ %d" % self.max_journeys).ponFuente(fontd)
+
+        self.lb_active = (
+            Controles.LB(self, _("CURRENT MATCHDAY"))
+            .ponFuente(Controles.TipoLetra(puntos=16, peso=400))
+            .align_center()
+            .anchoMinimo(400)
+        )
+        self.lb_active.setStyleSheet(
+            "color: %s;background: %s;padding-left:5px;padding-right:5px;" % ("white", "#437FBC")
+        )
+
+        ly0 = (
+            Colocacion.H()
+            .espacio(8)
+            .control(lb_journey)
+            .control(self.sb_journey)
+            .control(lb_info_journey)
+            .control(tbj)
+            .relleno()
+            .control(self.lb_active)
+            .relleno()
+        )
+        ly = Colocacion.V().otro(ly0).control(self.grid_matches)
+
+        w = QtWidgets.QWidget(self)
+        w.setLayout(ly)
+        self.tab.addTab(w, _("Matches"))
 
         layout = Colocacion.V().control(self.tb).control(self.tab).margen(8)
         self.setLayout(layout)
 
         self.restore_video(siTam=True, anchoDefecto=784, altoDefecto=460)
 
-        self.update_matchs()
+        self.update_matches()
+
+        self.set_journey_if_active()
+
+    def set_journey_if_active(self):
+        # antes = self.current_journey
+        self.current_journey = self.season.get_current_journey()
+        # if antes != self.current_journey:
+        #     self.launch_worker()
+        #     self.launch_worker()
+        active = self.current_journey == self.sb_journey.valor() - 1
+        self.lb_active.setVisible(active)
+
+        self.tb_option_seasons()
+
+    def tb_option_seasons(self):
+        # Si es una sesion terminada, si es la última -> activa tb Seasons
+        li_seasons = self.season.list_seasons()
+        ok = len(li_seasons) > 1 or self.season.is_finished()
+        self.tb.set_action_visible(self.seasons, ok)
+
+    def set_journey(self, pos):
+        if 0 < pos <= self.max_journeys:
+            self.sb_journey.setValue(pos)
+            self.li_matches = self.season.get_all_matches_journey(pos - 1)
+            self.grid_matches.refresh()
+            self.set_journey_if_active()
+
+    def change_sb(self):
+        pos = self.sb_journey.valor()
+        self.li_matches = self.season.get_all_matches_journey(pos - 1)
+        self.set_journey_if_active()
+        self.grid_matches.refresh()
+
+    def journey_first(self):
+        self.set_journey(1)
+
+    def journey_last(self):
+        self.set_journey(self.max_journeys)
+
+    def journey_previous(self):
+        self.set_journey(self.sb_journey.valor() - 1)
+
+    def journey_next(self):
+        self.set_journey(self.sb_journey.valor() + 1)
+
+    def journey_active(self):
+        self.set_journey(self.current_journey + 1)
 
     def grid_num_datos(self, grid):
         if grid in self.li_grids_divisions:
-            return 10
-        return 5
+            return len(self.li_panels[self.li_grids_divisions.index(grid)])
+        return len(self.li_matches)
+
+    def grid_doubleclick_header(self, grid, col):
+        if grid != self.grid_matches:
+            return
+
+        key = col.key
+        order_prev =  self.dic_order.get(key, False)
+        self.dic_order[key] = order = not order_prev
+
+        li = [(self.grid_dato(grid, row, col), match) for row, match in enumerate(self.li_matches)]
+        li.sort(key=lambda x:x[0], reverse=not order)
+        self.li_matches = [match for dato, match in li]
+
+        grid.refresh()
+        grid.gotop()
 
     def grid_dato_division(self, num_division, row, nom_column):
         if nom_column == "ORDER":
@@ -144,35 +251,31 @@ class WLeague(LCDialog.LCDialog):
             division = self.li_grids_divisions.index(grid)
             return self.grid_dato_division(division, row, column)
         else:
-            xid = grid.id
-            j, d = xid[1:].split("D")
-            journey = int(j)
-            division = int(d)
-            match = self.season.match(division, journey, row)
+            match = self.li_matches[row]
             if column == "RESULT":
                 result = match.result
                 if result is None:
+                    active = self.current_journey == self.sb_journey.valor() - 1
                     if match.is_human_vs_engine(self.league):
-                        return _("Double click to play") if journey == self.current_journey else "-"
+                        return _("Double click to play") if active else "-"
                     if match.is_human_vs_human(self.league):
-                        return _("Double click to edit") if journey == self.current_journey else "-"
+                        return _("Double click to edit") if active else "-"
                     return "-"
                 else:
                     return result
             if column == "WHITE":
                 return self.dic_xid_name[match.xid_white]
-            else:
+            elif column == "BLACK":
                 return self.dic_xid_name[match.xid_black]
+            elif column == "DIVISION":
+                return match.label_division
 
     def grid_doble_click(self, grid, row, o_column):
         if grid in self.li_grids_divisions:
             pass
         else:
-            xid = grid.id
-            j, d = xid[1:].split("D")
-            journey = int(j)
-            division = int(d)
-            match = self.season.match(division, journey, row)
+            match = self.li_matches[row]
+            division = int(match.label_division)
             if match.result:
                 game = self.season.get_game_match(match)
                 if game:
@@ -218,11 +321,11 @@ class WLeague(LCDialog.LCDialog):
                 while True:
                     game_resp = Code.procesador.manager_game(self, game, True, False, None)
                     if game_resp:
-                        game_resp.check()
+                        game_resp.verify()
                         if game.resultado() in (RESULT_WIN_BLACK, RESULT_DRAW, RESULT_WIN_WHITE):
                             match.result = game.resultado()
                             self.season.put_match_done(match, game)
-                            self.update_matchs()
+                            self.update_matches()
                             grid.refresh()
                             return
                         else:
@@ -234,32 +337,46 @@ class WLeague(LCDialog.LCDialog):
     def grid_color_texto(self, grid, row, o_column):
         if grid in self.li_grids_divisions:
             if self.season.is_finished():
-                if row < 3:
+                migration = self.league.migration
+                if row < migration:
                     return self.color_win
-                if row > 6:
+                ndatos = self.grid_num_datos(grid)
+                if row > (ndatos - migration - 1):
                     return self.color_lost
 
     def grid_color_fondo(self, grid, row, o_column):
-        if grid in self.li_grids_divisions and self.season.is_finished() and (row < 3 or row > 6):
+        migration = self.league.migration
+        ndatos = self.grid_num_datos(grid)
+        if (
+                grid in self.li_grids_divisions
+                and self.season.is_finished()
+                and (row < migration or row > (ndatos - migration - 1))
+        ):
             return self.color_white
 
     def grid_bold(self, grid, row, o_column):
-        return grid in self.li_grids_divisions and self.season.is_finished() and (row < 3 or row > 6)
+        migration = self.league.migration
+        ndatos = self.grid_num_datos(grid)
+        return (
+                grid in self.li_grids_divisions
+                and self.season.is_finished()
+                and (row < migration or row > (ndatos - migration - 1))
+        )
 
-    def update_matchs(self):
+    def update_matches(self):
         if self.terminated:
             return
         journey = self.current_journey
         if self.season.is_finished():
             self.timer.stop()
             self.season.test_next()
-            self.tb.setAccionVisible(self.update_matchs, False)
-            self.tb.setAccionVisible(self.launch_worker, False)
+            self.tb.set_action_visible(self.update_matches, False)
+            self.tb.set_action_visible(self.launch_worker, False)
             return
         changed = False
-        for division in range(3):
-            for nmatch in range(5):
-                match = self.season.match(division, journey, nmatch)
+        division: Leagues.Division
+        for division in self.season.li_divisions:
+            for match in division.get_all_matches(journey):
                 if match.result is None:
                     with UtilSQL.DictRawSQL(self.league.path(), "SEASON_%d" % self.league.current_num_season) as db:
                         game_saved = db[match.xid]
@@ -272,29 +389,22 @@ class WLeague(LCDialog.LCDialog):
         if changed:
             self.season.save()
             self.show_current_season()
+            self.set_journey_if_active()
 
         if self.timer:
             lw = LeaguesWork.LeaguesWork(self.league)
-            if lw.num_working_matchs():
+            if lw.num_working_matches():
                 self.timer.stop()
                 self.timer.start(10000)
             else:
                 self.timer.stop()
                 self.timer.start(60000)
 
-        if not self.season.is_pendings_matchs():
-            self.current_journey = self.season.new_journey(self.league)
-            self.tab.ponIcono(self.current_journey, None)
-            self.tab.ponIcono(self.current_journey + 1, Iconos.Journey())
-            return
-
     def show_current_season(self):
-        journey = self.current_journey
-        self.li_panels = self.season.gen_panels()
+        self.li_panels = self.season.gen_panels_classification()
         for grid in self.li_grids_divisions:
             grid.refresh()
-        for grid in self.li_grids_journeys[: journey + 1]:
-            grid.refresh()
+        self.grid_matches.refresh()
 
     def terminar(self):
         self.terminated = True
@@ -311,26 +421,19 @@ class WLeague(LCDialog.LCDialog):
             self.timer = None
 
     def launch_worker(self):
-        self.update_matchs()
+        self.update_matches()
         lw = LeaguesWork.LeaguesWork(self.league)
         journey_work, season_work = lw.get_journey_season()
         current_journey = self.season.get_current_journey()
         if journey_work != current_journey or self.league.current_num_season != season_work:
             lw.put_league()
-        if lw.num_pending_matchs():
+        if lw.num_pending_matches():
             XRun.run_lucas("-league", self.league.name())
 
-    def utilities(self):
+    def export(self):
         menu = QTVarios.LCMenu(self)
-        li_seasons = self.season.list_seasons()
-        if len(li_seasons) > 1:
-            submenu = menu.submenu(_("Change the active season"))
-            for num_season in li_seasons:
-                if self.season.num_season != num_season:
-                    submenu.opcion(str(num_season), str(num_season + 1))
-        menu.separador()
         submenu = menu.submenu(_("Save all games to a database"), Iconos.DatabaseMas())
-        QTVarios.menuDB(submenu, Code.configuration, True, indicador_previo="dbf_", remove_autosave=True)
+        QTVarios.menuDB(submenu, Code.configuration, True, indicador_previo="dbf_", remove_autosave=True, siNew=True)
         menu.separador()
 
         resp = menu.lanza()
@@ -338,18 +441,58 @@ class WLeague(LCDialog.LCDialog):
             return
 
         if resp.startswith("dbf_"):
-            um = QTUtil2.unMomento(self, _("Working..."))
+            if resp.endswith(":n"):
+                database = WDB_Games.new_database(self, Code.configuration)
+                if database is None:
+                    return
+            else:
+                database = resp[4:]
+            um = QTUtil2.unMomento(self, _("Generating the list of games to save"))
             li_games = self.season.list_games()
-            database = resp[4:]
             db = DBgames.DBgames(database)
-            for game in li_games:
-                db.insert(game)
+            nsaved = 0
+            nerror = 0
+            total = len(li_games)
+            pl = _("Saving...") + " %d/%d"
+            for pos, game in enumerate(li_games, 1):
+                um.label(pl % (pos, total))
+                resp = db.insert(game)
+                if resp.ok:
+                    nsaved += 1
+                else:
+                    nerror += 1
             db.close()
             um.final()
-            if len(li_games):
-                QTUtil2.mensajeTemporal(self, _("Saved") + " [%d]" % len(li_games), 1.8)
+            if total > 0:
+                if nerror:
+                    explanation = _("The database did not allow %d duplicate games to be recorded").replace(
+                        "%d", str(nerror)
+                    )
+                else:
+                    explanation = None
+                QTUtil2.message(self, _("Saved") + " %d" % nsaved, explanation=explanation)
 
         else:
+            num_season = int(resp)
+            self.league.set_current_season(num_season)
+            self.result = REINIT
+            self.accept()
+
+    def seasons(self):
+        li_seasons = self.season.list_seasons()
+        if len(li_seasons) > 1:
+            rondo = QTVarios.rondoPuntos()
+            menu = QTVarios.LCMenu(self)
+            submenu = menu.submenu(_("Change the active season"), Iconos.Season())
+            for num_season in li_seasons:
+                if self.season.num_season != num_season:
+                    submenu.opcion(str(num_season), str(num_season + 1), rondo.otro())
+                    submenu.separador()
+
+            resp = menu.lanza()
+            if resp is None:
+                return
+
             num_season = int(resp)
             self.league.set_current_season(num_season)
             self.result = REINIT

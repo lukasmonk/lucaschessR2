@@ -4,11 +4,10 @@ from Code.Nags import Nags
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles
-from Code.QT import Delegados
 from Code.QT import Grid
 from Code.QT import Iconos
-from Code.QT import QTVarios
 from Code.QT import LCDialog
+from Code.QT import QTVarios
 
 
 class WNags(LCDialog.LCDialog):
@@ -22,7 +21,7 @@ class WNags(LCDialog.LCDialog):
         self.st_current_nags = set(self.current_move.li_nags)
 
         self.nags = nags
-        icono = self.nags.ico(14, 16)
+        icono = Iconos.NAGs()  # self.nags.ico(14, 16)
 
         LCDialog.LCDialog.__init__(self, owner, title, icono, extparam)
 
@@ -41,7 +40,7 @@ class WNags(LCDialog.LCDialog):
         # Grid
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("SELECTED", "", 20, siChecked=True)
-        o_columns.nueva("ICON", "", 16, edicion=Delegados.PmIconosBMT(self, self.nags.dic_pm(), x=8))
+        o_columns.nueva("ICON", "", 16, align_center=True)
         o_columns.nueva("NUMBER", "", 30, align_center=True)
         o_columns.nueva("TITLE", "", 240)
 
@@ -49,11 +48,12 @@ class WNags(LCDialog.LCDialog):
         self.grid = Grid.Grid(self, o_columns, is_editable=True, altoCabecera=4)
         font = Controles.TipoLetra(puntos=Code.configuration.x_pgn_fontpoints)
         self.grid.ponFuente(font)
+        self.register_grid(self.grid)
 
         layout = Colocacion.V().control(tb).control(self.grid).margen(3)
         self.setLayout(layout)
 
-        self.restore_video(anchoDefecto=self.grid.anchoColumnas() + 48)
+        self.restore_video(anchoDefecto=self.grid.anchoColumnas() + 48, altoDefecto=600)
 
     def clear_nags(self):
         self.st_current_nags.clear()
@@ -61,6 +61,7 @@ class WNags(LCDialog.LCDialog):
 
     def aceptar(self):
         self.current_move.li_nags = list(self.st_current_nags)
+        self.save_video()
         self.accept()
 
     def grid_num_datos(self, grid):
@@ -72,7 +73,7 @@ class WNags(LCDialog.LCDialog):
         if key == "SELECTED":
             return nag in self.st_current_nags
         elif key == "ICON":
-            return str(nag)
+            return self.nags.symbol(nag)
         elif key == "NUMBER":
             return "$%d" % nag
         elif key == "TITLE":

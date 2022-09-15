@@ -69,6 +69,20 @@ class CountCapture:
         media = tm / total if total else 0.0
         return '%.01f"/%.01f"' % (media, tm)
 
+    def label_time_used(self) -> str:
+        tm = 0.0
+        for posmove, depth, ok, tiempo in self.tries:
+            tm += tiempo
+        return '%.01f"' % tm
+
+    def label_time_avg(self) -> str:
+        tm = 0.0
+        for posmove, depth, ok, tiempo in self.tries:
+            tm += tiempo
+        total = self.current_posmove + self.current_depth
+        media = tm / total if total else 0.0
+        return '%.01f"' % media
+
     def copy(self):
         capt_copy = CountCapture()
         capt_copy.game = self.game.copia()

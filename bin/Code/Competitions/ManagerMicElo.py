@@ -142,7 +142,7 @@ class ManagerMicElo(Manager.Manager):
         else:
             is_white = human_side
 
-        self.human_side = is_white
+        self.is_human_side_white = is_white
         self.is_engine_side_white = not is_white
 
         self.lirm_engine = []
@@ -179,7 +179,7 @@ class ManagerMicElo(Manager.Manager):
         self.xrival.check_engine()
 
         self.pte_tool_resigndraw = False
-        if self.human_side:
+        if self.is_human_side_white:
             self.pte_tool_resigndraw = True
             self.maxPlyRendirse = 1
         else:
@@ -240,7 +240,7 @@ class ManagerMicElo(Manager.Manager):
 
         self.check_boards_setposition()
 
-        self.game.tag_timestart()
+        self.game.add_tag_timestart()
 
     def pon_toolbar(self):
         if self.pte_tool_resigndraw:
@@ -276,7 +276,7 @@ class ManagerMicElo(Manager.Manager):
     def save_state(self):
         self.main_window.stop_clock()
 
-        self.vtime[self.human_side].stop_marker(0)
+        self.vtime[self.is_human_side_white].stop_marker(0)
 
         dic = {
             "engine_rival": self.engine_rival.save(),
@@ -289,7 +289,7 @@ class ManagerMicElo(Manager.Manager):
             "ptablas": self.engine_rival.ptablas,
             "ppierde": self.engine_rival.ppierde,
             "alias": self.engine_rival.alias,
-            "human_side": self.human_side,
+            "human_side": self.is_human_side_white,
         }
 
         return dic
@@ -345,7 +345,7 @@ class ManagerMicElo(Manager.Manager):
                 self.main_window, _("Do you want to resign?") + " (%d)" % self.engine_rival.ppierde
             ):
                 return False  # no abandona
-            self.game.resign(self.human_side)
+            self.game.resign(self.is_human_side_white)
             self.show_result()
         else:
             self.procesador.start()
@@ -477,7 +477,7 @@ class ManagerMicElo(Manager.Manager):
         self.human_is_playing = False
         self.main_window.stop_clock()
 
-        mensaje, beep, player_win = self.game.label_resultado_player(self.human_side)
+        mensaje, beep, player_win = self.game.label_resultado_player(self.is_human_side_white)
 
         self.beepResultado(beep)
         self.autosave()
@@ -512,7 +512,7 @@ class ManagerMicElo(Manager.Manager):
         mensaje += "\n\n%s : %d\n" % (_("New Tourney-Elo"), nelo)
 
         self.showed_result = True
-        self.mensajeEnPGN(mensaje)
+        self.message_on_pgn(mensaje)
         self.ponFinJuego()
 
     def historial(self, elo, nelo):
@@ -529,7 +529,7 @@ class ManagerMicElo(Manager.Manager):
 
         dd = UtilSQL.DictSQL(self.configuration.fichEstadMicElo, tabla="color")
         key = self.engine_rival.name
-        dd[key] = self.human_side
+        dd[key] = self.is_human_side_white
         dd.close()
 
     def determinaColor(self, engine_rival):
@@ -565,18 +565,18 @@ class ManagerMicElo(Manager.Manager):
             Code.eboard.writeClocks(self.vtime[True].label_dgt(), self.vtime[False].label_dgt())
 
         if self.human_is_playing:
-            is_white = self.human_side
+            is_white = self.is_human_side_white
         else:
-            is_white = not self.human_side
+            is_white = not self.is_human_side_white
         return mira(is_white)
 
     def start_clock(self, siUsuario):
-        self.vtime[siUsuario == self.human_side].start_marker()
+        self.vtime[siUsuario == self.is_human_side_white].start_marker()
         self.main_window.start_clock(self.set_clock, transicion=1000)
 
     def stop_clock(self, siUsuario):
         self.main_window.stop_clock()
-        self.vtime[siUsuario == self.human_side].stop_marker(self.secs_move)
+        self.vtime[siUsuario == self.is_human_side_white].stop_marker(self.secs_move)
         self.set_clock()
         self.show_clocks()
         self.refresh()

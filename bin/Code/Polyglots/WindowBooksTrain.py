@@ -53,7 +53,7 @@ class WBooksTrain(LCDialog.LCDialog):
         fvar = self.configuration.file_books
         self.list_books = Books.ListBooks()
         self.list_books.restore_pickle(fvar)
-        self.list_books.check()
+        self.list_books.verify()
         li = [(x.name, x) for x in self.list_books.lista]
 
         # Player

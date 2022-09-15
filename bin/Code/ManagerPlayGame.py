@@ -37,8 +37,8 @@ class ManagerPlayGame(Manager.Manager):
         self.human_is_playing = False
         self.analysis = None
         self.comment = None
-        self.siAnalizando = False
-        self.human_side = is_white
+        self.if_analyzing = False
+        self.is_human_side_white = is_white
         self.is_engine_side_white = not is_white
         self.numJugadasObj = gameObj.num_moves()
         self.gameObj = gameObj
@@ -56,14 +56,14 @@ class ManagerPlayGame(Manager.Manager):
 
         self.book = Opening.OpeningPol(999)
 
-        self.main_window.pon_toolbar((TB_CANCEL, TB_REINIT, TB_CONFIG, TB_UTILITIES))
+        self.set_toolbar((TB_CANCEL, TB_REINIT, TB_CONFIG, TB_UTILITIES))
 
         self.main_window.activaJuego(True, False, siAyudas=False)
         self.remove_hints(True, True)
 
         self.set_dispatcher(self.player_has_moved)
         self.set_position(self.game.last_position)
-        self.put_pieces_bottom(self.human_side)
+        self.put_pieces_bottom(self.is_human_side_white)
         self.show_side_indicator(True)
         self.set_label1(label)
         self.set_label2("")
@@ -117,7 +117,7 @@ class ManagerPlayGame(Manager.Manager):
         if siPregunta:
             if not QTUtil2.pregunta(self.main_window, _("Restart the game?")):
                 return
-
+        self.main_window.activaInformacionPGN(False)
         self.game.set_position()
         self.posJugadaObj = 0
         self.puntos = 0
@@ -148,7 +148,7 @@ class ManagerPlayGame(Manager.Manager):
     def analyze_begin(self):
         if not self.is_finished():
             self.xanalyzer.ac_inicio(self.game)
-            self.siAnalizando = True
+            self.if_analyzing = True
 
     def analyze_minimum(self, pvUsu, pvObj):
         mrmActual = self.xanalyzer.ac_estado()
@@ -164,14 +164,14 @@ class ManagerPlayGame(Manager.Manager):
         return self.mrm
 
     def analyze_end(self):
-        if self.siAnalizando:
-            self.siAnalizando = False
+        if self.if_analyzing:
+            self.if_analyzing = False
             self.xanalyzer.ac_final(-1)
             self.siSave = True
 
     def analizaTerminar(self):
-        if self.siAnalizando:
-            self.siAnalizando = False
+        if self.if_analyzing:
+            self.if_analyzing = False
             self.xanalyzer.terminar()
 
     def play_next_move(self):
@@ -231,8 +231,7 @@ class ManagerPlayGame(Manager.Manager):
                         jgUsu.pgn_translated(),
                         bmove,
                     )
-                    w = WindowJuicio.MensajeF(self.main_window, comment)
-                    w.mostrar()
+                    QTUtil2.message_result(self.main_window, comment)
                 siAnalizaJuez = False
             else:
                 siAnalizaJuez = True
@@ -329,7 +328,7 @@ class ManagerPlayGame(Manager.Manager):
 
         self.beepResultadoCAMBIAR(quien)
 
-        self.mensajeEnPGN(mensaje)
+        self.message_on_pgn(mensaje)
         self.ponFinJuego()
         self.guardar()
 
@@ -339,7 +338,7 @@ class ManagerPlayGame(Manager.Manager):
 
         dicIntento = {
             "DATE": Util.today(),
-            "COLOR": "w" if self.human_side else "b",
+            "COLOR": "w" if self.is_human_side_white else "b",
             "POINTS": self.puntos,
             "POINTSMAX": self.puntosMax,
             "TIME": self.vtime,

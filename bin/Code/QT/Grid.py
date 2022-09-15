@@ -18,8 +18,8 @@ siempre que la rutina se haya definido en la ventana:
 
 from PySide2 import QtCore, QtGui, QtWidgets
 
-from Code.QT import QTUtil
 import Code
+from Code.QT import QTUtil
 
 
 class ControlGrid(QtCore.QAbstractTableModel):
@@ -198,6 +198,9 @@ class Cabecera(QtWidgets.QHeaderView):
         numColumna = self.logicalIndexAt(event.x(), event.y())
         self.tvParent.mouseCabecera(numColumna)
 
+    def set_tooltip(self, tooltip):
+        self.setToolTip(tooltip)
+
 
 class CabeceraHeight(Cabecera):
     def __init__(self, tvParent, siCabeceraMovible, height):
@@ -250,6 +253,11 @@ class Grid(QtWidgets.QTableView):
             QtGui.QPalette.Active,
             QtGui.QPalette.Highlight,
             QtGui.QBrush(QtGui.QColor(configuration.pgn_selbackground())),
+        )
+        p.setBrush(
+            QtGui.QPalette.Active,
+            QtGui.QPalette.HighlightedText,
+            QtGui.QBrush(QtGui.QColor("white")),
         )
         self.setPalette(p)
 
@@ -304,6 +312,9 @@ class Grid(QtWidgets.QTableView):
     def set_right_button_without_rows(self, ok):
         self.right_button_without_rows = ok
 
+    def set_tooltip_header(self, message):
+        self.cabecera.set_tooltip(message)
+
     def buscaCabecera(self, key):
         return self.o_columns.buscaColumna(key)
 
@@ -354,7 +365,6 @@ class Grid(QtWidgets.QTableView):
                 self.w_parent.grid_tecla_pulsada(self, event.text())
         if hasattr(self.w_parent, "grid_tecla_control"):
             if self.w_parent.grid_tecla_control(self, k, is_shift, is_control, is_alt) is None:
-                event.ignore()
                 return
 
         QtWidgets.QTableView.keyPressEvent(self, event)
@@ -496,11 +506,13 @@ class Grid(QtWidgets.QTableView):
         return self.cg.num_rows
 
     def recnosSeleccionados(self):
-        li = []
-        for x in self.selectionModel().selectedIndexes():
-            li.append(x.row())
+        if self.cg.num_rows:
+            li = []
+            for x in self.selectionModel().selectedIndexes():
+                li.append(x.row())
 
-        return list(set(li))
+            return list(set(li))
+        return []
 
     def goto(self, row, col):
         """

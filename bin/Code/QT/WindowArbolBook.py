@@ -23,7 +23,7 @@ class UnMove:
         self.book = book
         self.fenBase = fenBase
         self.from_sq, self.to_sq, self.promotion, label, self.ratio = movBook
-        label = label.replace("-", "").strip()
+        label = label.replace(" - ", "").strip()
         while "  " in label:
             label = label.replace("  ", " ")
         self.pgn, self.porcentaje, self.absoluto = label.split(" ")
@@ -361,7 +361,7 @@ class WindowArbolBook(LCDialog.LCDialog):
         self.list_books.restore_pickle(self.fvar)
 
         # Comprobamos que todos esten accesibles
-        self.list_books.check()
+        self.list_books.verify()
         self.book = self.list_books.porDefecto()
 
         # fens

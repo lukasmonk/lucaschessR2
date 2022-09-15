@@ -1,11 +1,11 @@
 import copy
 import time
 
-from Code.Board import BoardTypes
-from Code.Translations import TrListas
-from Code import Util
-from Code.SQL import UtilSQL
 import Code
+from Code import Util
+from Code.Board import BoardTypes
+from Code.SQL import UtilSQL
+from Code.Translations import TrListas
 
 
 class PFlecha(BoardTypes.Flecha):
@@ -222,12 +222,13 @@ class GT_Flecha(GT_Item):
         return bd.a1h8
 
     def run(self):
-        sc = self.guion.board.creaFlecha(self._bloqueDatos)
-        sc.ponRutinaPulsada(None, self.id())
-        self.itemSC(sc)
-        self.marcado(True)
-        if self._itemSC:
-            self._itemSC.show()
+        if self._bloqueDatos:
+            sc = self.guion.board.creaFlecha(self._bloqueDatos)
+            sc.ponRutinaPulsada(None, self.id())
+            self.itemSC(sc)
+            self.marcado(True)
+            if self._itemSC:
+                self._itemSC.show()
 
 
 class GT_Marco(GT_Item):
@@ -280,7 +281,9 @@ class GT_SVG(GT_Item):
         return _("Image")
 
     def info(self):
-        return "(%.02f,%.02f)-(%.02f,%.02f)" % self.get_datos()
+        x, y, w, h = self.get_datos()
+        a1h8 = self.guion.board.fc_a1h8(int(y)+1, int(x)+1, int(y+h)+1, int(x+w)+1)
+        return "%s+[%.02f,%.02f]    ➝ %.02f   ↓ %.02f" % (a1h8[:2], x -int(x), y -int(y), w, h)
 
     def get_datos(self):
         bd = self._itemSC.bloqueDatos
@@ -586,7 +589,8 @@ class Guion:
         return self.nuevaTarea(tarea, ntarea + 1)
 
     def borra(self, nTarea):
-        del self.liGTareas[nTarea]
+        if nTarea < len(self.liGTareas):
+            del self.liGTareas[nTarea]
 
     def cambiaMarcaTarea(self, nTarea, valor):
         tarea = self.liGTareas[nTarea]
@@ -612,8 +616,10 @@ class Guion:
         return li
 
     def itemTarea(self, nTarea):
-        tarea = self.liGTareas[nTarea]
-        return tarea.itemSC() if isinstance(tarea, GT_Item) else None
+        if nTarea < len(self.liGTareas):
+            tarea = self.liGTareas[nTarea]
+            return tarea.itemSC() if isinstance(tarea, GT_Item) else None
+        return None
 
     def itemTareaOwner(self, nTarea):
         tarea = self.liGTareas[nTarea]
@@ -759,6 +765,8 @@ class Guion:
                     buscar = (bd.tpid[0], bd.tpid[1], bd.a1h8)
                     if not (buscar in stPrevios):
                         self.recuperaReg(reg)
+                else:
+                    self.recuperaReg(reg)
 
         if self.winDirector:
             for tarea in self.liGTareas:
@@ -772,7 +780,7 @@ class Guion:
     def play(self):
         self.cerrado = False
         for tarea in self.liGTareas:
-            if not tarea.itemSC():
+            if not hasattr("tarea", "itemSC") or not tarea.itemSC():
                 tarea.run()
             if tarea.tp() == TP_TEXTO and tarea.continuar():
                 while self.pizarra is not None and self.pizarra.is_blocked():
@@ -782,12 +790,12 @@ class Guion:
 
 
 class DBManagerVisual:
-    def __init__(self, file, show_allways=False, saveAllways=False):
+    def __init__(self, file, show_always=False, save_always=False):
         self._dbFEN = (
             self._dbConfig
         ) = self._dbFlechas = self._dbMarcos = self._dbSVGs = self._dbMarkers = self._dbCircles = None
-        self._show_allways = show_allways
-        self._saveAllways = saveAllways
+        self._show_always = show_always
+        self._save_always = save_always
         self.set_file(file)
 
     def saveMoviblesBoard(self, board):
@@ -807,21 +815,15 @@ class DBManagerVisual:
         guion.recuperaMoviblesBoard()
         self.dbFEN[fenm2] = guion.guarda()
 
-    def save_allways(self, yesno=None):
+    def save_always(self, yesno=None):
         if yesno is not None:
-            self._saveAllways = yesno
-        return self._saveAllways
+            self._save_always = yesno
+        return self._save_always
 
-    def show_allways(self, yesno=None):
+    def show_always(self, yesno=None):
         if yesno is not None:
-            self._show_allways = yesno
-        return self._show_allways
-
-    # def getConfig(self, key, default=None):
-    #     return self.dbConfig.get(key, default)
-
-    # def setConfig(self, key, value):
-    #     self.dbConfig[key] = value
+            self._show_always = yesno
+        return self._show_always
 
     def set_file(self, file):
         self.close()
@@ -829,22 +831,26 @@ class DBManagerVisual:
         if not Util.exist_file(self._fichero):
             Util.file_copy(Code.path_resource("IntFiles", "recursos.dbl"), self._fichero)
 
-        # li = self.dbConfig[b"SELECTBANDA"]
-        # if li is None:
-        #     dbr = DBManagerVisual("Code..resources/IntFiles/recursos.dbl", False)
-        #     li = dbr.dbConfig["SELECTBANDA"]
-        #     self.dbConfig["SELECTBANDA"] = li
-        #     for xid, pos in li:
-        #         key = xid[3:]
-        #         if xid.startswith("_F"):
-        #             self.dbFlechas[key] = dbr.dbFlechas[key]
-        #         elif xid.startswith("_M"):
-        #             self.dbMarcos[key] = dbr.dbMarcos[key]
-        #         elif xid.startswith("_S"):
-        #             self.dbSVGs[key] = dbr.dbSVGs[key]
-        #         elif xid.startswith("_X"):
-        #             self.dbMarkers[key] = dbr.dbMarkers[key]
-        #     dbr.close()
+    def reset(self):
+        self.close()
+
+        def reset_table(name, zap):
+            path_resources = Code.path_resource("IntFiles", "recursos.dbl")
+            with UtilSQL.DictRawSQL(self._fichero, tabla=name) as dba, UtilSQL.DictRawSQL(
+                path_resources, tabla=name
+            ) as dbr:
+                if zap:
+                    dba.zap()
+                for k, v in dbr.as_dictionary().items():
+                    dba[k] = v
+
+        for table_name in ("Config", "Flechas", "Marcos", "Circles", "SVGs", "Markers"):  # Todos menos FEN
+            reset_table(table_name, table_name != "Config")
+
+    def remove_fens(self):
+        self.close()
+        with UtilSQL.DictRawSQL(self._fichero, tabla="FEN") as dbf:
+            dbf.zap()
 
     @property
     def file(self):

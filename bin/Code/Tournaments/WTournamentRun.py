@@ -562,7 +562,7 @@ class WTournamentRun(QtWidgets.QWidget):
                     pts = -pts
                 info = "%+0.2f" % float(pts / 100.0)
 
-            nag, color_nag = mrm.set_nag_color(self.configuration, rm)
+            nag, color_nag = mrm.set_nag_color(rm)
             stNAGS.add(nag)
 
         if move.in_the_opening:

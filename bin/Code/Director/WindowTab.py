@@ -76,6 +76,7 @@ class SelectBanda(QtWidgets.QWidget):
             lb_f.altoFijo(36)
             lb_f.align_center()
             layout.controlc(lb_f, n, 1)
+            lb_f.hide()
             if n == 9:
                 lb = SelectUna(self, Iconos.pmTexto().scaled(ancho, ancho), True)
                 lb.addText = True
@@ -109,7 +110,7 @@ class SelectBanda(QtWidgets.QWidget):
         lb_f = Controles.LB("%s F10\n%s" % (_("CTRL"), _("Changes")))
         # Activa la posibilidad de mover las piezas con el ratón
         lb_f.setStyleSheet("*{ border: 1px solid %s; background: %s;}" % (color, color))
-        lb_f.anchoFijo(64)
+        # lb_f.anchoFijo(64)
         lb_f.altoFijo(36)
         lb_f.align_center()
         self.lb_change_graphics = lb_f

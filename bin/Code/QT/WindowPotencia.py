@@ -29,8 +29,8 @@ def lee_1_linea_mfn(linea):
     for x in cabs.split("|"):
         k, v = x.split("·")
         dic[k] = v
-    p = Game.Game()
-    p.read_pv(pv)
+    game = Game.Game()
+    game.read_pv(pv)
     event = dic["Event"]
     site = dic["Site"]
     if site and site != event:
@@ -40,7 +40,7 @@ def lee_1_linea_mfn(linea):
     black = dic["Black"]
     result = dic["Result"]
     info = "<b>%s - %s (%s)</b>    %s (%s) " % (white, black, result, event, date)
-    return p, dic, info, int(move), linea
+    return game, dic, info, int(move), linea
 
 
 def lee_linea_mfn():
@@ -399,8 +399,8 @@ class WPotenciaBase(LCDialog.LCDialog):
         o_columns.nueva("SCORE", _("Score"), 100, align_center=True)
         o_columns.nueva("ENGINE", _("Engine"), 120, align_center=True)
         o_columns.nueva("SEGUNDOS", _("Second(s)"), 80, align_center=True)
-        o_columns.nueva("MIN_MIN", _("Minimum minutes"), 100, align_center=True)
-        o_columns.nueva("MIN_MAX", _("Maximum minutes"), 100, align_center=True)
+        o_columns.nueva("MIN_MIN", _("Observation time"), 100, align_center=True)
+        o_columns.nueva("MIN_MAX", _("Total time"), 100, align_center=True)
         self.ghistorico = Grid.Grid(self, o_columns, siSelecFilas=True, siSeleccionMultiple=True)
         self.ghistorico.setMinimumWidth(self.ghistorico.anchoColumnas() + 20)
 
@@ -848,9 +848,7 @@ class WPotencia(LCDialog.LCDialog):
 
         move = self.li_analysis[position]
         is_white = move.position_before.is_white
-        Analysis.show_analysis(
-            self.procesador, self.xtutor, move, is_white, 9999999, 1, main_window=self, must_save=False
-        )
+        Analysis.show_analysis(self.procesador, self.xtutor, move, is_white, 1, main_window=self, must_save=False)
 
 
 def windowPotencia(procesador):

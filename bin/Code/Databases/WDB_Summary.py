@@ -163,12 +163,10 @@ class WSummary(QtWidgets.QWidget):
         return len(self.liMoves)
 
     def grid_tecla_control(self, grid, k, is_shift, is_control, is_alt):
-        if k in (QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return):
+        if k in (QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return, QtCore.Qt.Key_Right):
             self.siguiente()
         elif k == QtCore.Qt.Key_Left:
-            self.infoMove.MoverAtras()
-        elif k == QtCore.Qt.Key_Right:
-            self.infoMove.MoverAdelante()
+            self.anterior()
         else:
             return True  # que siga con el resto de teclas
 
@@ -557,7 +555,7 @@ class WSummaryBase(QtWidgets.QWidget):
         if self.siFilaTotales(row):
             return
         alm = self.liMoves[row]["rec"]
-        if not alm or len(alm.LIALMS) < 2:
+        if not alm or not hasattr(alm, "LIALMS") or len(alm.LIALMS) < 2:
             return
 
         menu = QTVarios.LCMenu(self)

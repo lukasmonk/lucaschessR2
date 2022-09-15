@@ -23,7 +23,7 @@ class RunEngine:
         if log:
             self.log_open(log)
 
-        if Code.DEBUG_ENGINE:
+        if Code.DEBUG_ENGINES:
             self.put_line = self.put_line_debug
             self.xstdout_thread = self.xstdout_thread_debug
         else:
@@ -361,7 +361,7 @@ class RunEngine:
 
         ms_time = 10000
         if max_time:
-            ms_time = max_time + 5000
+            ms_time = max_time if max_depth else max_time + 5000
         elif max_depth:
             ms_time = 10000000000  # non stop
 

@@ -40,7 +40,7 @@ class ManagerFideFics(Manager.Manager):
             self._db = Code.path_resource("IntFiles", "FicsElo.db")
             self._activo = self.configuration.ficsActivo
             self._ponActivo = self.configuration.ponFicsActivo
-            self.nombreObj = _("Fics-player")  # self.cabs[ "White" if self.human_side else "Black" ]
+            self.nombreObj = _("Fics-player")  # self.cabs[ "White" if self.is_human_side_white else "Black" ]
             self._fichEstad = self.configuration.fichEstadFicsElo
             self._titulo = _("Fics-Elo")
             self._newTitulo = _("New Fics-Elo")
@@ -50,7 +50,7 @@ class ManagerFideFics(Manager.Manager):
             self._db = Code.path_resource("IntFiles", "FideElo.db")
             self._activo = self.configuration.fideActivo
             self._ponActivo = self.configuration.ponFideActivo
-            self.nombreObj = _("Fide-player")  # self.cabs[ "White" if self.human_side else "Black" ]
+            self.nombreObj = _("Fide-player")  # self.cabs[ "White" if self.is_human_side_white else "Black" ]
             self._fichEstad = self.configuration.fichEstadFideElo
             self._titulo = _("Fide-Elo")
             self._newTitulo = _("New Fide-Elo")
@@ -89,7 +89,7 @@ class ManagerFideFics(Manager.Manager):
         self.nivel = dbf.LEVEL
 
         is_white = dbf.WHITE
-        self.human_side = is_white
+        self.is_human_side_white = is_white
         self.is_engine_side_white = not is_white
 
         pv = FasterCode.xpv_pv(dbf.MOVS)
@@ -117,14 +117,14 @@ class ManagerFideFics(Manager.Manager):
         self.state = ST_PLAYING
         self.analysis = None
         self.comment = None
-        self.siAnalizando = False
+        self.if_analyzing = False
 
         self.is_competitive = True
 
         self.read_id(id_game)
         self.id_game = id_game
 
-        self.eloObj = int(self.game.get_tag("WhiteElo" if self.human_side else "BlackElo"))
+        self.eloObj = int(self.game.get_tag("WhiteElo" if self.is_human_side_white else "BlackElo"))
         self.eloUsu = self._activo()
 
         self.pwin = Util.fideELO(self.eloUsu, self.eloObj, +1)
@@ -148,7 +148,7 @@ class ManagerFideFics(Manager.Manager):
         self.main_window.activaJuego(True, False, siAyudas=False)
         self.set_dispatcher(self.player_has_moved)
         self.set_position(self.game.last_position)
-        self.put_pieces_bottom(self.human_side)
+        self.put_pieces_bottom(self.is_human_side_white)
         self.remove_hints(True, siQuitarAtras=True)
         self.show_side_indicator(True)
         label = "%s: <b>%d</b> | %s: <b>%d</b>" % (self._titulo, self.eloUsu, _("Elo rival"), self.eloObj)
@@ -227,7 +227,7 @@ class ManagerFideFics(Manager.Manager):
                 return False  # no abandona
             self.puntos = -999
             self.analizaTerminar()
-            self.muestra_resultado()
+            self.show_result()
         else:
             self.analizaTerminar()
             self.procesador.start()
@@ -240,7 +240,7 @@ class ManagerFideFics(Manager.Manager):
                 self.xtutor.ac_inicio(self.game)
             else:
                 self.xtutor.ac_inicio_limit(self.game)
-            self.siAnalizando = True
+            self.if_analyzing = True
 
     def analyze_state(self):
         self.xtutor.engine.ac_lee()
@@ -252,13 +252,13 @@ class ManagerFideFics(Manager.Manager):
         return self.mrm
 
     def analyze_end(self):
-        if self.siAnalizando:
-            self.siAnalizando = False
+        if self.if_analyzing:
+            self.if_analyzing = False
             self.xtutor.ac_final(-1)
 
     def analizaTerminar(self):
-        if self.siAnalizando:
-            self.siAnalizando = False
+        if self.if_analyzing:
+            self.if_analyzing = False
             self.xtutor.terminar()
 
     def play_next_move(self):
@@ -273,7 +273,7 @@ class ManagerFideFics(Manager.Manager):
 
         num_moves = len(self.game)
         if num_moves >= self.numJugadasObj:
-            self.muestra_resultado()
+            self.show_result()
             return
 
         siRival = is_white == self.is_engine_side_white
@@ -327,8 +327,7 @@ class ManagerFideFics(Manager.Manager):
                         jgUsu.pgn_translated(),
                         bmove,
                     )
-                    w = WindowJuicio.MensajeF(self.main_window, comment)
-                    w.mostrar()
+                    QTUtil2.message_result(self.main_window, comment)
                 siAnalizaJuez = False
             else:
                 if not siBookObj:
@@ -420,7 +419,7 @@ class ManagerFideFics(Manager.Manager):
         self.pgnRefresh(self.game.last_position.is_white)
         self.refresh()
 
-    def muestra_resultado(self):
+    def show_result(self):
         self.analizaTerminar()
         self.disable_all()
         self.human_is_playing = False
@@ -452,7 +451,7 @@ class ManagerFideFics(Manager.Manager):
 
         mensaje += "<br><br>%s : %d<br>" % (self._newTitulo, self._activo())
 
-        self.mensajeEnPGN(mensaje)
+        self.message_on_pgn(mensaje)
         self.ponFinJuego()
 
     def historial(self, elo, nelo):
@@ -469,7 +468,7 @@ class ManagerFideFics(Manager.Manager):
 
         dd = UtilSQL.DictSQL(self._fichEstad, tabla="color")
         key = "%s-%d" % (self._TIPO, self.nivel)
-        dd[key] = self.human_side
+        dd[key] = self.is_human_side_white
         dd.close()
 
     def determinaColor(self, nivel):

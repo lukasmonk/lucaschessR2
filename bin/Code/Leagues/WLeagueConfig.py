@@ -2,7 +2,7 @@ from PySide2 import QtCore
 
 import Code
 from Code import Util
-from Code.Engines import SelectEngines
+from Code.Engines import SelectEngines, WConfEngines
 from Code.Leagues import Leagues
 from Code.QT import Colocacion
 from Code.QT import Columnas
@@ -18,6 +18,8 @@ from Code.QT import QTVarios
 
 
 class WLeagueConfig(LCDialog.LCDialog):
+    MAX_DIVISIONS = 20
+
     def __init__(self, w_parent, league: Leagues.League):
 
         titulo = "%s: %s" % (_("League"), league.name())
@@ -31,13 +33,16 @@ class WLeagueConfig(LCDialog.LCDialog):
         self.sortby = "elo"
 
         self.li_colors = [QTUtil.qtColor("#fefefe"), QTUtil.qtColor("#dee4e7"), QTUtil.qtColor("#b0d8cc")]
+        # self.li_colors = [QTUtil.qtColor("#dee4e7"), QTUtil.qtColor("#fefefe")]
 
-        self.select_engines = SelectEngines.SelectEngines()
+        self.select_engines = SelectEngines.SelectEngines(w_parent)
 
         li_acciones = [
             (_("Save"), Iconos.GrabarFichero(), self.save),
             None,
             (_("Cancel"), Iconos.Cancelar(), self.cancel),
+            None,
+            (_("External engines"), Iconos.ConfEngines(), self.engines),
         ]
         if not self.league.is_editable():
             li_acciones.append(None)
@@ -59,21 +64,30 @@ class WLeagueConfig(LCDialog.LCDialog):
         self.bt_engines_more = Controles.PB(self, "++ " + _("Engines"), rutina=self.add_engines, plano=False).ponIcono(
             Iconos.Engines()
         )
+        self.bt_engines_more.setDefault(False)
+        self.bt_engines_more.setAutoDefault(False)
+
         self.bt_human_more = Controles.PB(self, "+ " + _("Human"), rutina=self.add_human, plano=False).ponIcono(
             Iconos.Player()
         )
+        self.bt_human_more.setDefault(False)
+        self.bt_human_more.setAutoDefault(False)
+
         self.bt_engine_more = Controles.PB(self, "+ " + _("Engine"), rutina=self.add_engine, plano=False).ponIcono(
             Iconos.Engine()
         )
+        self.bt_engine_more.setDefault(False)
+        self.bt_engine_more.setAutoDefault(False)
 
-        ly_bt = Colocacion.H().control(self.bt_engines_more).control(self.bt_human_more)
-        ly_bt.control(self.bt_engine_more).relleno()
+        ly_bt0 = Colocacion.H().control(self.bt_engines_more).control(self.bt_human_more)
+        ly_bt0.control(self.bt_engine_more).relleno()
         self.li_lb = []
-        for division in range(3):
-            lb = Controles.LB(self, "").ponTipoLetra(puntos=14, peso=750).anchoFijo(40).align_center()
+        ly_bt1 = Colocacion.H()
+        for division in range(self.MAX_DIVISIONS):
+            lb = Controles.LB(self, "").ponTipoLetra(puntos=12, peso=750).align_center()
             self.li_lb.append(lb)
-            ly_bt.control(lb)
-
+            ly_bt1.control(lb)
+        ly_bt1.relleno()
         # Config
         lb_resign = Controles.LB(self, "%s (%s): " % (_("Minimum centipawns to assign winner"), "0=%s" % _("Disable")))
         self.ed_resign = Controles.ED(self).tipoInt(league.resign).anchoFijo(30)
@@ -96,8 +110,6 @@ class WLeagueConfig(LCDialog.LCDialog):
         ly.controld(self.lbJmotor, 3, 0).control(self.cbJmotor, 3, 1)
         ly.controld(self.lbJtiempo, 4, 0).control(self.edJtiempo, 4, 1)
         self.gbJ = Controles.GB(self, _("Adjudicator"), ly)
-        # self.gbJ.setCheckable(True)
-        # self.gbJ.setChecked(league.adjudicator_active)
 
         lb_slow = Controles.LB(self, _("Slow down the movement of pieces") + ": ")
         self.chb_slow = Controles.CHB(self, " ", league.slow_pieces)
@@ -116,24 +128,21 @@ class WLeagueConfig(LCDialog.LCDialog):
 
         minutes, seconds = self.league.time_engine_human
         lb_minutes = Controles.LB2P(self, _("Total minutes"))
-        self.ed_minutes_eng_human = Controles.ED(self).tipoFloat(minutes).anchoFijo(35)
+        self.ed_minutes_eng_human = Controles.ED(self).tipoFloat(minutes).anchoFijo(65)
         self.sb_seconds_eng_human, lb_seconds = QTUtil2.spinBoxLB(
             self, seconds, -999, 999, maxTam=35, etiqueta=_("Seconds added per move")
         )
         ly = Colocacion.H().control(lb_minutes).control(self.ed_minutes_eng_human)
         ly.control(lb_seconds).control(self.sb_seconds_eng_human)
 
-        self.chb_humanize = Controles.CHB(
-            self, _("To humanize the time it takes for the engine to respond"), self.league.humanize
-        )
-        lyv = Colocacion.V().otro(ly)
-        lyv.control(self.chb_humanize)
-
-        gb_time_eng_human = Controles.GB(self, _("Engine vs human"), lyv)
+        gb_time_eng_human = Controles.GB(self, _("Engine vs human"), ly)
 
         self.sb_migration, lb_migration = QTUtil2.spinBoxLB(
-            self, self.league.migration, 1, 5, maxTam=35, etiqueta=_("Opponents who change divisions every season")
+            self, self.league.migration, 0, 100, maxTam=35, etiqueta=_("Opponents who change divisions every season")
         )
+        self.sb_migration.capture_changes(self.set_num_elements)
+        if not self.league.is_editable():
+            self.sb_migration.setDisabled(True)
 
         ly_options = Colocacion.G().margen(20)
         ly_res = Colocacion.H().control(self.ed_resign).control(bt_resign).relleno()
@@ -147,7 +156,7 @@ class WLeagueConfig(LCDialog.LCDialog):
         ly_options.control(gb_time_eng_human, 7, 0, 1, 2)
         ly_options.controld(lb_migration, 8, 0).control(self.sb_migration, 8, 1)
 
-        layout_v = Colocacion.V().otro(ly_bt).control(self.grid)
+        layout_v = Colocacion.V().otro(ly_bt0).otro(ly_bt1).control(self.grid)
 
         font = Controles.TipoLetra(puntos=Code.configuration.x_menu_points)
 
@@ -174,21 +183,28 @@ class WLeagueConfig(LCDialog.LCDialog):
         if QTUtil2.pregunta(self, _("Do you want to remove all results of all seasons?")):
             self.remove_seasons_delayed = True
             self.gb_eng.setVisible(True)
-            self.tb.setAccionVisible(self.remove_seasons, False)
+            self.tb.set_action_visible(self.remove_seasons, False)
+            self.sb_migration.setDisabled(False)
 
     def set_num_elements(self):
         li = self.league.list_numdivision()
-        for division in range(3):
+        mx = 0
+        for division in range(self.MAX_DIVISIONS):
             num = li[division]
+            if num:
+                mx = division
             lb = self.li_lb[division]
-            lb.set_text(str(num))
-            if num < 10:
+            lb.set_text("%d" % num)
+            if num < 3 or num < self.sb_migration.valor() * 2:
                 foreground = "gray"
-            elif num == 10:
-                foreground = "green"
+                color = "black"
             else:
-                foreground = "red"
-            lb.setStyleSheet("border: 1px solid LightSlateGray; background: %s;" % foreground)
+                foreground = "green"
+                color = "white"
+            lb.setStyleSheet("color: %s;background: %s;padding-left:5px;padding-right:5px;" % (color, foreground))
+
+        for division in range(self.MAX_DIVISIONS):
+            self.li_lb[division].setVisible(division <= mx)
 
     def sort_list(self):
         self.league.sort_list(self.sortby)
@@ -240,12 +256,11 @@ class WLeagueConfig(LCDialog.LCDialog):
         self.league.draw_range = self.ed_draw_range.textoInt()
         self.league.adjudicator = self.cbJmotor.valor()
         self.league.adjudicator_time = self.edJtiempo.textoFloat()
-        self.league.adjudicator_active = True  # ☺self.gbJ.isChecked()
+        self.league.adjudicator_active = True
         self.league.slow_pieces = self.chb_slow.valor()
         self.league.time_engine_engine = (self.ed_minutes_eng_eng.textoFloat(), self.sb_seconds_eng_eng.valor())
         self.league.time_engine_human = (self.ed_minutes_eng_human.textoFloat(), self.sb_seconds_eng_human.valor())
         self.league.migration = self.sb_migration.valor()
-        self.league.humanize = self.chb_humanize.valor()
         self.league.save()
         if self.remove_seasons_delayed:
             self.league.remove_seasons()
@@ -315,7 +330,7 @@ class WLeagueConfig(LCDialog.LCDialog):
                     return
         if key == "DIVISION":
             dv = int(value)
-            if dv in (1, 2, 3):
+            if 0 < dv < self.MAX_DIVISIONS + 1:
                 opponent.set_initialdivision(dv - 1)
                 self.sort_list()
                 return
@@ -324,7 +339,7 @@ class WLeagueConfig(LCDialog.LCDialog):
 
     def grid_color_fondo(self, grid, row, col):
         opponent: Leagues.Opponent = self.league.opponent(row)
-        return self.li_colors[opponent.initialdivision]
+        return self.li_colors[opponent.initialdivision % 3]
 
     def grid_bold(self, grid, row, column):
         opponent: Leagues.Opponent = self.league.opponent(row)
@@ -350,3 +365,7 @@ class WLeagueConfig(LCDialog.LCDialog):
     def terminar(self):
         self.save_video()
         self.accept()
+
+    def engines(self):
+        w = WConfEngines.WConfEngines(self)
+        w.exec_()

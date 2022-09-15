@@ -120,7 +120,7 @@ def read_engines(folder_engines):
 
     mas("irina", "Lucas Monge", "0.15", "https://github.com/lukasmonk/irina", "irina.exe", 1500)
 
-    mas("rodentii", "Pawel Koziol", "0.9.64", "http://www.pkoziol.cal24.pl/rodent/rodent.htm", "RodentII_x32.exe", 2912)
+    mas("rodentII", "Pawel Koziol", "0.9.64", "http://www.pkoziol.cal24.pl/rodent/rodent.htm", "RodentII_x32.exe", 2912)
 
     mas("amyan", "Antonio Dieguez R.", "1.62", "http://www.pincha.cl/amyan/amyane.html", "amyan.exe", 2545)
 

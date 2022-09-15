@@ -79,11 +79,11 @@ class WRun(LCDialog.LCDialog):
 
         resp = self.sts.siguientePosicion(self.work)
         if resp:
-            self.tb.setAccionVisible(self.pause, False)
-            self.tb.setAccionVisible(self.run, True)
+            self.tb.set_action_visible(self.pause, False)
+            self.tb.set_action_visible(self.run, True)
         else:
-            self.tb.setAccionVisible(self.pause, False)
-            self.tb.setAccionVisible(self.run, False)
+            self.tb.set_action_visible(self.pause, False)
+            self.tb.set_action_visible(self.run, False)
 
     def cerrar(self):
         if self.playing:
@@ -106,8 +106,8 @@ class WRun(LCDialog.LCDialog):
         if not Util.exist_file(self.work.pathToExe()):
             QTUtil2.message_error(self, "%s\n%s" % (self.work.pathToExe(), _("Path does not exist.")))
             return
-        self.tb.setAccionVisible(self.pause, True)
-        self.tb.setAccionVisible(self.run, False)
+        self.tb.set_action_visible(self.pause, True)
+        self.tb.set_action_visible(self.run, False)
         QTUtil.refresh_gui()
         self.playing = True
 
@@ -117,8 +117,8 @@ class WRun(LCDialog.LCDialog):
             self.siguiente()
 
     def pause(self):
-        self.tb.setAccionVisible(self.pause, False)
-        self.tb.setAccionVisible(self.run, True)
+        self.tb.set_action_visible(self.pause, False)
+        self.tb.set_action_visible(self.run, True)
         QTUtil.refresh_gui()
         self.playing = False
         self.sts.save()
@@ -148,8 +148,8 @@ class WRun(LCDialog.LCDialog):
             self.sts.save()
             self.calc_max()
             self.grid.refresh()
-            self.tb.setAccionVisible(self.pause, False)
-            self.tb.setAccionVisible(self.run, False)
+            self.tb.set_action_visible(self.pause, False)
+            self.tb.set_action_visible(self.run, False)
             self.playing = False
 
         QTUtil.refresh_gui()
@@ -298,11 +298,11 @@ class WRun2(LCDialog.LCDialog):
 
         resp = self.sts.siguientePosicion(self.work)
         if resp:
-            self.tb.setAccionVisible(self.pause, False)
-            self.tb.setAccionVisible(self.run, True)
+            self.tb.set_action_visible(self.pause, False)
+            self.tb.set_action_visible(self.run, True)
         else:
-            self.tb.setAccionVisible(self.pause, False)
-            self.tb.setAccionVisible(self.run, False)
+            self.tb.set_action_visible(self.pause, False)
+            self.tb.set_action_visible(self.run, False)
 
     def cerrar(self):
         self.sts.save()
@@ -315,16 +315,16 @@ class WRun2(LCDialog.LCDialog):
         self.cerrar()
 
     def run(self):
-        self.tb.setAccionVisible(self.pause, True)
-        self.tb.setAccionVisible(self.run, False)
+        self.tb.set_action_visible(self.pause, True)
+        self.tb.set_action_visible(self.run, False)
         QTUtil.refresh_gui()
         self.playing = True
         while self.playing:
             self.siguiente()
 
     def pause(self):
-        self.tb.setAccionVisible(self.pause, False)
-        self.tb.setAccionVisible(self.run, True)
+        self.tb.set_action_visible(self.pause, False)
+        self.tb.set_action_visible(self.run, True)
         QTUtil.refresh_gui()
         self.playing = False
         self.sts.save()
@@ -365,8 +365,8 @@ class WRun2(LCDialog.LCDialog):
             self.sts.save()
             self.calc_max()
             self.grid.refresh()
-            self.tb.setAccionVisible(self.pause, False)
-            self.tb.setAccionVisible(self.run, False)
+            self.tb.set_action_visible(self.pause, False)
+            self.tb.set_action_visible(self.run, False)
             self.playing = False
 
         QTUtil.refresh_gui()
@@ -467,7 +467,7 @@ class WWork(QtWidgets.QDialog):
         lbInfo = Controles.LB(self, _("Information") + ": ")
         self.emInfo = Controles.EM(self, work.info, siHTML=False).anchoMinimo(360).altoFijo(60)
 
-        lbDepth = Controles.LB(self, _("Maximum depth") + ": ")
+        lbDepth = Controles.LB(self, _("Max depth") + ": ")
         self.sbDepth = Controles.ED(self).tipoInt(work.depth).anchoFijo(30)
 
         lbSeconds = Controles.LB(self, _("Maximum seconds to think") + ": ")
@@ -567,7 +567,7 @@ class WUnSTS(LCDialog.LCDialog):
         extparam = "unsts"
         LCDialog.LCDialog.__init__(self, w_parent, titulo, icono, extparam)
 
-        self.select_engines = SelectEngines.SelectEngines()
+        self.select_engines = SelectEngines.SelectEngines(w_parent)
 
         # Datos
         self.sts = sts
@@ -821,7 +821,7 @@ class WSTS(LCDialog.LCDialog):
         tb = QTVarios.LCTB(self, li_acciones)
         if len(self.lista) == 0:
             for x in (self.modificar, self.borrar, self.copiar, self.rename):
-                tb.setAccionVisible(x, False)
+                tb.set_action_visible(x, False)
 
         # grid
         o_columns = Columnas.ListaColumnas()
@@ -833,7 +833,7 @@ class WSTS(LCDialog.LCDialog):
 
         lb = Controles.LB(
             self,
-            'STS %s: <b>Dan Corbit & Swaminathan</b> <a href="https://sites.google.com/site/strategictestsuite/about-1">%s</a>'
+            'STS %s: <b>Dann Corbit & Swaminathan</b> <a href="https://sites.google.com/site/strategictestsuite/about-1">%s</a>'
             % (_("Authors"), _("More info")),
         )
 
@@ -904,10 +904,11 @@ class WSTS(LCDialog.LCDialog):
         if n >= 0:
             nombreOri = self.nombreNum(n)
             nombreDest = self.editNombre(nombreOri)
-            pathOri = os.path.join(self.carpetaSTS, nombreOri + ".sts")
-            pathDest = os.path.join(self.carpetaSTS, nombreDest + ".sts")
-            shutil.move(pathOri, pathDest)
-            self.reread()
+            if nombreDest:
+                pathOri = os.path.join(self.carpetaSTS, nombreOri + ".sts")
+                pathDest = os.path.join(self.carpetaSTS, nombreDest + ".sts")
+                shutil.move(pathOri, pathDest)
+                self.reread()
 
     def editNombre(self, previo, siNuevo=False):
         while True:

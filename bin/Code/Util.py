@@ -166,7 +166,7 @@ def ini_dic(file: str) -> dict:
                     n = line.find("=")
                     if n:
                         key = line[:n].strip()
-                        value = line[n + 1:].strip()
+                        value = line[n + 1 :].strip()
                         dic[key] = value
     return dic
 
@@ -212,7 +212,7 @@ def huella() -> str:
 
     li = []
     for n in range(len(txt) // 2):
-        num = int(txt[n * 2: n * 2 + 2])
+        num = int(txt[n * 2 : n * 2 + 2])
         li.append(conv(num))
     return "".join(li)
 
@@ -355,7 +355,7 @@ def ini2dic(file):
                         n = linea.find("=")
                         if n > 0:
                             clave1 = linea[:n].strip()
-                            valor = linea[n + 1:].strip()
+                            valor = linea[n + 1 :].strip()
                             dic[clave1] = valor
 
     return dic_base
@@ -383,7 +383,7 @@ def ini_base2dic(file):
                     n = linea.find("=")
                     if n:
                         key = linea[:n].strip()
-                        valor = linea[n + 1:].strip()
+                        valor = linea[n + 1 :].strip()
                         dic[key] = valor
 
     return dic
@@ -1039,6 +1039,6 @@ def div_list(list, max_group):
     xfrom = 0
     li_groups = []
     while xfrom < nlist:
-        li_groups.append(list[xfrom: xfrom + max_group])
+        li_groups.append(list[xfrom : xfrom + max_group])
         xfrom += max_group
     return li_groups

@@ -125,5 +125,5 @@ class WRunCoordinatesBasic(LCDialog.LCDialog):
 
     def show_tb(self, *lista):
         for opc in self.tb.dic_toolbar:
-            self.tb.setAccionVisible(opc, opc in lista)
+            self.tb.set_action_visible(opc, opc in lista)
         QTUtil.refresh_gui()

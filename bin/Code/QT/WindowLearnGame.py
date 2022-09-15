@@ -441,7 +441,7 @@ class WLearnPuente(LCDialog.LCDialog):
                 None,
                 (_("Reinit"), Iconos.Reiniciar(), self.reset),
                 None,
-                (_("Help"), Iconos.AyudaGR(), self.ayuda),
+                (_("Help"), Iconos.AyudaGR(), self.get_help),
                 None,
             )
         elif tipo == self.FINAL_JUEGO:
@@ -617,7 +617,7 @@ class WLearnPuente(LCDialog.LCDialog):
             self.ponInfo()
             return False
 
-    def ayuda(self):
+    def get_help(self):
 
         move = self.game.move(self.movActual)
         self.boardIni.put_arrow_sc(move.from_sq, move.to_sq)

@@ -274,7 +274,7 @@ def discovered_check(puzzle: Puzzle) -> bool:
     for node in puzzle.mainline[1::2]:
         board = node.board()
         checkers = board.checkers()
-        if checkers and not node.move.to_square in checkers:
+        if checkers and node.move.to_square not in checkers:
             return True
     return False
 

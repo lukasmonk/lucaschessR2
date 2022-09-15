@@ -147,7 +147,7 @@ padding: 2px;"""
         k = event.key()
 
         if k == QtCore.Qt.Key_F10:
-            self.check()
+            self.verify()
         elif k == QtCore.Qt.Key_F1:
             self.help()
         else:
@@ -159,7 +159,7 @@ padding: 2px;"""
         pos = self.li_current_moves.index(ed) + 1
         if pos == len(self.li_current_moves):
             if pos == 1:
-                self.check()
+                self.verify()
             else:
                 self.check_line()
         else:
@@ -254,7 +254,7 @@ padding: 2px;"""
                     ed.setText("")
                 break
 
-    def check(self):
+    def verify(self):
         self.check_line()
 
         solution = None

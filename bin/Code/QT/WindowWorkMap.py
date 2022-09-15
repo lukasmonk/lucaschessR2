@@ -67,7 +67,7 @@ class WMap(LCDialog.LCDialog):
         o_columns.nueva("TYPE", _("Type"), 110, align_center=True)
         o_columns.nueva("DCREATION", _("Creation date"), 110, align_center=True)
         o_columns.nueva("DONE", _("Done"), 110, align_center=True)
-        o_columns.nueva("DEND", _("Ending date"), 110, align_center=True)
+        o_columns.nueva("DEND", _("End date"), 110, align_center=True)
         o_columns.nueva("RESULT", _("Result"), 110, align_center=True)
 
         self.gridData = Grid.Grid(self, o_columns, siSelecFilas=True, xid="H")
@@ -186,7 +186,7 @@ class WMap(LCDialog.LCDialog):
         txt += (
             '<br><span style="color:brown">%s: %s</span></b>' % (_("Type"), tipo)
             + '<br><span style="color:teal">%s: %d/%d</span></b>' % (_("Done"), hechos, total)
-            + '<br><span style="color:blue">%s: %s</span></b>' % (_("Result"), info)
+            + '<br><span style="color:blue">%s: %s</span></b>' % (_("Result"), info if info else "")
         )
         self.lbInfo.set_text(txt)
 
@@ -271,7 +271,7 @@ class WUnSTSMap(LCDialog.LCDialog):
 
     def pon_toolbar(self, *liCurrent):
         for txt, ico, rut in self.li_acciones:
-            self.tb.setAccionVisible(rut, rut in liCurrent)
+            self.tb.set_action_visible(rut, rut in liCurrent)
 
     def ponJuego(self):
         self.pon_toolbar(self.cancelar)
@@ -375,7 +375,7 @@ class WUnSTSMap(LCDialog.LCDialog):
     def analizar(self):
         xtutor = self.procesador.XTutor()
         Analysis.show_analysis(
-            self.procesador, xtutor, self.move, self.position.is_white, 9999999, 1, main_window=self, must_save=False
+            self.procesador, xtutor, self.move, self.position.is_white, 1, main_window=self, must_save=False
         )
 
 

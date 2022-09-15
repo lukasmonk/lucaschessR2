@@ -160,7 +160,7 @@ class WTranssiberian(LCDialog.LCDialog):
             return Colocacion.H().control(lbrt).control(lbva)
 
         lyDB = ly(_("Starting date"), route.date_begin)
-        lyDE = ly(_("Ending date"), route.date_end)
+        lyDE = ly(_("End date"), route.date_end)
 
         tb = QTVarios.LCTB(self, with_text=True, icon_size=32)
         tb.new(_("Config"), Iconos.Configurar(), self.config)

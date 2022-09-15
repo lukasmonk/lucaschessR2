@@ -37,10 +37,10 @@ class ManagerTrainBooks(Manager.Manager):
 
         self.li_reinit = book_player, player_highest, book_rival, resp_rival, is_white, show_menu
 
-        self.human_side = is_white
+        self.is_human_side_white = is_white
         self.is_book_side_white = not is_white
 
-        self.main_window.pon_toolbar((TB_CLOSE, TB_REINIT, TB_TAKEBACK, TB_HELP, TB_CONFIG, TB_UTILITIES))
+        self.set_toolbar((TB_CLOSE, TB_REINIT, TB_TAKEBACK, TB_HELP, TB_CONFIG, TB_UTILITIES))
         self.main_window.activaJuego(True, False, siAyudas=False)
         self.set_dispatcher(self.play_human)
         self.set_position(self.game.last_position)
@@ -78,10 +78,10 @@ class ManagerTrainBooks(Manager.Manager):
             self.configurar(siSonidos=True)
 
         elif clave == TB_UTILITIES:
-            self.utilidades()
+            self.utilities()
 
         elif clave == TB_HELP:
-            self.ayuda()
+            self.get_help()
 
         else:
             Manager.Manager.rutinaAccionDef(self, clave)
@@ -96,6 +96,7 @@ class ManagerTrainBooks(Manager.Manager):
     def reiniciar(self):
         self.game.reset()
         book_player, player_highest, book_rival, resp_rival, is_white, show_menu = self.li_reinit
+        self.main_window.activaInformacionPGN(False)
         self.start(book_player, player_highest, book_rival, resp_rival, is_white, show_menu)
 
     def siguienteJugada(self):
@@ -214,7 +215,7 @@ class ManagerTrainBooks(Manager.Manager):
 
             if self.show_menu:
                 resp = WindowBooks.eligeJugadaBooks(
-                    self.main_window, self.list_moves, self.human_side, siSelectSiempre=False
+                    self.main_window, self.list_moves, self.is_human_side_white, siSelectSiempre=False
                 )
                 self.board.remove_arrows()
             else:
@@ -235,13 +236,13 @@ class ManagerTrainBooks(Manager.Manager):
 
         self.move_the_pieces(jg.liMovs)
 
-        self.masJugada(jg, True)
+        self.add_move(jg, True)
         self.error = ""
         self.sumar_aciertos = True
         self.siguienteJugada()
         return True
 
-    def ayuda(self):
+    def get_help(self):
         if self.human_is_playing:
             self.paraHumano()
         else:
@@ -262,7 +263,7 @@ class ManagerTrainBooks(Manager.Manager):
                 opacity = 1.0 if p == paux else max(p, 0.25)
             self.board.creaFlechaMulti(jug[0] + jug[1], siMain=simain, opacity=opacity)
 
-        resp = WindowBooks.eligeJugadaBooks(self.main_window, self.list_moves, self.human_side, siSelectSiempre=False)
+        resp = WindowBooks.eligeJugadaBooks(self.main_window, self.list_moves, self.is_human_side_white, siSelectSiempre=False)
         self.board.remove_arrows()
         if resp is None:
             self.sumar_aciertos = False
@@ -277,12 +278,12 @@ class ManagerTrainBooks(Manager.Manager):
 
         self.move_the_pieces(jg.liMovs)
 
-        self.masJugada(jg, True)
+        self.add_move(jg, True)
         self.error = ""
         self.sumar_aciertos = True
         self.siguienteJugada()
 
-    def masJugada(self, jg, siNuestra):
+    def add_move(self, jg, siNuestra):
 
         # Para facilitar el salto a variantes
         jg.aciertos = self.aciertos
@@ -300,6 +301,8 @@ class ManagerTrainBooks(Manager.Manager):
         self.put_arrow_sc(jg.from_sq, jg.to_sq)
         self.beepExtendido(siNuestra)
 
+        self.check_boards_setposition()
+
         self.pgnRefresh(self.game.last_position.is_white)
         self.refresh()
 
@@ -312,7 +315,7 @@ class ManagerTrainBooks(Manager.Manager):
             self.aciertos -= 1
             if self.aciertos < 0:
                 self.aciertos = 0
-            self.game.anulaUltimoMovimiento(self.human_side)
+            self.game.anulaUltimoMovimiento(self.is_human_side_white)
             self.goto_end()
             self.refresh()
             self.siguienteJugada()
@@ -347,7 +350,7 @@ class ManagerTrainBooks(Manager.Manager):
         if ok:
             self.ponVariantes(jg)
 
-            self.masJugada(jg, False)
+            self.add_move(jg, False)
             self.move_the_pieces(jg.liMovs, True)
 
             self.error = ""
@@ -377,4 +380,4 @@ class ManagerTrainBooks(Manager.Manager):
         txt = self.txt_matches()
 
         mensaje = "%s\n%s\n" % (_("Line completed"), txt)
-        self.mensajeEnPGN(mensaje)
+        self.message_on_pgn(mensaje, delayed=True)

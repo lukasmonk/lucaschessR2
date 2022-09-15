@@ -2,6 +2,7 @@ import os.path
 
 import Code
 from Code.TrainBMT import BMT, WindowBMTtrain
+
 Code.BMT = BMT
 
 from Code import Util
@@ -133,7 +134,7 @@ class WBMT(LCDialog.LCDialog):
             None,
             (_("Track record"), Iconos.Historial(), self.historial),
             None,
-            (_("Utilities"), Iconos.Utilidades(), self.utilidades),
+            (_("Utilities"), Iconos.Utilidades(), self.utilities),
         ]
         tb = QTVarios.LCTB(self, li_acciones)
 
@@ -216,7 +217,7 @@ class WBMT(LCDialog.LCDialog):
                 w = WHistorialBMT(self, dbf)
                 w.exec_()
 
-    def utilidades(self):
+    def utilities(self):
         menu = QTVarios.LCMenu(self)
 
         menu.opcion("cambiar", _("Select/create another file of training"), Iconos.BMT())
@@ -235,7 +236,7 @@ class WBMT(LCDialog.LCDialog):
         menu2.separador()
         menu2.opcion("extraer", _("Extract a range of positions"), Iconos.PuntoAzul())
         menu2.separador()
-        menu2.opcion("juntar", _("Joining selected training"), Iconos.PuntoNaranja())
+        menu2.opcion("juntar", _("Joining selected trainings"), Iconos.PuntoNaranja())
         menu2.separador()
         menu2.opcion("rehacer", _("Analyze again"), Iconos.PuntoAmarillo())
 
@@ -269,6 +270,8 @@ class WBMT(LCDialog.LCDialog):
             return
 
         bmt_lista = Util.zip2var(dbf.leeOtroCampo(recno, "BMT_LISTA"))
+        if bmt_lista is None:
+            return
         bmt_lista.patch()
         bmt_lista.check_color()
 
@@ -658,16 +661,16 @@ class WBMT(LCDialog.LCDialog):
                 um.final()
 
     def juntar(self):
-        grid, dbf, recno = self.actual()
-        orden = dbf.ORDEN
-        name = dbf.NOMBRE
-        extra = dbf.EXTRA
-
         # Lista de recnos
+        grid, dbf, recno = self.actual()
         li = grid.recnosSeleccionados()
 
         if len(li) < 1:
             return
+
+        orden = getattr("dbf", "ORDEN", 0)
+        name = dbf.NOMBRE
+        extra = dbf.EXTRA
 
         # Se pide name y extra
         li_gen = [(None, None)]
@@ -690,7 +693,7 @@ class WBMT(LCDialog.LCDialog):
         config = FormLayout.Combobox(_("Drop answers with minimum score"), liJ)
         li_gen.append((config, 9))
 
-        titulo = "%s (%d)" % (_("Joining selected training"), len(li))
+        titulo = "%s (%d)" % (_("Joining selected trainings"), len(li))
         resultado = FormLayout.fedit(li_gen, title=titulo, parent=self, anchoMinimo=560, icon=Iconos.Opciones())
         if not resultado:
             return

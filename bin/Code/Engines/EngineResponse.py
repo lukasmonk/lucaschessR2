@@ -16,6 +16,7 @@ from Code.Base.Constantes import (
     ADJUST_INTERMEDIATE_LEVEL,
     ADJUST_HIGH_LEVEL,
     NO_RATING,
+    SPECULATIVE_MOVE,
     GOOD_MOVE,
     VERY_GOOD_MOVE,
 )
@@ -1059,7 +1060,7 @@ class MultiEngineResponse:
 
             if siPersonalidad:
                 nTipo, mindifpuntos, maxmate, dbg, aterrizaje = self.ajustaPersonalidad(
-                    self.liPersonalidades[nTipo - 1000]
+                    self.li_personalities[nTipo - 1000]
                 )
 
             if nTipo == ADJUST_BETTER:
@@ -1145,7 +1146,7 @@ class MultiEngineResponse:
                 elif dif < minpuntos:  # primeras depths ya se sabia que era buena move
                     return
 
-    def set_nag_color(self, configuration, rm):
+    def set_nag_color(self, rm):
         mj_pts = self.li_rm[0].centipawns_abs()
         rm_pts = rm.centipawns_abs()
         nb = mj_pts - rm_pts
@@ -1168,33 +1169,34 @@ class MultiEngineResponse:
         if dic:
             li = list(dic.keys())
             li.sort()
-            firstDepth = 0
+            first_depth = 0
             mv = rm.movimiento()
             for depth in li:
-                dicDepth = dic[depth]
-                if mv in dicDepth:
-                    pts = dicDepth[mv]
+                dic_depth = dic[depth]
+                if mv in dic_depth:
+                    pts = dic_depth[mv]
                     ok = True
-                    for m, v in dicDepth.items():
+                    for m, v in dic_depth.items():
                         if v > pts + 5:
                             ok = False
                             break
                     if ok:
-                        firstDepth = depth
+                        first_depth = depth
                         break
-            if firstDepth >= Code.analysis_eval.very_good_depth:
+            color = GOOD_MOVE
+            if first_depth >= Code.analysis_eval.very_good_depth:
                 if len(libest) == 1 and (mj_pts - self.li_rm[1].centipawns_abs()) > 70:
                     nag = VERY_GOOD_MOVE
                     color = VERY_GOOD_MOVE
                 else:
                     nag = GOOD_MOVE
-                    color = GOOD_MOVE
-            elif firstDepth >= Code.analysis_eval.good_depth:
+            elif first_depth >= Code.analysis_eval.good_depth:
                 nag = GOOD_MOVE
-                color = GOOD_MOVE
+            elif first_depth >= Code.analysis_eval.speculative_depth:
+                nag = SPECULATIVE_MOVE
+                color = SPECULATIVE_MOVE
             else:
                 nag = NO_RATING
-                color = GOOD_MOVE
             return nag, color
 
-        return GOOD_MOVE, GOOD_MOVE
+        return NO_RATING, GOOD_MOVE

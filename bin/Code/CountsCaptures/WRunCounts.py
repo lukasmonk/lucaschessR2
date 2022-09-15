@@ -51,7 +51,7 @@ class WRunCounts(LCDialog.LCDialog):
             (_("Close"), Iconos.MainMenu(), self.terminar),
             None,
             (_("Begin"), Iconos.Empezar(), self.begin),
-            (_("Verify"), Iconos.Check(), self.check),
+            (_("Verify"), Iconos.Check(), self.verify),
             (_("Continue"), Iconos.Pelicula_Seguir(), self.seguir),
         )
         self.tb = QTVarios.LCTB(self, li_acciones, style=QtCore.Qt.ToolButtonTextBesideIcon, icon_size=32)
@@ -123,7 +123,7 @@ class WRunCounts(LCDialog.LCDialog):
 
     def show_tb(self, *lista):
         for opc in self.tb.dic_toolbar:
-            self.tb.setAccionVisible(opc, opc in lista)
+            self.tb.set_action_visible(opc, opc in lista)
         QTUtil.refresh_gui()
 
     def begin(self):
@@ -157,7 +157,7 @@ class WRunCounts(LCDialog.LCDialog):
                 QTUtil.refresh_gui()
 
         # Ponemos el toolbar
-        self.show_tb(self.check, self.terminar)
+        self.show_tb(self.verify, self.terminar)
 
         # Activamos capturas
         self.gb_counts.setEnabled(True)
@@ -167,12 +167,13 @@ class WRunCounts(LCDialog.LCDialog):
 
         self.ed_moves.setFocus()
 
-    def check(self):
+    def verify(self):
         tiempo = time.time() - self.time_base
 
         moves = FasterCode.get_exmoves_fen(self.position_obj.fen())
 
-        num_moves_calculated = int(self.ed_moves.texto())
+        cmoves = self.ed_moves.texto().strip()
+        num_moves_calculated = int(cmoves) if cmoves.isdigit() else 0
         ok = num_moves_calculated == len(moves)
         xtry = self.count.current_posmove, self.count.current_depth, ok, tiempo
         self.count.tries.append(xtry)

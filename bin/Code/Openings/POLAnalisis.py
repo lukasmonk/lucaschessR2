@@ -628,6 +628,8 @@ class TabTree(QtWidgets.QWidget):
         menu1.opcion("collapseall", _("All"), Iconos.PuntoVerde())
         menu1.separador()
         menu1.opcion("collapsethis", _("This branch"), Iconos.PuntoAmarillo())
+        menu.separador()
+        menu.opcion("remove", _("Remove this branch"), Iconos.Delete())
         resp = menu.lanza()
         if resp:
             if resp == "expandthis":
@@ -641,6 +643,12 @@ class TabTree(QtWidgets.QWidget):
 
             elif resp == "collapseall":
                 quien, siExpand = None, False
+
+            elif resp == "remove":
+                self.remove_branch(item)
+                return
+            else:
+                return
 
         else:
             return
@@ -656,6 +664,14 @@ class TabTree(QtWidgets.QWidget):
         data = self.dicItems[str(quien)] if quien else self.tree_data
         work(data)
         self.tree.resizeColumnToContents(0)
+
+    def remove_branch(self, item):
+        data_item = self.dicItems[str(item)]
+        lipv = data_item.listaPV()
+        a1h8 = " ".join(lipv)
+        pgn = data_item.game()
+        self.tabsAnalisis.panelOpening.remove_pv(pgn, a1h8)
+        self.bt_update()
 
 
 class TabsAnalisis(QtWidgets.QWidget):
@@ -810,7 +826,7 @@ class TabsAnalisis(QtWidgets.QWidget):
     def seleccionaLibro(self):
         list_books = Books.ListBooks()
         list_books.restore_pickle(self.configuration.file_books)
-        list_books.check()
+        list_books.verify()
         menu = QTVarios.LCMenu(self)
         rondo = QTVarios.rondoPuntos()
         for book in list_books.lista:

@@ -58,7 +58,7 @@ class ManagerGM(Manager.Manager):
             self.bypass_book.polyglot()
         self.on_opening = True if self.opening else False
 
-        self.siAnalizando = False
+        self.if_analyzing = False
 
         if self.with_adjudicator:
             self.puntos = 0
@@ -80,7 +80,7 @@ class ManagerGM(Manager.Manager):
         if self.gameElegida is not None:
             self.motorGM.set_game_selected(self.gameElegida)
 
-        self.human_side = self.is_white
+        self.is_human_side_white = self.is_white
         self.is_engine_side_white = not self.is_white
         self.thinking(False)
 
@@ -126,7 +126,7 @@ class ManagerGM(Manager.Manager):
             self.configurar(siSonidos=True)
 
         elif key == TB_UTILITIES:
-            self.utilidades()
+            self.utilities()
 
         elif key in self.procesador.li_opciones_inicio:
             self.procesador.run_action(key)
@@ -153,6 +153,7 @@ class ManagerGM(Manager.Manager):
         if QTUtil2.pregunta(self.main_window, _("Restart the game?")):
             self.analizaTerminar()
             self.game.set_position()
+            self.main_window.activaInformacionPGN(False)
             self.start(self.record)
 
     def analyze_begin(self):
@@ -161,7 +162,7 @@ class ManagerGM(Manager.Manager):
                 self.xtutor.ac_inicio(self.game)
             else:
                 self.xtutor.ac_inicio_limit(self.game)
-            self.siAnalizando = True
+            self.if_analyzing = True
 
     def analyze_state(self):
         self.xtutor.engine.ac_lee()
@@ -173,8 +174,8 @@ class ManagerGM(Manager.Manager):
         return self.mrm
 
     def analyze_end(self):
-        if self.siAnalizando:
-            self.siAnalizando = False
+        if self.if_analyzing:
+            self.if_analyzing = False
             if self.continueTt:
                 self.mrmTutor = self.xtutor.ac_final(self.xtutor.mstime_engine)
             else:
@@ -283,8 +284,8 @@ class ManagerGM(Manager.Manager):
             self.activate_side(is_white)
 
     def analizaTerminar(self):
-        if self.siAnalizando:
-            self.siAnalizando = False
+        if self.if_analyzing:
+            self.if_analyzing = False
             self.xtutor.terminar()
 
     def player_has_moved(self, from_sq, to_sq, promotion=""):
@@ -299,7 +300,7 @@ class ManagerGM(Manager.Manager):
 
         if not isValid:
             self.board.set_position(position)
-            self.board.activate_side(self.human_side)
+            self.board.activate_side(self.is_human_side_white)
             li_moves = self.motorGM.get_moves_txt(position, True)
             desdeGM, hastaGM, promotionGM = WindowGM.select_move(self, li_moves, True)
             siAnalizaJuez = self.with_adjudicator
@@ -447,7 +448,7 @@ class ManagerGM(Manager.Manager):
         if self.with_adjudicator:
             mensaje += "<br><br><b>%s</b> = %+d<br>" % (_("Centipawns accumulated"), self.puntos)
 
-        self.mensajeEnPGN(mensaje)
+        self.message_on_pgn(mensaje)
 
         db_histo = UtilSQL.DictSQL(self.configuration.ficheroGMhisto)
 

@@ -35,7 +35,7 @@ class WPolyglot(WKibCommon.WKibCommon):
             ("%s: %s" % (_("Disable"), _("window on top")), Iconos.Kibitzer_Down(), self.windowBottom),
         )
         self.tb = Controles.TBrutina(self, li_acciones, with_text=False, icon_size=24)
-        self.tb.setAccionVisible(self.play, False)
+        self.tb.set_action_visible(self.play, False)
 
         ly1 = Colocacion.H().control(self.board).control(self.grid)
         layout = Colocacion.V().control(self.tb).espacio(-8).otro(ly1).margen(3)

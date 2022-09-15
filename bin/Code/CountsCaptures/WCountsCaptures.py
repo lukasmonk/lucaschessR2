@@ -1,10 +1,9 @@
 import Code
 from Code import Util
-from Code.Databases import DBgames, WindowDatabase
-from Code.QT import Colocacion, Columnas, Controles, Grid, Iconos, QTUtil2, QTVarios
-from Code.QT import LCDialog
-
 from Code.CountsCaptures import CountsCaptures, WRunCaptures, WRunCounts
+from Code.Databases import DBgames, WindowDatabase
+from Code.QT import Colocacion, Columnas, Grid, Iconos, QTUtil2, QTVarios
+from Code.QT import LCDialog
 
 
 class WCountsCaptures(LCDialog.LCDialog):
@@ -15,26 +14,28 @@ class WCountsCaptures(LCDialog.LCDialog):
             path = self.configuration.file_captures()
             title = _("Captures and threats in a game")
             icon = Iconos.Captures()
-            extconfig = "captures1"
+            extconfig = "captures2"
         else:
             path = self.configuration.file_counts()
             title = _("Count moves")
             icon = Iconos.Count()
-            extconfig = "counts1"
+            extconfig = "counts2"
 
         self.db = CountsCaptures.DBCountCapture(path)
 
         LCDialog.LCDialog.__init__(self, procesador.main_window, title, icon, extconfig)
 
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("DATE", _("Date"), 120, align_center=True)
-        o_columns.nueva("CURRENT_MOVE", _("Current move"), 96, align_center=True)
+        o_columns.nueva("DATE", _("Date"), 126, align_center=True)
+        o_columns.nueva("CURRENT_MOVE", _("Current move"), 100, align_center=True)
+        o_columns.nueva("MOVES", _("Moves"), 80, align_center=True)
         o_columns.nueva("%", _("Success"), 90, align_center=True)
-        o_columns.nueva("TIME", _("Time"), 130, align_center=True)
+        o_columns.nueva("TIME", _("Time"), 70, align_center=True)
+        o_columns.nueva("AVG", _("Average"), 70, align_center=True)
         o_columns.nueva("GAME", _("Game"), 520)
         self.glista = Grid.Grid(self, o_columns, siSelecFilas=True, siSeleccionMultiple=True)
-        f = Controles.TipoLetra(puntos=self.configuration.x_menu_points)
-        self.glista.ponFuente(f)
+        # f = Controles.TipoLetra(puntos=self.configuration.x_menu_points)
+        # self.glista.ponFuente(f)
 
         li_acciones = (
             (_("Close"), Iconos.MainMenu(), self.terminar),
@@ -122,12 +123,16 @@ class WCountsCaptures(LCDialog.LCDialog):
             return count_capture.game.titulo("DATE", "EVENT", "WHITE", "BLACK", "RESULT")
         elif col == "CURRENT_MOVE":
             if count_capture.is_finished():
-                return "%s/%d" % (_("Ended"), len(count_capture.game))
-            return "%d+%d/%d" % (count_capture.current_posmove, count_capture.current_depth, len(count_capture.game))
+                return _("Ended")
+            return "%d+%d" % (count_capture.current_posmove, count_capture.current_depth)
+        elif col == "MOVES":
+            return "%d" % len(count_capture.game)
         elif col == "%":
             return count_capture.label_success()
         elif col == "TIME":
-            return count_capture.label_time()
+            return count_capture.label_time_used()
+        elif col == "AVG":
+            return count_capture.label_time_avg()
         else:
             return col
 

@@ -110,8 +110,7 @@ class DBendings:
             else:
                 label = _("Time")
 
-            dif = " (%.1f)" % ((ms - ms_previo) / 1000,) if ms_previo is not None else ""
-            mensaje += "%s: %.1f%s\n" % (label, ms / 1000, dif)
+            mensaje += "%s: %.1f\n" % (label, ms / 1000)
 
             moves_previo = dic_fen.get("MOVES")
             if (moves_previo is None) or (moves < moves_previo):
@@ -119,12 +118,7 @@ class DBendings:
                 dic_fen["MOVES"] = moves
             else:
                 label = _("Number of movements")
-            if moves_previo:
-                xdif = moves - moves_previo
-                dif = " (%d)" % (xdif,) if xdif < 0 else " (=)"
-            else:
-                dif = ""
-            mensaje += "%s: %d%s\n" % (label, moves, dif)
+            mensaje += "%s: %d\n" % (label, moves)
         self.db_data[self.current_key] = self.current_dicfen
         return success, mensaje
 
@@ -204,6 +198,8 @@ class DBendings:
 
         def haz(key):
             dic_data = self.db_data[key]
+            if dic_data is None:
+                return
             changed = False
             for fen_m2, dic_fenm2 in dic_data.items():
                 for field in li_fields:
@@ -216,7 +212,7 @@ class DBendings:
         if only_current_key:
             haz(self.current_key)
         else:
-            for key in self.db_data:
+            for key in self.db_data.keys():
                 haz(key)
 
         self.db_data.set_normal_mode()

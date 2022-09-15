@@ -99,10 +99,10 @@ class WGM(LCDialog.LCDialog):
         self.lbJdepth = Controles.LB2P(self, _("Depth"))
         self.lbJshow = Controles.LB2P(self, _("Show rating"))
         self.chbEvals = Controles.CHB(self, _("Show all evaluations"), False)
-        li_options = [(_("All moves"), None), (_("Moves are different"), True), (_("Never"), False)]
+        li_options = [(_("Always"), None), (_("When moves are different"), True), (_("Never"), False)]
         self.cbJshow = Controles.CB(self, li_options, True)
-        self.lbJmultiPV = Controles.LB2P(self, _("Number of half-moves evaluated by engine(MultiPV)"))
-        li = [(_("Default"), "PD"), (_("Maximum"), "MX")]
+        self.lbJmultiPV = Controles.LB2P(self, _("Number of variations evaluated by the engine (MultiPV)"))
+        li = [(_("By default"), "PD"), (_("Maximum"), "MX")]
         for x in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 20, 30, 40, 50, 75, 100, 150, 200):
             li.append((str(x), str(x)))
         self.cbJmultiPV = Controles.CB(self, li, "PD")
@@ -132,7 +132,7 @@ class WGM(LCDialog.LCDialog):
         self.list_books = Books.ListBooks()
         self.list_books.restore_pickle(fvar)
         # # Comprobamos que todos esten accesibles
-        self.list_books.check()
+        self.list_books.verify()
         li = [(x.name, x) for x in self.list_books.lista]
         li.insert(0, ("--", None))
         self.cbBooks, lbBooks = QTUtil2.comboBoxLB(self, li, None, _("Bypass moves in the book"))

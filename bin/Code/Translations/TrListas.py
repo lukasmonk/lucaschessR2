@@ -139,11 +139,17 @@ def dicTraining():
         "Discovered attack": _("Discovered attack"),
         "Annihilation of defense": _("Annihilation of defense"),
         "Double attack": _("Double attack"),
-        "Attacking Defender": _("Attacking defender"),
+        "Attacking Defender": _("Attacking Defender"),
         "All tactics": _("All tactics"),
         "Pawn endings": _("Pawn endings"),
         "Singular moves to equalize": _("Singular moves to equalize"),
         "Singular moves to win": _("Singular moves to win"),
+        "Queen + Rook": "%s + %s" % (_("Queen"), _("Rook")),
+        "Queen + Bishop": "%s + %s" % (_("Queen"), _("Bishop")),
+        "Queen + Knight": "%s + %s" % (_("Queen"), _("Knight")),
+        "Rook + Bishop": "%s + %s" % (_("Rook"), _("Bishop")),
+        "Rook + Knight": "%s + %s" % (_("Rook"), _("Knight")),
+        "Knight + Bishop": "%s + %s" % (_("Knight"), _("Bishop")),
     }
 
     for n in range(1, 10):

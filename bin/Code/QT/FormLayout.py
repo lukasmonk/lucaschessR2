@@ -85,7 +85,7 @@ class FormLayout:
         self.eddefault(label, init_value)
 
     def float(self, label: str, init_value: float):
-        self.eddefault(label, init_value)
+        self.eddefault(label, float(init_value) if init_value else 0.0)
 
     def spinbox(self, label, minimo, maximo, ancho, init_value):
         self.li_gen.append((Spinbox(label, minimo, maximo, ancho), init_value))

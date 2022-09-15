@@ -302,8 +302,11 @@ class DBgames:
 
     def put_order(self, li_order):
         li = []
-        for campo, tipo in li_order:
-            li.append("%s %s" % (campo, tipo))
+        for campo, tipo, is_numeric in li_order:
+            if is_numeric:
+                li.append("CAST(%s as INT) %s" % (campo, tipo))
+            else:
+                li.append("%s %s" % (campo, tipo))
         self.order = ",".join(li)
         self.li_row_ids = []
         self.rowidReader.run(self.li_row_ids, self.filter, self.order)
@@ -446,7 +449,7 @@ class DBgames:
         listaw.extend(listab)
 
         lista = list(set(listaw))
-        lista.sort()
+        lista.sort(key=lambda name: name.upper())
         return lista
 
     def read_game_recno(self, recno):

@@ -110,7 +110,7 @@ class ControlPGN:
                     if self.manager.game_type == GT_ALONE:
                         side = move.position.is_white
                     else:
-                        side = self.manager.human_side
+                        side = self.manager.is_human_side_white
                     self.manager.activate_side(side)
             else:
                 if self.variations_mode:
@@ -156,7 +156,7 @@ class ControlPGN:
 
         player = self.manager.configuration.nom_player()
         resultado = self.manager.resultado
-        human_side = self.manager.human_side
+        human_side = self.manager.is_human_side_white
 
         if resultado == RS_WIN_PLAYER:
             r = "1-0" if human_side else "0-1"

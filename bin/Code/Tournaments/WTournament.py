@@ -40,7 +40,7 @@ class WTournament(LCDialog.LCDialog):
         LCDialog.LCDialog.__init__(self, w_parent, titulo, icono, extparam)
 
         self.configuration = Code.configuration
-        self.internal_engines = SelectEngines.SelectEngines()
+        self.internal_engines = SelectEngines.SelectEngines(w_parent)
 
         # Datos
 
@@ -91,7 +91,7 @@ class WTournament(LCDialog.LCDialog):
         self.list_books = Books.ListBooks()
         self.list_books.restore_pickle(fvar)
         # Comprobamos que todos esten accesibles
-        self.list_books.check()
+        self.list_books.verify()
         li = [(x.name, x.path) for x in self.list_books.lista]
         li.insert(0, ("* " + _("None"), "-"))
         self.cbBooks = Controles.CB(self, li, torneo.book())
@@ -404,7 +404,7 @@ class WTournament(LCDialog.LCDialog):
             fvar = self.configuration.file_books
             self.list_books.save_pickle(fvar)
             li = [(x.name, x.path) for x in self.list_books.lista]
-            li.insert(0, ("* " + _("Default"), "*"))
+            li.insert(0, ("* " + _("By default"), "*"))
             self.cbBooks.rehacer(li, b.path)
 
     def grid_num_datos(self, grid):
@@ -525,14 +525,14 @@ class WTournament(LCDialog.LCDialog):
         self.liEnActual.append((_("File"), Util.relative_path(me.path_exe)))
         self.liEnActual.append((_("Information"), me.id_info.replace("\n", " - ")))
         self.liEnActual.append(("ELO", me.elo))
-        self.liEnActual.append((_("Maximum depth"), me.depth))
+        self.liEnActual.append((_("Max depth"), me.depth))
         self.liEnActual.append((_("Maximum seconds to think"), me.time))
         pbook = me.book
         if pbook in ("-", None):
             pbook = "* " + _("Engine book")
         else:
             if pbook == "*":
-                pbook = "* " + _("Default")
+                pbook = "* " + _("By default")
             dic = {"au": _("Uniform random"), "ap": _("Proportional random"), "mp": _("Always the highest percentage")}
             pbook += "   (%s)" % dic.get(me.bookRR, "mp")
 
@@ -651,8 +651,7 @@ class WTournament(LCDialog.LCDialog):
         me.pon_huella(self.torneo)
         me.restore(resp.save())
         me.alias = me.key = me.name
-        if hasattr(me, "fixed_depth") and me.fixed_depth:
-            me.depth = me.fixed_depth
+        me.depth = me.max_depth
 
         self.torneo.save_engine(me)
         self.gridEnginesAlias.refresh()
@@ -846,7 +845,7 @@ class WTournament(LCDialog.LCDialog):
 
     def gm_save_database(self):
         if self.torneo.num_games_finished() > 0:
-            dbpath = QTVarios.select_db(self, self.configuration, False, True, remove_autosave=True)
+            dbpath = QTVarios.select_db(self, self.configuration, True, True, remove_autosave=True)
             if dbpath is None:
                 return
             if dbpath == ":n":

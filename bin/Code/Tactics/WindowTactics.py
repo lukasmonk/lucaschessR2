@@ -599,7 +599,7 @@ class WEditaTactica(LCDialog.LCDialog):
             None,
             (_("Cancel"), Iconos.Cancelar(), "cancelar"),
             None,
-            (_("Help"), Iconos.AyudaGR(), "ayuda"),
+            (_("Help"), Iconos.AyudaGR(), "get_help"),
             None,
         )
         tb = Controles.TB(self, li_acciones)
@@ -619,18 +619,18 @@ class WEditaTactica(LCDialog.LCDialog):
         elif accion == "cancelar":
             self.reject()
 
-        elif accion == "ayuda":
-            self.ayuda()
+        elif accion == "get_help":
+            self.get_help()
 
-    def ayuda(self):
+    def get_help(self):
         menu = QTVarios.LCMenu(self)
 
         nico = QTVarios.rondoColores()
 
         for opcion, txt in (
-            (self.borraJUMPS, _("Without repetitions of each puzzle")),
-            (self.borraREPEAT, _("Without repetitions of block")),
-            (self.borraPENALIZATION, _("Without penalties")),
+            (self.remove_jumps, _("Without repetitions of each puzzle")),
+            (self.remove_repeat, _("Without repetitions of block")),
+            (self.remove_penalization, _("Without penalties")),
         ):
             menu.opcion(opcion, txt, nico.otro())
             menu.separador()
@@ -639,13 +639,13 @@ class WEditaTactica(LCDialog.LCDialog):
         if resp:
             resp()
 
-    def borraJUMPS(self):
+    def remove_jumps(self):
         self.wtactic.jumps_delete_all()
 
-    def borraREPEAT(self):
+    def remove_repeat(self):
         self.wtactic.repeat_delete_all()
 
-    def borraPENALIZATION(self):
+    def remove_penalization(self):
         self.wtactic.penal_delete_all()
 
 
@@ -660,6 +660,7 @@ def edit1tactica(owner, tactica, ncopia):
         tactica.penalization = tresp.penalization
         tactica.showtext = tresp.showtext
         tactica.advanced = tresp.advanced
+        tactica.remove_reinforcement()
 
         return True
     else:

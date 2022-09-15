@@ -1,5 +1,6 @@
 from typing import List, Tuple
 
+import Code
 from Code.Analysis import AnalysisIndexes, WindowAnalysis, WindowAnalysisVariations
 from Code.Base import Game, Move
 from Code.Engines import EngineResponse
@@ -151,16 +152,36 @@ class ControlAnalysis:
             move_active = self.game.move(self.pos_mov_active)
             return move_active.position, move_active.from_sq, move_active.to_sq
 
-    def active_base_position(self):
-        n_movs = len(self.game)
-        if self.pos_mov_active >= n_movs:
-            self.pos_mov_active = n_movs - 1
-        if self.pos_mov_active < 0:
-            self.pos_mov_active = -1
-            return self.game.move(0).position_before, None, None
-        else:
-            move_active = self.game.move(self.pos_mov_active)
-            return move_active.position_before, move_active.from_sq, move_active.to_sq
+    def get_game(self):
+        game_original = self.move.game
+        game_send = game_original.copy_until_move(self.move)
+        if self.pos_mov_active > -1:
+            # cp = game_send.last_position
+            for nmove in range(self.pos_mov_active + 1):
+                move = self.game.move(nmove)
+                move_send = move.clone(game_send)
+                game_send.add_move(move_send)
+        return game_send
+        # n_movs = len(self.game)
+        # if self.pos_mov_active >= n_movs:
+        #     self.pos_mov_active = n_movs - 1
+        # if self.pos_mov_active < 0:
+        #     self.pos_mov_active = -1
+        #     return self.game.move(0).position_before, None, None
+        # else:
+        #     move_active = self.game.move(self.pos_mov_active)
+        #     return move_active.position, move_active.from_sq, move_active.to_sq
+
+    # def active_base_position(self):
+    #     n_movs = len(self.game)
+    #     if self.pos_mov_active >= n_movs:
+    #         self.pos_mov_active = n_movs - 1
+    #     if self.pos_mov_active < 0:
+    #         self.pos_mov_active = -1
+    #         return self.game.move(0).position_before, None, None
+    #     else:
+    #         move_active = self.game.move(self.pos_mov_active)
+    #         return move_active.position_before, move_active.from_sq, move_active.to_sq
 
     def change_mov_active(self, accion):
         if accion == "Adelante":
@@ -186,7 +207,7 @@ class ControlAnalysis:
     def external_analysis(self, wowner, is_white):
         move = self.game.move(self.pos_mov_active if self.pos_mov_active >= 0 else 0)
         pts = self.score_active()
-        AnalisisVariations(wowner, self.xengine, move, is_white, pts, max_recursion=self.tb_analysis.max_recursion)
+        AnalisisVariations(wowner, self.xengine, move, is_white, pts)
 
     def save_base(self, game, rm, is_complete):
         name = self.time_engine()
@@ -204,13 +225,12 @@ class ControlAnalysis:
 
 
 class CreateAnalysis:
-    def __init__(self, procesador, move, max_recursion, pos_move):
+    def __init__(self, procesador, move, pos_move):
 
         self.procesador = procesador
         self.configuration = procesador.configuration
         self.move = move
         self.pos_move = pos_move  # Para mostrar el pgn con los numeros correctos
-        self.max_recursion = max_recursion
         self.li_tabs_analysis = []
 
     def create_initial_show(self, main_window, xengine):
@@ -235,20 +255,25 @@ class CreateAnalysis:
         return tab_analysis
 
     def create_show(self, main_window, alm):
-        xengine = None
-        busca = alm.engine[1:] if alm.engine.startswith("*") else alm.engine
-        for tab_analysis in self.li_tabs_analysis:
-            if tab_analysis.xengine.key == busca:
-                xengine = tab_analysis.xengine
-                xengine.update_multipv(alm.multiPV)
-                break
-        if xengine is None:
-            conf_engine = self.configuration.buscaRival(alm.engine)
-            conf_engine.update_multipv(alm.multiPV)
-            xengine = self.procesador.creaManagerMotor(conf_engine, alm.vtime, alm.depth, siMultiPV=True)
+        if alm.engine == "default":
+            xengine = Code.procesador.analyzer_clone(alm.vtime, alm.depth, alm.multiPV)
+
+        else:
+            xengine = None
+            busca = alm.engine[1:] if alm.engine.startswith("*") else alm.engine
+            for tab_analysis in self.li_tabs_analysis:
+                if tab_analysis.xengine.key == busca:
+                    xengine = tab_analysis.xengine
+                    xengine.update_multipv(alm.multiPV)
+                    break
+            if xengine is None:
+                conf_engine = self.configuration.buscaRival(alm.engine)
+                conf_engine.update_multipv(alm.multiPV)
+                xengine = self.procesador.creaManagerMotor(conf_engine, alm.vtime, alm.depth, siMultiPV=True)
 
         me = QTUtil2.mensEspera.start(main_window, _("Analyzing the move...."), physical_pos="ad")
         mrm, pos = xengine.analysis_move(self.move, alm.vtime, alm.depth)
+        xengine.terminar()
         me.final()
 
         tab_analysis = ControlAnalysis(self, mrm, pos, self.li_tabs_analysis[-1].number + 1, xengine)
@@ -256,35 +281,35 @@ class CreateAnalysis:
         return tab_analysis
 
 
-def show_analysis(procesador, xtutor, move, is_white, max_recursion, pos_move, main_window=None, must_save=True):
+def show_analysis(procesador, xtutor, move, is_white, pos_move, main_window=None, must_save=True, subanalysis=False):
     main_window = procesador.main_window if main_window is None else main_window
 
-    max_recursion = 9999
-
-    ma = CreateAnalysis(procesador, move, max_recursion, pos_move)
+    ma = CreateAnalysis(procesador, move, pos_move)
     if xtutor is None:
         xtutor = procesador.XTutor()
     tab_analysis0 = ma.create_initial_show(main_window, xtutor)
     if not tab_analysis0:
         return
-    si_libre = max_recursion > 0
-    wa = WindowAnalysis.WAnalisis(ma, main_window, is_white, si_libre, must_save, tab_analysis0)
-    wa.exec_()
+    wa = WindowAnalysis.WAnalisis(ma, main_window, is_white, must_save, tab_analysis0, subanalysis=subanalysis)
+    # wa.show()
+    if subanalysis:
+        wa.show()
+    else:
+        wa.exec_()
+        busca = True
+        for uno in ma.li_tabs_analysis:
+            if busca:
+                if uno.is_active:
+                    move.analysis = uno.mrm, uno.pos_selected
 
-    busca = True
-    for uno in ma.li_tabs_analysis:
-        if busca:
-            if uno.is_active:
-                move.analysis = uno.mrm, uno.pos_selected
-
-                busca = False
-        xengine = uno.xengine
-        if not xtutor or xengine.key != xtutor.key:
-            xengine.terminar()
+                    busca = False
+            xengine = uno.xengine
+            if not xtutor or xengine.key != xtutor.key:
+                xengine.terminar()
 
 
 class AnalisisVariations:
-    def __init__(self, owner, xtutor, move, is_white, cbase_points, max_recursion=100000):
+    def __init__(self, owner, xtutor, move, is_white, cbase_points):
 
         self.owner = owner
         self.xtutor = xtutor
@@ -310,7 +335,7 @@ class AnalisisVariations:
             segundos_pensando = 3
 
         self.w = WindowAnalysisVariations.WAnalisisVariations(
-            self, self.owner, segundos_pensando, self.is_white, cbase_points, max_recursion
+            self, self.owner, segundos_pensando, self.is_white, cbase_points
         )
         self.reset()
         self.w.exec_()
@@ -378,7 +403,7 @@ class AnalisisVariations:
         self.w.update()
         QTUtil.refresh_gui()
 
-    def process_toolbar(self, accion, max_recursion):
+    def process_toolbar(self, accion):
         if self.rm:
             if accion == "MoverAdelante":
                 self.moving_tutor(n_saltar=1)
@@ -391,7 +416,7 @@ class AnalisisVariations:
             elif accion == "MoverTiempo":
                 self.move_timed()
             elif accion == "MoverLibre":
-                self.external_analysis(max_recursion)
+                self.external_analysis()
             elif accion == "MoverFEN":
                 move = self.game_tutor.move(self.pos_tutor)
                 QTUtil.ponPortapapeles(move.position.fen())
@@ -452,7 +477,7 @@ class AnalisisVariations:
         else:
             self.time_function(n_saltar=1)
 
-    def external_analysis(self, max_recursion):
+    def external_analysis(self):
         move = self.game_tutor.move(self.pos_tutor)
         pts = self.rm.texto()
-        AnalisisVariations(self.w, self.xtutor, move, self.is_white, pts, max_recursion)
+        AnalisisVariations(self.w, self.xtutor, move, self.is_white, pts)

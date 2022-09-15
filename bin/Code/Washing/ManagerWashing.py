@@ -20,7 +20,6 @@ from Code.Engines import EngineResponse
 from Code.Openings import Opening
 from Code.QT import QTUtil
 from Code.QT import QTUtil2
-from Code.QT import WindowJuicio
 from Code.Tutor import Tutor
 from Code.Washing import Washing
 
@@ -75,7 +74,7 @@ class ManagerWashingReplay(Manager.Manager):
         self.book = Opening.OpeningPol(999, elo=engine.elo)
 
         is_white = self.engine.color
-        self.human_side = is_white
+        self.is_human_side_white = is_white
         self.is_engine_side_white = not is_white
         self.set_position(self.game.last_position)
         self.put_pieces_bottom(is_white)
@@ -89,10 +88,10 @@ class ManagerWashingReplay(Manager.Manager):
 
         player = self.configuration.nom_player()
         other = self.engine.name
-        w, b = (player, other) if self.human_side else (other, player)
+        w, b = (player, other) if self.is_human_side_white else (other, player)
         self.game.set_tag("White", w)
         self.game.set_tag("Black", b)
-        self.game.tag_timestart()
+        self.game.add_tag_timestart()
         QTUtil.refresh_gui()
 
         self.check_boards_setposition()
@@ -109,7 +108,7 @@ class ManagerWashingReplay(Manager.Manager):
             self.configurar(siSonidos=True, siCambioTutor=False)
 
         elif key == TB_UTILITIES:
-            self.utilidades()
+            self.utilities()
 
         else:
             Manager.Manager.rutinaAccionDef(self, key)
@@ -157,7 +156,7 @@ class ManagerWashingReplay(Manager.Manager):
             mens = _("Congratulations, this washing is done")
         else:
             mens = "%s<br>%s: %d" % (_("Done with errors."), _("Errors"), self.errores)
-        self.mensajeEnPGN(mens)
+        self.message_on_pgn(mens)
 
     def player_has_moved(self, from_sq, to_sq, promotion=""):
         move = self.check_human_move(from_sq, to_sq, promotion)
@@ -204,8 +203,7 @@ class ManagerWashingReplay(Manager.Manager):
                     self.dbwashing.add_hint()
 
             comment = "<br>".join(lic)
-            w = WindowJuicio.MensajeF(self.main_window, comment)
-            w.mostrar()
+            QTUtil2.message_result(self.main_window, comment)
             self.set_position(move.position_before)
 
         # Creamos un move sin analysis
@@ -289,7 +287,7 @@ class ManagerWashingTactics(Manager.Manager):
         self.game.set_position(cp)
 
         is_white = cp.is_white
-        self.human_side = is_white
+        self.is_human_side_white = is_white
         self.is_engine_side_white = not is_white
         self.set_position(self.game.last_position)
         self.put_pieces_bottom(is_white)
@@ -314,7 +312,7 @@ class ManagerWashingTactics(Manager.Manager):
             self.end_game()
 
         elif key == TB_HELP:
-            self.ayuda()
+            self.get_help()
 
         elif key == TB_REINIT:
             self.reiniciar()
@@ -323,7 +321,7 @@ class ManagerWashingTactics(Manager.Manager):
             self.configurar(siSonidos=True, siCambioTutor=False)
 
         elif key == TB_UTILITIES:
-            self.utilidades()
+            self.utilities()
 
         elif key == TB_NEXT:
             self.next_line()
@@ -389,7 +387,7 @@ class ManagerWashingTactics(Manager.Manager):
             if self.num_lines == 0:
                 mens = "%s\n%s" % (mens, _("You have solved all puzzles"))
 
-            self.mensajeEnPGN(mens)
+            self.message_on_pgn(mens)
         else:
             QTUtil2.message_error(
                 self.main_window, "%s: %d, %s: %d" % (_("Errors"), self.errores, _("Hints"), self.hints)
@@ -431,7 +429,7 @@ class ManagerWashingTactics(Manager.Manager):
         self.move_the_pieces(move.liMovs, True)
         self.error = ""
 
-    def ayuda(self):
+    def get_help(self):
         self.set_label1(self.line.label)
         self.hints += 1
         mov = self.line.get_move(self.num_move).lower()
@@ -463,14 +461,14 @@ class ManagerWashingCreate(Manager.Manager):
         self.state = ST_PLAYING
 
         is_white = self.engine.color
-        self.human_side = is_white
+        self.is_human_side_white = is_white
         self.is_engine_side_white = not is_white
         self.is_competitive = True
 
         self.opening = Opening.OpeningPol(30, self.engine.elo)
 
         self.is_tutor_enabled = True
-        self.siAnalizando = False
+        self.if_analyzing = False
         # self.main_window.set_activate_tutor(self.is_tutor_enabled)
 
         rival = self.configuration.buscaRival(self.engine.key)
@@ -511,11 +509,11 @@ class ManagerWashingCreate(Manager.Manager):
         else:
             player = self.configuration.nom_player()
             other = self.xrival.name
-            w, b = (player, other) if self.human_side else (other, player)
+            w, b = (player, other) if self.is_human_side_white else (other, player)
             self.game.set_tag("Event", _("The Washing Machine"))
             self.game.set_tag("White", w)
             self.game.set_tag("Black", b)
-            self.game.tag_timestart()
+            self.game.add_tag_timestart()
 
         self.check_boards_setposition()
 
@@ -545,7 +543,7 @@ class ManagerWashingCreate(Manager.Manager):
         is_white = self.game.is_white()
 
         if self.game.is_finished():
-            self.muestra_resultado()
+            self.show_result()
             return
 
         self.set_side_indicator(is_white)
@@ -613,25 +611,25 @@ class ManagerWashingCreate(Manager.Manager):
             self.configurar(siSonidos=True)
 
         elif key == TB_UTILITIES:
-            self.utilidades()
+            self.utilities()
 
         else:
             Manager.Manager.rutinaAccionDef(self, key)
 
     def analyze_begin(self):
-        self.siAnalizando = False
+        self.if_analyzing = False
         self.is_analyzed_by_tutor = False
         if self.continueTt:
             if not self.is_finished():
                 self.xtutor.ac_inicio(self.game)
-                self.siAnalizando = True
+                self.if_analyzing = True
                 QtCore.QTimer.singleShot(200, self.analizaSiguiente)
         else:
             self.analizaTutor()
             self.is_analyzed_by_tutor = True
 
     def analizaSiguiente(self):
-        if self.siAnalizando:
+        if self.if_analyzing:
             if self.human_is_playing and self.state == ST_PLAYING:
                 if self.xtutor.engine:
                     mrm = self.xtutor.ac_estado()
@@ -639,8 +637,8 @@ class ManagerWashingCreate(Manager.Manager):
                         QtCore.QTimer.singleShot(1000, self.analizaSiguiente)
 
     def analyze_end(self):
-        estado = self.siAnalizando
-        self.siAnalizando = False
+        estado = self.if_analyzing
+        self.if_analyzing = False
         if self.is_analyzed_by_tutor:
             return
         if self.continueTt and estado:
@@ -651,8 +649,8 @@ class ManagerWashingCreate(Manager.Manager):
             self.mrmTutor = self.analizaTutor()
 
     def analizaTerminar(self):
-        if self.siAnalizando:
-            self.siAnalizando = False
+        if self.if_analyzing:
+            self.if_analyzing = False
             self.xtutor.ac_final(-1)
 
     def sigueHumanoAnalisis(self):
@@ -765,7 +763,7 @@ class ManagerWashingCreate(Manager.Manager):
     def takeback(self):
         if len(self.game):
             self.analizaTerminar()
-            self.game.anulaUltimoMovimiento(self.human_side)
+            self.game.anulaUltimoMovimiento(self.is_human_side_white)
             self.game.assign_opening()
             self.goto_end()
             self.opening = Opening.OpeningPol(30, self.engine.elo)
@@ -783,15 +781,15 @@ class ManagerWashingCreate(Manager.Manager):
         self.add_game()
         self.game.set_position()
         self.dbwashing.saveGame(None, False)
-
+        self.main_window.activaInformacionPGN(False)
         self.start(self.dbwashing, self.washing, self.engine)
 
-    def muestra_resultado(self):
+    def show_result(self):
         self.state = ST_ENDGAME
         self.disable_all()
         self.human_is_playing = False
 
-        mensaje, beep, player_win = self.game.label_resultado_player(self.human_side)
+        mensaje, beep, player_win = self.game.label_resultado_player(self.is_human_side_white)
 
         self.beepResultado(beep)
         QTUtil.refresh_gui()

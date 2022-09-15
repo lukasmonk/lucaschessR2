@@ -15,16 +15,16 @@ class ListEngineManagers:
         self.with_logs = False
 
     def append(self, engine_manager):
-        self.check()
+        self.verify()
         self.lista.append(engine_manager)
         if self.with_logs:
             engine_manager.log_open()
 
-    def check(self):
+    def verify(self):
         self.lista = [engine_manager for engine_manager in self.lista if engine_manager.activo]
 
     def close_all(self):
-        self.check()
+        self.verify()
         for engine_manager in self.lista:
             engine_manager.terminar()
         self.lista = []
@@ -33,7 +33,7 @@ class ListEngineManagers:
         return self.with_logs
 
     def active_logs(self, ok: bool):
-        self.check()
+        self.verify()
         if ok != self.with_logs:
             for engine_manager in self.lista:
                 if ok:
@@ -52,8 +52,8 @@ class EngineManager:
         self.name = confMotor.name
         self.key = confMotor.key
         self.num_multipv = 0
-        self.mstime_engine = None
-        self.depth_engine = getattr(confMotor, "fixed_depth", 0)
+        self.mstime_engine = confMotor.max_time * 1000
+        self.depth_engine = confMotor.max_depth
 
         self.function = _("Opponent").lower()  # para distinguir entre tutor y analizador
 
@@ -179,7 +179,7 @@ class EngineManager:
         if nAjustado:
             mrm.game = game
             if nAjustado >= 1000:
-                mrm.liPersonalidades = self.procesador.configuration.liPersonalidades
+                mrm.li_personalities = self.procesador.configuration.li_personalities
                 mrm.fenBase = game.last_position.fen()
             return mrm.mejorMovAjustado(nAjustado) if nAjustado != ADJUST_SELECTED_BY_PLAYER else mrm
         else:
@@ -193,7 +193,7 @@ class EngineManager:
         if nAjustado:
             mrm.game = game
             if nAjustado >= 1000:
-                mrm.liPersonalidades = self.procesador.configuration.liPersonalidades
+                mrm.li_personalities = self.procesador.configuration.li_personalities
                 mrm.fenBase = game.last_position.fen()
             return mrm.mejorMovAjustado(nAjustado) if nAjustado != ADJUST_SELECTED_BY_PLAYER else mrm
         else:
@@ -458,7 +458,7 @@ class EngineManager:
                     mrm.ordena()
                     mrm.game = game
                     if nAjustado >= 1000:
-                        mrm.liPersonalidades = self.procesador.configuration.liPersonalidades
+                        mrm.li_personalities = self.procesador.configuration.li_personalities
                         mrm.fenBase = game.last_position.fen()
                     resp = mrm.mejorMovAjustado(nAjustado) if nAjustado != ADJUST_SELECTED_BY_PLAYER else mrm
                 else:

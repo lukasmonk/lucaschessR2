@@ -9,23 +9,23 @@ from Code import Util
 from Code.Analysis import Analysis
 from Code.Base import Game
 from Code.Base.Constantes import NONE, ALL, ONLY_BLACK, ONLY_WHITE
+from Code.Databases import DBgames
 from Code.Engines import EnginesBunch
 from Code.Engines import Priorities
-from Code.Openings import WindowOpenings, POLAnalisis, POLBoard, OpeningLines
+from Code.Openings import WindowOpenings, POLAnalisis, POLBoard, OpeningLines, OpeningsStd
 from Code.Polyglots import Books
-from Code.Databases import DBgames
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Delegados
 from Code.QT import FormLayout
 from Code.QT import Grid
 from Code.QT import Iconos
+from Code.QT import LCDialog
 from Code.QT import QTUtil
 from Code.QT import QTUtil2, SelectFiles
 from Code.QT import QTVarios
-from Code.Voyager import Voyager
 from Code.QT import WindowSavePGN
-from Code.QT import LCDialog
+from Code.Voyager import Voyager
 
 
 class WLines(LCDialog.LCDialog):
@@ -54,7 +54,7 @@ class WLines(LCDialog.LCDialog):
             None,
             (_("Export"), Iconos.Export8(), self.exportar),
             None,
-            (_("Utilities"), Iconos.Utilidades(), self.utilidades),
+            (_("Utilities"), Iconos.Utilidades(), self.utilities),
             None,
             (_("Train"), Iconos.Study(), self.train),
             None,
@@ -109,12 +109,15 @@ class WLines(LCDialog.LCDialog):
         self.last_numlines = -1
         self.show_lines()
 
+    def refresh_glines(self):
+        self.glines.refresh()
+
     def show_lines(self):
         numlines = len(self.dbop)
         if numlines != self.last_numlines:
             self.setWindowTitle("%s [%d]" % (self.title, numlines))
             self.last_numlines = numlines
-            self.tb.setAccionVisible(self.train, len(self.dbop) > 0)
+            self.tb.set_action_visible(self.train, len(self.dbop) > 0)
 
     def refresh_lines(self):
         self.glines.refresh()
@@ -138,7 +141,7 @@ class WLines(LCDialog.LCDialog):
                     ws.close()
                     ws.um_final()
 
-    def utilidades(self):
+    def utilities(self):
         menu = QTVarios.LCMenu(self)
         submenu = menu.submenu(_("Analysis"), Iconos.Analizar())
         submenu.opcion(self.ta_massive, _("Mass analysis"), Iconos.Analizar())
@@ -155,19 +158,22 @@ class WLines(LCDialog.LCDialog):
                     h = h[:70] + "..."
                 submenu.opcion(history, h, rondo.otro())
                 submenu.separador()
+            submenu.opcion(self.ta_remove_backups, _("Remove all backups"), Iconos.Delete())
 
-        # submenu = menu.submenu(_("History of this session"), Iconos.Copiar())
         resp = menu.lanza()
         if resp:
             if isinstance(resp, str):
                 if QTUtil2.pregunta(self, _("Are you sure you want to restore backup %s ?") % ("\n%s" % resp)):
                     um = QTUtil2.unMomento(self, _("Working..."))
                     self.dbop.recovering_history(resp)
-                    self.glines.refresh()
-                    self.glines.gotop()
+                    self.refresh_lines()
                     um.final()
             else:
                 resp()
+
+    def ta_remove_backups(self):
+        if QTUtil2.pregunta(self, "%s\n%s" % (_("Remove all backups"), _("Are you sure?"))):
+            self.dbop.remove_all_history()
 
     def ta_massive(self):
         dicVar = self.configuration.read_variables("MASSIVE_OLINES")
@@ -197,7 +203,7 @@ class WLines(LCDialog.LCDialog):
         for x in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 15, 20, 30, 40, 50, 75, 100, 150, 200):
             li.append((str(x), x))
         form.combobox(
-            _("Number of half-moves evaluated by engine(MultiPV)"),
+            _("Number of variations evaluated by the engine (MultiPV)"),
             li,
             dicVar.get("MULTIPV", self.configuration.x_tutor_multipv),
         )
@@ -455,7 +461,7 @@ class WLines(LCDialog.LCDialog):
         liLevels = [separador]
         list_books = Books.ListBooks()
         list_books.restore_pickle(self.configuration.file_books)
-        list_books.check()
+        list_books.verify()
         libooks = [(bookx.name, bookx) for bookx in list_books.lista]
         libooks.insert(0, ("--", None))
         li_books_sel = (
@@ -616,11 +622,11 @@ class WLines(LCDialog.LCDialog):
             return
         tipo, game = resp
         if tipo == "pgn":
-            self.importarPGN(game)
+            self.import_pgn(game)
         elif tipo == "polyglot":
             self.import_polyglot(game)
         elif tipo == "summary":
-            self.importarSummary(game)
+            self.import_dbopening_explorer(game)
         elif tipo == "voyager2":
             self.voyager2(game)
         elif tipo == "opening":
@@ -659,7 +665,7 @@ class WLines(LCDialog.LCDialog):
         form.spinbox(_("Depth"), 3, 999, 50, dicData.get("DEPTH", 30))
         form.separador()
 
-        li = [(_("Only white best movements"), True), (_("Only black best movements"), False)]
+        li = [(_("Only white best movements"), True), (_("Only black best movements"), False)] #, (_("All moves"), None) ] -> se va al infinito
         form.combobox(_("Moves"), li, dicData.get("SIWHITE", True))
         form.separador()
 
@@ -691,7 +697,7 @@ class WLines(LCDialog.LCDialog):
             return dicData
         return None
 
-    def importarSummary(self, game):
+    def import_dbopening_explorer(self, game):
         nomfichgames = QTVarios.select_db(self, self.configuration, True, False)
         if nomfichgames:
             dicData = self.import_param_books(_("Database opening explorer"), False)
@@ -705,14 +711,14 @@ class WLines(LCDialog.LCDialog):
                     dicData["ONLYONE"],
                     dicData["MINMOVES"],
                 )
-                self.dbop.importarSummary(self, game, ficheroSummary, depth, siWhite, onlyone, minMoves)
+                self.dbop.import_dbopening_explorer(self, game, ficheroSummary, depth, siWhite, onlyone, minMoves)
                 self.glines.refresh()
                 self.glines.gotop()
 
     def import_polyglot(self, game):
         list_books = Books.ListBooks()
         list_books.restore_pickle(self.configuration.file_books)
-        list_books.check()
+        list_books.verify()
 
         dicData = self.dbop.getconfig("IMPORT_POLYGLOT")
         bookW = list_books.lista[0]
@@ -763,7 +769,7 @@ class WLines(LCDialog.LCDialog):
             self.glines.refresh()
             self.glines.gotop()
 
-    def importarPGN(self, game):
+    def import_pgn(self, game):
         previo = self.configuration.read_variables("OPENINGLINES")
         carpeta = previo.get("CARPETAPGN", "")
 
@@ -784,7 +790,7 @@ class WLines(LCDialog.LCDialog):
         form.combobox(_("Include variations"), liVariations, previo.get("IPGN_VARIATIONSMODE", "A"))
         form.separador()
 
-        form.checkbox(_("Include comments"), previo.get("IPGN_COMMENTS", False))
+        form.checkbox(_("Include comments"), previo.get("IPGN_COMMENTS", True))
         form.separador()
 
         resultado = form.run()
@@ -796,7 +802,7 @@ class WLines(LCDialog.LCDialog):
             previo["IPGN_COMMENTS"] = comments = liResp[2]
             self.configuration.write_variables("OPENINGLINES", previo)
 
-            self.dbop.importarPGN(self, game, fichero_pgn, depth, variations, comments)
+            self.dbop.import_pgn(self, game, fichero_pgn, depth, variations, comments)
             self.glines.refresh()
             self.glines.gotop()
 
@@ -936,7 +942,6 @@ class WLines(LCDialog.LCDialog):
                 xanalyzer,
                 move,
                 self.pboard.board.is_white_bottom,
-                9999,
                 len(game) - 1,
                 main_window=self,
             )
@@ -987,6 +992,9 @@ class WLines(LCDialog.LCDialog):
             menu.separador()
             menu.opcion("worst", _("Remove worst lines"), Iconos.Borrar())
             menu.separador()
+            menu.opcion("opening", _("Opening"), Iconos.Opening())
+            menu.separador()
+
         submenu = menu.submenu(_("Remove last move if the line ends with"), Iconos.Final())
         submenu.opcion("last_white", _("White"), Iconos.Blancas())
         submenu.separador()
@@ -1032,12 +1040,14 @@ class WLines(LCDialog.LCDialog):
                     cli = "\n".join(sli)
                     if QTUtil2.pregunta(self, _("Do you want to remove the next lines?") + "\n\n" + cli):
                         um = QTUtil2.unMomento(self, _("Working..."))
-                        self.dbop.removeLines([x - 1 for x in li], cli)
+                        self.dbop.remove_list_lines([x - 1 for x in li], cli)
                         self.glines.refresh()
                         self.goto_inilinea()
                         um.final()
         elif resp == "worst":
             self.remove_worst()
+        elif resp == "opening":
+            self.remove_opening()
         elif resp == "last_white":
             self.remove_lastmove(True)
         elif resp == "last_black":
@@ -1060,7 +1070,7 @@ class WLines(LCDialog.LCDialog):
 
         list_books = Books.ListBooks()
         list_books.restore_pickle(self.configuration.file_books)
-        list_books.check()
+        list_books.verify()
         libooks = [(bookx.name, bookx) for bookx in list_books.lista]
         libooks.insert(0, ("--", None))
         form.combobox(_("Book"), libooks, None)
@@ -1071,6 +1081,7 @@ class WLines(LCDialog.LCDialog):
 
         resultado = form.run()
         if resultado:
+            um = QTUtil2.unMomento(self, _("Working..."))
             color, book, segs = resultado[1]
             ms = int(segs * 1000)
             if ms == 0:
@@ -1080,13 +1091,15 @@ class WLines(LCDialog.LCDialog):
             si_white = color == "WHITE"
             dic = self.dbop.dicRepeFen(si_white)
             mensaje = _("Move") + "  %d/" + str(len(dic))
-            tmpBP = QTUtil2.BarraProgreso(self, _("Remove worst lines"), "", len(dic))
-
             xmanager = self.procesador.creaManagerMotor(self.configuration.engine_tutor(), ms, 0, siMultiPV=False)
 
             st_borrar = set()
 
             ok = True
+
+            um.final()
+
+            tmpBP = QTUtil2.BarraProgreso(self, _("Remove worst lines"), "", len(dic))
 
             for n, fen in enumerate(dic, 1):
                 if tmpBP.is_canceled():
@@ -1130,10 +1143,28 @@ class WLines(LCDialog.LCDialog):
                 li_borrar = list(st_borrar)
                 n = len(li_borrar)
                 if n:
-                    self.dbop.removeLines(li_borrar, _("Remove worst lines"))
+                    self.dbop.remove_list_lines(li_borrar, _("Remove worst lines"))
                     QTUtil2.message_bold(self, _("Removed %d lines") % n)
                 else:
                     QTUtil2.message_bold(self, _("Done"))
+
+    def remove_opening(self):
+        me = QTUtil2.unMomento(self)
+        op = OpeningsStd.Opening("")
+        op.a1h8 = self.dbop.basePV
+        w = WindowOpenings.WOpenings(self, self.configuration, op)
+        me.final()
+        if w.exec_():
+            op = w.resultado()
+            self.remove_pv(op.pgn, op.a1h8)
+
+    def remove_pv(self, pgn, a1h8):
+        if QTUtil2.pregunta(self, _("Do you want to remove all lines beginning with %s?").replace("%s", pgn)):
+            um = QTUtil2.unMomento(self, _("Working..."))
+            self.dbop.remove_pv(pgn, a1h8)
+            self.refresh_lines()
+            self.goto_inilinea()
+            um.final()
 
     def goto_inilinea(self):
         nlines = len(self.dbop)
@@ -1186,7 +1217,7 @@ class WLines(LCDialog.LCDialog):
                 if l > linea_actual:
                     linea = l
                     break
-            if linea is None:
+            if linea is None and li:
                 linea = li[0]
 
         njug = len(lipv)

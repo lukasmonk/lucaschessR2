@@ -100,7 +100,7 @@ class ManagerEntPos(Manager.Manager):
         self.state = ST_PLAYING
         self.plays_instead_of_me_option = True
 
-        self.human_side = is_white
+        self.is_human_side_white = is_white
         self.is_engine_side_white = not is_white
 
         self.rm_rival = None
@@ -147,7 +147,7 @@ class ManagerEntPos(Manager.Manager):
 
         player = self.configuration.nom_player()
         other = _("the engine")
-        w, b = (player, other) if self.human_side else (other, player)
+        w, b = (player, other) if self.is_human_side_white else (other, player)
         self.game.set_tag("White", w)
         self.game.set_tag("Black", b)
 
@@ -218,7 +218,7 @@ class ManagerEntPos(Manager.Manager):
             else:
                 liMasOpciones = [("tactics", _("Create tactics training"), Iconos.Tacticas()), (None, None, None)]
 
-            resp = self.utilidades(liMasOpciones)
+            resp = self.utilities(liMasOpciones)
             if resp == "tactics":
                 self.create_tactics()
 
@@ -256,6 +256,7 @@ class ManagerEntPos(Manager.Manager):
             self.xrival.stop()
         if self.is_analyzing:
             self.xtutor.stop()
+        self.main_window.activaInformacionPGN(False)
         self.start(
             self.pos_training,
             self.num_trainings,
@@ -291,7 +292,7 @@ class ManagerEntPos(Manager.Manager):
             self.ent_siguiente(TB_NEXT)
         elif nkey in (Qt.Key_Minus, Qt.Key_PageUp):
             self.ent_siguiente(TB_PREVIOUS)
-        elif nkey == ord("T"):
+        elif nkey == Qt.Key_T:
             li = self.line_fns.line.split("|")
             li[2] = self.game.pgnBaseRAW()
             self.saveSelectedPosition("|".join(li))
@@ -315,7 +316,7 @@ class ManagerEntPos(Manager.Manager):
         if self.is_rival_thinking:
             return
         if len(self.game):
-            self.game.anulaUltimoMovimiento(self.human_side)
+            self.game.anulaUltimoMovimiento(self.is_human_side_white)
             self.goto_end()
             self.is_analyzed_by_tutor = False
             self.state = ST_PLAYING
@@ -541,7 +542,7 @@ class ManagerEntPos(Manager.Manager):
         self.refresh()
 
     def pon_resultado(self):
-        mensaje, beep, player_win = self.game.label_resultado_player(self.human_side)
+        mensaje, beep, player_win = self.game.label_resultado_player(self.is_human_side_white)
 
         QTUtil.refresh_gui()
         QTUtil2.message(self.main_window, mensaje)

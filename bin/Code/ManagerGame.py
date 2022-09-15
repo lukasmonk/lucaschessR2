@@ -1,5 +1,7 @@
 import FasterCode
 
+from PySide2 import QtCore
+
 from Code import Manager
 from Code.Base import Game, Position
 from Code.Base.Constantes import (
@@ -11,7 +13,7 @@ from Code.Base.Constantes import (
     TB_TAKEBACK,
     TB_CONFIG,
     TB_CANCEL,
-    TB_END_GAME,
+    # TB_END_GAME,
     TB_NEXT,
     TB_PGN_LABELS,
     TB_PREVIOUS,
@@ -44,7 +46,7 @@ class ManagerGame(Manager.Manager):
         self.auto_rotate = False
 
         self.human_is_playing = True
-        self.human_side = True
+        self.is_human_side_white = True
 
         self.state = ST_PLAYING
 
@@ -81,7 +83,7 @@ class ManagerGame(Manager.Manager):
         if self.changed and self.save_routine:
             pos = li.index(TB_PGN_LABELS)
             li.insert(pos, TB_SAVE)
-        if_previous, if_next = False, False
+        # if_previous, if_next = False, False
         if self.with_previous_next:
             pos = li.index(TB_PGN_LABELS)
             li.insert(pos, TB_NEXT)
@@ -114,7 +116,7 @@ class ManagerGame(Manager.Manager):
         p = Game.Game()
         p.restore(self.reinicio)
         p.recno = getattr(self.game, "recno", None)
-
+        self.main_window.activaInformacionPGN(False)
         self.start(p, self.is_complete, self.only_consult, self.with_previous_next, self.save_routine)
 
     def run_action(self, key):
@@ -142,7 +144,8 @@ class ManagerGame(Manager.Manager):
         elif key == TB_PGN_LABELS:
             self.informacion()
 
-        elif key in (TB_CANCEL, TB_END_GAME, TB_CLOSE):
+        # elif key in (TB_CANCEL, TB_END_GAME, TB_CLOSE):
+        elif key in (TB_CANCEL, TB_CLOSE):
             self.end_game()
 
         elif key in (TB_PREVIOUS, TB_NEXT):
@@ -180,10 +183,10 @@ class ManagerGame(Manager.Manager):
         self.put_view()
 
         is_white = self.game.last_position.is_white
-        self.human_side = is_white  # Compatibilidad, sino no funciona el cambio en pgn
+        self.is_human_side_white = is_white  # Compatibilidad, sino no funciona el cambio en pgn
 
         if self.game.is_finished():
-            self.muestra_resultado()
+            self.show_result()
             return
 
         self.set_side_indicator(is_white)
@@ -192,7 +195,7 @@ class ManagerGame(Manager.Manager):
         self.human_is_playing = True
         self.activate_side(is_white)
 
-    def muestra_resultado(self):
+    def show_result(self):
         self.state = ST_ENDGAME
         self.disable_all()
 
@@ -315,7 +318,7 @@ class ManagerGame(Manager.Manager):
 
         li_mas_opciones.extend([(None, None, True), sep, ("books", _("Consult a book"), Iconos.Libros())])
 
-        resp = self.utilidades(li_mas_opciones)
+        resp = self.utilities(li_mas_opciones)
 
         if resp == "books":
             liMovs = self.librosConsulta(True)
@@ -365,6 +368,11 @@ class ManagerGame(Manager.Manager):
             game = Voyager.voyager_game(self.main_window, self.game)
             self.replace_game(game)
 
+        else:
+            if self.is_changed():
+                self.changed = True
+                self.put_toolbar()
+
     def replace_game(self, game):
         if not game:
             return
@@ -379,7 +387,7 @@ class ManagerGame(Manager.Manager):
         self.put_toolbar()
 
     def control_teclado(self, nkey, modifiers):
-        if nkey == ord("V"):  # V
+        if nkey == QtCore.Qt.Key_V:  # V
             self.paste_pgn()
 
     def paste_pgn(self):
@@ -401,14 +409,14 @@ class ManagerGame(Manager.Manager):
             if rm.from_sq:
                 self.player_has_moved(rm.from_sq, rm.to_sq, rm.promotion)
 
-    def cambioRival(self):
+    def change_rival(self):
         if self.dicRival:
             dicBase = self.dicRival
         else:
             dicBase = self.configuration.read_variables("ENG_MANAGERSOLO")
 
-        dic = self.dicRival = WPlayAgainstEngine.cambioRival(
-            self.main_window, self.configuration, dicBase, siManagerSolo=True
+        dic = self.dicRival = WPlayAgainstEngine.change_rival(
+            self.main_window, self.configuration, dicBase, is_create_own_game=True
         )
 
         if dic:

@@ -31,14 +31,17 @@ def options(parent, configuration):
             label += " (%s%%)" % porc
         li.append((label, k))
     form.combobox(_("Language"), li, tr_actual)
-    form.separador()
 
+    form.separador()
     li = [
         (_("Play against an engine"), MENU_PLAY_ANY_ENGINE),
         (_("Opponents for young players"), MENU_PLAY_YOUNG_PLAYERS),
         (_("Both"), MENU_PLAY_BOTH),
     ]
     form.combobox(_("Menu Play"), li, configuration.x_menu_play)
+
+    form.separador()
+    form.checkbox(_("Use native dialog to select files"), not configuration.x_mode_select_lc)
 
     form.separador()
     form.checkbox(_("Activate translator help mode"), configuration.x_translation_mode)
@@ -52,16 +55,20 @@ def options(parent, configuration):
 
     # Sonidos ########################################################################################################
     form.separador()
-    form.checkbox(_("Beep after opponent's move"), configuration.x_sound_beep)
+    form.apart(_("After each opponent move"))
+    form.checkbox(_("Sound a beep"), configuration.x_sound_beep)
+    form.checkbox(_("Play customised sounds"), configuration.x_sound_move)
     form.separador()
-    form.apart(_("Sound on in"))
-    form.checkbox(_("Results"), configuration.x_sound_results)
-    form.checkbox(_("Rival moves"), configuration.x_sound_move)
+    form.checkbox(_("The same for player moves"), configuration.x_sound_our)
     form.separador()
-    form.checkbox(_("Activate sounds with our moves"), configuration.x_sound_our)
     form.separador()
-    form.checkbox(_("Beep when there is an error in training tactics"), configuration.x_sound_error)
-
+    form.apart(_("When finishing the game"))
+    form.checkbox(_("Play customised sounds for the result"), configuration.x_sound_results)
+    form.separador()
+    form.separador()
+    form.apart(_("Others"))
+    form.checkbox(_("Play a beep when there is an error in tactic trainings"), configuration.x_sound_error)
+    form.separador()
     form.add_tab(_("Sounds"))
 
     # Boards #########################################################################################################
@@ -73,7 +80,7 @@ def options(parent, configuration):
     for x in drap:
         drap_v[drap[x]] = x
     form.dial(
-        "%s (%s=1)" % (_("Speed"), _("Default")),
+        "%s (%s=1)" % (_("Speed"), _("By default")),
         1,
         len(drap),
         drap_v.get(configuration.x_pieces_speed, 100),
@@ -87,7 +94,15 @@ def options(parent, configuration):
     ]
     form.combobox(_("Mouse shortcuts"), li_mouse_sh, configuration.x_mouse_shortcuts)
     form.checkbox(_("Show candidates"), configuration.x_show_candidates)
+    li_copy = [
+        (_("CTRL") + " C", True),
+        (_("ALT") + " C", False),
+    ]
+    form.combobox(_("Key for copying the FEN to clipboard"), li_copy, configuration.x_copy_ctrl)
+
     form.checkbox(_("Always promote to queen\nALT key allows to change"), configuration.x_autopromotion_q)
+    form.separador()
+
     form.checkbox(_("Show cursor when engine is thinking"), configuration.x_cursor_thinking)
     form.separador()
 
@@ -179,7 +194,7 @@ def options(parent, configuration):
     form.separador()
     form.spinbox(_("Lucas-Elo"), 0, 3200, 70, configuration.x_elo)
     form.separador()
-    form.spinbox(_("Club players competition"), 0, 3200, 70, configuration.x_michelo)
+    form.spinbox(_("Tourney-Elo"), 0, 3200, 70, configuration.x_michelo)
     form.separador()
     form.spinbox(_("Fics-Elo"), 0, 3200, 70, configuration.x_fics)
     form.separador()
@@ -201,9 +216,12 @@ def options(parent, configuration):
             configuration.x_style,
             translator,
             configuration.x_menu_play,
+            mode_native_select,
             configuration.x_translation_mode,
             configuration.x_check_for_update,
         ) = li_gen
+
+        configuration.x_mode_select_lc = not mode_native_select
 
         configuration.set_translator(translator)
 
@@ -253,9 +271,9 @@ def options(parent, configuration):
 
         (
             configuration.x_sound_beep,
-            configuration.x_sound_results,
             configuration.x_sound_move,
             configuration.x_sound_our,
+            configuration.x_sound_results,
             configuration.x_sound_error,
         ) = li_son
 
@@ -264,6 +282,7 @@ def options(parent, configuration):
             rapidezMovPiezas,
             configuration.x_mouse_shortcuts,
             configuration.x_show_candidates,
+            configuration.x_copy_ctrl,
             configuration.x_autopromotion_q,
             configuration.x_cursor_thinking,
             dboard,

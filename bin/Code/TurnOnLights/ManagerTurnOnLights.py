@@ -98,7 +98,7 @@ class ManagerTurnOnLights(Manager.Manager):
             self.game.set_position(cp)
 
             is_white = cp.is_white
-            self.human_side = is_white
+            self.is_human_side_white = is_white
             self.is_engine_side_white = not is_white
             self.set_position(self.game.last_position)
             self.put_pieces_bottom(is_white)
@@ -126,7 +126,7 @@ class ManagerTurnOnLights(Manager.Manager):
             self.end_game()
 
         elif key == TB_HELP:
-            self.ayuda()
+            self.get_help()
 
         elif key == TB_REINIT:
             self.reiniciar()
@@ -135,7 +135,7 @@ class ManagerTurnOnLights(Manager.Manager):
             self.configurar(siSonidos=True, siCambioTutor=False)
 
         elif key == TB_UTILITIES:
-            self.utilidades()
+            self.utilities()
 
         elif key == TB_NEXT:
             self.next_line_run()
@@ -151,6 +151,7 @@ class ManagerTurnOnLights(Manager.Manager):
             self.block.new_reinit(self.total_time_used, self.errores, self.hints)
             self.total_time_used = 0.0
             TurnOnLights.write_tol(self.tol)
+        self.main_window.activaInformacionPGN(False)
         self.start(self.num_theme, self.num_block, self.tol)
 
     def play_next_move(self):
@@ -318,7 +319,7 @@ class ManagerTurnOnLights(Manager.Manager):
         self.move_the_pieces(move.liMovs, True)
         self.error = ""
 
-    def ayuda(self):
+    def get_help(self):
         self.hints += 1
         mov = self.line.get_move(self.num_move).lower()
         self.board.markPosition(mov[:2])

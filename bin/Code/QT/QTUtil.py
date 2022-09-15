@@ -22,13 +22,13 @@ class GarbageCollector(QtCore.QObject):
         QtCore.QObject.__init__(self, None)
 
         self.timer = QtCore.QTimer(self)
-        self.timer.timeout.connect(self.check)
+        self.timer.timeout.connect(self.verify)
 
         self.threshold = gc.get_threshold()
         gc.disable()
         self.timer.start(self.INTERVAL)
 
-    def check(self):
+    def verify(self):
         # num = gc.collect()
         l0, l1, l2 = gc.get_count()
         num = 0

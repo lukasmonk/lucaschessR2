@@ -97,7 +97,9 @@ def update_eboard(main_window):
         with open(os.path.join(Code.folder_OS, "DigitalBoards", "news"), "rt", encoding="utf-8") as f:
             news = f.read().strip()
 
-        QTUtil2.message(main_window, _("Updated the eboards drivers") + "\n %s: %s\n%s" % (_("Version"), version_remote, news))
+        QTUtil2.message(
+            main_window, _("Updated the eboards drivers") + "\n %s: %s\n%s" % (_("Version"), version_remote, news)
+        )
 
     else:
 
@@ -107,6 +109,8 @@ def update_eboard(main_window):
 def update(main_window):
 
     if Code.configuration.x_digital_board:
+        if Code.eboard:
+            Code.eboard.deactivate()
         update_eboard(main_window)
 
     # version = "R 1.01 -> R01.01 -> 01.01 -> 0101 -> bytes

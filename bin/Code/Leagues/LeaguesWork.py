@@ -55,18 +55,18 @@ class LeaguesWork:
 
         with UtilSQL.DictRawSQL(self.path, "MATCHS") as dbm:
             dbm.zap()
-            for match in season.get_all_matchs():
+            for match in season.get_all_matches():
                 if match.is_engine_vs_engine(self.league):
                     dbm[match.xid] = match
 
         with UtilSQL.DictRawSQL(self.path, "MATCHS_WORKING") as dbw:
             dbw.zap()
 
-    def num_pending_matchs(self):
+    def num_pending_matches(self):
         with UtilSQL.DictRawSQL(self.path, "MATCHS") as db:
-            return len(db) + self.num_working_matchs()
+            return len(db) + self.num_working_matches()
 
-    def num_working_matchs(self):
+    def num_working_matches(self):
         with UtilSQL.DictRawSQL(self.path, "MATCHS_WORKING") as dbw:
             return len(dbw)
 

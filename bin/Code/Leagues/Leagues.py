@@ -9,6 +9,59 @@ from Code.Engines import Engines
 from Code.SQL import UtilSQL
 
 
+def create_journeys(num_opponents: int) -> list:
+    li_opponents = list(range(num_opponents))
+    if num_opponents % 2:
+        li_opponents.append(None)
+        num_opponents += 1
+
+    ################################################################################################################
+    # https://stackoverflow.com/questions/11245746/league-fixture-generator-in-python/48039377#48039377
+    # https://stackoverflow.com/users/9157436/carlos-fern%c3%a1ndez
+    matches = []
+    journeys = []
+    return_matches = []
+    for xopp in range(1, num_opponents):
+        for i in range(num_opponents // 2):
+            x = li_opponents[i]
+            y = li_opponents[num_opponents - 1 - i]
+            if not (x is None or y is None):
+                matches.append((x, y))
+                return_matches.append((y, x))
+        li_opponents.insert(1, li_opponents.pop())
+        journeys.insert(len(journeys) // 2, matches)
+        journeys.append(return_matches)
+        matches = []
+        return_matches = []
+    ################################################################################################################
+
+    # A continuación se ordenan las jornadas para que se juegue una vez con blancas y la siguiente con negras
+    dsides = {num: [0, 0] for num in range(num_opponents)}
+
+    def t_journey(journey):
+        t = 0
+        for w, b in journey:
+            t += (dsides[w][0] + 1 - dsides[w][1]) ** 2
+            t += (dsides[b][0] - dsides[b][1] - 1) ** 2
+        return t
+
+    num_journeys = len(journeys)
+    for njourney in range(num_journeys):
+        tmin = 9999999
+        nj = -1
+        for njourney1 in range(njourney, num_journeys):
+            t = t_journey(journeys[njourney1])
+            if t < tmin:
+                tmin = t
+                nj = njourney1
+        if nj != njourney:
+            journeys[njourney], journeys[nj] = journeys[nj], journeys[njourney]
+        for w, b in journeys[njourney]:
+            dsides[w][0] += 1
+            dsides[b][1] += 1
+    return journeys
+
+
 class Human:
     def __init__(self, name, elo):
         self.name = name
@@ -98,23 +151,19 @@ class Match:
         self.result = dic.get("RESULT")
 
     def is_engine_vs_engine(self, league):
-        opw: Opponent = league.opponent_by_xid(self.xid_white)
-        opb: Opponent = league.opponent_by_xid(self.xid_black)
+        opw, opb = self.get_opponents(league)
         return not (opw.is_human() or opb.is_human())
 
     def is_human_vs_engine(self, league):
-        opw: Opponent = league.opponent_by_xid(self.xid_white)
-        opb: Opponent = league.opponent_by_xid(self.xid_black)
+        opw, opb = self.get_opponents(league)
         return (opw.is_human() and not opb.is_human()) or (not opw.is_human() and opb.is_human())
 
     def is_human_vs_human(self, league):
-        opw: Opponent = league.opponent_by_xid(self.xid_white)
-        opb: Opponent = league.opponent_by_xid(self.xid_black)
+        opw, opb = self.get_opponents(league)
         return opw.is_human() and opb.is_human()
 
     def side_human(self, league):
-        opw: Opponent = league.opponent_by_xid(self.xid_white)
-        opb: Opponent = league.opponent_by_xid(self.xid_black)
+        opw, opb = self.get_opponents(league)
         if opw.is_human():
             return WHITE
         if opb.is_human():
@@ -128,27 +177,29 @@ class Match:
         return league.opponent_by_xid(self.xid_white), league.opponent_by_xid(self.xid_black)
 
 
-class Matchday:
+class MatchsDay:
+    MIN_ELO = 10
+
     def __init__(self, blk1: list, ida: bool, li_xid_opponents: list):
-        self.li_matchs = []
+        self.li_matches = []
         for x, y in blk1:
             xid = li_xid_opponents[x]
             yid = li_xid_opponents[y]
             match = Match(xid, yid) if ida else Match(yid, xid)
-            self.li_matchs.append(match)
+            self.li_matches.append(match)
 
     def save(self):
-        return [match.save() for match in self.li_matchs]
+        return [match.save() for match in self.li_matches]
 
     def restore(self, li_saved):
-        self.li_matchs = []
+        self.li_matches = []
         for dic_saved in li_saved:
             match = Match("", "")
             match.restore(dic_saved)
-            self.li_matchs.append(match)
+            self.li_matches.append(match)
 
     def add_results(self, dic):
-        for match in self.li_matchs:
+        for match in self.li_matches:
             if match.result is None:
                 continue
             result = match.result
@@ -176,26 +227,18 @@ class Matchday:
 
             elo_w = dic[xid_white]["ACT_ELO"]
             elo_b = dic[xid_black]["ACT_ELO"]
-            dic[xid_white]["ACT_ELO"] = max(10, dic[xid_white]["ACT_ELO"] + Util.fideELO(elo_w, elo_b, resn_w))
-            dic[xid_black]["ACT_ELO"] = max(10, dic[xid_black]["ACT_ELO"] + Util.fideELO(elo_b, elo_w, resn_b))
+            dic[xid_white]["ACT_ELO"] = max(
+                self.MIN_ELO, dic[xid_white]["ACT_ELO"] + Util.fideELO(elo_w, elo_b, resn_w)
+            )
+            dic[xid_black]["ACT_ELO"] = max(
+                self.MIN_ELO, dic[xid_black]["ACT_ELO"] + Util.fideELO(elo_b, elo_w, resn_b)
+            )
 
-    def get_all_matchs(self):
-        return self.li_matchs
+    def get_all_matches(self):
+        return self.li_matches
 
 
 class Division:
-    __nmatchs = (
-        ((3, 1), (7, 2), (6, 8), (5, 9), (0, 4)),
-        ((9, 4), (6, 1), (7, 3), (2, 0), (8, 5)),
-        ((6, 9), (3, 8), (5, 0), (2, 4), (7, 1)),
-        ((8, 7), (9, 3), (1, 2), (4, 5), (6, 0)),
-        ((2, 6), (4, 1), (0, 7), (8, 9), (3, 5)),
-        ((2, 3), (4, 6), (1, 8), (0, 9), (5, 7)),
-        ((1, 5), (0, 8), (4, 3), (6, 7), (9, 2)),
-        ((5, 2), (8, 4), (1, 0), (3, 6), (9, 7)),
-        ((3, 0), (8, 2), (7, 4), (5, 6), (9, 1)),
-    )
-
     def __init__(self):
         self.dic_elo_opponents = {}  # xid: elo
         self.li_matchdays = []
@@ -207,11 +250,11 @@ class Division:
         random.shuffle(li_xid_opponents)
         for pos, xid in enumerate(li_xid_opponents):
             self.dic_tiebreak[xid] = pos
-        self.randomize_nmatchs()
         self.li_matchdays = []
+        li_journeys = create_journeys(len(dic_elo_opponents))
         for ida in (True, False):
-            for li_nmatch in self.__nmatchs:
-                self.li_matchdays.append(Matchday(li_nmatch, ida, li_xid_opponents))
+            for li_nmatch in li_journeys:
+                self.li_matchdays.append(MatchsDay(li_nmatch, ida, li_xid_opponents))
 
     def save(self):
         return {
@@ -226,20 +269,9 @@ class Division:
         self.li_matchdays = []
         li_xid_opponents = list(self.dic_elo_opponents.keys())
         for matchday_saved in dic["LI_MATCHDAYS"]:
-            matchday = Matchday([], False, li_xid_opponents)
+            matchday = MatchsDay([], False, li_xid_opponents)
             matchday.restore(matchday_saved)
             self.li_matchdays.append(matchday)
-
-    def randomize_nmatchs(self):
-        li = list(range(10))
-        random.shuffle(li)
-        li_nmatch = []
-        for linea in self.__nmatchs:
-            li_linea = []
-            for uno, otro in linea:
-                li_linea.append([li[uno], li[otro]])
-            li_nmatch.append(li_linea)
-        self.__nmatchs = li_nmatch
 
     def gen_panel(self):
         li_xid_opponents = list(self.dic_elo_opponents.keys())
@@ -264,8 +296,8 @@ class Division:
         def comp(x):
             xdif_elo = "%04d" % (x["ACT_ELO"] - x["INI_ELO"] + 1000)
             xelo = "%04d" % (9999 - x["ACT_ELO"])
-            xpts = "%02d" % x["PTS"]
-            xwin = "%02d" % x["WIN"]
+            xpts = "%03d" % x["PTS"]
+            xwin = "%03d" % x["WIN"]
             xtb = "%d" % x["TB"]
             return xpts + xwin + xdif_elo + xelo + xtb
 
@@ -274,10 +306,13 @@ class Division:
 
     def match(self, journey, pos):
         matchday = self.li_matchdays[journey]
-        return matchday.li_matchs[pos]
+        return matchday.li_matches[pos]
 
-    def get_all_matchs(self, journey):
-        return self.li_matchdays[journey].get_all_matchs()
+    def get_all_matches(self, journey):
+        return self.li_matchdays[journey].get_all_matches() if len(self.li_matchdays) > journey else []
+
+    def get_num_journeys(self):
+        return len(self.li_matchdays)
 
 
 class League:
@@ -296,7 +331,6 @@ class League:
         self.time_engine_human = (15.0, 6)
         self.time_engine_engine = (3.0, 0)
         self.migration = 3
-        self.humanize = False
 
         self.current_num_season = None
 
@@ -333,14 +367,14 @@ class League:
     def name(self):
         return self.__name
 
-    def next_division(self):
-        li_ndiv = [0, 0, 0]
+    def next_division(self, opponent_new: Opponent):
+        elo = opponent_new.elo()
+        dv = 999
         for opponent in self.li_opponents:
-            li_ndiv[opponent.initialdivision] += 1
-        for division in range(2, -1, -1):
-            if li_ndiv[division] < 10:
-                return division
-        return 0
+            if opponent.elo() <= elo:
+                if opponent.initialdivision < dv:
+                    dv = opponent.initialdivision
+        return dv if dv < 999 else 0
 
     def dic_names(self):
         return {opponent.xid: opponent.name() for opponent in self.li_opponents}
@@ -348,20 +382,26 @@ class League:
     def add_engine(self, engine):
         op = Opponent()
         op.set_engine(engine)
-        op.set_initialdivision(self.next_division())
+        op.set_initialdivision(self.next_division(op))
         self.li_opponents.append(op)
 
     def add_human(self, name, elo):
         op = Opponent()
         op.set_human(name, elo)
-        op.set_initialdivision(self.next_division())
+        op.set_initialdivision(self.next_division(op))
         self.li_opponents.append(op)
 
-    def list_numdivision(self):
-        li_ndiv = [0, 0, 0]
+    def list_numdivision(self, reduced=False):
+        li_ndiv = [0] * 100
         for opponent in self.li_opponents:
             li_ndiv[opponent.initialdivision] += 1
+        if reduced:
+            while li_ndiv and li_ndiv[-1] == 0:
+                li_ndiv.pop()
         return li_ndiv
+
+    def num_divisions(self):
+        return len(self.list_numdivision(True))
 
     def num_opponents(self):
         return len(self.li_opponents)
@@ -376,11 +416,12 @@ class League:
         return self.li_opponents[num_opponent]
 
     def correct_opponents(self):
-        li_ndiv = self.list_numdivision()
+        minimo = max(self.migration * 2, 3)
+        li_ndiv = self.list_numdivision(reduced=True)
         for ndiv in li_ndiv:
-            if ndiv != 10:
+            if ndiv < minimo:
                 return False
-        return True
+        return len(li_ndiv) > 0
 
     def exist_name(self, name):
         for opponent in self.li_opponents:
@@ -421,7 +462,7 @@ class League:
         if modo == "division":
             self.li_opponents.sort(key=lambda x: x.initialdivision * 10000 + (10000 - x.opponent.elo))
         else:
-            self.li_opponents.sort(key=lambda x: x.opponent.elo * 10 + x.initialdivision)
+            self.li_opponents.sort(key=lambda x: x.opponent.elo * 100 + (100 - x.initialdivision))
 
     def save(self):
         dic = {
@@ -437,7 +478,6 @@ class League:
             "MIGRATION": self.migration,
             "SAVED_OPPONENTS": [opponent.save() for opponent in self.li_opponents],
             "CURRENT_NUM_SEASON": self.current_num_season,
-            "HUMANIZE": self.humanize,
         }
         with UtilSQL.DictRawSQL(self.path(), "LEAGUE") as dbl:
             for key, value in dic.items():
@@ -458,7 +498,6 @@ class League:
         self.time_engine_engine = dic_data.get("TIME_ENGINE_ENGINE", self.time_engine_engine)
         self.migration = dic_data.get("MIGRATION", self.migration)
         self.current_num_season = dic_data.get("CURRENT_NUM_SEASON", self.current_num_season)
-        self.humanize = dic_data.get("HUMANIZE", self.humanize)
         self.li_opponents = []
         for saved in dic_data.get("SAVED_OPPONENTS", []):
             op = Opponent()
@@ -467,7 +506,7 @@ class League:
 
     def create_season_0(self):
         season = Season(self, 0)
-        season.create_s0()
+        season.create_first_season()
         season.save()
         self.current_num_season = 0
         self.save()
@@ -499,7 +538,8 @@ class Season:
         self.table = "SEASON_%d" % num_season
 
     def is_finished(self):
-        return self.current_journey >= 18
+        last_journey = self.get_max_journeys() - 1
+        return not self.is_pendings_matches(last_journey)
 
     def list_seasons(self):
         li = []
@@ -530,35 +570,48 @@ class Season:
             season_next.create_from(self)
             season_next.save()
 
+    def num_divisions(self):
+        return self.league.num_divisions()
+
     def create_from(self, season_previous):
-        li_panels = season_previous.gen_panels()
-        li_xid_divisions = [set(), set(), set()]
+        num_divisions = self.num_divisions()
+        li_panels = season_previous.gen_panels_classification()
+
+        li_xid_divisions = [set() for x in range(num_divisions)]
         dic_elo_todos = {}
-        for num_division in range(3):
+        for num_division in range(num_divisions):
             d_panel = li_panels[num_division]
-            for pos in range(10):
-                if pos < 3:
-                    num_div_def = num_division - 1 if num_division else num_division
-                elif pos < 7:
-                    num_div_def = num_division
+
+            num_opponents = len(d_panel)
+            num_migration = self.league.migration
+            for pos_opponent in range(num_opponents):
+                if pos_opponent < num_migration:
+                    num_div_new = num_division - 1 if num_division else num_division
+                elif pos_opponent < num_opponents - num_migration:
+                    num_div_new = num_division
                 else:
-                    num_div_def = num_division + 1 if num_division < 2 else num_division
-                xid = d_panel[pos]["XID"]
-                li_xid_divisions[num_div_def].add(xid)
-                dic_elo_todos[xid] = d_panel[pos]["ACT_ELO"]
+                    if num_division == (num_divisions - 1):
+                        num_div_new = num_division
+                    else:
+                        num_div_new = num_division + 1
+
+                xid = d_panel[pos_opponent]["XID"]
+                li_xid_divisions[num_div_new].add(xid)
+                dic_elo_todos[xid] = d_panel[pos_opponent]["ACT_ELO"]
 
         self.li_divisions = []
 
-        for num_division in range(3):
+        for num_division in range(num_divisions):
             d = Division()
             dic_elo = {xid: elo for xid, elo in dic_elo_todos.items() if xid in li_xid_divisions[num_division]}
             d.set_opponents(dic_elo)
             self.li_divisions.append(d)
 
-    def create_s0(self):
+    def create_first_season(self):
         self.li_divisions = []
+        ndivisions = self.num_divisions()
 
-        for numdivision in range(3):
+        for numdivision in range(ndivisions):
             d = Division()
             dic_elo = {
                 opponent.xid: opponent.elo()
@@ -587,7 +640,7 @@ class Season:
     def division(self, num):
         return self.li_divisions[num]
 
-    def gen_panels(self):
+    def gen_panels_classification(self):
         li_panels = []
         for division in self.li_divisions:
             li_panels.append(division.gen_panel())
@@ -596,20 +649,42 @@ class Season:
     def match(self, division, journey, pos):
         return self.li_divisions[division].match(journey, pos)
 
-    def get_current_journey(self):
-        return self.current_journey
-
-    def get_all_matchs(self):
-        li = []
-        for division in self.li_divisions:
-            li.extend(division.get_all_matchs(self.current_journey))
-        return li
-
-    def is_pendings_matchs(self):
-        for match in self.get_all_matchs():
+    def is_pendings_matches(self, journey):
+        for match in self.get_all_matches_journey(journey):
             if match.result is None:
                 return True
         return False
+
+    def get_current_journey(self):
+        max_journeys = self.get_max_journeys()
+        for journey in range(self.current_journey, max_journeys):
+            if self.is_pendings_matches(journey):
+                if journey != self.current_journey:
+                    self.current_journey = journey
+                    self.save()
+                return journey
+
+        return max_journeys
+
+    def get_max_journeys(self):
+        t = 0
+        for division in self.li_divisions:
+            t1 = division.get_num_journeys()
+            if t1 > t:
+                t = t1
+        return t
+
+    def get_all_matches(self):
+        return self.get_all_matches_journey(self.current_journey)
+
+    def get_all_matches_journey(self, journey):
+        li = []
+        for ndivision, division in enumerate(self.li_divisions):
+            li_matches = division.get_all_matches(journey)
+            for match in li_matches:
+                match.label_division = str(ndivision + 1)
+            li.extend(li_matches)
+        return li
 
     def new_journey(self, league: League):
         self.current_journey += 1

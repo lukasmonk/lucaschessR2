@@ -1,9 +1,11 @@
+import time
 from PySide2 import QtCore, QtWidgets
 
 import Code
+from Code.Base import Move
 from Code import Util
 from Code import XRun
-from Code.Analysis import WindowAnalysisParam
+from Code.Analysis import WindowAnalysisParam, Analysis
 from Code.Base import Game
 from Code.Board import Board
 from Code.QT import Colocacion
@@ -99,6 +101,7 @@ class WMuestra(QtWidgets.QWidget):
     def ponBoard(self):
         position, from_sq, to_sq = self.tab_analysis.active_position()
         self.board.set_position(position)
+        self.board.activate_side(position.is_white)
         if from_sq:
             self.board.put_arrow_sc(from_sq, to_sq)
         self.lbPGN.set_text(self.tab_analysis.pgn_active())
@@ -173,7 +176,7 @@ class WMuestra(QtWidgets.QWidget):
             QTUtil2.message_bold(self, _("FEN is in clipboard"))
 
     def jugarPosicion(self):
-        position, from_sq, to_sq = self.tab_analysis.active_base_position()
+        position, from_sq, to_sq = self.tab_analysis.active_position()
         game = Game.Game(first_position=position)
         dic_sended = {"ISWHITE": position.is_white, "GAME": game.save()}
 
@@ -226,19 +229,21 @@ class WMuestra(QtWidgets.QWidget):
 
 
 class WAnalisis(LCDialog.LCDialog):
-    def __init__(self, tb_analysis, ventana, is_white, siLibre, must_save, tab_analysis_init):
+    def __init__(self, tb_analysis, ventana, is_white, must_save, tab_analysis_init, subanalysis=False):
         titulo = _("Analysis")
         icono = Iconos.Tutor()
-        extparam = "analysis"
+        extparam = "subanalysis" if subanalysis else "analysis"
 
         LCDialog.LCDialog.__init__(self, ventana, titulo, icono, extparam)
 
         self.tb_analysis = tb_analysis
         self.muestraActual = None
+        self.timer = None
 
         configuration = Code.configuration
-        config_board = configuration.config_board("ANALISIS", 48)
-        self.siLibre = siLibre
+        config_board = configuration.config_board(
+            "SUBANALYSIS" if subanalysis else "ANALISIS", 32 if subanalysis else 48
+        )
         self.must_save = must_save
         self.is_white = is_white
 
@@ -249,6 +254,7 @@ class WAnalisis(LCDialog.LCDialog):
         self.board = Board.Board(self, config_board)
         self.board.crea()
         self.board.set_side_bottom(is_white)
+        self.board.set_dispatcher(self.player_has_moved)
 
         self.lb_engine = Controles.LB(self).align_center()
         self.lb_time = Controles.LB(self).align_center()
@@ -276,10 +282,10 @@ class WAnalisis(LCDialog.LCDialog):
         lytb, self.tb = QTVarios.lyBotonesMovimiento(
             self,
             "",
-            siLibre=siLibre,
+            siLibre=True,
             must_save=must_save,
             siGrabarTodos=must_save,
-            siJugar=tb_analysis.max_recursion > 10,
+            siJugar=True,
             liMasAcciones=li_mas_acciones,
             icon_size=24,
         )
@@ -391,18 +397,68 @@ class WAnalisis(LCDialog.LCDialog):
             self.muestraActual.wmu.process_toolbar(key)
 
     def start_clock(self, funcion):
-        if not hasattr(self, "timer"):
+        if self.tiomer is None:
             self.timer = QtCore.QTimer(self)
             self.timer.timeout.connect(funcion)
         self.timer.start(1000)
 
     def stop_clock(self):
-        if hasattr(self, "timer"):
+        if self.timer:
             self.timer.stop()
-            delattr(self, "timer")
+            self.timer = None
 
     def crear(self):
         alm = WindowAnalysisParam.analysis_parameters(self, Code.configuration, False, siTodosMotores=True)
         if alm:
             tab_analysis = self.tb_analysis.create_show(self, alm)
             self.create_analysis(tab_analysis)
+
+    def player_has_moved(self, from_sq, to_sq, promotion=""):
+        game = self.muestraActual.wmu.tab_analysis.get_game()
+        if not promotion and game.last_position.siPeonCoronando(from_sq, to_sq):
+            promotion = self.board.peonCoronando(game.last_position.is_white)
+            if promotion is None:
+                return False
+
+        ok, error, move = Move.get_game_move(game, game.last_position, from_sq, to_sq, promotion)
+        if ok:
+            game.add_move(move)
+            xanalyzer = Code.procesador.XAnalyzer()
+            si_cancelar = xanalyzer.mstime_engine > 1000 or xanalyzer.depth_engine > 8
+            mens = _("Analyzing the move....")
+            me = QTUtil2.mensEspera.start(self, mens, siCancelar=si_cancelar, titCancelar=_("Stop thinking"))
+
+            if si_cancelar:
+                ya_cancelado = [False]
+                tm_ini = time.time()
+
+                def test_me(rm):
+                    if me.cancelado():
+                        stop = not ya_cancelado[0]
+                    else:
+                        tm = time.time() - tm_ini
+                        me.label('%s\n%s: %d %s: %.01f"' % (mens, _("Depth"), rm.depth, _("Time"), tm))
+                        stop = xanalyzer.mstime_engine and tm*1000 > xanalyzer.mstime_engine
+                    if stop:
+                        xanalyzer.stop()
+                        ya_cancelado[0] = True
+                    return True
+
+                xanalyzer.set_gui_dispatch(test_me)
+            mrm, pos = xanalyzer.analizaJugadaPartida(
+                game, len(game) - 1, xanalyzer.mstime_engine, xanalyzer.depth_engine
+            )
+            move.analysis = mrm, pos
+            me.final()
+            Analysis.show_analysis(
+                Code.procesador,
+                xanalyzer,
+                move,
+                self.board.is_white_bottom,
+                len(game) - 1,
+                main_window=self,
+                must_save=False,
+                subanalysis=True,
+            )
+
+        return False

@@ -185,14 +185,16 @@ def play_league(parent, league):
     if play_human:
         league, match, division = play_human
         Code.procesador.play_league_human(league, match, division)
+        return True
+    return False
 
 
 def leagues(parent):
-    w = WLeagues(parent)
-    if w.exec_():
-        if w.run_league:
-            play_league(parent, w.run_league)
-            # play_human = WLeague.play_league(parent, w.run_league)
-            # if play_human:
-            #     league, match, division = play_human
-            #     Code.procesador.play_league_human(league, match, division)
+    while True:
+        w = WLeagues(parent)
+        if w.exec_():
+            if w.run_league:
+                if play_league(parent, w.run_league):
+                    return
+                continue
+        return
