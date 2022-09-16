@@ -976,7 +976,7 @@ class Manager:
 
                 self.xanalyzer.set_gui_dispatch(test_me)
             mrm, pos = self.xanalyzer.analizaJugadaPartida(
-                self.game, pos_jg, self.xanalyzer.mstime_engine, self.xanalyzer.depth_engine
+                self.game, pos_jg, self.xanalyzer.mstime_engine, self.xanalyzer.depth_engine, window=self.main_window
             )
             move.analysis = mrm, pos
             self.main_window.base.tb.setDisabled(False)

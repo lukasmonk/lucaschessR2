@@ -94,7 +94,7 @@ class WKibEngine(WKibCommon.WKibCommon):
     def compruebaInput(self):
         if not self.engine:
             return
-        if self.valid_to_play():
+        if self.valid_to_play() and not self.stopped:
             mrm = self.engine.ac_estado()
             rm = mrm.rmBest()
             if self.kibitzer.max_time and (time.time() - self.time_init) > self.kibitzer.max_time:
@@ -146,9 +146,9 @@ class WKibEngine(WKibCommon.WKibCommon):
                 pid = self.engine.process.pid
                 p = psutil.Process(pid)
                 p.nice(xprioridad)
-            self.cpu.kibitzer.prioridad = xprioridad
-            self.cpu.kibitzer.pointofview = w.result_xpointofview
-            self.cpu.kibitzer.max_time = w.result_max_time
+            self.kibitzer.prioridad = self.cpu.kibitzer.prioridad = xprioridad
+            self.kibitzer.pointofview = self.cpu.kibitzer.pointofview = w.result_xpointofview
+            self.kibitzer.max_time = self.cpu.kibitzer.max_time = w.result_max_time
             if w.result_opciones:
                 for opcion, valor in w.result_opciones:
                     if valor is None:

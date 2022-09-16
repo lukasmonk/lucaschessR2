@@ -27,6 +27,13 @@
 #  y utilizar rutinas con mombre de tutor, para saber que se usa el tutor como motor
 #  separar el análisis del tutor del análisis de posición y masivo
 
+# TODO timekeeper, quitar y dejar solo una rutina de reloj.
+
+# TODO subanalysis pantallas que guardan posicion cuando se cierran, quizás moveevent
+
+# TODO analisis de variantes cuando el movimiento original está analizado y no se quiere reanalizar
+
+# TODO kibitzers, config, cabiado before a after, no funciona el límite de tiempo.
 
 # El 01/12/2021 a las 16:56, Hifi escribió:
 # > XXIII) Maybe some of these links could be useful in documents. I let you see.

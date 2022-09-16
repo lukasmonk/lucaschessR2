@@ -462,6 +462,7 @@ FILESW=%s:100
                         st_centipawns=self.st_centipawns,
                         st_depths=self.st_depths,
                         st_timelimit=self.st_timelimit,
+                        window=self.procesador.main_window
                     )
                     if not resp:
                         self.xmanager.remove_gui_dispatch()

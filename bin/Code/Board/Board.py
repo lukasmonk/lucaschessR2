@@ -106,6 +106,11 @@ class Board(QtWidgets.QGraphicsView):
 
         self.hard_focus = True  # Controla que cada vez que se indique una posición active el foco al board
 
+        self.allow_eboard = True
+
+    def disable_eboard_here(self):
+        self.allow_eboard = False
+
     def disable_hard_focus(self):
         self.hard_focus = False
 
@@ -1365,7 +1370,7 @@ class Board(QtWidgets.QGraphicsView):
         self.init_kb_buffer()
         self.close_visual_script()
         self.last_position = position
-        if Code.eboard and Code.eboard.driver:
+        if Code.eboard and Code.eboard.driver and self.allow_eboard:
             Code.eboard.set_position(position)
         if self.siDirectorIcon or self.dbVisual.show_always():
             fenm2 = position.fenm2()
@@ -2361,6 +2366,8 @@ class Board(QtWidgets.QGraphicsView):
         QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.ExcludeUserInputEvents)
 
     def try_eboard_takeback(self, side):
+        if not self.allow_eboard:
+            return 1
         if self.allow_takeback():
             game = self.main_window.manager.game
 
@@ -2396,7 +2403,7 @@ class Board(QtWidgets.QGraphicsView):
         return 0
 
     def dispatch_eboard(self, quien, a1h8):
-        if self.mensajero and self.pieces_are_active:
+        if self.mensajero and self.pieces_are_active and self.allow_eboard:
 
             if quien == "whiteMove":
                 Code.eboard.allowHumanTB = False

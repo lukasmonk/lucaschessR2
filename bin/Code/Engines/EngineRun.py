@@ -527,6 +527,8 @@ class RunEngine:
             self.whoDispatch = whoDispatch
 
     def set_multipv(self, num_multipv):
+        if num_multipv == 0:
+            num_multipv = 1
         self.work_ok("setoption name MultiPV value %s" % num_multipv)
 
     def orden_uci(self):

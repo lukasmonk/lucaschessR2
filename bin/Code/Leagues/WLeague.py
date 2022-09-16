@@ -421,14 +421,30 @@ class WLeague(LCDialog.LCDialog):
             self.timer = None
 
     def launch_worker(self):
-        self.update_matches()
-        lw = LeaguesWork.LeaguesWork(self.league)
-        journey_work, season_work = lw.get_journey_season()
-        current_journey = self.season.get_current_journey()
-        if journey_work != current_journey or self.league.current_num_season != season_work:
-            lw.put_league()
-        if lw.num_pending_matches():
-            XRun.run_lucas("-league", self.league.name())
+        rondo = QTVarios.rondoPuntos()
+
+        menu = QTVarios.LCMenu(self)
+        menu.opcion(1, _("Launch one worker"), Iconos.Lanzamiento())
+        menu.separador()
+
+        submenu = menu.submenu(_("Launch some workers"), Iconos.Lanzamientos())
+
+        for x in range(2, 10):
+            submenu.opcion(x, str(x), rondo.otro())
+
+        resp = menu.lanza()
+        if resp:
+            self.update_matches()
+            lw = LeaguesWork.LeaguesWork(self.league)
+            journey_work, season_work = lw.get_journey_season()
+            current_journey = self.season.get_current_journey()
+            if journey_work != current_journey or self.league.current_num_season != season_work:
+                lw.put_league()
+            if lw.num_pending_matches():
+                for x in range(resp):
+                    XRun.run_lucas("-league", self.league.name())
+            else:
+                QTUtil2.message(self, _("There are no pending matches in the current matchday"))
 
     def export(self):
         menu = QTVarios.LCMenu(self)

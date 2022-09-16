@@ -230,9 +230,25 @@ class WMuestra(QtWidgets.QWidget):
 
 class WAnalisis(LCDialog.LCDialog):
     def __init__(self, tb_analysis, ventana, is_white, must_save, tab_analysis_init, subanalysis=False):
-        titulo = _("Analysis")
-        icono = Iconos.Tutor()
-        extparam = "subanalysis" if subanalysis else "analysis"
+        titulo = _("Subanalysis") if subanalysis else _("Analysis")
+        icono = Iconos.Analizar()
+
+        self.subanalysis = subanalysis
+
+        if subanalysis:
+            st_subanalisis = set()
+            for window in QtWidgets.QApplication.topLevelWidgets():
+                if hasattr(window, "key_video"):
+                    if window.key_video.startswith("subanalysis"):
+                        st_subanalisis.add(int(window.key_video[11:]))
+            num = 1
+            for x in range(1,100):
+                if x not in st_subanalisis:
+                    num = x
+                    break
+            extparam = "subanalysis%d" % num
+        else:
+            extparam = "analysis"
 
         LCDialog.LCDialog.__init__(self, ventana, titulo, icono, extparam)
 
@@ -354,6 +370,13 @@ class WAnalisis(LCDialog.LCDialog):
         self.terminar(False)
 
     def terminar(self, siAccept=True):
+        for window in QtWidgets.QApplication.topLevelWidgets():
+            if hasattr(window, "key_video") and window.key_video.startswith("subanalysis"):
+                try:
+                    window.save_video()
+                except:
+                    pass
+
         for una in self.tb_analysis.li_tabs_analysis:
             una.wmu.siTiempoActivo = False
         self.save_video()
@@ -426,13 +449,15 @@ class WAnalisis(LCDialog.LCDialog):
             xanalyzer = Code.procesador.XAnalyzer()
             si_cancelar = xanalyzer.mstime_engine > 1000 or xanalyzer.depth_engine > 8
             mens = _("Analyzing the move....")
-            me = QTUtil2.mensEspera.start(self, mens, siCancelar=si_cancelar, titCancelar=_("Stop thinking"))
+            me = QTUtil2.mensEspera.start(self, mens, siCancelar=si_cancelar, titCancelar=_("Stop thinking"), opacity=1.0)
 
             if si_cancelar:
                 ya_cancelado = [False]
                 tm_ini = time.time()
 
                 def test_me(rm):
+                    if ya_cancelado[0]:
+                        return False
                     if me.cancelado():
                         stop = not ya_cancelado[0]
                     else:
@@ -442,14 +467,16 @@ class WAnalisis(LCDialog.LCDialog):
                     if stop:
                         xanalyzer.stop()
                         ya_cancelado[0] = True
+                        return False
                     return True
 
                 xanalyzer.set_gui_dispatch(test_me)
             mrm, pos = xanalyzer.analizaJugadaPartida(
-                game, len(game) - 1, xanalyzer.mstime_engine, xanalyzer.depth_engine
+                game, len(game) - 1, xanalyzer.mstime_engine, xanalyzer.depth_engine, window=self
             )
             move.analysis = mrm, pos
             me.final()
+
             Analysis.show_analysis(
                 Code.procesador,
                 xanalyzer,

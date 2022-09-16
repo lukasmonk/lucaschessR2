@@ -73,8 +73,23 @@ class MensEspera(QtWidgets.QWidget):
             self.btCancelar = (
                 Controles.PB(self, titCancelar, rutina=self.cancelar, plano=False)
                     .ponIcono(Iconos.Cancelar())
-                    .anchoFijo(100)
+                    # .anchoFijo(100)
             )
+            self.btCancelar.setStyleSheet("""QPushButton {
+    background-color: #1e749c;
+    color: white;
+    border-style: outset;
+    border-width: 2px;
+    border-radius: 8px;
+    border-color: beige;
+    font: bold 11pt;
+    min-width: 10em;
+    padding: 4px;
+}
+QPushButton:pressed {
+    background-color: rgb(224, 0, 0);
+    border-style: inset;
+}""")
 
         ly = Colocacion.G()
         if conImagen:
@@ -119,20 +134,21 @@ class MensEspera(QtWidgets.QWidget):
         self.show()
 
         v = self.owner
-        s = self.size()
-        if self.physical_pos == "ad":
-            x = v.x() + v.width() - s.width()
-            y = v.y() + 4
-        elif self.physical_pos == "tb":
-            x = v.x() + 4
-            y = v.y() + 4
-        else:
-            x = v.x() + (v.width() - s.width()) // 2
-            y = v.y() + (v.height() - s.height()) // 2
+        if v:
+            s = self.size()
+            if self.physical_pos == "ad":
+                x = v.x() + v.width() - s.width()
+                y = v.y() + 4
+            elif self.physical_pos == "tb":
+                x = v.x() + 4
+                y = v.y() + 4
+            else:
+                x = v.x() + (v.width() - s.width()) // 2
+                y = v.y() + (v.height() - s.height()) // 2
 
-        # p = self.owner.mapToGlobal(QtCore.QPoint(x,y))
-        p = QtCore.QPoint(x, y)
-        self.move(p)
+            # p = self.owner.mapToGlobal(QtCore.QPoint(x,y))
+            p = QtCore.QPoint(x, y)
+            self.move(p)
         QTUtil.refresh_gui()
         return self
 
@@ -156,7 +172,7 @@ class ControlMensEspera:
             mensaje,
             siCancelar=False,
             siMuestraYa=True,
-            opacity=0.90,
+            opacity=0.95,
             physical_pos="c",
             fixedSize=None,
             titCancelar=None,

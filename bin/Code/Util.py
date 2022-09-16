@@ -720,8 +720,6 @@ class Timer2:
         self.txt = ""
         self.zeitnot_marker = 0
 
-        self.recalc()
-
     @staticmethod
     def texto(segs):
         if segs <= 0.0:
@@ -816,7 +814,8 @@ class Timer2:
 
     def stop_marker(self):
         if self.time_init:
-            self.pending_time -= (time.time() - self.time_init) - self.seconds_per_move
+            t_used = (time.time() - self.time_init)
+            self.pending_time -=  t_used - self.seconds_per_move
             self.time_init = None
 
     def remove_marker(self):

@@ -934,7 +934,7 @@ class WLines(LCDialog.LCDialog):
                 me = QTUtil2.mensEspera.start(self, _("Analyzing the move...."), physical_pos="ad")
 
                 move.analysis = xanalyzer.analizaJugadaPartida(
-                    game, len(game) - 1, xanalyzer.mstime_engine, xanalyzer.depth_engine
+                    game, len(game) - 1, xanalyzer.mstime_engine, xanalyzer.depth_engine, window=self
                 )
                 me.final()
             Analysis.show_analysis(

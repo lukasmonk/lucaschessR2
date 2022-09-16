@@ -142,7 +142,7 @@ class WDBAnalisis:
 
         game = Game.Game()
         game.read_pv(pv)
-        mrm, pos = xmotor.analizaJugadaPartida(game, 9999, alm.vtime, alm.depth)
+        mrm, pos = xmotor.analizaJugadaPartida(game, 9999, alm.vtime, alm.depth, window=self.wowner)
 
         rotulo = mrm.name
         if alm.vtime:

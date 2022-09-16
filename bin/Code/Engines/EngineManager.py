@@ -1,11 +1,13 @@
 import os
 import random
+import time
 
 import FasterCode
 
 import Code
 from Code.Base.Constantes import ADJUST_SELECTED_BY_PLAYER
 from Code.Engines import Priorities, EngineResponse, EngineRunDirect, EngineRun
+from Code.QT import QTUtil2
 from Code.SQL import UtilSQL
 
 
@@ -310,17 +312,18 @@ class EngineManager:
         self.cache_analysis.close()
 
     def analizaJugadaPartida(
-        self,
-        game,
-        njg,
-        vtime,
-        depth=0,
-        brDepth=5,
-        brPuntos=50,
-        stability=False,
-        st_centipawns=0,
-        st_depths=0,
-        st_timelimit=0,
+            self,
+            game,
+            njg,
+            vtime,
+            depth=0,
+            brDepth=5,
+            brPuntos=50,
+            stability=False,
+            st_centipawns=0,
+            st_depths=0,
+            st_timelimit=0,
+            window=None
     ):
         self.check_engine()
         if self.cache_analysis is not None:
@@ -329,20 +332,21 @@ class EngineManager:
             if key in self.cache_analysis:
                 return self.cache_analysis[key]
         resp = self.analizaJugadaPartidaRaw(
-            game, njg, vtime, depth, brDepth, brPuntos, stability, st_centipawns, st_depths, st_timelimit
+            game, njg, vtime, depth, brDepth, brPuntos, stability, st_centipawns, st_depths, st_timelimit, window
         )
         if self.cache_analysis is not None:
             self.cache_analysis[key] = resp
         return resp
 
-    def analizaJugadaPartidaRaw(
-        self, game, njg, vtime, depth, brDepth, brPuntos, stability, st_centipawns, st_depths, st_timelimit
-    ):
+    def analizaJugadaPartidaRaw(self, game, njg, mstime, depth, brDepth, brPuntos, stability, st_centipawns, st_depths, st_timelimit, window):
         self.check_engine()
+        ini_time = time.time()
         if stability:
-            mrm = self.engine.analysis_stable(game, njg, vtime, depth, True, st_centipawns, st_depths, st_timelimit)
+            mrm = self.engine.analysis_stable(game, njg, mstime, depth, True, st_centipawns, st_depths, st_timelimit)
         else:
-            mrm = self.engine.bestmove_game_jg(game, njg, vtime, depth, is_savelines=True)
+            mrm = self.engine.bestmove_game_jg(game, njg, mstime, depth, is_savelines=True)
+
+        ms_used = int((time.time() - ini_time) * 1000)
 
         if njg > 9000:
             return mrm, 0
@@ -357,8 +361,22 @@ class EngineManager:
                 mrm.miraBrilliancies(brDepth, brPuntos)
             return mrm, n
 
+        rm_best = mrm.mejorMov()
         # No esta considerado, obliga a hacer el analysis de nuevo from_sq position
-        mrm_next = self.engine.bestmove_game_jg(game, njg + 1, vtime, depth, is_savelines=True)
+        if rm_best.depth and (depth > rm_best.depth or depth == 0):
+            depth = rm_best.depth
+
+        if ms_used < mstime:
+            mstime = ms_used
+
+        um = QTUtil2.unMomento(window, _("Finishing the analysis...")) if mstime > 1000 else None
+
+        self.engine.set_multipv(1)
+        mrm_next = self.engine.bestmove_game_jg(game, njg + 1, mstime, depth, is_savelines=True)
+        self.engine.set_multipv(self.engine.num_multipv)
+
+        if um:
+            um.final()
 
         if mrm_next and mrm_next.li_rm:
             rm = mrm_next.li_rm[0]
@@ -445,7 +463,7 @@ class EngineManager:
         return mrm.mejorMov()
 
     def play_time_routine(
-        self, game, routine_return, seconds_white, seconds_black, seconds_move, nAjustado=0, humanize=False
+            self, game, routine_return, seconds_white, seconds_black, seconds_move, nAjustado=0, humanize=False
     ):
         self.check_engine()
 

@@ -2,6 +2,7 @@ import time
 
 from PySide2 import QtWidgets, QtCore
 
+import Code
 from Code import Util
 from Code.Base import Game
 from Code.Board import Board
@@ -394,6 +395,7 @@ class WLearnPuente(LCDialog.LCDialog):
             .set_foreground_backgound("#076C9F", "#EFEFEF")
             .anchoMinimo(self.boardFin.ancho)
         )
+        self.boardFin.disable_eboard_here()
         lyFin = Colocacion.V().control(self.boardFin).control(self.lbFin)
 
         # Rotulo vtime
@@ -436,25 +438,30 @@ class WLearnPuente(LCDialog.LCDialog):
     def pon_toolbar(self, tipo):
 
         if tipo == self.INICIO:
-            li_acciones = (
+            li_acciones = [
                 (_("Cancel"), Iconos.Cancelar(), self.cancelar),
                 None,
                 (_("Reinit"), Iconos.Reiniciar(), self.reset),
                 None,
                 (_("Help"), Iconos.AyudaGR(), self.get_help),
                 None,
-            )
+            ]
+            if Code.eboard:
+                title = _("Disable") if Code.eboard.driver else _("Enable")
+                li_acciones.append((title, Code.eboard.icon_eboard(), self.eboard))
+                li_acciones.append(None)
+
         elif tipo == self.FINAL_JUEGO:
-            li_acciones = (
+            li_acciones = [
                 (_("Close"), Iconos.MainMenu(), self.final),
                 None,
                 (_("Reinit"), Iconos.Reiniciar(), self.reset),
                 None,
                 (_("Replay game"), Iconos.Pelicula(), self.replay),
                 None,
-            )
+            ]
         elif tipo == self.REPLAY:
-            li_acciones = (
+            li_acciones = [
                 (_("Cancel"), Iconos.Cancelar(), self.repCancelar),
                 None,
                 (_("Reinit"), Iconos.Inicio(), self.repReiniciar),
@@ -465,7 +472,7 @@ class WLearnPuente(LCDialog.LCDialog):
                 None,
                 (_("Fast"), Iconos.Pelicula_Rapido(), self.repFast),
                 None,
-            )
+            ]
         elif tipo == self.REPLAY_CONTINUE:
             li_acciones = (
                 (_("Cancel"), Iconos.Cancelar(), self.repCancelar),
@@ -473,7 +480,23 @@ class WLearnPuente(LCDialog.LCDialog):
                 (_("Continue"), Iconos.Pelicula_Seguir(), self.repContinue),
                 None,
             )
+
         self.tb.reset(li_acciones)
+
+    @staticmethod
+    def deactivate_eboard(ms):
+        if Code.eboard and Code.eboard.driver:
+            QTUtil.refresh_gui()
+            QtCore.QTimer.singleShot(ms, Code.eboard.deactivate)
+
+    def eboard(self):
+        if Code.eboard.driver:
+            self.deactivate_eboard(100)
+        else:
+            Code.eboard.activate(self.boardIni.dispatch_eboard)
+            Code.eboard.set_position(self.boardIni.last_position)
+
+        self.pon_toolbar(self.INICIO)
 
     def replay(self):
         self.pon_toolbar(self.REPLAY)
@@ -650,6 +673,7 @@ class WLearnPuente(LCDialog.LCDialog):
         self.pon_toolbar(self.FINAL_JUEGO)
 
     def final(self):
+        self.deactivate_eboard(500)
         self.working_clock = False
         self.save_video()
         self.accept()
