@@ -1,4 +1,4 @@
-from Code import SingularMoves
+from Code.SingularMoves import SingularMoves
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Grid

@@ -6,6 +6,7 @@ import Code
 from Code import CPU
 from Code import ControlPGN
 from Code import Util
+from Code.Sound import Sound
 from Code.Base import Game, Move
 from Code.Base.Constantes import (
     ST_PLAYING,
@@ -523,9 +524,22 @@ class WTournamentRun(QtWidgets.QWidget):
             move.analysis = analysis
             move.del_nags()
         self.add_move(move)
+        self.sound(move)
+
         self.move_the_pieces(move.liMovs)
 
         return True
+
+    def sound(self, move):
+        if self.configuration.x_sound_tournements:
+            if not Code.runSound:
+                runSound = Sound.RunSound()
+            else:
+                runSound = Code.runSound
+            if self.configuration.x_sound_move:
+                    runSound.play_list(move.listaSonidos())
+            if self.configuration.x_sound_beep:
+                runSound.playBeep()
 
     def grid_dato(self, grid, row, o_column):
         controlPGN = self.pgn

@@ -716,7 +716,7 @@ class Tactic:
                 color = "blue"
                 reinforcement_title = '<tr><td  align="center"><h4>%s</h4></td></tr>' % reinforcement_title
             else:
-                mens = _("Endgame")
+                mens = _("GAME OVER")
                 color = "DarkMagenta"
             txt = "%s: <big>%s</big>" % (_("Next"), mens)
         else:

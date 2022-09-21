@@ -309,10 +309,10 @@ def show_analysis(procesador, xtutor, move, is_white, pos_move, main_window=None
 
 
 class AnalisisVariations:
-    def __init__(self, owner, xtutor, move, is_white, cbase_points):
+    def __init__(self, owner, xanalyzer, move, is_white, cbase_points):
 
         self.owner = owner
-        self.xtutor = xtutor
+        self.xanalyzer = xanalyzer
         self.move = move
         self.is_white = is_white
         self.position_before = move.position_before
@@ -323,13 +323,13 @@ class AnalisisVariations:
         self.time_pos = None
         self.time_others_tb = None
         self.rm = None
-        self.pos_tutor = None
-        self.max_tutor = None
-        self.game_tutor = None
+        self.pos_analyzer = None
+        self.max_analyzer = None
+        self.game_analyzer = None
 
-        if self.xtutor.mstime_engine:
-            segundos_pensando = self.xtutor.mstime_engine / 1000  # esta en milesimas
-            if self.xtutor.mstime_engine % 1000 > 0:
+        if self.xanalyzer.mstime_engine:
+            segundos_pensando = self.xanalyzer.mstime_engine / 1000  # esta en milesimas
+            if self.xanalyzer.mstime_engine % 1000 > 0:
                 segundos_pensando += 1
         else:
             segundos_pensando = 3
@@ -369,21 +369,22 @@ class AnalisisVariations:
         me = QTUtil2.mensEspera.start(self.w, _("Analyzing the move...."))
 
         secs = self.w.get_seconds()
-        self.rm = self.xtutor.analizaVariation(new_move, secs * 1000, self.is_white)
+        self.xanalyzer.remove_gui_dispatch()
+        self.rm = self.xanalyzer.analizaVariation(new_move, secs * 1000, self.is_white)
         me.final()
 
-        self.game_tutor = Game.Game(new_move.position)
-        self.game_tutor.read_pv(self.rm.pv)
+        self.game_analyzer = Game.Game(new_move.position)
+        self.game_analyzer.read_pv(self.rm.pv)
 
-        if len(self.game_tutor):
-            self.w.boardT.set_position(self.game_tutor.move(0).position)
+        if len(self.game_analyzer):
+            self.w.boardT.set_position(self.game_analyzer.move(0).position)
 
         self.w.ponPuntuacion(self.rm.texto())
 
-        self.pos_tutor = 0
-        self.max_tutor = len(self.game_tutor)
+        self.pos_analyzer = 0
+        self.max_analyzer = len(self.game_analyzer)
 
-        self.moving_tutor(si_inicio=True)
+        self.moving_analyzer(si_inicio=True)
 
     def move_the_pieces(self, li_movs):
         """
@@ -406,35 +407,35 @@ class AnalisisVariations:
     def process_toolbar(self, accion):
         if self.rm:
             if accion == "MoverAdelante":
-                self.moving_tutor(n_saltar=1)
+                self.moving_analyzer(n_saltar=1)
             elif accion == "MoverAtras":
-                self.moving_tutor(n_saltar=-1)
+                self.moving_analyzer(n_saltar=-1)
             elif accion == "MoverInicio":
-                self.moving_tutor(si_inicio=True)
+                self.moving_analyzer(si_inicio=True)
             elif accion == "MoverFinal":
-                self.moving_tutor(si_final=True)
+                self.moving_analyzer(si_final=True)
             elif accion == "MoverTiempo":
                 self.move_timed()
             elif accion == "MoverLibre":
                 self.external_analysis()
             elif accion == "MoverFEN":
-                move = self.game_tutor.move(self.pos_tutor)
+                move = self.game_analyzer.move(self.pos_analyzer)
                 QTUtil.ponPortapapeles(move.position.fen())
                 QTUtil2.message_bold(self.w, _("FEN is in clipboard"))
 
-    def moving_tutor(self, si_inicio=False, n_saltar=0, si_final=False, is_base=False):
+    def moving_analyzer(self, si_inicio=False, n_saltar=0, si_final=False, is_base=False):
         if n_saltar:
-            pos = self.pos_tutor + n_saltar
-            if 0 <= pos < self.max_tutor:
-                self.pos_tutor = pos
+            pos = self.pos_analyzer + n_saltar
+            if 0 <= pos < self.max_analyzer:
+                self.pos_analyzer = pos
             else:
                 return
         elif si_inicio or is_base:
-            self.pos_tutor = 0
+            self.pos_analyzer = 0
         elif si_final:
-            self.pos_tutor = self.max_tutor - 1
-        if self.game_tutor.num_moves():
-            move = self.game_tutor.move(self.pos_tutor)
+            self.pos_analyzer = self.max_analyzer - 1
+        if self.game_analyzer.num_moves():
+            move = self.game_analyzer.move(self.pos_analyzer)
             if is_base:
                 self.w.boardT.set_position(move.position_before)
             else:
@@ -456,13 +457,13 @@ class AnalisisVariations:
                 if not accion.key.endswith("MoverTiempo"):
                     accion.setEnabled(si_habilitar)
 
-        self.time_function = self.moving_tutor
-        self.time_pos_max = self.max_tutor
+        self.time_function = self.moving_analyzer
+        self.time_pos_max = self.max_analyzer
         self.time_pos = -1
         self.time_others_tb = otros_tb
         self.is_moving_time = True
         otros_tb(False)
-        self.moving_tutor(is_base=True)
+        self.moving_analyzer(is_base=True)
         self.w.start_clock(self.moving_time_1)
 
     def moving_time_1(self):
@@ -478,6 +479,6 @@ class AnalisisVariations:
             self.time_function(n_saltar=1)
 
     def external_analysis(self):
-        move = self.game_tutor.move(self.pos_tutor)
+        move = self.game_analyzer.move(self.pos_analyzer)
         pts = self.rm.texto()
-        AnalisisVariations(self.w, self.xtutor, move, self.is_white, pts)
+        AnalisisVariations(self.w, self.xanalyzer, move, self.is_white, pts)

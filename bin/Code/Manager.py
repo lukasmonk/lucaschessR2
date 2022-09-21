@@ -978,9 +978,11 @@ class Manager:
             mrm, pos = self.xanalyzer.analizaJugadaPartida(
                 self.game, pos_jg, self.xanalyzer.mstime_engine, self.xanalyzer.depth_engine, window=self.main_window
             )
+            self.xanalyzer.set_gui_dispatch(None)
             move.analysis = mrm, pos
             self.main_window.base.tb.setDisabled(False)
             self.main_window.base.hide_message()
+
 
         Analysis.show_analysis(self.procesador, self.xanalyzer, move, self.board.is_white_bottom, pos_jg)
         self.put_view()
@@ -2014,3 +2016,4 @@ class Manager:
                 cvariation_move = "|".join([cnum for cnum in self.board.variation_history.split("|")][:-1])
                 link_variation_pressed("%s|%d" % (cvariation_move, (num_var_move + 1)))
                 self.kibitzers_manager.put_game(variation, self.board.is_white_bottom)
+

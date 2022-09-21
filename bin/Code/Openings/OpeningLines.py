@@ -249,15 +249,16 @@ class Opening:
         sql = "select ROWID, XPV from LINES ORDER BY XPV"
         cursor.execute(sql)
         li_xpv_r = list(cursor.fetchall())
-        li_remove = []
+        st_remove = set()
         for pos in range(len(li_xpv_r) - 1):
             rowid0, xpv0 = li_xpv_r[pos]
             rowid1, xpv1 = li_xpv_r[pos + 1]
-            if xpv1.startswith(xpv0):
-                li_remove.append(rowid0)
-        if li_remove:
+            if not xpv0 or xpv1.startswith(xpv0):
+                st_remove.add(rowid0)
+        if st_remove:
             sql = "DELETE FROM LINES WHERE ROWID=?"
-            cursor.executemany(sql, li_remove)
+            li = [(elem,) for elem in st_remove]
+            cursor.executemany(sql, li)
             self._conexion.commit()
         cursor.execute("VACUUM")
         cursor.close()
@@ -288,6 +289,10 @@ class Opening:
 
     def dicfenvalues(self):
         return self.db_fenvalues.as_dictionary()
+
+    def dic_fen_comments(self):
+        return {fenm2: reg for fenm2, reg in self.db_fenvalues.as_dictionary().items() if
+                reg and ("COMENTARIO" in reg or "VENTAJA" in reg or "VALORACION" in reg)}
 
     def removeAnalisis(self, tmpBP, mensaje):
         for n, fenm2 in enumerate(self.db_fenvalues.keys()):
@@ -951,7 +956,7 @@ class Opening:
         self.li_xpv.sort()
 
     def import_polyglot(
-        self, ventana, game, bookW, bookB, titulo, depth, siWhite, onlyone, minMoves, excl_transpositions
+            self, ventana, game, bookW, bookB, titulo, depth, siWhite, onlyone, minMoves, excl_transpositions
     ):
         bp = QTUtil2.BarraProgreso1(ventana, titulo, formato1="%m")
         bp.ponTotal(0)

@@ -51,8 +51,7 @@ class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
         self.calc_totalTiempo()
 
         self.dicFENm2 = self.training["DICFENM2"]
-        self.dicfenvalues = self.dbop.dicfenvalues()
-
+        self.dic_comments = self.dbop.dic_fen_comments()
 
         self.liMensBasic = []
 
@@ -157,7 +156,7 @@ class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
 
         self.state = ST_ENDGAME
         self.calc_totalTiempo()
-        is_finished = self.num_linea + 1 >= len(self.liGames)
+        is_finished = self.num_linea + 1 >= len(self.liGames) and sinError
         self.muestraInformacion()
         if is_finished:
             QTUtil2.message(
@@ -284,7 +283,7 @@ class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
             self.errores += 1
             mens = "%s: %d" % (_("Error"), self.errores)
             QTUtil2.mensajeTemporal(
-                self.main_window, mens, 1.2, physical_pos="ad", background="#FF9B00", pmImagen=Iconos.pmError()
+                self.main_window, mens, 0.8, physical_pos="ad", background="#FF9B00", pmImagen=Iconos.pmError()
             )
             self.muestraInformacion()
             self.sigueHumano()

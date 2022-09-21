@@ -98,6 +98,9 @@ class EngineManager:
         else:
             self.dispatching = rutina, whoDispatch
 
+    def remove_gui_dispatch(self):
+        self.set_gui_dispatch(None)
+
     def update_multipv(self, xmultipv):
         self.confMotor.update_multipv(xmultipv)
         self.num_multipv = self.confMotor.multiPV
@@ -110,10 +113,6 @@ class EngineManager:
     def set_multipv(self, num_multipv):
         self.confMotor.update_multipv(num_multipv)
         self.num_multipv = self.confMotor.multiPV
-
-    def remove_gui_dispatch(self):
-        if self.engine:
-            self.engine.gui_dispatch = None
 
     def check_engine(self):
         if self.engine is not None:
@@ -346,6 +345,7 @@ class EngineManager:
         else:
             mrm = self.engine.bestmove_game_jg(game, njg, mstime, depth, is_savelines=True)
 
+        self.remove_gui_dispatch()
         ms_used = int((time.time() - ini_time) * 1000)
 
         if njg > 9000:
@@ -399,9 +399,6 @@ class EngineManager:
         mrm = self.engine.bestmove_fen(move.position.fen(), vtime, None)
         if mrm.li_rm:
             rm = mrm.li_rm[0]
-            # if is_white != move.position.is_white:
-            #     if rm.mate:
-            #         rm.mate += +1 if rm.mate > 0 else -1
         else:
             rm = EngineResponse.EngineResponse("", is_white)
         return rm
@@ -469,7 +466,7 @@ class EngineManager:
 
         def play_return(mrm):
             if self.engine:
-                self.engine.gui_dispatch = None
+                self.remove_gui_dispatch()
                 if mrm is None:
                     resp = None
                 elif nAjustado:

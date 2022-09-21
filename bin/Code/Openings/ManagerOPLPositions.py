@@ -57,6 +57,8 @@ class ManagerOpeningLinesPositions(ManagerOPL.ManagerOpeningLines):
         self.is_human_side_white = self.training["COLOR"] == "WHITE"
         self.is_engine_side_white = not self.is_human_side_white
 
+        self.dic_comments = self.dbop.dic_fen_comments()
+
         self.tb_with_comments([TB_CLOSE, TB_HELP, TB_CONFIG])
         self.main_window.activaJuego(True, False, siAyudas=False)
         self.set_dispatcher(self.player_has_moved)
@@ -235,7 +237,7 @@ class ManagerOpeningLinesPositions(ManagerOPL.ManagerOpeningLines):
         if not (pvSel in lipvObj):
             self.errores += 1
             mens = "%s: %d" % (_("Error"), self.errores)
-            QTUtil2.mensajeTemporal(self.main_window, mens, 2, physical_pos="ad", background="#FF9B00")
+            QTUtil2.mensajeTemporal(self.main_window, mens, 0.8, physical_pos="ad", background="#FF9B00")
             self.muestraInformacion()
             self.beepError()
             self.sigueHumano()

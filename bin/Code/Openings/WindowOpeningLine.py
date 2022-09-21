@@ -48,7 +48,7 @@ class WLines(LCDialog.LCDialog):
         li_acciones = (
             (_("Close"), Iconos.MainMenu(), self.terminar),
             None,
-            (_("Remove"), Iconos.Borrar(), self.borrar),
+            (_("Remove"), Iconos.Borrar(), self.remove),
             None,
             (_("Import"), Iconos.Import8(), self.importar),
             None,
@@ -978,7 +978,7 @@ class WLines(LCDialog.LCDialog):
                 self.goto_end_line()
         self.show_lines()
 
-    def borrar(self):
+    def remove(self):
         tam_dbop = len(self.dbop)
         if tam_dbop == 0:
             return
@@ -1099,7 +1099,8 @@ class WLines(LCDialog.LCDialog):
 
             um.final()
 
-            tmpBP = QTUtil2.BarraProgreso(self, _("Remove worst lines"), "", len(dic))
+            tmpBP = QTUtil2.BarraProgreso(self, _("Remove worst lines"), "", len(dic), width=460)
+            tmpBP.mostrar()
 
             for n, fen in enumerate(dic, 1):
                 if tmpBP.is_canceled():
@@ -1144,6 +1145,7 @@ class WLines(LCDialog.LCDialog):
                 n = len(li_borrar)
                 if n:
                     self.dbop.remove_list_lines(li_borrar, _("Remove worst lines"))
+                    self.dbop.pack_database()
                     QTUtil2.message_bold(self, _("Removed %d lines") % n)
                 else:
                     QTUtil2.message_bold(self, _("Done"))

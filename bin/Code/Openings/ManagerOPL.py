@@ -8,10 +8,16 @@ from Code.QT import QTUtil2
 
 class ManagerOpeningLines(Manager.Manager):
     show_comments = None
-    dicfenvalues: dict
+    dic_comments: dict
 
     def tb_with_comments(self, li_tb):
-        if len(self.dicfenvalues) > 0:
+        ok_comments = False
+        for reg in self.dic_comments.values():
+            if reg.get("COMENTARIO"):
+                ok_comments = True
+                break
+
+        if ok_comments:
             li_tb.append(TB_COMMENTS)
             dic = self.configuration.read_variables("OPENINLINES_TRAIN")
             self.show_comments = dic.get("SHOWCOMMENTS", False)
@@ -33,8 +39,8 @@ class ManagerOpeningLines(Manager.Manager):
         valoracion = None
 
         fenm2 = move.position.fenm2()
-        if fenm2 in self.dicfenvalues:
-            reg = self.dicfenvalues[fenm2]
+        if fenm2 in self.dic_comments:
+            reg = self.dic_comments[fenm2]
             if "COMENTARIO" in reg:
                 comment = reg["COMENTARIO"]
                 move.set_comment(comment)
@@ -66,8 +72,3 @@ class ManagerOpeningLines(Manager.Manager):
             text_move += move.pgn_translated()
 
             QTUtil2.message_menu(self.main_window.base.pgn, text_move, comment, not siNuestra)
-
-            # from Code.QT import QTUtil2
-            # donde = self.main_window.base.pgn
-            # QTUtil2.message_nomodal(donde, comment)
-            # self.message_on_pgn(comment, delayed=not siNuestra)

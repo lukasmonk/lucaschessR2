@@ -4,6 +4,7 @@ from PySide2 import QtWidgets, QtCore
 
 import Code
 from Code import CPU
+from Code.Sound import Sound
 from Code import ControlPGN
 from Code import Util
 from Code.Base import Game, Move
@@ -417,8 +418,21 @@ class WLeagueWorker(QtWidgets.QWidget):
             move.del_nags()
         self.add_move(move)
         self.move_the_pieces(move.liMovs)
+        self.sound(move)
 
         return True
+
+    def sound(self, move):
+        if self.configuration.x_sound_tournements:
+            if not Code.runSound:
+                runSound = Sound.RunSound()
+            else:
+                runSound = Code.runSound
+            if self.configuration.x_sound_move:
+                    runSound.play_list(move.listaSonidos())
+            if self.configuration.x_sound_beep:
+                runSound.playBeep()
+
 
     def sudden_end(self, is_white):
         result = RESULT_WIN_BLACK if is_white else RESULT_WIN_WHITE

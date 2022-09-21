@@ -3597,7 +3597,7 @@ def BinBook():
 
 
 def pmConnected():
-    return PM(940825,942443)
+    return PM(940825,941054)
 
 
 def Connected():
@@ -3605,7 +3605,7 @@ def Connected():
 
 
 def pmThemes():
-    return PM(942443,943012)
+    return PM(941054,941623)
 
 
 def Themes():
@@ -3613,7 +3613,7 @@ def Themes():
 
 
 def pmReset():
-    return PM(943012,944631)
+    return PM(941623,943242)
 
 
 def Reset():
@@ -3621,7 +3621,7 @@ def Reset():
 
 
 def pmInstall():
-    return PM(944631,946760)
+    return PM(943242,945371)
 
 
 def Install():
@@ -3629,7 +3629,7 @@ def Install():
 
 
 def pmUninstall():
-    return PM(946760,948786)
+    return PM(945371,947397)
 
 
 def Uninstall():
@@ -3637,7 +3637,7 @@ def Uninstall():
 
 
 def pmLive():
-    return PM(948786,952269)
+    return PM(947397,950880)
 
 
 def Live():
@@ -3645,7 +3645,7 @@ def Live():
 
 
 def pmLauncher():
-    return PM(952269,956944)
+    return PM(950880,955555)
 
 
 def Launcher():
@@ -3653,7 +3653,7 @@ def Launcher():
 
 
 def pmLogInactive():
-    return PM(956944,957475)
+    return PM(955555,956086)
 
 
 def LogInactive():
@@ -3661,7 +3661,7 @@ def LogInactive():
 
 
 def pmLogActive():
-    return PM(957475,958039)
+    return PM(956086,956650)
 
 
 def LogActive():
@@ -3669,7 +3669,7 @@ def LogActive():
 
 
 def pmFolderAnil():
-    return PM(958039,958403)
+    return PM(956650,957014)
 
 
 def FolderAnil():
@@ -3677,7 +3677,7 @@ def FolderAnil():
 
 
 def pmFolderBlack():
-    return PM(958403,958740)
+    return PM(957014,957351)
 
 
 def FolderBlack():
@@ -3685,7 +3685,7 @@ def FolderBlack():
 
 
 def pmFolderBlue():
-    return PM(958740,959114)
+    return PM(957351,957725)
 
 
 def FolderBlue():
@@ -3693,7 +3693,7 @@ def FolderBlue():
 
 
 def pmFolderGreen():
-    return PM(959114,959486)
+    return PM(957725,958097)
 
 
 def FolderGreen():
@@ -3701,7 +3701,7 @@ def FolderGreen():
 
 
 def pmFolderMagenta():
-    return PM(959486,959859)
+    return PM(958097,958470)
 
 
 def FolderMagenta():
@@ -3709,7 +3709,7 @@ def FolderMagenta():
 
 
 def pmFolderRed():
-    return PM(959859,960223)
+    return PM(958470,958834)
 
 
 def FolderRed():
@@ -3717,7 +3717,7 @@ def FolderRed():
 
 
 def pmThis():
-    return PM(960223,960677)
+    return PM(958834,959288)
 
 
 def This():
@@ -3725,7 +3725,7 @@ def This():
 
 
 def pmAll():
-    return PM(960677,961180)
+    return PM(959288,959791)
 
 
 def All():
@@ -3733,7 +3733,7 @@ def All():
 
 
 def pmPrevious():
-    return PM(961180,961639)
+    return PM(959791,960250)
 
 
 def Previous():
@@ -3741,7 +3741,7 @@ def Previous():
 
 
 def pmLine():
-    return PM(961639,961826)
+    return PM(960250,960437)
 
 
 def Line():
@@ -3749,7 +3749,7 @@ def Line():
 
 
 def pmEmpty():
-    return PM(961826,961911)
+    return PM(960437,960522)
 
 
 def Empty():
@@ -3757,7 +3757,7 @@ def Empty():
 
 
 def pmMore():
-    return PM(961911,962200)
+    return PM(960522,960811)
 
 
 def More():
@@ -3765,7 +3765,7 @@ def More():
 
 
 def pmSelectLogo():
-    return PM(962200,962806)
+    return PM(960811,961417)
 
 
 def SelectLogo():
@@ -3773,7 +3773,7 @@ def SelectLogo():
 
 
 def pmSelect():
-    return PM(962806,963460)
+    return PM(961417,962071)
 
 
 def Select():
@@ -3781,7 +3781,7 @@ def Select():
 
 
 def pmSelectClose():
-    return PM(963460,964232)
+    return PM(962071,962843)
 
 
 def SelectClose():
@@ -3789,7 +3789,7 @@ def SelectClose():
 
 
 def pmSelectHome():
-    return PM(964232,965014)
+    return PM(962843,963625)
 
 
 def SelectHome():
@@ -3797,7 +3797,7 @@ def SelectHome():
 
 
 def pmSelectHistory():
-    return PM(965014,965566)
+    return PM(963625,964177)
 
 
 def SelectHistory():
@@ -3805,7 +3805,7 @@ def SelectHistory():
 
 
 def pmSelectExplorer():
-    return PM(965566,966299)
+    return PM(964177,964910)
 
 
 def SelectExplorer():
@@ -3813,7 +3813,7 @@ def SelectExplorer():
 
 
 def pmSelectFolderCreate():
-    return PM(966299,967218)
+    return PM(964910,965829)
 
 
 def SelectFolderCreate():
@@ -3821,7 +3821,7 @@ def SelectFolderCreate():
 
 
 def pmSelectFolderRemove():
-    return PM(967218,968245)
+    return PM(965829,966856)
 
 
 def SelectFolderRemove():
@@ -3829,7 +3829,7 @@ def SelectFolderRemove():
 
 
 def pmSelectReload():
-    return PM(968245,969899)
+    return PM(966856,968510)
 
 
 def SelectReload():
@@ -3837,7 +3837,7 @@ def SelectReload():
 
 
 def pmSelectAccept():
-    return PM(969899,970700)
+    return PM(968510,969311)
 
 
 def SelectAccept():
@@ -3845,7 +3845,7 @@ def SelectAccept():
 
 
 def pmWiki():
-    return PM(970700,971817)
+    return PM(969311,970428)
 
 
 def Wiki():
@@ -3853,7 +3853,7 @@ def Wiki():
 
 
 def pmCircle():
-    return PM(971817,973277)
+    return PM(970428,971888)
 
 
 def Circle():
@@ -3861,7 +3861,7 @@ def Circle():
 
 
 def pmSortAZ():
-    return PM(973277,974041)
+    return PM(971888,972652)
 
 
 def SortAZ():
@@ -3869,7 +3869,7 @@ def SortAZ():
 
 
 def pmReference():
-    return PM(974041,975152)
+    return PM(972652,973763)
 
 
 def Reference():
@@ -3877,7 +3877,7 @@ def Reference():
 
 
 def pmLanguageNew():
-    return PM(975152,975879)
+    return PM(973763,974490)
 
 
 def LanguageNew():
@@ -3885,7 +3885,7 @@ def LanguageNew():
 
 
 def pmODT():
-    return PM(975879,976994)
+    return PM(974490,975605)
 
 
 def ODT():
@@ -3893,7 +3893,7 @@ def ODT():
 
 
 def pmEngines():
-    return PM(976994,978480)
+    return PM(975605,977091)
 
 
 def Engines():
@@ -3901,7 +3901,7 @@ def Engines():
 
 
 def pmConfEngines():
-    return PM(978480,979676)
+    return PM(977091,978287)
 
 
 def ConfEngines():
@@ -3909,7 +3909,7 @@ def ConfEngines():
 
 
 def pmEngine():
-    return PM(979676,981100)
+    return PM(978287,979711)
 
 
 def Engine():
@@ -3917,7 +3917,7 @@ def Engine():
 
 
 def pmZip():
-    return PM(981100,981996)
+    return PM(979711,980607)
 
 
 def Zip():
@@ -3925,7 +3925,7 @@ def Zip():
 
 
 def pmUpdate():
-    return PM(981996,983080)
+    return PM(980607,981691)
 
 
 def Update():
@@ -3933,7 +3933,7 @@ def Update():
 
 
 def pmDGT():
-    return PM(983080,984074)
+    return PM(981691,982685)
 
 
 def DGT():
@@ -3941,7 +3941,7 @@ def DGT():
 
 
 def pmDGTB():
-    return PM(984074,984776)
+    return PM(982685,983387)
 
 
 def DGTB():
@@ -3949,7 +3949,7 @@ def DGTB():
 
 
 def pmMillenium():
-    return PM(984776,986013)
+    return PM(983387,984624)
 
 
 def Millenium():
@@ -3957,7 +3957,7 @@ def Millenium():
 
 
 def pmCertabo():
-    return PM(986013,986798)
+    return PM(984624,985409)
 
 
 def Certabo():
@@ -3965,7 +3965,7 @@ def Certabo():
 
 
 def pmNovag():
-    return PM(986798,987665)
+    return PM(985409,986276)
 
 
 def Novag():
@@ -3973,7 +3973,7 @@ def Novag():
 
 
 def pmChessnut():
-    return PM(987665,988440)
+    return PM(986276,987051)
 
 
 def Chessnut():
@@ -3981,7 +3981,7 @@ def Chessnut():
 
 
 def pmSquareOff():
-    return PM(988440,989196)
+    return PM(987051,987807)
 
 
 def SquareOff():
@@ -3989,7 +3989,7 @@ def SquareOff():
 
 
 def pmRodent():
-    return PM(989196,990314)
+    return PM(987807,988925)
 
 
 def Rodent():
@@ -3997,7 +3997,7 @@ def Rodent():
 
 
 def pmLeague():
-    return PM(990314,991644)
+    return PM(988925,990255)
 
 
 def League():
@@ -4005,7 +4005,7 @@ def League():
 
 
 def pmJourney():
-    return PM(991644,992883)
+    return PM(990255,991494)
 
 
 def Journey():
@@ -4013,7 +4013,7 @@ def Journey():
 
 
 def pmClassification():
-    return PM(992883,993402)
+    return PM(991494,992013)
 
 
 def Classification():
@@ -4021,7 +4021,7 @@ def Classification():
 
 
 def pmNAGs():
-    return PM(993402,993699)
+    return PM(992013,992310)
 
 
 def NAGs():
@@ -4029,7 +4029,7 @@ def NAGs():
 
 
 def pmSeason():
-    return PM(993699,994497)
+    return PM(992310,993108)
 
 
 def Season():
@@ -4037,7 +4037,7 @@ def Season():
 
 
 def pmNAG_0():
-    return PM(994497,994718)
+    return PM(993108,993329)
 
 
 def NAG_0():
@@ -4045,7 +4045,7 @@ def NAG_0():
 
 
 def pmNAG_1():
-    return PM(994718,995153)
+    return PM(993329,993764)
 
 
 def NAG_1():
@@ -4053,7 +4053,7 @@ def NAG_1():
 
 
 def pmNAG_2():
-    return PM(995153,995710)
+    return PM(993764,994321)
 
 
 def NAG_2():
@@ -4061,7 +4061,7 @@ def NAG_2():
 
 
 def pmNAG_3():
-    return PM(995710,996496)
+    return PM(994321,995107)
 
 
 def NAG_3():
@@ -4069,7 +4069,7 @@ def NAG_3():
 
 
 def pmNAG_4():
-    return PM(996496,997307)
+    return PM(995107,995918)
 
 
 def NAG_4():
@@ -4077,7 +4077,7 @@ def NAG_4():
 
 
 def pmNAG_5():
-    return PM(997307,998168)
+    return PM(995918,996779)
 
 
 def NAG_5():
@@ -4085,7 +4085,7 @@ def NAG_5():
 
 
 def pmNAG_6():
-    return PM(998168,998948)
+    return PM(996779,997559)
 
 
 def NAG_6():
@@ -4093,7 +4093,7 @@ def NAG_6():
 
 
 def pmInformation():
-    return PM(998948,1002428)
+    return PM(997559,1001039)
 
 
 def Information():

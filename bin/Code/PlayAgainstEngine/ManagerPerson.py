@@ -1,4 +1,4 @@
-from Code import Util
+from Code import TimeControl
 from Code.Base.Constantes import (
     ST_PLAYING,
     TB_REINIT,
@@ -10,8 +10,6 @@ from Code.Base.Constantes import (
     TB_RESIGN,
     TB_UTILITIES,
     GT_AGAINST_CHILD_ENGINE,
-    WHITE,
-    BLACK,
 )
 from Code.Openings import Opening
 from Code.PlayAgainstEngine import ManagerPlayAgainstEngine
@@ -83,20 +81,24 @@ class ManagerPerson(ManagerPlayAgainstEngine.ManagerPlayAgainstEngine):
 
         self.xrival.is_white = self.is_engine_side_white
 
+        self.tc_player = TimeControl.TimeControl(self.main_window, self.game, self.is_human_side_white)
+        self.tc_rival = TimeControl.TimeControl(self.main_window, self.game, not self.is_human_side_white)
+
         self.timed = dic_var["SITIEMPO"]
         if self.timed:
-            self.max_seconds = dic_var["MINUTOS"] * 60.0
-            self.seconds_per_move = dic_var["SEGUNDOS"]
-            self.secs_extra = dic_var.get("MINEXTRA", 0) * 60.0
+            max_seconds = dic_var["MINUTOS"] * 60.0
+            seconds_per_move = dic_var["SEGUNDOS"]
+            secs_extra = dic_var.get("MINEXTRA", 0) * 60.0
 
-            self.vtime = {
-                WHITE: Util.Timer2(self.game, WHITE, self.max_seconds, self.seconds_per_move),
-                BLACK: Util.Timer2(self.game, BLACK, self.max_seconds, self.seconds_per_move),
-            }
+            self.tc_player.config_clock(max_seconds, seconds_per_move, 0.0, secs_extra)
+            self.tc_rival.config_clock(max_seconds, seconds_per_move, 0.0, secs_extra)
+
+            self.tc_white = self.tc_player if self.is_human_side_white else self.tc_rival
+            self.tc_black = self.tc_rival if self.is_engine_side_white else self.tc_player
 
             time_control = "%d" % int(self.max_seconds)
-            if self.seconds_per_move:
-                time_control += "+%d" % self.seconds_per_move
+            if seconds_per_move:
+                time_control += "+%d" % seconds_per_move
             self.game.set_tag("TimeControl", time_control)
 
         self.thinking(False)
@@ -124,15 +126,24 @@ class ManagerPerson(ManagerPlayAgainstEngine.ManagerPlayAgainstEngine):
         bl, ng = player, rival
         if self.is_engine_side_white:
             bl, ng = ng, bl
+
         if self.timed:
-            tpBL = self.vtime[True].etiqueta()
-            tpNG = self.vtime[False].etiqueta()
-            self.main_window.ponDatosReloj(bl, tpBL, ng, tpNG)
+            tp_bl, tp_ng = self.tc_white.label(), self.tc_black.label()
+
+            self.main_window.ponDatosReloj(bl, tp_bl, ng, tp_ng)
             self.refresh()
-            self.main_window.start_clock(self.set_clock, 1000)
         else:
             self.main_window.base.change_player_labels(bl, ng)
 
+        if self.timed:
+            tp_bl, tp_ng = self.tc_white.label(), self.tc_black.label()
+
+            self.main_window.ponDatosReloj(bl, tp_bl, ng, tp_ng)
+            self.refresh()
+        else:
+            self.main_window.base.change_player_labels(bl, ng)
+
+        self.main_window.start_clock(self.set_clock, 1000)
         self.main_window.set_notify(self.mueve_rival_base)
 
         self.check_boards_setposition()

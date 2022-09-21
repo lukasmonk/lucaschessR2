@@ -27,8 +27,8 @@ def options(parent, configuration):
     li = []
     for k, trad, porc, author in li_traducciones:
         label = "%s" % trad
-        if int(porc) < 90:
-            label += " (%s%%)" % porc
+        # if int(porc) < 90:
+        label += "    %s%%" % porc
         li.append((label, k))
     form.combobox(_("Language"), li, tr_actual)
 
@@ -60,6 +60,8 @@ def options(parent, configuration):
     form.checkbox(_("Play customised sounds"), configuration.x_sound_move)
     form.separador()
     form.checkbox(_("The same for player moves"), configuration.x_sound_our)
+    form.separador()
+    form.checkbox(_("Tournaments between engines"), configuration.x_sound_tournements)
     form.separador()
     form.separador()
     form.apart(_("When finishing the game"))
@@ -273,6 +275,7 @@ def options(parent, configuration):
             configuration.x_sound_beep,
             configuration.x_sound_move,
             configuration.x_sound_our,
+            configuration.x_sound_tournements,
             configuration.x_sound_results,
             configuration.x_sound_error,
         ) = li_son

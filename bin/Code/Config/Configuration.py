@@ -249,6 +249,7 @@ class Configuration:
         self.x_sound_move = False
         self.x_sound_results = False
         self.x_sound_error = False
+        self.x_sound_tournements = False
 
         self.x_interval_replay = 1400
 

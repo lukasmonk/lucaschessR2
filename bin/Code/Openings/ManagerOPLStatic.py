@@ -1,6 +1,5 @@
 import time
 
-import Code.Nags.Nags
 from Code import Manager
 from Code import Util
 from Code.Base import Game, Move
@@ -47,7 +46,7 @@ class ManagerOpeningLinesStatic(ManagerOPL.ManagerOpeningLines):
         self.calc_totalTiempo()
 
         self.dicFENm2 = self.training["DICFENM2"]
-        self.dicfenvalues = self.dbop.dicfenvalues()
+        self.dic_comments = self.dbop.dic_fen_comments()
 
         li = self.dbop.getNumLinesPV(self.li_pv)
         if len(li) > 10:
@@ -124,21 +123,6 @@ class ManagerOpeningLinesStatic(ManagerOPL.ManagerOpeningLines):
 
         self.set_label2(mens)
 
-        if self.siAyuda:
-            dic_nags = Code.Nags.Nags.dic_nags()
-            mens3 = ""
-            fenm2 = self.game.last_position.fenm2()
-            reg = self.dbop.getfenvalue(fenm2)
-            if reg:
-                mens3 = reg.get("COMENTARIO", "")
-                ventaja = reg.get("VENTAJA", 0)
-                valoracion = reg.get("VALORACION", 0)
-                if ventaja:
-                    mens3 += "\n %s" % dic_nags[ventaja].text
-                if valoracion:
-                    mens3 += "\n %s" % dic_nags[valoracion].text
-            self.set_label3(mens3 if mens3 else None)
-
     def game_finished(self, is_complete):
         self.state = ST_ENDGAME
         tm = time.time() - self.ini_time
@@ -156,8 +140,8 @@ class ManagerOpeningLinesStatic(ManagerOPL.ManagerOpeningLines):
 
         for move in self.game.li_moves:
             fenm2 = move.position.fenm2()
-            if fenm2 in self.dicfenvalues:
-                reg = self.dicfenvalues[fenm2]
+            if fenm2 in self.dic_comments:
+                reg = self.dic_comments[fenm2]
                 if "COMENTARIO" in reg:
                     move.set_comment(reg["COMENTARIO"])
                 if "VENTAJA" in reg:
@@ -299,14 +283,14 @@ class ManagerOpeningLinesStatic(ManagerOPL.ManagerOpeningLines):
             li = self.dicFENm2.get(fenm2, set())
             if pvSel in li:
                 mens = _("You have selected a correct move, but this line uses another one.")
-                QTUtil2.mensajeTemporal(self.main_window, mens, 2, physical_pos="tb", background="#C3D6E8")
+                QTUtil2.mensajeTemporal(self.main_window, mens, 1.2, physical_pos="tb", background="#C3D6E8")
                 self.sigueHumano()
                 return False
 
             self.errores += 1
             mens = "%s: %d" % (_("Error"), self.errores)
             QTUtil2.mensajeTemporal(
-                self.main_window, mens, 1.2, physical_pos="ad", background="#FF9B00", pmImagen=Iconos.pmError()
+                self.main_window, mens, 0.8, physical_pos="ad", background="#FF9B00", pmImagen=Iconos.pmError()
             )
             self.muestraInformacion()
             self.sigueHumano()

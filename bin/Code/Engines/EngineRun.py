@@ -66,6 +66,7 @@ class RunEngine:
         self.direct_dispatch = None
 
         self.mrm = None
+        self.stopped = False
 
         self.start()
 
@@ -107,6 +108,8 @@ class RunEngine:
 
     def put_line_debug(self, line: str):
         if self.working:
+            if line == "stop":
+                self.stopped = True
             Code.xpr(self.name, "put>>> %s\n" % line)
             self.stdin_lock.acquire()
             line = line.encode()
@@ -118,6 +121,8 @@ class RunEngine:
 
     def put_line_base(self, line: str):
         if self.working:
+            if line == "stop":
+                self.stopped = True
             self.stdin_lock.acquire()
             line = line.encode()
             if self.log:
@@ -286,12 +291,14 @@ class RunEngine:
         return True
 
     def wait_mrm(self, seektxt, msStop):
+        self.stopped = False
         iniTiempo = time.time()
         stop = False
         while True:
             if self.hay_datos():
                 for line in self.get_lines():
-                    self.mrm.dispatch(line)
+                    if not self.stopped: # problema con información que llega tras stop, que no muestra lineas completas de pv en stockfish
+                        self.mrm.dispatch(line)
                     if seektxt in line:
                         if not self.dispatch():
                             self.put_line("stop")

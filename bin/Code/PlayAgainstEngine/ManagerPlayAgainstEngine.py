@@ -7,6 +7,7 @@ import Code
 from Code import Adjournments
 from Code import Manager
 from Code import Util
+from Code import TimeControl
 from Code.Analysis import Analysis
 from Code.Base import Game, Move, Position
 from Code.Base.Constantes import (
@@ -55,10 +56,14 @@ class ManagerPlayAgainstEngine(Manager.Manager):
     reinicio = None
     cache = None
     is_analyzing = False
-    timekeeper = None
+
+    tc_player = None
+    tc_rival = None
+    tc_white = None
+    tc_black = None
+
     summary = None
     with_summary = False
-    human_side = False
     is_engine_side_white = False
     conf_engine = None
     lirm_engine = None
@@ -89,7 +94,6 @@ class ManagerPlayAgainstEngine(Manager.Manager):
     segundosJugada = 0
     secs_extra = 0
     zeitnot = 0
-    vtime = None
     is_analyzed_by_tutor = False
     toolbar_state = None
     premove = None
@@ -240,26 +244,29 @@ class ManagerPlayAgainstEngine(Manager.Manager):
 
         self.xrival.is_white = self.is_engine_side_white
 
+        self.tc_player = TimeControl.TimeControl(self.main_window, self.game, self.is_human_side_white)
+        self.tc_rival = TimeControl.TimeControl(self.main_window, self.game, not self.is_human_side_white)
+
         self.timed = dic_var["WITHTIME"]
         if self.timed:
-            self.max_seconds = dic_var["MINUTES"] * 60.0
-            self.seconds_per_move = dic_var["SECONDS"]
-            self.secs_extra = dic_var.get("MINEXTRA", 0) * 60.0
-            self.zeitnot = dic_var.get("ZEITNOT", 0)
+            max_seconds = dic_var["MINUTES"] * 60.0
+            seconds_per_move = dic_var["SECONDS"]
+            secs_extra = dic_var.get("MINEXTRA", 0) * 60.0
+            zeitnot = dic_var.get("ZEITNOT", 0)
 
-            self.vtime = {
-                WHITE: Util.Timer2(self.game, WHITE, self.max_seconds, self.seconds_per_move),
-                BLACK: Util.Timer2(self.game, BLACK, self.max_seconds, self.seconds_per_move),
-            }
-            if self.secs_extra:
-                self.vtime[self.is_human_side_white].add_extra_seconds(self.secs_extra)
+            self.tc_player.config_clock(max_seconds, seconds_per_move, zeitnot, secs_extra)
+            self.tc_rival.config_clock(max_seconds, seconds_per_move, zeitnot, secs_extra)
+
+            self.tc_white = self.tc_player if self.is_human_side_white else self.tc_rival
+            self.tc_black = self.tc_rival if self.is_engine_side_white else self.tc_player
+
 
             time_control = "%d" % int(self.max_seconds)
-            if self.seconds_per_move:
-                time_control += "+%d" % self.seconds_per_move
+            if seconds_per_move:
+                time_control += "+%d" % seconds_per_move
             self.game.set_tag("TimeControl", time_control)
-            if self.secs_extra:
-                self.game.set_tag("TimeExtra" + ("White" if self.is_human_side_white else "Black"), "%d" % self.secs_extra)
+            if secs_extra:
+                self.game.set_tag("TimeExtra" + ("White" if self.is_human_side_white else "Black"), "%d" % secs_extra)
 
         self.pon_toolbar()
 
@@ -293,19 +300,15 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         if self.is_engine_side_white:
             bl, ng = ng, bl
 
-        active_clock = max(self.thoughtOp, self.thoughtTt) > -1
-
         if self.timed:
-            tp_bl = self.vtime[True].etiqueta()
-            tp_ng = self.vtime[False].etiqueta()
+            tp_bl, tp_ng = self.tc_white.label(), self.tc_black.label()
+
             self.main_window.ponDatosReloj(bl, tp_bl, ng, tp_ng)
-            active_clock = True
             self.refresh()
         else:
             self.main_window.base.change_player_labels(bl, ng)
 
-        if active_clock or self.nArrowsTt > 0 or self.nArrows > 0 or self.thoughtOp > 0 or self.thoughtTt > 0:
-            self.main_window.start_clock(self.set_clock, 1000)
+        self.main_window.start_clock(self.set_clock, 1000)
 
         self.main_window.set_notify(self.mueve_rival_base)
 
@@ -361,15 +364,9 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             rotulo1 += "<br>%s-%s: <b>%s</b>" % (_("Book"), _("Player"), os.path.basename(self.book_player.name))
         self.set_label1(rotulo1)
 
-    def show_time(self, siUsuario):
-        is_white = siUsuario == self.is_human_side_white
-        ot = self.vtime[is_white]
-        eti, eti2 = ot.etiquetaDif2()
-        if eti:
-            if is_white:
-                self.main_window.set_clock_white(eti, eti2)
-            else:
-                self.main_window.set_clock_black(eti, eti2)
+    def show_time(self, is_player):
+        tc = self.tc_player if is_player else self.tc_rival
+        tc.set_labels()
 
     def set_clock(self):
         if self.state == ST_ENDGAME:
@@ -399,59 +396,40 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                 if self.thoughtOp > -1:
                     self.show_dispatch(self.thoughtOp, rm)
 
-        if not self.timed:
-            return
+        if self.timed:
+            if Code.eboard:
+                Code.eboard.writeClocks(self.tc_white.label_dgt(), self.tc_black.label_dgt())
 
-        def mira(xis_white):
-            ot = self.vtime[xis_white]
+            is_white = self.game.last_position.is_white
+            is_player = self.is_human_side_white == is_white
 
-            eti, eti2 = ot.etiquetaDif2()
-            if eti:
-                if xis_white:
-                    self.main_window.set_clock_white(eti, eti2)
-                else:
-                    self.main_window.set_clock_black(eti, eti2)
+            tc = self.tc_player if is_player else self.tc_rival
+            tc.set_labels()
 
-            siJugador = self.is_human_side_white == xis_white
-            if ot.time_is_consumed():
-                if siJugador and QTUtil2.pregunta(
+            if tc.time_is_consumed():
+                if is_player and QTUtil2.pregunta(
                     self.main_window,
                     _X(_("%1 has won on time."), self.xrival.name) + "\n\n" + _("Add time and keep playing?"),
                 ):
                     minX = WPlayAgainstEngine.dameMinutosExtra(self.main_window)
                     if minX:
-                        ot.add_extra_seconds(minX * 60)
+                        tc.add_extra_seconds(minX * 60)
+                        tc.set_labels()
                         return
-                self.game.set_termination(TERMINATION_WIN_ON_TIME, RESULT_WIN_BLACK if xis_white else RESULT_WIN_WHITE)
+                self.game.set_termination(TERMINATION_WIN_ON_TIME, RESULT_WIN_BLACK if is_white else RESULT_WIN_WHITE)
                 self.state = ST_ENDGAME  # necesario que esté antes de stop_clock para no entrar en bucle
-                self.stop_clock(siJugador)
+                self.stop_clock(is_player)
                 self.show_result()
                 return
 
-            elif siJugador and ot.is_zeitnot():
+            elif is_player and tc.is_zeitnot():
                 self.beepZeitnot()
 
-            return
-
-        if Code.eboard:
-            Code.eboard.writeClocks(self.vtime[True].label_dgt(), self.vtime[False].label_dgt())
-
-        if self.human_is_playing:
-            is_white = self.is_human_side_white
-        else:
-            is_white = not self.is_human_side_white
-        mira(is_white)
-
-    def start_clock(self, siUsuario):
-        if self.timed:
-            self.vtime[siUsuario == self.is_human_side_white].start_marker()
-            self.vtime[not siUsuario].recalc()
-            self.vtime[siUsuario == self.is_human_side_white].set_zeinot(self.zeitnot)
-
-    def stop_clock(self, siUsuario):
-        if self.timed:
-            self.vtime[siUsuario == self.is_human_side_white].stop_marker()
-            self.show_time(siUsuario)
+    def stop_clock(self, is_player):
+        tc = self.tc_player if is_player else self.tc_rival
+        secs = tc.stop()
+        self.show_time(is_player)
+        return secs
 
     def run_action(self, key):
         if key == TB_CANCEL:
@@ -530,8 +508,8 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         # tiempos
         if self.timed:
             self.main_window.stop_clock()
-            dic["time_white"] = self.vtime[WHITE].save()
-            dic["time_black"] = self.vtime[BLACK].save()
+            dic["time_white"] = self.tc_white.save()
+            dic["time_black"] = self.tc_black.save()
 
         dic["is_tutor_enabled"] = self.is_tutor_enabled
 
@@ -545,8 +523,8 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         self.game.restore(dic["game_save"])
 
         if self.timed:
-            self.vtime[WHITE].restore(dic["time_white"])
-            self.vtime[BLACK].restore(dic["time_black"])
+            self.tc_white.restore(dic["time_white"])
+            self.tc_black.restore(dic["time_black"])
 
         self.is_tutor_enabled = dic["is_tutor_enabled"]
         self.hints = dic["hints"]
@@ -631,6 +609,9 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             self.xtutor.ac_final(-1)
         self.board.set_position(self.game.first_position)
         self.board.disable_all()
+        tc = self.tc_white if self.game.last_position.is_white else self.tc_black
+        tc.pause()
+        self.show_clocks()
         self.main_window.hide_pgn()
         self.pon_toolbar()
 
@@ -639,6 +620,9 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         self.board.set_position(self.game.last_position)
         self.pon_toolbar()
         self.main_window.show_pgn()
+        tc = self.tc_white if self.game.last_position.is_white else self.tc_black
+        tc.restart()
+        self.show_clocks()
         self.play_next_move()
 
     def final_x(self):
@@ -657,7 +641,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                 return False  # no abandona
             if self.timed:
                 self.main_window.stop_clock()
-                self.show_clocks(True)
+                self.show_clocks()
             if self.is_analyzing:
                 self.is_analyzing = False
                 self.xtutor.ac_final(-1)
@@ -688,7 +672,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             return True
         if self.timed:
             self.main_window.stop_clock()
-            self.show_clocks(True)
+            self.show_clocks()
         if len(self.game) > 0:
             if not QTUtil2.pregunta(self.main_window, _("Do you want to resign?")):
                 return False  # no abandona
@@ -899,8 +883,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         return self.eligeJugadaBookBase(book, "pr")
 
     def juegaHumano(self, is_white):
-        self.start_clock(True)
-        self.timekeeper.start()
+        self.tc_player.start()
         self.human_is_playing = True
         last_position = self.game.last_position
         si_changed, from_sq, to_sq = self.board.piece_out_position(last_position)
@@ -926,8 +909,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
 
     def juegaRival(self, is_white):
         self.board.remove_arrows()
-        self.start_clock(False)
-        self.timekeeper.start()
+        self.tc_rival.start()
         self.human_is_playing = False
         self.rival_is_thinking = True
         self.rm_rival = None
@@ -945,7 +927,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             self.move_the_pieces(move.liMovs, True)
             self.add_move(move, False)
             if self.timed:
-                self.vtime[self.is_engine_side_white].restore(move.cacheTime)
+                self.tc_rival.restore(move.cacheTime)
                 self.show_clocks()
             return self.play_next_move()
 
@@ -980,9 +962,9 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         else:
             self.thinking(True)
             if self.timed:
-                seconds_white = self.vtime[True].pending_time
-                seconds_black = self.vtime[False].pending_time
-                seconds_move = self.seconds_per_move
+                seconds_white = self.tc_white.pending_time
+                seconds_black = self.tc_black.pending_time
+                seconds_move = self.tc_white.seconds_per_move
             else:
                 seconds_white = seconds_black = self.unlimited_minutes * 60
                 seconds_move = 0
@@ -1006,8 +988,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
 
     def play_rival(self, rm_rival):
         self.rival_is_thinking = False
-        self.stop_clock(False)
-        time_s = self.timekeeper.stop()
+        time_s = self.stop_clock(False)
         self.thinking(False)
         self.setSummary("TIMERIVAL", time_s)
 
@@ -1035,7 +1016,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             self.beepExtendido(False)
             if with_cache:
                 if self.timed:
-                    move.cacheTime = self.vtime[self.is_engine_side_white].save()
+                    move.cacheTime = self.tc_rival.save()
                 self.cache[fen_ultimo] = move
             self.play_next_move()
             return True
@@ -1095,7 +1076,8 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         move = self.check_human_move(from_sq, to_sq, promotion, not self.is_tutor_enabled)
         if not move:
             return False
-        self.timekeeper.pause()
+        self.tc_player.pause()
+        self.tc_player.set_labels()
         a1h8 = move.movimiento()
         si_analisis = False
         is_choosed = False
@@ -1112,7 +1094,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                 else:
                     self.board.ponFlechasTmp(((apdesde, aphasta, False),))
                     self.beepError()
-                    self.timekeeper.restart()
+                    self.tc_player.restart()
                     self.sigueHumano()
                     return False
 
@@ -1130,7 +1112,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                         li.append((apdesde, aphasta, False))
                     if not is_choosed:
                         self.board.ponFlechasTmp(li)
-                        self.timekeeper.restart()
+                        self.tc_player.restart()
                         self.sigueHumano()
                         return False
                 else:
@@ -1150,8 +1132,8 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                     rm_user = self.xtutor.valora(self.game.last_position, from_sq, to_sq, move.promotion)
                     self.main_window.pensando_tutor(False)
                     if not rm_user:
-                        self.timekeeper.restart()
                         self.sigueHumanoAnalisis()
+                        self.tc_player.restart()
                         return False
                     self.mrmTutor.agregaRM(rm_user)
                 si_analisis = True
@@ -1183,14 +1165,14 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                                 self.main_window.cursorFueraBoard()
                                 resp = menu.lanza()
                                 if resp == "try":
-                                    self.timekeeper.restart()
                                     self.sigueHumanoAnalisis()
+                                    self.tc_player.restart()
                                     return False
                                 elif resp == "user":
                                     si_tutor = False
                                 elif resp != "tutor":
-                                    self.timekeeper.restart()
                                     self.sigueHumanoAnalisis()
+                                    self.tc_player.restart()
                                     return False
                         if si_tutor:
                             tutor = Tutor.Tutor(self, move, from_sq, to_sq, False)
@@ -1217,15 +1199,18 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                             del tutor
 
         # --------------------------------------------------------------------------------------------------------------
-        secs_used = self.timekeeper.stop()
-        move.set_time_ms(secs_used * 1000)
-        self.setSummary("TIMEUSER", secs_used)
-        self.stop_clock(True)
+        time_s = self.tc_player.stop()
+        if self.timed:
+            self.show_clocks()
+
+        move.set_time_ms(time_s * 1000)
+        self.setSummary("TIMEUSER", time_s)
 
         if si_analisis:
             rm, nPos = self.mrmTutor.buscaRM(move.movimiento())
             if rm:
                 move.analysis = self.mrmTutor, nPos
+
 
         self.add_move(move, True)
         self.move_the_pieces(move.liMovs, False)
@@ -1237,7 +1222,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
 
     def add_move(self, move, siNuestra):
         self.game.add_move(move)
-        self.show_clocks(True)
+        self.show_clocks()
         self.check_boards_setposition()
 
         self.put_arrow_sc(move.from_sq, move.to_sq)
@@ -1424,25 +1409,16 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             self.set_label3("<br>".join(li) + "</span>")
             QTUtil.refresh_gui()
 
-    def show_clocks(self, with_recalc=False):
-        if not self.vtime:
+    def show_clocks(self):
+        if not self.timed:
             return
-        if with_recalc:
-            for is_white in (WHITE, BLACK):
-                self.vtime[is_white].recalc()
 
         if Code.eboard:
-            Code.eboard.writeClocks(self.vtime[True].label_dgt(), self.vtime[False].label_dgt())
+            Code.eboard.writeClocks(self.tc_white.label_dgt(), self.tc_black.label_dgt())
 
         for is_white in (WHITE, BLACK):
-            ot = self.vtime[is_white]
-
-            eti, eti2 = ot.etiquetaDif2()
-            if eti:
-                if is_white:
-                    self.main_window.set_clock_white(eti, eti2)
-                else:
-                    self.main_window.set_clock_black(eti, eti2)
+            tc = self.tc_white if is_white else self.tc_black
+            tc.set_labels()
 
     def change_tutor_active(self):
         previous = self.is_tutor_enabled

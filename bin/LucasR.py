@@ -10,7 +10,6 @@
 
 # TODO XXIII) Maybe some of these links could be useful in documents. I let you see.
 
-# TODO cambiada la version de los eboards -> 2
 # TODO añadido codigo para que cierre los drivers de las eboards antes de descargar los nuevos-> hay que comprobar que funciona
 
 # TODO cuando no está activado el background del tutor, se puede seguir el background, controlando que si llega a alguno de los límites, se pare el proceso
@@ -21,19 +20,18 @@
 
 # TODO ventana de variantes, rastrear cambios en el tamaño, cuando graba un cambio diferente, debiera permitirse unicamente cuando se haga manualmente
 
-# TODO puzzles lichess, asignar opening
+# TODO puzzles lichess, crear la super database_puzzles_lichess para operar con las openings lines especíicamente, se puede pedir que descargue de
 
 # TODO analisis en managers, debiera tener las mismas rutinas de interface en todos los managers, uno común
 #  y utilizar rutinas con mombre de tutor, para saber que se usa el tutor como motor
 #  separar el análisis del tutor del análisis de posición y masivo
 
-# TODO timekeeper, quitar y dejar solo una rutina de reloj.
-
-# TODO subanalysis pantallas que guardan posicion cuando se cierran, quizás moveevent
+# TODO timekeeper, quitar y dejar solo una rutina de reloj, mejor quizás crear una clase que controla el tiempo que permita trabajar con los distintos modos, al menos los clásicos.
 
 # TODO analisis de variantes cuando el movimiento original está analizado y no se quiere reanalizar
 
-# TODO kibitzers, config, cabiado before a after, no funciona el límite de tiempo.
+# Incluir en el análisis la gráfica de tiempo usado en cada jugada
+
 
 # El 01/12/2021 a las 16:56, Hifi escribió:
 # > XXIII) Maybe some of these links could be useful in documents. I let you see.

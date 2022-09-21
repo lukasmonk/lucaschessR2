@@ -476,6 +476,7 @@ class WAnalisis(LCDialog.LCDialog):
             )
             move.analysis = mrm, pos
             me.final()
+            xanalyzer.set_gui_dispatch(None)
 
             Analysis.show_analysis(
                 Code.procesador,

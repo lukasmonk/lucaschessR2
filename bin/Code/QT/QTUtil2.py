@@ -172,7 +172,7 @@ class ControlMensEspera:
             mensaje,
             siCancelar=False,
             siMuestraYa=True,
-            opacity=0.95,
+            opacity=0.91,
             physical_pos="c",
             fixedSize=None,
             titCancelar=None,
@@ -443,7 +443,7 @@ class BarraProgreso(QtWidgets.QProgressDialog):
     # ~ break
     # ~ bp.cerrar()
 
-    def __init__(self, owner, titulo, mensaje, total):
+    def __init__(self, owner, titulo, mensaje, total, width=None):
         QtWidgets.QProgressDialog.__init__(self, mensaje, _("Cancel"), 0, total, owner)
         self.total = total
         self.actual = 0
@@ -458,6 +458,8 @@ class BarraProgreso(QtWidgets.QProgressDialog):
         self.owner = owner
         self.setAutoClose(False)
         self.setAutoReset(False)
+        if width:
+            self.setFixedWidth(width)
 
     def mostrar(self):
         if self.owner:
