@@ -75,7 +75,6 @@ class WEndingsGTB(LCDialog.LCDialog):
         #         self.main_window.set_title_toolbar_eboard()
         #
 
-
         self.tb_base = QTVarios.LCTB(self, li_acciones)
 
         ly_bt, self.bt_movs = QTVarios.lyBotonesMovimiento(
@@ -505,7 +504,6 @@ class WEndingsGTB(LCDialog.LCDialog):
         self.timer = time.time()
         self.board.set_raw_last_position(self.game.last_position)
         self.sigueHumano()
-
 
     def player_has_moved(self, from_sq, to_sq, promotion=""):
         if self.timer:

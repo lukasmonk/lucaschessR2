@@ -478,7 +478,7 @@ class WLines(LCDialog.LCDialog):
             liLevels.append(("%s. %s:" % (title, _("Time engines think in seconds")), tm))
 
             bk = books[level] if len(books) > level else ""
-            book = list_books.buscaLibro(bk) if bk else None
+            book = list_books.seek_book(bk) if bk else None
             config = FormLayout.Combobox(_("Book"), libooks)
             liLevels.append((config, book))
 
@@ -665,7 +665,10 @@ class WLines(LCDialog.LCDialog):
         form.spinbox(_("Depth"), 3, 999, 50, dicData.get("DEPTH", 30))
         form.separador()
 
-        li = [(_("Only white best movements"), True), (_("Only black best movements"), False)] #, (_("All moves"), None) ] -> se va al infinito
+        li = [
+            (_("Only white best movements"), True),
+            (_("Only black best movements"), False),
+        ]  # , (_("All moves"), None) ] -> se va al infinito
         form.combobox(_("Moves"), li, dicData.get("SIWHITE", True))
         form.separador()
 
@@ -724,10 +727,10 @@ class WLines(LCDialog.LCDialog):
         bookW = list_books.lista[0]
         bookB = list_books.lista[0]
         if dicData:
-            book = list_books.buscaLibro(dicData["BOOKW"])
+            book = list_books.seek_book(dicData["BOOKW"])
             if book:
                 bookW = book
-            book = list_books.buscaLibro(dicData["BOOKB"])
+            book = list_books.seek_book(dicData["BOOKB"])
             if book:
                 bookB = book
 

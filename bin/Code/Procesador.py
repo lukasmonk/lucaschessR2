@@ -222,7 +222,7 @@ class Procesador:
         self.board.borraMovibles()
         self.board.remove_arrows()
         self.main_window.ajustaTam()
-        self.main_window.ponTitulo()
+        self.main_window.set_title()
         self.stop_engines()
 
         self.main_window.current_height = self.main_window.height()
@@ -236,7 +236,7 @@ class Procesador:
         if self.configuration.siPrimeraVez:
             self.cambiaconfigurationPrimeraVez()
             self.configuration.siPrimeraVez = False
-            self.main_window.ponTitulo()
+            self.main_window.set_title()
         if self.siPrimeraVez:
             self.siPrimeraVez = False
             self.presentacion()
@@ -653,7 +653,7 @@ class Procesador:
             menu1.opcion(self.folder_change, _("Change the folder"), Iconos.FolderChange())
             if not Configuration.is_default_folder():
                 menu1.separador()
-                menu1.opcion(self.folder_default, _("Set the default"), Iconos.Defecto())
+                menu1.opcion(self.folder_default, _("Reset to default"), Iconos.Defecto())
 
         resp = menu.lanza()
         if resp:
@@ -1240,9 +1240,16 @@ class Procesador:
     def gaviota_endings(self):
         WEndingsGTB.train_gtb(self)
 
-    def play_league_human(self, league, match, division):
+    def play_league_human(self, league, xmatch, division):
         self.manager = ManagerLeague.ManagerLeague(self)
-        self.manager.start(league, match, division)
+        adj = Adjournments.Adjournments()
+        key_dic = adj.key_match_league(xmatch)
+        if key_dic:
+            key, dic_adjourn = key_dic
+            adj.remove(key)
+            self.manager.run_adjourn(dic_adjourn)
+        else:
+            self.manager.start(league, xmatch, division)
 
 
 class ProcesadorVariations(Procesador):

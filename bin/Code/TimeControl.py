@@ -15,14 +15,25 @@ class TimeControl:
         self.time_init = None
         self.show_clock = False
         self.time_paused = 0.0
+        self.time_previous = 0.0  # gastado en anteriores pausas
+
+        self.pending_time_initial = 0
 
         self.set_clock_side = window.set_clock_white if side else window.set_clock_black
+        self.is_displayed = True
+
+    def set_displayed(self, is_displayed):
+        self.is_displayed = is_displayed
 
     def config_clock(self, total_time, seconds_per_move, zeinot_marker, secs_extra):
         self.pending_time = self.total_time = total_time + secs_extra
-        self.seconds_per_move = seconds_per_move
-        self.zeitnot_marker = zeinot_marker
+        self.seconds_per_move = seconds_per_move if seconds_per_move else 0
+        self.zeitnot_marker = zeinot_marker if zeinot_marker else 0
         self.show_clock = total_time > 0.0
+
+    def config_as_time_keeper(self):
+        self.config_clock(99999, 0, 0, 0)
+        self.is_displayed = False
 
     @staticmethod
     def text(segs):
@@ -30,9 +41,6 @@ class TimeControl:
             segs = 0.0
         tp = round(segs)
         txt = "%02d:%02d" % (int(tp / 60), tp % 60)
-
-        # tp2 = int(1000.0*(segs - int(segs)))
-        # txt = "%02d:%02d.%03d" % (int(tp / 60), tp % 60, tp2)
 
         return txt
 
@@ -49,47 +57,65 @@ class TimeControl:
         return self.text(self.get_seconds())
 
     def start(self):
+        if self.time_paused:
+            self.pending_time -= self.time_paused
+            self.time_previous += self.time_paused
+        else:
+            self.time_previous = 0
+            self.pending_time_initial = self.pending_time
         self.time_init = time.time()
         self.time_paused = 0.0
 
     def stop(self):
         if self.time_init:
-            t_used = (time.time() - self.time_init)
+            t_used = time.time() - self.time_init
             self.pending_time -= t_used - self.seconds_per_move
             self.time_init = None
+            self.time_previous = 0
             return t_used
         else:
             tp = self.time_paused
+            self.pending_time -= tp - self.seconds_per_move
             self.time_paused = 0
+            self.time_previous = 0
         return tp
 
     def pause(self):
         if self.time_init:
-            t_used = (time.time() - self.time_init)
-            self.pending_time -= t_used - self.seconds_per_move
+            t_used = time.time() - self.time_init
             self.time_init = None
             self.time_paused = t_used
 
+    def reset(self):
+        # Cuando se hace pause a un motor, se vuelve a los valores iniciales
+        self.time_init = None
+        self.time_paused = 0
+        self.time_previous = 0
+        self.pending_time = self.pending_time_initial
+
     def restart(self):
         self.time_init = time.time() - self.time_paused
-        self.time_paused = 0.0
+        self.time_paused = 0
+        self.set_labels()
 
     def get_seconds2(self):
         if self.time_init:
             tp2 = time.time() - self.time_init
             tp = self.pending_time - tp2
         else:
-            tp = self.pending_time
+            tp = self.pending_time - self.time_paused
             tp2 = self.time_paused
         if tp <= 0.0:
             tp = 0
-        return tp, tp2
+        return tp, tp2 + self.time_previous
 
     def set_labels(self):
-        tp, tp2 = self.get_seconds2()
-        eti, eti2 = self.text(tp), self.text(tp2)
-        if eti:
-            self.set_clock_side(eti, eti2)
+        if self.is_displayed:
+            tp, tp2 = self.get_seconds2()
+            eti, eti2 = self.text(tp), self.text(tp2)
+
+            if eti:
+                self.set_clock_side(eti, eti2)
 
     def label_dgt(self):
         segs = self.get_seconds()

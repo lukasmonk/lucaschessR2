@@ -291,8 +291,11 @@ class Opening:
         return self.db_fenvalues.as_dictionary()
 
     def dic_fen_comments(self):
-        return {fenm2: reg for fenm2, reg in self.db_fenvalues.as_dictionary().items() if
-                reg and ("COMENTARIO" in reg or "VENTAJA" in reg or "VALORACION" in reg)}
+        return {
+            fenm2: reg
+            for fenm2, reg in self.db_fenvalues.as_dictionary().items()
+            if reg and ("COMENTARIO" in reg or "VENTAJA" in reg or "VALORACION" in reg)
+        }
 
     def removeAnalisis(self, tmpBP, mensaje):
         for n, fenm2 in enumerate(self.db_fenvalues.keys()):
@@ -956,7 +959,7 @@ class Opening:
         self.li_xpv.sort()
 
     def import_polyglot(
-            self, ventana, game, bookW, bookB, titulo, depth, siWhite, onlyone, minMoves, excl_transpositions
+        self, ventana, game, bookW, bookB, titulo, depth, siWhite, onlyone, minMoves, excl_transpositions
     ):
         bp = QTUtil2.BarraProgreso1(ventana, titulo, formato1="%m")
         bp.ponTotal(0)

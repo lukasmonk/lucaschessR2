@@ -718,7 +718,7 @@ class ImportarFichero(QtWidgets.QDialog):
 
 class ImportarFicheroPGN(ImportarFichero):
     def __init__(self, parent):
-        ImportarFichero.__init__(self, parent, _("PGN file"), True, True, Iconos.PGN())
+        ImportarFichero.__init__(self, parent, _("A PGN file"), True, True, Iconos.PGN())
 
 
 class ImportarFicheroFNS(ImportarFichero):

@@ -54,6 +54,12 @@ class WAnalisisGraph(LCDialog.LCDialog):
         self.show_analysis = show_analysis
         self.colorWhite = QTUtil.qtColorRGB(231, 244, 254)
 
+        self.with_time = False
+        for move in alm.lijg:
+            if move.time_ms:
+                self.with_time = True
+                break
+
         def xcol():
             o_columns = Columnas.ListaColumnas()
             o_columns.nueva("NUM", _("N."), 50, align_center=True)
@@ -62,6 +68,8 @@ class WAnalisisGraph(LCDialog.LCDialog):
                 "BEST", _("Best move"), 120, align_center=True, edicion=Delegados.EtiquetaPGN(True, True, True)
             )
             o_columns.nueva("DIF", _("Difference"), 80, align_center=True)
+            if self.with_time:
+                o_columns.nueva("TIME", _("Time"), 50, align_right=True)
             o_columns.nueva("PORC", "%", 80, align_center=True)
             o_columns.nueva("ELO", _("Elo"), 80, align_center=True)
             return o_columns
@@ -305,6 +313,10 @@ class WAnalisisGraph(LCDialog.LCDialog):
             book = "O" if is_book else None
 
             return move.position_before.pgn(from_sq, to_sq, promotion), color, txt, book, None
+
+        elif column == "TIME":
+            ms = move.time_ms
+            return "%0.02f\"" % (ms / 1000,) if ms else ""
 
         elif column == "DIF":
             mrm, pos = move.analysis

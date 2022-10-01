@@ -155,7 +155,7 @@ class EtiquetaPGN(QtWidgets.QStyledItemDelegate):
                     if x.isdigit():
                         x = int(x)
                         symbol = dic_symbol_nags(x)
-                        if symbol :
+                        if symbol:
                             li.append(symbol)
                 li_nags = li
         else:

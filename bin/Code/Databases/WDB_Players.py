@@ -48,7 +48,7 @@ class ToolbarMoves(QtWidgets.QWidget):
 
         self.sbply = Controles.SB(self, 0, 0, 100)
         self.sbply.capture_changes(self.run_p)
-        lbply = Controles.LB(self, _("Plies"))
+        lbply = Controles.LB(self, _("Half-moves"))
 
         layout = Colocacion.H().relleno(1).control(bt_all)
         layout.control(bt_e4).control(bt_d4).control(bt_c4).control(bt_nf3).control(bt_other).relleno(1)

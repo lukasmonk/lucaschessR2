@@ -96,7 +96,8 @@ class ManagerChallenge101:
         main_window.cursorFueraBoard()
         menu = QTVarios.LCMenu(main_window)
 
-        menu.setStyleSheet("""
+        menu.setStyleSheet(
+            """
 QMenu {
     background-color: white;
     margin: 2px; /* some spacing around the menu */
@@ -124,7 +125,8 @@ QMenu::indicator {
     height: 13px;
 }
 
-""")
+"""
+        )
         f = Controles.TipoLetra(name=Code.font_mono, puntos=12)
         fbold = Controles.TipoLetra(name=Code.font_mono, puntos=12, peso=700)
         fbolds = Controles.TipoLetra(name=Code.font_mono, puntos=12, peso=500, is_underlined=True)

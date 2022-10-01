@@ -785,4 +785,3 @@ class Tactic:
 
     def remove_reinforcement(self):
         self.reinforcement.remove_data()
-

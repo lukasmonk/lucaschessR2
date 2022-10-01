@@ -7,7 +7,6 @@ import Code
 from Code import Adjournments
 from Code import Manager
 from Code import Util
-from Code import TimeControl
 from Code.Analysis import Analysis
 from Code.Base import Game, Move, Position
 from Code.Base.Constantes import (
@@ -59,8 +58,6 @@ class ManagerPlayAgainstEngine(Manager.Manager):
 
     tc_player = None
     tc_rival = None
-    tc_white = None
-    tc_black = None
 
     summary = None
     with_summary = False
@@ -244,10 +241,12 @@ class ManagerPlayAgainstEngine(Manager.Manager):
 
         self.xrival.is_white = self.is_engine_side_white
 
-        self.tc_player = TimeControl.TimeControl(self.main_window, self.game, self.is_human_side_white)
-        self.tc_rival = TimeControl.TimeControl(self.main_window, self.game, not self.is_human_side_white)
+        self.tc_player = self.tc_white if self.is_human_side_white else self.tc_black
+        self.tc_rival = self.tc_white if self.is_engine_side_white else self.tc_black
 
         self.timed = dic_var["WITHTIME"]
+        self.tc_white.set_displayed(self.timed)
+        self.tc_black.set_displayed(self.timed)
         if self.timed:
             max_seconds = dic_var["MINUTES"] * 60.0
             seconds_per_move = dic_var["SECONDS"]
@@ -256,10 +255,6 @@ class ManagerPlayAgainstEngine(Manager.Manager):
 
             self.tc_player.config_clock(max_seconds, seconds_per_move, zeitnot, secs_extra)
             self.tc_rival.config_clock(max_seconds, seconds_per_move, zeitnot, secs_extra)
-
-            self.tc_white = self.tc_player if self.is_human_side_white else self.tc_rival
-            self.tc_black = self.tc_rival if self.is_engine_side_white else self.tc_player
-
 
             time_control = "%d" % int(self.max_seconds)
             if seconds_per_move:
@@ -303,7 +298,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         if self.timed:
             tp_bl, tp_ng = self.tc_white.label(), self.tc_black.label()
 
-            self.main_window.ponDatosReloj(bl, tp_bl, ng, tp_ng)
+            self.main_window.set_data_clock(bl, tp_bl, ng, tp_ng)
             self.refresh()
         else:
             self.main_window.base.change_player_labels(bl, ng)
@@ -342,6 +337,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             self.main_window.enable_option_toolbar(TB_DRAW, hip)
             self.main_window.enable_option_toolbar(TB_TAKEBACK, hip)
             self.main_window.enable_option_toolbar(TB_HELP_TO_MOVE, hip)
+            # self.main_window.enable_option_toolbar(TB_PAUSE, hip)
             self.main_window.enable_option_toolbar(TB_CONFIG, hip)
             self.main_window.enable_option_toolbar(TB_UTILITIES, hip)
             self.main_window.enable_option_toolbar(TB_STOP, not hip)
@@ -427,9 +423,9 @@ class ManagerPlayAgainstEngine(Manager.Manager):
 
     def stop_clock(self, is_player):
         tc = self.tc_player if is_player else self.tc_rival
-        secs = tc.stop()
+        time_s = tc.stop()
         self.show_time(is_player)
-        return secs
+        return time_s
 
     def run_action(self, key):
         if key == TB_CANCEL:
@@ -602,6 +598,14 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         self.play_next_move()
 
     def xpause(self):
+        is_white = self.game.last_position.is_white
+        tc = self.tc_white if is_white else self.tc_black
+        if is_white == self.is_human_side_white:
+            tc.pause()
+        else:
+            tc.reset()
+            self.stop_engine()
+        tc.set_labels()
         self.state = ST_PAUSE
         self.thinking(False)
         if self.is_analyzing:
@@ -609,9 +613,6 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             self.xtutor.ac_final(-1)
         self.board.set_position(self.game.first_position)
         self.board.disable_all()
-        tc = self.tc_white if self.game.last_position.is_white else self.tc_black
-        tc.pause()
-        self.show_clocks()
         self.main_window.hide_pgn()
         self.pon_toolbar()
 
@@ -620,9 +621,6 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         self.board.set_position(self.game.last_position)
         self.pon_toolbar()
         self.main_window.show_pgn()
-        tc = self.tc_white if self.game.last_position.is_white else self.tc_black
-        tc.restart()
-        self.show_clocks()
         self.play_next_move()
 
     def final_x(self):
@@ -752,9 +750,6 @@ class ManagerPlayAgainstEngine(Manager.Manager):
 
         siRival = is_white == self.is_engine_side_white
 
-        if self.book_rival:
-            self.testBook()
-
         if siRival:
             self.juegaRival(is_white)
 
@@ -867,7 +862,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
 
         return False, None, None, None
 
-    def eligeJugadaBook(self):
+    def select_book_move(self):
         return self.eligeJugadaBookBase(self.book_rival, self.book_rival_select)
 
     def eligeJugadaBookAjustada(self):
@@ -940,7 +935,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         # BOOK----------------------------------------------------------------------------------------------------------
         if not is_choosed and self.book_rival_active:
             if self.book_rival_depth == 0 or self.book_rival_depth >= len(self.game):
-                is_choosed, from_sq, to_sq, promotion = self.eligeJugadaBook()
+                is_choosed, from_sq, to_sq, promotion = self.select_book_move()
                 if not is_choosed:
                     self.book_rival_active = False
             else:
@@ -987,6 +982,8 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         self.play_rival(self.main_window.dato_notify)
 
     def play_rival(self, rm_rival):
+        if self.state == ST_PAUSE:
+            return True
         self.rival_is_thinking = False
         time_s = self.stop_clock(False)
         self.thinking(False)
@@ -1210,7 +1207,6 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             rm, nPos = self.mrmTutor.buscaRM(move.movimiento())
             if rm:
                 move.analysis = self.mrmTutor, nPos
-
 
         self.add_move(move, True)
         self.move_the_pieces(move.liMovs, False)

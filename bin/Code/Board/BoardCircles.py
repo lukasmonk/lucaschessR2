@@ -62,7 +62,8 @@ class CircleSC(BoardBlocks.BloqueEspSC):
         ac = self.board.width_square
         tf = self.board.tamFrontera
 
-        f = lambda xy: int(round(float(xy) / float(ac), 0))
+        def f(xy):
+            return int(round(float(xy) / float(ac), 0))
 
         dc = f(physical_pos.x - tf / 2) + 1
         df = f(physical_pos.y - tf / 2) + 1

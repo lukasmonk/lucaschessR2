@@ -55,9 +55,9 @@ class LeaguesWork:
 
         with UtilSQL.DictRawSQL(self.path, "MATCHS") as dbm:
             dbm.zap()
-            for match in season.get_all_matches():
-                if match.is_engine_vs_engine(self.league):
-                    dbm[match.xid] = match
+            for xmatch in season.get_all_matches():
+                if xmatch.is_engine_vs_engine(self.league):
+                    dbm[xmatch.xid] = xmatch
 
         with UtilSQL.DictRawSQL(self.path, "MATCHS_WORKING") as dbw:
             dbw.zap()
@@ -77,8 +77,8 @@ class LeaguesWork:
         with UtilSQL.DictRawSQL(self.path, "MATCHS_WORKING") as dbw:
             dic = dbw.as_dictionary()
         zombies = 0
-        for xid, match in dic.items():
-            pid = match.pid_tmp
+        for xid, xmatch in dic.items():
+            pid = xmatch.pid_tmp
             if not psutil.pid_exists(pid):
                 self.cancel_match(xid)
                 zombies += 1
@@ -94,24 +94,24 @@ class LeaguesWork:
             random.shuffle(li)
 
             xid = li[0]
-            match = db[xid]
+            xmatch = db[xid]
             del db[xid]
 
             with UtilSQL.DictRawSQL(self.path, "MATCHS_WORKING") as dbw:
-                match.pid_tmp = os.getpid()
-                dbw[match.xid] = match
-            return match
+                xmatch.pid_tmp = os.getpid()
+                dbw[xmatch.xid] = xmatch
+            return xmatch
 
-    def put_match_done(self, match, game):
+    def put_match_done(self, xmatch, game):
         with UtilSQL.DictRawSQL(self.path, "MATCHS_WORKING") as dbw:
-            del dbw[match.xid]
-        self.season.put_match_done(match, game)
+            del dbw[xmatch.xid]
+        self.season.put_match_done(xmatch, game)
 
     def cancel_match(self, xid):
         with UtilSQL.DictRawSQL(self.path, "MATCHS_WORKING") as dbw:
-            match = dbw[xid]
-            if not match:
+            xmatch = dbw[xid]
+            if not xmatch:
                 return
             del dbw[xid]
         with UtilSQL.DictRawSQL(self.path, "MATCHS") as db:
-            db[match.xid] = match
+            db[xmatch.xid] = xmatch

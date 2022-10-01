@@ -82,7 +82,7 @@ class ManagerOpeningEngines(Manager.Manager):
         if nombook:
             list_books = Books.ListBooks()
             list_books.restore_pickle(self.configuration.file_books)
-            self.book = list_books.buscaLibro(nombook)
+            self.book = list_books.seek_book(nombook)
             if self.book:
                 self.book.polyglot()
                 self.book.mode = liBooks_sel[self.level]
@@ -285,7 +285,7 @@ class ManagerOpeningEngines(Manager.Manager):
             fenm2 = self.game.last_position.fenm2()
             moves = self.dicFENm2.get(fenm2, [])
             if len(moves) > 0:
-                li.append("<b>%s</b>: %d/%d" % (_("Mandatory move"), len(self.game) + 1, self.plies_mandatory))
+                li.append("<b>%s</b>: %d/%d" % (_("Mandatory movements"), len(self.game) + 1, self.plies_mandatory))
             else:
                 si_obligatorio = False
 

@@ -277,7 +277,7 @@ QGroupBox::title {
                 p = Game.Game()
                 p.read_pv(ap.a1h8)
                 ap.a1h8 = self.game.pv()
-                ap.tr_name += " + %s" % (self.game.pgn_translated()[len(p.pgn_translated()) + 1:],)
+                ap.tr_name += " + %s" % (self.game.pgn_translated()[len(p.pgn_translated()) + 1 :],)
 
         ap.pgn = self.game.pgn_translated()
         return ap

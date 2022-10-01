@@ -167,7 +167,7 @@ class MainWindow(LCDialog.LCDialog):
             self.ajustaTam()
             self.show()
 
-        self.ponTitulo()
+        self.set_title()
 
     def save_width_piece(self):
         ct = self.board.config_board
@@ -251,7 +251,7 @@ class MainWindow(LCDialog.LCDialog):
                 self.refresh()
         self.refresh()
 
-    def ponTitulo(self):
+    def set_title(self):
         self.setWindowTitle(Code.lucas_chess)
 
     def set_label1(self, label):
@@ -312,9 +312,11 @@ class MainWindow(LCDialog.LCDialog):
 
     def hide_pgn(self):
         self.base.pgn.hide()
+        # self.base.pgn.setDisabled(True)
 
     def show_pgn(self):
         self.base.pgn.show()
+        # self.base.pgn.setDisabled(False)
 
     def refresh(self):
         self.update()
@@ -359,8 +361,8 @@ class MainWindow(LCDialog.LCDialog):
         if not self.board.siF11:
             self.ajustaTamH()
 
-    def ponDatosReloj(self, bl, rb, ng, rn):
-        self.base.ponDatosReloj(bl, rb, ng, rn)
+    def set_data_clock(self, bl, rb, ng, rn):
+        self.base.set_data_clock(bl, rb, ng, rn)
 
     def set_clock_white(self, tm, tm2):
         self.base.set_clock_white(tm, tm2)

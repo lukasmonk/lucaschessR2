@@ -15,7 +15,7 @@ class CountCapture:
 
     def __init__(self):
         self.date = datetime.datetime.now()
-        self.xid = Util.new_id()
+        self.xid = Util.huella()
         self.game = Game.Game()
         self.current_posmove = 0
         self.current_depth = 0

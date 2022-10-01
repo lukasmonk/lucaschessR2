@@ -377,7 +377,7 @@ FILESW=%s:100
         if not (is_white or is_black):
             return
 
-        cl_game = Util.microsegundos_rnd()
+        cl_game = Util.huella()
         txt_game = game.save()
         si_poner_pgn_original_blunders = False
         si_poner_pgn_original_brilliancies = False
@@ -462,7 +462,7 @@ FILESW=%s:100
                         st_centipawns=self.st_centipawns,
                         st_depths=self.st_depths,
                         st_timelimit=self.st_timelimit,
-                        window=self.procesador.main_window
+                        window=self.procesador.main_window,
                     )
                     if not resp:
                         self.xmanager.remove_gui_dispatch()

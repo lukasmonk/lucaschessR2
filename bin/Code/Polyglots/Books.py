@@ -41,13 +41,24 @@ class ListBooks:
         Util.save_pickle(file, dic)
 
     def alMenosUno(self):
-        ok = False
+        ok_gm = False
+        ok_rd = False
+
+        engine_rodent = Code.configuration.buscaRival("rodentII")
+        path_rodent = os.path.join(os.path.dirname(engine_rodent.path_exe), "rodent.bin")
+
         for book in self.lista:
             if Util.same_path(book.path, Code.tbook):
-                ok = True
-        if not ok:
+                ok_gm = True
+            if Util.same_path(book.path, path_rodent):
+                ok_rd = True
+
+        if not ok_gm:
             bookdef = Code.tbook
             b = Book("P", os.path.basename(bookdef)[:-4], bookdef, True)
+            self.lista.append(b)
+        if not ok_rd:
+            b = Book("P", "Rodent", path_rodent, False)
             self.lista.append(b)
 
     def modoAnalisis(self, apli):
@@ -65,48 +76,11 @@ class ListBooks:
                     return book
             return self.lista[0]
 
-    def buscaLibro(self, name):
+    def seek_book(self, name):
         for book in self.lista:
             if book.name == name:
                 return book
         return None
-
-    def cambiaModo(self, apli):
-        if apli in self._modoAnalisis:
-            self._modoAnalisis = self._modoAnalisis.replace(apli, "")
-        else:
-            self._modoAnalisis += apli
-
-    def leeLibros(self, liLibros, fen, masTitulo, siPV):
-
-        if not fen:
-            return []
-
-        position = Position.Position()
-        position.read_fen(fen)
-        p = Polyglot()
-        ico = "w" if position.is_white else "b"
-        icoL = "l"
-
-        liResp = []
-        for book in liLibros:
-            liResp.append((None, book.name + masTitulo, icoL))
-            li = p.lista(book.path, fen)
-            if li:
-                total = 0
-                for entry in li:
-                    total += entry.weight
-
-                for entry in li:
-                    pv = entry.pv()
-                    w = entry.weight
-                    pc = w * 100.0 / total if total else "?"
-                    pgn = position.pgn_translated(pv[:2], pv[2:4], pv[4:])
-                    liResp.append((pv if siPV else None, "%-5s -%7.02f%% -%7d" % (pgn, pc, w), ico))
-            else:
-                liResp.append((None, _("No result"), "c"))
-
-        return liResp
 
     def verify(self):
         for x in range(len(self.lista) - 1, -1, -1):
@@ -125,58 +99,6 @@ class ListBooks:
         for n, libroL in enumerate(self.lista):
             if libroL == book:
                 del self.lista[n]
-
-    def compruebaOpening(self, game):
-        liLibros = [book for book in self.lista if book.pordefecto]
-        if (not liLibros) and self.lista:
-            liLibros = [self.lista[0]]
-
-        p = Polyglot()
-        icoL = "l"
-
-        liResp = []
-        for nlibro, book in enumerate(liLibros):
-            liResp.append((None, book.name, icoL, None))
-            for njug, move in enumerate(game.li_moves):
-                position = move.position_before
-                li = p.lista(book.path, position.fen())
-                if li:
-                    total = 0
-                    for entry in li:
-                        total += entry.weight
-                    pv = move.movimiento()
-
-                    ok = False
-
-                    liOp = []
-                    for entry in li:
-                        w = entry.weight
-                        pct = w * 100.0 / total if total else "-"
-                        pvt = entry.pv()
-                        pgn = position.pgn_translated(pvt[:2], pvt[2:4], pvt[4:])
-                        liOp.append("%-5s -%7.02f%% -%7d" % (pgn, pct, w))
-                        if pv == pvt:
-                            ok = True
-                            pc = pct
-
-                    if move.position_before.is_white:
-                        ico = "w"
-                        previo = "%2d." % game.numJugadaPGN(njug)
-                        posterior = "   "
-                    else:
-                        ico = "b"
-                        previo = "      "
-                        posterior = ""
-                    pgn = move.pgn_translated()
-                    puntos = "%7.02f%%" % pc if ok else "   ???"
-
-                    liResp.append(
-                        ("%d|%d" % (nlibro, njug), "%s%-5s%s - %s" % (previo, pgn, posterior, puntos), ico, liOp)
-                    )
-                    if not ok:
-                        break
-
-        return liResp
 
 
 class Book:

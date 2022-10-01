@@ -119,7 +119,7 @@ class WLeagueConfig(LCDialog.LCDialog):
         lb_minutes = Controles.LB2P(self, _("Total minutes"))
         self.ed_minutes_eng_eng = Controles.ED(self).tipoFloat(minutes).anchoFijo(35)
         self.sb_seconds_eng_eng, lb_seconds = QTUtil2.spinBoxLB(
-            self, seconds, -999, 999, maxTam=35, etiqueta=_("Seconds added per move")
+            self, seconds, -999, 999, maxTam=40, etiqueta=_("Seconds added per move")
         )
 
         ly = Colocacion.H().control(lb_minutes).control(self.ed_minutes_eng_eng)

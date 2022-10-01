@@ -46,16 +46,16 @@ class ListEngineManagers:
 
 
 class EngineManager:
-    def __init__(self, procesador, confMotor, direct=False):
+    def __init__(self, procesador, conf_engine, direct=False):
         self.procesador = procesador
 
         self.engine = None
-        self.confMotor = confMotor
-        self.name = confMotor.name
-        self.key = confMotor.key
+        self.confMotor = conf_engine
+        self.name = conf_engine.name
+        self.key = conf_engine.key
         self.num_multipv = 0
-        self.mstime_engine = confMotor.max_time * 1000
-        self.depth_engine = confMotor.max_depth
+        self.mstime_engine = conf_engine.max_time * 1000
+        self.depth_engine = conf_engine.max_depth
 
         self.function = _("Opponent").lower()  # para distinguir entre tutor y analizador
 
@@ -214,7 +214,7 @@ class EngineManager:
         else:
             mseconds_white = int(seconds_white * 1000)
             mseconds_black = int(seconds_black * 1000)
-            mseconds_move = int(seconds_move * 1000)
+            mseconds_move = int(seconds_move * 1000) if seconds_move else 0
             mrm = self.engine.bestmove_time(game, mseconds_white, mseconds_black, mseconds_move)
         if self.engine and self.engine.ponder:  # test si self.engine, ya que puede haber terminado en el ponder
             self.engine.run_ponder(game, mrm)
@@ -311,18 +311,18 @@ class EngineManager:
         self.cache_analysis.close()
 
     def analizaJugadaPartida(
-            self,
-            game,
-            njg,
-            vtime,
-            depth=0,
-            brDepth=5,
-            brPuntos=50,
-            stability=False,
-            st_centipawns=0,
-            st_depths=0,
-            st_timelimit=0,
-            window=None
+        self,
+        game,
+        njg,
+        vtime,
+        depth=0,
+        brDepth=5,
+        brPuntos=50,
+        stability=False,
+        st_centipawns=0,
+        st_depths=0,
+        st_timelimit=0,
+        window=None,
     ):
         self.check_engine()
         if self.cache_analysis is not None:
@@ -337,7 +337,9 @@ class EngineManager:
             self.cache_analysis[key] = resp
         return resp
 
-    def analizaJugadaPartidaRaw(self, game, njg, mstime, depth, brDepth, brPuntos, stability, st_centipawns, st_depths, st_timelimit, window):
+    def analizaJugadaPartidaRaw(
+        self, game, njg, mstime, depth, brDepth, brPuntos, stability, st_centipawns, st_depths, st_timelimit, window
+    ):
         self.check_engine()
         ini_time = time.time()
         if stability:
@@ -460,7 +462,7 @@ class EngineManager:
         return mrm.mejorMov()
 
     def play_time_routine(
-            self, game, routine_return, seconds_white, seconds_black, seconds_move, nAjustado=0, humanize=False
+        self, game, routine_return, seconds_white, seconds_black, seconds_move, nAjustado=0, humanize=False
     ):
         self.check_engine()
 

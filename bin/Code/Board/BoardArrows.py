@@ -71,7 +71,8 @@ class FlechaSC(BoardBlocks.BloqueEspSC):
         ac = bf.width_square
         tf = self.board.tamFrontera
 
-        f = lambda xy: int(round((float(xy) + ac / 2.0) / float(ac), 0))
+        def f(xy):
+            return int(round((float(xy) + ac / 2.0) / float(ac), 0))
 
         dc = f(physical_pos.x - tf / 2)
         df = f(physical_pos.y - tf / 2)

@@ -139,7 +139,7 @@ class GameTournament(object):
         self.hblack = None  # la huella de un engine
         self.game_save = None  # game salvada en formato pk con save
         self.minutos = None
-        self.segundos_jugada = None
+        self.seconds_per_move = None
         self.result = None
         self.date = None
         self.termination = None
@@ -150,7 +150,10 @@ class GameTournament(object):
     def etiTiempo(self):
         if self.minutos:
             wdec = lambda x: ("%f" % x).rstrip("0").rstrip(".")
-            return "%s+%s" % (wdec(self.minutos * 60), wdec(self.segundos_jugada))
+            if self.seconds_per_move:
+                return "%s+%s" % (wdec(self.minutos * 60), wdec(self.seconds_per_move))
+            else:
+                return wdec(self.minutos * 60)
         else:
             return ""
 
@@ -384,7 +387,7 @@ class Tournament:
         gm.hwhite = hwhite
         gm.hblack = hblack
         gm.minutos = minutos
-        gm.segundos_jugada = segundosJugada
+        gm.seconds_per_move = segundosJugada
         self.db_games_queued.append(gm)
 
     def __enter__(self):

@@ -20,7 +20,7 @@ echo ">> Daydreamer" && chmod 755 ./Engines/daydreamer/Daydreamer-1.75
 echo ">> Delocto" && chmod 755 ./Engines/delocto/Delocto-0.61n
 echo ">> Discocheck" && chmod 755 ./Engines/discocheck/Discocheck-5.2.1
 echo ">> Dragontooth" && chmod 755 ./Engines/dragontooth/Dragontooth-0.2
-echo ">> Drofa" && chmod 755 ./Engines/drofa/Drofa-2.2.0
+echo ">> Drofa" && chmod 755 ./Engines/drofa/Drofa-3.3.0
 echo ">> Ethereal" && chmod 755 ./Engines/ethereal/Ethereal-12.75
 echo ">> FracTal" && chmod 755 ./Engines/fractal/FracTal-1.0
 echo ">> Fruit" && chmod 755 ./Engines/fruit/Fruit-2.1

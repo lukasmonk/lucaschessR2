@@ -265,7 +265,6 @@ class CB(QtWidgets.QComboBox):
         return self
 
 
-
 class CHB(QtWidgets.QCheckBox):
     """
     CheckBox : entrada de una campo seleccionable

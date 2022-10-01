@@ -22,20 +22,20 @@ def dic_keys():
 
 class MensEspera(QtWidgets.QWidget):
     def __init__(
-            self,
-            parent,
-            mensaje,
-            siCancelar,
-            siMuestraYa,
-            opacity,
-            physical_pos,
-            fixedSize,
-            titCancelar,
-            background,
-            pmImagen=None,
-            puntos=12,
-            conImagen=True,
-            siParentNone=False,
+        self,
+        parent,
+        mensaje,
+        siCancelar,
+        siMuestraYa,
+        opacity,
+        physical_pos,
+        fixedSize,
+        titCancelar,
+        background,
+        pmImagen=None,
+        puntos=12,
+        conImagen=True,
+        siParentNone=False,
     ):
 
         super(MensEspera, self).__init__(
@@ -71,11 +71,11 @@ class MensEspera(QtWidgets.QWidget):
             if not titCancelar:
                 titCancelar = _("Cancel")
             self.btCancelar = (
-                Controles.PB(self, titCancelar, rutina=self.cancelar, plano=False)
-                    .ponIcono(Iconos.Cancelar())
-                    # .anchoFijo(100)
+                Controles.PB(self, titCancelar, rutina=self.cancelar, plano=False).ponIcono(Iconos.Cancelar())
+                # .anchoFijo(100)
             )
-            self.btCancelar.setStyleSheet("""QPushButton {
+            self.btCancelar.setStyleSheet(
+                """QPushButton {
     background-color: #1e749c;
     color: white;
     border-style: outset;
@@ -89,7 +89,8 @@ class MensEspera(QtWidgets.QWidget):
 QPushButton:pressed {
     background-color: rgb(224, 0, 0);
     border-style: inset;
-}""")
+}"""
+            )
 
         ly = Colocacion.G()
         if conImagen:
@@ -167,20 +168,20 @@ class ControlMensEspera:
         self.me = None
 
     def start(
-            self,
-            parent,
-            mensaje,
-            siCancelar=False,
-            siMuestraYa=True,
-            opacity=0.91,
-            physical_pos="c",
-            fixedSize=None,
-            titCancelar=None,
-            background=None,
-            pmImagen=None,
-            puntos=11,
-            conImagen=True,
-            siParentNone=False,
+        self,
+        parent,
+        mensaje,
+        siCancelar=False,
+        siMuestraYa=True,
+        opacity=0.91,
+        physical_pos="c",
+        fixedSize=None,
+        titCancelar=None,
+        background=None,
+        pmImagen=None,
+        puntos=11,
+        conImagen=True,
+        siParentNone=False,
     ):
         if self.me:
             self.final()
@@ -247,15 +248,15 @@ mensEspera = ControlMensEspera()
 
 
 def mensajeTemporal(
-        main_window,
-        mensaje,
-        seconds,
-        background=None,
-        pmImagen=None,
-        physical_pos="c",
-        fixedSize=None,
-        siCancelar=None,
-        titCancelar=None,
+    main_window,
+    mensaje,
+    seconds,
+    background=None,
+    pmImagen=None,
+    physical_pos="c",
+    fixedSize=None,
+    siCancelar=None,
+    titCancelar=None,
 ):
     if siCancelar is None:
         siCancelar = seconds > 3.0
@@ -692,7 +693,8 @@ def message_menu(owner, main, message, delayed):
 
         menu = QTVarios.LCMenu(owner)
 
-        menu.setStyleSheet("""
+        menu.setStyleSheet(
+            """
     QMenu {
         background-color: white;
         margin: 2px; /* some spacing around the menu */
@@ -720,7 +722,8 @@ def message_menu(owner, main, message, delayed):
         height: 5px;
     }
 
-    """)
+    """
+        )
         f = Controles.TipoLetra(puntos=11)
         menu.ponFuente(f)
 
@@ -746,7 +749,7 @@ def message_menu(owner, main, message, delayed):
                 continue
             for i in range(tb.layout().lineCount()):
                 line = tb.layout().lineAt(i)
-                ret.append(blockText[line.textStart():line.textStart() + line.textLength()])
+                ret.append(blockText[line.textStart() : line.textStart() + line.textLength()])
             tb = tb.next()
 
         for linea in ret:

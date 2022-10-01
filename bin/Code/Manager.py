@@ -6,11 +6,14 @@ import FasterCode
 
 import Code
 from Code import ControlPGN
+from Code import TimeControl
 from Code import Util
 from Code import XRun
 from Code.Analysis import Analysis, AnalysisGame, AnalysisIndexes, Histogram, WindowAnalysisGraph
 from Code.Base import Game, Move, Position
 from Code.Base.Constantes import (
+    WHITE,
+    BLACK,
     GT_ALONE,
     ST_ENDGAME,
     ST_PLAYING,
@@ -95,8 +98,6 @@ class Manager:
 
         self.pgn = ControlPGN.ControlPGN(self)
 
-        self.timekeeper = Util.Timekeeper()
-
         self.xtutor = procesador.XTutor()
         self.xanalyzer = procesador.XAnalyzer()
         self.xrival = None
@@ -105,6 +106,7 @@ class Manager:
         self.is_analyzed_by_tutor = False
 
         self.resign_limit = -99999
+        self.lirm_engine = []
 
         self.rm_rival = None  # Usado por el tutor para mostrar las intenciones del rival
 
@@ -145,6 +147,9 @@ class Manager:
         self.kibitzers_manager = self.procesador.kibitzers_manager
 
         self.with_eboard = len(self.configuration.x_digital_board) > 0
+
+        self.tc_white = TimeControl.TimeControl(self.main_window, self.game, WHITE)
+        self.tc_black = TimeControl.TimeControl(self.main_window, self.game, BLACK)
 
     def disable_use_eboard(self):
         if self.configuration.x_digital_board:
@@ -758,8 +763,7 @@ class Manager:
 
     def in_end_of_line(self):
         num_moves, nj, row, is_white = self.jugadaActual()
-        return nj == num_moves-1
-
+        return nj == num_moves - 1
 
     def pgnInformacion(self):
         if self.informacionActivable:
@@ -969,7 +973,7 @@ class Manager:
                         self.main_window.base.change_message(
                             '%s\n%s: %d %s: %.01f"' % (mens, _("Depth"), rm.depth, _("Time"), tm)
                         )
-                        if self.xanalyzer.mstime_engine and tm*1000 > self.xanalyzer.mstime_engine:
+                        if self.xanalyzer.mstime_engine and tm * 1000 > self.xanalyzer.mstime_engine:
                             self.xanalyzer.stop()
                             ya_cancelado[0] = True
                     return True
@@ -982,7 +986,6 @@ class Manager:
             move.analysis = mrm, pos
             self.main_window.base.tb.setDisabled(False)
             self.main_window.base.hide_message()
-
 
         Analysis.show_analysis(self.procesador, self.xanalyzer, move, self.board.is_white_bottom, pos_jg)
         self.put_view()
@@ -1793,7 +1796,7 @@ class Manager:
             self.game.set_termination(TERMINATION_DRAW_AGREEMENT, RESULT_DRAW)
         else:
             QTUtil2.message_bold(self.main_window, _("Sorry, but the engine doesn't accept a draw right now."))
-        self.next_test_resign = 5
+        self.next_test_resign = 999
         return siAcepta
 
     def valoraRMrival(self):
@@ -1805,35 +1808,35 @@ class Manager:
         b = random.random() ** 0.33
 
         # Resign
-        siResign = True
+        is_resign = True
         for n, rm in enumerate(self.lirm_engine[-5:]):
             if int(rm.centipawns_abs() * b) > self.resign_limit:
-                siResign = False
+                is_resign = False
                 break
-        if siResign:
+        if is_resign:
             resp = QTUtil2.pregunta(self.main_window, _X(_("%1 wants to resign, do you accept it?"), self.xrival.name))
             if resp:
                 self.game.resign(self.is_engine_side_white)
                 return False
             else:
-                self.next_test_resign = 9
+                self.next_test_resign = 999
                 return True
 
         # # Draw
-        siDraw = True
+        is_draw = True
         for rm in self.lirm_engine[-5:]:
             pts = rm.centipawns_abs()
             if (not (-250 < int(pts * b) < -100)) or pts < -250:
-                siDraw = False
+                is_draw = False
                 break
-        if siDraw:
+        if is_draw:
             resp = QTUtil2.pregunta(self.main_window, _X(_("%1 proposes draw, do you accept it?"), self.xrival.name))
             if resp:
                 self.game.last_jg().is_draw_agreement = True
                 self.game.set_termination(TERMINATION_DRAW_AGREEMENT, RESULT_DRAW)
                 return False
             else:
-                self.next_test_resign = 9
+                self.next_test_resign = 999
                 return True
 
         return True
@@ -2016,4 +2019,3 @@ class Manager:
                 cvariation_move = "|".join([cnum for cnum in self.board.variation_history.split("|")][:-1])
                 link_variation_pressed("%s|%d" % (cvariation_move, (num_var_move + 1)))
                 self.kibitzers_manager.put_game(variation, self.board.is_white_bottom)
-

@@ -25,8 +25,7 @@ def read_engines(folder_engines):
     bmi2 = "-bmi2" if FasterCode.bmi2() else ""
 
     for level in range(1100, 2000, 100):
-        cm = mas("maia-%d" % level, "Reid McIlroy-Young,Ashton Anderson,Siddhartha Sen,Jon Kleinberg,Russell Wang + LcZero team",
-                 "%d" % level, "https://maiachess.com/", "Lc0-0.27.0", level, folder="maia")
+        cm = mas("maia-%d" % level, "Reid McIlroy-Young,Ashton Anderson,Siddhartha Sen,Jon Kleinberg,Russell Wang + LcZero team","%d" % level, "https://maiachess.com/", "Lc0-0.27.0", level, folder="maia")
         cm.ordenUCI("WeightsFile", "maia-%d.pb.gz" % level)
         cm.path_exe = os.path.join(folder_engines, "maia", "Lc0-0.27.0")
         cm.name = "maia-%d" % level

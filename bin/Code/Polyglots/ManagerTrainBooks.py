@@ -1,5 +1,6 @@
 import random
 
+import Code
 from Code import Manager
 from Code.Base import Move
 from Code.Base.Constantes import (
@@ -212,6 +213,8 @@ class ManagerTrainBooks(Manager.Manager):
                         saux = True
                     opacity = 1.0 if p == paux else max(p, 0.25)
                 self.board.creaFlechaMulti(jug[0] + jug[1], siMain=simain, opacity=opacity)
+                if simain and Code.eboard:
+                    self.board.eboard_arrow(jug[0], jug[1], jug[2])
 
             if self.show_menu:
                 resp = WindowBooks.eligeJugadaBooks(
@@ -263,7 +266,9 @@ class ManagerTrainBooks(Manager.Manager):
                 opacity = 1.0 if p == paux else max(p, 0.25)
             self.board.creaFlechaMulti(jug[0] + jug[1], siMain=simain, opacity=opacity)
 
-        resp = WindowBooks.eligeJugadaBooks(self.main_window, self.list_moves, self.is_human_side_white, siSelectSiempre=False)
+        resp = WindowBooks.eligeJugadaBooks(
+            self.main_window, self.list_moves, self.is_human_side_white, siSelectSiempre=False
+        )
         self.board.remove_arrows()
         if resp is None:
             self.sumar_aciertos = False

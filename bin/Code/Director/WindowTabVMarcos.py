@@ -242,7 +242,7 @@ class WTV_Marcos(LCDialog.LCDialog):
         w = WTV_Marco(self, None)
         if w.exec_():
             regMarco = w.regMarco
-            regMarco.id = Util.str_id()
+            regMarco.id = Util.huella()
             regMarco.ordenVista = (self.liPMarcos[-1].ordenVista + 1) if self.liPMarcos else 1
             self.dbMarcos[regMarco.id] = regMarco.save_dic()
             self.liPMarcos.append(regMarco)
@@ -291,7 +291,7 @@ class WTV_Marcos(LCDialog.LCDialog):
                 n += 1
                 name = "%s-%d" % (regMarco.name, n)
             regMarco.name = name
-            regMarco.id = Util.str_id()
+            regMarco.id = Util.huella()
             regMarco.ordenVista = self.liPMarcos[-1].ordenVista + 1
             self.dbMarcos[regMarco.id] = regMarco
             self.liPMarcos.append(regMarco)

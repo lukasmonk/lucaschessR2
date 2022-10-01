@@ -83,7 +83,7 @@ class Tutor:
             pvBloque = self.rm_rival.getPV()
             n = pvBloque.find(" ")
             if n > 0:
-                pvBloque = pvBloque[n + 1:].strip()
+                pvBloque = pvBloque[n + 1 :].strip()
             else:
                 pvBloque = ""
 

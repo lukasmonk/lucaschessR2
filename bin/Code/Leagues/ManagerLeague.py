@@ -1,7 +1,8 @@
+import random
+
 import Code
 from Code import Adjournments
 from Code import Manager
-from Code import Util
 from Code.Base import Move
 from Code.Base.Constantes import (
     ST_ENDGAME,
@@ -17,8 +18,10 @@ from Code.Base.Constantes import (
     GT_AGAINST_ENGINE_LEAGUE,
     RESULT_WIN_BLACK,
     RESULT_WIN_WHITE,
+    RESULT_DRAW,
     TERMINATION_RESIGN,
     TERMINATION_WIN_ON_TIME,
+    TERMINATION_DRAW_AGREEMENT,
     WHITE,
     BLACK,
     ST_PAUSE,
@@ -31,11 +34,13 @@ from Code.QT import QTUtil2
 
 class ManagerLeague(Manager.Manager):
     league: Leagues.League
-    match: Leagues.Match
+    xmatch: Leagues.Match
     division: int
     engine_side: bool
 
-    timekeeper = None
+    tc_player = None
+    tc_rival = None
+
     human_side = False
     is_engine_side_white = False
     conf_engine = None
@@ -45,29 +50,28 @@ class ManagerLeague(Manager.Manager):
     max_seconds = 0
     segundosJugada = 0
     zeitnot = 0
-    vtime = None
     toolbar_state = None
     premove = None
     last_time_show_arrows = None
     rival_is_thinking = False
 
-    def start(self, league: Leagues.League, match: Leagues.Match, division: int):
-        self.base_inicio(league, match, division)
+    def start(self, league: Leagues.League, xmatch: Leagues.Match, division: int):
+        self.base_inicio(league, xmatch, division)
         self.xrival.check_engine()
         self.start_message(nomodal=Code.eboard and Code.is_linux)  # nomodal: problema con eboard
 
         self.play_next_move()
 
-    def base_inicio(self, league: Leagues.League, match: Leagues.Match, division: int):
+    def base_inicio(self, league: Leagues.League, xmatch: Leagues.Match, division: int):
 
         self.league = league
         self.season = league.read_season()
-        self.match = match
+        self.xmatch = xmatch
         self.division = division
 
         opponent_w: Leagues.Opponent
         opponent_b: Leagues.Opponent
-        opponent_w, opponent_b = self.match.get_opponents(league)
+        opponent_w, opponent_b = self.xmatch.get_opponents(league)
 
         self.game_type = GT_AGAINST_ENGINE_LEAGUE
 
@@ -80,7 +84,7 @@ class ManagerLeague(Manager.Manager):
         self.engine_side = WHITE if self.is_human_side_white == BLACK else BLACK
         self.is_engine_side_white = self.engine_side == WHITE
 
-        opponent_engine = match.get_engine(league, self.engine_side)
+        opponent_engine = xmatch.get_engine(league, self.engine_side)
         self.conf_engine = opponent_engine.opponent
 
         self.lirm_engine = []
@@ -108,12 +112,13 @@ class ManagerLeague(Manager.Manager):
 
         self.timed = minutes > 0.0
 
-        if self.timed:
-            self.vtime = {
-                WHITE: Util.Timer2(self.game, WHITE, self.max_seconds, self.seconds_per_move),
-                BLACK: Util.Timer2(self.game, BLACK, self.max_seconds, self.seconds_per_move),
-            }
+        self.tc_player = self.tc_white if self.is_human_side_white else self.tc_black
+        self.tc_rival = self.tc_white if self.is_engine_side_white else self.tc_black
 
+        self.tc_player.set_displayed(self.timed)
+        self.tc_rival.set_displayed(self.timed)
+
+        if self.timed:
             time_control = "%d" % int(self.max_seconds)
             if self.seconds_per_move:
                 time_control += "+%d" % self.seconds_per_move
@@ -137,9 +142,8 @@ class ManagerLeague(Manager.Manager):
         ng = opponent_b.name()
 
         if self.timed:
-            tp_bl = self.vtime[True].etiqueta()
-            tp_ng = self.vtime[False].etiqueta()
-            self.main_window.ponDatosReloj(bl, tp_bl, ng, tp_ng)
+            tp_bl, tp_ng = self.tc_white.label(), self.tc_black.label()
+            self.main_window.set_data_clock(bl, tp_bl, ng, tp_ng)
             self.refresh()
             self.main_window.start_clock(self.set_clock, 1000)
         else:
@@ -180,15 +184,9 @@ class ManagerLeague(Manager.Manager):
 
         self.toolbar_state = self.state
 
-    def show_time(self, siUsuario):
-        is_white = siUsuario == self.is_human_side_white
-        ot = self.vtime[is_white]
-        eti, eti2 = ot.etiquetaDif2()
-        if eti:
-            if is_white:
-                self.main_window.set_clock_white(eti, eti2)
-            else:
-                self.main_window.set_clock_black(eti, eti2)
+    def show_time(self, is_player):
+        ot = self.tc_player if is_player else self.tc_rival
+        ot.set_labels()
 
     def set_clock(self):
         if not self.timed:
@@ -201,14 +199,8 @@ class ManagerLeague(Manager.Manager):
             return
 
         def mira(xis_white):
-            ot = self.vtime[xis_white]
-
-            eti, eti2 = ot.etiquetaDif2()
-            if eti:
-                if xis_white:
-                    self.main_window.set_clock_white(eti, eti2)
-                else:
-                    self.main_window.set_clock_black(eti, eti2)
+            ot = self.tc_white if xis_white else self.tc_black
+            ot.set_labels()
 
             siJugador = self.is_human_side_white == xis_white
             if ot.time_is_consumed():
@@ -224,7 +216,7 @@ class ManagerLeague(Manager.Manager):
             return
 
         if Code.eboard:
-            Code.eboard.writeClocks(self.vtime[True].label_dgt(), self.vtime[False].label_dgt())
+            Code.eboard.writeClocks(self.tc_white.label_dgt(), self.tc_black.label_dgt())
 
         if self.human_is_playing:
             is_white = self.is_human_side_white
@@ -232,16 +224,18 @@ class ManagerLeague(Manager.Manager):
             is_white = not self.is_human_side_white
         mira(is_white)
 
-    def start_clock(self, siUsuario):
+    def start_clock(self, is_player):
+        tc = self.tc_player if is_player else self.tc_rival
+        tc.start()
         if self.timed:
-            self.vtime[siUsuario == self.is_human_side_white].start_marker()
-            self.vtime[not siUsuario].recalc()
-            self.vtime[siUsuario == self.is_human_side_white].set_zeinot(self.zeitnot)
+            tc.set_labels()
 
-    def stop_clock(self, siUsuario):
+    def stop_clock(self, is_player):
+        tc = self.tc_player if is_player else self.tc_rival
+        time_s = tc.stop()
         if self.timed:
-            self.vtime[siUsuario == self.is_human_side_white].stop_marker()
-            self.show_time(siUsuario)
+            tc.set_labels()
+        return time_s
 
     def run_action(self, key):
         if key == TB_RESIGN:
@@ -272,7 +266,7 @@ class ManagerLeague(Manager.Manager):
     def save_state(self):
         dic = {
             "league_name": self.league.name(),
-            "match_saved": self.match.save(),
+            "match_saved": self.xmatch.save(),
             "division": self.division,
             "game_save": self.game.save(),
             "timed": self.timed,
@@ -280,22 +274,22 @@ class ManagerLeague(Manager.Manager):
 
         if self.timed:
             self.main_window.stop_clock()
-            dic["time_white"] = self.vtime[WHITE].save()
-            dic["time_black"] = self.vtime[BLACK].save()
+            dic["time_white"] = self.tc_white.save()
+            dic["time_black"] = self.tc_black.save()
 
         return dic
 
     def restore_state(self, dic):
         league = Leagues.League(dic["league_name"])
-        match = Leagues.Match("", "")
-        match.restore(dic["match_saved"])
+        xmatch = Leagues.Match("", "")
+        xmatch.restore(dic["match_saved"])
         division = dic["division"]
-        self.base_inicio(league, match, division)
+        self.base_inicio(league, xmatch, division)
         self.game.restore(dic["game_save"])
 
         if dic.get("timed"):
-            self.vtime[WHITE].restore(dic["time_white"])
-            self.vtime[BLACK].restore(dic["time_black"])
+            self.tc_white.restore(dic["time_white"])
+            self.tc_black.restore(dic["time_black"])
 
         self.goto_end()
 
@@ -346,13 +340,13 @@ class ManagerLeague(Manager.Manager):
             self.xrival.stop()
 
     def save_match(self):
-        self.season.put_match_done(self.match, self.game)
+        self.season.put_match_done(self.xmatch, self.game)
 
     def rendirse(self):
         if self.state == ST_ENDGAME:
             return True
         self.main_window.stop_clock()
-        self.show_clocks(True)
+        self.show_clocks()
         if not QTUtil2.pregunta(self.main_window, _("Do you want to resign?")):
             return False  # no abandona
         self.game.set_termination(
@@ -393,7 +387,6 @@ class ManagerLeague(Manager.Manager):
 
     def juegaHumano(self, is_white):
         self.start_clock(True)
-        self.timekeeper.start()
         self.human_is_playing = True
         last_position = self.game.last_position
         si_changed, from_sq, to_sq = self.board.piece_out_position(last_position)
@@ -419,7 +412,6 @@ class ManagerLeague(Manager.Manager):
     def juegaRival(self, is_white):
         self.board.remove_arrows()
         self.start_clock(False)
-        self.timekeeper.start()
         self.human_is_playing = False
         self.rival_is_thinking = True
         self.rm_rival = None
@@ -428,8 +420,8 @@ class ManagerLeague(Manager.Manager):
 
         self.thinking(True)
         if self.timed:
-            seconds_white = self.vtime[True].pending_time
-            seconds_black = self.vtime[False].pending_time
+            seconds_white = self.tc_white.pending_time
+            seconds_black = self.tc_black.pending_time
             seconds_move = self.seconds_per_move
         else:
             seconds_black = seconds_white = 10 * 60
@@ -447,15 +439,14 @@ class ManagerLeague(Manager.Manager):
 
     def play_rival(self, rm_rival):
         self.rival_is_thinking = False
-        self.stop_clock(False)
+        time_s = self.stop_clock(False)
         self.thinking(False)
-        time_s = self.timekeeper.stop()
 
         if self.state in (ST_ENDGAME, ST_PAUSE):
             return self.state == ST_ENDGAME
 
         self.lirm_engine.append(rm_rival)
-        if not self.valoraRMrival():
+        if not self.check_draw_resign():
             self.show_result()
             return True
 
@@ -491,11 +482,9 @@ class ManagerLeague(Manager.Manager):
         move = self.check_human_move(from_sq, to_sq, promotion, True)
         if not move:
             return False
-        self.timekeeper.pause()
 
-        secs_used = self.timekeeper.stop()
-        move.set_time_ms(secs_used * 1000)
-        self.stop_clock(True)
+        time_s = self.stop_clock(True)
+        move.set_time_ms(time_s * 1000)
 
         self.add_move(move, True)
         self.move_the_pieces(move.liMovs, False)
@@ -507,7 +496,7 @@ class ManagerLeague(Manager.Manager):
 
     def add_move(self, move, siNuestra):
         self.game.add_move(move)
-        self.show_clocks(True)
+        self.show_clocks()
         self.check_boards_setposition()
 
         self.put_arrow_sc(move.from_sq, move.to_sq)
@@ -541,22 +530,59 @@ class ManagerLeague(Manager.Manager):
         QTUtil2.message(self.main_window, mensaje, px=p.x(), py=p.y(), si_bold=True)
         self.ponFinJuego()
 
-    def show_clocks(self, with_recalc=False):
-        if not self.vtime:
+    def show_clocks(self):
+        if self.timed:
+            if Code.eboard:
+                Code.eboard.writeClocks(self.tc_white.label_dgt(), self.tc_black.label_dgt())
+
+            self.tc_white.set_labels()
+            self.tc_black.set_labels()
+
+    def check_draw_resign(self):
+        if len(self.game) < 50 or len(self.lirm_engine) <= 5:
+            return True
+        if self.next_test_resign:  # includes test draw
+            self.next_test_resign -= 1
             return
-        if with_recalc:
-            for is_white in (WHITE, BLACK):
-                self.vtime[is_white].recalc()
 
-        if Code.eboard:
-            Code.eboard.writeClocks(self.vtime[True].label_dgt(), self.vtime[False].label_dgt())
+        b = random.random() ** 0.33
 
-        for is_white in (WHITE, BLACK):
-            ot = self.vtime[is_white]
-
-            eti, eti2 = ot.etiquetaDif2()
-            if eti:
-                if is_white:
-                    self.main_window.set_clock_white(eti, eti2)
+        # Resign
+        if self.league.resign > 0:
+            si_resign = True
+            for n, rm in enumerate(self.lirm_engine[-5:]):
+                if int(rm.centipawns_abs() * b) > self.league.resign:
+                    si_resign = False
+                    break
+            if si_resign:
+                resp = QTUtil2.pregunta(
+                    self.main_window, _X(_("%1 wants to resign, do you accept it?"), self.xrival.name)
+                )
+                if resp:
+                    self.game.resign(self.is_engine_side_white)
+                    return False
                 else:
-                    self.main_window.set_clock_black(eti, eti2)
+                    self.next_test_resign = 9
+                    return True
+
+        # # Draw
+        if (self.league.draw_min_ply > 0) and (len(self.game) >= self.league.draw_min_ply):
+            si_draw = True
+            for rm in self.lirm_engine[-5:]:
+                pts = rm.centipawns_abs()
+                if (not (-250 < int(pts * b) < -100)) or pts < -250:
+                    si_draw = False
+                    break
+            if si_draw:
+                resp = QTUtil2.pregunta(
+                    self.main_window, _X(_("%1 proposes draw, do you accept it?"), self.xrival.name)
+                )
+                if resp:
+                    self.game.last_jg().is_draw_agreement = True
+                    self.game.set_termination(TERMINATION_DRAW_AGREEMENT, RESULT_DRAW)
+                    return False
+                else:
+                    self.next_test_resign = 9
+                    return True
+
+        return True

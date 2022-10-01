@@ -183,8 +183,8 @@ class WLeagues(LCDialog.LCDialog):
 def play_league(parent, league):
     play_human = WLeague.play_league(parent, league)
     if play_human:
-        league, match, division = play_human
-        Code.procesador.play_league_human(league, match, division)
+        league, xmatch, division = play_human
+        Code.procesador.play_league_human(league, xmatch, division)
         return True
     return False
 

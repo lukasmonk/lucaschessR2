@@ -7,7 +7,6 @@ import os
 import pickle
 import random
 import shutil
-import time
 import urllib.request
 import zlib
 
@@ -166,22 +165,13 @@ def ini_dic(file: str) -> dict:
                     n = line.find("=")
                     if n:
                         key = line[:n].strip()
-                        value = line[n + 1 :].strip()
+                        value = line[n + 1:].strip()
                         dic[key] = value
     return dic
 
 
 def today():
     return datetime.datetime.now()
-
-
-def new_id() -> int:
-    d = datetime.datetime.now()
-    r = random.randint
-    t = (
-        ((((r(1, d.year) * 12 + r(1, d.month)) * 31 + d.day) * 24 + d.hour) * 60 + d.minute) * 60 + d.second
-    ) * 1000 + r(1, d.microsecond + 737) // 1000
-    return t
 
 
 ORDERED_NUMBER = [0]
@@ -212,18 +202,9 @@ def huella() -> str:
 
     li = []
     for n in range(len(txt) // 2):
-        num = int(txt[n * 2 : n * 2 + 2])
+        num = int(txt[n * 2: n * 2 + 2])
         li.append(conv(num))
     return "".join(li)
-
-
-def str_id() -> str:
-    d = datetime.datetime.now()
-    r = random.randint
-    t = (
-        ((((r(1, d.year) * 12 + r(1, d.month)) * 31 + d.day) * 24 + d.hour) * 60 + d.minute) * 60 + d.second
-    ) * 1000 + r(1, d.microsecond + 737) // 1000
-    return str(t)
 
 
 def save_pickle(fich: str, obj) -> bool:
@@ -331,13 +312,6 @@ def primera_mayuscula(txt):
     return txt[0].upper() + txt[1:].lower() if len(txt) > 0 else ""
 
 
-def microsegundos_rnd():
-    d = datetime.datetime.now()
-    return random.randint(0, 1000) + 1000 * (
-        d.microsecond + 1000000 * (d.second + 60 * (d.minute + 60 * (d.hour + 24 * d.toordinal())))
-    )
-
-
 def ini2dic(file):
     dic_base = collections.OrderedDict()
 
@@ -355,7 +329,7 @@ def ini2dic(file):
                         n = linea.find("=")
                         if n > 0:
                             clave1 = linea[:n].strip()
-                            valor = linea[n + 1 :].strip()
+                            valor = linea[n + 1:].strip()
                             dic[clave1] = valor
 
     return dic_base
@@ -383,7 +357,7 @@ def ini_base2dic(file):
                     n = linea.find("=")
                     if n:
                         key = linea[:n].strip()
-                        valor = linea[n + 1 :].strip()
+                        valor = linea[n + 1:].strip()
                         dic[key] = valor
 
     return dic
@@ -596,252 +570,6 @@ def datefile(pathfile):
         return None
 
 
-class Timer:
-    def __init__(self, pending_time):
-        self.pending_time = pending_time
-        self.time_init = None
-        self.txt = ""
-        self.zeitnot_marker = 0
-
-    def texto(self, segs):
-        if segs <= 0.0:
-            segs = 0.0
-        tp = int(segs)
-        txt = "%02d:%02d" % (int(tp / 60), tp % 60)
-        return txt
-
-    def add_extra_seconds(self, segs):
-        self.pending_time += segs
-
-    def get_seconds(self):
-        if self.time_init:
-            tp = self.pending_time - (time.time() - self.time_init)
-        else:
-            tp = self.pending_time
-        if tp <= 0.0:
-            tp = 0
-        return int(tp)
-
-    def get_seconds2(self):
-        if self.time_init:
-            tp2 = int(time.time() - self.time_init)
-            tp = int(self.pending_time) - tp2
-        else:
-            tp = self.pending_time
-            tp2 = 0
-        if tp <= 0.0:
-            tp = 0
-        return int(tp), tp2
-
-    def etiqueta(self):
-        return self.texto(self.get_seconds())
-
-    def etiqueta2(self):
-        tp, tp2 = self.get_seconds2()
-        return self.texto(tp), self.texto(tp2)
-
-    def etiquetaDif(self):
-        nvEti = self.etiqueta()
-        if nvEti != self.txt:
-            self.txt = nvEti
-            return nvEti
-
-        return None
-
-    def etiquetaDif2(self):
-        nvEti, nvEti2 = self.etiqueta2()
-        if nvEti != self.txt:
-            self.txt = nvEti
-            return nvEti, nvEti2
-
-        return None, None
-
-    def label_dgt(self):
-        segs = self.get_seconds()
-        mins = segs // 60
-        segs -= mins * 60
-        hors = mins // 60
-        mins -= hors * 60
-
-        return "%d:%02d:%02d" % (hors, mins, segs)
-
-    def time_is_consumed(self):
-        if self.time_init:
-            if (self.pending_time - (time.time() - self.time_init)) <= 0.0:
-                return True
-        else:
-            return self.pending_time <= 0.0
-        return False
-
-    def is_zeitnot(self):
-        if self.zeitnot_marker:
-            if self.time_init:
-                t = self.pending_time - (time.time() - self.time_init)
-            else:
-                t = self.pending_time
-            if t > 0:
-                resp = t < self.zeitnot_marker
-                if resp:
-                    self.zeitnot_marker = None
-                return resp
-        return False
-
-    def set_zeinot(self, segs):
-        self.zeitnot_marker = segs
-
-    def start_marker(self):
-        self.time_init = time.time()
-
-    def stop_marker(self, tiempoJugada):
-        if self.time_init:
-            self.pending_time -= (time.time() - self.time_init) - tiempoJugada
-            self.time_init = None
-
-    def remove_marker(self):
-        self.time_init = None
-
-    def save(self):
-        return (self.pending_time, self.zeitnot_marker)
-
-    def restore(self, tvar):
-        self.pending_time, self.zeitnot_marker = tvar
-        self.time_init = None
-        self.txt = ""
-
-
-class Timer2:
-    def __init__(self, game, side, total_time, seconds_per_move):
-        self.game = game
-        self.side = side
-        self.total_time = total_time
-        self.pending_time = total_time
-        self.seconds_per_move = seconds_per_move
-        self.time_init = None
-        self.txt = ""
-        self.zeitnot_marker = 0
-
-    @staticmethod
-    def texto(segs):
-        if segs <= 0.0:
-            segs = 0.0
-        tp = int(segs)
-        txt = "%02d:%02d" % (int(tp / 60), tp % 60)
-        return txt
-
-    def add_extra_seconds(self, segs):
-        self.pending_time += segs
-        self.total_time += segs
-
-    def get_seconds(self):
-        if self.time_init:
-            tp = self.pending_time - (time.time() - self.time_init)
-        else:
-            tp = self.pending_time
-        if tp <= 0.0:
-            tp = 0
-        return int(tp)
-
-    def get_seconds2(self):
-        if self.time_init:
-            tp2 = int(time.time() - self.time_init)
-            tp = int(self.pending_time) - tp2
-        else:
-            tp = self.pending_time
-            tp2 = 0
-        if tp <= 0.0:
-            tp = 0
-        return int(tp), tp2
-
-    def etiqueta(self):
-        return self.texto(self.get_seconds())
-
-    def etiqueta2(self):
-        tp, tp2 = self.get_seconds2()
-        return self.texto(tp), self.texto(tp2)
-
-    def etiquetaDif(self):
-        nvEti = self.etiqueta()
-        if nvEti != self.txt:
-            self.txt = nvEti
-            return nvEti
-
-        return None
-
-    def etiquetaDif2(self):
-        nvEti, nvEti2 = self.etiqueta2()
-        if nvEti != self.txt:
-            self.txt = nvEti
-            return nvEti, nvEti2
-
-        return None, None
-
-    def label_dgt(self):
-        segs = self.get_seconds()
-        mins = segs // 60
-        segs -= mins * 60
-        hors = mins // 60
-        mins -= hors * 60
-
-        return "%d:%02d:%02d" % (hors, mins, segs)
-
-    def time_is_consumed(self):
-        if self.time_init:
-            if (self.pending_time - (time.time() - self.time_init)) <= 0.0:
-                return True
-        else:
-            return self.pending_time <= 0.0
-        return False
-
-    def is_zeitnot(self):
-        if self.zeitnot_marker:
-            if self.time_init:
-                t = self.pending_time - (time.time() - self.time_init)
-            else:
-                t = self.pending_time
-            if t > 0:
-                resp = t < self.zeitnot_marker
-                if resp:
-                    self.zeitnot_marker = None
-                return resp
-        return False
-
-    def set_zeinot(self, segs):
-        self.zeitnot_marker = segs
-
-    def start_marker(self):
-        self.recalc()
-        self.time_init = time.time()
-
-    def stop_marker(self):
-        if self.time_init:
-            t_used = (time.time() - self.time_init)
-            self.pending_time -=  t_used - self.seconds_per_move
-            self.time_init = None
-
-    def remove_marker(self):
-        self.recalc()
-        self.time_init = None
-
-    def recalc(self):
-        ms = 0
-        num_moves = 0
-        for move in self.game.li_moves:
-            if move.is_white() == self.side:
-                ms += move.time_ms
-                num_moves += 1
-        self.pending_time = self.total_time - ms / 1000.0 + num_moves * self.seconds_per_move
-
-    def save(self):
-        self.recalc()
-        return self.total_time, self.pending_time, self.zeitnot_marker
-
-    def restore(self, tvar):
-        self.total_time, self.pending_time, self.zeitnot_marker = tvar
-        self.recalc()
-        self.time_init = None
-        self.txt = ""
-
-
 def fideELO(eloJugador, eloRival, resultado):
     if resultado == +1:
         resultado = 1.0
@@ -882,32 +610,6 @@ def listfiles(*lista):
 
 def listdir(txt):
     return os.scandir(txt)
-
-
-class Timekeeper:
-    def __init__(self):
-        self._begin = None
-        self._accumulated = 0.0
-
-    def start(self):
-        self._begin = time.time()
-        self._accumulated = 0.0
-
-    def stop(self):
-        if self._begin:
-            secs = time.time() - self._begin + self._accumulated
-            self._begin = None
-            return secs
-        else:
-            return self._accumulated
-
-    def pause(self):
-        if self._begin:
-            self._accumulated = time.time() - self._begin
-            self._begin = None
-
-    def restart(self):
-        self._begin = time.time()
 
 
 class OpenCodec:
@@ -1038,6 +740,6 @@ def div_list(list, max_group):
     xfrom = 0
     li_groups = []
     while xfrom < nlist:
-        li_groups.append(list[xfrom : xfrom + max_group])
+        li_groups.append(list[xfrom: xfrom + max_group])
         xfrom += max_group
     return li_groups

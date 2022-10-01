@@ -73,7 +73,7 @@ class PMarker(BoardTypes.Marker):
 class GTarea:
     def __init__(self, guion, tp):
         self.guion = guion
-        self._id = Util.str_id()
+        self._id = Util.huella()
         self._tp = tp
         self._marcado = False
         self._orden = 0
@@ -282,8 +282,8 @@ class GT_SVG(GT_Item):
 
     def info(self):
         x, y, w, h = self.get_datos()
-        a1h8 = self.guion.board.fc_a1h8(int(y)+1, int(x)+1, int(y+h)+1, int(x+w)+1)
-        return "%s+[%.02f,%.02f]    ➝ %.02f   ↓ %.02f" % (a1h8[:2], x -int(x), y -int(y), w, h)
+        a1h8 = self.guion.board.fc_a1h8(int(y) + 1, int(x) + 1, int(y + h) + 1, int(x + w) + 1)
+        return "%s+[%.02f,%.02f]    ➝ %.02f   ↓ %.02f" % (a1h8[:2], x - int(x), y - int(y), w, h)
 
     def get_datos(self):
         bd = self._itemSC.bloqueDatos
@@ -585,7 +585,7 @@ class Guion:
 
     def nuevaCopia(self, ntarea):
         tarea = copy.copy(self.tarea(ntarea))
-        tarea._id = Util.str_id()
+        tarea._id = Util.huella()
         return self.nuevaTarea(tarea, ntarea + 1)
 
     def borra(self, nTarea):

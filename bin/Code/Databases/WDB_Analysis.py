@@ -136,13 +136,16 @@ class WDBAnalisis:
 
         me = QTUtil2.analizando(self.wowner)
 
-        conf_motor = Code.configuration.buscaRival(alm.engine)
-        conf_motor.update_multipv(alm.multiPV)
-        xmotor = Code.procesador.creaManagerMotor(conf_motor, alm.vtime, alm.depth, siMultiPV=True)
+        if alm.engine == "default":
+            xengine = Code.procesador.analyzer_clone(alm.vtime, alm.depth, alm.multiPV)
+        else:
+            conf_motor = Code.configuration.buscaRival(alm.engine)
+            conf_motor.update_multipv(alm.multiPV)
+            xengine = Code.procesador.creaManagerMotor(conf_motor, alm.vtime, alm.depth, siMultiPV=True)
 
         game = Game.Game()
         game.read_pv(pv)
-        mrm, pos = xmotor.analizaJugadaPartida(game, 9999, alm.vtime, alm.depth, window=self.wowner)
+        mrm, pos = xengine.analizaJugadaPartida(game, 9999, alm.vtime, alm.depth, window=self.wowner)
 
         rotulo = mrm.name
         if alm.vtime:
@@ -153,7 +156,7 @@ class WDBAnalisis:
 
         mrm.rotulo = rotulo
 
-        xmotor.terminar()
+        xengine.terminar()
 
         me.final()
 

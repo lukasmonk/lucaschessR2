@@ -66,7 +66,7 @@ class ManagerOpeningLines(Manager.Manager):
             if valoracion:
                 comment += "\n\n* " + Nags.dic_text_nags(valoracion)
 
-            text_move = "%d." % ((len(self.game)-1) // 2 + 1)
+            text_move = "%d." % ((len(self.game) - 1) // 2 + 1)
             if not move.is_white():
                 text_move += ".."
             text_move += move.pgn_translated()

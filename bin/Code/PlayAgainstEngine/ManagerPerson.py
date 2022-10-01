@@ -1,4 +1,3 @@
-from Code import TimeControl
 from Code.Base.Constantes import (
     ST_PLAYING,
     TB_REINIT,
@@ -81,10 +80,12 @@ class ManagerPerson(ManagerPlayAgainstEngine.ManagerPlayAgainstEngine):
 
         self.xrival.is_white = self.is_engine_side_white
 
-        self.tc_player = TimeControl.TimeControl(self.main_window, self.game, self.is_human_side_white)
-        self.tc_rival = TimeControl.TimeControl(self.main_window, self.game, not self.is_human_side_white)
+        self.tc_player = self.tc_white if self.is_human_side_white else self.tc_black
+        self.tc_rival = self.tc_white if self.is_engine_side_white else self.tc_black
 
         self.timed = dic_var["SITIEMPO"]
+        self.tc_white.set_displayed(self.timed)
+        self.tc_black.set_displayed(self.timed)
         if self.timed:
             max_seconds = dic_var["MINUTOS"] * 60.0
             seconds_per_move = dic_var["SEGUNDOS"]
@@ -92,9 +93,6 @@ class ManagerPerson(ManagerPlayAgainstEngine.ManagerPlayAgainstEngine):
 
             self.tc_player.config_clock(max_seconds, seconds_per_move, 0.0, secs_extra)
             self.tc_rival.config_clock(max_seconds, seconds_per_move, 0.0, secs_extra)
-
-            self.tc_white = self.tc_player if self.is_human_side_white else self.tc_rival
-            self.tc_black = self.tc_rival if self.is_engine_side_white else self.tc_player
 
             time_control = "%d" % int(self.max_seconds)
             if seconds_per_move:
@@ -130,7 +128,7 @@ class ManagerPerson(ManagerPlayAgainstEngine.ManagerPlayAgainstEngine):
         if self.timed:
             tp_bl, tp_ng = self.tc_white.label(), self.tc_black.label()
 
-            self.main_window.ponDatosReloj(bl, tp_bl, ng, tp_ng)
+            self.main_window.set_data_clock(bl, tp_bl, ng, tp_ng)
             self.refresh()
         else:
             self.main_window.base.change_player_labels(bl, ng)
@@ -138,7 +136,7 @@ class ManagerPerson(ManagerPlayAgainstEngine.ManagerPlayAgainstEngine):
         if self.timed:
             tp_bl, tp_ng = self.tc_white.label(), self.tc_black.label()
 
-            self.main_window.ponDatosReloj(bl, tp_bl, ng, tp_ng)
+            self.main_window.set_data_clock(bl, tp_bl, ng, tp_ng)
             self.refresh()
         else:
             self.main_window.base.change_player_labels(bl, ng)

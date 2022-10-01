@@ -1,6 +1,7 @@
 import collections
 import copy
 import os
+import time
 import webbrowser
 from io import BytesIO
 
@@ -72,7 +73,7 @@ class Board(QtWidgets.QGraphicsView):
         self.guion = None
         self.lastFenM2 = ""
         self.dbVisual = TabVisual.DBManagerVisual(
-            self.configuration.ficheroRecursos, show_always=self.configuration.x_director_icon == False
+            self.configuration.ficheroRecursos, show_always=self.configuration.x_director_icon is False
         )
 
         self.current_graphlive = None
@@ -1384,6 +1385,14 @@ class Board(QtWidgets.QGraphicsView):
                 elif self.siDirectorIcon:
                     self.scriptSC_menu.hide()
 
+    def eboard_arrow(self, a1, h8, prom):
+        if Code.eboard and Code.eboard.driver and self.allow_eboard:
+            position = self.last_position.copia()
+            position.mover(a1, h8, prom)
+            Code.eboard.set_position(position)
+            time.sleep(2.0)
+            Code.eboard.set_position(self.last_position)
+
     def set_raw_last_position(self, position):
         if position != self.last_position:
             self.set_last_position(position)
@@ -2422,6 +2431,9 @@ class Board(QtWidgets.QGraphicsView):
 
             elif quien == "blackTakeBack":
                 return self.try_eboard_takeback(BLACK)
+
+            elif quien == "stableBoard":
+                return 1
 
             else:
                 return 1

@@ -525,5 +525,3 @@ class AlbumVehicles(Albums):
             Cromo("Airplane", _("Airplane"), 5, 99, 0, 0, 10, 26, 300, 150, 1, "k", 999),
         ]
         return li
-
-

@@ -33,9 +33,13 @@ from Code.QT import Grid
 from Code.QT import Iconos
 from Code.QT import QTUtil
 from Code.QT import QTVarios
+from Code import TimeControl
 
 
 class WLeagueWorker(QtWidgets.QWidget):
+    tc_white: TimeControl.TimeControl
+    tc_black: TimeControl.TimeControl
+
     def __init__(self, name_league):
         QtWidgets.QWidget.__init__(self)
 
@@ -138,16 +142,16 @@ class WLeagueWorker(QtWidgets.QWidget):
         # Relojes
         f = Controles.TipoLetra("Arial Black", puntos=26, peso=75)
 
-        self.lb_reloj = {}
+        self.lb_clock = {}
         for side in (WHITE, BLACK):
-            self.lb_reloj[side] = (
+            self.lb_clock[side] = (
                 Controles.LB(self, "00:00")
                 .ponFuente(f)
                 .align_center()
                 .set_foreground_backgound("#076C9F", "#EFEFEF")
                 .anchoMinimo(n_ancho_labels)
             )
-            self.lb_reloj[side].setFrameStyle(QtWidgets.QFrame.Box | QtWidgets.QFrame.Raised)
+            self.lb_clock[side].setFrameStyle(QtWidgets.QFrame.Box | QtWidgets.QFrame.Raised)
 
         # Rotulos de informacion
         f = Controles.TipoLetra(puntos=configuration.x_sizefont_infolabels)
@@ -156,7 +160,7 @@ class WLeagueWorker(QtWidgets.QWidget):
         # Layout
         lyColor = Colocacion.G()
         lyColor.controlc(self.lb_player[WHITE], 0, 0).controlc(self.lb_player[BLACK], 0, 1)
-        lyColor.controlc(self.lb_reloj[WHITE], 1, 0).controlc(self.lb_reloj[BLACK], 1, 1)
+        lyColor.controlc(self.lb_clock[WHITE], 1, 0).controlc(self.lb_clock[BLACK], 1, 1)
 
         # Abajo
         lyAbajo = Colocacion.V()
@@ -172,8 +176,8 @@ class WLeagueWorker(QtWidgets.QWidget):
         return self.pgn.num_rows()
 
     def looking_for_work(self):
-        self.match = self.league_work.get_other_match()
-        if self.match is None:
+        self.xmatch = self.league_work.get_other_match()
+        if self.xmatch is None:
             return
         self.procesa_match()
         if not self.is_closed:
@@ -194,18 +198,16 @@ class WLeagueWorker(QtWidgets.QWidget):
             self.xadjudicator = None
         self.next_control = 0
 
-        max_minute, self.segundos_jugada = self.league.time_engine_engine
-        self.max_segundos = max_minute * 60
+        max_minute, self.seconds_per_move = self.league.time_engine_engine
+        self.max_seconds = max_minute * 60
 
         # abrimos motores
         rival = {
-            WHITE: self.league.opponent_by_xid(self.match.xid_white),
-            BLACK: self.league.opponent_by_xid(self.match.xid_black),
+            WHITE: self.league.opponent_by_xid(self.xmatch.xid_white),
+            BLACK: self.league.opponent_by_xid(self.xmatch.xid_black),
         }
         for side in (WHITE, BLACK):
             self.lb_player[side].set_text(rival[side].name())
-
-        self.vtime = {}
 
         self.book = {}
         self.bookRR = {}
@@ -218,21 +220,26 @@ class WLeagueWorker(QtWidgets.QWidget):
             self.xengine[side] = EngineManager.EngineManager(self, rv)
             self.xengine[side].set_gui_dispatch(self.gui_dispatch)
 
-            self.vtime[side] = Util.Timer(self.max_segundos)
-
         self.game = Game.Game()
         self.pgn.game = self.game
+
+        self.tc_white = TimeControl.TimeControl(self, self.game, WHITE)
+        self.tc_white.config_clock(self.max_seconds, self.seconds_per_move, 0, 0)
+        self.tc_white.set_labels()
+        self.tc_black = TimeControl.TimeControl(self, self.game, BLACK)
+        self.tc_black.config_clock(self.max_seconds, self.seconds_per_move, 0, 0)
+        self.tc_black.set_labels()
+
+        time_control = "%d" % int(self.max_seconds)
+        if self.seconds_per_move:
+            time_control += "+%d" % self.seconds_per_move
+        self.game.set_tag("TimeControl", time_control)
 
         self.lbRotulo3.altoFijo(32)
 
         self.board.disable_all()
         self.board.set_position(self.game.last_position)
         self.grid_pgn.refresh()
-
-        for side in (WHITE, BLACK):
-            ot = self.vtime[side]
-            eti, eti2 = ot.etiquetaDif2()
-            self.pon_reloj_side(side, eti, eti2)
 
         while self.state == ST_PAUSE or self.play_next_move():
             if self.state == ST_PAUSE:
@@ -267,7 +274,7 @@ class WLeagueWorker(QtWidgets.QWidget):
         self.game.set_extend_tags()
         self.game.sort_tags()
 
-        self.league_work.put_match_done(self.match, self.game)
+        self.league_work.put_match_done(self.xmatch, self.game)
 
     def terminar(self):
         self.is_closed = True
@@ -276,15 +283,17 @@ class WLeagueWorker(QtWidgets.QWidget):
     def cancel_match(self):
         self.is_closed = True
         Code.list_engine_managers.close_all()
-        self.league_work.cancel_match(self.match.xid)
+        self.league_work.cancel_match(self.xmatch.xid)
 
     def closeEvent(self, event):
         self.terminar()
 
     def pausa(self):
+        self.pause_clock(self.current_side)
         self.pon_estado(ST_PAUSE)
 
     def seguir(self):
+        self.start_clock(self.current_side)
         self.pon_estado(ST_PLAYING)
 
     def adjudication(self):
@@ -301,38 +310,48 @@ class WLeagueWorker(QtWidgets.QWidget):
             self.game.set_termination(TERMINATION_ADJUDICATION, resp)
             self.save_game_done()
 
-    def pon_reloj(self):
+    def set_clock(self):
         if self.is_closed or self.game_finished():
             return False
 
-        ot = self.vtime[self.current_side]
-
-        eti, eti2 = ot.etiquetaDif2()
-        if eti:
-            self.pon_reloj_side(self.current_side, eti, eti2)
-
-        if ot.time_is_consumed():
+        tc = self.tc_white if self.current_side == WHITE else self.tc_black
+        tc.set_labels()
+        if tc.time_is_consumed():
             self.game.set_termination_time()
             return False
 
         QTUtil.refresh_gui()
         return True
 
-    def pon_reloj_side(self, side, tm, tm2):
-        if tm2 is not None:
-            tm += '<br><FONT SIZE="-4">' + tm2
-        self.lb_reloj[side].set_text(tm)
-
     def start_clock(self, is_white):
-        self.vtime[is_white].start_marker()
+        tc = self.tc_white if is_white else self.tc_black
+        tc.start()
 
     def stop_clock(self, is_white):
-        self.vtime[is_white].stop_marker(self.segundos_jugada)
-        self.pon_reloj()
+        tc = self.tc_white if is_white else self.tc_black
+        tc.stop()
+        tc.set_labels()
 
-    def reloj_pause(self, is_white):
-        self.vtime[is_white].remove_marker()
-        self.pon_reloj()
+    def pause_clock(self, is_white):
+        tc = self.tc_white if is_white else self.tc_black
+        tc.pause()
+        tc.set_labels()
+
+    def restart_clock(self, is_white):
+        tc = self.tc_white if is_white else self.tc_black
+        tc.restart()
+        tc.set_labels()
+
+    def set_clock_label(self, side, tm, tm2):
+        if tm2 is not None:
+            tm += '<br><FONT SIZE="-4">' + tm2
+        self.lb_clock[side].set_text(tm)
+
+    def set_clock_white(self, tm, tm2):
+        self.set_clock_label(WHITE, tm, tm2)
+
+    def set_clock_black(self, tm, tm2):
+        self.set_clock_label(BLACK, tm, tm2)
 
     def add_move(self, move):
         self.game.add_move(move)
@@ -384,18 +403,15 @@ class WLeagueWorker(QtWidgets.QWidget):
 
         self.board.set_side_indicator(is_white)
 
-        analysis = None
-
         xrival = self.xengine[is_white]
-        tiempoBlancas = self.vtime[True].pending_time
-        tiempoNegras = self.vtime[False].pending_time
+        time_pending_white = self.tc_white.pending_time
+        time_pending_black = self.tc_black.pending_time
         self.start_clock(is_white)
         if xrival.depth_engine and xrival.depth_engine > 0:
             mrm = xrival.play_fixed_depth_time_tourney(self.game)
         else:
-            mrm = xrival.play_time_tourney(self.game, tiempoBlancas, tiempoNegras, self.segundos_jugada)
+            mrm = xrival.play_time_tourney(self.game, time_pending_white, time_pending_black, self.seconds_per_move)
         if self.state == ST_PAUSE:
-            self.reloj_pause(is_white)
             self.board.borraMovibles()
             return True
         self.stop_clock(is_white)
@@ -429,10 +445,9 @@ class WLeagueWorker(QtWidgets.QWidget):
             else:
                 runSound = Code.runSound
             if self.configuration.x_sound_move:
-                    runSound.play_list(move.listaSonidos())
+                runSound.play_list(move.listaSonidos())
             if self.configuration.x_sound_beep:
                 runSound.playBeep()
-
 
     def sudden_end(self, is_white):
         result = RESULT_WIN_BLACK if is_white else RESULT_WIN_WHITE
@@ -493,13 +508,13 @@ class WLeagueWorker(QtWidgets.QWidget):
             txt = "<b>[%s]</b> (%s) %s" % (rm.name, rm.abrTexto(), p.pgn_translated())
             self.lbRotulo3.set_text(txt)
             self.showPV(rm.pv, 1)
-        return self.pon_reloj()
+        return self.set_clock()
 
     def clocks_finished(self):
-        if self.vtime[WHITE].time_is_consumed():
+        if self.tc_white.time_is_consumed():
             self.game.set_termination(TERMINATION_WIN_ON_TIME, RESULT_WIN_BLACK)
             return True
-        if self.vtime[BLACK].time_is_consumed():
+        if self.tc_black.time_is_consumed():
             self.game.set_termination(TERMINATION_WIN_ON_TIME, RESULT_WIN_WHITE)
             return True
         return False

@@ -297,7 +297,9 @@ class RunEngine:
         while True:
             if self.hay_datos():
                 for line in self.get_lines():
-                    if not self.stopped: # problema con información que llega tras stop, que no muestra lineas completas de pv en stockfish
+                    if (
+                        not self.stopped
+                    ):  # problema con información que llega tras stop, que no muestra lineas completas de pv en stockfish
                         self.mrm.dispatch(line)
                     if seektxt in line:
                         if not self.dispatch():

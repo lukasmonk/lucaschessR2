@@ -219,12 +219,12 @@ class WLeague(LCDialog.LCDialog):
             return
 
         key = col.key
-        order_prev =  self.dic_order.get(key, False)
+        order_prev = self.dic_order.get(key, False)
         self.dic_order[key] = order = not order_prev
 
-        li = [(self.grid_dato(grid, row, col), match) for row, match in enumerate(self.li_matches)]
-        li.sort(key=lambda x:x[0], reverse=not order)
-        self.li_matches = [match for dato, match in li]
+        li = [(self.grid_dato(grid, row, col), xmatch) for row, xmatch in enumerate(self.li_matches)]
+        li.sort(key=lambda x: x[0], reverse=not order)
+        self.li_matches = [xmatch for dato, xmatch in li]
 
         grid.refresh()
         grid.gotop()
@@ -251,58 +251,84 @@ class WLeague(LCDialog.LCDialog):
             division = self.li_grids_divisions.index(grid)
             return self.grid_dato_division(division, row, column)
         else:
-            match = self.li_matches[row]
+            xmatch = self.li_matches[row]
             if column == "RESULT":
-                result = match.result
+                result = xmatch.result
                 if result is None:
                     active = self.current_journey == self.sb_journey.valor() - 1
-                    if match.is_human_vs_engine(self.league):
+                    if xmatch.is_human_vs_engine(self.league):
                         return _("Double click to play") if active else "-"
-                    if match.is_human_vs_human(self.league):
+                    if xmatch.is_human_vs_human(self.league):
                         return _("Double click to edit") if active else "-"
                     return "-"
                 else:
                     return result
             if column == "WHITE":
-                return self.dic_xid_name[match.xid_white]
+                return self.dic_xid_name[xmatch.xid_white]
             elif column == "BLACK":
-                return self.dic_xid_name[match.xid_black]
+                return self.dic_xid_name[xmatch.xid_black]
             elif column == "DIVISION":
-                return match.label_division
+                return xmatch.label_division
 
     def grid_doble_click(self, grid, row, o_column):
         if grid in self.li_grids_divisions:
-            pass
-        else:
-            match = self.li_matches[row]
-            division = int(match.label_division)
-            if match.result:
-                game = self.season.get_game_match(match)
-                if game:
-                    game = Code.procesador.manager_game(self, game, True, False, None)
-                    if game:
-                        self.season.put_match_done(game)
-                        grid.refresh()
+            num_division = self.li_grids_divisions.index(grid)
+            d_panel = self.li_panels[num_division][row]
+            xid_engine = d_panel["XID"]
+            li_matches_played = self.season.get_all_matches_opponent(num_division, xid_engine)
+            if len(li_matches_played) == 0:
+                return
 
-            elif match.is_human_vs_engine(self.league):
-                self.play_human = self.league, match, division
+            menu = QTVarios.LCMenu(self)
+            menu.ponTipoLetra(name=Code.font_mono, puntos=10)
+
+            win = _("W ||Games won")
+            draw = _("D ||Games drawn")
+            lost = _("L ||Games lost")
+            for xmatch in li_matches_played:
+                white = self.dic_xid_name[xmatch.xid_white]
+                black = self.dic_xid_name[xmatch.xid_black]
+                result = xmatch.result
+                if xmatch.xid_white == xid_engine:
+                    icon = Iconos.Blancas()
+                    opponent = black
+                    cresult = win if result == RESULT_WIN_WHITE else (lost if result == RESULT_WIN_BLACK else draw)
+                else:
+                    icon = Iconos.Negras()
+                    opponent = white
+                    cresult = win if result == RESULT_WIN_BLACK else (lost if result == RESULT_WIN_WHITE else draw)
+                menu.opcion(xmatch, "%s - %s - %s" % (cresult, result, opponent), icon)
+                menu.separador()
+            xmatch = menu.lanza()
+            if xmatch:
+                self.show_match_done(xmatch)
+
+        else:
+            xmatch = self.li_matches[row]
+            division = int(xmatch.label_division)
+            if xmatch.result:
+                self.show_match_done(xmatch)
+                grid.refresh()
+
+            elif xmatch.is_human_vs_engine(self.league):
+                self.play_human = self.league, xmatch, division
                 self.result = PLAY_HUMAN
                 self.accept()
 
-            elif match.is_human_vs_human(self.league):
+            elif xmatch.is_human_vs_human(self.league):
                 game = Game.Game()
                 game.set_tag("Site", Code.lucas_chess)
                 game.set_tag("Event", self.league.name())
                 game.set_tag("Season", str(self.league.current_num_season + 1))
                 game.set_tag("Division", str(division + 1))
-                game.set_tag("White", self.league.opponent_by_xid(match.xid_white).name())
-                game.set_tag("Black", self.league.opponent_by_xid(match.xid_black).name())
+                game.set_tag("White", self.league.opponent_by_xid(xmatch.xid_white).name())
+                game.set_tag("Black", self.league.opponent_by_xid(xmatch.xid_black).name())
                 panel = self.li_panels[division]
                 elo_white = elo_black = 0
                 for elem in panel:
-                    if elem["XID"] == match.xid_white:
+                    if elem["XID"] == xmatch.xid_white:
                         elo_white = elem["ACT_ELO"]
-                    elif elem["XID"] == match.xid_black:
+                    elif elem["XID"] == xmatch.xid_black:
                         elo_black = elem["ACT_ELO"]
                 game.set_tag("WhiteElo", str(elo_white))
                 game.set_tag("BlackElo", str(elo_black))
@@ -323,8 +349,8 @@ class WLeague(LCDialog.LCDialog):
                     if game_resp:
                         game_resp.verify()
                         if game.resultado() in (RESULT_WIN_BLACK, RESULT_DRAW, RESULT_WIN_WHITE):
-                            match.result = game.resultado()
-                            self.season.put_match_done(match, game)
+                            xmatch.result = game.resultado()
+                            self.season.put_match_done(xmatch, game)
                             self.update_matches()
                             grid.refresh()
                             return
@@ -333,6 +359,13 @@ class WLeague(LCDialog.LCDialog):
                             game = game_resp
                     else:
                         return
+
+    def show_match_done(self, xmatch):
+        game = self.season.get_game_match(xmatch)
+        if game:
+            game = Code.procesador.manager_game(self, game, True, False, None)
+            if game:
+                self.season.put_match_done(game)
 
     def grid_color_texto(self, grid, row, o_column):
         if grid in self.li_grids_divisions:
@@ -348,9 +381,9 @@ class WLeague(LCDialog.LCDialog):
         migration = self.league.migration
         ndatos = self.grid_num_datos(grid)
         if (
-                grid in self.li_grids_divisions
-                and self.season.is_finished()
-                and (row < migration or row > (ndatos - migration - 1))
+            grid in self.li_grids_divisions
+            and self.season.is_finished()
+            and (row < migration or row > (ndatos - migration - 1))
         ):
             return self.color_white
 
@@ -358,9 +391,9 @@ class WLeague(LCDialog.LCDialog):
         migration = self.league.migration
         ndatos = self.grid_num_datos(grid)
         return (
-                grid in self.li_grids_divisions
-                and self.season.is_finished()
-                and (row < migration or row > (ndatos - migration - 1))
+            grid in self.li_grids_divisions
+            and self.season.is_finished()
+            and (row < migration or row > (ndatos - migration - 1))
         )
 
     def update_matches(self):
@@ -376,14 +409,14 @@ class WLeague(LCDialog.LCDialog):
         changed = False
         division: Leagues.Division
         for division in self.season.li_divisions:
-            for match in division.get_all_matches(journey):
-                if match.result is None:
+            for xmatch in division.get_all_matches(journey):
+                if xmatch.result is None:
                     with UtilSQL.DictRawSQL(self.league.path(), "SEASON_%d" % self.league.current_num_season) as db:
-                        game_saved = db[match.xid]
+                        game_saved = db[xmatch.xid]
                         if game_saved is not None:
                             game = Game.Game()
                             game.restore(game_saved)
-                            match.result = game.result
+                            xmatch.result = game.result
                             changed = True
 
         if changed:

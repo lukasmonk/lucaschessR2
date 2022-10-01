@@ -492,6 +492,7 @@ class WColores(LCDialog.LCDialog):
         # Board #####################################################################################################
         cp = Position.Position().read_fen("2kr1b1r/2p1pppp/p7/3pPb2/1q3P2/2N1P3/PPP3PP/R1BQK2R w KQ - 0 1")
         self.board = Board.Board(self, self.config_board, siMenuVisual=False)
+        self.board.permitidoResizeExterno(False)
         self.board.crea()
         self.board.set_position(cp)
         self.rehazFlechas()
@@ -757,6 +758,8 @@ class WColores(LCDialog.LCDialog):
         self.chbDefTamRecuadro.set_value(ct.siDefTamRecuadro())
         self.sbTamFrontera.set_value(ct.tamFrontera())
         self.chbDefTamFrontera.set_value(ct.siDefTamFrontera())
+        self.dialBlancasTrans.dial.setValue(ct.transBlancas())
+        self.dialNegrasTrans.dial.setValue(ct.transNegras())
 
         self.chbExtended.set_value(ct.extendedColor())
 

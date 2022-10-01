@@ -112,7 +112,7 @@ class Configuration:
 
         self.version = ""
 
-        self.x_id = Util.new_id()
+        self.x_id = Util.huella()
         self.x_player = ""
         self.x_save_folder = ""
         self.x_save_pgn_folder = ""
@@ -529,7 +529,7 @@ class Configuration:
         self.michelo = 1600
         self.fics = 1200
         self.fide = 1600
-        self.x_id = Util.new_id()
+        self.x_id = Util.huella()
         self.x_player = name
         self.x_save_folder = ""
         self.x_save_pgn_folder = ""

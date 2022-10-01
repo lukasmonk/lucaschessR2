@@ -123,7 +123,7 @@ class ListaMoves:
         for uno in liMovesBook:
             self.liMoves.append(UnMove(self, book, fen, uno))
 
-    def cambiaLibro(self, book):
+    def change_book(self, book):
         self.book = book
         book.polyglot()
         liMovesBook = book.get_list_moves(self.fen)
@@ -256,7 +256,7 @@ class WMoves(QtWidgets.QWidget):
         else:
             tb.new(_("Close"), Iconos.MainMenu(), self.owner.cancelar)
         tb.new(_("Open new branch"), Iconos.Mas(), self.rama)
-        tb.new(_("Books"), Iconos.Libros(), self.owner.menuLibros)
+        tb.new(_("Books"), Iconos.Libros(), self.owner.menu_books)
 
         layout = Colocacion.V().control(tb).control(self.tree).margen(1)
 
@@ -392,7 +392,7 @@ class WindowArbolBook(LCDialog.LCDialog):
         for col, ancho in enumerate((100, 59, 87, 0, 38)):
             self.wmoves.tree.setColumnWidth(col, ancho)
 
-        self.ponTitulo(self.book)
+        self.set_title(self.book)
 
     def muestra(self, mov):
         self.infoMove.muestra(mov)
@@ -427,24 +427,21 @@ class WindowArbolBook(LCDialog.LCDialog):
     def closeEvent(self, event):
         self.save_video()
 
-    def cambiaLibro(self, book):
-        self.listaMoves.cambiaLibro(book)
+    def change_book(self, book):
+        self.listaMoves.change_book(book)
         self.wmoves.tree.clear()
         self.wmoves.tree.ponMoves(self.listaMoves)
         self.list_books.porDefecto(book)
         self.list_books.save_pickle(self.fvar)
-        self.ponTitulo(book)
+        self.set_title(book)
         self.book = book
 
-    def ponTitulo(self, book):
+    def set_title(self, book):
         titulo = book.name
         self.infoMove.ponTituloLibro(titulo)
         self.setWindowTitle(_("Consult a book") + " [%s]" % titulo)
 
-    def compruebaOpening(self):
-        pass
-
-    def menuLibros(self):
+    def menu_books(self):
         menu = QTVarios.LCMenu(self)
         nBooks = len(self.list_books.lista)
 
@@ -467,7 +464,7 @@ class WindowArbolBook(LCDialog.LCDialog):
         if resp:
             orden, book = resp
             if orden == "x":
-                self.cambiaLibro(book)
+                self.change_book(book)
             elif orden == "n":
                 fbin = SelectFiles.leeFichero(self, self.list_books.path, "bin", titulo=_("Polyglot book"))
                 if fbin:
@@ -475,7 +472,7 @@ class WindowArbolBook(LCDialog.LCDialog):
                     name = os.path.basename(fbin)[:-4]
                     book = Books.Book("P", name, fbin, True)
                     self.list_books.nuevo(book)
-                    self.cambiaLibro(book)
+                    self.change_book(book)
             elif orden == "b":
                 self.list_books.borra(book)
                 self.list_books.save_pickle(self.fvar)
@@ -488,14 +485,14 @@ class WindowArbolBook(LCDialog.LCDialog):
         for book in self.list_books.lista:
             if si:
                 if self.listaMoves.siEstaEnLibro(book):
-                    self.cambiaLibro(book)
+                    self.change_book(book)
                     return
             if book == self.book:
                 si = True
         # del principio al actual
         for book in self.list_books.lista:
             if self.listaMoves.siEstaEnLibro(book):
-                self.cambiaLibro(book)
+                self.change_book(book)
                 return
             if book == self.book:
                 return

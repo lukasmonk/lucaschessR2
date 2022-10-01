@@ -180,30 +180,30 @@ class Match:
 class MatchsDay:
     MIN_ELO = 10
 
-    def __init__(self, blk1: list, ida: bool, li_xid_opponents: list):
+    def __init__(self, blk1: list, li_xid_opponents: list):
         self.li_matches = []
         for x, y in blk1:
             xid = li_xid_opponents[x]
             yid = li_xid_opponents[y]
-            match = Match(xid, yid) if ida else Match(yid, xid)
-            self.li_matches.append(match)
+            xmatch = Match(xid, yid)
+            self.li_matches.append(xmatch)
 
     def save(self):
-        return [match.save() for match in self.li_matches]
+        return [xmatch.save() for xmatch in self.li_matches]
 
     def restore(self, li_saved):
         self.li_matches = []
         for dic_saved in li_saved:
-            match = Match("", "")
-            match.restore(dic_saved)
-            self.li_matches.append(match)
+            xmatch = Match("", "")
+            xmatch.restore(dic_saved)
+            self.li_matches.append(xmatch)
 
     def add_results(self, dic):
-        for match in self.li_matches:
-            if match.result is None:
+        for xmatch in self.li_matches:
+            if xmatch.result is None:
                 continue
-            result = match.result
-            xid_white, xid_black = match.xid_white, match.xid_black
+            result = xmatch.result
+            xid_white, xid_black = xmatch.xid_white, xmatch.xid_black
             pts_white = pts_black = 0
             dic[xid_white]["PL"] += 1
             dic[xid_black]["PL"] += 1
@@ -252,9 +252,8 @@ class Division:
             self.dic_tiebreak[xid] = pos
         self.li_matchdays = []
         li_journeys = create_journeys(len(dic_elo_opponents))
-        for ida in (True, False):
-            for li_nmatch in li_journeys:
-                self.li_matchdays.append(MatchsDay(li_nmatch, ida, li_xid_opponents))
+        for li_nmatch in li_journeys:
+            self.li_matchdays.append(MatchsDay(li_nmatch, li_xid_opponents))
 
     def save(self):
         return {
@@ -269,7 +268,7 @@ class Division:
         self.li_matchdays = []
         li_xid_opponents = list(self.dic_elo_opponents.keys())
         for matchday_saved in dic["LI_MATCHDAYS"]:
-            matchday = MatchsDay([], False, li_xid_opponents)
+            matchday = MatchsDay([], li_xid_opponents)
             matchday.restore(matchday_saved)
             self.li_matchdays.append(matchday)
 
@@ -304,7 +303,7 @@ class Division:
         li_panel.sort(key=comp, reverse=True)
         return li_panel
 
-    def match(self, journey, pos):
+    def xmatch(self, journey, pos):
         matchday = self.li_matchdays[journey]
         return matchday.li_matches[pos]
 
@@ -646,12 +645,12 @@ class Season:
             li_panels.append(division.gen_panel())
         return li_panels
 
-    def match(self, division, journey, pos):
-        return self.li_divisions[division].match(journey, pos)
+    def xmatch(self, division, journey, pos):
+        return self.li_divisions[division].xmatch(journey, pos)
 
     def is_pendings_matches(self, journey):
-        for match in self.get_all_matches_journey(journey):
-            if match.result is None:
+        for xmatch in self.get_all_matches_journey(journey):
+            if xmatch.result is None:
                 return True
         return False
 
@@ -681,9 +680,19 @@ class Season:
         li = []
         for ndivision, division in enumerate(self.li_divisions):
             li_matches = division.get_all_matches(journey)
-            for match in li_matches:
-                match.label_division = str(ndivision + 1)
+            for xmatch in li_matches:
+                xmatch.label_division = str(ndivision + 1)
             li.extend(li_matches)
+        return li
+
+    def get_all_matches_opponent(self, num_division, xid_opponent):
+        li = []
+        division = self.li_divisions[num_division]
+        for journey in range(self.current_journey + 1):
+            li_matches = division.get_all_matches(journey)
+            for xmatch in li_matches:
+                if xid_opponent in (xmatch.xid_black, xmatch.xid_white) and xmatch.result:
+                    li.append(xmatch)
         return li
 
     def new_journey(self, league: League):
@@ -691,13 +700,13 @@ class Season:
         self.save()
         return self.current_journey
 
-    def put_match_done(self, match, game):
+    def put_match_done(self, xmatch, game):
         with UtilSQL.DictRawSQL(self.path, self.table) as dbl:
-            dbl[match.xid] = game.save()
+            dbl[xmatch.xid] = game.save()
 
-    def get_game_match(self, match):
+    def get_game_match(self, xmatch):
         with UtilSQL.DictRawSQL(self.path, self.table) as dbl:
-            game_saved = dbl[match.xid]
+            game_saved = dbl[xmatch.xid]
             if game_saved:
                 game = Game.Game()
                 game.restore(game_saved)

@@ -665,7 +665,10 @@ class WImportar(LCDialog.LCDialog):
     def grid_doubleclick_header(self, grid, oCol):
         cab, si_rev = self.last_order
         col_clave = oCol.key
-        key = lambda x: str(x[col_clave])
+
+        def key(x):
+            return str(x[col_clave])
+
         if cab == col_clave:
             si_rev = not si_rev
         else:

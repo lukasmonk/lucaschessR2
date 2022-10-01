@@ -203,12 +203,12 @@ class WTranslate(LCDialog.LCDialog):
             ori_porc, ori_dic = calc(key)
             tra_porc, tra_dic = calc(value)
             if ori_porc != tra_porc:
-                QTUtil2.message_error(self, "The % number does not match the English text.")
+                QTUtil2.message_error(self, "The % number does not xmatch the English text.")
                 self.automatic_reorder = auto_reorder
                 return
             for k in li_porc:
                 if ori_dic[k] != tra_dic[k]:
-                    QTUtil2.message_error(self, "The command %s does not match the English text." % k)
+                    QTUtil2.message_error(self, "The command %s does not xmatch the English text." % k)
                     self.automatic_reorder = auto_reorder
                     return
             if "||" in value:

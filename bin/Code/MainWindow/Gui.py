@@ -137,7 +137,7 @@ def run_gui(procesador):
     # darkPalette.setColor(QPalette.Disabled, QPalette.HighlightedText,
     #                      QColor(127, 127, 127))
 
-    # with open("../Templates/VisualScript.qss") as qss: https://qss-stock.devsecstudio.com/templates.php
+    # with open("../Templates/Incrypt/Incrypt.qss") as qss: # https://qss-stock.devsecstudio.com/templates.php
     #     app.setStyleSheet(qss.read())
     app.setStyle(QtWidgets.QStyleFactory.create(configuration.x_style))
     #

@@ -201,7 +201,6 @@ class WExpedition(LCDialog.LCDialog):
         self.color_negativo = QTUtil.qtColorRGB(255, 0, 0)
         self.color_positivo = QTUtil.qtColor("#2b7d15")
 
-
         wsvg = QtSvg.QSvgWidget()
         wsvg.load(QtCore.QByteArray(svg))
         wsvg.setFixedSize(762, int(762.0 * 520.0 / 1172.0))

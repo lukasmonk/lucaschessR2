@@ -242,7 +242,7 @@ class WAnalisis(LCDialog.LCDialog):
                     if window.key_video.startswith("subanalysis"):
                         st_subanalisis.add(int(window.key_video[11:]))
             num = 1
-            for x in range(1,100):
+            for x in range(1, 100):
                 if x not in st_subanalisis:
                     num = x
                     break
@@ -449,7 +449,9 @@ class WAnalisis(LCDialog.LCDialog):
             xanalyzer = Code.procesador.XAnalyzer()
             si_cancelar = xanalyzer.mstime_engine > 1000 or xanalyzer.depth_engine > 8
             mens = _("Analyzing the move....")
-            me = QTUtil2.mensEspera.start(self, mens, siCancelar=si_cancelar, titCancelar=_("Stop thinking"), opacity=1.0)
+            me = QTUtil2.mensEspera.start(
+                self, mens, siCancelar=si_cancelar, titCancelar=_("Stop thinking"), opacity=1.0
+            )
 
             if si_cancelar:
                 ya_cancelado = [False]
@@ -463,7 +465,7 @@ class WAnalisis(LCDialog.LCDialog):
                     else:
                         tm = time.time() - tm_ini
                         me.label('%s\n%s: %d %s: %.01f"' % (mens, _("Depth"), rm.depth, _("Time"), tm))
-                        stop = xanalyzer.mstime_engine and tm*1000 > xanalyzer.mstime_engine
+                        stop = xanalyzer.mstime_engine and tm * 1000 > xanalyzer.mstime_engine
                     if stop:
                         xanalyzer.stop()
                         ya_cancelado[0] = True

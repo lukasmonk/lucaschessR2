@@ -118,8 +118,11 @@ class WResistance(LCDialog.LCDialog):
         li_gen.append(separador)
 
         config = FormLayout.Spinbox(
-            _("Max lost centipawns in a single move") + ":\n%s= %s" % (_("By default"), _("0 = not consider this limit")),
-            0, 1000, 80
+            _("Max lost centipawns in a single move")
+            + ":\n%s= %s" % (_("By default"), _("0 = not consider this limit")),
+            0,
+            1000,
+            80,
         )
         li_gen.append((config, maxerror))
 

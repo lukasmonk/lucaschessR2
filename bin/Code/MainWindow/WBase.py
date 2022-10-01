@@ -666,7 +666,7 @@ class WBase(QtWidgets.QWidget):
                     widget.setVisible(False)
         return nonDistract
 
-    def ponDatosReloj(self, bl, rb, ng, rn):
+    def set_data_clock(self, bl, rb, ng, rn):
         self.set_clock_white(rb, "00:00")
         self.set_clock_black(rn, "00:00")
         self.change_player_labels(bl, ng)
