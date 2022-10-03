@@ -133,12 +133,10 @@ def form_blunders_brilliancies(alm, configuration):
 
 def form_variations(alm):
     li_var = [SEPARADOR]
-    li_var.append((_("Analyse all previous variations") + ":", alm.analyze_variations))
+    li_var.append((_("Also analyze variations") + ":", alm.analyze_variations))
     li_var.append(SEPARADOR)
     li_var.append(SEPARADOR)
-    li_var.append((None, _("Convert analyses into variations") + ":"))
-    li_var.append(SEPARADOR)
-    li_var.append((_("Add analysis to variations") + ":", alm.include_variations))
+    li_var.append(("<big><b>"+_("Convert analyses into variations") + ":", alm.include_variations))
     li_var.append(SEPARADOR)
 
     li_var.append((FormLayout.Spinbox(_("Minimum centipawns lost"), 0, 1000, 60), alm.limit_include_variations))
@@ -279,34 +277,28 @@ def analysis_parameters(parent, configuration, siModoAmpliado, siTodosMotores=Fa
     reg = Util.Record()
     reg.form = None
 
-    def dispatchR(valor):
+    def dispatch(valor):
+        # Para manejar la incompatibilidad entre analizar variaciones y añadir analysis como variaciones.
         if reg.form is None:
             if isinstance(valor, FormLayout.FormTabWidget):
                 reg.form = valor
-                reg.wtime = valor.getWidget(0, 1)
-                reg.wdepth = valor.getWidget(0, 2)
-                reg.wdt = valor.getWidget(0, 3)
-            elif isinstance(valor, FormLayout.FormWidget):
-                reg.form = valor
-                reg.wtime = valor.getWidget(1)
-                reg.wdepth = valor.getWidget(2)
-                reg.wdt = valor.getWidget(3)
+                reg.cb_variations = valor.getWidget(1, 0)
+                reg.cb_add_variations = valor.getWidget(1, 1)
+                reg.cb_variations_checked = reg.cb_variations.isChecked()
+                reg.cb_add_variations_checked = reg.cb_add_variations.isChecked()
+                if reg.cb_variations_checked is True and reg.cb_add_variations_checked is True:
+                    reg.cb_add_variations.setChecked(False)
         else:
-            sender = reg.form.sender()
-            if hasattr("reg.wdt", "isChecked") and not reg.wdt.isChecked():
-                if sender == reg.wtime:
-                    if reg.wtime.textoFloat() > 0:
-                        reg.wdepth.setCurrentIndex(0)
-                elif sender == reg.wdepth:
-                    if reg.wdepth.currentIndex() > 0:
-                        reg.wtime.ponFloat(0.0)
-                elif sender == reg.wdt:
-                    if reg.wtime.textoFloat() > 0:
-                        reg.wdepth.setCurrentIndex(0)
-                    elif reg.wdepth.currentIndex() > 0:
-                        reg.wtime.ponFloat(0.0)
+            if hasattr(reg, "cb_variations"):
+                if reg.cb_variations.isChecked() is True and reg.cb_add_variations.isChecked() is True:
+                    if reg.cb_variations_checked:
+                        reg.cb_variations.setChecked(False)
+                    else:
+                        reg.cb_add_variations.setChecked(False)
+                    reg.cb_variations_checked = reg.cb_variations.isChecked()
+                    reg.cb_add_variations_checked = reg.cb_add_variations.isChecked()
 
-                QTUtil.refresh_gui()
+            QTUtil.refresh_gui()
 
     resultado = FormLayout.fedit(
         lista,
@@ -314,7 +306,7 @@ def analysis_parameters(parent, configuration, siModoAmpliado, siTodosMotores=Fa
         parent=parent,
         anchoMinimo=460,
         icon=Iconos.Opciones(),
-        dispatch=dispatchR,
+        dispatch=dispatch,
     )
 
     if resultado:
@@ -489,38 +481,7 @@ def massive_analysis_parameters(parent, configuration, siVariosSeleccionados, si
     reg = Util.Record()
     reg.form = None
 
-    def dispatchR(valor):
-        if reg.form is None:
-            if isinstance(valor, FormLayout.FormTabWidget):
-                reg.form = valor
-                reg.wtime = valor.getWidget(0, 1)
-                reg.wdepth = valor.getWidget(0, 2)
-                reg.wdt = valor.getWidget(0, 3)
-            elif isinstance(valor, FormLayout.FormWidget):
-                reg.form = valor
-                reg.wtime = valor.getWidget(1)
-                reg.wdepth = valor.getWidget(2)
-                reg.wdt = valor.getWidget(3)
-        else:
-            sender = reg.form.sender()
-            if not reg.wdt.isChecked():
-                if sender == reg.wtime:
-                    if reg.wtime.textoFloat() > 0:
-                        reg.wdepth.setCurrentIndex(0)
-                elif sender == reg.wdepth:
-                    if reg.wdepth.currentIndex() > 0:
-                        reg.wtime.ponFloat(0.0)
-                elif sender == reg.wdt:
-                    if reg.wtime.textoFloat() > 0:
-                        reg.wdepth.setCurrentIndex(0)
-                    elif reg.wdepth.currentIndex() > 0:
-                        reg.wtime.ponFloat(0.0)
-
-                QTUtil.refresh_gui()
-
-    resultado = FormLayout.fedit(
-        lista, title=_("Mass analysis"), parent=parent, anchoMinimo=460, icon=Iconos.Opciones(), dispatch=dispatchR
-    )
+    resultado = FormLayout.fedit(lista, title=_("Mass analysis"), parent=parent, anchoMinimo=460, icon=Iconos.Opciones())
 
     if resultado:
         accion, liResp = resultado

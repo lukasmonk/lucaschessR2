@@ -479,9 +479,9 @@ class WKibitzerLive(LCDialog.LCDialog):
         self.kibitzers.save()
         lidif_opciones = []
         xprioridad = None
-        xposicionBase = None
         xpointofview = None
-        xmax_time = None
+        xposicionBase = None
+        xmax_time = self.kibitzer.max_time
         for x in range(len(self.li_options)):
             if self.li_options[x][1] != self.liOriginal[x][1]:
                 key = self.li_options[x][2]
@@ -497,10 +497,9 @@ class WKibitzerLive(LCDialog.LCDialog):
                     opcion = self.kibitzer.li_uci_options_editable()[int(key)]
                     lidif_opciones.append((opcion.name, opcion.valor))
 
+        self.result_opciones = lidif_opciones
         self.result_xprioridad = xprioridad
         self.result_xpointofview = xpointofview
-        self.result_opciones = lidif_opciones
-        self.result_posicionBase = xposicionBase
         self.result_posicionBase = xposicionBase
         self.result_max_time = xmax_time
         self.save_video()

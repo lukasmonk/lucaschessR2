@@ -51,7 +51,7 @@ class Reinforcement:
         for cycle in range(self.cycles):
             self.li_work_fens.extend(li)
         self.active = True
-        self.pos_active = 0
+        self.pos_active = -1
         self.save()
 
     def deactivate(self):

@@ -40,10 +40,12 @@ class WTV_Flecha(QtWidgets.QDialog):
 
         # Board
         config_board = owner.board.config_board.copia(owner.board.config_board.id())
-        config_board.anchoPieza(32)
+        config_board.anchoPieza(36)
         self.board = Board.Board(self, config_board, siDirector=False)
         self.board.crea()
         self.board.copiaPosicionDe(owner.board)
+        self.board.permitidoResizeExterno(False)
+        self.board.activaMenuVisual(False)
 
         # Datos generales
         li_gen = []

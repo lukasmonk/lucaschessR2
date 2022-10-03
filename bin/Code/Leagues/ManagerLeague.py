@@ -124,6 +124,9 @@ class ManagerLeague(Manager.Manager):
                 time_control += "+%d" % self.seconds_per_move
             self.game.set_tag("TimeControl", time_control)
 
+            self.tc_player.config_clock(minutes*60, self.seconds_per_move, 0, 0)
+            self.tc_rival.config_clock(minutes*60, self.seconds_per_move, 0, 0)
+
         self.pon_toolbar()
 
         self.main_window.activaJuego(True, self.timed)

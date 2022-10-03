@@ -270,6 +270,7 @@ class Washing:
                     for linea in f:
                         lst = linea.split("|")
                         n = lst[1].count("*")
+                        linea = linea.replace("Difficulty", _("Difficulty"))
                         d[n].append(linea.strip())
         li = []
         for x in range(1, 6):

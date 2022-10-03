@@ -107,13 +107,15 @@ class ManagerSolo(Manager.Manager):
 
     def pon_rotulo(self):
         li = []
-        for label, label in self.game.li_tags:
-            if label.upper() == "WHITE":
-                li.append("%s: %s" % (_("White"), label))
-            elif label.upper() == "BLACK":
-                li.append("%s: %s" % (_("Black"), label))
-            elif label.upper() == "RESULT":
-                li.append("%s: %s" % (_("Result"), label))
+        for label1, label2 in self.game.li_tags:
+            if not label1 or not label2:
+                continue
+            if label1.upper() == "WHITE":
+                li.append("%s: %s" % (_("White"), label2))
+            elif label1.upper() == "BLACK":
+                li.append("%s: %s" % (_("Black"), label2))
+            elif label1.upper() == "RESULT":
+                li.append("%s: %s" % (_("Result"), label2))
         mensaje = "\n".join(li)
         self.set_label2(mensaje)
 

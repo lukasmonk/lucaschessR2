@@ -99,6 +99,7 @@ class SelectFile(LCDialog.LCDialog):
 
         self.tree_view = TreeViewSelect(self)
         self.filesystem_model = SelectFileModel(self.tree_view)
+        # self.filesystem_model.setOption(self.filesystem_model.DontWatchForChanges)
         self.filesystem_model.setRootPath(QtCore.QDir.rootPath())
 
         if extension:
@@ -334,7 +335,7 @@ class SelectFile(LCDialog.LCDialog):
         self.assign_path(path)
         return path
 
-    def assign_path(self, path):
+    def assign_path(self, path, again=True):
         if not path:  # could be None
             path = ""
         idx = self.filesystem_model.index(path)
@@ -356,6 +357,12 @@ class SelectFile(LCDialog.LCDialog):
         self.tree_view.scrollTo(idx, QtWidgets.QAbstractItemView.EnsureVisible)
         self.tree_view.setFocus()
         QTUtil.refresh_gui()
+
+        def xagain():
+            self.assign_path(path, False)
+
+        if again:
+            QtCore.QTimer.singleShot(50, xagain)
 
 
 def getOpenFileName(owner, titulo, carpeta, extension):

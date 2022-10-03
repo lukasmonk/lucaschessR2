@@ -245,6 +245,7 @@ class Move:
         if len(mrm.li_rm) == 0:
             return
 
+        print(self.game)
         self.variations.analisis2variantes(mrm, almVariations, delete_previous)
 
     def borraCV(self):
@@ -403,9 +404,9 @@ class Variations:
 
     def add_pgn_variation(self, pgn):
         pgn_var = '[FEN "%s"]\n%s' % (self.move_base.position_before.fen(), pgn)
-        ok, p_var = Code.Base.Game.pgn_game(pgn_var)
+        ok, game = Code.Base.Game.pgn_game(pgn_var)
         if ok:
-            self.li_variations.append(p_var)
+            self.li_variations.append(game)
 
     def save(self):
         li = [variation.save() for variation in self.li_variations]
@@ -414,9 +415,9 @@ class Variations:
     def restore(self, li):
         self.li_variations = []
         for sv in li:
-            v = Code.Base.Game.Game()
-            v.restore(sv)
-            self.li_variations.append(v)
+            game = Code.Base.Game.Game()
+            game.restore(sv)
+            self.li_variations.append(game)
 
     def __len__(self):
         return len(self.li_variations)

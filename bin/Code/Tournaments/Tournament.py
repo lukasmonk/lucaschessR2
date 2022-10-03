@@ -134,7 +134,7 @@ class EngineTournament(Engines.Engine):
 
 class GameTournament(object):
     def __init__(self):
-        self.id_game = Util.new_id()
+        self.id_game = Util.huella()
         self.hwhite = None  # la huella de un engine
         self.hblack = None  # la huella de un engine
         self.game_save = None  # game salvada en formato pk con save

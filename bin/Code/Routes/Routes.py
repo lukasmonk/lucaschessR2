@@ -125,7 +125,7 @@ class Transsiberian:
         self._km_tactic = KM_TACTIC
         self._is_miles = False
         self._go_fast = False
-        self._key = Util.new_id()
+        self._key = Util.huella()
 
     def read_level(self):
         folder = "%s/level%d" % (self.base, self._level)

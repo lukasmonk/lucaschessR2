@@ -66,7 +66,7 @@ class Board(QtWidgets.QGraphicsView):
 
         self.variation_history = None
 
-        self.siMenuVisual = siMenuVisual
+        self.siMenuVisual = siMenuVisual and siDirector
         self.siDirector = siDirector and siMenuVisual
         self.siDirectorIcon = self.siDirector and self.configuration.x_director_icon
         self.dirvisual = None

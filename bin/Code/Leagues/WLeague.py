@@ -270,38 +270,45 @@ class WLeague(LCDialog.LCDialog):
             elif column == "DIVISION":
                 return xmatch.label_division
 
+    def consult_matches(self, grid, row):
+        num_division = self.li_grids_divisions.index(grid)
+        d_panel = self.li_panels[num_division][row]
+        xid_engine = d_panel["XID"]
+        li_matches_played = self.season.get_all_matches_opponent(num_division, xid_engine)
+        if len(li_matches_played) == 0:
+            return
+
+        menu = QTVarios.LCMenu(self)
+        menu.ponTipoLetra(name=Code.font_mono, puntos=10)
+
+        win = _("Win")
+        draw = _("Draw")
+        lost = _("Loss")
+        for xmatch in li_matches_played:
+            white = self.dic_xid_name[xmatch.xid_white]
+            black = self.dic_xid_name[xmatch.xid_black]
+            result = xmatch.result
+            if xmatch.xid_white == xid_engine:
+                icon = Iconos.Blancas()
+                opponent = black
+                cresult = win if result == RESULT_WIN_WHITE else (lost if result == RESULT_WIN_BLACK else draw)
+            else:
+                icon = Iconos.Negras()
+                opponent = white
+                cresult = win if result == RESULT_WIN_BLACK else (lost if result == RESULT_WIN_WHITE else draw)
+            menu.opcion(xmatch, "%s - %s" % (cresult, opponent), icon)
+            menu.separador()
+        xmatch = menu.lanza()
+        if xmatch:
+            self.show_match_done(xmatch)
+
+    def grid_right_button(self, grid, row, column, modificadores):
+        if grid in self.li_grids_divisions:
+            self.consult_matches(grid, row)
+
     def grid_doble_click(self, grid, row, o_column):
         if grid in self.li_grids_divisions:
-            num_division = self.li_grids_divisions.index(grid)
-            d_panel = self.li_panels[num_division][row]
-            xid_engine = d_panel["XID"]
-            li_matches_played = self.season.get_all_matches_opponent(num_division, xid_engine)
-            if len(li_matches_played) == 0:
-                return
-
-            menu = QTVarios.LCMenu(self)
-            menu.ponTipoLetra(name=Code.font_mono, puntos=10)
-
-            win = _("W ||Games won")
-            draw = _("D ||Games drawn")
-            lost = _("L ||Games lost")
-            for xmatch in li_matches_played:
-                white = self.dic_xid_name[xmatch.xid_white]
-                black = self.dic_xid_name[xmatch.xid_black]
-                result = xmatch.result
-                if xmatch.xid_white == xid_engine:
-                    icon = Iconos.Blancas()
-                    opponent = black
-                    cresult = win if result == RESULT_WIN_WHITE else (lost if result == RESULT_WIN_BLACK else draw)
-                else:
-                    icon = Iconos.Negras()
-                    opponent = white
-                    cresult = win if result == RESULT_WIN_BLACK else (lost if result == RESULT_WIN_WHITE else draw)
-                menu.opcion(xmatch, "%s - %s - %s" % (cresult, result, opponent), icon)
-                menu.separador()
-            xmatch = menu.lanza()
-            if xmatch:
-                self.show_match_done(xmatch)
+            self.consult_matches(grid, row)
 
         else:
             xmatch = self.li_matches[row]

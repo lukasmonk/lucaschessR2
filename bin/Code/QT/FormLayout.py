@@ -742,7 +742,7 @@ class FormWidget(QtWidgets.QWidget):
 
     def getWidget(self, number):
         n = -1
-        for index, (label, value) in enumerate(self.data):
+        for index in range(len(self.data)):
             field = self.widgets[index]
             if field is not None:
                 n += 1
