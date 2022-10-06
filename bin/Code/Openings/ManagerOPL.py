@@ -1,7 +1,5 @@
 from Code import Manager
-from Code.Base.Constantes import (
-    TB_COMMENTS,
-)
+from Code.Base.Constantes import TB_COMMENTS
 from Code.Nags import Nags
 from Code.QT import QTUtil2
 

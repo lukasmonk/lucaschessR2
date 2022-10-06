@@ -254,11 +254,7 @@ class Grid(QtWidgets.QTableView):
             QtGui.QPalette.Highlight,
             QtGui.QBrush(QtGui.QColor(configuration.pgn_selbackground())),
         )
-        p.setBrush(
-            QtGui.QPalette.Active,
-            QtGui.QPalette.HighlightedText,
-            QtGui.QBrush(QtGui.QColor("white")),
-        )
+        p.setBrush(QtGui.QPalette.Active, QtGui.QPalette.HighlightedText, QtGui.QBrush(QtGui.QColor("white")))
         self.setPalette(p)
 
         self.w_parent = w_parent

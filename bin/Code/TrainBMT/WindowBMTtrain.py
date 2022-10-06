@@ -10,13 +10,7 @@ from Code import ControlPGN
 from Code import Util
 from Code.Analysis import Analysis
 from Code.Base import Game, Position
-from Code.Base.Constantes import (
-    GT_BMT,
-    GO_BACK,
-    GO_END,
-    GO_FORWARD,
-    GO_START,
-)
+from Code.Base.Constantes import GT_BMT, GO_BACK, GO_END, GO_FORWARD, GO_START
 from Code.Board import Board
 from Code.QT import Colocacion
 from Code.QT import Columnas

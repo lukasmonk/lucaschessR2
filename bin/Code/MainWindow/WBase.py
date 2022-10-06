@@ -51,15 +51,7 @@ from Code.Base.Constantes import (
     TB_VARIATIONS,
     TB_EBOARD,
 )
-from Code.Nags.Nags import (
-    NAG_0,
-    NAG_1,
-    NAG_2,
-    NAG_3,
-    NAG_4,
-    NAG_5,
-    NAG_6,
-)
+from Code.Nags.Nags import NAG_0, NAG_1, NAG_2, NAG_3, NAG_4, NAG_5, NAG_6
 from Code.Board import Board
 from Code.MainWindow import WindowSolve
 from Code.QT import Colocacion

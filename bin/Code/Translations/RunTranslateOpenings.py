@@ -79,7 +79,7 @@ class WTranslateOpenings(LCDialog.LCDialog):
         path = Code.path_resource("Openings", "openings.lkop")
         with open(path, "rt", encoding="utf-8") as q:
             for linea in q:
-                name, a1h8, pgn, eco, basic, fenm2, hijos, parent = linea.strip().split("|")
+                name, a1h8, pgn, eco, basic, fenm2, hijos, parent, lifenm2 = linea.strip().split("|")
                 dic[name] = {"A1H8": a1h8, "PGN": pgn, "ECO": eco, "TRANS": "", "NEW": ""}
         return dic
 

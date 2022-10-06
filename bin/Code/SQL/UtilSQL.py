@@ -73,6 +73,7 @@ class DictSQL(object):
             sql = "SELECT VALUE FROM %s WHERE KEY= ?" % self.tabla
             row = self.conexion.execute(sql, (key,)).fetchone()
             obj = pickle.loads(row[0])
+
             self.add_cache(key, obj)
             return obj
         return None

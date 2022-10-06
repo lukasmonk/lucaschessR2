@@ -3,8 +3,9 @@ import random
 import time
 
 import psutil
-from Code.SQL import UtilSQL
+
 from Code.Leagues import Leagues
+from Code.SQL import UtilSQL
 
 
 class Lock:
@@ -14,7 +15,10 @@ class Lock:
 
     def get(self):
         with UtilSQL.DictRawSQL(self.path, "CONFIG") as db:
-            return db.get(self.key)
+            try:
+                return db.get(self.key)
+            except TypeError:
+                return None
 
     def put(self):
         with UtilSQL.DictRawSQL(self.path, "CONFIG") as db:
@@ -23,9 +27,22 @@ class Lock:
     def __enter__(self):
         last_lock = self.get()
         while last_lock and ((time.time() - last_lock) < 10):
-            time.sleep(1)
-            last_lock = self.get()
-        self.put()
+            n = 0
+            while n < 4:
+                try:
+                    last_lock = self.get()
+                    break
+                except:
+                    time.sleep(random.randint(50, 100) / 100)
+                    n += 1
+        n = 0
+        while n < 4:
+            try:
+                self.put()
+                break
+            except:
+                time.sleep(random.randint(50, 100) / 100)
+                n += 1
         return self
 
     def __exit__(self, xtype, value, traceback):
@@ -44,9 +61,7 @@ class LeaguesWork:
         with UtilSQL.DictRawSQL(self.path, "CONFIG") as dbc:
             return dbc["JOURNEY"], dbc["NUM_SEASON"]
 
-    def put_league(
-        self,
-    ):
+    def put_league(self, ):
         season = self.league.read_season()
 
         with UtilSQL.DictRawSQL(self.path, "CONFIG") as dbc:

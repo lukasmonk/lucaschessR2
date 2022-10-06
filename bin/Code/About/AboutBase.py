@@ -571,11 +571,7 @@ class ThanksTo:
                 "https://hardy.uhasselt.be/personal/vdbergh/Members/michel_id.html",
             ),
             ("python-chess", _X(_("Created by %1"), "Niklas Fiekas"), "https://github.com/niklasf/python-chess"),
-            (
-                "pillow",
-                "Copyright 2010-2022, Alex Clark and Contributors",
-                "https://github.com/python-pillow/Pillow",
-            ),
+            ("pillow", "Copyright 2010-2022, Alex Clark and Contributors", "https://github.com/python-pillow/Pillow"),
             ("photohash", "Chris Pickett and others", "https://github.com/bunchesofdonald/photohash"),
             (
                 "cython",

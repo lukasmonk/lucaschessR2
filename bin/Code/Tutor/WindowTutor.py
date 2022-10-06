@@ -69,6 +69,7 @@ class WindowTutor(LCDialog.LCDialog):
             li_options = self.tutor.opcionesOpenings()
             self.cbOpenings = Controles.CB(self, li_options, 0)
             self.cbOpenings.setFont(flba)
+            self.cbOpenings.set_multiline(self.boardOpening.width())
             self.connect(self.cbOpenings, QtCore.SIGNAL("currentIndexChanged(int)"), self.tutor.cambiarOpening)
 
         # RM
@@ -98,11 +99,10 @@ class WindowTutor(LCDialog.LCDialog):
             gbRival = Controles.GB(self, _("Opponent's prediction"), lyRival).ponFuente(f).align_center()
 
         if siOpenings:
-            lyOpenings = Colocacion.V().relleno().control(self.cbOpenings).relleno()
+            chb_openings = Controles.CHB(self, "", False).capture_changes(self, self.elegirOpening)
+            lyOpenings = Colocacion.H().control(chb_openings).control(self.cbOpenings)
             gbOpenings = Controles.GB(self, _("Opening"), lyOpenings).align_center().ponFuente(f)
-            if siPuntos:
-                gbOpenings.to_connect(self.elegirOpening)
-            self.cbOpenings.setEnabled(True)
+            chb_openings.setVisible(siPuntos)
             self.tutor.cambiarOpening(0)
 
         dicVista = {

@@ -1,11 +1,7 @@
 from PySide2 import QtCore
 
 import Code
-from Code.Base.Constantes import (
-    MENU_PLAY_ANY_ENGINE,
-    MENU_PLAY_BOTH,
-    MENU_PLAY_YOUNG_PLAYERS,
-)
+from Code.Base.Constantes import MENU_PLAY_ANY_ENGINE, MENU_PLAY_BOTH, MENU_PLAY_YOUNG_PLAYERS
 from Code.QT import FormLayout
 from Code.QT import Iconos
 from Code.QT import QTUtil2
@@ -96,10 +92,7 @@ def options(parent, configuration):
     ]
     form.combobox(_("Mouse shortcuts"), li_mouse_sh, configuration.x_mouse_shortcuts)
     form.checkbox(_("Show candidates"), configuration.x_show_candidates)
-    li_copy = [
-        (_("CTRL") + " C", True),
-        (_("ALT") + " C", False),
-    ]
+    li_copy = [(_("CTRL") + " C", True), (_("ALT") + " C", False)]
     form.combobox(_("Key for copying the FEN to clipboard"), li_copy, configuration.x_copy_ctrl)
 
     form.checkbox(_("Always promote to queen\nALT key allows to change"), configuration.x_autopromotion_q)

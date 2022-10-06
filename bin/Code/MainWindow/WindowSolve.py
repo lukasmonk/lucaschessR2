@@ -82,10 +82,7 @@ padding: 2px;"""
         )
 
         lb_info = (
-            Controles.LB(
-                self,
-                "<b>%s<br>%s - %s</b>" % (_("[ENTER] to add line"), _("F10 to check"), _("F1 help")),
-            )
+            Controles.LB(self, "<b>%s<br>%s - %s</b>" % (_("[ENTER] to add line"), _("F10 to check"), _("F1 help")))
             .align_center()
             .ponTipoLetra(puntos=7)
         )

@@ -489,9 +489,9 @@ class ManagerEntPos(Manager.Manager):
                 ok = True
                 self.pos_obj += 1
             elif is_var:
-                li_movs = [(move_obj.from_sq, move_obj.to_sq, True)]
-                for a1h8_m in move.variations.list_movimientos():
-                    li_movs.append((a1h8_m[:2], a1h8[2:4], False))
+                mens = _("You have selected a correct move, but this line uses another one.")
+                QTUtil2.mensajeTemporal(self.main_window, mens, 2, physical_pos="tb", background="#C3D6E8")
+                li_movs = [(move.from_sq, move.to_sq, False), (move_obj.from_sq, move_obj.to_sq, True)]
                 self.board.ponFlechasTmp(li_movs)
             if not ok:
                 self.beepError()

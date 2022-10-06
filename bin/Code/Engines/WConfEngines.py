@@ -611,10 +611,7 @@ class WConfTutor(QtWidgets.QWidget):
         self.changed_engine()
         self.is_changed = False
 
-        for control in (
-            self.chb_background,
-            self.chb_disabled,
-        ):
+        for control in (self.chb_background, self.chb_disabled):
             control.capture_changes(self, self.set_changed)
 
         for control in (
@@ -704,12 +701,7 @@ class WConfAnalyzer(QtWidgets.QWidget):
 
         self.setLayout(lyh)
 
-        for control in (
-            self.cb_priority,
-            self.ed_multipv,
-            self.ed_depth,
-            self.ed_time,
-        ):
+        for control in (self.cb_priority, self.ed_multipv, self.ed_depth, self.ed_time):
             control.capture_changes(self.set_changed)
 
     def changed_engine(self):

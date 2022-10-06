@@ -713,7 +713,7 @@ class WTournamentRun(QtWidgets.QWidget):
                         dc = ord(from_sq[0]) - ord(to_sq[0])
                         df = int(from_sq[1]) - int(to_sq[1])
                         # Maxima distancia = 9.9 ( 9,89... sqrt(7**2+7**2)) = 4 seconds
-                        dist = (dc**2 + df**2) ** 0.5
+                        dist = (dc ** 2 + df ** 2) ** 0.5
                         seconds = 4.0 * dist / (9.9 * rapidez)
                     cpu.muevePieza(movim[1], movim[2], siExclusiva=False, seconds=seconds)
 

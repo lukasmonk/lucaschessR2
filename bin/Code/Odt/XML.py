@@ -1,10 +1,4 @@
-dic_special = {
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    "'": "&apos;",
-    '"': "&quot;",
-}
+dic_special = {"&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&apos;", '"': "&quot;"}
 
 
 class Element:

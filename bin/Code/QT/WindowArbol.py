@@ -7,15 +7,7 @@ import Code
 import Code.Nags.Nags
 from Code.Analysis import WindowAnalysisParam
 from Code.Base import Game, Position
-from Code.Base.Constantes import (
-    GOOD_MOVE,
-    VERY_GOOD_MOVE,
-    NO_RATING,
-    SPECULATIVE_MOVE,
-    INACCURACY,
-    MISTAKE,
-    BLUNDER,
-)
+from Code.Base.Constantes import GOOD_MOVE, VERY_GOOD_MOVE, NO_RATING, SPECULATIVE_MOVE, INACCURACY, MISTAKE, BLUNDER
 from Code.Board import Board
 from Code.QT import Colocacion
 from Code.QT import Controles

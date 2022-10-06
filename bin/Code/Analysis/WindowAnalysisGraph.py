@@ -316,7 +316,7 @@ class WAnalisisGraph(LCDialog.LCDialog):
 
         elif column == "TIME":
             ms = move.time_ms
-            return "%0.02f\"" % (ms / 1000,) if ms else ""
+            return '%0.02f"' % (ms / 1000,) if ms else ""
 
         elif column == "DIF":
             mrm, pos = move.analysis

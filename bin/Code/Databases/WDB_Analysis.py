@@ -104,7 +104,7 @@ class WDBAnalisis:
             menu.opcion("an_hide", _("Hide analysis"), Iconos.Ocultar())
             menu.separador()
 
-        menu1 = menu.submenu(_("Remove"), Iconos.Delete())
+        menu1 = menu.submenu(_("Delete analysis of"), Iconos.Delete())
         for n, mrm in enumerate(li_analisis):
             menu1.opcion("an_rem_%d" % n, mrm.rotulo, Iconos.PuntoRojo())
             menu1.separador()

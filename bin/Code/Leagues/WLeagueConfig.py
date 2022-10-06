@@ -258,7 +258,10 @@ class WLeagueConfig(LCDialog.LCDialog):
         self.league.adjudicator_time = self.edJtiempo.textoFloat()
         self.league.adjudicator_active = True
         self.league.slow_pieces = self.chb_slow.valor()
-        self.league.time_engine_engine = (self.ed_minutes_eng_eng.textoFloat(), self.sb_seconds_eng_eng.valor())
+        mnt = self.ed_minutes_eng_eng.textoFloat()
+        if mnt <= 0:
+            mnt = 3.0
+        self.league.time_engine_engine = (mnt, self.sb_seconds_eng_eng.valor())
         self.league.time_engine_human = (self.ed_minutes_eng_human.textoFloat(), self.sb_seconds_eng_human.valor())
         self.league.migration = self.sb_migration.valor()
         self.league.save()

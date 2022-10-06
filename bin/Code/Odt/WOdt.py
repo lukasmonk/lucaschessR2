@@ -41,10 +41,7 @@ class WOdt(LCDialog.LCDialog):
         self.board = Board.BoardEstatico(self, conf_board)
         self.board.crea()
 
-        li_acciones = (
-            (_("Export"), Iconos.ODT(), self.begin),
-            (_("Cancel"), Iconos.Cancelar(), self.reject),
-        )
+        li_acciones = ((_("Export"), Iconos.ODT(), self.begin), (_("Cancel"), Iconos.Cancelar(), self.reject))
         self.tb = QTVarios.LCTB(self, li_acciones, style=QtCore.Qt.ToolButtonTextBesideIcon, icon_size=32)
         self.show_tb(self.begin, self.reject)
 

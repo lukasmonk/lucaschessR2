@@ -292,9 +292,7 @@ class ManagerGame(Manager.Manager):
 
     def utilities_gs(self):
         sep = (None, None, None)
-        li_mas_opciones = [
-            (None, _("Change the starting position"), Iconos.PGN()),
-        ]
+        li_mas_opciones = [(None, _("Change the starting position"), Iconos.PGN())]
         if not self.is_complete:
             li_mas_opciones.extend(
                 [

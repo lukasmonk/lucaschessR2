@@ -83,7 +83,7 @@ class ManagerOpeningLinesPositions(ManagerOPL.ManagerOpeningLines):
 
     def get_help(self):
         self.siAyuda = True
-        self.set_toolbar((TB_CLOSE, TB_CONFIG))
+        self.tb_with_comments([TB_CLOSE, TB_CONFIG])
 
         self.muestraAyuda()
         self.muestraInformacion()
@@ -150,7 +150,7 @@ class ManagerOpeningLinesPositions(ManagerOPL.ManagerOpeningLines):
                 li_nuevo.insert(salto, self.trposition)
             self.training["LITRAINPOSITIONS"] = li_nuevo
 
-        self.set_toolbar((TB_CLOSE, TB_NEXT, TB_CONFIG))
+        self.tb_with_comments([TB_CLOSE, TB_NEXT, TB_CONFIG])
 
         self.dbop.setTraining(self.training)
         self.state = ST_ENDGAME
@@ -248,13 +248,3 @@ class ManagerOpeningLinesPositions(ManagerOPL.ManagerOpeningLines):
         self.add_move(move, True)
         self.posicionTerminada()
         return True
-
-    def add_move(self, move, siNuestra):
-        self.game.add_move(move)
-        self.check_boards_setposition()
-
-        self.put_arrow_sc(move.from_sq, move.to_sq)
-        self.beepExtendido(siNuestra)
-
-        self.pgnRefresh(self.game.last_position.is_white)
-        self.refresh()

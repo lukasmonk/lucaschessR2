@@ -55,19 +55,7 @@ class PMarker(BoardTypes.Marker):
     TP_ACTION,
     TP_CONFIGURATION,
     TP_CIRCLE,
-) = (
-    "F",
-    "M",
-    "T",
-    "S",
-    "X",
-    "PC",
-    "PM",
-    "PB",
-    "A",
-    "C",
-    "D",
-)
+) = ("F", "M", "T", "S", "X", "PC", "PM", "PB", "A", "C", "D")
 
 
 class GTarea:
@@ -349,13 +337,7 @@ class GT_Action(GTarea):
             self.GTA_PIECES_REMOVEALL,
             self.GTA_GRAPHICS_REMOVEALL,
             self.GTA_PIZARRA_REMOVE,
-        ) = (
-            "I",
-            "MAR",
-            "PRA",
-            "GRA",
-            "PR",
-        )
+        ) = ("I", "MAR", "PRA", "GRA", "PR")
         self.dicTxt = {
             self.GTA_INICIO: _("Initial physical pos"),
             self.GTA_MAINARROW_REMOVE: _("Remove main arrow"),

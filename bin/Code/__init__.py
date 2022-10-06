@@ -62,7 +62,7 @@ font_mono = "Courier New" if is_windows else "Mono"
 
 list_engine_managers = None
 
-mate_en_dos = 175522
+mate_en_dos = 180805
 
 runSound = None
 
@@ -87,7 +87,7 @@ def relative_root(path):
 
 
 BASE_VERSION = "B"  # Para el control de updates que necesitan reinstalar entero
-VERSION = "R 2.03b"
+VERSION = "R 2.03c"
 DEBUG = False
 DEBUG_ENGINES = False
 
@@ -136,11 +136,24 @@ if DEBUG:
         tdbg[0] = t
         return True
 
+    tdbg = [time.time(), 0]
     if DEBUG_ENGINES:
-        tdbg = [time.time()]
         prln("", "Modo debug engine")
 
-    prln("Modo debug PYLCR2")
+    def ini_timer(txt=None):
+        tdbg[1] = time.time()
+        if txt:
+            prln(txt)
+
+    def end_timer(txt=None):
+        t = time.time() - tdbg[1]
+        c = txt + " " if txt else ""
+        c += "%0.03f" % t
+        prln(c)
+
     import builtins
 
     builtins.__dict__["stack"] = stack
+    builtins.__dict__["ini_timer"] = ini_timer
+    builtins.__dict__["end_timer"] = end_timer
+    prln("Modo debug PYLCR2")

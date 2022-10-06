@@ -8,14 +8,7 @@ import Code
 from Code import Manager
 from Code import Util
 from Code.Base import Position
-from Code.Base.Constantes import (
-    ST_ENDGAME,
-    ST_PLAYING,
-    TB_CLOSE,
-    TB_CONFIG,
-    TB_PLAY,
-    TB_RESIGN,
-)
+from Code.Base.Constantes import ST_ENDGAME, ST_PLAYING, TB_CLOSE, TB_CONFIG, TB_PLAY, TB_RESIGN
 from Code.CompetitionWithTutor import WCompetitionWithTutor
 from Code.QT import Iconos
 from Code.QT import QTUtil2

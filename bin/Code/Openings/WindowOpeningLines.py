@@ -225,7 +225,7 @@ class WOpeningLines(LCDialog.LCDialog):
         if w.exec_():
             ap = w.resultado()
             pv = ap.a1h8 if ap else ""
-            name = ap.name if ap else ""
+            name = ap.tr_name if ap else ""
         else:
             return
 

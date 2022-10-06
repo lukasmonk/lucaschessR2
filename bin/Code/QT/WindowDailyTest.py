@@ -485,13 +485,7 @@ class WDailyTest(LCDialog.LCDialog):
 
     def analizar(self):
         Analysis.show_analysis(
-            self.procesador,
-            self.xtutor,
-            self.move,
-            self.position.is_white,
-            1,
-            main_window=self,
-            must_save=False,
+            self.procesador, self.xtutor, self.move, self.position.is_white, 1, main_window=self, must_save=False
         )
 
 

@@ -7,23 +7,8 @@ import Code
 import Code.Nags.Nags
 from Code import Util
 from Code.Base import Position
-from Code.Base.Constantes import (
-    SPECULATIVE_MOVE,
-    GOOD_MOVE,
-    MISTAKE,
-    VERY_GOOD_MOVE,
-    BLUNDER,
-    INACCURACY,
-)
-from Code.Nags.Nags import (
-    NAG_1,
-    NAG_2,
-    NAG_3,
-    NAG_4,
-    NAG_5,
-    NAG_6,
-    dic_symbol_nags,
-)
+from Code.Base.Constantes import SPECULATIVE_MOVE, GOOD_MOVE, MISTAKE, VERY_GOOD_MOVE, BLUNDER, INACCURACY
+from Code.Nags.Nags import NAG_1, NAG_2, NAG_3, NAG_4, NAG_5, NAG_6, dic_symbol_nags
 from Code.Board import Board, BoardArrows, ConfBoards
 from Code.Director import WindowTabVFlechas
 from Code.QT import Colocacion

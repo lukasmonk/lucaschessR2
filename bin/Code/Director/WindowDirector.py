@@ -421,10 +421,7 @@ class WPanelDirector(LCDialog.LCDialog):
         ta = TabVisual.GT_Action(None)
         liActions = [(_F(txt), Iconos.PuntoRojo(), "GTA_%s" % action) for action, txt in ta.dicTxt.items()]
 
-        liMore = [
-            (_("Text"), Iconos.Texto(), TabVisual.TP_TEXTO),
-            (_("Actions"), Iconos.Run(), liActions),
-        ]
+        liMore = [(_("Text"), Iconos.Texto(), TabVisual.TP_TEXTO), (_("Actions"), Iconos.Run(), liActions)]
         resp = self.selectBanda.menuParaExterior(liMore)
         if resp:
             xid = resp

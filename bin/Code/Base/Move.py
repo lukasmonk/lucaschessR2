@@ -245,7 +245,6 @@ class Move:
         if len(mrm.li_rm) == 0:
             return
 
-        print(self.game)
         self.variations.analisis2variantes(mrm, almVariations, delete_previous)
 
     def borraCV(self):
@@ -343,14 +342,14 @@ class Move:
     def test_a1h8(self, a1h8):
         if a1h8 == self.movimiento():
             return True, False
-        for variation in self.variations.li_variations:
-            if variation.move(0) == a1h8:
-                return False, True
         if self.position.is_mate():
             position = self.position_before.copia()
             position.moverPV(a1h8)
             if position.is_mate():
                 return True, False
+        for variation in self.variations.li_variations:
+            if variation.move(0).movimiento() == a1h8:
+                return False, True
         return False, False
 
     def assign_themes_lichess(self):

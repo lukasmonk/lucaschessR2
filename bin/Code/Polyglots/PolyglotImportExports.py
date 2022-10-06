@@ -6,12 +6,7 @@ import FasterCode
 from PySide2 import QtCore, QtWidgets
 
 from Code import Util
-from Code.Base.Constantes import (
-    CALCWEIGHT_NUMGAMES,
-    CALCWEIGHT_SCORE,
-    FEN_INITIAL,
-    CALCWEIGHT_NUMGAMES_SCORE,
-)
+from Code.Base.Constantes import CALCWEIGHT_NUMGAMES, CALCWEIGHT_SCORE, FEN_INITIAL, CALCWEIGHT_NUMGAMES_SCORE
 from Code.Databases import DBgames
 from Code.QT import Colocacion
 from Code.QT import Controles

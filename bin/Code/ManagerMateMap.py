@@ -1,14 +1,6 @@
 from Code import Manager
 from Code.Base import Move, Position
-from Code.Base.Constantes import (
-    ST_ENDGAME,
-    ST_PLAYING,
-    TB_CLOSE,
-    TB_REINIT,
-    TB_CONFIG,
-    TB_UTILITIES,
-    GT_WORLD_MAPS,
-)
+from Code.Base.Constantes import ST_ENDGAME, ST_PLAYING, TB_CLOSE, TB_REINIT, TB_CONFIG, TB_UTILITIES, GT_WORLD_MAPS
 from Code.QT import QTUtil
 
 

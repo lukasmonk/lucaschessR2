@@ -40,14 +40,7 @@ from Code.Base.Constantes import (
     BEEP_WIN_PLAYER,
     BEEP_WIN_PLAYER_TIME,
 )
-from Code.Nags.Nags import (
-    NAG_1,
-    NAG_2,
-    NAG_3,
-    NAG_4,
-    NAG_5,
-    NAG_6,
-)
+from Code.Nags.Nags import NAG_1, NAG_2, NAG_3, NAG_4, NAG_5, NAG_6
 from Code.Openings import OpeningsStd, Opening
 
 

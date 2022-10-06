@@ -748,16 +748,10 @@ class Board(QtWidgets.QGraphicsView):
             (None, None),
             (alt("I"), _("Copy board as image to clipboard")),
             (ctrl("I"), _("Copy board as image to clipboard") + " (%s)" % _("without border")),
-            (
-                ctrl_alt("I"),
-                _("Copy board as image to clipboard") + " (%s)" % _("without coordinates"),
-            ),
+            (ctrl_alt("I"), _("Copy board as image to clipboard") + " (%s)" % _("without coordinates")),
             (alt("J"), _("Copy board as image to a file")),
             (ctrl("J"), _("Copy board as image to a file") + " (%s)" % _("without border")),
-            (
-                ctrl_alt("J"),
-                _("Copy board as image to a file") + " (%s)" % _("without coordinates"),
-            ),
+            (ctrl_alt("J"), _("Copy board as image to a file") + " (%s)" % _("without coordinates")),
         ]
         if self.pieces_are_active:
             li_keys.append((None, None))
@@ -1847,8 +1841,8 @@ class Board(QtWidgets.QGraphicsView):
         bf = copy.deepcopy(self.config_board.fTransicion())
         bf.a1h8 = desdeA1h8 + hastaA1h8
         bf.opacity = max(factor, 0.20)
-        bf.ancho = max(bf.ancho * 2 * (factor**2.2), bf.ancho / 3)
-        bf.altocabeza = max(bf.altocabeza * (factor**2.2), bf.altocabeza / 3)
+        bf.ancho = max(bf.ancho * 2 * (factor ** 2.2), bf.ancho / 3)
+        bf.altocabeza = max(bf.altocabeza * (factor ** 2.2), bf.altocabeza / 3)
         bf.vuelo = bf.altocabeza / 3
         bf.grosor = 1
         bf.redondeos = True

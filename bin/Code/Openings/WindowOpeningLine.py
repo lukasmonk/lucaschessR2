@@ -941,12 +941,7 @@ class WLines(LCDialog.LCDialog):
                 )
                 me.final()
             Analysis.show_analysis(
-                self.procesador,
-                xanalyzer,
-                move,
-                self.pboard.board.is_white_bottom,
-                len(game) - 1,
-                main_window=self,
+                self.procesador, xanalyzer, move, self.pboard.board.is_white_bottom, len(game) - 1, main_window=self
             )
 
             dic = self.dbop.getfenvalue(fenm2)

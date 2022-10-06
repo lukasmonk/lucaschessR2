@@ -41,6 +41,8 @@ class WLeague(LCDialog.LCDialog):
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.update_matches)
 
+        self.num_workers_launched = 0
+
         self.color_win = QTUtil.qtColor("#007aae")
         self.color_lost = QTUtil.qtColor("#f47378")
         self.color_white = QTUtil.qtColor("white")
@@ -429,7 +431,8 @@ class WLeague(LCDialog.LCDialog):
         if changed:
             self.season.save()
             self.show_current_season()
-            self.set_journey_if_active()
+
+        self.set_journey_if_active()
 
         if self.timer:
             lw = LeaguesWork.LeaguesWork(self.league)
@@ -483,6 +486,7 @@ class WLeague(LCDialog.LCDialog):
             if lw.num_pending_matches():
                 for x in range(resp):
                     XRun.run_lucas("-league", self.league.name())
+                self.num_workers_launched = resp
             else:
                 QTUtil2.message(self, _("There are no pending matches in the current matchday"))
 

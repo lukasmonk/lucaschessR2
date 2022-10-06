@@ -162,7 +162,7 @@ QGroupBox::title {
         if not txt:
             txt = _("None")
         if self.game.opening:
-            txt = '%s<br><span style="color:gray;">%s</span>' % (txt, self.game.opening.name)
+            txt = '%s<br><span style="color:gray;">%s</span>' % (txt, self.game.opening.tr_name)
 
         self.lbPGN.set_text(txt)
         self.posCurrent = len(self.game) - 1

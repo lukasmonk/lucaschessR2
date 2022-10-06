@@ -42,7 +42,7 @@ def average_hash(img, hash_size=8):
 
     # Compute the hash based on each pixels value compared to the average.
     bits = "".join(map(lambda pixel: "1" if pixel > avg else "0", pixels))
-    hashformat = "0{hashlength}x".format(hashlength=hash_size**2 // 4)
+    hashformat = "0{hashlength}x".format(hashlength=hash_size ** 2 // 4)
     return int(bits, 2).__format__(hashformat)
 
 

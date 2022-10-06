@@ -4,9 +4,7 @@ import sys
 import Code
 from Code import Procesador
 from Code import Util
-from Code.Base.Constantes import (
-    OUT_REINIT,
-)
+from Code.Base.Constantes import OUT_REINIT
 from Code.MainWindow import Gui
 from Code.Sound import Sound
 

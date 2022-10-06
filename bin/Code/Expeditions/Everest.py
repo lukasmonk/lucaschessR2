@@ -151,8 +151,8 @@ class Expedition:
         return "%s%s: %d/%d - %s: %d %s" % (
             self.label_base,
             _("Tries"),
-            self.tries_used+1,
-            self.max_tries+1,
+            self.tries_used + 1,
+            self.max_tries + 1,
             _("Tolerance"),
             self.tolerance,
             _("centipawns"),

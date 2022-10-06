@@ -1,10 +1,5 @@
 import Code
-from Code.Base.Constantes import (
-    NO_RATING,
-    MISTAKE,
-    BLUNDER,
-    INACCURACY,
-)
+from Code.Base.Constantes import NO_RATING, MISTAKE, BLUNDER, INACCURACY
 
 
 class EvalPoint:

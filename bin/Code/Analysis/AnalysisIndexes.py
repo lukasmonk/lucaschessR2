@@ -76,10 +76,6 @@ def calc_formula(cual, cp, mrm):  # , limit=200.0):
         formula = formula.replace("xcompl", "%f" % calc_formula("complexity", cp, mrm))
     try:
         x = float(eval(formula))
-        # if x < 0.0:
-        # x = -x
-        # if x > limit:
-        # x = limit
         return x
     except:
         return 0.0
@@ -216,55 +212,6 @@ def tp_materialasymmetry(cp, mrm):
 
 def calc_gamestage(cp, mrm):
     return calc_formula("gamestage", cp, mrm)
-
-
-# def get_test1(cp, mrm):
-#     return txt_formula("Test 1", calc_test1, cp, mrm)
-
-# def tp_test1(cp, mrm):
-#     return tp_formula("Test 1", calc_test1, cp, mrm)
-
-# def calc_test1(cp, mrm):
-#     return calc_formula("test1", cp, mrm)
-
-# def get_test1(cp, mrm):
-#     return txt_formula("Test 1", calc_test1, cp, mrm)
-
-# def tp_test2(cp, mrm):
-#     return tp_formula("Test 2", calc_test2, cp, mrm)
-
-# def calc_test2(cp, mrm):
-#     return calc_formula("test2", cp, mrm)
-
-# def get_test2(cp, mrm):
-#     return txt_formula("Test 2", calc_test2, cp, mrm)
-
-# def tp_test3(cp, mrm):
-#     return tp_formula("Test 3", calc_test3, cp, mrm)
-
-# def calc_test3(cp, mrm):
-#     return calc_formula("test3", cp, mrm)
-
-# def get_test3(cp, mrm):
-#     return txt_formula("Test 3", calc_test3, cp, mrm)
-
-# def tp_test4(cp, mrm):
-#     return tp_formula("Test 4", calc_test4, cp, mrm)
-
-# def calc_test4(cp, mrm):
-#     return calc_formula("test4", cp, mrm)
-
-# def get_test4(cp, mrm):
-#     return txt_formula("Test 4", calc_test4, cp, mrm)
-
-# def tp_test5(cp, mrm):
-#     return tp_formula("Test 5", calc_test5, cp, mrm)
-
-# def calc_test5(cp, mrm):
-#     return calc_formula("test5", cp, mrm)
-
-# def get_test5(cp, mrm):
-#     return txt_formula("Test 5", calc_test5, cp, mrm)
 
 
 def get_gamestage(cp, mrm):

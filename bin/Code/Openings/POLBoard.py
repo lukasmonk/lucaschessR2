@@ -4,24 +4,8 @@ from PySide2 import QtWidgets, QtCore, QtGui
 
 import Code.Nags.Nags
 from Code.Base import Game, Move
-from Code.Base.Constantes import (
-    GOOD_MOVE,
-    VERY_GOOD_MOVE,
-    NO_RATING,
-    MISTAKE,
-    BLUNDER,
-    SPECULATIVE_MOVE,
-    INACCURACY,
-)
-from Code.Nags.Nags import (
-    NAG_1,
-    NAG_2,
-    NAG_3,
-    NAG_4,
-    NAG_5,
-    NAG_6,
-    dic_symbol_nags,
-)
+from Code.Base.Constantes import GOOD_MOVE, VERY_GOOD_MOVE, NO_RATING, MISTAKE, BLUNDER, SPECULATIVE_MOVE, INACCURACY
+from Code.Nags.Nags import NAG_1, NAG_2, NAG_3, NAG_4, NAG_5, NAG_6, dic_symbol_nags
 
 from Code.Board import Board
 from Code.QT import Colocacion

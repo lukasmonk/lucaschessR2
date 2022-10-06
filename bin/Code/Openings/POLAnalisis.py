@@ -355,9 +355,7 @@ class TabBook(QtWidgets.QWidget):
         elif resp == "previous":
             lst_rows = list(range(row))
         elif resp == "level":
-            lst_rows = [
-                row,
-            ]
+            lst_rows = [row]
             lv = self.li_moves[row].nivel
             for r in range(row - 1, -1, -1):
                 alm = self.li_moves[r]
@@ -372,9 +370,7 @@ class TabBook(QtWidgets.QWidget):
                 elif alm.nivel < lv:
                     break
         else:
-            lst_rows = [
-                row,
-            ]
+            lst_rows = [row]
 
         refresh = False
         for row in lst_rows:

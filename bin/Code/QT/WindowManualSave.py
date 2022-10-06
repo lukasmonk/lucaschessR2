@@ -53,10 +53,7 @@ class WManualSave(LCDialog.LCDialog):
         self.game = None
 
         # Toolbar
-        li_acciones = (
-            (_("Close"), Iconos.MainMenu(), self.terminar),
-            None,
-        )
+        li_acciones = ((_("Close"), Iconos.MainMenu(), self.terminar), None)
         tb = QTVarios.LCTB(self, li_acciones, style=QtCore.Qt.ToolButtonTextBesideIcon, icon_size=32)
 
         # Board + botones + solucion + boton salvado

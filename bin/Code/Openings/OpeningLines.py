@@ -186,9 +186,9 @@ class Opening:
 
         self.li_xpv = self.init_database()
 
-        self.db_config = UtilSQL.DictSQL(nom_fichero, tabla="CONFIG")
-        self.db_fenvalues = UtilSQL.DictSQL(nom_fichero, tabla="FENVALUES")
-        self.db_history = UtilSQL.DictSQL(nom_fichero, tabla="HISTORY")
+        self.db_config_base = None
+        self.db_fenvalues_base = None
+        self.db_history_base = None
         self.db_cache_engines = None
         self.basePV = self.getconfig("BASEPV", "")
         self.title = self.getconfig("TITLE", os.path.basename(nom_fichero)[:-4])
@@ -204,6 +204,24 @@ class Opening:
                 dbv.close()
 
         self.board = None
+
+    @property
+    def db_config(self):
+        if self.db_config_base is None:
+            self.db_config_base = UtilSQL.DictSQL(self.nom_fichero, tabla="CONFIG")
+        return self.db_config_base
+
+    @property
+    def db_fenvalues(self):
+        if self.db_fenvalues_base is None:
+            self.db_fenvalues_base = UtilSQL.DictSQL(self.nom_fichero, tabla="FENVALUES")
+        return self.db_fenvalues_base
+
+    @property
+    def db_history(self):
+        if self.db_history_base is None:
+            self.db_history_base = UtilSQL.DictSQL(self.nom_fichero, tabla="HISTORY")
+        return self.db_history_base
 
     def open_cache_engines(self):
         if self.db_cache_engines is None:
@@ -804,11 +822,14 @@ class Opening:
             ult_pack = self.getconfig("ULT_PACK", 0)
             si_pack = ult_pack > 50
             self.setconfig("ULT_PACK", 0 if si_pack else ult_pack + 1)
-            self.db_config.close()
-            self.db_config = None
 
-            self.db_fenvalues.close()
-            self.db_fenvalues = None
+            if self.db_config_base:
+                self.db_config_base.close()
+                self.db_config_base = None
+
+            if self.db_fenvalues_base:
+                self.db_fenvalues_base.close()
+                self.db_fenvalues_base = None
 
             if self.db_cache_engines:
                 self.db_cache_engines.close()
@@ -824,7 +845,8 @@ class Opening:
                     liremove = lik[: len(self.db_history) - 50]
                     for k in liremove:
                         del self.db_history[k]
-                self.db_history.close()
+                self.db_history_base.close()
+                self.db_history_base = None
 
                 cursor = self._conexion.cursor()
                 cursor.execute("VACUUM")
@@ -832,7 +854,9 @@ class Opening:
                 self._conexion.commit()
 
             else:
-                self.db_history.close()
+                if self.db_history_base:
+                    self.db_history_base.close()
+                    self.db_history_base = None
 
             self._conexion.close()
             self._conexion = None

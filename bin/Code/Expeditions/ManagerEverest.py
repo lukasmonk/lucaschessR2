@@ -4,14 +4,7 @@ import time
 from PySide2 import QtCore
 
 from Code import Manager
-from Code.Base.Constantes import (
-    ST_ENDGAME,
-    ST_PLAYING,
-    TB_CLOSE,
-    TB_CONFIG,
-    TB_CANCEL,
-    TB_UTILITIES,
-)
+from Code.Base.Constantes import ST_ENDGAME, ST_PLAYING, TB_CLOSE, TB_CONFIG, TB_CANCEL, TB_UTILITIES
 from Code.Expeditions import Everest
 from Code.Openings import Opening
 from Code.QT import QTUtil2

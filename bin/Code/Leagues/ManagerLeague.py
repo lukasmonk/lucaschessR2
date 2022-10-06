@@ -124,8 +124,8 @@ class ManagerLeague(Manager.Manager):
                 time_control += "+%d" % self.seconds_per_move
             self.game.set_tag("TimeControl", time_control)
 
-            self.tc_player.config_clock(minutes*60, self.seconds_per_move, 0, 0)
-            self.tc_rival.config_clock(minutes*60, self.seconds_per_move, 0, 0)
+            self.tc_player.config_clock(minutes * 60, self.seconds_per_move, 0, 0)
+            self.tc_rival.config_clock(minutes * 60, self.seconds_per_move, 0, 0)
 
         self.pon_toolbar()
 
@@ -161,14 +161,7 @@ class ManagerLeague(Manager.Manager):
     def pon_toolbar(self):
         if self.state == ST_PLAYING:
             if self.toolbar_state != self.state:
-                li = [
-                    TB_RESIGN,
-                    TB_DRAW,
-                    TB_PAUSE,
-                    TB_ADJOURN,
-                    TB_CONFIG,
-                    TB_UTILITIES,
-                ]
+                li = [TB_RESIGN, TB_DRAW, TB_PAUSE, TB_ADJOURN, TB_CONFIG, TB_UTILITIES]
 
                 self.set_toolbar(li)
             hip = self.human_is_playing
@@ -429,13 +422,7 @@ class ManagerLeague(Manager.Manager):
         else:
             seconds_black = seconds_white = 10 * 60
             seconds_move = 0
-        self.xrival.play_time_routine(
-            self.game,
-            self.main_window.notify,
-            seconds_white,
-            seconds_black,
-            seconds_move,
-        )
+        self.xrival.play_time_routine(self.game, self.main_window.notify, seconds_white, seconds_black, seconds_move)
 
     def mueve_rival_base(self):
         self.play_rival(self.main_window.dato_notify)

@@ -59,14 +59,14 @@ class ControlAnalysis:
             to_sq = pv1[2:4]
             promotion = pv1[4].lower() if len(pv1) == 5 else None
 
+            name = (
+                pb.pgn(from_sq, to_sq, promotion)
+                if self.with_figurines
+                else pb.pgn_translated(from_sq, to_sq, promotion)
+            )
             txt = rm.abrTextoBase()
             if txt:
-                txt = "(%s)" % txt
-            if self.with_figurines:
-                name = pb.pgn(from_sq, to_sq, promotion) + txt
-
-            else:
-                name = pb.pgn_translated(from_sq, to_sq, promotion) + txt
+                name += "(%s)" % txt
             li.append((rm, name, rm.centipawns_abs()))
 
         return li
@@ -154,34 +154,16 @@ class ControlAnalysis:
 
     def get_game(self):
         game_original = self.move.game
-        game_send = game_original.copy_until_move(self.move)
+        if self.move.movimiento():
+            game_send = game_original.copy_until_move(self.move)
+        else:
+            game_send = game_original.copia()
         if self.pos_mov_active > -1:
-            # cp = game_send.last_position
             for nmove in range(self.pos_mov_active + 1):
                 move = self.game.move(nmove)
                 move_send = move.clone(game_send)
                 game_send.add_move(move_send)
         return game_send
-        # n_movs = len(self.game)
-        # if self.pos_mov_active >= n_movs:
-        #     self.pos_mov_active = n_movs - 1
-        # if self.pos_mov_active < 0:
-        #     self.pos_mov_active = -1
-        #     return self.game.move(0).position_before, None, None
-        # else:
-        #     move_active = self.game.move(self.pos_mov_active)
-        #     return move_active.position, move_active.from_sq, move_active.to_sq
-
-    # def active_base_position(self):
-    #     n_movs = len(self.game)
-    #     if self.pos_mov_active >= n_movs:
-    #         self.pos_mov_active = n_movs - 1
-    #     if self.pos_mov_active < 0:
-    #         self.pos_mov_active = -1
-    #         return self.game.move(0).position_before, None, None
-    #     else:
-    #         move_active = self.game.move(self.pos_mov_active)
-    #         return move_active.position_before, move_active.from_sq, move_active.to_sq
 
     def change_mov_active(self, accion):
         if accion == "Adelante":
@@ -244,11 +226,13 @@ class CreateAnalysis:
             xengine.set_gui_dispatch(mira)
             mrm, pos = xengine.analysis_move(move, xengine.mstime_engine, xengine.depth_engine)
             move.analysis = mrm, pos
+
             si_cancelado = me.cancelado()
             me.final()
             if si_cancelado:
                 return None
-        mrm, pos = move.analysis
+        else:
+            mrm, pos = move.analysis
 
         tab_analysis = ControlAnalysis(self, mrm, pos, 0, xengine)
         self.li_tabs_analysis.append(tab_analysis)
@@ -288,6 +272,7 @@ def show_analysis(procesador, xtutor, move, is_white, pos_move, main_window=None
     if xtutor is None:
         xtutor = procesador.XTutor()
     tab_analysis0 = ma.create_initial_show(main_window, xtutor)
+    move = ma.move
     if not tab_analysis0:
         return
     wa = WindowAnalysis.WAnalisis(ma, main_window, is_white, must_save, tab_analysis0, subanalysis=subanalysis)

@@ -6,13 +6,7 @@ from FasterCode import xpv_pv, pv_xpv
 import Code
 from Code import Util
 from Code.Base import Move
-from Code.Base.Constantes import (
-    RESULT_DRAW,
-    RESULT_WIN_BLACK,
-    RESULT_WIN_WHITE,
-    WHITE,
-    BLACK,
-)
+from Code.Base.Constantes import RESULT_DRAW, RESULT_WIN_BLACK, RESULT_WIN_WHITE, WHITE, BLACK
 
 
 class GMgame:

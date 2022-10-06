@@ -136,7 +136,7 @@ def form_variations(alm):
     li_var.append((_("Also analyze variations") + ":", alm.analyze_variations))
     li_var.append(SEPARADOR)
     li_var.append(SEPARADOR)
-    li_var.append(("<big><b>"+_("Convert analyses into variations") + ":", alm.include_variations))
+    li_var.append(("<big><b>" + _("Convert analyses into variations") + ":", alm.include_variations))
     li_var.append(SEPARADOR)
 
     li_var.append((FormLayout.Spinbox(_("Minimum centipawns lost"), 0, 1000, 60), alm.limit_include_variations))
@@ -481,7 +481,9 @@ def massive_analysis_parameters(parent, configuration, siVariosSeleccionados, si
     reg = Util.Record()
     reg.form = None
 
-    resultado = FormLayout.fedit(lista, title=_("Mass analysis"), parent=parent, anchoMinimo=460, icon=Iconos.Opciones())
+    resultado = FormLayout.fedit(
+        lista, title=_("Mass analysis"), parent=parent, anchoMinimo=460, icon=Iconos.Opciones()
+    )
 
     if resultado:
         accion, liResp = resultado

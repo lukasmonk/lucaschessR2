@@ -68,10 +68,7 @@ class Human:
         self.elo = elo
 
     def save(self):
-        return {
-            "NAME": self.name,
-            "ELO": self.elo,
-        }
+        return {"NAME": self.name, "ELO": self.elo}
 
     def restore(self, dic):
         self.name = dic.get("NAME", self.name)
