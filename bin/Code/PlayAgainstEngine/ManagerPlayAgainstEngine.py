@@ -254,7 +254,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             zeitnot = dic_var.get("ZEITNOT", 0)
 
             self.tc_player.config_clock(max_seconds, seconds_per_move, zeitnot, secs_extra)
-            self.tc_rival.config_clock(max_seconds, seconds_per_move, zeitnot, secs_extra)
+            self.tc_rival.config_clock(max_seconds, seconds_per_move, zeitnot, 0)
 
             time_control = "%d" % int(self.max_seconds)
             if seconds_per_move:

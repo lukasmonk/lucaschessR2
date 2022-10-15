@@ -124,9 +124,8 @@ class WMuestra(QtWidgets.QWidget):
         # pgn, color, txt_analysis, indicadorInicial, li_nags
         txt = self.list_rm_name[row][1]
         pgn, resto = txt.split("(")
-        txt_analysis = resto[:-1]  # + " %0.02f" % Code.analysis_eval.escala10(self.list_rm_name[row][0])
+        txt_analysis = resto[:-1]
         return pgn, self.list_rm_name[row][0].is_white, txt_analysis, None, None
-        # return self.list_rm_name[row][1]
 
     def grid_color_texto(self, grid, row, o_column):
         rm = self.list_rm_name[row][0]

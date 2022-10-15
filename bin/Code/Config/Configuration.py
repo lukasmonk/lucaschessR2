@@ -2,20 +2,19 @@ import operator
 import os.path
 import pickle
 
+import OSEngines  # in OS folder
 from PySide2 import QtWidgets
 from PySide2.QtCore import Qt
 
 import Code
-from Code.Board import ConfBoards
-from Code.Translations import Translate, TrListas
 from Code import Util
-from Code.QT import QTUtil
-from Code.SQL import UtilSQL
-from Code.Engines import Priorities
 from Code.Analysis import AnalysisEval
 from Code.Base.Constantes import MENU_PLAY_BOTH, POS_TUTOR_HORIZONTAL, INACCURACY, ENG_FIXED
-
-import OSEngines  # in OS folder
+from Code.Board import ConfBoards
+from Code.Engines import Priorities
+from Code.QT import QTUtil
+from Code.SQL import UtilSQL
+from Code.Translations import Translate, TrListas
 
 LCFILEFOLDER: str = os.path.realpath("../lc.folder")
 LCBASEFOLDER: str = os.path.realpath("../UserData")
@@ -201,48 +200,31 @@ class Configuration:
 
         self.x_maia_nodes_exponential = False
 
-        # self.x_eval_lines = [(100.0, 0.9), (300, 2.0), (800, 3.0), (3500, 4.0)]
-        # self.x_eval_blunder = 1.5
-        # self.x_eval_mistake = 0.7
-        # self.x_eval_inaccuracy = 0.3
-        # self.x_eval_very_good_depth = 7
-        # self.x_eval_good_depth = 4
-        # self.x_eval_max_mate = 15
-        # self.x_eval_max_elo = 3300.0
-        # self.x_eval_min_elo = 800.0
-        # self.x_eval_very_bad_factor = 12
-        # self.x_eval_bad_factor = 4
-        # self.x_eval_questionable_factor = 2
+        self.x_eval_limit_score = 2000  # Score in cps means 100% Win
+        self.x_eval_curve_degree = 50  # Degree of curve cps and probability of win
 
-        self.eval_lines = [(100, 0.9), (300, 2.0), (800, 3.0), (3500, 4.0)]
-        self.eval_blunder = 1.55
-        self.eval_mistake = 0.75
-        self.eval_inaccuracy = 0.33
+        self.x_eval_difmate_inaccuracy = 3  # Dif mate considered an inaccuracy
+        self.x_eval_difmate_mistake = 12  # Dif mate considered a mistake
+        self.x_eval_difmate_blunder = 20  # Dif mate considered a blunder
 
-        self.eval_very_good_depth = 8
-        self.eval_good_depth = 5
-        self.eval_speculative_depth = 3
-        # Limits
-        self.eval_max_mate = 15
-        self.eval_max_elo = 3300.0
-        self.eval_min_elo = 200.0
-        # Factor effect to ELO
-        self.eval_very_bad_factor = 12
-        self.eval_bad_factor = 6
-        self.eval_questionable_factor = 2
+        self.x_eval_mate_human = 15  # Max mate to consider
 
-        # self.eval_lines = [(150.0, 0.91), (390, 2.07), (530, 3.07), (775, 3.8), (900, 4.5)]
-        # self.eval_blunder = 1.84
-        # self.eval_mistake = 0.76
-        # self.eval_inaccuracy = 0.33
-        # self.eval_very_good_depth = 7
-        # self.eval_good_depth = 4
-        # self.eval_max_mate = 10
-        # self.eval_max_elo = 3300.0
-        # self.eval_min_elo = 0.0
-        # self.eval_very_bad_factor = 2.25
-        # self.eval_bad_factor = 2
-        # self.eval_questionable_factor = 1.1
+        self.x_eval_blunder = 15.5  #
+        self.x_eval_mistake = 7.5
+        self.x_eval_inaccuracy = 3.3
+
+        self.x_eval_very_good_depth = 8
+        self.x_eval_good_depth = 5
+        self.x_eval_speculative_depth = 3
+
+        self.x_eval_max_elo = 3300.0
+        self.x_eval_min_elo = 200.0
+
+        self.x_eval_elo_blunder_factor = 12
+        self.x_eval_elo_mistake_factor = 6
+        self.x_eval_elo_inaccuracy_factor = 2
+
+        self.dic_eval_default = self.read_eval()
 
         self.x_sound_beep = False
         self.x_sound_our = False
@@ -259,7 +241,6 @@ class Configuration:
 
         self.x_carpeta_gaviota = self.carpeta_gaviota_defecto()
 
-        # Editable directamente en su código
         self.x_captures_showall = True
         self.x_counts_showall = True
 
@@ -276,6 +257,35 @@ class Configuration:
         self.x_translation_mode = False
 
         self.x_mode_select_lc = Code.is_linux
+
+    def read_eval(self):
+        d = {}
+        for key in dir(self):
+            if key.startswith("x_eval_"):
+                d[key[7:]] = getattr(self, key)
+        return d
+
+    @staticmethod
+    def dic_eval_keys():
+        return {
+            "limit_score": (1000, 4000, "int"),
+            "curve_degree": (1, 100, "%"),
+            "difmate_inaccuracy": (1, 99, "int"),
+            "difmate_mistake": (1, 99, "int"),
+            "difmate_blunder": (1, 99, "int"),
+            "mate_human": (10, 99, "int"),
+            "blunder": (1.0, 99.0, "dec"),
+            "mistake": (1.0, 99.0, "dec"),
+            "inaccuracy": (1.0, 99.0, "dec"),
+            "very_good_depth": (1, 128, "int"),
+            "good_depth": (1, 128, "int"),
+            "speculative_depth": (1, 128, "int"),
+            "max_elo": (2000, 4000, "int"),
+            "min_elo": (0, 2000, "int"),
+            "elo_blunder_factor": (1, 99, "dec"),
+            "elo_mistake_factor": (1, 99, "dec"),
+            "elo_inaccuracy_factor": (1, 99, "dec"),
+        }
 
     def folder_translations(self):
         folder = os.path.join(self.carpetaBase, "Translations")

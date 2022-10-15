@@ -167,11 +167,15 @@ class WLeague(LCDialog.LCDialog):
         self.set_journey_if_active()
 
     def set_journey_if_active(self):
-        # antes = self.current_journey
+        antes = self.current_journey
         self.current_journey = self.season.get_current_journey()
-        # if antes != self.current_journey:
-        #     self.launch_worker()
-        #     self.launch_worker()
+        if antes != self.current_journey:
+            self.update_matches()
+            lw = LeaguesWork.LeaguesWork(self.league)
+            lw.put_league()
+            if self.pending_matches():
+                for x in range(self.num_workers_launched):
+                    XRun.run_lucas("-league", self.league.name())
         active = self.current_journey == self.sb_journey.valor() - 1
         self.lb_active.setVisible(active)
 
@@ -441,7 +445,7 @@ class WLeague(LCDialog.LCDialog):
                 self.timer.start(10000)
             else:
                 self.timer.stop()
-                self.timer.start(60000)
+                self.timer.start(10000)
 
     def show_current_season(self):
         self.li_panels = self.season.gen_panels_classification()
@@ -463,6 +467,18 @@ class WLeague(LCDialog.LCDialog):
             self.timer.stop()
             self.timer = None
 
+    def pending_matches(self):
+        lw = LeaguesWork.LeaguesWork(self.league)
+        if lw.num_pending_matches() > 0:
+            return True
+
+        resp = False
+        for xmatch in self.li_matches:
+            if not xmatch.result:
+                resp = True
+                lw.add_match_zombie(xmatch)
+        return resp
+
     def launch_worker(self):
         rondo = QTVarios.rondoPuntos()
 
@@ -472,7 +488,7 @@ class WLeague(LCDialog.LCDialog):
 
         submenu = menu.submenu(_("Launch some workers"), Iconos.Lanzamientos())
 
-        for x in range(2, 10):
+        for x in range(2, 33):
             submenu.opcion(x, str(x), rondo.otro())
 
         resp = menu.lanza()
@@ -483,7 +499,7 @@ class WLeague(LCDialog.LCDialog):
             current_journey = self.season.get_current_journey()
             if journey_work != current_journey or self.league.current_num_season != season_work:
                 lw.put_league()
-            if lw.num_pending_matches():
+            if self.pending_matches():
                 for x in range(resp):
                     XRun.run_lucas("-league", self.league.name())
                 self.num_workers_launched = resp

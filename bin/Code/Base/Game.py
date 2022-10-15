@@ -724,11 +724,11 @@ class Game:
                 move.calc_elo()
                 elo_factor = move.factor_elo()
                 # if move.bad_move:
-                #     elo_factor = Code.configuration.eval_bad_factor
+                #     elo_factor = Code.configuration.eval_mistake_factor
                 # elif move.verybad_move:
-                #     elo_factor = Code.configuration.eval_very_bad_factor
+                #     elo_factor = Code.configuration.eval_blunder_factor
                 # elif move.questionable_move:
-                #     elo_factor = Code.configuration.eval_questionable_factor
+                #     elo_factor = Code.configuration.eval_inaccuracy_factor
                 nummoves[std] += 1
                 sumelos[std] += move.elo * elo_factor
                 factormoves[std] += elo_factor

@@ -146,6 +146,114 @@ class DictSQL(object):
         self.normal_save_mode = mode
 
 
+class DictSQLRawExclusive(object):
+    GET_ALL = 1
+    GET_ONE = 2
+    GET_NONE = 0
+
+    def __init__(self, path_db, tabla="Data"):
+        self.tabla = tabla
+        self.conexion = sqlite3.connect(path_db, isolation_level="EXCLUSIVE")
+
+        self.conexion.execute("CREATE TABLE IF NOT EXISTS %s( KEY TEXT PRIMARY KEY, VALUE BLOB );" % tabla)
+
+        cursor = self.conexion.execute("SELECT KEY FROM %s" % self.tabla)
+        self.li_keys = [reg[0] for reg in cursor.fetchall()]
+
+    def execute(self, sql, args=None, is_all=None, commit=False):
+        tries = 10
+        while tries:
+            try:
+                if args:
+                    cursor = self.conexion.execute(sql, args)
+                else:
+                    cursor = self.conexion.execute(sql)
+                if is_all == self.GET_ALL:
+                    return cursor.fetchall()
+                elif is_all == self.GET_ONE:
+                    return cursor.fetchone()
+                if commit:
+                    self.conexion.commit()
+                return
+
+            except sqlite3.OperationalError:
+                tries -= 1
+
+    def exist(self, key):
+        sql = "SELECT VALUE FROM %s WHERE KEY= ?" % self.tabla
+        row = self.execute(sql, (key,), self.GET_ONE)
+        return row is not None
+
+    def __contains__(self, key):
+        return self.exist(key)
+
+    def __setitem__(self, key, obj):
+        if not self.conexion:
+            return
+        if self.exist(key):
+            sql = "UPDATE %s SET VALUE=? WHERE KEY = ?" % self.tabla
+        else:
+            sql = "INSERT INTO %s (VALUE,KEY) values(?,?)" % self.tabla
+        dato = pickle.dumps(obj)
+        self.execute(sql, (memoryview(dato), key), commit=True)
+
+    def __getitem__(self, key):
+        if self.exist(key):
+            sql = "SELECT VALUE FROM %s WHERE KEY= ?" % self.tabla
+
+            row = self.execute(sql, (key,), self.GET_ONE)
+            return pickle.loads(row[0])
+        return None
+
+    def __delitem__(self, key):
+        sql = "DELETE FROM %s WHERE KEY= ?" % self.tabla
+        self.execute(sql, (key,), commit=True)
+
+    def __len__(self):
+        sql = "SELECT COUNT(*) FROM %s" % self.tabla
+        row = self.execute(sql, is_all=self.GET_ONE)
+        return row[0]
+
+    def close(self):
+        try:
+            if self.conexion:
+                self.conexion.close()
+        except:
+            pass
+        self.conexion = None
+
+    def get(self, key, default=None):
+        key = str(key)
+        value = self.__getitem__(key)
+        if value is None:
+            value = default
+        return value
+
+    def as_dictionary(self):
+        sql = "SELECT KEY,VALUE FROM %s" % self.tabla
+        li_all = self.execute(sql, is_all=self.GET_ALL)
+        dic = {}
+        if li_all:
+            for key, dato in li_all:
+                dic[key] = pickle.loads(dato)
+        return dic
+
+    def keys(self):
+        sql = "SELECT KEY FROM %s" % self.tabla
+        li_all = self.execute(sql, is_all=self.GET_ALL)
+        return [row[0] for row in li_all]
+
+    def zap(self):
+        self.execute("DELETE FROM %s" % self.tabla, commit=True)
+        self.execute("VACUUM", commit=True)
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, xtype, value, traceback):
+        self.close()
+
+
 class DictObjSQL(DictSQL):
     def __init__(self, path_db, class_storage, tabla="Data", max_cache=2048):
         self.class_storage = class_storage

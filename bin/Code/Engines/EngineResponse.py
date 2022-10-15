@@ -1184,15 +1184,15 @@ class MultiEngineResponse:
                         first_depth = depth
                         break
             color = GOOD_MOVE
-            if first_depth >= Code.analysis_eval.very_good_depth:
+            if first_depth >= Code.configuration.x_eval_very_good_depth:
                 if len(libest) == 1 and (mj_pts - self.li_rm[1].centipawns_abs()) > 70:
                     nag = VERY_GOOD_MOVE
                     color = VERY_GOOD_MOVE
                 else:
                     nag = GOOD_MOVE
-            elif first_depth >= Code.analysis_eval.good_depth:
+            elif first_depth >= Code.configuration.x_eval_good_depth:
                 nag = GOOD_MOVE
-            elif first_depth >= Code.analysis_eval.speculative_depth:
+            elif first_depth >= Code.configuration.x_eval_speculative_depth:
                 nag = SPECULATIVE_MOVE
                 color = SPECULATIVE_MOVE
             else:

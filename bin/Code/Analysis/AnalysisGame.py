@@ -4,9 +4,8 @@ import os
 from Code import Util
 from Code.Analysis import AnalysisIndexes, WindowAnalysisParam
 from Code.Base import Game
-from Code.Nags.Nags import NAG_3
 from Code.Databases import WDB_Utils
-from Code.QT import QTUtil2
+from Code.Nags.Nags import NAG_3
 from Code.TrainBMT import BMT
 
 
@@ -323,8 +322,7 @@ FILESW=%s:100
         self.si_bmt_blunders = False
         self.si_bmt_brilliancies = False
 
-        si_bp2 = hasattr(tmp_bp, "bp2")  # Para diferenciar el analysis de una game que usa una progressbar unica del
-        # analysis de muchas, que usa doble
+        si_bp2 = hasattr(tmp_bp, "bp2")  # Para diferenciar el analysis de un game que usa una progressbar unica del
 
         def gui_dispatch(xrm):
             return not tmp_bp.is_canceled()
@@ -408,8 +406,6 @@ FILESW=%s:100
         n_moves = len(li_pos_moves)
         if si_bp2:
             tmp_bp.ponTotal(2, n_moves)
-        else:
-            tmp_bp.ponTotal(n_moves)
 
         for npos, pos_move in enumerate(li_pos_moves):
             if pos_move in st_borrar:
@@ -422,8 +418,6 @@ FILESW=%s:100
             move = game.move(pos_move)
             if si_bp2:
                 tmp_bp.pon(2, npos + 1)
-            else:
-                tmp_bp.pon(npos)
 
             if self.rut_dispatch_bp:
                 self.rut_dispatch_bp(npos, n_moves, pos_move)
@@ -468,7 +462,12 @@ FILESW=%s:100
                         self.xmanager.remove_gui_dispatch()
                         return
 
+                    if tmp_bp.is_canceled():
+                        self.xmanager.remove_gui_dispatch()
+                        return
+
                     move.analysis = resp
+
                 cp = move.position_before
                 mrm, pos_act = move.analysis
                 move.complexity = AnalysisIndexes.calc_complexity(cp, mrm)
@@ -574,24 +573,34 @@ def analysis_game(manager):
     if len(alm.num_moves) > 0 and num_moves == 0:
         return
 
-    mensaje = _("Analyzing the move....")
-    tmp_bp = QTUtil2.BarraProgreso(main_window, _("Analysis"), mensaje, num_moves).show_top_right()
+    # mensaje = _("Analyzing the move....")
+    # tmp_bp = QTUtil2.BarraProgreso(main_window, _("Analysis"), mensaje, num_moves).show_top_right()
+
+    mens = _("Analyzing the move....")
+
+    manager_main_window_base = manager.main_window.base
+    manager_main_window_base.show_message(mens, True, tit_cancel=_("Cancel"))
+    manager_main_window_base.tb.setDisabled(True)
 
     ap = AnalyzeGame(procesador, alm, False, li_moves)
 
     def dispatch_bp(pos, ntotal, njg):
-        tmp_bp.mensaje(mensaje + " %d/%d" % (pos + 1, ntotal))
+        manager_main_window_base.change_message("%s: %d/%d" % (_("Analyzing the move...."), pos + 1, ntotal))
         move = game.move(njg)
         manager.set_position(move.position)
         manager.main_window.pgnColocate(njg / 2, (njg + 1) % 2)
         manager.board.put_arrow_sc(move.from_sq, move.to_sq)
         manager.put_view()
+        return not manager_main_window_base.is_canceled()
 
     ap.dispatch_bp(dispatch_bp)
 
-    ap.xprocesa(game, tmp_bp)
+    ap.xprocesa(game, manager_main_window_base)
 
-    not_canceled = not tmp_bp.is_canceled()
+    manager_main_window_base.tb.setDisabled(False)
+    manager_main_window_base.hide_message()
+
+    not_canceled = not manager_main_window_base.is_canceled()
     ap.terminar(not_canceled)
 
     if not_canceled:
@@ -625,8 +634,6 @@ def analysis_game(manager):
         if li_creados or li_no_creados:
             WDB_Utils.mensajeEntrenamientos(main_window, li_creados, li_no_creados)
             procesador.entrenamientos.rehaz()
-
-    tmp_bp.cerrar()
 
     manager.goto_end()
 

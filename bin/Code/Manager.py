@@ -61,6 +61,7 @@ from Code.QT import WReplay
 from Code.QT import WindowArbol
 from Code.QT import WindowArbolBook
 from Code.QT import WindowSavePGN
+from Code.Analysis import WindowAnalysisConfig
 
 
 class Manager:
@@ -1295,6 +1296,8 @@ class Manager:
         menu.opcion(key, label, icono)
         menu.separador()
 
+        menu.opcion("analysis_config", _("Analysis configuration parameters"), Iconos.ConfAnalysis())
+
         # Mas Opciones
         if liMasOpciones:
             menu.separador()
@@ -1360,7 +1363,24 @@ class Manager:
                 elif orden == "conf":
                     self.board.blindfoldConfig()
 
+            elif resp == "analysis_config":
+                self.config_analysis_parameters()
+
         return None
+
+    def config_analysis_parameters(self):
+        w = WindowAnalysisConfig.WConfAnalysis(self.main_window, self)
+        w.show()
+
+    def refresh_analysis(self):
+        if not self.game:
+            return
+
+        for move in self.game.li_moves:
+            move.refresh_nags()
+
+        self.main_window.base.pgn.refresh()
+        self.refresh()
 
     def config_sonido(self):
         form = FormLayout.FormLayout(self.main_window, _("Configuration"), Iconos.S_Play(), anchoMinimo=440)

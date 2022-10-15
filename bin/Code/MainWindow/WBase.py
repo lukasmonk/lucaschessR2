@@ -806,4 +806,3 @@ class WMessage(QtWidgets.QWidget):
     def cancel(self):
         self.close()
         self.canceled = True
-        # self.bt_cancel.setText(_("Canceled"))

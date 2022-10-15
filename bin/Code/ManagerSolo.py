@@ -340,6 +340,8 @@ class ManagerSolo(Manager.Manager):
                 if self.grabarFichero(resp):
                     self.ultimoFichero = resp
                     self.pon_toolbar()
+                else:
+                    resp = None
                 return resp
             break
         return None

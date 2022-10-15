@@ -2,7 +2,7 @@ import Code
 import Code.Base.Game  # To prevent recursivity in Variations -> import direct
 from Code import Util
 from Code.Base import Position
-from Code.Nags.Nags import NAG_4, NAG_6, NAG_2, html_nag_txt
+from Code.Nags.Nags import NAG_1, NAG_2, NAG_3, NAG_4, NAG_5, NAG_6, html_nag_txt
 from Code.Engines import EngineResponse
 from Code.Themes.Lichess import cook
 from Code.Translations import TrListas
@@ -46,7 +46,7 @@ class Move:
 
     def only_has_move(self) -> bool:
         return not (
-            self.variations or self.comment or len(self.li_nags) > 0 or self.analysis or len(self.li_themes) > 0
+            self.variations or self.comment or len(self.li_nags) > 0 or self.analysis or len(self.li_themes) > 0 or self.time_ms
         )
 
     @property
@@ -271,11 +271,11 @@ class Move:
         elo_factor = 1
         if self.analysis:
             if self.bad_move:
-                elo_factor = Code.configuration.eval_bad_factor
+                elo_factor = Code.configuration.x_eval_elo_mistake_factor
             elif self.verybad_move:
-                elo_factor = Code.configuration.eval_very_bad_factor
+                elo_factor = Code.configuration.x_eval_elo_blunder_factor
             elif self.questionable_move:
-                elo_factor = Code.configuration.eval_questionable_factor
+                elo_factor = Code.configuration.x_eval_elo_inaccuracy_factor
         return elo_factor
 
     def distancia(self):
@@ -383,6 +383,22 @@ class Move:
             for move in game.li_moves:
                 li.extend(move.list_all_moves())
         return li
+
+    def refresh_nags(self):
+        if not self.analysis:
+            return
+
+        mrm, pos = self.analysis
+        for nag in (NAG_1, NAG_2, NAG_3, NAG_4, NAG_5, NAG_6):
+            if nag in self.li_nags:
+                self.li_nags.remove(nag)
+        rm = mrm.li_rm[pos]
+        nag, color = mrm.set_nag_color(rm)
+        if nag:
+            self.add_nag(nag)
+        for game in self.variations.list_games():
+            for move in game.li_moves:
+                move.refresh_nags()
 
 
 def get_game_move(game, position_before, from_sq, to_sq, promotion):

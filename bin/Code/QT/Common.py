@@ -1,7 +1,7 @@
-def gb_style():
+def gb_style(points=16):
     return """
     QGroupBox {
-        font: bold 16px;
+        font: bold %dpx;
         background-color: #F2F2EC;/*qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #E0E0E0, stop: 1 #FFFFFF);*/
         border: 1px solid gray;
         border-radius: 3px;
@@ -15,7 +15,7 @@ def gb_style():
         margin-top: 2px;
         border: 1px solid gray;
      }
-"""
+""" % points
 
 
 def gb_style_sub(points):

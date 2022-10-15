@@ -47,7 +47,7 @@ class WConfEngines(LCDialog.LCDialog):
         self.wexternals = WConfExternals(self)
         self.wconf_tutor = WConfTutor(self)
         self.wconf_analyzer = WConfAnalyzer(self)
-        self.wconf_more = WConfMore(self)
+        self.wothers = WOthers(self)
 
         self.w_current = None
 
@@ -55,7 +55,7 @@ class WConfEngines(LCDialog.LCDialog):
         self.tab.new_tab(self.wexternals, _("External engines"))
         self.tab.new_tab(self.wconf_tutor, _("Tutor"))
         self.tab.new_tab(self.wconf_analyzer, _("Analyzer"))
-        self.tab.new_tab(self.wconf_more, _("More"))
+        self.tab.new_tab(self.wothers, _("Others"))
         self.tab.dispatchChange(self.cambiada_tab)
 
         o_columns = Columnas.ListaColumnas()
@@ -92,6 +92,8 @@ class WConfEngines(LCDialog.LCDialog):
         elif num == 2:
             w = self.wconf_analyzer
         else:
+            self.engine = None
+            self.grid_conf.refresh()
             return
         w.activate_this()
         self.w_current = w
@@ -142,7 +144,7 @@ class WConfEngines(LCDialog.LCDialog):
                 self.grid_conf.gotop()
                 self.grid_conf.show()
             else:
-                self.grid_conf.hide()
+                self.grid_conf.refresh()
 
     def me_set_value(self, editor, valor):
         if self.me_control == "ed":
@@ -615,12 +617,12 @@ class WConfTutor(QtWidgets.QWidget):
             control.capture_changes(self, self.set_changed)
 
         for control in (
-            self.cb_priority,
-            self.cb_board_position,
-            self.ed_time,
-            self.ed_depth,
-            self.ed_multipv,
-            self.cb_type,
+                self.cb_priority,
+                self.cb_board_position,
+                self.ed_time,
+                self.ed_depth,
+                self.ed_multipv,
+                self.cb_type,
         ):
             control.capture_changes(self.set_changed)
 
@@ -734,7 +736,7 @@ class WConfAnalyzer(QtWidgets.QWidget):
         self.owner.set_engine(self.engine)
 
 
-class WConfMore(QtWidgets.QWidget):
+class WOthers(QtWidgets.QWidget):
     def __init__(self, owner):
         QtWidgets.QWidget.__init__(self, owner)
 
@@ -759,14 +761,13 @@ class WConfMore(QtWidgets.QWidget):
         self.bt_gaviota_remove = Controles.PB(self, "", self.remove_gaviota).ponIcono(Iconos.Delete())
         ly_gav = Colocacion.H().control(self.bt_gaviota).control(self.bt_gaviota_remove).relleno()
 
-        layout = Colocacion.G().margen(30)
+        layout = Colocacion.G()
         layout.controld(lb_maia, 0, 0)
         layout.control(self.cb_maia, 0, 1)
-        layout.filaVacia(1, 30)
         layout.controld(lb_gaviota, 2, 0)
         layout.otro(ly_gav, 2, 1)
 
-        layoutg = Colocacion.V().espacio(30).otro(layout).relleno()
+        layoutg = Colocacion.V().otro(layout).relleno().margen(30)
 
         self.setLayout(layoutg)
 

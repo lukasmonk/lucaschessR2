@@ -187,6 +187,9 @@ class ManagerElo(Manager.Manager):
         for x in range(1, 8):
             self.liMotores.append(MotorElo(x * 108 + 50, _F(lit[x - 1]), lit[x - 1], 0))
 
+        # self.liMotores.append(MotorElo(1400, _("Steven"), "Steven", 0))
+        # self.liMotores.append(MotorElo(1200, _("Knight || Medieval knight"), "Knight", 0))
+
         def m(elo, key, depth):
             self.liMotores.append(MotorElo(elo, Util.primera_mayuscula(key), key, depth))
 
