@@ -23,7 +23,7 @@ from Code.SQL import UtilSQL
 class WDailyTestBase(LCDialog.LCDialog):
     def __init__(self, procesador):
 
-        LCDialog.LCDialog.__init__(self, procesador.main_window, _("Your daily test"), Iconos.DailyTest(), "nivelBase")
+        LCDialog.LCDialog.__init__(self, procesador.main_window, _("Your daily test"), Iconos.DailyTest(), "nivelBase1")
 
         self.procesador = procesador
         self.configuration = procesador.configuration
@@ -36,8 +36,8 @@ class WDailyTestBase(LCDialog.LCDialog):
         # Historico
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("FECHA", _("Date"), 120, align_center=True)
-        o_columns.nueva("MPUNTOS", _("Centipawns lost"), 100, align_center=True)
-        o_columns.nueva("MTIEMPOS", _("Time"), 80, align_center=True)
+        o_columns.nueva("MPUNTOS", _("Average centipawns lost"), 180, align_center=True)
+        o_columns.nueva("MTIEMPOS", _("Average time (seconds)"), 180, align_center=True)
         o_columns.nueva("ENGINE", _("Engine"), 120, align_center=True)
         o_columns.nueva("SEGUNDOS", _("Second(s)"), 80, align_center=True)
         o_columns.nueva("PRUEBAS", _("N. of tests"), 80, align_center=True)
@@ -191,6 +191,8 @@ class WDailyTestBase(LCDialog.LCDialog):
                 with open(fns, "rt") as f:
                     for linea in f:
                         linea = linea.strip()
+                        if "|" in linea:
+                            linea = linea.split("|")[0]
                         if (
                             linea[0].isalnum()
                             and linea[-1].isdigit()
@@ -386,9 +388,9 @@ class WDailyTest(LCDialog.LCDialog):
         self.lbJuego.set_text("")
 
         mens = "<h3>%s : %0.2f</h3><h3>%s : %0.2f</h3>" % (
-            _("Centipawns lost"),
+            _("Average centipawns lost"),
             mpuntos,
-            _("Time in seconds"),
+            _("Average time (seconds)"),
             mtiempos,
         )
         QTUtil2.message(self, mens, titulo=_("Result"))

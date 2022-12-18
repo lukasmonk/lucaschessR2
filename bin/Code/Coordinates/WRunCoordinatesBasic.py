@@ -11,7 +11,7 @@ from Code.QT import LCDialog
 
 
 class WRunCoordinatesBasic(LCDialog.LCDialog):
-    def __init__(self, owner, db_coordinates, is_white):
+    def __init__(self, owner, db_coordinates, is_white, config):
 
         LCDialog.LCDialog.__init__(self, owner, _("Coordinates"), Iconos.Blocks(), "runcoordinatesbasic")
 
@@ -28,10 +28,13 @@ class WRunCoordinatesBasic(LCDialog.LCDialog):
         self.board = Board.BoardEstaticoMensaje(self, conf_board, None, 0.6)
         self.board.crea()
         self.board.bloqueaRotacion(True)
-        self.cp_initial = Position.Position()
-        self.cp_initial.set_pos_initial()
         self.board.set_side_bottom(self.is_white)
-        self.board.set_position(self.cp_initial)
+        if config.with_pieces:
+            self.cp_initial = Position.Position()
+            self.cp_initial.set_pos_initial()
+            self.board.set_position(self.cp_initial)
+        if not config.with_coordinates:
+            self.board.show_coordinates(False)
 
         font = Controles.TipoLetra(puntos=26, peso=500)
 

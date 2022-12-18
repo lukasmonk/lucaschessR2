@@ -221,7 +221,7 @@ def lyBotonesMovimiento(
         x("MoverJugar", _("Play"), Iconos.MoverJugar())
         li_acciones.append(None)
     if siTiempo:
-        x("MoverTiempo", _("Timed movement"), Iconos.MoverTiempo())
+        x("MoverTiempo", _("Timed movement") + "\n%s" % ("Right click to change the interval"), Iconos.MoverTiempo())
     li_acciones.append(None)
     if must_save:
         x("MoverGrabar", _("Save"), Iconos.MoverGrabar())
@@ -480,12 +480,6 @@ class LCMenuPiezas(Controles.Menu):
         return menu
 
 
-class LCTab(Controles.Tab):
-    def __init__(self, parent):
-        Controles.Tab.__init__(self, parent)
-        self.ponTipoLetra(puntos=Code.configuration.x_pgn_fontpoints)
-
-
 class ImportarFichero(QtWidgets.QDialog):
     def __init__(self, parent, titulo, siErroneos, siWorkDone, icono):
         QtWidgets.QDialog.__init__(self, parent)
@@ -700,13 +694,13 @@ class MensajeFide(QtWidgets.QDialog):
 
 def list_irina():
     return (
-        ("Monkey", _("Monkey"), Iconos.Monkey(), 50),
-        ("Donkey", _("Donkey"), Iconos.Donkey(), 158),
-        ("Bull", _("Bull"), Iconos.Bull(), 266),
-        ("Wolf", _("Wolf"), Iconos.Wolf(), 374),
-        ("Lion", _("Lion"), Iconos.Lion(), 482),
-        ("Rat", _("Rat"), Iconos.Rat(), 590),
-        ("Snake", _("Snake"), Iconos.Snake(), 698),
+        ("Monkey", _("Monkey"), Iconos.Monkey(), 108 * 1 + 50),
+        ("Donkey", _("Donkey"), Iconos.Donkey(), 108 * 2 + 50),
+        ("Bull", _("Bull"), Iconos.Bull(), 108 * 3 + 50),
+        ("Wolf", _("Wolf"), Iconos.Wolf(), 108 * 4 + 50),
+        ("Lion", _("Lion"), Iconos.Lion(), 108 * 5 + 50),
+        ("Rat", _("Rat"), Iconos.Rat(), 108 * 6 + 50),
+        ("Snake", _("Snake"), Iconos.Snake(), 108 * 7 + 50),
         ("Knight", _("Knight || Medieval knight"), Iconos.KnightMan(), 1200),
         ("Steven", _("Steven"), Iconos.Steven(), 1400),
     )
@@ -892,13 +886,16 @@ def change_interval(owner, configuration):
     form.separador()
     form.float(_("Duration of interval (secs)"), configuration.x_interval_replay / 1000)
     form.separador()
+    form.checkbox(_("Beep after each move"), configuration.x_beep_replay)
+    form.separador()
     resultado = form.run()
     if resultado is None:
         return None
     accion, liResp = resultado
-    vtime = liResp[0]
+    vtime, beep = liResp
     if vtime > 0.01:
         configuration.x_interval_replay = int(vtime * 1000)
+        configuration.x_beep_replay = beep
         configuration.graba()
 
 

@@ -161,6 +161,10 @@ class EtiquetaPGN(QtWidgets.QStyledItemDelegate):
         else:
             pgn, color, txt_analysis, indicadorInicial, li_nags = data, None, None, None, None
 
+        is_color_origen = color
+        if not color:
+            color = index.model().fore_color_name()
+
         ini_pz = None
         fin_pz = None
         post_pz = None
@@ -190,8 +194,8 @@ class EtiquetaPGN(QtWidgets.QStyledItemDelegate):
         y_total = rect.y()
 
         if option.state & QtWidgets.QStyle.State_Selected:
-            painter.fillRect(rect, QtGui.QColor(Code.configuration.pgn_selbackground()))
-            color = Code.configuration.pgn_selforeground()
+            painter.fillRect(rect, Code.dic_qcolors["PGN_SELBACKGROUND"])
+            color = Code.dic_colors["PGN_SELFOREGROUND"]
         elif self.si_fondo:
             fondo = index.model().getFondo(index)
             if fondo:
@@ -206,7 +210,10 @@ class EtiquetaPGN(QtWidgets.QStyledItemDelegate):
         document_pgn = QtGui.QTextDocument()
         document_pgn.setDefaultFont(option.font)
         if color:
-            pgn = '<font color="%s"><b>%s</b></font>' % (color, pgn)
+            if is_color_origen:
+                pgn = '<font color="%s"><b>%s</b></font>' % (color, pgn)
+            else:
+                pgn = '<font color="%s">%s</font>' % (color, pgn)
         document_pgn.setHtml(pgn)
         w_pgn = document_pgn.idealWidth()
         h_pgn = document_pgn.size().height()
@@ -270,16 +277,6 @@ class EtiquetaPGN(QtWidgets.QStyledItemDelegate):
             document_pgn.drawContents(painter)
             painter.restore()
             x += w_pgn
-
-        # if li_nags:
-        #     for rndr in li_nags:
-        #         painter.save()
-        #         painter.translate(x - 0.2 * wpz, y - 1)
-        #         df = hx * 0.2
-        #         pmRect = QtCore.QRectF(df, df, hx - df, hx - df)
-        #         rndr.render(painter, pmRect)
-        #         painter.restore()
-        #         x += wpz * 0.8
 
         if txt_analysis:
             document_analysis = QtGui.QTextDocument()
@@ -444,7 +441,7 @@ class EtiquetaPOS(QtWidgets.QStyledItemDelegate):
 
     def paint(self, painter, option, index):
         data = index.model().data(index, QtCore.Qt.DisplayRole)
-        pgn, is_white, color, txt_analysis, indicadorInicial, li_nags, agrisar, siLine = data
+        pgn, is_white, color, txt_analysis, indicador_inicial, li_nags, agrisar, si_line = data
         if li_nags:
             li = []
             st = set()
@@ -458,6 +455,10 @@ class EtiquetaPOS(QtWidgets.QStyledItemDelegate):
                     if symbol:
                         li.append(symbol)
             li_nags = li
+
+        is_color_origen = color
+        if not color:
+            color = index.model().fore_color_name()
 
         ini_pz = None
         fin_pz = None
@@ -487,28 +488,29 @@ class EtiquetaPOS(QtWidgets.QStyledItemDelegate):
         x0 = rect.x()
         y0 = rect.y()
         if option.state & QtWidgets.QStyle.State_Selected:
-            painter.fillRect(
-                rect, QtGui.QColor(Code.configuration.pgn_selbackground())
-            )  # sino no se ve en CDE-Motif-Windows
-            color = Code.configuration.pgn_selforeground()
+            painter.fillRect(rect, Code.dic_qcolors["PGN_SELBACKGROUND"])
+            color = Code.dic_colors["PGN_SELFOREGROUND"]
         elif self.siFondo:
             fondo = index.model().getFondo(index)
             if fondo:
                 painter.fillRect(rect, fondo)
 
         if agrisar:
-            painter.setOpacity(0.18)
+            painter.setOpacity(0.24)
 
-        if indicadorInicial:
+        if indicador_inicial:
             painter.save()
             painter.translate(x0, y0)
-            painter.drawPixmap(0, 0, dicPM[indicadorInicial])
+            painter.drawPixmap(0, 0, dicPM[indicador_inicial])
             painter.restore()
 
         documentPGN = QtGui.QTextDocument()
         documentPGN.setDefaultFont(option.font)
         if color:
-            pgn = '<font color="%s"><b>%s</b></font>' % (color, pgn)
+            if is_color_origen:
+                pgn = '<font color="%s"><b>%s</b></font>' % (color, pgn)
+            else:
+                pgn = '<font color="%s">%s</font>' % (color, pgn)
         documentPGN.setHtml(pgn)
         wPGN = documentPGN.idealWidth()
         hPGN = documentPGN.size().height()
@@ -604,7 +606,7 @@ class EtiquetaPOS(QtWidgets.QStyledItemDelegate):
                 painter.setPen(pen)
                 painter.drawLine(x0, y0 + height - 1, x0 + width, y0 + height - 1)
 
-            if siLine:
+            if si_line:
                 pen = QtGui.QPen()
                 pen.setWidth(1)
                 painter.setPen(pen)

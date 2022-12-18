@@ -209,6 +209,7 @@ class WHorses(LCDialog.LCDialog):
 
         self.board = Board.Board(self, config_board)
         self.board.crea()
+        self.board.side_indicator_sc.setOpacity(0.01)
         self.board.set_dispatcher(self.player_has_moved)
 
         # Rotulo vtime

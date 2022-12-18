@@ -21,23 +21,17 @@ class WAbout(QtWidgets.QDialog):
 
         f = Controles.TipoLetra(puntos=10)  # 0, peso=75 )
 
-        head = (
-            '<span style="font-size:30pt; font-weight="700"; font-family:arial; color:#2D2B2B">%s</span><br>'
-            % Code.lucas_chess
-        )
+        head = '<span style="font-size:30pt; font-weight="700"; font-family:arial; >%s</span><br>' % Code.lucas_chess
         head += '<span style="font-size:15pt;">%s</span><br>' % _X(_("version %1"), procesador.version)
-        head += '<span style="font-size:10pt;color:2D2B2B">%s: %s</span>' % (
+        head += '<span style="font-size:10pt;>%s: %s</span>' % (
             _("Author"),
             '<a href="mailto:lukasmonk@gmail.com">Lucas Monge</a>',
         )
-        head += ' - <a style="font-size:10pt; color:2D2B2B" href="%s">%s</a>' % (procesador.web, procesador.web)
-        head += ' - <a style="font-size:10pt; color:2D2B2B" href="%s">Blog : Fresh news</a>' % (procesador.blog,)
-        head += ' - <a style="font-size:10pt; color:2D2B2B" href="%s">Sources: github</a>' % (procesador.github,)
-        head += ' - <a style="font-size:10pt; color:2D2B2B" href="%s">Wiki</a><br>' % (procesador.wiki,)
-        head += (
-            ' - %s <a style="font-size:10pt; color:2D2B2B" href="http://www.gnu.org/copyleft/gpl.html"> GPL</a>'
-            % _("License")
-        )
+        head += ' - <a style="font-size:10pt;" href="%s">%s</a>' % (procesador.web, procesador.web)
+        head += ' - <a style="font-size:10pt;" href="%s">Blog : Fresh news</a>' % (procesador.blog,)
+        head += ' - <a style="font-size:10pt;" href="%s">Sources: github</a>' % (procesador.github,)
+        head += ' - <a style="font-size:10pt;" href="%s">Wiki</a>' % (procesador.wiki,)
+        head += '<br>%s <a style="font-size:10pt;" href="http://www.gnu.org/copyleft/gpl.html"> GPL</a>' % _("License")
 
         lb_ico = Controles.LB(self).ponImagen(Iconos.pmAplicacion64())
         lb_titulo = Controles.LB(self, head)
@@ -52,7 +46,6 @@ class WAbout(QtWidgets.QDialog):
         for k, titulo in ib.dic.items():
             txt = ib.texto(k)
             lb = Controles.LB(self, txt)
-            lb.set_background("#F6F3EE")
             lb.ponFuente(f)
             if "-" in k:
                 base, num = k.split("-")

@@ -148,7 +148,7 @@ class ManagerMateMap(Manager.Manager):
         self.thinking(False)
         from_sq, to_sq, promotion = self.rm_rival.from_sq, self.rm_rival.to_sq, self.rm_rival.promotion
 
-        if self.play_rival(from_sq, to_sq, promotion):
+        if self.rival_has_moved(from_sq, to_sq, promotion):
             self.is_rival_thinking = False
             self.play_next_move()
         else:
@@ -175,7 +175,7 @@ class ManagerMateMap(Manager.Manager):
         self.pgnRefresh(self.game.last_position.is_white)
         self.refresh()
 
-    def play_rival(self, from_sq, to_sq, promotion):
+    def rival_has_moved(self, from_sq, to_sq, promotion):
         ok, mens, move = Move.get_game_move(self.game, self.game.last_position, from_sq, to_sq, promotion)
         if ok:
             self.add_move(move, False)

@@ -23,6 +23,7 @@ from Code.Base.Constantes import (
 from Code.Engines import EngineResponse
 from Code.Openings import Opening
 from Code.QT import QTUtil2
+from Code.QT import QTVarios
 from Code.SQL import UtilSQL
 
 # Se elimina cinnamon, se bloquea en los mates con profundidad fija
@@ -181,14 +182,11 @@ class MotorElo:
 
 class ManagerElo(Manager.Manager):
     def valores(self):
-        lit = ("Monkey", "Donkey", "Bull", "Wolf", "Lion", "Rat", "Snake")
+        li = QTVarios.list_irina()
 
         self.liMotores = []
-        for x in range(1, 8):
-            self.liMotores.append(MotorElo(x * 108 + 50, _F(lit[x - 1]), lit[x - 1], 0))
-
-        # self.liMotores.append(MotorElo(1400, _("Steven"), "Steven", 0))
-        # self.liMotores.append(MotorElo(1200, _("Knight || Medieval knight"), "Knight", 0))
+        for (alias, name, icono, elo) in li:
+            self.liMotores.append(MotorElo(elo, name, alias, 0))
 
         def m(elo, key, depth):
             self.liMotores.append(MotorElo(elo, Util.primera_mayuscula(key), key, depth))
@@ -506,7 +504,7 @@ class ManagerElo(Manager.Manager):
                 time.sleep(t - difT)
 
             self.thinking(False)
-            if self.play_rival(rm_rival):
+            if self.rival_has_moved(rm_rival):
                 self.lirm_engine.append(rm_rival)
                 if self.valoraRMrival():
                     self.play_next_move()
@@ -582,7 +580,7 @@ class ManagerElo(Manager.Manager):
         if self.pte_tool_resigndraw:
             self.pon_toolbar()
 
-    def play_rival(self, engine_response):
+    def rival_has_moved(self, engine_response):
         from_sq = engine_response.from_sq
         to_sq = engine_response.to_sq
 

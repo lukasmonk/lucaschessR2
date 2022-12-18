@@ -8,7 +8,6 @@ from Code.Openings import WindowOpenings
 from Code.Polyglots import Books
 from Code.QT import Colocacion
 from Code.QT import Columnas
-from Code.QT import Common
 from Code.QT import Controles
 from Code.QT import Grid
 from Code.QT import Iconos
@@ -35,7 +34,7 @@ class WGM(LCDialog.LCDialog):
         extparam = "gm"
         LCDialog.LCDialog.__init__(self, w_parent, titulo, icono, extparam)
 
-        flb = Controles.TipoLetra(puntos=procesador.configuration.x_menu_points)
+        flb = Controles.TipoLetra(puntos=procesador.configuration.x_font_points)
 
         # Toolbar
         li_acciones = [
@@ -51,14 +50,13 @@ class WGM(LCDialog.LCDialog):
 
         # Grandes maestros
         self.li_gm = GM.lista_gm()
-        gb_style = Common.gb_style()
         li = [(x[0], x[1]) for x in self.li_gm]
         li.insert(0, ("-", None))
         self.cb_gm = QTUtil2.comboBoxLB(self, li, li[0][1] if len(self.li_gm) == 0 else li[1][1])
         self.cb_gm.capture_changes(self.check_gm)
         hbox = Colocacion.H().relleno().control(self.cb_gm).relleno()
         gbGM = Controles.GB(self, _("Choose a Grandmaster"), hbox).ponFuente(flb)
-        gbGM.setStyleSheet(gb_style)
+        gbGM.setProperty("type", "1")
 
         # Personales
         self.li_personal = GM.lista_gm_personal(self.procesador.configuration.personal_training_folder)
@@ -67,10 +65,11 @@ class WGM(LCDialog.LCDialog):
             li.insert(0, ("-", None))
             self.cbPersonal = QTUtil2.comboBoxLB(self, li, li[0][1])
             self.cbPersonal.capture_changes(self.check_personal)
+            self.cbPersonal.setFont(flb)
             btBorrar = Controles.PB(self, "", self.borrarPersonal).ponIcono(Iconos.Borrar(), icon_size=24)
             hbox = Colocacion.H().relleno().control(self.cbPersonal).control(btBorrar).relleno()
             gb_personal = Controles.GB(self, _("Personal games"), hbox).ponFuente(flb)
-            gb_personal.setStyleSheet(gb_style)
+            gb_personal.setProperty("type", "1")
 
         # Color
         self.rb_white = Controles.RB(self, _("White"), rutina=self.check_color)
@@ -108,6 +107,7 @@ class WGM(LCDialog.LCDialog):
         self.cbJmultiPV = Controles.CB(self, li, "PD")
 
         self.li_adjudicator_controls = (
+            self.cb_gm,
             self.cbJmotor,
             self.lbJmotor,
             self.edJtiempo,
@@ -151,7 +151,7 @@ class WGM(LCDialog.LCDialog):
         # # Color
         hbox = Colocacion.H().relleno().control(self.rb_white).espacio(10).control(self.rb_black).relleno()
         gbColor = Controles.GB(self, _("Side you play with"), hbox).ponFuente(flb)
-        gbColor.setStyleSheet(gb_style)
+        gbColor.setProperty("type", "1")
 
         # Tiempo
         ly1 = (
@@ -167,7 +167,7 @@ class WGM(LCDialog.LCDialog):
         ly3 = Colocacion.H().control(self.lbJmultiPV).control(self.cbJmultiPV).relleno()
         ly = Colocacion.V().otro(ly1).otro(ly2).otro(ly3)
         self.gbJ = Controles.GB(self, _("Adjudicator"), ly).to_connect(self.change_adjudicator)
-        self.gbJ.setStyleSheet(gb_style)
+        self.gbJ.setProperty("type", "1")
 
         # Opciones
         vlayout = Colocacion.V().control(gbColor)
@@ -211,7 +211,7 @@ class WGM(LCDialog.LCDialog):
         self.tab.new_tab(self.grid, _("Track record"))
         self.tab.setFont(flb)
 
-        # Cabecera
+        # Header
         lyCab = Colocacion.H().control(gbGM)
         if self.li_personal:
             lyCab.control(gb_personal)

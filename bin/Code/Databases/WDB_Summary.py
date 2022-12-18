@@ -1,5 +1,6 @@
 from PySide2 import QtWidgets, QtCore
 
+import Code
 from Code.Base import Game
 from Code.Databases import WDB_Analysis
 from Code.Openings import OpeningsStd
@@ -10,7 +11,6 @@ from Code.QT import Delegados
 from Code.QT import FormLayout
 from Code.QT import Grid
 from Code.QT import Iconos
-from Code.QT import QTUtil
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
 
@@ -28,6 +28,7 @@ class WSummary(QtWidgets.QWidget):
         self.siMoves = siMoves
         self.procesador = procesador
         self.configuration = procesador.configuration
+        self.foreground = Code.dic_qcolors["SUMMARY_FOREGROUND"]
 
         self.wdb_analysis = WDB_Analysis.WDBAnalisis(self)
 
@@ -69,11 +70,13 @@ class WSummary(QtWidgets.QWidget):
         o_columns.nueva("pdrawlost", "%% %s" % _("L+D"), 60, align_right=True)
 
         self.grid = Grid.Grid(self, o_columns, xid="summary", siSelecFilas=True)
-        self.grid.tipoLetra(puntos=self.configuration.x_pgn_fontpoints)
         self.grid.ponAltoFila(self.configuration.x_pgn_rowheight)
+        self.grid.tipoLetra(puntos=self.configuration.x_pgn_fontpoints)
 
         # ToolBar
         li_acciones = [
+            (_("Close"), Iconos.MainMenu(), wb_database.tw_terminar),
+            None,
             (_("Start position"), Iconos.Inicio(), self.start),
             None,
             (_("Previous"), Iconos.AnteriorF(), self.anterior),
@@ -101,13 +104,6 @@ class WSummary(QtWidgets.QWidget):
         layout.margen(1)
 
         self.setLayout(layout)
-
-        self.qtColor = (
-            QTUtil.qtColorRGB(221, 255, 221),
-            QTUtil.qtColorRGB(247, 247, 247),
-            QTUtil.qtColorRGB(255, 217, 217),
-        )
-        self.qtColorTotales = QTUtil.qtColorRGB(170, 170, 170)
 
     def close_db(self):
         if self.wdb_analysis:
@@ -215,12 +211,20 @@ class WSummary(QtWidgets.QWidget):
     def grid_color_fondo(self, grid, nfila, ocol):
         key = ocol.key
         if self.siFilaTotales(nfila) and not (key in ("number", "analysis")):
-            return self.qtColorTotales
+            return Code.dic_qcolors["SUMMARY_TOTAL"]
         if key in ("pwin", "pdraw", "plost"):
             dic = self.posicionFila(nfila)
             n = dic[key[1:]]
-            if n > -1:
-                return self.qtColor[n]
+            if n == 0:
+                return Code.dic_qcolors["SUMMARY_WIN"]
+            if n == 2:
+                return Code.dic_qcolors["SUMMARY_LOST"]
+
+    def grid_color_texto(self, grid, nfila, ocol):
+        if self.foreground:
+            key = ocol.key
+            if self.siFilaTotales(nfila) or key in ("pwin", "pdraw", "plost"):
+                return self.foreground
 
     def popPV(self, pv):
         if pv:
@@ -414,6 +418,7 @@ class WSummaryBase(QtWidgets.QWidget):
         self.liMoves = []
         self.procesador = procesador
         self.configuration = procesador.configuration
+        self.foreground = Code.dic_qcolors("SUMMARY_FOREGROUND")
 
         self.with_figurines = self.configuration.x_pgn_withfigurines
 
@@ -436,21 +441,12 @@ class WSummaryBase(QtWidgets.QWidget):
         o_columns.nueva("pdrawlost", "%% %s" % _("L+D"), 60, align_right=True)
 
         self.grid = Grid.Grid(self, o_columns, xid="summarybase", siSelecFilas=True)
-        self.grid.tipoLetra(puntos=self.configuration.x_pgn_fontpoints)
-        self.grid.ponAltoFila(self.configuration.x_pgn_rowheight)
 
         layout = Colocacion.V()
         layout.control(self.grid)
         layout.margen(1)
 
         self.setLayout(layout)
-
-        self.qtColor = (
-            QTUtil.qtColorRGB(221, 255, 221),
-            QTUtil.qtColorRGB(247, 247, 247),
-            QTUtil.qtColorRGB(255, 217, 217),
-        )
-        self.qtColorTotales = QTUtil.qtColorRGB(170, 170, 170)
 
     def grid_doubleclick_header(self, grid, o_column):
         key = o_column.key
@@ -526,12 +522,14 @@ class WSummaryBase(QtWidgets.QWidget):
     def grid_color_fondo(self, grid, nfila, ocol):
         key = ocol.key
         if self.siFilaTotales(nfila) and not (key in ("number", "analysis")):
-            return self.qtColorTotales
+            return self.foreground
         if key in ("pwin", "pdraw", "plost"):
             dic = self.posicionFila(nfila)
             n = dic[key[1:]]
-            if n > -1:
-                return self.qtColor[n]
+            if n == 0:
+                return Code.dic_qcolors["SUMMARY_WIN"]
+            if n == 2:
+                return Code.dic_qcolors["SUMMARY_LOST"]
 
     def siFilaTotales(self, nfila):
         return nfila == len(self.liMoves) - 1
@@ -583,3 +581,9 @@ class WSummaryBase(QtWidgets.QWidget):
                 if pv.count(" ") > 0:
                     pv = "%s %s" % (self.pvBase, dic["pvmove"])
                 self.actualizaPV(pv)
+
+    def grid_color_texto(self, grid, nfila, ocol):
+        if self.foreground:
+            key = ocol.key
+            if self.siFilaTotales(nfila) or key in ("pwin", "pdraw", "plost"):
+                return self.foreground

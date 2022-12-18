@@ -12,7 +12,6 @@ from Code.QT import FormLayout
 from Code.QT import Grid
 from Code.QT import Iconos
 from Code.QT import LCDialog
-from Code.QT import QTUtil
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
 
@@ -32,8 +31,10 @@ class WLeagueConfig(LCDialog.LCDialog):
 
         self.sortby = "elo"
 
-        self.li_colors = [QTUtil.qtColor("#fefefe"), QTUtil.qtColor("#dee4e7"), QTUtil.qtColor("#b0d8cc")]
-        # self.li_colors = [QTUtil.qtColor("#dee4e7"), QTUtil.qtColor("#fefefe")]
+        color_1 = Code.dic_qcolors["WLEAGUECONFIG_1"]
+        color_2 = Code.dic_qcolors["WLEAGUECONFIG_2"]
+        color_3 = Code.dic_qcolors["WLEAGUECONFIG_3"]
+        self.li_colors = [color_1, color_2, color_3]
 
         self.select_engines = SelectEngines.SelectEngines(w_parent)
 
@@ -58,8 +59,6 @@ class WLeagueConfig(LCDialog.LCDialog):
         self.grid = Grid.Grid(self, o_columns, siSelecFilas=True, is_editable=True)
         self.register_grid(self.grid)
         self.grid.setMinimumWidth(self.grid.anchoColumnas() + 20)
-        font = Controles.TipoLetra(puntos=Code.configuration.x_pgn_fontpoints)
-        self.grid.ponFuente(font)
 
         self.bt_engines_more = Controles.PB(self, "++ " + _("Engines"), rutina=self.add_engines, plano=False).ponIcono(
             Iconos.Engines()
@@ -141,8 +140,19 @@ class WLeagueConfig(LCDialog.LCDialog):
             self, self.league.migration, 0, 100, maxTam=35, etiqueta=_("Opponents who change divisions every season")
         )
         self.sb_migration.capture_changes(self.set_num_elements)
-        if not self.league.is_editable():
-            self.sb_migration.setDisabled(True)
+
+        lb_score_win = Controles.LB(self, _("Win") + ":")
+        lb_score_draw = Controles.LB(self, _("Draw") + ":")
+        lb_score_lost = Controles.LB(self, _("Loss") + ":")
+        self.ed_score_win = Controles.ED(self).ponFloat(self.league.score_win).anchoFijo(40).align_right()
+        self.ed_score_draw = Controles.ED(self).ponFloat(self.league.score_draw).anchoFijo(40).align_right()
+        self.ed_score_lost = Controles.ED(self).ponFloat(self.league.score_lost).anchoFijo(40).align_right()
+        ly_score = Colocacion.H().relleno()
+        ly_score.control(lb_score_win).control(self.ed_score_win)
+        ly_score.control(lb_score_draw).control(self.ed_score_draw)
+        ly_score.control(lb_score_lost).control(self.ed_score_lost)
+        ly_score.relleno()
+        self.gb_score = Controles.GB(self, _("System score"), ly_score)
 
         ly_options = Colocacion.G().margen(20)
         ly_res = Colocacion.H().control(self.ed_resign).control(bt_resign).relleno()
@@ -155,16 +165,19 @@ class WLeagueConfig(LCDialog.LCDialog):
         ly_options.control(gb_time_eng_eng, 6, 0, 1, 2)
         ly_options.control(gb_time_eng_human, 7, 0, 1, 2)
         ly_options.controld(lb_migration, 8, 0).control(self.sb_migration, 8, 1)
+        ly_options.control(self.gb_score, 9, 0, 1, 2)
 
         layout_v = Colocacion.V().otro(ly_bt0).otro(ly_bt1).control(self.grid)
 
-        font = Controles.TipoLetra(puntos=Code.configuration.x_menu_points)
+        font = Controles.TipoLetra(puntos=Code.configuration.x_font_points)
 
         gb_conf = Controles.GB(self, _("Options"), ly_options)
         self.gb_eng = Controles.GB(self, _("Players"), layout_v)
 
         if not self.league.is_editable():
             self.gb_eng.setVisible(False)
+            self.gb_score.setEnabled(False)
+            self.sb_migration.setEnabled(False)
 
         gb_conf.setFont(font)
         self.gb_eng.setFont(font)
@@ -184,7 +197,8 @@ class WLeagueConfig(LCDialog.LCDialog):
             self.remove_seasons_delayed = True
             self.gb_eng.setVisible(True)
             self.tb.set_action_visible(self.remove_seasons, False)
-            self.sb_migration.setDisabled(False)
+            self.sb_migration.setEnabled(True)
+            self.gb_score.setEnabled(True)
 
     def set_num_elements(self):
         li = self.league.list_numdivision()
@@ -264,6 +278,9 @@ class WLeagueConfig(LCDialog.LCDialog):
         self.league.time_engine_engine = (mnt, self.sb_seconds_eng_eng.valor())
         self.league.time_engine_human = (self.ed_minutes_eng_human.textoFloat(), self.sb_seconds_eng_human.valor())
         self.league.migration = self.sb_migration.valor()
+        self.league.score_win = self.ed_score_win.textoFloat()
+        self.league.score_draw = self.ed_score_draw.textoFloat()
+        self.league.score_lost = self.ed_score_lost.textoFloat()
         self.league.save()
         if self.remove_seasons_delayed:
             self.league.remove_seasons()
@@ -372,3 +389,4 @@ class WLeagueConfig(LCDialog.LCDialog):
     def engines(self):
         w = WConfEngines.WConfEngines(self)
         w.exec_()
+        self.select_engines.redo_external_engines()

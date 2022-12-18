@@ -70,7 +70,9 @@ class MarcoSC(BoardBlocks.BloqueEspSC):
         hc = f(physical_pos.x + physical_pos.ancho)
         hf = f(physical_pos.y + physical_pos.alto)
 
-        bien = lambda fc: (fc < 9) and (fc > 0)
+        def bien(fc):
+            return (fc < 9) and (fc > 0)
+
         if bien(dc) and bien(df) and bien(hc) and bien(hf):
             bm.a1h8 = self.board.fc_a1h8(df, dc, hf, hc)
 

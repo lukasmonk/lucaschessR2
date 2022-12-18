@@ -1,9 +1,10 @@
+import os
 from PySide2 import QtCore
 
 import Code
 from Code.Base.Constantes import MENU_PLAY_ANY_ENGINE, MENU_PLAY_BOTH, MENU_PLAY_YOUNG_PLAYERS
 from Code.QT import FormLayout
-from Code.QT import Iconos
+from Code.QT import Iconos, IconosBase
 from Code.QT import QTUtil2
 
 
@@ -16,6 +17,17 @@ def options(parent, configuration):
     form.edit(_("Player's name"), configuration.x_player)
     form.separador()
     form.combobox(_("Window style"), configuration.estilos(), configuration.x_style)
+
+    li_modes = []
+    for entry in os.scandir(Code.path_resource("Styles")):
+        if entry.name.endswith(".qss"):
+            name = entry.name[:-4]
+            li_modes.append([_F(name), name])
+    form.combobox(_("Mode"), li_modes, configuration.x_style_mode)
+    li_modes = []
+
+    form.combobox(_("Type of icons"), IconosBase.icons.combobox(), configuration.x_style_icons)
+
     form.separador()
 
     li_traducciones = configuration.list_translations()
@@ -36,8 +48,8 @@ def options(parent, configuration):
     ]
     form.combobox(_("Menu Play"), li, configuration.x_menu_play)
 
-    form.separador()
-    form.checkbox(_("Use native dialog to select files"), not configuration.x_mode_select_lc)
+    # form.separador()
+    # form.checkbox(_("Use native dialog to select files"), not configuration.x_mode_select_lc)
 
     form.separador()
     form.checkbox(_("Activate translator help mode"), configuration.x_translation_mode)
@@ -106,13 +118,14 @@ def options(parent, configuration):
         li_db = [
             (_("None"), ""),
             (_("Certabo") + x, "Certabo"),
-            (_("Chessnut Air") + x, "Chessnut"),
+            (_("Chessnut") + x, "Chessnut"),
             (_("DGT"), "DGT"),
             (_("DGT (Alternative)") + x, "DGT-gon"),
             (_("DGT Pegasus") + x, "Pegasus"),
             (_("Millennium") + x, "Millennium"),
             (_("Novag Citrine") + x, "Citrine"),
             (_("Novag UCB") + x, "Novag UCB"),
+            (_("Saitek") + x, "Saitek"),
             (_("Square Off Pro") + x, "Square Off"),
         ]
     else:
@@ -120,9 +133,11 @@ def options(parent, configuration):
             (_("None"), ""),
             (_("DGT") + x, "DGT-gon"),
             (_("Certabo") + x, "Certabo"),
+            (_("Chessnut") + x, "Chessnut"),
             (_("Millennium") + x, "Millennium"),
             (_("Novag Citrine") + x, "Citrine"),
             (_("Novag UCB") + x, "Novag UCB"),
+            (_("Saitek") + x, "Saitek"),
         ]
     form.combobox(_("Digital board"), li_db, configuration.x_digital_board)
 
@@ -143,7 +158,9 @@ def options(parent, configuration):
     form.separador()
     form.checkbox(_("By default"), False)
     form.separador()
+    form.apart(_("General"))
     form.font(_("Font"), configuration.x_font_family)
+    form.spinbox(_("Font size"), 3, 64, 60, configuration.x_font_points)
 
     form.separador()
     form.apart(_("Menus"))
@@ -209,37 +226,33 @@ def options(parent, configuration):
         (
             configuration.x_player,
             configuration.x_style,
+            configuration.x_style_mode,
+            configuration.x_style_icons,
             translator,
             configuration.x_menu_play,
-            mode_native_select,
+            # mode_native_select,
             configuration.x_translation_mode,
             configuration.x_check_for_update,
         ) = li_gen
 
-        configuration.x_mode_select_lc = not mode_native_select
+        # configuration.x_mode_select_lc = not mode_native_select
 
         configuration.set_translator(translator)
 
         por_defecto = li_asp1[0]
         if por_defecto:
-            li_asp1 = ("", 11, False, 11, False, QtCore.Qt.ToolButtonTextUnderIcon)
+            li_asp1 = ("", 10, 11, False, 11, False, QtCore.Qt.ToolButtonTextUnderIcon)
         else:
             del li_asp1[0]
         (
             configuration.x_font_family,
+            configuration.x_font_points,
             configuration.x_menu_points,
             configuration.x_menu_bold,
             configuration.x_tb_fontpoints,
             configuration.x_tb_bold,
             qt_iconstb,
         ) = li_asp1
-
-        form.spinbox(_("Width"), 283, 1000, 70, configuration.x_pgn_width)
-        form.spinbox(_("Height of each row"), 18, 99, 70, configuration.x_pgn_rowheight)
-        form.spinbox(_("Font size"), 3, 99, 70, configuration.x_pgn_fontpoints)
-        form.checkbox(_("PGN always in English"), configuration.x_pgn_english)
-        form.checkbox(_("PGN with figurines"), configuration.x_pgn_withfigurines)
-        form.separador()
 
         por_defecto = li_asp2[0]
         if por_defecto:
@@ -291,16 +304,30 @@ def options(parent, configuration):
         configuration.x_pieces_speed = drap[rapidezMovPiezas]
         if configuration.x_digital_board != dboard:
             if dboard:
-                if not QTUtil2.pregunta(
-                    parent,
-                    "%s<br><br>%s %s"
-                    % (
-                        _("Are you sure %s is the correct driver ?") % dboard,
-                        _("WARNING: selecting the wrong driver might cause damage to your board."),
-                        _("Proceed at your own risk."),
-                    ),
-                ):
-                    dboard = ""
+                if dboard == "DGT":
+                    if not QTUtil2.pregunta(
+                        parent,
+                        "%s<br><br>%s %s"
+                        % (
+                            _("Are you sure %s is the correct driver ?") % dboard,
+                            _("WARNING: selecting the wrong driver might cause damage to your board."),
+                            _("Proceed at your own risk."),
+                        ),
+                    ):
+                        dboard = ""
+                else:
+                    if not QTUtil2.pregunta(
+                        parent,
+                        "%s<br><br>%s %s<br><br>%s<br>%s"
+                        % (
+                            _("Are you sure %s is the correct driver ?") % dboard,
+                            _("WARNING: selecting the wrong driver might cause damage to your board."),
+                            _("Proceed at your own risk."),
+                            _("Please read the driver's user manual at:"),
+                            "\u00A0\u00A0\u00A0\u00A0\u00A0 https://goneill.co.nz/chess#eboard",
+                        ),
+                    ):
+                        dboard = ""
             configuration.x_digital_board = dboard
 
         (

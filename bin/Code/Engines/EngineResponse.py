@@ -16,7 +16,7 @@ from Code.Base.Constantes import (
     ADJUST_INTERMEDIATE_LEVEL,
     ADJUST_HIGH_LEVEL,
     NO_RATING,
-    SPECULATIVE_MOVE,
+    INTERESTING_MOVE,
     GOOD_MOVE,
     VERY_GOOD_MOVE,
 )
@@ -689,6 +689,13 @@ class MultiEngineResponse:
                     break
         return li
 
+    def is_pos_bestmove(self, pos):
+        if pos == 0:
+            return True
+        cp0 = self.li_rm[0].centipawns_abs()
+        cpuser = self.li_rm[pos].centipawns_abs()
+        return cp0 == cpuser
+
     def getdepth0(self):
         return self.li_rm[0].depth if self.li_rm else 0
 
@@ -834,9 +841,7 @@ class MultiEngineResponse:
                         if not cp.is_white:
                             p0 = -p0
                             pZ = -pZ
-                        fdbg.write(
-                            "    %s (%s) : %d -> %d [%d => %d]\n" % (_("Advance"), dpr, xAvPR, rm.puntos, p0, pZ)
-                        )
+                        fdbg.write("    %s (%s) : %d -> %d [%d ≥ %d]\n" % (_("Advance"), dpr, xAvPR, rm.puntos, p0, pZ))
 
             if xJPR:
                 n = True
@@ -1193,8 +1198,8 @@ class MultiEngineResponse:
             elif first_depth >= Code.configuration.x_eval_good_depth:
                 nag = GOOD_MOVE
             elif first_depth >= Code.configuration.x_eval_speculative_depth:
-                nag = SPECULATIVE_MOVE
-                color = SPECULATIVE_MOVE
+                nag = INTERESTING_MOVE
+                color = INTERESTING_MOVE
             else:
                 nag = NO_RATING
             return nag, color

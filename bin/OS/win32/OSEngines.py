@@ -25,7 +25,8 @@ def read_engines(folder_engines):
         return engine
 
     mas("acqua", "Giovanni Di Maria", "2.0", "http://www.elektrosoft.it/scacchi/acqua/acqua.asp", "acqua.exe", 844)
-    # mas("acquad", "Giovanni Di Maria", "3.9.1 LDC", "http://www.elektrosoft.it/scacchi/acquad/acquad.asp", "acquad.exe", 1105)
+    mas("foxcub", "Lucas Monge", "1.0", "", "FoxCub.exe", 800)
+    mas("fox", "Lucas Monge", "1.0", "", "Fox.exe", 1400)
 
     mas("tarrasch", "Bill Forster", "ToyEngine Beta V0.906", "http://www.triplehappy.com/", "TarraschToyEngineV0.906.exe", 1481)
 
@@ -223,9 +224,9 @@ def read_engines(folder_engines):
     cm = mas(
         "stockfish",
         " T. Romstad, M. Costalba, J. Kiiski, G. Linscott",
-        f"15 {t32_64}",
+        f"15.1 {t32_64}",
         "https://stockfishchess.org/",
-        f"Stockfish-15_x{t32_64}.exe",
+        f"Stockfish-15_1_x{t32_64}.exe",
         3500,
     )
     cm.ordenUCI("Ponder", "false")

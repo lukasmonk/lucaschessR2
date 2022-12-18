@@ -16,7 +16,9 @@ pos_a1 = FasterCode.pos_a1
 a1_pos = FasterCode.a1_pos
 pv_xpv = FasterCode.pv_xpv
 xpv_pv = FasterCode.xpv_pv
+xpv_lipv = FasterCode.xpv_lipv
 xpv_pgn = FasterCode.xpv_pgn
+lipv_pgn = FasterCode.lipv_pgn
 PGNreader = FasterCode.PGNreader
 set_fen = FasterCode.set_fen
 make_move = FasterCode.make_move
@@ -98,13 +100,13 @@ class DBgames:
         sql_select = ",".join(["Games_old.%s" % f for f in lifields])
 
         for sql in (
-            "PRAGMA foreign_keys=off;",
-            "BEGIN TRANSACTION;",
-            "ALTER TABLE Games RENAME TO Games_old;",
-            "CREATE TABLE Games (%s);" % sql_create,
-            "INSERT INTO Games (%s) SELECT %s FROM Games_old;" % (sql_fields, sql_select),
-            "DROP TABLE Games_old;",
-            "CREATE INDEX XPV_INDEX ON Games (XPV);",
+                "PRAGMA foreign_keys=off;",
+                "BEGIN TRANSACTION;",
+                "ALTER TABLE Games RENAME TO Games_old;",
+                "CREATE TABLE Games (%s);" % sql_create,
+                "INSERT INTO Games (%s) SELECT %s FROM Games_old;" % (sql_fields, sql_select),
+                "DROP TABLE Games_old;",
+                "CREATE INDEX XPV_INDEX ON Games (XPV);",
         ):
             self.conexion.execute(sql)
         self.conexion.commit()
@@ -123,12 +125,12 @@ class DBgames:
         cursor = self.conexion.execute("pragma table_info(Games)")
         if not cursor.fetchall():
             for sql in (
-                "CREATE TABLE Games(XPV VARCHAR,_DATA_ BLOB,PLYCOUNT INT);",
-                "CREATE INDEX XPV_INDEX ON Games (XPV);",
-                "PRAGMA page_size = 4096;",
-                "PRAGMA synchronous = OFF;",
-                "PRAGMA cache_size = 10000;",
-                "PRAGMA journal_mode = MEMORY;",
+                    "CREATE TABLE Games(XPV VARCHAR,_DATA_ BLOB,PLYCOUNT INT);",
+                    "CREATE INDEX XPV_INDEX ON Games (XPV);",
+                    "PRAGMA page_size = 4096;",
+                    "PRAGMA synchronous = OFF;",
+                    "PRAGMA cache_size = 10000;",
+                    "PRAGMA journal_mode = MEMORY;",
             ):
                 self.conexion.execute(sql)
             self.conexion.commit()
@@ -231,11 +233,11 @@ class DBgames:
                 li = []
                 for unpv in pv:
                     xpv = pv_xpv(unpv)
-                    li.append('XPV GLOB "%s*"' % xpv)
+                    li.append('XPV LIKE "%s%%"' % xpv)
                 condicion = "(%s)" % (" OR ".join(li),)
         elif pv:
             xpv = pv_xpv(pv)
-            condicion = 'XPV GLOB "%s*"' % xpv if xpv else ""
+            condicion = 'XPV LIKE "%s%%"' % xpv if xpv else ""
         if condicionAdicional:
             if condicion:
                 condicion += " AND (%s)" % condicionAdicional
@@ -463,7 +465,7 @@ class DBgames:
         fen, pv = self.read_xpv(raw["XPV"])
         if xpgn:
             if xpgn.startswith(BODY_SAVE):
-                pgn_read = xpgn[len(BODY_SAVE) :].strip()
+                pgn_read = xpgn[len(BODY_SAVE):].strip()
                 if fen:
                     pgn_read = b'[FEN "%s"]\n' % fen.encode() + pgn_read
                 ok, p = Game.pgn_game(pgn_read)
@@ -506,6 +508,23 @@ class DBgames:
         if self.filter:
             sql += " WHERE %s" % self.filter
         self.conexion.execute(sql, [value for field, value in li_field_value])
+        self.conexion.commit()
+
+    def fill_pgn(self, field):
+        sql = "SELECT ROWID, XPV FROM Games"
+        if self.filter:
+            sql += " WHERE %s" % self.filter
+        cursor = self.conexion.execute(sql)
+        for rowid, xpv in cursor.fetchall():
+            if xpv.startswith("|"):
+                nada, fen, xpv = xpv.split("|")
+                lipv = FasterCode.xpv_lipv(xpv)
+                pgn = lipv_pgn(fen, lipv)
+            else:
+                pgn = xpv_pgn(xpv)
+            pgn = pgn.replace("\n", " ")
+            sql = "UPDATE Games SET %s=? WHERE ROWID=?" % field
+            self.conexion.execute(sql, [pgn, rowid])
         self.conexion.commit()
 
     def pack(self):
@@ -579,11 +598,11 @@ class DBgames:
                     if n == next_n:
                         if time.time() - t1 > 0.8:
                             if not dlTmp.actualiza(
-                                erroneos + duplicados + importados,
-                                erroneos,
-                                duplicados,
-                                importados,
-                                btell * 100.0 / bsize,
+                                    erroneos + duplicados + importados,
+                                    erroneos,
+                                    duplicados,
+                                    importados,
+                                    btell * 100.0 / bsize,
                             ):
                                 break
                             t1 = time.time()
@@ -747,7 +766,7 @@ class DBgames:
             if btell == next_n:
                 if time.time() - t1 > 0.9:
                     if not dlTmp.actualiza(
-                        erroneos + duplicados + importados, erroneos, duplicados, importados, btell * 100.0 / bsize
+                            erroneos + duplicados + importados, erroneos, duplicados, importados, btell * 100.0 / bsize
                     ):
                         break
                     t1 = time.time()

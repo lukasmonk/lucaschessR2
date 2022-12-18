@@ -692,6 +692,9 @@ def run_wtranslation(path_db):
 
     app.setStyle(QtWidgets.QStyleFactory.create(configuration.x_style))
     QtWidgets.QApplication.setPalette(QtWidgets.QApplication.style().standardPalette())
+    path = Code.path_resource("Styles", configuration.x_style_mode + ".qss")
+    with open(path) as f:
+        app.setStyleSheet(f.read())
 
     wtranslate = WTranslate(path_db)
     wtranslate.exec_()

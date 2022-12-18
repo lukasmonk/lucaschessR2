@@ -136,6 +136,7 @@ class ThanksTo:
             '<a href="https://github.com/phihag">Philipp Hagemeister</a>',
             '<a href="https://github.com/futurelauncher">futurelauncher</a>',
             "Reinhard",
+            "Olav Stüwe",
         ]
         li_resto = []
         txt += version("R", li_base, li_resto, False)

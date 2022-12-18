@@ -384,6 +384,7 @@ class Opening:
         ligamesST = []
         ligamesSQ = []
         dicFENm2 = {}
+        dicFENm2_lipv = {}
         cp = Position.Position()
 
         busca = " w " if is_white else " b "
@@ -399,7 +400,7 @@ class Opening:
             ligamesSQ.append(game)
 
             FasterCode.set_init_fen()
-            for pv in lipv:
+            for pos, pv in enumerate(lipv, 1):
                 fen = FasterCode.get_fen()
                 cp.read_fen(fen)
                 if busca in fen:
@@ -407,6 +408,7 @@ class Opening:
                     if not (fenm2 in dicFENm2):
                         dicFENm2[fenm2] = set()
                     dicFENm2[fenm2].add(pv)
+                    dicFENm2_lipv[fenm2] = lipv[:pos]
                 FasterCode.make_move(pv)
 
         if siRandom:
@@ -425,6 +427,7 @@ class Opening:
             data["MOVES"] = dicFENm2[fenm2]
             data["NOERROR"] = 0
             data["TRIES"] = []
+            data["LIPV"] = dicFENm2_lipv[fenm2]
             liTrainPositions.append(data)
         random.shuffle(liTrainPositions)
         reg["LITRAINPOSITIONS"] = liTrainPositions
@@ -983,7 +986,7 @@ class Opening:
         self.li_xpv.sort()
 
     def import_polyglot(
-        self, ventana, game, bookW, bookB, titulo, depth, siWhite, onlyone, minMoves, excl_transpositions
+            self, ventana, game, bookW, bookB, titulo, depth, siWhite, onlyone, minMoves, excl_transpositions
     ):
         bp = QTUtil2.BarraProgreso1(ventana, titulo, formato1="%m")
         bp.ponTotal(0)
@@ -1054,62 +1057,62 @@ class Opening:
 
         return True
 
-    def import_dbopening_explorer(self, ventana, gamebase, ficheroSummary, depth, siWhite, onlyone, minMoves):
+    def import_dbopening_explorer(self, ventana, gamebase, fichero_summary, depth, si_white, onlyone, min_moves):
         titulo = _("Importing the opening explorer of a database")
         bp = QTUtil2.BarraProgreso1(ventana, titulo)
         bp.ponTotal(0)
-        bp.ponRotulo(_X(_("Reading %1"), os.path.basename(ficheroSummary)))
+        bp.ponRotulo(_X(_("Reading %1"), os.path.basename(fichero_summary)))
         bp.mostrar()
 
-        db_stat = DBgamesST.TreeSTAT(ficheroSummary)
+        db_stat = DBgamesST.TreeSTAT(fichero_summary)
 
         if depth == 0:
             depth = 99999
 
-        pvBase = gamebase.pv()
+        pv_base = gamebase.pv()
         len_gamebase = len(gamebase)
 
-        liPartidas = []
+        li_partidas = []
 
         def hazPV(lipv_ant):
             if bp.is_canceled():
                 return
             n_ant = len(lipv_ant)
-            siWhite1 = n_ant % 2 == 0
+            si_white1 = n_ant % 2 == 0
 
             pv_ant = " ".join(lipv_ant) if n_ant else ""
-            liChildren = db_stat.children(pv_ant, False)
+            li_children = db_stat.children(pv_ant, False)
 
-            if len(liChildren) == 0 or len(lipv_ant) > depth:
-                p = Game.Game()
-                p.leerLIPV(lipv_ant)
-                if len(p) > len_gamebase:
-                    liPartidas.append(p)
-                    bp.ponTotal(len(liPartidas))
-                    bp.pon(len(liPartidas))
+            if len(li_children) == 0 or len(lipv_ant) > depth:
+                game = Game.Game()
+                game.leerLIPV(lipv_ant)
+                if len(game) > len_gamebase and len(game) >= min_moves:
+                    li_partidas.append(game)
+                    bp.ponTotal(len(li_partidas))
+                    bp.pon(len(li_partidas))
                 return
 
-            if siWhite1 == siWhite:
+            if si_white1 == si_white:
                 tt_max = 0
                 limax = []
-                for alm in liChildren:
+                for alm in li_children:
                     tt = alm.W + alm.B + alm.O + alm.D
                     if tt > tt_max:
                         tt_max = tt
                         limax = [alm]
                     elif tt == tt_max and not onlyone:
                         limax.append(alm)
-                liChildren = limax
+                li_children = limax
 
-            for alm in liChildren:
+            for alm in li_children:
                 li = lipv_ant[:]
                 li.append(alm.move)
                 hazPV(li)
 
-        hazPV(pvBase.split(" ") if pvBase else [])
+        hazPV(pv_base.split(" ") if pv_base else [])
 
         bp.ponRotulo(_("Writing..."))
-        self.guardaPartidas("%s,%s" % (_("Database opening explorer"), os.path.basename(ficheroSummary)), liPartidas)
+        self.guardaPartidas("%s,%s" % (_("Database opening explorer"), os.path.basename(fichero_summary)), li_partidas)
         self.pack_database()
         bp.cerrar()
 
@@ -1212,6 +1215,24 @@ class Opening:
                 linom.append(dic[fenm2].tr_name if fenm2 in dic else "")
             parent.addLista(lipv, lipgn, linom)
         return parent
+
+    def dic_fenm2_moves(self):
+        dic = collections.defaultdict(set)
+        for xpv in self.li_xpv:
+            lipv = FasterCode.xpv_pv(xpv).split(" ")
+            FasterCode.set_init_fen()
+            fen = FasterCode.get_fen()
+            fenm2 = FasterCode.fen_fenm2(fen)
+            p = Position.Position()
+            for pos_next, pv in enumerate(lipv):
+                dic[fenm2].add(pv)
+                FasterCode.make_move(pv)
+                fen = FasterCode.get_fen()
+                fenm2 = FasterCode.fen_fenm2(fen)
+                if not fenm2.endswith("-"):
+                    p.read_fen(fen)
+                    fenm2 = p.fenm2()
+        return dic
 
 
 class ItemTree:

@@ -25,7 +25,7 @@ class Personalities:
         self.owner = owner
         self.configuration = configuration
 
-    def listaAjustes(self, siTodos):
+    def list_personalities(self, siTodos):
         liAjustes = [
             (_("Best move"), ADJUST_BETTER),
             (_("Somewhat better") + "++", ADJUST_SOMEWHAT_BETTER_MORE_MORE),
@@ -49,8 +49,15 @@ class Personalities:
                 liAjustes.append((una["NOMBRE"], 1000 + num))
         return liAjustes
 
+    def list_personalities_minimum(self):
+        liAjustes = [
+            (_("Best move"), ADJUST_BETTER),
+            (_("Move selected by the player"), ADJUST_SELECTED_BY_PLAYER),
+        ]
+        return liAjustes
+
     def label(self, nAjuste):
-        for lb, n in self.listaAjustes(True):
+        for lb, n in self.list_personalities(True):
             if n == nAjuste:
                 return lb
         return ""
@@ -102,7 +109,9 @@ class Personalities:
         liMJ = [(None, None)]
 
         # # Ajustar
-        liMJ.append((FormLayout.Combobox(_("Strength"), self.listaAjustes(False)), una.get("ADJUST", ADJUST_BETTER)))
+        liMJ.append(
+            (FormLayout.Combobox(_("Strength"), self.list_personalities(False)), una.get("ADJUST", ADJUST_BETTER))
+        )
 
         # Movimiento siguiente
         liMJ.append((None, _("In the next move")))
@@ -124,7 +133,7 @@ class Personalities:
 
         # Ajustar
         liF.append(
-            (FormLayout.Combobox(_("Strength"), self.listaAjustes(False)), una.get("AJUSTARFINAL", ADJUST_BETTER))
+            (FormLayout.Combobox(_("Strength"), self.list_personalities(False)), una.get("AJUSTARFINAL", ADJUST_BETTER))
         )
 
         liF.append((FormLayout.Spinbox(_("Maximum pieces at this stage"), 0, 32, 50), una.get("MAXPIEZASFINAL", 0)))

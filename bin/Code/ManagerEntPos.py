@@ -165,7 +165,7 @@ class ManagerEntPos(Manager.Manager):
         self.current_helps = 0
 
         if self.is_playing_gameobj() and self.advanced:
-            self.board.showCoordenadas(False)
+            self.board.show_coordinates(False)
             self.wsolve = self.main_window.base.wsolve
             self.wsolve.set_game(self.game_obj, self.advanced_return)
 
@@ -174,7 +174,7 @@ class ManagerEntPos(Manager.Manager):
 
     def advanced_return(self, solved):
         self.wsolve.hide()
-        self.board.showCoordenadas(True)
+        self.board.show_coordinates(True)
         if solved:
             for move in self.game_obj.li_moves:
                 self.game.add_move(move)
@@ -305,7 +305,7 @@ class ManagerEntPos(Manager.Manager):
         ]
 
     def end_game(self):
-        self.board.showCoordenadas(True)
+        self.board.show_coordinates(True)
         self.procesador.start()
 
     def final_x(self):
@@ -631,7 +631,7 @@ class ManagerEntPos(Manager.Manager):
 
         nom_dir = Util.relative_path(os.path.realpath(nom_dir))
 
-        Util.dic2ini_base(nom_ini, dicIni)
+        Util.dic2ini(nom_ini, dicIni)
 
         name = os.path.basename(nom_dir)
 

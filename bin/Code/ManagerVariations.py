@@ -158,7 +158,7 @@ class ManagerVariations(Manager.Manager):
         if self.play_against_engine:
             self.play_against_engine = False
             self.disable_all()
-            self.juegaRival()
+            self.play_rival()
             self.play_against_engine = True  # Como juega por mi pasa por aqui, para que no se meta en un bucle infinito
 
         self.play_next_move()
@@ -201,7 +201,7 @@ class ManagerVariations(Manager.Manager):
             else:
                 self.change_rival()
 
-    def juegaRival(self):
+    def play_rival(self):
         if not self.is_finished():
             self.thinking(True)
             rm = self.xrival.play_game(self.game, nAjustado=self.xrival.nAjustarFuerza)
@@ -247,7 +247,7 @@ class ManagerVariations(Manager.Manager):
             r_t = None
         if r_p <= 0:
             r_p = None
-        if r_t is None and r_p is None and not dic["SITIEMPO"]:
+        if r_t is None and r_p is None and not dic.get("SITIEMPO", False):
             r_t = 1000
 
         nAjustarFuerza = dic["ADJUST"]

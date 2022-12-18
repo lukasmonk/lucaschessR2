@@ -27,17 +27,19 @@ from Code.QT import LCDialog
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
 from Code.QT import SelectFiles
+from Code.Analysis import WindowAnalysisConfig
 
 
 class WConfEngines(LCDialog.LCDialog):
     def __init__(self, owner):
         icono = Iconos.ConfEngines()
         titulo = _("Engines configuration")
-        extparam = "confEngines"
+        extparam = "confEngines1"
         LCDialog.LCDialog.__init__(self, owner, titulo, icono, extparam)
 
         self.configuration = Code.configuration
         self.engine = None
+        self.li_uci_options = []
         self.grid_conf = None
 
         # Toolbar
@@ -51,7 +53,7 @@ class WConfEngines(LCDialog.LCDialog):
 
         self.w_current = None
 
-        self.tab = QTVarios.LCTab(self)
+        self.tab = Controles.Tab(self)
         self.tab.new_tab(self.wexternals, _("External engines"))
         self.tab.new_tab(self.wconf_tutor, _("Tutor"))
         self.tab.new_tab(self.wconf_analyzer, _("Analyzer"))
@@ -59,10 +61,10 @@ class WConfEngines(LCDialog.LCDialog):
         self.tab.dispatchChange(self.cambiada_tab)
 
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("OPTION", _("Label"), 240)
+        o_columns.nueva("OPTION", _("Label"), 180)
         o_columns.nueva("VALUE", _("Value"), 200, edicion=Delegados.MultiEditor(self))
+        o_columns.nueva("DEFAULT", _("By default"), 90)
         self.grid_conf = Grid.Grid(self, o_columns, siSelecFilas=False, is_editable=True)
-        self.grid_conf.tipoLetra(puntos=self.configuration.x_pgn_fontpoints)
         self.register_grid(self.grid_conf)
 
         # Layout
@@ -93,6 +95,7 @@ class WConfEngines(LCDialog.LCDialog):
             w = self.wconf_analyzer
         else:
             self.engine = None
+            self.li_uci_options = None
             self.grid_conf.refresh()
             return
         w.activate_this()
@@ -100,7 +103,7 @@ class WConfEngines(LCDialog.LCDialog):
 
     def me_set_editor(self, parent):
         recno = self.grid_conf.recno()
-        opcion = self.engine.li_uci_options_editable()[recno]
+        opcion = self.li_uci_options[recno]
         key = opcion.name
         value = opcion.valor
         for xkey, xvalue in self.engine.liUCI:
@@ -118,6 +121,7 @@ class WConfEngines(LCDialog.LCDialog):
             maximo = opcion.maximo
         elif tipo in ("check", "button"):
             self.engine.ordenUCI(key, not value)
+            self.w_current.set_changed()
             self.grid_conf.refresh()
         elif tipo == "combo":
             lista = [(var, var) for var in opcion.li_vars]
@@ -136,10 +140,13 @@ class WConfEngines(LCDialog.LCDialog):
             return Controles.SB(parent, value, minimo, maximo)
         return None
 
-    def set_engine(self, engine):
+    def set_engine(self, engine, with_multipv=True):
         self.engine = engine
         if self.grid_conf:
             if self.engine:
+                self.li_uci_options = self.engine.li_uci_options_editable()
+                if not with_multipv:
+                    self.li_uci_options = [op for op in self.li_uci_options if op.name != "MultiPV"]
                 self.grid_conf.refresh()
                 self.grid_conf.gotop()
                 self.grid_conf.show()
@@ -159,7 +166,7 @@ class WConfEngines(LCDialog.LCDialog):
             return editor.valor()
 
     def grid_setvalue(self, grid, nfila, column, valor):
-        opcion = self.engine.li_uci_options_editable()[nfila]
+        opcion = self.li_uci_options[nfila]
         self.engine.ordenUCI(opcion.name, valor)
         self.w_current.set_changed()
 
@@ -178,32 +185,35 @@ class WConfEngines(LCDialog.LCDialog):
         self.save()
 
     def grid_num_datos(self, grid):
-        return len(self.engine.li_uci_options_editable()) if self.engine else 0
+        return len(self.li_uci_options) if self.engine else 0
 
     def grid_dato(self, grid, row, o_column):
         key = o_column.key
-        op = self.engine.li_uci_options_editable()[row]
+        op = self.li_uci_options[row]
         if key == "OPTION":
             if op.minimo != op.maximo:
                 if op.minimo < 0:
-                    return op.name + " (%d - %+d /%d)" % (op.minimo, op.maximo, op.default)
+                    return op.name + " (%d - %+d)" % (op.minimo, op.maximo)
                 else:
-                    return op.name + " (%d - %d /%d)" % (op.minimo, op.maximo, op.default)
+                    return op.name + " (%d - %d)" % (op.minimo, op.maximo)
             else:
                 return op.name
+        elif key == "DEFAULT":
+            df = str(op.default)
+            return df.lower() if op.tipo == "check" else df
         else:
             name = op.name
             valor = op.valor
-            for xnombre, xvalor in self.engine.liUCI:
-                if xnombre == name:
-                    valor = xvalor
+            for xname, xvalue in self.engine.liUCI:
+                if xname == name:
+                    valor = xvalue
                     break
-            tv = type(valor)
-            if tv == bool:
-                valor = str(valor).lower()
-            else:
-                valor = str(valor)
-            return valor
+            valor = str(valor)
+            return valor.lower() if op.tipo == "check" else valor
+
+    def grid_bold(self, grid, row, o_column):
+        op = self.li_uci_options[row]
+        return op.default != op.valor
 
 
 class WConfExternals(QtWidgets.QWidget):
@@ -549,7 +559,6 @@ class WConfTutor(QtWidgets.QWidget):
 
         self.owner = owner
         self.engine = self.configuration.engine_tutor()
-        self.is_changed = False
 
         lb_engine = Controles.LB2P(self, _("Engine"))
         self.cb_engine = Controles.CB(self, self.configuration.help_multipv_engines(), self.engine.key)
@@ -617,12 +626,12 @@ class WConfTutor(QtWidgets.QWidget):
             control.capture_changes(self, self.set_changed)
 
         for control in (
-                self.cb_priority,
-                self.cb_board_position,
-                self.ed_time,
-                self.ed_depth,
-                self.ed_multipv,
-                self.cb_type,
+            self.cb_priority,
+            self.cb_board_position,
+            self.ed_time,
+            self.ed_depth,
+            self.ed_multipv,
+            self.cb_type,
         ):
             control.capture_changes(self.set_changed)
 
@@ -631,7 +640,11 @@ class WConfTutor(QtWidgets.QWidget):
         if key is None:
             key = "stockfish"
         self.engine = self.configuration.dic_engines[key].clone()
-        self.owner.set_engine(self.engine)
+        self.engine.reset_uci_options()
+        dic = self.configuration.read_variables("TUTOR_ANALYZER")
+        for name, valor in dic.get("TUTOR", []):
+            self.engine.ordenUCI(name, valor)
+        self.owner.set_engine(self.engine, False)
         self.set_changed()
 
     def set_changed(self):
@@ -654,13 +667,14 @@ class WConfTutor(QtWidgets.QWidget):
             self.configuration.graba()
 
             dic = self.configuration.read_variables("TUTOR_ANALYZER")
-            dic["TUTOR"] = self.engine.list_uci_added()
+            dic["TUTOR"] = self.engine.list_uci_changed()
             self.configuration.write_variables("TUTOR_ANALYZER", dic)
+            Code.procesador.cambiaXTutor()
 
     def activate_this(self):
         valor = self.cb_engine.valor()
         self.cb_engine.rehacer(self.configuration.help_multipv_engines(), valor)
-        self.owner.set_engine(self.engine)
+        self.owner.set_engine(self.engine, False)
 
 
 class WConfAnalyzer(QtWidgets.QWidget):
@@ -691,6 +705,10 @@ class WConfAnalyzer(QtWidgets.QWidget):
         lb_priority = Controles.LB2P(self, _("Process priority"))
         self.cb_priority = Controles.CB(self, Priorities.priorities.combo(), self.configuration.x_analyzer_priority)
 
+        bt_analysis_parameters = Controles.PB(
+            self, _("Analysis configuration parameters"), rutina=self.config_analysis_parameters, plano=False
+        )
+
         layout = Colocacion.G()
         layout.controld(lb_engine, 0, 0).control(self.cb_engine, 0, 1)
         layout.controld(lb_time, 1, 0).control(self.ed_time, 1, 1)
@@ -698,7 +716,7 @@ class WConfAnalyzer(QtWidgets.QWidget):
         layout.controld(lb_multipv, 3, 0).otro(ly_multi, 3, 1)
         layout.controld(lb_priority, 4, 0).control(self.cb_priority, 4, 1)
 
-        ly = Colocacion.V().otro(layout).relleno(1)
+        ly = Colocacion.V().otro(layout).espacio(30).control(bt_analysis_parameters).relleno(1)
         lyh = Colocacion.H().otro(ly).relleno(1).margen(30)
 
         self.setLayout(lyh)
@@ -706,12 +724,23 @@ class WConfAnalyzer(QtWidgets.QWidget):
         for control in (self.cb_priority, self.ed_multipv, self.ed_depth, self.ed_time):
             control.capture_changes(self.set_changed)
 
+    def config_analysis_parameters(self):
+        w = WindowAnalysisConfig.WConfAnalysis(self, self)
+        w.exec_()
+
+    def refresh_analysis(self):  # llamado por WConfAnalysis
+        pass
+
     def changed_engine(self):
         key = self.cb_engine.valor()
         if key is None:
-            key = "stockfish"
+            key = self.configuration.x_analyzer_clave
         self.engine = self.configuration.dic_engines[key].clone()
-        self.owner.set_engine(self.engine)
+        self.engine.reset_uci_options()
+        dic = self.configuration.read_variables("TUTOR_ANALYZER")
+        for name, valor in dic.get("ANALYZER", []):
+            self.engine.ordenUCI(name, valor)
+        self.owner.set_engine(self.engine, False)
         self.set_changed()
 
     def set_changed(self):
@@ -728,12 +757,13 @@ class WConfAnalyzer(QtWidgets.QWidget):
             self.configuration.x_analyzer_priority = self.cb_priority.valor()
 
             dic = self.configuration.read_variables("TUTOR_ANALYZER")
-            dic["ANALYZER"] = self.engine.list_uci_added()
+            dic["ANALYZER"] = self.engine.list_uci_changed()
             self.configuration.write_variables("TUTOR_ANALYZER", dic)
+            Code.procesador.cambiaXAnalyzer()
 
     def activate_this(self):
         self.cb_engine.rehacer(self.configuration.help_multipv_engines(), self.engine.key)
-        self.owner.set_engine(self.engine)
+        self.owner.set_engine(self.engine, False)
 
 
 class WOthers(QtWidgets.QWidget):

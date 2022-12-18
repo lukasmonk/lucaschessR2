@@ -2,6 +2,7 @@ import copy
 
 from PySide2 import QtCore, QtWidgets
 
+import Code.Procesador
 from Code import Util
 from Code import Variations
 from Code.Base import Game, Move
@@ -43,23 +44,7 @@ class WOpenings(LCDialog.LCDialog):
         self.lbPGN = Controles.LB(self, "").set_wrap().ponTipoLetra(puntos=10, peso=75)
         ly = Colocacion.H().control(self.lbPGN)
         gb = Controles.GB(self, _("Selected opening"), ly).ponTipoLetra(puntos=11, peso=75).align_center()
-        gb.setStyleSheet(
-            """QGroupBox {
-    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                      stop: 0 #E0E0E0, stop: 1 #FFFFFF);
-    border: 2px solid gray;
-    border-radius: 5px;
-    margin-top: 10px; /* leave space at the top for the title */
-    margin-bottom: 5px; /* leave space at the top for the title */
-}
-QGroupBox::title {
-    subcontrol-origin: margin;
-    subcontrol-position: top center; /* position at the top center */
-    padding: 3px;
-    margin-top: -3px; /* leave space at the top for the title */
-}
-"""
-        )
+        gb.setProperty("type", "selop")
 
         # Movimiento
         self.is_moving_time = False
@@ -74,14 +59,18 @@ QGroupBox::title {
         tb.new(_("Reinit"), Iconos.Reiniciar(), self.resetPartida)
         tb.new(_("Takeback"), Iconos.Atras(), self.atras)
         tb.new(_("Remove"), Iconos.Borrar(), self.borrar)
+        tb.new(_("Read PGN file"), Iconos.PGN(), self.read_pgn)
 
         # Lista Openings
         o_columns = Columnas.ListaColumnas()
-        dicTipos = {"b": Iconos.pmSun(), "n": Iconos.pmPuntoAzul(), "l": Iconos.pmNaranja()}
-        o_columns.nueva("TYPE", "", 24, edicion=Delegados.PmIconosBMT(dicIconos=dicTipos))
+        dic_tipos = {"b": Iconos.pmSun(), "n": Iconos.pmPuntoAzul(), "l": Iconos.pmNaranja()}
+        o_columns.nueva("TYPE", "", 24, edicion=Delegados.PmIconosBMT(dicIconos=dic_tipos))
         o_columns.nueva("OPENING", _("Possible continuation"), 480)
 
-        self.grid = Grid.Grid(self, o_columns, siSelecFilas=True, altoFila=32)
+        row_high = int(3.6 * self.configuration.x_pgn_fontpoints)
+
+        self.grid = Grid.Grid(self, o_columns, siSelecFilas=True, altoFila=row_high)
+        self.grid.setFont(Controles.TipoLetra(puntos=self.configuration.x_pgn_fontpoints))
         self.register_grid(self.grid)
 
         # # Derecha
@@ -270,157 +259,27 @@ QGroupBox::title {
             return None
         ap = self.game.opening
         if ap is None:
-            ap = OpeningsStd.OpeningsStd(_("Unknown"))
+            ap = OpeningsStd.Opening(_("Unknown"))
             ap.a1h8 = self.game.pv()
         else:
             if not self.game.last_jg().in_the_opening:
                 p = Game.Game()
                 p.read_pv(ap.a1h8)
                 ap.a1h8 = self.game.pv()
-                ap.tr_name += " + %s" % (self.game.pgn_translated()[len(p.pgn_translated()) + 1 :],)
+                # ap.tr_name += " + %s" % (self.game.pgn_translated()[len(p.pgn_translated()) + 1:],)
 
         ap.pgn = self.game.pgn_translated()
         return ap
 
-
-# class EntrenamientoOpening(LCDialog.LCDialog):
-#     def __init__(self, owner, listaOpeningsStd, dic_data):
-#         icono = Iconos.Opening()
-#         titulo = _("Learn openings by repetition")
-#         extparam = "opentrainingE"
-#         LCDialog.LCDialog.__init__(self, owner, titulo, icono, extparam)
-#
-#         name = dic_data.get("NOMBRE", "")
-#         self.listaOpeningsStd = listaOpeningsStd
-#         self.liBloques = self.leeBloques(dic_data.get("LISTA", []))
-#
-#         # Toolbar
-#         li_acciones = [
-#             (_("Accept"), Iconos.Aceptar(), self.aceptar),
-#             None,
-#             (_("Cancel"), Iconos.Cancelar(), self.cancelar),
-#             None,
-#             (_("Add"), Iconos.Nuevo(), self.nueva),
-#             None,
-#             (_("Modify"), Iconos.Modificar(), self.modificar),
-#             None,
-#             (_("Remove"), Iconos.Borrar(), self.borrar),
-#             None,
-#         ]
-#         tb = QTVarios.LCTB(self, li_acciones)
-#
-#         lbNombre = Controles.LB(self, _("Name") + ": ")
-#         self.edNombre = Controles.ED(self, name)
-#
-#         lyNombre = Colocacion.H().control(lbNombre).control(self.edNombre)
-#
-#         # Lista
-#         o_columns = Columnas.ListaColumnas()
-#         o_columns.nueva("NOMBRE", _("Name"), 240)
-#         o_columns.nueva("PGN", _("Moves"), 360)
-#
-#         self.grid = Grid.Grid(self, o_columns, siSelecFilas=True)
-#         n = self.grid.anchoColumnas()
-#         self.grid.setMinimumWidth(n + 20)
-#         self.register_grid(self.grid)
-#         self.grid.gotop()
-#
-#         layout = Colocacion.V().control(tb).otro(lyNombre).control(self.grid)
-#
-#         self.setLayout(layout)
-#         self.restore_video()
-#
-#     def grid_num_datos(self, grid):
-#         return len(self.liBloques)
-#
-#     def grid_dato(self, grid, row, o_column):
-#         key = o_column.key
-#         bloque = self.liBloques[row]
-#         if key == "NOMBRE":
-#             return bloque.tr_name
-#         return bloque.pgn
-#
-#     def grid_doble_click(self, grid, fil, col):
-#         self.modificar()
-#
-#     def leeBloques(self, li_pv):
-#         li = []
-#         for pv in li_pv:
-#             p = Game.Game()
-#             p.read_pv(pv)
-#             p.assign_opening()
-#             ap = p.opening
-#             if ap is None:
-#                 ap = OpeningsStd.OpeningsStd(_("Unknown"))
-#                 ap.a1h8 = pv
-#             else:
-#                 ap.a1h8 = pv
-#                 ap.pgn = ap.pgn.replace(". ", ".")
-#                 nap = len(ap.pgn)
-#                 pgn_translated = p.pgn_translated()
-#                 if len(pgn_translated) > nap:
-#                     ap.tr_name += " + %s" % (pgn_translated[nap + 1 :],)
-#             ap.pgn = p.pgn_translated()
-#             li.append(ap)
-#         return li
-#
-#     def nueva(self):
-#         bloque = self.edit(None)
-#         if bloque:
-#             self.liBloques.append(bloque)
-#             if not self.edNombre.texto().strip():
-#                 self.edNombre.set_text(bloque.tr_name)
-#             self.grid.refresh()
-#             self.grid.gobottom()
-#
-#     def modificar(self):
-#         row = self.grid.recno()
-#         if row >= 0:
-#             bloque = self.liBloques[row]
-#             bloque = self.edit(bloque)
-#             if bloque:
-#                 self.liBloques[row] = bloque
-#                 self.grid.refresh()
-#
-#     def edit(self, bloque):
-#         me = QTUtil2.unMomento(self)
-#         w = WOpenings(self, Code.configuration, bloque)
-#         me.final()
-#         if w.exec_():
-#             return w.resultado()
-#         return None
-#
-#     def borrar(self):
-#         row = self.grid.recno()
-#         if row >= 0:
-#             bloque = self.liBloques[row]
-#             if QTUtil2.pregunta(self, _X(_("Delete %1?"), bloque.tr_name)):
-#                 del self.liBloques[row]
-#                 self.grid.refresh()
-#
-#     def aceptar(self):
-#         if not self.liBloques:
-#             QTUtil2.message_error(self, _("you have not indicated any opening"))
-#             return
-#
-#         self.name = self.edNombre.texto().strip()
-#         if not self.name:
-#             if len(self.liBloques) == 1:
-#                 self.name = self.liBloques[0].tr_name
-#             else:
-#                 QTUtil2.message_error(self, _("Not indicated the name of training"))
-#                 return
-#
-#         self.accept()
-#
-#     def cancelar(self):
-#         self.reject()
-#
-#     def listaPV(self):
-#         li = []
-#         for bloque in self.liBloques:
-#             li.append(bloque.a1h8)
-#         return li
+    def read_pgn(self):
+        game = Code.procesador.select_1_pgn(self)
+        if game and len(game) > 1 and game.siFenInicial():
+            self.game = game
+            if not self.opening_block:
+                self.opening_block = OpeningsStd.Opening(_("Unknown"))
+            self.opening_block.a1h8 = game.pv()
+            self.ponActivas()
+            self.mueve(siFinal=True)
 
 
 class OpeningsPersonales(LCDialog.LCDialog):

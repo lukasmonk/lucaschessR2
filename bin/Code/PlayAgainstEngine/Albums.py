@@ -168,7 +168,6 @@ class Album:
     def __init__(self, clavedb, alias):
         self.claveDB = clavedb
         self.alias = alias
-        self.name = _F(alias)
         self.liCromos = []
         self.hecho = False
         self.ficheroDB = Code.configuration.ficheroAlbumes
@@ -178,6 +177,13 @@ class Album:
 
     def __len__(self):
         return len(self.liCromos)
+
+    @property
+    def name(self):
+        for cromo in self.liCromos:
+            if cromo.key == self.alias:
+                return cromo.name
+        return _F(self.alias)
 
     def get_cromo(self, pos):
         return self.liCromos[pos]

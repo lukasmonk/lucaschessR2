@@ -1,3 +1,4 @@
+import sqlite3
 import time
 
 from PySide2 import QtWidgets, QtCore
@@ -136,8 +137,9 @@ class WLeagueWorker(QtWidgets.QWidget):
             self.lb_player[side] = Controles.LB(self).anchoFijo(n_ancho_labels).altoFijo(alto_lb)
             self.lb_player[side].align_center().ponFuente(f).set_wrap()
             self.lb_player[side].setFrameStyle(QtWidgets.QFrame.Box | QtWidgets.QFrame.Raised)
-        self.lb_player[WHITE].set_foreground_backgound("black", "white")
-        self.lb_player[BLACK].set_foreground_backgound("white", "black")
+
+        self.lb_player[WHITE].setProperty("type", "white")
+        self.lb_player[BLACK].setProperty("type", "black")
 
         # Relojes
         f = Controles.TipoLetra("Arial Black", puntos=26, peso=75)
@@ -148,10 +150,10 @@ class WLeagueWorker(QtWidgets.QWidget):
                 Controles.LB(self, "00:00")
                 .ponFuente(f)
                 .align_center()
-                .set_foreground_backgound("#076C9F", "#EFEFEF")
                 .anchoMinimo(n_ancho_labels)
             )
             self.lb_clock[side].setFrameStyle(QtWidgets.QFrame.Box | QtWidgets.QFrame.Raised)
+            self.lb_clock[side].setProperty("type", "clock")
 
         # Rotulos de informacion
         f = Controles.TipoLetra(puntos=configuration.x_sizefont_infolabels)
@@ -176,7 +178,10 @@ class WLeagueWorker(QtWidgets.QWidget):
         return self.pgn.num_rows()
 
     def looking_for_work(self):
-        self.xmatch = self.league_work.get_other_match()
+        try:
+            self.xmatch = self.league_work.get_other_match()
+        except sqlite3.IntegrityError:
+            self.xmatch = None
         if self.xmatch is None:
             return
         self.procesa_match()
@@ -258,6 +263,9 @@ class WLeagueWorker(QtWidgets.QWidget):
         self.game.set_tag("Site", Code.lucas_chess)
         self.game.set_tag("Event", self.league_work.nom_league)
         self.game.set_tag("Season", str(self.league.current_num_season + 1))
+        num_division, journey = self.league_work.get_division_journey_match(self.xmatch)
+        self.game.set_tag("Division", str(num_division + 1))
+        self.game.set_tag("Journey", str(journey + 1))
 
         hoy = Util.today()
         self.game.set_tag("Date", "%d.%02d.%02d" % (hoy.year, hoy.month, hoy.day))
@@ -592,7 +600,7 @@ class WLeagueWorker(QtWidgets.QWidget):
                         dc = ord(from_sq[0]) - ord(to_sq[0])
                         df = int(from_sq[1]) - int(to_sq[1])
                         # Maxima distancia = 9.9 ( 9,89... sqrt(7**2+7**2)) = 4 seconds
-                        dist = (dc ** 2 + df ** 2) ** 0.5
+                        dist = (dc**2 + df**2) ** 0.5
                         seconds = 4.0 * dist / (9.9 * rapidez)
                     cpu.muevePieza(movim[1], movim[2], siExclusiva=False, seconds=seconds)
 

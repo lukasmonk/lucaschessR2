@@ -218,7 +218,17 @@ class DBendings:
         self.db_data.set_normal_mode()
 
     def remove_positions(self, only_current_key):
+        def haz(key):
+            dic_data = self.db_data[key]
+            if dic_data is None:
+                return
+            li_borrar = [fen_m2 for fen_m2, dic_fenm2 in dic_data.items() if dic_fenm2["ORIGIN"] == "manual"]
+            for fen_m2 in li_borrar:
+                del dic_data[fen_m2]
+            self.db_data[key] = dic_data
+
         if only_current_key:
-            del self.db_data[self.current_key]
+            haz(self.current_key)
         else:
-            self.db_data.zap()
+            for key in self.db_data.keys():
+                haz(key)

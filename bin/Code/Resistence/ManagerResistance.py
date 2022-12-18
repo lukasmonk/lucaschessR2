@@ -174,7 +174,7 @@ class ManagerResistance(Manager.Manager):
                 self.ponRotuloActual()
             self.thinking(False)
 
-            if self.play_rival(self.rm_rival):
+            if self.rival_has_moved(self.rm_rival):
                 self.moves_rival += 1
                 lostmovepoints = self.puntosRival - puntosRivalPrevio
                 if self.siBoxing and self.moves_rival > 1:
@@ -296,7 +296,7 @@ class ManagerResistance(Manager.Manager):
         self.pgnRefresh(self.game.last_position.is_white)
         self.refresh()
 
-    def play_rival(self, engine_response):
+    def rival_has_moved(self, engine_response):
         from_sq = engine_response.from_sq
         to_sq = engine_response.to_sq
 

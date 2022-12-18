@@ -1,6 +1,7 @@
 import PySide2.QtGui
 from PySide2 import QtWidgets, QtCore
 
+import Code
 from Code.Base import Move, Game
 from Code.QT import Controles, Colocacion, QTVarios, Iconos
 
@@ -14,6 +15,7 @@ class LBPGN(Controles.LB):
         self.setStyleSheet(
             "QLabel{ border-style: groove; border-width: 1px; border-color: LightSlateGray; padding: 2px;}"
         )
+        self.setProperty("type", "pgn")
         self.setOpenExternalLinks(False)
         self.linkActivated.connect(link)
 
@@ -135,9 +137,9 @@ class ShowPGN(QtWidgets.QScrollArea):
 
     def show_variations(self, work_move, selected_link):
         self.reset()
-        style_number = "color:teal"
-        style_moves = "color:black"
-        style_select = "color:darkred"
+        style_number = "color:%s" % Code.dic_colors["PGN_NUMBER"]
+        style_select = "color:%s" % Code.dic_colors["PGN_SELECT"]
+        style_moves = "color:%s" % Code.dic_colors["PGN_MOVES"]
 
         self.move: Move.Move = work_move
         self.selected_link = selected_link

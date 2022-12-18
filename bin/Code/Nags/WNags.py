@@ -3,7 +3,6 @@ from Code.Base import Move
 from Code.Nags import Nags
 from Code.QT import Colocacion
 from Code.QT import Columnas
-from Code.QT import Controles
 from Code.QT import Grid
 from Code.QT import Iconos
 from Code.QT import LCDialog
@@ -46,8 +45,6 @@ class WNags(LCDialog.LCDialog):
 
         self.o_columnas = o_columns
         self.grid = Grid.Grid(self, o_columns, is_editable=True, altoCabecera=4)
-        font = Controles.TipoLetra(puntos=Code.configuration.x_pgn_fontpoints)
-        self.grid.ponFuente(font)
         self.register_grid(self.grid)
 
         layout = Colocacion.V().control(tb).control(self.grid).margen(3)

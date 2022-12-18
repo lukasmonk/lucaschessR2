@@ -504,7 +504,7 @@ def create_tactics(procesador, wowner, li_registros_selected, li_registros_total
     d["FILESW"] = "%s:100" % os.path.basename(nom_fns)
     d["POINTVIEW"] = pointview
 
-    Util.dic2ini_base(nom_ini, dic_ini)
+    Util.dic2ini(nom_ini, dic_ini)
 
     def sp(num):
         return " " * num

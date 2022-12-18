@@ -6,7 +6,6 @@ from Code.Config import Configuration
 
 
 class AnalysisEval:
-
     def __init__(self):
         self.conf: Configuration.Configuration = Code.configuration
 
@@ -85,7 +84,7 @@ class AnalysisEval:
         elif dif > self.conf.x_eval_inaccuracy:
             mx *= 0.8
         rg = max(mx - mn, 0)
-        return int((bl2 - dif/10) * rg / bl2 + mn)
+        return int((bl2 - dif / 10) * rg / bl2 + mn)
 
     def elo_bad_vbad(self, rm_j, rm_c):
         elo = self.elo(rm_j, rm_c)

@@ -11,7 +11,6 @@ from Code.Translations import TrListas
 class Opening:
     def __init__(self, key):
         self.name = key
-        self.tr_name = key
         self.parent_fm2 = ""
         self.children_fm2 = []
         self.a1h8 = ""
@@ -19,6 +18,10 @@ class Opening:
         self.eco = ""
         self.is_basic = False
         self.fm2 = None
+
+    @property
+    def tr_name(self):
+        return _FO(self.name)
 
     def tr_pgn(self):
         p = ""
@@ -82,11 +85,6 @@ class ListaOpeningsStd:
     def reset(self):
         self.dic_fenm2_op, self.dic_fenm2_op_move, self.st_fenm2_test = self.read_fenm2_op()
         self.read_personal()
-        self.translate()
-
-    def translate(self):
-        for op in self.dic_fenm2_op.values():
-            op.tr_name = Code.translations.translate_opening(op.name)
 
     def read_personal(self):
         fichero_pers = Code.configuration.file_pers_openings()
@@ -134,9 +132,15 @@ class ListaOpeningsStd:
         if fm2 in self.dic_fenm2_op_move:
             for op, a1h8 in self.dic_fenm2_op_move[fm2]:
                 li_ap.append(op)
-
-        li_ap.sort(key=lambda op: ("A" if op.is_basic else "B") + op.tr_name)
-        return li_ap
+        li_ap.sort(key=lambda op: op.a1h8)
+        li = []
+        ultima = "zzzz"
+        for op in li_ap:
+            if not op.a1h8.startswith(ultima):
+                ultima = op.a1h8
+                li.append(op)
+        li.sort(key=lambda op: ("A" if op.is_basic else "B") + op.tr_name)
+        return li
 
     def base_xpv(self, xpv):
         lipv = FasterCode.xpv_pv(xpv).split(" ")
@@ -160,17 +164,3 @@ class ListaOpeningsStd:
 
 
 ap = ListaOpeningsStd()
-
-
-# Borrar en la versión 3.0---------------------------------
-
-
-class OpeningStd(Opening):
-    def __init__(self, key):
-        Opening.__init__(self, key)
-
-    @property
-    def tr_name(self):
-        return self.trNombre
-
-# ^^^^Borrar en la versión 3.0---------------------------------

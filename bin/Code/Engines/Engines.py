@@ -82,20 +82,33 @@ class Engine:
         self.siDebug = True
         self.nomDebug = self.key + "-" + txt
 
-    def ordenUCI(self, comando, valor):
-        if valor in ("true", "false"):
-            valor = valor == "true"
-        for pos, (xcomando, xvalor) in enumerate(self.liUCI):
-            if xcomando == comando:
-                self.liUCI[pos] = (comando, valor)
-                return
-        self.liUCI.append((comando, valor))
+    def reset_uci_options(self):
+        li_uci_options = self.li_uci_options()
+        for op in li_uci_options:
+            op.valor = op.default
+        self.liUCI = []
 
-        if self.__li_uci_options:
-            for op in self.__li_uci_options:
-                if op.name == comando:
-                    op.valor = valor
+    def ordenUCI(self, name, valor):
+        li_uci_options = self.li_uci_options()
+        is_changed = False
+        for op in li_uci_options:
+            if op.name == name:
+                if op.tipo == "check":
+                    if valor in ("true", "false"):
+                        valor = valor == "true"
+                op.valor = valor
+                if op.default != valor:
+                    is_changed = True
                     break
+        for pos, (xcomando, xvalor) in enumerate(self.liUCI):
+            if xcomando == name:
+                if is_changed:
+                    self.liUCI[pos] = (name, valor)
+                else:
+                    del self.liUCI[pos]
+                return
+        if is_changed:
+            self.liUCI.append((name, valor))
 
     def set_multipv(self, num, maximo):
         self.multiPV = num
@@ -145,7 +158,7 @@ class Engine:
 
     def read_uci_options(self):
         path_uci_options = os.path.join(os.path.dirname(self.path_exe), "uci_options.txt")
-        if os.path.isfile(path_uci_options):
+        if os.path.isfile(path_uci_options) and not self.is_external:
             with open(path_uci_options, "rt", encoding="utf-8", errors="ignore") as f:
                 lines = f.read().split("\n")
 
@@ -154,11 +167,14 @@ class Engine:
             if engine.uci_ok:
                 lines = engine.uci_lines
                 engine.close()
-                with open(path_uci_options, "wt", encoding="utf-8", errors="ignore") as q:
-                    for line in lines:
-                        line = line.strip()
-                        if line:
-                            q.write(line + "\n")
+                try:
+                    with open(path_uci_options, "wt", encoding="utf-8", errors="ignore") as q:
+                        for line in lines:
+                            line = line.strip()
+                            if line:
+                                q.write(line + "\n")
+                except:
+                    pass
 
             else:
                 lines = []
@@ -209,7 +225,7 @@ class Engine:
                 return int(op.valor)
         return self.multiPV
 
-    def list_uci_added(self):
+    def list_uci_changed(self):
         return self.liUCI
 
     def xhash(self):

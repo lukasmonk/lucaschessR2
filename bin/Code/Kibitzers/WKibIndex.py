@@ -60,11 +60,13 @@ class WKibIndex(QtWidgets.QDialog):
         self.grid = Grid.Grid(
             self, o_columns, dicVideo=dicVideo, siSelecFilas=True, siCabeceraVisible=True, altoCabecera=4
         )
+        f = Controles.TipoLetra(puntos=self.cpu.configuration.x_pgn_fontpoints)
+        self.grid.ponFuente(f)
 
         li_acciones = (
             (_("Continue"), Iconos.Kibitzer_Play(), self.play),
             (_("Pause"), Iconos.Kibitzer_Pause(), self.pause),
-            (_("Takeback"), Iconos.Atras(), self.takeback),
+            (_("Takeback"), Iconos.Kibitzer_Back(), self.takeback),
             (_("Analyze only color"), Iconos.Kibitzer_Side(), self.color),
             (_("Show/hide board"), Iconos.Kibitzer_Board(), self.config_board),
             (_("Manual position"), Iconos.Voyager(), self.set_position),

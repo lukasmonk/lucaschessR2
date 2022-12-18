@@ -1,0 +1,88 @@
+[General]
+BACKGROUND=Background
+FOREGROUND=Foreground
+
+[Menu selected]
+SELECTION_BACKGROUND=Background
+SELECTION_FOREGROUND=Foreground
+
+[Moves in PGN table]
+VERY_GOOD_MOVE=Brilliant move|(!!)
+GOOD_MOVE=Good move|(!)
+INTERESTING_MOVE=Interesting move|(!?)
+INACCURACY=Dubious move|(?!)
+MISTAKE=Mistake|(?)
+BLUNDER=Blunder|(??)
+
+[Selected move in PGN table]
+PGN_SELBACKGROUND=Background
+PGN_SELFOREGROUND=Foreground
+
+[Windows with PGN]
+PGN_NUMBER=Numbers
+PGN_SELECT=Selected move
+PGN_MOVES=Other moves
+
+[Various]
+CONTROLMENSESPERA=Message window
+LINKS=Links
+BOARD_STATIC=Message in some boards (Coordinates/Captures/...)
+
+[Databases+Opening explorer]
+SUMMARY_FOREGROUND=Foreground
+SUMMARY_WIN=Win
+SUMMARY_LOST=Lost
+SUMMARY_TOTAL=Total
+
+[League]
+WLEAGUE_MIGRATION=Engines that change of division in its case
+WLEAGUECONFIG_1=Configuration, selected engines, 1 division
+WLEAGUECONFIG_2=Configuration, selected engines, 2 division
+WLEAGUECONFIG_3=Configuration, engines, 3 division
+
+[League+Crosstab]
+WLEAGUE_WIN=Win
+WLEAGUE_LOST=Loss
+WLEAGUE_NORESULT=No result
+WLEAGUE_DRAW=Draw
+
+[Opening lines]
+WLINES_PAR=Par lines
+WLINES_NON=Non lines
+WLINES_LINE=Line
+WLINES_PGN=PGN
+WLINES_POSITIONS=Positions
+
+[Everest]
+ROUTES_FOREGROUND=Foreground
+ROUTES_BACKGROUND=Background
+ROUTES_STAGE_FOREGROUND=Stage foreground
+ROUTES_STAGE_BACKGROUND=Stage background
+ROUTES_TRACK_FOREGROUND=Track foreground
+ROUTES_TRACK_BACKGROUND=Track background
+ROUTES_STATE_FOREGROUND=State foreground
+ROUTES_STATE_BACKGROUND=State background
+ROUTES_NEXTTASK_FOREGROUND=Next task foreground
+ROUTES_TITLE_FOREGROUND=Title foreground
+ROUTES_TIME_FOREGROUND=Time foreground
+ROUTES_TIME_BACKGROUND=Time background
+ROUTES_DATE_FOREGROUND=Date foreground
+ROUTES_DATE_BACKGROUND=Date background
+
+[Maps]
+MAPS_BACKGROUND=Background
+
+[Mate]
+MANAGERMATE_FOREGROUND=Foreground
+MANAGERMATE_BACKGROUND=Background
+
+
+[Director]
+DIRECTOR_SELECTBANDA=Select banda
+DIRECTOR_BANDA_BORDER_ENABLE=Border when enable
+DIRECTOR_BANDA_FOREGROUND_ENABLE=Foreground when enable
+DIRECTOR_BANDA_BACKGROUND_ENABLE=Background when enable
+DIRECTOR_BANDA_BORDER_DISABLE=Border when disable
+DIRECTOR_BANDA_FOREGROUND_DISABLE=Foreground when disable
+DIRECTOR_BANDA_BACKGROUND_DISABLE=Background when disable
+

@@ -336,6 +336,7 @@ class ControlMate:
 
 
 class ManagerMate(Manager.Manager):
+    lbNivel = None
     def start(self, mate):
 
         self.mate = mate
@@ -355,7 +356,7 @@ class ManagerMate(Manager.Manager):
         self.main_window.set_label1("<center><h1>%s</h1></center>" % _X(_("Mate in %1"), str(mate)))
         self.board.exePulsadoNum = None
 
-        self.lbNivel = self.main_window.base.lb_player_white.set_foreground_backgound("black", "#EDEFF1")
+        self.lbNivel = self.main_window.base.lb_player_white.set_foreground_backgound(Code.dic_colors["MANAGERMATE_FOREGROUND"], Code.dic_colors["MANAGERMATE_BACKGROUND"])
 
         self.finJuego()
 
@@ -516,11 +517,13 @@ class ManagerMate(Manager.Manager):
     def iniciaPosicion(self, position_mate):
         cp = Position.Position()
         cp.read_fen(position_mate.fen)
-        self.set_position(cp)
         self.activate_side(cp.is_white)
         self.is_human_side_white = cp.is_white
         self.board.remove_arrows()
         self.board.set_side_bottom(cp.is_white)
+        self.board.set_position(cp)
+        self.board.activate_side(cp.is_white)
+
         self.game = Game.Game(cp)
         li = [TB_CLOSE]
         if self.mate > 1:

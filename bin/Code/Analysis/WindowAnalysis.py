@@ -20,9 +20,9 @@ from Code.QT import QTUtil2
 from Code.QT import QTVarios
 
 
-class WMuestra(QtWidgets.QWidget):
+class OneAnalysis(QtWidgets.QWidget):
     def __init__(self, owner, tab_analysis):
-        super(WMuestra, self).__init__(owner)
+        super(OneAnalysis, self).__init__(owner)
 
         self.tab_analysis = tab_analysis
         self.owner = owner
@@ -62,7 +62,6 @@ class WMuestra(QtWidgets.QWidget):
             edicion=Delegados.EtiquetaPGN(tab_analysis.move.is_white() if self.with_figurines else None),
         )
         self.wrm = Grid.Grid(self, o_columns, siLineas=False)
-        self.wrm.tipoLetra(puntos=configuration.x_pgn_fontpoints)
         n_with = self.wrm.anchoColumnas() + 20
         self.wrm.setFixedWidth(n_with)
         self.wrm.goto(self.tab_analysis.pos_selected, 0)
@@ -77,9 +76,9 @@ class WMuestra(QtWidgets.QWidget):
 
     def activa(self, siActivar):
         color = self.dic_fonts[siActivar]
-        self.lb_engine_m.set_foreground(color)
+        # self.lb_engine_m.set_foreground(color)
         self.lb_tiempo_m.set_foreground(color)
-        self.bt_cancelar.setEnabled(not siActivar)
+        self.bt_cancelar.setVisible(not siActivar)
         self.siTiempoActivo = False
 
         if siActivar:
@@ -123,9 +122,13 @@ class WMuestra(QtWidgets.QWidget):
     def grid_dato(self, grid, row, o_column):
         # pgn, color, txt_analysis, indicadorInicial, li_nags
         txt = self.list_rm_name[row][1]
-        pgn, resto = txt.split("(")
-        txt_analysis = resto[:-1]
-        return pgn, self.list_rm_name[row][0].is_white, txt_analysis, None, None
+        if "(" in txt:
+            pgn, resto = txt.split("(")
+            txt_analysis = resto[:-1]
+        else:
+            pgn = txt
+            txt_analysis = ""
+        return pgn, None, txt_analysis, None, None
 
     def grid_color_texto(self, grid, row, o_column):
         rm = self.list_rm_name[row][0]
@@ -273,8 +276,9 @@ class WAnalisis(LCDialog.LCDialog):
 
         self.lb_engine = Controles.LB(self).align_center()
         self.lb_time = Controles.LB(self).align_center()
-        self.lbPuntuacion = Controles.LB(self).align_center().ponTipoLetra(puntos=configuration.x_pgn_fontpoints)
+        self.lbPuntuacion = Controles.LB(self).align_center()
         self.lbPGN = Controles.LB(self)
+        self.lbPGN.setProperty("type", "pgn")
         self.lbPGN.set_wrap().ponTipoLetra(puntos=configuration.x_pgn_fontpoints)
         self.lbPGN.setAlignment(QtCore.Qt.AlignTop)
         self.lbPGN.setOpenExternalLinks(False)
@@ -317,7 +321,7 @@ class WAnalisis(LCDialog.LCDialog):
         lyV.control(scroll)
         lyV.relleno()
 
-        wm = WMuestra(self, tab_analysis_init)
+        wm = OneAnalysis(self, tab_analysis_init)
         tab_analysis_init.wmu = wm
 
         # Layout
@@ -391,7 +395,7 @@ class WAnalisis(LCDialog.LCDialog):
                 una.wmu.activa(una == tab_analysis)
 
     def create_analysis(self, tab_analysis):
-        wm = WMuestra(self, tab_analysis)
+        wm = OneAnalysis(self, tab_analysis)
         self.ly.control(wm)
         wm.show()
 

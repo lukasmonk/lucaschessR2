@@ -10,6 +10,7 @@ from Code import TimeControl
 from Code import Util
 from Code import XRun
 from Code.Analysis import Analysis, AnalysisGame, AnalysisIndexes, Histogram, WindowAnalysisGraph
+from Code.Analysis import WindowAnalysisConfig
 from Code.Base import Game, Move, Position
 from Code.Base.Constantes import (
     WHITE,
@@ -28,10 +29,10 @@ from Code.Base.Constantes import (
     RS_UNKNOWN,
     TB_CLOSE,
     TB_REINIT,
-    TB_TAKEBACK,
     TB_CONFIG,
     TB_UTILITIES,
     TB_EBOARD,
+    TB_REPLAY,
     RS_DRAW_50,
     RESULT_DRAW,
     RS_DRAW_MATERIAL,
@@ -61,7 +62,6 @@ from Code.QT import WReplay
 from Code.QT import WindowArbol
 from Code.QT import WindowArbolBook
 from Code.QT import WindowSavePGN
-from Code.Analysis import WindowAnalysisConfig
 
 
 class Manager:
@@ -171,17 +171,14 @@ class Manager:
             li_options = [TB_CLOSE]
             if hasattr(self, "reiniciar"):
                 li_options.append(TB_REINIT)
-            if with_takeback:
-                li_options.append(TB_TAKEBACK)
+            li_options.append(TB_REPLAY)
             li_options.append(TB_CONFIG)
             li_options.append(TB_UTILITIES)
 
             self.main_window.pon_toolbar(li_options, with_eboard=self.with_eboard)
             self.remove_hints(siQuitarAtras=not with_takeback)
-            # self.main_window.deactivate_eboard()
         else:
             self.procesador.reset()
-            # self.main_window.deactivate_eboard()
 
     def set_toolbar(self, li_options):
         self.main_window.pon_toolbar(li_options, with_eboard=self.with_eboard)
@@ -414,7 +411,7 @@ class Manager:
                         dc = ord(from_sq[0]) - ord(to_sq[0])
                         df = int(from_sq[1]) - int(to_sq[1])
                         # Maxima distancia = 9.9 ( 9,89... sqrt(7**2+7**2)) = 4 seconds
-                        dist = (dc ** 2 + df ** 2) ** 0.5
+                        dist = (dc**2 + df**2) ** 0.5
                         seconds = 4.0 * dist / (9.9 * rapidez)
                     if self.procesador.manager:
                         cpu.muevePieza(movim[1], movim[2], seconds)
@@ -513,6 +510,8 @@ class Manager:
             if column.key == "NUMBER" and pos_move != -1:
                 pos_move -= 1
         game_run = self.game.copy_raw(pos_move)
+        if move is None or move.position != self.board.last_position:
+            game_run = Game.Game(self.board.last_position)
         self.kibitzers_manager.put_game(game_run, self.board.is_white_bottom, not all_kibitzers)
 
     def put_pieces_bottom(self, is_white):
@@ -992,6 +991,8 @@ class Manager:
         self.put_view()
 
     def analizar(self):
+        if Code.eboard and Code.eboard.driver:
+            self.rutinaAccionDef(TB_EBOARD)
         self.main_window.base.tb.setDisabled(True)
         AnalysisGame.analysis_game(self)
         self.main_window.base.tb.setDisabled(False)
@@ -1040,6 +1041,17 @@ class Manager:
 
         self.xpelicula = WReplay.Replay(self, seconds, if_start, if_pgn, if_beep, seconds_before)
 
+    def replay_direct(self):
+        dic = WReplay.read_params(self.configuration)
+        seconds, if_start, if_pgn, if_beep, seconds_before = (
+            dic["SECONDS"],
+            dic["START"],
+            dic["PGN"],
+            dic["BEEP"],
+            dic["SECONDS_BEFORE"],
+        )
+        self.xpelicula = WReplay.Replay(self, seconds, if_start, if_pgn, if_beep, seconds_before)
+
     def ponRutinaAccionDef(self, rutina):
         self.xRutinaAccionDef = rutina
 
@@ -1050,12 +1062,21 @@ class Manager:
             self.procesador.reset()
         elif key == TB_EBOARD:
             if Code.eboard and self.with_eboard:
+                if Code.eboard.is_working():
+                    return
+                Code.eboard.set_working()
                 if Code.eboard.driver:
-                    self.main_window.deactivate_eboard(100)
+                    self.main_window.deactivate_eboard(50)
+
                 else:
-                    Code.eboard.activate(self.board.dispatch_eboard)
-                    Code.eboard.set_position(self.board.last_position)
+                    if Code.eboard.activate(self.board.dispatch_eboard):
+                        Code.eboard.set_position(self.board.last_position)
+
                 self.main_window.set_title_toolbar_eboard()
+                QTUtil.refresh_gui()
+
+        elif key == TB_REPLAY:
+            self.replay_direct()
 
         else:
             self.procesador.run_action(key)
@@ -1596,7 +1617,7 @@ class Manager:
 
         elif resp.startswith("fen"):
             # extension = resp[:3]
-            si_fichero = resp.endswith("fichero")
+            si_fichero = resp.endswith("file")
             self.save_fen(si_fichero)
 
         return None
@@ -1709,8 +1730,9 @@ class Manager:
                 self.main_window, _("File to save"), self.configuration.x_save_folder, extension, False
             )
             if resp:
+                if "." not in resp:
+                    resp += ".fns"
                 try:
-
                     modo = "w"
                     if Util.exist_file(resp):
                         yn = QTUtil2.preguntaCancelar(
@@ -1723,9 +1745,9 @@ class Manager:
                             return
                         if yn:
                             modo = "a"
-                            dato = "\n" * 2 + dato
+                            dato = "\n" + dato
                     with open(resp, modo, encoding="utf-8", errors="ignore") as q:
-                        q.write(dato.replace("\n", "\r\n"))
+                        q.write(dato)
                     QTUtil2.message_bold(self.main_window, _X(_("Saved to %1"), resp))
                     direc = os.path.dirname(resp)
                     if direc != self.configuration.x_save_folder:
@@ -1741,6 +1763,7 @@ class Manager:
 
         else:
             QTUtil.ponPortapapeles(dato)
+            QTUtil2.message(self.main_window, _("FEN is in clipboard"))
 
     def arbol(self):
         row, column = self.main_window.pgnPosActual()

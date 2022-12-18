@@ -85,4 +85,4 @@ def PM(desde, hasta):
     q.close()
 
 
-lee_tema("Formatos.tema")
+# lee_tema("Formatos.tema")

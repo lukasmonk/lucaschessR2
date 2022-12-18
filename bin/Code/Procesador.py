@@ -26,6 +26,7 @@ from Code.Base.Constantes import (
     TB_QUIT,
     TB_TOOLS,
     TB_TRAIN,
+    TB_REPLAY,
     GT_AGAINST_GM,
     GT_BOOK,
     GT_ELO,
@@ -40,7 +41,7 @@ from Code.Base.Constantes import (
     GT_LICHESS,
     OUT_REINIT,
 )
-from Code.Board import WindowColors, Eboard
+from Code.Board import WBoardColors, Eboard
 from Code.CompetitionWithTutor import WCompetitionWithTutor, ManagerCompeticion
 from Code.Competitions import ManagerElo, ManagerFideFics, ManagerMicElo
 from Code.Config import Configuration, WindowConfig, WindowUsuarios
@@ -69,9 +70,10 @@ from Code.QT import SelectFiles
 from Code.QT import WindowLearnGame
 from Code.QT import WindowManualSave
 from Code.QT import WindowPlayGame
-from Code.SingularMoves import WindowSingularM, ManagerSingularM
 from Code.QT import WindowWorkMap
+from Code.QT import WColors
 from Code.Routes import Routes, WindowRoutes, ManagerRoutes
+from Code.SingularMoves import WindowSingularM, ManagerSingularM
 from Code.Sound import WindowSonido
 from Code.Tournaments import WTournaments
 from Code.TrainBMT import WindowBMT
@@ -258,39 +260,6 @@ class Procesador:
             self.board.setToolTip("")
             self.board.activaMenuVisual(True)
             Presentacion.ManagerChallenge101(self)
-
-    # def juegaAplazada(self, aplazamiento):
-    #     self.cpu = CPU.CPU(self.main_window)
-    #
-    #     type_play = aplazamiento["TIPOJUEGO"]
-    #     is_white = aplazamiento["ISWHITE"]
-    #
-    #     if type_play == GT_COMPETITION_WITH_TUTOR:
-    #         categoria = self.configuration.rival.categorias.segun_clave(aplazamiento["CATEGORIA"])
-    #         nivel = aplazamiento["LEVEL"]
-    #         puntos = aplazamiento["PUNTOS"]
-    #         self.manager = ManagerCompeticion.ManagerCompeticion(self)
-    #         self.manager.start(categoria, nivel, is_white, puntos, aplazamiento)
-    #     elif type_play == GT_AGAINST_ENGINE:
-    #         if aplazamiento["MODO"] == "Basic":
-    #             self.entrenaMaquina(aplazamiento)
-    #         else:
-    #             self.playPersonAplazada(aplazamiento)
-    #     elif type_play == GT_ELO:
-    #         self.manager = ManagerElo.ManagerElo(self)
-    #         self.manager.start(aplazamiento)
-    #     elif type_play == GT_MICELO:
-    #         self.manager = ManagerMicElo.ManagerMicElo(self)
-    #         self.manager.start(None, 0, 0, aplazamiento)
-    #     elif type_play == GT_ALBUM:
-    #         self.manager = ManagerAlbum.ManagerAlbum(self)
-    #         self.manager.start(None, None, aplazamiento)
-    #     elif type_play == GT_AGAINST_PGN:
-    #         self.read_pgn(sys.argv[1])
-    #     elif type_play in (GT_FICS, GT_FIDE, GT_LICHESS):
-    #         self.manager = ManagerFideFics.ManagerFideFics(self)
-    #         self.manager.selecciona(type_play)
-    #         self.manager.start(aplazamiento["IDGAME"], aplazamiento=aplazamiento)
 
     def XTutor(self):
         if self.xtutor is None or not self.xtutor.activo:
@@ -552,6 +521,9 @@ class Procesador:
         elif key == TB_ADJOURNMENTS:
             self.Adjournments()
 
+        elif key == TB_REPLAY:
+            self.manager.replay_direct()
+
     def Adjournments(self):
         menu = QTVarios.LCMenu(self.main_window)
         li_Adjournments = Adjournments.Adjournments().list_menu()
@@ -674,11 +646,12 @@ class Procesador:
             self.reiniciar()
 
     def editColoresBoard(self):
-        w = WindowColors.WColores(self.board)
+        w = WBoardColors.WBoardColors(self.board)
         w.exec_()
 
     def cambiaColores(self):
-        if WindowColors.cambiaColores(self.main_window, self.configuration):
+        w = WColors.WColors(self)
+        if w.exec_():
             self.reiniciar()
 
     def sonidos(self):
@@ -821,7 +794,7 @@ class Procesador:
 
     def openings_training_static(self, pathFichero):
         dbop = OpeningLines.Opening(pathFichero)
-        num_linea = WindowOpeningLines.selectLine(self, dbop)
+        num_linea = WindowOpeningLines.select_static_line(self, dbop)
         dbop.close()
         if num_linea is not None:
             self.manager = ManagerOPLStatic.ManagerOpeningLinesStatic(self)
@@ -987,6 +960,13 @@ class Procesador:
                 db.close()
                 dlTmp.close()
 
+            db = DBgames.DBgames(file_db)
+            if db.all_reccount() == 1:
+                game = db.read_game_recno(0)
+                db.close()
+                return game
+            db.close()
+
             w = WindowDatabase.WBDatabase(self.main_window, self, file_db, True, True)
             if w.exec_():
                 return w.game
@@ -1037,7 +1017,7 @@ class Procesador:
         if resp:
             orden, book = resp
             if orden == "x":
-                if QTUtil2.pregunta(self.main_window, _("Do you want to delete %s?") % book.name):
+                if QTUtil2.pregunta(self.main_window, _("Are you sure you want to remove %s?") % book.name):
                     list_books.borra(book)
                     list_books.save_pickle(self.configuration.file_books)
             elif orden == "n":

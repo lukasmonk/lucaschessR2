@@ -34,7 +34,6 @@ import os
 
 from PySide2 import QtCore, QtGui, QtWidgets
 
-import Code
 from Code import Util
 from Code.QT import Colocacion
 from Code.QT import Controles
@@ -784,7 +783,6 @@ class FormTabWidget(QtWidgets.QWidget):
         super(FormTabWidget, self).__init__(parent)
         layout = Colocacion.V()
         self.tabwidget = QtWidgets.QTabWidget()
-        self.tabwidget.setFont(Controles.TipoLetra(puntos=Code.configuration.x_pgn_fontpoints))
         layout.control(self.tabwidget)
         self.setLayout(layout)
         self.widgetlist = []

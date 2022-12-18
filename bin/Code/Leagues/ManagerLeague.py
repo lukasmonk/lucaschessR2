@@ -376,12 +376,12 @@ class ManagerLeague(Manager.Manager):
         siRival = is_white == self.is_engine_side_white
 
         if siRival:
-            self.juegaRival(is_white)
+            self.play_rival(is_white)
 
         else:
-            self.juegaHumano(is_white)
+            self.play_human(is_white)
 
-    def juegaHumano(self, is_white):
+    def play_human(self, is_white):
         self.start_clock(True)
         self.human_is_playing = True
         last_position = self.game.last_position
@@ -405,7 +405,7 @@ class ManagerLeague(Manager.Manager):
 
         self.activate_side(is_white)
 
-    def juegaRival(self, is_white):
+    def play_rival(self, is_white):
         self.board.remove_arrows()
         self.start_clock(False)
         self.human_is_playing = False
@@ -425,9 +425,9 @@ class ManagerLeague(Manager.Manager):
         self.xrival.play_time_routine(self.game, self.main_window.notify, seconds_white, seconds_black, seconds_move)
 
     def mueve_rival_base(self):
-        self.play_rival(self.main_window.dato_notify)
+        self.rival_has_moved(self.main_window.dato_notify)
 
-    def play_rival(self, rm_rival):
+    def rival_has_moved(self, rm_rival):
         self.rival_is_thinking = False
         time_s = self.stop_clock(False)
         self.thinking(False)
@@ -529,11 +529,19 @@ class ManagerLeague(Manager.Manager):
             self.tc_black.set_labels()
 
     def check_draw_resign(self):
+        all_zero = True
+        for rm in self.lirm_engine:
+            if rm.centipawns_abs() != 0:
+                all_zero = False
+                break
+        if all_zero:
+            return True
+
         if len(self.game) < 50 or len(self.lirm_engine) <= 5:
             return True
         if self.next_test_resign:  # includes test draw
             self.next_test_resign -= 1
-            return
+            return True
 
         b = random.random() ** 0.33
 
@@ -541,7 +549,10 @@ class ManagerLeague(Manager.Manager):
         if self.league.resign > 0:
             si_resign = True
             for n, rm in enumerate(self.lirm_engine[-5:]):
-                if int(rm.centipawns_abs() * b) > self.league.resign:
+                if rm.centipawns_abs() >= -100:
+                    si_resign = False
+                    break
+                if int(-rm.centipawns_abs() * b) < self.league.resign:
                     si_resign = False
                     break
             if si_resign:
@@ -555,12 +566,12 @@ class ManagerLeague(Manager.Manager):
                     self.next_test_resign = 9
                     return True
 
-        # # Draw
+        # Draw
         if (self.league.draw_min_ply > 0) and (len(self.game) >= self.league.draw_min_ply):
             si_draw = True
             for rm in self.lirm_engine[-5:]:
                 pts = rm.centipawns_abs()
-                if (not (-250 < int(pts * b) < -100)) or pts < -250:
+                if pts > -100 or pts < -250:
                     si_draw = False
                     break
             if si_draw:

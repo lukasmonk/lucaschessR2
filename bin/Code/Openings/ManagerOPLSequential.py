@@ -156,7 +156,7 @@ class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
 
         self.state = ST_ENDGAME
         self.calc_totalTiempo()
-        is_finished = self.num_linea + 1 >= len(self.liGames) and sinError
+        is_finished = self.num_linea + 1 >= len(self.liGames) and sinError and is_complete
         self.muestraInformacion()
         if is_finished:
             QTUtil2.message(
@@ -253,7 +253,7 @@ class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
             self.rm_rival.to_sq = pv[2:4]
             self.rm_rival.promotion = pv[4:]
 
-            self.play_rival(self.rm_rival)
+            self.rival_has_moved(self.rm_rival)
             self.play_next_move()
 
         else:
@@ -295,7 +295,7 @@ class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
         self.play_next_move()
         return True
 
-    def play_rival(self, engine_response):
+    def rival_has_moved(self, engine_response):
         from_sq = engine_response.from_sq
         to_sq = engine_response.to_sq
 

@@ -70,7 +70,9 @@ class CircleSC(BoardBlocks.BloqueEspSC):
         hc = f(physical_pos.x + physical_pos.ancho)
         hf = f(physical_pos.y + physical_pos.alto)
 
-        bien = lambda fc: (fc < 9) and (fc > 0)
+        def bien(fc):
+            return (fc < 9) and (fc > 0)
+
         if bien(dc) and bien(df) and bien(hc) and bien(hf):
             bm.a1h8 = self.board.fc_a1h8(df, dc, hf, hc)
 
@@ -265,6 +267,15 @@ class CircleSC(BoardBlocks.BloqueEspSC):
                 painter.setBrush(color)
 
         painter.drawEllipse(self.rect)
+
+        if self.siActivo:
+            pen = QtGui.QPen()
+            pen.setColor(QtGui.QColor("blue"))
+            pen.setWidth(2)
+            pen.setStyle(QtCore.Qt.DashLine)
+            painter.setPen(pen)
+            painter.setBrush(QtGui.QBrush())
+            painter.drawRect(self.rect)
 
     def boundingRect(self):
         x = self.bloqueDatos.grosor

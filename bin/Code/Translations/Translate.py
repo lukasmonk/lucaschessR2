@@ -5,7 +5,6 @@ import os
 import polib
 
 import Code
-from Code.Openings import OpeningsStd
 
 
 class Translations:
@@ -105,4 +104,3 @@ class Translations:
 def install(lang):
     if Code.translations is None or Code.translations.lang != lang:
         Code.translations = Translations(lang)
-        OpeningsStd.ap.translate()

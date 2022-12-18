@@ -76,17 +76,16 @@ class WOpeningLines(LCDialog.LCDialog):
         )
         self.tbtrain = tbtrain = Controles.TBrutina(self, li_acciones, with_text=False)
 
-        lbtrain = Controles.LB(self, _("Trainings")).align_center().set_background("lightgray")
+        lbtrain = Controles.LB(self, _("Trainings")).align_center()
+        lbtrain.setStyleSheet("*{border: 1px solid #bababa;}")
         lytrain = Colocacion.V().control(lbtrain).control(tbtrain).margen(0)
         self.wtrain = QtWidgets.QWidget()
         self.wtrain.setLayout(lytrain)
 
         lytb = Colocacion.H().control(tb).control(self.wtrain).margen(0)
         wtb = QtWidgets.QWidget()
-        wtb.setFixedHeight(62)
+        wtb.setFixedHeight(66)
         wtb.setLayout(lytb)
-
-        # Colocamos
 
         ly = Colocacion.V().control(wtb).control(self.glista).margen(4)
 
@@ -407,7 +406,7 @@ class WStaticTraining(LCDialog.LCDialog):
             self.accept()
 
 
-def selectLine(procesador, dbop):
+def select_static_line(procesador, dbop):
     w = WStaticTraining(procesador, dbop)
     w.exec_()
     return w.seleccionado
@@ -416,3 +415,31 @@ def selectLine(procesador, dbop):
 def openingLines(procesador):
     w = WOpeningLines(procesador)
     return w.resultado if w.exec_() else None
+
+
+def select_line(owner):
+    path = Code.configuration.folder_base_openings
+    is_openings = False
+    entry: os.DirEntry
+    menu = QTVarios.LCMenuRondo(owner)
+    for entry in os.scandir(path):
+        if entry.is_dir():
+            path_ini = os.path.join(entry.path, "openinglines.pk")
+            lista = Util.restore_pickle(path_ini, [])
+            if lista:
+                is_openings = True
+                submenu = menu.submenu(entry.name, Iconos.FolderAnil())
+                for dic in lista:
+                    dic["folder"] = entry.name
+                    submenu.opcion(dic, dic["title"])
+
+    path_ini = os.path.join(path, "openinglines.pk")
+    lista = Util.restore_pickle(path_ini, [])
+    if lista:
+        is_openings = True
+        for dic in lista:
+            menu.opcion(dic, dic["title"])
+    if is_openings:
+        return menu.lanza()
+
+    return None

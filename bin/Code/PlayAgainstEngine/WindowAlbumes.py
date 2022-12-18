@@ -12,6 +12,7 @@ class WAlbum(LCDialog.LCDialog):
 
         self.album = album
         titulo = album.name
+
         LCDialog.LCDialog.__init__(self, wowner, titulo, album.icono(), "albumes")
 
         self.configuration = procesador.configuration

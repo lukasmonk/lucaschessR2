@@ -22,17 +22,17 @@ from Code.QT import FormLayout
 from Code.QT import Grid
 from Code.QT import GridEditCols
 from Code.QT import Iconos
+from Code.QT import LCDialog
 from Code.QT import QTUtil
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
 from Code.QT import SelectFiles
-from Code.QT import WindowPlayGame
 from Code.QT import WindowLearnGame
+from Code.QT import WindowPlayGame
 from Code.QT import WindowSavePGN
 from Code.SQL import UtilSQL
 from Code.Themes import WDB_Theme_Analysis
 from Code.Translations import TrListas
-from Code.QT import LCDialog
 
 
 class WGames(QtWidgets.QWidget):
@@ -69,6 +69,8 @@ class WGames(QtWidgets.QWidget):
         self.grid.set_tooltip_header(
             _("For a numerical sort, press Ctrl (Alt or Shift) while double-clicking on the header.")
         )
+        # f = Controles.TipoLetra(puntos=self.configuration.x_font_points)
+        # self.grid.setFont(f)
 
         # Status bar
         self.status = QtWidgets.QStatusBar(self)
@@ -250,7 +252,18 @@ class WGames(QtWidgets.QWidget):
                 if recs:
                     txt += "%s: %d" % (_("Games"), recs)
             if self.where:
-                txt += " | %s: %s" % (_("Filter"), self.where)
+                where = self.where
+                wxpv = 'XPV LIKE "'
+                while wxpv in where:
+                    pos = where.index(wxpv)
+                    otro = where[pos + len(wxpv):]
+                    pos_apos = otro.index('"')
+                    xpv = otro[: pos_apos - 1]
+                    g = Game.Game()
+                    g.read_xpv(xpv)
+                    pgn = g.pgnBaseRAW(translated=True)
+                    where = where[:pos] + pgn + where[pos + len(wxpv) + pos_apos + 1:]
+                txt += " | %s: %s" % (_("Filter"), where)
             if siPte:
                 QtCore.QTimer.singleShot(1000, self.updateStatus)
 
@@ -732,6 +745,8 @@ class WGames(QtWidgets.QWidget):
         if w.exec_():
             dic_cambios = w.dic_cambios
 
+            um = QTUtil2.unMomento(self, _("Working..."))
+
             dcabs = self.dbGames.read_config("dcabs", {})
             reinit = False
 
@@ -747,6 +762,15 @@ class WGames(QtWidgets.QWidget):
                 li_field_value.append((dic["KEY"], dic["VALUE"]))
             if li_field_value:
                 self.dbGames.fill(li_field_value)
+
+            # Segundo FILL_PGN
+            li_fill_pgn = []
+            for dic in dic_cambios["FILL_PGN"]:
+                li_fill_pgn.append(dic["KEY"])
+            if li_fill_pgn:
+                for key in li_fill_pgn:
+                    um.label("%s: %s" % (key, w.fill_pgn))
+                    self.dbGames.fill_pgn(key)
 
             # Tercero RENAME_LBL
             for dic in dic_cambios["RENAME"]:
@@ -770,6 +794,8 @@ class WGames(QtWidgets.QWidget):
             else:
                 self.dbGames.reset_cache()
                 self.grid.refresh()
+
+            um.final()
 
     def tw_edit_columns(self):
         w = GridEditCols.EditCols(self.grid, self.configuration, "columns_database")
@@ -1342,7 +1368,7 @@ class WOptionsDatabase(QtWidgets.QDialog):
 
         link_file = d_str("LINK_FILE")
         folder = os.path.dirname(Util.relative_path(link_file))
-        folder = folder[len(configuration.folder_databases()) :]
+        folder = folder[len(configuration.folder_databases()):]
         if folder.strip():
             folder = folder.strip(os.sep)
             li = folder.split(os.sep)
@@ -1394,7 +1420,7 @@ class WOptionsDatabase(QtWidgets.QDialog):
             .relleno(1)
         )
 
-        x1 = -8
+        x1 = -2
         ly_group = Colocacion.V().otro(ly_group).espacio(x1).otro(ly_subgroup_l1).espacio(x1).otro(ly_subgroup_l2)
 
         gb_group = Controles.GB(self, "%s (%s)" % (_("Group"), _("optional")), ly_group)
@@ -1609,9 +1635,10 @@ class WTags(LCDialog.LCDialog):
         )
 
         self.fill_column = _("Fill column with value")
+        self.fill_pgn = _("Fill column with PGN")
         self.remove_column = _("Remove column")
         self.nothing = "-"
-        self.li_actions = [self.nothing, self.fill_column, self.remove_column]
+        self.li_actions = [self.nothing, self.fill_column, self.fill_pgn, self.remove_column]
         o_columns.nueva("ACTION", _("Action"), 80, align_center=True, edicion=Delegados.ComboBox(self.li_actions))
         o_columns.nueva("VALUE", self.fill_column, 200, edicion=Delegados.LineaTextoUTF8())
         self.gtags = Grid.Grid(self, o_columns, is_editable=True)
@@ -1667,7 +1694,7 @@ class WTags(LCDialog.LCDialog):
         self.gtags.refresh()
 
     def aceptar(self):
-        dic_cambios = {"CREATE": [], "RENAME": [], "FILL": [], "REMOVE": []}
+        dic_cambios = {"CREATE": [], "RENAME": [], "FILL": [], "REMOVE": [], "FILL_PGN": []}
         for dic in self.li_data:
             if dic["NEW"]:
                 key = dic["KEY"]
@@ -1680,6 +1707,8 @@ class WTags(LCDialog.LCDialog):
                 dic_cambios["REMOVE"].append(dic)
             elif dic["ACTION"] == self.fill_column:
                 dic_cambios["FILL"].append(dic)
+            elif dic["ACTION"] == self.fill_pgn:
+                dic_cambios["FILL_PGN"].append(dic)
 
         self.dic_cambios = dic_cambios
         self.accept()

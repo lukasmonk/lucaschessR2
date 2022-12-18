@@ -265,7 +265,7 @@ class ManagerCompeticion(Manager.Manager):
 
             self.thinking(False)
 
-            if self.play_rival(self.rm_rival):
+            if self.rival_has_moved(self.rm_rival):
                 self.play_next_move()
         else:
             self.human_is_playing = True
@@ -395,7 +395,7 @@ class ManagerCompeticion(Manager.Manager):
         self.pgnRefresh(self.game.last_position.is_white)
         self.refresh()
 
-    def play_rival(self, engine_response):
+    def rival_has_moved(self, engine_response):
         from_sq = engine_response.from_sq
         to_sq = engine_response.to_sq
 

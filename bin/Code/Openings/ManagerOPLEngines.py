@@ -165,14 +165,14 @@ class ManagerOpeningEngines(Manager.Manager):
         if not self.runcontrol():
             if siRival:
                 self.disable_all()
-                if self.play_rival():
+                if self.rival_has_moved():
                     self.play_next_move()
 
             else:
                 self.activate_side(is_white)
                 self.human_is_playing = True
 
-    def play_rival(self):
+    def rival_has_moved(self):
         si_obligatorio = len(self.game) <= self.plies_mandatory
         si_pensar = True
         fenm2 = self.game.last_position.fenm2()

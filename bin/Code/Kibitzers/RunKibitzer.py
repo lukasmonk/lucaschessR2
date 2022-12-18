@@ -33,7 +33,7 @@ from Code.Kibitzers import WKibStEval
 from Code.Openings import OpeningsStd
 from Code.QT import QTUtil
 from Code.SQL import UtilSQL
-
+from Code.MainWindow import InitApp
 
 class Orden:
     def __init__(self):
@@ -135,9 +135,7 @@ class CPU:
 
     def lanzaVentana(self):
         app = QtWidgets.QApplication([])
-
-        app.setStyle(QtWidgets.QStyleFactory.create(self.configuration.x_style))
-        QtWidgets.QApplication.setPalette(QtWidgets.QApplication.style().standardPalette())
+        InitApp.init_app_style(app, self.configuration)
 
         self.configuration.load_translation()
 

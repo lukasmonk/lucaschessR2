@@ -21,6 +21,7 @@ from Code.Base.Constantes import (
     TB_PGN_LABELS,
     TB_SAVE_AS,
     TB_UTILITIES,
+    TB_REPLAY,
     ADJUST_BETTER,
 )
 from Code.Openings import WindowOpenings
@@ -159,13 +160,21 @@ class ManagerSolo(Manager.Manager):
             Manager.Manager.rutinaAccionDef(self, key)
 
     def pon_toolbar(self):
-        li = [TB_CLOSE, TB_FILE, TB_PGN_LABELS, TB_TAKEBACK, TB_HELP_TO_MOVE, TB_REINIT, TB_CONFIG, TB_UTILITIES]
+        li = [
+            TB_CLOSE,
+            TB_FILE,
+            TB_PGN_LABELS,
+            TB_TAKEBACK,
+            TB_HELP_TO_MOVE,
+            TB_REINIT,
+            TB_REPLAY,
+            TB_CONFIG,
+            TB_UTILITIES,
+        ]
         self.set_toolbar(li)
 
     def end_game(self):
         self.board.setAcceptDropPGNs(None)
-
-        # self.main_window.deactivate_eboard(100)
 
         # Comprobamos que no haya habido cambios from_sq el ultimo grabado
         if self.is_changed() and len(self.game):
@@ -221,7 +230,7 @@ class ManagerSolo(Manager.Manager):
         if self.play_against_engine and not self.game.siEstaTerminada():
             self.play_against_engine = False
             self.disable_all()
-            self.juegaRival()
+            self.play_rival()
             self.play_against_engine = True  # Como juega por mi pasa por aqui, para que no se meta en un bucle infinito
 
         self.play_next_move()
@@ -658,6 +667,7 @@ class ManagerSolo(Manager.Manager):
             self.xpgn = None
             self.xjugadaInicial = None
             self.opening_block = None
+            self.board.activate_side(position.is_white)
 
             self.reiniciar()
 
@@ -682,7 +692,7 @@ class ManagerSolo(Manager.Manager):
         except:
             pass
 
-    def juegaRival(self):
+    def play_rival(self):
         if not self.is_finished():
             self.thinking(True)
             rm = self.xrival.play_game(self.game, nAjustado=self.xrival.nAjustarFuerza)
@@ -714,7 +724,7 @@ class ManagerSolo(Manager.Manager):
                 r_t = None
             if r_p <= 0:
                 r_p = None
-            if r_t is None and r_p is None and not dic["SITIEMPO"]:
+            if r_t is None and r_p is None and not dic.get("SITIEMPO", False):
                 r_t = 1000
 
             nAjustarFuerza = dic["ADJUST"]
@@ -729,7 +739,7 @@ class ManagerSolo(Manager.Manager):
             if self.game.last_position.is_white != self.is_human_side_white and not self.game.siEstaTerminada():
                 self.play_against_engine = False
                 self.disable_all()
-                self.juegaRival()
+                self.play_rival()
                 self.play_against_engine = True
 
     def takeback(self):

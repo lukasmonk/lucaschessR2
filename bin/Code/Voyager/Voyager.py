@@ -16,11 +16,11 @@ from Code.QT import Delegados
 from Code.QT import FormLayout
 from Code.QT import Grid
 from Code.QT import Iconos
+from Code.QT import LCDialog
 from Code.QT import QTUtil
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
 from Code.Voyager import Scanner
-from Code.QT import LCDialog
 
 MODO_POSICION, MODO_PARTIDA = range(2)
 
@@ -435,7 +435,7 @@ class WPosicion(QtWidgets.QWidget):
         pos = QTUtil.escondeWindow(self.wparent)
         seguir = True
         if self.chb_scanner_ask.valor() and not QTUtil2.pregunta(
-            None, _("Bring the window to scan to front"), label_yes=_("Accept"), label_no=_("Cancel"), si_top=True
+                None, _("Bring the window to scan to front"), label_yes=_("Accept"), label_no=_("Cancel"), si_top=True
         ):
             seguir = False
         if seguir:
@@ -444,8 +444,14 @@ class WPosicion(QtWidgets.QWidget):
                 self.scanner_init()
                 self.is_scan_init = True
 
+            if Code.configuration.x_enable_highdpiscaling:
+                QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_DisableHighDpiScaling)
+
             sc = Scanner.Scanner(self.configuration.carpetaScanners, fich_png)
             sc.exec_()
+
+            if Code.configuration.x_enable_highdpiscaling:
+                QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
 
             self.vars_scanner.read()
             self.vars_scanner.tolerance = self.sb_scanner_tolerance.valor()  # releemos la variable

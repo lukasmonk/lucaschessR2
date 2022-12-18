@@ -50,9 +50,8 @@ class TabEngine(QtWidgets.QWidget):
         lb_multipv = Controles.LB(self, _("Multi PV") + ": ")
         self.sb_multipv = Controles.SB(self, multipv, 1, 500).tamMaximo(50)
 
-        self.lb_analisis = (
-            Controles.LB(self, "").set_background("#C9D2D7").ponTipoLetra(puntos=configuration.x_pgn_fontpoints)
-        )
+        self.lb_analisis = Controles.LB(self, "").ponTipoLetra(puntos=configuration.x_pgn_fontpoints)
+        self.lb_analisis.setProperty("type", "pgn")
 
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("PDT", "", 120, align_center=True)
@@ -556,9 +555,8 @@ class TabTree(QtWidgets.QWidget):
         self.tree.setHeaderLabels((_("Moves"), _("Opening")))
 
         bt_act = Controles.PB(self, _("Update"), self.bt_update, plano=False).ponIcono(Iconos.Pelicula_Seguir(), 16)
-        self.lb_analisis = (
-            Controles.LB(self, "").set_background("#C9D2D7").ponTipoLetra(puntos=configuration.x_pgn_fontpoints)
-        )
+        self.lb_analisis = Controles.LB(self, "").ponTipoLetra(puntos=configuration.x_pgn_fontpoints)
+        self.lb_analisis.setProperty("type", "pgn")
         ly_act = Colocacion.H().control(bt_act).control(self.lb_analisis).relleno(1)
 
         layout = Colocacion.V().otro(ly_act).control(self.tree)

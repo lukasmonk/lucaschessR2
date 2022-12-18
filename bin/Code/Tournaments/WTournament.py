@@ -261,8 +261,8 @@ class WTournament(LCDialog.LCDialog):
         w = QtWidgets.QWidget()
 
         # Grid
-        wh = _("W.")
-        bl = _("B.")
+        wh = _("W ||White")
+        bl = _("B ||Black")
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("NUM", _("N."), 35, align_center=True)
         o_columns.nueva("ENGINE", _("Engine"), 120, align_center=True)

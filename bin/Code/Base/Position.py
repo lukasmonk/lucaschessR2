@@ -88,7 +88,7 @@ class Position:
         nli = len(li)
         if nli < 6:
             lid = ["w", "-", "-", "0", "1"]
-            li.extend(lid[nli - 1 :])
+            li.extend(lid[nli - 1:])
         position, color, self.castles, self.en_passant, mp, move = li[:6]
 
         self.is_white = color == "w"
@@ -582,7 +582,7 @@ class Position:
         lipos = [k for k, v in self.squares.items() if v]
         d = 0
         for n, a in enumerate(lipos[:-1]):
-            for b in lipos[n + 1 :]:
+            for b in lipos[n + 1:]:
                 d += distancia(a, b)
         return d
 

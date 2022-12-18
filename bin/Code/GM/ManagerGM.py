@@ -256,7 +256,7 @@ class ManagerGM(Manager.Manager):
                         move = li_alternativas[0]
 
             if not siBuscar:
-                self.play_rival(move)
+                self.rival_has_moved(move)
                 self.play_next_move()
                 return
 
@@ -272,7 +272,7 @@ class ManagerGM(Manager.Manager):
             else:
                 move = li_alternativas[0]
 
-            self.play_rival(move)
+            self.rival_has_moved(move)
             self.play_next_move()
 
         else:
@@ -403,7 +403,7 @@ class ManagerGM(Manager.Manager):
             return
         Manager.Manager.analize_position(self, row, key)
 
-    def play_rival(self, move):
+    def rival_has_moved(self, move):
         from_sq = move[:2]
         to_sq = move[2:4]
         promotion = move[4:]

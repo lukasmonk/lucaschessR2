@@ -1,6 +1,7 @@
 import FasterCode
 from PySide2 import QtWidgets, QtCore
 
+import Code
 from Code.Base import Game
 from Code.Openings import OpeningsStd
 from Code.QT import Colocacion
@@ -10,7 +11,6 @@ from Code.QT import Delegados
 from Code.QT import FormLayout
 from Code.QT import Grid
 from Code.QT import Iconos
-from Code.QT import QTUtil
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
 
@@ -106,6 +106,7 @@ class WPlayer(QtWidgets.QWidget):
         self.movesBlack = []
         self.lastFilterMoves = {"white": "", "black": ""}
         self.configuration = procesador.configuration
+        self.foreground = Code.dic_qcolors["SUMMARY_FOREGROUND"]
 
         self.infoMove = None  # <-- setInfoMove
 
@@ -163,7 +164,9 @@ class WPlayer(QtWidgets.QWidget):
             )
 
         self.gridMovesWhite = Grid.Grid(self, o_columns, siSelecFilas=True)
+        self.gridMovesWhite.tipoLetra(puntos=self.configuration.x_pgn_fontpoints)
         self.gridMovesBlack = Grid.Grid(self, o_columns, siSelecFilas=True)
+        self.gridMovesBlack.tipoLetra(puntos=self.configuration.x_pgn_fontpoints)
 
         wWhite = QtWidgets.QWidget(self)
         tbmovesw = ToolbarMoves("white", self.dispatchMoves)
@@ -183,6 +186,8 @@ class WPlayer(QtWidgets.QWidget):
 
         # ToolBar
         liAccionesWork = [
+            (_("Close"), Iconos.MainMenu(), wb_database.tw_terminar),
+            None,
             ("", Iconos.Usuarios(), self.tw_changeplayer),
             None,
             (_("Rebuild"), Iconos.Reindexar(), self.tw_rebuild),
@@ -196,11 +201,6 @@ class WPlayer(QtWidgets.QWidget):
         layout = Colocacion.V().otro(lyTB).control(tabs).margen(1)
 
         self.setLayout(layout)
-        self.qtColor = (
-            QTUtil.qtColorRGB(221, 255, 221),
-            QTUtil.qtColorRGB(247, 247, 247),
-            QTUtil.qtColorRGB(255, 217, 217),
-        )
 
         self.setdbGames(dbGames)
         self.setPlayer(self.leeVariable("PLAYER", ""))
@@ -219,9 +219,9 @@ class WPlayer(QtWidgets.QWidget):
                 n
                 for n in range(len(dataSide))
                 if not dataSide[n]["pv"].startswith("e2e4")
-                and not dataSide[n]["pv"].startswith("d2d4")
-                and not dataSide[n]["pv"].startswith("c2c4")
-                and not dataSide[n]["pv"].startswith("g1f3")
+                   and not dataSide[n]["pv"].startswith("d2d4")
+                   and not dataSide[n]["pv"].startswith("c2c4")
+                   and not dataSide[n]["pv"].startswith("g1f3")
             ]
 
         else:  # if opcion.startswith("p"):
@@ -251,7 +251,7 @@ class WPlayer(QtWidgets.QWidget):
     def setPlayer(self, player):
         self.player = player
         self.data = [[], [], [], []]
-        accion = self.tbWork.li_acciones[0]
+        accion = self.tbWork.li_acciones[1]
         accion.setIconText(self.player if self.player else _("Player"))
 
         self.gridOpeningWhite.refresh()
@@ -322,8 +322,19 @@ class WPlayer(QtWidgets.QWidget):
         elif grid == self.gridMovesBlack:
             nfila = self.movesBlack[nfila]
         key = ocol.key + "c"
-        color = dt[nfila].get(key)
-        return self.qtColor[color] if color is not None else None
+        color = dt[nfila].get(key, 99)
+        if color == 0:
+            return Code.dic_qcolors["SUMMARY_WIN"]
+        if color == 2:
+            return Code.dic_qcolors["SUMMARY_LOST"]
+
+    def grid_color_texto(self, grid, nfila, ocol):
+        dt = self.dataGrid(grid)
+        if dt and self.foreground:
+            key = ocol.key + "c"
+            color = dt[nfila].get(key)
+            if color:
+                return self.foreground
 
     def grid_tecla_control(self, grid, k, is_shift, is_control, is_alt):
         if k in (QtCore.Qt.Key_Left, QtCore.Qt.Key_Right):

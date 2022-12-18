@@ -12,6 +12,7 @@ from Code.Analysis import AnalysisEval
 from Code.Base.Constantes import MENU_PLAY_BOTH, POS_TUTOR_HORIZONTAL, INACCURACY, ENG_FIXED
 from Code.Board import ConfBoards
 from Code.Engines import Priorities
+from Code.QT import IconosBase
 from Code.QT import QTUtil
 from Code.SQL import UtilSQL
 from Code.Translations import Translate, TrListas
@@ -117,7 +118,7 @@ class Configuration:
         self.x_save_pgn_folder = ""
         self.x_save_lcsb = ""
         self.x_translator = ""
-        self.x_style = "WindowsVista" if Code.is_windows else "Fusion"
+        self.x_style = "fusion"
 
         self.x_enable_highdpiscaling = False
 
@@ -150,13 +151,7 @@ class Configuration:
         self.x_director_icon = False
         self.x_direct_graphics = False
 
-        self.colores_nags_defecto()
-
         self.x_sizefont_infolabels = 11
-
-        self.x_pgn_selbackground = None
-        self.x_pgn_selforeground = None
-        self.x_pgn_headerbackground = None
 
         self.x_pgn_width = 348
         self.x_pgn_fontpoints = 10
@@ -170,11 +165,12 @@ class Configuration:
         self.x_copy_ctrl = True  # False = Alt C
 
         self.x_font_family = ""
+        self.x_font_points = 10
 
-        self.x_menu_points = 11
+        self.x_menu_points = 10
         self.x_menu_bold = False
 
-        self.x_tb_fontpoints = 11
+        self.x_tb_fontpoints = 10
         self.x_tb_bold = False
         self.x_tb_icons = toolbutton_int(Qt.ToolButtonTextUnderIcon)
 
@@ -234,6 +230,7 @@ class Configuration:
         self.x_sound_tournements = False
 
         self.x_interval_replay = 1400
+        self.x_beep_replay = False
 
         self.x_engine_notbackground = False
 
@@ -256,7 +253,8 @@ class Configuration:
 
         self.x_translation_mode = False
 
-        self.x_mode_select_lc = Code.is_linux
+        self.x_style_mode = "Light"
+        self.x_style_icons = IconosBase.icons.NORMAL
 
     def read_eval(self):
         d = {}
@@ -310,15 +308,6 @@ class Configuration:
 
     def nom_player(self):
         return _("Player") if not self.x_player else self.x_player
-
-    def pgn_selbackground(self):
-        return self.x_pgn_selbackground if self.x_pgn_selbackground else "#6287a8"
-
-    def pgn_selforeground(self):
-        return self.x_pgn_selforeground if self.x_pgn_selforeground else "#f0f0f0"
-
-    def pgn_headerbackground(self):
-        return self.x_pgn_headerbackground if self.x_pgn_headerbackground else "#EDEDE4"
 
     def carpeta_gaviota_defecto(self):
         return Code.path_resource("Gaviota")
@@ -530,6 +519,9 @@ class Configuration:
         self.folder_base_openings = os.path.join(self.carpeta, "OpeningLines")
         Util.create_folder(self.folder_base_openings)
 
+    def file_colors(self):
+        return os.path.join(self.carpeta_config, "personal.colors")
+
     def compruebaBMT(self):
         if not Util.exist_file(self.ficheroBMT):
             self.ficheroBMT = "%s/lucas.bmt" % self.carpeta_results
@@ -621,14 +613,6 @@ class Configuration:
         li = [(x, x) for x in QtWidgets.QStyleFactory.keys()]
         return li
 
-    def colores_nags_defecto(self):
-        self.x_color_nag1 = "#0707FF"
-        self.x_color_nag2 = "#FF7F00"
-        self.x_color_nag3 = "#820082"
-        self.x_color_nag4 = "#FF0606"
-        self.x_color_nag5 = "#008500"
-        self.x_color_nag6 = "#BD9F07"
-
     def graba(self):
         dic = {}
         for x in dir(self):
@@ -658,6 +642,8 @@ class Configuration:
         TrListas.ponPiecesLNG(self.x_pgn_english or self.translator() == "en")
 
         Code.analysis_eval = AnalysisEval.AnalysisEval()
+
+        IconosBase.icons.reset(self.x_style_icons)
 
     def get_last_database(self):
         dic = self.read_variables("DATABASE")
@@ -798,8 +784,10 @@ class Configuration:
         if self.x_tutor_clave in self.dic_engines:
             eng = self.dic_engines[self.x_tutor_clave]
             if eng.can_be_tutor() and Util.exist_file(eng.path_exe):
+                eng.reset_uci_options()
                 dic = self.read_variables("TUTOR_ANALYZER")
-                eng.liUCI = dic.get("TUTOR", [])
+                for key, value in dic.get("TUTOR", []):
+                    eng.ordenUCI(key, value)
                 return eng
         self.x_tutor_clave = self.tutor_default
         return self.engine_tutor()
@@ -808,8 +796,10 @@ class Configuration:
         if self.x_analyzer_clave in self.dic_engines:
             eng = self.dic_engines[self.x_analyzer_clave]
             if eng.can_be_tutor() and Util.exist_file(eng.path_exe):
+                eng.reset_uci_options()
                 dic = self.read_variables("TUTOR_ANALYZER")
-                eng.liUCI = dic.get("ANALYZER", [])
+                for key, value in dic.get("TUTOR", []):
+                    eng.ordenUCI(key, value)
                 return eng
         self.x_analyzer_clave = self.analyzer_default
         return self.engine_analyzer()
@@ -842,9 +832,8 @@ class Configuration:
             pass
 
     def read_variables(self, nomVar):
-        db = UtilSQL.DictSQL(self.ficheroVariables)
-        resp = db[nomVar]
-        db.close()
+        with UtilSQL.DictSQL(self.ficheroVariables) as db:
+            resp = db[nomVar]
         return resp if resp else {}
 
         # "DicMicElos": Tourney-Elo")
@@ -870,9 +859,8 @@ class Configuration:
         # "PATH_PO"
 
     def write_variables(self, nomVar, dicValores):
-        db = UtilSQL.DictSQL(self.ficheroVariables)
-        db[nomVar] = dicValores
-        db.close()
+        with UtilSQL.DictSQL(self.ficheroVariables) as db:
+            db[nomVar] = dicValores
 
     def leeConfBoards(self):
         db = UtilSQL.DictSQL(self.ficheroConfBoards)

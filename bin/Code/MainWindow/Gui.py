@@ -5,6 +5,7 @@ from PySide2 import QtCore, QtGui, QtWidgets
 
 import Code
 from Code.Config import Configuration, Usuarios
+from Code.MainWindow import InitApp
 from Code.QT import Colocacion
 from Code.QT import Controles
 from Code.QT import Iconos
@@ -18,6 +19,7 @@ def run_gui(procesador):
     if main_config.x_enable_highdpiscaling:
         QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
         QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps)
+    QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_UseStyleSheetPropagationInWidgetStyles, True)
 
     app = QtWidgets.QApplication([])
 
@@ -103,77 +105,7 @@ def run_gui(procesador):
             configuration.graba()
             configuration.load_translation()
 
-    # Estilo
-    # https://github.com/gmarull/qtmodern/blob/master/qtmodern/styles.py
-    # https://stackoverflow.com/questions/15035767/is-the-qt-5-dark-fusion-theme-available-for-windows
-    # darkPalette.setColor(QPalette.Window, QColor(53, 53, 53))
-    # darkPalette.setColor(QPalette.WindowText, QColor(180, 180, 180))
-    # darkPalette.setColor(QPalette.Base, QColor(42, 42, 42))
-    # darkPalette.setColor(QPalette.Text, QColor(180, 180, 180))
-    # darkPalette.setColor(QPalette.AlternateBase, QColor(66, 66, 66))
-    # darkPalette.setColor(QPalette.ToolTipBase, QColor(53, 53, 53))
-    # darkPalette.setColor(QPalette.ToolTipText, QColor(180, 180, 180))
-    # darkPalette.setColor(QPalette.Button, QColor(53, 53, 53))
-    # darkPalette.setColor(QPalette.ButtonText, QColor(180, 180, 180))
-    # darkPalette.setColor(QPalette.BrightText, QColor(180, 180, 180))
-    # darkPalette.setColor(QPalette.Link, QColor(56, 252, 196))
-    #
-    # darkPalette.setColor(QPalette.Light, QColor(180, 180, 180))
-    # darkPalette.setColor(QPalette.Midlight, QColor(90, 90, 90))
-    # darkPalette.setColor(QPalette.Dark, QColor(35, 35, 35))
-    # darkPalette.setColor(QPalette.Shadow, QColor(20, 20, 20))
-    # darkPalette.setColor(QPalette.Highlight, QColor(42, 130, 218))
-    # darkPalette.setColor(QPalette.HighlightedText, QColor(180, 180, 180))
-    #
-    # # disabled
-    # darkPalette.setColor(QPalette.Disabled, QPalette.WindowText,
-    #                      QColor(127, 127, 127))
-    # darkPalette.setColor(QPalette.Disabled, QPalette.Text,
-    #                      QColor(127, 127, 127))
-    # darkPalette.setColor(QPalette.Disabled, QPalette.ButtonText,
-    #                      QColor(127, 127, 127))
-    # darkPalette.setColor(QPalette.Disabled, QPalette.Highlight,
-    #                      QColor(80, 80, 80))
-    # darkPalette.setColor(QPalette.Disabled, QPalette.HighlightedText,
-    #                      QColor(127, 127, 127))
-
-    # with open("../Templates/Incrypt/Incrypt.qss") as qss: # https://qss-stock.devsecstudio.com/templates.php
-    #     app.setStyleSheet(qss.read())
-    app.setStyle(QtWidgets.QStyleFactory.create(configuration.x_style))
-    #
-    if configuration.palette:
-        qpalette = QtGui.QPalette()
-        palette = configuration.palette
-        # palette = palette_dark = {'Window': '#353535', 'WindowText': '#b4b4b4', 'Base': '#2a2a2a', 'Text': '#b4b4b4', 'AlternateBase': '#424242',
-        #  'ToolTipBase': '#353535', 'ToolTipText': '#b4b4b4', 'Button': '#353535', 'ButtonText': '#b4b4b4', 'BrightText': '#b4b4b4',
-        #  'Link': '#38fcc4'}
-
-        for key, tp in (
-            (QtGui.QPalette.Window, "Window"),
-            (QtGui.QPalette.WindowText, "WindowText"),
-            (QtGui.QPalette.Base, "Base"),
-            (QtGui.QPalette.Text, "Text"),
-            (QtGui.QPalette.AlternateBase, "AlternateBase"),
-            (QtGui.QPalette.ToolTipBase, "ToolTipBase"),
-            (QtGui.QPalette.ToolTipText, "ToolTipText"),
-            (QtGui.QPalette.Button, "Button"),
-            (QtGui.QPalette.ButtonText, "ButtonText"),
-            (QtGui.QPalette.BrightText, "BrightText"),
-            (QtGui.QPalette.Link, "Link"),
-        ):
-            qpalette.setColor(key, QtGui.QColor(palette[tp]))
-    else:
-        qpalette = QtWidgets.QApplication.style().standardPalette()
-
-    app.setPalette(qpalette)
-
-    app.setEffectEnabled(QtCore.Qt.UI_AnimateMenu)
-
-    QtGui.QFontDatabase.addApplicationFont(Code.path_resource("IntFiles", "ChessAlpha2.ttf"))
-
-    if configuration.x_font_family:
-        font = Controles.TipoLetra(configuration.x_font_family)
-        app.setFont(font)
+    InitApp.init_app_style(app, configuration)
 
     Code.gc = QTUtil.GarbageCollector()
 
@@ -185,7 +117,7 @@ def run_gui(procesador):
 
 
 class WPassword(QtWidgets.QDialog):
-    def __init__(self, liUsuarios):
+    def __init__(self, li_usuarios):
         QtWidgets.QDialog.__init__(self, None)
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Dialog | QtCore.Qt.WindowTitleHint)
 
@@ -194,21 +126,21 @@ class WPassword(QtWidgets.QDialog):
 
         self.setFont(Controles.TipoLetra(puntos=14))
 
-        self.liUsuarios = liUsuarios
+        self.liUsuarios = li_usuarios
 
-        li_options = [(usuario.name, nusuario) for nusuario, usuario in enumerate(liUsuarios)]
-        lbU = Controles.LB(self, _("User") + ":")
-        self.cbU = Controles.CB(self, li_options, liUsuarios[0])
+        li_options = [(usuario.name, nusuario) for nusuario, usuario in enumerate(li_usuarios)]
+        lb_u = Controles.LB(self, _("User") + ":")
+        self.cbU = Controles.CB(self, li_options, li_usuarios[0])
 
-        lbP = Controles.LB(self, _("Password") + ":")
+        lb_p = Controles.LB(self, _("Password") + ":")
         self.edP = Controles.ED(self).password()
 
         btaceptar = Controles.PB(self, _("Accept"), rutina=self.accept, plano=False)
         btcancelar = Controles.PB(self, _("Cancel"), rutina=self.reject, plano=False)
 
         ly = Colocacion.G()
-        ly.controld(lbU, 0, 0).control(self.cbU, 0, 1)
-        ly.controld(lbP, 1, 0).control(self.edP, 1, 1)
+        ly.controld(lb_u, 0, 0).control(self.cbU, 0, 1)
+        ly.controld(lb_p, 1, 0).control(self.edP, 1, 1)
 
         lybt = Colocacion.H().relleno().control(btaceptar).espacio(10).control(btcancelar)
 
@@ -223,28 +155,28 @@ class WPassword(QtWidgets.QDialog):
         return usuario if self.edP.texto().strip() == usuario.password else None
 
 
-def pide_usuario(liUsuarios):
+def pide_usuario(li_usuarios):
     # Miramos si alguno tiene key, si es asi, lanzamos ventana
-    siPass = False
-    for usuario in liUsuarios:
+    si_pass = False
+    for usuario in li_usuarios:
         if usuario.password:
-            siPass = True
-    if siPass:
+            si_pass = True
+    if si_pass:
         intentos = 3
         while True:
-            w = WPassword(liUsuarios)
+            w = WPassword(li_usuarios)
             if w.exec_():
                 usuario = w.resultado()
                 if usuario:
                     break
             else:
                 sys.exit()
-                return None
+
             intentos -= 1
             if intentos == 0:
                 return None
     else:
-        if len(liUsuarios) <= 1:
+        if len(li_usuarios) <= 1:
             return None
         else:
             menu = Controles.Menu(None)  # No puede ser LCmenu, ya que todavia no existe la configuration
@@ -252,7 +184,7 @@ def pide_usuario(liUsuarios):
             menu.opcion(None, _("Select your user"), Iconos.Usuarios())
             menu.separador()
 
-            for usuario in liUsuarios:
+            for usuario in li_usuarios:
                 menu.opcion(usuario, usuario.name, Iconos.Naranja() if usuario.number > 0 else Iconos.Verde())
                 menu.separador()
 

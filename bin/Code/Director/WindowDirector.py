@@ -57,7 +57,8 @@ class WPanelDirector(LCDialog.LCDialog):
             (_("Save"), Iconos.Grabar(), self.grabar),
             (_("New"), Iconos.Nuevo(), self.gnuevo),
             (_("Insert"), Iconos.Insertar(), self.ginsertar),
-            (_("Remove"), Iconos.Borrar(), self.gborrar),
+            (_("Remove"), Iconos.Remove1(), self.gborrar, _("Remove") + " - %s" % _("Backspace key")),
+            (_("Remove all"), Iconos.Borrar(), self.borraTodos, _("Remove all") + " - %s" % _("Delete key")),
             None,
             (_("Up"), Iconos.Arriba(), self.garriba),
             (_("Down"), Iconos.Abajo(), self.gabajo),
@@ -89,9 +90,9 @@ class WPanelDirector(LCDialog.LCDialog):
         # Visuales
         self.selectBanda = WindowTab.SelectBanda(self)
 
-        lyG = Colocacion.V().control(self.g_guion).control(self.chbSaveWhenFinished)
-        lySG = Colocacion.H().control(self.selectBanda).otro(lyG)
-        layout = Colocacion.V().control(self.tb).otro(lySG).margen(3)
+        ly_g = Colocacion.V().control(self.g_guion).control(self.chbSaveWhenFinished)
+        ly_sg = Colocacion.H().control(self.selectBanda).otro(ly_g)
+        layout = Colocacion.V().control(self.tb).otro(ly_sg).margen(3)
 
         self.setLayout(layout)
 
@@ -274,7 +275,10 @@ class WPanelDirector(LCDialog.LCDialog):
 
         tarea.marcado(True)
         tarea.registro((tp, xid, a1h8))
-        row = self.guion.nuevaTarea(tarea, row)
+        if self.guion is None:
+            row = 0
+        else:
+            row = self.guion.nuevaTarea(tarea, row)
 
         return tarea, row
 
@@ -436,7 +440,7 @@ class WPanelDirector(LCDialog.LCDialog):
             else:
                 li = xid.split("_")
                 tp = li[1]
-                xid = int(li[2])
+                xid = li[2]
                 from_sq, to_sq = self.desdeHasta(_("Director"), self.ultDesde, self.ultHasta)
                 if from_sq:
                     self.creaTarea(tp, xid, from_sq + to_sq, row)
@@ -1049,14 +1053,17 @@ class Director:
         #     self.board.disable_all()
 
     def keyPressEvent(self, event):
+        m = int(event.modifiers())
+        is_ctrl = (m & QtCore.Qt.ControlModifier) > 0
         k = event.key()
-        if k in (QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace):
+        if k == QtCore.Qt.Key_Backspace:
             self.w.borraUltimo()
+            return True
+        if k == QtCore.Qt.Key_Delete:
+            self.w.borraTodos()
             return True
         if QtCore.Qt.Key_F1 <= k <= QtCore.Qt.Key_F10:
             f = k - QtCore.Qt.Key_F1
-            m = int(event.modifiers())
-            is_ctrl = (m & QtCore.Qt.ControlModifier) > 0
             self.w.funcion(f, is_ctrl)
             return True
         else:
@@ -1069,9 +1076,6 @@ class Director:
         if is_left:
             if self.board.event2a1h8(event) is None:
                 return False
-            else:
-                self.w.borraTodos()
-            return
 
         p = event.pos()
         a1h8 = self.punto2a1h8(p)

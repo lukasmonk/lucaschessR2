@@ -1,10 +1,5 @@
 import os.path
 
-import Code
-from Code.TrainBMT import BMT, WindowBMTtrain
-
-Code.BMT = BMT
-
 from Code import Util
 from Code.Base import Game, Position
 from Code.Odt import WOdt
@@ -15,11 +10,12 @@ from Code.QT import Delegados
 from Code.QT import FormLayout
 from Code.QT import Grid
 from Code.QT import Iconos
+from Code.QT import LCDialog
 from Code.QT import QTUtil
 from Code.QT import QTUtil2, SelectFiles
 from Code.QT import QTVarios
+from Code.TrainBMT import BMT, WindowBMTtrain
 from Code.Translations import TrListas
-from Code.QT import LCDialog
 
 
 class WHistorialBMT(LCDialog.LCDialog):

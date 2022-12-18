@@ -113,6 +113,6 @@ class JuegaOpening:
     def from_to_active(self, fen):
         if fen in self.dicFEN:
             move = self.dicFEN[fen]
-            return move.from_sq, move.to_sq
+            return move.from_sq, move.to_sq, move.promotion
         self.activa = False
-        return None, None
+        return None, None, None

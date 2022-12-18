@@ -2,10 +2,6 @@ import time
 
 from PySide2 import QtCore
 
-import Code
-from Code.TrainBMT import BMT
-
-Code.BMT = BMT
 from Code import ControlPGN
 from Code import Util
 from Code.Analysis import Analysis
@@ -19,9 +15,9 @@ from Code.QT import Delegados
 from Code.QT import FormLayout
 from Code.QT import Grid
 from Code.QT import Iconos
+from Code.QT import LCDialog
 from Code.QT import QTUtil
 from Code.QT import QTUtil2
-from Code.QT import LCDialog
 
 
 class WTrainBMT(LCDialog.LCDialog):

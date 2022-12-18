@@ -1,9 +1,9 @@
 import operator
 
-from Code.QT import Iconos
-from Code.Translations import TrListas
-from Code.SQL import UtilSQL
 import Code
+from Code.QT import Iconos
+from Code.SQL import UtilSQL
+from Code.Translations import TrListas
 
 
 class Grupo:
@@ -30,7 +30,7 @@ class Grupos:
         self.liGrupos = []
         li = []
         for key, cm in Code.configuration.dic_engines.items():
-            if cm.elo > 0:
+            if cm.elo > 0 and cm.alias not in ("acqua",):
                 li.append((cm.elo, key, cm))
 
         self.li_rivales = sorted(li, key=operator.itemgetter(0))
@@ -242,7 +242,7 @@ class DBManagerCWT:
             if current_rival_key is None:
                 elo = 9999
                 for key, cm in self.configuration.dic_engines.items():
-                    if 0 < cm.elo < elo:
+                    if 0 < cm.elo < elo and cm.alias not in ("acqua",):
                         current_rival_key = key
                         elo = cm.elo
             return current_rival_key

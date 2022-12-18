@@ -137,7 +137,7 @@ class ManagerWashingReplay(Manager.Manager):
         if siRival:
             move = self.gameObj.move(self.posJugadaObj)
             self.posJugadaObj += 1
-            self.play_rival(move.from_sq, move.to_sq, move.promotion)
+            self.rival_has_moved(move.from_sq, move.to_sq, move.promotion)
             self.play_next_move()
 
         else:
@@ -237,7 +237,7 @@ class ManagerWashingReplay(Manager.Manager):
         self.pgnRefresh(self.game.last_position.is_white)
         self.refresh()
 
-    def play_rival(self, from_sq, to_sq, promotion):
+    def rival_has_moved(self, from_sq, to_sq, promotion):
         ok, mens, move = Move.get_game_move(self.game, self.game.last_position, from_sq, to_sq, promotion)
         self.add_move(move, False)
         self.move_the_pieces(move.liMovs, True)
@@ -296,8 +296,8 @@ class ManagerWashingTactics(Manager.Manager):
         self.is_engine_side_white = not is_white
         self.set_position(self.game.last_position)
         self.put_pieces_bottom(is_white)
-        # r1 = self.line.label
-        self.set_label1("")
+        r1 = self.line.label
+        self.set_label1(r1)
         r2 = "<b>%s: %d</b>" % (_("Pending"), self.num_lines)
         self.set_label2(r2)
         self.pgnRefresh(True)
@@ -358,7 +358,7 @@ class ManagerWashingTactics(Manager.Manager):
         if siRival:
             pv = self.line.get_move(self.num_move)
             from_sq, to_sq, promotion = pv[:2], pv[2:4], pv[4:]
-            self.play_rival(from_sq, to_sq, promotion)
+            self.rival_has_moved(from_sq, to_sq, promotion)
             self.play_next_move()
 
         else:
@@ -428,7 +428,7 @@ class ManagerWashingTactics(Manager.Manager):
         self.pgnRefresh(self.game.last_position.is_white)
         self.refresh()
 
-    def play_rival(self, from_sq, to_sq, promotion):
+    def rival_has_moved(self, from_sq, to_sq, promotion):
         ok, mens, move = Move.get_game_move(self.game, self.game.last_position, from_sq, to_sq, promotion)
         self.add_move(move, False)
         self.move_the_pieces(move.liMovs, True)
@@ -562,13 +562,13 @@ class ManagerWashingCreate(Manager.Manager):
         siRival = is_white == self.is_engine_side_white
 
         if siRival:
-            if self.juegaRival():
+            if self.play_rival():
                 self.play_next_move()
 
         else:
-            self.juegaHumano(is_white)
+            self.play_human(is_white)
 
-    def juegaRival(self):
+    def play_rival(self):
         self.thinking(True)
         self.disable_all()
 
@@ -605,7 +605,7 @@ class ManagerWashingCreate(Manager.Manager):
         else:
             return False
 
-    def juegaHumano(self, is_white):
+    def play_human(self, is_white):
         self.human_is_playing = True
         self.analyze_begin()
         self.tc_player.start()
@@ -661,7 +661,7 @@ class ManagerWashingCreate(Manager.Manager):
             self.is_analyzing = False
             self.xtutor.ac_final(-1)
 
-    def sigueHumanoAnalisis(self):
+    def continue_analysis_human_move(self):
         self.analyze_begin()
         Manager.Manager.sigueHumano(self)
 
@@ -691,7 +691,7 @@ class ManagerWashingCreate(Manager.Manager):
             if not rm_user:
                 rm_user = self.xtutor.valora(self.game.last_position, from_sq, to_sq, move.promotion)
                 if not rm_user:
-                    self.sigueHumanoAnalisis()
+                    self.continue_analysis_human_move()
                     return False
                 self.mrmTutor.agregaRM(rm_user)
             siAnalisis = True

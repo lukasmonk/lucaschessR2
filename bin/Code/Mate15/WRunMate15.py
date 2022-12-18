@@ -29,7 +29,7 @@ class WRunMate15(LCDialog.LCDialog):
 
         # Rotulo informacion
         self.lb_info = Controles.LB(self, "[%d] %s" % (self.mate15.pos + 1, self.mate15.info))
-        self.lb_info.ponTipoLetra(puntos=self.configuration.x_pgn_fontpoints).align_center().set_wrap()
+        self.lb_info.align_center().set_wrap()
         self.lb_info.setStyleSheet("QWidget { background-color: #1f497d; color: #FFFFFF;padding: 16px; }")
 
         self.lb_first_move = Controles.LB(self).ponTipoLetra(puntos=12, peso=500)

@@ -4,7 +4,7 @@ from PySide2 import QtWidgets, QtCore, QtGui
 
 import Code.Nags.Nags
 from Code.Base import Game, Move
-from Code.Base.Constantes import GOOD_MOVE, VERY_GOOD_MOVE, NO_RATING, MISTAKE, BLUNDER, SPECULATIVE_MOVE, INACCURACY
+from Code.Base.Constantes import GOOD_MOVE, VERY_GOOD_MOVE, NO_RATING, MISTAKE, BLUNDER, INTERESTING_MOVE, INACCURACY
 from Code.Nags.Nags import NAG_1, NAG_2, NAG_3, NAG_4, NAG_5, NAG_6, dic_symbol_nags
 
 from Code.Board import Board
@@ -70,8 +70,6 @@ class BoardLines(QtWidgets.QWidget):
 
         self.dbop.setdbVisual_Board(self.board)  # To close
 
-        self.intervalo = configuration.x_interval_replay
-
         tipo_letra = Controles.TipoLetra(puntos=configuration.x_pgn_fontpoints)
 
         lybt, bt = QTVarios.lyBotonesMovimiento(self, "", siTiempo=True, siLibre=False, icon_size=24)
@@ -80,9 +78,7 @@ class BoardLines(QtWidgets.QWidget):
             self, " "
         ).set_wrap()  # Por alguna razón es necesario ese espacio en blanco, para aperturas sin movs iniciales
         self.lbPGN.setAlignment(QtCore.Qt.AlignTop)
-        self.lbPGN.setStyleSheet(
-            "QLabel{ border-style: groove; border-width: 1px; border-color: LightSlateGray; padding-right: 18px;}"
-        )
+        self.lbPGN.setProperty("type", "pgn")
         self.lbPGN.ponFuente(tipo_letra)
         self.lbPGN.setOpenExternalLinks(False)
 
@@ -110,7 +106,7 @@ class BoardLines(QtWidgets.QWidget):
         dicValoracion[MISTAKE] = (dic_nags[NAG_2].text, dic_symbol_nags(NAG_2))
         dicValoracion[VERY_GOOD_MOVE] = (dic_nags[NAG_3].text, dic_symbol_nags(NAG_3))
         dicValoracion[BLUNDER] = (dic_nags[NAG_4].text, dic_symbol_nags(NAG_4))
-        dicValoracion[SPECULATIVE_MOVE] = (dic_nags[NAG_5].text, dic_symbol_nags(NAG_5))
+        dicValoracion[INTERESTING_MOVE] = (dic_nags[NAG_5].text, dic_symbol_nags(NAG_5))
         dicValoracion[INACCURACY] = (dic_nags[NAG_6].text, dic_symbol_nags(NAG_6))
         dicValoracion[NO_RATING] = (_("No rating"), "")
 
@@ -244,9 +240,9 @@ class BoardLines(QtWidgets.QWidget):
 
         numJugada = 1
         pgn = ""
-        style_number = "color:teal; font-weight: bold;"
-        style_moves = "color:black;"
-        style_select = "color:navy;font-weight: bold;"
+        style_number = "color:%s; font-weight: bold;" % Code.dic_colors["PGN_NUMBER"]
+        style_select = "color:%s;font-weight: bold;" % Code.dic_colors["PGN_SELECT"]
+        style_moves = "color:%s;" % Code.dic_colors["PGN_MOVES"]
         salta = 0
         for n, move in enumerate(p.li_moves):
             if n % 2 == salta:
@@ -331,9 +327,10 @@ class BoardLines(QtWidgets.QWidget):
 
     def toolbar_rightmouse(self):
         QTVarios.change_interval(self, self.configuration)
-        self.intervalo = self.configuration.x_interval_replay
 
     def lanzaReloj(self):
         if self.siReloj:
             self.MoverAdelante()
-            QtCore.QTimer.singleShot(self.intervalo, self.lanzaReloj)
+            if self.configuration.x_beep_replay:
+                Code.runSound.playBeep()
+            QtCore.QTimer.singleShot(self.configuration.x_interval_replay, self.lanzaReloj)

@@ -168,7 +168,7 @@ def test_update(procesador):
                             nresp = QTUtil2.preguntaCancelar123(
                                 procesador.main_window,
                                 _("Update"),
-                                _("Version %s is ready to update") % version,
+                                _("Version %s is ready to update") % version.decode(),
                                 _("Update now"),
                                 _("Do not do anything"),
                                 _("Don't ask again"),

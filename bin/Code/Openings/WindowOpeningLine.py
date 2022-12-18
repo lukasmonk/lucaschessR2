@@ -5,6 +5,7 @@ import os.path
 
 from PySide2 import QtCore, QtWidgets
 
+import Code
 from Code import Util
 from Code.Analysis import Analysis
 from Code.Base import Game
@@ -62,7 +63,7 @@ class WLines(LCDialog.LCDialog):
         self.tb = QTVarios.LCTB(self, li_acciones, style=QtCore.Qt.ToolButtonTextBesideIcon, icon_size=32)
 
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("LINE", _("Line"), 35, edicion=Delegados.EtiquetaPOS(False, True))
+        o_columns.nueva("LINE", _("Line"), 45, edicion=Delegados.EtiquetaPOS(False, True))
         start = self.gamebase.num_moves() // 2 + 1
         ancho_col = int(((self.configuration.x_pgn_width - 35 - 20) / 2) * 80 / 100)
         for x in range(start, 75):
@@ -96,9 +97,9 @@ class WLines(LCDialog.LCDialog):
         layout = Colocacion.V().control(self.tb).otro(layout_down).margen(3)
         self.setLayout(layout)
 
-        self.colorPar = QTUtil.qtColor("#DBDAD9")
-        self.colorNon = QTUtil.qtColor("#F1EFE9")
-        self.colorLine = QTUtil.qtColor("#CDCCCB")
+        self.colorPar = Code.dic_qcolors["WLINES_PAR"]
+        self.colorNon = Code.dic_qcolors["WLINES_NON"]
+        self.colorLine = Code.dic_qcolors["WLINES_LINE"]
 
         self.game = self.gamebase
 
@@ -842,7 +843,7 @@ class WLines(LCDialog.LCDialog):
         col = o_column.key
         linea = row // 2
         iswhite = (row % 2) == 0
-        color = None
+        color = Code.dic_colors["WLINES_PGN"]
         info = None
         indicadorInicial = None
         li_nags = []

@@ -34,7 +34,7 @@ class ManagerWritingDown(Manager.Manager):
         self.game_objetivo = game_objetivo
         self.jugada_actual = -1
         self.total_jugadas = len(self.game_objetivo)
-        self.board.showCoordenadas(False)
+        self.board.show_coordinates(False)
 
         self.ayudas_recibidas = 0
         self.errores = 0
@@ -112,7 +112,7 @@ class ManagerWritingDown(Manager.Manager):
             self.start(self.game_objetivo, self.si_blancas_abajo)
 
         elif key in (TB_CANCEL, TB_CLOSE):
-            self.board.showCoordenadas(True)
+            self.board.show_coordinates(True)
             self.procesador.start()
             self.procesador.show_anotar()
 
@@ -126,12 +126,12 @@ class ManagerWritingDown(Manager.Manager):
             Manager.Manager.rutinaAccionDef(self, key)
 
     def final_x(self):
-        self.board.showCoordenadas(True)
+        self.board.show_coordinates(True)
         return True
 
     def finalizar(self):
         self.informacion_activable = True
-        self.board.showCoordenadas(True)
+        self.board.show_coordinates(True)
         self.main_window.activaJuego(True, False, siAyudas=False)
         self.remove_hints()
         self.set_toolbar((TB_CLOSE, TB_REINIT, TB_CONFIG, TB_UTILITIES))

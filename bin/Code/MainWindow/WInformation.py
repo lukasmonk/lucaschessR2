@@ -21,7 +21,7 @@ class Information(QtWidgets.QWidget):
 
         configuration = Code.configuration
 
-        puntos = configuration.x_pgn_fontpoints
+        puntos = configuration.x_font_points
 
         font = Controles.TipoLetra(puntos=puntos)
         font7 = Controles.TipoLetra(puntos=8)
@@ -53,7 +53,7 @@ class Information(QtWidgets.QWidget):
 
         self.lb_time = Controles.LB(self).ponFuente(font7).set_wrap().align_center().anchoFijo(42)
         self.lb_time.hide()
-        self.lb_time.setStyleSheet("*{ border: 1px solid lightgray; padding:1px; background: #a7f2f5}")
+        self.lb_time.setProperty("type", "time")
         ly_pw_tm = Colocacion.H().control(self.lb_cpws_lost).espacio(-8).controld(self.lb_time)
         ly_rating.otro(ly_pw_tm)
 
@@ -67,13 +67,13 @@ class Information(QtWidgets.QWidget):
 
         self.lb_rating = Controles.LB(self).ponFuente(font_bold).set_wrap()
         self.lb_rating.hide()
-        self.lb_rating.setStyleSheet("*{ border: 1px solid lightgray; padding:2px; background: #f7f2f0}")
+        self.lb_rating.setProperty("type", "rating")
         self.lb_rating.mousePressEvent = self.edit_rating
         ly_rating.control(self.lb_rating)
 
         self.lb_theme = Controles.LB(self).ponFuente(font_bold).set_wrap()
         self.lb_theme.hide()
-        self.lb_theme.setStyleSheet("*{ border: 1px solid lightgray; padding:2px; background: #fdfae8}")
+        self.lb_theme.setProperty("type", "theme")
         self.lb_theme.mousePressEvent = self.edit_theme
         ly_rating.control(self.lb_theme)
         self.w_rating.setLayout(ly_rating)
@@ -263,7 +263,7 @@ class WVariations(QtWidgets.QWidget):
         self.owner = owner
         configuration = Code.configuration
         self.with_figurines = configuration.x_pgn_withfigurines
-        puntos = configuration.x_pgn_fontpoints
+        puntos = configuration.x_font_points
 
         QtWidgets.QWidget.__init__(self, self.owner)
 

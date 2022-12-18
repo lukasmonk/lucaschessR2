@@ -70,3 +70,18 @@ class ManagerOpeningLines(Manager.Manager):
             text_move += move.pgn_translated()
 
             QTUtil2.message_menu(self.main_window.base.pgn, text_move, comment, not siNuestra)
+
+    def add_coments_all_game(self):
+        for move in self.game.li_moves:
+            fenm2 = move.position.fenm2()
+            if fenm2 in self.dic_comments:
+                reg = self.dic_comments[fenm2]
+                if "COMENTARIO" in reg:
+                    comment = reg["COMENTARIO"]
+                    move.set_comment(comment)
+                if "VENTAJA" in reg:
+                    ventaja = reg["VENTAJA"]
+                    move.add_nag(ventaja)
+                if "VALORACION" in reg:
+                    valoracion = reg["VALORACION"]
+                    move.add_nag(valoracion)

@@ -1,10 +1,10 @@
-from PySide2 import QtWidgets, QtSvg, QtGui
+from PySide2 import QtWidgets, QtSvg
 
+import Code
 from Code import WorkMap
 from Code.Analysis import Analysis
 from Code.Base import Game, Move, Position
 from Code.Board import Board
-from Code.Translations import TrListas
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles
@@ -12,9 +12,10 @@ from Code.QT import Delegados
 from Code.QT import FormLayout
 from Code.QT import Grid
 from Code.QT import Iconos
+from Code.QT import LCDialog
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
-from Code.QT import LCDialog
+from Code.Translations import TrListas
 
 
 class WMap(LCDialog.LCDialog):
@@ -32,7 +33,7 @@ class WMap(LCDialog.LCDialog):
 
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("TYPE", "", 24, edicion=Delegados.PmIconosBMT(), align_center=True)
-        o_columns.nueva("SELECT", _("Select one to play"), 150)
+        o_columns.nueva("SELECT", _("Select a country"), 250)
 
         self.grid = Grid.Grid(self, o_columns, siSelecFilas=True, xid="W")
 
@@ -50,7 +51,7 @@ class WMap(LCDialog.LCDialog):
 
         self.wsvg = wsvg = QtSvg.QSvgWidget()
         p = wsvg.palette()
-        p.setColor(wsvg.backgroundRole(), QtGui.QColor("#F5F5F5"))
+        p.setColor(wsvg.backgroundRole(), Code.dic_qcolors["MAPS_BACKGROUND"])
         wsvg.setPalette(p)
 
         ly = Colocacion.V().control(tb_work).control(self.lbInfo).control(self.grid)
@@ -65,7 +66,7 @@ class WMap(LCDialog.LCDialog):
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("ACTIVE", _("Active"), 80, align_center=True)
         o_columns.nueva("TYPE", _("Type"), 110, align_center=True)
-        o_columns.nueva("DCREATION", _("Creation date"), 110, align_center=True)
+        o_columns.nueva("DCREATION", _("Creation date"), 140, align_center=True)
         o_columns.nueva("DONE", _("Done"), 110, align_center=True)
         o_columns.nueva("DEND", _("End date"), 110, align_center=True)
         o_columns.nueva("RESULT", _("Result"), 110, align_center=True)
@@ -184,9 +185,9 @@ class WMap(LCDialog.LCDialog):
         tipo = self.workmap.db.getTipo()
         txt = '<b><span style="color:#C156F8">%s: %s</span>' % (_("Active"), current) if current else ""
         txt += (
-            '<br><span style="color:brown">%s: %s</span></b>' % (_("Type"), tipo)
-            + '<br><span style="color:teal">%s: %d/%d</span></b>' % (_("Done"), hechos, total)
-            + '<br><span style="color:blue">%s: %s</span></b>' % (_("Result"), info if info else "")
+                '<br><span style="color:brown">%s: %s</span></b>' % (_("Type"), tipo)
+                + '<br><span style="color:teal">%s: %d/%d</span></b>' % (_("Done"), hechos, total)
+                + '<br><span style="color:blue">%s: %s</span></b>' % (_("Result"), info if info else "")
         )
         self.lbInfo.set_text(txt)
 

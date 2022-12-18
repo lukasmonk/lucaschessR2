@@ -2,6 +2,7 @@ import collections
 
 from PySide2 import QtCore, QtGui, QtWidgets
 
+import Code
 from Code.QT import Colocacion
 from Code.QT import Controles
 from Code.QT import Iconos
@@ -9,16 +10,16 @@ from Code.QT import QTVarios
 
 
 class SelectUna(Controles.LB):
-    def __init__(self, owner, pmVacio, siAddText):
+    def __init__(self, owner, pm_empty, add_text):
         self.owner = owner
         self.pixmap = None
         self.id = None
         self.toolTip = None
         self.seleccionada = False
         Controles.LB.__init__(self, owner)
-        self.ponImagen(pmVacio)
+        self.ponImagen(pm_empty)
+        self.add_text = add_text
         self.set_style()
-        self.siAddText = siAddText
 
     def pon(self, pixmap, tooltip, xid):
         if pixmap:
@@ -30,16 +31,16 @@ class SelectUna(Controles.LB):
         self.pixmap = pixmap
 
     def seleccionar(self, si_seleccionada):
-        if not self.siAddText:
+        if not self.add_text:
             self.seleccionada = si_seleccionada
             self.set_style()
 
     def set_style(self):
         color = "orange" if self.seleccionada else "lightgray"
-        self.setStyleSheet("*{ border: 1px solid %s; padding:2px; background: white}" % color)
+        self.setStyleSheet("QLabel{ border: 2px solid %s; padding:2px;}" % color)
 
     def mousePressEvent(self, event):
-        if self.siAddText:
+        if self.add_text:
             self.owner.addText()
         else:
             eb = event.button()
@@ -67,11 +68,11 @@ class SelectBanda(QtWidgets.QWidget):
         pm = Iconos.pmEnBlanco()
         if ancho != 32:
             pm = pm.scaled(ancho, ancho)
-        self.pmVacio = pm
-        color = "lightgray"
+        self.pm_empty = pm
+        color = Code.dic_colors["DIRECTOR_SELECTBANDA"]
         for n in range(numElem):
             lb_f = Controles.LB("F%d" % (n + 1,))
-            lb_f.setStyleSheet("*{ border: 1px solid %s; background: %s;}" % (color, color))
+            lb_f.setStyleSheet("QLabel{ border: 1px solid %s; background: %s;}" % (color, color))
             lb_f.anchoFijo(24)
             lb_f.altoFijo(36)
             lb_f.align_center()
@@ -81,7 +82,7 @@ class SelectBanda(QtWidgets.QWidget):
                 lb = SelectUna(self, Iconos.pmTexto().scaled(ancho, ancho), True)
                 lb.addText = True
             else:
-                lb = SelectUna(self, self.pmVacio, False)
+                lb = SelectUna(self, self.pm_empty, False)
                 if n < 9:
                     lyV = Colocacion.V().relleno(1)
 
@@ -108,9 +109,9 @@ class SelectBanda(QtWidgets.QWidget):
             self.liLB_F.append(lb_f)
             layout.controlc(lb, n, 0)
         lb_f = Controles.LB("%s F10\n%s" % (_("CTRL"), _("Changes")))
+        lb_f.setToolTip(_("Shift-Alt with right button to create/remove pieces"))
         # Activa la posibilidad de mover las piezas con el ratón
-        lb_f.setStyleSheet("*{ border: 1px solid %s; background: %s;}" % (color, color))
-        # lb_f.anchoFijo(64)
+        lb_f.setStyleSheet("QLabel { border: 1px solid %s; background: %s; color:black;}" % (color, color))
         lb_f.altoFijo(36)
         lb_f.align_center()
         self.lb_change_graphics = lb_f
@@ -119,8 +120,19 @@ class SelectBanda(QtWidgets.QWidget):
         self.dic_data = collections.OrderedDict()
         self.setLayout(layout)
 
-        st = "*{ border: 1px solid %s; background:%s;}"
-        self.style_f = {True: st % ("orange", "orange"), False: st % ("lightgray", "lightgray")}
+        st = "*{ border: 1px solid %s; background-color:%s; color:%s;}"
+        border_enable = Code.dic_colors["DIRECTOR_BANDA_BORDER_ENABLE"]
+        fore_enable = Code.dic_colors["DIRECTOR_BANDA_FOREGROUND_ENABLE"]
+        back_enable = Code.dic_colors["DIRECTOR_BANDA_BACKGROUND_ENABLE"]
+        border_disable = Code.dic_colors["DIRECTOR_BANDA_BORDER_DISABLE"]
+        fore_disable = Code.dic_colors["DIRECTOR_BANDA_FOREGROUND_DISABLE"]
+        back_disable = Code.dic_colors["DIRECTOR_BANDA_BACKGROUND_DISABLE"]
+
+        self.style_f = {
+            True: st % (border_enable, fore_enable, back_enable),
+            False: st % (border_disable, fore_disable, back_disable),
+        }
+        lb_f.setStyleSheet(self.style_f[False])
 
         self.li_tipos = (
             (_("Arrows"), Iconos.Flechas(), self.owner.flechas),
@@ -186,7 +198,7 @@ class SelectBanda(QtWidgets.QWidget):
                 self.owner.editBanda(lb.id)
                 return
             if resp == -2:
-                lb.pon(self.pmVacio, None, None)
+                lb.pon(self.pm_empty, None, None)
                 self.test_seleccionada()
                 return
             for txt, ico, rut in self.li_tipos:
@@ -224,7 +236,7 @@ class SelectBanda(QtWidgets.QWidget):
         for n, lb in enumerate(self.liLB):
             if lb.id is not None:
                 if lb.id in st:
-                    lb.pon(self.pmVacio, None, None)
+                    lb.pon(self.pm_empty, None, None)
                 else:
                     self.pon(lb.id, n)
 
@@ -286,13 +298,13 @@ class SelectBanda(QtWidgets.QWidget):
 
 
 class DragUna(Controles.LB):
-    def __init__(self, owner, pmVacio):
+    def __init__(self, owner, pm_empty):
         self.owner = owner
         self.pixmap = None
         self.id = None
         self.toolTip = None
         Controles.LB.__init__(self, owner)
-        self.ponImagen(pmVacio)
+        self.ponImagen(pm_empty)
 
     def pon(self, pixmap, tooltip, xid):
         if pixmap:
@@ -324,10 +336,10 @@ class DragBanda(QtWidgets.QWidget):
         pm = Iconos.pmEnBlanco()
         if ancho != 32:
             pm = pm.scaled(ancho, ancho)
-        self.pmVacio = pm
+        self.pm_empty = pm
         for row, numElem in enumerate(liElem):
             for n in range(numElem):
-                lb = DragUna(self, self.pmVacio)
+                lb = DragUna(self, self.pm_empty)
                 self.liLB.append(lb)
                 layout.control(lb, row, n)
         if margen:
@@ -385,7 +397,7 @@ class DragBanda(QtWidgets.QWidget):
                 self.owner.editBanda(lb.id)
                 return
             if resp == -2:
-                lb.pon(self.pmVacio, None, None)
+                lb.pon(self.pm_empty, None, None)
                 return
             for txt, ico, rut in liTipos:
                 if rut == resp:
@@ -438,7 +450,7 @@ class DragBanda(QtWidgets.QWidget):
         for n, lb in enumerate(self.liLB):
             if lb.id is not None:
                 if lb.id in st:
-                    lb.pon(self.pmVacio, None, None)
+                    lb.pon(self.pm_empty, None, None)
                 else:
                     self.pon(lb.id, n)
 
@@ -471,7 +483,7 @@ class DragBanda(QtWidgets.QWidget):
         mimeData = QtCore.QMimeData()
         mimeData.setData("image/x-lc-dato", itemData)
 
-        drag = QtWidgets.QDrag(self)
+        drag = QtGui.QDrag(self)
         drag.setMimeData(mimeData)
         drag.setHotSpot(QtCore.QPoint(pixmap.width() / 2, pixmap.height() / 2))
         drag.setPixmap(pixmap)

@@ -356,16 +356,19 @@ class Game:
     def read_pv(self, pvBloque):
         return self.leerLIPV(pvBloque.split(" "))
 
+    def read_xpv(self, xpv):
+        return self.read_pv(FasterCode.xpv_pv(xpv))
+
     def leerLIPV(self, lipv):
         position = self.last_position
         pv = []
         for mov in lipv:
             if (
-                len(mov) >= 4
-                and mov[0] in "abcdefgh"
-                and mov[1] in "12345678"
-                and mov[2] in "abcdefgh"
-                and mov[3] in "12345678"
+                    len(mov) >= 4
+                    and mov[0] in "abcdefgh"
+                    and mov[1] in "12345678"
+                    and mov[2] in "abcdefgh"
+                    and mov[3] in "12345678"
             ):
                 pv.append(mov)
             else:
@@ -489,7 +492,7 @@ class Game:
         if numJugada is None:
             numJugada = self.primeraJugada()
         if self.starts_with_black:
-            resp += "%d... " % numJugada
+            resp += "%d..." % numJugada
             numJugada += 1
             salta = 1
         else:
@@ -581,9 +584,9 @@ class Game:
             if with_variations != NONE and move.variations:
                 is_w = move.is_white()
                 if (
-                    (with_variations == ALL)
-                    or (is_w and with_variations == ONLY_WHITE)
-                    or (not is_w and with_variations == ONLY_BLACK)
+                        (with_variations == ALL)
+                        or (is_w and with_variations == ONLY_WHITE)
+                        or (not is_w and with_variations == ONLY_BLACK)
                 ):
                     for variation in move.variations.li_variations:
                         li_pvc.extend(variation.all_pv(pv_previo.strip(), with_variations))
@@ -597,9 +600,9 @@ class Game:
             if with_variations != NONE and move.variations:
                 is_w = move.is_white()
                 if (
-                    (with_variations == ALL)
-                    or (is_w and with_variations == ONLY_WHITE)
-                    or (not is_w and with_variations == ONLY_BLACK)
+                        (with_variations == ALL)
+                        or (is_w and with_variations == ONLY_WHITE)
+                        or (not is_w and with_variations == ONLY_BLACK)
                 ):
                     for variation in move.variations.li_variations:
                         dicv = variation.all_comments(with_variations)
@@ -846,7 +849,7 @@ class Game:
         beep = None
         player_lost = False
         if (self.result == RESULT_WIN_WHITE and player_side == WHITE) or (
-            self.result == RESULT_WIN_BLACK and player_side == BLACK
+                self.result == RESULT_WIN_BLACK and player_side == BLACK
         ):
             if nom_other:
                 mensaje = _X(_("Congratulations you have won against %1."), nom_other)
@@ -858,7 +861,7 @@ class Game:
                 beep = BEEP_WIN_PLAYER
 
         elif (self.result == RESULT_WIN_WHITE and player_side == BLACK) or (
-            self.result == RESULT_WIN_BLACK and player_side == WHITE
+                self.result == RESULT_WIN_BLACK and player_side == WHITE
         ):
             player_lost = True
             if nom_other:
@@ -1005,7 +1008,7 @@ def pgn_game(pgn):
             pos = kv.find(" ")
             if pos > 0:
                 lb = kv[:pos]
-                vl = kv[pos + 1 :].strip()
+                vl = kv[pos + 1:].strip()
                 lbup = lb.upper()
                 if lbup == "FEN":
                     FasterCode.set_fen(vl)

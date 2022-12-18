@@ -125,7 +125,7 @@ class WDBAnalisis:
         elif resp.startswith("an_rem_"):
             li_analisis = self.db_analysis().lista(pv)[0]
             num = int(resp[7:])
-            if QTUtil2.pregunta(self.wowner, _X(_("Delete %1?"), li_analisis[num].rotulo)):
+            if QTUtil2.pregunta(self.wowner, _X(_("Delete analysis of %1?"), li_analisis[num].rotulo)):
                 self.db_analysis().quita(pv, num)
             return
 

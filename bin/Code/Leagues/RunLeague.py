@@ -1,12 +1,14 @@
 import sys
+
 from PySide2 import QtWidgets
 
 import Code
 from Code import Util
 from Code.Config import Configuration
+from Code.Leagues import WLeagueWorker
+from Code.MainWindow import InitApp
 from Code.Openings import OpeningsStd
 from Code.QT import Piezas
-from Code.Leagues import WLeagueWorker
 
 
 def run(user, file_league_work):
@@ -22,8 +24,7 @@ def run(user, file_league_work):
     OpeningsStd.ap.reset()
     Code.all_pieces = Piezas.AllPieces()
 
-    app.setStyle(QtWidgets.QStyleFactory.create(configuration.x_style))
-    QtWidgets.QApplication.setPalette(QtWidgets.QApplication.style().standardPalette())
+    InitApp.init_app_style(app, configuration)
 
     w = WLeagueWorker.WLeagueWorker(file_league_work)
     w.show()

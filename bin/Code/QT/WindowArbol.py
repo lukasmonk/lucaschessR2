@@ -7,7 +7,7 @@ import Code
 import Code.Nags.Nags
 from Code.Analysis import WindowAnalysisParam
 from Code.Base import Game, Position
-from Code.Base.Constantes import GOOD_MOVE, VERY_GOOD_MOVE, NO_RATING, SPECULATIVE_MOVE, INACCURACY, MISTAKE, BLUNDER
+from Code.Base.Constantes import GOOD_MOVE, VERY_GOOD_MOVE, NO_RATING, INTERESTING_MOVE, INACCURACY, MISTAKE, BLUNDER
 from Code.Board import Board
 from Code.QT import Colocacion
 from Code.QT import Controles
@@ -208,7 +208,7 @@ class ListaMoves:
         dnum = {
             VERY_GOOD_MOVE: 0,
             GOOD_MOVE: 1000,
-            SPECULATIVE_MOVE: 1300,
+            INTERESTING_MOVE: 1300,
             INACCURACY: 1700,
             MISTAKE: 2000,
             BLUNDER: 3000,
@@ -304,13 +304,9 @@ class TreeMoves(QtWidgets.QTreeWidget):
         self.dicValoracion["2"] = (GOOD_MOVE, dic_nags[1].text, Iconos.NAG_1())
         self.dicValoracion["3"] = (MISTAKE, dic_nags[2].text, Iconos.NAG_2())
         self.dicValoracion["4"] = (BLUNDER, dic_nags[4].text, Iconos.NAG_4())
-        self.dicValoracion["5"] = (SPECULATIVE_MOVE, dic_nags[5].text, Iconos.NAG_5())
+        self.dicValoracion["5"] = (INTERESTING_MOVE, dic_nags[5].text, Iconos.NAG_5())
         self.dicValoracion["6"] = (INACCURACY, dic_nags[6].text, Iconos.NAG_6())
         self.dicValoracion["0"] = (NO_RATING, _("No rating"), Iconos.NAG_0())
-
-        ftxt = Controles.TipoLetra(puntos=Code.configuration.x_pgn_fontpoints)
-
-        self.setFont(ftxt)
 
         self.currentItemChanged.connect(self.seleccionado)
         self.itemDoubleClicked.connect(self.edited)

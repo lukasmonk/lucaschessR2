@@ -1,9 +1,8 @@
 from Code import Util
-from Code.QT import Colocacion, Columnas, Controles, Grid, Iconos, QTUtil2, QTVarios
-from Code.QT import LCDialog
-
 from Code.Coordinates import CoordinatesBasic
 from Code.Coordinates import WRunCoordinatesBasic
+from Code.QT import Colocacion, Columnas, Controles, Grid, Iconos, QTUtil2, QTVarios
+from Code.QT import LCDialog
 
 
 class WCoordinatesBasic(LCDialog.LCDialog):
@@ -15,6 +14,8 @@ class WCoordinatesBasic(LCDialog.LCDialog):
         extconfig = "coordinatesbasic"
         self.db = CoordinatesBasic.DBCoordinatesBasic(path)
 
+        self.config = CoordinatesBasic.CoordinatesConfig()
+
         LCDialog.LCDialog.__init__(self, procesador.main_window, title, icon, extconfig)
 
         o_columns = Columnas.ListaColumnas()
@@ -22,7 +23,7 @@ class WCoordinatesBasic(LCDialog.LCDialog):
         o_columns.nueva("SIDE", _("Side"), 100, align_center=True)
         o_columns.nueva("SCORE", _("Score"), 90, align_center=True)
         self.glista = Grid.Grid(self, o_columns, siSelecFilas=True, siSeleccionMultiple=True)
-        f = Controles.TipoLetra(puntos=configuration.x_menu_points)
+        f = Controles.TipoLetra(puntos=configuration.x_font_points)
         self.glista.ponFuente(f)
 
         li_acciones = (
@@ -31,6 +32,8 @@ class WCoordinatesBasic(LCDialog.LCDialog):
             (_("Play"), Iconos.Play(), self.play),
             None,
             (_("Remove"), Iconos.Borrar(), self.borrar),
+            None,
+            (_("Config"), Iconos.Configurar(), self.config_change),
             None,
         )
         tb = QTVarios.LCTB(self, li_acciones)
@@ -43,6 +46,9 @@ class WCoordinatesBasic(LCDialog.LCDialog):
         self.restore_video(anchoDefecto=self.glista.anchoColumnas() + 30)
 
         self.glista.gotop()
+
+    def config_change(self):
+        self.config.change(self)
 
     def grid_doble_click(self, grid, row, o_column):
         self.play()
@@ -82,7 +88,7 @@ class WCoordinatesBasic(LCDialog.LCDialog):
         is_white = QTVarios.blancasNegras(self)
         if is_white is None:
             return
-        w = WRunCoordinatesBasic.WRunCoordinatesBasic(self, self.db, is_white)
+        w = WRunCoordinatesBasic.WRunCoordinatesBasic(self, self.db, is_white, self.config)
         w.exec_()
         self.db.refresh()
         self.glista.refresh()

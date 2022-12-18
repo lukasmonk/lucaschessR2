@@ -7,6 +7,7 @@ from Code.QT import Iconos
 from Code.QT import LCDialog
 from Code.QT import QTUtil
 from Code.Translations import WorkTranslate
+from Code.Board import Eboard
 
 
 class MainWindow(LCDialog.LCDialog):
@@ -492,6 +493,8 @@ class MainWindow(LCDialog.LCDialog):
             def deactive():
                 Code.eboard.deactivate()
                 self.set_title_toolbar_eboard()
+                del Code.eboard
+                Code.eboard = Eboard.Eboard()
 
             if ms > 0:
                 QtCore.QTimer.singleShot(ms, deactive)

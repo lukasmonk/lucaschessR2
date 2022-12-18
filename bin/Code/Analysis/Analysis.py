@@ -92,9 +92,9 @@ class ControlAnalysis:
 
     def pgn_active(self):
         num_mov = self.game.primeraJugada()
-        style_number = "color:teal; font-weight: bold;"
-        style_moves = "color:black;"
-        style_select = "color:navy;font-weight: bold;"
+        style_number = "color:%s; font-weight: bold;" % Code.dic_colors["PGN_NUMBER"]
+        style_select = "color:%s;font-weight: bold;" % Code.dic_colors["PGN_SELECT"]
+        style_moves = "color:%s;" % Code.dic_colors["PGN_MOVES"]
         li_pgn = []
         if self.game.starts_with_black:
             li_pgn.append('<span style="%s">%d...</span>' % (style_number, num_mov))

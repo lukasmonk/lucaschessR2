@@ -25,9 +25,7 @@ class WRunCaptures(LCDialog.LCDialog):
         self.board.crea()
 
         # Rotulo informacion
-        self.lb_info_game = Controles.LB(
-            self, self.capture.game.titulo("DATE", "EVENT", "WHITE", "BLACK", "RESULT")
-        ).ponTipoLetra(puntos=self.configuration.x_pgn_fontpoints)
+        self.lb_info_game = Controles.LB(self, self.capture.game.titulo("DATE", "EVENT", "WHITE", "BLACK", "RESULT"))
 
         # Movimientos
         self.liwm_captures = []
@@ -64,7 +62,7 @@ class WRunCaptures(LCDialog.LCDialog):
             .anchoFijo(254)
             .set_foreground_backgound("white", "#496075")
             .align_center()
-            .ponTipoLetra(puntos=self.configuration.x_menu_points)
+            .ponTipoLetra(puntos=self.configuration.x_font_points)
         )
 
         li_acciones = (

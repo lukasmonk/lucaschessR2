@@ -22,7 +22,7 @@ class LeaguesWorkDB:
                 self.db = UtilSQL.DictSQLRawExclusive(self.path, tabla=self.table)
                 break
             except:
-                time.sleep(random.randint(30, 100)/100)
+                time.sleep(random.randint(30, 100) / 100)
         return self.db
 
     def __exit__(self, xtype, value, traceback):
@@ -33,7 +33,7 @@ class LeaguesWorkDB:
                 self.db.close()
                 break
             except:
-                time.sleep(random.randint(30, 100)/100)
+                time.sleep(random.randint(30, 100) / 100)
         self.db = None
 
 
@@ -51,7 +51,9 @@ class LeaguesWork:
     def db_work(self, table):
         return LeaguesWorkDB(self.path, table)
 
-    def put_league(self, ):
+    def put_league(
+        self,
+    ):
         season = self.league.read_season()
 
         with self.db_work("CONFIG") as dbc:
@@ -126,3 +128,6 @@ class LeaguesWork:
     def add_match_zombie(self, xmatch):
         with self.db_work("MATCHS") as db:
             db[xmatch.xid] = xmatch
+
+    def get_division_journey_match(self, xmatch):
+        return self.season.get_division_journey_match(xmatch)

@@ -1,3 +1,4 @@
+import os.path
 import datetime
 import random
 
@@ -157,12 +158,18 @@ class ManagerMicElo(Manager.Manager):
         self.tc_player = self.tc_white if self.is_human_side_white else self.tc_black
         self.tc_rival = self.tc_white if self.is_engine_side_white else self.tc_black
 
-        cbook = self.engine_rival.book if self.engine_rival.book else Code.tbook
+        if self.engine_rival.book:
+            cbook = self.engine_rival.book
+        else:
+            engine_rodent = Code.configuration.buscaRival("rodentII")
+            path_rodent = os.path.join(os.path.dirname(engine_rodent.path_exe), "rodent.bin")
+            cbook = random.choice([Code.tbook, path_rodent])
+
         self.book = Books.Book("P", cbook, cbook, True)
         self.book.polyglot()
 
         elo = self.engine_rival.elo
-        self.maxMoveBook = (elo // 200) if 0 <= elo <= 1700 else 9999
+        self.maxMoveBook = (elo // 100) if 0 <= elo <= 1700 else 9999
 
         eloengine = self.engine_rival.elo
         eloplayer = self.configuration.miceloActivo()
@@ -402,7 +409,7 @@ class ManagerMicElo(Manager.Manager):
                 rm_rival = mrm.mejorMov()
 
             self.thinking(False)
-            if self.play_rival(rm_rival):
+            if self.rival_has_moved(rm_rival):
                 self.lirm_engine.append(rm_rival)
                 if self.valoraRMrival():
                     self.play_next_move()
@@ -434,7 +441,7 @@ class ManagerMicElo(Manager.Manager):
         self.play_next_move()
         return True
 
-    def play_rival(self, engine_response):
+    def rival_has_moved(self, engine_response):
         from_sq = engine_response.from_sq
         to_sq = engine_response.to_sq
 

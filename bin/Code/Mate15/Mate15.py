@@ -122,6 +122,8 @@ class DBMate15:
 
     def repeat(self, base_15):
         m15 = base_15.copy()
+        m15.tries = []
+
         with self.db() as db:
             db[str(m15.date)] = m15.save()
             self.li_data.insert(0, m15)

@@ -61,6 +61,8 @@ class WKibLinea(QtWidgets.QDialog):
     padding: 2px 4px;
 }"""
         )
+        f = Controles.TipoLetra(puntos=self.cpu.configuration.x_pgn_fontpoints)
+        self.setFont(f)
 
         li_acciones = (
             (_("Quit"), Iconos.Kibitzer_Close(), self.terminar),

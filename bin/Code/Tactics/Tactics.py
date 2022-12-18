@@ -89,7 +89,9 @@ class Reinforcement:
         if self.enabled():
             if not self.active and (len(self.li_num_fens) >= self.max_errors):
                 self.activate()
-            return self.pos_active > -1
+            if self.active and self.pos_active == -1:
+                self.pos_active = 0
+            return self.active
         else:
             return False
 
@@ -614,6 +616,7 @@ class Tactic:
             db["HISTO"] = liNueHisto
             if 0 in liNum:
                 db["POSACTIVE"] = None
+                del db["DICREINFORCEMENT"]
 
     def work_list_positions(self):
         if self.reinforcement.is_working():

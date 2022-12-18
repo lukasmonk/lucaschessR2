@@ -9,7 +9,7 @@ from Code.Translations import TrListas
 
 
 def crea_dic_html():
-    base = '<span style="font-family:Chess Alpha 2"><big>%s</big></span>'
+    base = '<span style="font-family:Chess Alpha 2;"><big>%s</big></span>'
     return {x: base % x for x in "pnbrqkPNBRQK"}
 
 
@@ -46,7 +46,12 @@ class Move:
 
     def only_has_move(self) -> bool:
         return not (
-            self.variations or self.comment or len(self.li_nags) > 0 or self.analysis or len(self.li_themes) > 0 or self.time_ms
+            self.variations
+            or self.comment
+            or len(self.li_nags) > 0
+            or self.analysis
+            or len(self.li_themes) > 0
+            or self.time_ms
         )
 
     @property
@@ -117,7 +122,7 @@ class Move:
         self.comment = ""
 
     def set_comment(self, comment):
-        self.comment = comment.replace("}", "]")
+        self.comment = comment.replace("}", "]").replace("{", "]")
 
     def del_analysis(self):
         self.analysis = None
@@ -169,7 +174,7 @@ class Move:
 
     def etiquetaSP(self):
         p = self.position_before
-        return "%d.%s %s" % (p.num_moves, "" if p.is_white else "...", self.pgn_translated())
+        return "%d.%s%s" % (p.num_moves, "" if p.is_white else "...", self.pgn_translated())
 
     def numMove(self):
         return self.position_before.num_moves
@@ -244,6 +249,12 @@ class Move:
         mrm, pos = self.analysis
         if len(mrm.li_rm) == 0:
             return
+
+        # if pos >= 0:
+        #     m = EngineResponse.MultiEngineResponse(None, True)
+        #     m.restore(mrm.save())
+        #     del mrm.li_rm[pos]
+        #     mrm = m
 
         self.variations.analisis2variantes(mrm, almVariations, delete_previous)
 
@@ -487,17 +498,11 @@ class Variations:
             eti_t = ""
 
         tmp_game = Code.Base.Game.Game()
-        if almVariations.best_variation:
-            pv_base = self.move_base
-            for rm in mrm.li_rm:
-                if rm.movimiento() != pv_base:
-                    self.analisis2variantesUno(
-                        tmp_game, rm, eti_t, almVariations.one_move_variation, almVariations.si_pdt
-                    )
-                    break
-        else:
-            for rm in mrm.li_rm:
-                self.analisis2variantesUno(tmp_game, rm, eti_t, almVariations.one_move_variation, almVariations.si_pdt)
+        # pv_base = self.move_base.movimiento()
+        for rm in mrm.li_rm:
+            self.analisis2variantesUno(tmp_game, rm, eti_t, almVariations.one_move_variation, almVariations.si_pdt)
+            if almVariations.best_variation:
+                break
 
     def analisis2variantesUno(self, tmp_game, rm, eti_t, si_un_move, si_pdt):
         tmp_game.set_position(self.move_base.position_before)

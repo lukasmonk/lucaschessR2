@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -14,7 +12,7 @@
    version="1.0"
    viewBox="0 0 3009.9863 1746.9489"
    id="svg2"
-   inkscape:version="0.48.5 r10040"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
    sodipodi:docname="transsiberian.svg">
   <sodipodi:namedview
      pagecolor="#ffffff"
@@ -25,13 +23,13 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1680"
-     inkscape:window-height="988"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
      id="namedview567"
      showgrid="false"
-     inkscape:zoom="1.62"
+     inkscape:zoom="0.2175"
      inkscape:cx="460.72507"
-     inkscape:cy="121.84074"
+     inkscape:cy="418.13704"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
@@ -41,7 +39,8 @@
      fit-margin-right="5"
      fit-margin-bottom="5"
      inkscape:snap-grids="true"
-     inkscape:snap-to-guides="true" />
+     inkscape:snap-to-guides="true"
+     inkscape:document-rotation="0" />
   <defs
      id="defs4">
     <pattern
@@ -842,18 +841,6 @@
     </rdf:RDF>
   </metadata>
   <g
-     transform="matrix(5.3914294,0,0,3.0090582,-471.65576,89.392171)"
-     id="g327"
-     style="fill:#f6f6f6;fill-opacity:1">
-    <rect
-       height="575.82001"
-       width="555.03003"
-       y="-27.336"
-       x="89.112999"
-       id="rect329"
-       style="fill:#f6f6f6;stroke:#d0d0d0;stroke-width:1.41999996;fill-opacity:1" />
-  </g>
-  <g
      id="Subjects_Outline"
      transform="matrix(2.7495,0,0,2.7495,16.549846,2.3236735)"
      style="stroke:#000000">
@@ -1229,8 +1216,7 @@
      y="949.06091"
      x="483.32138"
      id="text489"
-     sodipodi:linespacing="100%"
-     style="font-size:49.49200058px;line-height:100%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
+     style="font-size:49.492px;line-height:0%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
        font-size="42px"
        y="949.06091"
        x="483.32138"
@@ -1243,8 +1229,7 @@
      y="1075.0614"
      x="673.14893"
      id="text493"
-     sodipodi:linespacing="100%"
-     style="font-size:49.49200058px;line-height:100%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
+     style="font-size:49.492px;line-height:0%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
        font-size="42px"
        y="1075.0614"
        x="673.14893"
@@ -1257,8 +1242,7 @@
      y="1160.2974"
      x="782.85822"
      id="text497"
-     sodipodi:linespacing="100%"
-     style="font-size:49.49200058px;line-height:100%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
+     style="font-size:49.492px;line-height:0%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
        font-size="42px"
        y="1160.2974"
        x="782.85822"
@@ -1271,8 +1255,7 @@
      y="1232.7374"
      x="843.7644"
      id="text501"
-     sodipodi:linespacing="100%"
-     style="font-size:49.49200058px;line-height:100%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
+     style="font-size:49.492px;line-height:0%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
        font-size="42px"
        y="1232.7374"
        x="843.7644"
@@ -1285,8 +1268,7 @@
      y="1051.0624"
      x="220.71684"
      id="text505"
-     sodipodi:linespacing="100%"
-     style="font-size:49.49200058px;line-height:100%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
+     style="font-size:49.492px;line-height:0%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
        font-size="42px"
        y="1051.0624"
        x="220.71684"
@@ -1300,8 +1282,7 @@
      y="1285.4863"
      x="950.48792"
      id="text509"
-     sodipodi:linespacing="100%"
-     style="font-size:49.49200058px;line-height:100%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
+     style="font-size:49.492px;line-height:0%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
        font-size="42px"
        y="1285.4863"
        x="950.48792"
@@ -1314,8 +1295,7 @@
      y="1400.5443"
      x="1085.0101"
      id="text513"
-     sodipodi:linespacing="100%"
-     style="font-size:49.49200058px;line-height:100%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
+     style="font-size:49.492px;line-height:0%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
        font-size="42px"
        y="1400.5443"
        x="1085.0101"
@@ -1328,8 +1308,7 @@
      y="1461.3723"
      x="1303.5347"
      id="text517"
-     sodipodi:linespacing="100%"
-     style="font-size:49.49200058px;line-height:100%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
+     style="font-size:49.492px;line-height:0%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
        font-size="42px"
        y="1461.3723"
        x="1303.5347"
@@ -1337,14 +1316,13 @@
        style="font-size:42px;font-family:'DejaVu Sans'">Novosibirsk</tspan></text>
   <text
      xml:space="preserve"
-     transform="matrix(0.70710678,-0.70710678,0.70710678,0.70710678,0,0)"
+     transform="rotate(-45)"
      line-height="100%"
      font-size="49.492px"
      y="2054.5459"
      x="83.772469"
      id="text521"
-     sodipodi:linespacing="100%"
-     style="font-size:49.49200058px;line-height:100%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
+     style="font-size:49.492px;line-height:0%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
        font-size="42px"
        y="2054.5459"
        x="83.772469"
@@ -1352,14 +1330,13 @@
        style="font-size:42px;font-family:'DejaVu Sans'">Krasnoyarsk</tspan></text>
   <text
      xml:space="preserve"
-     transform="matrix(0.70710678,-0.70710678,0.70710678,0.70710678,0,0)"
+     transform="rotate(-45)"
      line-height="100%"
      font-size="49.492px"
      y="2139.0972"
      x="173.12164"
      id="text525"
-     sodipodi:linespacing="100%"
-     style="font-size:49.49200058px;line-height:100%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
+     style="font-size:49.492px;line-height:0%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
        font-size="42px"
        y="2139.0972"
        x="173.12164"
@@ -1367,14 +1344,13 @@
        style="font-size:42px;font-family:'DejaVu Sans'">Tayshet</tspan></text>
   <text
      xml:space="preserve"
-     transform="matrix(0.70710678,-0.70710678,0.70710678,0.70710678,0,0)"
+     transform="rotate(-45)"
      line-height="100%"
      font-size="18px"
      y="1638.9139"
      x="-704.53424"
      id="text529"
-     sodipodi:linespacing="100%"
-     style="font-size:18px;line-height:100%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
+     style="font-size:18px;line-height:0%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
        font-size="10px"
        y="1638.9139"
        x="-704.53424"
@@ -1387,8 +1363,7 @@
      y="1534.7117"
      x="1643.9771"
      id="text533"
-     sodipodi:linespacing="100%"
-     style="font-size:49.49200058px;line-height:100%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
+     style="font-size:49.492px;line-height:0%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
        font-size="42px"
        y="1534.7117"
        x="1643.9771"
@@ -1396,14 +1371,13 @@
        style="font-size:42px;font-family:'DejaVu Sans'">Irkutsk</tspan></text>
   <text
      xml:space="preserve"
-     transform="matrix(0.70710678,-0.70710678,0.70710678,0.70710678,0,0)"
+     transform="rotate(-45)"
      line-height="100%"
      font-size="49.492px"
      y="2407.3931"
      x="285.12234"
      id="text537"
-     sodipodi:linespacing="100%"
-     style="font-size:49.49200058px;line-height:100%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
+     style="font-size:49.492px;line-height:0%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
        font-size="42px"
        y="2407.3931"
        x="285.12234"
@@ -1411,14 +1385,13 @@
        style="font-size:42px;font-family:'DejaVu Sans'">Ulan-Ude</tspan></text>
   <text
      xml:space="preserve"
-     transform="matrix(0.70710678,-0.70710678,0.70710678,0.70710678,0,0)"
+     transform="rotate(-45)"
      line-height="100%"
      font-size="49.492px"
      y="2463.1873"
      x="400.03256"
      id="text541"
-     sodipodi:linespacing="100%"
-     style="font-size:49.49200058px;line-height:100%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
+     style="font-size:49.492px;line-height:0%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
        font-size="42px"
        y="2463.1873"
        x="400.03256"
@@ -1431,8 +1404,7 @@
      y="1289.526"
      x="2210.1023"
      id="text545"
-     sodipodi:linespacing="100%"
-     style="font-size:49.49200058px;line-height:100%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
+     style="font-size:49.492px;line-height:0%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
        font-size="42px"
        y="1289.526"
        x="2210.1023"
@@ -1445,8 +1417,7 @@
      y="1385.8687"
      x="2209.5381"
      id="text549"
-     sodipodi:linespacing="100%"
-     style="font-size:49.49200058px;line-height:100%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
+     style="font-size:49.492px;line-height:0%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
        font-size="42px"
        y="1385.8687"
        x="2209.5381"
@@ -1459,8 +1430,7 @@
      y="1333.6034"
      x="2565.2825"
      id="text553"
-     sodipodi:linespacing="100%"
-     style="font-size:49.49200058px;line-height:100%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
+     style="font-size:49.492px;line-height:0%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
        font-size="42px"
        y="1333.6034"
        x="2565.2825"
@@ -1473,13 +1443,12 @@
      y="1518.106"
      x="2444.8545"
      id="text557"
-     sodipodi:linespacing="100%"
-     style="font-size:60.00146866px;line-height:100%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
+     style="font-size:60.0015px;line-height:0%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
        font-size="42px"
        y="1518.106"
        x="2444.8545"
        id="tspan559"
-       style="font-size:60.00146866px;font-family:'DejaVu Sans'">Vladivostok</tspan></text>
+       style="font-size:60.0015px;font-family:'DejaVu Sans'">Vladivostok</tspan></text>
   <text
      xml:space="preserve"
      font-size="18px"
@@ -1487,8 +1456,7 @@
      y="1725.3777"
      x="633.43311"
      id="text561"
-     sodipodi:linespacing="100%"
-     style="font-size:18px;line-height:100%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
+     style="font-size:18px;line-height:0%;font-family:'DejaVu Sans Condensed';fill:#000000"><tspan
        font-size="10px"
        y="1725.3777"
        x="633.43311"
@@ -1502,7 +1470,7 @@
   <path
      inkscape:connector-curvature="0"
      d="m 372.72258,1735.7006 6.3868,-0.072 0.084,-1.5973 c 0.094,-1.7868 -0.166,-2.2323 -1.1501,-1.9707 -0.956,0.2541 -13.9616,0.2218 -14.2037,-0.034 -0.1195,-0.1266 0.4339,-0.5412 1.2556,-0.9406 1.7864,-0.8683 3.2483,-2.5385 3.8975,-4.4528 l 0.4682,-1.3806 2.9664,-0.074 c 1.9907,-0.05 3.0295,-0.1797 3.1583,-0.3943 0.1055,-0.1758 0.1935,-1.8278 0.1956,-3.6709 l 0,-3.3513 -4.2085,0 -4.2085,0 -1.0379,-1.8821 c -1.4882,-2.6983 -1.4866,-2.7029 0.9506,-2.7939 2.366,-0.088 2.3409,-0.063 3.0789,-3.0731 0.9023,-3.6806 0.8428,-8.905 -0.1357,-11.9014 l -0.3208,-0.9825 -9.1343,-0.2629 -0.1241,-3.0227 c -0.1151,-2.802 -0.1604,-3.0229 -0.6205,-3.0264 -0.4572,0 -0.4898,-0.1506 -0.4131,-1.8595 0.098,-2.1826 -0.2131,-3.6004 -1.0553,-4.8093 -0.5805,-0.8332 -0.6036,-1.0069 -0.4716,-3.5414 0.1598,-3.0663 -0.052,-4.1466 -1.2177,-6.2045 -1.5573,-2.7497 -4.2903,-4.301 -7.5786,-4.3018 l -1.8011,-5e-4 -0.2725,-1.0718 c -0.6014,-2.3649 -2.1214,-4.4136 -4.0679,-5.4827 -1.5082,-0.8284 -4.5587,-0.9352 -6.3232,-0.2213 l -1.3592,0.5499 -1.1494,-1.1989 -1.1494,-1.1989 0.1217,-2.463 c 0.2047,-4.1438 -0.7458,-6.7515 -3.4432,-9.4461 -2.0396,-2.0376 -3.7057,-2.7919 -6.5612,-2.9705 -3.6372,-0.2275 -6.5629,0.9993 -9.0998,3.8159 -2.3642,2.6248 -3.2561,5.1304 -3.2428,9.1103 l 0.01,2.6343 -0.9998,1.1897 c -0.5498,0.6543 -1.2895,1.8402 -1.6437,2.6353 -0.865,1.9421 -0.9201,5.5189 -0.1138,7.3917 0.7154,1.6617 2.1606,3.2875 3.6658,4.1241 1.102,0.6125 1.5472,0.699 3.6147,0.7024 2.0877,0 2.5211,-0.081 3.7818,-0.7366 1.3988,-0.7273 1.9269,-0.7466 1.9269,-0.07 0,0.6642 1.766,2.7778 2.9224,3.4977 1.0339,0.6436 1.423,0.7301 3.2826,0.7301 2.0985,0 2.6702,-0.1703 4.2355,-1.2614 0.6122,-0.4267 0.6688,-0.4184 1.4826,0.2174 1.2073,0.9433 2.5644,1.2601 4.5823,1.0697 l 1.7374,-0.1639 0.4603,1.1897 c 1.1758,3.0388 5.0461,4.1645 7.6271,2.2184 0.372,-0.2806 0.789,-0.5101 0.9268,-0.5101 0.2912,0 4.5129,5.6561 4.5129,6.0462 0,0.2482 -0.3655,0.3727 -0.8328,0.2839 -0.6923,-0.1316 -0.9047,0.6439 -0.9047,3.3041 0,1.9582 -0.088,2.7654 -0.3102,2.8396 -0.4786,0.1599 -13.422,0.3647 -13.7897,0.2181 -0.1785,-0.071 -0.5835,-0.7493 -0.8999,-1.5069 -0.9248,-2.2145 -2.763,-3.1498 -5.228,-2.6601 -1.1323,0.225 -2.7381,1.7371 -3.1092,2.9281 -0.1551,0.4975 -0.489,1.022 -0.7421,1.1654 -0.6645,0.3766 -17.0406,0.3509 -17.2612,-0.027 -0.092,-0.1583 -0.1495,-1.52 -0.1267,-3.026 0.031,-2.0352 -0.041,-2.7715 -0.281,-2.8682 l -26.3445,0.2682 -0.071,2.6942 -0.071,2.6941 4.7046,0 c 0.5232,0 1.007,0.2485 1.4996,0.7701 l 0.7272,0.77 -0.1401,3.764 c -0.077,2.0702 -0.2307,6.459 -0.3414,9.7529 -0.1107,3.2939 -0.2809,6.0734 -0.3781,6.1768 -0.097,0.1033 -2.5411,0.2469 -5.4309,0.3192 l -5.2543,0.1314 0,7.0769 5.6072,-0.079 c 4.9549,-0.07 5.6552,-0.028 6.0189,0.3572 0.2265,0.2398 0.4117,0.6097 0.4117,0.822 0,1.3831 2.1435,4.0623 3.9134,4.8914 0.6508,0.3049 1.0121,0.6135 0.8808,0.7525 -0.1235,0.1308 -5.6866,0.2661 -12.4985,0.3039 l -7.9069,0.068 -0.074,1.6428 -0.074,1.6428 41.6223,-0.063 c 25.2952,-0.034 50.7004,-0.095 56.456,-0.1342 z m -52.4253,-3.5423 c -0.099,-0.105 0.031,-0.2671 0.2892,-0.3602 2.3173,-0.8348 4.5037,-2.8933 5.0775,-4.7804 0.4998,-1.6435 0.4745,-1.6337 4.2393,-1.6337 l 3.4497,0 0.2691,0.7228 c 0.729,1.9582 1.0109,2.4879 1.8428,3.463 0.4949,0.5802 1.5209,1.366 2.2798,1.7462 0.7589,0.3802 1.2612,0.7682 1.1161,0.8623 -0.3642,0.2361 -18.3395,0.2168 -18.5635,-0.02 z m -21.3222,0.075 c -0.08,-0.1362 0.3886,-0.4974 1.0402,-0.8026 0.6517,-0.3051 1.507,-0.8737 1.9008,-1.2635 0.9141,-0.9049 2.1384,-2.9095 2.1384,-3.5013 0,-1.0895 0.6116,-1.2815 4.0827,-1.2815 3.6012,0 3.5945,0 4.0888,1.6232 0.5256,1.7288 1.8582,3.2615 3.6466,4.1938 1.3162,0.6862 1.5512,0.8952 1.1798,1.0498 -0.7006,0.2916 -17.9066,0.2746 -18.0773,-0.018 z m 43.3026,-0.2421 c 0,-0.125 0.5013,-0.4299 1.1141,-0.6778 1.448,-0.5856 3.0978,-2.3037 3.8004,-3.9577 0.307,-0.7228 0.6422,-1.4762 0.7449,-1.6743 0.1446,-0.2788 0.9367,-0.3554 3.508,-0.3394 1.8268,0.011 3.3969,0.1142 3.4892,0.2286 0.092,0.1145 0.3567,0.7521 0.5874,1.417 0.5885,1.6954 1.9229,3.2373 3.516,4.0627 0.7473,0.3872 1.3587,0.8084 1.3587,0.936 0,0.1299 -3.9882,0.232 -9.0593,0.232 -4.9827,0 -9.0594,-0.1022 -9.0594,-0.2271 z"
-     style="fill:#0d2c3a;fill-opacity:1;stroke:#ae7e1a;stroke-width:1;stroke-opacity:1"
+     style="fill:#000000;fill-opacity:1;stroke:#ae7e1a;stroke-width:1;stroke-opacity:1"
      id="train"
      inkscape:transform-center-x="-35.483871"
      inkscape:transform-center-y="-45.162591" />

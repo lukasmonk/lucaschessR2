@@ -195,29 +195,29 @@ class MatchsDay:
             xmatch.restore(dic_saved)
             self.li_matches.append(xmatch)
 
-    def add_results(self, dic):
+    def add_results(self, dic, score_win, score_draw, score_lost):
         for xmatch in self.li_matches:
             if xmatch.result is None:
                 continue
             result = xmatch.result
             xid_white, xid_black = xmatch.xid_white, xmatch.xid_black
-            pts_white = pts_black = 0
+            pts_white = pts_black = score_lost
             dic[xid_white]["PL"] += 1
             dic[xid_black]["PL"] += 1
             resn_w, resn_b = 0, 0
             if result == RESULT_DRAW:
                 dic[xid_white]["DRAW"] += 1
                 dic[xid_black]["DRAW"] += 1
-                pts_white = pts_black = 1
+                pts_white = pts_black = score_draw
             elif result == RESULT_WIN_WHITE:
                 dic[xid_white]["WIN"] += 1
                 dic[xid_black]["LOST"] += 1
-                pts_white = 3
+                pts_white = score_win
                 resn_w, resn_b = +1, -1
             elif result == RESULT_WIN_BLACK:
                 dic[xid_white]["LOST"] += 1
                 dic[xid_black]["WIN"] += 1
-                pts_black = 3
+                pts_black = score_win
                 resn_w, resn_b = -1, +1
             dic[xid_white]["PTS"] += pts_white
             dic[xid_black]["PTS"] += pts_black
@@ -230,6 +230,12 @@ class MatchsDay:
             dic[xid_black]["ACT_ELO"] = max(
                 self.MIN_ELO, dic[xid_black]["ACT_ELO"] + Util.fideELO(elo_b, elo_w, resn_b)
             )
+
+    def add_results_crosstabs(self, dic):
+        for xmatch in self.li_matches:
+            result = xmatch.result
+            xid_white, xid_black = xmatch.xid_white, xmatch.xid_black
+            dic[xid_white][xid_black] = result
 
     def get_all_matches(self):
         return self.li_matches
@@ -269,7 +275,7 @@ class Division:
             matchday.restore(matchday_saved)
             self.li_matchdays.append(matchday)
 
-    def gen_panel(self):
+    def gen_panel(self, league, dic_xid_pos):
         li_xid_opponents = list(self.dic_elo_opponents.keys())
         dic_xid = {
             xid: {
@@ -286,7 +292,7 @@ class Division:
             for xid in li_xid_opponents
         }
         for matchday in self.li_matchdays:
-            matchday.add_results(dic_xid)
+            matchday.add_results(dic_xid, league.score_win, league.score_draw, league.score_lost)
         li_panel = list(dic_xid.values())
 
         def comp(x):
@@ -298,7 +304,19 @@ class Division:
             return xpts + xwin + xdif_elo + xelo + xtb
 
         li_panel.sort(key=comp, reverse=True)
+        for pos, dic in enumerate(li_panel, 1):
+            dic["ORDER"] = pos
+            dic_xid_pos[dic["XID"]] = pos
         return li_panel
+
+    def gen_dic_crosstabs(self):
+        li_xid_opponents = list(self.dic_elo_opponents.keys())
+        dic_xid = {xid_white: {xid_black: None for xid_black in li_xid_opponents} for xid_white in li_xid_opponents}
+        matchsday: MatchsDay
+        for matchsday in self.li_matchdays:
+            matchsday.add_results_crosstabs(dic_xid)
+
+        return dic_xid
 
     def xmatch(self, journey, pos):
         matchday = self.li_matchdays[journey]
@@ -309,6 +327,28 @@ class Division:
 
     def get_num_journeys(self):
         return len(self.li_matchdays)
+
+    def get_opponents_xid(self):
+        st = set()
+
+        def get_match(num):
+            if len(self.li_matchdays) > num:
+                md = self.li_matchdays[num]
+                m: Match
+                for m in md.li_matches:
+                    st.add(m.xid_white)
+                    st.add(m.xid_black)
+
+        for day in range(3):
+            get_match(day)
+        return list(st)
+
+    def journey_match(self, xmatch):
+        for journey, matchday in enumerate(self.li_matchdays):
+            for one_match in matchday.li_matches:
+                if one_match.xid == xmatch.xid:
+                    return journey
+        return None
 
 
 class League:
@@ -327,6 +367,10 @@ class League:
         self.time_engine_human = (15.0, 6)
         self.time_engine_engine = (3.0, 0)
         self.migration = 3
+
+        self.score_win = 3.0
+        self.score_draw = 1.0
+        self.score_lost = 0.0
 
         self.current_num_season = None
 
@@ -474,6 +518,9 @@ class League:
             "MIGRATION": self.migration,
             "SAVED_OPPONENTS": [opponent.save() for opponent in self.li_opponents],
             "CURRENT_NUM_SEASON": self.current_num_season,
+            "SCORE_WIN": self.score_win,
+            "SCORE_DRAW": self.score_draw,
+            "SCORE_LOST": self.score_lost,
         }
         with UtilSQL.DictRawSQL(self.path(), "LEAGUE") as dbl:
             for key, value in dic.items():
@@ -494,6 +541,9 @@ class League:
         self.time_engine_engine = dic_data.get("TIME_ENGINE_ENGINE", self.time_engine_engine)
         self.migration = dic_data.get("MIGRATION", self.migration)
         self.current_num_season = dic_data.get("CURRENT_NUM_SEASON", self.current_num_season)
+        self.score_win = dic_data.get("SCORE_WIN", self.score_win)
+        self.score_draw = dic_data.get("SCORE_DRAW", self.score_draw)
+        self.score_lost = dic_data.get("SCORE_LOST", self.score_lost)
         self.li_opponents = []
         for saved in dic_data.get("SAVED_OPPONENTS", []):
             op = Opponent()
@@ -525,6 +575,7 @@ class Season:
     current_journey: int = 0
     num_season: int
     league: League
+    stop_work_journey: bool = False
 
     def __init__(self, league, num_season):
         self.league = league
@@ -557,6 +608,20 @@ class Season:
                 except TypeError:
                     pass
             return li
+
+    def list_sorted_opponents(self):
+        li_opponents = [opponent for opponent in self.league.li_opponents]
+        li_opponents.sort(key=lambda op: op.name())
+        li = []
+        for division in self.li_divisions:
+            li_xid = division.get_opponents_xid()
+            li_div = [op for op in li_opponents if op.xid in li_xid]
+            li.append(li_div)
+        return li
+
+    def dic_raw_games(self):
+        with UtilSQL.DictRawSQL(self.path, self.table) as dbs:
+            return dbs.as_dictionary()
 
     def test_next(self):
         li = UtilSQL.list_tables(self.path)
@@ -622,10 +687,12 @@ class Season:
         with UtilSQL.DictRawSQL(self.path, self.table) as dbs:
             dbs["LI_SAVED_DIVISIONS"] = [division.save() for division in self.li_divisions]
             dbs["CURRENT_JOURNEY"] = self.current_journey
+            dbs["STOP_WORK_JOURNEY"] = self.stop_work_journey
 
     def restore(self):
         with UtilSQL.DictRawSQL(self.path, self.table) as dbs:
             self.current_journey = dbs.get("CURRENT_JOURNEY", 0)
+            self.stop_work_journey = dbs.get("STOP_WORK_JOURNEY", self.stop_work_journey)
             li_saved_divisions = dbs.get("LI_SAVED_DIVISIONS", [])
             self.li_divisions = []
             for saved in li_saved_divisions:
@@ -638,8 +705,15 @@ class Season:
 
     def gen_panels_classification(self):
         li_panels = []
+        dic_xid_order = {}
         for division in self.li_divisions:
-            li_panels.append(division.gen_panel())
+            li_panels.append(division.gen_panel(self.league, dic_xid_order))
+        return li_panels, dic_xid_order
+
+    def gen_panels_crosstabs(self):
+        li_panels = []
+        for division in self.li_divisions:
+            li_panels.append(division.gen_dic_crosstabs())
         return li_panels
 
     def xmatch(self, division, journey, pos):
@@ -692,6 +766,15 @@ class Season:
                     li.append(xmatch)
         return li
 
+    def get_match(self, num_division, xid_white, xid_black):
+        division = self.li_divisions[num_division]
+        for journey in range(self.current_journey + 1):
+            li_matches = division.get_all_matches(journey)
+            for xmatch in li_matches:
+                if xid_white == xmatch.xid_white and xid_black == xmatch.xid_black:
+                    return xmatch if xmatch.result else None
+        return None
+
     def new_journey(self, league: League):
         self.current_journey += 1
         self.save()
@@ -710,3 +793,9 @@ class Season:
                 return game
             else:
                 return None
+
+    def get_division_journey_match(self, xmatch):
+        for num_division, division in enumerate(self.li_divisions):
+            journey = division.journey_match(xmatch)
+            if journey is not None:
+                return num_division, journey

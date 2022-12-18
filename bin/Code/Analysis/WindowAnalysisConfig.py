@@ -25,7 +25,6 @@ class WConfAnalysis(QtWidgets.QDialog):
         self.dic_eval_keys = self.configuration.dic_eval_keys()
         self.li_keys = list(self.dic_eval_keys.keys())
 
-        font_pts = self.configuration.x_pgn_fontpoints
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("KEY", _("Name"), 160, align_center=True)
         o_columns.nueva("VALUE", _("Value"), 160, edicion=Delegados.LineaTexto(self), align_center=True)
@@ -34,7 +33,6 @@ class WConfAnalysis(QtWidgets.QDialog):
         o_columns.nueva("MAX", _("Maximum"), 80, align_center=True)
         o_columns.nueva("TYPE", _("Type"), 80, align_center=True)
         self.grid_keys = Grid.Grid(self, o_columns, xid="keys", siSelecFilas=False, is_editable=True)
-        self.grid_keys.tipoLetra(puntos=font_pts)
         self.grid_keys.setFixedWidth(self.grid_keys.anchoColumnas() + 20)
 
         tb = QTVarios.LCTB(self)
@@ -48,7 +46,6 @@ class WConfAnalysis(QtWidgets.QDialog):
     def ayuda(self):
         url = "http://lucaschess.blogspot.com/2022/10/setting-analysis-parameters.html"
         webbrowser.open(url)
-
 
     def default(self):
         if QTUtil2.pregunta(self, _("Are you sure you want to set the default configuration?")):
@@ -100,4 +97,3 @@ class WConfAnalysis(QtWidgets.QDialog):
         self.dic_eval[key] = valor
         self.configuration.graba()
         self.manager.refresh_analysis()
-

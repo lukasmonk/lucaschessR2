@@ -2,8 +2,8 @@ from PySide2 import QtCore, QtWidgets
 
 import Code
 from Code.Analysis import Histogram
-from Code.Nags.Nags import NAG_1, NAG_2, NAG_3, NAG_4, NAG_5, NAG_6
 from Code.Board import Board
+from Code.Nags import Nags
 from Code.Openings import OpeningsStd
 from Code.QT import Colocacion
 from Code.QT import Columnas
@@ -29,28 +29,11 @@ class WAnalisisGraph(LCDialog.LCDialog):
             | QtCore.Qt.WindowMinimizeButtonHint
         )
 
-        c = Code.configuration
-        self.dic_nagcolor = {
-            NAG_1: QTUtil.qtColor(c.x_color_nag1),
-            NAG_2: QTUtil.qtColor(c.x_color_nag2),
-            NAG_3: QTUtil.qtColor(c.x_color_nag3),
-            NAG_4: QTUtil.qtColor(c.x_color_nag4),
-            NAG_5: QTUtil.qtColor(c.x_color_nag5),
-            NAG_6: QTUtil.qtColor(c.x_color_nag6),
-        }
-        self.dic_color = {
-            NAG_1: c.x_color_nag1,
-            NAG_2: c.x_color_nag2,
-            NAG_3: c.x_color_nag3,
-            NAG_4: c.x_color_nag4,
-            NAG_5: c.x_color_nag5,
-            NAG_6: c.x_color_nag6,
-        }
-
         self.alm = alm
         self.procesador = manager.procesador
         self.manager = manager
         self.configuration = manager.configuration
+        self.with_figurines = self.configuration.x_pgn_withfigurines
         self.show_analysis = show_analysis
         self.colorWhite = QTUtil.qtColorRGB(231, 244, 254)
 
@@ -63,9 +46,19 @@ class WAnalisisGraph(LCDialog.LCDialog):
         def xcol():
             o_columns = Columnas.ListaColumnas()
             o_columns.nueva("NUM", _("N."), 50, align_center=True)
-            o_columns.nueva("MOVE", _("Move"), 120, align_center=True, edicion=Delegados.EtiquetaPGN(True, True, True))
             o_columns.nueva(
-                "BEST", _("Best move"), 120, align_center=True, edicion=Delegados.EtiquetaPGN(True, True, True)
+                "MOVE",
+                _("Move"),
+                120,
+                align_center=True,
+                edicion=Delegados.EtiquetaPGN(True if self.with_figurines else None),
+            )
+            o_columns.nueva(
+                "BEST",
+                _("Best move"),
+                120,
+                align_center=True,
+                edicion=Delegados.EtiquetaPGN(True if self.with_figurines else None),
             )
             o_columns.nueva("DIF", _("Difference"), 80, align_center=True)
             if self.with_time:
@@ -260,11 +253,11 @@ class WAnalisisGraph(LCDialog.LCDialog):
         else:
             return True  # que siga con el resto de teclas
 
-    def grid_color_fondo(self, grid, row, o_column):
-        if grid.id == "A":
-            move = self.alm.lijg[row]
-            return self.colorWhite if move.xsiW else None
-        return None
+    # def grid_color_fondo(self, grid, row, o_column):
+    #     if grid.id == "A":
+    #         move = self.alm.lijg[row]
+    #         return self.colorWhite if move.xsiW else None
+    #     return None
 
     def grid_color_texto(self, grid, row, o_column):
         if grid.id == "A":
@@ -275,7 +268,7 @@ class WAnalisisGraph(LCDialog.LCDialog):
             move = self.alm.lijgB[row]
         if len(move.nag_color) == 2:
             nagc = move.nag_color[1]
-            return self.dic_nagcolor.get(nagc)
+            return Nags.nag_qcolor(nagc)
 
     def grid_alineacion(self, grid, row, o_column):
         if grid.id == "A":
@@ -294,6 +287,9 @@ class WAnalisisGraph(LCDialog.LCDialog):
             return " %s " % move.xnum
 
         elif column in ("MOVE", "BEST"):
+            if self.with_figurines:
+                delegado = o_column.edicion
+                delegado.setWhite(move.is_white())
             mrm, pos = move.analysis
             rm = mrm.li_rm[pos if column == "MOVE" else 0]
             pv1 = rm.pv.split(" ")[0]
@@ -306,7 +302,7 @@ class WAnalisisGraph(LCDialog.LCDialog):
             if column == "MOVE":
                 fenm2 = move.position.fenm2()
                 nagc = move.nag_color[1]
-                color = self.dic_color.get(nagc)
+                color = Nags.nag_color(nagc)
             else:
                 fenm2 = move.position_before.get_fenm2(from_sq, to_sq, promotion)
             is_book = OpeningsStd.ap.is_book_fenm2(fenm2)

@@ -50,10 +50,12 @@ from Code.Base.Constantes import (
     TB_UTILITIES,
     TB_VARIATIONS,
     TB_EBOARD,
+    TB_REPLAY,
 )
-from Code.Nags.Nags import NAG_0, NAG_1, NAG_2, NAG_3, NAG_4, NAG_5, NAG_6
 from Code.Board import Board
 from Code.MainWindow import WindowSolve
+from Code.Nags import Nags
+from Code.Nags.Nags import NAG_0
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles
@@ -192,6 +194,7 @@ class WBase(QtWidgets.QWidget):
             TB_HELP_TO_MOVE: (_("Help to move"), Iconos.BotonAyuda()),
             TB_STOP: (_("Play now"), Iconos.Stop()),
             TB_COMMENTS: (_("Disable"), Iconos.Comment32()),
+            TB_REPLAY: (_("Replay"), Iconos.Pelicula()),
         }
 
     def lanzaAtajos(self):
@@ -205,7 +208,8 @@ class WBase(QtWidgets.QWidget):
     def create_board(self):
         ae = QTUtil.altoEscritorio()
         mx = int(ae * 0.08)
-        config_board = self.manager.configuration.config_board("BASE", mx)
+        key = "BASE" if self.parent.key_video == "maind" else "BASEV"
+        config_board = self.manager.configuration.config_board(key, mx)
         self.board = Board.Board(self, config_board)
         self.board.crea()
         self.board.setFocus()
@@ -269,11 +273,10 @@ class WBase(QtWidgets.QWidget):
         # # Blancas y negras
         f = Controles.TipoLetra(puntos=configuration.x_sizefont_infolabels + 2, peso=75)
         self.lb_player_white = Controles.LB(self).anchoFijo(nAnchoLabels).align_center().ponFuente(f).set_wrap()
-        style = "QWidget { border-style: groove; border-width: 2px; border-color: Gray; padding: 4px 4px 4px 4px;background-color:%s;color:%s;}"
-        self.lb_player_white.setStyleSheet(style % ("white", "black"))
+        self.lb_player_white.setProperty("type", "white")
 
         self.lb_player_black = Controles.LB(self).anchoFijo(nAnchoLabels).align_center().ponFuente(f).set_wrap()
-        self.lb_player_black.setStyleSheet(style % ("black", "white"))
+        self.lb_player_black.setProperty("type", "black")
 
         # # Capturas
         n_alto_fijo = 3 * (configuration.x_sizefont_infolabels + 2)
@@ -288,14 +291,9 @@ class WBase(QtWidgets.QWidget):
         f = Controles.TipoLetra(puntos=26, peso=500)
 
         def lbReloj():
-            lb = (
-                Controles.LB(self, "00:00")
-                .ponFuente(f)
-                .align_center()
-                .set_foreground_backgound("#076C9F", "#EFEFEF")
-                .anchoMinimo(nAnchoLabels)
-            )
+            lb = Controles.LB(self, "00:00").ponFuente(f).align_center().anchoMinimo(nAnchoLabels)
             lb.setFrameStyle(QtWidgets.QFrame.Box | QtWidgets.QFrame.Raised)
+            lb.setProperty("type", "clock")
             return lb
 
         self.lb_clock_white = lbReloj()
@@ -385,6 +383,7 @@ class WBase(QtWidgets.QWidget):
         self.tb.li_acciones = li_acciones
         self.tb.update()
         QTUtil.refresh_gui()
+
         return self.tb
 
     def get_toolbar(self):
@@ -486,7 +485,7 @@ class WBase(QtWidgets.QWidget):
 
         color = None
         info = ""
-        indicadorInicial = None
+        image_initial = None
 
         color_nag = NAG_0
         st_nags = set(move.li_nags)
@@ -523,28 +522,20 @@ class WBase(QtWidgets.QWidget):
                 st_nags.add(nag)
 
         if move.in_the_opening or move.comment or move.variations:
-            indicadorInicial = "O" if move.in_the_opening else ""
+            image_initial = "O" if move.in_the_opening else ""
             if len(move.variations) > 0:
-                indicadorInicial += "V"
+                image_initial += "V"
             if move.comment:
-                indicadorInicial += "C"
+                image_initial += "C"
 
         pgn = move.pgnFigurinesSP() if self.manager.configuration.x_pgn_withfigurines else move.pgn_translated()
         if color_nag:
-            c = self.manager.configuration
-            color = {
-                NAG_1: c.x_color_nag1,
-                NAG_2: c.x_color_nag2,
-                NAG_3: c.x_color_nag3,
-                NAG_4: c.x_color_nag4,
-                NAG_5: c.x_color_nag5,
-                NAG_6: c.x_color_nag6,
-            }[color_nag]
+            color = Nags.nag_color(color_nag)
 
         if move.has_themes():
-            indicadorInicial = "T"
+            image_initial = "T"
 
-        return pgn, color, info, indicadorInicial, st_nags
+        return pgn, color, info, image_initial, st_nags
 
     def grid_setvalue(self, grid, row, o_column, valor):
         pass

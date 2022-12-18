@@ -408,8 +408,6 @@ class WSonidos(LCDialog.LCDialog):
         o_columns.nueva("DURACION", _("Duration"), 80, align_center=True)
 
         self.grid = Grid.Grid(self, o_columns, siSelecFilas=True, altoFila=Code.configuration.x_pgn_rowheight)
-        font = Controles.TipoLetra(puntos=Code.configuration.x_pgn_fontpoints)
-        self.grid.ponFuente(font)
 
         # Layout
         layout = Colocacion.V().control(tb).control(self.grid).margen(3)

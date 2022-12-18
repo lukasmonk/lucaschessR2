@@ -367,3 +367,7 @@ def transsiberian():
 
 def maps():
     return {"Africa": _("Africa map"), "WorldMap": _("World map")}
+
+
+def styles():
+    return [_("Dark"), _("Light")]

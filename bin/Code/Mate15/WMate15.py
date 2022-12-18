@@ -1,9 +1,8 @@
 import Code
 from Code import Util
-from Code.QT import Colocacion, Columnas, Controles, Grid, Iconos, QTUtil2, QTVarios
-from Code.QT import LCDialog
-
 from Code.Mate15 import Mate15, WRunMate15
+from Code.QT import Colocacion, Columnas, Grid, Iconos, QTUtil2, QTVarios
+from Code.QT import LCDialog
 
 
 class WMate15(LCDialog.LCDialog):
@@ -29,8 +28,6 @@ class WMate15(LCDialog.LCDialog):
         self.glista = Grid.Grid(
             self, o_columns, siSelecFilas=True, siSeleccionMultiple=True, altoFila=configuration.x_pgn_rowheight
         )
-        f = Controles.TipoLetra(puntos=configuration.x_pgn_fontpoints)
-        self.glista.ponFuente(f)
 
         li_acciones = (
             (_("Close"), Iconos.MainMenu(), self.terminar),

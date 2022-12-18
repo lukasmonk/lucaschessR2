@@ -63,7 +63,6 @@ class WKibitzers(LCDialog.LCDialog):
         )
         o_columns.nueva("NOMBRE", _("Kibitzer"), 209)
         self.grid_kibitzers = Grid.Grid(self, o_columns, siSelecFilas=True, siSeleccionMultiple=True, xid="kib")
-        self.grid_kibitzers.tipoLetra(puntos=self.configuration.x_pgn_fontpoints)
         self.grid_kibitzers.setAlternatingRowColors(False)
 
         p = self.grid_kibitzers.palette()
@@ -311,7 +310,7 @@ class WKibitzers(LCDialog.LCDialog):
         if self.kibitzers.lista:
             num = self.krecno()
             kib = self.kibitzers.kibitzer(num)
-            if QTUtil2.pregunta(self, _("Are you sure?") + "\n %s" % kib.name):
+            if QTUtil2.pregunta(self, _("Are you sure you want to remove %s?") % kib.name):
                 self.kibitzers.remove(num)
                 self.grid_kibitzers.refresh()
                 nk = len(self.kibitzers)

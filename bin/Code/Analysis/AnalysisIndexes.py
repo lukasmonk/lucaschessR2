@@ -10,11 +10,12 @@ from Code.Base.Constantes import (
     GOOD_MOVE,
     MISTAKE,
     VERY_GOOD_MOVE,
-    SPECULATIVE_MOVE,
+    INTERESTING_MOVE,
     BLUNDER,
     INACCURACY,
 )
 from Code.Openings import OpeningsStd
+from Code.Nags import Nags
 
 
 def calc_formula(cual, cp, mrm):  # , limit=200.0):
@@ -252,13 +253,11 @@ def gen_indexes(game, elos, elos_form, alm):
     moves_best = {True: 0, False: 0}
     moves_very_good = {True: 0, False: 0}
     moves_good = {True: 0, False: 0}
-    moves_speculative = {True: 0, False: 0}
-    moves_questionable = {True: 0, False: 0}
-    moves_bad = {True: 0, False: 0}
-    moves_very_bad = {True: 0, False: 0}
+    moves_interestings = {True: 0, False: 0}
+    moves_inaccuracies = {True: 0, False: 0}
+    moves_mistakes = {True: 0, False: 0}
+    moves_blunders = {True: 0, False: 0}
     moves_book = {True: 0, False: 0}
-
-    configuration = Code.configuration
 
     n = {True: 0, False: 0}
     nmoves_analyzed = {True: 0, False: 0}
@@ -266,7 +265,22 @@ def gen_indexes(game, elos, elos_form, alm):
         if move.analysis:
             mrm, pos = move.analysis
             rm = mrm.li_rm[pos]
-            nag_move, nag_color = move.nag_color = mrm.set_nag_color(rm)
+            if (
+                not hasattr(mrm, "dic_depth") or len(mrm.dic_depth) == 0
+            ):  # Generación de gráficos sin un análisis previo con su depth
+                if INTERESTING_MOVE in move.li_nags:
+                    nag_move, nag_color = INTERESTING_MOVE, INTERESTING_MOVE
+                elif VERY_GOOD_MOVE in move.li_nags:
+                    nag_move, nag_color = VERY_GOOD_MOVE, VERY_GOOD_MOVE
+                elif GOOD_MOVE in move.li_nags:
+                    nag_move, nag_color = GOOD_MOVE, GOOD_MOVE
+                else:
+                    nag_move, nag_color = mrm.set_nag_color(rm)
+
+            else:
+                nag_move, nag_color = mrm.set_nag_color(rm)
+            move.nag_color = nag_move, nag_color
+
             is_white = move.is_white()
             nmoves_analyzed[is_white] += 1
             pts = mrm.li_rm[pos].centipawns_abs()
@@ -299,14 +313,14 @@ def gen_indexes(game, elos, elos_form, alm):
                 moves_very_good[is_white] += 1
             elif nag_move == GOOD_MOVE:
                 moves_good[is_white] += 1
-            elif nag_move == SPECULATIVE_MOVE:
-                moves_speculative[is_white] += 1
+            elif nag_move == INTERESTING_MOVE:
+                moves_interestings[is_white] += 1
             elif nag_color == MISTAKE:
-                moves_bad[is_white] += 1
+                moves_mistakes[is_white] += 1
             elif nag_color == BLUNDER:
-                moves_very_bad[is_white] += 1
+                moves_blunders[is_white] += 1
             elif nag_color == INACCURACY:
-                moves_questionable[is_white] += 1
+                moves_inaccuracies[is_white] += 1
 
     t = n[True] + n[False]
     for color in (True, False):
@@ -400,12 +414,12 @@ def gen_indexes(game, elos, elos_form, alm):
         best_moves = ""
     txt = best_moves
     txt += xm(_("Book"), moves_book, "black")
-    txt += xm(_("Brilliant moves"), moves_very_good, configuration.x_color_nag3)
-    txt += xm(_("Good moves"), moves_good, configuration.x_color_nag1)
-    txt += xm(_("Interesting moves"), moves_speculative, configuration.x_color_nag5)
-    txt += xm(_("Dubious moves"), moves_questionable, configuration.x_color_nag6)
-    txt += xm(_("Mistakes"), moves_bad, configuration.x_color_nag2)
-    txt += xm(_("Blunders"), moves_very_bad, configuration.x_color_nag4)
+    txt += xm(_("Brilliant moves"), moves_very_good, Nags.nag_color(VERY_GOOD_MOVE))
+    txt += xm(_("Good moves"), moves_good, Nags.nag_color(GOOD_MOVE))
+    txt += xm(_("Interesting moves"), moves_interestings, Nags.nag_color(INTERESTING_MOVE))
+    txt += xm(_("Dubious moves"), moves_inaccuracies, Nags.nag_color(INACCURACY))
+    txt += xm(_("Mistakes"), moves_mistakes, Nags.nag_color(MISTAKE))
+    txt += xm(_("Blunders"), moves_blunders, Nags.nag_color(BLUNDER))
 
     cab = (plantilla_c % ("", cw, cb, ct)).replace("<td", "<th")
     txt_html_moves = '<table border="1" cellpadding="5" cellspacing="0" >%s%s</table>' % (cab, txt)

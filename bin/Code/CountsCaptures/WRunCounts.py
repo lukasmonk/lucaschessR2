@@ -26,7 +26,7 @@ class WRunCounts(LCDialog.LCDialog):
         # Rotulo informacion
         self.lb_info_game = Controles.LB(
             self, self.count.game.titulo("DATE", "EVENT", "WHITE", "BLACK", "RESULT")
-        ).ponTipoLetra(puntos=self.configuration.x_pgn_fontpoints)
+        )  # .ponTipoLetra(puntos=self.configuration.x_pgn_fontpoints)
 
         # Movimientos
         self.ed_moves = Controles.ED(self, "").ponTipoLetra(puntos=32)

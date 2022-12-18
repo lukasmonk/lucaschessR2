@@ -2,10 +2,10 @@ import os
 
 from PySide2 import QtCore, QtGui, QtWidgets
 
-from Code.QT import QTUtil
 from Code import Util
-from Code.QT import Iconos
 from Code.Base.Constantes import WHITE, BLACK
+from Code.QT import Iconos
+from Code.QT import QTUtil
 
 
 class Scanner_vars:
@@ -76,8 +76,10 @@ class Scanner(QtWidgets.QDialog):
         self.hide()
         if ok:
             self.vars.write()
-            rect = QtCore.QRect(self.x, self.y, self.width, self.height)
             screen = QtWidgets.QApplication.primaryScreen()
+            dpr = screen.devicePixelRatio()
+            rect = QtCore.QRect(self.x * dpr, self.y * dpr, self.width * dpr, self.height * dpr)
+
             desktop = screen.grabWindow(0, 0, 0, QTUtil.anchoEscritorio(), QTUtil.altoEscritorio())
             selected_pixmap = desktop.copy(rect)
             selected_pixmap = selected_pixmap.scaled(

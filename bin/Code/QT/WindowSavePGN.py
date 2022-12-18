@@ -186,8 +186,6 @@ class WSave(LCDialog.LCDialog):
         self.file = ""
         self.vars_read()
 
-        f = Controles.TipoLetra(puntos=configuration.x_pgn_fontpoints)
-
         # Opciones
         li_options = [
             (_("Save"), Iconos.GrabarFichero(), self.save),
@@ -202,32 +200,29 @@ class WSave(LCDialog.LCDialog):
         tb = QTVarios.LCTB(self, li_options)
 
         tabs = Controles.Tab(self)
-        tabs.ponFuente(f)
 
         # Tab-file -----------------------------------------------------------------------------------------------
-        lb_file = Controles.LB(self, _("File to save") + ": ").ponFuente(f)
-        bt_history = (
-            Controles.PB(self, "", self.history).ponIcono(Iconos.Favoritos(), 24).ponToolTip(_("Previous")).ponFuente(f)
-        )
+        lb_file = Controles.LB(self, _("File to save") + ": ")
+        bt_history = Controles.PB(self, "", self.history).ponIcono(Iconos.Favoritos(), 24).ponToolTip(_("Previous"))
         bt_boxrooms = (
             Controles.PB(self, "", self.boxrooms).ponIcono(Iconos.BoxRooms(), 24).ponToolTip(_("Boxrooms PGN"))
         )
-        self.bt_file = Controles.PB(self, "", self.file_select, plano=False).anchoMinimo(300).ponFuente(f)
+        self.bt_file = Controles.PB(self, "", self.file_select, plano=False).anchoMinimo(300)
 
         # Codec
-        lb_codec = Controles.LB(self, _("Encoding") + ": ").ponFuente(f)
+        lb_codec = Controles.LB(self, _("Encoding") + ": ")
         liCodecs = [k for k in set(v for k, v in encodings.aliases.aliases.items())]
         liCodecs.sort()
         liCodecs = [(k, k) for k in liCodecs]
         liCodecs.insert(0, (_("Same as file"), "file"))
         liCodecs.insert(0, ("%s: %s" % (_("By default"), _("UTF-8")), "default"))
-        self.cb_codecs = Controles.CB(self, liCodecs, self.codec).ponFuente(f)
+        self.cb_codecs = Controles.CB(self, liCodecs, self.codec)
 
         # Rest
-        self.chb_overwrite = Controles.CHB(self, _("Overwrite"), False).ponFuente(f)
-        self.chb_remove_comments = Controles.CHB(self, _("Remove comments"), self.remove_comments).ponFuente(f)
-        self.chb_remove_variations = Controles.CHB(self, _("Remove variations"), self.remove_variations).ponFuente(f)
-        self.chb_remove_nags = Controles.CHB(self, _("Remove NAGs"), self.remove_nags).ponFuente(f)
+        self.chb_overwrite = Controles.CHB(self, _("Overwrite"), False)
+        self.chb_remove_comments = Controles.CHB(self, _("Remove comments"), self.remove_comments)
+        self.chb_remove_variations = Controles.CHB(self, _("Remove variations"), self.remove_variations)
+        self.chb_remove_nags = Controles.CHB(self, _("Remove NAGs"), self.remove_nags)
 
         lyF = Colocacion.H().control(lb_file).control(self.bt_file).control(bt_history).control(bt_boxrooms).relleno(1)
         lyC = Colocacion.H().control(lb_codec).control(self.cb_codecs).relleno(1)
@@ -268,7 +263,6 @@ class WSave(LCDialog.LCDialog):
         o_columns.nueva("VALOR", _("Value"), 420, edicion=Delegados.LineaTextoUTF8())
 
         self.grid_labels = Grid.Grid(self, o_columns, is_editable=True)
-        self.grid_labels.ponFuente(f)
         n = self.grid_labels.anchoColumnas()
         self.grid_labels.setFixedWidth(n + 20)
 
@@ -276,10 +270,10 @@ class WSave(LCDialog.LCDialog):
         ly = Colocacion.V().control(tb_labels).control(self.grid_labels).margen(3)
         w = QtWidgets.QWidget()
         w.setLayout(ly)
-        tabs.new_tab(w, _("Labels"))
+        tabs.new_tab(w, _("PGN labels"))
 
         # Tab-Body -----------------------------------------------------------------------------------------------
-        self.em_body = Controles.EM(self, self.body, siHTML=False).ponFuente(f)
+        self.em_body = Controles.EM(self, self.body, siHTML=False)
         tabs.new_tab(self.em_body, _("Body"))
 
         layout = Colocacion.V().control(tb).control(tabs)

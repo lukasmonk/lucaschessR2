@@ -22,20 +22,20 @@ def dic_keys():
 
 class MensEspera(QtWidgets.QWidget):
     def __init__(
-        self,
-        parent,
-        mensaje,
-        siCancelar,
-        siMuestraYa,
-        opacity,
-        physical_pos,
-        fixedSize,
-        titCancelar,
-        background,
-        pmImagen=None,
-        puntos=12,
-        conImagen=True,
-        siParentNone=False,
+            self,
+            parent,
+            mensaje,
+            siCancelar,
+            siMuestraYa,
+            opacity,
+            physical_pos,
+            fixedSize,
+            titCancelar,
+            background,
+            pmImagen=None,
+            puntos=12,
+            conImagen=True,
+            siParentNone=False,
     ):
 
         super(MensEspera, self).__init__(
@@ -168,25 +168,26 @@ class ControlMensEspera:
         self.me = None
 
     def start(
-        self,
-        parent,
-        mensaje,
-        siCancelar=False,
-        siMuestraYa=True,
-        opacity=0.91,
-        physical_pos="c",
-        fixedSize=None,
-        titCancelar=None,
-        background=None,
-        pmImagen=None,
-        puntos=11,
-        conImagen=True,
-        siParentNone=False,
+            self,
+            parent,
+            mensaje,
+            siCancelar=False,
+            siMuestraYa=True,
+            opacity=0.91,
+            physical_pos="c",
+            fixedSize=None,
+            titCancelar=None,
+            background=None,
+            pmImagen=None,
+            puntos=11,
+            conImagen=True,
+            siParentNone=False,
     ):
         if self.me:
             self.final()
         if background is None:
-            background = "#D3E3EC"
+            background = Code.dic_colors["CONTROLMENSESPERA"]
+
         self.me = MensEspera(
             parent,
             mensaje,
@@ -248,15 +249,15 @@ mensEspera = ControlMensEspera()
 
 
 def mensajeTemporal(
-    main_window,
-    mensaje,
-    seconds,
-    background=None,
-    pmImagen=None,
-    physical_pos="c",
-    fixedSize=None,
-    siCancelar=None,
-    titCancelar=None,
+        main_window,
+        mensaje,
+        seconds,
+        background=None,
+        pmImagen=None,
+        physical_pos="c",
+        fixedSize=None,
+        siCancelar=None,
+        titCancelar=None,
 ):
     if siCancelar is None:
         siCancelar = seconds > 3.0
@@ -535,9 +536,9 @@ def listaOrdenes():
     for k in range(5, 30):
         txt = "%2d" % (k - 4,)
         if k == ZVALUE_PIECE:
-            txt += " => " + _("Piece")
+            txt += " ≥ " + _("Piece")
         elif k == ZVALUE_PIECE_MOVING:
-            txt += " => " + _("Moving piece")
+            txt += " ≥ " + _("Moving piece")
 
         li.append((txt, k))
     return li
@@ -591,7 +592,7 @@ def message(owner, texto, explanation=None, titulo=None, pixmap=None, px=None, p
         else:
             msg.setIconPixmap(pixmap)
         msg.setText(texto)
-        msg.setFont(Controles.TipoLetra(puntos=Code.configuration.x_menu_points, peso=300 if si_bold else 50))
+        msg.setFont(Controles.TipoLetra(puntos=Code.configuration.x_font_points, peso=300 if si_bold else 50))
         if explanation:
             msg.setInformativeText(explanation)
         msg.setWindowTitle(_("Message") if titulo is None else titulo)
@@ -693,37 +694,7 @@ def message_menu(owner, main, message, delayed):
 
         menu = QTVarios.LCMenu(owner)
 
-        menu.setStyleSheet(
-            """
-    QMenu {
-        background-color: white;
-        margin: 2px; /* some spacing around the menu */
-    }
-
-    QMenu::item {
-        padding: 2px 2px 2px 10px;
-        border: 1px solid transparent; /* reserve space for selection border */
-    }
-
-    QMenu::item:selected {
-        border-color: darkblue;
-        background: rgba(100, 100, 100, 150);
-    }
-
-    QMenu::separator {
-        height: 1px;
-        background: lightblue;
-        margin-left: 10px;
-        margin-right: 5px;
-    }
-
-    QMenu::indicator {
-        width: 5px;
-        height: 5px;
-    }
-
-    """
-        )
+        menu.setProperty("type", "101")
         f = Controles.TipoLetra(puntos=11)
         menu.ponFuente(f)
 
@@ -749,7 +720,7 @@ def message_menu(owner, main, message, delayed):
                 continue
             for i in range(tb.layout().lineCount()):
                 line = tb.layout().lineAt(i)
-                ret.append(blockText[line.textStart() : line.textStart() + line.textLength()])
+                ret.append(blockText[line.textStart(): line.textStart() + line.textLength()])
             tb = tb.next()
 
         for linea in ret:

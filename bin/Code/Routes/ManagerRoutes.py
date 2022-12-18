@@ -259,12 +259,12 @@ class ManagerRoutesPlay(ManagerRoutes):
 
         siRival = is_white == self.is_engine_side_white
         if siRival:
-            self.juegaRival()
+            self.play_rival()
         else:
             self.human_is_playing = True
             self.activate_side(is_white)
 
-    def juegaRival(self):
+    def play_rival(self):
         if self.is_opening:
             pv = self.liPVopening[self.posOpening]
             self.posOpening += 1
@@ -479,7 +479,7 @@ class ManagerRoutesEndings(ManagerRoutes):
             else:
                 fen = self.game.last_position.fen()
                 pv = self.t4.best_move(fen)
-            self.play_rival(pv[:2], pv[2:4], pv[4:])
+            self.rival_has_moved(pv[:2], pv[2:4], pv[4:])
             self.play_next_move()
         else:
             self.human_is_playing = True
@@ -535,7 +535,7 @@ class ManagerRoutesEndings(ManagerRoutes):
         self.play_next_move()
         return True
 
-    def play_rival(self, from_sq, to_sq, promotion):
+    def rival_has_moved(self, from_sq, to_sq, promotion):
         ok, mens, move = Move.get_game_move(self.game, self.game.last_position, from_sq, to_sq, promotion)
         self.add_move(move, False)
         self.move_the_pieces(move.liMovs, True)
@@ -682,7 +682,7 @@ class ManagerRoutesTactics(ManagerRoutes):
         siRival = is_white == self.is_engine_side_white
         if siRival:
             move = self.jugadaObjetivo()
-            self.play_rival(move.from_sq, move.to_sq, move.promotion)
+            self.rival_has_moved(move.from_sq, move.to_sq, move.promotion)
             self.play_next_move()
         else:
             self.human_is_playing = True
@@ -722,7 +722,7 @@ class ManagerRoutesTactics(ManagerRoutes):
         self.play_next_move()
         return True
 
-    def play_rival(self, from_sq, to_sq, promotion):
+    def rival_has_moved(self, from_sq, to_sq, promotion):
         ok, mens, move = Move.get_game_move(self.game, self.game.last_position, from_sq, to_sq, promotion)
         self.add_move(move, False)
         self.move_the_pieces(move.liMovs, True)

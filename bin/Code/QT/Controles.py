@@ -854,12 +854,13 @@ class TBrutina(QtWidgets.QToolBar):
             self.dic_toolbar = {}
             self.li_acciones = []
 
-    def new(self, titulo, icono, key, sep=True, toolTip=None):
+    def new(self, titulo, icono, key, sep=True, tool_tip=None):
         accion = QtWidgets.QAction(titulo, self.parent)
         accion.setIcon(icono)
         accion.setIconText(titulo)
-        if toolTip:
-            accion.setToolTip(toolTip)
+        if tool_tip:
+            accion.setToolTip(tool_tip)
+
         accion.triggered.connect(key)
         if self.f:
             accion.setFont(self.f)
@@ -880,8 +881,8 @@ class TBrutina(QtWidgets.QToolBar):
                     titulo, icono, key = datos
                     self.new(titulo, icono, key, False)
                 else:
-                    titulo, icono, key, toolTip = datos
-                    self.new(titulo, icono, key, False, toolTip=toolTip)
+                    titulo, icono, key, tool_tip = datos
+                    self.new(titulo, icono, key, False, tool_tip=tool_tip)
             else:
                 self.addSeparator()
 
@@ -914,6 +915,9 @@ class TBrutina(QtWidgets.QToolBar):
             accion.setIconText(title)
             accion.setToolTip(title)
 
+    def mousePressEvent(self, event: QtGui.QMouseEvent):
+        QtWidgets.QToolBar.mousePressEvent(self, event)
+
 
 class TipoLetra(QtGui.QFont):
     def __init__(self, name="", puntos=8, peso=50, is_italic=False, is_underlined=False, is_striked=False, txt=None):
@@ -923,7 +927,9 @@ class TipoLetra(QtGui.QFont):
             subrayado = 1 if is_underlined else 0
             tachado = 1 if is_striked else 0
             if not name:
-                name = self.defaultFamily()
+                app = QtWidgets.QApplication.instance()
+                font = app.font()
+                name = font.family()
             txt = "%s,%d,-1,5,%d,%d,%d,%d,0,0" % (name, puntos, peso, cursiva, subrayado, tachado)
         self.fromString(txt)
 

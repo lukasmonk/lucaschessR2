@@ -1,5 +1,6 @@
 import time
 
+import Code
 from Code import Manager
 from Code import Util
 from Code.Base import Game, Position
@@ -73,8 +74,6 @@ class ManagerOpeningLinesPositions(ManagerOPL.ManagerOpeningLines):
         self.state = ST_PLAYING
 
         self.check_boards_setposition()
-
-        self.remove_info()
 
         self.errores = 0
         self.ini_time = time.time()
@@ -237,14 +236,21 @@ class ManagerOpeningLinesPositions(ManagerOPL.ManagerOpeningLines):
         if not (pvSel in lipvObj):
             self.errores += 1
             mens = "%s: %d" % (_("Error"), self.errores)
-            QTUtil2.mensajeTemporal(self.main_window, mens, 0.8, physical_pos="ad", background="#FF9B00")
+            background = Code.dic_colors["WLINES_POSITIONS"]
+            QTUtil2.mensajeTemporal(self.main_window, mens, 1.0, physical_pos="ad", background=background)
             self.muestraInformacion()
             self.beepError()
             self.sigueHumano()
             return False
 
-        self.move_the_pieces(move.liMovs)
-
-        self.add_move(move, True)
+        if "LIPV" in self.trposition:
+            self.game = Game.Game()
+            self.game.leerLIPV(self.trposition["LIPV"])
+            self.game.assign_opening()
+            self.add_coments_all_game()
+        else:
+            self.move_the_pieces(move.liMovs)
+            self.add_move(move, True)
+        self.goto_end()
         self.posicionTerminada()
         return True

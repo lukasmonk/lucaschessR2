@@ -123,6 +123,8 @@ class GT_Item(GTarea):
     def itemSC(self, sc=None):
         if sc is not None:
             self._itemSC = sc
+            if self._bloqueDatos is None:
+                self._bloqueDatos = self.bloqueDatos()
         return self._itemSC
 
     def borraItemSCOwner(self):
@@ -150,7 +152,7 @@ class GT_Item(GTarea):
 
     def coordina(self):
         if self.xitemSCOwner:
-            if self.tp() == "S":
+            if self.tp() == TP_SVG:
                 self.xitemSCOwner.coordinaPosicionOtro(self._itemSC)
                 self.xitemSCOwner.update()
             else:
@@ -435,6 +437,9 @@ class GT_PiezaMueve(GTarea):
     def info(self):
         return self._desde + " -> " + self._hasta
 
+    def run(self):
+        self.guion.mueve_pieza(self._desde, self._hasta)
+
 
 class GT_PiezaCrea(GTarea):
     def __init__(self, guion):
@@ -461,6 +466,9 @@ class GT_PiezaCrea(GTarea):
         pz = TrListas.letterPiece(self._pieza)
         return (pz if pz.isupper() else pz.lower()) + " -> " + self._desde
 
+    def run(self):
+        self.guion.crea_pieza(self._pieza, self._desde)
+
 
 class GT_PiezaBorra(GTarea):
     def __init__(self, guion):
@@ -484,6 +492,9 @@ class GT_PiezaBorra(GTarea):
     def info(self):
         pz = TrListas.letterPiece(self._pieza)
         return (pz if pz.isupper() else pz.lower()) + " -> " + self._desde
+
+    def run(self):
+        self.guion.borra_pieza(self._desde)
 
 
 class Guion:
@@ -516,9 +527,9 @@ class Guion:
 
         self.board_activasPiezas = self.board.pieces_are_active, self.board.side_pieces_active
 
-    def restoreBoard(self):
+    def restoreBoard(self, siBorraMoviblesAhora=False):
         self.board.dirvisual = None
-        self.board.set_position(self.board_last_position, siBorraMoviblesAhora=False)
+        self.board.set_position(self.board_last_position, siBorraMoviblesAhora=siBorraMoviblesAhora)
         if self.board_flechaSC:
             from_sq, to_sq = self.board_flechaSC
             self.board.put_arrow_sc(from_sq, to_sq)
@@ -753,8 +764,8 @@ class Guion:
         if self.winDirector:
             for tarea in self.liGTareas:
                 if not (tarea.tp() in (TP_ACTION, TP_CONFIGURATION, TP_TEXTO)):
-                    if not tarea.itemSC():
-                        tarea.run()
+                    # if not hasattr("tarea", "_itemSC") or not tarea._itemSC():
+                    #      tarea.run()
                     tarea.marcado(True)
                 else:
                     tarea.marcado(False)
@@ -769,6 +780,16 @@ class Guion:
                     time.sleep(0.05)
             if self.cerrado:
                 return
+
+    def mueve_pieza(self, xfrom, xto):
+        self.board.muevePieza(xfrom, xto)
+        self.board.put_arrow_sc(xfrom, xto)
+
+    def borra_pieza(self, xfrom):
+        self.board.borraPieza(xfrom)
+
+    def crea_pieza(self, pieza, xfrom):
+        self.board.creaPieza(pieza, xfrom)
 
 
 class DBManagerVisual:

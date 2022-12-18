@@ -1,6 +1,9 @@
 import collections
 
-from Code.Base.Constantes import NO_RATING, GOOD_MOVE, MISTAKE, VERY_GOOD_MOVE, BLUNDER, SPECULATIVE_MOVE, INACCURACY
+from PySide2 import QtGui
+
+import Code
+from Code.Base.Constantes import NO_RATING, GOOD_MOVE, MISTAKE, VERY_GOOD_MOVE, BLUNDER, INTERESTING_MOVE, INACCURACY
 
 NAG_0, NAG_1, NAG_2, NAG_3, NAG_4, NAG_5, NAG_6 = (
     NO_RATING,
@@ -8,7 +11,7 @@ NAG_0, NAG_1, NAG_2, NAG_3, NAG_4, NAG_5, NAG_6 = (
     MISTAKE,
     VERY_GOOD_MOVE,
     BLUNDER,
-    SPECULATIVE_MOVE,
+    INTERESTING_MOVE,
     INACCURACY,
 )
 
@@ -217,6 +220,7 @@ class Nags:
 
 
 xdic_nags = {}
+xdic_colors = {}
 
 
 def dic_symbol_nags(num_nag):
@@ -231,3 +235,21 @@ def dic_text_nags(num_nag):
     if not xdic_nags:
         xdic_nags = dic_nags()
     return xdic_nags[num_nag].text if num_nag in xdic_nags else ""
+
+
+def nag_color(num_nag):
+    global xdic_colors
+    if not xdic_colors:
+        xdic_colors[GOOD_MOVE] = Code.dic_colors["GOOD_MOVE"]
+        xdic_colors[MISTAKE] = Code.dic_colors["MISTAKE"]
+        xdic_colors[VERY_GOOD_MOVE] = Code.dic_colors["VERY_GOOD_MOVE"]
+        xdic_colors[BLUNDER] = Code.dic_colors["BLUNDER"]
+        xdic_colors[INTERESTING_MOVE] = Code.dic_colors["INTERESTING_MOVE"]
+        xdic_colors[INACCURACY] = Code.dic_colors["INACCURACY"]
+    return xdic_colors.get(num_nag)
+
+
+def nag_qcolor(num_nag):
+    if NAG_0 < num_nag <= NAG_6:
+        return QtGui.QColor(nag_color(num_nag))
+    return None

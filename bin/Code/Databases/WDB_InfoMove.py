@@ -55,16 +55,15 @@ class WInfomove(QtWidgets.QWidget):
         self.historia = None
         self.posHistoria = None
 
-        self.intervalo = configuration.x_interval_replay
+        self.interval_replay = configuration.x_interval_replay
+        self.beep_replay = configuration.x_beep_replay
 
         lybt, bt = QTVarios.lyBotonesMovimiento(self, "", siTiempo=True, siLibre=False, icon_size=24)
 
         self.lbPGN = LBKey(self).anchoFijo(self.board.ancho).set_wrap()
         self.lbPGN.wowner = self
         self.lbPGN.ponTipoLetra(puntos=configuration.x_pgn_fontpoints + 2)
-        self.lbPGN.setStyleSheet(
-            "QLabel{ border-style: groove; border-width: 2px; border-color: LightSlateGray; padding: 2px 16px 6px 2px;}"
-        )
+        self.lbPGN.setProperty("type", "pgn")
         self.lbPGN.setOpenExternalLinks(False)
 
         def muestraPos(txt):
@@ -188,9 +187,9 @@ class WInfomove(QtWidgets.QWidget):
 
         numJugada = p.primeraJugada()
         pgn = ""
-        style_number = "color:teal; font-weight: bold;"
-        style_moves = "color:black;"
-        style_select = "color:navy;font-weight: bold;"
+        style_number = "color:%s; font-weight: bold;" % Code.dic_colors["PGN_NUMBER"]
+        style_select = "color:%s;font-weight: bold;" % Code.dic_colors["PGN_SELECT"]
+        style_moves = "color:%s;" % Code.dic_colors["PGN_MOVES"]
         if p.starts_with_black:
             pgn += '<span style="%s">%d...</span>' % (style_number, numJugada)
             numJugada += 1
@@ -280,9 +279,12 @@ class WInfomove(QtWidgets.QWidget):
     def toolbar_rightmouse(self):
         configuration = Code.configuration
         QTVarios.change_interval(self, configuration)
-        self.intervalo = configuration.x_interval_replay
+        self.interval_replay = configuration.x_interval_replay
+        self.beep_replay = configuration.x_beep_replay
 
     def lanzaReloj(self):
         if self.siReloj:
             self.MoverAdelante()
-            QtCore.QTimer.singleShot(self.intervalo, self.lanzaReloj)
+            if self.beep_replay:
+                Code.runSound.playBeep()
+            QtCore.QTimer.singleShot(self.interval_replay, self.lanzaReloj)

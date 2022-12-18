@@ -18,20 +18,16 @@ siempre que la rutina se haya definido en la ventana:
 
 from PySide2 import QtCore, QtGui, QtWidgets
 
-import Code
-from Code.QT import QTUtil
-
 
 class ControlGrid(QtCore.QAbstractTableModel):
     """
     Modelo de datos asociado al grid, y que realiza xtodo el trabajo asignado por QT.
     """
 
+    num_cols: int = 0
+    num_rows: int = 0
+
     def __init__(self, grid, w_parent, oColumnasR):
-        """
-        @param tableView:
-        @param oColumnasR: ListaColumnas con la configuration de todas las columnas visualizables.
-        """
         QtCore.QAbstractTableModel.__init__(self, w_parent)
         self.grid = grid
         self.w_parent = w_parent
@@ -70,7 +66,7 @@ class ControlGrid(QtCore.QAbstractTableModel):
                 self.removeRows(nue_ndatos, ant_ndatos - nue_ndatos)
             self.num_rows = nue_ndatos
 
-        ant_ncols = self.numCols
+        ant_ncols = self.num_cols
         nue_ncols = self.oColumnasR.numColumnas()
         if ant_ncols != nue_ncols:
             if ant_ncols < nue_ncols:
@@ -84,8 +80,8 @@ class ControlGrid(QtCore.QAbstractTableModel):
         """
         Llamada interna, solicitando el number de columnas.
         """
-        self.numCols = self.oColumnasR.numColumnas()
-        return self.numCols
+        self.num_cols = self.oColumnasR.numColumnas()
+        return self.num_cols
 
     def data(self, index, role):
         """
@@ -169,24 +165,26 @@ class ControlGrid(QtCore.QAbstractTableModel):
         """
         Llamada interna, para determinar el texto de las cabeceras de las columnas.
         """
-        if orientation == QtCore.Qt.Horizontal and role == QtCore.Qt.DisplayRole:
-            column = self.oColumnasR.column(col)
-            return column.head
-        # elif orientation == QtCore.Qt.Vertical and role == QtCore.Qt.DisplayRole:
-        #     return str(col+1)
+        if role == QtCore.Qt.DisplayRole:
+            if orientation == QtCore.Qt.Horizontal:
+                column = self.oColumnasR.column(col)
+                return column.head
+            if self.grid.with_header_vertical and orientation == QtCore.Qt.Vertical:
+                return self.w_parent.grid_get_header_vertical(self.grid, col)
         return None
 
+    def fore_color_name(self):
+        palette = self.w_parent.palette()
+        return palette.color(self.w_parent.foregroundRole()).name()
 
-class Cabecera(QtWidgets.QHeaderView):
-    """
-    Se crea esta clase para poder implementar el doble click en la head.
-    """
 
+class Header(QtWidgets.QHeaderView):
     def __init__(self, tvParent, siCabeceraMovible):
         QtWidgets.QHeaderView.__init__(self, QtCore.Qt.Horizontal)
         self.setSectionsMovable(siCabeceraMovible)
         self.setSectionsClickable(True)
         self.tvParent = tvParent
+        self.setMinimumSectionSize(10)
 
     def mouseDoubleClickEvent(self, event):
         numColumna = self.logicalIndexAt(event.x(), event.y())
@@ -202,15 +200,63 @@ class Cabecera(QtWidgets.QHeaderView):
         self.setToolTip(tooltip)
 
 
-class CabeceraHeight(Cabecera):
+class HeaderFixedHeight(Header):
     def __init__(self, tvParent, siCabeceraMovible, height):
-        Cabecera.__init__(self, tvParent, siCabeceraMovible)
+        Header.__init__(self, tvParent, siCabeceraMovible)
         self.height = height
 
     def sizeHint(self):
-        baseSize = Cabecera.sizeHint(self)
+        baseSize = Header.sizeHint(self)
         baseSize.setHeight(self.height)
         return baseSize
+
+
+class HeaderFontVertical(Header):
+    def __init__(self, parent=None, height=None):
+        self.parent = parent
+        super().__init__(parent, False)
+        self._font = QtGui.QFont("helvetica", 10)
+        self._metrics = QtGui.QFontMetrics(self._font)
+        self._descent = self._metrics.descent()
+        self._margin = 10
+        self._height = height
+
+    def paintSection(self, painter, rect, index):
+        data = self._get_data(index)
+        painter.rotate(-90)
+        painter.setFont(self._font)
+        painter.drawText(-rect.height() + self._margin, rect.left() + (rect.width() + self._descent) / 2, data)
+
+    def sizeHint(self):
+        if self._height:
+            return QtCore.QSize(0, self._height)
+        return QtCore.QSize(0, self._get_text_width() + self._margin)
+
+    def _get_text_width(self):
+        return max([self._metrics.width(self._get_data(i)) for i in range(0, self.model().columnCount(self.parent))])
+
+    def _get_data(self, index):
+        return self.model().headerData(index, self.orientation(), QtCore.Qt.DisplayRole)
+
+
+class HeaderVertical(QtWidgets.QHeaderView):
+    """
+    Se crea esta clase para poder implementar el doble click en la head.
+    """
+
+    def __init__(self, tvParent):
+        QtWidgets.QHeaderView.__init__(self, QtCore.Qt.Vertical)
+        self.setSectionsMovable(False)
+        self.setSectionsClickable(False)
+        self.tvParent = tvParent
+
+    def mouseDoubleClickEvent(self, event):
+        num_col = self.logicalIndexAt(event.x(), event.y())
+        self.tvParent.dobleClickCabeceraVertical(num_col)
+        return QtWidgets.QHeaderView.mouseDoubleClickEvent(self, event)
+
+    def set_tooltip(self, tooltip):
+        self.setToolTip(tooltip)
 
 
 class Grid(QtWidgets.QTableView):
@@ -233,31 +279,23 @@ class Grid(QtWidgets.QTableView):
         background="",
         siCabeceraVisible=True,
         altoCabecera=None,
+        alternate=True,
+        cab_vertical_font=None,
+        with_header_vertical=False,
     ):
         """
         @param w_parent: ventana propietaria
         @param o_columns: configuration de las columnas.
         @param altoFila: altura de todas las filas.
         """
-
-        assert w_parent is not None
+        self.with_header_vertical = with_header_vertical
 
         self.starting = True
 
         QtWidgets.QTableView.__init__(self)
 
-        configuration = Code.configuration
-
-        p = self.palette()
-        p.setBrush(
-            QtGui.QPalette.Active,
-            QtGui.QPalette.Highlight,
-            QtGui.QBrush(QtGui.QColor(configuration.pgn_selbackground())),
-        )
-        p.setBrush(QtGui.QPalette.Active, QtGui.QPalette.HighlightedText, QtGui.QBrush(QtGui.QColor("white")))
-        self.setPalette(p)
-
         self.w_parent = w_parent
+        self.setFont(QtWidgets.QApplication.font())
         self.id = xid
 
         self.siCabeceraMovible = siCabeceraMovible
@@ -274,23 +312,25 @@ class Grid(QtWidgets.QTableView):
         self.setWordWrap(False)
         self.setTextElideMode(QtCore.Qt.ElideNone)
 
-        if background == "":
-            self.setStyleSheet("QTableView {background: %s;}" % QTUtil.backgroundGUI())
-        elif background is not None:
+        if background is not None:
             self.setStyleSheet("QTableView {background: %s;}" % background)
 
-        if configuration.x_pgn_headerbackground:
-            self.setStyleSheet("QHeaderView::section { background-color:%s }" % configuration.pgn_headerbackground())
-
-        self.coloresAlternados()
+        if alternate:
+            self.coloresAlternados()
 
         if altoCabecera:
-            hh = CabeceraHeight(self, siCabeceraMovible, altoCabecera)
+            hh = HeaderFixedHeight(self, siCabeceraMovible, altoCabecera)
+        elif cab_vertical_font:
+            hh = HeaderFontVertical(self)  # , height=cab_vertical_font)
         else:
-            hh = Cabecera(self, siCabeceraMovible)
+            hh = Header(self, siCabeceraMovible)
         self.setHorizontalHeader(hh)
         if not siCabeceraVisible:
             hh.setVisible(False)
+
+        if with_header_vertical:
+            hv = HeaderVertical(self)
+            self.setVerticalHeader(hv)
 
         self.cabecera = hh
 
@@ -304,6 +344,9 @@ class Grid(QtWidgets.QTableView):
         self.starting = False
 
         self.right_button_without_rows = False
+
+    def set_headervertical_alinright(self):
+        self.verticalHeader().setDefaultAlignment(QtCore.Qt.AlignRight)
 
     def set_right_button_without_rows(self, ok):
         self.right_button_without_rows = ok
@@ -432,6 +475,16 @@ class Grid(QtWidgets.QTableView):
         """
         if hasattr(self.w_parent, "grid_doubleclick_header"):
             self.w_parent.grid_doubleclick_header(self, self.oColumnasR.column(numColumna))
+
+    def dobleClickCabeceraVertical(self, numFila):
+        """
+        Se gestiona este evento, ante la posibilidad de que la ventana quiera controlar,
+        los doble clicks sobre la head , normalmente para cambiar el orden de la column,
+        llamando a la rutina correspondiente si existe (grid_doubleclick_header) y con el
+        argumento del objeto column
+        """
+        if hasattr(self.w_parent, "grid_doubleclick_header_vertical"):
+            self.w_parent.grid_doubleclick_header_vertical(self, numFila)
 
     def mouseCabecera(self, numColumna):
         """
@@ -576,4 +629,4 @@ class Grid(QtWidgets.QTableView):
         vh = self.verticalHeader()
         vh.setSectionResizeMode(QtWidgets.QHeaderView.Fixed)
         vh.setDefaultSectionSize(altoFila)
-        vh.setVisible(False)
+        vh.setVisible(self.with_header_vertical)

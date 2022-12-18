@@ -4,7 +4,7 @@ import psutil
 from PySide2 import QtCore
 
 from Code import Util
-from Code.Base import Game
+from Code.Base import Game, Move
 from Code.Engines import EngineRun
 from Code.Kibitzers import Kibitzers
 from Code.Kibitzers import WKibCommon
@@ -41,6 +41,8 @@ class WKibEngine(WKibCommon.WKibCommon):
         o_columns.nueva("EVALUATION", _("Evaluation"), 85, align_center=True)
         o_columns.nueva("MAINLINE", _("Main line"), 400)
         self.grid = Grid.Grid(self, o_columns, dicVideo=self.dicVideo, siSelecFilas=True)
+        f = Controles.TipoLetra(puntos=self.cpu.configuration.x_pgn_fontpoints)
+        self.grid.ponFuente(f)
 
         self.lbDepth = Controles.LB(self)
 
@@ -175,21 +177,17 @@ class WKibEngine(WKibCommon.WKibCommon):
 
         elif key == "BESTMOVE":
             p = Game.Game(first_position=self.game.last_position)
-            p.read_pv(rm.pv)
-            pgn = p.pgnBaseRAW() if self.with_figurines else p.pgn_translated()
-            li = pgn.split(" ")
-            resp = ""
-            if li:
-                if ".." in li[0]:
-                    if len(li) > 1:
-                        resp = li[1]
+            p.read_pv(rm.movimiento())
+            if len(p) > 0:
+                move: Move.Move = p.li_moves[0]
+                resp = move.pgnFigurinesSP() if self.with_figurines else move.pgn_translated()
+                if self.with_figurines:
+                    is_white = self.game.last_position.is_white
+                    return resp, is_white, None, None, None, None, False, True
                 else:
-                    resp = li[0].lstrip("1234567890.")
-            if self.with_figurines:
-                is_white = self.game.last_position.is_white
-                return resp, is_white, None, None, None, None, False, True
+                    return resp
             else:
-                return resp
+                return None
 
         elif key == "DEPTH":
             return "%d" % rm.depth
@@ -197,10 +195,11 @@ class WKibEngine(WKibCommon.WKibCommon):
         else:
             p = Game.Game(first_position=self.game.last_position)
             p.read_pv(rm.pv)
-            li = p.pgn_translated().split(" ")
-            if ".." in li[0]:
-                li = li[1:]
-            return " ".join(li[1:])
+            move0: Move.Move = p.li_moves[0]
+            p.first_position = move0.position
+            p.li_moves = p.li_moves[1:]
+            txt = p.pgn_translated()
+            return txt.lstrip("0123456789. ") if ".." in txt else txt
 
     def grid_doble_click(self, grid, row, o_column):
         if 0 <= row < len(self.li_moves):

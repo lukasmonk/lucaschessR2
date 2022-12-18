@@ -483,18 +483,19 @@ class WLearnPuente(LCDialog.LCDialog):
 
         self.tb.reset(li_acciones)
 
-    @staticmethod
-    def deactivate_eboard(ms):
+    def deactivate_eboard(self, ms):
         if Code.eboard and Code.eboard.driver:
             QTUtil.refresh_gui()
             QtCore.QTimer.singleShot(ms, Code.eboard.deactivate)
+            return True
+        return False
 
     def eboard(self):
         if Code.eboard.driver:
             self.deactivate_eboard(100)
         else:
-            Code.eboard.activate(self.boardIni.dispatch_eboard)
-            Code.eboard.set_position(self.boardIni.last_position)
+            if Code.eboard.activate(self.boardIni.dispatch_eboard):
+                Code.eboard.set_position(self.boardIni.last_position)
 
         self.pon_toolbar(self.INICIO)
 

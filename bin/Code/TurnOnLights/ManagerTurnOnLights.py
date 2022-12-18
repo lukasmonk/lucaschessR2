@@ -178,7 +178,7 @@ class ManagerTurnOnLights(Manager.Manager):
         if siRival:
             pv = self.line.get_move(self.num_move)
             from_sq, to_sq, promotion = pv[:2], pv[2:4], pv[4:]
-            self.play_rival(from_sq, to_sq, promotion)
+            self.rival_has_moved(from_sq, to_sq, promotion)
             self.play_next_move()
 
         else:
@@ -313,7 +313,7 @@ class ManagerTurnOnLights(Manager.Manager):
         self.pgnRefresh(self.game.last_position.is_white)
         self.refresh()
 
-    def play_rival(self, from_sq, to_sq, promotion):
+    def rival_has_moved(self, from_sq, to_sq, promotion):
         ok, mens, move = Move.get_game_move(self.game, self.game.last_position, from_sq, to_sq, promotion)
         self.add_move(move, False)
         self.move_the_pieces(move.liMovs, True)

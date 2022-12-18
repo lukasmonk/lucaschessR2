@@ -1,3 +1,5 @@
+import collections
+
 from PySide2 import QtWidgets, QtCore
 
 import Code
@@ -12,7 +14,6 @@ from Code.QT import Controles
 from Code.QT import Grid
 from Code.QT import Iconos
 from Code.QT import LCDialog
-from Code.QT import QTUtil
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
 from Code.SQL import UtilSQL
@@ -25,12 +26,20 @@ class WLeague(LCDialog.LCDialog):
 
         titulo = "%s - %s %d" % (league.name(), _("Season"), league.get_current_season() + 1)
         icono = Iconos.League()
-        extparam = "league4"
+        extparam = "league"
         LCDialog.LCDialog.__init__(self, w_parent, titulo, icono, extparam)
 
         self.league = league
         self.season = league.read_season()
-        self.li_panels = self.season.gen_panels_classification()
+        self.li_panels, self.dic_xid_order = self.season.gen_panels_classification()
+        self.li_panels_crosstabs = (
+            self.season.gen_panels_crosstabs()
+        )  # division - dic[xid] = [wdl, wdl] RESULT_WIN_WHITE/....
+        self.li_sorted_opponents = (
+            self.season.list_sorted_opponents()
+        )  # division - list - opponents objects   (alphabetically)
+        self.mix_panels()
+
         self.li_matches = self.season.get_all_matches()
         self.current_journey = self.season.get_current_journey()
         self.max_journeys = self.season.get_max_journeys()
@@ -41,11 +50,16 @@ class WLeague(LCDialog.LCDialog):
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.update_matches)
 
+        self.li_grids_divisions = []
+        self.li_grids_divisions_crosstabs = []
+
         self.num_workers_launched = 0
 
-        self.color_win = QTUtil.qtColor("#007aae")
-        self.color_lost = QTUtil.qtColor("#f47378")
-        self.color_white = QTUtil.qtColor("white")
+        self.color_win = Code.dic_qcolors["WLEAGUE_WIN"]
+        self.color_lost = Code.dic_qcolors["WLEAGUE_LOST"]
+        self.color_noresult = Code.dic_qcolors["WLEAGUE_NORESULT"]
+        self.color_draw = Code.dic_qcolors["WLEAGUE_DRAW"]
+        self.color_migration = Code.dic_qcolors["WLEAGUE_MIGRATION"]
 
         li_acciones = (
             (_("Close"), Iconos.MainMenu(), self.terminar),
@@ -57,13 +71,14 @@ class WLeague(LCDialog.LCDialog):
             (_("Export"), Iconos.Export8(), self.export),
             None,
             (_("Seasons"), Iconos.Season(), self.seasons),
+            None,
+            (_("Config"), Iconos.Configurar(), self.config),
         )
         self.tb = QTVarios.LCTB(self, li_acciones)
 
         self.tab = Controles.Tab(self).ponTipoLetra(puntos=10).set_position("S")
         font = Controles.TipoLetra(puntos=10)
 
-        self.li_grids_divisions = []
         ly = Colocacion.H()
         li_nom_divisions = [
             _("First Division"),
@@ -76,11 +91,12 @@ class WLeague(LCDialog.LCDialog):
         if num_divisions > 5:
             for dv in range(6, num_divisions + 1):
                 li_nom_divisions.append("%d %s" % (dv, _("Division")))
-        tr = Controles.Tab(self).ponTipoLetra(puntos=10).set_position("S")
+        tr = Controles.Tab(self).ponTipoLetra(puntos=10)  # .set_position("S")
+        sw = "◻  "
+        sb = "◼  "
         for division in range(num_divisions):
             o_col = Columnas.ListaColumnas()
-            o_col.nueva("ORDER", "", 40, align_center=True)
-            o_col.nueva("OPPONENT", _("Opponent"), 200)
+            o_col.nueva("NAME", _("Opponent"), 150)
             o_col.nueva("PTS", _("Pts ||Points/score"), 50, align_center=True)
             o_col.nueva("PL", _("GP ||Games played"), 40, align_center=True)
             o_col.nueva("WIN", _("W ||Games won"), 50, align_center=True)
@@ -89,9 +105,12 @@ class WLeague(LCDialog.LCDialog):
             o_col.nueva("ACT_ELO", _("Current ELO"), 90, align_center=True)
             o_col.nueva("DIF_ELO", "∆", 60, align_center=True)
             o_col.nueva("INI_ELO", _("Initial ELO"), 90, align_center=True)
-            grid = Grid.Grid(self, o_col, xid="CLASSIFICATION%d" % division, siSelecFilas=True)
+            for num_op in range(len(self.li_panels[division])):
+                o_col.nueva("w%d" % num_op, sw + str(num_op + 1), 40, align_center=True)
+                o_col.nueva("b%d" % num_op, sb + str(num_op + 1), 40, align_center=True)
+
+            grid = Grid.Grid(self, o_col, xid="CLASSIF%d" % division, with_header_vertical=True)
             grid.setFont(font)
-            self.register_grid(grid)
             self.li_grids_divisions.append(grid)
             tr.addTab(grid, li_nom_divisions[division])
         ly.control(tr)
@@ -99,9 +118,39 @@ class WLeague(LCDialog.LCDialog):
         w = QtWidgets.QWidget(self)
         w.setLayout(ly)
 
-        self.tab.addTab(w, "")
+        self.tab.addTab(w, _("Classification"))
         self.tab.setIconSize(QtCore.QSize(32, 32))
         self.tab.ponIcono(0, Iconos.Classification())
+
+        # CROSSTABS ----------------------------------------------------------------------------------------------------
+        ly = Colocacion.H()
+        tr = Controles.Tab(self).ponTipoLetra(puntos=10)  # .set_position("S")
+        for num_division in range(num_divisions):
+            o_col = Columnas.ListaColumnas()
+            o_col.nueva("ORDER", _("Order"), 30, align_center=True)
+            for opponent in self.li_sorted_opponents[num_division]:
+                o_col.nueva(opponent.xid, opponent.name(), 30, align_center=True)
+            grid = Grid.Grid(
+                self,
+                o_col,
+                xid="CROSSTABS%d" % num_division,
+                siSelecFilas=False,
+                cab_vertical_font=180,
+                with_header_vertical=True,
+            )
+            grid.setFont(font)
+            grid.set_headervertical_alinright()
+            # self.register_grid(grid)
+            self.li_grids_divisions_crosstabs.append(grid)
+            tr.addTab(grid, li_nom_divisions[num_division])
+        ly.control(tr)
+
+        w = QtWidgets.QWidget(self)
+        w.setLayout(ly)
+
+        self.tab.addTab(w, _("Crosstabs"))
+        self.tab.setIconSize(QtCore.QSize(32, 32))
+        self.tab.ponIcono(1, Iconos.Crosstable())
 
         # Matches
         o_col = Columnas.ListaColumnas()
@@ -166,6 +215,21 @@ class WLeague(LCDialog.LCDialog):
 
         self.set_journey_if_active()
 
+        for grid in self.li_grids_divisions:
+            grid.resizeColumnToContents(0)
+
+    def config(self):
+        menu = QTVarios.LCMenu(self)
+        menu.opcion(
+            "continue",
+            _("Launch new workers when a matchday ends"),
+            Iconos.Unchecked() if self.season.stop_work_journey else Iconos.Checked(),
+        )
+        resp = menu.lanza()
+        if resp:
+            self.season.stop_work_journey = not self.season.stop_work_journey
+            self.season.save()
+
     def set_journey_if_active(self):
         antes = self.current_journey
         self.current_journey = self.season.get_current_journey()
@@ -173,7 +237,7 @@ class WLeague(LCDialog.LCDialog):
             self.update_matches()
             lw = LeaguesWork.LeaguesWork(self.league)
             lw.put_league()
-            if self.pending_matches():
+            if self.pending_matches() and not self.season.stop_work_journey:
                 for x in range(self.num_workers_launched):
                     XRun.run_lucas("-league", self.league.name())
         active = self.current_journey == self.sb_journey.valor() - 1
@@ -218,44 +282,19 @@ class WLeague(LCDialog.LCDialog):
     def grid_num_datos(self, grid):
         if grid in self.li_grids_divisions:
             return len(self.li_panels[self.li_grids_divisions.index(grid)])
+        elif grid in self.li_grids_divisions_crosstabs:
+            return len(self.li_panels_crosstabs[self.li_grids_divisions_crosstabs.index(grid)]) + 1
         return len(self.li_matches)
-
-    def grid_doubleclick_header(self, grid, col):
-        if grid != self.grid_matches:
-            return
-
-        key = col.key
-        order_prev = self.dic_order.get(key, False)
-        self.dic_order[key] = order = not order_prev
-
-        li = [(self.grid_dato(grid, row, col), xmatch) for row, xmatch in enumerate(self.li_matches)]
-        li.sort(key=lambda x: x[0], reverse=not order)
-        self.li_matches = [xmatch for dato, xmatch in li]
-
-        grid.refresh()
-        grid.gotop()
-
-    def grid_dato_division(self, num_division, row, nom_column):
-        if nom_column == "ORDER":
-            return str(row + 1)
-        d_panel = self.li_panels[num_division][row]
-        if nom_column == "OPPONENT":
-            return self.dic_xid_name[d_panel["XID"]]
-        if nom_column == "DIF_ELO":
-            dif = d_panel["ACT_ELO"] - d_panel["INI_ELO"]
-            if dif == 0:
-                return "-"
-            if dif > 0:
-                return "+%d" % dif
-            else:
-                return "%d" % dif
-        return str(d_panel[nom_column])
 
     def grid_dato(self, grid, row, o_column):
         column = o_column.key
         if grid in self.li_grids_divisions:
-            division = self.li_grids_divisions.index(grid)
-            return self.grid_dato_division(division, row, column)
+            num_division = self.li_grids_divisions.index(grid)
+            return self.grid_dato_division(num_division, row, column)
+        elif grid in self.li_grids_divisions_crosstabs:
+            num_division = self.li_grids_divisions_crosstabs.index(grid)
+            return self.grid_dato_crosstab(num_division, row, column)
+
         else:
             xmatch = self.li_matches[row]
             if column == "RESULT":
@@ -276,6 +315,226 @@ class WLeague(LCDialog.LCDialog):
             elif column == "DIVISION":
                 return xmatch.label_division
 
+    def grid_color_texto(self, grid, row, o_column):
+        if grid in self.li_grids_divisions:
+            if self.season.is_finished():
+                migration = self.league.migration
+                ndatos = self.grid_num_datos(grid)
+                num_division = self.li_grids_divisions.index(grid)
+                d_panel = self.li_panels[num_division][row]
+                order = d_panel["ORDER"]
+                if order <= migration:
+                    return self.color_win
+                elif order > (ndatos - migration):
+                    return self.color_lost
+
+    def grid_color_fondo(self, grid, row, o_column):
+        if grid in self.li_grids_divisions_crosstabs:
+            column = o_column.key
+            num_division = self.li_grids_divisions_crosstabs.index(grid)
+            return self.grid_color_fondo_crosstabs(num_division, row, column)
+
+        if grid in self.li_grids_divisions:
+            if self.season.is_finished():
+                migration = self.league.migration
+                ndatos = self.grid_num_datos(grid)
+                num_division = self.li_grids_divisions.index(grid)
+                d_panel = self.li_panels[num_division][row]
+                order = d_panel["ORDER"]
+                if order <= migration or order > (ndatos - migration):
+                    return self.color_migration
+
+    def grid_bold(self, grid, row, o_column):
+        if grid in self.li_grids_divisions_crosstabs:
+            return True
+        migration = self.league.migration
+        ndatos = self.grid_num_datos(grid)
+        return (
+            grid in self.li_grids_divisions
+            and self.season.is_finished()
+            and (row < migration or row > (ndatos - migration - 1))
+        )
+
+    def grid_doubleclick_header(self, grid, col):
+        if grid == self.grid_matches:
+
+            key = col.key
+            order_prev = self.dic_order.get(key, False)
+            self.dic_order[key] = order = not order_prev
+
+            li = [(self.grid_dato(grid, row, col), xmatch) for row, xmatch in enumerate(self.li_matches)]
+            li.sort(key=lambda x: x[0], reverse=not order)
+            self.li_matches = [xmatch for dato, xmatch in li]
+
+        elif grid in self.li_grids_divisions:
+            num_division = self.li_grids_divisions.index(grid)
+            key_order = "D", num_division, col.key
+            order_next = self.dic_order.get(key_order, 0) + 1
+            if order_next > 2:
+                order_next = 0
+            self.dic_order[key_order] = order_next
+
+            li_panel = self.li_panels[num_division]
+            if order_next == 0:
+                li_panel.sort(key=lambda x: x["ORDER"])
+            else:
+                if col.key == "DIF_ELO":
+                    li_panel.sort(key=lambda x: x["ACT_ELO"] - x["INI_ELO"], reverse=order_next == 2)
+
+                elif col.key[0] in "wb":
+
+                    def xsort(dic):
+                        x = dic[col.key]
+                        if x in ("", "-"):
+                            return -1.0
+                        else:
+                            return float(x)
+
+                    li_panel.sort(key=xsort, reverse=order_next == 2)
+
+                else:
+                    li_panel.sort(key=lambda x: x[col.key], reverse=order_next == 2)
+
+        elif grid in self.li_grids_divisions_crosstabs:
+            num_division = self.li_grids_divisions_crosstabs.index(grid)
+            if col.key != "ORDER":
+                return
+
+            key_order = "C", num_division, "H"
+            pos_order = self.dic_order.get(key_order, 0)
+            pos_order += 1
+            if pos_order > 2:
+                pos_order = 0
+            self.dic_order[key_order] = pos_order
+
+            def order_classification(x):
+                return self.dic_xid_order[x.xid]
+
+            def order_classification_v(x):
+                return -self.dic_xid_order[x.xid]
+
+            def order_alphabetically(x):
+                return self.dic_xid_name[x.xid]
+
+            if pos_order == 0:
+                func_order = order_alphabetically
+            elif pos_order == 1:
+                func_order = order_classification
+            else:
+                func_order = order_classification_v
+
+            self.li_sorted_opponents[num_division].sort(key=func_order)
+
+        grid.refresh()
+        grid.gotop()
+
+    def grid_doubleclick_header_vertical(self, grid, row):
+        if grid in self.li_grids_divisions:
+            self.grid_doble_click(grid, row, None)
+        elif grid in self.li_grids_divisions_crosstabs:
+            if row == 0:
+                num_division = self.li_grids_divisions_crosstabs.index(grid)
+
+                key_order = "C", num_division, "V"
+                pos_order = self.dic_order.get(key_order, 0)
+                pos_order += 1
+                if pos_order > 2:
+                    pos_order = 0
+                self.dic_order[key_order] = pos_order
+
+                def order_classification(x):
+                    return self.dic_xid_order[x.key] if x.key != "ORDER" else 0
+
+                def order_classification_v(x):
+                    return -self.dic_xid_order[x.key] if x.key != "ORDER" else -999999
+
+                def order_alphabetically(x):
+                    return self.dic_xid_name[x.key] if x.key != "ORDER" else "      "
+
+                if pos_order == 0:
+                    func_order = order_alphabetically
+                elif pos_order == 1:
+                    func_order = order_classification
+                else:
+                    func_order = order_classification_v
+
+                li_columnas = grid.oColumnasR.li_columns
+                li_columnas.sort(key=func_order)
+                grid.refresh()
+
+    def grid_dato_division(self, num_division, row, nom_column):
+        d_panel = self.li_panels[num_division][row]
+        if nom_column == "DIF_ELO":
+            dif = d_panel["ACT_ELO"] - d_panel["INI_ELO"]
+            if dif == 0:
+                return "-"
+            if dif > 0:
+                return "+%d" % dif
+            else:
+                return "%d" % dif
+        if nom_column == "PTS":
+            cpts = "%0.02f" % d_panel[nom_column]
+            while cpts.endswith("0"):
+                cpts = cpts[:-1]
+            if cpts.endswith("."):
+                cpts = cpts[:-1]
+            return cpts
+        if nom_column == "NAME":
+            return self.dic_xid_name[d_panel["XID"]]
+        return str(d_panel[nom_column])
+
+    def grid_dato_crosstab(self, num_division, row, nom_column):
+        other_xid = nom_column
+        if row == 0:
+            if nom_column == "ORDER":
+                return ""
+            else:
+                return str(self.dic_xid_order[other_xid])
+        op_xid = self.li_sorted_opponents[num_division][row - 1].xid
+        if op_xid == other_xid:
+            return ""
+        if nom_column == "ORDER":
+            return str(self.dic_xid_order[op_xid])
+
+        result = self.li_panels_crosstabs[num_division][op_xid][other_xid]
+        if result is None:
+            return ""
+        if result == RESULT_DRAW:
+            return _("D ||Games drawn")
+        if result == RESULT_WIN_WHITE:
+            return _("W ||White")
+        else:
+            return _("B ||Black")
+
+    def grid_get_header_vertical(self, grid, col):
+        if grid in self.li_grids_divisions_crosstabs:
+            if col == 0:
+                return _("Order")
+            num_division = self.li_grids_divisions_crosstabs.index(grid)
+            return self.li_sorted_opponents[num_division][col - 1].name()
+
+        elif grid in self.li_grids_divisions:
+            num_division = self.li_grids_divisions.index(grid)
+            d_panel = self.li_panels[num_division][col]
+            return " %2d " % self.dic_xid_order[d_panel["XID"]]
+
+    def grid_color_fondo_crosstabs(self, num_division, row, nom_column):
+        if nom_column == "ORDER" or row == 0:
+            return
+        other_xid = nom_column
+        op_xid = self.li_sorted_opponents[num_division][row - 1].xid
+        if op_xid == other_xid:
+            return
+        result = self.li_panels_crosstabs[num_division][op_xid][other_xid]
+        if result is None:
+            return self.color_noresult
+        if result == RESULT_DRAW:
+            return self.color_draw
+        if result == RESULT_WIN_WHITE:
+            return self.color_win
+        else:
+            return self.color_lost
+
     def consult_matches(self, grid, row):
         num_division = self.li_grids_divisions.index(grid)
         d_panel = self.li_panels[num_division][row]
@@ -283,14 +542,15 @@ class WLeague(LCDialog.LCDialog):
         li_matches_played = self.season.get_all_matches_opponent(num_division, xid_engine)
         if len(li_matches_played) == 0:
             return
+        self.select_match(li_matches_played, xid_engine)
 
-        menu = QTVarios.LCMenu(self)
-        menu.ponTipoLetra(name=Code.font_mono, puntos=10)
-
+    def select_match(self, li_matches, xid_engine):
         win = _("Win")
         draw = _("Draw")
         lost = _("Loss")
-        for xmatch in li_matches_played:
+        dic = collections.defaultdict(list)
+        dicon = {0: Iconos.Rojo(), 5: Iconos.Naranja(), 10: Iconos.Azul(), 15: Iconos.Verde(), 20: Iconos.Magenta()}
+        for xmatch in li_matches:
             white = self.dic_xid_name[xmatch.xid_white]
             black = self.dic_xid_name[xmatch.xid_black]
             result = xmatch.result
@@ -302,112 +562,139 @@ class WLeague(LCDialog.LCDialog):
                 icon = Iconos.Negras()
                 opponent = white
                 cresult = win if result == RESULT_WIN_BLACK else (lost if result == RESULT_WIN_WHITE else draw)
-            menu.opcion(xmatch, "%s - %s" % (cresult, opponent), icon)
+            dic[opponent].append((xmatch, icon, cresult))
+
+        menu = QTVarios.LCMenu(self)
+        menu.ponTipoLetra(name=Code.font_mono, puntos=10)
+
+        li_names = list(dic.keys())
+        li_names.sort()
+
+        for opponent in li_names:
+            li = dic[opponent]
+            pt = 0
+            for xmatch, icon, cresult in li:
+                if cresult == win:
+                    pt += 10
+                elif cresult == draw:
+                    pt += 5
+            submenu = menu.submenu(opponent, dicon.get(pt, Iconos.PuntoNegro()))
+            for xmatch, icon, cresult in li:
+                submenu.opcion(xmatch, cresult, icon)
             menu.separador()
         xmatch = menu.lanza()
         if xmatch:
             self.show_match_done(xmatch)
 
-    def grid_right_button(self, grid, row, column, modificadores):
-        if grid in self.li_grids_divisions:
-            self.consult_matches(grid, row)
+    def consult_matches_classification(self, grid, row):
+        xmatch = self.li_matches[row]
+        division = int(xmatch.label_division)
+        if xmatch.result:
+            self.show_match_done(xmatch)
+            grid.refresh()
+
+        elif xmatch.is_human_vs_engine(self.league):
+            self.play_human = self.league, xmatch, division
+            self.result = PLAY_HUMAN
+            self.accept()
+
+        elif xmatch.is_human_vs_human(self.league):
+            game = Game.Game()
+            game.set_tag("Site", Code.lucas_chess)
+            game.set_tag("Event", self.league.name())
+            game.set_tag("Season", str(self.league.current_num_season + 1))
+            game.set_tag("Division", str(division + 1))
+            game.set_tag("White", self.league.opponent_by_xid(xmatch.xid_white).name())
+            game.set_tag("Black", self.league.opponent_by_xid(xmatch.xid_black).name())
+            panel = self.li_panels[division]
+            elo_white = elo_black = 0
+            for elem in panel:
+                if elem["XID"] == xmatch.xid_white:
+                    elo_white = elem["ACT_ELO"]
+                elif elem["XID"] == xmatch.xid_black:
+                    elo_black = elem["ACT_ELO"]
+            game.set_tag("WhiteElo", str(elo_white))
+            game.set_tag("BlackElo", str(elo_black))
+
+            menu = QTVarios.LCMenu(self)
+            menu.opcion(RESULT_DRAW, RESULT_DRAW, Iconos.Tablas())
+            menu.separador()
+            menu.opcion(RESULT_WIN_WHITE, RESULT_WIN_WHITE, Iconos.Blancas())
+            menu.separador()
+            menu.opcion(RESULT_WIN_BLACK, RESULT_WIN_BLACK, Iconos.Negras())
+            resp = menu.lanza()
+            if resp is None:
+                return
+            game.set_tag("Result", resp)
+
+            while True:
+                game_resp = Code.procesador.manager_game(self, game, True, False, None)
+                if game_resp:
+                    game_resp.verify()
+                    if game.resultado() in (RESULT_WIN_BLACK, RESULT_DRAW, RESULT_WIN_WHITE):
+                        xmatch.result = game.resultado()
+                        self.season.put_match_done(xmatch, game)
+                        self.update_matches()
+                        grid.refresh()
+                        return
+                    else:
+                        QTUtil2.message_error(self, _("The game must have a valid result tag"))
+                        game = game_resp
+                else:
+                    return
+
+    def consult_matches_crosstabs(self, grid, row, other_xid):
+        if other_xid == "ORDER" or row == 0:
+            return
+        num_division = self.li_grids_divisions_crosstabs.index(grid)
+        op_xid = self.li_sorted_opponents[num_division][row - 1].xid
+        li_matches_played = self.season.get_all_matches_opponent(num_division, op_xid)
+        if other_xid == op_xid:
+            self.select_match(li_matches_played, op_xid)
+            return
+        xmatch: Leagues.Match
+        for xmatch in li_matches_played:
+            if other_xid == xmatch.xid_black:
+                self.show_match_done(xmatch)
 
     def grid_doble_click(self, grid, row, o_column):
         if grid in self.li_grids_divisions:
-            self.consult_matches(grid, row)
+            nom_column = o_column.key if o_column else None
+            if nom_column and nom_column[0] in "wb":
+                is_white = nom_column.startswith("w")
+                pos_other = int(nom_column[1:]) + 1
+                num_division = self.li_grids_divisions.index(grid)
+                d_panel = self.li_panels[num_division][row]
+                if pos_other == d_panel["ORDER"]:
+                    return
+                xid = d_panel["XID"]
+                for un_panel in self.li_panels[num_division]:
+                    if un_panel["ORDER"] == pos_other:
+                        d_panel_other = un_panel
+                        break
+                other_xid = d_panel_other["XID"]
+                if not is_white:
+                    xid, other_xid = other_xid, xid
+                xmatch = self.season.get_match(num_division, xid, other_xid)
+                if xmatch:
+                    self.show_match_done(xmatch)
+                return
+
+            else:
+                self.consult_matches(grid, row)
+
+        elif grid in self.li_grids_divisions_crosstabs:
+            self.consult_matches_crosstabs(grid, row, o_column.key)
 
         else:
-            xmatch = self.li_matches[row]
-            division = int(xmatch.label_division)
-            if xmatch.result:
-                self.show_match_done(xmatch)
-                grid.refresh()
-
-            elif xmatch.is_human_vs_engine(self.league):
-                self.play_human = self.league, xmatch, division
-                self.result = PLAY_HUMAN
-                self.accept()
-
-            elif xmatch.is_human_vs_human(self.league):
-                game = Game.Game()
-                game.set_tag("Site", Code.lucas_chess)
-                game.set_tag("Event", self.league.name())
-                game.set_tag("Season", str(self.league.current_num_season + 1))
-                game.set_tag("Division", str(division + 1))
-                game.set_tag("White", self.league.opponent_by_xid(xmatch.xid_white).name())
-                game.set_tag("Black", self.league.opponent_by_xid(xmatch.xid_black).name())
-                panel = self.li_panels[division]
-                elo_white = elo_black = 0
-                for elem in panel:
-                    if elem["XID"] == xmatch.xid_white:
-                        elo_white = elem["ACT_ELO"]
-                    elif elem["XID"] == xmatch.xid_black:
-                        elo_black = elem["ACT_ELO"]
-                game.set_tag("WhiteElo", str(elo_white))
-                game.set_tag("BlackElo", str(elo_black))
-
-                menu = QTVarios.LCMenu(self)
-                menu.opcion(RESULT_DRAW, RESULT_DRAW, Iconos.Tablas())
-                menu.separador()
-                menu.opcion(RESULT_WIN_WHITE, RESULT_WIN_WHITE, Iconos.Blancas())
-                menu.separador()
-                menu.opcion(RESULT_WIN_BLACK, RESULT_WIN_BLACK, Iconos.Negras())
-                resp = menu.lanza()
-                if resp is None:
-                    return
-                game.set_tag("Result", resp)
-
-                while True:
-                    game_resp = Code.procesador.manager_game(self, game, True, False, None)
-                    if game_resp:
-                        game_resp.verify()
-                        if game.resultado() in (RESULT_WIN_BLACK, RESULT_DRAW, RESULT_WIN_WHITE):
-                            xmatch.result = game.resultado()
-                            self.season.put_match_done(xmatch, game)
-                            self.update_matches()
-                            grid.refresh()
-                            return
-                        else:
-                            QTUtil2.message_error(self, _("The game must have a valid result tag"))
-                            game = game_resp
-                    else:
-                        return
+            self.consult_matches_classification(grid, row)
 
     def show_match_done(self, xmatch):
         game = self.season.get_game_match(xmatch)
         if game:
             game = Code.procesador.manager_game(self, game, True, False, None)
             if game:
-                self.season.put_match_done(game)
-
-    def grid_color_texto(self, grid, row, o_column):
-        if grid in self.li_grids_divisions:
-            if self.season.is_finished():
-                migration = self.league.migration
-                if row < migration:
-                    return self.color_win
-                ndatos = self.grid_num_datos(grid)
-                if row > (ndatos - migration - 1):
-                    return self.color_lost
-
-    def grid_color_fondo(self, grid, row, o_column):
-        migration = self.league.migration
-        ndatos = self.grid_num_datos(grid)
-        if (
-            grid in self.li_grids_divisions
-            and self.season.is_finished()
-            and (row < migration or row > (ndatos - migration - 1))
-        ):
-            return self.color_white
-
-    def grid_bold(self, grid, row, o_column):
-        migration = self.league.migration
-        ndatos = self.grid_num_datos(grid)
-        return (
-            grid in self.li_grids_divisions
-            and self.season.is_finished()
-            and (row < migration or row > (ndatos - migration - 1))
-        )
+                self.season.put_match_done(xmatch, game)
 
     def update_matches(self):
         if self.terminated:
@@ -448,8 +735,13 @@ class WLeague(LCDialog.LCDialog):
                 self.timer.start(10000)
 
     def show_current_season(self):
-        self.li_panels = self.season.gen_panels_classification()
+        self.li_panels, self.dic_xid_order = self.season.gen_panels_classification()
         for grid in self.li_grids_divisions:
+            grid.refresh()
+
+        self.li_panels_crosstabs = self.season.gen_panels_crosstabs()
+        self.mix_panels()
+        for grid in self.li_grids_divisions_crosstabs:
             grid.refresh()
         self.grid_matches.refresh()
 
@@ -523,22 +815,40 @@ class WLeague(LCDialog.LCDialog):
                     return
             else:
                 database = resp[4:]
-            um = QTUtil2.unMomento(self, _("Generating the list of games to save"))
-            li_games = self.season.list_games()
+
+            dic_raw_games = self.season.dic_raw_games()
+            pb = QTUtil2.BarraProgreso(self, _("Generating the list of games to save"), "", len(dic_raw_games), 500)
+            pb.mostrar()
+            li_games = []
+            for pos, saved in enumerate(dic_raw_games.values(), 1):
+                pb.pon(pos)
+                if pb.is_canceled():
+                    return
+                try:
+                    g = Game.Game()
+                    g.restore(saved)
+                    li_games.append(g)
+                except TypeError:
+                    pass
+            pb.close()
+
+            pb = QTUtil2.BarraProgreso(self, _("Save all games to a database"), "", len(li_games), 500)
+            pb.mostrar()
             db = DBgames.DBgames(database)
             nsaved = 0
             nerror = 0
             total = len(li_games)
-            pl = _("Saving...") + " %d/%d"
             for pos, game in enumerate(li_games, 1):
-                um.label(pl % (pos, total))
+                pb.pon(pos)
+                if pb.is_canceled():
+                    break
                 resp = db.insert(game)
                 if resp.ok:
                     nsaved += 1
                 else:
                     nerror += 1
             db.close()
-            um.final()
+            pb.close()
             if total > 0:
                 if nerror:
                     explanation = _("The database did not allow %d duplicate games to be recorded").replace(
@@ -546,7 +856,11 @@ class WLeague(LCDialog.LCDialog):
                     )
                 else:
                     explanation = None
-                QTUtil2.message(self, _("Saved") + " %d" % nsaved, explanation=explanation)
+                QTUtil2.message(
+                    self,
+                    _("Saved") + " %d" % nsaved,
+                    explanation=explanation,
+                )
 
         else:
             num_season = int(resp)
@@ -573,6 +887,37 @@ class WLeague(LCDialog.LCDialog):
             self.league.set_current_season(num_season)
             self.result = REINIT
             self.accept()
+
+    def mix_panels(self):
+        for num_division, li_panel in enumerate(self.li_panels):
+            for pos, un_elem in enumerate(li_panel):
+                for pos_otro, otro_elem in enumerate(li_panel):
+                    for side in ("w", "b"):
+                        key = "%s%d" % (side, pos_otro)
+                        if pos == pos_otro:
+                            valor = ""
+                        else:
+                            xid = un_elem["XID"]
+                            other_xid = self.li_panels[num_division][pos_otro]["XID"]
+                            if side == "b":
+                                xid, other_xid = other_xid, xid
+                            result = self.li_panels_crosstabs[num_division][xid][other_xid]
+                            if result is None:
+                                valor = "-"
+                            else:
+                                if result == RESULT_DRAW:
+                                    valor = self.league.score_draw
+                                elif result == RESULT_WIN_WHITE:
+                                    valor = self.league.score_win if side == "w" else self.league.score_lost
+                                else:
+                                    valor = self.league.score_lost if side == "w" else self.league.score_win
+                                cs = "%0.02f" % valor
+                                while cs.endswith("0"):
+                                    cs = cs[:-1]
+                                if cs.endswith("."):
+                                    cs = cs[:-1]
+                                valor = cs
+                        un_elem[key] = valor
 
 
 def play_league(parent, league):

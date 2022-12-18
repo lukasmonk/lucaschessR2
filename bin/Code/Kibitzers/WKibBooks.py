@@ -23,12 +23,14 @@ class WPolyglot(WKibCommon.WKibCommon):
         o_columns.nueva("PORC", "%", 60, align_center=True)
         o_columns.nueva("WEIGHT", _("Weight"), 80, align_right=True)
         self.grid = Grid.Grid(self, o_columns, dicVideo=self.dicVideo, siSelecFilas=True)
+        f = Controles.TipoLetra(puntos=self.cpu.configuration.x_pgn_fontpoints)
+        self.grid.ponFuente(f)
 
         li_acciones = (
             (_("Quit"), Iconos.Kibitzer_Close(), self.terminar),
             (_("Continue"), Iconos.Kibitzer_Play(), self.play),
             (_("Pause"), Iconos.Kibitzer_Pause(), self.pause),
-            (_("Takeback"), Iconos.pmKibitzer_Back(), self.takeback),
+            (_("Takeback"), Iconos.Kibitzer_Back(), self.takeback),
             (_("Manual position"), Iconos.Kibitzer_Voyager(), self.set_position),
             (_("Show/hide board"), Iconos.Kibitzer_Board(), self.config_board),
             ("%s: %s" % (_("Enable"), _("window on top")), Iconos.Kibitzer_Up(), self.windowTop),

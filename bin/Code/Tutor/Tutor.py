@@ -83,7 +83,7 @@ class Tutor:
             pvBloque = self.rm_rival.getPV()
             n = pvBloque.find(" ")
             if n > 0:
-                pvBloque = pvBloque[n + 1 :].strip()
+                pvBloque = pvBloque[n + 1:].strip()
             else:
                 pvBloque = ""
 
@@ -94,7 +94,7 @@ class Tutor:
                 self.maxRival = len(self.gameRival.li_moves) - 1
                 if self.maxRival >= 0:
                     self.boardRival.set_position(self.gameRival.li_moves[0].position)
-                    self.play_rival(True)
+                    self.rival_has_moved(True)
                     w.ponPuntuacionRival(self.rm_rival.texto_rival())
 
         self.moving_tutor(True)
@@ -130,7 +130,9 @@ class Tutor:
 
             move.add_variation(game)
 
-            txt = self.gameUsuario.pgnBaseRAW(numJugada)
+            game_usuario = Game.Game(self.move.position_before)
+            game_usuario.read_pv(self.rmUsuario.getPV())
+            txt = game_usuario.pgn_translated()
             puntos = self.rmUsuario.texto()
             vusu = "%s : %s" % (puntos, txt)
             move.set_comment(vusu.replace("\n", ""))
@@ -260,7 +262,7 @@ class Tutor:
                 self.boardTutor.set_position(move.position)
                 self.boardTutor.put_arrow_sc(move.from_sq, move.to_sq)
 
-    def play_rival(self, si_inicio=False, n_saltar=0, siFinal=False, is_base=False):
+    def rival_has_moved(self, si_inicio=False, n_saltar=0, siFinal=False, is_base=False):
         if n_saltar:
             pos = self.posRival + n_saltar
             if 0 <= pos < self.maxRival:
@@ -387,12 +389,13 @@ class Tutor:
                     self.boardUsuario.flechaSC.show()
 
 
-def launch_tutor(mrm_tutor, rm_usuario):
-    tp = Code.configuration.x_tutor_diftype
+def launch_tutor(mrm_tutor, rm_usuario, tp=None):
+    if tp is None:
+        tp = Code.configuration.x_tutor_diftype
     rm_tutor = mrm_tutor.mejorMov()
     if tp == 0:  # ALWAYS
         return (rm_tutor.movimiento() != rm_usuario.movimiento()) and (
-            rm_tutor.centipawns_abs() > rm_usuario.centipawns_abs()
+                rm_tutor.centipawns_abs() > rm_usuario.centipawns_abs()
         )
     else:
         ev = Code.analysis_eval.evaluate(rm_tutor, rm_usuario)

@@ -91,7 +91,7 @@ class ManagerTactics(Manager.Manager):
 
         self.num_bad_tries = 0
         if self.tactic.advanced:
-            self.board.showCoordenadas(False)
+            self.board.show_coordinates(False)
 
             self.ini_clock = time.time()
             self.wsolve = self.main_window.base.wsolve
@@ -103,7 +103,7 @@ class ManagerTactics(Manager.Manager):
     def advanced_return(self, solved):
         self.tactic.masSegundos(time.time() - self.ini_clock)
         self.wsolve.hide()
-        self.board.showCoordenadas(True)
+        self.board.show_coordinates(True)
         more_errors = self.wsolve.errors
         more_helps = self.wsolve.helps
         if more_errors > 0 or more_helps > 0:
@@ -201,7 +201,7 @@ class ManagerTactics(Manager.Manager):
             self.start(self.tactic)
 
     def end_game(self):
-        self.board.showCoordenadas(True)
+        self.board.show_coordinates(True)
         self.procesador.start()
         self.procesador.entrenamientos.entrenaTactica(self.tactic)
 

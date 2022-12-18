@@ -14,6 +14,8 @@ def read_mic_engines():
             alias = dic["ALIAS"]
             nom_base_engine = dic["ENGINE"]
             id_info = dic["IDINFO"]
+            liinfo = [_F(x.strip()) for x in id_info.split("\n")]
+            id_info = "\n".join(liinfo)
             elo = dic["ELO"]
             li_uci = [(d["name"], d["valor"]) for d in dic["LIUCI"]]
 

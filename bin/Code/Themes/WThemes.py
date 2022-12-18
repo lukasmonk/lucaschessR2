@@ -49,8 +49,6 @@ class WThemes(LCDialog.LCDialog):
 
         self.o_columnas = o_columns
         self.grid = Grid.Grid(self, o_columns, is_editable=True, altoCabecera=4)
-        font = Controles.TipoLetra(puntos=Code.configuration.x_pgn_fontpoints)
-        self.grid.ponFuente(font)
 
         lb_right_click = Controles.LB(self, " * %s" % _("More options with right-click"))
 

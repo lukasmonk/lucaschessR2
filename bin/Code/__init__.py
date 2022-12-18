@@ -72,6 +72,9 @@ analysis_eval = None
 
 eboard = None
 
+dic_colors = None
+dic_qcolors = None
+
 
 def relative_root(path):
     # Used only for titles/labels
@@ -87,7 +90,7 @@ def relative_root(path):
 
 
 BASE_VERSION = "B"  # Para el control de updates que necesitan reinstalar entero
-VERSION = "R 2.04"
+VERSION = "R 2.05"
 DEBUG = False
 DEBUG_ENGINES = False
 

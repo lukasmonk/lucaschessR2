@@ -138,7 +138,7 @@ class ManagerTrainBooks(Manager.Manager):
             self.book_move.to_sq = xto
             self.book_move.promotion = promotion
 
-            self.play_rival(self.book_move)
+            self.rival_has_moved(self.book_move)
             self.siguienteJugada()
 
         else:
@@ -345,7 +345,7 @@ class ManagerTrainBooks(Manager.Manager):
 
         jg.set_comment(comentario)
 
-    def play_rival(self, book_response):
+    def rival_has_moved(self, book_response):
         xfrom = book_response.from_sq
         xto = book_response.to_sq
 

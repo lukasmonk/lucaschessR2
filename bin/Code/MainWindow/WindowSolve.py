@@ -247,7 +247,7 @@ padding: 2px;"""
                         ed.setText(pgn[: pos_c + 1])
                         ed.setFocus()
                         break
-                for ed in self.li_current_moves[pos + 1 :]:
+                for ed in self.li_current_moves[pos + 1:]:
                     ed.setText("")
                 break
 

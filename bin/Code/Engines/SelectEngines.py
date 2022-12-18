@@ -37,7 +37,7 @@ def get_dict_type_names():
         ENG_EXTERNAL: _("External engines"),
         ENG_MICGM: _("GM engines"),
         ENG_MICPER: _("Tourney engines"),
-        ENG_FIXED: _("Engines with fixed elo"),
+        ENG_FIXED: _("Engines with limited elo"),
         ENG_IRINA: _("Opponents for young players"),
         ENG_ELO: _("Lucas-Elo"),
         ENG_RODENT: _("Rodent II personalities"),
@@ -420,8 +420,6 @@ class WSelectEngines(LCDialog.LCDialog):
 
         self.o_columnas = o_columns
         self.grid = Grid.Grid(self, o_columns, is_editable=True)
-        font = Controles.TipoLetra(puntos=Code.configuration.x_pgn_fontpoints)
-        self.grid.ponFuente(font)
 
         ly_head = Colocacion.H().control(tb).control(self.lb_number).margen(3)
 

@@ -10,8 +10,9 @@ from PySide2 import QtCore, QtGui, QtWidgets
 from PySide2.QtCore import Qt
 
 import Code
-import Code.Board.WindowColors as WindowColores
+import Code.Board.WBoardColors as WBoardColors
 from Code import Util, XRun
+from Code.Base import Game
 from Code.Base.Constantes import (
     WHITE,
     BLACK,
@@ -24,7 +25,6 @@ from Code.Base.Constantes import (
 )
 from Code.Board import BoardElements, BoardMarkers, BoardBoxes, BoardSVGs, BoardTypes, BoardArrows, BoardCircles
 from Code.Director import TabVisual, WindowDirector
-from Code.Base import Game
 from Code.QT import Colocacion
 from Code.QT import Controles
 from Code.QT import Delegados
@@ -189,19 +189,19 @@ class Board(QtWidgets.QGraphicsView):
                     self.configuration.graba()
 
             # ALT-K
-            elif key == Qt.Key_K:
+            elif is_alt and key == Qt.Key_K:
                 self.showKeys()
 
             # ALT-L
-            elif key == Qt.Key_L:
+            elif is_alt and key == Qt.Key_L:
                 webbrowser.open("https://lichess.org/analysis/standard/" + self.last_position.fen())
 
             # ALT-T
-            elif key == Qt.Key_T:
+            elif is_alt and key == Qt.Key_T:
                 webbrowser.open("https://old.chesstempo.com/gamedb/fen/" + self.last_position.fen())
 
             # ALT-X
-            elif key == Qt.Key_X:
+            elif is_alt and key == Qt.Key_X:
                 self.play_current_position()
 
             elif (
@@ -296,7 +296,13 @@ class Board(QtWidgets.QGraphicsView):
         event.ignore()
 
         if k in (QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace) and len(self.dicMovibles) > 0:
-            self.borraUltimoMovible()
+            if self.dirvisual:
+                self.dirvisual.keyPressEvent(event)
+            else:
+                if k == QtCore.Qt.Key_Backspace:
+                    self.borraUltimoMovible()
+                elif k == QtCore.Qt.Key_Delete:
+                    self.borraMovibles()
             return
 
         self.exec_kb_buffer(k, m)
@@ -706,7 +712,7 @@ class Board(QtWidgets.QGraphicsView):
                 script.sur = indicador.physical_pos.y
                 script.norte = gap / 2
                 self.scriptSC_menu = BoardElements.PixmapSC(
-                    self.escena, script, pixmap=Iconos.pmLampara(), rutina=self.lanzaGuion
+                    self.escena, script, pixmap=Iconos.pmLampara(), rutina=self.lanzaGuionAuto
                 )
                 self.scriptSC_menu.hide()
                 self.scriptSC_menu.setOpacity(0.70)
@@ -834,7 +840,7 @@ class Board(QtWidgets.QGraphicsView):
             menucol.separador()
             liTemas = Util.restore_pickle(Code.configuration.ficheroTemas)
             if liTemas:
-                WindowColores.ponMenuTemas(menucol, liTemas, "tt_")
+                WBoardColors.ponMenuTemas(menucol, liTemas, "tt_")
                 menucol.separador()
             for entry in Util.listdir(Code.path_resource("Themes")):
                 fich = entry.name
@@ -845,7 +851,7 @@ class Board(QtWidgets.QGraphicsView):
             resp = menucol.lanza()
             if resp:
                 if resp == "edit":
-                    w = WindowColores.WColores(self)
+                    w = WBoardColors.WBoardColors(self)
                     w.exec_()
                 else:
                     self.ponColores(liTemas, resp)
@@ -898,7 +904,6 @@ class Board(QtWidgets.QGraphicsView):
                 self.dirvisual = None
                 return False
             else:
-
                 self.dirvisual = WindowDirector.Director(self)
             return True
         else:
@@ -909,6 +914,12 @@ class Board(QtWidgets.QGraphicsView):
             self.guion.cierraPizarra()
             self.guion.cerrado = True
             self.guion = None
+
+    def lanzaGuionAuto(self):
+        if self.guion is not None:
+            self.guion.restoreBoard(siBorraMoviblesAhora=True)
+        else:
+            self.lanzaGuion()
 
     def lanzaGuion(self):
         if self.guion is not None:
@@ -956,7 +967,7 @@ class Board(QtWidgets.QGraphicsView):
 
         else:
             fich = Code.path_resource("Themes/%s" % resp[3:])
-            tema = WindowColores.eligeTema(self, fich)
+            tema = WBoardColors.eligeTema(self, fich)
 
         if tema:
             self.config_board.leeTema(tema["o_tema"])
@@ -1187,8 +1198,10 @@ class Board(QtWidgets.QGraphicsView):
         return a1h8
 
     def mousePressEvent(self, event):
-        if self.dirvisual and self.dirvisual.mousePressEvent(event):
+        if self.dirvisual:
+            self.dirvisual.mousePressEvent(event)
             return
+
         a1h8 = self.event2a1h8(event)
 
         siRight = event.button() == QtCore.Qt.RightButton
@@ -1841,8 +1854,8 @@ class Board(QtWidgets.QGraphicsView):
         bf = copy.deepcopy(self.config_board.fTransicion())
         bf.a1h8 = desdeA1h8 + hastaA1h8
         bf.opacity = max(factor, 0.20)
-        bf.ancho = max(bf.ancho * 2 * (factor ** 2.2), bf.ancho / 3)
-        bf.altocabeza = max(bf.altocabeza * (factor ** 2.2), bf.altocabeza / 3)
+        bf.ancho = max(bf.ancho * 2 * (factor**2.2), bf.ancho / 3)
+        bf.altocabeza = max(bf.altocabeza * (factor**2.2), bf.altocabeza / 3)
         bf.vuelo = bf.altocabeza / 3
         bf.grosor = 1
         bf.redondeos = True
@@ -1854,11 +1867,7 @@ class Board(QtWidgets.QGraphicsView):
         arrow.show()
 
     def ponFlechasTmp(self, lista, ms=None):
-        if self.flechaSC:
-            self.flechaSC.hide()
-        for from_sq, to_sq, siMain in lista:
-            self.creaFlechaTmp(from_sq, to_sq, siMain)
-        QTUtil.refresh_gui()
+        self.ponFlechas(lista)
 
         def quitaFlechasTmp():
             self.remove_arrows()
@@ -1868,6 +1877,13 @@ class Board(QtWidgets.QGraphicsView):
         if ms is None:
             ms = 2000 if len(lista) > 1 else 1400
         QtCore.QTimer.singleShot(ms, quitaFlechasTmp)
+
+    def ponFlechas(self, lista):
+        if self.flechaSC:
+            self.flechaSC.hide()
+        for from_sq, to_sq, siMain in lista:
+            self.creaFlechaTmp(from_sq, to_sq, siMain)
+        QTUtil.refresh_gui()
 
     def creaFlechaMov(self, desdeA1h8, hastaA1h8, modo):
         bf = BoardTypes.Flecha()
@@ -1997,7 +2013,7 @@ class Board(QtWidgets.QGraphicsView):
 
         self.escena.update()
 
-    def showCoordenadas(self, ok):
+    def show_coordinates(self, ok):
         for coord in self.liCoordenadasHorizontales:
             coord.setVisible(ok)
         for coord in self.liCoordenadasVerticales:
@@ -2680,7 +2696,7 @@ class BoardEstatico(Board):
 
 class BoardEstaticoMensaje(BoardEstatico):
     def __init__(self, parent, config_board, color_mens, size_factor=None):
-        self.color_mens = "#574b3c" if color_mens is None else color_mens
+        self.color_mens = Code.dic_colors["BOARD_STATIC"] if color_mens is None else color_mens
         self.size_factor = 1.0 if size_factor is None else size_factor
         BoardEstatico.__init__(self, parent, config_board)
 

@@ -10,9 +10,9 @@ from Code.QT import Colocacion
 from Code.QT import Controles
 from Code.QT import FormLayout
 from Code.QT import Iconos
+from Code.QT import LCDialog
 from Code.QT import QTVarios
 from Code.Translations import TrListas
-from Code.QT import LCDialog
 
 
 class ConjuntoPiezas:

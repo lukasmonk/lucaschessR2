@@ -31,8 +31,6 @@ class WindowTutor(LCDialog.LCDialog):
 
         self.x_tutor_view = manager.configuration.x_tutor_view
 
-        # ~ self.setStyleSheet("QDialog,QGroupBox { background: #f0f0f0; }")
-
         f = Controles.TipoLetra(puntos=12, peso=75)
         flb = Controles.TipoLetra(puntos=10)
         flba = Controles.TipoLetra(puntos=8)
@@ -139,7 +137,7 @@ class WindowTutor(LCDialog.LCDialog):
     def exeTB(self, accion):
         x = accion.index("Mover")
         quien = accion[:x]
-        que = accion[x + 5 :]
+        que = accion[x + 5:]
         self.tutor.mueve(quien, que)
 
     # def cambioBoard(self):

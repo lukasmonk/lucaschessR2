@@ -16,12 +16,12 @@ from Code.QT import Controles
 from Code.QT import FormLayout
 from Code.QT import Grid
 from Code.QT import Iconos
+from Code.QT import LCDialog
 from Code.QT import QTUtil
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
 from Code.QT import SelectFiles
 from Code.Voyager import Voyager
-from Code.QT import LCDialog
 
 PLAY_STOP, PLAY_NEXT_SOLVED, PLAY_NEXT_BESTMOVES = range(3)
 
@@ -52,28 +52,6 @@ class WEndingsGTB(LCDialog.LCDialog):
         if Code.eboard:
             li_acciones.append((_("Enable"), Code.eboard.icon_eboard(), self.eboard))
             li_acciones.append(None)
-        #     dic_opciones[TB_EBOARD] = [
-        #         "%s/%s %s" % (_("Enable"), _("Disable"), self.configuration.x_digital_board),
-        #         Code.eboard.icon_eboard(),
-        #     ]
-        # if with_eboard:
-        #     li_acciones = list(li_acciones)
-        #     if TB_CONFIG in li_acciones:
-        #         pos = li_acciones.index(TB_CONFIG)
-        #         li_acciones.insert(pos, TB_EBOARD)
-        #     else:
-        #         li_acciones.append(TB_EBOARD)
-        #     title = _("Disable") if Code.eboard.driver else _("Enable")
-        #     self.dic_toolbar[TB_EBOARD].setIconText(title)
-        # elif key == TB_EBOARD:
-        #     if Code.eboard and self.with_eboard:
-        #         if Code.eboard.driver:
-        #             self.main_window.deactivate_eboard(100)
-        #         else:
-        #             Code.eboard.activate(self.board.dispatch_eboard)
-        #             Code.eboard.set_position(self.board.last_position)
-        #         self.main_window.set_title_toolbar_eboard()
-        #
 
         self.tb_base = QTVarios.LCTB(self, li_acciones)
 
@@ -119,8 +97,6 @@ class WEndingsGTB(LCDialog.LCDialog):
         o_columns.nueva("TIMEMS", _("Time"), 120, align_center=True)
         o_columns.nueva("AVERAGE", "⨊", 100, align_center=True)
         self.grid = Grid.Grid(self, o_columns, siSelecFilas=True)
-        self.grid.tipoLetra(puntos=self.configuration.x_pgn_fontpoints)
-        self.grid.ponAltoFila(self.configuration.x_pgn_rowheight)
         self.grid.setSizePolicy(QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding))
 
         self.register_grid(self.grid)
@@ -164,22 +140,28 @@ class WEndingsGTB(LCDialog.LCDialog):
         self.help_changed()
         self.restart()
 
-    @staticmethod
-    def deactivate_eboard(ms):
+    def deactivate_eboard(self, ms):
         if Code.eboard and Code.eboard.driver:
+
+            def deactivate():
+                Code.eboard.deactivate()
+
             QTUtil.refresh_gui()
-            QtCore.QTimer.singleShot(ms, Code.eboard.deactivate)
+            QtCore.QTimer.singleShot(ms, deactivate)
+            return True
+        return False
 
     def eboard(self):
+        title = None
         if Code.eboard.driver:
-            self.deactivate_eboard(100)
-            title = _("Enable")
+            if self.deactivate_eboard(100):
+                title = _("Enable")
         else:
-            Code.eboard.activate(self.board.dispatch_eboard)
-            Code.eboard.set_position(self.board.last_position)
-            title = _("Disable")
-
-        self.tb_base.set_action_title(self.eboard, title)
+            if Code.eboard.activate(self.board.dispatch_eboard):
+                Code.eboard.set_position(self.board.last_position)
+                title = _("Disable")
+        if title:
+            self.tb_base.set_action_title(self.eboard, title)
 
     def help_changed(self):
         self.test_help()
@@ -214,7 +196,7 @@ class WEndingsGTB(LCDialog.LCDialog):
         if position is not None:
             fen = position.fen()
             mt = self.t4.dtm(fen)
-            if mt is None:
+            if mt in (None, 0):
                 QTUtil2.message_error(self, _("Invalid, this position is not evaluated by Gaviota Tablebases"))
                 return
             if mt < 0:
@@ -569,7 +551,12 @@ class WEndingsGTB(LCDialog.LCDialog):
         if self.pos_game == len(self.game):
             return
         self.set_position()
+        if self.configuration.x_beep_replay:
+            Code.runSound.playBeep()
         QtCore.QTimer.singleShot(self.configuration.x_interval_replay, self.mover_tiempo)
+
+    def toolbar_rightmouse(self):
+        QTVarios.change_interval(self, self.configuration)
 
     def run_botones(self):
         key = self.sender().key
@@ -610,8 +597,10 @@ class WEndingsGTB(LCDialog.LCDialog):
 
         submenu = menu.submenu(_("Remove"), Iconos.Delete())
         submenusubmenu1 = submenu.submenu(_("Positions"), Iconos.TrainPositions())
-        submenusubmenu1.opcion("remp_all", _("Remove all positions"), Iconos.PuntoRojo())
-        submenusubmenu1.opcion("remp_all_group", _("Remove all positions of current group"), Iconos.PuntoRojo())
+        submenusubmenu1.opcion("remp_all", _("Delete all manually added positions"), Iconos.PuntoRojo())
+        submenusubmenu1.opcion(
+            "remp_all_group", _("Delete all manually added positions in the current group"), Iconos.PuntoRojo()
+        )
         submenu.separador()
         submenusubmenu2 = submenu.submenu(_("Results"), Iconos.Reciclar())
         submenusubmenu2.opcion("remr_all", _("Remove results of all positions"), Iconos.PuntoNaranja())

@@ -17,6 +17,7 @@ from Code.Base.Constantes import (
     TB_NEXT,
     TB_PGN_LABELS,
     TB_PREVIOUS,
+    TB_REPLAY,
     TB_SAVE,
     TB_UTILITIES,
     ADJUST_BETTER,
@@ -79,7 +80,7 @@ class ManagerGame(Manager.Manager):
         return False
 
     def put_toolbar(self):
-        li = [TB_CLOSE, TB_PGN_LABELS, TB_TAKEBACK, TB_REINIT, TB_CONFIG, TB_UTILITIES]
+        li = [TB_CLOSE, TB_PGN_LABELS, TB_TAKEBACK, TB_REINIT, TB_REPLAY, TB_CONFIG, TB_UTILITIES]
         if self.changed and self.save_routine:
             pos = li.index(TB_PGN_LABELS)
             li.insert(pos, TB_SAVE)
@@ -399,7 +400,7 @@ class ManagerGame(Manager.Manager):
                 return
             self.replace_game(game)
 
-    def juegaRival(self):
+    def play_rival(self):
         if not self.is_finished():
             self.thinking(True)
             rm = self.xrival.play_game(self.game, nAjustado=self.xrival.nAjustarFuerza)
@@ -429,7 +430,7 @@ class ManagerGame(Manager.Manager):
                 r_t = None
             if r_p <= 0:
                 r_p = None
-            if r_t is None and r_p is None and not dic["SITIEMPO"]:
+            if r_t is None and r_p is None and not dic.get("SITIEMPO", False):
                 r_t = 1000
 
             nAjustarFuerza = dic["ADJUST"]
