@@ -1,3 +1,5 @@
+import gettext
+_ = gettext.gettext
 from Code.SingularMoves import SingularMoves
 from Code.QT import Colocacion
 from Code.QT import Columnas

@@ -1,3 +1,5 @@
+import gettext
+_ = gettext.gettext
 from Code import Util
 from Code.QT import Colocacion, Columnas, Controles, Grid, Iconos, QTUtil2, QTVarios
 from Code.QT import LCDialog

@@ -1,3 +1,5 @@
+import gettext
+_ = gettext.gettext
 from Code import Util
 from Code.Base import Game
 from Code.Translations import TrListas

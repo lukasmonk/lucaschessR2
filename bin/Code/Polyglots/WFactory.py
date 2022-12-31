@@ -1,3 +1,5 @@
+import gettext
+_ = gettext.gettext
 import datetime
 import os
 import os.path

@@ -1,3 +1,5 @@
+import gettext
+_ = gettext.gettext
 import Code
 from Code.Base import Move
 from Code.Nags import Nags

@@ -1,3 +1,5 @@
+import gettext
+_ = gettext.gettext
 from Code.Base import Game
 from Code.QT import Colocacion
 from Code.QT import Columnas

@@ -1,3 +1,5 @@
+import gettext
+_ = gettext.gettext
 import collections
 
 from PySide2 import QtGui

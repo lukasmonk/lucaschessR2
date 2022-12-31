@@ -1,3 +1,5 @@
+import gettext
+_ = gettext.gettext
 from Code import Util
 from Code.Coordinates import CoordinatesBasic
 from Code.Coordinates import WRunCoordinatesBasic

@@ -1,3 +1,5 @@
+import gettext
+_ = gettext.gettext
 from PySide2 import QtWidgets, QtCore
 
 from Code.Databases import WDB_Games, WDB_Summary, WDB_Players, WDB_InfoMove, DBgames

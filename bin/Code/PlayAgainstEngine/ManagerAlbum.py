@@ -1,3 +1,5 @@
+import gettext
+_ = gettext.gettext
 from Code import Adjournments
 from Code import Manager
 from Code.Base import Move

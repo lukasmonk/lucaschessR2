@@ -1,3 +1,5 @@
+import gettext
+_ = gettext.gettext
 import PySide2.QtGui
 from PySide2 import QtWidgets, QtCore
 

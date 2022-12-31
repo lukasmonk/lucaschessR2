@@ -1,3 +1,5 @@
+import gettext
+_ = gettext.gettext
 import FasterCode
 from PySide2 import QtWidgets, QtCore
 

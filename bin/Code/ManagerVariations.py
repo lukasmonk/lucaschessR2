@@ -1,3 +1,5 @@
+import gettext
+_ = gettext.gettext
 from Code import Manager
 from Code import Util
 from Code.Base import Move

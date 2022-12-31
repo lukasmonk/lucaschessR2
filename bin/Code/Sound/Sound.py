@@ -1,3 +1,5 @@
+import gettext
+_ = gettext.gettext
 import audioop
 import os
 import time

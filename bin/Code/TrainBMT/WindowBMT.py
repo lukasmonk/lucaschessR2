@@ -1,3 +1,5 @@
+import gettext
+_ = gettext.gettext
 import os.path
 
 from Code import Util

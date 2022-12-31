@@ -1,3 +1,5 @@
+import gettext
+_ = gettext.gettext
 import FasterCode
 
 from Code.Base import Game

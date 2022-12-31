@@ -1,3 +1,5 @@
+import gettext
+_= gettext.gettext
 from typing import List, Tuple
 
 import Code
