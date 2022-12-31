@@ -54,4 +54,5 @@ class Icons:
 
 
 icons = Icons()
+icons.reset(0)
 iget = icons.get
