@@ -21,6 +21,7 @@ from Code.QT import LCDialog
 class WGM(LCDialog.LCDialog):
     def __init__(self, procesador):
         self.configuration = procesador.configuration
+
         self.procesador = procesador
 
         self.db_histo = UtilSQL.DictSQL(self.configuration.ficheroGMhisto)
@@ -56,7 +57,7 @@ class WGM(LCDialog.LCDialog):
         self.cb_gm.capture_changes(self.check_gm)
         hbox = Colocacion.H().relleno().control(self.cb_gm).relleno()
         gbGM = Controles.GB(self, _("Choose a Grandmaster"), hbox).ponFuente(flb)
-        gbGM.setProperty("type", "1")
+        self.configuration.set_property(gbGM, "1")
 
         # Personales
         self.li_personal = GM.lista_gm_personal(self.procesador.configuration.personal_training_folder)
@@ -69,7 +70,7 @@ class WGM(LCDialog.LCDialog):
             btBorrar = Controles.PB(self, "", self.borrarPersonal).ponIcono(Iconos.Borrar(), icon_size=24)
             hbox = Colocacion.H().relleno().control(self.cbPersonal).control(btBorrar).relleno()
             gb_personal = Controles.GB(self, _("Personal games"), hbox).ponFuente(flb)
-            gb_personal.setProperty("type", "1")
+            self.configuration.set_property(gb_personal, "1")
 
         # Color
         self.rb_white = Controles.RB(self, _("White"), rutina=self.check_color)
@@ -151,7 +152,7 @@ class WGM(LCDialog.LCDialog):
         # # Color
         hbox = Colocacion.H().relleno().control(self.rb_white).espacio(10).control(self.rb_black).relleno()
         gbColor = Controles.GB(self, _("Side you play with"), hbox).ponFuente(flb)
-        gbColor.setProperty("type", "1")
+        self.configuration.set_property(gbColor, "1")
 
         # Tiempo
         ly1 = (
@@ -167,7 +168,7 @@ class WGM(LCDialog.LCDialog):
         ly3 = Colocacion.H().control(self.lbJmultiPV).control(self.cbJmultiPV).relleno()
         ly = Colocacion.V().otro(ly1).otro(ly2).otro(ly3)
         self.gbJ = Controles.GB(self, _("Adjudicator"), ly).to_connect(self.change_adjudicator)
-        self.gbJ.setProperty("type", "1")
+        self.configuration.set_property(self.gbJ, "1")
 
         # Opciones
         vlayout = Colocacion.V().control(gbColor)
@@ -385,9 +386,10 @@ class WGM(LCDialog.LCDialog):
             self.cb_gm.setCurrentIndex(0)
 
     def change_adjudicator(self):
-        si = self.gbJ.isChecked()
-        for control in self.li_adjudicator_controls:
-            control.setVisible(si)
+        if self.li_personal:
+            si = self.gbJ.isChecked()
+            for control in self.li_adjudicator_controls:
+                control.setVisible(si)
 
     def grabaDic(self):
         rk = Util.Record()
@@ -415,7 +417,7 @@ class WGM(LCDialog.LCDialog):
         rk.bypass_book = self.cbBooks.valor()
         rk.opening = self.opening_block
 
-        default = Code.path_resource("GM")
+        default = GM.get_folder_gm()
 
         carpeta = default if rk.modo == "estandar" else self.configuration.personal_training_folder
         self.ogm = GM.GM(carpeta, rk.gm)
@@ -598,7 +600,7 @@ class WImportar(LCDialog.LCDialog):
         titulo = _("Import")
         icono = Iconos.ImportarGM()
 
-        self.qtColor = {"w": QTUtil.qtColorRGB(221, 255, 221), "m": QTUtil.qtColorRGB(247, 247, 247)}
+        self.qtColor_woman = QTUtil.qtColorRGB(221, 255, 221)
 
         extparam = "imp_gm"
         LCDialog.LCDialog.__init__(self, w_parent, titulo, icono, extparam)
@@ -620,7 +622,7 @@ class WImportar(LCDialog.LCDialog):
         o_columns.nueva("PARTIDAS", _("Games"), 60, align_right=True)
         o_columns.nueva("BORN", _("Birth date"), 60, align_center=True)
 
-        self.grid = Grid.Grid(self, o_columns)
+        self.grid = Grid.Grid(self, o_columns, alternate=False)
         n = self.grid.anchoColumnas()
         self.grid.setMinimumWidth(n + 20)
 
@@ -660,14 +662,15 @@ class WImportar(LCDialog.LCDialog):
         return self.li_gm[row][o_column.key]
 
     def grid_color_fondo(self, grid, row, col):
-        return self.qtColor[self.li_gm[row]["WM"]]
+        if self.li_gm[row]["WM"] == "w":
+            return self.qtColor_woman
 
     def grid_doubleclick_header(self, grid, oCol):
         cab, si_rev = self.last_order
         col_clave = oCol.key
 
         def key(x):
-            return str(x[col_clave])
+            return str(x[col_clave]) if col_clave != "PARTIDAS" else int(x[col_clave])
 
         if cab == col_clave:
             si_rev = not si_rev
@@ -688,7 +691,7 @@ def importar_gm(owner_gm):
     fich_name = "_listaGM.txt"
     url_lista = "%s/%s" % (web, fich_name)
     fich_tmp = Code.configuration.ficheroTemporal("txt")
-    fich_lista = Code.path_resource("GM", fich_name)
+    fich_lista = os.path.join(GM.get_folder_gm(), fich_name)
     si_bien = Util.urlretrieve(url_lista, fich_tmp)
     me.final()
 
@@ -704,7 +707,7 @@ def importar_gm(owner_gm):
             linea = linea.strip()
             if linea:
                 gm, name, ctam, cpart, wm, cyear = linea.split("|")
-                file = Code.path_resource("GM/%s.xgm" % gm)
+                file = os.path.join(GM.get_folder_gm(), "%s.xgm" % gm)
                 if Util.filesize(file) != int(ctam):  # si no existe tam = -1
                     dic = {"GM": gm, "NOMBRE": name, "PARTIDAS": cpart, "ELEGIDO": False, "BORN": cyear, "WM": wm}
                     li_gm.append(dic)
@@ -731,7 +734,7 @@ def importar_gm(owner_gm):
                 if si_bien:
                     zfobj = zipfile.ZipFile(fzip)
                     for name in zfobj.namelist():
-                        file = Code.path_resource("GM/%s" % name)
+                        file = os.path.join(GM.get_folder_gm(), name)
                         with open(file, "wb") as outfile:
                             outfile.write(zfobj.read(name))
                     zfobj.close()

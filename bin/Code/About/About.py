@@ -52,7 +52,7 @@ class WAbout(QtWidgets.QDialog):
                 if num == "1":
                     sub_tab = Controles.Tab()
                     sub_tab.ponFuente(f)
-                    sub_tab.set_position("S")
+                    # sub_tab.set_position("S")
                     tab.addTab(sub_tab, _("Engines"))
                 lm = ib.list_engines(num)
                 titulo = lm[0][0].split(" ")[1] + " - " + lm[-1][0].split(" ")[1]

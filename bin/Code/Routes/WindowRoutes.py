@@ -15,7 +15,7 @@ class WTranssiberian(LCDialog.LCDialog):
 
         route = self.route = Routes.Transsiberian(procesador.configuration)
 
-        titulo = "%s (%d)" % (_("Transsiberian Railway"), route.level)
+        titulo = "%s (%s)" % (_("Transsiberian Railway"), _X(_("Level %1"), str(route.level)))
         icono = Iconos.Train()
         extparam = "transsiberian"
         LCDialog.LCDialog.__init__(self, procesador.main_window, titulo, icono, extparam)

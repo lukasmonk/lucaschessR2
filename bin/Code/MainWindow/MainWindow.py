@@ -282,6 +282,9 @@ class MainWindow(LCDialog.LCDialog):
     def get_toolbar(self):
         return self.base.get_toolbar()
 
+    def toolbar_enable(self, ok):
+        self.base.tb.setEnabled(ok)
+
     def ponAyudas(self, puntos, with_takeback=True):
         self.base.ponAyudas(puntos, with_takeback)
 

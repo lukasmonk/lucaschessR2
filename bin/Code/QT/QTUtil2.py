@@ -694,7 +694,7 @@ def message_menu(owner, main, message, delayed):
 
         menu = QTVarios.LCMenu(owner)
 
-        menu.setProperty("type", "101")
+        Code.configuration.set_property(menu, "101")
         f = Controles.TipoLetra(puntos=11)
         menu.ponFuente(f)
 

@@ -95,7 +95,7 @@ class ManagerChallenge101:
         main_window = self.procesador.main_window
         main_window.cursorFueraBoard()
         menu = QTVarios.LCMenu(main_window)
-        menu.setProperty("type", "101")
+        self.configuration.set_property(menu, "101")
         f = Controles.TipoLetra(name=Code.font_mono, puntos=12)
         fbold = Controles.TipoLetra(name=Code.font_mono, puntos=12, peso=700)
         fbolds = Controles.TipoLetra(name=Code.font_mono, puntos=12, peso=500, is_underlined=True)

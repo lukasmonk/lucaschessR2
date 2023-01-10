@@ -506,6 +506,7 @@ class ManagerEntPos(Manager.Manager):
                     self.analizaTutor(True)
                 if self.mrmTutor.mejorMovQue(a1h8):
                     if not move.is_mate:
+                        self.beepError()
                         tutor = Tutor.Tutor(self, move, from_sq, to_sq, False)
 
                         if tutor.elegir(True):

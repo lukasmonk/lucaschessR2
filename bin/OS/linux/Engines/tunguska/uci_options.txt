@@ -1,2 +1,0 @@
-id name Tunguska 1.0
-id author Fernando Tenorio

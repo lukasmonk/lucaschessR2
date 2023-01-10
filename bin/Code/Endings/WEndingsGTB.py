@@ -262,7 +262,7 @@ class WEndingsGTB(LCDialog.LCDialog):
         li_options = (
             (_("Stop"), PLAY_STOP),
             (_("Jump to the next"), PLAY_NEXT_SOLVED),
-            (_("Jump to the next if minimum moves done"), PLAY_NEXT_BESTMOVES),
+            (_("Jump to the next if minimum movements done"), PLAY_NEXT_BESTMOVES),
         )
         play_next = dic_vars.get("PLAY_NEXT", PLAY_STOP)
         form.combobox(_("What to do after solving"), li_options, play_next)

@@ -69,7 +69,7 @@ class Eboard:
         # assert Code.prln("registerStableBoardFunc", dato)
         self.fen_eboard = self.dgt2fen(dato)
         if self.setup:
-            self.envia("stableBoard", self.dgt2fen(dato))
+            self.envia("stableBoard", self.fen_eboard)
         return 1
 
     def registerStopSetupWTMFunc(self, dato):

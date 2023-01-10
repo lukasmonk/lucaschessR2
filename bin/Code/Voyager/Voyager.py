@@ -74,7 +74,7 @@ class WPosicion(QtWidgets.QWidget):
             None,
             (_("Cancel"), Iconos.Cancelar(), self.cancelar),
             None,
-            (_("Start position"), Iconos.Inicio(), self.inicial),
+            (_("Basic position"), Iconos.Inicio(), self.inicial),
             None,
             (_("Clear board"), Iconos.Borrar(), self.limpiaBoard),
             (_("Paste FEN position"), Iconos.Pegar16(), self.pegar),
@@ -217,6 +217,8 @@ class WPosicion(QtWidgets.QWidget):
 
     def cambiaColor(self):
         self.board.set_side_indicator(self.rbWhite.isChecked())
+        self.actPosicion()
+        self.resetPosicion()
 
     def save(self):
         self.actPosicion()
@@ -385,8 +387,7 @@ class WPosicion(QtWidgets.QWidget):
         self.resetPosicion()
 
     def pegar(self):
-        cb = QtWidgets.QApplication.clipboard()
-        fen = cb.text()
+        fen = QTUtil.traePortapapeles()
         if fen:
             try:
                 self.position.read_fen(str(fen))
@@ -395,9 +396,9 @@ class WPosicion(QtWidgets.QWidget):
                 pass
 
     def copiar(self):
-        cb = QtWidgets.QApplication.clipboard()
         self.actPosicion()
-        cb.setText(self.position.fen())
+        QTUtil.ponPortapapeles(self.position.fen())
+        QTUtil2.message_bold(self, _("FEN is in clipboard"))
 
     def limpiaBoard(self):
         self.position.read_fen("8/8/8/8/8/8/8/8 w - - 0 1")
@@ -700,7 +701,7 @@ class WPGN(QtWidgets.QWidget):
             None,
             (_("Cancel"), Iconos.Cancelar(), self.wparent.cancelar),
             None,
-            (_("Start position"), Iconos.Datos(), self.inicial),
+            (_("Basic position"), Iconos.Datos(), self.inicial),
             None,
             (_("Clear"), Iconos.Borrar(), self.limpia),
             None,
@@ -830,7 +831,7 @@ class WPGN(QtWidgets.QWidget):
 class Voyager(LCDialog.LCDialog):
     def __init__(self, owner, is_game, game):
 
-        titulo = _("Voyager 2") if is_game else _("Start position")
+        titulo = _("Voyager 2") if is_game else _("Basic position")
         icono = Iconos.Voyager() if is_game else Iconos.Datos()
         LCDialog.LCDialog.__init__(self, owner, titulo, icono, "voyager")
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Window | QtCore.Qt.WindowStaysOnTopHint)

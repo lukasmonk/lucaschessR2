@@ -45,6 +45,7 @@ class WInfomove(QtWidgets.QWidget):
         self.movActual = None
 
         configuration = Code.configuration
+
         config_board = configuration.config_board("INFOMOVE", 32)
         self.board = BoardKey(self, config_board)
         self.board.dispatchSize(self.cambiado_board)
@@ -63,7 +64,7 @@ class WInfomove(QtWidgets.QWidget):
         self.lbPGN = LBKey(self).anchoFijo(self.board.ancho).set_wrap()
         self.lbPGN.wowner = self
         self.lbPGN.ponTipoLetra(puntos=configuration.x_pgn_fontpoints + 2)
-        self.lbPGN.setProperty("type", "pgn")
+        Code.configuration.set_property(self.lbPGN, "pgn")
         self.lbPGN.setOpenExternalLinks(False)
 
         def muestraPos(txt):

@@ -160,22 +160,22 @@ class WWashing(LCDialog.LCDialog):
         o_columns.nueva("INDEX", _("Index"), 60, align_center=True)
 
         self.grid = grid = Grid.Grid(self, o_columns, siSelecFilas=True)
-        nAnchoPgn = self.grid.anchoColumnas() + 20
-        self.grid.setMinimumWidth(nAnchoPgn)
+        n_ancho_pgn = self.grid.anchoColumnas() + 20
+        self.grid.setMinimumWidth(n_ancho_pgn)
         self.register_grid(grid)
 
         ly0 = Colocacion.V().control(self.grid)
-        gbDatos = Controles.GB(self, "", ly0)
+        gb_datos = Controles.GB(self, "", ly0)
 
         self.tab = Controles.Tab()
         self.tab.new_tab(gbCurrent, _("Current"))
-        self.tab.new_tab(gbDatos, _("Data"))
+        self.tab.new_tab(gb_datos, _("Data"))
 
         # Colocamos ---------------------------------------------------------------
         ly = Colocacion.V().control(tb).control(self.tab)
         self.setLayout(ly)
 
-        self.restore_video(siTam=True, anchoDefecto=nAnchoPgn)
+        self.restore_video(siTam=True, anchoDefecto=n_ancho_pgn)
 
     def terminar(self):
         self.save_video()

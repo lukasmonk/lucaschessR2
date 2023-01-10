@@ -267,9 +267,10 @@ class ThanksTo:
         txt += "</td></tr>"
         txt += self.table_end()
         txt += (
-            '<br><big><bold><center>%s: <a href="https://poeditor.com">https://poeditor.com</a></center></bold></big>'
+            '<big><bold><center>%s: <a href="https://poeditor.com">https://poeditor.com</a>'
             % _("Web")
         )
+        txt += ' -  <a href="https://poeditor.com/join/project/962ccf24a09425725475831e24968575">Join Translation of LucasChess</a></center></bold></big>'
         return txt
 
     def images(self):

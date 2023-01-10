@@ -157,8 +157,8 @@ class EscondeWindow:
         if Code.is_windows:
             screen = QtWidgets.QDesktopWidget().screenGeometry()
             self.window.move(screen.width() * 10, 0)
-        else:
-            self.window.hide()
+        # else:
+        #     self.window.hide()
         return self
 
     def __exit__(self, type, value, traceback):

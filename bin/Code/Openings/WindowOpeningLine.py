@@ -147,7 +147,10 @@ class WLines(LCDialog.LCDialog):
         submenu = menu.submenu(_("Analysis"), Iconos.Analizar())
         submenu.opcion(self.ta_massive, _("Mass analysis"), Iconos.Analizar())
         submenu.separador()
+        submenu.separador()
         submenu.opcion(self.ta_remove, _("Delete all previous analysis"), Iconos.Delete())
+        menu.separador()
+        menu.opcion(self.ta_transpositions, _("Complete with transpositions"), Iconos.Arbol())
         menu.separador()
         list_history = self.dbop.list_history()
         if list_history:
@@ -175,6 +178,13 @@ class WLines(LCDialog.LCDialog):
     def ta_remove_backups(self):
         if QTUtil2.pregunta(self, "%s\n%s" % (_("Remove all backups"), _("Are you sure?"))):
             self.dbop.remove_all_history()
+
+    def ta_transpositions(self):
+        um = QTUtil2.unMomento(self, _("Working..."))
+        self.dbop.transpositions()
+        self.refresh_lines()
+        self.glines.gotop()
+        um.final()
 
     def ta_massive(self):
         dicVar = self.configuration.read_variables("MASSIVE_OLINES")
@@ -241,9 +251,9 @@ class WLines(LCDialog.LCDialog):
         self.configuration.write_variables("MASSIVE_OLINES", dicVar)
 
         um = QTUtil2.unMomento(self)
-        stFensM2 = self.dbop.getAllFen()
+        st_fens_m2 = self.dbop.get_all_fen()
         stfen = set()
-        for fenm2 in stFensM2:
+        for fenm2 in st_fens_m2:
             if color == "WHITE":
                 if " b " in fenm2:
                     continue
@@ -290,7 +300,7 @@ class WLines(LCDialog.LCDialog):
             total = len(self.dbop.db_fenvalues)
             mensaje = _("Move") + "  %d/" + str(total)
             tmpBP = QTUtil2.BarraProgreso(self, "", "", total)
-            self.dbop.removeAnalisis(tmpBP, mensaje)
+            self.dbop.remove_analysis(tmpBP, mensaje)
             tmpBP.cerrar()
             self.glines.refresh()
 
@@ -635,6 +645,7 @@ class WLines(LCDialog.LCDialog):
         elif tipo == "ol":
             file, game = game
             self.importarOtra(file, game)
+        self.dbop.clean()
         self.show_lines()
 
     def importarOtra(self, file, game):
@@ -1148,6 +1159,8 @@ class WLines(LCDialog.LCDialog):
                     QTUtil2.message_bold(self, _("Removed %d lines") % n)
                 else:
                     QTUtil2.message_bold(self, _("Done"))
+                self.refresh_lines()
+                self.goto_inilinea()
 
     def remove_opening(self):
         me = QTUtil2.unMomento(self)
@@ -1206,7 +1219,7 @@ class WLines(LCDialog.LCDialog):
         self.glines.refresh()
 
     def goto_next_lipv(self, lipv):
-        li = self.dbop.getNumLinesPV(lipv, base=0)
+        li = self.dbop.get_numlines_pv(lipv, base=0)
         linea_actual = self.glines.recno() // 2
 
         if linea_actual in li:

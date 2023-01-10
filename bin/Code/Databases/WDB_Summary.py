@@ -77,7 +77,7 @@ class WSummary(QtWidgets.QWidget):
         li_acciones = [
             (_("Close"), Iconos.MainMenu(), wb_database.tw_terminar),
             None,
-            (_("Start position"), Iconos.Inicio(), self.start),
+            (_("Basic position"), Iconos.Inicio(), self.start),
             None,
             (_("Previous"), Iconos.AnteriorF(), self.anterior),
             (_("Next"), Iconos.SiguienteF(), self.siguiente),

@@ -105,7 +105,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
                 groupbox.setCheckable(True)
                 groupbox.setChecked(False)
 
-            groupbox.setProperty("type", "1")
+            self.configuration.set_property(groupbox, "1")
             groupbox.setMinimumWidth(640)
             groupbox.setFont(font)
             ly_g.controlc(groupbox, ly_g.filaActual, 0)
@@ -149,7 +149,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         lyt = Colocacion.V().otro(ly).otro(lyu)
 
         self.gb_thinks = Controles.GB(self, _("Limits of engine thinking"), lyt)
-        self.gb_thinks.setProperty("type", "1")
+        self.configuration.set_property(self.gb_thinks, "1")
 
         lyV = Colocacion.V().espacio(20).control(self.btRival).espacio(20).control(self.gb_thinks)
 
@@ -234,7 +234,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
 
         self.gb_tutor = Controles.GB(self, _("Activate the tutor's help"), ly)
         self.gb_tutor.to_connect(self.gb_tutor_pressed)
-        self.gb_tutor.setProperty("type", "1")
+        self.configuration.set_property(self.gb_tutor, "1")
 
         # --- Play while Win
         lb = Controles.LB(
@@ -250,7 +250,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         ly = Colocacion.H().control(lb).control(self.ed_limit_pww).relleno()
         self.gb_pww = Controles.GB(self, _("Play as long as you make no mistakes"), ly)
         self.gb_pww.to_connect(self.gb_pww_pressed)
-        self.gb_pww.setProperty("type", "1")
+        self.configuration.set_property(self.gb_pww, "1")
 
         lb = Controles.LB(self, _("Show") + ":").ponFuente(font)
         self.cbThoughtOp = Controles.CB(self, li_thinks, -1).ponFuente(font)
@@ -259,7 +259,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         ly = Colocacion.H().control(lb).control(self.cbThoughtOp).relleno()
         ly.control(lbArrows).control(self.sbArrows)
         gbThoughtOp = Controles.GB(self, _("Opponent's thought information"), ly)
-        gbThoughtOp.setProperty("type", "1")
+        self.configuration.set_property(gbThoughtOp, "1")
 
         self.lbBoxHeight = Controles.LB2P(self, _("Height of displaying box")).ponFuente(font)
         self.sbBoxHeight = Controles.SB(self, 0, 0, 999).tamMaximo(50).ponFuente(font)

@@ -78,7 +78,7 @@ class BoardLines(QtWidgets.QWidget):
             self, " "
         ).set_wrap()  # Por alguna razón es necesario ese espacio en blanco, para aperturas sin movs iniciales
         self.lbPGN.setAlignment(QtCore.Qt.AlignTop)
-        self.lbPGN.setProperty("type", "pgn")
+        self.configuration.set_property(self.lbPGN, "pgn")
         self.lbPGN.ponFuente(tipo_letra)
         self.lbPGN.setOpenExternalLinks(False)
 

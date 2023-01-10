@@ -370,4 +370,4 @@ def maps():
 
 
 def styles():
-    return [_("Dark"), _("Light")]
+    return [_("By default"), _("Dark"), _("Light")]

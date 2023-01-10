@@ -53,7 +53,7 @@ class Information(QtWidgets.QWidget):
 
         self.lb_time = Controles.LB(self).ponFuente(font7).set_wrap().align_center().anchoFijo(42)
         self.lb_time.hide()
-        self.lb_time.setProperty("type", "time")
+        Code.configuration.set_property(self.lb_time, "time")
         ly_pw_tm = Colocacion.H().control(self.lb_cpws_lost).espacio(-8).controld(self.lb_time)
         ly_rating.otro(ly_pw_tm)
 
@@ -67,13 +67,13 @@ class Information(QtWidgets.QWidget):
 
         self.lb_rating = Controles.LB(self).ponFuente(font_bold).set_wrap()
         self.lb_rating.hide()
-        self.lb_rating.setProperty("type", "rating")
+        Code.configuration.set_property(self.lb_rating, "rating")
         self.lb_rating.mousePressEvent = self.edit_rating
         ly_rating.control(self.lb_rating)
 
         self.lb_theme = Controles.LB(self).ponFuente(font_bold).set_wrap()
         self.lb_theme.hide()
-        self.lb_theme.setProperty("type", "theme")
+        Code.configuration.set_property(self.lb_theme, "theme")
         self.lb_theme.mousePressEvent = self.edit_theme
         ly_rating.control(self.lb_theme)
         self.w_rating.setLayout(ly_rating)

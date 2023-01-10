@@ -190,7 +190,7 @@ class ManagerWashingReplay(Manager.Manager):
                         self.dbwashing.add_hint()
 
                 else:
-                    lic.append("%s: %s (?) %s" % (_("Played now"), move.pgn_translated(), _("Bad move")))
+                    lic.append("%s: %s - %s" % (_("Played now"), move.pgn_translated(), _("Bad move")))
                     self.errores += 1
                     self.dbwashing.add_hint()
 
@@ -203,7 +203,7 @@ class ManagerWashingReplay(Manager.Manager):
                 if siBookUsu:
                     lic.append("%s: %s (%s)" % (_("Played now"), move.pgn_translated(), bmove))
                 else:
-                    lic.append("%s: %s (?) %s" % (_("Played now"), move.pgn_translated(), _("Bad move")))
+                    lic.append("%s: %s - %s" % (_("Played now"), move.pgn_translated(), _("Bad move")))
                     self.errores += 1
                     self.dbwashing.add_hint()
 
@@ -496,7 +496,7 @@ class ManagerWashingCreate(Manager.Manager):
         self.put_pieces_bottom(is_white)
 
         self.set_label1(
-            "%s: %s\n%s: %s\n %s: %s"
+            "%s: %s\n%s: %s\n%s: %s"
             % (_("Opponent"), self.engine.name, _("Task"), self.engine.lbState(), _("Tutor"), self.xtutor.name)
         )
         self.put_data_label()

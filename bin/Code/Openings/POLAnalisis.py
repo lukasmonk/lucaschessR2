@@ -3,6 +3,7 @@ import os
 import FasterCode
 from PySide2 import QtWidgets, QtCore
 
+import Code
 from Code.Base import Game, Position
 from Code.Databases import WDB_Summary, DBgamesST, WDB_Games, DBgames
 from Code.Polyglots import Books
@@ -31,6 +32,7 @@ class TabEngine(QtWidgets.QWidget):
 
         self.procesador = procesador
         self.configuration = configuration
+
         self.with_figurines = configuration.x_pgn_withfigurines
 
         self.tabsAnalisis = tabsAnalisis
@@ -51,7 +53,7 @@ class TabEngine(QtWidgets.QWidget):
         self.sb_multipv = Controles.SB(self, multipv, 1, 500).tamMaximo(50)
 
         self.lb_analisis = Controles.LB(self, "").ponTipoLetra(puntos=configuration.x_pgn_fontpoints)
-        self.lb_analisis.setProperty("type", "pgn")
+        self.configuration.set_property(self.lb_analisis, "pgn")
 
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("PDT", "", 120, align_center=True)
@@ -556,7 +558,7 @@ class TabTree(QtWidgets.QWidget):
 
         bt_act = Controles.PB(self, _("Update"), self.bt_update, plano=False).ponIcono(Iconos.Pelicula_Seguir(), 16)
         self.lb_analisis = Controles.LB(self, "").ponTipoLetra(puntos=configuration.x_pgn_fontpoints)
-        self.lb_analisis.setProperty("type", "pgn")
+        Code.configuration.set_property(self.lb_analisis, "pgn")
         ly_act = Colocacion.H().control(bt_act).control(self.lb_analisis).relleno(1)
 
         layout = Colocacion.V().otro(ly_act).control(self.tree)

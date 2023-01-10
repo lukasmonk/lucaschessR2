@@ -23,7 +23,8 @@ class WColors(LCDialog.LCDialog):
         self.qbackground_none = QtGui.QColor("#b3b3b3")
         self.qforeground_none = QtGui.QColor("#030303")
 
-        path_original = Code.path_resource("Styles", self.configuration.x_style_mode + ".colors")
+        file = "By default" if self.configuration.x_style_mode is None else self.configuration.x_style_mode
+        path_original = Code.path_resource("Styles", file + ".colors")
         dic = Util.ini_base2dic(path_original)
         self.dic_original = {key: QTUtil.qtColor(value) for key, value in dic.items()}
 
@@ -215,7 +216,8 @@ class WColors(LCDialog.LCDialog):
         return li
 
     def read_qss(self):
-        path_qss = Code.path_resource("Styles", self.configuration.x_style_mode + ".qss")
+        style = "By default" if self.configuration.x_style_mode is None else self.configuration.x_style_mode
+        path_qss = Code.path_resource("Styles", style + ".qss")
         li = []
         with open(path_qss, "rt") as f:
             current = None
@@ -233,6 +235,8 @@ class WColors(LCDialog.LCDialog):
                         key = key.strip()
                         color = "#" + value.split("#")[1][:6]
                         key_gen = "%s|%s" % (current, key)
+                        if style == "By default" and "[" not in current:
+                            continue
                         if not with_elements:
                             with_elements = True
                             li.append([True, current, current])

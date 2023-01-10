@@ -192,7 +192,7 @@ class OneAnalysis(QtWidgets.QWidget):
         if self.siTiempoActivo:
             self.tab_analysis.change_mov_active("Inicio")
             self.ponBoard()
-            QtCore.QTimer.singleShot(400, self.siguienteTiempo)
+            QtCore.QTimer.singleShot(Code.configuration.x_interval_replay, self.siguienteTiempo)
 
     def siguienteTiempo(self):
         if self.siTiempoActivo:
@@ -201,7 +201,9 @@ class OneAnalysis(QtWidgets.QWidget):
             if self.tab_analysis.is_final_position():
                 self.siTiempoActivo = False
             else:
-                QtCore.QTimer.singleShot(1400, self.siguienteTiempo)
+                if Code.configuration.x_beep_replay:
+                    Code.runSound.playBeep()
+                QtCore.QTimer.singleShot(Code.configuration.x_interval_replay, self.siguienteTiempo)
 
     def grabar(self):
         menu = QTVarios.LCMenu(self)
@@ -259,6 +261,7 @@ class WAnalisis(LCDialog.LCDialog):
         self.timer = None
 
         configuration = Code.configuration
+
         config_board = configuration.config_board(
             "SUBANALYSIS" if subanalysis else "ANALISIS", 32 if subanalysis else 48
         )
@@ -274,15 +277,16 @@ class WAnalisis(LCDialog.LCDialog):
         self.board.set_side_bottom(is_white)
         self.board.set_dispatcher(self.player_has_moved)
 
+        self.board.allow_eboard = False
+
         self.lb_engine = Controles.LB(self).align_center()
         self.lb_time = Controles.LB(self).align_center()
         self.lbPuntuacion = Controles.LB(self).align_center()
         self.lbPGN = Controles.LB(self)
-        self.lbPGN.setProperty("type", "pgn")
+        configuration.set_property(self.lbPGN, "pgn")
         self.lbPGN.set_wrap().ponTipoLetra(puntos=configuration.x_pgn_fontpoints)
         self.lbPGN.setAlignment(QtCore.Qt.AlignTop)
         self.lbPGN.setOpenExternalLinks(False)
-        self.lbPGN.setStyleSheet("border:1px solid gray;")
         self.lbPGN.linkActivated.connect(self.change_mov_active)
 
         scroll = QtWidgets.QScrollArea()
@@ -368,6 +372,10 @@ class WAnalisis(LCDialog.LCDialog):
             self.muestraActual.wmu.process_toolbar("MoverLibre")
         elif k == QtCore.Qt.Key_Escape:
             self.terminar()
+
+    def toolbar_rightmouse(self):
+        configuration = Code.configuration
+        QTVarios.change_interval(self, configuration)
 
     def closeEvent(self, event):  # Cierre con X
         self.terminar(False)

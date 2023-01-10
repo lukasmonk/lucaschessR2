@@ -140,8 +140,10 @@ class WTournamentRun(QtWidgets.QWidget):
         ct = self.board.config_board
         self.antiguoAnchoPieza = ct.anchoPieza()
 
-        # PGN
         self.configuration = Code.configuration
+
+        # PGN
+
         self.game = Game.Game()
         self.pgn = ControlPGN.ControlPGN(self)
         ly_pgn = self.crea_bloque_informacion()
@@ -215,8 +217,8 @@ class WTournamentRun(QtWidgets.QWidget):
             self.lb_player[side].align_center().ponFuente(f).set_wrap()
             self.lb_player[side].setFrameStyle(QtWidgets.QFrame.Box | QtWidgets.QFrame.Raised)
 
-        self.lb_player[WHITE].setProperty("type", "white")
-        self.lb_player[BLACK].setProperty("type", "black")
+        self.configuration.set_property(self.lb_player[WHITE], "white")
+        self.configuration.set_property(self.lb_player[BLACK], "black")
 
         # Relojes
         f = Controles.TipoLetra("Arial Black", puntos=26, peso=75)
@@ -230,7 +232,7 @@ class WTournamentRun(QtWidgets.QWidget):
                 .anchoMinimo(n_ancho_labels)
             )
             self.lb_clock[side].setFrameStyle(QtWidgets.QFrame.Box | QtWidgets.QFrame.Raised)
-            self.lb_clock[side].setProperty("type", "clock")
+            self.configuration.set_property(self.lb_clock[side], "clock")
 
         # Rotulos de informacion
         f = Controles.TipoLetra(puntos=configuration.x_sizefont_infolabels)

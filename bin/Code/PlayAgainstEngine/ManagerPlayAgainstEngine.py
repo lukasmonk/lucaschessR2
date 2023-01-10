@@ -1173,6 +1173,12 @@ class ManagerPlayAgainstEngine(Manager.Manager):
 
         return cps
 
+    def enable_toolbar(self):
+        self.main_window.toolbar_enable(True)
+
+    def disable_toolbar(self):
+        self.main_window.toolbar_enable(False)
+
     def player_has_moved(self, from_sq, to_sq, promotion=""):
         if self.rival_is_thinking:
             return self.check_premove(from_sq, to_sq)
@@ -1181,6 +1187,9 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             return False
         self.tc_player.pause()
         self.tc_player.set_labels()
+
+        self.disable_toolbar()
+
         a1h8 = move.movimiento()
         si_analisis = False
         is_choosed = False
@@ -1205,6 +1214,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                         self.board.ponFlechasTmp(((apdesde, aphasta, False),))
                         self.beepError()
                         self.tc_player.restart()
+                        self.enable_toolbar()
                         self.sigueHumano()
                         return False
 
@@ -1224,6 +1234,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                         self.board.ponFlechasTmp(li_flechas)
                         self.beepError()
                         self.tc_player.restart()
+                        self.enable_toolbar()
                         self.sigueHumano()
                         return False
             else:
@@ -1252,6 +1263,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                         else:
                             self.board.ponFlechasTmp(li)
                             self.tc_player.restart()
+                            self.enable_toolbar()
                             self.sigueHumano()
                             return False
                 else:
@@ -1276,6 +1288,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                     if not rm_user:
                         self.continue_analysis_human_move()
                         self.tc_player.restart()
+                        self.enable_toolbar()
                         return False
                     self.mrmTutor.agregaRM(rm_user)
                 self.cache_analysis[fen_basem2] = self.mrmTutor
@@ -1302,6 +1315,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                 elif Tutor.launch_tutor(self.mrmTutor, rm_user):
                     if not move.is_mate:
                         si_tutor = True
+                        self.beepError()
                         if self.chance:
                             num = self.mrmTutor.numMejorMovQue(a1h8)
                             if num:
@@ -1325,12 +1339,14 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                                 resp = menu.lanza()
                                 if resp == "try":
                                     self.continue_analysis_human_move()
+                                    self.enable_toolbar()
                                     self.tc_player.restart()
                                     return False
                                 elif resp == "user":
                                     si_tutor = False
                                 elif resp != "tutor":
                                     self.continue_analysis_human_move()
+                                    self.enable_toolbar()
                                     self.tc_player.restart()
                                     return False
                         if si_tutor:
@@ -1388,6 +1404,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
 
         self.error = ""
 
+        self.enable_toolbar()
         self.play_next_move()
         return True
 
@@ -1500,7 +1517,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         QTUtil.refresh_gui()
         p0 = self.main_window.base.pgn.pos()
         p = self.main_window.mapToGlobal(p0)
-        if not self.play_while_win and self.game.termination == TERMINATION_RESIGN:
+        if not (self.play_while_win and self.game.termination == TERMINATION_RESIGN):
             QTUtil2.message(self.main_window, mensaje, px=p.x(), py=p.y(), si_bold=True)
         self.ponFinJuego(self.with_takeback)
 
@@ -1625,8 +1642,11 @@ class ManagerPlayAgainstEngine(Manager.Manager):
 
         self.analizaTerminar()
 
+        self.board.disable_eboard_here()
+
         last_move = self.game.move(-1)
         self.game.anulaSoloUltimoMovimiento()
+
         self.set_position(position)
         ok, self.error, move = Move.get_game_move(
             self.game, self.game.last_position, rm.from_sq, rm.to_sq, rm.promotion
@@ -1639,5 +1659,9 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         if hasattr(last_move, "cacheTime"):
             move.cacheTime = last_move.cacheTime
         self.cache[fen_ultimo] = move
+
         self.check_boards_setposition()
+
+        self.board.enable_eboard_here()
+
         self.play_next_move()

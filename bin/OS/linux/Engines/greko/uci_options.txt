@@ -1,5 +1,0 @@
-id name GreKo 2020.03
-id author Vladimir Medvedev
-option name Hash type spin default 128 min 1 max 4096
-option name PawnHash type spin default 8 min 1 max 256
-option name Strength type spin default 100 min 0 max 100

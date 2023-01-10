@@ -315,7 +315,7 @@ class Opening:
             if reg and ("COMENTARIO" in reg or "VENTAJA" in reg or "VALORACION" in reg)
         }
 
-    def removeAnalisis(self, tmpBP, mensaje):
+    def remove_analysis(self, tmpBP, mensaje):
         for n, fenm2 in enumerate(self.db_fenvalues.keys()):
             tmpBP.inc()
             tmpBP.mensaje(mensaje % n)
@@ -325,7 +325,7 @@ class Opening:
             if "ANALISIS" in dic:
                 del dic["ANALISIS"]
                 self.setfenvalue(fenm2, dic)
-        self.packAlTerminar()
+        self.pack_at_end()
 
     def getconfig(self, key, default=None):
         return self.db_config.get(key, default)
@@ -600,16 +600,16 @@ class Opening:
                     ok = True
                     break
             if not ok:
-                liMas.append(data)
+                liMas.append(data1)
         if liMas:
             li = reg[tipo]
             li.insert(0, liMas)
             reg[tipo] = li
 
         self.setconfig("TRAINING", reg)
-        self.packAlTerminar()
+        self.pack_at_end()
 
-    def packAlTerminar(self):
+    def pack_at_end(self):
         self.setconfig("ULT_PACK", 100)  # Se le obliga al VACUUM
 
     def settitle(self, title):
@@ -1183,19 +1183,74 @@ class Opening:
 
         ws.pb_close()
 
-    def getAllFen(self):
-        stFENm2 = set()
+    def transpositions(self):
+        self.save_history(_("Complete with transpositions"))
         lilipv = [FasterCode.xpv_pv(xpv).split(" ") for xpv in self.li_xpv]
+        p = Position.Position()
+        dir_post = collections.defaultdict(set)
+        dir_prev = collections.defaultdict(set)
+        for lipv in lilipv:
+            FasterCode.set_init_fen()
+            s0 = set()
+            for pos, a1h8 in enumerate(lipv):
+                FasterCode.make_move(a1h8)
+                fen = FasterCode.get_fen()
+                fenm2 = FasterCode.fen_fenm2(fen)
+                if not fenm2.endswith("-"):  # enpassant imposibles
+                    p.read_fen(fen)
+                    fenm2 = p.fenm2()
+                if fenm2 in s0:
+                    break
+                s0.add(fenm2)
+                dir_prev[fenm2].add(" ".join(lipv[:pos + 1]))
+                if pos < len(lipv) - 1:
+                    dir_post[fenm2].add(" ".join(lipv[pos + 1:]))
+        st_pv = set()
+        for fenm2, li_pv_prev in dir_prev.items():
+            for pv_prev in li_pv_prev:
+                for pv_post in dir_post[fenm2]:
+                    a1h8 = pv_prev + " " + pv_post
+                    st_pv.add(a1h8)
+        self.li_xpv = [FasterCode.pv_xpv(pv) for pv in st_pv]
+        self.clean()
+
+    def clean(self):
+        li_new = []
+        self.li_xpv.sort()
+        for pos, xpv in enumerate(self.li_xpv[:-1]):
+            if not self.li_xpv[pos + 1].startswith(xpv):
+                li_new.append(xpv)
+        li_new.append(self.li_xpv[-1])
+        self.li_xpv = li_new
+        self.remove_all_lines()
+        sql_insert = "INSERT INTO LINES(XPV) VALUES( ? )"
+        for xpv in self.li_xpv:
+            self._conexion.execute(sql_insert, (xpv,))
+        self._conexion.commit()
+        self.pack_at_end()
+
+    def remove_all_lines(self):
+        self._conexion.execute("DELETE FROM LINES")
+        self.cache = {}
+        self._conexion.commit()
+
+    def get_all_fen(self):
+        st_fen_m2 = set()
+        lilipv = [FasterCode.xpv_pv(xpv).split(" ") for xpv in self.li_xpv]
+        p = Position.Position()
         for lipv in lilipv:
             FasterCode.set_init_fen()
             for pv in lipv:
                 FasterCode.make_move(pv)
                 fen = FasterCode.get_fen()
                 fenm2 = FasterCode.fen_fenm2(fen)
-                stFENm2.add(fenm2)
-        return stFENm2
+                if not fenm2.endswith("-"):
+                    p.read_fen(fen)
+                    fenm2 = p.fenm2()
+                st_fen_m2.add(fenm2)
+        return st_fen_m2
 
-    def getNumLinesPV(self, lipv, base=1):
+    def get_numlines_pv(self, lipv, base=1):
         xpv = FasterCode.pv_xpv(" ".join(lipv))
         li = [num for num, xpv0 in enumerate(self.li_xpv, base) if xpv0.startswith(xpv)]
         return li
@@ -1213,7 +1268,7 @@ class Opening:
                 fen = FasterCode.get_fen()
                 fenm2 = FasterCode.fen_fenm2(fen)
                 linom.append(dic[fenm2].tr_name if fenm2 in dic else "")
-            parent.addLista(lipv, lipgn, linom)
+            parent.add_list(lipv, lipgn, linom)
         return parent
 
     def dic_fenm2_moves(self):
@@ -1249,12 +1304,12 @@ class ItemTree:
             self.dicHijos[move] = ItemTree(self, move, pgn, opening)
         return self.dicHijos[move]
 
-    def addLista(self, limoves, lipgn, liop):
+    def add_list(self, limoves, lipgn, liop):
         n = len(limoves)
         if n > 0:
             item = self.add(limoves[0], lipgn[0], liop[0])
             if n > 1:
-                item.addLista(limoves[1:], lipgn[1:], liop[1:])
+                item.add_list(limoves[1:], lipgn[1:], liop[1:])
 
     def game(self):
         li = []

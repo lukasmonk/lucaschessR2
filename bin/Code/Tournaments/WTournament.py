@@ -67,7 +67,7 @@ class WTournament(LCDialog.LCDialog):
         bt_resign = Controles.PB(self, "", rutina=self.borra_resign).ponIcono(Iconos.Reciclar())
 
         # Draw-plys
-        lbDrawMinPly = Controles.LB(self, "%s (%s): " % (_("Minimum moves to assign draw"), "0=%s" % _("Disable")))
+        lbDrawMinPly = Controles.LB(self, "%s (%s): " % (_("Minimum movements to assign draw"), "0=%s" % _("Disable")))
         self.ed_draw_min_ply = Controles.ED(self).ponInt(torneo.draw_min_ply()).anchoFijo(30).align_right()
         # Draw-puntos
         lb_draw_range = Controles.LB(self, _("Maximum centipawns to assign draw") + ": ")

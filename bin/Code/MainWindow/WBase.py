@@ -273,10 +273,10 @@ class WBase(QtWidgets.QWidget):
         # # Blancas y negras
         f = Controles.TipoLetra(puntos=configuration.x_sizefont_infolabels + 2, peso=75)
         self.lb_player_white = Controles.LB(self).anchoFijo(nAnchoLabels).align_center().ponFuente(f).set_wrap()
-        self.lb_player_white.setProperty("type", "white")
+        self.configuration.set_property(self.lb_player_white, "white")
 
         self.lb_player_black = Controles.LB(self).anchoFijo(nAnchoLabels).align_center().ponFuente(f).set_wrap()
-        self.lb_player_black.setProperty("type", "black")
+        self.configuration.set_property(self.lb_player_black, "black")
 
         # # Capturas
         n_alto_fijo = 3 * (configuration.x_sizefont_infolabels + 2)
@@ -293,7 +293,7 @@ class WBase(QtWidgets.QWidget):
         def lbReloj():
             lb = Controles.LB(self, "00:00").ponFuente(f).align_center().anchoMinimo(nAnchoLabels)
             lb.setFrameStyle(QtWidgets.QFrame.Box | QtWidgets.QFrame.Raised)
-            lb.setProperty("type", "clock")
+            self.configuration.set_property(lb, "clock")
             return lb
 
         self.lb_clock_white = lbReloj()

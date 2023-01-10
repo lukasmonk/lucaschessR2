@@ -48,7 +48,11 @@ class Engine:
             conf_parent = Code.configuration.dic_engines.get(self.parent_external)
             if conf_parent:
                 self.path_exe = conf_parent.path_exe
-        self.read_uci_options()
+        try:
+            self.read_uci_options()
+            return True
+        except:
+            return False
 
     def exists(self):
         return os.path.isfile(self.path_exe)
@@ -157,8 +161,9 @@ class Engine:
         return self.path_exe
 
     def read_uci_options(self):
-        path_uci_options = os.path.join(os.path.dirname(self.path_exe), "uci_options.txt")
-        if os.path.isfile(path_uci_options) and not self.is_external:
+        name = Util.valid_filename("%s.uci_options" % self.key)
+        path_uci_options = os.path.join(os.path.dirname(self.path_exe), name)
+        if os.path.isfile(path_uci_options):
             with open(path_uci_options, "rt", encoding="utf-8", errors="ignore") as f:
                 lines = f.read().split("\n")
 
@@ -288,7 +293,7 @@ class OpcionUCI:
         return resp
 
     def lee_spin(self, li):
-        if len(li) == 8:
+        if len(li) >= 8:
             for x in [2, 4, 6]:
                 n = li[x + 1]
                 nm = n[1:] if n.startswith("-") else n

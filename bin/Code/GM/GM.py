@@ -1,7 +1,8 @@
 import operator
 import os
+import shutil
 
-from FasterCode import xpv_pv, pv_xpv
+import FasterCode
 
 import Code
 from Code import Util
@@ -12,7 +13,7 @@ from Code.Base.Constantes import RESULT_DRAW, RESULT_WIN_BLACK, RESULT_WIN_WHITE
 class GMgame:
     def __init__(self, linea):
         self.xpv, self.event, self.oponent, self.date, self.opening, self.result, self.color = linea.split("|")
-        self.li_pv = xpv_pv(self.xpv).split(" ")
+        self.li_pv = FasterCode.xpv_pv(self.xpv).split(" ")
         self.len_pv = len(self.li_pv)
 
     def toline(self):
@@ -203,11 +204,18 @@ class GM:
         self.write()
 
 
+def get_folder_gm():
+    return os.path.join(Code.configuration.carpeta, "GM")
+
+
 def dic_gm():
+    folder_gm = get_folder_gm()
+    if not os.path.isdir(folder_gm):
+        folder_ori_gm = Code.path_resource("GM")
+        shutil.copytree(folder_ori_gm, folder_gm)
     dic = {}
-    nomfich = "GM/_listaGM.txt"
-    nomfich = Code.path_resource(nomfich)
-    with open(nomfich, "rt", encoding="utf-8", errors="ignore") as f:
+    path_list = Code.path_resource("GM", "_ListaGM.txt")
+    with open(path_list, "rt", encoding="utf-8", errors="ignore") as f:
         for linea in f:
             if linea:
                 li = linea.split("|")
@@ -221,14 +229,18 @@ def lista_gm():
     dic = dic_gm()
     li = []
 
-    for entry in Util.listdir(Code.path_resource("GM")):
+    for entry in Util.listdir(get_folder_gm()):
         fich = entry.name.lower()
         if fich.endswith(".xgm"):
             gm = fich[:-4].lower()
-            try:
-                li.append((dic[gm], gm, True, True))
-            except:
-                pass
+            li.append((dic.get(gm, gm), gm, True, True))
+    if len(li) == 0:
+        folder_gm = get_folder_gm()
+        folder_ori_gm = Code.path_resource("GM")
+        for entry in os.scandir(folder_ori_gm):
+            shutil.copy(entry.path, folder_gm)
+        return lista_gm()
+
     li = sorted(li, key=operator.itemgetter(0))
     return li
 
@@ -367,7 +379,7 @@ class FabGM:
         def nopipe(txt):
             return txt.replace("|", " ").strip() if "|" in txt else txt
 
-        xpv = pv_xpv(pv)
+        xpv = FasterCode.pv_xpv(pv)
         if xpv not in self.st_xpv:
             self.write(
                 "%s|%s|%s|%s|%s|%s|%s\n" % (xpv, nopipe(event), nopipe(oponente), nopipe(date), eco, result, color)

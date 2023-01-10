@@ -883,8 +883,8 @@ class WGames(QtWidgets.QWidget):
             form.checkbox(_("Only selected games"), selected)
             form.separador()
 
-            li = [(_("Both sides"), None), (_("White"), WHITE), (_("Black"), BLACK)]
-            form.combobox(_("Which side"), li, side)
+            li = [(_("White & Black"), None), (_("White"), WHITE), (_("Black"), BLACK)]
+            form.combobox(_("Side"), li, side)
             form.separador()
 
             li = [

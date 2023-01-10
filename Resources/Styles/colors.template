@@ -2,10 +2,6 @@
 BACKGROUND=Background
 FOREGROUND=Foreground
 
-[Menu selected]
-SELECTION_BACKGROUND=Background
-SELECTION_FOREGROUND=Foreground
-
 [Moves in PGN table]
 VERY_GOOD_MOVE=Brilliant move|(!!)
 GOOD_MOVE=Good move|(!)

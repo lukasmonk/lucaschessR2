@@ -48,15 +48,15 @@ class ManagerOpeningLinesStatic(ManagerOPL.ManagerOpeningLines):
         self.dicFENm2 = self.training["DICFENM2"]
         self.dic_comments = self.dbop.dic_fen_comments()
 
-        li = self.dbop.getNumLinesPV(self.li_pv)
+        li = self.dbop.get_numlines_pv(self.li_pv)
         if len(li) > 10:
-            mensLines = ",".join(["%d" % line for line in li[:10]]) + ", ..."
+            mens_lines = ",".join(["%d" % line for line in li[:10]]) + ", ..."
         else:
-            mensLines = ",".join(["%d" % line for line in li])
+            mens_lines = ",".join(["%d" % line for line in li])
         self.liMensBasic = []
         if self.modo != "sequential":
             self.liMensBasic.append("%d/%d" % (self.num_linea + 1, len(self.liGames)))
-        self.liMensBasic.append("%s: %s" % (_("Lines") if len(li) > 1 else _("Line"), mensLines))
+        self.liMensBasic.append("%s: %s" % (_("Lines") if len(li) > 1 else _("Line"), mens_lines))
 
         self.siAyuda = False
         self.board.dbvisual_set_show_always(False)

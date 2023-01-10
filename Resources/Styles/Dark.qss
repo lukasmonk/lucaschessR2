@@ -229,6 +229,46 @@ QTreeView::item:selected
 }
 
 /* MENU ----------------------------------------------------------------------------------*/
+QMenu::item
+{
+    padding: 3px 16px 4px 16px;
+    margin: 2px;
+    border: 1px solid transparent;
+    min-width : 150px;
+
+}
+QMenu::item:selected
+{
+    border: 1px solid #a1b2c2;
+    background: #5d5d5d;
+}
+QMenu::icon
+{
+   padding: 6px;
+}
+QMenu::icon:checked
+{
+    background: gray;
+    border: 1px inset gray;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    bottom: 1px;
+    left: 1px;
+}
+QMenu::separator
+{
+    height: 1px;
+    background: #5e5e5e;
+    margin-left: 38px;
+    margin-right: 2px;
+}
+QMenu::indicator
+{
+    width: 13px;
+    height: 13px;
+}
+
 QMenu[type="101"]
 {
     margin: 2px;

@@ -12,10 +12,7 @@ class LBPGN(Controles.LB):
         self.wparent = parent
         self.set_wrap()
         self.ponTipoLetra(puntos=puntos)
-        self.setStyleSheet(
-            "QLabel{ border-style: groove; border-width: 1px; border-color: LightSlateGray; padding: 2px;}"
-        )
-        self.setProperty("type", "pgn")
+        Code.configuration.set_property(self, "pgn")
         self.setOpenExternalLinks(False)
         self.linkActivated.connect(link)
 

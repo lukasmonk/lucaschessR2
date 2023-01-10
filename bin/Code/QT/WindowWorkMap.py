@@ -25,7 +25,7 @@ class WMap(LCDialog.LCDialog):
         titulo = dic[mapa]
         icono = getattr(Iconos, mapa)()
 
-        LCDialog.LCDialog.__init__(self, procesador.main_window, titulo, icono, mapa)
+        LCDialog.LCDialog.__init__(self, procesador.main_window, titulo, icono, mapa+"01")
 
         self.procesador = procesador
 
@@ -71,7 +71,7 @@ class WMap(LCDialog.LCDialog):
         o_columns.nueva("DEND", _("End date"), 110, align_center=True)
         o_columns.nueva("RESULT", _("Result"), 110, align_center=True)
 
-        self.gridData = Grid.Grid(self, o_columns, siSelecFilas=True, xid="H")
+        self.gridData = Grid.Grid(self, o_columns, siSelecFilas=True, xid="H", siCabeceraMovible=False)
         self.register_grid(self.gridData)
 
         li_acciones = (

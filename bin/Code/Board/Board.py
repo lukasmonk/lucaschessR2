@@ -109,9 +109,6 @@ class Board(QtWidgets.QGraphicsView):
 
         self.allow_eboard = True
 
-    def disable_eboard_here(self):
-        self.allow_eboard = False
-
     def disable_hard_focus(self):
         self.hard_focus = False
 
@@ -1415,7 +1412,10 @@ class Board(QtWidgets.QGraphicsView):
 
         self.set_base_position(position, variation_history=variation_history)
 
+
         if self.dirvisual:
+            if self.guion:
+                self.guion.cierraPizarra()
             self.dirvisual.cambiadaPosicionDespues()
 
         if variation_history:
@@ -2453,6 +2453,15 @@ class Board(QtWidgets.QGraphicsView):
             return 0
 
         return 1
+
+    def disable_eboard_here(self):
+        self.allow_eboard = False
+
+    def enable_eboard_here(self):
+        self.allow_eboard = True
+        if Code.eboard and Code.eboard.driver:
+            Code.eboard.set_position(self.last_position)
+
 
     def play_current_position(self):
         gm = Game.Game(first_position=self.last_position)

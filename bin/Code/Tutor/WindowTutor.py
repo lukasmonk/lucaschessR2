@@ -131,6 +131,10 @@ class WindowTutor(LCDialog.LCDialog):
 
         self.restore_video(siTam=False)
 
+    def toolbar_rightmouse(self):
+        self.stop_clock()
+        QTVarios.change_interval(self, Code.configuration)
+
     def process_toolbar(self):
         self.exeTB(self.sender().key)
 
@@ -186,7 +190,7 @@ class WindowTutor(LCDialog.LCDialog):
         if not hasattr(self, "timer"):
             self.timer = QtCore.QTimer(self)
             self.connect(self.timer, QtCore.SIGNAL("timeout()"), funcion)
-        self.timer.start(1000)
+        self.timer.start(Code.configuration.x_interval_replay)
 
     def stop_clock(self):
         if hasattr(self, "timer"):

@@ -29,10 +29,11 @@ class WOpenings(LCDialog.LCDialog):
 
         # Variables--------------------------------------------------------------------------
         self.ap_std = OpeningsStd.ap
-        self.configuration = configuration
         self.game = Game.Game()
         self.opening_block = opening_block
         self.liActivas = []
+
+        self.configuration = configuration
 
         # Board
         config_board = configuration.config_board("APERTURAS", 32)
@@ -44,7 +45,7 @@ class WOpenings(LCDialog.LCDialog):
         self.lbPGN = Controles.LB(self, "").set_wrap().ponTipoLetra(puntos=10, peso=75)
         ly = Colocacion.H().control(self.lbPGN)
         gb = Controles.GB(self, _("Selected opening"), ly).ponTipoLetra(puntos=11, peso=75).align_center()
-        gb.setProperty("type", "selop")
+        self.configuration.set_property(gb, "selop")
 
         # Movimiento
         self.is_moving_time = False

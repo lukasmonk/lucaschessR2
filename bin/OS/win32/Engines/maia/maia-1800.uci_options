@@ -1,0 +1,61 @@
+id name Lc0 v0.28.0-dev+git.unknown
+id author The LCZero Authors.
+option name WeightsFile type string default <autodiscover>
+option name Backend type combo default eigen var eigen var random var check var recordreplay var roundrobin var multiplexing var demux
+option name BackendOptions type string default
+option name Threads type spin default 2 min 1 max 128
+option name NNCacheSize type spin default 200000 min 0 max 999999999
+option name MinibatchSize type spin default 256 min 1 max 1024
+option name MaxPrefetch type spin default 32 min 0 max 1024
+option name CPuct type string default 1.745000
+option name CPuctBase type string default 38739.000000
+option name CPuctFactor type string default 3.894000
+option name TwoFoldDraws type check default true
+option name VerboseMoveStats type check default false
+option name FpuStrategy type combo default reduction var reduction var absolute
+option name FpuValue type string default 0.330000
+option name CacheHistoryLength type spin default 0 min 0 max 7
+option name PolicyTemperature type string default 1.359000
+option name MaxCollisionEvents type spin default 32 min 1 max 65536
+option name MaxCollisionVisits type spin default 32 min 1 max 1000000
+option name OutOfOrderEval type check default true
+option name MaxOutOfOrderEvalsFactor type string default 2.400000
+option name StickyEndgames type check default true
+option name SyzygyFastPlay type check default false
+option name MultiPV type spin default 1 min 1 max 500
+option name PerPVCounters type check default false
+option name ScoreType type combo default centipawn var centipawn var centipawn_with_drawscore var centipawn_2019 var centipawn_2018 var win_percentage var Q var W-L
+option name HistoryFill type combo default fen_only var no var fen_only var always
+option name MovesLeftMaxEffect type string default 0.200000
+option name MovesLeftThreshold type string default 0.000000
+option name MovesLeftSlope type string default 0.004000
+option name MovesLeftConstantFactor type string default 0.000000
+option name MovesLeftScaledFactor type string default 1.000000
+option name MovesLeftQuadraticFactor type string default 0.000000
+option name MaxConcurrentSearchers type spin default 1 min 0 max 128
+option name DrawScoreSideToMove type spin default 0 min -100 max 100
+option name DrawScoreOpponent type spin default 0 min -100 max 100
+option name DrawScoreWhite type spin default 0 min -100 max 100
+option name DrawScoreBlack type spin default 0 min -100 max 100
+option name NodesPerSecondLimit type string default 0.000000
+option name SolidTreeThreshold type spin default 100 min 1 max 2000000000
+option name MultiGather type check default true
+option name TaskWorkers type spin default 4 min 0 max 128
+option name MinimumProcessingWork type spin default 20 min 2 max 100000
+option name MinimumPickingWork type spin default 1 min 1 max 100000
+option name MinimumRemainingPickingWork type spin default 20 min 0 max 100000
+option name MinimumPerTaskProcessing type spin default 8 min 1 max 100000
+option name IdlingMinimumWork type spin default 0 min 0 max 10000
+option name ThreadIdlingThreshold type spin default 1 min 0 max 128
+option name SyzygyPath type string default
+option name Ponder type check default true
+option name UCI_Chess960 type check default false
+option name UCI_ShowWDL type check default false
+option name UCI_ShowMovesLeft type check default false
+option name ConfigFile type string default lc0.config
+option name SmartPruningFactor type string default 1.330000
+option name SmartPruningMinimumBatches type spin default 0 min 0 max 10000
+option name RamLimitMb type spin default 0 min 0 max 100000000
+option name MoveOverheadMs type spin default 200 min 0 max 100000000
+option name TimeManager type string default smooth
+option name LogFile type string default

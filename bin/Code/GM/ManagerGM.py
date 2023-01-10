@@ -73,12 +73,12 @@ class ManagerGM(Manager.Manager):
 
         self.thinking(True)
 
-        default = Code.path_resource("GM")
+        default = GM.get_folder_gm()
         carpeta = default if self.modo == "estandar" else self.configuration.personal_training_folder
-        self.motorGM = GM.GM(carpeta, self.gm)
-        self.motorGM.filter_side(self.is_white)
+        self.engine_gm = GM.GM(carpeta, self.gm)
+        self.engine_gm.filter_side(self.is_white)
         if self.gameElegida is not None:
-            self.motorGM.set_game_selected(self.gameElegida)
+            self.engine_gm.set_game_selected(self.gameElegida)
 
         self.is_human_side_white = self.is_white
         self.is_engine_side_white = not self.is_white
@@ -195,7 +195,7 @@ class ManagerGM(Manager.Manager):
 
         is_white = self.game.last_position.is_white
 
-        if (len(self.game) > 0) and self.motorGM.is_finished():
+        if (len(self.game) > 0) and self.engine_gm.is_finished():
             self.put_result()
             return
 
@@ -209,7 +209,7 @@ class ManagerGM(Manager.Manager):
         else:
             si_jug_inicial = False
 
-        li_alternativas = self.motorGM.alternativas()
+        li_alternativas = self.engine_gm.alternativas()
         nli_alternativas = len(li_alternativas)
 
         # Movimiento automatico
@@ -263,7 +263,7 @@ class ManagerGM(Manager.Manager):
         if siRival:
             if nli_alternativas > 1:
                 if self.select_rival_move:
-                    li_moves = self.motorGM.get_moves_txt(self.game.last_position, False)
+                    li_moves = self.engine_gm.get_moves_txt(self.game.last_position, False)
                     from_sq, to_sq, promotion = WindowGM.select_move(self, li_moves, False)
                     move = from_sq + to_sq + promotion
                 else:
@@ -295,13 +295,13 @@ class ManagerGM(Manager.Manager):
 
         movimiento = jgUsu.movimiento()
         position = self.game.last_position
-        isValid = self.motorGM.is_valid_move(movimiento)
+        isValid = self.engine_gm.is_valid_move(movimiento)
         analysis = None
 
         if not isValid:
             self.board.set_position(position)
             self.board.activate_side(self.is_human_side_white)
-            li_moves = self.motorGM.get_moves_txt(position, True)
+            li_moves = self.engine_gm.get_moves_txt(position, True)
             desdeGM, hastaGM, promotionGM = WindowGM.select_move(self, li_moves, True)
             siAnalizaJuez = self.with_adjudicator
             if siAnalizaJuez:
@@ -427,7 +427,7 @@ class ManagerGM(Manager.Manager):
         self.put_arrow_sc(move.from_sq, move.to_sq)
         self.beepExtendido(siNuestra)
 
-        txt = self.motorGM.label_game_if_unique(is_gm=self.modo == "estandar")
+        txt = self.engine_gm.label_game_if_unique(is_gm=self.modo == "estandar")
         if txt:
             self.rival_name = txt
         self.ponRotuloSecundario()
@@ -435,7 +435,7 @@ class ManagerGM(Manager.Manager):
         self.pgnRefresh(self.game.last_position.is_white)
         self.refresh()
 
-        self.motorGM.play(move.movimiento())
+        self.engine_gm.play(move.movimiento())
 
     def put_result(self):
         self.state = ST_ENDGAME
@@ -443,7 +443,7 @@ class ManagerGM(Manager.Manager):
 
         mensaje = _("Game ended")
 
-        txt, porc, txtResumen = self.motorGM.resultado(self.game)
+        txt, porc, txtResumen = self.engine_gm.resultado(self.game)
         mensaje += "<br><br>" + txt
         if self.with_adjudicator:
             mensaje += "<br><br><b>%s</b> = %+d<br>" % (_("Centipawns accumulated"), self.puntos)
@@ -484,7 +484,7 @@ class ManagerGM(Manager.Manager):
         dic["record"] = self.record
         dic["game"] = self.game.save()
         dic["labels"] = self.get_labels()
-        dic["motorgm"] = self.motorGM
+        dic["motorgm"] = self.engine_gm
         return dic
 
     def run_adjourn(self, dic):
@@ -502,7 +502,7 @@ class ManagerGM(Manager.Manager):
             else:
                 setattr(self, k, v)
         if motorgm:
-            self.motorGM = motorgm
+            self.engine_gm = motorgm
         self.restore_labels(labels)
         self.pgnRefresh(True)
         self.repiteUltimaJugada()
@@ -521,7 +521,7 @@ class ManagerGM(Manager.Manager):
 
     def current_pgn(self):
         gm = self.gm
-        motor_gm = self.motorGM
+        motor_gm = self.engine_gm
 
         game_gm = motor_gm.get_last_game()
 

@@ -118,7 +118,6 @@ class Configuration:
         self.x_save_pgn_folder = ""
         self.x_save_lcsb = ""
         self.x_translator = ""
-        self.x_style = "fusion"
 
         self.x_enable_highdpiscaling = False
 
@@ -167,10 +166,10 @@ class Configuration:
         self.x_font_family = ""
         self.x_font_points = 10
 
-        self.x_menu_points = 10
+        self.x_menu_points = 11
         self.x_menu_bold = False
 
-        self.x_tb_fontpoints = 10
+        self.x_tb_fontpoints = 11
         self.x_tb_bold = False
         self.x_tb_icons = toolbutton_int(Qt.ToolButtonTextUnderIcon)
 
@@ -241,8 +240,6 @@ class Configuration:
         self.x_captures_showall = True
         self.x_counts_showall = True
 
-        self.palette = {}
-
         self.li_favoritos = None
 
         self.li_personalities = []
@@ -253,8 +250,10 @@ class Configuration:
 
         self.x_translation_mode = False
 
-        self.x_style_mode = "Light"
+        self.x_style = "windowsvista" if Code.is_windows else "fusion"
+        self.x_style_mode = "By default"
         self.x_style_icons = IconosBase.icons.NORMAL
+        self.style_sheet_default = None  # temporary var
 
     def read_eval(self):
         d = {}
@@ -618,7 +617,7 @@ class Configuration:
         for x in dir(self):
             if x.startswith("x_"):
                 dic[x] = getattr(self, x)
-        dic["PALETTE"] = self.palette
+        # dic["PALETTE"] = self.palette
         dic["PERSONALITIES"] = self.li_personalities
         Util.save_pickle(self.file, dic)
 
@@ -630,7 +629,7 @@ class Configuration:
                     if x in dic:
                         setattr(self, x, dic[x])
 
-            self.palette = dic.get("PALETTE", self.palette)
+            # self.palette = dic.get("PALETTE", self.palette)
             self.li_personalities = dic.get("PERSONALITIES", self.li_personalities)
 
         for x in os.listdir("../.."):
@@ -736,7 +735,9 @@ class Configuration:
 
             for x in li:
                 eng = Engines.Engine()
-                eng.restore(x)
+                if not eng.restore(x):
+                    continue
+
                 if eng.exists():
                     key = eng.key
                     n = 0
@@ -936,3 +937,8 @@ class Configuration:
         if self.x_save_pgn_folder != new_folder:
             self.x_save_pgn_folder = new_folder
             self.graba()
+
+    def set_property(self, owner, valor):
+        if self.x_style_mode == "By default":
+            owner.setStyleSheet(self.style_sheet_default)
+        owner.setProperty("type", valor)

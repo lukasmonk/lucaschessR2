@@ -570,7 +570,6 @@ class ManagerRoutesEndings(ManagerRoutes):
             self.route.end_ending()
         else:
             mensaje = "%s<br>%s" % (_("Done with errors."), _("You must repeat the puzzle."))
-            QTUtil2.message_bold(self.main_window, mensaje)
             self.message_on_pgn(mensaje)
             self.start(self.route)
 

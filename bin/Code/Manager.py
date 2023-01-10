@@ -411,7 +411,7 @@ class Manager:
                         dc = ord(from_sq[0]) - ord(to_sq[0])
                         df = int(from_sq[1]) - int(to_sq[1])
                         # Maxima distancia = 9.9 ( 9,89... sqrt(7**2+7**2)) = 4 seconds
-                        dist = (dc**2 + df**2) ** 0.5
+                        dist = (dc ** 2 + df ** 2) ** 0.5
                         seconds = 4.0 * dist / (9.9 * rapidez)
                     if self.procesador.manager:
                         cpu.muevePieza(movim[1], movim[2], seconds)
@@ -461,10 +461,10 @@ class Manager:
         pos_move, move = self.pgn.move(row, column.key)
 
         if (
-            self.main_window.siCapturas
-            or self.main_window.siInformacionPGN
-            or self.kibitzers_manager.some_working()
-            or self.configuration.x_show_bestmove
+                self.main_window.siCapturas
+                or self.main_window.siInformacionPGN
+                or self.kibitzers_manager.some_working()
+                or self.configuration.x_show_bestmove
         ):
             if move:
                 dic = move.position.capturas_diferencia()
@@ -939,18 +939,18 @@ class Manager:
 
         if self.state != ST_ENDGAME:
             if not (
-                self.game_type
-                in [
-                    GT_POSITIONS,
-                    GT_AGAINST_PGN,
-                    GT_AGAINST_ENGINE,
-                    GT_AGAINST_GM,
-                    GT_ALONE,
-                    GT_BOOK,
-                    GT_OPENINGS,
-                    GT_TACTICS,
-                ]
-                or (self.game_type in [GT_ELO, GT_MICELO] and not self.is_competitive)
+                    self.game_type
+                    in [
+                        GT_POSITIONS,
+                        GT_AGAINST_PGN,
+                        GT_AGAINST_ENGINE,
+                        GT_AGAINST_GM,
+                        GT_ALONE,
+                        GT_BOOK,
+                        GT_OPENINGS,
+                        GT_TACTICS,
+                    ]
+                    or (self.game_type in [GT_ELO, GT_MICELO] and not self.is_competitive)
             ):
                 if siUltimo or self.hints == 0:
                     return
@@ -1223,9 +1223,9 @@ class Manager:
 
     def play_instead_of_me(self):
         if (
-            self.plays_instead_of_me_option
-            and self.state == ST_PLAYING
-            and (self.hints or self.game_type in (GT_AGAINST_ENGINE, GT_ALONE, GT_POSITIONS, GT_TACTICS))
+                self.plays_instead_of_me_option
+                and self.state == ST_PLAYING
+                and (self.hints or self.game_type in (GT_AGAINST_ENGINE, GT_ALONE, GT_POSITIONS, GT_TACTICS))
         ):
             if not self.is_finished():
                 if self.if_analyzing and hasattr(self, "analyze_end"):
@@ -1520,9 +1520,9 @@ class Manager:
 
         # Juega por mi
         if (
-            self.plays_instead_of_me_option
-            and self.state == ST_PLAYING
-            and (self.hints or self.game_type in (GT_AGAINST_ENGINE, GT_ALONE, GT_POSITIONS, GT_TACTICS))
+                self.plays_instead_of_me_option
+                and self.state == ST_PLAYING
+                and (self.hints or self.game_type in (GT_AGAINST_ENGINE, GT_ALONE, GT_POSITIONS, GT_TACTICS))
         ):
             menu.separador()
             menu.opcion("play_instead_of_me", _("Play instead of me") + "  [%s 1]" % _("CTRL"), Iconos.JuegaPorMi()),

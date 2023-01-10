@@ -212,8 +212,8 @@ def lee_tema(ctema):
                 error("Linea error", x)
 
     # do_normal(li_imgs_fixed)
-    # do_sepia(li_imgs_fixed)
-    do_dark(li_imgs_fixed)
+    do_sepia(li_imgs_fixed)
+    # do_dark(li_imgs_fixed)
     # do_iconos(li_imgs_fixed)
 
 

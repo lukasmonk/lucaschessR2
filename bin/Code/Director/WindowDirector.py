@@ -142,7 +142,10 @@ class WPanelDirector(LCDialog.LCDialog):
             if is_ctrl:
                 self.selectBanda.seleccionar(None)
             else:
-                self.addText()
+                if self.guion.pizarra:
+                    self.guion.cierraPizarra()
+                else:
+                    self.addText()
         elif number == 0 and is_ctrl:  # Ctrl+F1
             self.borraUltimo()
         elif number == 1 and is_ctrl:  # Ctrl+F2
@@ -1028,6 +1031,7 @@ class Director:
         self.w.show()
 
     def cambiadaPosicionAntes(self):
+        self.guion.cierraPizarra()
         self.w.test_siGrabar()
 
     def cambiadaPosicionDespues(self):
