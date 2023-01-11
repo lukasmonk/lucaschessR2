@@ -140,11 +140,11 @@ def centraWindow(window):
 
 def escondeWindow(window):
     pos = window.pos()
+    screen = QtWidgets.QDesktopWidget().screenGeometry()
     if Code.is_windows:
-        screen = QtWidgets.QDesktopWidget().screenGeometry()
         window.move(screen.width() * 10, 0)
     else:
-        window.hide()
+        window.showMinimized()
     return pos
 
 
@@ -154,11 +154,11 @@ class EscondeWindow:
 
     def __enter__(self):
         self.pos = self.window.pos()
+        screen = QtWidgets.QDesktopWidget().screenGeometry()
         if Code.is_windows:
-            screen = QtWidgets.QDesktopWidget().screenGeometry()
             self.window.move(screen.width() * 10, 0)
-        # else:
-        #     self.window.hide()
+        else:
+            self.window.move(screen.width() - 1, 0)
         return self
 
     def __exit__(self, type, value, traceback):

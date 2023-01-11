@@ -9,7 +9,7 @@ from PySide2 import QtCore, QtWidgets
 
 import Code
 from Code.Translations import Translate
-from Code.QT import Iconos, Controles, Colocacion, QTUtil, QTUtil2
+from Code.QT import Iconos, IconosBase, Controles, Colocacion, QTUtil, QTUtil2
 
 FONDO = "#5e6983"
 COLOR_TITULO = "black"
@@ -119,12 +119,12 @@ class WSetup(QtWidgets.QDialog):
             border-radius:10px;
             border-color: COLOR; /* make the default button prominent */
             color : COLOR;
-            background-color: COLOR1;
+            background-color: COLOR1; 
             min-width: 80px;
             Text-align:left;
         }
         QPushButton:pressed {
-            background-color: COLOR0;
+            background-color: COLOR0; 
         }
         """.replace(
                 "COLOR0", BOTON_COLOR0
@@ -359,13 +359,12 @@ class Data:
             file.write("Name=%s\n" % _("Lucas Chess"))
             # file.write("GenericName=%s\n")
             # file.write("Comment=%s\n")
-            file.write("Exec=" + launcher + " %F\n")
+            file.write("Exec=" + launcher + "\n")
             file.write("Path=" + path + "\n")
             file.write("Icon=" + icon + "\n")
             file.write("StartupNotify=true\n")
             file.write("Terminal=false\n")
-            file.write("Categories=Game;\n")
-            file.write("MimeType=application/vnd.chess-pgn\n")
+            file.write("Categories=Game;")
         os.chmod(self.path_desktop, self.access_rights)
 
     def launch_lucasr(self):
@@ -407,6 +406,8 @@ class Data:
     def has_launcher(self):
         return os.path.isfile(self.path_desktop)
 
+
+IconosBase.icons.reset(0)
 
 app = QtWidgets.QApplication([])
 Translate.install("en")

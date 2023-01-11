@@ -1,0 +1,5 @@
+id name Goldfish v1.13.0
+id author Bendik Samseth
+option name Contempt type spin default 0 min -100 max 100
+option name Hash type spin default 16 min 1 max 1048576
+option name SyzygyPath type string default <empty>

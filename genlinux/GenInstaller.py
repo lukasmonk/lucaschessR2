@@ -156,7 +156,7 @@ class Processor:
             q.write(
                 """QT_LOGGING_RULES='*=false'
 export QT_LOGGING_RULES
-if [[ $(id -u) -eq 0 ]]
+if [ $(id -u) -eq 0 ]
 then 
     echo
     echo "PROBLEM: INSTALLING AS ROOT"

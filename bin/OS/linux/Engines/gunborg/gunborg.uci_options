@@ -1,0 +1,4 @@
+id name gunborg 1.35
+id author Torbjorn Nilsson
+option name Hash type spin default 16 min 1 max 1024
+option name Ponder type check default false

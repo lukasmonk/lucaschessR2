@@ -1,0 +1,33 @@
+
+[certs]
+certifi==2016.9.26
+
+[docs]
+sphinx
+jaraco.packaging>=6.1
+rst.linker>=1.9
+pygments-github-lexers==0.0.5
+
+[ssl]
+
+[ssl:sys_platform == "win32"]
+wincertstore==0.2
+
+[tests]
+mock
+pytest-flake8
+virtualenv>=13.0.0
+pytest-virtualenv>=1.2.7
+pytest>=3.7
+wheel
+coverage>=4.5.1
+pip>=19.1
+jaraco.envs
+
+[tests:platform_python_implementation != "PyPy"]
+pytest-cov>=2.5.1
+
+[tests:python_version >= "3.6"]
+flake8-2020
+paver
+jaraco.test>=3.1.1

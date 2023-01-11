@@ -1,0 +1,10 @@
+id name Laser 1.7
+id author Jeffrey An and Michael An
+option name Threads type spin default 1 min 1 max 128
+option name Hash type spin default 16 min 1 max 1048576
+option name Ponder type check default false
+option name MultiPV type spin default 1 min 1 max 256
+option name BufferTime type spin default 300 min 0 max 5000
+option name SyzygyPath type string default <empty>
+option name ScaleMaterial type spin default 100 min 0 max 500
+option name ScaleKingSafety type spin default 100 min 0 max 500

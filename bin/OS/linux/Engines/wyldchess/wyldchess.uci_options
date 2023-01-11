@@ -1,0 +1,5 @@
+id name WyldChess
+id author Manik Charan
+option name SyzygyPath type string default <empty>
+option name Hash type spin default 128 min 1 max 1048576
+option name MoveOverhead type spin default 30 min 1 max 5000

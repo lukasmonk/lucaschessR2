@@ -1,0 +1,6 @@
+id name Rodent II 0.9.64
+id author Pawel Koziol (based on Sungorus 1.4 by Pablo Vazquez)
+option name Hash type spin default 16 min 1 max 4096
+option name Clear Hash type button
+option name PersonalityFile type string default rodent.txt
+option name OwnBook type check default true

@@ -1,0 +1,4 @@
+id name Shallow Blue 2.0.0
+id author Rhys Rustad-Elliott
+option name BookPath type string default book.bin
+option name OwnBook type check default false

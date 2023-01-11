@@ -1,0 +1,4 @@
+id name Velvet v1.2.0
+id author Martin Honert
+option name UCI_EngineAbout type string default Velvet Chess Engine (https://github.com/mhonert/velvet-chess)
+option name Hash type spin default 32 min 1 max 4096
