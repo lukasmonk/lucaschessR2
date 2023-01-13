@@ -398,6 +398,12 @@ class WPosicion(QtWidgets.QWidget):
                     self.resetPosicion()
                 except:
                     pass
+            elif tp == "h":
+                try:
+                    self.position.read_fen(QTUtil.traePortapapeles())
+                    self.resetPosicion()
+                except:
+                    pass
             elif tp == "p":
                 if not self.is_scan_init:
                     self.scanner_init()

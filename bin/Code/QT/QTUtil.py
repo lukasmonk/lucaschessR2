@@ -159,7 +159,7 @@ class EscondeWindow:
             screen = QtWidgets.QDesktopWidget().screenGeometry()
             self.window.move(screen.width() * 10, 0)
         else:
-            self.window.showMinimed()
+            self.window.showMinimized()
         return self
 
     def __exit__(self, type, value, traceback):
