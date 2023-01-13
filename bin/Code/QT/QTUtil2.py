@@ -646,6 +646,10 @@ def pregunta(parent, mens, label_yes=None, label_no=None, si_top=False, px=None,
         msg_box.move(px, py)  # topright: owner.x() + owner.width() - msg.width() - 46, owner.y()+4)
     msg_box.exec_()
 
+    if msg_box.isVisible():
+        msg_box.hide()
+        QTUtil.refresh_gui()
+
     return msg_box.clickedButton() == si_button
 
 

@@ -1,3 +1,4 @@
+import io
 import os
 import time
 
@@ -105,7 +106,7 @@ class WPosicion(QtWidgets.QWidget):
 
         self.edFullMoves, lbFullMoves = QTUtil2.spinBoxLB(self, 1, 1, 999, etiqueta=_("Fullmove number"), maxTam=50)
 
-        self.vars_scanner = Scanner.Scanner_vars(self.configuration.carpetaScanners)
+        self.vars_scanner = Scanner.ScannerVars(self.configuration.carpetaScanners)
 
         self.lb_scanner = Controles.LB(self)
 
@@ -134,6 +135,8 @@ class WPosicion(QtWidgets.QWidget):
 
         self.li_scan_pch = []
         self.is_scan_init = False
+        self.im_scanner = None
+        self.pixmap = None
 
         # LAYOUT -------------------------------------------------------------------------------------------
         hbox = Colocacion.H().control(self.rbWhite).espacio(15).control(self.rbBlack)
@@ -387,13 +390,33 @@ class WPosicion(QtWidgets.QWidget):
         self.resetPosicion()
 
     def pegar(self):
-        fen = QTUtil.traePortapapeles()
-        if fen:
-            try:
-                self.position.read_fen(str(fen))
-                self.resetPosicion()
-            except:
-                pass
+        tp, data = QTUtil.get_clipboard()
+        if tp:
+            if tp == "t":
+                try:
+                    self.position.read_fen(str(data))
+                    self.resetPosicion()
+                except:
+                    pass
+            elif tp == "p":
+                if not self.is_scan_init:
+                    self.scanner_init()
+                    self.is_scan_init = True
+                img:QtGui.QImage = data
+                path_png = Code.configuration.ficheroTemporal("png")
+                img.save(path_png)
+                self.im_scanner = Image.open(path_png)
+                self.scanner_process()
+                tc = self.board.width_square * 8
+                self.pixmap = QtGui.QPixmap(path_png)
+                pm = self.pixmap.scaled(tc, tc)
+                self.lb_scanner.ponImagen(pm)
+                self.lb_scanner.show()
+                self.gb_scanner.show()
+                self.scanner_deduce()
+
+                self.setFocus()
+
 
     def copiar(self):
         self.actPosicion()
@@ -433,50 +456,63 @@ class WPosicion(QtWidgets.QWidget):
             self.edMovesPawn.setValue(self.position.mov_pawn_capt)
 
     def scanner(self):
-        pos = QTUtil.escondeWindow(self.wparent)
-        seguir = True
+        self.wparent.showMinimized()
+        QTUtil.refresh_gui()
+
         if self.chb_scanner_ask.valor() and not QTUtil2.pregunta(
-                None, _("Bring the window to scan to front"), label_yes=_("Accept"), label_no=_("Cancel"), si_top=True
+                None, _("Bring the window to scan to front"), label_yes=_("Accept"), label_no=_("Cancel"), si_top=True,
         ):
-            seguir = False
-        if seguir:
-            fich_png = self.configuration.ficheroTemporal("png")
-            if not self.is_scan_init:
-                self.scanner_init()
-                self.is_scan_init = True
+            self.wparent.showNormal()
+            return
 
-            if Code.configuration.x_enable_highdpiscaling:
-                QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_DisableHighDpiScaling)
+        time.sleep(0.2)
+        QTUtil.refresh_gui()
+        time.sleep(0.2)
+        QTUtil.refresh_gui()
 
-            sc = Scanner.Scanner(self.configuration.carpetaScanners, fich_png)
-            sc.exec_()
+        screen = QtWidgets.QApplication.primaryScreen()
+        desktop = screen.grabWindow(0, 0, 0, QTUtil.anchoEscritorio(), QTUtil.altoEscritorio())
 
+        self.wparent.showNormal()
+
+        if not self.is_scan_init:
+            self.scanner_init()
+            self.is_scan_init = True
+
+        if Code.configuration.x_enable_highdpiscaling:
+            QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_DisableHighDpiScaling)
+
+        sc = Scanner.Scanner(self, self.configuration.carpetaScanners, desktop)
+        if not sc.exec_():
             if Code.configuration.x_enable_highdpiscaling:
                 QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
+            return
 
-            self.vars_scanner.read()
-            self.vars_scanner.tolerance = self.sb_scanner_tolerance.valor()  # releemos la variable
-            self.vars_scanner.tolerance_learns = min(
-                self.sb_scanner_tolerance_learns.valor(), self.vars_scanner.tolerance
-            )
+        if Code.configuration.x_enable_highdpiscaling:
+            QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
+        self.vars_scanner.read()
+        self.vars_scanner.tolerance = self.sb_scanner_tolerance.valor()  # releemos la variable
+        self.vars_scanner.tolerance_learns = min(
+            self.sb_scanner_tolerance_learns.valor(), self.vars_scanner.tolerance
+        )
 
-            if os.path.isfile(fich_png) and Util.filesize(fich_png):
-                self.chb_scanner_flip.set_value(sc.side == BLACK)
-                self.scanner_read_png(fich_png)
-                self.pixmap = QtGui.QPixmap(fich_png)
-                tc = self.board.width_square * 8
-                pm = self.pixmap.scaled(tc, tc)
-                self.lb_scanner.ponImagen(pm)
-                self.lb_scanner.show()
-                self.gb_scanner.show()
-                self.scanner_deduce()
+        self.chb_scanner_flip.set_value(sc.side == BLACK)
 
-        self.wparent.move(pos)
-        self.setFocus()
-
-    def scanner_read_png(self, fdb):
-        self.im_scanner = Image.open(fdb)
+        self.pixmap = sc.selected_pixmap
+        img = self.pixmap.toImage()
+        buffer = QtCore.QBuffer()
+        buffer.open(QtCore.QBuffer.ReadWrite)
+        img.save(buffer, "PNG")
+        self.im_scanner = Image.open(io.BytesIO(buffer.data()))
         self.scanner_process()
+        tc = self.board.width_square * 8
+        pm = self.pixmap.scaled(tc, tc)
+        self.lb_scanner.ponImagen(pm)
+        self.lb_scanner.show()
+        self.gb_scanner.show()
+        self.scanner_deduce()
+
+        self.setFocus()
 
     def scanner_process(self):
         im = self.im_scanner
@@ -830,10 +866,9 @@ class WPGN(QtWidgets.QWidget):
 
 class Voyager(LCDialog.LCDialog):
     def __init__(self, owner, is_game, game):
-
         titulo = _("Voyager 2") if is_game else _("Basic position")
         icono = Iconos.Voyager() if is_game else Iconos.Datos()
-        LCDialog.LCDialog.__init__(self, owner, titulo, icono, "voyager")
+        LCDialog.LCDialog.__init__(self, None, titulo, icono, "voyager")
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Window | QtCore.Qt.WindowStaysOnTopHint)
 
         self.is_game = is_game
@@ -879,37 +914,43 @@ class Voyager(LCDialog.LCDialog):
         self.save_video()
         self.reject()
 
+    def closeEvent(self, event):
+        self.cancelar()
 
-def voyager_position(wowner, position, si_esconde: bool = True, wownerowner=None, resp_side_bottom=False):
-    pos_ownerowner = None
-    pos = None
-    if si_esconde:
-        pos = QTUtil.escondeWindow(wowner)
-        if wownerowner:
-            pos_ownerowner = QTUtil.escondeWindow(wownerowner)
+
+def voyager_position(wowner, position, wownerowner=None):
+    if wownerowner:
+        wownerowner_maximized = wownerowner.isMaximized()
+        wownerowner.showMinimized()
+    wowner_maximized = wowner.isMaximized()
+    wowner.showMinimized()
+
     game = Game.Game(first_position=position)
     dlg = Voyager(wowner, False, game)
     resp = dlg.resultado if dlg.exec_() else None
-    if si_esconde:
-        if wownerowner:
-            wownerowner.show()
-            wownerowner.move(pos_ownerowner)
-            QTUtil.refresh_gui()
-            time.sleep(0.01)
 
-        wowner.show()
-        wowner.move(pos)
-        QTUtil.refresh_gui()
-        time.sleep(0.01)
-    if resp_side_bottom:
-        return resp, dlg.is_white_bottom()
-    return resp
+    if wowner_maximized:
+        wowner.showMaximized()
+    else:
+        wowner.showNormal()
+    if wownerowner:
+        if wownerowner_maximized:
+            wownerowner.showMaximized()
+        else:
+            wownerowner.showNormal()
+    QTUtil.refresh_gui()
+
+    return resp, dlg.is_white_bottom()
 
 
 def voyager_game(wowner, game):
-    pos = QTUtil.escondeWindow(wowner)
+    wowner_maximized = wowner.isMaximized()
+    wowner.showMinimized()
     dlg = Voyager(wowner, True, game)
     resp = dlg.resultado if dlg.exec_() else None
-    wowner.move(pos)
-    wowner.show()
+    if wowner_maximized:
+        wowner.showMaximized()
+    else:
+        wowner.showNormal()
+    QTUtil.refresh_gui()
     return resp

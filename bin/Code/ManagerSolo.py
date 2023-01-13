@@ -654,7 +654,7 @@ class ManagerSolo(Manager.Manager):
             self.main_window.set_title_toolbar_eboard()
 
         position, is_white_bottom = Voyager.voyager_position(
-            self.main_window, self.game.first_position, resp_side_bottom=True
+            self.main_window, self.game.first_position
         )
         if position is not None:
 

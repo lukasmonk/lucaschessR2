@@ -372,9 +372,9 @@ class WTournament(LCDialog.LCDialog):
     def posicionEditar(self):
         cp = Position.Position()
         cp.read_fen(self.fen)
-        resp = Voyager.voyager_position(self, cp)
-        if resp is not None:
-            self.fen = resp.fen()
+        position, is_white_bottom = Voyager.voyager_position(self, cp)
+        if position is not None:
+            self.fen = position.fen()
             self.muestraPosicion()
 
     def posicionQuitar(self):

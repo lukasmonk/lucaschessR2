@@ -217,6 +217,6 @@ class WPolyglot(LCDialog.LCDialog):
             self.set_position(self.position, False)
 
     def voyager(self):
-        position = Voyager.voyager_position(self, self.position, wownerowner=self.owner)
+        position, is_white_bottom = Voyager.voyager_position(self, self.position, wownerowner=self.owner)
         if position:
             self.set_position(position, True)

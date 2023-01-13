@@ -192,7 +192,7 @@ class WEndingsGTB(LCDialog.LCDialog):
 
     def nuevo(self):
         self.reset()
-        position = Voyager.voyager_position(self, self.game.first_position)
+        position, is_white_bottom = Voyager.voyager_position(self, self.game.first_position)
         if position is not None:
             fen = position.fen()
             mt = self.t4.dtm(fen)

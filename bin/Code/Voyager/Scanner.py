@@ -5,10 +5,9 @@ from PySide2 import QtCore, QtGui, QtWidgets
 from Code import Util
 from Code.Base.Constantes import WHITE, BLACK
 from Code.QT import Iconos
-from Code.QT import QTUtil
 
 
-class Scanner_vars:
+class ScannerVars:
     def __init__(self, folder_scanners):
         self.fich_vars = os.path.join(folder_scanners, "last.data64")
         self.read()
@@ -46,15 +45,15 @@ class Scanner_vars:
 
 
 class Scanner(QtWidgets.QDialog):
-    def __init__(self, folder_scanners, fich_png):
+    def __init__(self, owner, folder_scanners, desktop):
         QtWidgets.QDialog.__init__(self)
 
-        self.vars = Scanner_vars(folder_scanners)
+        self.vars = ScannerVars(folder_scanners)
+        self.desktop = desktop
+        self.selected_pixmap = None
 
-        self.fich_png = fich_png
-
-        self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.FramelessWindowHint)
-        self.setWindowOpacity(self.vars.opacity)
+        self.setWindowFlags(
+            QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint)
         self.setGeometry(QtWidgets.QDesktopWidget().availableGeometry())
 
         self.setCursor(QtGui.QCursor(Iconos.pmCursorScanner()))
@@ -72,28 +71,19 @@ class Scanner(QtWidgets.QDialog):
             self.height = self.vars.last_height
             self.setPathW()
 
-    def quit(self, ok):
-        self.hide()
-        if ok:
-            self.vars.write()
-            screen = QtWidgets.QApplication.primaryScreen()
-            dpr = screen.devicePixelRatio()
-            rect = QtCore.QRect(self.x * dpr, self.y * dpr, self.width * dpr, self.height * dpr)
-
-            desktop = screen.grabWindow(0, 0, 0, QTUtil.anchoEscritorio(), QTUtil.altoEscritorio())
-            selected_pixmap = desktop.copy(rect)
-            selected_pixmap = selected_pixmap.scaled(
-                256, 256, QtCore.Qt.IgnoreAspectRatio, QtCore.Qt.SmoothTransformation
-            )
-            selected_pixmap.save(self.fich_png)
-        else:
-            with open(self.fich_png, "w"):
-                pass
-        self.close()
+    def save(self):
+        self.vars.write()
+        dpr = self.desktop.devicePixelRatio()
+        rect = QtCore.QRect(self.x * dpr, self.y * dpr, self.width * dpr, self.height * dpr)
+        selected_pixmap = self.desktop.copy(rect)
+        self.selected_pixmap = selected_pixmap.scaled(
+            256, 256, QtCore.Qt.IgnoreAspectRatio, QtCore.Qt.SmoothTransformation
+        )
 
     def paintEvent(self, event):
+        painter = QtGui.QPainter(self)
+        painter.drawPixmap(0, 0, self.desktop)
         if self.path:
-            painter = QtGui.QPainter(self)
             pen = QtGui.QPen(QtCore.Qt.red)
             # pen.setStyle(QtCore.Qt.DotLine)
             painter.setPen(pen)
@@ -155,7 +145,8 @@ class Scanner(QtWidgets.QDialog):
             self.vars.last_height = self.height
             self.vars.x = self.x
             self.vars.y = self.y
-            self.quit(True)
+            self.save()
+            self.accept()
 
     def keyPressEvent(self, event):
         k = event.key()
@@ -168,10 +159,11 @@ class Scanner(QtWidgets.QDialog):
         height = self.height
 
         if k in (QtCore.Qt.Key_Return, QtCore.Qt.Key_Enter, QtCore.Qt.Key_S):
-            self.quit(True)
+            self.save()
+            self.accept()
 
         elif k == QtCore.Qt.Key_Escape:
-            self.quit(False)
+            self.reject()
 
         elif k == QtCore.Qt.Key_Plus:
             self.vars.opacity += 0.05

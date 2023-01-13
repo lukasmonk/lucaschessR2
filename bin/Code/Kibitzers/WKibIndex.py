@@ -345,9 +345,9 @@ class WKibIndex(QtWidgets.QDialog):
             self.reset()
 
     def set_position(self):
-        resp = Voyager.voyager_position(self, self.game.last_position)
-        if resp is not None:
-            game = Game.Game(first_position=resp)
+        position, is_white_bottom = Voyager.voyager_position(self, self.game.last_position)
+        if position is not None:
+            game = Game.Game(first_position=position)
             self.orden_game(game)
 
     def reset(self):

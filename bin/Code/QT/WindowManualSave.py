@@ -370,10 +370,10 @@ class WManualSave(LCDialog.LCDialog):
         prev = self.analyzing
         self.stop()
 
-        resp = Voyager.voyager_position(self, self.position, wownerowner=self.procesador.main_window)
-        if resp is not None:
+        position, is_white_bottom = Voyager.voyager_position(self, self.position, wownerowner=self.procesador.main_window)
+        if position is not None:
             self.em_solucion.set_text("")
-            self.position = resp
+            self.position = position
             self.board.set_position(self.position)
 
             self.sb_number.set_value(self.sb_number.valor() + 1)

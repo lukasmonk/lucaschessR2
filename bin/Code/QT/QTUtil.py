@@ -151,19 +151,25 @@ def escondeWindow(window):
 class EscondeWindow:
     def __init__(self, window):
         self.window = window
+        self.is_maximized = self.window.isMaximized()
 
     def __enter__(self):
-        self.pos = self.window.pos()
-        screen = QtWidgets.QDesktopWidget().screenGeometry()
         if Code.is_windows:
+            self.pos = self.window.pos()
+            screen = QtWidgets.QDesktopWidget().screenGeometry()
             self.window.move(screen.width() * 10, 0)
         else:
-            self.window.move(screen.width() - 1, 0)
+            self.window.showMinimed()
         return self
 
     def __exit__(self, type, value, traceback):
-        self.window.move(self.pos)
-        self.window.show()
+        if Code.is_windows:
+            self.window.move(self.pos)
+        if self.is_maximized:
+            self.window.showMaximized()
+        else:
+            self.window.showNormal()
+        refresh_gui()
 
 
 def colorIcon(xcolor, ancho, alto):
@@ -206,6 +212,21 @@ def ponPortapapeles(dato, tipo="t"):
 def traePortapapeles():
     cb = QtWidgets.QApplication.clipboard()
     return cb.text()
+
+
+def get_clipboard():
+    clipboard = QtWidgets.QApplication.clipboard()
+    mimedata = clipboard.mimeData()
+
+    if mimedata.hasImage():
+        return "p", mimedata.imageData()
+    elif mimedata.hasHtml():
+        return "h", mimedata.html()
+    elif mimedata.hasHtml():
+        return "h", mimedata.html()
+    elif mimedata.hasText():
+        return "t", mimedata.text()
+    return None, None
 
 
 def shrink(widget):
