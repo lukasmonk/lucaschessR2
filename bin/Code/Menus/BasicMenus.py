@@ -1,3 +1,5 @@
+import gettext
+_ = gettext.gettext
 import Code
 from Code.PlayAgainstEngine import Albums
 from Code.QT import Colocacion

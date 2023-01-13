@@ -1,3 +1,5 @@
+import gettext
+_= gettext.gettext
 import Code
 import Code.Base.Game  # To prevent recursivity in Variations -> import direct
 from Code import Util

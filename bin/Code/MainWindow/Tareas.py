@@ -1,3 +1,5 @@
+import gettext
+_ = gettext.gettext
 import copy
 
 from PySide2 import QtCore

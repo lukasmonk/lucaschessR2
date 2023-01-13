@@ -1,3 +1,5 @@
+import gettext
+_ = gettext.gettext
 from PySide2 import QtCore
 
 from Code.Endings import LibChess

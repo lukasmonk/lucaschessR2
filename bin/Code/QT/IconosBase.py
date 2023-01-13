@@ -1,3 +1,5 @@
+import gettext
+_ = gettext.gettext
 from PySide2 import QtGui
 
 import Code
@@ -52,4 +54,5 @@ class Icons:
 
 
 icons = Icons()
+icons.reset(0)
 iget = icons.get

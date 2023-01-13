@@ -1,3 +1,5 @@
+import gettext
+_ = gettext.gettext
 import Code
 from Code import Util
 from Code.Mate15 import Mate15, WRunMate15

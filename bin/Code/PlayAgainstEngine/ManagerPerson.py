@@ -1,3 +1,5 @@
+import gettext
+_ = gettext.gettext
 from Code.Base.Constantes import (
     ST_PLAYING,
     TB_REINIT,

@@ -1,3 +1,5 @@
+import gettext
+_ = gettext.gettext
 from Code.Base.Constantes import (
     ADJUST_BETTER,
     ADJUST_HIGH_LEVEL,

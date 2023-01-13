@@ -1,3 +1,5 @@
+import gettext
+_ = gettext.gettext
 import locale
 import sys
 

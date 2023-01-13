@@ -1,3 +1,5 @@
+import gettext
+_ = gettext.gettext
 import copy
 
 import Code.SQL.Base as SQLBase

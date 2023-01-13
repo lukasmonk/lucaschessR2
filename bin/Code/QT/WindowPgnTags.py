@@ -1,3 +1,5 @@
+import gettext
+_ = gettext.gettext
 from Code.Translations import TrListas
 from Code.Base import Position
 from Code.QT import Colocacion

@@ -29,6 +29,8 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 """
 __license__ = __doc__
+import gettext
+_ = gettext.gettext
 
 import os
 

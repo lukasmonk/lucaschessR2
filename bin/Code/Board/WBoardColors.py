@@ -1,3 +1,5 @@
+import gettext
+_= gettext.gettext
 import base64
 import os
 

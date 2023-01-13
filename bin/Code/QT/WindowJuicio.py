@@ -1,3 +1,6 @@
+import gettext
+_ = gettext.gettext
+import atexit
 from PySide2 import QtCore
 
 from Code import Util

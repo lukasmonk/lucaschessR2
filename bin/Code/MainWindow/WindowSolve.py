@@ -1,3 +1,5 @@
+import gettext
+_ = gettext.gettext
 from PySide2 import QtWidgets, QtCore
 
 from Code.Base import Game, Position

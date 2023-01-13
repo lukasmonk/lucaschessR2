@@ -1,3 +1,5 @@
+import gettext
+_ = gettext.gettext
 import Code
 from Code import Adjournments
 from Code import Manager

@@ -1,3 +1,5 @@
+import gettext
+_ = gettext.gettext
 import Code
 from Code import Util
 from Code.Base.Constantes import GT_AGAINST_ENGINE_LEAGUE
