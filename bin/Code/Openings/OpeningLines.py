@@ -1216,11 +1216,12 @@ class Opening:
 
     def clean(self):
         li_new = []
-        self.li_xpv.sort()
-        for pos, xpv in enumerate(self.li_xpv[:-1]):
-            if not self.li_xpv[pos + 1].startswith(xpv):
-                li_new.append(xpv)
-        li_new.append(self.li_xpv[-1])
+        if self.li_xpv:
+            self.li_xpv.sort()
+            for pos, xpv in enumerate(self.li_xpv[:-1]):
+                if not self.li_xpv[pos + 1].startswith(xpv):
+                    li_new.append(xpv)
+            li_new.append(self.li_xpv[-1])
         self.li_xpv = li_new
         self.remove_all_lines()
         sql_insert = "INSERT INTO LINES(XPV) VALUES( ? )"

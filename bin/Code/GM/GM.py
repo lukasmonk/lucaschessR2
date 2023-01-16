@@ -214,7 +214,7 @@ def dic_gm():
         folder_ori_gm = Code.path_resource("GM")
         shutil.copytree(folder_ori_gm, folder_gm)
     dic = {}
-    path_list = Code.path_resource("GM", "_ListaGM.txt")
+    path_list = Code.path_resource("GM", "_listaGM.txt")
     with open(path_list, "rt", encoding="utf-8", errors="ignore") as f:
         for linea in f:
             if linea:

@@ -72,6 +72,10 @@ class Scanner(QtWidgets.QDialog):
             self.setPathW()
 
     def save(self):
+        self.vars.last_width = self.width
+        self.vars.last_height = self.height
+        self.vars.x = self.x
+        self.vars.y = self.y
         self.vars.write()
         dpr = self.desktop.devicePixelRatio()
         rect = QtCore.QRect(self.x * dpr, self.y * dpr, self.width * dpr, self.height * dpr)
