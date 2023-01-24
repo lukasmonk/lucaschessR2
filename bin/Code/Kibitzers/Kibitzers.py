@@ -182,7 +182,7 @@ class Kibitzers:
             if kib.tipo == KIB_INDEXES:
                 return
         kib = Kibitzer()
-        eng = Code.configuration.buscaRival("rodentII")
+        eng = Code.configuration.buscaRival("rodentii")
         kib.restore(eng.save())
         kib.pon_huella(self.lista)
         kib.name = _("Indexes") + " - RodentII"

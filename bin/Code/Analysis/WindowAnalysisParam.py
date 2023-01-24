@@ -203,7 +203,7 @@ def analysis_parameters(parent, configuration, siModoAmpliado, siTodosMotores=Fa
         li_gen.append(SEPARADOR)
 
         liJ = [(_("White"), "WHITE"), (_("Black"), "BLACK"), (_("White & Black"), "BOTH")]
-        config = FormLayout.Combobox(_("Analyze only color"), liJ)
+        config = FormLayout.Combobox(_("Analyze color"), liJ)
         if alm.white and alm.black:
             color = "BOTH"
         elif alm.black:
@@ -416,7 +416,7 @@ def massive_analysis_parameters(parent, configuration, siVariosSeleccionados, si
     li_gen.append(SEPARADOR)
 
     liJ = [(_("White"), "WHITE"), (_("Black"), "BLACK"), (_("White & Black"), "BOTH")]
-    config = FormLayout.Combobox(_("Analyze only color"), liJ)
+    config = FormLayout.Combobox(_("Analyze color"), liJ)
     if alm.white and alm.black:
         color = "BOTH"
     elif alm.black:

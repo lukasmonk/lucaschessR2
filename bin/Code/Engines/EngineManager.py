@@ -155,6 +155,9 @@ class EngineManager:
             self.engine.siDebug = True
             self.engine.nomDebug = self.confMotor.nomDebug
 
+        if self.confMotor.emulate_movetime:
+            self.engine.emulate_movetime = True
+
         if self.dispatching:
             rutina, who_dispatch = self.dispatching
             self.engine.set_gui_dispatch(rutina, who_dispatch)

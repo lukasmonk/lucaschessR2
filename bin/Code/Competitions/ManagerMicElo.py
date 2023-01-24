@@ -161,7 +161,7 @@ class ManagerMicElo(Manager.Manager):
         if self.engine_rival.book:
             cbook = self.engine_rival.book
         else:
-            engine_rodent = Code.configuration.buscaRival("rodentII")
+            engine_rodent = Code.configuration.buscaRival("rodentii")
             path_rodent = os.path.join(os.path.dirname(engine_rodent.path_exe), "rodent.bin")
             cbook = random.choice([Code.tbook, path_rodent])
 

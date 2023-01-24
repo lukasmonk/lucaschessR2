@@ -221,7 +221,7 @@ class WLines(LCDialog.LCDialog):
         form.separador()
 
         liJ = [(_("White"), "WHITE"), (_("Black"), "BLACK"), (_("White & Black"), "BOTH")]
-        form.combobox(_("Analyze only color"), liJ, dicVar.get("COLOR", "BOTH"))
+        form.combobox(_("Analyze color"), liJ, dicVar.get("COLOR", "BOTH"))
         form.separador()
 
         form.combobox(
@@ -1102,6 +1102,7 @@ class WLines(LCDialog.LCDialog):
             dic = self.dbop.dicRepeFen(si_white)
             mensaje = _("Move") + "  %d/" + str(len(dic))
             xmanager = self.procesador.creaManagerMotor(self.configuration.engine_tutor(), ms, 0, siMultiPV=False)
+            xmanager.set_multipv(20)
 
             st_borrar = set()
 
@@ -1109,16 +1110,16 @@ class WLines(LCDialog.LCDialog):
 
             um.final()
 
-            tmpBP = QTUtil2.BarraProgreso(self, _("Remove worst lines"), "", len(dic), width=460)
-            tmpBP.mostrar()
+            tmp_bp = QTUtil2.BarraProgreso(self, _("Remove worst lines"), "", len(dic), width=460)
+            tmp_bp.mostrar()
 
             for n, fen in enumerate(dic, 1):
-                if tmpBP.is_canceled():
+                if tmp_bp.is_canceled():
                     ok = False
                     break
 
-                tmpBP.inc()
-                tmpBP.mensaje(mensaje % n)
+                tmp_bp.inc()
+                tmp_bp.mensaje(mensaje % n)
 
                 dic_a1h8 = dic[fen]
                 st_a1h8 = set(dic_a1h8.keys())
@@ -1139,14 +1140,14 @@ class WLines(LCDialog.LCDialog):
                     mrm = xmanager.analiza(fen)
                     for a1h8 in dic_a1h8:
                         rm, pos = mrm.buscaRM(a1h8)
-                        li.append((a1h8, pos))
+                        li.append((a1h8, pos if pos>= 0 else 999))
                     li.sort(key=lambda x: x[1])
 
                 for a1h8, pos in li[1:]:
                     for num_linea in dic_a1h8[a1h8]:
                         st_borrar.add(num_linea)
 
-            tmpBP.cerrar()
+            tmp_bp.cerrar()
 
             xmanager.terminar()
 

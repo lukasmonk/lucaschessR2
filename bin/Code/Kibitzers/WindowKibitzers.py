@@ -294,7 +294,7 @@ class WKibitzers(LCDialog.LCDialog):
 
             # Indexes only with Rodent II
             if tipo == "I":
-                engine = "rodentII"
+                engine = "rodentii"
                 if not name:  # para que no repita rodent II
                     name = _("Indexes") + " - RodentII"
 

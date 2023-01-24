@@ -196,7 +196,7 @@ class WEndingsGTB(LCDialog.LCDialog):
         if position is not None:
             fen = position.fen()
             mt = self.t4.dtm(fen)
-            if mt in (None, 0):
+            if mt is None:
                 QTUtil2.message_error(self, _("Invalid, this position is not evaluated by Gaviota Tablebases"))
                 return
             if mt < 0:

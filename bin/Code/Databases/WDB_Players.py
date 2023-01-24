@@ -40,12 +40,6 @@ class ToolbarMoves(QtWidgets.QWidget):
         ply4 = Controles.PB(self, "^4", self.run_p4, plano=False).anchoFijo(ancho)
         ply5 = Controles.PB(self, "^5", self.run_p5, plano=False).anchoFijo(ancho)
 
-        ply1.setToolTip(_("%d ply") % 1)
-        ply2.setToolTip(_("%d ply") % 2)
-        ply3.setToolTip(_("%d ply") % 3)
-        ply4.setToolTip(_("%d ply") % 4)
-        ply5.setToolTip(_("%d ply") % 5)
-
         self.sbply = Controles.SB(self, 0, 0, 100)
         self.sbply.capture_changes(self.run_p)
         lbply = Controles.LB(self, _("Half-moves"))

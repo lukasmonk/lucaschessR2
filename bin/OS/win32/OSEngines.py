@@ -9,7 +9,7 @@ from Code.Engines import Engines
 def read_engines(folder_engines):
     dic_engines = {}
 
-    def mas(alias, autor, version, url, exe, elo, folder=None):
+    def mas(alias, autor, version, url, exe, elo, folder=None, emulate_movetime=None):
         if folder is None:
             folder = alias
 
@@ -22,13 +22,16 @@ def read_engines(folder_engines):
         engine.ordenUCI("Threads", "1")
         dic_engines[alias] = engine
         engine.read_uci_options()
+        if emulate_movetime is not None:
+            engine.emulate_movetime = emulate_movetime
         return engine
 
     mas("acqua", "Giovanni Di Maria", "2.0", "http://www.elektrosoft.it/scacchi/acqua/acqua.asp", "acqua.exe", 844)
-    mas("foxcub", "Lucas Monge", "1.0", "", "FoxCub.exe", 800)
-    mas("fox", "Lucas Monge", "1.0", "", "Fox.exe", 1400)
+    mas("foxcub", "Lucas Monge", "1.0", "", "FoxCub.exe", 800, emulate_movetime=True)
+    mas("fox", "Lucas Monge", "1.0", "", "Fox.exe", 1400, emulate_movetime=True)
 
-    mas("tarrasch", "Bill Forster", "ToyEngine Beta V0.906", "http://www.triplehappy.com/", "TarraschToyEngineV0.906.exe", 1481)
+    mas("tarrasch", "Bill Forster", "ToyEngine Beta V0.906", "http://www.triplehappy.com/",
+        "TarraschToyEngineV0.906.exe", 1481, emulate_movetime=True)
 
     mas(
         "rocinante",
@@ -41,12 +44,14 @@ def read_engines(folder_engines):
 
     mas("roce", "Roman Hartmann", "0.0390", "http://www.rocechess.ch/rocee.html", "roce39.exe", 1854)
 
-    cm = mas("cinnamon", "Giuseppe Cannella", "1.2c", "https://github.com/gekomad/Cinnamon", "cinnamon_1.2c-generic.exe", 1930)
+    cm = mas("cinnamon", "Giuseppe Cannella", "1.2c", "https://github.com/gekomad/Cinnamon",
+             "cinnamon_1.2c-generic.exe", 1930)
     cm.ordenUCI("Hash", "32")
 
     mas("bikjump", "Aart J.C. Bik", "2.01 (32-bit)", "http://www.aartbik.com/", "bikjump.exe", 2026)
 
-    cm = mas("clarabit", "Salvador Pallares Bejarano", "1.00", "http://sapabe.googlepages.com", "clarabit_100_x32_win.exe", 2058)
+    cm = mas("clarabit", "Salvador Pallares Bejarano", "1.00", "http://sapabe.googlepages.com",
+             "clarabit_100_x32_win.exe", 2058)
     cm.ordenUCI("OwnBook", "false")
 
     mas("lime", "Richard Allbert", "v 66", "http://www.geocities.com/taciturn_lemon", "Lime_v66.exe", 2119)
@@ -57,14 +62,16 @@ def read_engines(folder_engines):
     cm = mas("gaia", "Jean-Francois Romang, David Rabel", "3.5", "http://gaiachess.free.fr", "gaia32.exe", 2378)
     cm.name = "Gaïa 3.5"
 
-    mas("simplex", "Antonio Torrecillas", "0.9.8", "http://sites.google.com/site/barajandotrebejos/", "Windows/simplex-098-32-ja.exe", 2396)
+    mas("simplex", "Antonio Torrecillas", "0.9.8", "http://sites.google.com/site/barajandotrebejos/",
+        "Windows/simplex-098-32-ja.exe", 2396)
 
     cm = mas("pawny", "Mincho Georgiev", "0.3.1", "http://pawny.netii.net/", "windows/pawny_0.3.1_x86.exe", 2484)
     cm.ordenUCI("OwnBook", "false")
 
     mas("umko", "Borko Boskovic", "0.7", "http://umko.sourceforge.net/", "w32/umko_x32.exe", 2488)
 
-    mas("garbochess", "Gary Linscott", "2.20", "http://forwardcoding.com/projects/chess/chess.html", "GarboChess2-32.exe", 2526)
+    mas("garbochess", "Gary Linscott", "2.20", "http://forwardcoding.com/projects/chess/chess.html",
+        "GarboChess2-32.exe", 2526)
 
     mas("ufim", "Niyas Khasanov", "8.02", "http://wbec-ridderkerk.nl/html/details1/Ufim.html", "ufim802.exe", 2532)
 
@@ -73,7 +80,8 @@ def read_engines(folder_engines):
     cm.remove_log("Alaric.log")
     cm.remove_log("learn.bin")
 
-    mas("cyrano", "Harald Johnsen", "06B17", "http://sites.estvideo.net/tipunch/cyrano/", "cyrano.exe", 2647)
+    mas("cyrano", "Harald Johnsen", "06B17", "http://sites.estvideo.net/tipunch/cyrano/", "cyrano.exe", 2647,
+        emulate_movetime=True)
 
     mas(
         "daydreamer",
@@ -84,7 +92,8 @@ def read_engines(folder_engines):
         2670,
     )
 
-    cm = mas("godel", "Juan Manuel Vazquez", "7.0", "https://sites.google.com/site/godelchessengine", "Godel32.exe", 2950)
+    cm = mas("godel", "Juan Manuel Vazquez", "7.0", "https://sites.google.com/site/godelchessengine", "Godel32.exe",
+             2950)
     cm.name = "Gödel 7.0"
 
     cm = mas("rhetoric", "Alberto Sanjuan", "1.4.3", "http://www.chessrhetoric.com/", "Rhetoric_x32.exe", 2810)
@@ -101,7 +110,8 @@ def read_engines(folder_engines):
 
     mas("discocheck", "Lucas Braesch", "5.2.1", "https://github.com/lucasart", "DiscoCheck.exe", 2890)
 
-    cm = mas("gaviota", "Miguel A. Ballicora", "1.0", "https://sites.google.com/site/gaviotachessengine", "gaviota-1.0-win32.exe", 2950)
+    cm = mas("gaviota", "Miguel A. Ballicora", "1.0", "https://sites.google.com/site/gaviotachessengine",
+             "gaviota-1.0-win32.exe", 2950)
     cm.set_multipv(20, 32)
 
     cm = mas("rybka", "Vasik Rajlich", "2.3.2a 32-bit", "http://rybkachess.com/", "Rybka v2.3.2a.w32.exe", 2936)
@@ -112,7 +122,8 @@ def read_engines(folder_engines):
     cm.set_multipv(20, 100)
 
     cm = mas(
-        "texel", "Peter Österlund", "1.07 32bit", "http://hem.bredband.net/petero2b/javachess/index.html#texel", "texel32old.exe", 3100
+        "texel", "Peter Österlund", "1.07 32bit", "http://hem.bredband.net/petero2b/javachess/index.html#texel",
+        "texel32old.exe", 3100
     )
     cm.set_multipv(20, 256)
 
@@ -121,11 +132,13 @@ def read_engines(folder_engines):
 
     mas("irina", "Lucas Monge", "0.15", "https://github.com/lukasmonk/irina", "irina.exe", 1500)
 
-    mas("rodentII", "Pawel Koziol", "0.9.64", "http://www.pkoziol.cal24.pl/rodent/rodent.htm", "RodentII_x32.exe", 2912)
+    mas("rodentii", "Pawel Koziol", "0.9.64", "http://www.pkoziol.cal24.pl/rodent/rodent.htm", "RodentII_x32.exe", 2912)
 
-    mas("amyan", "Antonio Dieguez R.", "1.62", "http://www.pincha.cl/amyan/amyane.html", "amyan.exe", 2545)
+    mas("amyan", "Antonio Dieguez R.", "1.62", "http://www.pincha.cl/amyan/amyane.html", "amyan.exe", 2545,
+        emulate_movetime=True)
 
-    cm = mas("hamsters", "Alessandro Scotti", "0.5", "https://walkofmind.com/programming/chess/hamsters.htm", "Hamsters.exe", 2487)
+    cm = mas("hamsters", "Alessandro Scotti", "0.5", "https://walkofmind.com/programming/chess/hamsters.htm",
+             "Hamsters.exe", 2487)
     cm.ordenUCI("OwnBook", "false")
     cm.remove_log("problem_log.txt")
 
@@ -136,6 +149,7 @@ def read_engines(folder_engines):
         "http://www.computerchess.info/tdbb/phpBB3/viewtopic.php?f=9&t=357",
         "DeepToga1.9.6nps.exe",
         2843,
+        emulate_movetime=True
     )
     cm.set_multipv(20, 40)
 
@@ -143,24 +157,28 @@ def read_engines(folder_engines):
 
     mas("greko", "Vladimir Medvedev", "12.9", "http://sourceforge.net/projects/greko", "GreKo.exe", 2508)
 
-    mas("delfi", "Fabio Cavicchio", "5.4", "http://www.msbsoftware.it/delfi/", "delfi.exe", 2686)
+    mas("delfi", "Fabio Cavicchio", "5.4", "http://www.msbsoftware.it/delfi/", "delfi.exe", 2686, emulate_movetime=True)
 
     mas("monarch", "Steve Maughan", "1.7", "http://www.monarchchess.com/", "Monarch(v1.7).exe", 2100)
 
-    mas("andscacs", "Daniel José Queraltó", "0.9432n", "http://www.amateurschach.de/main/_download.htm", "andscacs_32_no_popcnt.exe", 3264)
+    mas("andscacs", "Daniel José Queraltó", "0.9432n", "http://www.amateurschach.de/main/_download.htm",
+        "andscacs_32_no_popcnt.exe", 3264)
 
     mas(
-        "arminius", "Volker Annus", "2017-01-01", "http://www.nnuss.de/Hermann/Arminius2017-01-01.zip", "Arminius2017-01-01-32Bit.exe", 2662
+        "arminius", "Volker Annus", "2017-01-01", "http://www.nnuss.de/Hermann/Arminius2017-01-01.zip",
+        "Arminius2017-01-01-32Bit.exe", 2662, emulate_movetime=True
     )
 
-    mas("wildcat", "Igor Korshunov", "8", "http://www.igorkorshunov.narod.ru/WildCat", "WildCat_8.exe", 2627)
+    mas("wildcat", "Igor Korshunov", "8", "http://www.igorkorshunov.narod.ru/WildCat", "WildCat_8.exe", 2627,
+        emulate_movetime=True)
 
     mas("demolito", "Lucas Braesch", "32bit", "https://github.com/lucasart/Demolito", "demolito_32bit_old.exe", 2627)
 
     cm = mas("zappa", "Anthony Cozzie", "1.1", "http://www.acoz.net/zappa/", "zappa.exe", 2581)
     cm.remove_log("zappa_log.txt")
 
-    cm = mas("houdini", "Robert Houdart", "1.5a", "http://www.cruxis.com/chess/houdini.htm", "Houdini_15a_w32.exe", 3093)
+    cm = mas("houdini", "Robert Houdart", "1.5a", "http://www.cruxis.com/chess/houdini.htm", "Houdini_15a_w32.exe",
+             3093)
     cm.set_multipv(10, 16)
 
     cm = mas(
@@ -175,7 +193,8 @@ def read_engines(folder_engines):
 
     mas("paladin", "Ankan Banerjee", "0.1", "https://github.com/ankan-ban/chess_cpu", "Paladin_32bits_old.exe", 2254)
 
-    mas("cdrill", "Ferdinand Mosca", "1800 Build 4", "https://sites.google.com/view/cdrill", "CDrill_1800_Build_4.exe", 1800)
+    mas("cdrill", "Ferdinand Mosca", "1800 Build 4", "https://sites.google.com/view/cdrill", "CDrill_1800_Build_4.exe",
+        1800)
 
     mas(
         "gambitfruit",
@@ -185,7 +204,6 @@ def read_engines(folder_engines):
         "gfruit.exe",
         2750,
     )
-
 
     is64 = platform.machine().endswith("64")
     t32_64 = "64" if is64 else "32"
@@ -255,15 +273,15 @@ def dict_engines_fixed_elo(folder_engines):
     d = read_engines(folder_engines)
     dic = {}
     for nm, xfrom, xto in (
-        ("amyan", 1000, 2400),
-        ("stockfish", 1400, 2800),
-        ("rhetoric", 1300, 2600),
-        ("cheng", 800, 2500),
-        ("greko", 1600, 2400),
-        ("hamsters", 1000, 2000),
-        ("rybka", 1200, 2400),
-        ("ufim", 700, 2000),
-        ("delfi", 1000, 1000),
+            ("amyan", 1000, 2400),
+            ("stockfish", 1400, 2800),
+            ("rhetoric", 1300, 2600),
+            ("cheng", 800, 2500),
+            ("greko", 1600, 2400),
+            ("hamsters", 1000, 2000),
+            ("rybka", 1200, 2400),
+            ("ufim", 700, 2000),
+            ("delfi", 1000, 1000),
     ):
         for elo in range(xfrom, xto + 100, 100):
             cm = d[nm].clona()

@@ -56,7 +56,7 @@ class WKibEngine(WKibCommon.WKibCommon):
                 Iconos.Kibitzer_Clipboard(),
                 self.portapapelesJugSelected,
             ),
-            (_("Analyze only color"), Iconos.Kibitzer_Side(), self.color),
+            (_("Analyze color"), Iconos.Kibitzer_Side(), self.color),
             (_("Show/hide board"), Iconos.Kibitzer_Board(), self.config_board),
             (_("Manual position"), Iconos.Kibitzer_Voyager(), self.set_position),
             ("%s: %s" % (_("Enable"), _("window on top")), Iconos.Kibitzer_Up(), self.windowTop),

@@ -66,6 +66,7 @@ class ManagerTactics(Manager.Manager):
         self.main_window.set_activate_tutor(False)
         self.main_window.activaJuego(True, False, siAyudas=False)
         self.main_window.remove_hints(True, True)
+        self.informacionActivable = True
         self.set_dispatcher(self.player_has_moved)
         self.set_position(self.game.last_position)
         self.show_side_indicator(True)
@@ -257,6 +258,8 @@ class ManagerTactics(Manager.Manager):
             self.set_toolbar("end")
             if self.configuration.x_director_icon is not None:
                 self.board.dbvisual_set_show_always(True)
+            self.game = self.game_obj.copia()
+            self.pgnRefresh(self.game.last_position.is_white)
 
         return True
 

@@ -45,6 +45,8 @@ class RunEngine:
         self.whoDispatch = name
         self.uci_ok = False
 
+        self.emulate_movetime = False
+
         self.uci_lines = []
 
         if not os.path.isfile(exe):
@@ -363,16 +365,22 @@ class RunEngine:
 
     def seek_bestmove(self, max_time, max_depth, is_savelines):
         env = "go"
+        ms_time = None
         if max_depth:
             env += " depth %d" % max_depth
         elif max_time:
-            env += " movetime %d" % max_time
+            if self.emulate_movetime:
+                env += " infinite"
+                ms_time = max_time
+            else:
+                env += " movetime %d" % max_time
 
-        ms_time = 10000
-        if max_time:
-            ms_time = max_time if max_depth else max_time + 5000
-        elif max_depth:
-            ms_time = 10000000000  # non stop
+        if ms_time is None:
+            ms_time = 10000
+            if max_time:
+                ms_time = max_time if max_depth else max_time + 5000
+            elif max_depth:
+                ms_time = 10000000000  # non stop
 
         self.reset()
         if is_savelines:

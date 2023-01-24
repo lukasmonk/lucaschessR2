@@ -877,6 +877,9 @@ class Opening:
         for n, (nbytes, game) in enumerate(Game.read_games(path_pgn)):
             dlTmp.pon(nbytes)
 
+            if dlTmp.is_canceled():
+                break
+
             li_pv = game.all_pv("", with_variations)
             if not game.siFenInicial():
                 continue
@@ -1083,7 +1086,7 @@ class Opening:
             pv_ant = " ".join(lipv_ant) if n_ant else ""
             li_children = db_stat.children(pv_ant, False)
 
-            if len(li_children) == 0 or len(lipv_ant) > depth:
+            if len(li_children) == 0 or len(lipv_ant) >= depth:
                 game = Game.Game()
                 game.leerLIPV(lipv_ant)
                 if len(game) > len_gamebase and len(game) >= min_moves:
@@ -1185,34 +1188,35 @@ class Opening:
 
     def transpositions(self):
         self.save_history(_("Complete with transpositions"))
-        lilipv = [FasterCode.xpv_pv(xpv).split(" ") for xpv in self.li_xpv]
-        p = Position.Position()
-        dir_post = collections.defaultdict(set)
-        dir_prev = collections.defaultdict(set)
-        for lipv in lilipv:
-            FasterCode.set_init_fen()
-            s0 = set()
-            for pos, a1h8 in enumerate(lipv):
-                FasterCode.make_move(a1h8)
-                fen = FasterCode.get_fen()
-                fenm2 = FasterCode.fen_fenm2(fen)
-                if not fenm2.endswith("-"):  # enpassant imposibles
-                    p.read_fen(fen)
-                    fenm2 = p.fenm2()
-                if fenm2 in s0:
-                    break
-                s0.add(fenm2)
-                dir_prev[fenm2].add(" ".join(lipv[:pos + 1]))
-                if pos < len(lipv) - 1:
-                    dir_post[fenm2].add(" ".join(lipv[pos + 1:]))
-        st_pv = set()
-        for fenm2, li_pv_prev in dir_prev.items():
-            for pv_prev in li_pv_prev:
-                for pv_post in dir_post[fenm2]:
-                    a1h8 = pv_prev + " " + pv_post
-                    st_pv.add(a1h8)
-        self.li_xpv = [FasterCode.pv_xpv(pv) for pv in st_pv]
-        self.clean()
+        for una in range(2):  # dos pasadas
+            lilipv = [FasterCode.xpv_pv(xpv).split(" ") for xpv in self.li_xpv]
+            p = Position.Position()
+            dir_post = collections.defaultdict(set)
+            dir_prev = collections.defaultdict(set)
+            for lipv in lilipv:
+                FasterCode.set_init_fen()
+                s0 = set()
+                for pos, a1h8 in enumerate(lipv):
+                    FasterCode.make_move(a1h8)
+                    fen = FasterCode.get_fen()
+                    fenm2 = FasterCode.fen_fenm2(fen)
+                    if not fenm2.endswith("-"):  # enpassant imposibles
+                        p.read_fen(fen)
+                        fenm2 = p.fenm2()
+                    if fenm2 in s0:
+                        break
+                    s0.add(fenm2)
+                    dir_prev[fenm2].add(" ".join(lipv[:pos + 1]))
+                    if pos < len(lipv) - 1:
+                        dir_post[fenm2].add(" ".join(lipv[pos + 1:]))
+            st_pv = set()
+            for fenm2, li_pv_prev in dir_prev.items():
+                for pv_prev in li_pv_prev:
+                    for pv_post in dir_post[fenm2]:
+                        a1h8 = pv_prev + " " + pv_post
+                        st_pv.add(a1h8)
+            self.li_xpv = [FasterCode.pv_xpv(pv) for pv in st_pv]
+            self.clean()
 
     def clean(self):
         li_new = []

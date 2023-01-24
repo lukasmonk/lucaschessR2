@@ -44,7 +44,7 @@ class ListBooks:
         ok_gm = False
         ok_rd = False
 
-        engine_rodent = Code.configuration.buscaRival("rodentII")
+        engine_rodent = Code.configuration.buscaRival("rodentii")
         path_rodent = os.path.join(os.path.dirname(engine_rodent.path_exe), "rodent.bin")
 
         for book in self.lista:

@@ -68,7 +68,7 @@ class WKibLinea(QtWidgets.QDialog):
             (_("Quit"), Iconos.Kibitzer_Close(), self.terminar),
             (_("Continue"), Iconos.Kibitzer_Play(), self.play),
             (_("Pause"), Iconos.Kibitzer_Pause(), self.pause),
-            (_("Analyze only color"), Iconos.Kibitzer_Side(), self.color),
+            (_("Analyze color"), Iconos.Kibitzer_Side(), self.color),
             (_("Change window position"), Iconos.ResizeBoard(), self.mover),
             (_("Options"), Iconos.Opciones(), self.changeOptions),
         )

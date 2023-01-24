@@ -221,7 +221,7 @@ def lyBotonesMovimiento(
         x("MoverJugar", _("Play"), Iconos.MoverJugar())
         li_acciones.append(None)
     if siTiempo:
-        x("MoverTiempo", _("Timed movement") + "\n%s" % ("Right click to change the interval"), Iconos.MoverTiempo())
+        x("MoverTiempo", _("Timed movement") + "\n%s" % _("Right click to change the interval"), Iconos.MoverTiempo())
     li_acciones.append(None)
     if must_save:
         x("MoverGrabar", _("Save"), Iconos.MoverGrabar())
@@ -884,7 +884,7 @@ class LCTB(Controles.TBrutina):
 def change_interval(owner, configuration):
     form = FormLayout.FormLayout(owner, _("Replay game"), Iconos.Pelicula_Repetir(), anchoMinimo=250)
     form.separador()
-    form.float(_("Duration of interval (secs)"), configuration.x_interval_replay / 1000)
+    form.float(_("Number of seconds between moves"), configuration.x_interval_replay / 1000)
     form.separador()
     form.checkbox(_("Beep after each move"), configuration.x_beep_replay)
     form.separador()
