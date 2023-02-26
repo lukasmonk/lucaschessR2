@@ -35,8 +35,8 @@ def options(parent, configuration):
     li = []
     for k, trad, porc, author in li_traducciones:
         label = "%s" % trad
-        # if int(porc) < 90:
-        label += "    %s%%" % porc
+        if int(porc) < 90:
+            label += "    %s%%" % porc
         li.append((label, k))
     form.combobox(_("Language"), li, tr_actual)
 
@@ -48,8 +48,8 @@ def options(parent, configuration):
     ]
     form.combobox(_("Menu Play"), li, configuration.x_menu_play)
 
-    # form.separador()
-    # form.checkbox(_("Use native dialog to select files"), not configuration.x_mode_select_lc)
+    form.separador()
+    form.checkbox(_("Use native dialog to select files"), not configuration.x_mode_select_lc)
 
     form.separador()
     form.checkbox(_("Activate translator help mode"), configuration.x_translation_mode)
@@ -127,6 +127,7 @@ def options(parent, configuration):
             (_("Novag UCB") + x, "Novag UCB"),
             (_("Saitek") + x, "Saitek"),
             (_("Square Off Pro") + x, "Square Off"),
+            (_("Tabutronic") + x, "Tabutronic"),
         ]
     else:
         li_db = [
@@ -138,6 +139,7 @@ def options(parent, configuration):
             (_("Novag Citrine") + x, "Citrine"),
             (_("Novag UCB") + x, "Novag UCB"),
             (_("Saitek") + x, "Saitek"),
+            (_("Tabutronic") + x, "Tabutronic"),
         ]
     form.combobox(_("Digital board"), li_db, configuration.x_digital_board)
 
@@ -230,12 +232,12 @@ def options(parent, configuration):
             configuration.x_style_icons,
             translator,
             configuration.x_menu_play,
-            # mode_native_select,
+            mode_native_select,
             configuration.x_translation_mode,
             configuration.x_check_for_update,
         ) = li_gen
 
-        # configuration.x_mode_select_lc = not mode_native_select
+        configuration.x_mode_select_lc = not mode_native_select
 
         configuration.set_translator(translator)
 

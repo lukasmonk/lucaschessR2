@@ -1,0 +1,11 @@
+id name Ufim 8.02
+id author N.Khasanov
+option name Ponder type check default false
+option name Hash type spin default 2 min 2 max 1023
+option name UCI_Elo type spin default 700 min 700 max 2000
+option name UCI_LimitStrength type check default false
+option name DelayOnWeakLevels type check default true
+option name OwnBook type check default true
+option name Clear Hash type button
+option name Learning type check default true
+option name UCI_Chess960 type check default false

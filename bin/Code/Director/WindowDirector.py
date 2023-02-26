@@ -315,7 +315,7 @@ class WPanelDirector(LCDialog.LCDialog):
     def borrarPizarraActiva(self):
         for n in range(len(self.guion)):
             tarea = self.guion.tarea(n)
-            if tarea.tp() == TabVisual.TP_TEXTO:
+            if tarea and tarea.tp() == TabVisual.TP_TEXTO:
                 if tarea.marcado():
                     self.borrar_lista([n])
 
@@ -1080,6 +1080,9 @@ class Director:
         if is_left:
             if self.board.event2a1h8(event) is None:
                 return False
+            if self.director:
+                QtWidgets.QGraphicsView.mousePressEvent(self.board, event)
+
 
         p = event.pos()
         a1h8 = self.punto2a1h8(p)

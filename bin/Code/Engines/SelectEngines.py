@@ -395,7 +395,7 @@ class WSelectEngines(LCDialog.LCDialog):
         self.reversed = True
 
         li_options = [
-            (_("Save"), Iconos.GrabarFichero(), self.accept),
+            (_("Save"), Iconos.GrabarFichero(), self.aceptar),
             None,
             (_("Cancel"), Iconos.Cancelar(), self.reject),
             None,
@@ -420,6 +420,7 @@ class WSelectEngines(LCDialog.LCDialog):
 
         self.o_columnas = o_columns
         self.grid = Grid.Grid(self, o_columns, is_editable=True)
+        self.register_grid(self.grid)
 
         ly_head = Colocacion.H().control(tb).control(self.lb_number).margen(3)
 
@@ -434,6 +435,7 @@ class WSelectEngines(LCDialog.LCDialog):
         self.show_count()
 
     def aceptar(self):
+        self.save_video()
         self.accept()
 
     def list_selected(self):

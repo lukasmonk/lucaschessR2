@@ -7,11 +7,7 @@ QToolButton
     margin-left: 1px;
     border-radius: 4px;
 }
-QToolButton:pressed
-{
-    background-color: #555555;
-    border: 1px solid #bababa;
-}
+
 QToolButton:hover
 {
     background-color: #808080;
@@ -209,6 +205,35 @@ QLabel[type="clock"]
     background-color: #bababa;
 }
 
+QLabel[type="tutor-tutor"]
+{
+    color: #9eb1ad;
+    background-color: #353535;
+    border: 2px solid #9eb1ad;
+    border-radius: 5px;
+    padding: 8px;
+    margin: 4px;
+}
+
+QLabel[type="tutor-tutor-disabled"]
+{
+    color: #7f7f7f;
+    background-color: #111111;
+    border: 2px solid #7f7f7f;
+    border-radius: 5px;
+    padding: 8px;
+    margin: 4px;
+}
+
+QLabel[type="tutor-player"]
+{
+    color: #bc9d8f;
+    background-color: #363636;
+    border: 2px solid #aaaaaa;
+    border-radius: 5px;
+    padding: 8px;
+    margin: 4px;
+}
 
 /* TREE ----------------------------------------------------------------------------------*/
 QTreeView

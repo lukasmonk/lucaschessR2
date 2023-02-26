@@ -75,8 +75,6 @@ class MainWindow(LCDialog.LCDialog):
             F12.activated.connect(self.pressed_shortcut_F12)
             self.trayIcon = None
 
-        self.resizing = None
-
         self.cursor_pensando = False
 
         self.work_translate = None

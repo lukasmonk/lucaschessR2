@@ -7,11 +7,7 @@ QToolButton
     margin-left: 1px;
     border-radius: 4px;
 }
-QToolButton:pressed
-{
-    background-color: #eaeaea;
-    border: 1px solid #bababa;
-}
+
 QToolButton:hover
 {
     background-color: #d1e2f2;
@@ -128,6 +124,37 @@ QLabel[type="clock"]
     background-color: #efefef;
 }
 
+QLabel[type="tutor-tutor"]
+{
+    color: #3b2328;
+    background-color: #fffcef;
+    border: 2px solid #5b584e;
+    border-radius: 5px;
+    padding: 8px;
+    margin: 4px;
+}
+
+QLabel[type="tutor-tutor-disabled"]
+{
+    color: #808080;
+    background-color: #eeeeee;
+    border: 2px solid #808080;
+    border-radius: 5px;
+    padding: 8px;
+    margin: 4px;
+}
+
+QLabel[type="tutor-player"]
+{
+    color: #022b3f;
+    background-color: #e6e6e6;
+    border: 2px solid #555500;
+    border-radius: 5px;
+    padding: 8px;
+    margin: 4px;
+}
+
+
 /* GROUP BOX -----------------------------------------------------------------------------*/
 QGroupBox[type="1"]
 {
@@ -159,6 +186,12 @@ QGroupBox[type="selop"]::title
     subcontrol-position: top center;
     padding: 3px;
     margin-top: -3px;
+}
+
+QGroupBox[type="2"] {
+    border: 12px solid black;
+    border-radius: 5px;
+    margin-top: 1ex;
 }
 
 /* MENU ----------------------------------------------------------------------------------*/

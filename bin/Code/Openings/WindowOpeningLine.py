@@ -1086,7 +1086,8 @@ class WLines(LCDialog.LCDialog):
         form.combobox(_("Book"), libooks, None)
         form.separador()
 
-        form.float(_("Duration of engine analysis (secs)"), float(self.configuration.x_tutor_mstime / 1000.0))
+        tm = float(self.configuration.x_tutor_mstime / 1000.0)
+        form.float(_("Duration of engine analysis (secs)"), tm if tm > 0.0 else 3.0)
         form.separador()
 
         resultado = form.run()
@@ -1094,7 +1095,7 @@ class WLines(LCDialog.LCDialog):
             um = QTUtil2.unMomento(self, _("Working..."))
             color, book, segs = resultado[1]
             ms = int(segs * 1000)
-            if ms == 0:
+            if ms < 0.01:
                 return
             if book:
                 book.polyglot()

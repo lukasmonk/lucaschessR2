@@ -10,7 +10,6 @@ from Code import CPU
 from Code import ManagerEntPos
 from Code import ManagerGame
 from Code import ManagerMateMap
-from Code import ManagerPlayGame
 from Code import ManagerSolo
 from Code import Update
 from Code import Util
@@ -53,6 +52,7 @@ from Code.GM import ManagerGM
 from Code.Kibitzers import KibitzersManager
 from Code.Leagues import ManagerLeague
 from Code.Leagues import WLeagues
+from Code.LearnGame import WindowPlayGame, ManagerPlayGame, WindowLearnGame
 from Code.MainWindow import MainWindow, Presentacion
 from Code.Menus import MenuTrainings, BasicMenus
 from Code.Openings import ManagerOPLPositions, ManagerOPLEngines, ManagerOPLSequential, ManagerOPLStatic
@@ -67,11 +67,9 @@ from Code.QT import QTUtil
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
 from Code.QT import SelectFiles
-from Code.QT import WindowLearnGame
-from Code.QT import WindowManualSave
-from Code.QT import WindowPlayGame
-from Code.QT import WindowWorkMap
 from Code.QT import WColors
+from Code.QT import WindowManualSave
+from Code.QT import WindowWorkMap
 from Code.Routes import Routes, WindowRoutes, ManagerRoutes
 from Code.SingularMoves import WindowSingularM, ManagerSingularM
 from Code.Sound import WindowSonido
@@ -168,6 +166,10 @@ class Procesador:
                 self.read_pgn(comando)
                 return
 
+        self.entrenamientos = MenuTrainings.MenuTrainings(self)
+        if self.configuration.x_translation_mode:
+            self.entrenamientos.verify()
+
         self.main_window = MainWindow.MainWindow(self)
         self.main_window.set_manager_active(self)  # antes que muestra
         self.main_window.muestra()
@@ -178,7 +180,6 @@ class Procesador:
 
         self.cpu = CPU.CPU(self.main_window)
 
-        self.entrenamientos = MenuTrainings.MenuTrainings(self)
 
         if self.configuration.x_check_for_update:
             Update.test_update(self)
@@ -749,6 +750,8 @@ class Procesador:
             self.kibitzers_manager.edit()
         elif resp == "leagues":
             WLeagues.leagues(self.main_window)
+        elif resp == "conf_engines":
+            self.engines()
 
         elif resp == "manual_save":
             self.manual_save()
@@ -1142,10 +1145,10 @@ class Procesador:
 
     def adPie(self):
         return (
-            "<hr><br><b>%s</b>" % _("Author")
-            + ': <a href="mailto:lukasmonk@gmail.com">Lucas Monge</a> -'
-            + ' <a href="%s">%s</a></a>' % (self.web, self.web)
-            + '(%s <a href="http://www.gnu.org/copyleft/gpl.html"> GPL</a>).<br>' % _("License")
+                "<hr><br><b>%s</b>" % _("Author")
+                + ': <a href="mailto:lukasmonk@gmail.com">Lucas Monge</a> -'
+                + ' <a href="%s">%s</a></a>' % (self.web, self.web)
+                + '(%s <a href="http://www.gnu.org/copyleft/gpl.html"> GPL</a>).<br>' % _("License")
         )
 
     def acercade(self):
@@ -1189,7 +1192,7 @@ class Procesador:
         )
 
     def manager_game(
-        self, window, game, is_complete, only_consult, father_board, with_previous_next=None, save_routine=None
+            self, window, game, is_complete, only_consult, father_board, with_previous_next=None, save_routine=None
     ):
         clon_procesador = ProcesadorVariations(
             window, self.xtutor, is_competitive=False, kibitzers_manager=self.kibitzers_manager

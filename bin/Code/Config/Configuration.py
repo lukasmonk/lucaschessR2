@@ -244,9 +244,7 @@ class Configuration:
 
         self.li_personalities = []
 
-        self.relee_engines()
-
-        self.rival = self.buscaRival(self.x_rival_inicial)
+        self.rival = None
 
         self.x_translation_mode = False
 
@@ -254,6 +252,8 @@ class Configuration:
         self.x_style_mode = "By default"
         self.x_style_icons = IconosBase.icons.NORMAL
         self.style_sheet_default = None  # temporary var
+
+        self.x_mode_select_lc = Code.is_linux
 
     def read_eval(self):
         d = {}
@@ -343,6 +343,8 @@ class Configuration:
 
     def start(self):
         self.lee()
+        self.relee_engines()
+        self.rival = self.buscaRival(self.x_rival_inicial)
         self.leeConfBoards()
 
     def changeActiveFolder(self, nueva):

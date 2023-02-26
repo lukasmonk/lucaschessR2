@@ -21,7 +21,6 @@ def read_engines(folder_engines):
         engine.ordenUCI("Hash", "16")
         engine.ordenUCI("Threads", "1")
         dic_engines[alias] = engine
-        engine.read_uci_options()
         if emulate_movetime is not None:
             engine.emulate_movetime = emulate_movetime
         return engine

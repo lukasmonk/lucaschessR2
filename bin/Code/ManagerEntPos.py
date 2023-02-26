@@ -316,6 +316,8 @@ class ManagerEntPos(Manager.Manager):
         if self.is_rival_thinking:
             return
         if len(self.game):
+            self.analiza_stop()
+            self.rm_rival = None
             self.game.anulaUltimoMovimiento(self.is_human_side_white)
             self.goto_end()
             self.is_analyzed_by_tutor = False
@@ -435,6 +437,8 @@ class ManagerEntPos(Manager.Manager):
     def analiza_stop(self):
         if self.is_analyzing:
             self.xtutor.stop()
+            self.is_analyzing = False
+
 
     def sigue(self):
         self.state = ST_PLAYING

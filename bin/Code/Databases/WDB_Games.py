@@ -27,8 +27,7 @@ from Code.QT import QTUtil
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
 from Code.QT import SelectFiles
-from Code.QT import WindowLearnGame
-from Code.QT import WindowPlayGame
+from Code.LearnGame import WindowPlayGame, WindowLearnGame
 from Code.QT import WindowSavePGN
 from Code.SQL import UtilSQL
 from Code.Themes import WDB_Theme_Analysis

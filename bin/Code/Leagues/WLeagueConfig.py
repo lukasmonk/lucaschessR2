@@ -285,9 +285,12 @@ class WLeagueConfig(LCDialog.LCDialog):
         if self.remove_seasons_delayed:
             self.league.remove_seasons()
             Util.remove_file(self.league.path() + ".work")
+
+        self.save_video()
         self.accept()
 
     def cancel(self):
+        self.save_video()
         self.reject()
 
     def borra_resign(self):

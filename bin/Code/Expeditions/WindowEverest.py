@@ -352,6 +352,8 @@ class WEverest(LCDialog.LCDialog):
             None,
             (_("Remove"), Iconos.Borrar(), self.borrar),
             None,
+            (_("Configuration"), Iconos.Configurar(), self.config),
+            None,
         )
         self.tb = QTVarios.LCTB(self, li_acciones)
 
@@ -434,6 +436,29 @@ class WEverest(LCDialog.LCDialog):
             reg = w.selected
             self.db.new(reg)
             self.grid.refresh()
+
+    def config(self):
+        var_config = "EXPEDITIONS"
+
+        dic = self.configuration.read_variables(var_config)
+
+        form = FormLayout.FormLayout(self, _("Configuration"), Iconos.Opciones(), anchoMinimo=440)
+
+        form.separador()
+
+        li_options = [(_("Always"), None), (_("When moves are different"), True), (_("Never"), False)]
+        form.combobox(_("Show rating"), li_options, dic.get("SHOW_RATING", None))
+        form.separador()
+
+        form.checkbox(_("Show all evaluations"), dic.get("SHOW_ALL", False))
+
+        resultado = form.run()
+        if resultado:
+            accion, resp = resultado
+
+            dic["SHOW_RATING"], dic["SHOW_ALL"] = resp
+            self.configuration.write_variables(var_config, dic)
+
 
 
 def everest(procesador):

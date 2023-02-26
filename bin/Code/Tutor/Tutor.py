@@ -28,7 +28,7 @@ class Tutor:
 
         self.is_moving_time = False
 
-    def elegir(self, siPuntos, liApPosibles=None):
+    def elegir(self, has_hints, li_ap_posibles=None):
 
         self.rmUsuario, posUsuario = self.mrmTutor.buscaRM(self.move.movimiento())
         if self.rmUsuario is None:
@@ -37,8 +37,8 @@ class Tutor:
             me = QTUtil2.mensEspera.start(self.main_window, _("Analyzing the move...."), physical_pos="ad")
 
             fen = self.move.position.fen()
-            mrmUsuario = self.managerTutor.analiza(fen)
-            if len(mrmUsuario.li_rm) == 0:
+            mrm_usuario = self.managerTutor.analiza(fen)
+            if len(mrm_usuario.li_rm) == 0:
                 self.rmUsuario = self.mrmTutor.li_rm[0].copia()
                 self.rmUsuario.from_sq = self.move.from_sq
                 self.rmUsuario.to_sq = self.move.to_sq
@@ -46,7 +46,7 @@ class Tutor:
                 self.rmUsuario.mate = 0
                 self.rmUsuario.puntos = 0
             else:
-                self.rmUsuario = mrmUsuario.li_rm[0]
+                self.rmUsuario = mrm_usuario.li_rm[0]
                 self.rmUsuario.cambiaColor(self.move.position)
 
             me.final()
@@ -59,14 +59,14 @@ class Tutor:
         self.list_rm = self.do_lirm(posUsuario)  # rm,name
 
         # Creamos la ventana
-        siRival = self.rm_rival and " " in self.rm_rival.getPV()
+        si_rival = self.rm_rival and " " in self.rm_rival.getPV()
 
-        self.liApPosibles = liApPosibles
-        in_the_opening = liApPosibles and len(liApPosibles) > 1
+        self.li_ap_posibles = li_ap_posibles
+        in_the_opening = li_ap_posibles and len(li_ap_posibles) > 1
         if in_the_opening:
-            siRival = False
+            si_rival = False
 
-        self.w = w = WindowTutor.WindowTutor(self.manager, self, siRival, in_the_opening, self.is_white, siPuntos)
+        self.w = w = WindowTutor.WindowTutor(self.manager, self, si_rival, in_the_opening, self.is_white, has_hints)
 
         self.cambiadoRM(0)
 
@@ -76,9 +76,14 @@ class Tutor:
         self.posUsuario = 0
         self.max_user = len(self.gameUsuario.li_moves)
         self.boardUsuario.set_position(self.move.position)
-        w.ponPuntuacionUsuario(self.rmUsuario.texto())
 
-        if siRival:
+        message = _("Your move") + "<br><br>" + \
+                  self.gameUsuario.li_moves[0].pgn_html_base(Code.configuration.x_pgn_withfigurines) + \
+                  " " + self.rmUsuario.texto()
+
+        w.ponPuntuacionUsuario(message)
+
+        if si_rival:
             self.rm_rival.cambiaColor()
             pvBloque = self.rm_rival.getPV()
             n = pvBloque.find(" ")
@@ -95,7 +100,10 @@ class Tutor:
                 if self.maxRival >= 0:
                     self.boardRival.set_position(self.gameRival.li_moves[0].position)
                     self.rival_has_moved(True)
-                    w.ponPuntuacionRival(self.rm_rival.texto_rival())
+                    message = _("Opponent's prediction") + "<br><br>" + \
+                              self.gameRival.li_moves[0].pgn_html_base(Code.configuration.x_pgn_withfigurines) + \
+                              " " + self.rm_rival.texto_rival()
+                    w.ponPuntuacionRival(message)
 
         self.moving_tutor(True)
         self.moving_user(True)
@@ -159,7 +167,11 @@ class Tutor:
         self.game_tutor = Game.Game(self.last_position)
         self.game_tutor.read_pv(rm.getPV())
 
-        self.w.ponPuntuacionTutor(rm.texto())
+        message = _("Tutor's suggestion") + "<br><br>" + \
+                  self.game_tutor.li_moves[0].pgn_html_base(Code.configuration.x_pgn_withfigurines) + \
+                  " " + rm.texto()
+
+        self.w.ponPuntuacionTutor(message)
 
         self.pos_tutor = 0
         self.max_tutor = len(self.game_tutor)
@@ -314,14 +326,14 @@ class Tutor:
 
     def cambiarOpening(self, number):
         self.gameOpenings = Game.Game(self.last_position)
-        self.gameOpenings.read_pv(self.liApPosibles[number].a1h8)
+        self.gameOpenings.read_pv(self.li_ap_posibles[number].a1h8)
         self.maxOpening = len(self.gameOpenings)
         if self.maxOpening > 0:
             self.boardOpenings.set_position(self.gameOpenings.move(0).position)
         self.mueveOpening(si_inicio=True)
 
     def opcionesOpenings(self):
-        return [(ap.tr_name, num) for num, ap in enumerate(self.liApPosibles)]
+        return [(ap.tr_name, num) for num, ap in enumerate(self.li_ap_posibles)]
 
     def analiza(self, quien):
         if quien == "Tutor":

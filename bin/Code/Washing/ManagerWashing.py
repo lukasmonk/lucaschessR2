@@ -170,6 +170,7 @@ class ManagerWashingReplay(Manager.Manager):
         time_s = self.tc_player.stop()
         self.dbwashing.add_time(time_s)
         move.set_time_ms(time_s * 1000)
+        move.set_clock_ms(self.tc_player.pending_time * 1000)
 
         jgObj = self.gameObj.move(self.posJugadaObj)
         movObj = jgObj.movimiento().lower()
@@ -599,6 +600,8 @@ class ManagerWashingCreate(Manager.Manager):
         if ok:
             time_s = self.tc_rival.stop()
             move.set_time_ms(time_s * 1000)
+            move.set_clock_ms(self.tc_rival.pending_time * 1000)
+
             self.add_move(move, False)
             self.move_the_pieces(move.liMovs, True)
             return True
@@ -714,6 +717,8 @@ class ManagerWashingCreate(Manager.Manager):
 
         self.move_the_pieces(move.liMovs)
         move.set_time_ms(time_s * 1000)  # puede haber cambiado
+        move.set_clock_ms(self.tc_player.pending_time * 1000)
+
 
         if siAnalisis:
             rm, nPos = self.mrmTutor.buscaRM(move.movimiento())

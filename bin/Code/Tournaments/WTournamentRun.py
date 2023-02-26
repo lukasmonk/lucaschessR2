@@ -235,21 +235,15 @@ class WTournamentRun(QtWidgets.QWidget):
             self.configuration.set_property(self.lb_clock[side], "clock")
 
         # Rotulos de informacion
-        f = Controles.TipoLetra(puntos=configuration.x_sizefont_infolabels)
-        self.lbRotulo3 = Controles.LB(self).set_wrap().ponFuente(f)
+        self.lbRotulo3 = Controles.LB(self).set_wrap()
 
         # Layout
         lyColor = Colocacion.G()
         lyColor.controlc(self.lb_player[WHITE], 0, 0).controlc(self.lb_player[BLACK], 0, 1)
         lyColor.controlc(self.lb_clock[WHITE], 1, 0).controlc(self.lb_clock[BLACK], 1, 1)
 
-        # Abajo
-        lyAbajo = Colocacion.V()
-        lyAbajo.setSizeConstraint(lyAbajo.SetFixedSize)
-        lyAbajo.control(self.lbRotulo3)
-
-        lyV = Colocacion.V().otro(lyColor).control(self.grid_pgn)
-        lyV.otro(lyAbajo).margen(7)
+        lyV = Colocacion.V().otro(lyColor).control(self.grid_pgn).control(self.lbRotulo3)
+        lyV.margen(7)
 
         return lyV
 
@@ -326,8 +320,10 @@ class WTournamentRun(QtWidgets.QWidget):
         self.board.set_position(self.game.last_position)
         self.grid_pgn.refresh()
 
+
+
         self.tc_white = TimeControl.TimeControl(self, self.game, WHITE)
-        self.tc_white.config_clock(self.max_seconds, self.seconds_per_move, 0, 0)
+        self.tc_white.config_clock(self.max_seconds-59.5, self.seconds_per_move, 0, 0)
         self.tc_white.set_labels()
         self.tc_black = TimeControl.TimeControl(self, self.game, BLACK)
         self.tc_black.config_clock(self.max_seconds, self.seconds_per_move, 0, 0)
@@ -541,6 +537,8 @@ class WTournamentRun(QtWidgets.QWidget):
 
         ok, mens, move = Move.get_game_move(self.game, self.game.last_position, from_sq, to_sq, promotion)
         if not move:
+            if not self.clocks_finished():
+                self.game.set_termination(TERMINATION_ADJUDICATION, RESULT_WIN_BLACK if self.current_side == WHITE else RESULT_WIN_WHITE)
             return False
         if analysis:
             move.analysis = analysis
@@ -644,8 +642,10 @@ class WTournamentRun(QtWidgets.QWidget):
             return False
 
         self.next_control -= 1
-        if self.next_control > 0 and self.xadjudicator:
+        if self.next_control > 0:
             return False
+        # if not self.xadjudicator:
+        #     return False
         self.next_control = 20
 
         last_jg = self.game.last_jg()

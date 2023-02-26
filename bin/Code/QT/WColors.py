@@ -29,7 +29,7 @@ class WColors(LCDialog.LCDialog):
         self.dic_original = {key: QTUtil.qtColor(value) for key, value in dic.items()}
 
         path_personal = self.configuration.file_colors()
-        dic = Util.ini_base2dic(path_personal)
+        dic = Util.ini_base2dicr(path_personal)
         self.dic_personal = {key: QTUtil.qtColor(value) for key, value in dic.items()}
 
         self.li_colors = self.read_colors_template()

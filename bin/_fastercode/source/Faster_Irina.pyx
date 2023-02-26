@@ -88,7 +88,6 @@ cdef extern from "irina.h":
     char * play_fen(char *fen, int depth, int time)
     int num_moves( )
     void get_move( int num, char * pv )
-    char *board_fen(char *fen)
     int num_base_move( )
     int search_move( char *xfrom, char *xto, char * promotion )
     void get_move_ex( int num, char * info )

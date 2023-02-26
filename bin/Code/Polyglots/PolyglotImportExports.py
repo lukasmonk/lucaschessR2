@@ -406,7 +406,7 @@ def fuente_dbbig(db, min_games, min_score, calc_weight, save_score):
             e.move = imove
             score = (sum / num) / 2.0 if num > 0.0 else 0.0
             if calc_weight == CALCWEIGHT_NUMGAMES:
-                e.weight = sum
+                e.weight = num
             elif calc_weight == CALCWEIGHT_NUMGAMES_SCORE:
                 e.weight = int(sum * score)
             else:

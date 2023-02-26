@@ -1,0 +1,13 @@
+id name Cheng 4.40
+id author Martin Sedlak
+option name Hash type spin min 1 max 1024 default 32
+option name Clear Hash type button
+option name Ponder type check default false
+option name OwnBook type check default true
+option name MultiPV type spin min 1 max 256 default 1
+option name UCI_Chess960 type check default false
+option name Threads type spin min 1 max 64 default 1
+option name UCI_LimitStrength type check default false
+option name UCI_Elo type spin min 800 max 2500 default 2500
+option name NullMove type check default true
+option name Contempt type spin min -100 max 100 default 0

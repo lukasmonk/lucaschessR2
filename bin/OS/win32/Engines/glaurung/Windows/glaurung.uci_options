@@ -1,0 +1,60 @@
+id name Glaurung 2.2 JA
+id author Tord Romstad
+option name Use Search Log type check default false
+option name Search Log Filename type string default SearchLog.txt
+option name Book File type string default book.bin
+option name Mobility (Middle Game) type spin default 100 min 0 max 200
+option name Mobility (Endgame) type spin default 100 min 0 max 200
+option name Pawn Structure (Middle Game) type spin default 100 min 0 max 200
+option name Pawn Structure (Endgame) type spin default 100 min 0 max 200
+option name Passed Pawns (Middle Game) type spin default 100 min 0 max 200
+option name Passed Pawns (Endgame) type spin default 100 min 0 max 200
+option name Space type spin default 100 min 0 max 200
+option name Aggressiveness type spin default 100 min 0 max 200
+option name Cowardice type spin default 100 min 0 max 200
+option name King Safety Curve type combo default Quadratic var Quadratic var Linear
+option name King Safety Coefficient type spin default 40 min 1 max 100
+option name King Safety X Intercept type spin default 0 min 0 max 20
+option name King Safety Max Slope type spin default 30 min 10 max 100
+option name King Safety Max Value type spin default 500 min 100 max 1000
+option name Queen Contact Check Bonus type spin default 3 min 0 max 8
+option name Queen Check Bonus type spin default 2 min 0 max 4
+option name Rook Check Bonus type spin default 1 min 0 max 4
+option name Bishop Check Bonus type spin default 1 min 0 max 4
+option name Knight Check Bonus type spin default 1 min 0 max 4
+option name Discovered Check Bonus type spin default 3 min 0 max 8
+option name Mate Threat Bonus type spin default 3 min 0 max 8
+option name Check Extension (PV nodes) type spin default 2 min 0 max 2
+option name Check Extension (non-PV nodes) type spin default 1 min 0 max 2
+option name Single Reply Extension (PV nodes) type spin default 2 min 0 max 2
+option name Single Reply Extension (non-PV nodes) type spin default 2 min 0 max 2
+option name Mate Threat Extension (PV nodes) type spin default 0 min 0 max 2
+option name Mate Threat Extension (non-PV nodes) type spin default 0 min 0 max 2
+option name Pawn Push to 7th Extension (PV nodes) type spin default 1 min 0 max 2
+option name Pawn Push to 7th Extension (non-PV nodes) type spin default 1 min 0 max 2
+option name Passed Pawn Extension (PV nodes) type spin default 1 min 0 max 2
+option name Passed Pawn Extension (non-PV nodes) type spin default 0 min 0 max 2
+option name Pawn Endgame Extension (PV nodes) type spin default 2 min 0 max 2
+option name Pawn Endgame Extension (non-PV nodes) type spin default 2 min 0 max 2
+option name Full Depth Moves (PV nodes) type spin default 14 min 1 max 100
+option name Full Depth Moves (non-PV nodes) type spin default 3 min 1 max 100
+option name Threat Depth type spin default 5 min 0 max 100
+option name Selective Plies type spin default 7 min 0 max 10
+option name Futility Pruning (Main Search) type check default true
+option name Futility Pruning (Quiescence Search) type check default true
+option name Futility Margin 0 type spin default 50 min 0 max 1000
+option name Futility Margin 1 type spin default 100 min 0 max 1000
+option name Futility Margin 2 type spin default 200 min 0 max 1000
+option name Maximum Razoring Depth type spin default 3 min 0 max 4
+option name Razoring Margin type spin default 300 min 150 max 600
+option name Randomness type spin default 0 min 0 max 10
+option name Minimum Split Depth type spin default 4 min 4 max 7
+option name Maximum Number of Threads per Split Point type spin default 5 min 4 max 8
+option name Threads type spin default 4 min 1 max 8
+option name Hash type spin default 32 min 4 max 4096
+option name Clear Hash type button
+option name Ponder type check default true
+option name OwnBook type check default true
+option name MultiPV type spin default 1 min 1 max 500
+option name UCI_ShowCurrLine type check default false
+option name UCI_Chess960 type check default false

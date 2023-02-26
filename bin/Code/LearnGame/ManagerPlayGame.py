@@ -15,10 +15,10 @@ from Code.Base.Constantes import (
     TB_CANCEL,
     TB_UTILITIES,
 )
+from Code.LearnGame import WindowPlayGame
 from Code.Openings import Opening
 from Code.QT import QTUtil2
 from Code.QT import WindowJuicio
-from Code.QT import WindowPlayGame
 
 
 class ManagerPlayGame(Manager.Manager):
@@ -73,6 +73,15 @@ class ManagerPlayGame(Manager.Manager):
         self.check_boards_setposition()
 
         self.state = ST_PLAYING
+
+        var_config = "LEARN_GAME_PLAY_AGAINST"
+
+        dic = self.configuration.read_variables(var_config)
+
+        self.show_all = dic.get("SHOW_ALL", False)
+        self.show_rating_always, self.show_rating_different, self.show_rating_never = None, True, False
+        self.show_rating = dic.get("SHOW_RATING", self.show_rating_always)
+
         self.play_next_move()
 
     def ponPuntos(self):
@@ -207,83 +216,95 @@ class ManagerPlayGame(Manager.Manager):
             self.iniTiempo = time.time()
 
     def player_has_moved(self, from_sq, to_sq, promotion=""):
-        jgUsu = self.check_human_move(from_sq, to_sq, promotion)
-        if not jgUsu:
+        jg_usu = self.check_human_move(from_sq, to_sq, promotion)
+        if not jg_usu:
             return False
 
         self.vtime += time.time() - self.iniTiempo
 
-        jgObj = self.gameObj.move(self.posJugadaObj)
+        jg_obj = self.gameObj.move(self.posJugadaObj)
 
-        siAnalizaJuez = True
+        si_analiza_juez = True
         if self.book:
             fen = self.last_fen()
-            siBookUsu = self.book.check_human(fen, from_sq, to_sq)
-            siBookObj = self.book.check_human(fen, jgObj.from_sq, jgObj.to_sq)
-            if siBookUsu and siBookObj:
-                if jgObj.movimiento() != jgUsu.movimiento():
+            si_book_usu = self.book.check_human(fen, from_sq, to_sq)
+            si_book_obj = self.book.check_human(fen, jg_obj.from_sq, jg_obj.to_sq)
+            if si_book_usu and si_book_obj:
+                if jg_obj.movimiento() != jg_usu.movimiento():
                     bmove = _("book move")
                     comment = "%s: %s %s<br>%s: %s %s" % (
                         self.nombreObj,
-                        jgObj.pgn_translated(),
+                        jg_obj.pgn_translated(),
                         bmove,
                         self.configuration.x_player,
-                        jgUsu.pgn_translated(),
+                        jg_usu.pgn_translated(),
                         bmove,
                     )
-                    QTUtil2.message_result(self.main_window, comment)
-                siAnalizaJuez = False
+                    if self.show_rating in (self.show_rating_always, self.show_rating_different):
+                        QTUtil2.message_result(self.main_window, comment)
+                si_analiza_juez = False
             else:
-                siAnalizaJuez = True
-                if not siBookObj:
+                si_analiza_juez = True
+                if not si_book_obj:
                     self.book = None
 
         analysis = None
         comment = None
 
-        if siAnalizaJuez:
+        if si_analiza_juez:
             um = QTUtil2.analizando(self.main_window)
-            pvUsu = jgUsu.movimiento()
-            pvObj = jgObj.movimiento()
-            mrm = self.analyze_minimum(pvUsu, pvObj)
+            pv_usu = jg_usu.movimiento()
+            pv_obj = jg_obj.movimiento()
+            mrm = self.analyze_minimum(pv_usu, pv_obj)
             position = self.game.last_position
 
-            rmUsu, nada = mrm.buscaRM(pvUsu)
-            rmObj, posObj = mrm.buscaRM(pvObj)
+            rm_usu, nada = mrm.buscaRM(pv_usu)
+            rm_obj, pos_obj = mrm.buscaRM(pv_obj)
 
-            analysis = mrm, posObj
+            analysis = mrm, pos_obj
             um.final()
 
-            w = WindowJuicio.WJuicio(self, self.xanalyzer, self.nombreObj, position, mrm, rmObj, rmUsu, analysis)
-            w.exec_()
+            if self.show_rating == self.show_rating_different:
+                si_analiza_juez = pv_usu != pv_obj
+            elif self.show_rating == self.show_rating_never:
+                si_analiza_juez = False
 
-            analysis = w.analysis
-            if w.siAnalisisCambiado:
-                self.siSave = True
-            dpts = w.difPuntos()
+            if si_analiza_juez:
+                w = WindowJuicio.WJuicio(self, self.xanalyzer, self.nombreObj, position, mrm, rm_obj, rm_usu, analysis,
+                                         is_competitive=not self.show_all)
+                w.exec_()
+
+                analysis = w.analysis
+                if w.siAnalisisCambiado:
+                    self.siSave = True
+                dpts = w.difPuntos()
+                dpts_max = w.difPuntosMax()
+                rm_usu = w.rmUsu
+                rm_obj = w.rmObj
+            else:
+                dpts = rm_usu.puntosABS_5() - rm_obj.puntosABS_5()
+                dpts_max = mrm.mejorMov().puntosABS_5() - rm_usu.puntosABS_5()
+
             self.puntos += dpts
+            self.puntosMax += dpts_max
 
-            dptsMax = w.difPuntosMax()
-            self.puntosMax += dptsMax
-
-            comentarioUsu = " %s" % (w.rmUsu.abrTexto())
-            comentarioObj = " %s" % (w.rmObj.abrTexto())
-
-            comentarioPuntos = "%s = %d %+d %+d = %d" % (
+            comentario_usu = " %s" % (rm_usu.abrTexto())
+            comentario_obj = " %s" % (rm_obj.abrTexto())
+            comentario_puntos = "%s = %d %+d %+d = %d" % (
                 _("Score"),
                 self.puntos - dpts,
-                w.rmUsu.centipawns_abs(),
-                -w.rmObj.centipawns_abs(),
+                rm_usu.centipawns_abs(),
+                -rm_obj.centipawns_abs(),
                 self.puntos,
             )
             comment = "%s: %s %s\n%s: %s %s\n%s" % (
                 self.nombreObj,
-                jgObj.pgn_translated(),
-                comentarioObj,
+                jg_obj.pgn_translated(),
+                comentario_obj,
                 self.configuration.x_player,
-                jgUsu.pgn_translated(),
-                comentarioUsu,
-                comentarioPuntos,
+                jg_usu.pgn_translated(),
+                comentario_usu,
+                comentario_puntos,
             )
             self.ponPuntos()
 
@@ -299,7 +320,7 @@ class ManagerPlayGame(Manager.Manager):
         if analysis:
             move.analysis = analysis
         if comment:
-            move.set_comment(comment)
+            move.add_comment(comment)
 
         self.game.add_move(move)
         self.check_boards_setposition()

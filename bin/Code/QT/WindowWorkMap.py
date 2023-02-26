@@ -1,6 +1,5 @@
 from PySide2 import QtWidgets, QtSvg
 
-import Code
 from Code import WorkMap
 from Code.Analysis import Analysis
 from Code.Base import Game, Move, Position
@@ -25,7 +24,7 @@ class WMap(LCDialog.LCDialog):
         titulo = dic[mapa]
         icono = getattr(Iconos, mapa)()
 
-        LCDialog.LCDialog.__init__(self, procesador.main_window, titulo, icono, mapa+"01")
+        LCDialog.LCDialog.__init__(self, procesador.main_window, titulo, icono, mapa + "01")
 
         self.procesador = procesador
 
@@ -33,7 +32,7 @@ class WMap(LCDialog.LCDialog):
 
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("TYPE", "", 24, edicion=Delegados.PmIconosBMT(), align_center=True)
-        o_columns.nueva("SELECT", _("Select a country"), 250)
+        o_columns.nueva("SELECT", _("Select a country"), 140)
 
         self.grid = Grid.Grid(self, o_columns, siSelecFilas=True, xid="W")
 
@@ -50,9 +49,9 @@ class WMap(LCDialog.LCDialog):
         self.lbInfo = Controles.LB(self)
 
         self.wsvg = wsvg = QtSvg.QSvgWidget()
-        p = wsvg.palette()
-        p.setColor(wsvg.backgroundRole(), Code.dic_qcolors["MAPS_BACKGROUND"])
-        wsvg.setPalette(p)
+        # p = wsvg.palette()
+        # p.setColor(wsvg.backgroundRole(), Code.dic_qcolors["MAPS_BACKGROUND"])
+        # wsvg.setPalette(p)
 
         ly = Colocacion.V().control(tb_work).control(self.lbInfo).control(self.grid)
         w = QtWidgets.QWidget()

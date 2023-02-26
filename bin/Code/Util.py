@@ -364,6 +364,25 @@ def ini_base2dic(file):
 
     return dic
 
+def ini_base2dicr(file):
+    dic = {}
+
+    if os.path.isfile(file):
+
+        with open(file, "rt", encoding="utf-8", errors="ignore") as f:
+            for linea in f:
+                linea = linea.strip()
+                if linea.startswith("#"):
+                    continue
+                if linea:
+                    n = linea.rfind("=")
+                    if n:
+                        key = linea[:n].strip()
+                        valor = linea[n + 1:].strip()
+                        dic[key] = valor
+
+    return dic
+
 
 def dic2ini_base(file, dic):
     with open(file, "wt", encoding="utf-8", errors="ignore") as f:

@@ -434,6 +434,7 @@ class ManagerMicElo(Manager.Manager):
 
         time_s = self.stop_clock(True)
         move.set_time_ms(time_s * 1000)
+        move.set_clock_ms(self.tc_player.pending_time * 1000)
 
         self.move_the_pieces(move.liMovs)
 
@@ -451,6 +452,7 @@ class ManagerMicElo(Manager.Manager):
         if ok:
             time_s = self.stop_clock(False)
             move.set_time_ms(time_s * 1000)
+            move.set_clock_ms(self.tc_rival.pending_time * 1000)
             self.add_move(move, False)
             self.move_the_pieces(move.liMovs, True)
 

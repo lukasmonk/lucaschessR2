@@ -124,12 +124,12 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         self.rival = self.motores.busca(ENG_INTERNAL, self.configuration.x_rival_inicial)
         self.btRival = Controles.PB(self, "", self.select_engine, plano=False).ponFuente(font).altoFijo(48)
 
-        lbTiempoSegundosR = Controles.LB2P(self, _("Fixed time in seconds")).ponFuente(font)
+        self.lbTiempoSegundosR = Controles.LB2P(self, _("Fixed time in seconds")).ponFuente(font)
         self.edRtiempo = (
             Controles.ED(self).tipoFloat().anchoMaximo(50).ponFuente(font).capture_changes(self.change_time)
         )
-        bt_cancelar_tiempo = Controles.PB(self, "", rutina=self.cancelar_tiempo).ponIcono(Iconos.S_Cancelar())
-        ly_tiempo = Colocacion.H().control(self.edRtiempo).control(bt_cancelar_tiempo).relleno(1)
+        self.bt_cancelar_tiempo = Controles.PB(self, "", rutina=self.cancelar_tiempo).ponIcono(Iconos.S_Cancelar())
+        ly_tiempo = Colocacion.H().control(self.edRtiempo).control(self.bt_cancelar_tiempo).relleno(1)
 
         lb_depth = Controles.LB2P(self, _("Fixed depth")).ponFuente(font)
         self.edRdepth = Controles.ED(self).tipoInt().anchoMaximo(50).ponFuente(font).capture_changes(self.change_depth)
@@ -143,7 +143,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         self.cb_unlimited = Controles.CB(self, li_unlimited, 3).ponFuente(font)
 
         ly = Colocacion.G()
-        ly.controld(lbTiempoSegundosR, 0, 0).otro(ly_tiempo, 0, 1)
+        ly.controld(self.lbTiempoSegundosR, 0, 0).otro(ly_tiempo, 0, 1)
         ly.controld(lb_depth, 1, 0).otro(ly_depth, 1, 1)
         lyu = Colocacion.H().control(self.lb_unlimited).control(self.cb_unlimited)
         lyt = Colocacion.V().otro(ly).otro(lyu)
@@ -665,6 +665,13 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
             self.edRtiempo.ponFloat(0.0)
             self.edRdepth.ponInt(0)
 
+        emulate_movetime = self.rival.emulate_movetime
+        self.edRtiempo.setVisible(not emulate_movetime)
+        self.lbTiempoSegundosR.setVisible(not emulate_movetime)
+        self.bt_cancelar_tiempo.setVisible(not emulate_movetime)
+        if emulate_movetime:
+            self.edRtiempo.ponFloat(0.0)
+
         self.gb_thinks.setVisible(not hide_time_depth)
 
         if si_multi:
@@ -1139,7 +1146,7 @@ class WCambioRival(QtWidgets.QDialog):
         self.btRival = Controles.PB(self, "", self.cambiaRival, plano=False)
         self.edRtiempo = Controles.ED(self).tipoFloat().anchoMaximo(50)
         self.cbRdepth = Controles.CB(self, liDepths, 0).capture_changes(self.change_depth)
-        lbTiempoSegundosR = Controles.LB2P(self, _("Time"))
+        self.lbTiempoSegundosR = Controles.LB2P(self, _("Time"))
         lbNivel = Controles.LB2P(self, _("Depth"))
 
         # # Ajustar rival
@@ -1163,7 +1170,7 @@ class WCambioRival(QtWidgets.QDialog):
         # Rival
         ly = Colocacion.G()
         ly.controlc(self.btRival, 0, 0, 1, 4)
-        ly.controld(lbTiempoSegundosR, 1, 0).controld(self.edRtiempo, 1, 1)
+        ly.controld(self.lbTiempoSegundosR, 1, 0).controld(self.edRtiempo, 1, 1)
         ly.controld(lbNivel, 1, 2).control(self.cbRdepth, 1, 3)
         lyH = (
             Colocacion.H()

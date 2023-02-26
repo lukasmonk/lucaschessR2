@@ -97,6 +97,8 @@ def menu_tools_savemenu(procesador, dic_data=None):
     menu1.opcion("kibitzers", _("Kibitzers"), Iconos.Kibitzer())
     menu1.separador()
     menu1.opcion("leagues", _("Chess leagues"), Iconos.League())
+    menu1.separador()
+    menu1.opcion("conf_engines", _("Engines configuration"), Iconos.ConfEngines())
 
     savemenu.separador()
 

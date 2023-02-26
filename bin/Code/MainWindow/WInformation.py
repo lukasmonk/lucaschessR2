@@ -51,10 +51,13 @@ class Information(QtWidgets.QWidget):
         sp.setHorizontalPolicy(QtWidgets.QSizePolicy.Expanding)
         self.lb_cpws_lost.setSizePolicy(sp)
 
-        self.lb_time = Controles.LB(self).ponFuente(font7).set_wrap().align_center().anchoFijo(42)
+        self.lb_time = Controles.LB(self).ponFuente(font7).set_wrap().align_center()
         self.lb_time.hide()
-        Code.configuration.set_property(self.lb_time, "time")
-        ly_pw_tm = Colocacion.H().control(self.lb_cpws_lost).espacio(-8).controld(self.lb_time)
+        self.lb_clock = Controles.LB(self).ponFuente(font7).set_wrap().align_center()
+        self.lb_clock.hide()
+        Code.configuration.set_property(self.lb_time, "time_ms")
+        Code.configuration.set_property(self.lb_clock, "clock")
+        ly_pw_tm = Colocacion.H().control(self.lb_cpws_lost).relleno(1).controld(self.lb_time).espacio(-5).controld(self.lb_clock)
         ly_rating.otro(ly_pw_tm)
 
         li_acciones = [
@@ -138,24 +141,34 @@ class Information(QtWidgets.QWidget):
         self.lb_cpws_lost.setVisible(visible)
 
     def show_time(self):
-        visible = False
+        visible_time = visible_clock = False
         if self.move:
-            time_ms = self.move.time_ms
-            if time_ms:
-                time_scs = time_ms / 1000
+
+            def txt_ms(ms):
+                time_scs = ms / 1000
                 if time_scs >= 60.0:
                     minutes = int(time_scs // 60)
-                    scs = int(time_scs - minutes * 60)
-                    str_time = "%d' %d\"" % (minutes, scs)
+                    scs = time_scs - minutes * 60
+                    str_time = "%d' %.01f\"" % (minutes, scs)
                 elif time_scs >= 10.0:
                     str_time = '%.01f"' % time_scs
                 elif time_scs < 1.0:
                     str_time = '%.03f"' % time_scs
                 else:
                     str_time = '%.02f"' % time_scs
-                self.lb_time.set_text(str_time)
-                visible = True
-        self.lb_time.setVisible(visible)
+                if str_time.endswith(".0\""):
+                    str_time = str_time[:-3]+'"'
+                return " " + str_time + " "
+
+            if self.move.time_ms:
+                self.lb_time.set_text(txt_ms(self.move.time_ms))
+                visible_time = True
+            if self.move.clock_ms:
+                self.lb_clock.set_text(txt_ms(self.move.clock_ms))
+                visible_clock = True
+
+        self.lb_time.setVisible(visible_time)
+        self.lb_clock.setVisible(visible_clock)
 
     def edit_rating(self, event=None):
         if event:

@@ -109,13 +109,14 @@ class Board(QtWidgets.QGraphicsView):
 
         self.allow_eboard = True
 
+        self.minimum_size = 2
+
     def disable_hard_focus(self):
         self.hard_focus = False
 
-    def init_kb_buffer(self, alsoCad=True):
+    def init_kb_buffer(self):
         self.kb_buffer = []
-        if alsoCad:
-            self.cad_buffer = ""
+        self.cad_buffer = ""
 
     def exec_kb_buffer(self, key, flags):
         if key == Qt.Key_Escape:
@@ -148,7 +149,7 @@ class Board(QtWidgets.QGraphicsView):
                 if (self.configuration.x_copy_ctrl and is_ctrl) or (not self.configuration.x_copy_ctrl and is_alt):
                     if is_shift:
                         if hasattr(self.main_window, "manager") and hasattr(
-                            self.main_window.manager, "save_pgn_clipboard"
+                                self.main_window.manager, "save_pgn_clipboard"
                         ):
                             self.main_window.manager.save_pgn_clipboard()
                     else:
@@ -202,9 +203,9 @@ class Board(QtWidgets.QGraphicsView):
                 self.play_current_position()
 
             elif (
-                hasattr(self.main_window, "manager")
-                and self.main_window.manager
-                and key in (Qt.Key_P, Qt.Key_N, Qt.Key_C)
+                    hasattr(self.main_window, "manager")
+                    and self.main_window.manager
+                    and key in (Qt.Key_P, Qt.Key_N, Qt.Key_C)
             ):
                 # P -> show information
                 if key == Qt.Key_P and hasattr(self.main_window.manager, "pgnInformacion"):
@@ -251,10 +252,10 @@ class Board(QtWidgets.QGraphicsView):
                             elif san[0].upper() in self.dic_tr_keymoves:
                                 san = self.dic_tr_keymoves[san[0].upper()] + san[1:]
                         if (
-                            busca.endswith(san.lower())
-                            or busca.endswith(san.lower().replace("=", ""))
-                            or (san == "O-O-O" and busca.endswith("o3"))
-                            or (san == "O-O" and busca.endswith("o2"))
+                                busca.endswith(san.lower())
+                                or busca.endswith(san.lower().replace("=", ""))
+                                or (san == "O-O-O" and busca.endswith("o3"))
+                                or (san == "O-O" and busca.endswith("o2"))
                         ):
                             if exmove_ok:
                                 if len(san) > len(exmove_ok.san()):
@@ -491,7 +492,7 @@ class Board(QtWidgets.QGraphicsView):
                 cajon = BoardTypes.Caja()
                 cajon.colorRelleno = self.colorExterior
         self.ancho = ancho = cajon.physical_pos.alto = cajon.physical_pos.ancho = (
-            self.width_square * 8 + self.margenCentro * 2 + self.tamFrontera * 2
+                self.width_square * 8 + self.margenCentro * 2 + self.tamFrontera * 2
         )
         cajon.physical_pos.orden = 1
         cajon.tipo = QtCore.Qt.NoPen
@@ -524,7 +525,7 @@ class Board(QtWidgets.QGraphicsView):
         base_casillas_f.grosor = self.tamFrontera
         base_casillas_f.physical_pos.x = base_casillas_f.physical_pos.y = self.margenCentro
         base_casillas_f.physical_pos.alto = base_casillas_f.physical_pos.ancho = (
-            self.width_square * 8 + self.tamFrontera
+                self.width_square * 8 + self.tamFrontera
         )
         base_casillas_f.physical_pos.orden = 3
         base_casillas_f.colorRelleno = -1
@@ -588,7 +589,7 @@ class Board(QtWidgets.QGraphicsView):
             pFrontera = base_casillas_f.physical_pos
             gapCasilla = (self.width_square - anchoTexto) / 2
             sep = (
-                self.margenCentro * self.config_board.sepLetras() * 38 / 50000
+                    self.margenCentro * self.config_board.sepLetras() * 38 / 50000
             )  # ancho = 38 -> sep = 5 -> sepLetras = 100
 
             def norm(x):
@@ -1131,10 +1132,10 @@ class Board(QtWidgets.QGraphicsView):
                     if n != last:
                         bd = item.bloqueDatos
                         if (
-                            hasattr(bd_last, "tpid")
-                            and hasattr(bd, "tpid")
-                            and bd_last.tpid == bd.tpid
-                            and bd_last.a1h8 in (bd.a1h8, bd.a1h8[2:] + bd.a1h8[:2])
+                                hasattr(bd_last, "tpid")
+                                and hasattr(bd, "tpid")
+                                and bd_last.tpid == bd.tpid
+                                and bd_last.a1h8 in (bd.a1h8, bd.a1h8[2:] + bd.a1h8[:2])
                         ):
                             st.add(self.current_graphlive)
                             st.add(item)
@@ -1201,12 +1202,16 @@ class Board(QtWidgets.QGraphicsView):
 
         a1h8 = self.event2a1h8(event)
 
-        siRight = event.button() == QtCore.Qt.RightButton
-        if siRight and a1h8:
-            return self.mousePressGraphLive(event, a1h8)
+        si_right = event.button() == QtCore.Qt.RightButton
+        if si_right:
+            if a1h8:
+                return self.mousePressGraphLive(event, a1h8)
+            else:
+                self.lanzaMenuVisual()
+                return
 
-        siIzq = event.button() == QtCore.Qt.LeftButton
-        if siIzq and a1h8 is not None:
+        si_izq = event.button() == QtCore.Qt.LeftButton
+        if si_izq and a1h8 is not None:
             self.borraMovibles()
 
         self.blindfoldPosicion(False, None, None)
@@ -1230,10 +1235,9 @@ class Board(QtWidgets.QGraphicsView):
 
     def checkLEDS(self):
         if not hasattr(self, "dicXML"):
-
             def lee(fich):
                 with open(
-                    Code.path_resource("IntFiles/Svg", "%s.svg" % fich), "rt", encoding="utf-8", errors="ignore"
+                        Code.path_resource("IntFiles/Svg", "%s.svg" % fich), "rt", encoding="utf-8", errors="ignore"
                 ) as f:
                     resp = f.read()
                 return resp
@@ -1311,7 +1315,7 @@ class Board(QtWidgets.QGraphicsView):
                 if ap > 500:
                     ap = 64
                 ap += 2 * (+1 if salto else -1)
-                if ap >= 10:
+                if ap >= self.minimum_size:
                     self.config_board.anchoPieza(ap)
                     self.config_board.guardaEnDisco()
                     self.cambiadoAncho()
@@ -1411,7 +1415,6 @@ class Board(QtWidgets.QGraphicsView):
             self.borraMovibles()
 
         self.set_base_position(position, variation_history=variation_history)
-
 
         if self.dirvisual:
             if self.guion:
@@ -1854,8 +1857,8 @@ class Board(QtWidgets.QGraphicsView):
         bf = copy.deepcopy(self.config_board.fTransicion())
         bf.a1h8 = desdeA1h8 + hastaA1h8
         bf.opacity = max(factor, 0.20)
-        bf.ancho = max(bf.ancho * 2 * (factor**2.2), bf.ancho / 3)
-        bf.altocabeza = max(bf.altocabeza * (factor**2.2), bf.altocabeza / 3)
+        bf.ancho = max(bf.ancho * 2 * (factor ** 2.2), bf.ancho / 3)
+        bf.altocabeza = max(bf.altocabeza * (factor ** 2.2), bf.altocabeza / 3)
         bf.vuelo = bf.altocabeza / 3
         bf.grosor = 1
         bf.redondeos = True
@@ -2042,7 +2045,7 @@ class Board(QtWidgets.QGraphicsView):
 
     def pulsadoNum(self, siIzq, siActivar, number):
         if (
-            not siIzq
+                not siIzq
         ):  # si es derecho lo dejamos para el menu visual, y el izquierdo solo muestra capturas, si se quieren ver movimientos, que active show candidates
             return
         if self.exePulsadoNum:
@@ -2050,7 +2053,7 @@ class Board(QtWidgets.QGraphicsView):
 
     def pulsadaLetra(self, siIzq, siActivar, letra):
         if (
-            not siIzq
+                not siIzq
         ):  # si es derecho lo dejamos para el menu visual, y el izquierdo solo muestra capturas, si se quieren ver movimientos, que active show candidates
             return
         if self.exePulsadaLetra:
@@ -2357,9 +2360,9 @@ class Board(QtWidgets.QGraphicsView):
 
     def allow_takeback(self):
         return (
-            hasattr(self.main_window, "manager")
-            and hasattr(self.main_window.manager, "run_action")
-            and hasattr(self.main_window.manager, "takeback")
+                hasattr(self.main_window, "manager")
+                and hasattr(self.main_window.manager, "run_action")
+                and hasattr(self.main_window.manager, "takeback")
         )
 
     def set_tmp_position(self, position):
@@ -2462,7 +2465,6 @@ class Board(QtWidgets.QGraphicsView):
         if Code.eboard and Code.eboard.driver:
             Code.eboard.set_position(self.last_position)
 
-
     def play_current_position(self):
         gm = Game.Game(first_position=self.last_position)
         dic = {"GAME": gm.save(), "ISWHITE": gm.last_position.is_white}
@@ -2503,7 +2505,7 @@ class WTamBoard(QtWidgets.QDialog):
 
         self.cb = Controles.CB(self, liTams, self.anchoParaCB(ap)).capture_changes(self.cambiadoTamCB)
 
-        minimo = 10
+        minimo = self.board.minimum_size
         maximo = board.calculaAnchoMXpieza() + 30
 
         self.sb = Controles.SB(self, ap, minimo, maximo).capture_changes(self.cambiadoTamSB)

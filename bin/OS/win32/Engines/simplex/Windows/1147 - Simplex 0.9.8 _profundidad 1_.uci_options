@@ -1,0 +1,5 @@
+id name Simplex 0.9.8 JA
+id author Antonio Torrecillas
+option name Hash type spin default 32 min 4 max 8192
+option name Clear Hash type button
+option name Ponder type check default false

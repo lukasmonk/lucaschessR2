@@ -56,6 +56,14 @@ class ManagerEverest(Manager.Manager):
         self.ponCapInfoPorDefecto()
         self.check_boards_setposition()
 
+        var_config = "EXPEDITIONS"
+
+        dic = self.configuration.read_variables(var_config)
+
+        self.show_all = dic.get("SHOW_ALL", False)
+        self.show_rating_always, self.show_rating_different, self.show_rating_never = None, True, False
+        self.show_rating = dic.get("SHOW_RATING", self.show_rating_always)
+
         self.state = ST_PLAYING
         self.play_next_move()
 
@@ -218,45 +226,45 @@ class ManagerEverest(Manager.Manager):
                 self.pendienteNoContinuo = True
 
     def player_has_moved(self, from_sq, to_sq, promotion=""):
-        jgUsu = self.check_human_move(from_sq, to_sq, promotion)
-        if not jgUsu:
+        jg_usu = self.check_human_move(from_sq, to_sq, promotion)
+        if not jg_usu:
             return False
 
         self.vtime += time.time() - self.iniTiempo
 
-        jgObj = self.gameObj.move(self.posJugadaObj)
-        fen = jgObj.position_before.fen()
+        jg_obj = self.gameObj.move(self.posJugadaObj)
+        fen = jg_obj.position_before.fen()
 
-        siAnalizaJuez = True
+        si_analiza_juez = True
         if self.book:
-            siBookUsu = self.book.check_human(fen, from_sq, to_sq)
-            siBookObj = self.book.check_human(fen, jgObj.from_sq, jgObj.to_sq)
-            if siBookUsu and siBookObj:
-                if jgObj.movimiento() != jgUsu.movimiento():
+            si_book_usu = self.book.check_human(fen, from_sq, to_sq)
+            si_book_obj = self.book.check_human(fen, jg_obj.from_sq, jg_obj.to_sq)
+            if si_book_usu and si_book_obj:
+                if jg_obj.movimiento() != jg_usu.movimiento():
                     bmove = _("book move")
                     comment = "%s: %s %s<br>%s: %s %s" % (
                         self.nombreObj,
-                        jgObj.pgn_translated(),
+                        jg_obj.pgn_translated(),
                         bmove,
                         self.configuration.x_player,
-                        jgUsu.pgn_translated(),
+                        jg_usu.pgn_translated(),
                         bmove,
                     )
                     QTUtil2.message_result(self.main_window, comment)
-                siAnalizaJuez = False
+                si_analiza_juez = False
             else:
-                siAnalizaJuez = True
-                if not siBookObj:
+                si_analiza_juez = True
+                if not si_book_obj:
                     self.book = None
 
         analysis = None
         comment = None
 
-        if siAnalizaJuez:
+        if si_analiza_juez:
             position = self.game.last_position
             saved = fen in self.dic_analysis
             if saved:
-                rmObj, posObj, analysis, mrm = self.dic_analysis[fen]
+                rm_obj, pos_obj, analysis, mrm = self.dic_analysis[fen]
             else:
                 if self.continueTt:
                     um = QTUtil2.analizando(self.main_window)
@@ -265,51 +273,65 @@ class ManagerEverest(Manager.Manager):
                 else:
                     self.analizaNoContinuoFinal()
                     mrm = self.mrm
-                rmObj, posObj = mrm.buscaRM(jgObj.movimiento())
-                analysis = mrm, posObj
-                self.dic_analysis[fen] = [rmObj, posObj, analysis, mrm]
+                rm_obj, pos_obj = mrm.buscaRM(jg_obj.movimiento())
+                analysis = mrm, pos_obj
+                self.dic_analysis[fen] = [rm_obj, pos_obj, analysis, mrm]
 
-            rmUsu, posUsu = mrm.buscaRM(jgUsu.movimiento())
-            if rmUsu is None:
+            rm_usu, pos_usu = mrm.buscaRM(jg_usu.movimiento())
+            if rm_usu is None:
                 um = QTUtil2.analizando(self.main_window)
                 self.analyze_end()
-                rmUsu = self.xanalyzer.valora(position, from_sq, to_sq, promotion)
-                mrm.agregaRM(rmUsu)
+                rm_usu = self.xanalyzer.valora(position, from_sq, to_sq, promotion)
+                mrm.agregaRM(rm_usu)
                 self.analyze_begin()
                 um.final()
 
-            w = WindowJuicio.WJuicio(
-                self, self.xanalyzer, self.nombreObj, position, mrm, rmObj, rmUsu, analysis, is_competitive=False
-            )
-            w.exec_()
+            if self.show_rating == self.show_rating_different:
+                pv_usu = jg_usu.movimiento()
+                pv_obj = jg_obj.movimiento()
+                si_analiza_juez = pv_usu != pv_obj
+            elif self.show_rating == self.show_rating_never:
+                si_analiza_juez = False
 
-            if not saved:
-                analysis = w.analysis
-                self.dic_analysis[fen][2] = analysis
+            if si_analiza_juez:
+                w = WindowJuicio.WJuicio(
+                    self, self.xanalyzer, self.nombreObj, position, mrm, rm_obj, rm_usu, analysis,
+                    is_competitive=not self.show_all
+                )
+                w.exec_()
 
-            dpts = w.difPuntos()
+                if not saved:
+                    analysis = w.analysis
+                    self.dic_analysis[fen][2] = analysis
+
+                dpts = w.difPuntos()
+                rm_usu = w.rmUsu
+                rm_obj = w.rmObj
+            else:
+                dpts = rm_usu.puntosABS_5() - rm_obj.puntosABS_5()
+
             self.puntos += dpts
             self.ponPuntos()
 
-            if posUsu != posObj:
-                comentarioUsu = " %s" % (w.rmUsu.abrTexto())
-                comentarioObj = " %s" % (w.rmObj.abrTexto())
+            if pos_usu != pos_obj:
+                comentario_usu = " %s" % rm_usu.abrTexto()
+                comentario_obj = " %s" % rm_obj.abrTexto()
 
-                comentarioPuntos = "%s = %d %+d %+d = %d" % (
+                comentario_puntos = "%s = %d %+d %+d = %d" % (
                     _("Score"),
                     self.puntos - dpts,
-                    w.rmUsu.centipawns_abs(),
-                    -w.rmObj.centipawns_abs(),
+                    rm_usu.centipawns_abs(),
+                    -rm_obj.centipawns_abs(),
                     self.puntos,
                 )
                 comment = "%s: %s %s\n%s: %s %s\n%s" % (
                     self.nombreObj,
-                    jgObj.pgn_translated(),
-                    comentarioObj,
+                    jg_obj.pgn_translated(),
+                    comentario_obj,
                     self.configuration.x_player,
-                    jgUsu.pgn_translated(),
-                    comentarioUsu,
-                    comentarioPuntos,
+                    jg_usu.pgn_translated(),
+                    comentario_usu,
+                    comentario_puntos,
                 )
         if not self.continueTt:
             self.terminaNoContinuo()

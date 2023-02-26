@@ -2991,6 +2991,12 @@ def pmSaitek():
 def Saitek():
     return iget("Saitek")
 
+def pmTabutronic():
+    return iget("pmTabutronic")
+
+def Tabutronic():
+    return iget("Tabutronic")
+
 def pmRodent():
     return iget("pmRodent")
 

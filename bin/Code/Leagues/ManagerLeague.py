@@ -446,6 +446,7 @@ class ManagerLeague(Manager.Manager):
         self.rm_rival = rm_rival
         if ok:
             move.set_time_ms(int(time_s * 1000))
+            move.set_clock_ms(self.tc_rival.pending_time * 1000)
             self.add_move(move, False)
             self.move_the_pieces(move.liMovs, True)
             self.beepExtendido(False)
@@ -475,6 +476,8 @@ class ManagerLeague(Manager.Manager):
 
         time_s = self.stop_clock(True)
         move.set_time_ms(time_s * 1000)
+        move.set_clock_ms(self.tc_player.pending_time * 1000)
+
 
         self.add_move(move, True)
         self.move_the_pieces(move.liMovs, False)

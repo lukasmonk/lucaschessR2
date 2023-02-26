@@ -11,8 +11,10 @@ from Code import Util
 from Code.Engines import EngineResponse, Priorities
 
 
+
+
 class DirectEngine(object):
-    def __init__(self, name, exe, liOpcionesUCI=None, num_multipv=0, priority=None, args=None, log=None):
+    def __init__(self, name, exe, li_options_uci=None, num_multipv=0, priority=None, args=None, log=None):
 
         self.log = None
         if log:
@@ -67,8 +69,8 @@ class DirectEngine(object):
         self.orden_uci()
 
         setoptions = False
-        if liOpcionesUCI:
-            for opcion, valor in liOpcionesUCI:
+        if li_options_uci:
+            for opcion, valor in li_options_uci:
                 if type(valor) == bool:
                     valor = str(valor).lower()
                 self.set_option(opcion, valor)
@@ -139,6 +141,11 @@ class DirectEngine(object):
     def orden_uci(self):
         li, self.uci_ok = self.pwait_list("uci", "uciok", 10000)
         self.uci_lines = [x for x in li if x.startswith("id ") or x.startswith("option name")] if self.uci_ok else []
+
+    def test_nodes(self):
+        self.put_line("position r1bq1rk1/ppp1nppp/3pp3/2b1P3/2B2BQP/2P2N2/PP3PP1/R3K2R w KQ - 0 12")
+        li, ok = self.pwait_list("go nodes 50", "bestmove", 1000)
+        return li
 
     def ready_ok(self):
         li, readyok = self.pwait_list("isready", "readyok", 10000)

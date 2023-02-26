@@ -1056,11 +1056,7 @@ class Manager:
         self.xRutinaAccionDef = rutina
 
     def rutinaAccionDef(self, key):
-        if self.xRutinaAccionDef:
-            self.xRutinaAccionDef(key)
-        elif key == TB_CLOSE:
-            self.procesador.reset()
-        elif key == TB_EBOARD:
+        if key == TB_EBOARD:
             if Code.eboard and self.with_eboard:
                 if Code.eboard.is_working():
                     return
@@ -1074,6 +1070,10 @@ class Manager:
 
                 self.main_window.set_title_toolbar_eboard()
                 QTUtil.refresh_gui()
+        elif self.xRutinaAccionDef:
+            self.xRutinaAccionDef(key)
+        elif key == TB_CLOSE:
+            self.procesador.reset()
 
         elif key == TB_REPLAY:
             self.replay_direct()

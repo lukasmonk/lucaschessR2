@@ -18,7 +18,7 @@ from Code.QT import QTUtil2
 
 
 class RunEngine:
-    def __init__(self, name, exe, liOpcionesUCI=None, num_multipv=0, priority=None, args=None, log=None):
+    def __init__(self, name, exe, li_options_uci=None, num_multipv=0, priority=None, args=None, log=None):
         self.log = None
         if log:
             self.log_open(log)
@@ -80,8 +80,8 @@ class RunEngine:
         uci_analysismode = False
 
         setoptions = False
-        if liOpcionesUCI:
-            for opcion, valor in liOpcionesUCI:
+        if li_options_uci:
+            for opcion, valor in li_options_uci:
                 if type(valor) == bool:
                     valor = str(valor).lower()
                 self.set_option(opcion, valor)
@@ -648,8 +648,8 @@ class RunEngine:
 
 
 class MaiaEngine(RunEngine):
-    def __init__(self, name, exe, liOpcionesUCI=None, num_multipv=0, priority=None, args=None, log=None, level=0):
-        RunEngine.__init__(self, name, exe, liOpcionesUCI, num_multipv, priority, args, log)
+    def __init__(self, name, exe, li_options_uci=None, num_multipv=0, priority=None, args=None, log=None, level=0):
+        RunEngine.__init__(self, name, exe, li_options_uci, num_multipv, priority, args, log)
         self.stopping = False
         self.level = level
 

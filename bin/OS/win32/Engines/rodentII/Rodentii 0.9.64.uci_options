@@ -1,0 +1,40 @@
+id name Rodent II 0.9.64
+id author Pawel Koziol (based on Sungorus 1.4 by Pablo Vazquez)
+option name Hash type spin default 16 min 1 max 4096
+option name Clear Hash type button
+option name PawnValue type spin default 100 min 0 max 1200
+option name KnightValue type spin default 325 min 0 max 1200
+option name BishopValue type spin default 335 min 0 max 1200
+option name RookValue type spin default 500 min 0 max 1200
+option name QueenValue type spin default 1000 min 0 max 1200
+option name KeepPawn type spin default 0 min -200 max 200
+option name KeepKnight type spin default 0 min -200 max 200
+option name KeepBishop type spin default 0 min -200 max 200
+option name KeepRook type spin default 0 min -200 max 200
+option name KeepQueen type spin default 0 min -200 max 200
+option name BishopPair type spin default 50 min -100 max 100
+option name ExchangeImbalance type spin default 25 min -100 max 100
+option name KnightLikesClosed type spin default 6 min 0 max 10
+option name Material type spin default 100 min 0 max 500
+option name OwnAttack type spin default 110 min 0 max 500
+option name OppAttack type spin default 100 min 0 max 500
+option name OwnMobility type spin default 100 min 0 max 500
+option name OppMobility type spin default 110 min 0 max 500
+option name KingTropism type spin default 20 min -50 max 500
+option name PiecePlacement type spin default 80 min 0 max 500
+option name PiecePressure type spin default 100 min 0 max 500
+option name PassedPawns type spin default 100 min 0 max 500
+option name PawnStructure type spin default 100 min 0 max 500
+option name Outposts type spin default 100 min 0 max 500
+option name Lines type spin default 100 min 0 max 500
+option name PstStyle type spin default 0 min 0 max 2
+option name MobilityStyle type spin default 0 min 0 max 1
+option name NpsLimit type spin default 0 min 0 max 5000000
+option name EvalBlur type spin default 0 min 0 max 5000000
+option name Contempt type spin default 0 min -250 max 250
+option name SlowMover type spin default 100 min 10 max 500
+option name Selectivity type spin default 175 min 0 max 200
+option name OwnBook type check default true
+option name GuideBookFile type string default guide.bin
+option name MainBookFile type string default rodent.bin
+option name BookFilter type spin default 20 min 0 max 5000000

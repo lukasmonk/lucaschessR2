@@ -167,6 +167,7 @@ class ManagerCompeticion(Manager.Manager):
         self.hints = dic["HINTS"]
         self.game.restore(dic["GAME_SAVE"])
         self.goto_end()
+        self.ponAyudas(self.hints)
 
         self.play_next_move()
 
@@ -357,11 +358,11 @@ class ManagerCompeticion(Manager.Manager):
                         tutor = Tutor.Tutor(self, move, from_sq, to_sq, False)
 
                         if self.in_the_opening:
-                            liApPosibles = self.listaOpeningsStd.list_possible_openings(self.game)
+                            li_ap_posibles = self.listaOpeningsStd.list_possible_openings(self.game)
                         else:
-                            liApPosibles = None
+                            li_ap_posibles = None
 
-                        if tutor.elegir(self.hints > 0, liApPosibles=liApPosibles):
+                        if tutor.elegir(self.hints > 0, li_ap_posibles=li_ap_posibles):
                             if self.hints > 0:  # doble entrada a tutor.
                                 self.set_piece_again(from_sq)
                                 self.hints -= 1

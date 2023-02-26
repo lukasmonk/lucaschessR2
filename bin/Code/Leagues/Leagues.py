@@ -20,46 +20,41 @@ def create_journeys(num_opponents: int) -> list:
     # https://stackoverflow.com/users/9157436/carlos-fern%c3%a1ndez
     matches = []
     journeys = []
-    return_matches = []
     for xopp in range(1, num_opponents):
         for i in range(num_opponents // 2):
             x = li_opponents[i]
             y = li_opponents[num_opponents - 1 - i]
             if not (x is None or y is None):
                 matches.append((x, y))
-                return_matches.append((y, x))
         li_opponents.insert(1, li_opponents.pop())
         journeys.insert(len(journeys) // 2, matches)
-        journeys.append(return_matches)
         matches = []
-        return_matches = []
     ################################################################################################################
 
     # A continuación se ordenan las jornadas para que se juegue una vez con blancas y la siguiente con negras
-    dsides = {num: [0, 0] for num in range(num_opponents)}
-
-    def t_journey(journey):
-        t = 0
-        for w, b in journey:
-            t += (dsides[w][0] + 1 - dsides[w][1]) ** 2
-            t += (dsides[b][0] - dsides[b][1] - 1) ** 2
-        return t
 
     num_journeys = len(journeys)
+
+    lisz = [0] * num_opponents
+    li_nv_journeys = []
+    random.shuffle(journeys)
     for njourney in range(num_journeys):
-        tmin = 9999999
-        nj = -1
-        for njourney1 in range(njourney, num_journeys):
-            t = t_journey(journeys[njourney1])
-            if t < tmin:
-                tmin = t
-                nj = njourney1
-        if nj != njourney:
-            journeys[njourney], journeys[nj] = journeys[nj], journeys[njourney]
-        for w, b in journeys[njourney]:
-            dsides[w][0] += 1
-            dsides[b][1] += 1
-    return journeys
+        li_nv_journey = []
+        random.shuffle(journeys[njourney])
+        for (w, b) in journeys[njourney]:
+            if lisz[w] > lisz[b]:
+                w, b = b, w
+            li_nv_journey.append((w, b))
+            lisz[w] += 1
+            lisz[b] -= 1
+        li_nv_journeys.append(li_nv_journey)
+
+    journeys_with_returns = li_nv_journeys[:]
+    for journey in li_nv_journeys:
+        new_journey = [(b, w) for w, b in journey]
+        journeys_with_returns.append(new_journey)
+
+    return journeys_with_returns
 
 
 class Human:

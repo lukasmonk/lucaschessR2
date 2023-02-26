@@ -1092,6 +1092,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         if ok:
             fen_ultimo = self.last_fen()
             move.set_time_ms(int(time_s * 1000))
+            move.set_clock_ms(int(self.tc_rival.pending_time * 1000))
             self.add_move(move)
             self.move_the_pieces(move.liMovs, True)
             self.beepExtendido(False)
@@ -1354,7 +1355,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
 
                             li_ap_posibles = self.listaOpeningsStd.list_possible_openings(self.game)
 
-                            if tutor.elegir(self.hints > 0, liApPosibles=li_ap_posibles):
+                            if tutor.elegir(self.hints > 0, li_ap_posibles=li_ap_posibles):
                                 if self.hints > 0:  # doble entrada a tutor.
                                     self.set_piece_again(from_sq)
                                     self.hints -= 1
@@ -1379,6 +1380,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             self.show_clocks()
 
         move.set_time_ms(time_s * 1000)
+        move.set_clock_ms(self.tc_player.pending_time * 1000)
         self.setSummary("TIMEUSER", time_s)
 
         if si_analisis:
@@ -1653,6 +1655,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         )
         self.rm_rival = rm
         move.set_time_ms(last_move.time_ms)
+        move.set_clock_ms(last_move.clock_ms)
         fen_ultimo = self.last_fen()
         self.add_move(move)
         self.move_the_pieces(move.liMovs, True)

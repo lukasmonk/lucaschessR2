@@ -418,7 +418,7 @@ class WSummaryBase(QtWidgets.QWidget):
         self.liMoves = []
         self.procesador = procesador
         self.configuration = procesador.configuration
-        self.foreground = Code.dic_qcolors("SUMMARY_FOREGROUND")
+        self.foreground = Code.dic_qcolors["SUMMARY_FOREGROUND"]
 
         self.with_figurines = self.configuration.x_pgn_withfigurines
 

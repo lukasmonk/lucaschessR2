@@ -1,0 +1,6 @@
+id name Clarabit 1.00
+id author Salvador Pallares Bejarano
+option name Hash type spin default 32 min 1 max 4096
+option name Pawns_Hash type spin default 4 min 1 max 512
+option name Ponder type check default true
+option name OwnBook type check default true

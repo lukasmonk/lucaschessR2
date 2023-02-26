@@ -1,0 +1,28 @@
+id name Chispa 4.0.3
+id author Federico Corigliano
+option name Hash type spin default 1 min 1 max 1024
+option name Clear Hash type button
+option name OwnBook type check default true
+option name NalimovPath type string default
+option name NalimovCache type spin default 1 min 1 max 64
+option name Ponder type check default true
+option name PlayFRC type check default false
+option name UseLazyEval type check default false
+option name UseNullMove type check default true
+option name EvaluationHash type spin default 1 min 1 max 512
+option name PawnHash type spin default 1 min 1 max 64
+option name QueenValue type spin default 900 min -2000 max 2000
+option name RookValue type spin default 500 min -2000 max 2000
+option name BishopValue type spin default 300 min -2000 max 2000
+option name KnightValue type spin default 300 min -2000 max 2000
+option name PawnValue type spin default 100 min -2000 max 2000
+option name NullMoveMin type spin default 200 min 0 max 600
+option name NullMoveMax type spin default 300 min 0 max 600
+option name AspirationWindow type spin default 35 min 0 max 9000
+option name CheckExtension type spin default 100 min 0 max 500
+option name RecaptureExtension type spin default 75 min 0 max 500
+option name OneReplyCheckExtension type spin default 75 min 0 max 500
+option name MateTheatExtension type spin default 75 min 0 max 500
+option name PawnPushExtension type spin default 75 min 0 max 500
+option name BookFile type string default libro.bin
+option name CreateLog type check default false

@@ -1,16 +1,17 @@
 from Code import Util
 from Code.Base import Game
-from Code.Translations import TrListas
 from Code.Databases import WindowDatabase
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles
+from Code.QT import FormLayout
 from Code.QT import Grid
 from Code.QT import Iconos
+from Code.QT import LCDialog
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
 from Code.SQL import UtilSQL
-from Code.QT import LCDialog
+from Code.Translations import TrListas
 
 
 class DBPlayGame(UtilSQL.DictSQL):
@@ -115,6 +116,8 @@ class WPlayGameBase(LCDialog.LCDialog):
             None,
             (_("Remove"), Iconos.Borrar(), self.remove),
             None,
+            (_("Configuration"), Iconos.Configurar(), self.config),
+            None,
         )
         self.tb = QTVarios.LCTB(self, li_acciones)
 
@@ -195,6 +198,28 @@ class WPlayGameBase(LCDialog.LCDialog):
                 self.recno = recno
                 self.is_white = w.is_white
                 self.accept()
+
+    def config(self):
+        var_config = "LEARN_GAME_PLAY_AGAINST"
+
+        dic = self.configuration.read_variables(var_config)
+
+        form = FormLayout.FormLayout(self, _("Configuration"), Iconos.Opciones(), anchoMinimo=440)
+
+        form.separador()
+
+        li_options = [(_("Always"), None), (_("When moves are different"), True), (_("Never"), False)]
+        form.combobox(_("Show rating"), li_options, dic.get("SHOW_RATING", None))
+        form.separador()
+
+        form.checkbox(_("Show all evaluations"), dic.get("SHOW_ALL", False))
+
+        resultado = form.run()
+        if resultado:
+            accion, resp = resultado
+
+            dic["SHOW_RATING"], dic["SHOW_ALL"] = resp
+            self.configuration.write_variables(var_config, dic)
 
 
 class WPlay1(LCDialog.LCDialog):

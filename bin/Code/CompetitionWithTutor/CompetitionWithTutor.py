@@ -42,6 +42,8 @@ class Grupos:
         name = None
         for elo, key, cm in self.li_rivales:
             if from_sq <= elo <= to_sq:
+                if key.startswith("maia"):
+                    continue
                 li_rivales_uno.append(cm)
                 if elo < minimo:
                     minimo = elo
@@ -141,10 +143,11 @@ class Categorias:
             maxn = cat.level_done - 1
 
     def put_result(self, categoria, nivel, hecho):
-        if not (hecho in categoria.hecho):
-            categoria.hecho += hecho
-            self.check_done_levels()
-            return categoria.level_done == nivel
+        if nivel > categoria.level_done:
+            if not (hecho in categoria.hecho):
+                categoria.hecho += hecho
+                self.check_done_levels()
+                return categoria.level_done == nivel
         return False
 
     def graba(self):
