@@ -18,8 +18,7 @@ def run(user, file_league_work):
     app = QtWidgets.QApplication([])
 
     configuration = Configuration.Configuration(user)
-    configuration.lee()
-    configuration.leeConfBoards()
+    configuration.start()
     configuration.load_translation()
     OpeningsStd.ap.reset()
     Code.all_pieces = Piezas.AllPieces()

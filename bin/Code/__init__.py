@@ -90,7 +90,7 @@ def relative_root(path):
 
 
 BASE_VERSION = "B"  # Para el control de updates que necesitan reinstalar entero
-VERSION = "R 2.06"
+VERSION = "R 2.06a"
 DEBUG = False
 DEBUG_ENGINES = False
 
@@ -98,6 +98,7 @@ if DEBUG:
     import traceback
     import sys
     import time
+
 
     def prlk(*x):
 
@@ -108,10 +109,12 @@ if DEBUG:
             if n < lx:
                 sys.stdout.write(" ")
 
+
     def prln(*x):
         prlk(*x)
         sys.stdout.write("\n")
         return True
+
 
     def prlns(*x):
         prln("-" * 80)
@@ -121,6 +124,7 @@ if DEBUG:
         prln("-" * 80)
         return True
 
+
     def stack(si_previo=False):
         if si_previo:
             prlk("-" * 80 + "\n")
@@ -128,6 +132,7 @@ if DEBUG:
             prlk("\n" + "-" * 80 + "\n")
         for line in traceback.format_stack()[:-1]:
             prlk(line.strip() + "\n")
+
 
     def xpr(name, line):
         t = time.time()
@@ -139,20 +144,24 @@ if DEBUG:
         tdbg[0] = t
         return True
 
+
     tdbg = [time.time(), 0]
     if DEBUG_ENGINES:
         prln("", "Modo debug engine")
+
 
     def ini_timer(txt=None):
         tdbg[1] = time.time()
         if txt:
             prln(txt)
 
+
     def end_timer(txt=None):
         t = time.time() - tdbg[1]
         c = txt + " " if txt else ""
         c += "%0.03f" % t
         prln(c)
+
 
     import builtins
 

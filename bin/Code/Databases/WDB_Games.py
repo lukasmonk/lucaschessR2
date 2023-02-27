@@ -844,6 +844,8 @@ class WGames(QtWidgets.QWidget):
             menu.separador()
             menu.opcion(self.tw_themes, _("Statistics on tactical themes"), Iconos.Tacticas())
             menu.separador()
+            menu.opcion(self.tw_remove_duplicates, _("Remove duplicates"), Iconos.Remove1())
+            menu.separador()
 
         menu.opcion(self.tw_pack, _("Pack database"), Iconos.Pack())
 
@@ -1084,6 +1086,17 @@ class WGames(QtWidgets.QWidget):
             return
         wma = WDB_Theme_Analysis.WDBMoveAnalysis(self, a.li_output_dic, a.title, a.missing_tags_output)
         wma.exec_()
+
+    def tw_remove_duplicates(self):
+        if not QTUtil2.pregunta(self, "%s\n%s" % (_("Remove duplicates"), _("Are you sure?"))):
+            return
+
+        um = QTUtil2.unMomento(self, _("Remove duplicates"))
+        self.dbGames.remove_duplicates()
+        um.final()
+
+        self.grid.refresh()
+        self.updateStatus()
 
     def tw_polyglot(self):
         titulo = self.dbGames.get_name() + ".bin"

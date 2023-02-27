@@ -16,8 +16,7 @@ def run(user, file_tournament, file_work):
     app = QtWidgets.QApplication([])
 
     configuration = Configuration.Configuration(user)
-    configuration.lee()
-    configuration.leeConfBoards()
+    configuration.start()
     configuration.load_translation()
     OpeningsStd.ap.reset()
     Code.all_pieces = Piezas.AllPieces()
@@ -27,5 +26,3 @@ def run(user, file_tournament, file_work):
     w = WTournamentRun.WTournamentRun(file_tournament, file_work)
     w.show()
     w.looking_for_work()
-
-    # app.exec_()

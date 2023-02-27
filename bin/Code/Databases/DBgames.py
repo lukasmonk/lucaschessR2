@@ -331,6 +331,43 @@ class DBgames:
             self.db_stat.commit()
         self.conexion.commit()
 
+    def remove_duplicates(self):
+        li_mirar = [field for field in self.li_fields if field.upper() not in ("_DATA_", "ECO", "XPV", "PLYCOUNT")]
+        select = ",".join(li_mirar)
+        sql_xpv = "SELECT ROWID, %s FROM Games WHERE XPV = ?" % select
+
+        st_rowid_borrar = set()
+        sql = "SELECT XPV FROM Games GROUP BY XPV HAVING COUNT(XPV) > 1"
+        cursor = self.conexion.execute(sql)
+        for xpv, in cursor.fetchall():
+            st = set()
+            cursor = self.conexion.execute(sql_xpv, (xpv,))
+            for row in cursor.fetchall():
+                txt = "".join([x.strip().upper() if x else "" for x in row[1:]])
+                if txt in st:
+                    st_rowid_borrar.add(row[0])
+                else:
+                    st.add(txt)
+
+        li_recnos = []
+        for recno, rowid in enumerate(self.li_row_ids):
+            if rowid in st_rowid_borrar:
+                li_recnos.append(recno)
+
+        self.remove_list_recnos(li_recnos)
+
+
+
+
+
+
+
+
+
+
+
+
+
     def get_summary(self, pvBase, dicAnalisis, with_figurines, allmoves=True):
         return self.db_stat.get_summary(pvBase, dicAnalisis, with_figurines, allmoves) if self.with_db_stat else []
 
