@@ -1205,7 +1205,7 @@ class Procesador:
             board.dbvisual_set_file(father_board.dbVisual.file)
             board.dbvisual_set_show_always(father_board.dbVisual.show_always)
 
-        resp = clon_procesador.main_window.show_variations(clon_procesador.manager.window_title())
+        resp = clon_procesador.main_window.show_variations(game.window_title())
         if father_board:
             father_board.dbvisual_set_file(father_board.dbVisual.file)
             father_board.dbvisual_set_show_always(father_board.dbVisual.show_always())

@@ -278,6 +278,41 @@ class Game:
                 li.append(tag)
         return sep.join(li)
 
+    def window_title(self):
+        white = ""
+        black = ""
+        event = ""
+        site = ""
+        date = ""
+        result = ""
+        for key, valor in self.li_tags:
+            if key.upper() == "WHITE":
+                white = valor
+            elif key.upper() == "BLACK":
+                black = valor
+            elif key.upper() == "EVENT":
+                event = valor
+            elif key.upper() == "SITE":
+                site = valor
+            elif key.upper() == "DATE":
+                date = valor.replace("?", "").replace(" ", "").strip(".")
+            elif key.upper() == "RESULT":
+                if valor in ("1-0", "0-1", "1/2-1/2"):
+                    result = valor
+        li = []
+        if event:
+            li.append(event)
+        if site:
+            li.append(site)
+        if date:
+            li.append(date)
+        if result:
+            li.append(result)
+        titulo = "%s-%s" % (white, black)
+        if li:
+            titulo += " (%s)" % (" - ".join(li),)
+        return titulo
+
     def primeraJugada(self):
         return self.first_position.num_moves
 

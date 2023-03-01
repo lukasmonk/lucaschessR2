@@ -42,8 +42,6 @@ class Grupos:
         name = None
         for elo, key, cm in self.li_rivales:
             if from_sq <= elo <= to_sq:
-                if key.startswith("maia"):
-                    continue
                 li_rivales_uno.append(cm)
                 if elo < minimo:
                     minimo = elo

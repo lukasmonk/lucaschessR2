@@ -5,8 +5,8 @@ from PySide2 import QtWidgets, QtCore
 import Code
 from Code import CPU
 from Code import ControlPGN
+from Code import TimeControl
 from Code import Util
-from Code.Sound import Sound
 from Code.Base import Game, Move
 from Code.Base.Constantes import (
     ST_PLAYING,
@@ -33,8 +33,8 @@ from Code.QT import Iconos
 from Code.QT import QTUtil
 from Code.QT import QTVarios
 from Code.SQL import UtilSQL
+from Code.Sound import Sound
 from Code.Tournaments import Tournament
-from Code import TimeControl
 
 
 class TournamentRun:
@@ -320,10 +320,8 @@ class WTournamentRun(QtWidgets.QWidget):
         self.board.set_position(self.game.last_position)
         self.grid_pgn.refresh()
 
-
-
         self.tc_white = TimeControl.TimeControl(self, self.game, WHITE)
-        self.tc_white.config_clock(self.max_seconds-59.5, self.seconds_per_move, 0, 0)
+        self.tc_white.config_clock(self.max_seconds, self.seconds_per_move, 0, 0)
         self.tc_white.set_labels()
         self.tc_black = TimeControl.TimeControl(self, self.game, BLACK)
         self.tc_black.config_clock(self.max_seconds, self.seconds_per_move, 0, 0)
@@ -538,7 +536,8 @@ class WTournamentRun(QtWidgets.QWidget):
         ok, mens, move = Move.get_game_move(self.game, self.game.last_position, from_sq, to_sq, promotion)
         if not move:
             if not self.clocks_finished():
-                self.game.set_termination(TERMINATION_ADJUDICATION, RESULT_WIN_BLACK if self.current_side == WHITE else RESULT_WIN_WHITE)
+                self.game.set_termination(TERMINATION_ADJUDICATION,
+                                          RESULT_WIN_BLACK if self.current_side == WHITE else RESULT_WIN_WHITE)
             return False
         if analysis:
             move.analysis = analysis
@@ -716,7 +715,7 @@ class WTournamentRun(QtWidgets.QWidget):
                         dc = ord(from_sq[0]) - ord(to_sq[0])
                         df = int(from_sq[1]) - int(to_sq[1])
                         # Maxima distancia = 9.9 ( 9,89... sqrt(7**2+7**2)) = 4 seconds
-                        dist = (dc**2 + df**2) ** 0.5
+                        dist = (dc ** 2 + df ** 2) ** 0.5
                         seconds = 4.0 * dist / (9.9 * rapidez)
                     cpu.muevePieza(movim[1], movim[2], siExclusiva=False, seconds=seconds)
 

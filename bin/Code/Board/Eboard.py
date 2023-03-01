@@ -195,9 +195,8 @@ class Eboard:
                 except:
                     pass
 
-        os.chdir(Code.current_dir)
-
         if driver is None:
+            os.chdir(Code.current_dir)
             return False
 
         cmpfunc = functype(ctypes.c_int, ctypes.c_char_p)
@@ -286,6 +285,7 @@ class Eboard:
 
         driver._DGTDLL_ShowDialog(ctypes.c_int(1))
 
+        os.chdir(Code.current_dir)
         self.driver = driver
         return True
 

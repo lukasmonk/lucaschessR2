@@ -203,6 +203,15 @@ class EngineManager:
         else:
             return mrm.mejorMov()
 
+    def play_game_maia(self, game):
+        self.check_engine()
+
+        if self.depth_engine:
+            self.engine.nodes = int(self.depth_engine**2)
+
+        mrm = self.engine.bestmove_game(game, self.mstime_engine, self.depth_engine)
+        return mrm.mejorMov()
+
     def play_fixed_depth_time_tourney(self, game):
         self.check_engine()
 

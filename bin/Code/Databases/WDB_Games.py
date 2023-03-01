@@ -12,6 +12,7 @@ from Code.Base import Game
 from Code.Base.Constantes import WHITE, BLACK
 from Code.Databases import DBgames, WDB_Utils
 from Code.GM import GM
+from Code.LearnGame import WindowPlayGame, WindowLearnGame
 from Code.Openings import OpeningsStd
 from Code.Polyglots import PolyglotImportExports
 from Code.QT import Colocacion
@@ -27,7 +28,6 @@ from Code.QT import QTUtil
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
 from Code.QT import SelectFiles
-from Code.LearnGame import WindowPlayGame, WindowLearnGame
 from Code.QT import WindowSavePGN
 from Code.SQL import UtilSQL
 from Code.Themes import WDB_Theme_Analysis
@@ -695,13 +695,17 @@ class WGames(QtWidgets.QWidget):
             return None
 
         dic_data = w.dic_data_resp
-        self.dbGames.read_options()
+        db.read_options()
+        db.save_config("ALLOWS_DUPLICATES", dic_data["ALLOWS_DUPLICATES"])
+        db.save_config("ALLOWS_POSITIONS", dic_data["ALLOWS_POSITIONS"])
+        db.save_config("ALLOWS_COMPLETE_GAMES", dic_data["ALLOWS_COMPLETE_GAMES"])
+        db.save_config("ALLOWS_ZERO_MOVES", dic_data["ALLOWS_ZERO_MOVES"])
 
         # Comprobamos depth
         new_depth = dic_data["SUMMARY_DEPTH"]
         if new_depth != self.dbGames.depth_stat():
             self.wsummary.reindexar_question(new_depth, False)
-            self.dbGames.save_config("SUMMARY_DEPTH", new_depth)
+            db.save_config("SUMMARY_DEPTH", new_depth)
 
         # Si ha cambiado la localización, se cierra, se mueve y se reabre en la nueva
         # Internal -> Internal

@@ -423,7 +423,7 @@ class Marker(Bloque):
 
 class Pizarra(QtWidgets.QWidget):
     def __init__(self, guion, board, ancho, edit_mode=False, with_continue=False):
-        QtWidgets.QWidget.__init__(self)
+        QtWidgets.QWidget.__init__(self, board)
 
         self.guion = guion
         self.tarea = None
@@ -432,6 +432,7 @@ class Pizarra(QtWidgets.QWidget):
 
         self.pb = None
         self.chb = None
+        self.bloqueada = False
         if edit_mode:
             self.chb = Controles.CHB(self, _("With continue button"), False).capture_changes(self, self.save)
             self.mensaje.capturaCambios(self.save)

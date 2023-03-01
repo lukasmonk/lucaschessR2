@@ -65,6 +65,7 @@ class ManagerCompeticion(Manager.Manager):
 
         self.rival_conf = self.dbm.get_current_rival()
         self.xrival = self.procesador.creaManagerMotor(self.rival_conf, None, nivel)
+        self.is_maia = self.xrival.name.lower().startswith("maia")
 
         self.set_toolbar((TB_CANCEL, TB_RESIGN, TB_TAKEBACK, TB_REINIT, TB_ADJOURN, TB_CONFIG, TB_UTILITIES))
         self.main_window.activaJuego(True, False)
@@ -262,7 +263,10 @@ class ManagerCompeticion(Manager.Manager):
                     self.in_the_opening = False
 
             if siPensar:
-                self.rm_rival = self.xrival.play_game(self.game)
+                if self.is_maia:
+                    self.rm_rival = self.xrival.play_game(self.game)
+                else:
+                    self.rm_rival = self.xrival.play_game_maia(self.game)
 
             self.thinking(False)
 

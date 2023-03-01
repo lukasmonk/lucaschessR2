@@ -1,5 +1,4 @@
 import FasterCode
-
 from PySide2 import QtCore
 
 from Code import Manager
@@ -28,9 +27,9 @@ from Code.QT import Iconos
 from Code.QT import QTUtil
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
-from Code.Voyager import Voyager
 from Code.QT import WindowPgnTags
 from Code.Translations import TrListas
+from Code.Voyager import Voyager
 
 
 class ManagerGame(Manager.Manager):
@@ -145,7 +144,6 @@ class ManagerGame(Manager.Manager):
         elif key == TB_PGN_LABELS:
             self.informacion()
 
-        # elif key in (TB_CANCEL, TB_END_GAME, TB_CLOSE):
         elif key in (TB_CANCEL, TB_CLOSE):
             self.end_game()
 
@@ -153,6 +151,7 @@ class ManagerGame(Manager.Manager):
             if self.ask_for_save_game():
                 self.with_previous_next("save", self.game)
             game1 = self.with_previous_next("previous" if key == TB_PREVIOUS else "next", self.game)
+            self.main_window.setWindowTitle(game1.window_title())
             self.start(game1, self.is_complete, self.only_consult, self.with_previous_next, self.save_routine)
 
         else:
@@ -439,25 +438,6 @@ class ManagerGame(Manager.Manager):
             self.set_label1(dic["ROTULO1"])
             self.play_against_engine = True
             self.configuration.write_variables("ENG_MANAGERSOLO", dic)
-
-    def window_title(self):
-        white = ""
-        black = ""
-        event = ""
-        date = ""
-        result = ""
-        for key, valor in self.game.li_tags:
-            if key.upper() == "WHITE":
-                white = valor
-            elif key.upper() == "BLACK":
-                black = valor
-            elif key.upper() == "EVENT":
-                event = valor
-            elif key.upper() == "DATE":
-                date = valor
-            elif key.upper() == "RESULT":
-                result = valor
-        return "%s-%s (%s, %s,%s)" % (white, black, event, date, result)
 
     def takeback(self):
         if len(self.game):

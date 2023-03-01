@@ -566,7 +566,7 @@ class WBase(QtWidgets.QWidget):
         elif tecla in (QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return):
             row, column = self.pgn.current_position()
             if column.key != "NUMBER":
-                if hasattr(self.manager, "analizaPosicion"):
+                if hasattr(self.manager, "analize_position"):
                     self.manager.analize_position(row, column.key)
         else:
             if hasattr(self.manager, "control_teclado"):
