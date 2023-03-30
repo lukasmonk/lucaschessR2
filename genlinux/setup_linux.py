@@ -359,12 +359,13 @@ class Data:
             file.write("Name=%s\n" % _("Lucas Chess"))
             # file.write("GenericName=%s\n")
             # file.write("Comment=%s\n")
-            file.write("Exec=" + launcher + "\n")
+            file.write("Exec=" + launcher + " %F\n")
             file.write("Path=" + path + "\n")
             file.write("Icon=" + icon + "\n")
             file.write("StartupNotify=true\n")
             file.write("Terminal=false\n")
-            file.write("Categories=Game;")
+            file.write("Categories=Game;\n")
+            file.write("MimeType=application/vnd.chess-pgn\n")
         os.chmod(self.path_desktop, self.access_rights)
 
     def launch_lucasr(self):
