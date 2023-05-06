@@ -167,7 +167,7 @@ class EngineResponse:
                 mate += 1
             elif mate > 0:
                 mate -= 1
-            if -1 <= mate <= 1:
+            if -1 < mate < 1:
                 d = {False: _("White is in checkmate"), True: _("Black is in checkmate")}
             else:
                 d = {True: _("White mates in %1"), False: _("Black mates in %1")}
@@ -189,13 +189,16 @@ class EngineResponse:
     def texto(self):
         if self.mate:
             mt = self.mate
-            if -1 <= mt <= 1:
-                d = {True: _("White is in checkmate"), False: _("Black is in checkmate")}
-                if mt == -1:
-                    t = self.is_white
+            if mt == 1:
+                if self.is_white:
+                    return _("Black is in checkmate")
                 else:
-                    t = not self.is_white
-                return d[t]
+                    return _("White is in checkmate")
+            if mt == 1:
+                if self.is_white:
+                    return _X(_("White mates in %1"), 1)
+                else:
+                    return _X(_("Black mates in %1"), 1)
             if not self.is_white:
                 mt = -mt
             if (mt > 1) and self.is_white:

@@ -135,6 +135,7 @@ class ManagerVariations(Manager.Manager):
         self.state = ST_PLAYING
 
         self.put_view()
+        self.board.set_position(self.game.last_position)
 
         is_white = self.game.last_position.is_white
         self.is_human_side_white = is_white

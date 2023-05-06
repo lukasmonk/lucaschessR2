@@ -422,7 +422,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         )
 
         # ## Resign
-        lbResign = Controles.LB2P(self, _("Resign/draw by engine")).ponFuente(font)
+        lbResign = Controles.LB2P(self, _("Resign by engine")).ponFuente(font)
         liResign = (
             (_("Very early"), -100),
             (_("Early"), -300),

@@ -7,10 +7,12 @@
 #include "protos.h"
 #include "globals.h"
 
-char pv[512*5];
+#define MAX_MDEPTH 1024
+
+char pv[MAX_MDEPTH*5];
 char fen[64];
 int raw;
-char * fens[256];
+char * fens[MAX_MDEPTH];
 int pos_fens;
 int max_depth;
 
@@ -34,7 +36,7 @@ void pgn_start(int depth)
 {
     int i;
 
-    if( depth > 256 ) depth = 256;
+    if( depth > MAX_MDEPTH ) depth = MAX_MDEPTH;
     max_depth = depth;
 
     for( i=0; i < depth; i++)
@@ -46,7 +48,7 @@ void pgn_start(int depth)
 void pgn_stop( void )
 {
     int i;
-    for( i=0; i < 256; i++)
+    for( i=0; i < MAX_MDEPTH; i++)
     {
         free(fens[i]);
     }
@@ -61,12 +63,12 @@ int pgn_read(char * body, char * fen)
     char from_AH, from_18;
     char to_AH, to_18;
     char *p_pv;
-    bool ok;
+    int num_ok;
 
     int par;
     int to;
     unsigned k;
-    MoveBin move;
+    MoveBin move, mover;
 
     p_pv = pv;
     *p_pv = 0;
@@ -294,9 +296,9 @@ int pgn_read(char * body, char * fen)
             c++;
             if(raw) raw = false;
             break;
-			
-		case '!':
-		case '?':
+
+        case '!':
+        case '?':
             c++;
             if(raw) raw = false;
             break;
@@ -318,7 +320,7 @@ int pgn_read(char * body, char * fen)
             /*movegen();*/
             /*movegen_piece(PZNAME[piece]);*/
             movegen_piece_to((int)PZNAME[(int)piece], (unsigned)to);
-            ok = false;
+            num_ok = 0;
             for (k = board.ply_moves[board.ply - 1]; k < board.ply_moves[board.ply]; k++)
             {
                 move = board.moves[k];
@@ -345,13 +347,14 @@ int pgn_read(char * body, char * fen)
                         p_pv++;
                     }
 
-                    make_move(move);
-                    if( pos_fens < max_depth ) board_fenM2( fens[pos_fens++] );
-                    ok = true;
+                    mover = move;
+                    num_ok++;
                     break;
                 }
             }
-            if( !ok ) return false;
+            if( num_ok != 1 ) return false;
+            make_move(mover);
+            if( pos_fens < max_depth ) board_fenM2( fens[pos_fens++] );
             piece = 'P';
             from_AH = 0;
             from_18 = 0;

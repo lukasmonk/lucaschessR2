@@ -53,6 +53,7 @@ def lista():
         if k in dic_elos:
             mt.elo = dic_elos[k]
 
+    li.sort(key=lambda x: x.elo)
     return li
 
 
@@ -214,8 +215,9 @@ class ManagerMicElo(Manager.Manager):
         self.pgnRefresh(True)
         self.ponCapInfoPorDefecto()
 
-        self.rival = self.engine_rival.alias + " (%d)" % self.engine_rival.elo
-        white_name, black_name = self.configuration.nom_player(), self.engine_rival.alias
+        rival_name = Util.primera_mayuscula(self.engine_rival.alias)
+        self.rival = "%s (%d)" % (rival_name, self.engine_rival.elo)
+        white_name, black_name = self.configuration.nom_player(), rival_name
         white_elo, black_elo = self.configuration.miceloActivo(), self.engine_rival.elo
         if self.is_engine_side_white:
             white_name, black_name = black_name, white_name
@@ -522,7 +524,7 @@ class ManagerMicElo(Manager.Manager):
 
         self.showed_result = True
         self.message_on_pgn(mensaje)
-        self.ponFinJuego()
+        self.set_end_game()
 
     def historial(self, elo, nelo):
         dic = {}

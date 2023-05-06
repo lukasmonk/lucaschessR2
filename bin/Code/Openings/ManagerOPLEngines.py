@@ -247,11 +247,11 @@ class ManagerOpeningEngines(Manager.Manager):
                         _("Do you want to go on with this move?"),
                     )
                     if not QTUtil2.pregunta(self.main_window, mensaje):
-                        self.ponFinJuego()
+                        self.set_end_game()
                         return True
                 else:
                     self.message_on_pgn(_("This is not the move in the opening lines, you must repeat the game"))
-                    self.ponFinJuego()
+                    self.set_end_game()
                     return True
 
         self.move_the_pieces(move.liMovs)
@@ -395,14 +395,14 @@ class ManagerOpeningEngines(Manager.Manager):
 
         siCalcularInicio = True
         if self.game.is_finished():
-            self.ponFinJuego()
+            self.set_end_game()
             move = self.game.move(-1)
             if move.is_mate:
                 if move.is_white() == self.is_human_side_white:
                     aprobado()
                 else:
                     suspendido()
-                self.ponFinJuego()
+                self.set_end_game()
                 return True
             puntosFinal, mateFinal = 0, 0
 
@@ -471,7 +471,7 @@ class ManagerOpeningEngines(Manager.Manager):
             self.mensEspera(siFinal=True)
             aprobado()
 
-        self.ponFinJuego()
+        self.set_end_game()
         return True
 
     def run_action(self, key):
@@ -486,7 +486,7 @@ class ManagerOpeningEngines(Manager.Manager):
             self.reiniciar()
 
         elif key == TB_RESIGN:
-            self.ponFinJuego()
+            self.set_end_game()
 
         elif key == TB_CONFIG:
             self.configurar(siSonidos=True)
@@ -568,7 +568,7 @@ class ManagerOpeningEngines(Manager.Manager):
         self.main_window.activaInformacionPGN(False)
         self.reinicio(self.dbop)
 
-    def ponFinJuego(self):
+    def set_end_game(self):
         self.state = ST_ENDGAME
         self.disable_all()
         li_options = [TB_CLOSE]

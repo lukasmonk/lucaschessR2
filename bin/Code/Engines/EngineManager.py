@@ -121,11 +121,11 @@ class EngineManager:
 
         exe = self.confMotor.ejecutable()
         args = self.confMotor.argumentos()
-        liUCI = self.confMotor.liUCI
+        li_uci = self.confMotor.liUCI
 
         maia_level = None
         if self.name.lower().startswith("maia") or "lc0" in self.name.lower():
-            for comando, valor in liUCI:
+            for comando, valor in li_uci:
                 if comando == "WeightsFile":
                     if valor.startswith("maia"):
                         maia_level = int(valor[5:9])
@@ -135,7 +135,7 @@ class EngineManager:
             self.engine = EngineRun.MaiaEngine(
                 self.name,
                 exe,
-                liUCI,
+                li_uci,
                 self.num_multipv,
                 priority=self.priority,
                 args=args,
@@ -144,11 +144,11 @@ class EngineManager:
             )
         elif self.direct:
             self.engine = EngineRunDirect.DirectEngine(
-                self.name, exe, liUCI, self.num_multipv, priority=self.priority, args=args, log=self.ficheroLog
+                self.name, exe, li_uci, self.num_multipv, priority=self.priority, args=args, log=self.ficheroLog
             )
         else:
             self.engine = EngineRun.RunEngine(
-                self.name, exe, liUCI, self.num_multipv, priority=self.priority, args=args, log=self.ficheroLog
+                self.name, exe, li_uci, self.num_multipv, priority=self.priority, args=args, log=self.ficheroLog
             )
 
         if self.confMotor.siDebug:
@@ -207,7 +207,7 @@ class EngineManager:
         self.check_engine()
 
         if self.depth_engine:
-            self.engine.nodes = int(self.depth_engine**2)
+            self.engine.nodes = int(self.depth_engine ** 2)
 
         mrm = self.engine.bestmove_game(game, self.mstime_engine, self.depth_engine)
         return mrm.mejorMov()
@@ -323,18 +323,18 @@ class EngineManager:
         self.cache_analysis.close()
 
     def analizaJugadaPartida(
-        self,
-        game,
-        njg,
-        vtime,
-        depth=0,
-        brDepth=5,
-        brPuntos=50,
-        stability=False,
-        st_centipawns=0,
-        st_depths=0,
-        st_timelimit=0,
-        window=None,
+            self,
+            game,
+            njg,
+            vtime,
+            depth=0,
+            brDepth=5,
+            brPuntos=50,
+            stability=False,
+            st_centipawns=0,
+            st_depths=0,
+            st_timelimit=0,
+            window=None,
     ):
         self.check_engine()
         if self.cache_analysis is not None:
@@ -350,7 +350,7 @@ class EngineManager:
         return resp
 
     def analizaJugadaPartidaRaw(
-        self, game, njg, mstime, depth, brDepth, brPuntos, stability, st_centipawns, st_depths, st_timelimit, window
+            self, game, njg, mstime, depth, brDepth, brPuntos, stability, st_centipawns, st_depths, st_timelimit, window
     ):
         self.check_engine()
         ini_time = time.time()
@@ -359,6 +359,7 @@ class EngineManager:
         else:
             mrm = self.engine.bestmove_game_jg(game, njg, mstime, depth, is_savelines=True)
 
+        mrm.ordena()
         self.remove_gui_dispatch()
         ms_used = int((time.time() - ini_time) * 1000)
 
@@ -374,8 +375,18 @@ class EngineManager:
             if n == 0:
                 mrm.miraBrilliancies(brDepth, brPuntos)
             return mrm, n
-
         rm_best = mrm.mejorMov()
+
+        if move.is_mate:
+            rm = EngineResponse.EngineResponse(None, None)
+            rm.restore(rm_best.save())
+            rm.pv = move.movimiento()
+            rm.from_sq = move.from_sq
+            rm.to_sq = move.to_sq
+            rm.promotion = move.promotion
+            pos = mrm.agregaRM(rm)
+            return mrm, pos
+
         # No esta considerado, obliga a hacer el analysis de nuevo from_sq position
         if rm_best.depth and (depth > rm_best.depth or depth == 0):
             depth = rm_best.depth
@@ -450,12 +461,6 @@ class EngineManager:
         self.check_engine()
         self.engine.set_option(name, value)
 
-    def miraListaPV(self, fen, siUna):  #
-        """Servicio para Opening lines-importar polyglot-generador de movimientos-emula un book polyglot"""
-        mrm = self.analiza(fen)
-        lipv = [rm.movimiento() for rm in mrm.li_rm]
-        return lipv[0] if siUna else lipv
-
     def busca_mate(self, game, mate):
         self.check_engine()
         return self.engine.busca_mate(game, mate)
@@ -474,7 +479,7 @@ class EngineManager:
         return mrm.mejorMov()
 
     def play_time_routine(
-        self, game, routine_return, seconds_white, seconds_black, seconds_move, nAjustado=0, humanize=False
+            self, game, routine_return, seconds_white, seconds_black, seconds_move, nAjustado=0, humanize=False
     ):
         self.check_engine()
 

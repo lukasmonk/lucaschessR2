@@ -539,8 +539,8 @@ class WBoardColors(LCDialog.LCDialog):
         self.board.remove_arrows()
         self.board.creaFlechaTmp("f2", "f4", True)
         self.board.creaFlechaTmp("d1", "d4", False)
-        self.board.creaFlechaMov("f5", "d7", "ms100")
-        self.board.creaFlechaMov("d6", "b4", "mt100")
+        self.board.show_arrow_mov("f5", "d7", "ms")
+        self.board.show_arrow_mov("d6", "b4", "mt")
 
     def cambiadoTema(self):
         file_theme = self.cbTemas.valor()

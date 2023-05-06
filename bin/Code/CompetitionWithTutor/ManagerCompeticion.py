@@ -177,13 +177,13 @@ class ManagerCompeticion(Manager.Manager):
 
     def finalizar(self):
         if self.state == ST_ENDGAME:
-            self.ponFinJuego()
+            self.set_end_game()
             return True
         siJugadas = len(self.game) > 0
         if siJugadas:
             if not QTUtil2.pregunta(self.main_window, _("End game?")):
                 return False  # no termina
-            self.ponFinJuego()
+            self.set_end_game()
             self.autosave()
         else:
             self.procesador.start()
@@ -199,7 +199,7 @@ class ManagerCompeticion(Manager.Manager):
                 return False  # no abandona
             self.resultado = RS_WIN_OPPONENT
             self.game.resign(self.is_human_side_white)
-            self.ponFinJuego()
+            self.set_end_game()
             self.autosave()
         else:
             self.procesador.start()
@@ -306,7 +306,7 @@ class ManagerCompeticion(Manager.Manager):
                 self.xrotulo2()
 
         self.mensaje(mensaje)
-        self.ponFinJuego()
+        self.set_end_game()
         self.autosave()
 
     def analyze_begin(self):

@@ -1,5 +1,7 @@
 import time
 
+from PySide2 import QtCore
+
 import Code
 from Code.Base.Constantes import (
     TB_CONTINUE_REPLAY,
@@ -9,84 +11,88 @@ from Code.Base.Constantes import (
     TB_PGN_REPLAY,
     TB_REPEAT_REPLAY,
     TB_SLOW_REPLAY,
-    TB_CHANGE,
+    TB_SETTINGS,
 )
 from Code.QT import FormLayout
 from Code.QT import Iconos
 from Code.QT import QTUtil
 
 
-def read_params(configuration):
-    nomVar = "PARAMPELICULA"
-    dic = configuration.read_variables(nomVar)
-    if len(dic) == 0:
-        dic["SECONDS"] = 2.0
-        dic["START"] = True
-        dic["PGN"] = True
-        dic["BEEP"] = False
-        dic["SECONDS_BEFORE"] = 0.0
+def read_params():
+    dic = {"SECONDS": 2.0, "START": True, "PGN": True, "BEEP": False, "SECONDS_BEFORE": 0.0, "REPLAY_CONTINUOUS": False}
+    dic.update(Code.configuration.read_variables("PARAMPELICULA"))
     return dic
 
 
-def param_replay(configuration, parent):
-
-    dicVar = read_params(configuration)
+def param_replay(configuration, parent, with_previous_next) -> bool:
+    dic_var = read_params()
 
     # Datos
-    form = FormLayout.FormLayout(parent, _("Replay game"), Iconos.Pelicula(), anchoMinimo=460)
+    form = FormLayout.FormLayout(
+        parent, "%s - %s" % (_("Replay game"), _("Options")), Iconos.Preferencias(), anchoMinimo=460
+    )
     form.separador()
 
-    form.float(_("Number of seconds between moves"), dicVar.get("SECONDS", 2.0))
+    form.float(_("Number of seconds between moves"), dic_var.get("SECONDS", 2.0))
     form.separador()
 
-    form.checkbox(_("Start from first move"), dicVar.get("START", True))
+    form.checkbox(_("Start from first move"), dic_var.get("START", True))
     form.separador()
 
-    form.checkbox(_("Show PGN"), dicVar.get("PGN", True))
+    form.checkbox(_("Show PGN"), dic_var.get("PGN", True))
     form.separador()
 
-    form.checkbox(_("Beep after each move"), dicVar.get("BEEP", False))
+    form.checkbox(_("Beep after each move"), dic_var.get("BEEP", False))
     form.separador()
 
-    form.float(_("Seconds before first move"), dicVar.get("SECONDS_BEFORE", 0.0))
+    form.float(_("Seconds before first move"), dic_var.get("SECONDS_BEFORE", 0.0))
     form.separador()
+
+    if with_previous_next:
+        form.checkbox(_("Replay of the current and following games"), dic_var.get("REPLAY_CONTINUOUS", False))
+        form.separador()
 
     resultado = form.run()
 
     if resultado:
-        accion, liResp = resultado
+        accion, li_resp = resultado
 
-        seconds, if_start, if_pgn, if_beep, seconds_before = liResp
-        dicVar["SECONDS"] = seconds
-        dicVar["SECONDS_BEFORE"] = seconds_before
-        dicVar["START"] = if_start
-        dicVar["PGN"] = if_pgn
-        dicVar["BEEP"] = if_beep
-        nomVar = "PARAMPELICULA"
-        configuration.write_variables(nomVar, dicVar)
-        return seconds, if_start, if_pgn, if_beep, seconds_before
+        seconds, if_start, if_pgn, if_beep, seconds_before = li_resp[:5]
+        dic_var["SECONDS"] = seconds
+        dic_var["SECONDS_BEFORE"] = seconds_before
+        dic_var["START"] = if_start
+        dic_var["PGN"] = if_pgn
+        dic_var["BEEP"] = if_beep
+        if with_previous_next:
+            dic_var["REPLAY_CONTINUOUS"] = li_resp[5]
+        nom_var = "PARAMPELICULA"
+        configuration.write_variables(nom_var, dic_var)
+        return True
     else:
-        return None
+        return False
 
 
 class Replay:
-    def __init__(self, manager, seconds, if_start, siPGN, if_beep, seconds_before):
+    def __init__(self, manager, next_game=None):
+        dic_var = read_params()
         self.manager = manager
         self.procesador = manager.procesador
         self.main_window = manager.main_window
         self.starts_with_black = manager.game.starts_with_black
         self.board = manager.board
-        self.seconds = seconds
-        self.if_start = if_start
-        self.if_beep = if_beep
+        self.seconds = dic_var["SECONDS"]
+        self.seconds_before = dic_var["SECONDS_BEFORE"]
+        self.if_start = dic_var["START"]
+        self.if_beep = dic_var["BEEP"]
         self.rapidez = 1.0
+        self.next_game = next_game
 
         self.previous_visible_capturas = self.main_window.siCapturas
         self.previous_visible_information = self.main_window.siInformacionPGN
 
-        self.siPGN = siPGN
+        self.with_pgn = dic_var["PGN"]
 
-        li_acciones = (
+        self.li_acciones = (
             TB_END_REPLAY,
             TB_SLOW_REPLAY,
             TB_PAUSE_REPLAY,
@@ -94,30 +100,30 @@ class Replay:
             TB_FAST_REPLAY,
             TB_REPEAT_REPLAY,
             TB_PGN_REPLAY,
-            TB_CHANGE,
+            TB_SETTINGS,
         )
 
         self.antAcciones = self.main_window.get_toolbar()
-        self.main_window.pon_toolbar(li_acciones, separator=False)
+        self.main_window.pon_toolbar(self.li_acciones, separator=True)
 
         self.manager.ponRutinaAccionDef(self.process_toolbar)
 
-        self.muestraPausa(True, False)
+        self.show_pause(True, False)
 
         self.num_moves, self.jugInicial, self.filaInicial, self.is_white = self.manager.jugadaActual()
 
         self.li_moves = self.manager.game.li_moves
-        self.current_position = 0 if if_start else self.jugInicial
+        self.current_position = 0 if self.if_start else self.jugInicial
         self.initial_position = self.current_position
 
-        self.siStop = False
+        self.stopped = False
 
         self.show_information()
 
-        if seconds_before > 0.0:
+        if self.seconds_before > 0.0:
             move = self.li_moves[self.current_position]
             self.board.set_position(move.position_before)
-            if not self.sleep_refresh(seconds_before):
+            if not self.sleep_refresh(self.seconds_before):
                 return
 
         self.show_current()
@@ -126,13 +132,13 @@ class Replay:
         ini_time = time.time()
         while (time.time() - ini_time) < seconds:
             QTUtil.refresh_gui()
-            if self.siStop:
+            if self.stopped:
                 return False
             time.sleep(0.01)
         return True
 
     def show_information(self):
-        if self.siPGN:
+        if self.with_pgn:
             if self.previous_visible_information:
                 self.main_window.activaInformacionPGN(True)
             if self.previous_visible_capturas:
@@ -147,7 +153,7 @@ class Replay:
         QTUtil.refresh_gui()
 
     def show_current(self):
-        if self.siStop or self.current_position >= len(self.li_moves):
+        if self.stopped or self.current_position >= len(self.li_moves):
             return
 
         move = self.li_moves[self.current_position]
@@ -156,14 +162,16 @@ class Replay:
             if not self.sleep_refresh(self.seconds / self.rapidez):
                 return
 
-        liMovs = [("b", move.to_sq), ("m", move.from_sq, move.to_sq)]
+        li_movs = [("b", move.to_sq), ("m", move.from_sq, move.to_sq)]
         if move.position.li_extras:
-            liMovs.extend(move.position.li_extras)
-        self.move_the_pieces(liMovs)
+            li_movs.extend(move.position.li_extras)
+        self.move_the_pieces(li_movs)
 
-        self.skip()
+        QtCore.QTimer.singleShot(10, self.skip)
 
-    def move_the_pieces(self, liMovs):
+    def move_the_pieces(self, li_movs):
+        if self.stopped:
+            return
         cpu = self.procesador.cpu
         cpu.reset()
         secs = None
@@ -177,7 +185,7 @@ class Replay:
         self.main_window.base.pgnRefresh()
 
         # primero los movimientos
-        for movim in liMovs:
+        for movim in li_movs:
             if movim[0] == "m":
                 from_sq, to_sq = movim[1], movim[2]
                 if secs is None:
@@ -193,12 +201,12 @@ class Replay:
             secs = 1.0
 
         # segundo los borrados
-        for movim in liMovs:
+        for movim in li_movs:
             if movim[0] == "b":
                 cpu.borraPiezaSecs(movim[1], secs)
 
         # tercero los cambios
-        for movim in liMovs:
+        for movim in li_movs:
             if movim[0] == "c":
                 cpu.cambiaPieza(movim[1], movim[2], siExclusiva=True)
 
@@ -211,14 +219,10 @@ class Replay:
 
         self.manager.put_view()
 
-        # cpu.reset()
-        # cpu.duerme(self.seconds / self.rapidez)
-        # cpu.runLineal()
-
-    def muestraPausa(self, si_pausa, si_continue):
+    def show_pause(self, si_pausa, si_continue):
         self.main_window.show_option_toolbar(TB_PAUSE_REPLAY, si_pausa)
         self.main_window.show_option_toolbar(TB_CONTINUE_REPLAY, si_continue)
-        self.main_window.show_option_toolbar(TB_CHANGE, not si_pausa)
+        # self.main_window.show_option_toolbar(TB_SETTINGS, not si_pausa)
 
     def process_toolbar(self, key):
         if key == TB_END_REPLAY:
@@ -234,23 +238,28 @@ class Replay:
         elif key == TB_REPEAT_REPLAY:
             self.repetir()
         elif key == TB_PGN_REPLAY:
-            self.siPGN = not self.siPGN
+            self.with_pgn = not self.with_pgn
             self.show_information()
 
-        elif key == TB_CHANGE:
-            resp = param_replay(self.procesador.configuration, self.main_window)
-            if resp is not None:
-                self.seconds, self.if_start, self.siPGN, self.if_beep, seconds_before = resp
+        elif key == TB_SETTINGS:
+            self.pausa()
+            if param_replay(self.procesador.configuration, self.main_window, False):
+                dic_var = read_params()
+                self.seconds = dic_var["SECONDS"]
+                self.if_start = dic_var["START"]
+                self.with_pgn = dic_var["PGN"]
+                self.if_beep = dic_var["BEEP"]
+                self.seconds_before = dic_var["SECONDS_BEFORE"]
 
     def terminar(self):
-        self.siStop = True
+        self.stopped = True
         self.main_window.pon_toolbar(self.antAcciones)
         self.manager.ponRutinaAccionDef(None)
         self.manager.xpelicula = None
         if self.previous_visible_capturas:
             self.main_window.siCapturas = True
-        if not self.siPGN:
-            self.siPGN = True
+        if not self.with_pgn:
+            self.with_pgn = True
             self.show_information()
 
     def lento(self):
@@ -260,29 +269,46 @@ class Replay:
         self.rapidez *= 1.2
 
     def pausa(self):
-        self.siStop = True
-        self.muestraPausa(False, True)
+        self.stopped = True
+        self.show_pause(False, True)
 
     def seguir(self):
         num_moves, self.current_position, filaInicial, is_white = self.manager.jugadaActual()
         self.current_position += 1
-        self.siStop = False
-        self.muestraPausa(True, False)
+        self.stopped = False
+        self.show_pause(True, False)
         self.show_current()
 
     def repetir(self):
         self.current_position = 0 if self.if_start else self.jugInicial
-        self.muestraPausa(True, False)
-        if self.siStop:
-            self.siStop = False
+        self.show_pause(True, False)
+        if self.stopped:
+            self.stopped = False
             self.show_current()
 
     def skip(self):
-        if self.siStop:
+        if self.stopped:
             return
         self.current_position += 1
         if self.current_position >= self.num_moves:
-            self.siStop = True
-            self.muestraPausa(False, False)
+            if self.next_game:
+                if self.next_game():
+                    self.jugInicial = 0
+                    self.current_position = 0
+                    self.initial_position = 0
+                    self.if_start = True
+                    self.antAcciones = self.main_window.get_toolbar()
+                    self.main_window.pon_toolbar(self.li_acciones, separator=False)
+                    self.li_moves = self.manager.game.li_moves
+                    self.num_moves = len(self.li_moves)
+                    if self.seconds_before > 0.0:
+                        move = self.li_moves[self.current_position]
+                        self.board.set_position(move.position_before)
+                        if not self.sleep_refresh(self.seconds_before):
+                            return
+                    self.show_current()
+                    return
+            self.stopped = True
+            self.show_pause(False, False)
         else:
             self.show_current()

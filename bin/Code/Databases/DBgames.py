@@ -356,18 +356,6 @@ class DBgames:
 
         self.remove_list_recnos(li_recnos)
 
-
-
-
-
-
-
-
-
-
-
-
-
     def get_summary(self, pvBase, dicAnalisis, with_figurines, allmoves=True):
         return self.db_stat.get_summary(pvBase, dicAnalisis, with_figurines, allmoves) if self.with_db_stat else []
 
@@ -455,24 +443,43 @@ class DBgames:
                 return
 
     def yield_polyglot(self):
-        select = "XPV"
-        si_result = "RESULT" in self.li_fields
-        if si_result:
-            select += ",RESULT"
+        selected_fields = ["XPV"]
+
+        def select_field(name):
+            if name in self.li_fields:
+                selected_fields.append(name)
+                return True
+            return False
+
+        si_result = select_field("RESULT")
+        si_white = select_field("WHITE")
+        si_black = select_field("BLACK")
+        select = ",".join(selected_fields)
         sql = "SELECT %s FROM Games" % (select,)
 
         if self.filter:
             sql += " WHERE %s" % self.filter
 
         cursor = self.conexion.execute(sql)
+        result = "*"
+        white = ""
+        black = ""
         while True:
             li_rows = cursor.fetchmany(10_000)
             if li_rows:
                 for row in li_rows:
+                    xpv = row[0]
+                    pos = 1
                     if si_result:
-                        yield row
-                    else:
-                        yield row[0], "*"
+                        result = row[pos]
+                        pos += 1
+                    if si_white:
+                        white = row[pos]
+                        pos += 1
+                    if si_black:
+                        black = row[pos]
+
+                    yield xpv, result, white, black
             else:
                 return
 
@@ -585,7 +592,8 @@ class DBgames:
         self.conexion.commit()
         self.li_fields.append(column)
 
-    def import_pgns(self, ficheros, dlTmp):
+    def import_pgns(self, ficheros, dl_tmp):
+
         erroneos = duplicados = importados = 0
 
         allows_fen = self.allows_positions
@@ -624,7 +632,7 @@ class DBgames:
             nomfichero = os.path.basename(file)
             fich_erroneos = os.path.join(Code.configuration.carpetaTemporal(), nomfichero[:-3] + "errors.pgn")
             fich_duplicados = os.path.join(Code.configuration.carpetaTemporal(), nomfichero[:-3] + "duplicates.pgn")
-            dlTmp.pon_titulo(nomfichero)
+            dl_tmp.pon_titulo(nomfichero)
             next_n = random.randint(1000, 2000)
 
             obj_decode.read_file(file)
@@ -634,7 +642,7 @@ class DBgames:
                 for n, (body, is_raw, pv, fens, bdCab, bdCablwr, btell) in enumerate(fpgn, 1):
                     if n == next_n:
                         if time.time() - t1 > 0.8:
-                            if not dlTmp.actualiza(
+                            if not dl_tmp.actualiza(
                                     erroneos + duplicados + importados,
                                     erroneos,
                                     duplicados,
@@ -745,10 +753,10 @@ class DBgames:
                         conexion.commit()
                         if self.with_db_stat:
                             self.db_stat.commit()
-            if dlTmp.is_canceled:
+            if dl_tmp.is_canceled:
                 break
-        dlTmp.actualiza(erroneos + duplicados + importados, erroneos, duplicados, importados, 100.00)
-        dlTmp.ponSaving()
+        dl_tmp.actualiza(erroneos + duplicados + importados, erroneos, duplicados, importados, 100.00)
+        dl_tmp.ponSaving()
 
         if li_regs:
             conexion.executemany(sql, li_regs)
@@ -758,13 +766,14 @@ class DBgames:
             self.db_stat.massive_append_set(False)
             self.db_stat.commit()
         conexion.commit()
-        dlTmp.ponContinuar()
+
+        dl_tmp.ponContinuar()
 
         self.save_config("dcabs", dcabs)
 
         return si_cols_cambiados
 
-    def append_db(self, db, liRecnos, dlTmp):
+    def append_db(self, db, liRecnos, dl_tmp):
         erroneos = duplicados = importados = 0
 
         allows_fen = self.allows_positions
@@ -802,7 +811,7 @@ class DBgames:
         for btell, recno in enumerate(liRecnos):
             if btell == next_n:
                 if time.time() - t1 > 0.9:
-                    if not dlTmp.actualiza(
+                    if not dl_tmp.actualiza(
                             erroneos + duplicados + importados, erroneos, duplicados, importados, btell * 100.0 / bsize
                     ):
                         break
@@ -859,15 +868,15 @@ class DBgames:
                 if self.with_db_stat:
                     self.db_stat.commit()
 
-        dlTmp.actualiza(erroneos + duplicados + importados, erroneos, duplicados, importados, 100.00)
-        dlTmp.ponSaving()
+        dl_tmp.actualiza(erroneos + duplicados + importados, erroneos, duplicados, importados, 100.00)
+        dl_tmp.ponSaving()
         if liRegs:
             conexion.executemany(sql, liRegs)
         if self.with_db_stat:
             self.db_stat.massive_append_set(False)
             self.db_stat.commit()
         conexion.commit()
-        dlTmp.ponContinuar()
+        dl_tmp.ponContinuar()
         return si_cols_cambiados
 
     def check_game(self, game):

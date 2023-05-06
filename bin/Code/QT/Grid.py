@@ -533,10 +533,7 @@ class Grid(QtWidgets.QTableView):
         """
         Calcula el ancho que corresponde a todas las columnas mostradas.
         """
-        ancho = 0
-        for n, column in enumerate(self.oColumnasR.li_columns):
-            ancho += column.ancho
-        return ancho
+        return sum(self.columnWidth(n) for n in range(len(self.oColumnasR.li_columns)))
 
     def fixMinWidth(self):
         nAncho = self.anchoColumnas() + 24

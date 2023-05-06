@@ -120,12 +120,16 @@ class Eboard:
                 path_so = os.path.join(path_eboards, "libcer.so")
             elif Code.configuration.x_digital_board == "Chessnut":
                 path_so = os.path.join(path_eboards, "libnut.so")
+            elif Code.configuration.x_digital_board == "Pegasus":
+                path_so = os.path.join(path_eboards, "libpeg.so")
             elif Code.configuration.x_digital_board == "Millennium":
                 path_so = os.path.join(path_eboards, "libmcl.so")
             elif Code.configuration.x_digital_board == "Citrine":
                 path_so = os.path.join(path_eboards, "libcit.so")
             elif Code.configuration.x_digital_board == "Saitek":
                 path_so = os.path.join(path_eboards, "libosa.so")
+            elif Code.configuration.x_digital_board == "Square Off":
+                path_so = os.path.join(path_eboards, "libsop.so")
             elif Code.configuration.x_digital_board == "Tabutronic":
                 path_so = os.path.join(path_eboards, "libtab.so")
             else:

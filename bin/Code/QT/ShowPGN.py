@@ -158,7 +158,7 @@ class ShowPGN(QtWidgets.QScrollArea):
                     pgn_work += '<span style="%s">%d.</span>' % (style_number, num_move)
                     num_move += 1
 
-                xp = var_move.pgn_html_base(self.with_figurines) + var_move.resto(with_variations=False)
+                xp = var_move.pgn_html_base(self.with_figurines) + var_move.resto(with_variations=False, with_nag_symbols=True)
 
                 link = "%s|%d" % (base_select, nvar_move)
                 style = style_select if link == selected_link else style_moves

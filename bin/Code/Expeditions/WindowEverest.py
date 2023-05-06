@@ -105,11 +105,11 @@ class WNewExpedition(LCDialog.LCDialog):
 
         path_db = self.configuration.ficheroTemporal("lcdb")
         db = DBgames.DBgames(path_db)
-        dlTmp = QTVarios.ImportarFicheroPGN(self)
-        dlTmp.show()
-        db.import_pgns([path_pgn], dlTmp=dlTmp)
+        dl_tmp = QTVarios.ImportarFicheroPGN(self)
+        dl_tmp.show()
+        db.import_pgns([path_pgn], dl_tmp=dl_tmp)
         db.close()
-        dlTmp.close()
+        dl_tmp.close()
 
         db = DBgames.DBgames(path_db)
         nreccount = db.all_reccount()

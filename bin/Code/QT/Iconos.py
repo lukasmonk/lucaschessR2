@@ -51,6 +51,12 @@ def pmMensEspera():
 def MensEspera():
     return iget("MensEspera")
 
+def pmPreferencias():
+    return iget("pmPreferencias")
+
+def Preferencias():
+    return iget("Preferencias")
+
 def pmUtilidades():
     return iget("pmUtilidades")
 
@@ -698,6 +704,12 @@ def pmPelicula():
 
 def Pelicula():
     return iget("Pelicula")
+
+def pmPelicula16():
+    return iget("pmPelicula16")
+
+def Pelicula16():
+    return iget("Pelicula16")
 
 def pmPelicula_Pausa():
     return iget("pmPelicula_Pausa")
@@ -3003,6 +3015,12 @@ def pmRodent():
 def Rodent():
     return iget("Rodent")
 
+def pmKomodo():
+    return iget("pmKomodo")
+
+def Komodo():
+    return iget("Komodo")
+
 def pmLeague():
     return iget("pmLeague")
 
@@ -3086,3 +3104,9 @@ def pmCrosstable():
 
 def Crosstable():
     return iget("Crosstable")
+
+def pmCarousel():
+    return iget("pmCarousel")
+
+def Carousel():
+    return iget("Carousel")

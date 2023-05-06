@@ -233,6 +233,7 @@ class WKibitzers(LCDialog.LCDialog):
             menu.separador()
         if si_gaviota:
             menu.opcion(("gaviota", None), _("Gaviota Tablebases"), Iconos.Finales())
+            menu.separador()
 
         resp = menu.lanza()
         if resp:

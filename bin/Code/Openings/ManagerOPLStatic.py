@@ -177,11 +177,11 @@ class ManagerOpeningLinesStatic(ManagerOPL.ManagerOpeningLines):
 
     def muestraAyuda(self):
         pv = self.li_pv[len(self.game)]
-        self.board.creaFlechaMov(pv[:2], pv[2:4], "mt80")
+        self.board.show_arrow_mov(pv[:2], pv[2:4], "mt", opacity=0.80)
         fenm2 = self.game.last_position.fenm2()
         for pv1 in self.dicFENm2[fenm2]:
             if pv1 != pv:
-                self.board.creaFlechaMov(pv1[:2], pv1[2:4], "ms40")
+                self.board.show_arrow_mov(pv1[:2], pv1[2:4], "ms", opacity=0.40)
 
     def run_action(self, key):
         if key == TB_CLOSE:

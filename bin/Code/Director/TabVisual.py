@@ -99,7 +99,7 @@ class GTarea:
         reg = {}
         for atr in dir(self):
             if atr.startswith("_") and not atr.startswith("__"):
-                if atr == "_itemSC":
+                if atr == "_itemSC" and self._itemSC:
                     reg["_bloqueDatos"] = self._itemSC.bloqueDatos
                 else:
                     valor = getattr(self, atr)
@@ -148,7 +148,12 @@ class GT_Item(GTarea):
             self._name = name
         if self._name:
             return self._name
-        return self._name if self._name else getattr(self._itemSC.bloqueDatos, "name", "")
+        if self._name:
+            return self._name
+        if self._itemSC and self._itemSC.bloqueDatos and getattr(self._itemSC.bloqueDatos, "name"):
+            if self._itemSC.bloqueDatos.name:
+                return self._itemSC.bloqueDatos.name
+        return self._bloqueDatos.name
 
     def coordina(self):
         if self.xitemSCOwner:
@@ -208,7 +213,10 @@ class GT_Flecha(GT_Item):
         return _("Arrow")
 
     def info(self):
-        bd = self._itemSC.bloqueDatos
+        if self._itemSC:
+            bd = self._itemSC.bloqueDatos
+        else:
+            bd = self._bloqueDatos
         return bd.a1h8
 
     def run(self):
@@ -250,8 +258,10 @@ class GT_Circle(GT_Item):
         return _("Circle")
 
     def info(self):
-        bd = self._itemSC.bloqueDatos
-        return bd.a1h8
+        if self._itemSC:
+            bd = self._itemSC.bloqueDatos
+            return bd.a1h8
+        return self._bloqueDatos.a1h8
 
     def run(self):
         if self._itemSC:
@@ -794,9 +804,8 @@ class Guion:
 
 class DBManagerVisual:
     def __init__(self, file, show_always=False, save_always=False):
-        self._dbFEN = (
-            self._dbConfig
-        ) = self._dbFlechas = self._dbMarcos = self._dbSVGs = self._dbMarkers = self._dbCircles = None
+        self._dbFEN = self._dbConfig = None
+        self._dbFlechas = self._dbMarcos = self._dbSVGs = self._dbMarkers = self._dbCircles = None
         self._show_always = show_always
         self._save_always = save_always
         self.set_file(file)

@@ -120,14 +120,17 @@ class ThanksTo:
                 el_txt += "Michele Tumbarello, "
             n = 0
             for uno in li_basex:
-                if n >= 100:
+                if n >= 110:
                     el_txt += "<br>"
                     n = 0
                 el_txt += uno + ", "
-                n += len(uno)
+                elem = uno
+                if ">" in elem:
+                    elem = elem.split(">")[1].split("<")[0]
+                n += len(elem)
 
             mtxt += self.dl_elem(el_txt[:-2]) + "<hr>"
-            return mtxt
+            return mtxt.replace(", ,", ",")
 
         # Version R
         li_base = [
@@ -137,6 +140,8 @@ class ThanksTo:
             '<a href="https://github.com/futurelauncher">futurelauncher</a>',
             "Reinhard",
             "Olav Stüwe",
+            '<a href="http://99-developer-tools.com/chess/">A. Wicker</a>',
+            ""
         ]
         li_resto = []
         txt += version("R", li_base, li_resto, False)

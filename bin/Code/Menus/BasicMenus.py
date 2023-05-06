@@ -90,15 +90,16 @@ def menu_tools_savemenu(procesador, dic_data=None):
     savemenu.separador()
 
     menu1 = savemenu.submenu(_("Engines"), Iconos.Engines())
-    menu1.opcion("torneos", _("Tournaments between engines"), Iconos.Torneos())
+    menu1.opcion("conf_engines", _("Engines configuration"), Iconos.ConfEngines())
     menu1.separador()
     menu1.opcion("sts", _("STS: Strategic Test Suite"), Iconos.STS())
     menu1.separador()
     menu1.opcion("kibitzers", _("Kibitzers"), Iconos.Kibitzer())
     menu1.separador()
+    menu1.opcion("torneos", _("Tournaments between engines"), Iconos.Torneos())
+    menu1.separador()
     menu1.opcion("leagues", _("Chess leagues"), Iconos.League())
     menu1.separador()
-    menu1.opcion("conf_engines", _("Engines configuration"), Iconos.ConfEngines())
 
     savemenu.separador()
 

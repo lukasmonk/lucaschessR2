@@ -319,7 +319,7 @@ class ManagerFideFics(Manager.Manager):
                     # comment = "%s: %s" % (_("Same book move"), jgObj.pgn_translated())
                     # else:
                     bmove = _("book move")
-                    comment = "%s: %s %s\n%s: %s %s" % (
+                    comment = "%s: %s %s<br>%s: %s %s" % (
                         self.nombreObj,
                         jgObj.pgn_translated(),
                         bmove,
@@ -452,7 +452,7 @@ class ManagerFideFics(Manager.Manager):
         mensaje += "<br><br>%s : %d<br>" % (self._newTitulo, self._activo())
 
         self.message_on_pgn(mensaje)
-        self.ponFinJuego()
+        self.set_end_game()
 
     def historial(self, elo, nelo):
         dic = {}

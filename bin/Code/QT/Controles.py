@@ -95,7 +95,7 @@ class ED(QtWidgets.QLineEdit):
         return self
 
     def ponTipoLetra(
-        self, name="", puntos=8, peso=50, is_italic=False, is_underlined=False, is_striked=False, txt=None
+            self, name="", puntos=8, peso=50, is_italic=False, is_underlined=False, is_striked=False, txt=None
     ):
         f = TipoLetra(name, puntos, peso, is_italic, is_underlined, is_striked, txt)
         self.setFont(f)
@@ -326,7 +326,7 @@ class LB(QtWidgets.QLabel):
         return self
 
     def ponTipoLetra(
-        self, name="", puntos=8, peso=50, is_italic=False, is_underlined=False, is_striked=False, txt=None
+            self, name="", puntos=8, peso=50, is_italic=False, is_underlined=False, is_striked=False, txt=None
     ):
         f = TipoLetra(name, puntos, peso, is_italic, is_underlined, is_striked, txt)
         self.setFont(f)
@@ -436,7 +436,7 @@ class PB(QtWidgets.QPushButton):
         return self
 
     def ponTipoLetra(
-        self, name="", puntos=8, peso=50, is_italic=False, is_underlined=False, is_striked=False, txt=None
+            self, name="", puntos=8, peso=50, is_italic=False, is_underlined=False, is_striked=False, txt=None
     ):
         f = TipoLetra(name, puntos, peso, is_italic, is_underlined, is_striked, txt)
         self.setFont(f)
@@ -508,7 +508,7 @@ class GB(QtWidgets.QGroupBox):
         return self
 
     def ponTipoLetra(
-        self, name="", puntos=8, peso=50, is_italic=False, is_underlined=False, is_striked=False, txt=None
+            self, name="", puntos=8, peso=50, is_italic=False, is_underlined=False, is_striked=False, txt=None
     ):
         f = TipoLetra(name, puntos, peso, is_italic, is_underlined, is_striked, txt)
         self.setFont(f)
@@ -605,7 +605,7 @@ class EM(QtWidgets.QTextEdit):
         return self
 
     def ponTipoLetra(
-        self, name="", puntos=8, peso=50, is_italic=False, is_underlined=False, is_striked=False, txt=None
+            self, name="", puntos=8, peso=50, is_italic=False, is_underlined=False, is_striked=False, txt=None
     ):
         f = TipoLetra(name, puntos, peso, is_italic, is_underlined, is_striked, txt)
         self.setFont(f)
@@ -686,7 +686,7 @@ class Menu(QtWidgets.QMenu):
         return self
 
     def ponTipoLetra(
-        self, name="", puntos=8, peso=50, is_italic=False, is_underlined=False, is_striked=False, txt=None
+            self, name="", puntos=8, peso=50, is_italic=False, is_underlined=False, is_striked=False, txt=None
     ):
         f = TipoLetra(name, puntos, peso, is_italic, is_underlined, is_striked, txt)
         self.setFont(f)
@@ -824,7 +824,7 @@ class TBrutina(QtWidgets.QToolBar):
     """
 
     def __init__(
-        self, parent, li_acciones=None, with_text=True, icon_size=None, puntos=None, background=None, style=None
+            self, parent, li_acciones=None, with_text=True, icon_size=None, puntos=None, background=None, style=None
     ):
 
         QtWidgets.QToolBar.__init__(self, "BASIC", parent)
@@ -834,8 +834,6 @@ class TBrutina(QtWidgets.QToolBar):
                 icon_size = 16
         elif with_text:
             self.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
-        # else:
-        #     self.setToolButtonStyle(QtCore.Qt.ToolButtonIconOnly)
 
         tam = 32 if icon_size is None else icon_size
         self.setIconSize(QtCore.QSize(tam, tam))
@@ -971,7 +969,7 @@ class Tab(QtWidgets.QTabWidget):
         return self
 
     def ponTipoLetra(
-        self, name="", puntos=8, peso=50, is_italic=False, is_underlined=False, is_striked=False, txt=None
+            self, name="", puntos=8, peso=50, is_italic=False, is_underlined=False, is_striked=False, txt=None
     ):
         f = TipoLetra(name, puntos, peso, is_italic, is_underlined, is_striked, txt)
         self.setFont(f)

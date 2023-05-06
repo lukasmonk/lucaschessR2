@@ -410,7 +410,7 @@ class WHorses(LCDialog.LCDialog):
         for x in range(len(li) - 1):
             d = FasterCode.pos_a1(li[x])
             h = FasterCode.pos_a1(li[x + 1])
-            self.board.creaFlechaMov(d, h, "2")
+            self.board.show_arrow_mov(d, h, "2")
         self.nayuda += 1
         self.board.refresh()
 

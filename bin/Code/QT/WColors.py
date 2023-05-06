@@ -3,8 +3,8 @@ from PySide2 import QtWidgets, QtCore, QtGui
 import Code
 from Code import Util
 from Code.QT import Colocacion
-from Code.QT import Controles
 from Code.QT import Columnas
+from Code.QT import Controles
 from Code.QT import Grid
 from Code.QT import Iconos
 from Code.QT import LCDialog
@@ -37,6 +37,63 @@ class WColors(LCDialog.LCDialog):
 
         self.li_ctrl_z = []
 
+        self.translation = {
+            "border": _("Border"),
+            "color": _("Color"),
+            "border-color": _("Border"),
+            "background-color": _("Background"),
+            "background": _("Background"),
+            "Background": _("Background"),
+            "foreground": _("Foreground"),
+            "Foreground": _("Foreground"),
+            "No result": _("No result"),
+            "Moves in PGN table": _("Moves in PGN table"),
+            "Selected move in PGN table": _("Selected move in PGN table"),
+            "Windows with PGN": _("Windows with PGN"),
+            "Numbers": _("Numbers"),
+            "Selected move": _("Selected move"),
+            "Other moves": _("Other moves"),
+            "Various": _("Various"),
+            "Ephemeral message window": _("Ephemeral message window"),
+            "alternate-background-color": _("Alternate background color"),
+            "Links": _("Links"),
+            "Brilliant move": _("Brilliant move"),
+            "Good move": _("Good move"),
+            "Interesting move": _("Interesting move"),
+            "Dubious move": _("Dubious move"),
+            "Mistake": _("Mistake"),
+            "Blunder": _("Blunder"),
+            "Messages in the middle of some boards (coordinate training/captures/...)": _(
+                "Messages in the middle of some boards (coordinate training/captures/...)"),
+            "Engines that change of division": _("Engines that change of division"),
+            "Configuration, selected engines, 1st division": _("Configuration, selected engines, 1st division"),
+            "Configuration, selected engines, 2nd division": _("Configuration, selected engines, 2nd division"),
+            "Configuration, selected engines, 3rd division": _("Configuration, selected engines, 3rd division"),
+            "Even lines": _("Even lines"),
+            "Odd lines": _("Odd lines"),
+            "Line numbers": _("Line numbers"),
+            "Stage foreground": _("Stage foreground"),
+            "Stage background": _("Stage background"),
+            "Track foreground": _("Track foreground"),
+            "Track background": _("Track background"),
+            "State foreground": _("State foreground"),
+            "State background": _("State background"),
+            "Next task foreground": _("Next task foreground"),
+            "Background colour of next task if playing": _("Background colour of next task if playing"),
+            "Background colour of next task if endings": _("Background colour of next task if endings"),
+            "Background colour of next task if tactical": _("Background colour of next task if tactical"),
+            "Time foreground": _("Time foreground"),
+            "Time background": _("Time background"),
+            "Date foreground": _("Date foreground"),
+            "Date background": _("Date background"),
+            "Border when enable": _("Border when enable"),
+            "Foreground when enable": _("Foreground when enable"),
+            "Background when enable": _("Background when enable"),
+            "Border when disable": _("Border when disable"),
+            "Foreground when disable": _("Foreground when disable"),
+            "Background when disable": _("Background when disable"),
+        }
+
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("NAME", _("Name"), 340)
         o_columns.nueva("ORIGINAL", _("Original"), 120, align_center=True)
@@ -45,10 +102,9 @@ class WColors(LCDialog.LCDialog):
         self.grid.setMinimumWidth(self.grid.anchoColumnas() + 20)
 
         status = Controles.LB(
-            self,
-            "[Mouse Double click] in column CURRENT to change color"
-            "\n[Mouse double click] in column ORIGINAL to change all with this color"
-            "\n[DEL key] in column CURRENT to remove change",
+            self, "%s\n%s\n%s" % (_("[Mouse Double click] in column CURRENT to change color"),
+                                  _("[Mouse double click] in column ORIGINAL to change all with this color"),
+                                  _("[DEL key] in column CURRENT to remove change"))
         )
 
         # Tool bar
@@ -69,7 +125,8 @@ class WColors(LCDialog.LCDialog):
         self.setLayout(ly)
 
         self.register_grid(self.grid)
-        self.restore_video()
+        self.grid.resizeColumnToContents(0)
+        self.restore_video(anchoDefecto=self.grid.anchoColumnas()+24, altoDefecto=QTUtil.altoEscritorio()*2//3)
 
         self.grid.gotop()
         for row, (is_head, key, value) in enumerate(self.li_colors):
@@ -150,13 +207,19 @@ class WColors(LCDialog.LCDialog):
         col = o_column.key
         is_head, key, value = self.li_colors[row]
         if col == "NAME":
-            if value.count("|"):
-                uno, dos = value.split("|")
-                return _F(uno) + " " + _F(dos)
-            if value.count("+") == 1:
-                uno, dos = value.split("+")
-                return _F(uno) + " - " + _F(dos)
-            return _F(value)
+            def trans(x):
+                if _F(x) != x:
+                    return _F(x)
+                if x in self.translation:
+                    return self.translation[x]
+                for c in "|+ ":
+                    if x.count(c) == 1:
+                        uno, dos = x.split(c)
+                        return trans(uno) + " " + trans(dos)
+                return _F(x)
+
+            return trans(value)
+
         elif col == "PERSONAL":
             return "" if key in self.dic_personal else "--"
 

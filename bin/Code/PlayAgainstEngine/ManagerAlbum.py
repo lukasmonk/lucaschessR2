@@ -142,7 +142,7 @@ class ManagerAlbum(Manager.Manager):
             if not QTUtil2.pregunta(self.main_window, _("Do you want to resign?")):
                 return False  # no abandona
             self.game.resign(self.is_human_side_white)
-            self.ponFinJuego()
+            self.set_end_game()
             self.xrival.cerrar()
             self.set_toolbar((TB_CLOSE, TB_CONFIG, TB_UTILITIES))
             self.autosave()
@@ -245,7 +245,7 @@ class ManagerAlbum(Manager.Manager):
                     mensaje += "\n\n%s" % _X(_("Now you can play with album %1"), _F(nuevo))
 
         self.mensaje(mensaje)
-        self.ponFinJuego()
+        self.set_end_game()
         self.xrival.cerrar()
         self.autosave()
         self.set_toolbar((TB_CLOSE, TB_CONFIG, TB_UTILITIES))

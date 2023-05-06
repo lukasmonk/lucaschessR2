@@ -229,9 +229,9 @@ class WConfTactics(QtWidgets.QWidget):
         def tb_gen(prev):
             li_acciones = (
                 (_("Add"), ico_mas, "%s_add" % prev),
-                (_("Delete"), ico_menos, "%s_delete" % prev),
+                (_("Remove"), ico_menos, "%s_delete" % prev),
                 None,
-                (_("Delete all"), ico_cancel, "%s_delete_all" % prev),
+                (_("Remove all"), ico_cancel, "%s_delete_all" % prev),
                 None,
                 (_("Reset"), ico_reset, "%s_reset" % prev),
                 None,

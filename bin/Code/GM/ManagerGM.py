@@ -144,7 +144,7 @@ class ManagerGM(Manager.Manager):
         siJugadas = len(self.game) > 0
         if siJugadas and self.state != ST_ENDGAME:
             self.game.set_unknown()
-            self.ponFinJuego()
+            self.set_end_game()
         self.procesador.start()
 
         return False

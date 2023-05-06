@@ -437,11 +437,11 @@ class Transsiberian:
                 litxt.append(_("You must win to pass this step."))
             else:
                 litxt.append(_("You don't need to win to pass this step."))
-            return "<br>".join(litxt), "#597272"
+            return "<br>".join(litxt), Code.dic_colors["ROUTES_NEXTTASK_BACKGROUND_PLAYING"]
         elif state == ENDING:
-            return _("You must solve an endgame puzzle"), "Brown"
+            return _("You must solve an endgame puzzle"), Code.dic_colors["ROUTES_NEXTTASK_BACKGROUND_ENDINGS"]
         else:
-            return _("You must solve tactics puzzles to advance."), "#807C6E"
+            return _("You must solve tactics puzzles to advance."), Code.dic_colors["ROUTES_NEXTTASK_BACKGROUND_TACTICS"]
 
     def get_tactic(self):
         if self._pos_tactics >= len(self.liPosTactics):

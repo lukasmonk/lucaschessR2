@@ -62,8 +62,8 @@ class WKibCommon(QtWidgets.QDialog):
             self.game.shrink(nmoves - 2)
             self.reset()
 
-    def save_video(self):
-        dic = {}
+    def save_video(self, dic_extended=None):
+        dic = dic_extended if dic_extended else {}
 
         pos = self.pos()
         dic["_POSICION_"] = "%d,%d" % (pos.x(), pos.y())
@@ -83,15 +83,16 @@ class WKibCommon(QtWidgets.QDialog):
 
     def restore_video(self, dicVideo):
         if dicVideo:
-            wE, hE = QTUtil.tamEscritorio()
-            x, y = dicVideo["_POSICION_"].split(",")
-            x = int(x)
-            y = int(y)
-            if not (0 <= x <= (wE - 50)):
-                x = 0
-            if not (0 <= y <= (hE - 50)):
-                y = 0
-            self.move(x, y)
+            w_e, h_e = QTUtil.tamEscritorio()
+            if "_POSICION_" in dicVideo:
+                x, y = dicVideo["_POSICION_"].split(",")
+                x = int(x)
+                y = int(y)
+                if not (0 <= x <= (w_e - 50)):
+                    x = 0
+                if not (0 <= y <= (h_e - 50)):
+                    y = 0
+                self.move(x, y)
             if not ("_SIZE_" in dicVideo):
                 w, h = self.width(), self.height()
                 for k in dicVideo:
@@ -101,12 +102,12 @@ class WKibCommon(QtWidgets.QDialog):
                 w, h = dicVideo["_SIZE_"].split(",")
             w = int(w)
             h = int(h)
-            if w > wE:
-                w = wE
+            if w > w_e:
+                w = w_e
             elif w < 20:
                 w = 20
-            if h > hE:
-                h = hE
+            if h > h_e:
+                h = h_e
             elif h < 20:
                 h = 20
             self.resize(w, h)

@@ -2,6 +2,7 @@ from Code import Util
 from Code.QT import Colocacion, Columnas, Controles, Grid, Iconos, QTUtil2, QTVarios
 from Code.QT import LCDialog
 
+from Code.Coordinates import CoordinatesConfig
 from Code.Coordinates import CoordinatesBlocks
 from Code.Coordinates import WRunCoordinatesBlocks
 
@@ -12,17 +13,18 @@ class WCoordinatesBlocks(LCDialog.LCDialog):
         path = configuration.file_coordinates()
         title = _("Coordinates by blocks")
         icon = Iconos.Blocks()
-        extconfig = "coordinatesbyblocks"
-        self.db = CoordinatesBlocks.DBCoordinatesBlocks(path)
-
+        extconfig = "coordinatesbyblocks_2"
         LCDialog.LCDialog.__init__(self, procesador.main_window, title, icon, extconfig)
+
+        self.db = CoordinatesBlocks.DBCoordinatesBlocks(path)
+        self.config = CoordinatesConfig.CoordinatesConfig()
 
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("DATE_INI", _("Start date"), 140, align_center=True)
         o_columns.nueva("DATE_END", _("End date"), 140, align_center=True)
         o_columns.nueva("DONE", _("Done"), 100, align_center=True)
         o_columns.nueva("TRIES", _("Tries"), 90, align_center=True)
-        o_columns.nueva("SCORE", _("Score"), 90, align_center=True)
+        o_columns.nueva("SCORE", _("Score"), 140, align_center=True)
         self.glista = Grid.Grid(self, o_columns, siSelecFilas=True, siSeleccionMultiple=True)
         f = Controles.TipoLetra(puntos=configuration.x_font_points)
         self.glista.ponFuente(f)
@@ -34,6 +36,8 @@ class WCoordinatesBlocks(LCDialog.LCDialog):
             None,
             (_("Remove"), Iconos.Borrar(), self.borrar),
             None,
+            (_("Config"), Iconos.Configurar(), self.config_change),
+            None,
         )
         tb = QTVarios.LCTB(self, li_acciones)
 
@@ -42,7 +46,7 @@ class WCoordinatesBlocks(LCDialog.LCDialog):
         self.setLayout(ly)
 
         self.register_grid(self.glista)
-        self.restore_video(anchoDefecto=self.glista.anchoColumnas() + 30)
+        self.restore_video(anchoDefecto=self.glista.anchoColumnas() + 30, altoDefecto=340)
 
         self.glista.gotop()
 
@@ -75,7 +79,7 @@ class WCoordinatesBlocks(LCDialog.LCDialog):
         elif col == "DONE":
             return "%d/%d" % (coordinate.current_block, coordinate.num_blocks())
         elif col == "SCORE":
-            return coordinate.min_score
+            return "%s=%d   %s=%d" % (_("White"), coordinate.min_score_white, _("Black"),coordinate.min_score_black)
 
     def closeEvent(self, event):  # Cierre con X
         self.save_video()
@@ -86,7 +90,10 @@ class WCoordinatesBlocks(LCDialog.LCDialog):
 
     def play(self):
         coord = self.db.last_coordinate()
-        w = WRunCoordinatesBlocks.WRunCoordinatesBlocks(self, self.db, coord)
+        w = WRunCoordinatesBlocks.WRunCoordinatesBlocks(self, self.db, coord, self.config)
         w.exec_()
         self.db.refresh()
         self.glista.refresh()
+
+    def config_change(self):
+        self.config.change(self)

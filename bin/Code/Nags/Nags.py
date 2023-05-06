@@ -16,11 +16,6 @@ NAG_0, NAG_1, NAG_2, NAG_3, NAG_4, NAG_5, NAG_6 = (
 )
 
 
-def html_nag_txt(nag):
-    dic_htm_lnags_txt = {NAG_1: "!", NAG_2: "?", NAG_3: "!!", NAG_4: "??", NAG_5: "!?", NAG_6: "?!"}
-    return dic_htm_lnags_txt.get(nag, "$%d" % nag)
-
-
 class Nag:
     def __init__(self, number, text, symbol):
         self.number = number
@@ -253,3 +248,14 @@ def nag_qcolor(num_nag):
     if NAG_0 < num_nag <= NAG_6:
         return QtGui.QColor(nag_color(num_nag))
     return None
+
+
+def html_nag_txt(nag):
+    dic_htm_lnags_txt = {NAG_1: "!", NAG_2: "?", NAG_3: "!!", NAG_4: "??", NAG_5: "!?", NAG_6: "?!"}
+    return dic_htm_lnags_txt.get(nag, "$%d" % nag)
+
+
+def html_nag_symbol(nag):
+    # dic_htm_lnags_txt = {NAG_1: "!", NAG_2: "?", NAG_3: "!!", NAG_4: "??", NAG_5: "!?", NAG_6: "?!"}
+    symbol = dic_symbol_nags(nag)
+    return symbol if symbol else "$%d" % nag

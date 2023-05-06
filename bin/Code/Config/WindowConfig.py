@@ -132,13 +132,15 @@ def options(parent, configuration):
     else:
         li_db = [
             (_("None"), ""),
-            (_("DGT") + x, "DGT-gon"),
             (_("Certabo") + x, "Certabo"),
             (_("Chessnut") + x, "Chessnut"),
+            (_("DGT") + x, "DGT-gon"),
+            (_("DGT Pegasus") + x, "Pegasus"),
             (_("Millennium") + x, "Millennium"),
             (_("Novag Citrine") + x, "Citrine"),
             (_("Novag UCB") + x, "Novag UCB"),
             (_("Saitek") + x, "Saitek"),
+            (_("Square Off Pro") + x, "Square Off"),
             (_("Tabutronic") + x, "Tabutronic"),
         ]
     form.combobox(_("Digital board"), li_db, configuration.x_digital_board)

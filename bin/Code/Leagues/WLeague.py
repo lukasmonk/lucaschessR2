@@ -96,7 +96,7 @@ class WLeague(LCDialog.LCDialog):
         sb = "◼  "
         for division in range(num_divisions):
             o_col = Columnas.ListaColumnas()
-            o_col.nueva("NAME", _("Opponent"), 150)
+            o_col.nueva("NAME", _("Player"), 150)
             o_col.nueva("PTS", _("Pts ||Points/score"), 50, align_center=True)
             o_col.nueva("PL", _("GP ||Games played"), 40, align_center=True)
             o_col.nueva("WIN", _("W ||Games won"), 50, align_center=True)

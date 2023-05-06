@@ -26,8 +26,9 @@ def check_code():
                         li1 = bloque.split('"')
                         if len(li1) == 1:
                             li1 = bloque.split("'")
-                        key = li1[1]
-                        st.add(key)
+                        if len(li1) >= 2:
+                            key = li1[1]
+                            st.add(key)
 
     def check_folder(path):
         for entry in os.scandir(path):

@@ -152,9 +152,12 @@ class Categorias:
         txt = ""
         for cat in self.lista:
             txt += cat.graba() + "|"
+        # txt = "PRINCIPIANTE,20,B|AFICIONADO,19,|CANDIDATOMAESTRO,18,|MAESTRO,17,|CANDIDATOGRANMAESTRO,16,|GRANMAESTRO,15,|"
+
         return txt.rstrip("|")
 
     def lee(self, txt):
+        # txt = "PRINCIPIANTE,3,B|AFICIONADO,0,|CANDIDATOMAESTRO,0,|MAESTRO,0,|CANDIDATOGRANMAESTRO,0,|GRANMAESTRO,0,|"
         for una in txt.split("|"):
             key = una.split(",")[0]
             for cat in self.lista:

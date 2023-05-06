@@ -223,7 +223,7 @@ class Personalities:
             for num, una in enumerate(li_personalities):
                 menuMod.opcion(("e", num), una["NOMBRE"], icoVerde)
             menu.separador()
-            menuBor = menu.submenu(_("Delete"), icoBorrar)
+            menuBor = menu.submenu(_("Remove"), icoBorrar)
             for num, una in enumerate(li_personalities):
                 menuBor.opcion(("b", num), una["NOMBRE"], icoRojo)
         resp = menu.lanza()

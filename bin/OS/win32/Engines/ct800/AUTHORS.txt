@@ -1,0 +1,9 @@
+2015 - 2022 Rasmus Althoff e-mail: info@ct800.net
+(debug, major changes, opening book, configuration, time controls, HMI,
+ ARM-port, Android-port, UCI)
+
+2010 - 2014 George Georgopoulos (baseline NGPlay v9.86)
+(for notices, see play.c)
+
+2015        Marcel van Kervinck (KPK endgame table logic)
+(for notices, see kpk.c)

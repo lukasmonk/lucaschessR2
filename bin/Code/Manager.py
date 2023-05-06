@@ -52,6 +52,7 @@ from Code.Base.Constantes import (
 from Code.Board import BoardTypes
 from Code.Databases import DBgames
 from Code.Engines import WConfEngines
+from Code.ForcingMoves import ForcingMoves
 from Code.Kibitzers import Kibitzers
 from Code.Openings import OpeningsStd
 from Code.QT import FormLayout
@@ -149,6 +150,8 @@ class Manager:
 
         self.with_eboard = len(self.configuration.x_digital_board) > 0
 
+        self.with_previous_next = False
+
         self.tc_white = TimeControl.TimeControl(self.main_window, self.game, WHITE)
         self.tc_black = TimeControl.TimeControl(self.main_window, self.game, BLACK)
 
@@ -162,7 +165,7 @@ class Manager:
         hoy = Util.today()
         self.game.set_tag("Date", "%d.%02d.%02d" % (hoy.year, hoy.month, hoy.day))
 
-    def ponFinJuego(self, with_takeback=False):
+    def set_end_game(self, with_takeback=False):
         self.main_window.thinking(False)
         self.runSound.close()
         if len(self.game):
@@ -290,15 +293,6 @@ class Manager:
             self.atajosRatonReset()
             return
 
-        # is_white = position.is_white
-        # num_moves, nj, row, is_white = self.jugadaActual()
-        # if nj < num_moves - 1:
-        #     self.atajosRatonReset()
-        #     liC = self.colect_candidates(a1h8)
-        #     self.board.show_candidates(liC)
-        #     return
-
-        # position = self.game.last_position
         FasterCode.set_fen(position.fen())
         li_moves = FasterCode.get_exmoves()
         if not li_moves:
@@ -1033,24 +1027,19 @@ class Manager:
             self.refresh()
 
     def replay(self):
-        resp = WReplay.param_replay(self.configuration, self.main_window)
-        if resp is None:
+        if not WReplay.param_replay(self.configuration, self.main_window, self.with_previous_next):
             return
 
-        seconds, if_start, if_pgn, if_beep, seconds_before = resp
+        if self.with_previous_next:
+            dic_var = WReplay.read_params()
+            if dic_var["REPLAY_CONTINUOUS"]:
+                getattr(self, "replay_continuous")()
+                return
 
-        self.xpelicula = WReplay.Replay(self, seconds, if_start, if_pgn, if_beep, seconds_before)
+        self.xpelicula = WReplay.Replay(self)
 
     def replay_direct(self):
-        dic = WReplay.read_params(self.configuration)
-        seconds, if_start, if_pgn, if_beep, seconds_before = (
-            dic["SECONDS"],
-            dic["START"],
-            dic["PGN"],
-            dic["BEEP"],
-            dic["SECONDS_BEFORE"],
-        )
-        self.xpelicula = WReplay.Replay(self, seconds, if_start, if_pgn, if_beep, seconds_before)
+        self.xpelicula = WReplay.Replay(self)
 
     def ponRutinaAccionDef(self, rutina):
         self.xRutinaAccionDef = rutina
@@ -1106,7 +1095,7 @@ class Manager:
                 for m in li:
                     d = m.xfrom()
                     h = m.xto()
-                    self.board.creaFlechaMov(d, h, "c")
+                    self.board.show_arrow_mov(d, h, "c")
             else:
                 self.board.remove_arrows()
                 if self.board.flechaSC:
@@ -1481,13 +1470,13 @@ class Manager:
         # Kibitzers
         if self.si_mira_kibitzers():
             menu.separador()
-            menuKibitzers = menu.submenu(_("Kibitzers"), Iconos.Kibitzer())
+            menu_kibitzers = menu.submenu(_("Kibitzers"), Iconos.Kibitzer())
 
             kibitzers = Kibitzers.Kibitzers()
             for huella, name, ico in kibitzers.lista_menu():
-                menuKibitzers.opcion("kibitzer_%s" % huella, name, ico)
-            menuKibitzers.separador()
-            menuKibitzers.opcion("kibitzer_edit", _("Edition"), Iconos.ModificarP())
+                menu_kibitzers.opcion("kibitzer_%s" % huella, name, ico)
+            menu_kibitzers.separador()
+            menu_kibitzers.opcion("kibitzer_edit", _("Maintenance"), Iconos.ModificarP())
 
             menu.separador()
             menu.opcion("play", _("Play current position"), Iconos.MoverJugar())
@@ -1496,16 +1485,16 @@ class Manager:
         if siJugadas:
             if not (self.game_type in (GT_ELO, GT_MICELO) and self.is_competitive and self.state == ST_PLAYING):
                 menu.separador()
-                nAnalisis = 0
+                n_analisis = 0
                 for move in self.game.li_moves:
                     if move.analysis:
-                        nAnalisis += 1
-                if nAnalisis > 4:
+                        n_analisis += 1
+                if n_analisis > 4:
                     submenu = menu.submenu(_("Analysis"), Iconos.Analizar())
                 else:
                     submenu = menu
                 submenu.opcion("analizar", _("Analyze"), Iconos.Analizar())
-                if nAnalisis > 4:
+                if n_analisis > 4:
                     submenu.separador()
                     submenu.opcion("analizar_grafico", _("Show graphics"), Iconos.Estadisticas())
                 menu.separador()
@@ -1532,6 +1521,15 @@ class Manager:
             menu.separador()
             menu.opcion("arbol", _("Moves tree"), Iconos.Arbol())
 
+        # Hints
+        menu.separador()
+        menu.opcion("forcing_moves", _("Find forcing moves"), Iconos.Thinking())
+
+        # Learn this game
+        if len(self.game) > 0:
+            menu.separador()
+            menu.opcion("learn_mem", _("Learn") + " - " + _("Memorizing their moves"), Iconos.LearnGame())
+
         # Mas Opciones
         if liMasOpciones:
             menu.separador()
@@ -1539,17 +1537,13 @@ class Manager:
             for key, label, icono in liMasOpciones:
                 if label is None:
                     if icono is None:
-                        # liMasOpciones.append((None, None, None))
                         submenu.separador()
                     else:
-                        # liMasOpciones.append((None, None, True))  # Para salir del submenu
                         submenu = menu
                 elif key is None:
-                    # liMasOpciones.append((None, titulo, icono))
                     submenu = menu.submenu(label, icono)
 
                 else:
-                    # liMasOpciones.append((key, titulo, icono))
                     submenu.opcion(key, label, icono)
             menu.separador()
 
@@ -1616,11 +1610,34 @@ class Manager:
             self.save_db(resp[4:])
 
         elif resp.startswith("fen"):
-            # extension = resp[:3]
             si_fichero = resp.endswith("file")
             self.save_fen(si_fichero)
 
+        elif resp == "forcing_moves":
+            self.forcing_moves()
+
+        elif resp == "learn_mem":
+            self.procesador.learn_game(self.game)
+
         return None
+
+    def forcing_moves(self):
+        fen = self.board.last_position.fen()
+        num_moves, nj, row, is_white = self.jugadaActual()
+        if num_moves and num_moves > (nj + 1):
+            move = self.game.move(nj + 1)
+            fen = self.board.last_position.fen()
+            if move.analysis:
+                mrm, pos = move.analysis
+                forcing_moves = ForcingMoves.ForcingMoves(self.board, mrm, self.main_window)
+                forcing_moves.fm_show_checklist()
+                return
+
+        self.main_window.pensando_tutor(True)
+        mrm = self.xtutor.analiza(fen)
+        self.main_window.pensando_tutor(False)
+        forcing_moves = ForcingMoves.ForcingMoves(self.board, mrm, self.main_window)
+        forcing_moves.fm_show_checklist()
 
     def message_on_pgn(self, mens, titulo=None, delayed=False):
         p0 = self.main_window.base.pgn.pos()
@@ -1938,30 +1955,6 @@ class Manager:
         Util.save_pickle(fich, dic)
 
         XRun.run_lucas("-play", fich)
-
-    def showPV(self, pv, nArrows):
-        if not pv:
-            return True
-        self.board.remove_arrows()
-        tipo = "ms"
-        opacity = 100
-        pv = pv.strip()
-        while "  " in pv:
-            pv = pv.replace("  ", " ")
-        lipv = pv.split(" ")
-        npv = len(lipv)
-        nbloques = min(npv, nArrows)
-        salto = (80 - 15) * 2 / (nbloques - 1) if nbloques > 1 else 0
-        cambio = max(30, salto)
-
-        for n in range(nbloques):
-            pv = lipv[n]
-            self.board.creaFlechaMov(pv[:2], pv[2:4], tipo + str(opacity))
-            if n % 2 == 1:
-                opacity -= cambio
-                cambio = salto
-            tipo = "ms" if tipo == "mt" else "mt"
-        return True
 
     def start_message(self, nomodal=False):
         mensaje = _("Press the continue button to start.")

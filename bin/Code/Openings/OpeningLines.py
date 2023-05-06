@@ -866,7 +866,7 @@ class Opening:
 
     def import_pgn(self, owner, gamebase, path_pgn, max_depth, with_variations, with_comments):
 
-        dlTmp = QTUtil2.BarraProgreso(owner, _("Import"), _("Working..."), Util.filesize(path_pgn)).mostrar()
+        dl_tmp = QTUtil2.BarraProgreso(owner, _("Import"), _("Working..."), Util.filesize(path_pgn)).mostrar()
 
         self.save_history(_("Import"), _("PGN with variations"), os.path.basename(path_pgn))
 
@@ -875,9 +875,9 @@ class Opening:
         base = gamebase.pv() if gamebase else self.getconfig("BASEPV")
 
         for n, (nbytes, game) in enumerate(Game.read_games(path_pgn)):
-            dlTmp.pon(nbytes)
+            dl_tmp.pon(nbytes)
 
-            if dlTmp.is_canceled():
+            if dl_tmp.is_canceled():
                 break
 
             li_pv = game.all_pv("", with_variations)
@@ -932,7 +932,7 @@ class Opening:
             self._conexion.execute(sql_insert, (xpv,))
         self._conexion.commit()
 
-        dlTmp.cerrar()
+        dl_tmp.cerrar()
         if with_comments and dic_comments:
             self.db_fenvalues.set_faster_mode()
             um = QTUtil2.unMomento(owner)

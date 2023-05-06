@@ -79,7 +79,7 @@ def dame_categoria(w_parent, configuration, procesador):
     menu.separador()
     menu_rival = menu.submenu(_("Change opponent"))
 
-    puntuacion = categorias.puntuacion()
+    # puntuacion = categorias.puntuacion()
 
     ico_no = Iconos.Motor_No()
     ico_si = Iconos.Motor_Si()
@@ -92,7 +92,7 @@ def dame_categoria(w_parent, configuration, procesador):
         if grupo.minPuntos > 0:
             name += " (+%d %s)" % (grupo.minPuntos, _("pts"))
 
-        si_des = grupo.minPuntos > puntuacion
+        si_des = grupo.minPuntos > dbm.puntuacion()
         if si_des:
             ico_g = grp_no
             ico_m = ico_no

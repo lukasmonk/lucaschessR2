@@ -41,6 +41,7 @@ def get_dict_type_names():
         ENG_IRINA: _("Opponents for young players"),
         ENG_ELO: _("Lucas-Elo"),
         ENG_RODENT: _("Rodent II personalities"),
+        # ENG_KOMODO: _("Komodo personalities"),
     }
 
 
@@ -57,6 +58,7 @@ class SelectEngines:
             ENG_IRINA: Iconos.RivalesMP(),
             ENG_ELO: Iconos.Elo(),
             ENG_RODENT: Iconos.Rodent(),
+            # ENG_KOMODO: Iconos.Komodo(),
         }
 
         self.li_engines_micgm, self.li_engines_micper = EnginesMicElo.separated_engines()
@@ -69,6 +71,8 @@ class SelectEngines:
         self.liElo = self.gen_engines_elo()
 
         self.dict_rodent = self.gen_engines_rodent()
+
+        # self.dict_komodo = self.gen_engines_rodent()
 
         self.li_engines = None
 
@@ -111,6 +115,31 @@ class SelectEngines:
             cm.ordenUCI("Personality", name)
             li.append(cm)
         return li
+
+    # def gen_engines_komodo(self):
+    #     cmbase = self.configuration.buscaRival("komodo")
+    #     li = []
+    #     dict_personalities = {
+    #         "Aggressive":_("Aggressive ||engine personality"),
+    #         "Defensive":_("Defensive ||engine personality"),
+    #         "Active":_("Active ||engine personality"),
+    #         "Positional":_("Positional ||engine personality"),
+    #         "Endgame":_("Endgame ||engine personality"),
+    #         "Beginner":_("Aggressive ||engine personality"),
+    #         "Human":_("Aggressive ||engine personality")
+    #     }
+    #     li_names = ["Aggressive", "Defensive", "Active", "Positional", "Endgame", "Beginner", "Human"]
+    #
+    #     for personality in li_personalities:
+    #         cm = Engines.Engine(name, cmbase.autor, cmbase.version, cmbase.url, cmbase.path_exe)
+    #         cm.name = trans
+    #         cm.alias = name
+    #         cm.__icono = ico
+    #         cm.elo = elo
+    #         cm.type = ENG_IRINA
+    #         cm.ordenUCI("Personality", name)
+    #         li.append(cm)
+    #     return li
 
     def gen_engines_elo(self):
         d = OSEngines.read_engines(Code.folder_engines)

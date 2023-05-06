@@ -54,7 +54,7 @@ class WKibIndex(QtWidgets.QDialog):
         self.board.set_dispatcher(self.mensajero)
 
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("titulo", "", 110, align_right=True)
+        o_columns.nueva("titulo", "", 120, align_right=True)
         o_columns.nueva("valor", "", 100, align_center=True)
         o_columns.nueva("info", "", 110)
         self.grid = Grid.Grid(

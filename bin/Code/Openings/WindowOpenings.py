@@ -329,6 +329,7 @@ class OpeningsPersonales(LCDialog.LCDialog):
         self.dicPGNSP = {}
 
     def terminar(self):
+        OpeningsStd.ap.reset()
         self.save_video()
         self.reject()
         return

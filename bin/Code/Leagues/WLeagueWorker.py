@@ -5,8 +5,8 @@ from PySide2 import QtWidgets, QtCore
 
 import Code
 from Code import CPU
-from Code.Sound import Sound
 from Code import ControlPGN
+from Code import TimeControl
 from Code import Util
 from Code.Base import Game, Move
 from Code.Base.Constantes import (
@@ -34,7 +34,7 @@ from Code.QT import Grid
 from Code.QT import Iconos
 from Code.QT import QTUtil
 from Code.QT import QTVarios
-from Code import TimeControl
+from Code.Sound import Sound
 
 
 class WLeagueWorker(QtWidgets.QWidget):
@@ -396,7 +396,7 @@ class WLeagueWorker(QtWidgets.QWidget):
 
         for n in range(nbloques):
             pv = lipv[n]
-            self.board.creaFlechaMov(pv[:2], pv[2:4], tipo + str(opacity))
+            self.board.show_arrow_mov(pv[:2], pv[2:4], tipo, opacity=opacity / 100)
             if n % 2 == 1:
                 opacity -= cambio
                 cambio = salto
@@ -600,7 +600,7 @@ class WLeagueWorker(QtWidgets.QWidget):
                         dc = ord(from_sq[0]) - ord(to_sq[0])
                         df = int(from_sq[1]) - int(to_sq[1])
                         # Maxima distancia = 9.9 ( 9,89... sqrt(7**2+7**2)) = 4 seconds
-                        dist = (dc**2 + df**2) ** 0.5
+                        dist = (dc ** 2 + df ** 2) ** 0.5
                         seconds = 4.0 * dist / (9.9 * rapidez)
                     cpu.muevePieza(movim[1], movim[2], siExclusiva=False, seconds=seconds)
 

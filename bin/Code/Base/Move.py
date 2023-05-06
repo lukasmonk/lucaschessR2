@@ -2,7 +2,7 @@ import Code
 import Code.Base.Game  # To prevent recursivity in Variations -> import direct
 from Code import Util
 from Code.Base import Position
-from Code.Nags.Nags import NAG_1, NAG_2, NAG_3, NAG_4, NAG_5, NAG_6, html_nag_txt
+from Code.Nags.Nags import NAG_1, NAG_2, NAG_3, NAG_4, NAG_5, NAG_6, html_nag_txt, html_nag_symbol
 from Code.Engines import EngineResponse
 from Code.Themes.Lichess import cook
 from Code.Translations import TrListas
@@ -225,11 +225,14 @@ class Move:
         else:
             return self.pgnBase
 
-    def resto(self, with_variations=True):
+    def resto(self, with_variations=True, with_nag_symbols=False):
         resp = ""
         if self.li_nags:
             self.li_nags.sort()
-            resp += " ".join([html_nag_txt(nag) for nag in self.li_nags])
+            if with_nag_symbols:
+                resp += " ".join([html_nag_symbol(nag) for nag in self.li_nags])
+            else:
+                resp += " ".join([html_nag_txt(nag) for nag in self.li_nags])
 
         comment = self.comment
         if self.li_themes:
@@ -258,7 +261,8 @@ class Move:
         if with_variations and len(self.variations):
             resp += " " + self.variations.get_pgn()
 
-        return resp.strip()
+        resp = resp.strip()
+        return " " + resp if resp else ""
 
     def analisis2variantes(self, almVariations, delete_previous):
         if not self.analysis:
@@ -317,7 +321,7 @@ class Move:
             dic["comment"] = self.comment
         if self.time_ms:
             dic["time_ms"] = self.time_ms
-        if self.time_ms:
+        if self.clock_ms:
             dic["clock_ms"] = self.clock_ms
         if self.li_nags:
             dic["li_nags"] = self.li_nags
@@ -348,7 +352,7 @@ class Move:
         if "time_ms" in dic:
             self.time_ms = dic["time_ms"]
         if "clock_ms" in dic:
-            self.time_ms = dic["clock_ms"]
+            self.clock_ms = dic["clock_ms"]
         if "li_nags" in dic:
             self.li_nags = dic["li_nags"]
         if "li_themes" in dic:

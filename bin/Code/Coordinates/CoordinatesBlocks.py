@@ -1,8 +1,8 @@
 import datetime
 import random
 
-from Code.SQL import UtilSQL
 from Code.Base.Constantes import WHITE, BLACK
+from Code.SQL import UtilSQL
 
 
 class GenTry:
@@ -115,7 +115,8 @@ class CoordinatesBlocks:
 
     def min_score_side(self):
         side = self.li_blocks[self.current_block][0]
-        return self.min_score_white if side == WHITE else self.min_score_black
+        resp = self.min_score_white if side == WHITE else self.min_score_black
+        return max(resp, 1)
 
     def current_side(self):
         return self.li_blocks[self.current_block][0]
@@ -144,7 +145,7 @@ class CoordinatesBlocks:
         self.current_try_in_block = dic["current_try_in_block"]
         self.current_max_in_block = dic["current_max_in_block"]
         self.tries = dic["tries"]
-        if self.current_block >= 0:
+        if 0 <= self.current_block < len(self.li_blocks):
             side = self.li_blocks[self.current_block][0]
             self.min_score = self.min_score_white if side == WHITE else self.min_score_black
 

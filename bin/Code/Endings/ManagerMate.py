@@ -510,7 +510,7 @@ class ManagerMate(Manager.Manager):
         me.final()
         if li_rm:
             for rm in li_rm:
-                self.board.creaFlechaMov(rm.from_sq, rm.to_sq, "m")
+                self.board.show_arrow_mov(rm.from_sq, rm.to_sq, "m")
         else:
             self.repiteMate(True, False)
 

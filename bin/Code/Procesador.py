@@ -180,7 +180,6 @@ class Procesador:
 
         self.cpu = CPU.CPU(self.main_window)
 
-
         if self.configuration.x_check_for_update:
             Update.test_update(self)
 
@@ -355,15 +354,14 @@ class Procesador:
         if is_white is None:
             return
 
-        dic = {}
-        dic["ISWHITE"] = is_white
-        dic["RIVAL"] = rival
-
-        dic["SITIEMPO"] = siTiempo and minutos > 0
-        dic["MINUTOS"] = minutos
-        dic["SEGUNDOS"] = seconds
-
-        dic["FASTMOVES"] = fastmoves
+        dic = {
+            "ISWHITE": is_white,
+            "RIVAL": rival,
+            "SITIEMPO": siTiempo and minutos > 0,
+            "MINUTOS": minutos,
+            "SEGUNDOS": seconds,
+            "FASTMOVES": fastmoves,
+        }
 
         self.manager = ManagerPerson.ManagerPerson(self)
         self.manager.start(dic)
@@ -916,13 +914,13 @@ class Procesador:
 
         if create:
             db = DBgames.DBgames(file_db)
-            dlTmp = QTVarios.ImportarFicheroPGN(self.main_window)
-            dlTmp.show()
-            db.import_pgns([fichero_pgn], dlTmp=dlTmp)
+            dl_tmp = QTVarios.ImportarFicheroPGN(self.main_window)
+            dl_tmp.show()
+            db.import_pgns([fichero_pgn], dl_tmp=dl_tmp)
             db.save_config("PGN_DATE", cfecha_pgn)
             db.save_config("PGN_FILE", fichero_pgn)
             db.close()
-            dlTmp.close()
+            dl_tmp.close()
 
         self.database("R", file_db, is_temporary=True)
 
@@ -955,13 +953,13 @@ class Procesador:
 
             if create:
                 db = DBgames.DBgames(file_db)
-                dlTmp = QTVarios.ImportarFicheroPGN(wparent)
-                dlTmp.show()
-                db.import_pgns([fichero_pgn], dlTmp=dlTmp)
+                dl_tmp = QTVarios.ImportarFicheroPGN(wparent)
+                dl_tmp.show()
+                db.import_pgns([fichero_pgn], dl_tmp=dl_tmp)
                 db.save_config("PGN_DATE", cfecha_pgn)
                 db.save_config("PGN_FILE", fichero_pgn)
                 db.close()
-                dlTmp.close()
+                dl_tmp.close()
 
             db = DBgames.DBgames(file_db)
             if db.all_reccount() == 1:
@@ -1099,7 +1097,13 @@ class Procesador:
                 self.manager.start(w.recno, is_white)
         db.close()
 
-    def learn_game(self):
+    def learn_game(self, game=None):
+        if game:
+            db = WindowLearnGame.DBLearnGame(self.configuration.file_learn_game())
+            reg = {"GAME": game.save()}
+            db.append(reg)
+            db.close()
+
         w = WindowLearnGame.WLearnBase(self)
         w.exec_()
 
@@ -1203,7 +1207,7 @@ class Procesador:
         board = clon_procesador.main_window.board
         if father_board:
             board.dbvisual_set_file(father_board.dbVisual.file)
-            board.dbvisual_set_show_always(father_board.dbVisual.show_always)
+            board.dbvisual_set_show_always(father_board.dbVisual.show_always())
 
         resp = clon_procesador.main_window.show_variations(game.window_title())
         if father_board:

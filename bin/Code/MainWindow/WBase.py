@@ -51,6 +51,7 @@ from Code.Base.Constantes import (
     TB_VARIATIONS,
     TB_EBOARD,
     TB_REPLAY,
+    TB_SETTINGS
 )
 from Code.Board import Board
 from Code.MainWindow import WindowSolve
@@ -195,6 +196,7 @@ class WBase(QtWidgets.QWidget):
             TB_STOP: (_("Play now"), Iconos.Stop()),
             TB_COMMENTS: (_("Disable"), Iconos.Comment32()),
             TB_REPLAY: (_("Replay"), Iconos.Pelicula()),
+            TB_SETTINGS: (_("Options"), Iconos.Preferencias()),
         }
 
     def lanzaAtajos(self):

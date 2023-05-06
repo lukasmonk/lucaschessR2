@@ -1,6 +1,5 @@
 import time
 
-import Code
 from Code import Manager
 from Code import Util
 from Code.Base import Game, Position
@@ -162,7 +161,7 @@ class ManagerOpeningLinesPositions(ManagerOPL.ManagerOpeningLines):
     def muestraAyuda(self):
         liMoves = self.trposition["MOVES"]
         for pv in liMoves:
-            self.board.creaFlechaMov(pv[:2], pv[2:4], "mt80")
+            self.board.show_arrow_mov(pv[:2], pv[2:4], "mt", opacity=0.80)
         QTUtil.refresh_gui()
 
     def run_action(self, key):
@@ -236,8 +235,7 @@ class ManagerOpeningLinesPositions(ManagerOPL.ManagerOpeningLines):
         if not (pvSel in lipvObj):
             self.errores += 1
             mens = "%s: %d" % (_("Error"), self.errores)
-            background = Code.dic_colors["WLINES_POSITIONS"]
-            QTUtil2.mensajeTemporal(self.main_window, mens, 1.0, physical_pos="ad", background=background)
+            QTUtil2.mensajeTemporal(self.main_window, mens, 1.0, physical_pos="ad")
             self.muestraInformacion()
             self.beepError()
             self.sigueHumano()

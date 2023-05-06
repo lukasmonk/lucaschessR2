@@ -10,7 +10,7 @@ from Code.QT import LCDialog
 
 
 class WRunCoordinatesBlocks(LCDialog.LCDialog):
-    def __init__(self, owner, db_coordinates, coordinates):
+    def __init__(self, owner, db_coordinates, coordinates, config):
 
         LCDialog.LCDialog.__init__(self, owner, _("Coordinates by blocks"), Iconos.Blocks(), "runcoordinatesblocks")
 
@@ -20,14 +20,22 @@ class WRunCoordinatesBlocks(LCDialog.LCDialog):
         self.current_score = 0
         self.working = False
         self.time_ini = None
+        self.square_object = None
+        self.square_next = None
 
         conf_board = self.configuration.config_board("RUNCOORDINATESBLOCKS", self.configuration.size_base())
 
         self.board = Board.BoardEstaticoMensaje(self, conf_board, None, 0.6)
         self.board.crea()
         self.board.bloqueaRotacion(True)
-        self.cp_initial = Position.Position()
-        self.cp_initial.set_pos_initial()
+        if config.with_pieces:
+            self.cp_initial = Position.Position()
+            self.cp_initial.set_pos_initial()
+            self.board.set_position(self.cp_initial)
+        else:
+            self.cp_initial = None
+        if not config.with_coordinates:
+            self.board.show_coordinates(False)
 
         font = Controles.TipoLetra(puntos=14, peso=500)
 
@@ -86,7 +94,9 @@ class WRunCoordinatesBlocks(LCDialog.LCDialog):
     def new_try(self):
         is_white = self.coordinates.new_try()
         self.board.set_side_bottom(is_white)
-        self.board.set_position(self.cp_initial)
+        if self.cp_initial:
+            self.board.set_position(self.cp_initial)
+        self.board.set_side_indicator(is_white)
         self.lb_active_score_k.set_text(_("Active score") + ":")
         self.current_score = 0
         self.working = True
@@ -94,8 +104,11 @@ class WRunCoordinatesBlocks(LCDialog.LCDialog):
         QtCore.QTimer.singleShot(1000, self.comprueba_time)
 
     def show_data(self):
-        self.board.set_side_bottom(self.coordinates.current_side())
-        self.board.set_position(self.cp_initial)
+        is_white = self.coordinates.current_side()
+        self.board.set_side_bottom(is_white)
+        if self.cp_initial:
+            self.board.set_position(self.cp_initial)
+        self.board.set_side_indicator(is_white)
         self.lb_block.set_text("%d/%d" % (self.coordinates.current_block + 1, self.coordinates.num_blocks()))
         self.lb_try.set_text("%d" % self.coordinates.current_try_in_block)
         self.lb_minimum_score.set_text("%d" % self.coordinates.min_score_side())
@@ -108,11 +121,12 @@ class WRunCoordinatesBlocks(LCDialog.LCDialog):
         si_pasa_block, si_final = self.coordinates.new_done(self.current_score)
         self.db_coordinates.save(self.coordinates)
         if si_final:
-            QTUtil2.message(
-                self,
-                "%s\n\n%s: %d/%d\n"
-                % (_("Ended"), _("Result"), self.coordinates.min_score_white, self.coordinates.min_score_black),
+            mens = '<b><big><span style="color:green">%s</span><br><br>%s:<br><center>%s=%d&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%s=%d</center' % (
+                _('Congratulations, goal achieved'),
+                _("Result"), _("White"), self.coordinates.min_score_white, _("Black"), self.coordinates.min_score_black
             )
+
+            QTUtil2.message(self, mens)
             self.terminar()
             return
         else:

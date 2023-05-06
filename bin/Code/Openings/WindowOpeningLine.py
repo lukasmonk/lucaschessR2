@@ -827,7 +827,7 @@ class WLines(LCDialog.LCDialog):
             return self.colorLine
         else:
             linea = row // 2
-            return self.colorPar if linea % 2 == 0 else self.colorNon
+            return self.colorPar if linea % 2 == 1 else self.colorNon
 
     def grid_cambiado_registro(self, grid, row, o_column):
         col = o_column.key

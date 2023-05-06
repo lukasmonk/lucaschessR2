@@ -516,7 +516,7 @@ def create_tactics(procesador, wowner, li_registros_selected, li_registros_total
             % (
                 _("Tactic training %s created.") % menuname,
                 _("You can access this training from"),
-                "%s/%s" % (_("Trainings"), _("Tactics")),
+                "%s/%s" % (_("Train"), _("Tactics")),
                 "%s1) %s / %s <br>%s➔ %s"
                 % (sp(5), _("Training positions"), _("Tactics"), sp(12), _("for a standard training")),
                 "%s2) %s / %s <br>%s➔ %s"

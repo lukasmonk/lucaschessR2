@@ -18,11 +18,11 @@ def init_app_style(app, configuration):
         path = Code.path_resource("Styles", configuration.x_style_mode + ".qss")
 
     path_colors = Code.path_resource("Styles", file + ".colors")
-    Code.dic_colors = dic_colors = Util.ini_base2dic(path_colors)
+    Code.dic_colors = Util.ini_base2dic(path_colors)
     dic_personal = Util.ini_base2dicr(configuration.file_colors())
-    dic_colors.update(dic_personal)
+    Code.dic_colors.update(dic_personal)
     Code.dic_qcolors = qdic = {}
-    for key, color in dic_colors.items():
+    for key, color in Code.dic_colors.items():
         qdic[key] = QtGui.QColor(color)
 
     with open(path) as f:
@@ -43,8 +43,8 @@ def init_app_style(app, configuration):
                     key = key.strip()
                     color = "#" + value.split("#")[1][:6]
                     key_gen = "%s|%s" % (current, key)
-                    if key_gen in dic_colors:
-                        line = line.replace(color, dic_colors[key_gen])
+                    if key_gen in Code.dic_colors:
+                        line = line.replace(color, Code.dic_colors[key_gen])
             li_lines.append(line)
 
         style_sheet = "\n".join(li_lines)
@@ -52,8 +52,8 @@ def init_app_style(app, configuration):
 background-color: %s;
 color: %s;
 }\n""" % (
-            dic_colors["BACKGROUND"],
-            dic_colors["FOREGROUND"],
+            Code.dic_colors["BACKGROUND"],
+            Code.dic_colors["FOREGROUND"],
         )
         if configuration.x_style_mode != "By default":
             app.setStyleSheet(default + style_sheet)

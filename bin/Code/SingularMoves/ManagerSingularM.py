@@ -67,6 +67,9 @@ class ManagerSingularM(Manager.Manager):
         self.procesador.start()
         self.procesador.strenght101()
 
+    def final_x(self):
+        return self.end_game()
+
     def play_next_move(self):
         self.set_toolbar([TB_CLOSE, TB_RESIGN])
 
@@ -108,7 +111,7 @@ class ManagerSingularM(Manager.Manager):
         else:
             max_time = self.linea_bloque.max_time
             if vtime > max_time:
-                return 10.0
+                return 0.0
             return (max_time - vtime) * 100.0 / max_time
 
     def set_clock(self):

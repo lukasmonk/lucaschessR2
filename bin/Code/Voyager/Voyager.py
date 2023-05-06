@@ -872,7 +872,7 @@ class WPGN(QtWidgets.QWidget):
 
 class Voyager(LCDialog.LCDialog):
     def __init__(self, owner, is_game, game):
-        titulo = _("Voyager 2") if is_game else _("Basic position")
+        titulo = _("Voyager 2") if is_game else _("Start position")
         icono = Iconos.Voyager() if is_game else Iconos.Datos()
         LCDialog.LCDialog.__init__(self, None, titulo, icono, "voyager")
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Window | QtCore.Qt.WindowStaysOnTopHint)

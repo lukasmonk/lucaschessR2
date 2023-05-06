@@ -27,6 +27,7 @@ from Code.QT import Iconos
 from Code.QT import QTUtil
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
+from Code.QT import WReplay
 from Code.QT import WindowPgnTags
 from Code.Translations import TrListas
 from Code.Voyager import Voyager
@@ -253,16 +254,16 @@ class ManagerGame(Manager.Manager):
         f = Controles.TipoLetra(puntos=10, peso=75)
         menu.ponFuente(f)
 
-        siOpening = False
+        is_opening = False
         for key, valor in self.game.li_tags:
             trad = TrListas.pgnLabel(key)
             if trad != key:
                 key = trad
             menu.opcion(key, "%s : %s" % (key, valor), Iconos.PuntoAzul())
             if key.upper() == "OPENING":
-                siOpening = True
+                is_opening = True
 
-        if not siOpening:
+        if not is_opening:
             opening = self.game.opening
             if opening:
                 menu.separador()
@@ -313,7 +314,6 @@ class ManagerGame(Manager.Manager):
                 sep,
             ]
         )
-
         li_mas_opciones.extend([(None, None, True), sep, ("books", _("Consult a book"), Iconos.Libros())])
 
         resp = self.utilities(li_mas_opciones)
@@ -361,13 +361,36 @@ class ManagerGame(Manager.Manager):
             self.paste_pgn()
 
         elif resp == "voyager":
-            game = Voyager.voyager_game(self.main_window, self.game)
+            ptxt = Voyager.voyager_game(self.main_window, self.game)
+            game = Game.Game()
+            game.restore(ptxt)
             self.replace_game(game)
+
+        elif resp == "replay_continuous":
+            self.replay_continuous()
 
         else:
             if self.is_changed():
                 self.changed = True
                 self.put_toolbar()
+
+    def replay_continuous(self):
+        if self.ask_for_save_game():
+            self.with_previous_next("save", self.game)
+
+        def next_game():
+            game1 = self.with_previous_next("next", self.game)
+            if not game1:
+                return False
+            seconds_before1 = min(2.0, self.xpelicula.seconds_before)
+            if not self.xpelicula.sleep_refresh(seconds_before1):
+                return
+
+            self.main_window.setWindowTitle(game1.window_title())
+            self.start(game1, self.is_complete, self.only_consult, self.with_previous_next, self.save_routine)
+            return True
+
+        self.xpelicula = WReplay.Replay(self, next_game=next_game)
 
     def replace_game(self, game):
         if not game:
@@ -440,7 +463,7 @@ class ManagerGame(Manager.Manager):
             self.configuration.write_variables("ENG_MANAGERSOLO", dic)
 
     def takeback(self):
-        if len(self.game):
+        if len(self.game) and self.in_end_of_line():
             self.game.anulaSoloUltimoMovimiento()
             self.game.assign_opening()
             self.goto_end()

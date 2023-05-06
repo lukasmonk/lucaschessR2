@@ -169,7 +169,7 @@ class EtiquetaPGN(QtWidgets.QStyledItemDelegate):
         fin_pz = None
         post_pz = None
         salto_fin_pz = 0
-        if self.with_figurines and len(pgn) > 2:
+        if self.with_figurines and pgn and len(pgn) > 2:
             if pgn[0] in "QBKRN":
                 ini_pz = pgn[0] if self.is_white else pgn[0].lower()
                 pgn = pgn[1:]
@@ -441,6 +441,8 @@ class EtiquetaPOS(QtWidgets.QStyledItemDelegate):
 
     def paint(self, painter, option, index):
         data = index.model().data(index, QtCore.Qt.DisplayRole)
+        if not data:
+            return
         pgn, is_white, color, txt_analysis, indicador_inicial, li_nags, agrisar, si_line = data
         if li_nags:
             li = []

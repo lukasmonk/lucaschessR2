@@ -26,8 +26,8 @@ def read_engines(folder_engines):
         return engine
 
     mas("acqua", "Giovanni Di Maria", "2.0", "http://www.elektrosoft.it/scacchi/acqua/acqua.asp", "acqua.exe", 844)
-    mas("foxcub", "Lucas Monge", "1.0", "", "FoxCub.exe", 800, emulate_movetime=True)
-    mas("fox", "Lucas Monge", "1.0", "", "Fox.exe", 1400, emulate_movetime=True)
+    mas("foxcub", "Lucas Monge", "1.1", "", "FoxCub.exe", 800)
+    mas("fox", "Lucas Monge", "1.1", "", "Fox.exe", 1400)
 
     mas("tarrasch", "Bill Forster", "ToyEngine Beta V0.906", "http://www.triplehappy.com/",
         "TarraschToyEngineV0.906.exe", 1481, emulate_movetime=True)
@@ -57,6 +57,8 @@ def read_engines(folder_engines):
 
     cm = mas("chispa", "Federico Corigliano", "4.0.3", "http://chispachess.blogspot.com/", "chispa403-blend.exe", 2227)
     cm.ordenUCI("Hash", "32")
+
+    mas("ct800", "Rasmus Althoff", "1.44", "https://www.ct800.net/", "CT800_V1.44_x32.exe", 2380)
 
     cm = mas("gaia", "Jean-Francois Romang, David Rabel", "3.5", "http://gaiachess.free.fr", "gaia32.exe", 2378)
     cm.name = "Gaïa 3.5"
@@ -152,7 +154,7 @@ def read_engines(folder_engines):
     )
     cm.set_multipv(20, 40)
 
-    mas("greko98", "Vladimir Medvedev", "9.8", "http://sourceforge.net/projects/greko", "GreKo-98-32-ja.exe", 2500)
+    mas("greko98", "Vladimir Medvedev", "9.8a", "http://sourceforge.net/projects/greko", "GreKo-98a.exe", 2500)
 
     mas("greko", "Vladimir Medvedev", "12.9", "http://sourceforge.net/projects/greko", "GreKo.exe", 2508)
 
@@ -215,10 +217,10 @@ def read_engines(folder_engines):
         cm = mas(
             "komodo",
             "Don Dailey, Larry Kaufman, Mark Lefler",
-            f"13.02 {t32_64}",
+            f"14.1 {t32_64}",
             "https://komodochess.com/",
-            "komodo-13.02-64bit.exe" if t32_64 == "64" else "komodo-13.02-64bit-bmi2.exe",
-            3300,
+            "komodo-14.1-64bit.exe" if t32_64 == "64" else "komodo-14.1-64bit-bmi2.exe",
+            3406,
         )
     else:
         cm = mas(

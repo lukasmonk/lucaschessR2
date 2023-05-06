@@ -1,4 +1,5 @@
 from Code import Util
+from Code.Coordinates import CoordinatesConfig
 from Code.Coordinates import CoordinatesBasic
 from Code.Coordinates import WRunCoordinatesBasic
 from Code.QT import Colocacion, Columnas, Controles, Grid, Iconos, QTUtil2, QTVarios
@@ -11,12 +12,11 @@ class WCoordinatesBasic(LCDialog.LCDialog):
         path = configuration.file_coordinates()
         title = _("Coordinates")
         icon = Iconos.West()
-        extconfig = "coordinatesbasic"
-        self.db = CoordinatesBasic.DBCoordinatesBasic(path)
-
-        self.config = CoordinatesBasic.CoordinatesConfig()
-
+        extconfig = "coordinatesbasic_1"
         LCDialog.LCDialog.__init__(self, procesador.main_window, title, icon, extconfig)
+
+        self.db = CoordinatesBasic.DBCoordinatesBasic(path)
+        self.config = CoordinatesConfig.CoordinatesConfig()
 
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("DATE", _("Date"), 140, align_center=True)
@@ -43,7 +43,7 @@ class WCoordinatesBasic(LCDialog.LCDialog):
         self.setLayout(ly)
 
         self.register_grid(self.glista)
-        self.restore_video(anchoDefecto=self.glista.anchoColumnas() + 30)
+        self.restore_video(anchoDefecto=self.glista.anchoColumnas() + 30, altoDefecto=340)
 
         self.glista.gotop()
 

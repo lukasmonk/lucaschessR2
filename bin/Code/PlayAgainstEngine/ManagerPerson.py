@@ -34,13 +34,6 @@ class ManagerPerson(ManagerPlayAgainstEngine.ManagerPlayAgainstEngine):
         self.is_human_side_white = is_white
         self.is_engine_side_white = not is_white
 
-        w, b = self.configuration.nom_player(), _F(dic_var["RIVAL"])
-        if not is_white:
-            w, b = b, w
-        self.game.set_tag("Event", _("Opponents for young players"))
-        self.game.set_tag("White", w)
-        self.game.set_tag("Black", b)
-
         self.with_takeback = True
 
         cmrival = self.configuration.buscaRival("irina", None)
@@ -146,4 +139,12 @@ class ManagerPerson(ManagerPlayAgainstEngine.ManagerPlayAgainstEngine):
 
         self.check_boards_setposition()
 
+        w, b = self.configuration.nom_player(), self.xrival.name
+        if not is_white:
+            w, b = b, w
+        self.game.set_tag("Event", _("Opponents for young players"))
+        self.game.set_tag("White", w)
+        self.game.set_tag("Black", b)
+
         self.game.add_tag_timestart()
+

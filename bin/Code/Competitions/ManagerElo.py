@@ -546,7 +546,7 @@ class ManagerElo(Manager.Manager):
         mensaje += "\n\n%s : %d\n" % (_("New Lucas-Elo"), self.configuration.eloActivo())
 
         self.mensaje(mensaje)
-        self.ponFinJuego()
+        self.set_end_game()
         self.autosave()
 
     def player_has_moved(self, from_sq, to_sq, promotion=""):

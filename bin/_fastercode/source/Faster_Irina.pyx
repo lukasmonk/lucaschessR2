@@ -132,10 +132,9 @@ class PGNreader:
         self.inicio = self.final = 0
         try:
             with open(self.path_file, "rb") as f:
+                self.utf_bom = f.read(1) == b'\xef'
                 si_ln = b"\n" in f.read(1000)
 
-                c = f.read(1)
-                self.utf_bom = c == 0xef
                 self.ok = True
                 f.seek( 0, 2 )
                 self.size = f.tell()
@@ -173,7 +172,7 @@ class PGNreader:
         self.previo = ""
         self.f = open(self.path_file, "rb")
         if self.utf_bom:
-            self.f.read(2)
+            self.f.read(3)
         pgn_start(self.depth)
         return self
 

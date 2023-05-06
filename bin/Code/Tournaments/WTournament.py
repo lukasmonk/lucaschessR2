@@ -546,16 +546,33 @@ class WTournament(LCDialog.LCDialog):
             QTUtil2.message(self, _("You must create some games (Queued Games tab/ New)"))
             return
         self.grabar()
-        worker_plant = os.path.join(self.configuration.folder_tournaments_workers(), "worker.%05d")
-        pos = 1
-        while True:
-            wfile = worker_plant % pos
-            if Util.exist_file(wfile):
-                if not Util.remove_file(wfile):
-                    pos += 1
-                    continue
-            break
-        XRun.run_lucas("-tournament", self.torneo.file, wfile)
+
+        rondo = QTVarios.rondoPuntos()
+
+        menu = QTVarios.LCMenu(self)
+        menu.opcion(1, _("Launch one worker"), Iconos.Lanzamiento())
+        menu.separador()
+
+        submenu = menu.submenu(_("Launch some workers"), Iconos.Lanzamientos())
+
+        for x in range(2, 33):
+            submenu.opcion(x, str(x), rondo.otro())
+
+        resp = menu.lanza()
+        if resp:
+            last = 0
+            for num in range(resp):
+                worker_plant = os.path.join(self.configuration.folder_tournaments_workers(), "worker.%05d")
+                pos = last + 1
+                while True:
+                    wfile = worker_plant % pos
+                    if Util.exist_file(wfile):
+                        if not Util.remove_file(wfile):
+                            pos += 1
+                            continue
+                    last = pos
+                    break
+                XRun.run_lucas("-tournament", self.torneo.file, wfile)
 
     def verSiJugar(self):
         return self.xjugar
@@ -751,7 +768,7 @@ class WTournament(LCDialog.LCDialog):
 
         form.add_tab(_("Options"))
 
-        li_groups = Util.div_list(li_engines, 30)
+        li_groups = Util.div_list(li_engines, 20)
         for ngroup, group in enumerate(li_groups):
             for en in group:
                 form.checkbox(en.key, get(en.huella, True))

@@ -76,6 +76,8 @@ class WLearnBase(LCDialog.LCDialog):
         li_acciones = (
             (_("Close"), Iconos.MainMenu(), self.terminar),
             None,
+            (_("Learn"), Iconos.Empezar(), self.empezar),
+            None,
             (_("New"), Iconos.Nuevo(), self.nuevo),
             None,
             (_("Remove"), Iconos.Borrar(), self.borrar),
@@ -83,8 +85,6 @@ class WLearnBase(LCDialog.LCDialog):
             (_("Up"), Iconos.Arriba(), self.tw_up),
             None,
             (_("Down"), Iconos.Abajo(), self.tw_down),
-            None,
-            (_("Learn"), Iconos.Empezar(), self.empezar),
         )
         self.tb = QTVarios.LCTB(self, li_acciones)
 
@@ -315,22 +315,25 @@ class WLearn1(LCDialog.LCDialog):
 
     def empezar(self):
         regBase = self.liIntentos[0] if self.liIntentos else {}
-
-        li_gen = [(None, None)]
-
         dic = self.configuration.read_variables("MEMORIZING_GAME")
 
-        li_gen.append((FormLayout.Spinbox(_("Level"), 0, len(self.game), 40), regBase.get("LEVEL", 0)))
-        li_gen.append((None, None))
-        li_gen.append((None, _("Side you play with") + ":"))
-        li_gen.append((_("White"), "w" in regBase.get("COLOR", "bw")))
-        li_gen.append((_("Black"), "b" in regBase.get("COLOR", "bw")))
-        li_gen.append((None, None))
-        li_gen.append((_("Show clock"), dic.get("CLOCK", True)))
+        form = FormLayout.FormLayout(self, _("New try"), Iconos.LearnGame(), anchoMinimo=300)
 
-        resultado = FormLayout.fedit(
-            li_gen, title=_("New try"), anchoMinimo=200, parent=self, icon=Iconos.TutorialesCrear()
-        )
+        form.separador()
+        form.apart(_("Second board"))
+        form.spinbox(_("Movement displayed"), 0, len(self.game), 40, regBase.get("LEVEL", 1))
+        form.separador()
+
+        form.apart(_("Side you play with"))
+        form.checkbox(_("White"), "w" in regBase.get("COLOR", "bw"))
+        form.checkbox(_("Black"), "b" in regBase.get("COLOR", "bw"))
+
+        form.separador()
+        form.checkbox(_("Show clock"), dic.get("CLOCK", True))
+        form.separador()
+
+        resultado = form.run()
+
         if resultado is None:
             return
 
@@ -387,16 +390,17 @@ class WLearnPuente(LCDialog.LCDialog):
         )
         lyIni = Colocacion.V().control(self.boardIni).control(self.lbIni)
 
-        self.boardFin = Board.BoardEstatico(self, config_board)
-        self.boardFin.crea()
-        self.lbFin = (
-            Controles.LB(self)
-            .align_center()
-            .set_foreground_backgound("#076C9F", "#EFEFEF")
-            .anchoMinimo(self.boardFin.ancho)
-        )
-        self.boardFin.disable_eboard_here()
-        lyFin = Colocacion.V().control(self.boardFin).control(self.lbFin)
+        if self.nivel > 0:
+            self.boardFin = Board.BoardEstatico(self, config_board)
+            self.boardFin.crea()
+            self.lbFin = (
+                Controles.LB(self)
+                .align_center()
+                .set_foreground_backgound("#076C9F", "#EFEFEF")
+                .anchoMinimo(self.boardFin.ancho)
+            )
+            self.boardFin.disable_eboard_here()
+            lyFin = Colocacion.V().control(self.boardFin).control(self.lbFin)
 
         # Rotulo vtime
         f = Controles.TipoLetra(puntos=30, peso=75)
@@ -415,7 +419,9 @@ class WLearnPuente(LCDialog.LCDialog):
 
         # Layout
         lyC = Colocacion.V().control(self.lbReloj).control(self.lbInfo).relleno()
-        lyTM = Colocacion.H().otro(lyIni).otro(lyC).otro(lyFin).relleno()
+        lyTM = Colocacion.H().otro(lyIni).otro(lyC)
+        if self.nivel > 0:
+            lyTM.otro(lyFin).relleno()
 
         ly = Colocacion.V().control(self.tb).otro(lyTM).relleno().margen(3)
 
@@ -523,9 +529,10 @@ class WLearnPuente(LCDialog.LCDialog):
         self.boardIni.put_arrow_sc(move.from_sq, move.to_sq)
         self.lbIni.set_text("%d/%d" % (self.repJugada + 1, num_moves))
 
-        self.boardFin.set_position(move.position)
-        self.boardFin.put_arrow_sc(move.from_sq, move.to_sq)
-        self.lbFin.set_text("%d/%d" % (self.repJugada + 1, num_moves))
+        if self.nivel > 0:
+            self.boardFin.set_position(move.position)
+            self.boardFin.put_arrow_sc(move.from_sq, move.to_sq)
+            self.lbFin.set_text("%d/%d" % (self.repJugada + 1, num_moves))
 
         QtCore.QTimer.singleShot(self.repTiempo, self.replayDispatch)
 
@@ -609,11 +616,12 @@ class WLearnPuente(LCDialog.LCDialog):
         if mfin >= num_moves:
             mfin = num_moves - 1
 
-        jgf = self.game.move(mfin)
-        self.boardFin.set_position(jgf.position)
-        if self.nivel == 0:
-            self.boardFin.put_arrow_sc(jgf.from_sq, jgf.to_sq)
-        self.lbFin.set_text("%d/%d" % (mfin + 1, num_moves))
+        if self.nivel > 0:
+            jgf = self.game.move(mfin)
+            self.boardFin.set_position(jgf.position)
+            if self.nivel == 0:
+                self.boardFin.put_arrow_sc(jgf.from_sq, jgf.to_sq)
+            self.lbFin.set_text("%d/%d" % (mfin + 1, num_moves))
 
         color = move.position_before.is_white
 

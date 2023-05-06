@@ -52,6 +52,9 @@ class WSelectEngineElo(LCDialog.LCDialog):
         self.siMicPer = tipo == "MICPER"
         self.siMic = self.siMicElo or self.siMicPer
 
+        self.key_save = f"SELECTENGINE_{tipo}"
+        dic_save = Code.configuration.read_variables(self.key_save)
+
         self.manager = manager
 
         self.colorNoJugable = QTUtil.qtColorRGB(241, 226, 226)
@@ -59,6 +62,8 @@ class WSelectEngineElo(LCDialog.LCDialog):
         self.colorMayor = None
         self.elo = elo
         self.tipo = tipo
+
+        self.resultado = None
 
         # Toolbar
         li_acciones = [
@@ -82,13 +87,13 @@ class WSelectEngineElo(LCDialog.LCDialog):
             ("---", None),
             (">=", ">"),
             ("<=", "<"),
+            ("+-50", "50"),
             ("+-100", "100"),
             ("+-200", "200"),
             ("+-400", "400"),
             ("+-800", "800"),
         )
-
-        self.cbElo = Controles.CB(self, liFiltro, None).capture_changes(self.filtrar)
+        self.cbElo = Controles.CB(self, liFiltro, dic_save.get("ELO")).capture_changes(self.filtrar)
 
         minimo = 9999
         maximo = 0
@@ -113,7 +118,7 @@ class WSelectEngineElo(LCDialog.LCDialog):
                         liCaract.append((_F(x), x))
             liCaract.sort(key=lambda x: x[1])
             liCaract.insert(0, ("---", None))
-            self.cbCaract = Controles.CB(self, liCaract, None).capture_changes(self.filtrar)
+            self.cbCaract = Controles.CB(self, liCaract, dic_save.get("CARACT")).capture_changes(self.filtrar)
 
         ly = Colocacion.H().control(lbElo).control(self.cbElo).control(self.sbElo)
         if self.siMic:
@@ -167,7 +172,7 @@ class WSelectEngineElo(LCDialog.LCDialog):
                 self.liMotoresActivos = [x for x in self.liMotores if x.elo >= elo]
             elif cb == "<":
                 self.liMotoresActivos = [x for x in self.liMotores if x.elo <= elo]
-            elif cb in ("100", "200", "400", "800"):
+            elif cb in ("50", "100", "200", "400", "800"):
                 mx = int(cb)
                 self.liMotoresActivos = [x for x in self.liMotores if abs(x.elo - elo) <= mx]
         if self.siMic:
@@ -186,7 +191,15 @@ class WSelectEngineElo(LCDialog.LCDialog):
     def cancelar(self):
         self.resultado = None
         self.save_video()
+        self.save_data()
         self.reject()
+
+    def save_data(self):
+        dic_save = Code.configuration.read_variables(self.key_save)
+        dic_save["ELO"] = self.cbElo.valor()
+        if self.siMic:
+            dic_save["CARACT"] = self.cbCaract.valor()
+        Code.configuration.write_variables(self.key_save, dic_save)
 
     def elegir(self):
         f = self.grid.recno()
@@ -194,6 +207,7 @@ class WSelectEngineElo(LCDialog.LCDialog):
         if mt.siJugable:
             self.resultado = mt
             self.save_video()
+            self.save_data()
             self.accept()
         else:
             QTUtil.beep()
@@ -207,6 +221,7 @@ class WSelectEngineElo(LCDialog.LCDialog):
             n = random.randint(0, len(li) - 1)
             self.resultado = li[n]
             self.save_video()
+            self.save_data()
             self.accept()
         else:
             QTUtil2.message_error(self, _("There is not a playable engine between these values"))
@@ -237,7 +252,7 @@ class WSelectEngineElo(LCDialog.LCDialog):
         if key == "NUMBER":
             valor = "%2d" % mt.number
         elif key == "ENGINE":
-            valor = " " + mt.alias
+            valor = " " + Util.primera_mayuscula(mt.alias)
         elif key == "ELO":
             valor = "%d " % mt.elo
         elif key == "INFO":

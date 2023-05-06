@@ -1,0 +1,578 @@
+******************************************************************************
+
+Current CT800 firmware version: V1.44
+
+******************************************************************************
+
+Change history:
+
+V1.44:
+- Limited mainboard LED flashing to three flashes after reset.
+- Reduced key repeat timeout from 100 ms to 50 ms.
+- Improved mate search mode.
+- Improved general performance.
+- Improved pawn hash collision handling.
+- Fine-tuned pruning and eval.
+- Removed null move threat move.
+- More late move reductions.
+
+Book tool:
+- Fixed legality checks (no engine impact).
+
+UCI versions:
+- Improved FEN parser for incomplete FENs.
+- CPU throttling has an additional activation checkbox.
+
+Android:
+- Updated the NDK version from r23b to r23c.
+
+******************************************************************************
+
+V1.43:
+- Added late move pruning near the main search leaves.
+
+- Simplified quiescence search.
+
+- Quiescence delta pruning cuts off remaining moves if the current one has
+  no hope of improving alpha.
+
+- The en passant square is cleared before a null move search and restored
+  afterwards.
+
+- Null move search is skipped if the null depth is zero and the static node
+  evaluation below beta.
+
+- Always reward the right to move, not only in the opening.
+
+- Added hash and PV move priorisation in early move generation.
+
+- Improved bishop corner capture with enemy pawn.
+
+- Enabled multi-page PV display in "pretty print" format.
+
+- Changed the dialogue display order from OK/CL to CL/OK.
+
+- Fixed a bug where undoing moves and then entering a new position would not
+  clear the move list in the main screen.
+
+- Fixed winning KBN:K.
+
+
+UCI versions:
+- More strength throtteling at the low end around 1000 Elo.
+
+******************************************************************************
+
+V1.42:
+- Improved quiet move history handling.
+
+- Improved null move pruning in endgames.
+
+- Added quiescence search pruning for losing captures with pawn protection.
+
+- Fixed a rare bug with illegal moves further down the PV.
+
+- Fixed the mate searcher with PV being cut off.
+
+- More opening book knowledge.
+
+- Changed the default for the background light from "automatic" to "always on"
+  for devices that only run on external power supply.
+
+- Improved the software update instructions in the manual.
+
+
+UCI versions:
+- Fixed the EP square evaluation in the FEN string.
+
+Windows:
+- Updated the GCC version from 7.3.0 to 9.3.0.
+
+Android:
+- Updated the NDK version from r21d to r21e.
+
+******************************************************************************
+
+V1.41:
+- Improved fail-high handling at root.
+
+- Increased check deepening from two to three moves.
+
+- Endgames with a minor piece ahead but no pawns are recognised as drawish.
+
+- Improved mate score reliability from hashtables.
+
+- More opening knowledge.
+
+
+UCI versions:
+- Using "searchmoves" does not block the internal opening book.
+
+Windows:
+- Changed time measurement to native Windows functions.
+
+Android:
+- Updated the NDK version from r21 to r21d.
+
+- Dropped binaries for x86 CPUs. Only ARM is supported.
+
+Raspberry Pi:
+- Rolled back the GCC version from 8.3.0 (Buster) to 6.3.0 (Stretch).
+
+******************************************************************************
+
+V1.40:
+- More aggressive pruning in search.
+
+- Increased value of rook vs. minor and pawns if both sides have pawns.
+
+- Improved handling of king and queen vs. king and rook.
+
+- Simplified code for king, knight and bishop vs. king.
+
+- Compressed the bitbase for king and pawn vs. king from 32 kB to 24 kB.
+
+- The mate searching mode is about 30 % faster, and opponent mate search has
+  been removed.
+
+- More opening book knowledge.
+
+- Improved protection against false opening book hits.
+
+- Added option for aggregate castling rights in the position editor.
+
+
+Android:
+- Updated the NDK version from r18b to r21.
+
+Raspberry Pi:
+- Updated the GCC version from 4.6.3 (Wheezy) to 8.3.0 (Buster).
+
+******************************************************************************
+
+V1.34:
+- Added search output during calculation, accessible via the INFO key.
+
+- Fixed the erroneous shutdown above 5.4 V input voltage.
+
+- Changed the final 50 move eval flattening from 0 % to 10 % target in order
+  to avoid losing moves.
+
+- Some source code cleanup.
+
+******************************************************************************
+
+V1.33:
+- Improved move sorting for quiet moves with regard to depth killers.
+
+- Improved move sorting resulting from internal iterative deepening.
+
+- When a best move is retrieved from the hash table, the move generation is
+  deferred until the hash move has been tried without cut-off.
+
+- Quiescence detects stalemate against lone king.
+
+- Improved pawn evaluation: more penalty for isolated double pawns.
+
+- Improved king handling in endgames like KRPP:KR.
+
+- Added draw with KNP:K for rim pawns on 7th/2nd rank with defending king in
+  the edge.
+
+- Improved KBP:KP with attacker rim pawn and wrong bishop.
+
+- The hash tables use a compressed move format which gains 16 kB of free RAM.
+
+- The PV lines also use the compressed move format which saves 1 kB of stack.
+
+- Entering moves has auto correction for swapped move squares if that converts
+  an illegal entry into a legal one.
+
+- The position editor catches double entries of the same piece type.
+
+- In time per move mode, going into the menu and back displays the same
+  thinking time as before instead of rounding up.
+
+- Refactored and improved the driver layer. The clocking allows for possible
+  future addition of USB, and energy consumption in standby has been reduced.
+
+- Starting a software update may fail when the CT800 is running idle, see the
+  troubleshooting section in the manual.
+
+
+Android:
+- Updated the NDK version from r17b to r18b.
+
+macOS:
+- Added a build script, Clang required.
+
+******************************************************************************
+
+V1.32:
+- When the allocated move time is over, an incomplete depth iteration is still
+  used if it has useful search information.
+
+- The maximum game length has been increased from 200 to 250 moves for the
+  embedded target hardware.
+
+- Code cleanup eliminated 700 lines in the menu system and user interface.
+
+- More opening book knowledge.
+
+- GCC 7.3 is able to optimise the code even better without computed goto. For
+  the Android build, the associated Clang issue 35827 is not relevant any
+  more.
+
+******************************************************************************
+
+V1.31:
+- Added static stalemate detection in KQ:K to get a stable search in some
+  cases of KQ:KP with bishop pawn on 7th/2nd rank.
+
+- More opening book knowledge.
+
+- Updated the ARM GCC version from to 6.3.1 Q2/2017 to 7.3.1 Q2/2018.
+
+
+Windows:
+- Updated the GCC version from 6.4.0 to 7.3.0.
+
+Android:
+- Updated the NDK version from r16b to r17b.
+
+******************************************************************************
+
+V1.30:
+- The configuration format has changed. After the software update, the CT800
+  will erase any existing configuration and saved game.
+
+- Better king safety: avoid opening the kingside when not yet castled.
+
+- Improved the defence against pawn and wrong bishop if the defending side
+  still has one or two pawns left: the defending king must take the corner.
+
+- The pre-search has been reduced from three plies depth to one ply. In
+  complicated middlegame positions, the pre-search could take 10 seconds on
+  the CT800 target hardware.
+
+- More efficient iterative deepening with aspiration window.
+
+- Added a dedicated reply cache for the moves at depth 2.
+
+- Removed the threat move detection at root level.
+
+- The time allocation keeps only a 100 ms as final safeguard buffer instead of
+  1500 ms.
+
+- Fixed a bug where manually saving and loading a game in game-in or tournament
+  mode added Fischer delay and player bonus to the player's clock.
+
+- The bitbase access for king and pawn vs. king is faster.
+
+- Modified the evaluation noise as setting from 0 % (full strength) to 100 %
+  (random mover), requiring the change of the configuration format mentioned
+  above.
+
+- More opening book knowledge.
+
+- Some cleanup for the opening book code.
+
+
+UCI versions:
+- Fixed a buffer overrun that happened with "debug on" and long input lines.
+
+- Added support for the UCI standard options that set the engine strength in
+  Elo.
+
+- Added the UCI option "Eval Noise [%]".
+
+- Removed the UCI option "Eval Blur [cps]".
+
+- The default move overhead for GUI delays has been reduced from a 100 ms to
+  50 ms.
+
+- Improved the time management with extremely short time controls, like one
+  second per game.
+
+- Optimised the move list parser.
+
+- Removed checking the transferred position and move list for draw by 50 moves
+  or threefold repetition or insufficient material, which the engine used to
+  answer with a null move. The removal increases the compatibility with GUI
+  quirks in Arena and Droidfish.
+
+- Added the non-standard UCI command "perft x", x being the desired depth in
+  plies.
+
+Windows:
+- Changed the formatted output to Windows functions or replaced them at all.
+  This reduces the binary size by about 50 kB and gives a little more speed.
+
+Android:
+- Updated the NDK version from r15c to r16b.
+
+Raspberry Pi:
+- The binary is linked dynamically, reducing the size.
+
+******************************************************************************
+
+V1.20:
+- The time management is a bit less aggressive.
+
+- Higher priority for found null moves.
+
+- Reduced the passed pawn extension.
+
+- Removed the draw recognition in quiescence search with king and blocked
+  pawns.
+
+- Fixed a bug in the rook vs. bishop endgame where the correct defender edge
+  was not highlighted enough over its adjacent rim squares.
+
+- Added rule of the square for passed pawns.
+
+- Improved the defence in rook vs. rook and pawn.
+
+- Fixed a corner case with the 50 moves rule: the 50th move draws only if it
+  does not deliver checkmate.
+
+- Increased the amount of pseudo-legal moves that entered positions can have
+  from 140 to 190.
+
+- Undo/redo moves within the opening book range will not lose the 'b' in the
+  display anymore. Not active with human vs. human or when the opening book is
+  deactivated.
+
+- Added more opening knowledge.
+
+- The opening book compiler is case-insensitive.
+
+- The compiler options now include also -Wextra (besides -Wall) in order to
+  make better use of static code analysis at compile time. Since also -Werror
+  is used, code with any warnings will not compile.
+
+
+UCI versions:
+- After returning a move, the engine does not execute that move internally.
+  This increases the GUI compatibility when looking for alternative moves
+  via the UCI feature "searchmoves".
+
+- The half move counter in the FEN string is parsed correctly.
+
+- Added options for controlling the contempt factor.
+
+- Added an option to limit the speed via the node rate.
+
+- Overhauled the I/O layer to achieve more robustness across the supported
+  platforms. In particular, the engine idle state does not keep the OS from
+  entering deeper energy saving modes.
+
+- Fixed double final PV output in fixed depth search.
+
+- Removed the "Show Short PVs" option - it is now always enabled. This reduces
+  the perceived engine lag under some GUIs.
+
+
+Windows:
+- ASLR and NX has been enabled (enhanced security).
+
+- Updated the GCC version from 6.3.1 to 6.4.0.
+
+
+Linux:
+- Still no binaries included, but added a quick compilation guide under
+  binaries/Linux in the download.
+
+
+Android:
+- In addition to the ARM 32 bit binary, there are now also ones for ARM64, x86
+  and x86-64.
+
+- The binaries are now dynamically linked to the C standard library for better
+  support of position independent code (security enhancement).
+
+- Updated the NDK version from r15b to r15c.
+
+- A Clang compiler problem requires a small workaround for 64 bit, see Clang
+  issue 35827: https://bugs.llvm.org/show_bug.cgi?id=35827 . As to keep the
+  versions in line, the impacted feature has been disabled for all Android
+  builds.
+
+******************************************************************************
+
+V1.12:
+- Besides overclocking, underclocking is available as well; clocking range is
+  in several steps from 10 % to 140 %. This way, users can reduce the strength
+  of the CT800 while still retaining the playing style.
+
+- Removed the "soft time per move" feature. Instead, the move time is given
+  as average with about 30 % variation.
+
+- Changing sides under time controls is now possible.
+
+- Reduced the optional player bonus from 15 seconds to 10 seconds.
+
+- Fixed endings with opposite coloured bishops so that the Kings' positions
+  do not outweigh an additional pawn loss.
+
+- Added draw detection for KQ:KP when the pawn is a rook or bishop pawn on the
+  7th/2nd rank with its king nearby and the other king sufficiently far away.
+
+- Added draw detection for KR:KP when the pawn is on the 7th/2nd rank with its
+  king nearby and the other king sufficiently far away.
+
+- Quiescence search detects checking captures and evasions.
+
+- Added selective deepening for passed pawn pushes in the endgame.
+
+- No under-promotions in quiescence and the sorting pre-search.
+
+- Even the pre-search gives a mini-PV of 3 plies depth, and is is faster.
+
+- Fixed a bug that prevented the detection of 50 moves draw in the search
+  tree.
+
+- The draw avoidance during the opening checks more thoroughly whether or
+  not to allow draw by repetition.
+
+- Hash tables are used also in the pre-search phase for move ordering.
+
+- The aging management of the hash tables deletes outdated entries.
+
+- During search, the PV is preserved if possible, preventing PV shrinkage
+  because of hash table cuts.
+
+- Added more opening knowledge.
+
+- The mate searching mode is about 30 % faster.
+
+- Changed the dialogue box "EN" option labels to "OK".
+
+- Updated the ARM compiler version to 6.3.1 Q2/2017.
+
+
+PC version:
+- Changed the protocol from Xboard to UCI.
+
+- The engine can be throttled from 100 % down to 1 %.
+
+- Added eval blurring for the middlegame.
+
+- Fixed the "easy move detection".
+
+- Fixed the lazy eval enabling in the middlegame.
+
+New platforms:
+- Added support for Android (engine only without GUI). Works with
+  ARM-Android 4.1 or higher.
+- Added support for Raspberry Pi (engine only without GUI). Works with
+  Raspberry Pi 1/2/3/Zero with Debian Jessie.
+
+Note: iOS support is not planned because Apple has decided than iOS users do
+not need GPL'ed software.
+
+******************************************************************************
+
+V1.11:
+- There is now an Xboard capable version of the CT800 for PCs. For Windows,
+  pre-built binaries are supplied. The advanced CT800 time management is not
+  fully implemented in the PC version, but the rest is.
+
+- Added the following openings as passive knowledge for Black:
+  Shirov Gambit.
+
+- Added the following openings as passive knowledge for White:
+  Elephant Gambit and Budapest Gambit.
+
+- Minor speedup in opening book lookup.
+
+- Hash tables are not completely cleared before a move, only 25 %.
+
+- Minor code cleanup in the opening book tool and the crc tool.
+
+Note: the stack analysis from V1.10 is still valid for V1.11.
+
+******************************************************************************
+
+V1.10:
+
+- Easy move detection implemented. If there is only one way to capture a piece
+  and no trap alert is triggered, the easy move is played quickly.
+
+- Enhanced the opening book, especially with stupid opening moves like 1. h3.
+  Some people try this to throw the CT800 immediately out of the book.
+
+- Time management is more aggressive, concentrating on the first 30 moves,
+  both for game-in and tournament time controls.
+
+- Added an trade delay recognition for the PV search. A 1:1 trade right at the
+  end of the search tree (before quiescence) will trigger a deepening by
+  1 ply. This increases the tactical solidity in the PV.
+
+- Corrected the king safety evaluation for the pawn shelter.
+
+- Sorting presearch uses the opponent's threat move for more cut-offs.
+
+- Added some backports of the update NG-Play v9.86 to v9.87 that speed up the
+  search.
+
+- Code cleanup with more consistent function naming according to their module.
+  Documented read-only or read-write usage of external globals.
+
+- The move sorting uses a hybrid between Selection sort and Shellsort.
+
+- Minor program speedup and RAM gains.
+
+- Backup RAM is generally locked and only unlocked for write operations.
+
+- The random generator also uses the timing of the user key actions as
+  source of randomness.
+
+- Battery monitoring for immediate shutdown also works during menu access,
+  when using the position viewer or during other dialogues.
+
+- Before starting another game, a battery check with waiting dialogue and
+  animated progress bar appears.
+
+- "Always on" light mode works.
+
+- Saving the display contrast setting works.
+
+- Custom display characters make the dialogue boxes look cleaner.
+
+- The opening book is using a CRC-40 instead of a CRC-32 by combining a
+  CRC-32 with a CRC-8.
+
+- There is an Easter egg in the ARM version. Looking up the source text is
+  cheating!
+
+- The ARM version build script / batch file automatically checks the compiler
+  path and generates the opening book.
+
+- Changed the ARM compiler version from 5.4.1 to 6.3.1.
+
+- Added the overall software architecture to the documentation, i.e. what
+  which source file actually contains.
+
+- Updated the manual.
+
+- The opening book tool allows pawn promotions as implicit queening.
+  The error messages of the book tool have changed to intellegible clear
+  text. Besides plain ASCII for the input book text file, also UTF-8 with
+  and without BOM (byte order mark) are supported. White space allows both
+  space and tab. Leading white spaces in lines and empty lines are
+  accepted.
+  The cache indices calculation is done by the opening book tool at compile
+  time.
+  Cleaned up and refactored the code for more clarity and robustness.
+
+- Minor code cleanup for the crc tool (no functional impact).
+
+- The Windows binaries for the opening book tool and the crc tool are compiled
+  using MingW (GCC 6.3.0) instead of Visual Studio.
+
+******************************************************************************
+
+V1.01: first official release.
+
+******************************************************************************

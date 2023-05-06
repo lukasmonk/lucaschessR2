@@ -229,7 +229,7 @@ class WEdicionSonido(LCDialog.LCDialog):
             (_("End"), Iconos.S_StopMicrofono(), self.ks_stopmic),
             (_("Begin"), Iconos.S_Record(), self.ks_record),
             (_("Cancel"), Iconos.S_Cancelar(), self.ks_cancelmic),
-            (_("Delete"), Iconos.S_Limpiar(), self.ks_limpiar),
+            (_("Remove"), Iconos.S_Limpiar(), self.ks_limpiar),
             (_("Save wav"), Iconos.Grabar(), self.ks_grabar),
         )
 

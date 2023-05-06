@@ -523,7 +523,7 @@ FILESW=%s:100
                             self.si_bmt_brilliancies = True
                     else:
                         nag, color = mrm.set_nag_color(rm)
-                        if nag:
+                        if nag and not move.is_mate:
                             move.add_nag(nag)
 
                     if self.themes_lichess and (mj.mate != 0 or dif > 0):

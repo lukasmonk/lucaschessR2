@@ -728,9 +728,10 @@ class WindowArbol(LCDialog.LCDialog):
         ly = Colocacion.V().control(tb).control(self.infoMove).margen(3)
         w.setLayout(ly)
 
+        self.splitter = splitter = QtWidgets.QSplitter(self)
+
         self.wmoves = WMoves(self, procesador)
 
-        self.splitter = splitter = QtWidgets.QSplitter(self)
         splitter.addWidget(w)
         splitter.addWidget(self.wmoves)
 

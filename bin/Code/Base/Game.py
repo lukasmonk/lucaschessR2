@@ -146,6 +146,8 @@ class Game:
 
     def restore(self, btxt_save):
         dic = Util.zip2var(btxt_save)
+        if not dic:
+            return
         self.first_position = Position.Position()
         self.first_position.read_fen(dic["first_position"])
         self.first_comment = dic["first_comment"]
@@ -670,8 +672,11 @@ class Game:
 
     def anulaSoloUltimoMovimiento(self):
         if self.li_moves:
+            move = self.li_moves[-1]
             del self.li_moves[-1]
             self.set_unknown()
+            return move
+        return None
 
     def copia(self, hastaJugada=None):
         p = Game()
@@ -1017,7 +1022,10 @@ def pgn_game(pgn):
     last_posicion = game.first_position
     jg_activa = None
     if type(pgn) == bytes:
-        pgn = pgn.decode("utf-8", errors="ignore")
+        try:
+            pgn, codec = Util.bytes_str_codec(pgn)
+        except:
+            pgn = pgn.decode("utf-8", errors="ignore")
     li = FasterCode.xparse_pgn(pgn)
     if li is None:
         return False, game

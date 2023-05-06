@@ -350,7 +350,7 @@ class ManagerPlayGame(Manager.Manager):
         self.beepResultadoCAMBIAR(quien)
 
         self.message_on_pgn(mensaje)
-        self.ponFinJuego()
+        self.set_end_game()
         self.guardar()
 
     def guardar(self):

@@ -420,8 +420,9 @@ class WTournamentRun(QtWidgets.QWidget):
 
     def stop_clock(self, is_white):
         tc = self.tc_white if is_white else self.tc_black
-        tc.stop()
+        resp = tc.stop()
         tc.set_labels()
+        return resp
 
     def pause_clock(self, is_white):
         tc = self.tc_white if is_white else self.tc_black
@@ -488,7 +489,7 @@ class WTournamentRun(QtWidgets.QWidget):
 
         for n in range(nbloques):
             pv = lipv[n]
-            self.board.creaFlechaMov(pv[:2], pv[2:4], tipo + str(opacity))
+            self.board.show_arrow_mov(pv[:2], pv[2:4], tipo, opacity=opacity / 100)
             if n % 2 == 1:
                 opacity -= cambio
                 cambio = salto
@@ -511,6 +512,9 @@ class WTournamentRun(QtWidgets.QWidget):
             if not move_found:
                 self.book[is_white] = None
 
+        time_ms = None
+        clock_ms = None
+
         if not move_found:
             xrival = self.xengine[is_white]
             time_pending_white = self.tc_white.pending_time
@@ -524,7 +528,9 @@ class WTournamentRun(QtWidgets.QWidget):
                 self.pause_clock(is_white)
                 self.board.borraMovibles()
                 return True
-            self.stop_clock(is_white)
+            time_ms = self.stop_clock(is_white)
+            clock_ms = self.tc_white.pending_time if is_white else self.tc_black.pending_time
+
             if mrm is None:
                 return False
             rm = mrm.mejorMov()
@@ -539,6 +545,10 @@ class WTournamentRun(QtWidgets.QWidget):
                 self.game.set_termination(TERMINATION_ADJUDICATION,
                                           RESULT_WIN_BLACK if self.current_side == WHITE else RESULT_WIN_WHITE)
             return False
+        if time_ms:
+            move.set_time_ms(time_ms)
+        if clock_ms:
+            move.set_clock_ms(clock_ms)
         if analysis:
             move.analysis = analysis
             move.del_nags()
@@ -645,7 +655,7 @@ class WTournamentRun(QtWidgets.QWidget):
             return False
         # if not self.xadjudicator:
         #     return False
-        self.next_control = 20
+        self.next_control = 10
 
         last_jg = self.game.last_jg()
         if not last_jg.analysis:
@@ -690,6 +700,7 @@ class WTournamentRun(QtWidgets.QWidget):
                         result = RESULT_WIN_BLACK if is_white else RESULT_WIN_WHITE
                     self.game.set_termination(TERMINATION_ADJUDICATION, result)
                     return True
+                self.next_control = 20
             else:
                 if rs <= abs(pAnt):
                     if (pAnt > 0 and pUlt > 0) or (pAnt < 0 and pUlt < 0):

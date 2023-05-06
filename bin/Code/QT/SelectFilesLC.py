@@ -136,7 +136,7 @@ class SelectFile(LCDialog.LCDialog):
         tbtools = Controles.TBrutina(self, style=QtCore.Qt.ToolButtonIconOnly, with_text=False)
         tbtools.addSeparator()
         tbtools.new(_("Home"), Iconos.SelectHome(), self.home)
-        tbtools.new(_("Explorer"), Iconos.SelectExplorer(), self.explorer, tool_tip=_("Use native dialog"))
+        tbtools.new(_("Use native dialog"), Iconos.SelectExplorer(), self.explorer)
 
         layout_tb = Colocacion.H().control(tb).relleno().control(tbtools)
         if self.select_file:
@@ -168,7 +168,11 @@ class SelectFile(LCDialog.LCDialog):
                 QTUtil2.message_error(self, _("You must select a file"))
                 return
 
-            folder = self.ed_folder.texto()
+            folder = self.ed_folder.texto().strip()
+            if len(folder) == 0:
+                QTUtil2.message_error(self, _("You must select a folder"))
+                return
+
             path = os.path.join(folder, fichero)
             path = os.path.normpath(path)
             if self.must_exist:
@@ -306,7 +310,7 @@ class SelectFile(LCDialog.LCDialog):
         if self.select_file:
             if not os.path.isfile(path):
                 return
-        else:
+        elif self.select_folder:
             if not os.path.isdir(path):
                 return
         self.select()
@@ -323,7 +327,7 @@ class SelectFile(LCDialog.LCDialog):
                 menu.opcion("delete", _("Remove this folder"), Iconos.SelectFolderRemove())
             resp = menu.lanza()
             if resp == "new":
-                form = FormLayout.FormLayout(self, _("Add folder"), Iconos.Opciones(), anchoMinimo=640)
+                form = FormLayout.FormLayout(self, _("Create a subfolder"), Iconos.Opciones(), anchoMinimo=640)
                 form.separador()
                 form.edit(_("Folder"), "")
                 resp = form.run()

@@ -337,6 +337,7 @@ class Tournament:
     def remove_games_queued(self, lista=None):
         if lista is None:
             lista = range(self.num_games_queued())
+        lista = list(set(lista))
         lista.sort(reverse=True)
         for pos in lista:
             del self.db_games_queued[pos]
@@ -362,7 +363,8 @@ class Tournament:
 
     def remove_games_finished(self, lista=None):
         if lista is None:
-            lista = range(self.num_games_finished())
+            lista = range(self.num_games_queued())
+        lista = list(set(lista))
         lista.sort(reverse=True)
         for pos in lista:
             game = self.game_finished(pos)

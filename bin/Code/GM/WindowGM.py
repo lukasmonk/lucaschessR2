@@ -528,16 +528,17 @@ class WGM(LCDialog.LCDialog):
             if type(bloque) == tuple:  # compatibilidad con versiones anteriores
                 bloque = bloque[0]
                 self.li_preferred_openings[nli] = bloque
-            menu.opcion(bloque, bloque.tr_name, Iconos.PuntoVerde())
+            menu.opcion((n_pos, bloque), bloque.tr_name, Iconos.PuntoVerde())
             n_pos += 1
 
         resp = menu.lanza()
         if resp:
+            n_pos, bloque = resp
             if menu.siIzq:
-                self.opening_block = resp
+                self.opening_block = bloque
                 self.aperturaMuestra()
             elif menu.siDer:
-                opening_block = resp
+                opening_block = bloque
                 if QTUtil2.pregunta(
                     self,
                     _X(

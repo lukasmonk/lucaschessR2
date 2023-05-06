@@ -43,7 +43,7 @@ def read_engines(folder_engines):
     cm.ordenUCI("Threads", "2")
     cm.set_multipv(20, 500)
 
-    cm = mas("komodo", "Don Dailey, Larry Kaufman", f"13.02{bmi2}", "http://komodochess.com/", f"komodo-13.02-linux{bmi2}", 3240)
+    cm = mas("komodo", "Don Dailey, Larry Kaufman", f"14.1{bmi2}", "http://komodochess.com/", f"komodo-14.1-linux{bmi2}", 3406)
     cm.ordenUCI("Hash", "64")
     cm.ordenUCI("Threads", "2")
     cm.set_multipv(20, 218)
@@ -91,6 +91,10 @@ def read_engines(folder_engines):
 
     mas("ethereal", "Andrew Grant, Alayan & Laldon", "12.75", "https://github.com/AndyGrant/Ethereal", "Ethereal-12.75", 3392)
 
+    mas("foxcub", "Lucas Monge", "1.1", "", "FoxCub.exe", 800)
+
+    mas("fox", "Lucas Monge", "1.1", "", "Fox.exe", 1400)
+
     mas("fractal", "Visan Alexandru", "1.0", "https://github.com/visanalexandru/FracTal-ChessEngine", "FracTal-1.0", 2010)
 
     mas("fruit", "Fabien Letouzey", "2.1", "http://www.fruitchess.com/", "Fruit-2.1", 2784)
@@ -107,7 +111,7 @@ def read_engines(folder_engines):
 
     mas("greko", "Vladimir Medvedev", "2020.03", "http://greko.su/index_en.html", "GreKo-2020.03", 2580)
 
-    mas("greko98", "Vladimir Medvedev", "9.8", "http://sourceforge.net/projects/greko", "GreKo-98", 2500)
+    mas("greko98", "Vladimir Medvedev", "9.8a", "http://sourceforge.net/projects/greko", "GreKo98a", 2500)
 
     mas("gunborg", "Torbjorn Nilsson", "1.35", "https://github.com/torgnil/gunborg", "Gunborg-1.35", 2086)
 

@@ -20,9 +20,9 @@ PGN_SELECT=Selected move
 PGN_MOVES=Other moves
 
 [Various]
-CONTROLMENSESPERA=Message window
+CONTROLMENSESPERA=Ephemeral message window
 LINKS=Links
-BOARD_STATIC=Message in some boards (Coordinates/Captures/...)
+BOARD_STATIC=Messages in the middle of some boards (coordinate training/captures/...)
 
 [Databases+Opening explorer]
 SUMMARY_FOREGROUND=Foreground
@@ -31,10 +31,10 @@ SUMMARY_LOST=Loss
 SUMMARY_TOTAL=Total
 
 [League]
-WLEAGUE_MIGRATION=Engines that change of division in its case
-WLEAGUECONFIG_1=Configuration, selected engines, 1 division
-WLEAGUECONFIG_2=Configuration, selected engines, 2 division
-WLEAGUECONFIG_3=Configuration, engines, 3 division
+WLEAGUE_MIGRATION=Engines that change of division
+WLEAGUECONFIG_1=Configuration, selected engines, 1st division
+WLEAGUECONFIG_2=Configuration, selected engines, 2nd division
+WLEAGUECONFIG_3=Configuration, selected engines, 3rd division
 
 [League+Crosstabs]
 WLEAGUE_WIN=Win
@@ -43,11 +43,10 @@ WLEAGUE_NORESULT=No result
 WLEAGUE_DRAW=Draw
 
 [Opening lines]
-WLINES_PAR=Par lines
-WLINES_NON=Non lines
-WLINES_LINE=Line
+WLINES_PAR=Even lines
+WLINES_NON=Odd lines
+WLINES_LINE=Line numbers
 WLINES_PGN=PGN
-WLINES_POSITIONS=Positions
 
 [Transsiberian Railway]
 ROUTES_FOREGROUND=Foreground
@@ -59,7 +58,9 @@ ROUTES_TRACK_BACKGROUND=Track background
 ROUTES_STATE_FOREGROUND=State foreground
 ROUTES_STATE_BACKGROUND=State background
 ROUTES_NEXTTASK_FOREGROUND=Next task foreground
-ROUTES_TITLE_FOREGROUND=Title foreground
+ROUTES_NEXTTASK_BACKGROUND_PLAYING=Background colour of next task if playing
+ROUTES_NEXTTASK_BACKGROUND_ENDINGS=Background colour of next task if endings
+ROUTES_NEXTTASK_BACKGROUND_TACTICS=Background colour of next task if tactical
 ROUTES_TIME_FOREGROUND=Time foreground
 ROUTES_TIME_BACKGROUND=Time background
 ROUTES_DATE_FOREGROUND=Date foreground
@@ -72,7 +73,6 @@ MANAGERMATE_BACKGROUND=Background
 
 
 [Director]
-DIRECTOR_SELECTBANDA=Select banda
 DIRECTOR_BANDA_BORDER_ENABLE=Border when enable
 DIRECTOR_BANDA_FOREGROUND_ENABLE=Foreground when enable
 DIRECTOR_BANDA_BACKGROUND_ENABLE=Background when enable

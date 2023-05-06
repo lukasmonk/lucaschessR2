@@ -5,6 +5,7 @@ import FasterCode
 from PySide2 import QtWidgets, QtCore
 
 import Code
+from Code.Engines import EngineManager
 from Code.Base import Game, Move
 from Code.Board import Board
 from Code.Databases import DBgames
@@ -54,6 +55,8 @@ class WEndingsGTB(LCDialog.LCDialog):
             li_acciones.append(None)
 
         self.tb_base = QTVarios.LCTB(self, li_acciones)
+
+        self.komodo = None
 
         ly_bt, self.bt_movs = QTVarios.lyBotonesMovimiento(
             self, "", siTiempo=True, siLibre=False, rutina=self.run_botones, icon_size=24
@@ -196,7 +199,7 @@ class WEndingsGTB(LCDialog.LCDialog):
         if position is not None:
             fen = position.fen()
             mt = self.t4.dtm(fen)
-            if mt is None:
+            if mt is None or len(position.get_exmoves()) == 0:
                 QTUtil2.message_error(self, _("Invalid, this position is not evaluated by Gaviota Tablebases"))
                 return
             if mt < 0:
@@ -463,6 +466,15 @@ class WEndingsGTB(LCDialog.LCDialog):
             return True, go_next
         return False, None
 
+    def get_move_komodo(self):
+        if self.komodo is None:
+            self.komodo = EngineManager.EngineManager(self.procesador, self.configuration.buscaRival("komodo"), False)
+            self.komodo.options(0, 7, False)
+            self.komodo.check_engine()
+            self.komodo.engine.put_line("setoption name Personality value Human")
+        self.komodo.engine.put_line("setoption name Armageddon value %s Must Win" % ("White" if self.game.last_position.is_white else "Black"))
+        return self.komodo.play_game(self.game)
+
     def sigueMaquina(self):
         ended, go_next = self.test_final()
         if ended:
@@ -472,7 +484,20 @@ class WEndingsGTB(LCDialog.LCDialog):
         lista = self.t4.best_moves_game(self.game)
         if len(lista) == 0:
             return
-        move = random.choice(lista)
+        if len(lista) > 1:
+            select = None
+            rm = self.get_move_komodo()
+            if rm:
+                a1h8 = rm.movimiento().lower()
+                for pos, mv in enumerate(lista):
+                    if mv.lower() == a1h8:
+                        select = pos
+                        break
+            if select is None:
+                select = random.randint(0, len(lista)-1)
+        else:
+            select = 0
+        move = lista[select]
         from_sq, to_sq, promotion = move[:2], move[2:4], move[4:]
         ok, mens, move = Move.get_game_move(self.game, self.game.last_position, from_sq, to_sq, promotion)
         self.game.add_move(move)

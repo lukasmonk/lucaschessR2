@@ -58,6 +58,9 @@ class AnalysisEval:
 
             return self.lv_dif(rm_c.puntos, self.conf.x_eval_limit_score) + xadd
 
+        elif rm_j.mate == 0 and rm_c.mate < 0:
+            return self.lv_dif(rm_c.centipawns_abs(), rm_j.centipawns_abs())
+
         else:
             dif_mate = rm_j.mate - rm_c.mate
             if dif_mate >= self.conf.x_eval_difmate_blunder:

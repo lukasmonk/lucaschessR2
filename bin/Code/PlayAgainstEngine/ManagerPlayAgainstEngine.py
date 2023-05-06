@@ -214,7 +214,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         if self.nArrowsTt != 0 and self.hints == 0:
             self.nArrowsTt = 0
 
-        self.last_time_show_arrows = time.time()
+        self.last_time_show_arrows = time.time() - 2.0
 
         self.with_takeback = dic_var.get("TAKEBACK", True)
 
@@ -334,6 +334,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         if self.play_while_win:
             self.is_tutor_enabled = True
 
+
         self.game.add_tag_timestart()
 
         self.check_boards_setposition()
@@ -402,7 +403,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                 if mrm:
                     rm = mrm.mejorMov()
                     if self.nArrowsTt > 0:
-                        if time.time() - self.last_time_show_arrows > 1.4:
+                        if time.time() - self.last_time_show_arrows > 3.4:
                             self.last_time_show_arrows = time.time()
                             self.showPV(rm.pv, self.nArrowsTt)
                     if self.thoughtTt > -1:
@@ -411,7 +412,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             rm = self.xrival.current_rm()
             if rm:
                 if self.nArrows:
-                    if time.time() - self.last_time_show_arrows > 1.4:
+                    if time.time() - self.last_time_show_arrows > 3.4:
                         self.last_time_show_arrows = time.time()
                         self.showPV(rm.pv, self.nArrows)
                 if self.thoughtOp > -1:
@@ -682,7 +683,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             self.state = ST_ENDGAME
             self.stop_engine()
             self.game.set_unknown()
-            self.ponFinJuego(self.with_takeback)
+            self.set_end_game(self.with_takeback)
             self.autosave()
         else:
             if self.timed:
@@ -717,7 +718,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             )
             self.saveSummary()
             if not self.play_while_win:
-                self.ponFinJuego(self.with_takeback)
+                self.set_end_game(self.with_takeback)
             if not self.play_while_win:
                 self.autosave()
         else:
@@ -1016,14 +1017,13 @@ class ManagerPlayAgainstEngine(Manager.Manager):
 
         # BOOK----------------------------------------------------------------------------------------------------------
         if not is_choosed and self.book_rival_active:
-            if self.book_rival_depth == 0 or self.book_rival_depth >= len(self.game):
+            if self.book_rival_depth == 0 or self.book_rival_depth > len(self.game):
                 is_choosed, from_sq, to_sq, promotion = self.select_book_move()
                 if not is_choosed:
                     self.dic_reject["book_rival"] += 1
-                    self.book_rival_active = self.dic_reject["book_rival"] <= 5
             else:
                 self.dic_reject["book_rival"] += 1
-                self.book_rival_active = self.dic_reject["book_rival"] <= 5
+            self.book_rival_active = self.dic_reject["book_rival"] <= 5
             self.ponRotuloBasico()
 
         if not is_choosed and self.siBookAjustarFuerza:
@@ -1246,7 +1246,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         # BOOK----------------------------------------------------------------------------------------------------------
         if not is_choosed and self.book_player_active:
             test_book = False
-            if self.book_player_depth == 0 or self.book_player_depth >= len(self.game):
+            if self.book_player_depth == 0 or self.book_player_depth > len(self.game):
                 lista_jugadas = self.book_player.get_list_moves(fen_base)
                 if lista_jugadas:
                     li = []
@@ -1521,7 +1521,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         p = self.main_window.mapToGlobal(p0)
         if not (self.play_while_win and self.game.termination == TERMINATION_RESIGN):
             QTUtil2.message(self.main_window, mensaje, px=p.x(), py=p.y(), si_bold=True)
-        self.ponFinJuego(self.with_takeback)
+        self.set_end_game(self.with_takeback)
 
     def ponAyudasEM(self):
         self.ponAyudas(self.hints, siQuitarAtras=False)
@@ -1668,3 +1668,55 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         self.board.enable_eboard_here()
 
         self.play_next_move()
+
+    # def showPV0(self, pv, nArrows):
+    #     if not pv:
+    #         return True
+    #     self.board.remove_arrows()
+    #     tipo = "ms"
+    #     opacity = 100
+    #     pv = pv.strip()
+    #     while "  " in pv:
+    #         pv = pv.replace("  ", " ")
+    #     lipv = pv.split(" ")
+    #     npv = len(lipv)
+    #     nbloques = min(npv, nArrows)
+    #     salto = (80 - 15) * 2 / (nbloques - 1) if nbloques > 1 else 0
+    #     cambio = max(30, salto)
+    #
+    #     for n in range(nbloques):
+    #         pv = lipv[n]
+    #         self.board.show_arrow_mov(pv[:2], pv[2:4], tipo + str(opacity))
+    #         if n % 2 == 1:
+    #             opacity -= cambio
+    #             cambio = salto
+    #         tipo = "ms" if tipo == "mt" else "mt"
+    #     return True
+    #
+    def showPV(self, pv, nArrows):
+        if not pv:
+            return True
+        self.board.remove_arrows()
+        pv = pv.strip()
+        while "  " in pv:
+            pv = pv.replace("  ", " ")
+        lipv = pv.split(" ")
+        npv = len(lipv)
+        nbloques = min(npv, nArrows)
+
+        for side in range(2):
+            base = "p" if side == 0 else "r"
+            alt = base + "t"
+            opacity = 1.00
+
+            previo = None
+            for n in range(side, nbloques, 2):
+                pv = lipv[n]
+                if previo:
+                    self.board.show_arrow_mov(previo[2:4], pv[:2], "tr", opacity=max(opacity/2, 0.3))
+
+                self.board.show_arrow_mov(pv[:2], pv[2:4], base if n == side else alt, opacity=opacity)
+                previo = pv
+                opacity = max(opacity-0.20, 0.40)
+        return True
+

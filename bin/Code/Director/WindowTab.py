@@ -36,8 +36,8 @@ class SelectUna(Controles.LB):
             self.set_style()
 
     def set_style(self):
-        color = "orange" if self.seleccionada else "lightgray"
-        self.setStyleSheet("QLabel{ border: 2px solid %s; padding:2px;}" % color)
+        color = Code.dic_colors["DIRECTOR_BANDA_BORDER_ENABLE"] if self.seleccionada else Code.dic_colors["DIRECTOR_BANDA_BORDER_DISABLE"]
+        self.setStyleSheet("border: 2px solid %s; padding:2px;" % color)
 
     def mousePressEvent(self, event):
         if self.add_text:
@@ -55,7 +55,7 @@ class SelectBanda(QtWidgets.QWidget):
     def __init__(self, owner):
         QtWidgets.QWidget.__init__(self)
 
-        numElem, ancho = 10, 32
+        num_elem, ancho = 10, 32
         self.owner = owner
         self.ancho = ancho
         self.seleccionada = None
@@ -69,15 +69,12 @@ class SelectBanda(QtWidgets.QWidget):
         if ancho != 32:
             pm = pm.scaled(ancho, ancho)
         self.pm_empty = pm
-        color = Code.dic_colors["DIRECTOR_SELECTBANDA"]
-        for n in range(numElem):
+        for n in range(num_elem):
             lb_f = Controles.LB("F%d" % (n + 1,))
-            lb_f.setStyleSheet("QLabel{ border: 1px solid %s; background: %s;}" % (color, color))
-            lb_f.anchoFijo(24)
-            lb_f.altoFijo(36)
+            lb_f.anchoFijo(32)
+            lb_f.altoFijo(40)
             lb_f.align_center()
             layout.controlc(lb_f, n, 1)
-            lb_f.hide()
             if n == 9:
                 lb = SelectUna(self, Iconos.pmTexto().scaled(ancho, ancho), True)
                 lb.addText = True
@@ -111,16 +108,15 @@ class SelectBanda(QtWidgets.QWidget):
         lb_f = Controles.LB("%s F10\n%s" % (_("CTRL"), _("Changes")))
         lb_f.setToolTip(_("Shift-Alt with right button to create/remove pieces"))
         # Activa la posibilidad de mover las piezas con el ratón
-        lb_f.setStyleSheet("QLabel { border: 1px solid %s; background: %s; color:black;}" % (color, color))
         lb_f.altoFijo(36)
         lb_f.align_center()
         self.lb_change_graphics = lb_f
         lb_f.mousePressEvent = self.mousePressEventGraphics
-        layout.controlc(lb_f, numElem, 0, 1, 2)
+        layout.controlc(lb_f, num_elem, 0, 1, 2)
         self.dic_data = collections.OrderedDict()
         self.setLayout(layout)
 
-        st = "*{ border: 1px solid %s; background-color:%s; color:%s;}"
+        st = "border: 2px solid %s; background-color:%s; color:%s;"
         border_enable = Code.dic_colors["DIRECTOR_BANDA_BORDER_ENABLE"]
         fore_enable = Code.dic_colors["DIRECTOR_BANDA_FOREGROUND_ENABLE"]
         back_enable = Code.dic_colors["DIRECTOR_BANDA_BACKGROUND_ENABLE"]
@@ -129,8 +125,8 @@ class SelectBanda(QtWidgets.QWidget):
         back_disable = Code.dic_colors["DIRECTOR_BANDA_BACKGROUND_DISABLE"]
 
         self.style_f = {
-            True: st % (border_enable, fore_enable, back_enable),
-            False: st % (border_disable, fore_disable, back_disable),
+            True: st % (border_enable, back_enable, fore_enable),
+            False: st % (border_disable, back_disable, fore_disable),
         }
         lb_f.setStyleSheet(self.style_f[False])
 

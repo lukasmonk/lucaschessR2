@@ -367,7 +367,7 @@ class Tutor:
                 for m in li:
                     d = m.xfrom()
                     h = m.xto()
-                    self.boardTutor.creaFlechaMov(d, h, "c")
+                    self.boardTutor.show_arrow_mov(d, h, "c")
             else:
                 self.boardTutor.remove_arrows()
                 if self.boardTutor.flechaSC:
@@ -394,7 +394,7 @@ class Tutor:
                 for m in li:
                     d = m.xfrom()
                     h = m.xto()
-                    self.boardUsuario.creaFlechaMov(d, h, "c")
+                    self.boardUsuario.show_arrow_mov(d, h, "c")
             else:
                 self.boardUsuario.remove_arrows()
                 if self.boardUsuario.flechaSC:

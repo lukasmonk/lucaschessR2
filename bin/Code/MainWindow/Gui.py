@@ -34,6 +34,11 @@ def run_gui(procesador):
 
     procesador.start_with_user(user)
     configuration = procesador.configuration
+
+    if len(list_users) > 1:  # Para que las capturas se muestren con las piezas de cada usuario
+        nom_pieces_ori = configuration.dic_conf_boards_pk["BASE"]["o_base"]["x_nomPiezas"]
+        Code.all_pieces.save_all_png(nom_pieces_ori, 30)
+
     if user:
         if not configuration.x_player:
             configuration.x_player = user.name

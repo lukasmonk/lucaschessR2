@@ -13,6 +13,7 @@ from Code.Base.Constantes import (
     TB_UTILITIES,
     GT_NOTE_DOWN,
 )
+from Code.Base import Game
 from Code.QT import QTVarios
 from Code.SQL import UtilSQL
 
@@ -109,6 +110,8 @@ class ManagerWritingDown(Manager.Manager):
 
     def run_action(self, key):
         if key == TB_REINIT:
+            self.game_objetivo = self.game
+            self.game = Game.Game(first_position=self.game_objetivo.first_position)
             self.start(self.game_objetivo, self.si_blancas_abajo)
 
         elif key in (TB_CANCEL, TB_CLOSE):

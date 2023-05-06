@@ -66,7 +66,7 @@ class Board(QtWidgets.QGraphicsView):
 
         self.variation_history = None
 
-        self.siMenuVisual = siMenuVisual and siDirector
+        self.siMenuVisual = siMenuVisual
         self.siDirector = siDirector and siMenuVisual
         self.siDirectorIcon = self.siDirector and self.configuration.x_director_icon
         self.dirvisual = None
@@ -75,7 +75,6 @@ class Board(QtWidgets.QGraphicsView):
         self.dbVisual = TabVisual.DBManagerVisual(
             self.configuration.ficheroRecursos, show_always=self.configuration.x_director_icon is False
         )
-
         self.current_graphlive = None
         self.dic_graphlive = None
 
@@ -574,20 +573,20 @@ class Board(QtWidgets.QGraphicsView):
         self.liCoordenadasVerticales = []
         self.liCoordenadasHorizontales = []
 
-        anchoTexto = self.puntos + 4
+        ancho_texto = self.puntos + 4
         if self.margenCentro >= self.puntos or self.config_board.sepLetras() < 0:
             coord = BoardTypes.Texto()
-            tipoLetra = self.config_board.tipoLetra()
+            tipo_letra = self.config_board.tipoLetra()
             peso = 75 if self.config_board.siBold() else 50
-            coord.tipoLetra = BoardTypes.TipoLetra(tipoLetra, self.puntos, peso=peso)
-            coord.physical_pos.ancho = anchoTexto
-            coord.physical_pos.alto = anchoTexto
+            coord.tipoLetra = BoardTypes.TipoLetra(tipo_letra, self.puntos, peso=peso)
+            coord.physical_pos.ancho = ancho_texto
+            coord.physical_pos.alto = ancho_texto
             coord.physical_pos.orden = 7
             coord.colorTexto = self.colorTexto
 
-            pCasillas = baseCasillas.physical_pos
-            pFrontera = base_casillas_f.physical_pos
-            gapCasilla = (self.width_square - anchoTexto) / 2
+            p_casillas = baseCasillas.physical_pos
+            p_frontera = base_casillas_f.physical_pos
+            gap_casilla = (self.width_square - ancho_texto) / 2
             sep = (
                     self.margenCentro * self.config_board.sepLetras() * 38 / 50000
             )  # ancho = 38 -> sep = 5 -> sepLetras = 100
@@ -595,17 +594,17 @@ class Board(QtWidgets.QGraphicsView):
             def norm(x):
                 if x < 0:
                     return 0
-                if x > (ancho - anchoTexto):
-                    return ancho - anchoTexto
+                if x > (ancho - ancho_texto):
+                    return ancho - ancho_texto
                 return x
 
-            hx = norm(pCasillas.x + gapCasilla)
-            hyS = norm(pFrontera.y + pFrontera.alto + sep)
-            hyN = norm(pFrontera.y - anchoTexto - sep)
+            hx = norm(p_casillas.x + gap_casilla)
+            hyS = norm(p_frontera.y + p_frontera.alto + sep)
+            hyN = norm(p_frontera.y - ancho_texto - sep)
 
-            vy = norm(pCasillas.y + gapCasilla)
-            vxE = norm(pFrontera.x + pFrontera.ancho + sep)
-            vxO = norm(pFrontera.x - anchoTexto - sep)
+            vy = norm(p_casillas.y + gap_casilla)
+            vxE = norm(p_frontera.x + p_frontera.ancho + sep)
+            vxO = norm(p_frontera.x - ancho_texto - sep)
 
             for x in range(8):
 
@@ -651,14 +650,14 @@ class Board(QtWidgets.QGraphicsView):
                         self.liCoordenadasVerticales.append(verSC)
 
         # Indicador de color activo
-        pFrontera = base_casillas_f.physical_pos
+        p_frontera = base_casillas_f.physical_pos
         pCajon = cajon.physical_pos
-        ancho = pCajon.ancho - (pFrontera.x + pFrontera.ancho)
+        ancho = pCajon.ancho - (p_frontera.x + p_frontera.ancho)
         gap = int(ancho / 8) * 2
 
         indicador = BoardTypes.Circulo()
-        indicador.physical_pos.x = (pFrontera.x + pFrontera.ancho) + gap / 2
-        indicador.physical_pos.y = (pFrontera.y + pFrontera.alto) + gap / 2
+        indicador.physical_pos.x = (p_frontera.x + p_frontera.ancho) + gap / 2
+        indicador.physical_pos.y = (p_frontera.y + p_frontera.alto) + gap / 2
         indicador.physical_pos.ancho = indicador.physical_pos.alto = ancho - gap
         indicador.physical_pos.orden = 2
         indicador.color = self.colorFrontera
@@ -696,9 +695,9 @@ class Board(QtWidgets.QGraphicsView):
 
             if self.siDirectorIcon:
                 script = BoardTypes.Imagen()
-                script.physical_pos.x = pFrontera.x - ancho + ancho
+                script.physical_pos.x = p_frontera.x - ancho + ancho
                 if self.configuration.x_position_tool_board == "B":
-                    script.physical_pos.y = pFrontera.y + pFrontera.alto + 2 * gap
+                    script.physical_pos.y = p_frontera.y + p_frontera.alto + 2 * gap
                 else:
                     script.physical_pos.y = 0
 
@@ -902,6 +901,7 @@ class Board(QtWidgets.QGraphicsView):
                 self.dirvisual = None
                 return False
             else:
+                self.lanzaGuionAuto()
                 self.dirvisual = WindowDirector.Director(self)
             return True
         else:
@@ -1888,16 +1888,14 @@ class Board(QtWidgets.QGraphicsView):
             self.creaFlechaTmp(from_sq, to_sq, siMain)
         QTUtil.refresh_gui()
 
-    def creaFlechaMov(self, desdeA1h8, hastaA1h8, modo):
+    def show_arrow_mov(self, desde_a1h8, hasta_a1h8, modo, opacity=None):
         bf = BoardTypes.Flecha()
-        bf.trasparencia = 0.9
         bf.physical_pos.orden = ZVALUE_PIECE + 1
-        bf.width_square = self.width_square
         bf.color = self.config_board.fTransicion().color
         bf.redondeos = False
         bf.forma = "a"
 
-        siPieza = self.buscaPieza(hastaA1h8) > -1
+        siPieza = self.buscaPieza(hasta_a1h8) > -1
         if modo == "m":  # movimientos
             bf.tipo = 2
             bf.grosor = 2
@@ -1910,71 +1908,49 @@ class Board(QtWidgets.QGraphicsView):
             bf.altocabeza = 8
             bf.destino = "m" if siPieza else "c"
 
-        elif modo == "b":  # base para doble movimiento
-            bf.tipo = 1
-            bf.grosor = 2
-            bf.altocabeza = 0
-            bf.destino = "c"
 
-        elif modo == "bm":  # base para doble movimiento
-            bf.tipo = 2
+        elif modo == "tr":  # transición entre flechas
+            bf.tipo = 3
             bf.grosor = 2
-            bf.altocabeza = 0
+            bf.forma = "c"
+            bf.altocabeza = 14
             bf.destino = "c"
+            bf.ancho = 4
+            bf.physical_pos.orden = ZVALUE_PIECE - 1
 
         elif modo == "2":  # m2
-            bf = copy.deepcopy(self.config_board.fTransicion())
-            bf.trasparencia = 1.0
+            bf = self.config_board.fTransicion().copia()
             bf.destino = "c"
 
-        elif modo == "3":  # m2+
-            bf.tipo = 2
-            bf.grosor = 3
-            bf.altocabeza = 0
-            bf.destino = "m"
-            bf.physical_pos.orden = ZVALUE_PIECE - 1
+        elif modo == "p":
+            bf = self.config_board.fActivo().copia()
+            bf.destino = "c"
 
-        elif modo == "4":  # m2+
-            bf.tipo = 1
-            bf.grosor = 2
-            bf.altocabeza = 0
-            bf.destino = "m"
-            bf.physical_pos.orden = ZVALUE_PIECE - 1
-
-        elif modo == "e1":  # ent_pos1
-            bf.tipo = 1
-            bf.grosor = 2
-            bf.altocabeza = 6
-            bf.destino = "m"
-
-        elif modo == "e2":  # ent_pos1
-            bf.tipo = 2
-            bf.grosor = 2
-            bf.altocabeza = 6
-            bf.destino = "m"
-
-        elif modo.startswith("ms"):
-            resto = modo[2:]
-            bf = copy.deepcopy(self.config_board.fActivo())
-            bf.opacity = float(resto) / 100.0
-            bf.width_square = self.width_square
-
-        elif modo.startswith("mt"):
-            resto = modo[2:]
+        elif modo == "r":
             bf = self.config_board.fRival().copia()
-            bf.opacity = float(resto) / 100.0
-            bf.width_square = self.width_square
+            bf.destino = "c"
 
-        elif modo.startswith("m1"):
-            resto = modo[2:]
+        elif modo == "pt":
             bf = self.config_board.fTransicion().copia()
-            bf.opacity = float(resto) / 100.0
-            bf.width_square = self.width_square
+            bf.destino = "c"
 
-        elif modo.startswith("tb"):  # takeback eboard
+        elif modo == "rt":
+            bf = self.config_board.fAlternativa().copia()
+            bf.tipo = 1
+            bf.destino = "c"
+
+        elif modo == "rt":
+            bf.grosor = 2
+            bf.destino = "c"
+
+        elif modo == "ms":
+            bf = self.config_board.fActivo().copia()
+
+        elif modo == "mt":
+            bf = self.config_board.fRival().copia()
+
+        elif modo == "tb":  # takeback eboard
             bf = self.config_board.fTransicion().copia()
-            bf.opacity = 0.5
-            bf.width_square = self.width_square
             bf.destino = "m"
             bf.physical_pos.orden = ZVALUE_PIECE + 1
 
@@ -1982,7 +1958,11 @@ class Board(QtWidgets.QGraphicsView):
             bf.grosor = bf.grosor * 15 / 10
             bf.altocabeza = bf.altocabeza * 15 / 10
 
-        bf.a1h8 = desdeA1h8 + hastaA1h8
+        bf.a1h8 = desde_a1h8 + hasta_a1h8
+        bf.width_square = self.width_square
+
+        if opacity:
+            bf.opacity = opacity
 
         arrow = self.creaFlecha(bf)
         self.liFlechas.append(arrow)
@@ -2419,7 +2399,7 @@ class Board(QtWidgets.QGraphicsView):
                 m_2 = game.move(-2)
                 if self.flechaSC:
                     self.flechaSC.hide()
-                self.creaFlechaMov(m_2.to_sq, m_2.from_sq, "tb")
+                self.show_arrow_mov(m_2.to_sq, m_2.from_sq, "tb", opacity=0.50)
 
             Code.eboard.allowHumanTB = True
         return 0

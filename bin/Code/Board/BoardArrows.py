@@ -41,7 +41,7 @@ class FlechaSC(BoardBlocks.BloqueEspSC):
         df, dc, hf, hc = self.board.a1h8_fc(bf.a1h8)
 
         # siempre sale del centro
-        dx = physical_pos.x = dc * ac - ac / 2 + tf / 2
+        dx = physical_pos.x = dc * ac - ac / 2 + tf / 2 - 1
         dy = physical_pos.y = df * ac - ac / 2 + tf / 2
 
         if bf.destino == "c":
@@ -228,7 +228,20 @@ class FlechaSC(BoardBlocks.BloqueEspSC):
         resp = paintArrow(painter, bf)
         if resp:
             self.poligonoSizeBottom, self.poligonoMove, self.poligonoSizeTop = resp
-
+            # document_pgn = QtGui.QTextDocument()
+            # post_pz = "1"
+            # document_pgn.setHtml(post_pz)
+            # w_pgn = document_pgn.idealWidth()
+            # painter.save()
+            # physical_pos = bf.physical_pos
+            # dx = physical_pos.x
+            # dy = physical_pos.y
+            # hx = physical_pos.ancho
+            # hy = physical_pos.alto
+            #
+            # painter.translate(hx, hy)
+            # document_pgn.drawContents(painter)
+            # painter.restore()
             if self.siActivo:
                 pen = QtGui.QPen()
                 pen.setColor(QtGui.QColor("blue"))

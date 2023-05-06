@@ -237,6 +237,9 @@ class ManagerLeague(Manager.Manager):
         if key == TB_RESIGN:
             self.rendirse()
 
+        elif key == TB_DRAW:
+            self.tablasPlayer()
+
         elif key == TB_PAUSE:
             self.xpause()
 
@@ -348,7 +351,7 @@ class ManagerLeague(Manager.Manager):
         self.game.set_termination(
             TERMINATION_RESIGN, RESULT_WIN_WHITE if self.is_engine_side_white else RESULT_WIN_BLACK
         )
-        self.ponFinJuego(False)
+        self.set_end_game()
         self.autosave()
         self.save_match()
 
@@ -521,7 +524,7 @@ class ManagerLeague(Manager.Manager):
         p0 = self.main_window.base.pgn.pos()
         p = self.main_window.mapToGlobal(p0)
         QTUtil2.message(self.main_window, mensaje, px=p.x(), py=p.y(), si_bold=True)
-        self.ponFinJuego()
+        self.set_end_game()
 
     def show_clocks(self):
         if self.timed:

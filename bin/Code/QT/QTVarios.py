@@ -221,7 +221,7 @@ def lyBotonesMovimiento(
         x("MoverJugar", _("Play"), Iconos.MoverJugar())
         li_acciones.append(None)
     if siTiempo:
-        x("MoverTiempo", _("Timed movement") + "\n%s" % _("Right click to change the interval"), Iconos.MoverTiempo())
+        x("MoverTiempo", _("Timed movement") + "\n%s" % _("Right click to change the interval"), Iconos.Pelicula16())
     li_acciones.append(None)
     if must_save:
         x("MoverGrabar", _("Save"), Iconos.MoverGrabar())

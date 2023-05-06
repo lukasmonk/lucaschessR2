@@ -49,9 +49,6 @@ class WMap(LCDialog.LCDialog):
         self.lbInfo = Controles.LB(self)
 
         self.wsvg = wsvg = QtSvg.QSvgWidget()
-        # p = wsvg.palette()
-        # p.setColor(wsvg.backgroundRole(), Code.dic_qcolors["MAPS_BACKGROUND"])
-        # wsvg.setPalette(p)
 
         ly = Colocacion.V().control(tb_work).control(self.lbInfo).control(self.grid)
         w = QtWidgets.QWidget()

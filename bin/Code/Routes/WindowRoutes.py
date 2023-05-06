@@ -52,7 +52,7 @@ class WTranssiberian(LCDialog.LCDialog):
             Controles.LB(Routes.km_mi(km, self.route.is_miles))
             .align_center()
             .ponTipoLetra(puntos=puntos, peso=peso)
-            .anchoFijo(100)
+            .anchoFijo(122)
         )
 
     def set_border(self, *lb):
@@ -72,70 +72,59 @@ class WTranssiberian(LCDialog.LCDialog):
         # Line
         line = route.get_line()
         tt = route.tool_tip_line()
-        lbTip = (
-            Controles.LB(_("Stage") + " %d/%d" % (line.stage, route.num_stages))
-            .ponTipoLetra(puntos=11)
-            .anchoFijo(120)
-            .align_center()
-        )
-        lbTip.setToolTip(tt)
-        lbTit = self.LINE(line.st_from.name, line.st_to.name, 11)
-        lbTit.setToolTip(tt)
-        lbKM = self.KM(line.km, 11)
+        lb_tip = Controles.LB(_("Stage") + " %d/%d" % (line.stage, route.num_stages)).ponTipoLetra(puntos=11)
+        lb_tip.anchoFijo(120).align_center()
+        lb_tip.setToolTip(tt)
+        lb_tit = self.LINE(line.st_from.name, line.st_to.name, 11)
+        lb_tit.setToolTip(tt)
+        lb_km = self.KM(line.km, 11)
         fore, back = Code.dic_colors["ROUTES_STAGE_FOREGROUND"], Code.dic_colors["ROUTES_STAGE_BACKGROUND"]
-        self.set_style(fore, back, lbTip, lbTit, lbKM)
-        lbKM.setToolTip(tt)
-        lbKMdone = self.KM(line.km_done(route.km), 11)
-        self.set_border(lbKMdone)
-        lyLine = Colocacion.H().control(lbTip).control(lbTit).control(lbKM).control(lbKMdone)
+        self.set_style(fore, back, lb_tip, lb_tit, lb_km)
+        lb_km.setToolTip(tt)
+        lb_km_done = self.KM(line.km_done(route.km), 11)
+        self.set_border(lb_km_done)
+        ly_line = Colocacion.H().control(lb_tip).control(lb_tit).control(lb_km).control(lb_km_done)
 
         # Track
         st_from, st_to = route.get_track()
         tt = route.tool_tip_track()
-        lbTip = (
-            Controles.LB(_("Track") + " %d/%d" % (route.num_track, line.num_stations))
-            .ponTipoLetra(puntos=11)
-            .anchoFijo(120)
-            .align_center()
-        )
-        lbTip.setToolTip(tt)
-        lbTit = self.LINE(st_from.name, st_to.name, 11)
-        lbTit.setToolTip(tt)
-        lbKM = self.KM(st_to.km - st_from.km, 11)
-        lbKM.setToolTip(tt)
+        lb_tip = Controles.LB(_("Track") + " %d/%d" % (route.num_track, line.num_stations))
+        lb_tip.ponTipoLetra(puntos=11).anchoFijo(120).align_center()
+        lb_tip.setToolTip(tt)
+        lb_tit = self.LINE(st_from.name, st_to.name, 11)
+        lb_tit.setToolTip(tt)
+        lb_km = self.KM(st_to.km - st_from.km, 11)
+        lb_km.setToolTip(tt)
         fore, back = Code.dic_colors["ROUTES_TRACK_FOREGROUND"], Code.dic_colors["ROUTES_TRACK_BACKGROUND"]
-        self.set_style(fore, back, lbTip, lbTit, lbKM)
-        lbKMdone = self.KM(route.km - st_from.km, 11)
-        self.set_border(lbKMdone)
-        lyTrack = Colocacion.H().control(lbTip).control(lbTit).control(lbKM).control(lbKMdone)
+        self.set_style(fore, back, lb_tip, lb_tit, lb_km)
+        lb_km_done = self.KM(route.km - st_from.km, 11)
+        self.set_border(lb_km_done)
+        ly_track = Colocacion.H().control(lb_tip).control(lb_tit).control(lb_km).control(lb_km_done)
 
         # State
-        lbTip = Controles.LB(_("State")).ponTipoLetra(puntos=11, peso=200).anchoFijo(120).align_center()
-        lbTit = Controles.LB(route.mens_state()).ponTipoLetra(puntos=11, peso=200).align_center()
+        lb_tip = Controles.LB(_("State")).ponTipoLetra(puntos=11, peso=200).anchoFijo(120).align_center()
+        lb_tit = Controles.LB(route.mens_state()).ponTipoLetra(puntos=11, peso=200).align_center()
         fore, back = Code.dic_colors["ROUTES_STATE_FOREGROUND"], Code.dic_colors["ROUTES_STATE_BACKGROUND"]
-        self.set_style(fore, back, lbTip, lbTit)
-        lyState = Colocacion.H().control(lbTip).control(lbTit)
+        self.set_style(fore, back, lb_tip, lb_tit)
+        ly_state = Colocacion.H().control(lb_tip).control(lb_tit)
 
         # Next task
         texto, color = route.next_task()
-        lbTip = Controles.LB(_("Next task")).ponTipoLetra(puntos=11, peso=500).anchoFijo(120).align_center()
-        lbTit = Controles.LB(texto).ponTipoLetra(puntos=11, peso=500).align_center()
+        lb_tip = Controles.LB(_("Next task")).ponTipoLetra(puntos=11, peso=500).anchoFijo(120).align_center()
+        lb_tit = Controles.LB(texto).ponTipoLetra(puntos=11, peso=500).align_center()
         fore = Code.dic_colors["ROUTES_NEXTTASK_FOREGROUND"]
-        self.set_style(fore, color, lbTip, lbTit, lbKM)
-        lyTask = Colocacion.H().control(lbTip).control(lbTit)
+        self.set_style(fore, color, lb_tip, lb_tit, lb_km)
+        ly_task = Colocacion.H().control(lb_tip).control(lb_tit)
 
         tb = QTVarios.LCTB(self, with_text=True, icon_size=32)
         tb.new(_("Play"), Iconos.Empezar(), self.play)
         tb.new(_("Config"), Iconos.Configurar(), self.config)
         tb.new(_("Close"), Iconos.MainMenu(), self.mainMenu)
-        tb.setFixedWidth(206)
-        lbTim = (
-            Controles.LB("%s: %s" % (_("Time"), route.time()))
-            .ponTipoLetra(puntos=11, peso=500)
-            .align_center()
-            .anchoFijo(206)
-        )
-        lbTim.setToolTip(
+        tb.setFixedWidth(250)
+
+        lb_tim = Controles.LB("%s: %s" % (_("Time"), route.time())).ponTipoLetra(puntos=11, peso=500)
+        lb_tim.align_center()
+        lb_tim.setToolTip(
             "%s %s\n%s %s\n%s %s\n%s %s"
             % (
                 route.time(),
@@ -149,14 +138,13 @@ class WTranssiberian(LCDialog.LCDialog):
             )
         )
 
-        self.set_style(Code.dic_colors["ROUTES_TITLE_FOREGROUND"], color, lbTit)
         fore, back = Code.dic_colors["ROUTES_TIME_FOREGROUND"], Code.dic_colors["ROUTES_TIME_BACKGROUND"]
-        self.set_style(fore, back, lbTim)
-        lyStTa = Colocacion.V().otro(lyState).otro(lyTask)
-        lyTB = Colocacion.V().control(lbTim).control(tb)
-        lyAll = Colocacion.H().otro(lyStTa).otro(lyTB)
+        self.set_style(fore, back, lb_tim)
 
-        ly = Colocacion.V().otro(lyTitle).otro(lySVG).otro(lyLine).otro(lyTrack).otro(lyAll).relleno(1)
+        ly_st_ta = Colocacion.V().otro(ly_state).otro(ly_task)
+        ly_tb = Colocacion.V().control(lb_tim).control(tb)
+        ly_all = Colocacion.H().otro(ly_st_ta).otro(ly_tb)
+        ly = Colocacion.V().otro(lyTitle).otro(lySVG).otro(ly_line).otro(ly_track).otro(ly_all).relleno(1)
         self.setLayout(ly)
 
     def init_ended(self, route, lyTitle, lySVG):

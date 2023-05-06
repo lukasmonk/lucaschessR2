@@ -132,7 +132,8 @@ class DBendings:
         fen = self.current_listfen[pos]
         dic_fen = self.current_dicfen[fen]
         for k in ("TRIES", "TRIES_OK", "TIMEMS", "MOVES"):
-            del dic_fen[k]
+            if k in dic_fen:
+                del dic_fen[k]
         self.db_data[self.current_key] = self.current_dicfen
 
     def close(self):

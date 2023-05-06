@@ -35,6 +35,7 @@ class WRunCoordinatesBasic(LCDialog.LCDialog):
             self.board.set_position(self.cp_initial)
         if not config.with_coordinates:
             self.board.show_coordinates(False)
+        self.board.set_side_indicator(self.is_white)
 
         font = Controles.TipoLetra(puntos=26, peso=500)
 

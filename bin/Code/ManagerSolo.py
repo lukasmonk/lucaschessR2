@@ -68,7 +68,7 @@ class ManagerSolo(Manager.Manager):
 
         self.play_against_engine = dic.get("PLAY_AGAINST_ENGINE", False) if not self.xrival else True
 
-        self.ultimoFichero = dic.get("LAST_FILE", "")
+        self.last_file = dic.get("LAST_FILE", "")
 
         self.auto_rotate = dic.get("AUTO_ROTATE", False)
 
@@ -151,7 +151,7 @@ class ManagerSolo(Manager.Manager):
         #     self.main_window.reject()
 
         elif key == TB_SAVE_AS:
-            self.grabarComo()
+            self.save_as()
 
         elif key == TB_HELP_TO_MOVE:
             self.help_to_move()
@@ -184,7 +184,7 @@ class ManagerSolo(Manager.Manager):
             if resp is None:
                 return
             elif resp:
-                self.grabarComo()
+                self.save_as()
 
         self.procesador.start()
 
@@ -308,7 +308,7 @@ class ManagerSolo(Manager.Manager):
             self.configuration.folder_save_lcsb(direc)
             self.configuration.graba()
 
-    def grabarFichero(self, file):
+    def save_file(self, file):
         dic = self.creaDic()
         dic["GAME"] = self.game.save()
         dic["LAST_FILE"] = Util.relative_path(file)
@@ -323,19 +323,21 @@ class ManagerSolo(Manager.Manager):
             QTUtil2.message_error(self.main_window, "%s : %s" % (_("Unable to save"), file))
             return False
 
-    def grabarComo(self):
+    def save_as(self):
         extension = "lcsb"
         siConfirmar = True
-        if self.ultimoFichero:
-            file = self.ultimoFichero
+        if self.last_file:
+            file = self.last_file
         else:
             file = self.configuration.folder_save_lcsb()
         while True:
             resp = SelectFiles.salvaFichero(self.main_window, _("File to save"), file, extension, siConfirmar)
             if resp:
                 resp = str(resp)
+                if not resp.lower().endswith("." + extension):
+                    resp += "." + extension
                 if not siConfirmar:
-                    if os.path.abspath(resp) != os.path.abspath(self.ultimoFichero) and os.path.isfile(resp):
+                    if os.path.abspath(resp) != os.path.abspath(self.last_file) and os.path.isfile(resp):
                         yn = QTUtil2.preguntaCancelar(
                             self.main_window,
                             _X(_("The file %1 already exists, what do you want to do?"), resp),
@@ -346,8 +348,8 @@ class ManagerSolo(Manager.Manager):
                             break
                         if not yn:
                             continue
-                if self.grabarFichero(resp):
-                    self.ultimoFichero = resp
+                if self.save_file(resp):
+                    self.last_file = resp
                     self.pon_toolbar()
                 else:
                     resp = None
@@ -356,14 +358,14 @@ class ManagerSolo(Manager.Manager):
         return None
 
     def grabar(self):
-        if self.ultimoFichero:
-            self.grabarFichero(self.ultimoFichero)
+        if self.last_file:
+            self.save_file(self.last_file)
         else:
-            resp = self.grabarComo()
+            resp = self.save_as()
             if resp:
-                self.ultimoFichero = resp
+                self.last_file = resp
                 self.pon_toolbar()
-        self.guardarHistorico(self.ultimoFichero)
+        self.guardarHistorico(self.last_file)
 
     def leeFichero(self, fich):
         dic = Util.restore_pickle(fich)
@@ -378,13 +380,13 @@ class ManagerSolo(Manager.Manager):
 
     def file(self):
         menu = QTVarios.LCMenu(self.main_window)
-        if self.ultimoFichero:
+        if self.last_file:
             menuR = menu.submenu(_("Save"), Iconos.Grabar())
-            rpath = self.ultimoFichero
+            rpath = self.last_file
             if os.curdir[:1] == rpath[:1]:
                 rpath = Util.relative_path(rpath)
                 if rpath.count("..") > 0:
-                    rpath = self.ultimoFichero
+                    rpath = self.last_file
             menuR.opcion("save", "%s: %s" % (_("Save"), rpath), Iconos.Grabar())
             menuR.separador()
             menuR.opcion("saveas", _("Save as"), Iconos.GrabarComo())
@@ -414,7 +416,7 @@ class ManagerSolo(Manager.Manager):
         elif resp == "save":
             self.grabar()
         elif resp == "saveas":
-            self.grabarComo()
+            self.save_as()
 
     def nuevo(self):
         self.xfichero = None
@@ -657,7 +659,6 @@ class ManagerSolo(Manager.Manager):
             self.main_window, self.game.first_position
         )
         if position is not None:
-
             self.board.set_side_bottom(is_white_bottom)
             self.game = Game.Game(first_position=position, li_tags=self.game.li_tags)
             self.game.set_tag("FEN", None if self.game.siFenInicial() else position.fen())

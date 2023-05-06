@@ -1,3 +1,0 @@
-id name hactar
-id author Tsoj Tsoj
-option name Hash type spin default 128 min 1 max 1048576

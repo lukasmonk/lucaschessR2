@@ -409,7 +409,12 @@ def gen_indexes(game, elos, elos_form, alm):
         b = " %.02f%%" % (moves_best[False] * 100 / nmoves_analyzed[False],) if nmoves_analyzed[False] else ""
         t = " %.02f%%" % ((moves_best[True] + moves_best[False]) * 100 / tmoves,)
         color = "black"
-        best_moves = plantilla_e % (color, _("Best moves"), color, w, color, b, color, t)
+        best_moves = plantilla_e % (color, _("Best moves") + " %", color, w, color, b, color, t)
+        w = str(moves_best[True]) if nmoves_analyzed[True] else ""
+        b = str(moves_best[False]) if nmoves_analyzed[False] else ""
+        t = str(moves_best[True] + moves_best[False])
+        color = "black"
+        best_moves += plantilla_e % (color, _("Best moves"), color, w, color, b, color, t)
     else:
         best_moves = ""
     txt = best_moves

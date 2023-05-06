@@ -89,11 +89,11 @@ int parse_body( char * fen, char * body, char * resp )
     char promotion;
     char from_AH, from_18;
     char to_AH, to_18;
-    bool ok;
     int par;
     int to;
+    int num_ok;
     unsigned k;
-    MoveBin move;
+    MoveBin move, mover;
 
     c = body;
     r = resp;
@@ -410,7 +410,7 @@ int parse_body( char * fen, char * body, char * resp )
             /*movegen();*/
             /*movegen_piece(PZNAME[piece]);*/
             movegen_piece_to((int)PZNAME[(int)piece], (unsigned)to);
-            ok = false;
+            num_ok = 0;
             for (k = board.ply_moves[board.ply - 1]; k < board.ply_moves[board.ply]; k++)
             {
                 move = board.moves[k];
@@ -433,12 +433,12 @@ int parse_body( char * fen, char * body, char * resp )
                     }
                     *r++ = '\n';
 
-                    make_move(move);
-                    ok = true;
-                    break;
+                    mover = move;
+                    num_ok ++;
                 }
             }
-            if( !ok ) return false;
+            if(num_ok != 1) return false;
+            make_move(mover);
             piece = 'P';
             from_AH = 0;
             from_18 = 0;

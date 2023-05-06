@@ -249,9 +249,10 @@ class ManagerResistance(Manager.Manager):
             if siFinPartida:
                 self.message_on_pgn(txt)
             else:
+                br = "<br>" if txt else ""
                 resp = QTUtil2.pregunta(
                     self.main_window,
-                    txt + "<br>%s" % (_("Do you want to resign or continue playing?")),
+                    "%s%s%s" % (txt, br, _("Do you want to resign or continue playing?")),
                     label_yes=_("Resign"),
                     label_no=_("Continue"),
                 )

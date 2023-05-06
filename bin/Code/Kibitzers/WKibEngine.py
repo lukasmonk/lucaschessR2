@@ -128,7 +128,7 @@ class WKibEngine(WKibCommon.WKibCommon):
                     for njg in range(min(len(game), self.nArrows)):
                         tipo = "ms" if tipo == "mt" else "mt"
                         move = game.move(njg)
-                        self.board.creaFlechaMov(move.from_sq, move.to_sq, tipo + str(opacity))
+                        self.board.show_arrow_mov(move.from_sq, move.to_sq, tipo, opacity=opacity / 100)
                         if njg % 2 == 1:
                             opacity -= cambio
                             cambio = salto

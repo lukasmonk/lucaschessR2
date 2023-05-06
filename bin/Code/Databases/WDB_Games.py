@@ -472,7 +472,8 @@ class WGames(QtWidgets.QWidget):
             if recno < len(self.dbGames):
                 self.grid.goto(recno, 0)
                 game, recno = self.current_game()
-                game.recno = recno
+                if game:
+                    game.recno = recno
             return game
 
     def edit(self, recno, game):
@@ -695,11 +696,12 @@ class WGames(QtWidgets.QWidget):
             return None
 
         dic_data = w.dic_data_resp
-        db.read_options()
         db.save_config("ALLOWS_DUPLICATES", dic_data["ALLOWS_DUPLICATES"])
         db.save_config("ALLOWS_POSITIONS", dic_data["ALLOWS_POSITIONS"])
         db.save_config("ALLOWS_COMPLETE_GAMES", dic_data["ALLOWS_COMPLETE_GAMES"])
         db.save_config("ALLOWS_ZERO_MOVES", dic_data["ALLOWS_ZERO_MOVES"])
+
+        db.read_options()
 
         # Comprobamos depth
         new_depth = dic_data["SUMMARY_DEPTH"]
@@ -1111,7 +1113,7 @@ class WGames(QtWidgets.QWidget):
         resp = PolyglotImportExports.import_polyglot_config(self, self.configuration, os.path.basename(path_bin), False)
         if resp is None:
             return
-        plies, st_side, st_results, ru, min_games, min_score, calc_weight, save_score = resp
+        plies, st_side, st_results, ru, min_games, min_score, li_players, calc_weight, save_score = resp
         db = UtilSQL.DictBig()
 
         def fsum(keymove, pt):
@@ -1124,7 +1126,7 @@ class WGames(QtWidgets.QWidget):
         dltmp.show()
 
         ok = PolyglotImportExports.add_db(
-            self.dbGames, plies, st_results, st_side, ru, time.time, 1.2, dltmp.dispatch, fsum
+            self.dbGames, plies, st_results, st_side, li_players, ru, time.time, 1.2, dltmp.dispatch, fsum
         )
         dltmp.close()
 
@@ -1142,14 +1144,14 @@ class WGames(QtWidgets.QWidget):
             if dbpath is None:
                 return
 
-        dlTmp = QTVarios.ImportarFicheroDB(self)
-        dlTmp.ponExportados()
-        dlTmp.show()
+        dl_tmp = QTVarios.ImportarFicheroDB(self)
+        dl_tmp.ponExportados()
+        dl_tmp.show()
 
         dbn = DBgames.DBgames(dbpath)
         if dbn.allows_duplicates:
-            dlTmp.hide_duplicates()
-        dbn.append_db(self.dbGames, lista, dlTmp)
+            dl_tmp.hide_duplicates()
+        dbn.append_db(self.dbGames, lista, dl_tmp)
         dbn.close()
         self.changes = False
 
@@ -1191,11 +1193,11 @@ class WGames(QtWidgets.QWidget):
         if not files:
             return None
 
-        dlTmp = QTVarios.ImportarFicheroPGN(self)
+        dl_tmp = QTVarios.ImportarFicheroPGN(self)
         if self.dbGames.allows_duplicates:
-            dlTmp.hide_duplicates()
-        dlTmp.show()
-        self.dbGames.import_pgns(files, dlTmp)
+            dl_tmp.hide_duplicates()
+        dl_tmp.show()
+        self.dbGames.import_pgns(files, dl_tmp)
         self.changes = True
 
         self.rehaz_columnas()
@@ -1208,13 +1210,13 @@ class WGames(QtWidgets.QWidget):
         if not path:
             return None
 
-        dlTmp = QTVarios.ImportarFicheroDB(self)
+        dl_tmp = QTVarios.ImportarFicheroDB(self)
         if self.dbGames.allows_duplicates:
-            dlTmp.hide_duplicates()
-        dlTmp.show()
+            dl_tmp.hide_duplicates()
+        dl_tmp.show()
 
         dbn = DBgames.DBgames(path)
-        self.dbGames.append_db(dbn, range(dbn.all_reccount()), dlTmp)
+        self.dbGames.append_db(dbn, range(dbn.all_reccount()), dl_tmp)
         self.changes = True
 
         self.rehaz_columnas()

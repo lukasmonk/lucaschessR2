@@ -300,7 +300,7 @@ class WSave(LCDialog.LCDialog):
 
         if not last_dir:
             last_dir = self.configuration.carpeta
-        fich = SelectFiles.leeCreaFichero(self, last_dir, "pgn")
+        fich = SelectFiles.salvaFichero(self, _("File to save"), last_dir, "pgn", confirm_overwrite=False)
         if fich:
             if not fich.lower().endswith(".pgn"):
                 fich += ".pgn"
@@ -387,7 +387,7 @@ class WSave(LCDialog.LCDialog):
         pgn = ""
         for key, value in self.li_labels:
             key = key.strip()
-            value = value.strip()
+            value = str(value).strip()
             if key and value:
                 pgn += '[%s "%s"]\n' % (key, value)
         body = self.em_body.texto().strip()

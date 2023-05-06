@@ -53,7 +53,6 @@ class WPanelDirector(LCDialog.LCDialog):
         # Guion
         li_acciones = [
             (_("Close"), Iconos.MainMenu(), self.terminar),
-            (_("Cancel"), Iconos.Cancelar(), self.cancelar),
             (_("Save"), Iconos.Grabar(), self.grabar),
             (_("New"), Iconos.Nuevo(), self.gnuevo),
             (_("Insert"), Iconos.Insertar(), self.ginsertar),
@@ -65,13 +64,12 @@ class WPanelDirector(LCDialog.LCDialog):
             None,
             (_("Mark"), Iconos.Marcar(), self.gmarcar),
             None,
-            # (_("Restore from"), Iconos.Recuperar(), self.gfile), #pendiente de que le sea de utilidad a alguien
-            # None,
             (_("Config"), Iconos.Configurar(), self.gconfig),
             None,
         ]
         self.tb = Controles.TBrutina(self, li_acciones, icon_size=24)
-        self.tb.set_action_visible(self.grabar, False)
+        if self.guion is None:
+            self.tb.set_action_visible(self.grabar, False)
 
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("NUMBER", _("N."), 20, align_center=True)
@@ -119,7 +117,6 @@ class WPanelDirector(LCDialog.LCDialog):
         tarea = TabVisual.GT_Texto(self.guion)
         row = self.guion.nuevaTarea(tarea, -1)
         self.ponMarcado(row, True)
-        self.ponSiGrabar()
         self.guion.pizarra.show()
         self.guion.pizarra.mensaje.setFocus()
 
@@ -154,31 +151,20 @@ class WPanelDirector(LCDialog.LCDialog):
             self.selectBanda.seleccionarNum(number)
 
     def grabar(self):
-        if self.guion is not None:
-            li = self.guion.guarda()
-            self.board.dbVisual_save(self.fenm2, li)
+        li = self.guion.guarda()
+        self.board.dbVisual_save(self.fenm2, li)
+        QTUtil2.mensajeTemporal(self, _("Saved"), 1.8)
 
         self.must_save = False
-        self.tb.set_action_visible(self.grabar, False)
+        # self.tb.set_action_visible(self.grabar, False)
         self.tb.set_action_visible(self.cancelar, False)
         self.tb.set_action_visible(self.terminar, True)
 
-    def ponSiGrabar(self):
-        if not self.must_save:
-            self.tb.set_action_visible(self.grabar, True)
-            self.tb.set_action_visible(self.cancelar, True)
-            self.tb.set_action_visible(self.terminar, False)
-            self.must_save = True
-
-    def ponNoGrabar(self):
-        self.tb.set_action_visible(self.grabar, False)
-        self.tb.set_action_visible(self.cancelar, False)
-        self.tb.set_action_visible(self.terminar, True)
-        self.must_save = False
+        QTUtil2.mensajeTemporal(self, _("Saved"), 1.8)
 
     def recuperar(self):
         self.guion.recupera()
-        self.ponNoGrabar()
+        # self.ponNoGrabar()
         self.ant_foto = self.foto()
         self.refresh_guion()
 
@@ -202,8 +188,6 @@ class WPanelDirector(LCDialog.LCDialog):
             return self.guion.info(row)
 
     def creaTareaBase(self, tp, xid, a1h8, row):
-        # if tp != TabVisual.TP_FLECHA: # Se indica al terminar en porque puede que no se grabe
-        # self.ponSiGrabar()
         tpid = tp, xid
         if tp == "P":
             tarea = TabVisual.GT_PiezaMueve(self.guion)
@@ -273,6 +257,8 @@ class WPanelDirector(LCDialog.LCDialog):
                 regMarker.a1h8 = a1h8
                 sc = self.board.creaMarker(regMarker, siEditando=True)
                 tarea = TabVisual.GT_Marker(self.guion)
+            else:
+                return
             sc.ponRutinaPulsada(None, tarea.id())
             tarea.itemSC(sc)
 
@@ -286,7 +272,6 @@ class WPanelDirector(LCDialog.LCDialog):
         return tarea, row
 
     def creaTarea(self, tp, xid, a1h8, row):
-
         tarea, row = self.creaTareaBase(tp, xid, a1h8, row)
         if tarea is None:
             return None, None
@@ -306,7 +291,6 @@ class WPanelDirector(LCDialog.LCDialog):
 
         resultado = FormLayout.fedit(li_gen, title=_("Name"), parent=self, icon=ico)
         if resultado:
-            self.ponSiGrabar()
             accion, liResp = resultado
             name = liResp[0]
             return name
@@ -353,7 +337,6 @@ class WPanelDirector(LCDialog.LCDialog):
 
         resultado = FormLayout.fedit(li_gen, title=titulo, parent=self)
         if resultado:
-            self.ponSiGrabar()
             resp = resultado[1]
             self.ultDesde = from_sq = resp[0]
             self.ultHasta = to_sq = resp[1]
@@ -361,42 +344,6 @@ class WPanelDirector(LCDialog.LCDialog):
         else:
             return None, None
 
-    # def datosSVG(self, tarea):
-    #     col, fil, ancho, alto = tarea.get_datos()
-    #     li_gen = [(None, None)]
-    #
-    #     def xconfig(label, value):
-    #         config = FormLayout.Editbox(label, 80, tipo=float, decimales=3)
-    #         li_gen.append((config, value))
-    #
-    #     xconfig(_("Column"), col + 1)
-    #     xconfig(_("Row"), fil + 1)
-    #     xconfig(_("Width"), ancho)
-    #     xconfig(_("Height"), alto)
-    #
-    #     resultado = FormLayout.fedit(li_gen, title=tarea.txt_tipo(), parent=self)
-    #     if resultado:
-    #         col, fil, ancho, alto = resultado[1]
-    #         tarea.set_datos(col - 1, fil - 1, ancho, alto)
-    #         self.ponSiGrabar()
-    #         return True
-    #     else:
-    #         return False
-
-    # Pendiente de que le sea de utilidad para alguien
-    # def gfile(self):
-    #     self.test_siGrabar()
-    #     path = self.configuration.ficheroFEN
-    #     fich = SelectFiles.leeCreaFichero(self, path, "dbl")
-    #     if fich:
-    #         self.configuration.ficheroFEN = Util.relative_path(fich)
-    #         self.configuration.graba()
-    #
-    #         self.board.dbvisual_close()
-    #
-    #         self.guion.cierraPizarra()
-    #         self.recuperar()
-    #
     def gconfig(self):
         menu = QTVarios.LCMenu(self)
         menu.opcion("remall", _("Reset everything to factory defaults"), Iconos.Delete())
@@ -437,7 +384,6 @@ class WPanelDirector(LCDialog.LCDialog):
                 tarea = TabVisual.GT_Texto(self.guion)
                 row = self.guion.nuevaTarea(tarea, row)
                 self.ponMarcado(row, True)
-                self.ponSiGrabar()
             elif resp.startswith("GTA_"):
                 self.creaAction(resp[4:], row)
             else:
@@ -456,7 +402,6 @@ class WPanelDirector(LCDialog.LCDialog):
         tarea = TabVisual.GT_Action(self.guion)
         tarea.action(action)
         row = self.guion.nuevaTarea(tarea, row)
-        self.ponSiGrabar()
         self.refresh_guion()
 
     def gnuevo(self):
@@ -493,7 +438,6 @@ class WPanelDirector(LCDialog.LCDialog):
             if row >= len(self.guion):
                 row = len(self.guion) - 1
             self.g_guion.goto(row, 0)
-            self.ponSiGrabar()
             self.refresh_guion()
 
     def gborrar(self):
@@ -506,14 +450,12 @@ class WPanelDirector(LCDialog.LCDialog):
         if self.guion.arriba(row):
             self.g_guion.goto(row - 1, 0)
             self.refresh_guion()
-            self.ponSiGrabar()
 
     def gabajo(self):
         row = self.g_guion.recno()
         if self.guion.abajo(row):
             self.g_guion.goto(row + 1, 0)
             self.refresh_guion()
-            self.ponSiGrabar()
 
     def grid_doble_click(self, grid, row, col):
         key = col.key
@@ -525,8 +467,6 @@ class WPanelDirector(LCDialog.LCDialog):
             if sc:
                 if tarea.tp() == TabVisual.TP_SVG:
                     return
-                    # if self.datosSVG(tarea):
-                    #     self.board.refresh()
 
                 else:
                     a1h8 = tarea.a1h8()
@@ -558,12 +498,10 @@ class WPanelDirector(LCDialog.LCDialog):
         nv = len(nueva)
         if self.ant_foto is None or nv != len(self.ant_foto):
             self.ant_foto = nueva
-            self.ponSiGrabar()
         else:
             for n in range(nv):
                 if self.ant_foto[n] != nueva[n]:
                     self.ant_foto = nueva
-                    self.ponSiGrabar()
                     break
 
     def grid_num_datos(self, grid):
@@ -651,48 +589,36 @@ class WPanelDirector(LCDialog.LCDialog):
         elif key == "NOMBRE":
             tarea = self.guion.tarea(row)
             tarea.name(valor.strip())
-            self.ponSiGrabar()
 
     def editBanda(self, cid):
         li = cid.split("_")
         tp = li[1]
         xid = li[2]
-        ok = False
         if tp == TabVisual.TP_FLECHA:
             regFlecha = BoardTypes.Flecha(dic=self.dbFlechas[xid])
             w = WindowTabVFlechas.WTV_Flecha(self, regFlecha, True)
             if w.exec_():
                 self.dbFlechas[xid] = w.regFlecha.save_dic()
-                ok = True
         elif tp == TabVisual.TP_MARCO:
             regMarco = BoardTypes.Marco(dic=self.dbMarcos[xid])
             w = WindowTabVMarcos.WTV_Marco(self, regMarco)
             if w.exec_():
                 self.dbMarcos[xid] = w.regMarco.save_dic()
-                ok = True
         elif tp == TabVisual.TP_CIRCLE:
             reg_circle = BoardTypes.Circle(dic=self.dbCircles[xid])
             w = WindowTabVCircles.WTV_Circle(self, reg_circle)
             if w.exec_():
                 self.dbCircles[xid] = w.reg_circle.save_dic()
-                ok = True
         elif tp == TabVisual.TP_SVG:
-            regSVG = BoardTypes.SVG(dic=self.dbSVGs[xid])
-            w = WindowTabVSVGs.WTV_SVG(self, regSVG)
+            reg_svg = BoardTypes.SVG(dic=self.dbSVGs[xid])
+            w = WindowTabVSVGs.WTV_SVG(self, reg_svg)
             if w.exec_():
                 self.dbSVGs[xid] = w.regSVG.save_dic()
-                ok = True
         elif tp == TabVisual.TP_MARKER:
-            regMarker = BoardTypes.Marker(dic=self.dbMarkers[xid])
-            w = WindowTabVMarkers.WTV_Marker(self, regMarker)
+            reg_marker = BoardTypes.Marker(dic=self.dbMarkers[xid])
+            w = WindowTabVMarkers.WTV_Marker(self, reg_marker)
             if w.exec_():
                 self.dbMarkers[xid] = w.regMarker.save_dic()
-                ok = True
-
-        if ok:
-            self.actualizaBandas()
-            if len(self.guion):
-                self.ponSiGrabar()
 
     def test_siGrabar(self):
         if self.must_save:
@@ -1000,12 +926,8 @@ class WPanelDirector(LCDialog.LCDialog):
             else:
                 if a1 is None or (a1 == self.origin_new and self.tp_new == TabVisual.TP_FLECHA):
                     self.borrar_lista()
-                    if self.tp_new == TabVisual.TP_FLECHA:
-                        if not self.siGrabarInicio:
-                            self.ponNoGrabar()
 
                 else:
-                    self.ponSiGrabar()
                     self.refresh_guion()
 
             self.origin_new = None
@@ -1051,10 +973,6 @@ class Director:
         self.director = ok
         self.ultTareaSelect = None
         self.directorItemSC = None
-        # if ok:
-        #     self.board.enable_all()
-        # else:
-        #     self.board.disable_all()
 
     def keyPressEvent(self, event):
         m = int(event.modifiers())

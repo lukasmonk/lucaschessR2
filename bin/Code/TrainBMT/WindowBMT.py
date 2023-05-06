@@ -852,9 +852,13 @@ class WBMT(LCDialog.LCDialog):
     def entrenar(self):
         grid, dbf, recno = self.actual()
         if recno >= 0:
-            w = WindowBMTtrain.WTrainBMT(self, dbf)
-            w.exec_()
-            self.releer()
+            dbf.goto(recno)
+            if dbf.TOTAL > 0:
+                w = WindowBMTtrain.WTrainBMT(self, dbf)
+                w.exec_()
+                self.releer()
+            else:
+                QTUtil2.message_error(self, _("No items left in this training"))
 
     def borrar(self):
         grid, dbf, recno = self.actual()
