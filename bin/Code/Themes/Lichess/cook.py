@@ -108,8 +108,9 @@ def cook(puzzle: Puzzle):
 
     if promotion(puzzle):
         tags.append("promotion")
-        if under_promotion(puzzle):
-            tags.append("underPromotion")
+
+    if under_promotion(puzzle):
+        tags.append("underPromotion")
 
     if capturing_defender(puzzle):
         tags.append("capturingDefender")
@@ -274,7 +275,7 @@ def discovered_check(puzzle: Puzzle) -> bool:
     for node in puzzle.mainline[1::2]:
         board = node.board()
         checkers = board.checkers()
-        if checkers and node.move.to_square not in checkers:
+        if checkers and not node.move.to_square in checkers:
             return True
     return False
 
@@ -650,7 +651,9 @@ def promotion(puzzle: Puzzle) -> bool:
 
 def under_promotion(puzzle: Puzzle) -> bool:
     for node in puzzle.mainline[1::2]:
-        if node.move.promotion and node.move.promotion != QUEEN:
+        if node.board().is_checkmate():
+            return True if node.move.promotion == KNIGHT else False
+        elif node.move.promotion and node.move.promotion != QUEEN:
             return True
     return False
 

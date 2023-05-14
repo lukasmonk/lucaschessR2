@@ -90,7 +90,7 @@ def relative_root(path):
 
 
 BASE_VERSION = "B"  # Para el control de updates que necesitan reinstalar entero
-VERSION = "R 2.07"
+VERSION = "R 2.07a"
 DEBUG = False
 DEBUG_ENGINES = False
 
@@ -100,7 +100,7 @@ if DEBUG:
     import time
 
 
-    def prlk(*x):
+    def pr(*x):
 
         lx = len(x) - 1
 
@@ -110,28 +110,28 @@ if DEBUG:
                 sys.stdout.write(" ")
 
 
-    def prln(*x):
-        prlk(*x)
+    def prn(*x):
+        pr(*x)
         sys.stdout.write("\n")
         return True
 
 
-    def prlns(*x):
-        prln("-" * 80)
-        prlk(*x)
+    def prns(*x):
+        prn("-" * 80)
+        pr(*x)
         sys.stdout.write("\n")
         stack()
-        prln("-" * 80)
+        prn("-" * 80)
         return True
 
 
     def stack(si_previo=False):
         if si_previo:
-            prlk("-" * 80 + "\n")
-            prlk(traceback.format_stack())
-            prlk("\n" + "-" * 80 + "\n")
+            pr("-" * 80 + "\n")
+            pr(traceback.format_stack())
+            pr("\n" + "-" * 80 + "\n")
         for line in traceback.format_stack()[:-1]:
-            prlk(line.strip() + "\n")
+            pr(line.strip() + "\n")
 
 
     def xpr(name, line):
@@ -140,32 +140,33 @@ if DEBUG:
             li = name.split(" ")
             name = li[0]
 
-        prlk("%0.02f %s %s" % (t - tdbg[0], name, line))
+        pr("%0.02f %s %s" % (t - tdbg[0], name, line))
         tdbg[0] = t
         return True
 
 
     tdbg = [time.time(), 0]
     if DEBUG_ENGINES:
-        prln("", "Modo debug engine")
+        prn("", "Modo debug engine")
 
 
     def ini_timer(txt=None):
         tdbg[1] = time.time()
         if txt:
-            prln(txt)
+            prn(txt)
 
 
     def end_timer(txt=None):
         t = time.time() - tdbg[1]
         c = txt + " " if txt else ""
         c += "%0.03f" % t
-        prln(c)
+        prn(c)
 
 
     import builtins
 
     builtins.__dict__["stack"] = stack
+    builtins.__dict__["prns"] = prns
     builtins.__dict__["ini_timer"] = ini_timer
     builtins.__dict__["end_timer"] = end_timer
-    prln("Modo debug PYLCR2")
+    prn("Modo debug PYLCR2")

@@ -55,7 +55,7 @@ class WForcingMoves(LCDialog.LCDialog):
         # Rotulo informacion
         self.lb_info_game = Controles.LB(self, _("You can indicate the moves directly on the board.")).ponTipoLetra(
             puntos=self.configuration.x_pgn_fontpoints
-        )
+        ).set_wrap()
 
         # Movimientos
         self.ed_moves = Controles.ED(self, "").ponTipoLetra(puntos=32)
@@ -69,10 +69,9 @@ class WForcingMoves(LCDialog.LCDialog):
             Controles.TipoLetra(puntos=10, peso=75))
 
         self.lb_result = Controles.LB(self).ponTipoLetra(puntos=10, peso=500).altoFijo(32).set_wrap()
-        self.lb_info = (
-            Controles.LB(self).ponTipoLetra(puntos=14, peso=500).set_foreground_backgound("white",
-                                                                                          "#496075").align_center()
-        )
+        self.lb_info = Controles.LB(self).ponTipoLetra(puntos=14, peso=500)
+        self.lb_info.set_foreground_backgound("white", "#496075").align_center().set_wrap()
+
         self.lb_info.setMinimumWidth(300)
 
         # Botones
@@ -117,6 +116,12 @@ class WForcingMoves(LCDialog.LCDialog):
 
     def player_has_moved(self, from_sq, to_sq, promotion=""):
         move = from_sq + to_sq + promotion
+        if not promotion and self.board.last_position.siPeonCoronando(from_sq, to_sq):
+            promotion = self.board.peonCoronando(self.board.last_position.is_white)
+            if promotion is None:
+                return None
+            move = from_sq + to_sq + promotion.lower()
+
         # print("player_has_moved: %s" % move)
         if self.must_find_best_move:
             # print("Best moves", self.owner.st_best_moves)

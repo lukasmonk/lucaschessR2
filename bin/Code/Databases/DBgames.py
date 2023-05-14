@@ -308,7 +308,7 @@ class DBgames:
             if is_numeric:
                 li.append("CAST(%s as INT) %s" % (campo, tipo))
             else:
-                li.append("%s %s" % (campo, tipo))
+                li.append("%s COLLATE NOCASE %s" % (campo, tipo))
         self.order = ",".join(li)
         self.li_row_ids = []
         self.rowidReader.run(self.li_row_ids, self.filter, self.order)

@@ -621,10 +621,8 @@ class WPanelDirector(LCDialog.LCDialog):
                 self.dbMarkers[xid] = w.regMarker.save_dic()
 
     def test_siGrabar(self):
-        if self.must_save:
-            if self.chbSaveWhenFinished.valor():
-                self.grabar()
-            self.must_save = False
+        if self.chbSaveWhenFinished.valor():
+            self.grabar()
 
     def closeEvent(self, event):
         self.test_siGrabar()

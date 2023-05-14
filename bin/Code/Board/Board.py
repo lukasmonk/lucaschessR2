@@ -901,8 +901,8 @@ class Board(QtWidgets.QGraphicsView):
                 self.dirvisual = None
                 return False
             else:
-                self.lanzaGuionAuto()
                 self.dirvisual = WindowDirector.Director(self)
+                self.dirvisual.guion.play()
             return True
         else:
             return False
@@ -2193,7 +2193,7 @@ class Board(QtWidgets.QGraphicsView):
         bloqueSC.idMovible = self.idUltimoMovibles
         self.dicMovibles[self.idUltimoMovibles] = bloqueSC
 
-    def exportaMovibles(self):
+    def lista_movibles(self):
         if self.dicMovibles:
             li = []
             for k, v in self.dicMovibles.items():
@@ -2210,25 +2210,29 @@ class Board(QtWidgets.QGraphicsView):
                     continue
                 li.append((tp, v.bloqueDatos))
 
-            return Util.var2txt(li)
+            return li
         else:
-            return ""
+            return []
 
-    def importaMovibles(self, xData):
-        self.borraMovibles()
-        if xData:
-            liDatos = Util.txt2var(str(xData))
-            for tp, bloqueDatos in liDatos:
-                if tp == TabVisual.TP_MARCO:
-                    self.creaMarco(bloqueDatos)
-                elif tp == TabVisual.TP_CIRCLE:
-                    self.creaCircle(bloqueDatos)
-                elif tp == TabVisual.TP_FLECHA:
-                    self.creaFlecha(bloqueDatos)
-                elif tp == TabVisual.TP_SVG:
-                    self.creaSVG(bloqueDatos)
-                elif tp == TabVisual.TP_MARKER:
-                    self.creaMarker(bloqueDatos)
+    # def exportaMovibles(self):
+    #     li = self.lista_movibles()
+    #     return Util.var2txt(li) if li else ""
+    #
+    # def importaMovibles(self, xData):
+    #     self.borraMovibles()
+    #     if xData:
+    #         liDatos = Util.txt2var(str(xData))
+    #         for tp, bloqueDatos in liDatos:
+    #             if tp == TabVisual.TP_MARCO:
+    #                 self.creaMarco(bloqueDatos)
+    #             elif tp == TabVisual.TP_CIRCLE:
+    #                 self.creaCircle(bloqueDatos)
+    #             elif tp == TabVisual.TP_FLECHA:
+    #                 self.creaFlecha(bloqueDatos)
+    #             elif tp == TabVisual.TP_SVG:
+    #                 self.creaSVG(bloqueDatos)
+    #             elif tp == TabVisual.TP_MARKER:
+    #                 self.creaMarker(bloqueDatos)
 
     def borraMovible(self, itemSC):
         for k, uno in self.dicMovibles.items():

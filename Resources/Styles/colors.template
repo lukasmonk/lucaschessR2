@@ -24,7 +24,7 @@ CONTROLMENSESPERA=Ephemeral message window
 LINKS=Links
 BOARD_STATIC=Messages in the middle of some boards (coordinate training/captures/...)
 
-[Databases+Opening explorer]
+[Database opening explorer]
 SUMMARY_FOREGROUND=Foreground
 SUMMARY_WIN=Win
 SUMMARY_LOST=Loss

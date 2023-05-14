@@ -457,7 +457,7 @@ class Pizarra(QtWidgets.QWidget):
         if self.chb:
             ly.control(self.chb)
         cajon.setLayout(ly)
-        cajon.setFixedHeight(20)
+        # cajon.setFixedHeight(20)
 
         layout = Colocacion.V().control(self.mensaje).espacio(-6).control(cajon).margen(0)
 

@@ -1,13 +1,11 @@
 import FasterCode
 
+from Code.Engines import EngineResponse
 from Code.ForcingMoves import WForcingMoves
 from Code.QT import QTUtil2
 
 class ForcingMoves:
-    def __init__(self, board, mrm, owner):
-        """
-        @type mrm: Code.Engines.EngineResponse.EngineResponse
-        """
+    def __init__(self, board, mrm: EngineResponse.MultiEngineResponse, owner):
 
         self.board = board
         fen = self.board.last_position.fen()
@@ -17,6 +15,7 @@ class ForcingMoves:
         self.li_threats = []
         self.li_check_targets = []
         self.li_capture_targets = []
+        mrm.ordena()
         self.st_best_moves = set()
         if len(mrm.li_rm) == 0:
             return

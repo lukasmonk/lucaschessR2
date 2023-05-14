@@ -1,0 +1,13 @@
+id name CDrill 1800
+id author Ferdinand Mosca
+option name Ponder type check default false
+option name OwnBook type check default false
+option name MultiPV type spin default 1 min 1 max 300
+option name MaterialWeight type spin default 100 min 0 max 1000
+option name PawnStructureWeight type spin default 100 min 0 max 1000
+option name PassedPawnWeight type spin default 100 min 0 max 1000
+option name MobilityWeight type spin default 100 min 0 max 1000
+option name ThreatWeight type spin default 100 min 0 max 1000
+option name KingAttackWeight type spin default 100 min 0 max 1000
+option name KingShelterWeight type spin default 100 min 0 max 1000
+option name RepeatScore type spin default -15 min -32000 max 32000

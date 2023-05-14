@@ -41,7 +41,7 @@ TagKind = [
     "mateIn2",
     "mateIn1",
     "oneMove",
-    "overloading",
+    "overload",
     "pawnEndgame",
     "pin",
     "promotion",

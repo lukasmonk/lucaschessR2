@@ -215,7 +215,7 @@ class WColors(LCDialog.LCDialog):
                 for c in "|+ ":
                     if x.count(c) == 1:
                         uno, dos = x.split(c)
-                        return trans(uno) + " " + trans(dos)
+                        return trans(uno) + " - " + trans(dos)
                 return _F(x)
 
             return trans(value)

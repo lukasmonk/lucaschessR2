@@ -237,8 +237,10 @@ class GT_Marco(GT_Item):
         return _("Box")
 
     def info(self):
-        bd = self._itemSC.bloqueDatos
-        return bd.a1h8
+        if self._itemSC:
+            bd = self._itemSC.bloqueDatos
+            return bd.a1h8
+        return ""
 
     def run(self):
         if self._itemSC:
@@ -531,7 +533,7 @@ class Guion:
             self.board_flechaSC = None
 
         if self.winDirector:
-            if not hasattr(self, "board_mensajero") or self.board_mensajero != self.winDirector.muevePieza:
+            if getattr(self, "board_mensajero", None) != self.winDirector.muevePieza:
                 self.board_mensajero = self.board.mensajero
                 self.board.mensajero = self.winDirector.muevePieza
 
@@ -560,7 +562,6 @@ class Guion:
 
     def savedPizarra(self):
         self.winDirector.refresh_guion()
-        self.winDirector.ponSiGrabar()
 
     def writePizarra(self, tarea):
         if self.pizarra is None:
@@ -614,7 +615,7 @@ class Guion:
     def tareasPosicion(self, pos):
         li = []
         for n, tarea in enumerate(self.liGTareas):
-            if isinstance(tarea, GT_Item) and tarea.itemSC().contain(pos):
+            if isinstance(tarea, GT_Item) and tarea.itemSC() and tarea.itemSC().contain(pos):
                 li.append((n, tarea))
         return li
 
@@ -760,16 +761,36 @@ class Guion:
         fenm2 = self.board.last_position.fenm2()
         lista = self.board.dbvisual_list(fenm2)
         self.liGTareas = []
-        stPrevios = self.recuperaMoviblesBoard()
         if lista is not None:
             for reg in lista:
-                if "_bloqueDatos" in reg:
-                    bd = reg["_bloqueDatos"]
-                    buscar = (bd.tpid[0], bd.tpid[1], bd.a1h8)
-                    if not (buscar in stPrevios):
-                        self.recuperaReg(reg)
-                else:
-                    self.recuperaReg(reg)
+                self.recuperaReg(reg)
+
+        li_previos = self.board.lista_movibles()
+        self.board.borraMovibles()
+        for tp, bloquedatos in li_previos:
+            esta = False
+            for reg in lista:
+                if tp == reg["_tp"]:
+                    bloquedatos_reg = reg["_bloqueDatos"]
+                    ok = True
+                    li_campos = [x for x in dir(bloquedatos_reg) if not x.startswith("_") and x not in ('copia', 'physical_pos', 'restore_dic', 'save_dic', 'tipoqt')]
+                    for x in li_campos:
+                        if x[0] != "_" and getattr(bloquedatos, x, None) != getattr(bloquedatos_reg, x):
+                            ok = False
+                            break
+                    if ok:
+                        esta = True
+                        break
+            if not esta:
+                reg = {
+                    '_bloqueDatos': bloquedatos,
+                    '_marcado': True,
+                    '_name': None,
+                    '_orden': 0,
+                    '_registro': None,
+                    '_tp': tp
+                }
+                self.recuperaReg(reg)
 
         if self.winDirector:
             for tarea in self.liGTareas:

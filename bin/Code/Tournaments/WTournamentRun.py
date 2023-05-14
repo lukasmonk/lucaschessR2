@@ -512,8 +512,8 @@ class WTournamentRun(QtWidgets.QWidget):
             if not move_found:
                 self.book[is_white] = None
 
-        time_ms = None
-        clock_ms = None
+        time_seconds = None
+        clock_seconds = None
 
         if not move_found:
             xrival = self.xengine[is_white]
@@ -528,8 +528,8 @@ class WTournamentRun(QtWidgets.QWidget):
                 self.pause_clock(is_white)
                 self.board.borraMovibles()
                 return True
-            time_ms = self.stop_clock(is_white)
-            clock_ms = self.tc_white.pending_time if is_white else self.tc_black.pending_time
+            time_seconds = self.stop_clock(is_white)
+            clock_seconds = self.tc_white.pending_time if is_white else self.tc_black.pending_time
 
             if mrm is None:
                 return False
@@ -545,10 +545,10 @@ class WTournamentRun(QtWidgets.QWidget):
                 self.game.set_termination(TERMINATION_ADJUDICATION,
                                           RESULT_WIN_BLACK if self.current_side == WHITE else RESULT_WIN_WHITE)
             return False
-        if time_ms:
-            move.set_time_ms(time_ms)
-        if clock_ms:
-            move.set_clock_ms(clock_ms)
+        if time_seconds:
+            move.set_time_ms(time_seconds*1000.0)
+        if clock_seconds:
+            move.set_clock_ms(clock_seconds*1000.0)
         if analysis:
             move.analysis = analysis
             move.del_nags()
