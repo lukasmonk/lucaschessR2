@@ -1,3 +1,5 @@
+import collections
+
 import FasterCode
 
 from Code.Base.Constantes import FEN_INITIAL
@@ -368,7 +370,9 @@ class Position:
 
     def is_mate(self):
         n = self.set_lce()
-        return FasterCode.ischeck() and n == 0
+        if FasterCode.ischeck():
+            return n == 0
+        return False
 
     def valor_material(self):
         valor = 0
@@ -460,6 +464,16 @@ class Position:
                     else:
                         n_white += 1
         return n_white, n_black
+
+    def dic_pieces(self):
+        dic = collections.defaultdict(int)
+        for i in range(8):
+            for j in range(8):
+                c_col = chr(i + 97)
+                c_fil = chr(j + 49)
+                pz = self.squares.get(c_col + c_fil)
+                dic[pz] += 1
+        return dic
 
     def label(self):
         d = {x: [] for x in "KQRBNPkqrbnp"}
@@ -586,6 +600,29 @@ class Position:
                 d += distancia(a, b)
         return d
 
+    def mirror(self):
+        def cp(a1):
+            if a1.islower():
+                c, f = a1[0], a1[1]
+                f = str(9 - int(f))
+                return c + f
+            return a1
+
+        def mp(pz):
+            return pz.upper() if pz.islower() else pz.lower()
+
+        p = Position()
+        p.squares = {}
+        for square, pz in self.squares.items():
+            p.squares[cp(square)] = mp(pz)
+        p.castles = "".join([mp(pz) for pz in self.castles])
+        p.en_passant = cp(self.en_passant)
+        p.is_white = not self.is_white
+        p.num_moves = self.num_moves
+        p.mov_pawn_capt = self.mov_pawn_capt
+
+        return p
+
 
 def distancia(from_sq, to_sq):
     return ((ord(from_sq[0]) - ord(to_sq[0])) ** 2 + (ord(from_sq[1]) - ord(to_sq[1])) ** 2) ** 0.5
@@ -595,6 +632,3 @@ def legal_fenm2(fen):
     p = Position()
     p.read_fen(fen)
     return p.fenm2()
-
-
-

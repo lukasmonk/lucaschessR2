@@ -181,7 +181,7 @@ def options(parent, configuration):
         (_("The text appears beside the icon"), QtCore.Qt.ToolButtonTextBesideIcon),
         (_("The text appears under the icon"), QtCore.Qt.ToolButtonTextUnderIcon),
     )
-    form.combobox(_("Icons"), li, configuration.tipoIconos())
+    form.combobox(_("Icons"), li, configuration.type_icons())
 
     form.add_tab("%s 1" % _("Appearance"))
 
@@ -211,6 +211,8 @@ def options(parent, configuration):
     form.spinbox(_("Lucas-Elo"), 0, 3200, 70, configuration.x_elo)
     form.separador()
     form.spinbox(_("Tourney-Elo"), 0, 3200, 70, configuration.x_michelo)
+    form.separador()
+    form.spinbox(_("The Wicker Park Tourney"), 0, 3200, 70, configuration.x_wicker)
     form.separador()
     form.spinbox(_("Fics-Elo"), 0, 3200, 70, configuration.x_fics)
     form.separador()
@@ -279,7 +281,7 @@ def options(parent, configuration):
         if configuration.x_font_family in ("System", "MS Shell Dlg 2"):
             configuration.x_font_family = ""
 
-        configuration.set_tipoIconos(qt_iconstb)
+        configuration.set_type_icons(qt_iconstb)
 
         (
             configuration.x_sound_beep,
@@ -337,6 +339,7 @@ def options(parent, configuration):
         (
             configuration.x_elo,
             configuration.x_michelo,
+            configuration.x_wicker,
             configuration.x_fics,
             configuration.x_fide,
             configuration.x_lichess,

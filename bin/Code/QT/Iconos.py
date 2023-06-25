@@ -3110,3 +3110,9 @@ def pmCarousel():
 
 def Carousel():
     return iget("Carousel")
+
+def pmPark():
+    return iget("pmPark")
+
+def Park():
+    return iget("Park")

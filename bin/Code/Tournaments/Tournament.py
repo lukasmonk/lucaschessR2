@@ -4,7 +4,7 @@ import random
 import Code
 from Code import Util
 from Code.Base import Game, Position
-from Code.Base.Constantes import RESULT_DRAW, RESULT_WIN_BLACK, RESULT_WIN_WHITE, WHITE, BLACK
+from Code.Base.Constantes import RESULT_DRAW, RESULT_WIN_BLACK, RESULT_WIN_WHITE, WHITE, BLACK, BOOK_RANDOM_PROPORTIONAL
 from Code.Engines import Engines
 from Code.SQL import UtilSQL
 
@@ -21,7 +21,7 @@ class EngineTournament(Engines.Engine):
         self.elo_current = None
 
         self.book = "-"  # "*":por defecto "-":el propio del engine otro:path to book polyglot
-        self.bookRR = "ap"
+        self.bookRR = BOOK_RANDOM_PROPORTIONAL
 
         # listas de huellas
         self.win_white = []
@@ -45,6 +45,14 @@ class EngineTournament(Engines.Engine):
         otro.restore(self.save())
         otro.pon_huella(torneo)
         otro.key += "-1"
+        otro.alias = otro.key
+        otro.win_white = []
+        otro.win_black = []
+        otro.lost_white = []
+        otro.lost_black = []
+        otro.draw_white = []
+        otro.draw_black = []
+
         return otro
 
     def book(self, valor=None):

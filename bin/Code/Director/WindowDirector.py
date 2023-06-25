@@ -45,7 +45,6 @@ class WPanelDirector(LCDialog.LCDialog):
         extparam = "tabvisualscript1"
         LCDialog.LCDialog.__init__(self, board, titulo, icono, extparam)
 
-        self.must_save = False
         self.ant_foto = None
 
         self.guion = TabVisual.Guion(board, self)
@@ -153,18 +152,10 @@ class WPanelDirector(LCDialog.LCDialog):
     def grabar(self):
         li = self.guion.guarda()
         self.board.dbVisual_save(self.fenm2, li)
-        QTUtil2.mensajeTemporal(self, _("Saved"), 1.8)
-
-        self.must_save = False
-        # self.tb.set_action_visible(self.grabar, False)
-        self.tb.set_action_visible(self.cancelar, False)
-        self.tb.set_action_visible(self.terminar, True)
-
-        QTUtil2.mensajeTemporal(self, _("Saved"), 1.8)
+        QTUtil2.mensajeTemporal(None, _("Saved"), 1.2)
 
     def recuperar(self):
         self.guion.recupera()
-        # self.ponNoGrabar()
         self.ant_foto = self.foto()
         self.refresh_guion()
 
@@ -492,8 +483,6 @@ class WPanelDirector(LCDialog.LCDialog):
 
     def refresh_guion(self):
         self.g_guion.refresh()
-        if self.must_save:
-            return
         nueva = self.foto()
         nv = len(nueva)
         if self.ant_foto is None or nv != len(self.ant_foto):
@@ -625,7 +614,6 @@ class WPanelDirector(LCDialog.LCDialog):
             self.grabar()
 
     def closeEvent(self, event):
-        self.test_siGrabar()
         self.cierraRecursos()
 
     def terminar(self):
@@ -754,6 +742,7 @@ class WPanelDirector(LCDialog.LCDialog):
 
             self.save_video()
             self.guion.restoreBoard()
+            self.test_siGrabar()
             self.guion = None
 
     def actualizaBandas(self):
@@ -878,7 +867,7 @@ class WPanelDirector(LCDialog.LCDialog):
                 nada, tp, nid = lb_sel.id.split("_")
                 nid = int(nid)
                 if tp == TabVisual.TP_FLECHA:
-                    self.siGrabarInicio = self.must_save
+                    self.siGrabarInicio = True
                 self.datos_new = self.creaTarea(tp, nid, origin + origin, -1)
                 self.tp_new = tp
                 if tp in (TabVisual.TP_FLECHA, TabVisual.TP_MARCO):

@@ -16,6 +16,7 @@ from Code.Base.Constantes import (
     TB_NEXT,
     TB_UTILITIES,
     GT_ROUTES,
+    BOOK_RANDOM_UNIFORM
 )
 from Code.Endings import LibChess
 from Code.Polyglots import Books
@@ -274,7 +275,7 @@ class ManagerRoutesPlay(ManagerRoutes):
             fen = self.game.last_position.fen()
             pv = None
             if self.book:
-                pv = self.book.eligeJugadaTipo(fen, "au")
+                pv = self.book.eligeJugadaTipo(fen, BOOK_RANDOM_UNIFORM)
                 if not pv:
                     self.book = None
             if not pv:
@@ -697,7 +698,6 @@ class ManagerRoutesTactics(ManagerRoutes):
             for variation in jgObj.variations.li_variations:
                 jgObjV = variation.move(0)
                 if jgObjV.movimiento() == jgSel.movimiento():
-
                     QTUtil2.mensajeTemporal(
                         self.main_window,
                         _("You have selected one correct move, but the line use %s") % jgObj.pgn_translated(),

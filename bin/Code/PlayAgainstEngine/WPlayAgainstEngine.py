@@ -13,10 +13,15 @@ from Code.Base.Constantes import (
     ENG_EXTERNAL,
     ENG_MICGM,
     ENG_MICPER,
+    ENG_WICKER,
     ENG_FIXED,
     ENG_IRINA,
     ENG_ELO,
     ENG_RODENT,
+    SELECTED_BY_PLAYER,
+    BOOK_BEST_MOVE,
+    BOOK_RANDOM_UNIFORM,
+    BOOK_RANDOM_PROPORTIONAL
 )
 from Code.Engines import SelectEngines, WConfEngines
 from Code.Openings import WindowOpeningLines, WindowOpenings, OpeningsStd
@@ -360,16 +365,16 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         libInicial = li_books[0][1] if li_books else None
 
         li_resp_book = [
-            (_("Selected by the player"), "su"),
-            (_("Uniform random"), "au"),
-            (_("Proportional random"), "ap"),
-            (_("Always the highest percentage"), "mp"),
+            (_("Selected by the player"), SELECTED_BY_PLAYER),
+            (_("Uniform random"), BOOK_RANDOM_UNIFORM),
+            (_("Proportional random"), BOOK_RANDOM_PROPORTIONAL),
+            (_("Always the highest percentage"), BOOK_BEST_MOVE),
         ]
 
         # #Rival
         self.cbBooksR = QTUtil2.comboBoxLB(self, li_books, libInicial).ponFuente(font)
         self.btNuevoBookR = Controles.PB(self, "", self.nuevoBook).ponIcono(Iconos.Mas())
-        self.cbBooksRR = QTUtil2.comboBoxLB(self, li_resp_book, "mp").ponFuente(font)
+        self.cbBooksRR = QTUtil2.comboBoxLB(self, li_resp_book, BOOK_BEST_MOVE).ponFuente(font)
         self.lbDepthBookR = Controles.LB2P(self, _("Max depth")).ponFuente(font)
         self.edDepthBookR = Controles.ED(self).ponFuente(font).tipoInt(0).anchoFijo(30)
 
@@ -617,6 +622,8 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
             name = Util.primera_mayuscula(
                 self.rival.alias + " (%d, %s)" % (self.rival.elo, self.rival.id_info.replace("\n", "-"))
             )
+        elif self.rival.type == ENG_WICKER:
+            name = self.rival.name + " (%d, %s)" % (self.rival.elo, self.rival.id_info.replace("\n", "-"))
         else:
             name = self.rival.name
         if len(name) > 70:
@@ -647,7 +654,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         # elif self.rival.type == ENG_RODENT:
         #     hide_time_depth = True
 
-        elif self.rival.type == ENG_MICPER:
+        elif self.rival.type in (ENG_MICPER, ENG_WICKER):
             hide_time_depth = True
 
         elif self.rival.type == ENG_INTERNAL:
@@ -859,7 +866,6 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
             ap.pgn = game.pgn_translated()
             self.opening_block = ap
             self.opening_show()
-
 
     def save_dic(self):
         dic = {}

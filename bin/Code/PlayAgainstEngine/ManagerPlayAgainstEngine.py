@@ -36,10 +36,10 @@ from Code.Base.Constantes import (
     ADJUST_BETTER,
     ADJUST_SELECTED_BY_PLAYER,
     ST_PAUSE,
-    ENG_MICPER,
-    ENG_MICGM,
     ENG_ELO,
     INACCURACY,
+    BOOK_BEST_MOVE,
+    SELECTED_BY_PLAYER
 )
 from Code.Engines import EngineResponse
 from Code.Openings import Opening, OpeningLines
@@ -174,14 +174,13 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             self.book_rival_active = True
             self.book_rival_depth = dic_var.get("BOOKRDEPTH", 0)
             self.book_rival.polyglot()
-            self.book_rival_select = dic_var.get("BOOKRR", "mp")
-        elif dic_var["RIVAL"].get("TYPE", None) in (ENG_MICGM, ENG_MICPER):
-            if self.conf_engine.book:
-                self.book_rival_active = True
-                self.book_rival = Books.Book("P", self.conf_engine.book, self.conf_engine.book, True)
-                self.book_rival.polyglot()
-                self.book_rival_select = "mp"
-                self.book_rival_depth = 0
+            self.book_rival_select = dic_var.get("BOOKRR", BOOK_BEST_MOVE)
+        elif self.conf_engine.book:
+            self.book_rival_active = True
+            self.book_rival = Books.Book("P", self.conf_engine.book, self.conf_engine.book, True)
+            self.book_rival.polyglot()
+            self.book_rival_select = BOOK_BEST_MOVE
+            self.book_rival_depth = getattr(self.conf_engine, "book_max_plies", 0)
 
         self.book_player_active = False
         self.book_player = dic_var.get("BOOKP", None)
@@ -334,7 +333,6 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         if self.play_while_win:
             self.is_tutor_enabled = True
 
-
         self.game.add_tag_timestart()
 
         self.check_boards_setposition()
@@ -431,8 +429,8 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             if tc.time_is_consumed():
                 t = time.time()
                 if is_player and QTUtil2.pregunta(
-                    self.main_window,
-                    _X(_("%1 has won on time."), self.xrival.name) + "\n\n" + _("Add time and keep playing?"),
+                        self.main_window,
+                        _X(_("%1 has won on time."), self.xrival.name) + "\n\n" + _("Add time and keep playing?"),
                 ):
                     minX = WPlayAgainstEngine.dameMinutosExtra(self.main_window)
                     if minX:
@@ -587,7 +585,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         if self.timed:
             self.main_window.stop_clock()
         self.analizaTerminar()
-        if self.book_rival_select == "su" or self.nAjustarFuerza == ADJUST_SELECTED_BY_PLAYER:
+        if self.book_rival_select == SELECTED_BY_PLAYER or self.nAjustarFuerza == ADJUST_SELECTED_BY_PLAYER:
             self.cache = {}
         self.reinicio["cache"] = self.cache
         self.reinicio["cache_analysis"] = self.cache_analysis
@@ -933,7 +931,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
     def select_book_move_base(self, book, book_select):
         fen = self.last_fen()
 
-        if book_select == "su":
+        if book_select == SELECTED_BY_PLAYER:
             listaJugadas = book.get_list_moves(fen)
             if listaJugadas:
                 resp = WindowBooks.eligeJugadaBooks(self.main_window, listaJugadas, self.game.last_position.is_white)
@@ -1054,7 +1052,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                 seconds_white,
                 seconds_black,
                 seconds_move,
-                nAjustado=self.nAjustarFuerza,
+                adjusted=self.nAjustarFuerza,
                 humanize=self.humanize,
             )
 
@@ -1713,10 +1711,9 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             for n in range(side, nbloques, 2):
                 pv = lipv[n]
                 if previo:
-                    self.board.show_arrow_mov(previo[2:4], pv[:2], "tr", opacity=max(opacity/2, 0.3))
+                    self.board.show_arrow_mov(previo[2:4], pv[:2], "tr", opacity=max(opacity / 2, 0.3))
 
                 self.board.show_arrow_mov(pv[:2], pv[2:4], base if n == side else alt, opacity=opacity)
                 previo = pv
-                opacity = max(opacity-0.20, 0.40)
+                opacity = max(opacity - 0.20, 0.40)
         return True
-

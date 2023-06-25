@@ -303,7 +303,10 @@ class Opening:
         return resp if resp else {}
 
     def setfenvalue(self, fenm2, dic):
-        self.db_fenvalues[fenm2] = dic
+        if dic:
+            self.db_fenvalues[fenm2] = dic
+        else:
+            del self.db_fenvalues[fenm2]
 
     def dicfenvalues(self):
         return self.db_fenvalues.as_dictionary()
@@ -909,12 +912,14 @@ class Opening:
                     d = self.getfenvalue(fenm2)
                     if "C" in dic:
                         d["COMENTARIO"] = dic["C"]
+                        del dic["C"]
                     if "N" in dic:
                         for nag in dic["N"]:
                             if nag in (10, 14, 15, 16, 17, 18, 19):
                                 d["VENTAJA"] = nag
                             elif 0 < nag < 7:
                                 d["VALORACION"] = nag
+                        del dic["N"]
                     if d:
                         dic_comments[fenm2] = d
 
@@ -940,6 +945,52 @@ class Opening:
                 self.setfenvalue(fenm2, dic_comments_game)
             self.db_fenvalues.set_normal_mode()
             um.final()
+
+    def import_pgn_comments(self, owner, path_pgn):
+
+        dl_tmp = QTUtil2.BarraProgreso(owner, _("Import"), _("Working..."), Util.filesize(path_pgn)).mostrar()
+
+        dic_comments = {}
+
+        for n, (nbytes, game) in enumerate(Game.read_games(path_pgn)):
+            dl_tmp.pon(nbytes)
+
+            if dl_tmp.is_canceled():
+                break
+
+            dic_comments_game = game.all_comments(True)
+            for fenm2, dic_nuevo in dic_comments_game.items():
+                d_final = self.getfenvalue(fenm2)
+                if "C" in dic_nuevo:
+                    comment_nuevo = dic_nuevo["C"].strip()
+                    comment_anterior = d_final.get("COMENTARIO", "").strip()
+                    if comment_anterior and comment_nuevo not in comment_anterior:
+                        comment_nuevo = f"{comment_anterior}\n-----------\n{comment_nuevo}"
+                    d_final["COMENTARIO"] = comment_nuevo
+                if "N" in dic_nuevo:
+                    for nag in dic_nuevo["N"]:
+                        if nag in (10, 14, 15, 16, 17, 18, 19):
+                            d_final["VENTAJA"] = nag
+                        elif 0 < nag < 7:
+                            d_final["VALORACION"] = nag
+                if d_final:
+                    dic_comments[fenm2] = d_final
+
+        dl_tmp.close()
+
+        if dic_comments:
+            self.db_fenvalues.set_faster_mode()
+            um = QTUtil2.unMomento(owner)
+            for fenm2, dic_comments_game in dic_comments.items():
+                self.setfenvalue(fenm2, dic_comments_game)
+            self.db_fenvalues.set_normal_mode()
+            um.final()
+            
+    def import_other_comments(self, path_opk):
+        otra = Opening(path_opk)
+        self.db_fenvalues.copy_from(otra.db_fenvalues)
+        self.pack_database()
+        otra.close()
 
     def guardaPartidas(self, label, liPartidas, minMoves=0, with_history=True):
         if with_history:
@@ -1121,7 +1172,7 @@ class Opening:
 
         return True
 
-    def importarOtra(self, pathFichero, game):
+    def import_other(self, pathFichero, game):
         xpvbase = FasterCode.pv_xpv(game.pv())
         tambase = len(xpvbase)
         otra = Opening(pathFichero)
@@ -1185,6 +1236,37 @@ class Opening:
             ws.write("\n%s" % game.pgnBase())
 
         ws.pb_close()
+
+    def remove_info(self, is_comments, is_ratings, is_analysis):
+
+        self.db_fenvalues.set_faster_mode()
+        dic_total = self.db_fenvalues.as_dictionary()
+        for fenm2, dic in dic_total.items():
+            if dic:
+                def remove(keyr):
+                    if keyr in dic:
+                        del dic[keyr]
+
+                if is_comments:
+                    remove("COMENTARIO")
+                if is_ratings:
+                    remove("VALORACION")
+                    remove("VENTAJA")
+                if is_analysis:
+                    remove("ANALISIS")
+
+                for key in ("COMENTARIO", "VALORACION", "VENTAJA", "ANALISIS"):
+                    if key in dic and not dic[key]:
+                        del dic[key]
+
+                if dic:
+                    self.db_fenvalues[fenm2] = dic
+
+            if not dic:
+                del self.db_fenvalues[fenm2]
+
+        self.db_fenvalues.set_normal_mode()
+        self.db_fenvalues.pack()
 
     def transpositions(self):
         self.save_history(_("Complete with transpositions"))

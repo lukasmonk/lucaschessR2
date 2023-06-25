@@ -22,9 +22,6 @@ class DirectEngine(object):
 
         self.name = name
 
-        self.ponder = False
-        self.pondering = False
-
         self.is_white = True
 
         self.gui_dispatch = None
@@ -75,8 +72,6 @@ class DirectEngine(object):
                     valor = str(valor).lower()
                 self.set_option(opcion, valor)
                 setoptions = True
-                if opcion.lower() == "ponder":
-                    self.ponder = valor == "true"
 
         if setoptions:
             self.pwait_list("isready", "readyok", 1000)

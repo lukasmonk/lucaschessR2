@@ -696,7 +696,7 @@ class ManagerSolo(Manager.Manager):
     def play_rival(self):
         if not self.is_finished():
             self.thinking(True)
-            rm = self.xrival.play_game(self.game, nAjustado=self.xrival.nAjustarFuerza)
+            rm = self.xrival.play_game(self.game, adjusted=self.xrival.nAjustarFuerza)
             self.thinking(False)
             if rm.from_sq:
                 self.player_has_moved(rm.from_sq, rm.to_sq, rm.promotion)

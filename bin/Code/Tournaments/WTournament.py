@@ -6,9 +6,10 @@ import Code
 from Code import Util
 from Code import XRun
 from Code.Base import Game, Position
-from Code.Base.Constantes import FEN_INITIAL
+from Code.Base.Constantes import FEN_INITIAL, BOOK_BEST_MOVE, BOOK_RANDOM_UNIFORM, BOOK_RANDOM_PROPORTIONAL
 from Code.Databases import DBgames, WDB_Games
 from Code.Engines import Engines, WEngines
+from Code.Engines import SelectEngines
 from Code.Polyglots import Books
 from Code.QT import Colocacion
 from Code.QT import Columnas
@@ -21,10 +22,9 @@ from Code.QT import QTUtil
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
 from Code.QT import SelectFiles
-from Code.Voyager import Voyager
 from Code.QT import WindowSavePGN
 from Code.Tournaments import Tournament
-from Code.Engines import SelectEngines
+from Code.Voyager import Voyager
 
 GRID_ALIAS, GRID_VALUES, GRID_GAMES_QUEUED, GRID_GAMES_FINISHED, GRID_RESULTS = range(5)
 
@@ -75,7 +75,7 @@ class WTournament(LCDialog.LCDialog):
         bt_draw_range = Controles.PB(self, "", rutina=self.borra_draw_range).ponIcono(Iconos.Reciclar())
 
         # adjudicator
-        self.liMotores = self.configuration.comboMotoresMultiPV10()
+        self.liMotores = self.configuration.combo_engines_multipv10()
         self.cbJmotor, self.lbJmotor = QTUtil2.comboBoxLB(self, self.liMotores, torneo.adjudicator(), _("Engine"))
         self.edJtiempo = Controles.ED(self).tipoFloat(torneo.adjudicator_time()).anchoFijo(50)
         self.lbJtiempo = Controles.LB2P(self, _("Time in seconds"))
@@ -533,8 +533,9 @@ class WTournament(LCDialog.LCDialog):
         else:
             if pbook == "*":
                 pbook = "* " + _("By default")
-            dic = {"au": _("Uniform random"), "ap": _("Proportional random"), "mp": _("Always the highest percentage")}
-            pbook += "   (%s)" % dic.get(me.bookRR, "mp")
+            dic = {BOOK_RANDOM_UNIFORM: _("Uniform random"), BOOK_RANDOM_PROPORTIONAL: _("Proportional random"),
+                   BOOK_BEST_MOVE: _("Always the highest percentage")}
+            pbook += "   (%s)" % dic.get(me.bookRR, BOOK_BEST_MOVE)
 
         self.liEnActual.append((_("Opening book"), pbook))
 
@@ -580,17 +581,17 @@ class WTournament(LCDialog.LCDialog):
     def comprueba_cambios(self):
         if self.torneo:
             changed = (
-                self.torneo.resign() != self.ed_resign.textoInt()
-                or self.torneo.draw_min_ply() != self.ed_draw_min_ply.textoInt()
-                or self.torneo.draw_range() != self.ed_draw_range.textoInt()
-                or self.torneo.fen() != self.fen
-                or self.torneo.norman() != self.chbNorman.valor()
-                or self.torneo.slow_pieces() != self.chb_slow.valor()
-                or self.torneo.book() != self.cbBooks.valor()
-                or self.torneo.bookDepth() != self.sbBookDepth.valor()
-                or self.torneo.adjudicator_active() != self.gbJ.isChecked()
-                or self.torneo.adjudicator() != self.cbJmotor.valor()
-                or self.torneo.adjudicator_time() != self.edJtiempo.textoFloat()
+                    self.torneo.resign() != self.ed_resign.textoInt()
+                    or self.torneo.draw_min_ply() != self.ed_draw_min_ply.textoInt()
+                    or self.torneo.draw_range() != self.ed_draw_range.textoInt()
+                    or self.torneo.fen() != self.fen
+                    or self.torneo.norman() != self.chbNorman.valor()
+                    or self.torneo.slow_pieces() != self.chb_slow.valor()
+                    or self.torneo.book() != self.cbBooks.valor()
+                    or self.torneo.bookDepth() != self.sbBookDepth.valor()
+                    or self.torneo.adjudicator_active() != self.gbJ.isChecked()
+                    or self.torneo.adjudicator() != self.cbJmotor.valor()
+                    or self.torneo.adjudicator_time() != self.edJtiempo.textoFloat()
             )
             if changed:
                 self.grabar()
@@ -644,7 +645,7 @@ class WTournament(LCDialog.LCDialog):
         self.rotulos_tabs()
 
     def enImportarTodos(self):
-        lista = self.configuration.comboMotores()
+        lista = self.configuration.combo_engines()
         for name, key in lista:
             for depth in range(1, 5):
                 me = Tournament.EngineTournament()
@@ -739,6 +740,7 @@ class WTournament(LCDialog.LCDialog):
         if row >= 0:
             me = self.torneo.engine(row)
             self.torneo.copy_engine(me)
+            self.calc_results()
             self.gridEnginesAlias.refresh()
             self.gridEnginesAlias.gobottom(0)
             self.gridResults.refresh()

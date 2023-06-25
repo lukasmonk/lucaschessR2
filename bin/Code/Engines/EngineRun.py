@@ -11,6 +11,7 @@ from PySide2 import QtCore
 
 import Code
 from Code import Util
+from Code.Base.Constantes import BOOK_BEST_MOVE, BOOK_RANDOM_UNIFORM, BOOK_RANDOM_PROPORTIONAL
 from Code.Engines import EngineResponse
 from Code.Engines import Priorities
 from Code.Polyglots import Books
@@ -33,9 +34,6 @@ class RunEngine:
         self.end_time_humanize = None
 
         self.name = name
-
-        self.ponder = False
-        self.pondering = False
 
         self.is_white = True
 
@@ -88,8 +86,6 @@ class RunEngine:
                 setoptions = True
                 if opcion == txt_uci_analysismode:
                     uci_analysismode = True
-                if opcion.lower() == "ponder":
-                    self.ponder = valor == "true"
 
         self.num_multipv = num_multipv
         if num_multipv:
@@ -118,7 +114,10 @@ class RunEngine:
             if self.log:
                 self.log.write(">>> %s\n" % line)
             self.stdin.write(line + b"\n")
-            self.stdin.flush()
+            try:
+                self.stdin.flush()
+            except:
+                pass
             self.stdin_lock.release()
 
     def put_line_base(self, line: str):
@@ -195,7 +194,7 @@ class RunEngine:
                             self.liBuffer.append("info string humanizing")
                             lock.release()
                         self.end_time_humanize = None
-                Code.prlk(self.name, line)
+                Code.pr(self.name, line)
                 lock.acquire()
                 self.liBuffer.append(line)
                 if self.direct_dispatch:
@@ -576,24 +575,6 @@ class RunEngine:
         self.set_game_position(game)
         return self.seek_bestmove_time(time_white, time_black, inc_time_move)
 
-    def run_ponder(self, game, mrm):
-        posInicial = "startpos" if game.siFenInicial() else "fen %s" % game.first_position.fen()
-        li = [move.movimiento().lower() for move in game.li_moves]
-        rm = mrm.rmBest()
-        pv = rm.getPV()
-        li1 = pv.split(" ")
-        li.extend(li1[:2])
-        moves = " moves %s" % (" ".join(li)) if li else ""
-        if not li:
-            self.ucinewgame()
-        self.pondering = True
-        self.work_ok("position %s%s" % (posInicial, moves))
-        self.put_line("go ponder")
-
-    def stop_ponder(self):
-        self.work_ok("stop")
-        self.pondering = False
-
     def busca_mate(self, game, mate):
         self.ac_inicio(game)
         tm = 10000
@@ -661,9 +642,9 @@ class MaiaEngine(RunEngine):
         mp = (level - 1100) // 10
         ap = 40 - 20 * (level - 1100) // 800
         au = 100 - mp - ap
-        self.book_select.extend(["mp"] * mp)
-        self.book_select.extend(["ap"] * ap)
-        self.book_select.extend(["au"] * au)
+        self.book_select.extend([BOOK_BEST_MOVE] * mp)
+        self.book_select.extend([BOOK_RANDOM_PROPORTIONAL] * ap)
+        self.book_select.extend([BOOK_RANDOM_UNIFORM] * au)
 
         dic_nodes = {1100: 1, 1200: 2, 1300: 5, 1400: 12, 1500: 30, 1600: 60, 1700: 130, 1800: 300, 1900: 450}
         if not Code.configuration.x_maia_nodes_exponential:

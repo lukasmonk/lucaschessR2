@@ -468,7 +468,7 @@ class WEndingsGTB(LCDialog.LCDialog):
 
     def get_move_komodo(self):
         if self.komodo is None:
-            self.komodo = EngineManager.EngineManager(self.procesador, self.configuration.buscaRival("komodo"), False)
+            self.komodo = EngineManager.EngineManager(self.configuration.buscaRival("komodo"), False)
             self.komodo.options(0, 7, False)
             self.komodo.check_engine()
             self.komodo.engine.put_line("setoption name Personality value Human")

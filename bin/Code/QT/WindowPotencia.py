@@ -505,7 +505,7 @@ class WPotenciaBase(LCDialog.LCDialog):
         mt = self.configuration.tutor_default if self.engine is None else self.engine
 
         li_combo = [mt]
-        for name, key in self.configuration.comboMotoresMultiPV10():
+        for name, key in self.configuration.combo_engines_multipv10():
             li_combo.append((key, name))
 
         li_gen.append((_("Engine") + ":", li_combo))

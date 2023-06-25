@@ -205,7 +205,7 @@ class ManagerVariations(Manager.Manager):
     def play_rival(self):
         if not self.is_finished():
             self.thinking(True)
-            rm = self.xrival.play_game(self.game, nAjustado=self.xrival.nAjustarFuerza)
+            rm = self.xrival.play_game(self.game, adjusted=self.xrival.nAjustarFuerza)
             if rm.from_sq:
                 ok, self.error, move = Move.get_game_move(
                     self.game, self.game.last_position, rm.from_sq, rm.to_sq, rm.promotion

@@ -1,13 +1,14 @@
-import os
 import atexit
 import collections
+import os
 import random
 
+import Code
+from Code.Base.Constantes import BOOK_RANDOM_UNIFORM
+from Code.Engines import EngineManager, EngineResponse
 from Code.Polyglots import Books
 from Code.QT import Iconos
 from Code.SQL import UtilSQL
-import Code
-from Code.Engines import EngineManager, EngineResponse
 
 ALBUMSHECHOS = "albumshechos"
 
@@ -27,7 +28,7 @@ class ManagerMotorAlbum:
         self.xsimilar = None
 
         conf_engine = self.manager.configuration.buscaRival("irina")
-        self.xirina = EngineManager.EngineManager(self.manager.procesador, conf_engine)
+        self.xirina = EngineManager.EngineManager(conf_engine)
         self.xirina.options(None, 1, False)
 
         self.opening = self.cromo.opening
@@ -54,7 +55,7 @@ class ManagerMotorAlbum:
     def juega(self, fen):
 
         if self.opening:
-            pv = self.book.eligeJugadaTipo(fen, "au")
+            pv = self.book.eligeJugadaTipo(fen, BOOK_RANDOM_UNIFORM)
             if pv:
                 self.opening -= 1
                 rmrival = EngineResponse.EngineResponse("Opening", "w" in fen)
@@ -106,7 +107,7 @@ class ManagerMotorAlbum:
     def juega_similar(self, fen):
         if self.xsimilar is None:
             conf_engine = self.manager.configuration.buscaRival(self.cromo.engine)
-            self.xsimilar = EngineManager.EngineManager(self.manager.procesador, conf_engine)
+            self.xsimilar = EngineManager.EngineManager(conf_engine)
             self.xsimilar.options(None, 5, True)
         mrm = self.xsimilar.control(fen, 5)
         mrm.game = self.game
@@ -115,20 +116,20 @@ class ManagerMotorAlbum:
 
 class Cromo:
     def __init__(
-        self,
-        key,
-        name,
-        nivel,
-        bien,
-        aleatorio,
-        captura,
-        esquivo,
-        similar,
-        dif_puntos,
-        aterrizaje,
-        mate,
-        engine,
-        opening,
+            self,
+            key,
+            name,
+            nivel,
+            bien,
+            aleatorio,
+            captura,
+            esquivo,
+            similar,
+            dif_puntos,
+            aterrizaje,
+            mate,
+            engine,
+            opening,
     ):
         self.key = key
         self.name = name

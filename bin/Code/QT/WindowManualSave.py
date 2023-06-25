@@ -132,7 +132,7 @@ class WManualSave(LCDialog.LCDialog):
         self.bt_stop.hide()
 
         lb_engine = Controles.LB(self, _("Engine") + ":")
-        liMotores = self.configuration.comboMotores()
+        liMotores = self.configuration.combo_engines()
         self.cb_engine = Controles.CB(self, liMotores, self.configuration.x_tutor_clave).capture_changes(
             self.reset_motor
         )
@@ -399,7 +399,7 @@ class WManualSave(LCDialog.LCDialog):
             return
         self.procesador.motoresExternos()
         valor = self.cb_engine.valor()
-        liMotores = self.configuration.comboMotores()
+        liMotores = self.configuration.combo_engines()
         engine = self.configuration.x_tutor_clave
         for label, key in liMotores:
             if key == valor:

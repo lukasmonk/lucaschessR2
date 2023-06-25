@@ -16,7 +16,7 @@ class Resistance:
         if self.conf is None:
             self.conf = {"SEGUNDOS": 5, "PUNTOS": 100, "NIVELHECHO": 0, "MAXERROR": 0}
 
-        self.liMotores = self.configuration.comboMotores()  # name, key
+        self.liMotores = self.configuration.combo_engines()  # name, key
         self.claveActual = self.calcClaveActual()
         self.dicActual = self.dameDicActual()
 

@@ -39,13 +39,17 @@ if is_linux:
     startfile = os.system
 else:
     if not sys.argv[0].endswith(".py"):
-        os.environ["QT_PLUGIN_PATH"] = os.path.join(current_dir, "extlibs", "PySide2", "plugins")
+        os.environ["QT_PLUGIN_PATH"] = os.path.join(
+            current_dir, "extlibs", "PySide2", "plugins"
+        )
         os.environ["QT_QPA_PLATFORM_PLUGIN_PATH"] = os.path.join(
             current_dir, "extlibs", "PySide2", "plugins", "platform"
         )
     startfile = os.startfile
 
-if not os.environ.get("PYTHONHTTPSVERIFY", "") and getattr(ssl, "_create_unverified_context", None):
+if not os.environ.get("PYTHONHTTPSVERIFY", "") and getattr(
+    ssl, "_create_unverified_context", None
+):
     ssl._create_default_https_context = getattr(ssl, "_create_unverified_context")
 
 configuration = None
@@ -90,7 +94,7 @@ def relative_root(path):
 
 
 BASE_VERSION = "B"  # Para el control de updates que necesitan reinstalar entero
-VERSION = "R 2.07a"
+VERSION = "R 2.08"
 DEBUG = False
 DEBUG_ENGINES = False
 
@@ -99,9 +103,7 @@ if DEBUG:
     import sys
     import time
 
-
     def pr(*x):
-
         lx = len(x) - 1
 
         for n, l in enumerate(x):
@@ -109,12 +111,10 @@ if DEBUG:
             if n < lx:
                 sys.stdout.write(" ")
 
-
     def prn(*x):
         pr(*x)
         sys.stdout.write("\n")
         return True
-
 
     def prns(*x):
         prn("-" * 80)
@@ -124,7 +124,6 @@ if DEBUG:
         prn("-" * 80)
         return True
 
-
     def stack(si_previo=False):
         if si_previo:
             pr("-" * 80 + "\n")
@@ -132,7 +131,6 @@ if DEBUG:
             pr("\n" + "-" * 80 + "\n")
         for line in traceback.format_stack()[:-1]:
             pr(line.strip() + "\n")
-
 
     def xpr(name, line):
         t = time.time()
@@ -144,24 +142,20 @@ if DEBUG:
         tdbg[0] = t
         return True
 
-
     tdbg = [time.time(), 0]
     if DEBUG_ENGINES:
         prn("", "Modo debug engine")
-
 
     def ini_timer(txt=None):
         tdbg[1] = time.time()
         if txt:
             prn(txt)
 
-
     def end_timer(txt=None):
         t = time.time() - tdbg[1]
         c = txt + " " if txt else ""
         c += "%0.03f" % t
         prn(c)
-
 
     import builtins
 

@@ -3,20 +3,21 @@ import time
 
 from Code import Manager
 from Code.Base import Game, Move
-from Code.Base.Constantes import (
-    ST_ENDGAME,
-    ST_PLAYING,
-    TB_CLOSE,
-    TB_REINIT,
-    TB_CONFIG,
-    TB_NEXT,
-    TB_REPEAT,
-    TB_RESIGN,
-    TB_UTILITIES,
-    GOOD_MOVE,
-    GT_OPENING_LINES,
-    INACCURACY,
-)
+from Code.Base.Constantes import (BOOK_BEST_MOVE,
+                                  BOOK_RANDOM_UNIFORM,
+                                  ST_ENDGAME,
+                                  ST_PLAYING,
+                                  TB_CLOSE,
+                                  TB_REINIT,
+                                  TB_CONFIG,
+                                  TB_NEXT,
+                                  TB_REPEAT,
+                                  TB_RESIGN,
+                                  TB_UTILITIES,
+                                  GOOD_MOVE,
+                                  GT_OPENING_LINES,
+                                  INACCURACY,
+                                  )
 from Code.Openings import OpeningLines
 from Code.Polyglots import Books
 from Code.QT import Iconos
@@ -87,7 +88,7 @@ class ManagerOpeningEngines(Manager.Manager):
                 self.book.polyglot()
                 self.book.mode = liBooks_sel[self.level]
                 if not self.book.mode:
-                    self.book.mode = "mp"
+                    self.book.mode = BOOK_BEST_MOVE
                 self.keybook_engine = self.keyengine + nombook
         else:
             self.book = None
@@ -185,7 +186,7 @@ class ManagerOpeningEngines(Manager.Manager):
                 move = self.dbop.get_cache_engines(self.keyengine, self.time, fenm2)
                 if move is None:
                     if self.book:
-                        move_book = self.book.eligeJugadaTipo(self.game.last_position.fen(), "au")
+                        move_book = self.book.eligeJugadaTipo(self.game.last_position.fen(), BOOK_RANDOM_UNIFORM)
                         if move_book in list(moves):
                             move = move_book
                     if move is None:

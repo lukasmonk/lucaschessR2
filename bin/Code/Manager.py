@@ -26,6 +26,7 @@ from Code.Base.Constantes import (
     GT_BOOK,
     GT_ELO,
     GT_MICELO,
+    GT_WICKER,
     RS_UNKNOWN,
     TB_CLOSE,
     TB_REINIT,
@@ -494,8 +495,6 @@ class Manager:
 
     def si_mira_kibitzers(self):
         return (self.state == ST_ENDGAME) or (not self.is_competitive)
-        # self.game_type in (GT_POSITIONS, GT_AGAINST_PGN, GT_AGAINST_ENGINE, GT_TACTICS, GT_AGAINST_GM, GT_ALONE, GT_BOOK, GT_OPENINGS) or
-        # (self.game_type in (GT_ELO, GT_MICELO) and ))
 
     def mira_kibitzers(self, all_kibitzers):
         row, column = self.main_window.pgnPosActual()
@@ -944,7 +943,7 @@ class Manager:
                         GT_OPENINGS,
                         GT_TACTICS,
                     ]
-                    or (self.game_type in [GT_ELO, GT_MICELO] and not self.is_competitive)
+                    or (self.game_type in [GT_ELO, GT_MICELO, GT_WICKER] and not self.is_competitive)
             ):
                 if siUltimo or self.hints == 0:
                     return
@@ -1483,7 +1482,7 @@ class Manager:
 
         # Analizar
         if siJugadas:
-            if not (self.game_type in (GT_ELO, GT_MICELO) and self.is_competitive and self.state == ST_PLAYING):
+            if not (self.game_type in (GT_ELO, GT_MICELO, GT_WICKER) and self.is_competitive and self.state == ST_PLAYING):
                 menu.separador()
                 n_analisis = 0
                 for move in self.game.li_moves:

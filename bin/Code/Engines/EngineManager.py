@@ -46,8 +46,7 @@ class ListEngineManagers:
 
 
 class EngineManager:
-    def __init__(self, procesador, conf_engine, direct=False):
-        self.procesador = procesador
+    def __init__(self, conf_engine, direct=False):
 
         self.engine = None
         self.confMotor = conf_engine
@@ -169,10 +168,10 @@ class EngineManager:
         mrm = self.engine.bestmove_game(game, seconds * 1000, None)
         return mrm.mejorMov() if mrm else None
 
-    def play_time(self, game, seconds_white, seconds_black, seconds_move, nAjustado=0):
+    def play_time(self, game, seconds_white, seconds_black, seconds_move, adjusted=0):
         self.check_engine()
         if self.mstime_engine or self.depth_engine:
-            return self.play_game(game, nAjustado)
+            return self.play_game(game, adjusted)
         mseconds_white = int(seconds_white * 1000)
         mseconds_black = int(seconds_black * 1000)
         mseconds_move = int(seconds_move * 1000)
@@ -180,26 +179,38 @@ class EngineManager:
         if mrm is None:
             return None
 
-        if nAjustado:
+        if adjusted:
             mrm.game = game
-            if nAjustado >= 1000:
-                mrm.li_personalities = self.procesador.configuration.li_personalities
+            if adjusted >= 1000:
+                mrm.li_personalities = Code.procesador.configuration.li_personalities
                 mrm.fenBase = game.last_position.fen()
-            return mrm.mejorMovAjustado(nAjustado) if nAjustado != ADJUST_SELECTED_BY_PLAYER else mrm
+            return mrm.mejorMovAjustado(adjusted) if adjusted != ADJUST_SELECTED_BY_PLAYER else mrm
         else:
             return mrm.mejorMov()
 
-    def play_game(self, game, nAjustado=0):
+    def play_time_tourney(self, game, seconds_white, seconds_black, seconds_move):
+        self.check_engine()
+        if self.mstime_engine or self.depth_engine:
+            mrm = self.engine.bestmove_game(game, self.mstime_engine, self.depth_engine)
+        else:
+            mseconds_white = int(seconds_white * 1000)
+            mseconds_black = int(seconds_black * 1000)
+            mseconds_move = int(seconds_move * 1000) if seconds_move else 0
+            mrm = self.engine.bestmove_time(game, mseconds_white, mseconds_black, mseconds_move)
+        return mrm
+
+
+    def play_game(self, game, adjusted=0):
         self.check_engine()
 
         mrm = self.engine.bestmove_game(game, self.mstime_engine, self.depth_engine)
 
-        if nAjustado:
+        if adjusted:
             mrm.game = game
-            if nAjustado >= 1000:
-                mrm.li_personalities = self.procesador.configuration.li_personalities
+            if adjusted >= 1000:
+                mrm.li_personalities = Code.procesador.configuration.li_personalities
                 mrm.fenBase = game.last_position.fen()
-            return mrm.mejorMovAjustado(nAjustado) if nAjustado != ADJUST_SELECTED_BY_PLAYER else mrm
+            return mrm.mejorMovAjustado(adjusted) if adjusted != ADJUST_SELECTED_BY_PLAYER else mrm
         else:
             return mrm.mejorMov()
 
@@ -216,21 +227,6 @@ class EngineManager:
         self.check_engine()
 
         return self.engine.bestmove_game(game, self.mstime_engine, self.depth_engine)
-
-    def play_time_tourney(self, game, seconds_white, seconds_black, seconds_move):
-        self.check_engine()
-        if self.engine.pondering:
-            self.engine.stop_ponder()
-        if self.mstime_engine or self.depth_engine:
-            mrm = self.engine.bestmove_game(game, self.mstime_engine, self.depth_engine)
-        else:
-            mseconds_white = int(seconds_white * 1000)
-            mseconds_black = int(seconds_black * 1000)
-            mseconds_move = int(seconds_move * 1000) if seconds_move else 0
-            mrm = self.engine.bestmove_time(game, mseconds_white, mseconds_black, mseconds_move)
-        if self.engine and self.engine.ponder:  # test si self.engine, ya que puede haber terminado en el ponder
-            self.engine.run_ponder(game, mrm)
-        return mrm
 
     def analiza(self, fen):
         self.check_engine()
@@ -479,7 +475,7 @@ class EngineManager:
         return mrm.mejorMov()
 
     def play_time_routine(
-            self, game, routine_return, seconds_white, seconds_black, seconds_move, nAjustado=0, humanize=False
+            self, game, routine_return, seconds_white, seconds_black, seconds_move, adjusted=0, humanize=False
     ):
         self.check_engine()
 
@@ -488,13 +484,13 @@ class EngineManager:
                 self.remove_gui_dispatch()
                 if mrm is None:
                     resp = None
-                elif nAjustado:
+                elif adjusted:
                     mrm.ordena()
                     mrm.game = game
-                    if nAjustado >= 1000:
-                        mrm.li_personalities = self.procesador.configuration.li_personalities
+                    if adjusted >= 1000:
+                        mrm.li_personalities = Code.procesador.configuration.li_personalities
                         mrm.fenBase = game.last_position.fen()
-                    resp = mrm.mejorMovAjustado(nAjustado) if nAjustado != ADJUST_SELECTED_BY_PLAYER else mrm
+                    resp = mrm.mejorMovAjustado(adjusted) if adjusted != ADJUST_SELECTED_BY_PLAYER else mrm
                 else:
                     resp = mrm.mejorMov()
             else:

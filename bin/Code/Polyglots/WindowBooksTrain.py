@@ -9,6 +9,7 @@ from Code.QT import Iconos
 from Code.QT import QTUtil2, SelectFiles
 from Code.QT import QTVarios
 from Code.QT import LCDialog
+from Code.Base.Constantes import BOOK_BEST_MOVE, BOOK_RANDOM_UNIFORM, BOOK_RANDOM_PROPORTIONAL, SELECTED_BY_PLAYER
 
 
 class WBooksTrain(LCDialog.LCDialog):
@@ -92,12 +93,12 @@ class WBooksTrain(LCDialog.LCDialog):
         self.cb_rival = Controles.CB(self, li, book_rival)
 
         li = (
-            (_("Selected by the player"), "su"),
-            (_("Uniform random"), "au"),
-            (_("Proportional random"), "ap"),
-            (_("Always the highest percentage"), "mp"),
+            (_("Selected by the player"), SELECTED_BY_PLAYER),
+            (_("Uniform random"), BOOK_RANDOM_UNIFORM),
+            (_("Proportional random"), BOOK_RANDOM_PROPORTIONAL),
+            (_("Always the highest percentage"), BOOK_BEST_MOVE),
         )
-        self.cb_resp_rival = Controles.CB(self, li, dic_data.get(self.RESP_RIVAL, "au"))
+        self.cb_resp_rival = Controles.CB(self, li, dic_data.get(self.RESP_RIVAL, BOOK_RANDOM_UNIFORM))
 
         ly = Colocacion.V().controlc(self.cb_rival).espacio(10).controlc(self.cb_resp_rival)
         gb_rival = Controles.GB(self, _("Rival book"), ly).ponFuente(flb)

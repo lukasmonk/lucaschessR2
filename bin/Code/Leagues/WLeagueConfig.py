@@ -101,7 +101,7 @@ class WLeagueConfig(LCDialog.LCDialog):
         bt_draw_range = Controles.PB(self, "", rutina=self.borra_draw_range).ponIcono(Iconos.Reciclar())
 
         # adjudicator
-        self.liMotores = Code.configuration.comboMotoresMultiPV10()
+        self.liMotores = Code.configuration.combo_engines_multipv10()
         self.cbJmotor, self.lbJmotor = QTUtil2.comboBoxLB(self, self.liMotores, league.adjudicator, _("Engine"))
         self.edJtiempo = Controles.ED(self).tipoFloat(league.adjudicator_time).anchoFijo(50)
         self.lbJtiempo = Controles.LB2P(self, _("Time in seconds"))

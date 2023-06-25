@@ -41,7 +41,7 @@ class TabEngine(QtWidgets.QWidget):
         self.bt_stop.hide()
 
         self.lb_engine = Controles.LB(self, _("Engine") + ":")
-        liMotores = configuration.comboMotores()  # (name, key)
+        liMotores = configuration.combo_engines()  # (name, key)
         default = configuration.x_tutor_clave
         engine = self.dbop.getconfig("ENGINE", default)
         if len([key for name, key in liMotores if key == engine]) == 0:
@@ -684,8 +684,6 @@ class TabsAnalisis(QtWidgets.QWidget):
 
         self.tabtree = TabTree(self, configuration)
         self.tabengine = TabEngine(self, procesador, configuration)
-        # self.tabengine.tabButton(0, QtWidgets.QTabBar.RightSide).deleteLater()
-        # self.tabengine.tabBar().setTabButton(0, QtWidgets.QTabBar.RightSide, 0)
 
         self.li_tabs = [("engine", self.tabengine), ("tree", self.tabtree)]
         self.tabActive = 0
@@ -757,14 +755,6 @@ class TabsAnalisis(QtWidgets.QWidget):
                 self.tabs.setTabIcon(pos, Iconos.Libros())
                 self.setPosicion(self.game, self.njg, pos)
 
-        # elif resp == "tree":
-        #     tabtree = TabTree(self, self.configuration)
-        #     self.li_tabs.append(("tree", tabtree))
-        #     pos = len(self.li_tabs)-1
-        #     self.tabs.new_tab(tabtree, _("Tree"), pos)
-        #     self.tabs.setTabIcon(pos, Iconos.Arbol())
-        #     tabtree.bt_update()
-
         elif resp == "summary":
             nomfichgames = QTVarios.select_db(self, self.configuration, True, False)
             if nomfichgames:
@@ -776,6 +766,7 @@ class TabsAnalisis(QtWidgets.QWidget):
                 name = os.path.basename(nomfichgames)[:-5]
                 self.tabs.new_tab(tabdb, name, pos)
                 self.tabs.setTabIcon(pos, Iconos.Arbol())
+
         elif resp == "database":
             nomfichgames = QTVarios.select_db(self, self.configuration, True, False)
             if nomfichgames:

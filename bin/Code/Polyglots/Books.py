@@ -7,6 +7,7 @@ import random
 import FasterCode
 
 from Code.Base import Position
+from Code.Base.Constantes import BOOK_BEST_MOVE, BOOK_RANDOM_UNIFORM, BOOK_RANDOM_PROPORTIONAL
 from Code import Util
 import Code
 
@@ -224,7 +225,7 @@ class Book:
         elif nli == 1:
             pv = li[0].pv()
 
-        elif tipo == "mp":  # Mejor position
+        elif tipo == BOOK_BEST_MOVE:  # Mejor position
             for entry in li:
                 w = entry.weight
                 if w > maxim:
@@ -235,11 +236,11 @@ class Book:
             pos = random.randint(0, len(liMax) - 1) if len(liMax) > 1 else 0
             pv = liMax[pos].pv()
 
-        elif tipo == "au":  # Aleatorio uniforme
+        elif tipo == BOOK_RANDOM_UNIFORM:  # Aleatorio uniforme
             pos = random.randint(0, len(li) - 1)
             pv = li[pos].pv()
 
-        elif tipo == "ap":  # Aleatorio proporcional
+        elif tipo == BOOK_RANDOM_PROPORTIONAL:  # Aleatorio proporcional
             liW = [x.weight for x in li]
             t = sum(liW)
             num = random.randint(1, t)

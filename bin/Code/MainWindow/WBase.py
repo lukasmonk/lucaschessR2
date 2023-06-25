@@ -107,7 +107,7 @@ class WBase(QtWidgets.QWidget):
 
     def create_toolbar(self):
         self.tb = QtWidgets.QToolBar("BASIC", self)
-        iconsTB = self.configuration.tipoIconos()
+        iconsTB = self.configuration.type_icons()
         self.tb.setToolButtonStyle(iconsTB)
         sz = 32 if iconsTB == QtCore.Qt.ToolButtonTextUnderIcon else 16
         self.tb.setIconSize(QtCore.QSize(sz, sz))

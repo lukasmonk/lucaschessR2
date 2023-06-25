@@ -58,10 +58,9 @@ class DictSQL(object):
             self.li_keys.append(key)
         self.conexion.execute(sql, (memoryview(dato), key))
 
+        self.add_cache(key, obj)
         if self.normal_save_mode:
             self.conexion.commit()
-            if key in self.cache:  # modificamos la cache si está el dato
-                self.add_cache(key, obj)
         elif not self.pending_commit:
             self.pending_commit = True
 
@@ -85,7 +84,10 @@ class DictSQL(object):
                 del self.cache[key]
             sql = "DELETE FROM %s WHERE KEY= ?" % self.tabla
             self.conexion.execute(sql, (key,))
-            self.conexion.commit()
+            if self.normal_save_mode:
+                self.conexion.commit()
+            else:
+                self.pending_commit = True
 
     def __len__(self):
         return len(self.li_keys)

@@ -120,7 +120,11 @@ class WConfEngines(LCDialog.LCDialog):
             minimo = opcion.minimo
             maximo = opcion.maximo
         elif tipo in ("check", "button"):
-            self.engine.ordenUCI(key, not value)
+            if value == "true":
+                value = "false"
+            else:
+                value = "true"
+            self.engine.ordenUCI(key, value)
             self.w_current.set_changed()
             self.grid_conf.refresh()
         elif tipo == "combo":
@@ -443,7 +447,7 @@ class WConfExternals(QtWidgets.QWidget):
 
     def importar(self):
         menu = QTVarios.LCMenu(self)
-        lista = Code.configuration.comboMotores()
+        lista = Code.configuration.combo_engines()
         nico = QTVarios.rondoPuntos()
         for name, key in lista:
             menu.opcion(key, name, nico.otro())

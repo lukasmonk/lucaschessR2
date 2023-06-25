@@ -185,6 +185,8 @@ def menu_compete_savemenu(procesador, dic_data=None):
     submenu.separador()
     submenu.opcion(("micelo", 0), "%s (%d)" % (_("Tourney-Elo"), procesador.configuration.x_michelo), Iconos.EloTimed())
     submenu.separador()
+    submenu.opcion(("wicker", 0), "%s (%d)" % (_("The Wicker Park Tourney"), procesador.configuration.x_wicker), Iconos.Park())
+    submenu.separador()
     fics = procesador.configuration.x_fics
     menuf = submenu.submenu("%s (%d)" % (_("Fics-Elo"), fics), Iconos.Fics())
     rp = QTVarios.rondoPuntos()

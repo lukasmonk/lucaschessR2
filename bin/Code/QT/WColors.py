@@ -29,7 +29,7 @@ class WColors(LCDialog.LCDialog):
         self.dic_original = {key: QTUtil.qtColor(value) for key, value in dic.items()}
 
         path_personal = self.configuration.file_colors()
-        dic = Util.ini_base2dicr(path_personal)
+        dic = Util.ini_base2dic(path_personal, rfind_equal=True)
         self.dic_personal = {key: QTUtil.qtColor(value) for key, value in dic.items()}
 
         self.li_colors = self.read_colors_template()
@@ -142,7 +142,8 @@ class WColors(LCDialog.LCDialog):
             qcolor_previo = self.dic_personal.get(key)
             if qcolor_previo is None:
                 qcolor_previo = self.dic_original[key]
-            qcolor_nuevo = QtWidgets.QColorDialog.getColor(qcolor_previo, title=_("Choose a color"))
+            qcolor_nuevo = QtWidgets.QColorDialog.getColor(qcolor_previo, self, _("Choose a color"),
+                                                    QtWidgets.QColorDialog.ShowAlphaChannel | QtWidgets.QColorDialog.DontUseNativeDialog)
             if qcolor_nuevo.isValid():
                 if qcolor_previo.name() != qcolor_nuevo.name():
                     self.li_ctrl_z.append(["add", key, self.dic_personal.get(key)])
@@ -152,7 +153,9 @@ class WColors(LCDialog.LCDialog):
 
         elif col.key == "ORIGINAL":
             qcolor_previo = self.dic_original[key]
-            qcolor_nuevo = QtWidgets.QColorDialog.getColor(qcolor_previo, title=_("Choose a color"))
+            qcolor_nuevo = QtWidgets.QColorDialog.getColor(qcolor_previo, self, _("Choose a color"),
+                                                    QtWidgets.QColorDialog.ShowAlphaChannel | QtWidgets.QColorDialog.DontUseNativeDialog)
+
             if qcolor_nuevo.isValid():
                 color_original = qcolor_previo.name()
                 remove = qcolor_previo.name() == qcolor_nuevo.name()

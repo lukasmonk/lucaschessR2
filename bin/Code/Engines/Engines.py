@@ -5,7 +5,7 @@ import os.path
 import Code
 from Code import Util
 from Code.Engines import EngineRunDirect
-from Code.Base.Constantes import ENG_EXTERNAL, ENG_INTERNAL
+from Code.Base.Constantes import ENG_EXTERNAL, ENG_INTERNAL, BOOK_BEST_MOVE
 
 
 class Engine:
@@ -31,6 +31,8 @@ class Engine:
         self.id_name = key
         self.id_author = autor
         self.book = None
+        self.book_max_plies = 0
+        self.book_rr = BOOK_BEST_MOVE
         self.emulate_movetime = False
 
         self.menu = key
@@ -40,7 +42,6 @@ class Engine:
         self.__li_uci_options = None
 
     def save(self):
-
         return Util.save_obj_pickle(self)
 
     def restore(self, txt):
@@ -99,8 +100,9 @@ class Engine:
         for op in li_uci_options:
             if op.name == name:
                 if op.tipo == "check":
-                    if valor in ("true", "false"):
-                        valor = valor == "true"
+                    valor = str(valor).lower()
+                    if valor not in ("true", "false"):
+                        valor = "false"
                 op.valor = valor
                 if op.default != valor:
                     is_changed = True
@@ -162,8 +164,7 @@ class Engine:
         return self.path_exe
 
     def read_uci_options(self):
-        name = Util.valid_filename("%s.uci_options" % self.key)
-        path_uci_options = os.path.join(os.path.dirname(self.path_exe), name)
+        path_uci_options = self.path_exe + ".uci_options"
         if os.path.isfile(path_uci_options):
             with open(path_uci_options, "rt", encoding="utf-8", errors="ignore") as f:
                 lines = f.read().split("\n")
@@ -314,7 +315,7 @@ class OpcionUCI:
 
     def lee_check(self, li):
         if len(li) == 4 and li[2] == "default":
-            self.default = li[3] == "true"
+            self.default = li[3]
             return True
         else:
             return False

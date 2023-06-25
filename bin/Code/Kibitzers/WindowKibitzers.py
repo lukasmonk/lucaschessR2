@@ -270,7 +270,7 @@ class WKibitzers(LCDialog.LCDialog):
         form.edit(_("Name"), "")
         form.separador()
 
-        form.combobox(_("Engine"), self.configuration.comboMotores(), "stockfish")
+        form.combobox(_("Engine"), self.configuration.combo_engines(), "stockfish")
         form.separador()
 
         liTipos = Kibitzers.Tipos().comboSinIndices()

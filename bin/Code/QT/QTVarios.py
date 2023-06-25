@@ -877,7 +877,7 @@ class LCTB(Controles.TBrutina):
             icon_size=icon_size,
             puntos=configuration.x_tb_fontpoints if puntos is None else puntos,
             background=background,
-            style=configuration.tipoIconos() if style is None else style,
+            style=configuration.type_icons() if style is None else style,
         )
 
 
@@ -911,3 +911,36 @@ def tbAcceptCancel(parent, if_default=False, siReject=True):
     li_acciones.append(None)
 
     return LCTB(parent, li_acciones)
+
+
+class WInfo(QtWidgets.QDialog):
+    def __init__(self, wparent, titulo, head, txt, min_tam, pm_icon):
+        super(WInfo, self).__init__(wparent)
+
+        self.setWindowTitle(titulo)
+        self.setWindowIcon(Iconos.Aplicacion64())
+        self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Dialog | QtCore.Qt.WindowTitleHint)
+
+        f = Controles.TipoLetra(puntos=20)
+
+        lb_ico = Controles.LB(self).ponImagen(pm_icon)
+        lb_titulo = Controles.LB(self, head).align_center().ponFuente(f)
+        lb_texto = Controles.LB(self, txt)
+        lb_texto.setMinimumWidth(min_tam - 84)
+        lb_texto.setWordWrap(True)
+        lb_texto.setTextFormat(QtCore.Qt.RichText)
+        bt_seguir = Controles.PB(self, _("Continue"), self.seguir).ponPlano(False)
+
+        ly_v1 = Colocacion.V().control(lb_ico).relleno()
+        ly_v2 = Colocacion.V().control(lb_titulo).control(lb_texto).espacio(10).control(bt_seguir)
+        ly_h = Colocacion.H().otro(ly_v1).otro(ly_v2).margen(10)
+
+        self.setLayout(ly_h)
+
+    def seguir(self):
+        self.close()
+
+
+def info(parent: QtWidgets.QWidget, titulo: str, head: str, txt: str, min_tam: int, pm_icon: QtGui.QPixmap):
+    w = WInfo(parent, titulo, head, txt, min_tam, pm_icon)
+    w.exec_()

@@ -19,7 +19,7 @@ def init_app_style(app, configuration):
 
     path_colors = Code.path_resource("Styles", file + ".colors")
     Code.dic_colors = Util.ini_base2dic(path_colors)
-    dic_personal = Util.ini_base2dicr(configuration.file_colors())
+    dic_personal = Util.ini_base2dic(configuration.file_colors(), rfind_equal=True)
     Code.dic_colors.update(dic_personal)
     Code.dic_qcolors = qdic = {}
     for key, color in Code.dic_colors.items():

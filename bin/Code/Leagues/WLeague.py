@@ -24,6 +24,10 @@ NONE, PLAY_HUMAN, REINIT = range(3)
 class WLeague(LCDialog.LCDialog):
     def __init__(self, w_parent, league):
 
+        if league.current_num_season is None:
+            um = QTUtil2.unMomento(w_parent)
+            league.get_current_season()
+            um.final()
         titulo = "%s - %s %d" % (league.name(), _("Season"), league.get_current_season() + 1)
         icono = Iconos.League()
         extparam = "league"

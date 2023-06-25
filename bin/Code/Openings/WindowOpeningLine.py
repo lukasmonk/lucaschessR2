@@ -10,11 +10,13 @@ from Code import Util
 from Code.Analysis import Analysis
 from Code.Base import Game
 from Code.Base.Constantes import NONE, ALL, ONLY_BLACK, ONLY_WHITE
+from Code.Base.Constantes import BOOK_BEST_MOVE, BOOK_RANDOM_UNIFORM, BOOK_RANDOM_PROPORTIONAL
 from Code.Databases import DBgames
 from Code.Engines import EnginesBunch
 from Code.Engines import Priorities
 from Code.Openings import WindowOpenings, POLAnalisis, POLBoard, OpeningLines, OpeningsStd
 from Code.Polyglots import Books
+from Code.QT import Controles
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Delegados
@@ -31,7 +33,7 @@ from Code.Voyager import Voyager
 
 class WLines(LCDialog.LCDialog):
     def __init__(self, procesador, dbop):
-        self.dbop = dbop
+        self.dbop: OpeningLines.Opening = dbop
         self.title = dbop.gettitle()
 
         LCDialog.LCDialog.__init__(self, procesador.main_window, self.title, Iconos.OpeningLines(), "studyOpening")
@@ -144,16 +146,20 @@ class WLines(LCDialog.LCDialog):
 
     def utilities(self):
         menu = QTVarios.LCMenu(self)
-        submenu = menu.submenu(_("Analysis"), Iconos.Analizar())
-        submenu.opcion(self.ta_massive, _("Mass analysis"), Iconos.Analizar())
-        submenu.separador()
-        submenu.separador()
-        submenu.opcion(self.ta_remove, _("Delete all previous analysis"), Iconos.Delete())
+        menu.opcion(self.ta_massive, _("Mass analysis"), Iconos.Analizar())
         menu.separador()
         menu.opcion(self.ta_transpositions, _("Complete with transpositions"), Iconos.Arbol())
         menu.separador()
+
+        comments = menu.submenu(_("Comments"), Iconos.Comment())
+        comments_import = comments.submenu(_("Import"), Iconos.ComentarioMas())
+        comments_import.opcion(self.ta_import_pgn_comments, _("PGN with variations"), Iconos.Board())
+        comments_import.separador()
+        comments_import.opcion(self.ta_import_other_comments, _("Other opening lines"), Iconos.OpeningLines())
+
         list_history = self.dbop.list_history()
         if list_history:
+            menu.separador()
             submenu = menu.submenu(_("Backups"), Iconos.Copiar())
             rondo = QTVarios.rondoPuntos()
             for history in list_history[:20]:
@@ -194,7 +200,7 @@ class WLines(LCDialog.LCDialog):
 
         form.combobox(
             _("Engine"),
-            self.configuration.comboMotoresMultiPV10(4),
+            self.configuration.combo_engines_multipv10(4),
             dicVar.get("ENGINE", self.configuration.engine_tutor()),
         )
         form.separador()
@@ -280,6 +286,7 @@ class WLines(LCDialog.LCDialog):
         mensaje = _("Move") + "  %d/" + str(len(stfen))
         tmpBP = QTUtil2.BarraProgreso(self, _("Mass analysis"), "", len(stfen))
         tmpBP.setFixedWidth(450)
+        tmpBP.mostrar()
 
         for done, fenm2 in enumerate(stfen, 1):
             if tmpBP.is_canceled():
@@ -294,15 +301,6 @@ class WLines(LCDialog.LCDialog):
             self.dbop.setfenvalue(fenm2, dic)
 
         tmpBP.cerrar()
-
-    def ta_remove(self):
-        if QTUtil2.pregunta(self, _("Are you sure?")):
-            total = len(self.dbop.db_fenvalues)
-            mensaje = _("Move") + "  %d/" + str(total)
-            tmpBP = QTUtil2.BarraProgreso(self, "", "", total)
-            self.dbop.remove_analysis(tmpBP, mensaje)
-            tmpBP.cerrar()
-            self.glines.refresh()
 
     def train(self):
         menu = QTVarios.LCMenu(self)
@@ -445,7 +443,7 @@ class WLines(LCDialog.LCDialog):
         li_gen.append((config, key_engine))
         li_gen.append(separador)
 
-        config = FormLayout.Combobox(_("Engine that does the control"), self.configuration.comboMotores())
+        config = FormLayout.Combobox(_("Engine that does the control"), self.configuration.combo_engines())
         li_gen.append((config, engine_control))
         li_gen.append((_("Duration of analysis (secs)") + ":", float(engine_time)))
 
@@ -477,9 +475,9 @@ class WLines(LCDialog.LCDialog):
         libooks.insert(0, ("--", None))
         li_books_sel = (
             ("", ""),
-            (_("Uniform random"), "au"),
-            (_("Proportional random"), "ap"),
-            (_("Always the highest percentage"), "mp"),
+            (_("Uniform random"), BOOK_RANDOM_UNIFORM),
+            (_("Proportional random"), BOOK_RANDOM_PROPORTIONAL),
+            (_("Always the highest percentage"), BOOK_BEST_MOVE),
         )
         for level in range(5):
             n = level + 1
@@ -597,10 +595,10 @@ class WLines(LCDialog.LCDialog):
 
         def haz_menu(frommenu, game_base, all=True):
             if all:
-                liOp = self.dbop.getOtras(self.configuration, game_base)
-                if liOp:
+                li_op = self.dbop.getOtras(self.configuration, game_base)
+                if li_op:
                     otra = frommenu.submenu(_("Other opening lines"), Iconos.OpeningLines())
-                    for file, titulo in liOp:
+                    for file, titulo in li_op:
                         otra.opcion(("ol", (file, game_base)), titulo, Iconos.PuntoVerde())
                     frommenu.separador()
             frommenu.opcion(("pgn", game_base), _("PGN with variations"), Iconos.Board())
@@ -608,6 +606,8 @@ class WLines(LCDialog.LCDialog):
             frommenu.opcion(("polyglot", game_base), _("Polyglot book"), Iconos.Libros())
             frommenu.separador()
             frommenu.opcion(("summary", game_base), _("Database opening explorer"), Iconos.Database())
+            frommenu.separador()
+
             if all:
                 frommenu.separador()
                 frommenu.opcion(("voyager2", game_base), _("Voyager 2"), Iconos.Voyager())
@@ -644,14 +644,14 @@ class WLines(LCDialog.LCDialog):
             self.importarOpening(game)
         elif tipo == "ol":
             file, game = game
-            self.importarOtra(file, game)
+            self.import_other(file, game)
         self.dbop.clean()
         self.show_lines()
 
-    def importarOtra(self, file, game):
+    def import_other(self, file, game):
         um = QTUtil2.unMomento(self)
         pathFichero = os.path.join(self.configuration.folder_openings(), file)
-        self.dbop.importarOtra(pathFichero, game)
+        self.dbop.import_other(pathFichero, game)
         um.final()
         self.glines.refresh()
         self.glines.gotop()
@@ -820,6 +820,33 @@ class WLines(LCDialog.LCDialog):
             self.dbop.import_pgn(self, game, fichero_pgn, depth, variations, comments)
             self.glines.refresh()
             self.glines.gotop()
+
+    def ta_import_pgn_comments(self):
+        key_var = "OPENINGLINES"
+        dic_var = self.configuration.read_variables(key_var)
+        carpeta = dic_var.get("CARPETAPGN", "")
+
+        fichero_pgn = SelectFiles.leeFichero(self, carpeta, "pgn", titulo=_("File to import"))
+        if not fichero_pgn:
+            return
+        dic_var["CARPETAPGN"] = os.path.dirname(fichero_pgn)
+        self.configuration.write_variables(key_var, dic_var)
+
+        self.dbop.import_pgn_comments(self, fichero_pgn)
+        self.glines.refresh()
+        self.glines.gotop()
+
+    def ta_import_other_comments(self):
+        current_path = self.dbop.nom_fichero
+
+        file_opk = SelectFiles.leeFichero(self, os.path.dirname(current_path), "opk", titulo=_("Opening lines"))
+        if not file_opk or Util.same_path(current_path, file_opk):
+            return
+
+        self.dbop.import_other_comments(file_opk)
+        
+        self.glines.refresh()
+        self.glines.gotop()
 
     def grid_color_fondo(self, grid, row, o_column):
         col = o_column.key
@@ -1009,6 +1036,9 @@ class WLines(LCDialog.LCDialog):
         submenu.opcion("last_white", _("White"), Iconos.Blancas())
         submenu.separador()
         submenu.opcion("last_black", _("Black"), Iconos.Negras())
+        menu.separador()
+
+        menu.opcion("info", _("Remove comments/ratings/analysis"), Iconos.Delete())
 
         resp = menu.lanza()
 
@@ -1062,6 +1092,8 @@ class WLines(LCDialog.LCDialog):
             self.remove_lastmove(True)
         elif resp == "last_black":
             self.remove_lastmove(False)
+        elif resp == "info":
+            self.remove_info()
         self.show_lines()
 
     def remove_lastmove(self, iswhite):
@@ -1141,7 +1173,7 @@ class WLines(LCDialog.LCDialog):
                     mrm = xmanager.analiza(fen)
                     for a1h8 in dic_a1h8:
                         rm, pos = mrm.buscaRM(a1h8)
-                        li.append((a1h8, pos if pos>= 0 else 999))
+                        li.append((a1h8, pos if pos >= 0 else 999))
                     li.sort(key=lambda x: x[1])
 
                 for a1h8, pos in li[1:]:
@@ -1181,6 +1213,34 @@ class WLines(LCDialog.LCDialog):
             self.refresh_lines()
             self.goto_inilinea()
             um.final()
+
+    def remove_info(self):
+        form = FormLayout.FormLayout(self, _("Remove"), Iconos.Delete(), font_txt=Controles.TipoLetra(puntos=10))
+
+        form.separador()
+        form.checkbox(_("All"), False)
+        form.separador()
+
+        form.checkbox(_("Comments"), False)
+        form.checkbox(_("Ratings"), False)
+        form.checkbox(_("Analysis"), False)
+
+        resultado = form.run()
+
+        if resultado:
+            accion, li_resp = resultado
+            is_all, is_comments, is_ratings, is_analysis = li_resp
+            if is_all:
+                is_comments = is_ratings = is_analysis = True
+            if is_comments or is_ratings or is_analysis:
+                QTUtil.refresh_gui()
+                um = QTUtil2.unMomento(self, _("Working..."))
+                self.tabsanalisis.tabengine.current_mrm = None
+                self.dbop.remove_info(is_comments, is_ratings, is_analysis)
+                self.refresh_lines()
+                self.glines.gotop()
+                um.final()
+
 
     def goto_inilinea(self):
         nlines = len(self.dbop)
@@ -1255,7 +1315,6 @@ class WLines(LCDialog.LCDialog):
         board.dbVisual.saveMoviblesBoard(board)
         self.dbop.setconfig("WHITEBOTTOM", board.is_white_bottom)
         self.tabsanalisis.saveConfig()
-        self.dbop.close()
         self.save_video()
         self.procesador.stop_engines()
 

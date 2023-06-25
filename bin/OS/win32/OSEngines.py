@@ -154,7 +154,7 @@ def read_engines(folder_engines):
     )
     cm.set_multipv(20, 40)
 
-    mas("greko98", "Vladimir Medvedev", "9.8a", "http://sourceforge.net/projects/greko", "GreKo-98a.exe", 2500)
+    mas("greko98", "Vladimir Medvedev", "9.8", "http://sourceforge.net/projects/greko", "GreKo98a.exe", 2500)
 
     mas("greko", "Vladimir Medvedev", "12.9", "http://sourceforge.net/projects/greko", "GreKo.exe", 2508)
 

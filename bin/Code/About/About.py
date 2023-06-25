@@ -9,7 +9,8 @@ from Code.QT import QTUtil
 
 
 class WAbout(QtWidgets.QDialog):
-    def __init__(self, procesador):
+    def __init__(self):
+        procesador = Code.procesador
         super(WAbout, self).__init__(procesador.main_window)
 
         # gen_web_bootstrap()
@@ -64,7 +65,6 @@ class WAbout(QtWidgets.QDialog):
         layout = Colocacion.V().otro(ly_v1).espacio(10).control(tab).margen(10)
 
         self.setLayout(layout)
-
 
 # def gen_web_bootstrap():
 #     """
@@ -191,36 +191,3 @@ class WAbout(QtWidgets.QDialog):
 #         li.append("{% endblock contenido %}")
 #
 #         q.write("\n".join(li))
-
-
-class WInfo(QtWidgets.QDialog):
-    def __init__(self, wparent, titulo, head, txt, min_tam, pm_icon):
-        super(WInfo, self).__init__(wparent)
-
-        self.setWindowTitle(titulo)
-        self.setWindowIcon(Iconos.Aplicacion64())
-        self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Dialog | QtCore.Qt.WindowTitleHint)
-
-        f = Controles.TipoLetra(puntos=20)
-
-        lb_ico = Controles.LB(self).ponImagen(pm_icon)
-        lb_titulo = Controles.LB(self, head).align_center().ponFuente(f)
-        lb_texto = Controles.LB(self, txt)
-        lb_texto.setMinimumWidth(min_tam - 84)
-        lb_texto.setWordWrap(True)
-        lb_texto.setTextFormat(QtCore.Qt.RichText)
-        bt_seguir = Controles.PB(self, _("Continue"), self.seguir).ponPlano(False)
-
-        ly_v1 = Colocacion.V().control(lb_ico).relleno()
-        ly_v2 = Colocacion.V().control(lb_titulo).control(lb_texto).espacio(10).control(bt_seguir)
-        ly_h = Colocacion.H().otro(ly_v1).otro(ly_v2).margen(10)
-
-        self.setLayout(ly_h)
-
-    def seguir(self):
-        self.close()
-
-
-def info(parent, titulo, head, txt, min_tam, pm_icon):
-    w = WInfo(parent, titulo, head, txt, min_tam, pm_icon)
-    w.exec_()

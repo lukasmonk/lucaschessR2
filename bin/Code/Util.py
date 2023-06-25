@@ -314,6 +314,10 @@ def primera_mayuscula(txt):
     return txt[0].upper() + txt[1:].lower() if len(txt) > 0 else ""
 
 
+def primeras_mayusculas(txt):
+    return " ".join([(x[0].upper() + x[1:]) if x else "" for x in txt.split(" ")])
+
+
 def ini2dic(file):
     dic_base = collections.OrderedDict()
 
@@ -345,7 +349,7 @@ def dic2ini(file, dic):
                 f.write("%s=%s\n" % (key, dic[k][key]))
 
 
-def ini_base2dic(file):
+def ini_base2dic(file, rfind_equal=False):
     dic = {}
 
     if os.path.isfile(file):
@@ -356,26 +360,7 @@ def ini_base2dic(file):
                 if linea.startswith("#"):
                     continue
                 if linea:
-                    n = linea.find("=")
-                    if n:
-                        key = linea[:n].strip()
-                        valor = linea[n + 1:].strip()
-                        dic[key] = valor
-
-    return dic
-
-def ini_base2dicr(file):
-    dic = {}
-
-    if os.path.isfile(file):
-
-        with open(file, "rt", encoding="utf-8", errors="ignore") as f:
-            for linea in f:
-                linea = linea.strip()
-                if linea.startswith("#"):
-                    continue
-                if linea:
-                    n = linea.rfind("=")
+                    n = linea.rfind("=") if rfind_equal else linea.find("=")
                     if n:
                         key = linea[:n].strip()
                         valor = linea[n + 1:].strip()

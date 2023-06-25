@@ -88,8 +88,8 @@ class WPosicion(QtWidgets.QWidget):
 
         self.tb = Controles.TBrutina(self, li_acciones, with_text=False, icon_size=20)
 
-        dragDropWB = QTVarios.ListaPiezas(self, "P,N,B,R,Q,K", self.board, margen=0)
-        dragDropBA = QTVarios.ListaPiezas(self, "k,q,r,b,n,p", self.board, margen=0)
+        drag_drop_wb = QTVarios.ListaPiezas(self, "P,N,B,R,Q,K", self.board, margen=0)
+        drag_drop_ba = QTVarios.ListaPiezas(self, "k,q,r,b,n,p", self.board, margen=0)
 
         self.rbWhite = Controles.RB(self, _("White"), rutina=self.cambiaColor)
         self.rbBlack = Controles.RB(self, _("Black"), rutina=self.cambiaColor)
@@ -99,7 +99,7 @@ class WPosicion(QtWidgets.QWidget):
         self.cbBoo = Controles.CHB(self, _("Black") + " O-O", True)
         self.cbBooo = Controles.CHB(self, _("Black") + " O-O-O", True)
 
-        lbEnPassant = Controles.LB(self, _("En passant") + ":")
+        lb_en_passant = Controles.LB(self, _("En passant") + ":")
         self.edEnPassant = Controles.ED(self).controlrx("(-|[a-h][36])").anchoFijo(30)
 
         self.edMovesPawn, lbMovesPawn = QTUtil2.spinBoxLB(self, 0, 0, 999, etiqueta=_("Halfmove clock"), maxTam=50)
@@ -140,19 +140,19 @@ class WPosicion(QtWidgets.QWidget):
 
         # LAYOUT -------------------------------------------------------------------------------------------
         hbox = Colocacion.H().control(self.rbWhite).espacio(15).control(self.rbBlack)
-        gbColor = Controles.GB(self, _("Side to play"), hbox)
+        gb_color = Controles.GB(self, _("Side to play"), hbox)
 
         ly = Colocacion.G().control(self.cbWoo, 0, 0).control(self.cbBoo, 0, 1)
         ly.control(self.cbWooo, 1, 0).control(self.cbBooo, 1, 1)
-        gbEnroques = Controles.GB(self, _("Castling moves possible"), ly)
+        gb_enroques = Controles.GB(self, _("Castling moves possible"), ly)
 
         ly = Colocacion.G()
         ly.controld(lbMovesPawn, 0, 0, 1, 3).control(self.edMovesPawn, 0, 3)
-        ly.controld(lbEnPassant, 1, 0).control(self.edEnPassant, 1, 1)
+        ly.controld(lb_en_passant, 1, 0).control(self.edEnPassant, 1, 1)
         ly.controld(lbFullMoves, 1, 2).control(self.edFullMoves, 1, 3)
-        gbOtros = Controles.GB(self, "", ly)
+        gb_otros = Controles.GB(self, "", ly)
 
-        lyT = (
+        ly_t = (
             Colocacion.H()
             .relleno()
             .control(lb_scanner_tolerance)
@@ -160,7 +160,7 @@ class WPosicion(QtWidgets.QWidget):
             .control(self.sb_scanner_tolerance)
             .relleno()
         )
-        lyTL = (
+        ly_tl = (
             Colocacion.H()
             .relleno()
             .control(lb_scanner_tolerance_learns)
@@ -168,24 +168,24 @@ class WPosicion(QtWidgets.QWidget):
             .control(self.sb_scanner_tolerance_learns)
             .relleno()
         )
-        lyL = Colocacion.H().control(self.pb_scanner_learn).control(self.pb_scanner_learn_quit)
-        lyS = Colocacion.H().control(lb_scanner_select).control(self.cb_scanner_select).control(pb_scanner_more)
-        ly = Colocacion.V().control(self.chb_scanner_flip).control(pb_scanner_deduce).otro(lyL).otro(lyT).otro(lyTL)
-        ly.control(self.chb_rem_ghost_deductions).otro(lyS)
+        ly_l = Colocacion.H().control(self.pb_scanner_learn).control(self.pb_scanner_learn_quit)
+        ly_s = Colocacion.H().control(lb_scanner_select).control(self.cb_scanner_select).control(pb_scanner_more)
+        ly = Colocacion.V().control(self.chb_scanner_flip).control(pb_scanner_deduce).otro(ly_l).otro(ly_t).otro(ly_tl)
+        ly.control(self.chb_rem_ghost_deductions).otro(ly_s)
         ly.control(self.chb_scanner_ask)
         self.gb_scanner = Controles.GB(self, _("Scanner"), ly)
 
-        lyG = Colocacion.G()
-        lyG.controlc(dragDropBA, 0, 0)
-        lyG.control(self.board, 1, 0).control(self.lb_scanner, 1, 1)
-        lyG.controlc(dragDropWB, 2, 0).controlc(self.gb_scanner, 2, 1, numFilas=4)
-        lyG.controlc(gbColor, 3, 0)
-        lyG.controlc(gbEnroques, 4, 0)
-        lyG.controlc(gbOtros, 5, 0)
+        ly_g = Colocacion.G()
+        ly_g.controlc(drag_drop_ba, 0, 0)
+        ly_g.control(self.board, 1, 0).control(self.lb_scanner, 1, 1)
+        ly_g.controlc(drag_drop_wb, 2, 0).controlc(self.gb_scanner, 2, 1, numFilas=4)
+        ly_g.controlc(gb_color, 3, 0)
+        ly_g.controlc(gb_enroques, 4, 0)
+        ly_g.controlc(gb_otros, 5, 0)
 
         layout = Colocacion.V()
         layout.controlc(self.tb)
-        layout.otro(lyG)
+        layout.otro(ly_g)
         layout.margen(1)
         self.setLayout(layout)
 
@@ -225,27 +225,39 @@ class WPosicion(QtWidgets.QWidget):
 
     def save(self):
         self.actPosicion()
-        siK = False
-        sik = False
-        for p in self.squares.values():
-            if p == "K":
-                siK = True
-            elif p == "k":
-                sik = True
-        if siK and sik:
-            self.wparent.setPosicion(self.position)
-            self.scanner_write()
-            if self.is_game:
-                self.wparent.ponModo(MODO_PARTIDA)
-            else:
-                self.wparent.save()
+        si_kw = False
+        si_kb = False
+        si_p1 = False
+        for a1h8, pz in self.squares.items():
+            if pz and a1h8:
+                if pz == "K":
+                    si_kw = True
+                elif pz == "k":
+                    si_kb = True
+                elif pz in "pP" and a1h8[1] in "18":
+                    si_p1 = True
+        if not si_kw:
+            QTUtil2.message_error(self, _("King") + "-" + _("White") + "???")
+            return
+        if not si_kb:
+            QTUtil2.message_error(self, _("King") + "-" + _("Black") + "???")
+            return
+        if si_p1:
+            QTUtil2.message_error(self, _("Pawns in the first or last row"))
+            return
+
+        self.position.is_white = not self.position.is_white
+        if self.position.is_check():
+            self.position.is_white = not self.position.is_white
+            QTUtil2.message_error(self, _("The king is in check"))
+            return
+        self.position.is_white = not self.position.is_white
+        self.wparent.setPosicion(self.position)
+        self.scanner_write()
+        if self.is_game:
+            self.wparent.ponModo(MODO_PARTIDA)
         else:
-            if not siK:
-                QTUtil2.message_error(self, _("King") + "-" + _("White") + "???")
-                return
-            if not sik:
-                QTUtil2.message_error(self, _("King") + "-" + _("Black") + "???")
-                return
+            self.wparent.save()
 
     def cancelar(self):
         if Code.eboard:
@@ -294,21 +306,21 @@ class WPosicion(QtWidgets.QWidget):
     def creaCasilla(self, from_sq):
         menu = QtWidgets.QMenu(self)
 
-        siK = False
-        sik = False
+        si_kw = False
+        si_kb = False
         for p in self.squares.values():
             if p == "K":
-                siK = True
+                si_kw = True
             elif p == "k":
-                sik = True
+                si_kb = True
 
         li_options = []
-        if not siK:
+        if not si_kw:
             li_options.append((_("King"), "K"))
         li_options.extend(
             [(_("Queen"), "Q"), (_("Rook"), "R"), (_("Bishop"), "B"), (_("Knight"), "N"), (_("Pawn"), "P")]
         )
-        if not sik:
+        if not si_kb:
             li_options.append((_("King"), "k"))
         li_options.extend(
             [(_("Queen"), "q"), (_("Rook"), "r"), (_("Bishop"), "b"), (_("Knight"), "n"), (_("Pawn"), "p")]
@@ -408,7 +420,7 @@ class WPosicion(QtWidgets.QWidget):
                 if not self.is_scan_init:
                     self.scanner_init()
                     self.is_scan_init = True
-                img:QtGui.QImage = data
+                img: QtGui.QImage = data
                 path_png = Code.configuration.ficheroTemporal("png")
                 img.save(path_png)
                 self.im_scanner = Image.open(path_png)
@@ -422,7 +434,6 @@ class WPosicion(QtWidgets.QWidget):
                 self.scanner_deduce()
 
                 self.setFocus()
-
 
     def copiar(self):
         self.actPosicion()
@@ -843,22 +854,22 @@ class WPGN(QtWidgets.QWidget):
         if col == "NUMBER":
             return str(self.game.first_position.num_moves + row)
 
-        siIniBlack = self.game.starts_with_black
-        nJug = len(self.game)
+        si_ini_black = self.game.starts_with_black
+        n_jug = len(self.game)
         if row == 0:
-            w = None if siIniBlack else 0
-            b = 0 if siIniBlack else 1
+            w = None if si_ini_black else 0
+            b = 0 if si_ini_black else 1
         else:
             n = row * 2
-            w = n - 1 if siIniBlack else n
+            w = n - 1 if si_ini_black else n
             b = w + 1
-        if b >= nJug:
+        if b >= n_jug:
             b = None
 
-        def xjug(n):
-            if n is None:
+        def xjug(xn):
+            if xn is None:
                 return ""
-            move = self.game.move(n)
+            move = self.game.move(xn)
             if self.with_figurines:
                 return move.pgnFigurinesSP()
             else:
@@ -925,6 +936,7 @@ class Voyager(LCDialog.LCDialog):
 
 
 def voyager_position(wowner, position, wownerowner=None):
+    wownerowner_maximized = None
     if wownerowner:
         wownerowner_maximized = wownerowner.isMaximized()
         wownerowner.showMinimized()

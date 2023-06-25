@@ -1,4 +1,3 @@
-import os.path
 import datetime
 import random
 
@@ -22,6 +21,8 @@ from Code.Base.Constantes import (
     TB_RESIGN,
     TB_UTILITIES,
     TERMINATION_RESIGN,
+    BOOK_RANDOM_UNIFORM,
+    BOOK_RANDOM_PROPORTIONAL
 )
 from Code.Engines import Engines
 from Code.Engines import EnginesMicElo, EngineResponse
@@ -97,7 +98,6 @@ class ManagerMicElo(Manager.Manager):
             mt.siOut = not mt.siJugable
             mt.baseElo = elo  # servira para rehacer la lista y elegir en aplazamiento
             if mt.siJugable or (mtElo > elo):
-
                 def rot(res):
                     return self.calc_dif_elo(elo, mtElo, res)
 
@@ -162,8 +162,7 @@ class ManagerMicElo(Manager.Manager):
         if self.engine_rival.book:
             cbook = self.engine_rival.book
         else:
-            engine_rodent = Code.configuration.buscaRival("rodentii")
-            path_rodent = os.path.join(os.path.dirname(engine_rodent.path_exe), "rodent.bin")
+            path_rodent = Code.configuration.path_book("rodent.bin")
             cbook = random.choice([Code.tbook, path_rodent])
 
         self.book = Books.Book("P", cbook, cbook, True)
@@ -350,7 +349,7 @@ class ManagerMicElo(Manager.Manager):
             return True
         if (len(self.game) > 0) and not self.pte_tool_resigndraw:
             if not QTUtil2.pregunta(
-                self.main_window, _("Do you want to resign?") + " (%d)" % self.engine_rival.ppierde
+                    self.main_window, _("Do you want to resign?") + " (%d)" % self.engine_rival.ppierde
             ):
                 return False  # no abandona
             self.game.resign(self.is_human_side_white)
@@ -392,7 +391,7 @@ class ManagerMicElo(Manager.Manager):
                     self.book = None
                 else:
                     fen = self.last_fen()
-                    pv = self.book.eligeJugadaTipo(fen, "au" if len(self.game) > 2 else "ap")
+                    pv = self.book.eligeJugadaTipo(fen, BOOK_RANDOM_UNIFORM if len(self.game) > 2 else BOOK_RANDOM_PROPORTIONAL)
                     if pv:
                         rm_rival = EngineResponse.EngineResponse("Opening", self.is_engine_side_white)
                         rm_rival.from_sq = pv[:2]
@@ -404,11 +403,10 @@ class ManagerMicElo(Manager.Manager):
             if not siEncontrada:
                 time_white = self.tc_white.pending_time
                 time_black = self.tc_black.pending_time
-                mrm = self.xrival.play_time_tourney(self.game, time_white, time_black, self.seconds_per_move)
-                if mrm is None:
+                rm_rival = self.xrival.play_time(self.game, time_white, time_black, self.seconds_per_move)
+                if rm_rival is None:
                     self.thinking(False)
                     return False
-                rm_rival = mrm.mejorMov()
 
             self.thinking(False)
             if self.rival_has_moved(rm_rival):

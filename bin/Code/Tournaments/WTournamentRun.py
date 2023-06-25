@@ -20,9 +20,10 @@ from Code.Base.Constantes import (
     ST_PAUSE,
     TERMINATION_UNKNOWN,
     TERMINATION_WIN_ON_TIME,
+    ENG_WICKER,
 )
 from Code.Board import Board
-from Code.Engines import EngineManager
+from Code.Engines import EngineManager, EnginesWicker
 from Code.Polyglots import Books
 from Code.QT import Colocacion
 from Code.QT import Columnas
@@ -270,7 +271,7 @@ class WTournamentRun(QtWidgets.QWidget):
 
         if self.torneo.adjudicator_active():
             conf_engine = Code.configuration.buscaRival(self.torneo.adjudicator())
-            self.xadjudicator = EngineManager.EngineManager(self, conf_engine)
+            self.xadjudicator = EngineManager.EngineManager(conf_engine)
             self.xadjudicator.options(self.torneo.adjudicator_time() * 1000, 0, False)
             self.xadjudicator.remove_multipv()
         else:
@@ -295,7 +296,11 @@ class WTournamentRun(QtWidgets.QWidget):
 
         for side in (WHITE, BLACK):
             rv = rival[side]
-            self.xengine[side] = EngineManager.EngineManager(self, rv)
+            if rv.type == ENG_WICKER:
+                xmanager = EnginesWicker.EngineManagerWicker(rv)
+            else:
+                xmanager = EngineManager.EngineManager(rv)
+            self.xengine[side] = xmanager
             self.xengine[side].options(rv.time * 1000, rv.depth, False)
             self.xengine[side].set_gui_dispatch(self.gui_dispatch)
 
@@ -326,6 +331,9 @@ class WTournamentRun(QtWidgets.QWidget):
         self.tc_black = TimeControl.TimeControl(self, self.game, BLACK)
         self.tc_black.config_clock(self.max_seconds, self.seconds_per_move, 0, 0)
         self.tc_black.set_labels()
+
+
+
 
         while self.state == ST_PAUSE or self.play_next_move():
             if self.state == ST_PAUSE:

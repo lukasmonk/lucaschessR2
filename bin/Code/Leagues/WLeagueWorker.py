@@ -22,10 +22,12 @@ from Code.Base.Constantes import (
     TERMINATION_WIN_ON_TIME,
     TERMINATION_ADJUDICATION,
     TERMINATION_ENGINE_MALFUNCTION,
+    ENG_WICKER,
 )
 from Code.Board import Board
-from Code.Engines import EngineManager
+from Code.Engines import EngineManager, EnginesWicker, EngineResponse
 from Code.Leagues import LeaguesWork, Leagues
+from Code.Polyglots import Books
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles
@@ -196,7 +198,7 @@ class WLeagueWorker(QtWidgets.QWidget):
 
         if self.league.adjudicator_active:
             conf_engine = Code.configuration.buscaRival(self.league.adjudicator)
-            self.xadjudicator = EngineManager.EngineManager(self, conf_engine)
+            self.xadjudicator = EngineManager.EngineManager(conf_engine)
             self.xadjudicator.options(self.league.adjudicator_time * 1000, 0, False)
             self.xadjudicator.remove_multipv()
         else:
@@ -215,15 +217,33 @@ class WLeagueWorker(QtWidgets.QWidget):
             self.lb_player[side].set_text(rival[side].name())
 
         self.book = {}
-        self.bookRR = {}
+        self.book_rr = {}
+        self.book_max_plies = {}
 
         self.xengine = {}
 
         for side in (WHITE, BLACK):
             opponent = rival[side]
             rv = opponent.opponent
-            self.xengine[side] = EngineManager.EngineManager(self, rv)
+            if rv.type == ENG_WICKER:
+                xmanager = EnginesWicker.EngineManagerWicker(rv)
+            else:
+                xmanager = EngineManager.EngineManager(rv)
+            self.xengine[side] = xmanager
             self.xengine[side].set_gui_dispatch(self.gui_dispatch)
+
+            bk = rv.book
+            if bk == "*":
+                bk = self.torneo.book()
+            if bk == "-":  # Puede que el torneo tenga "-"
+                bk = None
+            if bk:
+                self.book[side] = Books.Book("P", bk, bk, True)
+                self.book[side].polyglot()
+            else:
+                self.book[side] = None
+            self.book_rr[side] = rv.book_rr
+            self.book_max_plies[side] = rv.book_max_plies
 
         self.game = Game.Game()
         self.pgn.game = self.game
@@ -404,6 +424,18 @@ class WLeagueWorker(QtWidgets.QWidget):
             tipo = "ms" if tipo == "mt" else "mt"
         return True
 
+    def select_book_move(self, book, tipo, bdepth):
+        if bdepth == 0 or len(self.game) < bdepth:
+            fen = self.game.last_fen()
+            pv = book.eligeJugadaTipo(fen, tipo)
+            if pv:
+                rm_rival = EngineResponse.EngineResponse("Opening", self.game.last_position.is_white)
+                rm_rival.from_sq = pv[:2]
+                rm_rival.to_sq = pv[2:4]
+                rm_rival.promotion = pv[4:]
+                return True, rm_rival
+        return False, None
+
     def play_next_move(self):
         if self.test_is_finished():
             return False
@@ -412,30 +444,41 @@ class WLeagueWorker(QtWidgets.QWidget):
 
         self.board.set_side_indicator(is_white)
 
+        move_found = False
+        analysis = None
+        rm = None
         time_seconds = None
         clock_seconds = None
 
-        xrival = self.xengine[is_white]
-        time_pending_white = self.tc_white.pending_time
-        time_pending_black = self.tc_black.pending_time
-        self.start_clock(is_white)
-        if xrival.depth_engine and xrival.depth_engine > 0:
-            mrm = xrival.play_fixed_depth_time_tourney(self.game)
-        else:
-            mrm = xrival.play_time_tourney(self.game, time_pending_white, time_pending_black, self.seconds_per_move)
-        if self.state == ST_PAUSE:
-            self.board.borraMovibles()
-            return True
-        time_seconds = self.stop_clock(is_white)
-        clock_seconds = self.tc_white.pending_time if is_white else self.tc_black.pending_time
-        if mrm is None:
-            self.sudden_end(is_white)
-            return True
-        rm = mrm.mejorMov()
+        bk = self.book[is_white]
+        if bk:
+            move_found, rm = self.select_book_move(bk, self.book_rr[is_white], self.book_max_plies[is_white])
+            if not move_found:
+                self.book[is_white] = None
+
+        if not move_found:
+            xrival = self.xengine[is_white]
+            time_pending_white = self.tc_white.pending_time
+            time_pending_black = self.tc_black.pending_time
+            self.start_clock(is_white)
+            if xrival.depth_engine and xrival.depth_engine > 0:
+                mrm = xrival.play_fixed_depth_time_tourney(self.game)
+            else:
+                mrm = xrival.play_time_tourney(self.game, time_pending_white, time_pending_black, self.seconds_per_move)
+            if self.state == ST_PAUSE:
+                self.board.borraMovibles()
+                return True
+            time_seconds = self.stop_clock(is_white)
+            clock_seconds = self.tc_white.pending_time if is_white else self.tc_black.pending_time
+            if mrm is None:
+                self.sudden_end(is_white)
+                return True
+            rm = mrm.mejorMov()
+            analysis = mrm, 0
+
         from_sq = rm.from_sq
         to_sq = rm.to_sq
         promotion = rm.promotion
-        analysis = mrm, 0
 
         ok, mens, move = Move.get_game_move(self.game, self.game.last_position, from_sq, to_sq, promotion)
         if not move:
@@ -445,10 +488,11 @@ class WLeagueWorker(QtWidgets.QWidget):
         if analysis:
             move.analysis = analysis
             move.del_nags()
+
         if time_seconds:
-            move.set_time_ms(time_seconds*1000.0)
+            move.set_time_ms(time_seconds * 1000.0)
         if clock_seconds:
-            move.set_clock_ms(clock_seconds*1000.0)
+            move.set_clock_ms(clock_seconds * 1000.0)
         self.add_move(move)
         self.move_the_pieces(move.liMovs)
         self.sound(move)

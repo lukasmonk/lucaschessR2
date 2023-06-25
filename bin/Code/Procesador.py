@@ -30,6 +30,7 @@ from Code.Base.Constantes import (
     GT_BOOK,
     GT_ELO,
     GT_MICELO,
+    GT_WICKER,
     GT_AGAINST_ENGINE_LEAGUE,
     GT_AGAINST_CHILD_ENGINE,
     GT_AGAINST_ENGINE,
@@ -39,14 +40,15 @@ from Code.Base.Constantes import (
     GT_FIDE,
     GT_LICHESS,
     OUT_REINIT,
+    ENG_WICKER,
 )
 from Code.Board import WBoardColors, Eboard
 from Code.CompetitionWithTutor import WCompetitionWithTutor, ManagerCompeticion
-from Code.Competitions import ManagerElo, ManagerFideFics, ManagerMicElo
+from Code.Competitions import ManagerElo, ManagerFideFics, ManagerMicElo, ManagerWicker
 from Code.Config import Configuration, WindowConfig, WindowUsuarios
 from Code.Databases import WindowDatabase, WDB_Games, DBgames
 from Code.Endings import WEndingsGTB
-from Code.Engines import EngineManager, WEngines, WConfEngines, WindowSTS
+from Code.Engines import EngineManager, WEngines, WConfEngines, WindowSTS, EnginesWicker
 from Code.Expeditions import WindowEverest, ManagerEverest
 from Code.GM import ManagerGM
 from Code.Kibitzers import KibitzersManager
@@ -267,7 +269,7 @@ class Procesador:
         return self.xtutor
 
     def creaXTutor(self):
-        xtutor = EngineManager.EngineManager(self, self.configuration.engine_tutor())
+        xtutor = EngineManager.EngineManager(self.configuration.engine_tutor())
         xtutor.function = _("Tutor")
         xtutor.options(self.configuration.x_tutor_mstime, self.configuration.x_tutor_depth, True)
         xtutor.set_priority(self.configuration.x_tutor_priority)
@@ -289,7 +291,7 @@ class Procesador:
         return self.xanalyzer
 
     def creaXAnalyzer(self):
-        xanalyzer = EngineManager.EngineManager(self, self.configuration.engine_analyzer())
+        xanalyzer = EngineManager.EngineManager(self.configuration.engine_analyzer())
         xanalyzer.function = _("Analyzer")
         xanalyzer.options(self.configuration.x_analyzer_mstime, self.configuration.x_analyzer_depth, True)
         if self.configuration.x_analyzer_multipv == 0:
@@ -301,7 +303,7 @@ class Procesador:
         Code.xanalyzer = xanalyzer
 
     def analyzer_clone(self, mstime, depth, multipv):
-        xclone = EngineManager.EngineManager(self, self.configuration.engine_analyzer())
+        xclone = EngineManager.EngineManager(self.configuration.engine_analyzer())
         xclone.options(mstime, depth, True)
         if multipv == 0:
             xclone.maximize_multipv()
@@ -314,8 +316,11 @@ class Procesador:
             self.xanalyzer.terminar()
         self.creaXAnalyzer()
 
-    def creaManagerMotor(self, confMotor, vtime, depth, siMultiPV=False, priority=None):
-        xmanager = EngineManager.EngineManager(self, confMotor)
+    def creaManagerMotor(self, conf_motor, vtime, depth, siMultiPV=False, priority=None):
+        if conf_motor.type == ENG_WICKER:
+            xmanager = EnginesWicker.EngineManagerWicker(conf_motor)
+        else:
+            xmanager = EngineManager.EngineManager(conf_motor)
         xmanager.options(vtime, depth, siMultiPV)
         xmanager.set_priority(priority)
         return xmanager
@@ -419,6 +424,9 @@ class Procesador:
         elif tipo == "micelo":
             self.micelo()
 
+        elif tipo == "wicker":
+            self.wicker()
+
         elif tipo == "fics":
             self.ficselo(rival)
 
@@ -451,6 +459,29 @@ class Procesador:
         resp = WEngines.select_engine_micelo(self.manager, self.configuration.miceloActivo())
         if resp:
             key = "MICELO_TIME"
+            dic = self.configuration.read_variables(key)
+            default_minutes = dic.get("MINUTES", 10)
+            default_seconds = dic.get("SECONDS", 0)
+            respT = QTVarios.vtime(
+                self.main_window,
+                minMinutos=1,
+                minSegundos=0,
+                maxMinutos=999,
+                max_seconds=999,
+                default_minutes=default_minutes,
+                default_seconds=default_seconds,
+            )
+            if respT:
+                minutos, seconds = respT
+                dic = {"MINUTES": minutos, "SECONDS": seconds}
+                self.configuration.write_variables(key, dic)
+                self.manager.start(resp, minutos, seconds)
+
+    def wicker(self):
+        self.manager = ManagerWicker.ManagerWicker(self)
+        resp = WEngines.select_engine_wicker(self.manager, self.configuration.wicker_elo())
+        if resp:
+            key = "WICKER_TIME"
             dic = self.configuration.read_variables(key)
             default_minutes = dic.get("MINUTES", 10)
             default_seconds = dic.get("SECONDS", 0)
@@ -549,6 +580,8 @@ class Procesador:
                     self.manager = ManagerPerson.ManagerPerson(self)
                 elif tp == GT_MICELO:
                     self.manager = ManagerMicElo.ManagerMicElo(self)
+                elif tp == GT_WICKER:
+                    self.manager = ManagerWicker.ManagerWicker(self)
                 elif tp == GT_COMPETITION_WITH_TUTOR:
                     self.manager = ManagerCompeticion.ManagerCompeticion(self)
                 elif tp == GT_ELO:
@@ -1156,7 +1189,7 @@ class Procesador:
         )
 
     def acercade(self):
-        w = About.WAbout(self)
+        w = About.WAbout()
         w.exec_()
 
     def actualiza(self):

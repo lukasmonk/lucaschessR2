@@ -111,7 +111,7 @@ def read_engines(folder_engines):
 
     mas("greko", "Vladimir Medvedev", "2020.03", "http://greko.su/index_en.html", "GreKo-2020.03", 2580)
 
-    mas("greko98", "Vladimir Medvedev", "9.8a", "http://sourceforge.net/projects/greko", "GreKo98a", 2500)
+    mas("greko98", "Vladimir Medvedev", "9.8", "http://sourceforge.net/projects/greko", "GreKo98a", 2500)
 
     mas("gunborg", "Torbjorn Nilsson", "1.35", "https://github.com/torgnil/gunborg", "Gunborg-1.35", 2086)
 
@@ -119,7 +119,7 @@ def read_engines(folder_engines):
 
     mas("igel", "Volodymyr Shcherbyna", "3.0.0", "https://github.com/vshcherbyna/igel/", "Igel-3.0.0", 3402)
 
-    mas("irina", "Lucas Monge", "0.15", "https://github.com/lukasmonk/irina", "Irina-0.15", 1500)
+    mas("irina", "Lucas Monge", "0.16", "https://github.com/lukasmonk/irina", "irina-0.16", 1500)
 
     mas("jabba", "Richard Allbert", "1.0", "http://jabbachess.blogspot.com/", "Jabba-1.0", 2078)
 

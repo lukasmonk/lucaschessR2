@@ -89,7 +89,7 @@ class WGM(LCDialog.LCDialog):
         liDepths = [("--", 0)]
         for x in range(1, 31):
             liDepths.append((str(x), x))
-        self.liMotores = self.configuration.comboMotoresMultiPV10()
+        self.liMotores = self.configuration.combo_engines_multipv10()
         self.cbJmotor, self.lbJmotor = QTUtil2.comboBoxLB(
             self, self.liMotores, self.configuration.tutor_default, _("Engine")
         )

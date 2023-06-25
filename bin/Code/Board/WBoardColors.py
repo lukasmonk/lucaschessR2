@@ -68,7 +68,7 @@ class BotonColor(QtWidgets.QPushButton):
         ncolor = self.rut_actual()
         color = QTUtil.qtColor(ncolor)
 
-        color = QtWidgets.QColorDialog.getColor(color, title=_("Choose a color"))
+        color = QtWidgets.QColorDialog.getColor(color, self, _("Choose a color"), QtWidgets.QColorDialog.ShowAlphaChannel | QtWidgets.QColorDialog.DontUseNativeDialog)
         if color.isValid():
             self.rut_actual(color.rgba())
             self.rut_actualiza()

@@ -9,6 +9,7 @@ from Code.Base.Constantes import (
     ENG_EXTERNAL,
     ENG_MICGM,
     ENG_MICPER,
+    ENG_WICKER,
     ENG_FIXED,
     ENG_IRINA,
     ENG_ELO,
@@ -16,7 +17,7 @@ from Code.Base.Constantes import (
 )
 from Code.Competitions import ManagerElo
 from Code.Engines import Engines
-from Code.Engines import EnginesMicElo
+from Code.Engines import EnginesMicElo, EnginesWicker
 from Code.QT import Iconos
 from Code.QT import LCDialog, Grid, Columnas, Colocacion, Controles
 from Code.QT import QTVarios, QTUtil2
@@ -37,6 +38,7 @@ def get_dict_type_names():
         ENG_EXTERNAL: _("External engines"),
         ENG_MICGM: _("GM engines"),
         ENG_MICPER: _("Tourney engines"),
+        ENG_WICKER: _("The Wicker Park Tourney"),
         ENG_FIXED: _("Engines with limited elo"),
         ENG_IRINA: _("Opponents for young players"),
         ENG_ELO: _("Lucas-Elo"),
@@ -54,6 +56,7 @@ class SelectEngines:
             ENG_EXTERNAL: Iconos.MotoresExternos(),
             ENG_MICGM: Iconos.GranMaestro(),
             ENG_MICPER: Iconos.EloTimed(),
+            ENG_WICKER: Iconos.Park(),
             ENG_FIXED: Iconos.FixedElo(),
             ENG_IRINA: Iconos.RivalesMP(),
             ENG_ELO: Iconos.Elo(),
@@ -62,6 +65,7 @@ class SelectEngines:
         }
 
         self.li_engines_micgm, self.li_engines_micper = EnginesMicElo.separated_engines()
+        self.li_engines_wicker = EnginesWicker.read_wicker_engines()
         self.liMotoresInternos = self.configuration.list_internal_engines()
         self.dict_engines_fixed_elo = self.configuration.dict_engines_fixed_elo()
         self.redo_external_engines()
@@ -80,7 +84,7 @@ class SelectEngines:
 
     def redo_external_engines(self):
         self.liMotoresExternos = self.configuration.list_external_engines()
-        self.liMotoresClavePV = self.configuration.comboMotoresMultiPV10()
+        self.liMotoresClavePV = self.configuration.combo_engines_multipv10()
 
     def gen_engines_rodent(self):
         cmbase = self.configuration.buscaRival("rodentii")
@@ -225,6 +229,26 @@ class SelectEngines:
             submenu.separador()
 
         menu.separador()
+        submenu = menu.submenu(dnames[ENG_WICKER], self.dicIconos[ENG_WICKER])
+        li = self.li_engines_wicker
+        n_engines = len(li)
+        blk = 15
+        first = 0
+        li_blks = []
+        while first < n_engines:
+            last = first + blk
+            li_blks.append(li[first:last])
+            first = last
+        for li_blk in li_blks:
+            icono = rp.otro()
+            submenublk = submenu.submenu("%d - %d" % (li_blk[0].elo, li_blk[-1].elo), icono)
+            for cm in li_blk:
+                texto = cm.name + " (%d, %s)" % (cm.elo, cm.id_info.replace("\n", "-"))
+                submenublk.opcion(cm, texto, icono)
+                submenublk.separador()
+            submenu.separador()
+
+        menu.separador()
         submenu = menu.submenu(dnames[ENG_FIXED], self.dicIconos[ENG_FIXED])
         li = sorted(self.dict_engines_fixed_elo.keys())
         for elo in li:
@@ -284,7 +308,12 @@ class SelectEngines:
 
             self.li_engines = []
 
+            st_alias = set()
+
             def add_cm(xcm, menu):
+                if xcm.alias in st_alias:
+                    return
+                st_alias.add(xcm.alias)
                 self.li_engines.append(xcm)
                 xcm.menu = menu
 
@@ -300,6 +329,10 @@ class SelectEngines:
 
             for cm in self.li_engines_micper:
                 cm.name = Util.primera_mayuscula(cm.alias)
+                menu = "%s (%s)" % (cm.name, cm.id_info.replace("\n", "-"))
+                add_cm(cm, menu)
+
+            for cm in self.li_engines_wicker:
                 menu = "%s (%s)" % (cm.name, cm.id_info.replace("\n", "-"))
                 add_cm(cm, menu)
 
@@ -352,8 +385,20 @@ class SelectEngines:
                     break
 
         elif tipo == ENG_MICPER:
-            liMotores = EnginesMicElo.all_engines()
-            for cm in liMotores:
+            li_engines = EnginesMicElo.all_engines()
+            for cm in li_engines:
+                if cm.key == key:
+                    if alias:
+                        if cm.alias == alias:
+                            rival = cm
+                            break
+                    else:
+                        rival = cm
+                        break
+
+        elif tipo == ENG_WICKER:
+            li_engines = EnginesWicker.read_wicker_engines()
+            for cm in li_engines:
                 if cm.key == key:
                     if alias:
                         if cm.alias == alias:

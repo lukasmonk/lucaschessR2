@@ -135,7 +135,8 @@ class Configuration:
         self.x_default_tutor_active = True
 
         self.x_elo = 0
-        self.x_michelo = 1600
+        self.x_michelo = 1500
+        self.x_wicker = 400
         self.x_fics = 1200
         self.x_fide = 1600
         self.x_lichess = 1600
@@ -255,6 +256,26 @@ class Configuration:
 
         self.x_mode_select_lc = Code.is_linux
 
+        self.dic_books = None
+
+    def path_book(self, alias):
+        if self.dic_books is None:
+            self.dic_books = {}
+
+            def add_folder(folder):
+                entry: os.DirEntry
+                for entry in os.scandir(folder):
+                    if entry.is_dir():
+                        add_folder(entry.path)
+                    elif entry.name.endswith(".bin"):
+                        self.dic_books[entry.name] = entry.path
+
+            add_folder(Code.path_resource("Openings"))
+            for engine in ("foxcub", "fox", "maia", "irina", "rodentii"):
+                add_folder(os.path.join(Code.folder_engines, engine))
+
+        return self.dic_books[alias]
+
     def read_eval(self):
         d = {}
         for key in dir(self):
@@ -308,7 +329,8 @@ class Configuration:
     def nom_player(self):
         return _("Player") if not self.x_player else self.x_player
 
-    def carpeta_gaviota_defecto(self):
+    @staticmethod
+    def carpeta_gaviota_defecto():
         return Code.path_resource("Gaviota")
 
     def folder_gaviota(self):
@@ -335,10 +357,10 @@ class Configuration:
     def set_translator(self, xtranslator):
         self.x_translator = xtranslator
 
-    def tipoIconos(self):
+    def type_icons(self):
         return int_toolbutton(self.x_tb_icons)
 
-    def set_tipoIconos(self, qtv):
+    def set_type_icons(self, qtv):
         self.x_tb_icons = toolbutton_int(qtv)
 
     def start(self):
@@ -463,6 +485,7 @@ class Configuration:
 
         self.fichEstadElo = "%s/estad.pkli" % self.carpeta_results
         self.fichEstadMicElo = "%s/estadMic.pkli" % self.carpeta_results
+        self.fichEstadWicker = "%s/estadWicker.pkli" % self.carpeta_results
         self.fichEstadFicsElo = "%s/estadFics.pkli" % self.carpeta_results
         self.fichEstadFideElo = "%s/estadFide.pkli" % self.carpeta_results
         self.fichEstadLichessElo = "%s/estadLichess.pkli" % self.carpeta_results
@@ -586,31 +609,23 @@ class Configuration:
         li.sort(key=operator.itemgetter(1))
         return li
 
-    def comboMotores(self):
+    def combo_engines(self):
         li = []
         for key, cm in self.dic_engines.items():
             li.append((cm.nombre_ext(), key))
         li.sort(key=lambda x: x[0])
         return li
 
-    def comboMotoresMultiPV10(self, minimo=10):  # %#
-        liMotores = []
+    def combo_engines_multipv10(self, minimo=10):  # %#
+        li_motores = []
         for key, cm in self.dic_engines.items():
             if cm.maxMultiPV >= minimo and not cm.is_maia():
-                liMotores.append((cm.nombre_ext(), key))
+                li_motores.append((cm.nombre_ext(), key))
+        li_motores.sort(key=lambda x: x[0])
+        return li_motores
 
-        li = sorted(liMotores, key=operator.itemgetter(0))
-        return li
-
-    def ayudaCambioCompleto(self, cmotor):
-        li = []
-        for key, cm in self.dic_engines.items():
-            li.append((key, cm.nombre_ext()))
-        li = sorted(li, key=operator.itemgetter(1))
-        li.insert(0, cmotor)
-        return li
-
-    def estilos(self):
+    @staticmethod
+    def estilos():
         li = [(x, x) for x in QtWidgets.QStyleFactory.keys()]
         return li
 
@@ -676,7 +691,8 @@ class Configuration:
             self.x_translator = "en"
         Translate.install(self.x_translator)
 
-    def list_translations(self):
+    @staticmethod
+    def list_translations():
         li = []
         dlang = Code.path_resource("Locale")
         for uno in Util.listdir(dlang):
@@ -693,6 +709,9 @@ class Configuration:
     def miceloActivo(self):
         return self.x_michelo
 
+    def wicker_elo(self):
+        return self.x_wicker
+
     def ficsActivo(self):
         return self.x_fics
 
@@ -707,6 +726,9 @@ class Configuration:
 
     def ponMiceloActivo(self, elo):
         self.x_michelo = elo
+
+    def set_wicker(self, elo):
+        self.x_wicker = elo
 
     def ponFicsActivo(self, elo):
         self.x_fics = elo

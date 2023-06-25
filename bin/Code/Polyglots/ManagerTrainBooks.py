@@ -3,6 +3,7 @@ import random
 import Code
 from Code import Manager
 from Code.Base import Move
+from Code.Base.Constantes import BOOK_BEST_MOVE, BOOK_RANDOM_UNIFORM
 from Code.Base.Constantes import (
     ST_ENDGAME,
     ST_PLAYING,
@@ -13,6 +14,7 @@ from Code.Base.Constantes import (
     TB_CONFIG,
     TB_HELP,
     TB_UTILITIES,
+    SELECTED_BY_PLAYER
 )
 from Code.Engines import EngineResponse
 from Code.Polyglots import WindowBooks
@@ -149,16 +151,16 @@ class ManagerTrainBooks(Manager.Manager):
     def select_rival_move(self):
         select = self.resp_rival
 
-        if select == "su":
+        if select == SELECTED_BY_PLAYER:
             resp = WindowBooks.eligeJugadaBooks(self.main_window, self.list_moves, self.game.last_position.is_white)
-        elif select == "mp":
+        elif select == BOOK_BEST_MOVE:
             resp = self.list_moves[0][0], self.list_moves[0][1], self.list_moves[0][2]
             nmax = self.list_moves[0][4]
             for xfrom, xto, promotion, pgn, peso in self.list_moves:
                 if peso > nmax:
                     resp = xfrom, xto, promotion
                     nmax = peso
-        elif select == "au":
+        elif select == BOOK_RANDOM_UNIFORM:
             pos = random.randint(0, len(self.list_moves) - 1)
             resp = self.list_moves[pos][0], self.list_moves[pos][1], self.list_moves[pos][2]
         else:
