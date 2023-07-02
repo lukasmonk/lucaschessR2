@@ -11,10 +11,10 @@ from Code.QT import Controles
 from Code.QT import Delegados
 from Code.QT import Grid
 from Code.QT import Iconos
+from Code.QT import LCDialog
 from Code.QT import QTUtil2, SelectFiles
 from Code.QT import QTVarios
 from Code.Voyager import Voyager
-from Code.QT import LCDialog
 
 
 class WManualSave(LCDialog.LCDialog):
@@ -370,7 +370,8 @@ class WManualSave(LCDialog.LCDialog):
         prev = self.analyzing
         self.stop()
 
-        position, is_white_bottom = Voyager.voyager_position(self, self.position, wownerowner=self.procesador.main_window)
+        position, is_white_bottom = Voyager.voyager_position(self, self.position,
+                                                             wownerowner=self.procesador.main_window)
         if position is not None:
             self.em_solucion.set_text("")
             self.position = position

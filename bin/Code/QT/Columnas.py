@@ -9,20 +9,20 @@ class Columna:
     """
 
     def __init__(
-        self,
-        key,
-        head,
-        ancho=100,
-        align_center=False,
-        align_right=False,
-        rgbTexto=None,
-        rgbFondo=None,
-        siOrden=True,
-        estadoOrden=0,
-        edicion=None,
-        is_editable=None,
-        must_show=True,
-        siChecked=False,
+            self,
+            key,
+            head,
+            ancho=100,
+            align_center=False,
+            align_right=False,
+            rgbTexto=None,
+            rgbFondo=None,
+            siOrden=True,
+            estadoOrden=0,
+            edicion=None,
+            is_editable=None,
+            must_show=True,
+            siChecked=False,
     ):
         """
 
@@ -193,20 +193,20 @@ class ListaColumnas:
         self.posCreacion = 0
 
     def nueva(
-        self,
-        key,
-        head="",
-        ancho=100,
-        align_center=False,
-        align_right=False,
-        rgbTexto=None,
-        rgbFondo=None,
-        siOrden=True,
-        estadoOrden=0,
-        edicion=None,
-        is_editable=None,
-        must_show=True,
-        siChecked=False,
+            self,
+            key,
+            head="",
+            ancho=100,
+            align_center=False,
+            align_right=False,
+            rgbTexto=None,
+            rgbFondo=None,
+            siOrden=True,
+            estadoOrden=0,
+            edicion=None,
+            is_editable=None,
+            must_show=True,
+            siChecked=False,
     ):
         """
         Contiene los mismos parametros que la Columna.

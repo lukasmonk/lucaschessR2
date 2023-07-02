@@ -46,6 +46,8 @@ class Translations:
             trans = txt
             if "||" in txt:
                 trans = txt[: txt.index("||")].strip()
+            elif txt in self.dic_openings:
+                trans = self.dic_openings[txt]
             self.dic_translate[txt] = trans
         return trans
 

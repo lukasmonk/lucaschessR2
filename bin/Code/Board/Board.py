@@ -2040,18 +2040,18 @@ class Board(QtWidgets.QGraphicsView):
             self.exePulsadaLetra(siActivar, letra)
 
     def save_as_img(self, file=None, tipo=None, is_ctrl=False, is_alt=False):
-        actInd = actScr = False
+        act_ind = act_scr = False
         if self.indicadorSC_menu:
             if self.indicadorSC_menu.isVisible():
-                actInd = True
+                act_ind = True
                 self.indicadorSC_menu.hide()
         if self.siDirectorIcon and self.scriptSC_menu:
             if self.scriptSC_menu.isVisible():
-                actScr = True
+                act_scr = True
                 self.scriptSC_menu.hide()
 
         if is_alt and not is_ctrl:
-            pm = QtGui.QPixmap.grabWidget(self)
+            pm = QtWidgets.QWidget.grab(self)
         else:
             x = 0
             y = 0
@@ -2067,34 +2067,35 @@ class Board(QtWidgets.QGraphicsView):
                 y += self.margenCentro + self.tamFrontera
                 w -= self.margenCentro * 2 + self.tamFrontera * 2
                 h -= self.margenCentro * 2 + self.tamFrontera * 2
-            pm = QtGui.QPixmap.grabWidget(self, x, y, w, h)
+            r = QtCore.QRect(x, y, w, h)
+            pm = QtWidgets.QWidget.grab(self, r)
         if file is None:
             QTUtil.ponPortapapeles(pm, tipo="p")
         else:
             pm.save(file, tipo)
 
-        if actInd:
+        if act_ind:
             self.indicadorSC_menu.show()
-        if actScr:
+        if act_scr:
             self.scriptSC_menu.show()
 
     def thumbnail(self, ancho):
         # escondemos piezas+flechas
-        for pieza, piezaSC, siVisible in self.liPiezas:
-            if siVisible:
-                piezaSC.hide()
+        for pieza, pieza_sc, si_visible in self.liPiezas:
+            if si_visible:
+                pieza_sc.hide()
         for arrow in self.liFlechas:
             arrow.hide()
         if self.flechaSC:
             self.flechaSC.hide()
 
-        pm = QtGui.QPixmap.grabWidget(self)
+        pm = QtWidgets.QWidget.grab(self)
         thumb = pm.scaled(ancho, ancho, QtCore.Qt.KeepAspectRatio, QtCore.Qt.SmoothTransformation)
 
         # mostramos piezas+flechas
-        for pieza, piezaSC, siVisible in self.liPiezas:
-            if siVisible:
-                piezaSC.show()
+        for pieza, pieza_sc, si_visible in self.liPiezas:
+            if si_visible:
+                pieza_sc.show()
         for arrow in self.liFlechas:
             arrow.show()
         if self.flechaSC:

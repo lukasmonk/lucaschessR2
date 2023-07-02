@@ -105,7 +105,7 @@ class WSelectEngineElo(LCDialog.LCDialog):
                     minimo = mt.elo
                 if mt.elo > maximo:
                     maximo = mt.elo
-        self.sbElo, lbElo = QTUtil2.spinBoxLB(self, elo, minimo, maximo, maxTam=50, etiqueta=_("Elo"))
+        self.sbElo, lbElo = QTUtil2.spinBoxLB(self, elo, minimo, maximo, maxTam=75, etiqueta=_("Elo"))
         self.sbElo.capture_changes(self.filtrar)
 
         if self.siMic:

@@ -126,7 +126,7 @@ class WColors(LCDialog.LCDialog):
 
         self.register_grid(self.grid)
         self.grid.resizeColumnToContents(0)
-        self.restore_video(anchoDefecto=self.grid.anchoColumnas()+24, altoDefecto=QTUtil.altoEscritorio()*2//3)
+        self.restore_video(anchoDefecto=self.grid.anchoColumnas() + 24, altoDefecto=QTUtil.altoEscritorio() * 2 // 3)
 
         self.grid.gotop()
         for row, (is_head, key, value) in enumerate(self.li_colors):
@@ -143,7 +143,7 @@ class WColors(LCDialog.LCDialog):
             if qcolor_previo is None:
                 qcolor_previo = self.dic_original[key]
             qcolor_nuevo = QtWidgets.QColorDialog.getColor(qcolor_previo, self, _("Choose a color"),
-                                                    QtWidgets.QColorDialog.ShowAlphaChannel | QtWidgets.QColorDialog.DontUseNativeDialog)
+                                                           QtWidgets.QColorDialog.ShowAlphaChannel | QtWidgets.QColorDialog.DontUseNativeDialog)
             if qcolor_nuevo.isValid():
                 if qcolor_previo.name() != qcolor_nuevo.name():
                     self.li_ctrl_z.append(["add", key, self.dic_personal.get(key)])
@@ -154,7 +154,7 @@ class WColors(LCDialog.LCDialog):
         elif col.key == "ORIGINAL":
             qcolor_previo = self.dic_original[key]
             qcolor_nuevo = QtWidgets.QColorDialog.getColor(qcolor_previo, self, _("Choose a color"),
-                                                    QtWidgets.QColorDialog.ShowAlphaChannel | QtWidgets.QColorDialog.DontUseNativeDialog)
+                                                           QtWidgets.QColorDialog.ShowAlphaChannel | QtWidgets.QColorDialog.DontUseNativeDialog)
 
             if qcolor_nuevo.isValid():
                 color_original = qcolor_previo.name()

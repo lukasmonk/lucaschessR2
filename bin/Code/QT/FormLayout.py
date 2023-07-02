@@ -93,7 +93,8 @@ class FormLayout:
         self.li_gen.append((FontCombobox(label), init_value))
 
     def file(
-        self, label, extension, siSave, init_value, siRelativo=True, anchoMinimo=None, ficheroDefecto="", li_histo=None
+            self, label, extension, siSave, init_value, siRelativo=True, anchoMinimo=None, ficheroDefecto="",
+            li_histo=None
     ):
         self.li_gen.append(
             (Fichero(label, extension, siSave, siRelativo, anchoMinimo, ficheroDefecto, li_histo), init_value)
@@ -857,7 +858,7 @@ class FormDialog(QtWidgets.QDialog):
 
 
 def fedit(
-    data, title="", comment="", icon=None, parent=None, if_default=False, anchoMinimo=None, dispatch=None, font=None
+        data, title="", comment="", icon=None, parent=None, if_default=False, anchoMinimo=None, dispatch=None, font=None
 ):
     """
     Create form dialog and return result

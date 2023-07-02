@@ -8,9 +8,9 @@ from Code.Board import Board
 from Code.QT import Colocacion
 from Code.QT import Controles
 from Code.QT import Iconos
+from Code.QT import LCDialog
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
-from Code.QT import LCDialog
 
 
 class WDatos(QtWidgets.QDialog):

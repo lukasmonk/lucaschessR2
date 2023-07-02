@@ -194,10 +194,10 @@ class WDailyTestBase(LCDialog.LCDialog):
                         if "|" in linea:
                             linea = linea.split("|")[0]
                         if (
-                            linea[0].isalnum()
-                            and linea[-1].isdigit()
-                            and ((" w " in linea) or (" b " in linea))
-                            and linea.count("/") == 7
+                                linea[0].isalnum()
+                                and linea[-1].isdigit()
+                                and ((" w " in linea) or (" b " in linea))
+                                and linea.count("/") == 7
                         ):
                             li.append(linea)
             if len(li) >= self.pruebas:

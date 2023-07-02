@@ -1,13 +1,13 @@
-from Code.Translations import TrListas
 from Code.Base import Position
+from Code.Base.Constantes import STANDARD_TAGS
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Delegados
 from Code.QT import Grid
 from Code.QT import Iconos
-from Code.QT import QTVarios, QTUtil2
-from Code.Base.Constantes import STANDARD_TAGS
 from Code.QT import LCDialog
+from Code.QT import QTVarios, QTUtil2
+from Code.Translations import TrListas
 
 
 class WTagsPGN(LCDialog.LCDialog):

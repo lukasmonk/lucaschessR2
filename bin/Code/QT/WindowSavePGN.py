@@ -385,16 +385,20 @@ class WSave(LCDialog.LCDialog):
 
     def current_pgn(self):
         pgn = ""
+        result = "*"
         for key, value in self.li_labels:
             key = key.strip()
             value = str(value).strip()
             if key and value:
                 pgn += '[%s "%s"]\n' % (key, value)
+                if key == "Result":
+                    result = value
         body = self.em_body.texto().strip()
         if not body:
-            body = "*"
+            body = result
         else:
-
+            body += f" {result}"
+            changed = False
             def remove(xbody, ini, end):
                 lic = []
                 nkey = 0
@@ -413,9 +417,11 @@ class WSave(LCDialog.LCDialog):
 
             if self.chb_remove_comments.isChecked():
                 body = remove(body, "{", "}")
+                changed = True
 
             if self.chb_remove_variations.isChecked():
                 body = remove(body, "(", ")")
+                changed = True
 
             if self.chb_remove_nags.isChecked():
                 lic = []
@@ -435,6 +441,23 @@ class WSave(LCDialog.LCDialog):
                             continue
                     lic.append(c)
                 body = "".join(lic)
+                changed = True
+
+            if changed:
+                body = body.replace("\n", " ").replace("\r", " ")
+                while "  " in body:
+                    body = body.replace("  ", " ")
+                linea = ""
+                body_new = ""
+                for bl in body.split(" "):
+                    nbl = len(bl) + 1
+                    if linea and (len(linea) + nbl) > 80:
+                        body_new += linea.strip() + "\n"
+                        linea = ""
+                    linea += bl + " "
+                if linea:
+                    body_new += linea.strip() + "\n"
+                body = body_new
 
         pgn += "\n%s\n" % body
         if "\r\n" in pgn:

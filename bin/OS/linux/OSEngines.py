@@ -38,7 +38,7 @@ def read_engines(folder_engines):
     cm.ordenUCI("Threads", "2")
     cm.set_multipv(20, 500)
 
-    cm = mas("stockfish", "Tord Romstad, Marco Costalba, Joona Kiiski", f"15.1{bmi2}", "http://stockfishchess.org/", f"Stockfish-15_1_x64{bmi2}", 3551)
+    cm = mas("stockfish", "Tord Romstad, Marco Costalba, Joona Kiiski", f"16{bmi2}", "http://stockfishchess.org/", f"Stockfish-16_x64{bmi2}", 3551)
     cm.ordenUCI("Hash", "64")
     cm.ordenUCI("Threads", "2")
     cm.set_multipv(20, 500)

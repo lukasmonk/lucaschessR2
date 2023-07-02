@@ -188,17 +188,17 @@ def vtime(owner, minMinutos=1, minSegundos=0, maxMinutos=999, max_seconds=999, d
 
 
 def lyBotonesMovimiento(
-    owner,
-    key,
-    siLibre=True,
-    siMas=False,
-    siTiempo=True,
-    must_save=False,
-    siGrabarTodos=False,
-    siJugar=False,
-    rutina=None,
-    icon_size=16,
-    liMasAcciones=None,
+        owner,
+        key,
+        siLibre=True,
+        siMas=False,
+        siTiempo=True,
+        must_save=False,
+        siGrabarTodos=False,
+        siJugar=False,
+        rutina=None,
+        icon_size=16,
+        liMasAcciones=None,
 ):
     li_acciones = []
 
@@ -866,7 +866,7 @@ class ReadAnnotation(QtWidgets.QDialog):
 
 class LCTB(Controles.TBrutina):
     def __init__(
-        self, parent, li_acciones=None, with_text=True, icon_size=None, puntos=None, background=None, style=None
+            self, parent, li_acciones=None, with_text=True, icon_size=None, puntos=None, background=None, style=None
     ):
         configuration = Code.configuration
         Controles.TBrutina.__init__(

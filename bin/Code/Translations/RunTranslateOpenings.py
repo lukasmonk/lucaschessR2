@@ -41,7 +41,7 @@ class WTranslateOpenings(LCDialog.LCDialog):
         )
         self.tb = QTVarios.LCTB(self, li_acciones, icon_size=24)
 
-        self.lb_porcentage = Controles.LB(self, "").ponTipoLetra(puntos=18, peso=300).anchoFijo(114).align_right()
+        self.lb_porcentage = Controles.LB(self, "").ponTipoLetra(puntos=18, peso=300).align_right()
 
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("CURRENT", self.language, 480, edicion=Delegados.LineaTextoUTF8(), is_editable=True)
@@ -74,7 +74,8 @@ class WTranslateOpenings(LCDialog.LCDialog):
         self.orders = {"BASE": 0, "CURRENT": 0}
         self.order_by_type("BASE")
 
-    def read_openings_std(self):
+    @staticmethod
+    def read_openings_std():
         dic = {}
         path = Code.path_resource("Openings", "openings.lkop")
         with open(path, "rt", encoding="utf-8") as q:
@@ -117,7 +118,7 @@ class WTranslateOpenings(LCDialog.LCDialog):
             if dic["TRANS"] or dic["NEW"]:
                 traducidos += 1
 
-        self.lb_porcentage.setText("%0.02f%%" % (traducidos * 100 / total))
+        self.lb_porcentage.setText("%0.02f%% %s: %d" % (traducidos * 100 / total, _("Pending"), total - traducidos))
 
     def save(self):
         self.create_po(self.path_current_pofile())
@@ -248,7 +249,6 @@ class WTranslateOpenings(LCDialog.LCDialog):
 
         for row in mirar:
             key = self.li_labels[row]
-            ok = False
             if txt in key.upper():
                 ok = True
             else:

@@ -6,7 +6,6 @@ from PySide2 import QtCore, QtGui, QtWidgets
 
 import Code
 from Code.Nags.Nags import dic_symbol_nags
-
 from Code.QT import Iconos
 
 dicPM = {}

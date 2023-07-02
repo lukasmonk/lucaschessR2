@@ -9,10 +9,10 @@ from Code.Polyglots import Books
 from Code.QT import Colocacion
 from Code.QT import Controles
 from Code.QT import Iconos
-from Code.QT import QTVarios
-from Code.QT import QTUtil
-from Code.QT import SelectFiles
 from Code.QT import LCDialog
+from Code.QT import QTUtil
+from Code.QT import QTVarios
+from Code.QT import SelectFiles
 
 
 class UnMove:

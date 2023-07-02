@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2023-06-24 08:14+0200\n"
+"POT-Creation-Date: 2023-07-01 22:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -283,16 +283,15 @@ msgstr ""
 #: .\QT\GridEditCols.py:29 .\QT\Piezas.py:267 .\QT\QTUtil2.py:72
 #: .\QT\QTUtil2.py:320 .\QT\QTUtil2.py:388 .\QT\QTUtil2.py:449
 #: .\QT\QTUtil2.py:512 .\QT\QTUtil2.py:660 .\QT\QTVarios.py:518
-#: .\QT\QTVarios.py:906 .\QT\SelectFilesLC.py:134 .\QT\WColors.py:114
-#: .\QT\WindowArbol.py:723 .\QT\WindowArbolBook.py:255
-#: .\QT\WindowDailyTest.py:257 .\QT\WindowHorses.py:221
-#: .\QT\WindowPgnTags.py:29 .\QT\WindowPotencia.py:612
-#: .\QT\WindowPuente.py:473 .\QT\WindowSavePGN.py:193
-#: .\QT\WindowSavePGN.py:568 .\QT\WindowWorkMap.py:245
-#: .\Sound\WindowSonido.py:224 .\Sound\WindowSonido.py:231
-#: .\Tactics\WindowTactics.py:600 .\Themes\WThemes.py:38
-#: .\TurnOnLights\WindowTurnOnLights.py:322 .\Voyager\Voyager.py:76
-#: .\Voyager\Voyager.py:480 .\Voyager\Voyager.py:755
+#: .\QT\QTVarios.py:906 .\QT\WColors.py:114 .\QT\WindowArbol.py:723
+#: .\QT\WindowArbolBook.py:255 .\QT\WindowDailyTest.py:257
+#: .\QT\WindowHorses.py:221 .\QT\WindowPgnTags.py:29
+#: .\QT\WindowPotencia.py:612 .\QT\WindowPuente.py:473
+#: .\QT\WindowSavePGN.py:193 .\QT\WindowSavePGN.py:591
+#: .\QT\WindowWorkMap.py:245 .\Sound\WindowSonido.py:224
+#: .\Sound\WindowSonido.py:231 .\Tactics\WindowTactics.py:600
+#: .\Themes\WThemes.py:38 .\TurnOnLights\WindowTurnOnLights.py:322
+#: .\Voyager\Voyager.py:76 .\Voyager\Voyager.py:480 .\Voyager\Voyager.py:755
 #: .\Washing\WindowWashing.py:225 .\setup_linux.py:193 .\setup_linux.py:270
 #: .\setup_linux.py:277
 msgid "Cancel"
@@ -552,7 +551,7 @@ msgstr ""
 #: .\Nags\WNags.py:30 .\QT\GridEditCols.py:27 .\QT\GridEditCols.py:82
 #: .\QT\Piezas.py:265 .\QT\QTVarios.py:227 .\QT\QTVarios.py:230
 #: .\QT\WColors.py:112 .\QT\WindowArbol.py:722 .\QT\WindowSavePGN.py:191
-#: .\QT\WindowSavePGN.py:566 .\Themes\WThemes.py:36
+#: .\QT\WindowSavePGN.py:589 .\Themes\WThemes.py:36
 #: .\Tournaments\WTournament.py:236 .\Tournaments\WTournament.py:238
 #: .\Voyager\Voyager.py:74 .\Voyager\Voyager.py:753
 msgid "Save"
@@ -561,7 +560,7 @@ msgstr ""
 #: .\Analysis\Histogram.py:439 .\Board\Board.py:182
 #: .\Director\WindowDirector.py:633 .\Manager.py:1587 .\Manager.py:1705
 #: .\Manager.py:1746 .\ManagerSolo.py:334 .\Odt\WOdt.py:20
-#: .\QT\FormLayout.py:258 .\QT\WindowManualSave.py:107
+#: .\QT\FormLayout.py:259 .\QT\WindowManualSave.py:107
 #: .\QT\WindowManualSave.py:292 .\QT\WindowManualSave.py:309
 #: .\QT\WindowSavePGN.py:31 .\QT\WindowSavePGN.py:205
 #: .\QT\WindowSavePGN.py:303
@@ -715,8 +714,8 @@ msgstr ""
 #: .\PlayAgainstEngine\WPlayAgainstEngine.py:597
 #: .\PlayAgainstEngine\WPlayAgainstEngine.py:599 .\Polyglots\WFactory.py:34
 #: .\Polyglots\WFactory.py:82 .\QT\GridEditCols.py:99 .\QT\GridEditCols.py:102
-#: .\QT\Piezas.py:345 .\QT\Piezas.py:400 .\QT\SelectFilesLC.py:21
-#: .\QT\WColors.py:98 .\Sound\WindowSonido.py:175 .\Themes\WThemes.py:129
+#: .\QT\Piezas.py:345 .\QT\Piezas.py:400 .\QT\WColors.py:98
+#: .\Sound\WindowSonido.py:175 .\Themes\WThemes.py:129
 #: .\Tournaments\WTournaments.py:55 .\Tournaments\WTournaments.py:115
 #: .\TrainBMT\WindowBMT.py:141 .\TrainBMT\WindowBMT.py:158
 #: .\TrainBMT\WindowBMT.py:414 .\TrainBMT\WindowBMT.py:675
@@ -737,7 +736,7 @@ msgstr ""
 
 #: .\Analysis\WindowAnalysisConfig.py:31 .\Analysis\WindowAnalysisConfig.py:40
 #: .\Analysis\WindowAnalysisParam.py:190 .\Analysis\WindowAnalysisParam.py:411
-#: .\Board\Board.py:817 .\Board\Board.py:2487 .\Board\WBoardColors.py:304
+#: .\Board\Board.py:817 .\Board\Board.py:2488 .\Board\WBoardColors.py:304
 #: .\Board\WBoardColors.py:371 .\Config\WindowConfig.py:93
 #: .\Config\WindowConfig.py:163 .\Config\WindowConfig.py:189
 #: .\Databases\WDB_Utils.py:350 .\Engines\WConfEngines.py:66
@@ -766,8 +765,8 @@ msgstr ""
 #: .\Analysis\WindowAnalysisConfig.py:34 .\Director\WindowDirector.py:76
 #: .\Engines\SelectEngines.py:493 .\Kibitzers\WindowKibitzers.py:277
 #: .\Kibitzers\WindowKibitzers.py:398 .\Menus\MenuTrainings.py:742
-#: .\QT\SelectFilesLC.py:25 .\QT\WindowVisualiza.py:174
-#: .\QT\WindowWorkMap.py:64 .\QT\WindowWorkMap.py:184
+#: .\QT\WindowVisualiza.py:174 .\QT\WindowWorkMap.py:64
+#: .\QT\WindowWorkMap.py:184
 msgid "Type"
 msgstr ""
 
@@ -786,7 +785,7 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
-#: .\Analysis\WindowAnalysisConfig.py:51 .\QT\FormLayout.py:845
+#: .\Analysis\WindowAnalysisConfig.py:51 .\QT\FormLayout.py:846
 msgid "Are you sure you want to set the default configuration?"
 msgstr ""
 
@@ -875,7 +874,7 @@ msgstr ""
 #: .\Director\WindowDirector.py:155 .\Leagues\WLeague.py:865 .\Manager.py:1693
 #: .\Polyglots\PolyglotImportExports.py:90
 #: .\Polyglots\PolyglotImportExports.py:480 .\QT\WindowManualSave.py:344
-#: .\QT\WindowSavePGN.py:478 .\Tournaments\WTournament.py:882
+#: .\QT\WindowSavePGN.py:501 .\Tournaments\WTournament.py:882
 msgid "Saved"
 msgstr ""
 
@@ -1289,7 +1288,7 @@ msgstr ""
 msgid "Active keys"
 msgstr ""
 
-#: .\Board\Board.py:814 .\Board\Board.py:2466
+#: .\Board\Board.py:814 .\Board\Board.py:2467
 msgid "Change board size"
 msgstr ""
 
@@ -1344,35 +1343,35 @@ msgstr ""
 msgid "Knight"
 msgstr ""
 
-#: .\Board\Board.py:2479
+#: .\Board\Board.py:2480
 msgid "Very large"
 msgstr ""
 
-#: .\Board\Board.py:2480
+#: .\Board\Board.py:2481
 msgid "Large"
 msgstr ""
 
-#: .\Board\Board.py:2481 .\QT\WindowWorkMap.py:113 .\WorkMap.py:375
+#: .\Board\Board.py:2482 .\QT\WindowWorkMap.py:113 .\WorkMap.py:375
 msgid "Medium"
 msgstr ""
 
-#: .\Board\Board.py:2482
+#: .\Board\Board.py:2483
 msgid "Medium-small"
 msgstr ""
 
-#: .\Board\Board.py:2483
+#: .\Board\Board.py:2484
 msgid "Small"
 msgstr ""
 
-#: .\Board\Board.py:2484
+#: .\Board\Board.py:2485
 msgid "Very small"
 msgstr ""
 
-#: .\Board\Board.py:2485
+#: .\Board\Board.py:2486
 msgid "Custom size"
 msgstr ""
 
-#: .\Board\Board.py:2486
+#: .\Board\Board.py:2487
 msgid "Initial size"
 msgstr ""
 
@@ -1511,7 +1510,7 @@ msgid "Bold"
 msgstr ""
 
 #: .\Board\WBoardColors.py:412 .\Director\WindowTabVMarkers.py:65
-#: .\Director\WindowTabVSVGs.py:97 .\QT\SelectFilesLC.py:23
+#: .\Director\WindowTabVSVGs.py:97
 msgid "Size"
 msgstr ""
 
@@ -2829,7 +2828,7 @@ msgstr ""
 
 #: .\Databases\WDB_Games.py:1163 .\Polyglots\PolyglotImportExports.py:301
 #: .\Polyglots\PolyglotImportExports.py:465 .\QT\QTVarios.py:554
-#: .\QT\WindowSavePGN.py:632 .\Tournaments\WTournament.py:874
+#: .\QT\WindowSavePGN.py:655 .\Tournaments\WTournament.py:874
 #: .\Washing\WindowWashing.py:300
 msgid "Saving..."
 msgstr ""
@@ -3141,8 +3140,8 @@ msgstr ""
 #: .\Engines\WindowSTS.py:942 .\GM\WindowGM.py:330 .\Leagues\WLeagues.py:166
 #: .\Menus\MenuTrainings.py:568 .\PlayAgainstEngine\Personalities.py:244
 #: .\PlayAgainstEngine\WPlayAgainstEngine.py:592 .\QT\GridEditCols.py:126
-#: .\QT\SelectFilesLC.py:240 .\QT\WindowWorkMap.py:172
-#: .\Tournaments\WTournaments.py:151 .\TrainBMT\WindowBMT.py:872
+#: .\QT\WindowWorkMap.py:172 .\Tournaments\WTournaments.py:151
+#: .\TrainBMT\WindowBMT.py:872
 msgid "Delete %1?"
 msgstr ""
 
@@ -3343,7 +3342,7 @@ msgstr ""
 
 #: .\Director\WindowDirector.py:629 .\Director\WindowDirector.py:637
 #: .\Manager.py:1726 .\Manager.py:1767 .\ManagerSolo.py:319
-#: .\QT\WindowSavePGN.py:638 .\Washing\WindowWashing.py:310
+#: .\QT\WindowSavePGN.py:661 .\Washing\WindowWashing.py:310
 msgid "Saved to %1"
 msgstr ""
 
@@ -3382,7 +3381,7 @@ msgstr ""
 
 #: .\Director\WindowTabVCircles.py:54 .\Director\WindowTabVFlechas.py:76
 #: .\Director\WindowTabVMarcos.py:53 .\Expeditions\WindowEverest.py:66
-#: .\QT\FormLayout.py:389 .\QT\WColors.py:42 .\Washing\WindowWashing.py:129
+#: .\QT\FormLayout.py:390 .\QT\WColors.py:42 .\Washing\WindowWashing.py:129
 #: .\Washing\WindowWashing.py:154 .\WritingDown\WritingDown.py:28
 msgid "Color"
 msgstr ""
@@ -3861,11 +3860,10 @@ msgstr ""
 #: .\Engines\WConfEngines.py:327 .\Engines\WConfEngines.py:511
 #: .\Engines\WEngines.py:368 .\Kibitzers\WindowKibitzers.py:411
 #: .\MainWindow\WBase.py:155 .\Openings\WindowOpeningLines.py:38
-#: .\QT\SelectFiles.py:44 .\QT\SelectFiles.py:51 .\QT\SelectFilesLC.py:102
-#: .\QT\WindowDailyTest.py:44 .\QT\WindowDailyTest.py:147
-#: .\QT\WindowSavePGN.py:244 .\Tactics\WindowTactics.py:354
-#: .\Tournaments\WTournament.py:525 .\TurnOnLights\WindowTurnOnLights.py:313
-#: .\Washing\WindowWashing.py:46
+#: .\QT\SelectFiles.py:43 .\QT\SelectFiles.py:50 .\QT\WindowDailyTest.py:44
+#: .\QT\WindowDailyTest.py:147 .\QT\WindowSavePGN.py:244
+#: .\Tactics\WindowTactics.py:354 .\Tournaments\WTournament.py:525
+#: .\TurnOnLights\WindowTurnOnLights.py:313 .\Washing\WindowWashing.py:46
 msgid "File"
 msgstr ""
 
@@ -4057,8 +4055,7 @@ msgstr ""
 msgid "Pause"
 msgstr ""
 
-#: .\Engines\WindowSTS.py:107 .\QT\SelectFilesLC.py:180
-#: .\QT\SelectFilesLC.py:203
+#: .\Engines\WindowSTS.py:107
 msgid "Path does not exist."
 msgstr ""
 
@@ -4102,7 +4099,7 @@ msgid "STS: Strategic Test Suite"
 msgstr ""
 
 #: .\Engines\WindowSTS.py:815 .\Openings\WindowOpenings.py:58
-#: .\QT\SelectFilesLC.py:133 .\QT\WindowWorkMap.py:76
+#: .\QT\WindowWorkMap.py:76
 msgid "Select"
 msgstr ""
 
@@ -4585,7 +4582,7 @@ msgid "There are no games to play with this color"
 msgstr ""
 
 #: .\GM\WindowGM.py:523 .\PlayAgainstEngine\WPlayAgainstEngine.py:788
-#: .\QT\FormLayout.py:312 .\QT\GridEditCols.py:90 .\QT\WindowSavePGN.py:105
+#: .\QT\FormLayout.py:313 .\QT\GridEditCols.py:90 .\QT\WindowSavePGN.py:105
 #: .\QT\WindowSavePGN.py:120 .\QT\WindowSavePGN.py:336
 #: .\QT\WindowSavePGN.py:350
 msgid "To choose: <b>left button</b> <br>To erase: <b>right button</b>"
@@ -4943,7 +4940,6 @@ msgid "Do you want to remove all results of all seasons?"
 msgstr ""
 
 #: .\Leagues\WLeagueConfig.py:350 .\Procesador.py:878
-#: .\QT\SelectFilesLC.py:343
 msgid "Do you want to remove?"
 msgstr ""
 
@@ -5282,25 +5278,23 @@ msgid "This game already exists."
 msgstr ""
 
 #: .\Manager.py:1711 .\Manager.py:1756 .\ManagerSolo.py:343
-#: .\Polyglots\PolyglotImportExports.py:605 .\QT\SelectFilesLC.py:186
-#: .\Washing\WindowWashing.py:223
+#: .\Polyglots\PolyglotImportExports.py:605 .\Washing\WindowWashing.py:223
 msgid "The file %1 already exists, what do you want to do?"
 msgstr ""
 
 #: .\Manager.py:1712 .\Manager.py:1758 .\ManagerSolo.py:344
-#: .\Polyglots\PolyglotImportExports.py:606 .\QT\SelectFilesLC.py:187
-#: .\QT\WindowSavePGN.py:48 .\QT\WindowSavePGN.py:222
-#: .\Washing\WindowWashing.py:224
+#: .\Polyglots\PolyglotImportExports.py:606 .\QT\WindowSavePGN.py:48
+#: .\QT\WindowSavePGN.py:222 .\Washing\WindowWashing.py:224
 msgid "Overwrite"
 msgstr ""
 
 #: .\Manager.py:1713 .\ManagerSolo.py:345
-#: .\Polyglots\PolyglotImportExports.py:607 .\QT\SelectFilesLC.py:188
+#: .\Polyglots\PolyglotImportExports.py:607
 msgid "Choose another"
 msgstr ""
 
 #: .\Manager.py:1729 .\Manager.py:1777 .\ManagerSolo.py:323
-#: .\QT\WindowSavePGN.py:481
+#: .\QT\WindowSavePGN.py:504
 msgid "Unable to save"
 msgstr ""
 
@@ -5308,7 +5302,7 @@ msgstr ""
 msgid "PGN is in clipboard"
 msgstr ""
 
-#: .\Manager.py:1777 .\Manager.py:1824 .\QT\WindowSavePGN.py:486
+#: .\Manager.py:1777 .\Manager.py:1824 .\QT\WindowSavePGN.py:509
 msgid "It is saved in the clipboard to paste it wherever you want."
 msgstr ""
 
@@ -6755,8 +6749,7 @@ msgstr ""
 msgid "First moves"
 msgstr ""
 
-#: .\Openings\WindowOpeningLines.py:61 .\QT\SelectFilesLC.py:96
-#: .\QT\SelectFilesLC.py:332
+#: .\Openings\WindowOpeningLines.py:61
 msgid "Folder"
 msgstr ""
 
@@ -7614,11 +7607,11 @@ msgstr ""
 msgid "One moment please..."
 msgstr ""
 
-#: .\QT\FormLayout.py:258
+#: .\QT\FormLayout.py:259
 msgid "File to read"
 msgstr ""
 
-#: .\QT\FormLayout.py:321
+#: .\QT\FormLayout.py:322
 msgid "Do you want to remove file %s from the list?"
 msgstr ""
 
@@ -7806,40 +7799,8 @@ msgstr ""
 msgid "Beep after each move"
 msgstr ""
 
-#: .\QT\SelectFiles.py:30 .\QT\SelectFilesLC.py:70
+#: .\QT\SelectFiles.py:29
 msgid "Open Directory"
-msgstr ""
-
-#: .\QT\SelectFilesLC.py:27
-msgid "Date Modified"
-msgstr ""
-
-#: .\QT\SelectFilesLC.py:76
-msgid "Open file ||To open a disk file"
-msgstr ""
-
-#: .\QT\SelectFilesLC.py:138
-msgid "Home"
-msgstr ""
-
-#: .\QT\SelectFilesLC.py:139
-msgid "Use native dialog"
-msgstr ""
-
-#: .\QT\SelectFilesLC.py:168
-msgid "You must select a file"
-msgstr ""
-
-#: .\QT\SelectFilesLC.py:173 .\QT\SelectFilesLC.py:199
-msgid "You must select a folder"
-msgstr ""
-
-#: .\QT\SelectFilesLC.py:324 .\QT\SelectFilesLC.py:330
-msgid "Create a subfolder"
-msgstr ""
-
-#: .\QT\SelectFilesLC.py:327
-msgid "Remove this folder"
 msgstr ""
 
 #: .\QT\ShowPGN.py:108
@@ -8233,7 +8194,7 @@ msgstr ""
 msgid "New boxroom"
 msgstr ""
 
-#: .\QT\WindowSavePGN.py:170 .\QT\WindowSavePGN.py:557
+#: .\QT\WindowSavePGN.py:170 .\QT\WindowSavePGN.py:580
 msgid "Save to PGN"
 msgstr ""
 
@@ -9093,8 +9054,8 @@ msgstr ""
 msgid "Rep."
 msgstr ""
 
-#: .\TrainBMT\WindowBMT.py:153 .\Washing\ManagerWashing.py:302
-#: .\Washing\ManagerWashing.py:390
+#: .\TrainBMT\WindowBMT.py:153 .\Translations\RunTranslateOpenings.py:121
+#: .\Washing\ManagerWashing.py:302 .\Washing\ManagerWashing.py:390
 msgid "Pending"
 msgstr ""
 
@@ -11745,6 +11706,9 @@ msgid "Version installable"
 msgstr ""
 
 msgid "Videos"
+msgstr ""
+
+msgid "Home"
 msgstr ""
 
 msgid "You can also choose the opening, or start in a certain position, or that the engine uses a book of openings or more or less aid."

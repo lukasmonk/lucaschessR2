@@ -3,7 +3,6 @@ import os
 from PySide2 import QtWidgets
 
 import Code
-from Code.QT import SelectFilesLC
 
 
 def select_pgn(wowner):
@@ -28,14 +27,14 @@ def select_pgns(wowner):
 def get_existing_directory(owner, carpeta, titulo=None):
     if titulo is None:
         titulo = _("Open Directory")
+    options = QtWidgets.QFileDialog.ShowDirsOnly | QtWidgets.QFileDialog.DontResolveSymlinks
     if Code.configuration.x_mode_select_lc:
-        return SelectFilesLC.getExistingDirectory(owner, titulo, carpeta)
+        options |= QtWidgets.QFileDialog.DontUseNativeDialog
     return QtWidgets.QFileDialog.getExistingDirectory(
         owner,
         titulo,
         carpeta,
-        QtWidgets.QFileDialog.ShowDirsOnly
-        | QtWidgets.QFileDialog.DontResolveSymlinks,  # | QtWidgets.QFileDialog.DontUseNativeDialog
+        options=options
     )
 
 
@@ -53,66 +52,50 @@ def _lfTituloFiltro(extension, titulo):
 
 
 def leeFichero(owner, carpeta, extension, titulo=None):
-    if Code.configuration.x_mode_select_lc:
-        resp = SelectFilesLC.getOpenFileName(owner, titulo, carpeta, extension)
-        if resp is None or type(resp) == str:
-            return resp
-        carpeta = resp[0]
+    options = QtWidgets.QFileDialog.DontUseNativeDialog if Code.configuration.x_mode_select_lc else QtWidgets.QFileDialog.Options()
 
     titulo, filtro = _lfTituloFiltro(extension, titulo)
-    resp = QtWidgets.QFileDialog.getOpenFileName(owner, titulo, carpeta, filtro, )
+    resp = QtWidgets.QFileDialog.getOpenFileName(owner, titulo, carpeta, filtro, options=options)
     return resp[0] if resp else None
 
 
 def leeFicheros(owner, carpeta, extension, titulo=None):
-    if Code.configuration.x_mode_select_lc:
-        resp = SelectFilesLC.getOpenFileNames(owner, titulo, carpeta, extension)
-        if resp is None:
-            return None
-        if resp[0] is None:
-            carpeta = resp[1]
-        else:
-            return resp
+    options = QtWidgets.QFileDialog.DontUseNativeDialog if Code.configuration.x_mode_select_lc else QtWidgets.QFileDialog.Options()
+
     titulo, filtro = _lfTituloFiltro(extension, titulo)
-    resp = QtWidgets.QFileDialog.getOpenFileNames(owner, titulo, carpeta, filtro)
+    resp = QtWidgets.QFileDialog.getOpenFileNames(owner, titulo, carpeta, filtro, options=options)
     return resp[0] if resp else None
 
 
 def creaFichero(owner, carpeta, extension, titulo=None):
-    if Code.configuration.x_mode_select_lc:
-        resp = SelectFilesLC.getSaveFileName(owner, titulo, carpeta, extension, True)
-        if resp is None or type(resp) == str:
-            return resp
-        carpeta = resp[0]
+    options = QtWidgets.QFileDialog.DontUseNativeDialog if Code.configuration.x_mode_select_lc else QtWidgets.QFileDialog.Options()
+
     titulo, filtro = _lfTituloFiltro(extension, titulo)
-    resp = QtWidgets.QFileDialog.getSaveFileName(owner, titulo, carpeta, filtro)
+    resp = QtWidgets.QFileDialog.getSaveFileName(owner, titulo, carpeta, filtro, options=options)
     return resp[0] if resp else None
 
 
 def leeCreaFichero(owner, carpeta, extension, titulo=None):
+    options = QtWidgets.QFileDialog.DontConfirmOverwrite
     if Code.configuration.x_mode_select_lc:
-        resp = SelectFilesLC.getSaveFileName(owner, titulo, carpeta, extension, False)
-        if resp is None or type(resp) == str:
-            return resp
-        carpeta = resp[0]
+        options |= QtWidgets.QFileDialog.DontUseNativeDialog
     titulo, filtro = _lfTituloFiltro(extension, titulo)
     resp = QtWidgets.QFileDialog.getSaveFileName(
-        owner, titulo, carpeta, filtro, options=QtWidgets.QFileDialog.DontConfirmOverwrite
+        owner, titulo, carpeta, filtro, options=options
     )
     return resp[0] if resp else None
 
 
 def salvaFichero(main_window, titulo, carpeta, extension, confirm_overwrite=True):
-    if Code.configuration.x_mode_select_lc:
-        resp = SelectFilesLC.getSaveFileName(main_window, titulo, carpeta, extension, confirm_overwrite)
-        if resp is None or type(resp) == str:
-            return resp
-        carpeta = resp[0]
     titulo, filtro = _lfTituloFiltro(extension, titulo)
     if confirm_overwrite:
-        resp = QtWidgets.QFileDialog.getSaveFileName(main_window, titulo, dir=carpeta, filter=filtro)
+        options = QtWidgets.QFileDialog.DontUseNativeDialog if Code.configuration.x_mode_select_lc else QtWidgets.QFileDialog.Options()
+        resp = QtWidgets.QFileDialog.getSaveFileName(main_window, titulo, dir=carpeta, filter=filtro, options=options)
     else:
+        options = QtWidgets.QFileDialog.DontConfirmOverwrite
+        if Code.configuration.x_mode_select_lc:
+            options |= QtWidgets.QFileDialog.DontUseNativeDialog
         resp = QtWidgets.QFileDialog.getSaveFileName(
-            main_window, titulo, dir=carpeta, filter=filtro, options=QtWidgets.QFileDialog.DontConfirmOverwrite
+            main_window, titulo, dir=carpeta, filter=filtro, options=options
         )
     return resp[0] if resp else resp
