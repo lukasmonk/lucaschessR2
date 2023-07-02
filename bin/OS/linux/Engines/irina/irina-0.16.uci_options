@@ -1,0 +1,9 @@
+id name Irina 0.16
+id author Lucas Monge
+option name Hash type spin min 2 max 1024 default 32
+option name Personality type combo default Irina var Irina var Steven var Monkey var Donkey var Bull var Wolf var Lion var Rat var Snake var Panda var Horse var Deer var Bear var Crocodile var Hippo var Rhino var Shark var Bulldog var Eagle var Tiger var Elephant var Material var Random var Capture var Advance
+option name Min Time type spin default 0 min 0 max 99
+option name Max Time type spin default 0 min 0 max 99
+option name OwnBook type check default true
+option name OwnBookFile type string default irina.bin
+option name NpsLimit type spin default 0 min 0 max 30000

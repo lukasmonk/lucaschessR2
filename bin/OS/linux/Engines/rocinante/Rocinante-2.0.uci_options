@@ -1,0 +1,7 @@
+id name Rocinante 2.0 JA
+id author Antonio Torrecillas
+option name cpus type spin default 1 min 0 max 256
+option name threads type spin default 1 min 0 max 256
+option name klevel type spin default 1 min 0 max 1
+option name mcts_ab type check default true
+option name probedepth type spin default 1 min -1 max 10

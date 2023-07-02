@@ -1,0 +1,5 @@
+id name Dragontooth 0.2 Bahamut 1CPU linux-amd64
+id author Dylan D. Hunn (dylhunn)
+option name Hash type spin default 512 min 8 max 65536
+option name SearchThreads type spin default 1 min 1 max 128
+option name DrawVal_Contempt_Centipawns type spin default 0 min -32766 max 32766

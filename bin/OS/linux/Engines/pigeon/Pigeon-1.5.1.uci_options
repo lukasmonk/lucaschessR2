@@ -1,0 +1,4 @@
+id name Pigeon 1.5.1
+id author Stuart Riffle
+option name Hash type spin min 64 max 16384 default 512
+option name OwnBook type check default true

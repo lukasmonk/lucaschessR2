@@ -1,0 +1,56 @@
+id name Gambit Fruit 1.0 Beta 4bx
+id author Ryan Benitez, Thomas Gaksch and Fabien Letouzey
+option name Hash type spin default 16 min 4 max 1024
+option name Search Time type spin default 0 min 0 max 3600
+option name Search Depth type spin default 0 min 0 max 20
+option name Ponder type check default false
+option name OwnBook type check default true
+option name BookFile type string default book_small.bin
+option name MultiPV type spin default 1 min 1 max 10
+option name Bitbase pieces type spin default 4 min 3 max 4
+option name NullMove Pruning type combo default Always var Always var Fail High var Never
+option name NullMove Reduction type spin default 3 min 1 max 4
+option name Verification Search type combo default Always var Always var Endgame var Never
+option name Verification Reduction type spin default 5 min 1 max 6
+option name History Pruning type check default true
+option name History Threshold type spin default 70 min 0 max 100
+option name History Research on Beta type check default true
+option name Rebel Reductions type check default true
+option name Futility Pruning type check default true
+option name Quick Futility eval type check default false
+option name Futility Margin type spin default 125 min 0 max 500
+option name Extended Futility Margin type spin default 325 min 0 max 900
+option name Delta Pruning type check default true
+option name Delta Margin type spin default 50 min 0 max 500
+option name Quiescence Check Plies type spin default 1 min 0 max 5
+option name Alt Pawn SQT type check default false
+option name Alt Knight SQT type check default false
+option name Alt Bishop SQT type check default false
+option name Chess Knowledge type spin default 100 min 0 max 500
+option name Piece Activity type spin default 100 min 0 max 500
+option name Pawn Shelter type spin default 100 min 0 max 500
+option name Pawn Storm type spin default 100 min 0 max 500
+option name King Attack type spin default 100 min 0 max 500
+option name Pawn Structure type spin default 100 min 0 max 500
+option name Passed Pawns type spin default 100 min 0 max 500
+option name Opening Pawn Value type spin default 80 min 0 max 10000
+option name Opening Knight Value type spin default 320 min 0 max 10000
+option name Opening Bishop Value type spin default 325 min 0 max 10000
+option name Opening Rook Value type spin default 500 min 0 max 10000
+option name Opening Queen Value type spin default 975 min 0 max 10000
+option name Endgame Pawn Value type spin default 90 min 0 max 10000
+option name Endgame Knight Value type spin default 320 min 0 max 10000
+option name Endgame Bishop Value type spin default 325 min 0 max 10000
+option name Endgame Rook Value type spin default 500 min 0 max 10000
+option name Endgame Queen Value type spin default 975 min 0 max 10000
+option name Bishop Pair Opening type spin default 50 min 0 max 1000
+option name Bishop Pair Endgame type spin default 50 min 0 max 1000
+option name Queen Knight combo type spin default 15 min 0 max 1000
+option name Rook Bishop combo type spin default 15 min 0 max 1000
+option name Bad Trade Value type spin default 50 min 0 max 1000
+option name Contempt Factor type spin default 0 min -1000 max 1000
+option name Max NPS1 type spin min 1 max 999999 default 999999
+option name Max NPS2 type spin min 1 max 999999 default 999999
+option name Max NPS3 type spin min 1 max 999999 default 999999
+option name Max NPS4 type spin min 1 max 999999 default 999999
+option name Max NPS5 type spin min 1 max 999999 default 999999

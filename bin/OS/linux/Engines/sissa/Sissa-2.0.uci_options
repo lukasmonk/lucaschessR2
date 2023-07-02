@@ -1,0 +1,3 @@
+id author Christophe J. Mandin
+option name Hash type spin default 64 min 4 max 1024
+option name OwnBook type check default true

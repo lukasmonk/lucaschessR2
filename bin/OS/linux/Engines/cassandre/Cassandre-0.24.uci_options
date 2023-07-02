@@ -1,0 +1,3 @@
+id name Cassandre
+id author Jean-Francois Romang, Raphael Grundrich, Thomas Adolph
+option name useInternalOpeningBook type check default true

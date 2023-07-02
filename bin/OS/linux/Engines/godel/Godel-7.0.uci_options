@@ -1,0 +1,9 @@
+id name Godel 7.0
+id author Juan Manuel Vazquez
+option name Ponder type check default false
+option name MultiPV type spin min 1 max 32 default 1
+option name Info ply type spin default 13 min 1 max 64
+option name Post ply type spin default 6 min 1 max 64
+option name Hash type spin default 128 min 1 max 4096
+option name Pawn Hash type spin default 16 min 1 max 64
+option name Clear Hash type button
