@@ -150,9 +150,10 @@ class WPanelDirector(LCDialog.LCDialog):
             self.selectBanda.seleccionarNum(number)
 
     def grabar(self):
-        li = self.guion.guarda()
-        self.board.dbVisual_save(self.fenm2, li)
-        QTUtil2.mensajeTemporal(None, _("Saved"), 1.2)
+        if self.guion:
+            li = self.guion.guarda()
+            self.board.dbVisual_save(self.fenm2, li)
+            QTUtil2.mensajeTemporal(None, _("Saved"), 1.2)
 
     def recuperar(self):
         self.guion.recupera()
@@ -987,7 +988,6 @@ class Director:
                 return False
             if self.director:
                 QtWidgets.QGraphicsView.mousePressEvent(self.board, event)
-
 
         p = event.pos()
         a1h8 = self.punto2a1h8(p)

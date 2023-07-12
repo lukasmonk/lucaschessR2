@@ -395,7 +395,7 @@ class RunEngine:
     def seek_bestmove_time(self, time_white, time_black, inc_time_move):
         env = "go wtime %d btime %d" % (time_white, time_black)
         if inc_time_move:
-            env += " winc %d" % inc_time_move
+            env += " winc %d binc %d" % (inc_time_move, inc_time_move)
         max_time = time_white if self.is_white else time_black
 
         self.reset()
@@ -615,7 +615,7 @@ class RunEngine:
     def play_bestmove_time(self, play_return, game, time_white, time_black, inc_time_move):
         env = "go wtime %d btime %d" % (time_white, time_black)
         if inc_time_move:
-            env += " winc %d" % inc_time_move
+            env += " winc %d binc %d" % (inc_time_move, inc_time_move)
         max_time = time_white if self.is_white else time_black
         self.play_with_return(play_return, game, env, max_time, None)
 

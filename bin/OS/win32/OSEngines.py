@@ -101,35 +101,35 @@ def read_engines(folder_engines):
     cm.set_multipv(1, 4)
 
     cm = mas("cheng", "Martin Sedlák", "4.40", "http://www.vlasak.biz/cheng", "cheng4.exe", 2750)
-    cm.set_multipv(20, 256)
+    cm.set_multipv(10, 256)
 
     cm = mas("glaurung", "Tord RomsTad", "2.2 JA", "http://www.glaurungchess.com/", "windows/glaurung-w32.exe", 2765)
-    cm.set_multipv(20, 500)
+    cm.set_multipv(10, 500)
 
     cm = mas("fruit", "Fabien Letouzey", "2.3.1", "http://www.fruitchess.com/", "Fruit-2-3-1.exe", 2786)
-    cm.set_multipv(20, 256)
+    cm.set_multipv(10, 256)
 
     mas("discocheck", "Lucas Braesch", "5.2.1", "https://github.com/lucasart", "DiscoCheck.exe", 2890)
 
     cm = mas("gaviota", "Miguel A. Ballicora", "1.0", "https://sites.google.com/site/gaviotachessengine",
              "gaviota-1.0-win32.exe", 2950)
-    cm.set_multipv(20, 32)
+    cm.set_multipv(10, 32)
 
     cm = mas("rybka", "Vasik Rajlich", "2.3.2a 32-bit", "http://rybkachess.com/", "Rybka v2.3.2a.w32.exe", 2936)
     cm.ordenUCI("Max CPUs", "1")
-    cm.set_multipv(20, 100)
+    cm.set_multipv(10, 100)
 
     cm = mas("critter", "Richard Vida", "1.6a 32bit", "http://www.vlasak.biz/critter/", "Critter_1.6a_32bit.exe", 3091)
-    cm.set_multipv(20, 100)
+    cm.set_multipv(10, 100)
 
     cm = mas(
         "texel", "Peter Österlund", "1.07 32bit", "http://hem.bredband.net/petero2b/javachess/index.html#texel",
         "texel32old.exe", 3100
     )
-    cm.set_multipv(20, 256)
+    cm.set_multipv(10, 256)
 
     mas("gull", "Vadim Demichev", "3 32bit", "https://sourceforge.net/projects/gullchess/", "Gull 3 w32 XP.exe", 3125)
-    # cm.set_multipv(20, 64) Da problemas
+    # cm.set_multipv(10, 64) Da problemas
 
     mas("irina", "Lucas Monge", "0.15", "https://github.com/lukasmonk/irina", "irina.exe", 1500)
 
@@ -152,7 +152,7 @@ def read_engines(folder_engines):
         2843,
         emulate_movetime=True
     )
-    cm.set_multipv(20, 40)
+    cm.set_multipv(10, 40)
 
     mas("greko98", "Vladimir Medvedev", "9.8", "http://sourceforge.net/projects/greko", "GreKo98a.exe", 2500)
 
@@ -233,12 +233,12 @@ def read_engines(folder_engines):
         )
     cm.ordenUCI("Hash", "64")
     cm.ordenUCI("Threads", "2" if is64 else "1")
-    cm.set_multipv(20, 218)
+    cm.set_multipv(10, 218)
 
     if is64:
-        cm = mas("lc0", "The LCZero Authors", "v0.28.2", "https://github.com/LeelaChessZero", "lc0.exe", 3300)
+        cm = mas("lc0", "The LCZero Authors", "v0.29.0", "https://github.com/LeelaChessZero", "lc0.exe", 3300)
         cm.ordenUCI("Threads", "2")
-        cm.set_multipv(20, 500)
+        cm.set_multipv(10, 500)
 
     cm = mas(
         "stockfish",
@@ -251,7 +251,7 @@ def read_engines(folder_engines):
     cm.ordenUCI("Ponder", "false")
     cm.ordenUCI("Threads", "2" if is64 else "1")
     cm.ordenUCI("Hash", "64")
-    cm.set_multipv(20, 500)
+    cm.set_multipv(10, 500)
 
     for level in range(1100, 2000, 100):
         cm = mas(

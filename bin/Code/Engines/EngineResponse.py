@@ -502,13 +502,18 @@ class MultiEngineResponse:
             if not rm.mate:  # stockfish mate 0
                 rm.mate = -1
 
-    def agregaRM(self, rm):  # Para los analysis MultiPV donde no han considerado una move
-        n = 1
-        while True:
-            if not (str(n) in self.dicMultiPV):
-                self.dicMultiPV[str(n)] = rm
+    def agregaRM(self, rm):
+        # Para los analysis MultiPV donde no han considerado una move
+        max_depth = 0
+        included = False
+        for cdepth, rm1 in self.dicMultiPV.items():
+            if rm.movimiento() == rm1.movimiento():
+                included = True
                 break
-            n += 1
+            if int(cdepth) > max_depth:
+                max_depth = int(cdepth)
+        if not included:
+            self.dicMultiPV[str(max_depth+1)] = rm
         self.ordena()
         for pos, rm1 in enumerate(self.li_rm):
             if rm1.movimiento() == rm.movimiento():

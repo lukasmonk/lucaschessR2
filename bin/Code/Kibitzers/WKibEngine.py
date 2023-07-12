@@ -214,7 +214,7 @@ class WKibEngine(WKibCommon.WKibCommon):
         if self.is_candidates:
             self.numMultiPV = self.kibitzer.current_multipv()
             if self.numMultiPV <= 1:
-                self.numMultiPV = min(self.kibitzer.maxMultiPV, 20)
+                self.numMultiPV = min(self.kibitzer.maxMultiPV, 10)
         else:
             self.numMultiPV = 1
 

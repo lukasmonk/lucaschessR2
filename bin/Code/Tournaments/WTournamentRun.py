@@ -120,6 +120,7 @@ class WTournamentRun(QtWidgets.QWidget):
         QtWidgets.QWidget.__init__(self)
 
         Code.list_engine_managers = EngineManager.ListEngineManagers()
+
         self.torneo = TournamentRun(file_tournament)  # Tournament.Tournament(file_tournament)
         self.file_work = file_work
         self.db_work = UtilSQL.ListSQL(file_work)
@@ -304,6 +305,8 @@ class WTournamentRun(QtWidgets.QWidget):
             self.xengine[side].options(rv.time * 1000, rv.depth, False)
             self.xengine[side].set_gui_dispatch(self.gui_dispatch)
 
+
+
             bk = rv.book
             if bk == "*":
                 bk = self.torneo.book()
@@ -331,9 +334,6 @@ class WTournamentRun(QtWidgets.QWidget):
         self.tc_black = TimeControl.TimeControl(self, self.game, BLACK)
         self.tc_black.config_clock(self.max_seconds, self.seconds_per_move, 0, 0)
         self.tc_black.set_labels()
-
-
-
 
         while self.state == ST_PAUSE or self.play_next_move():
             if self.state == ST_PAUSE:
@@ -554,9 +554,9 @@ class WTournamentRun(QtWidgets.QWidget):
                                           RESULT_WIN_BLACK if self.current_side == WHITE else RESULT_WIN_WHITE)
             return False
         if time_seconds:
-            move.set_time_ms(time_seconds*1000.0)
+            move.set_time_ms(time_seconds * 1000.0)
         if clock_seconds:
-            move.set_clock_ms(clock_seconds*1000.0)
+            move.set_clock_ms(clock_seconds * 1000.0)
         if analysis:
             move.analysis = analysis
             move.del_nags()

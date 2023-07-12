@@ -1135,7 +1135,7 @@ class WLines(LCDialog.LCDialog):
             dic = self.dbop.dicRepeFen(si_white)
             mensaje = _("Move") + "  %d/" + str(len(dic))
             xmanager = self.procesador.creaManagerMotor(self.configuration.engine_tutor(), ms, 0, siMultiPV=False)
-            xmanager.set_multipv(20)
+            xmanager.set_multipv(10)
 
             st_borrar = set()
 

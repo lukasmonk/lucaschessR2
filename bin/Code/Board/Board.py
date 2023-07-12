@@ -902,7 +902,7 @@ class Board(QtWidgets.QGraphicsView):
                 return False
             else:
                 self.dirvisual = WindowDirector.Director(self)
-                self.dirvisual.guion.play()
+                self.dirvisual.guion.play(editing=True)
             return True
         else:
             return False

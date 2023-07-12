@@ -1,10 +1,10 @@
-id name Lc0 v0.28.2
+id name Lc0 v0.29.0
 id author The LCZero Authors.
 option name WeightsFile type string default <autodiscover>
-option name Backend type combo default blas var blas var eigen var random var check var recordreplay var roundrobin var multiplexing var demux
+option name Backend type combo default blas var blas var eigen var trivial var random var check var recordreplay var roundrobin var multiplexing var demux
 option name BackendOptions type string default
 option name Threads type spin default 2 min 1 max 128
-option name NNCacheSize type spin default 200000 min 0 max 999999999
+option name NNCacheSize type spin default 2000000 min 0 max 999999999
 option name MinibatchSize type spin default 7 min 1 max 1024
 option name MaxPrefetch type spin default 0 min 0 max 1024
 option name CPuct type string default 1.745000
@@ -42,7 +42,6 @@ option name DrawScoreWhite type spin default 0 min -100 max 100
 option name DrawScoreBlack type spin default 0 min -100 max 100
 option name NodesPerSecondLimit type string default 0.000000
 option name SolidTreeThreshold type spin default 100 min 1 max 2000000000
-option name MultiGather type check default true
 option name TaskWorkers type spin default 0 min 0 max 128
 option name MinimumProcessingWork type spin default 20 min 2 max 100000
 option name MinimumPickingWork type spin default 1 min 1 max 100000

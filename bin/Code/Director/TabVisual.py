@@ -204,6 +204,9 @@ class GT_Texto(GTarea):
     def run(self):
         self.guion.writePizarra(self)
 
+    def __str__(self):
+        return f"TEXT {self._texto}"
+
 
 class GT_Flecha(GT_Item):
     def __init__(self, guion):
@@ -801,9 +804,11 @@ class Guion:
                 else:
                     tarea.marcado(False)
 
-    def play(self):
+    def play(self, editing=False):
         self.cerrado = False
         for tarea in self.liGTareas:
+            if editing and not tarea.marcado():
+                continue
             if not hasattr("tarea", "itemSC") or not tarea.itemSC():
                 tarea.run()
             if tarea.tp() == TP_TEXTO and tarea.continuar():
