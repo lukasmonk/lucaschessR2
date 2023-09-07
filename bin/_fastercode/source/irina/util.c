@@ -18,8 +18,12 @@ int is_bmi2()
 #include <stdint.h>
 int is_bmi2()
 {
+    #ifdef __aarch64__
+    return O;
+    #else
     __builtin_cpu_init ();
     return __builtin_cpu_supports("bmi2");
+    #endif
 }
 #endif
 
