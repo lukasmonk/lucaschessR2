@@ -44,7 +44,7 @@ def options(parent, configuration):
     li = [
         (_("Play against an engine"), MENU_PLAY_ANY_ENGINE),
         (_("Opponents for young players"), MENU_PLAY_YOUNG_PLAYERS),
-        (_("Both"), MENU_PLAY_BOTH),
+        (_("All"), MENU_PLAY_BOTH),
     ]
     form.combobox(_("Menu Play"), li, configuration.x_menu_play)
 
@@ -99,8 +99,8 @@ def options(parent, configuration):
     form.separador()
 
     li_mouse_sh = [
-        (_("Type fixed: you must always indicate origin and destination"), False),
-        (_("Type predictive: program tries to guess your intention"), True),
+        (_("Fixed type: you must always indicate origin and destination"), False),
+        (_("Predictive type: program tries to guess your intention"), True),
     ]
     form.combobox(_("Mouse shortcuts"), li_mouse_sh, configuration.x_mouse_shortcuts)
     form.checkbox(_("Show candidates"), configuration.x_show_candidates)

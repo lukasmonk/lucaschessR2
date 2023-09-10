@@ -1,8 +1,8 @@
 import random
 
-from Code.Polyglots import Books
-from Code.Base import Game
 import Code
+from Code.Base import Game
+from Code.Books import Polyglot
 
 
 class EtiOpening:
@@ -24,7 +24,7 @@ class OpeningPol:
         else:
             si_ptz = 1 <= max_nivel <= 2
         self.file = Code.tbookPTZ if si_ptz else Code.tbook
-        self.book = Books.Polyglot()
+        self.book = Polyglot.Polyglot()
         self.activa = True
         self.max_level = max_nivel * 2
         self.nivel_actual = 0

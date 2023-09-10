@@ -1,7 +1,7 @@
 import Code
 from Code import Util
 from Code.Engines import Priorities
-from Code.Polyglots import Books
+from Code.Books import Books
 from Code.QT import FormLayout
 from Code.QT import Iconos
 from Code.QT import QTUtil
@@ -219,11 +219,7 @@ def analysis_parameters(parent, configuration, siModoAmpliado, siTodosMotores=Fa
         )
         li_gen.append((config, ""))
 
-        fvar = configuration.file_books
         list_books = Books.ListBooks()
-        list_books.restore_pickle(fvar)
-        # Comprobamos que todos esten accesibles
-        list_books.verify()
         li = [("--", None)]
         defecto = list_books.lista[0] if alm.book_name else None
         for book in list_books.lista:
@@ -441,11 +437,7 @@ def massive_analysis_parameters(parent, configuration, siVariosSeleccionados, si
     )
     li_gen.append((config, ""))
 
-    fvar = configuration.file_books
     list_books = Books.ListBooks()
-    list_books.restore_pickle(fvar)
-    # Comprobamos que todos esten accesibles
-    list_books.verify()
     li = [("--", None)]
     if alm.book_name is None:
         defecto = None

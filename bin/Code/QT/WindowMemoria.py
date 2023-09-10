@@ -21,12 +21,12 @@ class WDatos(QtWidgets.QDialog):
         self.setWindowIcon(Iconos.Memoria())
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Dialog | QtCore.Qt.WindowTitleHint)
 
-        tb = QTVarios.tbAcceptCancel(self)
+        tb = QTVarios.tb_accept_cancel(self)
 
         f = Controles.TipoLetra(puntos=12, peso=75)
 
-        self.ed, lb = QTUtil2.spinBoxLB(
-            self, max_level, 1, max_level, etiqueta=txtcategoria + " " + _("Level"), maxTam=40
+        self.ed, lb = QTUtil2.spinbox_lb(
+            self, max_level, 1, max_level, etiqueta=txtcategoria + " " + _("Level"), max_width=40
         )
         lb.ponFuente(f)
 

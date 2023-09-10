@@ -80,6 +80,22 @@ class Move:
         pts0 = mrm.li_rm[0].centipawns_abs()
         return pts0 - pts
 
+    def get_points_lost_mate(self):
+        if self.analysis is None:
+            return None, None
+        mrm, pos = self.analysis
+        if pos == 0:
+            return None, None
+        rm_best = mrm.li_rm[0]
+        rm_user = mrm.li_rm[pos]
+        pts = mrm.li_rm[pos].centipawns_abs()
+        pts0 = mrm.li_rm[0].centipawns_abs()
+        dif = pts0 - pts
+        if dif:
+            if rm_user.mate != 0 and rm_best.mate != 0:
+                return dif, rm_best.mate - rm_user.mate
+        return dif, None
+
     @property
     def liMovs(self):
         liMovs = [("b", self.to_sq), ("m", self.from_sq, self.to_sq)]
@@ -278,6 +294,9 @@ class Move:
         #     mrm = m
 
         self.variations.analisis2variantes(mrm, almVariations, delete_previous)
+
+    def has_alternatives(self):
+        return len(self.position_before.get_exmoves()) > 1
 
     def borraCV(self):
         self.variations.clear()

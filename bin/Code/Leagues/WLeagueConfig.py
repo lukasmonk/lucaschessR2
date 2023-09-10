@@ -102,7 +102,7 @@ class WLeagueConfig(LCDialog.LCDialog):
 
         # adjudicator
         self.liMotores = Code.configuration.combo_engines_multipv10()
-        self.cbJmotor, self.lbJmotor = QTUtil2.comboBoxLB(self, self.liMotores, league.adjudicator, _("Engine"))
+        self.cbJmotor, self.lbJmotor = QTUtil2.combobox_lb(self, self.liMotores, league.adjudicator, _("Engine"))
         self.edJtiempo = Controles.ED(self).tipoFloat(league.adjudicator_time).anchoFijo(50)
         self.lbJtiempo = Controles.LB2P(self, _("Time in seconds"))
         ly = Colocacion.G()
@@ -117,8 +117,8 @@ class WLeagueConfig(LCDialog.LCDialog):
         minutes, seconds = self.league.time_engine_engine
         lb_minutes = Controles.LB2P(self, _("Total minutes"))
         self.ed_minutes_eng_eng = Controles.ED(self).tipoFloat(minutes).anchoFijo(35)
-        self.sb_seconds_eng_eng, lb_seconds = QTUtil2.spinBoxLB(
-            self, seconds, -999, 999, maxTam=40, etiqueta=_("Seconds added per move")
+        self.sb_seconds_eng_eng, lb_seconds = QTUtil2.spinbox_lb(
+            self, seconds, -999, 999, max_width=40, etiqueta=_("Seconds added per move")
         )
 
         ly = Colocacion.H().control(lb_minutes).control(self.ed_minutes_eng_eng)
@@ -128,16 +128,16 @@ class WLeagueConfig(LCDialog.LCDialog):
         minutes, seconds = self.league.time_engine_human
         lb_minutes = Controles.LB2P(self, _("Total minutes"))
         self.ed_minutes_eng_human = Controles.ED(self).tipoFloat(minutes).anchoFijo(65)
-        self.sb_seconds_eng_human, lb_seconds = QTUtil2.spinBoxLB(
-            self, seconds, -999, 999, maxTam=35, etiqueta=_("Seconds added per move")
+        self.sb_seconds_eng_human, lb_seconds = QTUtil2.spinbox_lb(
+            self, seconds, -999, 999, max_width=35, etiqueta=_("Seconds added per move")
         )
         ly = Colocacion.H().control(lb_minutes).control(self.ed_minutes_eng_human)
         ly.control(lb_seconds).control(self.sb_seconds_eng_human)
 
         gb_time_eng_human = Controles.GB(self, _("Engine vs human"), ly)
 
-        self.sb_migration, lb_migration = QTUtil2.spinBoxLB(
-            self, self.league.migration, 0, 100, maxTam=35, etiqueta=_("Opponents who change divisions every season")
+        self.sb_migration, lb_migration = QTUtil2.spinbox_lb(
+            self, self.league.migration, 0, 100, max_width=35, etiqueta=_("Opponents who change divisions every season")
         )
         self.sb_migration.capture_changes(self.set_num_elements)
 

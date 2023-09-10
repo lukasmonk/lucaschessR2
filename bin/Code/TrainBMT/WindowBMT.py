@@ -38,7 +38,7 @@ class WHistorialBMT(LCDialog.LCDialog):
 
         # Dialogo ---------------------------------------------------------------
         icono = Iconos.Historial()
-        titulo = _("Track record") + ": " + dbf.NOMBRE
+        titulo = _("History") + ": " + dbf.NOMBRE
         extparam = "bmthistorial"
         LCDialog.LCDialog.__init__(self, owner, titulo, icono, extparam)
 
@@ -128,7 +128,7 @@ class WBMT(LCDialog.LCDialog):
             None,
             (_("Remove"), Iconos.Borrar(), self.borrar),
             None,
-            (_("Track record"), Iconos.Historial(), self.historial),
+            (_("History"), Iconos.Historial(), self.historial),
             None,
             (_("Utilities"), Iconos.Utilidades(), self.utilities),
         ]
@@ -296,7 +296,8 @@ class WBMT(LCDialog.LCDialog):
             position = Position.Position()
             position.read_fen(bmt_uno.fen)
             board.set_position(position)
-            board.set_side_bottom(position.is_white)
+            if board.is_white_bottom != position.is_white:
+                board.rotaBoard()
 
             wodt.odt_doc.add_paragraph("%s %d" % (_("Position"), current_pos + 1), bold=True)
             wodt.odt_doc.add_linebreak()
@@ -384,7 +385,7 @@ class WBMT(LCDialog.LCDialog):
         wodt.exec_()
 
     def pack(self):
-        um = QTUtil2.unMomento(self)
+        um = QTUtil2.one_moment_please(self)
         self.dbf.pack()
         self.releer()
         um.final()
@@ -584,7 +585,7 @@ class WBMT(LCDialog.LCDialog):
             accion, li_gen = resultado
             bl = li_gen[0]
 
-            um = QTUtil2.unMomento(self)
+            um = QTUtil2.one_moment_please(self)
             bmt_lista = Util.zip2var(dbf.leeOtroCampo(recno, "BMT_LISTA")).patch()
 
             from_sq = 0
@@ -650,7 +651,7 @@ class WBMT(LCDialog.LCDialog):
                 reg.FFINAL = ""
                 reg.SEGUNDOS = 0
 
-                um = QTUtil2.unMomento(self)
+                um = QTUtil2.one_moment_please(self)
                 dbf.insertarReg(reg, siReleer=False)
 
                 self.releer()
@@ -694,7 +695,7 @@ class WBMT(LCDialog.LCDialog):
         if not resultado:
             return
 
-        um = QTUtil2.unMomento(self)
+        um = QTUtil2.one_moment_please(self)
 
         accion, li_gen = resultado
         name = li_gen[0].strip()
@@ -870,7 +871,7 @@ class WBMT(LCDialog.LCDialog):
                 tit += "<li>%s %s</li>" % (dbf.NOMBRE, dbf.EXTRA)
             base = _("the following training")
             if QTUtil2.pregunta(self, _X(_("Delete %1?"), base) + tit):
-                um = QTUtil2.unMomento(self)
+                um = QTUtil2.one_moment_please(self)
                 dbf.remove_list_recnos(li)
                 dbf.pack()
                 self.releer()

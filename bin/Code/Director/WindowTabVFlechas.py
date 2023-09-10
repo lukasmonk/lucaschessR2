@@ -67,7 +67,7 @@ class WTV_Flecha(QtWidgets.QDialog):
         li_gen.append((config, regFlecha.forma))
 
         # ( "tipo", "n", Qt.SolidLine ), #1=SolidLine, 2=DashLine, 3=DotLine, 4=DashDotLine, 5=DashDotDotLine
-        config = FormLayout.Combobox(_("Line Type"), QTUtil2.tiposDeLineas())
+        config = FormLayout.Combobox(_("Line Type"), QTUtil2.lines_type())
         li_gen.append((config, regFlecha.tipo))
 
         # li_gen.append( (None,None) )
@@ -120,7 +120,7 @@ class WTV_Flecha(QtWidgets.QDialog):
         # li_gen.append( (None,None) )
 
         # orden
-        config = FormLayout.Combobox(_("Order concerning other items"), QTUtil2.listaOrdenes())
+        config = FormLayout.Combobox(_("Order concerning other items"), QTUtil2.list_zvalues())
         li_gen.append((config, regFlecha.physical_pos.orden))
 
         self.form = FormLayout.FormWidget(li_gen, dispatch=self.cambios)
@@ -309,7 +309,7 @@ class WTV_Flechas(LCDialog.LCDialog):
         w = WTV_Flecha(self, None, True)
         if w.exec_():
             regFlecha = w.regFlecha
-            regFlecha.id = Util.huella()
+            regFlecha.id = Util.huella_num()
             regFlecha.ordenVista = (self.liPFlechas[-1].ordenVista + 1) if self.liPFlechas else 1
             self.dbFlechas[regFlecha.id] = regFlecha.save_dic()
             self.liPFlechas.append(regFlecha)
@@ -358,7 +358,7 @@ class WTV_Flechas(LCDialog.LCDialog):
                 n += 1
                 name = "%s-%d" % (regFlecha.name, n)
             regFlecha.name = name
-            regFlecha.id = Util.huella()
+            regFlecha.id = Util.huella_num()
             regFlecha.ordenVista = self.liPFlechas[-1].ordenVista + 1
             self.dbFlechas[regFlecha.id] = regFlecha.save_dic()
             self.liPFlechas.append(regFlecha)

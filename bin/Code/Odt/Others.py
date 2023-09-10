@@ -71,9 +71,9 @@ class Meta(XML.XML):
         element3.add_param("meta:character-count", "0")
         element3.add_param("meta:non-whitespace-character-count", "0")
         element1.add_content(element3)
-        element4 = XML.Element("meta:generator")
-        element1.add_content(element4)
-        element4.set_value("Lucas Chess")
+        # element4 = XML.Element("meta:generator")
+        # element1.add_content(element4)
+        # element4.set_value("Lucas Chess")
 
     def run(self, folder):
         path_manifest = os.path.join(folder, "meta.xml")

@@ -8,7 +8,7 @@ from Code import Util
 from Code.Base.Constantes import BOOK_BEST_MOVE, BOOK_RANDOM_UNIFORM, BOOK_RANDOM_PROPORTIONAL
 from Code.Engines import Engines
 from Code.Engines import EnginesMicElo
-from Code.Polyglots import Books
+from Code.Books import Books
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles
@@ -36,7 +36,7 @@ def selectEngine(wowner):
     Code.configuration.write_variables("FOLDER_ENGINES", folderEngines)
 
     # Leemos el UCI
-    um = QTUtil2.unMomento(wowner)
+    um = QTUtil2.one_moment_please(wowner)
     me = Engines.read_engine_uci(exeMotor)
     um.final()
     if not me:
@@ -105,7 +105,7 @@ class WSelectEngineElo(LCDialog.LCDialog):
                     minimo = mt.elo
                 if mt.elo > maximo:
                     maximo = mt.elo
-        self.sbElo, lbElo = QTUtil2.spinBoxLB(self, elo, minimo, maximo, maxTam=75, etiqueta=_("Elo"))
+        self.sbElo, lbElo = QTUtil2.spinbox_lb(self, elo, minimo, maximo, max_width=75, etiqueta=_("Elo"))
         self.sbElo.capture_changes(self.filtrar)
 
         if self.siMic:
@@ -132,6 +132,12 @@ class WSelectEngineElo(LCDialog.LCDialog):
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("NUMBER", _("N."), 35, align_center=True)
         o_columns.nueva("ENGINE", _("Name"), 140)
+
+        for mt in self.liMotores:
+            if mt.max_depth:
+                o_columns.nueva("DEPTH", _("Depth"), 60, align_center=True)
+                break
+
         o_columns.nueva("ELO", _("Elo"), 60, align_right=True)
         if not self.siMicPer:
             o_columns.nueva("GANA", _("Win"), 80, align_center=True)
@@ -255,6 +261,8 @@ class WSelectEngineElo(LCDialog.LCDialog):
             valor = "%2d" % mt.number
         elif key == "ENGINE":
             valor = " " + mt.name
+        elif key == "DEPTH":
+            valor = str(mt.depth) if mt.depth else ""
         elif key == "ELO":
             valor = "%d " % mt.elo
         elif key == "INFO":
@@ -351,7 +359,7 @@ class WEngineExtend(QtWidgets.QDialog):
         self.siTorneo = siTorneo
 
         # Toolbar
-        tb = QTVarios.tbAcceptCancel(self)
+        tb = QTVarios.tb_accept_cancel(self)
 
         lb_alias = Controles.LB2P(self, _("Alias"))
         self.edAlias = Controles.ED(self, engine.key).anchoMinimo(360)
@@ -375,11 +383,7 @@ class WEngineExtend(QtWidgets.QDialog):
             self.edTime = Controles.ED(self, "").ponFloat(engine.time).anchoFijo(60).align_right()
 
             lb_book = Controles.LB(self, _("Opening book") + ": ")
-            fvar = Code.configuration.file_books
             self.list_books = Books.ListBooks()
-            self.list_books.restore_pickle(fvar)
-            # # Comprobamos que todos esten accesibles
-            self.list_books.verify()
             li = [(x.name, x.path) for x in self.list_books.lista]
             li.insert(0, ("* " + _("None"), "-"))
             li.insert(0, ("* " + _("By default"), "*"))
@@ -391,7 +395,7 @@ class WEngineExtend(QtWidgets.QDialog):
                 (_("Proportional random"), BOOK_RANDOM_PROPORTIONAL),
                 (_("Always the highest percentage"), BOOK_BEST_MOVE),
             )
-            self.cbBooksRR = QTUtil2.comboBoxLB(self, li, engine.bookRR)
+            self.cbBooksRR = QTUtil2.combobox_lb(self, li, engine.bookRR)
             ly_book = (
                 Colocacion.H()
                 .control(lb_book)
@@ -434,8 +438,6 @@ class WEngineExtend(QtWidgets.QDialog):
             name = os.path.basename(fbin)[:-4]
             b = Books.Book("P", name, fbin, False)
             self.list_books.nuevo(b)
-            fvar = Code.configuration.file_books
-            self.list_books.save_pickle(fvar)
             li = [(x.name, x.path) for x in self.list_books.lista]
             li.insert(0, ("* " + _("Engine book"), "-"))
             li.insert(0, ("* " + _("By default"), "*"))
@@ -484,8 +486,8 @@ def wgen_options_engine(owner, engine):
         tipo = opcion.tipo
         lb = Controles.LB(owner, opcion.name + ":").align_right()
         if tipo == "spin":
-            control = QTUtil2.spinBoxLB(
-                owner, opcion.valor, opcion.minimo, opcion.maximo, maxTam=50 if opcion.maximo < 1000 else 80
+            control = QTUtil2.spinbox_lb(
+                owner, opcion.valor, opcion.minimo, opcion.maximo, max_width=50 if opcion.maximo < 1000 else 80
             )
             lb.set_text("%s [%d-%d] :" % (opcion.name, opcion.minimo, opcion.maximo))
         elif tipo == "check":

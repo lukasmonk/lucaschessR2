@@ -23,6 +23,7 @@ from Code.QT import QTUtil2
 
 class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
     show_comments = None
+    used_hints = 0
 
     def start(self, pathFichero):
         self.board.saveVisual()
@@ -55,12 +56,13 @@ class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
 
         self.liMensBasic = []
 
-        self.siAyuda = False
+        self.used_hints = 0
         self.board.dbvisual_set_show_always(False)
 
         self.game = Game.Game()
 
         self.hints = 9999  # Para que analice sin problemas
+        self.used_hints = 0
 
         self.is_human_side_white = self.training["COLOR"] == "WHITE"
         self.is_engine_side_white = not self.is_human_side_white
@@ -83,7 +85,7 @@ class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
 
         self.errores = 0
         self.ini_time = time.time()
-        self.muestraInformacion()
+        self.show_labels()
         self.play_next_move()
 
     def calc_totalTiempo(self):
@@ -93,18 +95,18 @@ class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
                 self.tm += tr["TIME"]
 
     def get_help(self):
-        self.siAyuda = True
+        self.used_hints += 1
         self.board.dbvisual_set_show_always(True)
 
-        self.muestraAyuda()
-        self.muestraInformacion()
+        self.show_help()
+        self.show_labels()
 
-    def muestraInformacion(self):
+    def show_labels(self):
         li = []
         li.append("%s: %d/%d" % (_("Line"), self.num_linea + 1, len(self.liGames)))
         li.append("%s: %d" % (_("Errors"), self.errores))
-        if self.siAyuda:
-            li.append(_("Help activated"))
+        if self.used_hints:
+            li.append("%s: %d" % (_("Hints"), self.used_hints))
         self.set_label1("\n".join(li))
 
         tgm = 0
@@ -126,18 +128,18 @@ class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
         self.state = ST_ENDGAME
         tm = time.time() - self.ini_time
         li = [_("Line completed")]
-        if self.siAyuda:
-            li.append(_("Help activated"))
+        if self.used_hints:
+            li.append("%s: %d" % (_("Hints"), self.used_hints))
         if self.errores > 0:
             li.append("%s: %d" % (_("Errors"), self.errores))
 
         if is_complete:
             mensaje = "\n".join(li)
             self.message_on_pgn(mensaje)
-        dictry = {"DATE": Util.today(), "TIME": tm, "AYUDA": self.siAyuda, "ERRORS": self.errores}
+        dictry = {"DATE": Util.today(), "TIME": tm, "AYUDA": self.used_hints > 0, "USED_HINTS": self.used_hints, "ERRORS": self.errores}
         self.game_info["TRIES"].append(dictry)
 
-        sinError = self.errores == 0 and not self.siAyuda
+        sinError = self.errores == 0 and self.used_hints == 0
         if is_complete:
             if sinError:
                 self.game_info["NOERROR"] += 1
@@ -157,7 +159,7 @@ class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
         self.state = ST_ENDGAME
         self.calc_totalTiempo()
         is_finished = self.num_linea + 1 >= len(self.liGames) and sinError and is_complete
-        self.muestraInformacion()
+        self.show_labels()
         if is_finished:
             QTUtil2.message(
                 self.main_window,
@@ -170,7 +172,7 @@ class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
         if is_finished:
             self.end_game()
 
-    def muestraAyuda(self):
+    def show_help(self):
         pv = self.li_pv[len(self.game)]
         self.board.show_arrow_mov(pv[:2], pv[2:4], "mt", opacity=0.80)
         fenm2 = self.game.last_position.fenm2()
@@ -223,7 +225,7 @@ class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
         self.reinicio(self.dbop)
 
     def play_next_move(self):
-        self.muestraInformacion()
+        self.show_labels()
         if self.state == ST_ENDGAME:
             return
 
@@ -276,16 +278,16 @@ class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
             li = self.dicFENm2.get(fenm2, set())
             if pvSel in li:
                 mens = _("You have selected a correct move, but this line uses another one.")
-                QTUtil2.mensajeTemporal(self.main_window, mens, 2, physical_pos="tb", background="#C3D6E8")
+                QTUtil2.temporary_message(self.main_window, mens, 2, physical_pos="tb", background="#C3D6E8")
                 self.sigueHumano()
                 return False
 
             self.errores += 1
             mens = "%s: %d" % (_("Error"), self.errores)
-            QTUtil2.mensajeTemporal(
-                self.main_window, mens, 0.8, physical_pos="ad", background="#FF9B00", pmImagen=Iconos.pmError()
+            QTUtil2.temporary_message(
+                self.main_window, mens, 0.8, physical_pos="ad", background="#FF9B00", pm_image=Iconos.pmError()
             )
-            self.muestraInformacion()
+            self.show_labels()
             self.sigueHumano()
             return False
 

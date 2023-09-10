@@ -498,7 +498,7 @@ class WSave(LCDialog.LCDialog):
             if self.file in self.history_list:
                 self.history_list.remove(self.file)
             self.history_list.insert(0, self.file)
-            QTUtil2.mensajeTemporal(self.parent(), _("Saved"), 0.8)
+            QTUtil2.temporary_message(self.parent(), _("Saved"), 0.8)
             self.terminar()
         except:
             QTUtil2.message_error(self, _("Unable to save"))
@@ -506,7 +506,7 @@ class WSave(LCDialog.LCDialog):
     def portapapeles(self):
         pgn = self.current_pgn()
         QTUtil.ponPortapapeles(pgn)
-        QTUtil2.mensajeTemporal(self, _("It is saved in the clipboard to paste it wherever you want."), 2)
+        QTUtil2.temporary_message(self, _("It is saved in the clipboard to paste it wherever you want."), 2)
 
     def terminar(self):
         self.vars_save()
@@ -652,7 +652,7 @@ class FileSavePGN:
         self.f.close()
 
     def um(self):
-        self.xum = QTUtil2.unMomento(self.owner, _("Saving..."))
+        self.xum = QTUtil2.one_moment_please(self.owner, _("Saving..."))
 
     def um_final(self, with_message=True):
         if self.xum:

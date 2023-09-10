@@ -245,9 +245,6 @@ msgstr "Gambit Benko refusé, var. Sosonko"
 msgid "Benko Gambit: Zaitsev Variation, Nescafe Frappe Attack"
 msgstr "Gambit Benko, var. Zaitsev, attaque Nescafé frappé"
 
-msgid "Benko Gambit"
-msgstr "Gambit Benko (gambit de la Volga)"
-
 msgid "Benko Gambit Accepted"
 msgstr "Gambit Benko accepté"
 
@@ -274,6 +271,9 @@ msgstr "Gambit Benko, var. du fianchetto-roi"
 
 msgid "Benko Gambit: Main Line"
 msgstr "Gambit Benko, ligne principale (var. de la marche du roi)"
+
+msgid "Benko Gambit"
+msgstr "Gambit Benko (gambit de la Volga)"
 
 msgid "Benko Opening: Reversed Alekhine"
 msgstr ""
@@ -306,6 +306,9 @@ msgstr "Défense Benoni, gambit du cormoran"
 msgid "Benoni Defence: Fianchetto Variation"
 msgstr "Défense Benoni, var. du fianchetto-roi"
 
+msgid "Benoni Defence: Franco-Sicilian Hybrid"
+msgstr "Défense Benoni, hybride franco-sicilienne"
+
 msgid "Benoni Defence: Modern Variation, Snake Variation"
 msgstr ""
 "Défense Benoni, var. moderne, var. du serpent (en suédois \"orm\", anagramme"
@@ -321,14 +324,17 @@ msgstr "Défense Benoni ancienne"
 msgid "Benoni Defence: Snail Variation"
 msgstr "Défense Benoni ancienne, var. de l'escargot"
 
+msgid "Benoni Defence: Weenink Variation"
+msgstr "Défense Benoni, var. Weenink"
+
 msgid "Benoni Defence: Zilbermints-Benoni Gambit"
 msgstr "Défense Benoni, gambit Zilbermints - Benoni"
 
-msgid "Benoni Defence"
-msgstr "Défense Benoni (de l'hébreu \"Fils de ma douleur\")"
-
 msgid "Benoni Defence, Hromodka System"
 msgstr "Défense Benoni, système Hromádka"
+
+msgid "Benoni Defence"
+msgstr "Défense Benoni (de l'hébreu \"Fils de ma douleur\")"
 
 msgid "Benoni: 6.e4"
 msgstr "Défense Benoni, 6.e4"
@@ -1988,6 +1994,9 @@ msgstr "Française, var. Rubinstein, défense Blackburne, attaque Kasparov"
 msgid "French Defence: Réti-Spielmann Attack"
 msgstr "Française, attaque Réti - Spielmann"
 
+msgid "French Defence: Steinitz Variation"
+msgstr "Française, var. Steinitz"
+
 msgid "French Defence: Tarrasch Variation, Chistyakov Defence"
 msgstr "Française, var. Tarrasch, système ouvert, défense Chistiakov"
 
@@ -2136,9 +2145,6 @@ msgstr "Française, var. Schlechter"
 
 msgid "French Defence: Steinitz Attack"
 msgstr "Française, attaque Steinitz"
-
-msgid "French Defence: Steinitz Variation"
-msgstr "Française, var. Steinitz"
 
 msgid "French Defence: Steinitz, Boleslavsky Variation"
 msgstr "Française, var. Steinitz, var. Boleslavsky"
@@ -4296,12 +4302,18 @@ msgstr ""
 "Défense Nimzowitsch, var. refusée, défense El Columpio (en français \"la "
 "balançoire\", une peinture de Goya ?)"
 
+msgid "Nimzowitsch Defence: French Connection"
+msgstr "Défense Nimzowitsch, connexion (à la défense) française"
+
 msgid "Nimzowitsch Defence: Lean Variation, Colorado Counter Accepted"
 msgstr ""
 "Défense Nimzowitsch, gambit (ou contre-attaque) du Colorado accepté(e)"
 
 msgid "Nimzowitsch Defence: Mikenas Variation"
 msgstr "Défense Nimzowitsch, var. Mikenas"
+
+msgid "Nimzowitsch Defence: Pirc Connection"
+msgstr "Défense Nimzowitsch, connexion (à la défense) Pirc"
 
 msgid "Nimzowitsch Defence: Pseudo-Spanish Variation"
 msgstr "Défense Nimzowitsch, var. pseudo-espagnole"
@@ -6022,7 +6034,7 @@ msgid "Reversed Grob (Borg/Basman Defence/macho Grob)"
 msgstr "Défense Basman ou Borg (référence au début Grob)"
 
 msgid "Richter-Veresov Attack"
-msgstr "Attaque Richter - Veresov, 3...Ff5"
+msgstr "Attaque Richter - Veresov"
 
 msgid "Richter-Veresov Attack, Richter Variation"
 msgstr "Attaque Richter - Veresov, var. Richter"

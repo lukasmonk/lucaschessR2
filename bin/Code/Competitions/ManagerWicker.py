@@ -24,7 +24,7 @@ from Code.Base.Constantes import (
 )
 from Code.Engines import Engines
 from Code.Engines import EnginesWicker
-from Code.Polyglots import Books
+from Code.Books import Books
 from Code.QT import QTUtil2, QTUtil
 from Code.SQL import UtilSQL
 

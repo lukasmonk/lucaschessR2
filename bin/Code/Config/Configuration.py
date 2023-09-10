@@ -193,6 +193,9 @@ class Configuration:
         self.x_analyzer_mstime = 3000
         self.x_analyzer_depth = 0
         self.x_analyzer_priority = Priorities.priorities.low
+        self.x_analyzer_depth_ab = 24
+        self.x_analyzer_mstime_ab = 0
+        self.x_analyzer_mstime_refresh_ab = 200
 
         self.x_maia_nodes_exponential = False
 
@@ -256,24 +259,28 @@ class Configuration:
 
         self.x_mode_select_lc = Code.is_linux
 
-        self.dic_books = None
+        self._dic_books = None
+
+    @property
+    def dic_books(self):
+        if self._dic_books is None:
+            if self._dic_books is None:
+                self._dic_books = {}
+
+                def add_folder(folder):
+                    entry: os.DirEntry
+                    for entry in os.scandir(folder):
+                        if entry.is_dir():
+                            add_folder(entry.path)
+                        elif entry.name.endswith(".bin"):
+                            self._dic_books[entry.name] = entry.path
+
+                add_folder(Code.path_resource("Openings"))
+                for engine in ("foxcub", "fox", "maia", "irina", "rodentii"):
+                    add_folder(os.path.join(Code.folder_engines, engine))
+        return self._dic_books
 
     def path_book(self, alias):
-        if self.dic_books is None:
-            self.dic_books = {}
-
-            def add_folder(folder):
-                entry: os.DirEntry
-                for entry in os.scandir(folder):
-                    if entry.is_dir():
-                        add_folder(entry.path)
-                    elif entry.name.endswith(".bin"):
-                        self.dic_books[entry.name] = entry.path
-
-            add_folder(Code.path_resource("Openings"))
-            for engine in ("foxcub", "fox", "maia", "irina", "rodentii"):
-                add_folder(os.path.join(Code.folder_engines, engine))
-
         return self.dic_books[alias]
 
     def read_eval(self):
@@ -473,6 +480,9 @@ class Configuration:
 
     def file_learn_game(self):
         return "%s/LearnPGN.db" % self.carpeta_results
+
+    def file_train_books_ol(self):
+        return "%s/booksTrainOL.liobj" % self.carpeta_results
 
     def file_gms(self):
         return "%s/gm.pke" % self.carpeta_config

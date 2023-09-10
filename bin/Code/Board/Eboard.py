@@ -34,8 +34,8 @@ class Eboard:
     def set_position(self, position):
         # assert Code.prln("set position", position.fen())
         if self.driver:
-            if (Code.configuration.x_digital_board == "DGT") or (
-                Code.configuration.x_digital_board == "Novag UCB" and Code.configuration.x_digital_board_version == 0
+            if (self.name == "DGT") or (
+                    self.name == "Novag UCB" and Code.configuration.x_digital_board_version == 0
             ):
                 self.write_position(position.fenDGT())
             else:
@@ -114,23 +114,23 @@ class Eboard:
 
         if Code.is_linux:
             functype = ctypes.CFUNCTYPE
-            if Code.configuration.x_digital_board == "DGT-gon":
+            if self.name == "DGT-gon":
                 path_so = os.path.join(path_eboards, "libdgt.so")
-            elif Code.configuration.x_digital_board == "Certabo":
+            elif self.name == "Certabo":
                 path_so = os.path.join(path_eboards, "libcer.so")
-            elif Code.configuration.x_digital_board == "Chessnut":
+            elif self.name == "Chessnut":
                 path_so = os.path.join(path_eboards, "libnut.so")
-            elif Code.configuration.x_digital_board == "Pegasus":
+            elif self.name == "Pegasus":
                 path_so = os.path.join(path_eboards, "libpeg.so")
-            elif Code.configuration.x_digital_board == "Millennium":
+            elif self.name == "Millennium":
                 path_so = os.path.join(path_eboards, "libmcl.so")
-            elif Code.configuration.x_digital_board == "Citrine":
+            elif self.name == "Citrine":
                 path_so = os.path.join(path_eboards, "libcit.so")
-            elif Code.configuration.x_digital_board == "Saitek":
+            elif self.name == "Saitek":
                 path_so = os.path.join(path_eboards, "libosa.so")
-            elif Code.configuration.x_digital_board == "Square Off":
+            elif self.name == "Square Off":
                 path_so = os.path.join(path_eboards, "libsop.so")
-            elif Code.configuration.x_digital_board == "Tabutronic":
+            elif self.name == "Tabutronic":
                 path_so = os.path.join(path_eboards, "libtab.so")
             else:
                 path_so = os.path.join(path_eboards, "libucb.so")
@@ -141,7 +141,7 @@ class Eboard:
                     driver = None
                     from Code.QT import QTUtil2
 
-                    if Code.configuration.x_digital_board == "Chessnut":
+                    if self.name == "Chessnut":
                         QTUtil2.message(
                             None,
                             """It is not possible to install the driver for the board, one way to solve the problem is to install the libraries:
@@ -162,42 +162,49 @@ class Eboard:
 
         else:
             functype = ctypes.WINFUNCTYPE
-            for path_eboards in (
-                os.path.join(Code.folder_OS, "DigitalBoards"),
-                "",
-                "C:/Program Files (x86)/DGT Projects/",
-                "C:/Program Files (x86)/Common Files/DGT Projects/",
-                "C:/Program Files/DGT Projects/",
-                "C:/Program Files/Common Files/DGT Projects/",
-            ):
-                try:
-                    if Code.configuration.x_digital_board == "DGT":
-                        path_dll = os.path.join(path_eboards, "DGTEBDLL.dll")
-                    elif Code.configuration.x_digital_board == "Certabo":
-                        path_dll = os.path.join(path_eboards, "CER_DLL.dll")
-                    elif Code.configuration.x_digital_board == "Chessnut":
-                        path_dll = os.path.join(path_eboards, "NUT_DLL.dll")
-                    elif Code.configuration.x_digital_board == "DGT-gon":
-                        path_dll = os.path.join(path_eboards, "DGT_DLL.dll")
-                    elif Code.configuration.x_digital_board == "Pegasus":
-                        path_dll = os.path.join(path_eboards, "PEG_DLL.dll")
-                    elif Code.configuration.x_digital_board == "Millennium":
-                        path_dll = os.path.join(path_eboards, "MCL_DLL.dll")
-                    elif Code.configuration.x_digital_board == "Citrine":
-                        path_dll = os.path.join(path_eboards, "CIT_DLL.dll")
-                    elif Code.configuration.x_digital_board == "Saitek":
-                        path_dll = os.path.join(path_eboards, "OSA_DLL.dll")
-                    elif Code.configuration.x_digital_board == "Square Off":
-                        path_dll = os.path.join(path_eboards, "SOP_DLL.dll")
-                    elif Code.configuration.x_digital_board == "Tabutronic":
-                        path_dll = os.path.join(path_eboards, "TAB_DLL.dll")
-                    else:
-                        path_dll = os.path.join(path_eboards, "UCB_DLL.dll")
+            path_eboards = os.path.join(Code.folder_OS, "DigitalBoards")
+
+            if self.name == "DGT":
+                for path_dll_dgt in (
+                        "C:/Program Files (x86)/DGT Projects/",
+                        "C:/Program Files (x86)/Common Files/DGT Projects/",
+                        "C:/Program Files/DGT Projects/",
+                        "C:/Program Files/Common Files/DGT Projects/",
+                        "",
+                        path_eboards
+                ):
+                    path_dll = os.path.join(path_dll_dgt, "DGTEBDLL.dll")
                     if os.path.isfile(path_dll):
+                        try:
+                            driver = ctypes.WinDLL(path_dll)
+                        except:
+                            pass
+            else:
+                if self.name == "Certabo":
+                    path_dll = os.path.join(path_eboards, "CER_DLL.dll")
+                elif self.name == "Chessnut":
+                    path_dll = os.path.join(path_eboards, "NUT_DLL.dll")
+                elif self.name == "DGT-gon":
+                    path_dll = os.path.join(path_eboards, "DGT_DLL.dll")
+                elif self.name == "Pegasus":
+                    path_dll = os.path.join(path_eboards, "PEG_DLL.dll")
+                elif self.name == "Millennium":
+                    path_dll = os.path.join(path_eboards, "MCL_DLL.dll")
+                elif self.name == "Citrine":
+                    path_dll = os.path.join(path_eboards, "CIT_DLL.dll")
+                elif self.name == "Saitek":
+                    path_dll = os.path.join(path_eboards, "OSA_DLL.dll")
+                elif self.name == "Square Off":
+                    path_dll = os.path.join(path_eboards, "SOP_DLL.dll")
+                elif self.name == "Tabutronic":
+                    path_dll = os.path.join(path_eboards, "TAB_DLL.dll")
+                else:
+                    path_dll = os.path.join(path_eboards, "UCB_DLL.dll")
+                if os.path.isfile(path_dll):
+                    try:
                         driver = ctypes.WinDLL(path_dll)
-                        break
-                except:
-                    pass
+                    except:
+                        pass
 
         if driver is None:
             os.chdir(Code.current_dir)
@@ -266,7 +273,7 @@ class Eboard:
         driver._DGTDLL_SetNRun.argtype = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
         driver._DGTDLL_SetNRun.restype = ctypes.c_int
 
-        if Code.configuration.x_digital_board != "DGT":
+        if self.name != "DGT":
             driver._DGTDLL_GetVersion.argtype = []
             driver._DGTDLL_GetVersion.restype = ctypes.c_int
             Code.configuration.x_digital_board_version = driver._DGTDLL_GetVersion()

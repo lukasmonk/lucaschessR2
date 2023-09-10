@@ -5,7 +5,7 @@ import Code
 from Code import Util
 from Code.GM import GM
 from Code.Openings import WindowOpenings
-from Code.Polyglots import Books
+from Code.Books import Books
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles
@@ -53,7 +53,7 @@ class WGM(LCDialog.LCDialog):
         self.li_gm = GM.lista_gm()
         li = [(x[0], x[1]) for x in self.li_gm]
         li.insert(0, ("-", None))
-        self.cb_gm = QTUtil2.comboBoxLB(self, li, li[0][1] if len(self.li_gm) == 0 else li[1][1])
+        self.cb_gm = QTUtil2.combobox_lb(self, li, li[0][1] if len(self.li_gm) == 0 else li[1][1])
         self.cb_gm.capture_changes(self.check_gm)
         hbox = Colocacion.H().relleno().control(self.cb_gm).relleno()
         gbGM = Controles.GB(self, _("Choose a Grandmaster"), hbox).ponFuente(flb)
@@ -64,7 +64,7 @@ class WGM(LCDialog.LCDialog):
         if self.li_personal:
             li = [(x[0], x[1]) for x in self.li_personal]
             li.insert(0, ("-", None))
-            self.cbPersonal = QTUtil2.comboBoxLB(self, li, li[0][1])
+            self.cbPersonal = QTUtil2.combobox_lb(self, li, li[0][1])
             self.cbPersonal.capture_changes(self.check_personal)
             self.cbPersonal.setFont(flb)
             btBorrar = Controles.PB(self, "", self.borrarPersonal).ponIcono(Iconos.Borrar(), icon_size=24)
@@ -90,7 +90,7 @@ class WGM(LCDialog.LCDialog):
         for x in range(1, 31):
             liDepths.append((str(x), x))
         self.liMotores = self.configuration.combo_engines_multipv10()
-        self.cbJmotor, self.lbJmotor = QTUtil2.comboBoxLB(
+        self.cbJmotor, self.lbJmotor = QTUtil2.combobox_lb(
             self, self.liMotores, self.configuration.tutor_default, _("Engine")
         )
         self.edJtiempo = Controles.ED(self).tipoFloat().ponFloat(1.0).anchoFijo(50)
@@ -126,17 +126,13 @@ class WGM(LCDialog.LCDialog):
             control.setFont(flb)
 
         # Inicial
-        self.edJugInicial, lbInicial = QTUtil2.spinBoxLB(self, 1, 1, 99, etiqueta=_("Initial move"), maxTam=40)
+        self.edJugInicial, lbInicial = QTUtil2.spinbox_lb(self, 1, 1, 99, etiqueta=_("Initial move"), max_width=40)
 
         # Libros
-        fvar = self.configuration.file_books
         self.list_books = Books.ListBooks()
-        self.list_books.restore_pickle(fvar)
-        # # Comprobamos que todos esten accesibles
-        self.list_books.verify()
         li = [(x.name, x) for x in self.list_books.lista]
         li.insert(0, ("--", None))
-        self.cbBooks, lbBooks = QTUtil2.comboBoxLB(self, li, None, _("Bypass moves in the book"))
+        self.cbBooks, lbBooks = QTUtil2.combobox_lb(self, li, None, _("Bypass moves in the book"))
 
         # Openings
 
@@ -209,7 +205,7 @@ class WGM(LCDialog.LCDialog):
         self.tab = Controles.Tab().set_position("S")
         self.tab.new_tab(gbBasic, _("Basic"))
         self.tab.new_tab(gbAdvanced, _("Advanced"))
-        self.tab.new_tab(self.grid, _("Track record"))
+        self.tab.new_tab(self.grid, _("History"))
         self.tab.setFont(flb)
 
         # Header
@@ -508,7 +504,7 @@ class WGM(LCDialog.LCDialog):
 
     def aperturasEditar(self):
         self.btOpening.setDisabled(True)  # Puede tardar bastante vtime
-        me = QTUtil2.unMomento(self)
+        me = QTUtil2.one_moment_please(self)
         w = WindowOpenings.WOpenings(self, self.configuration, self.opening_block)
         me.final()
         self.btOpening.setDisabled(False)
@@ -687,7 +683,7 @@ def importar_gm(owner_gm):
     web = "https://lucaschess.pythonanywhere.com/static/gm_mw"
 
     message = _("Reading the list of Grandmasters from the web")
-    me = QTUtil2.mensEspera.start(owner_gm, message)
+    me = QTUtil2.waiting_message.start(owner_gm, message)
 
     fich_name = "_listaGM.txt"
     url_lista = "%s/%s" % (web, fich_name)
@@ -726,7 +722,7 @@ def importar_gm(owner_gm):
             if dic["ELEGIDO"]:
                 gm = dic["GM"]
                 gm = gm[0].upper() + gm[1:].lower()
-                me = QTUtil2.mensEspera.start(owner_gm, _X(_("Import %1"), gm), opacity=1.0)
+                me = QTUtil2.waiting_message.start(owner_gm, _X(_("Import %1"), gm), opacity=1.0)
 
                 # Descargamos
                 fzip = gm + ".zip"

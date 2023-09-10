@@ -43,7 +43,6 @@ class ManagerMateMap(Manager.Manager):
 
         self.human_is_playing = False
         self.state = ST_PLAYING
-        self.plays_instead_of_me_option = False
 
         self.is_human_side_white = is_white
         self.is_engine_side_white = not is_white

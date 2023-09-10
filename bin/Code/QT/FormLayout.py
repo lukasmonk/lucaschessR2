@@ -34,7 +34,7 @@ import os
 
 from PySide2 import QtCore, QtGui, QtWidgets
 
-from Code import Util
+import Code
 from Code.QT import Colocacion
 from Code.QT import Controles
 from Code.QT import Iconos
@@ -270,7 +270,7 @@ class BotonFichero(QtWidgets.QPushButton):
         if txt:
             txt = os.path.realpath(txt)
             if self.siRelativo:
-                txt = Util.relative_path(txt)
+                txt = Code.relative_root(txt)
             tamTxt = self.qm.boundingRect(txt).width()
             tmax = self.width() - 10
             if self.siPrimeraVez:
@@ -822,7 +822,7 @@ class FormDialog(QtWidgets.QDialog):
             if dispatch:
                 dispatch(self.formwidget)  # enviamos el form de donde tomar datos cuando hay cambios
 
-        tb = QTVarios.tbAcceptCancel(self, if_default, siReject=False)
+        tb = QTVarios.tb_accept_cancel(self, if_default, with_cancel=False)
 
         layout = Colocacion.V()
         layout.control(tb)

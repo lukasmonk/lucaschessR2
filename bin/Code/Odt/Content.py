@@ -1,5 +1,6 @@
 import os
 import shutil
+
 from Code.Odt import XML
 
 
@@ -208,10 +209,77 @@ class Content(XML.XML):
         element1.add_content(element2)
         self.automatic_styles.add_content(element1)
 
-    def table_styles(self):
-        pass
+    def register_table_style(self, name: str, width: float, num_cols: int, border: int):
+        element = XML.Element("style:style")
+        element.add_param("style:name", name)
+        element.add_param("style:family", "table")
+        self.automatic_styles.add_content(element)
 
-    def writeln(self, txt, bold, align_center):
+        element1 = XML.Element("style:table-properties")
+        element1.add_param("style:width", "%dcm" % width)
+        element1.add_param("table:align", "margins")
+        element.add_content(element1)
+
+        name_col = f"{name}.A"
+        element1 = XML.Element("style:style")
+        element1.add_param("style:name", name_col)
+        element1.add_param("style:family", "table-column")
+        self.automatic_styles.add_content(element1)
+        element2 = XML.Element("style:table-column-properties")
+        element2.add_param("style:column-width", "%0.02fcm" % (width / num_cols,))
+        element2.add_param("style:rel-column-width", "32767*")
+        element1.add_content(element2)
+
+        name_cell = name_col + "1"
+        element1 = XML.Element("style:style")
+        element1.add_param("style:name", name_cell)
+        element1.add_param("style:family", "table-cell")
+        self.automatic_styles.add_content(element1)
+        element2 = XML.Element("style:table-cell-properties")
+        element2.add_param("fo:padding", "0.097cm")
+        element2.add_param("fo:border", "none" if not border else str(border))
+        element1.add_content(element2)
+
+    def write_element(self, parent, element):
+        if parent is None:
+            parent = self.office_text
+        parent.add_content(element)
+
+    def create_table(self, style: str, num_cols: int, parent=None):
+        element_table = XML.Element("table:table")
+        element_table.add_param("table:name", style)
+        element_table.add_param("table:style-name", style)
+        self.write_element(parent, element_table)
+
+        element_table.add_extra("NUM_COLS", num_cols)
+        element_table.add_extra("STYLE", style)
+
+        element_col = XML.Element("table:table-column")
+        element_col.add_param("table:style-name", f"{style}.A")
+        element_col.add_param("table:number-columns-repeated", str(num_cols))
+        element_table.add_content(element_col)
+
+        return element_table
+
+    @staticmethod
+    def add_table_row(element_table: XML.Element):
+        element_row = XML.Element("table:table-row")
+        element_table.add_content(element_row)
+        element_row.add_extra("STYLE_TABLE", element_table.get_extra("STYLE"))
+        return element_row
+
+    @staticmethod
+    def add_table_cell(element_row: XML.Element):
+        style = element_row.get_extra("STYLE_TABLE")
+        name_cell = f"{style}.A1"
+        element_cell = XML.Element("table:table-cell")
+        element_cell.add_param("table:style-name", name_cell)
+        element_cell.add_param("office:value-type", "string")
+
+        element_row.add_content(element_cell)
+        return element_cell
+
+    def writeln(self, txt, bold, align_center, parent=None):
         if bold:
             style = "PARA_BOLD_CENTERED" if align_center else "PARA_BOLD"
         else:
@@ -219,28 +287,33 @@ class Content(XML.XML):
 
         element = XML.Element("text:p")
         element.add_param("text:style-name", style)
-        element.set_value(txt)
+        if txt:
+            element.set_value(txt)
 
-        self.office_text.add_content(element)
+        self.write_element(parent, element)
+        return element
 
-    def writeln8(self, txt):
+    def writeln8(self, txt, parent=None):
         element = XML.Element("text:p")
         element.add_param("text:style-name", "PARA_8")
         element.set_value(txt)
 
-        self.office_text.add_content(element)
+        self.write_element(parent, element)
+        return element
 
-    def page_break(self):
+    def page_break(self, parent=None):
         element = XML.Element("text:p")
         element.add_param("text:style-name", "PAGE_BREAK")
-        self.office_text.add_content(element)
 
-    def line_break(self):
+        self.write_element(parent, element)
+
+    def line_break(self, parent=None):
         element = XML.Element("text:p")
         element.add_param("text:style-name", "Standard")
-        self.office_text.add_content(element)
 
-    def add_png(self, path_png, width, height=None):
+        self.write_element(parent, element)
+
+    def add_png(self, path_png, width, height=None, align_center=False, parent=None):
         """<text:p text:style-name="P6"><draw:frame draw:style-name="fr1" draw:name="Imagen1" text:anchor-type="as-char" svg:width="8.729cm" svg:height="8.729cm" draw:z-index="0"><draw:image xlink:href="Pictures/100000010000014A0000014A845C32C77CCA2B7E.png" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad" draw:mime-type="image/png"/></draw:frame></text:p>"""
         self.li_path_png.append(path_png)
         internal_path = self.fmt_png % self.pos_png
@@ -248,7 +321,7 @@ class Content(XML.XML):
 
         internal_name = "Image%03d" % self.pos_png
         element = XML.Element("text:p")
-        element.add_param("text:style-name", "Standard")
+        element.add_param("text:style-name", "PARA_CENTERED" if align_center else "Standard")
         element2 = XML.Element("draw:frame")
         element2.add_param("draw:style-name", "PNG_IMAGE")
         element2.add_param("draw:name", internal_name)
@@ -265,11 +338,11 @@ class Content(XML.XML):
         element3.add_param("draw:mime-type", "image/png")
         element2.add_content(element3)
 
-        self.office_text.add_content(element)
+        self.write_element(parent, element)
 
         return internal_path
 
-    def add_hyperlink(self, http, txt):
+    def add_hyperlink(self, http, txt, parent=None):
         element = XML.Element("text:p")
         element.add_param("text:style-name", "Standard")
         element2 = XML.Element("text:a")
@@ -279,4 +352,5 @@ class Content(XML.XML):
         element2.add_param("text:visited-style-name", "Visited_20_Internet_20_Link")
         element.add_content(element2)
         element2.set_value(txt)
-        self.office_text.add_content(element)
+
+        self.write_element(parent, element)

@@ -10,7 +10,7 @@ from Code.Base.Constantes import FEN_INITIAL, BOOK_BEST_MOVE, BOOK_RANDOM_UNIFOR
 from Code.Databases import DBgames, WDB_Games
 from Code.Engines import Engines, WEngines
 from Code.Engines import SelectEngines
-from Code.Polyglots import Books
+from Code.Books import Books
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles
@@ -76,7 +76,7 @@ class WTournament(LCDialog.LCDialog):
 
         # adjudicator
         self.liMotores = self.configuration.combo_engines_multipv10()
-        self.cbJmotor, self.lbJmotor = QTUtil2.comboBoxLB(self, self.liMotores, torneo.adjudicator(), _("Engine"))
+        self.cbJmotor, self.lbJmotor = QTUtil2.combobox_lb(self, self.liMotores, torneo.adjudicator(), _("Engine"))
         self.edJtiempo = Controles.ED(self).tipoFloat(torneo.adjudicator_time()).anchoFijo(50)
         self.lbJtiempo = Controles.LB2P(self, _("Time in seconds"))
         layout = Colocacion.G()
@@ -87,11 +87,7 @@ class WTournament(LCDialog.LCDialog):
         self.gbJ.setChecked(torneo.adjudicator_active())
 
         lbBook = Controles.LB(self, _("Opening book") + ": ")
-        fvar = self.configuration.file_books
         self.list_books = Books.ListBooks()
-        self.list_books.restore_pickle(fvar)
-        # Comprobamos que todos esten accesibles
-        self.list_books.verify()
         li = [(x.name, x.path) for x in self.list_books.lista]
         li.insert(0, ("* " + _("None"), "-"))
         self.cbBooks = Controles.CB(self, li, torneo.book())
@@ -123,7 +119,7 @@ class WTournament(LCDialog.LCDialog):
         # Norman Pollock
         lbNorman = Controles.LB(
             self,
-            '%s(<a href="https://komodochess.com/pub/40H-pgn-utilities">?</a>): '
+            '%s(<a href="http://www.nk-qy.info/40h/">?</a>): '
             % _("Initial position from Norman Pollock openings database"),
         )
         self.chbNorman = Controles.CHB(self, " ", self.torneo.norman())
@@ -401,8 +397,6 @@ class WTournament(LCDialog.LCDialog):
             name = os.path.basename(fbin)[:-4]
             b = Books.Book("P", name, fbin, False)
             self.list_books.nuevo(b)
-            fvar = self.configuration.file_books
-            self.list_books.save_pickle(fvar)
             li = [(x.name, x.path) for x in self.list_books.lista]
             li.insert(0, ("* " + _("By default"), "*"))
             self.cbBooks.rehacer(li, b.path)
@@ -836,7 +830,7 @@ class WTournament(LCDialog.LCDialog):
         li = self.gridGamesFinished.recnosSeleccionados()
         if li:
             pos = li[0]
-            um = QTUtil2.unMomento(self, _("Reading the game"))
+            um = QTUtil2.one_moment_please(self, _("Reading the game"))
             game = self.torneo.game_finished(pos).game()
             um.final()
             game = Code.procesador.manager_game(self, game, True, False, None)
@@ -871,7 +865,7 @@ class WTournament(LCDialog.LCDialog):
                 dbpath = WDB_Games.new_database(self, self.configuration)
                 if dbpath is None:
                     return
-            um = QTUtil2.unMomento(self, _("Saving..."))
+            um = QTUtil2.one_moment_please(self, _("Saving..."))
             db = DBgames.DBgames(dbpath)
             for gm in self.torneo.db_games_finished:
                 game = Game.Game()
@@ -879,4 +873,4 @@ class WTournament(LCDialog.LCDialog):
                 db.insert(game)
             um.final()
             db.close()
-            QTUtil2.mensajeTemporal(self, _("Saved"), 1.2)
+            QTUtil2.temporary_message(self, _("Saved"), 1.2)

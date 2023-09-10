@@ -5,8 +5,8 @@ from PySide2 import QtWidgets, QtCore
 
 import Code
 from Code.Base import Game, Position
+from Code.Books import Books, WBooks
 from Code.Databases import WDB_Summary, DBgamesST, WDB_Games, DBgames
-from Code.Polyglots import Books
 from Code.QT import Colocacion, FormLayout
 from Code.QT import Columnas
 from Code.QT import Controles
@@ -14,7 +14,6 @@ from Code.QT import Delegados
 from Code.QT import Grid
 from Code.QT import Iconos
 from Code.QT import QTVarios
-from Code.QT import SelectFiles
 
 
 class TabEngine(QtWidgets.QWidget):
@@ -812,27 +811,19 @@ class TabsAnalisis(QtWidgets.QWidget):
 
     def seleccionaLibro(self):
         list_books = Books.ListBooks()
-        list_books.restore_pickle(self.configuration.file_books)
-        list_books.verify()
         menu = QTVarios.LCMenu(self)
         rondo = QTVarios.rondoPuntos()
         for book in list_books.lista:
             menu.opcion(("x", book), book.name, rondo.otro())
             menu.separador()
-        menu.opcion(("n", None), _("Install new book"), Iconos.Nuevo())
+        menu.opcion(("n", None), _("Registered books"), Iconos.Nuevo())
         resp = menu.lanza()
         if resp:
             orden, book = resp
             if orden == "x":
                 pass
             elif orden == "n":
-                fbin = SelectFiles.leeFichero(self, list_books.path, "bin", titulo=_("Polyglot book"))
-                if fbin:
-                    list_books.path = os.path.dirname(fbin)
-                    name = os.path.basename(fbin)[:-4]
-                    book = Books.Book("P", name, fbin, True)
-                    list_books.nuevo(book)
-                    list_books.save_pickle(self.configuration.file_books)
+                WBooks.registered_books(self)
         else:
             book = None
         return book

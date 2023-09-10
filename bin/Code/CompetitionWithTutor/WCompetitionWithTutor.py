@@ -147,7 +147,7 @@ class WDatos(QtWidgets.QDialog):
         self.setWindowIcon(Iconos.Datos())
         self.setWindowFlags(QtCore.Qt.Dialog | QtCore.Qt.WindowTitleHint)
 
-        tb = QTVarios.tbAcceptCancel(self)
+        tb = QTVarios.tb_accept_cancel(self)
 
         f = Controles.TipoLetra(puntos=12, peso=75)
         flb = Controles.TipoLetra(puntos=10)
@@ -270,7 +270,7 @@ class WNumEntrenamiento(QtWidgets.QDialog):
         self.setWindowTitle(titulo)
         self.setWindowIcon(Iconos.Datos())
 
-        tb = QTVarios.tbAcceptCancel(self)
+        tb = QTVarios.tb_accept_cancel(self)
 
         if pos is None:
             pos = 1  # random.randint( 1, to_sq )
@@ -278,7 +278,7 @@ class WNumEntrenamiento(QtWidgets.QDialog):
         if etiqueta is None:
             etiqueta = _("Training unit")
 
-        self.ed, lb = QTUtil2.spinBoxLB(self, pos, 1, to_sq, etiqueta=etiqueta, maxTam=60)
+        self.ed, lb = QTUtil2.spinbox_lb(self, pos, 1, to_sq, etiqueta=etiqueta, max_width=60)
         lb1 = Controles.LB(self, "/ %d" % to_sq)
 
         lyH = Colocacion.H().relleno().control(lb).control(self.ed).control(lb1).relleno().margen(15)

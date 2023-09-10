@@ -218,7 +218,7 @@ class CreateAnalysis:
     def create_initial_show(self, main_window, xengine):
         move = self.move
         if move.analysis is None:
-            me = QTUtil2.mensEspera.start(main_window, _("Analyzing the move...."), physical_pos="ad", siCancelar=True)
+            me = QTUtil2.waiting_message.start(main_window, _("Analyzing the move...."), physical_pos="ad", if_cancel=True)
 
             def mira(rm):
                 return not me.cancelado()
@@ -255,7 +255,7 @@ class CreateAnalysis:
                 conf_engine.update_multipv(alm.multiPV)
                 xengine = self.procesador.creaManagerMotor(conf_engine, alm.vtime, alm.depth, siMultiPV=True)
 
-        me = QTUtil2.mensEspera.start(main_window, _("Analyzing the move...."), physical_pos="ad")
+        me = QTUtil2.waiting_message.start(main_window, _("Analyzing the move...."), physical_pos="ad")
         mrm, pos = xengine.analysis_move(self.move, alm.vtime, alm.depth)
         xengine.terminar()
         me.final()
@@ -351,7 +351,7 @@ class AnalisisVariations:
             return False
 
     def analysis_move(self, new_move):
-        me = QTUtil2.mensEspera.start(self.w, _("Analyzing the move...."))
+        me = QTUtil2.waiting_message.start(self.w, _("Analyzing the move...."))
 
         secs = self.w.get_seconds()
         self.xanalyzer.remove_gui_dispatch()

@@ -26,7 +26,8 @@ from Code.Base.Constantes import (
 from Code.Engines import SelectEngines, WConfEngines
 from Code.Openings import WindowOpeningLines, WindowOpenings, OpeningsStd
 from Code.PlayAgainstEngine import Personalities
-from Code.Polyglots import Books
+from Code.Books import Books
+from Code.Books import WBooks
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles
@@ -36,7 +37,7 @@ from Code.QT import Grid
 from Code.QT import Iconos
 from Code.QT import LCDialog
 from Code.QT import QTUtil
-from Code.QT import QTUtil2, SelectFiles
+from Code.QT import QTUtil2
 from Code.QT import QTVarios
 from Code.SQL import UtilSQL
 from Code.Voyager import Voyager
@@ -60,10 +61,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
 
         self.motores = SelectEngines.SelectEngines(procesador.main_window)
 
-        fvar = self.configuration.file_books
         self.list_books = Books.ListBooks()
-        self.list_books.restore_pickle(fvar)
-        self.list_books.verify()
         li_books = [(x.name, x) for x in self.list_books.lista]
 
         # Toolbar
@@ -193,6 +191,10 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
             self, _("To humanize the time it takes for the engine to respond"), False
         ).ponFuente(font)
         ly.control(self.chb_humanize)
+        self.chb_analysis_bar = Controles.CHB(
+            self, _("Activate the Analysis Bar"), False
+        ).ponFuente(font)
+        ly.control(self.chb_analysis_bar)
 
         nueva_tab(ly, _("Basic configuration"))
 
@@ -227,7 +229,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         lbThoughtTt = Controles.LB(self, _("Show") + ":").ponFuente(font)
         self.cbThoughtTt = Controles.CB(self, li_thinks, -1).ponFuente(font)
 
-        lbArrows = Controles.LB2P(self, _("Arrows with the best moves")).ponFuente(font)
+        lbArrows = Controles.LB2P(self, _("Arrows with the best movements")).ponFuente(font)
         self.sbArrowsTt = Controles.SB(self, 0, 0, 999).tamMaximo(50).ponFuente(font)
 
         lyT1 = Colocacion.H().control(lbAyudas).control(self.cbAyudas).relleno()
@@ -283,14 +285,14 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
 
         self.lbMinutos = Controles.LB(self, _("Total minutes") + ":").ponFuente(font)
         self.edMinutos = Controles.ED(self).tipoFloat(10.0).ponFuente(font).anchoFijo(50)
-        self.edSegundos, self.lbSegundos = QTUtil2.spinBoxLB(
-            self, 6, -999, 999, maxTam=54, etiqueta=_("Seconds added per move"), fuente=font
+        self.edSegundos, self.lbSegundos = QTUtil2.spinbox_lb(
+            self, 6, -999, 999, max_width=54, etiqueta=_("Seconds added per move"), fuente=font
         )
-        self.edMinExtra, self.lbMinExtra = QTUtil2.spinBoxLB(
-            self, 0, -999, 999, maxTam=70, etiqueta=_("Extra minutes for the player"), fuente=font
+        self.edMinExtra, self.lbMinExtra = QTUtil2.spinbox_lb(
+            self, 0, -999, 999, max_width=70, etiqueta=_("Extra minutes for the player"), fuente=font
         )
-        self.edZeitnot, self.lbZeitnot = QTUtil2.spinBoxLB(
-            self, 0, -999, 999, maxTam=54, etiqueta=_("Zeitnot: alarm sounds when remaining seconds"), fuente=font
+        self.edZeitnot, self.lbZeitnot = QTUtil2.spinbox_lb(
+            self, 0, -999, 999, max_width=54, etiqueta=_("Zeitnot: alarm sounds when remaining seconds"), fuente=font
         )
         lyH = Colocacion.H()
         lyH.control(self.lbMinutos).control(self.edMinutos).espacio(30)
@@ -362,7 +364,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         _label(lyG, _("Opening lines"), hbox)
 
         # Libros
-        libInicial = li_books[0][1] if li_books else None
+        lib_inicial = li_books[0][1] if li_books else None
 
         li_resp_book = [
             (_("Selected by the player"), SELECTED_BY_PLAYER),
@@ -372,9 +374,9 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         ]
 
         # #Rival
-        self.cbBooksR = QTUtil2.comboBoxLB(self, li_books, libInicial).ponFuente(font)
+        self.cbBooksR = QTUtil2.combobox_lb(self, li_books, lib_inicial).ponFuente(font)
         self.btNuevoBookR = Controles.PB(self, "", self.nuevoBook).ponIcono(Iconos.Mas())
-        self.cbBooksRR = QTUtil2.comboBoxLB(self, li_resp_book, BOOK_BEST_MOVE).ponFuente(font)
+        self.cbBooksRR = QTUtil2.combobox_lb(self, li_resp_book, BOOK_BEST_MOVE).ponFuente(font)
         self.lbDepthBookR = Controles.LB2P(self, _("Max depth")).ponFuente(font)
         self.edDepthBookR = Controles.ED(self).ponFuente(font).tipoInt(0).anchoFijo(30)
 
@@ -391,7 +393,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         self.chbBookR = _label(lyG, "%s: %s" % (_("Activate book"), _("Opponent")), hbox, checkable=True)
 
         ## Player
-        self.cbBooksP = QTUtil2.comboBoxLB(self, li_books, libInicial).ponFuente(font)
+        self.cbBooksP = QTUtil2.combobox_lb(self, li_books, lib_inicial).ponFuente(font)
         self.btNuevoBookP = Controles.PB(self, "", self.nuevoBook).ponIcono(Iconos.Mas())
         self.lbDepthBookP = Controles.LB2P(self, _("Max depth")).ponFuente(font)
         self.edDepthBookP = Controles.ED(self).ponFuente(font).tipoInt(0).anchoFijo(30)
@@ -773,7 +775,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
 
     def opening_edit(self):
         self.bt_opening.setDisabled(True)  # Puede tardar bastante vtime
-        me = QTUtil2.unMomento(self)
+        me = QTUtil2.one_moment_please(self)
         w = WindowOpenings.WOpenings(self, self.configuration, self.opening_block)
         me.final()
         self.bt_opening.setDisabled(False)
@@ -886,15 +888,19 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         dic["HUMANIZE"] = self.chb_humanize.valor()
         if Code.eboard:
             dic["ACTIVATE_EBOARD"] = self.chb_eboard.valor()
+        dic["ANALYSIS_BAR"] = self.chb_analysis_bar.valor()
 
         # Ayudas
-        dic["HINTS"] = self.cbAyudas.valor() if self.gb_tutor.isChecked() else 0
+        with_tt = self.gb_tutor.isChecked()
+        dic["HINTS"] = self.cbAyudas.valor() if with_tt else 0
+        if with_tt:
+            dic["THOUGHTTT"] = self.cbThoughtTt.valor()
+            dic["ARROWSTT"] = self.sbArrowsTt.valor()
+            dic["2CHANCE"] = self.chbChance.isChecked()
+
         dic["ARROWS"] = self.sbArrows.valor()
         dic["BOXHEIGHT"] = self.sbBoxHeight.valor()
         dic["THOUGHTOP"] = self.cbThoughtOp.valor()
-        dic["THOUGHTTT"] = self.cbThoughtTt.valor()
-        dic["ARROWSTT"] = self.sbArrowsTt.valor()
-        dic["2CHANCE"] = self.chbChance.isChecked()
         dic["SUMMARY"] = self.chbSummary.isChecked()
         dic["TAKEBACK"] = self.chbTakeback.isChecked()
 
@@ -956,6 +962,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         self.chb_humanize.set_value(dic.get("HUMANIZE", False))
         if Code.eboard:
             self.chb_eboard.set_value(dic.get("ACTIVATE_EBOARD", False))
+        self.chb_analysis_bar.set_value(dic.get("ANALYSIS_BAR", False))
 
         # Ayudas
         hints = dic.get("HINTS", 7)
@@ -1067,20 +1074,11 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         self.reject()
 
     def nuevoBook(self):
-        fbin = SelectFiles.leeFichero(self, self.list_books.path, "bin", titulo=_("Polyglot book"))
-        if fbin:
-            self.list_books.path = os.path.dirname(fbin)
-            name = os.path.basename(fbin)[:-4]
-            b = Books.Book("P", name, fbin, False)
-            self.list_books.nuevo(b)
-            fvar = self.configuration.file_books
-            self.list_books.save_pickle(fvar)
-            li = [(x.name, x) for x in self.list_books.lista]
-            book_R = self.cbBooksR.valor()
-            book_P = self.cbBooksP.valor()
-            sender = self.sender()
-            self.cbBooksR.rehacer(li, b if sender == self.btNuevoBookR else book_R)
-            self.cbBooksP.rehacer(li, b if sender == self.btNuevoBookP else book_P)
+        WBooks.registered_books(self)
+        self.list_books = Books.ListBooks()
+        li = [(x.name, x) for x in self.list_books.lista]
+        self.cbBooksR.rehacer(li, self.cbBooksR.valor())
+        self.cbBooksP.rehacer(li, self.cbBooksP.valor())
 
     def opening_remove(self):
         self.opening_block = None

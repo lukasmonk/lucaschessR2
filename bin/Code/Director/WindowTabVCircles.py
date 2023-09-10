@@ -47,7 +47,7 @@ class WTV_Circle(QtWidgets.QDialog):
         li_gen.append((config, reg_circle.name))
 
         # ( "tipo", "n", Qt.SolidLine ), #1=SolidLine, 2=DashLine, 3=DotLine, 4=DashDotLine, 5=DashDotDotLine
-        config = FormLayout.Combobox(_("Line Type"), QTUtil2.tiposDeLineas())
+        config = FormLayout.Combobox(_("Line Type"), QTUtil2.lines_type())
         li_gen.append((config, reg_circle.tipo))
 
         # ( "color", "n", 0 ),
@@ -67,7 +67,7 @@ class WTV_Circle(QtWidgets.QDialog):
         li_gen.append((config, reg_circle.grosor))
 
         # orden
-        config = FormLayout.Combobox(_("Order concerning other items"), QTUtil2.listaOrdenes())
+        config = FormLayout.Combobox(_("Order concerning other items"), QTUtil2.list_zvalues())
         li_gen.append((config, reg_circle.physical_pos.orden))
 
         self.form = FormLayout.FormWidget(li_gen, dispatch=self.cambios)
@@ -237,7 +237,7 @@ class WTV_Circles(LCDialog.LCDialog):
         w = WTV_Circle(self, None)
         if w.exec_():
             reg_circle = w.reg_circle
-            reg_circle.id = Util.huella()
+            reg_circle.id = Util.huella_num()
             reg_circle.ordenVista = (self.lip_circles[-1].ordenVista + 1) if self.lip_circles else 1
             self.db_circles[reg_circle.id] = reg_circle.save_dic()
             self.lip_circles.append(reg_circle)
@@ -286,7 +286,7 @@ class WTV_Circles(LCDialog.LCDialog):
                 n += 1
                 name = "%s-%d" % (reg_circle.name, n)
             reg_circle.name = name
-            reg_circle.id = Util.huella()
+            reg_circle.id = Util.huella_num()
             reg_circle.ordenVista = self.lip_circles[-1].ordenVista + 1
             self.db_circles[reg_circle.id] = reg_circle
             self.lip_circles.append(reg_circle)

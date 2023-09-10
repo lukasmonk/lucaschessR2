@@ -9,7 +9,7 @@ class AnalysisEval:
     def __init__(self):
         self.conf: Configuration.Configuration = Code.configuration
 
-    def lv(self, cp: int, factor: float) -> float:
+    def _lv(self, cp: int, factor: float) -> float:
         # Based in https://lichess.org/blog/WFvLpiQAACMA8e9D/learn-from-your-mistakes
         is_neg = cp < 0.0
         if is_neg:
@@ -22,10 +22,11 @@ class AnalysisEval:
 
         return 50.0 + (-xr if is_neg else xr)
 
+    def lv(self, cp: int) -> float:
+        return self._lv(cp, self.conf.x_eval_curve_degree)
+
     def lv_dif(self, cp, cp_best):
-        lv_cp = self.lv(cp, self.conf.x_eval_curve_degree)
-        lv_cp_best = self.lv(cp_best, self.conf.x_eval_curve_degree)
-        return lv_cp_best - lv_cp
+        return self.lv(cp_best) - self.lv(cp)
 
     def evaluate(self, rm_j, rm_c):
         dif = self.evaluate_dif(rm_j, rm_c)
@@ -59,7 +60,7 @@ class AnalysisEval:
             return self.lv_dif(rm_c.puntos, self.conf.x_eval_limit_score) + xadd
 
         elif rm_j.mate == 0 and rm_c.mate < 0:
-            return self.lv_dif(rm_c.centipawns_abs(), rm_j.centipawns_abs())
+            return max(self.lv_dif(rm_c.centipawns_abs(), rm_j.centipawns_abs()), self.conf.x_eval_mistake)
 
         else:
             dif_mate = rm_j.mate - rm_c.mate
@@ -80,12 +81,12 @@ class AnalysisEval:
             return mn
         elif dif == 0:
             return mx
-        elif dif > self.conf.x_eval_blunder:
-            mx *= 0.2
-        elif dif > self.conf.x_eval_mistake:
-            mx *= 0.5
-        elif dif > self.conf.x_eval_inaccuracy:
-            mx *= 0.8
+        elif dif >= self.conf.x_eval_blunder:
+            mx *= 0.1
+        elif dif >= self.conf.x_eval_mistake:
+            mx *= 0.3
+        elif dif >= self.conf.x_eval_inaccuracy:
+            mx *= 0.6
         rg = max(mx - mn, 0)
         return int((bl2 - dif / 10) * rg / bl2 + mn)
 

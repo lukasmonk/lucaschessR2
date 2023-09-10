@@ -32,6 +32,8 @@ class MainWindow(LCDialog.LCDialog):
         self.siInformacionPGN = False
         self.informacionPGN.hide()
         self.register_splitter(self.informacionPGN.splitter, "InformacionPGN")
+        self.with_analysis_bar = False
+        self.base.analysis_bar.hide()
 
         self.timer = None
         self.siTrabajando = False
@@ -502,5 +504,16 @@ class MainWindow(LCDialog.LCDialog):
             else:
                 deactive()
 
-    def delay_routine(self, ms, routine):
+    @staticmethod
+    def delay_routine(ms, routine):
         QtCore.QTimer.singleShot(ms, routine)
+
+    def activate_analysis_bar(self, ok):
+        self.with_analysis_bar = ok
+        self.base.analysis_bar.activate(ok)
+
+    def run_analysis_bar(self, game):
+        if self.with_analysis_bar:
+            self.base.analysis_bar.set_game(game)
+
+

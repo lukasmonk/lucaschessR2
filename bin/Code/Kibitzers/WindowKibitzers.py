@@ -1,10 +1,8 @@
-import os
-
 from PySide2 import QtWidgets, QtCore, QtGui
 
+from Code.Books import Books, WBooks
 from Code.Engines import Priorities
 from Code.Kibitzers import Kibitzers
-from Code.Polyglots import Books
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles
@@ -12,10 +10,9 @@ from Code.QT import Delegados
 from Code.QT import FormLayout
 from Code.QT import Grid
 from Code.QT import Iconos
+from Code.QT import LCDialog
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
-from Code.QT import SelectFiles
-from Code.QT import LCDialog
 
 
 class WKibitzers(LCDialog.LCDialog):
@@ -127,6 +124,9 @@ class WKibitzers(LCDialog.LCDialog):
         elif key == "max_time":
             control = "ed"
             valor = str(kibitzer.max_time)
+        elif key == "max_depth":
+            control = "ed"
+            valor = str(kibitzer.max_depth)
         elif key.startswith("opcion"):
             opcion = kibitzer.li_uci_options_editable()[int(key[7:])]
             tipo = opcion.tipo
@@ -188,6 +188,11 @@ class WKibitzers(LCDialog.LCDialog):
                 kibitzer.max_time = float(valor)
             except ValueError:
                 pass
+        elif self.me_key == "max_depth":
+            try:
+                kibitzer.max_depth = int(valor)
+            except ValueError:
+                pass
         elif self.me_key.startswith("opcion"):
             opcion = kibitzer.li_uci_options_editable()[int(self.me_key[7:])]
             opcion.valor = valor
@@ -212,13 +217,11 @@ class WKibitzers(LCDialog.LCDialog):
 
         submenu = menu.submenu(_("Polyglot book"), Iconos.Book())
         list_books = Books.ListBooks()
-        list_books.restore_pickle(self.configuration.file_books)
-        list_books.verify()
         rondo = QTVarios.rondoPuntos()
         for book in list_books.lista:
             submenu.opcion(("book", book), book.name, rondo.otro())
             submenu.separador()
-        submenu.opcion(("installbook", None), _("Install new book"), Iconos.Nuevo())
+        submenu.opcion(("installbook", None), _("Registered books"), Iconos.Nuevo())
         menu.separador()
 
         si_gaviota = True
@@ -251,18 +254,10 @@ class WKibitzers(LCDialog.LCDialog):
                 num = self.kibitzers.nuevo_index()
                 self.goto(num)
             elif orden in "installbook":
-                self.polyglot_install(list_books)
+                self.polyglot_install()
 
-    def polyglot_install(self, list_books):
-        fbin = SelectFiles.leeFichero(self, list_books.path, "bin", titulo=_("Polyglot book"))
-        if fbin:
-            list_books.path = os.path.dirname(fbin)
-            name = os.path.basename(fbin)[:-4]
-            book = Books.Book("P", name, fbin, True)
-            list_books.nuevo(book)
-            list_books.save_pickle(self.configuration.file_books)
-            num = self.kibitzers.nuevo_polyglot(book)
-            self.goto(num)
+    def polyglot_install(self):
+        WBooks.registered_books(self)
 
     def nuevo_engine(self):
         form = FormLayout.FormLayout(self, _("Kibitzer"), Iconos.Kibitzer(), anchoMinimo=340)
@@ -286,12 +281,15 @@ class WKibitzers(LCDialog.LCDialog):
         form.float("%s (0=%s)" % (_("Fixed time in seconds"), _("all the time thinking")), 0.0)
         form.separador()
 
+        form.editbox(_("Fixed depth"), ancho=30, tipo=int, init_value=0)
+        form.separador()
+
         resultado = form.run()
 
         if resultado:
             accion, resp = resultado
 
-            name, engine, tipo, prioridad, pointofview, fixed_time = resp
+            name, engine, tipo, prioridad, pointofview, fixed_time, fixed_depth = resp
 
             # Indexes only with Rodent II
             if tipo == "I":
@@ -304,7 +302,7 @@ class WKibitzers(LCDialog.LCDialog):
                 for label, key in liTipos:
                     if key == tipo:
                         name = "%s: %s" % (label, engine)
-            num = self.kibitzers.nuevo_engine(name, engine, tipo, prioridad, pointofview, fixed_time)
+            num = self.kibitzers.nuevo_engine(name, engine, tipo, prioridad, pointofview, fixed_time, fixed_depth)
             self.goto(num)
 
     def remove(self):
@@ -413,6 +411,7 @@ class WKibitzers(LCDialog.LCDialog):
         if not (tipo in (Kibitzers.KIB_POLYGLOT, Kibitzers.KIB_GAVIOTA, Kibitzers.KIB_INDEXES)):
             self.liKibActual.append((_("Information"), me.id_info, "info"))
             self.liKibActual.append((_("Fixed time in seconds"), me.max_time, "max_time"))
+            self.liKibActual.append((_("Fixed depth"), me.max_depth, "max_depth"))
 
             for num, opcion in enumerate(me.li_uci_options_editable()):
                 default = opcion.label_default()
@@ -466,6 +465,7 @@ class WKibitzerLive(LCDialog.LCDialog):
         li.append([_("Priority"), self.kibitzer.cpriority(), "prioridad"])
         li.append([_("Point of view"), self.kibitzer.cpointofview(), "pointofview"])
         li.append([_("Fixed time in seconds"), self.kibitzer.max_time, "max_time"])
+        li.append([_("Fixed depth"), self.kibitzer.max_depth, "max_depth"])
         for num, opcion in enumerate(self.kibitzer.li_uci_options_editable()):
             default = opcion.label_default()
             label_default = " (%s)" % default if default else ""
@@ -482,6 +482,7 @@ class WKibitzerLive(LCDialog.LCDialog):
         xpointofview = None
         xposicionBase = None
         xmax_time = self.kibitzer.max_time
+        xmax_depth = self.kibitzer.max_depth
         for x in range(len(self.li_options)):
             if self.li_options[x][1] != self.liOriginal[x][1]:
                 key = self.li_options[x][2]
@@ -493,6 +494,8 @@ class WKibitzerLive(LCDialog.LCDialog):
                     xpointofview = self.kibitzer.pointofview
                 elif key == "max_time":
                     xmax_time = self.kibitzer.max_time
+                elif key == "max_depth":
+                    xmax_depth = self.kibitzer.max_depth
                 else:
                     opcion = self.kibitzer.li_uci_options_editable()[int(key)]
                     lidif_opciones.append((opcion.name, opcion.valor))
@@ -502,6 +505,7 @@ class WKibitzerLive(LCDialog.LCDialog):
         self.result_xpointofview = xpointofview
         self.result_posicionBase = xposicionBase
         self.result_max_time = xmax_time
+        self.result_max_depth = xmax_depth
         self.save_video()
         self.accept()
 
@@ -520,6 +524,9 @@ class WKibitzerLive(LCDialog.LCDialog):
         elif key == "max_time":
             control = "ed"
             valor = str(self.kibitzer.max_time)
+        elif key == "max_depth":
+            control = "ed"
+            valor = str(self.kibitzer.max_depth)
         else:
             opcion = self.kibitzer.li_uci_options_editable()[int(key)]
             tipo = opcion.tipo
@@ -575,11 +582,18 @@ class WKibitzerLive(LCDialog.LCDialog):
             except ValueError:
                 pass
 
+        elif self.me_key == "max_depth":
+            try:
+                self.kibitzer.max_depth = int(valor)
+                self.li_options[3][1] = self.kibitzer.max_depth
+            except ValueError:
+                pass
+
         else:
             nopcion = int(self.me_key)
             opcion = self.kibitzer.li_uci_options_editable()[nopcion]
             opcion.valor = valor
-            self.li_options[nopcion + 3][1] = valor
+            self.li_options[nopcion + 4][1] = valor
             self.kibitzer.ordenUCI(opcion.name, valor)
 
     def grid_num_datos(self, grid):

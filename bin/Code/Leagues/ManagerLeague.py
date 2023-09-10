@@ -77,7 +77,6 @@ class ManagerLeague(Manager.Manager):
 
         self.human_is_playing = False
         self.rival_is_thinking = False
-        self.plays_instead_of_me_option = False
         self.state = ST_PLAYING
 
         self.is_human_side_white = WHITE if opponent_w.is_human() else BLACK

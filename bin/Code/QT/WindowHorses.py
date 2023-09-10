@@ -340,7 +340,10 @@ class WHorses(LCDialog.LCDialog):
         if self.test in (1, 4, 5):
             celdas_ocupadas = []
         elif self.test == 2:  # 4 peones
-            celdas_ocupadas = [18, 21, 25, 27, 28, 30, 42, 45, 49, 51, 52, 54]
+            if self.is_white:
+                celdas_ocupadas = [18, 21, 9, 11, 12, 14, 42, 45, 33, 35, 36, 38]
+            else:
+                celdas_ocupadas = [18, 21, 25, 27, 28, 30, 42, 45, 49, 51, 52, 54]
             for a1 in ("c3", "c6", "f3", "f6"):
                 squares[a1] = "p" if self.is_white else "P"
         elif self.test == 3:  # levitt

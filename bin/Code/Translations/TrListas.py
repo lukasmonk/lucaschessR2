@@ -224,7 +224,6 @@ def micelo_wicker():
         _("Catalan"),
         _("Euwe's openings"),
         _("Fischer's openings"),
-        _("French"),
         _("Italian"),
         _("Karpov's openings"),
         _("Kramnik's openings"),
@@ -452,9 +451,22 @@ def transsiberian():
     }
 
 
+def transsiberian_1():
+    return (_("Scholar's Mate"),
+_("Legal trap"),
+_("Petrov's Defence trap"),
+_("Sicilian defense trap"),
+_("Ruy Lopez trap"),
+_("Sicilian defense trap"),
+_("Morphy - Anderssen"),
+_("The Immortal Game"),
+)
+
 def maps():
     return {"Africa": _("Africa map"), "WorldMap": _("World map")}
 
 
 def styles():
     return [_("By default"), _("Dark"), _("Light")]
+
+

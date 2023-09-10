@@ -62,6 +62,7 @@ class ManagerAlbum(Manager.Manager):
         player = self.configuration.nom_player()
         other = self.cromo.name
         w, b = (player, other) if self.is_human_side_white else (_F(other), player)
+        self.main_window.base.change_player_labels(w, b)
 
         self.game.set_tag("Event", album.event)
         self.game.set_tag("White", w)
@@ -73,6 +74,7 @@ class ManagerAlbum(Manager.Manager):
         dic = {
             "ALBUMES_PRECLAVE": self.album.claveDB.split("_")[0],
             "ALBUM_ALIAS": self.album.alias,
+            "ALBUM_EVENT": self.album.event,
             "POS_CROMO": self.cromo.pos,
             "GAME_SAVE": self.game.save(),
         }
@@ -89,6 +91,7 @@ class ManagerAlbum(Manager.Manager):
             albumes = Albums.AlbumVehicles()
 
         album = albumes.get_album(alias)
+        album.event = dic["ALBUM_EVENT"]
         cromo = album.get_cromo(pos_cromo)
         self.base_inicio(album, cromo)
         self.game.restore(game_save)
@@ -96,6 +99,7 @@ class ManagerAlbum(Manager.Manager):
 
     def run_adjourn(self, dic):
         self.restore_state(dic)
+        self.pgnRefresh(not self.is_engine_side_white)
         self.play_next_move()
 
     def adjourn(self):

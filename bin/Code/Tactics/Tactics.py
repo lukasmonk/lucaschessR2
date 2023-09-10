@@ -291,7 +291,7 @@ class Tactic:
         if c:
             li = c.split(",")
             for x in range(len(li)):
-                li[x] = _SP(li[x])
+                li[x] = _F(li[x])
             self.title = "-".join(li)
 
         c = dic.get("FILESW")

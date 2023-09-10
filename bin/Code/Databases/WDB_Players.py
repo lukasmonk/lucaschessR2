@@ -358,7 +358,7 @@ class WPlayer(QtWidgets.QWidget):
         return self.leeVariable("LISTA_PLAYERS", [])
 
     def rereadPlayers(self):
-        um = QTUtil2.unMomento(self)
+        um = QTUtil2.one_moment_please(self)
         lista = self.dbGames.players()
         self.escVariable("LISTA_PLAYERS", lista)
         um.final()
@@ -439,7 +439,7 @@ class WPlayer(QtWidgets.QWidget):
         for alias in (alias1, alias2, alias3):
             if alias:
                 filtro += "or WHITE = '%s' or BLACK = '%s'" % (alias, alias)
-        pb.ponTotal(self.dbGames.count_data(filtro))
+        pb.set_total(self.dbGames.count_data(filtro))
 
         for n, alm in enumerate(self.dbGames.yield_data(liFields, filtro)):
             pb.pon(n)
@@ -492,7 +492,7 @@ class WPlayer(QtWidgets.QWidget):
 
         pb.close()
 
-        um = QTUtil2.unMomento(self, _("Working..."), physical_pos="ad")
+        um = QTUtil2.one_moment_please(self, _("Working..."), physical_pos="ad")
 
         def color3(x, y, z):
             if x > y and x > z:

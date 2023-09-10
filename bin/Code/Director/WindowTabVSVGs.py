@@ -73,8 +73,9 @@ class WTV_SVG(QtWidgets.QDialog):
             if name:
                 regSVG.name = name
 
-        li_acciones = [(_("Save"), Iconos.Aceptar(), "grabar"), None, (_("Cancel"), Iconos.Cancelar(), "reject"), None]
-        tb = Controles.TB(self, li_acciones)
+        tb = Controles.TBrutina(self)
+        tb.new(_("Save"), Iconos.Aceptar(), self.grabar)
+        tb.new(_("Cancel"), Iconos.Cancelar(), self.reject)
 
         # Board
         config_board = owner.board.config_board
@@ -98,7 +99,7 @@ class WTV_SVG(QtWidgets.QDialog):
         li_gen.append((config, regSVG.psize))
 
         # orden
-        config = FormLayout.Combobox(_("Order concerning other items"), QTUtil2.listaOrdenes())
+        config = FormLayout.Combobox(_("Order concerning other items"), QTUtil2.list_zvalues())
         li_gen.append((config, regSVG.physical_pos.orden))
 
         self.form = FormLayout.FormWidget(li_gen, dispatch=self.cambios)
@@ -116,10 +117,6 @@ class WTV_SVG(QtWidgets.QDialog):
             regSVG.siMovible = True
             svg = self.board.creaSVG(regSVG, siEditando=True)
             self.liEjemplos.append(svg)
-
-    def process_toolbar(self):
-        accion = self.sender().key
-        eval("self.%s()" % accion)
 
     def cambios(self):
         if hasattr(self, "form"):
@@ -176,23 +173,14 @@ class WTV_SVGs(LCDialog.LCDialog):
 
         self.grid = Grid.Grid(self, o_columns, xid="M", siSelecFilas=True)
 
-        li_acciones = [
-            (_("Close"), Iconos.MainMenu(), "terminar"),
-            None,
-            (_("New"), Iconos.Nuevo(), "mas"),
-            None,
-            (_("Remove"), Iconos.Borrar(), "borrar"),
-            None,
-            (_("Modify"), Iconos.Modificar(), "modificar"),
-            None,
-            (_("Copy"), Iconos.Copiar(), "copiar"),
-            None,
-            (_("Up"), Iconos.Arriba(), "arriba"),
-            None,
-            (_("Down"), Iconos.Abajo(), "abajo"),
-            None,
-        ]
-        tb = Controles.TB(self, li_acciones)
+        tb = Controles.TBrutina(self)
+        tb.new(_("Close"), Iconos.MainMenu(), self.terminar)
+        tb.new(_("New"), Iconos.Nuevo(), self.mas)
+        tb.new(_("Remove"), Iconos.Borrar(), self.borrar)
+        tb.new(_("Modify"), Iconos.Modificar(), self.modificar)
+        tb.new(_("Copy"), Iconos.Copiar(), self.copiar)
+        tb.new(_("Up"), Iconos.Arriba(), self.arriba)
+        tb.new(_("Down"), Iconos.Abajo(), self.abajo)
         tb.setFont(flb)
 
         ly = Colocacion.V().control(tb).control(self.grid)
@@ -253,10 +241,6 @@ class WTV_SVGs(LCDialog.LCDialog):
                 ejemplo.reset()
             self.board.escena.update()
 
-    def process_toolbar(self):
-        accion = self.sender().key
-        eval("self.%s()" % accion)
-
     def mas(self):
 
         menu = QTVarios.LCMenu(self)
@@ -293,9 +277,14 @@ class WTV_SVGs(LCDialog.LCDialog):
             return
 
         if resp == "@":
-            file = SelectFiles.leeFichero(self, "imgs", "svg", titulo=_("Image"))
-            if not file:
+            key = "SVG_GRAPHICS"
+            dic = self.configuration.read_variables(key)
+            folder = dic.get("FOLDER", self.configuration.carpeta)
+            file = SelectFiles.leeFichero(self, folder, "svg", titulo=_("Image"))
+            if not file or not os.path.isfile(file):
                 return
+            dic["FOLDER"] = os.path.dirname(file)
+            self.configuration.write_variables(key, dic)
         else:
             file = resp
         with open(file, "rt", encoding="utf-8", errors="ignore") as f:
@@ -303,11 +292,11 @@ class WTV_SVGs(LCDialog.LCDialog):
         name = os.path.basename(file)[:-4]
         w = WTV_SVG(self, None, xml=contenido, name=name)
         if w.exec_():
-            regSVG = w.regSVG
-            regSVG.id = Util.huella()
-            regSVG.ordenVista = (self.liPSVGs[-1].ordenVista + 1) if self.liPSVGs else 1
-            self.dbSVGs[regSVG.id] = regSVG.save_dic()
-            self.liPSVGs.append(regSVG)
+            reg_svg = w.regSVG
+            reg_svg.id = Util.huella_num()
+            reg_svg.ordenVista = (self.liPSVGs[-1].ordenVista + 1) if self.liPSVGs else 1
+            self.dbSVGs[reg_svg.id] = reg_svg.save_dic()
+            self.liPSVGs.append(reg_svg)
             self.grid.refresh()
             self.grid.gobottom()
             self.grid.setFocus()
@@ -353,7 +342,7 @@ class WTV_SVGs(LCDialog.LCDialog):
                 n += 1
                 name = "%s-%d" % (regSVG.name, n)
             regSVG.name = name
-            regSVG.id = Util.huella()
+            regSVG.id = Util.huella_num()
             regSVG.ordenVista = self.liPSVGs[-1].ordenVista + 1
             self.dbSVGs[regSVG.id] = regSVG
             self.liPSVGs.append(regSVG)

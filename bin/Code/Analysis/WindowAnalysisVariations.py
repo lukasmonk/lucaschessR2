@@ -39,9 +39,9 @@ class WAnalisisVariations(QtWidgets.QDialog):
         btTerminar = Controles.PB(self, _("Close"), self.close).ponPlano(False)
         btReset = Controles.PB(self, _("Another change"), oBase.reset).ponIcono(Iconos.MoverLibre()).ponPlano(False)
         liMasAcciones = (("FEN:%s" % _("Copy to clipboard"), "MoverFEN", Iconos.Clipboard()),)
-        lytbTutor, self.tb = QTVarios.lyBotonesMovimiento(self, "", siLibre=True, liMasAcciones=liMasAcciones)
+        lytbTutor, self.tb = QTVarios.ly_mini_buttons(self, "", siLibre=True, liMasAcciones=liMasAcciones)
 
-        self.seconds, lbSegundos = QTUtil2.spinBoxLB(self, segundosPensando, 1, 999, maxTam=40, etiqueta=_("Second(s)"))
+        self.seconds, lbSegundos = QTUtil2.spinbox_lb(self, segundosPensando, 1, 999, max_width=40, etiqueta=_("Second(s)"))
 
         # Creamos los layouts
 
@@ -49,7 +49,7 @@ class WAnalisisVariations(QtWidgets.QDialog):
         gbVariacion = Controles.GB(self, _("Proposed change"), lyVariacion).ponFuente(f).align_center()
 
         lyTutor = Colocacion.V().control(self.lbPuntuacionNueva).control(self.boardT)
-        gbTutor = Controles.GB(self, _("Tutor's prediction"), lyTutor).ponFuente(f).align_center()
+        gbTutor = Controles.GB(self, _("Analyzer's prediction"), lyTutor).ponFuente(f).align_center()
 
         lyBT = Colocacion.H().control(btTerminar).control(btReset).relleno().control(lbSegundos).control(self.seconds)
 

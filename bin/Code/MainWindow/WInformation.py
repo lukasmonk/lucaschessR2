@@ -131,13 +131,17 @@ class Information(QtWidgets.QWidget):
     def show_cpws_lost(self):
         visible = False
         if self.move:
-            cpws_lost = self.move.get_points_lost()
-            if cpws_lost is not None and cpws_lost > 0:
+            cpws_lost, mate = self.move.get_points_lost_mate()
+            if (cpws_lost is not None and cpws_lost > 0) or mate is not None:
                 analysis_depth = self.move.analysis[0].li_rm[0].depth
-                str_cpws_lost = "%.02f %s (%s %s)" % (cpws_lost / 100.0, _("pws lost"), _("Depth"), analysis_depth)
-                # str_cpws_lost = "%.02f (^%s)" % (cpws_lost / 100.0, analysis_depth)
+                if mate is not None:
+                    str_cpws_lost = f'{_("Loss")} M{mate}'
+                else:
+                    str_cpws_lost = "%.02f %s" % (cpws_lost / 100.0, _("pws lost"))
+                str_cpws_lost += " (%s %s)" % (_("Depth"), analysis_depth)
                 self.lb_cpws_lost.set_text(str_cpws_lost)
                 visible = True
+
         self.lb_cpws_lost.setVisible(visible)
 
     def show_time(self):

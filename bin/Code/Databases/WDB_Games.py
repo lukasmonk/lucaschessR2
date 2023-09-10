@@ -8,13 +8,14 @@ import Code
 import Code.Openings.WindowOpenings as WindowOpenings
 from Code import Util
 from Code.Analysis import AnalysisGame, WindowAnalysisParam
-from Code.Base import Game
+from Code.Base import Game, Position
 from Code.Base.Constantes import WHITE, BLACK
+from Code.Books import PolyglotImportExports
 from Code.Databases import DBgames, WDB_Utils
 from Code.GM import GM
 from Code.LearnGame import WindowPlayGame, WindowLearnGame
+from Code.Odt import WOdt
 from Code.Openings import OpeningsStd
-from Code.Polyglots import PolyglotImportExports
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles
@@ -35,11 +36,11 @@ from Code.Translations import TrListas
 
 
 class WGames(QtWidgets.QWidget):
-    def __init__(self, procesador, wb_database, dbGames, wsummary, si_select):
+    def __init__(self, procesador, wb_database, db_games, wsummary, si_select):
         QtWidgets.QWidget.__init__(self)
 
         self.wb_database = wb_database
-        self.dbGames = dbGames  # <--setdbGames
+        self.dbGames = db_games  # <--setdbGames
         self.procesador = procesador
         self.configuration = procesador.configuration
 
@@ -68,8 +69,6 @@ class WGames(QtWidgets.QWidget):
         self.grid.set_tooltip_header(
             _("For a numerical sort, press Ctrl (Alt or Shift) while double-clicking on the header.")
         )
-        # f = Controles.TipoLetra(puntos=self.configuration.x_font_points)
-        # self.grid.setFont(f)
 
         # Status bar
         self.status = QtWidgets.QStatusBar(self)
@@ -77,7 +76,7 @@ class WGames(QtWidgets.QWidget):
 
         # ToolBar
         if si_select:
-            liAccionesWork = [
+            li_acciones_work = [
                 (_("Accept"), Iconos.Aceptar(), wb_database.tw_aceptar),
                 None,
                 (_("Cancel"), Iconos.Cancelar(), wb_database.tw_cancelar),
@@ -90,7 +89,7 @@ class WGames(QtWidgets.QWidget):
                 None,
             ]
         else:
-            liAccionesWork = [
+            li_acciones_work = [
                 (_("Close"), Iconos.MainMenu(), wb_database.tw_terminar),
                 None,
                 (_("Edit"), Iconos.Modificar(), self.tw_edit),
@@ -121,7 +120,7 @@ class WGames(QtWidgets.QWidget):
                 None,
             ]
 
-        self.tbWork = QTVarios.LCTB(self, liAccionesWork)
+        self.tbWork = QTVarios.LCTB(self, li_acciones_work)
 
         lyTB = Colocacion.H().control(self.tbWork)
 
@@ -149,16 +148,17 @@ class WGames(QtWidgets.QWidget):
     def tw_play_against(self):
         li = self.grid.recnosSeleccionados()
         if li:
-            dbPlay = WindowPlayGame.DBPlayGame(self.configuration.file_play_game())
+            recplay = None
+            db_play = WindowPlayGame.DBPlayGame(self.configuration.file_play_game())
             for recno in li:
                 game = self.dbGames.read_game_recno(recno)
                 h = hash(game.xpv())
-                recplay = dbPlay.recnoHash(h)
+                recplay = db_play.recnoHash(h)
                 if recplay is None:
                     reg = {"GAME": game.save()}
-                    dbPlay.appendHash(h, reg)
-                    recplay = dbPlay.recnoHash(h)
-            dbPlay.close()
+                    db_play.appendHash(h, reg)
+                    recplay = db_play.recnoHash(h)
+            db_play.close()
 
             if len(li) == 1:
                 self.wb_database.tw_terminar()
@@ -186,9 +186,9 @@ class WGames(QtWidgets.QWidget):
         st100 = {"Event", "Site", "White", "Black"}
         for tag in li_tags:
             label = TrListas.pgnLabel(tag)
-            if label == tag:
-                label = dcabs.get(label, label)
-            align_center = not (tag in ("Event", "Site"))
+            if label.upper() == tag:
+                label = dcabs.get(tag, label)
+            align_center = not (tag in ("EVENT", "SITE"))
             ancho = 100 if tag in st100 else 80
             o_columns.nueva(tag, label, ancho, align_center=align_center)
         o_columns.nueva("rowid", _("Row ID"), 60, align_center=True)
@@ -502,7 +502,7 @@ class WGames(QtWidgets.QWidget):
 
     def tw_edit(self):
         if self.grid.recno() >= 0:
-            um = QTUtil2.unMomento(self, _("Reading the game"))
+            um = QTUtil2.one_moment_please(self, _("Reading the game"))
             game, recno = self.current_game()
             um.final()
             if game is not None:
@@ -550,7 +550,7 @@ class WGames(QtWidgets.QWidget):
                 refresh()
 
         def opening():
-            me = QTUtil2.unMomento(self)
+            me = QTUtil2.one_moment_please(self)
 
             w = WindowOpenings.WOpenings(self, self.configuration, self.last_opening)
             me.final()
@@ -589,7 +589,7 @@ class WGames(QtWidgets.QWidget):
             if not QTUtil2.pregunta(self, _("Do you want to delete all selected records?")):
                 return
 
-            um = QTUtil2.unMomento(self, _("Working..."))
+            um = QTUtil2.working(self)
             self.changes = True
             self.dbGames.remove_list_recnos(li)
             if self.summaryActivo:
@@ -637,10 +637,79 @@ class WGames(QtWidgets.QWidget):
                 (self.tw_exportar_db, li_sel), "%s [%d]" % (_("Only selected games"), len(li_sel)), Iconos.PuntoAzul()
             )
 
+        if self.dbGames.has_positions():
+            menu.separador()
+            menu.opcion((self.tw_odt, None), "To a position sheet in ODF format", Iconos.ODT())
+
         resp = menu.lanza()
         if resp:
             funcion, lista = resp
             funcion(lista)
+
+    def tw_odt(self, li_sel):
+        um = QTUtil2.working(self)
+        li_fens = [(fen, pgn) for fen, pgn in self.dbGames.yield_fens()]
+        total = len(li_fens)
+        um.final()
+        if total == 0:
+            return
+
+        dic = {"POS": 0, "TOTAL": total}
+
+        path_odt = WOdt.path_saveas_odt(self, self.dbGames.get_name())
+        if not path_odt:
+            return
+        wodt = WOdt.WOdt(self, path_odt)
+        board = wodt.board
+        tname = "Table3x2"
+        wodt.create_document("", False, margins=(1.0, 1.0, 1.0, 1.0))
+        wodt.odt_doc.register_table(tname, 2)
+        dic["TABLE"] = wodt.odt_doc.create_table(tname)
+
+        def run_data(wodt):
+            current_pos = dic["POS"]
+
+            table = dic["TABLE"]
+
+            wodt.set_cpos("%d/%d" % (current_pos + 1, total))
+
+            odt_doc = wodt.odt_doc
+
+            row = None
+
+            for posx in range(current_pos, min(current_pos + 6, total)):
+                fen, pgn = li_fens[posx]
+                position = Position.Position()
+                position.read_fen(fen)
+
+                board.set_position(position)
+                if board.is_white_bottom != position.is_white:
+                    board.rotaBoard()
+                path_img = self.configuration.ficheroTemporal("png")
+                board.save_as_img(path_img, "png", False, True)
+
+                if posx % 2 == 0:
+                    row = odt_doc.add_row(table)
+                cell = odt_doc.add_cell(row)
+                odt_doc.add_png(path_img, 6.6, align_center=True, parent=cell)
+                odt_doc.add_linebreak(parent=cell)
+                odt_doc.add_paragraph("%3d ___________________________" % (posx + 1,), align_center=True,
+                                      parent=cell)
+                odt_doc.add_linebreak(parent=cell)
+
+                dic["POS"] = posx + 1
+            return dic["POS"] < total
+
+        wodt.set_routine(run_data)
+        if wodt.exec_():
+            wodt.odt_doc.add_pagebreak()
+            for pos, (fen, pgn) in enumerate(li_fens, 1):
+                if pgn:
+                    wodt.odt_doc.add_paragraph(f"{pos:3d}:   {pgn}")
+                    wodt.odt_doc.add_linebreak()
+
+            wodt.odt_doc.create(path_odt)
+            os.startfile(path_odt)
 
     def tw_configure(self):
         menu = QTVarios.LCMenu(self)
@@ -750,7 +819,7 @@ class WGames(QtWidgets.QWidget):
         if w.exec_():
             dic_cambios = w.dic_cambios
 
-            um = QTUtil2.unMomento(self, _("Working..."))
+            um = QTUtil2.working(self)
 
             dcabs = self.dbGames.read_config("dcabs", {})
             reinit = False
@@ -786,7 +855,7 @@ class WGames(QtWidgets.QWidget):
             # Cuarto REMOVE
             lir = dic_cambios["REMOVE"]
             if len(lir) > 0:
-                um = QTUtil2.unMomento(self, _("Working..."))
+                um = QTUtil2.working(self)
                 lista = [x["KEY"] for x in lir]
                 self.dbGames.remove_columns(lista)
                 self.changes = True
@@ -835,7 +904,7 @@ class WGames(QtWidgets.QWidget):
         self.graphicBoardReset()
 
     def tw_resize_columns(self):
-        um = QTUtil2.unMomento(self, _("Resizing"))
+        um = QTUtil2.one_moment_please(self, _("Resizing"))
         self.grid.resizeColumnsToContents()
         um.final()
 
@@ -977,7 +1046,7 @@ class WGames(QtWidgets.QWidget):
         )
 
     def tw_pack(self):
-        um = QTUtil2.unMomento(self)
+        um = QTUtil2.one_moment_please(self)
         self.dbGames.pack()
         um.final()
 
@@ -996,9 +1065,9 @@ class WGames(QtWidgets.QWidget):
                 nregs = self.dbGames.reccount()
 
             tmpBP = QTUtil2.BarraProgreso2(self, _("Mass analysis"), formato2="%p%")
-            tmpBP.ponTotal(1, nregs)
-            tmpBP.ponRotulo(1, _("Game"))
-            tmpBP.ponRotulo(2, _("Moves"))
+            tmpBP.set_total(1, nregs)
+            tmpBP.put_label(1, _("Game"))
+            tmpBP.put_label(2, _("Moves"))
             tmpBP.mostrar()
 
             if alm.num_moves:
@@ -1083,7 +1152,7 @@ class WGames(QtWidgets.QWidget):
 
     def tw_themes(self):
 
-        um = QTUtil2.unMomento(self, _("Analyzing tactical themes"))
+        um = QTUtil2.one_moment_please(self, _("Analyzing tactical themes"))
         a = WDB_Theme_Analysis.SelectedGameThemeAnalyzer(self)
 
         um.final()
@@ -1097,7 +1166,7 @@ class WGames(QtWidgets.QWidget):
         if not QTUtil2.pregunta(self, "%s\n%s" % (_("Remove duplicates"), _("Are you sure?"))):
             return
 
-        um = QTUtil2.unMomento(self, _("Remove duplicates"))
+        um = QTUtil2.one_moment_please(self, _("Remove duplicates"))
         self.dbGames.remove_duplicates()
         um.final()
 
@@ -1132,7 +1201,7 @@ class WGames(QtWidgets.QWidget):
 
         if ok:
             PolyglotImportExports.create_bin_from_dbbig(
-                self, path_bin, db, min_games, min_score, calc_weight, save_score
+                self, path_bin, db, min_games, min_score, calc_weight, save_score, uniform
             )
 
     def tw_exportar_db(self, lista):
@@ -1166,7 +1235,7 @@ class WGames(QtWidgets.QWidget):
                     li_sel = self.grid.recnosSeleccionados()
                 else:
                     li_sel = list(range(self.dbGames.reccount()))
-                pb.ponTotal(len(li_sel))
+                pb.set_total(len(li_sel))
                 for n, recno in enumerate(li_sel):
                     pb.pon(n)
                     game = self.dbGames.read_game_recno(recno)
@@ -1229,15 +1298,15 @@ class WGames(QtWidgets.QWidget):
         mens_puzzles = _("Download the puzzles in csv format from LiChess website")
         link_puzzles = "https://database.lichess.org/#puzzles"
 
-        mens_7z = _("Uncompress this file with a tool like 7-Zip")
-        link_7z = "https://www.7-zip.org/"
+        mens_7z = _("Uncompress this file with a tool like PeaZip")
+        link_7z = "https://peazip.github.io/"
         mens_unzip = _("Uncompress this file")
 
         mens_eco = _(
             "If you want to include a field with the opening, you have to download and unzip in the same folder as the puzzle file, the file indicated below"
         )
         link_eco = (
-            "https://sourceforge.net/projects/lucaschessr/files/Version_R2/lichess_db_puzzle_pv_id.eval.bz2/download"
+            "https://sourceforge.net/projects/lucaschessr/files/Version_R2/lichess_dict_pv_ids.zip/download"
         )
         idea = _("Original idea and more information")
         link_idea = "https://cshancock.netlify.app/post/2021-06-23-lichess-puzzles-by-eco"
@@ -1280,22 +1349,24 @@ class WGames(QtWidgets.QWidget):
             return
 
         dic_gid_pv = {}
-        path_eco = os.path.join(os.path.dirname(path), "lichess_db_puzzle_pv_id.eval")
+        path_eco = os.path.join(os.path.dirname(path), "lichess_dict_pv_ids.sqlite")
         if Util.exist_file(path_eco):
-            um = QTUtil2.unMomento(self, _("Working..."))
-            with open(path_eco, "rt") as f:
-                dic_pv_id = eval(f.read())
-            for pv, li_gids in dic_pv_id.items():
-                g = Game.pv_game(None, pv)
-                for gid in li_gids:
-                    dic_gid_pv[gid] = g.opening
+            um = QTUtil2.working(self)
+            with UtilSQL.DictTextSQL(path_eco) as db_sqltext:
+                dic = db_sqltext.as_dictionary()
+                for pv, txt in dic.items():
+                    opening = OpeningsStd.ap.assign_pv(pv)
+                    if opening:
+                        gids = txt.split("|")
+                        for gid in gids:
+                            dic_gid_pv[gid] = opening
             um.final()
 
         def url_id(url):
-            li = url.split("/")
-            key = li[-1]
+            liu = url.split("/")
+            key = liu[-1]
             if "black" in key:
-                key = li[-2]
+                key = liu[-2]
             if "#" in key:
                 key = key.split("#")[0]
             return key
@@ -1303,7 +1374,7 @@ class WGames(QtWidgets.QWidget):
         with open(path, "rt") as f:
             pb = QTUtil2.BarraProgreso1(self, _("Importing"), formato1="%p%")
             pb.setFocus()
-            pb.ponTotal(tam)
+            pb.set_total(tam)
             pb.show()
             line = f.readline()
             n = 1
@@ -1322,20 +1393,19 @@ class WGames(QtWidgets.QWidget):
                     g.li_tags = []
                     g.set_fen(fen)
                     g.read_pv(moves)
-                    g.set_tag("Site", "LiChess")
-                    g.set_tag("Event", "Puzzle %s" % puzzleid)
-                    g.set_tag("Rating", rating)
-                    g.set_tag("RatingDeviation", ratingdeviation)
-                    g.set_tag("Popularity", popularity)
-                    g.set_tag("NBPlays", nbplays)
                     g.set_tag("Themes", themes)
-                    g.set_tag("GameURL", gameurl)
+                    g.set_tag("Puzzle", "%s" % puzzleid)
                     if dic_gid_pv:
                         gid = url_id(gameurl)
                         opening = dic_gid_pv.get(gid)
                         if opening:
-                            g.set_tag("ECO", opening.eco)
                             g.set_tag("Opening", opening.tr_name)
+                            g.set_tag("ECO", opening.eco)
+                    g.set_tag("Rating", rating)
+                    g.set_tag("RatingDeviation", ratingdeviation)
+                    g.set_tag("Popularity", popularity)
+                    g.set_tag("NBPlays", nbplays)
+                    g.set_tag("GameURL", gameurl)
                     self.dbGames.insert(g, with_commit=(n % 1000) == 0)
                 if n % 10 == 0:
                     pb.pon(f.tell())
@@ -1688,7 +1758,7 @@ class WTags(LCDialog.LCDialog):
 
     def grid_setvalue(self, grid, row, o_column, value):
         key = o_column.key
-        dic = self.li_data[row]
+        dic: dict = self.li_data[row]
         value = value.strip()
         if key == "VALUE" and value:
             dic["ACTION"] = self.fill_column

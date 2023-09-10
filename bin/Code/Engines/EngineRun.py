@@ -14,7 +14,7 @@ from Code import Util
 from Code.Base.Constantes import BOOK_BEST_MOVE, BOOK_RANDOM_UNIFORM, BOOK_RANDOM_PROPORTIONAL
 from Code.Engines import EngineResponse
 from Code.Engines import Priorities
-from Code.Polyglots import Books
+from Code.Books import Books
 from Code.QT import QTUtil2
 
 
@@ -75,7 +75,7 @@ class RunEngine:
         self.orden_uci()
 
         txt_uci_analysismode = "UCI_AnalyseMode"
-        uci_analysismode = False
+        uci_analysismode_set = False
 
         setoptions = False
         if li_options_uci:
@@ -85,16 +85,17 @@ class RunEngine:
                 self.set_option(opcion, valor)
                 setoptions = True
                 if opcion == txt_uci_analysismode:
-                    uci_analysismode = True
+                    uci_analysismode_set = True
 
         self.num_multipv = num_multipv
         if num_multipv:
             self.set_multipv(num_multipv)
-            if not uci_analysismode and num_multipv > 1:
+            if not uci_analysismode_set and num_multipv > 1:
                 for line in self.uci_lines:
-                    if "UCI_AnalyseMode" in line:
-                        self.set_option("UCI_AnalyseMode", "true")
+                    if txt_uci_analysismode in line:
+                        self.set_option(txt_uci_analysismode, "true")
                         setoptions = True
+                        break
         if setoptions:
             self.put_line_base("isready")
             self.wait_mrm("readyok", 1000)
@@ -459,31 +460,25 @@ class RunEngine:
         self.mrm.ordena()
         return self.mrm
 
-    def ac_minimo(self, minimoTiempo, lockAC):
+    def ac_minimo(self, minimo_tiempo, lock_ac):
         self.ac_lee()
         self.mrm.ordena()
-        rm = self.mrm.mejorMov()
-        tm = rm.time  # problema cuando da por terminada la lectura y el rm.time siempre es el mismo
-        bucle = 0
-        while rm.time < minimoTiempo and tm < minimoTiempo:
+
+        while self.mrm.time_used()*1000 < minimo_tiempo:
             time.sleep(0.1)
-            bucle += 1
-            if bucle > 1 and self.ac_lee() == 0:
-                break
-            tm += 100
-            rm = self.mrm.mejorMov()
-        self.lockAC = lockAC
+
+        self.lockAC = lock_ac
         return self.ac_estado()
 
-    def ac_minimoTD(self, minTime, minDepth, lockAC):
+    def ac_minimoTD(self, min_time, min_depth, lock_ac):
         self.ac_lee()
         self.mrm.ordena()
         rm = self.mrm.mejorMov()
-        while rm.time < minTime or rm.depth < minDepth:
+        while rm.time < min_time or rm.depth < min_depth:
             time.sleep(0.1)
             self.ac_lee()
             rm = self.mrm.mejorMov()
-        self.lockAC = lockAC
+        self.lockAC = lock_ac
         return self.ac_estado()
 
     def ac_final(self, minimo_ms_time):

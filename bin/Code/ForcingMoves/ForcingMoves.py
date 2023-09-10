@@ -66,7 +66,7 @@ class ForcingMoves:
                 self.bm_move_index = move_index
 
             if infoMove.check() or infoMove.mate():
-                # print("Check: %s" % infoMove.move())
+                # pr int("Check: %s" % infoMove.move())
                 self.checks += 1
                 self.li_checks.append(infoMove.move())
                 self.li_check_targets.append(infoMove.xto())
@@ -74,7 +74,7 @@ class ForcingMoves:
                     self.bm_is_check = True
 
             if infoMove.capture():
-                # print("Capture: %s" % infoMove.move())
+                # pr int("Capture: %s" % infoMove.move())
                 self.captures += 1
                 self.li_captures.append(infoMove.move())
                 self.li_capture_targets.append(infoMove.xto())
@@ -82,7 +82,7 @@ class ForcingMoves:
                     self.bm_is_capture = True
 
         for move in self.li_all_moves:
-            # print("Checking [%s] for new threats" % move)
+            # pr int("Checking [%s] for new threats" % move)
             FasterCode.set_fen(self.cut_fen(self.fen))
             FasterCode.make_move(move)  # Make the first best move
             new_fen = FasterCode.get_fen()
@@ -92,52 +92,52 @@ class ForcingMoves:
                 new_fen = new_fen.replace(" w ", " b ")
             new_fen = self.cut_fen(new_fen)
             FasterCode.set_fen(new_fen)
-            # print("FEN after [%s]: %s" % (move, FasterCode.get_fen()))
+            # pr int("FEN after [%s]: %s" % (move, FasterCode.get_fen()))
 
             if move in self.st_best_moves:
                 self.fen_after_best_move_and_null_move = new_fen
 
-            # print('All follow up moves: ' + ', '.join(FasterCode.get_moves()))
+            # pr int('All follow up moves: ' + ', '.join(FasterCode.get_moves()))
             lista = FasterCode.get_exmoves()
             for infoMove in lista:
-                # print("[%s] checking follow up move %s" % (move, infoMove.move()))
+                # pr int("[%s] checking follow up move %s" % (move, infoMove.move()))
                 if move in self.st_best_moves:
                     self.nextmove_li_all_moves.append(infoMove.move())
                 if infoMove.mate():
-                    # print("Threatening mate on next move: %s" % infoMove.move())
+                    # pr int("Threatening mate on next move: %s" % infoMove.move())
                     self.add_threat(move)
                     if move in self.st_best_moves:
                         self.bm_is_threat = self.bm_is_mate_threat = True
                 if infoMove.check():
-                    # print("Next move [%s] check: %s" % (move, infoMove.move()))
+                    # pr int("Next move [%s] check: %s" % (move, infoMove.move()))
                     if move in self.st_best_moves:
                         self.nextmove_checks += 1
                         self.nextmove_li_checks.append(infoMove.move())
                     if infoMove.xto() not in self.li_check_targets:  # new check = threat
-                        # print("New check is threatened: %s" % infoMove.move())
+                        # pr int("New check is threatened: %s" % infoMove.move())
                         self.add_threat(move)
                         if move in self.st_best_moves:
                             self.bm_is_threat = True
                 if infoMove._capture:
-                    # print("Next move [%s] capture: %s" % (move, infoMove.move()))
+                    # pr int("Next move [%s] capture: %s" % (move, infoMove.move()))
                     if move in self.st_best_moves:
                         self.nextmove_captures += 1
                         self.nextmove_li_captures.append(infoMove.move())
                     if infoMove.xto() not in self.li_capture_targets:  # new capture = threat
                         if infoMove.xfrom() != self.rm.to_sq:  # a different piece now is attacking something
-                            # print("New discovered attack: %s" % infoMove.move())
+                            # pr int("New discovered attack: %s" % infoMove.move())
                             self.add_threat(move)
                             if move in self.st_best_moves:
                                 self.bm_is_discovered_attack = True
                                 self.bm_is_threat = True
                         else:
-                            # print("New capture is threatened: %s" % infoMove.move())
+                            # pr int("New capture is threatened: %s" % infoMove.move())
                             self.add_threat(move)
                             if move in self.st_best_moves:
                                 self.bm_is_threat = True
 
     def add_threat(self, move):
-        # print("%s is a threat!" % move)
+        # pr int("%s is a threat!" % move)
         if move not in self.li_threats:
             self.li_threats.append(move)
 

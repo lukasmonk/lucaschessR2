@@ -46,7 +46,7 @@ class WindowTutor(LCDialog.LCDialog):
             board = Board.Board(self, config_board)
             board.crea()
             board.set_side_bottom(is_white)
-            lytb, tb = QTVarios.lyBotonesMovimiento(self, name, siLibre, siMas=siMas)
+            lytb, tb = QTVarios.ly_mini_buttons(self, name, siLibre, siMas=siMas)
             return board, lytb, tb
 
         self.boardTutor, lytbtutor, self.tbtutor = create_board("tutor")
@@ -93,7 +93,7 @@ class WindowTutor(LCDialog.LCDialog):
         for n, uno in enumerate(tutor.list_rm):
             li_rm.append((uno[1], n))
 
-        self.cbRM, self.lbRM = QTUtil2.comboBoxLB(self, li_rm, li_rm[0][1], _("Moves analyzed"))
+        self.cbRM, self.lbRM = QTUtil2.combobox_lb(self, li_rm, li_rm[0][1], _("Moves analyzed"))
         self.cbRM.capture_changes(tutor.cambiadoRM)
         ly_rm = Colocacion.H().control(self.lbRM).control(self.cbRM)
 

@@ -19,10 +19,11 @@ from Code.Base.Constantes import (
     BOOK_RANDOM_UNIFORM
 )
 from Code.Endings import LibChess
-from Code.Polyglots import Books
+from Code.Books import Books
 from Code.QT import QTUtil
 from Code.QT import QTUtil2
 from Code.Routes import Routes
+from Code.Competitions import ManagerElo
 
 
 class GR_Engine:
@@ -70,37 +71,12 @@ class GR_Engine:
             return FasterCode.run_fen(fen, 1, 0, 2)
 
     def elos(self):
-        x = """stockfish 1284 1377 1377 1496
-alaric 1154 1381 1813 2117
-amyan 1096 1334 1502 1678
-bikjump 1123 1218 1489 1572
-cheng 1137 1360 1662 1714
-chispa 1109 1180 1407 1711
-clarabit 1119 1143 1172 1414
-critter 1194 1614 1814 1897
-discocheck 1138 1380 1608 1812
-fruit 1373 1391 1869 1932
-gaia 1096 1115 1350 1611
-cyrano 1154 1391 1879 2123
-garbochess 1146 1382 1655 1892
-gaviota 1152 1396 1564 1879
-greko 1158 1218 1390 1742
-hamsters 1143 1382 1649 1899
-komodo 1204 1406 1674 1891
-lime 1143 1206 1493 1721
-pawny 1096 1121 1333 1508
-rhetoric 1131 1360 1604 1820
-roce 1122 1150 1206 1497
-umko 1120 1384 1816 1930
-rybka 1881 2060 2141 2284
-simplex 1118 1166 1411 1814
-ufim 1189 1383 1928 2134
-texel 1154 1387 1653 1874
-toga 1236 1495 1928 2132"""
+
+
         d = {1: [], 2: [], 3: [], 4: [], 5: [], 6: []}
 
-        def mas(engine, depth, celo):
-            elo = int(celo)
+        def mas(nom_engine, xdepth, xelo):
+            elo = int(xelo)
             if elo < 1100:
                 tp = 1
             elif elo < 1200:
@@ -115,15 +91,12 @@ toga 1236 1495 1928 2132"""
                 tp = 6
             else:
                 return
-            if engine in self.configuration.dic_engines:
-                d[tp].append((engine, depth, elo))
+            if nom_engine in self.configuration.dic_engines:
+                d[tp].append((nom_engine, xdepth, elo))
 
-        for line in x.split("\n"):
-            engine, d1, d2, d3, d4 = line.split(" ")
-            mas(engine, 1, d1)
-            mas(engine, 2, d2)
-            mas(engine, 3, d3)
-            mas(engine, 4, d4)
+        li_engines = ManagerElo.listaMotoresElo()  # list (elo, key, depth)
+        for elo, key, depth in li_engines:
+            mas(key, depth, elo)
         return d
 
 
@@ -302,7 +275,7 @@ class ManagerRoutesPlay(ManagerRoutes):
             op_pv = self.liPVopening[self.posOpening]
             if pv != op_pv:
                 if self.must_win:
-                    QTUtil2.mensajeTemporal(self.main_window, _("Wrong move"), 2)
+                    QTUtil2.temporary_message(self.main_window, _("Wrong move"), 2)
                     self.run_action(TB_REINIT)
                 else:
                     QTUtil2.message_error(
@@ -487,10 +460,10 @@ class ManagerRoutesEndings(ManagerRoutes):
             self.activate_side(is_white)
 
     def show_error(self, mens):
-        QTUtil2.mensajeTemporal(self.main_window, "   %s    " % mens, 1, background="#FF9B00", physical_pos="ad")
+        QTUtil2.temporary_message(self.main_window, "   %s    " % mens, 1, background="#FF9B00", physical_pos="ad")
 
     def show_mens(self, mens):
-        QTUtil2.mensajeTemporal(self.main_window, mens, 4, physical_pos="tb", background="#C3D6E8")
+        QTUtil2.temporary_message(self.main_window, mens, 4, physical_pos="tb", background="#C3D6E8")
 
     def player_has_moved(self, from_sq, to_sq, promotion=""):
         jgSel = self.check_human_move(from_sq, to_sq, promotion)
@@ -698,7 +671,7 @@ class ManagerRoutesTactics(ManagerRoutes):
             for variation in jgObj.variations.li_variations:
                 jgObjV = variation.move(0)
                 if jgObjV.movimiento() == jgSel.movimiento():
-                    QTUtil2.mensajeTemporal(
+                    QTUtil2.temporary_message(
                         self.main_window,
                         _("You have selected one correct move, but the line use %s") % jgObj.pgn_translated(),
                         3,
@@ -707,7 +680,7 @@ class ManagerRoutesTactics(ManagerRoutes):
                     self.get_help(False)
                     self.sigueHumano()
                     return False
-            QTUtil2.mensajeTemporal(self.main_window, _("Wrong move"), 0.8, physical_pos="ad")
+            QTUtil2.temporary_message(self.main_window, _("Wrong move"), 0.8, physical_pos="ad")
             self.route.error_tactic(self.game_objetivo.num_moves())
             self.set_label2(self.route.mens_tactic(False))
             self.sigueHumano()

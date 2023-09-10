@@ -33,7 +33,6 @@ class ManagerVariations(Manager.Manager):
         self.game_type = GT_ALONE
 
         self.human_is_playing = True
-        self.plays_instead_of_me_option = True
         self.dicRival = {}
 
         self.play_against_engine = False
@@ -182,7 +181,6 @@ class ManagerVariations(Manager.Manager):
         self.start(self.game, self.is_white_bottom, self.with_engine_active, self.is_competitive)
 
     def configurar(self):
-
         mt = _("Engine").lower()
         mt = _X(_("Disable %1"), mt) if self.play_against_engine else _X(_("Enable %1"), mt)
 
@@ -259,3 +257,10 @@ class ManagerVariations(Manager.Manager):
         self.set_label1(dic["ROTULO1"])
         self.play_against_engine = True
         self.configuration.write_variables("ENG_VARIANTES", dic)
+
+    def play_instead_of_me(self):
+        if not self.is_finished():
+            mrm = self.analizaTutor(with_cursor=True)
+            rm = mrm.mejorMov()
+            if rm.from_sq:
+                self.player_has_moved_base(rm.from_sq, rm.to_sq, rm.promotion)

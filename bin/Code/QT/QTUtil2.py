@@ -25,21 +25,21 @@ class MensEspera(QtWidgets.QWidget):
             self,
             parent,
             mensaje,
-            siCancelar,
-            siMuestraYa,
+            if_cancel,
+            show_now,
             opacity,
             physical_pos,
-            fixedSize,
-            titCancelar,
+            fixed_size,
+            tit_cancel,
             background,
-            pmImagen=None,
+            pm_image=None,
             puntos=12,
-            conImagen=True,
-            siParentNone=False,
+            with_image=True,
+            if_parent_none=False,
     ):
 
         super(MensEspera, self).__init__(
-            None if siParentNone else parent
+            None if if_parent_none else parent
         )  # No se indica parent cuando le afecta el disable general, cuando se analiza posicion por ejemplo
 
         self.setWindowFlags(
@@ -49,9 +49,11 @@ class MensEspera(QtWidgets.QWidget):
             | QtCore.Qt.WindowStaysOnTopHint
         )
         self.setStyleSheet("QWidget, QLabel { background: %s }" % background)
-        if conImagen:
+        
+        lbi = None
+        if with_image:
             lbi = QtWidgets.QLabel(self)
-            lbi.setPixmap(pmImagen if pmImagen else Iconos.pmMensEspera())
+            lbi.setPixmap(pm_image if pm_image else Iconos.pmMensEspera())
 
         self.owner = parent
 
@@ -59,19 +61,19 @@ class MensEspera(QtWidgets.QWidget):
         self.is_canceled = False
 
         if physical_pos == "tb":
-            fixedSize = parent.width()
+            fixed_size = parent.width()
 
         self.lb = lb = (
             Controles.LB(parent, resalta(mensaje)).ponFuente(Controles.TipoLetra(puntos=puntos)).align_center()
         )
-        if fixedSize is not None:
-            lb.set_wrap().anchoFijo(fixedSize - 60)
+        if fixed_size is not None:
+            lb.set_wrap().anchoFijo(fixed_size - 60)
 
-        if siCancelar:
-            if not titCancelar:
-                titCancelar = _("Cancel")
+        if if_cancel:
+            if not tit_cancel:
+                tit_cancel = _("Cancel")
             self.btCancelar = (
-                Controles.PB(self, titCancelar, rutina=self.cancelar, plano=False).ponIcono(Iconos.Cancelar())
+                Controles.PB(self, tit_cancel, rutina=self.cancelar, plano=False).ponIcono(Iconos.Cancelar())
                 # .anchoFijo(100)
             )
             self.btCancelar.setStyleSheet(
@@ -93,21 +95,21 @@ QPushButton:pressed {
             )
 
         ly = Colocacion.G()
-        if conImagen:
+        if with_image:
             ly.control(lbi, 0, 0, 3, 1)
         ly.controlc(lb, 1, 1)
-        if siCancelar:
+        if if_cancel:
             ly.controlc(self.btCancelar, 2, 1)
 
         ly.margen(24)
         self.setLayout(ly)
-        self.teclaPulsada = None
+        self.key_pressed = None
 
-        if fixedSize:
-            self.setFixedWidth(fixedSize)
+        if fixed_size:
+            self.setFixedWidth(fixed_size)
 
         self.setWindowOpacity(opacity)
-        if siMuestraYa:
+        if show_now:
             self.muestra()
 
     def cancelar(self):
@@ -118,14 +120,14 @@ QPushButton:pressed {
         QTUtil.refresh_gui()
         return self.is_canceled
 
-    def activarCancelar(self, siActivar):
-        self.btCancelar.setVisible(siActivar)
+    def activate_cancel(self, ok):
+        self.btCancelar.setVisible(ok)
         QTUtil.refresh_gui()
         return self
 
     def keyPressEvent(self, event):
         QtWidgets.QWidget.keyPressEvent(self, event)
-        self.teclaPulsada = event.key()
+        self.key_pressed = event.key()
 
     def label(self, nuevo):
         self.lb.set_text(resalta(nuevo))
@@ -163,25 +165,26 @@ QPushButton:pressed {
             pass
 
 
-class ControlMensEspera:
+class ControlWaitingMessage:
     def __init__(self):
         self.me = None
+        self.ms = None
 
     def start(
             self,
             parent,
             mensaje,
-            siCancelar=False,
-            siMuestraYa=True,
+            if_cancel=False,
+            show_now=True,
             opacity=0.91,
             physical_pos="c",
-            fixedSize=None,
-            titCancelar=None,
+            fixed_size=None,
+            tit_cancel=None,
             background=None,
-            pmImagen=None,
+            pm_image=None,
             puntos=11,
-            conImagen=True,
-            siParentNone=False,
+            with_image=True,
+            if_parent_none=False,
     ):
         if self.me:
             self.final()
@@ -191,17 +194,17 @@ class ControlMensEspera:
         self.me = MensEspera(
             parent,
             mensaje,
-            siCancelar,
-            siMuestraYa,
+            if_cancel,
+            show_now,
             opacity,
             physical_pos,
-            fixedSize,
-            titCancelar,
+            fixed_size,
+            tit_cancel,
             background,
-            pmImagen,
+            pm_image,
             puntos,
-            conImagen,
-            siParentNone=siParentNone,
+            with_image,
+            if_parent_none=if_parent_none,
         )
         QTUtil.refresh_gui()
         return self
@@ -219,12 +222,12 @@ class ControlMensEspera:
             return self.me.cancelado()
         return True
 
-    def teclaPulsada(self, k):
+    def key_pressed(self, k):
         if self.me is None:
             return False
-        if self.me.teclaPulsada:
-            resp = self.me.teclaPulsada == k
-            self.me.teclaPulsada = None
+        if self.me.key_pressed:
+            resp = self.me.key_pressed == k
+            self.me.key_pressed = None
             return resp
         else:
             return False
@@ -245,47 +248,82 @@ class ControlMensEspera:
         QTUtil.refresh_gui()
 
 
-mensEspera = ControlMensEspera()
+waiting_message = ControlWaitingMessage()
 
 
-def mensajeTemporal(
+def one_moment_please(owner, mensaje=None, physical_pos=None):
+    if mensaje is None:
+        mensaje = _("One moment please...")
+    return waiting_message.start(owner, mensaje, physical_pos=physical_pos)
+
+
+def working(owner):
+    return one_moment_please(owner, _("Working..."))
+
+
+class OneMomentPlease:
+    def __init__(self, owner, the_message=None, physical_pos=None):
+        self.owner = owner
+        self.the_message = _("One moment please...") if the_message is None else the_message
+        self.physical_pos = physical_pos
+        self.um = None
+
+    def __enter__(self):
+        self.um = waiting_message.start(self.owner, self.the_message, physical_pos=self.physical_pos)
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.close()
+
+    def close(self):
+        if self.um:
+            self.um.final()
+            self.um = None
+
+
+
+def analizando(owner, if_cancel=False):
+    return waiting_message.start(owner, _("Analyzing the move...."), physical_pos="ad", if_cancel=if_cancel)
+
+
+def temporary_message(
         main_window,
         mensaje,
         seconds,
         background=None,
-        pmImagen=None,
+        pm_image=None,
         physical_pos="c",
-        fixedSize=None,
-        siCancelar=None,
-        titCancelar=None,
+        fixed_size=None,
+        if_cancel=None,
+        tit_cancel=None,
 ):
-    if siCancelar is None:
-        siCancelar = seconds > 3.0
-    if titCancelar is None:
-        titCancelar = _("Continue")
-    me = mensEspera.start(
+    if if_cancel is None:
+        if_cancel = seconds > 3.0
+    if tit_cancel is None:
+        tit_cancel = _("Continue")
+    me = waiting_message.start(
         main_window,
         mensaje,
         background=background,
-        pmImagen=pmImagen,
-        siCancelar=siCancelar,
-        titCancelar=titCancelar,
+        pm_image=pm_image,
+        if_cancel=if_cancel,
+        tit_cancel=tit_cancel,
         physical_pos=physical_pos,
-        fixedSize=fixedSize,
+        fixed_size=fixed_size,
     )
     if seconds:
         me.time(seconds)
     return me
 
 
-def mensajeTemporalSinImagen(main_window, mensaje, seconds, background=None, puntos=12, physical_pos="c"):
-    me = mensEspera.start(
+def temporary_message_without_image(main_window, mensaje, seconds, background=None, puntos=12, physical_pos="c"):
+    me = waiting_message.start(
         main_window,
         mensaje,
         physical_pos=physical_pos,
-        conImagen=False,
+        with_image=False,
         puntos=puntos,
-        fixedSize=None,
+        fixed_size=None,
         background=background,
     )
     if seconds:
@@ -318,9 +356,9 @@ class BarraProgreso2(QtWidgets.QDialog):
 
         # cancelar
         bt = Controles.PB(self, _("Cancel"), self.cancelar, plano=False)  # .ponIcono( Iconos.Delete() )
-        lyBT = Colocacion.H().relleno().control(bt)
+        ly_bt = Colocacion.H().relleno().control(bt)
 
-        layout = Colocacion.V().control(self.gb1).control(self.gb2).otro(lyBT)
+        layout = Colocacion.V().control(self.gb1).control(self.gb2).otro(ly_bt)
 
         self.setLayout(layout)
         self._is_canceled = False
@@ -352,11 +390,11 @@ class BarraProgreso2(QtWidgets.QDialog):
         self._is_canceled = True
         self.cerrar()
 
-    def ponRotulo(self, cual, texto):
+    def put_label(self, cual, texto):
         gb = self.gb1 if cual == 1 else self.gb2
         gb.set_text(texto)
 
-    def ponTotal(self, cual, maximo):
+    def set_total(self, cual, maximo):
         bp = self.bp1 if cual == 1 else self.bp2
         bp.setRange(0, maximo)
 
@@ -386,9 +424,9 @@ class BarraProgreso1(QtWidgets.QDialog):
 
         # cancelar
         bt = Controles.PB(self, _("Cancel"), self.cancelar, plano=False)
-        lyBT = Colocacion.H().relleno().control(bt)
+        ly_bt = Colocacion.H().relleno().control(bt)
 
-        layout = Colocacion.V().control(self.gb1).otro(lyBT)
+        layout = Colocacion.V().control(self.gb1).otro(ly_bt)
 
         self.setLayout(layout)
         self._is_canceled = False
@@ -419,10 +457,10 @@ class BarraProgreso1(QtWidgets.QDialog):
         self._is_canceled = True
         self.cerrar()
 
-    def ponRotulo(self, texto):
+    def put_label(self, texto):
         self.gb1.set_text(texto)
 
-    def ponTotal(self, maximo):
+    def set_total(self, maximo):
         self.bp1.setRange(0, maximo)
 
     def pon(self, valor):
@@ -489,7 +527,7 @@ class BarraProgreso(QtWidgets.QProgressDialog):
         QTUtil.refresh_gui()
         return self.wasCanceled()
 
-    def ponTotal(self, total):
+    def set_total(self, total):
         self.setMaximum(total)
         self.pon(0)
 
@@ -505,11 +543,11 @@ def resalta(mens, tipo=4):
     return ("<h%d>%s</h%d>" % (tipo, mens, tipo)).replace("\n", "<br>")
 
 
-def tbAcceptCancel(parent, if_default=False, siReject=True):
+def tb_accept_cancel(parent, if_default=False, with_cancel=True):
     li_acciones = [
         (_("Accept"), Iconos.Aceptar(), parent.aceptar),
         None,
-        (_("Cancel"), Iconos.Cancelar(), parent.reject if siReject else parent.cancelar),
+        (_("Cancel"), Iconos.Cancelar(), parent.reject if with_cancel else parent.cancelar),
     ]
     if if_default:
         li_acciones.append(None)
@@ -519,7 +557,7 @@ def tbAcceptCancel(parent, if_default=False, siReject=True):
     return QTVarios.LCTB(parent, li_acciones)
 
 
-def tiposDeLineas():
+def lines_type():
     li = (
         (_("No pen"), 0),
         (_("Solid line"), 1),
@@ -531,7 +569,7 @@ def tiposDeLineas():
     return li
 
 
-def listaOrdenes():
+def list_zvalues():
     li = []
     for k in range(5, 30):
         txt = "%2d" % (k - 4,)
@@ -544,12 +582,12 @@ def listaOrdenes():
     return li
 
 
-def spinBoxLB(owner, valor, from_sq, to_sq, etiqueta=None, maxTam=None, fuente=None):
+def spinbox_lb(owner, valor, from_sq, to_sq, etiqueta=None, max_width=None, fuente=None):
     ed = Controles.SB(owner, valor, from_sq, to_sq)
     if fuente:
         ed.setFont(fuente)
-    if maxTam:
-        ed.tamMaximo(maxTam)
+    if max_width:
+        ed.tamMaximo(max_width)
     if etiqueta:
         label = Controles.LB(owner, etiqueta + ": ")
         if fuente:
@@ -559,29 +597,12 @@ def spinBoxLB(owner, valor, from_sq, to_sq, etiqueta=None, maxTam=None, fuente=N
         return ed
 
 
-def comboBoxLB(parent, li_options, valor, etiqueta=None):
+def combobox_lb(parent, li_options, valor, etiqueta=None):
     cb = Controles.CB(parent, li_options, valor)
     if etiqueta:
         return cb, Controles.LB(parent, etiqueta + ": ")
     else:
         return cb
-
-
-def unMomento(owner, mensaje=None, physical_pos=None):
-    if mensaje is None:
-        mensaje = _("One moment please...")
-    return mensEspera.start(owner, mensaje, physical_pos=physical_pos)
-
-
-def analizando(owner, siCancelar=False):
-    return mensEspera.start(owner, _("Analyzing the move...."), physical_pos="ad", siCancelar=siCancelar)
-
-
-def ponIconosMotores(lista):
-    liResp = []
-    for titulo, key in lista:
-        liResp.append((titulo, key, Iconos.PuntoEstrella() if key.startswith("*") else Iconos.PuntoVerde()))
-    return liResp
 
 
 def message(owner, texto, explanation=None, titulo=None, pixmap=None, px=None, py=None, si_bold=False, delayed=False):
@@ -653,7 +674,7 @@ def pregunta(parent, mens, label_yes=None, label_no=None, si_top=False, px=None,
     return msg_box.clickedButton() == si_button
 
 
-def preguntaCancelar(parent, mens, si, no):
+def question_withcancel(parent, mens, si, no):
     msg_box = QtWidgets.QMessageBox(QtWidgets.QMessageBox.Question, _("Question"), resalta(mens), parent=parent)
     si_button = msg_box.addButton(si, QtWidgets.QMessageBox.YesRole)
     no_button = msg_box.addButton(no, QtWidgets.QMessageBox.NoRole)
@@ -670,7 +691,7 @@ def preguntaCancelar(parent, mens, si, no):
     return resp
 
 
-def preguntaCancelar123(parent, title, mens, si, no, cancel):
+def question_withcancel_123(parent, title, mens, si, no, cancel):
     msg_box = QtWidgets.QMessageBox(QtWidgets.QMessageBox.Question, title, resalta(mens), parent=parent)
     si_button = msg_box.addButton(si, QtWidgets.QMessageBox.YesRole)
     no_button = msg_box.addButton(no, QtWidgets.QMessageBox.NoRole)
@@ -688,12 +709,14 @@ def preguntaCancelar123(parent, title, mens, si, no, cancel):
     return resp
 
 
-def message_menu(owner, main, message, delayed):
+def message_menu(owner, main, the_message, delayed, zzpos=True):
     def show():
 
         previo = QtGui.QCursor.pos()
-
-        p = owner.mapToGlobal(QtCore.QPoint(0, 0))
+        if zzpos:
+            p = owner.mapToGlobal(QtCore.QPoint(0, 0))
+        else:
+            p = previo
         QtGui.QCursor.setPos(p)
 
         menu = QTVarios.LCMenu(owner)
@@ -707,7 +730,7 @@ def message_menu(owner, main, message, delayed):
         menu.separador()
         menu.separador_blank()
 
-        q = QtGui.QTextDocument(message, owner)
+        q = QtGui.QTextDocument(the_message, owner)
         q.setDefaultFont(f)
         q.setTextWidth(owner.width())
         q.setUseDesignMetrics(True)
@@ -719,12 +742,12 @@ def message_menu(owner, main, message, delayed):
         ret = []
         tb = q.begin()
         while tb.isValid():
-            blockText = tb.text()
+            block_text = tb.text()
             if not tb.layout():
                 continue
             for i in range(tb.layout().lineCount()):
                 line = tb.layout().lineAt(i)
-                ret.append(blockText[line.textStart(): line.textStart() + line.textLength()])
+                ret.append(block_text[line.textStart(): line.textStart() + line.textLength()])
             tb = tb.next()
 
         for linea in ret:
@@ -733,7 +756,8 @@ def message_menu(owner, main, message, delayed):
         def vuelve():
             QtGui.QCursor.setPos(previo)
 
-        QtCore.QTimer.singleShot(50, vuelve)
+        if zzpos:
+            QtCore.QTimer.singleShot(50, vuelve)
         menu.lanza()
 
     if delayed:

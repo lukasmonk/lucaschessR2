@@ -269,7 +269,7 @@ class ManagerTurnOnLights(Manager.Manager):
             if (self.tol.go_fast is True) or ((self.tol.go_fast is None) and self.tol.work_level > 0):
                 self.next_line_run()
                 return
-            QTUtil2.mensajeTemporal(self.main_window, _("Line completed"), 1.3)
+            QTUtil2.temporary_message(self.main_window, _("Line completed"), 1.3)
             self.pon_rotulos(0)
 
         self.state = ST_ENDGAME

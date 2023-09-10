@@ -764,7 +764,6 @@ class Opening:
     def remove_lastmove(self, is_white, label):
         self.save_history(_("Removing"), label)
         n = len(self.li_xpv)
-        cursor = self._conexion.cursor()
         for x in range(n - 1, -1, -1):
             xpv = self.li_xpv[x]
             pv = FasterCode.xpv_pv(xpv)
@@ -773,18 +772,12 @@ class Opening:
                 pv_nue = " ".join(pv.split(" ")[:-1])
                 xpv_nue = FasterCode.pv_xpv(pv_nue)
                 if xpv_nue in self.li_xpv or not xpv_nue:
-                    sql = "DELETE FROM LINES where XPV=?"
-                    cursor.execute(sql, (xpv,))
                     del self.li_xpv[x]
                 else:
-                    sql = "UPDATE LINES SET XPV=? WHERE XPV=?"
-                    cursor.execute(sql, (xpv_nue, xpv))
                     self.li_xpv[x] = xpv_nue
                 if xpv in self.cache:
                     del self.cache[xpv]
-        self.li_xpv.sort()
-        self._conexion.commit()
-        cursor.close()
+        self.clean()
 
     def list_history(self):
         return self.db_history.keys(si_ordenados=True, si_reverse=True)
@@ -923,24 +916,12 @@ class Opening:
                     if d:
                         dic_comments[fenm2] = d
 
-        self._conexion.execute("DELETE FROM LINES")
-        self._conexion.commit()
-        self._conexion.execute("VACUUM")
-        self._conexion.commit()
-
-        st = set(self.li_xpv)
-        self.li_xpv = list(st)
-        self.li_xpv.sort()
-
-        sql_insert = "INSERT INTO LINES( XPV ) VALUES( ? )"
-        for xpv in self.li_xpv:
-            self._conexion.execute(sql_insert, (xpv,))
-        self._conexion.commit()
+        self.clean()
 
         dl_tmp.cerrar()
         if with_comments and dic_comments:
             self.db_fenvalues.set_faster_mode()
-            um = QTUtil2.unMomento(owner)
+            um = QTUtil2.one_moment_please(owner)
             for fenm2, dic_comments_game in dic_comments.items():
                 self.setfenvalue(fenm2, dic_comments_game)
             self.db_fenvalues.set_normal_mode()
@@ -980,7 +961,7 @@ class Opening:
 
         if dic_comments:
             self.db_fenvalues.set_faster_mode()
-            um = QTUtil2.unMomento(owner)
+            um = QTUtil2.one_moment_please(owner)
             for fenm2, dic_comments_game in dic_comments.items():
                 self.setfenvalue(fenm2, dic_comments_game)
             self.db_fenvalues.set_normal_mode()
@@ -1039,83 +1020,85 @@ class Opening:
         self._conexion.commit()
         self.li_xpv.sort()
 
-    def import_polyglot(
-            self, ventana, game, bookW, bookB, titulo, depth, siWhite, onlyone, minMoves, excl_transpositions
-    ):
-        bp = QTUtil2.BarraProgreso1(ventana, titulo, formato1="%m")
-        bp.ponTotal(0)
-        bp.ponRotulo(_X(_("Reading %1"), "..."))
-        bp.mostrar()
-
-        st_fenm2 = set()
-        set_fen = FasterCode.set_fen
-        make_move = FasterCode.make_move
-        get_fen = FasterCode.get_fen
-        control = Util.Record()
-        control.liPartidas = []
-        control.num_games = 0
-        control.with_history = True
-        control.label = "%s,%s,%s" % (_("Polyglot book"), bookW.name, bookB.name)
-
-        def haz_fen(fen, lipv_ant, control):
-            if bp.is_canceled():
-                return
-            if len(lipv_ant) > depth:
-                return
-            if excl_transpositions:
-                fen_m2 = FasterCode.fen_fenm2(fen)
-                if fen_m2 in st_fenm2:
-                    return
-                st_fenm2.add(fen_m2)
-
-            si_white1 = " w " in fen
-            book = bookW if si_white1 else bookB
-            li_posible_moves = book.miraListaPV(fen, si_white1 == siWhite, onlyone=onlyone)
-            if li_posible_moves and len(lipv_ant) < depth:
-                for pv in li_posible_moves:
-                    set_fen(fen)
-                    make_move(pv)
-                    fenN = get_fen()
-                    lipv_nue = lipv_ant[:]
-                    lipv_nue.append(pv)
-                    haz_fen(fenN, lipv_nue, control)
-            else:
-                p = Game.Game()
-                p.leerLIPV(lipv_ant)
-                if p.si3repetidas():
-                    return
-                control.liPartidas.append(p)
-                control.num_games += 1
-                bp.ponTotal(control.num_games)
-                bp.pon(control.num_games)
-                if control.num_games and control.num_games % 3751 == 0:
-                    self.guardaPartidas(control.label, control.liPartidas, minMoves, with_history=control.with_history)
-                    control.liPartidas = []
-                    control.with_history = False
-
-        li_games = self.get_all_games() if game is None else [game]
-
-        for game in li_games:
-            cp = game.last_position
-            try:
-                haz_fen(cp.fen(), game.lipv(), control)
-            except RecursionError:
-                pass
-
-        bp.ponRotulo(_("Writing..."))
-
-        if control.liPartidas:
-            self.guardaPartidas(control.label, control.liPartidas, minMoves, with_history=control.with_history)
-        self.pack_database()
-        bp.cerrar()
+    def import_polyglot(self, li_pv):
+        self.save_history(_("Import"), _("Polyglot book"))
+        li_xpv_new = [FasterCode.pv_xpv(pv) for pv in li_pv]
+        self.li_xpv.extend(li_xpv_new)
+        self.clean()
+        # bp = QTUtil2.BarraProgreso1(ventana, titulo, formato1="%m")
+        # bp.set_total(0)
+        # bp.put_label(_X(_("Reading %1"), "..."))
+        # bp.mostrar()
+        #
+        # st_fenm2 = set()
+        # set_fen = FasterCode.set_fen
+        # make_move = FasterCode.make_move
+        # get_fen = FasterCode.get_fen
+        # control = Util.Record()
+        # control.liPartidas = []
+        # control.num_games = 0
+        # control.with_history = True
+        # control.label = "%s,%s,%s" % (_("Polyglot book"), bookW.name, bookB.name)
+        #
+        # def haz_fen(fen, lipv_ant, control):
+        #     if bp.is_canceled():
+        #         return
+        #     if len(lipv_ant) > depth:
+        #         return
+        #     if excl_transpositions:
+        #         fen_m2 = FasterCode.fen_fenm2(fen)
+        #         if fen_m2 in st_fenm2:
+        #             return
+        #         st_fenm2.add(fen_m2)
+        #
+        #     si_white1 = " w " in fen
+        #     book = bookW if si_white1 else bookB
+        #     li_posible_moves = book.miraListaPV(fen, si_white1 == siWhite, onlyone=onlyone)
+        #     if li_posible_moves and len(lipv_ant) < depth:
+        #         for pv in li_posible_moves:
+        #             set_fen(fen)
+        #             make_move(pv)
+        #             fenN = get_fen()
+        #             lipv_nue = lipv_ant[:]
+        #             lipv_nue.append(pv)
+        #             haz_fen(fenN, lipv_nue, control)
+        #     else:
+        #         p = Game.Game()
+        #         p.read_lipv(lipv_ant)
+        #         if p.si3repetidas():
+        #             return
+        #         control.liPartidas.append(p)
+        #         control.num_games += 1
+        #         bp.set_total(control.num_games)
+        #         bp.pon(control.num_games)
+        #         if control.num_games and control.num_games % 3751 == 0:
+        #             self.guardaPartidas(control.label, control.liPartidas, minMoves, with_history=control.with_history)
+        #             control.liPartidas = []
+        #             control.with_history = False
+        #
+        # li_games = self.get_all_games() if game is None else [game]
+        #
+        # for game in li_games:
+        #     cp = game.last_position
+        #     try:
+        #         haz_fen(cp.fen(), game.lipv(), control)
+        #     except RecursionError:
+        #         pass
+        #
+        # bp.put_label(_("Writing..."))
+        #
+        # if control.liPartidas:
+        #     self.guardaPartidas(control.label, control.liPartidas, minMoves, with_history=control.with_history)
+        # self.pack_database()
+        # bp.cerrar()
 
         return True
 
     def import_dbopening_explorer(self, ventana, gamebase, fichero_summary, depth, si_white, onlyone, min_moves):
         titulo = _("Importing the opening explorer of a database")
         bp = QTUtil2.BarraProgreso1(ventana, titulo)
-        bp.ponTotal(0)
-        bp.ponRotulo(_X(_("Reading %1"), os.path.basename(fichero_summary)))
+        bp.set_total(0)
+        bp.put_label(_X(_("Reading %1"), os.path.basename(fichero_summary)))
         bp.mostrar()
 
         db_stat = DBgamesST.TreeSTAT(fichero_summary)
@@ -1139,10 +1122,10 @@ class Opening:
 
             if len(li_children) == 0 or len(lipv_ant) >= depth:
                 game = Game.Game()
-                game.leerLIPV(lipv_ant)
+                game.read_lipv(lipv_ant)
                 if len(game) > len_gamebase and len(game) >= min_moves:
                     li_partidas.append(game)
-                    bp.ponTotal(len(li_partidas))
+                    bp.set_total(len(li_partidas))
                     bp.pon(len(li_partidas))
                 return
 
@@ -1165,7 +1148,7 @@ class Opening:
 
         hazPV(pv_base.split(" ") if pv_base else [])
 
-        bp.ponRotulo(_("Writing..."))
+        bp.put_label(_("Writing..."))
         self.guardaPartidas("%s,%s" % (_("Database opening explorer"), os.path.basename(fichero_summary)), li_partidas)
         self.pack_database()
         bp.cerrar()

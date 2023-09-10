@@ -24,7 +24,6 @@ class ManagerPerson(ManagerPlayAgainstEngine.ManagerPlayAgainstEngine):
         self.game_type = GT_AGAINST_CHILD_ENGINE
 
         self.human_is_playing = False
-        self.plays_instead_of_me_option = True
         self.state = ST_PLAYING
 
         self.summary = {}  # numJugada : "a"ccepted, "s"ame, "r"ejected, dif points, time used

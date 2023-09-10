@@ -27,7 +27,7 @@ from Code.Base.Constantes import (
 from Code.Board import Board
 from Code.Engines import EngineManager, EnginesWicker, EngineResponse
 from Code.Leagues import LeaguesWork, Leagues
-from Code.Polyglots import Books
+from Code.Books import Books
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles

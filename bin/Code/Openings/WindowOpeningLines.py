@@ -54,7 +54,7 @@ class WOpeningLines(LCDialog.LCDialog):
             (_("Up"), Iconos.Arriba(), self.arriba),
             (_("Down"), Iconos.Abajo(), self.abajo),
             None,
-            (_("Remove"), Iconos.Borrar(), self.borrar),
+            (_("Remove"), Iconos.Borrar(), self.grid_remove),
             None,
             (_("Update"), Iconos.Reiniciar(), self.reiniciar),
             None,
@@ -267,7 +267,7 @@ class WOpeningLines(LCDialog.LCDialog):
                 self.listaOpenings.change_title(row, name)
                 self.glista.refresh()
 
-    def borrar(self):
+    def grid_remove(self):
         li = self.glista.recnosSeleccionados()
         if len(li) > 0:
             mens = _("Do you want to delete all selected records?")

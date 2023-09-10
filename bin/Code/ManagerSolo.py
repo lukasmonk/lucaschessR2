@@ -7,7 +7,8 @@ from PySide2 import QtCore
 import Code
 from Code import Manager
 from Code import Util
-from Code.Base import Game, Position
+from Code.Analysis import Analysis
+from Code.Base import Game, Position, Move
 from Code.Base.Constantes import (
     GT_ALONE,
     ST_ENDGAME,
@@ -17,7 +18,6 @@ from Code.Base.Constantes import (
     TB_TAKEBACK,
     TB_CONFIG,
     TB_FILE,
-    TB_HELP_TO_MOVE,
     TB_PGN_LABELS,
     TB_SAVE_AS,
     TB_UTILITIES,
@@ -45,7 +45,7 @@ class ManagerSolo(Manager.Manager):
         game_new = True
         if dic:
             if "GAME" in dic:
-                um = self.unMomento()
+                um = self.one_moment_please()
                 self.game.restore(dic["GAME"])
                 game_new = False
                 um.final()
@@ -63,7 +63,6 @@ class ManagerSolo(Manager.Manager):
 
         self.board.setAcceptDropPGNs(self.dropPGN)
 
-        self.plays_instead_of_me_option = True
         self.dicRival = {}
 
         self.play_against_engine = dic.get("PLAY_AGAINST_ENGINE", False) if not self.xrival else True
@@ -71,8 +70,6 @@ class ManagerSolo(Manager.Manager):
         self.last_file = dic.get("LAST_FILE", "")
 
         self.auto_rotate = dic.get("AUTO_ROTATE", False)
-
-        self.state = dic.get("STATE", ST_PLAYING)
 
         self.opening_block = dic.get("BLOQUEAPERTURA", None)
 
@@ -96,6 +93,7 @@ class ManagerSolo(Manager.Manager):
         self.put_pieces_bottom(dic.get("WHITEBOTTOM", True))
 
         self.goto_end()
+        self.state = ST_PLAYING
 
         if "SICAMBIORIVAL" in dic:
             self.change_rival()
@@ -153,9 +151,6 @@ class ManagerSolo(Manager.Manager):
         elif key == TB_SAVE_AS:
             self.save_as()
 
-        elif key == TB_HELP_TO_MOVE:
-            self.help_to_move()
-
         else:
             Manager.Manager.rutinaAccionDef(self, key)
 
@@ -165,7 +160,6 @@ class ManagerSolo(Manager.Manager):
             TB_FILE,
             TB_PGN_LABELS,
             TB_TAKEBACK,
-            TB_HELP_TO_MOVE,
             TB_REINIT,
             TB_REPLAY,
             TB_CONFIG,
@@ -178,7 +172,7 @@ class ManagerSolo(Manager.Manager):
 
         # Comprobamos que no haya habido cambios from_sq el ultimo grabado
         if self.is_changed() and len(self.game):
-            resp = QTUtil2.preguntaCancelar(
+            resp = QTUtil2.question_withcancel(
                 self.main_window, _("Do you want to save changes to a file?"), _("Yes"), _("No")
             )
             if resp is None:
@@ -316,7 +310,7 @@ class ManagerSolo(Manager.Manager):
             self.valor_inicial = self.dame_valor_actual()
             self.guardaDir(file)
             name = os.path.basename(file)
-            QTUtil2.mensajeTemporal(self.main_window, _X(_("Saved to %1"), name), 0.8)
+            QTUtil2.temporary_message(self.main_window, _X(_("Saved to %1"), name), 0.8)
             self.guardarHistorico(file)
             return True
         else:
@@ -338,7 +332,7 @@ class ManagerSolo(Manager.Manager):
                     resp += "." + extension
                 if not siConfirmar:
                     if os.path.abspath(resp) != os.path.abspath(self.last_file) and os.path.isfile(resp):
-                        yn = QTUtil2.preguntaCancelar(
+                        yn = QTUtil2.question_withcancel(
                             self.main_window,
                             _X(_("The file %1 already exists, what do you want to do?"), resp),
                             si=_("Overwrite"),
@@ -545,7 +539,7 @@ class ManagerSolo(Manager.Manager):
             self.basic_initial_position()
 
         elif resp == "opening":
-            me = self.unMomento()
+            me = self.one_moment_please()
             w = WindowOpenings.WOpenings(self.main_window, self.configuration, self.opening_block)
             me.final()
             if w.exec_():
@@ -756,3 +750,15 @@ class ManagerSolo(Manager.Manager):
 
     def current_pgn(self):
         return self.game.pgn()
+
+    def play_instead_of_me(self):
+        if not self.is_finished():
+            mrm = self.analizaTutor(with_cursor=True)
+            rm = mrm.mejorMov()
+            if rm.from_sq:
+                self.player_has_moved_base(rm.from_sq, rm.to_sq, rm.promotion)
+
+    def help_to_move(self):
+        if not self.is_finished():
+            move = Move.Move(self.game, position_before=self.game.last_position.copia())
+            Analysis.show_analysis(self.procesador, self.xtutor, move, self.board.is_white_bottom, 0, must_save=False)

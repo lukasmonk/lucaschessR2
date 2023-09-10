@@ -76,7 +76,7 @@ class WTV_Marker(QtWidgets.QDialog):
         li_gen.append((config, regMarker.poscelda))
 
         # orden
-        config = FormLayout.Combobox(_("Order concerning other items"), QTUtil2.listaOrdenes())
+        config = FormLayout.Combobox(_("Order concerning other items"), QTUtil2.list_zvalues())
         li_gen.append((config, regMarker.physical_pos.orden))
 
         self.form = FormLayout.FormWidget(li_gen, dispatch=self.cambios)
@@ -254,7 +254,7 @@ class WTV_Markers(LCDialog.LCDialog):
         w = WTV_Marker(self, None, xml=contenido, name=name)
         if w.exec_():
             regMarker = w.regMarker
-            regMarker.id = Util.huella()
+            regMarker.id = Util.huella_num()
             regMarker.ordenVista = (self.liPMarkers[-1].ordenVista + 1) if self.liPMarkers else 1
             self.dbMarkers[regMarker.id] = regMarker.save_dic()
             self.liPMarkers.append(regMarker)
@@ -303,7 +303,7 @@ class WTV_Markers(LCDialog.LCDialog):
                 n += 1
                 name = "%s-%d" % (regMarker.name, n)
             regMarker.name = name
-            regMarker.id = Util.huella()
+            regMarker.id = Util.huella_num()
             regMarker.ordenVista = self.liPMarkers[-1].ordenVista + 1
             self.dbMarkers[regMarker.id] = regMarker
             self.liPMarkers.append(regMarker)

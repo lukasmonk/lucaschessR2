@@ -297,7 +297,7 @@ class WWashing(LCDialog.LCDialog):
             if resp.startswith("dbf_"):
                 database = resp[4:]
                 db = DBgames.DBgames(database)
-                me = QTUtil2.mensEspera.start(self, _("Saving..."))
+                me = QTUtil2.waiting_message.start(self, _("Saving..."))
                 n = 0
                 for pc in other_pc():
                     db.insert(pc)

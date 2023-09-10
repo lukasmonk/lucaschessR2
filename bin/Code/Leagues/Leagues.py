@@ -639,7 +639,7 @@ class Season:
         with UtilSQL.DictRawSQL(self.path, self.table) as dbs:
             dic = dbs.as_dictionary()
             li = []
-            for saved in dic.values():
+            for k, saved in dic.items():
                 try:
                     g = Game.Game()
                     g.restore(saved)

@@ -88,6 +88,9 @@ class EngineManager:
     def set_priority(self, priority):
         self.priority = priority if priority else Priorities.priorities.normal
 
+    def set_priority_very_low(self):
+        self.priority = Priorities.priorities.verylow
+
     def maximize_multipv(self):
         self.num_multipv = 9999
 
@@ -390,7 +393,7 @@ class EngineManager:
         if ms_used < mstime:
             mstime = ms_used
 
-        um = QTUtil2.unMomento(window, _("Finishing the analysis...")) if mstime > 1000 else None
+        um = QTUtil2.one_moment_please(window, _("Finishing the analysis...")) if mstime > 1000 else None
 
         self.engine.set_multipv(1)
         mrm_next = self.engine.bestmove_game_jg(game, njg + 1, mstime, depth, is_savelines=True)

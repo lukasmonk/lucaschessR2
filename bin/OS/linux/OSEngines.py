@@ -91,9 +91,9 @@ def read_engines(folder_engines):
 
     mas("ethereal", "Andrew Grant, Alayan & Laldon", "12.75", "https://github.com/AndyGrant/Ethereal", "Ethereal-12.75", 3392)
 
-    mas("foxcub", "Lucas Monge", "1.1", "", "FoxCub.exe", 800)
+    mas("foxcub", "Lucas Monge", "1.1", "", "FoxCub", 800)
 
-    mas("fox", "Lucas Monge", "1.1", "", "Fox.exe", 1400)
+    mas("fox", "Lucas Monge", "1.1", "", "Fox", 1400)
 
     mas("fractal", "Visan Alexandru", "1.0", "https://github.com/visanalexandru/FracTal-ChessEngine", "FracTal-1.0", 2010)
 

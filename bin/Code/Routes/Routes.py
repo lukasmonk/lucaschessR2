@@ -431,8 +431,8 @@ class Transsiberian:
 
             litxt = [_("To play a complete game.")]
             if opening.label:
-                litxt.append(_("With the opening: %s.") % _FO(opening.label))
                 litxt.append(pgn)
+                litxt.append(_("With the opening: %s.") % _FO(opening.label))
             if win:
                 litxt.append(_("You must win to pass this step."))
             else:

@@ -35,29 +35,29 @@ class WNewExpedition(LCDialog.LCDialog):
         # Torneo
         li = [("%s (%d)" % (_FO(tourney["TOURNEY"]), len(tourney["GAMES"])), tourney) for tourney in self.litourneys]
         li.sort(key=lambda x: x[0])
-        self.cbtourney, lbtourney = QTUtil2.comboBoxLB(self, li, li[0], _("Expedition"))
+        self.cbtourney, lbtourney = QTUtil2.combobox_lb(self, li, li[0], _("Expedition"))
         btmas = Controles.PB(self, "", self.mas).ponIcono(Iconos.Mas22())
         lytourney = Colocacion.H().control(lbtourney).control(self.cbtourney).control(btmas).relleno(1)
 
         # tolerance
-        self.sbtolerance_min, lbtolerance_min = QTUtil2.spinBoxLB(self, 20, 0, 99999, _("From"))
+        self.sbtolerance_min, lbtolerance_min = QTUtil2.spinbox_lb(self, 20, 0, 99999, _("From"))
         self.sbtolerance_min.capture_changes(self.tolerance_changed)
-        self.sbtolerance_max, lbtolerance_max = QTUtil2.spinBoxLB(self, 1000, 0, 99999, _("To"))
+        self.sbtolerance_max, lbtolerance_max = QTUtil2.spinbox_lb(self, 1000, 0, 99999, _("To"))
         lbexplanation = Controles.LB(self, _("Maximum lost centipawns for having to repeat active game"))
         ly = Colocacion.H().relleno(2).control(lbtolerance_min).control(self.sbtolerance_min).relleno(1)
         ly.control(lbtolerance_max).control(self.sbtolerance_max).relleno(2)
         layout = Colocacion.V().otro(ly).control(lbexplanation)
         gbtolerance = Controles.GB(self, _("Tolerance"), layout)
 
-        # tries
-        self.sbtries_min, lbtries_min = QTUtil2.spinBoxLB(self, 2, 1, 99999, _("From"))
+        # repetitions
+        self.sbtries_min, lbtries_min = QTUtil2.spinbox_lb(self, 2, 1, 99999, _("From"))
         self.sbtries_min.capture_changes(self.tries_changed)
-        self.sbtries_max, lbtries_max = QTUtil2.spinBoxLB(self, 15, 1, 99999, _("To"))
+        self.sbtries_max, lbtries_max = QTUtil2.spinbox_lb(self, 15, 1, 99999, _("To"))
         lbexplanation = Controles.LB(self, _("Maximum repetitions to return to the previous game"))
         ly = Colocacion.H().relleno(2).control(lbtries_min).control(self.sbtries_min).relleno(1)
         ly.control(lbtries_max).control(self.sbtries_max).relleno(2)
         layout = Colocacion.V().otro(ly).control(lbexplanation)
-        gbtries = Controles.GB(self, _("Tries"), layout)
+        gbtries = Controles.GB(self, _("Repetitions"), layout)
 
         # color
         liColors = ((_("By default"), "D"), (_("White"), "W"), (_("Black"), "B"))
@@ -394,6 +394,12 @@ class WEverest(LCDialog.LCDialog):
         elif col == "NUM_GAMES":
             next_game = self.db.field(row, "NEXT_GAME")
             v = "%d / %d" % (next_game, v)
+
+        elif col == "TRIES":
+            x, y = v.split("-")
+            x = int(x.strip()) + 1
+            y = int(y.strip()) + 1
+            v = f"{x} - {y}"
 
         return v
 

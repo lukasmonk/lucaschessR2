@@ -302,7 +302,7 @@ class WAnalisis(LCDialog.LCDialog):
         self.setStyleSheet("QStatusBar::item { border-style: outset; border: 1px solid LightSlateGray ;}")
 
         li_mas_acciones = (("FEN:%s" % _("Copy to clipboard"), "MoverFEN", Iconos.Clipboard()),)
-        lytb, self.tb = QTVarios.lyBotonesMovimiento(
+        lytb, self.tb = QTVarios.ly_mini_buttons(
             self,
             "",
             siLibre=True,
@@ -460,8 +460,8 @@ class WAnalisis(LCDialog.LCDialog):
             xanalyzer = Code.procesador.XAnalyzer()
             si_cancelar = xanalyzer.mstime_engine > 1000 or xanalyzer.depth_engine > 8
             mens = _("Analyzing the move....")
-            me = QTUtil2.mensEspera.start(
-                self, mens, siCancelar=si_cancelar, titCancelar=_("Stop thinking"), opacity=1.0
+            me = QTUtil2.waiting_message.start(
+                self, mens, if_cancel=si_cancelar, tit_cancel=_("Stop thinking"), opacity=1.0
             )
 
             if si_cancelar:

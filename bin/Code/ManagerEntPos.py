@@ -98,7 +98,6 @@ class ManagerEntPos(Manager.Manager):
 
         self.human_is_playing = False
         self.state = ST_PLAYING
-        self.plays_instead_of_me_option = True
 
         self.is_human_side_white = is_white
         self.is_engine_side_white = not is_white
@@ -455,7 +454,7 @@ class ManagerEntPos(Manager.Manager):
             self.ent_siguiente(TB_NEXT)
             return False
         else:
-            QTUtil2.mensajeTemporal(self.main_window, _("Line completed"), 0.9, fixedSize=None)
+            QTUtil2.temporary_message(self.main_window, _("Line completed"), 0.9, fixed_size=None)
             if not self.is_finished():
                 if not (TB_CONTINUE in self.li_options_toolbar):
                     self.li_options_toolbar.insert(5, TB_CONTINUE)
@@ -494,7 +493,7 @@ class ManagerEntPos(Manager.Manager):
                 self.pos_obj += 1
             elif is_var:
                 mens = _("You have selected a correct move, but this line uses another one.")
-                QTUtil2.mensajeTemporal(self.main_window, mens, 2, physical_pos="tb", background="#C3D6E8")
+                QTUtil2.temporary_message(self.main_window, mens, 2, physical_pos="tb", background="#C3D6E8")
                 li_movs = [(move.from_sq, move.to_sq, False), (move_obj.from_sq, move_obj.to_sq, True)]
                 self.board.ponFlechasTmp(li_movs)
             if not ok:
@@ -647,3 +646,10 @@ class ManagerEntPos(Manager.Manager):
         )
 
         self.procesador.entrenamientos.rehaz()
+
+    def play_instead_of_me(self):
+        if not self.is_finished():
+            mrm = self.analizaTutor(with_cursor=True)
+            rm = mrm.mejorMov()
+            if rm.from_sq:
+                self.player_has_moved_base(rm.from_sq, rm.to_sq, rm.promotion)

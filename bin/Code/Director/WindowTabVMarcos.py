@@ -46,7 +46,7 @@ class WTV_Marco(QtWidgets.QDialog):
         li_gen.append((config, regMarco.name))
 
         # ( "tipo", "n", Qt.SolidLine ), #1=SolidLine, 2=DashLine, 3=DotLine, 4=DashDotLine, 5=DashDotDotLine
-        config = FormLayout.Combobox(_("Line Type"), QTUtil2.tiposDeLineas())
+        config = FormLayout.Combobox(_("Line Type"), QTUtil2.lines_type())
         li_gen.append((config, regMarco.tipo))
 
         # ( "color", "n", 0 ),
@@ -70,7 +70,7 @@ class WTV_Marco(QtWidgets.QDialog):
         li_gen.append((config, regMarco.redEsquina))
 
         # orden
-        config = FormLayout.Combobox(_("Order concerning other items"), QTUtil2.listaOrdenes())
+        config = FormLayout.Combobox(_("Order concerning other items"), QTUtil2.list_zvalues())
         li_gen.append((config, regMarco.physical_pos.orden))
 
         self.form = FormLayout.FormWidget(li_gen, dispatch=self.cambios)
@@ -242,7 +242,7 @@ class WTV_Marcos(LCDialog.LCDialog):
         w = WTV_Marco(self, None)
         if w.exec_():
             regMarco = w.regMarco
-            regMarco.id = Util.huella()
+            regMarco.id = Util.huella_num()
             regMarco.ordenVista = (self.liPMarcos[-1].ordenVista + 1) if self.liPMarcos else 1
             self.dbMarcos[regMarco.id] = regMarco.save_dic()
             self.liPMarcos.append(regMarco)
@@ -291,7 +291,7 @@ class WTV_Marcos(LCDialog.LCDialog):
                 n += 1
                 name = "%s-%d" % (regMarco.name, n)
             regMarco.name = name
-            regMarco.id = Util.huella()
+            regMarco.id = Util.huella_num()
             regMarco.ordenVista = self.liPMarcos[-1].ordenVista + 1
             self.dbMarcos[regMarco.id] = regMarco
             self.liPMarcos.append(regMarco)

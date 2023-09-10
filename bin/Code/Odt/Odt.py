@@ -1,5 +1,6 @@
 import os
 import shutil
+
 import Code
 from Code.Odt import Content, Styles, Others, Settings
 
@@ -12,6 +13,8 @@ class ODT:
         self.meta = Others.Meta()
         self.meta_inf = Others.MetaINF()
         self.settings = Settings.Settings()
+        self.width_cm = 17.0
+        self.dic_tables_ncols = {}
 
     def create(self, path):
         folder_temp = Code.configuration.carpetaTemporal()
@@ -35,7 +38,7 @@ class ODT:
             q.write("application/vnd.oasis.opendocument.text")
 
         if os.path.isfile(path):
-            os.remove(path)
+            os.unlink(path)
         pzip = path + ".zip"
         if os.path.isfile(pzip):
             os.remove(pzip)
@@ -45,41 +48,43 @@ class ODT:
 
     def landscape(self):
         self.styles.landscape()
+        self.width_cm = 24.5
+
+    def margins(self, top, bottom, left, right):
+        self.styles.margins(top, bottom, left, right)
+        self.width_cm += 2.0
 
     def set_header(self, txt):
         self.styles.header(txt)
 
-    def add_paragraph(self, txt, bold=False, align_center=False):
-        self.content.writeln(txt, bold, align_center)
+    def add_paragraph(self, txt, bold=False, align_center=False, parent=None):
+        return self.content.writeln(txt, bold, align_center, parent)
 
-    def add_paragraph8(self, txt):
-        self.content.writeln8(txt)
+    def add_paragraph8(self, txt, parent=None):
+        return self.content.writeln8(txt, parent)
 
-    def add_pagebreak(self):
-        self.content.page_break()
+    def add_pagebreak(self, parent=None):
+        self.content.page_break(parent)
 
-    def add_linebreak(self):
-        self.content.line_break()
+    def add_linebreak(self, parent=None):
+        self.content.line_break(parent)
 
-    def add_png(self, path_png, width):
-        internal_path = self.content.add_png(path_png, width)
+    def add_png(self, path_png, width, align_center=False, parent=None):
+        internal_path = self.content.add_png(path_png, width, align_center=align_center, parent=parent)
         self.meta_inf.add_png(internal_path)
 
-    def add_hyperlink(self, http, txt):
-        self.content.add_hyperlink(http, txt)
+    def add_hyperlink(self, http, txt, parent=None):
+        self.content.add_hyperlink(http, txt, parent)
 
+    def register_table(self, name, num_cols, border=0):
+        self.dic_tables_ncols[name] = num_cols
+        self.content.register_table_style(name, self.width_cm, num_cols, border)
 
-# odt = ODT()
-#
-# # odt.landscape()
-# # odt.header("Lucas Chess, bmt")
-# odt.writeln("1.c3", bold=True, align_center=True)
-# odt.line_break()
-# odt.line_break()
-# odt.writeln("1.c3", bold=True, align_center=True)
-# odt.page_break()
-# odt.writeln("1.c3", bold=True, align_center=True)
-# odt.line_break()
-# odt.add_png(r"c:\lucaschess\pyLCR2\.utilities\odt\data\img1.png", 12.0)
-# odt.line_break()
-# odt.create("x1.odt")
+    def create_table(self, name, parent=None):
+        return self.content.create_table(name, self.dic_tables_ncols[name], parent=parent)
+
+    def add_row(self, element_table):
+        return self.content.add_table_row(element_table)
+
+    def add_cell(self, element_row):
+        return self.content.add_table_cell(element_row)

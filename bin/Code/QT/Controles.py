@@ -936,8 +936,15 @@ class Tab(QtWidgets.QTabWidget):
     def new_tab(self, widget, texto, pos=None):
         if pos is None:
             self.addTab(widget, texto)
+            pos = self.currentIndex()
         else:
             self.insertTab(pos, widget, texto)
+        self.set_tooltip_x(pos, "")
+
+    def set_tooltip_x(self, pos, txt):
+        p = self.tabBar().tabButton(pos, QtWidgets.QTabBar.RightSide)
+        if p:
+            p.setToolTip(txt)
 
     def current_position(self):
         return self.currentIndex()

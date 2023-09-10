@@ -332,6 +332,9 @@ class WUnSTSMap(LCDialog.LCDialog):
 
     def hechaJugada(self, move):
         self.board.disable_all()
+        game = Game.Game(first_position=move.position_before)
+        game.add_move(move)
+        move.game = game
         self.move = move
 
         self.pon_toolbar(self.seguir, self.analizar)

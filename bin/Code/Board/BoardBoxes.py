@@ -239,8 +239,8 @@ class MarcoSC(BoardBlocks.BloqueEspSC):
         xk = float(self.board.width_square / 32.0)
 
         physical_pos = bm.physical_pos
-        dx = physical_pos.x
-        dy = physical_pos.y
+        dx = physical_pos.x - 1
+        dy = physical_pos.y - 1
         ancho = physical_pos.ancho
         alto = physical_pos.alto
 

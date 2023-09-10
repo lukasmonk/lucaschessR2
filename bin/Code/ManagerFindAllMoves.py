@@ -341,7 +341,7 @@ class ManagerFindAllMoves(Manager.Manager):
             mens = '<b><span style="color:green">%s</span></b>' % _("Congratulations, goal achieved")
             QTUtil2.message(self.main_window, mens)
         else:
-            QTUtil2.mensajeTemporal(self.main_window, mensaje, 10, background="#FFCD43" if siRecord else None)
+            QTUtil2.temporary_message(self.main_window, mensaje, 10, background="#FFCD43" if siRecord else None)
 
     def analize_position(self, row, key):
         if self.state == ST_PLAYING:

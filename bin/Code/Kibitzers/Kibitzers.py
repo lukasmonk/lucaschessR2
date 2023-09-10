@@ -137,7 +137,7 @@ class Kibitzers:
         dic = {"LISTA": [en.save() for en in self.lista], "LASTFOLDER": self.lastfolder}
         Util.save_pickle(self.file, dic)
 
-    def nuevo_engine(self, name, engine, tipo, prioridad, pointofview, fixed_time):
+    def nuevo_engine(self, name, engine, tipo, prioridad, pointofview, fixed_time, fixed_depth):
         kib = Kibitzer()
         kib.pon_huella(self.lista)
         eng = Code.configuration.buscaRival(engine)
@@ -148,6 +148,7 @@ class Kibitzers:
         kib.prioridad = prioridad
         kib.pointofview = pointofview
         kib.max_time = fixed_time
+        kib.max_depth = fixed_depth
         self.lista.append(kib)
         self.save()
         return len(self.lista) - 1

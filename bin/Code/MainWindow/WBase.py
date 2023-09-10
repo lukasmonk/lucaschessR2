@@ -21,7 +21,6 @@ from Code.Base.Constantes import (
     TB_FAST_REPLAY,
     TB_FILE,
     TB_HELP,
-    TB_HELP_TO_MOVE,
     TB_INFORMATION,
     TB_LEVEL,
     TB_NEXT,
@@ -54,7 +53,7 @@ from Code.Base.Constantes import (
     TB_SETTINGS
 )
 from Code.Board import Board
-from Code.MainWindow import WindowSolve
+from Code.MainWindow import WindowSolve, WAnalysisBar
 from Code.Nags import Nags
 from Code.Nags.Nags import NAG_0
 from Code.QT import Colocacion
@@ -84,9 +83,13 @@ class WBase(QtWidgets.QWidget):
 
         self.create_toolbar()
 
+        self.analysis_bar = None
+        self.create_analysis_bar()
+
         ly_bi = self.creaBloqueInformacion()
 
-        ly_t = Colocacion.V().control(self.board).relleno()
+        ly_bb = Colocacion.H().control(self.analysis_bar).control(self.board)
+        ly_t = Colocacion.V().otro(ly_bb).relleno()
 
         self.conAtajos = True
 
@@ -192,7 +195,6 @@ class WBase(QtWidgets.QWidget):
             TB_TOOLS: (_("Tools"), Iconos.Tools()),
             TB_CHANGE: (_("Change"), Iconos.Cambiar()),
             TB_SHOW_TEXT: (_("Show text"), Iconos.Modificar()),
-            TB_HELP_TO_MOVE: (_("Help to move"), Iconos.BotonAyuda()),
             TB_STOP: (_("Play now"), Iconos.Stop()),
             TB_COMMENTS: (_("Disable"), Iconos.Comment32()),
             TB_REPLAY: (_("Replay"), Iconos.Pelicula()),
@@ -217,6 +219,9 @@ class WBase(QtWidgets.QWidget):
         self.board.setFocus()
 
         Delegados.generaPM(self.board.piezas)
+
+    def create_analysis_bar(self):
+        self.analysis_bar = WAnalysisBar.AnalysisBar(self, self.board)
 
     def columnas60(self, siPoner, cNivel, cWhite, cBlack):
         if cNivel is None:
@@ -327,8 +332,6 @@ class WBase(QtWidgets.QWidget):
         self.lb_capt_black.hide()
         self.lb_clock_white.hide()
         self.lb_clock_black.hide()
-        self.lb_capt_white.hide()
-        self.lb_capt_black.hide()
         self.pgn.hide()
         self.bt_active_tutor.hide()
         self.lbRotulo1.hide()
@@ -466,10 +469,10 @@ class WBase(QtWidgets.QWidget):
             self.reset_widths()
 
     def grid_tecla_control(self, grid, k, is_shift, is_control, is_alt):
-        self.teclaPulsada("G", k)
+        self.key_pressed("G", k)
 
     def grid_wheel_event(self, ogrid, forward):
-        self.teclaPulsada("T", QtCore.Qt.Key.Key_Left if forward else QtCore.Qt.Key.Key_Right)
+        self.key_pressed("T", QtCore.Qt.Key.Key_Left if forward else QtCore.Qt.Key.Key_Right)
 
     def grid_dato(self, grid, row, o_columna):
         controlPGN = self.manager.pgn
@@ -550,12 +553,12 @@ class WBase(QtWidgets.QWidget):
                 if (m & QtCore.Qt.AltModifier) > 0:
                     self.lanzaAtajosALT(k - 48)
                     return
-        self.teclaPulsada("V", event.key(), int(event.modifiers()))
+        self.key_pressed("V", event.key(), int(event.modifiers()))
 
     def boardWheelEvent(self, board, forward):
-        self.teclaPulsada("T", QtCore.Qt.Key.Key_Left if forward else QtCore.Qt.Key.Key_Right)
+        self.key_pressed("T", QtCore.Qt.Key.Key_Left if forward else QtCore.Qt.Key.Key_Right)
 
-    def teclaPulsada(self, tipo, tecla, modifiers=None):
+    def key_pressed(self, tipo, tecla, modifiers=None):
         if self.procesandoEventos:
             QTUtil.refresh_gui()
             return
@@ -600,19 +603,19 @@ class WBase(QtWidgets.QWidget):
     def hide_replay(self):
         self.li_hide_replay = []
         for control in (
-            self.pgn,
-            self.bt_active_tutor,
-            self.lbRotulo1,
-            self.lbRotulo2,
-            self.lbRotulo3,
-            self.lb_capt_white,
-            self.lb_capt_black,
-            self.lb_player_white,
-            self.lb_player_black,
-            self.lb_clock_white,
-            self.lb_clock_black,
-            self.wsolve,
-            self.wmessage,
+                self.pgn,
+                self.bt_active_tutor,
+                self.lbRotulo1,
+                self.lbRotulo2,
+                self.lbRotulo3,
+                self.lb_capt_white,
+                self.lb_capt_black,
+                self.lb_player_white,
+                self.lb_player_black,
+                self.lb_clock_white,
+                self.lb_clock_black,
+                self.wsolve,
+                self.wmessage,
         ):
             if control.isVisible():
                 self.li_hide_replay.append(control)
@@ -630,21 +633,21 @@ class WBase(QtWidgets.QWidget):
         else:
             nonDistract = []
             for widget in (
-                self.tb,
-                self.pgn,
-                self.bt_active_tutor,
-                self.lbRotulo1,
-                self.lbRotulo2,
-                self.lbRotulo3,
-                self.lb_player_white,
-                self.lb_player_black,
-                self.lb_clock_white,
-                self.lb_clock_black,
-                self.lb_capt_white,
-                self.lb_capt_black,
-                self.parent.informacionPGN,
-                self.wsolve,
-                self.wmessage,
+                    self.tb,
+                    self.pgn,
+                    self.bt_active_tutor,
+                    self.lbRotulo1,
+                    self.lbRotulo2,
+                    self.lbRotulo3,
+                    self.lb_player_white,
+                    self.lb_player_black,
+                    self.lb_clock_white,
+                    self.lb_clock_black,
+                    self.lb_capt_white,
+                    self.lb_capt_black,
+                    self.parent.informacionPGN,
+                    self.wsolve,
+                    self.wmessage,
             ):
                 if widget.isVisible():
                     nonDistract.append(widget)
@@ -673,15 +676,20 @@ class WBase(QtWidgets.QWidget):
             self.lb_player_white.altoMinimo(hn)
 
     def put_captures(self, dic):
+        value_num = {"q": 10, "r": 5, "b": 3, "n": 3, "p": 1, "k": 0}
         d = {True: [], False: []}
+        xvpz = 0
         for pz, num in dic.items():
             for x in range(num):
-                d[pz.isupper()].append(pz)
+                is_white = pz.isupper()
+                d[is_white].append(pz)
+                vpz = value_num[pz.lower()]
+                xvpz += vpz if is_white else -vpz
 
         value = {"q": 1, "r": 2, "b": 3, "n": 4, "p": 5}
 
-        def xshow(max_num, tp, li, lb):
-            html = ""
+        def xshow(max_num, tp, li, lb, num):
+            html = "<small>%+d</small>"%num if num else ""
             li.sort(key=lambda x: value[x.lower()])
             for n, pz in enumerate(li):
                 # if n >= max_num: # la situación en la que sobran
@@ -692,8 +700,8 @@ class WBase(QtWidgets.QWidget):
             lb.set_text(html)
 
         max_num = self.lb_capt_white.width() // 27
-        xshow(max_num, "b", d[True], self.lb_capt_white)
-        xshow(max_num, "w", d[False], self.lb_capt_black)
+        xshow(max_num, "b", d[True], self.lb_capt_white, xvpz if xvpz > 0 else 0)
+        xshow(max_num, "w", d[False], self.lb_capt_black, -xvpz if xvpz < 0 else 0)
         if self.lb_capt_white.isVisible():
             self.lb_capt_white.show()
             self.lb_capt_black.show()

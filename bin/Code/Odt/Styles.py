@@ -586,7 +586,7 @@ class Styles(XML.XML):
         element106 = XML.Element("text:p")
         element106.add_param("text:style-name", "MP1")
         element105.add_content(element106)
-        element106.set_value("Lucas Chess")
+        # element106.set_value("Lucas Chess")
         element107 = XML.Element("style:footer")
         element104.add_content(element107)
         element108 = XML.Element("text:p")
@@ -617,6 +617,13 @@ class Styles(XML.XML):
         element.change_param("fo:page-height", "21.00cm")
         element.change_param("fo:page-width", "29.70cm")
         element.change_param("style:print-orientation", "landscape")
+
+    def margins(self, top, bottom, left, right):
+        element = self.seek("style:page-layout-properties")
+        element.change_param("fo:margin-top", f"{top:0.02f}cm")
+        element.change_param("fo:margin-bottom", f"{bottom:0.02f}cm")
+        element.change_param("fo:margin-left", f"{left:0.02f}cm")
+        element.change_param("fo:margin-right", f"{right:0.02f}cm")
 
     def header(self, txt):
         element = self.seek_param_key("text:p", "text:style-name", "MP1")

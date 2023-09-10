@@ -3,7 +3,7 @@ from Code import Util
 from Code.Base import Position
 from Code.Base.Constantes import ENG_WICKER, BOOK_RANDOM_UNIFORM
 from Code.Engines import EngineManager, EngineResponse
-from Code.Polyglots import Books
+from Code.Books import Books
 
 
 class EngineManagerWicker(EngineManager.EngineManager):
@@ -115,12 +115,9 @@ def read_wicker_engines():
 
     dic_wicker = Util.ini2dic(file)
     li = []
-    # st = set()
     for alias, dic in dic_wicker.items():
         nom_base_engine = dic["ENGINE"]
         id_info = dic["IDINFO"]
-        # for x in id_info.split(","):
-        #     st.add(x)
         li_info = [_F(x.strip()) for x in id_info.split(",")]
         id_info = "\n".join(li_info)
         elo = int(dic["ELO"])
@@ -149,18 +146,5 @@ def read_wicker_engines():
             eng.type = ENG_WICKER
             li.append(eng)
 
-    # li.sort(key=lambda uno: uno.alias)
-    # for pos, eng in enumerate(li, 1):
-    #     print(pos, eng.name, eng.elo)|
-    #
-    # print("--------------------------")
     li.sort(key=lambda uno: uno.elo)
-    # for pos, eng in enumerate(li, 1):
-    #     print("%3d" % pos, "%4d" % eng.elo, eng.name )
-
-    # l = list(st)
-    # l.sort()
-    # for x in l:
-    #     print(f'\t\t_("{x}"),')
-    # print(len(li))
     return li

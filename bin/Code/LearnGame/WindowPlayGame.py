@@ -234,7 +234,7 @@ class WPlay1(LCDialog.LCDialog):
         self.registro = self.db.leeRegistro(recno)
 
         self.game = Game.Game()
-        um = QTUtil2.unMomento(self)
+        um = QTUtil2.one_moment_please(self)
         self.game.restore(self.registro["GAME"])
 
         self.lbRotulo = (

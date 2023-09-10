@@ -401,9 +401,13 @@ class Grid(QtWidgets.QTableView):
         is_alt = (m & QtCore.Qt.AltModifier) > 0
         if hasattr(self.w_parent, "grid_tecla_pulsada"):
             if not (is_control or is_alt) and k < 256:
-                self.w_parent.grid_tecla_pulsada(self, event.text())
+                if self.w_parent.grid_tecla_pulsada(self, event.text()) is None:
+                    return
         if hasattr(self.w_parent, "grid_tecla_control"):
             if self.w_parent.grid_tecla_control(self, k, is_shift, is_control, is_alt) is None:
+                return
+        if k in (QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace) and hasattr(self.w_parent, "grid_remove"):
+            if self.w_parent.grid_remove() is None:
                 return
 
         QtWidgets.QTableView.keyPressEvent(self, event)

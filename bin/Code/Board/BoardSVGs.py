@@ -212,8 +212,8 @@ class SVGSC(BoardBlocks.BloqueEspSC):
         bm = self.bloqueDatos
 
         physical_pos = bm.physical_pos
-        dx = physical_pos.x
-        dy = physical_pos.y
+        dx = physical_pos.x - 1
+        dy = physical_pos.y - 1
         ancho = physical_pos.ancho
         alto = physical_pos.alto
 

@@ -175,7 +175,7 @@ class Board(QtWidgets.QGraphicsView):
             # ALT-I Save image to clipboard (CTRL->no border)
             elif key == Qt.Key_I:
                 self.save_as_img(is_ctrl=is_ctrl, is_alt=is_alt)
-                QTUtil2.mensajeTemporal(self.main_window, _("Board image is in clipboard"), 1.2)
+                QTUtil2.temporary_message(self.main_window, _("Board image is in clipboard"), 1.2)
 
             # ALT-J Save image to file (CTRL->no border)
             elif key == Qt.Key_J:
@@ -2394,7 +2394,7 @@ class Board(QtWidgets.QGraphicsView):
                 if self.main_window.manager.in_end_of_line():
                     self.exec_kb_buffer(Qt.Key_Backspace, 0)
                 else:
-                    self.main_window.teclaPulsada("T", QtCore.Qt.Key.Key_Left)
+                    self.main_window.key_pressed("T", QtCore.Qt.Key.Key_Left)
                     # self.exec_kb_buffer(Qt.Key_Left, 0)
                 return 1
 

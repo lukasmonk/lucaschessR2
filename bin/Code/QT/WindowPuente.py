@@ -598,7 +598,7 @@ class WPuente(LCDialog.LCDialog):
         self.btTerminar.show()
 
     def incorrecto(self):
-        QTUtil2.mensajeTemporal(self, _("Wrong"), 2)
+        QTUtil2.temporary_message(self, _("Wrong"), 2)
         for wm in self.liwm:
             wm.habilita()
         self.liwm[0].activa()

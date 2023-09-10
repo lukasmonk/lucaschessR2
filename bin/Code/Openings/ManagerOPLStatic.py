@@ -85,7 +85,7 @@ class ManagerOpeningLinesStatic(ManagerOPL.ManagerOpeningLines):
 
         self.errores = 0
         self.ini_time = time.time()
-        self.muestraInformacion()
+        self.show_labels()
         self.play_next_move()
 
     def calc_totalTiempo(self):
@@ -98,10 +98,10 @@ class ManagerOpeningLinesStatic(ManagerOPL.ManagerOpeningLines):
         self.siAyuda = True
         self.board.dbvisual_set_show_always(True)
 
-        self.muestraAyuda()
-        self.muestraInformacion()
+        self.show_help()
+        self.show_labels()
 
-    def muestraInformacion(self):
+    def show_labels(self):
         li = []
         li.append("%s: %d" % (_("Errors"), self.errores))
         if self.siAyuda:
@@ -173,9 +173,9 @@ class ManagerOpeningLinesStatic(ManagerOPL.ManagerOpeningLines):
         self.dbop.setTraining(self.training)
         self.state = ST_ENDGAME
         self.calc_totalTiempo()
-        self.muestraInformacion()
+        self.show_labels()
 
-    def muestraAyuda(self):
+    def show_help(self):
         pv = self.li_pv[len(self.game)]
         self.board.show_arrow_mov(pv[:2], pv[2:4], "mt", opacity=0.80)
         fenm2 = self.game.last_position.fenm2()
@@ -228,7 +228,7 @@ class ManagerOpeningLinesStatic(ManagerOPL.ManagerOpeningLines):
         self.reinicio(self.dbop, self.modo, self.num_linea)
 
     def play_next_move(self):
-        self.muestraInformacion()
+        self.show_labels()
         if self.state == ST_ENDGAME:
             return
 
@@ -265,7 +265,7 @@ class ManagerOpeningLinesStatic(ManagerOPL.ManagerOpeningLines):
             self.activate_side(is_white)
             self.human_is_playing = True
             # if self.siAyuda:
-            #     self.muestraAyuda()
+            #     self.show_help()
 
     def player_has_moved(self, from_sq, to_sq, promotion=""):
         move = self.check_human_move(from_sq, to_sq, promotion)
@@ -283,16 +283,16 @@ class ManagerOpeningLinesStatic(ManagerOPL.ManagerOpeningLines):
             li = self.dicFENm2.get(fenm2, set())
             if pvSel in li:
                 mens = _("You have selected a correct move, but this line uses another one.")
-                QTUtil2.mensajeTemporal(self.main_window, mens, 1.2, physical_pos="tb", background="#C3D6E8")
+                QTUtil2.temporary_message(self.main_window, mens, 1.2, physical_pos="tb", background="#C3D6E8")
                 self.sigueHumano()
                 return False
 
             self.errores += 1
             mens = "%s: %d" % (_("Error"), self.errores)
-            QTUtil2.mensajeTemporal(
-                self.main_window, mens, 0.8, physical_pos="ad", background="#FF9B00", pmImagen=Iconos.pmError()
+            QTUtil2.temporary_message(
+                self.main_window, mens, 0.8, physical_pos="ad", background="#FF9B00", pm_image=Iconos.pmError()
             )
-            self.muestraInformacion()
+            self.show_labels()
             self.sigueHumano()
             return False
 

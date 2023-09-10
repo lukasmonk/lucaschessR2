@@ -232,7 +232,7 @@ class WControl(LCDialog.LCDialog):
         li = self.ghistorico.recnosSeleccionados()
         if len(li) > 0:
             if QTUtil2.pregunta(self, _("Do you want to delete all selected records?")):
-                um = QTUtil2.unMomento(self)
+                um = QTUtil2.one_moment_please(self)
                 for row in li:
                     key = self.li_histo[row]
                     del self.historico[key]

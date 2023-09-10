@@ -92,6 +92,7 @@ class WColors(LCDialog.LCDialog):
             "Border when disable": _("Border when disable"),
             "Foreground when disable": _("Foreground when disable"),
             "Background when disable": _("Background when disable"),
+            "Analysis Bar": _("Analysis Bar")
         }
 
         o_columns = Columnas.ListaColumnas()
@@ -211,7 +212,7 @@ class WColors(LCDialog.LCDialog):
         is_head, key, value = self.li_colors[row]
         if col == "NAME":
             def trans(x):
-                if _F(x) != x:
+                if Code.translations.is_key(x):
                     return _F(x)
                 if x in self.translation:
                     return self.translation[x]

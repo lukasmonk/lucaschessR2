@@ -61,7 +61,6 @@ class ManagerTactics(Manager.Manager):
         self.game_type = GT_TACTICS
 
         self.human_is_playing = False
-        self.plays_instead_of_me_option = False
 
         self.main_window.set_activate_tutor(False)
         self.main_window.activaJuego(True, False, siAyudas=False)
@@ -204,7 +203,7 @@ class ManagerTactics(Manager.Manager):
     def end_game(self):
         self.board.show_coordinates(True)
         self.procesador.start()
-        self.procesador.entrenamientos.entrenaTactica(self.tactic)
+        self.procesador.entrenamientos.tactics_train(self.tactic)
 
     def final_x(self):
         self.end_game()
@@ -253,7 +252,7 @@ class ManagerTactics(Manager.Manager):
         if self.with_automatic_jump and not self.tactic.w_error:
             self.ent_siguiente()
         else:
-            QTUtil2.mensajeTemporal(self.main_window, _("Line completed"), 0.7)
+            QTUtil2.temporary_message(self.main_window, _("Line completed"), 0.7)
             self.set_label1(self.tactic.w_label)
             self.set_toolbar("end")
             if self.configuration.x_director_icon is not None:

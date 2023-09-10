@@ -1,7 +1,7 @@
 import Code
-from Code.QT import WindowMemoria
 from Code import Util
 from Code.CompetitionWithTutor import CompetitionWithTutor
+from Code.QT import WindowMemoria, QTUtil2
 
 
 class Memoria:
@@ -50,32 +50,32 @@ class Memoria:
         while True:
             cat = self.categorias.number(numcategoria)
             maxnivel = self.maxnivel(numcategoria)
-            nivelMas1 = WindowMemoria.paramMemoria(self.procesador.main_window, cat.name(), maxnivel + 1)
-            if nivelMas1 is None:
+            nivel_mas1 = WindowMemoria.paramMemoria(self.procesador.main_window, cat.name(), maxnivel + 1)
+            if nivel_mas1 is None:
                 return
-            nivel = nivelMas1 - 1
+            nivel = nivel_mas1 - 1
             if nivel < 0:
                 return
             else:
-                if self.lanzaNivel(numcategoria, nivel):
+                if self.launch_level(numcategoria, nivel):
                     if nivel == 24 and numcategoria < 5:
                         numcategoria += 1
                 else:
                     return
 
-    def lanzaNivel(self, numcategoria, nivel):
+    def launch_level(self, numcategoria, nivel):
 
         piezas = nivel + 3
         seconds = (6 - numcategoria) * piezas
 
-        liFen = self.dameListaFen(piezas)
-        if not liFen:
+        li_fen = self.get_list_fens(piezas)
+        if not li_fen:
             return
 
         cat = self.categorias.number(numcategoria)
 
         record = self.record(numcategoria, nivel)
-        vtime = WindowMemoria.lanzaMemoria(self.procesador, cat.name(), nivel, seconds, liFen, record)
+        vtime = WindowMemoria.lanzaMemoria(self.procesador, cat.name(), nivel, seconds, li_fen, record)
         if vtime:
             if record == 0 or vtime < record:
                 li = self.dic_data[numcategoria]
@@ -85,25 +85,23 @@ class Memoria:
             return True
         return False
 
-    def dameListaFen(self, num_piezas):
-        me = self.procesador.unMomento()
+    def get_list_fens(self, num_piezas):
+        with QTUtil2.OneMomentPlease(self.procesador.main_window):
 
-        li = []
+            li = []
 
-        fedu = Util.listfiles(Code.path_resource("Trainings", "Checkmates by Eduardo Sadier"), "*.fns")[0]
-        with open(fedu, "rb") as f:
-            for lst in f:
-                if lst:
-                    pz = 0
-                    lst = lst.split(b"|")[0]
-                    for c in lst:
-                        if c == " ":
-                            break
-                        if c in b"prnbqkPRNBQK":
-                            pz += 1
-                    if pz == num_piezas:
-                        li.append(lst.decode("utf-8"))
-
-        me.final()
+            fedu = Util.listfiles(Code.path_resource("Trainings", "Checkmates by Eduardo Sadier"), "*.fns")[0]
+            with open(fedu, "rb") as f:
+                for lst in f:
+                    if lst:
+                        pz = 0
+                        lst = lst.split(b"|")[0]
+                        for c in lst:
+                            if c == " ":
+                                break
+                            if c in b"prnbqkPRNBQK":
+                                pz += 1
+                        if pz == num_piezas:
+                            li.append(lst.decode("utf-8"))
 
         return li

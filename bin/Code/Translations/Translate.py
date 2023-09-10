@@ -51,8 +51,11 @@ class Translations:
             self.dic_translate[txt] = trans
         return trans
 
+    def is_key(self, key):
+        return key in self.dic_translate
+
     def translate_opening(self, opening):
-        return self.dic_openings.get(opening, opening)
+        return self.dic_openings.get(opening, self.dic_translate.get(opening, opening))
 
     @staticmethod
     def get_path(lang):

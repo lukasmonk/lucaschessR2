@@ -122,9 +122,9 @@ class WForcingMoves(LCDialog.LCDialog):
                 return None
             move = from_sq + to_sq + promotion.lower()
 
-        # print("player_has_moved: %s" % move)
+        # pr int("player_has_moved: %s" % move)
         if self.must_find_best_move:
-            # print("Best moves", self.owner.st_best_moves)
+            # pr int("Best moves", self.owner.st_best_moves)
             if move in self.owner.st_best_moves:
                 self.board.remove_arrows()
                 self.board.creaFlechaTmp(move[:2], move[2:4], False)
@@ -157,21 +157,21 @@ class WForcingMoves(LCDialog.LCDialog):
     def pulsada_celda(self, celda):  # Incluida por compatibilidad del Board
         if not self.found_best_move:
             return
-        # print("You clicked cell %s" % celda)
+        # pr int("You clicked cell %s" % celda)
         if self.level >= len(self.pvs):
             QTUtil2.message_bold(self, _("You reached the end of the line!"))
             return
         if self.pvs[self.level].startswith(celda):
-            # print("That is the correct start")
+            # pr int("That is the correct start")
             self.ed_moves.set_text(celda)
         elif self.pvs[self.level].startswith(self.ed_moves.text() + celda):
-            # print("Drawing arrow from %s to %s" % (self.ed_moves.text(), celda))
+            # pr int("Drawing arrow from %s to %s" % (self.ed_moves.text(), celda))
             # self.board.put_arrow_sc(self.ed_moves.text(), celda)
             self.board.creaFlechaTmp(self.ed_moves.text(), celda, False)
             self.level += 1
             self.ed_moves.set_text("")
         else:
-            # print("Not the best next move. Best PV is %s and your move was %s" % (self.pvs[self.level], self.ed_moves.text() + celda))
+            # pr int("Not the best next move. Best PV is %s and your move was %s" % (self.pvs[self.level], self.ed_moves.text() + celda))
             self.ed_moves.set_text("?" + celda)
         self.lb_info.set_text(_("PV level %s") % self.level)
 

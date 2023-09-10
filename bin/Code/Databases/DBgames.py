@@ -420,6 +420,16 @@ class DBgames:
         cursor = self.conexion.execute(sql)
         return cursor.fetchone()[0]
 
+    def yield_fens(self):
+        for rowid in self.li_row_ids:
+            cursor = self.conexion.execute("SELECT XPV FROM Games WHERE rowid=?", (rowid,))
+            raw = cursor.fetchone()
+            if raw:
+                nada, fen, xpv = raw[0].split("|")
+                pv = FasterCode.xpv_pv(xpv)
+                pgn = Game.pv_pgn_raw(fen, pv) if pv else ""
+                yield fen, pgn
+
     def yield_data(self, liFields, filtro):
         select = ",".join(liFields)
         sql = "SELECT %s FROM Games" % (select,)
@@ -562,8 +572,8 @@ class DBgames:
         for rowid, xpv in cursor.fetchall():
             if xpv.startswith("|"):
                 nada, fen, xpv = xpv.split("|")
-                lipv = FasterCode.xpv_lipv(xpv)
-                pgn = lipv_pgn(fen, lipv)
+                pv = FasterCode.xpv_pv(xpv)
+                pgn = Game.pv_pgn_raw(fen, pv) if pv else ""
             else:
                 pgn = xpv_pgn(xpv)
             pgn = pgn.replace("\n", " ")
@@ -750,9 +760,9 @@ class DBgames:
                         conexion.executemany(sql, li_regs)
                         li_regs = []
                         st_xpv_bloque = set()
-                        conexion.commit()
-                        if self.with_db_stat:
-                            self.db_stat.commit()
+                        # conexion.commit()
+                        # if self.with_db_stat:
+                        #     self.db_stat.commit()
             if dl_tmp.is_canceled:
                 break
         dl_tmp.actualiza(erroneos + duplicados + importados, erroneos, duplicados, importados, 100.00)
@@ -760,7 +770,7 @@ class DBgames:
 
         if li_regs:
             conexion.executemany(sql, li_regs)
-            conexion.commit()
+            # conexion.commit()
 
         if self.with_db_stat:
             self.db_stat.massive_append_set(False)

@@ -86,7 +86,7 @@ class WKibEngine(WKibCommon.WKibCommon):
 
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.compruebaInput)
-        self.timer.start(500)
+        self.timer.start(200)
         self.depth = 0
         self.veces = 0
 
@@ -99,7 +99,8 @@ class WKibEngine(WKibCommon.WKibCommon):
         if self.valid_to_play() and not self.stopped:
             mrm = self.engine.ac_estado()
             rm = mrm.rmBest()
-            if self.kibitzer.max_time and (time.time() - self.time_init) > self.kibitzer.max_time:
+            if (self.kibitzer.max_time and (time.time() - self.time_init) > self.kibitzer.max_time) or \
+                    (self.kibitzer.max_depth and rm.depth >= self.kibitzer.max_depth):
                 if not self.stopped:
                     self.engine.ac_final(0)
                     self.stopped = True
@@ -261,7 +262,7 @@ class WKibEngine(WKibCommon.WKibCommon):
             pgn = p.pgnBaseRAW()
             resp = '[FEN "%s"]\n\n%s' % (fen, pgn)
             QTUtil.ponPortapapeles(resp)
-            QTUtil2.mensajeTemporal(self, _("The line selected is saved to the clipboard"), 0.7)
+            QTUtil2.temporary_message(self, _("The line selected is saved to the clipboard"), 0.7)
 
     def orden_game(self, game: Game.Game):
         if game is None:

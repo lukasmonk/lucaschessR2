@@ -391,12 +391,12 @@ class Game:
         return False
 
     def read_pv(self, pvBloque):
-        return self.leerLIPV(pvBloque.split(" "))
+        return self.read_lipv(pvBloque.split(" "))
 
     def read_xpv(self, xpv):
         return self.read_pv(FasterCode.xpv_pv(xpv))
 
-    def leerLIPV(self, lipv):
+    def read_lipv(self, lipv):
         position = self.last_position
         pv = []
         for mov in lipv:
@@ -745,7 +745,7 @@ class Game:
         factormoves = {OPENING: 0, MIDDLEGAME: 0, ENDGAME: 0}
         last = OPENING
         for move in self.li_moves:
-            if move.analysis:
+            if move.analysis and move.has_alternatives():
                 if move.is_white() != is_white:
                     continue
                 if last == ENDGAME:
@@ -854,7 +854,10 @@ class Game:
 
         elos[None] = {}
         for std in (OPENING, MIDDLEGAME, ENDGAME, ALLGAME):
-            elos[None][std] = int((elos[True][std] + elos[False][std]) / 2.0)
+            w, b = elos[True][std], elos[False][std]
+
+            divisor = 1.0 if w == 0 or b == 0 else 2.0
+            elos[None][std] = int((w + b) / divisor)
 
         return elos
 

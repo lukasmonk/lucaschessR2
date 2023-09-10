@@ -58,9 +58,9 @@ class BlancasNegrasTiempo(QtWidgets.QDialog):
         btNegras = Controles.PB(self, "", rutina=self.negras, plano=False).ponIcono(icop, icon_size=64)
 
         # Tiempo
-        self.edMinutos, self.lbMinutos = QTUtil2.spinBoxLB(self, 10, 0, 999, maxTam=50, etiqueta=_("Total minutes"))
-        self.edSegundos, self.lbSegundos = QTUtil2.spinBoxLB(
-            self, 0, 0, 999, maxTam=50, etiqueta=_("Seconds added per move")
+        self.edMinutos, self.lbMinutos = QTUtil2.spinbox_lb(self, 10, 0, 999, max_width=50, etiqueta=_("Total minutes"))
+        self.edSegundos, self.lbSegundos = QTUtil2.spinbox_lb(
+            self, 0, 0, 999, max_width=50, etiqueta=_("Seconds added per move")
         )
         ly = Colocacion.G()
         ly.controld(self.lbMinutos, 0, 0).control(self.edMinutos, 0, 1)
@@ -142,16 +142,16 @@ class Tiempo(QtWidgets.QDialog):
         self.setWindowTitle(_("Time"))
         self.setWindowIcon(Iconos.MoverTiempo())
 
-        tb = tbAcceptCancel(self)
+        tb = tb_accept_cancel(self)
 
         f = Controles.TipoLetra(puntos=11)
 
         # Tiempo
-        self.edMinutos, self.lbMinutos = QTUtil2.spinBoxLB(
-            self, default_minutes, minMinutos, maxMinutos, maxTam=50, etiqueta=_("Total minutes"), fuente=f
+        self.edMinutos, self.lbMinutos = QTUtil2.spinbox_lb(
+            self, default_minutes, minMinutos, maxMinutos, max_width=50, etiqueta=_("Total minutes"), fuente=f
         )
-        self.edSegundos, self.lbSegundos = QTUtil2.spinBoxLB(
-            self, default_seconds, minSegundos, max_seconds, maxTam=50, etiqueta=_("Seconds added per move"), fuente=f
+        self.edSegundos, self.lbSegundos = QTUtil2.spinbox_lb(
+            self, default_seconds, minSegundos, max_seconds, max_width=50, etiqueta=_("Seconds added per move"), fuente=f
         )
 
         # # Tiempo
@@ -187,7 +187,7 @@ def vtime(owner, minMinutos=1, minSegundos=0, maxMinutos=999, max_seconds=999, d
     return None
 
 
-def lyBotonesMovimiento(
+def ly_mini_buttons(
         owner,
         key,
         siLibre=True,
@@ -899,11 +899,11 @@ def change_interval(owner, configuration):
         configuration.graba()
 
 
-def tbAcceptCancel(parent, if_default=False, siReject=True):
+def tb_accept_cancel(parent, if_default=False, with_cancel=True):
     li_acciones = [
         (_("Accept"), Iconos.Aceptar(), parent.aceptar),
         None,
-        (_("Cancel"), Iconos.Cancelar(), parent.reject if siReject else parent.cancelar),
+        (_("Cancel"), Iconos.Cancelar(), parent.reject if with_cancel else parent.cancelar),
     ]
     if if_default:
         li_acciones.append(None)

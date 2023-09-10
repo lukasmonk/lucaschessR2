@@ -3,8 +3,8 @@ import os
 from PySide2 import QtCore
 
 import Code
-from Code.Odt import Odt
 from Code.Board import Board
+from Code.Odt import Odt
 from Code.QT import Colocacion, Controles, Iconos, QTUtil, QTVarios
 from Code.QT import LCDialog
 from Code.QT import SelectFiles
@@ -36,16 +36,18 @@ class WOdt(LCDialog.LCDialog):
         self.owner = owner
         self.routine = None
 
+        self.canceled = False
+
         conf_board = self.configuration.config_board("ODT", 64)
 
         self.board = Board.BoardEstatico(self, conf_board)
         self.board.crea()
 
-        li_acciones = ((_("Export"), Iconos.ODT(), self.begin), (_("Cancel"), Iconos.Cancelar(), self.reject))
+        li_acciones = ((_("Export"), Iconos.ODT(), self.begin), (_("Cancel"), Iconos.Cancelar(), self.cancel))
         self.tb = QTVarios.LCTB(self, li_acciones, style=QtCore.Qt.ToolButtonTextBesideIcon, icon_size=32)
-        self.show_tb(self.begin, self.reject)
+        self.show_tb(self.begin, self.cancel)
 
-        self.lb_pos = Controles.LB("").ponTipoLetra(puntos=32).anchoFijo(120)
+        self.lb_pos = Controles.LB("").ponTipoLetra(puntos=32).anchoFijo(240).align_right()
         self.lb_pos.hide()
 
         ly_arr = Colocacion.H().control(self.tb).control(self.lb_pos).margen(0)
@@ -56,23 +58,34 @@ class WOdt(LCDialog.LCDialog):
         self.restore_video()
         self.adjustSize()
 
+    def cancel(self):
+        self.canceled = True
+        self.reject()
+
     def set_cpos(self, txt):
         self.lb_pos.set_text(txt)
 
     def begin(self):
-        self.show_tb(self.reject)
+        self.show_tb(self.cancel)
         self.lb_pos.show()
 
         while self.routine(self):
-            pass
+            QTUtil.refresh_gui()
+            if self.canceled:
+                self.reject()
+                return
 
-        self.reject()
+        self.accept()
 
-    def create_document(self, title, landscape):
+    def create_document(self, title, landscape, margins=None):
         self.odt_doc = Odt.ODT()
         if landscape:
             self.odt_doc.landscape()
         self.odt_doc.set_header(title)
+        if margins:
+            top, bottom, left, right = margins
+            self.odt_doc.margins(top, bottom, left, right)
+        return self.odt_doc
 
     def show_tb(self, *lista):
         for opc in self.tb.dic_toolbar:

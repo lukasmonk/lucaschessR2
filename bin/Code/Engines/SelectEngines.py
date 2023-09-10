@@ -49,7 +49,7 @@ def get_dict_type_names():
 
 class SelectEngines:
     def __init__(self, owner):
-        um = QTUtil2.unMomento(owner, _("Reading the list of engines"))
+        um = QTUtil2.one_moment_please(owner, _("Reading the list of engines"))
         self.configuration = Code.configuration
         self.dicIconos = {
             ENG_INTERNAL: Iconos.Engine(),
@@ -222,7 +222,7 @@ class SelectEngines:
             icono = rp.otro()
             submenublk = submenu.submenu("%d - %d" % (li_blk[0].elo, li_blk[-1].elo), icono)
             for cm in li_blk:
-                texto = Util.primera_mayuscula(cm.alias + " (%d, %s)" % (cm.elo, cm.id_info.replace("\n", "-")))
+                texto = Util.primera_mayuscula(cm.alias + " (%d, %s)" % (cm.elo, cm.id_info.replace("\n", ", ")))
                 cm.name = Util.primera_mayuscula(cm.alias)
                 submenublk.opcion(cm, texto, icono)
                 submenublk.separador()
@@ -243,7 +243,7 @@ class SelectEngines:
             icono = rp.otro()
             submenublk = submenu.submenu("%d - %d" % (li_blk[0].elo, li_blk[-1].elo), icono)
             for cm in li_blk:
-                texto = cm.name + " (%d, %s)" % (cm.elo, cm.id_info.replace("\n", "-"))
+                texto = cm.name + " (%d, %s)" % (cm.elo, cm.id_info.replace("\n", ", "))
                 submenublk.opcion(cm, texto, icono)
                 submenublk.separador()
             submenu.separador()
@@ -329,11 +329,11 @@ class SelectEngines:
 
             for cm in self.li_engines_micper:
                 cm.name = Util.primera_mayuscula(cm.alias)
-                menu = "%s (%s)" % (cm.name, cm.id_info.replace("\n", "-"))
+                menu = "%s (%s)" % (cm.name, cm.id_info.replace("\n", ", "))
                 add_cm(cm, menu)
 
             for cm in self.li_engines_wicker:
-                menu = "%s (%s)" % (cm.name, cm.id_info.replace("\n", "-"))
+                menu = "%s (%s)" % (cm.name, cm.id_info.replace("\n", ", "))
                 add_cm(cm, menu)
 
             for elo in self.dict_engines_fixed_elo:
@@ -380,7 +380,7 @@ class SelectEngines:
 
         elif tipo == ENG_MICGM:
             for cm in self.li_engines_micgm:
-                if cm.key == key:
+                if cm.key == key and cm.alias == alias:
                     rival = cm
                     break
 

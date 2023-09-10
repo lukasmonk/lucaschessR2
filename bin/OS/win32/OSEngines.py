@@ -131,7 +131,7 @@ def read_engines(folder_engines):
     mas("gull", "Vadim Demichev", "3 32bit", "https://sourceforge.net/projects/gullchess/", "Gull 3 w32 XP.exe", 3125)
     # cm.set_multipv(10, 64) Da problemas
 
-    mas("irina", "Lucas Monge", "0.15", "https://github.com/lukasmonk/irina", "irina.exe", 1500)
+    mas("irina", "Lucas Monge", "0.16", "https://github.com/lukasmonk/irina", "irina.exe", 1500)
 
     mas("rodentii", "Pawel Koziol", "0.9.64", "http://www.pkoziol.cal24.pl/rodent/rodent.htm", "RodentII_x32.exe", 2912)
 
@@ -208,20 +208,32 @@ def read_engines(folder_engines):
 
     is64 = platform.machine().endswith("64")
     t32_64 = "64" if is64 else "32"
+    is_bmi2 = False
     if is64:
-        if FasterCode.bmi2() == 1:
+        is_bmi2 = FasterCode.bmi2() == 1
+        if is_bmi2:
             t32_64 = "64-bmi2"
 
-    # 32 bits permanece Komodo 12
+    # 32 bits permanece Komodo 12 64 bit Komodo 13
     if is64:
-        cm = mas(
-            "komodo",
-            "Don Dailey, Larry Kaufman, Mark Lefler",
-            f"14.1 {t32_64}",
-            "https://komodochess.com/",
-            "komodo-14.1-64bit.exe" if t32_64 == "64" else "komodo-14.1-64bit-bmi2.exe",
-            3406,
-        )
+        if is_bmi2:
+            cm = mas(
+                "komodo",
+                "Don Dailey, Larry Kaufman, Mark Lefler",
+                f"14.1 {t32_64}",
+                "https://komodochess.com/",
+                "komodo-14.1-64bit-bmi2.exe",
+                3387,
+            )
+        else:
+            cm = mas(
+                "komodo",
+                "Don Dailey, Larry Kaufman, Mark Lefler",
+                f"13.02 {t32_64}",
+                "https://komodochess.com/",
+                "komodo-13.02-64bit.exe",
+                3406,
+            )
     else:
         cm = mas(
             "komodo",
@@ -236,7 +248,10 @@ def read_engines(folder_engines):
     cm.set_multipv(10, 218)
 
     if is64:
-        cm = mas("lc0", "The LCZero Authors", "v0.29.0", "https://github.com/LeelaChessZero", "lc0.exe", 3300)
+        if is_bmi2:
+            cm = mas("lc0", "The LCZero Authors", "v0.30.0", "https://github.com/LeelaChessZero", "lc0_dnnl.exe", 3300)
+        else:
+            cm = mas("lc0", "The LCZero Authors", "v0.30.0", "https://github.com/LeelaChessZero", "lc0.exe", 3300)
         cm.ordenUCI("Threads", "2")
         cm.set_multipv(10, 500)
 

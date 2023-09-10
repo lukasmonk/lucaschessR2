@@ -72,7 +72,7 @@ class BoardLines(QtWidgets.QWidget):
 
         tipo_letra = Controles.TipoLetra(puntos=configuration.x_pgn_fontpoints)
 
-        lybt, bt = QTVarios.lyBotonesMovimiento(self, "", siTiempo=True, siLibre=False, icon_size=24)
+        lybt, bt = QTVarios.ly_mini_buttons(self, "", siTiempo=True, siLibre=False, icon_size=24)
 
         self.lbPGN = LBKey(
             self, " "

@@ -10,6 +10,7 @@ from Code.QT import Iconos
 from Code.QT import LCDialog
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
+from Code.Translations import TrListas
 
 
 def consultaHistorico(main_window, tactica, icono):
@@ -19,8 +20,10 @@ def consultaHistorico(main_window, tactica, icono):
 
 class WHistoricoTacticas(LCDialog.LCDialog):
     def __init__(self, main_window, tactica, icono):
+        title = tactica.title
+        title = TrListas.dicTraining().get(title, title)
 
-        LCDialog.LCDialog.__init__(self, main_window, tactica.title, icono, "histoTacticas")
+        LCDialog.LCDialog.__init__(self, main_window, title, icono, "histoTacticas")
 
         self.li_histo = tactica.historico()
         self.tactica = tactica

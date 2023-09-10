@@ -239,7 +239,7 @@ class WConfExternals(QtWidgets.QWidget):
             None,
             (_("Copy"), Iconos.Copiar(), self.copiar),
             None,
-            (_("Import"), Iconos.MasDoc(), self.importar),
+            (_("Internal engines"), Iconos.MasDoc(), self.importar),
             None,
             (_("Up"), Iconos.Arriba(), self.arriba),
             None,
@@ -312,7 +312,7 @@ class WConfExternals(QtWidgets.QWidget):
         elif key == "ENGINE":
             return me.name
         elif key == "INFO":
-            return me.id_info.replace("\n", "-")
+            return me.id_info.replace("\n", ", ")
         elif key == "ELO":
             return str(me.elo) if me.elo else "-"
         elif key == "DEPTH":
@@ -322,8 +322,7 @@ class WConfExternals(QtWidgets.QWidget):
 
     def command(self):
         separador = FormLayout.separador
-        li_gen = [separador]
-        li_gen.append(separador)
+        li_gen = [separador,]
         config = FormLayout.Fichero(_("File"), "exe" if Code.is_windows else "*", False)
         li_gen.append((config, ""))
 
@@ -342,7 +341,7 @@ class WConfExternals(QtWidgets.QWidget):
                 if arg:
                     liArgs.append(arg)
 
-            um = QTUtil2.unMomento(self)
+            um = QTUtil2.one_moment_please(self)
             me = Engines.Engine(path_exe=command, args=liArgs)
             li_uci = me.read_uci_options()
             um.final()
@@ -487,7 +486,7 @@ class WEngineFast(QtWidgets.QDialog):
         self.imported = engine.parent_external is not None
 
         # Toolbar
-        tb = QTVarios.tbAcceptCancel(self)
+        tb = QTVarios.tb_accept_cancel(self)
 
         lb_alias = Controles.LB2P(self, _("Alias"))
         self.edAlias = Controles.ED(self, engine.key).anchoMinimo(360)
@@ -713,19 +712,29 @@ class WConfAnalyzer(QtWidgets.QWidget):
             self, _("Analysis configuration parameters"), rutina=self.config_analysis_parameters, plano=False
         )
 
+        lb_analysis_bar = Controles.LB2P(self, _("Limits in the Analysis Bar (0=no limit)")).ponTipoLetra(puntos=12, peso=700)
+        lb_depth_ab = Controles.LB2P(self, _("Depth"))
+        self.ed_depth_ab = Controles.ED(self).tipoInt(self.configuration.x_analyzer_depth_ab).anchoFijo(30)
+        lb_time_ab = Controles.LB2P(self, _("Time in seconds"))
+        self.ed_time_ab = Controles.ED(self).tipoFloat(self.configuration.x_analyzer_mstime_ab / 1000.0).anchoFijo(40)
+
         layout = Colocacion.G()
         layout.controld(lb_engine, 0, 0).control(self.cb_engine, 0, 1)
         layout.controld(lb_time, 1, 0).control(self.ed_time, 1, 1)
         layout.controld(lb_depth, 2, 0).control(self.ed_depth, 2, 1)
         layout.controld(lb_multipv, 3, 0).otro(ly_multi, 3, 1)
         layout.controld(lb_priority, 4, 0).control(self.cb_priority, 4, 1)
+        layout.filaVacia(5, 20)
+        layout.controld(lb_analysis_bar, 6, 0)
+        layout.controld(lb_time_ab, 7, 0).control(self.ed_time_ab, 7, 1)
+        layout.controld(lb_depth_ab, 8, 0).control(self.ed_depth_ab, 8, 1)
 
         ly = Colocacion.V().otro(layout).espacio(30).control(bt_analysis_parameters).relleno(1)
         lyh = Colocacion.H().otro(ly).relleno(1).margen(30)
 
         self.setLayout(lyh)
 
-        for control in (self.cb_priority, self.ed_multipv, self.ed_depth, self.ed_time):
+        for control in (self.cb_priority, self.ed_multipv, self.ed_depth, self.ed_time, self.ed_depth_ab, self.ed_time_ab):
             control.capture_changes(self.set_changed)
 
     def config_analysis_parameters(self):
@@ -759,6 +768,8 @@ class WConfAnalyzer(QtWidgets.QWidget):
             self.configuration.x_analyzer_depth = self.ed_depth.textoInt()
             self.configuration.x_analyzer_multipv = self.ed_multipv.textoInt()
             self.configuration.x_analyzer_priority = self.cb_priority.valor()
+            self.configuration.x_analyzer_mstime_ab = self.ed_time_ab.textoFloat() * 1000
+            self.configuration.x_analyzer_depth_ab = self.ed_depth_ab.textoInt()
 
             dic = self.configuration.read_variables("TUTOR_ANALYZER")
             dic["ANALYZER"] = self.engine.list_uci_changed()

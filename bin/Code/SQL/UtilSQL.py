@@ -310,19 +310,29 @@ class DictRawSQL(DictSQL):
 
 
 class ListSQL:
-    def __init__(self, nom_fichero, tabla="LISTA", max_cache=2048):
+    def __init__(self, nom_fichero, tabla="LISTA", max_cache=2048, reverted=False):
         self.nom_fichero = nom_fichero
         self._conexion = sqlite3.connect(nom_fichero)
         self.tabla = tabla
         self.max_cache = max_cache
         self.cache = {}
+        self.reverted = reverted
 
         self._conexion.execute("CREATE TABLE IF NOT EXISTS %s( DATO BLOB );" % tabla)
 
         self.li_row_ids = self.read_rowids()
 
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.close()
+
     def read_rowids(self):
-        cursor = self._conexion.execute("SELECT ROWID FROM %s" % self.tabla)
+        sql = "SELECT ROWID FROM %s" % self.tabla
+        if self.reverted:
+            sql += " ORDER BY ROWID DESC"
+        cursor = self._conexion.execute(sql)
         return [rowid for rowid, in cursor.fetchall()]
 
     def refresh(self):
@@ -336,11 +346,18 @@ class ListSQL:
                     del self.cache[x]
             self.cache[key] = obj
 
-    def append(self, valor):
+    def append(self, valor, with_cache=False):
         sql = "INSERT INTO %s( DATO ) VALUES( ? )" % self.tabla
-        cursor = self._conexion.execute(sql, (memoryview(pickle.dumps(valor)),))
+        obj = pickle.dumps(valor)
+        cursor = self._conexion.execute(sql, (memoryview(obj),))
         self._conexion.commit()
-        self.li_row_ids.append(cursor.lastrowid)
+        lastrowid = cursor.lastrowid
+        if self.reverted:
+            self.li_row_ids.insert(0, lastrowid)
+        else:
+            self.li_row_ids.append(lastrowid)
+        if with_cache:
+            self.add_cache(lastrowid, obj)
 
     def __getitem__(self, pos):
         if pos < len(self.li_row_ids):
@@ -400,23 +417,37 @@ class ListSQL:
     def zap(self):
         self._conexion.execute("DELETE FROM %s" % self.tabla)
         self._conexion.commit()
-        self._conexion.execute("VACUUM")
-        self._conexion.commit()
+        self.pack()
         self.li_row_ids = []
         self.cache = {}
 
+    def rowid(self, pos):
+        return self.li_row_ids[pos]
+
+    def pos_rowid(self, rowid):
+        try:
+            return self.li_row_ids.index(rowid)
+        except:
+            return -1
+
 
 class ListObjSQL(ListSQL):
-    def __init__(self, nom_fichero, class_storage, tabla="datos", max_cache=2048):
+    def __init__(self, nom_fichero, class_storage, tabla="datos", max_cache=2048, reverted=False):
         self.class_storage = class_storage
-        ListSQL.__init__(self, nom_fichero, tabla, max_cache)
+        ListSQL.__init__(self, nom_fichero, tabla, max_cache, reverted)
 
-    def append(self, obj):
+    def append(self, obj, with_cache=False):
         sql = "INSERT INTO %s( DATO ) VALUES( ? )" % self.tabla
         dato = Util.save_obj_pickle(obj)
         cursor = self._conexion.execute(sql, (memoryview(dato),))
         self._conexion.commit()
-        self.li_row_ids.append(cursor.lastrowid)
+        lastrowid = cursor.lastrowid
+        if self.reverted:
+            self.li_row_ids.insert(0, lastrowid)
+        else:
+            self.li_row_ids.append(lastrowid)
+        if with_cache:
+            self.add_cache(lastrowid, obj)
 
     def __getitem__(self, pos):
         if pos < len(self.li_row_ids):
@@ -753,3 +784,140 @@ def remove_table(path_db: str, table: str):
     conexion.execute("VACUUM")
     conexion.commit()
     conexion.close()
+
+
+class DictTextSQL(object):
+    def __init__(self, path_db, tabla="DataText", max_cache=2048):
+        self.tabla = tabla
+        self.max_cache = max_cache
+        self.cache = {}
+
+        self.conexion = sqlite3.connect(path_db)
+
+        self.conexion.execute("CREATE TABLE IF NOT EXISTS %s( KEY TEXT PRIMARY KEY, VALUE TEXT );" % tabla)
+
+        cursor = self.conexion.execute("SELECT KEY FROM %s" % self.tabla)
+        self.li_keys = [reg[0] for reg in cursor.fetchall()]
+
+        self.normal_save_mode = True
+        self.pending_commit = False
+
+    def set_faster_mode(self):
+        self.normal_save_mode = False
+
+    def set_normal_mode(self):
+        if self.pending_commit:
+            self.conexion.commit()
+        self.normal_save_mode = True
+
+    def add_cache(self, key: str, txt: str):
+        if self.max_cache:
+            if len(self.cache) > self.max_cache:
+                lik = list(self.cache.keys())
+                for x in lik[: self.max_cache // 2]:
+                    del self.cache[x]
+            self.cache[key] = txt
+
+    def __contains__(self, key: str):
+        return key in self.li_keys
+
+    def __setitem__(self, key: str, txt: str):
+        if not self.conexion:
+            return
+        si_ya_esta = key in self.li_keys
+        if si_ya_esta:
+            sql = "UPDATE %s SET VALUE=? WHERE KEY = ?" % self.tabla
+        else:
+            sql = "INSERT INTO %s (VALUE,KEY) values(?,?)" % self.tabla
+            self.li_keys.append(key)
+        self.conexion.execute(sql, (txt, key))
+
+        self.add_cache(key, txt)
+        if self.normal_save_mode:
+            self.conexion.commit()
+        elif not self.pending_commit:
+            self.pending_commit = True
+
+    def __getitem__(self, key: str):
+        if key in self.li_keys:
+            if key in self.cache:
+                return self.cache[key]
+
+            sql = "SELECT VALUE FROM %s WHERE KEY= ?" % self.tabla
+            row = self.conexion.execute(sql, (key,)).fetchone()
+            txt = row[0]
+
+            self.add_cache(key, txt)
+            return txt
+        return None
+
+    def __delitem__(self, key: str):
+        if key in self.li_keys:
+            self.li_keys.remove(key)
+            if key in self.cache:
+                del self.cache[key]
+            sql = "DELETE FROM %s WHERE KEY= ?" % self.tabla
+            self.conexion.execute(sql, (key,))
+            if self.normal_save_mode:
+                self.conexion.commit()
+            else:
+                self.pending_commit = True
+
+    def __len__(self):
+        return len(self.li_keys)
+
+    def is_closed(self):
+        return self.conexion is None
+
+    def close(self):
+        if self.conexion:
+            if self.pending_commit:
+                self.conexion.commit()
+            self.conexion.close()
+            self.conexion = None
+
+    def keys(self, si_ordenados=False, si_reverse=False):
+        return sorted(self.li_keys, reverse=si_reverse) if si_ordenados else self.li_keys
+
+    def get(self, key, default=None):
+        key = str(key)
+        if key in self.li_keys:
+            return self.__getitem__(key)
+        else:
+            return default
+
+    def as_dictionary(self):
+        sql = "SELECT KEY,VALUE FROM %s" % self.tabla
+        cursor = self.conexion.execute(sql)
+        dic = {}
+        for key, dato in cursor.fetchall():
+            dic[key] = dato
+        return dic
+
+    def pack(self):
+        self.conexion.execute("VACUUM")
+        self.conexion.commit()
+
+    def zap(self):
+        self.conexion.execute("DELETE FROM %s" % self.tabla)
+        self.conexion.commit()
+        self.conexion.execute("VACUUM")
+        self.conexion.commit()
+        self.cache = {}
+        self.li_keys = []
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, xtype, value, traceback):
+        self.close()
+
+    def copy_from(self, dbdict):
+        mode = self.normal_save_mode
+        self.set_faster_mode()
+        for key in dbdict.keys():
+            self[key] = dbdict[key]
+        self.conexion.commit()
+        self.pending_commit = False
+        self.normal_save_mode = mode
+

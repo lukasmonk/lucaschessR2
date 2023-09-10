@@ -46,7 +46,7 @@ class WJuicio(LCDialog.LCDialog):
         self.board.set_side_bottom(position.is_white)
 
         liMas = ((_("Close"), "close", Iconos.AceptarPeque()),)
-        lyBM, tbBM = QTVarios.lyBotonesMovimiento(
+        lyBM, tbBM = QTVarios.ly_mini_buttons(
             self, "", siLibre=False, icon_size=24, siMas=manager.continueTt, liMasAcciones=liMas
         )
 

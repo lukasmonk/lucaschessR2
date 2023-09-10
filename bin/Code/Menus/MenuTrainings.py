@@ -4,7 +4,6 @@ import shutil
 
 import Code
 from Code import ManagerFindAllMoves
-from Code.Endings import ManagerMate
 from Code import Memory
 from Code import Util
 from Code.Base.Constantes import (
@@ -18,6 +17,7 @@ from Code.Base.Constantes import (
 from Code.CompetitionWithTutor import CompetitionWithTutor
 from Code.Coordinates import WCoordinatesBlocks, WCoordinatesBasic
 from Code.CountsCaptures import WCountsCaptures
+from Code.Endings import ManagerMate
 from Code.Expeditions import WindowEverest
 from Code.GM import ManagerGM, WindowGM
 from Code.Mate15 import WMate15
@@ -31,7 +31,7 @@ from Code.QT import WindowHorses
 from Code.QT import WindowPotencia
 from Code.QT import WindowPuente
 from Code.QT import WindowVisualiza
-from Code.Resistence import Resistance, ManagerResistance, WindowResistance
+from Code.Resistance import Resistance, ManagerResistance, WindowResistance
 from Code.SQL import UtilSQL
 from Code.Tactics import Tactics, ManagerTactics, WindowTactics
 from Code.TrainBMT import WindowBMT
@@ -185,7 +185,9 @@ class MenuTrainings:
         menu.separador()
         menu_openings = menu.submenu(_("Openings"), Iconos.Openings())
         menu_openings.separador()
-        xopcion(menu_openings, "train_book", _("Training with a book"), Iconos.Libros())
+        xopcion(menu_openings, "train_book_ol", _("Train the opening lines of a book"), Iconos.Libros())
+        xopcion(menu_openings, "train_book", _("Training with a book"), Iconos.Book())
+        menu_openings.separador()
 
     def create_menu_games(self, menu, xopcion):
         menu.separador()
@@ -376,7 +378,7 @@ class MenuTrainings:
         if resp:
             if type(resp) == str:
                 if resp == "gm":
-                    self.entrenaGM()
+                    self.train_gm()
 
                 elif resp.startswith("mate"):
                     self.jugarMate(int(resp[-1]))
@@ -405,6 +407,9 @@ class MenuTrainings:
                 elif resp == "train_book":
                     self.train_book()
 
+                elif resp == "train_book_ol":
+                    self.train_book_ol()
+
                 elif resp == "endings_gtb":
                     self.gaviota_endings()
 
@@ -414,7 +419,7 @@ class MenuTrainings:
 
                 elif resp.startswith("remtactica|"):
                     nada, carpeta, name = resp.split("|")
-                    self.tacticaRemove(carpeta, name)
+                    self.tactics_remove(carpeta, name)
 
                 elif resp.startswith("puente_"):
                     self.puente(int(resp[7:]))
@@ -426,21 +431,21 @@ class MenuTrainings:
                     self.horses(test, tit, icon)
 
                 elif resp.startswith("ep_"):
-                    um = self.procesador.unMomento()
-                    entreno = os.path.realpath(resp[3:])
-                    titentreno = os.path.basename(entreno)[:-4]
-                    with Util.OpenCodec(entreno) as f:
-                        todo = f.read().strip()
-                    liEntrenamientos = [(linea, pos) for pos, linea in enumerate(todo.split("\n"), 1)]
-                    nPosiciones = len(liEntrenamientos)
-                    um.final()
-                    if nPosiciones == 0:
+                    with QTUtil2.OneMomentPlease(self.procesador.main_window):
+                        entreno = os.path.realpath(resp[3:])
+                        txt = os.path.basename(entreno)[:-4]
+                        titentreno = TrListas.dicTraining().get(txt, txt)
+                        with Util.OpenCodec(entreno) as f:
+                            todo = f.read().strip()
+                        li_entrenamientos = [(linea, pos) for pos, linea in enumerate(todo.split("\n"), 1)]
+                        n_posiciones = len(li_entrenamientos)
+                    if n_posiciones == 0:
                         return
                     db = UtilSQL.DictSQL(self.configuration.file_trainings)
                     data = db[entreno]
                     if type(data) != dict:
                         data = {}
-                    posUltimo = data.get("POSULTIMO", 1)
+                    pos_ultimo = data.get("POSULTIMO", 1)
                     jump = data.get("SALTA", False)
                     tipo = data.get("TYPE", "s")
                     advanced = data.get("ADVANCED", False)
@@ -448,8 +453,8 @@ class MenuTrainings:
                     resp = params_training_position(
                         self.procesador.main_window,
                         titentreno,
-                        nPosiciones,
-                        posUltimo,
+                        n_posiciones,
+                        pos_ultimo,
                         jump,
                         tutor_active,
                         tipo,
@@ -470,10 +475,10 @@ class MenuTrainings:
                     if tipo.startswith("r"):
                         if tipo == "rk":
                             random.seed(pos)
-                        random.shuffle(liEntrenamientos)
+                        random.shuffle(li_entrenamientos)
                         pos = 1
                     self.procesador.entrenaPos(
-                        pos, nPosiciones, titentreno, liEntrenamientos, entreno, tutor_active, jump, advanced
+                        pos, n_posiciones, titentreno, li_entrenamientos, entreno, tutor_active, jump, advanced
                     )
 
                 elif resp == "learnGame":
@@ -521,55 +526,53 @@ class MenuTrainings:
 
     def tacticas(self, tipo, name, carpeta, ini):
         dic_training = TrListas.dicTraining()
-        um = self.procesador.unMomento()
-        tacticas = Tactics.Tactics(tipo, name, carpeta, ini)
-        liMenus = tacticas.listaMenus()
-        if len(liMenus) == 0:
-            um.final()
-            return
+        with QTUtil2.OneMomentPlease(self.procesador.main_window) as um:
+            tacticas = Tactics.Tactics(tipo, name, carpeta, ini)
+            li_menus = tacticas.listaMenus()
+            if len(li_menus) == 0:
+                return
 
-        nico = QTVarios.rondoPuntos()
-        if len(liMenus) > 1:
-            menu = QTVarios.LCMenu(self.parent)
-            menu.opcion(None, _SP(name), Iconos.Tacticas())
-            menu.separador()
+            nico = QTVarios.rondoPuntos()
+            if len(li_menus) > 1:
+                menu = QTVarios.LCMenu(self.parent)
+                menu.opcion(None, _SP(name), Iconos.Tacticas())
+                menu.separador()
 
-            dmenu = {}
-            for valor, lista in liMenus:
-                actmenu = menu
-                if len(lista) > 1:
-                    t = ""
-                    for x in range(len(lista) - 1):
-                        t += "|%s" % lista[x]
-                        if not (t in dmenu):
-                            v_trad = dic_training.get(lista[x], _F(lista[x]))
-                            dmenu[t] = actmenu.submenu(v_trad, nico.otro())
-                            actmenu.separador()
-                        actmenu = dmenu[t]
-                actmenu.opcion(valor, _F(dic_training.get(lista[-1], lista[-1])), nico.otro())
-                actmenu.separador()
-            um.final()
-            resp = menu.lanza()
+                dmenu = {}
+                for valor, lista in li_menus:
+                    actmenu = menu
+                    if len(lista) > 1:
+                        t = ""
+                        for x in range(len(lista) - 1):
+                            t += "|%s" % lista[x]
+                            if not (t in dmenu):
+                                v_trad = dic_training.get(lista[x], _F(lista[x]))
+                                dmenu[t] = actmenu.submenu(v_trad, nico.otro())
+                                actmenu.separador()
+                            actmenu = dmenu[t]
+                    name = _F(dic_training.get(lista[-1], lista[-1]))
+                    actmenu.opcion(valor, name, nico.otro())
+                    actmenu.separador()
+                um.close()
+                resp = menu.lanza()
 
-        else:
-            resp = liMenus[0][0]
+            else:
+                resp = li_menus[0][0]
 
-        if not resp:
-            um.final()
-            return
+            if not resp:
+                return
 
-        tactica = tacticas.eligeTactica(resp, self.configuration.carpeta_results)
+            tactica = tacticas.eligeTactica(resp, self.configuration.carpeta_results)
 
-        um.final()
         if tactica:
-            self.entrenaTactica(tactica)
+            self.tactics_train(tactica)
 
-    def tacticaRemove(self, carpeta, name):
+    def tactics_remove(self, carpeta, name):
         if QTUtil2.pregunta(self.procesador.main_window, _X(_("Delete %1?"), name)):
             shutil.rmtree(carpeta)
             self.rehaz()
 
-    def entrenaTactica(self, tactica):
+    def tactics_train(self, tactica):
         icono = Iconos.PuntoMagenta()
         resp = WindowTactics.consultaHistorico(self.procesador.main_window, tactica, icono)
         if resp:
@@ -581,15 +584,14 @@ class MenuTrainings:
                         ncopia = None
                     if not WindowTactics.edit1tactica(self.procesador.main_window, tactica, ncopia):
                         return
-                um = self.procesador.unMomento()
-                tactica.genera()
-                um.final()
+                with QTUtil2.OneMomentPlease(self.procesador.main_window):
+                    tactica.genera()
             self.procesador.game_type = GT_TACTICS
             self.procesador.state = ST_PLAYING
             self.procesador.manager = ManagerTactics.ManagerTactics(self.procesador)
             self.procesador.manager.start(tactica)
 
-    def entrenaGM(self):
+    def train_gm(self):
         w = WindowGM.WGM(self.procesador)
         if w.exec_():
             self.procesador.game_type = GT_AGAINST_GM
@@ -597,9 +599,9 @@ class MenuTrainings:
             self.procesador.manager = ManagerGM.ManagerGM(self.procesador)
             self.procesador.manager.start(w.record)
 
-    def find_all_moves(self, siJugador):
+    def find_all_moves(self, si_jugador):
         self.procesador.manager = ManagerFindAllMoves.ManagerFindAllMoves(self.procesador)
-        self.procesador.manager.start(siJugador)
+        self.procesador.manager.start(si_jugador)
 
     def jugarMate(self, tipo):
         self.procesador.manager = ManagerMate.ManagerMate(self.procesador)
@@ -620,6 +622,9 @@ class MenuTrainings:
     def train_book(self):
         self.procesador.train_book()
 
+    def train_book_ol(self):
+        self.procesador.train_book_ol()
+
     def gaviota_endings(self):
         self.procesador.gaviota_endings()
 
@@ -636,9 +641,9 @@ class MenuTrainings:
         resistance = Resistance.Resistance(self.procesador, tipo)
         resp = WindowResistance.windowResistance(self.procesador.main_window, resistance)
         if resp is not None:
-            numEngine, key = resp
+            num_engine, key = resp
             self.procesador.manager = ManagerResistance.ManagerResistance(self.procesador)
-            self.procesador.manager.start(resistance, numEngine, key)
+            self.procesador.manager.start(resistance, num_engine, key)
 
     def everest(self):
         WindowEverest.everest(self.procesador)

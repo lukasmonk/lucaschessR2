@@ -58,7 +58,7 @@ class WEndingsGTB(LCDialog.LCDialog):
 
         self.komodo = None
 
-        ly_bt, self.bt_movs = QTVarios.lyBotonesMovimiento(
+        ly_bt, self.bt_movs = QTVarios.ly_mini_buttons(
             self, "", siTiempo=True, siLibre=False, rutina=self.run_botones, icon_size=24
         )
 
@@ -673,7 +673,7 @@ class WEndingsGTB(LCDialog.LCDialog):
         li_path_pgn = SelectFiles.select_pgns(self)
         if not li_path_pgn:
             return
-        um = QTUtil2.unMomento(self, _("Working..."))
+        um = QTUtil2.working(self)
         li_fens = []
         for path_pgn in li_path_pgn:
             with FasterCode.PGNreader(path_pgn, 1) as fpgn:
@@ -687,7 +687,7 @@ class WEndingsGTB(LCDialog.LCDialog):
         path_db = QTVarios.select_db(self, self.configuration, True, False)
         if not path_db:
             return
-        um = QTUtil2.unMomento(self, _("Working..."))
+        um = QTUtil2.working(self)
         li_fens = []
         datadb = DBgames.DBgames(path_db)
         if "FEN" in datadb.li_tags():
@@ -720,7 +720,7 @@ class WEndingsGTB(LCDialog.LCDialog):
     def import_fns(self):
         path_fich = SelectFiles.leeFichero(self, "", "*")
         if path_fich:
-            um = QTUtil2.unMomento(self, _("Working..."))
+            um = QTUtil2.working(self)
             li_fens = []
             with open(path_fich, "rt") as f:
                 for linea in f:

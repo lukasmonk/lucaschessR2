@@ -304,7 +304,7 @@ class WSummary(QtWidgets.QWidget):
         def dispatch(recno, reccount):
             if reccount != self.RECCOUNT:
                 self.RECCOUNT = reccount
-                bpTmp.ponTotal(reccount)
+                bpTmp.set_total(reccount)
             bpTmp.pon(recno)
             return not bpTmp.is_canceled()
 

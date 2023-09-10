@@ -34,7 +34,7 @@ class Tutor:
         if self.rmUsuario is None:
             # Elegimos si la opcion del tutor es mejor que la del usuario
             # Ponemos un mensaje mientras piensa
-            me = QTUtil2.mensEspera.start(self.main_window, _("Analyzing the move...."), physical_pos="ad")
+            me = QTUtil2.waiting_message.start(self.main_window, _("Analyzing the move...."), physical_pos="ad")
 
             fen = self.move.position.fen()
             mrm_usuario = self.managerTutor.analiza(fen)

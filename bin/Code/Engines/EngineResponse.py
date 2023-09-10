@@ -1,4 +1,5 @@
 import random
+import time
 
 import Code
 from Code.Base import Game, Position
@@ -285,6 +286,7 @@ class MultiEngineResponse:
         self.li_rm = []
 
         self.reset()
+        self._init_time_working = time.time()
 
     def reset(self):
         self.vtime = 0
@@ -299,6 +301,10 @@ class MultiEngineResponse:
 
         self.saveLines = False
         self.lines = []
+        self._init_time_working = time.time()
+
+    def time_used(self):
+        return time.time()-self._init_time_working
 
     def save(self):
         self.ordena()
@@ -378,25 +384,25 @@ class MultiEngineResponse:
         return 0
 
     def miraPV(self, pvBase):
-        dClaves = self.miraClaves(pvBase, st_uci_claves)
+        d_claves = self.miraClaves(pvBase, st_uci_claves)
 
-        if "pv" in dClaves:
-            pv = dClaves["pv"].strip()
+        if "pv" in d_claves:
+            pv = d_claves["pv"].strip()
             if not pv:
                 return
         else:
             return
 
-        if "nodes" in dClaves:  # Toga en multipv, envia 0 si no tiene nada que contar
-            if (dClaves["nodes"] == "0") and not ("mate" in pvBase):
+        if "nodes" in d_claves:  # Toga en multipv, envia 0 si no tiene nada que contar
+            if (d_claves["nodes"] == "0") and not ("mate" in pvBase):
                 return
 
-        if "score" in dClaves:
+        if "score" in d_claves:
             if "mate 0 " in pvBase or "mate -0 " in pvBase or "mate +0 " in pvBase:
                 return
 
-        if "multipv" in dClaves:
-            kMulti = dClaves["multipv"]
+        if "multipv" in d_claves:
+            kMulti = d_claves["multipv"]
             if not (kMulti in self.dicMultiPV):
                 self.dicMultiPV[kMulti] = EngineResponse(self.name, self.is_white)
         else:
@@ -409,8 +415,8 @@ class MultiEngineResponse:
         rm = self.dicMultiPV[kMulti]
         rm.sinInicializar = False
 
-        if "depth" in dClaves:
-            depth = int(dClaves["depth"].strip())
+        if "depth" in d_claves:
+            depth = int(d_claves["depth"].strip())
             if self.max_depth:
                 if rm.from_sq:  # Es decir que ya tenemos datos (rm.pv al principio = a1a1
                     if (depth > self.max_depth) and (depth > rm.depth):
@@ -419,24 +425,24 @@ class MultiEngineResponse:
         else:
             depth = 0
 
-        if "time" in dClaves:
-            rm.time = int(dClaves["time"].strip())
+        if "time" in d_claves:
+            rm.time = int(d_claves["time"].strip())
 
-        if "nodes" in dClaves:
-            rm.nodes = int(dClaves["nodes"].strip())
+        if "nodes" in d_claves:
+            rm.nodes = int(d_claves["nodes"].strip())
 
-        if "nps" in dClaves:
-            nps = dClaves["nps"].strip()
+        if "nps" in d_claves:
+            nps = d_claves["nps"].strip()
             if " " in nps:
                 nps = nps.split(" ")[0]
             if nps.isdigit():
                 rm.nps = int(nps)
 
-        if "seldepth" in dClaves:
-            rm.seldepth = int(dClaves["seldepth"].strip())
+        if "seldepth" in d_claves:
+            rm.seldepth = int(d_claves["seldepth"].strip())
 
-        if "score" in dClaves:
-            score = dClaves["score"].strip()
+        if "score" in d_claves:
+            score = d_claves["score"].strip()
             if score.startswith("cp "):
                 rm.puntos = int(score.split(" ")[1])
                 rm.mate = 0
@@ -446,7 +452,7 @@ class MultiEngineResponse:
                 rm.mate = int(score.split(" ")[1])
                 rm.sinMovimientos = False
 
-        pv = dClaves["pv"].strip()
+        pv = d_claves["pv"].strip()
         x = pv.find(" ")
         pv1 = pv[:x] if x >= 0 else pv
         rm.pv = pv
@@ -1198,7 +1204,7 @@ class MultiEngineResponse:
                         break
             color = GOOD_MOVE
             if first_depth >= Code.configuration.x_eval_very_good_depth:
-                if len(libest) == 1 and (mj_pts - self.li_rm[1].centipawns_abs()) > 70:
+                if len(libest) == 1 and len(self.li_rm) > 1 and (mj_pts - self.li_rm[1].centipawns_abs()) > 70:
                     nag = VERY_GOOD_MOVE
                     color = VERY_GOOD_MOVE
                 else:

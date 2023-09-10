@@ -19,7 +19,7 @@ from Code.Base.Constantes import (BOOK_BEST_MOVE,
                                   INACCURACY,
                                   )
 from Code.Openings import OpeningLines
-from Code.Polyglots import Books
+from Code.Books import Books
 from Code.QT import Iconos
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
@@ -82,7 +82,6 @@ class ManagerOpeningEngines(Manager.Manager):
         nombook = liBooks[self.level]
         if nombook:
             list_books = Books.ListBooks()
-            list_books.restore_pickle(self.configuration.file_books)
             self.book = list_books.seek_book(nombook)
             if self.book:
                 self.book.polyglot()
@@ -143,11 +142,11 @@ class ManagerOpeningEngines(Manager.Manager):
 
         self.errores = 0
         self.ini_time = time.time()
-        self.muestraInformacion()
+        self.show_labels()
         self.play_next_move()
 
     def play_next_move(self):
-        self.muestraInformacion()
+        self.show_labels()
         if self.state == ST_ENDGAME:
             return
 
@@ -277,7 +276,7 @@ class ManagerOpeningEngines(Manager.Manager):
         self.pgnRefresh(self.game.last_position.is_white)
         self.refresh()
 
-    def muestraInformacion(self):
+    def show_labels(self):
         li = []
         li.extend(self.li_info)
 
@@ -313,7 +312,7 @@ class ManagerOpeningEngines(Manager.Manager):
             if self.is_canceled():
                 break
             self.ponteEnJugada(move.njg)
-            self.mensEspera(siCancelar=True, masTitulo="%d/%d" % (pos, total))
+            self.waiting_message(if_cancel=True, masTitulo="%d/%d" % (pos, total))
             name = self.xanalyzer.name
             vtime = self.xanalyzer.mstime_engine
             depth = self.xanalyzer.depth_engine
@@ -334,18 +333,18 @@ class ManagerOpeningEngines(Manager.Manager):
 
         return move_max < total  # si todos son lo máximo aunque pierda algo hay que darlo por probado
 
-    def mensEspera(self, siFinal=False, siCancelar=False, masTitulo=None):
+    def waiting_message(self, siFinal=False, if_cancel=False, masTitulo=None):
         if siFinal:
             if self.um:
                 self.um.final()
         else:
             if self.um is None:
-                self.um = QTUtil2.mensajeTemporal(
-                    self.main_window, _("Analyzing"), 0, physical_pos="ad", siCancelar=True, titCancelar=_("Cancel")
+                self.um = QTUtil2.temporary_message(
+                    self.main_window, _("Analyzing"), 0, physical_pos="ad", if_cancel=True, tit_cancel=_("Cancel")
                 )
             if masTitulo:
                 self.um.label(_("Analyzing") + " " + masTitulo)
-            self.um.me.activarCancelar(siCancelar)
+            self.um.me.activate_cancel(if_cancel)
 
     def is_canceled(self):
         si = self.um.cancelado()
@@ -360,13 +359,13 @@ class ManagerOpeningEngines(Manager.Manager):
         if num_moves == 0:
             return False
 
-        self.um = None  # controla unMomento
+        self.um = None  # controla one_moment_please
 
         def aprobado():
             mens = '<b><span style="color:green">%s</span></b>' % _("Congratulations, goal achieved")
             self.li_info.append("")
             self.li_info.append(mens)
-            self.muestraInformacion()
+            self.show_labels()
             self.dbop.setconfig("ENG_ENGINE", self.numengine + 1)
             self.message_on_pgn(mens)
             self.siAprobado = True
@@ -375,7 +374,7 @@ class ManagerOpeningEngines(Manager.Manager):
             mens = '<b><span style="color:red">%s</span></b>' % _("You must repeat the game")
             self.li_info.append("")
             self.li_info.append(mens)
-            self.muestraInformacion()
+            self.show_labels()
             self.message_on_pgn(mens)
 
         def calculaJG(move, siinicio):
@@ -384,7 +383,7 @@ class ManagerOpeningEngines(Manager.Manager):
             vtime = self.xjuez.mstime_engine
             mrm = self.dbop.get_cache_engines(name, vtime, fen)
             if mrm is None:
-                self.mensEspera()
+                self.waiting_message()
                 mrm = self.xjuez.analiza(fen)
                 self.dbop.set_cache_engines(name, vtime, fen, mrm)
 
@@ -416,7 +415,7 @@ class ManagerOpeningEngines(Manager.Manager):
             if self.plies_pendientes > 0:
                 return False
             # Si la ultima move es de la linea no se calcula nada
-            self.mensEspera()
+            self.waiting_message()
             puntosFinal, mateFinal = calculaJG(move, False)
 
         # Se marcan todas las num_moves que no siguen las lineas
@@ -463,13 +462,13 @@ class ManagerOpeningEngines(Manager.Manager):
                 si_suspendido = self.run_auto_analysis()
             else:
                 si_suspendido = True
-            self.mensEspera(siFinal=True)
+            self.waiting_message(siFinal=True)
             if si_suspendido:
                 suspendido()
             else:
                 aprobado()
         else:
-            self.mensEspera(siFinal=True)
+            self.waiting_message(siFinal=True)
             aprobado()
 
         self.set_end_game()
@@ -548,9 +547,9 @@ class ManagerOpeningEngines(Manager.Manager):
 
             elif resp == "run_analysis":
                 self.um = None
-                self.mensEspera()
+                self.waiting_message()
                 self.run_auto_analysis()
-                self.mensEspera(siFinal=True)
+                self.waiting_message(siFinal=True)
 
         else:
             Manager.Manager.rutinaAccionDef(self, key)

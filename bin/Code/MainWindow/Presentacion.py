@@ -182,7 +182,7 @@ class ManagerChallenge101:
         else:
             self.intentos += 1
             if self.intentos < self.max_intentos:
-                QTUtil2.mensajeTemporalSinImagen(
+                QTUtil2.temporary_message_without_image(
                     self.main_window, str(self.max_intentos - self.intentos), 0.5, puntos=24, background="#ffd985"
                 )
             else:

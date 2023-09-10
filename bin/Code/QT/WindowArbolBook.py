@@ -1,18 +1,15 @@
-import os
-
 from PySide2 import QtWidgets, QtCore
 
 import Code
 from Code.Base import Game, Position
 from Code.Board import Board
-from Code.Polyglots import Books
+from Code.Books import Books, WBooks
 from Code.QT import Colocacion
 from Code.QT import Controles
 from Code.QT import Iconos
 from Code.QT import LCDialog
 from Code.QT import QTUtil
 from Code.QT import QTVarios
-from Code.QT import SelectFiles
 
 
 class UnMove:
@@ -23,7 +20,7 @@ class UnMove:
         self.book = book
         self.fenBase = fenBase
         self.from_sq, self.to_sq, self.promotion, label, self.ratio = movBook
-        label = label.replace(" - ", "").strip()
+        label = label.replace(" - ", " ").strip()
         while "  " in label:
             label = label.replace("  ", " ")
         self.pgn, self.porcentaje, self.absoluto = label.split(" ")
@@ -249,7 +246,7 @@ class WMoves(QtWidgets.QWidget):
         self.tree = TreeMoves(owner)
 
         # ToolBar
-        tb = Controles.TBrutina(self, with_text=False, icon_size=16)
+        tb = Controles.TBrutina(self, icon_size=20, with_text=False)
         if siEnviar:
             tb.new(_("Accept"), Iconos.Aceptar(), self.owner.aceptar)
             tb.new(_("Cancel"), Iconos.Cancelar(), self.owner.cancelar)
@@ -257,6 +254,7 @@ class WMoves(QtWidgets.QWidget):
             tb.new(_("Close"), Iconos.MainMenu(), self.owner.cancelar)
         tb.new(_("Open new branch"), Iconos.Mas(), self.rama)
         tb.new(_("Books"), Iconos.Libros(), self.owner.menu_books)
+        tb.new(_("Registered books"), Iconos.Book(), self.registered_books)
 
         layout = Colocacion.V().control(tb).control(self.tree).margen(1)
 
@@ -265,6 +263,10 @@ class WMoves(QtWidgets.QWidget):
     def rama(self):
         if self.tree.currentMov():
             QTUtil.send_key_widget(self.tree, QtCore.Qt.Key_Plus, "+")
+
+    def registered_books(self):
+        WBooks.registered_books(self)
+        self.owner.list_books.restore()
 
 
 class InfoMove(QtWidgets.QWidget):
@@ -357,11 +359,7 @@ class WindowArbolBook(LCDialog.LCDialog):
 
         # Se lee la lista de libros1
         self.list_books = Books.ListBooks()
-        self.fvar = manager.configuration.file_books
-        self.list_books.restore_pickle(self.fvar)
 
-        # Comprobamos que todos esten accesibles
-        self.list_books.verify()
         self.book = self.list_books.porDefecto()
 
         # fens
@@ -432,7 +430,7 @@ class WindowArbolBook(LCDialog.LCDialog):
         self.wmoves.tree.clear()
         self.wmoves.tree.ponMoves(self.listaMoves)
         self.list_books.porDefecto(book)
-        self.list_books.save_pickle(self.fvar)
+        self.list_books.save()
         self.set_title(book)
         self.book = book
 
@@ -449,14 +447,7 @@ class WindowArbolBook(LCDialog.LCDialog):
             ico = Iconos.PuntoVerde() if book == self.book else Iconos.PuntoNaranja()
             menu.opcion(("x", book), book.name, ico)
 
-        menu.separador()
-        menu.opcion(("n", None), _("Install new book"), Iconos.Nuevo())
         if nBooks > 1:
-            menu.separador()
-            menub = menu.submenu(_("Remove a book from the list"), Iconos.Delete())
-            for book in self.list_books.lista:
-                if not book.pordefecto:
-                    menub.opcion(("b", book), book.name, Iconos.Delete())
             menu.separador()
             menu.opcion(("1", None), _("Next book") + " <F3>", Iconos.Buscar())
 
@@ -465,17 +456,10 @@ class WindowArbolBook(LCDialog.LCDialog):
             orden, book = resp
             if orden == "x":
                 self.change_book(book)
-            elif orden == "n":
-                fbin = SelectFiles.leeFichero(self, self.list_books.path, "bin", titulo=_("Polyglot book"))
-                if fbin:
-                    self.list_books.path = os.path.dirname(fbin)
-                    name = os.path.basename(fbin)[:-4]
-                    book = Books.Book("P", name, fbin, True)
-                    self.list_books.nuevo(book)
-                    self.change_book(book)
+
             elif orden == "b":
                 self.list_books.borra(book)
-                self.list_books.save_pickle(self.fvar)
+                self.list_books.save()
             elif orden == "1":
                 self.buscaSiguiente()
 

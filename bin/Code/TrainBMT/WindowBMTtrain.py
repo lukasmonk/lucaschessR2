@@ -438,10 +438,10 @@ class WTrainBMT(LCDialog.LCDialog):
         self.controlPGN.mueve(row, column == "WHITE")
 
     def keyPressEvent(self, event):
-        self.teclaPulsada("V", event.key())
+        self.key_pressed("V", event.key())
 
     def boardWheelEvent(self, nada, forward):
-        self.teclaPulsada("T", QtCore.Qt.Key.Key_Left if forward else QtCore.Qt.Key.Key_Right)
+        self.key_pressed("T", QtCore.Qt.Key.Key_Left if forward else QtCore.Qt.Key.Key_Right)
 
     def grid_dato(self, grid, row, o_column):
         return self.controlPGN.dato(row, o_column.key)
@@ -458,12 +458,12 @@ class WTrainBMT(LCDialog.LCDialog):
         self.analize_position(row, column.key)
 
     def grid_tecla_control(self, grid, k, is_shift, is_control, is_alt):
-        self.teclaPulsada("G", k)
+        self.key_pressed("G", k)
 
     def grid_wheel_event(self, ogrid, forward):
-        self.teclaPulsada("T", QtCore.Qt.Key.Key_Left if forward else QtCore.Qt.Key.Key_Right)
+        self.key_pressed("T", QtCore.Qt.Key.Key_Left if forward else QtCore.Qt.Key.Key_Right)
 
-    def teclaPulsada(self, tipo, tecla):
+    def key_pressed(self, tipo, tecla):
         if self.siMostrarPGN:
             dic = QTUtil2.dic_keys()
             if tecla in dic:

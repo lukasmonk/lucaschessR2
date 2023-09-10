@@ -2,6 +2,8 @@ import datetime
 import random
 import time
 
+import OSEngines
+import Code
 from Code import Adjournments
 from Code import Manager
 from Code import Util
@@ -25,6 +27,7 @@ from Code.Openings import Opening
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
 from Code.SQL import UtilSQL
+
 
 # Se elimina cinnamon, se bloquea en los mates con profundidad fija
 # position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5e5 f1e2 c8g4 d2d4 g4e2 g1e2 e5f5 d1d3 f5d3 c2d3 b8c6 c1f4 e8c8 c3b5 g8f6 f4c7 d8d5 e2c3 d5g5 c7g3 e7e6 h2h4 g5f5 g3d6 g7g6 d6f8 f5b5 f8g7 h8g8 c3b5 g8g7 a1c1 f6d5 b5a7 c8d7 a7c6 b7c6 e1d2 g7g8 h1e1 g8b8 b2b3 b8a8 a2a4 d7d6 c1c5 a8b8 e1c1 b8b3 c5c6 d6d7 c6c8 b3b2 d2e1 d7d6 e1f1 h7h5 a4a5 d6d7 a5a6 b2a2 c8f8 a2a6 f8f7 d7d6 f7g7 d5f4 c1b1 a6a2 b1b6 d6d5
@@ -141,13 +144,16 @@ umko|2|1385|6869
 umko|3|1883|7462
 umko|4|2081|7887"""
     li = []
+    dic_engines = OSEngines.read_engines(Code.folder_engines)
+
     for linea in x.split("\n"):
         key, depth, fide, sts = linea.split("|")
-        depth = int(depth)
-        sts = int(sts)
-        fide = int(fide)
-        elo = int((fide + 0.2065 * sts + 154.51) / 2)
-        li.append((elo, key, depth))
+        if key in dic_engines:
+            depth = int(depth)
+            sts = int(sts)
+            fide = int(fide)
+            elo = int((fide + 0.2065 * sts + 154.51) / 2)
+            li.append((elo, key, depth))
     return li
 
 
@@ -164,6 +170,7 @@ class MotorElo:
         self.name = name
         self.key = key
         self.depth = depth
+        self.max_depth = depth
         self.siInterno = depth == 0
         self.depthOpen = (elo / 100 - 8) if elo < 2100 else 100
         if self.depthOpen < 2:
@@ -188,8 +195,8 @@ class ManagerElo(Manager.Manager):
         for (alias, name, icono, elo) in li:
             self.liMotores.append(MotorElo(elo, name, alias, 0))
 
-        def m(elo, key, depth):
-            self.liMotores.append(MotorElo(elo, Util.primera_mayuscula(key), key, depth))
+        def m(xelo, xkey, xdepth):
+            self.liMotores.append(MotorElo(xelo, Util.primera_mayuscula(xkey), xkey, xdepth))
 
         for elo, key, depth in listaMotoresElo():
             m(elo, key, depth)
@@ -238,7 +245,6 @@ class ManagerElo(Manager.Manager):
                 mt_elo = elo + 400
             mt.siJugable = abs(mt_elo - elo) <= 400
             if mt.siJugable:
-
                 def rot(res):
                     return self.calc_dif_elo(elo, mt_elo, res)
 
@@ -599,12 +605,13 @@ class ManagerElo(Manager.Manager):
             return False
 
     def historial(self, elo, nelo):
-        dic = {}
-        dic["FECHA"] = datetime.datetime.now()
-        dic["RIVAL"] = self.datosMotor.label()
-        dic["RESULTADO"] = self.resultado
-        dic["AELO"] = elo
-        dic["NELO"] = nelo
+        dic = {
+            "FECHA": datetime.datetime.now(),
+            "RIVAL": self.datosMotor.label(),
+            "RESULTADO": self.resultado,
+            "AELO": elo,
+            "NELO": nelo
+        }
 
         lik = UtilSQL.ListSQL(self.configuration.fichEstadElo)
         lik.append(dic)
@@ -618,7 +625,5 @@ class ManagerElo(Manager.Manager):
     def determina_side(self, datosMotor):
         key = "%s-%d" % (datosMotor.key, datosMotor.depth if datosMotor.depth else 0)
 
-        dd = UtilSQL.DictSQL(self.configuration.fichEstadElo, tabla="color")
-        previo = dd.get(key, random.randint(0, 1) == 0)
-        dd.close()
-        return not previo
+        with UtilSQL.DictSQL(self.configuration.fichEstadElo, tabla="color") as dd:
+            return not dd.get(key, random.choice((True, False)))

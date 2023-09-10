@@ -405,7 +405,7 @@ FILESW=%s:100
 
         n_moves = len(li_pos_moves)
         if si_bp2:
-            tmp_bp.ponTotal(2, n_moves)
+            tmp_bp.set_total(2, n_moves)
 
         for npos, pos_move in enumerate(li_pos_moves):
             if pos_move in st_borrar:

@@ -208,7 +208,7 @@ class WAnalisisGraph(LCDialog.LCDialog):
 
     def saveIndexes(self):
         self.manager.game.set_first_comment(self.alm.indexesRAW)
-        QTUtil2.mensajeTemporal(self, _("Saved"), 1.8)
+        QTUtil2.temporary_message(self, _("Saved"), 1.8)
 
     def grid_left_button(self, grid, row, column):
         self.board.remove_arrows()
@@ -318,6 +318,8 @@ class WAnalisisGraph(LCDialog.LCDialog):
             mrm, pos = move.analysis
             rm = mrm.li_rm[0]
             rm1 = mrm.li_rm[pos]
+            if rm.mate and rm1.mate:
+                return "" if rm.mate == rm1.mate else "M%+d" % (rm.mate-rm1.mate,)
             pts = rm.puntosABS_5() - rm1.puntosABS_5()
             pts /= 100.0
             return "%0.2f" % pts

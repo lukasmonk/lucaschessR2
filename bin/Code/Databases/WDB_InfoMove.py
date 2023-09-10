@@ -13,7 +13,8 @@ import Code
 class BoardKey(Board.Board):
     def keyPressEvent(self, event):
         k = event.key()
-        self.main_window.tecla_pulsada(k)
+        if not self.main_window.tecla_pulsada(k):
+            Board.Board.keyPressEvent(self, event)
 
 
 class LBKey(Controles.LB):
@@ -59,7 +60,7 @@ class WInfomove(QtWidgets.QWidget):
         self.interval_replay = configuration.x_interval_replay
         self.beep_replay = configuration.x_beep_replay
 
-        lybt, bt = QTVarios.lyBotonesMovimiento(self, "", siTiempo=True, siLibre=False, icon_size=24)
+        lybt, bt = QTVarios.ly_mini_buttons(self, "", siTiempo=True, siLibre=False, icon_size=24, siJugar=True)
 
         self.lbPGN = LBKey(self).anchoFijo(self.board.ancho).set_wrap()
         self.lbPGN.wowner = self
@@ -237,6 +238,9 @@ class WInfomove(QtWidgets.QWidget):
             self.MoverInicio()
         elif k == Qt.Key_End:
             self.MoverFinal()
+        else:
+            return False
+        return True
 
     def MoverInicio(self):
         if self.usoNormal:
@@ -268,6 +272,9 @@ class WInfomove(QtWidgets.QWidget):
                 self.colocate(len(self.historia) - 1)
         else:
             self.colocatePartida(99999)
+
+    def MoverJugar(self):
+        self.board.play_current_position()
 
     def MoverTiempo(self):
         if self.siReloj:

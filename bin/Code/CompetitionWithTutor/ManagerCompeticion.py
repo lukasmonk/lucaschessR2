@@ -18,7 +18,7 @@ from Code.Base.Constantes import (
 from Code.CompetitionWithTutor import CompetitionWithTutor
 from Code.Engines import EngineResponse
 from Code.Openings import Opening
-from Code.Polyglots import Books
+from Code.Books import Books
 from Code.QT import QTUtil2
 from Code.Tutor import Tutor
 
@@ -40,8 +40,6 @@ class ManagerCompeticion(Manager.Manager):
         self.state = ST_PLAYING
 
         self.is_competitive = True
-
-        self.plays_instead_of_me_option = True
 
         self.is_human_side_white = is_white
         self.is_engine_side_white = not is_white

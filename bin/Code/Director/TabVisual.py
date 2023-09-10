@@ -61,7 +61,7 @@ class PMarker(BoardTypes.Marker):
 class GTarea:
     def __init__(self, guion, tp):
         self.guion = guion
-        self._id = Util.huella()
+        self._id = Util.huella_num()
         self._tp = tp
         self._marcado = False
         self._orden = 0
@@ -592,7 +592,7 @@ class Guion:
 
     def nuevaCopia(self, ntarea):
         tarea = copy.copy(self.tarea(ntarea))
-        tarea._id = Util.huella()
+        tarea._id = Util.huella_num()
         return self.nuevaTarea(tarea, ntarea + 1)
 
     def borra(self, nTarea):
@@ -814,6 +814,9 @@ class Guion:
             if tarea.tp() == TP_TEXTO and tarea.continuar():
                 while self.pizarra is not None and self.pizarra.is_blocked():
                     time.sleep(0.05)
+                if self.pizarra:
+                    self.pizarra.close()
+                    self.pizarra = None
             if self.cerrado:
                 return
 

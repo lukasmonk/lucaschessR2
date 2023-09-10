@@ -505,7 +505,7 @@ class ManagerMate(Manager.Manager):
         self.siAyuda = True
 
         mate_buscar = self.mate - self.numMov
-        me = QTUtil2.unMomento(self.main_window)
+        me = QTUtil2.one_moment_please(self.main_window)
         li_rm = self.xanalyzer.busca_mate(self.game, mate_buscar)
         me.final()
         if li_rm:

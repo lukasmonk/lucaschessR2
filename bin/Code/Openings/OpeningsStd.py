@@ -159,6 +159,20 @@ class ListaOpeningsStd:
         last_ap = self.base_xpv(xpv)
         return last_ap.tr_name if last_ap else ""
 
+    def assign_pv(self, pv):
+        lipv = pv.split(" ")
+        last_ap = None
+
+        FasterCode.set_init_fen()
+        for n, pv in enumerate(lipv):
+            FasterCode.make_move(pv)
+            fen = FasterCode.get_fen()
+            fenm2 = Position.legal_fenm2(fen)
+            if fenm2 in self.dic_fenm2_op:
+                last_ap = self.dic_fenm2_op[fenm2]
+        return last_ap
+
+
     def is_book_fenm2(self, fenm2):
         return fenm2 in self.st_fenm2_test
 

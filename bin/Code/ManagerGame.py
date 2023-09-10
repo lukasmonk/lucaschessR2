@@ -76,7 +76,7 @@ class ManagerGame(Manager.Manager):
 
     def ask_for_save_game(self):
         if self.is_changed():
-            return QTUtil2.preguntaCancelar(self.main_window, _("Do you want to save changes?"), _("Yes"), _("No"))
+            return QTUtil2.question_withcancel(self.main_window, _("Do you want to save changes?"), _("Yes"), _("No"))
         return False
 
     def put_toolbar(self):

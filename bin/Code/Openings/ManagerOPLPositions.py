@@ -76,17 +76,17 @@ class ManagerOpeningLinesPositions(ManagerOPL.ManagerOpeningLines):
 
         self.errores = 0
         self.ini_time = time.time()
-        self.muestraInformacion()
+        self.show_labels()
         self.play_next_move()
 
     def get_help(self):
         self.siAyuda = True
         self.tb_with_comments([TB_CLOSE, TB_CONFIG])
 
-        self.muestraAyuda()
-        self.muestraInformacion()
+        self.show_help()
+        self.show_labels()
 
-    def muestraInformacion(self):
+    def show_labels(self):
         li = []
         li.append("%s: %d" % (_("Errors"), self.errores))
         if self.siAyuda:
@@ -152,13 +152,13 @@ class ManagerOpeningLinesPositions(ManagerOPL.ManagerOpeningLines):
 
         self.dbop.setTraining(self.training)
         self.state = ST_ENDGAME
-        self.muestraInformacion()
+        self.show_labels()
         if is_finished:
             self.end_game()
         elif self.with_automatic_jump:
             self.reinicio(self.dbop)
 
-    def muestraAyuda(self):
+    def show_help(self):
         liMoves = self.trposition["MOVES"]
         for pv in liMoves:
             self.board.show_arrow_mov(pv[:2], pv[2:4], "mt", opacity=0.80)
@@ -205,7 +205,7 @@ class ManagerOpeningLinesPositions(ManagerOPL.ManagerOpeningLines):
         return False
 
     def play_next_move(self):
-        self.muestraInformacion()
+        self.show_labels()
         if self.state == ST_ENDGAME:
             return
 
@@ -222,7 +222,7 @@ class ManagerOpeningLinesPositions(ManagerOPL.ManagerOpeningLines):
         self.activate_side(is_white)
         self.human_is_playing = True
         if self.siAyuda:
-            self.muestraAyuda()
+            self.show_help()
 
     def player_has_moved(self, from_sq, to_sq, promotion=""):
         move = self.check_human_move(from_sq, to_sq, promotion)
@@ -235,15 +235,15 @@ class ManagerOpeningLinesPositions(ManagerOPL.ManagerOpeningLines):
         if not (pvSel in lipvObj):
             self.errores += 1
             mens = "%s: %d" % (_("Error"), self.errores)
-            QTUtil2.mensajeTemporal(self.main_window, mens, 1.0, physical_pos="ad")
-            self.muestraInformacion()
+            QTUtil2.temporary_message(self.main_window, mens, 1.0, physical_pos="ad")
+            self.show_labels()
             self.beepError()
             self.sigueHumano()
             return False
 
         if "LIPV" in self.trposition:
             self.game = Game.Game()
-            self.game.leerLIPV(self.trposition["LIPV"])
+            self.game.read_lipv(self.trposition["LIPV"])
             self.game.assign_opening()
             self.add_coments_all_game()
         else:

@@ -455,7 +455,7 @@ class WWork(QtWidgets.QDialog):
             | QtCore.Qt.WindowMaximizeButtonHint
         )
 
-        tb = QTVarios.tbAcceptCancel(self)
+        tb = QTVarios.tb_accept_cancel(self)
 
         # Tabs
         tab = Controles.Tab()

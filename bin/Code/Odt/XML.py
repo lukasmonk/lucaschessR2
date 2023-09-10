@@ -8,6 +8,14 @@ class Element:
         self.sub_elements = []
         self.value = None
         self.later = None
+        self.dic_extra = {}
+
+    def add_extra(self, key, value):
+        # Para no repetir parámetros
+        self.dic_extra[key] = value
+
+    def get_extra(self, key):
+        return self.dic_extra[key]
 
     def add_param(self, key, value):
         self.params[key] = value

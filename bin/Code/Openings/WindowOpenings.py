@@ -50,7 +50,7 @@ class WOpenings(LCDialog.LCDialog):
         # Movimiento
         self.is_moving_time = False
 
-        lyBM, tbBM = QTVarios.lyBotonesMovimiento(self, "", siLibre=False, icon_size=24)
+        lyBM, tbBM = QTVarios.ly_mini_buttons(self, "", siLibre=False, icon_size=24)
         self.tbBM = tbBM
 
         # Tool bar
@@ -312,7 +312,7 @@ class OpeningsPersonales(LCDialog.LCDialog):
         o_columns.nueva("NOMBRE", _("Name"), 240)
         o_columns.nueva("ECO", "ECO", 70, align_center=True)
         o_columns.nueva("PGN", "PGN", 280)
-        o_columns.nueva("ESTANDAR", _("Add to standard list"), 120, align_center=True)
+        # o_columns.nueva("ESTANDAR", _("Main"), 120, align_center=True)
 
         self.grid = Grid.Grid(self, o_columns, siSelecFilas=True)
         n = self.grid.anchoColumnas()
@@ -340,9 +340,9 @@ class OpeningsPersonales(LCDialog.LCDialog):
     def grid_dato(self, grid, row, o_column):
         key = o_column.key
         reg = self.lista[row]
-        if key == "ESTANDAR":
-            return _("Yes") if reg["ESTANDAR"] else _("No")
-        elif key == "PGN":
+        # if key == "ESTANDAR":
+        #     return _("Yes") if reg["ESTANDAR"] else _("No")
+        if key == "PGN":
             pgn = reg["PGN"]
             if not (pgn in self.dicPGNSP):
                 p = Game.Game()
@@ -368,11 +368,12 @@ class OpeningsPersonales(LCDialog.LCDialog):
 
     def edit(self, row):
 
+        is_basic = True
         if row is None:
             name = ""
             eco = ""
             pgn = ""
-            estandar = True
+
             titulo = _("New opening")
 
         else:
@@ -381,7 +382,7 @@ class OpeningsPersonales(LCDialog.LCDialog):
             name = reg["NOMBRE"]
             eco = reg["ECO"]
             pgn = reg["PGN"]
-            estandar = reg["ESTANDAR"]
+            # is_basic = reg["ESTANDAR"]
 
             titulo = name
 
@@ -390,7 +391,7 @@ class OpeningsPersonales(LCDialog.LCDialog):
         li_gen.append((_("Name") + ":", name))
         config = FormLayout.Editbox("ECO", ancho=30, rx="[A-Z, a-z][0-9][0-9]")
         li_gen.append((config, eco))
-        li_gen.append((_("Add to standard list") + ":", estandar))
+        # li_gen.append((_("Main") + ":", is_basic))
 
         # Editamos
         resultado = FormLayout.fedit(li_gen, title=titulo, parent=self, anchoMinimo=460, icon=Iconos.Opening())
@@ -402,7 +403,7 @@ class OpeningsPersonales(LCDialog.LCDialog):
         if not name:
             return
         eco = liResp[1].upper()
-        estandar = liResp[2]
+        # is_basic = liResp[2]
 
         self.procesador.procesador = self.procesador  # ya que edit_variation espera un manager
 
@@ -423,7 +424,7 @@ class OpeningsPersonales(LCDialog.LCDialog):
             reg["ECO"] = eco
             reg["PGN"] = game.pgnBaseRAW()
             reg["A1H8"] = game.pv()
-            reg["ESTANDAR"] = estandar
+            reg["ESTANDAR"] = is_basic
 
             if row is None:
                 self.lista.append(reg)

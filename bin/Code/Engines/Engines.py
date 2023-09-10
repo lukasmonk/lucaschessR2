@@ -4,11 +4,12 @@ import os.path
 
 import Code
 from Code import Util
-from Code.Engines import EngineRunDirect
 from Code.Base.Constantes import ENG_EXTERNAL, ENG_INTERNAL, BOOK_BEST_MOVE
+from Code.Engines import EngineRunDirect
 
 
 class Engine:
+
     def __init__(self, key="", autor="", version="", url="", path_exe="", args=None):
         self.key = key
         self.alias = key
@@ -118,8 +119,8 @@ class Engine:
             self.liUCI.append((name, valor))
 
     def set_multipv(self, num, maximo):
-        self.multiPV = num
-        self.maxMultiPV = maximo
+        self.multiPV = int(num) if num else 1
+        self.maxMultiPV = int(maximo) if maximo else 1
 
     def update_multipv(self, xmultipv):
         if xmultipv == "PD":

@@ -39,10 +39,12 @@ from Code.Base.Constantes import (
     GT_FICS,
     GT_FIDE,
     GT_LICHESS,
+    GT_HUMAN,
     OUT_REINIT,
     ENG_WICKER,
 )
 from Code.Board import WBoardColors, Eboard
+from Code.Books import WFactory, WPolyglot, WBooksTrain, ManagerTrainBooks, WBooks, WBooksTrainOL, ManagerTrainBooksOL
 from Code.CompetitionWithTutor import WCompetitionWithTutor, ManagerCompeticion
 from Code.Competitions import ManagerElo, ManagerFideFics, ManagerMicElo, ManagerWicker
 from Code.Config import Configuration, WindowConfig, WindowUsuarios
@@ -61,7 +63,7 @@ from Code.Openings import ManagerOPLPositions, ManagerOPLEngines, ManagerOPLSequ
 from Code.Openings import WindowOpenings, WindowOpeningLine, WindowOpeningLines, OpeningLines, OpeningsStd
 from Code.PlayAgainstEngine import ManagerPerson, Albums, ManagerAlbum, WindowAlbumes
 from Code.PlayAgainstEngine import ManagerPlayAgainstEngine, WPlayAgainstEngine
-from Code.Polyglots import WFactory, WPolyglot, Books, WindowBooksTrain, ManagerTrainBooks
+from Code.PlayHuman import ManagerPlayHuman, WPlayHuman
 from Code.QT import Delegados
 from Code.QT import Iconos
 from Code.QT import Piezas
@@ -73,6 +75,7 @@ from Code.QT import WColors
 from Code.QT import WindowManualSave
 from Code.QT import WindowWorkMap
 from Code.Routes import Routes, WindowRoutes, ManagerRoutes
+from Code.SQL import UtilSQL
 from Code.SingularMoves import WindowSingularM, ManagerSingularM
 from Code.Sound import WindowSonido
 from Code.Tournaments import WTournaments
@@ -208,7 +211,7 @@ class Procesador:
 
     def reset(self):
         self.main_window.deactivate_eboard(0)
-
+        self.main_window.activate_analysis_bar(False)
         self.main_window.activaCapturas(False)
         self.main_window.activaInformacionPGN(False)
         if self.manager:
@@ -347,9 +350,8 @@ class Procesador:
         elif tipo == "vehicles":
             self.albumVehicles(rival)
 
-    def playPersonAplazada(self, aplazamiento):
-        self.manager = ManagerPerson.ManagerPerson(self)
-        self.manager.start(None, aplazamiento=aplazamiento)
+        elif tipo == "human":
+            self.human()
 
     def playPerson(self, rival):
         uno = QTVarios.blancasNegrasTiempo(self.main_window)
@@ -521,6 +523,7 @@ class Procesador:
     def run_action(self, key):
         self.stop_engines()
         self.main_window.deactivate_eboard(0)
+
         if self.siPresentacion:
             self.presentacion(False)
 
@@ -593,6 +596,8 @@ class Procesador:
                     self.manager.selecciona(tp)
                 elif tp == GT_AGAINST_ENGINE_LEAGUE:
                     self.manager = ManagerLeague.ManagerLeague(self)
+                elif tp == GT_HUMAN:
+                    self.manager = ManagerPlayHuman.ManagerPlayHuman(self)
                 else:
                     return
                 self.manager.run_adjourn(dic)
@@ -742,12 +747,24 @@ class Procesador:
             self.manager.start(resp)
 
     def train_book(self):
-        w = WindowBooksTrain.WBooksTrain(self)
+        w = WBooksTrain.WBooksTrain(self)
         if w.exec_() and w.book_player:
             self.type_play = GT_BOOK
             self.estado = ST_PLAYING
             self.manager = ManagerTrainBooks.ManagerTrainBooks(self)
             self.manager.start(w.book_player, w.player_highest, w.book_rival, w.rival_resp, w.is_white, w.show_menu)
+
+    def train_book_ol(self):
+        dbli_books_train = UtilSQL.ListObjSQL(Code.configuration.file_train_books_ol(), WBooksTrainOL.BooksTrainOL,
+                                tabla="data", reverted=True)
+        # No es posiblñe con with porque self.manager termina y deja el control en main_window
+        w = WBooksTrainOL.WBooksTrainOL(self.main_window, dbli_books_train)
+        if w.exec_():
+            if w.train_rowid is None:
+                dbli_books_train.close()
+                return
+            self.manager = ManagerTrainBooksOL.ManagerTrainBooksOL(self)
+            self.manager.start(dbli_books_train, w.train_rowid)
 
     def menu_tools(self):
         resp = BasicMenus.menu_tools(self)
@@ -906,6 +923,14 @@ class Procesador:
         if dic:
             self.entrenaMaquina(dic)
 
+    def human(self):
+        w = WPlayHuman.WPlayHuman()
+        if not w.exec_():
+            return
+
+        self.manager = ManagerPlayHuman.ManagerPlayHuman(self)
+        self.manager.start(w.dic)
+
     def entrenaMaquina(self, dic):
         self.manager = ManagerPlayAgainstEngine.ManagerPlayAgainstEngine(self)
         side = dic["SIDE"]
@@ -1038,30 +1063,7 @@ class Procesador:
             self.polyglot_factory()
 
     def polyglot_install(self):
-        list_books = Books.ListBooks()
-        list_books.restore_pickle(self.configuration.file_books)
-        list_books.verify()
-        menu = QTVarios.LCMenu(self.main_window)
-        for book in list_books.lista:
-            if not Util.same_path(book.path, Code.tbook):
-                menu.opcion(("x", book), book.name, Iconos.Delete())
-                menu.separador()
-        menu.opcion(("n", None), _("Install new book"), Iconos.Nuevo())
-        resp = menu.lanza()
-        if resp:
-            orden, book = resp
-            if orden == "x":
-                if QTUtil2.pregunta(self.main_window, _("Are you sure you want to remove %s?") % book.name):
-                    list_books.borra(book)
-                    list_books.save_pickle(self.configuration.file_books)
-            elif orden == "n":
-                fbin = SelectFiles.leeFichero(self.main_window, list_books.path, "bin", titulo=_("Polyglot book"))
-                if fbin:
-                    list_books.path = os.path.dirname(fbin)
-                    name = os.path.basename(fbin)[:-4]
-                    book = Books.Book("P", name, fbin, True)
-                    list_books.nuevo(book)
-                    list_books.save_pickle(self.configuration.file_books)
+        WBooks.registered_books(self.main_window)
 
     def juegaExterno(self, fich_tmp):
         dic_sended = Util.restore_pickle(fich_tmp)
@@ -1200,8 +1202,8 @@ class Procesador:
         if Update.update_manual(self.main_window):
             self.reiniciar()
 
-    def unMomento(self, mensaje=None):
-        return QTUtil2.mensEspera.start(
+    def one_moment_please(self, mensaje=None):
+        return QTUtil2.waiting_message.start(
             self.main_window, mensaje if mensaje else _("One moment please..."), physical_pos="ad"
         )
 

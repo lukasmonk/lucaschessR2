@@ -150,10 +150,10 @@ class WPanelDirector(LCDialog.LCDialog):
             self.selectBanda.seleccionarNum(number)
 
     def grabar(self):
-        if self.guion:
+        if self.guion is not None:
             li = self.guion.guarda()
             self.board.dbVisual_save(self.fenm2, li)
-            QTUtil2.mensajeTemporal(None, _("Saved"), 1.2)
+            QTUtil2.temporary_message(None, _("Saved"), 1.2)
 
     def recuperar(self):
         self.guion.recupera()
@@ -627,7 +627,7 @@ class WPanelDirector(LCDialog.LCDialog):
     def portapapeles(self):
         self.board.save_as_img()
         txt = _("Clipboard")
-        QTUtil2.mensajeTemporal(self, _X(_("Saved to %1"), txt), 0.8)
+        QTUtil2.temporary_message(self, _X(_("Saved to %1"), txt), 0.8)
 
     def grabarFichero(self):
         dirSalvados = self.configuration.x_save_folder
@@ -635,7 +635,7 @@ class WPanelDirector(LCDialog.LCDialog):
         if resp:
             self.board.save_as_img(resp, "png")
             txt = resp
-            QTUtil2.mensajeTemporal(self, _X(_("Saved to %1"), txt), 0.8)
+            QTUtil2.temporary_message(self, _X(_("Saved to %1"), txt), 0.8)
             direc = os.path.dirname(resp)
             if direc != dirSalvados:
                 self.configuration.x_save_folder = direc

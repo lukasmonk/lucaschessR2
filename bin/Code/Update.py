@@ -36,7 +36,7 @@ def update_file(titulo, urlfichero, tam):
             total = tamfichero / tambloque
             if tambloque * total < tamfichero:
                 total += 1
-            progreso.ponTotal(total)
+            progreso.set_total(total)
             is_beginning = False
         progreso.inc()
 
@@ -79,7 +79,7 @@ def update_eboard(main_window):
     if version_local == version_remote:
         return
 
-    um = QTUtil2.unMomento(main_window, _("Downloading eboards drivers"))
+    um = QTUtil2.one_moment_please(main_window, _("Downloading eboards drivers"))
 
     fzip = Code.configuration.ficheroTemporal("zip")
     ok = Util.urlretrieve(WEBUPDATES_EBOARD_ZIP, fzip)
@@ -165,7 +165,7 @@ def test_update(procesador):
                     base, version, urlfichero, tam = li
                     if base == base_version:
                         if current_version < version:
-                            nresp = QTUtil2.preguntaCancelar123(
+                            nresp = QTUtil2.question_withcancel_123(
                                 procesador.main_window,
                                 _("Update"),
                                 _("Version %s is ready to update") % version.decode(),
