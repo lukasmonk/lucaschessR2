@@ -1,6 +1,5 @@
 Lucas Chess (R)
 ==============
-
 Lucas Chess (R) is a GUI of chess:
 
 1. To train in many different ways.
@@ -10,7 +9,6 @@ Lucas Chess (R) is a GUI of chess:
 
 This is an update of Lucas Chess with a new version of python (2.7 -> 3.7) and the main graphic library, from pyqt4 to pyside2 (qt4 -> qt5).
 
-
 Incompatibilities
 -----------------
 * **Does not support Windows XP.**
@@ -18,8 +16,7 @@ Incompatibilities
 
 Dependencies
 ------------
-
-* Python 3.7
+* Python 3.7 or later
 * PySide2
 * psutil
 * Python for windows extensions
@@ -31,10 +28,14 @@ Dependencies
 * sortedcontainers
 * polib
 
+Getting quickly started on Linux
+--------------------------------
+1. clone this repository on your local machine and cd into the LucasChessR2 folder
+2. type `bash linux_onetime_setup.sh`
+3. then `cd bin && python3 LucasR.py`
 
 Links
 -----
-
 * Web: [https://lucaschess.pythonanywhere.com/](https://lucaschess.pythonanywhere.com/).
 * Blog: [https://lucaschess.blogspot.com.es/](https://lucaschess.blogspot.com.es/).
 * Wiki: [https://chessionate.com/lucaswiki](https://chessionate.com/lucaswiki/).
@@ -42,7 +43,6 @@ Links
 
 Legal Details
 -------------
-
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 2 of the License, or (at
