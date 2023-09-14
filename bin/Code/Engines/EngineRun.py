@@ -651,7 +651,7 @@ class MaiaEngine(RunEngine):
         if self.test_book(game):
             play_return(self.mrm)
             return
-        env = "go nodes %d" % self.nodes
+        env = f"go nodes {self.nodes}"
         max_time = time_white if self.is_white else time_black
         self.play_with_return(play_return, game, env, max_time, None)
 
@@ -659,20 +659,21 @@ class MaiaEngine(RunEngine):
         if self.test_book(game):
             play_return(self.mrm)
             return
-        env = "go nodes %d" % self.nodes
+        env = f"go nodes {self.nodes}"
         self.play_with_return(play_return, game, env, max_time, max_depth)
 
     def test_book(self, game):
         if len(game) < 30:
             pv = self.book.eligeJugadaTipo(game.last_position.fen(), random.choice(self.book_select))
             if pv:
-                self.mrm.dispatch("bestmove %s" % pv)
+                self.mrm.dispatch(f"bestmove {pv}")
                 self.mrm.ordena()
                 return True
         return False
 
     def work_bestmove(self, orden, msmax_time):
         self.reset()
-        orden = "go nodes %d" % self.nodes
+        orden = f"go nodes {self.nodes}"
         self.put_line(orden)
         self.wait_mrm("bestmove", msmax_time)
+

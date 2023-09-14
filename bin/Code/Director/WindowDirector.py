@@ -905,6 +905,7 @@ class WPanelDirector(LCDialog.LCDialog):
                     nid = int(nid)
                     self.datos_new = self.creaTarea(tp, nid, a1 + a1, -1)
                     self.tp_new = tp
+                self.refresh_guion()
                 # li = self.guion.borraRepeticionUltima()
                 # if li:
                 #     self.borrar_lista(li)

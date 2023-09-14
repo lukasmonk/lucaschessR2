@@ -196,6 +196,7 @@ class Configuration:
         self.x_analyzer_depth_ab = 24
         self.x_analyzer_mstime_ab = 0
         self.x_analyzer_mstime_refresh_ab = 200
+        self.x_analyzer_activate_ab = False
 
         self.x_maia_nodes_exponential = False
 
@@ -360,6 +361,13 @@ class Configuration:
 
     def translator(self):
         return self.x_translator if self.x_translator else "en"
+
+    def language(self):
+        tr_actual = self.translator()
+        dlang = Code.path_resource("Locale")
+        fini = os.path.join(dlang, tr_actual, "lang.ini")
+        dic = Util.ini_dic(fini)
+        return dic["NAME"]
 
     def set_translator(self, xtranslator):
         self.x_translator = xtranslator

@@ -32,6 +32,7 @@ def options(parent, configuration):
 
     li_traducciones = configuration.list_translations()
     tr_actual = configuration.translator()
+
     li = []
     for k, trad, porc, author in li_traducciones:
         label = "%s" % trad
@@ -198,6 +199,7 @@ def options(parent, configuration):
 
     form.checkbox(_("Enable captured material window by default"), configuration.x_captures_activate)
     form.checkbox(_("Enable information panel by default"), configuration.x_info_activate)
+    form.checkbox(_("Enable analysis bar by default"), configuration.x_analyzer_activate_ab)
     form.checkbox(_("Arrow with the best move when there is an analysis"), configuration.x_show_bestmove)
     form.separador()
     form.spinbox(_("Font size of information labels"), 3, 30, 70, configuration.x_sizefont_infolabels)
@@ -273,6 +275,7 @@ def options(parent, configuration):
             configuration.x_pgn_withfigurines,
             configuration.x_captures_activate,
             configuration.x_info_activate,
+            configuration.x_analyzer_activate_ab,
             configuration.x_show_bestmove,
             configuration.x_sizefont_infolabels,
             configuration.x_enable_highdpiscaling,

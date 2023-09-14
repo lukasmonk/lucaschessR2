@@ -216,7 +216,7 @@ class ControlPGN:
             for k, v in dmore().items():
                 resp += '[%s "%s"]\n' % (k, v)
 
-        resp += "\n" + self.manager.game.pgnBase()
+        resp += "\n" + self.manager.game.pgn_base()
         if not resp.endswith(r):
             resp += " %s" % r
 

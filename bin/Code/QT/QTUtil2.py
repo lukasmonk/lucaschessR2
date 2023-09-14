@@ -49,7 +49,7 @@ class MensEspera(QtWidgets.QWidget):
             | QtCore.Qt.WindowStaysOnTopHint
         )
         self.setStyleSheet("QWidget, QLabel { background: %s }" % background)
-        
+
         lbi = None
         if with_image:
             lbi = QtWidgets.QLabel(self)
@@ -279,7 +279,6 @@ class OneMomentPlease:
         if self.um:
             self.um.final()
             self.um = None
-
 
 
 def analizando(owner, if_cancel=False):

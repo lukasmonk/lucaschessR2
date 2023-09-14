@@ -228,10 +228,10 @@ FILESW=%s:100
             return False
 
         if mj:  # blunder
-            pblunder = Game.Game()
-            pblunder.set_position(move.position_before)
-            pblunder.read_pv(rm.pv)
-            jg0 = pblunder.move(0)
+            game_blunder = Game.Game()
+            game_blunder.set_position(move.position_before)
+            game_blunder.read_pv(rm.pv)
+            jg0 = game_blunder.move(0)
             jg0.set_comment(rm.texto())
 
         p = Game.Game()
@@ -255,7 +255,7 @@ FILESW=%s:100
 
         jg0.set_comment("%s %s: %s\n" % (name, eti_t, rm.texto()))
         if mj:
-            jg0.add_variation(pblunder)
+            jg0.add_variation(game_blunder)
 
         cab = ""
         for k, v in dic_cab.items():
@@ -267,7 +267,7 @@ FILESW=%s:100
         cab += '[Result "%s"]\n' % result
 
         with open(file, "at", encoding="utf-8", errors="ignore") as q:
-            texto = cab + "\n" + p.pgnBase() + mas + "\n\n"
+            texto = cab + "\n" + p.pgn_base() + mas + "\n\n"
             q.write(texto)
 
         return True
@@ -539,6 +539,9 @@ FILESW=%s:100
                 q.write("\n%s\n\n" % game.pgn())
 
         self.xmanager.remove_gui_dispatch()
+
+        # from Code.Analysis import AnalysisMaia
+        # AnalysisMaia.analysis_maia(self.procesador.main_window, self.xmanager, game, True)
 
 
 def analysis_game(manager):

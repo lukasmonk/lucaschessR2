@@ -135,7 +135,6 @@ class WGM(LCDialog.LCDialog):
         self.cbBooks, lbBooks = QTUtil2.combobox_lb(self, li, None, _("Bypass moves in the book"))
 
         # Openings
-
         self.btOpening = Controles.PB(self, " " * 5 + _("Undetermined") + " " * 5, self.aperturasEditar).ponPlano(False)
         self.btOpeningsFavoritas = (
             Controles.PB(self, "", self.preferred_openings).ponIcono(Iconos.Favoritos()).anchoFijo(24)
@@ -438,12 +437,11 @@ class WGM(LCDialog.LCDialog):
     def restore_dic(self):
         dic = Util.restore_pickle(self.configuration.file_gms())
         if dic:
-
             gm = dic["GM"]
             modo = dic.get("MODO", "estandar")
             is_white = dic.get("IS_WHITE", True)
             with_adjudicator = dic.get("WITH_ADJUDICATOR", True)
-            show_evals = dic.get("SHOWEVALS", False)
+            show_evals = dic.get("SHOW_EVALS", False)
             engine = dic["ENGINE"]
             vtime = dic["VTIME"]
             depth = dic.get("DEPTH", 0)

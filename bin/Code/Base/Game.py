@@ -265,7 +265,7 @@ class Game:
     def pgn(self):
         li = ['[%s "%s"]\n' % (k, v) for k, v in self.li_tags]
         txt = "".join(li)
-        txt += "\n%s" % self.pgnBase()
+        txt += "\n%s" % self.pgn_base()
         return txt
 
     def pgn_tags(self):
@@ -479,8 +479,8 @@ class Game:
 
         return resp
 
-    def pgnBase(self, numJugada=None):
-        resp = self.pgnBaseRAW(numJugada)
+    def pgn_base(self, numJugada=None, translated=False):
+        resp = self.pgnBaseRAW(numJugada, translated=translated)
         li = []
         ln = len(resp)
         pos = 0
@@ -543,7 +543,7 @@ class Game:
 
             pgn = move.pgn_translated()
             if n == len(self) - 1:
-                if self.termination == TERMINATION_MATE:
+                if self.termination == TERMINATION_MATE and not pgn.endswith("#"):
                     pgn += "#"
 
             resp += pgn + " "

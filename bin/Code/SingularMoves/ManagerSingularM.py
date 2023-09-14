@@ -175,6 +175,6 @@ class ManagerSingularM(Manager.Manager):
         resp = '[Event "%s"]\n' % _("Challenge 101")
         resp += '[FEN "%s"\n' % self.game.first_position.fen()
 
-        resp += "\n" + self.game.pgnBase()
+        resp += "\n" + self.game.pgn_base()
 
         return resp

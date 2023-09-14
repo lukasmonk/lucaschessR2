@@ -1,8 +1,8 @@
 from PySide2 import QtWidgets, QtCore
 
 import Code
-from Code.Base import Game
 from Code.Analysis import AnalysisEval
+from Code.Base import Game
 from Code.QT import FormLayout, Iconos
 
 
@@ -20,6 +20,9 @@ class AnalysisBar(QtWidgets.QProgressBar):
         self.setValue(5000)
         self.setTextVisible(False)
         b, w = Code.dic_colors["BLACK_ANALYSIS_BAR"], Code.dic_colors["WHITE_ANALYSIS_BAR"]
+        # style = """QProgressBar{background-color :%s;border : 1px solid %s; border-radius: 5px;}
+        #            QProgressBar::chunk {background-color: %s; border-bottom-right-radius: 5px;
+        # border-bottom-left-radius: 5px;}""" % (b, b, w)
         style = """QProgressBar{background-color :%s;border : 1px solid %s;}  
                    QProgressBar::chunk {background-color: %s;}""" % (b, b, w)
         self.setStyleSheet(style)
@@ -29,6 +32,13 @@ class AnalysisBar(QtWidgets.QProgressBar):
         self.cache = {}
         self.xpv = None
         self.game = None
+
+    def set_value(self, valor):
+        v = self.value()
+        dif = +1 if v < valor else -1
+        while v != valor:
+            v += dif
+            self.setValue(v)
 
     def activate(self, ok):
         self.setVisible(ok)
@@ -62,7 +72,7 @@ class AnalysisBar(QtWidgets.QProgressBar):
                 close = True
             if close:
                 # Si ya está calculado y está fuera de límites se actualiza pero no se lanza el motor
-                self.setValue(ev_cache)
+                self.set_value(ev_cache)
                 self.setToolTip(tooltip_cache)
                 return
 
@@ -83,7 +93,7 @@ class AnalysisBar(QtWidgets.QProgressBar):
                     cp = -cp
                 cp = max(cp, -self.max_range)
                 cp = min(cp, self.max_range)
-                ev = int(self.aeval.lv(cp)*100)
+                ev = int(self.aeval.lv(cp) * 100)
                 if self.xpv in self.cache:
                     ev_cache, rm_cache, tooltip_cache = self.cache[self.xpv]
                     if rm_cache.depth > depth:
@@ -91,7 +101,7 @@ class AnalysisBar(QtWidgets.QProgressBar):
                         rm = rm_cache
                         tooltip = tooltip_cache
 
-                self.setValue(ev)
+                self.set_value(ev)
 
                 if tooltip is None:
                     pgn = Game.pv_pgn(self.game.last_position.fen(), rm.pv)

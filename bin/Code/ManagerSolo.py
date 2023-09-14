@@ -475,9 +475,6 @@ class ManagerSolo(Manager.Manager):
             self.editEtiquetasPGN()
 
     def configure_gs(self):
-        mt = _("Engine").lower()
-        mt = _X(_("Disable %1"), mt) if self.play_against_engine else _X(_("Enable %1"), mt)
-
         li_mas_opciones = [("rotacion", _("Auto-rotate board"), Iconos.JS_Rotacion())]
         resp = self.configurar(li_mas_opciones, siCambioTutor=True, siSonidos=True)
 

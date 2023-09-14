@@ -42,6 +42,8 @@ class Move:
         self.bad_move = None
         self.verybad_move = None
 
+        self.elo_avg = 0
+
     def set_time_ms(self, ms):
         self.time_ms = ms
 
@@ -117,8 +119,8 @@ class Move:
 
     @property
     def pgnBase(self):
-        pgnBase = self.position_before.pgn(self.from_sq, self.to_sq, self.promotion)
-        return pgnBase
+        xpgn_base = self.position_before.pgn(self.from_sq, self.to_sq, self.promotion)
+        return xpgn_base
 
     def add_nag(self, nag):
         if nag and not (nag in self.li_nags):

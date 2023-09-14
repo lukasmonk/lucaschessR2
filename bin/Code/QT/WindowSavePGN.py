@@ -4,6 +4,7 @@ import os
 import chardet.universaldetector
 from PySide2 import QtWidgets
 
+import Code
 from Code import Util
 from Code.QT import Colocacion
 from Code.QT import Columnas
@@ -166,7 +167,7 @@ class WBaseSave(QtWidgets.QWidget):
 
 
 class WSave(LCDialog.LCDialog):
-    def __init__(self, owner, game, configuration):
+    def __init__(self, owner, game):
         titulo = _("Save to PGN")
         icono = Iconos.PGN()
         extparam = "savepgn"
@@ -174,7 +175,7 @@ class WSave(LCDialog.LCDialog):
 
         self.game = game
         self.game.order_tags()
-        self.body = self.game.pgnBase()
+
         if self.game.opening:
             if not self.game.get_tag("ECO"):
                 self.game.set_tag("ECO", self.game.opening.eco)
@@ -182,7 +183,7 @@ class WSave(LCDialog.LCDialog):
                 self.game.set_tag("Opening", self.game.opening.tr_name)
 
         self.li_labels = [[k, v] for k, v in self.game.li_tags]
-        self.configuration = configuration
+        self.configuration = Code.configuration
         self.file = ""
         self.vars_read()
 
@@ -220,9 +221,9 @@ class WSave(LCDialog.LCDialog):
 
         # Rest
         self.chb_overwrite = Controles.CHB(self, _("Overwrite"), False)
-        self.chb_remove_comments = Controles.CHB(self, _("Remove comments"), self.remove_comments)
-        self.chb_remove_variations = Controles.CHB(self, _("Remove variations"), self.remove_variations)
-        self.chb_remove_nags = Controles.CHB(self, _("Remove NAGs"), self.remove_nags)
+        self.chb_remove_comments = Controles.CHB(self, _("Remove comments"), self.remove_comments).capture_changes(self, self.check_all)
+        self.chb_remove_variations = Controles.CHB(self, _("Remove variations"), self.remove_variations).capture_changes(self, self.check_all)
+        self.chb_remove_nags = Controles.CHB(self, _("Remove NAGs"), self.remove_nags).capture_changes(self, self.check_all)
 
         lyF = Colocacion.H().control(lb_file).control(self.bt_file).control(bt_history).control(bt_boxrooms).relleno(1)
         lyC = Colocacion.H().control(lb_codec).control(self.cb_codecs).relleno(1)
@@ -245,7 +246,7 @@ class WSave(LCDialog.LCDialog):
         self.chb_overwrite.hide()
 
         # Tab-labels -----------------------------------------------------------------------------------------------
-        liAccionesWork = (
+        li_acciones_work = (
             ("", Iconos.Mas22(), self.labels_more),
             None,
             ("", Iconos.Menos22(), self.labels_less),
@@ -255,7 +256,7 @@ class WSave(LCDialog.LCDialog):
             ("", Iconos.Abajo(), self.labels_down),
             None,
         )
-        tb_labels = Controles.TBrutina(self, liAccionesWork, icon_size=16, with_text=False)
+        tb_labels = Controles.TBrutina(self, li_acciones_work, icon_size=16, with_text=False)
 
         # Lista
         o_columns = Columnas.ListaColumnas()
@@ -273,8 +274,14 @@ class WSave(LCDialog.LCDialog):
         tabs.new_tab(w, _("PGN labels"))
 
         # Tab-Body -----------------------------------------------------------------------------------------------
-        self.em_body = Controles.EM(self, self.body, siHTML=False)
+        self.em_body = Controles.EM(self, "", siHTML=False)
         tabs.new_tab(self.em_body, _("Body"))
+
+        # Tab-Body language ---------------------------------------------------------------------------------------
+        self.with_body_sp = self.configuration.translator() != "en" and not self.configuration.x_pgn_english
+        if self.with_body_sp:
+            self.em_body_sp = Controles.EM(self, "", siHTML=False)
+            tabs.new_tab(self.em_body_sp, self.configuration.language())
 
         layout = Colocacion.V().control(tb).control(tabs)
 
@@ -288,6 +295,88 @@ class WSave(LCDialog.LCDialog):
 
         self.register_grid(self.grid_labels)
         self.restore_video()
+
+        self.check_all()
+
+        self.tabs = tabs
+
+    def check_info_base(self):
+        body = self.check_info(self.game.pgn_base())
+        self.em_body.set_text(body)
+
+    def check_info_sp(self):
+        body_sp = self.check_info(self.game.pgn_translated())
+        self.em_body_sp.set_text(body_sp)
+
+    def check_all(self):
+        self.check_info_base()
+        if self.with_body_sp:
+            self.check_info_sp()
+
+    def check_info(self, body):
+
+        def remove(ini, end):
+            xlic = []
+            nkey = 0
+            for xc in body:
+                if nkey:
+                    if xc == end:
+                        nkey -= 1
+                    elif xc == ini:
+                        nkey += 1
+                    continue
+                if xc == ini:
+                    nkey += 1
+                    continue
+                xlic.append(xc)
+            return "".join(xlic)
+
+        changed = False
+        if self.chb_remove_comments.isChecked():
+            body = remove("{", "}")
+            changed = True
+
+        if self.chb_remove_variations.isChecked():
+            body = remove("(", ")")
+            changed = True
+
+        if self.chb_remove_nags.isChecked():
+            lic = []
+            nag = False
+            for c in body:
+                if nag:
+                    if c.isdigit():
+                        continue
+                    nag = False
+                if c in "?!":
+                    continue
+                if c == "$":
+                    nag = True
+                    continue
+                if c == " ":
+                    if lic and lic[-1] == " ":
+                        continue
+                lic.append(c)
+            body = "".join(lic)
+            changed = True
+
+        if changed:
+            body = body.replace("\n", " ").replace("\r", " ")
+            while "  " in body:
+                body = body.replace("  ", " ")
+            linea = ""
+            body_new = ""
+            for bl in body.split(" "):
+                nbl = len(bl) + 1
+                if linea and (len(linea) + nbl) > 80:
+                    body_new += linea.strip() + "\n"
+                    linea = ""
+                linea += bl + " "
+            if linea:
+                body_new += linea.strip() + "\n"
+            body = body_new
+
+        return body
 
     def file_select(self):
         last_dir = ""
@@ -398,66 +487,6 @@ class WSave(LCDialog.LCDialog):
             body = result
         else:
             body += f" {result}"
-            changed = False
-            def remove(xbody, ini, end):
-                lic = []
-                nkey = 0
-                for c in xbody:
-                    if nkey:
-                        if c == end:
-                            nkey -= 1
-                        elif c == ini:
-                            nkey += 1
-                        continue
-                    if c == ini:
-                        nkey += 1
-                        continue
-                    lic.append(c)
-                return "".join(lic)
-
-            if self.chb_remove_comments.isChecked():
-                body = remove(body, "{", "}")
-                changed = True
-
-            if self.chb_remove_variations.isChecked():
-                body = remove(body, "(", ")")
-                changed = True
-
-            if self.chb_remove_nags.isChecked():
-                lic = []
-                nag = False
-                for c in body:
-                    if nag:
-                        if c.isdigit():
-                            continue
-                        nag = False
-                    if c in "?!":
-                        continue
-                    if c == "$":
-                        nag = True
-                        continue
-                    if c == " ":
-                        if lic and lic[-1] == " ":
-                            continue
-                    lic.append(c)
-                body = "".join(lic)
-                changed = True
-
-            if changed:
-                body = body.replace("\n", " ").replace("\r", " ")
-                while "  " in body:
-                    body = body.replace("  ", " ")
-                linea = ""
-                body_new = ""
-                for bl in body.split(" "):
-                    nbl = len(bl) + 1
-                    if linea and (len(linea) + nbl) > 80:
-                        body_new += linea.strip() + "\n"
-                        linea = ""
-                    linea += bl + " "
-                if linea:
-                    body_new += linea.strip() + "\n"
-                body = body_new
 
         pgn += "\n%s\n" % body
         if "\r\n" in pgn:
@@ -471,7 +500,7 @@ class WSave(LCDialog.LCDialog):
         if os.path.isfile(self.file):
             if not self.chb_overwrite.isChecked():
                 modo = "a"
-                pgn = ("\n\n") + pgn
+                pgn = f"\n\n{pgn}"
 
         codec = self.cb_codecs.valor()
 
@@ -504,9 +533,22 @@ class WSave(LCDialog.LCDialog):
             QTUtil2.message_error(self, _("Unable to save"))
 
     def portapapeles(self):
-        pgn = self.current_pgn()
-        QTUtil.ponPortapapeles(pgn)
-        QTUtil2.temporary_message(self, _("It is saved in the clipboard to paste it wherever you want."), 2)
+        pos_tab = self.tabs.current_position()
+        tab_text = self.tabs.tabText(pos_tab)
+        mens = ""
+
+        if pos_tab == 0:
+            mens = self.current_pgn()
+        elif pos_tab == 1:
+            mens = self.current_pgn()
+            tab_text = self.tabs.tabText(0)
+        elif pos_tab == 2:
+            mens = self.em_body.texto()
+        elif pos_tab == 3:
+            mens = self.em_body_sp.texto()
+
+        QTUtil.ponPortapapeles(mens)
+        QTUtil2.temporary_message(self, f"<big>{tab_text}</big><br><br>" + _("It is saved in the clipboard to paste it wherever you want."), 2)
 
     def terminar(self):
         self.vars_save()
@@ -515,7 +557,6 @@ class WSave(LCDialog.LCDialog):
 
     def reinit(self):
         self.vars_read()
-        self.body = self.game.pgnBase()
         if self.game.opening:
             if not self.game.get_tag("ECO"):
                 self.game.set_tag("ECO", self.game.opening.eco)
@@ -524,7 +565,8 @@ class WSave(LCDialog.LCDialog):
 
         self.li_labels = [[k, v] for k, v in self.game.li_tags]
         self.grid_labels.refresh()
-        self.em_body.set_text(self.body)
+        
+        self.check_all()
 
     def labels_more(self):
         self.li_labels.append(["", ""])

@@ -554,6 +554,6 @@ class ManagerGM(Manager.Manager):
             resp += '[ECO "%s"]\n' % ap.eco
             resp += '[Opening "%s"]\n' % ap.tr_name
 
-        resp += "\n" + self.game.pgnBase() + " " + result.strip()
+        resp += "\n" + self.game.pgn_base() + " " + result.strip()
 
         return resp

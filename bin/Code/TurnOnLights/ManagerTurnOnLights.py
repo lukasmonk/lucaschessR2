@@ -344,6 +344,6 @@ class ManagerTurnOnLights(Manager.Manager):
         resp += '[Site "%s"]\n' % self.line.label.replace("<br>", " ").strip()
         resp += '[FEN "%s"\n' % self.game.first_position.fen()
 
-        resp += "\n" + self.game.pgnBase()
+        resp += "\n" + self.game.pgn_base()
 
         return resp

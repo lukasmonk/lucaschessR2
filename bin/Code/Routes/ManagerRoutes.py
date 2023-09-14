@@ -551,7 +551,7 @@ class ManagerRoutesEndings(ManagerRoutes):
         resp = '[Event "%s"]\n' % _("Transsiberian Railway")
         resp += '[FEN "%s"\n' % self.game.first_position.fen()
 
-        resp += "\n" + self.game.pgnBase()
+        resp += "\n" + self.game.pgn_base()
 
         return resp
 
@@ -731,6 +731,6 @@ class ManagerRoutesTactics(ManagerRoutes):
         resp = '[Event "%s"]\n' % _("Transsiberian Railway")
         resp += '[FEN "%s"\n' % self.game.first_position.fen()
 
-        resp += "\n" + self.game.pgnBase()
+        resp += "\n" + self.game.pgn_base()
 
         return resp

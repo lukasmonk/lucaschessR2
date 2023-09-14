@@ -34,6 +34,7 @@ from Code.QT import QTUtil2
 
 class ManagerPlayHuman(Manager.Manager):
     with_analysis_bar = False
+    with_takeback = True
     timed = False
     reinicio = None
     max_seconds = None
@@ -42,6 +43,8 @@ class ManagerPlayHuman(Manager.Manager):
     white = None
     black = None
     is_human_side_white = True   # necesario en adjourn
+    auto_rotate = False
+
 
     def start(self, dic_var):
         self.base_inicio(dic_var)
@@ -106,6 +109,8 @@ class ManagerPlayHuman(Manager.Manager):
         self.game.add_tag_timestart()
 
         self.main_window.start_clock(self.set_clock, 1000)
+
+        self.auto_rotate = dic_var.get("AUTO_ROTATE", False)
 
         self.check_boards_setposition()
 
@@ -390,6 +395,9 @@ class ManagerPlayHuman(Manager.Manager):
         if self.with_analysis_bar:
             self.main_window.base.analysis_bar.set_game(self.game)
 
+        if self.auto_rotate:
+            if is_white != self.board.is_white_bottom:
+                self.board.rotaBoard()
         self.play_human(is_white)
 
     def play_human(self, is_white):

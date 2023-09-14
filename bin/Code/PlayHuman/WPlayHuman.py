@@ -70,6 +70,9 @@ class WPlayHuman(LCDialog.LCDialog):
         self.chb_analysis_bar = Controles.CHB(self, _("Activate the Analysis Bar"), False).ponFuente(font)
         ly.control(self.chb_analysis_bar)
 
+        self.chb_autorotate = Controles.CHB(self, _("Auto-rotate board"), False).ponFuente(font)
+        ly.control(self.chb_autorotate)
+
         self.setLayout(ly)
 
         self.restore_video()
@@ -87,15 +90,14 @@ class WPlayHuman(LCDialog.LCDialog):
             "MINUTES": self.ed_minutos.textoFloat(),
             "SECONDS": self.ed_segundos.value(),
             "ACTIVATE_EBOARD": self.chb_eboard.valor() if Code.eboard else False,
-            "ANALYSIS_BAR": self.chb_analysis_bar.valor()
+            "ANALYSIS_BAR": self.chb_analysis_bar.valor(),
+            "AUTO_ROTATE": self.chb_autorotate.valor()
         }
 
     def restore_dic(self, dic):
-        def dg(key, default=""):
-            return dic.get(key, default)
-
-        self.ed_white.set_text(dg("WHITE"))
-        self.ed_black.set_text(dg("BLACK"))
+        dg = dic.get
+        self.ed_white.set_text(dg("WHITE", ""))
+        self.ed_black.set_text(dg("BLACK", ""))
 
         self.ed_minutos.ponFloat(float(dg("MINUTES", 10.0)))
         self.ed_segundos.setValue(dg("SECONDS", 0))
@@ -103,6 +105,7 @@ class WPlayHuman(LCDialog.LCDialog):
         if Code.eboard:
             self.chb_eboard.set_value(dg("ACTIVATE_EBOARD", False))
         self.chb_analysis_bar.set_value(dg("ANALYSIS_BAR", False))
+        self.chb_autorotate.set_value(dg("AUTO_ROTATE", False))
 
     def aceptar(self):
         self.dic = self.save_dic()

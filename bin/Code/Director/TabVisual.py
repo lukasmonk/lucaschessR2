@@ -767,6 +767,8 @@ class Guion:
         if lista is not None:
             for reg in lista:
                 self.recuperaReg(reg)
+        else:
+            lista = []
 
         li_previos = self.board.lista_movibles()
         self.board.borraMovibles()

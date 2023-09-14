@@ -1216,7 +1216,7 @@ class Opening:
                 ws.write("\n\n")
             tags = "".join(['[%s "%s"]\n' % (k, v) for k, v in liTags])
             ws.write(tags)
-            ws.write("\n%s" % game.pgnBase())
+            ws.write("\n%s" % game.pgn_base())
 
         ws.pb_close()
 

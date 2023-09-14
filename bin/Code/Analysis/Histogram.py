@@ -506,7 +506,7 @@ def genHistograms(game):
             if lostp:
                 tooltip += "  ↓%0.02f" % lostp
 
-            avg = move.elo_avg
+            avg = move.elo_avg if hasattr(move, "elo_avg") else 0
             # tooltip += " (%d)" % avg
             hp = HPoint(nj, pts, lostp, lostp_abs, tooltip, avg)
             hgame.addPoint(hp)

@@ -125,11 +125,11 @@ class Manager:
         self.board.exePulsadoNum = self.exePulsadoNum
         self.board.exePulsadaLetra = self.exePulsadaLetra
 
-        # Capturas
         self.capturasActivable = False
-
-        # Informacion
         self.informacionActivable = False
+        self.analysisbarActivable = False
+
+
 
         self.nonDistract = None
 
@@ -794,6 +794,12 @@ class Manager:
             self.main_window.activaCapturas(True)
             self.put_view()
 
+    def ponABarPorDefecto(self):
+        self.analysisbarActivable = True
+        if self.configuration.x_analyzer_activate_ab:
+            self.main_window.activate_analysis_bar(True)
+            self.put_view()
+
     def ponInfoPorDefecto(self):
         self.informacionActivable = True
         if self.configuration.x_info_activate:
@@ -803,6 +809,7 @@ class Manager:
     def ponCapInfoPorDefecto(self):
         self.ponCapPorDefecto()
         self.ponInfoPorDefecto()
+        self.ponABarPorDefecto()
 
     def capturas(self):
         if self.capturasActivable:
@@ -1234,7 +1241,7 @@ class Manager:
         menuVista.opcion(
             "vista_analysis_bar",
             _("Analysis Bar"),
-            siChecked=self.main_window.with_analysis_bar,
+            siChecked=self.configuration.x_analyzer_activate_ab,
         )
         menu.separador()
 
@@ -1329,7 +1336,9 @@ class Manager:
                     self.configuration.graba()
                     self.put_view()
                 elif resp == "analysis_bar":
-                    self.main_window.activate_analysis_bar(not self.main_window.with_analysis_bar)
+                    self.configuration.x_analyzer_activate_ab = not self.configuration.x_analyzer_activate_ab
+                    self.configuration.graba()
+                    self.main_window.activate_analysis_bar(self.configuration.x_analyzer_activate_ab)
                     self.put_view()
 
             elif resp == "sonido":
@@ -1725,7 +1734,7 @@ class Manager:
             break
 
     def save_pgn(self):
-        w = WindowSavePGN.WSave(self.main_window, self.game, self.configuration)
+        w = WindowSavePGN.WSave(self.main_window, self.game)
         w.exec_()
 
     def save_pgn_clipboard(self):
