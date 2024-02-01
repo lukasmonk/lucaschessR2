@@ -2,7 +2,7 @@ from Code import Manager
 from Code import Util
 from Code.Base import Move
 from Code.Base.Constantes import (
-    GT_ALONE,
+    GT_VARIATIONS,
     ST_ENDGAME,
     ST_PLAYING,
     TB_REINIT,
@@ -30,7 +30,7 @@ class ManagerVariations(Manager.Manager):
         self.with_engine_active = with_engine_active
         self.is_competitive = is_competitive
 
-        self.game_type = GT_ALONE
+        self.game_type = GT_VARIATIONS
 
         self.human_is_playing = True
         self.dicRival = {}

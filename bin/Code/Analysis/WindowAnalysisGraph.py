@@ -328,7 +328,7 @@ class WAnalisisGraph(LCDialog.LCDialog):
             return "%3d%%" % move.porcentaje
 
         elif column == "ELO":
-            return "%3d" % move.elo
+            return "%3d" % move.elo if move.elo else ""
 
     def closeEvent(self, event):
         self.save_video()

@@ -351,6 +351,7 @@ class ThanksTo:
         li = [
             ("Michele Tumbarello", _("Permission of author")),
             ("Felicia", _("Permission of author")),
+            ("Balestegui", _("Permission of author")),
             ("Mohammed Abdalazez", _("Permission of author")),
             ("Red Hood", _("Permission of author")),
             ("Michael Byrne", _("Permission of author")),
@@ -463,6 +464,11 @@ class ThanksTo:
             (
                 "Book Classic<br>Book Diagram<br>Book Strategie",
                 '<a href="https://www.linkedin.com/in/benjamin-citak-04982714">Ben Citak</a>',
+                _("Permission of author"),
+            ),
+            (
+                "Balestegui<br>Balestegui2",
+                "",
                 _("Permission of author"),
             ),
         ]

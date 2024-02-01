@@ -76,8 +76,6 @@ class SelectEngines:
 
         self.dict_rodent = self.gen_engines_rodent()
 
-        # self.dict_komodo = self.gen_engines_rodent()
-
         self.li_engines = None
 
         um.final()
@@ -349,10 +347,12 @@ class SelectEngines:
                 add_cm(cm, cm.name)
 
             for cm in self.liElo:
+                cm.alias = cm.key
                 add_cm(cm, cm.menu)
 
         self.li_engines.sort(key=lambda cm: cm.elo)
 
+        print(len(self.li_engines))
         return self.li_engines
 
     def select_group(self, parent, li_engines_selected):

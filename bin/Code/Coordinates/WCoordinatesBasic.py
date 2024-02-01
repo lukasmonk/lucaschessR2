@@ -85,7 +85,7 @@ class WCoordinatesBasic(LCDialog.LCDialog):
         self.accept()
 
     def play(self):
-        is_white = QTVarios.blancasNegras(self)
+        is_white = QTVarios.white_or_black(self, False)
         if is_white is None:
             return
         w = WRunCoordinatesBasic.WRunCoordinatesBasic(self, self.db, is_white, self.config)

@@ -1119,8 +1119,10 @@ class Procesador:
             recno = w.recno
             if recno is not None:
                 is_white = w.is_white
-                self.manager = ManagerPlayGame.ManagerPlayGame(self)
-                self.manager.start(recno, is_white)
+                is_black = w.is_black
+                if is_white or is_black:
+                    self.manager = ManagerPlayGame.ManagerPlayGame(self)
+                    self.manager.start(recno, is_white, is_black)
 
     def play_game_show(self, recno):
         db = WindowPlayGame.DBPlayGame(self.configuration.file_play_game())
@@ -1128,8 +1130,10 @@ class Procesador:
         if w.exec_():
             if w.recno is not None:
                 is_white = w.is_white
-                self.manager = ManagerPlayGame.ManagerPlayGame(self)
-                self.manager.start(w.recno, is_white)
+                is_black = w.is_black
+                if is_white or is_black:
+                    self.manager = ManagerPlayGame.ManagerPlayGame(self)
+                    self.manager.start(w.recno, is_white, is_black)
         db.close()
 
     def learn_game(self, game=None):

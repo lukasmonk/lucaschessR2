@@ -4,7 +4,7 @@ from PySide2 import QtCore
 from Code import Manager
 from Code.Base import Game, Position
 from Code.Base.Constantes import (
-    GT_ALONE,
+    GT_GAME,
     ST_ENDGAME,
     ST_PLAYING,
     TB_CLOSE,
@@ -12,7 +12,6 @@ from Code.Base.Constantes import (
     TB_TAKEBACK,
     TB_CONFIG,
     TB_CANCEL,
-    # TB_END_GAME,
     TB_NEXT,
     TB_PGN_LABELS,
     TB_PREVIOUS,
@@ -35,7 +34,7 @@ from Code.Voyager import Voyager
 
 class ManagerGame(Manager.Manager):
     def start(self, game, is_complete, only_consult, with_previous_next, save_routine):
-        self.game_type = GT_ALONE
+        self.game_type = GT_GAME
 
         self.game = game
         self.game.is_finished()  # Necesario para que no haya cambios a posteriori y close pregunte si grabar
@@ -44,7 +43,7 @@ class ManagerGame(Manager.Manager):
         self.with_previous_next = with_previous_next
         self.save_routine = save_routine
         self.changed = False
-        self.auto_rotate = False
+        self.auto_rotate = self.get_auto_rotate()
 
         self.human_is_playing = True
         self.is_human_side_white = True
@@ -137,7 +136,7 @@ class ManagerGame(Manager.Manager):
                 self.main_window.accept()
 
         elif key == TB_CONFIG:
-            self.configure_gs()
+            self.configurar()
 
         elif key == TB_UTILITIES:
             self.utilities_gs()
@@ -278,18 +277,6 @@ class ManagerGame(Manager.Manager):
         resp = menu.lanza()
         if resp:
             self.editEtiquetasPGN()
-
-    def configure_gs(self):
-        li_mas_opciones = [("rotacion", _("Auto-rotate board"), Iconos.JS_Rotacion())]
-
-        resp = self.configurar(li_mas_opciones, siCambioTutor=True, siSonidos=True)
-
-        if resp == "rotacion":
-            self.auto_rotate = not self.auto_rotate
-            is_white = self.game.last_position.is_white
-            if self.auto_rotate:
-                if is_white != self.board.is_white_bottom:
-                    self.board.rotaBoard()
 
     def utilities_gs(self):
         sep = (None, None, None)

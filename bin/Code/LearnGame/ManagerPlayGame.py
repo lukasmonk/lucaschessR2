@@ -5,6 +5,7 @@ from Code import Manager
 from Code import Util
 from Code.Base import Game
 from Code.Base.Constantes import (
+    GT_LEARN_PLAY,
     ST_ENDGAME,
     ST_PLAYING,
     RS_WIN_PLAYER,
@@ -22,15 +23,26 @@ from Code.QT import WindowJuicio
 
 
 class ManagerPlayGame(Manager.Manager):
-    def start(self, recno, is_white):
+    is_human_side_white: bool
+    is_human_side_black: bool
+    game_obj: Game.Game
+
+    def start(self, recno, is_white, is_black):
+
+        self.game_type = GT_LEARN_PLAY
 
         db = WindowPlayGame.DBPlayGame(self.configuration.file_play_game())
         reg = db.leeRegistro(recno)
-        gameObj = Game.Game()
-        gameObj.restore(reg["GAME"])
-        nombreObj = gameObj.get_tag("WHITE" if is_white else "BLACK")
-        label = db.label(recno)
         db.close()
+
+        game_obj = Game.Game()
+        game_obj.restore(reg["GAME"])
+        nombre_obj = game_obj.get_tag("WHITE") if is_white else ""
+        if is_black:
+            if nombre_obj:
+                nombre_obj += "/"
+            nombre_obj += game_obj.get_tag("BLACK")
+        label = db.label(recno)
 
         self.recno = recno
         self.resultado = None
@@ -39,11 +51,14 @@ class ManagerPlayGame(Manager.Manager):
         self.comment = None
         self.if_analyzing = False
         self.is_human_side_white = is_white
-        self.is_engine_side_white = not is_white
-        self.numJugadasObj = gameObj.num_moves()
-        self.gameObj = gameObj
+        self.is_human_side_black = is_black
+        self.numJugadasObj = game_obj.num_moves()
+        self.game_obj = game_obj
         self.posJugadaObj = 0
-        self.nombreObj = nombreObj
+        self.name_obj = nombre_obj
+
+        if is_white and is_black:
+            self.auto_rotate = self.get_auto_rotate()
 
         self.siSave = False
         self.minTiempo = 5000
@@ -87,7 +102,7 @@ class ManagerPlayGame(Manager.Manager):
     def ponPuntos(self):
         self.set_label2(
             '%s:<table border="1" cellpadding="5" cellspacing="0" style="margin-left:60px"><tr><td>%s</td><td><b>%d</b></td></tr><tr><td>%s</td><td><b>%d</b></td></tr></table>'
-            % (_("Score in relation to"), self.nombreObj, self.puntos, self.xanalyzer.name, -self.puntosMax)
+            % (_("Score in relation to"), self.name_obj, self.puntos, self.xanalyzer.name, -self.puntosMax)
         )
 
     def run_action(self, key):
@@ -143,7 +158,7 @@ class ManagerPlayGame(Manager.Manager):
         self.play_next_move()
 
     def validoMRM(self, pvUsu, pvObj, mrmActual):
-        move = self.gameObj.move(self.posJugadaObj)
+        move = self.game_obj.move(self.posJugadaObj)
         if move.analysis:
             mrm, pos = move.analysis
             msAnalisis = mrm.getTime()
@@ -198,22 +213,29 @@ class ManagerPlayGame(Manager.Manager):
             self.put_result()
             return
 
-        siRival = is_white == self.is_engine_side_white
+        if is_white:
+            is_turn_human = self.is_human_side_white
+        else:
+            is_turn_human = self.is_human_side_black
+
         self.set_side_indicator(is_white)
 
         self.refresh()
 
-        if siRival:
-            self.add_move(False)
-            self.play_next_move()
+        if is_turn_human:
+            if self.auto_rotate:
+                if is_white != self.board.is_white_bottom:
+                    self.board.rotaBoard()
 
-        else:
             self.human_is_playing = True
             self.thinking(True)
             self.analyze_begin()
             self.activate_side(is_white)
             self.thinking(False)
             self.iniTiempo = time.time()
+        else:
+            self.add_move(False)
+            self.play_next_move()
 
     def player_has_moved(self, from_sq, to_sq, promotion=""):
         jg_usu = self.check_human_move(from_sq, to_sq, promotion)
@@ -222,7 +244,7 @@ class ManagerPlayGame(Manager.Manager):
 
         self.vtime += time.time() - self.iniTiempo
 
-        jg_obj = self.gameObj.move(self.posJugadaObj)
+        jg_obj = self.game_obj.move(self.posJugadaObj)
 
         si_analiza_juez = True
         if self.book:
@@ -233,7 +255,7 @@ class ManagerPlayGame(Manager.Manager):
                 if jg_obj.movimiento() != jg_usu.movimiento():
                     bmove = _("book move")
                     comment = "%s: %s %s<br>%s: %s %s" % (
-                        self.nombreObj,
+                        self.name_obj,
                         jg_obj.pgn_translated(),
                         bmove,
                         self.configuration.x_player,
@@ -270,7 +292,7 @@ class ManagerPlayGame(Manager.Manager):
                 si_analiza_juez = False
 
             if si_analiza_juez:
-                w = WindowJuicio.WJuicio(self, self.xanalyzer, self.nombreObj, position, mrm, rm_obj, rm_usu, analysis,
+                w = WindowJuicio.WJuicio(self, self.xanalyzer, self.name_obj, position, mrm, rm_obj, rm_usu, analysis,
                                          is_competitive=not self.show_all)
                 w.exec_()
 
@@ -298,7 +320,7 @@ class ManagerPlayGame(Manager.Manager):
                 self.puntos,
             )
             comment = "%s: %s %s\n%s: %s %s\n%s" % (
-                self.nombreObj,
+                self.name_obj,
                 jg_obj.pgn_translated(),
                 comentario_obj,
                 self.configuration.x_player,
@@ -315,7 +337,7 @@ class ManagerPlayGame(Manager.Manager):
         return True
 
     def add_move(self, siNuestra, analysis=None, comment=None):
-        move = self.gameObj.move(self.posJugadaObj)
+        move = self.game_obj.move(self.posJugadaObj)
         self.posJugadaObj += 1
         if analysis:
             move.analysis = analysis
@@ -357,9 +379,9 @@ class ManagerPlayGame(Manager.Manager):
         db = WindowPlayGame.DBPlayGame(self.configuration.file_play_game())
         reg = db.leeRegistro(self.recno)
 
-        dicIntento = {
+        dic_intento = {
             "DATE": Util.today(),
-            "COLOR": "w" if self.is_human_side_white else "b",
+            "COLOR": ("w" if self.is_human_side_white else "") + ("b" if self.is_human_side_black else ""),
             "POINTS": self.puntos,
             "POINTSMAX": self.puntosMax,
             "TIME": self.vtime,
@@ -367,10 +389,10 @@ class ManagerPlayGame(Manager.Manager):
 
         if not ("LIINTENTOS" in reg):
             reg["LIINTENTOS"] = []
-        reg["LIINTENTOS"].insert(0, dicIntento)
+        reg["LIINTENTOS"].insert(0, dic_intento)
 
         if self.siSave:
-            reg["GAME"] = self.gameObj.save()
+            reg["GAME"] = self.game_obj.save()
             self.siSave = False
 
         db.cambiaRegistro(self.recno, reg)

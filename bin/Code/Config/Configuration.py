@@ -9,7 +9,7 @@ from PySide2.QtCore import Qt
 import Code
 from Code import Util
 from Code.Analysis import AnalysisEval
-from Code.Base.Constantes import MENU_PLAY_BOTH, POS_TUTOR_HORIZONTAL, INACCURACY, ENG_FIXED
+from Code.Base.Constantes import MENU_PLAY_BOTH, POS_TUTOR_HORIZONTAL, INACCURACY, ENG_FIXED, DICT_GAME_TYPES
 from Code.Board import ConfBoards
 from Code.Engines import Priorities
 from Code.QT import IconosBase
@@ -408,6 +408,9 @@ class Configuration:
 
     def folder_leagues(self):
         return self.create_base_folder("Leagues")
+
+    def folder_swiss(self):
+        return self.create_base_folder("Swiss")
 
     def folder_openings(self):
         dic = self.read_variables("OPENING_LINES")
@@ -984,3 +987,14 @@ class Configuration:
         if self.x_style_mode == "By default":
             owner.setStyleSheet(self.style_sheet_default)
         owner.setProperty("type", valor)
+
+    def get_auto_rotate(self, game_type):
+        key = DICT_GAME_TYPES[game_type]
+        dic = self.read_variables("AUTO_ROTATE")
+        return dic.get(key, False)
+
+    def set_auto_rotate(self, game_type, auto_rotate):
+        key = DICT_GAME_TYPES[game_type]
+        dic = self.read_variables("AUTO_ROTATE")
+        dic[key] = auto_rotate
+        self.write_variables("AUTO_ROTATE", dic)

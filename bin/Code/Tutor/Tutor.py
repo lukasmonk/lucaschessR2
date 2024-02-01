@@ -127,7 +127,7 @@ class Tutor:
             return True
         return False
 
-    def ponVariations(self, move, numJugada):
+    def ponVariations(self, move, movenum):
         if self.list_rm:
             rm, name = self.list_rm[0]
             game = Game.Game(self.move.position_before)

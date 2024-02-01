@@ -69,7 +69,7 @@ class ManagerSolo(Manager.Manager):
 
         self.last_file = dic.get("LAST_FILE", "")
 
-        self.auto_rotate = dic.get("AUTO_ROTATE", False)
+        self.auto_rotate = self.get_auto_rotate()
 
         self.opening_block = dic.get("BLOQUEAPERTURA", None)
 
@@ -137,7 +137,7 @@ class ManagerSolo(Manager.Manager):
             self.reiniciar(self.reinicio)
 
         elif key == TB_CONFIG:
-            self.configure_gs()
+            self.configurar()
 
         elif key == TB_UTILITIES:
             self.utilities_gs()
@@ -199,7 +199,7 @@ class ManagerSolo(Manager.Manager):
         self.is_human_side_white = is_white  # Compatibilidad, sino no funciona el cambio en pgn
 
         if self.auto_rotate:
-            time.sleep(1)
+            time.sleep(0.5)
             if is_white != self.board.is_white_bottom:
                 self.board.rotaBoard()
 
@@ -256,7 +256,6 @@ class ManagerSolo(Manager.Manager):
 
     def creaDic(self):
         dic = {}
-        dic["AUTO_ROTATE"] = self.auto_rotate
         dic["GAME"] = self.game.save()
         dic["STATE"] = self.state
         dic["BLOQUEAPERTURA"] = self.opening_block
@@ -473,17 +472,6 @@ class ManagerSolo(Manager.Manager):
         resp = menu.lanza()
         if resp:
             self.editEtiquetasPGN()
-
-    def configure_gs(self):
-        li_mas_opciones = [("rotacion", _("Auto-rotate board"), Iconos.JS_Rotacion())]
-        resp = self.configurar(li_mas_opciones, siCambioTutor=True, siSonidos=True)
-
-        if resp == "rotacion":
-            self.auto_rotate = not self.auto_rotate
-            is_white = self.game.last_position.is_white
-            if self.auto_rotate:
-                if is_white != self.board.is_white_bottom:
-                    self.board.rotaBoard()
 
     def leerpgn(self, game=None):
         if game is None:

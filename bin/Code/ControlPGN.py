@@ -2,6 +2,8 @@ import Code
 from Code import Util
 from Code.Base.Constantes import (
     GT_ALONE,
+    GT_GAME,
+    GT_VARIATIONS,
     ST_ENDGAME,
     ST_PLAYING,
     GT_AGAINST_PGN,
@@ -34,7 +36,7 @@ class ControlPGN:
     def variations_mode(self):
         state = self.manager.state
         game_type = self.manager.game_type
-        return game_type in (GT_ALONE,) or state == ST_ENDGAME
+        return game_type in (GT_ALONE, GT_GAME, GT_VARIATIONS) or state == ST_ENDGAME
 
     def num_rows(self):
         if self.manager.game:
@@ -108,7 +110,7 @@ class ControlPGN:
             if is_last:
                 self.manager.set_position(move.position)
                 if self.manager.human_is_playing and self.manager.state == ST_PLAYING:
-                    if self.manager.game_type == GT_ALONE:
+                    if self.manager.game_type in (GT_ALONE, GT_GAME, GT_VARIATIONS):
                         side = move.position.is_white
                     else:
                         side = self.manager.is_human_side_white
@@ -143,13 +145,16 @@ class ControlPGN:
     def actual(self):
         game_type = self.manager.game_type
 
-        if game_type in (GT_AGAINST_PGN, GT_ALONE, GT_ROUTES, GT_TURN_ON_LIGHTS, GT_NOTE_DOWN, GT_AGAINST_GM):
+        if game_type in (
+                GT_AGAINST_PGN, GT_ALONE, GT_GAME, GT_VARIATIONS, GT_ROUTES,
+                GT_TURN_ON_LIGHTS, GT_NOTE_DOWN, GT_AGAINST_GM
+        ):
             return self.manager.current_pgn()
 
         if game_type == GT_BOOK:
             rival = self.manager.book.name
         elif game_type in (GT_FICS, GT_FIDE):
-            rival = self.manager.nombreObj
+            rival = self.manager.name_obj
         elif self.manager.xrival:  # foncap change
             rival = self.manager.xrival.name  # foncap change
         else:  # foncap change

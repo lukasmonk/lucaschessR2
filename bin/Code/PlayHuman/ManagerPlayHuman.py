@@ -110,7 +110,7 @@ class ManagerPlayHuman(Manager.Manager):
 
         self.main_window.start_clock(self.set_clock, 1000)
 
-        self.auto_rotate = dic_var.get("AUTO_ROTATE", False)
+        self.auto_rotate = self.get_auto_rotate()
 
         self.check_boards_setposition()
 

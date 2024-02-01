@@ -47,7 +47,7 @@ class WGames(QtWidgets.QWidget):
         self.wsummary = wsummary
         self.infoMove = None  # <-- setInfoMove
         self.summaryActivo = None  # movimiento activo en summary
-        self.numJugada = 0  # Se usa para indicarla al mostrar el pgn en infoMove
+        self.movenum = 0  # Se usa para indicarla al mostrar el pgn en infoMove
 
         self.si_select = si_select
 
@@ -122,9 +122,9 @@ class WGames(QtWidgets.QWidget):
 
         self.tbWork = QTVarios.LCTB(self, li_acciones_work)
 
-        lyTB = Colocacion.H().control(self.tbWork)
+        ly_tb = Colocacion.H().control(self.tbWork)
 
-        layout = Colocacion.V().otro(lyTB).control(self.grid).control(self.status).margen(1)
+        layout = Colocacion.V().otro(ly_tb).control(self.grid).control(self.status).margen(1)
 
         self.setLayout(layout)
 
@@ -212,9 +212,9 @@ class WGames(QtWidgets.QWidget):
 
         dcabs = self.dbGames.read_config("dcabs", DBgames.drots.copy())
         st100 = {"Event", "Site", "White", "Black"}
-        stActual = {col.key for col in self.grid.o_columns.li_columns}
+        st_actual = {col.key for col in self.grid.o_columns.li_columns}
         for tag in li_tags:
-            if not (tag in stActual):
+            if not (tag in st_actual):
                 label = TrListas.pgnLabel(tag)
                 if label == tag:
                     label = dcabs.get(label, label)
@@ -356,14 +356,14 @@ class WGames(QtWidgets.QWidget):
         def pvSummary(summary):
             if summary is None:
                 return ""
-            lipv = summary.get("pv", "").split(" ")
-            return " ".join(lipv[:-1])
+            xlipv = summary.get("pv", "").split(" ")
+            return " ".join(xlipv[:-1])
 
         if self.wsummary:
-            summaryActivo = self.wsummary.movActivo()
-            if siObligatorio or pvSummary(self.summaryActivo) != pvSummary(summaryActivo) or self.liFiltro:
+            summary_activo = self.wsummary.movActivo()
+            if siObligatorio or pvSummary(self.summaryActivo) != pvSummary(summary_activo) or self.liFiltro:
                 self.where = None
-                self.summaryActivo = summaryActivo
+                self.summaryActivo = summary_activo
                 pv = ""
                 if self.summaryActivo:
                     pv = self.summaryActivo.get("pv")
@@ -374,7 +374,7 @@ class WGames(QtWidgets.QWidget):
                         pv = ""
                 self.dbGames.filter_pv(pv)
                 self.updateStatus()
-                self.numJugada = pv.count(" ")
+                self.movenum = pv.count(" ")
                 self.grid.refresh()
                 self.grid.gotop()
         else:
@@ -415,19 +415,19 @@ class WGames(QtWidgets.QWidget):
     def tw_up(self):
         row = self.grid.recno()
         if row >= 0:
-            filaNueva = self.dbGames.interchange(row, True)
+            fila_nueva = self.dbGames.interchange(row, True)
             self.changes = True
-            if filaNueva is not None:
-                self.grid.goto(filaNueva, 0)
+            if fila_nueva is not None:
+                self.grid.goto(fila_nueva, 0)
                 self.grid.refresh()
 
     def tw_down(self):
         row = self.grid.recno()
         if row >= 0:
-            filaNueva = self.dbGames.interchange(row, False)
+            fila_nueva = self.dbGames.interchange(row, False)
             self.changes = True
-            if filaNueva is not None:
-                self.grid.goto(filaNueva, 0)
+            if fila_nueva is not None:
+                self.grid.goto(fila_nueva, 0)
                 self.grid.refresh()
 
     def edit_save(self, recno, game):
@@ -559,7 +559,7 @@ class WGames(QtWidgets.QWidget):
                 pv = getattr(ap, "a1h8", "")
                 self.dbGames.filter_pv(pv)
                 self.where = self.dbGames.filter
-                self.numJugada = pv.count(" ")
+                self.movenum = pv.count(" ")
                 refresh()
 
         def remove_filter():
@@ -883,8 +883,8 @@ class WGames(QtWidgets.QWidget):
 
     def graphicBoardReset(self):
         show_always, specific = self.readVarsConfig()
-        fichGraphic = self.dbGames.nom_fichero if specific else None
-        self.infoMove.board.dbvisual_set_file(fichGraphic)
+        fich_graphic = self.dbGames.nom_fichero if specific else None
+        self.infoMove.board.dbvisual_set_file(fich_graphic)
         self.infoMove.board.dbvisual_set_show_always(show_always)
 
     def tw_dir_show_yes(self):
@@ -995,21 +995,21 @@ class WGames(QtWidgets.QWidget):
                 li_selected = range(self.dbGames.reccount())
             nregs = len(li_selected)
             mensaje = _("Game") + "  %d/" + str(nregs)
-            tmpBP = QTUtil2.BarraProgreso(self, title, "", nregs).mostrar()
+            tmp_bp = QTUtil2.BarraProgreso(self, title, "", nregs).mostrar()
 
             for n, recno in enumerate(li_selected):
-                if tmpBP.is_canceled():
+                if tmp_bp.is_canceled():
                     break
 
                 game = self.dbGames.read_game_recno(recno)
                 if n:
-                    tmpBP.pon(n)
-                tmpBP.mensaje(mensaje % (n + 1,))
+                    tmp_bp.pon(n)
+                tmp_bp.mensaje(mensaje % (n + 1,))
 
                 fgm.other_game(game)
 
-            is_canceled = tmpBP.is_canceled()
-            tmpBP.cerrar()
+            is_canceled = tmp_bp.is_canceled()
+            tmp_bp.cerrar()
 
             if not is_canceled:
                 is_created = fgm.xprocesa()
@@ -1038,11 +1038,11 @@ class WGames(QtWidgets.QWidget):
             dic["PLIES"] = len(p)
             return dic
 
-        liRegistrosSelected = self.grid.recnosSeleccionados()
-        liRegistrosTotal = range(self.dbGames.reccount())
+        li_registros_selected = self.grid.recnosSeleccionados()
+        li_registros_total = range(self.dbGames.reccount())
 
         WDB_Utils.create_tactics(
-            self.procesador, self, liRegistrosSelected, liRegistrosTotal, rutinaDatos, self.dbGames.get_name()
+            self.procesador, self, li_registros_selected, li_registros_total, rutinaDatos, self.dbGames.get_name()
         )
 
     def tw_pack(self):
@@ -1087,10 +1087,12 @@ class WGames(QtWidgets.QWidget):
                 tmpBP.pon(1, n + 1)
 
                 if alm.siVariosSeleccionados:
-                    n = liSeleccionadas[n]
+                    recno = liSeleccionadas[n]
+                else:
+                    recno = n
 
-                game = self.dbGames.read_game_recno(n)
-                self.grid.goto(n, 0)
+                game = self.dbGames.read_game_recno(recno)
+                self.grid.goto(recno, 0)
                 #
                 if lni:
                     n_movs = len(game)
@@ -1107,7 +1109,7 @@ class WGames(QtWidgets.QWidget):
                     ap.li_selected = None
                 ap.xprocesa(game, tmpBP)
 
-                self.dbGames.save_game_recno(n, game)
+                self.dbGames.save_game_recno(recno, game)
                 self.changes = True
 
             ap.cached_end()
@@ -1115,34 +1117,34 @@ class WGames(QtWidgets.QWidget):
             if not tmpBP.is_canceled():
                 ap.terminar(True)
 
-                liCreados = []
-                liNoCreados = []
+                li_creados = []
+                li_no_creados = []
 
                 if alm.tacticblunders:
                     if ap.siTacticBlunders:
-                        liCreados.append(alm.tacticblunders)
+                        li_creados.append(alm.tacticblunders)
                     else:
-                        liNoCreados.append(alm.tacticblunders)
+                        li_no_creados.append(alm.tacticblunders)
 
                 for x in (alm.pgnblunders, alm.fnsbrilliancies, alm.pgnbrilliancies):
                     if x:
                         if Util.exist_file(x):
-                            liCreados.append(x)
+                            li_creados.append(x)
                         else:
-                            liNoCreados.append(x)
+                            li_no_creados.append(x)
 
                 if alm.bmtblunders:
                     if ap.si_bmt_blunders:
-                        liCreados.append(alm.bmtblunders)
+                        li_creados.append(alm.bmtblunders)
                     else:
-                        liNoCreados.append(alm.bmtblunders)
+                        li_no_creados.append(alm.bmtblunders)
                 if alm.bmtbrilliancies:
                     if ap.si_bmt_brilliancies:
-                        liCreados.append(alm.bmtbrilliancies)
+                        li_creados.append(alm.bmtbrilliancies)
                     else:
-                        liNoCreados.append(alm.bmtbrilliancies)
-                if liCreados:
-                    WDB_Utils.mensajeEntrenamientos(self, liCreados, liNoCreados)
+                        li_no_creados.append(alm.bmtbrilliancies)
+                if li_creados:
+                    WDB_Utils.mensajeEntrenamientos(self, li_creados, li_no_creados)
                     self.procesador.entrenamientos.rehaz()
 
             else:
@@ -1664,14 +1666,10 @@ class WOptionsDatabase(QtWidgets.QDialog):
             "ALLOWS_DUPLICATES": self.chb_duplicate.valor(),
             "ALLOWS_POSITIONS": self.chb_positions.valor(),
             "ALLOWS_COMPLETE_GAMES": self.chb_complete.valor(),
-            "ALLOWS_ZERO_MOVES": self.chb_zeromoves.valor(),
-            "SUMMARY_DEPTH": self.sb_summary.valor(),
+            "ALLOWS_ZERO_MOVES": self.chb_zeromoves.valor(), "SUMMARY_DEPTH": self.sb_summary.valor(),
+            "FILEPATH": filepath_in_databases, "EXTERNAL_FOLDER": self.external_folder,
+            "FILEPATH_WITH_DATA": filepath_with_data
         }
-
-        self.dic_data_resp["FILEPATH"] = filepath_in_databases
-        self.dic_data_resp["EXTERNAL_FOLDER"] = self.external_folder
-
-        self.dic_data_resp["FILEPATH_WITH_DATA"] = filepath_with_data
 
         self.accept()
 

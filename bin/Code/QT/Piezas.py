@@ -85,25 +85,31 @@ class AllPieces:
         self.dicConjuntos[name] = ConjuntoPiezas(name)
         return self.dicConjuntos[name]
 
-    def icono(self, pieza, name):
+    def icono(self, pieza, name, width=32):
+        pm = self.pixmap(pieza, name, width)
+        return QtGui.QIcon(pm)
+
+    def pixmap(self, pieza, name, width):
         fich = Code.path_resource("Pieces", name, "%s%s.svg" % ("w" if pieza.isupper() else "b", pieza.lower()))
         try:
             with open(fich, "rb") as f:
                 qb = QtCore.QByteArray(f.read())
         except FileNotFoundError:
             return self.icono(pieza, "Cburnett")
-        pm = QtGui.QPixmap(32, 32)
+        pm = QtGui.QPixmap(width, width)
         pm.fill(QtCore.Qt.transparent)
         render = QtSvg.QSvgRenderer(qb)
         painter = QtGui.QPainter()
         painter.begin(pm)
         render.render(painter)
         painter.end()
-        icon = QtGui.QIcon(pm)
-        return icon
+        return pm
 
-    def default_icon(self, pieza):
-        return self.icono(pieza, "Cburnett")
+    def default_icon(self, pieza, width=32):
+        return self.icono(pieza, "Cburnett", width)
+
+    def default_pixmap(self, pieza, width):
+        return self.pixmap(pieza, "Cburnett", width)
 
     @staticmethod
     def save_all_png(name, px):

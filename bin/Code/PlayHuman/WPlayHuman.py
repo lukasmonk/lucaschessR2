@@ -1,4 +1,5 @@
 import Code
+from Code.Base.Constantes import GT_HUMAN
 from Code.QT import Colocacion
 from Code.QT import Controles
 from Code.QT import Iconos
@@ -70,7 +71,7 @@ class WPlayHuman(LCDialog.LCDialog):
         self.chb_analysis_bar = Controles.CHB(self, _("Activate the Analysis Bar"), False).ponFuente(font)
         ly.control(self.chb_analysis_bar)
 
-        self.chb_autorotate = Controles.CHB(self, _("Auto-rotate board"), False).ponFuente(font)
+        self.chb_autorotate = Controles.CHB(self, _("Auto-rotate board"), Code.configuration.get_auto_rotate(GT_HUMAN)).ponFuente(font)
         ly.control(self.chb_autorotate)
 
         self.setLayout(ly)
@@ -83,6 +84,7 @@ class WPlayHuman(LCDialog.LCDialog):
             self.restore_dic(dic)
 
     def save_dic(self):
+        Code.configuration.set_auto_rotate(GT_HUMAN, self.chb_autorotate.valor())
         return {
             "WHITE": self.ed_white.texto(),
             "BLACK": self.ed_black.texto(),
@@ -91,7 +93,6 @@ class WPlayHuman(LCDialog.LCDialog):
             "SECONDS": self.ed_segundos.value(),
             "ACTIVATE_EBOARD": self.chb_eboard.valor() if Code.eboard else False,
             "ANALYSIS_BAR": self.chb_analysis_bar.valor(),
-            "AUTO_ROTATE": self.chb_autorotate.valor()
         }
 
     def restore_dic(self, dic):

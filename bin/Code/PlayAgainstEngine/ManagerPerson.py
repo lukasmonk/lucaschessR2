@@ -26,7 +26,7 @@ class ManagerPerson(ManagerPlayAgainstEngine.ManagerPlayAgainstEngine):
         self.human_is_playing = False
         self.state = ST_PLAYING
 
-        self.summary = {}  # numJugada : "a"ccepted, "s"ame, "r"ejected, dif points, time used
+        self.summary = {}  # movenum : "a"ccepted, "s"ame, "r"ejected, dif points, time used
         self.with_summary = dic_var.get("SUMMARY", False)
 
         is_white = dic_var["ISWHITE"]

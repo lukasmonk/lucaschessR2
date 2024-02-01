@@ -36,7 +36,12 @@ ST_PLAYING, ST_ENDGAME, ST_WAITING, ST_PAUSE = range(4)
     GT_NOTE_DOWN,
     GT_BMT,
     GT_TRAINBOOKSOL,
-) = range(32)
+    GT_VARIATIONS,
+    GT_GAME,
+    GT_LEARN_PLAY
+) = range(35)
+
+DICT_GAME_TYPES = {globals()[x]: x for x in dir() if x.startswith("GT_")}
 
 OUT_NORMAL, OUT_REINIT = range(2)
 
@@ -234,7 +239,7 @@ ALL, NONE, ONLY_WHITE, ONLY_BLACK = "A", "N", "W", "B"
 ENGINE, HUMAN = range(2)
 
 # Books -> select move
-BOOK_BEST_MOVE, BOOK_RANDOM_UNIFORM, BOOK_RANDOM_PROPORTIONAL= "mp", "au", "ap"
+BOOK_BEST_MOVE, BOOK_RANDOM_UNIFORM, BOOK_RANDOM_PROPORTIONAL = "mp", "au", "ap"
 SELECTED_BY_PLAYER = "su"
 
 FIRST_BEST_MOVE, ALL_BEST_MOVES, ALL_MOVES, TOP2_FIRST_MOVES, TOP3_FIRST_MOVES = "1B", "AB", "A", "2B", "3B"

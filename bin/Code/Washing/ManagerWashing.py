@@ -60,8 +60,8 @@ class ManagerWashingReplay(Manager.Manager):
         self.set_dispatcher(self.player_has_moved)
         self.show_side_indicator(True)
 
-        self.gameObj = self.dbwashing.restoreGame(self.engine)
-        self.numJugadasObj = self.gameObj.num_moves()
+        self.game_obj = self.dbwashing.restoreGame(self.engine)
+        self.numJugadasObj = self.game_obj.num_moves()
         self.posJugadaObj = 0
 
         li_options = [TB_CLOSE]
@@ -135,7 +135,7 @@ class ManagerWashingReplay(Manager.Manager):
         siRival = is_white == self.is_engine_side_white
 
         if siRival:
-            move = self.gameObj.move(self.posJugadaObj)
+            move = self.game_obj.move(self.posJugadaObj)
             self.posJugadaObj += 1
             self.rival_has_moved(move.from_sq, move.to_sq, move.promotion)
             self.play_next_move()
@@ -172,7 +172,7 @@ class ManagerWashingReplay(Manager.Manager):
         move.set_time_ms(time_s * 1000)
         move.set_clock_ms(self.tc_player.pending_time * 1000)
 
-        jgObj = self.gameObj.move(self.posJugadaObj)
+        jgObj = self.game_obj.move(self.posJugadaObj)
         movObj = jgObj.movimiento().lower()
         if movUsu != movObj:
             lic = []
@@ -220,7 +220,7 @@ class ManagerWashingReplay(Manager.Manager):
         self.move_the_pieces(move.liMovs)
         self.add_move(move, True)
         self.posJugadaObj += 1
-        if len(self.game) == self.gameObj.num_moves():
+        if len(self.game) == self.game_obj.num_moves():
             self.end_game()
 
         else:

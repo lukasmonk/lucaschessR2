@@ -238,7 +238,7 @@ class BoardLines(QtWidgets.QWidget):
 
         p = self.game
 
-        numJugada = 1
+        movenum = 1
         pgn = ""
         style_number = "color:%s; font-weight: bold;" % Code.dic_colors["PGN_NUMBER"]
         style_select = "color:%s;font-weight: bold;" % Code.dic_colors["PGN_SELECT"]
@@ -246,8 +246,8 @@ class BoardLines(QtWidgets.QWidget):
         salta = 0
         for n, move in enumerate(p.li_moves):
             if n % 2 == salta:
-                pgn += '<span style="%s">%d.</span>' % (style_number, numJugada)
-                numJugada += 1
+                pgn += '<span style="%s">%d.</span>' % (style_number, movenum)
+                movenum += 1
 
             xp = move.pgn_html(self.with_figurines)
             if n == pos:

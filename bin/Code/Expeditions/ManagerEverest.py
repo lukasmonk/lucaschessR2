@@ -27,11 +27,11 @@ class ManagerEverest(Manager.Manager):
         self.if_analyzing = False
         self.is_human_side_white = self.expedition.is_white
         self.is_engine_side_white = not self.expedition.is_white
-        self.gameObj = self.expedition.game
-        self.game.set_tags(self.gameObj.li_tags)
-        self.numJugadasObj = self.gameObj.num_moves()
+        self.game_obj = self.expedition.game
+        self.game.set_tags(self.game_obj.li_tags)
+        self.numJugadasObj = self.game_obj.num_moves()
         self.posJugadaObj = 0
-        self.nombreObj = self.expedition.name
+        self.name_obj = self.expedition.name
 
         self.xanalyzer.maximize_multipv()
 
@@ -232,7 +232,7 @@ class ManagerEverest(Manager.Manager):
 
         self.vtime += time.time() - self.iniTiempo
 
-        jg_obj = self.gameObj.move(self.posJugadaObj)
+        jg_obj = self.game_obj.move(self.posJugadaObj)
         fen = jg_obj.position_before.fen()
 
         si_analiza_juez = True
@@ -243,7 +243,7 @@ class ManagerEverest(Manager.Manager):
                 if jg_obj.movimiento() != jg_usu.movimiento():
                     bmove = _("book move")
                     comment = "%s: %s %s<br>%s: %s %s" % (
-                        self.nombreObj,
+                        self.name_obj,
                         jg_obj.pgn_translated(),
                         bmove,
                         self.configuration.x_player,
@@ -295,7 +295,7 @@ class ManagerEverest(Manager.Manager):
 
             if si_analiza_juez:
                 w = WindowJuicio.WJuicio(
-                    self, self.xanalyzer, self.nombreObj, position, mrm, rm_obj, rm_usu, analysis,
+                    self, self.xanalyzer, self.name_obj, position, mrm, rm_obj, rm_usu, analysis,
                     is_competitive=not self.show_all
                 )
                 w.exec_()
@@ -325,7 +325,7 @@ class ManagerEverest(Manager.Manager):
                     self.puntos,
                 )
                 comment = "%s: %s %s\n%s: %s %s\n%s" % (
-                    self.nombreObj,
+                    self.name_obj,
                     jg_obj.pgn_translated(),
                     comentario_obj,
                     self.configuration.x_player,
@@ -344,7 +344,7 @@ class ManagerEverest(Manager.Manager):
         return True
 
     def add_move(self, siNuestra, analysis=None, comment=None):
-        move = self.gameObj.move(self.posJugadaObj)
+        move = self.game_obj.move(self.posJugadaObj)
         self.posJugadaObj += 1
         if analysis:
             move.analysis = analysis

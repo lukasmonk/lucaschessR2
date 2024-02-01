@@ -40,7 +40,7 @@ class ManagerFideFics(Manager.Manager):
             self._db = Code.path_resource("IntFiles", "FicsElo.db")
             self._activo = self.configuration.ficsActivo
             self._ponActivo = self.configuration.ponFicsActivo
-            self.nombreObj = _("Fics-player")  # self.cabs[ "White" if self.is_human_side_white else "Black" ]
+            self.name_obj = _("Fics-player")  # self.cabs[ "White" if self.is_human_side_white else "Black" ]
             self._fichEstad = self.configuration.fichEstadFicsElo
             self._titulo = _("Fics-Elo")
             self._newTitulo = _("New Fics-Elo")
@@ -50,7 +50,7 @@ class ManagerFideFics(Manager.Manager):
             self._db = Code.path_resource("IntFiles", "FideElo.db")
             self._activo = self.configuration.fideActivo
             self._ponActivo = self.configuration.ponFideActivo
-            self.nombreObj = _("Fide-player")  # self.cabs[ "White" if self.is_human_side_white else "Black" ]
+            self.name_obj = _("Fide-player")  # self.cabs[ "White" if self.is_human_side_white else "Black" ]
             self._fichEstad = self.configuration.fichEstadFideElo
             self._titulo = _("Fide-Elo")
             self._newTitulo = _("New Fide-Elo")
@@ -60,7 +60,7 @@ class ManagerFideFics(Manager.Manager):
             self._db = Code.path_resource("IntFiles", "LichessElo.db")
             self._activo = self.configuration.lichessActivo
             self._ponActivo = self.configuration.ponLichessActivo
-            self.nombreObj = _("Lichess-player")
+            self.name_obj = _("Lichess-player")
             self._fichEstad = self.configuration.fichEstadLichessElo
             self._titulo = _("Lichess-Elo")
             self._newTitulo = _("New Lichess-Elo")
@@ -93,10 +93,10 @@ class ManagerFideFics(Manager.Manager):
         self.is_engine_side_white = not is_white
 
         pv = FasterCode.xpv_pv(dbf.MOVS)
-        self.gameObj = Game.Game()
-        self.gameObj.read_pv(pv)
+        self.game_obj = Game.Game()
+        self.game_obj.read_pv(pv)
         self.posJugadaObj = 0
-        self.numJugadasObj = self.gameObj.num_moves()
+        self.numJugadasObj = self.game_obj.num_moves()
 
         li = dbf.CABS.split("\n")
         for x in li:
@@ -297,7 +297,7 @@ class ManagerFideFics(Manager.Manager):
         if not jgUsu:
             return False
 
-        jgObj = self.gameObj.move(self.posJugadaObj)
+        jgObj = self.game_obj.move(self.posJugadaObj)
 
         analysis = None
         comment = None
@@ -320,7 +320,7 @@ class ManagerFideFics(Manager.Manager):
                     # else:
                     bmove = _("book move")
                     comment = "%s: %s %s<br>%s: %s %s" % (
-                        self.nombreObj,
+                        self.name_obj,
                         jgObj.pgn_translated(),
                         bmove,
                         self.configuration.x_player,
@@ -357,7 +357,7 @@ class ManagerFideFics(Manager.Manager):
             analysis = mrm, posObj
             um.final()
 
-            w = WindowJuicio.WJuicio(self, self.xtutor, self.nombreObj, position, mrm, rmObj, rmUsu, analysis)
+            w = WindowJuicio.WJuicio(self, self.xtutor, self.name_obj, position, mrm, rmObj, rmUsu, analysis)
             w.exec_()
 
             analysis = w.analysis
@@ -378,7 +378,7 @@ class ManagerFideFics(Manager.Manager):
             )
 
             comment = "%s: %s %s\n%s: %s %s\n%s" % (
-                self.nombreObj,
+                self.name_obj,
                 jgObj.pgn_translated(),
                 comentarioObj,
                 self.configuration.x_player,
@@ -395,7 +395,7 @@ class ManagerFideFics(Manager.Manager):
 
     def add_move(self, siNuestra, comment=None, analysis=None):
 
-        move = self.gameObj.move(self.posJugadaObj)
+        move = self.game_obj.move(self.posJugadaObj)
         self.posJugadaObj += 1
         if analysis:
             move.analysis = analysis
@@ -427,15 +427,15 @@ class ManagerFideFics(Manager.Manager):
         self.state = ST_ENDGAME
 
         if self.puntos < -50:
-            mensaje = _X(_("Unfortunately you have lost against %1."), self.nombreObj)
+            mensaje = _X(_("Unfortunately you have lost against %1."), self.name_obj)
             quien = RS_WIN_OPPONENT
             difelo = self.plost
         elif self.puntos > 50:
-            mensaje = _X(_("Congratulations you have won against %1."), self.nombreObj)
+            mensaje = _X(_("Congratulations you have won against %1."), self.name_obj)
             quien = RS_WIN_PLAYER
             difelo = self.pwin
         else:
-            mensaje = _X(_("Draw against %1."), self.nombreObj)
+            mensaje = _X(_("Draw against %1."), self.name_obj)
             quien = RS_DRAW
             difelo = self.pdraw
 

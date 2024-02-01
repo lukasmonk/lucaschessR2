@@ -187,21 +187,21 @@ class WInfomove(QtWidgets.QWidget):
 
         p = self.game
 
-        numJugada = p.primeraJugada()
+        movenum = p.primeraJugada()
         pgn = ""
         style_number = "color:%s; font-weight: bold;" % Code.dic_colors["PGN_NUMBER"]
         style_select = "color:%s;font-weight: bold;" % Code.dic_colors["PGN_SELECT"]
         style_moves = "color:%s;" % Code.dic_colors["PGN_MOVES"]
         if p.starts_with_black:
-            pgn += '<span style="%s">%d...</span>' % (style_number, numJugada)
-            numJugada += 1
+            pgn += '<span style="%s">%d...</span>' % (style_number, movenum)
+            movenum += 1
             salta = 1
         else:
             salta = 0
         for n, move in enumerate(p.li_moves):
             if n % 2 == salta:
-                pgn += '<span style="%s">%d.</span>' % (style_number, numJugada)
-                numJugada += 1
+                pgn += '<span style="%s">%d.</span>' % (style_number, movenum)
+                movenum += 1
 
             xp = move.pgn_html(self.with_figurines)
             if n == pos:

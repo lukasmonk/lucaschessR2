@@ -204,7 +204,8 @@ class DictSQLRawExclusive(object):
             sql = "SELECT VALUE FROM %s WHERE KEY= ?" % self.tabla
 
             row = self.execute(sql, (key,), self.GET_ONE)
-            return pickle.loads(row[0])
+            if row[0] is not None:
+                return pickle.loads(row[0])
         return None
 
     def __delitem__(self, key):

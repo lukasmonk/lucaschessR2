@@ -13,33 +13,58 @@ from Code.QT import QTUtil2
 
 
 class BlancasNegras(QtWidgets.QDialog):
-    def __init__(self, parent):
-        super(BlancasNegras, self).__init__(parent)
+    def __init__(self, parent, both):
+        QtWidgets.QDialog.__init__(self, parent)
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Dialog | QtCore.Qt.WindowTitleHint)
 
-        icoP = Code.all_pieces.default_icon("K")
-        icop = Code.all_pieces.default_icon("k")
+        icoP = Code.all_pieces.default_icon("K", 64)
+        icop = Code.all_pieces.default_icon("k", 64)
         self.setWindowTitle(_("Choose a color"))
         self.setWindowIcon(icoP)
 
-        btBlancas = Controles.PB(self, "", rutina=self.accept, plano=False).ponIcono(icoP, icon_size=64)
+        self.both = both
+        self.resultado = False, False
+
+        btBlancas = Controles.PB(self, "", rutina=self.blancas, plano=False).ponIcono(icoP, icon_size=64)
         btNegras = Controles.PB(self, "", rutina=self.negras, plano=False).ponIcono(icop, icon_size=64)
 
-        self.resultado = True
-
         ly = Colocacion.H().control(btBlancas).control(btNegras)
+        if both:
+            lb_white_both = Controles.LB(self, "").ponImagen(Code.all_pieces.default_pixmap("K", 64))
+            lb_black_both = Controles.LB(self, "").ponImagen(Code.all_pieces.default_pixmap("k", 64))
+            lb_mas = Controles.LB(self, "+")
+            lyb = Colocacion.H().control(lb_white_both).espacio(-8).control(lb_mas).espacio(-8).control(
+                lb_black_both).margen(0)
+            w_both = Controles.GB(self, "", lyb)
+            w_both.setStyleSheet("QGroupBox { border: 1px solid grey ;}")
+            ly.control(w_both)
+            for lb in (lb_mas, lb_white_both, lb_black_both, w_both):
+                lb.mousePressEvent = self.white_and_black
+
         ly.margen(10)
         self.setLayout(ly)
 
+    def blancas(self):
+        self.resultado = True, False
+        self.accept()
+
     def negras(self):
-        self.resultado = False
+        self.resultado = False, True
+        self.accept()
+
+    def white_and_black(self, x):
+        self.resultado = True, True
         self.accept()
 
 
-def blancasNegras(owner):
-    w = BlancasNegras(owner)
+def white_or_black(owner, both):
+    w = BlancasNegras(owner, both)
     if w.exec_():
-        return w.resultado
+        result = w.resultado
+        if both:
+            return result
+        else:
+            return result[0]
     return None
 
 
@@ -151,7 +176,8 @@ class Tiempo(QtWidgets.QDialog):
             self, default_minutes, minMinutos, maxMinutos, max_width=50, etiqueta=_("Total minutes"), fuente=f
         )
         self.edSegundos, self.lbSegundos = QTUtil2.spinbox_lb(
-            self, default_seconds, minSegundos, max_seconds, max_width=50, etiqueta=_("Seconds added per move"), fuente=f
+            self, default_seconds, minSegundos, max_seconds, max_width=50, etiqueta=_("Seconds added per move"),
+            fuente=f
         )
 
         # # Tiempo
@@ -944,3 +970,28 @@ class WInfo(QtWidgets.QDialog):
 def info(parent: QtWidgets.QWidget, titulo: str, head: str, txt: str, min_tam: int, pm_icon: QtGui.QPixmap):
     w = WInfo(parent, titulo, head, txt, min_tam, pm_icon)
     w.exec_()
+
+
+def combine_pixmaps(pixmap1, pixmap2):
+    # Crear un QPixmap del tamaño total de los dos QPixmap
+    result = QtGui.QPixmap(pixmap1.width() + pixmap2.width(), max(pixmap1.height(), pixmap2.height()))
+
+    # Crear un QPainter asociado con el QPixmap resultante
+    painter = QtGui.QPainter(result)
+
+    # Dibujar los dos QPixmap en el QPixmap resultante
+    painter.drawPixmap(0, 0, pixmap1)
+    painter.drawPixmap(pixmap1.width(), 0, pixmap2)
+
+    # Asegurarse de que todas las operaciones de dibujo estén completas antes de deshacerse del QPainter
+    painter.end()
+
+    return result
+
+
+def combine_icons(icon1: QtGui.QIcon, icon2: QtGui.QIcon, width):
+    pixmap1 = icon1.pixmap(width, width)
+    pixmap1.setAL
+    pixmap2 = icon2.pixmap(width, width)
+    pixmap = combine_pixmaps(pixmap1, pixmap2)
+    return QtGui.QIcon(pixmap)

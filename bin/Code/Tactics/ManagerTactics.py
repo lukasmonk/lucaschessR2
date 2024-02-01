@@ -11,6 +11,7 @@ from Code.Base.Constantes import (
     TB_CONFIG,
     TB_CHANGE,
     TB_NEXT,
+    TB_HELP,
     TB_UTILITIES,
     GT_TACTICS,
 )
@@ -121,15 +122,15 @@ class ManagerTactics(Manager.Manager):
             self.play_next_move()
 
     def set_toolbar(self, modo):
-        li_opciones = [TB_CLOSE, TB_REINIT, TB_CONFIG]
-        if modo == "init":
-            if not self.tactic.reinforcement.is_working():
-                li_opciones.insert(1, TB_CHANGE)
-        elif modo == "end":
+        if modo == "end":
             li_opciones = [TB_CLOSE, TB_CONFIG, TB_UTILITIES, TB_NEXT]
             if not self.tactic.reinforcement.is_working():
                 li_opciones.insert(1, TB_CHANGE)
-        # elif modo == "first_move"
+        else:
+            li_opciones = [TB_CLOSE, TB_HELP, TB_REINIT, TB_CONFIG]
+            if modo == "init":
+                if not self.tactic.reinforcement.is_working():
+                    li_opciones.insert(2, TB_CHANGE)
 
         Manager.Manager.set_toolbar(self, li_opciones)
 
@@ -152,14 +153,13 @@ class ManagerTactics(Manager.Manager):
             else:
                 txt = _("Enable")
                 ico = Iconos.Add()
-            liMasOpciones = [("lmo_advanced", "%s: %s" % (txt, _("Advanced mode")), ico)]
-            liMasOpciones.append((None, None, None))
+            li_mas_opciones = [("lmo_advanced", "%s: %s" % (txt, _("Advanced mode")), ico), (None, None, None)]
             if self.with_automatic_jump:
-                liMasOpciones.append(("lmo_stop", _("Stop after solving"), Iconos.Stop()))
+                li_mas_opciones.append(("lmo_stop", _("Stop after solving"), Iconos.Stop()))
             else:
-                liMasOpciones.append(("lmo_jump", _("Jump to the next after solving"), Iconos.Jump()))
+                li_mas_opciones.append(("lmo_jump", _("Jump to the next after solving"), Iconos.Jump()))
 
-            resp = self.configurar(siSonidos=True, siCambioTutor=False, liMasOpciones=liMasOpciones)
+            resp = self.configurar(siSonidos=True, siCambioTutor=False, liMasOpciones=li_mas_opciones)
             if resp in ("lmo_stop", "lmo_jump"):
                 self.with_automatic_jump = resp == "lmo_jump"
                 self.tactic.set_automatic_jump(self.with_automatic_jump)
@@ -170,6 +170,9 @@ class ManagerTactics(Manager.Manager):
 
         elif key == TB_REINIT:
             self.reiniciar()
+
+        elif key == TB_HELP:
+            self.help()
 
         elif key == TB_UTILITIES:
             self.utilities()
@@ -185,6 +188,11 @@ class ManagerTactics(Manager.Manager):
 
         else:
             Manager.Manager.rutinaAccionDef(self, key)
+
+    def help(self):
+        move_obj = self.game_obj.move(self.pos_obj)
+        self.board.ponFlechasTmp(([move_obj.from_sq, move_obj.to_sq, True],))
+        self.put_penalization()
 
     def control_teclado(self, nkey, modifiers):
         if nkey in (Qt.Key_Plus, Qt.Key_PageDown):

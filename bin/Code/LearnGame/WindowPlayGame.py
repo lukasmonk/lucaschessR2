@@ -79,6 +79,8 @@ class WPlayGameBase(LCDialog.LCDialog):
         self.configuration = procesador.configuration
         self.recno = None
 
+        self.is_white = self.is_black = None
+
         self.db = DBPlayGame(self.configuration.file_play_game())
 
         # Historico
@@ -197,6 +199,7 @@ class WPlayGameBase(LCDialog.LCDialog):
             if w.exec_():
                 self.recno = recno
                 self.is_white = w.is_white
+                self.is_black = w.is_black
                 self.accept()
 
     def config(self):
@@ -232,6 +235,8 @@ class WPlay1(LCDialog.LCDialog):
         self.configuration = configuration
         self.recno = recno
         self.registro = self.db.leeRegistro(recno)
+        self.is_white = None
+        self.is_black = None
 
         self.game = Game.Game()
         um = QTUtil2.one_moment_please(self)
@@ -271,7 +276,7 @@ class WPlay1(LCDialog.LCDialog):
         self.setLayout(ly)
 
         self.register_grid(self.grid)
-        self.restore_video(siTam=False)
+        self.restore_video()
 
         self.grid.gotop()
         um.final()
@@ -292,6 +297,8 @@ class WPlay1(LCDialog.LCDialog):
                 return _("Black")
             elif c == "w":
                 return _("White")
+            else:
+                return _("White & Black")
         if col == "POINTS":
             return "%d (%d)" % (reg["POINTS"], reg["POINTSMAX"])
         if col == "TIME":
@@ -326,5 +333,9 @@ class WPlay1(LCDialog.LCDialog):
         self.grid.refresh()
 
     def empezar(self):
-        self.is_white = QTVarios.blancasNegras(self)
-        self.terminar(True)
+        resp = QTVarios.white_or_black(self, True)
+        if resp is None:
+            self.terminar(False)
+        else:
+            self.is_white, self.is_black = resp
+            self.terminar(True)

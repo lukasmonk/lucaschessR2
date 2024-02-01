@@ -996,6 +996,8 @@ class Polyglot:
 
                 li.append(entry)
 
+            li.sort(key=lambda x: x.weight, reverse=True)
+
         return li
 
 

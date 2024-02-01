@@ -1,4 +1,6 @@
 from PySide2 import QtWidgets, QtCore
+from PySide2.QtCore import QPropertyAnimation
+from PySide2.QtWidgets import QProgressBar
 
 import Code
 from Code.Analysis import AnalysisEval
@@ -6,7 +8,9 @@ from Code.Base import Game
 from Code.QT import FormLayout, Iconos
 
 
-class AnalysisBar(QtWidgets.QProgressBar):
+class AnalysisBar(QProgressBar):
+    animation: QPropertyAnimation
+
     def __init__(self, w_parent, board):
         QtWidgets.QProgressBar.__init__(self, w_parent)
 
@@ -33,12 +37,9 @@ class AnalysisBar(QtWidgets.QProgressBar):
         self.xpv = None
         self.game = None
 
-    def set_value(self, valor):
-        v = self.value()
-        dif = +1 if v < valor else -1
-        while v != valor:
-            v += dif
-            self.setValue(v)
+        self.animation = QPropertyAnimation(targetObject=self, propertyName=b"value")
+
+        # self.animation.setEasingCurve(QtCore.QEasingCurve.Type.InOutCubic)
 
     def activate(self, ok):
         self.setVisible(ok)
@@ -72,7 +73,7 @@ class AnalysisBar(QtWidgets.QProgressBar):
                 close = True
             if close:
                 # Si ya está calculado y está fuera de límites se actualiza pero no se lanza el motor
-                self.set_value(ev_cache)
+                self.update_value(ev_cache)
                 self.setToolTip(tooltip_cache)
                 return
 
@@ -101,7 +102,7 @@ class AnalysisBar(QtWidgets.QProgressBar):
                         rm = rm_cache
                         tooltip = tooltip_cache
 
-                self.set_value(ev)
+                self.update_value(ev)
 
                 if tooltip is None:
                     pgn = Game.pv_pgn(self.game.last_position.fen(), rm.pv)
@@ -156,3 +157,26 @@ class AnalysisBar(QtWidgets.QProgressBar):
         if event.button() == QtCore.Qt.RightButton:
             self.configure()
         super().mousePressEvent(event)
+
+    # def update_value(self, value):
+    #     desde = self.value()
+    #     hasta = value
+    #     inc = +1 if hasta > desde else -1
+    #     while desde != hasta:
+    #         desde += inc
+    #         self.setValue(desde)
+    #         self.update()
+    #     self.setValue(hasta)
+    #     self.update()
+
+    def update_value(self, value):
+        self.animation.stop()
+        desde = self.value()
+        hasta = value
+        tm = abs(desde - hasta) * 1000 // 10000
+        if tm == 0:
+            return
+        self.animation.setDuration(tm)
+        self.animation.setStartValue(self.value())
+        self.animation.setEndValue(value)
+        self.animation.start()

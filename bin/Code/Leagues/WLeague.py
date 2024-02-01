@@ -246,7 +246,7 @@ class WLeague(LCDialog.LCDialog):
 
         w = QtWidgets.QWidget(self)
         w.setLayout(ly)
-        self.tab.addTab(w, _("All games played"))
+        self.tab.addTab(w, _("All games"))
 
         layout = Colocacion.V().control(self.tb).control(self.tab).margen(8)
         self.setLayout(layout)
@@ -273,21 +273,24 @@ class WLeague(LCDialog.LCDialog):
             for division, dic_division in enumerate(dic_raw_games["LI_SAVED_DIVISIONS"]):
                 for journey, li_matchs in enumerate(dic_division["LI_MATCHDAYS"]):
                     for dic_match in li_matchs:
+                        dic_match["DIVISION"] = division
+                        dic_match["CDIVISION"] = str(division + 1)
+                        st_cdivisions.add(dic_match["CDIVISION"])
+                        dic_match["JOURNEY"] = journey
+                        dic_match["CJOURNEY"] = str(journey + 1)
+                        st_cjourneys.add(dic_match["CJOURNEY"])
+                        w = dic_match["WHITE"] = self.dic_xid_name[dic_match["XID_WHITE"]]
+                        st_white.add(w)
+                        st_players.add(w)
+                        b = dic_match["BLACK"] = self.dic_xid_name[dic_match["XID_BLACK"]]
+                        st_black.add(b)
+                        st_players.add(b)
+                        li_games.append(dic_match)
                         if dic_match.get("RESULT"):
-                            dic_match["DIVISION"] = division
-                            dic_match["CDIVISION"] = str(division + 1)
-                            st_cdivisions.add(dic_match["CDIVISION"])
-                            dic_match["JOURNEY"] = journey
-                            dic_match["CJOURNEY"] = str(journey + 1)
-                            st_cjourneys.add(dic_match["CJOURNEY"])
-                            w = dic_match["WHITE"] = self.dic_xid_name[dic_match["XID_WHITE"]]
-                            st_white.add(w)
-                            st_players.add(w)
-                            b = dic_match["BLACK"] = self.dic_xid_name[dic_match["XID_BLACK"]]
-                            st_black.add(b)
-                            st_players.add(b)
-                            li_games.append(dic_match)
                             st_results.add(dic_match.get("RESULT"))
+                        else:
+                            st_results.add("?")
+                            dic_match["RESULT"] = "?"
             self.li_games_all = li_games
             self.adjust_filter_games(st_cdivisions, st_cjourneys, st_white, st_black, st_players, st_results)
             self.filter_games()

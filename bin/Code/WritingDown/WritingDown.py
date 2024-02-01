@@ -72,7 +72,7 @@ class WritingDown(LCDialog.LCDialog):
             game.restore(game_saved)
         else:
             game = None
-        siblancasabajo = QTVarios.blancasNegras(self)
+        siblancasabajo = QTVarios.white_or_black(self, False)
         if siblancasabajo is None:
             return
         self.resultado = game, siblancasabajo

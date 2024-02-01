@@ -123,7 +123,7 @@ class WTrainBMT(LCDialog.LCDialog):
         number = 0
         nposic = len(self.bmt_lista)
         for bmt_lista in range(nposic):
-            bt = Controles.PB(self, str(bmt_lista + 1), rutina=self.number).anchoFijo(36) #.altoFijo(20)
+            bt = Controles.PB(self, str(bmt_lista + 1), rutina=self.number).anchoFijo(44) #.altoFijo(20)
             bt.number = number
             number += 1
             estado = self.bmt_lista.state(bmt_lista)

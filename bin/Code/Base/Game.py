@@ -452,22 +452,22 @@ class Game:
     def is_draw(self):
         return self.result == RESULT_DRAW
 
-    def pgnBaseRAW(self, numJugada=None, translated=False):
+    def pgnBaseRAW(self, movenum=None, translated=False):
         resp = ""
-        if numJugada is None:
+        if movenum is None:
             if self.first_comment:
                 resp = "{%s} " % self.first_comment
-            numJugada = self.primeraJugada()
+            movenum = self.primeraJugada()
         if self.starts_with_black:
-            resp += "%d... " % numJugada
-            numJugada += 1
+            resp += "%d... " % movenum
+            movenum += 1
             salta = 1
         else:
             salta = 0
         for n, move in enumerate(self.li_moves):
             if n % 2 == salta:
-                resp += " %d." % numJugada
-                numJugada += 1
+                resp += " %d." % movenum
+                movenum += 1
             if translated:
                 resp += move.pgn_translated() + " "
             else:
@@ -479,8 +479,8 @@ class Game:
 
         return resp
 
-    def pgn_base(self, numJugada=None, translated=False):
-        resp = self.pgnBaseRAW(numJugada, translated=translated)
+    def pgn_base(self, movenum=None, translated=False):
+        resp = self.pgnBaseRAW(movenum, translated=translated)
         li = []
         ln = len(resp)
         pos = 0
@@ -521,16 +521,16 @@ class Game:
             pgn += "#"
         return pgn
 
-    def pgn_translated(self, numJugada=None, hastaJugada=9999):
+    def pgn_translated(self, movenum=None, hastaJugada=9999):
         if self.first_comment:
             resp = "{%s} " % self.first_comment
         else:
             resp = ""
-        if numJugada is None:
-            numJugada = self.primeraJugada()
+        if movenum is None:
+            movenum = self.primeraJugada()
         if self.starts_with_black:
-            resp += "%d..." % numJugada
-            numJugada += 1
+            resp += "%d..." % movenum
+            movenum += 1
             salta = 1
         else:
             salta = 0
@@ -538,8 +538,8 @@ class Game:
             if n > hastaJugada:
                 break
             if n % 2 == salta:
-                resp += "%d." % numJugada
-                numJugada += 1
+                resp += "%d." % movenum
+                movenum += 1
 
             pgn = move.pgn_translated()
             if n == len(self) - 1:
@@ -550,15 +550,15 @@ class Game:
 
         return resp.strip()
 
-    def pgn_html(self, numJugada=None, hastaJugada=9999, with_figurines=True):
+    def pgn_html(self, movenum=None, hastaJugada=9999, with_figurines=True):
         liResp = []
         if self.first_comment:
             liResp.append("{%s}" % self.first_comment)
-        if numJugada is None:
-            numJugada = self.primeraJugada()
+        if movenum is None:
+            movenum = self.primeraJugada()
         if self.starts_with_black:
-            liResp.append('<span style="color:navy">%d...</span>' % numJugada)
-            numJugada += 1
+            liResp.append('<span style="color:navy">%d...</span>' % movenum)
+            movenum += 1
             salta = 1
         else:
             salta = 0
@@ -566,8 +566,8 @@ class Game:
             if n > hastaJugada:
                 break
             if n % 2 == salta:
-                x = '<span style="color:navy">%d.</span>' % numJugada
-                numJugada += 1
+                x = '<span style="color:navy">%d.</span>' % movenum
+                movenum += 1
             else:
                 x = ""
             liResp.append(x + (move.pgn_html(with_figurines)))
@@ -705,20 +705,20 @@ class Game:
         p.li_moves = self.li_moves[desdeJugada:]
         return p
 
-    def pgnBaseRAWcopy(self, numJugada, hastaJugada):
+    def pgnBaseRAWcopy(self, movenum, hastaJugada):
         resp = ""
-        if numJugada is None:
-            numJugada = self.primeraJugada()
+        if movenum is None:
+            movenum = self.primeraJugada()
         if self.starts_with_black:
-            resp += "%d... " % numJugada
-            numJugada += 1
+            resp += "%d... " % movenum
+            movenum += 1
             salta = 1
         else:
             salta = 0
         for n, move in enumerate(self.li_moves[: hastaJugada + 1]):
             if n % 2 == salta:
-                resp += " %d." % numJugada
-                numJugada += 1
+                resp += " %d." % movenum
+                movenum += 1
 
             resp += move.pgnEN() + " "
 

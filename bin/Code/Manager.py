@@ -16,6 +16,8 @@ from Code.Base.Constantes import (
     WHITE,
     BLACK,
     GT_ALONE,
+    GT_GAME,
+    GT_VARIATIONS,
     ST_ENDGAME,
     ST_PLAYING,
     GT_AGAINST_PGN,
@@ -129,7 +131,7 @@ class Manager:
         self.informacionActivable = False
         self.analysisbarActivable = False
 
-
+        self.auto_rotate = None
 
         self.nonDistract = None
 
@@ -595,12 +597,12 @@ class Manager:
         if siNuestro:
             if not self.configuration.x_sound_our:
                 return
+        if self.configuration.x_sound_beep:
+            self.runSound.playBeep()
         if self.configuration.x_sound_move:
             if len(self.game):
                 move = self.game.move(-1)
                 self.runSound.play_list(move.listaSonidos())
-        if self.configuration.x_sound_beep:
-            self.runSound.playBeep()
 
     def beepZeitnot(self):
         self.runSound.playZeitnot()
@@ -694,9 +696,9 @@ class Manager:
         self.main_window.pgnColocate(row, is_white)
         self.pgnMueve(row, is_white)
 
-    def ponteEnJugada(self, numJugada):
-        row = (numJugada + 1) / 2 if self.game.starts_with_black else numJugada / 2
-        move = self.game.move(numJugada)
+    def ponteEnJugada(self, movenum):
+        row = (movenum + 1) / 2 if self.game.starts_with_black else movenum / 2
+        move = self.game.move(movenum)
         is_white = move.position_before.is_white
         self.main_window.pgnColocate(row, is_white)
         self.pgnMueve(row, is_white)
@@ -949,6 +951,8 @@ class Manager:
                         GT_AGAINST_ENGINE,
                         GT_AGAINST_GM,
                         GT_ALONE,
+                        GT_GAME,
+                        GT_VARIATIONS,
                         GT_BOOK,
                         GT_OPENINGS,
                         GT_TACTICS,
@@ -1300,6 +1304,12 @@ class Manager:
 
         menu.opcion("analysis_config", _("Analysis configuration parameters"), Iconos.ConfAnalysis())
 
+        # auto_rotate
+        if self.auto_rotate is not None:
+            menu.separador()
+            prefix = _("Disable") if self.auto_rotate else _("Enable")
+            menu.opcion("auto_rotate", "%s: %s" % (prefix, _("Auto-rotate board")), Iconos.JS_Rotacion())
+
         # Mas Opciones
         if liMasOpciones:
             menu.separador()
@@ -1373,7 +1383,21 @@ class Manager:
             elif resp == "analysis_config":
                 self.config_analysis_parameters()
 
+            elif resp == "auto_rotate":
+                self.change_auto_rotate()
+
         return None
+
+    def change_auto_rotate(self):
+        self.auto_rotate = not self.auto_rotate
+        self.configuration.set_auto_rotate(self.game_type, self.auto_rotate)
+        is_white = self.game.last_position.is_white
+        if self.auto_rotate:
+            if is_white != self.board.is_white_bottom:
+                self.board.rotaBoard()
+
+    def get_auto_rotate(self):
+        return Code.configuration.get_auto_rotate(self.game_type)
 
     def config_analysis_parameters(self):
         w = WindowAnalysisConfig.WConfAnalysis(self.main_window, self)
@@ -1698,7 +1722,7 @@ class Manager:
             QTUtil2.message_error(self.main_window, _("This game already exists."))
 
     def save_lcsb(self):
-        if self.game_type == GT_ALONE and hasattr(self, "grabarComo"):
+        if self.game_type in (GT_ALONE, GT_GAME, GT_VARIATIONS)  and hasattr(self, "grabarComo"):
             return getattr(self, "grabarComo")()
 
         dic = dict(GAME=self.game.save(True))
