@@ -1,6 +1,6 @@
 import Code
 from Code import Util
-from Code.Base.Constantes import GT_AGAINST_ENGINE_LEAGUE
+from Code.Base.Constantes import GT_AGAINST_ENGINE_LEAGUE, GT_AGAINST_ENGINE_SWISS
 from Code.QT import QTUtil2
 from Code.SQL import UtilSQL
 
@@ -80,6 +80,18 @@ class Adjournments:
             for key in li:
                 year, month, day, hour, minute, second, tp, label_menu = key.split("|")
                 if int(tp) == GT_AGAINST_ENGINE_LEAGUE:
+                    dic = db[key]
+                    saved_match = dic["match_saved"]
+                    if saved_match["XID"] == xmatch.xid:
+                        return dic
+            return None
+
+    def key_match_swiss(self, xmatch):
+        with self.open() as db:
+            li = db.keys(True)
+            for key in li:
+                year, month, day, hour, minute, second, tp, label_menu = key.split("|")
+                if int(tp) == GT_AGAINST_ENGINE_SWISS:
                     dic = db[key]
                     saved_match = dic["match_saved"]
                     if saved_match["XID"] == xmatch.xid:

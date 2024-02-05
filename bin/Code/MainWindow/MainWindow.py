@@ -474,6 +474,10 @@ class MainWindow(LCDialog.LCDialog):
             dic = self.restore_dicvideo()
             self.informacionPGN.width_saved = dic.get("WINFO_WIDTH")
             self.informacionPGN.parent_width_saved = dic.get("WINFOPARENT_WIDTH")
+            self.informacionPGN.sp_sizes = dic.get("SP_InformacionPGN")
+            if self.informacionPGN.sp_sizes:
+                self.informacionPGN.splitter.setSizes(self.informacionPGN.sp_sizes)
+
 
     def check_translated_help_mode(self):
         if not Code.configuration.x_translation_mode:
@@ -516,4 +520,11 @@ class MainWindow(LCDialog.LCDialog):
         if self.with_analysis_bar:
             self.base.analysis_bar.set_game(game)
 
+    def is_active_information_pgn(self):
+        return self.informacionPGN.isVisible()
 
+    def is_active_captures(self):
+        return self.siCapturas
+
+    def is_active_analysisbar(self):
+        return self.with_analysis_bar

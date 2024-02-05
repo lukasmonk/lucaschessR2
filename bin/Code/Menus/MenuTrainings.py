@@ -663,7 +663,7 @@ class MenuTrainings:
         elif name.startswith("uwe_easy"):
             title = "%s (%s)" % (_("Uwe Auerswald"), _("Initial"))
             TurnOnLights.compruebaUweEasy(self.configuration, name)
-            folder = self.configuration.carpetaTemporal()
+            folder = self.configuration.temporary_folder()
             icono = Iconos.Uwe()
             li_tam_blocks = (4, 6, 9, 12, 18, 36)
         elif name.startswith("uwe"):

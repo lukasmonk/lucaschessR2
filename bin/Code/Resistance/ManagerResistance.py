@@ -67,7 +67,7 @@ class ManagerResistance(Manager.Manager):
         self.put_target_label()
         self.put_current_label()
         self.pgnRefresh(True)
-        self.ponCapInfoPorDefecto()
+        self.show_info_extra()
         self.check_boards_setposition()
 
         tp = self.resistance.tipo

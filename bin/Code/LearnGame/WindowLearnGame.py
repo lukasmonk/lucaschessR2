@@ -48,13 +48,13 @@ class DBLearnGame(UtilSQL.DictSQL):
 
 
 class WLearnBase(LCDialog.LCDialog):
-    def __init__(self, procesador):
+    def __init__(self, wowner):
 
         titulo = _("Memorize a game")
-        LCDialog.LCDialog.__init__(self, procesador.main_window, titulo, Iconos.LearnGame(), "learngame")
+        LCDialog.LCDialog.__init__(self, wowner, titulo, Iconos.LearnGame(), "learngame")
 
-        self.procesador = procesador
-        self.configuration = procesador.configuration
+        self.procesador = Code.procesador
+        self.configuration = Code.configuration
 
         self.db = DBLearnGame(self.configuration.file_learn_game())
 
@@ -158,7 +158,7 @@ class WLearnBase(LCDialog.LCDialog):
     def empezar(self):
         li = self.grid.recnosSeleccionados()
         if len(li) > 0:
-            w = WLearn1(self, li[0])
+            w = WLearn1(self, self.db, li[0])
             w.exec_()
 
     def tw_up(self):
@@ -201,16 +201,16 @@ class WLearnBase(LCDialog.LCDialog):
 
 
 class WLearn1(LCDialog.LCDialog):
-    def __init__(self, owner, numRegistro):
+    def __init__(self, owner, db, num_registro):
 
         LCDialog.LCDialog.__init__(self, owner, _("Learn a game"), Iconos.PGN(), "learn1game")
 
         self.owner = owner
-        self.db = owner.db
-        self.procesador = owner.procesador
-        self.configuration = self.procesador.configuration
-        self.numRegistro = numRegistro
-        self.registro = self.db.leeRegistro(numRegistro)
+        self.db = db
+        self.procesador = Code.procesador
+        self.configuration = Code.configuration
+        self.numRegistro = num_registro
+        self.registro = self.db.leeRegistro(num_registro)
 
         self.game = Game.Game()
         self.game.restore(self.registro["GAME"])
@@ -249,7 +249,7 @@ class WLearn1(LCDialog.LCDialog):
         self.setLayout(ly)
 
         self.register_grid(self.grid)
-        self.restore_video(siTam=False)
+        self.restore_video()
 
         self.grid.gotop()
 

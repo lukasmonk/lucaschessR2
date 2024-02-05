@@ -34,7 +34,7 @@ class WindowTutor(LCDialog.LCDialog):
         f = Controles.TipoLetra(puntos=12, peso=75)
         flba = Controles.TipoLetra(puntos=8)
 
-        ae = QTUtil.anchoEscritorio()
+        ae = QTUtil.desktop_width()
         mx = 32 if ae > 1000 else 20
         config_board = Code.configuration.config_board("TUTOR", mx)
 
@@ -148,6 +148,7 @@ class WindowTutor(LCDialog.LCDialog):
     #         self.boardOpening.crea()
 
     def boardWheelEvent(self, board, forward):
+        forward = Code.configuration.wheel_board(forward)
         for t in ["Tutor", "Usuario", "Rival", "Opening"]:
             if eval("self.board%s == board" % t):
                 self.exeTB(t.lower() + "Mover" + ("Adelante" if forward else "Atras"))

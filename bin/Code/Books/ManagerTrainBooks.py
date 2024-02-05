@@ -53,7 +53,7 @@ class ManagerTrainBooks(Manager.Manager):
         self.set_label1("%s: %s" % (_("Player"), self.book_player.name))
         self.set_label2("%s: %s" % (_("Opponent"), self.book_rival.name))
         self.pgnRefresh(True)
-        self.ponCapInfoPorDefecto()
+        self.show_info_extra()
 
         self.state = ST_PLAYING
 

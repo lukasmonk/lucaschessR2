@@ -149,32 +149,3 @@ class WBooksTrain(LCDialog.LCDialog):
             self.SHOW_MENU: self.show_menu,
         }
         Util.save_pickle(self.configuration.file_train_books, dic)
-
-
-def eligeJugadaBooks(pantalla, liJugadas, is_white, siSelectSiempre=True):
-    pantalla.cursorFueraTablero()
-    menu = QTVarios.LCMenu(pantalla)
-    f = Controles.TipoLetra(name=Code.font_mono, puntos=10)
-    menu.ponFuente(f)
-
-    titulo = _("White") if is_white else _("Black")
-    icono = Iconos.Carpeta()
-
-    menu.opcion(None, titulo, icono)
-    menu.separador()
-
-    icono = Iconos.PuntoNaranja() if is_white else Iconos.PuntoNegro()
-
-    for xfrom, xto, promotion, pgn, peso in liJugadas:
-        menu.opcion((xfrom, xto, promotion), pgn, icono)
-        menu.separador()
-
-    resp = menu.lanza()
-    if resp:
-        return resp
-    else:
-        if siSelectSiempre:
-            xfrom, xto, promotion, pgn, peso = liJugadas[0]
-            return xfrom, xto, promotion
-        else:
-            return None

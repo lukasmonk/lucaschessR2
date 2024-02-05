@@ -124,7 +124,7 @@ class WConfEngines(LCDialog.LCDialog):
                 value = "false"
             else:
                 value = "true"
-            self.engine.ordenUCI(key, value)
+            self.engine.set_uci_option(key, value)
             self.w_current.set_changed()
             self.grid_conf.refresh()
         elif tipo == "combo":
@@ -163,7 +163,7 @@ class WConfEngines(LCDialog.LCDialog):
         elif self.me_control in ("cb", "sb"):
             editor.set_value(valor)
 
-    def me_leeValor(self, editor):
+    def me_readvalue(self, editor):
         if self.me_control == "ed":
             return editor.texto()
         elif self.me_control in ("cb", "sb"):
@@ -171,7 +171,7 @@ class WConfEngines(LCDialog.LCDialog):
 
     def grid_setvalue(self, grid, nfila, column, valor):
         opcion = self.li_uci_options[nfila]
-        self.engine.ordenUCI(opcion.name, valor)
+        self.engine.set_uci_option(opcion.name, valor)
         self.w_current.set_changed()
 
     def save(self):
@@ -284,7 +284,7 @@ class WConfExternals(QtWidgets.QWidget):
 
     def grid_setvalue(self, grid, nfila, column, valor):
         opcion = self.engine.li_uci_options_editable()[nfila]
-        self.engine.ordenUCI(opcion.name, valor)
+        self.engine.set_uci_option(opcion.name, valor)
         self.set_changed()
 
     def save(self):
@@ -358,7 +358,7 @@ class WConfExternals(QtWidgets.QWidget):
                 self.set_changed()
 
     def nuevo(self):
-        me = WEngines.selectEngine(self)
+        me = WEngines.select_engine(self)
         if not me:
             return
 
@@ -466,7 +466,7 @@ class WConfExternals(QtWidgets.QWidget):
 
 
 class WEngineFast(QtWidgets.QDialog):
-    def __init__(self, w_parent, listaMotores, engine, siTorneo=False):
+    def __init__(self, w_parent, list_engines, engine, is_tournament=False):
 
         super(WEngineFast, self).__init__(w_parent)
 
@@ -480,9 +480,9 @@ class WEngineFast(QtWidgets.QDialog):
             | QtCore.Qt.WindowMaximizeButtonHint
         )
 
-        self.motorExterno = engine
-        self.liMotores = listaMotores
-        self.siTorneo = siTorneo
+        self.external_engine = engine
+        self.list_engines = list_engines
+        self.is_tournament = is_tournament
         self.imported = engine.parent_external is not None
 
         # Toolbar
@@ -507,7 +507,7 @@ class WEngineFast(QtWidgets.QDialog):
         lb_time = Controles.LB(self, _("Maximum seconds to think") + ": ")
         self.edTime = Controles.ED(self, "").ponFloat(engine.max_time).anchoFijo(60).align_right()
 
-        lb_exe = Controles.LB(self, "%s: %s" % (_("File"), Util.relative_path(engine.path_exe)))
+        lb_exe = Controles.LB(self, "%s: %s" % (_("File"), Code.relative_root(engine.path_exe)))
 
         # Layout
         ly = Colocacion.G()
@@ -533,8 +533,8 @@ class WEngineFast(QtWidgets.QDialog):
             return
 
         # Comprobamos que no se repita el alias
-        for engine in self.liMotores:
-            if (self.motorExterno != engine) and (engine.key == alias):
+        for engine in self.list_engines:
+            if (self.external_engine != engine) and (engine.key == alias):
                 QTUtil2.message_error(
                     self,
                     _(
@@ -542,14 +542,14 @@ class WEngineFast(QtWidgets.QDialog):
                     ),
                 )
                 return
-        self.motorExterno.key = alias
+        self.external_engine.key = alias
         if not self.imported:
             name = self.edNombre.texto().strip()
-            self.motorExterno.name = name if name else alias
-        self.motorExterno.id_info = self.emInfo.texto()
-        self.motorExterno.elo = self.sbElo.valor()
-        self.motorExterno.max_depth = self.sbDepth.valor()
-        self.motorExterno.max_time = self.edTime.textoFloat()
+            self.external_engine.name = name if name else alias
+        self.external_engine.id_info = self.emInfo.texto()
+        self.external_engine.elo = self.sbElo.valor()
+        self.external_engine.max_depth = self.sbDepth.valor()
+        self.external_engine.max_time = self.edTime.textoFloat()
 
         self.accept()
 
@@ -646,7 +646,7 @@ class WConfTutor(QtWidgets.QWidget):
         self.engine.reset_uci_options()
         dic = self.configuration.read_variables("TUTOR_ANALYZER")
         for name, valor in dic.get("TUTOR", []):
-            self.engine.ordenUCI(name, valor)
+            self.engine.set_uci_option(name, valor)
         self.owner.set_engine(self.engine, False)
         self.set_changed()
 
@@ -752,7 +752,7 @@ class WConfAnalyzer(QtWidgets.QWidget):
         self.engine.reset_uci_options()
         dic = self.configuration.read_variables("TUTOR_ANALYZER")
         for name, valor in dic.get("ANALYZER", []):
-            self.engine.ordenUCI(name, valor)
+            self.engine.set_uci_option(name, valor)
         self.owner.set_engine(self.engine, False)
         self.set_changed()
 

@@ -313,7 +313,7 @@ def primera_mayuscula(txt):
 
 
 def primeras_mayusculas(txt):
-    return " ".join([(x[0].upper() + x[1:]) if x else "" for x in txt.split(" ")])
+    return " ".join([primera_mayuscula(x) for x in txt.split(" ")])
 
 
 def ini2dic(file):
@@ -649,10 +649,13 @@ def bytes_str_codec(btxt):
 
 def file_encoding(fich, chunk=30000):
     with open(fich, "rb") as f:
+        bt = f.read(chunk)
+        if 195 in bt:
+            return "utf-8"
         u = chardet.universaldetector.UniversalDetector()
-        u.feed(f.read(chunk))
+        u.feed(bt)
         u.close()
-        codec = u.result.get("encoding", "latin-1")
+        codec = u.result.get("encoding", "utf-8")
         if codec == "ascii":
             codec = "latin-1"
         return codec
@@ -667,12 +670,12 @@ class Decode:
 
     def decode(self, xbytes):
         try:
-            resp = xbytes.decode(self.codec)
+            resp = xbytes.decode(self.codec, "ignore")
         except:
             u = chardet.universaldetector.UniversalDetector()
             u.feed(xbytes)
             u.close()
-            codec = u.result.get("encoding", "latin-1")
+            codec = u.result.get("encoding", "utf-8")
             resp = xbytes.decode(codec, "ignore")
         return resp
 
@@ -737,11 +740,15 @@ def unique_list(lista):
     return li
 
 
-def div_list(list, max_group):
-    nlist = len(list)
+def div_list(xlist, max_group):
+    nlist = len(xlist)
     xfrom = 0
     li_groups = []
     while xfrom < nlist:
-        li_groups.append(list[xfrom: xfrom + max_group])
+        li_groups.append(xlist[xfrom: xfrom + max_group])
         xfrom += max_group
     return li_groups
+
+
+def cpu_count():
+    return psutil.cpu_count()

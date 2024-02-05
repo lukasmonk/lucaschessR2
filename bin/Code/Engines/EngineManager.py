@@ -56,6 +56,8 @@ class EngineManager:
         self.mstime_engine = conf_engine.max_time * 1000
         self.depth_engine = conf_engine.max_depth
 
+        self.nodes = 0
+
         self.function = _("Opponent").lower()  # para distinguir entre tutor y analizador
 
         self.priority = Priorities.priorities.normal
@@ -71,6 +73,9 @@ class EngineManager:
         self.cache_analysis = None
 
         Code.list_engine_managers.append(self)
+
+    def set_nodes(self, nodes):
+        self.nodes = nodes
 
     def set_direct(self):
         self.direct = True
@@ -201,7 +206,6 @@ class EngineManager:
             mseconds_move = int(seconds_move * 1000) if seconds_move else 0
             mrm = self.engine.bestmove_time(game, mseconds_white, mseconds_black, mseconds_move)
         return mrm
-
 
     def play_game(self, game, adjusted=0):
         self.check_engine()
@@ -507,7 +511,9 @@ class EngineManager:
         else:
             self.engine.not_humanize()
 
-        if self.mstime_engine or self.depth_engine:
+        if self.nodes:
+            self.engine.play_bestmove_nodes(play_return, game, self.nodes, seconds_white * 1000, seconds_black * 1000)
+        elif self.mstime_engine or self.depth_engine:
             self.engine.play_bestmove_game(play_return, game, self.mstime_engine, self.depth_engine)
         else:
             self.engine.play_bestmove_time(

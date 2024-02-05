@@ -124,12 +124,12 @@ class ManagerTactics(Manager.Manager):
     def set_toolbar(self, modo):
         if modo == "end":
             li_opciones = [TB_CLOSE, TB_CONFIG, TB_UTILITIES, TB_NEXT]
-            if not self.tactic.reinforcement.is_working():
+            if not self.tactic.reinforcement.is_activated():
                 li_opciones.insert(1, TB_CHANGE)
         else:
             li_opciones = [TB_CLOSE, TB_HELP, TB_REINIT, TB_CONFIG]
             if modo == "init":
-                if not self.tactic.reinforcement.is_working():
+                if not self.tactic.reinforcement.is_activated():
                     li_opciones.insert(2, TB_CHANGE)
 
         Manager.Manager.set_toolbar(self, li_opciones)

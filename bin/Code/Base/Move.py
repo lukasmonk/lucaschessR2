@@ -95,7 +95,10 @@ class Move:
         dif = pts0 - pts
         if dif:
             if rm_user.mate != 0 and rm_best.mate != 0:
+                return 0, rm_best.mate - rm_user.mate
+            elif rm_user.mate != 0 or rm_best.mate != 0:
                 return dif, rm_best.mate - rm_user.mate
+
         return dif, None
 
     @property
@@ -457,6 +460,9 @@ class Move:
             for move in game.li_moves:
                 move.refresh_nags()
 
+    def convert_variation_mainline(self, num_variation):
+        self.game.convert_variation_mainline(self, num_variation)
+
 
 def get_game_move(game, position_before, from_sq, to_sq, promotion):
     position = position_before.copia()
@@ -522,6 +528,17 @@ class Variations:
 
     def remove(self, num):
         del self.li_variations[num]
+
+    def up_variation(self, num):
+        if num:
+            self.li_variations[num], self.li_variations[num-1] = self.li_variations[num-1], self.li_variations[num]
+
+    def down_variation(self, num):
+        if num < len(self.li_variations)-1:
+            self.li_variations[num], self.li_variations[num+1] = self.li_variations[num+1], self.li_variations[num]
+
+    # def convert_mainline(self, num_move, num_variation):
+    #     self.move_base.convert_variation_mainline(num_move, num_variation)
 
     def analisis2variantes(self, mrm, almVariations, delete_previous):
         if delete_previous:

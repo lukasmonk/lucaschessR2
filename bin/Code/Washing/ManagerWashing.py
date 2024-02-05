@@ -502,7 +502,7 @@ class ManagerWashingCreate(Manager.Manager):
         )
         self.put_data_label()
 
-        self.ponCapInfoPorDefecto()
+        self.show_info_extra()
 
         self.pgnRefresh(True)
 

@@ -6,8 +6,8 @@ from PySide2 import QtWidgets, QtCore
 
 import Code
 import Code.Openings.WindowOpenings as WindowOpenings
-from Code import Util
-from Code.Analysis import AnalysisGame, WindowAnalysisParam
+from Code import Util, XRun
+from Code.Analysis import AnalysisGame, WindowAnalysisParam, RunAnalysisControl
 from Code.Base import Game, Position
 from Code.Base.Constantes import WHITE, BLACK
 from Code.Books import PolyglotImportExports
@@ -148,35 +148,35 @@ class WGames(QtWidgets.QWidget):
     def tw_play_against(self):
         li = self.grid.recnosSeleccionados()
         if li:
-            recplay = None
             db_play = WindowPlayGame.DBPlayGame(self.configuration.file_play_game())
-            for recno in li:
-                game = self.dbGames.read_game_recno(recno)
-                h = hash(game.xpv())
+            recno = li[0]
+            game = self.dbGames.read_game_recno(recno)
+            game.remove_info_moves()
+            h = hash(game.xpv())
+            recplay = db_play.recnoHash(h)
+            if recplay is None:
+                reg = {"GAME": game.save()}
+                db_play.appendHash(h, reg)
                 recplay = db_play.recnoHash(h)
-                if recplay is None:
-                    reg = {"GAME": game.save()}
-                    db_play.appendHash(h, reg)
-                    recplay = db_play.recnoHash(h)
             db_play.close()
 
-            if len(li) == 1:
-                self.wb_database.tw_terminar()
-                self.procesador.play_game_show(recplay)
+            XRun.run_lucas("-playagainst", str(recplay))
 
     def tw_memorize(self):
         li = self.grid.recnosSeleccionados()
         if li:
+            um = QTUtil2.one_moment_please(self)
             db = WindowLearnGame.DBLearnGame(self.configuration.file_learn_game())
-            li.sort(reverse=True)
-            for recno in li:
-                game = self.dbGames.read_game_recno(recno)
-                reg = {"GAME": game.save()}
-                db.append(reg)
-            db.close()
+            recno = li[0]
+            game = self.dbGames.read_game_recno(recno)
+            reg = {"GAME": game.save()}
+            db.append(reg)
+            um.final()
 
-            self.wb_database.tw_terminar()
-            self.procesador.learn_game()
+            db_learn = WindowLearnGame.DBLearnGame(self.configuration.file_learn_game())
+            w = WindowLearnGame.WLearn1(self, db_learn, 0)
+            w.exec_()
+            db_learn.close()
 
     def lista_columnas(self):
         dcabs = self.dbGames.read_config("dcabs", DBgames.drots.copy())
@@ -294,7 +294,7 @@ class WGames(QtWidgets.QWidget):
         key = col.key
         if key in ("__num__"):
             return
-        is_shift, is_control, is_alt = QTUtil.kbdPulsado()
+        is_shift, is_control, is_alt = QTUtil.keyboard_modifiers()
         is_numeric = is_shift or is_control or is_alt
         li_order = self.dbGames.get_order()
         if key == "opening":
@@ -339,8 +339,18 @@ class WGames(QtWidgets.QWidget):
             self.tw_gotop()
         elif k == QtCore.Qt.Key_End:
             self.tw_gobottom()
+        elif k == QtCore.Qt.Key_G and is_control:
+            self.goto_registro()
         else:
             return True  # que siga con el resto de teclas
+
+    def goto_registro(self):
+        total = self.dbGames.reccount()
+        if total:
+            registro = QTUtil2.read_simple(self, self.dbGames.get_name(), _("Go to the record"), "")
+            if registro and registro.isdigit():
+                num_registro = min(max(int(registro)-1, 0), total-1)
+                self.grid.goto(num_registro, 0)
 
     def closeEvent(self, event):
         self.tw_terminar()
@@ -565,8 +575,9 @@ class WGames(QtWidgets.QWidget):
         def remove_filter():
             self.dbGames.filter_pv("")
             self.where = None
-            self.summaryActivo["game"] = Game.Game()
-            self.wsummary.start()
+            if self.summaryActivo:
+                self.summaryActivo["game"] = Game.Game()
+                self.wsummary.start()
             refresh()
 
         menu = QTVarios.LCMenu(self)
@@ -639,7 +650,7 @@ class WGames(QtWidgets.QWidget):
 
         if self.dbGames.has_positions():
             menu.separador()
-            menu.opcion((self.tw_odt, None), "To a position sheet in ODF format", Iconos.ODT())
+            menu.opcion((self.tw_odt, None), _("To a position sheet in ODF format"), Iconos.ODT())
 
         resp = menu.lanza()
         if resp:
@@ -913,6 +924,8 @@ class WGames(QtWidgets.QWidget):
 
         menu = QTVarios.LCMenu(self)
         if si_games:
+            menu.opcion(self.goto_registro, "%s (CTRL G)" % _("Go to the record"), Iconos.GoToNext())
+            menu.separador()
             menu.opcion(self.tw_massive_analysis, _("Mass analysis"), Iconos.Analizar())
             menu.separador()
             menu.opcion(self.tw_polyglot, _("Create a polyglot book"), Iconos.Book())
@@ -966,9 +979,9 @@ class WGames(QtWidgets.QWidget):
             li = [
                 (_("Any"), None),
                 (_("Win"), "Win"),
-                (_("Win+Draw"), "Win+Draw"),
+                (f'{_("Win")}+{_("Draw")}', "Win+Draw"),
                 (_("Loss"), "Lost"),
-                (_("Loss+Draw"), "Lost+Draw"),
+                (f'{_("Loss")}+{_("Draw")}', "Lost+Draw"),
             ]
             form.combobox(_("Result"), li, result)
             form.separador()
@@ -1051,106 +1064,121 @@ class WGames(QtWidgets.QWidget):
         um.final()
 
     def tw_massive_analysis(self):
-        liSeleccionadas = self.grid.recnosSeleccionados()
-        nSeleccionadas = len(liSeleccionadas)
+        li_seleccionadas = self.grid.recnosSeleccionados()
+        n_seleccionadas = len(li_seleccionadas)
 
         alm = WindowAnalysisParam.massive_analysis_parameters(
-            self, self.configuration, nSeleccionadas > 1, siDatabase=True
+            self, self.configuration, n_seleccionadas > 1, siDatabase=True
         )
-        if alm:
+        if not alm:
+            return
 
-            if alm.siVariosSeleccionados:
-                nregs = nSeleccionadas
+        if alm.multiple_selected:
+            nregs = n_seleccionadas
+        else:
+            nregs = self.dbGames.reccount()
+
+        if alm.workers == 1:
+            self.tw_massive_analysis_1_worker(alm, nregs, li_seleccionadas)
+        else:
+            self.tw_massive_analysis_n_workers(alm, nregs, li_seleccionadas)
+
+    def tw_massive_analysis_n_workers(self, alm, nregs, li_seleccionadas):
+
+        rac = RunAnalysisControl.AnalysisMassiveWithWorkers(self, alm, nregs, li_seleccionadas)
+        rac.run()
+
+        self.procesador.entrenamientos.menu = None
+
+    def tw_massive_analysis_1_worker(self, alm, nregs, li_seleccionadas):
+
+        tmp_bp = QTUtil2.BarraProgreso2(self, _("Mass analysis"), formato2="%p%")
+        tmp_bp.set_total(1, nregs)
+        tmp_bp.put_label(1, _("Game"))
+        tmp_bp.put_label(2, _("Moves"))
+        tmp_bp.mostrar()
+
+        if alm.num_moves:
+            lni = Util.ListaNumerosImpresion(alm.num_moves)
+        else:
+            lni = None
+
+        ap = AnalysisGame.AnalyzeGame(alm, True)
+
+        ap.cached_begin()
+
+        for n in range(nregs):
+
+            if tmp_bp.is_canceled():
+                break
+
+            tmp_bp.pon(1, n + 1)
+
+            if alm.multiple_selected:
+                recno = li_seleccionadas[n]
             else:
-                nregs = self.dbGames.reccount()
+                recno = n
 
-            tmpBP = QTUtil2.BarraProgreso2(self, _("Mass analysis"), formato2="%p%")
-            tmpBP.set_total(1, nregs)
-            tmpBP.put_label(1, _("Game"))
-            tmpBP.put_label(2, _("Moves"))
-            tmpBP.mostrar()
-
-            if alm.num_moves:
-                lni = Util.ListaNumerosImpresion(alm.num_moves)
+            game = self.dbGames.read_game_recno(recno)
+            self.grid.goto(recno, 0)
+            #
+            if lni:
+                n_movs = len(game)
+                li_movs = []
+                if n_movs:
+                    for nmov in range(n_movs):
+                        nmove = nmov // 2 + 1
+                        if lni.siEsta(nmove):
+                            li_movs.append(nmov)
+                ap.li_selected = li_movs
+                if len(li_movs) == 0:
+                    continue
             else:
-                lni = None
+                ap.li_selected = None
+            ap.xprocesa(game, tmp_bp)
 
-            ap = AnalysisGame.AnalyzeGame(self.procesador, alm, True)
+            self.dbGames.save_game_recno(recno, game)
+            self.changes = True
 
-            ap.cached_begin()
+        ap.cached_end()
 
-            for n in range(nregs):
+        if not tmp_bp.is_canceled():
+            ap.terminar(True)
 
-                if tmpBP.is_canceled():
-                    break
+            li_creados = []
+            li_no_creados = []
 
-                tmpBP.pon(1, n + 1)
-
-                if alm.siVariosSeleccionados:
-                    recno = liSeleccionadas[n]
+            if alm.tacticblunders:
+                if ap.siTacticBlunders:
+                    li_creados.append(alm.tacticblunders)
                 else:
-                    recno = n
+                    li_no_creados.append(alm.tacticblunders)
 
-                game = self.dbGames.read_game_recno(recno)
-                self.grid.goto(recno, 0)
-                #
-                if lni:
-                    n_movs = len(game)
-                    li_movs = []
-                    if n_movs:
-                        for nmov in range(n_movs):
-                            nmove = nmov // 2 + 1
-                            if lni.siEsta(nmove):
-                                li_movs.append(nmov)
-                    ap.li_selected = li_movs
-                    if len(li_movs) == 0:
-                        continue
+            for x in (alm.pgnblunders, alm.fnsbrilliancies, alm.pgnbrilliancies):
+                if x:
+                    if Util.exist_file(x):
+                        li_creados.append(x)
+                    else:
+                        li_no_creados.append(x)
+
+            if alm.bmtblunders:
+                if ap.si_bmt_blunders:
+                    li_creados.append(alm.bmtblunders)
                 else:
-                    ap.li_selected = None
-                ap.xprocesa(game, tmpBP)
+                    li_no_creados.append(alm.bmtblunders)
+            if alm.bmtbrilliancies:
+                if ap.si_bmt_brilliancies:
+                    li_creados.append(alm.bmtbrilliancies)
+                else:
+                    li_no_creados.append(alm.bmtbrilliancies)
+            if li_creados:
+                WDB_Utils.mensajeEntrenamientos(self, li_creados, li_no_creados)
+                self.procesador.entrenamientos.rehaz()
 
-                self.dbGames.save_game_recno(recno, game)
-                self.changes = True
+        else:
+            ap.terminar(False)
 
-            ap.cached_end()
-
-            if not tmpBP.is_canceled():
-                ap.terminar(True)
-
-                li_creados = []
-                li_no_creados = []
-
-                if alm.tacticblunders:
-                    if ap.siTacticBlunders:
-                        li_creados.append(alm.tacticblunders)
-                    else:
-                        li_no_creados.append(alm.tacticblunders)
-
-                for x in (alm.pgnblunders, alm.fnsbrilliancies, alm.pgnbrilliancies):
-                    if x:
-                        if Util.exist_file(x):
-                            li_creados.append(x)
-                        else:
-                            li_no_creados.append(x)
-
-                if alm.bmtblunders:
-                    if ap.si_bmt_blunders:
-                        li_creados.append(alm.bmtblunders)
-                    else:
-                        li_no_creados.append(alm.bmtblunders)
-                if alm.bmtbrilliancies:
-                    if ap.si_bmt_brilliancies:
-                        li_creados.append(alm.bmtbrilliancies)
-                    else:
-                        li_no_creados.append(alm.bmtbrilliancies)
-                if li_creados:
-                    WDB_Utils.mensajeEntrenamientos(self, li_creados, li_no_creados)
-                    self.procesador.entrenamientos.rehaz()
-
-            else:
-                ap.terminar(False)
-
-            tmpBP.cerrar()
+        tmp_bp.cerrar()
 
     def tw_themes(self):
 

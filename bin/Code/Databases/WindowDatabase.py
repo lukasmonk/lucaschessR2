@@ -136,7 +136,8 @@ class WBDatabase(LCDialog.LCDialog):
         QtWidgets.QApplication.processEvents()
         board = self.infoMove.board
         board.disable_all()
-        if ntab == 0:
+
+        if ntab in (0, 2):
             self.wgames.actualiza()
         else:
             self.wsummary.gridActualiza()

@@ -1,0 +1,47 @@
+id name Dragon by Komodo Chess  64-bit
+id author Don Dailey, Larry Kaufman, Mark Lefler, Dmitry Pervov, and Dietrich Kappe
+option name NUMA Offset type spin default 0 min -1 max 32
+option name Threads type spin default 1 min 1 max 128
+option name Ponder type check default true
+option name Hash type spin default 256 min 1 max 65536
+option name Clear Hash type button
+option name Table Memory type spin default 64 min 1 max 1024
+option name MultiPV type spin default 1 min 1 max 218
+option name OwnBook type check default true
+option name Book File type string default komodo.bin
+option name Book Moves type spin default 1000 min 0 max 1000
+option name Best Book Line type check default false
+option name Log File type string default <empty>
+option name Hash File Name type string default <empty>
+option name Save Hash to File type button
+option name Load Hash from File type button
+option name UCI_Chess960 type check default false
+option name UCI_AnalyseMode type check default false
+option name Use LMR type check default true
+option name Null Move Pruning type check default true
+option name Minimal Reporting type spin default 0 min 0 max 200
+option name Overhead ms type spin default 50 min 0 max 10000
+option name Time Usage type spin default 0 min -90 max 90
+option name Use Syzygy type check default true
+option name SyzygyPath type string default <empty>
+option name Syzygy Probe Depth type spin default 1 min 0 max 99
+option name Syzygy Probe Limit type spin default 6 min 0 max 7
+option name Syzygy 50 Move Rule type check default true
+option name Smart Syzygy type check default false
+option name King Safety type spin default 83 min 0 max 200
+option name Selectivity type spin default 150 min 10 max 250
+option name Reduction type spin default -35 min -500 max 50
+option name Dynamism type spin default 100 min 0 max 400
+option name Contempt type spin default 8 min -250 max 250
+option name White Contempt type check default false
+option name NNUE_Scale type spin default 65 min 10 max 500
+option name Use Regular Eval type check default false
+option name MCTS Hash type spin default 128 min 128 max 32768
+option name Use MCTS type check default false
+option name MCTS Explore type spin default 35 min 1 max 500
+option name WeightsFile type string default <empty>
+option name Personality type combo default Default var Default var Aggressive var Defensive var Active var Positional var Endgame var Beginner var Human
+option name Armageddon type combo default Off var Off var White Must Win var Black Must Win
+option name Variety type spin default 0 min 0 max 100
+option name Skill type spin default 25 min 0 max 25
+option name Auto Skill type check default false

@@ -8,7 +8,7 @@ from PIL import Image
 IMAGEMAGICK = "../../../ImageMagick/magick.exe"
 
 COPY_SEPIA = {"Milleniumt.png", "dgt.png", "dgtB.png", "Certabo.png", "Novag.png", "Chessnut.png", "SquareOff.png",
-              "Saitek.png", "peon64r.png"}
+              "Saitek.png", "peon64r.png", "m1.png", "m2.png"}
 
 GREEN_SEPIA = {"icons8_downloads_folder_32px.png", "icons8_checked_checkbox_32px.png", "icons8_close_window_32px_1.png",
                "icons8_home_32px.png", "icons8_filing_cabinet_32px.png", "icons8_file_explorer_32px.png",

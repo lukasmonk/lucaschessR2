@@ -284,6 +284,13 @@ class WInfomove(QtWidgets.QWidget):
             self.MoverInicio()
             self.lanzaReloj()
 
+    def boardWheelEvent(self, board, forward):
+        forward = Code.configuration.wheel_board(forward)
+        if forward:
+            self.MoverAdelante()
+        else:
+            self.MoverAtras()
+
     def toolbar_rightmouse(self):
         configuration = Code.configuration
         QTVarios.change_interval(self, configuration)

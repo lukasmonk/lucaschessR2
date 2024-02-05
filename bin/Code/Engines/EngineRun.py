@@ -102,6 +102,12 @@ class RunEngine:
 
         self.ucinewgame()
 
+    # def test_nodes(self):
+    #     self.put_line("position startpos moves e2e4 g8f6 e4e5 f6d5 d2d4 e7e6 g1f3 b8c6 b1c3 f8b4 c1d2 b4c3 d2c3 d5c3 b2c3")
+    #
+    #     self.put_line("go nodes 500")
+    #     self.wait_list("bestmove", 1000)
+
     def cerrar(self):
         self.working = False
 
@@ -300,7 +306,7 @@ class RunEngine:
             if self.hay_datos():
                 for line in self.get_lines():
                     if (
-                        not self.stopped
+                            not self.stopped
                     ):  # problema con información que llega tras stop, que no muestra lineas completas de pv en stockfish
                         self.mrm.dispatch(line)
                     if seektxt in line:
@@ -464,7 +470,7 @@ class RunEngine:
         self.ac_lee()
         self.mrm.ordena()
 
-        while self.mrm.time_used()*1000 < minimo_tiempo:
+        while self.mrm.time_used() * 1000 < minimo_tiempo:
             time.sleep(0.1)
 
         self.lockAC = lock_ac
@@ -622,6 +628,18 @@ class RunEngine:
             env += " movetime %d" % max_time
         self.play_with_return(play_return, game, env, max_time, max_depth)
 
+    def play_bestmove_nodes(self, play_return, game, nodes, max_time, max_depth):
+        env = f"go nodes {nodes}"
+        self.play_with_return(play_return, game, env, max_time, max_depth)
+
+
+def nodes_maia(level):
+    dic_nodes = {1100: 1, 1200: 2, 1300: 5, 1400: 12, 1500: 30, 1600: 60, 1700: 130, 1800: 300, 1900: 450}
+    if not Code.configuration.x_maia_nodes_exponential:
+        for elo in dic_nodes:
+            dic_nodes[elo] = 1
+    return dic_nodes.get(level, 1)
+
 
 class MaiaEngine(RunEngine):
     def __init__(self, name, exe, li_options_uci=None, num_multipv=0, priority=None, args=None, log=None, level=0):
@@ -641,11 +659,7 @@ class MaiaEngine(RunEngine):
         self.book_select.extend([BOOK_RANDOM_PROPORTIONAL] * ap)
         self.book_select.extend([BOOK_RANDOM_UNIFORM] * au)
 
-        dic_nodes = {1100: 1, 1200: 2, 1300: 5, 1400: 12, 1500: 30, 1600: 60, 1700: 130, 1800: 300, 1900: 450}
-        if not Code.configuration.x_maia_nodes_exponential:
-            for elo in dic_nodes:
-                dic_nodes[elo] = 1
-        self.nodes = dic_nodes.get(level, 1)
+        self.nodes = nodes_maia(level)
 
     def play_bestmove_time(self, play_return, game, time_white, time_black, inc_time_move):
         if self.test_book(game):
@@ -662,6 +676,13 @@ class MaiaEngine(RunEngine):
         env = f"go nodes {self.nodes}"
         self.play_with_return(play_return, game, env, max_time, max_depth)
 
+    def play_bestmove_nodes(self, play_return, game, nodes, max_time, max_depth):
+        if self.test_book(game):
+            play_return(self.mrm)
+            return
+        env = f"go nodes {nodes}"
+        self.play_with_return(play_return, game, env, max_time, max_depth)
+
     def test_book(self, game):
         if len(game) < 30:
             pv = self.book.eligeJugadaTipo(game.last_position.fen(), random.choice(self.book_select))
@@ -676,4 +697,3 @@ class MaiaEngine(RunEngine):
         orden = f"go nodes {self.nodes}"
         self.put_line(orden)
         self.wait_mrm("bestmove", msmax_time)
-

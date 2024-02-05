@@ -26,8 +26,7 @@ from Code.Base.Constantes import (
     BLACK,
     ST_PAUSE,
 )
-from Code.Leagues import Leagues
-from Code.Leagues import WLeagues
+from Code.Leagues import WLeagues, Leagues
 from Code.QT import QTUtil
 from Code.QT import QTUtil2
 
@@ -136,7 +135,7 @@ class ManagerLeague(Manager.Manager):
         self.remove_hints(siQuitarAtras=True)
         self.put_pieces_bottom(self.is_human_side_white)
 
-        self.ponCapInfoPorDefecto()
+        self.show_info_extra()
 
         self.pgnRefresh(True)
 
@@ -469,6 +468,11 @@ class ManagerLeague(Manager.Manager):
 
         return True
 
+    def remove_premove(self):
+        if self.premove:
+            self.board.remove_arrows()
+            self.premove = None
+
     def player_has_moved(self, from_sq, to_sq, promotion=""):
         if self.rival_is_thinking:
             return self.check_premove(from_sq, to_sq)
@@ -479,7 +483,6 @@ class ManagerLeague(Manager.Manager):
         time_s = self.stop_clock(True)
         move.set_time_ms(time_s * 1000)
         move.set_clock_ms(self.tc_player.pending_time * 1000)
-
 
         self.add_move(move, True)
         self.move_the_pieces(move.liMovs, False)

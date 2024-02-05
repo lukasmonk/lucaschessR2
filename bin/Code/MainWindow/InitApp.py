@@ -55,10 +55,10 @@ color: %s;
             Code.dic_colors["BACKGROUND"],
             Code.dic_colors["FOREGROUND"],
         )
-        if configuration.x_style_mode != "By default":
-            app.setStyleSheet(default + style_sheet)
-        else:
-            configuration.style_sheet_default = style_sheet
+        # if configuration.x_style_mode != "By default":
+        app.setStyleSheet(default + style_sheet)
+        # else:
+        #     configuration.style_sheet_default = style_sheet
 
     qpalette = QtWidgets.QApplication.style().standardPalette()
     qpalette.setColor(QtGui.QPalette.Link, Code.dic_qcolors["LINKS"])

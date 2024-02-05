@@ -63,20 +63,17 @@ class WLeagueConfig(LCDialog.LCDialog):
         self.bt_engines_more = Controles.PB(self, "++ " + _("Engines"), rutina=self.add_engines, plano=False).ponIcono(
             Iconos.Engines()
         )
-        self.bt_engines_more.setDefault(False)
-        self.bt_engines_more.setAutoDefault(False)
+        self.bt_engines_more.set_pordefecto(False)
 
         self.bt_human_more = Controles.PB(self, "+ " + _("Human"), rutina=self.add_human, plano=False).ponIcono(
             Iconos.Player()
         )
-        self.bt_human_more.setDefault(False)
-        self.bt_human_more.setAutoDefault(False)
+        self.bt_human_more.set_pordefecto(False)
 
         self.bt_engine_more = Controles.PB(self, "+ " + _("Engine"), rutina=self.add_engine, plano=False).ponIcono(
             Iconos.Engine()
         )
-        self.bt_engine_more.setDefault(False)
-        self.bt_engine_more.setAutoDefault(False)
+        self.bt_engine_more.set_pordefecto(False)
 
         ly_bt0 = Colocacion.H().control(self.bt_engines_more).control(self.bt_human_more)
         ly_bt0.control(self.bt_engine_more).relleno()
@@ -101,8 +98,8 @@ class WLeagueConfig(LCDialog.LCDialog):
         bt_draw_range = Controles.PB(self, "", rutina=self.borra_draw_range).ponIcono(Iconos.Reciclar())
 
         # adjudicator
-        self.liMotores = Code.configuration.combo_engines_multipv10()
-        self.cbJmotor, self.lbJmotor = QTUtil2.combobox_lb(self, self.liMotores, league.adjudicator, _("Engine"))
+        self.list_engines = Code.configuration.combo_engines_multipv10()
+        self.cbJmotor, self.lbJmotor = QTUtil2.combobox_lb(self, self.list_engines, league.adjudicator, _("Engine"))
         self.edJtiempo = Controles.ED(self).tipoFloat(league.adjudicator_time).anchoFijo(50)
         self.lbJtiempo = Controles.LB2P(self, _("Time in seconds"))
         ly = Colocacion.G()

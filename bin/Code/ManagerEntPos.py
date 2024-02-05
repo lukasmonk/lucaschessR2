@@ -50,7 +50,8 @@ class ManagerEntPos(Manager.Manager):
         db.close()
 
     def start(
-        self, pos_training, num_trainings, title_training, li_trainings, is_tutor_enabled, is_automatic_jump, advanced
+            self, pos_training, num_trainings, title_training, li_trainings, is_tutor_enabled, is_automatic_jump,
+            advanced
     ):
         if hasattr(self, "reiniciando"):
             if self.reiniciando:
@@ -162,6 +163,8 @@ class ManagerEntPos(Manager.Manager):
         self.is_rival_thinking = False
         self.is_analyzing = False
         self.current_helps = 0
+
+        self.show_info_extra()
 
         if self.is_playing_gameobj() and self.advanced:
             self.board.show_coordinates(False)
@@ -300,7 +303,7 @@ class ManagerEntPos(Manager.Manager):
         return [
             ("+/%s" % _("Page Down"), _("Next position")),
             ("-/%s" % _("Page Up"), _("Previous position")),
-            ("T", _("Save position in 'Selected positions' file")),
+            (_("CTRL") + " T", _("Save position in 'Selected positions' file")),
         ]
 
     def end_game(self):
@@ -437,7 +440,6 @@ class ManagerEntPos(Manager.Manager):
         if self.is_analyzing:
             self.xtutor.stop()
             self.is_analyzing = False
-
 
     def sigue(self):
         self.state = ST_PLAYING

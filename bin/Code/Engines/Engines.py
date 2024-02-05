@@ -29,18 +29,26 @@ class Engine:
         self.id_info = ""
         self.max_depth = 0
         self.max_time = 0  # Seconds
+        self.nodes = 0
         self.id_name = key
         self.id_author = autor
         self.book = None
         self.book_max_plies = 0
         self.book_rr = BOOK_BEST_MOVE
         self.emulate_movetime = False
+        self.nodes_compatible = None
 
         self.menu = key
         self.type = ENG_INTERNAL
         # self.fixed_depth = None
 
         self.__li_uci_options = None
+
+    def set_nodes_compatible(self, ok):
+        self.nodes_compatible = ok
+
+    def is_nodes_compatible(self):
+        return self.is_external if self.nodes_compatible is None else self.nodes_compatible
 
     def save(self):
         return Util.save_obj_pickle(self)
@@ -95,7 +103,7 @@ class Engine:
             op.valor = op.default
         self.liUCI = []
 
-    def ordenUCI(self, name, valor):
+    def set_uci_option(self, name, valor):
         li_uci_options = self.li_uci_options()
         is_changed = False
         for op in li_uci_options:
@@ -124,13 +132,13 @@ class Engine:
 
     def update_multipv(self, xmultipv):
         if xmultipv == "PD":
-            multiPV = min(self.maxMultiPV, 10)
-            multiPV = max(multiPV, self.multiPV)
+            multi_pv = min(self.maxMultiPV, 10)
+            multi_pv = max(multi_pv, self.multiPV)
             for comando, valor in self.liUCI:
                 if comando == "MultiPV":
-                    multiPV = int(valor)
+                    multi_pv = int(valor)
                     break
-            self.multiPV = multiPV
+            self.multiPV = multi_pv
 
         elif xmultipv == "MX":
             self.multiPV = self.maxMultiPV
@@ -143,7 +151,14 @@ class Engine:
         return self.maxMultiPV >= 4 and not self.is_maia()
 
     def is_maia(self):
-        return "maia" in self.key
+        return self.key.startswith("maia-")
+
+    def level_maia(self):
+        try:
+            level = int(self.key[5:])
+        except ValueError:
+            level = 0
+        return level
 
     def remove_log(self, fich):
         Util.remove_file(os.path.join(os.path.dirname(self.path_exe), fich))
@@ -333,17 +348,17 @@ class OpcionUCI:
     def lee_combo(self, li):
         self.li_vars = []
         self.default = ""
-        siDefault = False
+        is_default = False
         nvar = -1
         for x in li[2:]:
             if x == "var":
-                siDefault = False
+                is_default = False
                 nvar += 1
                 self.li_vars.append("")
             elif x == "default":
-                siDefault = True
+                is_default = True
             else:
-                if siDefault:
+                if is_default:
                     if self.default:
                         self.default += " "
                     self.default += x

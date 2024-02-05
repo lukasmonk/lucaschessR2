@@ -3,7 +3,7 @@ import collections
 from PySide2 import QtWidgets, QtCore
 
 import Code
-from Code import XRun
+from Code import XRun, Util
 from Code.Base import Game
 from Code.Base.Constantes import RESULT_WIN_WHITE, RESULT_DRAW, RESULT_WIN_BLACK
 from Code.Databases import DBgames, WDB_Games
@@ -262,48 +262,55 @@ class WLeague(LCDialog.LCDialog):
 
     def tab_changed(self):
         if self.tab.current_position() == 3:
-            li_games = []
-            st_cdivisions = set()
-            st_cjourneys = set()
-            st_white = set()
-            st_black = set()
-            st_players = set()
-            st_results = set()
-            dic_raw_games = self.season.dic_raw_games()
-            for division, dic_division in enumerate(dic_raw_games["LI_SAVED_DIVISIONS"]):
-                for journey, li_matchs in enumerate(dic_division["LI_MATCHDAYS"]):
-                    for dic_match in li_matchs:
-                        dic_match["DIVISION"] = division
-                        dic_match["CDIVISION"] = str(division + 1)
-                        st_cdivisions.add(dic_match["CDIVISION"])
-                        dic_match["JOURNEY"] = journey
-                        dic_match["CJOURNEY"] = str(journey + 1)
-                        st_cjourneys.add(dic_match["CJOURNEY"])
-                        w = dic_match["WHITE"] = self.dic_xid_name[dic_match["XID_WHITE"]]
-                        st_white.add(w)
-                        st_players.add(w)
-                        b = dic_match["BLACK"] = self.dic_xid_name[dic_match["XID_BLACK"]]
-                        st_black.add(b)
-                        st_players.add(b)
-                        li_games.append(dic_match)
-                        if dic_match.get("RESULT"):
-                            st_results.add(dic_match.get("RESULT"))
-                        else:
-                            st_results.add("?")
-                            dic_match["RESULT"] = "?"
-            self.li_games_all = li_games
-            self.adjust_filter_games(st_cdivisions, st_cjourneys, st_white, st_black, st_players, st_results)
-            self.filter_games()
+            with QTUtil2.OneMomentPlease(self):
+                li_games = []
+                st_cdivisions = set()
+                st_cjourneys = set()
+                st_white = set()
+                st_black = set()
+                st_players = set()
+                st_results = set()
+                dic_raw_games = self.season.dic_raw_games()
+                for division, dic_division in enumerate(dic_raw_games["LI_SAVED_DIVISIONS"]):
+                    for journey, li_matchs in enumerate(dic_division["LI_MATCHDAYS"]):
+                        for dic_match in li_matchs:
+                            dic_match["DIVISION"] = division
+                            dic_match["CDIVISION"] = str(division + 1)
+                            st_cdivisions.add(dic_match["CDIVISION"])
+                            dic_match["JOURNEY"] = journey
+                            dic_match["CJOURNEY"] = str(journey + 1)
+                            st_cjourneys.add(dic_match["CJOURNEY"])
+                            w = dic_match["WHITE"] = self.dic_xid_name[dic_match["XID_WHITE"]]
+                            st_white.add(w)
+                            st_players.add(w)
+                            b = dic_match["BLACK"] = self.dic_xid_name[dic_match["XID_BLACK"]]
+                            st_black.add(b)
+                            st_players.add(b)
+                            li_games.append(dic_match)
+                            if dic_match.get("RESULT"):
+                                st_results.add(dic_match.get("RESULT"))
+                            else:
+                                st_results.add("?")
+                                dic_match["RESULT"] = "?"
+                self.li_games_all = li_games
+                self.adjust_filter_games(st_cdivisions, st_cjourneys, st_white, st_black, st_players, st_results)
+                self.filter_games()
 
     def adjust_filter_games(self, st_cdivisions, st_cjourneys, st_white, st_black, st_players, st_results):
-        def one(st, cb):
+        def one(st, cb, numbers=False):
             lir = [(_("All"), None)]
-            for value in sorted(list(st)):
+            if numbers:
+                liv = [int(x) for x in st]
+                liv.sort()
+                li_values = [str(x) for x in liv]
+            else:
+                li_values = sorted(list(st))
+            for value in li_values:
                 lir.append((value, value))
             cb.rehacer(lir, cb.valor())
 
-        one(st_cdivisions, self.cb_cdivision)
-        one(st_cjourneys, self.cb_cjourney)
+        one(st_cdivisions, self.cb_cdivision, True)
+        one(st_cjourneys, self.cb_cjourney, True)
         one(st_white, self.cb_white)
         one(st_black, self.cb_black)
         one(st_players, self.cb_player)
@@ -727,7 +734,7 @@ class WLeague(LCDialog.LCDialog):
 
     def consult_matches_classification(self, grid, row):
         xmatch = self.li_matches[row]
-        division = int(xmatch.label_division)
+        division = int(xmatch.label_division)-1
         if xmatch.result:
             self.show_match_done(xmatch)
             grid.refresh()
@@ -755,32 +762,21 @@ class WLeague(LCDialog.LCDialog):
             game.set_tag("WhiteElo", str(elo_white))
             game.set_tag("BlackElo", str(elo_black))
 
-            menu = QTVarios.LCMenu(self)
-            menu.opcion(RESULT_DRAW, RESULT_DRAW, Iconos.Tablas())
-            menu.separador()
-            menu.opcion(RESULT_WIN_WHITE, RESULT_WIN_WHITE, Iconos.Blancas())
-            menu.separador()
-            menu.opcion(RESULT_WIN_BLACK, RESULT_WIN_BLACK, Iconos.Negras())
-            resp = menu.lanza()
-            if resp is None:
-                return
-            game.set_tag("Result", resp)
+            game_resp = Code.procesador.manager_game(self, game, True, False, None)
+            if game_resp:
+                game_resp.verify()
 
-            while True:
-                game_resp = Code.procesador.manager_game(self, game, True, False, None)
-                if game_resp:
-                    game_resp.verify()
-                    if game.resultado() in (RESULT_WIN_BLACK, RESULT_DRAW, RESULT_WIN_WHITE):
-                        xmatch.result = game.resultado()
-                        self.season.put_match_done(xmatch, game)
-                        self.update_matches()
-                        grid.refresh()
+                result = game.resultado()
+                if result not in (RESULT_WIN_BLACK, RESULT_DRAW, RESULT_WIN_WHITE):
+                    result = QTVarios.get_result_game(self)
+                    if result is None:
                         return
-                    else:
-                        QTUtil2.message_error(self, _("The game must have a valid result tag"))
-                        game = game_resp
-                else:
-                    return
+                    game.set_tag("RESULT", result)
+
+                xmatch.result = game.resultado()
+                self.season.put_match_done(xmatch, game)
+                self.update_matches()
+                grid.refresh()
 
     def consult_matches_crosstabs(self, grid, row, other_xid):
         if other_xid == "ORDER" or row == 0:
@@ -795,6 +791,9 @@ class WLeague(LCDialog.LCDialog):
         for xmatch in li_matches_played:
             if other_xid == xmatch.xid_black:
                 self.show_match_done(xmatch)
+
+    def grid_right_button(self, grid, row, col, modif):
+        self.grid_doble_click(grid, row, col)
 
     def grid_doble_click(self, grid, row, o_column):
         if grid in self.li_grids_divisions:
@@ -840,7 +839,12 @@ class WLeague(LCDialog.LCDialog):
         if game:
             game = Code.procesador.manager_game(self, game, True, False, None)
             if game:
+                if xmatch.is_human_vs_human(self.swiss):
+                    result = game.resultado()
+                    if result in (RESULT_WIN_WHITE, RESULT_WIN_BLACK, RESULT_DRAW):
+                        xmatch.result = result
                 self.season.put_match_done(xmatch, game)
+                self.show_current_season()
 
     def update_matches(self):
         if self.terminated:
@@ -918,18 +922,24 @@ class WLeague(LCDialog.LCDialog):
         return resp
 
     def launch_worker(self):
-        rondo = QTVarios.rondoPuntos()
+        cores = Util.cpu_count()
+        if cores < 2:
+            resp = 1
 
-        menu = QTVarios.LCMenu(self)
-        menu.opcion(1, _("Launch one worker"), Iconos.Lanzamiento())
-        menu.separador()
+        else:
+            rondo = QTVarios.rondoPuntos()
 
-        submenu = menu.submenu(_("Launch some workers"), Iconos.Lanzamientos())
+            menu = QTVarios.LCMenu(self)
+            menu.opcion(1, _("Launch one worker"), Iconos.Lanzamiento())
+            menu.separador()
 
-        for x in range(2, 33):
-            submenu.opcion(x, str(x), rondo.otro())
+            submenu = menu.submenu(_("Launch some workers"), Iconos.Lanzamientos())
 
-        resp = menu.lanza()
+            for x in range(2, cores+1):
+                submenu.opcion(x, str(x), rondo.otro())
+
+            resp = menu.lanza()
+
         if resp:
             self.update_matches()
             lw = LeaguesWork.LeaguesWork(self.league)

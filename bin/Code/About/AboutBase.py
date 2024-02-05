@@ -141,6 +141,7 @@ class ThanksTo:
             "Reinhard",
             "Olav Stüwe",
             '<a href="http://99-developer-tools.com/chess/">A. Wicker</a>',
+            'Budana P'
             ""
         ]
         li_resto = []
@@ -272,10 +273,10 @@ class ThanksTo:
         txt += "</td></tr>"
         txt += self.table_end()
         txt += (
-            '<big><bold><center>%s: <a href="https://poeditor.com">https://poeditor.com</a>'
+            '<big><bold><center>%s: <a href="https://explore.transifex.com/">Transifex</a>'
             % _("Web")
         )
-        txt += ' -  <a href="https://poeditor.com/join/project/962ccf24a09425725475831e24968575">Join Translation of LucasChess</a></center></bold></big>'
+        txt += ' -  <a href="https://app.transifex.com/join/?o=lukasmonk&p=lucaschess&t=opensource">Join Translation of LucasChess</a></center></bold></big>'
         return txt
 
     def images(self):

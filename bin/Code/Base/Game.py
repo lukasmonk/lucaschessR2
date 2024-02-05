@@ -175,6 +175,17 @@ class Game:
 
     def set_tags(self, litags):
         self.li_tags = litags[:]
+        self.set_result()
+
+    def set_result(self):
+        self.result = RESULT_UNKNOWN
+        for pos, (tag, value) in enumerate(self.li_tags):
+            if tag.upper() == "RESULT":
+                if value.strip() not in (RESULT_UNKNOWN, RESULT_WIN_BLACK, RESULT_WIN_WHITE, RESULT_DRAW):
+                    value = RESULT_UNKNOWN
+                self.li_tags[pos] = ["Result", value]
+                self.result = value
+                break
 
     def get_tag(self, tag):
         tag = tag.upper()
@@ -187,6 +198,7 @@ class Game:
         return {k: v for k, v in self.li_tags}
 
     def order_tags(self):
+        self.set_result()
         li_basic = ("EVENT", "SITE", "DATE", "ROUND", "WHITE", "BLACK", "RESULT", "ECO", "FEN", "WHITEELO", "BLACKELO")
         li_main = []
         li_resto = []
@@ -209,12 +221,15 @@ class Game:
                 break
         if not found:
             self.li_tags.append([key, value])
+        if key == "Result":
+            self.set_result()
 
     def del_tag(self, key):
         for n, (xkey, xvalue) in enumerate(self.li_tags):
             if xkey == key:
                 del self.li_tags[n]
                 return
+        self.set_result()
 
     def set_extend_tags(self):
         if self.result:
@@ -257,7 +272,7 @@ class Game:
                 li_nuevo.append((k, v))
         self.li_tags = li_nuevo
 
-    def readPGN(self, pgn):
+    def read_pgn(self, pgn):
         ok, game_tmp = pgn_game(pgn)
         self.restore(game_tmp.save())
         return self
@@ -595,10 +610,11 @@ class Game:
             self.set_tag("Result", self.result)
 
     def resultado(self):
-        if self.result == RESULT_UNKNOWN:
-            x = self.get_tag("RESULT")
-            if x:
-                self.result = x
+        result_tag = self.get_tag("RESULT")
+        if result_tag in (RESULT_WIN_WHITE, RESULT_WIN_BLACK, RESULT_DRAW):
+            self.result = result_tag
+        elif self.result in (RESULT_WIN_WHITE, RESULT_WIN_BLACK, RESULT_DRAW):
+            self.set_tag("Result", self.result)
         return self.result
 
     def siEstaTerminada(self):
@@ -696,7 +712,7 @@ class Game:
                 return self.copia(pos - 1)
         return self.copia(-1)
 
-    def copiaDesde(self, desdeJugada):
+    def copy_from_move(self, desdeJugada):
         if desdeJugada == 0:
             cp = self.first_position
         else:
@@ -984,6 +1000,38 @@ class Game:
         else:
             return 0
 
+    def convert_variation_into_mainline(self, num_move, num_variation):
+        game_last_moves = self.copy_from_move(num_move)  # Desde el movimiento hasta el final es la nueva variante
+
+        move = self.li_moves[num_move]
+        game_variation = move.variations.li_variations[num_variation]
+        self.li_moves = self.li_moves[:num_move]
+        for xmove in game_variation.li_moves:
+            xmove.game = self
+        self.li_moves.extend(game_variation.li_moves)
+
+        move0 = self.li_moves[num_move]
+        move0.variations = Move.Variations(move0)
+        for xnum, variation in enumerate(move.variations.li_variations):
+            if xnum == num_variation:
+                move0.add_variation(game_last_moves)
+            else:
+                move0.add_variation(variation)
+
+    def remove_info_moves(self, variations=True, ratings=True, comments=True, analysis=True, themes=True):
+        for move in self.li_moves:
+            if variations:
+                move.del_variations()
+            if ratings:
+                move.del_nags()
+            if comments:
+                move.del_comment()
+            if analysis:
+                move.del_analysis()
+            if themes:
+                move.del_themes()
+
+        
 
 def pv_san(fen, pv):
     p = Game(fen=fen)

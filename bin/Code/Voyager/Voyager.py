@@ -78,15 +78,20 @@ class WPosicion(QtWidgets.QWidget):
             (_("Basic position"), Iconos.Inicio(), self.inicial),
             None,
             (_("Clear board"), Iconos.Borrar(), self.limpiaBoard),
-            (_("Paste FEN position"), Iconos.Pegar16(), self.pegar),
+            None,
+            (_("Paste FEN position"), Iconos.Pegar(), self.pegar),
+            None,
             (_("Copy FEN position"), Iconos.Copiar(), self.copiar),
+            None,
             (_("Scanner"), Iconos.Scanner(), self.scanner),
+            None,
         ]
         if Code.eboard:
-            li_acciones.append(None)
             li_acciones.append((_("Enable"), Code.eboard.icon_eboard(), self.eboard_activate))
+            li_acciones.append(None)
 
-        self.tb = Controles.TBrutina(self, li_acciones, with_text=False, icon_size=20)
+        self.tb = Controles.TBrutina(self, li_acciones, with_text=False,
+                                     icon_size=32 if config_board.anchoPieza() >= 32 else 24)
 
         drag_drop_wb = QTVarios.ListaPiezas(self, "P,N,B,R,Q,K", self.board, margen=0)
         drag_drop_ba = QTVarios.ListaPiezas(self, "k,q,r,b,n,p", self.board, margen=0)
@@ -412,7 +417,7 @@ class WPosicion(QtWidgets.QWidget):
                     pass
             elif tp == "h":
                 try:
-                    self.position.read_fen(QTUtil.traePortapapeles())
+                    self.position.read_fen(QTUtil.get_txt_clipboard())
                     self.resetPosicion()
                 except:
                     pass
@@ -488,7 +493,7 @@ class WPosicion(QtWidgets.QWidget):
         QTUtil.refresh_gui()
 
         screen = QtWidgets.QApplication.primaryScreen()
-        desktop = screen.grabWindow(0, 0, 0, QTUtil.anchoEscritorio(), QTUtil.altoEscritorio())
+        desktop = screen.grabWindow(0, 0, 0, QTUtil.desktop_width(), QTUtil.desktop_height())
 
         self.wparent.showNormal()
 

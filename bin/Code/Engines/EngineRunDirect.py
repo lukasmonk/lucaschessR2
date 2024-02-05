@@ -137,11 +137,6 @@ class DirectEngine(object):
         li, self.uci_ok = self.pwait_list("uci", "uciok", 10000)
         self.uci_lines = [x for x in li if x.startswith("id ") or x.startswith("option name")] if self.uci_ok else []
 
-    def test_nodes(self):
-        self.put_line("position r1bq1rk1/ppp1nppp/3pp3/2b1P3/2B2BQP/2P2N2/PP3PP1/R3K2R w KQ - 0 12")
-        li, ok = self.pwait_list("go nodes 50", "bestmove", 1000)
-        return li
-
     def ready_ok(self):
         li, readyok = self.pwait_list("isready", "readyok", 10000)
         return readyok

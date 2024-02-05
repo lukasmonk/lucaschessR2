@@ -13,7 +13,7 @@ from Code.QT import LCDialog
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
 
-from Code.Leagues import WLeagueConfig, Leagues, WLeague
+from Code.Leagues import WLeagueConfig, WLeague, Leagues
 
 
 class WLeagues(LCDialog.LCDialog):
@@ -67,7 +67,7 @@ class WLeagues(LCDialog.LCDialog):
         row = self.grid.recno()
         if row >= 0:
             league = self.get_league(row)
-            if league.correct_opponents():
+            if league.enough_opponents():
                 self.run_league = league
                 self.accept()
             else:
@@ -128,6 +128,7 @@ class WLeagues(LCDialog.LCDialog):
                 path = os.path.join(Code.configuration.folder_leagues(), nom_league + ".league")
                 if os.path.isfile(path):
                     QTUtil2.message_error(self, _("The file %s already exist") % nom_league)
+                    return self.edit_name(nom_league)
         return nom_league
 
     def crear(self):
@@ -174,8 +175,8 @@ class WLeagues(LCDialog.LCDialog):
             nom_origen = self.nom_league_pos(row)
             nom_destino = self.edit_name(nom_origen)
             if nom_destino and nom_origen != nom_destino:
-                path_origen = os.path.join(Code.configuration.folder_leagues(), "%s.league" % nom_origen)
-                path_destino = os.path.join(Code.configuration.folder_leagues(), "%s.league" % nom_destino)
+                path_origen = os.path.join(Code.configuration.folder_leagues(), f"{nom_origen}.league" % nom_origen)
+                path_destino = os.path.join(Code.configuration.folder_leagues(), f"{nom_destino}.league" % nom_destino)
                 shutil.copy(path_origen, path_destino)
                 self.refresh_lista()
 

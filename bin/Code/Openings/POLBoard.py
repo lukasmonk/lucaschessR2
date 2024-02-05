@@ -68,7 +68,7 @@ class BoardLines(QtWidgets.QWidget):
 
         self.board.set_side_bottom(self.dbop.getconfig("WHITEBOTTOM", True))
 
-        self.dbop.setdbVisual_Board(self.board)  # To close
+        self.dbop.setdbvisual_board(self.board)  # To close
 
         tipo_letra = Controles.TipoLetra(puntos=configuration.x_pgn_fontpoints)
 
@@ -327,6 +327,13 @@ class BoardLines(QtWidgets.QWidget):
 
     def toolbar_rightmouse(self):
         QTVarios.change_interval(self, self.configuration)
+
+    def boardWheelEvent(self, board, forward):
+        forward = Code.configuration.wheel_board(forward)
+        if forward:
+            self.MoverAdelante()
+        else:
+            self.MoverAtras()
 
     def lanzaReloj(self):
         if self.siReloj:

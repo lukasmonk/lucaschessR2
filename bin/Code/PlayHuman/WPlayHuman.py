@@ -68,8 +68,8 @@ class WPlayHuman(LCDialog.LCDialog):
             ).ponFuente(font)
             ly.control(self.chb_eboard)
 
-        self.chb_analysis_bar = Controles.CHB(self, _("Activate the Analysis Bar"), False).ponFuente(font)
-        ly.control(self.chb_analysis_bar)
+        # self.chb_analysis_bar = Controles.CHB(self, _("Activate the Analysis Bar"), False).ponFuente(font)
+        # ly.control(self.chb_analysis_bar)
 
         self.chb_autorotate = Controles.CHB(self, _("Auto-rotate board"), Code.configuration.get_auto_rotate(GT_HUMAN)).ponFuente(font)
         ly.control(self.chb_autorotate)
@@ -92,7 +92,7 @@ class WPlayHuman(LCDialog.LCDialog):
             "MINUTES": self.ed_minutos.textoFloat(),
             "SECONDS": self.ed_segundos.value(),
             "ACTIVATE_EBOARD": self.chb_eboard.valor() if Code.eboard else False,
-            "ANALYSIS_BAR": self.chb_analysis_bar.valor(),
+            # "ANALYSIS_BAR": self.chb_analysis_bar.valor(),
         }
 
     def restore_dic(self, dic):
@@ -105,7 +105,7 @@ class WPlayHuman(LCDialog.LCDialog):
         self.chb_tiempo.setChecked(dg("WITHTIME", False))
         if Code.eboard:
             self.chb_eboard.set_value(dg("ACTIVATE_EBOARD", False))
-        self.chb_analysis_bar.set_value(dg("ANALYSIS_BAR", False))
+        # self.chb_analysis_bar.set_value(dg("ANALYSIS_BAR", False))
         self.chb_autorotate.set_value(dg("AUTO_ROTATE", False))
 
     def aceptar(self):

@@ -253,12 +253,6 @@ class WAnalisisGraph(LCDialog.LCDialog):
         else:
             return True  # que siga con el resto de teclas
 
-    # def grid_color_fondo(self, grid, row, o_column):
-    #     if grid.id == "A":
-    #         move = self.alm.lijg[row]
-    #         return self.colorWhite if move.xsiW else None
-    #     return None
-
     def grid_color_texto(self, grid, row, o_column):
         if grid.id == "A":
             move = self.alm.lijg[row]
@@ -291,12 +285,12 @@ class WAnalisisGraph(LCDialog.LCDialog):
                 delegado = o_column.edicion
                 delegado.setWhite(move.is_white())
             mrm, pos = move.analysis
-            rm = mrm.li_rm[pos if column == "MOVE" else 0]
-            pv1 = rm.pv.split(" ")[0]
+            rm0 = mrm.li_rm[pos if column == "MOVE" else 0]
+            pv1 = rm0.pv.split(" ")[0]
             from_sq = pv1[:2]
             to_sq = pv1[2:4]
             promotion = pv1[4] if len(pv1) == 5 else None
-            txt = rm.abrTextoBase()
+            txt = rm0.abrTextoBase()
 
             color = None
             if column == "MOVE":
@@ -316,11 +310,17 @@ class WAnalisisGraph(LCDialog.LCDialog):
 
         elif column == "DIF":
             mrm, pos = move.analysis
-            rm = mrm.li_rm[0]
+            rm0 = mrm.li_rm[0]
             rm1 = mrm.li_rm[pos]
-            if rm.mate and rm1.mate:
-                return "" if rm.mate == rm1.mate else "M%+d" % (rm.mate-rm1.mate,)
-            pts = rm.puntosABS_5() - rm1.puntosABS_5()
+            if rm0.mate:
+                if rm1.mate:
+                    return "" if rm0.mate == rm1.mate else "M↓%d" % (-rm0.mate+rm1.mate,)
+                else:
+                    return "M↓%d" % rm0.mate
+            elif rm1.mate:
+                return "⨠M"
+
+            pts = rm0.puntosABS_5() - rm1.puntosABS_5()
             pts /= 100.0
             return "%0.2f" % pts
 

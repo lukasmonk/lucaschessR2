@@ -91,7 +91,7 @@ class WBase(QtWidgets.QWidget):
         ly_bb = Colocacion.H().control(self.analysis_bar).control(self.board)
         ly_t = Colocacion.V().otro(ly_bb).relleno()
 
-        self.conAtajos = True
+        self.with_shortcuts = True
 
         self.si_tutor = False
         self.num_hints = 0
@@ -117,7 +117,7 @@ class WBase(QtWidgets.QWidget):
         style = "QToolBar {border-bottom: 1px solid gray; border-top: 1px solid gray;}"
         self.tb.setStyleSheet(style)
         self.tb.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
-        self.tb.customContextMenuRequested.connect(self.lanzaAtajos)
+        self.tb.customContextMenuRequested.connect(self.launch_shortcuts)
 
         self.dic_toolbar = {}
 
@@ -201,16 +201,16 @@ class WBase(QtWidgets.QWidget):
             TB_SETTINGS: (_("Options"), Iconos.Preferencias()),
         }
 
-    def lanzaAtajos(self):
-        if self.conAtajos:
-            self.manager.lanza_atajos()
+    def launch_shortcuts(self):
+        if self.with_shortcuts:
+            Code.procesador.launch_shortcuts()
 
-    def lanzaAtajosALT(self, key):
-        if self.conAtajos:
-            self.manager.lanzaAtajosALT(key)
+    def launch_shortcut_with_alt(self, key):
+        if self.with_shortcuts:
+            Code.procesador.launch_shortcut_with_alt(key)
 
     def create_board(self):
-        ae = QTUtil.altoEscritorio()
+        ae = QTUtil.desktop_height()
         mx = int(ae * 0.08)
         key = "BASE" if self.parent.key_video == "maind" else "BASEV"
         config_board = self.manager.configuration.config_board(key, mx)
@@ -364,8 +364,8 @@ class WBase(QtWidgets.QWidget):
     def run_action(self):
         self.manager.run_action(self.sender().key)
 
-    def pon_toolbar(self, li_acciones, separator=False, conAtajos=False, with_eboard=False):
-        self.conAtajos = conAtajos
+    def pon_toolbar(self, li_acciones, separator=False, with_shortcuts=False, with_eboard=False):
+        self.with_shortcuts = with_shortcuts
 
         self.tb.clear()
         if with_eboard:
@@ -472,7 +472,7 @@ class WBase(QtWidgets.QWidget):
         self.key_pressed("G", k)
 
     def grid_wheel_event(self, ogrid, forward):
-        self.key_pressed("T", QtCore.Qt.Key.Key_Left if forward else QtCore.Qt.Key.Key_Right)
+        self.key_pressed("T", QtCore.Qt.Key.Key_Left if self.configuration.wheel_pgn(forward) else QtCore.Qt.Key.Key_Right)
 
     def grid_dato(self, grid, row, o_columna):
         controlPGN = self.manager.pgn
@@ -547,15 +547,16 @@ class WBase(QtWidgets.QWidget):
 
     def keyPressEvent(self, event):
         k = event.key()
-        if self.conAtajos:
+        if self.with_shortcuts:
             if 49 <= k <= 57:
                 m = int(event.modifiers())
                 if (m & QtCore.Qt.AltModifier) > 0:
-                    self.lanzaAtajosALT(k - 48)
+                    self.launch_shortcut_with_alt(k - 48)
                     return
         self.key_pressed("V", event.key(), int(event.modifiers()))
 
     def boardWheelEvent(self, board, forward):
+        forward = self.configuration.wheel_board(forward)
         self.key_pressed("T", QtCore.Qt.Key.Key_Left if forward else QtCore.Qt.Key.Key_Right)
 
     def key_pressed(self, tipo, tecla, modifiers=None):

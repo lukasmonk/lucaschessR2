@@ -706,7 +706,7 @@ class WUnSTS(LCDialog.LCDialog):
 
     def wkNew(self, work=None):
         if work is None or not work:
-            me = WEngines.selectEngine(self)
+            me = WEngines.select_engine(self)
             if not me:
                 return
             work = self.sts.createWork(me)

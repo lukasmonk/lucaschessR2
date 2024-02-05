@@ -39,7 +39,8 @@ class Reinforcement:
                 self.activate()
 
     def add_working_error(self):
-        self.activate()
+        if self.pos_active >= 0:
+            self.activate()
 
     def get_working_position(self):
         return self.li_work_fens[self.pos_active]
@@ -85,7 +86,7 @@ class Reinforcement:
                 self.pos_active = -1
                 self.active = False
 
-    def is_working(self):
+    def is_activated(self):
         if self.enabled():
             if not self.active and (len(self.li_num_fens) >= self.max_errors):
                 self.activate()
@@ -106,7 +107,7 @@ class Reinforcement:
             self.save()
 
     def label(self):
-        if self.is_working():
+        if self.is_activated():
             return _("Reinforcement"), ""
         elif self.enabled():
             if len(self.li_num_fens) > 0:
@@ -196,6 +197,8 @@ class Tactics:
 
 
 class Tactic:
+    w_next_position: int
+
     def __init__(self, tactics, name, tipo, folder_user):
         self.tactics = tactics
         self.name = name
@@ -619,14 +622,14 @@ class Tactic:
                 del db["DICREINFORCEMENT"]
 
     def work_list_positions(self):
-        if self.reinforcement.is_working():
+        if self.reinforcement.is_activated():
             return self.reinforcement.list_positions()
         else:
             return self.list_positions()
 
     def work_current_position(self):
         position = None
-        if self.reinforcement.is_working():
+        if self.reinforcement.is_activated():
             position = self.reinforcement.current_position()
         if position is None:
             position = self.current_position()
@@ -634,13 +637,12 @@ class Tactic:
 
     def work_reset_positions(self):
         self.w_error = False
-        self.w_reinforcement_working = self.reinforcement.is_working()
+        self.w_reinforcement_working = self.reinforcement.is_activated()
         if self.w_reinforcement_working:
-            self.w_current_position = self.reinforcement.pos_active
+            self.w_current_position = self.reinforcement.current_position()
             self.w_total_positions = self.reinforcement.total_positions()
         else:
             self.w_current_position = self.current_position()
-            self.w_next_position = self.w_current_position + 1
             self.w_total_positions = self.total_positions()
         self.w_next_position = self.w_current_position + 1
 
@@ -706,48 +708,49 @@ class Tactic:
             return self.w_label if self.work_must_showtext() else ""
 
     def work_game_finished(self):
-        if self.reinforcement.is_working():
+        if self.reinforcement.is_activated():
             return False
         else:
             return (self.w_next_position > self.w_total_positions) and len(self.reinforcement) == 0
 
     def work_info_position(self):
         reinforcement_title, reinforcement_state = self.reinforcement.label()
+        title = ""
+
         if self.w_next_position == self.w_total_positions:
             if self.w_reinforcement_working:
                 mens = _("End reinforcement")
                 color = "blue"
-                reinforcement_title = '<tr><td  align="center"><h4>%s</h4></td></tr>' % reinforcement_title
+                title = '<tr><td  align="center"><h4>%s</h4></td></tr>' % reinforcement_title
             else:
                 mens = _("GAME OVER")
                 color = "DarkMagenta"
-            txt = "%s: <big>%s</big>" % (_("Next"), mens)
+            str_final = "%s: <big>%s</big>" % (_("Next"), mens)
+
         else:
-            txt = "%s: %d" % (_("Next"), self.w_next_position + 1)
+            str_final = "%s: %d" % (_("Next"), self.w_next_position + 1)
             color = "red" if self.w_next_position <= self.w_current_position else "blue"
 
-            if self.reinforcement.is_working() and not self.w_reinforcement_working:
-                txt = "%s: %s" % (_("Next"), _("Reinforcement"))
+            if self.reinforcement.is_activated():
+                if not self.w_reinforcement_working:
+                    str_final = "%s: %s" % (_("Next"), _("Reinforcement"))
+                else:
+                    if reinforcement_title:
+                        title = f'<tr><td  align="center"><h4>{reinforcement_title}</h4></td></tr>'
+                    if reinforcement_state:
+                        str_final += reinforcement_state
+            elif reinforcement_state:
+                str_final += reinforcement_state
 
-            else:
-                if reinforcement_title:
-                    reinforcement_title = '<tr><td  align="center"><h4>%s</h4></td></tr>' % reinforcement_title
-                if reinforcement_state:
-                    txt += reinforcement_state
-
+        str_current = _("Current position")
         html = (
             '<table border="1" with="100%%" align="center" cellpadding="5" cellspacing="0">'
-            "%s"
-            '<tr><td  align="center"><h4>%s: %d/%d<br><font color="%s">%s</font></h4></td></tr>'
+            f"{title}"
+            '<tr><td  align="center">'
+            f'<h4>{str_current}: {self.w_current_position + 1}/{self.w_total_positions}'
+            f'<br><font color="{color}">{str_final}</font></h4>'
+            '</td></tr>'
             "</table>"
-            % (
-                reinforcement_title,
-                _("Current position"),
-                self.w_current_position + 1,
-                self.w_total_positions,
-                color,
-                txt,
-            )
         )
         return html
 
@@ -776,11 +779,12 @@ class Tactic:
             with self.dbdatos() as db:
                 db["POSACTIVE"] = self.w_next_position
         else:
-            self.reinforcement.work_line_finished()
+            if not self.w_error:
+                self.reinforcement.work_line_finished()
         self.work_reset_positions()
 
     def work_set_current_position(self, pos):
-        if self.reinforcement.is_working():
+        if self.reinforcement.is_activated():
             self.reinforcement.set_current_position(pos)
         else:
             with self.dbdatos() as db:

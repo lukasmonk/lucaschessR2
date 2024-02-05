@@ -82,6 +82,7 @@ class WPlayGameBase(LCDialog.LCDialog):
         self.is_white = self.is_black = None
 
         self.db = DBPlayGame(self.configuration.file_play_game())
+        self.cache = {}
 
         # Historico
         o_columns = Columnas.ListaColumnas()
@@ -142,13 +143,12 @@ class WPlayGameBase(LCDialog.LCDialog):
 
     def grid_dato(self, grid, row, o_column):
         col = o_column.key
-        reg = self.db.leeRegistro(row)
-        if not ("CACHE" in reg):
+        if row not in self.cache:
+            reg = self.db.leeRegistro(row)
             game = Game.Game()
             game.restore(reg["GAME"])
-            reg["CACHE"] = {k: game.get_tag(k) for k in self.li_keys}
-            self.db.cambiaRegistro(row, reg)
-        return reg["CACHE"].get(col, "")
+            self.cache[row] = {k: game.get_tag(k) for k in self.li_keys}
+        return self.cache[row].get(col, "")
 
     def terminar(self):
         self.save_video()
@@ -178,6 +178,7 @@ class WPlayGameBase(LCDialog.LCDialog):
                 if resp:
                     game = w.game
         if game and len(game) > 0:
+            game.remove_info_moves()
             reg = {"GAME": game.save()}
             self.db.append(reg)
             self.grid.refresh()

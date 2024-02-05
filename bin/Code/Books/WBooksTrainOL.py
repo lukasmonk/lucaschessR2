@@ -480,7 +480,7 @@ class WGenBooksTrainOL(LCDialog.LCDialog):
         self.show_position()
 
     def paste_start_position(self):
-        texto = QTUtil.traePortapapeles()
+        texto = QTUtil.get_txt_clipboard()
         if texto:
             cp = Position.Position()
             try:

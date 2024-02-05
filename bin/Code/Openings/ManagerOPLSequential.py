@@ -67,7 +67,7 @@ class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
         self.is_human_side_white = self.training["COLOR"] == "WHITE"
         self.is_engine_side_white = not self.is_human_side_white
 
-        self.tb_with_comments([TB_CLOSE, TB_HELP, TB_REINIT])
+        self.tb_with_comments([TB_CLOSE, TB_HELP, TB_REINIT, TB_CONFIG])
 
         self.main_window.activaJuego(True, False, siAyudas=False)
         self.set_dispatcher(self.player_has_moved)
@@ -77,7 +77,7 @@ class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
         self.put_pieces_bottom(self.is_human_side_white)
         self.pgnRefresh(True)
 
-        self.ponCapInfoPorDefecto()
+        self.show_info_extra()
 
         self.state = ST_PLAYING
 
@@ -144,7 +144,7 @@ class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
             if sinError:
                 self.game_info["NOERROR"] += 1
                 self.training["NUMLINEA_SEQUENTIAL"] = self.num_linea + 1
-                self.main_window.pon_toolbar((TB_CLOSE, TB_NEXT))
+                self.main_window.pon_toolbar((TB_CLOSE, TB_CONFIG, TB_NEXT))
             else:
                 self.game_info["NOERROR"] -= 1
 

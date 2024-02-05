@@ -419,7 +419,7 @@ class MultiEditor(QtWidgets.QItemDelegate):
         self.win_me.me_set_value(editor, value)
 
     def setModelData(self, editor, model, index):
-        value = self.win_me.me_leeValor(editor)
+        value = self.win_me.me_readvalue(editor)
         model.setData(index, value)
 
     def updateEditorGeometry(self, editor, option, index):

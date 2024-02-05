@@ -253,7 +253,7 @@ class BotonFichero(QtWidgets.QPushButton):
         self.qm = QtGui.QFontMetrics(self.font())
         self.file = file
         self.ficheroDefecto = ficheroDefecto
-        self.siPrimeraVez = True
+        self.is_first_time = True
 
     def cambiaFichero(self):
         titulo = _("File to save") if self.siSave else _("File to read")
@@ -273,8 +273,8 @@ class BotonFichero(QtWidgets.QPushButton):
                 txt = Code.relative_root(txt)
             tamTxt = self.qm.boundingRect(txt).width()
             tmax = self.width() - 10
-            if self.siPrimeraVez:
-                self.siPrimeraVez = False
+            if self.is_first_time:
+                self.is_first_time = False
                 tmax = self.anchoMinimo if self.anchoMinimo else tmax
 
             while tamTxt > tmax:

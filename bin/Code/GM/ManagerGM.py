@@ -101,7 +101,7 @@ class ManagerGM(Manager.Manager):
         self.textoPuntuacion = ""
         self.ponRotuloSecundario()
         self.pgnRefresh(True)
-        self.ponCapInfoPorDefecto()
+        self.show_info_extra()
 
         self.state = ST_PLAYING
 

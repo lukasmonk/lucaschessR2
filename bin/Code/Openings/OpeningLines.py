@@ -281,10 +281,10 @@ class Opening:
         cursor.execute("VACUUM")
         cursor.close()
 
-    def setdbVisual_Board(self, board):
+    def setdbvisual_board(self, board):
         self.board = board
 
-    def getOtras(self, configuration, game):
+    def get_others(self, configuration, game):
         liOp = ListaOpenings(configuration)
         fich = os.path.basename(self.nom_fichero)
         pvbase = game.pv()
@@ -1166,6 +1166,12 @@ class Opening:
                     lista.append(xpv)
         self.guardaLiXPV("%s,%s" % (_("Other opening lines"), otra.title), lista)
         self.db_fenvalues.copy_from(otra.db_fenvalues)
+        for tabla in ("FEN", "Flechas", "Marcos", "SVGs", "Markers"):
+            dbr = UtilSQL.DictSQL(self.nom_fichero, tabla=tabla)
+            dbv = UtilSQL.DictSQL(otra.nom_fichero, tabla=tabla)
+            dbr.copy_from(dbv)
+            dbr.close()
+            dbv.close()
         self.pack_database()
         otra.close()
 

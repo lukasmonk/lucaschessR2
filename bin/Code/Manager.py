@@ -51,6 +51,7 @@ from Code.Base.Constantes import (
     GT_POSITIONS,
     GT_TACTICS,
     TERMINATION_DRAW_AGREEMENT,
+    DICT_GAME_TYPES,
 )
 from Code.Board import BoardTypes
 from Code.Databases import DBgames
@@ -161,6 +162,9 @@ class Manager:
         if self.configuration.x_digital_board:
             self.with_eboard = False
 
+    def refresh_pgn(self):
+        self.main_window.base.pgnRefresh()
+
     def new_game(self):
         self.game = Game.Game()
         self.game.set_tag("Site", Code.lucas_chess)
@@ -200,34 +204,34 @@ class Manager:
 
     @staticmethod
     def otherCandidates(liMoves, position, liC):
-        liPlayer = []
+        li_player = []
         for mov in liMoves:
             if mov.mate():
-                liPlayer.append((mov.xto(), "P#"))
+                li_player.append((mov.xto(), "P#"))
             elif mov.check():
-                liPlayer.append((mov.xto(), "P+"))
+                li_player.append((mov.xto(), "P+"))
             elif mov.capture():
-                liPlayer.append((mov.xto(), "Px"))
+                li_player.append((mov.xto(), "Px"))
         oposic = position.copia()
         oposic.is_white = not position.is_white
         oposic.en_passant = ""
-        siJaque = FasterCode.ischeck()
+        si_jaque = FasterCode.ischeck()
         FasterCode.set_fen(oposic.fen())
-        liO = FasterCode.get_exmoves()
-        liRival = []
-        for n, mov in enumerate(liO):
-            if not siJaque:
+        li_o = FasterCode.get_exmoves()
+        li_rival = []
+        for n, mov in enumerate(li_o):
+            if not si_jaque:
                 if mov.mate():
-                    liRival.append((mov.xto(), "R#"))
+                    li_rival.append((mov.xto(), "R#"))
                 elif mov.check():
-                    liRival.append((mov.xto(), "R+"))
+                    li_rival.append((mov.xto(), "R+"))
                 elif mov.capture():
-                    liPlayer.append((mov.xto(), "Rx"))
+                    li_player.append((mov.xto(), "Rx"))
             elif mov.capture():
-                liPlayer.append((mov.xto(), "Rx"))
+                li_player.append((mov.xto(), "Rx"))
 
-        liC.extend(liRival)
-        liC.extend(liPlayer)
+        liC.extend(li_rival)
+        liC.extend(li_player)
 
     def colect_candidates(self, a1h8):
         if not hasattr(self.pgn, "move"):  # manager60 por ejemplo
@@ -245,18 +249,18 @@ class Manager:
             return None
 
         # Se verifica si algun movimiento puede empezar o terminar ahi
-        siOrigen = siDestino = False
+        si_origen = si_destino = False
         for mov in li:
             from_sq = mov.xfrom()
             to_sq = mov.xto()
             if a1h8 == from_sq:
-                siOrigen = True
+                si_origen = True
                 break
             if a1h8 == to_sq:
-                siDestino = True
+                si_destino = True
                 break
         origen = destino = None
-        if siOrigen or siDestino:
+        if si_origen or si_destino:
             pieza = position.squares.get(a1h8, None)
             if pieza is None:
                 destino = a1h8
@@ -271,24 +275,24 @@ class Manager:
                 else:
                     origen = a1h8
 
-        liC = []
+        li_c = []
         for mov in li:
             a1 = mov.xfrom()
             h8 = mov.xto()
-            siO = (origen == a1) if origen else None
-            siD = (destino == h8) if destino else None
+            si_o = (origen == a1) if origen else None
+            si_d = (destino == h8) if destino else None
 
-            if (siO and siD) or ((siO is None) and siD) or ((siD is None) and siO):
+            if (si_o and si_d) or ((si_o is None) and si_d) or ((si_d is None) and si_o):
                 t = (a1, h8)
-                if not (t in liC):
-                    liC.append(t)
+                if not (t in li_c):
+                    li_c.append(t)
 
         if origen:
-            liC = [(dh[1], "C") for dh in liC]
+            li_c = [(dh[1], "C") for dh in li_c]
         else:
-            liC = [(dh[0], "C") for dh in liC]
-        self.otherCandidates(li, position, liC)
-        return liC
+            li_c = [(dh[0], "C") for dh in li_c]
+        self.otherCandidates(li, position, li_c)
+        return li_c
 
     def atajosRaton(self, position, a1h8):
         if a1h8 is None or not self.board.pieces_are_active:
@@ -466,30 +470,33 @@ class Manager:
                 or self.configuration.x_show_bestmove
         ):
             if move:
-                dic = move.position.capturas_diferencia()
+                # dic = move.position.capturas_diferencia()
                 if move.analysis and self.configuration.x_show_bestmove:
                     mrm, pos = move.analysis
                     if pos:  # no se muestra la mejor move si es la realizada
                         rm0 = mrm.mejorMov()
                         self.board.put_arrow_scvar([(rm0.from_sq, rm0.to_sq)])
 
-            else:
-                dic = self.game.last_position.capturas_diferencia()
+            # else:
+            #     dic = self.game.last_position.capturas_diferencia()
+            # if self.game.last_position.fen() != self.board.last_position.fen():
+            # prin t("diferentes")
+            dic = self.board.last_position.capturas_diferencia()
 
-            nomOpening = ""
+            nom_opening = ""
             opening = self.game.opening
             if opening:
-                nomOpening = opening.tr_name
+                nom_opening = opening.tr_name
                 if opening.eco:
-                    nomOpening += " (%s)" % opening.eco
+                    nom_opening += " (%s)" % opening.eco
             if self.main_window.siCapturas:
                 self.main_window.ponCapturas(dic)
             if self.main_window.siInformacionPGN:
                 if (row == 0 and column.key == "NUMBER") or row < 0:
-                    self.main_window.put_informationPGN(self.game, None, nomOpening)
+                    self.main_window.put_informationPGN(self.game, None, nom_opening)
                 else:
                     move.pos_in_game = pos_move
-                    self.main_window.put_informationPGN(None, move, nomOpening)
+                    self.main_window.put_informationPGN(None, move, nom_opening)
 
             if self.kibitzers_manager.some_working():
                 if self.si_mira_kibitzers():
@@ -706,7 +713,7 @@ class Manager:
     def ponteAlPrincipio(self):
         self.set_position(self.game.first_position)
         self.main_window.base.pgn.goto(0, 0)
-        self.main_window.base.pgnRefresh()  # No se puede usar pgnRefresh, ya que se usa con gobottom en otros lados y aqui eso no funciona
+        self.refresh_pgn()  # No se puede usar pgnRefresh, ya que se usa con gobottom en otros lados y aqui eso no funciona
         self.put_view()
 
     def ponteAlPrincipioColor(self):
@@ -715,7 +722,8 @@ class Manager:
             self.set_position(move.position)
             self.main_window.base.pgn.goto(0, 2 if move.position.is_white else 1)
             self.board.put_arrow_sc(move.from_sq, move.to_sq)
-            self.main_window.base.pgnRefresh()  # No se puede usar pgnRefresh, ya que se usa con gobottom en otros lados y aqui eso no funciona
+            self.refresh_pgn()  # No se puede usar pgnRefresh, ya que se usa con gobottom en otros lados
+                                # y aqui eso no funciona
             self.put_view()
         else:
             self.ponteAlPrincipio()
@@ -730,7 +738,7 @@ class Manager:
                 if self.pgn.variations_mode:
                     self.set_position(self.game.first_position, "-1")
                     self.main_window.base.pgn.goto(0, 0)
-                    self.main_window.base.pgnRefresh()  # No se puede usar pgnRefresh, ya que se usa con gobottom en otros lados y aqui eso no funciona
+                    self.refresh_pgn()  # No se puede usar pgnRefresh, ya que se usa con gobottom en otros lados y aqui eso no funciona
                     self.put_view()
                 else:
                     self.ponteAlPrincipio()
@@ -745,7 +753,7 @@ class Manager:
             self.mueveJugada(GO_END)
         else:
             self.set_position(self.game.first_position)
-            self.main_window.base.pgnRefresh()  # No se puede usar pgnRefresh, ya que se usa con gobottom en otros lados y aqui eso no funciona
+            self.refresh_pgn()  # No se puede usar pgnRefresh, ya que se usa con gobottom en otros lados y aqui eso no funciona
         self.put_view()
 
     def jugadaActual(self):
@@ -790,28 +798,52 @@ class Manager:
             self.game.set_extend_tags()
             DBgames.autosave(self.game)
 
-    def ponCapPorDefecto(self):
-        self.capturasActivable = True
-        if self.configuration.x_captures_activate:
-            self.main_window.activaCapturas(True)
-            self.put_view()
+    def show_info_extra(self):
+        key = "SHOW_INFO_EXTRA_" + DICT_GAME_TYPES[self.game_type]
+        dic = self.configuration.read_variables(key)
 
-    def ponABarPorDefecto(self):
-        self.analysisbarActivable = True
-        if self.configuration.x_analyzer_activate_ab:
-            self.main_window.activate_analysis_bar(True)
-            self.put_view()
+        captured_material = dic.get("CAPTURED_MATERIAL")
+        if captured_material is None:  # importante preguntarlo aquí, no vale pillarlo en el get
+            captured_material = self.configuration.x_captures_activate
+        self.main_window.activaCapturas(captured_material)
 
-    def ponInfoPorDefecto(self):
-        self.informacionActivable = True
-        if self.configuration.x_info_activate:
-            self.main_window.activaInformacionPGN(True)
-            self.put_view()
+        pgn_information = dic.get("PGN_INFORMATION")
+        if pgn_information is None:
+            pgn_information = self.configuration.x_info_activate
+        self.main_window.activaInformacionPGN(pgn_information)
 
-    def ponCapInfoPorDefecto(self):
-        self.ponCapPorDefecto()
-        self.ponInfoPorDefecto()
-        self.ponABarPorDefecto()
+        analysis_bar = dic.get("ANALYSIS_BAR")
+        if analysis_bar is None:
+            analysis_bar = self.configuration.x_analyzer_activate_ab
+        self.main_window.activate_analysis_bar(analysis_bar)
+
+    def change_info_extra(self, who):
+        key = "SHOW_INFO_EXTRA_" + DICT_GAME_TYPES[self.game_type]
+        dic = self.configuration.read_variables(key)
+
+        if who == "pgn_information":
+            pgn_information = not self.main_window.is_active_information_pgn()
+            if pgn_information == self.configuration.x_info_activate:  # cuando es igual que el por defecto general,
+                # se aplicará el general, por lo que si se cambia el general se cambiarán los que tengan None
+                pgn_information = None
+            dic["PGN_INFORMATION"] = pgn_information
+
+        elif who == "captured_material":
+            captured_material = not self.main_window.is_active_captures()
+            if captured_material == self.configuration.x_captures_activate:
+                captured_material = None
+            dic["CAPTURED_MATERIAL"] = captured_material
+
+        elif who == "analysis_bar":
+            analysis_bar = not self.main_window.is_active_analysisbar()
+            if analysis_bar == self.configuration.x_analyzer_activate_ab:
+                analysis_bar = None
+            dic["ANALYSIS_BAR"] = analysis_bar
+
+        self.configuration.write_variables(key, dic)
+
+        self.show_info_extra()
+        self.put_view()
 
     def capturas(self):
         if self.capturasActivable:
@@ -1025,18 +1057,8 @@ class Manager:
             is_all, variations, ratings, comments, analysis, themes = resultado[1]
             if is_all:
                 variations = ratings = comments = analysis = themes = True
-            for move in self.game.li_moves:
-                if variations:
-                    move.del_variations()
-                if ratings:
-                    move.del_nags()
-                if comments:
-                    move.del_comment()
-                if analysis:
-                    move.del_analysis()
-                if themes:
-                    move.del_themes()
-            self.main_window.base.pgnRefresh()
+            self.game.remove_info_moves(variations, ratings, comments, analysis, themes)
+            self.refresh_pgn()
             self.refresh()
 
     def replay(self):
@@ -1232,20 +1254,21 @@ class Manager:
 
         # Vista
         menuVista = menu.submenu(_("Show/hide"), Iconos.Vista())
-        menuVista.opcion("vista_pgn", _("PGN information"), siChecked=self.configuration.x_info_activate)
+        menuVista.opcion("vista_pgn_information", _("PGN information"),
+                         siChecked=self.main_window.is_active_information_pgn())
         menuVista.separador()
-        menuVista.opcion("vista_capturas", _("Captured material"), siChecked=self.configuration.x_captures_activate)
+        menuVista.opcion("vista_capturas", _("Captured material"), siChecked=self.main_window.is_active_captures())
+        menuVista.separador()
+        menuVista.opcion(
+            "vista_analysis_bar",
+            _("Analysis Bar"),
+            siChecked=self.main_window.is_active_analysisbar(),
+        )
         menuVista.separador()
         menuVista.opcion(
             "vista_bestmove",
             _("Arrow with the best move when there is an analysis"),
             siChecked=self.configuration.x_show_bestmove,
-        )
-        menuVista.separador()
-        menuVista.opcion(
-            "vista_analysis_bar",
-            _("Analysis Bar"),
-            siChecked=self.configuration.x_analyzer_activate_ab,
         )
         menu.separador()
 
@@ -1335,21 +1358,12 @@ class Manager:
 
             elif resp.startswith("vista_"):
                 resp = resp[6:]
-                if resp == "pgn":
-                    self.main_window.activaInformacionPGN()
-                    self.put_view()
-                elif resp == "capturas":
-                    self.main_window.activaCapturas()
-                    self.put_view()
-                elif resp == "bestmove":
+                if resp == "bestmove":
                     self.configuration.x_show_bestmove = not self.configuration.x_show_bestmove
                     self.configuration.graba()
                     self.put_view()
-                elif resp == "analysis_bar":
-                    self.configuration.x_analyzer_activate_ab = not self.configuration.x_analyzer_activate_ab
-                    self.configuration.graba()
-                    self.main_window.activate_analysis_bar(self.configuration.x_analyzer_activate_ab)
-                    self.put_view()
+                else:
+                    self.change_info_extra(resp)
 
             elif resp == "sonido":
                 self.config_sonido()
@@ -1368,7 +1382,7 @@ class Manager:
                 orden = resp[3:]
                 if orden == "pgn":
                     self.pgn.must_show = not self.pgn.must_show
-                    self.main_window.base.pgnRefresh()
+                    self.refresh_pgn()
                 elif orden == "change":
                     x = str(self)
                     modoPosicionBlind = False
@@ -1479,13 +1493,17 @@ class Manager:
 
         menu_save.separador()
 
-        menuDB = menu_save.submenu(_("A database"), Iconos.DatabaseMas())
-        QTVarios.menuDB(menuDB, self.configuration, True, indicador_previo="dbf_")  # , remove_autosave=True)
+        menu_save_db = menu_save.submenu(_("To a database"), Iconos.DatabaseMas())
+        QTVarios.menuDB(menu_save_db, self.configuration, True, indicador_previo="dbf_")  # , remove_autosave=True)
         menu_save.separador()
 
-        menuV = menu_save.submenu(_("Board -> Image"), icoCamara)
-        menuV.opcion("volfichero", trFichero, icoFichero)
-        menuV.opcion("volportapapeles", trPortapapeles, icoClip)
+        menu_save_image = menu_save.submenu(_("Board -> Image"), icoCamara)
+        menu_save_image.opcion("volfichero", trFichero, icoFichero)
+        menu_save_image.opcion("volportapapeles", trPortapapeles, icoClip)
+
+        if len(self.game) > 1:
+            menu_save.separador()
+            menu_save.opcion("gif", _("As GIF file"), Iconos.GIF())
 
         menu.separador()
 
@@ -1616,6 +1634,9 @@ class Manager:
             else:
                 self.board.save_as_img()
 
+        elif resp == "gif":
+            self.save_gif()
+
         elif resp == "lcsbfichero":
             self.game.set_extend_tags()
             self.save_lcsb()
@@ -1646,6 +1667,11 @@ class Manager:
             self.help_to_move()
 
         return None
+
+    def save_gif(self):
+        from Code.QT import WGif
+        w = WGif.WGif(self.main_window, self.game)
+        w.exec_()
 
     def forcing_moves(self):
         fen = self.board.last_position.fen()
@@ -1722,7 +1748,7 @@ class Manager:
             QTUtil2.message_error(self.main_window, _("This game already exists."))
 
     def save_lcsb(self):
-        if self.game_type in (GT_ALONE, GT_GAME, GT_VARIATIONS)  and hasattr(self, "grabarComo"):
+        if self.game_type in (GT_ALONE, GT_GAME, GT_VARIATIONS) and hasattr(self, "grabarComo"):
             return getattr(self, "grabarComo")()
 
         dic = dict(GAME=self.game.save(True))
@@ -1842,7 +1868,7 @@ class Manager:
 
             siguientes = ""
             if nj < len(self.game) - 1:
-                p = self.game.copiaDesde(nj + 1)
+                p = self.game.copy_from_move(nj + 1)
                 siguientes = p.pgnBaseRAW(p.first_position.num_moves).replace("|", "-")
 
             txt = "%s||%s|%s\n" % (fen, siguientes, pgn)

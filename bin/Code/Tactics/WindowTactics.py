@@ -23,7 +23,7 @@ class WHistoricoTacticas(LCDialog.LCDialog):
         title = tactica.title
         title = TrListas.dicTraining().get(title, title)
 
-        LCDialog.LCDialog.__init__(self, main_window, title, icono, "histoTacticas")
+        LCDialog.LCDialog.__init__(self, main_window, title, icono, "histoTactics")
 
         self.li_histo = tactica.historico()
         self.tactica = tactica
@@ -38,10 +38,11 @@ class WHistoricoTacticas(LCDialog.LCDialog):
         o_columns.nueva("POSICIONES", _("Num. puzzles"), 100, align_center=True)
         o_columns.nueva("SECONDS", _("Working time"), 100, align_center=True)
         o_columns.nueva("ERRORS", _("Errors"), 100, align_center=True)
+        o_columns.nueva("FACTOR", "Δ", 70, align_center=True)
         self.ghistorico = Grid.Grid(self, o_columns, siSelecFilas=True, siSeleccionMultiple=True)
         self.ghistorico.setMinimumWidth(self.ghistorico.anchoColumnas() + 20)
 
-        # Tool bar
+        # Toolbar
         li_acciones = (
             (_("Close"), Iconos.MainMenu(), "terminar"),
             (_("Train"), Iconos.Empezar(), "entrenar"),
@@ -59,7 +60,7 @@ class WHistoricoTacticas(LCDialog.LCDialog):
         self.setLayout(ly)
 
         self.register_grid(self.ghistorico)
-        self.restore_video(siTam=False)
+        self.restore_video()
 
         self.ghistorico.gotop()
 
@@ -128,6 +129,20 @@ class WHistoricoTacticas(LCDialog.LCDialog):
                 return "-"
             else:
                 return "%d" % errors
+
+        elif col == "FACTOR":
+            if row == 0 and not self.tactica.finished():
+                errors = self.tactica.erroresActivo()
+            else:
+                errors = reg.get("ERRORS", 0)
+            if "POS" in reg:
+                posiciones = reg["POS"]
+                if row == 0 and not self.tactica.finished():
+                    posiciones = self.tactica.current_position()
+
+                return "%.02f" % (errors / posiciones) if posiciones > 0 else "∞"
+
+            return "-"
 
         elif col == "REFERENCE":
             if row == 0 and not self.tactica.finished():
@@ -631,9 +646,9 @@ class WEditaTactica(LCDialog.LCDialog):
         nico = QTVarios.rondoColores()
 
         for opcion, txt in (
-            (self.remove_jumps, _("Without repetitions of each puzzle")),
-            (self.remove_repeat, _("Without repetitions of block")),
-            (self.remove_penalization, _("Without penalties")),
+                (self.remove_jumps, _("Without repetitions of each puzzle")),
+                (self.remove_repeat, _("Without repetitions of block")),
+                (self.remove_penalization, _("Without penalties")),
         ):
             menu.opcion(opcion, txt, nico.otro())
             menu.separador()

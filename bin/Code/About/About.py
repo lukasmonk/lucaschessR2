@@ -18,7 +18,7 @@ class WAbout(QtWidgets.QDialog):
         self.setWindowTitle(_("About"))
         self.setWindowIcon(Iconos.Aplicacion64())
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Dialog | QtCore.Qt.WindowTitleHint)
-        self.setMaximumWidth(QTUtil.anchoEscritorio())
+        self.setMaximumWidth(QTUtil.desktop_width())
 
         f = Controles.TipoLetra(puntos=10)  # 0, peso=75 )
 

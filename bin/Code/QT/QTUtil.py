@@ -129,7 +129,7 @@ def qtBrush(nColor):
     return QtGui.QBrush(qtColor(nColor))
 
 
-def centraWindow(window):
+def center_on_desktop(window):
     """
     Centra la ventana en el escritorio
     """
@@ -138,15 +138,14 @@ def centraWindow(window):
     window.move((screen.width() - size.width()) / 2, (screen.height() - size.height()) / 2)
 
 
-def escondeWindow(window):
-    pos = window.pos()
-    screen = QtWidgets.QDesktopWidget().screenGeometry()
-    if Code.is_windows:
-        window.move(screen.width() * 10, 0)
-    else:
-        window.showMinimized()
-    return pos
+def center_on_widget(window):
+    parent_geometry = window.parent().geometry()
+    child_geometry = window.geometry()
 
+    x = (parent_geometry.width() - child_geometry.width()) / 2
+    y = (parent_geometry.height() - child_geometry.height()) / 2
+
+    window.move(window.parent().mapToGlobal(QtCore.QPoint(x, y)))
 
 class EscondeWindow:
     def __init__(self, window):
@@ -179,19 +178,16 @@ def colorIcon(xcolor, ancho, alto):
     return QtGui.QIcon(pm)
 
 
-def tamEscritorio():
-    """
-    Devuelve ancho,alto del escritorio
-    """
+def desktop_size():
     screen = QtWidgets.QDesktopWidget().availableGeometry()
     return screen.width(), screen.height()
 
 
-def anchoEscritorio():
+def desktop_width():
     return QtWidgets.QDesktopWidget().availableGeometry().width()
 
 
-def altoEscritorio():
+def desktop_height():
     return QtWidgets.QDesktopWidget().availableGeometry().height()
 
 
@@ -209,7 +205,7 @@ def ponPortapapeles(dato, tipo="t"):
         cb.setPixmap(dato)
 
 
-def traePortapapeles():
+def get_txt_clipboard():
     cb = QtWidgets.QApplication.clipboard()
     return cb.text()
 
@@ -236,7 +232,7 @@ def shrink(widget):
     widget.setGeometry(r)
 
 
-def kbdPulsado():
+def keyboard_modifiers():
     modifiers = QtWidgets.QApplication.keyboardModifiers()
     is_shift = modifiers == QtCore.Qt.ShiftModifier
     is_control = modifiers == QtCore.Qt.ControlModifier

@@ -26,7 +26,7 @@ from Code.Base.Constantes import (
 )
 from Code.Board import Board
 from Code.Engines import EngineManager, EnginesWicker, EngineResponse
-from Code.Leagues import LeaguesWork, Leagues
+from Code.Swiss import SwissWork, Swiss
 from Code.Books import Books
 from Code.QT import Colocacion
 from Code.QT import Columnas
@@ -39,25 +39,25 @@ from Code.QT import QTVarios
 from Code.Sound import Sound
 
 
-class WLeagueWorker(QtWidgets.QWidget):
+class WSwissWorker(QtWidgets.QWidget):
     tc_white: TimeControl.TimeControl
     tc_black: TimeControl.TimeControl
 
-    def __init__(self, name_league):
+    def __init__(self, name_swiss):
         QtWidgets.QWidget.__init__(self)
 
         Code.list_engine_managers = EngineManager.ListEngineManagers()
-        self.league = Leagues.League(name_league)
-        self.league_work = LeaguesWork.LeaguesWork(self.league)
+        self.swiss = Swiss.Swiss(name_swiss)
+        self.swiss_work = SwissWork.SwissWork(self.swiss)
 
-        self.slow_pieces = self.league.slow_pieces
+        self.slow_pieces = self.swiss.slow_pieces
 
-        self.setWindowTitle("%s - %s - %s" % (_("League"), self.league.name(), _("Worker")))
-        self.setWindowIcon(Iconos.League())
+        self.setWindowTitle("%s - %s" % (self.swiss.name(), _("Worker")))
+        self.setWindowIcon(Iconos.Swiss())
 
         self.tb = QTVarios.LCTB(self, icon_size=24)
 
-        conf_board = Code.configuration.config_board("LEAGUEYPLAY", 36)
+        conf_board = Code.configuration.config_board("SWISSPLAY", 36)
         self.board = Board.Board(self, conf_board)
         self.board.crea()
         Delegados.generaPM(self.board.piezas)
@@ -181,7 +181,7 @@ class WLeagueWorker(QtWidgets.QWidget):
 
     def looking_for_work(self):
         try:
-            self.xmatch = self.league_work.get_other_match()
+            self.xmatch = self.swiss_work.get_other_match()
         except sqlite3.IntegrityError:
             self.xmatch = None
         if self.xmatch is None:
@@ -196,22 +196,22 @@ class WLeagueWorker(QtWidgets.QWidget):
         # Cerramos los motores anteriores si los hay
         Code.list_engine_managers.close_all()
 
-        if self.league.adjudicator_active:
-            conf_engine = Code.configuration.buscaRival(self.league.adjudicator)
+        if self.swiss.adjudicator_active:
+            conf_engine = Code.configuration.buscaRival(self.swiss.adjudicator)
             self.xadjudicator = EngineManager.EngineManager(conf_engine)
-            self.xadjudicator.options(self.league.adjudicator_time * 1000, 0, False)
+            self.xadjudicator.options(self.swiss.adjudicator_time * 1000, 0, False)
             self.xadjudicator.remove_multipv()
         else:
             self.xadjudicator = None
         self.next_control = 0
 
-        max_minute, self.seconds_per_move = self.league.time_engine_engine
+        max_minute, self.seconds_per_move = self.swiss.time_engine_engine
         self.max_seconds = max_minute * 60
 
         # abrimos motores
         rival = {
-            WHITE: self.league.opponent_by_xid(self.xmatch.xid_white),
-            BLACK: self.league.opponent_by_xid(self.xmatch.xid_black),
+            WHITE: self.swiss.opponent_by_xid(self.xmatch.xid_white),
+            BLACK: self.swiss.opponent_by_xid(self.xmatch.xid_black),
         }
         for side in (WHITE, BLACK):
             self.lb_player[side].set_text(rival[side].name())
@@ -224,7 +224,7 @@ class WLeagueWorker(QtWidgets.QWidget):
 
         for side in (WHITE, BLACK):
             opponent = rival[side]
-            rv = opponent.opponent
+            rv = opponent.element
             if rv.type == ENG_WICKER:
                 xmanager = EnginesWicker.EngineManagerWicker(rv)
             else:
@@ -281,10 +281,9 @@ class WLeagueWorker(QtWidgets.QWidget):
 
     def save_game_done(self):
         self.game.set_tag("Site", Code.lucas_chess)
-        self.game.set_tag("Event", self.league_work.nom_league)
-        self.game.set_tag("Season", str(self.league.current_num_season + 1))
-        num_division, journey = self.league_work.get_division_journey_match(self.xmatch)
-        self.game.set_tag("Division", str(num_division + 1))
+        self.game.set_tag("Event", self.swiss_work.nom_swiss)
+        self.game.set_tag("Season", str(self.swiss.current_num_season + 1))
+        journey = self.swiss_work.get_journey_match(self.xmatch)
         self.game.set_tag("Journey", str(journey + 1))
 
         hoy = Util.today()
@@ -302,7 +301,7 @@ class WLeagueWorker(QtWidgets.QWidget):
         self.game.set_extend_tags()
         self.game.sort_tags()
 
-        self.league_work.put_match_done(self.xmatch, self.game)
+        self.swiss_work.put_match_done(self.xmatch, self.game)
 
     def terminar(self):
         self.is_closed = True
@@ -311,7 +310,7 @@ class WLeagueWorker(QtWidgets.QWidget):
     def cancel_match(self):
         self.is_closed = True
         Code.list_engine_managers.close_all()
-        self.league_work.cancel_match(self.xmatch.xid)
+        self.swiss_work.cancel_match(self.xmatch.xid)
 
     def closeEvent(self, event):
         self.terminar()
@@ -610,8 +609,8 @@ class WLeagueWorker(QtWidgets.QWidget):
         # Draw
         pUlt = rmUlt.centipawns_abs()
         pAnt = rmAnt.centipawns_abs()
-        dr = self.league.draw_range
-        if dr > 0 and num_moves >= self.league.draw_min_ply:
+        dr = self.swiss.draw_range
+        if dr > 0 and num_moves >= self.swiss.draw_min_ply:
             if abs(pUlt) <= dr and abs(pAnt) <= dr:
                 mrmTut = self.xadjudicator.analiza(self.game.last_position.fen())
                 rmTut = mrmTut.mejorMov()
@@ -622,7 +621,7 @@ class WLeagueWorker(QtWidgets.QWidget):
                 return False
 
         # Resign
-        rs = self.league.resign
+        rs = self.swiss.resign
         if 0 < rs <= abs(pUlt):
             rmTut = self.xadjudicator.play_game(self.game)
             pTut = rmTut.centipawns_abs()

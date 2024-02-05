@@ -5,7 +5,7 @@ import Code
 from Code import Procesador
 from Code import Util
 from Code.Base.Constantes import OUT_REINIT
-from Code.MainWindow import Gui
+from Code.MainWindow import LucasChessGui
 from Code.Sound import Sound
 
 
@@ -16,7 +16,7 @@ def init():
     main_procesador = Procesador.Procesador()
     main_procesador.set_version(Code.VERSION)
     run_sound = Sound.RunSound()
-    resp = Gui.run_gui(main_procesador)
+    resp = LucasChessGui.run_gui(main_procesador)
     run_sound.close()
 
     main_procesador.stop_engines()

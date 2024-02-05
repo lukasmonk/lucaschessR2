@@ -142,10 +142,10 @@ class BlindfoldConfig:
     def ficheroBase(self, pz, siWhite):
         pz = pz.lower()
         if siWhite:
-            pzT = pz.upper()
+            pz_t = pz.upper()
         else:
-            pzT = pz
-        tipo = self.dicPiezas[pzT]
+            pz_t = pz
+        tipo = self.dicPiezas[pz_t]
         if tipo == SHOW:
             pz = ("w" if siWhite else "b") + pz
             return Code.path_resource("Pieces", self.nom_pieces_ori, pz + ".svg")
@@ -368,62 +368,62 @@ class WBlindfold(LCDialog.LCDialog):
         else:
             self.config.remove(cual)
 
-    def configurations1(self):
-        dic = Code.configuration.read_variables("BLINDFOLD")
-        dicConf = collections.OrderedDict()
-        for k in dic:
-            if k.startswith("_"):
-                cl = k[1:]
-                dicConf[cl] = dic[k]
-
-        menu = QTVarios.LCMenu(self)
-        for k in dicConf:
-            menu.opcion((True, k), k, Iconos.PuntoAzul())
-        menu.separador()
-        menu.opcion((True, None), _("Save current configuration"), Iconos.PuntoVerde())
-        if dicConf:
-            menu.separador()
-            menudel = menu.submenu(_("Remove"), Iconos.Delete())
-            for k in dicConf:
-                menudel.opcion((False, k), k, Iconos.PuntoNegro())
-
-        resp = menu.lanza()
-        if resp is None:
-            return
-
-        si, cual = resp
-
-        if si:
-            if cual:
-                dpz = dic["_" + cual]
-                for pz in "kqrbnp":
-                    lbPZw, cbPZw, lbPZ, lbPZb, cbPZb, tipoW, tipoB = self.dicWidgets[pz]
-                    cbPZw.set_value(dpz[pz.upper()])
-                    cbPZb.set_value(dpz[pz])
-                self.reset()
-            else:
-                li_gen = [(None, None)]
-                li_gen.append((_("Name") + ":", ""))
-
-                resultado = FormLayout.fedit(
-                    li_gen,
-                    title=_("Save current configuration"),
-                    parent=self,
-                    anchoMinimo=460,
-                    icon=Iconos.TutorialesCrear(),
-                )
-                if resultado is None:
-                    return None
-
-                accion, liResp = resultado
-                name = liResp[0].strip()
-                if not name:
-                    return None
-                dic["_%s" % name] = self.config.dicPiezas
-                Code.configuration.write_variables("BLINDFOLD", dic)
-        else:
-            del dic["_%s" % cual]
-            Code.configuration.write_variables("BLINDFOLD", dic)
+    # def configurations1(self):
+    #     dic = Code.configuration.read_variables("BLINDFOLD")
+    #     dicConf = collections.OrderedDict()
+    #     for k in dic:
+    #         if k.startswith("_"):
+    #             cl = k[1:]
+    #             dicConf[cl] = dic[k]
+    #
+    #     menu = QTVarios.LCMenu(self)
+    #     for k in dicConf:
+    #         menu.opcion((True, k), k, Iconos.PuntoAzul())
+    #     menu.separador()
+    #     menu.opcion((True, None), _("Save current configuration"), Iconos.PuntoVerde())
+    #     if dicConf:
+    #         menu.separador()
+    #         menudel = menu.submenu(_("Remove"), Iconos.Delete())
+    #         for k in dicConf:
+    #             menudel.opcion((False, k), k, Iconos.PuntoNegro())
+    #
+    #     resp = menu.lanza()
+    #     if resp is None:
+    #         return
+    #
+    #     si, cual = resp
+    #
+    #     if si:
+    #         if cual:
+    #             dpz = dic["_" + cual]
+    #             for pz in "kqrbnp":
+    #                 lbPZw, cbPZw, lbPZ, lbPZb, cbPZb, tipoW, tipoB = self.dicWidgets[pz]
+    #                 cbPZw.set_value(dpz[pz.upper()])
+    #                 cbPZb.set_value(dpz[pz])
+    #             self.reset()
+    #         else:
+    #             li_gen = [(None, None)]
+    #             li_gen.append((_("Name") + ":", ""))
+    #
+    #             resultado = FormLayout.fedit(
+    #                 li_gen,
+    #                 title=_("Save current configuration"),
+    #                 parent=self,
+    #                 anchoMinimo=460,
+    #                 icon=Iconos.TutorialesCrear(),
+    #             )
+    #             if resultado is None:
+    #                 return None
+    #
+    #             accion, liResp = resultado
+    #             name = liResp[0].strip()
+    #             if not name:
+    #                 return None
+    #             dic["_%s" % name] = self.config.dicPiezas
+    #             Code.configuration.write_variables("BLINDFOLD", dic)
+    #     else:
+    #         del dic["_%s" % cual]
+    #         Code.configuration.write_variables("BLINDFOLD", dic)
 
     def allWhite(self):
         tp = self.cbAll.valor()

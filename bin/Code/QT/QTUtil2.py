@@ -160,9 +160,9 @@ QPushButton:pressed {
             self.hide()
             self.close()
             self.destroy()
-            QTUtil.refresh_gui()
         except RuntimeError:
             pass
+        QTUtil.refresh_gui()
 
 
 class ControlWaitingMessage:
@@ -367,11 +367,8 @@ class BarraProgreso2(QtWidgets.QDialog):
         self.cerrar()
 
     def mostrar(self):
-        self.move(
-            self.owner.x() + (self.owner.width() - self.width()) / 2,
-            self.owner.y() + (self.owner.height() - self.height()) / 2,
-        )
         self.show()
+        QTUtil.center_on_widget(self)
         return self
 
     def show_top_right(self):
@@ -429,17 +426,15 @@ class BarraProgreso1(QtWidgets.QDialog):
 
         self.setLayout(layout)
         self._is_canceled = False
+        self._is_closed = False
 
     def closeEvent(self, event):
         self._is_canceled = True
         self.cerrar()
 
     def mostrar(self):
-        self.move(
-            self.owner.x() + (self.owner.width() - self.width()) / 2,
-            self.owner.y() + (self.owner.height() - self.height()) / 2,
-        )
         self.show()
+        QTUtil.center_on_widget(self)
         return self
 
     def show_top_right(self):
@@ -448,9 +443,11 @@ class BarraProgreso1(QtWidgets.QDialog):
         return self
 
     def cerrar(self):
-        self.hide()
-        self.reject()
-        QTUtil.refresh_gui()
+        if not self._is_closed:
+            self.hide()
+            self.reject()
+            QTUtil.refresh_gui()
+            self._is_closed = True
 
     def cancelar(self):
         self._is_canceled = True
@@ -763,3 +760,44 @@ def message_menu(owner, main, the_message, delayed, zzpos=True):
         QtCore.QTimer.singleShot(50, show)
     else:
         show()
+
+
+class SimpleWindow(QtWidgets.QDialog):
+    def __init__(self, owner, title, label, valor, mas_info):
+        QtWidgets.QDialog.__init__(self, owner)
+        self.setWindowTitle(title)
+        self.resultado = None
+        self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Dialog | QtCore.Qt.WindowTitleHint)
+
+        lb_clave = Controles.LB(self, label + ": ")
+        self.ed_clave = Controles.ED(self, valor).anchoMinimo(60)
+
+        lb_mas_info = Controles.LB(self, mas_info if mas_info else "").align_center()
+
+        bt_aceptar = Controles.PB(self, _("Accept"), self.aceptar, plano=False).ponIcono(Iconos.AceptarPeque())
+        bt_aceptar.setDefault(True)
+        bt_cancelar = Controles.PB(self, _("Cancel"), self.reject, plano=False).ponIcono(Iconos.CancelarPeque())
+
+        ly0 = Colocacion.H().relleno().control(lb_clave).control(self.ed_clave).relleno()
+        ly = Colocacion.V().otro(ly0).control(lb_mas_info)
+
+        ly_bt = Colocacion.H().relleno().control(bt_aceptar).relleno().control(bt_cancelar).relleno()
+
+        layout = Colocacion.V().otro(ly).otro(ly_bt)
+        self.setLayout(layout)
+
+        self.ed_clave.setFocus()
+
+    def aceptar(self):
+        txt = self.ed_clave.texto().strip()
+        if txt:
+            self.resultado = txt
+            self.accept()
+
+
+def read_simple(owner, title, label, value, mas_info=None):
+    v = SimpleWindow(owner, title, label, value, mas_info)
+    if v.exec_():
+        return v.resultado
+    return None
+

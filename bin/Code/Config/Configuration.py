@@ -9,7 +9,8 @@ from PySide2.QtCore import Qt
 import Code
 from Code import Util
 from Code.Analysis import AnalysisEval
-from Code.Base.Constantes import MENU_PLAY_BOTH, POS_TUTOR_HORIZONTAL, INACCURACY, ENG_FIXED, DICT_GAME_TYPES
+from Code.Base.Constantes import (MENU_PLAY_BOTH, POS_TUTOR_HORIZONTAL, INACCURACY, ENG_FIXED, DICT_GAME_TYPES,
+                                  GO_FORWARD)
 from Code.Board import ConfBoards
 from Code.Engines import Priorities
 from Code.QT import IconosBase
@@ -91,12 +92,14 @@ class Configuration:
 
         self.carpetaUsers = os.path.join(self.carpetaBase, "users")
 
+        self.first_run = False
+
         if user:
             Util.create_folder(self.carpetaUsers)
             self.carpeta = os.path.join(self.carpetaUsers, str(user.number))
             Util.create_folder(self.carpeta)
         else:
-            Util.create_folder(self.carpetaBase)
+            self.first_run = Util.create_folder(self.carpetaBase)
             self.carpeta = self.carpetaBase
 
         self.carpeta_config = os.path.join(self.carpeta, "__Config__")
@@ -142,6 +145,8 @@ class Configuration:
         self.x_lichess = 1600
 
         self.x_digital_board = ""
+        self.x_wheel_board = GO_FORWARD
+        self.x_wheel_pgn = GO_FORWARD
 
         self.x_menu_play = MENU_PLAY_BOTH
 
@@ -253,14 +258,16 @@ class Configuration:
 
         self.x_translation_mode = False
 
-        self.x_style = "windowsvista" if Code.is_windows else "fusion"
+        self.x_style = "windowsvista" if Code.is_windows else "Fusion"
         self.x_style_mode = "By default"
         self.x_style_icons = IconosBase.icons.NORMAL
         self.style_sheet_default = None  # temporary var
 
-        self.x_mode_select_lc = Code.is_linux
+        self.x_mode_select_lc = True
 
         self._dic_books = None
+
+        self.__theme_num = 2
 
     @property
     def dic_books(self):
@@ -409,7 +416,7 @@ class Configuration:
     def folder_leagues(self):
         return self.create_base_folder("Leagues")
 
-    def folder_swiss(self):
+    def folder_swisses(self):
         return self.create_base_folder("Swiss")
 
     def folder_openings(self):
@@ -502,7 +509,7 @@ class Configuration:
 
         self.file = os.path.join(self.carpeta_config, "lk.pk2")
 
-        self.siPrimeraVez = not Util.exist_file(self.file)
+        self.is_first_time = not Util.exist_file(self.file)
 
         self.fichEstadElo = "%s/estad.pkli" % self.carpeta_results
         self.fichEstadMicElo = "%s/estadMic.pkli" % self.carpeta_results
@@ -713,14 +720,17 @@ class Configuration:
         Translate.install(self.x_translator)
 
     @staticmethod
-    def list_translations():
+    def list_translations(others=False):
         li = []
         dlang = Code.path_resource("Locale")
         for uno in Util.listdir(dlang):
             fini = os.path.join(dlang, uno.name, "lang.ini")
             if os.path.isfile(fini):
                 dic = Util.ini_dic(fini)
-                li.append((uno.name, dic["NAME"], int(dic["%"]), dic["AUTHOR"]))
+                if others:
+                    li.append((uno.name, dic["NAME"], int(dic["%"]), dic["AUTHOR"], dic.get("OTHERS", "")))
+                else:
+                    li.append((uno.name, dic["NAME"], int(dic["%"]), dic["AUTHOR"]))
         li = sorted(li, key=lambda lng: "AAA" + lng[0] if lng[1] > "Z" else lng[1])
         return li
 
@@ -833,7 +843,7 @@ class Configuration:
                 eng.reset_uci_options()
                 dic = self.read_variables("TUTOR_ANALYZER")
                 for key, value in dic.get("TUTOR", []):
-                    eng.ordenUCI(key, value)
+                    eng.set_uci_option(key, value)
                 return eng
         self.x_tutor_clave = self.tutor_default
         return self.engine_tutor()
@@ -844,13 +854,13 @@ class Configuration:
             if eng.can_be_tutor() and Util.exist_file(eng.path_exe):
                 eng.reset_uci_options()
                 dic = self.read_variables("TUTOR_ANALYZER")
-                for key, value in dic.get("TUTOR", []):
-                    eng.ordenUCI(key, value)
+                for key, value in dic.get("ANALYZER", []):
+                    eng.set_uci_option(key, value)
                 return eng
         self.x_analyzer_clave = self.analyzer_default
         return self.engine_analyzer()
 
-    def carpetaTemporal(self):
+    def temporary_folder(self):
         dirTmp = os.path.join(self.carpeta, "tmp")
         Util.create_folder(dirTmp)
         return dirTmp
@@ -873,7 +883,7 @@ class Configuration:
                     if not root:
                         os.rmdir(folder)
 
-            remove_folder(self.carpetaTemporal(), True)
+            remove_folder(self.temporary_folder(), True)
         except:
             pass
 
@@ -882,46 +892,86 @@ class Configuration:
             resp = db[nomVar]
         return resp if resp else {}
 
-        # "DicMicElos": Tourney-Elo")
-        # "ENG_MANAGERSOLO": Create your own game")
-        # "FICH_MANAGERSOLO": Create your own game")
-        # "ENG_VARIANTES": Variations") Edition")
-        # "TRANSSIBERIAN": Transsiberian Railway")
-        # "STSFORMULA": Formula to calculate elo") -  STS: Strategic Test Suite")
-        # "WindowColores": Colors")
-        # "PCOLORES": Colors")
-        # "manual_save": Save positions to FNS/PGN")
-        # "FOLDER_ENGINES": External engines")
-        # "MICELO":
-        # "MICPER":
-        # "SAVEPGN":
-        # "STSRUN":
-        # "crear_torneo":
-        # "PARAMPELICULA":
-        # "BLINDFOLD":
-        # "WBG_MOVES":
-        # "DBSUMMARY":
-        # "DATABASE"
-        # "PATH_PO"
+        # ENG_VARIANTES
+        # ANALISIS_GRAPH
+        # WindowColores
+        # PCOLORES
+        # POLYGLOT_IMPORT
+        # POLYGLOT_EXPORT
+        # BOOKSTRAININGLO
+        # DicMicElos
+        # DicWickerElos
+        # OPENING_LINES
+        # DATABASE
+        # TUTOR_ANALYZER
+        # AUTO_ROTATE
+        # COORDINATES
+        # DBSUMMARY
+        # databases_columns_default
+        # SVG_GRAPHICS
+        # endingsGTB
+        # STSFORMULA
+        # FOLDER_ENGINES
+        # SELECTENGINE_{tipo}
+        # EXPEDITIONS
+        # LEARN_GAME_PLAY_AGAINST
+        # MEMORIZING_GAME
+        # WIDTH_PIEZES
+        # challenge101
+        # ENG_MANAGERSOLO
+        # FICH_MANAGERSOLO
+        # MATE15
+        # ODT
+        # OL_ENGINE_VAR
+        # MASSIVE_OLINES
+        # OPENINGLINES
+        # OL_ENGINE_VAR
+        # MASSIVE_OLINES
+        # OPENINGLINES
+        # REMOVEWORSTLINES
+        # OL_IMPORTPOLYGLOT
+        # human_human
+        # MICELO_TIME
+        # WICKER_TIME
+        # BLINDFOLD
+        # BLANCASNEGRASTIEMPO
+        # GIF
+        # PARAMPELICULA
+        # manual_save
+        # SAVEPGN
+        # TRANSSIBERIAN{nlevel}
+        # TRANSSIBERIAN
+        # THEMES
+        # crear_torneo
+        # BMT_OPTIONS
+        # PATH_PO
+        # PATH_MO
+        # TRANSLATION_HELP
+        # PATH_PO_OPENINGS
+        # PATH_PO_OPENINGS_IMPORT
 
     def write_variables(self, nomVar, dicValores):
         with UtilSQL.DictSQL(self.ficheroVariables) as db:
             db[nomVar] = dicValores
 
+    def change_theme_num(self, num):
+        self.__theme_num = num
+
     def leeConfBoards(self):
         db = UtilSQL.DictSQL(self.ficheroConfBoards)
         self.dic_conf_boards_pk = db.as_dictionary()
         if not ("BASE" in self.dic_conf_boards_pk):
-            with open(Code.path_resource("IntFiles", "basepk.board"), "rb") as f:
+            with open(Code.path_resource("IntFiles", f"basepk{self.__theme_num}.board"), "rb") as f:
                 var = pickle.loads(f.read())
-                alto = QTUtil.altoEscritorio()
-                ancho = QTUtil.anchoEscritorio()
+                alto = QTUtil.desktop_height()
+                ancho = QTUtil.desktop_width()
                 base = ancho * 950 / 1495
                 if alto > base:
                     alto = base
                 var["x_anchoPieza"] = int(alto * 8 / 100)
                 db["BASE"] = self.dic_conf_boards_pk["BASE"] = var
-        # with open("../resources/IntFiles/basepk.board", "wb") as f:
+        # Para cambiar el tema por defecto por el actual
+        # with open("../resources/IntFiles/basepk2.board", "wb") as f:
         #      f.write(pickle.dumps(db["BASE"]))
         db.close()
 
@@ -998,3 +1048,9 @@ class Configuration:
         dic = self.read_variables("AUTO_ROTATE")
         dic[key] = auto_rotate
         self.write_variables("AUTO_ROTATE", dic)
+
+    def wheel_board(self, forward):
+        return forward if self.x_wheel_board == GO_FORWARD else not forward
+
+    def wheel_pgn(self, forward):
+        return forward if self.x_wheel_pgn != GO_FORWARD else not forward

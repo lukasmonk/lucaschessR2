@@ -85,7 +85,7 @@ class WDailyTestBase(LCDialog.LCDialog):
         reg = self.historico[key]
         if col == "FECHA":
             fecha = reg[col]
-            return Util.localDate(fecha)
+            return Util.localDateT(fecha)
         elif col == "MPUNTOS":
             mpuntos = reg["MPUNTOS"]
             return "%0.2f" % mpuntos
@@ -371,16 +371,17 @@ class WDailyTest(LCDialog.LCDialog):
         mtiempos = t * 1.0 / self.nFens
 
         hoy = Util.today()
-        fecha = "%d%02d%02d" % (hoy.year, hoy.month, hoy.day)
-        datos = {}
-        datos["FECHA"] = hoy
-        datos["ENGINE"] = self.xtutor.key
-        datos["TIEMPOJUGADA"] = self.xtutor.mstime_engine
-        datos["LIFENS"] = self.liFens
-        datos["LIPV"] = self.li_pv
-        datos["MPUNTOS"] = mpuntos
-        datos["MTIEMPOS"] = mtiempos
-        datos["FNS"] = self.fns
+        fecha = f"{hoy.year}{hoy.month:02d}{hoy.day:02d}{hoy.hour:02d}{hoy.minute:02d}"
+        datos = {
+            "FECHA": hoy,
+            "ENGINE": self.xtutor.key,
+            "TIEMPOJUGADA": self.xtutor.mstime_engine,
+            "LIFENS": self.liFens,
+            "LIPV": self.li_pv,
+            "MPUNTOS": mpuntos,
+            "MTIEMPOS": mtiempos,
+            "FNS": self.fns
+        }
 
         self.historico[fecha] = datos
 

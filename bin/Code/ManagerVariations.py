@@ -50,7 +50,8 @@ class ManagerVariations(Manager.Manager):
         self.put_pieces_bottom(self.is_human_side_white)
         self.set_dispatcher(self.player_has_moved)
         self.pgnRefresh(True)
-        self.ponCapInfoPorDefecto()
+
+        self.show_info_extra()
 
         self.refresh()
 

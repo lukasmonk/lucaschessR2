@@ -19,7 +19,7 @@ if n_args == 1:
 
 elif n_args >= 2:
     arg = sys.argv[1].lower()
-    if arg.endswith(".pgn") or arg.endswith(".lcdb") or arg.endswith(".lcsb") or arg == "-play" or arg.endswith(".bmt"):
+    if arg.endswith((".pgn", ".lcdb", ".lcsb", ".bmt")) or arg in ("-play", "-playagainst"):
         import Code.Base.Init
 
         Code.Base.Init.init()
@@ -45,4 +45,15 @@ elif n_args >= 2:
 
         user = sys.argv[3] if len(sys.argv) >= 4 else ""
         Code.Leagues.RunLeague.run(user, sys.argv[2])
+
+    elif arg == "-swiss":
+        import Code.Swiss.RunSwiss
+
+        user = sys.argv[3] if len(sys.argv) >= 4 else ""
+        Code.Swiss.RunSwiss.run(user, sys.argv[2])
+
+    elif arg == "-analysis":
+        import Code.Analysis.RunAnalysis
+
+        Code.Analysis.RunAnalysis.run(sys.argv[2])
 

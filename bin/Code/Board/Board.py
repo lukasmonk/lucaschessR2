@@ -110,6 +110,8 @@ class Board(QtWidgets.QGraphicsView):
 
         self.minimum_size = 2
 
+        self.active_premove = False
+
     def disable_hard_focus(self):
         self.hard_focus = False
 
@@ -383,7 +385,7 @@ class Board(QtWidgets.QGraphicsView):
         self.set_width()
 
     def calculaAnchoMXpieza(self):
-        at = QTUtil.altoEscritorio() - 50 - 64
+        at = QTUtil.desktop_height() - 50 - 64
         if self.siF11:
             at += 50 + 64
         tr = 1.0 * self.config_board.tamRecuadro() / 100.0
@@ -814,7 +816,10 @@ class Board(QtWidgets.QGraphicsView):
             menu.opcion("size", _("Change board size"), Iconos.ResizeBoard())
             menu.separador()
 
-        menu.opcion("def_todo", _("By default"), Iconos.Defecto())
+        submenu = menu.submenu(_("By default"), Iconos.Defecto())
+        submenu.opcion("def_todo1", "1", Iconos.m1())
+        submenu.opcion("def_todo2", "2", Iconos.m2())
+        # menu.opcion("def_todo", _("By default"), Iconos.Defecto())
 
         menu.separador()
         if self.siDirector:
@@ -882,17 +887,17 @@ class Board(QtWidgets.QGraphicsView):
         elif resp == "keys":
             self.showKeys()
 
-        elif resp.startswith("def_"):
-            if resp.endswith("todo"):
-                self.config_board = self.configuration.resetConfBoard(
-                    self.config_board.id(), self.config_board.anchoPieza()
-                )
-                if self.config_board.is_base:
-                    nom_pieces_ori = self.config_board.nomPiezas()
-                    self.cambiaPiezas(nom_pieces_ori)
-                self.reset(self.config_board)
-                if hasattr(self.main_window.parent, "ajustaTam"):
-                    self.main_window.parent.ajustaTam()
+        elif resp.startswith("def_todo"):
+            self.configuration.change_theme_num(int(resp[-1]))
+            self.config_board = self.configuration.resetConfBoard(
+                self.config_board.id(), self.config_board.anchoPieza()
+            )
+            if self.config_board.is_base:
+                nom_pieces_ori = self.config_board.nomPiezas()
+                self.cambiaPiezas(nom_pieces_ori)
+            self.reset(self.config_board)
+            if hasattr(self.main_window.parent, "ajustaTam"):
+                self.main_window.parent.ajustaTam()
 
     def lanzaDirector(self):
         if self.siDirector:
@@ -1078,7 +1083,8 @@ class Board(QtWidgets.QGraphicsView):
                 if pos in rel:
                     cnum_id = xid[3:]
                     dic_current = xdb[cnum_id]
-                    obj.restore_dic(dic_current)
+                    if dic_current:
+                        obj.restore_dic(dic_current)
                     obj.TP = tp
                     obj.id = int(cnum_id)
                     obj.tpid = (tp, obj.id)
@@ -1213,6 +1219,10 @@ class Board(QtWidgets.QGraphicsView):
         si_izq = event.button() == QtCore.Qt.LeftButton
         if si_izq and a1h8 is not None:
             self.borraMovibles()
+
+            if self.active_premove:
+                self.main_window.manager.remove_premove()
+                self.active_premove = False
 
         self.blindfoldPosicion(False, None, None)
         if a1h8 is None:
@@ -1406,6 +1416,7 @@ class Board(QtWidgets.QGraphicsView):
             self.set_last_position(position)
 
     def set_position(self, position, siBorraMoviblesAhora=True, variation_history=None):
+        self.active_premove = False
         if self.dirvisual:
             self.dirvisual.cambiadaPosicionAntes()
         elif self.dbVisual.save_always():
@@ -1439,6 +1450,7 @@ class Board(QtWidgets.QGraphicsView):
         self.removePieces()
 
         squares = position.squares
+
         for k in squares.keys():
             if squares[k]:
                 self.ponPieza(squares[k], k)
@@ -1846,6 +1858,7 @@ class Board(QtWidgets.QGraphicsView):
         arrow.show()
 
     def creaFlechaPremove(self, xfrom, xto):
+        self.active_premove = True
         bf = copy.deepcopy(self.config_board.fActivo())
         bf.a1h8 = xfrom + xto
         arrow = self.creaFlecha(bf)

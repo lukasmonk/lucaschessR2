@@ -75,8 +75,8 @@ class WTournament(LCDialog.LCDialog):
         bt_draw_range = Controles.PB(self, "", rutina=self.borra_draw_range).ponIcono(Iconos.Reciclar())
 
         # adjudicator
-        self.liMotores = self.configuration.combo_engines_multipv10()
-        self.cbJmotor, self.lbJmotor = QTUtil2.combobox_lb(self, self.liMotores, torneo.adjudicator(), _("Engine"))
+        self.list_engines = self.configuration.combo_engines_multipv10()
+        self.cbJmotor, self.lbJmotor = QTUtil2.combobox_lb(self, self.list_engines, torneo.adjudicator(), _("Engine"))
         self.edJtiempo = Controles.ED(self).tipoFloat(torneo.adjudicator_time()).anchoFijo(50)
         self.lbJtiempo = Controles.LB2P(self, _("Time in seconds"))
         layout = Colocacion.G()
@@ -378,7 +378,7 @@ class WTournament(LCDialog.LCDialog):
         self.muestraPosicion()
 
     def posicionPegar(self):
-        texto = QTUtil.traePortapapeles()
+        texto = QTUtil.get_txt_clipboard()
         if texto:
             cp = Position.Position()
             try:
@@ -542,18 +542,24 @@ class WTournament(LCDialog.LCDialog):
             return
         self.grabar()
 
-        rondo = QTVarios.rondoPuntos()
+        cores = Util.cpu_count()
+        if cores < 2:
+            resp = 1
 
-        menu = QTVarios.LCMenu(self)
-        menu.opcion(1, _("Launch one worker"), Iconos.Lanzamiento())
-        menu.separador()
+        else:
+            rondo = QTVarios.rondoPuntos()
 
-        submenu = menu.submenu(_("Launch some workers"), Iconos.Lanzamientos())
+            menu = QTVarios.LCMenu(self)
+            menu.opcion(1, _("Launch one worker"), Iconos.Lanzamiento())
+            menu.separador()
 
-        for x in range(2, 33):
-            submenu.opcion(x, str(x), rondo.otro())
+            submenu = menu.submenu(_("Launch some workers"), Iconos.Lanzamientos())
 
-        resp = menu.lanza()
+            for x in range(2, cores):
+                submenu.opcion(x, str(x), rondo.otro())
+
+            resp = menu.lanza()
+
         if resp:
             last = 0
             for num in range(resp):
@@ -704,7 +710,7 @@ class WTournament(LCDialog.LCDialog):
             return
         me = self.torneo.engine(row)
 
-        w = WEngines.WEngineExtend(self, self.torneo.list_engines(), me, siTorneo=True)
+        w = WEngines.WEngineExtend(self, self.torneo.list_engines(), me, is_tournament=True)
         if w.exec_():
             self.actEngine(me)
             self.torneo.save_engine(me)

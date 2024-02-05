@@ -20,7 +20,8 @@ from Code.Base.Constantes import (
     GT_RESISTANCE,
     GT_ELO,
     GT_MICELO,
-    GT_WICKER
+    GT_WICKER,
+    GT_LEARN_PLAY
 )
 
 
@@ -110,7 +111,7 @@ class ControlPGN:
             if is_last:
                 self.manager.set_position(move.position)
                 if self.manager.human_is_playing and self.manager.state == ST_PLAYING:
-                    if self.manager.game_type in (GT_ALONE, GT_GAME, GT_VARIATIONS):
+                    if self.manager.game_type in (GT_ALONE, GT_GAME, GT_VARIATIONS, GT_LEARN_PLAY):
                         side = move.position.is_white
                     else:
                         side = self.manager.is_human_side_white
@@ -126,16 +127,21 @@ class ControlPGN:
             self.manager.refresh()
 
     def move(self, row, key):
+        tam_lj = len(self.manager.game)
+        if tam_lj == 0:
+            return None, None
+        starts_with_black = self.manager.game.starts_with_black
+        if row == 0:
+            if key == "NUMBER" or (key == "WHITE" and starts_with_black):
+                return 0, self.manager.game.move(0)
+
         is_white = key != "BLACK"
 
         pos = row * 2
         if not is_white:
             pos += 1
-        if self.manager.game.starts_with_black:
+        if starts_with_black:
             pos -= 1
-        tam_lj = len(self.manager.game)
-        if tam_lj == 0:
-            return None, None
 
         if pos >= len(self.manager.game):
             pos = len(self.manager.game) - 1

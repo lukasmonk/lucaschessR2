@@ -55,6 +55,7 @@ class DBgames:
         self.maxcache = 4048
 
         self.li_fields = self.lista_campos()
+        self.st_fields = set(field.upper() for field in self.li_fields)
 
         self.read_options()
 
@@ -360,7 +361,7 @@ class DBgames:
         return self.db_stat.get_summary(pvBase, dicAnalisis, with_figurines, allmoves) if self.with_db_stat else []
 
     def rebuild_stat(self, dispatch, depth):
-        if not ("RESULT" in self.li_fields):
+        if not ("RESULT" in self.st_fields):
             return
 
         if not self.with_db_stat:
@@ -425,10 +426,11 @@ class DBgames:
             cursor = self.conexion.execute("SELECT XPV FROM Games WHERE rowid=?", (rowid,))
             raw = cursor.fetchone()
             if raw:
-                nada, fen, xpv = raw[0].split("|")
-                pv = FasterCode.xpv_pv(xpv)
-                pgn = Game.pv_pgn_raw(fen, pv) if pv else ""
-                yield fen, pgn
+                if raw[0].count("|") == 2:
+                    nada, fen, xpv = raw[0].split("|")
+                    pv = FasterCode.xpv_pv(xpv)
+                    pgn = Game.pv_pgn_raw(fen, pv) if pv else ""
+                    yield fen, pgn
 
     def yield_data(self, liFields, filtro):
         select = ",".join(liFields)
@@ -436,10 +438,10 @@ class DBgames:
         if self.filter:
             sql += " WHERE %s" % self.filter
             if filtro:
-                sql += " AND %s" % filtro
+                sql += " AND (%s)" % filtro
         else:
             if filtro:
-                sql += " WHERE %s" % filtro
+                sql += " WHERE (%s)" % filtro
 
         cursor = self.conexion.execute(sql)
         while True:
@@ -456,7 +458,7 @@ class DBgames:
         selected_fields = ["XPV"]
 
         def select_field(name):
-            if name in self.li_fields:
+            if name.upper() in self.st_fields:
                 selected_fields.append(name)
                 return True
             return False
@@ -545,6 +547,7 @@ class DBgames:
 
         p.set_tags(litags)
         p.assign_opening()
+        p.order_tags()
         p.resultado()
         return p
 
@@ -597,10 +600,15 @@ class DBgames:
 
     def add_column(self, column: str):
         column = column.upper()
-        sql = "ALTER TABLE Games ADD COLUMN '%s' VARCHAR;" % column
-        self.conexion.execute(sql)
-        self.conexion.commit()
-        self.li_fields.append(column)
+        if column not in self.st_fields:
+            try:
+                sql = f"ALTER TABLE Games ADD COLUMN '{column}' VARCHAR;"
+                self.conexion.execute(sql)
+                self.conexion.commit()
+                self.li_fields.append(column)
+                self.st_fields.add(column)
+            except sqlite3.OperationalError:
+                pass
 
     def import_pgns(self, ficheros, dl_tmp):
 
@@ -640,8 +648,8 @@ class DBgames:
 
         for file in ficheros:
             nomfichero = os.path.basename(file)
-            fich_erroneos = os.path.join(Code.configuration.carpetaTemporal(), nomfichero[:-3] + "errors.pgn")
-            fich_duplicados = os.path.join(Code.configuration.carpetaTemporal(), nomfichero[:-3] + "duplicates.pgn")
+            fich_erroneos = os.path.join(Code.configuration.temporary_folder(), nomfichero[:-3] + "errors.pgn")
+            fich_duplicados = os.path.join(Code.configuration.temporary_folder(), nomfichero[:-3] + "duplicates.pgn")
             dl_tmp.pon_titulo(nomfichero)
             next_n = random.randint(1000, 2000)
 
@@ -669,8 +677,8 @@ class DBgames:
                         write_logs(fich_erroneos, fpgn.bpgn())
                         continue
 
-                    dCab = {decode(k): decode(v) for k, v in bdCab.items()}
-                    dCablwr = {decode(k): decode(v) for k, v in bdCablwr.items()}
+                    dCab = {decode(k).replace(" ", ""): decode(v) for k, v in bdCab.items()}
+                    dCablwr = {decode(k).replace(" ", ""): decode(v) for k, v in bdCablwr.items()}
                     dcabs.update(dCablwr)
 
                     xpv = pv_xpv(pv)
@@ -713,7 +721,7 @@ class DBgames:
                     st_xpv_bloque.add(xpv)
 
                     for k in dCab:
-                        if not (k in self.li_fields):
+                        if not (k.upper() in self.st_fields):
 
                             # Grabamos lo que hay
                             if li_regs:
@@ -798,9 +806,12 @@ class DBgames:
 
         si_cols_cambiados = False
         for campo in db.li_fields:
-            if campo not in self.li_fields:
+            if campo not in self.st_fields:
                 self.add_column(campo)
                 si_cols_cambiados = True
+
+        dcabs_db = db.read_config("dcabs", {})
+        self.save_config("dcabs", dcabs_db)
 
         select = db.select
         select_values = ("?," * len(db.li_fields))[:-1]
@@ -928,7 +939,7 @@ class DBgames:
 
         # Test si hay nuevos tags
         for tag, valor in game_modificada.li_tags:
-            if not (tag.upper() in self.li_fields):
+            if not (tag.upper() in self.st_fields):
                 self.add_column(tag)
 
         # Modificamos datos antiguos
@@ -982,7 +993,7 @@ class DBgames:
         # Test si hay nuevos tags
         dcabs_new = {}
         for tag, valor in game_new.li_tags:
-            if not (tag.upper() in self.li_fields):
+            if not (tag.upper() in self.st_fields):
                 self.add_column(tag)
                 dcabs_new[tag.upper()] = tag
         if dcabs_new:
@@ -1051,10 +1062,10 @@ class DBgames:
             self.db_stat.commit()
 
     def has_positions(self):
-        return "FEN" in self.li_fields
+        return "FEN" in self.st_fields
 
     def has_field(self, field):
-        return field in self.li_fields
+        return field.upper() in self.st_fields
 
 
 def get_random_game():

@@ -13,20 +13,21 @@ from Code.QT import LCDialog
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
 
-from Code.Leagues import WLeagueConfig, Leagues, WLeague
+from Code.Swiss import WSwissConfig, Swiss
+from Code.Swiss import WSwiss
 
 
-class WLeagues(LCDialog.LCDialog):
+class WSwisses(LCDialog.LCDialog):
     def __init__(self, w_parent):
 
-        titulo = _("Chess leagues")
-        icono = Iconos.League()
-        extparam = "leagues"
+        titulo = _("Swiss Tournaments")
+        icono = Iconos.Swiss()
+        extparam = "swisses"
         LCDialog.LCDialog.__init__(self, w_parent, titulo, icono, extparam)
 
         # Datos
-        self.list_leagues = self.read()
-        self.run_league = None
+        self.list_swisses = self.read()
+        self.run_swiss = None
 
         # Toolbar
         li_acciones = (
@@ -66,21 +67,21 @@ class WLeagues(LCDialog.LCDialog):
     def play(self):
         row = self.grid.recno()
         if row >= 0:
-            league = self.get_league(row)
-            if league.correct_opponents():
-                self.run_league = league
+            swiss = self.get_swiss(row)
+            if swiss.enough_opponents():
+                self.run_swiss = swiss
                 self.accept()
             else:
                 QTUtil2.message_error(self, _("The opponents need to be configured correctly."))
-                self.edit(league)
+                self.edit(swiss)
 
     @staticmethod
     def read():
         li = []
-        carpeta = Code.configuration.folder_leagues()
+        carpeta = Code.configuration.folder_swisses()
         for entry in Util.listdir(carpeta):
             filename = entry.name
-            if filename.lower().endswith(".league"):
+            if filename.lower().endswith(".swiss"):
                 st = entry.stat()
                 li.append((filename, st.st_ctime, st.st_mtime))
 
@@ -88,20 +89,20 @@ class WLeagues(LCDialog.LCDialog):
         return li
 
     def refresh_lista(self):
-        self.list_leagues = self.read()
+        self.list_swisses = self.read()
         self.grid.refresh()
 
-    def nom_league_pos(self, row):
-        return self.list_leagues[row][0][:-7]
+    def nom_swiss_pos(self, row):
+        return self.list_swisses[row][0][:-6]
 
     def grid_num_datos(self, grid):
-        return len(self.list_leagues)
+        return len(self.list_swisses)
 
     def grid_dato(self, grid, row, o_column):
         column = o_column.key
-        name, fcreacion, fmanten = self.list_leagues[row]
+        name, fcreacion, fmanten = self.list_swisses[row]
         if column == "NAME":
-            return name[:-7]
+            return name[:-6]
         elif column == "DATE":
             tm = time.localtime(fmanten)
             return "%d-%02d-%d, %2d:%02d" % (tm.tm_mday, tm.tm_mon, tm.tm_year, tm.tm_hour, tm.tm_min)
@@ -113,88 +114,89 @@ class WLeagues(LCDialog.LCDialog):
         self.save_video()
         self.accept()
 
-    def get_league(self, row):
-        filename, tmc, tmm = self.list_leagues[row]
-        return Leagues.League(filename[:-7])
+    def get_swiss(self, row):
+        filename, tmc, tmm = self.list_swisses[row]
+        return Swiss.Swiss(filename[:-6])
 
     def edit_name(self, previo):
         li_gen = [(None, None), (_("Name") + ":", previo)]
-        resultado = FormLayout.fedit(li_gen, title=_("Chess leagues"), parent=self, icon=Iconos.League())
-        nom_league = None
+        resultado = FormLayout.fedit(li_gen, title=_("Swiss Tournaments"), parent=self, icon=Iconos.Swiss())
+        nom_swiss = None
         if resultado:
             accion, li_gen = resultado
-            nom_league = Util.valid_filename(li_gen[0].strip())
-            if nom_league:
-                path = os.path.join(Code.configuration.folder_leagues(), nom_league + ".league")
+            nom_swiss = Util.valid_filename(li_gen[0].strip())
+            if nom_swiss:
+                path = os.path.join(Code.configuration.folder_swisses(), nom_swiss + ".swiss")
                 if os.path.isfile(path):
-                    QTUtil2.message_error(self, _("The file %s already exist") % nom_league)
-        return nom_league
+                    QTUtil2.message_error(self, _("The file %s already exist") % nom_swiss)
+                    return self.edit_name(nom_swiss)
+        return nom_swiss
 
     def crear(self):
-        nom_league = self.edit_name("")
-        if nom_league:
-            nom_league = Util.valid_filename(nom_league)
-            league = Leagues.League(nom_league)
-            self.edit(league)
+        nom_swiss = self.edit_name("")
+        if nom_swiss:
+            nom_swiss = Util.valid_filename(nom_swiss)
+            swiss = Swiss.Swiss(nom_swiss)
+            self.edit(swiss)
             self.refresh_lista()
 
-    def edit(self, league):
-        w = WLeagueConfig.WLeagueConfig(self, league)
+    def edit(self, swiss):
+        w = WSwissConfig.WSwissConfig(self, swiss)
         w.exec_()
 
     def modify(self):
         row = self.grid.recno()
         if row >= 0:
-            league = self.get_league(row)
-            self.edit(league)
+            swiss = self.get_swiss(row)
+            self.edit(swiss)
 
     def rename(self):
         row = self.grid.recno()
         if row >= 0:
-            nom_origen = self.nom_league_pos(row)
+            nom_origen = self.nom_swiss_pos(row)
             nom_destino = self.edit_name(nom_origen)
             if nom_destino and nom_origen != nom_destino:
-                path_origen = os.path.join(Code.configuration.folder_leagues(), "%s.league" % nom_origen)
-                path_destino = os.path.join(Code.configuration.folder_leagues(), "%s.league" % nom_destino)
+                path_origen = os.path.join(Code.configuration.folder_swisses(), "%s.swiss" % nom_origen)
+                path_destino = os.path.join(Code.configuration.folder_swisses(), "%s.swiss" % nom_destino)
                 shutil.move(path_origen, path_destino)
                 self.refresh_lista()
 
     def borrar(self):
         row = self.grid.recno()
         if row >= 0:
-            name = self.nom_league_pos(row)
+            name = self.nom_swiss_pos(row)
             if QTUtil2.pregunta(self, _X(_("Delete %1?"), name)):
-                path = os.path.join(Code.configuration.folder_leagues(), "%s.league" % name)
+                path = os.path.join(Code.configuration.folder_swisses(), "%s.swiss" % name)
                 os.remove(path)
                 self.refresh_lista()
 
     def copiar(self):
         row = self.grid.recno()
         if row >= 0:
-            nom_origen = self.nom_league_pos(row)
+            nom_origen = self.nom_swiss_pos(row)
             nom_destino = self.edit_name(nom_origen)
             if nom_destino and nom_origen != nom_destino:
-                path_origen = os.path.join(Code.configuration.folder_leagues(), "%s.league" % nom_origen)
-                path_destino = os.path.join(Code.configuration.folder_leagues(), "%s.league" % nom_destino)
+                path_origen = os.path.join(Code.configuration.folder_swisses(), "%s.swiss" % nom_origen)
+                path_destino = os.path.join(Code.configuration.folder_swisses(), "%s.swiss" % nom_destino)
                 shutil.copy(path_origen, path_destino)
                 self.refresh_lista()
 
 
-def play_league(parent, league):
-    play_human = WLeague.play_league(parent, league)
+def play_swiss(parent, swiss):
+    play_human = WSwiss.play_swiss(parent, swiss)
     if play_human:
-        league, xmatch, division = play_human
-        Code.procesador.play_league_human(league, xmatch, division)
+        swiss, xmatch = play_human
+        Code.procesador.play_swiss_human(swiss, xmatch)
         return True
     return False
 
 
-def leagues(parent):
+def swisses(parent):
     while True:
-        w = WLeagues(parent)
+        w = WSwisses(parent)
         if w.exec_():
-            if w.run_league:
-                if play_league(parent, w.run_league):
+            if w.run_swiss:
+                if play_swiss(parent, w.run_swiss):
                     return
                 continue
         return

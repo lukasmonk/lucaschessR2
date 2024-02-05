@@ -40,12 +40,12 @@ class TabEngine(QtWidgets.QWidget):
         self.bt_stop.hide()
 
         self.lb_engine = Controles.LB(self, _("Engine") + ":")
-        liMotores = configuration.combo_engines()  # (name, key)
+        list_engines = configuration.combo_engines()  # (name, key)
         default = configuration.x_tutor_clave
         engine = self.dbop.getconfig("ENGINE", default)
-        if len([key for name, key in liMotores if key == engine]) == 0:
+        if len([key for name, key in list_engines if key == engine]) == 0:
             engine = default
-        self.cb_engine = Controles.CB(self, liMotores, engine).capture_changes(self.reset_motor)
+        self.cb_engine = Controles.CB(self, list_engines, engine).capture_changes(self.reset_motor)
 
         multipv = self.dbop.getconfig("ENGINE_MULTIPV", 5)
         lb_multipv = Controles.LB(self, _("Multi PV") + ": ")

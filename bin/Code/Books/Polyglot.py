@@ -1002,7 +1002,8 @@ class Polyglot:
 
 
 class Line:
-    def __init__(self, pol_w, pol_b, lines, mode_white, mode_black, start_fen, dispatch):
+    def __init__(self, pol_w, pol_b, lines, mode_white, mode_black, start_fen, dispatch, porc_min_white,
+                 porc_min_black, weight_min_white, weight_min_black):
         self.li_pv = []
         self.st_fens_m2 = set()
         self.start_fen = start_fen if start_fen else FEN_INITIAL
@@ -1013,6 +1014,11 @@ class Line:
         self.pol_b: Polyglot = pol_b
         self.mode_white = mode_white
         self.mode_black = mode_black
+
+        self.porc_min_white = porc_min_white
+        self.porc_min_black = porc_min_black
+        self.weight_min_white = weight_min_white
+        self.weight_min_black = weight_min_black
 
         self.dispatch = dispatch
 
@@ -1046,7 +1052,28 @@ class Line:
             return False
         xentry: Entry
 
-        mode = self.mode_white if is_white else self.mode_black
+        if is_white:
+            mode = self.mode_white
+            porc = self.porc_min_white
+            min_weight = self.weight_min_white
+        else:
+            mode = self.mode_black
+            porc = self.porc_min_black
+            min_weight = self.weight_min_black
+
+        if porc:
+            tt = sum(xentry.weight for xentry in li_entries)
+            if tt == 0:
+                self.finished = True
+                return False
+            li_entries = [xentry for xentry in li_entries if xentry.weight / tt >= porc]
+            if not li_entries:
+                self.finished = True
+                return False
+
+        if min_weight:
+            li_entries = [xentry for xentry in li_entries if xentry.weight >= min_weight]
+
         if mode != ALL_MOVES:
             li_entries.sort(key=lambda x: x.weight, reverse=True)
             if mode == FIRST_BEST_MOVE:
@@ -1063,7 +1090,7 @@ class Line:
             if len(self.lines) >= xmax_lines:
                 break
             new_line = Line(self.pol_w, self.pol_b, self.lines, self.mode_white, self.mode_black,
-                            self.start_fen, self.dispatch)
+                            self.start_fen, self.dispatch, 0.0, 0.0, 0, 0)
             new_line.li_pv = self.li_pv[:]
             new_line.st_fens_m2 = set(self.st_fens_m2)
             new_line.last_fen = self.last_fen
@@ -1093,29 +1120,31 @@ def dic_modes():
     }
 
 
-def gen_lines(path_pol_w, path_pol_b, mode_w, mode_b, max_lines, max_depth, start_fen, dispatch):
+def gen_lines(path_pol_w, path_pol_b, mode_w, mode_b, max_lines, max_depth, start_fen, dispatch, porc_min_white=None,
+              porc_min_black=None, weight_min_white=None, weight_min_black=None):
     with Polyglot(path_pol_w) as pol_w, Polyglot(path_pol_b) as pol_b:
         lines = []
-        Line(pol_w, pol_b, lines, mode_w, mode_b, start_fen, dispatch)
+        Line(pol_w, pol_b, lines, mode_w, mode_b, start_fen, dispatch, porc_min_white, porc_min_black, weight_min_white,
+             weight_min_black)
 
-        if max_depth == 0:
-            max_depth = 99999
-        if max_lines == 0:
-            max_lines = 99999
+    if max_depth == 0:
+        max_depth = 99999
+    if max_lines == 0:
+        max_lines = 99999
 
-        depth = 0
-        while depth < max_depth:
-            ok = False
-            num_lines = len(lines)
-            for pos in range(num_lines):
-                line = lines[pos]
-                if line.next_level(max_lines):
-                    ok = True
-                else:
-                    if not dispatch(None, None):
-                        break
-            if not ok:
-                break
-            depth += 1
+    depth = 0
+    while depth < max_depth:
+        ok = False
+        num_lines = len(lines)
+        for pos in range(num_lines):
+            line = lines[pos]
+            if line.next_level(max_lines):
+                ok = True
+            else:
+                if not dispatch(None, None):
+                    break
+        if not ok:
+            break
+        depth += 1
 
-        return lines
+    return lines

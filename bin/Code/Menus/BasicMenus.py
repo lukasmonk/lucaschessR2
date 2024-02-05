@@ -1,15 +1,14 @@
 import Code
+from Code.Base.Constantes import MENU_PLAY_ANY_ENGINE, MENU_PLAY_YOUNG_PLAYERS
 from Code.PlayAgainstEngine import Albums
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles
-from Code.QT import Grid
-from Code.QT import QTVarios
-from Code.QT import Iconos
 from Code.QT import Delegados
+from Code.QT import Grid
+from Code.QT import Iconos
 from Code.QT import LCDialog
-
-from Code.Base.Constantes import MENU_PLAY_ANY_ENGINE, MENU_PLAY_YOUNG_PLAYERS
+from Code.QT import QTVarios
 
 
 class SaveMenu:
@@ -98,8 +97,6 @@ def menu_tools_savemenu(procesador, dic_data=None):
     menu1.separador()
     menu1.opcion("torneos", _("Tournaments between engines"), Iconos.Torneos())
     menu1.separador()
-    menu1.opcion("leagues", _("Chess leagues"), Iconos.League())
-    menu1.separador()
 
     savemenu.separador()
 
@@ -187,7 +184,8 @@ def menu_compete_savemenu(procesador, dic_data=None):
     submenu.separador()
     submenu.opcion(("micelo", 0), "%s (%d)" % (_("Tourney-Elo"), procesador.configuration.x_michelo), Iconos.EloTimed())
     submenu.separador()
-    submenu.opcion(("wicker", 0), "%s (%d)" % (_("The Wicker Park Tourney"), procesador.configuration.x_wicker), Iconos.Park())
+    submenu.opcion(("wicker", 0), "%s (%d)" % (_("The Wicker Park Tourney"), procesador.configuration.x_wicker),
+                   Iconos.Park())
     submenu.separador()
     fics = procesador.configuration.x_fics
     menuf = submenu.submenu("%s (%d)" % (_("Fics-Elo"), fics), Iconos.Fics())
@@ -213,6 +211,12 @@ def menu_compete_savemenu(procesador, dic_data=None):
     submenu.opcion(("strenght101", 0), _("Calculate your strength"), Iconos.Strength())
     submenu.separador()
     submenu.opcion(("challenge101", 0), _("Challenge 101"), Iconos.Wheel())
+
+    savemenu.separador()
+    savemenu.opcion(("leagues", None), _("Chess leagues"), Iconos.League())
+
+    savemenu.separador()
+    savemenu.opcion(("swiss", None), _("Swiss Tournaments"), Iconos.Swiss())
 
     return savemenu
 

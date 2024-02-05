@@ -32,18 +32,19 @@ from Code.Voyager import Voyager
 
 
 class WLines(LCDialog.LCDialog):
-    def __init__(self, procesador, dbop):
+    def __init__(self, dbop):
         self.dbop: OpeningLines.Opening = dbop
         self.title = dbop.gettitle()
-
-        LCDialog.LCDialog.__init__(self, procesador.main_window, self.title, Iconos.OpeningLines(), "studyOpening")
-
-        self.procesador = procesador
-        self.configuration = procesador.configuration
+        self.procesador = Code.procesador
+        self.configuration = self.procesador.configuration
         self.gamebase = self.dbop.getgamebase()
+        if len(self.gamebase) > 0:
+            self.title += f" ({self.gamebase.pgn_translated()})"
         self.num_jg_inicial = self.gamebase.num_moves()
         self.num_jg_actual = None
         self.game = None
+
+        LCDialog.LCDialog.__init__(self, self.procesador.main_window, self.title, Iconos.OpeningLines(), "studyOpening")
 
         self.resultado = None
         with_figurines = self.configuration.x_pgn_withfigurines
@@ -587,7 +588,7 @@ class WLines(LCDialog.LCDialog):
 
         def haz_menu(frommenu, game_base, all=True):
             if all:
-                li_op = self.dbop.getOtras(self.configuration, game_base)
+                li_op = self.dbop.get_others(self.configuration, game_base)
                 if li_op:
                     otra = frommenu.submenu(_("Other opening lines"), Iconos.OpeningLines())
                     for file, titulo in li_op:
@@ -624,7 +625,8 @@ class WLines(LCDialog.LCDialog):
         comments_import = menu.submenu(_("Comments"), Iconos.Comment())
         comments_import.opcion(("comments", self.ta_import_pgn_comments), _("PGN with variations"), Iconos.Board())
         comments_import.separador()
-        comments_import.opcion(("comments", self.ta_import_other_comments), _("Other opening lines"), Iconos.OpeningLines())
+        comments_import.opcion(("comments", self.ta_import_other_comments), _("Other opening lines"),
+                               Iconos.OpeningLines())
 
         resp = menu.lanza()
         if resp is None:
@@ -738,59 +740,9 @@ class WLines(LCDialog.LCDialog):
             self.glines.refresh()
             self.glines.gotop()
 
-            # list_books = Books.ListBooks()
-            #
-            # dicData = self.dbop.getconfig("IMPORT_POLYGLOT")
-            # bookW = list_books.lista[0]
-            # bookB = list_books.lista[0]
-            # if dicData:
-            #     book = list_books.seek_book(dicData["BOOKW"])
-            #     if book:
-            #         bookW = book
-            #     book = list_books.seek_book(dicData["BOOKB"])
-            #     if book:
-            #         bookB = book
-            #
-            # form = FormLayout.FormLayout(self, _("Polyglot book"), Iconos.Libros(), anchoMinimo=360)
-            # form.separador()
-            #
-            # li = [(bookx.name, bookx) for bookx in list_books.lista]
-            # form.combobox(_("Book for White"), li, bookW)
-            # form.separador()
-            #
-            # form.combobox(_("Book for Black"), li, bookB)
-            # form.separador()
-            #
-            # resultado = form.run()
-            # if resultado:
-            #     accion, liResp = resultado
-            #     bookW, bookB = liResp
-            #     dicData = {"BOOKW": bookW.name, "BOOKB": bookB.name}
-            #     self.dbop.setconfig("IMPORT_POLYGLOT", dicData)
-            # else:
-            #     return
-            #
-            # bookW.polyglot()
-            # bookB.polyglot()
-            #
-            # titulo = bookW.name if bookW == bookB else "%s/%s" % (bookW.name, bookB.name)
-            # dicData = self.import_param_books(titulo, True)
-            # if dicData:
-            #     depth, siWhite, onlyone, minMoves, excl_transpositions = (
-            #         dicData["DEPTH"],
-            #         dicData["SIWHITE"],
-            #         dicData["ONLYONE"],
-            #         dicData["MINMOVES"],
-            #         dicData["EXCLTRANSPOSITIONS"],
-            #     )
-            #     self.dbop.import_polyglot(
-            #         self, game, bookW, bookB, titulo, depth, siWhite, onlyone, minMoves, excl_transpositions
-            #     )
-            self.glines.refresh()
-            self.glines.gotop()
-
     def import_pgn(self, game):
-        previo = self.configuration.read_variables("OPENINGLINES")
+        key_var = "OPENINGLINES"
+        previo = self.configuration.read_variables(key_var)
         carpeta = previo.get("CARPETAPGN", "")
 
         fichero_pgn = SelectFiles.leeFichero(self, carpeta, "pgn", titulo=_("File to import"))
@@ -820,7 +772,7 @@ class WLines(LCDialog.LCDialog):
             previo["IPGN_DEPTH"] = depth = liResp[0]
             previo["IPGN_VARIATIONSMODE"] = variations = liResp[1]
             previo["IPGN_COMMENTS"] = comments = liResp[2]
-            self.configuration.write_variables("OPENINGLINES", previo)
+            self.configuration.write_variables(key_var, previo)
 
             self.dbop.import_pgn(self, game, fichero_pgn, depth, variations, comments)
             self.glines.refresh()
@@ -1157,8 +1109,6 @@ class WLines(LCDialog.LCDialog):
             xmanager = self.procesador.creaManagerMotor(self.configuration.engine_tutor(), ms, 0, siMultiPV=False)
             xmanager.set_multipv(10)
 
-
-
             st_borrar = set()
 
             ok = True
@@ -1373,10 +1323,11 @@ class WLines(LCDialog.LCDialog):
         self.show_lines()
 
 
-def study(procesador, file):
+def study(file):
+    procesador = Code.procesador
     with QTUtil.EscondeWindow(procesador.main_window):
         dbop = OpeningLines.Opening(os.path.join(procesador.configuration.folder_openings(), file))
-        w = WLines(procesador, dbop)
+        w = WLines(dbop)
         w.exec_()
         dbop.close()
         return w.resultado
@@ -1393,8 +1344,6 @@ class WImportPolyglot(LCDialog.LCDialog):
         self.list_books = Books.ListBooks()
         self.game = game
         dic_data = self.read_dic_data()
-
-        flb = Controles.TipoLetra(puntos=10)
 
         # Toolbar
         tb = QTVarios.LCTB(self)
@@ -1417,18 +1366,38 @@ class WImportPolyglot(LCDialog.LCDialog):
 
         self.cb_white = Controles.CB(self, li_books, book_obj("BOOK_WHITE"))
         self.cb_mode_white = Controles.CB(self, li_modes, dic_data.get("MODE_WHITE"))
+        lb_white_porc_min = Controles.LB2P(self, _("Minimum percentage")).ponTipoLetra(puntos=8)
+        self.ed_white_porc_min = (Controles.ED(self).anchoFijo(60).
+                                  tipoFloat(decimales=3, valor=dic_data.get("PORC_WHITE", 0.0)).ponTipoLetra(puntos=8))
+        lb_white_weight_min = Controles.LB2P(self, _("Minimum weight")).ponTipoLetra(puntos=8)
+        self.ed_white_weight_min = (Controles.ED(self).anchoFijo(60).
+                                  tipoInt(dic_data.get("WEIGHT_WHITE", 0)).ponTipoLetra(puntos=8))
 
-        lybook = Colocacion.H().relleno().control(self.cb_white).control(self.cb_mode_white).relleno()
+        ly_arr = Colocacion.H().control(self.cb_white).control(self.cb_mode_white)
+        ly_abj = (Colocacion.H().relleno().control(lb_white_porc_min).control(self.ed_white_porc_min)
+                  .espacio(10)
+                  .control(lb_white_weight_min).control(self.ed_white_weight_min))
+        ly_book = Colocacion.V().otro(ly_arr).otro(ly_abj)
 
-        gb_white = Controles.GB(self, _("White book"), lybook).ponFuente(flb)
+        gb_white = Controles.GB(self, _("White book"), ly_book)
 
         # Black
         self.cb_black = Controles.CB(self, li_books, book_obj("BOOK_BLACK"))
         self.cb_mode_black = Controles.CB(self, li_modes, dic_data.get("MODE_BLACK"))
+        lb_black_min = Controles.LB2P(self, _("Minimum percentage")).ponTipoLetra(puntos=8)
+        self.ed_black_min = (Controles.ED(self).anchoFijo(60).
+                             tipoFloat(decimales=3, valor=dic_data.get("PORC_BLACK", 0.0)).ponTipoLetra(puntos=8))
+        lb_black_weight_min = Controles.LB2P(self, _("Minimum weight")).ponTipoLetra(puntos=8)
+        self.ed_black_weight_min = (Controles.ED(self).anchoFijo(60).
+                                  tipoInt(dic_data.get("WEIGHT_BLACK", 0)).ponTipoLetra(puntos=8))
 
-        lybook = Colocacion.H().relleno().control(self.cb_black).control(self.cb_mode_black).relleno()
+        ly_arr = Colocacion.H().control(self.cb_black).control(self.cb_mode_black)
+        ly_abj = (Colocacion.H().relleno().control(lb_black_min).control(self.ed_black_min)
+                  .espacio(10)
+                  .control(lb_black_weight_min).control(self.ed_black_weight_min))
+        ly_book = Colocacion.V().otro(ly_arr).otro(ly_abj)
 
-        gb_black = Controles.GB(self, _("Black book"), lybook).ponFuente(flb)
+        gb_black = Controles.GB(self, _("Black book"), ly_book)
 
         layout_books = Colocacion.H().control(gb_white).control(gb_black)
 
@@ -1450,7 +1419,7 @@ class WImportPolyglot(LCDialog.LCDialog):
         ly.control(lb_info1, 1, 1)
         ly.control(lb_info2, 1, 3)
 
-        gb_limits = Controles.GB(self, _("Limits"), ly).ponFuente(flb)
+        gb_limits = Controles.GB(self, _("Limits"), ly)
 
         for gb in (gb_white, gb_black, gb_limits):
             Code.configuration.set_property(gb, "1")
@@ -1474,10 +1443,14 @@ class WImportPolyglot(LCDialog.LCDialog):
         dic = {
             "BOOK_WHITE": self.cb_white.valor().to_dic(),
             "MODE_WHITE": self.cb_mode_white.valor(),
+            "PORC_WHITE": self.ed_white_porc_min.textoFloat(),
+            "WEIGHT_WHITE": self.ed_white_weight_min.textoInt(),
             "BOOK_BLACK": self.cb_black.valor().to_dic(),
             "MODE_BLACK": self.cb_mode_black.valor(),
+            "PORC_BLACK": self.ed_black_min.textoFloat(),
+            "WEIGHT_BLACK": self.ed_black_weight_min.textoInt(),
             "MAX_DEPTH": self.sb_limit_depth.valor(),
-            "MAX_LINES": self.sb_limit_depth.valor()
+            "MAX_LINES": self.sb_limit_depth.valor(),
         }
         Code.configuration.write_variables("OL_IMPORTPOLYGLOT", dic)
 
@@ -1508,6 +1481,11 @@ class WImportPolyglot(LCDialog.LCDialog):
         limit_depth = self.sb_limit_depth.valor()
         start_fen = self.game.last_position.fen()
 
+        porc_min_white = self.ed_white_porc_min.textoFloat()
+        weight_min_white = self.ed_white_weight_min.textoInt()
+        porc_min_black = self.ed_black_min.textoFloat()
+        weight_min_black = self.ed_black_weight_min.textoInt()
+
         mens_work = _("Working...")
         mens_depth = _("Depth")
         mens_lines = _("Lines")
@@ -1523,7 +1501,9 @@ class WImportPolyglot(LCDialog.LCDialog):
             return True
 
         lines = Polyglot.gen_lines(book_w.path, book_b.path, mode_w, mode_b,
-                                   limit_lines, limit_depth, start_fen, dispatch)
+                                   limit_lines, limit_depth, start_fen, dispatch,
+                                   porc_min_white=porc_min_white, porc_min_black=porc_min_black,
+                                   weight_min_white=weight_min_white, weight_min_black=weight_min_black)
         um.final()
 
         if um.end_with_canceled:

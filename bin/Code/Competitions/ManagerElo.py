@@ -191,12 +191,12 @@ class ManagerElo(Manager.Manager):
     def valores(self):
         li = QTVarios.list_irina()
 
-        self.liMotores = []
+        self.list_engines = []
         for (alias, name, icono, elo) in li:
-            self.liMotores.append(MotorElo(elo, name, alias, 0))
+            self.list_engines.append(MotorElo(elo, name, alias, 0))
 
         def m(xelo, xkey, xdepth):
-            self.liMotores.append(MotorElo(xelo, Util.primera_mayuscula(xkey), xkey, xdepth))
+            self.list_engines.append(MotorElo(xelo, Util.primera_mayuscula(xkey), xkey, xdepth))
 
         for elo, key, depth in listaMotoresElo():
             m(elo, key, depth)
@@ -205,7 +205,7 @@ class ManagerElo(Manager.Manager):
             if v.elo > 2000:
                 m(v.elo, v.key, None)  # ponemos depth a None, para diferenciar del 0 de los motores internos
 
-        self.liMotores.sort(key=lambda x: x.elo)
+        self.list_engines.sort(key=lambda x: x.elo)
 
         self.li_t = (
             (0, 50, 3),
@@ -236,8 +236,8 @@ class ManagerElo(Manager.Manager):
     def list_engines(self, elo):
         self.valores()
         li = []
-        numX = len(self.liMotores)
-        for num, mt in enumerate(self.liMotores):
+        numX = len(self.list_engines)
+        for num, mt in enumerate(self.list_engines):
             mt_elo = mt.elo
             mt.siOut = False
             if mt_elo > elo + 400:
@@ -260,7 +260,7 @@ class ManagerElo(Manager.Manager):
 
     def get_motor(self, key, depth):
         self.valores()
-        for mt in self.liMotores:
+        for mt in self.list_engines:
             if mt.key == key and mt.depth == depth:
                 return mt
 
@@ -341,7 +341,7 @@ class ManagerElo(Manager.Manager):
 
         self.set_label2("<center>%s</center>" % txt)
         self.pgnRefresh(True)
-        self.ponCapInfoPorDefecto()
+        self.show_info_extra()
 
         self.check_boards_setposition()
 

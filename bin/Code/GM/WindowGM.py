@@ -89,9 +89,9 @@ class WGM(LCDialog.LCDialog):
         liDepths = [("--", 0)]
         for x in range(1, 31):
             liDepths.append((str(x), x))
-        self.liMotores = self.configuration.combo_engines_multipv10()
+        self.list_engines = self.configuration.combo_engines_multipv10()
         self.cbJmotor, self.lbJmotor = QTUtil2.combobox_lb(
-            self, self.liMotores, self.configuration.tutor_default, _("Engine")
+            self, self.list_engines, self.configuration.tutor_default, _("Engine")
         )
         self.edJtiempo = Controles.ED(self).tipoFloat().ponFloat(1.0).anchoFijo(50)
         self.lbJtiempo = Controles.LB2P(self, _("Time in seconds"))
@@ -108,7 +108,6 @@ class WGM(LCDialog.LCDialog):
         self.cbJmultiPV = Controles.CB(self, li, "PD")
 
         self.li_adjudicator_controls = (
-            self.cb_gm,
             self.cbJmotor,
             self.lbJmotor,
             self.edJtiempo,
@@ -124,6 +123,7 @@ class WGM(LCDialog.LCDialog):
 
         for control in self.li_adjudicator_controls:
             control.setFont(flb)
+        self.cb_gm.setFont(flb)
 
         # Inicial
         self.edJugInicial, lbInicial = QTUtil2.spinbox_lb(self, 1, 1, 99, etiqueta=_("Initial move"), max_width=40)
@@ -325,9 +325,8 @@ class WGM(LCDialog.LCDialog):
         if not QTUtil2.pregunta(self, _X(_("Delete %1?"), tgm)):
             return
 
-        base = os.path.join(self.configuration.personal_training_folder, "%s.gm" % tgm)
-        for x in "wbi":
-            Util.remove_file(base + x)
+        base = os.path.join(self.configuration.personal_training_folder, "%s.xgm" % tgm)
+        Util.remove_file(base)
 
         self.li_personal = GM.lista_gm_personal(self.configuration.personal_training_folder)
 

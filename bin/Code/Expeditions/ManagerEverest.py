@@ -4,7 +4,7 @@ import time
 from PySide2 import QtCore
 
 from Code import Manager
-from Code.Base.Constantes import ST_ENDGAME, ST_PLAYING, TB_CLOSE, TB_CONFIG, TB_CANCEL, TB_UTILITIES
+from Code.Base.Constantes import ST_ENDGAME, ST_PLAYING, TB_CLOSE, TB_CONFIG, TB_CANCEL, TB_UTILITIES, GT_AGAINST_PGN
 from Code.Expeditions import Everest
 from Code.Openings import Opening
 from Code.QT import QTUtil2
@@ -18,6 +18,8 @@ class ManagerEverest(Manager.Manager):
         self.expedition.run()
 
         self.dic_analysis = {}
+
+        self.game_type = GT_AGAINST_PGN
 
         self.is_competitive = True
         self.resultado = None
@@ -53,7 +55,7 @@ class ManagerEverest(Manager.Manager):
         self.set_label2("")
 
         self.pgnRefresh(True)
-        self.ponCapInfoPorDefecto()
+        self.show_info_extra()
         self.check_boards_setposition()
 
         var_config = "EXPEDITIONS"

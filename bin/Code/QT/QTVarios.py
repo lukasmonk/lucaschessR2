@@ -4,6 +4,7 @@ from PySide2 import QtCore, QtGui, QtWidgets, QtSvg
 
 import Code
 from Code import Util
+from Code.Base.Constantes import RESULT_WIN_WHITE, RESULT_DRAW, RESULT_WIN_BLACK
 from Code.QT import Colocacion
 from Code.QT import Controles
 from Code.QT import FormLayout
@@ -989,9 +990,11 @@ def combine_pixmaps(pixmap1, pixmap2):
     return result
 
 
-def combine_icons(icon1: QtGui.QIcon, icon2: QtGui.QIcon, width):
-    pixmap1 = icon1.pixmap(width, width)
-    pixmap1.setAL
-    pixmap2 = icon2.pixmap(width, width)
-    pixmap = combine_pixmaps(pixmap1, pixmap2)
-    return QtGui.QIcon(pixmap)
+def get_result_game(owner):
+    menu = LCMenu(owner)
+    menu.opcion(RESULT_DRAW, RESULT_DRAW, Iconos.Tablas())
+    menu.separador()
+    menu.opcion(RESULT_WIN_WHITE, RESULT_WIN_WHITE, Iconos.Blancas())
+    menu.separador()
+    menu.opcion(RESULT_WIN_BLACK, RESULT_WIN_BLACK, Iconos.Negras())
+    return menu.lanza()

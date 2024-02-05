@@ -92,7 +92,7 @@ class ManagerPlayHuman(Manager.Manager):
         self.remove_hints(siQuitarAtras=False)
         self.put_pieces_bottom(True)
 
-        self.ponCapInfoPorDefecto()
+        self.show_info_extra()
 
         self.pgnRefresh(True)
 
@@ -113,9 +113,6 @@ class ManagerPlayHuman(Manager.Manager):
         self.auto_rotate = self.get_auto_rotate()
 
         self.check_boards_setposition()
-
-        if dic_var.get("ANALYSIS_BAR", False):
-            self.main_window.activate_analysis_bar(True)
 
         self.human_is_playing = True
 

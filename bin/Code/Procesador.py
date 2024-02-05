@@ -54,10 +54,9 @@ from Code.Engines import EngineManager, WEngines, WConfEngines, WindowSTS, Engin
 from Code.Expeditions import WindowEverest, ManagerEverest
 from Code.GM import ManagerGM
 from Code.Kibitzers import KibitzersManager
-from Code.Leagues import ManagerLeague
-from Code.Leagues import WLeagues
+from Code.Leagues import ManagerLeague, WLeagues
 from Code.LearnGame import WindowPlayGame, ManagerPlayGame, WindowLearnGame
-from Code.MainWindow import MainWindow, Presentacion
+from Code.MainWindow import MainWindow, Presentacion, LucasChessGui
 from Code.Menus import MenuTrainings, BasicMenus
 from Code.Openings import ManagerOPLPositions, ManagerOPLEngines, ManagerOPLSequential, ManagerOPLStatic
 from Code.Openings import WindowOpenings, WindowOpeningLine, WindowOpeningLines, OpeningLines, OpeningsStd
@@ -78,6 +77,7 @@ from Code.Routes import Routes, WindowRoutes, ManagerRoutes
 from Code.SQL import UtilSQL
 from Code.SingularMoves import WindowSingularM, ManagerSingularM
 from Code.Sound import WindowSonido
+from Code.Swiss import WSwisses, ManagerSwiss
 from Code.Tournaments import WTournaments
 from Code.TrainBMT import WindowBMT
 from Code.Washing import ManagerWashing, WindowWashing
@@ -92,6 +92,7 @@ class Procesador:
     version = None
     entrenamientos = None
     board = None
+    is_first_time = None
 
     def __init__(self):
         if Code.list_engine_managers is None:
@@ -137,7 +138,7 @@ class Procesador:
 
         self.manager = None
 
-        self.siPrimeraVez = True
+        self.is_first_time = True
         self.siPresentacion = False  # si esta funcionando la presentacion
 
         self.posicionInicial = Position.Position()
@@ -206,6 +207,10 @@ class Procesador:
                 self.juegaExterno(fich_tmp)
                 return
 
+            elif comando == "-playagainst":
+                recplay = sys.argv[2]
+                self.juegaExternoAgainst(recplay)
+
         else:
             self.start()
 
@@ -240,12 +245,12 @@ class Procesador:
             del self.manager
             self.manager = None
         self.reset()
-        if self.configuration.siPrimeraVez:
+        if self.configuration.is_first_time:
             self.cambiaconfigurationPrimeraVez()
-            self.configuration.siPrimeraVez = False
+            self.configuration.is_first_time = False
             self.main_window.set_title()
-        if self.siPrimeraVez:
-            self.siPrimeraVez = False
+        if self.is_first_time:
+            self.is_first_time = False
             self.presentacion()
         self.kibitzers_manager.stop()
         self.stop_engines()
@@ -444,6 +449,12 @@ class Procesador:
         elif tipo == "strenght101":
             self.strenght101()
 
+        elif tipo == "leagues":
+            WLeagues.leagues(self.main_window)
+
+        elif tipo == "swiss":
+            WSwisses.swisses(self.main_window)
+
     def strenght101(self):
         w = WindowSingularM.WSingularM(self.main_window, self.configuration)
         if w.exec_():
@@ -466,7 +477,7 @@ class Procesador:
             default_seconds = dic.get("SECONDS", 0)
             respT = QTVarios.vtime(
                 self.main_window,
-                minMinutos=1,
+                minMinutos=0,
                 minSegundos=0,
                 maxMinutos=999,
                 max_seconds=999,
@@ -489,7 +500,7 @@ class Procesador:
             default_seconds = dic.get("SECONDS", 0)
             respT = QTVarios.vtime(
                 self.main_window,
-                minMinutos=1,
+                minMinutos=0,
                 minSegundos=0,
                 maxMinutos=999,
                 max_seconds=999,
@@ -552,20 +563,20 @@ class Procesador:
             self.informacion()
 
         elif key == TB_ADJOURNMENTS:
-            self.Adjournments()
+            self.adjournments()
 
         elif key == TB_REPLAY:
             self.manager.replay_direct()
 
-    def Adjournments(self):
+    def adjournments(self):
         menu = QTVarios.LCMenu(self.main_window)
-        li_Adjournments = Adjournments.Adjournments().list_menu()
-        for key, label, tp in li_Adjournments:
+        li_adjournments = Adjournments.Adjournments().list_menu()
+        for key, label, tp in li_adjournments:
             menu.opcion((True, key, tp), label, Iconos.PuntoMagenta())
             menu.addSeparator()
         menu.addSeparator()
         mr = menu.submenu(_("Remove"), Iconos.Borrar())
-        for key, label, tp in li_Adjournments:
+        for key, label, tp in li_adjournments:
             mr.opcion((False, key, tp), label, Iconos.Delete())
 
         resp = menu.lanza()
@@ -609,10 +620,10 @@ class Procesador:
             self.test_opcion_Adjournments()
             self.main_window.pon_toolbar(self.li_opciones_inicio, atajos=True)
 
-    def lanza_atajos(self):
+    def launch_shortcuts(self):
         BasicMenus.atajos(self)
 
-    def lanzaAtajosALT(self, key):
+    def launch_shortcut_with_alt(self, key):
         BasicMenus.atajos_alt(self, key)
 
     def atajos_edit(self):
@@ -622,6 +633,9 @@ class Procesador:
         menu = QTVarios.LCMenu(self.main_window)
 
         menu.opcion(self.cambiaconfiguration, _("General configuration"), Iconos.Opciones())
+        menu.separador()
+
+        menu.opcion(self.select_language, _("Language"), Iconos.Language())
         menu.separador()
 
         menu.opcion(self.engines, _("Engines configuration"), Iconos.ConfEngines())
@@ -641,7 +655,7 @@ class Procesador:
         menu.separador()
 
         menu1 = menu.submenu(_("Colors"), Iconos.Colores())
-        menu1.opcion(self.editColoresBoard, _("Main board"), Iconos.EditarColores())
+        menu1.opcion(self.edit_board_colors, _("Main board"), Iconos.EditarColores())
         menu1.separador()
         menu1.opcion(self.cambiaColores, _("General"), Iconos.Vista())
         menu.separador()
@@ -671,6 +685,10 @@ class Procesador:
             else:
                 resp()
 
+    def select_language(self):
+        if LucasChessGui.select_language(self.main_window, False):
+            self.reiniciar()
+
     def log_open(self):
         Code.list_engine_managers.active_logs(True)
 
@@ -682,7 +700,7 @@ class Procesador:
             self.configuration.graba()
             self.reiniciar()
 
-    def editColoresBoard(self):
+    def edit_board_colors(self):
         w = WBoardColors.WBoardColors(self.board)
         w.exec_()
 
@@ -756,7 +774,7 @@ class Procesador:
 
     def train_book_ol(self):
         dbli_books_train = UtilSQL.ListObjSQL(Code.configuration.file_train_books_ol(), WBooksTrainOL.BooksTrainOL,
-                                tabla="data", reverted=True)
+                                              tabla="data", reverted=True)
         # No es posiblñe con with porque self.manager termina y deja el control en main_window
         w = WBooksTrainOL.WBooksTrainOL(self.main_window, dbli_books_train)
         if w.exec_():
@@ -796,8 +814,6 @@ class Procesador:
             self.sts()
         elif resp == "kibitzers":
             self.kibitzers_manager.edit()
-        elif resp == "leagues":
-            WLeagues.leagues(self.main_window)
         elif resp == "conf_engines":
             self.engines()
 
@@ -821,7 +837,7 @@ class Procesador:
             if "TRAIN" in dicline:
                 resp = "tr_%s" % dicline["TRAIN"]
             else:
-                resp = WindowOpeningLine.study(self, dicline["file"])
+                resp = WindowOpeningLine.study(dicline["file"])
             if resp is None:
                 self.openings()
             else:
@@ -1034,7 +1050,7 @@ class Procesador:
 
     def pgn_paste(self):
         path = self.configuration.ficheroTemporal("pgn")
-        texto = QTUtil.traePortapapeles()
+        texto = QTUtil.get_txt_clipboard()
         if texto:
             texto = texto.strip()
             if not texto.startswith("["):
@@ -1086,6 +1102,22 @@ class Procesador:
         self.manager = ManagerSolo.ManagerSolo(self)
         self.manager.leeFichero(file_lcsb)
 
+    def juegaExternoAgainst(self, recplay):
+        recplay = int(recplay)
+        db = WindowPlayGame.DBPlayGame(self.configuration.file_play_game())
+        w = WindowPlayGame.WPlay1(self.main_window, self.configuration, db, recplay)
+        if w.exec_():
+            db.close()
+            if w.recno is not None:
+                is_white = w.is_white
+                is_black = w.is_black
+                if is_white or is_black:
+                    self.manager = ManagerPlayGame.ManagerPlayGame(self)
+                    self.manager.start(w.recno, is_white, is_black, close_on_exit=True)
+        else:
+            db.close()
+        return
+
     def entrenaPos(self, position, nPosiciones, titentreno, liEntrenamientos, entreno, with_tutor, jump, advanced):
         self.manager = ManagerEntPos.ManagerEntPos(self)
         self.manager.set_training(entreno)
@@ -1128,13 +1160,15 @@ class Procesador:
         db = WindowPlayGame.DBPlayGame(self.configuration.file_play_game())
         w = WindowPlayGame.WPlay1(self.main_window, self.configuration, db, recno)
         if w.exec_():
+            db.close()
             if w.recno is not None:
                 is_white = w.is_white
                 is_black = w.is_black
                 if is_white or is_black:
                     self.manager = ManagerPlayGame.ManagerPlayGame(self)
                     self.manager.start(w.recno, is_white, is_black)
-        db.close()
+        else:
+            db.close()
 
     def learn_game(self, game=None):
         if game:
@@ -1143,7 +1177,7 @@ class Procesador:
             db.append(reg)
             db.close()
 
-        w = WindowLearnGame.WLearnBase(self)
+        w = WindowLearnGame.WLearnBase(self.main_window)
         w.exec_()
 
     def showTurnOnLigths(self, name):
@@ -1276,6 +1310,17 @@ class Procesador:
             self.manager.run_adjourn(dic_adjourn)
         else:
             self.manager.start(league, xmatch, division)
+
+    def play_swiss_human(self, league, xmatch):
+        self.manager = ManagerSwiss.ManagerSwiss(self)
+        adj = Adjournments.Adjournments()
+        key_dic = adj.key_match_swiss(xmatch)
+        if key_dic:
+            key, dic_adjourn = key_dic
+            adj.remove(key)
+            self.manager.run_adjourn(dic_adjourn)
+        else:
+            self.manager.start(league, xmatch)
 
 
 class ProcesadorVariations(Procesador):

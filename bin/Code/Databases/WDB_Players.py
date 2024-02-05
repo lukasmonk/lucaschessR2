@@ -420,6 +420,9 @@ class WPlayer(QtWidgets.QWidget):
     def tw_rebuild(self):
         if not self.test_players_in_db():
             return
+        if not self.dbGames.has_field("RESULT"):
+            QTUtil2.message(self, _("This database does not have a RESULT field"))
+            return
 
         self.rebuilding = True
         pb = QTUtil2.BarraProgreso1(self, _("Working..."), formato1="%p%")

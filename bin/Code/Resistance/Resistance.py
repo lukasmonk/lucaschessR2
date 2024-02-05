@@ -16,7 +16,7 @@ class Resistance:
         if self.conf is None:
             self.conf = {"SEGUNDOS": 5, "PUNTOS": 100, "NIVELHECHO": 0, "MAXERROR": 0}
 
-        self.liMotores = self.configuration.combo_engines()  # name, key
+        self.list_engines = self.configuration.combo_engines()  # name, key
         self.claveActual = self.calcClaveActual()
         self.dicActual = self.dameDicActual()
 
@@ -34,16 +34,16 @@ class Resistance:
         self.dicActual = self.dameDicActual()
 
     def num_engines(self):
-        return len(self.liMotores)
+        return len(self.list_engines)
 
     def dameEtiEngine(self, row):
-        return self.liMotores[row][0]
+        return self.list_engines[row][0]
 
     def dameClaveEngine(self, row):
-        return self.liMotores[row][1]
+        return self.list_engines[row][1]
 
     def dameResultado(self, campo, num_engine):
-        engine = self.liMotores[num_engine][1]
+        engine = self.list_engines[num_engine][1]
         dicEngine = self.dicActual.get(engine, None)
         if dicEngine is None:
             return None, None
@@ -52,7 +52,7 @@ class Resistance:
         return recordFecha, recordMovimientos
 
     def put_result(self, num_engine, key, movimientos):
-        engine = self.liMotores[num_engine][1]
+        engine = self.list_engines[num_engine][1]
         dicEngine = self.dicActual.get(engine, collections.OrderedDict())
         historico = dicEngine.get("HISTORICO_%s" % key, [])
         hoy = Util.today()
@@ -122,7 +122,7 @@ class Resistance:
         return self.conf.get("MAXERROR")
 
     def borraRegistros(self, num_engine):
-        engine = self.liMotores[num_engine][1]
+        engine = self.list_engines[num_engine][1]
         if engine in self.dicActual:
             del self.dicActual[engine]
             self.db[self.claveActual] = self.dicActual

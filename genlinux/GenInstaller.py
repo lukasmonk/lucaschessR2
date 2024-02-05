@@ -154,7 +154,7 @@ class Processor:
     def create_shs(self):
         with open(os.path.join(self.destino, "setup_linux.sh"), "wt") as q:
             q.write(
-                """QT_LOGGING_RULES='*=false'
+                """QT_LOGGING_RULES='*=falrose'
 export QT_LOGGING_RULES
 if [ $(id -u) -eq 0 ]
 then 

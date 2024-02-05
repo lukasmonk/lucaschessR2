@@ -134,7 +134,7 @@ class ManagerOpeningEngines(Manager.Manager):
         self.put_pieces_bottom(self.is_human_side_white)
         self.pgnRefresh(True)
 
-        self.ponCapInfoPorDefecto()
+        self.show_info_extra()
 
         self.state = ST_PLAYING
 

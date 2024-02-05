@@ -1,6 +1,7 @@
 import copy
 import os
 
+import Code
 from Code import Util
 from Code.Analysis import AnalysisIndexes, WindowAnalysisParam
 from Code.Base import Game
@@ -10,22 +11,22 @@ from Code.TrainBMT import BMT
 
 
 class AnalyzeGame:
-    def __init__(self, procesador, alm, is_massiv, li_moves=None):
-        self.procesador = procesador
+    def __init__(self, alm, is_massiv, li_moves=None):
+        self.procesador = Code.procesador
         self.alm = alm
 
         self.si_bmt_blunders = False
         self.si_bmt_brilliancies = False
 
-        self.configuration = procesador.configuration
+        self.configuration = Code.configuration
         if alm.engine == "default":
-            self.xmanager = procesador.analyzer_clone(alm.vtime, alm.depth, alm.multiPV)
+            self.xmanager = self.procesador.analyzer_clone(alm.vtime, alm.depth, alm.multiPV)
             self.xmanager.set_priority(alm.priority)
         else:
             conf_engine = copy.deepcopy(self.configuration.buscaRival(alm.engine))
             if alm.multiPV:
                 conf_engine.update_multipv(alm.multiPV)
-            self.xmanager = procesador.creaManagerMotor(conf_engine, alm.vtime, alm.depth, True, priority=alm.priority)
+            self.xmanager = self.procesador.creaManagerMotor(conf_engine, alm.vtime, alm.depth, True, priority=alm.priority)
         self.vtime = alm.vtime
         self.depth = alm.depth
 
@@ -540,9 +541,6 @@ FILESW=%s:100
 
         self.xmanager.remove_gui_dispatch()
 
-        # from Code.Analysis import AnalysisMaia
-        # AnalysisMaia.analysis_maia(self.procesador.main_window, self.xmanager, game, True)
-
 
 def analysis_game(manager):
     game = manager.game
@@ -585,7 +583,7 @@ def analysis_game(manager):
     manager_main_window_base.show_message(mens, True, tit_cancel=_("Cancel"))
     manager_main_window_base.tb.setDisabled(True)
 
-    ap = AnalyzeGame(procesador, alm, False, li_moves)
+    ap = AnalyzeGame(alm, False, li_moves)
 
     def dispatch_bp(pos, ntotal, njg):
         manager_main_window_base.change_message("%s: %d/%d" % (_("Analyzing the move...."), pos + 1, ntotal))

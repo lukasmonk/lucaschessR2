@@ -55,7 +55,7 @@ class LCDialog(QtWidgets.QDialog):
         if QtWidgets.QDesktopWidget().screenCount() > 1:
             wE = hE = 1024 * 1024
         else:
-            wE, hE = QTUtil.tamEscritorio()
+            wE, hE = QTUtil.desktop_size()
         if dic:
             if siTam:
                 if not ("_SIZE_" in dic):

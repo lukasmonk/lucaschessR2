@@ -51,6 +51,8 @@ def read_dic_params():
     alm.white = dic.get("white", True)
     alm.black = dic.get("black", True)
 
+    alm.workers = dic.get("workers", 1)
+
     return alm
 
 
@@ -186,7 +188,7 @@ def analysis_parameters(parent, configuration, siModoAmpliado, siTodosMotores=Fa
     # li_gen.append(("%s+%s:" % (_("Time"), _("Depth")), alm.timedepth))
 
     # MultiPV
-    li_gen.append(SEPARADOR)
+    # li_gen.append(SEPARADOR)
     li = [(_("By default"), "PD"), (_("Maximum"), "MX")]
     for x in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 20, 30, 40, 50, 75, 100, 150, 200):
         li.append((str(x), str(x)))
@@ -194,7 +196,7 @@ def analysis_parameters(parent, configuration, siModoAmpliado, siTodosMotores=Fa
     li_gen.append((config, alm.multiPV))
 
     # Priority
-    li_gen.append(SEPARADOR)
+    # li_gen.append(SEPARADOR)
     config = FormLayout.Combobox(_("Process priority"), Priorities.priorities.combo())
     li_gen.append((config, alm.priority))
 
@@ -375,7 +377,7 @@ def analysis_parameters(parent, configuration, siModoAmpliado, siTodosMotores=Fa
         return None
 
 
-def massive_analysis_parameters(parent, configuration, siVariosSeleccionados, siDatabase=False):
+def massive_analysis_parameters(parent, configuration, multiple_selected, siDatabase=False):
     alm = read_dic_params()
 
     # Datos
@@ -403,7 +405,7 @@ def massive_analysis_parameters(parent, configuration, siVariosSeleccionados, si
     # li_gen.append(("%s+%s:" % (_("Time"), _("Depth")), alm.timedepth))
 
     # MultiPV
-    li_gen.append(SEPARADOR)
+    # li_gen.append(SEPARADOR)
     li = [(_("By default"), "PD"), (_("Maximum"), "MX")]
     for x in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 20, 30, 40, 50, 75, 100, 150, 200):
         li.append((str(x), str(x)))
@@ -452,23 +454,26 @@ def massive_analysis_parameters(parent, configuration, siVariosSeleccionados, si
 
     li_gen.append((_("Automatically assign themes using Lichess/Thibault code") + ":", alm.themes_lichess))
 
+    li_gen.append(SEPARADOR)
     li_gen.append((_("Start from the end of the game") + ":", alm.from_last_move))
 
-    li_gen.append(SEPARADOR)
     li_gen.append((_("Redo any existing prior analysis (if they exist)") + ":", alm.delete_previous))
 
+    li_gen.append((_("Only selected games") + ":", multiple_selected))
     li_gen.append(SEPARADOR)
-    li_gen.append((_("Only selected games") + ":", siVariosSeleccionados))
+    cores = Util.cpu_count()
+    li_gen.append((FormLayout.Spinbox(_("Number of parallel processes"), 1, cores, 40), min(alm.workers, cores)))
+    li_gen.append(SEPARADOR)
 
-    liVar = form_variations(alm)
+    li_var = form_variations(alm)
 
-    liBlunders, liBrilliancies = form_blunders_brilliancies(alm, configuration)
+    li_blunders, li_brilliancies = form_blunders_brilliancies(alm, configuration)
 
     lista = []
     lista.append((li_gen, _("General options"), ""))
-    lista.append((liVar, _("Variations"), ""))
-    lista.append((liBlunders, _("Wrong moves"), ""))
-    lista.append((liBrilliancies, _("Brilliancies"), ""))
+    lista.append((li_var, _("Variations"), ""))
+    lista.append((li_blunders, _("Wrong moves"), ""))
+    lista.append((li_brilliancies, _("Brilliancies"), ""))
 
     reg = Util.Record()
     reg.form = None
@@ -480,7 +485,7 @@ def massive_analysis_parameters(parent, configuration, siVariosSeleccionados, si
     if resultado:
         accion, liResp = resultado
 
-        li_gen, liVar, liBlunders, liBrilliancies = liResp
+        li_gen, li_var, li_blunders, li_brilliancies = liResp
 
         (
             alm.engine,
@@ -495,7 +500,8 @@ def massive_analysis_parameters(parent, configuration, siVariosSeleccionados, si
             alm.themes_lichess,
             alm.from_last_move,
             alm.delete_previous,
-            alm.siVariosSeleccionados,
+            alm.multiple_selected,
+            alm.workers
         ) = li_gen
 
         alm.vtime = int(vtime * 1000)
@@ -512,7 +518,7 @@ def massive_analysis_parameters(parent, configuration, siVariosSeleccionados, si
             alm.pgnblunders,
             alm.oriblunders,
             alm.bmtblunders,
-        ) = liBlunders
+        ) = li_blunders
 
         (
             alm.analyze_variations,
@@ -522,7 +528,7 @@ def massive_analysis_parameters(parent, configuration, siVariosSeleccionados, si
             alm.info_variation,
             alm.si_pdt,
             alm.one_move_variation,
-        ) = liVar
+        ) = li_var
 
         (
             alm.dpbrilliancies,
@@ -531,7 +537,7 @@ def massive_analysis_parameters(parent, configuration, siVariosSeleccionados, si
             alm.pgnbrilliancies,
             alm.oribrilliancies,
             alm.bmtbrilliancies,
-        ) = liBrilliancies
+        ) = li_brilliancies
 
         dic = {}
         for x in dir(alm):

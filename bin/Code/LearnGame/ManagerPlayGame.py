@@ -15,6 +15,7 @@ from Code.Base.Constantes import (
     TB_CONFIG,
     TB_CANCEL,
     TB_UTILITIES,
+    TB_QUIT
 )
 from Code.LearnGame import WindowPlayGame
 from Code.Openings import Opening
@@ -26,10 +27,15 @@ class ManagerPlayGame(Manager.Manager):
     is_human_side_white: bool
     is_human_side_black: bool
     game_obj: Game.Game
+    close_on_exit = False
+    name_obj_white: str
+    name_obj_black: str
 
-    def start(self, recno, is_white, is_black):
+    def start(self, recno, is_white, is_black, close_on_exit=False):
 
         self.game_type = GT_LEARN_PLAY
+
+        self.close_on_exit = close_on_exit
 
         db = WindowPlayGame.DBPlayGame(self.configuration.file_play_game())
         reg = db.leeRegistro(recno)
@@ -37,11 +43,9 @@ class ManagerPlayGame(Manager.Manager):
 
         game_obj = Game.Game()
         game_obj.restore(reg["GAME"])
-        nombre_obj = game_obj.get_tag("WHITE") if is_white else ""
-        if is_black:
-            if nombre_obj:
-                nombre_obj += "/"
-            nombre_obj += game_obj.get_tag("BLACK")
+        self.game.set_position(game_obj.first_position)
+        self.name_obj_white = game_obj.get_tag("WHITE")
+        self.name_obj_black = game_obj.get_tag("BLACK")
         label = db.label(recno)
 
         self.recno = recno
@@ -55,7 +59,6 @@ class ManagerPlayGame(Manager.Manager):
         self.numJugadasObj = game_obj.num_moves()
         self.game_obj = game_obj
         self.posJugadaObj = 0
-        self.name_obj = nombre_obj
 
         if is_white and is_black:
             self.auto_rotate = self.get_auto_rotate()
@@ -84,7 +87,7 @@ class ManagerPlayGame(Manager.Manager):
         self.set_label2("")
 
         self.pgnRefresh(True)
-        self.ponCapInfoPorDefecto()
+        self.show_info_extra()
         self.check_boards_setposition()
 
         self.state = ST_PLAYING
@@ -99,19 +102,39 @@ class ManagerPlayGame(Manager.Manager):
 
         self.play_next_move()
 
+
+    def name_obj(self):
+        return self.name_obj_white if self.game.last_position.is_white else self.name_obj_black
+
+    def name_obj_common(self):
+        if self.is_human_side_black and self.is_human_side_white:
+            return self.name_obj_white + "/" + self.name_obj_black
+        elif self.is_human_side_white:
+            return self.name_obj_white
+        else:
+            return self.name_obj_black
+
     def ponPuntos(self):
-        self.set_label2(
-            '%s:<table border="1" cellpadding="5" cellspacing="0" style="margin-left:60px"><tr><td>%s</td><td><b>%d</b></td></tr><tr><td>%s</td><td><b>%d</b></td></tr></table>'
-            % (_("Score in relation to"), self.name_obj, self.puntos, self.xanalyzer.name, -self.puntosMax)
-        )
+        lb_score = _("Score in relation to")
+        self.set_label2(f'{lb_score}:<table border="1" cellpadding="5" cellspacing="0" style="margin-left:60px">'
+                        f'<tr><td align="right">{self.name_obj_common()}</td><td align="right"><b>{self.puntos:+d}</b></td></tr>'
+                        f'<tr><td align="right">{self.xanalyzer.name}</td>'
+                        f'<td align="right"><b>{-self.puntosMax:+d}</b></td>'
+                        '</tr></table>')
 
     def run_action(self, key):
         if key == TB_CLOSE:
-            self.procesador.start()
-            self.procesador.play_game_show(self.recno)
+            if self.close_on_exit:
+                self.procesador.run_action(TB_QUIT)
+            else:
+                self.procesador.start()
+                self.procesador.play_game_show(self.recno)
 
         elif key == TB_CANCEL:
-            self.cancelar()
+            if self.close_on_exit:
+                self.run_action(TB_QUIT)
+            else:
+                self.cancelar()
 
         elif key == TB_REINIT:
             self.reiniciar(True)
@@ -142,7 +165,7 @@ class ManagerPlayGame(Manager.Manager):
             if not QTUtil2.pregunta(self.main_window, _("Restart the game?")):
                 return
         self.main_window.activaInformacionPGN(False)
-        self.game.set_position()
+        self.game.set_position(self.game_obj.first_position)
         self.posJugadaObj = 0
         self.puntos = 0
         self.puntosMax = 0
@@ -223,6 +246,7 @@ class ManagerPlayGame(Manager.Manager):
         self.refresh()
 
         if is_turn_human:
+            self.human_is_playing = True
             if self.auto_rotate:
                 if is_white != self.board.is_white_bottom:
                     self.board.rotaBoard()
@@ -255,7 +279,7 @@ class ManagerPlayGame(Manager.Manager):
                 if jg_obj.movimiento() != jg_usu.movimiento():
                     bmove = _("book move")
                     comment = "%s: %s %s<br>%s: %s %s" % (
-                        self.name_obj,
+                        self.name_obj(),
                         jg_obj.pgn_translated(),
                         bmove,
                         self.configuration.x_player,
@@ -292,7 +316,7 @@ class ManagerPlayGame(Manager.Manager):
                 si_analiza_juez = False
 
             if si_analiza_juez:
-                w = WindowJuicio.WJuicio(self, self.xanalyzer, self.name_obj, position, mrm, rm_obj, rm_usu, analysis,
+                w = WindowJuicio.WJuicio(self, self.xanalyzer, self.name_obj(), position, mrm, rm_obj, rm_usu, analysis,
                                          is_competitive=not self.show_all)
                 w.exec_()
 
@@ -320,7 +344,7 @@ class ManagerPlayGame(Manager.Manager):
                 self.puntos,
             )
             comment = "%s: %s %s\n%s: %s %s\n%s" % (
-                self.name_obj,
+                self.name_obj(),
                 jg_obj.pgn_translated(),
                 comentario_obj,
                 self.configuration.x_player,
@@ -342,7 +366,7 @@ class ManagerPlayGame(Manager.Manager):
         if analysis:
             move.analysis = analysis
         if comment:
-            move.add_comment(comment)
+            move.set_comment(comment)
 
         self.game.add_move(move)
         self.check_boards_setposition()

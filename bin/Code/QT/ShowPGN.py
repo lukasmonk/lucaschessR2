@@ -3,7 +3,7 @@ from PySide2 import QtWidgets, QtCore
 
 import Code
 from Code.Base import Move, Game
-from Code.QT import Controles, Colocacion, QTVarios, Iconos
+from Code.QT import Controles, Colocacion, QTVarios, Iconos, QTUtil2
 
 
 class LBPGN(Controles.LB):
@@ -109,6 +109,20 @@ class ShowPGN(QtWidgets.QScrollArea):
         menu.separador()
         menu.opcion("comment", _("Edit comment"), Iconos.ComentarioEditar())
 
+        num_line, total_lines = self.wowner.num_total_variations()
+        if total_lines > 1:
+            if num_line > 0:
+                menu.separador()
+                menu.opcion("up_line", _("Up"), Iconos.Arriba())
+
+            if num_line < total_lines - 1:
+                menu.separador()
+                menu.opcion("down_line", _("Down"), Iconos.Abajo())
+
+        if total_lines > 0:
+            menu.separador()
+            menu.opcion("conv_mainline", _("Convert into the main line"), Iconos.Variation())
+
         resp = menu.lanza()
         if resp is None:
             return
@@ -121,6 +135,16 @@ class ShowPGN(QtWidgets.QScrollArea):
 
         elif resp == "comment":
             self.wowner.comment_edit()
+
+        elif resp == "up_line":
+            self.wowner.up_line()
+
+        elif resp == "down_line":
+            self.wowner.down_line()
+
+        elif resp == "conv_mainline":
+            if QTUtil2.pregunta(self, _("Convert into the main line") + "\n" + _("Are you sure?")):
+                self.wowner.convert_into_main_line()
 
     def change(self, num_pgn, pgn):
         if num_pgn >= self.num_showed:

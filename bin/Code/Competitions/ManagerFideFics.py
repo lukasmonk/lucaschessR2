@@ -157,7 +157,7 @@ class ManagerFideFics(Manager.Manager):
 
         self.set_label2("")
         self.pgnRefresh(True)
-        self.ponCapInfoPorDefecto()
+        self.show_info_extra()
 
         self.check_boards_setposition()
 

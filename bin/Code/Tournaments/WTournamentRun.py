@@ -23,8 +23,8 @@ from Code.Base.Constantes import (
     ENG_WICKER,
 )
 from Code.Board import Board
-from Code.Engines import EngineManager, EnginesWicker
 from Code.Books import Books
+from Code.Engines import EngineManager, EnginesWicker
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles
@@ -305,10 +305,8 @@ class WTournamentRun(QtWidgets.QWidget):
             self.xengine[side].options(rv.time * 1000, rv.depth, False)
             self.xengine[side].set_gui_dispatch(self.gui_dispatch)
 
-
-
             bk = rv.book
-            if bk == "*":
+            if bk is None or bk == "*":
                 bk = self.torneo.book()
             if bk == "-":  # Puede que el torneo tenga "-"
                 bk = None

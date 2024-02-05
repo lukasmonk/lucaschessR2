@@ -67,7 +67,7 @@ class ManagerTrainBooksOL(Manager.Manager):
 
         self.set_toolbar((TB_CLOSE, TB_REINIT, TB_HELP, TB_CONFIG, TB_UTILITIES))
 
-        self.ponCapInfoPorDefecto()
+        self.show_info_extra()
 
         self.state = ST_PLAYING
 

@@ -2,7 +2,7 @@ import os
 from PySide2 import QtCore
 
 import Code
-from Code.Base.Constantes import MENU_PLAY_ANY_ENGINE, MENU_PLAY_BOTH, MENU_PLAY_YOUNG_PLAYERS
+from Code.Base.Constantes import MENU_PLAY_ANY_ENGINE, MENU_PLAY_BOTH, MENU_PLAY_YOUNG_PLAYERS, GO_FORWARD, GO_BACK
 from Code.QT import FormLayout
 from Code.QT import Iconos, IconosBase
 from Code.QT import QTUtil2
@@ -24,22 +24,8 @@ def options(parent, configuration):
             name = entry.name[:-4]
             li_modes.append([_F(name), name])
     form.combobox(_("Mode"), li_modes, configuration.x_style_mode)
-    li_modes = []
 
     form.combobox(_("Type of icons"), IconosBase.icons.combobox(), configuration.x_style_icons)
-
-    form.separador()
-
-    li_traducciones = configuration.list_translations()
-    tr_actual = configuration.translator()
-
-    li = []
-    for k, trad, porc, author in li_traducciones:
-        label = "%s" % trad
-        if int(porc) < 90:
-            label += "    %s%%" % porc
-        li.append((label, k))
-    form.combobox(_("Language"), li, tr_actual)
 
     form.separador()
     li = [
@@ -107,6 +93,8 @@ def options(parent, configuration):
     form.checkbox(_("Show candidates"), configuration.x_show_candidates)
     li_copy = [(_("CTRL") + " C", True), (_("ALT") + " C", False)]
     form.combobox(_("Key for copying the FEN to clipboard"), li_copy, configuration.x_copy_ctrl)
+    li_wheel = [(_("Forward"), GO_FORWARD), (_("Backward"), GO_BACK)]
+    form.combobox(_("Scroll direction with the mouse wheel"), li_wheel, configuration.x_wheel_board)
 
     form.checkbox(_("Always promote to queen\nALT key allows to change"), configuration.x_autopromotion_q)
     form.separador()
@@ -195,6 +183,7 @@ def options(parent, configuration):
     form.spinbox(_("Font size"), 3, 99, 70, configuration.x_pgn_fontpoints)
     form.checkbox(_("PGN always in English"), configuration.x_pgn_english)
     form.checkbox(_("PGN with figurines"), configuration.x_pgn_withfigurines)
+    form.combobox(_("Scroll direction with the mouse wheel"), li_wheel, configuration.x_wheel_pgn)
     form.separador()
 
     form.checkbox(_("Enable captured material window by default"), configuration.x_captures_activate)
@@ -236,7 +225,6 @@ def options(parent, configuration):
             configuration.x_style,
             configuration.x_style_mode,
             configuration.x_style_icons,
-            translator,
             configuration.x_menu_play,
             mode_native_select,
             configuration.x_translation_mode,
@@ -244,8 +232,6 @@ def options(parent, configuration):
         ) = li_gen
 
         configuration.x_mode_select_lc = not mode_native_select
-
-        configuration.set_translator(translator)
 
         por_defecto = li_asp1[0]
         if por_defecto:
@@ -273,6 +259,7 @@ def options(parent, configuration):
             configuration.x_pgn_fontpoints,
             configuration.x_pgn_english,
             configuration.x_pgn_withfigurines,
+            configuration.x_wheel_pgn,
             configuration.x_captures_activate,
             configuration.x_info_activate,
             configuration.x_analyzer_activate_ab,
@@ -301,6 +288,7 @@ def options(parent, configuration):
             configuration.x_mouse_shortcuts,
             configuration.x_show_candidates,
             configuration.x_copy_ctrl,
+            configuration.x_wheel_board,
             configuration.x_autopromotion_q,
             configuration.x_cursor_thinking,
             dboard,

@@ -133,15 +133,18 @@ class WOpeningLines(LCDialog.LCDialog):
         li = [x for x in os.listdir(base) if os.path.isdir(os.path.join(base, x))]
         menu = QTVarios.LCMenu(self)
         rondo = QTVarios.rondoFolders()
-        menu.opcion("", _("Home folder"), Iconos.Home())
-        menu.separador()
         for x in li:
             menu.opcion(x, x, rondo.otro())
         menu.separador()
-        menu.opcion(":n", nof, Iconos.Nuevo())
+        menu.opcion("", _("Home folder"), Iconos.Home())
+        menu.separador()
         if Code.is_windows:
-            menu.separador()
-            menu.opcion(":m", _("Direct maintenance"), Iconos.Configurar())
+            submenu = menu.submenu(_("Maintenance"), Iconos.Configurar())
+            submenu.opcion(":n", nof, Iconos.Nuevo())
+            submenu.separador()
+            submenu.opcion(":m", _("Direct maintenance"), Iconos.Carpeta())
+        else:
+            menu.opcion(":n", nof, Iconos.Nuevo())
 
         resp = menu.lanza()
         if resp is not None:

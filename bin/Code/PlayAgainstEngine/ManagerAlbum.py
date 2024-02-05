@@ -55,7 +55,7 @@ class ManagerAlbum(Manager.Manager):
         self.main_window.base.lbRotulo1.ponImagen(self.cromo.pixmap_level())
         self.main_window.base.lbRotulo2.ponImagen(self.cromo.pixmap())
         self.pgnRefresh(True)
-        self.ponCapInfoPorDefecto()
+        self.show_info_extra()
 
         self.check_boards_setposition()
 

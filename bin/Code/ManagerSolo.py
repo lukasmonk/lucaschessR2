@@ -26,13 +26,11 @@ from Code.Base.Constantes import (
 )
 from Code.Openings import WindowOpenings
 from Code.PlayAgainstEngine import WPlayAgainstEngine
-from Code.QT import Controles
 from Code.QT import Iconos
 from Code.QT import QTUtil
 from Code.QT import QTUtil2, SelectFiles
 from Code.QT import QTVarios
 from Code.QT import WindowPgnTags
-from Code.Translations import TrListas
 from Code.Voyager import Voyager
 
 
@@ -87,7 +85,7 @@ class ManagerSolo(Manager.Manager):
         self.set_dispatcher(self.player_has_moved)
         self.show_side_indicator(True)
         self.pgnRefresh(True)
-        self.ponCapInfoPorDefecto()
+        self.show_info_extra()
 
         self.check_boards_setposition()
         self.put_pieces_bottom(dic.get("WHITEBOTTOM", True))
@@ -272,29 +270,6 @@ class ManagerSolo(Manager.Manager):
         self.main_window.activaInformacionPGN(False)
         self.start(dic)
 
-    def editEtiquetasPGN(self):
-        fen_antes = self.game.get_tag("FEN")
-        resp = WindowPgnTags.editTagsPGN(self.procesador, self.game.li_tags, True)
-        if resp:
-            self.game.set_tags(resp)
-            fen_despues = self.game.get_tag("FEN")
-            if fen_antes != fen_despues:
-                fen_antes_fenm2 = FasterCode.fen_fenm2(fen_antes)
-                fen_despues_fenm2 = FasterCode.fen_fenm2(fen_despues)
-                if fen_antes_fenm2 != fen_despues_fenm2:
-                    cp = Position.Position()
-                    cp.read_fen(fen_despues_fenm2)
-                    self.xfichero = None
-                    self.xpgn = None
-                    self.xjugadaInicial = None
-                    self.new_game()
-                    self.game.set_position(first_position=cp)
-                    self.state = ST_ENDGAME if self.game.is_finished() else ST_PLAYING
-                    self.opening_block = None
-                    self.reiniciar()
-
-            self.pon_rotulo()
-
     def guardaDir(self, resp):
         direc = Util.relative_path(os.path.dirname(resp))
         if direc != self.configuration.folder_save_lcsb():
@@ -444,34 +419,28 @@ class ManagerSolo(Manager.Manager):
         self.configuration.write_variables("FICH_MANAGERSOLO", dic)
 
     def informacion(self):
-        menu = QTVarios.LCMenu(self.main_window)
-        f = Controles.TipoLetra(puntos=10, peso=75)
-        menu.ponFuente(f)
+        if WindowPgnTags.menu_pgn_labels(self.main_window, self.game):
+            fen_antes = self.game.get_tag("FEN")
+            resp = WindowPgnTags.edit_tags_pgn(self.procesador.main_window, self.game.li_tags, True)
+            if resp:
+                self.game.set_tags(resp)
+                fen_despues = self.game.get_tag("FEN")
+                if fen_antes != fen_despues:
+                    fen_antes_fenm2 = FasterCode.fen_fenm2(fen_antes)
+                    fen_despues_fenm2 = FasterCode.fen_fenm2(fen_despues)
+                    if fen_antes_fenm2 != fen_despues_fenm2:
+                        cp = Position.Position()
+                        cp.read_fen(fen_despues_fenm2)
+                        self.xfichero = None
+                        self.xpgn = None
+                        self.xjugadaInicial = None
+                        self.new_game()
+                        self.game.set_position(first_position=cp)
+                        self.state = ST_ENDGAME if self.game.is_finished() else ST_PLAYING
+                        self.opening_block = None
+                        self.reiniciar()
 
-        siOpening = False
-        for key, valor in self.game.li_tags:
-            trad = TrListas.pgnLabel(key)
-            if trad != key:
-                key = trad
-            menu.opcion(key, "%s : %s" % (key, valor), Iconos.PuntoAzul())
-            if key.upper() == "OPENING":
-                siOpening = True
-
-        if not siOpening:
-            opening = self.game.opening
-            if opening:
-                menu.separador()
-                nom = opening.tr_name
-                ape = _("Opening")
-                label = nom if ape.upper() in nom.upper() else ("%s : %s" % (ape, nom))
-                menu.opcion("opening", label, Iconos.PuntoNaranja())
-
-        menu.separador()
-        menu.opcion("pgn", _("Edit PGN labels"), Iconos.PGN())
-
-        resp = menu.lanza()
-        if resp:
-            self.editEtiquetasPGN()
+                self.pon_rotulo()
 
     def leerpgn(self, game=None):
         if game is None:
@@ -538,7 +507,7 @@ class ManagerSolo(Manager.Manager):
             self.startPosition()
 
         elif resp == "pasteposicion":
-            texto = QTUtil.traePortapapeles()
+            texto = QTUtil.get_txt_clipboard()
             if texto:
                 cp = Position.Position()
                 try:
@@ -557,7 +526,7 @@ class ManagerSolo(Manager.Manager):
             self.leerpgn()
 
         elif resp == "pastepgn":
-            texto = QTUtil.traePortapapeles()
+            texto = QTUtil.get_txt_clipboard()
             if texto:
                 ok, game = Game.pgn_game(texto)
                 if not ok:
@@ -609,7 +578,7 @@ class ManagerSolo(Manager.Manager):
     def control_teclado(self, nkey, modifiers):
         if (modifiers & QtCore.Qt.ControlModifier) > 0:
             if nkey == QtCore.Qt.Key_V:
-                self.paste(QTUtil.traePortapapeles())
+                self.paste(QTUtil.get_txt_clipboard())
             elif nkey == QtCore.Qt.Key_T:
                 li = [self.game.first_position.fen(), "", self.game.pgnBaseRAW()]
                 self.saveSelectedPosition("|".join(li))

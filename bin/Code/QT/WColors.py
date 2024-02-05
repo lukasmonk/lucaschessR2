@@ -127,7 +127,7 @@ class WColors(LCDialog.LCDialog):
 
         self.register_grid(self.grid)
         self.grid.resizeColumnToContents(0)
-        self.restore_video(anchoDefecto=self.grid.anchoColumnas() + 24, altoDefecto=QTUtil.altoEscritorio() * 2 // 3)
+        self.restore_video(anchoDefecto=self.grid.anchoColumnas() + 24, altoDefecto=QTUtil.desktop_height() * 2 // 3)
 
         self.grid.gotop()
         for row, (is_head, key, value) in enumerate(self.li_colors):

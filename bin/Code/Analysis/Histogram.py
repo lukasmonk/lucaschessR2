@@ -362,7 +362,7 @@ class Histogram(QtWidgets.QGraphicsView):
             for p in serie.liPoints:
                 if p.rlostp:
                     y = bottom - p.rlostp * serie.factor
-                    rect = QtCore.QRectF(p.rx - n, bottom - 1, n * 2, y + 2)
+                    rect = QtCore.QRectF(p.rx - n, bottom - 1, n * 2, y)
                     painter.drawRect(rect)
                     p.rect_lost = rect
 

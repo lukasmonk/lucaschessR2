@@ -14,8 +14,8 @@ from Code.Base.Constantes import (
     BLUNDER,
     INACCURACY,
 )
-from Code.Openings import OpeningsStd
 from Code.Nags import Nags
+from Code.Openings import OpeningsStd
 
 
 def calc_formula(cual, cp, mrm):  # , limit=200.0):
@@ -266,7 +266,7 @@ def gen_indexes(game, elos, elos_form, alm):
             mrm, pos = move.analysis
             rm = mrm.li_rm[pos]
             if (
-                not hasattr(mrm, "dic_depth") or len(mrm.dic_depth) == 0
+                    not hasattr(mrm, "dic_depth") or len(mrm.dic_depth) == 0
             ):  # Generación de gráficos sin un análisis previo con su depth
                 if INTERESTING_MOVE in move.li_nags:
                     nag_move, nag_color = INTERESTING_MOVE, INTERESTING_MOVE
@@ -289,6 +289,7 @@ def gen_indexes(game, elos, elos_form, alm):
             elif pts < -100:
                 domination[not is_white] += 1
             average[is_white] += mrm.li_rm[0].centipawns_abs() - pts
+
             if not hasattr(move, "complexity"):
                 cp = move.position_before
                 move.complexity = calc_complexity(cp, mrm)

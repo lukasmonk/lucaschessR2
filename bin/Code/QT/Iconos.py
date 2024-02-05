@@ -2913,12 +2913,6 @@ def pmReference():
 def Reference():
     return iget("Reference")
 
-def pmLanguageNew():
-    return iget("pmLanguageNew")
-
-def LanguageNew():
-    return iget("LanguageNew")
-
 def pmODT():
     return iget("pmODT")
 
@@ -3122,3 +3116,33 @@ def pmHumanHuman():
 
 def HumanHuman():
     return iget("HumanHuman")
+
+def pmLanguage():
+    return iget("pmLanguage")
+
+def Language():
+    return iget("Language")
+
+def pmGIF():
+    return iget("pmGIF")
+
+def GIF():
+    return iget("GIF")
+
+def pmSwiss():
+    return iget("pmSwiss")
+
+def Swiss():
+    return iget("Swiss")
+
+def pmm1():
+    return iget("pmm1")
+
+def m1():
+    return iget("m1")
+
+def pmm2():
+    return iget("pmm2")
+
+def m2():
+    return iget("m2")

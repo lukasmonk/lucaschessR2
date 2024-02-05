@@ -1,4 +1,3 @@
-import os
 import pickle
 import random
 import sqlite3
@@ -478,13 +477,14 @@ class ListObjSQL(ListSQL):
 
 
 class IPC(object):
-    def __init__(self, nom_fichero, si_push):
-        if si_push and os.path.isfile(nom_fichero):
+    def __init__(self, nom_fichero, si_crear):
+        if si_crear:
             Util.remove_file(nom_fichero)
+
         self._conexion = sqlite3.connect(nom_fichero)
         self.nom_fichero = nom_fichero
 
-        if si_push:
+        if si_crear:
             sql = "CREATE TABLE DATOS( DATO BLOB );"
             self._conexion.execute(sql)
             self._conexion.commit()
@@ -921,4 +921,3 @@ class DictTextSQL(object):
         self.conexion.commit()
         self.pending_commit = False
         self.normal_save_mode = mode
-

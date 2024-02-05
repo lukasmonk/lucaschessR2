@@ -136,7 +136,7 @@ class WKibitzers(LCDialog.LCDialog):
                 minimo = opcion.minimo
                 maximo = opcion.maximo
             elif tipo in ("check", "button"):
-                kibitzer.ordenUCI(opcion.name, not valor)
+                kibitzer.set_uci_option(opcion.name, not valor)
                 self.kibitzers.save()
                 self.goto(nk)
             elif tipo == "combo":
@@ -162,7 +162,7 @@ class WKibitzers(LCDialog.LCDialog):
         elif self.me_control in ("cb", "sb"):
             editor.set_value(valor)
 
-    def me_leeValor(self, editor):
+    def me_readvalue(self, editor):
         if self.me_control == "ed":
             return editor.texto()
         elif self.me_control in ("cb", "sb"):
@@ -196,7 +196,7 @@ class WKibitzers(LCDialog.LCDialog):
         elif self.me_key.startswith("opcion"):
             opcion = kibitzer.li_uci_options_editable()[int(self.me_key[7:])]
             opcion.valor = valor
-            kibitzer.ordenUCI(opcion.name, valor)
+            kibitzer.set_uci_option(opcion.name, valor)
         self.kibitzers.save()
         self.goto(nk)
 
@@ -562,7 +562,7 @@ class WKibitzerLive(LCDialog.LCDialog):
         elif self.me_control in ("cb", "sb"):
             editor.set_value(valor)
 
-    def me_leeValor(self, editor):
+    def me_readvalue(self, editor):
         if self.me_control == "ed":
             return editor.texto()
         elif self.me_control in ("cb", "sb"):
@@ -594,7 +594,7 @@ class WKibitzerLive(LCDialog.LCDialog):
             opcion = self.kibitzer.li_uci_options_editable()[nopcion]
             opcion.valor = valor
             self.li_options[nopcion + 4][1] = valor
-            self.kibitzer.ordenUCI(opcion.name, valor)
+            self.kibitzer.set_uci_option(opcion.name, valor)
 
     def grid_num_datos(self, grid):
         return len(self.li_options)

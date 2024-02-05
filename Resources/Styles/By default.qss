@@ -23,25 +23,17 @@ QToolButton#qt_toolbar_ext_button
 }
 
 /* GRID ----------------------------------------------------------------------------------*/
-QTableView
+/*QTableView
 {
     color: #323234;
     background-color: #eaeaea;
     alternate-background-color: #fafafa;
 }
-
+*/
 QTableView::item:selected
 {
     color: #eaeaea;
-    background-color: #2f5f8f;
-}
-
-QHeaderView::section
-{
-    color: #41424e;
-    background-color: #dcdcdc;
-    font-weight: bold;
-    padding: 2px;
+    background-color: #3399ff;
 }
 
 /* TAB -----------------------------------------------------------------------------------*/

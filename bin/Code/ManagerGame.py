@@ -21,14 +21,11 @@ from Code.Base.Constantes import (
     ADJUST_BETTER,
 )
 from Code.PlayAgainstEngine import WPlayAgainstEngine
-from Code.QT import Controles
 from Code.QT import Iconos
 from Code.QT import QTUtil
 from Code.QT import QTUtil2
-from Code.QT import QTVarios
 from Code.QT import WReplay
 from Code.QT import WindowPgnTags
-from Code.Translations import TrListas
 from Code.Voyager import Voyager
 
 
@@ -57,8 +54,8 @@ class ManagerGame(Manager.Manager):
         self.set_dispatcher(self.player_has_moved)
         self.show_side_indicator(True)
         self.put_pieces_bottom(game.iswhite())
-        self.ponCapInfoPorDefecto()
         self.ponteAlPrincipio()
+        self.show_info_extra()
 
         self.check_boards_setposition()
 
@@ -225,58 +222,30 @@ class ManagerGame(Manager.Manager):
         self.pgnRefresh(self.game.last_position.is_white)
         self.refresh()
 
-    def editEtiquetasPGN(self):
-        fen_antes = self.game.get_tag("FEN")
-        resp = WindowPgnTags.editTagsPGN(self.procesador, self.game.li_tags, not self.is_complete)
-        if resp:
-            self.game.li_tags = resp
-            fen_despues = self.game.get_tag("FEN")
-            if fen_antes != fen_despues:
-                fen_antes_fenm2 = FasterCode.fen_fenm2(fen_antes)
-                fen_despues_fenm2 = FasterCode.fen_fenm2(fen_despues)
-                if fen_antes_fenm2 != fen_despues_fenm2:
-                    cp = Position.Position()
-                    cp.read_fen(fen_despues)
-                    self.game.set_position(cp)
-                    self.start(
-                        self.game, self.is_complete, self.only_consult, self.with_previous_next, self.save_routine
-                    )
-
-            self.put_information()
-            if not self.changed:
-                if self.is_changed():
-                    self.changed = True
-                    self.put_toolbar()
-
     def informacion(self):
-        menu = QTVarios.LCMenu(self.main_window)
-        f = Controles.TipoLetra(puntos=10, peso=75)
-        menu.ponFuente(f)
+        if WindowPgnTags.menu_pgn_labels(self.main_window, self.game):
+            fen_antes = self.game.get_tag("FEN")
+            resp = WindowPgnTags.edit_tags_pgn(self.procesador.main_window, self.game.li_tags, not self.is_complete)
+            if resp:
+                self.game.li_tags = resp
+                fen_despues = self.game.get_tag("FEN")
+                if fen_antes != fen_despues:
+                    fen_antes_fenm2 = FasterCode.fen_fenm2(fen_antes)
+                    fen_despues_fenm2 = FasterCode.fen_fenm2(fen_despues)
+                    if fen_antes_fenm2 != fen_despues_fenm2:
+                        cp = Position.Position()
+                        cp.read_fen(fen_despues)
+                        self.game.set_position(cp)
+                        self.start(
+                            self.game, self.is_complete, self.only_consult, self.with_previous_next,
+                            self.save_routine
+                        )
 
-        is_opening = False
-        for key, valor in self.game.li_tags:
-            trad = TrListas.pgnLabel(key)
-            if trad != key:
-                key = trad
-            menu.opcion(key, "%s : %s" % (key, valor), Iconos.PuntoAzul())
-            if key.upper() == "OPENING":
-                is_opening = True
-
-        if not is_opening:
-            opening = self.game.opening
-            if opening:
-                menu.separador()
-                nom = opening.tr_name
-                ape = _("Opening")
-                label = nom if ape.upper() in nom.upper() else ("%s : %s" % (ape, nom))
-                menu.opcion("opening", label, Iconos.PuntoNaranja())
-
-        menu.separador()
-        menu.opcion("pgn", _("Edit PGN labels"), Iconos.PGN())
-
-        resp = menu.lanza()
-        if resp:
-            self.editEtiquetasPGN()
+                self.put_information()
+                if not self.changed:
+                    if self.is_changed():
+                        self.changed = True
+                        self.put_toolbar()
 
     def utilities_gs(self):
         sep = (None, None, None)
@@ -323,7 +292,7 @@ class ManagerGame(Manager.Manager):
                 self.board.set_side_bottom(is_white_bottom)
 
         elif resp == "pasteposicion":
-            texto = QTUtil.traePortapapeles()
+            texto = QTUtil.get_txt_clipboard()
             if texto:
                 new_position = Position.Position()
                 try:
@@ -397,7 +366,7 @@ class ManagerGame(Manager.Manager):
             self.paste_pgn()
 
     def paste_pgn(self):
-        texto = QTUtil.traePortapapeles()
+        texto = QTUtil.get_txt_clipboard()
         if texto:
             ok, game = Game.pgn_game(texto)
             if not ok:

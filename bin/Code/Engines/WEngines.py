@@ -6,9 +6,8 @@ from PySide2 import QtWidgets, QtCore, QtGui
 import Code
 from Code import Util
 from Code.Base.Constantes import BOOK_BEST_MOVE, BOOK_RANDOM_UNIFORM, BOOK_RANDOM_PROPORTIONAL
-from Code.Engines import Engines
-from Code.Engines import EnginesMicElo
 from Code.Books import Books
+from Code.Engines import Engines
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles
@@ -21,26 +20,26 @@ from Code.QT import QTVarios
 from Code.QT import SelectFiles
 
 
-def selectEngine(wowner):
+def select_engine(wowner):
     """
     :param wowner: window
     :return: MotorExterno / None=error
     """
     # Pedimos el ejecutable
-    folderEngines = Code.configuration.read_variables("FOLDER_ENGINES")
+    folder_engines = Code.configuration.read_variables("FOLDER_ENGINES")
     extension = "exe" if Code.is_windows else "*"
-    exeMotor = SelectFiles.leeFichero(wowner, folderEngines if folderEngines else ".", extension, _("Engine"))
-    if not exeMotor:
+    exe_motor = SelectFiles.leeFichero(wowner, folder_engines if folder_engines else ".", extension, _("Engine"))
+    if not exe_motor:
         return None
-    folderEngines = Util.relative_path(os.path.dirname(exeMotor))
-    Code.configuration.write_variables("FOLDER_ENGINES", folderEngines)
+    folder_engines = Util.relative_path(os.path.dirname(exe_motor))
+    Code.configuration.write_variables("FOLDER_ENGINES", folder_engines)
 
     # Leemos el UCI
     um = QTUtil2.one_moment_please(wowner)
-    me = Engines.read_engine_uci(exeMotor)
+    me = Engines.read_engine_uci(exe_motor)
     um.final()
     if not me:
-        QTUtil2.message_bold(wowner, _X(_("The file %1 does not correspond to a UCI engine type."), exeMotor))
+        QTUtil2.message_bold(wowner, _X(_("The file %1 does not correspond to a UCI engine type."), exe_motor))
         return None
     return me
 
@@ -50,9 +49,8 @@ class WSelectEngineElo(LCDialog.LCDialog):
         LCDialog.LCDialog.__init__(self, manager.main_window, titulo, icono, tipo.lower())
 
         self.siMicElo = tipo == "MICELO"
-        self.siMicPer = tipo == "MICPER"
         self.siWicker = tipo == "WICKER"
-        self.siMic = self.siMicElo or self.siMicPer or self.siWicker
+        self.siMic = self.siMicElo or self.siWicker
 
         self.key_save = f"SELECTENGINE_{tipo}"
         dic_save = Code.configuration.read_variables(self.key_save)
@@ -82,8 +80,8 @@ class WSelectEngineElo(LCDialog.LCDialog):
 
         self.tb = QTVarios.LCTB(self, li_acciones)
 
-        self.liMotores = self.manager.list_engines(elo)
-        self.liMotoresActivos = self.liMotores
+        self.list_engines = self.manager.list_engines(elo)
+        self.liMotoresActivos = self.list_engines
 
         li_filtro = (
             ("---", None),
@@ -99,7 +97,7 @@ class WSelectEngineElo(LCDialog.LCDialog):
 
         minimo = 9999
         maximo = 0
-        for mt in self.liMotores:
+        for mt in self.list_engines:
             if mt.siJugable:
                 if mt.elo < minimo:
                     minimo = mt.elo
@@ -111,7 +109,7 @@ class WSelectEngineElo(LCDialog.LCDialog):
         if self.siMic:
             li_caract = []
             st = set()
-            for mt in self.liMotores:
+            for mt in self.list_engines:
                 mt.li_caract = li = mt.id_info.split("\n")
                 mt.txt_caract = ", ".join(li)
                 for x in li:
@@ -133,16 +131,15 @@ class WSelectEngineElo(LCDialog.LCDialog):
         o_columns.nueva("NUMBER", _("N."), 35, align_center=True)
         o_columns.nueva("ENGINE", _("Name"), 140)
 
-        for mt in self.liMotores:
+        for mt in self.list_engines:
             if mt.max_depth:
                 o_columns.nueva("DEPTH", _("Depth"), 60, align_center=True)
                 break
 
         o_columns.nueva("ELO", _("Elo"), 60, align_right=True)
-        if not self.siMicPer:
-            o_columns.nueva("GANA", _("Win"), 80, align_center=True)
-            o_columns.nueva("TABLAS", _("Draw"), 80, align_center=True)
-            o_columns.nueva("PIERDE", _("Loss"), 80, align_center=True)
+        o_columns.nueva("GANA", _("Win"), 80, align_center=True)
+        o_columns.nueva("TABLAS", _("Draw"), 80, align_center=True)
+        o_columns.nueva("PIERDE", _("Loss"), 80, align_center=True)
         if self.siMic:
             o_columns.nueva("INFO", _("Information"), 300, align_center=True)
 
@@ -172,17 +169,17 @@ class WSelectEngineElo(LCDialog.LCDialog):
         cb = self.cbElo.valor()
         elo = self.sbElo.valor()
         if cb is None:
-            self.liMotoresActivos = self.liMotores
+            self.liMotoresActivos = self.list_engines
             self.sbElo.setDisabled(True)
         else:
             self.sbElo.setDisabled(False)
             if cb == ">":
-                self.liMotoresActivos = [x for x in self.liMotores if x.elo >= elo]
+                self.liMotoresActivos = [x for x in self.list_engines if x.elo >= elo]
             elif cb == "<":
-                self.liMotoresActivos = [x for x in self.liMotores if x.elo <= elo]
+                self.liMotoresActivos = [x for x in self.list_engines if x.elo <= elo]
             elif cb in ("50", "100", "200", "400", "800"):
                 mx = int(cb)
-                self.liMotoresActivos = [x for x in self.liMotores if abs(x.elo - elo) <= mx]
+                self.liMotoresActivos = [x for x in self.list_engines if abs(x.elo - elo) <= mx]
         if self.siMic:
             cc = self.cbCaract.valor()
             if cc:
@@ -312,33 +309,8 @@ def select_engine_wicker(manager, elo):
         return None
 
 
-def select_engine_entmaq(main_window):
-    titulo = _("Choose the opponent")
-    icono = Iconos.EloTimed()
-
-    class ManagerTmp:
-        def __init__(self):
-            self.main_window = main_window
-            self.configuration = Code.configuration
-
-        def list_engines(self, elo):
-            li = EnginesMicElo.all_engines()
-            numX = len(li)
-            for num, mt in enumerate(li):
-                mt.siJugable = True
-                mt.siOut = False
-                mt.number = numX - num
-            return li
-
-    w = WSelectEngineElo(ManagerTmp(), 1600, titulo, icono, "MICPER")
-    if w.exec_():
-        return w.resultado
-    else:
-        return None
-
-
 class WEngineExtend(QtWidgets.QDialog):
-    def __init__(self, w_parent, listaMotores, engine, siTorneo=False):
+    def __init__(self, w_parent, list_engines, engine, is_tournament=False):
 
         super(WEngineExtend, self).__init__(w_parent)
 
@@ -352,11 +324,11 @@ class WEngineExtend(QtWidgets.QDialog):
             | QtCore.Qt.WindowMaximizeButtonHint
         )
 
-        scrollArea = wgen_options_engine(self, engine)
+        scroll_area = wgen_options_engine(self, engine)
 
-        self.motorExterno = engine
-        self.liMotores = listaMotores
-        self.siTorneo = siTorneo
+        self.external_engine = engine
+        self.list_engines = list_engines
+        self.is_tournament = is_tournament
 
         # Toolbar
         tb = QTVarios.tb_accept_cancel(self)
@@ -375,7 +347,7 @@ class WEngineExtend(QtWidgets.QDialog):
 
         lb_exe = Controles.LB(self, "%s: %s" % (_("File"), Util.relative_path(engine.path_exe)))
 
-        if siTorneo:
+        if is_tournament:
             lb_depth = Controles.LB(self, _("Max depth") + ": ")
             self.sbDepth = Controles.SB(self, engine.depth, 0, 50)
 
@@ -423,10 +395,10 @@ class WEngineExtend(QtWidgets.QDialog):
         ly.controld(lb_elo, 3, 0).control(self.sbElo, 3, 1)
         ly.control(lb_exe, 4, 0, 1, 2)
 
-        if siTorneo:
+        if is_tournament:
             ly.otro(ly_torneo, 5, 0, 1, 2)
 
-        layout = Colocacion.V().control(tb).espacio(30).otro(ly).control(scrollArea)
+        layout = Colocacion.V().control(tb).espacio(30).otro(ly).control(scroll_area)
         self.setLayout(layout)
 
         self.edAlias.setFocus()
@@ -450,8 +422,8 @@ class WEngineExtend(QtWidgets.QDialog):
             return
 
         # Comprobamos que no se repita el alias
-        for engine in self.liMotores:
-            if (self.motorExterno != engine) and (engine.key == alias):
+        for engine in self.list_engines:
+            if (self.external_engine != engine) and (engine.key == alias):
                 QTUtil2.message_error(
                     self,
                     _(
@@ -459,21 +431,21 @@ class WEngineExtend(QtWidgets.QDialog):
                     ),
                 )
                 return
-        self.motorExterno.key = alias
+        self.external_engine.key = alias
         name = self.edNombre.texto().strip()
-        self.motorExterno.name = name if name else alias
-        self.motorExterno.id_info = self.emInfo.texto()
-        self.motorExterno.elo = self.sbElo.valor()
+        self.external_engine.name = name if name else alias
+        self.external_engine.id_info = self.emInfo.texto()
+        self.external_engine.elo = self.sbElo.valor()
 
-        if self.siTorneo:
-            self.motorExterno.depth = self.sbDepth.valor()
-            self.motorExterno.time = self.edTime.textoFloat()
+        if self.is_tournament:
+            self.external_engine.depth = self.sbDepth.valor()
+            self.external_engine.time = self.edTime.textoFloat()
             pbook = self.cbBooks.valor()
-            self.motorExterno.book = pbook
-            self.motorExterno.bookRR = self.cbBooksRR.valor()
+            self.external_engine.book = pbook
+            self.external_engine.bookRR = self.cbBooksRR.valor()
 
         # Grabamos options
-        wsave_options_engine(self.motorExterno)
+        wsave_options_engine(self.external_engine)
 
         self.accept()
 

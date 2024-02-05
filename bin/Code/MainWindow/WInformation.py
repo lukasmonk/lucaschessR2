@@ -134,10 +134,17 @@ class Information(QtWidgets.QWidget):
             cpws_lost, mate = self.move.get_points_lost_mate()
             if (cpws_lost is not None and cpws_lost > 0) or mate is not None:
                 analysis_depth = self.move.analysis[0].li_rm[0].depth
+                # img = "🚨"
+                # img = "⛛"
+                # img = "⛔"
+                img = "🚫"
                 if mate is not None:
-                    str_cpws_lost = f'{_("Loss")} M{mate}'
+                    if cpws_lost:
+                        str_cpws_lost = f'{img} ⨠M'
+                    else:
+                        str_cpws_lost = f'{img} M↓{abs(mate)}'
                 else:
-                    str_cpws_lost = "%.02f %s" % (cpws_lost / 100.0, _("pws lost"))
+                    str_cpws_lost = img + " %.02f %s" % (cpws_lost / 100.0, _("pws"))
                 str_cpws_lost += " (%s %s)" % (_("Depth"), analysis_depth)
                 self.lb_cpws_lost.set_text(str_cpws_lost)
                 visible = True
@@ -190,9 +197,12 @@ class Information(QtWidgets.QWidget):
         self.lb_rating.setVisible(len(str_nags) > 0)
 
     def set_move(self, game, move, opening):
-        sps = self.splitter.sizes()
-        if sps[1] > 0:
-            self.sp_sizes = sps
+        is_move = move is not None
+
+        if is_move and self.sp_sizes:
+            sps = self.splitter.sizes()
+            if sps[0] != self.sp_sizes[0]:
+                self.splitter.setSizes(self.sp_sizes)
 
         self.game = game
         self.move = move
@@ -200,7 +210,6 @@ class Information(QtWidgets.QWidget):
         if not opening:
             self.lb_opening.hide()
 
-        is_move = self.move is not None
         self.w_rating.setVisible(is_move)
         self.variantes.setVisible(is_move)
 
@@ -218,9 +227,10 @@ class Information(QtWidgets.QWidget):
                     self.lb_opening.set_foreground_backgound("#ffffff", "#aaaaaa")
                 self.lb_opening.show()
 
-            self.comment.set_text(move.comment)
+            if move.comment:
+                self.comment.set_text(move.comment)
             self.variantes.set_move(move)
-            num_moves, nj, row, is_white = self.w_parent.manager.jugadaActual()
+            # num_moves, nj, row, is_white = self.w_parent.manager.jugadaActual()
 
         else:
             self.gb_comments.set_text("%s - %s" % (_("Game"), _("Comments")))
@@ -331,7 +341,7 @@ class WVariations(QtWidgets.QWidget):
                 num_var_move = num
             is_num_variation = not is_num_variation
         board = self.get_board()
-        board.set_base_position(var_move.position, variation_history=selected_link)
+        board.set_position(var_move.position, variation_history=selected_link)
         board.put_arrow_sc(var_move.from_sq, var_move.to_sq)
         self.mostrar()
 
@@ -367,6 +377,48 @@ class WVariations(QtWidgets.QWidget):
             var_move.variations.remove(num_line)
             self.link_variation_pressed(selected_link)
 
+    def num_total_variations(self):
+        total = len(self.li_variations())
+        num_line = -1
+        if total:
+            li_variation_move = self.selected_link.split("|")
+            num_line = int(li_variation_move[-2])
+        return num_line, total
+
+    def up_line(self):
+        li_variation_move = self.selected_link.split("|")
+        num_line = int(li_variation_move[-2])
+
+        li_variation_move = li_variation_move[:-2]
+        selected_link = "|".join(li_variation_move)
+        variation, var_move = self.det_variation_move(li_variation_move)
+
+        var_move.variations.up_variation(num_line)
+        self.link_variation_pressed(selected_link)
+
+    def down_line(self):
+        li_variation_move = self.selected_link.split("|")
+        num_line = int(li_variation_move[-2])
+
+        li_variation_move = li_variation_move[:-2]
+        selected_link = "|".join(li_variation_move)
+        variation, var_move = self.det_variation_move(li_variation_move)
+
+        var_move.variations.down_variation(num_line)
+        self.link_variation_pressed(selected_link)
+
+    def convert_into_main_line(self):
+        cnum_move, cnum_variation, nada = self.selected_link.split("|")
+        num_move, num_variation = int(cnum_move), int(cnum_variation)
+
+        game = self.move.game
+        game.convert_variation_into_mainline(num_move, num_variation)
+
+        move = game.li_moves[num_move]
+        move.pos_in_game = num_move
+        self.set_move(move)
+        self.get_manager().refresh_pgn()
+
     def remove_move(self):
         li_variation_move = self.selected_link.split("|")
         li_variation_move[-1] = str(int(li_variation_move[-1]) - 1)
@@ -398,7 +450,10 @@ class WVariations(QtWidgets.QWidget):
         self.em.show_variations(move, self.selected_link)
 
     def get_board(self):
-        return self.owner.w_parent.manager.board
+        return self.get_manager().board
+
+    def get_manager(self):
+        return self.owner.w_parent.manager
 
     def mostrar(self):
         self.em.show_variations(self.move, self.selected_link)

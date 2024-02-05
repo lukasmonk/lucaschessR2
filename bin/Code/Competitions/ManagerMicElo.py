@@ -61,6 +61,8 @@ def lista():
 class ManagerMicElo(Manager.Manager):
     li_t = None
 
+    with_time = True
+
     @staticmethod
     def calc_dif_elo(elo_jugador, elo_rival, resultado):
         if resultado == RS_WIN_PLAYER:
@@ -90,9 +92,9 @@ class ManagerMicElo(Manager.Manager):
         # self.liK = ((0, 60), (800, 50), (1200, 40), (1600, 30), (2000, 30), (2400, 10))
 
         li = []
-        self.liMotores = lista()
-        numX = len(self.liMotores)
-        for num, mt in enumerate(self.liMotores):
+        self.list_engines = lista()
+        numX = len(self.list_engines)
+        for num, mt in enumerate(self.list_engines):
             mtElo = mt.elo
             mt.siJugable = abs(mtElo - elo) < 400
             mt.siOut = not mt.siJugable
@@ -154,7 +156,9 @@ class ManagerMicElo(Manager.Manager):
         self.ayudas_iniciales = self.hints = 0
 
         self.max_seconds = minutos * 60
-        self.seconds_per_move = seconds
+        self.with_time = self.max_seconds > 0
+        self.seconds_per_move = seconds if self.with_time else 0
+
 
         self.tc_player = self.tc_white if self.is_human_side_white else self.tc_black
         self.tc_rival = self.tc_white if self.is_engine_side_white else self.tc_black
@@ -190,7 +194,7 @@ class ManagerMicElo(Manager.Manager):
 
         self.pon_toolbar()
 
-        self.main_window.activaJuego(True, True, siAyudas=False)
+        self.main_window.activaJuego(True, siReloj=self.with_time, siAyudas=False)
         self.set_dispatcher(self.player_has_moved)
         self.set_position(self.game.last_position)
         self.put_pieces_bottom(is_white)
@@ -212,7 +216,7 @@ class ManagerMicElo(Manager.Manager):
         self.set_label1("<center>%s</center>" % txt)
         self.set_label2("")
         self.pgnRefresh(True)
-        self.ponCapInfoPorDefecto()
+        self.show_info_extra()
 
         rival_name = Util.primera_mayuscula(self.engine_rival.alias)
         self.rival = "%s (%d)" % (rival_name, self.engine_rival.elo)
@@ -229,20 +233,25 @@ class ManagerMicElo(Manager.Manager):
         self.game.set_tag("WhiteElo", str(white_elo))
         self.game.set_tag("BlackElo", str(black_elo))
 
-        time_control = "%d" % int(self.max_seconds)
-        if self.seconds_per_move:
-            time_control += "+%d" % self.seconds_per_move
-        self.game.set_tag("TimeControl", time_control)
-
-        self.tc_player.config_clock(self.max_seconds, self.seconds_per_move, 0, 0)
-        self.tc_rival.config_clock(self.max_seconds, self.seconds_per_move, 0, 0)
-
         white_player = white_name + " (%d)" % white_elo
         black_player = black_name + " (%d)" % black_elo
 
-        tp_bl, tp_ng = self.tc_white.label(), self.tc_black.label()
-        self.main_window.set_data_clock(white_player, tp_bl, black_player, tp_ng)
-        self.main_window.start_clock(self.set_clock, 1000)
+        if self.with_time:
+            time_control = "%d" % int(self.max_seconds)
+            if self.seconds_per_move:
+                time_control += "+%d" % self.seconds_per_move
+            self.game.set_tag("TimeControl", time_control)
+
+            self.tc_player.config_clock(self.max_seconds, self.seconds_per_move, 0, 0)
+            self.tc_rival.config_clock(self.max_seconds, self.seconds_per_move, 0, 0)
+
+            tp_bl, tp_ng = self.tc_white.label(), self.tc_black.label()
+            self.main_window.set_data_clock(white_player, tp_bl, black_player, tp_ng)
+            self.main_window.start_clock(self.set_clock, 1000)
+
+        else:
+            self.set_label1("%s: <b>%s</b><br>%s: <b>%s</b>" % (_("White"), white_player, _("Black"), black_player))
+
         self.refresh()
 
         self.check_boards_setposition()
@@ -384,7 +393,7 @@ class ManagerMicElo(Manager.Manager):
             self.thinking(True)
             self.disable_all()
 
-            siEncontrada = False
+            si_encontrada = False
 
             if self.book:
                 if self.game.last_position.num_moves >= self.maxMoveBook:
@@ -397,12 +406,16 @@ class ManagerMicElo(Manager.Manager):
                         rm_rival.from_sq = pv[:2]
                         rm_rival.to_sq = pv[2:4]
                         rm_rival.promotion = pv[4:]
-                        siEncontrada = True
+                        si_encontrada = True
                     else:
                         self.book = None
-            if not siEncontrada:
-                time_white = self.tc_white.pending_time
-                time_black = self.tc_black.pending_time
+            if not si_encontrada:
+                if self.with_time:
+                    time_white = self.tc_white.pending_time
+                    time_black = self.tc_black.pending_time
+                else:
+                    time_white = int(5*60*self.whiteElo/1500)
+                    time_black = int(5*60*self.blackElo/1500)
                 rm_rival = self.xrival.play_time(self.game, time_white, time_black, self.seconds_per_move)
                 if rm_rival is None:
                     self.thinking(False)

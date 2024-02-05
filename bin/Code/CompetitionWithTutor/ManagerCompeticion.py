@@ -79,7 +79,7 @@ class ManagerCompeticion(Manager.Manager):
         self.xrotulo2()
 
         self.pgnRefresh(True)
-        self.ponCapInfoPorDefecto()
+        self.show_info_extra()
 
         self.game.set_tag("Event", _("Competition with tutor"))
 

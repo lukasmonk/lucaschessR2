@@ -183,7 +183,7 @@ class ManagerChallenge101:
             self.intentos += 1
             if self.intentos < self.max_intentos:
                 QTUtil2.temporary_message_without_image(
-                    self.main_window, str(self.max_intentos - self.intentos), 0.5, puntos=24, background="#ffd985"
+                    self.main_window, str(self.max_intentos - self.intentos), 0.5, puntos=20, background="#ffd985"
                 )
             else:
                 self.board.set_position(self.cp)

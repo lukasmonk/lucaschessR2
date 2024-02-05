@@ -350,8 +350,9 @@ class WAnalisis(LCDialog.LCDialog):
         self.muestraActual.wmu.change_pos_active(pos)
 
     def keyPressEvent(self, event):
-        k = event.key()
+        self.key_pressed(event.key())
 
+    def key_pressed(self, k):
         if k == QtCore.Qt.Key_Down:
             self.muestraActual.wmu.abajo()
         elif k == QtCore.Qt.Key_Up:
@@ -373,9 +374,12 @@ class WAnalisis(LCDialog.LCDialog):
         elif k == QtCore.Qt.Key_Escape:
             self.terminar()
 
+    def boardWheelEvent(self, board, forward):
+        forward = Code.configuration.wheel_board(forward)
+        self.key_pressed(QtCore.Qt.Key.Key_Left if forward else QtCore.Qt.Key.Key_Right)
+
     def toolbar_rightmouse(self):
-        configuration = Code.configuration
-        QTVarios.change_interval(self, configuration)
+        QTVarios.change_interval(self, Code.configuration)
 
     def closeEvent(self, event):  # Cierre con X
         self.terminar(False)

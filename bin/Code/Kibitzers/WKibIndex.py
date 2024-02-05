@@ -272,7 +272,7 @@ class WKibIndex(QtWidgets.QDialog):
 
     def restore_video(self, dicVideo):
         if dicVideo:
-            wE, hE = QTUtil.tamEscritorio()
+            wE, hE = QTUtil.desktop_size()
             x, y = dicVideo["_POSICION_"].split(",")
             x = int(x)
             y = int(y)

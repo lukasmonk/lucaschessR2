@@ -90,6 +90,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
     max_seconds = 0
     segundosJugada = 0
     secs_extra = 0
+    nodes = 0
     zeitnot = 0
     is_analyzed_by_tutor = False
     toolbar_state = None
@@ -204,8 +205,8 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         self.limit_pww = dic_var.get("LIMIT_PWW", 90)
 
         self.humanize = dic_var.get("HUMANIZE", False)
-        if dic_var.get("ANALYSIS_BAR", False):
-            self.main_window.activate_analysis_bar(True)
+        # if dic_var.get("ANALYSIS_BAR", False):
+        #     self.main_window.activate_analysis_bar(True)
 
         if dic_var.get("ACTIVATE_EBOARD"):
             Code.eboard.activate(self.board.dispatch_eboard)
@@ -238,6 +239,8 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             r_p = dr["ENGINE_DEPTH"]
             self.nAjustarFuerza = dic_var.get("ADJUST", ADJUST_BETTER)
 
+        self.nodes = dr.get("ENGINE_NODES", 0)
+
         if not self.xrival:  # reiniciando is not None
             if r_t <= 0:
                 r_t = None
@@ -247,6 +250,8 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                 r_t = None
             rival.liUCI = dr["LIUCI"]
             self.xrival = self.procesador.creaManagerMotor(rival, r_t, r_p, self.nAjustarFuerza != ADJUST_BETTER)
+            if self.nodes:
+                self.xrival.set_nodes(self.nodes)
             if self.nAjustarFuerza != ADJUST_BETTER:
                 self.xrival.maximize_multipv()
         self.resign_limit = dic_var["RESIGN"]
@@ -307,7 +312,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             if label:
                 self.game.set_tag("Strength", label)
 
-        self.ponCapInfoPorDefecto()
+        self.show_info_extra()
 
         self.pgnRefresh(True)
 
@@ -1110,6 +1115,11 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         self.premove = from_sq, to_sq
 
         return True
+
+    def remove_premove(self):
+        if self.premove:
+            self.board.remove_arrows()
+            self.premove = None
 
     def help_to_move(self):
         move = Move.Move(self.game, position_before=self.game.last_position.copia())

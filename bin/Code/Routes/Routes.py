@@ -225,7 +225,7 @@ class Transsiberian:
             self._dpos_endings = dic.get("DPOS_ENDINGS", self._dpos_endings)
 
     def read_with_level(self, nlevel):
-        dic = self.configuration.read_variables("TRANSSIBERIAN%s" % nlevel)
+        dic = self.configuration.read_variables(f"TRANSSIBERIAN{nlevel}")
         if dic:
             self.read_dic(dic)
         else:

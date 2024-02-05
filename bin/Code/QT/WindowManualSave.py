@@ -132,8 +132,8 @@ class WManualSave(LCDialog.LCDialog):
         self.bt_stop.hide()
 
         lb_engine = Controles.LB(self, _("Engine") + ":")
-        liMotores = self.configuration.combo_engines()
-        self.cb_engine = Controles.CB(self, liMotores, self.configuration.x_tutor_clave).capture_changes(
+        list_engines = self.configuration.combo_engines()
+        self.cb_engine = Controles.CB(self, list_engines, self.configuration.x_tutor_clave).capture_changes(
             self.reset_motor
         )
 
@@ -400,13 +400,13 @@ class WManualSave(LCDialog.LCDialog):
             return
         self.procesador.motoresExternos()
         valor = self.cb_engine.valor()
-        liMotores = self.configuration.combo_engines()
+        list_engines = self.configuration.combo_engines()
         engine = self.configuration.x_tutor_clave
-        for label, key in liMotores:
+        for label, key in list_engines:
             if key == valor:
                 engine = valor
                 break
-        self.cb_engine.rehacer(liMotores, engine)
+        self.cb_engine.rehacer(list_engines, engine)
         self.reset_motor()
         self.show_start()
 
@@ -447,7 +447,7 @@ class WManualSave(LCDialog.LCDialog):
         txt = "".join(li)
         pc = Game.Game(self.position)
         txt += "\n%s" % self.em_solucion.texto()
-        pc.readPGN(txt)
+        pc.read_pgn(txt)
         return pc
 
     def reset_game(self):

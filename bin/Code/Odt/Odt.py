@@ -17,7 +17,7 @@ class ODT:
         self.dic_tables_ncols = {}
 
     def create(self, path):
-        folder_temp = Code.configuration.carpetaTemporal()
+        folder_temp = Code.configuration.temporary_folder()
         pos = 0
         plant_folder = os.path.join(folder_temp, "temp%03d")
         while os.path.isdir(plant_folder % pos):

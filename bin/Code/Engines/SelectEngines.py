@@ -29,7 +29,7 @@ def read_uci_rodent(cm):
             linea = linea.strip()
             if linea and linea.startswith("setoption name "):
                 key, value = linea[15:].split("value")
-                cm.ordenUCI(key.strip(), value.strip())
+                cm.set_uci_option(key.strip(), value.strip())
 
 
 def get_dict_type_names():
@@ -114,7 +114,7 @@ class SelectEngines:
             cm.__icono = ico
             cm.elo = elo
             cm.type = ENG_IRINA
-            cm.ordenUCI("Personality", name)
+            cm.set_uci_option("Personality", name)
             li.append(cm)
         return li
 
@@ -139,7 +139,7 @@ class SelectEngines:
     #         cm.__icono = ico
     #         cm.elo = elo
     #         cm.type = ENG_IRINA
-    #         cm.ordenUCI("Personality", name)
+    #         cm.set_uci_option("Personality", name)
     #         li.append(cm)
     #     return li
 
@@ -352,7 +352,6 @@ class SelectEngines:
 
         self.li_engines.sort(key=lambda cm: cm.elo)
 
-        print(len(self.li_engines))
         return self.li_engines
 
     def select_group(self, parent, li_engines_selected):
@@ -488,7 +487,7 @@ class WSelectEngines(LCDialog.LCDialog):
         # Grid
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("SELECTED", "", 20, siChecked=True)
-        o_columns.nueva("ELO", _("Elo"), 16, align_right=True)
+        o_columns.nueva("ELO", _("Elo"), 86, align_right=True)
         o_columns.nueva("NAME", _("Name"), 240)
         o_columns.nueva("TYPE", _("Type"), 180, align_center=True)
 

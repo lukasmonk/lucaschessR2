@@ -32,7 +32,7 @@ class WTrainBMT(LCDialog.LCDialog):
 
         dic_var = self.configuration.read_variables("BMT_OPTIONS")
 
-        self.pts_tolerance = dic_var.get("PTS_TOLERANCE", 0)
+        self.pts_tolerance = abs(dic_var.get("PTS_TOLERANCE", 0))
 
         self.game = Game.Game()
         self.siMostrarPGN = False
@@ -232,7 +232,7 @@ class WTrainBMT(LCDialog.LCDialog):
         if not resultado:
             return
         accion, li_gen = resultado
-        self.pts_tolerance = li_gen[0]
+        self.pts_tolerance = abs(li_gen[0])
         dic_var = self.configuration.read_variables("BMT_OPTIONS")
         dic_var["PTS_TOLERANCE"] = self.pts_tolerance
         self.configuration.write_variables("BMT_OPTIONS", dic_var)
@@ -441,6 +441,7 @@ class WTrainBMT(LCDialog.LCDialog):
         self.key_pressed("V", event.key())
 
     def boardWheelEvent(self, nada, forward):
+        forward = self.configuration.wheel_board(forward)
         self.key_pressed("T", QtCore.Qt.Key.Key_Left if forward else QtCore.Qt.Key.Key_Right)
 
     def grid_dato(self, grid, row, o_column):
@@ -844,8 +845,7 @@ class WTrainBMT(LCDialog.LCDialog):
             if (num == n and not siBold) or (num != n and siBold):
                 f.setBold(not siBold)
                 bt.setFont(f)
-            bt.setAutoDefault(num == n)
-            bt.setDefault(num == n)
+            bt.set_pordefecto(num == n)
 
         self.siMostrarPGN = True
         self.lbJuegan.set_text(self.liBTrm[num].text())

@@ -107,7 +107,7 @@ class ManagerPerson(ManagerPlayAgainstEngine.ManagerPlayAgainstEngine):
         self.main_window.base.lbRotulo1.ponImagen(imagen)
         self.main_window.base.lbRotulo1.show()
 
-        self.ponCapInfoPorDefecto()
+        self.show_info_extra()
 
         self.pgnRefresh(True)
 
@@ -122,6 +122,7 @@ class ManagerPerson(ManagerPlayAgainstEngine.ManagerPlayAgainstEngine):
 
             self.main_window.set_data_clock(bl, tp_bl, ng, tp_ng)
             self.refresh()
+
         else:
             self.main_window.base.change_player_labels(bl, ng)
 
@@ -146,4 +147,3 @@ class ManagerPerson(ManagerPlayAgainstEngine.ManagerPlayAgainstEngine):
         self.game.set_tag("Black", b)
 
         self.game.add_tag_timestart()
-
