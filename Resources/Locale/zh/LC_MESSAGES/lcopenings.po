@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Last-Translator: lukasmonk <lukasmonk@gmail.com>, 2023\n"
+"Last-Translator: jiahao lin, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/lukasmonk/teams/13068/zh_CN/)\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -60,16 +60,16 @@ msgid "Alekhine Defence: Four Pawns Attack, Trifunovic Variation"
 msgstr "阿廖欣防御：四兵进攻，特里富诺维奇变例"
 
 msgid "Alekhine Defence: Hunt Variation"
-msgstr "阿廖欣防御亨特变化"
+msgstr "阿廖欣防御：亨特变化"
 
 msgid "Alekhine Defence: Hunt Variation, Lasker Simul Gambit"
 msgstr "阿廖欣防御:亨特变化, 拉斯克模拟弃兵"
 
 msgid "Alekhine Defence: Hunt Variation, Matsukevich Gambit"
-msgstr "阿廖欣防御亨特变化，马苏克维奇弃兵"
+msgstr "阿廖欣防御：亨特变化，马苏克维奇弃兵"
 
 msgid "Alekhine Defence: Hunt Variation, Mikenas Gambit"
-msgstr "阿廖欣防御亨特变化，米凯纳斯弃兵"
+msgstr "阿廖欣防御：亨特变化，米凯纳斯弃兵"
 
 msgid "Alekhine Defence: Kmoch Variation"
 msgstr "阿廖欣防御：Kmoch变例"
@@ -90,10 +90,10 @@ msgid "Alekhine Defence: Modern Variation, 4...Bg4"
 msgstr "阿廖欣防御：现代变例，4 ... BG4"
 
 msgid "Alekhine Defence: Modern Variation, Alekhine Gambit"
-msgstr "阿廖欣防御现代变化，阿廖欣恩防御"
+msgstr "阿廖欣防御：现代变化，阿廖欣恩防御"
 
 msgid "Alekhine Defence: Modern Variation, Larsen-Haakert Variation"
-msgstr "阿廖欣防御现代变例, 拉尔森-哈克特变例"
+msgstr "阿廖欣防御：现代变例, 拉尔森-哈克特变例"
 
 msgid "Alekhine Defence: Modern, Alekhine Variation"
 msgstr "阿廖欣防御：现代变例，阿廖欣变例"
@@ -123,13 +123,13 @@ msgid "Alekhine Defence: Mokele Mbembe (Buecker) Variation"
 msgstr "阿廖欣防御：Mokele Mbembe（Buecker）变例"
 
 msgid "Alekhine Defence: Mokele Mbembe, Modern Line"
-msgstr "阿廖欣辩护莫克尔-姆本贝，现代线"
+msgstr "阿廖欣防御：莫克尔-姆本贝，现代线"
 
 msgid "Alekhine Defence: Mokele Mbembe, Vavra Defence"
-msgstr "阿廖欣辩护瓦夫拉防线：莫克尔-姆本贝"
+msgstr "阿廖欣防御：瓦夫拉防线：莫克尔-姆本贝"
 
 msgid "Alekhine Defence: Normal Variation"
-msgstr "阿廖欣防御正常变化"
+msgstr "阿廖欣防御：正常变化"
 
 msgid "Alekhine Defence: O'Sullivan Gambit"
 msgstr "阿廖欣防御：奥沙利文弃兵"
@@ -174,7 +174,7 @@ msgid "Amar Gambit"
 msgstr "阿马尔弃兵"
 
 msgid "Amar Opening: Gent Gambit"
-msgstr "阿马尔开局:根特-甘拜下风"
+msgstr "阿马尔开局:根特弃兵"
 
 msgid "Amar Opening: Paris Gambit"
 msgstr "阿马尔开局:巴黎弃兵"
@@ -183,7 +183,7 @@ msgid "Amazon Attack"
 msgstr "亚马逊进攻"
 
 msgid "Amazon Attack: Siberian Attack"
-msgstr "亚马逊的进攻:西伯利亚进攻"
+msgstr "亚马逊进攻:西伯利亚进攻"
 
 msgid "Amsterdam Attack"
 msgstr "阿姆斯特丹进攻"
@@ -192,7 +192,7 @@ msgid "Anderssen Opening"
 msgstr "安德森开局"
 
 msgid "Anderssen Opening: Polish Gambit"
-msgstr "安德森的开局波兰式弃兵"
+msgstr "安德森开局：波兰弃兵"
 
 msgid "Anti-Borg (Desprez) Opening"
 msgstr "反博格（Desprez）开局"
@@ -204,10 +204,10 @@ msgid "Barnes Defence"
 msgstr "巴恩斯防御"
 
 msgid "Barnes Opening: Fool Mate"
-msgstr "巴恩斯开局:傻瓜的伴侣"
+msgstr "巴恩斯开局:傻瓜杀"
 
 msgid "Barnes Opening: Gedult Gambit"
-msgstr "巴恩斯开局:格多特开局"
+msgstr "巴恩斯开局:格多特弃兵"
 
 msgid "Barnes Opening: Walkerling"
 msgstr "巴恩斯开局:沃克林"
@@ -219,7 +219,7 @@ msgid "Beefeater Defence"
 msgstr "Beefeater防御"
 
 msgid "Benko Gambit"
-msgstr "平科弃兵（伏尔加弃兵）"
+msgstr "平科弃兵"
 
 msgid "Benko Gambit Accepted"
 msgstr "平科接受弃兵"
@@ -231,19 +231,19 @@ msgid "Benko Gambit Accepted: Dlugy Variation"
 msgstr "平科接受弃兵:德鲁吉变化"
 
 msgid "Benko Gambit Accepted: Fianchetto Variation"
-msgstr "平科接受弃兵:费恩切托变化"
+msgstr "平科接受弃兵:堡垒象变化"
 
 msgid "Benko Gambit Accepted: Modern Variation"
 msgstr "平科接受弃兵:现代变化"
 
 msgid "Benko Gambit Accepted: Pawn Return Variation"
-msgstr "平科接受弃兵:卒返变化"
+msgstr "平科接受弃兵:反兵变化"
 
 msgid "Benko Gambit Declined: Bishop Attack"
 msgstr "平科拒弃兵:象的进攻"
 
 msgid "Benko Gambit Declined: Hjørring CounterGambit"
-msgstr "平科拒弃兵:赫伊林的反手棋"
+msgstr "平科拒弃兵:赫伊林的反弃兵"
 
 msgid "Benko Gambit Declined: Main Line"
 msgstr "平科拒弃兵:主线"
@@ -264,7 +264,7 @@ msgid "Benko Gambit: 7.e4"
 msgstr "平科弃兵：7.e4"
 
 msgid "Benko Gambit: Fianchetto Variation"
-msgstr "平科弃兵：fianchetto变例"
+msgstr "平科弃兵：堡垒象变例"
 
 msgid "Benko Gambit: Main Line"
 msgstr "平科弃兵：主线"
@@ -285,7 +285,7 @@ msgid "Benko Gambit: Zaitsev System"
 msgstr "平科弃兵：扎伊采夫体系"
 
 msgid "Benko Gambit: Zaitsev Variation, Nescafe Frappe Attack"
-msgstr "平科弃兵:扎伊采夫变化，雀巢咖啡杯进攻"
+msgstr "平科弃兵:扎伊采夫变化，雀巢咖啡进攻"
 
 msgid "Benko Opening"
 msgstr "平科开局"
@@ -300,7 +300,7 @@ msgid "Benoni Defence, Hromodka System"
 msgstr "别诺尼防御，Hromodka体系"
 
 msgid "Benoni Defence: Benoni Gambit Accepted"
-msgstr "别诺尼防御:贝诺尼防御：接受贝诺尼弃兵"
+msgstr "别诺尼防御:接受别诺尼弃兵"
 
 msgid "Benoni Defence: Benoni Gambit, Schlenker Defence"
 msgstr "别诺尼防御:贝诺尼弃兵，施伦克防御"

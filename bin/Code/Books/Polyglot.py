@@ -1127,24 +1127,24 @@ def gen_lines(path_pol_w, path_pol_b, mode_w, mode_b, max_lines, max_depth, star
         Line(pol_w, pol_b, lines, mode_w, mode_b, start_fen, dispatch, porc_min_white, porc_min_black, weight_min_white,
              weight_min_black)
 
-    if max_depth == 0:
-        max_depth = 99999
-    if max_lines == 0:
-        max_lines = 99999
+        if max_depth == 0:
+            max_depth = 99999
+        if max_lines == 0:
+            max_lines = 99999
 
-    depth = 0
-    while depth < max_depth:
-        ok = False
-        num_lines = len(lines)
-        for pos in range(num_lines):
-            line = lines[pos]
-            if line.next_level(max_lines):
-                ok = True
-            else:
-                if not dispatch(None, None):
-                    break
-        if not ok:
-            break
-        depth += 1
+        depth = 0
+        while depth < max_depth:
+            ok = False
+            num_lines = len(lines)
+            for pos in range(num_lines):
+                line = lines[pos]
+                if line.next_level(max_lines):
+                    ok = True
+                else:
+                    if not dispatch(None, None):
+                        break
+            if not ok:
+                break
+            depth += 1
 
     return lines
