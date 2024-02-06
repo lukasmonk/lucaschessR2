@@ -229,8 +229,9 @@ class Information(QtWidgets.QWidget):
 
             if move.comment:
                 self.comment.set_text(move.comment)
+            else:
+                self.comment.set_text("")
             self.variantes.set_move(move)
-            # num_moves, nj, row, is_white = self.w_parent.manager.jugadaActual()
 
         else:
             self.gb_comments.set_text("%s - %s" % (_("Game"), _("Comments")))
