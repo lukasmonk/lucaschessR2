@@ -436,7 +436,7 @@ class Game:
                 if siB:
                     promotion = promotion.upper()
             else:
-                promotion = None
+                promotion = ""
             ok, mens, move = Move.get_game_move(self, position, from_sq, to_sq, promotion)
             if ok:
                 self.li_moves.append(move)
@@ -445,8 +445,8 @@ class Game:
         return self
 
     def damePosicion(self, pos):
-        nJugadas = len(self.li_moves)
-        if nJugadas:
+        n_jugadas = len(self.li_moves)
+        if n_jugadas:
             return self.li_moves[pos].position
         else:
             return self.first_position
@@ -701,7 +701,7 @@ class Game:
             if hastaJugada == -1:
                 p.li_moves = []
             elif hastaJugada < (p.num_moves() - 1):
-                p.li_moves = p.li_moves[: hastaJugada + 1]
+                p.li_moves = [move.clone(p) for move in p.li_moves[: hastaJugada + 1]]
             if len(p) != len(self):
                 p.set_unknown()
         return p
@@ -712,13 +712,13 @@ class Game:
                 return self.copia(pos - 1)
         return self.copia(-1)
 
-    def copy_from_move(self, desdeJugada):
-        if desdeJugada == 0:
+    def copy_from_move(self, from_move):
+        if from_move == 0:
             cp = self.first_position
         else:
-            cp = self.li_moves[desdeJugada - 1].position
+            cp = self.li_moves[from_move - 1].position
         p = Game(cp)
-        p.li_moves = self.li_moves[desdeJugada:]
+        p.li_moves = [move.clone(p) for move in self.li_moves[from_move:]]
         return p
 
     def pgnBaseRAWcopy(self, movenum, hastaJugada):
@@ -1002,18 +1002,18 @@ class Game:
 
     def convert_variation_into_mainline(self, num_move, num_variation):
         game_last_moves = self.copy_from_move(num_move)  # Desde el movimiento hasta el final es la nueva variante
-
         move = self.li_moves[num_move]
         game_variation = move.variations.li_variations[num_variation]
         self.li_moves = self.li_moves[:num_move]
         for xmove in game_variation.li_moves:
-            xmove.game = self
-        self.li_moves.extend(game_variation.li_moves)
+            nv_move = xmove.clone(self)
+            self.li_moves.append(nv_move)
 
         move0 = self.li_moves[num_move]
         move0.variations = Move.Variations(move0)
         for xnum, variation in enumerate(move.variations.li_variations):
             if xnum == num_variation:
+                game_last_moves.li_moves[0].variations.li_variations = []
                 move0.add_variation(game_last_moves)
             else:
                 move0.add_variation(variation)

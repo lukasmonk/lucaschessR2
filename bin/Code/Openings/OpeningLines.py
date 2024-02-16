@@ -10,11 +10,77 @@ import FasterCode
 import Code
 from Code import Util
 from Code.Base import Game, Position
-from Code.Databases import DBgamesST
+from Code.Base.Constantes import WHITE
+from Code.Databases import DBgamesST, DBgames
 from Code.Engines import EnginesBunch
 from Code.Openings import OpeningsStd
 from Code.QT import QTUtil2
 from Code.SQL import UtilSQL
+
+
+class ItemTree:
+    def __init__(self, parent, move, pgn, opening, side_resp):
+        self.move = move
+        self.pgn = pgn
+        self.parent = parent
+        self.opening = opening
+        self.dicHijos = {}
+        self.item = None
+        self.side_resp = side_resp
+
+    def add(self, move, pgn, opening):
+        if not (move in self.dicHijos):
+            self.dicHijos[move] = ItemTree(self, move, pgn, opening, not self.side_resp)
+        return self.dicHijos[move]
+
+    def add_list(self, limoves, lipgn, liop):
+        n = len(limoves)
+        if n > 0:
+            item = self.add(limoves[0], lipgn[0], liop[0])
+            if n > 1:
+                item.add_list(limoves[1:], lipgn[1:], liop[1:])
+
+    def game(self):
+        li = []
+        if self.pgn:
+            li.append(self.pgn)
+
+        item = self.parent
+        while item is not None:
+            if item.pgn:
+                li.append(item.pgn)
+            item = item.parent
+        return " ".join(reversed(li))
+
+    def listaPV(self):
+        li = []
+        if self.move:
+            li.append(self.move)
+
+        item = self.parent
+        while item is not None:
+            if item.move:
+                li.append(item.move)
+            item = item.parent
+        return li[::-1]
+
+    def next_in_parent(self):
+        li_pv = self.listaPV()
+        pos = len(li_pv) - 1
+        xdata = self
+        while pos >= 0:
+            xparent = xdata.parent
+            move = li_pv[pos]
+            the_next = False
+            for data_parent_parent in xparent.dicHijos.values():
+                if the_next:
+                    return data_parent_parent
+                if data_parent_parent.move == move:
+                    the_next = True
+            pos -= 1
+            xdata = xparent
+
+        return None
 
 
 class ListaOpenings:
@@ -464,17 +530,14 @@ class Opening:
             for pv in lipv:
                 fen = FasterCode.get_fen()
                 if busca in fen:
-                    if not (fen in dic):
+                    if fen not in dic:
                         dic[fen] = {}
-                    dicPV = dic[fen]
-                    if not (pv in dicPV):
-                        dicPV[pv] = []
-                    dicPV[pv].append(nlinea)
+                    dic_pv = dic[fen]
+                    if pv not in dic_pv:
+                        dic_pv[pv] = []
+                    dic_pv[pv].append(nlinea)
                 FasterCode.make_move(pv)
-        d = {}
-        for fen, dicPV in dic.items():
-            if len(dicPV) > 1:
-                d[fen] = dicPV
+        d = {fen: dic_pv for fen, dic_pv in dic.items() if len(dic_pv) > 1}
         return d
 
     def preparaTrainingEngines(self, configuration, reg):
@@ -860,11 +923,83 @@ class Opening:
             self._conexion.close()
             self._conexion = None
 
+    def import_db(self, owner, gamebase, path_db, max_depth, with_variations, with_comments):
+        name = os.path.basename(path_db)
+
+        db = DBgames.DBgames(path_db)
+        self.save_history(_("Import"), _("Databases"), name)
+
+        base = gamebase.pv() if gamebase else self.getconfig("BASEPV")
+
+        dl_tmp = QTUtil2.BarraProgreso(owner, _("Import") + " - " + name, _("Working..."), db.all_reccount(),
+                                       width=600).mostrar()
+
+        dic_comments = {}
+        for recno, game in enumerate(db.yield_games(), 1):
+            dl_tmp.pon(recno)
+
+            if dl_tmp.is_canceled():
+                break
+
+            li_pv = game.all_pv("", with_variations)
+            if not game.siFenInicial():
+                continue
+            for pv in li_pv:
+                li = pv.split(" ")[:max_depth]
+                pv = " ".join(li)
+
+                if base and not pv.startswith(base) or base == pv:
+                    continue
+                xpv = FasterCode.pv_xpv(pv)
+                updated = False
+                for npos, xpv_ant in enumerate(self.li_xpv):
+                    if xpv_ant.startswith(xpv):
+                        updated = True
+                        break
+                    if xpv.startswith(xpv_ant) and xpv > xpv_ant:
+                        self.li_xpv[npos] = xpv
+                        updated = True
+                        break
+                if not updated:
+                    if len(xpv) > 0:
+                        self.li_xpv.append(xpv)
+
+            if with_comments:
+                dic_comments_game = game.all_comments(with_variations)
+                for fenm2, dic in dic_comments_game.items():
+                    d = self.getfenvalue(fenm2)
+                    if "C" in dic:
+                        d["COMENTARIO"] = dic["C"]
+                        del dic["C"]
+                    if "N" in dic:
+                        for nag in dic["N"]:
+                            if nag in (10, 14, 15, 16, 17, 18, 19):
+                                d["VENTAJA"] = nag
+                            elif 0 < nag < 7:
+                                d["VALORACION"] = nag
+                        del dic["N"]
+                    if d:
+                        dic_comments[fenm2] = d
+
+        self.clean()
+
+        dl_tmp.cerrar()
+        if with_comments and dic_comments:
+            self.db_fenvalues.set_faster_mode()
+            um = QTUtil2.one_moment_please(owner)
+            for fenm2, dic_comments_game in dic_comments.items():
+                self.setfenvalue(fenm2, dic_comments_game)
+            self.db_fenvalues.set_normal_mode()
+            um.final()
+
     def import_pgn(self, owner, gamebase, path_pgn, max_depth, with_variations, with_comments):
 
-        dl_tmp = QTUtil2.BarraProgreso(owner, _("Import"), _("Working..."), Util.filesize(path_pgn)).mostrar()
+        name = os.path.basename(path_pgn)
 
-        self.save_history(_("Import"), _("PGN with variations"), os.path.basename(path_pgn))
+        dl_tmp = QTUtil2.BarraProgreso(owner, _("Import") + " - " + name, _("Working..."), Util.filesize(path_pgn),
+                                       width=600).mostrar()
+
+        self.save_history(_("Import"), _("PGN with variations"), name)
 
         dic_comments = {}
 
@@ -966,7 +1101,7 @@ class Opening:
                 self.setfenvalue(fenm2, dic_comments_game)
             self.db_fenvalues.set_normal_mode()
             um.final()
-            
+
     def import_other_comments(self, path_opk):
         otra = Opening(path_opk)
         self.db_fenvalues.copy_from(otra.db_fenvalues)
@@ -1025,73 +1160,6 @@ class Opening:
         li_xpv_new = [FasterCode.pv_xpv(pv) for pv in li_pv]
         self.li_xpv.extend(li_xpv_new)
         self.clean()
-        # bp = QTUtil2.BarraProgreso1(ventana, titulo, formato1="%m")
-        # bp.set_total(0)
-        # bp.put_label(_X(_("Reading %1"), "..."))
-        # bp.mostrar()
-        #
-        # st_fenm2 = set()
-        # set_fen = FasterCode.set_fen
-        # make_move = FasterCode.make_move
-        # get_fen = FasterCode.get_fen
-        # control = Util.Record()
-        # control.liPartidas = []
-        # control.num_games = 0
-        # control.with_history = True
-        # control.label = "%s,%s,%s" % (_("Polyglot book"), bookW.name, bookB.name)
-        #
-        # def haz_fen(fen, lipv_ant, control):
-        #     if bp.is_canceled():
-        #         return
-        #     if len(lipv_ant) > depth:
-        #         return
-        #     if excl_transpositions:
-        #         fen_m2 = FasterCode.fen_fenm2(fen)
-        #         if fen_m2 in st_fenm2:
-        #             return
-        #         st_fenm2.add(fen_m2)
-        #
-        #     si_white1 = " w " in fen
-        #     book = bookW if si_white1 else bookB
-        #     li_posible_moves = book.miraListaPV(fen, si_white1 == siWhite, onlyone=onlyone)
-        #     if li_posible_moves and len(lipv_ant) < depth:
-        #         for pv in li_posible_moves:
-        #             set_fen(fen)
-        #             make_move(pv)
-        #             fenN = get_fen()
-        #             lipv_nue = lipv_ant[:]
-        #             lipv_nue.append(pv)
-        #             haz_fen(fenN, lipv_nue, control)
-        #     else:
-        #         p = Game.Game()
-        #         p.read_lipv(lipv_ant)
-        #         if p.si3repetidas():
-        #             return
-        #         control.liPartidas.append(p)
-        #         control.num_games += 1
-        #         bp.set_total(control.num_games)
-        #         bp.pon(control.num_games)
-        #         if control.num_games and control.num_games % 3751 == 0:
-        #             self.guardaPartidas(control.label, control.liPartidas, minMoves, with_history=control.with_history)
-        #             control.liPartidas = []
-        #             control.with_history = False
-        #
-        # li_games = self.get_all_games() if game is None else [game]
-        #
-        # for game in li_games:
-        #     cp = game.last_position
-        #     try:
-        #         haz_fen(cp.fen(), game.lipv(), control)
-        #     except RecursionError:
-        #         pass
-        #
-        # bp.put_label(_("Writing..."))
-        #
-        # if control.liPartidas:
-        #     self.guardaPartidas(control.label, control.liPartidas, minMoves, with_history=control.with_history)
-        # self.pack_database()
-        # bp.cerrar()
-
         return True
 
     def import_dbopening_explorer(self, ventana, gamebase, fichero_summary, depth, si_white, onlyone, min_moves):
@@ -1331,10 +1399,12 @@ class Opening:
         li = [num for num, xpv0 in enumerate(self.li_xpv, base) if xpv0.startswith(xpv)]
         return li
 
-    def totree(self):
-        parent = ItemTree(None, None, None, None)
+    def totree(self, um):
+        parent = ItemTree(None, None, None, None, WHITE)
         dic = OpeningsStd.ap.dic_fenm2_op
         for xpv in self.li_xpv:
+            if um.is_canceled():
+                break
             lipv = FasterCode.xpv_pv(xpv).split(" ")
             lipgn = FasterCode.xpv_pgn(xpv).replace("\n", " ").strip().split(" ")
             linom = []
@@ -1364,49 +1434,3 @@ class Opening:
                     p.read_fen(fen)
                     fenm2 = p.fenm2()
         return dic
-
-
-class ItemTree:
-    def __init__(self, parent, move, pgn, opening):
-        self.move = move
-        self.pgn = pgn
-        self.parent = parent
-        self.opening = opening
-        self.dicHijos = {}
-        self.item = None
-
-    def add(self, move, pgn, opening):
-        if not (move in self.dicHijos):
-            self.dicHijos[move] = ItemTree(self, move, pgn, opening)
-        return self.dicHijos[move]
-
-    def add_list(self, limoves, lipgn, liop):
-        n = len(limoves)
-        if n > 0:
-            item = self.add(limoves[0], lipgn[0], liop[0])
-            if n > 1:
-                item.add_list(limoves[1:], lipgn[1:], liop[1:])
-
-    def game(self):
-        li = []
-        if self.pgn:
-            li.append(self.pgn)
-
-        item = self.parent
-        while item is not None:
-            if item.pgn:
-                li.append(item.pgn)
-            item = item.parent
-        return " ".join(reversed(li))
-
-    def listaPV(self):
-        li = []
-        if self.move:
-            li.append(self.move)
-
-        item = self.parent
-        while item is not None:
-            if item.move:
-                li.append(item.move)
-            item = item.parent
-        return li[::-1]

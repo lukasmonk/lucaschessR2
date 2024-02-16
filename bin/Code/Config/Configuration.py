@@ -958,22 +958,33 @@ class Configuration:
         self.__theme_num = num
 
     def leeConfBoards(self):
-        db = UtilSQL.DictSQL(self.ficheroConfBoards)
-        self.dic_conf_boards_pk = db.as_dictionary()
-        if not ("BASE" in self.dic_conf_boards_pk):
-            with open(Code.path_resource("IntFiles", f"basepk{self.__theme_num}.board"), "rb") as f:
-                var = pickle.loads(f.read())
-                alto = QTUtil.desktop_height()
-                ancho = QTUtil.desktop_width()
-                base = ancho * 950 / 1495
-                if alto > base:
-                    alto = base
-                var["x_anchoPieza"] = int(alto * 8 / 100)
-                db["BASE"] = self.dic_conf_boards_pk["BASE"] = var
-        # Para cambiar el tema por defecto por el actual
-        # with open("../resources/IntFiles/basepk2.board", "wb") as f:
-        #      f.write(pickle.dumps(db["BASE"]))
-        db.close()
+        with UtilSQL.DictSQL(self.ficheroConfBoards) as db:
+            self.dic_conf_boards_pk = db.as_dictionary()
+            if not ("BASE" in self.dic_conf_boards_pk):
+                with open(Code.path_resource("IntFiles", f"basepk{self.__theme_num}.board"), "rb") as f:
+                    var = pickle.loads(f.read())
+                    alto = QTUtil.desktop_height()
+                    ancho = QTUtil.desktop_width()
+                    if Code.procesador:
+                        ancho_extra = Code.procesador.main_window.get_noboard_width() + 40
+                    else:
+                        ancho_extra = 660
+                    max_ancho_pieza = (ancho - ancho_extra) // 8
+                    max_alto_pieza = ((alto - 200) * 86 / 100) // 8
+                    alt_ancho_pieza = min(max_ancho_pieza, max_alto_pieza)
+                    if alt_ancho_pieza > 10:
+                        ancho_pieza = alt_ancho_pieza
+                    else:
+                        base = ancho * 950 / 1495
+                        if alto > base:
+                            alto = base
+                        ancho_pieza = int(alto * 8 / 100)
+
+                    var["x_anchoPieza"] = ancho_pieza
+                    db["BASE"] = self.dic_conf_boards_pk["BASE"] = var
+            # Para cambiar el tema por defecto por el actual
+            # with open("../resources/IntFiles/basepk2.board", "wb") as f:
+            #      f.write(pickle.dumps(db["BASE"]))
 
     def size_base(self):
         return self.dic_conf_boards_pk["BASE"]["x_anchoPieza"]
@@ -993,12 +1004,12 @@ class Configuration:
             db.close()
             self.leeConfBoards()
 
-    def config_board(self, xid, tamDef, padre="BASE"):
+    def config_board(self, xid, tam_def, padre="BASE"):
         if xid == "BASE":
-            ct = ConfBoards.ConfigBoard(xid, tamDef)
+            ct = ConfBoards.ConfigBoard(xid, tam_def)
         else:
-            ct = ConfBoards.ConfigBoard(xid, tamDef, padre=padre)
-            ct.anchoPieza(tamDef)
+            ct = ConfBoards.ConfigBoard(xid, tam_def, padre=padre)
+            ct.anchoPieza(tam_def)
 
         if xid in self.dic_conf_boards_pk:
             ct.lee(self.dic_conf_boards_pk[xid])
@@ -1007,7 +1018,7 @@ class Configuration:
             self.dic_conf_boards_pk[xid] = db[xid] = ct.graba()
             db.close()
 
-        ct._anchoPiezaDef = tamDef
+        ct._anchoPiezaDef = tam_def
 
         return ct
 

@@ -572,7 +572,6 @@ class Season:
         for opponent in self.swiss.li_opponents:
             opponent.reset()
 
-        match: Match
         matchesday: MatchsDay
         for matchesday in self.li_matchesdays:
             matchesday.update_opponents(self.swiss)
@@ -588,7 +587,6 @@ class Season:
         li_opponents.sort(key=comp, reverse=True)
         dic_xid_pos = {op.xid: pos for pos, op in enumerate(li_opponents, 1)}
 
-        op: Opponent
         dic_xid = {
             op.xid: {
                 "XID": op.xid,

@@ -291,12 +291,6 @@ def pmCheck():
 def Check():
     return iget("Check")
 
-def pmTablas():
-    return iget("pmTablas")
-
-def Tablas():
-    return iget("Tablas")
-
 def pmAtras():
     return iget("pmAtras")
 
@@ -2241,11 +2235,11 @@ def pmExport8():
 def Export8():
     return iget("Export8")
 
-def pmTablas8():
-    return iget("pmTablas8")
+def pmTablas():
+    return iget("pmTablas")
 
-def Tablas8():
-    return iget("Tablas8")
+def Tablas():
+    return iget("Tablas")
 
 def pmBlancas8():
     return iget("pmBlancas8")

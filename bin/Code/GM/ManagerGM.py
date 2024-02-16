@@ -334,7 +334,7 @@ class ManagerGM(Manager.Manager):
                 um = QTUtil2.analizando(self.main_window)
                 self.analyze_end()
                 rmUsu = self.xtutor.valora(position, from_sq, to_sq, promotion)
-                mrm.agregaRM(rmUsu)
+                mrm.add_rm(rmUsu)
                 self.analyze_begin()
                 um.final()
 
@@ -342,7 +342,7 @@ class ManagerGM(Manager.Manager):
             if rmGM is None:
                 self.analyze_end()
                 rmGM = self.xtutor.valora(position, desdeGM, hastaGM, promotionGM)
-                pos_gm = mrm.agregaRM(rmGM)
+                pos_gm = mrm.add_rm(rmGM)
                 self.analyze_begin()
 
             um.final()

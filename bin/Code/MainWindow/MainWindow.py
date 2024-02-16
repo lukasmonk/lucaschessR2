@@ -136,7 +136,7 @@ class MainWindow(LCDialog.LCDialog):
         self.activadoF11 = not self.activadoF11
         if self.activadoF11:
             if self.siInformacionPGN:
-                self.informacionPGN.save_width()
+                self.informacionPGN.save_width_parent()
             self.showFullScreen()
         else:
             self.showNormal()
@@ -528,3 +528,7 @@ class MainWindow(LCDialog.LCDialog):
 
     def is_active_analysisbar(self):
         return self.with_analysis_bar
+
+    def get_noboard_width(self):
+        return self.base.analysis_bar.width() + self.informacionPGN.width() + Code.configuration.x_pgn_width
+

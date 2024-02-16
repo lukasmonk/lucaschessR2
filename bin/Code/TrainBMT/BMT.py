@@ -83,7 +83,6 @@ class BMTUno:
         self.finished = False
 
     def calc_profundidad(self):
-        prof = 0
         mrm = self.mrm
         best_move = mrm.li_rm[0].from_sq + mrm.li_rm[0].to_sq
 
@@ -141,7 +140,7 @@ class BMTLista:
             self.dic_games[cl_game] = txt_game
 
     def dame_uno(self, num):
-        return self.li_bmt_uno[num]
+        return self.li_bmt_uno[num]  if num < len(self.li_bmt_uno) else None
 
     def max_puntos(self):
         mx = 0

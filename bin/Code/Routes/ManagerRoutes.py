@@ -16,7 +16,9 @@ from Code.Base.Constantes import (
     TB_NEXT,
     TB_UTILITIES,
     GT_ROUTES,
-    BOOK_RANDOM_UNIFORM
+    BOOK_RANDOM_UNIFORM,
+    TOP_RIGHT,
+    ON_TOOLBAR,
 )
 from Code.Endings import LibChess
 from Code.Books import Books
@@ -460,10 +462,10 @@ class ManagerRoutesEndings(ManagerRoutes):
             self.activate_side(is_white)
 
     def show_error(self, mens):
-        QTUtil2.temporary_message(self.main_window, "   %s    " % mens, 1, background="#FF9B00", physical_pos="ad")
+        QTUtil2.temporary_message(self.main_window, "   %s    " % mens, 1, background="#FF9B00", physical_pos=TOP_RIGHT)
 
     def show_mens(self, mens):
-        QTUtil2.temporary_message(self.main_window, mens, 4, physical_pos="tb", background="#C3D6E8")
+        QTUtil2.temporary_message(self.main_window, mens, 4, physical_pos=ON_TOOLBAR, background="#C3D6E8")
 
     def player_has_moved(self, from_sq, to_sq, promotion=""):
         jgSel = self.check_human_move(from_sq, to_sq, promotion)
@@ -675,12 +677,12 @@ class ManagerRoutesTactics(ManagerRoutes):
                         self.main_window,
                         _("You have selected one correct move, but the line use %s") % jgObj.pgn_translated(),
                         3,
-                        physical_pos="ad",
+                        physical_pos=TOP_RIGHT,
                     )
                     self.get_help(False)
                     self.sigueHumano()
                     return False
-            QTUtil2.temporary_message(self.main_window, _("Wrong move"), 0.8, physical_pos="ad")
+            QTUtil2.temporary_message(self.main_window, _("Wrong move"), 0.8, physical_pos=TOP_RIGHT)
             self.route.error_tactic(self.game_objetivo.num_moves())
             self.set_label2(self.route.mens_tactic(False))
             self.sigueHumano()

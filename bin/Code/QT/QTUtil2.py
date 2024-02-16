@@ -1,7 +1,8 @@
 from PySide2 import QtCore, QtWidgets, QtGui
 
 import Code
-from Code.Base.Constantes import GO_BACK, GO_END, GO_FORWARD, GO_START, ZVALUE_PIECE, ZVALUE_PIECE_MOVING
+from Code.Base.Constantes import (GO_BACK, GO_END, GO_FORWARD, GO_START, ZVALUE_PIECE, ZVALUE_PIECE_MOVING, TOP_RIGHT,
+                                  ON_TOOLBAR)
 from Code.QT import Colocacion
 from Code.QT import Controles
 from Code.QT import Iconos
@@ -25,7 +26,7 @@ class MensEspera(QtWidgets.QWidget):
             self,
             parent,
             mensaje,
-            if_cancel,
+            with_cancel,
             show_now,
             opacity,
             physical_pos,
@@ -60,7 +61,7 @@ class MensEspera(QtWidgets.QWidget):
         self.physical_pos = physical_pos
         self.is_canceled = False
 
-        if physical_pos == "tb":
+        if physical_pos == ON_TOOLBAR:
             fixed_size = parent.width()
 
         self.lb = lb = (
@@ -69,7 +70,7 @@ class MensEspera(QtWidgets.QWidget):
         if fixed_size is not None:
             lb.set_wrap().anchoFijo(fixed_size - 60)
 
-        if if_cancel:
+        if with_cancel:
             if not tit_cancel:
                 tit_cancel = _("Cancel")
             self.btCancelar = (
@@ -98,7 +99,7 @@ QPushButton:pressed {
         if with_image:
             ly.control(lbi, 0, 0, 3, 1)
         ly.controlc(lb, 1, 1)
-        if if_cancel:
+        if with_cancel:
             ly.controlc(self.btCancelar, 2, 1)
 
         ly.margen(24)
@@ -139,10 +140,13 @@ QPushButton:pressed {
         v = self.owner
         if v:
             s = self.size()
-            if self.physical_pos == "ad":
+            if self.physical_pos == TOP_RIGHT:
                 x = v.x() + v.width() - s.width()
+                w_screen = QtWidgets.QDesktopWidget().screenGeometry().width()
+                if x + s.width() > w_screen:
+                    x = w_screen - s.width() - 4
                 y = v.y() + 4
-            elif self.physical_pos == "tb":
+            elif self.physical_pos == ON_TOOLBAR:
                 x = v.x() + 4
                 y = v.y() + 4
             else:
@@ -174,7 +178,7 @@ class ControlWaitingMessage:
             self,
             parent,
             mensaje,
-            if_cancel=False,
+            with_cancel=False,
             show_now=True,
             opacity=0.91,
             physical_pos="c",
@@ -194,7 +198,7 @@ class ControlWaitingMessage:
         self.me = MensEspera(
             parent,
             mensaje,
-            if_cancel,
+            with_cancel,
             show_now,
             opacity,
             physical_pos,
@@ -262,14 +266,15 @@ def working(owner):
 
 
 class OneMomentPlease:
-    def __init__(self, owner, the_message=None, physical_pos=None):
+    def __init__(self, owner, the_message=None, physical_pos=None, with_cancel=False):
         self.owner = owner
         self.the_message = _("One moment please...") if the_message is None else the_message
         self.physical_pos = physical_pos
         self.um = None
+        self.with_cancel = with_cancel
 
     def __enter__(self):
-        self.um = waiting_message.start(self.owner, self.the_message, physical_pos=self.physical_pos)
+        self.um = waiting_message.start(self.owner, self.the_message, physical_pos=self.physical_pos, with_cancel=self.with_cancel)
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
@@ -280,9 +285,15 @@ class OneMomentPlease:
             self.um.final()
             self.um = None
 
+    def is_canceled(self):
+        if self.um and self.um.cancelado():
+            self.close()
+            return True
+        return False
 
-def analizando(owner, if_cancel=False):
-    return waiting_message.start(owner, _("Analyzing the move...."), physical_pos="ad", if_cancel=if_cancel)
+
+def analizando(owner, with_cancel=False):
+    return waiting_message.start(owner, _("Analyzing the move...."), physical_pos=TOP_RIGHT, with_cancel=with_cancel)
 
 
 def temporary_message(
@@ -293,11 +304,11 @@ def temporary_message(
         pm_image=None,
         physical_pos="c",
         fixed_size=None,
-        if_cancel=None,
+        with_cancel=None,
         tit_cancel=None,
 ):
-    if if_cancel is None:
-        if_cancel = seconds > 3.0
+    if with_cancel is None:
+        with_cancel = seconds > 3.0
     if tit_cancel is None:
         tit_cancel = _("Continue")
     me = waiting_message.start(
@@ -305,7 +316,7 @@ def temporary_message(
         mensaje,
         background=background,
         pm_image=pm_image,
-        if_cancel=if_cancel,
+        with_cancel=with_cancel,
         tit_cancel=tit_cancel,
         physical_pos=physical_pos,
         fixed_size=fixed_size,
@@ -800,4 +811,3 @@ def read_simple(owner, title, label, value, mas_info=None):
     if v.exec_():
         return v.resultado
     return None
-

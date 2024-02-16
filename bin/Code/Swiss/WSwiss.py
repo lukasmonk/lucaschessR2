@@ -693,7 +693,38 @@ class WSwiss(LCDialog.LCDialog):
                 self.show_match_done(xmatch)
 
     def grid_right_button(self, grid, row, col, modif):
-        self.grid_doble_click(grid, row, col)
+        if grid == self.grid_matches:
+            xmatch = self.li_matches[row]
+            if xmatch.result:
+                self.show_match_done(xmatch)
+                grid.refresh()
+            elif xmatch.is_human_vs_human(self.swiss):
+                game = Game.Game()
+                game.set_tag("Site", Code.lucas_chess)
+                game.set_tag("Event", self.swiss.name())
+                game.set_tag("Season", str(self.swiss.current_num_season + 1))
+                game.set_tag("White", self.swiss.opponent_by_xid(xmatch.xid_white).name())
+                game.set_tag("Black", self.swiss.opponent_by_xid(xmatch.xid_black).name())
+                panel = self.panel_classification
+                elo_white = elo_black = 0
+                for elem in panel:
+                    if elem["XID"] == xmatch.xid_white:
+                        elo_white = elem["ACT_ELO"]
+                    elif elem["XID"] == xmatch.xid_black:
+                        elo_black = elem["ACT_ELO"]
+                game.set_tag("WhiteElo", str(elo_white))
+                game.set_tag("BlackElo", str(elo_black))
+                result = QTVarios.get_result_game(self)
+                if result is None:
+                    return
+                game.set_tag("RESULT", result)
+                xmatch.result = game.resultado()
+                self.season.put_match_done(xmatch, game)
+                self.update_matches()
+                grid.refresh()
+                self.show_current_season()
+        else:
+            self.grid_doble_click(grid, row, col)
 
     def grid_doble_click(self, grid, row, o_column):
         if grid == self.grid_classification:
@@ -718,7 +749,7 @@ class WSwiss(LCDialog.LCDialog):
             else:
                 self.consult_matches(grid, row)
 
-        elif grid == self.grid_classification:
+        elif grid == self.grid_crosstabs:
             self.consult_matches_crosstabs(grid, row, o_column.key)
 
         elif grid == self.grid_games:
@@ -732,7 +763,7 @@ class WSwiss(LCDialog.LCDialog):
 
     def show_match_done(self, xmatch):
         game = self.season.get_game_match(xmatch)
-        if game:
+        if game is not None:
             game = Code.procesador.manager_game(self, game, True, False, None)
             if game:
                 if xmatch.is_human_vs_human(self.swiss):

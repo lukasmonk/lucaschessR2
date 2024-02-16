@@ -1282,7 +1282,7 @@ class WNameTheme(QtWidgets.QDialog):
         lb_section = Controles.LB2P(self, _("Section"))
         self.ed_section = Controles.ED(self, theme.get("SECCION", ""))
         bt_section = (
-            Controles.PB(self, "", self.mira_section).ponIcono(Iconos.BuscarC(), 16).ponToolTip(_("Section lists"))
+            Controles.PB(self, "", self.check_section).ponIcono(Iconos.BuscarC(), 16).ponToolTip(_("Section lists"))
         )
         ly_section = (
             Colocacion.H().control(lb_section).control(self.ed_section).espacio(-10).control(bt_section).relleno(1)
@@ -1309,7 +1309,7 @@ class WNameTheme(QtWidgets.QDialog):
         if not self.li_sections:
             bt_section.hide()
 
-    def mira_section(self):
+    def check_section(self):
         menu = QTVarios.LCMenuRondo(self)
         for section in self.li_sections:
             menu.opcion(section, section)

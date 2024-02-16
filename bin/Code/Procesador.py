@@ -42,6 +42,7 @@ from Code.Base.Constantes import (
     GT_HUMAN,
     OUT_REINIT,
     ENG_WICKER,
+    TOP_RIGHT,
 )
 from Code.Board import WBoardColors, Eboard
 from Code.Books import WFactory, WPolyglot, WBooksTrain, ManagerTrainBooks, WBooks, WBooksTrainOL, ManagerTrainBooksOL
@@ -1242,7 +1243,7 @@ class Procesador:
 
     def one_moment_please(self, mensaje=None):
         return QTUtil2.waiting_message.start(
-            self.main_window, mensaje if mensaje else _("One moment please..."), physical_pos="ad"
+            self.main_window, mensaje if mensaje else _("One moment please..."), physical_pos=TOP_RIGHT
         )
 
     def num_rows(self):

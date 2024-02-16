@@ -96,8 +96,8 @@ class WPosicion(QtWidgets.QWidget):
         drag_drop_wb = QTVarios.ListaPiezas(self, "P,N,B,R,Q,K", self.board, margen=0)
         drag_drop_ba = QTVarios.ListaPiezas(self, "k,q,r,b,n,p", self.board, margen=0)
 
-        self.rbWhite = Controles.RB(self, _("White"), rutina=self.cambiaColor)
-        self.rbBlack = Controles.RB(self, _("Black"), rutina=self.cambiaColor)
+        self.rbWhite = Controles.RB(self, _("White"), rutina=self.change_side)
+        self.rbBlack = Controles.RB(self, _("Black"), rutina=self.change_side)
 
         self.cbWoo = Controles.CHB(self, _("White") + " O-O", True)
         self.cbWooo = Controles.CHB(self, _("White") + " O-O-O", True)
@@ -223,7 +223,7 @@ class WPosicion(QtWidgets.QWidget):
     def closeEvent(self, event):
         self.scanner_write()
 
-    def cambiaColor(self):
+    def change_side(self):
         self.board.set_side_indicator(self.rbWhite.isChecked())
         self.actPosicion()
         self.resetPosicion()

@@ -233,7 +233,7 @@ class WJuicio(LCDialog.LCDialog):
             um = QTUtil2.analizando(self)
             self.manager.analyze_end()
             rmUsuN = self.xengine.valora(self.position, self.rmUsu.from_sq, self.rmUsu.to_sq, self.rmUsu.promotion)
-            mrm.agregaRM(rmUsuN)
+            mrm.add_rm(rmUsuN)
             self.manager.analyze_begin()
             um.final()
 
@@ -244,7 +244,7 @@ class WJuicio(LCDialog.LCDialog):
             um = QTUtil2.analizando(self)
             self.manager.analyze_end()
             rmObjN = self.xengine.valora(self.position, self.rmObj.from_sq, self.rmObj.to_sq, self.rmObj.promotion)
-            pos = mrm.agregaRM(rmObjN)
+            pos = mrm.add_rm(rmObjN)
             self.manager.analyze_begin()
             um.final()
 

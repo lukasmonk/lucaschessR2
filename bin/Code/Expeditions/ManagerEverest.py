@@ -284,7 +284,7 @@ class ManagerEverest(Manager.Manager):
                 um = QTUtil2.analizando(self.main_window)
                 self.analyze_end()
                 rm_usu = self.xanalyzer.valora(position, from_sq, to_sq, promotion)
-                mrm.agregaRM(rm_usu)
+                mrm.add_rm(rm_usu)
                 self.analyze_begin()
                 um.final()
 

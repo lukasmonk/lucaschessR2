@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # ==============================================================================
 # Author : Lucas Monge, lukasmonk@gmail.com
-# Web : http://lucaschess.pythonanywhere.com/
-# Blog : http://lucaschess.blogspot.com
+# Web : https://lucaschess.pythonanywhere.com/
+# Blog : https://lucaschess.blogspot.com
 # Licence : GPL 3.0
 # ==============================================================================
 

@@ -349,7 +349,7 @@ class WGames(QtWidgets.QWidget):
         if total:
             registro = QTUtil2.read_simple(self, self.dbGames.get_name(), _("Go to the record"), "")
             if registro and registro.isdigit():
-                num_registro = min(max(int(registro)-1, 0), total-1)
+                num_registro = min(max(int(registro) - 1, 0), total - 1)
                 self.grid.goto(num_registro, 0)
 
     def closeEvent(self, event):
@@ -1084,14 +1084,12 @@ class WGames(QtWidgets.QWidget):
             self.tw_massive_analysis_n_workers(alm, nregs, li_seleccionadas)
 
     def tw_massive_analysis_n_workers(self, alm, nregs, li_seleccionadas):
-
         rac = RunAnalysisControl.AnalysisMassiveWithWorkers(self, alm, nregs, li_seleccionadas)
         rac.run()
 
         self.procesador.entrenamientos.menu = None
 
     def tw_massive_analysis_1_worker(self, alm, nregs, li_seleccionadas):
-
         tmp_bp = QTUtil2.BarraProgreso2(self, _("Mass analysis"), formato2="%p%")
         tmp_bp.set_total(1, nregs)
         tmp_bp.put_label(1, _("Game"))
@@ -1502,7 +1500,7 @@ class WOptionsDatabase(QtWidgets.QDialog):
         lb_group = Controles.LB2P(self, _("Group"))
         self.ed_group = Controles.ED(self, group).controlrx(valid_rx)
         self.bt_group = (
-            Controles.PB(self, "", self.mira_group).ponIcono(Iconos.BuscarC(), 16).ponToolTip(_("Group lists"))
+            Controles.PB(self, "", self.check_group).ponIcono(Iconos.BuscarC(), 16).ponToolTip(_("Group lists"))
         )
         ly_group = (
             Colocacion.H().control(lb_group).control(self.ed_group).espacio(-10).control(self.bt_group).relleno(1)
@@ -1511,7 +1509,7 @@ class WOptionsDatabase(QtWidgets.QDialog):
         lb_subgroup_l1 = Controles.LB2P(self, _("Subgroup"))
         self.ed_subgroup_l1 = Controles.ED(self, subgroup1).controlrx(valid_rx)
         self.bt_subgroup_l1 = (
-            Controles.PB(self, "", self.mira_subgroup_l1).ponIcono(Iconos.BuscarC(), 16).ponToolTip(_("Group lists"))
+            Controles.PB(self, "", self.check_subgroup_l1).ponIcono(Iconos.BuscarC(), 16).ponToolTip(_("Group lists"))
         )
         ly_subgroup_l1 = (
             Colocacion.H()
@@ -1526,7 +1524,7 @@ class WOptionsDatabase(QtWidgets.QDialog):
         lb_subgroup_l2 = Controles.LB2P(self, "%s → %s" % (_("Subgroup"), _("Subgroup")))
         self.ed_subgroup_l2 = Controles.ED(self, subgroup2).controlrx(valid_rx)
         self.bt_subgroup_l2 = (
-            Controles.PB(self, "", self.mira_subgroup_l2).ponIcono(Iconos.BuscarC(), 16).ponToolTip(_("Group lists"))
+            Controles.PB(self, "", self.check_subgroup_l2).ponIcono(Iconos.BuscarC(), 16).ponToolTip(_("Group lists"))
         )
         ly_subgroup_l2 = (
             Colocacion.H()
@@ -1622,12 +1620,12 @@ class WOptionsDatabase(QtWidgets.QDialog):
                     menu.opcion(direc, direc, rondo.otro())
                 return menu.lanza()
 
-    def mira_group(self):
+    def check_group(self):
         resp = self.menu_groups(self.configuration.folder_databases())
         if resp:
             self.ed_group.set_text(resp)
 
-    def mira_subgroup_l1(self):
+    def check_subgroup_l1(self):
         group = self.ed_group.texto().strip()
         if group:
             carpeta = os.path.join(self.configuration.folder_databases(), group)
@@ -1635,7 +1633,7 @@ class WOptionsDatabase(QtWidgets.QDialog):
             if resp:
                 self.ed_subgroup_l1.set_text(resp)
 
-    def mira_subgroup_l2(self):
+    def check_subgroup_l2(self):
         group = self.ed_group.texto().strip()
         if group:
             subgroup = self.ed_subgroup_l1.texto().strip()

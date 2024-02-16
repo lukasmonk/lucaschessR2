@@ -465,7 +465,7 @@ class WAnalisis(LCDialog.LCDialog):
             si_cancelar = xanalyzer.mstime_engine > 1000 or xanalyzer.depth_engine > 8
             mens = _("Analyzing the move....")
             me = QTUtil2.waiting_message.start(
-                self, mens, if_cancel=si_cancelar, tit_cancel=_("Stop thinking"), opacity=1.0
+                self, mens, with_cancel=si_cancelar, tit_cancel=_("Stop thinking"), opacity=1.0
             )
 
             if si_cancelar:

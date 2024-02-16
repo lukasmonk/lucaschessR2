@@ -4,9 +4,11 @@ import FasterCode
 from PySide2 import QtWidgets, QtCore
 
 import Code
+from Code.Base.Constantes import WHITE, BLACK
 from Code.Base import Game, Position
 from Code.Books import Books, WBooks
 from Code.Databases import WDB_Summary, DBgamesST, WDB_Games, DBgames
+from Code.Openings import OpeningLines
 from Code.QT import Colocacion, FormLayout
 from Code.QT import Columnas
 from Code.QT import Controles
@@ -14,6 +16,8 @@ from Code.QT import Delegados
 from Code.QT import Grid
 from Code.QT import Iconos
 from Code.QT import QTVarios
+from Code.QT import QTUtil
+from Code.QT import QTUtil2
 
 
 class TabEngine(QtWidgets.QWidget):
@@ -546,12 +550,35 @@ class TabTree(QtWidgets.QWidget):
 
         self.tree = TreeMoves(self)
 
+        self.tree_data = None
+
         self.tree.setAlternatingRowColors(True)
 
         self.tree.setIndentation(24)
+        self.tree.setUniformRowHeights(True)
         self.tree.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
         self.tree.customContextMenuRequested.connect(self.menuContexto)
-        self.tree.setStyleSheet("selection-background-color: #F1D369; selection-color: #000000;")
+        self.tree.setStyleSheet(
+            """
+            QTreeView {
+                font-family: Arial;
+                font-size: 12px;
+            }
+
+            QTreeView::item {
+                padding: 3px;
+                margin-left:  -5px;
+                border:  1px solid lightgray;
+            }
+
+            QTreeView::item:selected {
+                background-color: #F1D369;
+                color: #000000;
+                padding: 1px;
+            }
+            """
+        )
+
         self.tree.setFont(Controles.TipoLetra(puntos=configuration.x_pgn_fontpoints))
         self.tree.setHeaderLabels((_("Moves"), _("Opening")))
 
@@ -571,31 +598,40 @@ class TabTree(QtWidgets.QWidget):
             data_item = self.dicItems[str(item)]
             self.lb_analisis.set_text(data_item.game())
             lipv = data_item.listaPV()
-            self.tabsAnalisis.panelOpening.goto_next_lipv(lipv)
+            li_moves_childs = [xchild.move for xchild in data_item.dicHijos.values()]
+            self.tabsAnalisis.panelOpening.goto_next_lipv(lipv, li_moves_childs)
         self.tree.resizeColumnToContents(0)
 
     def bt_update(self):
-        self.tree.clear()
+        with QTUtil2.OneMomentPlease(self.parent().parent().parent(), with_cancel=True) as um:
+            self.tree.clear()
 
-        dbop = self.tabsAnalisis.dbop
-        levelbase = len(dbop.basePV.split(" "))
+            dbop = self.tabsAnalisis.dbop
+            levelbase = len(dbop.basePV.split(" "))
 
-        def haz(trdata, iparent, nivel):
-            for move, hijo in trdata.dicHijos.items():
-                item = QtWidgets.QTreeWidgetItem(iparent)
-                item.setText(0, hijo.pgn)
-                item.setText(1, hijo.opening)
-                hijo.item = item
-                if nivel < (levelbase + 1):
-                    item.setExpanded(True)
-                self.dicItems[str(item)] = hijo
-                haz(hijo, item, nivel + 1)
+            def haz(trdata, iparent, nivel):
+                if um.is_canceled():
+                    return False
+                for move, hijo in trdata.dicHijos.items():
+                    if um.is_canceled():
+                        return False
+                    item = QtWidgets.QTreeWidgetItem(iparent)
+                    item.setText(0, hijo.pgn)
+                    item.setText(1, hijo.opening)
+                    hijo.item = item
+                    if nivel < (levelbase + 1):
+                        item.setExpanded(True)
+                    self.dicItems[str(item)] = hijo
+                    if not haz(hijo, item, nivel + 1):
+                        return False
+                return True
 
-        self.tree_data = self.tabsAnalisis.dbop.totree()
-        haz(self.tree_data, self.tree, 1)
-        self.tree.resizeColumnToContents(0)
+            self.tree_data = self.tabsAnalisis.dbop.totree(um)
 
-        self.lb_analisis.set_text("")
+            haz(self.tree_data, self.tree, 1)
+            self.tree.resizeColumnToContents(0)
+
+            self.lb_analisis.set_text("")
 
     def start(self):
         if len(self.dicItems) == 0:
@@ -623,24 +659,38 @@ class TabTree(QtWidgets.QWidget):
         menu1.opcion("collapseall", _("All"), Iconos.PuntoVerde())
         menu1.separador()
         menu1.opcion("collapsethis", _("This branch"), Iconos.PuntoAmarillo())
+
+        menu.separador()
+        menu1 = menu.submenu(_("Next position with more that one move"), Iconos.GoToNext())
+        menu1.opcion("next>1_white", _("White"), Iconos.Blancas())
+        menu1.separador()
+        menu1.opcion("next>1_black", _("Black"), Iconos.Negras())
+
         menu.separador()
         menu.opcion("remove", _("Remove this branch"), Iconos.Delete())
         resp = menu.lanza()
         if resp:
             if resp == "expandthis":
-                quien, siExpand = item, True
+                quien, si_expand = item, True
 
             elif resp == "expandall":
-                quien, siExpand = None, True
+                quien, si_expand = None, True
 
             elif resp == "collapsethis":
-                quien, siExpand = item, False
+                quien, si_expand = item, False
 
             elif resp == "collapseall":
-                quien, siExpand = None, False
+                quien, si_expand = None, False
 
             elif resp == "remove":
                 self.remove_branch(item)
+                return
+
+            elif resp == "next>1_white":
+                self.goto_next(item, WHITE)
+                return
+            elif resp == "next>1_black":
+                self.goto_next(item, BLACK)
                 return
             else:
                 return
@@ -648,25 +698,91 @@ class TabTree(QtWidgets.QWidget):
         else:
             return
 
-        def work(data):
-            item = data.item
-            if item:
-                item.setExpanded(siExpand)
+        with QTUtil2.OneMomentPlease(self.parent().parent().parent(), with_cancel=True) as um:
 
-            for uno, datauno in data.dicHijos.items():
-                work(datauno)
+            def work(xdata):
+                if um.is_canceled():
+                    return False
+                xitem = xdata.item
+                if xitem:
+                    xitem.setExpanded(si_expand)
 
-        data = self.dicItems[str(quien)] if quien else self.tree_data
-        work(data)
-        self.tree.resizeColumnToContents(0)
+                for uno, datauno in xdata.dicHijos.items():
+                    if not work(datauno):
+                        return False
+                return True
 
-    def remove_branch(self, item):
+            data = self.dicItems[str(quien)] if quien else self.tree_data
+            work(data)
+            self.tree.resizeColumnToContents(0)
+
+    def goto_next(self, item: QtWidgets.QTreeWidgetItem, side):
+        def work(xdata: OpeningLines.ItemTree):
+            if xdata.side_resp == side:
+                if len(xdata.dicHijos) > 1:
+                    return xdata
+
+            for xdatauno in xdata.dicHijos.values():
+                resp = work(xdatauno)
+                if resp:
+                    return resp
+
+            return None
+
+        def show_data(xfound):
+            xitem = xfound.item
+            xitem.setExpanded(True)
+            self.tree.setCurrentItem(xitem)
+            self.tree.show()
+            QTUtil.refresh_gui()
+            self.tree.resizeColumnToContents(0)
+            self.tree.setFocus()
+            self.seleccionado()
+
+        data_active = self.dicItems[str(item)] if item else self.tree_data
+
+        while data_active:
+            for datauno in data_active.dicHijos.values():
+                found = work(datauno)
+                if found:
+                    show_data(found)
+                    return
+            # vamos al siguiente hermano ... hermano de padre ....
+            data_active = data_active.next_in_parent()
+
+        QTUtil2.message(self, _("Ended"))
+
+    def remove_branch(self, item: QtWidgets.QTreeWidgetItem):
         data_item = self.dicItems[str(item)]
         lipv = data_item.listaPV()
         a1h8 = " ".join(lipv)
         pgn = data_item.game()
-        self.tabsAnalisis.panelOpening.remove_pv(pgn, a1h8)
-        self.bt_update()
+        if not self.tabsAnalisis.panelOpening.remove_pv(pgn, a1h8):
+            return
+
+        parent = item.parent()
+        if parent is None:
+            index = self.tree.indexOfTopLevelItem(item)
+            if index != -1:
+                self.tree.takeTopLevelItem(index)
+            return
+
+        parent.removeChild(item)
+        del self.dicItems[str(item)]
+
+        num_hijos = parent.childCount()
+        while num_hijos == 0:
+            parent_parent = parent.parent()
+            if parent_parent is None:
+                index = self.tree.indexOfTopLevelItem(parent)
+                if index != -1:
+                    self.tree.takeTopLevelItem(index)
+                    del self.dicItems[str(parent)]
+                break
+            parent_parent.removeChild(parent)
+            del self.dicItems[str(parent)]
+            parent = parent_parent
+            num_hijos = parent.childCount()
 
 
 class TabsAnalisis(QtWidgets.QWidget):

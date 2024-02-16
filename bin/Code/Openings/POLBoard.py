@@ -341,3 +341,6 @@ class BoardLines(QtWidgets.QWidget):
             if self.configuration.x_beep_replay:
                 Code.runSound.playBeep()
             QtCore.QTimer.singleShot(self.configuration.x_interval_replay, self.lanzaReloj)
+
+    def show_responses(self, li_moves):
+        self.board.put_arrow_scvar([(move[:2], move[2:4]) for move in li_moves])

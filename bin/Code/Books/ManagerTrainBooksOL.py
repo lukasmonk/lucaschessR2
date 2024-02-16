@@ -13,6 +13,7 @@ from Code.Base.Constantes import (
     TB_NEXT,
     TB_UTILITIES,
     GT_TRAINBOOKSOL,
+    TOP_RIGHT
 )
 from Code.Books import WBooksTrainOL
 from Code.Engines import EngineResponse
@@ -240,7 +241,7 @@ class ManagerTrainBooksOL(Manager.Manager):
                 mens = "%s: %d" % (_("Error"), self.current_errors)
                 background = "#FF9B00"
 
-            QTUtil2.temporary_message(self.main_window, mens, 1.5, physical_pos="ad", background=background)
+            QTUtil2.temporary_message(self.main_window, mens, 1.5, physical_pos=TOP_RIGHT, background=background)
             self.show_labels()
             self.sigueHumano()
             return False

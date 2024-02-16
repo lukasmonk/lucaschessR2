@@ -477,10 +477,6 @@ class Manager:
                         rm0 = mrm.mejorMov()
                         self.board.put_arrow_scvar([(rm0.from_sq, rm0.to_sq)])
 
-            # else:
-            #     dic = self.game.last_position.capturas_diferencia()
-            # if self.game.last_position.fen() != self.board.last_position.fen():
-            # prin t("diferentes")
             dic = self.board.last_position.capturas_diferencia()
 
             nom_opening = ""
@@ -499,12 +495,12 @@ class Manager:
                     self.main_window.put_informationPGN(None, move, nom_opening)
 
             if self.kibitzers_manager.some_working():
-                if self.si_mira_kibitzers():
-                    self.mira_kibitzers(True)
+                if self.si_check_kibitzers():
+                    self.check_kibitzers(True)
                 else:
                     self.kibitzers_manager.stop()
 
-    def si_mira_kibitzers(self):
+    def si_check_kibitzers(self):
         return (self.state == ST_ENDGAME) or (not self.is_competitive)
 
     def current_game(self):
@@ -520,7 +516,7 @@ class Manager:
             game_run = Game.Game(self.board.last_position)
         return game_run
 
-    def mira_kibitzers(self, all_kibitzers):
+    def check_kibitzers(self, all_kibitzers):
         game_run = self.current_game()
         self.kibitzers_manager.put_game(game_run, self.board.is_white_bottom, not all_kibitzers)
 
@@ -1058,6 +1054,7 @@ class Manager:
             if is_all:
                 variations = ratings = comments = analysis = themes = True
             self.game.remove_info_moves(variations, ratings, comments, analysis, themes)
+            self.put_view()
             self.refresh_pgn()
             self.refresh()
 
@@ -1194,7 +1191,7 @@ class Manager:
         else:
             huella = orden
             self.kibitzers_manager.run_new(huella)
-            self.mira_kibitzers(False)
+            self.check_kibitzers(False)
 
     def paraHumano(self):
         self.human_is_playing = False
@@ -1508,7 +1505,7 @@ class Manager:
         menu.separador()
 
         # Kibitzers
-        if self.si_mira_kibitzers():
+        if self.si_check_kibitzers():
             menu.separador()
             menu_kibitzers = menu.submenu(_("Kibitzers"), Iconos.Kibitzer())
 

@@ -13,6 +13,7 @@ from Code.QT import Grid
 from Code.QT import Iconos
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
+from Code.Base.Constantes import TOP_RIGHT
 
 OPENINGS_WHITE, OPENINGS_BLACK, MOVES_WHITE, MOVES_BLACK = range(4)
 
@@ -495,7 +496,7 @@ class WPlayer(QtWidgets.QWidget):
 
         pb.close()
 
-        um = QTUtil2.one_moment_please(self, _("Working..."), physical_pos="ad")
+        um = QTUtil2.one_moment_please(self, _("Working..."), physical_pos=TOP_RIGHT)
 
         def color3(x, y, z):
             if x > y and x > z:

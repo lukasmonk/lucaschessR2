@@ -391,7 +391,7 @@ class WGenBooksTrainOL(LCDialog.LCDialog):
         mens_work = _("Working...")
         mens_depth = _("Depth")
         mens_lines = _("Lines")
-        um = QTUtil2.waiting_message.start(self, mens_work, if_cancel=True)
+        um = QTUtil2.waiting_message.start(self, mens_work, with_cancel=True)
         um.end_with_canceled = False
 
         def dispatch(xdepth, xlines):

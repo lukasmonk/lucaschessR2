@@ -3,6 +3,7 @@ from typing import List, Tuple
 import Code
 from Code.Analysis import AnalysisIndexes, WindowAnalysis, WindowAnalysisVariations
 from Code.Base import Game, Move
+from Code.Base.Constantes import TOP_RIGHT
 from Code.Engines import EngineResponse
 from Code.QT import QTUtil
 from Code.QT import QTUtil2
@@ -218,7 +219,8 @@ class CreateAnalysis:
     def create_initial_show(self, main_window, xengine):
         move = self.move
         if move.analysis is None:
-            me = QTUtil2.waiting_message.start(main_window, _("Analyzing the move...."), physical_pos="ad", if_cancel=True)
+            me = QTUtil2.waiting_message.start(main_window, _("Analyzing the move...."), physical_pos=TOP_RIGHT,
+                                               with_cancel=True)
 
             def mira(rm):
                 return not me.cancelado()
@@ -255,7 +257,7 @@ class CreateAnalysis:
                 conf_engine.update_multipv(alm.multiPV)
                 xengine = self.procesador.creaManagerMotor(conf_engine, alm.vtime, alm.depth, siMultiPV=True)
 
-        me = QTUtil2.waiting_message.start(main_window, _("Analyzing the move...."), physical_pos="ad")
+        me = QTUtil2.waiting_message.start(main_window, _("Analyzing the move...."), physical_pos=TOP_RIGHT)
         mrm, pos = xengine.analysis_move(self.move, alm.vtime, alm.depth)
         xengine.terminar()
         me.final()

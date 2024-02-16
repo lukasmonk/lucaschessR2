@@ -10,7 +10,7 @@ from Code import Util
 from Code.Analysis import Analysis
 from Code.Base import Game
 from Code.Base.Constantes import BOOK_BEST_MOVE, BOOK_RANDOM_UNIFORM, BOOK_RANDOM_PROPORTIONAL
-from Code.Base.Constantes import NONE, ALL, ONLY_BLACK, ONLY_WHITE
+from Code.Base.Constantes import NONE, ALL, ONLY_BLACK, ONLY_WHITE, TOP_RIGHT
 from Code.Books import Books, Polyglot, WBooks
 from Code.Databases import DBgames
 from Code.Engines import EnginesBunch
@@ -133,7 +133,7 @@ class WLines(LCDialog.LCDialog):
         r = "%s %%s" % _("Result")
         submenu.opcion("1-0", r % "1-0", Iconos.Blancas8())
         submenu.opcion("0-1", r % "0-1", Iconos.Negras8())
-        submenu.opcion("1/2-1/2", r % "1/2-1/2", Iconos.Tablas8())
+        submenu.opcion("1/2-1/2", r % "1/2-1/2", Iconos.Tablas())
         submenu.opcion("", _("Without Result"), Iconos.Gris())
         resp = menu.lanza()
         if resp is not None:
@@ -598,8 +598,9 @@ class WLines(LCDialog.LCDialog):
             frommenu.separador()
             frommenu.opcion(("polyglot", game_base), _("Polyglot book"), Iconos.Libros())
             frommenu.separador()
-            frommenu.opcion(("summary", game_base), _("Database opening explorer"), Iconos.Database())
+            frommenu.opcion(("database", game_base), _("Database"), Iconos.Database())
             frommenu.separador()
+            frommenu.opcion(("summary", game_base), _("Database opening explorer"), Iconos.DatabaseImport())
 
             if all:
                 frommenu.separador()
@@ -638,6 +639,8 @@ class WLines(LCDialog.LCDialog):
             self.import_polyglot(game)
         elif tipo == "summary":
             self.import_dbopening_explorer(game)
+        elif tipo == "database":
+            self.import_database(game)
         elif tipo == "voyager2":
             self.voyager2(game)
         elif tipo == "opening":
@@ -734,6 +737,55 @@ class WLines(LCDialog.LCDialog):
                 self.glines.refresh()
                 self.glines.gotop()
 
+    def read_config_vars(self):
+        key_var = "OPENINGLINES"
+        return self.configuration.read_variables(key_var)
+
+    def write_config_vars(self, dic):
+        key_var = "OPENINGLINES"
+        self.configuration.write_variables(key_var, dic)
+
+    def read_params_import(self, path):
+        dic_vars = self.read_config_vars()
+
+        form = FormLayout.FormLayout(self, os.path.basename(path), Iconos.Import8(), anchoMinimo=460)
+        form.separador()
+
+        form.apart(_("Select the number of half-moves <br> for each game to be considered"))
+
+        form.spinbox(_("Depth"), 3, 999, 50, dic_vars.get("IPGN_DEPTH", 30))
+        form.separador()
+
+        li_variations = ((_("All"), ALL), (_("None"), NONE), (_("White"), ONLY_WHITE), (_("Black"), ONLY_BLACK))
+        form.combobox(_("Include variations"), li_variations, dic_vars.get("IPGN_VARIATIONSMODE", "A"))
+        form.separador()
+
+        form.checkbox(_("Include comments"), dic_vars.get("IPGN_COMMENTS", True))
+        form.separador()
+
+        resultado = form.run()
+
+        if resultado:
+            accion, li_resp = resultado
+            dic_vars["IPGN_DEPTH"] = depth = li_resp[0]
+            dic_vars["IPGN_VARIATIONSMODE"] = variations = li_resp[1]
+            dic_vars["IPGN_COMMENTS"] = comments = li_resp[2]
+            self.write_config_vars(dic_vars)
+            return  depth, variations, comments
+        else:
+            return None, None, None
+
+    def import_database(self, game):
+        path_db = QTVarios.select_db(self, self.configuration, True, False)
+        if not path_db:
+            return
+
+        depth, variations, comments = self.read_params_import(path_db)
+        if depth is not None:
+            self.dbop.import_db(self, game, path_db, depth, variations, comments)
+            self.glines.refresh()
+            self.glines.gotop()
+
     def import_polyglot(self, game):
         w = WImportPolyglot(self, game)
         if w.exec_():
@@ -741,53 +793,31 @@ class WLines(LCDialog.LCDialog):
             self.glines.gotop()
 
     def import_pgn(self, game):
-        key_var = "OPENINGLINES"
-        previo = self.configuration.read_variables(key_var)
-        carpeta = previo.get("CARPETAPGN", "")
+        dic_vars = self.read_config_vars()
+        carpeta = dic_vars.get("CARPETAPGN", "")
 
-        fichero_pgn = SelectFiles.leeFichero(self, carpeta, "pgn", titulo=_("File to import"))
-        if not fichero_pgn:
+        path_pgn = SelectFiles.leeFichero(self, carpeta, "pgn", titulo=_("File to import"))
+        if not path_pgn:
             return
-        previo["CARPETAPGN"] = os.path.dirname(fichero_pgn)
+        dic_vars["CARPETAPGN"] = os.path.dirname(path_pgn)
+        self.write_config_vars(dic_vars)
 
-        form = FormLayout.FormLayout(self, os.path.basename(fichero_pgn), Iconos.PGN_Importar(), anchoMinimo=460)
-        form.separador()
+        depth, variations, comments = self.read_params_import(path_pgn)
 
-        form.apart(_("Select the number of half-moves <br> for each game to be considered"))
-
-        form.spinbox(_("Depth"), 3, 999, 50, previo.get("IPGN_DEPTH", 30))
-        form.separador()
-
-        liVariations = ((_("All"), ALL), (_("None"), NONE), (_("White"), ONLY_WHITE), (_("Black"), ONLY_BLACK))
-        form.combobox(_("Include variations"), liVariations, previo.get("IPGN_VARIATIONSMODE", "A"))
-        form.separador()
-
-        form.checkbox(_("Include comments"), previo.get("IPGN_COMMENTS", True))
-        form.separador()
-
-        resultado = form.run()
-
-        if resultado:
-            accion, liResp = resultado
-            previo["IPGN_DEPTH"] = depth = liResp[0]
-            previo["IPGN_VARIATIONSMODE"] = variations = liResp[1]
-            previo["IPGN_COMMENTS"] = comments = liResp[2]
-            self.configuration.write_variables(key_var, previo)
-
-            self.dbop.import_pgn(self, game, fichero_pgn, depth, variations, comments)
+        if depth is not None:
+            self.dbop.import_pgn(self, game, path_pgn, depth, variations, comments)
             self.glines.refresh()
             self.glines.gotop()
 
     def ta_import_pgn_comments(self):
-        key_var = "OPENINGLINES"
-        dic_var = self.configuration.read_variables(key_var)
+        dic_var = self.read_config_vars()
         carpeta = dic_var.get("CARPETAPGN", "")
 
         fichero_pgn = SelectFiles.leeFichero(self, carpeta, "pgn", titulo=_("File to import"))
         if not fichero_pgn:
             return
         dic_var["CARPETAPGN"] = os.path.dirname(fichero_pgn)
-        self.configuration.write_variables(key_var, dic_var)
+        self.write_config_vars(dic_var)
 
         self.dbop.import_pgn_comments(self, fichero_pgn)
         self.glines.refresh()
@@ -930,7 +960,7 @@ class WLines(LCDialog.LCDialog):
                 mrm = dic["ANALISIS"]
                 move.analysis = mrm, 0
             else:
-                me = QTUtil2.waiting_message.start(self, _("Analyzing the move...."), physical_pos="ad")
+                me = QTUtil2.waiting_message.start(self, _("Analyzing the move...."), physical_pos=TOP_RIGHT)
 
                 move.analysis = xanalyzer.analizaJugadaPartida(
                     game, len(game) - 1, xanalyzer.mstime_engine, xanalyzer.depth_engine, window=self
@@ -1185,6 +1215,8 @@ class WLines(LCDialog.LCDialog):
             self.refresh_lines()
             self.goto_inilinea()
             um.final()
+            return True
+        return False
 
     def remove_info(self):
         form = FormLayout.FormLayout(self, _("Remove"), Iconos.Delete(), font_txt=Controles.TipoLetra(puntos=10))
@@ -1251,7 +1283,7 @@ class WLines(LCDialog.LCDialog):
         self.glines.goto(row, ncol)
         self.glines.refresh()
 
-    def goto_next_lipv(self, lipv):
+    def goto_next_lipv(self, lipv, li_moves_childs):
         li = self.dbop.get_numlines_pv(lipv, base=0)
         linea_actual = self.glines.recno() // 2
 
@@ -1280,6 +1312,8 @@ class WLines(LCDialog.LCDialog):
         ncol -= self.num_jg_inicial // 2
         self.glines.goto(row, ncol)
         self.glines.refresh()
+
+        self.pboard.show_responses(li_moves_childs)
 
     def final_processes(self):
         board = self.pboard.board
@@ -1489,7 +1523,7 @@ class WImportPolyglot(LCDialog.LCDialog):
         mens_work = _("Working...")
         mens_depth = _("Depth")
         mens_lines = _("Lines")
-        um = QTUtil2.waiting_message.start(self, mens_work, if_cancel=True)
+        um = QTUtil2.waiting_message.start(self, mens_work, with_cancel=True)
         um.end_with_canceled = False
 
         def dispatch(xdepth, xlines):

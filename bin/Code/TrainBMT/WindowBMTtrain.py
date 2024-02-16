@@ -105,7 +105,7 @@ class WTrainBMT(LCDialog.LCDialog):
 
         # BT posiciones ---------------------------------------------------------------
         self.liBT = []
-        nSalto = (self.board.ancho + 34) // 26
+        n_salto = (self.board.ancho + 34) // 26
         self.dicIconos = {
             0: Iconos.PuntoBlanco(),
             1: Iconos.PuntoNegro(),
@@ -123,7 +123,7 @@ class WTrainBMT(LCDialog.LCDialog):
         number = 0
         nposic = len(self.bmt_lista)
         for bmt_lista in range(nposic):
-            bt = Controles.PB(self, str(bmt_lista + 1), rutina=self.number).anchoFijo(44) #.altoFijo(20)
+            bt = Controles.PB(self, str(bmt_lista + 1), rutina=self.number).anchoFijo(44)
             bt.number = number
             number += 1
             estado = self.bmt_lista.state(bmt_lista)
@@ -132,7 +132,7 @@ class WTrainBMT(LCDialog.LCDialog):
 
             lyBT.controlc(bt, nfila, ncolumna)
             nfila += 1
-            if nfila == nSalto:
+            if nfila == n_salto:
                 ncolumna += 1
                 nfila = 0
         # if ncolumna == 0:
@@ -200,15 +200,15 @@ class WTrainBMT(LCDialog.LCDialog):
 
     def muestraControles(self, si):
         for control in (
-            self.lbJuegan,
-            self.board,
-            self.lbPuntos,
-            self.lbSegundos,
-            self.lbPrimera,
-            self.lb_conditions,
-            self.lb_game,
-            self.pgn,
-            self.gbRM,
+                self.lbJuegan,
+                self.board,
+                self.lbPuntos,
+                self.lbSegundos,
+                self.lbPrimera,
+                self.lb_conditions,
+                self.lb_game,
+                self.pgn,
+                self.gbRM,
         ):
             control.setVisible(si)
 
@@ -291,11 +291,11 @@ class WTrainBMT(LCDialog.LCDialog):
         total, hechos, t_puntos, t_segundos, t_estado = self.bmt_lista.calc_thpse()
 
         if (
-            (hechos != ahechos)
-            or (t_puntos != at_puntos)
-            or (t_segundos != at_segundos)
-            or (t_estado != at_estado)
-            or len(self.borrar_fen_lista) > 0
+                (hechos != ahechos)
+                or (t_puntos != at_puntos)
+                or (t_segundos != at_segundos)
+                or (t_estado != at_estado)
+                or len(self.borrar_fen_lista) > 0
         ):
 
             reg = self.dbf.baseRegistro()
@@ -350,7 +350,7 @@ class WTrainBMT(LCDialog.LCDialog):
         li_gen = [(None, None)]
         liJ = []
 
-        for x in reversed(range(5, 10)):
+        for x in reversed(range(4, 10)):
             if num_pos_estate[x] > 0:
                 label = "%s (%s)" % (labels_score[x], num_pos_estate[x])
                 liJ.append((label, x))
@@ -656,8 +656,11 @@ class WTrainBMT(LCDialog.LCDialog):
     def activaPosicion(self, num):
         self.finalizaTiempo()  # Para que guarde el vtime, si no es el primero
         self.muestraControles(True)
+        bmt_uno = self.bmt_lista.dame_uno(num)
+        if bmt_uno is None:
+            return
 
-        self.bmt_uno = bmt_uno = self.bmt_lista.dame_uno(num)
+        self.bmt_uno = bmt_uno
 
         mrm = bmt_uno.mrm
         tm = mrm.max_time

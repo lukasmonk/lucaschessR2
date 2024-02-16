@@ -35,15 +35,15 @@ BODY_SAVE = b"BODY "
 
 
 class DBgames:
-    def __init__(self, nom_fichero):
-        self.link_file = nom_fichero
-        if nom_fichero.endswith(".lcdblink"):
-            with open(nom_fichero, "rt", encoding="utf-8", errors="ignore") as f:
-                nom_fichero = f.read().strip()
-            self.external_folder = os.path.dirname(nom_fichero)
+    def __init__(self, path_db):
+        self.link_file = path_db
+        if path_db.endswith(".lcdblink"):
+            with open(path_db, "rt", encoding="utf-8", errors="ignore") as f:
+                path_db = f.read().strip()
+            self.external_folder = os.path.dirname(path_db)
         else:
             self.external_folder = ""
-        self.nom_fichero = os.path.abspath(nom_fichero)
+        self.nom_fichero = os.path.abspath(path_db)
 
         self.conexion = sqlite3.connect(self.nom_fichero)
         self.conexion.row_factory = sqlite3.Row
@@ -494,6 +494,11 @@ class DBgames:
                     yield xpv, result, white, black
             else:
                 return
+
+    def yield_games(self):
+        for recno in range(self.all_reccount()):
+            raw = self.read_complete_recno(recno)
+            yield self.read_game_raw(raw)
 
     def players(self):
         sql = 'SELECT DISTINCT WHITE FROM Games WHERE XPV NOT LIKE "|%"'

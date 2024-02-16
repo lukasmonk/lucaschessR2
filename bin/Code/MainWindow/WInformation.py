@@ -57,7 +57,8 @@ class Information(QtWidgets.QWidget):
         self.lb_clock.hide()
         Code.configuration.set_property(self.lb_time, "time_ms")
         Code.configuration.set_property(self.lb_clock, "clock")
-        ly_pw_tm = Colocacion.H().control(self.lb_cpws_lost).relleno(1).controld(self.lb_time).espacio(-5).controld(self.lb_clock)
+        ly_pw_tm = Colocacion.H().control(self.lb_cpws_lost).relleno(1).controld(self.lb_time).espacio(-5).controld(
+            self.lb_clock)
         ly_rating.otro(ly_pw_tm)
 
         li_acciones = [
@@ -137,7 +138,8 @@ class Information(QtWidgets.QWidget):
                 # img = "🚨"
                 # img = "⛛"
                 # img = "⛔"
-                img = "🚫"
+                # img = "🚫"
+                img = "↓"
                 if mate is not None:
                     if cpws_lost:
                         str_cpws_lost = f'{img} ⨠M'
@@ -168,7 +170,7 @@ class Information(QtWidgets.QWidget):
                 else:
                     str_time = '%.02f"' % time_scs
                 if str_time.endswith(".0\""):
-                    str_time = str_time[:-3]+'"'
+                    str_time = str_time[:-3] + '"'
                 return " " + str_time + " "
 
             if self.move.time_ms:
@@ -267,7 +269,7 @@ class Information(QtWidgets.QWidget):
             self.width_saved = self.width()
             self.parent_width_saved = self.w_parent.width()
 
-    def save_width(self):
+    def save_width_parent(self):
         self.saved_width = self.width_saved, self.parent_width_saved
 
     def restore_width(self):
@@ -409,16 +411,19 @@ class WVariations(QtWidgets.QWidget):
         self.link_variation_pressed(selected_link)
 
     def convert_into_main_line(self):
-        cnum_move, cnum_variation, nada = self.selected_link.split("|")
+        resp = self.selected_link.split("|")
+        if len(resp) != 3:
+            return
+        cnum_move, cnum_variation, nada = resp
         num_move, num_variation = int(cnum_move), int(cnum_variation)
-
-        game = self.move.game
-        game.convert_variation_into_mainline(num_move, num_variation)
-
+        manager = self.get_manager()
+        game = manager.game
+        manager.game.convert_variation_into_mainline(num_move, num_variation)
         move = game.li_moves[num_move]
         move.pos_in_game = num_move
         self.set_move(move)
-        self.get_manager().refresh_pgn()
+        manager.put_view()
+        manager.refresh_pgn()
 
     def remove_move(self):
         li_variation_move = self.selected_link.split("|")

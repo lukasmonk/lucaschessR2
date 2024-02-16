@@ -696,7 +696,7 @@ class ManagerWashingCreate(Manager.Manager):
                 if not rm_user:
                     self.continue_analysis_human_move()
                     return False
-                self.mrmTutor.agregaRM(rm_user)
+                self.mrmTutor.add_rm(rm_user)
             siAnalisis = True
             pointsBest, pointsUser = self.mrmTutor.difPointsBest(movimiento)
             if (pointsBest - pointsUser) > 0:

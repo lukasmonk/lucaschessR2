@@ -1307,7 +1307,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                         self.tc_player.restart()
                         self.enable_toolbar()
                         return False
-                    self.mrmTutor.agregaRM(rm_user)
+                    self.mrmTutor.add_rm(rm_user)
                 self.cache_analysis[fen_basem2] = self.mrmTutor
 
                 si_analisis = True

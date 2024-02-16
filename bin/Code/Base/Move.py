@@ -300,6 +300,9 @@ class Move:
 
         self.variations.analisis2variantes(mrm, almVariations, delete_previous)
 
+    def remove_all_variations(self):
+        self.variations.remove_all()
+
     def has_alternatives(self):
         return len(self.position_before.get_exmoves()) > 1
 
@@ -528,6 +531,9 @@ class Variations:
 
     def remove(self, num):
         del self.li_variations[num]
+
+    def remove_all(self):
+        self.li_variations = []
 
     def up_variation(self, num):
         if num:

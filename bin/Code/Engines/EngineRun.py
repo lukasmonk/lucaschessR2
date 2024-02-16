@@ -96,6 +96,7 @@ class RunEngine:
                         self.set_option(txt_uci_analysismode, "true")
                         setoptions = True
                         break
+
         if setoptions:
             self.put_line_base("isready")
             self.wait_mrm("readyok", 1000)
@@ -391,7 +392,7 @@ class RunEngine:
         self.reset()
         if is_savelines:
             self.mrm.save_lines()
-        self.mrm.setTimeDepth(max_time, max_depth)
+        self.mrm.set_time_depth(max_time, max_depth)
 
         self.work_bestmove(env, ms_time)
 
@@ -406,7 +407,7 @@ class RunEngine:
         max_time = time_white if self.is_white else time_black
 
         self.reset()
-        self.mrm.setTimeDepth(max_time, None)
+        self.mrm.set_time_depth(max_time, None)
 
         self.work_bestmove(env, max_time)
 
@@ -601,7 +602,7 @@ class RunEngine:
             play_return(self.mrm)
 
         self.reset()
-        self.mrm.setTimeDepth(max_time, max_depth)
+        self.mrm.set_time_depth(max_time, max_depth)
 
         self.direct_dispatch = dispatch
         self.working = True
@@ -697,3 +698,6 @@ class MaiaEngine(RunEngine):
         orden = f"go nodes {self.nodes}"
         self.put_line(orden)
         self.wait_mrm("bestmove", msmax_time)
+
+    def reset(self):
+        self.mrm = EngineResponse.MultiEngineResponse(self.name, self.is_white)

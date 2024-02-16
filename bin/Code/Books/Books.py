@@ -35,6 +35,8 @@ class ListBooks:
                 b.from_dic(dic_book)
                 self.lista.append(b)
             self.path = dic_booklist["path"]
+            if not os.path.isdir(self.path):
+                self.path = Code.configuration.folder_userdata()
             self._modoAnalisis = dic_booklist["_modoAnalisis"]
             self.at_least_one()
 

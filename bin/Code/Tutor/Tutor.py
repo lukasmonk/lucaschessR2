@@ -3,7 +3,7 @@ import FasterCode
 import Code
 from Code.Analysis import Analysis
 from Code.Base import Game
-from Code.Base.Constantes import INACCURACY, MISTAKE, BLUNDER
+from Code.Base.Constantes import INACCURACY, MISTAKE, BLUNDER, TOP_RIGHT
 from Code.QT import QTUtil2
 from Code.Tutor import WindowTutor
 
@@ -34,7 +34,7 @@ class Tutor:
         if self.rmUsuario is None:
             # Elegimos si la opcion del tutor es mejor que la del usuario
             # Ponemos un mensaje mientras piensa
-            me = QTUtil2.waiting_message.start(self.main_window, _("Analyzing the move...."), physical_pos="ad")
+            me = QTUtil2.waiting_message.start(self.main_window, _("Analyzing the move...."), physical_pos=TOP_RIGHT)
 
             fen = self.move.position.fen()
             mrm_usuario = self.managerTutor.analiza(fen)
@@ -47,7 +47,7 @@ class Tutor:
                 self.rmUsuario.puntos = 0
             else:
                 self.rmUsuario = mrm_usuario.li_rm[0]
-                self.rmUsuario.cambiaColor(self.move.position)
+                self.rmUsuario.change_side(self.move.position)
 
             me.final()
 
@@ -84,7 +84,7 @@ class Tutor:
         w.ponPuntuacionUsuario(message)
 
         if si_rival:
-            self.rm_rival.cambiaColor()
+            self.rm_rival.change_side()
             pvBloque = self.rm_rival.getPV()
             n = pvBloque.find(" ")
             if n > 0:

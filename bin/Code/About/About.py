@@ -85,7 +85,7 @@ class WAbout(QtWidgets.QDialog):
 #
 #     dic = ib.dic
 #
-#     with open(r"c:\lucaschess\WEB\mysite\templates\Thanksto.html", "wt", encoding="utf-8") as q:
+#     with open(r"f:\lucaschess\WEB\mysite\templates\Thanksto.html", "wt", encoding="utf-8") as q:
 #
 #         li = ['{% extends "base.html" %}',
 #               '{% block contenido %}',
@@ -162,6 +162,7 @@ class WAbout(QtWidgets.QDialog):
 #                             if "maia-" in linea:
 #                                 linea = linea.replace(" % level", "")
 #                             lir = linea.split('"')
+#                             print(lir)
 #                             x, alias, x, autor, x, version, x, url, x, nombre, x = lir[:11]
 #                             if alias == "Maia-%d":
 #                                 nombre = "Maia-1100/1900"

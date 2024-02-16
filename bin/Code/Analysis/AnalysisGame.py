@@ -492,12 +492,16 @@ FILESW=%s:100
                     fen = move.position_before.fen()
 
                     if self.with_variations:
+                        remove_all = True
                         limite = self.alm.limit_include_variations
                         if (limite == 0) or (dif >= limite):
                             if not (self.alm.best_variation and dif == 0):
                                 move.analisis2variantes(self.alm, self.delete_previous)
+                                remove_all = False
+                        if remove_all:
+                            move.remove_all_variations()
 
-                    ok_blunder = dif >= self.kblunders
+                    ok_blunder = dif > self.kblunders
                     if ok_blunder and self.kblunders_porc > 0:
                         ok_blunder = dif_porc >= self.kblunders_porc
                     if ok_blunder:

@@ -2,6 +2,7 @@
 # http://alpha.uhasselt.be/Research/Algebra/Toga
 
 import os
+import sys
 
 import FasterCode
 
@@ -1128,9 +1129,9 @@ def gen_lines(path_pol_w, path_pol_b, mode_w, mode_b, max_lines, max_depth, star
              weight_min_black)
 
         if max_depth == 0:
-            max_depth = 99999
+            max_depth = sys.maxsize
         if max_lines == 0:
-            max_lines = 99999
+            max_lines = sys.maxsize
 
         depth = 0
         while depth < max_depth:

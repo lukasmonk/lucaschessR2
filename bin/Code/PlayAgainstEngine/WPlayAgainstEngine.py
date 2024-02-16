@@ -65,7 +65,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
 
         # Toolbar
         li_acciones = [
-            (_("Accept"), Iconos.Aceptar(), self.aceptar),
+            ("&"+_("Accept"), Iconos.Aceptar(), self.aceptar),
             None,
             (_("Cancel"), Iconos.Cancelar(), self.cancelar),
             None,

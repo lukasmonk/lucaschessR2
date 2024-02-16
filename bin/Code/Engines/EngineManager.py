@@ -190,9 +190,8 @@ class EngineManager:
         if adjusted:
             mrm.game = game
             if adjusted >= 1000:
-                mrm.li_personalities = Code.procesador.configuration.li_personalities
                 mrm.fenBase = game.last_position.fen()
-            return mrm.mejorMovAjustado(adjusted) if adjusted != ADJUST_SELECTED_BY_PLAYER else mrm
+            return mrm.best_adjusted_move(adjusted) if adjusted != ADJUST_SELECTED_BY_PLAYER else mrm
         else:
             return mrm.mejorMov()
 
@@ -215,9 +214,8 @@ class EngineManager:
         if adjusted:
             mrm.game = game
             if adjusted >= 1000:
-                mrm.li_personalities = Code.procesador.configuration.li_personalities
                 mrm.fenBase = game.last_position.fen()
-            return mrm.mejorMovAjustado(adjusted) if adjusted != ADJUST_SELECTED_BY_PLAYER else mrm
+            return mrm.best_adjusted_move(adjusted) if adjusted != ADJUST_SELECTED_BY_PLAYER else mrm
         else:
             return mrm.mejorMov()
 
@@ -258,7 +256,7 @@ class EngineManager:
 
         mrm = self.engine.bestmove_fen(fen, self.mstime_engine, self.depth_engine)
         rm = mrm.mejorMov()
-        rm.cambiaColor(position)
+        rm.change_side(position)
         mv = from_sq + to_sq + (promotion if promotion else "")
         rm.pv = mv + " " + rm.pv
         rm.from_sq = from_sq
@@ -288,7 +286,7 @@ class EngineManager:
         rm, n = mrm.buscaRM(move.movimiento())
         if rm:
             if n == 0:
-                mrm.miraBrilliancies(brDepth, brPuntos)
+                mrm.check_brillancies(brDepth, brPuntos)
             return mrm, n
 
         # No esta considerado, obliga a hacer el analysis de nuevo from_sq position
@@ -306,7 +304,7 @@ class EngineManager:
             mrm1 = self.engine.bestmove_fen(position.fen(), vtime, depth)
             if mrm1 and mrm1.li_rm:
                 rm = mrm1.li_rm[0]
-                rm.cambiaColor(position)
+                rm.change_side(position)
                 rm.pv = mv + " " + rm.pv
             else:
                 rm = EngineResponse.EngineResponse(self.name, mrm1.is_white)
@@ -315,7 +313,7 @@ class EngineManager:
             rm.to_sq = mv[2:4]
             rm.promotion = mv[4] if len(mv) == 5 else ""
             rm.is_white = move.position_before.is_white
-        pos = mrm.agregaRM(rm)
+        pos = mrm.add_rm(rm)
 
         return mrm, pos
 
@@ -376,7 +374,7 @@ class EngineManager:
         rm, n = mrm.buscaRM(mv)
         if rm:
             if n == 0:
-                mrm.miraBrilliancies(brDepth, brPuntos)
+                mrm.check_brillancies(brDepth, brPuntos)
             return mrm, n
         rm_best = mrm.mejorMov()
 
@@ -387,7 +385,7 @@ class EngineManager:
             rm.from_sq = move.from_sq
             rm.to_sq = move.to_sq
             rm.promotion = move.promotion
-            pos = mrm.agregaRM(rm)
+            pos = mrm.add_rm(rm)
             return mrm, pos
 
         # No esta considerado, obliga a hacer el analysis de nuevo from_sq position
@@ -408,7 +406,7 @@ class EngineManager:
 
         if mrm_next and mrm_next.li_rm:
             rm = mrm_next.li_rm[0]
-            rm.cambiaColor(move.position)
+            rm.change_side(move.position)
             rm.pv = mv + " " + rm.pv
         else:
             rm = EngineResponse.EngineResponse(self.name, mrm_next.is_white)
@@ -417,7 +415,7 @@ class EngineManager:
         rm.to_sq = mv[2:4]
         rm.promotion = mv[4] if len(mv) == 5 else ""
         rm.is_white = move.position_before.is_white
-        pos = mrm.agregaRM(rm)
+        pos = mrm.add_rm(rm)
 
         return mrm, pos
 
@@ -495,9 +493,8 @@ class EngineManager:
                     mrm.ordena()
                     mrm.game = game
                     if adjusted >= 1000:
-                        mrm.li_personalities = Code.procesador.configuration.li_personalities
                         mrm.fenBase = game.last_position.fen()
-                    resp = mrm.mejorMovAjustado(adjusted) if adjusted != ADJUST_SELECTED_BY_PLAYER else mrm
+                    resp = mrm.best_adjusted_move(adjusted) if adjusted != ADJUST_SELECTED_BY_PLAYER else mrm
                 else:
                     resp = mrm.mejorMov()
             else:

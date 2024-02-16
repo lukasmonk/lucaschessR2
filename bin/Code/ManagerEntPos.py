@@ -21,6 +21,7 @@ from Code.Base.Constantes import (
     TB_PREVIOUS,
     TB_UTILITIES,
     GT_POSITIONS,
+    ON_TOOLBAR,
 )
 from Code.CompetitionWithTutor import WCompetitionWithTutor
 from Code.QT import Iconos
@@ -168,6 +169,7 @@ class ManagerEntPos(Manager.Manager):
 
         if self.is_playing_gameobj() and self.advanced:
             self.board.show_coordinates(False)
+            self.put_view()
             self.wsolve = self.main_window.base.wsolve
             self.wsolve.set_game(self.game_obj, self.advanced_return)
 
@@ -495,7 +497,7 @@ class ManagerEntPos(Manager.Manager):
                 self.pos_obj += 1
             elif is_var:
                 mens = _("You have selected a correct move, but this line uses another one.")
-                QTUtil2.temporary_message(self.main_window, mens, 2, physical_pos="tb", background="#C3D6E8")
+                QTUtil2.temporary_message(self.main_window, mens, 2, physical_pos=ON_TOOLBAR, background="#C3D6E8")
                 li_movs = [(move.from_sq, move.to_sq, False), (move_obj.from_sq, move_obj.to_sq, True)]
                 self.board.ponFlechasTmp(li_movs)
             if not ok:

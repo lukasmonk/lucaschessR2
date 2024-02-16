@@ -344,14 +344,14 @@ class ManagerFideFics(Manager.Manager):
             if rmUsu is None:
                 self.analyze_end()
                 rmUsu = self.xtutor.valora(position, jgUsu.from_sq, jgUsu.to_sq, jgUsu.promotion)
-                mrm.agregaRM(rmUsu)
+                mrm.add_rm(rmUsu)
                 self.analyze_begin()
 
             rmObj, posObj = mrm.buscaRM(jgObj.movimiento())
             if rmObj is None:
                 self.analyze_end()
                 rmObj = self.xtutor.valora(position, jgObj.from_sq, jgObj.to_sq, jgObj.promotion)
-                posObj = mrm.agregaRM(rmObj)
+                posObj = mrm.add_rm(rmObj)
                 self.analyze_begin()
 
             analysis = mrm, posObj

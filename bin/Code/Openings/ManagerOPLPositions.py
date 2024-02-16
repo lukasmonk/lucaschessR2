@@ -13,6 +13,7 @@ from Code.Base.Constantes import (
     TB_UTILITIES,
     TB_COMMENTS,
     GT_OPENING_LINES,
+    TOP_RIGHT,
 )
 from Code.Openings import OpeningLines, ManagerOPL
 from Code.QT import Iconos
@@ -235,7 +236,7 @@ class ManagerOpeningLinesPositions(ManagerOPL.ManagerOpeningLines):
         if not (pvSel in lipvObj):
             self.errores += 1
             mens = "%s: %d" % (_("Error"), self.errores)
-            QTUtil2.temporary_message(self.main_window, mens, 1.0, physical_pos="ad")
+            QTUtil2.temporary_message(self.main_window, mens, 1.0, physical_pos=TOP_RIGHT)
             self.show_labels()
             self.beepError()
             self.sigueHumano()

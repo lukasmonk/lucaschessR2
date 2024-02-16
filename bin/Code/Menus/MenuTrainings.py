@@ -47,15 +47,21 @@ class TrainingFNS:
 
 
 class TrainingDir:
+    folders: list
+    files: list
+
     def __init__(self, carpeta):
-        dicTraining = TrListas.dicTraining()
+        dic_training = TrListas.dicTraining()
 
-        def trTraining(txt):
-            return dicTraining.get(txt, txt)
+        def tr_training(txt):
+            return dic_training.get(txt, txt)
 
-        self.tr = trTraining
+        self.tr = tr_training
 
-        self.name = trTraining(os.path.basename(carpeta))
+        if Util.same_path(carpeta, Code.configuration.folder_tactics()):
+            self.name = _("Personal tactics")
+        else:
+            self.name = tr_training(os.path.basename(carpeta))
         self.read(carpeta)
 
     def read(self, carpeta):
@@ -70,30 +76,30 @@ class TrainingDir:
         self.folders = sorted(folders, key=lambda td: td.name)
         self.files = sorted(files, key=lambda td: td.name)
 
-    def addOtherFolder(self, folder):
+    def add_other_folder(self, folder):
         self.folders.append(TrainingDir(folder))
 
     def vacio(self):
         return (len(self.folders) + len(self.files)) == 0
 
     def reduce(self):
-        liBorrar = []
+        li_borrar = []
         for n, folder in enumerate(self.folders):
             folder.reduce()
             if folder.vacio():
-                liBorrar.append(n)
-        if liBorrar:
-            for n in range(len(liBorrar) - 1, -1, -1):
-                del self.folders[liBorrar[n]]
+                li_borrar.append(n)
+        if li_borrar:
+            for n in range(len(li_borrar) - 1, -1, -1):
+                del self.folders[li_borrar[n]]
 
     def menu(self, bmenu, xopcion):
-        icoOp = Iconos.PuntoNaranja()
-        icoDr = Iconos.Carpeta()
+        ico_op = Iconos.PuntoNaranja()
+        ico_dr = Iconos.Carpeta()
         for folder in self.folders:
-            submenu1 = bmenu.submenu(_F(folder.name), icoDr)
+            submenu1 = bmenu.submenu(_F(folder.name), ico_dr)
             folder.menu(submenu1, xopcion)
         for xfile in self.files:
-            xopcion(bmenu, "ep_%s" % xfile.path, xfile.name, icoOp)
+            xopcion(bmenu, "ep_%s" % xfile.path, _F(xfile.name), ico_op)
 
 
 class MenuTrainings:
@@ -104,10 +110,10 @@ class MenuTrainings:
         self.menu = None
         self.dicMenu = None
 
-    def menuFNS(self, menu, label, xopcion):
+    def menu_fns(self, menu, label, xopcion):
         td = TrainingDir(Code.path_resource("Trainings"))
-        td.addOtherFolder(self.configuration.personal_training_folder)
-        td.addOtherFolder(self.configuration.folder_tactics())
+        td.add_other_folder(self.configuration.personal_training_folder)
+        td.add_other_folder(self.configuration.folder_tactics())
         bmenu = menu.submenu(label, Iconos.Carpeta())
         td.reduce()  # Elimina carpetas vacias
         td.menu(bmenu, xopcion)
@@ -138,7 +144,7 @@ class MenuTrainings:
         xopcion(menu2, "find_all_moves_rival", _("Opponent"), Iconos.PuntoNaranja())
 
         menu_basic.separador()
-        self.horsesDef = hd = {
+        self.horse_def = hd = {
             1: ("N", "Alpha", _("By default")),
             2: ("p", "Fantasy", _("Four pawns test")),
             3: ("Q", "Pirat", _("Jonathan Levitt test")),
@@ -224,7 +230,7 @@ class MenuTrainings:
         menu_tactics = menu.submenu(_("Tactics"), Iconos.Training_Tactics())
 
         #   Posiciones de entrenamiento --------------------------------------------------------------------------
-        self.menuFNS(menu_tactics, _("Training positions"), xopcion)
+        self.menu_fns(menu_tactics, _("Training positions"), xopcion)
         menu_tactics.separador()
 
         # Tacticas ---------------------------------------------------------------------------------------------
@@ -246,7 +252,7 @@ class MenuTrainings:
                             name = entry.name
                             xopcion(
                                 submenu,
-                                "tactica|%s|%s|%s|%s" % (tipo, name, carpeta, ini),
+                                f"tactica|{tipo}|{name}|{carpeta}|{ini}",
                                 trTraining(name),
                                 nico.otro(),
                             )
@@ -260,10 +266,10 @@ class MenuTrainings:
 
         menu_tacticas(menu_t, TACTICS_BASIC, Code.path_resource("Tactics"), [])
         lista = []
-        carpetaTacticasP = self.configuration.folder_tactics()
-        if os.path.isdir(carpetaTacticasP):
+        carpeta_tacticas_p = self.configuration.folder_tactics()
+        if os.path.isdir(carpeta_tacticas_p):
             submenu1 = menu_t.submenu(_("Personal tactics"), nico.otro())
-            lista = menu_tacticas(submenu1, TACTICS_PERSONAL, carpetaTacticasP, lista)
+            lista = menu_tacticas(submenu1, TACTICS_PERSONAL, carpeta_tacticas_p, lista)
             if lista:
                 ico = Iconos.Delete()
                 menub = menu_t.submenu(_("Remove"), ico)
@@ -426,7 +432,7 @@ class MenuTrainings:
 
                 elif resp.startswith("horses_"):
                     test = int(resp[7])
-                    icl, icn, tit = self.horsesDef[test]
+                    icl, icn, tit = self.horse_def[test]
                     icon = Code.all_pieces.icono(icl, icn)
                     self.horses(test, tit, icon)
 
@@ -727,8 +733,8 @@ def selectOneFNS(owner, procesador):
 
     menu = QTVarios.LCMenu(owner)
     td = TrainingDir(Code.path_resource("Trainings"))
-    td.addOtherFolder(procesador.configuration.personal_training_folder)
-    td.addOtherFolder(procesador.configuration.folder_tactics())
+    td.add_other_folder(procesador.configuration.personal_training_folder)
+    td.add_other_folder(procesador.configuration.folder_tactics())
     td.reduce()
     td.menu(menu, xopcion)
     resp = menu.lanza()

@@ -17,9 +17,10 @@ from Code.Base.Constantes import (BOOK_BEST_MOVE,
                                   GOOD_MOVE,
                                   GT_OPENING_LINES,
                                   INACCURACY,
+                                  TOP_RIGHT
                                   )
-from Code.Openings import OpeningLines
 from Code.Books import Books
+from Code.Openings import OpeningLines
 from Code.QT import Iconos
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
@@ -312,7 +313,7 @@ class ManagerOpeningEngines(Manager.Manager):
             if self.is_canceled():
                 break
             self.ponteEnJugada(move.njg)
-            self.waiting_message(if_cancel=True, masTitulo="%d/%d" % (pos, total))
+            self.waiting_message(with_cancel=True, masTitulo="%d/%d" % (pos, total))
             name = self.xanalyzer.name
             vtime = self.xanalyzer.mstime_engine
             depth = self.xanalyzer.depth_engine
@@ -333,18 +334,18 @@ class ManagerOpeningEngines(Manager.Manager):
 
         return move_max < total  # si todos son lo máximo aunque pierda algo hay que darlo por probado
 
-    def waiting_message(self, siFinal=False, if_cancel=False, masTitulo=None):
+    def waiting_message(self, siFinal=False, with_cancel=False, masTitulo=None):
         if siFinal:
             if self.um:
                 self.um.final()
         else:
             if self.um is None:
                 self.um = QTUtil2.temporary_message(
-                    self.main_window, _("Analyzing"), 0, physical_pos="ad", if_cancel=True, tit_cancel=_("Cancel")
+                    self.main_window, _("Analyzing"), 0, physical_pos=TOP_RIGHT, with_cancel=True, tit_cancel=_("Cancel")
                 )
             if masTitulo:
                 self.um.label(_("Analyzing") + " " + masTitulo)
-            self.um.me.activate_cancel(if_cancel)
+            self.um.me.activate_cancel(with_cancel)
 
     def is_canceled(self):
         si = self.um.cancelado()

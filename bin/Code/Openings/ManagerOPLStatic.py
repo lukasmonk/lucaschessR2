@@ -14,6 +14,8 @@ from Code.Base.Constantes import (
     TB_COMMENTS,
     TB_UTILITIES,
     GT_OPENING_LINES,
+    TOP_RIGHT,
+    ON_TOOLBAR
 )
 from Code.Engines import EngineResponse
 from Code.Openings import OpeningLines, ManagerOPL
@@ -283,14 +285,14 @@ class ManagerOpeningLinesStatic(ManagerOPL.ManagerOpeningLines):
             li = self.dicFENm2.get(fenm2, set())
             if pvSel in li:
                 mens = _("You have selected a correct move, but this line uses another one.")
-                QTUtil2.temporary_message(self.main_window, mens, 1.2, physical_pos="tb", background="#C3D6E8")
+                QTUtil2.temporary_message(self.main_window, mens, 1.2, physical_pos=ON_TOOLBAR, background="#C3D6E8")
                 self.sigueHumano()
                 return False
 
             self.errores += 1
             mens = "%s: %d" % (_("Error"), self.errores)
             QTUtil2.temporary_message(
-                self.main_window, mens, 0.8, physical_pos="ad", background="#FF9B00", pm_image=Iconos.pmError()
+                self.main_window, mens, 0.8, physical_pos=TOP_RIGHT, background="#FF9B00", pm_image=Iconos.pmError()
             )
             self.show_labels()
             self.sigueHumano()

@@ -966,7 +966,7 @@ class WBMT(LCDialog.LCDialog):
 
         # Elegimos el entrenamiento
         menu = QTVarios.LCMenu(self)
-        self.procesador.entrenamientos.menuFNS(
+        self.procesador.entrenamientos.menu_fns(
             menu, _("Select the training positions you want to use as a base"), xopcion
         )
         resp = menu.lanza()
