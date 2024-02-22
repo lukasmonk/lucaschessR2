@@ -1126,9 +1126,9 @@ def pgn_game(pgn):
             jg_activa = Move.Move(game, posicion_base, last_posicion, a1h8[:2], a1h8[2:4], a1h8[4:])
             game.li_moves.append(jg_activa)
 
-        elif key in "!?":
+        elif key and key in "!?":
             if jg_activa:
-                jg_activa.add_nag(dic_nags.get(elem, None))
+                jg_activa.add_nag(dic_nags.get(key, None))
 
         elif key == "$":
             if jg_activa:

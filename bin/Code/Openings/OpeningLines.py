@@ -10,7 +10,7 @@ import FasterCode
 import Code
 from Code import Util
 from Code.Base import Game, Position
-from Code.Base.Constantes import WHITE
+from Code.Base.Constantes import WHITE, ALL_VARIATIONS
 from Code.Databases import DBgamesST, DBgames
 from Code.Engines import EnginesBunch
 from Code.Openings import OpeningsStd
@@ -1253,10 +1253,14 @@ class Opening:
         ws.pb(total)
 
         alm = Util.Record()
+        alm.analyze_variations = False
+        alm.include_variations = True
+        alm.what_variations = ALL_VARIATIONS
+        alm.include_played = True
+        alm.limit_include_variations = 0
         alm.info_variation = True
-        alm.best_variation = False
-        alm.one_move_variation = False
         alm.si_pdt = True
+        alm.one_move_variation = False
 
         for recno in range(total):
             ws.pb_pos(recno + 1)

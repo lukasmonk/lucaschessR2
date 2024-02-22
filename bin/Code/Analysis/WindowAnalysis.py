@@ -268,9 +268,9 @@ class WAnalisis(LCDialog.LCDialog):
         self.must_save = must_save
         self.is_white = is_white
 
-        tbWork = QTVarios.LCTB(self, icon_size=24)
-        tbWork.new(_("Close"), Iconos.MainMenu(), self.terminar)
-        tbWork.new(_("New"), Iconos.NuevoMas(), self.crear)
+        tb_work = QTVarios.LCTB(self, icon_size=24)
+        tb_work.new(_("Close"), Iconos.MainMenu(), self.terminar)
+        tb_work.new(_("New"), Iconos.NuevoMas(), self.crear)
 
         self.board = Board.Board(self, config_board)
         self.board.crea()
@@ -318,7 +318,7 @@ class WAnalisis(LCDialog.LCDialog):
         ly_motor = Colocacion.H().control(self.lbPuntuacion).relleno().control(self.lb_engine).control(self.lb_time)
 
         lyV = Colocacion.V()
-        lyV.control(tbWork)
+        lyV.control(tb_work)
         lyV.otro(ly_tabl)
         lyV.otro(lytb).espacio(20)
         lyV.otro(ly_motor)
@@ -446,7 +446,7 @@ class WAnalisis(LCDialog.LCDialog):
             self.timer = None
 
     def crear(self):
-        alm = WindowAnalysisParam.analysis_parameters(self, Code.configuration, False, siTodosMotores=True)
+        alm = WindowAnalysisParam.analysis_parameters(self, False, all_engines=True)
         if alm:
             tab_analysis = self.tb_analysis.create_show(self, alm)
             self.create_analysis(tab_analysis)

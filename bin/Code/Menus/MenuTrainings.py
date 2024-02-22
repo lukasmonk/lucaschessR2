@@ -77,7 +77,9 @@ class TrainingDir:
         self.files = sorted(files, key=lambda td: td.name)
 
     def add_other_folder(self, folder):
-        self.folders.append(TrainingDir(folder))
+        tf = TrainingDir(folder)
+        self.folders.append(tf)
+        return tf
 
     def vacio(self):
         return (len(self.folders) + len(self.files)) == 0
@@ -112,8 +114,8 @@ class MenuTrainings:
 
     def menu_fns(self, menu, label, xopcion):
         td = TrainingDir(Code.path_resource("Trainings"))
-        td.add_other_folder(self.configuration.personal_training_folder)
-        td.add_other_folder(self.configuration.folder_tactics())
+        std = td.add_other_folder(self.configuration.personal_training_folder)
+        std.add_other_folder(self.configuration.folder_tactics())
         bmenu = menu.submenu(label, Iconos.Carpeta())
         td.reduce()  # Elimina carpetas vacias
         td.menu(bmenu, xopcion)

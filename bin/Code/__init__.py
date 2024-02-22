@@ -37,6 +37,7 @@ is_windows = not is_linux
 
 if is_linux:
     startfile = os.system
+    os.environ["XDG_SESSION_TYPE"] = "xcb"
 else:
     if not sys.argv[0].endswith(".py"):
         os.environ["QT_PLUGIN_PATH"] = os.path.join(
@@ -94,7 +95,7 @@ def relative_root(path):
 
 
 BASE_VERSION = "B"  # Para el control de updates que necesitan reinstalar entero
-VERSION = "R 2.11d"
+VERSION = "R 2.11f"
 DEBUG = False
 DEBUG_ENGINES = False
 

@@ -2,8 +2,9 @@ import Code
 import Code.Base.Game  # To prevent recursivity in Variations -> import direct
 from Code import Util
 from Code.Base import Position
-from Code.Nags.Nags import NAG_1, NAG_2, NAG_3, NAG_4, NAG_5, NAG_6, html_nag_txt, html_nag_symbol
+from Code.Base.Constantes import HIGHEST_VARIATIONS, BETTER_VARIATIONS
 from Code.Engines import EngineResponse
+from Code.Nags.Nags import NAG_0, NAG_1, NAG_2, NAG_3, NAG_4, NAG_5, NAG_6, html_nag_txt, html_nag_symbol
 from Code.Themes.Lichess import cook
 from Code.Translations import TrListas
 
@@ -52,12 +53,12 @@ class Move:
 
     def only_has_move(self) -> bool:
         return not (
-            self.variations
-            or self.comment
-            or len(self.li_nags) > 0
-            or self.analysis
-            or len(self.li_themes) > 0
-            or self.time_ms
+                self.variations
+                or self.comment
+                or len(self.li_nags) > 0
+                or self.analysis
+                or len(self.li_themes) > 0
+                or self.time_ms
         )
 
     @property
@@ -103,10 +104,10 @@ class Move:
 
     @property
     def liMovs(self):
-        liMovs = [("b", self.to_sq), ("m", self.from_sq, self.to_sq)]
+        li_movs = [("b", self.to_sq), ("m", self.from_sq, self.to_sq)]
         if self.position.li_extras:
-            liMovs.extend(self.position.li_extras)
-        return liMovs
+            li_movs.extend(self.position.li_extras)
+        return li_movs
 
     @property
     def is_check(self):
@@ -126,16 +127,27 @@ class Move:
         return xpgn_base
 
     def add_nag(self, nag):
-        if nag and not (nag in self.li_nags):
-            if nag <= NAG_6:
-                li = []
-                for n in self.li_nags:
-                    if n > NAG_6 and not (n in li):
-                        li.append(n)
-                li.append(nag)
-                self.li_nags = li
-            else:
-                self.li_nags.append(nag)
+        if nag in (None, ""):
+            return
+        if nag <= NAG_6:
+            # Si nag == 0, se elimina los NAG <= 6
+            if nag == NAG_0:
+                for pos, n in enumerate(self.li_nags):
+                    if n <= NAG_6:
+                        del self.li_nags[pos]
+                        return
+                return
+            for pos, n in enumerate(self.li_nags):
+                if nag == n:
+                    return
+                if n <= NAG_6:
+                    self.li_nags[pos] = nag
+                    return
+        else:
+            for pos, n in enumerate(self.li_nags):
+                if nag == n:
+                    return
+        self.li_nags.append(nag)
 
     def del_nags(self):
         self.li_nags = []
@@ -287,18 +299,12 @@ class Move:
 
     def analisis2variantes(self, almVariations, delete_previous):
         if not self.analysis:
-            return
+            return False
         mrm, pos = self.analysis
         if len(mrm.li_rm) == 0:
-            return
+            return False
 
-        # if pos >= 0:
-        #     m = EngineResponse.MultiEngineResponse(None, True)
-        #     m.restore(mrm.save())
-        #     del mrm.li_rm[pos]
-        #     mrm = m
-
-        self.variations.analisis2variantes(mrm, almVariations, delete_previous)
+        return self.variations.analisis2variantes(mrm, pos, almVariations, delete_previous)
 
     def remove_all_variations(self):
         self.variations.remove_all()
@@ -537,20 +543,17 @@ class Variations:
 
     def up_variation(self, num):
         if num:
-            self.li_variations[num], self.li_variations[num-1] = self.li_variations[num-1], self.li_variations[num]
+            self.li_variations[num], self.li_variations[num - 1] = self.li_variations[num - 1], self.li_variations[num]
 
     def down_variation(self, num):
-        if num < len(self.li_variations)-1:
-            self.li_variations[num], self.li_variations[num+1] = self.li_variations[num+1], self.li_variations[num]
+        if num < len(self.li_variations) - 1:
+            self.li_variations[num], self.li_variations[num + 1] = self.li_variations[num + 1], self.li_variations[num]
 
-    # def convert_mainline(self, num_move, num_variation):
-    #     self.move_base.convert_variation_mainline(num_move, num_variation)
-
-    def analisis2variantes(self, mrm, almVariations, delete_previous):
+    def analisis2variantes(self, mrm, pos_move, alm_variations, delete_previous):
         if delete_previous:
             self.clear()
 
-        if almVariations.info_variation:
+        if alm_variations.info_variation:
             name = mrm.name
             if mrm.max_time:
                 t = "%0.2f" % (float(mrm.max_time) / 1000.0,)
@@ -567,21 +570,41 @@ class Variations:
             eti_t = ""
 
         tmp_game = Code.Base.Game.Game()
-        # pv_base = self.move_base.movimiento()
-        for rm in mrm.li_rm:
-            self.analisis2variantesUno(tmp_game, rm, eti_t, almVariations.one_move_variation, almVariations.si_pdt)
-            if almVariations.best_variation:
-                break
+        what_variations = alm_variations.what_variations
+        include_played = alm_variations.include_played
+        highest_score = mrm.li_rm[0].centipawns_abs()
+        move_score = mrm.li_rm[pos_move].centipawns_abs()
 
-    def analisis2variantesUno(self, tmp_game, rm, eti_t, si_un_move, si_pdt):
-        tmp_game.set_position(self.move_base.position_before)
-        tmp_game.read_pv(rm.pv)
-        move = tmp_game.move(0)
-        if move:
-            puntuacion = rm.abrTextoPDT() if si_pdt else rm.abrTexto()
-            move.set_comment("%s%s" % (puntuacion, eti_t))
-            gm = tmp_game.copia(0 if si_un_move else None)
-            self.li_variations.append(gm)
+        si_un_move, si_pdt = alm_variations.one_move_variation, alm_variations.si_pdt
+
+        position_before = self.move_base.position_before
+        limit_score = alm_variations.limit_include_variations
+
+        added_variations = False
+
+        for pos, rm in enumerate(mrm.li_rm):
+            if pos == pos_move:
+                if not include_played:
+                    continue
+            elif limit_score and (highest_score - rm.centipawns_abs()) > limit_score:
+                continue
+            elif what_variations == HIGHEST_VARIATIONS:
+                if rm.centipawns_abs() < highest_score:
+                    continue
+            elif what_variations == BETTER_VARIATIONS:
+                if rm.centipawns_abs() < move_score:
+                    continue
+            tmp_game.set_position(position_before)
+            tmp_game.read_pv(rm.pv)
+            move = tmp_game.move(0)
+            if move:
+                puntuacion = rm.abrTextoPDT() if si_pdt else rm.abrTexto()
+                move.set_comment("%s%s" % (puntuacion, eti_t))
+                gm = tmp_game.copia(0 if si_un_move else None)
+                self.li_variations.append(gm)
+                added_variations = True
+
+        return added_variations
 
     def add_variation(self, game):
         pv_add = game.pv()

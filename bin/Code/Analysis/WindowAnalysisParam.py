@@ -1,7 +1,8 @@
 import Code
 from Code import Util
-from Code.Engines import Priorities
+from Code.Base.Constantes import ALL_VARIATIONS, HIGHEST_VARIATIONS, BETTER_VARIATIONS
 from Code.Books import Books
+from Code.Engines import Priorities
 from Code.QT import FormLayout
 from Code.QT import Iconos
 from Code.QT import QTUtil
@@ -34,8 +35,9 @@ def read_dic_params():
 
     alm.analyze_variations = dic.get("analyze_variations", False)
     alm.include_variations = dic.get("include_variations", True)
+    alm.what_variations = dic.get("what_variations", ALL_VARIATIONS)
+    alm.include_played = dic.get("include_played", True)
     alm.limit_include_variations = dic.get("limit_include_variations", 0)
-    alm.best_variation = dic.get("best_variation", False)
     alm.info_variation = dic.get("info_variation", True)
     alm.one_move_variation = dic.get("one_move_variation", False)
     alm.delete_previous = dic.get("delete_previous", True)
@@ -139,12 +141,16 @@ def form_variations(alm):
     li_var.append(SEPARADOR)
     li_var.append(SEPARADOR)
     li_var.append(("<big><b>" + _("Convert analyses into variations") + ":", alm.include_variations))
+
+    li = [(_("All variations"), ALL_VARIATIONS),
+          (_("The one(s) with the highest score"), HIGHEST_VARIATIONS),
+          (_("All the ones with better score than the one played"), BETTER_VARIATIONS)]
+    what_variations = FormLayout.Combobox(_("What variations?"), li)
+    li_var.append((what_variations, alm.what_variations))
+    li_var.append((_("Include move played") + ":", alm.include_played))
     li_var.append(SEPARADOR)
 
-    li_var.append((FormLayout.Spinbox(_("Minimum centipawns lost"), 0, 1000, 60), alm.limit_include_variations))
-    li_var.append(SEPARADOR)
-
-    li_var.append((_("Only add better variation") + ":", alm.best_variation))
+    li_var.append((FormLayout.Spinbox(_("Maximum centipawns lost"), 0, 1000, 60), alm.limit_include_variations))
     li_var.append(SEPARADOR)
 
     li_var.append((_("Include info about engine") + ":", alm.info_variation))
@@ -157,14 +163,16 @@ def form_variations(alm):
     return li_var
 
 
-def analysis_parameters(parent, configuration, siModoAmpliado, siTodosMotores=False):
+def analysis_parameters(parent, extended_mode, all_engines=False):
     alm = read_dic_params()
+
+    configuration = Code.configuration
 
     # Datos
     li_gen = [SEPARADOR]
 
     # # Engine
-    if siTodosMotores:
+    if all_engines:
         li = configuration.formlayout_combo_analyzer(False)
     else:
         li = configuration.formlayout_combo_analyzer(True)
@@ -177,18 +185,14 @@ def analysis_parameters(parent, configuration, siModoAmpliado, siTodosMotores=Fa
     li_gen.append((config, alm.vtime / 1000.0))
 
     # Depth
-    liDepths = [("--", 0)]
+    li_depths = [("--", 0)]
     for x in range(1, 51):
-        liDepths.append((str(x), x))
+        li_depths.append((str(x), x))
     tooltip = _("If time and depth are given, the depth is attempted and the time becomes a maximum.")
-    config = FormLayout.Combobox(_("Depth"), liDepths, tooltip=tooltip)
+    config = FormLayout.Combobox(_("Depth"), li_depths, tooltip=tooltip)
     li_gen.append((config, alm.depth))
 
-    # Time+Depth
-    # li_gen.append(("%s+%s:" % (_("Time"), _("Depth")), alm.timedepth))
-
     # MultiPV
-    # li_gen.append(SEPARADOR)
     li = [(_("By default"), "PD"), (_("Maximum"), "MX")]
     for x in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 20, 30, 40, 50, 75, 100, 150, 200):
         li.append((str(x), str(x)))
@@ -196,16 +200,15 @@ def analysis_parameters(parent, configuration, siModoAmpliado, siTodosMotores=Fa
     li_gen.append((config, alm.multiPV))
 
     # Priority
-    # li_gen.append(SEPARADOR)
     config = FormLayout.Combobox(_("Process priority"), Priorities.priorities.combo())
     li_gen.append((config, alm.priority))
 
     # Completo
-    if siModoAmpliado:
+    if extended_mode:
         li_gen.append(SEPARADOR)
 
-        liJ = [(_("White"), "WHITE"), (_("Black"), "BLACK"), (_("White & Black"), "BOTH")]
-        config = FormLayout.Combobox(_("Analyze color"), liJ)
+        li_j = [(_("White"), "WHITE"), (_("Black"), "BLACK"), (_("White & Black"), "BOTH")]
+        config = FormLayout.Combobox(_("Analyze color"), li_j)
         if alm.white and alm.black:
             color = "BOTH"
         elif alm.black:
@@ -247,27 +250,16 @@ def analysis_parameters(parent, configuration, siModoAmpliado, siTodosMotores=Fa
 
         li_gen.append((_("Show graphics") + ":", alm.show_graphs))
 
-        liVar = form_variations(alm)
+        li_var = form_variations(alm)
 
-        liBlunders, liBrilliancies = form_blunders_brilliancies(alm, configuration)
+        li_blunders, li_brilliancies = form_blunders_brilliancies(alm, configuration)
 
-        # liST = [SEPARADOR]
-        # liST.append((_("Activate") + ":", alm.stability))
-        # liST.append(SEPARADOR)
-        # liST.append((FormLayout.Spinbox(_("Last depths to control same best move"), 2, 10, 40), alm.st_depths))
-        # liST.append(SEPARADOR)
-        # liST.append(
-        #     (FormLayout.Spinbox(_("Maximum difference among last evaluations"), 0, 99999, 60), alm.st_centipawns)
-        # )
-        # liST.append(SEPARADOR)
-        # liST.append((FormLayout.Spinbox(_("Additional time limit"), 0, 99999, 60), alm.st_timelimit))
-
-        lista = []
-        lista.append((li_gen, _("General options"), ""))
-        lista.append((liVar, _("Variations"), ""))
-        lista.append((liBlunders, _("Wrong moves"), ""))
-        lista.append((liBrilliancies, _("Brilliancies"), ""))
-        # lista.append((liST, _("Stability control"), ""))
+        lista = [
+            (li_gen, _("General options"), ""),
+            (li_var, _("Variations"), ""),
+            (li_blunders, _("Wrong moves"), ""),
+            (li_brilliancies, _("Brilliancies"), "")
+        ]
 
     else:
         lista = li_gen
@@ -310,9 +302,8 @@ def analysis_parameters(parent, configuration, siModoAmpliado, siTodosMotores=Fa
     if resultado:
         accion, liResp = resultado
 
-        if siModoAmpliado:
-            # li_gen, liVar, liBlunders, liBrilliancies, liST = liResp
-            li_gen, liVar, liBlunders, liBrilliancies = liResp
+        if extended_mode:
+            li_gen, li_var, li_blunders, li_brilliancies = liResp
         else:
             li_gen = liResp
 
@@ -323,7 +314,7 @@ def analysis_parameters(parent, configuration, siModoAmpliado, siTodosMotores=Fa
         alm.multiPV = li_gen[3]
         alm.priority = li_gen[4]
 
-        if siModoAmpliado:
+        if extended_mode:
             color = li_gen[5]
             alm.white = color != "BLACK"
             alm.black = color != "WHITE"
@@ -338,12 +329,13 @@ def analysis_parameters(parent, configuration, siModoAmpliado, siTodosMotores=Fa
             (
                 alm.analyze_variations,
                 alm.include_variations,
+                alm.what_variations,
+                alm.include_played,
                 alm.limit_include_variations,
-                alm.best_variation,
                 alm.info_variation,
                 alm.si_pdt,
                 alm.one_move_variation,
-            ) = liVar
+            ) = li_var
 
             (
                 alm.kblunders,
@@ -352,7 +344,7 @@ def analysis_parameters(parent, configuration, siModoAmpliado, siTodosMotores=Fa
                 alm.pgnblunders,
                 alm.oriblunders,
                 alm.bmtblunders,
-            ) = liBlunders
+            ) = li_blunders
 
             (
                 alm.dpbrilliancies,
@@ -361,7 +353,7 @@ def analysis_parameters(parent, configuration, siModoAmpliado, siTodosMotores=Fa
                 alm.pgnbrilliancies,
                 alm.oribrilliancies,
                 alm.bmtbrilliancies,
-            ) = liBrilliancies
+            ) = li_brilliancies
 
             # (alm.stability, alm.st_depths, alm.st_centipawns, alm.st_timelimit) = liST
             alm.stability = False
@@ -523,8 +515,9 @@ def massive_analysis_parameters(parent, configuration, multiple_selected, siData
         (
             alm.analyze_variations,
             alm.include_variations,
-            alm.limiteinclude_variations,
-            alm.best_variation,
+            alm.what_variations,
+            alm.include_played,
+            alm.limit_include_variations,
             alm.info_variation,
             alm.si_pdt,
             alm.one_move_variation,
@@ -546,13 +539,13 @@ def massive_analysis_parameters(parent, configuration, multiple_selected, siData
         save_dic_params(dic)
 
         if not (
-            alm.tacticblunders
-            or alm.pgnblunders
-            or alm.bmtblunders
-            or alm.fnsbrilliancies
-            or alm.pgnbrilliancies
-            or alm.bmtbrilliancies
-            or siDatabase
+                alm.tacticblunders
+                or alm.pgnblunders
+                or alm.bmtblunders
+                or alm.fnsbrilliancies
+                or alm.pgnbrilliancies
+                or alm.bmtbrilliancies
+                or siDatabase
         ):
             QTUtil2.message_error(parent, _("No file was specified where to save results"))
             return

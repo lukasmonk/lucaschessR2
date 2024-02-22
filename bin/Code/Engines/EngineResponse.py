@@ -484,7 +484,9 @@ class MultiEngineResponse:
 
         if is_bound:
             if pv1 in self.cache_bound:
-                rm.pv = self.cache_bound[pv1]
+                pv_prop = self.cache_bound[pv1]
+                if pv_prop.startswith(pv):
+                    rm.pv = pv_prop
         else:
             self.cache_bound[pv1] = pv
 

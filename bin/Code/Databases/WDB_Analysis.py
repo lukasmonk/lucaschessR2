@@ -130,7 +130,7 @@ class WDBAnalisis:
             return
 
     def new_analysis(self, pv):
-        alm = WindowAnalysisParam.analysis_parameters(self.wowner, Code.configuration, False, siTodosMotores=False)
+        alm = WindowAnalysisParam.analysis_parameters(self.wowner, False, all_engines=False)
         if alm is None:
             return
 

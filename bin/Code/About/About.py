@@ -162,7 +162,6 @@ class WAbout(QtWidgets.QDialog):
 #                             if "maia-" in linea:
 #                                 linea = linea.replace(" % level", "")
 #                             lir = linea.split('"')
-#                             print(lir)
 #                             x, alias, x, autor, x, version, x, url, x, nombre, x = lir[:11]
 #                             if alias == "Maia-%d":
 #                                 nombre = "Maia-1100/1900"
@@ -191,4 +190,12 @@ class WAbout(QtWidgets.QDialog):
 #         li.append("</div>")
 #         li.append("{% endblock contenido %}")
 #
-#         q.write("\n".join(li))
+#         txt = "\n".join(li)
+#
+#         dic = Code.translations.dic_translate
+#
+#         for k in dic:
+#             if f">{k}<" in txt:
+#                 txt = txt.replace(f">{k}<", '>{{ _("%s") }}<' % k)
+#
+#         q.write(txt)

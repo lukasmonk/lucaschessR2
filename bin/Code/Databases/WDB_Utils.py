@@ -17,19 +17,19 @@ from Code.SQL import UtilSQL
 
 
 class WFiltrar(QtWidgets.QDialog):
-    def __init__(self, w_parent, o_columns, liFiltro, dbSaveNom=None):
+    def __init__(self, w_parent, o_columns, li_filter, db_save_nom=None):
         super(WFiltrar, self).__init__()
 
-        if dbSaveNom is None:
-            dbSaveNom = Code.configuration.ficheroFiltrosPGN
+        if db_save_nom is None:
+            db_save_nom = Code.configuration.ficheroFiltrosPGN
 
         self.setWindowTitle(_("Filter"))
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Dialog | QtCore.Qt.WindowTitleHint)
         self.setWindowIcon(Iconos.Filtrar())
 
-        self.liFiltro = liFiltro
-        nFiltro = len(liFiltro)
-        self.dbSaveNom = dbSaveNom
+        self.li_filter = li_filter
+        n_filtro = len(li_filter)
+        self.db_save_nom = db_save_nom
 
         li_fields = [(x.head, '"%s"' % x.key) for x in o_columns.li_columns if x.key not in ("__num__", "opening")]
         li_fields.insert(0, ("", None))
@@ -61,7 +61,7 @@ class WFiltrar(QtWidgets.QDialog):
         ly.controlc(lb_con, 0, 3).controlc(lb_val, 0, 4).controlc(lb_par1, 0, 5)
 
         self.numC = 8
-        liC = []
+        li_c = []
 
         union, par0, campo, condicion, valor, par1 = None, False, None, None, "", False
         for i in range(self.numC):
@@ -82,9 +82,9 @@ class WFiltrar(QtWidgets.QDialog):
             c_par1 = Controles.CHB(self, "", par1).anchoFijo(20)
             ly.controlc(c_par1, i + 1, 5)
 
-            liC.append((c_union, c_par0, c_campo, c_condicion, c_valor, c_par1))
+            li_c.append((c_union, c_par0, c_campo, c_condicion, c_valor, c_par1))
 
-        self.liC = liC
+        self.liC = li_c
 
         # Toolbar
         li_acciones = [
@@ -104,36 +104,36 @@ class WFiltrar(QtWidgets.QDialog):
         layout = Colocacion.V().control(tb).otro(ly).margen(3)
         self.setLayout(layout)
 
-        liC[0][2].setFocus()
+        li_c[0][2].setFocus()
 
-        if nFiltro > 0:
-            self.lee_filtro(self.liFiltro)
+        if n_filtro > 0:
+            self.lee_filtro(self.li_filter)
 
     def grabar(self):
         if not self.lee_filtro_actual():
             return
-        with UtilSQL.DictSQL(self.dbSaveNom, tabla="Filters") as dbc:
-            liConf = dbc.keys(si_ordenados=True)
-            if len(liConf) == 0 and len(self.liFiltro) == 0:
+        with UtilSQL.DictSQL(self.db_save_nom, tabla="Filters") as dbc:
+            li_conf = dbc.keys(si_ordenados=True)
+            if len(li_conf) == 0 and len(self.li_filter) == 0:
                 return
             menu = Controles.Menu(self)
             SELECCIONA, BORRA, GRABA = range(3)
-            for x in liConf:
+            for x in li_conf:
                 menu.opcion((SELECCIONA, x), x, Iconos.PuntoAzul())
             menu.separador()
 
-            if len(self.liFiltro) > 0:
+            if len(self.li_filter) > 0:
                 submenu = menu.submenu(_("Save current"), Iconos.Mas())
-                if liConf:
-                    for x in liConf:
+                if li_conf:
+                    for x in li_conf:
                         submenu.opcion((GRABA, x), x, Iconos.PuntoAmarillo())
                 submenu.separador()
                 submenu.opcion((GRABA, None), _("New"), Iconos.NuevoMas())
 
-            if liConf:
+            if li_conf:
                 menu.separador()
                 submenu = menu.submenu(_("Remove"), Iconos.Delete())
-                for x in liConf:
+                for x in li_conf:
                     submenu.opcion((BORRA, x), x, Iconos.PuntoRojo())
             resp = menu.lanza()
 
@@ -141,8 +141,8 @@ class WFiltrar(QtWidgets.QDialog):
                 op, name = resp
 
                 if op == SELECCIONA:
-                    liFiltro = dbc[name]
-                    self.lee_filtro(liFiltro)
+                    li_filter = dbc[name]
+                    self.lee_filtro(li_filter)
                 elif op == BORRA:
                     if QTUtil2.pregunta(self, _X(_("Delete %1?"), name)):
                         del dbc[name]
@@ -158,17 +158,17 @@ class WFiltrar(QtWidgets.QDialog):
 
                                 name = li_gen[0].strip()
                                 if name:
-                                    dbc[name] = self.liFiltro
+                                    dbc[name] = self.li_filter
                         else:
-                            dbc[name] = self.liFiltro
+                            dbc[name] = self.li_filter
 
-    def lee_filtro(self, liFiltro):
-        self.liFiltro = liFiltro
-        nFiltro = len(liFiltro)
+    def lee_filtro(self, li_filter):
+        self.li_filter = li_filter
+        n_filtro = len(li_filter)
 
         for i in range(self.numC):
-            if nFiltro > i:
-                union, par0, campo, condicion, valor, par1 = liFiltro[i]
+            if n_filtro > i:
+                union, par0, campo, condicion, valor, par1 = li_filter[i]
             else:
                 union, par0, campo, condicion, valor, par1 = None, False, None, None, "", False
             c_union, c_par0, c_campo, c_condicion, c_valor, c_par1 = self.liC[i]
@@ -192,7 +192,7 @@ class WFiltrar(QtWidgets.QDialog):
         self.aceptar()
 
     def lee_filtro_actual(self):
-        self.liFiltro = []
+        self.li_filter = []
 
         npar = 0
 
@@ -217,9 +217,9 @@ class WFiltrar(QtWidgets.QDialog):
                 if i > 0:
                     union = self.liC[i][0].valor()
                     if union:
-                        self.liFiltro.append([union, par0, campo, condicion, valor, par1])
+                        self.li_filter.append([union, par0, campo, condicion, valor, par1])
                 else:
-                    self.liFiltro.append([None, par0, campo, condicion, valor, par1])
+                    self.li_filter.append([None, par0, campo, condicion, valor, par1])
             else:
                 break
         if npar:
@@ -233,7 +233,7 @@ class WFiltrar(QtWidgets.QDialog):
 
     def where(self):
         where = ""
-        for union, par0, campo, condicion, valor, par1 in self.liFiltro:
+        for union, par0, campo, condicion, valor, par1 in self.li_filter:
             valor = valor.upper()
             if condicion in ("LIKE", "NOT LIKE"):
                 valor = valor.replace("*", "%")
@@ -265,7 +265,7 @@ class WFiltrar(QtWidgets.QDialog):
         return where
 
 
-class EM_SQL(Controles.EM):
+class EMSQL(Controles.EM):
     def __init__(self, owner, where, li_fields):
         self.li_fields = li_fields
         Controles.EM.__init__(self, owner, where, siHTML=False)
@@ -290,13 +290,13 @@ class WFiltrarRaw(LCDialog.LCDialog):
         li_fields = [(x.head, x.key) for x in o_columns.li_columns if x.key != "__num__"]
         f = Controles.TipoLetra(puntos=12)  # 0, peso=75 )
 
-        lbRaw = Controles.LB(self, "%s:" % _("Raw SQL")).ponFuente(f)
-        self.edRaw = EM_SQL(self, where, li_fields).altoFijo(72).anchoMinimo(512).ponFuente(f)
+        lb_raw = Controles.LB(self, "%s:" % _("Raw SQL")).ponFuente(f)
+        self.edRaw = EMSQL(self, where, li_fields).altoFijo(72).anchoMinimo(512).ponFuente(f)
 
-        lbHelp = Controles.LB(self, _("Right button to select a column of database")).ponFuente(f)
-        lyHelp = Colocacion.H().relleno().control(lbHelp).relleno()
+        lb_help = Controles.LB(self, _("Right button to select a column of database")).ponFuente(f)
+        ly_help = Colocacion.H().relleno().control(lb_help).relleno()
 
-        ly = Colocacion.H().control(lbRaw).control(self.edRaw)
+        ly = Colocacion.H().control(lb_raw).control(self.edRaw)
 
         # Toolbar
         li_acciones = [
@@ -308,7 +308,7 @@ class WFiltrarRaw(LCDialog.LCDialog):
         tb = QTVarios.LCTB(self, li_acciones)
 
         # Layout
-        layout = Colocacion.V().control(tb).otro(ly).otro(lyHelp).margen(3)
+        layout = Colocacion.V().control(tb).otro(ly).otro(ly_help).margen(3)
         self.setLayout(layout)
 
         self.edRaw.setFocus()
@@ -321,20 +321,21 @@ class WFiltrarRaw(LCDialog.LCDialog):
         self.accept()
 
 
-def mensajeEntrenamientos(owner, liCreados, liNoCreados):
+def message_creating_trainings(owner, li_creados, li_no_creados):
     txt = ""
-    if liCreados:
+    if li_creados:
         txt += _("Created the following trainings") + ":"
         txt += "<ul>"
-        for x in liCreados:
+        for x in li_creados:
             txt += "<li>%s</li>" % os.path.basename(x)
         txt += "</ul>"
-    if liNoCreados:
-        txt += _("No trainings created due to lack of data") + ":"
-        txt += "<ul>"
-        for x in liNoCreados:
-            txt += "<li>%s</li>" % os.path.basename(x)
-        txt += "</ul>"
+    if li_no_creados:
+        txt += _("No trainings created due to lack of data")
+        if li_creados:
+            txt += ":<ul>"
+            for x in li_no_creados:
+                txt += "<li>%s</li>" % os.path.basename(x)
+            txt += "</ul>"
     QTUtil2.message_bold(owner, txt)
 
 
@@ -473,9 +474,9 @@ def create_tactics(procesador, wowner, li_registros_selected, li_registros_total
 
         li_titulo = []
 
-        def add_titulo(txt):
-            if txt:
-                li_titulo.append(txt)
+        def add_titulo(xtxt):
+            if xtxt:
+                li_titulo.append(xtxt)
 
         add_titulo(es)
         add_titulo(wb)
@@ -512,22 +513,23 @@ def create_tactics(procesador, wowner, li_registros_selected, li_registros_total
     QTUtil2.message_bold(
         wowner,
         (
-            "%s<br>%s<br><br>%s<br>%s<br>%s"
-            % (
-                _("Tactic training %s created.") % menuname,
-                _("You can access this training from"),
-                "%s/%s" % (_("Train"), _("Tactics")),
-                "%s1) %s / %s <br>%s➔ %s"
-                % (sp(5), _("Training positions"), _("Tactics"), sp(12), _("for a standard training")),
-                "%s2) %s / %s <br>%s➔ %s"
+                "%s<br>%s<br><br>%s<br>%s<br>%s"
                 % (
-                    sp(5),
-                    _("Learn tactics by repetition"),
-                    _("Personal tactics"),
-                    sp(12),
-                    _("for a training by repetition"),
-                ),
-            )
+                    _("Tactic training %s created.") % menuname,
+                    _("You can access this training from"),
+                    "%s/%s" % (_("Train"), _("Tactics")),
+                    "%s1) %s / %s / %s <br>%s➔ %s"
+                    % (sp(5), _("Training positions"), _("Personal Training"), _("Personal tactics"), sp(12),
+                       _("for a standard training")),
+                    "%s2) %s / %s <br>%s➔ %s"
+                    % (
+                        sp(5),
+                        _("Learn tactics by repetition"),
+                        _("Personal tactics"),
+                        sp(12),
+                        _("for a training by repetition"),
+                    ),
+                )
         ),
     )
 

@@ -319,7 +319,7 @@ FILESW=%s:100
         bmt_lista.nuevo(bmt_uno)
         bmt_lista.check_game(cl_game, txt_game)
 
-    def xprocesa(self, game, tmp_bp):
+    def xprocesa(self, game, tmp_bp, window=None):
         self.si_bmt_blunders = False
         self.si_bmt_brilliancies = False
 
@@ -440,9 +440,14 @@ FILESW=%s:100
                     if not is_black:
                         continue
 
-                # -# previos
+                allow_add_variations = True
                 if self.delete_previous:
                     move.analysis = None
+
+                # si no se borran los análisis previos y existe un análisis no se tocan las variantes
+                elif move.analysis:
+                    if self.with_variations and move.variations:
+                        allow_add_variations = False
 
                 # -# Procesamos
                 if move.analysis is None:
@@ -457,7 +462,7 @@ FILESW=%s:100
                         st_centipawns=self.st_centipawns,
                         st_depths=self.st_depths,
                         st_timelimit=self.st_timelimit,
-                        window=self.procesador.main_window,
+                        window=window if window else self.procesador.main_window
                     )
                     if not resp:
                         self.xmanager.remove_gui_dispatch()
@@ -491,14 +496,8 @@ FILESW=%s:100
 
                     fen = move.position_before.fen()
 
-                    if self.with_variations:
-                        remove_all = True
-                        limite = self.alm.limit_include_variations
-                        if (limite == 0) or (dif >= limite):
-                            if not (self.alm.best_variation and dif == 0):
-                                move.analisis2variantes(self.alm, self.delete_previous)
-                                remove_all = False
-                        if remove_all:
+                    if self.with_variations and allow_add_variations:
+                        if not move.analisis2variantes(self.alm, self.delete_previous):
                             move.remove_all_variations()
 
                     ok_blunder = dif > self.kblunders
@@ -528,8 +527,8 @@ FILESW=%s:100
                             self.si_bmt_brilliancies = True
                     else:
                         nag, color = mrm.set_nag_color(rm)
-                        if nag and not move.is_mate:
-                            move.add_nag(nag)
+                        # if not move.is_mate:
+                        move.add_nag(nag)
 
                     if self.themes_lichess and (mj.mate != 0 or dif > 0):
                         move.assign_themes_lichess()
@@ -551,7 +550,7 @@ def analysis_game(manager):
     procesador = manager.procesador
     main_window = manager.main_window
 
-    alm = WindowAnalysisParam.analysis_parameters(main_window, procesador.configuration, True)
+    alm = WindowAnalysisParam.analysis_parameters(main_window, True)
 
     if alm is None:
         return
@@ -600,7 +599,7 @@ def analysis_game(manager):
 
     ap.dispatch_bp(dispatch_bp)
 
-    ap.xprocesa(game, manager_main_window_base)
+    ap.xprocesa(game, manager_main_window_base, window=main_window)
 
     manager_main_window_base.tb.setDisabled(False)
     manager_main_window_base.hide_message()
@@ -637,7 +636,7 @@ def analysis_game(manager):
                 li_no_creados.append(alm.bmtbrilliancies)
 
         if li_creados or li_no_creados:
-            WDB_Utils.mensajeEntrenamientos(main_window, li_creados, li_no_creados)
+            WDB_Utils.message_creating_trainings(main_window, li_creados, li_no_creados)
             procesador.entrenamientos.rehaz()
 
     manager.goto_end()

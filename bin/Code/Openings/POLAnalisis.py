@@ -661,7 +661,7 @@ class TabTree(QtWidgets.QWidget):
         menu1.opcion("collapsethis", _("This branch"), Iconos.PuntoAmarillo())
 
         menu.separador()
-        menu1 = menu.submenu(_("Next position with more that one move"), Iconos.GoToNext())
+        menu1 = menu.submenu(_("Next position with more than one alternative"), Iconos.GoToNext())
         menu1.opcion("next>1_white", _("White"), Iconos.Blancas())
         menu1.separador()
         menu1.opcion("next>1_black", _("Black"), Iconos.Negras())

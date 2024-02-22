@@ -837,7 +837,7 @@ class WindowArbol(LCDialog.LCDialog):
 
     def nuevoAnalisis(self, lm):
         fen = lm.gameBase.last_position.fen()
-        alm = WindowAnalysisParam.analysis_parameters(self, Code.configuration, False, siTodosMotores=True)
+        alm = WindowAnalysisParam.analysis_parameters(self, False, all_engines=True)
         if alm is None:
             return
         if alm.engine == "default":

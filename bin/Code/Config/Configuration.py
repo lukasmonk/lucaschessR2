@@ -206,7 +206,7 @@ class Configuration:
         self.x_maia_nodes_exponential = False
 
         self.x_eval_limit_score = 2000  # Score in cps means 100% Win
-        self.x_eval_curve_degree = 50  # Degree of curve cps and probability of win
+        self.x_eval_curve_degree = 30  # Degree of curve cps and probability of win
 
         self.x_eval_difmate_inaccuracy = 3  # Dif mate considered an inaccuracy
         self.x_eval_difmate_mistake = 12  # Dif mate considered a mistake
@@ -263,7 +263,7 @@ class Configuration:
         self.x_style_icons = IconosBase.icons.NORMAL
         self.style_sheet_default = None  # temporary var
 
-        self.x_mode_select_lc = True
+        self.x_mode_select_lc = False
 
         self._dic_books = None
 

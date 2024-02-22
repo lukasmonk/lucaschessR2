@@ -342,13 +342,9 @@ def options(parent, configuration):
 
 
 def options_first_time(parent, configuration):
-    form = FormLayout.FormLayout(parent, _("Player"), Iconos.Usuarios(), anchoMinimo=460)
-    form.separador()
-    form.edit(_("Player's name"), configuration.x_player)
-    result = form.run()
+    result = QTUtil2.read_simple(parent, _("Player"), _("Player's name"), configuration.x_player)
     if result:
-        accion, resp = result
-        player = resp[0].strip()
+        player = result.strip()
         if not player:
             player = _("Player")
         configuration.x_player = player

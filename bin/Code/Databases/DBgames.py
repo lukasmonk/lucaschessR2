@@ -980,7 +980,8 @@ class DBgames:
                     self.db_stat.append(pv, game_modificada.resultado(), r=+1)
             resp.summary_changed = True
 
-        del self.cache[rowid]
+        if rowid in self.cache:
+            del self.cache[rowid]
 
         return resp
 

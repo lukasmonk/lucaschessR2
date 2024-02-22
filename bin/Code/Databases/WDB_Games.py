@@ -58,7 +58,7 @@ class WGames(QtWidgets.QWidget):
 
         self.ap = OpeningsStd.ap
 
-        self.liFiltro = []
+        self.li_filter = []
         self.where = None
 
         self.last_opening = None
@@ -371,7 +371,7 @@ class WGames(QtWidgets.QWidget):
 
         if self.wsummary:
             summary_activo = self.wsummary.movActivo()
-            if siObligatorio or pvSummary(self.summaryActivo) != pvSummary(summary_activo) or self.liFiltro:
+            if siObligatorio or pvSummary(self.summaryActivo) != pvSummary(summary_activo) or self.li_filter:
                 self.where = None
                 self.summaryActivo = summary_activo
                 pv = ""
@@ -388,7 +388,7 @@ class WGames(QtWidgets.QWidget):
                 self.grid.refresh()
                 self.grid.gotop()
         else:
-            if siObligatorio or self.liFiltro:
+            if siObligatorio or self.li_filter:
                 self.where = None
                 self.dbGames.filter_pv("")
                 self.updateStatus()
@@ -544,9 +544,9 @@ class WGames(QtWidgets.QWidget):
             self.grid_cambiado_registro(None, 0, 0)
 
         def standard():
-            w = WDB_Utils.WFiltrar(self, self.grid.o_columns, self.liFiltro, self.dbGames.nom_fichero)
+            w = WDB_Utils.WFiltrar(self, self.grid.o_columns, self.li_filter, self.dbGames.nom_fichero)
             if w.exec_():
-                self.liFiltro = w.liFiltro
+                self.li_filter = w.li_filter
 
                 self.where = w.where()
                 self.dbGames.filter_pv(xpv, self.where)
@@ -1033,7 +1033,7 @@ class WGames(QtWidgets.QWidget):
                 else:
                     li_not_created = [name]
                     li_created = None
-                WDB_Utils.mensajeEntrenamientos(self, li_created, li_not_created)
+                WDB_Utils.message_creating_trainings(self, li_created, li_not_created)
 
             return
 
@@ -1170,7 +1170,7 @@ class WGames(QtWidgets.QWidget):
                 else:
                     li_no_creados.append(alm.bmtbrilliancies)
             if li_creados:
-                WDB_Utils.mensajeEntrenamientos(self, li_creados, li_no_creados)
+                WDB_Utils.message_creating_trainings(self, li_creados, li_no_creados)
                 self.procesador.entrenamientos.rehaz()
 
         else:

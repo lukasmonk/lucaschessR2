@@ -175,7 +175,7 @@ class WAnalysis(LCDialog.LCDialog):
     def __init__(self, cpu: CPU):
         self.cpu: CPU = cpu
         self.game = None
-        title = "%s - %s %d" % (_("Mass analysis"), _("Worker"), cpu.num_worker+1)
+        title = "%s - %s %d" % (_("Mass analysis"), _("Worker"), cpu.num_worker + 1)
         LCDialog.LCDialog.__init__(self, None, title, Iconos.Analizar(), f"worker_analyisis_{self.cpu.num_worker}")
 
         self.lb_game = Controles.LB(self)
@@ -378,7 +378,8 @@ class AnalyzeGame:
                 if not os.path.isdir(dtactics):
                     os.mkdir(dtactics)
                 os.mkdir(self.tacticblunders)
-                with open(os.path.join(self.tacticblunders, "Config.ini"), "wt", encoding="utf-8", errors="ignore") as f:
+                with open(os.path.join(self.tacticblunders, "Config.ini"), "wt", encoding="utf-8",
+                          errors="ignore") as f:
                     f.write(
                         """[COMMON]
     ed_reference=20
@@ -547,6 +548,7 @@ class AnalyzeGame:
         if self.bmtbrilliancies and self.bmt_listaBrilliancies is None:
             self.bmt_listaBrilliancies = BMT.BMTLista()
 
+
         xlibro_aperturas = self.book
 
         is_white = self.white
@@ -622,7 +624,6 @@ class AnalyzeGame:
 
             move = game.move(pos_move)
 
-
             if self.cpu.is_closed:
                 return
 
@@ -640,8 +641,14 @@ class AnalyzeGame:
                         continue
 
                 # -# previos
+                allow_add_variations = True
                 if self.delete_previous:
                     move.analysis = None
+
+                # si no se borran los análisis previos y existe un análisis no se tocan las variantes
+                elif move.analysis:
+                    if self.with_variations and move.variations:
+                        allow_add_variations = False
 
                 # -# Procesamos
                 if move.analysis is None:
@@ -688,11 +695,9 @@ class AnalyzeGame:
 
                     fen = move.position_before.fen()
 
-                    if self.with_variations:
-                        limite = self.alm.limit_include_variations
-                        if (limite == 0) or (dif >= limite):
-                            if not (self.alm.best_variation and dif == 0):
-                                move.analisis2variantes(self.alm, self.delete_previous)
+                    if self.with_variations and allow_add_variations:
+                        if not move.analisis2variantes(self.alm, self.delete_previous):
+                            move.remove_all_variations()
 
                     ok_blunder = dif >= self.kblunders
                     if ok_blunder and self.kblunders_porc > 0:
