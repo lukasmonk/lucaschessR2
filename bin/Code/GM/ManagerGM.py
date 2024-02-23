@@ -177,9 +177,9 @@ class ManagerGM(Manager.Manager):
         if self.if_analyzing:
             self.if_analyzing = False
             if self.continueTt:
-                self.mrmTutor = self.xtutor.ac_final(self.xtutor.mstime_engine)
+                self.mrm_tutor = self.xtutor.ac_final(self.xtutor.mstime_engine)
             else:
-                self.mrmTutor = self.xtutor.ac_final_limit()
+                self.mrm_tutor = self.xtutor.ac_final_limit()
 
     def play_next_move(self):
         self.analyze_end()

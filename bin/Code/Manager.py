@@ -920,13 +920,13 @@ class Manager:
         # self.thinking(True)
         fen = self.game.last_position.fen()
         if not self.is_finished():
-            self.mrmTutor = self.xtutor.analiza(fen)
+            self.mrm_tutor = self.xtutor.analiza(fen)
         else:
-            self.mrmTutor = None
+            self.mrm_tutor = None
         # self.thinking(False)
         if with_cursor:
             self.main_window.pensando_tutor(False)
-        return self.mrmTutor
+        return self.mrm_tutor
 
     def conf_engines(self):
         w = WConfEngines.WConfEngines(self.main_window)

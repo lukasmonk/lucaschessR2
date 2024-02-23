@@ -107,6 +107,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
     cache_analysis = {}
     with_takeback = True
     seconds_per_move = 0
+    mrm_tutor = None
 
     def start(self, dic_var):
         self.base_inicio(dic_var)
@@ -825,7 +826,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             return
 
         if self.game.last_position.fenm2() in self.cache_analysis:
-            self.mrmTutor = self.cache_analysis[self.game.last_position.fenm2()]
+            self.mrm_tutor = self.cache_analysis[self.game.last_position.fenm2()]
             self.is_analyzed_by_tutor = True
             self.is_analyzing = False
             return
@@ -849,7 +850,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             return
 
         if self.game.last_position.fenm2() in self.cache_analysis:
-            self.mrmTutor = self.cache_analysis[self.game.last_position.fenm2()]
+            self.mrm_tutor = self.cache_analysis[self.game.last_position.fenm2()]
             self.is_analyzed_by_tutor = True
             self.is_analyzing = False
             return
@@ -880,9 +881,9 @@ class ManagerPlayAgainstEngine(Manager.Manager):
 
         self.main_window.pensando_tutor(True)
         if self.continueTt:
-            self.mrmTutor = self.xtutor.ac_final(self.xtutor.mstime_engine)
+            self.mrm_tutor = self.xtutor.ac_final(self.xtutor.mstime_engine)
         else:
-            self.mrmTutor = self.xtutor.ac_final_limit()
+            self.mrm_tutor = self.xtutor.ac_final_limit()
         self.main_window.pensando_tutor(False)
         self.is_analyzed_by_tutor = True
 
@@ -1125,7 +1126,8 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         move = Move.Move(self.game, position_before=self.game.last_position.copia())
         if self.is_tutor_enabled:
             self.analyze_end()
-            move.analysis = self.mrmTutor, 0
+            if self.mrm_tutor:
+                move.analysis = self.mrm_tutor, 0
         Analysis.show_analysis(self.procesador, self.xtutor, move, self.board.is_white_bottom, 0, must_save=False)
         if self.hints:
             self.hints -= 1
@@ -1164,7 +1166,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
 
         if self.is_tutor_enabled:
             self.analyze_end()
-            rm = self.mrmTutor.mejorMov()
+            rm = self.mrm_tutor.mejorMov()
             return self.player_has_moved_base(rm.from_sq, rm.to_sq, rm.promotion)
 
         if self.if_analyzing:
@@ -1185,7 +1187,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                     rm_best1: EngineResponse.EngineResponse = mrm.rmBest()
                     rm_user1: EngineResponse.EngineResponse = mrm.li_rm[pos]
                     cps += rm_best1.puntosABS_5() - rm_user1.puntosABS_5()
-        rm_best = self.mrmTutor.rmBest()
+        rm_best = self.mrm_tutor.rmBest()
         cps += rm_best.puntosABS_5() - rm_user.puntosABS_5()
 
         return cps
@@ -1297,7 +1299,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         self.analyze_end(is_mate)  # tiene que acabar siempre
         if not is_mate and not is_choosed and self.is_tutor_enabled:
             if not self.tutor_book.si_esta(fen_base, a1h8):
-                rm_user, n = self.mrmTutor.buscaRM(a1h8)
+                rm_user, n = self.mrm_tutor.buscaRM(a1h8)
                 if not rm_user:
                     self.main_window.pensando_tutor(True)
                     rm_user = self.xtutor.valora(self.game.last_position, from_sq, to_sq, move.promotion)
@@ -1307,36 +1309,36 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                         self.tc_player.restart()
                         self.enable_toolbar()
                         return False
-                    self.mrmTutor.add_rm(rm_user)
-                self.cache_analysis[fen_basem2] = self.mrmTutor
+                    self.mrm_tutor.add_rm(rm_user)
+                self.cache_analysis[fen_basem2] = self.mrm_tutor
 
                 si_analisis = True
-                points_best, points_user = self.mrmTutor.difPointsBest(a1h8)
+                points_best, points_user = self.mrm_tutor.difPointsBest(a1h8)
                 self.set_summary("POINTSBEST", points_best)
                 self.set_summary("POINTSUSER", points_user)
 
                 if self.play_while_win:
-                    if Tutor.launch_tutor(self.mrmTutor, rm_user, tp=MISTAKE):
+                    if Tutor.launch_tutor(self.mrm_tutor, rm_user, tp=MISTAKE):
                         game_over_message_pww = _("You have made a bad move.")
                     else:
-                        cpws_lost = self.pww_centipawns_lost(self.mrmTutor.rmBest, rm_user)
+                        cpws_lost = self.pww_centipawns_lost(self.mrm_tutor.rmBest, rm_user)
                         if cpws_lost > self.limit_pww:
                             game_over_message_pww = "%s<br>%s" % (
                                 _("You have exceeded the limit of lost centipawns."),
                                 _("Lost centipawns %d") % cpws_lost,
                             )
                     if game_over_message_pww:
-                        rm0 = self.mrmTutor.mejorMov()
+                        rm0 = self.mrm_tutor.mejorMov()
                         self.board.put_arrow_scvar([(rm0.from_sq, rm0.to_sq)])
 
-                elif Tutor.launch_tutor(self.mrmTutor, rm_user):
+                elif Tutor.launch_tutor(self.mrm_tutor, rm_user):
                     if not move.is_mate:
                         si_tutor = True
                         self.beepError()
                         if self.chance:
-                            num = self.mrmTutor.numMejorMovQue(a1h8)
+                            num = self.mrm_tutor.numMejorMovQue(a1h8)
                             if num:
-                                rm_tutor = self.mrmTutor.rmBest()
+                                rm_tutor = self.mrm_tutor.rmBest()
                                 menu = QTVarios.LCMenu(self.main_window)
                                 menu.opcion("None", _("There are %d best movements") % num, Iconos.Engine())
                                 menu.separador()
@@ -1400,9 +1402,9 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         self.set_summary("TIMEUSER", time_s)
 
         if si_analisis:
-            rm, nPos = self.mrmTutor.buscaRM(move.movimiento())
+            rm, nPos = self.mrm_tutor.buscaRM(move.movimiento())
             if rm:
-                move.analysis = self.mrmTutor, nPos
+                move.analysis = self.mrm_tutor, nPos
 
         if game_over_message_pww:
             game_over_message_pww = '<span style="font-size:14pts">%s<br>%s<br><br><b>%s</b>' % (

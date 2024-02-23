@@ -653,9 +653,9 @@ class ManagerWashingCreate(Manager.Manager):
         self.is_analyzing = False
         self.thinking(True)
         if self.continueTt:
-            self.mrmTutor = self.xtutor.ac_final(self.xtutor.mstime_engine)
+            self.mrm_tutor = self.xtutor.ac_final(self.xtutor.mstime_engine)
         else:
-            self.mrmTutor = self.xtutor.ac_final_limit()
+            self.mrm_tutor = self.xtutor.ac_final_limit()
         self.thinking(False)
         self.is_analyzed_by_tutor = True
 
@@ -690,15 +690,15 @@ class ManagerWashingCreate(Manager.Manager):
 
         self.analyze_end()  # tiene que acabar siempre
         if not is_selected:
-            rm_user, n = self.mrmTutor.buscaRM(movimiento)
+            rm_user, n = self.mrm_tutor.buscaRM(movimiento)
             if not rm_user:
                 rm_user = self.xtutor.valora(self.game.last_position, from_sq, to_sq, move.promotion)
                 if not rm_user:
                     self.continue_analysis_human_move()
                     return False
-                self.mrmTutor.add_rm(rm_user)
+                self.mrm_tutor.add_rm(rm_user)
             siAnalisis = True
-            pointsBest, pointsUser = self.mrmTutor.difPointsBest(movimiento)
+            pointsBest, pointsUser = self.mrm_tutor.difPointsBest(movimiento)
             if (pointsBest - pointsUser) > 0:
                 if not move.is_mate:
                     tutor = Tutor.Tutor(self, move, from_sq, to_sq, False)
@@ -721,9 +721,9 @@ class ManagerWashingCreate(Manager.Manager):
 
 
         if siAnalisis:
-            rm, nPos = self.mrmTutor.buscaRM(move.movimiento())
+            rm, nPos = self.mrm_tutor.buscaRM(move.movimiento())
             if rm:
-                move.analysis = self.mrmTutor, nPos
+                move.analysis = self.mrm_tutor, nPos
 
         self.add_move(move, True)
         self.error = ""

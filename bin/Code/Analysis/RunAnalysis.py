@@ -40,8 +40,6 @@ class CPU:
         self.alm = None
         self.ag = None
         self.num_worker = None
-        # self.game = None
-        # self.recno = None
 
     def xreceive(self):
         if self.is_closed:
@@ -160,6 +158,8 @@ class CPU:
 
     def progress(self, npos, n_moves):
         self.window.progress(npos, n_moves)
+        QTUtil.refresh_gui()
+        return not self.is_closed
 
 
 def run(filebase):
@@ -190,7 +190,7 @@ class WAnalysis(LCDialog.LCDialog):
 
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.xreceive)
-        self.timer.start(1000)
+        self.timer.start(200)
         self.is_closed = False
 
     def xreceive(self):
@@ -199,7 +199,7 @@ class WAnalysis(LCDialog.LCDialog):
             self.cpu.procesa()
 
     def init_game(self, num_game, num_moves):
-        self.lb_game.set_text("%s %d" % (_("Game"), num_game))
+        self.lb_game.set_text("%s %d" % (_("Game"), num_game+1))
         QTUtil.refresh_gui()
 
     def closeEvent(self, event):
@@ -208,6 +208,7 @@ class WAnalysis(LCDialog.LCDialog):
     def finalizar(self):
         if not self.is_closed:
             self.is_closed = True
+            self.cpu.is_closed = True
             self.timer.stop()
             self.accept()
 
@@ -548,7 +549,6 @@ class AnalyzeGame:
         if self.bmtbrilliancies and self.bmt_listaBrilliancies is None:
             self.bmt_listaBrilliancies = BMT.BMTLista()
 
-
         xlibro_aperturas = self.book
 
         is_white = self.white
@@ -615,7 +615,9 @@ class AnalyzeGame:
         n_moves = len(li_pos_moves)
 
         for npos, pos_move in enumerate(li_pos_moves, 1):
-            self.cpu.progress(npos, n_moves)
+            if not self.cpu.progress(npos, n_moves):
+                return
+
             if pos_move in st_borrar:
                 continue
 

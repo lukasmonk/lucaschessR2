@@ -20,7 +20,7 @@ class Tutor:
         self.move = move
         self.from_sq = from_sq
         self.to_sq = to_sq
-        self.mrmTutor = manager.mrmTutor
+        self.mrm_tutor = manager.mrm_tutor
         self.rm_rival = manager.rm_rival
         self.is_white = manager.is_human_side_white
         self.siEntrenando = siEntrenando
@@ -30,7 +30,7 @@ class Tutor:
 
     def elegir(self, has_hints, li_ap_posibles=None):
 
-        self.rmUsuario, posUsuario = self.mrmTutor.buscaRM(self.move.movimiento())
+        self.rmUsuario, posUsuario = self.mrm_tutor.buscaRM(self.move.movimiento())
         if self.rmUsuario is None:
             # Elegimos si la opcion del tutor es mejor que la del usuario
             # Ponemos un mensaje mientras piensa
@@ -39,7 +39,7 @@ class Tutor:
             fen = self.move.position.fen()
             mrm_usuario = self.managerTutor.analiza(fen)
             if len(mrm_usuario.li_rm) == 0:
-                self.rmUsuario = self.mrmTutor.li_rm[0].copia()
+                self.rmUsuario = self.mrm_tutor.li_rm[0].copia()
                 self.rmUsuario.from_sq = self.move.from_sq
                 self.rmUsuario.to_sq = self.move.to_sq
                 self.rmUsuario.promotion = self.move.promotion
@@ -52,7 +52,7 @@ class Tutor:
             me.final()
 
         # Comparamos la puntuacion del usuario con la del tutor
-        if not launch_tutor(self.mrmTutor, self.rmUsuario):
+        if not launch_tutor(self.mrm_tutor, self.rmUsuario):
             return False
 
         # Creamos la lista de movimientos analizados por el tutor
@@ -149,7 +149,7 @@ class Tutor:
         li = []
         pb = self.move.position_before
 
-        for n, rm in enumerate(self.mrmTutor.li_rm):
+        for n, rm in enumerate(self.mrm_tutor.li_rm):
             if n != posUsuario:
                 pv1 = rm.getPV().split(" ")[0]
                 from_sq = pv1[:2]

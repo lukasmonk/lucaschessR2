@@ -321,7 +321,7 @@ class ManagerCompeticion(Manager.Manager):
 
     def analyze_end(self):
         if self.if_analyzing:
-            self.mrmTutor = self.xtutor.ac_final(-1)
+            self.mrm_tutor = self.xtutor.ac_final(-1)
             self.is_analyzed_by_tutor = True
             self.if_analyzing = False
 
@@ -348,13 +348,13 @@ class ManagerCompeticion(Manager.Manager):
 
         if siMirarTutor:
             if not self.is_analyzed_by_tutor:
-                self.mrmTutor = self.analizaTutor()
+                self.mrm_tutor = self.analizaTutor()
 
-            if self.mrmTutor is None:
+            if self.mrm_tutor is None:
                 self.sigueHumano()
                 return False
             if not self.tutor_book.si_esta(self.last_fen(), movimiento):
-                if Tutor.launch_tutor_movimiento(self.mrmTutor, movimiento):
+                if Tutor.launch_tutor_movimiento(self.mrm_tutor, movimiento):
                     self.refresh()
                     if not move.is_mate:
                         tutor = Tutor.Tutor(self, move, from_sq, to_sq, False)

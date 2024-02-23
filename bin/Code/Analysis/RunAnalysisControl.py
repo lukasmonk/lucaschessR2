@@ -200,9 +200,6 @@ class AnalysisMassiveWithWorkers:
 
         if actives == 0:
             self.close()
-        else:
-            QtCore.QTimer.singleShot(1000, self.processing)
-            QTUtil.refresh_gui()
 
     def save_bmt(self, bmt):
         if bmt is None:
@@ -265,12 +262,18 @@ class WProgress(LCDialog.LCDialog):
         self.restore_video(anchoDefecto=400, altoDefecto=40)
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.xreceive)
-        self.timer.start(1000)
+        self.timer.start(200)
 
         self.restore_video()
+        self.working = False
 
     def xreceive(self):
+        QTUtil.refresh_gui()
+        if self.working:
+            return
+        self.working = True
         self.amww.processing()
+        self.working = False
 
     def xcancel(self):
         self._is_canceled = True

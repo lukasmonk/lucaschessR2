@@ -435,7 +435,7 @@ class ManagerEntPos(Manager.Manager):
         if self.is_analyzed_by_tutor:
             return
         self.main_window.pensando_tutor(True)
-        self.mrmTutor = self.xtutor.ac_final(self.xtutor.mstime_engine)
+        self.mrm_tutor = self.xtutor.ac_final(self.xtutor.mstime_engine)
         self.main_window.pensando_tutor(False)
 
     def analiza_stop(self):
@@ -511,7 +511,7 @@ class ManagerEntPos(Manager.Manager):
             if self.is_tutor_enabled:
                 if not self.is_analyzed_by_tutor:
                     self.analizaTutor(True)
-                if self.mrmTutor.mejorMovQue(a1h8):
+                if self.mrm_tutor.mejorMovQue(a1h8):
                     if not move.is_mate:
                         self.beepError()
                         tutor = Tutor.Tutor(self, move, from_sq, to_sq, False)
@@ -528,7 +528,7 @@ class ManagerEntPos(Manager.Manager):
                                 move = move_tutor
 
                         del tutor
-            self.mrmTutor = None
+            self.mrm_tutor = None
 
         self.move_the_pieces(move.liMovs)
         self.add_move(move, True)
