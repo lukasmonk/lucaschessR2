@@ -1,4 +1,3 @@
-import os
 import random
 import sys
 import time
@@ -395,7 +394,7 @@ class League:
     def __init__(self, name):
         self.li_opponents = []
         self.__name = name
-        self.__path = os.path.join(Code.configuration.folder_leagues(), name + ".league")
+        self.__path = Util.opj(Code.configuration.folder_leagues(), name + ".league")
 
         self.resign = 350
         self.slow_pieces = False
@@ -442,7 +441,7 @@ class League:
                 UtilSQL.remove_table(self.path(), name)
 
     def folder_work(self):
-        return os.path.join(Code.configuration.folder_leagues(), self.__name)
+        return Util.opj(Code.configuration.folder_leagues(), self.__name)
 
     def name(self):
         return self.__name

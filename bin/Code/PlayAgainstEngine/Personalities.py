@@ -159,8 +159,8 @@ class Personalities:
                 lista, title=_("Personalities"), parent=self.owner, anchoMinimo=460, icon=icono
             )
             if resultado:
-                accion, liResp = resultado
-                liGenR, liAR, liMJR, liFR = liResp
+                accion, li_resp = resultado
+                liGenR, liAR, liMJR, liFR = li_resp
 
                 name = liGenR[0].strip()
 

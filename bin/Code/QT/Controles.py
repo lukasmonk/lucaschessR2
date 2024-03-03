@@ -664,7 +664,7 @@ class Menu(QtWidgets.QMenu):
                 ................
     """
 
-    def __init__(self, parent, titulo=None, icono=None, is_disabled=False, puntos=None, siBold=True):
+    def __init__(self, parent, titulo=None, icono=None, is_disabled=False, puntos=None, bold=True):
 
         self.parent = parent
         QtWidgets.QMenu.__init__(self, parent)
@@ -678,7 +678,7 @@ class Menu(QtWidgets.QMenu):
             self.setDisabled(True)
 
         if puntos:
-            tl = TipoLetra(puntos=puntos, peso=75) if siBold else TipoLetra(puntos=puntos)
+            tl = TipoLetra(puntos=puntos, peso=75) if bold else TipoLetra(puntos=puntos)
             self.setFont(tl)
 
         app = QtWidgets.QApplication.instance()
@@ -696,7 +696,7 @@ class Menu(QtWidgets.QMenu):
         self.setFont(f)
         return self
 
-    def opcion(self, key, label, icono=None, is_disabled=False, tipoLetra=None, siChecked=False, toolTip: str = ""):
+    def opcion(self, key, label, icono=None, is_disabled=False, tipoLetra=None, is_ckecked=False, toolTip: str = ""):
         if icono:
             accion = QtWidgets.QAction(icono, label, self)
         else:
@@ -706,9 +706,9 @@ class Menu(QtWidgets.QMenu):
             accion.setDisabled(True)
         if tipoLetra:
             accion.setFont(tipoLetra)
-        if siChecked is not None:
+        if is_ckecked is not None:
             accion.setCheckable(True)
-            accion.setChecked(siChecked)
+            accion.setChecked(is_ckecked)
         if toolTip != "":
             accion.setToolTip(toolTip)
 

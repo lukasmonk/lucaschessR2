@@ -524,11 +524,11 @@ class WPotenciaBase(LCDialog.LCDialog):
         # Editamos
         resultado = FormLayout.fedit(li_gen, title=_("Configuration"), parent=self, icon=Iconos.Opciones())
         if resultado:
-            accion, liResp = resultado
-            self.engine = liResp[0]
-            self.seconds = liResp[1]
-            self.min_min = liResp[2]
-            self.min_max = liResp[3]
+            accion, li_resp = resultado
+            self.engine = li_resp[0]
+            self.seconds = li_resp[1]
+            self.min_min = li_resp[2]
+            self.min_max = li_resp[3]
 
             param = UtilSQL.DictSQL(self.configuration.ficheroPotencia, tabla="parametros")
             param["ENGINE"] = self.engine

@@ -927,7 +927,7 @@ class WLeague(LCDialog.LCDialog):
             resp = 1
 
         else:
-            rondo = QTVarios.rondoPuntos()
+            rondo = QTVarios.rondo_puntos()
 
             menu = QTVarios.LCMenu(self)
             menu.opcion(1, _("Launch one worker"), Iconos.Lanzamiento())
@@ -1046,7 +1046,7 @@ class WLeague(LCDialog.LCDialog):
     def seasons(self):
         li_seasons = self.season.list_seasons()
         if len(li_seasons) > 1:
-            rondo = QTVarios.rondoPuntos()
+            rondo = QTVarios.rondo_puntos()
             menu = QTVarios.LCMenu(self)
             submenu = menu.submenu(_("Change the active season"), Iconos.Season())
             for num_season in li_seasons:

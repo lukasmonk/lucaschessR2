@@ -141,8 +141,8 @@ class WNewExpedition(LCDialog.LCDialog):
 
             resultado = form.run()
             if resultado:
-                accion, liResp = resultado
-                plant, shuffle, reverse, max_moves = liResp
+                accion, li_resp = resultado
+                plant, shuffle, reverse, max_moves = li_resp
                 if plant:
                     ln = Util.ListaNumerosImpresion(plant)
                     li_regs = ln.selected(todos)

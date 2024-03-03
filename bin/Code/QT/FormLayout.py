@@ -185,11 +185,11 @@ class FontCombobox:
 
 
 class Colorbox:
-    def __init__(self, label, ancho, alto, siChecked=False, siSTR=False):
+    def __init__(self, label, ancho, alto, is_ckecked=False, siSTR=False):
         self.tipo = COLORBOX
         self.ancho = ancho
         self.alto = alto
-        self.siChecked = siChecked
+        self.is_ckecked = is_ckecked
         self.siSTR = siSTR
         self.label = label + ":"
 
@@ -597,7 +597,7 @@ class FormWidget(QtWidgets.QWidget):
                             font = Controles.TipoLetra(value)
                             field.setCurrentFont(font)
                     elif tipo == COLORBOX:
-                        if config.siChecked:
+                        if config.is_ckecked:
                             field = BotonCheckColor(self, config.ancho, config.alto, dispatch)
                         else:
                             field = BotonColor(self, config.ancho, config.alto, config.siSTR, dispatch)

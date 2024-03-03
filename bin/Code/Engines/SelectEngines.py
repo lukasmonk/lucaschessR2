@@ -86,14 +86,14 @@ class SelectEngines:
 
     def gen_engines_rodent(self):
         cmbase = self.configuration.buscaRival("rodentii")
-        path_personalities = os.path.join(os.path.dirname(cmbase.path_exe), "personalities")
-        path_ini = os.path.join(path_personalities, "personalities.ini")
+        path_personalities = Util.opj(os.path.dirname(cmbase.path_exe), "personalities")
+        path_ini = Util.opj(path_personalities, "personalities.ini")
         dict_ini = Util.ini2dic(path_ini)
         for group, dict_engs in dict_ini.items():
             for name, data in dict_engs.items():
                 cm = cmbase.clone()
                 cm.alias = name
-                cm.path_uci = os.path.join(path_personalities, group.lower(), name.lower() + ".txt")
+                cm.path_uci = Util.opj(path_personalities, group.lower(), name.lower() + ".txt")
                 txt, author, elo = data.split("|")
                 cm.menu = f"{name} - {txt} ({author})"
                 cm.id_info = f"{txt} ({author})"
@@ -165,7 +165,7 @@ class SelectEngines:
 
         dnames = get_dict_type_names()
 
-        rp = QTVarios.rondoPuntos(False)
+        rp = QTVarios.rondo_puntos(False)
         rc = QTVarios.rondoColores(False)
 
         submenu = menu.submenu(dnames[ENG_INTERNAL], self.dicIconos[ENG_INTERNAL])
@@ -486,7 +486,7 @@ class WSelectEngines(LCDialog.LCDialog):
 
         # Grid
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("SELECTED", "", 20, siChecked=True)
+        o_columns.nueva("SELECTED", "", 20, is_ckecked=True)
         o_columns.nueva("ELO", _("Elo"), 86, align_right=True)
         o_columns.nueva("NAME", _("Name"), 240)
         o_columns.nueva("TYPE", _("Type"), 180, align_center=True)

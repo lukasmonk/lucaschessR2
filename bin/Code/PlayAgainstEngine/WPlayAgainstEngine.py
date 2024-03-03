@@ -287,9 +287,9 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         # ##################################################################################################################################
         ly_g = nuevoG()
 
-        self.lbMinutos = Controles.LB(self, _("Total minutes") + ":").ponFuente(font)
-        self.edMinutos = Controles.ED(self).tipoFloat(10.0).ponFuente(font).anchoFijo(50)
-        self.edSegundos, self.lbSegundos = QTUtil2.spinbox_lb(
+        self.lb_minutos = Controles.LB(self, _("Total minutes") + ":").ponFuente(font)
+        self.ed_minutos = Controles.ED(self).tipoFloat(10.0).ponFuente(font).anchoFijo(50)
+        self.ed_segundos, self.lb_segundos = QTUtil2.spinbox_lb(
             self, 6, -999, 999, max_width=54, etiqueta=_("Seconds added per move"), fuente=font
         )
         self.edMinExtra, self.lbMinExtra = QTUtil2.spinbox_lb(
@@ -299,8 +299,8 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
             self, 0, -999, 999, max_width=54, etiqueta=_("Zeitnot: alarm sounds when remaining seconds"), fuente=font
         )
         lyH = Colocacion.H()
-        lyH.control(self.lbMinutos).control(self.edMinutos).espacio(30)
-        lyH.control(self.lbSegundos).control(self.edSegundos).relleno()
+        lyH.control(self.lb_minutos).control(self.ed_minutos).espacio(30)
+        lyH.control(self.lb_segundos).control(self.ed_segundos).relleno()
         ly_h2 = Colocacion.H()
         ly_h2.control(self.lbMinExtra).control(self.edMinExtra).relleno()
         ly_h3 = Colocacion.H()
@@ -951,8 +951,8 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         # Tiempo
         dic["WITHTIME"] = self.chbTiempo.isChecked()
         if dic["WITHTIME"]:
-            dic["MINUTES"] = self.edMinutos.textoFloat()
-            dic["SECONDS"] = self.edSegundos.value()
+            dic["MINUTES"] = self.ed_minutos.textoFloat()
+            dic["SECONDS"] = self.ed_segundos.value()
             dic["MINEXTRA"] = self.edMinExtra.value()
             dic["ZEITNOT"] = self.edZeitnot.value()
 
@@ -1028,8 +1028,8 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         # Tiempo
         if dic.get("WITHTIME", False):
             self.chbTiempo.setChecked(True)
-            self.edMinutos.ponFloat(float(dic["MINUTES"]))
-            self.edSegundos.setValue(dic["SECONDS"])
+            self.ed_minutos.ponFloat(float(dic["MINUTES"]))
+            self.ed_segundos.setValue(dic["SECONDS"])
             self.edMinExtra.setValue(dic.get("MINEXTRA", 0))
             self.edZeitnot.setValue(dic.get("ZEITNOT", 0))
         else:

@@ -135,6 +135,21 @@ class Processor:
             if entry.name.startswith("libQt5"):
                 shutil.move(entry.path, destino)
 
+    def crea_pendiente_stockfish(self):
+        folder = os.path.join(self.destino, "bin", "OS", "linux", "Engines", "stockfish")
+
+        try:
+            # Es mejor que existan, por si hay una tecleada rápida
+            path64 = os.path.join(folder, "stockfish-16.1-64")
+            if os.path.isfile(path64):
+                os.remove(path64)
+            path64_other = os.path.join(folder, "stockfish-16.1-x86-64")
+
+            shutil.copy(path64_other, path64)
+
+        except OSError:
+            input("Comprobar version de Stockfish")
+
     def calc_files_dic(self):
         dic_files = {}
 
@@ -157,7 +172,7 @@ class Processor:
                 """QT_LOGGING_RULES='*=falrose'
 export QT_LOGGING_RULES
 if [ $(id -u) -eq 0 ]
-then 
+then
     echo
     echo "PROBLEM: INSTALLING AS ROOT"
     echo
@@ -213,6 +228,8 @@ def gen_installer():
     xf.move_libs_eboards()
 
     xf.copy_template()
+
+    xf.crea_pendiente_stockfish()
 
     xf.calc_files_dic()
 

@@ -211,11 +211,11 @@ class WWashing(LCDialog.LCDialog):
 
             resultado = FormLayout.fedit(li_gen, title=_("Name"), parent=self, icon=Iconos.GrabarComo())
             if resultado:
-                accion, liResp = resultado
-                fich = name = liResp[0]
+                accion, li_resp = resultado
+                fich = name = li_resp[0]
                 if name.lower()[-4:] != ".wsm":
                     fich += ".wsm"
-                path = os.path.join(self.configuration.carpeta_results, fich)
+                path = Util.opj(self.configuration.carpeta_results, fich)
                 ok = True
                 if Util.exist_file(path):
                     ok = QTUtil2.pregunta(
@@ -242,7 +242,7 @@ class WWashing(LCDialog.LCDialog):
                 if QTUtil2.pregunta(
                     self, "%s\n%s" % (_("Current data will be removed and overwritten."), _("Are you sure?"))
                 ):
-                    shutil.copy(os.path.join(self.configuration.carpeta_results, resp + ".wsm"), self.dbwashing.file)
+                    shutil.copy(Util.opj(self.configuration.carpeta_results, resp + ".wsm"), self.dbwashing.file)
                     self.wreload = True
                     self.save_video()
                     self.accept()

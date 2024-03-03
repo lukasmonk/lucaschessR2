@@ -793,6 +793,8 @@ class ManagerWashingCreate(Manager.Manager):
         if not QTUtil2.pregunta(self.main_window, _("Restart the game?")):
             return
 
+        self.analizaTerminar()
+
         self.add_time()
         self.add_game()
         self.game.set_position()

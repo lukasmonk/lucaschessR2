@@ -127,7 +127,7 @@ class ManagerEntPos(Manager.Manager):
         self.set_position(self.game.last_position)
         self.show_side_indicator(True)
         self.put_pieces_bottom(is_white)
-        titulo = "<b>%s</b>" % TrListas.dicTraining().get(self.title_training, self.title_training)
+        titulo = "<b>%s</b>" % TrListas.dic_training().get(self.title_training, self.title_training)
         if self.line_fns.label:
             titulo += "<br>%s" % self.line_fns.label
         self.set_label1(titulo)
@@ -572,17 +572,17 @@ class ManagerEntPos(Manager.Manager):
     def create_tactics(self):
         name_tactic = os.path.basename(self.entreno)[:-4]
 
-        nom_dir = os.path.join(self.configuration.folder_tactics(), name_tactic)
+        nom_dir = Util.opj(self.configuration.folder_tactics(), name_tactic)
         if os.path.isdir(nom_dir):
             nom = nom_dir + "-%d"
             n = 1
             while os.path.isdir(nom % n):
                 n += 1
             nom_dir = nom % n
-        nom_ini = os.path.join(nom_dir, "Config.ini")
+        nom_ini = Util.opj(nom_dir, "Config.ini")
         nom_tactic = "TACTIC1"
         Util.create_folder(nom_dir)
-        nom_fns = os.path.join(nom_dir, "Puzzles.fns")
+        nom_fns = Util.opj(nom_dir, "Puzzles.fns")
 
         # Se leen todos los fens
         with open(self.entreno, "rt", errors="ignore") as f:

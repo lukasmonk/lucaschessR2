@@ -51,7 +51,7 @@ from Code.Competitions import ManagerElo, ManagerFideFics, ManagerMicElo, Manage
 from Code.Config import Configuration, WindowConfig, WindowUsuarios
 from Code.Databases import WindowDatabase, WDB_Games, DBgames
 from Code.Endings import WEndingsGTB
-from Code.Engines import EngineManager, WEngines, WConfEngines, WindowSTS, EnginesWicker
+from Code.Engines import EngineManager, WEngines, WConfEngines, WindowSTS, EnginesWicker, CheckEngines
 from Code.Expeditions import WindowEverest, ManagerEverest
 from Code.GM import ManagerGM
 from Code.Kibitzers import KibitzersManager
@@ -538,6 +538,7 @@ class Procesador:
 
         if self.siPresentacion:
             self.presentacion(False)
+            self.check_engines()
 
         if key == TB_QUIT:
             if hasattr(self, "cpu"):
@@ -842,7 +843,7 @@ class Procesador:
             if resp is None:
                 self.openings()
             else:
-                pathFichero = os.path.join(self.configuration.folder_openings(), dicline["file"])
+                pathFichero = Util.opj(self.configuration.folder_openings(), dicline["file"])
                 if resp == "tr_sequential":
                     self.openings_training_sequential(pathFichero)
                 elif resp == "tr_static":
@@ -973,7 +974,7 @@ class Procesador:
             for x in li_ant[10:]:
                 Util.remove_file(x.path)
 
-        file_db = os.path.join(path_temp_pgns, os.path.basename(fichero_pgn)[:-3] + "lcdb")
+        file_db = Util.opj(path_temp_pgns, os.path.basename(fichero_pgn)[:-3] + "lcdb")
 
         if Util.exist_file(file_db):
             create = False
@@ -1012,7 +1013,7 @@ class Procesador:
             cfecha_pgn = str(os.path.getmtime(fichero_pgn))
             cdir = self.configuration.folder_databases_pgn()
 
-            file_db = os.path.join(cdir, os.path.basename(fichero_pgn)[:-4] + ".lcdb")
+            file_db = Util.opj(cdir, os.path.basename(fichero_pgn)[:-4] + ".lcdb")
 
             if Util.exist_file(file_db):
                 create = False
@@ -1322,6 +1323,9 @@ class Procesador:
             self.manager.run_adjourn(dic_adjourn)
         else:
             self.manager.start(league, xmatch)
+
+    def check_engines(self):
+        return CheckEngines.check_engines(self.main_window)
 
 
 class ProcesadorVariations(Procesador):

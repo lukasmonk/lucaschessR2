@@ -1,16 +1,13 @@
 import os
-
+import subprocess
+import sys
 import time
 
 import psutil
-import sys
-import subprocess
 
 import Code
 from Code import Util
 from Code.Engines import EngineResponse, Priorities
-
-
 
 
 class DirectEngine(object):
@@ -98,11 +95,11 @@ class DirectEngine(object):
     def log_write(self, line):
         self.log.write(line)
 
-    def pwait_list(self, orden, txt_busca, maxtime):
+    def pwait_list(self, orden, txt_busca, ms_maxtime):
         self.put_line(orden)
         ini = time.time()
         li = []
-        while time.time() - ini < maxtime:
+        while (time.time() - ini) * 1000 < ms_maxtime:
             line = self.stdout.readline().decode("utf-8", errors="ignore")
             if self.log:
                 self.log_write(line.strip())
@@ -111,13 +108,13 @@ class DirectEngine(object):
                 return li, True
         return li, False
 
-    def pwait_list_dispatch(self, orden, txt_busca, maxtime):
+    def pwait_list_dispatch(self, orden, txt_busca, ms_maxtime):
         self.put_line(orden)
         ini = time.time()
         tm_dispatch = ini
         li = []
         mrm = EngineResponse.MultiEngineResponse(self.name, self.is_white)
-        while time.time() - ini < maxtime:
+        while (time.time() - ini) * 1000 < ms_maxtime:
             if (time.time() - tm_dispatch) >= 1.0:
                 mrm.ordena()
                 rm = mrm.mejorMov()
@@ -166,16 +163,16 @@ class DirectEngine(object):
         elif max_time:
             env += " movetime %d" % max_time
 
-        msTiempo = 10000
+        ms_tiempo = 10000
         if max_time:
-            msTiempo = max_time
+            ms_tiempo = max_time
         elif max_depth:
-            msTiempo = int(max_depth * msTiempo / 3.0)
+            ms_tiempo = int(max_depth * ms_tiempo / 3.0)
 
         if self.gui_dispatch:
-            li_resp, result = self.pwait_list_dispatch(env, "bestmove", msTiempo)
+            li_resp, result = self.pwait_list_dispatch(env, "bestmove", ms_tiempo)
         else:
-            li_resp, result = self.pwait_list(env, "bestmove", msTiempo)
+            li_resp, result = self.pwait_list(env, "bestmove", ms_tiempo)
 
         if not result:
             return None

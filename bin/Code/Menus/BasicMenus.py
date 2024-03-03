@@ -189,7 +189,7 @@ def menu_compete_savemenu(procesador, dic_data=None):
     submenu.separador()
     fics = procesador.configuration.x_fics
     menuf = submenu.submenu("%s (%d)" % (_("Fics-Elo"), fics), Iconos.Fics())
-    rp = QTVarios.rondoPuntos()
+    rp = QTVarios.rondo_puntos()
     for elo in range(900, 2800, 100):
         if (elo == 900) or (0 <= (elo + 99 - fics) <= 400 or 0 <= (fics - elo) <= 400):
             menuf.opcion(("fics", elo / 100), "%d-%d" % (elo, elo + 99), rp.otro())
@@ -202,7 +202,7 @@ def menu_compete_savemenu(procesador, dic_data=None):
     lichess = procesador.configuration.x_lichess
     submenu.separador()
     menuf = submenu.submenu("%s (%d)" % (_("Lichess-Elo"), lichess), Iconos.Lichess())
-    rp = QTVarios.rondoPuntos()
+    rp = QTVarios.rondo_puntos()
     for elo in range(800, 2700, 100):
         if (elo == 800) or (0 <= (elo + 99 - lichess) <= 400 or 0 <= (lichess - elo) <= 400):
             menuf.opcion(("lichess", elo / 100), "%d-%d" % (elo, elo + 99), rp.otro())

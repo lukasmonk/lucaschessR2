@@ -1,8 +1,8 @@
-import os
 import platform
 
 import FasterCode
 
+from Code import Util
 from Code.Engines import Engines
 
 
@@ -13,7 +13,7 @@ def read_engines(folder_engines):
         if folder is None:
             folder = alias
 
-        path_exe = os.path.join(folder_engines, folder, exe)
+        path_exe = Util.opj(folder_engines, folder, exe)
         engine = Engines.Engine(alias.lower(), autor, version, url, path_exe)
         engine.elo = elo
         engine.set_uci_option("Log", "false")
@@ -72,7 +72,7 @@ def read_engines(folder_engines):
     cm = mas("pawny", "Mincho Georgiev", "0.3.1", "http://pawny.netii.net/", "windows/pawny_0.3.1_x86.exe", 2484)
     cm.set_uci_option("OwnBook", "false")
 
-    cm = mas("umko", "Borko Boskovic", "0.7", "http://umko.sourceforge.net/", "w32/umko_x32.exe", 2488)
+    mas("umko", "Borko Boskovic", "0.7", "http://umko.sourceforge.net/", "w32/umko_x32.exe", 2488)
 
     mas("garbochess", "Gary Linscott", "2.20", "http://forwardcoding.com/projects/chess/chess.html",
         "GarboChess2-32.exe", 2526)
@@ -219,11 +219,7 @@ def read_engines(folder_engines):
 
     is64 = platform.machine().endswith("64")
     t32_64 = "64" if is64 else "32"
-    is_bmi2 = False
-    if is64:
-        is_bmi2 = FasterCode.bmi2() == 1
-        if is_bmi2:
-            t32_64 = "64-bmi2"
+    is_bmi2 = FasterCode.bmi2() == 1 if is64 else False
 
     # 32 bits permanece Komodo 12 64 bit Komodo 13
     if is64:
@@ -241,7 +237,7 @@ def read_engines(folder_engines):
             cm = mas(
                 "komodo",
                 "Don Dailey, Larry Kaufman, Mark Lefler",
-                f"13.02 {t32_64}",
+                f"13.02 64",
                 "https://komodochess.com/",
                 "komodo-13.02-64bit.exe",
                 3406,
@@ -270,9 +266,9 @@ def read_engines(folder_engines):
     cm = mas(
         "stockfish",
         " T. Romstad, M. Costalba, J. Kiiski, G. Linscott",
-        f"16 {t32_64}",
+        f"16.1 {t32_64}",
         "https://stockfishchess.org/",
-        f"Stockfish-16_x{t32_64}.exe",
+        f"Stockfish-16.1-{t32_64}.exe",
         3611,
         nodes_compatible=True
     )
@@ -293,7 +289,7 @@ def read_engines(folder_engines):
             nodes_compatible=True
         )
         cm.set_uci_option("WeightsFile", "maia-%d.pb.gz" % level)
-        cm.path_exe = os.path.join(folder_engines, "maia", "lc0.exe")
+        cm.path_exe = Util.opj(folder_engines, "maia", "lc0.exe")
         cm.name = "Maia-%d" % level
 
     return dic_engines

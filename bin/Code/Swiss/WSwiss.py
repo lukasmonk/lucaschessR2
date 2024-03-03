@@ -800,7 +800,7 @@ class WSwiss(LCDialog.LCDialog):
                         changed = True
 
         if changed:
-            self.swiss.save()
+            self.season.save()
             self.show_current_season()
 
         self.set_journey_if_active()
@@ -854,7 +854,7 @@ class WSwiss(LCDialog.LCDialog):
             resp = 1
 
         else:
-            rondo = QTVarios.rondoPuntos()
+            rondo = QTVarios.rondo_puntos()
 
             menu = QTVarios.LCMenu(self)
             menu.opcion(1, _("Launch one worker"), Iconos.Lanzamiento())
@@ -1003,7 +1003,7 @@ class WSwiss(LCDialog.LCDialog):
     def seasons(self):
         li_seasons = self.swiss.list_seasons()
         if len(li_seasons) > 1:
-            rondo = QTVarios.rondoPuntos()
+            rondo = QTVarios.rondo_puntos()
             menu = QTVarios.LCMenu(self)
             submenu = menu.submenu(_("Change the active season"), Iconos.Season())
             for num_season in li_seasons:

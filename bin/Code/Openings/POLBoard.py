@@ -5,9 +5,8 @@ from PySide2 import QtWidgets, QtCore, QtGui
 import Code.Nags.Nags
 from Code.Base import Game, Move
 from Code.Base.Constantes import GOOD_MOVE, VERY_GOOD_MOVE, NO_RATING, MISTAKE, BLUNDER, INTERESTING_MOVE, INACCURACY
-from Code.Nags.Nags import NAG_1, NAG_2, NAG_3, NAG_4, NAG_5, NAG_6, dic_symbol_nags
-
 from Code.Board import Board
+from Code.Nags.Nags import NAG_1, NAG_2, NAG_3, NAG_4, NAG_5, NAG_6, dic_symbol_nags
 from Code.QT import Colocacion
 from Code.QT import Controles
 from Code.QT import Iconos
@@ -49,6 +48,8 @@ class BoardLines(QtWidgets.QWidget):
 
         self.panelOpening = panelOpening
         self.dbop = panelOpening.dbop
+        self.with_figurines = configuration.x_pgn_withfigurines
+        self.game = None
 
         self.configuration = configuration
 
@@ -65,50 +66,34 @@ class BoardLines(QtWidgets.QWidget):
         self.board.dbvisual_set_file(self.dbop.nom_fichero)
         self.board.dbvisual_set_show_always(True)
         self.board.dbvisual_set_save_always(True)
-
         self.board.set_side_bottom(self.dbop.getconfig("WHITEBOTTOM", True))
-
         self.dbop.setdbvisual_board(self.board)  # To close
 
         tipo_letra = Controles.TipoLetra(puntos=configuration.x_pgn_fontpoints)
 
         lybt, bt = QTVarios.ly_mini_buttons(self, "", siTiempo=True, siLibre=False, icon_size=24)
 
-        self.lbPGN = LBKey(
-            self, " "
-        ).set_wrap()  # Por alguna razón es necesario ese espacio en blanco, para aperturas sin movs iniciales
+        self.lbPGN = LBKey(self, " ").set_wrap()
+        # Por alguna razón es necesario ese espacio en blanco, para aperturas sin movs iniciales
         self.lbPGN.setAlignment(QtCore.Qt.AlignTop)
         self.configuration.set_property(self.lbPGN, "pgn")
         self.lbPGN.ponFuente(tipo_letra)
         self.lbPGN.setOpenExternalLinks(False)
 
-        def muestraPos(txt):
+        def muestra_pos(txt):
             self.colocatePartida(int(txt))
 
-        self.lbPGN.linkActivated.connect(muestraPos)
-
-        scroll = QtWidgets.QScrollArea()
-        scroll.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        scroll.setWidgetResizable(True)
-        scroll.setFrameStyle(QtWidgets.QFrame.NoFrame)
-
-        # ly = Colocacion.V().control(self.lbPGN).margen(0)
-        # w_pgn = QtWidgets.QWidget()
-        # w_pgn.setLayout(ly)
-        scroll.setWidget(self.lbPGN)
-        scroll.setMaximumHeight(configuration.x_pgn_fontpoints * 6)
-
-        self.with_figurines = configuration.x_pgn_withfigurines
+        self.lbPGN.linkActivated.connect(muestra_pos)
 
         dic_nags = Code.Nags.Nags.dic_nags()
-        dicValoracion = collections.OrderedDict()
-        dicValoracion[GOOD_MOVE] = (dic_nags[NAG_1].text, dic_symbol_nags(NAG_1))
-        dicValoracion[MISTAKE] = (dic_nags[NAG_2].text, dic_symbol_nags(NAG_2))
-        dicValoracion[VERY_GOOD_MOVE] = (dic_nags[NAG_3].text, dic_symbol_nags(NAG_3))
-        dicValoracion[BLUNDER] = (dic_nags[NAG_4].text, dic_symbol_nags(NAG_4))
-        dicValoracion[INTERESTING_MOVE] = (dic_nags[NAG_5].text, dic_symbol_nags(NAG_5))
-        dicValoracion[INACCURACY] = (dic_nags[NAG_6].text, dic_symbol_nags(NAG_6))
-        dicValoracion[NO_RATING] = (_("No rating"), "")
+        dic_valoracion = collections.OrderedDict()
+        dic_valoracion[GOOD_MOVE] = (dic_nags[NAG_1].text, dic_symbol_nags(NAG_1))
+        dic_valoracion[MISTAKE] = (dic_nags[NAG_2].text, dic_symbol_nags(NAG_2))
+        dic_valoracion[VERY_GOOD_MOVE] = (dic_nags[NAG_3].text, dic_symbol_nags(NAG_3))
+        dic_valoracion[BLUNDER] = (dic_nags[NAG_4].text, dic_symbol_nags(NAG_4))
+        dic_valoracion[INTERESTING_MOVE] = (dic_nags[NAG_5].text, dic_symbol_nags(NAG_5))
+        dic_valoracion[INACCURACY] = (dic_nags[NAG_6].text, dic_symbol_nags(NAG_6))
+        dic_valoracion[NO_RATING] = (_("No rating"), "")
 
         self.dicVentaja = collections.OrderedDict()
         self.dicVentaja[V_SIN] = (_("Undefined"), QtGui.QIcon())
@@ -121,7 +106,7 @@ class BoardLines(QtWidgets.QWidget):
         self.dicVentaja[V_NEGRAS_MAS_MAS] = (dic_nags[19].text, Iconos.V_Negras_Mas_Mas())
 
         # Valoracion
-        li_options = [(tit[1] + " " + tit[0], k) for k, tit in dicValoracion.items()]
+        li_options = [(tit[1] + " " + tit[0], k) for k, tit in dic_valoracion.items()]
         self.cbValoracion = Controles.CB(self, li_options, 0).capture_changes(self.cambiadoValoracion)
         self.cbValoracion.ponFuente(tipo_letra)
 
@@ -134,23 +119,24 @@ class BoardLines(QtWidgets.QWidget):
         self.emComentario = Controles.EM(self, siHTML=False).capturaCambios(self.cambiadoComentario)
         self.emComentario.ponFuente(tipo_letra)
         self.emComentario.altoMinimo(2 * configuration.x_pgn_rowheight)
-        lyVal = Colocacion.H().control(self.cbValoracion).control(self.cbVentaja)
-        lyEd = Colocacion.V().otro(lyVal).control(self.emComentario)
 
         # Opening
         self.lb_opening = Controles.LB(self).align_center().ponFuente(tipo_letra).set_wrap()
 
-        lyt = Colocacion.H().relleno().control(self.board).relleno()
-
-        lya = Colocacion.H().relleno().control(scroll).relleno()
-
+        # Layout
+        self.emComentario.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        ly_board = Colocacion.H().relleno(1).control(self.board).relleno(1).margen(0)
+        ly_pgn = Colocacion.H().relleno(1).control(self.lbPGN).relleno(1).margen(0)
+        ly_val = Colocacion.H().control(self.cbValoracion).control(self.cbVentaja)
         layout = Colocacion.V()
-        layout.otro(lyt)
-        layout.otro(lybt)
-        layout.otro(lya)
-        layout.otro(lyEd)
-        layout.control(self.lb_opening)
+        layout.addLayout(ly_board)
+        layout.addLayout(lybt.margen(0))
+        layout.addLayout(ly_pgn)
+        layout.addLayout(ly_val.margen(0))
+        layout.addWidget(self.emComentario, stretch=10)
+        layout.addWidget(self.lb_opening)
         layout.margen(0)
+
         self.setLayout(layout)
 
         self.ajustaAncho()
@@ -162,6 +148,7 @@ class BoardLines(QtWidgets.QWidget):
     def ponPartida(self, game):
         game.test_apertura()
         self.game = game
+        game.assign_opening()
         label = game.rotuloOpening()
         self.lb_opening.set_text(label)
 
@@ -283,8 +270,6 @@ class BoardLines(QtWidgets.QWidget):
         self.board.set_position(position)
         if move:
             self.board.put_arrow_sc(move.from_sq, move.to_sq)
-            # position_before = move.position_before
-            # fenM2_base = position_before.fenm2()
 
         if self.siReloj:
             self.board.disable_all()

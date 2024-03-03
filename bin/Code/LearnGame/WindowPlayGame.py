@@ -105,7 +105,7 @@ class WPlayGameBase(LCDialog.LCDialog):
             "BLACKELO",
         )
         for key in liBasic:
-            label = TrListas.pgnLabel(key)
+            label = TrListas.pgn_label(key)
             creaCol(key, label, key != "EVENT")
         self.grid = Grid.Grid(self, o_columns, siSelecFilas=True, siSeleccionMultiple=True)
         self.grid.setMinimumWidth(self.grid.anchoColumnas() + 20)

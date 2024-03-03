@@ -217,7 +217,7 @@ class WKibitzers(LCDialog.LCDialog):
 
         submenu = menu.submenu(_("Polyglot book"), Iconos.Book())
         list_books = Books.ListBooks()
-        rondo = QTVarios.rondoPuntos()
+        rondo = QTVarios.rondo_puntos()
         for book in list_books.lista:
             submenu.opcion(("book", book), book.name, rondo.otro())
             submenu.separador()

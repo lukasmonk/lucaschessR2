@@ -277,8 +277,8 @@ class WEndingsGTB(LCDialog.LCDialog):
 
         resp = form.run()
         if resp:
-            accion, liResp = resp
-            order, play_next, examples_auto = liResp
+            accion, li_resp = resp
+            order, play_next, examples_auto = li_resp
             dic_vars["PLAY_NEXT"] = self.play_next_type = play_next
             dic_vars["ORDER"] = order
             dic_vars["EXAMPLES_AUTO"] = examples_auto
@@ -406,7 +406,7 @@ class WEndingsGTB(LCDialog.LCDialog):
         self.save_video()
 
     def change(self, event):
-        rondo = QTVarios.rondoPuntos()
+        rondo = QTVarios.rondo_puntos()
         menu = QTVarios.LCMenuPiezas(self)
 
         dsubmenus = {"Q": [], "R": [], "B": [], "N": [], "P": [], "k": []}
@@ -696,7 +696,7 @@ class WEndingsGTB(LCDialog.LCDialog):
         self.import_lifens("db", li_fens, um)
 
     def import_examples(self):
-        rondo = QTVarios.rondoPuntos()
+        rondo = QTVarios.rondo_puntos()
         menu = QTVarios.LCMenuPiezas(self)
 
         dsubmenus = {"Q": [], "R": [], "B": [], "N": [], "P": [], "k": []}

@@ -350,7 +350,7 @@ class Position:
         return p_ori + from_sq + p_ori + to_sq
 
     def pgn_translated(self, from_sq, to_sq, promotion=""):
-        d_conv = TrListas.dConv()
+        d_conv = TrListas.dic_conv()
         li = []
         cpgn = self.pgn(from_sq, to_sq, promotion)
         if not cpgn:

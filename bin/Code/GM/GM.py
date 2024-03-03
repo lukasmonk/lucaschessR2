@@ -80,7 +80,7 @@ class GM:
         # (kupad fix) linux is case sensitive and can't find the xgm file because ficheroGM is all lower-case, but all
         # the xgm files have the first letter capitalized (including ones recently downloaded)
         fichero_gm = "%s%s.xgm" % (self.gm[0].upper(), self.gm[1:])
-        with open(os.path.join(self.carpeta, fichero_gm), "rt", encoding="utf-8", errors="ignore") as f:
+        with open(Util.opj(self.carpeta, fichero_gm), "rt", encoding="utf-8", errors="ignore") as f:
             li = []
             for linea in f:
                 linea = linea.strip()
@@ -195,7 +195,7 @@ class GM:
 
     def write(self):
         fichero_gm = self.gm + ".xgm"
-        with open(os.path.join(self.carpeta, fichero_gm), "wt", encoding="utf-8", errors="ignore") as q:
+        with open(Util.opj(self.carpeta, fichero_gm), "wt", encoding="utf-8", errors="ignore") as q:
             for part in self.li_gm_games:
                 q.write(part.toline() + "\n")
 
@@ -205,7 +205,7 @@ class GM:
 
 
 def get_folder_gm():
-    return os.path.join(Code.configuration.carpeta, "GM")
+    return Util.opj(Code.configuration.carpeta, "GM")
 
 
 def dic_gm():
@@ -253,7 +253,7 @@ def lista_gm_personal(carpeta):
             gm = fich[:-4]
 
             si_w = si_b = False
-            with open(os.path.join(carpeta, fich), "rt", encoding="utf-8", errors="ignore") as f:
+            with open(Util.opj(carpeta, fich), "rt", encoding="utf-8", errors="ignore") as f:
                 for linea in f:
                     try:
                         gm_game = GMgame(linea.strip())
@@ -273,7 +273,7 @@ def lista_gm_personal(carpeta):
 
 class FabGM:
     def __init__(self, training_name, li_players, side, result):
-        self.training_path = os.path.join(Code.configuration.personal_training_folder, training_name) + ".xgm"
+        self.training_path = Util.opj(Code.configuration.personal_training_folder, training_name) + ".xgm"
         self.li_players = li_players
 
         self.f = None

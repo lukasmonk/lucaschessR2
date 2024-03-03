@@ -397,12 +397,12 @@ class OpeningsPersonales(LCDialog.LCDialog):
         if resultado is None:
             return
 
-        accion, liResp = resultado
-        name = liResp[0].strip()
+        accion, li_resp = resultado
+        name = li_resp[0].strip()
         if not name:
             return
-        eco = liResp[1].upper()
-        # is_basic = liResp[2]
+        eco = li_resp[1].upper()
+        # is_basic = li_resp[2]
 
         self.procesador.procesador = self.procesador  # ya que edit_variation espera un manager
 

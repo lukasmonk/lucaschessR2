@@ -157,9 +157,9 @@ class WCountsCaptures(LCDialog.LCDialog):
     def options(self):
         showall = self.configuration.x_captures_showall if self.is_captures else self.configuration.x_counts_showall
         menu = QTVarios.LCMenu(self)
-        menu.opcion(True, _("Show all moves"), siChecked=showall)
+        menu.opcion(True, _("Show all moves"), is_ckecked=showall)
         menu.separador()
-        menu.opcion(False, _("Show last move"), siChecked=not showall)
+        menu.opcion(False, _("Show last move"), is_ckecked=not showall)
         showall = menu.lanza()
         if showall is None:
             return

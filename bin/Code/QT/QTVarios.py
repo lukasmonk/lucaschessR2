@@ -16,26 +16,45 @@ from Code.QT import QTUtil2
 class BlancasNegras(QtWidgets.QDialog):
     def __init__(self, parent, both):
         QtWidgets.QDialog.__init__(self, parent)
-        self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Dialog | QtCore.Qt.WindowTitleHint)
+        self.setWindowFlags(
+            QtCore.Qt.WindowCloseButtonHint
+            | QtCore.Qt.Dialog
+            | QtCore.Qt.WindowTitleHint
+        )
 
-        icoP = Code.all_pieces.default_icon("K", 64)
-        icop = Code.all_pieces.default_icon("k", 64)
+        ico_pw = Code.all_pieces.default_icon("K", 64)
+        ico_pb = Code.all_pieces.default_icon("k", 64)
         self.setWindowTitle(_("Choose a color"))
-        self.setWindowIcon(icoP)
+        self.setWindowIcon(ico_pw)
 
         self.both = both
         self.resultado = False, False
 
-        btBlancas = Controles.PB(self, "", rutina=self.blancas, plano=False).ponIcono(icoP, icon_size=64)
-        btNegras = Controles.PB(self, "", rutina=self.negras, plano=False).ponIcono(icop, icon_size=64)
+        bt_blancas = Controles.PB(self, "", rutina=self.blancas, plano=False).ponIcono(
+            ico_pw, icon_size=64
+        )
+        bt_negras = Controles.PB(self, "", rutina=self.negras, plano=False).ponIcono(
+            ico_pb, icon_size=64
+        )
 
-        ly = Colocacion.H().control(btBlancas).control(btNegras)
+        ly = Colocacion.H().control(bt_blancas).control(bt_negras)
         if both:
-            lb_white_both = Controles.LB(self, "").ponImagen(Code.all_pieces.default_pixmap("K", 64))
-            lb_black_both = Controles.LB(self, "").ponImagen(Code.all_pieces.default_pixmap("k", 64))
+            lb_white_both = Controles.LB(self, "").ponImagen(
+                Code.all_pieces.default_pixmap("K", 64)
+            )
+            lb_black_both = Controles.LB(self, "").ponImagen(
+                Code.all_pieces.default_pixmap("k", 64)
+            )
             lb_mas = Controles.LB(self, "+")
-            lyb = Colocacion.H().control(lb_white_both).espacio(-8).control(lb_mas).espacio(-8).control(
-                lb_black_both).margen(0)
+            lyb = (
+                Colocacion.H()
+                .control(lb_white_both)
+                .espacio(-8)
+                .control(lb_mas)
+                .espacio(-8)
+                .control(lb_black_both)
+                .margen(0)
+            )
             w_both = Controles.GB(self, "", lyb)
             w_both.setStyleSheet("QGroupBox { border: 1px solid grey ;}")
             ly.control(w_both)
@@ -72,34 +91,51 @@ def white_or_black(owner, both):
 class BlancasNegrasTiempo(QtWidgets.QDialog):
     def __init__(self, parent):
         QtWidgets.QDialog.__init__(self, parent)
-        self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Dialog | QtCore.Qt.WindowTitleHint)
+        self.setWindowFlags(
+            QtCore.Qt.WindowCloseButtonHint
+            | QtCore.Qt.Dialog
+            | QtCore.Qt.WindowTitleHint
+        )
 
-        icoP = Code.all_pieces.default_icon("K")
-        icop = Code.all_pieces.default_icon("k")
+        ico_pw = Code.all_pieces.default_icon("K")
+        ico_pb = Code.all_pieces.default_icon("k")
         self.setWindowTitle(_("Choose a color"))
-        self.setWindowIcon(icoP)
+        self.setWindowIcon(ico_pw)
         self.key_saved = "BLANCASNEGRASTIEMPO"
 
-        btBlancas = Controles.PB(self, "", rutina=self.blancas, plano=False).ponIcono(icoP, icon_size=64)
-        btNegras = Controles.PB(self, "", rutina=self.negras, plano=False).ponIcono(icop, icon_size=64)
+        bt_blancas = Controles.PB(self, "", rutina=self.blancas, plano=False).ponIcono(
+            ico_pw, icon_size=64
+        )
+        bt_negras = Controles.PB(self, "", rutina=self.negras, plano=False).ponIcono(
+            ico_pb, icon_size=64
+        )
 
         # Tiempo
-        self.edMinutos, self.lbMinutos = QTUtil2.spinbox_lb(self, 10, 0, 999, max_width=50, etiqueta=_("Total minutes"))
-        self.edSegundos, self.lbSegundos = QTUtil2.spinbox_lb(
+        self.ed_minutos, self.lb_minutos = QTUtil2.spinbox_lb(
+            self, 10, 0, 999, max_width=50, etiqueta=_("Total minutes")
+        )
+        self.ed_segundos, self.lb_segundos = QTUtil2.spinbox_lb(
             self, 0, 0, 999, max_width=50, etiqueta=_("Seconds added per move")
         )
         ly = Colocacion.G()
-        ly.controld(self.lbMinutos, 0, 0).control(self.edMinutos, 0, 1)
-        ly.controld(self.lbSegundos, 0, 2).control(self.edSegundos, 0, 3)
-        self.gbT = Controles.GB(self, _("Time"), ly).to_connect(self.change_time)
+        ly.controld(self.lb_minutos, 0, 0).control(self.ed_minutos, 0, 1)
+        ly.controld(self.lb_segundos, 0, 2).control(self.ed_segundos, 0, 3)
+        self.gb_t = Controles.GB(self, _("Time"), ly).to_connect(self.change_time)
 
         self.chb_fastmoves = Controles.CHB(self, _("Fast moves"), False)
 
         self.color = None
 
-        ly = Colocacion.H().control(btBlancas).control(btNegras)
+        ly = Colocacion.H().control(bt_blancas).control(bt_negras)
         ly.margen(10)
-        layout = Colocacion.V().otro(ly).espacio(10).control(self.gbT).control(self.chb_fastmoves).margen(5)
+        layout = (
+            Colocacion.V()
+            .otro(ly)
+            .espacio(10)
+            .control(self.gb_t)
+            .control(self.chb_fastmoves)
+            .margen(5)
+        )
         self.setLayout(layout)
 
         self.read_saved()
@@ -110,18 +146,18 @@ class BlancasNegrasTiempo(QtWidgets.QDialog):
         minutes = dic.get("MINUTES", 10)
         seconds = dic.get("SECONDS", 0)
         fast_moves = dic.get("FAST_MOVES", False)
-        self.gbT.setChecked(with_time)
+        self.gb_t.setChecked(with_time)
         if with_time:
-            self.edMinutos.set_value(minutes)
-            self.edSegundos.set_value(seconds)
+            self.ed_minutos.set_value(minutes)
+            self.ed_segundos.set_value(seconds)
         self.chb_fastmoves.set_value(fast_moves)
         self.muestra_tiempo(with_time)
 
     def save(self):
         dic = {
-            "WITH_TIME": self.gbT.isChecked(),
-            "MINUTES": self.edMinutos.valor(),
-            "SECONDS": self.edSegundos.valor(),
+            "WITH_TIME": self.gb_t.isChecked(),
+            "MINUTES": self.ed_minutos.valor(),
+            "SECONDS": self.ed_segundos.valor(),
             "FAST_MOVES": self.chb_fastmoves.valor(),
         }
         Code.configuration.write_variables(self.key_saved, dic)
@@ -129,17 +165,22 @@ class BlancasNegrasTiempo(QtWidgets.QDialog):
     def resultado(self):
         return (
             self.color,
-            self.gbT.isChecked(),
-            self.edMinutos.valor(),
-            self.edSegundos.valor(),
+            self.gb_t.isChecked(),
+            self.ed_minutos.valor(),
+            self.ed_segundos.valor(),
             self.chb_fastmoves.valor(),
         )
 
     def change_time(self):
-        self.muestra_tiempo(self.gbT.isChecked())
+        self.muestra_tiempo(self.gb_t.isChecked())
 
     def muestra_tiempo(self, si):
-        for control in (self.edMinutos, self.lbMinutos, self.edSegundos, self.lbSegundos):
+        for control in (
+                self.ed_minutos,
+                self.lb_minutos,
+                self.ed_segundos,
+                self.lb_segundos,
+        ):
             control.setVisible(si)
 
     def blancas(self):
@@ -161,9 +202,22 @@ def blancasNegrasTiempo(owner):
 
 
 class Tiempo(QtWidgets.QDialog):
-    def __init__(self, parent, minMinutos, minSegundos, maxMinutos, max_seconds, default_minutes=10, default_seconds=0):
+    def __init__(
+            self,
+            parent,
+            minMinutos,
+            minSegundos,
+            maxMinutos,
+            max_seconds,
+            default_minutes=10,
+            default_seconds=0,
+    ):
         super(Tiempo, self).__init__(parent)
-        self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Dialog | QtCore.Qt.WindowTitleHint)
+        self.setWindowFlags(
+            QtCore.Qt.WindowCloseButtonHint
+            | QtCore.Qt.Dialog
+            | QtCore.Qt.WindowTitleHint
+        )
 
         self.setWindowTitle(_("Time"))
         self.setWindowIcon(Iconos.MoverTiempo())
@@ -173,18 +227,29 @@ class Tiempo(QtWidgets.QDialog):
         f = Controles.TipoLetra(puntos=11)
 
         # Tiempo
-        self.edMinutos, self.lbMinutos = QTUtil2.spinbox_lb(
-            self, default_minutes, minMinutos, maxMinutos, max_width=50, etiqueta=_("Total minutes"), fuente=f
+        self.ed_minutos, self.lb_minutos = QTUtil2.spinbox_lb(
+            self,
+            default_minutes,
+            minMinutos,
+            maxMinutos,
+            max_width=50,
+            etiqueta=_("Total minutes"),
+            fuente=f,
         )
-        self.edSegundos, self.lbSegundos = QTUtil2.spinbox_lb(
-            self, default_seconds, minSegundos, max_seconds, max_width=50, etiqueta=_("Seconds added per move"),
-            fuente=f
+        self.ed_segundos, self.lb_segundos = QTUtil2.spinbox_lb(
+            self,
+            default_seconds,
+            minSegundos,
+            max_seconds,
+            max_width=50,
+            etiqueta=_("Seconds added per move"),
+            fuente=f,
         )
 
         # # Tiempo
         lyT = Colocacion.G()
-        lyT.controld(self.lbMinutos, 0, 0).control(self.edMinutos, 0, 1)
-        lyT.controld(self.lbSegundos, 1, 0).control(self.edSegundos, 1, 1).margen(20)
+        lyT.controld(self.lb_minutos, 0, 0).control(self.ed_minutos, 0, 1)
+        lyT.controld(self.lb_segundos, 1, 0).control(self.ed_segundos, 1, 1).margen(20)
 
         ly = Colocacion.V().control(tb).espacio(20).otro(lyT)
         self.setLayout(ly)
@@ -192,14 +257,25 @@ class Tiempo(QtWidgets.QDialog):
     def aceptar(self):
         self.accept()
 
+    def cancelar(self):
+        self.reject()
+
     def resultado(self):
-        minutos = self.edMinutos.value()
-        seconds = self.edSegundos.value()
+        minutos = self.ed_minutos.value()
+        seconds = self.ed_segundos.value()
 
         return minutos, seconds
 
 
-def vtime(owner, minMinutos=1, minSegundos=0, maxMinutos=999, max_seconds=999, default_minutes=10, default_seconds=0):
+def vtime(
+        owner,
+        minMinutos=1,
+        minSegundos=0,
+        maxMinutos=999,
+        max_seconds=999,
+        default_minutes=10,
+        default_seconds=0,
+):
     w = Tiempo(
         owner,
         minMinutos,
@@ -248,13 +324,19 @@ def ly_mini_buttons(
         x("MoverJugar", _("Play"), Iconos.MoverJugar())
         li_acciones.append(None)
     if siTiempo:
-        x("MoverTiempo", _("Timed movement") + "\n%s" % _("Right click to change the interval"), Iconos.Pelicula16())
+        x(
+            "MoverTiempo",
+            _("Timed movement") + "\n%s" % _("Right click to change the interval"),
+            Iconos.Pelicula16(),
+        )
     li_acciones.append(None)
     if must_save:
         x("MoverGrabar", _("Save"), Iconos.MoverGrabar())
         li_acciones.append(None)
     if siGrabarTodos:
-        li_acciones.append((_("Save") + "++", Iconos.MoverGrabarTodos(), key + "MoverGrabarTodos"))
+        li_acciones.append(
+            (_("Save") + "++", Iconos.MoverGrabarTodos(), key + "MoverGrabarTodos")
+        )
         li_acciones.append(None)
     if siMas:
         x("MoverMas", _("New analysis"), Iconos.MoverMas())
@@ -402,26 +484,25 @@ class ListaPiezas(QtWidgets.QWidget):
         self.setLayout(layout)
 
     def startDrag(self, lb):
-
         pixmap = lb.dragpixmap
         pieza = lb.pieza
-        itemData = QtCore.QByteArray(pieza.encode("utf-8"))
+        item_data = QtCore.QByteArray(pieza.encode("utf-8"))
 
         self.owner.ultimaPieza = pieza
         self.owner.ponCursor()
 
-        mimeData = QtCore.QMimeData()
-        mimeData.setData("image/x-lc-dato", itemData)
+        mime_data = QtCore.QMimeData()
+        mime_data.setData("image/x-lc-dato", item_data)
 
         drag = QtGui.QDrag(self)
-        drag.setMimeData(mimeData)
+        drag.setMimeData(mime_data)
         drag.setHotSpot(QtCore.QPoint(pixmap.width() // 2, pixmap.height() // 2))
         drag.setPixmap(pixmap)
 
         drag.exec_(QtCore.Qt.MoveAction)
 
 
-def rondoPuntos(shuffle=True):
+def rondo_puntos(shuffle=True):
     nico = Util.Rondo(
         Iconos.PuntoAmarillo(),
         Iconos.PuntoNaranja(),
@@ -437,7 +518,12 @@ def rondoPuntos(shuffle=True):
 
 def rondoColores(shuffle=True):
     nico = Util.Rondo(
-        Iconos.Amarillo(), Iconos.Naranja(), Iconos.Verde(), Iconos.Azul(), Iconos.Magenta(), Iconos.Rojo()
+        Iconos.Amarillo(),
+        Iconos.Naranja(),
+        Iconos.Verde(),
+        Iconos.Azul(),
+        Iconos.Magenta(),
+        Iconos.Rojo(),
     )
     if shuffle:
         nico.shuffle()
@@ -464,13 +550,24 @@ class LCMenu(Controles.Menu):
         if not puntos:
             puntos = configuration.x_menu_points
         bold = configuration.x_menu_bold
-        Controles.Menu.__init__(self, parent, puntos=puntos, siBold=bold)
+        Controles.Menu.__init__(self, parent, puntos=puntos, bold=bold)
 
-    def opcion(self, key, label, icono=None, is_disabled=False, tipoLetra=None, siChecked=False, toolTip: str = ""):
+    def opcion(
+            self,
+            key,
+            label,
+            icono=None,
+            is_disabled=False,
+            tipoLetra=None,
+            is_ckecked=False,
+            toolTip: str = "",
+    ):
         if icono is None:
             icono = Iconos.Empty()
 
-        Controles.Menu.opcion(self, key, label, icono, is_disabled, tipoLetra, siChecked, toolTip)
+        Controles.Menu.opcion(
+            self, key, label, icono, is_disabled, tipoLetra, is_ckecked, toolTip
+        )
 
     def separador_blank(self):
         self.opcion(None, "")
@@ -479,12 +576,23 @@ class LCMenu(Controles.Menu):
 class LCMenuRondo(LCMenu):
     def __init__(self, parent, puntos=None):
         LCMenu.__init__(self, parent, puntos)
-        self.rondo = rondoPuntos()
+        self.rondo = rondo_puntos()
 
-    def opcion(self, key, label, icono=None, is_disabled=False, tipoLetra=None, siChecked=None, toolTip: str = ""):
+    def opcion(
+            self,
+            key,
+            label,
+            icono=None,
+            is_disabled=False,
+            tipoLetra=None,
+            is_ckecked=None,
+            toolTip: str= "",
+    ):
         if icono is None:
             icono = self.rondo.otro()
-        LCMenu.opcion(self, key, label, icono, is_disabled, tipoLetra, siChecked, toolTip)
+        LCMenu.opcion(
+            self, key, label, icono, is_disabled, tipoLetra, is_ckecked, toolTip
+        )
 
     # def submenu(self, label, icono=None, is_disabled=False):
     #     if icono is None:
@@ -494,12 +602,24 @@ class LCMenuRondo(LCMenu):
 
 
 class LCMenuPiezas(Controles.Menu):
-    def __init__(self, parent, titulo=None, icono=None, is_disabled=False, puntos=None, siBold=True):
-        Controles.Menu.__init__(self, parent, titulo, icono, is_disabled, puntos, siBold)
+    def __init__(
+            self,
+            parent,
+            titulo=None,
+            icono=None,
+            is_disabled=False,
+            puntos=None,
+            bold=True,
+    ):
+        Controles.Menu.__init__(
+            self, parent, titulo, icono, is_disabled, puntos, bold
+        )
         self.ponTipoLetra("Chess Alpha 2", 16)
 
-    def opcion(self, key, label, icono=None, is_disabled=False, tipo_letra=None, siChecked=False):
-        Controles.Menu.opcion(self, key, label, icono=icono, is_disabled=is_disabled, siChecked=siChecked)
+    def opcion(self, key, label, icono=None, is_disabled=False, tipo_letra=None, is_ckecked=False, toolTip = ""):
+        Controles.Menu.opcion(
+            self, key, label, icono=icono, is_disabled=is_disabled, is_ckecked=is_ckecked
+        )
 
     def submenu(self, label, icono=None, is_disabled=False):
         menu = LCMenuPiezas(self, label, icono, is_disabled)
@@ -510,7 +630,11 @@ class LCMenuPiezas(Controles.Menu):
 class ImportarFichero(QtWidgets.QDialog):
     def __init__(self, parent, titulo, siErroneos, siWorkDone, icono):
         QtWidgets.QDialog.__init__(self, parent)
-        self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Dialog | QtCore.Qt.WindowTitleHint)
+        self.setWindowFlags(
+            QtCore.Qt.WindowCloseButtonHint
+            | QtCore.Qt.Dialog
+            | QtCore.Qt.WindowTitleHint
+        )
 
         self.setWindowTitle(titulo)
         self.setWindowIcon(icono)
@@ -530,10 +654,14 @@ class ImportarFichero(QtWidgets.QDialog):
         else:
             lbRotErroneos = None
 
-        self.lbRotDuplicados = lbRotDuplicados = Controles.LB(self, _("Duplicated") + ":").ponFuente(f)
+        self.lbRotDuplicados = lbRotDuplicados = Controles.LB(
+            self, _("Duplicated") + ":"
+        ).ponFuente(f)
         self.lbDuplicados = Controles.LB(self, "0").ponFuente(f)
 
-        self.lbRotImportados = lbRotImportados = Controles.LB(self, _("Imported") + ":").ponFuente(f)
+        self.lbRotImportados = lbRotImportados = Controles.LB(
+            self, _("Imported") + ":"
+        ).ponFuente(f)
         self.lbImportados = Controles.LB(self, "0").ponFuente(f)
 
         if self.siWorkDone:
@@ -542,7 +670,9 @@ class ImportarFichero(QtWidgets.QDialog):
         else:
             lbRotWorkDone = None
 
-        self.btCancelarSeguir = Controles.PB(self, _("Cancel"), self.cancelar, plano=False).ponIcono(Iconos.Delete())
+        self.btCancelarSeguir = Controles.PB(
+            self, _("Cancel"), self.cancelar, plano=False
+        ).ponIcono(Iconos.Delete())
 
         ly = Colocacion.G().margen(20)
         ly.controld(lbRotLeidos, 0, 0).controld(self.lbLeidos, 0, 1)
@@ -611,20 +741,28 @@ class ImportarFichero(QtWidgets.QDialog):
 
 class ImportarFicheroPGN(ImportarFichero):
     def __init__(self, parent):
-        ImportarFichero.__init__(self, parent, _("A PGN file"), True, True, Iconos.PGN())
+        ImportarFichero.__init__(
+            self, parent, _("A PGN file"), True, True, Iconos.PGN()
+        )
 
 
 class ImportarFicheroFNS(ImportarFichero):
     def __init__(self, parent):
-        ImportarFichero.__init__(self, parent, _("FNS file"), True, False, Iconos.Fichero())
+        ImportarFichero.__init__(
+            self, parent, _("FNS file"), True, False, Iconos.Fichero()
+        )
 
 
 class ImportarFicheroDB(ImportarFichero):
     def __init__(self, parent):
-        ImportarFichero.__init__(self, parent, _("Database file"), False, True, Iconos.Database())
+        ImportarFichero.__init__(
+            self, parent, _("Database file"), False, True, Iconos.Database()
+        )
 
     def actualiza(self, leidos, erroneos, duplicados, importados, workdone=0):
-        return ImportarFichero.actualiza(self, leidos, 0, duplicados, importados, workdone)
+        return ImportarFichero.actualiza(
+            self, leidos, 0, duplicados, importados, workdone
+        )
 
 
 class MensajeFics(QtWidgets.QDialog):
@@ -632,12 +770,18 @@ class MensajeFics(QtWidgets.QDialog):
         QtWidgets.QDialog.__init__(self, parent)
 
         self.setWindowTitle(_("Fics-Elo"))
-        self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Dialog | QtCore.Qt.WindowTitleHint)
+        self.setWindowFlags(
+            QtCore.Qt.WindowCloseButtonHint
+            | QtCore.Qt.Dialog
+            | QtCore.Qt.WindowTitleHint
+        )
         self.setWindowIcon(Iconos.Fics())
         self.setStyleSheet("QDialog, QLabel { background: #E3F1F9 }")
 
         lbm = Controles.LB(self, "<big><b>%s</b></big>" % mens)
-        self.bt = Controles.PB(self, _("One moment please..."), rutina=self.final, plano=True)
+        self.bt = Controles.PB(
+            self, _("One moment please..."), rutina=self.final, plano=True
+        )
         self.bt.setDisabled(True)
         self.siFinalizado = False
 
@@ -655,7 +799,8 @@ class MensajeFics(QtWidgets.QDialog):
 
     def colocaCentrado(self, owner):
         self.move(
-            owner.x() + owner.width() // 2 - self.width() // 2, owner.y() + owner.height() // 2 - self.height() // 2
+            owner.x() + owner.width() // 2 - self.width() // 2,
+            owner.y() + owner.height() // 2 - self.height() // 2,
         )
         QTUtil.refresh_gui()
         self.show()
@@ -679,12 +824,18 @@ class MensajeFide(QtWidgets.QDialog):
         QtWidgets.QDialog.__init__(self, parent)
 
         self.setWindowTitle(_("Fide-Elo"))
-        self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Dialog | QtCore.Qt.WindowTitleHint)
+        self.setWindowFlags(
+            QtCore.Qt.WindowCloseButtonHint
+            | QtCore.Qt.Dialog
+            | QtCore.Qt.WindowTitleHint
+        )
         self.setWindowIcon(Iconos.Fide())
         self.setStyleSheet("QDialog, QLabel { background: #E9E9E9 }")
 
         lbm = Controles.LB(self, "<big><b>%s</b></big>" % mens)
-        self.bt = Controles.PB(self, _("One moment please..."), rutina=self.final, plano=True)
+        self.bt = Controles.PB(
+            self, _("One moment please..."), rutina=self.final, plano=True
+        )
         self.bt.setDisabled(True)
         self.siFinalizado = False
 
@@ -701,7 +852,10 @@ class MensajeFide(QtWidgets.QDialog):
         self.mostrar()
 
     def colocaCentrado(self, owner):
-        self.move(owner.x() + owner.width() / 2 - self.width() / 2, owner.y() + owner.height() / 2 - self.height() / 2)
+        self.move(
+            owner.x() + owner.width() / 2 - self.width() / 2,
+            owner.y() + owner.height() / 2 - self.height() / 2,
+        )
         QTUtil.refresh_gui()
         self.show()
         QTUtil.refresh_gui()
@@ -752,7 +906,7 @@ class ElemDB:
     def read(folder):
         li = []
         for f in os.listdir(folder):
-            path = os.path.join(folder, f)
+            path = Util.opj(folder, f)
             if os.path.isdir(path):
                 li.append(ElemDB(path, True))
             elif f.endswith(".lcdb") or f.endswith(".lcdblink"):
@@ -789,7 +943,9 @@ class ElemDB:
                 del self.li_elems[n]
 
     def add_submenu(self, submenu, rondo, indicador_previo=None):
-        self.li_elems.sort(key=lambda x: ("Z" if x.is_autosave else "A") + x.name.lower())
+        self.li_elems.sort(
+            key=lambda x: ("Z" if x.is_autosave else "A") + x.name.lower()
+        )
         previo = "" if indicador_previo is None else indicador_previo
         for elem in self.li_elems:
             if elem.is_folder:
@@ -816,7 +972,7 @@ def select_db(owner, configuration, siAll, siNew, remove_autosave=False):
         return None
 
     menu = LCMenu(owner)
-    rp = rondoPuntos()
+    rp = rondo_puntos()
     if lista:
         lista.add_submenu(menu, rp)
     if siNew:
@@ -825,12 +981,19 @@ def select_db(owner, configuration, siAll, siNew, remove_autosave=False):
     return menu.lanza()
 
 
-def menuDB(submenu, configuration, siAll, indicador_previo=None, remove_autosave=False, siNew=False):
+def menuDB(
+        submenu,
+        configuration,
+        siAll,
+        indicador_previo=None,
+        remove_autosave=False,
+        siNew=False,
+):
     lista = lista_db(configuration, siAll, remove_autosave=remove_autosave)
     if lista.is_empty() and not siNew:
         return None
 
-    rp = rondoPuntos()
+    rp = rondo_puntos()
     lista.add_submenu(submenu, rp, indicador_previo=indicador_previo)
     if siNew:
         submenu.separador()
@@ -843,12 +1006,26 @@ def menuDB(submenu, configuration, siAll, indicador_previo=None, remove_autosave
 class ReadAnnotation(QtWidgets.QDialog):
     def __init__(self, parent, objetivo):
         QtWidgets.QDialog.__init__(self, parent)
-        self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint)
+        self.setWindowFlags(
+            QtCore.Qt.WindowCloseButtonHint
+            | QtCore.Qt.Dialog
+            | QtCore.Qt.FramelessWindowHint
+        )
 
-        self.edAnotacion = Controles.ED(self, "").ponTipoLetra(puntos=Code.configuration.x_menu_points).anchoFijo(70)
-        btAceptar = Controles.PB(self, "", rutina=self.aceptar).ponIcono(Iconos.Aceptar(), 32)
-        btCancelar = Controles.PB(self, "", rutina=self.cancelar).ponIcono(Iconos.MainMenu(), 32)
-        btAyuda = Controles.PB(self, "", rutina=self.get_help).ponIcono(Iconos.AyudaGR(), 32)
+        self.edAnotacion = (
+            Controles.ED(self, "")
+            .ponTipoLetra(puntos=Code.configuration.x_menu_points)
+            .anchoFijo(70)
+        )
+        btAceptar = Controles.PB(self, "", rutina=self.aceptar).ponIcono(
+            Iconos.Aceptar(), 32
+        )
+        btCancelar = Controles.PB(self, "", rutina=self.cancelar).ponIcono(
+            Iconos.MainMenu(), 32
+        )
+        btAyuda = Controles.PB(self, "", rutina=self.get_help).ponIcono(
+            Iconos.AyudaGR(), 32
+        )
 
         self.objetivo = objetivo
         self.conAyuda = False
@@ -867,7 +1044,11 @@ class ReadAnnotation(QtWidgets.QDialog):
         self.setLayout(layout)
         self.show()
         self.move(
-            parent.x() + parent.board.width() - self.edAnotacion.width() - btAceptar.width() * 3 - 20,
+            parent.x()
+            + parent.board.width()
+            - self.edAnotacion.width()
+            - btAceptar.width() * 3
+            - 20,
             parent.y() + parent.board.y() - self.edAnotacion.height() + 8,
         )
 
@@ -893,7 +1074,14 @@ class ReadAnnotation(QtWidgets.QDialog):
 
 class LCTB(Controles.TBrutina):
     def __init__(
-            self, parent, li_acciones=None, with_text=True, icon_size=None, puntos=None, background=None, style=None
+            self,
+            parent,
+            li_acciones=None,
+            with_text=True,
+            icon_size=None,
+            puntos=None,
+            background=None,
+            style=None,
     ):
         configuration = Code.configuration
         Controles.TBrutina.__init__(
@@ -909,17 +1097,21 @@ class LCTB(Controles.TBrutina):
 
 
 def change_interval(owner, configuration):
-    form = FormLayout.FormLayout(owner, _("Replay game"), Iconos.Pelicula_Repetir(), anchoMinimo=250)
+    form = FormLayout.FormLayout(
+        owner, _("Replay game"), Iconos.Pelicula_Repetir(), anchoMinimo=250
+    )
     form.separador()
-    form.float(_("Number of seconds between moves"), configuration.x_interval_replay / 1000)
+    form.float(
+        _("Number of seconds between moves"), configuration.x_interval_replay / 1000
+    )
     form.separador()
     form.checkbox(_("Beep after each move"), configuration.x_beep_replay)
     form.separador()
     resultado = form.run()
     if resultado is None:
         return None
-    accion, liResp = resultado
-    vtime, beep = liResp
+    accion, li_resp = resultado
+    vtime, beep = li_resp
     if vtime > 0.01:
         configuration.x_interval_replay = int(vtime * 1000)
         configuration.x_beep_replay = beep
@@ -930,7 +1122,11 @@ def tb_accept_cancel(parent, if_default=False, with_cancel=True):
     li_acciones = [
         (_("Accept"), Iconos.Aceptar(), parent.aceptar),
         None,
-        (_("Cancel"), Iconos.Cancelar(), parent.reject if with_cancel else parent.cancelar),
+        (
+            _("Cancel"),
+            Iconos.Cancelar(),
+            parent.reject if with_cancel else parent.cancelar,
+        ),
     ]
     if if_default:
         li_acciones.append(None)
@@ -946,7 +1142,11 @@ class WInfo(QtWidgets.QDialog):
 
         self.setWindowTitle(titulo)
         self.setWindowIcon(Iconos.Aplicacion64())
-        self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Dialog | QtCore.Qt.WindowTitleHint)
+        self.setWindowFlags(
+            QtCore.Qt.WindowCloseButtonHint
+            | QtCore.Qt.Dialog
+            | QtCore.Qt.WindowTitleHint
+        )
 
         f = Controles.TipoLetra(puntos=20)
 
@@ -959,7 +1159,13 @@ class WInfo(QtWidgets.QDialog):
         bt_seguir = Controles.PB(self, _("Continue"), self.seguir).ponPlano(False)
 
         ly_v1 = Colocacion.V().control(lb_ico).relleno()
-        ly_v2 = Colocacion.V().control(lb_titulo).control(lb_texto).espacio(10).control(bt_seguir)
+        ly_v2 = (
+            Colocacion.V()
+            .control(lb_titulo)
+            .control(lb_texto)
+            .espacio(10)
+            .control(bt_seguir)
+        )
         ly_h = Colocacion.H().otro(ly_v1).otro(ly_v2).margen(10)
 
         self.setLayout(ly_h)
@@ -968,14 +1174,23 @@ class WInfo(QtWidgets.QDialog):
         self.close()
 
 
-def info(parent: QtWidgets.QWidget, titulo: str, head: str, txt: str, min_tam: int, pm_icon: QtGui.QPixmap):
+def info(
+        parent: QtWidgets.QWidget,
+        titulo: str,
+        head: str,
+        txt: str,
+        min_tam: int,
+        pm_icon: QtGui.QPixmap,
+):
     w = WInfo(parent, titulo, head, txt, min_tam, pm_icon)
     w.exec_()
 
 
 def combine_pixmaps(pixmap1, pixmap2):
     # Crear un QPixmap del tamaño total de los dos QPixmap
-    result = QtGui.QPixmap(pixmap1.width() + pixmap2.width(), max(pixmap1.height(), pixmap2.height()))
+    result = QtGui.QPixmap(
+        pixmap1.width() + pixmap2.width(), max(pixmap1.height(), pixmap2.height())
+    )
 
     # Crear un QPainter asociado con el QPixmap resultante
     painter = QtGui.QPainter(result)

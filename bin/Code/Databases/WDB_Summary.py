@@ -401,7 +401,7 @@ class WSummary(QtWidgets.QWidget):
 
     def config(self):
         menu = QTVarios.LCMenu(self)
-        menu.opcion("allmoves", _("Show all moves"), siChecked=self.allmoves)
+        menu.opcion("allmoves", _("Show all moves"), is_ckecked=self.allmoves)
         resp = menu.lanza()
         if resp is None:
             return
@@ -522,7 +522,7 @@ class WSummaryBase(QtWidgets.QWidget):
     def grid_color_fondo(self, grid, nfila, ocol):
         key = ocol.key
         if self.siFilaTotales(nfila) and not (key in ("number", "analysis")):
-            return self.foreground
+            return Code.dic_qcolors["SUMMARY_TOTAL"]
         if key in ("pwin", "pdraw", "plost"):
             dic = self.posicionFila(nfila)
             n = dic[key[1:]]
@@ -530,6 +530,12 @@ class WSummaryBase(QtWidgets.QWidget):
                 return Code.dic_qcolors["SUMMARY_WIN"]
             if n == 2:
                 return Code.dic_qcolors["SUMMARY_LOST"]
+
+    def grid_color_texto(self, grid, nfila, ocol):
+        if self.foreground:
+            key = ocol.key
+            if self.siFilaTotales(nfila) or key in ("pwin", "pdraw", "plost"):
+                return self.foreground
 
     def siFilaTotales(self, nfila):
         return nfila == len(self.liMoves) - 1
@@ -557,7 +563,7 @@ class WSummaryBase(QtWidgets.QWidget):
             return
 
         menu = QTVarios.LCMenu(self)
-        rondo = QTVarios.rondoPuntos()
+        rondo = QTVarios.rondo_puntos()
         for ralm in alm.LIALMS:
             menu.opcion(ralm, Game.pv_pgn(None, ralm.PV), rondo.otro())
             menu.separador()
@@ -581,9 +587,3 @@ class WSummaryBase(QtWidgets.QWidget):
                 if pv.count(" ") > 0:
                     pv = "%s %s" % (self.pvBase, dic["pvmove"])
                 self.actualizaPV(pv)
-
-    def grid_color_texto(self, grid, nfila, ocol):
-        if self.foreground:
-            key = ocol.key
-            if self.siFilaTotales(nfila) or key in ("pwin", "pdraw", "plost"):
-                return self.foreground

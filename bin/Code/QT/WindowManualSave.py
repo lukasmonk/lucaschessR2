@@ -288,13 +288,12 @@ class WManualSave(LCDialog.LCDialog):
             self.manager_motor.ac_final(0)
 
     def pgn_select(self):
-        dirSalvados = self.configuration.x_save_folder
+        dirSalvados = self.configuration.save_folder()
         path = SelectFiles.salvaFichero(self, _("File to save"), dirSalvados, "pgn", False)
         if path:
             carpeta, file = os.path.split(path)
-            if carpeta != self.configuration.x_save_folder:
-                self.configuration.x_save_folder = carpeta
-                self.configuration.graba()
+            if carpeta != self.configuration.save_folder():
+                self.configuration.set_save_folder(carpeta)
             self.pgn = path
             self.bt_pgn.set_text(path)
         self.test_save_solucion()

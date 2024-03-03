@@ -247,7 +247,7 @@ class Washing:
         li = []
         for fns in os.listdir(folder):
             if fns.endswith(".fns"):
-                fns = os.path.join(folder, fns)
+                fns = Util.opj(folder, fns)
                 with open(fns) as f:
                     for linea in f:
                         li.append(linea)
@@ -265,7 +265,7 @@ class Washing:
             d[x] = []
         for fns in os.listdir(folder):
             if fns.endswith(".fns"):
-                fns = os.path.join(folder, fns)
+                fns = Util.opj(folder, fns)
                 with open(fns) as f:
                     for linea in f:
                         lst = linea.split("|")
@@ -307,7 +307,7 @@ class DBWashing:
     def __init__(self, configuration):
         self.configuration = configuration
         self.filename = "washing.wsm"
-        self.file = os.path.join(configuration.carpeta_results, self.filename)
+        self.file = Util.opj(configuration.carpeta_results, self.filename)
         self.washing = self.restore()
 
     def new(self, tactic):

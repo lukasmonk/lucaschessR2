@@ -48,7 +48,7 @@ class RunSound:
     def play_key(self, key, start=True):
         if key not in self.dic_sounds:
             name_wav = self.relations[key]["WAV_KEY"] + ".wav"
-            path_wav = os.path.join(Code.configuration.carpeta_sounds(), name_wav)
+            path_wav = Util.opj(Code.configuration.carpeta_sounds(), name_wav)
             if os.path.isfile(path_wav):
                 wf = wave.open(path_wav)
                 seconds = 1000.0 * wf.getnframes() / wf.getframerate()
@@ -73,27 +73,27 @@ class RunSound:
         if not Util.create_folder(folder_sounds):
             for key in self.relations:
                 wav = self.relations[key]["WAV_KEY"] + ".wav"
-                path_wav = os.path.join(folder_sounds, wav)
+                path_wav = Util.opj(folder_sounds, wav)
                 if os.path.isfile(path_wav):
                     os.remove(path_wav)
 
         db = UtilSQL.DictSQL(configuration.file_sounds(), "general")
         for key in db.keys():
             wav = self.relations[key]["WAV_KEY"] + ".wav"
-            path_wav = os.path.join(folder_sounds, wav)
+            path_wav = Util.opj(folder_sounds, wav)
             with open(path_wav, "wb") as q:
                 q.write(db[key])
         db.close()
 
     def save_wav(self, key, wav):
         folder_sounds = Code.configuration.carpeta_sounds()
-        path_wav = os.path.join(folder_sounds, self.relations[key]["WAV_KEY"] + ".wav")
+        path_wav = Util.opj(folder_sounds, self.relations[key]["WAV_KEY"] + ".wav")
         with open(path_wav, "wb") as q:
             q.write(wav)
 
     def remove_wav(self, key):
         folder_sounds = Code.configuration.carpeta_sounds()
-        path_wav = os.path.join(folder_sounds, self.relations[key]["WAV_KEY"] + ".wav")
+        path_wav = Util.opj(folder_sounds, self.relations[key]["WAV_KEY"] + ".wav")
         Util.remove_file(path_wav)
 
     def read_sounds(self):
@@ -152,7 +152,7 @@ class RunSound:
         for c in "abcdefgh12345678":
             add(c, c, "COORD_" + c)
 
-        d = TrListas.dicNomPiezas()
+        d = TrListas.dic_nom_pieces()
         for c in "KQRBNP":
             add(c, d[c], "PIECE_" + c)
 

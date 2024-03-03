@@ -653,8 +653,8 @@ class DBgames:
 
         for file in ficheros:
             nomfichero = os.path.basename(file)
-            fich_erroneos = os.path.join(Code.configuration.temporary_folder(), nomfichero[:-3] + "errors.pgn")
-            fich_duplicados = os.path.join(Code.configuration.temporary_folder(), nomfichero[:-3] + "duplicates.pgn")
+            fich_erroneos = Util.opj(Code.configuration.temporary_folder(), nomfichero[:-3] + "errors.pgn")
+            fich_duplicados = Util.opj(Code.configuration.temporary_folder(), nomfichero[:-3] + "duplicates.pgn")
             dl_tmp.pon_titulo(nomfichero)
             next_n = random.randint(1000, 2000)
 

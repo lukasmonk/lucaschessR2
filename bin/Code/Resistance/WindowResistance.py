@@ -128,12 +128,12 @@ class WResistance(LCDialog.LCDialog):
 
         resultado = FormLayout.fedit(li_gen, title=_("Config"), parent=self, icon=Iconos.Configurar())
         if resultado:
-            accion, liResp = resultado
-            seconds, puntos, maxerror = liResp
+            accion, li_resp = resultado
+            seconds, puntos, maxerror = li_resp
             self.resistance.cambiaconfiguration(seconds, puntos, maxerror)
             self.set_textAyuda()
             self.grid.refresh()
-            return liResp[0]
+            return li_resp[0]
 
 
 def windowResistance(window, resistance):

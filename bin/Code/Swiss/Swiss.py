@@ -1,5 +1,5 @@
+import collections
 import math
-import os
 import random
 
 import Code
@@ -30,7 +30,6 @@ class Opponent:
         self.xid = Util.huella()
         self.tiebreak = 0
 
-        self.score = 0
         self.white = 0
         self.black = 0
         self.last_played = None
@@ -39,6 +38,10 @@ class Opponent:
         self.li_draw = []
         self.li_lost = []
         self.current_elo = 0
+
+    def get_score(self, swiss):
+        return len(self.li_win) * swiss.score_win + len(self.li_draw) * swiss.score_draw + len(
+            self.li_lost) * swiss.score_lost + self.byes * swiss.score_byes
 
     def name(self):
         return self.element.name if self.element else ""
@@ -95,12 +98,14 @@ class Opponent:
 
     def key_order(self, swiss):
         fn = swiss.opponent_by_xid
-        score = int(self.score * 100)
+        score = int(self.get_score(swiss) * 100)
 
-        score_rival_win = sum(fn(xrival).score for xrival in self.li_win)
-        score_rival_draw = sum(fn(xrival).score for xrival in self.li_draw)
+        score_rival_win = sum(fn(xrival).get_score(swiss) for xrival in self.li_win)
+        score_rival_draw = sum(fn(xrival).get_score(swiss) for xrival in self.li_draw)
         score_sum_rival = int(score_rival_win * 10 + score_rival_draw * 5)
-        return f"{score:04d}{score_sum_rival:05d}{len(self.li_win):03d}{len(self.li_draw):03d}{self.current_elo:04d}{self.tiebreak:04d}"
+        # se indica current_elo y no get_current_elo(), porque inicialmente no hay un orden
+        return (f"{score:04d}{score_sum_rival:05d}{len(self.li_win):03d}{len(self.li_draw):03d}"
+                f"{self.current_elo:04d}{self.tiebreak:04d}")
 
     def next_side(self):
         if self.white < self.black:
@@ -113,7 +118,6 @@ class Opponent:
             return None
 
     def reset(self):
-        self.score = 0
         self.white = 0
         self.black = 0
         self.last_played = None
@@ -180,18 +184,10 @@ class MatchsDay:
         self.li_matches = []
 
     def genera_matches(self, swiss, set_mached_played):
-
-        def han_jugado(player1, player2, que):
-            xid1 = player1.xid
-            xid2 = player2.xid
-            if que is None:
-                return (xid1, xid2) in set_mached_played and (xid2, xid1) in set_mached_played
-            if que == WHITE:
-                return (xid1, xid2) in set_mached_played
-            else:
-                return (xid2, xid1) in set_mached_played
+        self.li_matches = []
 
         li_opponents = swiss.li_opponents
+
         if len(li_opponents) % 2 == 1:  # hay un bye
             num_byes = 0
             while True:
@@ -206,46 +202,93 @@ class MatchsDay:
         else:
             li_opponents_play = li_opponents[:]
 
+        dic_xid_st_oponents_played = collections.defaultdict(set)
+        for xid1, xid2 in set_mached_played:
+            dic_xid_st_oponents_played[xid1].add(xid2)
+            dic_xid_st_oponents_played[xid2].add(xid1)
+
         li_opponents_play.sort(key=lambda opponent: opponent.key_order(swiss), reverse=True)
 
-        st_playing = set()
+        st_xid_playing = set()
         num_players_play = len(li_opponents_play)
         player: Opponent
-        for num, player in enumerate(li_opponents_play):
-            if player in st_playing:
+        for num in range(num_players_play - 1):
+            player = li_opponents_play[num]
+            if player.xid in st_xid_playing:
                 continue
 
+            st_opponents_played = dic_xid_st_oponents_played[player.xid]
             rival_select = None
             look_for = player.next_side()
-            if look_for is not None:
-                for num_rival in range(num + 1, min(num + 2 + num_players_play * 20 // 100, num_players_play)):
-                    rival = li_opponents_play[num_rival]
-                    if rival in st_playing:
-                        continue
-                    look_for_rival = rival.next_side()
-                    if look_for_rival != look_for and not han_jugado(player, rival, None):
-                        rival_select = rival
-                        break
-            if rival_select is None:
-                for num_rival in range(num + 1, num_players_play):
-                    rival = li_opponents_play[num_rival]
-                    if rival in st_playing or han_jugado(player, rival, None):
-                        continue
+
+            # 1. Buscamos uno con el que no haya jugado y que sea compatible con el side
+            for pos in range(num + 1, num_players_play):
+                rival = li_opponents_play[pos]
+                if rival.xid in st_xid_playing:
+                    continue
+                if rival.xid in st_opponents_played:
+                    continue
+                look_for_rival = rival.next_side()
+                if look_for is None or look_for_rival is None:
                     rival_select = rival
                     break
+                if look_for_rival != look_for:
+                    rival_select = rival
+                    break
+
+            # 2. Si no encuentra, buscamos uno con el que no haya jugado
             if rival_select is None:
-                return self.genera_matches(swiss, set())
-            player_w, player_b = player, rival_select
-            if player_w.white >= player_w.black and player_b.black >= player_b.white:
-                player_w, player_b = player_b, player_w
-            if han_jugado(player_w, player_b, WHITE):
-                player_w, player_b = player_b, player_w
+                for pos in range(num + 1, num_players_play):
+                    rival = li_opponents_play[pos]
+                    if rival.xid in st_xid_playing:
+                        continue
+                    if rival.xid in st_opponents_played:
+                        continue
+                    else:
+                        rival_select = rival
+                        break
+
+            # 3. Si no encuentra nada, que juegue contra el siguiente compatible con el side
+            if rival_select is None:
+                for pos in range(num + 1, num_players_play):
+                    rival = li_opponents_play[pos]
+                    if rival.xid in st_xid_playing:
+                        continue
+                    look_for_rival = rival.next_side()
+                    if look_for is None or look_for_rival is None:
+                        rival_select = rival
+                        break
+                    if look_for_rival != look_for:
+                        rival_select = rival
+                        break
+
+            # 4. Al primero que encuentre
+            if rival_select is None:
+                for pos in range(num + 1, num_players_play):
+                    rival = li_opponents_play[pos]
+                    if rival.xid in st_xid_playing:
+                        continue
+                    rival_select = rival
+
+            if look_for == WHITE:
+                player_w, player_b = player, rival_select
+            elif look_for == BLACK:
+                player_w, player_b = rival_select, player
+            else:
+                look_for_rival = rival_select.next_side()
+                if look_for_rival == BLACK:
+                    player_w, player_b = player, rival_select
+                elif look_for_rival == WHITE:
+                    player_w, player_b = rival_select, player
+                else:
+                    player_w, player_b = player, rival_select
+
             player_w.white += 1
             player_b.black += 1
             player_w.last_played = WHITE
             player_b.last_played = BLACK
-            st_playing.add(player_w)
-            st_playing.add(player_b)
+            st_xid_playing.add(player_w.xid)
+            st_xid_playing.add(player_b.xid)
             match = Match(player_w.xid, player_b.xid)
             self.li_matches.append(match)
 
@@ -276,7 +319,6 @@ class MatchsDay:
             op_black.last_played = BLACK
 
             result = xmatch.result
-            pts_white = pts_black = swiss.score_lost
 
             op_white.white += 1
             op_black.black += 1
@@ -285,24 +327,16 @@ class MatchsDay:
             if result == RESULT_DRAW:
                 op_white.li_draw.append(xid_black)
                 op_black.li_draw.append(xid_white)
-                pts_white = pts_black = swiss.score_draw
 
             elif result == RESULT_WIN_WHITE:
                 op_white.li_win.append(xid_black)
                 op_black.li_lost.append(xid_white)
-                pts_white = swiss.score_win
-                pts_black = swiss.score_lost
                 resn_w, resn_b = +1, -1
 
             elif result == RESULT_WIN_BLACK:
                 op_white.li_lost.append(xid_black)
                 op_black.li_win.append(xid_white)
-                pts_white = swiss.score_lost
-                pts_black = swiss.score_win
                 resn_w, resn_b = -1, +1
-
-            op_white.score += pts_white
-            op_black.score += pts_black
 
             elo_w = op_white.current_elo
             elo_b = op_black.current_elo
@@ -331,7 +365,7 @@ class Swiss:
     def __init__(self, name):
         self.li_opponents = []
         self.__name = name
-        self.__path: str = str(os.path.join(Code.configuration.folder_swisses(), name + ".swiss"))
+        self.__path: str = str(Util.opj(Code.configuration.folder_swisses(), name + ".swiss"))
         self.resign = 350
         self.slow_pieces = False
         self.draw_min_ply = 50
@@ -345,6 +379,9 @@ class Swiss:
         self.score_win = 3
         self.score_draw = 1
         self.score_lost = 0
+        self.score_byes = 0
+
+        self.num_matchdays = 0
 
         self.current_num_season = None
 
@@ -370,6 +407,8 @@ class Swiss:
             "SCORE_WIN": self.score_win,
             "SCORE_DRAW": self.score_draw,
             "SCORE_LOST": self.score_lost,
+            "SCORE_BYES": self.score_byes,
+            "NUM_MATCHDAYS": self.num_matchdays,
         }
         with UtilSQL.DictRawSQL(self.path(), "SWISS") as dbl:
             for key, value in dic.items():
@@ -392,6 +431,9 @@ class Swiss:
         self.score_win = dic_data.get("SCORE_WIN", self.score_win)
         self.score_draw = dic_data.get("SCORE_DRAW", self.score_draw)
         self.score_lost = dic_data.get("SCORE_LOST", self.score_lost)
+        self.score_byes = dic_data.get("SCORE_BYES", self.score_byes)
+        self.num_matchdays = dic_data.get("NUM_MATCHDAYS", self.num_matchdays)
+
         self.li_opponents = []
         for saved in dic_data.get("SAVED_OPPONENTS", []):
             op = Opponent()
@@ -416,7 +458,7 @@ class Swiss:
         return len(self.li_opponents)
 
     def max_journeys(self):
-        return num_matchesdays(len(self.li_opponents))
+        return num_matchesdays(len(self.li_opponents)) if self.num_matchdays == 0 else self.num_matchdays
 
     def sort_list_opponents(self):
         self.li_opponents.sort(key=lambda x: x.get_current_elo())
@@ -591,7 +633,7 @@ class Season:
             op.xid: {
                 "XID": op.xid,
                 "PL": op.white + op.black,
-                "PTS": op.score,
+                "PTS": op.get_score(self.swiss),
                 "WIN": len(op.li_win),
                 "LOST": len(op.li_lost),
                 "DRAW": len(op.li_draw),
@@ -654,13 +696,14 @@ class Season:
 
     def test_next(self):
         li = UtilSQL.list_tables(self.path)
-        next = "SEASON_%d" % (self.num_season + 1,)
-        if next not in li:
+        xnext = "SEASON_%d" % (self.num_season + 1,)
+        if xnext not in li:
             season_next = Season(self.swiss, self.num_season + 1)
             season_next.create_from(self)
             season_next.save()
 
-    def create_from(self, season_previous):
+    @staticmethod
+    def create_from(season_previous):
         d_panel, dic_xid_order = season_previous.gen_panel_classification()
 
         dic_elo_todos = {}

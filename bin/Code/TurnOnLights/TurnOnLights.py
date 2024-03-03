@@ -201,7 +201,7 @@ class TOL_Theme:
     def __init__(self, folder, nameFNS, num_pos):
         self.name = nameFNS[:-4]
         self.lines = []
-        path = os.path.join(folder, nameFNS)
+        path = Util.opj(folder, nameFNS)
         with open(path, "rt", encoding="utf-8", errors="ignore") as f:
             li = [linea.strip() for linea in f if linea.strip()]
             if len(li) != num_pos:
@@ -228,7 +228,7 @@ class TurnOnLights:
         return self.calculation_mode
 
     def recupera(self):
-        filepath = os.path.join(Code.configuration.carpeta_results, "%s.tol" % self.name)
+        filepath = Util.opj(Code.configuration.carpeta_results, "%s.tol" % self.name)
         tolr = Util.restore_pickle(filepath)
         if tolr is None:
             self.new()
@@ -343,7 +343,7 @@ class TurnOnLightsOneLine(TurnOnLights):
         self.li_tam_blocks = [k, 2 * k, 3 * k, num_pos]
 
     def recupera(self):
-        filepath = os.path.join(Code.configuration.carpeta_results, "%s.tol" % self.name)
+        filepath = Util.opj(Code.configuration.carpeta_results, "%s.tol" % self.name)
         try:
             tolr = Util.restore_pickle(filepath)
         except:
@@ -396,12 +396,12 @@ def read_tol(name, title, folder, li_tam_blocks):
 
 def write_tol(tol):
     tol.last_date = datetime.date.today()
-    filepath = os.path.join(Code.configuration.carpeta_results, "%s.tol" % tol.name)
+    filepath = Util.opj(Code.configuration.carpeta_results, "%s.tol" % tol.name)
     Util.save_pickle(filepath, tol)
 
 
 def remove_tol(tol):
-    filepath = os.path.join(Code.configuration.carpeta_results, "%s.tol" % tol.name)
+    filepath = Util.opj(Code.configuration.carpeta_results, "%s.tol" % tol.name)
     Util.remove_file(filepath)
 
 
@@ -419,7 +419,7 @@ def numColorMinimum(tol):
 
 
 def compruebaUweEasy(configuration, name):
-    file = os.path.join(configuration.carpeta_results, "%s.tol" % name)
+    file = Util.opj(configuration.carpeta_results, "%s.tol" % name)
     if Util.exist_file(file):
         return
     folderDest = configuration.temporary_folder()
@@ -427,7 +427,7 @@ def compruebaUweEasy(configuration, name):
     folderOri = Code.path_resource("Trainings", "Tactics by Uwe Auerswald")
     for fich in os.listdir(folderOri):
         if fich.endswith(".fns"):
-            with open(os.path.join(folderOri, fich)) as f, open(os.path.join(folderDest, fich), "w") as q:
+            with open(Util.opj(folderOri, fich)) as f, open(Util.opj(folderDest, fich), "w") as q:
                 for linea in f:
                     if linea.count("*") < 3:
                         q.write(linea)

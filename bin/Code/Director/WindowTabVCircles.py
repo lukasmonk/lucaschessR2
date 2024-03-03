@@ -55,7 +55,7 @@ class WTV_Circle(QtWidgets.QDialog):
         li_gen.append((config, reg_circle.color))
 
         # ( "colorinterior", "n", -1 ),
-        config = FormLayout.Colorbox(_("Internal color"), 80, 20, siChecked=True)
+        config = FormLayout.Colorbox(_("Internal color"), 80, 20, is_ckecked=True)
         li_gen.append((config, reg_circle.colorinterior))
 
         # ( "opacity", "n", 1.0 ),

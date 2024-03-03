@@ -130,7 +130,7 @@ class WOpeningLines(LCDialog.LCDialog):
     def changeFolder(self):
         nof = _("New opening folder")
         base = self.configuration.folder_base_openings
-        li = [x for x in os.listdir(base) if os.path.isdir(os.path.join(base, x))]
+        li = [x for x in os.listdir(base) if os.path.isdir(Util.opj(base, x))]
         menu = QTVarios.LCMenu(self)
         rondo = QTVarios.rondoFolders()
         for x in li:
@@ -166,10 +166,10 @@ class WOpeningLines(LCDialog.LCDialog):
                         li_gen, title=nof, parent=self, icon=Iconos.OpeningLines(), anchoMinimo=460
                     )
                     if resultado:
-                        accion, liResp = resultado
-                        name = liResp[0].strip()
+                        accion, li_resp = resultado
+                        name = li_resp[0].strip()
                         if name:
-                            path = os.path.join(base, name)
+                            path = Util.opj(base, name)
                             try:
                                 os.mkdir(path)
                             except:
@@ -181,7 +181,7 @@ class WOpeningLines(LCDialog.LCDialog):
                     else:
                         return
             else:
-                path = os.path.join(base, resp)
+                path = Util.opj(base, resp)
 
             path = Util.relative_path(path)
             self.configuration.set_folder_openings(path)
@@ -255,8 +255,8 @@ class WOpeningLines(LCDialog.LCDialog):
             li_gen, title=_("Opening studio name"), parent=self, icon=Iconos.OpeningLines(), anchoMinimo=460
         )
         if resultado:
-            accion, liResp = resultado
-            name = liResp[0].strip()
+            accion, li_resp = resultado
+            name = li_resp[0].strip()
             if name:
                 return name
         return None
@@ -427,7 +427,7 @@ def select_line(owner):
     menu = QTVarios.LCMenuRondo(owner)
     for entry in os.scandir(path):
         if entry.is_dir():
-            path_ini = os.path.join(entry.path, "openinglines.pk")
+            path_ini = Util.opj(entry.path, "openinglines.pk")
             lista = Util.restore_pickle(path_ini, [])
             if lista:
                 is_openings = True
@@ -436,7 +436,7 @@ def select_line(owner):
                     dic["folder"] = entry.name
                     submenu.opcion(dic, dic["title"])
 
-    path_ini = os.path.join(path, "openinglines.pk")
+    path_ini = Util.opj(path, "openinglines.pk")
     lista = Util.restore_pickle(path_ini, [])
     if lista:
         is_openings = True

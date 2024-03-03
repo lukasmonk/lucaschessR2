@@ -68,7 +68,7 @@ class WLearnBase(LCDialog.LCDialog):
         # # Claves segun orden estandar
         liBasic = ("EVENT", "SITE", "DATE", "ROUND", "WHITE", "BLACK", "RESULT", "ECO", "FEN", "WHITEELO", "BLACKELO")
         for key in liBasic:
-            label = TrListas.pgnLabel(key)
+            label = TrListas.pgn_label(key)
             crea_col(key, label, key != "EVENT")
         self.grid = Grid.Grid(self, o_columns, siSelecFilas=True, siSeleccionMultiple=True)
         self.grid.setMinimumWidth(self.grid.anchoColumnas() + 20)
@@ -337,13 +337,13 @@ class WLearn1(LCDialog.LCDialog):
         if resultado is None:
             return
 
-        accion, liResp = resultado
-        level = liResp[0]
-        white = liResp[1]
-        black = liResp[2]
+        accion, li_resp = resultado
+        level = li_resp[0]
+        white = li_resp[1]
+        black = li_resp[2]
         if not (white or black):
             return
-        siClock = liResp[3]
+        siClock = li_resp[3]
 
         dic["CLOCK"] = siClock
         self.configuration.write_variables("MEMORIZING_GAME", dic)

@@ -126,7 +126,7 @@ class WSwisses(LCDialog.LCDialog):
             accion, li_gen = resultado
             nom_swiss = Util.valid_filename(li_gen[0].strip())
             if nom_swiss:
-                path = os.path.join(Code.configuration.folder_swisses(), nom_swiss + ".swiss")
+                path = Util.opj(Code.configuration.folder_swisses(), nom_swiss + ".swiss")
                 if os.path.isfile(path):
                     QTUtil2.message_error(self, _("The file %s already exist") % nom_swiss)
                     return self.edit_name(nom_swiss)
@@ -156,8 +156,8 @@ class WSwisses(LCDialog.LCDialog):
             nom_origen = self.nom_swiss_pos(row)
             nom_destino = self.edit_name(nom_origen)
             if nom_destino and nom_origen != nom_destino:
-                path_origen = os.path.join(Code.configuration.folder_swisses(), "%s.swiss" % nom_origen)
-                path_destino = os.path.join(Code.configuration.folder_swisses(), "%s.swiss" % nom_destino)
+                path_origen = Util.opj(Code.configuration.folder_swisses(), "%s.swiss" % nom_origen)
+                path_destino = Util.opj(Code.configuration.folder_swisses(), "%s.swiss" % nom_destino)
                 shutil.move(path_origen, path_destino)
                 self.refresh_lista()
 
@@ -166,7 +166,7 @@ class WSwisses(LCDialog.LCDialog):
         if row >= 0:
             name = self.nom_swiss_pos(row)
             if QTUtil2.pregunta(self, _X(_("Delete %1?"), name)):
-                path = os.path.join(Code.configuration.folder_swisses(), "%s.swiss" % name)
+                path = Util.opj(Code.configuration.folder_swisses(), "%s.swiss" % name)
                 os.remove(path)
                 self.refresh_lista()
 
@@ -176,8 +176,8 @@ class WSwisses(LCDialog.LCDialog):
             nom_origen = self.nom_swiss_pos(row)
             nom_destino = self.edit_name(nom_origen)
             if nom_destino and nom_origen != nom_destino:
-                path_origen = os.path.join(Code.configuration.folder_swisses(), "%s.swiss" % nom_origen)
-                path_destino = os.path.join(Code.configuration.folder_swisses(), "%s.swiss" % nom_destino)
+                path_origen = Util.opj(Code.configuration.folder_swisses(), "%s.swiss" % nom_origen)
+                path_destino = Util.opj(Code.configuration.folder_swisses(), "%s.swiss" % nom_destino)
                 shutil.copy(path_origen, path_destino)
                 self.refresh_lista()
 

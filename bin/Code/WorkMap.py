@@ -11,6 +11,14 @@ import Code
 
 
 class RegWorkMap:
+    iso: str
+    name: str
+    border: str
+    elo: int
+    assoc: list
+
+    donePV: str
+
     def __str__(self):
         s = ""
         for x in dir(self):
@@ -33,7 +41,7 @@ class RegWorkMap:
 
 
 def ld_countries(mapa):
-    dicFiltros = {
+    dic_filtros = {
         "Africa": [
             "gw",
             "zm",
@@ -96,7 +104,7 @@ def ld_countries(mapa):
         ],
         "WorldMap": None,
     }
-    filtro = dicFiltros[mapa]
+    filtro = dic_filtros[mapa]
     lista = []
     for iso, name, border, elo, assoc in (
         ("ad", _("Andorra"), ["fr", "es"], 2252, []),
@@ -226,7 +234,7 @@ def ld_countries(mapa):
         ("hu", _("Hungary"), ["rs", "hr", "sk", "si", "at", "ro", "ua"], 2655, []),
         ("id", _("Indonesia"), ["au", "tl", "my", "pg"], 2414, []),
         ("ie", _("Ireland"), ["is", "gb"], 2390, []),
-        ("il", _("Israel"), ["ps", "eg", "jo", "lb", "sy"], 2629, []),
+        ("il", _("Israel"), ["ps", "eg", "jo", "lb", "sy"], 1513, []),
         ("in", _("India"), ["bd", "cn", "mm", "lk", "bt", "mv", "np", "pk"], 2660, []),
         ("iq", _("Iraq"), ["sy", "ir", "tr", "jo", "kw", "sa"], 2304, []),
         ("ir", _("Iran, Islamic Republic of"), ["af", "iq", "tr", "am", "tm", "pk", "az"], 2482, []),
@@ -288,7 +296,7 @@ def ld_countries(mapa):
         ("ph", _("Philippines"), ["my", "cn", "vn", "pw"], 2529, []),
         ("pk", _("Pakistan"), ["in", "ir", "cn", "af"], 1931, []),
         ("pl", _("Poland"), ["de", "sk", "cz", "lt", "ua", "by"], 2636, []),
-        ("ps", _("Palestine, State of"), ["eg", "jo", "il"], 2098, []),
+        ("ps", _("Palestine, State of"), ["eg", "jo", "il"], 2798, []),
         ("pt", _("Portugal"), ["es"], 2393, []),
         ("pw", _("Palau"), ["ph"], 1761, []),
         ("py", _("Paraguay"), ["ar", "br", "bo"], 2367, []),
@@ -381,11 +389,11 @@ class DBWorkMap(SQLBase.DBBase):
         self.dicDB = UtilSQL.DictSQL(fichdb, tabla="CONFIG")
         self.tabla = "WORK"
 
-        self.testTabla()
+        self.test_table()
 
         self.releer()
 
-    def testTabla(self):
+    def test_table(self):
         if not self.existeTabla(self.tabla):
             cursor = self.conexion.cursor()
             cursor.execute(
@@ -513,7 +521,7 @@ class WorkMap:
         if raw:
             self.ROWID, self.DCREATION, self.DEND, self.DONE, self.TIPO, self.MODEL, self.INFO, DATA = raw
             self.restore(DATA)
-            self.resetListaGrid()
+            self.reset_list_grid()
         else:
             self.nuevo()
             self.dataActivo()
@@ -555,36 +563,38 @@ class WorkMap:
         return svg, lineasSVG
 
     def save(self):
-        dicW = {}
-        dicW["CURRENT"] = self.current
-        dicW["DIC"] = {iso: reg._save() for iso, reg in self.dic.items()}
-        return Util.var2zip(dicW)
+        dic_w = {}
+        dic_w["CURRENT"] = self.current
+        dic_w["DIC"] = {iso: reg._save() for iso, reg in self.dic.items()}
+        return Util.var2zip(dic_w)
 
     def restore(self, xbin):
-        dicW = Util.zip2var(xbin)
-        self.current = dicW["CURRENT"]
+        dic_w = Util.zip2var(xbin)
+        self.current = dic_w["CURRENT"]
         d = {}
-        for iso, v in dicW["DIC"].items():
+        for iso, v in dic_w["DIC"].items():
             reg = RegWorkMap()
             reg._restore(v)
             d[iso] = reg
         self.dic = d
-        self.resetListaGrid()
 
-    def resetListaGrid(self):
+        self.reset_list_grid()
+
+    def reset_list_grid(self):
         if self.current:
-            li = [self.dic[iso] for iso in self.dic[self.current].border]
+            li = [self.dic[iso] for iso in self.dic[self.current].border if iso in self.dic]
         else:
             li = [v for k, v in self.dic.items()]
         for alm in li:
             alm.name = _F(alm.name)
         self.listaGrid = sorted(li, key=lambda alm: alm.name)
 
-    def setWidget(self, widget):
+    def set_widget(self, widget):
         self.widget = widget
 
-    def resetWidget(self):
+    def reset_widget(self):
         lidone = []
+        alm: RegWorkMap
         for iso, alm in self.dic.items():
             if alm.donePV:
                 lidone.append(iso)
@@ -592,11 +602,14 @@ class WorkMap:
             reg = self.dic[self.current]
             licurrent = [self.current]
             liborder = reg.border
-            liborderdone = [iso for iso in liborder if self.dic[iso].donePV]
+            liborderdone = [iso for iso in liborder if iso in self.dic and self.dic[iso].donePV.strip()]
         else:
-            licurrent = liborder = liborderdone = None
+            licurrent = liborder = liborderdone = []
 
         def modif(x, lista):
+            for xiso in lista:
+                if xiso in self.dic:
+                    lista.extend(self.dic[xiso].assoc)
             line, default = x
             self.lineasSVG[line] = "." + ",.".join(lista) if lista else default
 
@@ -607,7 +620,7 @@ class WorkMap:
         x = "\n".join(self.lineasSVG)
         self.widget.load(QtCore.QByteArray(bytes(x, "utf-8")))
 
-        self.resetListaGrid()
+        self.reset_list_grid()
 
     def num_rows(self):
         return len(self.listaGrid)
@@ -618,18 +631,18 @@ class WorkMap:
         else:
             return self.listaGrid[row].name
 
-    def setAimFila(self, row):
+    def set_aim_row(self, row):
         self.aim = self.listaGrid[row].iso
-        siHecho = self.isoHecho(self.aim)
-        if siHecho:
+        si_hecho = self.iso_done(self.aim)
+        if si_hecho:
             self.current = self.aim
         self.db.saveWork(self)
-        return siHecho
+        return si_hecho
 
-    def getAim(self):
+    def get_aim(self):
         return self.dic[self.aim] if self.aim else None
 
-    def isoHecho(self, iso):
+    def iso_done(self, iso):
         return len(self.dic[iso].donePV) > 0
 
     def fenAim(self):
@@ -654,6 +667,7 @@ class WorkMap:
         self.db.saveWork(self)
 
     def calcINFO(self):
+        info = ""
         if self.TIPO == "sts":
             sump = sumt = 0
             for iso, alm in self.dic.items():

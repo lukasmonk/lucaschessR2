@@ -31,26 +31,31 @@ class WMap(LCDialog.LCDialog):
         self.playCurrent = None
 
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("TYPE", "", 24, edicion=Delegados.PmIconosBMT(), align_center=True)
+
+        dic_iconos = {"1": Iconos.pmPuntoRojo(), "5": Iconos.pmApproval()}
+
+        o_columns.nueva("TYPE", "", 24, edicion=Delegados.PmIconosBMT(dicIconos=dic_iconos), align_center=True)
         o_columns.nueva("SELECT", _("Select a country"), 140)
 
         self.grid = Grid.Grid(self, o_columns, siSelecFilas=True, xid="W")
 
         self.register_grid(self.grid)
 
-        li_acciones = (
+        li_acciones = [
             (_("Close"), Iconos.MainMenu(), self.terminar),
             None,
             (_("Play"), Iconos.Empezar(), self.play),
             None,
-        )
-        tb_work = QTVarios.LCTB(self, li_acciones, icon_size=24)
+            (_("Pending"), Iconos.Check(), self.pending)
+        ]
+
+        self.tb_work = QTVarios.LCTB(self, li_acciones, icon_size=24)
 
         self.lbInfo = Controles.LB(self)
 
         self.wsvg = wsvg = QtSvg.QSvgWidget()
 
-        ly = Colocacion.V().control(tb_work).control(self.lbInfo).control(self.grid)
+        ly = Colocacion.V().control(self.tb_work).control(self.lbInfo).control(self.grid)
         w = QtWidgets.QWidget()
         w.setLayout(ly)
 
@@ -80,7 +85,7 @@ class WMap(LCDialog.LCDialog):
             (_("Remove"), Iconos.Borrar(), self.data_remove),
             None,
         )
-        tb = QTVarios.LCTB(self, li_acciones, icon_size=24)
+        tb = QTVarios.LCTB(self, li_acciones)
 
         ly = Colocacion.V().control(tb).control(self.gridData)
         w = QtWidgets.QWidget()
@@ -96,12 +101,30 @@ class WMap(LCDialog.LCDialog):
 
         self.restore_video(siTam=True, anchoDefecto=960, altoDefecto=600)
 
-        self.workmap.setWidget(wsvg)
-        self.workmap.resetWidget()
+        self.workmap.set_widget(wsvg)
+        self.workmap.reset_widget()
         self.grid.gotop()
         self.gridData.gotop()
 
         self.informacion()
+
+        self.check_pending()
+
+    def check_pending(self):
+        nli = len(self.list_pending())
+        self.tb_work.set_action_visible(self.pending, 0 < nli < 10)
+        self.tb_work.set_action_visible(self.play, nli > 0)
+
+    def list_pending(self):
+        return [reg for reg in self.workmap.dic.values() if not len(reg.donePV.strip())]
+
+    def pending(self):
+        li = self.list_pending()
+        menu = QTVarios.LCMenuRondo(self)
+        for reg in li:
+            menu.opcion(None, reg.name)
+            menu.separador()
+        menu.lanza()
 
     def data_new(self):
         menu = QTVarios.LCMenu(self)
@@ -121,20 +144,20 @@ class WMap(LCDialog.LCDialog):
             tipo, model = resp.split("_")
             if tipo == "sts":
                 li_gen = [(None, None)]
-                liR = [(str(x), x) for x in range(1, 100)]
-                config = FormLayout.Combobox(_("Model"), liR)
+                li_r = [(str(x), x) for x in range(1, 100)]
+                config = FormLayout.Combobox(_("Model"), li_r)
                 li_gen.append((config, "1"))
                 resultado = FormLayout.fedit(
                     li_gen, title=_("STS: Strategic Test Suite"), parent=self, anchoMinimo=160, icon=Iconos.Maps()
                 )
                 if resultado is None:
                     return
-                accion, liResp = resultado
-                model = liResp[0]
+                accion, li_resp = resultado
+                model = li_resp[0]
             self.workmap.nuevo(tipo, model)
-            self.activaWorkmap()
+            self.active_workmap()
 
-    def doWork(self, row):
+    def do_work(self):
         tipo = self.workmap.TIPO
         if tipo == "mate":
             self.playCurrent = self.workmap
@@ -145,23 +168,24 @@ class WMap(LCDialog.LCDialog):
             w = WUnSTSMap(self)
             w.exec_()
             self.gridData.refresh()
-            self.workmap.resetWidget()
+            self.workmap.reset_widget()
             self.informacion()
             self.grid.refresh()
 
     def data_select(self):
         row = self.gridData.recno()
         self.workmap.activaRowID(row)
-        self.activaWorkmap(siGoTop=False)
+        self.active_workmap(gotop=False)
+        self.check_pending()
 
-    def activaWorkmap(self, siGoTop=True):
-        self.workmap.setWidget(self.wsvg)
-        self.workmap.resetWidget()
+    def active_workmap(self, gotop=True):
+        self.workmap.set_widget(self.wsvg)
+        self.workmap.reset_widget()
         self.grid.refresh()
         self.gridData.refresh()
 
         self.grid.gotop()
-        if siGoTop:
+        if gotop:
             self.gridData.gotop()
 
         self.informacion()
@@ -175,7 +199,6 @@ class WMap(LCDialog.LCDialog):
 
     def informacion(self):
         current = self.workmap.nameCurrent()
-        total = self.workmap.total()
         hechos, total = self.workmap.done()
         info = self.workmap.info()
         tipo = self.workmap.db.getTipo()
@@ -188,14 +211,14 @@ class WMap(LCDialog.LCDialog):
         self.lbInfo.set_text(txt)
 
     def lanza(self, row):
-        siHecho = self.workmap.setAimFila(row)
-        if siHecho:
-            self.workmap.resetWidget()
+        si_hecho = self.workmap.set_aim_row(row)
+        if si_hecho:
+            self.workmap.reset_widget()
             self.informacion()
             self.grid.gotop()
             self.grid.refresh()
         else:
-            self.doWork(row)
+            self.do_work()
 
     def grid_doble_click(self, grid, row, column):
         if grid == self.grid:
@@ -225,7 +248,9 @@ class WUnSTSMap(LCDialog.LCDialog):
         self.workmap = owner.workmap
         self.procesador = owner.procesador
         self.configuration = self.procesador.configuration
-        self.alm = self.workmap.getAim()
+        self.alm = self.workmap.get_aim()
+        self.position = None
+        self.move = None
 
         LCDialog.LCDialog.__init__(self, owner, _("STS: Strategic Test Suite"), Iconos.STS(), "stsmap")
 
@@ -247,17 +272,17 @@ class WUnSTSMap(LCDialog.LCDialog):
         )
         self.tb = QTVarios.LCTB(self, self.li_acciones)
 
-        lyT = Colocacion.V().control(self.board).relleno()
-        lyV = Colocacion.V().relleno().control(self.lbJuego).relleno(2)
-        lyTV = Colocacion.H().otro(lyT).otro(lyV)
-        ly = Colocacion.V().control(self.tb).otro(lyTV)
+        ly_t = Colocacion.V().control(self.board).relleno()
+        ly_v = Colocacion.V().relleno().control(self.lbJuego).relleno(2)
+        ly_tv = Colocacion.H().otro(ly_t).otro(ly_v)
+        ly = Colocacion.V().control(self.tb).otro(ly_tv)
 
         self.setLayout(ly)
 
         self.restore_video()
 
         self.pon_toolbar(self.cancelar)
-        self.ponJuego()
+        self.pon_juego()
 
     def cancelar(self):
         self.save_video()
@@ -266,11 +291,11 @@ class WUnSTSMap(LCDialog.LCDialog):
     def seguir(self):
         self.cancelar()
 
-    def pon_toolbar(self, *liCurrent):
+    def pon_toolbar(self, *li_current):
         for txt, ico, rut in self.li_acciones:
-            self.tb.set_action_visible(rut, rut in liCurrent)
+            self.tb.set_action_visible(rut, rut in li_current)
 
-    def ponJuego(self):
+    def pon_juego(self):
         self.pon_toolbar(self.cancelar)
 
         self.position = cp = Position.Position()
@@ -278,40 +303,40 @@ class WUnSTSMap(LCDialog.LCDialog):
 
         mens = "<h2>%s</h2><br>" % self.alm.name
 
-        siW = cp.is_white
-        color, colorR = _("White"), _("Black")
-        cK, cQ, cKR, cQR = "K", "Q", "k", "q"
-        if not siW:
-            color, colorR = colorR, color
-            cK, cQ, cKR, cQR = cKR, cQR, cK, cQ
+        si_w = cp.is_white
+        color, color_r = _("White"), _("Black")
+        c_k, c_q, c_kr, c_qr = "K", "Q", "k", "q"
+        if not si_w:
+            color, color_r = color_r, color
+            c_k, c_q, c_kr, c_qr = c_kr, c_qr, c_k, c_q
 
         if cp.castles:
 
             def menr(ck, cq):
-                enr = ""
+                xenr = ""
                 if ck in cp.castles:
-                    enr += "O-O"
+                    xenr += "O-O"
                 if cq in cp.castles:
-                    if enr:
-                        enr += "  +  "
-                    enr += "O-O-O"
-                return enr
+                    if xenr:
+                        xenr += "  +  "
+                    xenr += "O-O-O"
+                return xenr
 
-            enr = menr(cK, cQ)
+            enr = menr(c_k, c_q)
             if enr:
                 mens += "<br>%s : %s" % (color, enr)
-            enr = menr(cKR, cQR)
+            enr = menr(c_kr, c_qr)
             if enr:
-                mens += "<br>%s : %s" % (colorR, enr)
+                mens += "<br>%s : %s" % (color_r, enr)
         if cp.en_passant != "-":
             mens += "<br>     %s : %s" % (_("En passant"), cp.en_passant)
         self.lbJuego.set_text(mens)
 
-        siW = cp.is_white
+        si_w = cp.is_white
         self.board.set_position(cp)
-        self.board.set_side_bottom(siW)
-        self.board.set_side_indicator(siW)
-        self.board.activate_side(siW)
+        self.board.set_side_bottom(si_w)
+        self.board.set_side_indicator(si_w)
+        self.board.activate_side(si_w)
 
     def player_has_moved(self, from_sq, to_sq, promotion=""):
         self.board.disable_all()
@@ -324,13 +349,13 @@ class WUnSTSMap(LCDialog.LCDialog):
         if ok:
             self.board.set_position(move.position)
             self.board.put_arrow_sc(from_sq, to_sq)
-            self.hechaJugada(move)
+            self.move_done(move)
         else:
-            self.ponJuego()
+            self.pon_juego()
             return False
         return True
 
-    def hechaJugada(self, move):
+    def move_done(self, move):
         self.board.disable_all()
         game = Game.Game(first_position=move.position_before)
         game.add_move(move)
@@ -339,19 +364,19 @@ class WUnSTSMap(LCDialog.LCDialog):
 
         self.pon_toolbar(self.seguir, self.analizar)
 
-        donePV = move.movimiento().lower()
-        dicResults = self.alm.dicResults
+        done_pv = move.movimiento().lower()
+        dic_results = self.alm.dicResults
 
         mens = "<h2>%s</h2><br>" % self.alm.name
 
         mens += "<table><tr><th>%s</th><th>%s</th></tr>" % (_("Move"), _("Score"))
         mx = 0
         ok = False
-        stylePV = ' style="color:red;"'
-        for pv, points in dicResults.items():
-            if donePV == pv.lower():
+        style_pv = ' style="color:red;"'
+        for pv, points in dic_results.items():
+            if done_pv == pv.lower():
                 ok = True
-                mas = stylePV
+                mas = style_pv
             else:
                 mas = ""
             san = Game.pv_san(self.alm.fen, pv)
@@ -359,18 +384,18 @@ class WUnSTSMap(LCDialog.LCDialog):
             if points > mx:
                 mx = points
         if not ok:
-            san = Game.pv_san(self.alm.fen, donePV)
-            mens += '<tr%s><td align="center">%s</td><td align="right">%d</td></tr>' % (stylePV, san, 0)
+            san = Game.pv_san(self.alm.fen, done_pv)
+            mens += '<tr%s><td align="center">%s</td><td align="right">%d</td></tr>' % (style_pv, san, 0)
         mens += "</table>"
 
-        self.alm.donePV = donePV
-        self.alm.puntos = dicResults.get(donePV, 0)
+        self.alm.donePV = done_pv
+        self.alm.puntos = dic_results.get(done_pv, 0)
         self.alm.total = mx
 
         mens += "<br><h2>%s: %d/%d</h2>" % (_("Score"), self.alm.puntos, self.alm.total)
         self.lbJuego.set_text(mens)
 
-        self.workmap.winAim(donePV)
+        self.workmap.winAim(done_pv)
 
     def analizar(self):
         xtutor = self.procesador.XTutor()

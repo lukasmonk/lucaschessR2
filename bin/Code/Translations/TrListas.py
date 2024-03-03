@@ -14,7 +14,7 @@ def categoria(key):
     }[key]
 
 
-def pgnLabel(key):
+def pgn_label(key):
     if key:
         return {
             "EVENT": _("Event"),
@@ -35,27 +35,27 @@ def pgnLabel(key):
         return ""
 
 
-def dicNomPiezas():
+def dic_nom_pieces():
     return {"K": _("King"), "N": _("Knight"), "B": _("Bishop"), "Q": _("Queen"), "R": _("Rook"), "P": _("Pawn")}
 
 
 dConvTR = [{}]
 
 
-def dConv():
+def dic_conv():
     return dConvTR[0]
 
 
-def ponPiecesLNG(siEN):
-    dConvTR[0] = {} if siEN else {"K": _("K"), "N": _("N"), "B": _("B"), "Q": _("Q"), "R": _("R")}
+def pon_pieces_lng(si_en):
+    dConvTR[0] = {} if si_en else {"K": _("K"), "N": _("N"), "B": _("B"), "Q": _("Q"), "R": _("R")}
 
 
-def letterPiece(piece):
+def letter_piece(piece):
     p = piece.upper()
     return dConvTR[0].get(p, p)
 
 
-def dicTraining():
+def dic_training():
     d = {
         "Checkmates by Eduardo Sadier": _("Checkmates by Eduardo Sadier"),
         "%d positions of mate in two"
@@ -160,7 +160,7 @@ def dicTraining():
     return d
 
 
-def STS():
+def list_sts():
     return [
         _("Undermining"),
         _("Open Files and Diagonals"),
@@ -453,14 +453,15 @@ def transsiberian():
 
 def transsiberian_1():
     return (_("Scholar's Mate"),
-_("Legal trap"),
-_("Petrov's Defence trap"),
-_("Sicilian defense trap"),
-_("Ruy Lopez trap"),
-_("Sicilian defense trap"),
-_("Morphy - Anderssen"),
-_("The Immortal Game"),
-)
+            _("Legal trap"),
+            _("Petrov's Defence trap"),
+            _("Sicilian defense trap"),
+            _("Ruy Lopez trap"),
+            _("Sicilian defense trap"),
+            _("Morphy - Anderssen"),
+            _("The Immortal Game"),
+            )
+
 
 def maps():
     return {"Africa": _("Africa map"), "WorldMap": _("World map")}
@@ -470,3 +471,7 @@ def styles():
     return [_("By default"), _("Dark"), _("Light")]
 
 
+def installation():
+    return {
+        "act_cut": _("It is not possible to upgrade from the installed version. To get the new version, it is necessary to do a complete installation from")
+    }

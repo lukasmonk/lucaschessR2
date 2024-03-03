@@ -15,7 +15,7 @@ class WAbout(QtWidgets.QDialog):
 
         # gen_web_bootstrap()
 
-        self.setWindowTitle(_("About"))
+        self.setWindowTitle(_("About"))  # noqa: F821
         self.setWindowIcon(Iconos.Aplicacion64())
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Dialog | QtCore.Qt.WindowTitleHint)
         self.setMaximumWidth(QTUtil.desktop_width())

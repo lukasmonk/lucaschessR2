@@ -172,9 +172,9 @@ class MainWindow(LCDialog.LCDialog):
 
     def save_width_piece(self):
         ct = self.board.config_board
-        if ct.anchoPieza() != 1000:
+        if ct.width_piece() != 1000:
             dic = Code.configuration.read_variables("WIDTH_PIEZES")
-            dic["WIDTH_PIEZE_MAIN"] = ct.anchoPieza()
+            dic["WIDTH_PIEZE_MAIN"] = ct.width_piece()
             Code.configuration.write_variables("WIDTH_PIEZES", dic)
 
     def restore_width_pieze(self):

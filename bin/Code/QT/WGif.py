@@ -63,7 +63,7 @@ class WGif(LCDialog.LCDialog):
 
         form.separador()
 
-        path = dic_vars.get("PATH", os.path.join(Code.configuration.carpeta, "Example.gif"))
+        path = dic_vars.get("PATH", Util.opj(Code.configuration.carpeta, "Example.gif"))
         form.file(_("Save as"), "gif", True, path)
         form.separador()
 

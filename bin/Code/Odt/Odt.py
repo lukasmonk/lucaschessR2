@@ -2,6 +2,7 @@ import os
 import shutil
 
 import Code
+from Code import Util
 from Code.Odt import Content, Styles, Others, Settings
 
 
@@ -19,7 +20,7 @@ class ODT:
     def create(self, path):
         folder_temp = Code.configuration.temporary_folder()
         pos = 0
-        plant_folder = os.path.join(folder_temp, "temp%03d")
+        plant_folder = Util.opj(folder_temp, "temp%03d")
         while os.path.isdir(plant_folder % pos):
             pos += 1
 
@@ -33,7 +34,7 @@ class ODT:
         self.meta.run(folder)
         self.settings.run(folder)
 
-        path_mimetype = os.path.join(folder, "mimetype")
+        path_mimetype = Util.opj(folder, "mimetype")
         with open(path_mimetype, "wt") as q:
             q.write("application/vnd.oasis.opendocument.text")
 

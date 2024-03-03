@@ -987,7 +987,7 @@ class WBMT(LCDialog.LCDialog):
             return
 
         name = os.path.basename(fns)[:-4]
-        name = TrListas.dicTraining().get(name, name)
+        name = TrListas.dic_training().get(name, name)
 
         # Motor y vtime, cogemos los estandars de analysis
         file = self.configuration.file_param_analysis()

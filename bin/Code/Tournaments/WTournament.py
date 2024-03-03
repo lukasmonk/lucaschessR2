@@ -547,7 +547,7 @@ class WTournament(LCDialog.LCDialog):
             resp = 1
 
         else:
-            rondo = QTVarios.rondoPuntos()
+            rondo = QTVarios.rondo_puntos()
 
             menu = QTVarios.LCMenu(self)
             menu.opcion(1, _("Launch one worker"), Iconos.Lanzamiento())
@@ -563,7 +563,7 @@ class WTournament(LCDialog.LCDialog):
         if resp:
             last = 0
             for num in range(resp):
-                worker_plant = os.path.join(self.configuration.folder_tournaments_workers(), "worker.%05d")
+                worker_plant = Util.opj(self.configuration.folder_tournaments_workers(), "worker.%05d")
                 pos = last + 1
                 while True:
                     wfile = worker_plant % pos

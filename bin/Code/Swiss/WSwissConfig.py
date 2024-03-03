@@ -26,7 +26,7 @@ class WSwissConfig(LCDialog.LCDialog):
         LCDialog.LCDialog.__init__(self, w_parent, titulo, icono, extparam)
 
         self.swiss: Swiss.Swiss = swiss
-        self.remove_seasons_delayed = True
+        self.remove_seasons_delayed = False
 
         self.sortby = "elo"
 
@@ -126,18 +126,25 @@ class WSwissConfig(LCDialog.LCDialog):
 
         gb_time_eng_human = Controles.GB(self, _("Engine vs human"), ly)
 
-        lb_score_win = Controles.LB(self, _("Win") + ":")
-        lb_score_draw = Controles.LB(self, _("Draw") + ":")
-        lb_score_lost = Controles.LB(self, _("Loss") + ":")
+        lb_score_win = Controles.LB2P(self, _("Win"))
+        lb_score_draw = Controles.LB2P(self, _("Draw"))
+        lb_score_lost = Controles.LB2P(self, _("Loss"))
+        lb_score_byes = Controles.LB2P(self, _("Byes"))
         self.ed_score_win = Controles.ED(self).ponFloat(self.swiss.score_win).anchoFijo(40).align_right()
         self.ed_score_draw = Controles.ED(self).ponFloat(self.swiss.score_draw).anchoFijo(40).align_right()
         self.ed_score_lost = Controles.ED(self).ponFloat(self.swiss.score_lost).anchoFijo(40).align_right()
+        self.ed_score_byes = Controles.ED(self).ponFloat(self.swiss.score_byes).anchoFijo(40).align_right()
         ly_score = Colocacion.H().relleno()
-        ly_score.control(lb_score_win).control(self.ed_score_win)
-        ly_score.control(lb_score_draw).control(self.ed_score_draw)
-        ly_score.control(lb_score_lost).control(self.ed_score_lost)
+        sep = 6
+        ly_score.control(lb_score_win).espacio(-sep).control(self.ed_score_win).espacio(sep)
+        ly_score.control(lb_score_draw).espacio(-sep).control(self.ed_score_draw).espacio(sep)
+        ly_score.control(lb_score_lost).espacio(-sep).control(self.ed_score_lost).espacio(sep)
+        ly_score.control(lb_score_byes).espacio(-sep).control(self.ed_score_byes)
         ly_score.relleno()
         self.gb_score = Controles.GB(self, _("System score"), ly_score)
+
+        lb_matchdays = Controles.LB2P(self, _("Rounds"))
+        self.ed_matchdays = Controles.ED(self).ponInt(self.swiss.num_matchdays).anchoFijo(40).align_right()
 
         ly_options = Colocacion.G().margen(20)
         ly_res = Colocacion.H().control(self.ed_resign).control(bt_resign).relleno()
@@ -150,6 +157,7 @@ class WSwissConfig(LCDialog.LCDialog):
         ly_options.control(gb_time_eng_eng, 6, 0, 1, 2)
         ly_options.control(gb_time_eng_human, 7, 0, 1, 2)
         ly_options.control(self.gb_score, 9, 0, 1, 2)
+        ly_options.controld(lb_matchdays, 11, 0).control(self.ed_matchdays, 11, 1)
 
         layout_v = Colocacion.V().otro(ly_bt0).control(self.grid)
 
@@ -160,7 +168,7 @@ class WSwissConfig(LCDialog.LCDialog):
 
         if not self.swiss.is_editable():
             self.gb_eng.setVisible(False)
-            self.gb_score.setEnabled(False)
+            # self.gb_score.setEnabled(False)
 
         gb_conf.setFont(font)
         self.gb_eng.setFont(font)
@@ -193,14 +201,14 @@ class WSwissConfig(LCDialog.LCDialog):
             if not self.swiss.exist_engine(cm):
                 self.swiss.add_engine(cm)
                 self.sort_list()
-                self.show_num_opponents()
+                self.change_num_opponents()
 
     def add_engines(self):
         li_selected = self.select_engines.select_group(self, self.swiss.list_engines())
         if li_selected is not None:
             self.swiss.set_engines(li_selected)
             self.sort_list()
-            self.show_num_opponents()
+            self.change_num_opponents()
 
     def name_elo(self, title, icon, name, elo):
         form = FormLayout.FormLayout(self, title, icon, anchoMinimo=240)
@@ -228,7 +236,7 @@ class WSwissConfig(LCDialog.LCDialog):
             self.swiss.add_human(name, elo)
             self.sort_list()
 
-            self.show_num_opponents()
+            self.change_num_opponents()
 
     def save(self):
         self.swiss.resign = self.ed_resign.textoInt()
@@ -246,6 +254,8 @@ class WSwissConfig(LCDialog.LCDialog):
         self.swiss.score_win = self.ed_score_win.textoFloat()
         self.swiss.score_draw = self.ed_score_draw.textoFloat()
         self.swiss.score_lost = self.ed_score_lost.textoFloat()
+        self.swiss.score_byes = self.ed_score_byes.textoFloat()
+        self.swiss.num_matchdays = self.ed_matchdays.textoInt()
         self.swiss.save()
         if self.remove_seasons_delayed:
             self.swiss.remove_seasons()
@@ -329,7 +339,7 @@ class WSwissConfig(LCDialog.LCDialog):
             row = self.grid.recno()
             if row >= 0:
                 self.swiss.remove_opponent(row)
-                self.show_num_opponents()
+                self.change_num_opponents()
                 self.sort_list()
                 return False
         return True
@@ -350,7 +360,17 @@ class WSwissConfig(LCDialog.LCDialog):
         w.exec_()
         self.select_engines.redo_external_engines()
 
-    def show_num_opponents(self):
+    def change_num_opponents(self):
         n_opponents = self.swiss.num_opponents()
         num_journeys = Swiss.num_matchesdays(n_opponents)
-        self.lb_num_opponents.set_text(f"{n_opponents} ({num_journeys})")
+        self.lb_num_opponents.set_text(f"{n_opponents}")
+        self.ed_matchdays.set_text(str(num_journeys))
+
+    def show_num_opponents(self):
+        if self.swiss.num_matchdays == 0:
+            self.change_num_opponents()
+        else:
+            n_opponents = self.swiss.num_opponents()
+            self.lb_num_opponents.set_text(f"{n_opponents}")
+
+

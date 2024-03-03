@@ -595,7 +595,7 @@ def export_polyglot_config(owner, configuration, file_nom_def):
     form.separador()
 
     folder = dic.get("FOLDER", Code.configuration.carpeta)
-    file_def = os.path.realpath(os.path.join(folder, file_nom_def))
+    file_def = os.path.realpath(Util.opj(folder, file_nom_def))
     form.file(_("Polyglot book"), "bin", True, file_def)
     form.separador()
     form.checkbox(_("Uniform distribution"), dic.get("UNIFORM", False))

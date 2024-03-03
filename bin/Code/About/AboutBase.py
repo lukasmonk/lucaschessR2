@@ -283,41 +283,41 @@ class ThanksTo:
         txt = self.table_ini()
 
         li = [
-            ("Nuvola", "David Vignoni", "http://www.icon-king.com/projects/nuvola/", "LGPL"),
+            ("Nuvola", "David Vignoni", "https://www.icon-king.com/projects/nuvola/", "LGPL"),
             (
                 "Icons for Windows8",
                 "Icons8",
                 "https://icons8.com",
                 "Creative Commons Attribution-NoDerivs 3.0 Unported",
             ),
-            ("Gnome", "Gnome", "https://github.com/GNOME/gnome-icon-theme", "GPL"),
+            ("Gnome", "Gnome", "https://commons.wikimedia.org/wiki/GNOME_Desktop_icons", "GPL"),
             (
                 "Silk icon set 1.3",
                 "Mark James",
-                "http://www.famfamfam.com/lab/icons/silk/",
+                "https://github.com/markjames/famfamfam-silk-icons",
                 "Creative Commons Attribution 2.5 License",
             ),
-            ("Wooicons1", "Janik Baumgartner", "http://www.woothemes.com/2010/08/woocons1/", "GPL"),
+            ("Wooicons1", "Janik Baumgartner", "https://www.woothemes.com/2010/08/woocons1/", "GPL"),
             (
                 "Ultimate Gnome 0.5.1",
                 "Marco Tessarotto",
-                "http://gnome-look.org/content/show.php/Ultimate+Gnome?content=75000",
+                "https://gnome-look.org/content/show.php/Ultimate+Gnome?content=75000",
                 "GPL",
             ),
-            ("SnowIsh SVG", "Saki", "http://gnome-look.org/content/show.php/SnowIsh+SVG+%26+PNG?content=32599", "GPL"),
+            ("SnowIsh SVG", "Saki", "https://gnome-look.org/content/show.php/SnowIsh+SVG+%26+PNG?content=32599", "GPL"),
             (
                 "Cartoon animal icons",
                 "Martin Bérubé",
-                "http://www.how-to-draw-funny-cartoons.com/",
+                "https://www.how-to-draw-funny-cartoons.com/",
                 "Free for personal non-commercial use",
             ),
             (
                 "Album of vehicles",
                 "Icons-Land",
-                "http://www.icons-land.com/vista-icons-transport-icon-set.php",
+                "https://www.icons-land.com/vista-icons-transport-icon-set.php",
                 "Icons-Land Demo License Agreement",
             ),
-            ("Figurines", "Armando H. Marroquín", "http://www.enpassant.dk/chess/fonteng.htm", _("Freeware")),
+            ("Figurines", "Armando H. Marroquín", "https://www.enpassant.dk/chess/fonteng.htm", _("Freeware")),
             (
                 "Transsiberian map",
                 "Stefan Ertmann & Lokal Profil",
@@ -375,17 +375,17 @@ class ThanksTo:
         txt += self.th(_("Author"))
         txt += '<th>%s: <a href="%s">%s</a></th>' % (
             _("License"),
-            "http://creativecommons.org/licenses/by-nc-sa/3.0/",
+            "https://creativecommons.org/licenses/by-nc-sa/3.0/",
             "Attribution-NonCommercial-ShareAlike 3.0 Unported",
         )
         txt += "</tr>"
 
         li = [
-            ("Armani Closet", "mimi22", "http://www.colourlovers.com/palette/117475/armani_closet"),
-            ("Chocolate Creams", "Skyblue2u", "http://www.colourlovers.com/palette/582195/Chocolate_Creams"),
-            ("Good Friends", "Yasmino", "http://www.colourlovers.com/palette/77121/Good_Friends"),
-            ("Nectarius", "note", "http://www.colourlovers.com/palette/1897208/nectarius"),
-            ("Trajan", "Jaime Guadagni aka The Cooler", "http://www.colourlovers.com/palette/67170/Trajan"),
+            ("Armani Closet", "mimi22", "https://www.colourlovers.com/palette/117475/armani_closet"),
+            ("Chocolate Creams", "Skyblue2u", "https://www.colourlovers.com/palette/582195/Chocolate_Creams"),
+            ("Good Friends", "Yasmino", "https://www.colourlovers.com/palette/77121/Good_Friends"),
+            ("Nectarius", "note", "https://www.colourlovers.com/palette/1897208/nectarius"),
+            ("Trajan", "Jaime Guadagni aka The Cooler", "https://www.colourlovers.com/palette/67170/Trajan"),
         ]
 
         for tipo, autor, web in li:
@@ -402,38 +402,38 @@ class ThanksTo:
         txt = self.table_ini()
 
         li = [
-            ("ChessiconsV3.5", '<a href="http://www.virtualpieces.net">Peter Wong</a>', _("Permission of author")),
-            ("Merida-Internet", '<a href="http://www.rybkachess.com">Felix Kling</a>', _("Permission of author")),
+            ("ChessiconsV3.5", '<a href="https://www.virtualpieces.net">Peter Wong</a>', _("Permission of author")),
+            ("Merida-Internet", '<a href="https://www.rybkachess.com">Felix Kling</a>', _("Permission of author")),
             (
                 "Spatial-Fantasy-Fantasy Alt<br>SKulls-Freak-Prmi<br>Celtic-Eyes",
-                '<a href="http://poisson.phc.unipi.it/~monge/chess_art.php">Maurizio Monge</a>',
+                '<a href="https://poisson.phc.unipi.it/~monge/chess_art.php">Maurizio Monge</a>',
                 "GPL",
             ),
             (
                 "Cburnett",
-                '<a href="http://en.wikipedia.org/wiki/User:Cburnett/GFDL_images/Chess">Cburnett</a>',
+                '<a href="https://en.wikipedia.org/wiki/User:Cburnett/GFDL_images/Chess">Cburnett</a>',
                 "Creative Commons Attribution 2.5 License",
             ),
             (
                 "Chess Alpha",
-                '<a href="http://www.enpassant.dk/chess/fonteng.htm">Eric Bentzen</a>',
+                '<a href="https://www.enpassant.dk/chess/fonteng.htm">Eric Bentzen</a>',
                 _("Permission of author"),
             ),
             (
                 "Montreal",
-                '<a href="http://alcor.concordia.ca/~gpkatch/montreal_font.html">Gary Katch</a>',
+                '<a href="https://alcor.concordia.ca/~gpkatch/montreal_font.html">Gary Katch</a>',
                 _("Permission of author"),
             ),
             (
                 "Magnetic-Leipzig<br>AlfonsoX-Maya<br>Condal",
-                '<a href="http://www.enpassant.dk/chess/fonteng.htm">Armando H. Marroquín</a>',
+                '<a href="https://www.enpassant.dk/chess/fonteng.htm">Armando H. Marroquín</a>',
                 _("Freeware"),
             ),
-            ("Chess Pirat", '<a href="http://www.enpassant.dk/chess/fonteng.htm">Klaus Wolf</a>', _("Freeware")),
-            ("Chess Regular", '<a href="http://www.enpassant.dk/chess/fonteng.htm">Alastair Scott</a>', _("Freeware")),
+            ("Chess Pirat", '<a href="https://www.enpassant.dk/chess/fonteng.htm">Klaus Wolf</a>', _("Freeware")),
+            ("Chess Regular", '<a href="https://www.enpassant.dk/chess/fonteng.htm">Alastair Scott</a>', _("Freeware")),
             (
                 "Chess Regular2",
-                '<a href="http://www.enpassant.dk/chess/fonteng.htm">Regular redesigned by Tamer64</a>',
+                '<a href="https://www.enpassant.dk/chess/fonteng.htm">Regular redesigned by Tamer64</a>',
                 _("Freeware"),
             ),
             (
@@ -443,20 +443,20 @@ class ThanksTo:
             ),
             (
                 "Cartoon",
-                '<a href="http://www.how-to-draw-funny-cartoons.com">Based on work by <br>Martin Bérubé</a>',
+                '<a href="https://www.how-to-draw-funny-cartoons.com">Based on work by <br>Martin Bérubé</a>',
                 _("Free for personal non-commercial use"),
             ),
             (
                 "Qwertyxp2000",
-                '<a href="http://commons.wikimedia.org/wiki/File%3AChess_pieces_(qwertyxp2000).svg">Qwertyxp2000</a>',
+                '<a href="https://commons.wikimedia.org/wiki/File%3AChess_pieces_(qwertyxp2000).svg">Qwertyxp2000</a>',
                 "Creative Commons Attribution 2.5 License",
             ),
             (
                 "Jin Alpha",
-                '<a href="http://ixian.com/chess/jin-piece-sets/">Eric De Mund</a>',
+                '<a href="https://ixian.com/chess/jin-piece-sets/">Eric De Mund</a>',
                 "Creative Commons Attribution-Share<br>Alike3.0 Unported",
             ),
-            ("Etruscan<br>Etruscan clear", '<a href="http://zipanatura.fr/">Fabrice</a>', "CC BY-NC-ND 4.0"),
+            ("Etruscan<br>Etruscan clear", '<a href="https://zipanatura.fr/">Fabrice</a>', "CC BY-NC-ND 4.0"),
             (
                 "Stauton 3D<br>Kidsdraw",
                 '<a href="https://plus.google.com/101635611158475796811/about">Marc Graziani</a>',
@@ -507,7 +507,7 @@ class ThanksTo:
         li = (
             (
                 _("Checkmates by Eduardo Sadier"),
-                '<a href="http://edusadier.googlepages.com/">http://edusadier.googlepages.com</a>',
+                '<a href="https://edusadier.googlepages.com/">https://edusadier.googlepages.com</a>',
                 _("Permission of author"),
             ),
             (_("Endgames by Rui Grafino"), "", _("Permission of author")),
@@ -516,8 +516,8 @@ class ThanksTo:
             (_("Endgames by Victor Perez"), "", _("Permission of author")),
             (
                 _("Tactics by UNED chess school"),
-                '<a href="http://portal.uned.es/portal/page?_pageid=93,2564320&_dad=portal&_schema=PORTAL">'
-                "http://portal.uned.es/portal</a>",
+                '<a href="https://portal.uned.es/portal/page?_pageid=93,2564320&_dad=portal&_schema=PORTAL">'
+                "https://portal.uned.es/portal</a>",
                 _("Permission of author"),
             ),
         )
@@ -551,15 +551,15 @@ class ThanksTo:
     def games():
         li = (
             ("Jordi Gonzalez Boada", "http://www.jordigonzalezboada.com/ajedrez/aperturas.php"),
-            ("PGN Mentor", "http://www.pgnmentor.com/files.html"),
+            ("PGN Mentor", "https://www.pgnmentor.com/files.html"),
             ("Dann Corbit", "http://cap.connx.com/"),
-            ("The Week in Chess", "http://theweekinchess.com/"),
-            ("Wikipedia", "http://en.wikipedia.org/wiki/List_of_chess_games"),
-            ("fics", "http://ficsgames.org/cgi-bin/download.cgi"),
+            ("The Week in Chess", "https://theweekinchess.com/"),
+            ("Wikipedia", "https://en.wikipedia.org/wiki/List_of_chess_games"),
+            ("fics", "https://www.ficsgames.org/download.html"),
             ("Norman Pollock", "http://www.nk-qy.info/40h/"),
             (
                 "STS<br>" + _X(_("Created by %1"), "Dann Corbit, Swaminathan"),
-                "https://sites.google.com/site/strategictestsuite/about-1",
+                "https://sites.google.com/site/strategictestsuite/about",
             ),
             ("liChess database", "https://database.lichess.org"),
             ("lichess openings", "https://github.com/lichess-org/chess-openings"),
@@ -575,9 +575,9 @@ class ThanksTo:
 
     def programming(self):
         li = (
-            (_("Programming language"), "Python 3.7", "http://www.python.org/"),
+            (_("Programming language"), "Python 3.7", "https://www.python.org/"),
             (_("GUI"), "PySide2", "https://wiki.qt.io/Qt_for_Python"),
-            ("psutil", _X(_("Created by %1"), "Giampaolo Rodola"), "http://code.google.com/p/psutil/"),
+            ("psutil", _X(_("Created by %1"), "Giampaolo Rodola"), "https://github.com/giampaolo/psutil"),
             ("chardet", _X(_("Created by %1"), "Ian Cordasco"), "https://github.com/chardet/chardet"),
             (
                 _("Polyglot books"),
@@ -590,18 +590,13 @@ class ThanksTo:
             (
                 "cython",
                 "Stefan Behnel, Robert Bradshaw, Lisandro Dalcín,<br>Mark Florisson, Vitja Makarov, Dag Sverre Seljebotn",
-                "http://cython.org/",
+                "https://cython.org/",
             ),
             ("formlayout", _X(_("Created by %1"), "Pierre Raybaut"), "https://github.com/PierreRaybaut/formlayout"),
             (
                 "sortedcontainers",
                 _X(_("Created by %1"), "Grant Jenks"),
-                "http://www.grantjenks.com/docs/sortedcontainers/",
-            ),
-            (
-                "lichess-puzzler",
-                _X(_("Created by %1"), "Thibault Duplessis"),
-                "https://github.com/ornicar/lichess-puzzler",
+                "https://www.grantjenks.com/docs/sortedcontainers/",
             ),
             ("polib", "David Jean Louis and others", "https://github.com/izimobil/polib"),
         )

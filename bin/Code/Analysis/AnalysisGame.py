@@ -30,8 +30,6 @@ class AnalyzeGame:
         self.vtime = alm.vtime
         self.depth = alm.depth
 
-        self.themes_lichess = alm.themes_lichess
-
         self.with_variations = alm.include_variations
 
         self.stability = alm.stability
@@ -48,7 +46,7 @@ class AnalyzeGame:
         self.kblunders = alm.kblunders
         self.kblunders_porc = alm.kblunders_porc
         self.tacticblunders = (
-            os.path.join(self.configuration.personal_training_folder, "../Tactics", alm.tacticblunders)
+            Util.opj(self.configuration.personal_training_folder, "../Tactics", alm.tacticblunders)
             if alm.tacticblunders
             else None
         )
@@ -166,11 +164,11 @@ class AnalyzeGame:
         before = "%s.fns" % _("Avoid the blunder")
         after = "%s.fns" % _("Take advantage of blunder")
         if not os.path.isdir(self.tacticblunders):
-            dtactics = os.path.join(self.configuration.personal_training_folder, "../Tactics")
+            dtactics = Util.opj(self.configuration.personal_training_folder, "../Tactics")
             if not os.path.isdir(dtactics):
                 os.mkdir(dtactics)
             os.mkdir(self.tacticblunders)
-            with open(os.path.join(self.tacticblunders, "Config.ini"), "wt", encoding="utf-8", errors="ignore") as f:
+            with open(Util.opj(self.tacticblunders, "Config.ini"), "wt", encoding="utf-8", errors="ignore") as f:
                 f.write(
                     """[COMMON]
 ed_reference=20
@@ -197,7 +195,7 @@ FILESW=%s:100
         p = Game.Game(fen=fen)
         rm = mrm.li_rm[0]
         p.read_pv(rm.pv)
-        with open(os.path.join(self.tacticblunders, before), "at", encoding="utf-8", errors="ignore") as f:
+        with open(Util.opj(self.tacticblunders, before), "at", encoding="utf-8", errors="ignore") as f:
             f.write("%s||%s|%s%s\n" % (fen, p.pgnBaseRAW(), cab, game.pgnBaseRAWcopy(None, njg - 1)))
 
         fen = move.position.fen()
@@ -205,7 +203,7 @@ FILESW=%s:100
         rm = mrm.li_rm[pos_act]
         li = rm.pv.split(" ")
         p.read_pv(" ".join(li[1:]))
-        with open(os.path.join(self.tacticblunders, after), "at", encoding="utf-8", errors="ignore") as f:
+        with open(Util.opj(self.tacticblunders, after), "at", encoding="utf-8", errors="ignore") as f:
             f.write("%s||%s|%s%s\n" % (fen, p.pgnBaseRAW(), cab, game.pgnBaseRAWcopy(None, njg)))
 
         self.siTacticBlunders = True
@@ -483,7 +481,7 @@ FILESW=%s:100
                 move.piecesactivity = AnalysisIndexes.calc_piecesactivity(cp, mrm)
                 move.exchangetendency = AnalysisIndexes.calc_exchangetendency(cp, mrm)
 
-                if si_blunders or si_brilliancies or self.with_variations or self.themes_lichess:
+                if si_blunders or si_brilliancies or self.with_variations:
                     rm = mrm.li_rm[pos_act]
                     rm.ponBlunder(0)
                     mj = mrm.li_rm[0]
@@ -527,11 +525,7 @@ FILESW=%s:100
                             self.si_bmt_brilliancies = True
                     else:
                         nag, color = mrm.set_nag_color(rm)
-                        # if not move.is_mate:
                         move.add_nag(nag)
-
-                    if self.themes_lichess and (mj.mate != 0 or dif > 0):
-                        move.assign_themes_lichess()
 
         # Ponemos el texto original en la ultima
         if si_poner_pgn_original_blunders and self.oriblunders:

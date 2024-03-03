@@ -3140,3 +3140,9 @@ def pmm2():
 
 def m2():
     return iget("m2")
+
+def pmApproval():
+    return iget("pmApproval")
+
+def Approval():
+    return iget("Approval")

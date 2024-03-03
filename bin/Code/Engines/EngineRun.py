@@ -649,7 +649,7 @@ class MaiaEngine(RunEngine):
         self.level = level
 
         book_name = "1100-1500.bin" if level <= 1500 else "1600-1900.bin"
-        book_path = os.path.join(os.path.dirname(exe), book_name)
+        book_path = Util.opj(os.path.dirname(exe), book_name)
         self.book = Books.Book("P", book_name, book_path, True)
         self.book.polyglot()
         self.book_select = []

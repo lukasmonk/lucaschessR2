@@ -89,12 +89,12 @@ def update_eboard(main_window):
     if ok:
         zfobj = zipfile.ZipFile(fzip)
         for name in zfobj.namelist():
-            path_dll = os.path.join(Code.folder_OS, "DigitalBoards", name)
+            path_dll = Util.opj(Code.folder_OS, "DigitalBoards", name)
             with open(path_dll, "wb") as outfile:
                 outfile.write(zfobj.read(name))
         zfobj.close()
 
-        with open(os.path.join(Code.folder_OS, "DigitalBoards", "news"), "rt", encoding="utf-8") as f:
+        with open(Util.opj(Code.folder_OS, "DigitalBoards", "news"), "rt", encoding="utf-8") as f:
             news = f.read().strip()
 
         QTUtil2.message(
@@ -137,7 +137,7 @@ def update(main_window):
                                 done_update = True
 
         f.close()
-    except:
+    except urllib.error.URLError:
         mens_error = _("Encountered a network problem, cannot access the Internet")
 
     if mens_error:
@@ -199,18 +199,18 @@ def update_manual(main_window):
     dic["FOLDER"] = os.path.dirname(path_zip)
     config.write_variables("MANUAL_UPDATE", dic)
 
-    folder_actual = os.path.join(Code.folder_root, "bin", "actual")
+    folder_actual = Util.opj(Code.folder_root, "bin", "actual")
     shutil.rmtree(folder_actual, ignore_errors=True)
     Util.create_folder(folder_actual)
 
     shutil.copy(path_zip, folder_actual)
 
-    local_file = os.path.join(folder_actual, os.path.basename(path_zip))
+    local_file = Util.opj(folder_actual, os.path.basename(path_zip))
 
     zp = zipfile.ZipFile(local_file, "r")
     zp.extractall(folder_actual)
 
-    path_act_py = os.path.join(folder_actual, "act.py")
+    path_act_py = Util.opj(folder_actual, "act.py")
 
     exec(open(path_act_py).read())
 

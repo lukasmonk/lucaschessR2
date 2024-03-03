@@ -51,7 +51,7 @@ class TrainingDir:
     files: list
 
     def __init__(self, carpeta):
-        dic_training = TrListas.dicTraining()
+        dic_training = TrListas.dic_training()
 
         def tr_training(txt):
             return dic_training.get(txt, txt)
@@ -173,7 +173,7 @@ class MenuTrainings:
 
         menu_basic.separador()
         menu2 = menu_basic.submenu(_("Moves between two positions"), Iconos.Puente())
-        rp = QTVarios.rondoPuntos()
+        rp = QTVarios.rondo_puntos()
         for x in range(1, 11):
             xopcion(menu2, "puente_%d" % x, "%s %d" % (_("Level"), x), rp.otro())
 
@@ -238,7 +238,7 @@ class MenuTrainings:
         # Tacticas ---------------------------------------------------------------------------------------------
         menu_t = menu_tactics.submenu(_("Learn tactics by repetition"), Iconos.Tacticas())
         nico = Util.Rondo(Iconos.Amarillo(), Iconos.Naranja(), Iconos.Verde(), Iconos.Azul(), Iconos.Magenta())
-        dicTraining = TrListas.dicTraining()
+        dicTraining = TrListas.dic_training()
 
         def trTraining(txt):
             return dicTraining.get(txt, _F(txt))
@@ -249,7 +249,7 @@ class MenuTrainings:
                 for entry in os.scandir(carpeta_base):
                     if entry.is_dir():
                         carpeta = entry.path
-                        ini = os.path.join(carpeta, "Config.ini")
+                        ini = Util.opj(carpeta, "Config.ini")
                         if os.path.isfile(ini):
                             name = entry.name
                             xopcion(
@@ -442,7 +442,7 @@ class MenuTrainings:
                     with QTUtil2.OneMomentPlease(self.procesador.main_window):
                         entreno = os.path.realpath(resp[3:])
                         txt = os.path.basename(entreno)[:-4]
-                        titentreno = TrListas.dicTraining().get(txt, txt)
+                        titentreno = TrListas.dic_training().get(txt, txt)
                         with Util.OpenCodec(entreno) as f:
                             todo = f.read().strip()
                         li_entrenamientos = [(linea, pos) for pos, linea in enumerate(todo.split("\n"), 1)]
@@ -533,14 +533,14 @@ class MenuTrainings:
                     mem.lanza(abs(resp) - 100)
 
     def tacticas(self, tipo, name, carpeta, ini):
-        dic_training = TrListas.dicTraining()
+        dic_training = TrListas.dic_training()
         with QTUtil2.OneMomentPlease(self.procesador.main_window) as um:
             tacticas = Tactics.Tactics(tipo, name, carpeta, ini)
             li_menus = tacticas.listaMenus()
             if len(li_menus) == 0:
                 return
 
-            nico = QTVarios.rondoPuntos()
+            nico = QTVarios.rondo_puntos()
             if len(li_menus) > 1:
                 menu = QTVarios.LCMenu(self.parent)
                 menu.opcion(None, _SP(name), Iconos.Tacticas())

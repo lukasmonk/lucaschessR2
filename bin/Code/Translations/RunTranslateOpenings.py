@@ -4,6 +4,7 @@ import polib
 from PySide2 import QtCore, QtWidgets
 
 import Code
+from Code import Util
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles
@@ -85,7 +86,7 @@ class WTranslateOpenings(LCDialog.LCDialog):
         return dic
 
     def path_current_pofile(self):
-        return os.path.join(Code.configuration.folder_translations(), "openings_%s.po" % self.tr_actual)
+        return Util.opj(Code.configuration.folder_translations(), "openings_%s.po" % self.tr_actual)
 
     def add_po_file(self, path_po, field):
         num_new = 0

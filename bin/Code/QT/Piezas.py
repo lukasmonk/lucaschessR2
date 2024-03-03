@@ -5,6 +5,7 @@ import shutil
 from PySide2 import QtCore, QtGui, QtSvg
 
 import Code
+from Code import Util
 from Code.Base.Constantes import BLINDFOLD_CONFIG, BLINDFOLD_WHITE, BLINDFOLD_BLACK
 from Code.QT import Colocacion
 from Code.QT import Controles
@@ -187,7 +188,7 @@ class BlindfoldConfig:
 class Blindfold(ConjuntoPiezas):
     def __init__(self, nom_pieces_ori, tipo=BLINDFOLD_CONFIG):
         self.name = "BlindFold"
-        self.carpetaBF = os.path.join(Code.configuration.carpeta, "BlindFoldPieces")
+        self.carpetaBF = Util.opj(Code.configuration.carpeta, "BlindFoldPieces")
         self.carpetaPZ = Code.path_resource("IntFiles")
         self.tipo = tipo
         self.reset(nom_pieces_ori)
@@ -195,7 +196,7 @@ class Blindfold(ConjuntoPiezas):
     def leePiezas(self, name=None):  # name usado por compatibilidad
         dic = {}
         for pieza in "rnbqkpRNBQKP":
-            fich = os.path.join(self.carpetaBF, "%s%s.svg" % ("w" if pieza.isupper() else "b", pieza.lower()))
+            fich = Util.opj(self.carpetaBF, "%s%s.svg" % ("w" if pieza.isupper() else "b", pieza.lower()))
             with open(fich, "rb") as f:
                 qb = QtCore.QByteArray(f.read())
             dic[pieza] = qb
@@ -222,7 +223,7 @@ class Blindfold(ConjuntoPiezas):
             for pieza in "rnbqkp":
                 ori = self.configBF.ficheroBase(pieza, siWhite)
                 bs = "w" if siWhite else "b"
-                dest = os.path.join(self.carpetaBF, "%s%s.svg" % (bs, pieza))
+                dest = Util.opj(self.carpetaBF, "%s%s.svg" % (bs, pieza))
                 shutil.copy(ori, dest)
 
         self.dicPiezas = self.leePiezas()
@@ -246,7 +247,7 @@ class WBlindfold(LCDialog.LCDialog):
         self.dicImgs = {}
 
         li_options = ((_("Hide"), HIDE), (_("Green"), GREY), (_("Checker"), CHECKER), (_("Show"), SHOW))
-        dicNomPiezas = TrListas.dicNomPiezas()
+        dicNomPiezas = TrListas.dic_nom_pieces()
 
         def haz(pz):
             tpW = self.config.dicPiezas[pz.upper()]
@@ -360,8 +361,8 @@ class WBlindfold(LCDialog.LCDialog):
                 if resultado is None:
                     return None
 
-                accion, liResp = resultado
-                name = liResp[0].strip()
+                accion, li_resp = resultado
+                name = li_resp[0].strip()
                 if not name:
                     return None
                 self.config.add_current(name)
@@ -415,8 +416,8 @@ class WBlindfold(LCDialog.LCDialog):
     #             if resultado is None:
     #                 return None
     #
-    #             accion, liResp = resultado
-    #             name = liResp[0].strip()
+    #             accion, li_resp = resultado
+    #             name = li_resp[0].strip()
     #             if not name:
     #                 return None
     #             dic["_%s" % name] = self.config.dicPiezas

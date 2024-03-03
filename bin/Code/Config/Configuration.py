@@ -61,7 +61,7 @@ def change_folder(nueva):
 
 class BoxRooms:
     def __init__(self, configuration):
-        self.file = os.path.join(configuration.carpeta_config, "boxrooms.pk")
+        self.file = Util.opj(configuration.carpeta_config, "boxrooms.pk")
         self._list = self.read()
 
     def read(self):
@@ -90,22 +90,22 @@ class Configuration:
 
         self.carpetaBase = active_folder()
 
-        self.carpetaUsers = os.path.join(self.carpetaBase, "users")
+        self.carpetaUsers = Util.opj(self.carpetaBase, "users")
 
         self.first_run = False
 
         if user:
             Util.create_folder(self.carpetaUsers)
-            self.carpeta = os.path.join(self.carpetaUsers, str(user.number))
+            self.carpeta = Util.opj(self.carpetaUsers, str(user.number))
             Util.create_folder(self.carpeta)
         else:
             self.first_run = Util.create_folder(self.carpetaBase)
             self.carpeta = self.carpetaBase
 
-        self.carpeta_config = os.path.join(self.carpeta, "__Config__")
+        self.carpeta_config = Util.opj(self.carpeta, "__Config__")
         Util.create_folder(self.carpeta_config)
 
-        self.carpeta_results = os.path.join(self.carpeta, "Results")
+        self.carpeta_results = Util.opj(self.carpeta, "Results")
         Util.create_folder(self.carpeta_results)
 
         self.user = user
@@ -267,7 +267,17 @@ class Configuration:
 
         self._dic_books = None
 
-        self.__theme_num = 2
+        self.__theme_num = 1  # 1=red 2=old
+
+    def get_folder_default(self, folder):
+        return folder if folder else self.carpeta
+
+    def save_folder(self):
+        return self.get_folder_default(self.x_save_folder)
+
+    def set_save_folder(self, folder):
+        self.x_save_folder = folder
+        self.graba()
 
     @property
     def dic_books(self):
@@ -285,7 +295,7 @@ class Configuration:
 
                 add_folder(Code.path_resource("Openings"))
                 for engine in ("foxcub", "fox", "maia", "irina", "rodentii"):
-                    add_folder(os.path.join(Code.folder_engines, engine))
+                    add_folder(Util.opj(Code.folder_engines, engine))
         return self._dic_books
 
     def path_book(self, alias):
@@ -321,13 +331,13 @@ class Configuration:
         }
 
     def folder_translations(self):
-        folder = os.path.join(self.carpetaBase, "Translations")
+        folder = Util.opj(self.carpetaBase, "Translations")
         if not os.path.isdir(folder):
             Util.create_folder(folder)
         return folder
 
     def carpeta_sounds(self):
-        return os.path.join(self.carpeta, "Sounds")
+        return Util.opj(self.carpeta, "Sounds")
 
     def relee_engines(self):
         self.dic_engines = OSEngines.read_engines(Code.folder_engines)
@@ -349,13 +359,13 @@ class Configuration:
         return Code.path_resource("Gaviota")
 
     def folder_gaviota(self):
-        if not Util.exist_file(os.path.join(self.x_carpeta_gaviota, "kbbk.gtb.cp4")):
+        if not Util.exist_file(Util.opj(self.x_carpeta_gaviota, "kbbk.gtb.cp4")):
             self.x_carpeta_gaviota = self.carpeta_gaviota_defecto()
             self.graba()
         return self.x_carpeta_gaviota
 
     def pieces_gaviota(self):
-        if Util.exist_file(os.path.join(self.folder_gaviota(), "kbbkb.gtb.cp4")):
+        if Util.exist_file(Util.opj(self.folder_gaviota(), "kbbkb.gtb.cp4")):
             return 5
         return 4
 
@@ -372,7 +382,7 @@ class Configuration:
     def language(self):
         tr_actual = self.translator()
         dlang = Code.path_resource("Locale")
-        fini = os.path.join(dlang, tr_actual, "lang.ini")
+        fini = Util.opj(dlang, tr_actual, "lang.ini")
         dic = Util.ini_dic(fini)
         return dic["NAME"]
 
@@ -397,12 +407,12 @@ class Configuration:
         self.lee()
 
     def create_base_folder(self, folder):
-        folder = os.path.realpath(os.path.join(self.carpeta, folder))
+        folder = os.path.realpath(Util.opj(self.carpeta, folder))
         Util.create_folder(folder)
         return folder
 
     def file_competition_with_tutor(self):
-        return os.path.join(self.carpeta_results, "CompetitionWithTutor.db")
+        return Util.opj(self.carpeta_results, "CompetitionWithTutor.db")
 
     def folder_userdata(self):
         return self.carpeta
@@ -431,37 +441,37 @@ class Configuration:
         self.write_variables("OPENING_LINES", dic)
 
     def file_mate(self, mate):
-        return os.path.join(self.carpeta_results, "Mate%d.pk" % mate)
+        return Util.opj(self.carpeta_results, "Mate%d.pk" % mate)
 
     def file_endings_gtb(self):
-        return os.path.join(self.carpeta_results, "EndingsGTB.db")
+        return Util.opj(self.carpeta_results, "EndingsGTB.db")
 
     def file_external_engines(self):
-        return os.path.join(self.carpeta_config, "ExtEngines.pk")
+        return Util.opj(self.carpeta_config, "ExtEngines.pk")
 
     def file_kibitzers(self):
-        return os.path.join(self.carpeta_config, "kibitzers.pk")
+        return Util.opj(self.carpeta_config, "kibitzers.pk")
 
     def file_adjournments(self):
-        return os.path.join(self.carpeta_config, "Adjournments.ddb")
+        return Util.opj(self.carpeta_config, "Adjournments.ddb")
 
     def file_index_polyglots(self):
-        return os.path.join(self.carpeta_config, "index_polyglots.pk")
+        return Util.opj(self.carpeta_config, "index_polyglots.pk")
 
     def file_pers_openings(self):
-        return os.path.join(self.carpeta_config, "persaperturas.pkd")
+        return Util.opj(self.carpeta_config, "persaperturas.pkd")
 
     def file_captures(self):
-        return os.path.join(self.carpeta_results, "Captures.db")
+        return Util.opj(self.carpeta_results, "Captures.db")
 
     def file_counts(self):
-        return os.path.join(self.carpeta_results, "Counts.db")
+        return Util.opj(self.carpeta_results, "Counts.db")
 
     def file_mate15(self):
-        return os.path.join(self.carpeta_results, "Mate15.db")
+        return Util.opj(self.carpeta_results, "Mate15.db")
 
     def file_coordinates(self):
-        return os.path.join(self.carpeta_results, "Coordinates.db")
+        return Util.opj(self.carpeta_results, "Coordinates.db")
 
     def folder_tactics(self):
         return self.create_base_folder("Tactics")
@@ -470,7 +480,7 @@ class Configuration:
         return self.create_base_folder("Databases")
 
     def file_autosave(self):
-        return os.path.join(self.folder_databases(), "__Autosave__.lcdb")
+        return Util.opj(self.folder_databases(), "__Autosave__.lcdb")
 
     def folder_databases_pgn(self):
         return self.create_base_folder("TemporaryDatabases")
@@ -479,7 +489,7 @@ class Configuration:
         return self.create_base_folder("PolyglotsFactory")
 
     def opj_config(self, file):
-        return os.path.join(self.carpeta_config, file)
+        return Util.opj(self.carpeta_config, file)
 
     def file_video(self):
         return self.opj_config("confvid.pkd")
@@ -507,7 +517,7 @@ class Configuration:
 
     def set_folders(self):
 
-        self.file = os.path.join(self.carpeta_config, "lk.pk2")
+        self.file = Util.opj(self.carpeta_config, "lk.pk2")
 
         self.is_first_time = not Util.exist_file(self.file)
 
@@ -568,11 +578,11 @@ class Configuration:
         if not Util.exist_file(self.file_sounds()):
             Util.file_copy(Code.path_resource("IntFiles", "sounds.pkd"), self.file_sounds())
 
-        self.folder_base_openings = os.path.join(self.carpeta, "OpeningLines")
+        self.folder_base_openings = Util.opj(self.carpeta, "OpeningLines")
         Util.create_folder(self.folder_base_openings)
 
     def file_colors(self):
-        return os.path.join(self.carpeta_config, "personal.colors")
+        return Util.opj(self.carpeta_config, "personal.colors")
 
     def compruebaBMT(self):
         if not Util.exist_file(self.ficheroBMT):
@@ -683,7 +693,7 @@ class Configuration:
                 self.x_translator = x[:2]
         self.load_translation()
 
-        TrListas.ponPiecesLNG(self.x_pgn_english or self.translator() == "en")
+        TrListas.pon_pieces_lng(self.x_pgn_english or self.translator() == "en")
 
         Code.analysis_eval = AnalysisEval.AnalysisEval()
 
@@ -700,7 +710,7 @@ class Configuration:
 
     def get_favoritos(self):
         if self.li_favoritos is None:
-            file = os.path.join(self.carpeta_config, "Favoritos.pkd")
+            file = Util.opj(self.carpeta_config, "Favoritos.pkd")
             lista = Util.restore_pickle(file)
             if lista is None:
                 lista = []
@@ -709,12 +719,12 @@ class Configuration:
 
     def save_favoritos(self, lista):
         self.li_favoritos = lista
-        file = os.path.join(self.carpeta_config, "Favoritos.pkd")
+        file = Util.opj(self.carpeta_config, "Favoritos.pkd")
         Util.save_pickle(file, lista)
 
     def load_translation(self):
         dlang = Code.path_resource("Locale")
-        fini = os.path.join(dlang, self.x_translator, "lang.ini")
+        fini = Util.opj(dlang, self.x_translator, "lang.ini")
         if not os.path.isfile(fini):
             self.x_translator = "en"
         Translate.install(self.x_translator)
@@ -724,7 +734,7 @@ class Configuration:
         li = []
         dlang = Code.path_resource("Locale")
         for uno in Util.listdir(dlang):
-            fini = os.path.join(dlang, uno.name, "lang.ini")
+            fini = Util.opj(dlang, uno.name, "lang.ini")
             if os.path.isfile(fini):
                 dic = Util.ini_dic(fini)
                 if others:
@@ -771,7 +781,7 @@ class Configuration:
         self.x_lichess = elo
 
     def po_saved(self):
-        return os.path.join(self.folder_translations(), "%s.po" % self.x_translator)
+        return Util.opj(self.folder_translations(), "%s.po" % self.x_translator)
 
     def list_internal_engines(self):
         li = [cm for k, cm in self.dic_engines.items() if not cm.is_external]
@@ -861,13 +871,13 @@ class Configuration:
         return self.engine_analyzer()
 
     def temporary_folder(self):
-        dirTmp = os.path.join(self.carpeta, "tmp")
-        Util.create_folder(dirTmp)
-        return dirTmp
+        dir_tmp = Util.opj(self.carpeta, "tmp")
+        Util.create_folder(dir_tmp)
+        return dir_tmp
 
     def ficheroTemporal(self, extension):
-        dirTmp = os.path.join(self.carpeta, "tmp")
-        return Util.temporary_file(dirTmp, extension)
+        dir_tmp = Util.opj(self.carpeta, "tmp")
+        return Util.temporary_file(dir_tmp, extension)
 
     def clean_tmp_folder(self):
         try:
@@ -1009,7 +1019,7 @@ class Configuration:
             ct = ConfBoards.ConfigBoard(xid, tam_def)
         else:
             ct = ConfBoards.ConfigBoard(xid, tam_def, padre=padre)
-            ct.anchoPieza(tam_def)
+            ct.width_piece(tam_def)
 
         if xid in self.dic_conf_boards_pk:
             ct.lee(self.dic_conf_boards_pk[xid])
@@ -1034,10 +1044,7 @@ class Configuration:
         return dic
 
     def pgn_folder(self):
-        resp = self.x_save_pgn_folder
-        if not resp:
-            resp = self.carpeta
-        return resp
+        return self.get_folder_default(self.x_save_pgn_folder)
 
     def save_pgn_folder(self, new_folder):
         if self.x_save_pgn_folder != new_folder:

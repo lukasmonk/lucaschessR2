@@ -91,7 +91,7 @@ class WPosicion(QtWidgets.QWidget):
             li_acciones.append(None)
 
         self.tb = Controles.TBrutina(self, li_acciones, with_text=False,
-                                     icon_size=32 if config_board.anchoPieza() >= 32 else 24)
+                                     icon_size=32 if config_board.width_piece() >= 32 else 24)
 
         drag_drop_wb = QTVarios.ListaPiezas(self, "P,N,B,R,Q,K", self.board, margen=0)
         drag_drop_ba = QTVarios.ListaPiezas(self, "k,q,r,b,n,p", self.board, margen=0)
@@ -656,7 +656,7 @@ class WPosicion(QtWidgets.QWidget):
                 accion, li_gen = resultado
                 name = li_gen[0].strip()
                 if name:
-                    fich = os.path.join(self.configuration.carpetaScanners, "%s.scn" % name)
+                    fich = Util.opj(self.configuration.carpetaScanners, "%s.scn" % name)
                     if Util.exist_file(fich):
                         QTUtil2.message_error(self, _("This scanner already exists."))
                         continue
@@ -682,7 +682,7 @@ class WPosicion(QtWidgets.QWidget):
     def scanner_reread(self, label_default):
         dsc = self.configuration.carpetaScanners
         lista = [fich for fich in os.listdir(dsc) if fich.endswith(".scn")]
-        li = [(fich[:-4], os.path.join(dsc, fich)) for fich in lista]
+        li = [(fich[:-4], Util.opj(dsc, fich)) for fich in lista]
         fich_default = None
         if not label_default:
             if li:

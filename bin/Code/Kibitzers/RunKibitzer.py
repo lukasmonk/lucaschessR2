@@ -85,6 +85,7 @@ class CPU:
             self.configuration = Configuration.Configuration(user)
             self.configuration.lee()
             self.configuration.leeConfBoards()
+            self.configuration.relee_engines()
             OpeningsStd.ap.reset()
 
             kibitzers = Kibitzers.Kibitzers()

@@ -185,7 +185,7 @@ class WGames(QtWidgets.QWidget):
         li_tags = self.dbGames.li_tags()
         st100 = {"Event", "Site", "White", "Black"}
         for tag in li_tags:
-            label = TrListas.pgnLabel(tag)
+            label = TrListas.pgn_label(tag)
             if label.upper() == tag:
                 label = dcabs.get(tag, label)
             align_center = not (tag in ("EVENT", "SITE"))
@@ -215,7 +215,7 @@ class WGames(QtWidgets.QWidget):
         st_actual = {col.key for col in self.grid.o_columns.li_columns}
         for tag in li_tags:
             if not (tag in st_actual):
-                label = TrListas.pgnLabel(tag)
+                label = TrListas.pgn_label(tag)
                 if label == tag:
                     label = dcabs.get(label, label)
                 o_columns.nueva(tag, label, 100 if tag in st100 else 70, align_center=not (tag in ("Event", "Site")))
@@ -1377,7 +1377,7 @@ class WGames(QtWidgets.QWidget):
             return
 
         dic_gid_pv = {}
-        path_eco = os.path.join(os.path.dirname(path), "lichess_dict_pv_ids.sqlite")
+        path_eco = Util.opj(os.path.dirname(path), "lichess_dict_pv_ids.sqlite")
         if Util.exist_file(path_eco):
             um = QTUtil2.working(self)
             with UtilSQL.DictTextSQL(path_eco) as db_sqltext:
@@ -1614,7 +1614,7 @@ class WOptionsDatabase(QtWidgets.QDialog):
             with os.scandir(carpeta) as it:
                 li = [entry.name for entry in it if entry.is_dir()]
             if li:
-                rondo = QTVarios.rondoPuntos()
+                rondo = QTVarios.rondo_puntos()
                 menu = QTVarios.LCMenu(self)
                 for direc in li:
                     menu.opcion(direc, direc, rondo.otro())
@@ -1628,7 +1628,7 @@ class WOptionsDatabase(QtWidgets.QDialog):
     def check_subgroup_l1(self):
         group = self.ed_group.texto().strip()
         if group:
-            carpeta = os.path.join(self.configuration.folder_databases(), group)
+            carpeta = Util.opj(self.configuration.folder_databases(), group)
             resp = self.menu_groups(carpeta)
             if resp:
                 self.ed_subgroup_l1.set_text(resp)
@@ -1638,7 +1638,7 @@ class WOptionsDatabase(QtWidgets.QDialog):
         if group:
             subgroup = self.ed_subgroup_l1.texto().strip()
             if subgroup:
-                carpeta = os.path.join(self.configuration.folder_databases(), group, subgroup)
+                carpeta = Util.opj(self.configuration.folder_databases(), group, subgroup)
                 resp = self.menu_groups(carpeta)
                 if resp:
                     self.ed_subgroup_l2.set_text(resp)
@@ -1652,13 +1652,13 @@ class WOptionsDatabase(QtWidgets.QDialog):
         folder = self.configuration.folder_databases()
         group = self.ed_group.texto()
         if group:
-            folder = os.path.join(folder, group)
+            folder = Util.opj(folder, group)
             subgroup_l1 = self.ed_subgroup_l1.texto()
             if subgroup_l1:
-                folder = os.path.join(folder, subgroup_l1)
+                folder = Util.opj(folder, subgroup_l1)
                 subgroup_l2 = self.ed_subgroup_l2.texto()
                 if subgroup_l2:
-                    folder = os.path.join(folder, subgroup_l2)
+                    folder = Util.opj(folder, subgroup_l2)
         if not Util.exist_folder(folder):
             try:
                 os.makedirs(folder, True)
@@ -1668,9 +1668,9 @@ class WOptionsDatabase(QtWidgets.QDialog):
 
         filename = "%s.lcdb" % name
         if self.external_folder:
-            filepath_with_data = os.path.join(self.external_folder, filename)
+            filepath_with_data = Util.opj(self.external_folder, filename)
         else:
-            filepath_with_data = os.path.join(folder, filename)
+            filepath_with_data = Util.opj(folder, filename)
 
         test_exist = self.new
         if not self.new:
@@ -1682,7 +1682,7 @@ class WOptionsDatabase(QtWidgets.QDialog):
             return
 
         if self.external_folder:
-            filepath_in_databases = os.path.join(folder, "%s.lcdblink" % name)
+            filepath_in_databases = Util.opj(folder, "%s.lcdblink" % name)
             with open(filepath_in_databases, "wt", encoding="utf-8", errors="ignore") as q:
                 q.write(filepath_with_data)
         else:

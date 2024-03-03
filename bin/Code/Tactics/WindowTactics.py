@@ -21,7 +21,7 @@ def consultaHistorico(main_window, tactica, icono):
 class WHistoricoTacticas(LCDialog.LCDialog):
     def __init__(self, main_window, tactica, icono):
         title = tactica.title
-        title = TrListas.dicTraining().get(title, title)
+        title = TrListas.dic_training().get(title, title)
 
         LCDialog.LCDialog.__init__(self, main_window, title, icono, "histoTactics")
 

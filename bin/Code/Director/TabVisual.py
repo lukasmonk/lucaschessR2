@@ -478,7 +478,7 @@ class GT_PiezaCrea(GTarea):
         return _("Create piece")
 
     def info(self):
-        pz = TrListas.letterPiece(self._pieza)
+        pz = TrListas.letter_piece(self._pieza)
         return (pz if pz.isupper() else pz.lower()) + " -> " + self._desde
 
     def run(self):
@@ -505,7 +505,7 @@ class GT_PiezaBorra(GTarea):
         return _("Delete piece")
 
     def info(self):
-        pz = TrListas.letterPiece(self._pieza)
+        pz = TrListas.letter_piece(self._pieza)
         return (pz if pz.isupper() else pz.lower()) + " -> " + self._desde
 
     def run(self):

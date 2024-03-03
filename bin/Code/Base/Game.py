@@ -566,13 +566,13 @@ class Game:
         return resp.strip()
 
     def pgn_html(self, movenum=None, hastaJugada=9999, with_figurines=True):
-        liResp = []
+        li_resp = []
         if self.first_comment:
-            liResp.append("{%s}" % self.first_comment)
+            li_resp.append("{%s}" % self.first_comment)
         if movenum is None:
             movenum = self.primeraJugada()
         if self.starts_with_black:
-            liResp.append('<span style="color:navy">%d...</span>' % movenum)
+            li_resp.append('<span style="color:navy">%d...</span>' % movenum)
             movenum += 1
             salta = 1
         else:
@@ -585,8 +585,8 @@ class Game:
                 movenum += 1
             else:
                 x = ""
-            liResp.append(x + (move.pgn_html(with_figurines)))
-        return " ".join(liResp)
+            li_resp.append(x + (move.pgn_html(with_figurines)))
+        return " ".join(li_resp)
 
     def is_finished(self):
         if self.termination != TERMINATION_UNKNOWN or self.result != RESULT_UNKNOWN:

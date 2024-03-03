@@ -32,7 +32,7 @@ class WControl(LCDialog.LCDialog):
 
         self.path_bloque = path_bloque
 
-        file = os.path.join(self.configuration.carpeta_results, os.path.basename(path_bloque) + "db")
+        file = Util.opj(self.configuration.carpeta_results, os.path.basename(path_bloque) + "db")
         self.historico = UtilSQL.DictSQL(file)
         self.li_histo = self.calcListaHistorico()
 

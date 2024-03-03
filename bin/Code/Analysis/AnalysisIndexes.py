@@ -308,7 +308,7 @@ def gen_indexes(game, elos, elos_form, alm):
             fenm2 = move.position.fenm2()
             if OpeningsStd.ap.is_book_fenm2(fenm2):
                 moves_book[is_white] += 1
-            if nag_color == GOOD_MOVE:
+            if nag_color in (GOOD_MOVE, INTERESTING_MOVE):
                 moves_best[is_white] += 1
             if nag_move == VERY_GOOD_MOVE:
                 moves_very_good[is_white] += 1

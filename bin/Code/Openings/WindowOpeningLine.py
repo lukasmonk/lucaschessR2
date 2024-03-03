@@ -65,6 +65,8 @@ class WLines(LCDialog.LCDialog):
         )
         self.tb = QTVarios.LCTB(self, li_acciones, style=QtCore.Qt.ToolButtonTextBesideIcon, icon_size=32)
 
+        self.pboard = POLBoard.BoardLines(self, self.configuration)
+
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("LINE", _("Line"), 45, edicion=Delegados.EtiquetaPOS(False, True))
         start = self.gamebase.num_moves() // 2 + 1
@@ -76,28 +78,25 @@ class WLines(LCDialog.LCDialog):
         self.glines.tipoLetra(puntos=self.configuration.x_pgn_fontpoints)
         self.glines.ponAltoFila(self.configuration.x_pgn_rowheight)
 
-        self.pboard = POLBoard.BoardLines(self, self.configuration)
-
         self.tabsanalisis = POLAnalisis.TabsAnalisis(self, self.procesador, self.configuration)
 
         widget = QtWidgets.QWidget()
         widget.setStyleSheet("background-color:lightgray;")
-        widget_layout = Colocacion.V().control(self.glines)
+        widget_layout = Colocacion.H().control(self.glines)
         widget_layout.margen(3)
         widget.setLayout(widget_layout)
+        self.wlines = widget
 
         splitter = QtWidgets.QSplitter(self)
         splitter.setOrientation(QtCore.Qt.Vertical)
         splitter.addWidget(widget)
         splitter.addWidget(self.tabsanalisis)
-
         sp = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         splitter.setSizePolicy(sp)
-
         self.register_splitter(splitter, "SPLITTER")
 
-        layout_down = Colocacion.H().control(self.pboard).control(splitter).margen(3)
-        layout = Colocacion.V().control(self.tb).otro(layout_down).margen(3)
+        layout_left = Colocacion.V().control(self.tb).control(splitter).margen(0)
+        layout = Colocacion.H().otro(layout_left).control(self.pboard).margen(3)
         self.setLayout(layout)
 
         self.colorPar = Code.dic_qcolors["WLINES_PAR"]
@@ -156,7 +155,7 @@ class WLines(LCDialog.LCDialog):
         if list_history:
             menu.separador()
             submenu = menu.submenu(_("Backups"), Iconos.Copiar())
-            rondo = QTVarios.rondoPuntos()
+            rondo = QTVarios.rondo_puntos()
             for history in list_history[:20]:
                 h = history
                 if len(h) > 70:
@@ -368,11 +367,11 @@ class WLines(LCDialog.LCDialog):
         if resultado is None:
             return
 
-        accion, liResp = resultado
+        accion, li_resp = resultado
 
         reg = {}
 
-        reg["COLOR"], reg["RANDOM"], reg["MAXMOVES"] = liResp
+        reg["COLOR"], reg["RANDOM"], reg["MAXMOVES"] = li_resp
 
         self.dbop.createTrainingSSP(reg, self.procesador)
 
@@ -496,10 +495,10 @@ class WLines(LCDialog.LCDialog):
         if resultado is None:
             return
 
-        accion, liResp = resultado
+        accion, li_resp = resultado
 
         selMotoresExt = []
-        li_gen, li_ext, liLevels = liResp
+        li_gen, li_ext, liLevels = li_resp
 
         for key in li_ext:
             if key:
@@ -657,7 +656,7 @@ class WLines(LCDialog.LCDialog):
 
     def import_other(self, file, game):
         um = QTUtil2.one_moment_please(self)
-        pathFichero = os.path.join(self.configuration.folder_openings(), file)
+        pathFichero = Util.opj(self.configuration.folder_openings(), file)
         self.dbop.import_other(pathFichero, game)
         um.final()
         self.glines.refresh()
@@ -703,12 +702,12 @@ class WLines(LCDialog.LCDialog):
 
         resultado = form.run()
         if resultado:
-            accion, liResp = resultado
+            accion, li_resp = resultado
             if with_excltrans:
-                depth, siWhite, onlyone, minMoves, excltraspositions = liResp
+                depth, siWhite, onlyone, minMoves, excltraspositions = li_resp
                 dicData["EXCLTRANSPOSITIONS"] = excltraspositions
             else:
-                depth, siWhite, onlyone, minMoves = liResp
+                depth, siWhite, onlyone, minMoves = li_resp
             dicData["DEPTH"] = depth
             dicData["SIWHITE"] = siWhite
             dicData["ONLYONE"] = onlyone
@@ -771,7 +770,7 @@ class WLines(LCDialog.LCDialog):
             dic_vars["IPGN_VARIATIONSMODE"] = variations = li_resp[1]
             dic_vars["IPGN_COMMENTS"] = comments = li_resp[2]
             self.write_config_vars(dic_vars)
-            return  depth, variations, comments
+            return depth, variations, comments
         else:
             return None, None, None
 
@@ -1044,8 +1043,8 @@ class WLines(LCDialog.LCDialog):
                 li_gen, title=_("Remove a list of lines"), parent=self, anchoMinimo=460, icon=Iconos.OpeningLines()
             )
             if resultado:
-                accion, liResp = resultado
-                clista = liResp[0]
+                accion, li_resp = resultado
+                clista = li_resp[0]
                 if clista:
                     ln = Util.ListaNumerosImpresion(clista)
                     li = ln.selected(range(1, tam_dbop + 1))
@@ -1300,6 +1299,8 @@ class WLines(LCDialog.LCDialog):
                 linea = li[0]
 
         njug = len(lipv)
+        if njug < self.num_jg_inicial:
+            return
 
         row = linea * 2
         if njug % 2 == 0:
@@ -1360,7 +1361,7 @@ class WLines(LCDialog.LCDialog):
 def study(file):
     procesador = Code.procesador
     with QTUtil.EscondeWindow(procesador.main_window):
-        dbop = OpeningLines.Opening(os.path.join(procesador.configuration.folder_openings(), file))
+        dbop = OpeningLines.Opening(Util.opj(procesador.configuration.folder_openings(), file))
         w = WLines(dbop)
         w.exec_()
         dbop.close()
@@ -1405,7 +1406,7 @@ class WImportPolyglot(LCDialog.LCDialog):
                                   tipoFloat(decimales=3, valor=dic_data.get("PORC_WHITE", 0.0)).ponTipoLetra(puntos=8))
         lb_white_weight_min = Controles.LB2P(self, _("Minimum weight")).ponTipoLetra(puntos=8)
         self.ed_white_weight_min = (Controles.ED(self).anchoFijo(60).
-                                  tipoInt(dic_data.get("WEIGHT_WHITE", 0)).ponTipoLetra(puntos=8))
+                                    tipoInt(dic_data.get("WEIGHT_WHITE", 0)).ponTipoLetra(puntos=8))
 
         ly_arr = Colocacion.H().control(self.cb_white).control(self.cb_mode_white)
         ly_abj = (Colocacion.H().relleno().control(lb_white_porc_min).control(self.ed_white_porc_min)
@@ -1423,7 +1424,7 @@ class WImportPolyglot(LCDialog.LCDialog):
                              tipoFloat(decimales=3, valor=dic_data.get("PORC_BLACK", 0.0)).ponTipoLetra(puntos=8))
         lb_black_weight_min = Controles.LB2P(self, _("Minimum weight")).ponTipoLetra(puntos=8)
         self.ed_black_weight_min = (Controles.ED(self).anchoFijo(60).
-                                  tipoInt(dic_data.get("WEIGHT_BLACK", 0)).ponTipoLetra(puntos=8))
+                                    tipoInt(dic_data.get("WEIGHT_BLACK", 0)).ponTipoLetra(puntos=8))
 
         ly_arr = Colocacion.H().control(self.cb_black).control(self.cb_mode_black)
         ly_abj = (Colocacion.H().relleno().control(lb_black_min).control(self.ed_black_min)

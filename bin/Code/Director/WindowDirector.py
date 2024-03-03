@@ -72,7 +72,7 @@ class WPanelDirector(LCDialog.LCDialog):
 
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("NUMBER", _("N."), 20, align_center=True)
-        o_columns.nueva("MARCADO", "", 20, align_center=True, siChecked=True)
+        o_columns.nueva("MARCADO", "", 20, align_center=True, is_ckecked=True)
         o_columns.nueva("TYPE", _("Type"), 50, align_center=True)
         o_columns.nueva("NOMBRE", _("Name"), 100, align_center=True, edicion=Delegados.LineaTextoUTF8())
         o_columns.nueva("INFO", _("Information"), 100, align_center=True)
@@ -283,8 +283,8 @@ class WPanelDirector(LCDialog.LCDialog):
 
         resultado = FormLayout.fedit(li_gen, title=_("Name"), parent=self, icon=ico)
         if resultado:
-            accion, liResp = resultado
-            name = liResp[0]
+            accion, li_resp = resultado
+            name = li_resp[0]
             return name
         return None
 
@@ -630,7 +630,7 @@ class WPanelDirector(LCDialog.LCDialog):
         QTUtil2.temporary_message(self, _X(_("Saved to %1"), txt), 0.8)
 
     def grabarFichero(self):
-        dirSalvados = self.configuration.x_save_folder
+        dirSalvados = self.configuration.save_folder()
         resp = SelectFiles.salvaFichero(self, _("File to save"), dirSalvados, "png", False)
         if resp:
             self.board.save_as_img(resp, "png")
@@ -638,8 +638,7 @@ class WPanelDirector(LCDialog.LCDialog):
             QTUtil2.temporary_message(self, _X(_("Saved to %1"), txt), 0.8)
             direc = os.path.dirname(resp)
             if direc != dirSalvados:
-                self.configuration.x_save_folder = direc
-                self.configuration.graba()
+                self.configuration.set_save_folder(direc)
 
     def flechas(self):
         w = WindowTabVFlechas.WTV_Flechas(self, self.list_arrows(), self.dbFlechas)
@@ -1002,7 +1001,7 @@ class Director:
         if is_right and is_shift and is_alt:
             pz_borrar = self.board.dameNomPiezaEn(a1h8)
             menu = Controles.Menu(self.board)
-            dicPieces = TrListas.dicNomPiezas()
+            dicPieces = TrListas.dic_nom_pieces()
             icoPiece = self.board.piezas.icono
 
             if pz_borrar or len(li_tareas):

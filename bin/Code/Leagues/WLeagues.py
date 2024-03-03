@@ -125,7 +125,7 @@ class WLeagues(LCDialog.LCDialog):
             accion, li_gen = resultado
             nom_league = Util.valid_filename(li_gen[0].strip())
             if nom_league:
-                path = os.path.join(Code.configuration.folder_leagues(), nom_league + ".league")
+                path = Util.opj(Code.configuration.folder_leagues(), nom_league + ".league")
                 if os.path.isfile(path):
                     QTUtil2.message_error(self, _("The file %s already exist") % nom_league)
                     return self.edit_name(nom_league)
@@ -155,8 +155,8 @@ class WLeagues(LCDialog.LCDialog):
             nom_origen = self.nom_league_pos(row)
             nom_destino = self.edit_name(nom_origen)
             if nom_destino and nom_origen != nom_destino:
-                path_origen = os.path.join(Code.configuration.folder_leagues(), "%s.league" % nom_origen)
-                path_destino = os.path.join(Code.configuration.folder_leagues(), "%s.league" % nom_destino)
+                path_origen = Util.opj(Code.configuration.folder_leagues(), "%s.league" % nom_origen)
+                path_destino = Util.opj(Code.configuration.folder_leagues(), "%s.league" % nom_destino)
                 shutil.move(path_origen, path_destino)
                 self.refresh_lista()
 
@@ -165,7 +165,7 @@ class WLeagues(LCDialog.LCDialog):
         if row >= 0:
             name = self.nom_league_pos(row)
             if QTUtil2.pregunta(self, _X(_("Delete %1?"), name)):
-                path = os.path.join(Code.configuration.folder_leagues(), "%s.league" % name)
+                path = Util.opj(Code.configuration.folder_leagues(), "%s.league" % name)
                 os.remove(path)
                 self.refresh_lista()
 
@@ -175,8 +175,8 @@ class WLeagues(LCDialog.LCDialog):
             nom_origen = self.nom_league_pos(row)
             nom_destino = self.edit_name(nom_origen)
             if nom_destino and nom_origen != nom_destino:
-                path_origen = os.path.join(Code.configuration.folder_leagues(), f"{nom_origen}.league" % nom_origen)
-                path_destino = os.path.join(Code.configuration.folder_leagues(), f"{nom_destino}.league" % nom_destino)
+                path_origen = Util.opj(Code.configuration.folder_leagues(), f"{nom_origen}.league" % nom_origen)
+                path_destino = Util.opj(Code.configuration.folder_leagues(), f"{nom_destino}.league" % nom_destino)
                 shutil.copy(path_origen, path_destino)
                 self.refresh_lista()
 

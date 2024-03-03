@@ -63,7 +63,7 @@ class WLeagueWorker(QtWidgets.QWidget):
         Delegados.generaPM(self.board.piezas)
 
         ct = self.board.config_board
-        self.antiguoAnchoPieza = ct.anchoPieza()
+        self.antiguoAnchoPieza = ct.width_piece()
 
         self.configuration = Code.configuration
         self.game = Game.Game()
@@ -694,7 +694,7 @@ class WLeagueWorker(QtWidgets.QWidget):
 
         if nue.fullscreen:
             self.board.siF11 = True
-            self.antiguoAnchoPieza = 1000 if ant.maximizado else ct.anchoPieza()
+            self.antiguoAnchoPieza = 1000 if ant.maximizado else ct.width_piece()
             self.board.maximizaTam(True)
         else:
             if ant.fullscreen:
@@ -704,7 +704,7 @@ class WLeagueWorker(QtWidgets.QWidget):
                 if self.antiguoAnchoPieza == 1000:
                     self.setWindowState(QtCore.Qt.WindowMaximized)
             elif nue.maximizado:
-                self.antiguoAnchoPieza = ct.anchoPieza()
+                self.antiguoAnchoPieza = ct.width_piece()
                 self.board.maximizaTam(False)
             elif ant.maximizado:
                 if not self.antiguoAnchoPieza or self.antiguoAnchoPieza == 1000:

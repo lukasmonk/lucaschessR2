@@ -171,7 +171,7 @@ class ConfigBoard(JS):
             self._confPadre = Code.configuration.config_board(self._padre, self._anchoPiezaDef)
         return self._confPadre
 
-    def anchoPieza(self, valor=None):
+    def width_piece(self, valor=None):
         if valor is None:
             return self.x_anchoPieza if self.x_anchoPieza else self.ponDefAnchoPieza()
         else:
@@ -179,7 +179,7 @@ class ConfigBoard(JS):
             return self.x_anchoPieza
 
     def ponDefAnchoPieza(self):
-        return self.anchoPieza(self._anchoPiezaDef)
+        return self.width_piece(self._anchoPiezaDef)
 
     def cambiaPiezas(self, nomPiezas):
         self.o_base.x_nomPiezas = nomPiezas
@@ -253,7 +253,7 @@ class ConfigBoard(JS):
             else:
                 self.o_tema.x_siTemaDefecto = True
         if siS:
-            self.anchoPieza(self._anchoPiezaDef)
+            self.width_piece(self._anchoPiezaDef)
         if siR:
             if is_base:
                 self.o_base.defecto()
@@ -404,10 +404,10 @@ class ConfigBoard(JS):
         else:
             return t
 
-    def siBold(self):
+    def bold(self):
         t = self.o_base.x_cBold
         if not t:
-            return True if self.is_base else self.confPadre().siBold()
+            return True if self.is_base else self.confPadre().bold()
         else:
             return t == "S"
 

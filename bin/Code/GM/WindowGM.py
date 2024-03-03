@@ -325,7 +325,7 @@ class WGM(LCDialog.LCDialog):
         if not QTUtil2.pregunta(self, _X(_("Delete %1?"), tgm)):
             return
 
-        base = os.path.join(self.configuration.personal_training_folder, "%s.xgm" % tgm)
+        base = Util.opj(self.configuration.personal_training_folder, "%s.xgm" % tgm)
         Util.remove_file(base)
 
         self.li_personal = GM.lista_gm_personal(self.configuration.personal_training_folder)
@@ -611,7 +611,7 @@ class WImportar(LCDialog.LCDialog):
 
         # Lista
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("ELEGIDO", "", 22, siChecked=True)
+        o_columns.nueva("ELEGIDO", "", 22, is_ckecked=True)
         o_columns.nueva("NOMBRE", _("Grandmaster"), 140)
         o_columns.nueva("PARTIDAS", _("Games"), 60, align_right=True)
         o_columns.nueva("BORN", _("Birth date"), 60, align_center=True)
@@ -685,7 +685,7 @@ def importar_gm(owner_gm):
     fich_name = "_listaGM.txt"
     url_lista = "%s/%s" % (web, fich_name)
     fich_tmp = Code.configuration.ficheroTemporal("txt")
-    fich_lista = os.path.join(GM.get_folder_gm(), fich_name)
+    fich_lista = Util.opj(GM.get_folder_gm(), fich_name)
     si_bien = Util.urlretrieve(url_lista, fich_tmp)
     me.final()
 
@@ -701,7 +701,7 @@ def importar_gm(owner_gm):
             linea = linea.strip()
             if linea:
                 gm, name, ctam, cpart, wm, cyear = linea.split("|")
-                file = os.path.join(GM.get_folder_gm(), "%s.xgm" % gm)
+                file = Util.opj(GM.get_folder_gm(), "%s.xgm" % gm)
                 if Util.filesize(file) != int(ctam):  # si no existe tam = -1
                     dic = {"GM": gm, "NOMBRE": name, "PARTIDAS": cpart, "ELEGIDO": False, "BORN": cyear, "WM": wm}
                     li_gm.append(dic)
@@ -728,7 +728,7 @@ def importar_gm(owner_gm):
                 if si_bien:
                     zfobj = zipfile.ZipFile(fzip)
                     for name in zfobj.namelist():
-                        file = os.path.join(GM.get_folder_gm(), name)
+                        file = Util.opj(GM.get_folder_gm(), name)
                         with open(file, "wb") as outfile:
                             outfile.write(zfobj.read(name))
                     zfobj.close()

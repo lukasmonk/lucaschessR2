@@ -128,8 +128,8 @@ class WMate15(LCDialog.LCDialog):
     def configurar(self):
         menu = QTVarios.LCMenu(self)
         submenu = menu.submenu(_("How to indicate moves"))
-        submenu.opcion("pgn", _("With standard algebraic notation"), siChecked=self.use_pgn)
-        submenu.opcion("coord", _("With coordinates"), siChecked=not self.use_pgn)
+        submenu.opcion("pgn", _("With standard algebraic notation"), is_ckecked=self.use_pgn)
+        submenu.opcion("coord", _("With coordinates"), is_ckecked=not self.use_pgn)
         resp = menu.lanza()
         if resp is None:
             return

@@ -1,10 +1,9 @@
 import datetime
-import os.path
 import random
 
 import Code
-from Code.Base import Game
 from Code import Util
+from Code.Base import Game
 from Code.Translations import TrListas
 
 
@@ -132,7 +131,7 @@ class Transsiberian:
 
         random.seed(self._key)
 
-        with open(os.path.join(folder, "tactics.fns")) as f:
+        with open(Util.opj(folder, "tactics.fns")) as f:
             self.li_tactics = []
             for linea in f:
                 linea = linea.strip()
@@ -161,7 +160,7 @@ class Transsiberian:
         for k in self.dicEndings:
             random.shuffle(self.dicEndings[k])
 
-        dic = Util.ini2dic(os.path.join(folder, "config.ini"))
+        dic = Util.ini2dic(Util.opj(folder, "config.ini"))
         for cline, txt in dic["PLAYING"].items():
             line = self.lines[int(cline) - 1]
             reg = Reg()
@@ -441,7 +440,8 @@ class Transsiberian:
         elif state == ENDING:
             return _("You must solve an endgame puzzle"), Code.dic_colors["ROUTES_NEXTTASK_BACKGROUND_ENDINGS"]
         else:
-            return _("You must solve tactics puzzles to advance."), Code.dic_colors["ROUTES_NEXTTASK_BACKGROUND_TACTICS"]
+            return _("You must solve tactics puzzles to advance."), Code.dic_colors[
+                "ROUTES_NEXTTASK_BACKGROUND_TACTICS"]
 
     def get_tactic(self):
         if self._pos_tactics >= len(self.liPosTactics):

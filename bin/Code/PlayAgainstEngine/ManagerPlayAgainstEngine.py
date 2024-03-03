@@ -163,8 +163,8 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             dic_op = dic_var["OPENING_LINE"]
             path = self.configuration.folder_base_openings
             if "folder" in dic_op:
-                path = os.path.join(path, dic_op["folder"])
-            path = os.path.join(path, dic_op["file"])
+                path = Util.opj(path, dic_op["folder"])
+            path = Util.opj(path, dic_op["file"])
             if os.path.isfile(path):
                 self.opening_line = OpeningLines.Opening(path).dic_fenm2_moves()
 

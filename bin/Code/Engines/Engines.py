@@ -161,7 +161,7 @@ class Engine:
         return level
 
     def remove_log(self, fich):
-        Util.remove_file(os.path.join(os.path.dirname(self.path_exe), fich))
+        Util.remove_file(Util.opj(os.path.dirname(self.path_exe), fich))
 
     @property
     def name(self):

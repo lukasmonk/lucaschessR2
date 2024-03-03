@@ -94,7 +94,7 @@ def file_copy(origin: str, destino: str) -> bool:
 
 def file_next(folder: str, base: str, ext: str) -> str:
     n = 1
-    path_ = os.path.join(folder, "%s%s.%s" % (base, "%d", ext))
+    path_ = opj(folder, "%s%s.%s" % (base, "%d", ext))
     while exist_file(path_ % n):
         n += 1
     return path_ % n
@@ -116,10 +116,10 @@ def rename_file(origin: str, destination: str) -> bool:
     return False
 
 
-def temporary_file(pathTemp: str, ext: str) -> str:
-    create_folder(pathTemp)
+def temporary_file(path_temp: str, ext: str) -> str:
+    create_folder(path_temp)
     while True:
-        fich = os.path.join(pathTemp, "%d.%s" % (random.randint(1, 999999999), ext))
+        fich = opj(path_temp, "%d.%s" % (random.randint(1, 999999999), ext))
         if not exist_file(fich):
             return fich
 
@@ -606,7 +606,7 @@ def listfiles(*lista):
     f = lista[0]
     if len(lista) > 1:
         for x in lista[1:]:
-            f = os.path.join(f, x)
+            f = opj(f, x)
     return glob.glob(f)
 
 
@@ -690,10 +690,10 @@ def relative_path(*args):
     if n_args == 1:
         path = args[0]
     else:
-        path = os.path.join(args[0], args[1])
+        path = opj(args[0], args[1])
         if n_args > 2:
             for x in range(2, n_args):
-                path = os.path.join(path, args[x])
+                path = opj(path, args[x])
     try:
         path = os.path.abspath(path)
         rel = os.path.relpath(path)
@@ -752,3 +752,7 @@ def div_list(xlist, max_group):
 
 def cpu_count():
     return psutil.cpu_count()
+
+
+def opj(*elem) -> str:
+    return str(os.path.join(*elem))

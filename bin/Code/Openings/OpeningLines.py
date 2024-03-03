@@ -89,7 +89,7 @@ class ListaOpenings:
         if not self.folder or not os.path.isdir(self.folder):
             self.folder = configuration.folder_base_openings
 
-        self.file = os.path.join(self.folder, "openinglines.pk")
+        self.file = Util.opj(self.folder, "openinglines.pk")
 
         self.lista = Util.restore_pickle(self.file)
         if self.lista is None:
@@ -102,7 +102,7 @@ class ListaOpenings:
         index_date = Util.datefile(self.file)
 
         for pos, dic in enumerate(self.lista):
-            pathfile = os.path.join(self.folder, dic["file"])
+            pathfile = Util.opj(self.folder, dic["file"])
             file_date = Util.datefile(pathfile)
             if file_date is None:
                 self.reiniciar()
@@ -126,7 +126,7 @@ class ListaOpenings:
     def __delitem__(self, item):
         dicline = self.lista[item]
         del self.lista[item]
-        os.remove(os.path.join(self.folder, dicline["file"]))
+        os.remove(Util.opj(self.folder, dicline["file"]))
         self.save()
 
     def arriba(self, item):
@@ -173,13 +173,13 @@ class ListaOpenings:
         plant = name + "%d.opk"
         file = name + ".opk"
         num = 0
-        while os.path.isfile(os.path.join(self.folder, file)):
+        while os.path.isfile(Util.opj(self.folder, file)):
             num += 1
             file = plant % num
         return file
 
     def filepath(self, num):
-        return os.path.join(self.folder, self.lista[num]["file"])
+        return Util.opj(self.folder, self.lista[num]["file"])
 
     def new(self, file, basepv, title):
         dicline = {"file": file, "pv": basepv, "title": title, "lines": 0, "withtrainings": False}
@@ -198,11 +198,11 @@ class ListaOpenings:
             base = "-".join(li[:-1])
         filenew = "%s-1.opk" % base
         n = 1
-        while os.path.isfile(os.path.join(self.folder, filenew)):
+        while os.path.isfile(Util.opj(self.folder, filenew)):
             filenew = "%s-%d.opk" % (base, n)
             n += 1
         try:
-            shutil.copy(self.filepath(pos), os.path.join(self.folder, filenew))
+            shutil.copy(self.filepath(pos), Util.opj(self.folder, filenew))
         except:
             return
 

@@ -82,7 +82,7 @@ class WMemoria(LCDialog.LCDialog):
         self.ultimaPieza = "P"
         self.piezas = self.board.piezas
 
-        tamPiezas = max(16, int(32 * self.board.config_board.anchoPieza() / 48))
+        tamPiezas = max(16, int(32 * self.board.config_board.width_piece() / 48))
         self.listaPiezasW = QTVarios.ListaPiezas(self, "P,N,B,R,Q,K", self.board, tamPiezas, margen=0)
         self.listaPiezasB = QTVarios.ListaPiezas(self, "p,n,b,r,q,k", self.board, tamPiezas, margen=0)
 

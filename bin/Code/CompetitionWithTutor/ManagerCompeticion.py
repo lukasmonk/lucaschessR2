@@ -31,7 +31,7 @@ class ManagerCompeticion(Manager.Manager):
     def base_inicio(self, categorias, categoria, nivel, is_white, puntos):
         self.game_type = GT_COMPETITION_WITH_TUTOR
 
-        self.liReiniciar = categoria, nivel, is_white
+        self.li_reiniciar = categoria, nivel, is_white
 
         self.dbm = CompetitionWithTutor.DBManagerCWT()
 
@@ -48,7 +48,7 @@ class ManagerCompeticion(Manager.Manager):
 
         self.categorias = categorias
         self.categoria = categoria
-        self.nivelJugado = nivel
+        self.level_played = nivel
         self.puntos = puntos
 
         self.is_tutor_enabled = self.configuration.x_default_tutor_active
@@ -84,7 +84,7 @@ class ManagerCompeticion(Manager.Manager):
         self.game.set_tag("Event", _("Competition with tutor"))
 
         player = self.configuration.nom_player()
-        other = "%s (%s %d)" % (self.xrival.name, _("Level"), self.nivelJugado)
+        other = "%s (%s %d)" % (self.xrival.name, _("Level"), self.level_played)
         w, b = (player, other) if self.is_human_side_white else (other, player)
         self.game.set_tag("White", w)
         self.game.set_tag("Black", b)
@@ -129,8 +129,9 @@ class ManagerCompeticion(Manager.Manager):
 
     def reiniciar(self):
         if len(self.game) and QTUtil2.pregunta(self.main_window, _("Restart the game?")):
+            self.analyze_end()
             self.game.set_position()
-            categoria, nivel, is_white = self.liReiniciar
+            categoria, nivel, is_white = self.li_reiniciar
             self.procesador.stop_engines()
             self.main_window.activaInformacionPGN(False)
             self.start(self.categorias, categoria, nivel, is_white, self.puntos)
@@ -146,7 +147,7 @@ class ManagerCompeticion(Manager.Manager):
                 "SITUTOR": self.is_tutor_enabled,
                 "HINTS": self.hints,
                 "CATEGORIA": self.categoria.key,
-                "LEVEL": self.nivelJugado,
+                "LEVEL": self.level_played,
                 "PUNTOS": self.puntos,
                 "RIVAL_KEY": self.dbm.get_current_rival_key(),
             }
@@ -191,8 +192,8 @@ class ManagerCompeticion(Manager.Manager):
     def rendirse(self):
         if self.state == ST_ENDGAME:
             return True
-        siJugadas = len(self.game) > 0
-        if siJugadas:
+        si_jugadas = len(self.game) > 0
+        if si_jugadas:
             if not QTUtil2.pregunta(self.main_window, _("Do you want to resign?")):
                 return False  # no abandona
             self.resultado = RS_WIN_OPPONENT
@@ -285,7 +286,7 @@ class ManagerCompeticion(Manager.Manager):
         self.beepResultado(beep)
         if player_win:
             hecho = "B" if self.is_human_side_white else "N"
-            if self.categorias.put_result(self.categoria, self.nivelJugado, hecho):
+            if self.categorias.put_result(self.categoria, self.level_played, hecho):
                 mensaje += "\n\n%s: %d (%s)" % (
                     _("Move to the next level"),
                     self.categoria.level_done + 1,
@@ -341,12 +342,12 @@ class ManagerCompeticion(Manager.Manager):
         movimiento = move.movimiento()
         self.analyze_end()
 
-        siMirarTutor = self.is_tutor_enabled
+        check_tutor = self.is_tutor_enabled
         if self.in_the_opening:
             if self.opening.check_human(self.last_fen(), from_sq, to_sq):
-                siMirarTutor = False
+                check_tutor = False
 
-        if siMirarTutor:
+        if check_tutor:
             if not self.is_analyzed_by_tutor:
                 self.mrm_tutor = self.analizaTutor()
 

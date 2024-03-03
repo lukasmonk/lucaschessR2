@@ -29,7 +29,6 @@ def read_dic_params():
     alm.from_last_move = dic.get("from_last_move", False)
     alm.multiPV = dic.get("multiPV", "PD")
     alm.priority = dic.get("priority", Priorities.priorities.normal)
-    alm.themes_lichess = dic.get("themes_lichess", False)
 
     alm.book_name = dic.get("book_name", None)
 
@@ -234,16 +233,6 @@ def analysis_parameters(parent, extended_mode, all_engines=False):
         config = FormLayout.Combobox(_("Do not scan the opening moves based on book"), li)
         li_gen.append((config, defecto))
 
-        li_gen.append(
-            (
-                '<div align="right">'
-                + _("Automatically assign themes using Lichess/Thibault code")
-                + ":<br>"
-                + _("It needs further a manual review to eliminate false detections."),
-                alm.themes_lichess,
-            )
-        )
-
         li_gen.append((_("Redo any existing prior analysis (if they exist)") + ":", alm.delete_previous))
 
         li_gen.append((_("Start from the end of the game") + ":", alm.from_last_move))
@@ -300,12 +289,12 @@ def analysis_parameters(parent, extended_mode, all_engines=False):
     )
 
     if resultado:
-        accion, liResp = resultado
+        accion, li_resp = resultado
 
         if extended_mode:
-            li_gen, li_var, li_blunders, li_brilliancies = liResp
+            li_gen, li_var, li_blunders, li_brilliancies = li_resp
         else:
-            li_gen = liResp
+            li_gen = li_resp
 
         alm.engine = li_gen[0]
         alm.vtime = int(li_gen[1] * 1000)
@@ -321,10 +310,9 @@ def analysis_parameters(parent, extended_mode, all_engines=False):
             alm.num_moves = li_gen[6]
             alm.book = li_gen[7]
             alm.book_name = alm.book.name if alm.book else None
-            alm.themes_lichess = li_gen[8]
-            alm.delete_previous = li_gen[9]
-            alm.from_last_move = li_gen[10]
-            alm.show_graphs = li_gen[11]
+            alm.delete_previous = li_gen[8]
+            alm.from_last_move = li_gen[9]
+            alm.show_graphs = li_gen[10]
 
             (
                 alm.analyze_variations,
@@ -444,8 +432,6 @@ def massive_analysis_parameters(parent, configuration, multiple_selected, siData
     config = FormLayout.Combobox(_("Do not scan the opening moves based on book"), li)
     li_gen.append((config, defecto))
 
-    li_gen.append((_("Automatically assign themes using Lichess/Thibault code") + ":", alm.themes_lichess))
-
     li_gen.append(SEPARADOR)
     li_gen.append((_("Start from the end of the game") + ":", alm.from_last_move))
 
@@ -475,9 +461,9 @@ def massive_analysis_parameters(parent, configuration, multiple_selected, siData
     )
 
     if resultado:
-        accion, liResp = resultado
+        accion, li_resp = resultado
 
-        li_gen, li_var, li_blunders, li_brilliancies = liResp
+        li_gen, li_var, li_blunders, li_brilliancies = li_resp
 
         (
             alm.engine,
@@ -489,7 +475,6 @@ def massive_analysis_parameters(parent, configuration, multiple_selected, siData
             cjug,
             alm.num_moves,
             alm.book,
-            alm.themes_lichess,
             alm.from_last_move,
             alm.delete_previous,
             alm.multiple_selected,

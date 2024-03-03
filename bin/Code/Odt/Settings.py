@@ -1,4 +1,4 @@
-import os
+from Code import Util
 from Code.Odt import XML
 
 
@@ -623,5 +623,5 @@ class Settings(XML.XML):
         element126.set_value("false")
 
     def run(self, folder):
-        path = os.path.join(folder, "settings.xml")
+        path = Util.opj(folder, "settings.xml")
         self.save(path)

@@ -38,7 +38,7 @@ class EditCols(QtWidgets.QDialog):
 
         # Grid
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("SIMOSTRAR", "", 20, siChecked=True)
+        o_columns.nueva("SIMOSTRAR", "", 20, is_ckecked=True)
         o_columns.nueva("CLAVE", _("Key"), 80, align_center=True)
         o_columns.nueva("CABECERA", _("Title"), 150, edicion=Delegados.LineaTexto())
         o_columns.nueva("ANCHO", _("Width"), 60, edicion=Delegados.LineaTexto(siEntero=True), align_right=True)

@@ -29,7 +29,7 @@ class Opening:
         pgn = self.pgn
         for n, c in enumerate(pgn):
             if c in pzs and not pgn[n + 1].isdigit():
-                c = TrListas.letterPiece(c)
+                c = TrListas.letter_piece(c)
             p += c
         return p
 

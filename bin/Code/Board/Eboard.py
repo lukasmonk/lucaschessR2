@@ -109,31 +109,31 @@ class Eboard:
         self.side_takeback = None
         self.dispatch = dispatch
 
-        path_eboards = os.path.join(Code.folder_OS, "DigitalBoards")
+        path_eboards = Util.opj(Code.folder_OS, "DigitalBoards")
         os.chdir(path_eboards)
 
         if Code.is_linux:
             functype = ctypes.CFUNCTYPE
             if self.name == "DGT-gon":
-                path_so = os.path.join(path_eboards, "libdgt.so")
+                path_so = Util.opj(path_eboards, "libdgt.so")
             elif self.name == "Certabo":
-                path_so = os.path.join(path_eboards, "libcer.so")
+                path_so = Util.opj(path_eboards, "libcer.so")
             elif self.name == "Chessnut":
-                path_so = os.path.join(path_eboards, "libnut.so")
+                path_so = Util.opj(path_eboards, "libnut.so")
             elif self.name == "Pegasus":
-                path_so = os.path.join(path_eboards, "libpeg.so")
+                path_so = Util.opj(path_eboards, "libpeg.so")
             elif self.name == "Millennium":
-                path_so = os.path.join(path_eboards, "libmcl.so")
+                path_so = Util.opj(path_eboards, "libmcl.so")
             elif self.name == "Citrine":
-                path_so = os.path.join(path_eboards, "libcit.so")
+                path_so = Util.opj(path_eboards, "libcit.so")
             elif self.name == "Saitek":
-                path_so = os.path.join(path_eboards, "libosa.so")
+                path_so = Util.opj(path_eboards, "libosa.so")
             elif self.name == "Square Off":
-                path_so = os.path.join(path_eboards, "libsop.so")
+                path_so = Util.opj(path_eboards, "libsop.so")
             elif self.name == "Tabutronic":
-                path_so = os.path.join(path_eboards, "libtab.so")
+                path_so = Util.opj(path_eboards, "libtab.so")
             else:
-                path_so = os.path.join(path_eboards, "libucb.so")
+                path_so = Util.opj(path_eboards, "libucb.so")
             if os.path.isfile(path_so):
                 try:
                     driver = ctypes.CDLL(path_so)
@@ -162,7 +162,7 @@ class Eboard:
 
         else:
             functype = ctypes.WINFUNCTYPE
-            path_eboards = os.path.join(Code.folder_OS, "DigitalBoards")
+            path_eboards = Util.opj(Code.folder_OS, "DigitalBoards")
 
             if self.name == "DGT":
                 for path_dll_dgt in (
@@ -173,7 +173,7 @@ class Eboard:
                         "",
                         path_eboards
                 ):
-                    path_dll = os.path.join(path_dll_dgt, "DGTEBDLL.dll")
+                    path_dll = Util.opj(path_dll_dgt, "DGTEBDLL.dll")
                     if os.path.isfile(path_dll):
                         try:
                             driver = ctypes.WinDLL(path_dll)
@@ -181,25 +181,25 @@ class Eboard:
                             pass
             else:
                 if self.name == "Certabo":
-                    path_dll = os.path.join(path_eboards, "CER_DLL.dll")
+                    path_dll = Util.opj(path_eboards, "CER_DLL.dll")
                 elif self.name == "Chessnut":
-                    path_dll = os.path.join(path_eboards, "NUT_DLL.dll")
+                    path_dll = Util.opj(path_eboards, "NUT_DLL.dll")
                 elif self.name == "DGT-gon":
-                    path_dll = os.path.join(path_eboards, "DGT_DLL.dll")
+                    path_dll = Util.opj(path_eboards, "DGT_DLL.dll")
                 elif self.name == "Pegasus":
-                    path_dll = os.path.join(path_eboards, "PEG_DLL.dll")
+                    path_dll = Util.opj(path_eboards, "PEG_DLL.dll")
                 elif self.name == "Millennium":
-                    path_dll = os.path.join(path_eboards, "MCL_DLL.dll")
+                    path_dll = Util.opj(path_eboards, "MCL_DLL.dll")
                 elif self.name == "Citrine":
-                    path_dll = os.path.join(path_eboards, "CIT_DLL.dll")
+                    path_dll = Util.opj(path_eboards, "CIT_DLL.dll")
                 elif self.name == "Saitek":
-                    path_dll = os.path.join(path_eboards, "OSA_DLL.dll")
+                    path_dll = Util.opj(path_eboards, "OSA_DLL.dll")
                 elif self.name == "Square Off":
-                    path_dll = os.path.join(path_eboards, "SOP_DLL.dll")
+                    path_dll = Util.opj(path_eboards, "SOP_DLL.dll")
                 elif self.name == "Tabutronic":
-                    path_dll = os.path.join(path_eboards, "TAB_DLL.dll")
+                    path_dll = Util.opj(path_eboards, "TAB_DLL.dll")
                 else:
-                    path_dll = os.path.join(path_eboards, "UCB_DLL.dll")
+                    path_dll = Util.opj(path_eboards, "UCB_DLL.dll")
                 if os.path.isfile(path_dll):
                     try:
                         driver = ctypes.WinDLL(path_dll)
@@ -410,7 +410,7 @@ class Eboard:
 
 
 def version():
-    path_version = os.path.join(Code.folder_OS, "DigitalBoards", "version")
+    path_version = Util.opj(Code.folder_OS, "DigitalBoards", "version")
     xversion = "0"
     if os.path.isfile(path_version):
         with open(path_version, "rt") as f:

@@ -354,6 +354,8 @@ class WVariations(QtWidgets.QWidget):
 
     def link_variation_edit(self, num_variation):
         self.edit(num_variation)
+        manager = self.get_manager()
+        manager.goto_current()
 
     def det_variation_move(self, li_variation_move):
         var_move = self.move
@@ -422,8 +424,7 @@ class WVariations(QtWidgets.QWidget):
         move = game.li_moves[num_move]
         move.pos_in_game = num_move
         self.set_move(move)
-        manager.put_view()
-        manager.refresh_pgn()
+        manager.goto_current()
 
     def remove_move(self):
         li_variation_move = self.selected_link.split("|")

@@ -5,7 +5,6 @@ from Code.Base import Position
 from Code.Base.Constantes import HIGHEST_VARIATIONS, BETTER_VARIATIONS
 from Code.Engines import EngineResponse
 from Code.Nags.Nags import NAG_0, NAG_1, NAG_2, NAG_3, NAG_4, NAG_5, NAG_6, html_nag_txt, html_nag_symbol
-from Code.Themes.Lichess import cook
 from Code.Translations import TrListas
 
 
@@ -191,7 +190,7 @@ class Move:
         return self.from_sq + self.to_sq + self.promotion
 
     def pgn_translated(self):
-        d_conv = TrListas.dConv()
+        d_conv = TrListas.dic_conv()
         li = [d_conv.get(c, c) for c in self.pgnBase]
         return "".join(li)
 
@@ -420,25 +419,6 @@ class Move:
             if variation.move(0).movimiento() == a1h8:
                 return False, True
         return False, False
-
-    def assign_themes_lichess(self):
-        if self.analysis:
-            for nag in self.li_nags:
-                if nag in (NAG_2, NAG_4, NAG_6):
-                    mrm, pos = self.analysis
-                    rm: EngineResponse.EngineResponse = mrm.li_rm[pos]
-                    li_pv = rm.getPV().split(" ")
-                    if len(li_pv) < 3:
-                        return
-                    pv = " ".join(li_pv[1:])
-                    try:
-                        li_themes = cook.get_tags(self.position.fen(), pv, rm.puntos)
-                        if li_themes:
-                            for theme in li_themes:
-                                self.add_theme(theme)
-                    except:
-                        pass
-                    return
 
     def list_all_moves(self):
         # Analysis including variations

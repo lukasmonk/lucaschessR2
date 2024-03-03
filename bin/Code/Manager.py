@@ -47,6 +47,8 @@ from Code.Base.Constantes import (
     GO_END,
     GO_FORWARD,
     GO_START,
+    GO_BACK2,
+    GO_FORWARD2,
     GT_OPENINGS,
     GT_POSITIONS,
     GT_TACTICS,
@@ -194,7 +196,7 @@ class Manager:
 
     def finManager(self):
         # se llama from_sq procesador.start, antes de borrar el manager
-        self.board.atajosRaton = None
+        self.board.atajos_raton = None
         if self.nonDistract:
             self.main_window.base.tb.setVisible(True)
 
@@ -294,7 +296,7 @@ class Manager:
         self.otherCandidates(li, position, li_c)
         return li_c
 
-    def atajosRaton(self, position, a1h8):
+    def atajos_raton(self, position, a1h8):
         if a1h8 is None or not self.board.pieces_are_active:
             self.atajosRatonReset()
             return
@@ -556,7 +558,7 @@ class Manager:
 
     def set_dispatcher(self, messenger):
         self.messenger = messenger
-        self.board.set_dispatcher(self.player_has_moved_base, self.atajosRaton)
+        self.board.set_dispatcher(self.player_has_moved_base, self.atajos_raton)
 
     def put_arrow_sc(self, from_sq, to_sq, lipvvar=None):
         self.board.remove_arrows()
@@ -675,10 +677,14 @@ class Manager:
             if row < 0 or (row == 0 and pos == 0 and starts_with_black):
                 self.ponteAlPrincipio()
                 return
+        elif tipo == GO_BACK2:
+            row -= 1
         elif tipo == GO_FORWARD:
             if not is_white:
                 row += 1
             is_white = not is_white
+        elif tipo == GO_FORWARD2:
+            row += 1
         elif tipo == GO_START:
             self.ponteAlPrincipio()
             return
@@ -751,6 +757,10 @@ class Manager:
             self.set_position(self.game.first_position)
             self.refresh_pgn()  # No se puede usar pgnRefresh, ya que se usa con gobottom en otros lados y aqui eso no funciona
         self.put_view()
+
+    def goto_current(self):
+        num_moves, nj, row, is_white = self.jugadaActual()
+        self.pgnMueve(row, is_white)
 
     def jugadaActual(self):
         game = self.game
@@ -1252,20 +1262,20 @@ class Manager:
         # Vista
         menuVista = menu.submenu(_("Show/hide"), Iconos.Vista())
         menuVista.opcion("vista_pgn_information", _("PGN information"),
-                         siChecked=self.main_window.is_active_information_pgn())
+                         is_ckecked=self.main_window.is_active_information_pgn())
         menuVista.separador()
-        menuVista.opcion("vista_capturas", _("Captured material"), siChecked=self.main_window.is_active_captures())
+        menuVista.opcion("vista_capturas", _("Captured material"), is_ckecked=self.main_window.is_active_captures())
         menuVista.separador()
         menuVista.opcion(
             "vista_analysis_bar",
             _("Analysis Bar"),
-            siChecked=self.main_window.is_active_analysisbar(),
+            is_ckecked=self.main_window.is_active_analysisbar(),
         )
         menuVista.separador()
         menuVista.opcion(
             "vista_bestmove",
             _("Arrow with the best move when there is an analysis"),
-            siChecked=self.configuration.x_show_bestmove,
+            is_ckecked=self.configuration.x_show_bestmove,
         )
         menu.separador()
 
@@ -1623,7 +1633,7 @@ class Manager:
             accion = resp[3:]
             if accion == "fichero":
                 resp = SelectFiles.salvaFichero(
-                    self.main_window, _("File to save"), self.configuration.x_save_folder, "png", False
+                    self.main_window, _("File to save"), self.configuration.save_folder(), "png", False
                 )
                 if resp:
                     self.board.save_as_img(resp, "png")
@@ -1750,7 +1760,7 @@ class Manager:
 
         dic = dict(GAME=self.game.save(True))
         extension = "lcsb"
-        file = self.configuration.x_save_lcsb
+        file = self.configuration.folder_save_lcsb()
         while True:
             file = SelectFiles.salvaFichero(self.main_window, _("File to save"), file, extension, False)
             if file:
@@ -1793,7 +1803,7 @@ class Manager:
         if siFichero:
             extension = "fns"
             resp = SelectFiles.salvaFichero(
-                self.main_window, _("File to save"), self.configuration.x_save_folder, extension, False
+                self.main_window, _("File to save"), self.configuration.save_folder(), extension, False
             )
             if resp:
                 if "." not in resp:
@@ -1816,9 +1826,8 @@ class Manager:
                         q.write(dato)
                     QTUtil2.message_bold(self.main_window, _X(_("Saved to %1"), resp))
                     direc = os.path.dirname(resp)
-                    if direc != self.configuration.x_save_folder:
-                        self.configuration.x_save_folder = direc
-                        self.configuration.graba()
+                    if direc != self.configuration.save_folder():
+                        self.configuration.set_save_folder(direc)
                 except:
                     QTUtil.ponPortapapeles(dato)
                     QTUtil2.message_error(

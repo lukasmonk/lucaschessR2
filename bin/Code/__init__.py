@@ -2,22 +2,24 @@ import os
 import ssl
 import sys
 
+from Code import Util
+
 current_dir = os.path.abspath(os.path.realpath(os.path.dirname(sys.argv[0])))
 if current_dir:
     os.chdir(current_dir)
 
 lucas_chess = None  # asignado en Translate
 
-folder_OS = os.path.join(current_dir, "OS", sys.platform)
+folder_OS = Util.opj(current_dir, "OS", sys.platform)
 
-folder_engines = os.path.join(folder_OS, "Engines")
+folder_engines = Util.opj(folder_OS, "Engines")
 sys.path.insert(0, folder_OS)
 sys.path.insert(0, os.path.realpath(os.curdir))
 
 folder_resources = os.path.realpath("../Resources")
 folder_root = os.path.realpath("..")
 
-pending = os.path.join(folder_root, "bin", "pending.py")
+pending = Util.opj(folder_root, "bin", "pending.py")
 if os.path.isfile(pending):
     with open(pending, "rt") as f:
         for linea in f:
@@ -28,7 +30,7 @@ if os.path.isfile(pending):
 def path_resource(*lista):
     p = folder_resources
     for x in lista:
-        p = os.path.join(p, x)
+        p = Util.opj(p, x)
     return os.path.realpath(p)
 
 
@@ -40,10 +42,10 @@ if is_linux:
     os.environ["XDG_SESSION_TYPE"] = "xcb"
 else:
     if not sys.argv[0].endswith(".py"):
-        os.environ["QT_PLUGIN_PATH"] = os.path.join(
+        os.environ["QT_PLUGIN_PATH"] = Util.opj(
             current_dir, "extlibs", "PySide2", "plugins"
         )
-        os.environ["QT_QPA_PLATFORM_PLUGIN_PATH"] = os.path.join(
+        os.environ["QT_QPA_PLATFORM_PLUGIN_PATH"] = Util.opj(
             current_dir, "extlibs", "PySide2", "plugins", "platform"
         )
     startfile = os.startfile
@@ -95,7 +97,7 @@ def relative_root(path):
 
 
 BASE_VERSION = "B"  # Para el control de updates que necesitan reinstalar entero
-VERSION = "R 2.11g"
+VERSION = "R 2.12"
 DEBUG = False
 DEBUG_ENGINES = False
 

@@ -1,7 +1,7 @@
 from PySide2 import QtCore, QtWidgets, QtGui
 
 import Code
-from Code.Base.Constantes import (GO_BACK, GO_END, GO_FORWARD, GO_START, ZVALUE_PIECE, ZVALUE_PIECE_MOVING, TOP_RIGHT,
+from Code.Base.Constantes import (GO_BACK, GO_END, GO_FORWARD, GO_START, GO_BACK2, GO_FORWARD2, ZVALUE_PIECE, ZVALUE_PIECE_MOVING, TOP_RIGHT,
                                   ON_TOOLBAR)
 from Code.QT import Colocacion
 from Code.QT import Controles
@@ -14,8 +14,8 @@ def dic_keys():
     return {
         QtCore.Qt.Key.Key_Left: GO_BACK,
         QtCore.Qt.Key.Key_Right: GO_FORWARD,
-        QtCore.Qt.Key.Key_Up: GO_BACK,
-        QtCore.Qt.Key.Key_Down: GO_FORWARD,
+        QtCore.Qt.Key.Key_Up: GO_BACK2,
+        QtCore.Qt.Key.Key_Down: GO_FORWARD2,
         QtCore.Qt.Key.Key_Home: GO_START,
         QtCore.Qt.Key.Key_End: GO_END,
     }

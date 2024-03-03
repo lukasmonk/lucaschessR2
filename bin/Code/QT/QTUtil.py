@@ -147,6 +147,7 @@ def center_on_widget(window):
 
     window.move(window.parent().mapToGlobal(QtCore.QPoint(x, y)))
 
+
 class EscondeWindow:
     def __init__(self, window):
         self.window = window
@@ -247,3 +248,8 @@ class EstadoWindow:
         self.maximizado = x == QtCore.Qt.WindowMaximized
         self.fullscreen = x == QtCore.Qt.WindowFullScreen
         self.active = x == QtCore.Qt.WindowActive
+
+
+def get_width_text(widget, text):
+    metrics = QtGui.QFontMetrics(widget.font())
+    return metrics.horizontalAdvance(text)

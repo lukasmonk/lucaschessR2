@@ -1,4 +1,3 @@
-import os
 import random
 
 from Code import Util
@@ -334,7 +333,6 @@ class Tactic:
 
     def leeDatos(self):
         with self.dbdatos() as db:
-
             def read_db(key, default):
                 v = db[key]
                 if v is None:
@@ -371,7 +369,7 @@ class Tactic:
             li = Util.listfiles(self.tactics.folder, key)
             lif.extend(li)
         else:
-            lif.append(os.path.join(self.tactics.folder, key))
+            lif.append(Util.opj(self.tactics.folder, key))
         return lif
 
     def calculaTotales(self):

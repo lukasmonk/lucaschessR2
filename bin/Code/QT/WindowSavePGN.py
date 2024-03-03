@@ -104,7 +104,7 @@ class WBaseSave(QtWidgets.QWidget):
     def history(self):
         menu = QTVarios.LCMenu(self, puntos=9)
         menu.setToolTip(_("To choose: <b>left button</b> <br>To erase: <b>right button</b>"))
-        rp = QTVarios.rondoPuntos()
+        rp = QTVarios.rondo_puntos()
         for pos, txt in enumerate(self.history_list):
             menu.opcion(pos, txt, rp.otro())
         pos = menu.lanza()
@@ -136,21 +136,20 @@ class WBaseSave(QtWidgets.QWidget):
             if op == 0:
                 if menu.siIzq:
                     folder, boxroom = li_tras[ntras]
-                    self.file = os.path.join(folder, boxroom)
+                    self.file = Util.opj(folder, boxroom)
                     self.show_file()
                 elif menu.siDer:
                     boxrooms.delete(ntras)
 
             elif op == 1:
                 resp = SelectFiles.salvaFichero(
-                    self, _("Boxrooms PGN"), self.configuration.x_save_folder + "/", "pgn", False
+                    self, _("Boxrooms PGN"), self.configuration.save_folder() + "/", "pgn", False
                 )
                 if resp:
                     resp = os.path.realpath(resp)
                     folder, boxroom = os.path.split(resp)
-                    if folder != self.configuration.x_save_folder:
-                        self.configuration.x_save_folder = folder
-                        self.configuration.graba()
+                    if folder != self.configuration.save_folder():
+                        self.configuration.set_save_folder(folder)
 
                     boxrooms.append(folder, boxroom)
 
@@ -423,7 +422,7 @@ class WSave(LCDialog.LCDialog):
     def history(self):
         menu = QTVarios.LCMenu(self, puntos=9)
         menu.setToolTip(_("To choose: <b>left button</b> <br>To erase: <b>right button</b>"))
-        rp = QTVarios.rondoPuntos()
+        rp = QTVarios.rondo_puntos()
         for pos, txt in enumerate(self.history_list):
             menu.opcion(pos, txt, rp.otro())
         pos = menu.lanza()
@@ -454,21 +453,20 @@ class WSave(LCDialog.LCDialog):
             if op == 0:
                 if menu.siIzq:
                     folder, boxroom = li_tras[ntras]
-                    self.file = os.path.join(folder, boxroom)
+                    self.file = Util.opj(folder, boxroom)
                     self.show_file()
                 elif menu.siDer:
                     boxrooms.delete(ntras)
 
             elif op == 1:
                 resp = SelectFiles.salvaFichero(
-                    self, _("Boxrooms PGN"), self.configuration.x_save_folder + "/", "pgn", False
+                    self, _("Boxrooms PGN"), self.configuration.save_folder() + "/", "pgn", False
                 )
                 if resp:
                     resp = os.path.realpath(resp)
                     folder, boxroom = os.path.split(resp)
-                    if folder != self.configuration.x_save_folder:
-                        self.configuration.x_save_folder = folder
-                        self.configuration.graba()
+                    if folder != self.configuration.save_folder():
+                        self.configuration.set_save_folder(folder)
 
                     boxrooms.append(folder, boxroom)
 
@@ -605,7 +603,7 @@ class WSave(LCDialog.LCDialog):
         if o_column.key == "ETIQUETA":
             lb, value = self.li_labels[row]
             ctra = lb.upper()
-            trad = TrListas.pgnLabel(lb)
+            trad = TrListas.pgn_label(lb)
             if trad != ctra:
                 key = trad
             else:

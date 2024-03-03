@@ -58,7 +58,7 @@ class ListBooks:
         ok_rd = False
 
         engine_rodent = Code.configuration.buscaRival("rodentii")
-        path_rodent = os.path.join(os.path.dirname(engine_rodent.path_exe), "rodent.bin")
+        path_rodent = Util.opj(os.path.dirname(engine_rodent.path_exe), "rodent.bin")
 
         for book in self.lista:
             if Util.same_path(book.path, Code.tbook):
@@ -168,15 +168,15 @@ class Book:
             if w > maxim:
                 maxim = w
 
-        listaJugadas = []
+        lista_jugadas = []
         for entry in li:
             pv = entry.pv()
             w = entry.weight
             pc = w * 100.0 / total if total else "?"
             from_sq, to_sq, promotion = pv[:2], pv[2:4], pv[4:]
             pgn = position.pgn_translated(from_sq, to_sq, promotion)
-            listaJugadas.append((from_sq, to_sq, promotion, "%-5s -%7.02f%% -%7d" % (pgn, pc, w), 1.0 * w / maxim))
-        return listaJugadas
+            lista_jugadas.append((from_sq, to_sq, promotion, "%-5s -%7.02f%% -%7d" % (pgn, pc, w), 1.0 * w / maxim))
+        return lista_jugadas
 
     def almListaJugadas(self, fen, extended=False):
         li = self.book.lista(self.path, fen)
@@ -274,21 +274,21 @@ class Book:
     def miraListaPV(self, fen, siMax, onlyone=True):
         li = self.book.lista(self.path, fen)
 
-        liResp = []
+        li_resp = []
         if siMax:
             maxim = -1
             for entry in li:
                 w = entry.weight
                 if w > maxim:
                     maxim = w
-                    liResp = [entry.pv()]
+                    li_resp = [entry.pv()]
                 elif w == maxim and not onlyone:
-                    liResp.append(entry.pv())
+                    li_resp.append(entry.pv())
         else:
             for entry in li:
-                liResp.append(entry.pv())
+                li_resp.append(entry.pv())
 
-        return liResp
+        return li_resp
 
 
 class Libro(Book):  # Cambio de denominación, error en restore wplayagainst engine
@@ -307,9 +307,9 @@ class BookGame(Book):
 
     def si_esta(self, fen, move):
         if self.activo:
-            listaJugadas = self.get_list_moves(fen)
-            if listaJugadas:
-                for apdesde, aphasta, appromotion, nada, nada1 in listaJugadas:
+            lista_jugadas = self.get_list_moves(fen)
+            if lista_jugadas:
+                for apdesde, aphasta, appromotion, nada, nada1 in lista_jugadas:
                     mx = apdesde + aphasta + appromotion
                     if mx.strip().lower() == move:
                         return True

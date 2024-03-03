@@ -1,6 +1,7 @@
 import os
 import shutil
 
+from Code import Util
 from Code.Odt import XML
 
 
@@ -121,13 +122,13 @@ class Content(XML.XML):
 
     def run(self, folder):
         if self.li_path_png:
-            folder_pictures = os.path.join(folder, "Pictures")
+            folder_pictures = Util.opj(folder, "Pictures")
             os.mkdir(folder_pictures)
             for pos, path_ori in enumerate(self.li_path_png):
-                path_dest = os.path.join(folder, self.fmt_png % pos)
+                path_dest = Util.opj(folder, self.fmt_png % pos)
                 shutil.copy(path_ori, path_dest)
 
-        path_content = os.path.join(folder, "content.xml")
+        path_content = Util.opj(folder, "content.xml")
         self.save(path_content)
 
     def add_style_paragraph(self, name, bold, align=None, fontsize=None):

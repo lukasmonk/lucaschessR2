@@ -419,16 +419,16 @@ class WTranslate(LCDialog.LCDialog):
         menu = QTVarios.LCMenu(self)
         submenu = menu.submenu("Reordering", Iconos.SortAZ())
         subsubmenu = submenu.submenu("Automatic reordering", Iconos.PuntoVerde())
-        subsubmenu.opcion("enabled", "Enabled", siChecked=self.automatic_reorder)
+        subsubmenu.opcion("enabled", "Enabled", is_ckecked=self.automatic_reorder)
         subsubmenu.separador()
-        subsubmenu.opcion("disabled", "Disabled", siChecked=not self.automatic_reorder)
+        subsubmenu.opcion("disabled", "Disabled", is_ckecked=not self.automatic_reorder)
         submenu.separador()
         subsubmenu = submenu.submenu("What to reorder", Iconos.PuntoAzul())
-        subsubmenu.opcion("reorder_all", "Reorder all", siChecked=self.reorder_type == self.REORDER_ALL)
+        subsubmenu.opcion("reorder_all", "Reorder all", is_ckecked=self.reorder_type == self.REORDER_ALL)
         subsubmenu.opcion(
             "reorder_untranslated",
             "Reorder only untranslated",
-            siChecked=self.reorder_type == self.REORDER_UNTRANSLATED,
+            is_ckecked=self.reorder_type == self.REORDER_UNTRANSLATED,
         )
 
         li_traducciones = self.configuration.list_translations()
@@ -442,12 +442,12 @@ class WTranslate(LCDialog.LCDialog):
         li_ref = [("By default", "")]
         li_ref.extend(li_trans)
         for trad, key in li_ref:
-            subsubmenu.opcion("main" + key, trad, siChecked=key == self.main_reference)
+            subsubmenu.opcion("main" + key, trad, is_ckecked=key == self.main_reference)
 
         submenu.separador()
         subsubmenu = submenu.submenu("Secondary reference", Iconos.PuntoAmarillo())
         for trad, key in li_trans:
-            subsubmenu.opcion("sec" + key, trad, siChecked=key in self.secondary_references)
+            subsubmenu.opcion("sec" + key, trad, is_ckecked=key in self.secondary_references)
 
         resp = menu.lanza()
         if not resp:

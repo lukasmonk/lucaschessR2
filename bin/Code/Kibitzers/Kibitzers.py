@@ -1,3 +1,5 @@
+import os.path
+
 from PySide2 import QtGui
 
 import Code
@@ -14,6 +16,7 @@ from Code.Base.Constantes import (
     KIB_BESTMOVE,
     KIB_STOCKFISH,
 )
+from Code.Books import Books
 from Code.Engines import Engines
 from Code.Engines import Priorities
 from Code.QT import Iconos
@@ -106,6 +109,20 @@ class Kibitzer(Engines.Engine):
         if self.tipo in (KIB_GAVIOTA, KIB_POLYGLOT):
             return
         Engines.Engine.read_uci_options(self)
+
+    def restore(self, txt):
+        Engines.Engine.restore(self, txt)
+        if self.tipo in (KIB_CANDIDATES, KIB_BESTMOVE, KIB_BESTMOVE_ONELINE, KIB_THREATS, KIB_STOCKFISH):
+            if not os.path.isfile(self.path_exe):
+                eng = Code.configuration.buscaRival(self.alias)
+                if eng:
+                    self.path_exe = eng.path_exe
+        elif self.tipo == KIB_POLYGLOT:
+            if not os.path.isfile(self.path_exe):
+                lbooks = Books.ListBooks()
+                book = lbooks.seek_book(self.key)
+                if book:
+                    self.path_exe = book.path
 
 
 class Kibitzers:
@@ -225,5 +242,11 @@ class Kibitzers:
         return len(self.lista) - 1
 
     def lista_menu(self):
-        dIco = Tipos().dicIconos()
-        return [(kib.huella, kib.name, dIco[kib.tipo]) for kib in self.lista if kib.visible]
+        d_ico = Tipos().dicIconos()
+        li = []
+        for kib in self.lista:
+            if (kib.tipo in (KIB_CANDIDATES, KIB_BESTMOVE, KIB_BESTMOVE_ONELINE, KIB_POLYGLOT,
+                             KIB_THREATS, KIB_STOCKFISH) and not os.path.isfile(kib.path_exe)):
+                continue
+            li.append((kib.huella, kib.name, d_ico[kib.tipo]))
+        return li

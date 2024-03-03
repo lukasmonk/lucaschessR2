@@ -71,7 +71,7 @@ class WFactoryPolyglots(LCDialog.LCDialog):
         self.edit()
 
     def run_edit(self, filename):
-        self.resultado = os.path.join(Code.configuration.folder_polyglots_factory(), filename)
+        self.resultado = Util.opj(Code.configuration.folder_polyglots_factory(), filename)
         self.save_video()
         self.accept()
 
@@ -84,7 +84,7 @@ class WFactoryPolyglots(LCDialog.LCDialog):
             resp = form.run()
             if resp:
                 name = resp[1][0]
-                path = os.path.join(self.configuration.folder_polyglots_factory(), name + ".lcbin")
+                path = Util.opj(self.configuration.folder_polyglots_factory(), name + ".lcbin")
                 if os.path.isfile(path):
                     QTUtil2.message_error(self, "%s\n%s" % (_("This file already exists"), path))
                 else:
@@ -101,7 +101,7 @@ class WFactoryPolyglots(LCDialog.LCDialog):
             self.run_edit(path)
 
     def path_db(self, filename):
-        return os.path.join(Code.configuration.folder_polyglots_factory(), filename)
+        return Util.opj(Code.configuration.folder_polyglots_factory(), filename)
 
     def copy(self):
         recno = self.glista.recno()
@@ -109,7 +109,7 @@ class WFactoryPolyglots(LCDialog.LCDialog):
             path = self.get_new_path(self.list_db[recno]["FILENAME"][:-6])
             if path:
                 folder = Code.configuration.folder_polyglots_factory()
-                shutil.copy(self.path_db(self.list_db[recno]["FILENAME"]), os.path.join(folder, path))
+                shutil.copy(self.path_db(self.list_db[recno]["FILENAME"]), Util.opj(folder, path))
                 self.update()
                 self.glista.refresh()
 

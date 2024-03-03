@@ -15,7 +15,7 @@ from Code.Base.Constantes import (
     BLUNDER,
 )
 from Code.Engines import Engines, WEngines
-from Code.Engines import Priorities
+from Code.Engines import Priorities, CheckEngines
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles
@@ -447,7 +447,7 @@ class WConfExternals(QtWidgets.QWidget):
     def importar(self):
         menu = QTVarios.LCMenu(self)
         lista = Code.configuration.combo_engines()
-        nico = QTVarios.rondoPuntos()
+        nico = QTVarios.rondo_puntos()
         for name, key in lista:
             menu.opcion(key, name, nico.otro())
 
@@ -806,13 +806,24 @@ class WOthers(QtWidgets.QWidget):
         self.bt_gaviota_remove = Controles.PB(self, "", self.remove_gaviota).ponIcono(Iconos.Delete())
         ly_gav = Colocacion.H().control(self.bt_gaviota).control(self.bt_gaviota_remove).relleno()
 
+        lb_stockfish = Controles.LB2P(self, "Stockfish")
+        self.lb_stockfish_version = Controles.LB(self, CheckEngines.current_stockfish()).ponTipoLetra(peso=500, puntos=11)
+        self.lb_stockfish_version.setStyleSheet("border:1px solid gray;padding:3px")
+        bt_stockfish = Controles.PB(self, "", self.change_stockfish).ponIcono(Iconos.Reiniciar()).ponToolTip(_("Update"))
+        ly_stk = Colocacion.H().control(self.lb_stockfish_version).control(bt_stockfish).relleno()
+
+        sep = 40
         layout = Colocacion.G()
         layout.controld(lb_maia, 0, 0)
         layout.control(self.cb_maia, 0, 1)
+        layout.filaVacia(1, sep)
         layout.controld(lb_gaviota, 2, 0)
         layout.otro(ly_gav, 2, 1)
+        layout.filaVacia(3, sep)
+        layout.controld(lb_stockfish, 4, 0)
+        layout.otro(ly_stk, 4, 1)
 
-        layoutg = Colocacion.V().otro(layout).relleno().margen(30)
+        layoutg = Colocacion.V().espacio(sep).otro(layout).relleno().margen(30)
 
         self.setLayout(layoutg)
 
@@ -832,6 +843,12 @@ class WOthers(QtWidgets.QWidget):
         self.gaviota = Code.configuration.carpeta_gaviota_defecto()
         self.set_gaviota()
         self.save()
+
+    def change_stockfish(self):
+        self.lb_stockfish_version.set_text("")
+        CheckEngines.check_stockfish(self.owner, True)
+        self.lb_stockfish_version.set_text(CheckEngines.current_stockfish())
+
 
     def save(self):
         self.configuration.x_carpeta_gaviota = self.gaviota

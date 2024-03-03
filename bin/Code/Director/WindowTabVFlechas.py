@@ -40,7 +40,7 @@ class WTV_Flecha(QtWidgets.QDialog):
 
         # Board
         config_board = owner.board.config_board.copia(owner.board.config_board.id())
-        config_board.anchoPieza(36)
+        config_board.width_piece(36)
         self.board = Board.Board(self, config_board, siDirector=False)
         self.board.crea()
         self.board.copiaPosicionDe(owner.board)
@@ -77,7 +77,7 @@ class WTV_Flecha(QtWidgets.QDialog):
         li_gen.append((config, regFlecha.color))
 
         # ( "colorinterior", "n", -1 ), # si es cerrada
-        config = FormLayout.Colorbox(_("Internal color"), 80, 20, siChecked=True)
+        config = FormLayout.Colorbox(_("Internal color"), 80, 20, is_ckecked=True)
         li_gen.append((config, regFlecha.colorinterior))
 
         # ( "opacity", "n", 1.0 ),

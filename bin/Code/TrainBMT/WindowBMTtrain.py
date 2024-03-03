@@ -6,7 +6,8 @@ from Code import ControlPGN
 from Code import Util
 from Code.Analysis import Analysis
 from Code.Base import Game, Position
-from Code.Base.Constantes import GT_BMT, GO_BACK, GO_END, GO_FORWARD, GO_START
+from Code.Base.Constantes import GT_BMT, GO_BACK, GO_END, GO_FORWARD, GO_START, GO_BACK2, GO_FORWARD2
+
 from Code.Board import Board
 from Code.QT import Colocacion
 from Code.QT import Columnas
@@ -82,7 +83,7 @@ class WTrainBMT(LCDialog.LCDialog):
         self.trPuntos = "<big><b>" + _("Score") + "<br>%s</b></big>"
         self.trSegundos = "<big><b>" + _("Time") + "<br>%s</b></big>"
         self.lbPuntos = Controles.LB(self, "").set_color_background(colorFondo).align_center().anchoMinimo(80)
-        self.lbSegundos = Controles.LB(self, "").set_color_background(colorFondo).align_center().anchoMinimo(80)
+        self.lb_segundos = Controles.LB(self, "").set_color_background(colorFondo).align_center().anchoMinimo(80)
         self.texto_lbPrimera = _("* indicates actual move played in game")
         self.ptsMejor = 0
         self.ptsPrimero = 0
@@ -176,7 +177,7 @@ class WTrainBMT(LCDialog.LCDialog):
         self.restore_video(siTam=False)
 
         # Colocamos ---------------------------------------------------------------
-        lyPS = Colocacion.H().relleno().control(self.lbPuntos).relleno(2).control(self.lbSegundos).relleno()
+        lyPS = Colocacion.H().relleno().control(self.lbPuntos).relleno(2).control(self.lb_segundos).relleno()
         lyV = Colocacion.V().otro(lyPS).control(self.pgn).control(self.gbRM).control(self.lbPrimera)
         lyT = (
             Colocacion.V()
@@ -203,7 +204,7 @@ class WTrainBMT(LCDialog.LCDialog):
                 self.lbJuegan,
                 self.board,
                 self.lbPuntos,
-                self.lbSegundos,
+                self.lb_segundos,
                 self.lbPrimera,
                 self.lb_conditions,
                 self.lb_game,
@@ -394,7 +395,7 @@ class WTrainBMT(LCDialog.LCDialog):
         self.siMostrarPGN = False
         self.pgn.refresh()
         self.lbPuntos.set_text("")
-        self.lbSegundos.set_text("")
+        self.lb_segundos.set_text("")
         self.lbJuegan.set_text("")
         self.lbPrimera.set_text(self.texto_lbPrimera)
         self.lbPrimera.setVisible(False)
@@ -505,10 +506,14 @@ class WTrainBMT(LCDialog.LCDialog):
             if row < 0 or (row == 0 and pos == 0 and starts_with_black):
                 self.ponteAlPrincipio()
                 return
+        elif tipo == GO_BACK2:
+            row -= 1
         elif tipo == GO_FORWARD:
             if not is_white:
                 row += 1
             is_white = not is_white
+        elif tipo == GO_FORWARD2:
+            row += 1
         elif tipo == GO_START:  # Inicio
             self.ponteAlPrincipio()
             return
@@ -593,7 +598,7 @@ class WTrainBMT(LCDialog.LCDialog):
 
         if eti != self.antTxtSegundos:
             self.antTxtSegundos = eti
-            self.lbSegundos.set_text(eti)
+            self.lb_segundos.set_text(eti)
 
     def buscaPrimero(self, from_sq):
         # Buscamos el primero que no se ha terminado
@@ -844,9 +849,9 @@ class WTrainBMT(LCDialog.LCDialog):
     def muestra(self, num):
         for n, bt in enumerate(self.liBTrm):
             f = bt.font()
-            siBold = f.bold()
-            if (num == n and not siBold) or (num != n and siBold):
-                f.setBold(not siBold)
+            bold = f.bold()
+            if (num == n and not bold) or (num != n and bold):
+                f.setBold(not bold)
                 bt.setFont(f)
             bt.set_pordefecto(num == n)
 

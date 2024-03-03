@@ -85,7 +85,7 @@ class DBPolyglot:
         return rowid
 
     def import_previous(self):
-        old_folder = os.path.join(Code.configuration.folder_polyglots_factory(), "old")
+        old_folder = Util.opj(Code.configuration.folder_polyglots_factory(), "old")
         mkbin_path = self.path[:-5] + "mkbin"
         if os.path.isfile(mkbin_path):
             pol_mkbin = FasterCode.Polyglot(mkbin_path)

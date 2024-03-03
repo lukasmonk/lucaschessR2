@@ -163,7 +163,7 @@ padding: 2px;"""
             self.li_current_moves[pos].setFocus()
 
     def check_line(self):
-        d_conv = TrListas.dConv()
+        d_conv = TrListas.dic_conv()
         for ed in self.li_current_moves:
             ed.setStyleSheet(self.style_normal)
 

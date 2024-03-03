@@ -1,4 +1,4 @@
-import os
+from Code import Util
 from Code.Odt import XML
 
 
@@ -603,7 +603,7 @@ class Styles(XML.XML):
         element109.set_later("/")
 
     def run(self, folder):
-        path = os.path.join(folder, "styles.xml")
+        path = Util.opj(folder, "styles.xml")
         self.save(path)
 
     def landscape(self):

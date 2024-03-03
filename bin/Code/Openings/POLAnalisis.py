@@ -4,8 +4,8 @@ import FasterCode
 from PySide2 import QtWidgets, QtCore
 
 import Code
-from Code.Base.Constantes import WHITE, BLACK
 from Code.Base import Game, Position
+from Code.Base.Constantes import WHITE, BLACK
 from Code.Books import Books, WBooks
 from Code.Databases import WDB_Summary, DBgamesST, WDB_Games, DBgames
 from Code.Openings import OpeningLines
@@ -15,9 +15,9 @@ from Code.QT import Controles
 from Code.QT import Delegados
 from Code.QT import Grid
 from Code.QT import Iconos
-from Code.QT import QTVarios
 from Code.QT import QTUtil
 from Code.QT import QTUtil2
+from Code.QT import QTVarios
 
 
 class TabEngine(QtWidgets.QWidget):
@@ -55,7 +55,7 @@ class TabEngine(QtWidgets.QWidget):
         lb_multipv = Controles.LB(self, _("Multi PV") + ": ")
         self.sb_multipv = Controles.SB(self, multipv, 1, 500).tamMaximo(50)
 
-        self.lb_analisis = Controles.LB(self, "").ponTipoLetra(puntos=configuration.x_pgn_fontpoints)
+        self.lb_analisis = Controles.LB(self, "").ponTipoLetra(puntos=configuration.x_pgn_fontpoints).set_wrap()
         self.configuration.set_property(self.lb_analisis, "pgn")
 
         o_columns = Columnas.ListaColumnas()
@@ -543,10 +543,10 @@ class TreeMoves(QtWidgets.QTreeWidget):
 
 
 class TabTree(QtWidgets.QWidget):
-    def __init__(self, tabsAnalisis, configuration):
+    def __init__(self, tabs_analisis, configuration):
         QtWidgets.QWidget.__init__(self)
 
-        self.tabsAnalisis = tabsAnalisis
+        self.tabsAnalisis = tabs_analisis
 
         self.tree = TreeMoves(self)
 
@@ -554,7 +554,7 @@ class TabTree(QtWidgets.QWidget):
 
         self.tree.setAlternatingRowColors(True)
 
-        self.tree.setIndentation(24)
+        # self.tree.setIndentation(24)
         self.tree.setUniformRowHeights(True)
         self.tree.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
         self.tree.customContextMenuRequested.connect(self.menuContexto)
@@ -580,12 +580,16 @@ class TabTree(QtWidgets.QWidget):
         )
 
         self.tree.setFont(Controles.TipoLetra(puntos=configuration.x_pgn_fontpoints))
-        self.tree.setHeaderLabels((_("Moves"), _("Opening")))
+        self.tree.setHeaderLabels((_("Moves"),))
 
-        bt_act = Controles.PB(self, _("Update"), self.bt_update, plano=False).ponIcono(Iconos.Pelicula_Seguir(), 16)
-        self.lb_analisis = Controles.LB(self, "").ponTipoLetra(puntos=configuration.x_pgn_fontpoints)
+        bt_act = Controles.PB(self, _("Update"), self.bt_update, plano=False).ponIcono(Iconos.Actualiza(), 16)
+        bt_act.anchoFijo(QTUtil.get_width_text(bt_act, " " + _("Update")) + 50)
+
+        gamebase = self.tabsAnalisis.dbop.getgamebase()
+        self.pgn_initial = gamebase.pgn_translated()
+        self.lb_analisis = Controles.LB(self, self.pgn_initial).ponTipoLetra(puntos=configuration.x_pgn_fontpoints).set_wrap()
         Code.configuration.set_property(self.lb_analisis, "pgn")
-        ly_act = Colocacion.H().control(bt_act).control(self.lb_analisis).relleno(1)
+        ly_act = Colocacion.H().control(bt_act).control(self.lb_analisis)
 
         layout = Colocacion.V().otro(ly_act).control(self.tree)
         self.setLayout(layout)
@@ -600,7 +604,6 @@ class TabTree(QtWidgets.QWidget):
             lipv = data_item.listaPV()
             li_moves_childs = [xchild.move for xchild in data_item.dicHijos.values()]
             self.tabsAnalisis.panelOpening.goto_next_lipv(lipv, li_moves_childs)
-        self.tree.resizeColumnToContents(0)
 
     def bt_update(self):
         with QTUtil2.OneMomentPlease(self.parent().parent().parent(), with_cancel=True) as um:
@@ -616,11 +619,11 @@ class TabTree(QtWidgets.QWidget):
                     if um.is_canceled():
                         return False
                     item = QtWidgets.QTreeWidgetItem(iparent)
-                    item.setText(0, hijo.pgn)
-                    item.setText(1, hijo.opening)
+                    txt = hijo.pgn
+                    if hijo.opening:
+                        txt += f"  {hijo.opening}"
+                    item.setText(0, txt)
                     hijo.item = item
-                    if nivel < (levelbase + 1):
-                        item.setExpanded(True)
                     self.dicItems[str(item)] = hijo
                     if not haz(hijo, item, nivel + 1):
                         return False
@@ -628,10 +631,14 @@ class TabTree(QtWidgets.QWidget):
 
             self.tree_data = self.tabsAnalisis.dbop.totree(um)
 
-            haz(self.tree_data, self.tree, 1)
-            self.tree.resizeColumnToContents(0)
+            tr = self.tree_data
+            for pos in range(levelbase):
+                for move, hijo in tr.dicHijos.items():
+                    tr = hijo
 
-            self.lb_analisis.set_text("")
+            haz(tr, self.tree, 1)
+
+            self.lb_analisis.set_text(self.pgn_initial)
 
     def start(self):
         if len(self.dicItems) == 0:
@@ -714,7 +721,7 @@ class TabTree(QtWidgets.QWidget):
 
             data = self.dicItems[str(quien)] if quien else self.tree_data
             work(data)
-            self.tree.resizeColumnToContents(0)
+            # self.tree.resizeColumnToContents(0)
 
     def goto_next(self, item: QtWidgets.QTreeWidgetItem, side):
         def work(xdata: OpeningLines.ItemTree):
@@ -735,7 +742,7 @@ class TabTree(QtWidgets.QWidget):
             self.tree.setCurrentItem(xitem)
             self.tree.show()
             QTUtil.refresh_gui()
-            self.tree.resizeColumnToContents(0)
+            # self.tree.resizeColumnToContents(0)
             self.tree.setFocus()
             self.seleccionado()
 
@@ -928,7 +935,7 @@ class TabsAnalisis(QtWidgets.QWidget):
     def seleccionaLibro(self):
         list_books = Books.ListBooks()
         menu = QTVarios.LCMenu(self)
-        rondo = QTVarios.rondoPuntos()
+        rondo = QTVarios.rondo_puntos()
         for book in list_books.lista:
             menu.opcion(("x", book), book.name, rondo.otro())
             menu.separador()

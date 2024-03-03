@@ -1,5 +1,3 @@
-import os
-
 from PySide2 import QtCore, QtWidgets
 
 import Code
@@ -32,7 +30,7 @@ class IPCAnalysis:
         configuration = Code.configuration
 
         folder_tmp = Code.configuration.temporary_folder()
-        filebase = os.path.join(folder_tmp, huella + f"_{num_worker}")
+        filebase = Util.opj(folder_tmp, huella + f"_{num_worker}")
         file_send = filebase + "_send.sqlite"
         file_receive = filebase + "_receive.sqlite"
 

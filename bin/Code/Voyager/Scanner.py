@@ -1,5 +1,3 @@
-import os
-
 from PySide2 import QtCore, QtGui, QtWidgets
 
 from Code import Util
@@ -9,7 +7,7 @@ from Code.QT import Iconos
 
 class ScannerVars:
     def __init__(self, folder_scanners):
-        self.fich_vars = os.path.join(folder_scanners, "last.data64")
+        self.fich_vars = Util.opj(folder_scanners, "last.data64")
         self.read()
 
     def read(self):

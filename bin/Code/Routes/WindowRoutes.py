@@ -130,7 +130,7 @@ class WTranssiberian(LCDialog.LCDialog):
                 route.time(),
                 _("Total"),
                 route.time(Routes.PLAYING),
-                _("Playing"),
+                _("Games"),
                 route.time(Routes.BETWEEN),
                 _("Tactics"),
                 route.time(Routes.ENDING),
@@ -206,7 +206,7 @@ class WTranssiberian(LCDialog.LCDialog):
 
         menu.separador()
         smenu = menu.submenu(_("Change level"), Iconos.Modificar())
-        rondo = QTVarios.rondoPuntos()
+        rondo = QTVarios.rondo_puntos()
         level = self.route.level
         for lv in range(1, 6):
             if lv != level:

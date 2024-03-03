@@ -326,7 +326,7 @@ class STS:
         folder = Code.configuration.carpetaSTS
         if not os.path.isdir(folder):
             os.mkdir(folder)
-        return os.path.join(folder, "%s.sts" % self.name)
+        return Util.opj(folder, "%s.sts" % self.name)
 
     def restore(self):
         dic = Util.restore_pickle(self.path())

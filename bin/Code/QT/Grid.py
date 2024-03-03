@@ -37,8 +37,8 @@ class ControlGrid(QtCore.QAbstractTableModel):
         self.siColorFondo = hasattr(self.w_parent, "grid_color_fondo")
         self.siAlineacion = hasattr(self.w_parent, "grid_alineacion")
         self.font = grid.font()
-        self.siBold = hasattr(self.w_parent, "grid_bold")
-        if self.siBold:
+        self.bold = hasattr(self.w_parent, "grid_bold")
+        if self.bold:
             self.bfont = QtGui.QFont(self.font)
             self.bfont.setWeight(75)
 
@@ -110,7 +110,7 @@ class ControlGrid(QtCore.QAbstractTableModel):
                 if resp:
                     return resp
             return column.qtColorTexto
-        elif self.siBold and role == QtCore.Qt.FontRole:
+        elif self.bold and role == QtCore.Qt.FontRole:
             if self.w_parent.grid_bold(self.grid, index.row(), column):
                 return self.bfont
             return None
@@ -140,7 +140,7 @@ class ControlGrid(QtCore.QAbstractTableModel):
         if column.is_editable:
             flag |= QtCore.Qt.ItemIsEditable
 
-        if column.siChecked:
+        if column.is_ckecked:
             flag |= QtCore.Qt.ItemIsUserCheckable
         return flag
 
@@ -463,7 +463,7 @@ class Grid(QtWidgets.QTableView):
         elif button == QtCore.Qt.LeftButton:
             if fil < 0:
                 return
-            if col.siChecked:
+            if col.is_ckecked:
                 value = self.w_parent.grid_dato(self, fil, col)
                 self.w_parent.grid_setvalue(self, fil, col, not value)
                 self.refresh()

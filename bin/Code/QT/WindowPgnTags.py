@@ -109,7 +109,7 @@ class WTagsPGN(LCDialog.LCDialog):
         if o_column.key == "ETIQUETA":
             lb = self.li_pgn[row][0]
             ctra = lb.upper()
-            trad = TrListas.pgnLabel(lb)
+            trad = TrListas.pgn_label(lb)
             if trad != ctra:
                 key = trad
             else:
@@ -170,7 +170,7 @@ def menu_pgn_labels(wowner, game) -> bool:
     is_opening = False
     is_eco = False
     for key, valor in game.li_tags:
-        trad = TrListas.pgnLabel(key)
+        trad = TrListas.pgn_label(key)
         if trad != key:
             key = trad
         menu.opcion(key, "%s : %s" % (key, valor), Iconos.PuntoAzul())

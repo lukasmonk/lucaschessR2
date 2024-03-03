@@ -5,6 +5,7 @@ import time
 import FasterCode
 
 import Code
+from Code import Util
 from Code.Base.Constantes import ADJUST_SELECTED_BY_PLAYER
 from Code.Engines import Priorities, EngineResponse, EngineRunDirect, EngineRun
 from Code.QT import QTUtil2
@@ -559,10 +560,10 @@ class EngineManager:
     def log_open(self):
         if self.ficheroLog:
             return
-        carpeta = os.path.join(Code.configuration.carpeta, "EngineLogs")
+        carpeta = Util.opj(Code.configuration.carpeta, "EngineLogs")
         if not os.path.isdir(carpeta):
             os.mkdir(carpeta)
-        plantlog = "%s_%%05d" % os.path.join(carpeta, self.name)
+        plantlog = "%s_%%05d" % Util.opj(carpeta, self.name)
         pos = 1
         nomlog = plantlog % pos
 

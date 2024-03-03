@@ -402,7 +402,7 @@ class WBoardColors(LCDialog.LCDialog):
         l2mas1(lyG, 1, lbTipoLetra, self.cbTipoLetra, self.chbDefTipoLetra)
 
         # _cBold
-        self.chbBold = Controles.CHB(self, _("Bold"), self.config_board.siBold()).capture_changes(
+        self.chbBold = Controles.CHB(self, _("Bold"), self.config_board.bold()).capture_changes(
             self, self.actualizaBoardM
         )
         self.chbDefBold = xDefecto(self.config_board.siDefBold())
@@ -728,7 +728,7 @@ class WBoardColors(LCDialog.LCDialog):
         self.chbDefCoordenadas.set_value(ct.siDefCoordenadas())
         self.cbTipoLetra.setCurrentFont(QtGui.QFont(ct.tipoLetra()))
         self.chbDefTipoLetra.set_value(ct.siDefTipoLetra())
-        self.chbBold.set_value(ct.siBold())
+        self.chbBold.set_value(ct.bold())
         self.chbDefBold.set_value(ct.siDefBold())
         self.sbTamLetra.set_value(ct.tamLetra())
         self.chbDefTamLetra.set_value(ct.siDefTamLetra())
@@ -757,7 +757,7 @@ class WBoardColors(LCDialog.LCDialog):
         ct = self.config_board
         for chb, obj, xv in (
             (self.chbDefCoordenadas, self.cbCoordenadas, ct.nCoordenadas),
-            (self.chbDefBold, self.chbBold, ct.siBold),
+            (self.chbDefBold, self.chbBold, ct.bold),
             (self.chbDefTamLetra, self.sbTamLetra, ct.tamLetra),
             (self.chbDefSepLetras, self.sbSepLetras, ct.sepLetras),
             (self.chbDefPiezas, self.cbPiezas, ct.nomPiezas),

@@ -663,7 +663,7 @@ class WUnSTS(LCDialog.LCDialog):
                     return
 
     def export(self):
-        resp = SelectFiles.salvaFichero(self, _("CSV file"), Code.configuration.x_save_folder, "csv", True)
+        resp = SelectFiles.salvaFichero(self, _("CSV file"), Code.configuration.save_folder(), "csv", True)
         if resp:
             self.sts.writeCSV(resp)
 
@@ -905,8 +905,8 @@ class WSTS(LCDialog.LCDialog):
             nombreOri = self.nombreNum(n)
             nombreDest = self.editNombre(nombreOri)
             if nombreDest:
-                pathOri = os.path.join(self.carpetaSTS, nombreOri + ".sts")
-                pathDest = os.path.join(self.carpetaSTS, nombreDest + ".sts")
+                pathOri = Util.opj(self.carpetaSTS, nombreOri + ".sts")
+                pathDest = Util.opj(self.carpetaSTS, nombreDest + ".sts")
                 shutil.move(pathOri, pathDest)
                 self.reread()
 
@@ -921,7 +921,7 @@ class WSTS(LCDialog.LCDialog):
                 if name:
                     if not siNuevo and previo == name:
                         return None
-                    path = os.path.join(self.carpetaSTS, name + ".sts")
+                    path = Util.opj(self.carpetaSTS, name + ".sts")
                     if os.path.isfile(path):
                         QTUtil2.message_error(self, _("The file %s already exist") % name)
                         continue
@@ -940,7 +940,7 @@ class WSTS(LCDialog.LCDialog):
         if n >= 0:
             name = self.nombreNum(n)
             if QTUtil2.pregunta(self, _X(_("Delete %1?"), name)):
-                path = os.path.join(self.carpetaSTS, name + ".sts")
+                path = Util.opj(self.carpetaSTS, name + ".sts")
                 os.remove(path)
                 self.reread()
 

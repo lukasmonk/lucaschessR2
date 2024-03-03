@@ -274,7 +274,7 @@ class EMSQL(Controles.EM):
         Controles.EM.mousePressEvent(self, event)
         if event.button() == QtCore.Qt.RightButton:
             menu = QTVarios.LCMenu(self)
-            rondo = QTVarios.rondoPuntos()
+            rondo = QTVarios.rondo_puntos()
             for txt, key in self.li_fields:
                 menu.opcion(key, txt, rondo.otro())
             resp = menu.lanza()
@@ -377,8 +377,8 @@ def create_tactics(procesador, wowner, li_registros_selected, li_registros_total
     nregs = len(li_registros)
 
     rest_dir = Util.valid_filename(menuname)
-    nom_dir = os.path.join(Code.configuration.folder_tactics(), rest_dir)
-    nom_ini = os.path.join(nom_dir, "Config.ini")
+    nom_dir = Util.opj(Code.configuration.folder_tactics(), rest_dir)
+    nom_ini = Util.opj(nom_dir, "Config.ini")
     if os.path.isfile(nom_ini):
         dic_ini = Util.ini2dic(nom_ini)
         n = 1
@@ -397,10 +397,10 @@ def create_tactics(procesador, wowner, li_registros_selected, li_registros_total
         Util.create_folder(nom_dir)
         nom_tactic = "TACTIC1"
         dic_ini = {}
-    nom_fns = os.path.join(nom_dir, "Puzzles.fns")
+    nom_fns = Util.opj(nom_dir, "Puzzles.fns")
     if os.path.isfile(nom_fns):
         n = 1
-        nom_fns = os.path.join(nom_dir, "Puzzles-%d.fns")
+        nom_fns = Util.opj(nom_dir, "Puzzles-%d.fns")
         while os.path.isfile(nom_fns % n):
             n += 1
         nom_fns = nom_fns % n

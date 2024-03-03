@@ -1,5 +1,7 @@
-import os
 import datetime
+import os
+
+from Code import Util
 from Code.Odt import XML
 
 
@@ -41,7 +43,7 @@ class Manifest(XML.XML):
         element9.add_content(element10)
 
     def run(self, folder):
-        path_manifest = os.path.join(folder, "manifest.rdf")
+        path_manifest = Util.opj(folder, "manifest.rdf")
         self.save(path_manifest)
 
 
@@ -76,7 +78,7 @@ class Meta(XML.XML):
         # element4.set_value("Lucas Chess")
 
     def run(self, folder):
-        path_manifest = os.path.join(folder, "meta.xml")
+        path_manifest = Util.opj(folder, "meta.xml")
         self.save(path_manifest)
 
 
@@ -135,7 +137,7 @@ class MetaINF(XML.XML):
         self.add_content(element)
 
     def run(self, folder):
-        folder_meta = os.path.join(folder, "META-INF")
+        folder_meta = Util.opj(folder, "META-INF")
         os.mkdir(folder_meta)
-        path_manifest = os.path.join(folder_meta, "manifest.xml")
+        path_manifest = Util.opj(folder_meta, "manifest.xml")
         self.save(path_manifest)

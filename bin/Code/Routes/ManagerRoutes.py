@@ -20,12 +20,12 @@ from Code.Base.Constantes import (
     TOP_RIGHT,
     ON_TOOLBAR,
 )
-from Code.Endings import LibChess
 from Code.Books import Books
+from Code.Competitions import ManagerElo
+from Code.Endings import LibChess
 from Code.QT import QTUtil
 from Code.QT import QTUtil2
 from Code.Routes import Routes
-from Code.Competitions import ManagerElo
 
 
 class GR_Engine:
@@ -74,7 +74,6 @@ class GR_Engine:
 
     def elos(self):
 
-
         d = {1: [], 2: [], 3: [], 4: [], 5: [], 6: []}
 
         def mas(nom_engine, xdepth, xelo):
@@ -103,28 +102,31 @@ class GR_Engine:
 
 
 class ManagerRoutes(Manager.Manager):
+    time_start: float = 0.0
+    route = None
+    route_state = 0
+
     def start(self, route):
         self.route = route
-        if not hasattr(self, "time_start"):
-            self.time_start = time.time()
-        self.state = route.state
+        self.time_start = time.time()
+        self.route_state = route.state
 
         self.game_type = GT_ROUTES
 
     def end_game(self):
         self.procesador.start()
-        self.route.add_time(time.time() - self.time_start, self.state)
+        self.route.add_time(time.time() - self.time_start, self.route_state)
 
     def final_x(self):
         self.end_game()
         return False
 
-    def add_move(self, move, siNuestra):
+    def add_move(self, move, is_player):
         self.game.add_move(move)
         self.check_boards_setposition()
 
         self.put_arrow_sc(move.from_sq, move.to_sq)
-        self.beepExtendido(siNuestra)
+        self.beepExtendido(is_player)
 
         self.pgnRefresh(self.game.last_position.is_white)
         self.refresh()
