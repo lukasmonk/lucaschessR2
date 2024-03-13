@@ -80,7 +80,7 @@ class WLeagueConfig(LCDialog.LCDialog):
         self.li_lb = []
         ly_bt1 = Colocacion.H()
         for division in range(self.MAX_DIVISIONS):
-            lb = Controles.LB(self, "").ponTipoLetra(puntos=12, peso=750).align_center()
+            lb = Controles.LB(self, "").set_font_type(puntos=12, peso=750).align_center()
             self.li_lb.append(lb)
             ly_bt1.control(lb)
         ly_bt1.relleno()
@@ -166,7 +166,7 @@ class WLeagueConfig(LCDialog.LCDialog):
 
         layout_v = Colocacion.V().otro(ly_bt0).otro(ly_bt1).control(self.grid)
 
-        font = Controles.TipoLetra(puntos=Code.configuration.x_font_points)
+        font = Controles.FontType(puntos=Code.configuration.x_font_points)
 
         gb_conf = Controles.GB(self, _("Options"), ly_options)
         self.gb_eng = Controles.GB(self, _("Players"), layout_v)

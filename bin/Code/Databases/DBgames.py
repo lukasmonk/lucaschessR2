@@ -259,6 +259,9 @@ class DBgames:
             n = self.rowidReader.reccount()
         return n
 
+    def reccount_stable(self):
+        return self.reccount(), self.rowidReader.terminado()
+
     def all_reccount(self):
         self.li_row_ids = []
         self.rowidReader.run(self.li_row_ids, None, None)
@@ -267,9 +270,12 @@ class DBgames:
         return self.reccount()
 
     def __len__(self):
-        sql = "SELECT Count(*) FROM Games"
-        cursor = self.conexion.execute(sql)
-        return cursor.fetchone()[0]
+        while not self.rowidReader.terminado():
+            time.sleep(0.1)
+        return self.reccount()
+
+    def is_empty(self):
+        return self.reccount() == 0
 
     def close(self):
         if self.conexion:

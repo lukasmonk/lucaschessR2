@@ -202,57 +202,33 @@ class MatchsDay:
         else:
             li_opponents_play = li_opponents[:]
 
-        dic_xid_st_oponents_played = collections.defaultdict(set)
+        dic_xid_oponents_played = collections.defaultdict(list)
         for xid1, xid2 in set_mached_played:
-            dic_xid_st_oponents_played[xid1].add(xid2)
-            dic_xid_st_oponents_played[xid2].add(xid1)
+            dic_xid_oponents_played[xid1].append(xid2)
+            dic_xid_oponents_played[xid2].append(xid1)
 
         li_opponents_play.sort(key=lambda opponent: opponent.key_order(swiss), reverse=True)
 
         st_xid_playing = set()
         num_players_play = len(li_opponents_play)
         player: Opponent
-        for num in range(num_players_play - 1):
-            player = li_opponents_play[num]
-            if player.xid in st_xid_playing:
-                continue
-
-            st_opponents_played = dic_xid_st_oponents_played[player.xid]
-            rival_select = None
-            look_for = player.next_side()
-
-            # 1. Buscamos uno con el que no haya jugado y que sea compatible con el side
-            for pos in range(num + 1, num_players_play):
-                rival = li_opponents_play[pos]
-                if rival.xid in st_xid_playing:
+        for first_pass in (True, False):
+            for num in range(num_players_play - 1):
+                player = li_opponents_play[num]
+                if player.xid in st_xid_playing:
                     continue
-                if rival.xid in st_opponents_played:
-                    continue
-                look_for_rival = rival.next_side()
-                if look_for is None or look_for_rival is None:
-                    rival_select = rival
-                    break
-                if look_for_rival != look_for:
-                    rival_select = rival
-                    break
 
-            # 2. Si no encuentra, buscamos uno con el que no haya jugado
-            if rival_select is None:
+                li_opponents_played = dic_xid_oponents_played[player.xid]
+                st_opponents_played = set(li_opponents_played)
+                rival_select = None
+                look_for = player.next_side()
+
+                # 1. Buscamos uno con el que no haya jugado y que sea compatible con el side
                 for pos in range(num + 1, num_players_play):
                     rival = li_opponents_play[pos]
                     if rival.xid in st_xid_playing:
                         continue
                     if rival.xid in st_opponents_played:
-                        continue
-                    else:
-                        rival_select = rival
-                        break
-
-            # 3. Si no encuentra nada, que juegue contra el siguiente compatible con el side
-            if rival_select is None:
-                for pos in range(num + 1, num_players_play):
-                    rival = li_opponents_play[pos]
-                    if rival.xid in st_xid_playing:
                         continue
                     look_for_rival = rival.next_side()
                     if look_for is None or look_for_rival is None:
@@ -262,35 +238,76 @@ class MatchsDay:
                         rival_select = rival
                         break
 
-            # 4. Al primero que encuentre
-            if rival_select is None:
-                for pos in range(num + 1, num_players_play):
-                    rival = li_opponents_play[pos]
-                    if rival.xid in st_xid_playing:
-                        continue
-                    rival_select = rival
+                # 2. Buscamos uno con el que no haya jugado aunque no sea compatible con el side
+                if rival_select is None:
+                    for pos in range(num + 1, num_players_play):
+                        rival = li_opponents_play[pos]
+                        if rival.xid in st_xid_playing:
+                            continue
+                        if rival.xid not in st_opponents_played:
+                            rival_select = rival
+                            break
 
-            if look_for == WHITE:
-                player_w, player_b = player, rival_select
-            elif look_for == BLACK:
-                player_w, player_b = rival_select, player
-            else:
-                look_for_rival = rival_select.next_side()
-                if look_for_rival == BLACK:
-                    player_w, player_b = player, rival_select
-                elif look_for_rival == WHITE:
-                    player_w, player_b = rival_select, player
+                if rival_select is None and first_pass:  # no se repiten rivales en la primera pasada
+                    continue
+
+                # 3. Si no encuentra nada, que juegue contra el siguiente compatible con el side, que haya jugado menos
+                if rival_select is None:
+                    num_played = 1000
+                    for pos in range(num + 1, num_players_play):
+                        rival = li_opponents_play[pos]
+                        if rival.xid in st_xid_playing:
+                            continue
+                        look_for_rival = rival.next_side()
+                        if look_for_rival != look_for:
+                            games_played = li_opponents_played.count(rival.xid)
+                            if games_played < num_played:
+                                rival_select = rival
+                                num_played = games_played
+
+                # 4. Si no encuentra nada, que juegue contra el que haya jugado menos
+                if rival_select is None:
+                    num_played = 1000
+                    for pos in range(num + 1, num_players_play):
+                        rival = li_opponents_play[pos]
+                        if rival.xid in st_xid_playing:
+                            continue
+                        games_played = li_opponents_played.count(rival.xid)
+                        if games_played < num_played:
+                            rival_select = rival
+                            num_played = games_played
+
+                # 5. El primero que encuentre
+                if rival_select is None:
+                    for pos in range(num + 1, num_players_play):
+                        rival = li_opponents_play[pos]
+                        if rival.xid in st_xid_playing:
+                            continue
+                        rival_select = rival
+                        break
+
+                if look_for in (WHITE, BLACK):
+                    if look_for == WHITE:
+                        player_w, player_b = player, rival_select
+                    else:
+                        player_w, player_b = rival_select, player
                 else:
-                    player_w, player_b = player, rival_select
+                    look_for_rival = rival_select.next_side()
+                    if look_for_rival == BLACK:
+                        player_w, player_b = player, rival_select
+                    elif look_for_rival == WHITE:
+                        player_w, player_b = rival_select, player
+                    else:
+                        player_w, player_b = player, rival_select
 
-            player_w.white += 1
-            player_b.black += 1
-            player_w.last_played = WHITE
-            player_b.last_played = BLACK
-            st_xid_playing.add(player_w.xid)
-            st_xid_playing.add(player_b.xid)
-            match = Match(player_w.xid, player_b.xid)
-            self.li_matches.append(match)
+                player_w.white += 1
+                player_b.black += 1
+                player_w.last_played = WHITE
+                player_b.last_played = BLACK
+                st_xid_playing.add(player_w.xid)
+                st_xid_playing.add(player_b.xid)
+                match = Match(player_w.xid, player_b.xid)
+                self.li_matches.append(match)
 
     def save(self):
         return [xmatch.save() for xmatch in self.li_matches]
@@ -633,6 +650,8 @@ class Season:
             op.xid: {
                 "XID": op.xid,
                 "PL": op.white + op.black,
+                "PLW": op.white,
+                "PLB": op.black,
                 "PTS": op.get_score(self.swiss),
                 "WIN": len(op.li_win),
                 "LOST": len(op.li_lost),

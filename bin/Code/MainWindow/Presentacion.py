@@ -96,10 +96,10 @@ class ManagerChallenge101:
         main_window.cursorFueraBoard()
         menu = QTVarios.LCMenu(main_window)
         self.configuration.set_property(menu, "101")
-        f = Controles.TipoLetra(name=Code.font_mono, puntos=12)
-        fbold = Controles.TipoLetra(name=Code.font_mono, puntos=12, peso=700)
-        fbolds = Controles.TipoLetra(name=Code.font_mono, puntos=12, peso=500, is_underlined=True)
-        menu.ponFuente(f)
+        f = Controles.FontType(name=Code.font_mono, puntos=12)
+        fbold = Controles.FontType(name=Code.font_mono, puntos=12, peso=700)
+        fbolds = Controles.FontType(name=Code.font_mono, puntos=12, peso=500, is_underlined=True)
+        menu.set_font(f)
 
         li_results = self.lee_results()
         icono = Iconos.PuntoAzul()
@@ -116,35 +116,35 @@ class ManagerChallenge101:
             if fecha == self.key:
                 ok_en_lista = True
                 ico = Iconos.PuntoEstrella()
-                tipoLetra = fbolds
+                font_type = fbolds
             else:
                 ico = icono
-                tipoLetra = None
+                font_type = None
             txt = str(fecha)[:16]
-            menu.opcion(None, "%2d. %-20s %6d" % (n, txt, pts), ico, tipoLetra=tipoLetra)
+            menu.opcion(None, "%2d. %-20s %6d" % (n, txt, pts), ico, font_type=font_type)
 
         menu.separador()
         menu.opcion(None, "", Iconos.PuntoNegro())
         menu.separador()
         if self.puntos_ultimo:
-            menu.opcion(None, ("+%d" % (self.puntos_ultimo)).center(30), Iconos.PuntoNegro(), tipoLetra=fbold)
+            menu.opcion(None, ("+%d" % (self.puntos_ultimo)).center(30), Iconos.PuntoNegro(), font_type=fbold)
         if self.pendientes == 0:
             if not ok_en_lista:
                 menu.opcion(
-                    None, ("%s: %d" % (_("Score"), self.puntos_totales)).center(30), Iconos.Gris(), tipoLetra=fbold
+                    None, ("%s: %d" % (_("Score"), self.puntos_totales)).center(30), Iconos.Gris(), font_type=fbold
                 )
             menu.separador()
             menu.opcion("close", _("GAME OVER").center(30), Iconos.Terminar())
         else:
             menu.opcion(
-                None, ("%s: %d" % (_("Score"), self.puntos_totales)).center(30), Iconos.PuntoNegro(), tipoLetra=fbold
+                None, ("%s: %d" % (_("Score"), self.puntos_totales)).center(30), Iconos.PuntoNegro(), font_type=fbold
             )
             menu.separador()
             menu.opcion(
                 None,
                 ("%s: %d" % (_("Positions left"), self.pendientes)).center(30),
                 Iconos.PuntoNegro(),
-                tipoLetra=fbold,
+                font_type=fbold,
             )
             menu.separador()
             menu.opcion(None, "", Iconos.PuntoNegro())

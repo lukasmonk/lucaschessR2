@@ -129,12 +129,6 @@ class EngineResponse:
     def ponBlunder(self, pts_dif):
         self.nvBlunder = pts_dif
 
-    def ponBrilliancie(self, pts_dif):
-        self.nvBrillante = pts_dif
-
-    def level_brilliant(self):
-        return getattr(self, "nvBrillante", 0)
-
     def nivelBlunder(self):
         return getattr(self, "nvBlunder", 0)
 
@@ -149,7 +143,7 @@ class EngineResponse:
 
         return puntos
 
-    def puntosABS_5(self):
+    def score_abs5(self):
         if self.mate:
             if self.mate < 0:
                 puntos = -30000 - (self.mate + 1) * 100
@@ -176,17 +170,6 @@ class EngineResponse:
         else:
             return self.texto()
 
-    # def texto_tutor(self):
-    #     if self.mate and -1 <= self.mate <= 1:
-    #         d = {True: _("White mates in %1"), False: _("Black mates in %1")}
-    #         if self.mate > 0:
-    #             t = self.is_white
-    #         else:
-    #             t = not self.is_white
-    #         return _X(d[t], str(abs(self.mate)))
-    #     else:
-    #         return self.texto()
-    #
     def texto(self):
         if self.mate:
             mt = self.mate
@@ -493,7 +476,7 @@ class MultiEngineResponse:
         if depth:
             if depth not in self.dicDepth:
                 self.dicDepth[depth] = {}
-            self.dicDepth[depth][rm.movimiento()] = rm.puntosABS_5()
+            self.dicDepth[depth][rm.movimiento()] = rm.score_abs5()
 
     def check_score(self, pv_base):
         d_claves = self.check_claves(pv_base, st_uci_claves)
@@ -706,11 +689,11 @@ class MultiEngineResponse:
         rmbest = self.rmBest()
         if not rmbest:
             return 0, 0
-        pbest = rmbest.puntosABS_5()
+        pbest = rmbest.score_abs5()
         rm, n = self.buscaRM(movimiento)
         if rm is None:
             return pbest, 0
-        return pbest, rm.puntosABS_5()
+        return pbest, rm.score_abs5()
 
     def mejorMov(self):
         if self.li_rm:
@@ -1152,55 +1135,6 @@ class MultiEngineResponse:
             return rm_sel
         return EngineResponse(self.name, self.is_white)
 
-    def check_brillancies(self, mindepth, minpuntos):
-        # Que hay un minimo de options
-        if len(self.li_rm) < 5:
-            return
-
-        # Se hace despues de dispatch, ya sabemos el bestmove
-        # determinamos si el bestmove es una brillancie
-        rmbr = self.li_rm[0]
-        ptsbr = rmbr.centipawns_abs()
-
-        # 1. Que la situacion en que se queda sea positiva
-        if ptsbr < minpuntos / 2:
-            return
-
-            # 2. Hay una diferencia considerable de puntos con el segundo clasificado
-            # dif = ptsbr-self.li_rm[1].centipawns_abs()
-            # if dif < (minpuntos/2):
-            # return
-
-        # 3. Leemos el texto enviado por el engine
-        busca = "pv " + rmbr.movimiento() + " "
-        for linea in self.lines:
-            if busca in linea:
-                d_claves = self.check_claves(linea, st_uci_claves)
-
-                if not ("depth" in d_claves):
-                    continue
-                depth = int(d_claves["depth"].strip())
-
-                if not ("score" in d_claves):
-                    continue
-
-                rm = EngineResponse("", self.is_white)
-                score = d_claves["score"].strip()
-                if score.startswith("cp "):
-                    rm.puntos = int(score.split(" ")[1])
-                    rm.mate = 0
-                elif score.startswith("mate "):
-                    rm.puntos = 0
-                    rm.mate = int(score.split(" ")[1])
-                dif = ptsbr - rm.centipawns_abs()
-
-                if depth >= mindepth:  # es un brilliancie
-                    rmbr.ponBrilliancie(depth)
-                    return
-
-                elif dif < minpuntos:  # primeras depths ya se sabia que era buena move
-                    return
-
     def set_nag_color(self, rm):
         mj_pts = self.li_rm[0].centipawns_abs()
         rm_pts = rm.centipawns_abs()
@@ -1208,8 +1142,6 @@ class MultiEngineResponse:
         if nb > 5:
             ev = Code.analysis_eval.evaluate(self.li_rm[0], rm)
             return ev, ev
-        if rm.level_brilliant():
-            return VERY_GOOD_MOVE, VERY_GOOD_MOVE
 
         libest = self.bestmoves()
         if not (rm in libest):

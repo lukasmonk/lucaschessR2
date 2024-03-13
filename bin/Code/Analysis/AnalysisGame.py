@@ -5,9 +5,11 @@ import Code
 from Code import Util
 from Code.Analysis import AnalysisIndexes, WindowAnalysisParam
 from Code.Base import Game
+from Code.Base.Constantes import INACCURACY, MISTAKE, BLUNDER, INACCURACY_MISTAKE_BLUNDER, INACCURACY_MISTAKE, \
+    MISTAKE_BLUNDER
+from Code.BestMoveTraining import BMT
 from Code.Databases import WDB_Utils
 from Code.Nags.Nags import NAG_3
-from Code.TrainBMT import BMT
 
 
 class AnalyzeGame:
@@ -26,7 +28,8 @@ class AnalyzeGame:
             conf_engine = copy.deepcopy(self.configuration.buscaRival(alm.engine))
             if alm.multiPV:
                 conf_engine.update_multipv(alm.multiPV)
-            self.xmanager = self.procesador.creaManagerMotor(conf_engine, alm.vtime, alm.depth, True, priority=alm.priority)
+            self.xmanager = self.procesador.creaManagerMotor(conf_engine, alm.vtime, alm.depth, True,
+                                                             priority=alm.priority)
         self.vtime = alm.vtime
         self.depth = alm.depth
 
@@ -38,13 +41,16 @@ class AnalyzeGame:
         self.st_timelimit = alm.st_timelimit
 
         # Asignacion de variables para blunders:
-        # kblunders: puntos de perdida para considerar un blunder
+        # kblunders_condition: minima condición para considerar como erróneo
         # tacticblunders: folder donde guardar tactic
         # pgnblunders: file pgn donde guardar la games
         # oriblunders: si se guarda la game original
         # bmtblunders: name del entrenamiento BMT a crear
-        self.kblunders = alm.kblunders
-        self.kblunders_porc = alm.kblunders_porc
+        dic = {INACCURACY: {INACCURACY, }, MISTAKE: {MISTAKE, }, BLUNDER: {BLUNDER, },
+               INACCURACY_MISTAKE_BLUNDER: {INACCURACY, BLUNDER, MISTAKE}, INACCURACY_MISTAKE: {INACCURACY, MISTAKE},
+               MISTAKE_BLUNDER: {BLUNDER, MISTAKE}}
+        self.kblunders_condition_list = dic.get(alm.kblunders_condition,{BLUNDER, MISTAKE})
+
         self.tacticblunders = (
             Util.opj(self.configuration.personal_training_folder, "../Tactics", alm.tacticblunders)
             if alm.tacticblunders
@@ -61,14 +67,10 @@ class AnalyzeGame:
 
         self.delete_previous = True
 
-        # dpbrilliancies: depth de control para saber si es brilliancie
-        # ptbrilliancies: puntos de ganancia
         # fnsbrilliancies: file fns donde guardar posiciones fen
         # pgnbrilliancies: file pgn donde guardar la games
         # oribrilliancies: si se guarda la game original
         # bmtbrilliancies: name del entrenamiento BMT a crear
-        self.dpbrilliancies = alm.dpbrilliancies
-        self.ptbrilliancies = alm.ptbrilliancies
         self.fnsbrilliancies = alm.fnsbrilliancies
         self.pgnbrilliancies = alm.pgnbrilliancies
         self.oribrilliancies = alm.oribrilliancies
@@ -329,7 +331,7 @@ FILESW=%s:100
         self.xmanager.set_gui_dispatch(gui_dispatch)  # Dispatch del engine, si esta puesto a 4 minutos por ejemplo que
         # compruebe si se ha indicado que se cancele.
 
-        si_blunders = self.kblunders > 0
+        si_blunders = self.pgnblunders or self.oriblunders or self.bmtblunders
         si_brilliancies = self.fnsbrilliancies or self.pgnbrilliancies or self.bmtbrilliancies
 
         if self.bmtblunders and self.bmt_listaBlunders is None:
@@ -454,8 +456,6 @@ FILESW=%s:100
                         pos_current_move,
                         self.vtime,
                         depth=self.depth,
-                        brDepth=self.dpbrilliancies,
-                        brPuntos=self.ptbrilliancies,
                         stability=self.stability,
                         st_centipawns=self.st_centipawns,
                         st_depths=self.st_depths,
@@ -483,14 +483,11 @@ FILESW=%s:100
 
                 if si_blunders or si_brilliancies or self.with_variations:
                     rm = mrm.li_rm[pos_act]
-                    rm.ponBlunder(0)
+                    nag, color = mrm.set_nag_color(rm)
+                    move.add_nag(nag)
+
                     mj = mrm.li_rm[0]
                     rm_pts = rm.centipawns_abs()
-
-                    dif = mj.centipawns_abs() - rm_pts
-
-                    mx = max(abs(mj.centipawns_abs()), abs(rm_pts))
-                    dif_porc = int(dif * 100 / mx) if mx > 0 else 0
 
                     fen = move.position_before.fen()
 
@@ -498,10 +495,9 @@ FILESW=%s:100
                         if not move.analisis2variantes(self.alm, self.delete_previous):
                             move.remove_all_variations()
 
-                    ok_blunder = dif > self.kblunders
-                    if ok_blunder and self.kblunders_porc > 0:
-                        ok_blunder = dif_porc >= self.kblunders_porc
+                    ok_blunder = nag in self.kblunders_condition_list
                     if ok_blunder:
+                        dif = mj.centipawns_abs() - rm_pts
                         rm.ponBlunder(dif)
 
                         self.graba_tactic(game, pos_move, mrm, pos_act)
@@ -513,7 +509,7 @@ FILESW=%s:100
                             self.save_bmt(True, fen, mrm, pos_act, cl_game, txt_game)
                             self.si_bmt_blunders = True
 
-                    if rm.level_brilliant():
+                    if move.is_brilliant():
                         move.add_nag(NAG_3)
                         self.save_fns(self.fnsbrilliancies, fen)
 
@@ -523,9 +519,6 @@ FILESW=%s:100
                         if self.bmtbrilliancies:
                             self.save_bmt(False, fen, mrm, pos_act, cl_game, txt_game)
                             self.si_bmt_brilliancies = True
-                    else:
-                        nag, color = mrm.set_nag_color(rm)
-                        move.add_nag(nag)
 
         # Ponemos el texto original en la ultima
         if si_poner_pgn_original_blunders and self.oriblunders:

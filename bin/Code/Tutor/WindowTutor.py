@@ -31,8 +31,8 @@ class WindowTutor(LCDialog.LCDialog):
 
         self.x_tutor_view = manager.configuration.x_tutor_view
 
-        f = Controles.TipoLetra(puntos=12, peso=75)
-        flba = Controles.TipoLetra(puntos=8)
+        f = Controles.FontType(puntos=12, peso=75)
+        flba = Controles.FontType(puntos=8)
 
         ae = QTUtil.desktop_width()
         mx = 32 if ae > 1000 else 20
@@ -56,19 +56,19 @@ class WindowTutor(LCDialog.LCDialog):
         tutor.ponBoardsGUI(self.boardTutor, self.boardUsuario, self.boardRival, self.boardOpening)
 
         # Puntuaciones
-        self.lb_tutor = Controles.LB(self).ponFuente(f).align_center()
+        self.lb_tutor = Controles.LB(self).set_font(f).align_center()
         self.lb_tutor.setFixedWidth(self.boardTutor.ancho)
         manager.configuration.set_property(self.lb_tutor, "tutor-tutor" if has_hints else "tutor-tutor-disabled")
         if has_hints:
             self.lb_tutor.mousePressEvent = self.elegirTutor
 
-        self.lb_player = Controles.LB(self).ponFuente(f).align_center()
+        self.lb_player = Controles.LB(self).set_font(f).align_center()
         self.lb_player.setFixedWidth(self.boardUsuario.ancho)
         self.lb_player.mousePressEvent = self.elegirUsuario
         manager.configuration.set_property(self.lb_player, "tutor-player" if has_hints else "tutor-tutor")
 
         if siRival:
-            self.lb_rival = Controles.LB(self).ponFuente(f).align_center()
+            self.lb_rival = Controles.LB(self).set_font(f).align_center()
             self.lb_rival.setFixedWidth(self.boardRival.ancho)
             manager.configuration.set_property(self.lb_rival, "tutor-tutor-disabled")
 
@@ -80,7 +80,7 @@ class WindowTutor(LCDialog.LCDialog):
             self.cbOpenings.set_multiline(self.boardOpening.width())
             self.cbOpenings.capture_changes(self.tutor.cambiarOpening)
 
-            lb_openings = Controles.LB(self, _("Opening")).ponFuente(f).align_center()
+            lb_openings = Controles.LB(self, _("Opening")).set_font(f).align_center()
             lb_openings.setFixedWidth(self.boardOpening.ancho)
             manager.configuration.set_property(lb_openings, "tutor-tutor" if has_hints else "tutor-tutor-disabled")
             if has_hints:

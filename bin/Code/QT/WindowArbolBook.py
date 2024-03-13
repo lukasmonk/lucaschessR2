@@ -146,7 +146,7 @@ class TreeMoves(QtWidgets.QTreeWidget):
         self.setHeaderLabels((_("Moves"), "", _("Games"), "", ""))
         self.setColumnHidden(3, True)
 
-        ftxt = Controles.TipoLetra(puntos=9)
+        ftxt = Controles.FontType(puntos=9)
 
         self.setFont(ftxt)
 

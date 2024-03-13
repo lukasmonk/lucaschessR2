@@ -3,7 +3,7 @@ import collections
 from PySide2 import QtWidgets, QtCore
 
 import Code
-from Code import XRun, Util
+from Code import XRun
 from Code.Base import Game
 from Code.Base.Constantes import RESULT_WIN_WHITE, RESULT_DRAW, RESULT_WIN_BLACK
 from Code.Databases import DBgames, WDB_Games
@@ -38,6 +38,7 @@ class WSwiss(LCDialog.LCDialog):
 
         self.current_journey = self.season.get_last_journey()
         self.li_matches = self.season.get_all_matches_last_journey()
+        self.li_matches_played = []
         self.max_journeys = self.swiss.max_journeys()
         self.dic_xid_name = self.swiss.dic_names()
         self.terminated = False
@@ -57,9 +58,9 @@ class WSwiss(LCDialog.LCDialog):
 
         self.tb = QTVarios.LCTB(self)
 
-        self.tab = Controles.Tab(self).ponTipoLetra(puntos=10).set_position("S")
+        self.tab = Controles.Tab(self).set_font_type(puntos=10).set_position("S")
         self.tab.dispatchChange(self.tab_changed)
-        font = Controles.TipoLetra(puntos=10)
+        font = Controles.FontType(puntos=10)
 
         self.grid_games = None
 
@@ -69,6 +70,8 @@ class WSwiss(LCDialog.LCDialog):
         o_col.nueva("NAME", _("Player"), 150)
         o_col.nueva("PTS", _("Pts ||Points/score"), 50, align_center=True)
         o_col.nueva("PL", _("GP ||Games played"), 40, align_center=True)
+        o_col.nueva("PLW", _("White"), 40, align_center=True)
+        o_col.nueva("PLB", _("Black"), 40, align_center=True)
         o_col.nueva("WIN", _("W ||Games won"), 50, align_center=True)
         o_col.nueva("DRAW", _("D ||Games drawn"), 50, align_center=True)
         o_col.nueva("LOST", _("L ||Games lost"), 50, align_center=True)
@@ -130,17 +133,17 @@ class WSwiss(LCDialog.LCDialog):
         tbj.new("", Iconos.MoverAdelante(), self.journey_next, False)
         tbj.new("", Iconos.MoverFinal(), self.journey_last, False)
 
-        fontd = Controles.TipoLetra(puntos=12)
+        fontd = Controles.FontType(puntos=12)
 
-        lb_journey = Controles.LB(self, _("Matchday") + ": ").ponFuente(fontd)
-        self.sb_journey = Controles.SB(self, self.current_journey + 1, 1, self.max_journeys).ponFuente(fontd)
+        lb_journey = Controles.LB(self, _("Round") + ": ").set_font(fontd)
+        self.sb_journey = Controles.SB(self, self.current_journey + 1, 1, self.max_journeys).set_font(fontd)
         self.sb_journey.setFixedWidth(50)
         self.sb_journey.capture_changes(self.change_sb)
-        lb_info_journey = Controles.LB(self, "/ %d" % self.max_journeys).ponFuente(fontd)
+        lb_info_journey = Controles.LB(self, "/ %d" % self.max_journeys).set_font(fontd)
 
         self.lb_active = (
-            Controles.LB(self, _("CURRENT MATCHDAY"))
-            .ponFuente(Controles.TipoLetra(puntos=16, peso=400))
+            Controles.LB(self, _("Current"))
+            .set_font(Controles.FontType(puntos=16, peso=400))
             .align_center()
             .anchoMinimo(400)
         )
@@ -163,7 +166,7 @@ class WSwiss(LCDialog.LCDialog):
 
         w = QtWidgets.QWidget(self)
         w.setLayout(ly)
-        self.tab.addTab(w, _("Matches"))
+        self.tab.addTab(w, _("Games"))
 
         # Games -----------------------------------------------------------------------------------------------------
         lb_journey = Controles.LB2P(self, _("Journey"))
@@ -312,7 +315,7 @@ class WSwiss(LCDialog.LCDialog):
         self.tb.clear()
         self.tb.new(_("Close"), Iconos.MainMenu(), self.terminar)
         if not self.season.is_finished():
-            self.tb.new(_("Launch a worker"), Iconos.Lanzamiento(), self.launch_worker)
+            self.tb.new(_("Launch workers"), Iconos.Lanzamiento(), self.launch_worker)
             self.tb.new(_("Update"), Iconos.Update(), self.update_matches)
         self.tb.new(_("Export"), Iconos.Export8(), self.export)
         li_seasons = self.swiss.list_seasons()
@@ -614,7 +617,7 @@ class WSwiss(LCDialog.LCDialog):
             dic[opponent].append((xmatch, icon, cresult))
 
         menu = QTVarios.LCMenu(self)
-        menu.ponTipoLetra(name=Code.font_mono, puntos=10)
+        menu.set_font_type(name=Code.font_mono, puntos=10)
 
         li_names = list(dic.keys())
         li_names.sort()
@@ -849,23 +852,7 @@ class WSwiss(LCDialog.LCDialog):
         return resp
 
     def launch_worker(self):
-        cores = Util.cpu_count()
-        if cores < 2:
-            resp = 1
-
-        else:
-            rondo = QTVarios.rondo_puntos()
-
-            menu = QTVarios.LCMenu(self)
-            menu.opcion(1, _("Launch one worker"), Iconos.Lanzamiento())
-            menu.separador()
-
-            submenu = menu.submenu(_("Launch some workers"), Iconos.Lanzamientos())
-
-            for x in range(2, cores+1):
-                submenu.opcion(x, str(x), rondo.otro())
-
-            resp = menu.lanza()
+        resp = QTVarios.launch_workers(self)
 
         if resp:
             self.update_matches()

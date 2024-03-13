@@ -277,7 +277,7 @@ class EngineManager:
             self.engine = None
             self.activo = False
 
-    def analysis_move(self, move, vtime, depth=0, brDepth=5, brPuntos=50):
+    def analysis_move(self, move, vtime, depth=0):
         self.check_engine()
 
         mrm = self.engine.bestmove_fen(move.position_before.fen(), vtime, depth, is_savelines=True)
@@ -286,8 +286,6 @@ class EngineManager:
             return mrm, 0
         rm, n = mrm.buscaRM(move.movimiento())
         if rm:
-            if n == 0:
-                mrm.check_brillancies(brDepth, brPuntos)
             return mrm, n
 
         # No esta considerado, obliga a hacer el analysis de nuevo from_sq position
@@ -330,8 +328,6 @@ class EngineManager:
             njg,
             vtime,
             depth=0,
-            brDepth=5,
-            brPuntos=50,
             stability=False,
             st_centipawns=0,
             st_depths=0,
@@ -345,14 +341,14 @@ class EngineManager:
             if key in self.cache_analysis:
                 return self.cache_analysis[key]
         resp = self.analizaJugadaPartidaRaw(
-            game, njg, vtime, depth, brDepth, brPuntos, stability, st_centipawns, st_depths, st_timelimit, window
+            game, njg, vtime, depth, stability, st_centipawns, st_depths, st_timelimit, window
         )
         if self.cache_analysis is not None:
             self.cache_analysis[key] = resp
         return resp
 
     def analizaJugadaPartidaRaw(
-            self, game, njg, mstime, depth, brDepth, brPuntos, stability, st_centipawns, st_depths, st_timelimit, window
+            self, game, njg, mstime, depth, stability, st_centipawns, st_depths, st_timelimit, window
     ):
         self.check_engine()
         ini_time = time.time()
@@ -374,8 +370,6 @@ class EngineManager:
             return mrm, 0
         rm, n = mrm.buscaRM(mv)
         if rm:
-            if n == 0:
-                mrm.check_brillancies(brDepth, brPuntos)
             return mrm, n
         rm_best = mrm.mejorMov()
 

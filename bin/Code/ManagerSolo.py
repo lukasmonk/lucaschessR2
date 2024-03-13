@@ -457,7 +457,7 @@ class ManagerSolo(Manager.Manager):
         sep = (None, None, None)
 
         ctrl = _("CTRL") + " "
-        liMasOpciones = (
+        li_extra_options = (
             (None, _("Change the starting position"), Iconos.PGN()),
             sep,
             ("position", _("Board editor") + " [%sS]" % ctrl, Iconos.Datos()),
@@ -481,7 +481,7 @@ class ManagerSolo(Manager.Manager):
             sep,
         )
 
-        resp = self.utilities(liMasOpciones)
+        resp = self.utilities(li_extra_options)
         if resp == "books":
             liMovs = self.librosConsulta(True)
             if liMovs:

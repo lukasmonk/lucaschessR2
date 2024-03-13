@@ -164,8 +164,8 @@ def edit_tags_pgn(wowner, li_pgn, is_fen_possible):
 def menu_pgn_labels(wowner, game) -> bool:
     pos_cursor = QtGui.QCursor.pos()
     menu = QTVarios.LCMenu(wowner)
-    f = Controles.TipoLetra(puntos=10, peso=75)
-    menu.ponFuente(f)
+    f = Controles.FontType(puntos=10, peso=75)
+    menu.set_font(f)
 
     is_opening = False
     is_eco = False

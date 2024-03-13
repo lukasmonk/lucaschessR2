@@ -299,7 +299,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         self.set_position(self.game.last_position)
         self.show_side_indicator(True)
         if self.ayudas_iniciales:
-            self.ponAyudasEM()
+            self.show_hints()
         else:
             self.remove_hints(siQuitarAtras=False)
         self.put_pieces_bottom(is_white)
@@ -573,6 +573,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         w, b = (player, other) if self.is_human_side_white else (other, player)
         game.set_tag("White", w)
         game.set_tag("Black", b)
+        game.order_tags()
         self.game = game
         self.goto_end()
         self.play_next_move()
@@ -741,7 +742,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             if self.hints:
                 self.hints -= 1
                 self.tutor_con_flechas = self.nArrowsTt > 0 and self.hints > 0
-            self.ponAyudasEM()
+            self.show_hints()
             self.game.anulaUltimoMovimiento(self.is_human_side_white)
             if not self.fen:
                 self.game.assign_opening()
@@ -1131,7 +1132,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         Analysis.show_analysis(self.procesador, self.xtutor, move, self.board.is_white_bottom, 0, must_save=False)
         if self.hints:
             self.hints -= 1
-            self.ponAyudasEM()
+            self.show_hints()
 
     def play_instead_of_me(self):
         if self.state != ST_PLAYING or self.is_finished() or self.game_type != GT_AGAINST_ENGINE:
@@ -1186,9 +1187,9 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                     mrm, pos = move.analysis
                     rm_best1: EngineResponse.EngineResponse = mrm.rmBest()
                     rm_user1: EngineResponse.EngineResponse = mrm.li_rm[pos]
-                    cps += rm_best1.puntosABS_5() - rm_user1.puntosABS_5()
+                    cps += rm_best1.score_abs5() - rm_user1.score_abs5()
         rm_best = self.mrm_tutor.rmBest()
-        cps += rm_best.puntosABS_5() - rm_user.puntosABS_5()
+        cps += rm_best.score_abs5() - rm_user.score_abs5()
 
         return cps
 
@@ -1435,7 +1436,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
 
         self.put_arrow_sc(move.from_sq, move.to_sq)
 
-        self.ponAyudasEM()
+        self.show_hints()
 
         self.pgnRefresh(self.game.last_position.is_white)
 
@@ -1541,7 +1542,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             QTUtil2.message(self.main_window, mensaje, px=p.x(), py=p.y(), si_bold=True)
         self.set_end_game(self.with_takeback)
 
-    def ponAyudasEM(self):
+    def show_hints(self):
         self.ponAyudas(self.hints, siQuitarAtras=False)
 
     def change_rival(self):
@@ -1583,7 +1584,6 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                 bl, ng = ng, bl
             self.main_window.change_player_labels(bl, ng)
 
-            # self.put_pieces_bottom( is_white )
             self.show_basic_label()
 
             self.put_pieces_bottom(is_white)
@@ -1687,31 +1687,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
 
         self.play_next_move()
 
-    # def showPV0(self, pv, nArrows):
-    #     if not pv:
-    #         return True
-    #     self.board.remove_arrows()
-    #     tipo = "ms"
-    #     opacity = 100
-    #     pv = pv.strip()
-    #     while "  " in pv:
-    #         pv = pv.replace("  ", " ")
-    #     lipv = pv.split(" ")
-    #     npv = len(lipv)
-    #     nbloques = min(npv, nArrows)
-    #     salto = (80 - 15) * 2 / (nbloques - 1) if nbloques > 1 else 0
-    #     cambio = max(30, salto)
-    #
-    #     for n in range(nbloques):
-    #         pv = lipv[n]
-    #         self.board.show_arrow_mov(pv[:2], pv[2:4], tipo + str(opacity))
-    #         if n % 2 == 1:
-    #             opacity -= cambio
-    #             cambio = salto
-    #         tipo = "ms" if tipo == "mt" else "mt"
-    #     return True
-    #
-    def showPV(self, pv, nArrows):
+    def showPV(self, pv, n_arrows):
         if not pv:
             return True
         self.board.remove_arrows()
@@ -1720,7 +1696,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             pv = pv.replace("  ", " ")
         lipv = pv.split(" ")
         npv = len(lipv)
-        nbloques = min(npv, nArrows)
+        nbloques = min(npv, n_arrows)
 
         for side in range(2):
             base = "p" if side == 0 else "r"

@@ -30,15 +30,6 @@ class OpeningPol:
         self.nivel_actual = 0
         self.si_obligatoria = False
 
-    # def marcaEstado(self):
-    #     dic = {"ACTIVA": self.activa, "NIVELACTUAL": self.nivel_actual, "SIOBLIGATORIA": self.si_obligatoria}
-    #     return dic
-    #
-    # def recuperaEstado(self, dic):
-    #     self.activa = dic["ACTIVA"]
-    #     self.nivel_actual = dic["NIVELACTUAL"]
-    #     self.si_obligatoria = dic["SIOBLIGATORIA"]
-
     def lee_random(self, fen):
         li = self.book.lista(self.file, fen)
         if not li:

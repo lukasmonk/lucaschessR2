@@ -65,7 +65,7 @@ class MensEspera(QtWidgets.QWidget):
             fixed_size = parent.width()
 
         self.lb = lb = (
-            Controles.LB(parent, resalta(mensaje)).ponFuente(Controles.TipoLetra(puntos=puntos)).align_center()
+            Controles.LB(parent, resalta(mensaje)).set_font(Controles.FontType(puntos=puntos)).align_center()
         )
         if fixed_size is not None:
             lb.set_wrap().anchoFijo(fixed_size - 60)
@@ -620,7 +620,7 @@ def message(owner, texto, explanation=None, titulo=None, pixmap=None, px=None, p
         else:
             msg.setIconPixmap(pixmap)
         msg.setText(texto)
-        msg.setFont(Controles.TipoLetra(puntos=Code.configuration.x_font_points, peso=300 if si_bold else 50))
+        msg.setFont(Controles.FontType(puntos=Code.configuration.x_font_points, peso=300 if si_bold else 50))
         if explanation:
             msg.setInformativeText(explanation)
         msg.setWindowTitle(_("Message") if titulo is None else titulo)
@@ -656,7 +656,7 @@ def message_bold(owner, mens, titulo=None, delayed=False):
 
 
 def message_result(window, txt):
-    message(window, "<big><b>%s</b></big>" % txt, titulo=_("Result"), pixmap=Iconos.pmInformation())
+    message(window, "<br><br><b><big><b>%s</b></big>" % txt, titulo=_("Result"), pixmap=Iconos.pmTrophy())
 
 
 def pregunta(parent, mens, label_yes=None, label_no=None, si_top=False, px=None, py=None):
@@ -666,7 +666,7 @@ def pregunta(parent, mens, label_yes=None, label_no=None, si_top=False, px=None,
     if label_no is None:
         label_no = _("No")
     si_button = msg_box.addButton(label_yes, QtWidgets.QMessageBox.YesRole)
-    msg_box.setFont(Controles.TipoLetra(puntos=Code.configuration.x_menu_points))
+    msg_box.setFont(Controles.FontType(puntos=Code.configuration.x_menu_points))
     msg_box.addButton(label_no, QtWidgets.QMessageBox.NoRole)
     if si_top:
         msg_box.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
@@ -686,7 +686,7 @@ def question_withcancel(parent, mens, si, no):
     si_button = msg_box.addButton(si, QtWidgets.QMessageBox.YesRole)
     no_button = msg_box.addButton(no, QtWidgets.QMessageBox.NoRole)
     msg_box.addButton(_("Cancel"), QtWidgets.QMessageBox.RejectRole)
-    msg_box.setFont(Controles.TipoLetra(puntos=Code.configuration.x_menu_points))
+    msg_box.setFont(Controles.FontType(puntos=Code.configuration.x_menu_points))
     msg_box.exec_()
     cb = msg_box.clickedButton()
     if cb == si_button:
@@ -729,8 +729,8 @@ def message_menu(owner, main, the_message, delayed, zzpos=True):
         menu = QTVarios.LCMenu(owner)
 
         Code.configuration.set_property(menu, "101")
-        f = Controles.TipoLetra(puntos=11)
-        menu.ponFuente(f)
+        f = Controles.FontType(puntos=11)
+        menu.set_font(f)
 
         menu.separador()
         menu.opcion(None, main)

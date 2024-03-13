@@ -172,11 +172,11 @@ class ManagerOpeningLinesPositions(ManagerOPL.ManagerOpeningLines):
         elif key == TB_CONFIG:
             base = _("What to do after solving")
             if self.with_automatic_jump:
-                liMasOpciones = [("lmo_stop", "%s: %s" % (base, _("Stop")), Iconos.PuntoRojo())]
+                li_extra_options = [("lmo_stop", "%s: %s" % (base, _("Stop")), Iconos.PuntoRojo())]
             else:
-                liMasOpciones = [("lmo_jump", "%s: %s" % (base, _("Jump to the next")), Iconos.PuntoVerde())]
+                li_extra_options = [("lmo_jump", "%s: %s" % (base, _("Jump to the next")), Iconos.PuntoVerde())]
 
-            resp = self.configurar(siSonidos=True, siCambioTutor=False, liMasOpciones=liMasOpciones)
+            resp = self.configurar(siSonidos=True, siCambioTutor=False, li_extra_options=li_extra_options)
             if resp in ("lmo_stop", "lmo_jump"):
                 self.with_automatic_jump = resp == "lmo_jump"
                 self.training["AUTOJUMP_TRAINPOSITIONS"] = self.with_automatic_jump

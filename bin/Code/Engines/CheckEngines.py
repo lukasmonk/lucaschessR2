@@ -98,22 +98,20 @@ def check_stockfish(window, check_again):
 
     mensaje = _("Selecting the best stockfish version for your CPU")
     um = QTUtil2.one_moment_please(window, mensaje)
-    correct = lista[0]
     for file_engine in lista[1:]:  # el primero no lo miramos
         path_engine = Util.opj(folder, file_engine)
         if check_engine(path_engine):
             correct = file_engine
             um.label(mensaje + "\n" + file_engine)
+            path_engine = conf_stockfish.path_exe
+            Util.remove_file(path_engine)
+            path_correct = Util.opj(folder, correct)
+            shutil.copy(path_correct, path_engine)
+
+            conf_stockfish.name = correct.replace(".exe", "")
+            Code.configuration.write_variables(STOCKFISH_KEY, {"NAME": conf_stockfish.name})
         else:
             break
-
-    path_engine = conf_stockfish.path_exe
-    Util.remove_file(path_engine)
-    path_correct = Util.opj(folder, correct)
-    shutil.copy(path_correct, path_engine)
-
-    conf_stockfish.name = correct.replace(".exe", "")
-    Code.configuration.write_variables(STOCKFISH_KEY, {"NAME": conf_stockfish.name})
 
     um.final()
     return True

@@ -5,7 +5,7 @@ from Code import Util, XRun
 from Code.Base.Constantes import RUNA_GAME, RUNA_HALT, RUNA_CONFIGURATION, RUNA_TERMINATE
 from Code.QT import QTUtil, LCDialog, Iconos, Controles, Colocacion
 from Code.SQL import UtilSQL
-from Code.TrainBMT import BMT
+from Code.BestMoveTraining import BMT
 
 
 class Orden:

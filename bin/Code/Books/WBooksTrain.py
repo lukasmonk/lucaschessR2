@@ -24,7 +24,7 @@ class WBooksTrain(LCDialog.LCDialog):
 
         self.setMinimumWidth(450)
 
-        flb = Controles.TipoLetra(puntos=10)
+        flb = Controles.FontType(puntos=10)
 
         # Variables antiguas
         dic_data = self.restore()
@@ -42,7 +42,7 @@ class WBooksTrain(LCDialog.LCDialog):
         self.rb_black.setChecked(not dic_data.get(self.ISWHITE, True))
 
         hbox = Colocacion.H().relleno().control(self.rb_white).espacio(10).control(self.rb_black).relleno()
-        gb_side = Controles.GB(self, _("Side you play with"), hbox).ponFuente(flb)
+        gb_side = Controles.GB(self, _("Side you play with"), hbox).set_font(flb)
 
         # Books
         self.list_books = Books.ListBooks()
@@ -67,7 +67,7 @@ class WBooksTrain(LCDialog.LCDialog):
         ly_select = Colocacion.H().relleno().control(self.chb_highest).relleno()
 
         ly = Colocacion.V().otro(lybook).espacio(10).otro(ly_select)
-        gb_player = Controles.GB(self, _("Player's book"), ly).ponFuente(flb)
+        gb_player = Controles.GB(self, _("Player's book"), ly).set_font(flb)
 
         # Rival
         book_rival = book_player
@@ -89,7 +89,7 @@ class WBooksTrain(LCDialog.LCDialog):
         self.cb_resp_rival = Controles.CB(self, li, dic_data.get(self.RESP_RIVAL, BOOK_RANDOM_UNIFORM))
 
         ly = Colocacion.V().controlc(self.cb_rival).espacio(10).controlc(self.cb_resp_rival)
-        gb_rival = Controles.GB(self, _("Rival book"), ly).ponFuente(flb)
+        gb_rival = Controles.GB(self, _("Rival book"), ly).set_font(flb)
 
         self.chb_showmenu = Controles.CHB(
             self, _("Display a menu of alternatives if move is invalid"), dic_data.get(self.SHOW_MENU, True)

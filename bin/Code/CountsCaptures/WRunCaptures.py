@@ -40,7 +40,7 @@ class WRunCaptures(LCDialog.LCDialog):
             if i >= self.visible_captures:
                 wm.hide()
 
-        self.gb_captures = Controles.GB(self, _("Captures"), ly).ponFuente(Controles.TipoLetra(puntos=10, peso=750))
+        self.gb_captures = Controles.GB(self, _("Captures"), ly).set_font(Controles.FontType(puntos=10, peso=750))
 
         self.liwm_threats = []
         ly = Colocacion.G().margen(4)
@@ -54,15 +54,15 @@ class WRunCaptures(LCDialog.LCDialog):
             if i >= self.visible_threats:
                 wm.hide()
 
-        self.gb_threats = Controles.GB(self, _("Threats"), ly).ponFuente(Controles.TipoLetra(puntos=10, peso=750))
+        self.gb_threats = Controles.GB(self, _("Threats"), ly).set_font(Controles.FontType(puntos=10, peso=750))
 
-        self.lb_result = Controles.LB(self).ponTipoLetra(puntos=10, peso=500).anchoFijo(254).set_wrap()
+        self.lb_result = Controles.LB(self).set_font_type(puntos=10, peso=500).anchoFijo(254).set_wrap()
         self.lb_info = (
             Controles.LB(self)
             .anchoFijo(254)
             .set_foreground_backgound("white", "#496075")
             .align_center()
-            .ponTipoLetra(puntos=self.configuration.x_font_points)
+            .set_font_type(puntos=self.configuration.x_font_points)
         )
 
         li_acciones = (

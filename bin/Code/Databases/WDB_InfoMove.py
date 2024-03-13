@@ -64,7 +64,7 @@ class WInfomove(QtWidgets.QWidget):
 
         self.lbPGN = LBKey(self).anchoFijo(self.board.ancho).set_wrap()
         self.lbPGN.wowner = self
-        self.lbPGN.ponTipoLetra(puntos=configuration.x_pgn_fontpoints + 2)
+        self.lbPGN.set_font_type(puntos=configuration.x_pgn_fontpoints + 2)
         Code.configuration.set_property(self.lbPGN, "pgn")
         self.lbPGN.setOpenExternalLinks(False)
 
@@ -87,7 +87,7 @@ class WInfomove(QtWidgets.QWidget):
         self.with_figurines = configuration.x_pgn_withfigurines
 
         self.lb_opening = Controles.LB(self).align_center().anchoFijo(self.board.ancho).set_wrap()
-        self.lb_opening.ponTipoLetra(puntos=10, peso=200)
+        self.lb_opening.set_font_type(puntos=10, peso=200)
         lyO = Colocacion.H().relleno().control(self.lb_opening).relleno()
 
         lya = Colocacion.H().relleno().control(scroll).relleno()

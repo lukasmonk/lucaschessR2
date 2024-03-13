@@ -24,7 +24,7 @@ class ToolbarMoves(QtWidgets.QWidget):
 
         self.dispatch = rutina
         self.side = side
-        self.setFont(Controles.TipoLetra())
+        self.setFont(Controles.FontType())
 
         ancho = 54
 
@@ -159,9 +159,9 @@ class WPlayer(QtWidgets.QWidget):
             )
 
         self.gridMovesWhite = Grid.Grid(self, o_columns, siSelecFilas=True)
-        self.gridMovesWhite.tipoLetra(puntos=self.configuration.x_pgn_fontpoints)
+        self.gridMovesWhite.font_type(puntos=self.configuration.x_pgn_fontpoints)
         self.gridMovesBlack = Grid.Grid(self, o_columns, siSelecFilas=True)
-        self.gridMovesBlack.tipoLetra(puntos=self.configuration.x_pgn_fontpoints)
+        self.gridMovesBlack.font_type(puntos=self.configuration.x_pgn_fontpoints)
 
         wWhite = QtWidgets.QWidget(self)
         tbmovesw = ToolbarMoves("white", self.dispatchMoves)

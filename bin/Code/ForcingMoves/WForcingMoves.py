@@ -53,23 +53,23 @@ class WForcingMoves(LCDialog.LCDialog):
         self.level = 0
 
         # Rotulo informacion
-        self.lb_info_game = Controles.LB(self, _("You can indicate the moves directly on the board.")).ponTipoLetra(
+        self.lb_info_game = Controles.LB(self, _("You can indicate the moves directly on the board.")).set_font_type(
             puntos=self.configuration.x_pgn_fontpoints
         ).set_wrap()
 
         # Movimientos
-        self.ed_moves = Controles.ED(self, "").ponTipoLetra(puntos=32)
+        self.ed_moves = Controles.ED(self, "").set_font_type(puntos=32)
         #  self.ed_moves.setValidator(QtGui.QIntValidator(self.ed_moves))
         self.ed_moves.setAlignment(QtCore.Qt.AlignRight)
         self.ed_moves.anchoFijo(72)
 
         ly = Colocacion.H().relleno().control(self.ed_moves).relleno()
 
-        self.gb_counts = Controles.GB(self, _("Number of checks including checkmates"), ly).ponFuente(
-            Controles.TipoLetra(puntos=10, peso=75))
+        self.gb_counts = Controles.GB(self, _("Number of checks including checkmates"), ly).set_font(
+            Controles.FontType(puntos=10, peso=75))
 
-        self.lb_result = Controles.LB(self).ponTipoLetra(puntos=10, peso=500).altoFijo(32).set_wrap()
-        self.lb_info = Controles.LB(self).ponTipoLetra(puntos=14, peso=500)
+        self.lb_result = Controles.LB(self).set_font_type(puntos=10, peso=500).altoFijo(32).set_wrap()
+        self.lb_info = Controles.LB(self).set_font_type(puntos=14, peso=500)
         self.lb_info.set_foreground_backgound("white", "#496075").align_center().set_wrap()
 
         self.lb_info.setMinimumWidth(300)

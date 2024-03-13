@@ -1,21 +1,20 @@
 import webbrowser
 
-from PySide2 import QtCore, QtWidgets
-
 import Code
 from Code.QT import Colocacion
 from Code.QT import Grid, Columnas, Delegados
 from Code.QT import Iconos
+from Code.QT import LCDialog
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
 
 
-class WConfAnalysis(QtWidgets.QDialog):
+class WConfAnalysis(LCDialog.LCDialog):
     def __init__(self, owner, manager):
-        QtWidgets.QDialog.__init__(self, owner)
-        self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Dialog | QtCore.Qt.WindowMinimizeButtonHint)
-        self.setWindowIcon(Iconos.ConfAnalysis())
-        self.setWindowTitle(_("Analysis configuration parameters"))
+        titulo = _("Analysis configuration parameters")
+        icono = Iconos.ConfAnalysis()
+        extparam = "configuration_analysis"
+        LCDialog.LCDialog.__init__(self, owner, titulo, icono, extparam)
 
         self.manager = manager
         self.configuration = Code.configuration
@@ -43,8 +42,18 @@ class WConfAnalysis(QtWidgets.QDialog):
         ly = Colocacion.V().control(tb).control(self.grid_keys)
         self.setLayout(ly)
 
-    def ayuda(self):
-        url = "http://lucaschess.blogspot.com/2022/10/setting-analysis-parameters.html"
+        self.restore_video()
+
+    def close(self):
+        self.save_video()
+        LCDialog.LCDialog.close(self)
+
+    def closeEvent(self, event):
+        self.save_video()
+
+    @staticmethod
+    def ayuda():
+        url = "https://lucaschess.blogspot.com/2022/10/setting-analysis-parameters.html"
         webbrowser.open(url)
 
     def default(self):
@@ -54,7 +63,8 @@ class WConfAnalysis(QtWidgets.QDialog):
             self.configuration.graba()
             self.dic_eval = self.configuration.read_eval()
             self.grid_keys.refresh()
-            self.manager.refresh_analysis()
+            if self.manager:
+                self.manager.refresh_analysis()
 
     def grid_num_datos(self, grid):
         return len(self.li_keys)
@@ -96,4 +106,5 @@ class WConfAnalysis(QtWidgets.QDialog):
         setattr(self.configuration, "x_eval_" + key, valor)
         self.dic_eval[key] = valor
         self.configuration.graba()
-        self.manager.refresh_analysis()
+        if self.manager:
+            self.manager.refresh_analysis()

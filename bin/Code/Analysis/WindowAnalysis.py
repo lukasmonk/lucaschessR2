@@ -32,8 +32,8 @@ class OneAnalysis(QtWidgets.QWidget):
 
         self.board = owner.board
 
-        self.lb_engine_m = Controles.LB(self, self.time_engine).align_center().ponTipoLetra(puntos=9, peso=75)
-        self.lb_tiempo_m = Controles.LB(self, self.time_label).align_center().ponTipoLetra(puntos=9, peso=75)
+        self.lb_engine_m = Controles.LB(self, self.time_engine).align_center().set_font_type(puntos=9, peso=75)
+        self.lb_tiempo_m = Controles.LB(self, self.time_label).align_center().set_font_type(puntos=9, peso=75)
         self.dic_fonts = {True: "blue", False: "grey"}
 
         self.bt_cancelar = Controles.PB(self, "", self.cancelar).ponIcono(Iconos.X())
@@ -284,7 +284,7 @@ class WAnalisis(LCDialog.LCDialog):
         self.lbPuntuacion = Controles.LB(self).align_center()
         self.lbPGN = Controles.LB(self)
         configuration.set_property(self.lbPGN, "pgn")
-        self.lbPGN.set_wrap().ponTipoLetra(puntos=configuration.x_pgn_fontpoints)
+        self.lbPGN.set_wrap().set_font_type(puntos=configuration.x_pgn_fontpoints)
         self.lbPGN.setAlignment(QtCore.Qt.AlignTop)
         self.lbPGN.setOpenExternalLinks(False)
         self.lbPGN.linkActivated.connect(self.change_mov_active)

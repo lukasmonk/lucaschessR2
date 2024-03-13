@@ -262,7 +262,7 @@ class ManagerTurnOnLights(Manager.Manager):
                 + txt_more_line
             )
             self.pon_rotulos(None)
-            QTUtil2.message_bold(self.main_window, mens, _("Result of training"))
+            QTUtil2.message_bold(self.main_window, mens, _("Result"))
             self.total_time_used = 0
 
         else:

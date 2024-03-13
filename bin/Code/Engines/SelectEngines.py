@@ -479,7 +479,7 @@ class WSelectEngines(LCDialog.LCDialog):
 
         self.lb_number = (
             Controles.LB(self, str(len(self.st_selected)))
-            .ponTipoLetra(puntos=18, peso=300)
+            .set_font_type(puntos=18, peso=300)
             .anchoFijo(114)
             .align_right()
         )

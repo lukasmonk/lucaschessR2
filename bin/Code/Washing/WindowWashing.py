@@ -138,8 +138,8 @@ class WWashing(LCDialog.LCDialog):
                 eng.cindex(),
             )
 
-        lbTxt = Controles.LB(self, html).ponTipoLetra(puntos=12)
-        lbIdx = Controles.LB(self, "%0.2f%%" % ia).align_center().ponTipoLetra(puntos=36, peso=700)
+        lbTxt = Controles.LB(self, html).set_font_type(puntos=12)
+        lbIdx = Controles.LB(self, "%0.2f%%" % ia).align_center().set_font_type(puntos=36, peso=700)
 
         ly0 = Colocacion.V().control(wsvg).relleno(1)
         ly1 = Colocacion.V().espacio(20).control(lbTxt).espacio(20).control(lbIdx).relleno(1)

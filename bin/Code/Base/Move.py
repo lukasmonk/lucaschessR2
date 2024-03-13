@@ -129,24 +129,19 @@ class Move:
         if nag in (None, ""):
             return
         if nag <= NAG_6:
-            # Si nag == 0, se elimina los NAG <= 6
-            if nag == NAG_0:
-                for pos, n in enumerate(self.li_nags):
-                    if n <= NAG_6:
-                        del self.li_nags[pos]
-                        return
-                return
             for pos, n in enumerate(self.li_nags):
-                if nag == n:
-                    return
                 if n <= NAG_6:
-                    self.li_nags[pos] = nag
-                    return
+                    del self.li_nags[pos]
+            if nag == NAG_0:
+                return
         else:
             for pos, n in enumerate(self.li_nags):
                 if nag == n:
                     return
         self.li_nags.append(nag)
+
+    def is_brilliant(self):
+        return NAG_3 in self.li_nags
 
     def del_nags(self):
         self.li_nags = []
@@ -222,30 +217,30 @@ class Move:
 
     def listaSonidos(self):
         pgn = self.pgnBase
-        liMedio = []
-        liFinal = []
+        li_medio = []
+        li_final = []
         if pgn[0] == "O":
-            liInicial = [pgn]
+            li_inicial = [pgn]
         else:
             if "=" in pgn:
                 ult = pgn[-1]
                 if ult.lower() in "qrnb":
-                    liFinal = ["=", pgn[-1]]
+                    li_final = ["=", pgn[-1]]
                     pgn = pgn[:-2]
                 else:
-                    liFinal = ["=", pgn[-2], pgn[-1]]
+                    li_final = ["=", pgn[-2], pgn[-1]]
                     pgn = pgn[:-3]
             elif pgn.endswith("e.p."):
                 pgn = pgn[:-4]
-            liMedio = [pgn[-2], pgn[-1]]
+            li_medio = [pgn[-2], pgn[-1]]
             pgn = pgn[:-2]
-            liInicial = list(pgn)
+            li_inicial = list(pgn)
             # if (not liInicial) or (not liInicial[0].isupper()):
             #     liInicial.insert(0, "P")
 
-        li = liInicial
-        li.extend(liMedio)
-        li.extend(liFinal)
+        li = li_inicial
+        li.extend(li_medio)
+        li.extend(li_final)
         return li
 
     def pgnEN(self):

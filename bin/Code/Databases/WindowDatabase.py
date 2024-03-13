@@ -39,7 +39,7 @@ class WBDatabase(LCDialog.LCDialog):
         else:
             self.wsummary = None
 
-        self.wgames = WDB_Games.WGames(procesador, self, self.dbGames, self.wsummary, si_select)
+        self.wgames = WDB_Games.WGames(self, self.dbGames, self.wsummary, si_select)
 
         self.ultFocus = None
 
@@ -50,7 +50,7 @@ class WBDatabase(LCDialog.LCDialog):
             self.tab.dispatchChange(self.tabChanged)
         if not si_select:
             self.tab.new_tab(self.wplayer, _("Players"))
-        self.tab.ponTipoLetra(puntos=procesador.configuration.x_tb_fontpoints)
+        self.tab.set_font_type(puntos=procesador.configuration.x_tb_fontpoints)
 
         if self.owner and not self.is_temporary:
             liAccionesWork = [(_("Select another database"), Iconos.Database(), self.tw_select_other)]

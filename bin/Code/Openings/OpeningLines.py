@@ -9,7 +9,7 @@ import FasterCode
 
 import Code
 from Code import Util
-from Code.Base import Game, Position
+from Code.Base import Game, Position, Move
 from Code.Base.Constantes import WHITE, ALL_VARIATIONS
 from Code.Databases import DBgamesST, DBgames
 from Code.Engines import EnginesBunch
@@ -489,7 +489,7 @@ class Opening:
         reg["DICFENM2"] = dicFENm2
 
         # bcolor = " w " if is_white else " b "
-        liTrainPositions = []
+        li_train_positions = []
         for fenm2 in dicFENm2:
             data = {}
             data["FENM2"] = fenm2
@@ -497,9 +497,9 @@ class Opening:
             data["NOERROR"] = 0
             data["TRIES"] = []
             data["LIPV"] = dicFENm2_lipv[fenm2]
-            liTrainPositions.append(data)
-        random.shuffle(liTrainPositions)
-        reg["LITRAINPOSITIONS"] = liTrainPositions
+            li_train_positions.append(data)
+        random.shuffle(li_train_positions)
+        reg["LITRAINPOSITIONS"] = li_train_positions
         reg["POS_TRAINPOSITIONS"] = 0
 
     def recalcFenM2(self):
@@ -1223,10 +1223,10 @@ class Opening:
 
         return True
 
-    def import_other(self, pathFichero, game):
+    def import_other(self, path_fichero, game):
         xpvbase = FasterCode.pv_xpv(game.pv())
         tambase = len(xpvbase)
-        otra = Opening(pathFichero)
+        otra = Opening(path_fichero)
         lista = []
         for n, xpv in enumerate(otra.li_xpv):
             if xpv.startswith(xpvbase) and len(xpv) > tambase:
@@ -1243,10 +1243,10 @@ class Opening:
         self.pack_database()
         otra.close()
 
-    def exportarPGN(self, ws, result):
-        liTags = [["Event", self.title.replace('"', "")], ["Site", ""], ["Date", Util.today().strftime("%Y-%m-%d")]]
+    def export_to_pgn(self, ws, result):
+        li_tags = [["Event", self.title.replace('"', "")], ["Site", ""], ["Date", Util.today().strftime("%Y-%m-%d")]]
         if result:
-            liTags.append(["Result", result])
+            li_tags.append(["Result", result])
 
         total = len(self)
 
@@ -1268,8 +1268,8 @@ class Opening:
                 break
             game = self[recno].copia()
 
-            liTags[1] = ["Site", "%s %d" % (_("Line"), recno + 1)]
-            for tag, value in liTags:
+            li_tags[1] = ["Site", "%s %d" % (_("Line"), recno + 1)]
+            for tag, value in li_tags:
                 game.set_tag(tag, value)
 
             for move in game.li_moves:
@@ -1292,9 +1292,78 @@ class Opening:
 
             if recno > 0 or not ws.is_new:
                 ws.write("\n\n")
-            tags = "".join(['[%s "%s"]\n' % (k, v) for k, v in liTags])
+            tags = "".join(['[%s "%s"]\n' % (k, v) for k, v in li_tags])
             ws.write(tags)
             ws.write("\n%s" % game.pgn_base())
+
+        ws.pb_close()
+
+    def exportar_pgn_one(self, ws, nline, pos_move, result):
+        total = len(self)
+        ws.pb(total)
+
+        lilipv = [FasterCode.xpv_pv(xpv).split(" ") for xpv in self.li_xpv]
+
+        def game_add_lipv(xgame: Game.Game, xli_pv):
+            xmove: Move.Move
+            for pos, xmove in enumerate(xgame.li_moves):
+                if xmove.movimiento() != xli_pv[pos]:
+                    if pos == 0 or pos < pos_move:
+                        return
+                    xli_pv_parcial = xli_pv[pos:]
+                    variations = xmove.variations
+                    variation: Game.Game
+                    for variation in variations.li_variations:
+                        if variation and variation.li_moves[0].movimiento() == xli_pv_parcial[0]:
+                            game_add_lipv(variation, xli_pv_parcial)
+                            return
+                    variation_new = Game.Game(first_position=xmove.position_before)
+                    variation_new.read_lipv(xli_pv_parcial)
+                    xmove.add_variation(variation_new)
+                    return
+
+        def add_coments(xgame):
+            for xmove in xgame.li_moves:
+                fenm2 = xmove.position.fenm2()
+                dic = self.getfenvalue(fenm2)
+                if dic:
+                    comment = dic.get("COMENTARIO")
+                    if comment:
+                        xmove.set_comment(comment)
+                    nag = dic.get("VALORACION")
+                    if nag:
+                        xmove.add_nag(nag)
+                    nag = dic.get("VENTAJA")
+                    if nag:
+                        xmove.add_nag(nag)
+
+                for variation in xmove.variations.li_variations:
+                    add_coments(variation)
+
+        game_main = self[nline]
+        for recno in range(total):
+            if recno == nline:
+                continue
+            ws.pb_pos(recno + 1)
+            if ws.pb_cancel():
+                return False
+
+            li_pv = lilipv[recno]
+
+            game_add_lipv(game_main, li_pv)
+
+        add_coments(game_main)
+
+        game_main.set_tag("Site", Code.lucas_chess)
+        game_main.set_tag("Event", self.title)
+        if result:
+            game_main.set_tag("Result", result)
+
+        if not ws.is_new:
+            ws.write("\n\n")
+        tags = "".join(['[%s "%s"]\n' % (k, v) for k, v in game_main.li_tags])
+        ws.write(tags)
+        ws.write("\n%s" % game_main.pgn_base())
 
         ws.pb_close()
 

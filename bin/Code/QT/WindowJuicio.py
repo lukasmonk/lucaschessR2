@@ -38,7 +38,7 @@ class WJuicio(LCDialog.LCDialog):
         self.colorNegativo = QTUtil.qtColorRGB(255, 0, 0)
         self.colorImpares = QTUtil.qtColorRGB(231, 244, 254)
 
-        self.lbComentario = Controles.LB(self, "").ponTipoLetra(puntos=10).align_center()
+        self.lbComentario = Controles.LB(self, "").set_font_type(puntos=10).align_center()
 
         config_board = manager.configuration.config_board("JUICIO", 32)
         self.board = Board.Board(self, config_board)
@@ -72,10 +72,10 @@ class WJuicio(LCDialog.LCDialog):
         self.ponPuntos()
 
     def difPuntos(self):
-        return self.rmUsu.puntosABS_5() - self.rmObj.puntosABS_5()
+        return self.rmUsu.score_abs5() - self.rmObj.score_abs5()
 
     def difPuntosMax(self):
-        return self.mrm.mejorMov().puntosABS_5() - self.rmUsu.puntosABS_5()
+        return self.mrm.mejorMov().score_abs5() - self.rmUsu.score_abs5()
 
     def ponPuntos(self):
         pts = self.difPuntos()

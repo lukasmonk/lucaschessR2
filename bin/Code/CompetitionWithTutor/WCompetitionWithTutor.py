@@ -149,8 +149,8 @@ class WDatos(QtWidgets.QDialog):
 
         tb = QTVarios.tb_accept_cancel(self)
 
-        f = Controles.TipoLetra(puntos=12, peso=75)
-        flb = Controles.TipoLetra(puntos=10)
+        f = Controles.FontType(puntos=12, peso=75)
+        flb = Controles.FontType(puntos=10)
 
         self.max_level, self.maxNivelHecho, self.max_puntos = categorias.max_level_by_category(categoria)
         self.nivel = None
@@ -160,7 +160,7 @@ class WDatos(QtWidgets.QDialog):
         self.ed = Controles.SB(self, self.max_level, 1, self.max_level).tamMaximo(40)
         lb = Controles.LB(self, categoria.name() + " " + _("Level"))
 
-        lb.ponFuente(f)
+        lb.set_font(f)
         self.lbPuntos = Controles.LB(self).align_right()
         self.ed.valueChanged.connect(self.level_changed)
 
@@ -175,28 +175,28 @@ class WDatos(QtWidgets.QDialog):
 
         # Rival
         lb_r_motor = (
-            Controles.LB(self, "<b>%s</b> : %s" % (_("Engine"), rival.name)).ponFuente(flb).set_wrap().anchoFijo(400)
+            Controles.LB(self, "<b>%s</b> : %s" % (_("Engine"), rival.name)).set_font(flb).set_wrap().anchoFijo(400)
         )
         lb_r_autor = (
-            Controles.LB(self, "<b>%s</b> : %s" % (_("Author"), rival.autor)).ponFuente(flb).set_wrap().anchoFijo(400)
+            Controles.LB(self, "<b>%s</b> : %s" % (_("Author"), rival.autor)).set_font(flb).set_wrap().anchoFijo(400)
         )
         lb_r_web = (
             Controles.LB(self, '<b>%s</b> : <a href="%s">%s</a>' % (_("Web"), rival.url, rival.url))
             .set_wrap()
             .anchoFijo(400)
-            .ponFuente(flb)
+            .set_font(flb)
         )
 
         ly = Colocacion.V().control(lb_r_motor).control(lb_r_autor).control(lb_r_web).margen(10)
-        gb_r = Controles.GB(self, _("Opponent"), ly).ponFuente(f)
+        gb_r = Controles.GB(self, _("Opponent"), ly).set_font(f)
 
         # Tutor
         tutor = configuration.engine_tutor()
         lb_t_motor = (
-            Controles.LB(self, "<b>%s</b> : %s" % (_("Engine"), tutor.name)).ponFuente(flb).set_wrap().anchoFijo(400)
+            Controles.LB(self, "<b>%s</b> : %s" % (_("Engine"), tutor.name)).set_font(flb).set_wrap().anchoFijo(400)
         )
         lb_t_autor = (
-            Controles.LB(self, "<b>%s</b> : %s" % (_("Author"), tutor.autor)).ponFuente(flb).set_wrap().anchoFijo(400)
+            Controles.LB(self, "<b>%s</b> : %s" % (_("Author"), tutor.autor)).set_font(flb).set_wrap().anchoFijo(400)
         )
         ly = Colocacion.V().control(lb_t_motor).control(lb_t_autor)
 
@@ -205,15 +205,15 @@ class WDatos(QtWidgets.QDialog):
                 Controles.LB(self, '<b>%s</b> : <a href="%s">%s</a>' % ("Web", tutor.url, tutor.url))
                 .set_wrap()
                 .anchoFijo(400)
-                .ponFuente(flb)
+                .set_font(flb)
             )
             ly.control(lb_t_web)
 
         ly.margen(10)
-        gb_t = Controles.GB(self, _("Tutor"), ly).ponFuente(f)
+        gb_t = Controles.GB(self, _("Tutor"), ly).set_font(f)
 
         hbox = Colocacion.H().relleno().control(self.rb_white).espacio(10).control(self.rb_black).relleno()
-        gb_color = Controles.GB(self, _("Side you play with"), hbox).ponFuente(f)
+        gb_color = Controles.GB(self, _("Side you play with"), hbox).set_font(f)
 
         ly_nivel = Colocacion.H().control(lb).control(self.ed).espacio(10).control(self.lbPuntos).relleno()
 
@@ -265,7 +265,7 @@ class WNumEntrenamiento(QtWidgets.QDialog):
     def __init__(self, w_parent, titulo, to_sq, etiqueta=None, pos=None, mensAdicional=None):
         super(WNumEntrenamiento, self).__init__(w_parent)
 
-        self.setFont(Controles.TipoLetra(puntos=Code.configuration.x_sizefont_infolabels))
+        self.setFont(Controles.FontType(puntos=Code.configuration.x_sizefont_infolabels))
 
         self.setWindowTitle(titulo)
         self.setWindowIcon(Iconos.Datos())

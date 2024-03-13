@@ -1,5 +1,10 @@
 from PySide2 import QtWidgets, QtCore, QtGui
 
+import Code
+from Code.Base.Constantes import KIB_CANDIDATES, KIB_INDEXES, KIB_POLYGLOT, KIB_GAVIOTA, KIB_DATABASES
+
+KIB_BEFORE_MOVE, KIB_AFTER_MOVE = True, False
+
 from Code.Books import Books, WBooks
 from Code.Engines import Priorities
 from Code.Kibitzers import Kibitzers
@@ -77,12 +82,12 @@ class WKibitzers(LCDialog.LCDialog):
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("CAMPO", _("Label"), 152, align_right=True)
         o_columns.nueva("VALOR", _("Value"), 390, edicion=Delegados.MultiEditor(self))
-        self.gridValores = Grid.Grid(self, o_columns, siSelecFilas=False, xid="val", is_editable=True)
-        self.gridValores.tipoLetra(puntos=self.configuration.x_pgn_fontpoints)
-        self.register_grid(self.gridValores)
+        self.grid_values = Grid.Grid(self, o_columns, siSelecFilas=False, xid="val", is_editable=True)
+        self.grid_values.font_type(puntos=self.configuration.x_pgn_fontpoints)
+        self.register_grid(self.grid_values)
 
         w = QtWidgets.QWidget()
-        ly = Colocacion.V().control(self.gridValores).margen(0)
+        ly = Colocacion.V().control(self.grid_values).margen(0)
         w.setLayout(ly)
         self.splitter.addWidget(w)
 
@@ -96,7 +101,7 @@ class WKibitzers(LCDialog.LCDialog):
         self.grid_kibitzers.gotop()
 
     def me_set_editor(self, parent):
-        recno = self.gridValores.recno()
+        recno = self.grid_values.recno()
         key = self.liKibActual[recno][2]
         nk = self.krecno()
         kibitzer = self.kibitzers.kibitzer(nk)
@@ -227,9 +232,9 @@ class WKibitzers(LCDialog.LCDialog):
         si_gaviota = True
         si_index = True
         for kib in self.kibitzers.lista:
-            if kib.tipo == Kibitzers.KIB_GAVIOTA:
+            if kib.tipo == KIB_GAVIOTA:
                 si_gaviota = False
-            elif kib.tipo == Kibitzers.KIB_INDEXES:
+            elif kib.tipo == KIB_INDEXES:
                 si_index = False
         if si_index:
             menu.opcion(("index", None), _("Indexes") + " - RodentII", Iconos.Camara())
@@ -238,8 +243,15 @@ class WKibitzers(LCDialog.LCDialog):
             menu.opcion(("gaviota", None), _("Gaviota Tablebases"), Iconos.Finales())
             menu.separador()
 
+        submenu = menu.submenu(_("Database"), Iconos.Database())
+        QTVarios.menuDB(submenu, Code.configuration, True, )
+        menu.separador()
+
         resp = menu.lanza()
         if resp:
+            if type(resp) == str:
+                resp = ("database", resp)
+
             orden, extra = resp
 
             if orden == "engine":
@@ -252,6 +264,9 @@ class WKibitzers(LCDialog.LCDialog):
                 self.goto(num)
             elif orden == "index":
                 num = self.kibitzers.nuevo_index()
+                self.goto(num)
+            elif orden == "database":
+                num = self.kibitzers.nuevo_database(extra)
                 self.goto(num)
             elif orden in "installbook":
                 self.polyglot_install()
@@ -268,14 +283,14 @@ class WKibitzers(LCDialog.LCDialog):
         form.combobox(_("Engine"), self.configuration.combo_engines(), "stockfish")
         form.separador()
 
-        liTipos = Kibitzers.Tipos().comboSinIndices()
-        form.combobox(_("Type"), liTipos, Kibitzers.KIB_CANDIDATES)
+        li_tipos = Kibitzers.Tipos().comboSinIndices()
+        form.combobox(_("Type"), li_tipos, KIB_CANDIDATES)
         form.separador()
 
         form.combobox(_("Process priority"), Priorities.priorities.combo(), Priorities.priorities.normal)
         form.separador()
 
-        form.combobox(_("Point of view"), Kibitzers.cb_pointofview_options(), Kibitzers.KIB_AFTER_MOVE)
+        form.combobox(_("Point of view"), Kibitzers.cb_pointofview_options(), KIB_AFTER_MOVE)
         form.separador()
 
         form.float("%s (0=%s)" % (_("Fixed time in seconds"), _("all the time thinking")), 0.0)
@@ -299,7 +314,7 @@ class WKibitzers(LCDialog.LCDialog):
 
             name = name.strip()
             if not name:
-                for label, key in liTipos:
+                for label, key in li_tipos:
                     if key == tipo:
                         name = "%s: %s" % (label, engine)
             num = self.kibitzers.nuevo_engine(name, engine, tipo, prioridad, pointofview, fixed_time, fixed_depth)
@@ -317,6 +332,9 @@ class WKibitzers(LCDialog.LCDialog):
                     if num > nk:
                         num = nk - 1
                     self.goto(num)
+                else:
+                    self.liKibActual = []
+                    self.grid_values.refresh()
 
     def copy(self):
         num = self.krecno()
@@ -328,8 +346,8 @@ class WKibitzers(LCDialog.LCDialog):
         if self.grid_kibitzers:
             self.grid_kibitzers.goto(num, 0)
             self.grid_kibitzers.refresh()
-            self.actKibitzer()
-            self.gridValores.refresh()
+            self.act_kibitzer()
+            self.grid_values.refresh()
 
     def krecno(self):
         return self.grid_kibitzers.recno()
@@ -382,7 +400,7 @@ class WKibitzers(LCDialog.LCDialog):
             kibitzer = self.kibitzers.kibitzer(row)
             self.kibitzers_manager.run_new(kibitzer.huella)
 
-    def actKibitzer(self):
+    def act_kibitzer(self):
         self.liKibActual = []
         row = self.krecno()
         if row < 0:
@@ -392,23 +410,23 @@ class WKibitzers(LCDialog.LCDialog):
         tipo = me.tipo
         self.liKibActual.append((_("Name"), me.name, "name"))
 
-        if not (tipo in (Kibitzers.KIB_POLYGLOT, Kibitzers.KIB_GAVIOTA, Kibitzers.KIB_INDEXES)):
+        if not (tipo in (KIB_POLYGLOT, KIB_GAVIOTA, KIB_INDEXES, KIB_DATABASES)):
             self.liKibActual.append((_("Type"), me.ctipo(), "tipo"))
             self.liKibActual.append((_("Priority"), me.cpriority(), "prioridad"))
 
         self.liKibActual.append((_("Visible in menu"), str(me.visible), "visible"))
         self.liKibActual.append((_("Point of view"), me.cpointofview(), "pointofview"))
 
-        if not (tipo in (Kibitzers.KIB_POLYGLOT, Kibitzers.KIB_GAVIOTA, Kibitzers.KIB_INDEXES)):
+        if not (tipo in (KIB_POLYGLOT, KIB_GAVIOTA, KIB_INDEXES, KIB_DATABASES)):
             self.liKibActual.append((_("Engine"), me.name, None))
 
-        if not (tipo in (Kibitzers.KIB_POLYGLOT,)):
+        if not (tipo in (KIB_POLYGLOT, KIB_DATABASES)):
             self.liKibActual.append((_("Author"), me.autor, None))
 
-        if not (tipo in (Kibitzers.KIB_GAVIOTA, Kibitzers.KIB_INDEXES)):
+        if not (tipo in (KIB_GAVIOTA, KIB_INDEXES)):
             self.liKibActual.append((_("File"), me.path_exe, None))
 
-        if not (tipo in (Kibitzers.KIB_POLYGLOT, Kibitzers.KIB_GAVIOTA, Kibitzers.KIB_INDEXES)):
+        if not (tipo in (KIB_POLYGLOT, KIB_GAVIOTA, KIB_INDEXES, KIB_DATABASES)):
             self.liKibActual.append((_("Information"), me.id_info, "info"))
             self.liKibActual.append((_("Fixed time in seconds"), me.max_time, "max_time"))
             self.liKibActual.append((_("Fixed depth"), me.max_depth, "max_depth"))
@@ -447,18 +465,18 @@ class WKibitzerLive(LCDialog.LCDialog):
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("CAMPO", _("Label"), 152, align_right=True)
         o_columns.nueva("VALOR", _("Value"), 390, edicion=Delegados.MultiEditor(self))
-        self.gridValores = Grid.Grid(self, o_columns, siSelecFilas=False, xid="val", is_editable=True)
-        self.gridValores.tipoLetra(puntos=self.configuration.x_pgn_fontpoints)
-        self.register_grid(self.gridValores)
+        self.grid_values = Grid.Grid(self, o_columns, siSelecFilas=False, xid="val", is_editable=True)
+        self.grid_values.font_type(puntos=self.configuration.x_pgn_fontpoints)
+        self.register_grid(self.grid_values)
 
-        ly = Colocacion.V().control(tb).control(self.gridValores)
+        ly = Colocacion.V().control(tb).control(self.grid_values)
         self.setLayout(ly)
 
         self.restore_video(anchoDefecto=600, altoDefecto=400)
 
-        self.gridValores.gotop()
+        self.grid_values.gotop()
 
-        # self.gridValores.resizeRowsToContents()
+        # self.grid_values.resizeRowsToContents()
 
     def leeOpciones(self):
         li = []
@@ -510,7 +528,7 @@ class WKibitzerLive(LCDialog.LCDialog):
         self.accept()
 
     def me_set_editor(self, parent):
-        recno = self.gridValores.recno()
+        recno = self.grid_values.recno()
         key = self.li_options[recno][2]
         control = lista = minimo = maximo = None
         if key == "prioridad":
@@ -538,7 +556,7 @@ class WKibitzerLive(LCDialog.LCDialog):
             elif tipo in ("check", "button"):
                 opcion.valor = not valor
                 self.li_options[recno][1] = opcion.valor
-                self.gridValores.refresh()
+                self.grid_values.refresh()
             elif tipo == "combo":
                 lista = [(var, var) for var in opcion.li_vars]
                 control = "cb"

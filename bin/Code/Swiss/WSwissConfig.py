@@ -72,7 +72,7 @@ class WSwissConfig(LCDialog.LCDialog):
         )
         self.bt_engine_more.set_pordefecto(False)
 
-        self.lb_num_opponents = Controles.LB(self, "").ponTipoLetra(puntos=12, peso=750).align_center()
+        self.lb_num_opponents = Controles.LB(self, "").set_font_type(puntos=12, peso=750).align_center()
         ly_bt0 = Colocacion.H().control(self.bt_engines_more).control(self.bt_human_more)
         ly_bt0.control(self.bt_engine_more).relleno().control(self.lb_num_opponents)
 
@@ -92,13 +92,13 @@ class WSwissConfig(LCDialog.LCDialog):
 
         # adjudicator
         self.list_engines = Code.configuration.combo_engines_multipv10()
-        self.cbJmotor, self.lbJmotor = QTUtil2.combobox_lb(self, self.list_engines, swiss.adjudicator, _("Engine"))
-        self.edJtiempo = Controles.ED(self).tipoFloat(swiss.adjudicator_time).anchoFijo(50)
-        self.lbJtiempo = Controles.LB2P(self, _("Time in seconds"))
+        self.cb_jmotor, self.lb_jmotor = QTUtil2.combobox_lb(self, self.list_engines, swiss.adjudicator, _("Engine"))
+        self.ed_jtiempo = Controles.ED(self).tipoFloat(swiss.adjudicator_time).anchoFijo(50)
+        self.lb_jtiempo = Controles.LB2P(self, _("Time in seconds"))
         ly = Colocacion.G()
-        ly.controld(self.lbJmotor, 3, 0).control(self.cbJmotor, 3, 1)
-        ly.controld(self.lbJtiempo, 4, 0).control(self.edJtiempo, 4, 1)
-        self.gbJ = Controles.GB(self, _("Adjudicator"), ly)
+        ly.controld(self.lb_jmotor, 3, 0).control(self.cb_jmotor, 3, 1)
+        ly.controld(self.lb_jtiempo, 4, 0).control(self.ed_jtiempo, 4, 1)
+        self.gb_j = Controles.GB(self, _("Adjudicator"), ly)
 
         lb_slow = Controles.LB(self, _("Slow down the movement of pieces") + ": ")
         self.chb_slow = Controles.CHB(self, " ", swiss.slow_pieces)
@@ -152,7 +152,7 @@ class WSwissConfig(LCDialog.LCDialog):
         ly_options.controld(lb_resign, 0, 0).otro(ly_res, 0, 1)
         ly_options.controld(lb_draw_range, 1, 0).otro(ly_dra, 1, 1)
         ly_options.controld(lb_draw_min_ply, 2, 0).control(self.ed_draw_min_ply, 2, 1)
-        ly_options.control(self.gbJ, 3, 0, 2, 2)
+        ly_options.control(self.gb_j, 3, 0, 2, 2)
         ly_options.controld(lb_slow, 5, 0).control(self.chb_slow, 5, 1)
         ly_options.control(gb_time_eng_eng, 6, 0, 1, 2)
         ly_options.control(gb_time_eng_human, 7, 0, 1, 2)
@@ -161,7 +161,7 @@ class WSwissConfig(LCDialog.LCDialog):
 
         layout_v = Colocacion.V().otro(ly_bt0).control(self.grid)
 
-        font = Controles.TipoLetra(puntos=Code.configuration.x_font_points)
+        font = Controles.FontType(puntos=Code.configuration.x_font_points)
 
         gb_conf = Controles.GB(self, _("Options"), ly_options)
         self.gb_eng = Controles.GB(self, _("Players"), layout_v)
@@ -181,6 +181,17 @@ class WSwissConfig(LCDialog.LCDialog):
         self.restore_video(siTam=True, anchoDefecto=1032)
 
         self.sort_list()
+
+        previous = self.ed_resign
+        previous.setFocus()
+        for widget in (bt_resign, self.ed_draw_range, bt_draw_range, self.ed_draw_min_ply,
+                       self.cb_jmotor, self.ed_jtiempo,
+                       self.ed_minutes_eng_eng, self.sb_seconds_eng_eng,
+                       self.ed_minutes_eng_human, self.sb_seconds_eng_human,
+                       self.ed_score_win, self.ed_score_draw, self.ed_score_lost, self.ed_score_byes,
+                       self.ed_matchdays):
+            self.setTabOrder(previous, widget)
+            previous = widget
 
         self.show_num_opponents()
 
@@ -242,8 +253,8 @@ class WSwissConfig(LCDialog.LCDialog):
         self.swiss.resign = self.ed_resign.textoInt()
         self.swiss.draw_min_ply = self.ed_draw_min_ply.textoInt()
         self.swiss.draw_range = self.ed_draw_range.textoInt()
-        self.swiss.adjudicator = self.cbJmotor.valor()
-        self.swiss.adjudicator_time = self.edJtiempo.textoFloat()
+        self.swiss.adjudicator = self.cb_jmotor.valor()
+        self.swiss.adjudicator_time = self.ed_jtiempo.textoFloat()
         self.swiss.adjudicator_active = True
         self.swiss.slow_pieces = self.chb_slow.valor()
         mnt = self.ed_minutes_eng_eng.textoFloat()

@@ -216,7 +216,7 @@ class WLearn1(LCDialog.LCDialog):
         self.game.restore(self.registro["GAME"])
 
         self.lbRotulo = (
-            Controles.LB(self, self.label()).ponTipoLetra(puntos=12).set_foreground_backgound("#076C9F", "#EFEFEF")
+            Controles.LB(self, self.label()).set_font_type(puntos=12).set_foreground_backgound("#076C9F", "#EFEFEF")
         )
 
         self.liIntentos = self.registro.get("LIINTENTOS", [])
@@ -403,10 +403,10 @@ class WLearnPuente(LCDialog.LCDialog):
             lyFin = Colocacion.V().control(self.boardFin).control(self.lbFin)
 
         # Rotulo vtime
-        f = Controles.TipoLetra(puntos=30, peso=75)
+        f = Controles.FontType(puntos=30, peso=75)
         self.lbReloj = (
             Controles.LB(self, "00:00")
-            .ponFuente(f)
+            .set_font(f)
             .align_center()
             .set_foreground_backgound("#076C9F", "#EFEFEF")
             .anchoMinimo(200)
@@ -414,8 +414,8 @@ class WLearnPuente(LCDialog.LCDialog):
         self.lbReloj.setFrameStyle(QtWidgets.QFrame.Box | QtWidgets.QFrame.Raised)
 
         # Movimientos
-        flb = Controles.TipoLetra(puntos=11)
-        self.lbInfo = Controles.LB(self).anchoFijo(200).set_wrap().ponFuente(flb)
+        flb = Controles.FontType(puntos=11)
+        self.lbInfo = Controles.LB(self).anchoFijo(200).set_wrap().set_font(flb)
 
         # Layout
         lyC = Colocacion.V().control(self.lbReloj).control(self.lbInfo).relleno()

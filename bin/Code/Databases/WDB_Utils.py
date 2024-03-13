@@ -47,14 +47,14 @@ class WFiltrar(QtWidgets.QDialog):
 
         li_union = [("", None), (_("AND"), "AND"), (_("OR"), "OR")]
 
-        f = Controles.TipoLetra(puntos=12)  # 0, peso=75 )
+        f = Controles.FontType(puntos=12)  # 0, peso=75 )
 
-        lb_col = Controles.LB(self, _("Column")).ponFuente(f)
-        lb_par0 = Controles.LB(self, "(").ponFuente(f)
-        lb_par1 = Controles.LB(self, ")").ponFuente(f)
-        lb_con = Controles.LB(self, _("Condition")).ponFuente(f)
-        lb_val = Controles.LB(self, _("Value")).ponFuente(f)
-        lb_uni = Controles.LB(self, "+").ponFuente(f)
+        lb_col = Controles.LB(self, _("Column")).set_font(f)
+        lb_par0 = Controles.LB(self, "(").set_font(f)
+        lb_par1 = Controles.LB(self, ")").set_font(f)
+        lb_con = Controles.LB(self, _("Condition")).set_font(f)
+        lb_val = Controles.LB(self, _("Value")).set_font(f)
+        lb_uni = Controles.LB(self, "+").set_font(f)
 
         ly = Colocacion.G()
         ly.controlc(lb_uni, 0, 0).controlc(lb_par0, 0, 1).controlc(lb_col, 0, 2)
@@ -288,12 +288,12 @@ class WFiltrarRaw(LCDialog.LCDialog):
 
         self.where = ""
         li_fields = [(x.head, x.key) for x in o_columns.li_columns if x.key != "__num__"]
-        f = Controles.TipoLetra(puntos=12)  # 0, peso=75 )
+        f = Controles.FontType(puntos=12)  # 0, peso=75 )
 
-        lb_raw = Controles.LB(self, "%s:" % _("Raw SQL")).ponFuente(f)
-        self.edRaw = EMSQL(self, where, li_fields).altoFijo(72).anchoMinimo(512).ponFuente(f)
+        lb_raw = Controles.LB(self, "%s:" % _("Raw SQL")).set_font(f)
+        self.edRaw = EMSQL(self, where, li_fields).altoFijo(72).anchoMinimo(512).set_font(f)
 
-        lb_help = Controles.LB(self, _("Right button to select a column of database")).ponFuente(f)
+        lb_help = Controles.LB(self, _("Right button to select a column of database")).set_font(f)
         ly_help = Colocacion.H().relleno().control(lb_help).relleno()
 
         ly = Colocacion.H().control(lb_raw).control(self.edRaw)

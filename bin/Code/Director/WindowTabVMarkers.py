@@ -137,7 +137,7 @@ class WTV_Markers(LCDialog.LCDialog):
 
         self.owner = owner
 
-        flb = Controles.TipoLetra(puntos=8)
+        flb = Controles.FontType(puntos=8)
 
         self.configuration = Code.configuration
         self.liPMarkers = list_markers

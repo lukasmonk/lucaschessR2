@@ -328,8 +328,8 @@ class ManagerPlayGame(Manager.Manager):
                 rm_usu = w.rmUsu
                 rm_obj = w.rmObj
             else:
-                dpts = rm_usu.puntosABS_5() - rm_obj.puntosABS_5()
-                dpts_max = mrm.mejorMov().puntosABS_5() - rm_usu.puntosABS_5()
+                dpts = rm_usu.score_abs5() - rm_obj.score_abs5()
+                dpts_max = mrm.mejorMov().score_abs5() - rm_usu.score_abs5()
 
             self.puntos += dpts
             self.puntosMax += dpts_max

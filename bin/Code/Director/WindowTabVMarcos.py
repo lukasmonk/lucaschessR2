@@ -139,7 +139,7 @@ class WTV_Marcos(LCDialog.LCDialog):
 
         self.owner = owner
 
-        flb = Controles.TipoLetra(puntos=8)
+        flb = Controles.FontType(puntos=8)
 
         self.liPMarcos = list_boxes
         self.configuration = Code.configuration

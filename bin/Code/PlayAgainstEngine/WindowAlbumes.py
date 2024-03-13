@@ -47,7 +47,7 @@ class WAlbum(LCDialog.LCDialog):
             pb.ponIcono(icono, 64)
 
             lb = Controles.LB(self, cromo.name)
-            lb.ponTipoLetra(puntos=10, peso=75)
+            lb.set_font_type(puntos=10, peso=75)
             row = pos // divisor
             col = pos % divisor
             layout.controlc(pb, row * 2, col)

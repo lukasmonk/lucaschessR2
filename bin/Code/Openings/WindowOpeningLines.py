@@ -353,7 +353,7 @@ class WStaticTraining(LCDialog.LCDialog):
         LCDialog.LCDialog.__init__(self, procesador.main_window, titulo, Iconos.TrainStatic(), extparam)
 
         lb = Controles.LB(self, dbop.gettitle())
-        lb.set_background("#BDDBE8").align_center().ponTipoLetra(puntos=14)
+        lb.set_background("#BDDBE8").align_center().set_font_type(puntos=14)
 
         # Toolbar
         tb = QTVarios.LCTB(self)
@@ -368,7 +368,7 @@ class WStaticTraining(LCDialog.LCDialog):
 
         self.grid = Grid.Grid(self, o_columns, altoFila=ancho, background="white")
         self.grid.setAlternatingRowColors(False)
-        self.grid.tipoLetra(puntos=10, peso=500)
+        self.grid.font_type(puntos=10, peso=500)
         nAnchoPgn = self.grid.anchoColumnas() + 20
         self.grid.setMinimumWidth(nAnchoPgn)
 

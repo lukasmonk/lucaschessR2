@@ -344,7 +344,7 @@ class Board(QtWidgets.QGraphicsView):
         else:
             self.piezas = Code.all_pieces.selecciona(nom_pieces_ori)
         self.anchoPieza = self.config_board.width_piece()
-        self.margenPieza = 2
+        self.margenPieza = 0
 
         self.colorBlancas = self.config_board.colorBlancas()
         self.colorNegras = self.config_board.colorNegras()
@@ -577,9 +577,9 @@ class Board(QtWidgets.QGraphicsView):
         ancho_texto = self.puntos + 4
         if self.margenCentro >= self.puntos or self.config_board.sepLetras() < 0:
             coord = BoardTypes.Texto()
-            tipo_letra = self.config_board.tipoLetra()
+            tipo_letra = self.config_board.font_type()
             peso = 75 if self.config_board.bold() else 50
-            coord.tipoLetra = BoardTypes.TipoLetra(tipo_letra, self.puntos, peso=peso)
+            coord.font_type = BoardTypes.FontType(tipo_letra, self.puntos, peso=peso)
             coord.physical_pos.ancho = ancho_texto
             coord.physical_pos.alto = ancho_texto
             coord.physical_pos.orden = 7
@@ -2710,7 +2710,7 @@ class BoardEstaticoMensaje(BoardEstatico):
     def rehaz(self):
         Board.rehaz(self)
         self.mens = BoardTypes.Texto()
-        self.mens.tipoLetra = BoardTypes.TipoLetra(puntos=self.width_square * 2 * self.size_factor, peso=750)
+        self.mens.font_type = BoardTypes.FontType(puntos=self.width_square * 2 * self.size_factor, peso=750)
         self.mens.physical_pos.ancho = self.width_square * 8
         self.mens.physical_pos.alto = self.width_square * 8
         self.mens.physical_pos.orden = 99
@@ -2722,7 +2722,7 @@ class BoardEstaticoMensaje(BoardEstatico):
         self.mensSC = BoardElements.TextoSC(self.escena, self.mens)
 
         self.mens2 = BoardTypes.Texto()
-        self.mens2.tipoLetra = BoardTypes.TipoLetra(puntos=self.width_square * self.size_factor, peso=750)
+        self.mens2.font_type = BoardTypes.FontType(puntos=self.width_square * self.size_factor, peso=750)
         self.mens2.physical_pos.ancho = self.width_square * 8
         self.mens2.physical_pos.alto = self.width_square * 8
         self.mens2.physical_pos.orden = 99

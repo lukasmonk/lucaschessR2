@@ -131,7 +131,7 @@ class WBase(QtWidgets.QWidget):
         cf = self.manager.configuration
         peso = 75 if cf.x_tb_bold else 50
         puntos = cf.x_tb_fontpoints
-        font = Controles.TipoLetra(puntos=puntos, peso=peso)
+        font = Controles.FontType(puntos=puntos, peso=peso)
 
         for key, (titulo, icono) in dic_opciones.items():
             accion = QtWidgets.QAction(titulo, None)
@@ -273,16 +273,16 @@ class WBase(QtWidgets.QWidget):
         self.pgn = Grid.Grid(self, o_columns, siCabeceraMovible=False)
         self.pgn.setMinimumWidth(width_pgn)
         self.pgn.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.pgn.tipoLetra(puntos=configuration.x_pgn_fontpoints)
+        self.pgn.font_type(puntos=configuration.x_pgn_fontpoints)
         self.pgn.ponAltoFila(configuration.x_pgn_rowheight)
         self.pgn.set_right_button_without_rows(True)
 
         # # Blancas y negras
-        f = Controles.TipoLetra(puntos=configuration.x_sizefont_infolabels + 2, peso=75)
-        self.lb_player_white = Controles.LB(self).anchoFijo(nAnchoLabels).align_center().ponFuente(f).set_wrap()
+        f = Controles.FontType(puntos=configuration.x_sizefont_infolabels + 2, peso=75)
+        self.lb_player_white = Controles.LB(self).anchoFijo(nAnchoLabels).align_center().set_font(f).set_wrap()
         self.configuration.set_property(self.lb_player_white, "white")
 
-        self.lb_player_black = Controles.LB(self).anchoFijo(nAnchoLabels).align_center().ponFuente(f).set_wrap()
+        self.lb_player_black = Controles.LB(self).anchoFijo(nAnchoLabels).align_center().set_font(f).set_wrap()
         self.configuration.set_property(self.lb_player_black, "black")
 
         # # Capturas
@@ -295,10 +295,10 @@ class WBase(QtWidgets.QWidget):
         self.lb_capt_black.setStyleSheet(style)
 
         # Relojes
-        f = Controles.TipoLetra(puntos=26, peso=500)
+        f = Controles.FontType(puntos=26, peso=500)
 
         def lbReloj():
-            lb = Controles.LB(self, "00:00").ponFuente(f).align_center().anchoMinimo(nAnchoLabels)
+            lb = Controles.LB(self, "00:00").set_font(f).align_center().anchoMinimo(nAnchoLabels)
             lb.setFrameStyle(QtWidgets.QFrame.Box | QtWidgets.QFrame.Raised)
             self.configuration.set_property(lb, "clock")
             return lb
@@ -306,16 +306,16 @@ class WBase(QtWidgets.QWidget):
         self.lb_clock_white = lbReloj()
         self.lb_clock_black = lbReloj()
 
-        f = Controles.TipoLetra(puntos=12)
+        f = Controles.FontType(puntos=12)
         # Boton de tutor activo
-        self.bt_active_tutor = Controles.PB(self, "", rutina=self.change_tutor_active, plano=False).ponFuente(f)
+        self.bt_active_tutor = Controles.PB(self, "", rutina=self.change_tutor_active, plano=False).set_font(f)
 
         # Rotulos de informacion
-        f = Controles.TipoLetra(puntos=configuration.x_sizefont_infolabels)
-        self.lbRotulo1 = Controles.LB(self).set_wrap().ponFuente(f)
-        self.lbRotulo2 = Controles.LB(self).set_wrap().ponFuente(f)
-        f9 = Controles.TipoLetra(puntos=9)
-        self.lbRotulo3 = Controles.LB(self).set_wrap().ponFuente(f9)
+        f = Controles.FontType(puntos=configuration.x_sizefont_infolabels)
+        self.lbRotulo1 = Controles.LB(self).set_wrap().set_font(f)
+        self.lbRotulo2 = Controles.LB(self).set_wrap().set_font(f)
+        f9 = Controles.FontType(puntos=9)
+        self.lbRotulo3 = Controles.LB(self).set_wrap().set_font(f9)
         self.lbRotulo3.setStyleSheet("*{ border: 1px solid darkgray }")
         self.lbRotulo3.altoFijo(48)
 
@@ -786,7 +786,7 @@ class WMessage(QtWidgets.QWidget):
     def __init__(self, owner):
         QtWidgets.QWidget.__init__(self, owner)
 
-        self.lb_message = Controles.LB(self).ponTipoLetra(puntos=11, peso=400)
+        self.lb_message = Controles.LB(self).set_font_type(puntos=11, peso=400)
         self.lb_message.setStyleSheet("background-color: #1f497d; color: #FFFFFF;padding: 16px;")
 
         self.bt_cancel = Controles.PB(self, _("Cancel"), self.cancel, False)

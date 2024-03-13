@@ -108,17 +108,25 @@ class ManagerRoutes(Manager.Manager):
 
     def start(self, route):
         self.route = route
-        self.time_start = time.time()
         self.route_state = route.state
 
         self.game_type = GT_ROUTES
 
-    def end_game(self):
+    def ini_time(self):
+        self.time_start = time.time()
+
+    def add_time(self):
+        if self.time_start:
+            self.route.add_time(time.time() - self.time_start, self.route_state)
+            self.time_start = 0
+
+    def terminate(self):
+        self.add_time()
         self.procesador.start()
-        self.route.add_time(time.time() - self.time_start, self.route_state)
+        self.procesador.show_route()
 
     def final_x(self):
-        self.end_game()
+        self.terminate()
         return False
 
     def add_move(self, move, is_player):
@@ -190,18 +198,17 @@ class ManagerRoutesPlay(ManagerRoutes):
 
         self.game.add_tag_timestart()
 
+        self.ini_time()
         self.play_next_move()
-
-    def end_game(self):
-        self.engine.close()
-        ManagerRoutes.end_game(self)
 
     def run_action(self, key):
         if key in (TB_CLOSE, TB_NEXT):
-            self.end_game()
-            self.procesador.showRoute()
+            self.add_time()
+            self.procesador.start()
+            self.procesador.show_route()
 
         elif key == TB_REINIT:
+            self.add_time()
             self.game.set_position()
             self.start(self.route)
 
@@ -300,6 +307,7 @@ class ManagerRoutesPlay(ManagerRoutes):
         return True
 
     def lineaTerminada(self):
+        self.add_time()
         self.disable_all()
         self.human_is_playing = False
         self.state = ST_ENDGAME
@@ -401,8 +409,7 @@ class ManagerRoutesEndings(ManagerRoutes):
 
     def run_action(self, key):
         if key in (TB_CLOSE, TB_NEXT):
-            self.end_game()
-            self.procesador.showRoute()
+            self.terminate()
 
         elif key == TB_CONFIG:
             self.configurar(siSonidos=True, siCambioTutor=True)
@@ -411,11 +418,11 @@ class ManagerRoutesEndings(ManagerRoutes):
             self.get_help()
 
         elif key == TB_NEXT:
+            self.add_time()
             if self.route.km_pending():
                 self.start(self.route)
             else:
                 self.end_game()
-                self.procesador.showRoute()
 
         elif key == TB_UTILITIES:
             self.utilities()
@@ -426,10 +433,10 @@ class ManagerRoutesEndings(ManagerRoutes):
         else:
             Manager.Manager.rutinaAccionDef(self, key)
 
-    def end_game(self):
+    def terminate(self):
         if self.t4:
             self.t4.close()
-        ManagerRoutes.end_game(self)
+        ManagerRoutes.terminate(self)
 
     def play_next_move(self):
         if self.state == ST_ENDGAME:
@@ -460,6 +467,7 @@ class ManagerRoutesEndings(ManagerRoutes):
             self.rival_has_moved(pv[:2], pv[2:4], pv[4:])
             self.play_next_move()
         else:
+            self.ini_time()
             self.human_is_playing = True
             self.activate_side(is_white)
 
@@ -505,6 +513,7 @@ class ManagerRoutesEndings(ManagerRoutes):
                 self.sigueHumano()
                 return False
 
+        self.add_time()
         self.move_the_pieces(jgSel.liMovs)
 
         self.add_move(jgSel, True)
@@ -532,6 +541,7 @@ class ManagerRoutesEndings(ManagerRoutes):
             self.ponWarnings()
 
     def lineaTerminada(self):
+        self.add_time()
         self.disable_all()
         self.human_is_playing = False
         self.state = ST_ENDGAME
@@ -599,7 +609,6 @@ class ManagerRoutesTactics(ManagerRoutes):
         self.set_position(self.game.last_position)
         self.show_side_indicator(True)
         self.put_pieces_bottom(is_white)
-        # self.set_label1("<b>%s</b>" % tactica.label)
         self.set_label2(route.mens_tactic(False))
         self.pgnRefresh(True)
         QTUtil.refresh_gui()
@@ -610,8 +619,7 @@ class ManagerRoutesTactics(ManagerRoutes):
 
     def run_action(self, key):
         if key == TB_CLOSE:
-            self.end_game()
-            self.procesador.showRoute()
+            self.terminate()
 
         elif key == TB_CONFIG:
             self.configurar(siSonidos=True, siCambioTutor=True)
@@ -623,8 +631,7 @@ class ManagerRoutesTactics(ManagerRoutes):
             if self.route.km_pending():
                 self.start(self.route)
             else:
-                self.end_game()
-                self.procesador.showRoute()
+                self.terminate()
 
         elif key == TB_UTILITIES:
             self.utilities()
@@ -662,6 +669,7 @@ class ManagerRoutesTactics(ManagerRoutes):
             self.rival_has_moved(move.from_sq, move.to_sq, move.promotion)
             self.play_next_move()
         else:
+            self.ini_time()
             self.human_is_playing = True
             self.activate_side(is_white)
 
@@ -694,6 +702,8 @@ class ManagerRoutesTactics(ManagerRoutes):
 
         self.add_move(jgSel, True)
         self.error = ""
+
+        self.add_time()
 
         self.play_next_move()
         return True

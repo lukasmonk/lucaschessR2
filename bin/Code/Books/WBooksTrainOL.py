@@ -254,7 +254,7 @@ class WGenBooksTrainOL(LCDialog.LCDialog):
         self.list_books = Books.ListBooks()
         dic_data = self.reg.dic()
 
-        flb = Controles.TipoLetra(puntos=10)
+        flb = Controles.FontType(puntos=10)
 
         # Toolbar
         tb = QTVarios.LCTB(self)
@@ -270,7 +270,7 @@ class WGenBooksTrainOL(LCDialog.LCDialog):
         self.rb_black.setChecked(side == BLACK)
 
         hbox = Colocacion.H().relleno().control(self.rb_white).espacio(30).control(self.rb_black).relleno()
-        gb_side = Controles.GB(self, _("Side you play with"), hbox).ponFuente(flb)
+        gb_side = Controles.GB(self, _("Side you play with"), hbox).set_font(flb)
 
         # Start position
         self.bt_position = Controles.PB(self, "", self.change_start_position).ponPlano(False)
@@ -285,7 +285,7 @@ class WGenBooksTrainOL(LCDialog.LCDialog):
             .control(bt_position_paste)
             .relleno()
         )
-        gb_start_position = Controles.GB(self, _("Start position"), hbox).ponFuente(flb)
+        gb_start_position = Controles.GB(self, _("Start position"), hbox).set_font(flb)
 
         # Books
         li_books = [(x.name, x) for x in self.list_books.lista]
@@ -305,7 +305,7 @@ class WGenBooksTrainOL(LCDialog.LCDialog):
 
         lybook = Colocacion.H().relleno().control(self.cb_white).control(self.cb_mode_white).relleno()
 
-        gb_white = Controles.GB(self, _("White book"), lybook).ponFuente(flb)
+        gb_white = Controles.GB(self, _("White book"), lybook).set_font(flb)
 
         # Black
         self.cb_black = Controles.CB(self, li_books, book_obj("BOOK_BLACK"))
@@ -313,7 +313,7 @@ class WGenBooksTrainOL(LCDialog.LCDialog):
 
         lybook = Colocacion.H().relleno().control(self.cb_black).control(self.cb_mode_black).relleno()
 
-        gb_black = Controles.GB(self, _("Black book"), lybook).ponFuente(flb)
+        gb_black = Controles.GB(self, _("Black book"), lybook).set_font(flb)
 
         layout_books = Colocacion.H().control(gb_white).control(gb_black)
 
@@ -330,12 +330,12 @@ class WGenBooksTrainOL(LCDialog.LCDialog):
 
         no_limits = _("0=no limit")
 
-        lb_info1 = Controles.LB(self, no_limits).ponTipoLetra(puntos=8)
-        lb_info2 = Controles.LB(self, no_limits).ponTipoLetra(puntos=8)
+        lb_info1 = Controles.LB(self, no_limits).set_font_type(puntos=8)
+        lb_info2 = Controles.LB(self, no_limits).set_font_type(puntos=8)
         ly.control(lb_info1, 1, 1)
         ly.control(lb_info2, 1, 3)
 
-        gb_limits = Controles.GB(self, _("Limits"), ly).ponFuente(flb)
+        gb_limits = Controles.GB(self, _("Limits"), ly).set_font(flb)
 
         for gb in (gb_side, gb_white, gb_black, gb_limits, gb_start_position):
             Code.configuration.set_property(gb, "1")

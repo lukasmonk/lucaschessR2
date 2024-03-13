@@ -3,7 +3,7 @@ import collections
 from PySide2 import QtWidgets, QtCore
 
 import Code
-from Code import XRun, Util
+from Code import XRun
 from Code.Base import Game
 from Code.Base.Constantes import RESULT_WIN_WHITE, RESULT_DRAW, RESULT_WIN_BLACK
 from Code.Databases import DBgames, WDB_Games
@@ -67,9 +67,9 @@ class WLeague(LCDialog.LCDialog):
 
         self.tb = QTVarios.LCTB(self)
 
-        self.tab = Controles.Tab(self).ponTipoLetra(puntos=10).set_position("S")
+        self.tab = Controles.Tab(self).set_font_type(puntos=10).set_position("S")
         self.tab.dispatchChange(self.tab_changed)
-        font = Controles.TipoLetra(puntos=10)
+        font = Controles.FontType(puntos=10)
 
         self.grid_games = None
 
@@ -93,7 +93,7 @@ class WLeague(LCDialog.LCDialog):
         if num_divisions > 12:
             for dv in range(13, num_divisions + 1):
                 li_nom_divisions.append("%d %s" % (dv, _("Division")))
-        tr = Controles.Tab(self).ponTipoLetra(puntos=10)  # .set_position("S")
+        tr = Controles.Tab(self).set_font_type(puntos=10)  # .set_position("S")
         sw = "◻  "
         sb = "◼  "
         for division in range(num_divisions):
@@ -126,7 +126,7 @@ class WLeague(LCDialog.LCDialog):
 
         # CROSSTABS ----------------------------------------------------------------------------------------------------
         ly = Colocacion.H()
-        tr = Controles.Tab(self).ponTipoLetra(puntos=10)  # .set_position("S")
+        tr = Controles.Tab(self).set_font_type(puntos=10)  # .set_position("S")
         for num_division in range(num_divisions):
             o_col = Columnas.ListaColumnas()
             o_col.nueva("ORDER", _("Order"), 30, align_center=True)
@@ -173,17 +173,17 @@ class WLeague(LCDialog.LCDialog):
         tbj.new("", Iconos.MoverAdelante(), self.journey_next, False)
         tbj.new("", Iconos.MoverFinal(), self.journey_last, False)
 
-        fontd = Controles.TipoLetra(puntos=12)
+        fontd = Controles.FontType(puntos=12)
 
-        lb_journey = Controles.LB(self, _("Matchday") + ": ").ponFuente(fontd)
-        self.sb_journey = Controles.SB(self, self.current_journey + 1, 1, self.max_journeys).ponFuente(fontd)
+        lb_journey = Controles.LB(self, _("Round") + ": ").set_font(fontd)
+        self.sb_journey = Controles.SB(self, self.current_journey + 1, 1, self.max_journeys).set_font(fontd)
         self.sb_journey.setFixedWidth(50)
         self.sb_journey.capture_changes(self.change_sb)
-        lb_info_journey = Controles.LB(self, "/ %d" % self.max_journeys).ponFuente(fontd)
+        lb_info_journey = Controles.LB(self, "/ %d" % self.max_journeys).set_font(fontd)
 
         self.lb_active = (
-            Controles.LB(self, _("CURRENT MATCHDAY"))
-            .ponFuente(Controles.TipoLetra(puntos=16, peso=400))
+            Controles.LB(self, _("Current"))
+            .set_font(Controles.FontType(puntos=16, peso=400))
             .align_center()
             .anchoMinimo(400)
         )
@@ -206,7 +206,7 @@ class WLeague(LCDialog.LCDialog):
 
         w = QtWidgets.QWidget(self)
         w.setLayout(ly)
-        self.tab.addTab(w, _("Matches"))
+        self.tab.addTab(w, _("Games"))
 
         # Games -----------------------------------------------------------------------------------------------------
         lb_division = Controles.LB2P(self, _("Division"))
@@ -373,7 +373,7 @@ class WLeague(LCDialog.LCDialog):
         self.tb.clear()
         self.tb.new(_("Close"), Iconos.MainMenu(), self.terminar)
         if not self.season.is_finished():
-            self.tb.new(_("Launch a worker"), Iconos.Lanzamiento(), self.launch_worker)
+            self.tb.new(_("Launch workers"), Iconos.Lanzamiento(), self.launch_worker)
             self.tb.new(_("Update"), Iconos.Update(), self.update_matches)
         self.tb.new(_("Export"), Iconos.Export8(), self.export)
         li_seasons = self.season.list_seasons()
@@ -431,7 +431,7 @@ class WLeague(LCDialog.LCDialog):
 
         elif grid == self.grid_games:
             if column == "NUMBER":
-                return str(row+1)
+                return str(row + 1)
             dic = self.li_games[row]
             return dic.get(column)
 
@@ -711,7 +711,7 @@ class WLeague(LCDialog.LCDialog):
             dic[opponent].append((xmatch, icon, cresult))
 
         menu = QTVarios.LCMenu(self)
-        menu.ponTipoLetra(name=Code.font_mono, puntos=10)
+        menu.set_font_type(name=Code.font_mono, puntos=10)
 
         li_names = list(dic.keys())
         li_names.sort()
@@ -734,7 +734,7 @@ class WLeague(LCDialog.LCDialog):
 
     def consult_matches_classification(self, grid, row):
         xmatch = self.li_matches[row]
-        division = int(xmatch.label_division)-1
+        division = int(xmatch.label_division) - 1
         if xmatch.result:
             self.show_match_done(xmatch)
             grid.refresh()
@@ -922,23 +922,7 @@ class WLeague(LCDialog.LCDialog):
         return resp
 
     def launch_worker(self):
-        cores = Util.cpu_count()
-        if cores < 2:
-            resp = 1
-
-        else:
-            rondo = QTVarios.rondo_puntos()
-
-            menu = QTVarios.LCMenu(self)
-            menu.opcion(1, _("Launch one worker"), Iconos.Lanzamiento())
-            menu.separador()
-
-            submenu = menu.submenu(_("Launch some workers"), Iconos.Lanzamientos())
-
-            for x in range(2, cores+1):
-                submenu.opcion(x, str(x), rondo.otro())
-
-            resp = menu.lanza()
+        resp = QTVarios.launch_workers(self)
 
         if resp:
             self.update_matches()

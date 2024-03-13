@@ -206,8 +206,8 @@ class Personalities:
 
     def lanzaMenu(self):
         menu = QTVarios.LCMenu(self.owner)
-        f = Controles.TipoLetra(puntos=8, peso=75)
-        menu.ponFuente(f)
+        f = Controles.FontType(puntos=8, peso=75)
+        menu.set_font(f)
         icoCrear = Iconos.Mas()
         icoEditar = Iconos.ModificarP()
         icoBorrar = Iconos.Delete()

@@ -124,8 +124,8 @@ class TextoSC(BloqueSC):
 
         self.bloqueDatos = self.bloqueTexto = bloqueTexto
 
-        self.font = Controles.TipoLetra(txt=str(bloqueTexto.tipoLetra))
-        self.font.setPixelSize(bloqueTexto.tipoLetra.puntos)
+        self.font = Controles.FontType(txt=str(bloqueTexto.font_type))
+        self.font.setPixelSize(bloqueTexto.font_type.puntos)
         self.textOption = QtGui.QTextOption(QTUtil.qtAlineacion(bloqueTexto.alineacion))
         self.rutina = rutina
 
@@ -268,7 +268,7 @@ class TiempoSC(BloqueSC):
 
         self.bloqueDatos = self.bloqueTexto = bloqueTexto
 
-        self.font = Controles.TipoLetra(txt=str(bloqueTexto.tipoLetra))
+        self.font = Controles.FontType(txt=str(bloqueTexto.font_type))
         self.textOption = QtGui.QTextOption(QTUtil.qtAlineacion("c"))
         self.rutina = rutina
         self.minimo = bloqueTexto.min

@@ -61,6 +61,10 @@ class MainWindow(LCDialog.LCDialog):
         ctrl1.setKey(QtGui.QKeySequence("Ctrl+1"))
         ctrl1.activated.connect(self.pressed_shortcut_Ctrl1)
 
+        ctrl2 = QtWidgets.QShortcut(self)
+        ctrl2.setKey(QtGui.QKeySequence("Ctrl+2"))
+        ctrl2.activated.connect(self.pressed_shortcut_Ctrl2)
+
         ctrlF10 = QtWidgets.QShortcut(self)
         ctrlF10.setKey(QtGui.QKeySequence("Ctrl+0"))
         ctrlF10.activated.connect(self.pressed_shortcut_Ctrl0)
@@ -394,6 +398,10 @@ class MainWindow(LCDialog.LCDialog):
 
     def columnas60(self, siPoner, cNivel=None, cWhite=None, cBlack=None):
         self.base.columnas60(siPoner, cNivel, cWhite, cBlack)
+
+    def pressed_shortcut_Ctrl2(self):
+        if self.manager and hasattr(self.manager, "control2"):
+            self.manager.control2()
 
     def pressed_shortcut_Ctrl1(self):
         if self.manager and hasattr(self.manager, "control1"):

@@ -207,29 +207,29 @@ class WTournamentRun(QtWidgets.QWidget):
         self.grid_pgn = Grid.Grid(self, o_columnas, siCabeceraMovible=False)
         self.grid_pgn.setMinimumWidth(n_ancho_pgn)
         self.grid_pgn.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.grid_pgn.tipoLetra(puntos=configuration.x_pgn_fontpoints)
+        self.grid_pgn.font_type(puntos=configuration.x_pgn_fontpoints)
         self.grid_pgn.ponAltoFila(configuration.x_pgn_rowheight)
 
         # # Blancas y negras
-        f = Controles.TipoLetra(puntos=configuration.x_sizefont_infolabels + 2, peso=75)
+        f = Controles.FontType(puntos=configuration.x_sizefont_infolabels + 2, peso=75)
         alto_lb = 48
         self.lb_player = {}
         for side in (WHITE, BLACK):
             self.lb_player[side] = Controles.LB(self).anchoFijo(n_ancho_labels).altoFijo(alto_lb)
-            self.lb_player[side].align_center().ponFuente(f).set_wrap()
+            self.lb_player[side].align_center().set_font(f).set_wrap()
             self.lb_player[side].setFrameStyle(QtWidgets.QFrame.Box | QtWidgets.QFrame.Raised)
 
         self.configuration.set_property(self.lb_player[WHITE], "white")
         self.configuration.set_property(self.lb_player[BLACK], "black")
 
         # Relojes
-        f = Controles.TipoLetra("Arial Black", puntos=26, peso=75)
+        f = Controles.FontType("Arial Black", puntos=26, peso=75)
 
         self.lb_clock = {}
         for side in (WHITE, BLACK):
             self.lb_clock[side] = (
                 Controles.LB(self, "00:00")
-                .ponFuente(f)
+                .set_font(f)
                 .align_center()
                 .anchoMinimo(n_ancho_labels)
             )

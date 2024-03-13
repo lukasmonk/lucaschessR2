@@ -41,8 +41,8 @@ class WKibEngine(WKibCommon.WKibCommon):
         o_columns.nueva("EVALUATION", _("Evaluation"), 85, align_center=True)
         o_columns.nueva("MAINLINE", _("Main line"), 400)
         self.grid = Grid.Grid(self, o_columns, dicVideo=self.dicVideo, siSelecFilas=True)
-        f = Controles.TipoLetra(puntos=self.cpu.configuration.x_pgn_fontpoints)
-        self.grid.ponFuente(f)
+        f = Controles.FontType(puntos=self.cpu.configuration.x_pgn_fontpoints)
+        self.grid.set_font(f)
 
         self.lbDepth = Controles.LB(self)
 
@@ -85,7 +85,7 @@ class WKibEngine(WKibCommon.WKibCommon):
         self.engine = self.launch_engine()
 
         self.timer = QtCore.QTimer(self)
-        self.timer.timeout.connect(self.compruebaInput)
+        self.timer.timeout.connect(self.check_input)
         self.timer.start(200)
         self.depth = 0
         self.veces = 0
@@ -93,7 +93,7 @@ class WKibEngine(WKibCommon.WKibCommon):
         self.time_init = time.time()
         self.stopped = False
 
-    def compruebaInput(self):
+    def check_input(self):
         if not self.engine:
             return
         if self.valid_to_play() and not self.stopped:
@@ -138,7 +138,7 @@ class WKibEngine(WKibCommon.WKibCommon):
 
             QTUtil.refresh_gui()
 
-        self.cpu.compruebaInput()
+        self.cpu.check_input()
 
     def change_options(self):
         self.pause()

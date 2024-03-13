@@ -23,12 +23,12 @@ class WDatos(QtWidgets.QDialog):
 
         tb = QTVarios.tb_accept_cancel(self)
 
-        f = Controles.TipoLetra(puntos=12, peso=75)
+        f = Controles.FontType(puntos=12, peso=75)
 
         self.ed, lb = QTUtil2.spinbox_lb(
             self, max_level, 1, max_level, etiqueta=txtcategoria + " " + _("Level"), max_width=40
         )
-        lb.ponFuente(f)
+        lb.set_font(f)
 
         ly = Colocacion.H().control(lb).control(self.ed).margen(20)
 
@@ -61,7 +61,7 @@ class WMemoria(LCDialog.LCDialog):
         extparam = "memoria"
         LCDialog.LCDialog.__init__(self, procesador.main_window, titulo, icono, extparam)
 
-        f = Controles.TipoLetra(puntos=10, peso=75)
+        f = Controles.FontType(puntos=10, peso=75)
 
         self.configuration = procesador.configuration
         self.nivel = nivel
@@ -97,10 +97,10 @@ class WMemoria(LCDialog.LCDialog):
         self.gbAyuda = Controles.GB(self, _("Help"), ly)
 
         # Rotulos informacion
-        lbCategoria = Controles.LB(self, txtcategoria).ponFuente(f)
-        lbNivel = Controles.LB(self, _X(_("Level %1/%2"), str(nivel + 1), "25")).ponFuente(f)
+        lbCategoria = Controles.LB(self, txtcategoria).set_font(f)
+        lbNivel = Controles.LB(self, _X(_("Level %1/%2"), str(nivel + 1), "25")).set_font(f)
         if record:
-            lbRecord = Controles.LB(self, _X(_("Record %1 seconds"), str(record))).ponFuente(f)
+            lbRecord = Controles.LB(self, _X(_("Record %1 seconds"), str(record))).set_font(f)
 
         # Rotulo de vtime
         self.rotuloDispone = (
@@ -113,13 +113,13 @@ class WMemoria(LCDialog.LCDialog):
                 ),
             )
             .set_wrap()
-            .ponFuente(f)
+            .set_font(f)
             .align_center()
         )
         self.rotuloDispone1 = (
             Controles.LB(self, _("when you know you can press the Continue button"))
             .set_wrap()
-            .ponFuente(f)
+            .set_font(f)
             .align_center()
         )
         ly = Colocacion.V().control(self.rotuloDispone).control(self.rotuloDispone1)

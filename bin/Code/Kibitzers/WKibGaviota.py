@@ -21,8 +21,8 @@ class WGaviota(WKibCommon.WKibCommon):
         o_columns.nueva("MOVE", _("Move"), 80, align_center=True, edicion=delegado)
         o_columns.nueva("DTM", "DTM", 60, align_center=True)
         self.grid = Grid.Grid(self, o_columns, dicVideo=self.dicVideo, siSelecFilas=True)
-        f = Controles.TipoLetra(puntos=self.cpu.configuration.x_pgn_fontpoints)
-        self.grid.ponFuente(f)
+        f = Controles.FontType(puntos=self.cpu.configuration.x_pgn_fontpoints)
+        self.grid.set_font(f)
 
         li_acciones = (
             (_("Quit"), Iconos.Kibitzer_Close(), self.terminar),
@@ -42,8 +42,8 @@ class WGaviota(WKibCommon.WKibCommon):
         self.setLayout(layout)
 
         self.timer = QtCore.QTimer(self)
-        self.timer.timeout.connect(self.cpu.compruebaInput)
-        self.timer.start(200)
+        self.timer.timeout.connect(self.cpu.check_input)
+        self.timer.start(500)
 
         if not self.show_board:
             self.board.hide()

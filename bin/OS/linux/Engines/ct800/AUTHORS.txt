@@ -1,4 +1,4 @@
-2015 - 2021 Rasmus Althoff e-mail: info@ct800.net
+2015 - 2022 Rasmus Althoff e-mail: info@ct800.net
 (debug, major changes, opening book, configuration, time controls, HMI,
  ARM-port, Android-port, UCI)
 

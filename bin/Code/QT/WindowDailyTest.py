@@ -178,7 +178,7 @@ class WDailyTestBase(LCDialog.LCDialog):
                 self.ghistorico.refresh()
 
     def empezar(self):
-        liR = []
+        li_r = []
         if self.fns and Util.exist_file(self.fns):
             fns = self.fns.lower()
             li = []
@@ -201,15 +201,15 @@ class WDailyTestBase(LCDialog.LCDialog):
                         ):
                             li.append(linea)
             if len(li) >= self.pruebas:
-                liR = random.sample(li, self.pruebas)
+                li_r = random.sample(li, self.pruebas)
             else:
                 self.fns = ""
 
-        if not liR:
-            liR = WindowPotencia.lee_varias_lineas_mfn(self.pruebas)
+        if not li_r:
+            li_r = WindowPotencia.lee_varias_lineas_mfn(self.pruebas)
 
         # liR = liFens
-        w = WDailyTest(self, liR, self.engine, self.seconds, self.fns)
+        w = WDailyTest(self, li_r, self.engine, self.seconds, self.fns)
         w.exec_()
         self.calcListaHistorico()
         self.ghistorico.refresh()
@@ -225,8 +225,8 @@ class WDailyTest(LCDialog.LCDialog):
 
         if engine.startswith("*"):
             engine = engine[1:]
-        confMotor = self.configuration.buscaTutor(engine)
-        self.xtutor = self.procesador.creaManagerMotor(confMotor, seconds * 1000, None)
+        conf_motor = self.configuration.buscaTutor(engine)
+        self.xtutor = self.procesador.creaManagerMotor(conf_motor, seconds * 1000, None)
         self.xtutor.maximize_multipv()
 
         self.historico = owner.historico

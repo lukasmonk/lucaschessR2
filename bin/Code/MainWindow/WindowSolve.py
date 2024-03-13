@@ -56,13 +56,13 @@ padding: 2px;"""
             col = n % 2 + 1
             row = n // 2
             ed = Controles.ED(self, "").align_center().anchoFijo(60)
-            ed.capture_enter(self.pressed_enter).ponTipoLetra(puntos=11)
+            ed.capture_enter(self.pressed_enter).set_font_type(puntos=11)
             ed.setStyleSheet(self.style_normal)
             ed.nmove = n
             self.li_moves.append(ed)
             ly_moves.controlc(ed, row, col)
 
-        self.gb = Controles.GB(self, _("Solution"), ly_moves).ponTipoLetra(puntos=11, peso=75).align_center()
+        self.gb = Controles.GB(self, _("Solution"), ly_moves).set_font_type(puntos=11, peso=75).align_center()
         self.gb.setStyleSheet(
             """QGroupBox {
             background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
@@ -84,7 +84,7 @@ padding: 2px;"""
         lb_info = (
             Controles.LB(self, "<b>%s<br>%s - %s</b>" % (_("[ENTER] to add line"), _("F10 to check"), _("F1 help")))
             .align_center()
-            .ponTipoLetra(puntos=7)
+            .set_font_type(puntos=7)
         )
         lb_info.setStyleSheet(style)
 

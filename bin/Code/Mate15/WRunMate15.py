@@ -32,17 +32,17 @@ class WRunMate15(LCDialog.LCDialog):
         self.lb_info.align_center().set_wrap()
         self.lb_info.setStyleSheet("QWidget { background-color: #1f497d; color: #FFFFFF;padding: 16px; }")
 
-        self.lb_first_move = Controles.LB(self).ponTipoLetra(puntos=12, peso=500)
+        self.lb_first_move = Controles.LB(self).set_font_type(puntos=12, peso=500)
 
         self.bt_check = Controles.PB(self, _("Verify"), self.verify, False).ponIcono(Iconos.Check(), icon_size=20)
 
-        self.lb_result = Controles.LB(self).ponTipoLetra(puntos=12, peso=500)
+        self.lb_result = Controles.LB(self).set_font_type(puntos=12, peso=500)
 
         # Movimientos
         self.li_lb_wm = []
         ly = Colocacion.G().margen(4)
         for row in range(10):
-            lb = Controles.LB(self).ponTipoLetra(puntos=12, peso=500)
+            lb = Controles.LB(self).set_font_type(puntos=12, peso=500)
             wm = WRunCommon.WEdMovePGN(self) if use_pgn else WRunCommon.WEdMove(self)
             self.li_lb_wm.append((lb, wm))
             ly.controld(lb, row, 0)
@@ -54,8 +54,8 @@ class WRunMate15(LCDialog.LCDialog):
         ly.filaVacia(10, 20)
         ly.controlc(self.bt_check, 11, 0, numColumnas=3)
         ly.controlc(self.lb_result, 12, 0, numColumnas=3)
-        self.gb = Controles.GB(self, _("Next moves and their solutions"), ly).ponFuente(
-            Controles.TipoLetra(puntos=10, peso=75)
+        self.gb = Controles.GB(self, _("Next moves and their solutions"), ly).set_font(
+            Controles.FontType(puntos=10, peso=75)
         )
         self.gb.hide()
 

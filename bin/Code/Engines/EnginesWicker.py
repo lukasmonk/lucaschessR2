@@ -135,7 +135,7 @@ def read_wicker_engines():
         engine = configuration.dic_engines.get(nom_base_engine)
         if engine:
             eng = engine.clona()
-            eng.name = alias
+            eng.name = _SP(alias)
             eng.id_info = id_info
             eng.alias = alias
             eng.elo = elo

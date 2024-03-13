@@ -48,7 +48,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
 
         LCDialog.LCDialog.__init__(self, procesador.main_window, titulo, Iconos.Libre(), "entMaquina")
 
-        font = Controles.TipoLetra(puntos=procesador.configuration.x_font_points)
+        font = Controles.FontType(puntos=procesador.configuration.x_font_points)
 
         self.direct_option = direct_option
         self.si_edit_uci = False
@@ -78,7 +78,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
 
         # Tab
         tab = Controles.Tab()
-        tab.ponTipoLetra(puntos=self.configuration.x_menu_points, peso=700)
+        tab.set_font_type(puntos=self.configuration.x_menu_points, peso=700)
         tab.dispatchChange(self.cambiada_tab)
 
         self.tab_advanced = 4
@@ -124,27 +124,27 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
 
         # ## Rival
         self.rival = self.motores.busca(ENG_INTERNAL, self.configuration.x_rival_inicial)
-        self.bt_rival = Controles.PB(self, "", self.select_engine, plano=False).ponFuente(font).altoFijo(48)
+        self.bt_rival = Controles.PB(self, "", self.select_engine, plano=False).set_font(font).altoFijo(48)
 
-        self.lb_rtime = Controles.LB2P(self, _("Fixed time in seconds")).ponFuente(font)
+        self.lb_rtime = Controles.LB2P(self, _("Fixed time in seconds")).set_font(font)
         self.ed_rtime = (
-            Controles.ED(self).tipoFloat().anchoMaximo(50).ponFuente(font).capture_changes(self.change_time)
+            Controles.ED(self).tipoFloat().anchoMaximo(50).set_font(font).capture_changes(self.change_time)
         )
         self.bt_cancel_rtime = Controles.PB(self, "", rutina=self.cancelar_tiempo).ponIcono(Iconos.S_Cancelar())
         ly_tiempo = Colocacion.H().control(self.ed_rtime).control(self.bt_cancel_rtime).relleno(1)
 
-        self.lb_depth = Controles.LB2P(self, _("Fixed depth")).ponFuente(font)
-        self.ed_rdepth = Controles.ED(self).tipoInt().anchoMaximo(50).ponFuente(font).capture_changes(self.change_depth)
+        self.lb_depth = Controles.LB2P(self, _("Fixed depth")).set_font(font)
+        self.ed_rdepth = Controles.ED(self).tipoInt().anchoMaximo(50).set_font(font).capture_changes(self.change_depth)
         self.bt_cancel_rdepth = Controles.PB(self, "", rutina=self.cancelar_depth).ponIcono(Iconos.S_Cancelar())
         ly_depth = Colocacion.H().control(self.ed_rdepth).control(self.bt_cancel_rdepth).relleno(1)
 
         self.lb_unlimited = Controles.LB2P(self,
-                                           _("The engine's thinking has no limit, select its response")).ponFuente(font)
+                                           _("The engine's thinking has no limit, select its response")).set_font(font)
         li_unlimited = ((_("Very slow"), 12), (_("Slow"), 8), (_("Normal"), 3), (_("Fast"), 1), (_("Very fast"), 0.5))
-        self.cb_unlimited = Controles.CB(self, li_unlimited, 3).ponFuente(font)
+        self.cb_unlimited = Controles.CB(self, li_unlimited, 3).set_font(font)
 
-        self.lb_nodes = Controles.LB2P(self, _("Fixed nodes")).ponFuente(font)
-        self.ed_nodes = Controles.ED(self).tipoInt().anchoMaximo(80).ponFuente(font).capture_changes(self.change_nodes)
+        self.lb_nodes = Controles.LB2P(self, _("Fixed nodes")).set_font(font)
+        self.ed_nodes = Controles.ED(self).tipoInt().anchoMaximo(80).set_font(font).capture_changes(self.change_nodes)
         self.bt_cancel_nodes = Controles.PB(self, "", rutina=self.cancelar_nodes).ponIcono(Iconos.S_Cancelar())
         ly_nodes = Colocacion.H().control(self.ed_nodes).control(self.bt_cancel_nodes).relleno(1)
 
@@ -171,7 +171,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         self.rb_black.setIcon(Code.all_pieces.icono("p", nom_pieces))
         self.rb_black.setIconSize(QtCore.QSize(32, 32))
         self.rb_random = Controles.RB(self, _("Random"))
-        self.rb_random.setFont(Controles.TipoLetra(puntos=14))
+        self.rb_random.setFont(Controles.FontType(puntos=14))
         hbox = (
             Colocacion.H()
             .relleno()
@@ -189,15 +189,15 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         if Code.eboard:
             self.chb_eboard = Controles.CHB(
                 self, "%s: %s" % (_("Activate e-board"), self.configuration.x_digital_board), False
-            ).ponFuente(font)
+            ).set_font(font)
             ly.control(self.chb_eboard)
         self.chb_humanize = Controles.CHB(
             self, _("To humanize the time it takes for the engine to respond"), False
-        ).ponFuente(font)
+        ).set_font(font)
         ly.control(self.chb_humanize)
         # self.chb_analysis_bar = Controles.CHB(
         #     self, _("Activate the Analysis Bar"), False
-        # ).ponFuente(font)
+        # ).set_font(font)
         # ly.control(self.chb_analysis_bar)
 
         nueva_tab(ly, _("Basic configuration"))
@@ -207,19 +207,19 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         # ##################################################################################################################################
         self.chbSummary = Controles.CHB(
             self, _("Save a summary when the game is finished in the main comment"), False
-        ).ponFuente(font)
+        ).set_font(font)
 
-        self.chbTakeback = Controles.CHB(self, _("Option takeback activated"), True).ponFuente(font)
+        self.chbTakeback = Controles.CHB(self, _("Option takeback activated"), True).set_font(font)
 
         # # Tutor
-        lb_ayudas = Controles.LB2P(self, _("Available hints")).ponFuente(font)
+        lb_ayudas = Controles.LB2P(self, _("Available hints")).set_font(font)
         li_ayudas = [(_("Always"), 999)]
         for i in range(1, 21):
             li_ayudas.append((str(i), i))
         for i in range(25, 51, 5):
             li_ayudas.append((str(i), i))
-        self.cbAyudas = Controles.CB(self, li_ayudas, 999).ponFuente(font)
-        self.chbChance = Controles.CHB(self, _("Second chance"), True).ponFuente(font)
+        self.cbAyudas = Controles.CB(self, li_ayudas, 999).set_font(font)
+        self.chbChance = Controles.CHB(self, _("Second chance"), True).set_font(font)
 
         li_thinks = [
             (_("Nothing"), -1),
@@ -230,11 +230,11 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
             (_("4 movements"), 4),
             (_("All"), 9999),
         ]
-        lb_thought_tt = Controles.LB(self, _("Show") + ":").ponFuente(font)
-        self.cbThoughtTt = Controles.CB(self, li_thinks, -1).ponFuente(font)
+        lb_thought_tt = Controles.LB(self, _("Show") + ":").set_font(font)
+        self.cbThoughtTt = Controles.CB(self, li_thinks, -1).set_font(font)
 
-        lb_arrows = Controles.LB2P(self, _("Arrows with the best movements")).ponFuente(font)
-        self.sbArrowsTt = Controles.SB(self, 0, 0, 999).tamMaximo(50).ponFuente(font)
+        lb_arrows = Controles.LB2P(self, _("Arrows with the best movements")).set_font(font)
+        self.sbArrowsTt = Controles.SB(self, 0, 0, 999).tamMaximo(50).set_font(font)
 
         ly_t1 = Colocacion.H().control(lb_ayudas).control(self.cbAyudas).relleno()
         ly_t1.control(self.chbChance).relleno()
@@ -255,25 +255,25 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
                 _("Maximum lost centipawns for having to repeat active game"),
                 _("The game also ends after playing a bad move"),
             ),
-        ).ponFuente(font)
-        self.ed_limit_pww = Controles.ED(self).tipoIntPositive(90).ponFuente(font).anchoFijo(50)
+        ).set_font(font)
+        self.ed_limit_pww = Controles.ED(self).tipoIntPositive(90).set_font(font).anchoFijo(50)
 
         ly = Colocacion.H().control(lb).control(self.ed_limit_pww).relleno()
         self.gb_pww = Controles.GB(self, _("Play as long as you make no mistakes"), ly)
         self.gb_pww.to_connect(self.gb_pww_pressed)
         self.configuration.set_property(self.gb_pww, "1")
 
-        lb = Controles.LB(self, _("Show") + ":").ponFuente(font)
-        self.cbThoughtOp = Controles.CB(self, li_thinks, -1).ponFuente(font)
-        lb_arrows = Controles.LB2P(self, _("Arrows to show")).ponFuente(font)
-        self.sbArrows = Controles.SB(self, 0, 0, 999).tamMaximo(50).ponFuente(font)
+        lb = Controles.LB(self, _("Show") + ":").set_font(font)
+        self.cbThoughtOp = Controles.CB(self, li_thinks, -1).set_font(font)
+        lb_arrows = Controles.LB2P(self, _("Arrows to show")).set_font(font)
+        self.sbArrows = Controles.SB(self, 0, 0, 999).tamMaximo(50).set_font(font)
         ly = Colocacion.H().control(lb).control(self.cbThoughtOp).relleno()
         ly.control(lb_arrows).control(self.sbArrows)
         gbThoughtOp = Controles.GB(self, _("Opponent's thought information"), ly)
         self.configuration.set_property(gbThoughtOp, "1")
 
-        self.lbBoxHeight = Controles.LB2P(self, _("Height of displaying box")).ponFuente(font)
-        self.sbBoxHeight = Controles.SB(self, 0, 0, 999).tamMaximo(50).ponFuente(font)
+        self.lbBoxHeight = Controles.LB2P(self, _("Height of displaying box")).set_font(font)
+        self.sbBoxHeight = Controles.SB(self, 0, 0, 999).tamMaximo(50).set_font(font)
 
         lyBox = Colocacion.H().control(self.lbBoxHeight).control(self.sbBoxHeight).relleno()
 
@@ -287,8 +287,8 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         # ##################################################################################################################################
         ly_g = nuevoG()
 
-        self.lb_minutos = Controles.LB(self, _("Total minutes") + ":").ponFuente(font)
-        self.ed_minutos = Controles.ED(self).tipoFloat(10.0).ponFuente(font).anchoFijo(50)
+        self.lb_minutos = Controles.LB(self, _("Total minutes") + ":").set_font(font)
+        self.ed_minutos = Controles.ED(self).tipoFloat(10.0).set_font(font).anchoFijo(50)
         self.ed_segundos, self.lb_segundos = QTUtil2.spinbox_lb(
             self, 6, -999, 999, max_width=54, etiqueta=_("Seconds added per move"), fuente=font
         )
@@ -318,13 +318,13 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
 
         # Posicion
         self.btPosicion = (
-            Controles.PB(self, " " * 5 + _("Change") + " " * 5, self.posicionEditar).ponPlano(False).ponFuente(font)
+            Controles.PB(self, " " * 5 + _("Change") + " " * 5, self.posicionEditar).ponPlano(False).set_font(font)
         )
         self.fen = ""
-        self.btPosicionQuitar = Controles.PB(self, "", self.posicionQuitar).ponIcono(Iconos.Motor_No()).ponFuente(font)
+        self.btPosicionQuitar = Controles.PB(self, "", self.posicionQuitar).ponIcono(Iconos.Motor_No()).set_font(font)
         self.btPosicionPegar = (
             Controles.PB(self, "", self.posicionPegar).ponIcono(Iconos.Pegar16()).ponToolTip(_("Paste FEN position"))
-        ).ponFuente(font)
+        ).set_font(font)
         hbox = (
             Colocacion.H()
             .relleno()
@@ -337,14 +337,14 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
 
         # Openings
         self.bt_opening = (
-            Controles.PB(self, " " * 5 + _("Undetermined") + " " * 5, self.opening_edit).ponPlano(False).ponFuente(font)
+            Controles.PB(self, " " * 5 + _("Undetermined") + " " * 5, self.opening_edit).ponPlano(False).set_font(font)
         )
         self.opening_block = None
         self.bt_openings_fav = Controles.PB(self, "", self.openings_preferred).ponIcono(Iconos.Favoritos())
         self.bt_opening_remove = Controles.PB(self, "", self.opening_remove).ponIcono(Iconos.Motor_No())
         self.bt_opening_paste = (
             Controles.PB(self, "", self.opening_paste).ponIcono(Iconos.Pegar16()).ponToolTip(_("Paste PGN"))
-        ).ponFuente(font)
+        ).set_font(font)
         hbox = (
             Colocacion.H()
             .relleno()
@@ -360,12 +360,12 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         self.bt_opening_line = (
             Controles.PB(self, " " * 5 + _("Undetermined") + " " * 5, self.opening_line_edit)
             .ponPlano(False)
-            .ponFuente(font)
+            .set_font(font)
         )
         self.opening_line = None
         self.bt_opening_line_remove = Controles.PB(self, "", self.opening_line_remove).ponIcono(Iconos.Motor_No())
         hbox = Colocacion.H().relleno().control(self.bt_opening_line_remove).control(self.bt_opening_line).relleno()
-        _label(ly_g, _("Opening lines"), hbox)
+        _label(ly_g, "%s: %s" % (_("Opening lines"), self.configuration.nom_player()), hbox)
 
         # Libros
         lib_inicial = li_books[0][1] if li_books else None
@@ -378,11 +378,11 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         ]
 
         # #Rival
-        self.cbBooksR = QTUtil2.combobox_lb(self, li_books, lib_inicial).ponFuente(font)
+        self.cbBooksR = QTUtil2.combobox_lb(self, li_books, lib_inicial).set_font(font)
         self.btNuevoBookR = Controles.PB(self, "", self.nuevoBook).ponIcono(Iconos.Mas())
-        self.cbBooksRR = QTUtil2.combobox_lb(self, li_resp_book, BOOK_BEST_MOVE).ponFuente(font)
-        self.lbDepthBookR = Controles.LB2P(self, _("Max depth")).ponFuente(font)
-        self.edDepthBookR = Controles.ED(self).ponFuente(font).tipoInt(0).anchoFijo(30)
+        self.cbBooksRR = QTUtil2.combobox_lb(self, li_resp_book, BOOK_BEST_MOVE).set_font(font)
+        self.lbDepthBookR = Controles.LB2P(self, _("Max depth")).set_font(font)
+        self.edDepthBookR = Controles.ED(self).set_font(font).tipoInt(0).anchoFijo(30)
 
         hbox = (
             Colocacion.H()
@@ -397,10 +397,10 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         self.chbBookR = _label(ly_g, "%s: %s" % (_("Activate book"), _("Opponent")), hbox, checkable=True)
 
         # Player
-        self.cbBooksP = QTUtil2.combobox_lb(self, li_books, lib_inicial).ponFuente(font)
+        self.cbBooksP = QTUtil2.combobox_lb(self, li_books, lib_inicial).set_font(font)
         self.btNuevoBookP = Controles.PB(self, "", self.nuevoBook).ponIcono(Iconos.Mas())
-        self.lbDepthBookP = Controles.LB2P(self, _("Max depth")).ponFuente(font)
-        self.edDepthBookP = Controles.ED(self).ponFuente(font).tipoInt(0).anchoFijo(30)
+        self.lbDepthBookP = Controles.LB2P(self, _("Max depth")).set_font(font)
+        self.edDepthBookP = Controles.ED(self).set_font(font).tipoInt(0).anchoFijo(30)
         hbox = (
             Colocacion.H()
             .control(self.cbBooksP)
@@ -423,17 +423,17 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         self.cbAjustarRival = (
             Controles.CB(self, self.personalidades.list_personalities(True), ADJUST_BETTER)
             .capture_changes(self.ajustesCambiado)
-            .ponFuente(font)
+            .set_font(font)
         )
-        lb_ajustar_rival = Controles.LB2P(self, _("Set strength")).ponFuente(font)
+        lb_ajustar_rival = Controles.LB2P(self, _("Set strength")).set_font(font)
         self.bt_ajustar_rival = (
             Controles.PB(self, _("Personality"), self.cambiaPersonalidades, plano=True)
             .ponIcono(Iconos.Mas(), icon_size=16)
-            .ponFuente(font)
+            .set_font(font)
         )
 
         # ## Resign
-        lb_resign = Controles.LB2P(self, _("Resign by engine")).ponFuente(font)
+        lb_resign = Controles.LB2P(self, _("Resign by engine")).set_font(font)
         li_resign = (
             (_("Very early"), -100),
             (_("Early"), -300),
@@ -442,7 +442,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
             (_("Very late"), -1000),
             (_("Never"), -9999999),
         )
-        self.cb_resign = Controles.CB(self, li_resign, -800).ponFuente(font)
+        self.cb_resign = Controles.CB(self, li_resign, -800).set_font(font)
 
         self.lb_path_engine = Controles.LB(self, "").set_wrap()
 
@@ -451,7 +451,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         o_columns.nueva("VALUE", _("Value"), 200, align_center=True, edicion=Delegados.MultiEditor(self))
         self.grid_uci = Grid.Grid(self, o_columns, is_editable=True)
         self.grid_uci.setFixedHeight(320)
-        self.grid_uci.ponFuente(font)
+        self.grid_uci.set_font(font)
         self.register_grid(self.grid_uci)
 
         ly_h2 = (
@@ -828,8 +828,8 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
             return
         menu = QTVarios.LCMenu(self)
         menu.setToolTip(_("To choose: <b>left button</b> <br>To erase: <b>right button</b>"))
-        f = Controles.TipoLetra(puntos=8, peso=75)
-        menu.ponFuente(f)
+        f = Controles.FontType(puntos=8, peso=75)
+        menu.set_font(f)
         n_pos = 0
         for nli, bloque in enumerate(self.li_preferred_openings):
             if type(bloque) == tuple:  # compatibilidad con versiones anteriores

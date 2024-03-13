@@ -310,7 +310,7 @@ class ManagerEverest(Manager.Manager):
                 rm_usu = w.rmUsu
                 rm_obj = w.rmObj
             else:
-                dpts = rm_usu.puntosABS_5() - rm_obj.puntosABS_5()
+                dpts = rm_usu.score_abs5() - rm_obj.score_abs5()
 
             self.puntos += dpts
             self.ponPuntos()

@@ -480,7 +480,7 @@ class WWork(QtWidgets.QDialog):
         self.sbEnd = Controles.SB(self, work.end + 1, 1, 100).capture_changes(self.changeSample)
         self.sbEnd.isIni = False
 
-        # self.lbError = Controles.LB(self).ponTipoLetra(peso=75).set_foreground("red")
+        # self.lbError = Controles.LB(self).set_font_type(peso=75).set_foreground("red")
         # self.lbError.hide()
 
         lySample = Colocacion.H().control(self.sbIni).control(lbGuion).control(self.sbEnd)

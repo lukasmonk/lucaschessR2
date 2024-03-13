@@ -148,8 +148,8 @@ class WSelectEngineElo(LCDialog.LCDialog):
         self.grid.setMinimumWidth(n + 20)
         self.register_grid(self.grid)
 
-        f = Controles.TipoLetra(puntos=9)
-        self.grid.ponFuente(f)
+        f = Controles.FontType(puntos=9)
+        self.grid.set_font(f)
 
         self.grid.gotop()
 

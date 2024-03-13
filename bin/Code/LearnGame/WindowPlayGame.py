@@ -245,7 +245,7 @@ class WPlay1(LCDialog.LCDialog):
 
         self.lbRotulo = (
             Controles.LB(self, self.db.label(recno))
-            .ponTipoLetra(puntos=12)
+            .set_font_type(puntos=12)
             .set_foreground_backgound("#076C9F", "#EFEFEF")
         )
 

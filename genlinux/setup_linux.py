@@ -266,18 +266,20 @@ class WSetup(QtWidgets.QDialog):
 
     def uninstall(self):
         if self.data.has_userdata():
-            included_userdata = QTUtil2.question_withcancel_123(
-                self, _("Uninstall"), _("There is user data created in the program, do you want to remove it as well?"), _("Yes"), _("No"), _("Cancel")
-            )
-            if not (included_userdata in (1, 2)):
-                return
-            included_userdata = included_userdata == 1
-            if included_userdata:
-                resp = QTUtil2.question_withcancel_123(
-                    self, _("Uninstall"), _("Are you really sure do you want to remove LucasChessR?"), _("Yes"), _("No"), _("Cancel")
-                )
-                if resp != 1:
-                    return
+
+            #included_userdata = QTUtil2.question_withcancel_123(
+            #    self, _("Uninstall"), _("There is user data created in the program, do you want to remove it as well?"), _("Yes"), _("No"), _("Cancel")
+            #)
+            #if not (included_userdata in (1, 2)):
+            #    return
+            #included_userdata = included_userdata == 1
+            #if included_userdata:
+            #    resp = QTUtil2.question_withcancel_123(
+            #        self, _("Uninstall"), _("Are you really sure do you want to remove LucasChessR?"), _("Yes"), _("No"), _("Cancel")
+            #    )
+            #    if resp != 1:
+            #        return
+            included_userdata = False
         else:
             included_userdata = True
 

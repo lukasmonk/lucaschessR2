@@ -238,9 +238,10 @@ class Game:
         if self.termination:
             tm = self.get_tag("Termination")
             if not tm:
-                txt = self.label_termination()
-                if txt:
-                    self.set_tag("Termination", txt)
+                if self.termination != TERMINATION_UNKNOWN:
+                    txt = self.label_termination()
+                    if txt:
+                        self.set_tag("Termination", txt)
 
         if self.siFenInicial():
             op = self.get_tag("OPENING")
@@ -1224,8 +1225,8 @@ def calc_formula_elo(move):  # , limit=200.0):
 
     # LG("move", mrm.li_rm[pos].movimiento())
 
-    pts = mrm.li_rm[pos].puntosABS_5()
-    pts0 = mrm.li_rm[0].puntosABS_5()
+    pts = mrm.li_rm[pos].score_abs5()
+    pts0 = mrm.li_rm[0].score_abs5()
     lostp_abs = pts0 - pts
 
     # LG("pts best", pts0)

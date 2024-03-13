@@ -222,7 +222,7 @@ class WExpedition(LCDialog.LCDialog):
             lb_rotulo.setStyleSheet(
                 "QWidget { border-style: groove; border-width: 2px; border-color: LightSlateGray ;}"
             )
-            lb_rotulo.ponTipoLetra(puntos=12, peso=700)
+            lb_rotulo.set_font_type(puntos=12, peso=700)
             lyRot.control(lb_rotulo)
 
         o_columns = Columnas.ListaColumnas()

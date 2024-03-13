@@ -16,7 +16,7 @@ class WPlayHuman(LCDialog.LCDialog):
                                    "humanhuman")
 
         self.configuration = procesador.configuration
-        font = Controles.TipoLetra(puntos=self.configuration.x_font_points)
+        font = Controles.FontType(puntos=self.configuration.x_font_points)
 
         self.dic = {}
 
@@ -28,11 +28,11 @@ class WPlayHuman(LCDialog.LCDialog):
         ]
         tb = QTVarios.LCTB(self, li_acciones)
 
-        self.lb_white = Controles.LB2P(self, _("White")).ponFuente(font)
-        self.ed_white = Controles.ED(self, "").anchoMaximo(250).ponFuente(font)
+        self.lb_white = Controles.LB2P(self, _("White")).set_font(font)
+        self.ed_white = Controles.ED(self, "").anchoMaximo(250).set_font(font)
 
-        self.lb_black = Controles.LB2P(self, _("Black")).ponFuente(font)
-        self.ed_black = Controles.ED(self, "").anchoMaximo(250).ponFuente(font)
+        self.lb_black = Controles.LB2P(self, _("Black")).set_font(font)
+        self.ed_black = Controles.ED(self, "").anchoMaximo(250).set_font(font)
 
         ly_players = Colocacion.G()
         ly_players.controld(self.lb_white, 0, 0).control(self.ed_white, 0, 1)
@@ -41,8 +41,8 @@ class WPlayHuman(LCDialog.LCDialog):
         gb_players = Controles.GB(self, _("Players"), ly_players)
         self.configuration.set_property(gb_players, "1")
 
-        self.lb_minutos = Controles.LB(self, _("Total minutes") + ":").ponFuente(font)
-        self.ed_minutos = Controles.ED(self).tipoFloat(10.0).ponFuente(font).anchoFijo(50)
+        self.lb_minutos = Controles.LB(self, _("Total minutes") + ":").set_font(font)
+        self.ed_minutos = Controles.ED(self).tipoFloat(10.0).set_font(font).anchoFijo(50)
         self.ed_segundos, self.lb_segundos = QTUtil2.spinbox_lb(
             self, 0, -999, 999, max_width=54, etiqueta=_("Seconds added per move"), fuente=font
         )
@@ -65,13 +65,13 @@ class WPlayHuman(LCDialog.LCDialog):
         if Code.eboard:
             self.chb_eboard = Controles.CHB(
                 self, "%s: %s" % (_("Activate e-board"), self.configuration.x_digital_board), False
-            ).ponFuente(font)
+            ).set_font(font)
             ly.control(self.chb_eboard)
 
-        # self.chb_analysis_bar = Controles.CHB(self, _("Activate the Analysis Bar"), False).ponFuente(font)
+        # self.chb_analysis_bar = Controles.CHB(self, _("Activate the Analysis Bar"), False).set_font(font)
         # ly.control(self.chb_analysis_bar)
 
-        self.chb_autorotate = Controles.CHB(self, _("Auto-rotate board"), Code.configuration.get_auto_rotate(GT_HUMAN)).ponFuente(font)
+        self.chb_autorotate = Controles.CHB(self, _("Auto-rotate board"), Code.configuration.get_auto_rotate(GT_HUMAN)).set_font(font)
         ly.control(self.chb_autorotate)
 
         self.setLayout(ly)

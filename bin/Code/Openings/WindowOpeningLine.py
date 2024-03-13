@@ -75,7 +75,7 @@ class WLines(LCDialog.LCDialog):
             o_columns.nueva(str(x), str(x), ancho_col, edicion=Delegados.EtiquetaPOS(with_figurines, True))
         self.glines = Grid.Grid(self, o_columns, siCabeceraMovible=False)
         self.glines.setAlternatingRowColors(False)
-        self.glines.tipoLetra(puntos=self.configuration.x_pgn_fontpoints)
+        self.glines.font_type(puntos=self.configuration.x_pgn_fontpoints)
         self.glines.ponAltoFila(self.configuration.x_pgn_rowheight)
 
         self.tabsanalisis = POLAnalisis.TabsAnalisis(self, self.procesador, self.configuration)
@@ -140,7 +140,7 @@ class WLines(LCDialog.LCDialog):
             if w.exec_():
                 ws = WindowSavePGN.FileSavePGN(self, w.dic_result)
                 if ws.open():
-                    self.dbop.exportarPGN(ws, resp)
+                    self.dbop.export_to_pgn(ws, resp)
                     ws.close()
                     ws.um_final()
 
@@ -187,7 +187,7 @@ class WLines(LCDialog.LCDialog):
         um.final()
 
     def ta_massive(self):
-        dicVar = self.configuration.read_variables("MASSIVE_OLINES")
+        dic_var = self.configuration.read_variables("MASSIVE_OLINES")
 
         form = FormLayout.FormLayout(self, _("Mass analysis"), Iconos.Analizar(), anchoMinimo=460)
         form.separador()
@@ -195,19 +195,19 @@ class WLines(LCDialog.LCDialog):
         form.combobox(
             _("Engine"),
             self.configuration.combo_engines_multipv10(4),
-            dicVar.get("ENGINE", self.configuration.engine_tutor()),
+            dic_var.get("ENGINE", self.configuration.engine_tutor()),
         )
         form.separador()
 
         form.float(
             _("Duration of engine analysis (secs)"),
-            dicVar.get("SEGUNDOS", float(self.configuration.x_tutor_mstime / 1000.0)),
+            dic_var.get("SEGUNDOS", float(self.configuration.x_tutor_mstime / 1000.0)),
         )
 
-        liDepths = [("--", 0)]
+        li_depths = [("--", 0)]
         for x in range(1, 51):
-            liDepths.append((str(x), x))
-        form.combobox(_("Depth"), liDepths, dicVar.get("DEPTH", self.configuration.x_tutor_depth))
+            li_depths.append((str(x), x))
+        form.combobox(_("Depth"), li_depths, dic_var.get("DEPTH", self.configuration.x_tutor_depth))
         form.separador()
 
         li = [(_("Maximum"), 0)]
@@ -216,39 +216,39 @@ class WLines(LCDialog.LCDialog):
         form.combobox(
             _("Number of variations evaluated by the engine (MultiPV)"),
             li,
-            dicVar.get("MULTIPV", self.configuration.x_tutor_multipv),
+            dic_var.get("MULTIPV", self.configuration.x_tutor_multipv),
         )
         form.separador()
 
-        liJ = [(_("White"), "WHITE"), (_("Black"), "BLACK"), (_("White & Black"), "BOTH")]
-        form.combobox(_("Analyze color"), liJ, dicVar.get("COLOR", "BOTH"))
+        li_j = [(_("White"), "WHITE"), (_("Black"), "BLACK"), (_("White & Black"), "BOTH")]
+        form.combobox(_("Analyze color"), li_j, dic_var.get("COLOR", "BOTH"))
         form.separador()
 
         form.combobox(
-            _("Process priority"), Priorities.priorities.combo(), dicVar.get("PRIORITY", Priorities.priorities.normal)
+            _("Process priority"), Priorities.priorities.combo(), dic_var.get("PRIORITY", Priorities.priorities.normal)
         )
         form.separador()
 
-        form.checkbox(_("Redo any existing prior analysis (if they exist)"), dicVar.get("REDO", False))
+        form.checkbox(_("Redo any existing prior analysis (if they exist)"), dic_var.get("REDO", False))
         form.separador()
 
         resultado = form.run()
         if resultado is None:
             return
 
-        claveMotor, vtime, depth, multiPV, color, priority, redo = resultado[1]
+        clave_motor, vtime, depth, multi_pv, color, priority, redo = resultado[1]
         ms = int(vtime * 1000)
         if ms == 0 and depth == 0:
             return
 
-        dicVar["ENGINE"] = claveMotor
-        dicVar["SEGUNDOS"] = vtime
-        dicVar["DEPTH"] = depth
-        dicVar["MULTIPV"] = multiPV
-        dicVar["COLOR"] = color
-        dicVar["PRIORITY"] = priority
-        dicVar["REDO"] = redo
-        self.configuration.write_variables("MASSIVE_OLINES", dicVar)
+        dic_var["ENGINE"] = clave_motor
+        dic_var["SEGUNDOS"] = vtime
+        dic_var["DEPTH"] = depth
+        dic_var["MULTIPV"] = multi_pv
+        dic_var["COLOR"] = color
+        dic_var["PRIORITY"] = priority
+        dic_var["REDO"] = redo
+        self.configuration.write_variables("MASSIVE_OLINES", dic_var)
 
         um = QTUtil2.one_moment_please(self)
         st_fens_m2 = self.dbop.get_all_fen()
@@ -271,46 +271,46 @@ class WLines(LCDialog.LCDialog):
             for fenm2 in li_borrar:
                 stfen.remove(fenm2)
 
-        conf_engine = copy.deepcopy(self.configuration.buscaRival(claveMotor))
-        conf_engine.update_multipv(multiPV)
+        conf_engine = copy.deepcopy(self.configuration.buscaRival(clave_motor))
+        conf_engine.update_multipv(multi_pv)
         xmanager = self.procesador.creaManagerMotor(conf_engine, ms, depth, True, priority=priority)
 
         um.final()
 
         mensaje = _("Move") + "  %d/" + str(len(stfen))
-        tmpBP = QTUtil2.BarraProgreso(self, _("Mass analysis"), "", len(stfen))
-        tmpBP.setFixedWidth(450)
-        tmpBP.mostrar()
+        tmp_bp = QTUtil2.BarraProgreso(self, _("Mass analysis"), "", len(stfen))
+        tmp_bp.setFixedWidth(450)
+        tmp_bp.mostrar()
 
         for done, fenm2 in enumerate(stfen, 1):
-            if tmpBP.is_canceled():
+            if tmp_bp.is_canceled():
                 break
 
-            tmpBP.inc()
-            tmpBP.mensaje(mensaje % done)
+            tmp_bp.inc()
+            tmp_bp.mensaje(mensaje % done)
 
             mrm = xmanager.analiza(fenm2 + " 0 1")
             dic = self.dbop.getfenvalue(fenm2)
             dic["ANALISIS"] = mrm
             self.dbop.setfenvalue(fenm2, dic)
 
-        tmpBP.cerrar()
+        tmp_bp.cerrar()
 
     def train(self):
         menu = QTVarios.LCMenu(self)
-        trSSP, trEng = self.train_test()
-        if trSSP:
+        tr_ssp, tr_eng = self.train_test()
+        if tr_ssp:
             menu.opcion("tr_sequential", _("Sequential"), Iconos.TrainSequential())
             menu.separador()
             menu.opcion("tr_static", _("Static"), Iconos.TrainStatic())
             menu.separador()
             menu.opcion("tr_positions", _("Positions"), Iconos.TrainPositions())
             menu.separador()
-        if trEng:
+        if tr_eng:
             menu.opcion("tr_engines", _("With engines"), Iconos.TrainEngines())
             menu.separador()
         submenu = menu.submenu(_("Configuration"), Iconos.Configurar())
-        if trEng or trSSP:
+        if tr_eng or tr_ssp:
             submenu.opcion("update", _("Update current trainings"), Iconos.Reindexar())
             submenu.separador()
         submenu1 = submenu.submenu(_("Create trainings"), Iconos.Modificar())
@@ -326,20 +326,20 @@ class WLines(LCDialog.LCDialog):
             self.resultado = resp
             self.terminar()
         elif resp == "new_ssp":
-            self.trainNewSSP()
+            self.train_new_ssp()
         elif resp == "new_eng":
-            self.trainNewEngines()
+            self.train_new_engines()
         elif resp == "update":
-            self.trainUpdateAll()
+            self.train_update_all()
 
     def train_test(self):
         if len(self.dbop) == 0:
             return False, False
         training = self.dbop.training()
-        trainingEng = self.dbop.trainingEngines()
-        return training is not None, trainingEng is not None
+        training_eng = self.dbop.trainingEngines()
+        return training is not None, training_eng is not None
 
-    def trainNewSSP(self):
+    def train_new_ssp(self):
         training = self.dbop.training()
         color = "WHITE"
         random_order = False
@@ -353,8 +353,8 @@ class WLines(LCDialog.LCDialog):
         separador = FormLayout.separador
         li_gen = [separador]
 
-        liJ = [(_("White"), "WHITE"), (_("Black"), "BLACK")]
-        config = FormLayout.Combobox(_("Side you play with"), liJ)
+        li_j = [(_("White"), "WHITE"), (_("Black"), "BLACK")]
+        config = FormLayout.Combobox(_("Side you play with"), li_j)
         li_gen.append((config, color))
 
         li_gen.append(separador)
@@ -369,15 +369,13 @@ class WLines(LCDialog.LCDialog):
 
         accion, li_resp = resultado
 
-        reg = {}
-
-        reg["COLOR"], reg["RANDOM"], reg["MAXMOVES"] = li_resp
+        reg = {"COLOR": li_resp[0], "RANDOM": li_resp[1], "MAXMOVES": li_resp[2]}
 
         self.dbop.createTrainingSSP(reg, self.procesador)
 
         QTUtil2.message_bold(self, _("The trainings of this opening has been created"))
 
-    def trainNewEngines(self):
+    def train_new_engines(self):
         training = self.dbop.trainingEngines()
         color = "WHITE"
         basepv = self.dbop.basePV
@@ -414,8 +412,8 @@ class WLines(LCDialog.LCDialog):
         separador = FormLayout.separador
         li_gen = [separador]
 
-        liJ = [(_("White"), "WHITE"), (_("Black"), "BLACK")]
-        config = FormLayout.Combobox(_("Side you play with"), liJ)
+        li_j = [(_("White"), "WHITE"), (_("Black"), "BLACK")]
+        config = FormLayout.Combobox(_("Side you play with"), li_j)
         li_gen.append((config, color))
 
         li_gen.append((_("Mandatory movements") + ":", mandatory))
@@ -461,7 +459,7 @@ class WLines(LCDialog.LCDialog):
             key = ext_engines[x] if len(ext_engines) > x else ""
             li_ext.append((config, key))
 
-        liLevels = [separador]
+        li_levels = [separador]
         list_books = Books.ListBooks()
         libooks = [(bookx.name, bookx) for bookx in list_books.lista]
         libooks.insert(0, ("--", None))
@@ -476,20 +474,21 @@ class WLines(LCDialog.LCDialog):
             title = "%s %d" % (_("Level"), n)
             # liLevels.append((None, title))
             tm = times[level] / 1000.0 if len(times) > level else 0.0
-            liLevels.append(("%s. %s:" % (title, _("Time engines think in seconds")), tm))
+            li_levels.append(("%s. %s:" % (title, _("Time engines think in seconds")), tm))
 
             bk = books[level] if len(books) > level else ""
             book = list_books.seek_book(bk) if bk else None
             config = FormLayout.Combobox(_("Book"), libooks)
-            liLevels.append((config, book))
+            li_levels.append((config, book))
 
             config = FormLayout.Combobox(_("Book selection mode"), li_books_sel)
-            liLevels.append((config, books_sel[level]))
+            li_levels.append((config, books_sel[level]))
 
-        lista = []
-        lista.append((li_gen, _("Basic data"), ""))
-        lista.append((li_ext, _("Manual engine selection"), ""))
-        lista.append((liLevels, _("Levels"), ""))
+        lista = [
+            (li_gen, _("Basic data"), ""),
+            (li_ext, _("Manual engine selection"), ""),
+            (li_levels, _("Levels"), "")
+        ]
 
         resultado = FormLayout.fedit(lista, title=_("With engines"), parent=self, anchoMinimo=360, icon=Iconos.Study())
         if resultado is None:
@@ -497,12 +496,12 @@ class WLines(LCDialog.LCDialog):
 
         accion, li_resp = resultado
 
-        selMotoresExt = []
-        li_gen, li_ext, liLevels = li_resp
+        sel_motores_ext = []
+        li_gen, li_ext, li_levels = li_resp
 
         for key in li_ext:
             if key:
-                selMotoresExt.append(key)
+                sel_motores_ext.append(key)
 
         reg = {}
 
@@ -518,18 +517,18 @@ class WLines(LCDialog.LCDialog):
             reg["AUTO_ANALYSIS"],
             reg["ASK_MOVESDIFFERENT"],
         ) = li_gen
-        reg["EXT_ENGINES"] = selMotoresExt
+        reg["EXT_ENGINES"] = sel_motores_ext
 
-        if (len(selMotoresExt) + reg["NUM_ENGINES"]) == 0:
+        if (len(sel_motores_ext) + reg["NUM_ENGINES"]) == 0:
             reg["NUM_ENGINES"] = 1
 
         times = []
         books = []
         books_sel = []
         for x in range(5):
-            tm = int(liLevels[x * 3] * 1000)
-            bk = liLevels[x * 3 + 1]
-            bk_mode = liLevels[x * 3 + 2]
+            tm = int(li_levels[x * 3] * 1000)
+            bk = li_levels[x * 3 + 1]
+            bk_mode = li_levels[x * 3 + 2]
             if tm:
                 times.append(tm)
                 books.append(bk.name if bk else "")
@@ -545,25 +544,25 @@ class WLines(LCDialog.LCDialog):
 
         QTUtil2.message_bold(self, _("Created"))
 
-    def trainUpdateAll(self):
+    def train_update_all(self):
         self.dbop.updateTraining(self.procesador)
         self.dbop.updateTrainingEngines()
         QTUtil2.message_bold(self, _("The trainings have been updated"))
 
-    def addPartida(self, game):
+    def add_partida(self, game):
         if game.pv().startswith(self.gamebase.pv()):
-            siNueva, num_linea, siAppend = self.dbop.posPartida(game)
-            if siNueva:
+            si_nueva, num_linea, si_append = self.dbop.posPartida(game)
+            if si_nueva:
                 self.dbop.append(game)
             else:
-                if siAppend:
+                if si_append:
                     self.dbop[num_linea] = game
             self.glines.refresh()
         else:
             QTUtil2.message_error(self, _X("New line must begin with %1", self.gamebase.pgn_translated()))
         self.show_lines()
 
-    def gameActual(self):
+    def game_actual(self):
         game = Game.Game()
         if len(self.dbop) == 0:
             game.assign_other_game(self.gamebase)
@@ -579,19 +578,19 @@ class WLines(LCDialog.LCDialog):
         if ptxt:
             game = Game.Game()
             game.restore(ptxt)
-            self.addPartida(game)
+            self.add_partida(game)
             self.show_lines()
 
     def importar(self):
         menu = QTVarios.LCMenu(self)
 
-        def haz_menu(frommenu, game_base, all=True):
-            if all:
+        def haz_menu(frommenu, game_base, is_all=True):
+            if is_all:
                 li_op = self.dbop.get_others(self.configuration, game_base)
                 if li_op:
                     otra = frommenu.submenu(_("Other opening lines"), Iconos.OpeningLines())
-                    for file, titulo in li_op:
-                        otra.opcion(("ol", (file, game_base)), titulo, Iconos.PuntoVerde())
+                    for xfile, titulo in li_op:
+                        otra.opcion(("ol", (xfile, game_base)), titulo, Iconos.PuntoVerde())
                     frommenu.separador()
             frommenu.opcion(("pgn", game_base), _("PGN with variations"), Iconos.Board())
             frommenu.separador()
@@ -601,13 +600,13 @@ class WLines(LCDialog.LCDialog):
             frommenu.separador()
             frommenu.opcion(("summary", game_base), _("Database opening explorer"), Iconos.DatabaseImport())
 
-            if all:
+            if is_all:
                 frommenu.separador()
                 frommenu.opcion(("voyager2", game_base), _("Voyager 2"), Iconos.Voyager())
                 frommenu.separador()
                 frommenu.opcion(("opening", game_base), _("Opening"), Iconos.Opening())
 
-        game = self.gameActual()
+        game = self.game_actual()
         if len(game) > len(self.gamebase):
             sub2 = menu.submenu(_("From base position"), Iconos.MoverInicio())
             haz_menu(sub2, self.gamebase)
@@ -643,7 +642,7 @@ class WLines(LCDialog.LCDialog):
         elif tipo == "voyager2":
             self.voyager2(game)
         elif tipo == "opening":
-            self.importarOpening(game)
+            self.import_opening(game)
         elif tipo == "ol":
             file, game = game
             self.import_other(file, game)
@@ -656,83 +655,84 @@ class WLines(LCDialog.LCDialog):
 
     def import_other(self, file, game):
         um = QTUtil2.one_moment_please(self)
-        pathFichero = Util.opj(self.configuration.folder_openings(), file)
-        self.dbop.import_other(pathFichero, game)
+        path_fichero = Util.opj(self.configuration.folder_openings(), file)
+        self.dbop.import_other(path_fichero, game)
         um.final()
+        self.pboard.reset_board()
         self.glines.refresh()
         self.glines.gotop()
 
-    def importarOpening(self, game):
+    def import_opening(self, game):
         game.assign_opening()
         w = WindowOpenings.WOpenings(self, self.configuration, game.opening)
         if w.exec_():
             ap = w.resultado()
             game = Game.Game()
             game.read_pv(ap.a1h8)
-            self.addPartida(game)
+            self.add_partida(game)
 
     def import_param_books(self, titulo, with_excltrans):
-        dicData = self.dbop.getconfig("IMPORTAR_LEEPARAM")
-        if not dicData:
-            dicData = {}
+        dic_data = self.dbop.getconfig("IMPORTAR_LEEPARAM")
+        if not dic_data:
+            dic_data = {}
 
         form = FormLayout.FormLayout(self, titulo, Iconos.Naranja(), anchoMinimo=360)
         form.separador()
 
         form.apart(_("Select the number of half-moves <br> for each game to be considered"))
-        form.spinbox(_("Depth"), 3, 999, 50, dicData.get("DEPTH", 30))
+        form.spinbox(_("Depth"), 3, 999, 50, dic_data.get("DEPTH", 30))
         form.separador()
 
         li = [
             (_("Only white best movements"), True),
             (_("Only black best movements"), False),
         ]  # , (_("All moves"), None) ] -> se va al infinito
-        form.combobox(_("Moves"), li, dicData.get("SIWHITE", True))
+        form.combobox(_("Moves"), li, dic_data.get("SIWHITE", True))
         form.separador()
 
         li = [(_("Only one best move"), True), (_("All best moves"), False)]
-        form.combobox(_("Best move"), li, dicData.get("ONLYONE", True))
+        form.combobox(_("Best move"), li, dic_data.get("ONLYONE", True))
         form.separador()
 
-        form.spinbox(_("Minimum movements must have each line"), 0, 99, 50, dicData.get("MINMOVES", 0))
+        form.spinbox(_("Minimum movements must have each line"), 0, 99, 50, dic_data.get("MINMOVES", 0))
         form.separador()
 
         if with_excltrans:
-            form.checkbox(_("Exclude transpositions"), dicData.get("EXCLTRANSPOSITIONS", True))
+            form.checkbox(_("Exclude transpositions"), dic_data.get("EXCLTRANSPOSITIONS", True))
 
         resultado = form.run()
         if resultado:
             accion, li_resp = resultado
             if with_excltrans:
-                depth, siWhite, onlyone, minMoves, excltraspositions = li_resp
-                dicData["EXCLTRANSPOSITIONS"] = excltraspositions
+                depth, si_white, onlyone, min_moves, excltraspositions = li_resp
+                dic_data["EXCLTRANSPOSITIONS"] = excltraspositions
             else:
-                depth, siWhite, onlyone, minMoves = li_resp
-            dicData["DEPTH"] = depth
-            dicData["SIWHITE"] = siWhite
-            dicData["ONLYONE"] = onlyone
-            dicData["MINMOVES"] = minMoves
+                depth, si_white, onlyone, min_moves = li_resp
+            dic_data["DEPTH"] = depth
+            dic_data["SIWHITE"] = si_white
+            dic_data["ONLYONE"] = onlyone
+            dic_data["MINMOVES"] = min_moves
 
-            self.dbop.setconfig("IMPORTAR_LEEPARAM", dicData)
-            self.configuration.write_variables("WBG_MOVES", dicData)
-            return dicData
+            self.dbop.setconfig("IMPORTAR_LEEPARAM", dic_data)
+            self.configuration.write_variables("WBG_MOVES", dic_data)
+            return dic_data
         return None
 
     def import_dbopening_explorer(self, game):
         nomfichgames = QTVarios.select_db(self, self.configuration, True, False)
         if nomfichgames:
-            dicData = self.import_param_books(_("Database opening explorer"), False)
-            if dicData:
+            dic_data = self.import_param_books(_("Database opening explorer"), False)
+            if dic_data:
                 db = DBgames.DBgames(nomfichgames)  # por el problema de los externos
-                ficheroSummary = db.db_stat.nom_fichero
+                fichero_summary = db.db_stat.nom_fichero
                 db.close()
-                depth, siWhite, onlyone, minMoves = (
-                    dicData["DEPTH"],
-                    dicData["SIWHITE"],
-                    dicData["ONLYONE"],
-                    dicData["MINMOVES"],
+                depth, si_white, onlyone, min_moves = (
+                    dic_data["DEPTH"],
+                    dic_data["SIWHITE"],
+                    dic_data["ONLYONE"],
+                    dic_data["MINMOVES"],
                 )
-                self.dbop.import_dbopening_explorer(self, game, ficheroSummary, depth, siWhite, onlyone, minMoves)
+                self.dbop.import_dbopening_explorer(self, game, fichero_summary, depth, si_white, onlyone, min_moves)
                 self.glines.refresh()
                 self.glines.gotop()
 
@@ -858,7 +858,7 @@ class WLines(LCDialog.LCDialog):
         self.pboard.colocatePartida(njug)
         self.glines.setFocus()
 
-    def setJugada(self, njug):
+    def set_jugada(self, njug):
         """Recibimos informacion del panel del board"""
         if njug >= 0:
             self.tabsanalisis.setPosicion(self.game, njug)
@@ -869,14 +869,14 @@ class WLines(LCDialog.LCDialog):
         iswhite = (row % 2) == 0
         color = Code.dic_colors["WLINES_PGN"]
         info = None
-        indicadorInicial = None
+        indicador_inicial = None
         li_nags = []
-        siLine = False
+        si_line = False
         agrisar = False
 
         if col == "LINE":
             pgn = str(linea + 1) if iswhite else ""
-            siLine = True
+            si_line = True
 
         else:
             njug = (int(col) - 1) * 2
@@ -896,7 +896,7 @@ class WLines(LCDialog.LCDialog):
                     if "COMENTARIO" in dic:
                         v = dic["COMENTARIO"]
                         if v:
-                            indicadorInicial = "C"
+                            indicador_inicial = "C"
                     if "VALORACION" in dic:
                         v = dic["VALORACION"]
                         if v:
@@ -908,7 +908,7 @@ class WLines(LCDialog.LCDialog):
             else:
                 pgn = ""
 
-        return pgn, iswhite, color, info, indicadorInicial, li_nags, agrisar, siLine
+        return pgn, iswhite, color, info, indicador_inicial, li_nags, agrisar, si_line
 
     def grid_num_datos(self, grid):
         return len(self.dbop) * 2
@@ -948,7 +948,7 @@ class WLines(LCDialog.LCDialog):
                 self.glines.goto(row + 1, pos)
 
     def grid_doble_click(self, grid, row, o_column):
-        game = self.gameActual()
+        game = self.game_actual()
         if game is not None:
             self.procesador.cambiaXAnalyzer()
             xanalyzer = self.procesador.xanalyzer
@@ -973,6 +973,31 @@ class WLines(LCDialog.LCDialog):
             dic["ANALISIS"] = move.analysis[0]
             self.dbop.setfenvalue(fenm2, dic)
 
+    def grid_right_button(self, grid, row, col, modif):
+        if row < 0:
+            return
+
+        menu = QTVarios.LCMenu(self)
+        submenu = menu.submenu(_("Export in pgn format as mainline"), Iconos.Export8())
+        r = "%s %%s" % _("Result")
+        submenu.opcion("1-0", r % "1-0", Iconos.Blancas8())
+        submenu.opcion("0-1", r % "0-1", Iconos.Negras8())
+        submenu.opcion("1/2-1/2", r % "1/2-1/2", Iconos.Tablas())
+        submenu.opcion("", _("Without Result"), Iconos.Gris())
+        resp = menu.lanza()
+        if resp is not None:
+            w = WindowSavePGN.WSaveVarios(self, self.configuration)
+            if w.exec_():
+                ws = WindowSavePGN.FileSavePGN(self, w.dic_result)
+                if ws.open():
+                    nline = 1 + row // 2
+                    wb = row % 2
+                    pos = int(col.key) - 1 if col.key.isdigit() else 0
+                    pos = pos * 2 + wb
+                    self.dbop.exportar_pgn_one(ws, nline, pos, resp)
+                    ws.close()
+                    ws.um_final()
+
     def borrar_move(self):
         row, col = self.glines.current_position()
         linea = row // 2
@@ -993,8 +1018,8 @@ class WLines(LCDialog.LCDialog):
             if njug == self.num_jg_inicial:
                 return self.borrar()
 
-            siUltimo = njug == len(game) - 1  # si es el ultimo no se pregunta
-            if siUltimo or QTUtil2.pregunta(self, _("Do you want to eliminate this move?")):
+            si_ultimo = njug == len(game) - 1  # si es el ultimo no se pregunta
+            if si_ultimo or QTUtil2.pregunta(self, _("Do you want to eliminate this move?")):
                 game.li_moves = game.li_moves[:njug]
                 self.dbop[linea] = game
 
@@ -1095,8 +1120,8 @@ class WLines(LCDialog.LCDialog):
 
         form = FormLayout.FormLayout(self, _("Remove worst lines"), Iconos.OpeningLines())
         form.separador()
-        liJ = [(_("White"), "WHITE"), (_("Black"), "BLACK")]
-        form.combobox(_("Side"), liJ, "WHITE" if self.pboard.board.is_white_bottom else "BLACK")
+        li_j = [(_("White"), "WHITE"), (_("Black"), "BLACK")]
+        form.combobox(_("Side"), li_j, "WHITE" if self.pboard.board.is_white_bottom else "BLACK")
         form.separador()
 
         list_books = Books.ListBooks()
@@ -1218,7 +1243,7 @@ class WLines(LCDialog.LCDialog):
         return False
 
     def remove_info(self):
-        form = FormLayout.FormLayout(self, _("Remove"), Iconos.Delete(), font_txt=Controles.TipoLetra(puntos=10))
+        form = FormLayout.FormLayout(self, _("Remove"), Iconos.Delete(), font_txt=Controles.FontType(puntos=10))
 
         form.separador()
         form.checkbox(_("All"), False)
@@ -1291,9 +1316,9 @@ class WLines(LCDialog.LCDialog):
         else:
             li.sort()
             linea = None
-            for l in li:
-                if l > linea_actual:
-                    linea = l
+            for xl in li:
+                if xl > linea_actual:
+                    linea = xl
                     break
             if linea is None and li:
                 linea = li[0]
@@ -1336,18 +1361,18 @@ class WLines(LCDialog.LCDialog):
         # recno = self.glines.recno()
         # Buscamos en las lineas si hay alguna que el pv sea parcial o totalmente igual
         game.pending_opening = True
-        siNueva, num_linea, siAppend = self.dbop.posPartida(game)
+        si_nueva, num_linea, si_append = self.dbop.posPartida(game)
         is_white = game.move(-1).is_white()
         ncol = (len(game) - self.num_jg_inicial + 1) // 2
         if self.num_jg_inicial % 2 == 1 and is_white:
             ncol += 1
-        if siNueva:
+        if si_nueva:
             self.dbop.append(game)
         else:
-            if siAppend:
+            if si_append:
                 self.dbop[num_linea] = game
-        if not siAppend:
-            siNueva, num_linea, siAppend = self.dbop.posPartida(game)
+        if not si_append:
+            si_nueva, num_linea, si_append = self.dbop.posPartida(game)
 
         row = num_linea * 2
         if not is_white:
@@ -1401,12 +1426,12 @@ class WImportPolyglot(LCDialog.LCDialog):
 
         self.cb_white = Controles.CB(self, li_books, book_obj("BOOK_WHITE"))
         self.cb_mode_white = Controles.CB(self, li_modes, dic_data.get("MODE_WHITE"))
-        lb_white_porc_min = Controles.LB2P(self, _("Minimum percentage")).ponTipoLetra(puntos=8)
+        lb_white_porc_min = Controles.LB2P(self, _("Minimum percentage")).set_font_type(puntos=8)
         self.ed_white_porc_min = (Controles.ED(self).anchoFijo(60).
-                                  tipoFloat(decimales=3, valor=dic_data.get("PORC_WHITE", 0.0)).ponTipoLetra(puntos=8))
-        lb_white_weight_min = Controles.LB2P(self, _("Minimum weight")).ponTipoLetra(puntos=8)
+                                  tipoFloat(decimales=3, valor=dic_data.get("PORC_WHITE", 0.0)).set_font_type(puntos=8))
+        lb_white_weight_min = Controles.LB2P(self, _("Minimum weight")).set_font_type(puntos=8)
         self.ed_white_weight_min = (Controles.ED(self).anchoFijo(60).
-                                    tipoInt(dic_data.get("WEIGHT_WHITE", 0)).ponTipoLetra(puntos=8))
+                                    tipoInt(dic_data.get("WEIGHT_WHITE", 0)).set_font_type(puntos=8))
 
         ly_arr = Colocacion.H().control(self.cb_white).control(self.cb_mode_white)
         ly_abj = (Colocacion.H().relleno().control(lb_white_porc_min).control(self.ed_white_porc_min)
@@ -1419,12 +1444,12 @@ class WImportPolyglot(LCDialog.LCDialog):
         # Black
         self.cb_black = Controles.CB(self, li_books, book_obj("BOOK_BLACK"))
         self.cb_mode_black = Controles.CB(self, li_modes, dic_data.get("MODE_BLACK"))
-        lb_black_min = Controles.LB2P(self, _("Minimum percentage")).ponTipoLetra(puntos=8)
+        lb_black_min = Controles.LB2P(self, _("Minimum percentage")).set_font_type(puntos=8)
         self.ed_black_min = (Controles.ED(self).anchoFijo(60).
-                             tipoFloat(decimales=3, valor=dic_data.get("PORC_BLACK", 0.0)).ponTipoLetra(puntos=8))
-        lb_black_weight_min = Controles.LB2P(self, _("Minimum weight")).ponTipoLetra(puntos=8)
+                             tipoFloat(decimales=3, valor=dic_data.get("PORC_BLACK", 0.0)).set_font_type(puntos=8))
+        lb_black_weight_min = Controles.LB2P(self, _("Minimum weight")).set_font_type(puntos=8)
         self.ed_black_weight_min = (Controles.ED(self).anchoFijo(60).
-                                    tipoInt(dic_data.get("WEIGHT_BLACK", 0)).ponTipoLetra(puntos=8))
+                                    tipoInt(dic_data.get("WEIGHT_BLACK", 0)).set_font_type(puntos=8))
 
         ly_arr = Colocacion.H().control(self.cb_black).control(self.cb_mode_black)
         ly_abj = (Colocacion.H().relleno().control(lb_black_min).control(self.ed_black_min)
@@ -1449,8 +1474,8 @@ class WImportPolyglot(LCDialog.LCDialog):
 
         no_limits = _("0=no limit")
 
-        lb_info1 = Controles.LB(self, no_limits).ponTipoLetra(puntos=8)
-        lb_info2 = Controles.LB(self, no_limits).ponTipoLetra(puntos=8)
+        lb_info1 = Controles.LB(self, no_limits).set_font_type(puntos=8)
+        lb_info2 = Controles.LB(self, no_limits).set_font_type(puntos=8)
         ly.control(lb_info1, 1, 1)
         ly.control(lb_info2, 1, 3)
 

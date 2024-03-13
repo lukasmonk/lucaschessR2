@@ -69,7 +69,7 @@ class BoardLines(QtWidgets.QWidget):
         self.board.set_side_bottom(self.dbop.getconfig("WHITEBOTTOM", True))
         self.dbop.setdbvisual_board(self.board)  # To close
 
-        tipo_letra = Controles.TipoLetra(puntos=configuration.x_pgn_fontpoints)
+        tipo_letra = Controles.FontType(puntos=configuration.x_pgn_fontpoints)
 
         lybt, bt = QTVarios.ly_mini_buttons(self, "", siTiempo=True, siLibre=False, icon_size=24)
 
@@ -77,7 +77,7 @@ class BoardLines(QtWidgets.QWidget):
         # Por alguna razón es necesario ese espacio en blanco, para aperturas sin movs iniciales
         self.lbPGN.setAlignment(QtCore.Qt.AlignTop)
         self.configuration.set_property(self.lbPGN, "pgn")
-        self.lbPGN.ponFuente(tipo_letra)
+        self.lbPGN.set_font(tipo_letra)
         self.lbPGN.setOpenExternalLinks(False)
 
         def muestra_pos(txt):
@@ -108,20 +108,20 @@ class BoardLines(QtWidgets.QWidget):
         # Valoracion
         li_options = [(tit[1] + " " + tit[0], k) for k, tit in dic_valoracion.items()]
         self.cbValoracion = Controles.CB(self, li_options, 0).capture_changes(self.cambiadoValoracion)
-        self.cbValoracion.ponFuente(tipo_letra)
+        self.cbValoracion.set_font(tipo_letra)
 
         # Ventaja
         li_options = [(tit, k, icon) for k, (tit, icon) in self.dicVentaja.items()]
         self.cbVentaja = Controles.CB(self, li_options, 0).capture_changes(self.cambiadoVentaja)
-        self.cbVentaja.ponFuente(tipo_letra)
+        self.cbVentaja.set_font(tipo_letra)
 
         # Comentario
         self.emComentario = Controles.EM(self, siHTML=False).capturaCambios(self.cambiadoComentario)
-        self.emComentario.ponFuente(tipo_letra)
+        self.emComentario.set_font(tipo_letra)
         self.emComentario.altoMinimo(2 * configuration.x_pgn_rowheight)
 
         # Opening
-        self.lb_opening = Controles.LB(self).align_center().ponFuente(tipo_letra).set_wrap()
+        self.lb_opening = Controles.LB(self).align_center().set_font(tipo_letra).set_wrap()
 
         # Layout
         self.emComentario.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
@@ -144,6 +144,11 @@ class BoardLines(QtWidgets.QWidget):
         self.siReloj = False
 
         self.ponPartida(self.gamebase)
+
+    def reset_board(self):
+        self.board.dbvisual_set_file(self.dbop.nom_fichero)
+        self.board.dbvisual_set_show_always(True)
+        self.board.dbvisual_set_save_always(True)
 
     def ponPartida(self, game):
         game.test_apertura()
@@ -276,7 +281,7 @@ class BoardLines(QtWidgets.QWidget):
         else:
             self.activaPiezas()
 
-        self.panelOpening.setJugada(self.pos_move)
+        self.panelOpening.set_jugada(self.pos_move)
 
     def activaPiezas(self):
         self.board.disable_all()

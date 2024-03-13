@@ -116,7 +116,7 @@ class PolyglotImport:
     def menu_collisions(self):
         menu = QTVarios.LCMenu(self.wpolyglot)
         menu.opcion(
-            "", _("What to do in case of collisions"), is_disabled=True, tipoLetra=Controles.TipoLetra(peso=700)
+            "", _("What to do in case of collisions"), is_disabled=True, font_type=Controles.FontType(peso=700)
         )
         menu.separador()
         menu.opcion("replace", _("Replace"), Iconos.Recuperar())
@@ -322,9 +322,9 @@ class ImportarPGNDB(QtWidgets.QDialog):
 
         self.setWindowTitle(titulo)
         self.setWindowIcon(Iconos.Import8())
-        self.fontB = Controles.TipoLetra(puntos=10, peso=75)
+        self.fontB = Controles.FontType(puntos=10, peso=75)
 
-        self.lbgames_readed = Controles.LB(self).ponFuente(self.fontB)
+        self.lbgames_readed = Controles.LB(self).set_font(self.fontB)
 
         self.bp = QtWidgets.QProgressBar()
         self.bp.setFont(self.fontB)

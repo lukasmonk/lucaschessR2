@@ -397,10 +397,10 @@ class ConfigBoard(JS):
     def flechaRivalDefecto(self):
         return self.o_tema.flechaRivalDefecto()
 
-    def tipoLetra(self):
+    def font_type(self):
         t = self.o_base.x_tipoLetra
         if not t:
-            return "Arial" if self.is_base else self.confPadre().tipoLetra()
+            return "Arial" if self.is_base else self.confPadre().font_type()
         else:
             return t
 
@@ -439,7 +439,7 @@ class ConfigBoard(JS):
             self.o_base.x_nomPiezas = valor
         return self.o_base.x_nomPiezas
 
-    def ponTipoLetra(self, valor=None):
+    def set_font_type(self, valor=None):
         if not valor:
             self.o_base.x_tipoLetra = "Arial" if self.is_base else ""
         else:

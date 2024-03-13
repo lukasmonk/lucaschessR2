@@ -214,48 +214,48 @@ class ManagerGM(Manager.Manager):
 
         # Movimiento automatico
         if si_jug_inicial or self.on_opening or self.on_bypass_book:
-            siBuscar = True
+            si_buscar = True
             if self.on_opening:
                 li_pv = self.opening.a1h8.split(" ")
                 nj = len(self.game)
                 if len(li_pv) > nj:
                     move = li_pv[nj]
                     if move in li_alternativas:
-                        siBuscar = False
+                        si_buscar = False
                     else:
                         self.on_opening = False
                 else:
                     self.on_opening = False
 
-            if siBuscar:
+            if si_buscar:
                 if self.on_bypass_book:
                     li_moves = self.bypass_book.get_list_moves(self.last_fen())
-                    liN = []
+                    li_n = []
                     for from_sq, to_sq, promotion, pgn, peso in li_moves:
                         move = from_sq + to_sq + promotion
                         if move in li_alternativas:
-                            liN.append(move)
-                    if liN:
-                        siBuscar = False
-                        nli_alternativas = len(liN)
+                            li_n.append(move)
+                    if li_n:
+                        si_buscar = False
+                        nli_alternativas = len(li_n)
                         if nli_alternativas > 1:
                             pos = random.randint(0, nli_alternativas - 1)
-                            move = liN[pos]
+                            move = li_n[pos]
                         else:
-                            move = liN[0]
+                            move = li_n[0]
                     else:
                         self.on_bypass_book = None
 
-            if siBuscar:
+            if si_buscar:
                 if si_jug_inicial:
-                    siBuscar = False
+                    si_buscar = False
                     if nli_alternativas > 1:
                         pos = random.randint(0, nli_alternativas - 1)
                         move = li_alternativas[pos]
                     elif nli_alternativas == 1:
                         move = li_alternativas[0]
 
-            if not siBuscar:
+            if not si_buscar:
                 self.rival_has_moved(move)
                 self.play_next_move()
                 return

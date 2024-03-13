@@ -37,24 +37,24 @@ class WRunCoordinatesBlocks(LCDialog.LCDialog):
         if not config.with_coordinates:
             self.board.show_coordinates(False)
 
-        font = Controles.TipoLetra(puntos=14, peso=500)
+        font = Controles.FontType(puntos=14, peso=500)
 
-        lb_block_k = Controles.LB(self, _("Block") + ":").ponFuente(font)
-        self.lb_block = Controles.LB(self).ponFuente(font)
+        lb_block_k = Controles.LB(self, _("Block") + ":").set_font(font)
+        self.lb_block = Controles.LB(self).set_font(font)
 
-        lb_try_k = Controles.LB(self, _("Tries in this block") + ":").ponFuente(font)
-        self.lb_try = Controles.LB(self).ponFuente(font)
+        lb_try_k = Controles.LB(self, _("Tries in this block") + ":").set_font(font)
+        self.lb_try = Controles.LB(self).set_font(font)
 
-        lb_minimum_score_k = Controles.LB(self, _("Minimum score") + ":").ponFuente(font)
-        self.lb_minimum_score = Controles.LB(self).ponFuente(font)
+        lb_minimum_score_k = Controles.LB(self, _("Minimum score") + ":").set_font(font)
+        self.lb_minimum_score = Controles.LB(self).set_font(font)
 
-        lb_current_score_block_k = Controles.LB(self, _("Max score in block") + ":").ponFuente(font)
-        self.lb_current_score_block = Controles.LB(self).ponFuente(font)
+        lb_current_score_block_k = Controles.LB(self, _("Max score in block") + ":").set_font(font)
+        self.lb_current_score_block = Controles.LB(self).set_font(font)
         self.lb_current_score_enough = Controles.LB(self).ponImagen(Iconos.pmCorrecto())
         self.lb_current_score_enough.hide()
 
-        self.lb_active_score_k = Controles.LB(self, _("Active score") + ":").ponFuente(font)
-        self.lb_active_score = Controles.LB(self).ponFuente(font)
+        self.lb_active_score_k = Controles.LB(self, _("Active score") + ":").set_font(font)
+        self.lb_active_score = Controles.LB(self).set_font(font)
 
         li_acciones = (
             (_("Close"), Iconos.MainMenu(), self.terminar),

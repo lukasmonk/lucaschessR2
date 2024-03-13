@@ -302,7 +302,6 @@ class Eboard:
 
     def deactivate(self):
         if self.driver:
-            # assert Code.prln("deactivate")
             self.driver._DGTDLL_HideDialog(ctypes.c_int(1))
             if Code.is_windows:
                 handle = self.driver._handle

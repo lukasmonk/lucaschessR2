@@ -15,8 +15,8 @@ class WStEval(WKibCommon.WKibCommon):
         WKibCommon.WKibCommon.__init__(self, cpu, Iconos.Book())
 
         self.em = Controles.EM(self, siHTML=False).read_only()
-        f = Controles.TipoLetra(name=Code.font_mono, puntos=10)
-        self.em.ponFuente(f)
+        f = Controles.FontType(name=Code.font_mono, puntos=10)
+        self.em.set_font(f)
 
         li_acciones = (
             (_("Quit"), Iconos.Kibitzer_Close(), self.terminar),
@@ -36,7 +36,7 @@ class WStEval(WKibCommon.WKibCommon):
         self.engine = self.launch_engine()
 
         self.timer = QtCore.QTimer(self)
-        self.timer.timeout.connect(self.cpu.compruebaInput)
+        self.timer.timeout.connect(self.cpu.check_input)
         self.timer.start(200)
 
         self.restore_video(self.dicVideo)

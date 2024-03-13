@@ -160,7 +160,7 @@ class WTV_SVGs(LCDialog.LCDialog):
 
         self.owner = owner
 
-        flb = Controles.TipoLetra(puntos=8)
+        flb = Controles.FontType(puntos=8)
 
         self.configuration = Code.configuration
         self.liPSVGs = list_svgs

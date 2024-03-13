@@ -185,7 +185,7 @@ class ControlPGN:
             blancas = rival
             negras = player
         hoy = Util.today()
-        resp = '[Event "%s"]\n' % Code.lucas_chess
+        resp = '[Site "%s"]\n' % Code.lucas_chess
         # Site (lugar): el lugar donde el evento se llevo a cabo.
         # Esto debe ser en formato "Ciudad, Region PAIS", donde PAIS es el codigo del mismo
         # en tres letras de acuerdo al codigo del Comite Olimpico Internacional. Como ejemplo: "Mexico, D.F. MEX".

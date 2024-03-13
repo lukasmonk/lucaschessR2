@@ -46,7 +46,7 @@ def read_engines(folder_engines):
              f"stockfish-16.1-64", 3611)
     cm.set_uci_option("Hash", "64")
     cm.set_uci_option("Threads", "2")
-    cm.set_multipv(10, 500)
+    cm.set_multipv(10, 256)
 
     avx2 = "-avx2" if bmi2 else ""
     cm = mas("komodo", "Don Dailey, Larry Kaufman, Mark Lefler, Dmitry Pervov, Dietrich Kappe", f"dragon-1{avx2}",
@@ -89,7 +89,7 @@ def read_engines(folder_engines):
 
     mas("critter", "Richard Vida", "1.6a", "http://www.vlasak.biz/critter", "Critter-1.6a", 3091)
 
-    mas("ct800", "Rasmus Althoff", "1.42", "https://www.ct800.net/", "CT800-1.42", 2380, nodes_compatible=True)
+    mas("ct800", "Rasmus Althoff", "1.45", "https://www.ct800.net/", "CT800-1.45", 2380, nodes_compatible=True)
 
     mas("daydreamer", "Aaron Becker", "1.75 JA", "http://github.com/AaronBecker/daydreamer/downloads",
         "Daydreamer-1.75", 2670, nodes_compatible=True)

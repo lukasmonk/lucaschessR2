@@ -39,7 +39,7 @@ class Physicalphysical_pos:
             setattr(self, var, dic[var])
 
 
-class TipoLetra:
+class FontType:
     def __init__(self, name="", puntos=8, peso=50, is_italic=False, is_underlined=False, is_striked=False):
         self.name = name
         self.puntos = puntos
@@ -58,7 +58,7 @@ class TipoLetra:
         return "%s,%d,-1,5,%d,%d,%d,%d,0,0" % (name, self.puntos, self.peso, cursiva, subrayado, tachado)
 
     def copia(self):
-        t = TipoLetra(self.name, self.puntos, self.peso, self.is_italic, self.is_underlined, self.is_striked)
+        t = FontType(self.name, self.puntos, self.peso, self.is_italic, self.is_underlined, self.is_striked)
         return t
 
     def save_dic(self):
@@ -134,7 +134,7 @@ class Bloque:
 
 
 class Texto(Bloque):
-    tipoLetra: TipoLetra
+    font_type: FontType
     physical_pos: Physicalphysical_pos
     alineacion: str
     colorTexto: int
@@ -143,7 +143,7 @@ class Texto(Bloque):
 
     def __init__(self):
         li_vars = [
-            ("tipoLetra", "o", TipoLetra()),
+            ("font_type", "o", FontType()),
             ("physical_pos", "o", Physicalphysical_pos(0, 0, 80, 16, 0)),
             ("alineacion", "t", "i"),
             ("colorTexto", "n", 0),
@@ -154,7 +154,7 @@ class Texto(Bloque):
 
     def copia(self):
         t = Texto()
-        t.tipoLetra = self.tipoLetra.copia()
+        t.font_type = self.font_type.copia()
         t.physical_pos = self.physical_pos.copia()
         t.alineacion = self.alineacion
         t.colorTexto = self.colorTexto
@@ -428,7 +428,7 @@ class Pizarra(QtWidgets.QWidget):
         self.guion = guion
         self.tarea = None
 
-        self.mensaje = Controles.EM(self).ponTipoLetra(puntos=Code.configuration.x_sizefont_infolabels)
+        self.mensaje = Controles.EM(self).set_font_type(puntos=Code.configuration.x_sizefont_infolabels)
 
         self.pb = None
         self.chb = None

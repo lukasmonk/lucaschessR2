@@ -421,7 +421,7 @@ class ManagerMate(Manager.Manager):
 
     def cambiarJuego(self):
         menu = QTVarios.LCMenuRondo(self.main_window)
-        menu.ponTipoLetra(name=Code.font_mono, puntos=12)
+        menu.set_font_type(name=Code.font_mono, puntos=12)
         li_info, all_done = self.control_mate.info_levels()
         for num_level, info, enabled in li_info:
             menu.opcion(num_level, "%s %d %s" % (_("Level"), num_level, info), is_disabled=not enabled)

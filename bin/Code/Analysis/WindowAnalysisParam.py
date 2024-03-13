@@ -1,12 +1,17 @@
+from PySide2 import QtWidgets
+
 import Code
 from Code import Util
-from Code.Base.Constantes import ALL_VARIATIONS, HIGHEST_VARIATIONS, BETTER_VARIATIONS
+from Code.Base.Constantes import ALL_VARIATIONS, HIGHEST_VARIATIONS, BETTER_VARIATIONS, INACCURACY, MISTAKE, BLUNDER, \
+    INACCURACY_MISTAKE_BLUNDER, INACCURACY_MISTAKE, MISTAKE_BLUNDER
 from Code.Books import Books
 from Code.Engines import Priorities
 from Code.QT import FormLayout
 from Code.QT import Iconos
 from Code.QT import QTUtil
 from Code.QT import QTUtil2
+from Code.Analysis import WindowAnalysisConfig
+
 
 SEPARADOR = FormLayout.separador
 
@@ -21,11 +26,7 @@ def read_dic_params():
     alm.engine = dic.get("engine", configuration.x_tutor_clave)
     alm.vtime = dic.get("vtime", configuration.x_tutor_mstime)
     alm.depth = dic.get("depth", configuration.x_tutor_depth)
-    # alm.timedepth = dic.get("timedepth", False)
-    alm.kblunders = dic.get("kblunders", 50)
-    alm.kblunders_porc = dic.get("kblunders_porc", 0)
-    alm.ptbrilliancies = dic.get("ptbrilliancies", 100)
-    alm.dpbrilliancies = dic.get("dpbrilliancies", 7)
+    alm.kblunders_condition = dic.get("kblunders_condition", MISTAKE_BLUNDER)
     alm.from_last_move = dic.get("from_last_move", False)
     alm.multiPV = dic.get("multiPV", "PD")
     alm.priority = dic.get("priority", Priorities.priorities.normal)
@@ -68,15 +69,16 @@ def save_dic_params(dic):
 def form_blunders_brilliancies(alm, configuration):
     li_blunders = [SEPARADOR]
 
-    li_blunders.append(
-        (
-            FormLayout.Editbox(
-                _("Is considered wrong move when the loss of centipawns is greater than"), tipo=int, ancho=50
-            ),
-            alm.kblunders,
-        )
-    )
-    li_blunders.append((FormLayout.Editbox(_("Minimum difference in %"), tipo=int, ancho=50), alm.kblunders_porc))
+    li_types = [
+        (_("Dubious move") + ", " + _("Mistake") + ", " + _("Blunder"), INACCURACY_MISTAKE_BLUNDER),
+        (_("Dubious move") + ", " + _("Mistake"), INACCURACY_MISTAKE),
+        (_("Mistake") + ", " + _("Blunder"), MISTAKE_BLUNDER),
+        (_("Dubious move"), INACCURACY),
+        (_("Mistake"), MISTAKE),
+        (_("Blunder"), BLUNDER),
+    ]
+    condition = FormLayout.Combobox(_("Condition"), li_types)
+    li_blunders.append((condition, alm.kblunders_condition))
 
     li_blunders.append(SEPARADOR)
 
@@ -103,11 +105,6 @@ def form_blunders_brilliancies(alm, configuration):
     li_blunders.append((_X(_("Add to the training %1 with the name"), eti) + ":", ""))
 
     li_brilliancies = [SEPARADOR]
-
-    li_brilliancies.append((FormLayout.Spinbox(_("Minimum depth"), 3, 30, 50), alm.dpbrilliancies))
-
-    li_brilliancies.append((FormLayout.Spinbox(_("Minimum gain centipawns"), 30, 30000, 50), alm.ptbrilliancies))
-    li_brilliancies.append(SEPARADOR)
 
     path_fns = file_next("Brilliancies", "fns")
     path_pgn = file_next("Brilliancies", "pgn")
@@ -279,6 +276,12 @@ def analysis_parameters(parent, extended_mode, all_engines=False):
 
             QTUtil.refresh_gui()
 
+    def analysis_config():
+        last_active_window = QtWidgets.QApplication.activeWindow()
+        w = WindowAnalysisConfig.WConfAnalysis(last_active_window, None)
+        w.show()
+
+    li_extra_options = ((_("Configuration"), Iconos.ConfAnalysis(), analysis_config), )
     resultado = FormLayout.fedit(
         lista,
         title=_("Analysis Configuration"),
@@ -286,6 +289,7 @@ def analysis_parameters(parent, extended_mode, all_engines=False):
         anchoMinimo=460,
         icon=Iconos.Opciones(),
         dispatch=dispatch,
+        li_extra_options=li_extra_options
     )
 
     if resultado:
@@ -326,8 +330,7 @@ def analysis_parameters(parent, extended_mode, all_engines=False):
             ) = li_var
 
             (
-                alm.kblunders,
-                alm.kblunders_porc,
+                alm.kblunders_condition,
                 alm.tacticblunders,
                 alm.pgnblunders,
                 alm.oriblunders,
@@ -335,8 +338,6 @@ def analysis_parameters(parent, extended_mode, all_engines=False):
             ) = li_blunders
 
             (
-                alm.dpbrilliancies,
-                alm.ptbrilliancies,
                 alm.fnsbrilliancies,
                 alm.pgnbrilliancies,
                 alm.oribrilliancies,
@@ -469,7 +470,6 @@ def massive_analysis_parameters(parent, configuration, multiple_selected, siData
             alm.engine,
             vtime,
             alm.depth,
-            # alm.timedepth,
             alm.multiPV,
             color,
             cjug,
@@ -489,8 +489,7 @@ def massive_analysis_parameters(parent, configuration, multiple_selected, siData
         alm.book_name = alm.book.name if alm.book else None
 
         (
-            alm.kblunders,
-            alm.kblunders_porc,
+            alm.kblunders_condition,
             alm.tacticblunders,
             alm.pgnblunders,
             alm.oriblunders,
@@ -509,8 +508,6 @@ def massive_analysis_parameters(parent, configuration, multiple_selected, siData
         ) = li_var
 
         (
-            alm.dpbrilliancies,
-            alm.ptbrilliancies,
             alm.fnsbrilliancies,
             alm.pgnbrilliancies,
             alm.oribrilliancies,

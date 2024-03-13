@@ -147,7 +147,7 @@ class ManagerEntPos(Manager.Manager):
             )
 
         player = self.configuration.nom_player()
-        other = _("the engine")
+        other = self.xrival.name
         w, b = (player, other) if self.is_human_side_white else (other, player)
         self.game.set_tag("White", w)
         self.game.set_tag("Black", b)
@@ -207,8 +207,8 @@ class ManagerEntPos(Manager.Manager):
                 txt = _("Enable")
                 ico = Iconos.Add()
 
-            liMasOpciones = [("lmo_advanced", "%s: %s" % (txt, _("Advanced mode")), ico)]
-            resp = self.configurar(siSonidos=True, siCambioTutor=True, liMasOpciones=liMasOpciones)
+            li_extra_options = [("lmo_advanced", "%s: %s" % (txt, _("Advanced mode")), ico)]
+            resp = self.configurar(siSonidos=True, siCambioTutor=True, li_extra_options=li_extra_options)
             if resp == "lmo_advanced":
                 self.advanced = not self.advanced
                 self.reiniciar()
@@ -218,11 +218,11 @@ class ManagerEntPos(Manager.Manager):
 
         elif key == TB_UTILITIES:
             if "/Tactics/" in self.entreno:
-                liMasOpciones = []
+                li_extra_options = []
             else:
-                liMasOpciones = [("tactics", _("Create tactics training"), Iconos.Tacticas()), (None, None, None)]
+                li_extra_options = [("tactics", _("Create tactics training"), Iconos.Tacticas()), (None, None, None)]
 
-            resp = self.utilities(liMasOpciones)
+            resp = self.utilities(li_extra_options)
             if resp == "tactics":
                 self.create_tactics()
 

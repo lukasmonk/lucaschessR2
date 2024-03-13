@@ -364,21 +364,21 @@ class WPlay(LCDialog.LCDialog):
         ly2 = Colocacion.V().otro(ly1).relleno()
         self.gbSolucion = Controles.GB(self, "", ly2)
 
-        f = Controles.TipoLetra("", 11, 80, False, False, False, None)
+        f = Controles.FontType("", 11, 80, False, False, False, None)
 
-        bt = Controles.PB(self, _("Close"), self.terminar, plano=False).ponIcono(Iconos.MainMenu()).ponFuente(f)
+        bt = Controles.PB(self, _("Close"), self.terminar, plano=False).ponIcono(Iconos.MainMenu()).set_font(f)
         self.btBoard = (
-            Controles.PB(self, _("Go to board"), self.activaBoard, plano=False).ponIcono(Iconos.Board()).ponFuente(f)
+            Controles.PB(self, _("Go to board"), self.activaBoard, plano=False).ponIcono(Iconos.Board()).set_font(f)
         )
         self.btComprueba = (
             Controles.PB(self, _("Test the solution"), self.compruebaSolucion, plano=False)
             .ponIcono(Iconos.Check())
-            .ponFuente(f)
+            .set_font(f)
         )
         self.btGotoNextLevel = (
             Controles.PB(self, _("Go to next level"), self.gotoNextLevel, plano=False)
             .ponIcono(Iconos.GoToNext())
-            .ponFuente(f)
+            .set_font(f)
         )
         ly0 = (
             Colocacion.H()

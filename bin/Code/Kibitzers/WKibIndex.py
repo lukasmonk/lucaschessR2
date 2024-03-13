@@ -60,8 +60,8 @@ class WKibIndex(QtWidgets.QDialog):
         self.grid = Grid.Grid(
             self, o_columns, dicVideo=dicVideo, siSelecFilas=True, siCabeceraVisible=True, altoCabecera=4
         )
-        f = Controles.TipoLetra(puntos=self.cpu.configuration.x_pgn_fontpoints)
-        self.grid.ponFuente(f)
+        f = Controles.FontType(puntos=self.cpu.configuration.x_pgn_fontpoints)
+        self.grid.set_font(f)
 
         li_acciones = (
             (_("Continue"), Iconos.Kibitzer_Play(), self.play),
@@ -97,10 +97,10 @@ class WKibIndex(QtWidgets.QDialog):
         self.veces = 0
 
         self.timer = QtCore.QTimer(self)
-        self.timer.timeout.connect(self.compruebaInput)
+        self.timer.timeout.connect(self.check_input)
         self.timer.start(200)
 
-    def compruebaInput(self):
+    def check_input(self):
         if not self.engine:
             return
         self.veces += 1
@@ -150,7 +150,7 @@ class WKibIndex(QtWidgets.QDialog):
 
                 QTUtil.refresh_gui()
 
-        self.cpu.compruebaInput()
+        self.cpu.check_input()
 
     def ponFlags(self):
         flags = self.windowFlags()

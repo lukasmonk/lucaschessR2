@@ -15,6 +15,7 @@ from Code.Base.Constantes import (
     KIB_BESTMOVE_ONELINE,
     KIB_BESTMOVE,
     KIB_STOCKFISH,
+    KIB_DATABASES,
 )
 from Code.Books import Books
 from Code.Engines import Engines
@@ -38,6 +39,7 @@ class Tipos:
             (KIB_THREATS, _("Threats"), Iconos.pmPuntoAzul()),
             (KIB_POLYGLOT, _("Polyglot book"), Iconos.pmBook().scaledToWidth(16)),
             (KIB_GAVIOTA, _("Gaviota Tablebases"), Iconos.pmFinales().scaledToWidth(16)),
+            (KIB_DATABASES, _("Databases"), Iconos.pmDatabase().scaledToWidth(16)),
         )
 
     def combo(self):
@@ -45,7 +47,8 @@ class Tipos:
 
     def comboSinIndices(self):
         return [
-            (label, key) for key, label, pm in self.li_tipos if not (key in (KIB_INDEXES, KIB_GAVIOTA, KIB_POLYGLOT))
+            (label, key) for key, label, pm in self.li_tipos if
+            not (key in (KIB_INDEXES, KIB_GAVIOTA, KIB_POLYGLOT, KIB_DATABASES))
         ]
 
     def texto(self, tipo):
@@ -71,14 +74,14 @@ class Kibitzer(Engines.Engine):
         self.name = None
         self.pointofview = KIB_AFTER_MOVE
 
-    def pon_huella(self, liEngines):
-        liHuellas = [en.huella for en in liEngines if en != self]
+    def pon_huella(self, li_engines):
+        li_huellas = [en.huella for en in li_engines if en != self]
         while True:
             self.huella = Util.huella()
-            if not (self.huella in liHuellas):
+            if not (self.huella in li_huellas):
                 return
 
-    def clonar(self, liEngines):
+    def clonar(self, li_engines):
         otro = Kibitzer()
         otro.restore(self.save())
         otro.tipo = self.tipo
@@ -86,8 +89,8 @@ class Kibitzer(Engines.Engine):
         otro.name = self.name
         otro.visible = True
         otro.pointofview = self.pointofview
-        otro.pon_huella(liEngines)
-        lista = [en.name for en in liEngines]
+        otro.pon_huella(li_engines)
+        lista = [en.name for en in li_engines]
         d = 0
         while otro.name in lista:
             d += 1
@@ -111,13 +114,16 @@ class Kibitzer(Engines.Engine):
         Engines.Engine.read_uci_options(self)
 
     def restore(self, txt):
-        Engines.Engine.restore(self, txt)
         if self.tipo in (KIB_CANDIDATES, KIB_BESTMOVE, KIB_BESTMOVE_ONELINE, KIB_THREATS, KIB_STOCKFISH):
+            Engines.Engine.restore(self, txt)
             if not os.path.isfile(self.path_exe):
                 eng = Code.configuration.buscaRival(self.alias)
                 if eng:
                     self.path_exe = eng.path_exe
-        elif self.tipo == KIB_POLYGLOT:
+        else:
+            Util.restore_obj_pickle(self, txt)
+
+        if self.tipo == KIB_POLYGLOT:
             if not os.path.isfile(self.path_exe):
                 lbooks = Books.ListBooks()
                 book = lbooks.seek_book(self.key)
@@ -211,6 +217,18 @@ class Kibitzers:
         self.save()
         return len(self.lista) - 1
 
+    def nuevo_database(self, path_database):
+        kib = Kibitzer()
+        kib.pon_huella(self.lista)
+        kib.name = _("Database") + ": " + os.path.basename(path_database)[:-5]
+        kib.path_exe = path_database
+        kib.key = kib.name
+        kib.tipo = KIB_DATABASES
+        kib.autor = ""
+        self.lista.append(kib)
+        self.save()
+        return len(self.lista) - 1
+
     def __len__(self):
         return len(self.lista)
 
@@ -246,7 +264,7 @@ class Kibitzers:
         li = []
         for kib in self.lista:
             if (kib.tipo in (KIB_CANDIDATES, KIB_BESTMOVE, KIB_BESTMOVE_ONELINE, KIB_POLYGLOT,
-                             KIB_THREATS, KIB_STOCKFISH) and not os.path.isfile(kib.path_exe)):
+                             KIB_THREATS, KIB_STOCKFISH, KIB_DATABASES) and not os.path.isfile(kib.path_exe)):
                 continue
             li.append((kib.huella, kib.name, d_ico[kib.tipo]))
         return li

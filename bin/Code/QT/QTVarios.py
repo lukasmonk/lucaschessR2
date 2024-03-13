@@ -224,7 +224,7 @@ class Tiempo(QtWidgets.QDialog):
 
         tb = tb_accept_cancel(self)
 
-        f = Controles.TipoLetra(puntos=11)
+        f = Controles.FontType(puntos=11)
 
         # Tiempo
         self.ed_minutos, self.lb_minutos = QTUtil2.spinbox_lb(
@@ -357,7 +357,7 @@ class LCNumero(QtWidgets.QWidget):
     def __init__(self, maxdigits):
         QtWidgets.QWidget.__init__(self)
 
-        f = Controles.TipoLetra("", 11, 80, False, False, False, None)
+        f = Controles.FontType("", 11, 80, False, False, False, None)
 
         ly = Colocacion.H()
         self.liLB = []
@@ -558,7 +558,7 @@ class LCMenu(Controles.Menu):
             label,
             icono=None,
             is_disabled=False,
-            tipoLetra=None,
+            font_type=None,
             is_ckecked=False,
             toolTip: str = "",
     ):
@@ -566,7 +566,7 @@ class LCMenu(Controles.Menu):
             icono = Iconos.Empty()
 
         Controles.Menu.opcion(
-            self, key, label, icono, is_disabled, tipoLetra, is_ckecked, toolTip
+            self, key, label, icono, is_disabled, font_type, is_ckecked, toolTip
         )
 
     def separador_blank(self):
@@ -584,14 +584,14 @@ class LCMenuRondo(LCMenu):
             label,
             icono=None,
             is_disabled=False,
-            tipoLetra=None,
+            font_type=None,
             is_ckecked=None,
             toolTip: str= "",
     ):
         if icono is None:
             icono = self.rondo.otro()
         LCMenu.opcion(
-            self, key, label, icono, is_disabled, tipoLetra, is_ckecked, toolTip
+            self, key, label, icono, is_disabled, font_type, is_ckecked, toolTip
         )
 
     # def submenu(self, label, icono=None, is_disabled=False):
@@ -614,7 +614,7 @@ class LCMenuPiezas(Controles.Menu):
         Controles.Menu.__init__(
             self, parent, titulo, icono, is_disabled, puntos, bold
         )
-        self.ponTipoLetra("Chess Alpha 2", 16)
+        self.set_font_type("Chess Alpha 2", 16)
 
     def opcion(self, key, label, icono=None, is_disabled=False, tipo_letra=None, is_ckecked=False, toolTip = ""):
         Controles.Menu.opcion(
@@ -638,35 +638,35 @@ class ImportarFichero(QtWidgets.QDialog):
 
         self.setWindowTitle(titulo)
         self.setWindowIcon(icono)
-        self.fontB = f = Controles.TipoLetra(puntos=10, peso=75)
+        self.fontB = f = Controles.FontType(puntos=10, peso=75)
 
         self.siErroneos = siErroneos
         self.siWorkDone = siWorkDone
 
         self.is_canceled = False
 
-        lbRotLeidos = Controles.LB(self, _("Games read") + ":").ponFuente(f)
-        self.lbLeidos = Controles.LB(self, "0").ponFuente(f)
+        lbRotLeidos = Controles.LB(self, _("Games read") + ":").set_font(f)
+        self.lbLeidos = Controles.LB(self, "0").set_font(f)
 
         if siErroneos:
-            lbRotErroneos = Controles.LB(self, _("Erroneous") + ":").ponFuente(f)
-            self.lbErroneos = Controles.LB(self, "0").ponFuente(f)
+            lbRotErroneos = Controles.LB(self, _("Erroneous") + ":").set_font(f)
+            self.lbErroneos = Controles.LB(self, "0").set_font(f)
         else:
             lbRotErroneos = None
 
         self.lbRotDuplicados = lbRotDuplicados = Controles.LB(
             self, _("Duplicated") + ":"
-        ).ponFuente(f)
-        self.lbDuplicados = Controles.LB(self, "0").ponFuente(f)
+        ).set_font(f)
+        self.lbDuplicados = Controles.LB(self, "0").set_font(f)
 
         self.lbRotImportados = lbRotImportados = Controles.LB(
             self, _("Imported") + ":"
-        ).ponFuente(f)
-        self.lbImportados = Controles.LB(self, "0").ponFuente(f)
+        ).set_font(f)
+        self.lbImportados = Controles.LB(self, "0").set_font(f)
 
         if self.siWorkDone:
-            lbRotWorkDone = Controles.LB(self, _("Work done") + ":").ponFuente(f)
-            self.lbWorkDone = Controles.LB(self, "0.00%").ponFuente(f)
+            lbRotWorkDone = Controles.LB(self, _("Work done") + ":").set_font(f)
+            self.lbWorkDone = Controles.LB(self, "0.00%").set_font(f)
         else:
             lbRotWorkDone = None
 
@@ -709,14 +709,14 @@ class ImportarFichero(QtWidgets.QDialog):
     def ponSaving(self):
         self.btCancelarSeguir.setDisabled(True)
         self.btCancelarSeguir.set_text(_("Saving..."))
-        self.btCancelarSeguir.ponFuente(self.fontB)
+        self.btCancelarSeguir.set_font(self.fontB)
         self.btCancelarSeguir.ponIcono(Iconos.Grabar())
         QTUtil.refresh_gui()
 
     def ponContinuar(self):
         self.btCancelarSeguir.set_text(_("Continue"))
         self.btCancelarSeguir.to_connect(self.continuar)
-        self.btCancelarSeguir.ponFuente(self.fontB)
+        self.btCancelarSeguir.set_font(self.fontB)
         self.btCancelarSeguir.ponIcono(Iconos.Aceptar())
         self.btCancelarSeguir.setDisabled(False)
         QTUtil.refresh_gui()
@@ -1014,7 +1014,7 @@ class ReadAnnotation(QtWidgets.QDialog):
 
         self.edAnotacion = (
             Controles.ED(self, "")
-            .ponTipoLetra(puntos=Code.configuration.x_menu_points)
+            .set_font_type(puntos=Code.configuration.x_menu_points)
             .anchoFijo(70)
         )
         btAceptar = Controles.PB(self, "", rutina=self.aceptar).ponIcono(
@@ -1148,10 +1148,10 @@ class WInfo(QtWidgets.QDialog):
             | QtCore.Qt.WindowTitleHint
         )
 
-        f = Controles.TipoLetra(puntos=20)
+        f = Controles.FontType(puntos=20)
 
         lb_ico = Controles.LB(self).ponImagen(pm_icon)
-        lb_titulo = Controles.LB(self, head).align_center().ponFuente(f)
+        lb_titulo = Controles.LB(self, head).align_center().set_font(f)
         lb_texto = Controles.LB(self, txt)
         lb_texto.setMinimumWidth(min_tam - 84)
         lb_texto.setWordWrap(True)
@@ -1213,3 +1213,21 @@ def get_result_game(owner):
     menu.separador()
     menu.opcion(RESULT_WIN_BLACK, RESULT_WIN_BLACK, Iconos.Negras())
     return menu.lanza()
+
+
+def launch_workers(wowner):
+    cores = Util.cpu_count()
+    if cores < 2:
+        resp = 1
+
+    else:
+        rondo = rondo_puntos()
+
+        menu = LCMenu(wowner)
+        for x in range(1, cores + 1):
+            menu.opcion(x, str(x), rondo.otro())
+
+        resp = menu.lanza()
+
+    return resp
+

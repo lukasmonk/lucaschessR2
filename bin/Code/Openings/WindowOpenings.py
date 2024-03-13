@@ -42,9 +42,9 @@ class WOpenings(LCDialog.LCDialog):
         self.board.set_dispatcher(self.player_has_moved)
 
         # Current pgn
-        self.lbPGN = Controles.LB(self, "").set_wrap().ponTipoLetra(puntos=10, peso=75)
+        self.lbPGN = Controles.LB(self, "").set_wrap().set_font_type(puntos=10, peso=75)
         ly = Colocacion.H().control(self.lbPGN)
-        gb = Controles.GB(self, _("Selected opening"), ly).ponTipoLetra(puntos=11, peso=75).align_center()
+        gb = Controles.GB(self, _("Selected opening"), ly).set_font_type(puntos=11, peso=75).align_center()
         self.configuration.set_property(gb, "selop")
 
         # Movimiento
@@ -71,7 +71,7 @@ class WOpenings(LCDialog.LCDialog):
         row_high = int(3.6 * self.configuration.x_pgn_fontpoints)
 
         self.grid = Grid.Grid(self, o_columns, siSelecFilas=True, altoFila=row_high)
-        self.grid.setFont(Controles.TipoLetra(puntos=self.configuration.x_pgn_fontpoints))
+        self.grid.setFont(Controles.FontType(puntos=self.configuration.x_pgn_fontpoints))
         self.register_grid(self.grid)
 
         # # Derecha

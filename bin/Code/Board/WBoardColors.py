@@ -396,7 +396,7 @@ class WBoardColors(LCDialog.LCDialog):
         self.cbTipoLetra = QtWidgets.QFontComboBox()
         self.cbTipoLetra.setEditable(False)
         self.cbTipoLetra.setFontFilters(self.cbTipoLetra.ScalableFonts)
-        self.cbTipoLetra.setCurrentFont(QtGui.QFont(self.config_board.tipoLetra()))
+        self.cbTipoLetra.setCurrentFont(QtGui.QFont(self.config_board.font_type()))
         self.cbTipoLetra.currentIndexChanged.connect(self.actualizaBoardM)
         self.chbDefTipoLetra = xDefecto(self.config_board.siDefTipoLetra())
         l2mas1(lyG, 1, lbTipoLetra, self.cbTipoLetra, self.chbDefTipoLetra)
@@ -726,7 +726,7 @@ class WBoardColors(LCDialog.LCDialog):
 
         self.cbCoordenadas.set_value(ct.nCoordenadas())
         self.chbDefCoordenadas.set_value(ct.siDefCoordenadas())
-        self.cbTipoLetra.setCurrentFont(QtGui.QFont(ct.tipoLetra()))
+        self.cbTipoLetra.setCurrentFont(QtGui.QFont(ct.font_type()))
         self.chbDefTipoLetra.set_value(ct.siDefTipoLetra())
         self.chbBold.set_value(ct.bold())
         self.chbDefBold.set_value(ct.siDefBold())
@@ -771,7 +771,7 @@ class WBoardColors(LCDialog.LCDialog):
                 obj.setEnabled(True)
 
         if self.chbDefTipoLetra.valor():
-            self.cbTipoLetra.setCurrentFont(QtGui.QFont(ct.tipoLetra()))
+            self.cbTipoLetra.setCurrentFont(QtGui.QFont(ct.font_type()))
             self.cbTipoLetra.setEnabled(False)
         else:
             self.cbTipoLetra.setEnabled(True)
@@ -783,7 +783,7 @@ class WBoardColors(LCDialog.LCDialog):
 
         ct.ponCoordenadas(None if self.chbDefCoordenadas.valor() else self.cbCoordenadas.valor())
 
-        ct.ponTipoLetra(None if self.chbDefTipoLetra.valor() else self.cbTipoLetra.currentText())
+        ct.set_font_type(None if self.chbDefTipoLetra.valor() else self.cbTipoLetra.currentText())
 
         ct.ponBold(None if self.chbDefBold.valor() else self.chbBold.valor())
 

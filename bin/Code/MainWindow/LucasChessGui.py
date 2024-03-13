@@ -29,7 +29,7 @@ def select_language(owner, init):
                     lng_default = lng
 
     menu = QTVarios.LCMenuRondo(owner)
-    menu.ponTipoLetra(Code.font_mono, puntos=10, peso=700)
+    menu.set_font_type(Code.font_mono, puntos=10, peso=700)
     menu.opcion(None, "Select your language", Iconos.Aplicacion64())
     menu.separador()
     menu.opcion(lng_default, "By default: %s" % name_default, Iconos.AceptarPeque())
@@ -135,7 +135,7 @@ class WPassword(QtWidgets.QDialog):
         self.setWindowTitle(Code.lucas_chess)
         self.setWindowIcon(Iconos.Aplicacion64())
 
-        self.setFont(Controles.TipoLetra(puntos=14))
+        self.setFont(Controles.FontType(puntos=14))
 
         self.liUsuarios = li_usuarios
 
@@ -191,7 +191,7 @@ def pide_usuario(li_usuarios):
             return None
         else:
             menu = Controles.Menu(None)  # No puede ser LCmenu, ya que todavia no existe la configuration
-            menu.ponFuente(Controles.TipoLetra(puntos=14))
+            menu.set_font(Controles.FontType(puntos=14))
             menu.opcion(None, _("Select your user"), Iconos.Usuarios())
             menu.separador()
 

@@ -240,8 +240,8 @@ class WBlindfold(LCDialog.LCDialog):
         self.config = BlindfoldConfig(nom_pieces_ori)
         self.nom_pieces_ori = nom_pieces_ori
 
-        lbWhite = Controles.LB(self, _("White")).ponTipoLetra(peso=75, puntos=10)
-        lbBlack = Controles.LB(self, _("Black")).ponTipoLetra(peso=75, puntos=10)
+        lbWhite = Controles.LB(self, _("White")).set_font_type(peso=75, puntos=10)
+        lbBlack = Controles.LB(self, _("Black")).set_font_type(peso=75, puntos=10)
 
         self.dicWidgets = collections.OrderedDict()
         self.dicImgs = {}
@@ -254,7 +254,7 @@ class WBlindfold(LCDialog.LCDialog):
             tpB = self.config.dicPiezas[pz]
             lbPZw = Controles.LB(self)
             cbPZw = Controles.CB(self, li_options, tpW).capture_changes(self.reset)
-            lbPZ = Controles.LB(self, dicNomPiezas[pz.upper()]).ponTipoLetra(peso=75, puntos=10)
+            lbPZ = Controles.LB(self, dicNomPiezas[pz.upper()]).set_font_type(peso=75, puntos=10)
             lbPZb = Controles.LB(self)
             cbPZb = Controles.CB(self, li_options, tpB).capture_changes(self.reset)
             self.dicWidgets[pz] = [lbPZw, cbPZw, lbPZ, lbPZb, cbPZb, None, None]

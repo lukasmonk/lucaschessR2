@@ -9,7 +9,6 @@ from Code import Adjournments
 from Code import CPU
 from Code import ManagerEntPos
 from Code import ManagerGame
-from Code import ManagerMateMap
 from Code import ManagerSolo
 from Code import Update
 from Code import Util
@@ -58,6 +57,7 @@ from Code.Kibitzers import KibitzersManager
 from Code.Leagues import ManagerLeague, WLeagues
 from Code.LearnGame import WindowPlayGame, ManagerPlayGame, WindowLearnGame
 from Code.MainWindow import MainWindow, Presentacion, LucasChessGui
+from Code.Maps import WindowWorkMap, ManagerMateMap
 from Code.Menus import MenuTrainings, BasicMenus
 from Code.Openings import ManagerOPLPositions, ManagerOPLEngines, ManagerOPLSequential, ManagerOPLStatic
 from Code.Openings import WindowOpenings, WindowOpeningLine, WindowOpeningLines, OpeningLines, OpeningsStd
@@ -73,14 +73,13 @@ from Code.QT import QTVarios
 from Code.QT import SelectFiles
 from Code.QT import WColors
 from Code.QT import WindowManualSave
-from Code.QT import WindowWorkMap
 from Code.Routes import Routes, WindowRoutes, ManagerRoutes
 from Code.SQL import UtilSQL
 from Code.SingularMoves import WindowSingularM, ManagerSingularM
 from Code.Sound import WindowSonido
 from Code.Swiss import WSwisses, ManagerSwiss
 from Code.Tournaments import WTournaments
-from Code.TrainBMT import WindowBMT
+from Code.BestMoveTraining import WindowBMT
 from Code.Washing import ManagerWashing, WindowWashing
 from Code.WritingDown import WritingDown, ManagerWritingDown
 
@@ -96,6 +95,7 @@ class Procesador:
     is_first_time = None
 
     def __init__(self):
+
         if Code.list_engine_managers is None:
             Code.list_engine_managers = EngineManager.ListEngineManagers()
 
@@ -538,7 +538,6 @@ class Procesador:
 
         if self.siPresentacion:
             self.presentacion(False)
-            self.check_engines()
 
         if key == TB_QUIT:
             if hasattr(self, "cpu"):
@@ -547,18 +546,23 @@ class Procesador:
             self.main_window.accept()
 
         elif key == TB_PLAY:
+            self.check_engines()
             self.menuplay()
 
         elif key == TB_COMPETE:
+            self.check_engines()
             self.menu_compete()
 
         elif key == TB_TRAIN:
+            self.check_engines()
             self.entrenamientos.lanza()
 
         elif key == TB_OPTIONS:
+            self.check_engines()
             self.options()
 
         elif key == TB_TOOLS:
+            self.check_engines()
             self.menu_tools()
 
         elif key == TB_INFORMATION:
@@ -1136,7 +1140,7 @@ class Procesador:
             self.manager = ManagerRoutes.ManagerRoutesPlay(self)
             self.manager.start(route)
 
-    def showRoute(self):
+    def show_route(self):
         WindowRoutes.train_train(self)
 
     def playEverest(self, recno):

@@ -15,7 +15,7 @@ echo ">> Cinnamon" && chmod 755 ./Engines/cinnamon/Cinnamon-1.2b
 echo ">> Clarabit" && chmod 755 ./Engines/clarabit/Clarabit-1.00
 echo ">> Counter" && chmod 755 ./Engines/counter/Counter-3.7
 echo ">> Critter" && chmod 755 ./Engines/critter/Critter-1.6a
-echo ">> CT800" && chmod 755 ./Engines/ct800/CT800-1.42
+echo ">> CT800" && chmod 755 ./Engines/ct800/CT800-1.45
 echo ">> Daydreamer" && chmod 755 ./Engines/daydreamer/Daydreamer-1.75
 echo ">> Delocto" && chmod 755 ./Engines/delocto/Delocto-0.61n
 echo ">> Discocheck" && chmod 755 ./Engines/discocheck/Discocheck-5.2.1

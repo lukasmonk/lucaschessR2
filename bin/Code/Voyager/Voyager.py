@@ -90,8 +90,7 @@ class WPosicion(QtWidgets.QWidget):
             li_acciones.append((_("Enable"), Code.eboard.icon_eboard(), self.eboard_activate))
             li_acciones.append(None)
 
-        self.tb = Controles.TBrutina(self, li_acciones, with_text=False,
-                                     icon_size=32 if config_board.width_piece() >= 32 else 24)
+        self.tb = Controles.TBrutina(self, li_acciones, with_text=False, icon_size=24)
 
         drag_drop_wb = QTVarios.ListaPiezas(self, "P,N,B,R,Q,K", self.board, margen=0)
         drag_drop_ba = QTVarios.ListaPiezas(self, "k,q,r,b,n,p", self.board, margen=0)
@@ -759,15 +758,15 @@ class WPGN(QtWidgets.QWidget):
             None,
             (_("Cancel"), Iconos.Cancelar(), self.wparent.cancelar),
             None,
-            (_("Basic position"), Iconos.Datos(), self.inicial),
+            (_("Start position"), Iconos.NuevaPartida(), self.inicial),
             None,
-            (_("Clear"), Iconos.Borrar(), self.limpia),
+            (_("Remove all moves"), Iconos.Borrar(), self.limpia),
             None,
             (_("Takeback"), Iconos.Atras(), self.atras),
             None,
         )
 
-        self.tb = Controles.TBrutina(self, li_acciones, with_text=False, icon_size=20)
+        self.tb = Controles.TBrutina(self, li_acciones, with_text=False, icon_size=24)
 
         config_board = configuration.config_board("VOYAGERPGN", 24)
         self.board = Board.Board(self, config_board)

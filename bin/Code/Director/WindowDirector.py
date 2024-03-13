@@ -298,8 +298,8 @@ class WPanelDirector(LCDialog.LCDialog):
     def gmarcar(self):
         if len(self.guion):
             menu = QTVarios.LCMenu(self)
-            f = Controles.TipoLetra(puntos=8, peso=75)
-            menu.ponFuente(f)
+            f = Controles.FontType(puntos=8, peso=75)
+            menu.set_font(f)
             menu.opcion(1, _("All"), Iconos.PuntoVerde())
             menu.opcion(2, _("None"), Iconos.PuntoNaranja())
             resp = menu.lanza()

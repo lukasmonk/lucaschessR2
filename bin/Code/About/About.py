@@ -20,7 +20,7 @@ class WAbout(QtWidgets.QDialog):
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Dialog | QtCore.Qt.WindowTitleHint)
         self.setMaximumWidth(QTUtil.desktop_width())
 
-        f = Controles.TipoLetra(puntos=10)  # 0, peso=75 )
+        f = Controles.FontType(puntos=10)  # 0, peso=75 )
 
         head = '<span style="font-size:30pt; font-weight="700"; font-family:arial; >%s</span><br>' % Code.lucas_chess
         head += '<span style="font-size:15pt;">%s</span><br>' % _X(_("version %1"), procesador.version)
@@ -39,7 +39,7 @@ class WAbout(QtWidgets.QDialog):
 
         # Tabs
         tab = Controles.Tab()
-        tab.ponFuente(f)
+        tab.set_font(f)
 
         ib = AboutBase.ThanksTo()
 
@@ -47,12 +47,12 @@ class WAbout(QtWidgets.QDialog):
         for k, titulo in ib.dic.items():
             txt = ib.texto(k)
             lb = Controles.LB(self, txt)
-            lb.ponFuente(f)
+            lb.set_font(f)
             if "-" in k:
                 base, num = k.split("-")
                 if num == "1":
                     sub_tab = Controles.Tab()
-                    sub_tab.ponFuente(f)
+                    sub_tab.set_font(f)
                     # sub_tab.set_position("S")
                     tab.addTab(sub_tab, _("Engines"))
                 lm = ib.list_engines(num)

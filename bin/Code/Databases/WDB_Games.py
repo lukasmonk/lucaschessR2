@@ -36,13 +36,13 @@ from Code.Translations import TrListas
 
 
 class WGames(QtWidgets.QWidget):
-    def __init__(self, procesador, wb_database, db_games, wsummary, si_select):
+    def __init__(self, wb_database, db_games, wsummary, si_select):
         QtWidgets.QWidget.__init__(self)
 
         self.wb_database = wb_database
         self.dbGames = db_games  # <--setdbGames
-        self.procesador = procesador
-        self.configuration = procesador.configuration
+        self.procesador = Code.procesador
+        self.configuration = Code.configuration
 
         self.wsummary = wsummary
         self.infoMove = None  # <-- setInfoMove
@@ -920,10 +920,10 @@ class WGames(QtWidgets.QWidget):
         um.final()
 
     def tw_utilities(self):
-        si_games = len(self.dbGames) > 0
+        is_empty = self.dbGames.is_empty()
 
         menu = QTVarios.LCMenu(self)
-        if si_games:
+        if not is_empty:
             menu.opcion(self.goto_registro, "%s (CTRL G)" % _("Go to the record"), Iconos.GoToNext())
             menu.separador()
             menu.opcion(self.tw_massive_analysis, _("Mass analysis"), Iconos.Analizar())

@@ -18,7 +18,7 @@ from Code.QT import Iconos
 
 
 class ManagerVariations(Manager.Manager):
-    def start(self, game, is_white_bottom, with_engine_active, is_competitive):
+    def start(self, game, is_white_bottom, with_engine_active, is_competitive, go_to_move=None):
         self.thinking(True)
 
         self.kibitzers_manager = self.procesador.kibitzers_manager
@@ -56,8 +56,12 @@ class ManagerVariations(Manager.Manager):
         self.refresh()
 
         if len(self.game):
-            self.mueveJugada(GO_START)
-            move = self.game.move(0)
+            if go_to_move is None:
+                self.mueveJugada(GO_START)
+                move = self.game.move(0)
+            else:
+                self.ponteEnJugada(go_to_move)
+                move = self.game.move(go_to_move)
             self.put_arrow_sc(move.from_sq, move.to_sq)
             self.disable_all()
         else:
@@ -96,9 +100,9 @@ class ManagerVariations(Manager.Manager):
             self.configurar()
 
         elif key == TB_UTILITIES:
-            liMasOpciones = [("books", _("Consult a book"), Iconos.Libros())]
+            li_extra_options = [("books", _("Consult a book"), Iconos.Libros())]
 
-            resp = self.utilities(liMasOpciones)
+            resp = self.utilities(li_extra_options)
             if resp == "books":
                 liMovs = self.librosConsulta(True)
                 if liMovs:
@@ -186,11 +190,11 @@ class ManagerVariations(Manager.Manager):
         mt = _X(_("Disable %1"), mt) if self.play_against_engine else _X(_("Enable %1"), mt)
 
         if not self.is_competitive:
-            liMasOpciones = (("engine", mt, Iconos.Engines()),)
+            li_extra_options = (("engine", mt, Iconos.Engines()),)
         else:
-            liMasOpciones = []
+            li_extra_options = []
 
-        resp = Manager.Manager.configurar(self, liMasOpciones, siCambioTutor=not self.is_competitive)
+        resp = Manager.Manager.configurar(self, li_extra_options, siCambioTutor=not self.is_competitive)
 
         if resp == "engine":
             self.set_label1("")

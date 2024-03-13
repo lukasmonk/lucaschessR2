@@ -712,7 +712,7 @@ class WConfAnalyzer(QtWidgets.QWidget):
             self, _("Analysis configuration parameters"), rutina=self.config_analysis_parameters, plano=False
         )
 
-        lb_analysis_bar = Controles.LB2P(self, _("Limits in the Analysis Bar (0=no limit)")).ponTipoLetra(puntos=12, peso=700)
+        lb_analysis_bar = Controles.LB2P(self, _("Limits in the Analysis Bar (0=no limit)")).set_font_type(puntos=12, peso=700)
         lb_depth_ab = Controles.LB2P(self, _("Depth"))
         self.ed_depth_ab = Controles.ED(self).tipoInt(self.configuration.x_analyzer_depth_ab).anchoFijo(30)
         lb_time_ab = Controles.LB2P(self, _("Time in seconds"))
@@ -807,7 +807,7 @@ class WOthers(QtWidgets.QWidget):
         ly_gav = Colocacion.H().control(self.bt_gaviota).control(self.bt_gaviota_remove).relleno()
 
         lb_stockfish = Controles.LB2P(self, "Stockfish")
-        self.lb_stockfish_version = Controles.LB(self, CheckEngines.current_stockfish()).ponTipoLetra(peso=500, puntos=11)
+        self.lb_stockfish_version = Controles.LB(self, CheckEngines.current_stockfish()).set_font_type(peso=500, puntos=11)
         self.lb_stockfish_version.setStyleSheet("border:1px solid gray;padding:3px")
         bt_stockfish = Controles.PB(self, "", self.change_stockfish).ponIcono(Iconos.Reiniciar()).ponToolTip(_("Update"))
         ly_stk = Colocacion.H().control(self.lb_stockfish_version).control(bt_stockfish).relleno()

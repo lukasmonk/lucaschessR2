@@ -97,7 +97,7 @@ class Manager:
 
         self.main_window.set_manager_active(self)
 
-        self.game: Game.Game
+        self.game: Game.Game = Game.Game()
         self.new_game()
 
         self.listaOpeningsStd = OpeningsStd.ap
@@ -132,7 +132,6 @@ class Manager:
 
         self.capturasActivable = False
         self.informacionActivable = False
-        self.analysisbarActivable = False
 
         self.auto_rotate = None
 
@@ -188,6 +187,7 @@ class Manager:
 
             self.main_window.pon_toolbar(li_options, with_eboard=self.with_eboard)
             self.remove_hints(siQuitarAtras=not with_takeback)
+            self.procesador.stop_engines()
         else:
             self.procesador.reset()
 
@@ -1256,7 +1256,11 @@ class Manager:
         if hasattr(self, "play_instead_of_me"):
             getattr(self, "play_instead_of_me")()
 
-    def configurar(self, liMasOpciones=None, siCambioTutor=False, siSonidos=False, siBlinfold=True):
+    def control2(self):
+        if hasattr(self, "help_to_move"):
+            getattr(self, "help_to_move")()
+
+    def configurar(self, li_extra_options=None, siCambioTutor=False, siSonidos=False, siBlinfold=True):
         menu = QTVarios.LCMenu(self.main_window)
 
         # Vista
@@ -1286,10 +1290,10 @@ class Manager:
             si = self.board.blindfold
             if si:
                 ico = Iconos.Naranja()
-                tit = _("Deactivate")
+                tit = _("Disable")
             else:
                 ico = Iconos.Verde()
-                tit = _("Activate")
+                tit = _("Enable")
             menuCG.opcion("cg_change", tit, ico)
             menuCG.separador()
             menuCG.opcion("cg_conf", _("Configuration"), Iconos.Opciones())
@@ -1341,9 +1345,9 @@ class Manager:
             menu.opcion("auto_rotate", "%s: %s" % (prefix, _("Auto-rotate board")), Iconos.JS_Rotacion())
 
         # Mas Opciones
-        if liMasOpciones:
+        if li_extra_options:
             menu.separador()
-            for key, label, icono in liMasOpciones:
+            for key, label, icono in li_extra_options:
                 if label is None:
                     menu.separador()
                 else:
@@ -1352,8 +1356,8 @@ class Manager:
         resp = menu.lanza()
         if resp:
 
-            if liMasOpciones:
-                for key, label, icono in liMasOpciones:
+            if li_extra_options:
+                for key, label, icono in li_extra_options:
                     if resp == key:
                         return resp
 
@@ -1463,36 +1467,36 @@ class Manager:
             ) = resultado[1][0]
             self.configuration.graba()
 
-    def utilities(self, liMasOpciones=None, siArbol=True):
+    def utilities(self, li_extra_options=None, with_tree=True):
 
         menu = QTVarios.LCMenu(self.main_window)
 
-        siJugadas = len(self.game) > 0
+        si_jugadas = len(self.game) > 0
 
         # Grabar
-        icoGrabar = Iconos.Grabar()
-        icoFichero = Iconos.GrabarFichero()
-        icoCamara = Iconos.Camara()
-        icoClip = Iconos.Clipboard()
+        ico_grabar = Iconos.Grabar()
+        ico_fichero = Iconos.GrabarFichero()
+        ico_camara = Iconos.Camara()
+        ico_clip = Iconos.Clipboard()
 
-        trFichero = _("Save to a file")
-        trPortapapeles = _("Copy to clipboard")
+        tr_fichero = _("Save to a file")
+        tr_portapapeles = _("Copy to clipboard")
 
-        menu_save = menu.submenu(_("Save"), icoGrabar)
+        menu_save = menu.submenu(_("Save"), ico_grabar)
 
         key_ctrl = _("CTRL") if self.configuration.x_copy_ctrl else _("ALT")
         menu_pgn = menu_save.submenu(_("PGN Format"), Iconos.PGN())
-        menu_pgn.opcion("pgnfile", trFichero, Iconos.PGN())
+        menu_pgn.opcion("pgnfile", tr_fichero, Iconos.PGN())
         menu_pgn.separador()
         menu_pgn.opcion(
-            "pgnclipboard", "%s [%s %s C]" % (trPortapapeles, key_ctrl, _("SHIFT || From keyboard")), icoClip
+            "pgnclipboard", "%s [%s %s C]" % (tr_portapapeles, key_ctrl, _("SHIFT || From keyboard")), ico_clip
         )
         menu_save.separador()
 
         menu_fen = menu_save.submenu(_("FEN Format"), Iconos.Naranja())
-        menu_fen.opcion("fenfile", trFichero, icoFichero)
+        menu_fen.opcion("fenfile", tr_fichero, ico_fichero)
         menu_fen.separador()
-        menu_fen.opcion("fenclipboard", "%s [%s C]" % (trPortapapeles, key_ctrl), icoClip)
+        menu_fen.opcion("fenclipboard", "%s [%s C]" % (tr_portapapeles, key_ctrl), ico_clip)
 
         menu_save.separador()
 
@@ -1504,9 +1508,9 @@ class Manager:
         QTVarios.menuDB(menu_save_db, self.configuration, True, indicador_previo="dbf_")  # , remove_autosave=True)
         menu_save.separador()
 
-        menu_save_image = menu_save.submenu(_("Board -> Image"), icoCamara)
-        menu_save_image.opcion("volfichero", trFichero, icoFichero)
-        menu_save_image.opcion("volportapapeles", trPortapapeles, icoClip)
+        menu_save_image = menu_save.submenu(_("Board -> Image"), ico_camara)
+        menu_save_image.opcion("volfichero", tr_fichero, ico_fichero)
+        menu_save_image.opcion("volportapapeles", tr_portapapeles, ico_clip)
 
         if len(self.game) > 1:
             menu_save.separador()
@@ -1529,7 +1533,7 @@ class Manager:
             menu.opcion("play", _("Play current position"), Iconos.MoverJugar())
 
         # Analizar
-        if siJugadas:
+        if si_jugadas:
             if not (self.game_type in (
                     GT_ELO, GT_MICELO, GT_WICKER) and self.is_competitive and self.state == ST_PLAYING):
                 menu.separador()
@@ -1551,7 +1555,7 @@ class Manager:
                 menu.separador()
 
         # Pelicula
-        if siJugadas:
+        if si_jugadas:
             menu.opcion("replay", _("Replay game"), Iconos.Pelicula())
             menu.separador()
 
@@ -1562,10 +1566,10 @@ class Manager:
 
         if hasattr(self, "help_to_move") and self.state == ST_PLAYING:
             menu.separador()
-            menu.opcion("help_move", _("Help to move"), Iconos.BotonAyuda())
+            menu.opcion("help_move", _("Help to move") + "  [%s 2]" % _("CTRL"), Iconos.BotonAyuda())
 
         # Arbol de movimientos
-        if siArbol:
+        if with_tree:
             menu.separador()
             menu.opcion("arbol", _("Moves tree"), Iconos.Arbol())
 
@@ -1579,10 +1583,10 @@ class Manager:
             menu.opcion("learn_mem", _("Learn") + " - " + _("Memorizing their moves"), Iconos.LearnGame())
 
         # Mas Opciones
-        if liMasOpciones:
+        if li_extra_options:
             menu.separador()
             submenu = menu
-            for key, label, icono in liMasOpciones:
+            for key, label, icono in li_extra_options:
                 if label is None:
                     if icono is None:
                         submenu.separador()
@@ -1600,8 +1604,8 @@ class Manager:
         if not resp:
             return
 
-        if liMasOpciones:
-            for key, label, icono in liMasOpciones:
+        if li_extra_options:
+            for key, label, icono in li_extra_options:
                 if resp == key:
                     return resp
 
@@ -1961,11 +1965,11 @@ class Manager:
 
     def utilidadesElo(self):
         if self.is_competitive:
-            self.utilities(siArbol=False)
+            self.utilities(with_tree=False)
         else:
-            liMasOpciones = (("books", _("Consult a book"), Iconos.Libros()),)
+            li_extra_options = (("books", _("Consult a book"), Iconos.Libros()),)
 
-            resp = self.utilities(liMasOpciones, siArbol=True)
+            resp = self.utilities(li_extra_options, with_tree=True)
             if resp == "books":
                 liMovs = self.librosConsulta(True)
                 if liMovs:
@@ -2004,10 +2008,17 @@ class Manager:
         if row == 0 and column.key == "NUMBER" or nj == -1:
             gm = self.game.copia(0)
             gm.li_moves = []
-            gm.is_finished()
         else:
             gm = self.game.copia(nj)
         gm.set_unknown()
+        gm.is_finished()
+        gm.li_tags = []
+        gm.set_tag("Site", Code.lucas_chess)
+        gm.set_tag("Event", _("Play current position"))
+        for previous in ("Event", "Site", "Date", "Round", "White", "Black", "Result", "WhiteElo", "BlackElo"):
+            ori = self.game.get_tag(previous)
+            if ori:
+                gm.set_tag(f"Original{previous}", ori)
         dic = {"GAME": gm.save(), "ISWHITE": gm.last_position.is_white}
         fich = Util.relative_path(self.configuration.ficheroTemporal("pkd"))
         Util.save_pickle(fich, dic)

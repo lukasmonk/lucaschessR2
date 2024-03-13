@@ -34,8 +34,8 @@ class WCountsCaptures(LCDialog.LCDialog):
         o_columns.nueva("AVG", _("Average"), 70, align_center=True)
         o_columns.nueva("GAME", _("Game"), 520)
         self.glista = Grid.Grid(self, o_columns, siSelecFilas=True, siSeleccionMultiple=True)
-        # f = Controles.TipoLetra(puntos=self.configuration.x_font_points)
-        # self.glista.ponFuente(f)
+        # f = Controles.FontType(puntos=self.configuration.x_font_points)
+        # self.glista.set_font(f)
 
         li_acciones = (
             (_("Close"), Iconos.MainMenu(), self.terminar),

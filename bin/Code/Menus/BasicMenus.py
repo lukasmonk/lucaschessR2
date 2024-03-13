@@ -261,8 +261,8 @@ class WAtajos(LCDialog.LCDialog):
 
         self.grid = Grid.Grid(self, o_columnas, siSelecFilas=True, is_editable=True)
         self.grid.setMinimumWidth(self.grid.anchoColumnas() + 20)
-        f = Controles.TipoLetra(puntos=10, peso=75)
-        self.grid.ponFuente(f)
+        f = Controles.FontType(puntos=10, peso=75)
+        self.grid.set_font(f)
 
         # Layout
         layout = Colocacion.V().control(tb).control(self.grid).relleno().margen(3)

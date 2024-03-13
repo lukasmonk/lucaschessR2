@@ -450,29 +450,29 @@ class WPuente(LCDialog.LCDialog):
             is_white = not is_white
             ly.control(wm)
         ly.relleno()
-        gbMovs = Controles.GB(self, _("Next moves"), ly).ponFuente(Controles.TipoLetra(puntos=10, peso=75))
+        gbMovs = Controles.GB(self, _("Next moves"), ly).set_font(Controles.FontType(puntos=10, peso=75))
 
         # Botones
-        f = Controles.TipoLetra(puntos=12, peso=75)
+        f = Controles.FontType(puntos=12, peso=75)
         self.btComprobar = (
             Controles.PB(self, _("Verify"), self.comprobar, plano=False)
             .ponIcono(Iconos.Check(), icon_size=32)
-            .ponFuente(f)
+            .set_font(f)
         )
         self.btSeguir = (
             Controles.PB(self, _("Continue"), self.seguir, plano=False)
             .ponIcono(Iconos.Pelicula_Seguir(), icon_size=32)
-            .ponFuente(f)
+            .set_font(f)
         )
         self.btTerminar = (
             Controles.PB(self, _("Close"), self.terminar, plano=False)
             .ponIcono(Iconos.MainMenu(), icon_size=32)
-            .ponFuente(f)
+            .set_font(f)
         )
         self.btCancelar = (
             Controles.PB(self, _("Cancel"), self.terminar, plano=False)
             .ponIcono(Iconos.Cancelar(), icon_size=32)
-            .ponFuente(f)
+            .set_font(f)
         )
 
         # Layout

@@ -19,6 +19,7 @@ from Code.Base.Constantes import (
     KIB_POLYGLOT,
     KIB_STOCKFISH,
     KIB_THREATS,
+    KIB_DATABASES,
     KIBRUN_CONFIGURATION,
 )
 from Code.Config import Configuration
@@ -30,6 +31,7 @@ from Code.Kibitzers import WKibGaviota
 from Code.Kibitzers import WKibIndex
 from Code.Kibitzers import WKibLinea
 from Code.Kibitzers import WKibStEval
+from Code.Kibitzers import WKibDatabases
 from Code.Openings import OpeningsStd
 from Code.QT import QTUtil
 from Code.SQL import UtilSQL
@@ -164,13 +166,16 @@ class CPU:
         elif self.tipo == KIB_GAVIOTA:
             self.ventana = WKibGaviota.WGaviota(self)
 
+        elif self.tipo == KIB_DATABASES:
+            self.ventana = WKibDatabases.WKibDatabases(self)
+
         self.ventana.show()
 
         # Code.gc = QTUtil.GarbageCollector()
 
         return app.exec_()
 
-    def compruebaInput(self):
+    def check_input(self):
         if self.ventana:
             orden = self.recibe()
             if orden:

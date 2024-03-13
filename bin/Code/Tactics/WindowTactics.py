@@ -257,7 +257,7 @@ class WConfTactics(QtWidgets.QWidget):
             tb = Controles.TB(self, li_acciones, icon_size=16, with_text=False)
             return tb
 
-        f = Controles.TipoLetra(peso=75)
+        f = Controles.FontType(peso=75)
 
         # Repeticiones de cada puzzle
         if reg_historico:
@@ -273,7 +273,7 @@ class WConfTactics(QtWidgets.QWidget):
         self.grid_jumps = Grid.Grid(self, o_col, siSelecFilas=True, is_editable=True, xid="j")
         self.grid_jumps.setMinimumWidth(self.grid_jumps.anchoColumnas() + 20)
         ly = Colocacion.V().control(tb).control(self.grid_jumps)
-        gb_jumps = Controles.GB(self, _("Repetitions of each puzzle"), ly).ponFuente(f)
+        gb_jumps = Controles.GB(self, _("Repetitions of each puzzle"), ly).set_font(f)
         self.grid_jumps.gotop()
 
         # Repeticion del bloque
@@ -289,7 +289,7 @@ class WConfTactics(QtWidgets.QWidget):
         self.grid_repeat = Grid.Grid(self, o_col, siSelecFilas=True, is_editable=True, xid="r")
         self.grid_repeat.setMinimumWidth(self.grid_repeat.anchoColumnas() + 20)
         ly = Colocacion.V().control(tb).control(self.grid_repeat)
-        gb_repeat = Controles.GB(self, _("Blocks"), ly).ponFuente(f)
+        gb_repeat = Controles.GB(self, _("Blocks"), ly).set_font(f)
         self.grid_repeat.gotop()
 
         # Penalizaciones
@@ -307,7 +307,7 @@ class WConfTactics(QtWidgets.QWidget):
         self.grid_penal = Grid.Grid(self, o_col, siSelecFilas=True, is_editable=True, xid="p")
         self.grid_penal.setMinimumWidth(self.grid_penal.anchoColumnas() + 20)
         ly = Colocacion.V().control(tb).control(self.grid_penal)
-        gb_penal = Controles.GB(self, _("Penalties"), ly).ponFuente(f)
+        gb_penal = Controles.GB(self, _("Penalties"), ly).set_font(f)
         self.grid_penal.gotop()
 
         # ShowText
@@ -326,7 +326,7 @@ class WConfTactics(QtWidgets.QWidget):
         self.grid_show = Grid.Grid(self, o_col, siSelecFilas=True, is_editable=True, xid="s")
         self.grid_show.setMinimumWidth(self.grid_show.anchoColumnas() + 20)
         ly = Colocacion.V().control(tb).control(self.grid_show)
-        gbShow = Controles.GB(self, _("Show the reference associated with each puzzle"), ly).ponFuente(f)
+        gbShow = Controles.GB(self, _("Show the reference associated with each puzzle"), ly).set_font(f)
         self.grid_show.gotop()
 
         # Reinforcement
@@ -350,9 +350,9 @@ class WConfTactics(QtWidgets.QWidget):
             .control(lb_r_cycles)
             .control(self.sb_reinf_cycles)
         )
-        gb_reinforcement = Controles.GB(self, _("Reinforcement"), ly).ponFuente(f)
+        gb_reinforcement = Controles.GB(self, _("Reinforcement"), ly).set_font(f)
 
-        self.chb_advanced = Controles.CHB(self, _("Advanced mode"), False).ponFuente(f)
+        self.chb_advanced = Controles.CHB(self, _("Advanced mode"), False).set_font(f)
         ly_gb_adv = Colocacion.H().control(gb_reinforcement).espacio(20).control(self.chb_advanced)
 
         # Files
@@ -377,7 +377,7 @@ class WConfTactics(QtWidgets.QWidget):
         self.grid_files = Grid.Grid(self, o_col, siSelecFilas=True, is_editable=True, xid="f")
         self.grid_files.setMinimumWidth(self.grid_files.anchoColumnas() + 20)
         ly = Colocacion.V().control(self.grid_files)
-        gb_files = Controles.GB(self, _("FNS files"), ly).ponFuente(f)
+        gb_files = Controles.GB(self, _("FNS files"), ly).set_font(f)
         self.grid_files.gotop()
 
         # Layout

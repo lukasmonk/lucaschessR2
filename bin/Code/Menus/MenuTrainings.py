@@ -34,7 +34,7 @@ from Code.QT import WindowVisualiza
 from Code.Resistance import Resistance, ManagerResistance, WindowResistance
 from Code.SQL import UtilSQL
 from Code.Tactics import Tactics, ManagerTactics, WindowTactics
-from Code.TrainBMT import WindowBMT
+from Code.BestMoveTraining import WindowBMT
 from Code.Translations import TrListas
 from Code.TurnOnLights import ManagerTurnOnLights, WindowTurnOnLights
 from Code.TurnOnLights import TurnOnLights
@@ -349,13 +349,13 @@ class MenuTrainings:
         dicMenu = {}
         menu = QTVarios.LCMenu(self.parent)
 
-        talpha = Controles.TipoLetra("Chess Alpha 2", self.configuration.x_menu_points + 4)
+        talpha = Controles.FontType("Chess Alpha 2", self.configuration.x_menu_points + 4)
 
         def xopcion(menu, key, texto, icono, is_disabled=False):
             if "KP" in texto:
                 k2 = texto.index("K", 2)
                 texto = texto[:k2] + texto[k2:].lower()
-                menu.opcion(key, texto, icono, is_disabled, tipoLetra=talpha)
+                menu.opcion(key, texto, icono, is_disabled, font_type=talpha)
             else:
                 menu.opcion(key, texto, icono, is_disabled)
             dicMenu[key] = (self.menu_run, texto, icono, is_disabled)
@@ -371,7 +371,7 @@ class MenuTrainings:
 
     def verify(self):
         if self.menu is None:
-            self.menu, self.dicMenu = self.creaMenu()
+            self.rehaz()
 
     def rehaz(self):
         self.menu, self.dicMenu = self.creaMenu()
@@ -500,7 +500,7 @@ class MenuTrainings:
                     self.procesador.trainingMap(mapa)
 
                 elif resp == "transsiberian":
-                    self.procesador.showRoute()
+                    self.procesador.show_route()
 
                 elif resp == "everest":
                     self.everest()
@@ -723,13 +723,13 @@ class MenuTrainings:
 
 
 def selectOneFNS(owner, procesador):
-    tpirat = Controles.TipoLetra("Chess Alpha 2", procesador.configuration.x_font_points + 4)
+    tpirat = Controles.FontType("Chess Alpha 2", procesador.configuration.x_font_points + 4)
 
     def xopcion(menu, key, texto, icono, is_disabled=False):
         if "KP" in texto:
             k2 = texto.index("K", 2)
             texto = texto[:k2] + texto[k2:].lower()
-            menu.opcion(key, texto, icono, is_disabled, tipoLetra=tpirat)
+            menu.opcion(key, texto, icono, is_disabled, font_type=tpirat)
         else:
             menu.opcion(key, texto, icono, is_disabled)
 

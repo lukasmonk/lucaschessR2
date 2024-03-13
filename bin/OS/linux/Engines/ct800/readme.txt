@@ -14,6 +14,7 @@ Supported platforms:
 - PC-Linux (UCI)
 - Android  (4.1 or higher running on ARMv7-A or higher; UCI)
 - RaspPi   (UCI)
+- macOS    (UCI, for both x86 and ARM based Macs)
 
 Note: unfortunately, Apple iOS cannot enjoy support because the terms of the
 app store are incompatible with the GPL, and iOS does not allow installations
@@ -37,10 +38,9 @@ binaries/       contains pre-built binaries.
                 Windows (x86-64, x86, ARM-64 and ARM-32)
                 Android-ARM (32 and 64 bit)
                 Android-x86 (32 and 64 bit)
-                Raspberry Pi
 
                 No pre-built binary supplied for:
-                PC-Linux
+                PC-Linux, Rasberry Pi, macOS
 
                 The PNG files in the Logo-Images directory are for logo use
                 e.g. in the Arena GUI.
@@ -80,6 +80,7 @@ Necessary tool chain for generating the UCI compatible PC/Android version:
 - Andoid:  Clang ARM cross-compiler (Android NDK).
 - Raspi:   GCC on Raspberry Pi and using the Linux build scripts or cross
            compile from Windows using the Windows toolchain for Raspberry Pi.
+- macOS:   Clang for the host system.
 
 ******************************************************************************
 
@@ -110,6 +111,6 @@ supplied with V1.01 of this project is not compatible with V1.20 and vice
 versa.
 
 
-Rasmus Althoff, August 2020
+Rasmus Althoff, August 2023
 
 ******************************************************************************

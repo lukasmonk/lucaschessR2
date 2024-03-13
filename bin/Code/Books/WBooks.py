@@ -18,8 +18,8 @@ from Code.QT import SelectFiles
 def eligeJugadaBooks(main_window, li_moves, is_white, siSelectSiempre=True):
     main_window.cursorFueraBoard()
     menu = QTVarios.LCMenu(main_window)
-    f = Controles.TipoLetra(name=Code.font_mono, puntos=10)
-    menu.ponFuente(f)
+    f = Controles.FontType(name=Code.font_mono, puntos=10)
+    menu.set_font(f)
 
     titulo = _("White") if is_white else _("Black")
     icono = Iconos.Carpeta()

@@ -609,7 +609,7 @@ class Grid(QtWidgets.QTableView):
         """
         return self.recno(), self.currentIndex().column()
 
-    def tipoLetra(self, name="", puntos=8, peso=50, is_italic=False, is_underlined=False, is_striked=False, txt=None):
+    def font_type(self, name="", puntos=8, peso=50, is_italic=False, is_underlined=False, is_striked=False, txt=None):
         font = QtGui.QFont()
         if txt is None:
             cursiva = 1 if is_italic else 0
@@ -619,9 +619,9 @@ class Grid(QtWidgets.QTableView):
                 name = font.defaultFamily()
             txt = "%s,%d,-1,5,%d,%d,%d,%d,0,0" % (name, puntos, peso, cursiva, subrayado, tachado)
         font.fromString(txt)
-        self.ponFuente(font)
+        self.set_font(font)
 
-    def ponFuente(self, font):
+    def set_font(self, font):
         self.setFont(font)
         hh = self.horizontalHeader()
         hh.setFont(font)

@@ -6,15 +6,13 @@ import Code
 from Code import Util
 from Code.QT import Colocacion
 from Code.QT import Columnas
-from Code.QT import FormLayout
 from Code.QT import Grid
 from Code.QT import Iconos
 from Code.QT import LCDialog
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
-
-from Code.Swiss import WSwissConfig, Swiss
 from Code.Swiss import WSwiss
+from Code.Swiss import WSwissConfig, Swiss
 
 
 class WSwisses(LCDialog.LCDialog):
@@ -86,6 +84,13 @@ class WSwisses(LCDialog.LCDialog):
                 li.append((filename, st.st_ctime, st.st_mtime))
 
         li = sorted(li, key=lambda x: x[2], reverse=True)  # por ultima modificación y al reves
+
+        st = set(x[0] for x in li)
+        for entry in Util.listdir(carpeta):
+            if entry.name.endswith(".work"):
+                if entry.name[:-5] not in st:
+                    Util.remove_file(entry.path)
+
         return li
 
     def refresh_lista(self):
@@ -119,17 +124,12 @@ class WSwisses(LCDialog.LCDialog):
         return Swiss.Swiss(filename[:-6])
 
     def edit_name(self, previo):
-        li_gen = [(None, None), (_("Name") + ":", previo)]
-        resultado = FormLayout.fedit(li_gen, title=_("Swiss Tournaments"), parent=self, icon=Iconos.Swiss())
-        nom_swiss = None
-        if resultado:
-            accion, li_gen = resultado
-            nom_swiss = Util.valid_filename(li_gen[0].strip())
-            if nom_swiss:
-                path = Util.opj(Code.configuration.folder_swisses(), nom_swiss + ".swiss")
-                if os.path.isfile(path):
-                    QTUtil2.message_error(self, _("The file %s already exist") % nom_swiss)
-                    return self.edit_name(nom_swiss)
+        nom_swiss = QTUtil2.read_simple(self, _("Swiss Tournaments"), _("Name"), previo)
+        if nom_swiss:
+            path = Util.opj(Code.configuration.folder_swisses(), nom_swiss + ".swiss")
+            if os.path.isfile(path):
+                QTUtil2.message_error(self, _("The file %s already exist") % nom_swiss)
+                return self.edit_name(nom_swiss)
         return nom_swiss
 
     def crear(self):

@@ -119,7 +119,7 @@ class ManagerCompeticion(Manager.Manager):
             self.configurar(siSonidos=True, siCambioTutor=True)
 
         elif key == TB_UTILITIES:
-            self.utilities(siArbol=False)
+            self.utilities(with_tree=False)
 
         elif key == TB_ADJOURN:
             self.adjourn()

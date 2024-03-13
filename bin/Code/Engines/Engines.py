@@ -59,10 +59,12 @@ class Engine:
             conf_parent = Code.configuration.dic_engines.get(self.parent_external)
             if conf_parent:
                 self.path_exe = conf_parent.path_exe
+        previous = os.path.abspath(os.curdir)
         try:
             self.read_uci_options()
             return True
         except:
+            os.chdir(previous)
             return False
 
     def exists(self):

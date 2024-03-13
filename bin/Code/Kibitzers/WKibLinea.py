@@ -61,7 +61,7 @@ class WKibLinea(QtWidgets.QDialog):
     padding: 2px 4px;
 }"""
         )
-        f = Controles.TipoLetra(puntos=self.cpu.configuration.x_pgn_fontpoints)
+        f = Controles.FontType(puntos=self.cpu.configuration.x_pgn_fontpoints)
         self.setFont(f)
 
         li_acciones = (
@@ -76,7 +76,7 @@ class WKibLinea(QtWidgets.QDialog):
         self.tb.setFixedSize(180, 32)
         self.tb.set_pos_visible(1, False)
         self.em = EDP(self)
-        self.em.ponTipoLetra(peso=75, puntos=10)
+        self.em.set_font_type(peso=75, puntos=10)
         self.em.setReadOnly(True)
 
         layout = Colocacion.H().control(self.em).control(self.tb).margen(2)
@@ -96,7 +96,7 @@ class WKibLinea(QtWidgets.QDialog):
         self.engine = self.launch_engine()
 
         self.timer = QtCore.QTimer(self)
-        self.timer.timeout.connect(self.compruebaInput)
+        self.timer.timeout.connect(self.check_input)
         self.timer.start(200)
         self.depth = 0
         self.veces = 0
@@ -104,7 +104,7 @@ class WKibLinea(QtWidgets.QDialog):
         self.time_init = time.time()
         self.stopped = False
 
-    def compruebaInput(self):
+    def check_input(self):
         if not self.engine:
             return
         self.veces += 1
@@ -130,7 +130,7 @@ class WKibLinea(QtWidgets.QDialog):
 
                 QTUtil.refresh_gui()
 
-        self.cpu.compruebaInput()
+        self.cpu.check_input()
 
     def changeOptions(self):
         self.pause()

@@ -37,10 +37,10 @@ class WRunCoordinatesBasic(LCDialog.LCDialog):
             self.board.show_coordinates(False)
         self.board.set_side_indicator(self.is_white)
 
-        font = Controles.TipoLetra(puntos=26, peso=500)
+        font = Controles.FontType(puntos=26, peso=500)
 
-        lb_score_k = Controles.LB(self, _("Score")).ponFuente(font)
-        self.lb_score = Controles.LB(self).ponFuente(font)
+        lb_score_k = Controles.LB(self, _("Score")).set_font(font)
+        self.lb_score = Controles.LB(self).set_font(font)
 
         li_acciones = (
             (_("Close"), Iconos.MainMenu(), self.terminar),

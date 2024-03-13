@@ -78,9 +78,9 @@ class WAnalisisGraph(LCDialog.LCDialog):
         anchoGrid = max(gridB.fixMinWidth(), anchoGrid)
         self.register_grid(gridB)
 
-        font = Controles.TipoLetra(puntos=Code.configuration.x_sizefont_infolabels)
+        font = Controles.FontType(puntos=Code.configuration.x_sizefont_infolabels)
 
-        self.emIndexes = Controles.EM(self, alm.indexesHTML).read_only().ponFuente(font)
+        self.emIndexes = Controles.EM(self, alm.indexesHTML).read_only().set_font(font)
         pbSave = Controles.PB(self, _("Save to game comments"), self.saveIndexes, plano=False)
         pbSave.ponIcono(Iconos.Grabar())
         ly0 = Colocacion.H().control(pbSave).relleno()
@@ -88,12 +88,12 @@ class WAnalisisGraph(LCDialog.LCDialog):
         wIdx = QtWidgets.QWidget()
         wIdx.setLayout(ly)
 
-        self.em_elo = Controles.EM(self, alm.indexesHTMLelo).read_only().ponFuente(font)
+        self.em_elo = Controles.EM(self, alm.indexesHTMLelo).read_only().set_font(font)
         ly = Colocacion.V().control(self.em_elo)
         w_elo = QtWidgets.QWidget()
         w_elo.setLayout(ly)
 
-        self.em_moves = Controles.EM(self, alm.indexesHTMLmoves).read_only().ponFuente(font)
+        self.em_moves = Controles.EM(self, alm.indexesHTMLmoves).read_only().set_font(font)
         ly = Colocacion.V().control(self.em_moves)
         w_moves = QtWidgets.QWidget()
         w_moves.setLayout(ly)
@@ -320,7 +320,7 @@ class WAnalisisGraph(LCDialog.LCDialog):
             elif rm1.mate:
                 return "⨠M"
 
-            pts = rm0.puntosABS_5() - rm1.puntosABS_5()
+            pts = rm0.score_abs5() - rm1.score_abs5()
             pts /= 100.0
             return "%0.2f" % pts
 

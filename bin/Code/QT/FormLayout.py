@@ -594,7 +594,7 @@ class FormWidget(QtWidgets.QWidget):
                     elif tipo == FONTCOMBOBOX:
                         field = QtWidgets.QFontComboBox(self)
                         if value:
-                            font = Controles.TipoLetra(value)
+                            font = Controles.FontType(value)
                             field.setCurrentFont(font)
                     elif tipo == COLORBOX:
                         if config.is_ckecked:
@@ -804,7 +804,8 @@ class FormTabWidget(QtWidgets.QWidget):
 
 
 class FormDialog(QtWidgets.QDialog):
-    def __init__(self, data, title="", comment="", icon=None, parent=None, if_default=True, dispatch=None):
+    def __init__(self, data, title="", comment="", icon=None, parent=None, if_default=True, dispatch=None,
+                 li_extra_options=None):
         super(FormDialog, self).__init__(parent, QtCore.Qt.Dialog)
         flags = self.windowFlags()
         flags &= ~QtCore.Qt.WindowContextHelpButtonHint
@@ -825,7 +826,13 @@ class FormDialog(QtWidgets.QDialog):
         tb = QTVarios.tb_accept_cancel(self, if_default, with_cancel=False)
 
         layout = Colocacion.V()
-        layout.control(tb)
+
+        lytb = Colocacion.H().control(tb)
+        if li_extra_options:
+            tb1 = QTVarios.LCTB(self, li_extra_options)
+            lytb.relleno().control(tb1)
+        layout.otro(lytb)
+
         layout.control(self.formwidget)
         layout.margen(3)
 
@@ -858,7 +865,8 @@ class FormDialog(QtWidgets.QDialog):
 
 
 def fedit(
-        data, title="", comment="", icon=None, parent=None, if_default=False, anchoMinimo=None, dispatch=None, font=None
+        data, title="", comment="", icon=None, parent=None, if_default=False, anchoMinimo=None, dispatch=None,
+        font=None, li_extra_options=None
 ):
     """
     Create form dialog and return result
@@ -882,7 +890,7 @@ def fedit(
           * the first element will be the selected index (or value)
           * the other elements can be couples (key, value) or only values
     """
-    dialog = FormDialog(data, title, comment, icon, parent, if_default, dispatch)
+    dialog = FormDialog(data, title, comment, icon, parent, if_default, dispatch, li_extra_options)
     if font:
         dialog.setFont(font)
     if anchoMinimo:

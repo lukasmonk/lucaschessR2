@@ -128,7 +128,7 @@ class ManagerResistance(Manager.Manager):
             self.configurar(siSonidos=True, siCambioTutor=False, siBlinfold=False)
 
         elif key == TB_UTILITIES:
-            self.utilities(siArbol=self.state == ST_ENDGAME)
+            self.utilities(with_tree=self.state == ST_ENDGAME)
 
         elif key in self.procesador.li_opciones_inicio:
             self.procesador.run_action(key)

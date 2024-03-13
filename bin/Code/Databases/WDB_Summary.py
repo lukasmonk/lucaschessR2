@@ -47,7 +47,7 @@ class WSummary(QtWidgets.QWidget):
             .set_wrap()
             .align_center()
             .set_foreground_backgound("white", "#4E5A65")
-            .ponTipoLetra(puntos=10 if siMoves else 16)
+            .set_font_type(puntos=10 if siMoves else 16)
         )
         if not siMoves:
             self.lbName.hide()
@@ -71,7 +71,7 @@ class WSummary(QtWidgets.QWidget):
 
         self.grid = Grid.Grid(self, o_columns, xid="summary", siSelecFilas=True)
         self.grid.ponAltoFila(self.configuration.x_pgn_rowheight)
-        self.grid.tipoLetra(puntos=self.configuration.x_pgn_fontpoints)
+        self.grid.font_type(puntos=self.configuration.x_pgn_fontpoints)
 
         # ToolBar
         li_acciones = [

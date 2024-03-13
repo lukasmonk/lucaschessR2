@@ -55,7 +55,7 @@ class TabEngine(QtWidgets.QWidget):
         lb_multipv = Controles.LB(self, _("Multi PV") + ": ")
         self.sb_multipv = Controles.SB(self, multipv, 1, 500).tamMaximo(50)
 
-        self.lb_analisis = Controles.LB(self, "").ponTipoLetra(puntos=configuration.x_pgn_fontpoints).set_wrap()
+        self.lb_analisis = Controles.LB(self, "").set_font_type(puntos=configuration.x_pgn_fontpoints).set_wrap()
         self.configuration.set_property(self.lb_analisis, "pgn")
 
         o_columns = Columnas.ListaColumnas()
@@ -65,7 +65,7 @@ class TabEngine(QtWidgets.QWidget):
         o_columns.nueva("PGN", _("Solution"), 860)
 
         self.grid_analysis = Grid.Grid(self, o_columns, siSelecFilas=True, altoCabecera=4)
-        self.grid_analysis.tipoLetra(puntos=configuration.x_pgn_fontpoints)
+        self.grid_analysis.font_type(puntos=configuration.x_pgn_fontpoints)
         self.grid_analysis.ponAltoFila(configuration.x_pgn_rowheight)
         # self.register_grid(self.grid_analysis)
 
@@ -295,7 +295,7 @@ class TabBook(QtWidgets.QWidget):
         self.grid_moves = Grid.Grid(
             self, o_columns, siSelecFilas=True, siCabeceraMovible=False, siCabeceraVisible=False
         )
-        self.grid_moves.tipoLetra(puntos=configuration.x_pgn_fontpoints)
+        self.grid_moves.font_type(puntos=configuration.x_pgn_fontpoints)
         self.grid_moves.ponAltoFila(configuration.x_pgn_rowheight)
 
         ly = Colocacion.V().control(self.grid_moves).margen(3)
@@ -503,7 +503,7 @@ class TabDatabase(QtWidgets.QWidget):
 
         self.db = db
 
-        self.wgames = WDB_Games.WGames(procesador, self, db, None, False)
+        self.wgames = WDB_Games.WGames(self, db, None, False)
         self.wgames.tbWork.hide()
         self.wgames.status.hide()
         self.wgames.infoMove = InfoMoveReplace(self)
@@ -579,7 +579,7 @@ class TabTree(QtWidgets.QWidget):
             """
         )
 
-        self.tree.setFont(Controles.TipoLetra(puntos=configuration.x_pgn_fontpoints))
+        self.tree.setFont(Controles.FontType(puntos=configuration.x_pgn_fontpoints))
         self.tree.setHeaderLabels((_("Moves"),))
 
         bt_act = Controles.PB(self, _("Update"), self.bt_update, plano=False).ponIcono(Iconos.Actualiza(), 16)
@@ -587,7 +587,7 @@ class TabTree(QtWidgets.QWidget):
 
         gamebase = self.tabsAnalisis.dbop.getgamebase()
         self.pgn_initial = gamebase.pgn_translated()
-        self.lb_analisis = Controles.LB(self, self.pgn_initial).ponTipoLetra(puntos=configuration.x_pgn_fontpoints).set_wrap()
+        self.lb_analisis = Controles.LB(self, self.pgn_initial).set_font_type(puntos=configuration.x_pgn_fontpoints).set_wrap()
         Code.configuration.set_property(self.lb_analisis, "pgn")
         ly_act = Colocacion.H().control(bt_act).control(self.lb_analisis)
 
@@ -811,7 +811,7 @@ class TabsAnalisis(QtWidgets.QWidget):
         self.tabActive = 0
 
         self.tabs = Controles.Tab(panelOpening)
-        self.tabs.ponTipoLetra(puntos=self.configuration.x_pgn_fontpoints)
+        self.tabs.set_font_type(puntos=self.configuration.x_pgn_fontpoints)
         self.tabs.setTabIcon(0, Iconos.Engine())
         self.tabs.new_tab(self.tabengine, _("Engine"))
         self.tabs.new_tab(self.tabtree, _("Tree"))

@@ -35,7 +35,7 @@ class WGM(LCDialog.LCDialog):
         extparam = "gm"
         LCDialog.LCDialog.__init__(self, w_parent, titulo, icono, extparam)
 
-        flb = Controles.TipoLetra(puntos=procesador.configuration.x_font_points)
+        flb = Controles.FontType(puntos=procesador.configuration.x_font_points)
 
         # Toolbar
         li_acciones = [
@@ -56,7 +56,7 @@ class WGM(LCDialog.LCDialog):
         self.cb_gm = QTUtil2.combobox_lb(self, li, li[0][1] if len(self.li_gm) == 0 else li[1][1])
         self.cb_gm.capture_changes(self.check_gm)
         hbox = Colocacion.H().relleno().control(self.cb_gm).relleno()
-        gbGM = Controles.GB(self, _("Choose a Grandmaster"), hbox).ponFuente(flb)
+        gbGM = Controles.GB(self, _("Choose a Grandmaster"), hbox).set_font(flb)
         self.configuration.set_property(gbGM, "1")
 
         # Personales
@@ -69,7 +69,7 @@ class WGM(LCDialog.LCDialog):
             self.cbPersonal.setFont(flb)
             btBorrar = Controles.PB(self, "", self.borrarPersonal).ponIcono(Iconos.Borrar(), icon_size=24)
             hbox = Colocacion.H().relleno().control(self.cbPersonal).control(btBorrar).relleno()
-            gb_personal = Controles.GB(self, _("Personal games"), hbox).ponFuente(flb)
+            gb_personal = Controles.GB(self, _("Personal games"), hbox).set_font(flb)
             self.configuration.set_property(gb_personal, "1")
 
         # Color
@@ -146,7 +146,7 @@ class WGM(LCDialog.LCDialog):
         # gbBasic
         # # Color
         hbox = Colocacion.H().relleno().control(self.rb_white).espacio(10).control(self.rb_black).relleno()
-        gbColor = Controles.GB(self, _("Side you play with"), hbox).ponFuente(flb)
+        gbColor = Controles.GB(self, _("Side you play with"), hbox).set_font(flb)
         self.configuration.set_property(gbColor, "1")
 
         # Tiempo
@@ -514,8 +514,8 @@ class WGM(LCDialog.LCDialog):
             return
         menu = QTVarios.LCMenu(self)
         menu.setToolTip(_("To choose: <b>left button</b> <br>To erase: <b>right button</b>"))
-        f = Controles.TipoLetra(puntos=8, peso=75)
-        menu.ponFuente(f)
+        f = Controles.FontType(puntos=8, peso=75)
+        menu.set_font(f)
         n_pos = 0
         for nli, bloque in enumerate(self.li_preferred_openings):
             if type(bloque) == tuple:  # compatibilidad con versiones anteriores
@@ -636,8 +636,8 @@ class WImportar(LCDialog.LCDialog):
 
     def marcar(self):
         menu = QTVarios.LCMenu(self)
-        f = Controles.TipoLetra(puntos=8, peso=75)
-        menu.ponFuente(f)
+        f = Controles.FontType(puntos=8, peso=75)
+        menu.set_font(f)
         menu.opcion(1, _("All"), Iconos.PuntoVerde())
         menu.opcion(2, _("None"), Iconos.PuntoNaranja())
         resp = menu.lanza()

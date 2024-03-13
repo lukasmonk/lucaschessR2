@@ -41,7 +41,7 @@ class WTurnOnLights(LCDialog.LCDialog):
         self.colorTheme = QTUtil.qtColor("#F0F0F0")
 
         lb = Controles.LB(self, tipo)
-        lb.set_background(background).align_center().ponTipoLetra(puntos=14)
+        lb.set_background(background).align_center().set_font_type(puntos=14)
 
         # Toolbar
         tb = QTVarios.LCTB(self)
@@ -71,7 +71,7 @@ class WTurnOnLights(LCDialog.LCDialog):
 
         self.grid = grid = Grid.Grid(self, o_columns, altoFila=42, background="white")
         self.grid.setAlternatingRowColors(False)
-        self.grid.tipoLetra(puntos=10, peso=500)
+        self.grid.font_type(puntos=10, peso=500)
         nAnchoPgn = self.grid.anchoColumnas() + 20
         self.grid.setMinimumWidth(nAnchoPgn)
         self.register_grid(grid)
@@ -147,7 +147,7 @@ class WTurnOnLights(LCDialog.LCDialog):
                     te += errores
                     ta += hints
         menu = QTVarios.LCMenu(self)
-        menu.ponTipoLetra(name=Code.font_mono, puntos=10)
+        menu.set_font_type(name=Code.font_mono, puntos=10)
 
         menu.separador()
         menu.opcion(None, "%16s %6d" % (_("Errors"), te))
@@ -164,7 +164,7 @@ class WTurnOnLights(LCDialog.LCDialog):
         if not litimes and not block.reinits:
             return
         menu = QTVarios.LCMenu(self)
-        menu.ponTipoLetra(name=Code.font_mono, puntos=10)
+        menu.set_font_type(name=Code.font_mono, puntos=10)
         tt = 0
         te = 0
         ta = 0

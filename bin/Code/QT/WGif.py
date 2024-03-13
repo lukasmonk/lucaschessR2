@@ -29,7 +29,7 @@ class WGif(LCDialog.LCDialog):
         self.tb = QTVarios.LCTB(self, li_acciones, style=QtCore.Qt.ToolButtonTextBesideIcon, icon_size=32)
         self.show_tb(self.begin, self.cancel)
 
-        self.lb_pos = Controles.LB("").ponTipoLetra(puntos=32).anchoFijo(240).align_right()
+        self.lb_pos = Controles.LB("").set_font_type(puntos=32).anchoFijo(240).align_right()
 
         ly_arr = Colocacion.H().control(self.tb).control(self.lb_pos).margen(0)
 

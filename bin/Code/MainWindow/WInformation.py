@@ -23,9 +23,9 @@ class Information(QtWidgets.QWidget):
 
         puntos = configuration.x_font_points
 
-        font = Controles.TipoLetra(puntos=puntos)
-        font7 = Controles.TipoLetra(puntos=8)
-        font_bold = Controles.TipoLetra(puntos=puntos, peso=75)
+        font = Controles.FontType(puntos=puntos)
+        font7 = Controles.FontType(puntos=8)
+        font_bold = Controles.FontType(puntos=puntos, peso=75)
 
         self.themes = Themes.Themes()
         self.nags = Nags.Nags()
@@ -33,7 +33,7 @@ class Information(QtWidgets.QWidget):
         # Opening
         self.lb_opening = (
             Controles.LB(self, "")
-            .ponFuente(font)
+            .set_font(font)
             .align_center()
             .set_foreground_backgound("#eeeeee", "#474d59")
             .set_wrap()
@@ -44,16 +44,16 @@ class Information(QtWidgets.QWidget):
         self.w_rating = QtWidgets.QWidget(self)
         ly_rating = Colocacion.V().margen(0)
 
-        self.lb_cpws_lost = Controles.LB(self).ponFuente(font7)
+        self.lb_cpws_lost = Controles.LB(self).set_font(font7)
         self.lb_cpws_lost.hide()
         self.lb_cpws_lost.setStyleSheet("*{ border: 1px solid lightgray; padding:1px; background: #f7f2f0}")
         sp = QtWidgets.QSizePolicy()
         sp.setHorizontalPolicy(QtWidgets.QSizePolicy.Expanding)
         self.lb_cpws_lost.setSizePolicy(sp)
 
-        self.lb_time = Controles.LB(self).ponFuente(font7).set_wrap().align_center()
+        self.lb_time = Controles.LB(self).set_font(font7).set_wrap().align_center()
         self.lb_time.hide()
-        self.lb_clock = Controles.LB(self).ponFuente(font7).set_wrap().align_center()
+        self.lb_clock = Controles.LB(self).set_font(font7).set_wrap().align_center()
         self.lb_clock.hide()
         Code.configuration.set_property(self.lb_time, "time_ms")
         Code.configuration.set_property(self.lb_clock, "clock")
@@ -69,13 +69,13 @@ class Information(QtWidgets.QWidget):
         tb = QTVarios.LCTB(self, li_acciones, icon_size=16, style=QtCore.Qt.ToolButtonTextBesideIcon)
         ly_rating.control(tb)
 
-        self.lb_rating = Controles.LB(self).ponFuente(font_bold).set_wrap()
+        self.lb_rating = Controles.LB(self).set_font(font_bold).set_wrap()
         self.lb_rating.hide()
         Code.configuration.set_property(self.lb_rating, "rating")
         self.lb_rating.mousePressEvent = self.edit_rating
         ly_rating.control(self.lb_rating)
 
-        self.lb_theme = Controles.LB(self).ponFuente(font_bold).set_wrap()
+        self.lb_theme = Controles.LB(self).set_font(font_bold).set_wrap()
         self.lb_theme.hide()
         Code.configuration.set_property(self.lb_theme, "theme")
         self.lb_theme.mousePressEvent = self.edit_theme
@@ -84,10 +84,10 @@ class Information(QtWidgets.QWidget):
 
         # Comentarios
         self.comment = (
-            Controles.EM(self, siHTML=False).capturaCambios(self.comment_changed).ponFuente(font).anchoMinimo(200)
+            Controles.EM(self, siHTML=False).capturaCambios(self.comment_changed).set_font(font).anchoMinimo(200)
         )
         ly = Colocacion.H().control(self.comment).margen(3)
-        self.gb_comments = Controles.GB(self, _("Comments"), ly).ponFuente(font_bold)
+        self.gb_comments = Controles.GB(self, _("Comments"), ly).set_font(font_bold)
 
         # Variations
         self.variantes = WVariations(self)
@@ -299,9 +299,9 @@ class WVariations(QtWidgets.QWidget):
 
         li_acciones = (
             None,
-            (_("Append"), Iconos.Mas(), self.tb_mas_variation),
+            (_("Add"), Iconos.Mas(), self.tb_mas_variation),
             None,
-            ("%s+%s" % (_("Append"), _("Engine")), Iconos.MasR(), self.tb_mas_variation_r),
+            ("%s+%s" % (_("Add"), _("Engine")), Iconos.MasR(), self.tb_mas_variation_r),
             None,
             (_("Edit in other board"), Iconos.EditVariation(), self.tb_edit_variation),
             None,
@@ -314,9 +314,9 @@ class WVariations(QtWidgets.QWidget):
         self.em.set_link(self.link_variation_pressed)
         self.em.set_edit(self.link_variation_edit)
 
-        f = Controles.TipoLetra(puntos=puntos, peso=750)
+        f = Controles.FontType(puntos=puntos, peso=750)
 
-        lb_variations = Controles.LB(self.owner, _("Variations")).ponFuente(f)
+        lb_variations = Controles.LB(self.owner, _("Variations")).set_font(f)
 
         ly_head = Colocacion.H().control(lb_variations).relleno().control(tb_variations)
 
@@ -476,6 +476,14 @@ class WVariations(QtWidgets.QWidget):
         return menu.lanza()
 
     def edit(self, number, with_engine_active=False):
+        pos_move_variation = None
+        if self.selected_link:
+            resp = self.selected_link.split("|")
+            if len(resp) == 3:
+                cnum_move, cnum_variation, cnum_move_var = resp
+                num_variation, num_move_var = int(cnum_variation), int(cnum_move_var)
+                if num_variation == number:
+                    pos_move_variation = num_move_var
         game = None
         if number > -1:
             li_variations = self.li_variations()
@@ -492,6 +500,7 @@ class WVariations(QtWidgets.QWidget):
             game,
             with_engine_active=with_engine_active,
             is_white_bottom=self.get_board().is_white_bottom,
+            go_to_move=pos_move_variation
         )
         if change_game:
             self.move.variations.change(number, change_game)

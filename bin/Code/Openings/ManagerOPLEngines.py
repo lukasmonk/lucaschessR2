@@ -493,28 +493,28 @@ class ManagerOpeningEngines(Manager.Manager):
             self.configurar(siSonidos=True)
 
         elif key == TB_UTILITIES:
-            liMasOpciones = []
-            liMasOpciones.append(("books", _("Consult a book"), Iconos.Libros()))
-            liMasOpciones.append((None, None, None))
-            liMasOpciones.append((None, _("Options"), Iconos.Opciones()))
-            mens = _("Cancel") if self.auto_analysis else _("Activate")
-            liMasOpciones.append(("auto_analysis", "%s: %s" % (_("Automatic analysis"), mens), Iconos.Analizar()))
-            liMasOpciones.append((None, None, None))
-            mens = _("Cancel") if self.ask_movesdifferent else _("Activate")
-            liMasOpciones.append(
+            li_extra_options = []
+            li_extra_options.append(("books", _("Consult a book"), Iconos.Libros()))
+            li_extra_options.append((None, None, None))
+            li_extra_options.append((None, _("Options"), Iconos.Opciones()))
+            mens = _("Cancel") if self.auto_analysis else _("Enable")
+            li_extra_options.append(("auto_analysis", "%s: %s" % (_("Automatic analysis"), mens), Iconos.Analizar()))
+            li_extra_options.append((None, None, None))
+            mens = _("Cancel") if self.ask_movesdifferent else _("Enable")
+            li_extra_options.append(
                 (
                     "ask_movesdifferent",
                     "%s: %s" % (_("Ask when the moves are different from the line"), mens),
                     Iconos.Pelicula_Seguir(),
                 )
             )
-            liMasOpciones.append((None, None, True))  # Para salir del submenu
-            liMasOpciones.append((None, None, None))
-            liMasOpciones.append(("run_analysis", _("Specific analysis"), Iconos.Analizar()))
-            liMasOpciones.append((None, None, None))
-            liMasOpciones.append(("add_line", _("Add this line"), Iconos.OpeningLines()))
+            li_extra_options.append((None, None, True))  # Para salir del submenu
+            li_extra_options.append((None, None, None))
+            li_extra_options.append(("run_analysis", _("Specific analysis"), Iconos.Analizar()))
+            li_extra_options.append((None, None, None))
+            li_extra_options.append(("add_line", _("Add this line"), Iconos.OpeningLines()))
 
-            resp = self.utilities(liMasOpciones)
+            resp = self.utilities(li_extra_options)
             if resp == "books":
                 self.librosConsulta(False)
 

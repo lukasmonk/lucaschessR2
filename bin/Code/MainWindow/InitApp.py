@@ -68,5 +68,5 @@ color: %s;
 
     QtGui.QFontDatabase.addApplicationFont(Code.path_resource("IntFiles", "ChessAlpha2.ttf"))
 
-    font = Controles.TipoLetra(configuration.x_font_family, puntos=configuration.x_font_points)
+    font = Controles.FontType(configuration.x_font_family, puntos=configuration.x_font_points)
     app.setFont(font)

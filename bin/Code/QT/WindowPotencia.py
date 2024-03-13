@@ -622,8 +622,8 @@ class WPotencia(LCDialog.LCDialog):
         for wm in self.liwm:
             lyV.control(wm)
         lyV.relleno()
-        f = Controles.TipoLetra(puntos=10, peso=75)
-        self.gbMovs = Controles.GB(self, _("Next moves"), lyV).ponFuente(f)
+        f = Controles.FontType(puntos=10, peso=75)
+        self.gbMovs = Controles.GB(self, _("Next moves"), lyV).set_font(f)
 
         lyTV = Colocacion.H().otro(lyT).control(self.gbMovs).relleno()
 

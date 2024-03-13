@@ -61,7 +61,7 @@ def read_engines(folder_engines):
              nodes_compatible=True)
     cm.set_uci_option("Hash", "32")
 
-    mas("ct800", "Rasmus Althoff", "1.44", "https://www.ct800.net/", "CT800_V1.44_x32.exe", 2380, nodes_compatible=True)
+    mas("ct800", "Rasmus Althoff", "1.45", "https://www.ct800.net/", "CT800_V1.45_x32.exe", 2380, nodes_compatible=True)
 
     cm = mas("gaia", "Jean-Francois Romang, David Rabel", "3.5", "http://gaiachess.free.fr", "gaia32.exe", 2378)
     cm.name = "Gaïa 3.5"
@@ -275,7 +275,7 @@ def read_engines(folder_engines):
     cm.set_uci_option("Ponder", "false")
     cm.set_uci_option("Threads", "2" if is64 else "1")
     cm.set_uci_option("Hash", "64")
-    cm.set_multipv(10, 500)
+    cm.set_multipv(10, 256)
 
     for level in range(1100, 2000, 100):
         cm = mas(

@@ -26,8 +26,8 @@ class WCoordinatesBlocks(LCDialog.LCDialog):
         o_columns.nueva("TRIES", _("Tries"), 90, align_center=True)
         o_columns.nueva("SCORE", _("Score"), 140, align_center=True)
         self.glista = Grid.Grid(self, o_columns, siSelecFilas=True, siSeleccionMultiple=True)
-        f = Controles.TipoLetra(puntos=configuration.x_font_points)
-        self.glista.ponFuente(f)
+        f = Controles.FontType(puntos=configuration.x_font_points)
+        self.glista.set_font(f)
 
         li_acciones = (
             (_("Close"), Iconos.MainMenu(), self.terminar),

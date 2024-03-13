@@ -53,7 +53,7 @@ class WTournament(LCDialog.LCDialog):
         # Toolbar
         tb = Controles.TBrutina(self, icon_size=24)
         tb.new(_("Close"), Iconos.MainMenu(), self.terminar)
-        tb.new(_("Launch a worker"), Iconos.Lanzamiento(), self.gm_launch)
+        tb.new(_("Launch workers"), Iconos.Lanzamiento(), self.gm_launch)
 
         # Tabs
         self.tab = tab = Controles.Tab()
@@ -542,23 +542,7 @@ class WTournament(LCDialog.LCDialog):
             return
         self.grabar()
 
-        cores = Util.cpu_count()
-        if cores < 2:
-            resp = 1
-
-        else:
-            rondo = QTVarios.rondo_puntos()
-
-            menu = QTVarios.LCMenu(self)
-            menu.opcion(1, _("Launch one worker"), Iconos.Lanzamiento())
-            menu.separador()
-
-            submenu = menu.submenu(_("Launch some workers"), Iconos.Lanzamientos())
-
-            for x in range(2, cores):
-                submenu.opcion(x, str(x), rondo.otro())
-
-            resp = menu.lanza()
+        resp = QTVarios.launch_workers(self)
 
         if resp:
             last = 0
@@ -574,9 +558,6 @@ class WTournament(LCDialog.LCDialog):
                     last = pos
                     break
                 XRun.run_lucas("-tournament", self.torneo.file, wfile)
-
-    def verSiJugar(self):
-        return self.xjugar
 
     def comprueba_cambios(self):
         if self.torneo:

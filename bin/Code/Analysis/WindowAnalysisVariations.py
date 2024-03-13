@@ -21,11 +21,11 @@ class WAnalisisVariations(QtWidgets.QDialog):
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Dialog | QtCore.Qt.WindowMinimizeButtonHint)
         self.setWindowIcon(Iconos.Tutor())
 
-        f = Controles.TipoLetra(puntos=12, peso=75)
-        flb = Controles.TipoLetra(puntos=10)
+        f = Controles.FontType(puntos=12, peso=75)
+        flb = Controles.FontType(puntos=10)
 
-        lbPuntuacionAnterior = Controles.LB(self, cPuntos).align_center().ponFuente(flb)
-        self.lbPuntuacionNueva = Controles.LB(self).align_center().ponFuente(flb)
+        lbPuntuacionAnterior = Controles.LB(self, cPuntos).align_center().set_font(flb)
+        self.lbPuntuacionNueva = Controles.LB(self).align_center().set_font(flb)
 
         config_board = Code.configuration.config_board("ANALISISVARIANTES", 32)
         self.board = Board.Board(self, config_board)
@@ -46,10 +46,10 @@ class WAnalisisVariations(QtWidgets.QDialog):
         # Creamos los layouts
 
         lyVariacion = Colocacion.V().control(lbPuntuacionAnterior).control(self.board)
-        gbVariacion = Controles.GB(self, _("Proposed change"), lyVariacion).ponFuente(f).align_center()
+        gbVariacion = Controles.GB(self, _("Proposed change"), lyVariacion).set_font(f).align_center()
 
         lyTutor = Colocacion.V().control(self.lbPuntuacionNueva).control(self.boardT)
-        gbTutor = Controles.GB(self, _("Analyzer's prediction"), lyTutor).ponFuente(f).align_center()
+        gbTutor = Controles.GB(self, _("Analyzer's prediction"), lyTutor).set_font(f).align_center()
 
         lyBT = Colocacion.H().control(btTerminar).control(btReset).relleno().control(lb_segundos).control(self.seconds)
 

@@ -3146,3 +3146,9 @@ def pmApproval():
 
 def Approval():
     return iget("Approval")
+
+def pmTrophy():
+    return iget("pmTrophy")
+
+def Trophy():
+    return iget("Trophy")

@@ -50,7 +50,7 @@ class MesaSonido(QtWidgets.QGraphicsView):
 
         def tiempoSC(x, y, linea, minim, maxim, rutina, color):
             tt = BoardTypes.Texto()
-            tt.tipoLetra = BoardTypes.TipoLetra(Code.font_mono, 10)
+            tt.font_type = BoardTypes.FontType(Code.font_mono, 10)
             tt.physical_pos.ancho = 68
             tt.physical_pos.alto = 12
             tt.physical_pos.orden = 5
