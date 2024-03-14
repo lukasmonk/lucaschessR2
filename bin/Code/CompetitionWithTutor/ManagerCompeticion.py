@@ -175,6 +175,7 @@ class ManagerCompeticion(Manager.Manager):
         return self.finalizar()
 
     def finalizar(self):
+        self.analyze_end()
         if self.state == ST_ENDGAME:
             self.set_end_game()
             return True
@@ -190,6 +191,7 @@ class ManagerCompeticion(Manager.Manager):
         return False
 
     def rendirse(self):
+        self.analyze_end()
         if self.state == ST_ENDGAME:
             return True
         si_jugadas = len(self.game) > 0

@@ -597,6 +597,7 @@ class ManagerSolo(Manager.Manager):
             (ctrl + "S", _("Board editor")),
             (ctrl + "B", _("Basic position")),
             (ctrl + "1", _("Play instead of me")),
+            (ctrl + "2", _("Help to move")),
         ]
 
     def startPosition(self):

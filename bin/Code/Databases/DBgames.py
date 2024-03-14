@@ -222,6 +222,14 @@ class DBgames:
         except:
             return ""
 
+    def set_field(self, nfila, name, value):
+        rowid = self.li_row_ids[nfila]
+        sql = f"UPDATE Games SET {name}=? WHERE ROWID=?"
+        self.conexion.execute(sql, (value, rowid))
+        self.conexion.commit()
+        if rowid in self.cache:
+            del self.cache[rowid]
+
     def if_there_are_records_to_read(self):
         if not self.rowidReader:
             return False

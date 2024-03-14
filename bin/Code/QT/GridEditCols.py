@@ -1,5 +1,6 @@
 from PySide2 import QtCore, QtGui, QtWidgets
 
+import Code
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Delegados
@@ -11,16 +12,16 @@ from Code.QT import QTVarios
 
 
 class EditCols(QtWidgets.QDialog):
-    def __init__(self, grid_owner, configuration, work):
+    def __init__(self, grid_owner, work):
         QtWidgets.QDialog.__init__(self, grid_owner)
         self.setWindowTitle(_("Edit columns"))
         self.setWindowIcon(Iconos.EditColumns())
 
         self.grid_owner = grid_owner
-        self.o_columnas_base = grid_owner.columnas()
-        self.o_columnas = self.o_columnas_base.clone()
+        self.o_columns_base = grid_owner.columnas()
+        self.o_columns = self.o_columns_base.clone()
 
-        self.configuration = configuration
+        self.configuration = Code.configuration
         self.work = work
 
         li_options = [
@@ -58,7 +59,7 @@ class EditCols(QtWidgets.QDialog):
     def tw_up(self):
         pos = self.grid.recno()
         if pos > 0:
-            lic = self.o_columnas.li_columns
+            lic = self.o_columns.li_columns
             lic[pos], lic[pos - 1] = lic[pos - 1], lic[pos]
             for n, col in enumerate(lic):
                 col.position = n
@@ -68,7 +69,7 @@ class EditCols(QtWidgets.QDialog):
 
     def tw_down(self):
         pos = self.grid.recno()
-        lic = self.o_columnas.li_columns
+        lic = self.o_columns.li_columns
         if pos < len(lic) - 1:
             lic[pos], lic[pos + 1] = lic[pos + 1], lic[pos]
             self.grid.goto(pos + 1, 1)
@@ -106,19 +107,19 @@ class EditCols(QtWidgets.QDialog):
                 accion, resp = resultado
                 name = resp[0].strip()
                 if name:
-                    dic_current = self.o_columnas.save_dic(self.grid_owner)
+                    dic_current = self.o_columns.save_dic(self.grid_owner)
                     dic_conf[name] = dic_current
                     self.configuration.write_variables(self.work, dic_conf)
 
         elif resp == "save_default":
             key = "databases_columns_default"
-            dic_current = self.o_columnas.save_dic(self.grid_owner)
+            dic_current = self.o_columns.save_dic(self.grid_owner)
             self.configuration.write_variables(key, dic_current)
 
         elif resp == "reinit":
-            dic_current = self.o_columnas_base.save_dic(self.grid_owner)
-            self.o_columnas.restore_dic(dic_current, self.grid_owner)
-            self.o_columnas.li_columns.sort(key=lambda x: x.position)
+            dic_current = self.o_columns_base.save_dic(self.grid_owner)
+            self.o_columns.restore_dic(dic_current, self.grid_owner)
+            self.o_columns.li_columns.sort(key=lambda x: x.position)
             self.grid.refresh()
 
         else:
@@ -128,19 +129,19 @@ class EditCols(QtWidgets.QDialog):
                     self.configuration.write_variables(self.work, dic_conf)
             else:
                 dic_current = dic_conf[resp]
-                self.o_columnas.restore_dic(dic_current, self.grid_owner)
-                self.o_columnas.li_columns.sort(key=lambda x: x.position)
+                self.o_columns.restore_dic(dic_current, self.grid_owner)
+                self.o_columns.li_columns.sort(key=lambda x: x.position)
                 self.grid.refresh()
 
     def aceptar(self):
-        self.grid_owner.o_columns = self.o_columnas
+        self.grid_owner.o_columns = self.o_columns
         self.accept()
 
     def grid_num_datos(self, grid):
-        return len(self.o_columnas.li_columns)
+        return len(self.o_columns.li_columns)
 
     def grid_dato(self, grid, row, o_column):
-        column = self.o_columnas.li_columns[row]
+        column = self.o_columns.li_columns[row]
         key = o_column.key
         if key == "SIMOSTRAR":
             return column.must_show
@@ -157,7 +158,7 @@ class EditCols(QtWidgets.QDialog):
         return _("Test")
 
     def grid_setvalue(self, grid, row, o_column, value):
-        column = self.o_columnas.li_columns[row]
+        column = self.o_columns.li_columns[row]
         key = o_column.key
         if key == "SIMOSTRAR":
             column.must_show = not column.must_show
@@ -172,14 +173,14 @@ class EditCols(QtWidgets.QDialog):
                 column.ancho = ancho
 
     def grid_color_texto(self, grid, row, col):
-        column = self.o_columnas.li_columns[row]
+        column = self.o_columns.li_columns[row]
         if col.key in ("CTEXTO", "CFONDO"):
             color = column.rgbTexto
             return None if color == -1 else QtGui.QBrush(QtGui.QColor(color))
         return None
 
     def grid_color_fondo(self, grid, row, col):
-        column = self.o_columnas.li_columns[row]
+        column = self.o_columns.li_columns[row]
         if col.key in ("CTEXTO", "CFONDO"):
             color = column.rgbFondo
             return None if color == -1 else QtGui.QBrush(QtGui.QColor(color))
@@ -187,7 +188,7 @@ class EditCols(QtWidgets.QDialog):
 
     def grid_doble_click(self, grid, row, column):
         key = column.key
-        column = self.o_columnas.li_columns[row]
+        column = self.o_columns.li_columns[row]
         if key in ["CTEXTO", "CFONDO"]:
             with_text = key == "CTEXTO"
             if with_text:
@@ -210,7 +211,7 @@ class EditCols(QtWidgets.QDialog):
 
     def grid_right_button(self, grid, row, col, modif):
         key = col.key
-        col = self.o_columnas.li_columns[row]
+        col = self.o_columns.li_columns[row]
         if key in ["CTEXTO", "CFONDO"]:
             with_text = key == "CTEXTO"
             if with_text:

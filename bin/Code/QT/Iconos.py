@@ -3152,3 +3152,9 @@ def pmTrophy():
 
 def Trophy():
     return iget("Trophy")
+
+def pmCSV():
+    return iget("pmCSV")
+
+def CSV():
+    return iget("CSV")

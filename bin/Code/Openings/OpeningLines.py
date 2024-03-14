@@ -769,6 +769,8 @@ class Opening:
         return num
 
     def __getitem__(self, num):
+        if num >= len(self.li_xpv):
+            return None
         xpv = self.li_xpv[num]
         if xpv in self.cache:
             return self.cache[xpv]
@@ -1341,29 +1343,30 @@ class Opening:
                     add_coments(variation)
 
         game_main = self[nline]
-        for recno in range(total):
-            if recno == nline:
-                continue
-            ws.pb_pos(recno + 1)
-            if ws.pb_cancel():
-                return False
+        if game_main:
+            for recno in range(total):
+                if recno == nline:
+                    continue
+                ws.pb_pos(recno + 1)
+                if ws.pb_cancel():
+                    return False
 
-            li_pv = lilipv[recno]
+                li_pv = lilipv[recno]
 
-            game_add_lipv(game_main, li_pv)
+                game_add_lipv(game_main, li_pv)
 
-        add_coments(game_main)
+            add_coments(game_main)
 
-        game_main.set_tag("Site", Code.lucas_chess)
-        game_main.set_tag("Event", self.title)
-        if result:
-            game_main.set_tag("Result", result)
+            game_main.set_tag("Site", Code.lucas_chess)
+            game_main.set_tag("Event", self.title)
+            if result:
+                game_main.set_tag("Result", result)
 
-        if not ws.is_new:
-            ws.write("\n\n")
-        tags = "".join(['[%s "%s"]\n' % (k, v) for k, v in game_main.li_tags])
-        ws.write(tags)
-        ws.write("\n%s" % game_main.pgn_base())
+            if not ws.is_new:
+                ws.write("\n\n")
+            tags = "".join(['[%s "%s"]\n' % (k, v) for k, v in game_main.li_tags])
+            ws.write(tags)
+            ws.write("\n%s" % game_main.pgn_base())
 
         ws.pb_close()
 

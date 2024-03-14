@@ -284,7 +284,7 @@ class WSwissWorker(QtWidgets.QWidget):
         self.game.set_tag("Event", self.swiss_work.nom_swiss)
         self.game.set_tag("Season", str(self.swiss.current_num_season + 1))
         journey = self.swiss_work.get_journey_match(self.xmatch)
-        self.game.set_tag("Journey", str(journey + 1))
+        self.game.set_tag("Round", str(journey + 1))
 
         hoy = Util.today()
         self.game.set_tag("Date", "%d.%02d.%02d" % (hoy.year, hoy.month, hoy.day))

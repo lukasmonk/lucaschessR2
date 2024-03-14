@@ -43,7 +43,7 @@ class WSetup(QtWidgets.QDialog):
         with open(path_version, "rt") as f:
             version = f.read()
 
-        lb_titulo = Controles.LB(self, _("Lucas Chess") + " " + version + "   ").ponFuente(self.font_title).align_center()
+        lb_titulo = Controles.LB(self, _("Lucas Chess") + " " + version + "   ").set_font(self.font_title).align_center()
 
         ly_titulo = Colocacion.H().control(lb_icono).control(lb_titulo)
 
@@ -67,9 +67,9 @@ class WSetup(QtWidgets.QDialog):
         self.add_button_launcher()
 
         self.progressbar = QtWidgets.QProgressBar()
-        self.lb_messages = Controles.LB(self, "").set_wrap().ponFuente(self.font_txt).set_foreground("white")
+        self.lb_messages = Controles.LB(self, "").set_wrap().set_font(self.font_txt).set_foreground("white")
 
-        self.cerrar = Controles.PB(self, _("Close"), self.haz_cerrar, plano=False).ponFuente(self.font_txt).ponIcono(Iconos.Terminar())
+        self.cerrar = Controles.PB(self, _("Close"), self.haz_cerrar, plano=False).set_font(self.font_txt).ponIcono(Iconos.Terminar())
         self.cerrar.setStyleSheet(self.style_button_cc)
 
         lycc = Colocacion.H().relleno().control(self.cerrar)
@@ -136,12 +136,12 @@ class WSetup(QtWidgets.QDialog):
         self.style_button_cc = self.style_button.replace("Text-align:left;", "")
         self.setStyleSheet("background-color: FONDO; color: white;".replace("FONDO", FONDO))
 
-        self.font = Controles.TipoLetra(puntos=14, peso=200)
-        self.font_txt = Controles.TipoLetra(puntos=12)
-        self.font_title = Controles.TipoLetra(puntos=20, peso=400)
+        self.font = Controles.FontType(puntos=14, peso=200)
+        self.font_txt = Controles.FontType(puntos=12)
+        self.font_title = Controles.FontType(puntos=20, peso=400)
 
     def create_button(self, key, txt, rutina, icono):
-        bt = Controles.PB(self, "  " + txt, rutina, plano=False).ponFuente(self.font).ponIcono(icono, icon_size=48)
+        bt = Controles.PB(self, "  " + txt, rutina, plano=False).set_font(self.font).ponIcono(icono, icon_size=48)
         bt.setStyleSheet(self.style_button.replace("COLOR", "#5D6D7E"))
         self.layout.control(bt)
         self.dic_buttons[key] = bt
@@ -338,16 +338,11 @@ class Data:
         self.files_copied: int = 0
 
         self.folder_desktop: str = os.path.expanduser("~/.local/share/applications")
-        if Code.DEBUG:
-            self.folder_desktop: str = "d:/temp/LucasChessR"
 
         self.path_desktop: str = os.path.join(self.folder_desktop, "LucasChessR.desktop")
 
         self.original_folder: str = os.path.join(os.curdir, "..")
         self.path_lucasr = os.path.join(self.destination_folder, "bin", "LucasR")
-        if Code.DEBUG:
-            self.original_folder: str = "d:\Downloads\LucasChessR0122a"
-            self.path_lucasr = os.path.join(self.destination_folder, "bin", "LucasR.exe")
 
     def create_launcher_file(self):
         if not os.path.isdir(self.folder_desktop):

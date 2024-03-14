@@ -169,7 +169,7 @@ class WSwiss(LCDialog.LCDialog):
         self.tab.addTab(w, _("Games"))
 
         # Games -----------------------------------------------------------------------------------------------------
-        lb_journey = Controles.LB2P(self, _("Journey"))
+        lb_journey = Controles.LB2P(self, _("Round"))
         self.cb_cjourney = Controles.CB(self, [], None).capture_changes(self.filter_games)
         lb_player = Controles.LB2P(self, _("Player"))
         self.cb_player = Controles.CB(self, [], None).capture_changes(self.filter_games)
@@ -188,7 +188,7 @@ class WSwiss(LCDialog.LCDialog):
 
         o_col = Columnas.ListaColumnas()
         o_col.nueva("NUMBER", _("N."), 35, align_center=True)
-        o_col.nueva("CJOURNEY", _("Journey"), 60, align_center=True)
+        o_col.nueva("CJOURNEY", _("Round"), 60, align_center=True)
         o_col.nueva("WHITE", _("White"), 240)
         o_col.nueva("BLACK", _("Black"), 240)
         o_col.nueva("RESULT", _("Result"), 180, align_center=True)

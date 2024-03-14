@@ -1,3 +1,4 @@
+import csv
 import os
 import shutil
 import time
@@ -283,6 +284,21 @@ class WGames(QtWidgets.QWidget):
                 return self.ap.xpv(xpv)
             return ""
         return self.dbGames.field(nfila, key)
+
+    def grid_right_button(self, grid, row, col, modif):
+        key = col.key
+        if key.upper() in ("ROWID", "PLYCOUNT") or key.startswith("__"):
+            return
+
+        value = self.dbGames.field(row, key)
+        new_value = QTUtil2.read_simple(self, _("Edit"), col.head, value, width=300, in_cursor=True)
+        if new_value is None:
+            return
+        new_value = new_value.strip()
+
+        self.dbGames.set_field(row, key, new_value)
+
+        self.grid.refresh()
 
     def grid_doble_click(self, grid, fil, col):
         if self.si_select:
@@ -639,6 +655,14 @@ class WGames(QtWidgets.QWidget):
                 (self.tw_exportar_pgn, True), "%s [%d]" % (_("Only selected games"), len(li_sel)), Iconos.PuntoAzul()
             )
 
+        submenu = menu.submenu(_("To a CSV file"), Iconos.CSV())
+        submenu.opcion((self.tw_exportar_csv, False), _("All registers"), Iconos.PuntoVerde())
+        if li_sel:
+            submenu.separador()
+            submenu.opcion(
+                (self.tw_exportar_csv, True), "%s [%d]" % (_("Only selected games"), len(li_sel)), Iconos.PuntoAzul()
+            )
+
         menu.separador()
         submenu = menu.submenu(_("To other database"), Iconos.Database())
         submenu.opcion((self.tw_exportar_db, li_all), _("All registers"), Iconos.PuntoVerde())
@@ -860,6 +884,7 @@ class WGames(QtWidgets.QWidget):
             # Tercero RENAME_LBL
             for dic in dic_cambios["RENAME"]:
                 dcabs[dic["KEY"]] = dic["LABEL"]
+                reinit = True
 
             self.dbGames.save_config("dcabs", dcabs)
 
@@ -883,8 +908,13 @@ class WGames(QtWidgets.QWidget):
             um.final()
 
     def tw_edit_columns(self):
-        w = GridEditCols.EditCols(self.grid, self.configuration, "columns_database")
+        w = GridEditCols.EditCols(self.grid, "columns_database")
         if w.exec_():
+            o_columns = self.grid.o_columns
+            dcabs = self.dbGames.read_config("dcabs", {})
+            for col in o_columns.li_columns:
+                dcabs[col.key] = col.head
+            self.dbGames.save_config("dcabs", dcabs)
             self.grid.releerColumnas()
 
     def readVarsConfig(self):
@@ -1284,6 +1314,61 @@ class WGames(QtWidgets.QWidget):
                     self.changes = False
                 pb.close()
                 ws.close()
+
+    def tw_exportar_csv(self, only_selected):
+        dic_csv = self.configuration.read_variables("CSV")
+        path_csv = SelectFiles.salvaFichero(self, _("Export") + " - " + _("To a CSV file"),
+                                            dic_csv.get("FOLDER", self.configuration.carpeta), "csv")
+        if not path_csv:
+            return
+        dic_csv["FOLDER"] = os.path.dirname(path_csv)
+        self.configuration.write_variables("CSV", dic_csv)
+        pb = QTUtil2.BarraProgreso1(self, _("Saving..."))
+        pb.setFixedWidth(360)
+        pb.mostrar()
+        if only_selected:
+            li_sel = self.grid.recnosSeleccionados()
+        else:
+            li_sel = list(range(self.dbGames.reccount()))
+        pb.set_total(len(li_sel))
+        li_fields = []
+        for col in self.grid.oColumnasR.li_columns:
+            key = col.key
+            if key.startswith("__") or key.upper() == "ROWID":
+                continue
+            li_fields.append((key, col.head))
+
+        with open(path_csv, mode='w', newline='') as file:
+            writer = csv.writer(file)
+            li_data = []
+            for key, head in li_fields:
+                li_data.append(head)
+            li_data.append("PGN")
+            writer.writerow(li_data)
+
+            game = Game.Game()
+            for n, recno in enumerate(li_sel):
+                pb.pon(n)
+                if pb.is_canceled():
+                    break
+                li_data = []
+                for key, head in li_fields:
+                    li_data.append(self.dbGames.field(recno, key))
+                xpv = self.dbGames.field(recno, "XPV")
+                fen, pv = self.dbGames.read_xpv(xpv)
+                game.reset()
+                if fen:
+                    game.set_fen(fen)
+                game.read_pv(pv)
+                pgn = game.pgnBaseRAW()
+                li_data.append(pgn)
+                writer.writerow(li_data)
+
+        if not pb.is_canceled():
+            self.changes = False
+        pb.close()
+        if not pb.is_canceled():
+            Code.startfile(path_csv)
 
     def tw_importar_PGN(self):
         files = SelectFiles.select_pgns(self)

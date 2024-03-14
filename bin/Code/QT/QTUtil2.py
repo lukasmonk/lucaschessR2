@@ -774,14 +774,18 @@ def message_menu(owner, main, the_message, delayed, zzpos=True):
 
 
 class SimpleWindow(QtWidgets.QDialog):
-    def __init__(self, owner, title, label, valor, mas_info):
+    def __init__(self, owner, title, label, valor, mas_info, width, in_cursor):
         QtWidgets.QDialog.__init__(self, owner)
         self.setWindowTitle(title)
         self.resultado = None
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Dialog | QtCore.Qt.WindowTitleHint)
 
         lb_clave = Controles.LB(self, label + ": ")
-        self.ed_clave = Controles.ED(self, valor).anchoMinimo(60)
+        self.ed_clave = Controles.ED(self, valor)
+        if width:
+            self.ed_clave.anchoFijo(width)
+        else:
+            self.ed_clave.anchoMinimo(60)
 
         lb_mas_info = Controles.LB(self, mas_info if mas_info else "").align_center()
 
@@ -798,6 +802,10 @@ class SimpleWindow(QtWidgets.QDialog):
         self.setLayout(layout)
 
         self.ed_clave.setFocus()
+        if in_cursor:
+            pos = QtGui.QCursor().pos()
+            self.show()
+            self.move(pos)
 
     def aceptar(self):
         txt = self.ed_clave.texto().strip()
@@ -806,8 +814,8 @@ class SimpleWindow(QtWidgets.QDialog):
             self.accept()
 
 
-def read_simple(owner, title, label, value, mas_info=None):
-    v = SimpleWindow(owner, title, label, value, mas_info)
+def read_simple(owner, title, label, value, mas_info=None, width=None, in_cursor=False):
+    v = SimpleWindow(owner, title, label, value, mas_info, width, in_cursor)
     if v.exec_():
         return v.resultado
     return None
