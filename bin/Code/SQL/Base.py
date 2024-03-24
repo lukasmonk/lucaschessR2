@@ -13,10 +13,10 @@ class DBBase:
     Establece la conexion y permite cerrarla.
     """
 
-    def __init__(self, nom_fichero):
-        self.nom_fichero = nom_fichero
-        existe = Util.exist_file(nom_fichero)
-        self.conexion = sqlite3.connect(self.nom_fichero)
+    def __init__(self, path_file):
+        self.path_file = path_file
+        existe = Util.exist_file(path_file)
+        self.conexion = sqlite3.connect(self.path_file)
         if not existe:
             cursor = self.conexion.cursor()
             cursor.execute("PRAGMA page_size = 4096")

@@ -79,7 +79,7 @@ class SelectedGameThemeAnalyzer:
 
             game_has_themes = False
             themes_in_game = []
-            my_game: Game.Game = w_parent.dbGames.read_game_recno(recno)
+            my_game: Game.Game = w_parent.db_games.read_game_recno(recno)
             for move_num, move in enumerate(my_game.li_moves):
                 lostp_abs = move.get_points_lost()
                 if lostp_abs is not None:

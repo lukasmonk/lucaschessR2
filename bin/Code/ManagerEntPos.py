@@ -36,6 +36,24 @@ class ManagerEntPos(Manager.Manager):
     line_fns: FNSLine.FNSLine
     pos_obj: int
     game_obj: [Game.Game, None]
+    pos_training: int
+    num_trainings: int
+    title_training: str
+    li_trainings: list
+    is_automatic_jump: bool
+    remove_solutions: bool
+    advanced: bool
+    entreno: str
+    li_histo: list
+    pos_training_origin: int
+    is_human_side_white: bool
+    is_engine_side_white: bool
+    is_tutor_enabled: bool
+    reiniciando: bool
+    is_rival_thinking: bool
+    is_analyzing: bool
+    current_helps: int
+    li_options_toolbar: list
 
     def set_training(self, entreno):
         # Guarda el ultimo entrenamiento en el db de entrenos
@@ -52,7 +70,7 @@ class ManagerEntPos(Manager.Manager):
 
     def start(
             self, pos_training, num_trainings, title_training, li_trainings, is_tutor_enabled, is_automatic_jump,
-            advanced
+            remove_solutions, advanced
     ):
         if hasattr(self, "reiniciando"):
             if self.reiniciando:
@@ -68,6 +86,7 @@ class ManagerEntPos(Manager.Manager):
         self.title_training = title_training
         self.li_trainings = li_trainings
         self.is_automatic_jump = is_automatic_jump
+        self.remove_solutions = remove_solutions
         self.advanced = advanced
 
         self.li_histo = [self.pos_training]
@@ -77,6 +96,8 @@ class ManagerEntPos(Manager.Manager):
 
         linea, self.pos_training_origin = self.li_trainings[self.pos_training - 1]
         self.line_fns = FNSLine.FNSLine(linea)
+        if self.remove_solutions:
+            self.line_fns.game_obj = None
 
         self.game_obj = self.line_fns.game_obj
         self.pos_obj = 0
@@ -183,7 +204,7 @@ class ManagerEntPos(Manager.Manager):
             for move in self.game_obj.li_moves:
                 self.game.add_move(move)
             self.goto_end()
-            self.lineaTerminadaOpciones()
+            self.linea_terminada_opciones()
 
         else:
             self.advanced = False
@@ -268,6 +289,7 @@ class ManagerEntPos(Manager.Manager):
             self.li_trainings,
             self.is_tutor_enabled,
             self.is_automatic_jump,
+            self.remove_solutions,
             self.advanced,
         )
 
@@ -288,6 +310,7 @@ class ManagerEntPos(Manager.Manager):
             self.li_trainings,
             self.is_tutor_enabled,
             self.is_automatic_jump,
+            self.remove_solutions,
             self.advanced,
         )
 
@@ -301,7 +324,8 @@ class ManagerEntPos(Manager.Manager):
             li[2] = self.game.pgnBaseRAW()
             self.saveSelectedPosition("|".join(li))
 
-    def listHelpTeclado(self):
+    @staticmethod
+    def list_help_keyboard():
         return [
             ("+/%s" % _("Page Down"), _("Next position")),
             ("-/%s" % _("Page Up"), _("Previous position")),
@@ -350,9 +374,9 @@ class ManagerEntPos(Manager.Manager):
         self.set_side_indicator(is_white)
         self.refresh()
 
-        siRival = is_white == self.is_engine_side_white
+        si_rival = is_white == self.is_engine_side_white
 
-        if siRival:
+        if si_rival:
             self.pon_help(False)
             self.piensa_rival()
 
@@ -363,7 +387,7 @@ class ManagerEntPos(Manager.Manager):
 
     def piensa_humano(self, is_white):
         if self.game_obj and self.pos_obj == len(self.game_obj):
-            self.lineaTerminadaOpciones()
+            self.linea_terminada_opciones()
             return
 
         self.human_is_playing = True
@@ -379,7 +403,7 @@ class ManagerEntPos(Manager.Manager):
         if is_obj:
             if self.game_obj and self.pos_obj == len(self.game_obj):
                 self.is_rival_thinking = False
-                self.lineaTerminadaOpciones()
+                self.linea_terminada_opciones()
                 return
             move = self.game_obj.move(self.pos_obj)
             self.pos_obj += 1
@@ -399,7 +423,7 @@ class ManagerEntPos(Manager.Manager):
         self.add_move(move, False)
 
         if is_obj and len(self.game_obj) == self.pos_obj:
-            self.lineaTerminadaOpciones()
+            self.linea_terminada_opciones()
 
         self.play_next_move()
 
@@ -451,7 +475,7 @@ class ManagerEntPos(Manager.Manager):
         self.game_obj = None
         self.play_next_move()
 
-    def lineaTerminadaOpciones(self):
+    def linea_terminada_opciones(self):
         self.pon_help(False)
         self.state = ST_ENDGAME
         if self.is_automatic_jump:
@@ -534,17 +558,17 @@ class ManagerEntPos(Manager.Manager):
         self.add_move(move, True)
 
         if self.game_obj and self.pos_obj >= len(self.game_obj):
-            self.lineaTerminadaOpciones()
+            self.linea_terminada_opciones()
 
         self.play_next_move()
         return True
 
-    def add_move(self, move, siNuestra):
+    def add_move(self, move, si_nuestra):
         self.game.add_move(move)
         self.check_boards_setposition()
 
         self.put_arrow_sc(move.from_sq, move.to_sq)
-        self.beepExtendido(siNuestra)
+        self.beepExtendido(si_nuestra)
 
         self.pgnRefresh(self.game.last_position.is_white)
         self.refresh()
@@ -586,21 +610,21 @@ class ManagerEntPos(Manager.Manager):
 
         # Se leen todos los fens
         with open(self.entreno, "rt", errors="ignore") as f:
-            liBase = [linea.strip() for linea in f if linea.strip()]
+            li_base = [linea.strip() for linea in f if linea.strip()]
 
         # Se crea el file con los puzzles
-        nregs = len(liBase)
-        tmpBP = QTUtil2.BarraProgreso(self.main_window, name_tactic, _("Working..."), nregs)
-        tmpBP.mostrar()
+        nregs = len(li_base)
+        tmp_bp = QTUtil2.BarraProgreso(self.main_window, name_tactic, _("Working..."), nregs)
+        tmp_bp.mostrar()
         with open(nom_fns, "wt", encoding="utf-8", errors="ignore") as q:
             for n in range(nregs):
 
-                if tmpBP.is_canceled():
+                if tmp_bp.is_canceled():
                     break
 
-                tmpBP.pon(n + 1)
+                tmp_bp.pon(n + 1)
 
-                linea = liBase[n]
+                linea = li_base[n]
                 li = linea.split("|")
                 fen = li[0]
                 if len(li) < 3 or not li[2]:
@@ -629,17 +653,17 @@ class ManagerEntPos(Manager.Manager):
 
                 q.write(txt + "\n")
 
-        tmpBP.cerrar()
+        tmp_bp.cerrar()
 
         # Se crea el file de control
-        dicIni = {}
-        dicIni[nom_tactic] = d = {}
+        dic_ini = {}
+        dic_ini[nom_tactic] = d = {}
         d["MENU"] = name_tactic
         d["FILESW"] = "%s:100" % os.path.basename(nom_fns)
 
         nom_dir = Util.relative_path(os.path.realpath(nom_dir))
 
-        Util.dic2ini(nom_ini, dicIni)
+        Util.dic2ini(nom_ini, dic_ini)
 
         name = os.path.basename(nom_dir)
 

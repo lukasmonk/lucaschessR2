@@ -1,0 +1,8 @@
+id name Igel 3.0.10 64 POPCNT
+id author V. Medvedev, V. Shcherbyna
+option name Hash type spin default 128 min 2 max 1048576
+option name Threads type spin default 1 min 1 max 1024
+option name SyzygyPath type string default <empty>
+option name SyzygyProbeDepth type spin default 1 min 1 max 128
+option name Ponder type check default false
+option name Skill Level type spin default 20 min 0 max 20

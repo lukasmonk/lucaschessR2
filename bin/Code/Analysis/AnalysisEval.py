@@ -25,29 +25,18 @@ class AnalysisEval:
     def lv(self, cp: int) -> float:
         return self._lv(cp, self.conf.x_eval_curve_degree)
 
-    def lv_dif(self, cp, cp_best):
-        return self.lv(cp_best) - self.lv(cp)
+    def lv_dif(self, cp_best, cp_other):
+        return self.lv(cp_best) - self.lv(cp_other)
 
-    def evaluate(self, rm_j, rm_c):
-        dif = self.evaluate_dif(rm_j, rm_c)
+    def evaluate_dif(self, rm_best, rm_player):
+        if rm_best.mate == 0 and rm_player.mate == 0:
+            return self.lv_dif(rm_best.puntos, rm_player.puntos)
 
-        if dif >= self.conf.x_eval_blunder:
-            return BLUNDER
-        if dif >= self.conf.x_eval_mistake:
-            return MISTAKE
-        if dif >= self.conf.x_eval_inaccuracy:
-            return INACCURACY
-        return NO_RATING
-
-    def evaluate_dif(self, rm_j, rm_c):
-        if rm_j.mate == 0 and rm_c.mate == 0:
-            return self.lv_dif(rm_c.puntos, rm_j.puntos)
-
-        elif rm_c.mate == 0:
-            if rm_j.mate > self.conf.x_eval_mate_human:
+        elif rm_player.mate == 0:
+            if rm_best.mate > self.conf.x_eval_mate_human:
                 xadd = self.conf.x_eval_inaccuracy
             else:
-                dif_mate = self.conf.x_eval_mate_human - rm_j.mate
+                dif_mate = self.conf.x_eval_mate_human - rm_best.mate
                 if dif_mate >= self.conf.x_eval_difmate_blunder:
                     xadd = self.conf.x_eval_blunder
                 elif dif_mate >= self.conf.x_eval_difmate_mistake:
@@ -57,13 +46,13 @@ class AnalysisEval:
                 else:
                     xadd = 0
 
-            return self.lv_dif(rm_c.puntos, self.conf.x_eval_limit_score) + xadd
+            return self.lv_dif(self.conf.x_eval_limit_score, rm_player.puntos) + xadd
 
-        elif rm_j.mate == 0 and rm_c.mate < 0:
-            return max(self.lv_dif(rm_c.centipawns_abs(), rm_j.centipawns_abs()), self.conf.x_eval_mistake)
+        elif rm_best.mate == 0 and rm_player.mate < 0:
+            return max(self.lv_dif(rm_best.centipawns_abs(), rm_player.centipawns_abs()), self.conf.x_eval_mistake)
 
         else:
-            dif_mate = rm_j.mate - rm_c.mate
+            dif_mate = rm_best.mate - rm_player.mate
             if dif_mate >= self.conf.x_eval_difmate_blunder:
                 return self.conf.x_eval_blunder
             if dif_mate >= self.conf.x_eval_difmate_mistake:
@@ -72,8 +61,19 @@ class AnalysisEval:
                 return self.conf.x_eval_mistake
             return 0
 
-    def elo(self, rm_j, rm_c):
-        dif = self.evaluate_dif(rm_j, rm_c)
+    def evaluate(self, rm_best, rm_player):
+        dif = self.evaluate_dif(rm_best, rm_player)
+
+        if dif >= self.conf.x_eval_blunder:
+            return BLUNDER
+        if dif >= self.conf.x_eval_mistake:
+            return MISTAKE
+        if dif >= self.conf.x_eval_inaccuracy:
+            return INACCURACY
+        return NO_RATING
+
+    def elo(self, rm_best, rm_player):
+        dif = self.evaluate_dif(rm_best, rm_player)
         mx = self.conf.x_eval_max_elo
         mn = self.conf.x_eval_min_elo
         bl2 = self.conf.x_eval_blunder * 1.5
@@ -90,10 +90,70 @@ class AnalysisEval:
         rg = max(mx - mn, 0)
         return int((bl2 - dif / 10) * rg / bl2 + mn)
 
-    def elo_bad_vbad(self, rm_j, rm_c):
-        elo = self.elo(rm_j, rm_c)
-        ev = self.evaluate(rm_j, rm_c)
+    def elo_bad_vbad(self, rm_best, rm_player):
+        elo = self.elo(rm_best, rm_player)
+        ev = self.evaluate(rm_best, rm_player)
         bad = ev == MISTAKE
         vbad = ev == BLUNDER
         quest = ev == INACCURACY
         return elo, quest, bad, vbad
+
+    # def calc_accuracy_game(self, game, factor=14):
+    #     n_jg = n_jg_w = n_jg_b = 0
+    #     porc_t = porc_w = porc_b = 0
+    #
+    #     for num, move in enumerate(game.li_moves):
+    #         if move.analysis:
+    #             mrm, pos = move.analysis
+    #             rm_best = mrm.li_rm[0]
+    #             rm_player = mrm.li_rm[pos]
+    #             porc_win = 100.0 - min(self.evaluate_dif(rm_best, rm_player)*factor, 100.0)
+    #             is_white = move.is_white()
+    #
+    #             porc_t += porc_win
+    #             n_jg += 1
+    #
+    #             if is_white:
+    #                 n_jg_w += 1
+    #                 porc_w += porc_win
+    #
+    #             else:
+    #                 n_jg_b += 1
+    #                 porc_b += porc_win
+    #
+    #     porc_t = porc_t * 1.0 / n_jg if n_jg else None
+    #     porc_w = porc_w * 1.0 / n_jg_w if n_jg_w else None
+    #     porc_b = porc_b * 1.0 / n_jg_b if n_jg_b else None
+    #
+    #     return porc_w, porc_b, porc_t
+
+    @staticmethod
+    def calc_accuracy_game(game):
+        n_jg = n_jg_w = n_jg_b = 0
+        porc_t = porc_w = porc_b = 0
+
+        for num, move in enumerate(game.li_moves):
+            if move.analysis:
+                mrm, pos = move.analysis
+                is_white = move.is_white()
+                pts = mrm.li_rm[pos].centipawns_abs()
+                pts0 = mrm.li_rm[0].centipawns_abs()
+                lostp_abs = pts0 - pts
+
+                porc = 100 - lostp_abs if lostp_abs < 100 else 0
+                porc_t += porc
+
+                n_jg += 1
+                if is_white:
+                    n_jg_w += 1
+                    porc_w += porc
+                else:
+                    n_jg_b += 1
+                    porc_b += porc
+
+        porc_t = porc_t * 1.0 / n_jg if n_jg else None
+        porc_w = porc_w * 1.0 / n_jg_w if n_jg_w else None
+        porc_b = porc_b * 1.0 / n_jg_b if n_jg_b else None
+
+        return porc_w, porc_b, porc_t
+

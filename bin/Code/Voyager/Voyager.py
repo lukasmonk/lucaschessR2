@@ -77,7 +77,7 @@ class WPosicion(QtWidgets.QWidget):
             None,
             (_("Basic position"), Iconos.Inicio(), self.inicial),
             None,
-            (_("Clear board"), Iconos.Borrar(), self.limpiaBoard),
+            (_("Clear board"), Iconos.Borrar(), self.clear_board),
             None,
             (_("Paste FEN position"), Iconos.Pegar(), self.pegar),
             None,
@@ -195,7 +195,7 @@ class WPosicion(QtWidgets.QWidget):
 
         self.ultimaPieza = "P"
         self.piezas = self.board.piezas
-        self.resetPosicion()
+        self.reset_position()
         self.ponCursor()
 
         self.lb_scanner.hide()
@@ -211,7 +211,7 @@ class WPosicion(QtWidgets.QWidget):
     def eboard_dispatch(self, quien, fen):
         self.position.read_fen(fen)
         self.actPosicion()
-        self.resetPosicion(False)
+        self.reset_position(False)
         if fen.count("K") == 1 and fen.count("k") == 1:
             self.save()
         elif fen.count("k") == 1:
@@ -225,7 +225,7 @@ class WPosicion(QtWidgets.QWidget):
     def change_side(self):
         self.board.set_side_indicator(self.rbWhite.isChecked())
         self.actPosicion()
-        self.resetPosicion()
+        self.reset_position()
 
     def save(self):
         self.actPosicion()
@@ -403,7 +403,7 @@ class WPosicion(QtWidgets.QWidget):
 
     def setPosicion(self, position):
         self.position = position.copia()
-        self.resetPosicion()
+        self.reset_position()
 
     def pegar(self):
         tp, data = QTUtil.get_clipboard()
@@ -411,13 +411,13 @@ class WPosicion(QtWidgets.QWidget):
             if tp == "t":
                 try:
                     self.position.read_fen(str(data))
-                    self.resetPosicion()
+                    self.reset_position()
                 except:
                     pass
             elif tp == "h":
                 try:
                     self.position.read_fen(QTUtil.get_txt_clipboard())
-                    self.resetPosicion()
+                    self.reset_position()
                 except:
                     pass
             elif tp == "p":
@@ -442,23 +442,23 @@ class WPosicion(QtWidgets.QWidget):
     def copiar(self):
         self.actPosicion()
         QTUtil.ponPortapapeles(self.position.fen())
-        QTUtil2.message_bold(self, _("FEN is in clipboard"))
+        QTVarios.fen_is_in_clipboard(self)
 
-    def limpiaBoard(self):
+    def clear_board(self):
         self.position.read_fen("8/8/8/8/8/8/8/8 w - - 0 1")
-        self.resetPosicion()
+        self.reset_position()
 
     def inicial(self):
         self.position.set_pos_initial()
-        self.resetPosicion()
+        self.reset_position()
 
-    def resetPosicion(self, resetAll=True):
+    def reset_position(self, reset_all=True):
         self.board.set_position(self.position)
         self.squares = self.position.squares
         self.board.squares = self.squares
         self.board.enable_all()
 
-        if resetAll:
+        if reset_all:
             if self.position.is_white:
                 self.rbWhite.activa(True)
             else:
@@ -597,7 +597,7 @@ class WPosicion(QtWidgets.QWidget):
             fen = fen.replace("w", "b")
         self.position.read_fen(fen)
         self.actPosicion()
-        self.resetPosicion()
+        self.reset_position()
         dic = self.scanner_deduce_base(False)
         for pos, pz in dic.items():
             self.ponPieza(pos, pz)

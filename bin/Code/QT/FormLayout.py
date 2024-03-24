@@ -43,7 +43,7 @@ from Code.QT import QTVarios
 from Code.QT import SelectFiles
 
 separador = (None, None)
-SPINBOX, COMBOBOX, COLORBOX, DIAL, EDITBOX, FICHERO, CARPETA, FONTCOMBOBOX, CHSPINBOX = range(9)
+SPINBOX, COMBOBOX, COLORBOX, DIAL, SLIDER, EDITBOX, FICHERO, CARPETA, FONTCOMBOBOX, CHSPINBOX = range(10)
 
 
 class FormLayout:
@@ -108,6 +108,10 @@ class FormLayout:
 
     def dial(self, label, minimo, maximo, init_value, siporc=True):
         self.li_gen.append((Dial(label, minimo, maximo, siporc), init_value))
+
+    def slider(self, label, minimo, maximo, init_value, siporc=True):
+        sld = XSlider(label, minimo, maximo, siporc)
+        self.li_gen.append((sld, init_value))
 
     def apart(self, title):
         self.li_gen.append((None, title + ":"))
@@ -218,6 +222,17 @@ class Dial:
         self.maximo = maximo
         self.siporc = siporc
         self.label = "\n" + label + ":"
+
+
+class XSlider:
+    def __init__(self, label, minimo, maximo, siporc):
+        self.tipo = SLIDER
+        self.minimo = minimo
+        self.maximo = maximo
+        self.siporc = siporc
+        self.label = label
+        if ":" not in label:
+            label += ":"
 
 
 class Carpeta:
@@ -483,9 +498,9 @@ class TextEdit(Controles.EM):
         return self.texto()
 
 
-class DialNum(QtWidgets.QHBoxLayout):
+class DialNum(Colocacion.H):
     def __init__(self, parent, config, dispatch):
-        QtWidgets.QHBoxLayout.__init__(self)
+        Colocacion.H.__init__(self)
 
         self.dial = QtWidgets.QDial(parent)
         self.dial.setMinimum(config.minimo)
@@ -520,6 +535,49 @@ class DialNum(QtWidgets.QHBoxLayout):
 
     def value(self):
         return self.dial.value()
+
+
+class Slider(Colocacion.H):
+    def __init__(self, parent, config, dispatch):
+        Colocacion.H.__init__(self)
+
+        self.slider = QtWidgets.QSlider(QtCore.Qt.Horizontal, parent)
+        self.slider.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.slider.setTickPosition(QtWidgets.QSlider.TicksBothSides)
+        self.slider.setTickInterval(1)
+        self.slider.setSingleStep(1)
+        self.slider.setMinimum(config.minimo)
+        self.slider.setMaximum(config.maximo)
+
+        self.slider.valueChanged.connect(self.movido)
+        self.lb = QtWidgets.QLabel(parent)
+
+        self.dispatch = dispatch
+
+        self.siporc = config.siporc
+
+        self.control(self.slider)
+        self.control(self.lb)
+
+        # self.set_value()
+
+    def ponLB(self):
+        txt = "%d" % self.slider.value()
+        if self.siporc:
+            txt += "%"
+        self.lb.setText(txt)
+
+    def set_value(self, value):
+        self.slider.setValue(value)
+        self.ponLB()
+
+    def movido(self, valor):
+        self.ponLB()
+        if self.dispatch:
+            self.dispatch()
+
+    def value(self):
+        return self.slider.value()
 
 
 class FormWidget(QtWidgets.QWidget):
@@ -605,6 +663,10 @@ class FormWidget(QtWidgets.QWidget):
 
                     elif tipo == DIAL:
                         field = DialNum(self, config, dispatch)
+                        field.set_value(value)
+
+                    elif tipo == SLIDER:
+                        field = Slider(self, config, dispatch)
                         field.set_value(value)
 
                     elif tipo == EDITBOX:
@@ -711,6 +773,8 @@ class FormWidget(QtWidgets.QWidget):
                 elif tipo == COLORBOX:
                     value = field.value()
                 elif tipo == DIAL:
+                    value = field.value()
+                elif tipo == SLIDER:
                     value = field.value()
                 elif tipo == EDITBOX:
                     value = field.valor()

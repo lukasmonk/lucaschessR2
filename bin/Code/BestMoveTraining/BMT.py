@@ -4,8 +4,8 @@ import Code.SQL.Base as SQLBase
 
 
 class BMT(SQLBase.DBBase):
-    def __init__(self, nom_fichero):
-        SQLBase.DBBase.__init__(self, nom_fichero)
+    def __init__(self, path_file):
+        SQLBase.DBBase.__init__(self, path_file)
 
         self.tabla = "DATOS"
 

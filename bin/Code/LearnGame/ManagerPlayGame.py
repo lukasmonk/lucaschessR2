@@ -287,7 +287,7 @@ class ManagerPlayGame(Manager.Manager):
                         bmove,
                     )
                     if self.show_rating in (self.show_rating_always, self.show_rating_different):
-                        QTUtil2.message_result(self.main_window, comment)
+                        QTUtil2.message_information(self.main_window, comment)
                 si_analiza_juez = False
             else:
                 si_analiza_juez = True

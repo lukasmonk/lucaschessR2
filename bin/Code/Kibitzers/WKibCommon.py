@@ -81,11 +81,11 @@ class WKibCommon(QtWidgets.QDialog):
 
         self.cpu.save_video(dic)
 
-    def restore_video(self, dicVideo):
-        if dicVideo:
+    def restore_video(self, dic_video):
+        if dic_video:
             w_e, h_e = QTUtil.desktop_size()
-            if "_POSICION_" in dicVideo:
-                x, y = dicVideo["_POSICION_"].split(",")
+            if "_POSICION_" in dic_video:
+                x, y = dic_video["_POSICION_"].split(",")
                 x = int(x)
                 y = int(y)
                 if not (0 <= x <= (w_e - 50)):
@@ -93,13 +93,13 @@ class WKibCommon(QtWidgets.QDialog):
                 if not (0 <= y <= (h_e - 50)):
                     y = 0
                 self.move(x, y)
-            if not ("_SIZE_" in dicVideo):
+            if not ("_SIZE_" in dic_video):
                 w, h = self.width(), self.height()
-                for k in dicVideo:
+                for k in dic_video:
                     if k.startswith("_TAMA"):
-                        w, h = dicVideo[k].split(",")
+                        w, h = dic_video[k].split(",")
             else:
-                w, h = dicVideo["_SIZE_"].split(",")
+                w, h = dic_video["_SIZE_"].split(",")
             w = int(w)
             h = int(h)
             if w > w_e:
@@ -111,6 +111,11 @@ class WKibCommon(QtWidgets.QDialog):
             elif h < 20:
                 h = 20
             self.resize(w, h)
+
+            if hasattr(self, "grid"):
+                self.grid.restore_video(dic_video)
+                self.grid.releerColumnas()
+
 
     def config_board(self):
         self.show_board = not self.show_board

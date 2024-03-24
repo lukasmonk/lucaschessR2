@@ -57,6 +57,8 @@ class WKibDatabases(WKibCommon.WKibCommon):
         self.wgames.tbWork.hide()
         self.wgames.status.hide()
 
+        self.grid = self.wgames.grid
+
         self.status = QtWidgets.QStatusBar(self)
         self.status.setFixedHeight(22)
 
@@ -78,6 +80,7 @@ class WKibDatabases(WKibCommon.WKibCommon):
             ("%s: %s" % (_("Disable"), _("window on top")), Iconos.Kibitzer_Down(), self.windowBottom),
             (_("Takeback"), Iconos.Kibitzer_Back(), self.takeback),
             (_("Show/hide board"), Iconos.Kibitzer_Board(), self.config_board),
+            (_("Configure the columns"), Iconos.EditColumns(), self.edit_columns),
         )
         self.tb = Controles.TBrutina(self, li_acciones, with_text=False, icon_size=24)
         self.tb.set_action_visible(self.play, False)
@@ -108,6 +111,9 @@ class WKibDatabases(WKibCommon.WKibCommon):
 
         if not self.show_board:
             self.board.hide()
+
+    def edit_columns(self):
+        self.wgames.tw_edit_columns()
 
     def check_input(self):
         self.show_num_games()
@@ -236,7 +242,7 @@ class WKibDatabases(WKibCommon.WKibCommon):
         game = self.manager_game(
             self,
             game,
-            not self.wgames.dbGames.allows_positions,
+            not self.wgames.db_games.allows_positions,
             False,
             self.wgames.infoMove.board,
             with_previous_next=with_previous_next,

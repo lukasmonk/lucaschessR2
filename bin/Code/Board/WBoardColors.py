@@ -191,7 +191,7 @@ class BotonFlecha(Colocacion.H):
             self.cambiaFlecha(w.regFlecha)
 
 
-class DialNum(Colocacion.H):
+class Slider(Colocacion.H):
     def __init__(self, parent, rut_actual, rut_actualiza):
         Colocacion.H.__init__(self)
 
@@ -284,13 +284,13 @@ class WBoardColors(LCDialog.LCDialog):
         lbBlancas = crea_lb(_("White squares"))
         self.btBlancas = BotonColor(self, self.config_board.colorBlancas, self.actualizaBoard)
         self.btBlancasPNG = BotonImagen(self, self.config_board.png64Blancas, self.actualizaBoard, self.btBlancas)
-        self.dialBlancasTrans = DialNum(self, self.config_board.transBlancas, self.actualizaBoard)
+        self.dialBlancasTrans = Slider(self, self.config_board.transBlancas, self.actualizaBoard)
 
         # # Negras
         lbNegras = crea_lb(_("Black squares"))
         self.btNegras = BotonColor(self, self.config_board.colorNegras, self.actualizaBoard)
         self.btNegrasPNG = BotonImagen(self, self.config_board.png64Negras, self.actualizaBoard, self.btNegras)
-        self.dialNegrasTrans = DialNum(self, self.config_board.transNegras, self.actualizaBoard)
+        self.dialNegrasTrans = Slider(self, self.config_board.transNegras, self.actualizaBoard)
 
         # Background
         lbFondo = crea_lb(_("Background"))
@@ -462,7 +462,7 @@ class WBoardColors(LCDialog.LCDialog):
 
         # _opacitySideIndicator
         lbSideIndicator = crea_lb(_("Playing side indicator transparency"))
-        self.dialSideIndicatorTrans = DialNum(self, self.config_board.transSideIndicator, self.actualizaBoard)
+        self.dialSideIndicatorTrans = Slider(self, self.config_board.transSideIndicator, self.actualizaBoard)
         ly_h = Colocacion.H().control(lbSideIndicator).otro(self.dialSideIndicatorTrans)
         ly_otros.otro(ly_h, 3, 0)
 

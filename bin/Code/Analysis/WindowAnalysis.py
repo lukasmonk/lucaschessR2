@@ -175,7 +175,7 @@ class OneAnalysis(QtWidgets.QWidget):
             self.jugarPosicion()
         elif accion == "FEN":
             QTUtil.ponPortapapeles(self.tab_analysis.fen_active())
-            QTUtil2.message_bold(self, _("FEN is in clipboard"))
+            QTVarios.fen_is_in_clipboard(self)
 
     def jugarPosicion(self):
         position, from_sq, to_sq = self.tab_analysis.active_position()

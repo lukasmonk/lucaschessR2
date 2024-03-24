@@ -1,0 +1,4 @@
+id name FoxCub 1.1
+id author Lucas Monge (based in MiniRodent by Pawel Koziol)
+option name Hash type spin default 16 min 1 max 4096
+option name Clear Hash type button

@@ -209,7 +209,7 @@ class ManagerWashingReplay(Manager.Manager):
                     self.dbwashing.add_hint()
 
             comment = "<br>".join(lic)
-            QTUtil2.message_result(self.main_window, comment)
+            QTUtil2.message_information(self.main_window, comment)
             self.set_position(move.position_before)
 
         # Creamos un move sin analysis

@@ -1,7 +1,10 @@
+import time
+
 from PySide2 import QtCore, QtWidgets, QtGui
 
 import Code
-from Code.Base.Constantes import (GO_BACK, GO_END, GO_FORWARD, GO_START, GO_BACK2, GO_FORWARD2, ZVALUE_PIECE, ZVALUE_PIECE_MOVING, TOP_RIGHT,
+from Code.Base.Constantes import (GO_BACK, GO_END, GO_FORWARD, GO_START, GO_BACK2, GO_FORWARD2, ZVALUE_PIECE,
+                                  ZVALUE_PIECE_MOVING, TOP_RIGHT,
                                   ON_TOOLBAR)
 from Code.QT import Colocacion
 from Code.QT import Controles
@@ -139,8 +142,8 @@ QPushButton:pressed {
 
         v = self.owner
         if v:
-            s = self.size()
             if self.physical_pos == TOP_RIGHT:
+                s = self.size()
                 x = v.x() + v.width() - s.width()
                 w_screen = QtWidgets.QDesktopWidget().screenGeometry().width()
                 if x + s.width() > w_screen:
@@ -150,10 +153,10 @@ QPushButton:pressed {
                 x = v.x() + 4
                 y = v.y() + 4
             else:
+                s = self.size()
                 x = v.x() + (v.width() - s.width()) // 2
                 y = v.y() + (v.height() - s.height()) // 2
 
-            # p = self.owner.mapToGlobal(QtCore.QPoint(x,y))
             p = QtCore.QPoint(x, y)
             self.move(p)
         QTUtil.refresh_gui()
@@ -274,7 +277,8 @@ class OneMomentPlease:
         self.with_cancel = with_cancel
 
     def __enter__(self):
-        self.um = waiting_message.start(self.owner, self.the_message, physical_pos=self.physical_pos, with_cancel=self.with_cancel)
+        self.um = waiting_message.start(self.owner, self.the_message, physical_pos=self.physical_pos,
+                                        with_cancel=self.with_cancel)
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
@@ -415,10 +419,12 @@ class BarraProgreso2(QtWidgets.QDialog):
 
 
 class BarraProgreso1(QtWidgets.QDialog):
-    def __init__(self, owner, titulo, formato1="%v/%m"):
+    def __init__(self, owner, titulo, formato1="%v/%m", show_time=False):
         QtWidgets.QDialog.__init__(self, owner)
 
         self.owner = owner
+        self.show_time = show_time
+        self.total = 0
 
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Dialog | QtCore.Qt.WindowTitleHint)
         self.setWindowTitle(titulo)
@@ -426,7 +432,13 @@ class BarraProgreso1(QtWidgets.QDialog):
         # gb1 + progress
         self.bp1 = QtWidgets.QProgressBar()
         self.bp1.setFormat(formato1)
-        ly = Colocacion.H().control(self.bp1)
+        ly = Colocacion.V().control(self.bp1)
+        if show_time:
+            self.li_times = []
+            self.lb_time = Controles.LB(self)
+            self.time_inicial = None
+            self.valor_previo = 0
+            ly.control(self.lb_time)
         self.gb1 = Controles.GB(self, "", ly)
 
         # cancelar
@@ -434,6 +446,8 @@ class BarraProgreso1(QtWidgets.QDialog):
         ly_bt = Colocacion.H().relleno().control(bt)
 
         layout = Colocacion.V().control(self.gb1).otro(ly_bt)
+
+        self.setMinimumWidth(480)
 
         self.setLayout(layout)
         self._is_canceled = False
@@ -468,11 +482,55 @@ class BarraProgreso1(QtWidgets.QDialog):
         self.gb1.set_text(texto)
 
     def set_total(self, maximo):
+        self.total = maximo
         self.bp1.setRange(0, maximo)
+        if self.show_time:
+            self.li_times = []
+            self.time_inicial = time.time()
+            self.valor_previo = 0
 
     def pon(self, valor):
         self.bp1.setValue(valor)
         QTUtil.refresh_gui()
+        if self.show_time:
+            salto = valor - self.valor_previo
+            if salto == 0:
+                return
+            time_actual = time.time()
+            tm = (time_actual - self.time_inicial) / salto
+            self.valor_previo = valor
+            self.time_inicial = time_actual
+            self.li_times.append(tm)
+            tm = sum(self.li_times) / len(self.li_times)
+            previsto = int(tm * (self.total - valor))
+            minutos = previsto // 60
+            seconds = previsto % 60
+            if minutos > 120:
+                horas = minutos // 60
+                lb_hr = _("hours")
+                xmessage = f"{horas} {lb_hr}"
+            elif minutos > 60:
+                horas = minutos //60
+                minutos -= horas*60
+                lb_hr = _("hours") if horas > 1 else _("hour")
+                lb_min = _("minutes") if minutos != 1 else _("minute")
+                xmessage = f"{horas} {lb_hr}  {minutos} {lb_min}"
+
+            elif minutos > 1:
+                lb_min = _("minutes")
+                xmessage = f"{minutos} {lb_min}"
+
+            elif minutos == 1:
+                lb_min = _("minute")
+                lb_sec = _("seconds")
+                xmessage = f"{minutos} {lb_min} {seconds} {lb_sec}"
+
+            else:
+                lb_sec = _("seconds")
+                xmessage = f"{seconds} {lb_sec}"
+
+            lb_pt = _("Pending time")
+            self.lb_time.set_text(f"{lb_pt}: {xmessage}")
 
     def is_canceled(self):
         QTUtil.refresh_gui()
@@ -655,7 +713,11 @@ def message_bold(owner, mens, titulo=None, delayed=False):
     message(owner, mens, titulo=titulo, si_bold=True, delayed=delayed)
 
 
-def message_result(window, txt):
+def message_information(window, txt):
+    message(window, "<br><br><b><big><b>%s</b></big>" % txt, titulo=_("Information"), pixmap=Iconos.pmCheck())
+
+
+def message_result_win(window, txt):
     message(window, "<br><br><b><big><b>%s</b></big>" % txt, titulo=_("Result"), pixmap=Iconos.pmTrophy())
 
 
@@ -809,9 +871,8 @@ class SimpleWindow(QtWidgets.QDialog):
 
     def aceptar(self):
         txt = self.ed_clave.texto().strip()
-        if txt:
-            self.resultado = txt
-            self.accept()
+        self.resultado = txt
+        self.accept()
 
 
 def read_simple(owner, title, label, value, mas_info=None, width=None, in_cursor=False):

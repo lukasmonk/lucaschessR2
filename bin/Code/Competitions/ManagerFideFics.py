@@ -293,8 +293,8 @@ class ManagerFideFics(Manager.Manager):
             self.thinking(False)
 
     def player_has_moved(self, from_sq, to_sq, promotion=""):
-        jgUsu = self.check_human_move(from_sq, to_sq, promotion)
-        if not jgUsu:
+        jg_usu = self.check_human_move(from_sq, to_sq, promotion)
+        if not jg_usu:
             return False
 
         jgObj = self.game_obj.move(self.posJugadaObj)
@@ -302,20 +302,20 @@ class ManagerFideFics(Manager.Manager):
         analysis = None
         comment = None
 
-        comentarioUsu = ""
-        comentarioObj = ""
+        comentario_usu = ""
+        comentario_obj = ""
 
-        siAnalizaJuez = jgUsu.movimiento() != jgObj.movimiento()
+        si_analiza_juez = jg_usu.movimiento() != jgObj.movimiento()
         if self.book:
             fen = self.last_fen()
             siBookUsu = self.book.check_human(fen, from_sq, to_sq)
             siBookObj = self.book.check_human(fen, jgObj.from_sq, jgObj.to_sq)
             if siBookUsu:
-                comentarioUsu = _("book move")
+                comentario_usu = _("book move")
             if siBookObj:
-                comentarioObj = _("book move")
+                comentario_obj = _("book move")
             if siBookUsu and siBookObj:
-                if jgObj.movimiento() != jgUsu.movimiento():
+                if jgObj.movimiento() != jg_usu.movimiento():
                     # comment = "%s: %s" % (_("Same book move"), jgObj.pgn_translated())
                     # else:
                     bmove = _("book move")
@@ -324,26 +324,26 @@ class ManagerFideFics(Manager.Manager):
                         jgObj.pgn_translated(),
                         bmove,
                         self.configuration.x_player,
-                        jgUsu.pgn_translated(),
+                        jg_usu.pgn_translated(),
                         bmove,
                     )
-                    QTUtil2.message_result(self.main_window, comment)
-                siAnalizaJuez = False
+                    QTUtil2.message_information(self.main_window, comment)
+                si_analiza_juez = False
             else:
                 if not siBookObj:
                     self.book = None
 
-        if siAnalizaJuez:
+        if si_analiza_juez:
             um = QTUtil2.analizando(self.main_window)
             if not self.continueTt:
                 self.analyze_begin()
             mrm = self.analyze_minimum(5000)
             position = self.game.last_position
 
-            rmUsu, nada = mrm.buscaRM(jgUsu.movimiento())
+            rmUsu, nada = mrm.buscaRM(jg_usu.movimiento())
             if rmUsu is None:
                 self.analyze_end()
-                rmUsu = self.xtutor.valora(position, jgUsu.from_sq, jgUsu.to_sq, jgUsu.promotion)
+                rmUsu = self.xtutor.valora(position, jg_usu.from_sq, jg_usu.to_sq, jg_usu.promotion)
                 mrm.add_rm(rmUsu)
                 self.analyze_begin()
 
@@ -366,8 +366,8 @@ class ManagerFideFics(Manager.Manager):
             self.puntos += dpts
             self.ponPuntos()
 
-            comentarioUsu += " %s" % (w.rmUsu.abrTexto())
-            comentarioObj += " %s" % (w.rmObj.abrTexto())
+            comentario_usu += " %s" % (w.rmUsu.abrTexto())
+            comentario_obj += " %s" % (w.rmObj.abrTexto())
 
             comentarioPuntos = "%s = %d %+d %+d = %d" % (
                 _("Score"),
@@ -380,10 +380,10 @@ class ManagerFideFics(Manager.Manager):
             comment = "%s: %s %s\n%s: %s %s\n%s" % (
                 self.name_obj,
                 jgObj.pgn_translated(),
-                comentarioObj,
+                comentario_obj,
                 self.configuration.x_player,
-                jgUsu.pgn_translated(),
-                comentarioUsu,
+                jg_usu.pgn_translated(),
+                comentario_usu,
                 comentarioPuntos,
             )
 

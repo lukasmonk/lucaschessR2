@@ -310,9 +310,9 @@ class DictRawSQL(DictSQL):
 
 
 class ListSQL:
-    def __init__(self, nom_fichero, tabla="LISTA", max_cache=2048, reverted=False):
-        self.nom_fichero = nom_fichero
-        self._conexion = sqlite3.connect(nom_fichero)
+    def __init__(self, path_file, tabla="LISTA", max_cache=2048, reverted=False):
+        self.path_file = path_file
+        self._conexion = sqlite3.connect(path_file)
         self.tabla = tabla
         self.max_cache = max_cache
         self.cache = {}
@@ -432,9 +432,9 @@ class ListSQL:
 
 
 class ListObjSQL(ListSQL):
-    def __init__(self, nom_fichero, class_storage, tabla="datos", max_cache=2048, reverted=False):
+    def __init__(self, path_file, class_storage, tabla="datos", max_cache=2048, reverted=False):
         self.class_storage = class_storage
-        ListSQL.__init__(self, nom_fichero, tabla, max_cache, reverted)
+        ListSQL.__init__(self, path_file, tabla, max_cache, reverted)
 
     def append(self, obj, with_cache=False):
         sql = "INSERT INTO %s( DATO ) VALUES( ? )" % self.tabla
@@ -477,12 +477,12 @@ class ListObjSQL(ListSQL):
 
 
 class IPC(object):
-    def __init__(self, nom_fichero, si_crear):
+    def __init__(self, path_file, si_crear):
         if si_crear:
-            Util.remove_file(nom_fichero)
+            Util.remove_file(path_file)
 
-        self._conexion = sqlite3.connect(nom_fichero)
-        self.nom_fichero = nom_fichero
+        self._conexion = sqlite3.connect(path_file)
+        self.path_file = path_file
 
         if si_crear:
             sql = "CREATE TABLE DATOS( DATO BLOB );"
@@ -516,8 +516,8 @@ class IPC(object):
 
 
 class RowidReader:
-    def __init__(self, nom_fichero, tabla):
-        self.nom_fichero = nom_fichero
+    def __init__(self, path_file, tabla):
+        self.path_file = path_file
         self.tabla = tabla
         self.where = None
         self.order = None
@@ -541,7 +541,7 @@ class RowidReader:
         self.thread.start()
 
     def _run_thread(self):
-        conexion = sqlite3.connect(self.nom_fichero)
+        conexion = sqlite3.connect(self.path_file)
         sql = "SELECT ROWID FROM %s" % self.tabla
         if self.where:
             sql += " WHERE %s" % self.where

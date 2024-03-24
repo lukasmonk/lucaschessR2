@@ -200,9 +200,9 @@ class Expeditions:
     def __init__(self, configuration):
         self.configuration = configuration
 
-        nom_fichero = configuration.ficheroExpeditions
+        path_file = configuration.ficheroExpeditions
 
-        self.db = Base.DBBase(nom_fichero)
+        self.db = Base.DBBase(path_file)
         self.tabla = "Expeditions"
         if not self.db.existeTabla(self.tabla):
             self.creaTabla()

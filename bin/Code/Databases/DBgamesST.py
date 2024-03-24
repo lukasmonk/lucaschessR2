@@ -32,12 +32,12 @@ class RecordSTAT:
 
 
 class TreeSTAT:
-    def __init__(self, nom_fichero, depth=None):
-        self.nom_fichero = nom_fichero
+    def __init__(self, path_file, depth=None):
+        self.path_file = path_file
         self.defaultDepth = 30
 
         self.hinikey = Util.md5_lc("")
-        self._conexion = sqlite3.connect(self.nom_fichero)
+        self._conexion = sqlite3.connect(self.path_file)
 
         self.depth = self.defaultDepth if depth is None else depth
         self._check_table()
@@ -75,8 +75,8 @@ class TreeSTAT:
 
     def reset(self):
         self.close()
-        Util.remove_file(self.nom_fichero)
-        self._conexion = sqlite3.connect(self.nom_fichero)
+        Util.remove_file(self.path_file)
+        self._conexion = sqlite3.connect(self.path_file)
         self._check_table()
 
     def read_rec(self, hkey):

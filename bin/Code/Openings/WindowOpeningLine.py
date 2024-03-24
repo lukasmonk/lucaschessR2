@@ -724,7 +724,7 @@ class WLines(LCDialog.LCDialog):
             dic_data = self.import_param_books(_("Database opening explorer"), False)
             if dic_data:
                 db = DBgames.DBgames(nomfichgames)  # por el problema de los externos
-                fichero_summary = db.db_stat.nom_fichero
+                fichero_summary = db.db_stat.path_file
                 db.close()
                 depth, si_white, onlyone, min_moves = (
                     dic_data["DEPTH"],
@@ -823,7 +823,7 @@ class WLines(LCDialog.LCDialog):
         self.glines.gotop()
 
     def ta_import_other_comments(self):
-        current_path = self.dbop.nom_fichero
+        current_path = self.dbop.path_file
 
         file_opk = SelectFiles.leeFichero(self, os.path.dirname(current_path), "opk", titulo=_("Opening lines"))
         if not file_opk or Util.same_path(current_path, file_opk):
@@ -984,19 +984,25 @@ class WLines(LCDialog.LCDialog):
         submenu.opcion("0-1", r % "0-1", Iconos.Negras8())
         submenu.opcion("1/2-1/2", r % "1/2-1/2", Iconos.Tablas())
         submenu.opcion("", _("Without Result"), Iconos.Gris())
+        menu.separador()
+        current = row // 2
+        menu.opcion("remove", "%s %d" % (_("Remove line"), current + 1), Iconos.Mover())
         resp = menu.lanza()
         if resp is not None:
-            w = WindowSavePGN.WSaveVarios(self, self.configuration)
-            if w.exec_():
-                ws = WindowSavePGN.FileSavePGN(self, w.dic_result)
-                if ws.open():
-                    nline = 1 + row // 2
-                    wb = row % 2
-                    pos = int(col.key) - 1 if col.key.isdigit() else 0
-                    pos = pos * 2 + wb
-                    self.dbop.exportar_pgn_one(ws, nline, pos, resp)
-                    ws.close()
-                    ws.um_final()
+            if resp == "remove":
+                self.remove_current_line()
+            else:
+                w = WindowSavePGN.WSaveVarios(self, self.configuration)
+                if w.exec_():
+                    ws = WindowSavePGN.FileSavePGN(self, w.dic_result)
+                    if ws.open():
+                        nline = row // 2
+                        white_or_black = row % 2
+                        pos = int(col.key) - 1 if col.key.isdigit() else 0
+                        pos = pos * 2 + white_or_black
+                        self.dbop.exportar_pgn_one(ws, nline, pos, resp)
+                        ws.close()
+                        ws.um_final()
 
     def borrar_move(self):
         row, col = self.glines.current_position()
@@ -1009,14 +1015,14 @@ class WLines(LCDialog.LCDialog):
             if linea:
                 game_ant = self.dbop[linea - 1]
                 if game_ant.pv_hasta(njug - 1) == game.pv_hasta(njug - 1):
-                    return self.borrar()
+                    return self.remove_current_line()
             if linea < len(self.dbop) - 1:
                 game_sig = self.dbop[linea + 1]
                 if game_sig.pv_hasta(njug - 1) == game.pv_hasta(njug - 1):
-                    return self.borrar()
+                    return self.remove_current_line()
 
             if njug == self.num_jg_inicial:
-                return self.borrar()
+                return self.remove_current_line()
 
             si_ultimo = njug == len(game) - 1  # si es el ultimo no se pregunta
             if si_ultimo or QTUtil2.pregunta(self, _("Do you want to eliminate this move?")):
@@ -1025,6 +1031,19 @@ class WLines(LCDialog.LCDialog):
 
                 self.goto_end_line()
         self.show_lines()
+
+    def remove_current_line(self):
+        current = self.glines.recno() // 2
+        self.dbop.save_history(_("Remove line %d") % (current + 1,))
+        del self.dbop[current]
+        self.goto_inilinea()
+        self.show_lines()
+        self.pboard.reset_board()
+        if len(self.dbop) == 0:
+            self.game = self.gamebase
+            self.pboard.ponPartida(self.game)
+            self.pboard.MoverFinal()
+        self.glines.refresh()
 
     def remove(self):
         tam_dbop = len(self.dbop)
@@ -1054,9 +1073,7 @@ class WLines(LCDialog.LCDialog):
         resp = menu.lanza()
 
         if resp == "current":
-            self.dbop.save_history(_("Remove line %d") % (current + 1,))
-            del self.dbop[current]
-            self.goto_inilinea()
+            self.remove_current_line()
 
         elif resp == "lines":
             li_gen = [FormLayout.separador]

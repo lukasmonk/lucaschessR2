@@ -68,25 +68,25 @@ class WAnalisisGraph(LCDialog.LCDialog):
             return o_columns
 
         self.dicLiJG = {"A": self.alm.lijg, "W": self.alm.lijgW, "B": self.alm.lijgB}
-        gridAll = Grid.Grid(self, xcol(), siSelecFilas=True, xid="A", siCabeceraMovible=False)
-        anchoGrid = gridAll.fixMinWidth()
-        self.register_grid(gridAll)
-        gridW = Grid.Grid(self, xcol(), siSelecFilas=True, xid="W", siCabeceraMovible=False)
-        anchoGrid = max(gridW.fixMinWidth(), anchoGrid)
-        self.register_grid(gridW)
+        grid_all = Grid.Grid(self, xcol(), siSelecFilas=True, xid="A", siCabeceraMovible=False)
+        ancho_grid = grid_all.fixMinWidth()
+        self.register_grid(grid_all)
+        grid_w = Grid.Grid(self, xcol(), siSelecFilas=True, xid="W", siCabeceraMovible=False)
+        ancho_grid = max(grid_w.fixMinWidth(), ancho_grid)
+        self.register_grid(grid_w)
         gridB = Grid.Grid(self, xcol(), siSelecFilas=True, xid="B", siCabeceraMovible=False)
-        anchoGrid = max(gridB.fixMinWidth(), anchoGrid)
+        ancho_grid = max(gridB.fixMinWidth(), ancho_grid)
         self.register_grid(gridB)
 
         font = Controles.FontType(puntos=Code.configuration.x_sizefont_infolabels)
 
         self.emIndexes = Controles.EM(self, alm.indexesHTML).read_only().set_font(font)
-        pbSave = Controles.PB(self, _("Save to game comments"), self.saveIndexes, plano=False)
-        pbSave.ponIcono(Iconos.Grabar())
-        ly0 = Colocacion.H().control(pbSave).relleno()
-        ly = Colocacion.V().control(self.emIndexes).otro(ly0).relleno()
-        wIdx = QtWidgets.QWidget()
-        wIdx.setLayout(ly)
+        pb_save = Controles.PB(self, _("Save to game comments"), self.saveIndexes, plano=False)
+        pb_save.ponIcono(Iconos.Grabar())
+        ly0 = Colocacion.H().control(pb_save).relleno()
+        ly = Colocacion.V().control(self.emIndexes).otro(ly0)
+        w_idx = QtWidgets.QWidget()
+        w_idx.setLayout(ly)
 
         self.em_elo = Controles.EM(self, alm.indexesHTMLelo).read_only().set_font(font)
         ly = Colocacion.V().control(self.em_elo)
@@ -99,10 +99,10 @@ class WAnalisisGraph(LCDialog.LCDialog):
         w_moves.setLayout(ly)
 
         self.tabGrid = tabGrid = Controles.Tab()
-        tabGrid.new_tab(gridAll, _("All moves"))
-        tabGrid.new_tab(gridW, _("White"))
+        tabGrid.new_tab(grid_all, _("All moves"))
+        tabGrid.new_tab(grid_w, _("White"))
         tabGrid.new_tab(gridB, _("Black"))
-        tabGrid.new_tab(wIdx, _("Indexes"))
+        tabGrid.new_tab(w_idx, _("Indexes"))
         tabGrid.new_tab(w_elo, _("Elo"))
         tabGrid.new_tab(w_moves, _("Moves"))
         tabGrid.dispatchChange(self.tabChanged)
@@ -140,13 +140,13 @@ class WAnalisisGraph(LCDialog.LCDialog):
         layout.otroc(ly_tc, 0, 1, numFilas=2)
 
         Controles.Tab().set_position("W")
-        ancho = self.board.width() + anchoGrid
+        ancho = self.board.width() + ancho_grid
         self.htotal = [
-            Histogram.Histogram(self, alm.hgame, gridAll, ancho, True),
-            Histogram.Histogram(self, alm.hwhite, gridW, ancho, True),
+            Histogram.Histogram(self, alm.hgame, grid_all, ancho, True),
+            Histogram.Histogram(self, alm.hwhite, grid_w, ancho, True),
             Histogram.Histogram(self, alm.hblack, gridB, ancho, True),
-            Histogram.Histogram(self, alm.hgame, gridAll, ancho, False, alm.eloT),
-            Histogram.Histogram(self, alm.hwhite, gridW, ancho, False, alm.eloW),
+            Histogram.Histogram(self, alm.hgame, grid_all, ancho, False, alm.eloT),
+            Histogram.Histogram(self, alm.hwhite, grid_w, ancho, False, alm.eloW),
             Histogram.Histogram(self, alm.hblack, gridB, ancho, False, alm.eloB),
         ]
         lh = Colocacion.V()
@@ -160,10 +160,10 @@ class WAnalisisGraph(LCDialog.LCDialog):
 
         self.restore_video()
 
-        gridAll.gotop()
+        grid_all.gotop()
         gridB.gotop()
-        gridW.gotop()
-        self.grid_left_button(gridAll, 0, None)
+        grid_w.gotop()
+        self.grid_left_button(grid_all, 0, None)
         th = self.board.height()
         self.tabGrid.setFixedHeight(th)
         self.adjustSize()

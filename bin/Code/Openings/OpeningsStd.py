@@ -59,6 +59,7 @@ class ListaOpeningsStd:
         with open(path, "rt", encoding="utf-8") as q:
             for linea in q:
                 name, a1h8, pgn, eco, basic, fenm2, hijos, parent, lfenm2 = linea.strip().split("|")
+
                 dic_fenm2_op[fenm2] = op = Opening(name)
                 op.a1h8 = a1h8
                 op.eco = eco
@@ -81,6 +82,27 @@ class ListaOpeningsStd:
                     st_fenm2_test.add(fenm2)
 
         return dic_fenm2_op, dic_fenm2_op_move, st_fenm2_test
+
+    @staticmethod
+    def dic_fen64():
+        path = Code.path_resource("Openings", "openings.lkop")
+        dd = collections.defaultdict(list)
+        with open(path, "rt", encoding="utf-8") as q:
+            for linea in q:
+                name, a1h8, pgn, eco, basic, fenm2, hijos, parent, lfenm2 = linea.strip().split("|")
+
+                li_fen = [p for p in lfenm2.split(",")]
+                li_fen.append(fenm2)
+                li = a1h8.split(" ")
+
+                for pos in range(len(li)):
+                    pv = " ".join(li[:pos + 1])
+                    # xpv = FasterCode.pv_xpv(pv)
+                    fen = li_fen[pos]
+                    fen64 = Util.fen_fen64(fen)
+                    if pv not in dd[fen64]:
+                        dd[fen64].append(pv)
+        return dd
 
     def reset(self):
         self.dic_fenm2_op, self.dic_fenm2_op_move, self.st_fenm2_test = self.read_fenm2_op()
@@ -171,7 +193,6 @@ class ListaOpeningsStd:
             if fenm2 in self.dic_fenm2_op:
                 last_ap = self.dic_fenm2_op[fenm2]
         return last_ap
-
 
     def is_book_fenm2(self, fenm2):
         return fenm2 in self.st_fenm2_test

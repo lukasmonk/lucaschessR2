@@ -155,7 +155,7 @@ class Board(QtWidgets.QGraphicsView):
                             self.main_window.manager.save_pgn_clipboard()
                     else:
                         QTUtil.ponPortapapeles(self.last_position.fen())
-                        QTUtil2.message_bold(self, _("FEN is in clipboard"))
+                        QTVarios.fen_is_in_clipboard(self)
 
             # ALT-B : Menu visual
             elif is_alt and key == Qt.Key_B:
@@ -344,7 +344,7 @@ class Board(QtWidgets.QGraphicsView):
         else:
             self.piezas = Code.all_pieces.selecciona(nom_pieces_ori)
         self.anchoPieza = self.config_board.width_piece()
-        self.margenPieza = 0
+        self.margin_pieces = Code.configuration.x_margin_pieces - 10  # -10 a +10 como valor real, de 0 a 20 en configuración parámetros
 
         self.colorBlancas = self.config_board.colorBlancas()
         self.colorNegras = self.config_board.colorNegras()
@@ -388,9 +388,8 @@ class Board(QtWidgets.QGraphicsView):
         if self.siF11:
             at += 50 + 64
         tr = 1.0 * self.config_board.tamRecuadro() / 100.0
-        mp = self.margenPieza
 
-        ap = int((1.0 * at - 16.0 * mp) / (8.0 + tr * 92.0 / 80))
+        ap = int((1.0 * at - 16.0 * self.margin_pieces) / (8.0 + tr * 92.0 / 80))
         return ap
 
     def set_width(self):
@@ -415,7 +414,7 @@ class Board(QtWidgets.QGraphicsView):
 
         self.anchoPieza = ap
 
-        self.width_square = ap + self.margenPieza * 2
+        self.width_square = ap + self.margin_pieces * 2
         self.tamFrontera = self.margenCentro * 3.0 // 46.0
 
         self.margenCentro = self.margenCentro * self.config_board.tamRecuadro() // 100
@@ -768,9 +767,9 @@ class Board(QtWidgets.QGraphicsView):
             li_keys.append((None, None))
             li_keys.append((alt("N"), _("Activate/Deactivate non distract mode")))
 
-            if hasattr(self.main_window.manager, "listHelpTeclado"):
+            if hasattr(self.main_window.manager, "list_help_keyboard"):
                 li_keys.append((None, None))
-                li_keys.extend(self.main_window.manager.listHelpTeclado())
+                li_keys.extend(self.main_window.manager.list_help_keyboard())
 
         li_keys.append((None, None))
         li_keys.append((alt("L"), _("Open position in LiChess")))
@@ -1471,16 +1470,16 @@ class Board(QtWidgets.QGraphicsView):
 
     def fila2punto(self, row):
         factor = (8 - row) if self.is_white_bottom else (row - 1)
-        # return factor * (self.anchoPieza + self.margenPieza * 2) + self.margenCentro + self.tamFrontera
-        return factor * self.width_square + self.margenCentro + self.tamFrontera / 2 + self.margenPieza
+        # return factor * (self.anchoPieza + self.margin_pieces * 2) + self.margenCentro + self.tamFrontera
+        return factor * self.width_square + self.margenCentro + self.tamFrontera / 2 + self.margin_pieces
 
     def columna2punto(self, column):
         factor = (column - 1) if self.is_white_bottom else (8 - column)
-        # return factor * (self.anchoPieza + self.margenPieza * 2) + self.margenCentro + self.tamFrontera
-        return factor * self.width_square + self.margenCentro + self.tamFrontera / 2 + self.margenPieza
+        # return factor * (self.anchoPieza + self.margin_pieces * 2) + self.margenCentro + self.tamFrontera
+        return factor * self.width_square + self.margenCentro + self.tamFrontera / 2 + self.margin_pieces
 
     def punto2fila(self, pos):
-        pos -= self.margenCentro + self.tamFrontera / 2 + self.margenPieza
+        pos -= self.margenCentro + self.tamFrontera / 2 + self.margin_pieces
         pos //= self.width_square
         if self.is_white_bottom:
             return int(8 - pos)
@@ -1488,7 +1487,7 @@ class Board(QtWidgets.QGraphicsView):
             return int(pos + 1)
 
     def punto2columna(self, pos):
-        pos -= self.margenCentro + self.tamFrontera / 2 + self.margenPieza
+        pos -= self.margenCentro + self.tamFrontera / 2 + self.margin_pieces
         pos //= self.width_square
         if self.is_white_bottom:
             return int(pos + 1)
@@ -2462,12 +2461,15 @@ class Board(QtWidgets.QGraphicsView):
             Code.eboard.set_position(self.last_position)
 
     def play_current_position(self):
-        gm = Game.Game(first_position=self.last_position)
-        dic = {"GAME": gm.save(), "ISWHITE": gm.last_position.is_white}
-        fich = Util.relative_path(self.configuration.ficheroTemporal("pkd"))
-        Util.save_pickle(fich, dic)
+        if hasattr(self.main_window, "manager") and hasattr(self.main_window.manager, "play_current_position"):
+            self.main_window.manager.play_current_position()
+        else:
+            gm = Game.Game(first_position=self.last_position)
+            dic = {"GAME": gm.save(), "ISWHITE": gm.last_position.is_white}
+            fich = Util.relative_path(self.configuration.ficheroTemporal("pkd"))
+            Util.save_pickle(fich, dic)
 
-        XRun.run_lucas("-play", fich)
+            XRun.run_lucas("-play", fich)
 
 
 class WTamBoard(QtWidgets.QDialog):

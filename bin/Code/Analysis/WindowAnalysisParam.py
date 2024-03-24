@@ -2,6 +2,7 @@ from PySide2 import QtWidgets
 
 import Code
 from Code import Util
+from Code.Analysis import WindowAnalysisConfig
 from Code.Base.Constantes import ALL_VARIATIONS, HIGHEST_VARIATIONS, BETTER_VARIATIONS, INACCURACY, MISTAKE, BLUNDER, \
     INACCURACY_MISTAKE_BLUNDER, INACCURACY_MISTAKE, MISTAKE_BLUNDER
 from Code.Books import Books
@@ -10,8 +11,6 @@ from Code.QT import FormLayout
 from Code.QT import Iconos
 from Code.QT import QTUtil
 from Code.QT import QTUtil2
-from Code.Analysis import WindowAnalysisConfig
-
 
 SEPARADOR = FormLayout.separador
 
@@ -54,6 +53,8 @@ def read_dic_params():
     alm.black = dic.get("black", True)
 
     alm.workers = dic.get("workers", 1)
+
+    alm.tags_accuracy = dic.get("tags_accuracy", False)
 
     return alm
 
@@ -281,7 +282,7 @@ def analysis_parameters(parent, extended_mode, all_engines=False):
         w = WindowAnalysisConfig.WConfAnalysis(last_active_window, None)
         w.show()
 
-    li_extra_options = ((_("Configuration"), Iconos.ConfAnalysis(), analysis_config), )
+    li_extra_options = ((_("Configuration"), Iconos.ConfAnalysis(), analysis_config),)
     resultado = FormLayout.fedit(
         lista,
         title=_("Analysis Configuration"),

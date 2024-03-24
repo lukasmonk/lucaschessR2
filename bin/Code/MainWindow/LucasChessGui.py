@@ -68,6 +68,7 @@ def select_language(owner, init):
 
 
 def run_gui(procesador):
+    app = QtWidgets.QApplication([])
     main_config = Configuration.Configuration("")
     first_run = main_config.first_run
     main_config.lee()
@@ -75,8 +76,6 @@ def run_gui(procesador):
         QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
         QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps)
     QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_UseStyleSheetPropagationInWidgetStyles, True)
-
-    app = QtWidgets.QApplication([])
 
     # Usuarios
     list_users = Usuarios.Usuarios().list_users

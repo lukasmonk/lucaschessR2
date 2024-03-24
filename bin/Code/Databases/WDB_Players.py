@@ -91,7 +91,7 @@ class ToolbarMoves(QtWidgets.QWidget):
 
 
 class WPlayer(QtWidgets.QWidget):
-    def __init__(self, procesador, wb_database, dbGames):
+    def __init__(self, procesador, wb_database, db_games):
         QtWidgets.QWidget.__init__(self)
 
         self.wb_database = wb_database
@@ -197,7 +197,7 @@ class WPlayer(QtWidgets.QWidget):
 
         self.setLayout(layout)
 
-        self.setdbGames(dbGames)
+        self.setdbGames(db_games)
         self.setPlayer(self.leeVariable("PLAYER", ""))
 
     def dispatchMoves(self, side, opcion):
@@ -239,8 +239,8 @@ class WPlayer(QtWidgets.QWidget):
 
         self.lastFilterMoves[side] = opcion
 
-    def setdbGames(self, dbGames):
-        self.dbGames = dbGames
+    def setdbGames(self, db_games):
+        self.db_games = db_games
         self.setPlayer(self.leeVariable("PLAYER", ""))
 
     def setPlayer(self, player):
@@ -350,17 +350,17 @@ class WPlayer(QtWidgets.QWidget):
             return True  # que siga con el resto de teclas
 
     def leeVariable(self, var, default=None):
-        return self.dbGames.read_config(var, default)
+        return self.db_games.read_config(var, default)
 
     def escVariable(self, var, valor):
-        self.dbGames.save_config(var, valor)
+        self.db_games.save_config(var, valor)
 
     def listaPlayers(self):
         return self.leeVariable("LISTA_PLAYERS", [])
 
     def rereadPlayers(self):
         um = QTUtil2.one_moment_please(self)
-        lista = self.dbGames.players()
+        lista = self.db_games.players()
         self.escVariable("LISTA_PLAYERS", lista)
         um.final()
 
@@ -391,7 +391,7 @@ class WPlayer(QtWidgets.QWidget):
         self.tw_rebuild()
 
     def test_players_in_db(self):
-        if self.dbGames.has_field("WHITE") and self.dbGames.has_field("BLACK"):
+        if self.db_games.has_field("WHITE") and self.db_games.has_field("BLACK"):
             return True
         QTUtil2.message(self, _("This database has no players"))
         return False
@@ -421,7 +421,7 @@ class WPlayer(QtWidgets.QWidget):
     def tw_rebuild(self):
         if not self.test_players_in_db():
             return
-        if not self.dbGames.has_field("RESULT"):
+        if not self.db_games.has_field("RESULT"):
             QTUtil2.message(self, _("This database does not have a RESULT field"))
             return
 
@@ -443,9 +443,9 @@ class WPlayer(QtWidgets.QWidget):
         for alias in (alias1, alias2, alias3):
             if alias:
                 filtro += "or WHITE = '%s' or BLACK = '%s'" % (alias, alias)
-        pb.set_total(self.dbGames.count_data(filtro))
+        pb.set_total(self.db_games.count_data(filtro))
 
-        for n, alm in enumerate(self.dbGames.yield_data(liFields, filtro)):
+        for n, alm in enumerate(self.db_games.yield_data(liFields, filtro)):
             pb.pon(n)
             if pb.is_canceled():
                 self.rebuilding = False

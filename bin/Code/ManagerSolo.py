@@ -460,7 +460,7 @@ class ManagerSolo(Manager.Manager):
         li_extra_options = (
             (None, _("Change the starting position"), Iconos.PGN()),
             sep,
-            ("position", _("Board editor") + " [%sS]" % ctrl, Iconos.Datos()),
+            ("position", _("Board editor") + " [%sE]" % ctrl, Iconos.Datos()),
             sep,
             ("initial", _("Basic position") + " [%sB]" % ctrl, Iconos.Board()),
             sep,
@@ -589,12 +589,12 @@ class ManagerSolo(Manager.Manager):
                 if is_control:
                     self.basic_initial_position()
 
-    def listHelpTeclado(self):
+    def list_help_keyboard(self):
         ctrl = _("CTRL") + " "
         return [
             (ctrl + "V", _("Paste position")),
             (ctrl + "T", _("Save position in 'Selected positions' file")),
-            (ctrl + "S", _("Board editor")),
+            (ctrl + "E", _("Board editor")),
             (ctrl + "B", _("Basic position")),
             (ctrl + "1", _("Play instead of me")),
             (ctrl + "2", _("Help to move")),

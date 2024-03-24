@@ -241,6 +241,8 @@ class Configuration:
         self.x_interval_replay = 1400
         self.x_beep_replay = False
 
+        self.x_margin_pieces = 7
+
         self.x_engine_notbackground = False
 
         self.x_check_for_update = False

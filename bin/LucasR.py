@@ -9,7 +9,11 @@
 import sys
 import warnings
 
+import Code
+from Code.Translations import Translate
+
 warnings.simplefilter("ignore")
+Translate.install("en")
 
 n_args = len(sys.argv)
 if n_args == 1:

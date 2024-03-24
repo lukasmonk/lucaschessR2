@@ -50,8 +50,12 @@ class WTrainBMT(LCDialog.LCDialog):
         # Datos ----------------------------------------------------------------
         self.dbf = dbf
         self.recnoActual = self.dbf.recno
+        li_replace = (
+            (b"Code.BMT", b"Code.BestMoveTraining.BMT"),
+            (b"Code.TrainBMT.BMT", b"Code.BestMoveTraining.BMT"),
+        )
         self.bmt_lista = Util.zip2var_change_import(
-            dbf.leeOtroCampo(self.recnoActual, "BMT_LISTA"), b"Code.BMT", b"Code.BestMoveTraining.BMT"
+            dbf.leeOtroCampo(self.recnoActual, "BMT_LISTA"), li_replace
         )
         self.bmt_lista.patch()
         self.bmt_lista.check_color()
@@ -737,11 +741,11 @@ class WTrainBMT(LCDialog.LCDialog):
                 rm = mrm.li_rm[x]
                 w.setVisible(True)
                 w.bt.ponPlano(not rm.siElegida)
-                base_txt = str(rm.nivelBMT + 1)
+                base_txt = ""  # str(rm.nivelBMT + 1)
                 if rm.siElegida:
                     game.set_position(self.position)
                     game.read_pv(rm.pv)
-                    base_txt += " - " + game.move(0).pgn_translated()
+                    base_txt = game.move(0).pgn_translated()
                 w.bt.set_text(base_txt)
             else:
                 w.setVisible(False)

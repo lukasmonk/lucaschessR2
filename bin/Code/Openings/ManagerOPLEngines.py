@@ -31,7 +31,7 @@ class ManagerOpeningEngines(Manager.Manager):
         self.board.saveVisual()
         self.pathFichero = pathFichero
         dbop = OpeningLines.Opening(pathFichero)
-        self.board.dbvisual_set_file(dbop.nom_fichero)
+        self.board.dbvisual_set_file(dbop.path_file)
         self.reinicio(dbop)
 
     def reinicio(self, dbop):

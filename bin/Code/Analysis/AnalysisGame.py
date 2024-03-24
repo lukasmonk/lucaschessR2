@@ -147,15 +147,25 @@ class AnalyzeGame:
         """
         self.rut_dispatch_bp = rut_dispatch_bp
 
-    def save_fns(self, file, fen):
+    def save_brilliancies_fns(self, file, fen, mrm, game: Game.Game, njg):
         """
         Graba cada fen encontrado en el file "file"
         """
         if not file:
             return
 
+        cab = ""
+        for k, v in game.dicTags().items():
+            ku = k.upper()
+            if not (ku in ("RESULT", "FEN")):
+                cab += '[%s "%s"]' % (k, v)
+
+        game_raw = Game.game_raw(game)
+        p = Game.Game(fen=fen)
+        rm = mrm.li_rm[0]
+        p.read_pv(rm.pv)
         with open(file, "at", encoding="utf-8", errors="ignore") as f:
-            f.write("%s\n" % fen)
+            f.write(f"{fen}||{p.pgnBaseRAW()}|{cab} {game_raw.pgnBaseRAWcopy(None, njg - 1)}")
         self.procesador.entrenamientos.menu = None
 
     def graba_tactic(self, game, njg, mrm, pos_act):
@@ -197,8 +207,9 @@ FILESW=%s:100
         p = Game.Game(fen=fen)
         rm = mrm.li_rm[0]
         p.read_pv(rm.pv)
+        game_raw = Game.game_raw(game)
         with open(Util.opj(self.tacticblunders, before), "at", encoding="utf-8", errors="ignore") as f:
-            f.write("%s||%s|%s%s\n" % (fen, p.pgnBaseRAW(), cab, game.pgnBaseRAWcopy(None, njg - 1)))
+            f.write("%s||%s|%s%s\n" % (fen, p.pgnBaseRAW(), cab, game_raw.pgnBaseRAWcopy(None, njg - 1)))
 
         fen = move.position.fen()
         p = Game.Game(fen=fen)
@@ -206,7 +217,7 @@ FILESW=%s:100
         li = rm.pv.split(" ")
         p.read_pv(" ".join(li[1:]))
         with open(Util.opj(self.tacticblunders, after), "at", encoding="utf-8", errors="ignore") as f:
-            f.write("%s||%s|%s%s\n" % (fen, p.pgnBaseRAW(), cab, game.pgnBaseRAWcopy(None, njg)))
+            f.write("%s||%s|%s%s\n" % (fen, p.pgnBaseRAW(), cab, game_raw.pgnBaseRAWcopy(None, njg)))
 
         self.siTacticBlunders = True
 
@@ -377,7 +388,6 @@ FILESW=%s:100
             return
 
         cl_game = Util.huella()
-        txt_game = game.save()
         si_poner_pgn_original_blunders = False
         si_poner_pgn_original_brilliancies = False
 
@@ -506,17 +516,19 @@ FILESW=%s:100
                             si_poner_pgn_original_blunders = True
 
                         if self.bmtblunders:
+                            txt_game = Game.game_raw(game).save()
                             self.save_bmt(True, fen, mrm, pos_act, cl_game, txt_game)
                             self.si_bmt_blunders = True
 
                     if move.is_brilliant():
                         move.add_nag(NAG_3)
-                        self.save_fns(self.fnsbrilliancies, fen)
+                        self.save_brilliancies_fns(self.fnsbrilliancies, fen, mrm, game, pos_current_move)
 
                         if self.save_pgn(self.pgnbrilliancies, mrm.name, game.dicTags(), fen, move, rm, None):
                             si_poner_pgn_original_brilliancies = True
 
                         if self.bmtbrilliancies:
+                            txt_game = Game.game_raw(game).save()
                             self.save_bmt(False, fen, mrm, pos_act, cl_game, txt_game)
                             self.si_bmt_brilliancies = True
 

@@ -223,7 +223,8 @@ class PolyglotImport:
 
             dltmp = ImportarPGNDB(self.wpolyglot, os.path.basename(path_pgn))
             dltmp.show()
-            ok = self.add_pgn(path_pgn, plies, st_results, st_side, li_players, ru.encode(), time.time, 1.2, dltmp.dispatch, fsum)
+            ok = self.add_pgn(path_pgn, plies, st_results, st_side, li_players, ru.encode(), time.time, 1.2,
+                              dltmp.dispatch, fsum)
             dltmp.close()
             if not ok:
                 db.close()
@@ -231,7 +232,9 @@ class PolyglotImport:
 
         self.merge(db, min_games, min_score, calc_weight, save_score, collisions)
 
-    def add_pgn(self, path_pgn, plies, st_results, st_side, li_players, bunknown_convert, ftime, time_dispatch, dispatch, fsum):
+    @staticmethod
+    def add_pgn(path_pgn, plies, st_results, st_side, li_players, bunknown_convert, ftime,
+                time_dispatch, dispatch, fsum):
         time_prev = ftime()
         cancelled = False
         bfen_inicial = FEN_INITIAL.encode()
@@ -273,7 +276,6 @@ class PolyglotImport:
                     ok_black = test_players(li_players, black)
                 else:
                     ok_black = ok_white = True
-
 
                 if b"FEN" in bdCab:
                     bfen0 = bdCab[b"FEN"]
@@ -337,14 +339,14 @@ class ImportarPGNDB(QtWidgets.QDialog):
 
         self.bt_cancelar = Controles.PB(self, _("Cancel"), self.cancelar, plano=False).ponIcono(Iconos.Delete())
 
-        lyBT = Colocacion.H().relleno().control(self.bt_cancelar)
+        ly_bt = Colocacion.H().relleno().control(self.bt_cancelar)
 
         layout = Colocacion.V()
         layout.control(self.lbgames_readed)
         layout.control(self.bp)
         layout.control(self.lb_previsto)
         layout.espacio(20)
-        layout.otro(lyBT)
+        layout.otro(ly_bt)
 
         self.setLayout(layout)
 
@@ -423,17 +425,17 @@ def fuente_dbbig(db, min_games, min_score, calc_weight, save_score):
                 dic_act[imove] = (num // factor, suma // factor)
         return True
 
-    def dic_entry(key, dic_act):
+    def dic_entry(xkey, dic_act):
         d = {}
-        for imove, (num, sum) in dic_act.items():
+        for imove, (num, xsum) in dic_act.items():
             e = FasterCode.Entry()
-            e.key = key
+            e.key = xkey
             e.move = imove
-            score = (sum / num) / 2.0 if num > 0.0 else 0.0
+            score = (xsum / num) / 2.0 if num > 0.0 else 0.0
             if calc_weight == CALCWEIGHT_NUMGAMES:
                 e.weight = num
             elif calc_weight == CALCWEIGHT_NUMGAMES_SCORE:
-                e.weight = int(sum * score)
+                e.weight = int(xsum * score)
             else:
                 e.weight = int(score * 10_000)
             if save_score:

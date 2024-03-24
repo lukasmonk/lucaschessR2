@@ -22,24 +22,24 @@ class WBDatabase(LCDialog.LCDialog):
 
         self.reiniciar = False  # lo usamos para cambiar de database
 
-        self.dbGames = DBgames.DBgames(file_database)
+        self.db_games = DBgames.DBgames(file_database)
 
         self.dicvideo = self.restore_dicvideo()
         dicVideo = self.dicvideo
 
         siSummary = not si_select
 
-        self.wplayer = WDB_Players.WPlayer(procesador, self, self.dbGames)
+        self.wplayer = WDB_Players.WPlayer(procesador, self, self.db_games)
         self.wplayer_active = False
 
         if siSummary:
-            self.wsummary = WDB_Summary.WSummary(procesador, self, self.dbGames, siMoves=False)
+            self.wsummary = WDB_Summary.WSummary(procesador, self, self.db_games, siMoves=False)
             self.register_grid(self.wsummary.grid)
 
         else:
             self.wsummary = None
 
-        self.wgames = WDB_Games.WGames(self, self.dbGames, self.wsummary, si_select)
+        self.wgames = WDB_Games.WGames(self, self.db_games, self.wsummary, si_select)
 
         self.ultFocus = None
 
@@ -83,7 +83,7 @@ class WBDatabase(LCDialog.LCDialog):
             sz = dicVideo["SPLITTER"]
         self.splitter.setSizes(sz)
 
-        dic_grid = self.dbGames.read_config("dic_grid")
+        dic_grid = self.db_games.read_config("dic_grid")
         if not dic_grid:
             key = "databases_columns_default"
             dic_grid = self.configuration.read_variables(key)
@@ -106,14 +106,14 @@ class WBDatabase(LCDialog.LCDialog):
 
     def tw_aceptar(self):
         self.game, recno = self.wgames.current_game()
-        self.dbGames.close()
+        self.db_games.close()
         if self.game is not None:
             self.accept()
         else:
             self.reject()
 
     def tw_cancelar(self):
-        self.dbGames.close()
+        self.db_games.close()
         self.game = None
         self.reject()
 
@@ -143,14 +143,14 @@ class WBDatabase(LCDialog.LCDialog):
             self.wsummary.gridActualiza()
 
     def inicializa(self):
-        self.setWindowTitle(self.dbGames.label())
-        self.wgames.setdbGames(self.dbGames)
+        self.setWindowTitle(self.db_games.label())
+        self.wgames.setdbGames(self.db_games)
         self.wgames.setInfoMove(self.infoMove)
         self.wplayer.setInfoMove(self.infoMove)
-        self.wplayer.setdbGames(self.dbGames)
+        self.wplayer.setdbGames(self.db_games)
         if self.wsummary:
             self.wsummary.setInfoMove(self.infoMove)
-            self.wsummary.setdbGames(self.dbGames)
+            self.wsummary.setdbGames(self.db_games)
             self.wsummary.actualizaPV("")
         self.wgames.actualiza(True)
         if self.is_temporary:
@@ -163,16 +163,16 @@ class WBDatabase(LCDialog.LCDialog):
 
         dic = {}
         self.wgames.grid.save_video(dic)
-        self.dbGames.save_config("dic_grid", dic)
+        self.db_games.save_config("dic_grid", dic)
 
     def reinit(self):
         self.salvar()
-        self.dbGames.close()
+        self.db_games.close()
         self.reiniciar = True
         self.accept()
 
     def reinit_sinsalvar(self, must_close=True):
         if must_close:
-            self.dbGames.close()
+            self.db_games.close()
         self.reiniciar = True
         self.accept()

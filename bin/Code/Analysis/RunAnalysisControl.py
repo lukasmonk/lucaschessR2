@@ -91,7 +91,7 @@ class IPCAnalysis:
 
 class AnalysisMassiveWithWorkers:
     def __init__(self, wowner, alm, nregs, li_seleccionadas):
-        self.dbGames = wowner.dbGames
+        self.db_games = wowner.db_games
         self.grid = wowner.grid
         self.wowner = wowner
         self.li_seleccionadas = li_seleccionadas
@@ -132,7 +132,7 @@ class AnalysisMassiveWithWorkers:
         else:
             recno = self.pos_reg
 
-        game = self.dbGames.read_game_recno(recno)
+        game = self.db_games.read_game_recno(recno)
         self.li_workers[num_worker].send_game(game, recno)
         return True
 
@@ -170,7 +170,7 @@ class AnalysisMassiveWithWorkers:
 
                 game = order.get("GAME")
                 recno = order.get("RECNO")
-                self.dbGames.save_game_recno(recno, game)
+                self.db_games.save_game_recno(recno, game)
                 self.num_games_analyzed += 1
                 self.window.set_pos(self.num_games_analyzed)
 

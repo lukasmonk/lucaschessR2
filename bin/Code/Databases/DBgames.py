@@ -43,9 +43,9 @@ class DBgames:
             self.external_folder = os.path.dirname(path_db)
         else:
             self.external_folder = ""
-        self.nom_fichero = os.path.abspath(path_db)
+        self.path_file = os.path.abspath(path_db)
 
-        self.conexion = sqlite3.connect(self.nom_fichero)
+        self.conexion = sqlite3.connect(self.path_file)
         self.conexion.row_factory = sqlite3.Row
         self.order = None
         self.filter = None
@@ -64,13 +64,13 @@ class DBgames:
         summary_depth = self.read_config("SUMMARY_DEPTH", 0)
         self.with_db_stat = summary_depth > 0
         if self.with_db_stat:
-            self.db_stat = DBgamesST.TreeSTAT(self.nom_fichero + ".st1", summary_depth)
+            self.db_stat = DBgamesST.TreeSTAT(self.path_file + ".st1", summary_depth)
         else:
             self.db_stat = None
 
         self.li_row_ids = []
 
-        self.rowidReader = UtilSQL.RowidReader(self.nom_fichero, "Games")
+        self.rowidReader = UtilSQL.RowidReader(self.path_file, "Games")
 
         self.with_plycount = "PLYCOUNT" in self.read_config("dcabs", {})
 
@@ -114,7 +114,7 @@ class DBgames:
         self.conexion.execute("VACUUM")
 
     def get_name(self):
-        basename = os.path.basename(self.nom_fichero)
+        basename = os.path.basename(self.path_file)
         p = basename.rindex(".")
         return basename[:p]
 
@@ -142,13 +142,13 @@ class DBgames:
         self.cache = {}
 
     def save_config(self, key, valor):
-        with UtilSQL.DictRawSQL(self.nom_fichero, "Config") as dbconf:
+        with UtilSQL.DictRawSQL(self.path_file, "Config") as dbconf:
             dbconf[key] = valor
             if key == "dcabs":
                 self.with_plycount = "PLYCOUNT" in self.read_config("dcabs", {})
 
     def read_config(self, key, default=None):
-        with UtilSQL.DictRawSQL(self.nom_fichero, "Config") as dbconf:
+        with UtilSQL.DictRawSQL(self.path_file, "Config") as dbconf:
             return dbconf.get(key, default)
 
     def addcache(self, rowid, reg):
@@ -297,10 +297,10 @@ class DBgames:
             self.rowidReader = None
 
     def label(self):
-        if Util.same_path(self.nom_fichero, self.link_file):
-            return Code.relative_root(self.nom_fichero)
+        if Util.same_path(self.path_file, self.link_file):
+            return Code.relative_root(self.path_file)
         else:
-            return "%s (%s)" % (Code.relative_root(self.nom_fichero), Code.relative_root(self.link_file))
+            return "%s (%s)" % (Code.relative_root(self.path_file), Code.relative_root(self.link_file))
 
     def depth_stat(self):
         return self.db_stat.depth if self.with_db_stat else 0
@@ -380,7 +380,7 @@ class DBgames:
 
         if not self.with_db_stat:
             self.with_db_stat = True
-            self.db_stat = DBgamesST.TreeSTAT(self.nom_fichero + ".st1", depth)
+            self.db_stat = DBgamesST.TreeSTAT(self.path_file + ".st1", depth)
 
         self.save_config("SUMMARY_DEPTH", depth)
         self.db_stat.depth = depth
@@ -446,8 +446,30 @@ class DBgames:
                     pgn = Game.pv_pgn_raw(fen, pv) if pv else ""
                     yield fen, pgn
 
-    def yield_data(self, liFields, filtro):
-        select = ",".join(liFields)
+    def yield_allfens(self, after_rowid=0):
+        sql = "SELECT ROWID, XPV FROM Games"
+        if after_rowid:
+            sql += f" WHERE ROWID > {after_rowid}"
+        cursor = self.conexion.execute(sql)
+        while True:
+            row = cursor.fetchone()
+            if not row:
+                break
+            rowid, xpv = row
+            if xpv.count("|") == 2:
+                nada, fen, xpv = row[0].split("|")
+                yield rowid, fen, -1
+            else:
+                fen = FEN_INITIAL
+            set_fen(fen)
+            li_pv = FasterCode.xpv_pv(xpv).split(" ")
+            for pos, pv in enumerate(li_pv):
+                make_move(pv)
+                fen = get_fen()
+                yield rowid, fen, pos, " ".join(li_pv[:pos+1])
+
+    def yield_data(self, li_fields, filtro):
+        select = ",".join(li_fields)
         sql = "SELECT %s FROM Games" % (select,)
         if self.filter:
             sql += " WHERE %s" % self.filter
@@ -462,7 +484,7 @@ class DBgames:
             raw = cursor.fetchone()
             if raw:
                 alm = Util.Record()
-                for campo in liFields:
+                for campo in li_fields:
                     setattr(alm, campo, raw[campo])
                 yield alm
             else:
@@ -1086,6 +1108,33 @@ class DBgames:
 
     def has_field(self, field):
         return field.upper() in self.st_fields
+
+    def lastrowid(self):
+        cursor = self.conexion.execute("SELECT MAX(ROWID) FROM GAMES;")
+        row = cursor.fetchone()
+        return row[0] if row else 0
+
+    def count_greater_rowid(self, rowid):
+        cursor = self.conexion.execute("SELECT count(ROWID) FROM GAMES WHERE ROWID > ?;", (rowid,))
+        row = cursor.fetchone()
+        return row[0] if row else 0
+
+    def filter_positions(self, li_seq, li_rowids):
+        li = []
+        if li_seq:
+            for pv in li_seq:
+                xpv = pv_xpv(pv)
+                li.append('XPV LIKE "%s%%"' % xpv)
+
+        if li_rowids:
+            for rowid in li_rowids:
+                li.append(f'ROWID = {rowid}')
+
+        condicion = "(%s)" % (" OR ".join(li),)
+        self.filter = condicion
+
+        self.li_row_ids = []
+        self.rowidReader.run(self.li_row_ids, condicion, self.order)
 
 
 def get_random_game():

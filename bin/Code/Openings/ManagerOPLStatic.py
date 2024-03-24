@@ -29,7 +29,7 @@ class ManagerOpeningLinesStatic(ManagerOPL.ManagerOpeningLines):
 
         self.pathFichero = pathFichero
         dbop = OpeningLines.Opening(pathFichero)
-        self.board.dbvisual_set_file(dbop.nom_fichero)
+        self.board.dbvisual_set_file(dbop.path_file)
         self.reinicio(dbop, modo, num_linea)
 
     def reinicio(self, dbop, modo, num_linea):

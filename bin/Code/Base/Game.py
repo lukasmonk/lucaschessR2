@@ -390,16 +390,16 @@ class Game:
         self.restore(txt)
 
     def si3repetidas(self):
-        nJug = len(self.li_moves)
-        if nJug > 5:
-            fenBase = self.li_moves[nJug - 1].fenBase()
-            liRep = [nJug - 1]
-            for n in range(nJug - 1):
-                if self.li_moves[n].fenBase() == fenBase:
-                    liRep.append(n)
-                    if len(liRep) == 3:
+        n_jug = len(self.li_moves)
+        if n_jug > 5:
+            fen_base = self.li_moves[n_jug - 1].fenBase()
+            li_rep = [n_jug - 1]
+            for n in range(n_jug - 1):
+                if self.li_moves[n].fenBase() == fen_base:
+                    li_rep.append(n)
+                    if len(li_rep) == 3:
                         label = ""
-                        for j in liRep:
+                        for j in li_rep:
                             label += "%d," % (j / 2 + 1,)
                         label = label.strip(",")
                         self.rotuloTablasRepeticion = label
@@ -427,14 +427,14 @@ class Game:
             else:
                 break
 
-        siB = self.is_white
+        is_white = self.is_white
 
         for mov in pv:
             from_sq = mov[:2]
             to_sq = mov[2:4]
             if len(mov) == 5:
                 promotion = mov[4]
-                if siB:
+                if is_white:
                     promotion = promotion.upper()
             else:
                 promotion = ""
@@ -442,7 +442,7 @@ class Game:
             if ok:
                 self.li_moves.append(move)
                 position = move.position
-            siB = not siB
+            is_white = not is_white
         return self
 
     def damePosicion(self, pos):
@@ -528,7 +528,7 @@ class Game:
     def set_first_comment(self, txt, siReplace=False):
         if siReplace or not self.first_comment:
             self.first_comment = txt
-        else:
+        elif txt not in self.first_comment:
             self.first_comment = "%s\n%s" % (self.first_comment.strip(), txt)
 
     def pgn_jg(self, move):
@@ -776,19 +776,13 @@ class Game:
                         if material < 15:
                             std = ENDGAME
                         else:
-                            pzW, pzB = move.position_before.numPiezasWB()
-                            if pzW < 3 and pzB < 3:
+                            pz_w, pz_b = move.position_before.numPiezasWB()
+                            if pz_w < 3 and pz_b < 3:
                                 std = ENDGAME
                 move.stateOME = std
                 last = std
                 move.calc_elo()
                 elo_factor = move.factor_elo()
-                # if move.bad_move:
-                #     elo_factor = Code.configuration.eval_mistake_factor
-                # elif move.verybad_move:
-                #     elo_factor = Code.configuration.eval_blunder_factor
-                # elif move.questionable_move:
-                #     elo_factor = Code.configuration.eval_inaccuracy_factor
                 nummoves[std] += 1
                 sumelos[std] += move.elo * elo_factor
                 factormoves[std] += elo_factor
@@ -1032,7 +1026,13 @@ class Game:
             if themes:
                 move.del_themes()
 
-        
+    def has_analisis(self):
+        num = 0
+        for move in self.li_moves:
+            if move.analysis:
+                num += 1
+        return num > 3
+
 
 def pv_san(fen, pv):
     p = Game(fen=fen)
@@ -1183,15 +1183,15 @@ def fen_game(fen, variation):
 
 def read_games(pgnfile):
     with Util.OpenCodec(pgnfile) as f:
-        siBCab = True
+        si_b_cab = True
         lineas = []
         nbytes = 0
         last_line = ""
         for linea in f:
             nbytes += len(linea)
-            if siBCab:
+            if si_b_cab:
                 if linea and linea[0] != "[":
-                    siBCab = False
+                    si_b_cab = False
             else:
                 if last_line == "" and linea.startswith("["):
                     ln = linea.strip()
@@ -1201,7 +1201,7 @@ def read_games(pgnfile):
                             ok, p = pgn_game("".join(lineas))
                             yield nbytes, p
                             lineas = []
-                            siBCab = True
+                            si_b_cab = True
             lineas.append(linea)
             last_line = linea.strip()
         if lineas:
@@ -1308,3 +1308,9 @@ def calc_formula_elo(move):  # , limit=200.0):
         return min(3500, x if x > 0 else 0)
     except:
         return 0.0
+
+
+def game_raw(game: Game):
+    graw = Game(first_position=game.first_position)
+    graw.read_pv(game.pv())
+    return graw

@@ -678,7 +678,7 @@ class WorkMap:
         self.db.saveWork(self)
         if si_end:
             mensaje = _("Congratulations, goal achieved") + "<br><br>" + _("Finished") + ": " + self.name_map()
-            QTUtil2.message_result(window, mensaje)
+            QTUtil2.message_result_win(window, mensaje)
         return si_end
 
     def calcINFO(self):

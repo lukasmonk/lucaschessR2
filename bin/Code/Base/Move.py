@@ -314,10 +314,10 @@ class Move:
     def calc_elo(self):
         if self.analysis:
             mrm, pos = self.analysis
-            rm_j = mrm.li_rm[0]
-            rm_c = mrm.li_rm[pos]
+            rm_best = mrm.li_rm[0]
+            rm_player = mrm.li_rm[pos]
             self.elo, self.questionable_move, self.bad_move, self.verybad_move = Code.analysis_eval.elo_bad_vbad(
-                rm_j, rm_c
+                rm_best, rm_player
             )
 
         else:

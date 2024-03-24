@@ -1468,7 +1468,6 @@ class Manager:
             self.configuration.graba()
 
     def utilities(self, li_extra_options=None, with_tree=True):
-
         menu = QTVarios.LCMenu(self.main_window)
 
         si_jugadas = len(self.game) > 0
@@ -1537,16 +1536,14 @@ class Manager:
             if not (self.game_type in (
                     GT_ELO, GT_MICELO, GT_WICKER) and self.is_competitive and self.state == ST_PLAYING):
                 menu.separador()
-                n_analisis = 0
-                for move in self.game.li_moves:
-                    if move.analysis:
-                        n_analisis += 1
-                if n_analisis > 4:
+
+                has_analysis = self.game.has_analisis()
+                if has_analysis:
                     submenu = menu.submenu(_("Analysis"), Iconos.Analizar())
                 else:
                     submenu = menu
                 submenu.opcion("analizar", _("Analyze"), Iconos.Analizar())
-                if n_analisis > 4:
+                if has_analysis:
                     submenu.separador()
                     submenu.opcion("analizar_grafico", _("Show graphics"), Iconos.Estadisticas())
                 menu.separador()
@@ -1754,7 +1751,7 @@ class Manager:
         resp = db.insert(pc)
         db.close()
         if resp:
-            QTUtil2.message_bold(self.main_window, _("Saved") + ": " + db.nom_fichero)
+            QTUtil2.message_bold(self.main_window, _("Saved") + ": " + db.path_file)
         else:
             QTUtil2.message_error(self.main_window, _("This game already exists."))
 
@@ -1842,7 +1839,7 @@ class Manager:
 
         else:
             QTUtil.ponPortapapeles(dato)
-            QTUtil2.message(self.main_window, _("FEN is in clipboard"))
+            QTVarios.fen_is_in_clipboard(self.main_window)
 
     def arbol(self):
         row, column = self.main_window.pgnPosActual()

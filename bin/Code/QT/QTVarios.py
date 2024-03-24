@@ -1231,3 +1231,6 @@ def launch_workers(wowner):
 
     return resp
 
+
+def fen_is_in_clipboard(window):
+    QTUtil2.temporary_message(window, _("FEN is in clipboard"), 1.2)

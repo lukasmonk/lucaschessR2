@@ -16,12 +16,12 @@ from Code.QT import QTVarios
 
 
 class WSummary(QtWidgets.QWidget):
-    def __init__(self, procesador, wb_database, dbGames, siMoves=True):
+    def __init__(self, procesador, wb_database, db_games, siMoves=True):
         QtWidgets.QWidget.__init__(self)
 
         self.wb_database = wb_database
 
-        self.dbGames = dbGames  # <--setdbGames
+        self.db_games = db_games  # <--setdbGames
         self.infoMove = None  # <-- setInfoMove
         self.wmoves = None  # <-- setwmoves
         self.liMoves = []
@@ -143,8 +143,8 @@ class WSummary(QtWidgets.QWidget):
         self.liMoves = li
         self.grid.refresh()
 
-    def setdbGames(self, dbGames):
-        self.dbGames = dbGames
+    def setdbGames(self, db_games):
+        self.db_games = db_games
 
     def focusInEvent(self, event):
         self.wb_database.ultFocus = self
@@ -274,7 +274,7 @@ class WSummary(QtWidgets.QWidget):
                 self.cambiaInfoMove()
 
     def reindexar(self):
-        return self.reindexar_question(self.dbGames.depth_stat(), True)
+        return self.reindexar_question(self.db_games.depth_stat(), True)
 
     def reindexar_question(self, depth, question):
         if question or self.wb_database.is_temporary:
@@ -286,7 +286,7 @@ class WSummary(QtWidgets.QWidget):
             li_gen.append((None, None))
 
             config = FormLayout.Spinbox(_("Depth"), 0, 999, 50)
-            li_gen.append((config, self.dbGames.depth_stat()))
+            li_gen.append((config, self.db_games.depth_stat()))
 
             resultado = FormLayout.fedit(li_gen, title=_("Rebuild"), parent=self, icon=Iconos.Reindexar())
             if resultado is None:
@@ -308,7 +308,7 @@ class WSummary(QtWidgets.QWidget):
             bpTmp.pon(recno)
             return not bpTmp.is_canceled()
 
-        self.dbGames.rebuild_stat(dispatch, depth)
+        self.db_games.rebuild_stat(dispatch, depth)
         bpTmp.cerrar()
         self.start()
 
@@ -357,7 +357,7 @@ class WSummary(QtWidgets.QWidget):
         if analisisMRM:
             for rm in analisisMRM.li_rm:
                 dic_analisis[rm.movimiento()] = rm
-        self.liMoves = self.dbGames.get_summary(pvMirar, dic_analisis, self.with_figurines, self.allmoves)
+        self.liMoves = self.db_games.get_summary(pvMirar, dic_analisis, self.with_figurines, self.allmoves)
 
         self.grid.refresh()
         self.grid.gotop()

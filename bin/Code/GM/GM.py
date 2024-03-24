@@ -188,7 +188,8 @@ class GM:
         li_regs = []
         for num, part in enumerate(self.li_gm_games):
             dic = dict(
-                NOMBRE=part.oponent, FECHA=part.date, ECO=part.opening, RESULT=part.result, NUMBER=num, EVENT=part.event
+                NOMBRE=part.oponent, FECHA=part.date, ECO=part.opening, RESULT=part.result, NUMBER=num,
+                EVENT=part.event, NUMMOVES=f"{len(part.li_pv):3d}"
             )
             li_regs.append(dic)
         return li_regs

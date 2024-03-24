@@ -139,7 +139,7 @@ class ManagerEverest(Manager.Manager):
             licoment.append(_("You must repeat the game"))
         if licoment:
             comment = "\n".join(licoment)
-            QTUtil2.message_result(self.main_window, comment)
+            QTUtil2.message_information(self.main_window, comment)
         return change_game
 
     def analyze_begin(self):
@@ -252,7 +252,7 @@ class ManagerEverest(Manager.Manager):
                         jg_usu.pgn_translated(),
                         bmove,
                     )
-                    QTUtil2.message_result(self.main_window, comment)
+                    QTUtil2.message_information(self.main_window, comment)
                 si_analiza_juez = False
             else:
                 si_analiza_juez = True

@@ -7,6 +7,7 @@ from Code.Base.Constantes import TOP_RIGHT
 from Code.Engines import EngineResponse
 from Code.QT import QTUtil
 from Code.QT import QTUtil2
+from Code.QT import QTVarios
 
 
 class ControlAnalysis:
@@ -278,7 +279,6 @@ def show_analysis(procesador, xtutor, move, is_white, pos_move, main_window=None
     if not tab_analysis0:
         return
     wa = WindowAnalysis.WAnalisis(ma, main_window, is_white, must_save, tab_analysis0, subanalysis=subanalysis)
-    # wa.show()
     if subanalysis:
         wa.show()
     else:
@@ -408,7 +408,7 @@ class AnalisisVariations:
             elif accion == "MoverFEN":
                 move = self.game_analyzer.move(self.pos_analyzer)
                 QTUtil.ponPortapapeles(move.position.fen())
-                QTUtil2.message_bold(self.w, _("FEN is in clipboard"))
+                QTVarios.fen_is_in_clipboard(self.w)
 
     def moving_analyzer(self, si_inicio=False, n_saltar=0, si_final=False, is_base=False):
         if n_saltar:

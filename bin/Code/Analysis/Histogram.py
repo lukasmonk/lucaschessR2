@@ -1,5 +1,5 @@
-import os
 import math
+import os
 
 from PySide2 import QtCore, QtGui, QtWidgets
 

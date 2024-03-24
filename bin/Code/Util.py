@@ -252,19 +252,19 @@ def zip2var(blob):
         return None
 
 
-def zip2var_change_import(blob, replace_from, replace_to):
+def zip2var_change_import(blob, li_replace):
     if blob is None:
         return None
     try:
         varp = zlib.decompress(blob)
     except:
         return None
-
     try:
         return pickle.loads(varp)
     except:
         try:
-            varp = varp.replace(replace_from, replace_to)
+            for replace_from, replace_to in li_replace:
+                varp = varp.replace(replace_from, replace_to)
             return pickle.loads(varp)
         except:
             return None
@@ -756,3 +756,17 @@ def cpu_count():
 
 def opj(*elem) -> str:
     return str(os.path.join(*elem))
+
+
+def fen_fen64(fen):
+    fen = fen.split(" ")[0]
+    li = []
+    for line in fen.split("/"):
+        ln = []
+        for c in line:
+            if c.isdigit():
+                ln.append(" " * int(c))
+            else:
+                ln.append(c)
+        li.append("".join(ln))
+    return "".join(li)

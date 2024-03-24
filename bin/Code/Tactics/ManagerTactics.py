@@ -199,7 +199,7 @@ class ManagerTactics(Manager.Manager):
             if self.state == ST_ENDGAME:
                 self.ent_siguiente()
 
-    def listHelpTeclado(self):
+    def list_help_keyboard(self):
         return [("+/%s" % _("Page Down"), _("Next position")), ("T", _("Save position in 'Selected positions' file"))]
 
     def ent_siguiente(self):

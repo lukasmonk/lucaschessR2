@@ -1,4 +1,5 @@
 import os
+
 from PySide2 import QtCore
 
 import Code
@@ -76,7 +77,7 @@ def options(parent, configuration):
     drap_v = {}
     for x in drap:
         drap_v[drap[x]] = x
-    form.dial(
+    form.slider(
         "%s (%s=1)" % (_("Speed"), _("By default")),
         1,
         len(drap),
@@ -95,8 +96,9 @@ def options(parent, configuration):
     form.combobox(_("Key for copying the FEN to clipboard"), li_copy, configuration.x_copy_ctrl)
     li_wheel = [(_("Forward"), GO_FORWARD), (_("Backward"), GO_BACK)]
     form.combobox(_("Scroll direction with the mouse wheel"), li_wheel, configuration.x_wheel_board)
-
     form.checkbox(_("Always promote to queen\nALT key allows to change"), configuration.x_autopromotion_q)
+    form.slider(_("Margin of pieces in square") + ':<br><small>%s 10</small>' % _("By default"), 0, 20,
+                Code.configuration.x_margin_pieces, siporc=False)
     form.separador()
 
     form.checkbox(_("Show cursor when engine is thinking"), configuration.x_cursor_thinking)
@@ -290,6 +292,7 @@ def options(parent, configuration):
             configuration.x_copy_ctrl,
             configuration.x_wheel_board,
             configuration.x_autopromotion_q,
+            configuration.x_margin_pieces,
             configuration.x_cursor_thinking,
             dboard,
             toolIcon,
@@ -303,26 +306,26 @@ def options(parent, configuration):
             if dboard:
                 if dboard == "DGT":
                     if not QTUtil2.pregunta(
-                        parent,
-                        "%s<br><br>%s %s"
-                        % (
-                            _("Are you sure %s is the correct driver ?") % dboard,
-                            _("WARNING: selecting the wrong driver might cause damage to your board."),
-                            _("Proceed at your own risk."),
-                        ),
+                            parent,
+                            "%s<br><br>%s %s"
+                            % (
+                                    _("Are you sure %s is the correct driver ?") % dboard,
+                                    _("WARNING: selecting the wrong driver might cause damage to your board."),
+                                    _("Proceed at your own risk."),
+                            ),
                     ):
                         dboard = ""
                 else:
                     if not QTUtil2.pregunta(
-                        parent,
-                        "%s<br><br>%s %s<br><br>%s<br>%s"
-                        % (
-                            _("Are you sure %s is the correct driver ?") % dboard,
-                            _("WARNING: selecting the wrong driver might cause damage to your board."),
-                            _("Proceed at your own risk."),
-                            _("Please read the driver's user manual at:"),
-                            "\u00A0\u00A0\u00A0\u00A0\u00A0 https://goneill.co.nz/chess#eboard",
-                        ),
+                            parent,
+                            "%s<br><br>%s %s<br><br>%s<br>%s"
+                            % (
+                                    _("Are you sure %s is the correct driver ?") % dboard,
+                                    _("WARNING: selecting the wrong driver might cause damage to your board."),
+                                    _("Proceed at your own risk."),
+                                    _("Please read the driver's user manual at:"),
+                                    "\u00A0\u00A0\u00A0\u00A0\u00A0 https://goneill.co.nz/chess#eboard",
+                            ),
                     ):
                         dboard = ""
             configuration.x_digital_board = dboard

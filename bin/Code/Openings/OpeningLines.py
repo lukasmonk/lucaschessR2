@@ -237,10 +237,10 @@ class ListaOpenings:
 
 
 class Opening:
-    def __init__(self, nom_fichero):
-        self.nom_fichero = nom_fichero
+    def __init__(self, path_file):
+        self.path_file = path_file
 
-        self._conexion = sqlite3.connect(nom_fichero)
+        self._conexion = sqlite3.connect(path_file)
 
         self.cache = {}
         self.max_cache = 1000
@@ -257,13 +257,13 @@ class Opening:
         self.db_history_base = None
         self.db_cache_engines = None
         self.basePV = self.getconfig("BASEPV", "")
-        self.title = self.getconfig("TITLE", os.path.basename(nom_fichero)[:-4])
+        self.title = self.getconfig("TITLE", os.path.basename(path_file)[:-4])
 
         # Check visual
-        if not UtilSQL.check_table_in_db(nom_fichero, "Flechas"):
+        if not UtilSQL.check_table_in_db(path_file, "Flechas"):
             file_resources = Code.configuration.ficheroRecursos
             for tabla in ("Config", "Flechas", "Marcos", "SVGs", "Markers"):
-                dbr = UtilSQL.DictSQL(nom_fichero, tabla=tabla)
+                dbr = UtilSQL.DictSQL(path_file, tabla=tabla)
                 dbv = UtilSQL.DictSQL(file_resources, tabla=tabla)
                 dbr.copy_from(dbv)
                 dbr.close()
@@ -274,24 +274,24 @@ class Opening:
     @property
     def db_config(self):
         if self.db_config_base is None:
-            self.db_config_base = UtilSQL.DictSQL(self.nom_fichero, tabla="CONFIG")
+            self.db_config_base = UtilSQL.DictSQL(self.path_file, tabla="CONFIG")
         return self.db_config_base
 
     @property
     def db_fenvalues(self):
         if self.db_fenvalues_base is None:
-            self.db_fenvalues_base = UtilSQL.DictSQL(self.nom_fichero, tabla="FENVALUES")
+            self.db_fenvalues_base = UtilSQL.DictSQL(self.path_file, tabla="FENVALUES")
         return self.db_fenvalues_base
 
     @property
     def db_history(self):
         if self.db_history_base is None:
-            self.db_history_base = UtilSQL.DictSQL(self.nom_fichero, tabla="HISTORY")
+            self.db_history_base = UtilSQL.DictSQL(self.path_file, tabla="HISTORY")
         return self.db_history_base
 
     def open_cache_engines(self):
         if self.db_cache_engines is None:
-            self.db_cache_engines = UtilSQL.DictSQL(self.nom_fichero, tabla="CACHE_ENGINES")
+            self.db_cache_engines = UtilSQL.DictSQL(self.path_file, tabla="CACHE_ENGINES")
 
     def get_cache_engines(self, engine, ms, fenm2, depth=None):
         if depth:
@@ -352,7 +352,7 @@ class Opening:
 
     def get_others(self, configuration, game):
         liOp = ListaOpenings(configuration)
-        fich = os.path.basename(self.nom_fichero)
+        fich = os.path.basename(self.path_file)
         pvbase = game.pv()
         liOp = [
             (dic["file"], dic["title"])
@@ -563,7 +563,7 @@ class Opening:
         self.setconfig("ULT_PACK", 100)  # Se le obliga al VACUUM
 
         lo = ListaOpenings(procesador.configuration)
-        lo.add_training_file(os.path.basename(self.nom_fichero))
+        lo.add_training_file(os.path.basename(self.path_file))
 
     def createTrainingEngines(self, reg, procesador):
         self.preparaTrainingEngines(procesador.configuration, reg)
@@ -574,7 +574,7 @@ class Opening:
         self.setconfig("ENG_ENGINE", 0)
 
         lo = ListaOpenings(procesador.configuration)
-        lo.add_training_engines_file(os.path.basename(self.nom_fichero))
+        lo.add_training_engines_file(os.path.basename(self.path_file))
         self.reinit_cache_engines()
 
     def withTrainings(self):
@@ -1237,8 +1237,8 @@ class Opening:
         self.guardaLiXPV("%s,%s" % (_("Other opening lines"), otra.title), lista)
         self.db_fenvalues.copy_from(otra.db_fenvalues)
         for tabla in ("FEN", "Flechas", "Marcos", "SVGs", "Markers"):
-            dbr = UtilSQL.DictSQL(self.nom_fichero, tabla=tabla)
-            dbv = UtilSQL.DictSQL(otra.nom_fichero, tabla=tabla)
+            dbr = UtilSQL.DictSQL(self.path_file, tabla=tabla)
+            dbv = UtilSQL.DictSQL(otra.path_file, tabla=tabla)
             dbr.copy_from(dbv)
             dbr.close()
             dbv.close()
@@ -1301,10 +1301,26 @@ class Opening:
         ws.pb_close()
 
     def exportar_pgn_one(self, ws, nline, pos_move, result):
-        total = len(self)
-        ws.pb(total)
 
+        # Removing the lines with not begining
         lilipv = [FasterCode.xpv_pv(xpv).split(" ") for xpv in self.li_xpv]
+        base_lipv = lilipv[nline]
+        new_lilipv = []
+        for pos_line, lipv in enumerate(lilipv):
+            if pos_line == nline:
+                continue
+            if len(lipv) < pos_move + 1:
+                continue
+            ok = True
+            for pos in range(pos_move):
+                if lipv[pos] != base_lipv[pos]:
+                    ok = False
+                    break
+            if ok:
+                new_lilipv.append(lipv)
+        lilipv = new_lilipv
+        total = len(lilipv)
+        ws.pb(total)
 
         def game_add_lipv(xgame: Game.Game, xli_pv):
             xmove: Move.Move
@@ -1342,31 +1358,30 @@ class Opening:
                 for variation in xmove.variations.li_variations:
                     add_coments(variation)
 
-        game_main = self[nline]
-        if game_main:
-            for recno in range(total):
-                if recno == nline:
-                    continue
-                ws.pb_pos(recno + 1)
-                if ws.pb_cancel():
-                    return False
+        game_main = Game.Game()
+        game_main.read_pv(" ".join(base_lipv))
 
-                li_pv = lilipv[recno]
+        for recno in range(total):
+            ws.pb_pos(recno + 1)
+            if ws.pb_cancel():
+                return False
 
-                game_add_lipv(game_main, li_pv)
+            li_pv = lilipv[recno]
 
-            add_coments(game_main)
+            game_add_lipv(game_main, li_pv)
 
-            game_main.set_tag("Site", Code.lucas_chess)
-            game_main.set_tag("Event", self.title)
-            if result:
-                game_main.set_tag("Result", result)
+        add_coments(game_main)
 
-            if not ws.is_new:
-                ws.write("\n\n")
-            tags = "".join(['[%s "%s"]\n' % (k, v) for k, v in game_main.li_tags])
-            ws.write(tags)
-            ws.write("\n%s" % game_main.pgn_base())
+        game_main.set_tag("Site", Code.lucas_chess)
+        game_main.set_tag("Event", self.title)
+        if result:
+            game_main.set_tag("Result", result)
+
+        if not ws.is_new:
+            ws.write("\n\n")
+        tags = "".join(['[%s "%s"]\n' % (k, v) for k, v in game_main.li_tags])
+        ws.write(tags)
+        ws.write("\n%s" % game_main.pgn_base())
 
         ws.pb_close()
 

@@ -752,7 +752,7 @@ class SelectGame(LCDialog.LCDialog):
         name = dgm.get(ogm.gm, ogm.gm)
         titulo = "%s - %s" % (_("One game"), name)
         icono = Iconos.Uno()
-        extparam = "gm1g"
+        extparam = "gm1g_1"
         LCDialog.LCDialog.__init__(self, wgm, titulo, icono, extparam)
 
         o_columns = Columnas.ListaColumnas()
@@ -761,6 +761,7 @@ class SelectGame(LCDialog.LCDialog):
         o_columns.nueva("EVENT", _("Event"), 140, align_center=True)
         o_columns.nueva("ECO", _("ECO"), 40, align_center=True)
         o_columns.nueva("RESULT", _("Result"), 64, align_center=True)
+        o_columns.nueva("NUMMOVES", _("Moves"), 64, align_center=True)
         self.grid = Grid.Grid(self, o_columns, siSelecFilas=True, siSeleccionMultiple=True)
         nAnchoPgn = self.grid.anchoColumnas() + 20
         self.grid.setMinimumWidth(nAnchoPgn)

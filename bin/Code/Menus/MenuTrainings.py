@@ -458,6 +458,7 @@ class MenuTrainings:
                     tipo = data.get("TYPE", "s")
                     advanced = data.get("ADVANCED", False)
                     tutor_active = data.get("TUTOR_ACTIVE", True)
+                    remove_solutions = data.get("REMOVE_SOLUTIONS", False)
                     resp = params_training_position(
                         self.procesador.main_window,
                         titentreno,
@@ -466,17 +467,19 @@ class MenuTrainings:
                         jump,
                         tutor_active,
                         tipo,
+                        remove_solutions,
                         advanced,
                     )
                     if resp is None:
                         db.close()
                         return
-                    pos, tipo, tutor_active, jump, advanced = resp
+                    pos, tipo, tutor_active, jump, remove_solutions, advanced = resp
                     db[entreno] = {
                         "POSULTIMO": pos,
                         "SALTA": jump,
                         "TYPE": tipo,
                         "ADVANCED": advanced,
+                        "REMOVE_SOLUTIONS": remove_solutions,
                         "TUTOR_ACTIVE": tutor_active,
                     }
                     db.close()
@@ -485,8 +488,9 @@ class MenuTrainings:
                             random.seed(pos)
                         random.shuffle(li_entrenamientos)
                         pos = 1
-                    self.procesador.entrenaPos(
-                        pos, n_posiciones, titentreno, li_entrenamientos, entreno, tutor_active, jump, advanced
+                    self.procesador.train_position(
+                        pos, n_posiciones, titentreno, li_entrenamientos, entreno, tutor_active, jump,
+                        remove_solutions, advanced
                     )
 
                 elif resp == "learnGame":
@@ -743,12 +747,12 @@ def selectOneFNS(owner, procesador):
     return resp if resp is None else Util.relative_path(resp[3:])
 
 
-def params_training_position(w_parent, titulo, nFEN, pos, salta, tutor_active, tipo, advanced):
+def params_training_position(w_parent, titulo, n_fen, pos, salta, tutor_active, tipo, remove_solutions, advanced):
     form = FormLayout.FormLayout(w_parent, titulo, Iconos.Entrenamiento(), anchoMinimo=200)
 
     form.separador()
-    label = "%s (1..%d)" % (_("Select position"), nFEN)
-    form.spinbox(label, 1, nFEN, 50, pos)
+    label = "%s (1..%d)" % (_("Select position"), n_fen)
+    form.spinbox(label, 1, n_fen, 50, pos)
 
     form.separador()
     li = [(_("Sequential"), "s"), (_("Random"), "r"), (_("Random with same sequence based on position"), "rk")]
@@ -761,13 +765,18 @@ def params_training_position(w_parent, titulo, nFEN, pos, salta, tutor_active, t
     form.checkbox(_("Jump to the next after solving"), salta)
 
     form.separador()
+    form.checkbox(_("Remove pre-defined solutions"), remove_solutions)
+
+    form.separador()
     form.checkbox(_("Advanced mode"), advanced)
 
     form.apart_simple_np(_("This advanced mode applies only to positions<br>with a solution included in the file"))
 
     resultado = form.run()
     if resultado:
-        position, tipo, tutor_active, jump, advanced = resultado[1]
-        return position, tipo, tutor_active, jump, advanced
+        position, tipo, tutor_active, jump, remove_solutions, advanced = resultado[1]
+        if remove_solutions:
+            advanced = False
+        return position, tipo, tutor_active, jump, remove_solutions, advanced
     else:
         return None

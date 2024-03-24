@@ -348,7 +348,7 @@ class WStaticTraining(LCDialog.LCDialog):
 
         titulo = "%s - %s" % (_("Opening lines"), _("Static training"))
 
-        extparam = "openlines_static_%s" % dbop.nom_fichero
+        extparam = "openlines_static_%s" % dbop.path_file
 
         LCDialog.LCDialog.__init__(self, procesador.main_window, titulo, Iconos.TrainStatic(), extparam)
 

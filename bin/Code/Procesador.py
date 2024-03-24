@@ -1124,10 +1124,12 @@ class Procesador:
             db.close()
         return
 
-    def entrenaPos(self, position, nPosiciones, titentreno, liEntrenamientos, entreno, with_tutor, jump, advanced):
+    def train_position(self, position, n_posiciones, titentreno, li_entrenamientos, entreno, with_tutor, jump,
+                       remove_solutions, advanced):
         self.manager = ManagerEntPos.ManagerEntPos(self)
         self.manager.set_training(entreno)
-        self.manager.start(position, nPosiciones, titentreno, liEntrenamientos, with_tutor, jump, advanced)
+        self.manager.start(position, n_posiciones, titentreno, li_entrenamientos, with_tutor, jump,
+                           remove_solutions, advanced)
 
     def playRoute(self, route):
         if route.state == Routes.BETWEEN:
