@@ -132,7 +132,7 @@ class ManagerTurnOnLights(Manager.Manager):
             self.reiniciar()
 
         elif key == TB_CONFIG:
-            self.configurar(siSonidos=True, siCambioTutor=False)
+            self.configurar(with_sounds=True, with_change_tutor=False)
 
         elif key == TB_UTILITIES:
             self.utilities()
@@ -185,7 +185,7 @@ class ManagerTurnOnLights(Manager.Manager):
             self.human_is_playing = True
             self.base_time = time.time()
             if not (
-                self.calculation_mode and self.ini_time is None
+                    self.calculation_mode and self.ini_time is None
             ):  # Se inicia salvo que sea el principio de la linea
                 self.ini_time = self.base_time
             self.activate_side(is_white)
@@ -244,22 +244,22 @@ class ManagerTurnOnLights(Manager.Manager):
                 else ""
             )
             mens = (
-                "<hr><center><big>"
-                + _("You have finished this block of positions")
-                + "<hr><table>"
-                + '<tr><td align=right> %s </td><td> %0.2f"</td></tr>' % (_("Time used"), self.total_time_used)
-                + cErrores
-                + cAyudas
-                + '<tr><td align=right> %s: </td><td> %0.2f" %s</td></tr>' % (_("Time assigned"), ta, txt_more_time)
-                + "<tr><td align=right> %s: </td><td> %d</td></tr>" % (_("Total moves"), num_moves)
-                + '<tr><td align=right> %s: </td><td> %0.2f"</td></tr>' % (_("Average time"), tm)
-                + "<tr><td align=right> %s: </td><td> %s</td></tr>" % (_("Block qualification"), cat_block)
-                + "<tr><td align=right> %s: </td><td> %s %s</td></tr>"
-                % (_("Level qualification"), cat_level, txt_more_cat)
-                + "<tr><td align=right> %s: </td><td> %s %s</td></tr>"
-                % (_("Global qualification"), cat_global, txt_more_global)
-                + "</table></center></big><hr>"
-                + txt_more_line
+                    "<hr><center><big>"
+                    + _("You have finished this block of positions")
+                    + "<hr><table>"
+                    + '<tr><td align=right> %s </td><td> %0.2f"</td></tr>' % (_("Time used"), self.total_time_used)
+                    + cErrores
+                    + cAyudas
+                    + '<tr><td align=right> %s: </td><td> %0.2f" %s</td></tr>' % (_("Time assigned"), ta, txt_more_time)
+                    + "<tr><td align=right> %s: </td><td> %d</td></tr>" % (_("Total moves"), num_moves)
+                    + '<tr><td align=right> %s: </td><td> %0.2f"</td></tr>' % (_("Average time"), tm)
+                    + "<tr><td align=right> %s: </td><td> %s</td></tr>" % (_("Block qualification"), cat_block)
+                    + "<tr><td align=right> %s: </td><td> %s %s</td></tr>"
+                    % (_("Level qualification"), cat_level, txt_more_cat)
+                    + "<tr><td align=right> %s: </td><td> %s %s</td></tr>"
+                    % (_("Global qualification"), cat_global, txt_more_global)
+                    + "</table></center></big><hr>"
+                    + txt_more_line
             )
             self.pon_rotulos(None)
             QTUtil2.message_bold(self.main_window, mens, _("Result"))

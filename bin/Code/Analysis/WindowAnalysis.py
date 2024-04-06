@@ -1,12 +1,13 @@
 import time
+
 from PySide2 import QtCore, QtWidgets
 
 import Code
-from Code.Base import Move
 from Code import Util
 from Code import XRun
 from Code.Analysis import WindowAnalysisParam, Analysis
 from Code.Base import Game
+from Code.Base import Move
 from Code.Board import Board
 from Code.QT import Colocacion
 from Code.QT import Columnas

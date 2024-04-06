@@ -42,9 +42,8 @@ class ManagerPlayHuman(Manager.Manager):
     toolbar_state = None
     white = None
     black = None
-    is_human_side_white = True   # necesario en adjourn
+    is_human_side_white = True  # necesario en adjourn
     auto_rotate = False
-
 
     def start(self, dic_var):
         self.base_inicio(dic_var)
@@ -199,7 +198,7 @@ class ManagerPlayHuman(Manager.Manager):
 
         elif key == TB_CONFIG:
             if self.state == ST_PLAYING:
-                self.configurar([], siSonidos=True, siCambioTutor=self.ayudas_iniciales > 0)
+                self.configurar([], with_sounds=True, with_change_tutor=self.ayudas_iniciales > 0)
 
         elif key == TB_UTILITIES:
             li_mas_opciones = [("books", _("Consult a book"), Iconos.Libros())]

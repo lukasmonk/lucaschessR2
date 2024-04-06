@@ -68,7 +68,8 @@ class BotonColor(QtWidgets.QPushButton):
         ncolor = self.rut_actual()
         color = QTUtil.qtColor(ncolor)
 
-        color = QtWidgets.QColorDialog.getColor(color, self, _("Choose a color"), QtWidgets.QColorDialog.ShowAlphaChannel | QtWidgets.QColorDialog.DontUseNativeDialog)
+        color = QtWidgets.QColorDialog.getColor(color, self, _("Choose a color"),
+                                                QtWidgets.QColorDialog.ShowAlphaChannel | QtWidgets.QColorDialog.DontUseNativeDialog)
         if color.isValid():
             self.rut_actual(color.rgba())
             self.rut_actualiza()
@@ -756,13 +757,13 @@ class WBoardColors(LCDialog.LCDialog):
 
         ct = self.config_board
         for chb, obj, xv in (
-            (self.chbDefCoordenadas, self.cbCoordenadas, ct.nCoordenadas),
-            (self.chbDefBold, self.chbBold, ct.bold),
-            (self.chbDefTamLetra, self.sbTamLetra, ct.tamLetra),
-            (self.chbDefSepLetras, self.sbSepLetras, ct.sepLetras),
-            (self.chbDefPiezas, self.cbPiezas, ct.nomPiezas),
-            (self.chbDefTamRecuadro, self.sbTamRecuadro, ct.tamRecuadro),
-            (self.chbDefTamFrontera, self.sbTamFrontera, ct.tamFrontera),
+                (self.chbDefCoordenadas, self.cbCoordenadas, ct.nCoordenadas),
+                (self.chbDefBold, self.chbBold, ct.bold),
+                (self.chbDefTamLetra, self.sbTamLetra, ct.tamLetra),
+                (self.chbDefSepLetras, self.sbSepLetras, ct.sepLetras),
+                (self.chbDefPiezas, self.cbPiezas, ct.nomPiezas),
+                (self.chbDefTamRecuadro, self.sbTamRecuadro, ct.tamRecuadro),
+                (self.chbDefTamFrontera, self.sbTamFrontera, ct.tamFrontera),
         ):
             if chb.valor():
                 obj.set_value(xv())

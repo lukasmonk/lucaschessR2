@@ -24,9 +24,9 @@ from Code.Base.Constantes import (
     BOOK_RANDOM_UNIFORM,
     BOOK_RANDOM_PROPORTIONAL
 )
+from Code.Books import Books
 from Code.Engines import Engines
 from Code.Engines import EnginesMicElo, EngineResponse
-from Code.Books import Books
 from Code.QT import QTUtil2, QTUtil
 from Code.SQL import UtilSQL
 
@@ -159,7 +159,6 @@ class ManagerMicElo(Manager.Manager):
         self.with_time = self.max_seconds > 0
         self.seconds_per_move = seconds if self.with_time else 0
 
-
         self.tc_player = self.tc_white if self.is_human_side_white else self.tc_black
         self.tc_rival = self.tc_white if self.is_engine_side_white else self.tc_black
 
@@ -275,7 +274,7 @@ class ManagerMicElo(Manager.Manager):
             self.tablasPlayer()
 
         elif key == TB_CONFIG:
-            self.configurar(siSonidos=True)
+            self.configurar(with_sounds=True)
 
         elif key == TB_UTILITIES:
             self.utilidadesElo()
@@ -400,7 +399,8 @@ class ManagerMicElo(Manager.Manager):
                     self.book = None
                 else:
                     fen = self.last_fen()
-                    pv = self.book.eligeJugadaTipo(fen, BOOK_RANDOM_UNIFORM if len(self.game) > 2 else BOOK_RANDOM_PROPORTIONAL)
+                    pv = self.book.eligeJugadaTipo(fen, BOOK_RANDOM_UNIFORM if len(
+                        self.game) > 2 else BOOK_RANDOM_PROPORTIONAL)
                     if pv:
                         rm_rival = EngineResponse.EngineResponse("Opening", self.is_engine_side_white)
                         rm_rival.from_sq = pv[:2]
@@ -414,8 +414,8 @@ class ManagerMicElo(Manager.Manager):
                     time_white = self.tc_white.pending_time
                     time_black = self.tc_black.pending_time
                 else:
-                    time_white = int(5*60*self.whiteElo/1500)
-                    time_black = int(5*60*self.blackElo/1500)
+                    time_white = int(5 * 60 * self.whiteElo / 1500)
+                    time_black = int(5 * 60 * self.blackElo / 1500)
                 rm_rival = self.xrival.play_time(self.game, time_white, time_black, self.seconds_per_move)
                 if rm_rival is None:
                     self.thinking(False)

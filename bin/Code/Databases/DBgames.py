@@ -457,7 +457,7 @@ class DBgames:
                 break
             rowid, xpv = row
             if xpv.count("|") == 2:
-                nada, fen, xpv = row[0].split("|")
+                nada, fen, xpv = xpv.split("|")
                 yield rowid, fen, -1
             else:
                 fen = FEN_INITIAL
@@ -466,7 +466,7 @@ class DBgames:
             for pos, pv in enumerate(li_pv):
                 make_move(pv)
                 fen = get_fen()
-                yield rowid, fen, pos, " ".join(li_pv[:pos+1])
+                yield rowid, fen, pos, " ".join(li_pv[:pos + 1])
 
     def yield_data(self, li_fields, filtro):
         select = ",".join(li_fields)
@@ -942,7 +942,7 @@ class DBgames:
         return si_cols_cambiados
 
     def check_game(self, game):
-        is_complete = game.siFenInicial()
+        is_complete = game.is_fen_initial()
 
         if not self.allows_positions:
             if not is_complete:
@@ -1052,7 +1052,7 @@ class DBgames:
 
         pv_nue = game_new.pv()
         xpv_nue = pv_xpv(pv_nue)
-        si_fen_nue = not game_new.siFenInicial()
+        si_fen_nue = not game_new.is_fen_initial()
         if si_fen_nue:
             fen_nue = game_new.first_position.fen()
             xpv_nue = "|%s|%s" % (fen_nue, xpv_nue)

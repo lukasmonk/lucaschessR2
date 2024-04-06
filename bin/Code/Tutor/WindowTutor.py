@@ -1,6 +1,7 @@
 from PySide2 import QtCore
 
 import Code
+from Code.Analysis import Analysis
 from Code.Base.Constantes import (
     POS_TUTOR_HORIZONTAL,
     POS_TUTOR_HORIZONTAL_1_2,
@@ -95,9 +96,11 @@ class WindowTutor(LCDialog.LCDialog):
 
         self.cbRM, self.lbRM = QTUtil2.combobox_lb(self, li_rm, li_rm[0][1], _("Moves analyzed"))
         self.cbRM.capture_changes(tutor.cambiadoRM)
-        ly_rm = Colocacion.H().control(self.lbRM).control(self.cbRM)
+        bt_eye = Controles.PB(self, "", self.launch_analysis).ponIcono(Iconos.Eye())
 
-        btLibros = Controles.PB(self," %s " %  _("Consult a book"), self.consultaLibro).ponPlano(False)
+        ly_rm = Colocacion.H().control(self.lbRM).control(self.cbRM).control(bt_eye).relleno(1)
+
+        btLibros = Controles.PB(self, " %s " % _("Consult a book"), self.consultaLibro).ponPlano(False)
 
         dic_vista = {
             POS_TUTOR_HORIZONTAL: ((0, 1), (0, 2)),
@@ -113,7 +116,8 @@ class WindowTutor(LCDialog.LCDialog):
 
         layout = Colocacion.G()
         layout.controlc(self.lb_tutor, 0, 0).controlc(self.boardTutor, 1, 0).otro(lytbtutor, 2, 0).otroc(ly_rm, 3, 0)
-        layout.controlc(self.lb_player, fu, cu).controlc(self.boardUsuario, fu + 1, cu).otro(lytbuser, fu + 2, cu).controlc(
+        layout.controlc(self.lb_player, fu, cu).controlc(self.boardUsuario, fu + 1, cu).otro(lytbuser, fu + 2,
+                                                                                             cu).controlc(
             btLibros, fu + 3, cu
         )
         if siRival:
@@ -126,6 +130,13 @@ class WindowTutor(LCDialog.LCDialog):
         self.setLayout(layout)
 
         self.restore_video(siTam=False)
+
+    def launch_analysis(self):
+        move = self.tutor.move
+        rm_user, pos_user = self.tutor.mrm_tutor.buscaRM(move.movimiento())
+        move.analysis = self.tutor.mrm_tutor, pos_user
+        Analysis.show_analysis(Code.procesador, self.manager.xanalyzer, move, self.manager.board.is_white_bottom,
+                               pos_user, main_window=self, must_save=False)
 
     def toolbar_rightmouse(self):
         self.stop_clock()

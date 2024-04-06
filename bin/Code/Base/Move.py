@@ -4,12 +4,12 @@ from Code import Util
 from Code.Base import Position
 from Code.Base.Constantes import HIGHEST_VARIATIONS, BETTER_VARIATIONS
 from Code.Engines import EngineResponse
-from Code.Nags.Nags import NAG_0, NAG_1, NAG_2, NAG_3, NAG_4, NAG_5, NAG_6, html_nag_txt, html_nag_symbol
+from Code.Nags.Nags import NAG_0, NAG_3, NAG_6, html_nag_txt, html_nag_symbol
 from Code.Translations import TrListas
 
 
 def crea_dic_html():
-    base = '<span style="font-family:Chess Alpha 2;"><big>%s</big></span>'
+    base = '<span style="font-family:Chess Merida;"><big>%s</big></span>'
     return {x: base % x for x in "pnbrqkPNBRQK"}
 
 
@@ -400,7 +400,7 @@ class Move:
         return m
 
     def add_variation(self, game):
-        self.variations.add_variation(game)
+        return self.variations.add_variation(game)
 
     def test_a1h8(self, a1h8):
         if a1h8 == self.movimiento():
@@ -433,13 +433,9 @@ class Move:
             return
 
         mrm, pos = self.analysis
-        for nag in (NAG_1, NAG_2, NAG_3, NAG_4, NAG_5, NAG_6):
-            if nag in self.li_nags:
-                self.li_nags.remove(nag)
         rm = mrm.li_rm[pos]
         nag, color = mrm.set_nag_color(rm)
-        if nag:
-            self.add_nag(nag)
+        self.add_nag(nag)
         for game in self.variations.list_games():
             for move in game.li_moves:
                 move.refresh_nags()
@@ -587,7 +583,7 @@ class Variations:
         for pos, variation in enumerate(self.li_variations):
             pv = variation.pv()
             if (pv_add == pv) or (pv.startswith(pv_add)):
-                return
+                return pos
             if pv_add.startswith(pv):
                 pos_add = pos
                 break
@@ -595,5 +591,7 @@ class Variations:
         gm = game.copia()
         if pos_add is None:
             self.li_variations.append(gm)
+            return len(self.li_variations)-1
         else:
             self.li_variations[pos_add] = gm
+            return pos_add

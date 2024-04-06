@@ -218,7 +218,7 @@ class WBase(QtWidgets.QWidget):
         self.board.crea()
         self.board.setFocus()
 
-        Delegados.generaPM(self.board.piezas)
+        Delegados.genera_pm(self.board.piezas)
 
     def create_analysis_bar(self):
         self.analysis_bar = WAnalysisBar.AnalysisBar(self, self.board)
@@ -472,7 +472,8 @@ class WBase(QtWidgets.QWidget):
         self.key_pressed("G", k)
 
     def grid_wheel_event(self, ogrid, forward):
-        self.key_pressed("T", QtCore.Qt.Key.Key_Left if self.configuration.wheel_pgn(forward) else QtCore.Qt.Key.Key_Right)
+        self.key_pressed("T",
+                         QtCore.Qt.Key.Key_Left if self.configuration.wheel_pgn(forward) else QtCore.Qt.Key.Key_Right)
 
     def grid_dato(self, grid, row, o_columna):
         controlPGN = self.manager.pgn
@@ -503,28 +504,27 @@ class WBase(QtWidgets.QWidget):
             mrm, pos = move.analysis
             rm = mrm.li_rm[pos]
             mate = rm.mate
-            siW = move.position_before.is_white
+            is_white = move.position_before.is_white
             if mate:
                 if mate == 1:
                     info = ""
                 else:
-                    if not siW:
+                    if not is_white:
                         mate = -mate
-                    if (mate > 1) and siW:
+                    if (mate > 1) and is_white:
                         mate -= 1
-                    elif (mate < -1) and not siW:
+                    elif (mate < -1) and not is_white:
                         mate += 1
 
                     info = "M%+d" % mate
             else:
                 pts = rm.puntos
-                if not siW:
+                if not is_white:
                     pts = -pts
                 info = "%+0.2f" % float(pts / 100.0)
 
             if color_nag == NAG_0:  # Son prioritarios los nags manuales
-                nag, color_nag = mrm.set_nag_color(rm)
-                st_nags.add(nag)
+                nothing, color_nag = mrm.set_nag_color(rm)
 
         if move.in_the_opening or move.comment or move.variations:
             image_initial = "O" if move.in_the_opening else ""
@@ -690,7 +690,7 @@ class WBase(QtWidgets.QWidget):
         value = {"q": 1, "r": 2, "b": 3, "n": 4, "p": 5}
 
         def xshow(max_num, tp, li, lb, num):
-            html = "<small>%+d</small>"%num if num else ""
+            html = "<small>%+d</small>" % num if num else ""
             li.sort(key=lambda x: value[x.lower()])
             for n, pz in enumerate(li):
                 # if n >= max_num: # la situación en la que sobran

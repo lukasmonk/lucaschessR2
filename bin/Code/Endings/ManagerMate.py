@@ -337,6 +337,7 @@ class ControlMate:
 
 class ManagerMate(Manager.Manager):
     lbNivel = None
+
     def start(self, mate):
 
         self.mate = mate
@@ -356,7 +357,8 @@ class ManagerMate(Manager.Manager):
         self.main_window.set_label1("<center><h1>%s</h1></center>" % _X(_("Mate in %1"), str(mate)))
         self.board.exePulsadoNum = None
 
-        self.lbNivel = self.main_window.base.lb_player_white.set_foreground_backgound(Code.dic_colors["MANAGERMATE_FOREGROUND"], Code.dic_colors["MANAGERMATE_BACKGROUND"])
+        self.lbNivel = self.main_window.base.lb_player_white.set_foreground_backgound(
+            Code.dic_colors["MANAGERMATE_FOREGROUND"], Code.dic_colors["MANAGERMATE_BACKGROUND"])
 
         self.finJuego()
 
@@ -438,7 +440,7 @@ class ManagerMate(Manager.Manager):
         resp = menu.lanza()
         if resp == "reset":
             if QTUtil2.pregunta(
-                self.main_window, "%s\n%s" % (_("Recreate all levels and start over"), _("Are you sure?"))
+                    self.main_window, "%s\n%s" % (_("Recreate all levels and start over"), _("Are you sure?"))
             ):
                 Util.remove_file(self.control_mate.file_path)
                 self.start(self.mate)

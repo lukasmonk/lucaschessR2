@@ -66,10 +66,11 @@ class ControlAnalysis:
                 if self.with_figurines
                 else pb.pgn_translated(from_sq, to_sq, promotion)
             )
-            txt = rm.abrTextoBase()
-            if txt:
-                name += "(%s)" % txt
-            li.append((rm, name, rm.centipawns_abs()))
+            if name:
+                txt = rm.abrTextoBase()
+                if txt:
+                    name += "(%s)" % txt
+                li.append((rm, name, rm.centipawns_abs()))
 
         return li
 

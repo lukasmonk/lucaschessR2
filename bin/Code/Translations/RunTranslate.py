@@ -241,9 +241,9 @@ class WTranslate(LCDialog.LCDialog):
             key = self.li_labels[row]
             dic = self.dic_translate[key]
             if (
-                self.ult_where[0] in dic["WHERE"]
-                or self.ult_where[1] in dic["WHERE"]
-                or self.ult_where[2] in dic["WHERE"]
+                    self.ult_where[0] in dic["WHERE"]
+                    or self.ult_where[1] in dic["WHERE"]
+                    or self.ult_where[2] in dic["WHERE"]
             ):
                 return self.color_ult
 
@@ -609,9 +609,9 @@ class WTranslate(LCDialog.LCDialog):
             for key, dic in self.dic_translate.items():
                 if dic["NEW"]:
                     if QTUtil2.pregunta(
-                        self,
-                        "There are old translations that are different "
-                        "from the imported labels, shall we delete them?",
+                            self,
+                            "There are old translations that are different "
+                            "from the imported labels, shall we delete them?",
                     ):
                         for xkey, xdic in self.dic_translate.items():
                             if xdic["NEW"]:

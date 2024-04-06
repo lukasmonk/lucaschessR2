@@ -26,9 +26,9 @@ from Code.Base.Constantes import (
     BLACK,
     ST_PAUSE,
 )
-from Code.Swiss import WSwiss, Swiss
 from Code.QT import QTUtil
 from Code.QT import QTUtil2
+from Code.Swiss import WSwiss, Swiss
 
 
 class ManagerSwiss(Manager.Manager):
@@ -242,7 +242,7 @@ class ManagerSwiss(Manager.Manager):
             self.xcontinue()
 
         elif key == TB_CONFIG:
-            self.configurar([], siSonidos=True)
+            self.configurar([], with_sounds=True)
 
         elif key == TB_UTILITIES:
             self.utilities()
@@ -478,7 +478,6 @@ class ManagerSwiss(Manager.Manager):
         time_s = self.stop_clock(True)
         move.set_time_ms(time_s * 1000)
         move.set_clock_ms(self.tc_player.pending_time * 1000)
-
 
         self.add_move(move, True)
         self.move_the_pieces(move.liMovs, False)

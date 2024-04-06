@@ -3,19 +3,19 @@ import zipfile
 
 import Code
 from Code import Util
+from Code.Books import Books
 from Code.GM import GM
 from Code.Openings import WindowOpenings
-from Code.Books import Books
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles
 from Code.QT import Grid
 from Code.QT import Iconos
+from Code.QT import LCDialog
 from Code.QT import QTUtil
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
 from Code.SQL import UtilSQL
-from Code.QT import LCDialog
 
 
 class WGM(LCDialog.LCDialog):
@@ -533,11 +533,11 @@ class WGM(LCDialog.LCDialog):
             elif menu.siDer:
                 opening_block = bloque
                 if QTUtil2.pregunta(
-                    self,
-                    _X(
-                        _("Do you want to delete the opening %1 from the list of favourite openings?"),
-                        opening_block.tr_name,
-                    ),
+                        self,
+                        _X(
+                            _("Do you want to delete the opening %1 from the list of favourite openings?"),
+                            opening_block.tr_name,
+                        ),
                 ):
                     del self.li_preferred_openings[n_pos]
 

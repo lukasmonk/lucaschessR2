@@ -586,7 +586,7 @@ class LCMenuRondo(LCMenu):
             is_disabled=False,
             font_type=None,
             is_ckecked=None,
-            toolTip: str= "",
+            toolTip: str = "",
     ):
         if icono is None:
             icono = self.rondo.otro()
@@ -614,9 +614,9 @@ class LCMenuPiezas(Controles.Menu):
         Controles.Menu.__init__(
             self, parent, titulo, icono, is_disabled, puntos, bold
         )
-        self.set_font_type("Chess Alpha 2", 16)
+        self.set_font_type("Chess Merida", 16)
 
-    def opcion(self, key, label, icono=None, is_disabled=False, tipo_letra=None, is_ckecked=False, toolTip = ""):
+    def opcion(self, key, label, icono=None, is_disabled=False, tipo_letra=None, is_ckecked=False, toolTip=""):
         Controles.Menu.opcion(
             self, key, label, icono=icono, is_disabled=is_disabled, is_ckecked=is_ckecked
         )

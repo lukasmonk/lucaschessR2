@@ -454,18 +454,18 @@ class Histogram(QtWidgets.QGraphicsView):
         self.owner.grid_tecla_control(self.grid, k, False, False, False)
 
 
-def genHistograms(game):
+def gen_histograms(game):
     hgame = HSerie()
     hwhite = HSerie()
     hblack = HSerie()
 
     lijg = []
-    lijgW = []
-    lijgB = []
+    lijg_w = []
+    lijg_b = []
 
-    porcT = 0
-    porcW = 0
-    porcB = 0
+    porc_t = 0
+    porc_w = 0
+    porc_b = 0
 
     for num, move in enumerate(game.li_moves):
         if move.analysis:
@@ -476,17 +476,17 @@ def genHistograms(game):
             move.lostp_abs = lostp_abs = pts0 - pts
 
             porc = move.porcentaje = 100 - lostp_abs if lostp_abs < 100 else 0
-            porcT += porc
+            porc_t += porc
 
             lijg.append(move)
             if is_white:
-                lijgW.append(move)
-                porcW += porc
+                lijg_w.append(move)
+                porc_w += porc
             else:
                 pts = -pts
                 pts0 = -pts0
-                lijgB.append(move)
-                porcB += porc
+                lijg_b.append(move)
+                porc_b += porc
 
             pts /= 100.0
             pts0 /= 100.0
@@ -520,11 +520,11 @@ def genHistograms(game):
     alm.hblack = hblack
 
     alm.lijg = lijg
-    alm.lijgW = lijgW
-    alm.lijgB = lijgB
+    alm.lijgW = lijg_w
+    alm.lijgB = lijg_b
 
-    alm.porcT = porcT * 1.0 / len(lijg) if len(lijg) else 0
-    alm.porcW = porcW * 1.0 / len(lijgW) if len(lijgW) else 0
-    alm.porcB = porcB * 1.0 / len(lijgB) if len(lijgB) else 0
+    alm.porcT = porc_t * 1.0 / len(lijg) if len(lijg) else 0
+    alm.porcW = porc_w * 1.0 / len(lijg_w) if len(lijg_w) else 0
+    alm.porcB = porc_b * 1.0 / len(lijg_b) if len(lijg_b) else 0
 
     return alm

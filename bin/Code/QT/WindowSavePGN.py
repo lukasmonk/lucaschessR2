@@ -220,9 +220,12 @@ class WSave(LCDialog.LCDialog):
 
         # Rest
         self.chb_overwrite = Controles.CHB(self, _("Overwrite"), False)
-        self.chb_remove_comments = Controles.CHB(self, _("Remove comments"), self.remove_comments).capture_changes(self, self.check_all)
-        self.chb_remove_variations = Controles.CHB(self, _("Remove variations"), self.remove_variations).capture_changes(self, self.check_all)
-        self.chb_remove_nags = Controles.CHB(self, _("Remove NAGs"), self.remove_nags).capture_changes(self, self.check_all)
+        self.chb_remove_comments = Controles.CHB(self, _("Remove comments"), self.remove_comments).capture_changes(self,
+                                                                                                                   self.check_all)
+        self.chb_remove_variations = Controles.CHB(self, _("Remove variations"),
+                                                   self.remove_variations).capture_changes(self, self.check_all)
+        self.chb_remove_nags = Controles.CHB(self, _("Remove NAGs"), self.remove_nags).capture_changes(self,
+                                                                                                       self.check_all)
 
         lyF = Colocacion.H().control(lb_file).control(self.bt_file).control(bt_history).control(bt_boxrooms).relleno(1)
         lyC = Colocacion.H().control(lb_codec).control(self.cb_codecs).relleno(1)
@@ -546,7 +549,8 @@ class WSave(LCDialog.LCDialog):
             mens = self.em_body_sp.texto()
 
         QTUtil.ponPortapapeles(mens)
-        QTUtil2.temporary_message(self, f"<big>{tab_text}</big><br><br>" + _("It is saved in the clipboard to paste it wherever you want."), 2)
+        QTUtil2.temporary_message(self, f"<big>{tab_text}</big><br><br>" + _(
+            "It is saved in the clipboard to paste it wherever you want."), 2)
 
     def terminar(self):
         self.vars_save()
@@ -563,7 +567,7 @@ class WSave(LCDialog.LCDialog):
 
         self.li_labels = [[k, v] for k, v in self.game.li_tags]
         self.grid_labels.refresh()
-        
+
         self.check_all()
 
     def labels_more(self):

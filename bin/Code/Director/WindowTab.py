@@ -36,7 +36,8 @@ class SelectUna(Controles.LB):
             self.set_style()
 
     def set_style(self):
-        color = Code.dic_colors["DIRECTOR_BANDA_BORDER_ENABLE"] if self.seleccionada else Code.dic_colors["DIRECTOR_BANDA_BORDER_DISABLE"]
+        color = Code.dic_colors["DIRECTOR_BANDA_BORDER_ENABLE"] if self.seleccionada else Code.dic_colors[
+            "DIRECTOR_BANDA_BORDER_DISABLE"]
         self.setStyleSheet("border: 2px solid %s; padding:2px;" % color)
 
     def mousePressEvent(self, event):

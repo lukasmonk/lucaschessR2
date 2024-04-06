@@ -3,11 +3,10 @@ import time
 import FasterCode
 
 import Code
-from Code.QT import Colocacion, Controles, Iconos, QTUtil, QTVarios, QTUtil2
 from Code.Board import Board
-from Code.QT import LCDialog
-
 from Code.CountsCaptures import WRunCommon
+from Code.QT import Colocacion, Controles, Iconos, QTUtil, QTVarios, QTUtil2
+from Code.QT import LCDialog
 
 
 class WRunCaptures(LCDialog.LCDialog):
@@ -205,6 +204,7 @@ class WRunCaptures(LCDialog.LCDialog):
         self.seguir()
 
     def seguir(self):
+        self.pon_info_posic()
         self.set_position()
         self.lb_result.set_text("")
         for wm in self.liwm_captures:
@@ -284,7 +284,8 @@ class WRunCaptures(LCDialog.LCDialog):
         if ok:
             self.capture.current_depth += 1
             if (self.capture.current_posmove + self.capture.current_depth) >= (len(self.capture.game) + 1):
-                QTUtil2.message(self, _("Training finished"))
+                QTUtil2.message_result_win(self, _("Training finished") + "<br><br>" +
+                                           _('Congratulations, goal achieved'))
                 self.db_captures.change_count_capture(self.capture)
                 self.terminar()
                 return
@@ -298,7 +299,7 @@ class WRunCaptures(LCDialog.LCDialog):
                     self.capture.current_posmove = 0
                 self.capture.current_depth = 0
                 self.lb_result.set_text(
-                    "%s (%d)" % (_("Wrong, return to the last position solved"), self.capture.current_posmove + 1)
+                    "%s (%d)" % (_("Wrong, return to the last position solved"), self.capture.current_posmove)
                 )
                 self.lb_result.set_foreground("red")
             else:
@@ -307,5 +308,4 @@ class WRunCaptures(LCDialog.LCDialog):
             self.board.set_position(self.position_obj)
 
         self.db_captures.change_count_capture(self.capture)
-        self.pon_info_posic()
         self.show_tb(self.terminar, self.seguir)

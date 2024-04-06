@@ -15,10 +15,10 @@ from Code.Base.Constantes import (
     TB_UTILITIES,
     GT_COMPETITION_WITH_TUTOR,
 )
+from Code.Books import Books
 from Code.CompetitionWithTutor import CompetitionWithTutor
 from Code.Engines import EngineResponse
 from Code.Openings import Opening
-from Code.Books import Books
 from Code.QT import QTUtil2
 from Code.Tutor import Tutor
 
@@ -116,7 +116,7 @@ class ManagerCompeticion(Manager.Manager):
             self.reiniciar()
 
         elif key == TB_CONFIG:
-            self.configurar(siSonidos=True, siCambioTutor=True)
+            self.configurar(with_sounds=True, with_change_tutor=True)
 
         elif key == TB_UTILITIES:
             self.utilities(with_tree=False)
@@ -138,7 +138,6 @@ class ManagerCompeticion(Manager.Manager):
 
     def adjourn(self):
         if len(self.game) and QTUtil2.pregunta(self.main_window, _("Do you want to adjourn the game?")):
-
             label_menu = _("Competition with tutor") + ". " + self.xrival.name
 
             dic = {

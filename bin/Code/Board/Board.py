@@ -549,14 +549,14 @@ class Board(QtWidgets.QGraphicsView):
             square.physical_pos.orden = 4
             square.physical_pos.alto = square.physical_pos.ancho = self.width_square
             opacity = 100.0 - transparencia * 1.0
-            for x in range(4):
+            for z in range(4):
                 for y in range(8):
                     una = square.copia()
 
                     k1 = k = self.margenCentro + self.tamFrontera // 2
                     if y % 2 == tipo:
                         k += self.width_square
-                    una.physical_pos.x = k + x * 2 * self.width_square
+                    una.physical_pos.x = k + z * 2 * self.width_square
                     una.physical_pos.y = k1 + y * self.width_square
                     if with_pixmap:
                         casilla_sc = BoardElements.PixmapSC(self.escena, una, pixmap=pixmap)
@@ -591,20 +591,20 @@ class Board(QtWidgets.QGraphicsView):
                     self.margenCentro * self.config_board.sepLetras() * 38 / 50000
             )  # ancho = 38 -> sep = 5 -> sepLetras = 100
 
-            def norm(x):
-                if x < 0:
+            def norm(z):
+                if z < 0:
                     return 0
-                if x > (ancho - ancho_texto):
+                if z > (ancho - ancho_texto):
                     return ancho - ancho_texto
-                return x
+                return z
 
             hx = norm(p_casillas.x + gap_casilla)
-            hyS = norm(p_frontera.y + p_frontera.alto + sep)
-            hyN = norm(p_frontera.y - ancho_texto - sep)
+            hy_s = norm(p_frontera.y + p_frontera.alto + sep)
+            hy_n = norm(p_frontera.y - ancho_texto - sep)
 
             vy = norm(p_casillas.y + gap_casilla)
-            vxE = norm(p_frontera.x + p_frontera.ancho + sep)
-            vxO = norm(p_frontera.x - ancho_texto - sep)
+            vx_e = norm(p_frontera.x + p_frontera.ancho + sep)
+            vx_o = norm(p_frontera.x - ancho_texto - sep)
 
             for x in range(8):
 
@@ -623,15 +623,15 @@ class Board(QtWidgets.QGraphicsView):
                     hor.physical_pos.x = hx + x * self.width_square
 
                     if li_co[0]:
-                        hor.physical_pos.y = hyS
-                        horSC = BoardElements.TextoSC(self.escena, hor, self.pulsadaLetra)
-                        self.liCoordenadasHorizontales.append(horSC)
+                        hor.physical_pos.y = hy_s
+                        hor_sc = BoardElements.TextoSC(self.escena, hor, self.pulsadaLetra)
+                        self.liCoordenadasHorizontales.append(hor_sc)
 
                     if li_co[2]:
                         hor = hor.copia()
-                        hor.physical_pos.y = hyN
-                        horSC = BoardElements.TextoSC(self.escena, hor, self.pulsadaLetra)
-                        self.liCoordenadasHorizontales.append(horSC)
+                        hor.physical_pos.y = hy_n
+                        hor_sc = BoardElements.TextoSC(self.escena, hor, self.pulsadaLetra)
+                        self.liCoordenadasHorizontales.append(hor_sc)
 
                     ver = coord.copia()
                     ver.valor = chr(56 - x)
@@ -639,20 +639,20 @@ class Board(QtWidgets.QGraphicsView):
                     ver.physical_pos.y = vy + x * self.width_square
 
                     if li_co[1]:
-                        ver.physical_pos.x = vxO
-                        verSC = BoardElements.TextoSC(self.escena, ver, self.pulsadoNum)
-                        self.liCoordenadasVerticales.append(verSC)
+                        ver.physical_pos.x = vx_o
+                        ver_sc = BoardElements.TextoSC(self.escena, ver, self.pulsadoNum)
+                        self.liCoordenadasVerticales.append(ver_sc)
 
                     if li_co[3]:
                         ver = ver.copia()
-                        ver.physical_pos.x = vxE
-                        verSC = BoardElements.TextoSC(self.escena, ver, self.pulsadoNum)
-                        self.liCoordenadasVerticales.append(verSC)
+                        ver.physical_pos.x = vx_e
+                        ver_sc = BoardElements.TextoSC(self.escena, ver, self.pulsadoNum)
+                        self.liCoordenadasVerticales.append(ver_sc)
 
         # Indicador de color activo
         p_frontera = base_casillas_f.physical_pos
-        pCajon = cajon.physical_pos
-        ancho = pCajon.ancho - (p_frontera.x + p_frontera.ancho)
+        p_cajon = cajon.physical_pos
+        ancho = p_cajon.ancho - (p_frontera.x + p_frontera.ancho)
         gap = int(ancho / 8) * 2
 
         indicador = BoardTypes.Circulo()
@@ -733,14 +733,14 @@ class Board(QtWidgets.QGraphicsView):
         event.ignore()
 
     def showKeys(self):
-        def alt(key):
-            return _("ALT") + " %s" % key
+        def alt(xkey):
+            return _("ALT") + f" {xkey}"
 
-        def ctrl(key):
-            return _("CTRL") + " %s" % key
+        def ctrl(xkey):
+            return _("CTRL") + f" {xkey}"
 
-        def ctrl_alt(key):
-            return "%s %s %s" % (_("CTRL"), _("ALT"), key)
+        def ctrl_alt(xkey):
+            return "%s %s %s" % (_("CTRL"), _("ALT"), xkey)
 
         li_keys = [
             (alt("B"), _("Board menu")),
@@ -810,7 +810,12 @@ class Board(QtWidgets.QGraphicsView):
         menu.separador()
         menu.opcion("pieces", _("Pieces"), self.piezas.icono("K"))
         menu.separador()
-        if not self.main_window.isMaximized():
+        c = str(self.main_window)
+        ok = True
+        if "MainWindow" in c:
+            ok = not self.main_window.isMaximized()
+
+        if ok:
             menu.opcion("size", _("Change board size"), Iconos.ResizeBoard())
             menu.separador()
 
@@ -957,7 +962,7 @@ class Board(QtWidgets.QGraphicsView):
         if self.config_board.is_base:
             nom_pieces_ori = self.config_board.nomPiezas()
             Code.all_pieces.save_all_png(nom_pieces_ori, 30)
-            Delegados.generaPM(self.piezas)
+            Delegados.genera_pm(self.piezas)
             self.main_window.pgnRefresh()
             if hasattr(self.main_window.manager, "put_view"):
                 self.main_window.manager.put_view()

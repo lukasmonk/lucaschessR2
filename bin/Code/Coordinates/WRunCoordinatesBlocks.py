@@ -126,7 +126,7 @@ class WRunCoordinatesBlocks(LCDialog.LCDialog):
                 _("Result"), _("White"), self.coordinates.min_score_white, _("Black"), self.coordinates.min_score_black
             )
 
-            QTUtil2.message(self, mens)
+            QTUtil2.message_result_win(self, mens)
             self.terminar()
             return
         else:

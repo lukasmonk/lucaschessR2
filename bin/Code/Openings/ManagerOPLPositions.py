@@ -176,7 +176,7 @@ class ManagerOpeningLinesPositions(ManagerOPL.ManagerOpeningLines):
             else:
                 li_extra_options = [("lmo_jump", "%s: %s" % (base, _("Jump to the next")), Iconos.PuntoVerde())]
 
-            resp = self.configurar(siSonidos=True, siCambioTutor=False, li_extra_options=li_extra_options)
+            resp = self.configurar(with_sounds=True, with_change_tutor=False, li_extra_options=li_extra_options)
             if resp in ("lmo_stop", "lmo_jump"):
                 self.with_automatic_jump = resp == "lmo_jump"
                 self.training["AUTOJUMP_TRAINPOSITIONS"] = self.with_automatic_jump

@@ -81,17 +81,17 @@ class WRegisteredBooks(LCDialog.LCDialog):
         row = self.glista.recno()
         if row > 0:
             lista = self.list_books.lista
-            lista[row], lista[row-1] = lista[row-1], lista[row]
+            lista[row], lista[row - 1] = lista[row - 1], lista[row]
             self.list_books.save()
-            self.glista.goto(row-1, 0)
+            self.glista.goto(row - 1, 0)
             self.glista.refresh()
 
     def go_down(self):
         row = self.glista.recno()
         if row > 0:
             lista = self.list_books.lista
-            lista[row], lista[row-1] = lista[row-1], lista[row]
-            self.glista.goto(row-1, 0)
+            lista[row], lista[row - 1] = lista[row - 1], lista[row]
+            self.glista.goto(row - 1, 0)
             self.glista.refresh()
 
     def grid_dato(self, grid, row, o_columna):

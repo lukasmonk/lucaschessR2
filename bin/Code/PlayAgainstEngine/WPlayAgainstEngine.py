@@ -23,11 +23,11 @@ from Code.Base.Constantes import (
     BOOK_RANDOM_UNIFORM,
     BOOK_RANDOM_PROPORTIONAL
 )
+from Code.Books import Books
+from Code.Books import WBooks
 from Code.Engines import SelectEngines, WConfEngines, EngineRun
 from Code.Openings import WindowOpeningLines, WindowOpenings, OpeningsStd
 from Code.PlayAgainstEngine import Personalities
-from Code.Books import Books
-from Code.Books import WBooks
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles
@@ -65,7 +65,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
 
         # Toolbar
         li_acciones = [
-            ("&"+_("Accept"), Iconos.Aceptar(), self.aceptar),
+            ("&" + _("Accept"), Iconos.Aceptar(), self.aceptar),
             None,
             (_("Cancel"), Iconos.Cancelar(), self.cancelar),
             None,
@@ -502,10 +502,11 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
 
     def grid_dato(self, grid, row, o_column):
         col = o_column.key
+        name = self.rival.li_uci_options_editable()[row].name
         if col == "OPTION":
-            return self.rival.li_uci_options_editable()[row].name
+            return name
+
         else:
-            name = self.rival.li_uci_options_editable()[row].name
             valor = self.rival.li_uci_options_editable()[row].valor
             for xnombre, xvalor in self.rival.liUCI:
                 if xnombre == name:
@@ -909,6 +910,28 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
             self.opening_block = ap
             self.opening_show()
 
+    def current_values_uci(self):
+        if self.tab_advanced_active:
+            li_uci = []
+            for uci_option in self.rival.li_uci_options_editable():
+                name = uci_option.name
+                valor = uci_option.valor
+                for xnombre, xvalor in self.rival.liUCI:
+                    if xnombre == name:
+                        valor = xvalor
+                        break
+                if type(valor) == bool:
+                    valor = str(valor).lower()
+                else:
+                    valor = str(valor)
+                valor = valor.strip()
+                if valor != uci_option.default:
+                    li_uci.append((name, valor))
+        else:
+            li_uci = self.rival.liUCI
+
+        return li_uci
+
     def save_dic(self):
         dic = {}
 
@@ -919,7 +942,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         dr["ENGINE"] = self.rival.key
         dr["TYPE"] = self.rival.type
         dr["ALIAS"] = self.rival.alias
-        dr["LIUCI"] = self.rival.liUCI
+        dr["LIUCI"] = self.current_values_uci()
 
         dr["ENGINE_TIME"] = int(self.ed_rtime.textoFloat() * 10)
         dr["ENGINE_DEPTH"] = self.ed_rdepth.textoInt()

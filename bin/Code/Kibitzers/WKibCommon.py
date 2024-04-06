@@ -1,17 +1,16 @@
-from PySide2 import QtCore, QtGui, QtWidgets
-
 import FasterCode
+from PySide2 import QtCore, QtGui, QtWidgets
 
 import Code
 from Code.Base import Game
-from Code.Kibitzers import Kibitzers
-from Code.QT import Piezas
 from Code.Board import Board
+from Code.Kibitzers import Kibitzers
 from Code.QT import Delegados
-from Code.Voyager import Voyager
+from Code.QT import Iconos
+from Code.QT import Piezas
 from Code.QT import QTUtil
 from Code.QT import QTVarios
-from Code.QT import Iconos
+from Code.Voyager import Voyager
 
 
 class WKibCommon(QtWidgets.QDialog):
@@ -50,7 +49,7 @@ class WKibCommon(QtWidgets.QDialog):
         self.board = Board.Board(self, config_board)
         self.board.crea()
         self.board.set_dispatcher(self.mensajero)
-        Delegados.generaPM(self.board.piezas)
+        Delegados.genera_pm(self.board.piezas)
         if not self.show_board:
             self.board.hide()
 
@@ -115,7 +114,6 @@ class WKibCommon(QtWidgets.QDialog):
             if hasattr(self, "grid"):
                 self.grid.restore_video(dic_video)
                 self.grid.releerColumnas()
-
 
     def config_board(self):
         self.show_board = not self.show_board

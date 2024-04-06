@@ -383,5 +383,3 @@ class WSwissConfig(LCDialog.LCDialog):
         else:
             n_opponents = self.swiss.num_opponents()
             self.lb_num_opponents.set_text(f"{n_opponents}")
-
-

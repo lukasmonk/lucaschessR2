@@ -7,10 +7,10 @@ from Code import Util
 from Code import XRun
 from Code.Base import Game, Position
 from Code.Base.Constantes import FEN_INITIAL, BOOK_BEST_MOVE, BOOK_RANDOM_UNIFORM, BOOK_RANDOM_PROPORTIONAL
+from Code.Books import Books
 from Code.Databases import DBgames, WDB_Games
 from Code.Engines import Engines, WEngines
 from Code.Engines import SelectEngines
-from Code.Books import Books
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles
@@ -781,16 +781,39 @@ class WTournament(LCDialog.LCDialog):
 
         self.configuration.write_variables("crear_torneo", dicValores)
 
-        nSel = len(liSel)
-        if nSel < 2:
+        n_sel = len(liSel)
+        if n_sel < 2:
             QTUtil2.message_error(self, _("You must use at least two engines"))
             return
 
+        tr = 0
+        for x in range(n_sel - 1):
+            for y in range(x + 1, n_sel):
+                tr += 2
+
+        tt = rounds * tr
+        pb = QTUtil2.BarraProgreso1(self, _("Games"), show_time=tt>20)
+        pb.set_total(tt)
+        pb.mostrar()
+        pos = 0
         for r in range(rounds):
-            for x in range(nSel - 1):
-                for y in range(x + 1, nSel):
-                    self.torneo.nuevoGame(liSel[x], liSel[y], minutos, seconds)
-                    self.torneo.nuevoGame(liSel[y], liSel[x], minutos, seconds)
+            for x in range(n_sel - 1):
+                for y in range(x + 1, n_sel):
+                    self.torneo.new_game(liSel[x], liSel[y], minutos, seconds)
+                    pos += 1
+                    pb.pon(pos)
+                    self.torneo.new_game(liSel[y], liSel[x], minutos, seconds)
+                    pos += 1
+                    pb.pon(pos)
+                    if pb.is_canceled():
+                        break
+                if pb.is_canceled():
+                    break
+            if pb.is_canceled():
+                break
+            self.torneo.new_game_commit()
+        pb.close()
+        self.torneo.new_game_commit()
 
         self.gridGamesQueued.refresh()
         self.gridGamesQueued.gobottom()
@@ -800,18 +823,20 @@ class WTournament(LCDialog.LCDialog):
         li = self.gridGamesQueued.recnosSeleccionados()
         if li:
             if QTUtil2.pregunta(self, _("Do you want to delete all selected records?")):
-                self.torneo.remove_games_queued(li)
-                self.gridGamesQueued.refresh()
-                self.gridResults.refresh()
-                self.rotulos_tabs()
+                with QTUtil2.OneMomentPlease(self):
+                    self.torneo.remove_games_queued(li)
+                    self.gridGamesQueued.refresh()
+                    self.gridResults.refresh()
+                    self.rotulos_tabs()
 
     def gm_borrar_finished(self):
         li = self.gridGamesFinished.recnosSeleccionados()
         if li:
             if QTUtil2.pregunta(self, _("Do you want to delete all selected records?")):
-                self.torneo.remove_games_finished(li)
-                self.gridGamesFinished.refresh()
-                self.rotulos_tabs()
+                with QTUtil2.OneMomentPlease(self):
+                    self.torneo.remove_games_finished(li)
+                    self.gridGamesFinished.refresh()
+                    self.rotulos_tabs()
 
     def gm_show_finished(self):
         li = self.gridGamesFinished.recnosSeleccionados()

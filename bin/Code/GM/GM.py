@@ -308,7 +308,7 @@ class FabGM:
             self.f = None
 
     def other_game(self, game):
-        dic = game.dicTags()
+        dic = game.dic_tags()
 
         if self.li_players:
             is_white = False

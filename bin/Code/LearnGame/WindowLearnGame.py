@@ -5,38 +5,93 @@ from PySide2 import QtWidgets, QtCore
 import Code
 from Code import Util
 from Code.Base import Game
+from Code.Base.Constantes import LI_BASIC_TAGS
 from Code.Board import Board
-from Code.Translations import TrListas
+from Code.Databases import WindowDatabase
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles
 from Code.QT import FormLayout
 from Code.QT import Grid
 from Code.QT import Iconos
+from Code.QT import LCDialog
 from Code.QT import QTUtil
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
 from Code.SQL import UtilSQL
-from Code.QT import LCDialog
-
-from Code.Databases import WindowDatabase
+from Code.Translations import TrListas
 
 
 class DBLearnGame(UtilSQL.DictSQL):
-    def __init__(self, file):
-        UtilSQL.DictSQL.__init__(self, file)
+    def __init__(self):
+        UtilSQL.DictSQL.__init__(self, Code.configuration.file_learn_game())
         self.regKeys = self.keys(True, True)
+        self.check_mode2()
 
-    def leeRegistro(self, num):
+    @staticmethod
+    def game_key(key_base, game):
+        li_tags = [key_base]
+        for tag in LI_BASIC_TAGS:
+            li_tags.append(f"{tag}:{game.get_tag(tag)}")
+        li_tags.append(f"PLYCOUNT:{len(game)}")
+        key_new = "|".join(li_tags)
+        return key_new
+
+    def check_mode2(self):
+        if len(self.regKeys) == 0:
+            return
+        if "|" in self.regKeys[0]:
+            return
+
+        with QTUtil2.OneMomentPlease(None):
+            for key in self.regKeys:
+                dic = self.__getitem__(key)
+                game_saved = dic["GAME"]
+                game: Game.Game = Game.Game()
+                game.restore(game_saved)
+                key_new = self.game_key(key, game)
+                sql = f"UPDATE {self.tabla} SET KEY=? WHERE KEY=?"
+                self.conexion.execute(sql, (key_new, key))
+            self.conexion.commit()
+            self.reset()
+            self.regKeys = self.keys(True, True)
+
+    def read_dic_register(self, num):
+        key = self.regKeys[num]
+        dic = {}
+        for pos, elem in enumerate(key.split("|")):
+            if pos == 0:
+                continue
+            pos_2 = elem.index(":")
+            dic[elem[:pos_2]] = elem[pos_2 + 1:] if len(elem) > pos_2 + 1 else ""
+        return dic
+
+    def read_data_register(self, num):
         return self.__getitem__(self.regKeys[num])
 
-    def append(self, valor):
+    def append_game(self, game):
+        game = Game.game_without_variations(game)  # to reduce size
+        reg = {"GAME": game.save()}
         k = str(Util.today())
-        self.__setitem__(k, valor)
+        self.__setitem__(self.game_key(k, game), reg)
         self.regKeys = self.keys(True, True)
 
-    def cambiaRegistro(self, num, valor):
-        self.__setitem__(self.regKeys[num], valor)
+    def change_register(self, num, reg):
+        game = Game.Game()
+        game.restore(reg["GAME"])
+        key = self.regKeys[num]
+        key_base = key.split("|")[0]
+        key_new = self.game_key(key_base, game)
+        sql = f"UPDATE {self.tabla} SET KEY=? WHERE KEY=?"
+        self.conexion.execute(sql, (key_new, key))
+        self.conexion.commit()
+        self.reset()
+        self.__setitem__(key_new, reg)
+        self.regKeys = self.keys(True, True)
+
+    def change_value(self, num, reg):
+        key = self.regKeys[num]
+        self.__setitem__(key, reg)
 
     def remove_list(self, li):
         li.sort()
@@ -44,30 +99,35 @@ class DBLearnGame(UtilSQL.DictSQL):
         for x in li:
             self.__delitem__(self.regKeys[x])
         self.pack()
+        self.reset()
         self.regKeys = self.keys(True, True)
+
+    def reset(self):
+        cursor = self.conexion.execute("SELECT KEY FROM %s" % self.tabla)
+        self.li_keys = [reg[0] for reg in cursor.fetchall()]
+        self.cache = {}
 
 
 class WLearnBase(LCDialog.LCDialog):
     def __init__(self, wowner):
 
         titulo = _("Memorize a game")
-        LCDialog.LCDialog.__init__(self, wowner, titulo, Iconos.LearnGame(), "learngame")
+        LCDialog.LCDialog.__init__(self, wowner, titulo, Iconos.LearnGame(), "learngame1")
 
         self.procesador = Code.procesador
         self.configuration = Code.configuration
 
-        self.db = DBLearnGame(self.configuration.file_learn_game())
-
-        self.cache = {}
+        self.db = DBLearnGame()
 
         o_columns = Columnas.ListaColumnas()
 
-        def crea_col(key, label, align_center=True):
-            o_columns.nueva(key, label, 80, align_center=align_center)
+        def crea_col(xkey, xlabel, align_center=True):
+            o_columns.nueva(xkey, xlabel, 80, align_center=align_center)
 
         # # Claves segun orden estandar
-        liBasic = ("EVENT", "SITE", "DATE", "ROUND", "WHITE", "BLACK", "RESULT", "ECO", "FEN", "WHITEELO", "BLACKELO")
-        for key in liBasic:
+        li = list(LI_BASIC_TAGS)
+        li.insert(0, "PLYCOUNT")
+        for key in li:
             label = TrListas.pgn_label(key)
             crea_col(key, label, key != "EVENT")
         self.grid = Grid.Grid(self, o_columns, siSelecFilas=True, siSeleccionMultiple=True)
@@ -89,8 +149,8 @@ class WLearnBase(LCDialog.LCDialog):
         self.tb = QTVarios.LCTB(self, li_acciones)
 
         # Colocamos
-        lyTB = Colocacion.H().control(self.tb).margen(0)
-        ly = Colocacion.V().otro(lyTB).control(self.grid).margen(3)
+        ly_tb = Colocacion.H().control(self.tb).margen(0)
+        ly = Colocacion.V().otro(ly_tb).control(self.grid).margen(3)
 
         self.setLayout(ly)
 
@@ -107,14 +167,8 @@ class WLearnBase(LCDialog.LCDialog):
 
     def grid_dato(self, grid, row, o_column):
         col = o_column.key
-        if row in self.cache:
-            game = self.cache[row]
-        else:
-            reg = self.db.leeRegistro(row)
-            game = Game.Game()
-            game.restore(reg["GAME"])
-            self.cache[row] = game
-        return game.get_tag(col)
+        dic = self.db.read_dic_register(row)
+        return dic.get(col)
 
     def terminar(self):
         self.save_video()
@@ -140,9 +194,7 @@ class WLearnBase(LCDialog.LCDialog):
                 if resp:
                     game = w.game
         if game and len(game) > 0:
-            reg = {"GAME": game.save()}
-            self.db.append(reg)
-            self.cache = {}
+            self.db.append_game(game)
             self.grid.refresh()
             self.grid.gotop()
 
@@ -151,7 +203,6 @@ class WLearnBase(LCDialog.LCDialog):
         if len(li) > 0:
             if QTUtil2.pregunta(self, _("Do you want to delete all selected records?")):
                 self.db.remove_list(li)
-        self.cache = {}
         self.grid.gotop()
         self.grid.refresh()
 
@@ -162,42 +213,30 @@ class WLearnBase(LCDialog.LCDialog):
             w.exec_()
 
     def tw_up(self):
-        recno = self.grid.recno()
-        if 0 < recno < len(self.db):
-            r0 = recno
-            r1 = recno - 1
-            reg0 = self.db.leeRegistro(r0)
-            reg1 = self.db.leeRegistro(r1)
-            self.db.cambiaRegistro(r0, reg1)
-            self.db.cambiaRegistro(r1, reg0)
-            if r0 in self.cache and r1 in self.cache:
-                self.cache[r0], self.cache[r1] = self.cache[r1], self.cache[r0]
-            else:
-                if r0 in self.cache:
-                    del self.cache[r0]
-                if r1 in self.cache:
-                    del self.cache[r1]
-            self.grid.refresh()
-            self.grid.goto(r1, 0)
+        with QTUtil2.OneMomentPlease(self):
+            recno = self.grid.recno()
+            if 0 < recno < len(self.db):
+                r0 = recno
+                r1 = recno - 1
+                reg0 = self.db.read_data_register(r0)
+                reg1 = self.db.read_data_register(r1)
+                self.db.change_register(r0, reg1)
+                self.db.change_register(r1, reg0)
+                self.grid.refresh()
+                self.grid.goto(r1, 0)
 
     def tw_down(self):
-        recno = self.grid.recno()
-        if 0 <= recno < len(self.db) - 1:
-            r0 = recno
-            r1 = recno + 1
-            reg0 = self.db.leeRegistro(r0)
-            reg1 = self.db.leeRegistro(r1)
-            self.db.cambiaRegistro(r0, reg1)
-            self.db.cambiaRegistro(r1, reg0)
-            if r0 in self.cache and r1 in self.cache:
-                self.cache[r0], self.cache[r1] = self.cache[r1], self.cache[r0]
-            else:
-                if r0 in self.cache:
-                    del self.cache[r0]
-                if r1 in self.cache:
-                    del self.cache[r1]
-            self.grid.refresh()
-            self.grid.goto(r1, 0)
+        with QTUtil2.OneMomentPlease(self):
+            recno = self.grid.recno()
+            if 0 <= recno < len(self.db) - 1:
+                r0 = recno
+                r1 = recno + 1
+                reg0 = self.db.read_data_register(r0)
+                reg1 = self.db.read_data_register(r1)
+                self.db.change_register(r0, reg1)
+                self.db.change_register(r1, reg0)
+                self.grid.refresh()
+                self.grid.goto(r1, 0)
 
 
 class WLearn1(LCDialog.LCDialog):
@@ -210,10 +249,11 @@ class WLearn1(LCDialog.LCDialog):
         self.procesador = Code.procesador
         self.configuration = Code.configuration
         self.numRegistro = num_registro
-        self.registro = self.db.leeRegistro(num_registro)
+        self.registro = self.db.read_data_register(num_registro)
 
         self.game = Game.Game()
-        self.game.restore(self.registro["GAME"])
+        with QTUtil2.OneMomentPlease(owner):
+            self.game.restore(self.registro["GAME"])
 
         self.lbRotulo = (
             Controles.LB(self, self.label()).set_font_type(puntos=12).set_foreground_backgound("#076C9F", "#EFEFEF")
@@ -243,8 +283,8 @@ class WLearn1(LCDialog.LCDialog):
         self.tb = QTVarios.LCTB(self, li_acciones)
 
         # Colocamos
-        lyTB = Colocacion.H().control(self.tb).margen(0)
-        ly = Colocacion.V().otro(lyTB).control(self.grid).control(self.lbRotulo).margen(3)
+        ly_tb = Colocacion.H().control(self.tb).margen(0)
+        ly = Colocacion.V().otro(ly_tb).control(self.grid).control(self.lbRotulo).margen(3)
 
         self.setLayout(ly)
 
@@ -254,11 +294,7 @@ class WLearn1(LCDialog.LCDialog):
         self.grid.gotop()
 
     def label(self):
-        r = self.registro
-
-        def x(k):
-            return r.get(k, "")
-
+        x = self.game.get_tag
         return "%s-%s : %s %s %s" % (x("WHITE"), x("BLACK"), x("DATE"), x("EVENT"), x("SITE"))
 
     def grid_num_datos(self, grid):
@@ -296,7 +332,7 @@ class WLearn1(LCDialog.LCDialog):
         self.grid.refresh()
         self.grid.gotop()
         self.registro["LIINTENTOS"] = self.liIntentos
-        self.db.cambiaRegistro(self.numRegistro, self.registro)
+        self.db.change_value(self.numRegistro, self.registro)
 
     def terminar(self):
         self.save_video()
@@ -314,19 +350,19 @@ class WLearn1(LCDialog.LCDialog):
         self.grid.refresh()
 
     def empezar(self):
-        regBase = self.liIntentos[0] if self.liIntentos else {}
+        reg_base = self.liIntentos[0] if self.liIntentos else {}
         dic = self.configuration.read_variables("MEMORIZING_GAME")
 
         form = FormLayout.FormLayout(self, _("New try"), Iconos.LearnGame(), anchoMinimo=300)
 
         form.separador()
         form.apart(_("Second board"))
-        form.spinbox(_("Movement displayed"), 0, len(self.game), 40, regBase.get("LEVEL", 1))
+        form.spinbox(_("Movement displayed"), 0, len(self.game), 40, reg_base.get("LEVEL", 1))
         form.separador()
 
         form.apart(_("Side you play with"))
-        form.checkbox(_("White"), "w" in regBase.get("COLOR", "bw"))
-        form.checkbox(_("Black"), "b" in regBase.get("COLOR", "bw"))
+        form.checkbox(_("White"), "w" in reg_base.get("COLOR", "bw"))
+        form.checkbox(_("Black"), "b" in reg_base.get("COLOR", "bw"))
 
         form.separador()
         form.checkbox(_("Show clock"), dic.get("CLOCK", True))
@@ -343,19 +379,19 @@ class WLearn1(LCDialog.LCDialog):
         black = li_resp[2]
         if not (white or black):
             return
-        siClock = li_resp[3]
+        si_clock = li_resp[3]
 
-        dic["CLOCK"] = siClock
+        dic["CLOCK"] = si_clock
         self.configuration.write_variables("MEMORIZING_GAME", dic)
 
-        w = WLearnPuente(self, self.game, level, white, black, siClock)
+        w = WLearnPuente(self, self.game, level, white, black, si_clock)
         w.exec_()
 
 
 class WLearnPuente(LCDialog.LCDialog):
     INICIO, FINAL_JUEGO, REPLAY, REPLAY_CONTINUE = range(4)
 
-    def __init__(self, owner, game, nivel, white, black, siClock):
+    def __init__(self, owner: WLearn1, game, nivel, white, black, siClock):
 
         LCDialog.LCDialog.__init__(self, owner, owner.label(), Iconos.PGN(), "learnpuente")
 
@@ -388,7 +424,7 @@ class WLearnPuente(LCDialog.LCDialog):
             .set_foreground_backgound("#076C9F", "#EFEFEF")
             .anchoMinimo(self.boardIni.ancho)
         )
-        lyIni = Colocacion.V().control(self.boardIni).control(self.lbIni)
+        ly_ini = Colocacion.V().control(self.boardIni).control(self.lbIni)
 
         if self.nivel > 0:
             self.boardFin = Board.BoardEstatico(self, config_board)
@@ -400,7 +436,7 @@ class WLearnPuente(LCDialog.LCDialog):
                 .anchoMinimo(self.boardFin.ancho)
             )
             self.boardFin.disable_eboard_here()
-            lyFin = Colocacion.V().control(self.boardFin).control(self.lbFin)
+            ly_fin = Colocacion.V().control(self.boardFin).control(self.lbFin)
 
         # Rotulo vtime
         f = Controles.FontType(puntos=30, peso=75)
@@ -418,12 +454,12 @@ class WLearnPuente(LCDialog.LCDialog):
         self.lbInfo = Controles.LB(self).anchoFijo(200).set_wrap().set_font(flb)
 
         # Layout
-        lyC = Colocacion.V().control(self.lbReloj).control(self.lbInfo).relleno()
-        lyTM = Colocacion.H().otro(lyIni).otro(lyC)
+        ly_c = Colocacion.V().control(self.lbReloj).control(self.lbInfo).relleno()
+        ly_tm = Colocacion.H().otro(ly_ini).otro(ly_c)
         if self.nivel > 0:
-            lyTM.otro(lyFin).relleno()
+            ly_tm.otro(ly_fin).relleno()
 
-        ly = Colocacion.V().control(self.tb).otro(lyTM).relleno().margen(3)
+        ly = Colocacion.V().control(self.tb).otro(ly_tm).relleno().margen(3)
 
         self.setLayout(ly)
 
@@ -489,7 +525,8 @@ class WLearnPuente(LCDialog.LCDialog):
 
         self.tb.reset(li_acciones)
 
-    def deactivate_eboard(self, ms):
+    @staticmethod
+    def deactivate_eboard(ms):
         if Code.eboard and Code.eboard.driver:
             QTUtil.refresh_gui()
             QtCore.QTimer.singleShot(ms, Code.eboard.deactivate)
@@ -584,13 +621,13 @@ class WLearnPuente(LCDialog.LCDialog):
 
     def ponInfo(self):
         njg = self.repJugada if self.repWorking else self.movActual - 1
-        txtPGN = self.game.pgn_translated(hastaJugada=njg)
+        txt_pgn = self.game.pgn_translated(hastaJugada=njg)
         texto = "<big><center><b>%s</b>: %d<br><b>%s</b>: %d</center><br><br>%s</big>" % (
             _("Errors"),
             self.errors,
             _("Hints"),
             self.hints,
-            txtPGN,
+            txt_pgn,
         )
         self.lbInfo.set_text(texto)
 
@@ -631,7 +668,6 @@ class WLearnPuente(LCDialog.LCDialog):
             self.siguiente()
 
     def player_has_moved(self, from_sq, to_sq, promotion=""):
-
         move = self.game.move(self.movActual)
 
         # Peon coronando
@@ -650,7 +686,6 @@ class WLearnPuente(LCDialog.LCDialog):
             return False
 
     def get_help(self):
-
         move = self.game.move(self.movActual)
         self.boardIni.put_arrow_sc(move.from_sq, move.to_sq)
         self.hints += 1
@@ -663,13 +698,14 @@ class WLearnPuente(LCDialog.LCDialog):
             color += "w"
         if self.black:
             color += "b"
-        dic = {}
-        dic["SECONDS"] = time.time() - self.time_base
-        dic["DATE"] = Util.today()
-        dic["LEVEL"] = self.nivel
-        dic["COLOR"] = color
-        dic["HINTS"] = self.hints
-        dic["ERRORS"] = self.errors
+        dic = {
+            "SECONDS": time.time() - self.time_base,
+            "DATE": Util.today(),
+            "LEVEL": self.nivel,
+            "COLOR": color,
+            "HINTS": self.hints,
+            "ERRORS": self.errors
+        }
         self.owner.guardar(dic)
 
     def finalJuego(self):
@@ -680,6 +716,8 @@ class WLearnPuente(LCDialog.LCDialog):
         self.guardar()
 
         self.pon_toolbar(self.FINAL_JUEGO)
+
+        QTUtil2.temporary_message(self, _("Ended"), 1.3)
 
     def final(self):
         self.deactivate_eboard(500)

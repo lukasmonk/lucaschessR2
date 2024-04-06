@@ -123,7 +123,7 @@ class ManagerGM(Manager.Manager):
             self.adjourn()
 
         elif key == TB_CONFIG:
-            self.configurar(siSonidos=True)
+            self.configurar(with_sounds=True)
 
         elif key == TB_UTILITIES:
             self.utilities()
@@ -315,7 +315,7 @@ class ManagerGM(Manager.Manager):
                         self.book = False
         else:
             siAnalizaJuez = (
-                self.with_adjudicator and self.mostrar is None
+                    self.with_adjudicator and self.mostrar is None
             )  # None es ver siempre False no ver nunca True ver si diferentes
             if len(movimiento) == 5:
                 promotion = movimiento[4].lower()

@@ -2,10 +2,11 @@ from PySide2 import QtCore, QtWidgets
 
 import Code
 from Code import Util, XRun
+from Code.Base import Game
 from Code.Base.Constantes import RUNA_GAME, RUNA_HALT, RUNA_CONFIGURATION, RUNA_TERMINATE
+from Code.BestMoveTraining import BMT
 from Code.QT import QTUtil, LCDialog, Iconos, Controles, Colocacion
 from Code.SQL import UtilSQL
-from Code.BestMoveTraining import BMT
 
 
 class Orden:
@@ -168,7 +169,9 @@ class AnalysisMassiveWithWorkers:
 
                 self.send_game_worker(num_worker)
 
-                game = order.get("GAME")
+                game: Game.Game = order.get("GAME")
+                if self.alm.accuracy_tags:
+                    game.add_accuracy_tags()
                 recno = order.get("RECNO")
                 self.db_games.save_game_recno(recno, game)
                 self.num_games_analyzed += 1

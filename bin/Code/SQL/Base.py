@@ -2,7 +2,6 @@ import atexit
 import sqlite3
 
 from Code import Util
-
 from Code.SQL import DBF
 from Code.SQL import DBFcache
 

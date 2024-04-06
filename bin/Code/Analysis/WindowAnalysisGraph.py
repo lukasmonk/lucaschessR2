@@ -63,7 +63,7 @@ class WAnalisisGraph(LCDialog.LCDialog):
             o_columns.nueva("DIF", _("Difference"), 80, align_center=True)
             if self.with_time:
                 o_columns.nueva("TIME", _("Time"), 50, align_right=True)
-            o_columns.nueva("PORC", "%", 80, align_center=True)
+            o_columns.nueva("PORC", _("Accuracy"), 80, align_center=True)
             o_columns.nueva("ELO", _("Elo"), 80, align_center=True)
             return o_columns
 
@@ -314,7 +314,7 @@ class WAnalisisGraph(LCDialog.LCDialog):
             rm1 = mrm.li_rm[pos]
             if rm0.mate:
                 if rm1.mate:
-                    return "" if rm0.mate == rm1.mate else "M↓%d" % (-rm0.mate+rm1.mate,)
+                    return "" if rm0.mate == rm1.mate else "M↓%d" % (-rm0.mate + rm1.mate,)
                 else:
                     return "M↓%d" % rm0.mate
             elif rm1.mate:

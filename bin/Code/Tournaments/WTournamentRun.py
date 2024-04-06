@@ -137,7 +137,7 @@ class WTournamentRun(QtWidgets.QWidget):
         conf_board = Code.configuration.config_board("TOURNEYPLAY", 36)
         self.board = Board.Board(self, conf_board)
         self.board.crea()
-        Delegados.generaPM(self.board.piezas)
+        Delegados.genera_pm(self.board.piezas)
 
         ct = self.board.config_board
         self.antiguoAnchoPieza = ct.width_piece()

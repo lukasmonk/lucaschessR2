@@ -1,12 +1,13 @@
 import audioop
 import os
+import queue
 import time
 import wave
-import queue
 from io import BytesIO
 
 from PySide2 import QtCore, QtMultimedia
 from PySide2.QtMultimedia import QAudioDeviceInfo, QAudioFormat, QAudioInput, QSound
+
 import Code
 from Code import Util
 from Code.QT import QTUtil

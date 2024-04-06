@@ -466,7 +466,6 @@ class WEverest(LCDialog.LCDialog):
             self.configuration.write_variables(var_config, dic)
 
 
-
 def everest(procesador):
     w = WEverest(procesador)
     if w.exec_():

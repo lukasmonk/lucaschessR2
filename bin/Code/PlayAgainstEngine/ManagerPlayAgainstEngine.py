@@ -488,7 +488,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                 if len(self.game) > 0:
                     li_mas_opciones.append((None, None, None))
                     li_mas_opciones.append(("moverival", _("Change opponent move"), Iconos.TOLchange()))
-            resp = self.configurar(li_mas_opciones, siSonidos=True, siCambioTutor=self.ayudas_iniciales > 0)
+            resp = self.configurar(li_mas_opciones, with_sounds=True, with_change_tutor=self.ayudas_iniciales > 0)
             if resp == "rival":
                 self.change_rival()
             elif resp == "moverival":
@@ -558,6 +558,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
     def close_position(self, key):
         self.main_window.deactivate_eboard(100)
         if key == TB_CLOSE:
+            self.autosave_now()
             self.procesador.run_action(TB_QUIT)
         else:
             self.run_action(key)
@@ -567,12 +568,18 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         game = Game.Game()
         game.restore(restore_game)
         player = self.configuration.nom_player()
-        dic["FEN"] = game.last_position.fen()
+        # dic["FEN"] = game.last_position.fen()
         self.base_inicio(dic)
+        self.reinicio["play_position"] = dic, restore_game
         other = self.xrival.name
         w, b = (player, other) if self.is_human_side_white else (other, player)
+        for tag, value in self.game.li_tags:
+            if not game.get_tag(tag):
+                game.set_tag(tag, value)
+        game.add_tag_date()
         game.set_tag("White", w)
         game.set_tag("Black", b)
+        game.add_tag_timestart()
         game.order_tags()
         self.game = game
         self.goto_end()
@@ -591,9 +598,15 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             self.cache = {}
         self.reinicio["cache"] = self.cache
         self.reinicio["cache_analysis"] = self.cache_analysis
+        self.autosave_now()
+
+        if "play_position" in self.reinicio:
+            self.procesador.stop_engines()
+            dic, restore_game = self.reinicio["play_position"]
+            return self.play_position(dic, restore_game)
+
         self.game.reset()
         self.toolbar_state = ST_ENDGAME
-        self.autosave()
         self.main_window.activaInformacionPGN(False)
 
         reinicio = self.reinicio.get("REINIT", 0) + 1

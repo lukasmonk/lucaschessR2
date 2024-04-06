@@ -107,7 +107,6 @@ def update_eboard(main_window):
 
 
 def update(main_window):
-
     if Code.configuration.x_digital_board:
         if Code.eboard:
             Code.eboard.deactivate()

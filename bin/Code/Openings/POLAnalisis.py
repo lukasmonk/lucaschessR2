@@ -587,7 +587,8 @@ class TabTree(QtWidgets.QWidget):
 
         gamebase = self.tabsAnalisis.dbop.getgamebase()
         self.pgn_initial = gamebase.pgn_translated()
-        self.lb_analisis = Controles.LB(self, self.pgn_initial).set_font_type(puntos=configuration.x_pgn_fontpoints).set_wrap()
+        self.lb_analisis = Controles.LB(self, self.pgn_initial).set_font_type(
+            puntos=configuration.x_pgn_fontpoints).set_wrap()
         Code.configuration.set_property(self.lb_analisis, "pgn")
         ly_act = Colocacion.H().control(bt_act).control(self.lb_analisis)
 

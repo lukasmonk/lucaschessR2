@@ -71,7 +71,8 @@ class WPlayHuman(LCDialog.LCDialog):
         # self.chb_analysis_bar = Controles.CHB(self, _("Activate the Analysis Bar"), False).set_font(font)
         # ly.control(self.chb_analysis_bar)
 
-        self.chb_autorotate = Controles.CHB(self, _("Auto-rotate board"), Code.configuration.get_auto_rotate(GT_HUMAN)).set_font(font)
+        self.chb_autorotate = Controles.CHB(self, _("Auto-rotate board"),
+                                            Code.configuration.get_auto_rotate(GT_HUMAN)).set_font(font)
         ly.control(self.chb_autorotate)
 
         self.setLayout(ly)

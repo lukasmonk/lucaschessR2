@@ -21,7 +21,7 @@ class WCountsCaptures(LCDialog.LCDialog):
             icon = Iconos.Count()
             extconfig = "counts2"
 
-        self.db = CountsCaptures.DBCountCapture(path)
+        self.db = CountsCaptures.DBCountCapture(path, is_captures)
 
         LCDialog.LCDialog.__init__(self, procesador.main_window, title, icon, extconfig)
 
@@ -95,7 +95,7 @@ class WCountsCaptures(LCDialog.LCDialog):
                     game = w.game
         if game is None:
             return
-        capture = CountsCaptures.CountCapture()
+        capture = CountsCaptures.CountCapture(self.is_captures)
         capture.game = game
         self.db.new_count_capture(capture)
         self.glista.refresh()

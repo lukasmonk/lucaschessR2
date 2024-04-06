@@ -102,7 +102,6 @@ class ManagerPlayGame(Manager.Manager):
 
         self.play_next_move()
 
-
     def name_obj(self):
         return self.name_obj_white if self.game.last_position.is_white else self.name_obj_black
 
@@ -140,7 +139,7 @@ class ManagerPlayGame(Manager.Manager):
             self.reiniciar(True)
 
         elif key == TB_CONFIG:
-            self.configurar(siSonidos=True)
+            self.configurar(with_sounds=True)
 
         elif key == TB_UTILITIES:
             self.utilidadesElo()

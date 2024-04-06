@@ -15,6 +15,7 @@ class LBPGN(Controles.LB):
         Code.configuration.set_property(self, "pgn")
         self.setOpenExternalLinks(False)
         self.linkActivated.connect(link)
+        self.setAlignment(QtCore.Qt.AlignTop)
 
     def keyPressEvent(self, event):
         k = event.key()
@@ -26,7 +27,6 @@ class LBPGN(Controles.LB):
     def mousePressEvent(self, ev: PySide2.QtGui.QMouseEvent):
         if ev.button() == QtCore.Qt.RightButton:
             return self.wparent.right_click(self)
-        # Controles.LB.mousePressEvent(self, ev)
 
 
 class ShowPGN(QtWidgets.QScrollArea):

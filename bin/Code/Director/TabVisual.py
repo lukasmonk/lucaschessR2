@@ -778,7 +778,8 @@ class Guion:
                 if tp == reg["_tp"]:
                     bloquedatos_reg = reg["_bloqueDatos"]
                     ok = True
-                    li_campos = [x for x in dir(bloquedatos_reg) if not x.startswith("_") and x not in ('copia', 'physical_pos', 'restore_dic', 'save_dic', 'tipoqt')]
+                    li_campos = [x for x in dir(bloquedatos_reg) if not x.startswith("_") and x not in (
+                    'copia', 'physical_pos', 'restore_dic', 'save_dic', 'tipoqt')]
                     for x in li_campos:
                         if x[0] != "_" and getattr(bloquedatos, x, None) != getattr(bloquedatos_reg, x):
                             ok = False
@@ -880,7 +881,7 @@ class DBManagerVisual:
         def reset_table(name, zap):
             path_resources = Code.path_resource("IntFiles", "recursos.dbl")
             with UtilSQL.DictRawSQL(self._fichero, tabla=name) as dba, UtilSQL.DictRawSQL(
-                path_resources, tabla=name
+                    path_resources, tabla=name
             ) as dbr:
                 if zap:
                     dba.zap()
@@ -943,20 +944,19 @@ class DBManagerVisual:
 
     def close(self):
         for db in (
-            self._dbFEN,
-            self._dbConfig,
-            self._dbFlechas,
-            self._dbMarcos,
-            self._dbCircles,
-            self._dbSVGs,
-            self._dbMarkers,
+                self._dbFEN,
+                self._dbConfig,
+                self._dbFlechas,
+                self._dbMarcos,
+                self._dbCircles,
+                self._dbSVGs,
+                self._dbMarkers,
         ):
             if db is not None:
                 db.close()
         self._dbFEN = (
             self._dbConfig
         ) = self._dbFlechas = self._dbMarcos = self._dbCircles = self._dbSVGs = self._dbMarkers = None
-
 
 # def readGraphLive(configuration):
 #     db = DBManagerVisual(configuration.ficheroRecursos, False)

@@ -19,6 +19,7 @@ from Code.QT import Iconos
 
 class ManagerVariations(Manager.Manager):
     def start(self, game, is_white_bottom, with_engine_active, is_competitive, go_to_move=None):
+
         self.thinking(True)
 
         self.kibitzers_manager = self.procesador.kibitzers_manager
@@ -123,6 +124,14 @@ class ManagerVariations(Manager.Manager):
         self.procesador.stop_engines()
         return True
 
+    def ponteEnJugada(self, movenum):
+        row = (movenum + 1) / 2 if self.game.starts_with_black else movenum / 2
+        move: Move.Move = self.game.move(movenum)
+        is_white = move.position_before.is_white
+        self.main_window.pgnColocate(row, is_white)
+        self.set_position(move.position)
+        self.put_view()
+
     def takeback(self):
         if len(self.game):
             self.game.anulaSoloUltimoMovimiento()
@@ -194,7 +203,7 @@ class ManagerVariations(Manager.Manager):
         else:
             li_extra_options = []
 
-        resp = Manager.Manager.configurar(self, li_extra_options, siCambioTutor=not self.is_competitive)
+        resp = Manager.Manager.configurar(self, li_extra_options, with_change_tutor=not self.is_competitive)
 
         if resp == "engine":
             self.set_label1("")

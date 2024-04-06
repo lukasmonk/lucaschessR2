@@ -341,7 +341,8 @@ class ManagerOpeningEngines(Manager.Manager):
         else:
             if self.um is None:
                 self.um = QTUtil2.temporary_message(
-                    self.main_window, _("Analyzing"), 0, physical_pos=TOP_RIGHT, with_cancel=True, tit_cancel=_("Cancel")
+                    self.main_window, _("Analyzing"), 0, physical_pos=TOP_RIGHT, with_cancel=True,
+                    tit_cancel=_("Cancel")
                 )
             if masTitulo:
                 self.um.label(_("Analyzing") + " " + masTitulo)
@@ -490,7 +491,7 @@ class ManagerOpeningEngines(Manager.Manager):
             self.set_end_game()
 
         elif key == TB_CONFIG:
-            self.configurar(siSonidos=True)
+            self.configurar(with_sounds=True)
 
         elif key == TB_UTILITIES:
             li_extra_options = []

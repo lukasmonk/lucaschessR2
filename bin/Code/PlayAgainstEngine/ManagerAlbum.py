@@ -118,7 +118,7 @@ class ManagerAlbum(Manager.Manager):
             self.resign()
 
         elif key == TB_CONFIG:
-            self.configurar(siSonidos=True)
+            self.configurar(with_sounds=True)
 
         elif key == TB_UTILITIES:
             self.utilities()

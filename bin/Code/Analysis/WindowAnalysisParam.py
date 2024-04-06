@@ -32,6 +32,8 @@ def read_dic_params():
 
     alm.book_name = dic.get("book_name", None)
 
+    alm.accuracy_tags = dic.get("accuracy_tags", False)
+
     alm.analyze_variations = dic.get("analyze_variations", False)
     alm.include_variations = dic.get("include_variations", True)
     alm.what_variations = dic.get("what_variations", ALL_VARIATIONS)
@@ -71,12 +73,12 @@ def form_blunders_brilliancies(alm, configuration):
     li_blunders = [SEPARADOR]
 
     li_types = [
-        (_("Dubious move") + ", " + _("Mistake") + ", " + _("Blunder"), INACCURACY_MISTAKE_BLUNDER),
-        (_("Dubious move") + ", " + _("Mistake"), INACCURACY_MISTAKE),
-        (_("Mistake") + ", " + _("Blunder"), MISTAKE_BLUNDER),
-        (_("Dubious move"), INACCURACY),
-        (_("Mistake"), MISTAKE),
-        (_("Blunder"), BLUNDER),
+        (_("Dubious move") + " (⁈)  + " + _("Mistake") + " (?) + " + _("Blunder") + " (⁇)", INACCURACY_MISTAKE_BLUNDER),
+        (_("Dubious move") + " (⁈) + " + _("Mistake") + " (?)", INACCURACY_MISTAKE),
+        (_("Mistake") + " (?) + " + _("Blunder") + " (⁇)", MISTAKE_BLUNDER),
+        (_("Dubious move") + " (⁈)", INACCURACY),
+        (_("Mistake") + " (?)", MISTAKE),
+        (_("Blunder") + " (⁇)", BLUNDER),
     ]
     condition = FormLayout.Combobox(_("Condition"), li_types)
     li_blunders.append((condition, alm.kblunders_condition))
@@ -231,6 +233,8 @@ def analysis_parameters(parent, extended_mode, all_engines=False):
         config = FormLayout.Combobox(_("Do not scan the opening moves based on book"), li)
         li_gen.append((config, defecto))
 
+        li_gen.append((_("Add accuracy tags to the game") + ":", alm.accuracy_tags))
+
         li_gen.append((_("Redo any existing prior analysis (if they exist)") + ":", alm.delete_previous))
 
         li_gen.append((_("Start from the end of the game") + ":", alm.from_last_move))
@@ -315,9 +319,10 @@ def analysis_parameters(parent, extended_mode, all_engines=False):
             alm.num_moves = li_gen[6]
             alm.book = li_gen[7]
             alm.book_name = alm.book.name if alm.book else None
-            alm.delete_previous = li_gen[8]
-            alm.from_last_move = li_gen[9]
-            alm.show_graphs = li_gen[10]
+            alm.accuracy_tags = li_gen[8]
+            alm.delete_previous = li_gen[9]
+            alm.from_last_move = li_gen[10]
+            alm.show_graphs = li_gen[11]
 
             (
                 alm.analyze_variations,
@@ -433,6 +438,7 @@ def massive_analysis_parameters(parent, configuration, multiple_selected, siData
         li.append((book.name, book))
     config = FormLayout.Combobox(_("Do not scan the opening moves based on book"), li)
     li_gen.append((config, defecto))
+    li_gen.append((_("Add accuracy tags to the game") + ":", alm.accuracy_tags))
 
     li_gen.append(SEPARADOR)
     li_gen.append((_("Start from the end of the game") + ":", alm.from_last_move))
@@ -476,6 +482,7 @@ def massive_analysis_parameters(parent, configuration, multiple_selected, siData
             cjug,
             alm.num_moves,
             alm.book,
+            alm.accuracy_tags,
             alm.from_last_move,
             alm.delete_previous,
             alm.multiple_selected,

@@ -2,6 +2,7 @@ import os.path
 
 from Code import Util
 from Code.Base import Game, Position
+from Code.BestMoveTraining import BMT, WindowBMTtrain
 from Code.Odt import WOdt
 from Code.QT import Colocacion
 from Code.QT import Columnas
@@ -14,7 +15,6 @@ from Code.QT import LCDialog
 from Code.QT import QTUtil
 from Code.QT import QTUtil2, SelectFiles
 from Code.QT import QTVarios
-from Code.BestMoveTraining import BMT, WindowBMTtrain
 from Code.Translations import TrListas
 
 
@@ -950,7 +950,7 @@ class WBMT(LCDialog.LCDialog):
         self.dbfT = self.bmt.read_dbf(True)
 
     def nuevo(self):
-        talpha = Controles.FontType("Chess Alpha 2", self.configuration.x_menu_points + 4)
+        talpha = Controles.FontType("Chess Merida", self.configuration.x_menu_points + 4)
 
         def xopcion(menu, key, texto, icono, is_disabled=False):
             if "KP" in texto:

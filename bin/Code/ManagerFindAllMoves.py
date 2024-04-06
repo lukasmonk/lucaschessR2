@@ -182,8 +182,8 @@ class ManagerFindAllMoves(Manager.Manager):
         if resp:
             if resp == "remove":
                 if QTUtil2.pregunta(
-                    self.main_window,
-                    _("Are you sure you want to delete all results of all levels and start again from scratch?"),
+                        self.main_window,
+                        _("Are you sure you want to delete all results of all levels and start again from scratch?"),
                 ):
                     self.pgn.remove_all()
                     self.pgnRefresh(True)
@@ -220,8 +220,9 @@ class ManagerFindAllMoves(Manager.Manager):
                 etiqueta=_("Level"),
                 pos=pos,
                 mensAdicional="<b><red>"
-                + _("Movements must be indicated in the following order: King, Queen, Rook, Bishop, Knight and Pawn.")
-                + "</red></b>",
+                              + _(
+                    "Movements must be indicated in the following order: King, Queen, Rook, Bishop, Knight and Pawn.")
+                              + "</red></b>",
             )
             if number is None:
                 return

@@ -5,6 +5,7 @@ from PySide2 import QtCore, QtWidgets
 
 import Code
 from Code import Util
+from Code.Analysis import WindowAnalysisConfig
 from Code.Base.Constantes import (
     POS_TUTOR_VERTICAL,
     POS_TUTOR_HORIZONTAL_2_1,
@@ -27,7 +28,6 @@ from Code.QT import LCDialog
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
 from Code.QT import SelectFiles
-from Code.Analysis import WindowAnalysisConfig
 
 
 class WConfEngines(LCDialog.LCDialog):
@@ -322,7 +322,7 @@ class WConfExternals(QtWidgets.QWidget):
 
     def command(self):
         separador = FormLayout.separador
-        li_gen = [separador,]
+        li_gen = [separador, ]
         config = FormLayout.Fichero(_("File"), "exe" if Code.is_windows else "*", False)
         li_gen.append((config, ""))
 
@@ -629,12 +629,12 @@ class WConfTutor(QtWidgets.QWidget):
             control.capture_changes(self, self.set_changed)
 
         for control in (
-            self.cb_priority,
-            self.cb_board_position,
-            self.ed_time,
-            self.ed_depth,
-            self.ed_multipv,
-            self.cb_type,
+                self.cb_priority,
+                self.cb_board_position,
+                self.ed_time,
+                self.ed_depth,
+                self.ed_multipv,
+                self.cb_type,
         ):
             control.capture_changes(self.set_changed)
 
@@ -712,7 +712,8 @@ class WConfAnalyzer(QtWidgets.QWidget):
             self, _("Analysis configuration parameters"), rutina=self.config_analysis_parameters, plano=False
         )
 
-        lb_analysis_bar = Controles.LB2P(self, _("Limits in the Analysis Bar (0=no limit)")).set_font_type(puntos=12, peso=700)
+        lb_analysis_bar = Controles.LB2P(self, _("Limits in the Analysis Bar (0=no limit)")).set_font_type(puntos=12,
+                                                                                                           peso=700)
         lb_depth_ab = Controles.LB2P(self, _("Depth"))
         self.ed_depth_ab = Controles.ED(self).tipoInt(self.configuration.x_analyzer_depth_ab).anchoFijo(30)
         lb_time_ab = Controles.LB2P(self, _("Time in seconds"))
@@ -734,7 +735,8 @@ class WConfAnalyzer(QtWidgets.QWidget):
 
         self.setLayout(lyh)
 
-        for control in (self.cb_priority, self.ed_multipv, self.ed_depth, self.ed_time, self.ed_depth_ab, self.ed_time_ab):
+        for control in (
+        self.cb_priority, self.ed_multipv, self.ed_depth, self.ed_time, self.ed_depth_ab, self.ed_time_ab):
             control.capture_changes(self.set_changed)
 
     def config_analysis_parameters(self):
@@ -807,9 +809,11 @@ class WOthers(QtWidgets.QWidget):
         ly_gav = Colocacion.H().control(self.bt_gaviota).control(self.bt_gaviota_remove).relleno()
 
         lb_stockfish = Controles.LB2P(self, "Stockfish")
-        self.lb_stockfish_version = Controles.LB(self, CheckEngines.current_stockfish()).set_font_type(peso=500, puntos=11)
+        self.lb_stockfish_version = Controles.LB(self, CheckEngines.current_stockfish()).set_font_type(peso=500,
+                                                                                                       puntos=11)
         self.lb_stockfish_version.setStyleSheet("border:1px solid gray;padding:3px")
-        bt_stockfish = Controles.PB(self, "", self.change_stockfish).ponIcono(Iconos.Reiniciar()).ponToolTip(_("Update"))
+        bt_stockfish = Controles.PB(self, "", self.change_stockfish).ponIcono(Iconos.Reiniciar()).ponToolTip(
+            _("Update"))
         ly_stk = Colocacion.H().control(self.lb_stockfish_version).control(bt_stockfish).relleno()
 
         sep = 40
@@ -848,7 +852,6 @@ class WOthers(QtWidgets.QWidget):
         self.lb_stockfish_version.set_text("")
         CheckEngines.check_stockfish(self.owner, True)
         self.lb_stockfish_version.set_text(CheckEngines.current_stockfish())
-
 
     def save(self):
         self.configuration.x_carpeta_gaviota = self.gaviota

@@ -26,16 +26,17 @@ from Code.Config import Configuration
 from Code.Engines import Priorities
 from Code.Kibitzers import Kibitzers
 from Code.Kibitzers import WKibBooks
+from Code.Kibitzers import WKibDatabases
 from Code.Kibitzers import WKibEngine
 from Code.Kibitzers import WKibGaviota
 from Code.Kibitzers import WKibIndex
 from Code.Kibitzers import WKibLinea
 from Code.Kibitzers import WKibStEval
-from Code.Kibitzers import WKibDatabases
+from Code.MainWindow import InitApp
 from Code.Openings import OpeningsStd
 from Code.QT import QTUtil
 from Code.SQL import UtilSQL
-from Code.MainWindow import InitApp
+
 
 class Orden:
     def __init__(self):

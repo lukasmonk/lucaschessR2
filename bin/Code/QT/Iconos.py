@@ -2997,6 +2997,12 @@ def pmTabutronic():
 def Tabutronic():
     return iget("Tabutronic")
 
+def pmIChessOne():
+    return iget("pmIChessOne")
+
+def IChessOne():
+    return iget("IChessOne")
+
 def pmRodent():
     return iget("pmRodent")
 
@@ -3158,3 +3164,9 @@ def pmCSV():
 
 def CSV():
     return iget("CSV")
+
+def pmEye():
+    return iget("pmEye")
+
+def Eye():
+    return iget("Eye")

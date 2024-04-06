@@ -16,8 +16,8 @@ from Code.Base.Constantes import (
     TB_UTILITIES,
     SELECTED_BY_PLAYER
 )
-from Code.Engines import EngineResponse
 from Code.Books import WBooks
+from Code.Engines import EngineResponse
 
 
 class ManagerTrainBooks(Manager.Manager):
@@ -78,7 +78,7 @@ class ManagerTrainBooks(Manager.Manager):
             self.takeback()
 
         elif clave == TB_CONFIG:
-            self.configurar(siSonidos=True)
+            self.configurar(with_sounds=True)
 
         elif clave == TB_UTILITIES:
             self.utilities()

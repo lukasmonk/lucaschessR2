@@ -2,8 +2,8 @@ import Code
 from Code import Util
 from Code.Base import Position
 from Code.Base.Constantes import ENG_WICKER, BOOK_RANDOM_UNIFORM
-from Code.Engines import EngineManager, EngineResponse
 from Code.Books import Books
+from Code.Engines import EngineManager, EngineResponse
 
 
 class EngineManagerWicker(EngineManager.EngineManager):

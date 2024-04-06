@@ -1,10 +1,10 @@
+import datetime
 import os
 import random
-import datetime
 
-from Code.Base import Game, Position
-from Code import Util
 import Code
+from Code import Util
+from Code.Base import Game, Position
 
 QUALIFICATIONS = (
     ("Mind-bending", "7", 0.7, 0.5),

@@ -1,13 +1,13 @@
 from PySide2 import QtWidgets, QtCore
 from PySide2.QtCore import Qt
 
+import Code
 from Code.Base import Position
+from Code.Board import Board
 from Code.QT import Colocacion
 from Code.QT import Controles
-from Code.QT import QTVarios, QTUtil
 from Code.QT import Iconos
-from Code.Board import Board
-import Code
+from Code.QT import QTVarios, QTUtil
 
 
 class BoardKey(Board.Board):
@@ -67,6 +67,7 @@ class WInfomove(QtWidgets.QWidget):
         self.lbPGN.set_font_type(puntos=configuration.x_pgn_fontpoints + 2)
         Code.configuration.set_property(self.lbPGN, "pgn")
         self.lbPGN.setOpenExternalLinks(False)
+        self.lbPGN.setAlignment(QtCore.Qt.AlignTop)
 
         def muestraPos(txt):
             self.colocatePartida(int(txt))

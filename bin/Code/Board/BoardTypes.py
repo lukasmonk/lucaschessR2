@@ -3,8 +3,8 @@ import base64
 from PySide2 import QtWidgets, QtCore, QtGui
 
 import Code
-from Code.QT import Controles
 from Code.QT import Colocacion
+from Code.QT import Controles
 from Code.QT import Iconos
 from Code.QT import QTUtil
 

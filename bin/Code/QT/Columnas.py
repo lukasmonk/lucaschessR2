@@ -248,11 +248,11 @@ class ListaColumnas:
         column.posCreacion = self.posCreacion
         return column
 
-    def column(self, numCol):
-        return self.li_columns[numCol]
+    def column(self, num_col):
+        return self.li_columns[num_col]
 
-    def borrarColumna(self, numCol):
-        del self.li_columns[numCol]
+    def borrarColumna(self, num_col):
+        del self.li_columns[num_col]
 
     def numColumnas(self):
         return len(self.li_columns)

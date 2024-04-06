@@ -229,7 +229,7 @@ class ManagerEntPos(Manager.Manager):
                 ico = Iconos.Add()
 
             li_extra_options = [("lmo_advanced", "%s: %s" % (txt, _("Advanced mode")), ico)]
-            resp = self.configurar(siSonidos=True, siCambioTutor=True, li_extra_options=li_extra_options)
+            resp = self.configurar(with_sounds=True, with_change_tutor=True, li_extra_options=li_extra_options)
             if resp == "lmo_advanced":
                 self.advanced = not self.advanced
                 self.reiniciar()
@@ -487,6 +487,8 @@ class ManagerEntPos(Manager.Manager):
                 if not (TB_CONTINUE in self.li_options_toolbar):
                     self.li_options_toolbar.insert(5, TB_CONTINUE)
                     self.set_toolbar(self.li_options_toolbar)
+            self.game = self.game_obj.copia()
+            self.goto_end()
             return False
 
     def pon_help(self, si_poner):

@@ -132,6 +132,10 @@ class Eboard:
                 path_so = Util.opj(path_eboards, "libsop.so")
             elif self.name == "Tabutronic":
                 path_so = Util.opj(path_eboards, "libtab.so")
+            elif self.name == "iChessOne":
+                path_so = Util.opj(path_eboards, "libico.so")
+            elif self.name == "Chessnut Evo":
+                path_so = Util.opj(path_eboards, "libevo.so")
             else:
                 path_so = Util.opj(path_eboards, "libucb.so")
             if os.path.isfile(path_so):
@@ -198,6 +202,10 @@ class Eboard:
                     path_dll = Util.opj(path_eboards, "SOP_DLL.dll")
                 elif self.name == "Tabutronic":
                     path_dll = Util.opj(path_eboards, "TAB_DLL.dll")
+                elif self.name == "iChessOne":
+                    path_dll = Util.opj(path_eboards, "ICO_DLL.dll")
+                elif self.name == "Chessnut Evo":
+                    path_dll = Util.opj(path_eboards, "EVO_DLL.dll")
                 else:
                     path_dll = Util.opj(path_eboards, "UCB_DLL.dll")
                 if os.path.isfile(path_dll):
@@ -396,6 +404,10 @@ class Eboard:
             return Iconos.Certabo()
         elif board == "Chessnut":
             return Iconos.Chessnut()
+        elif board == "Chessnut Evo":
+            return Iconos.Chessnut()
+        elif board == "iChessOne":
+            return Iconos.IChessOne()
         elif board == "Millennium":
             return Iconos.Millenium()
         elif board == "Saitek":

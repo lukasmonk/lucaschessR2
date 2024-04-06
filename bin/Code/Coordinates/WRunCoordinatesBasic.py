@@ -4,9 +4,9 @@ from PySide2 import QtCore, QtWidgets
 
 import Code
 from Code.Base import Position
-from Code.QT import Colocacion, Controles, Iconos, QTUtil, QTVarios, QTUtil2
 from Code.Board import Board
 from Code.Coordinates import CoordinatesBasic
+from Code.QT import Colocacion, Controles, Iconos, QTUtil, QTVarios, QTUtil2
 from Code.QT import LCDialog
 
 

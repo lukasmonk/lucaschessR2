@@ -177,7 +177,7 @@ def do_dark(li_imgs):
             "../../Resources/IntFiles/Iconos_dark.dic", "wt") as qdic:
         dic = {}
         desde = 0
-        for n, li in enumerate(li_imgs):
+        for n, li in enumerate(li_imgs, 1):
             print(n, end=" ")
             previo = desde
             desde = funcion_dark(qbin, qdic, dic, previo, li[0], li[1], li[2])

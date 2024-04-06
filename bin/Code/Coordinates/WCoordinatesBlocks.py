@@ -1,10 +1,9 @@
 from Code import Util
+from Code.Coordinates import CoordinatesBlocks
+from Code.Coordinates import CoordinatesConfig
+from Code.Coordinates import WRunCoordinatesBlocks
 from Code.QT import Colocacion, Columnas, Controles, Grid, Iconos, QTUtil2, QTVarios
 from Code.QT import LCDialog
-
-from Code.Coordinates import CoordinatesConfig
-from Code.Coordinates import CoordinatesBlocks
-from Code.Coordinates import WRunCoordinatesBlocks
 
 
 class WCoordinatesBlocks(LCDialog.LCDialog):
@@ -79,7 +78,7 @@ class WCoordinatesBlocks(LCDialog.LCDialog):
         elif col == "DONE":
             return "%d/%d" % (coordinate.current_block, coordinate.num_blocks())
         elif col == "SCORE":
-            return "%s=%d   %s=%d" % (_("White"), coordinate.min_score_white, _("Black"),coordinate.min_score_black)
+            return "%s=%d   %s=%d" % (_("White"), coordinate.min_score_white, _("Black"), coordinate.min_score_black)
 
     def closeEvent(self, event):  # Cierre con X
         self.save_video()

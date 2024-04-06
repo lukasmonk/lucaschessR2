@@ -510,8 +510,8 @@ class BarraProgreso1(QtWidgets.QDialog):
                 lb_hr = _("hours")
                 xmessage = f"{horas} {lb_hr}"
             elif minutos > 60:
-                horas = minutos //60
-                minutos -= horas*60
+                horas = minutos // 60
+                minutos -= horas * 60
                 lb_hr = _("hours") if horas > 1 else _("hour")
                 lb_min = _("minutes") if minutos != 1 else _("minute")
                 xmessage = f"{horas} {lb_hr}  {minutos} {lb_min}"

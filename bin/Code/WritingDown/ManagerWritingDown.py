@@ -2,6 +2,7 @@ import time
 
 from Code import Manager
 from Code import Util
+from Code.Base import Game
 from Code.Base.Constantes import (
     ST_ENDGAME,
     ST_PLAYING,
@@ -13,7 +14,6 @@ from Code.Base.Constantes import (
     TB_UTILITIES,
     GT_NOTE_DOWN,
 )
-from Code.Base import Game
 from Code.QT import QTVarios
 from Code.SQL import UtilSQL
 

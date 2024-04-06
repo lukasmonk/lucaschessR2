@@ -138,7 +138,8 @@ class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
         if is_complete:
             mensaje = "\n".join(li)
             self.message_on_pgn(mensaje)
-        dictry = {"DATE": Util.today(), "TIME": tm, "AYUDA": self.used_hints > 0, "USED_HINTS": self.used_hints, "ERRORS": self.errores}
+        dictry = {"DATE": Util.today(), "TIME": tm, "AYUDA": self.used_hints > 0, "USED_HINTS": self.used_hints,
+                  "ERRORS": self.errores}
         self.game_info["TRIES"].append(dictry)
 
         sinError = self.errores == 0 and self.used_hints == 0
@@ -190,7 +191,7 @@ class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
             self.reiniciar()
 
         elif key == TB_CONFIG:
-            self.configurar(siSonidos=True)
+            self.configurar(with_sounds=True)
 
         elif key == TB_UTILITIES:
             self.utilities()

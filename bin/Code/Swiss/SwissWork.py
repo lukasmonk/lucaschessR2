@@ -4,8 +4,8 @@ import time
 
 import psutil
 
-from Code.Swiss import Swiss
 from Code.SQL import UtilSQL
+from Code.Swiss import Swiss
 
 
 class SwissesWorkDB:
@@ -52,7 +52,7 @@ class SwissWork:
         return SwissesWorkDB(self.path, table)
 
     def put_swiss(
-        self,
+            self,
     ):
         season = self.swiss.read_season()
 

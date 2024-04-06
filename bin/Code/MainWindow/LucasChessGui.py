@@ -68,14 +68,15 @@ def select_language(owner, init):
 
 
 def run_gui(procesador):
-    app = QtWidgets.QApplication([])
     main_config = Configuration.Configuration("")
-    first_run = main_config.first_run
     main_config.lee()
     if main_config.x_enable_highdpiscaling:
         QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
         QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps)
     QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_UseStyleSheetPropagationInWidgetStyles, True)
+    app = QtWidgets.QApplication([])
+    first_run = main_config.first_run
+    main_config.lee()  # Necesaria la doble lectura, para que _ permanezca como builting tras QApplication
 
     # Usuarios
     list_users = Usuarios.Usuarios().list_users

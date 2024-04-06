@@ -156,4 +156,3 @@ class AnalysisEval:
         porc_b = porc_b * 1.0 / n_jg_b if n_jg_b else None
 
         return porc_w, porc_b, porc_t
-

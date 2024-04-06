@@ -108,7 +108,7 @@ class ManagerWashingReplay(Manager.Manager):
             self.terminar()
 
         elif key == TB_CONFIG:
-            self.configurar(siSonidos=True, siCambioTutor=False)
+            self.configurar(with_sounds=True, with_change_tutor=False)
 
         elif key == TB_UTILITIES:
             self.utilities()
@@ -324,7 +324,7 @@ class ManagerWashingTactics(Manager.Manager):
             self.get_help()
 
         elif key == TB_CONFIG:
-            self.configurar(siSonidos=True, siCambioTutor=False)
+            self.configurar(with_sounds=True, with_change_tutor=False)
 
         elif key == TB_UTILITIES:
             self.utilities()
@@ -625,7 +625,7 @@ class ManagerWashingCreate(Manager.Manager):
             self.final_x()
 
         elif key == TB_CONFIG:
-            self.configurar(siSonidos=True)
+            self.configurar(with_sounds=True)
 
         elif key == TB_UTILITIES:
             self.utilities()
@@ -718,7 +718,6 @@ class ManagerWashingCreate(Manager.Manager):
         self.move_the_pieces(move.liMovs)
         move.set_time_ms(time_s * 1000)  # puede haber cambiado
         move.set_clock_ms(self.tc_player.pending_time * 1000)
-
 
         if siAnalisis:
             rm, nPos = self.mrm_tutor.buscaRM(move.movimiento())

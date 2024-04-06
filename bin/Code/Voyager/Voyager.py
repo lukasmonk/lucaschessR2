@@ -772,7 +772,7 @@ class WPGN(QtWidgets.QWidget):
         self.board = Board.Board(self, config_board)
         self.board.crea()
         self.board.set_dispatcher(self.player_has_moved)
-        Delegados.generaPM(self.board.piezas)
+        Delegados.genera_pm(self.board.piezas)
 
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("NUMBER", _("N."), 35, align_center=True)

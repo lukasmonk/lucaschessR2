@@ -232,6 +232,9 @@ STANDARD_TAGS = [
     "Termination",
     "Annotator",
     "Mode",
+    "WhiteAccuracy",
+    "BlackAccuracy",
+    "TotalAccuracy",
 ]
 
 TACTICS_BASIC, TACTICS_PERSONAL = "B", "P"
@@ -254,3 +257,5 @@ RUNA_CONFIGURATION, RUNA_GAME, RUNA_TERMINATE, RUNA_HALT = "C", "G", "T", "H"
 TOP_RIGHT, ON_TOOLBAR = "tr", "tb"
 
 ALL_VARIATIONS, HIGHEST_VARIATIONS, BETTER_VARIATIONS = "A", "H", "B"
+
+LI_BASIC_TAGS = ("EVENT", "SITE", "DATE", "ROUND", "WHITE", "BLACK", "RESULT", "ECO", "FEN", "WHITEELO", "BLACKELO")

@@ -11,7 +11,7 @@ from Code.QT import QTVarios
 
 class WNags(LCDialog.LCDialog):
     def __init__(self, owner, nags: Nags.Nags, current_move: Move.Move):
-        title = _("Ratings")
+        title = _("Ratings") + " (NAGs)"
         extparam = "selelectnags"
 
         self.owner = owner

@@ -3,10 +3,10 @@ from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Grid
 from Code.QT import Iconos
+from Code.QT import LCDialog
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
 from Code.SQL import UtilSQL
-from Code.QT import LCDialog
 
 
 class WritingDown(LCDialog.LCDialog):

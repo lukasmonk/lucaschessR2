@@ -30,6 +30,7 @@ def pgn_label(key):
             "PLIES": _("Movements"),
             "WHITEELO": _("White elo"),
             "BLACKELO": _("Black elo"),
+            "PLYCOUNT": _("Movements")
         }.get(key, _F(key))
     else:
         return ""
@@ -473,5 +474,6 @@ def styles():
 
 def installation():
     return {
-        "act_cut": _("It is not possible to upgrade from the installed version. To get the new version, it is necessary to do a complete installation from")
+        "act_cut": _(
+            "It is not possible to upgrade from the installed version. To get the new version, it is necessary to do a complete installation from")
     }

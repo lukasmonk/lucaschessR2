@@ -2,9 +2,8 @@ import random
 
 import Code
 from Code.Base import Position
-from Code.SQL import UtilSQL
-
 from Code.Base.Constantes import RESULT_DRAW, RESULT_WIN_WHITE, RESULT_WIN_BLACK
+from Code.SQL import UtilSQL
 
 
 class DBendings:

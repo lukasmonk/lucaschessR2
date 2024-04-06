@@ -66,7 +66,7 @@ color: %s;
 
     app.setEffectEnabled(QtCore.Qt.UI_AnimateMenu)
 
-    QtGui.QFontDatabase.addApplicationFont(Code.path_resource("IntFiles", "ChessAlpha2.ttf"))
+    QtGui.QFontDatabase.addApplicationFont(Code.path_resource("IntFiles", "ChessMerida.ttf"))
 
     font = Controles.FontType(configuration.x_font_family, puntos=configuration.x_font_points)
     app.setFont(font)

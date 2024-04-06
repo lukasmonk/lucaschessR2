@@ -12,9 +12,9 @@ from PySide2 import QtCore
 import Code
 from Code import Util
 from Code.Base.Constantes import BOOK_BEST_MOVE, BOOK_RANDOM_UNIFORM, BOOK_RANDOM_PROPORTIONAL
+from Code.Books import Books
 from Code.Engines import EngineResponse
 from Code.Engines import Priorities
-from Code.Books import Books
 from Code.QT import QTUtil2
 
 
@@ -415,7 +415,7 @@ class RunEngine:
         return self.mrm
 
     def set_game_position(self, game, njg=99999):
-        pos_inicial = "startpos" if game.siFenInicial() else "fen %s" % game.first_position.fen()
+        pos_inicial = "startpos" if game.is_fen_initial() else "fen %s" % game.first_position.fen()
         li = [move.movimiento().lower() for n, move in enumerate(game.li_moves) if n < njg]
         moves = " moves %s" % (" ".join(li)) if li else ""
         if not li:

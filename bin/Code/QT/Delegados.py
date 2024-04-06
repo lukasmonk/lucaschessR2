@@ -12,11 +12,7 @@ dicPM = {}
 dicPZ = {}
 
 
-# dicNG = {}
-
-
-def generaPM(piezas):
-    # dicPM["V"] = Iconos.pmComentario()
+def genera_pm(piezas):
     dicPM["R"] = Iconos.pmOpening()
     dicPM["M"] = Iconos.pmComentarioMas()
     dicPM["S"] = Iconos.pmOpeningComentario()
@@ -32,14 +28,6 @@ def generaPM(piezas):
 
     for k in "KQRNBkqrnb":
         dicPZ[k] = piezas.render(k)
-
-    # nags_folder = Code.path_resource("IntFiles", "NAGs")
-    # for f in os.listdir(nags_folder):
-    #     if f.endswith(".svg") and f.startswith("$") and len(f) > 5:
-    #         nag = f[1:-4]
-    #         if nag.isdigit():
-    #             fsvg = nags_folder + "/" + f
-    #             dicNG[nag] = QtSvg.QSvgRenderer(fsvg)
 
 
 class ComboBox(QtWidgets.QItemDelegate):
@@ -224,16 +212,6 @@ class EtiquetaPGN(QtWidgets.QStyledItemDelegate):
             ancho += wpz
         if fin_pz:
             ancho += wpz + salto_fin_pz
-        # if li_nags:
-        #     ancho += wpz * len(li_nags)
-
-        # x = x_total + (w_total - ancho) / 2
-        # if self.si_alineacion:
-        #     alineacion = index.model().getAlineacion(index)
-        #     if alineacion == "i":
-        #         x = x_total + 3
-        #     elif alineacion == "d":
-        #         x = x_total + (w_total - ancho - 3)
 
         x = x_total + 20
         y = y_total + (h_total - h_pgn * 0.9) / 2
@@ -505,26 +483,24 @@ class EtiquetaPOS(QtWidgets.QStyledItemDelegate):
             painter.drawPixmap(0, 0, dicPM[indicador_inicial])
             painter.restore()
 
-        documentPGN = QtGui.QTextDocument()
-        documentPGN.setDefaultFont(option.font)
+        document_pgn = QtGui.QTextDocument()
+        document_pgn.setDefaultFont(option.font)
         if color:
             if is_color_origen:
                 pgn = '<font color="%s"><b>%s</b></font>' % (color, pgn)
             else:
                 pgn = '<font color="%s">%s</font>' % (color, pgn)
-        documentPGN.setHtml(pgn)
-        wPGN = documentPGN.idealWidth()
-        hPGN = documentPGN.size().height()
-        hx = hPGN * 80 / 100
+        document_pgn.setHtml(pgn)
+        w_pgn = document_pgn.idealWidth()
+        h_pgn = document_pgn.size().height()
+        hx = h_pgn * 80 / 100
         wpz = int(hx * 0.8)
 
-        ancho = wPGN
+        ancho = w_pgn
         if ini_pz:
             ancho += wpz
         if fin_pz:
             ancho += wpz
-        # if li_nags:
-        #     ancho += wpz * len(li_nags)
 
         x = x0 + (width - ancho) / 2
         if self.siAlineacion:
@@ -534,7 +510,7 @@ class EtiquetaPOS(QtWidgets.QStyledItemDelegate):
             elif alineacion == "d":
                 x = x0 + (width - ancho - 3)
 
-        y = y0 + (height - hPGN * 0.9) / 2
+        y = y0 + (height - h_pgn * 0.9) / 2
 
         if ini_pz:
             painter.save()
@@ -547,9 +523,9 @@ class EtiquetaPOS(QtWidgets.QStyledItemDelegate):
 
         painter.save()
         painter.translate(x, y)
-        documentPGN.drawContents(painter)
+        document_pgn.drawContents(painter)
         painter.restore()
-        x += wPGN
+        x += w_pgn
 
         if fin_pz:
             painter.save()
@@ -574,15 +550,6 @@ class EtiquetaPOS(QtWidgets.QStyledItemDelegate):
             document_pgn.drawContents(painter)
             painter.restore()
             x += w_pgn
-
-        # if li_nags:
-        #     for rndr in li_nags:
-        #         painter.save()
-        #         painter.translate(x - 0.2 * wpz, y)
-        #         pmRect = QtCore.QRectF(0, 0, hx, hx)
-        #         rndr.render(painter, pmRect)
-        #         painter.restore()
-        #         x += wpz
 
         if txt_analysis:
             txt_analysis = txt_analysis.replace("(", "").replace(")", "")

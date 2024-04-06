@@ -247,7 +247,7 @@ class WTurnOnLights(LCDialog.LCDialog):
 
     def rebuild(self):
         if not QTUtil2.pregunta(
-            self, _("Are you sure you want to delete all results of all levels and start again from scratch?")
+                self, _("Are you sure you want to delete all results of all levels and start again from scratch?")
         ):
             return
         if self.one_line:

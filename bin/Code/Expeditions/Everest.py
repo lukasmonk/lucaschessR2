@@ -1,8 +1,8 @@
 import FasterCode
 
+from Code import Util
 from Code.Base import Game
 from Code.SQL import Base
-from Code import Util
 
 
 def str_file(file):

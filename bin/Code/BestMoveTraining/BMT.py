@@ -12,10 +12,10 @@ class BMT(SQLBase.DBBase):
         if not self.existeTabla(self.tabla):
             cursor = self.conexion.cursor()
             for sql in (
-                "CREATE TABLE %s( ESTADO VARCHAR(1),ORDEN INTEGER,NOMBRE TEXT,EXTRA TEXT,TOTAL INTEGER,HECHOS INTEGER,"
-                "PUNTOS INTEGER,MAXPUNTOS INTEGER,FINICIAL VARCHAR(8),FFINAL VARCHAR(8),SEGUNDOS INTEGER,REPE INTEGER,"
-                "BMT_LISTA BLOB,HISTORIAL BLOB);",
-                "CREATE INDEX [NOMBRE] ON '%s'(ORDEN DESC,NOMBRE);",
+                    "CREATE TABLE %s( ESTADO VARCHAR(1),ORDEN INTEGER,NOMBRE TEXT,EXTRA TEXT,TOTAL INTEGER,HECHOS INTEGER,"
+                    "PUNTOS INTEGER,MAXPUNTOS INTEGER,FINICIAL VARCHAR(8),FFINAL VARCHAR(8),SEGUNDOS INTEGER,REPE INTEGER,"
+                    "BMT_LISTA BLOB,HISTORIAL BLOB);",
+                    "CREATE INDEX [NOMBRE] ON '%s'(ORDEN DESC,NOMBRE);",
             ):
                 cursor.execute(sql % self.tabla)
                 self.conexion.commit()
@@ -140,7 +140,7 @@ class BMTLista:
             self.dic_games[cl_game] = txt_game
 
     def dame_uno(self, num):
-        return self.li_bmt_uno[num]  if num < len(self.li_bmt_uno) else None
+        return self.li_bmt_uno[num] if num < len(self.li_bmt_uno) else None
 
     def max_puntos(self):
         mx = 0

@@ -10,15 +10,17 @@ from Code import Util
 from Code.Analysis import AnalysisIndexes
 from Code.Analysis import RunAnalysisControl
 from Code.Base import Game
-from Code.Base.Constantes import INACCURACY, MISTAKE, BLUNDER, INACCURACY_MISTAKE, INACCURACY_MISTAKE_BLUNDER, MISTAKE_BLUNDER
+from Code.Base.Constantes import (INACCURACY, MISTAKE, BLUNDER, INACCURACY_MISTAKE, INACCURACY_MISTAKE_BLUNDER,
+                                  MISTAKE_BLUNDER)
 from Code.Base.Constantes import RUNA_GAME, RUNA_HALT, RUNA_CONFIGURATION, RUNA_TERMINATE
+from Code.BestMoveTraining import BMT
 from Code.Config import Configuration
 from Code.Engines import EngineManager
 from Code.MainWindow import InitApp
+from Code.Nags.Nags import NAG_3
 from Code.Openings import OpeningsStd
 from Code.QT import LCDialog, Controles, Colocacion, Iconos, QTUtil
 from Code.SQL import UtilSQL
-from Code.BestMoveTraining import BMT
 
 
 class CPU:
@@ -199,7 +201,7 @@ class WAnalysis(LCDialog.LCDialog):
             self.cpu.procesa()
 
     def init_game(self, num_game, num_moves):
-        self.lb_game.set_text("%s %d" % (_("Game"), num_game+1))
+        self.lb_game.set_text("%s %d" % (_("Game"), num_game + 1))
         QTUtil.refresh_gui()
 
     def closeEvent(self, event):
@@ -244,6 +246,8 @@ class AnalyzeGame:
         self.st_depths = alm.st_depths
         self.st_timelimit = alm.st_timelimit
 
+        self.accuracy_tags = alm.accuracy_tags
+
         # Asignacion de variables para blunders:
         # kblunders_condition: minima condición para considerar como erróneo
         # tacticblunders: folder donde guardar tactic
@@ -253,7 +257,8 @@ class AnalyzeGame:
         dic = {INACCURACY: {INACCURACY, }, MISTAKE: {MISTAKE, }, BLUNDER: {BLUNDER, },
                INACCURACY_MISTAKE_BLUNDER: {INACCURACY, BLUNDER, MISTAKE}, INACCURACY_MISTAKE: {INACCURACY, MISTAKE},
                MISTAKE_BLUNDER: {BLUNDER, MISTAKE}}
-        self.kblunders_condition_list = dic.get(alm.kblunders_condition,{BLUNDER, MISTAKE})
+        self.kblunders_condition_list = dic.get(alm.kblunders_condition, {BLUNDER, MISTAKE})
+
         self.tacticblunders = (
             Util.opj(self.configuration.personal_training_folder, "../Tactics", alm.tacticblunders)
             if alm.tacticblunders
@@ -352,14 +357,24 @@ class AnalyzeGame:
             self.terminar_bmt(self.bmt_listaBlunders, self.bmtblunders)
             self.terminar_bmt(self.bmt_listaBrilliancies, self.bmtbrilliancies)
 
-    def save_fns(self, file, fen):
+    def save_brilliancies_fns(self, file, fen, mrm, game: Game.Game, njg):
         """
         Graba cada fen encontrado en el file "file"
         """
         if not file:
             return
 
-        self.xsave_extra("file", file, f"{fen}\n")
+        cab = ""
+        for k, v in game.dic_tags().items():
+            ku = k.upper()
+            if not (ku in ("RESULT", "FEN")):
+                cab += '[%s "%s"]' % (k, v)
+
+        game_raw = Game.game_without_variations(game)
+        p = Game.Game(fen=fen)
+        rm = mrm.li_rm[0]
+        p.read_pv(rm.pv)
+        self.xsave_extra("file", file, f"{fen}||{p.pgnBaseRAW()}|{cab} {game_raw.pgnBaseRAWcopy(None, njg - 1)}")
 
     def graba_tactic(self, game, njg, mrm, pos_act):
         if not self.tacticblunders:
@@ -395,7 +410,7 @@ class AnalyzeGame:
             pass
 
         cab = ""
-        for k, v in game.dicTags().items():
+        for k, v in game.dic_tags().items():
             ku = k.upper()
             if not (ku in ("RESULT", "FEN")):
                 cab += '[%s "%s"]' % (k, v)
@@ -582,7 +597,7 @@ class AnalyzeGame:
             return
 
         cl_game = Util.huella()
-        txt_game = game.save()
+        # txt_game = game.save()
         si_poner_pgn_original_blunders = False
         si_poner_pgn_original_brilliancies = False
 
@@ -678,10 +693,11 @@ class AnalyzeGame:
                 move.piecesactivity = AnalysisIndexes.calc_piecesactivity(cp, mrm)
                 move.exchangetendency = AnalysisIndexes.calc_exchangetendency(cp, mrm)
 
+                rm = mrm.li_rm[pos_act]
+                nag, color = mrm.set_nag_color(rm)
+                move.add_nag(nag)
+
                 if si_blunders or si_brilliancies or self.with_variations:
-                    rm = mrm.li_rm[pos_act]
-                    nag, color = mrm.set_nag_color(rm)
-                    move.add_nag(nag)
 
                     mj = mrm.li_rm[0]
                     rm_pts = rm.centipawns_abs()
@@ -699,23 +715,23 @@ class AnalyzeGame:
 
                         self.graba_tactic(game, pos_move, mrm, pos_act)
 
-                        if self.save_pgn(self.pgnblunders, mrm.name, game.dicTags(), fen, move, rm, mj):
+                        if self.save_pgn(self.pgnblunders, mrm.name, game.dic_tags(), fen, move, rm, mj):
                             si_poner_pgn_original_blunders = True
 
                         if self.bmtblunders:
+                            txt_game = Game.game_without_variations(game).save()
                             self.save_bmt(True, fen, mrm, pos_act, cl_game, txt_game)
                             self.si_bmt_blunders = True
 
-                    nag, color = mrm.set_nag_color(rm)
-                    if nag and not move.is_mate:
-                        move.add_nag(nag)
                     if move.is_brilliant():
-                        self.save_fns(self.fnsbrilliancies, fen)
+                        move.add_nag(NAG_3)
+                        self.save_brilliancies_fns(self.fnsbrilliancies, fen, mrm, game, pos_current_move)
 
-                        if self.save_pgn(self.pgnbrilliancies, mrm.name, game.dicTags(), fen, move, rm, None):
+                        if self.save_pgn(self.pgnbrilliancies, mrm.name, game.dic_tags(), fen, move, rm, None):
                             si_poner_pgn_original_brilliancies = True
 
                         if self.bmtbrilliancies:
+                            txt_game = Game.game_without_variations(game).save()
                             self.save_bmt(False, fen, mrm, pos_act, cl_game, txt_game)
                             self.si_bmt_brilliancies = True
 

@@ -460,7 +460,7 @@ class ManagerSolo(Manager.Manager):
         li_extra_options = (
             (None, _("Change the starting position"), Iconos.PGN()),
             sep,
-            ("position", _("Board editor") + " [%sE]" % ctrl, Iconos.Datos()),
+            ("position", _("Board editor") + " [%sS]" % ctrl, Iconos.Datos()),
             sep,
             ("initial", _("Basic position") + " [%sB]" % ctrl, Iconos.Board()),
             sep,
@@ -576,7 +576,7 @@ class ManagerSolo(Manager.Manager):
         self.reiniciar()
 
     def control_teclado(self, nkey, modifiers):
-        if (modifiers & QtCore.Qt.ControlModifier) > 0:
+        if modifiers and (modifiers & QtCore.Qt.ControlModifier) > 0:
             if nkey == QtCore.Qt.Key_V:
                 self.paste(QTUtil.get_txt_clipboard())
             elif nkey == QtCore.Qt.Key_T:
@@ -594,7 +594,7 @@ class ManagerSolo(Manager.Manager):
         return [
             (ctrl + "V", _("Paste position")),
             (ctrl + "T", _("Save position in 'Selected positions' file")),
-            (ctrl + "E", _("Board editor")),
+            (ctrl + "S", _("Board editor")),
             (ctrl + "B", _("Basic position")),
             (ctrl + "1", _("Play instead of me")),
             (ctrl + "2", _("Help to move")),
@@ -610,7 +610,7 @@ class ManagerSolo(Manager.Manager):
         if position is not None:
             self.board.set_side_bottom(is_white_bottom)
             self.game = Game.Game(first_position=position, li_tags=self.game.li_tags)
-            self.game.set_tag("FEN", None if self.game.siFenInicial() else position.fen())
+            self.game.set_tag("FEN", None if self.game.is_fen_initial() else position.fen())
             self.state = ST_PLAYING
             self.game.order_tags()
             self.xfichero = None
@@ -652,12 +652,12 @@ class ManagerSolo(Manager.Manager):
 
     def change_rival(self):
         if self.dicRival:
-            dicBase = self.dicRival
+            dic_base = self.dicRival
         else:
-            dicBase = self.configuration.read_variables("ENG_MANAGERSOLO")
+            dic_base = self.configuration.read_variables("ENG_MANAGERSOLO")
 
         dic = self.dicRival = WPlayAgainstEngine.change_rival(
-            self.main_window, self.configuration, dicBase, is_create_own_game=True
+            self.main_window, self.configuration, dic_base, is_create_own_game=True
         )
 
         if dic:
@@ -677,9 +677,9 @@ class ManagerSolo(Manager.Manager):
             if r_t is None and r_p is None and not dic.get("SITIEMPO", False):
                 r_t = 1000
 
-            nAjustarFuerza = dic["ADJUST"]
-            self.xrival = self.procesador.creaManagerMotor(rival, r_t, r_p, nAjustarFuerza != ADJUST_BETTER)
-            self.xrival.nAjustarFuerza = nAjustarFuerza
+            n_ajustar_fuerza = dic["ADJUST"]
+            self.xrival = self.procesador.creaManagerMotor(rival, r_t, r_p, n_ajustar_fuerza != ADJUST_BETTER)
+            self.xrival.nAjustarFuerza = n_ajustar_fuerza
 
             dic["ROTULO1"] = _("Opponent") + ": <b>" + self.xrival.name
             self.set_label1(dic["ROTULO1"])

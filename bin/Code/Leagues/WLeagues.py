@@ -4,6 +4,7 @@ import time
 
 import Code
 from Code import Util
+from Code.Leagues import WLeagueConfig, WLeague, Leagues
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import FormLayout
@@ -12,8 +13,6 @@ from Code.QT import Iconos
 from Code.QT import LCDialog
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
-
-from Code.Leagues import WLeagueConfig, WLeague, Leagues
 
 
 class WLeagues(LCDialog.LCDialog):

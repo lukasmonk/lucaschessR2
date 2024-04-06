@@ -1,6 +1,6 @@
-from Code.Board import BoardTypes
 import Code
 from Code.Base.Constantes import ZVALUE_PIECE
+from Code.Board import BoardTypes
 
 
 class JS:
@@ -149,10 +149,10 @@ class ConfigTabBase(JS):
 
 
 class ConfigBoard(JS):
-    def __init__(self, xid, anchoPieza, padre="BASE"):
+    def __init__(self, xid, ancho_pieza, padre="BASE"):
         self._id = xid
-        self.x_anchoPieza = anchoPieza
-        self._anchoPiezaDef = anchoPieza
+        self.x_anchoPieza = ancho_pieza
+        self._anchoPiezaDef = ancho_pieza
         self.o_tema = ConfigTabTema()
         self.o_tema.x_siTemaDefecto = xid != "BASE"
         self.o_base = ConfigTabBase()

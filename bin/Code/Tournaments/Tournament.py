@@ -386,13 +386,16 @@ class Tournament:
 
             del self.db_games_finished[pos]
 
-    def nuevoGame(self, hwhite, hblack, minutos, segundosJugada):
+    def new_game(self, hwhite, hblack, minutos, segundosJugada):
         gm = GameTournament()
         gm.hwhite = hwhite
         gm.hblack = hblack
         gm.minutos = minutos
         gm.seconds_per_move = segundosJugada
-        self.db_games_queued.append(gm)
+        self.db_games_queued.append(gm, with_commit=False)
+
+    def new_game_commit(self):
+        self.db_games_queued.commit()
 
     def __enter__(self):
         return self

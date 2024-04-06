@@ -273,8 +273,8 @@ class ThanksTo:
         txt += "</td></tr>"
         txt += self.table_end()
         txt += (
-            '<big><bold><center>%s: <a href="https://explore.transifex.com/">Transifex</a>'
-            % _("Web")
+                '<big><bold><center>%s: <a href="https://explore.transifex.com/">Transifex</a>'
+                % _("Web")
         )
         txt += ' -  <a href="https://app.transifex.com/join/?o=lukasmonk&p=lucaschess&t=opensource">Join Translation of LucasChess</a></center></bold></big>'
         return txt

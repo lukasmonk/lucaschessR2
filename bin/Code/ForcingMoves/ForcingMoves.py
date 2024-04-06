@@ -4,6 +4,7 @@ from Code.Engines import EngineResponse
 from Code.ForcingMoves import WForcingMoves
 from Code.QT import QTUtil2
 
+
 class ForcingMoves:
     def __init__(self, board, mrm: EngineResponse.MultiEngineResponse, owner):
 
@@ -20,7 +21,7 @@ class ForcingMoves:
         if len(mrm.li_rm) == 0:
             return
         self.rm = mrm.li_rm[0]
-        if self.rm.mate < 0:   # We are being mated
+        if self.rm.mate < 0:  # We are being mated
             self.bm_is_getting_mated = True
         else:
             self.bm_is_getting_mated = False

@@ -27,8 +27,10 @@ class DBPlayGame(UtilSQL.DictSQL):
         self.__setitem__(k, valor)
         self.regKeys = self.keys(True, True)
 
-    def appendHash(self, xhash, valor):
+    def appendHash(self, xhash, game):
         """Usado from_sq databases-games, el hash = hash del xpv"""
+        game = Game.game_without_variations(game)
+        valor = {"GAME": game.save()}
         k = str(Util.today()) + "|" + str(xhash)
         self.__setitem__(k, valor)
         self.regKeys = self.keys(True, True)
@@ -188,9 +190,11 @@ class WPlayGameBase(LCDialog.LCDialog):
         li = self.grid.recnosSeleccionados()
         if len(li) > 0:
             if QTUtil2.pregunta(self, _("Do you want to delete all selected records?")):
-                self.db.remove_list(li)
-        self.grid.gotop()
+                with QTUtil2.OneMomentPlease(self):
+                    self.db.remove_list(li)
+                    self.cache = {}
         self.grid.refresh()
+        self.grid.gotop()
 
     def play(self):
         li = self.grid.recnosSeleccionados()

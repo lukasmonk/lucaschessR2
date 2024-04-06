@@ -436,11 +436,12 @@ class ListObjSQL(ListSQL):
         self.class_storage = class_storage
         ListSQL.__init__(self, path_file, tabla, max_cache, reverted)
 
-    def append(self, obj, with_cache=False):
+    def append(self, obj, with_cache=False, with_commit=True):
         sql = "INSERT INTO %s( DATO ) VALUES( ? )" % self.tabla
         dato = Util.save_obj_pickle(obj)
         cursor = self._conexion.execute(sql, (memoryview(dato),))
-        self._conexion.commit()
+        if with_commit:
+            self._conexion.commit()
         lastrowid = cursor.lastrowid
         if self.reverted:
             self.li_row_ids.insert(0, lastrowid)
@@ -448,6 +449,9 @@ class ListObjSQL(ListSQL):
             self.li_row_ids.append(lastrowid)
         if with_cache:
             self.add_cache(lastrowid, obj)
+
+    def commit(self):
+        self._conexion.commit()
 
     def __getitem__(self, pos):
         if pos < len(self.li_row_ids):

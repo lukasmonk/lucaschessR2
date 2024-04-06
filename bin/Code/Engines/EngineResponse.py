@@ -810,10 +810,10 @@ class MultiEngineResponse:
                 pgn = pgn.strip("- ")
 
                 if rm.mate:
-                    fdbg.write("%2d; %s ; %d %s\n" % (num + 1, pgn, rm.mate, _("Mate")))
+                    fdbg.write("%2d: %s ; %d %s\n" % (num + 1, pgn, rm.mate, _("Mate")))
                 else:
                     # fdbg.write( "%2d. %s : %d\n"%(num+1,pgn,rm.puntos) )
-                    fdbg.write("%2d; %s; %d\n" % (num + 1, pgn, rm.puntos))
+                    fdbg.write("%2d: %s; %d\n" % (num + 1, pgn, rm.puntos))
 
             if rm.mate:
                 continue
@@ -837,25 +837,25 @@ class MultiEngineResponse:
                     if dif > 0:
                         rm.puntos += x_apz
                         if dbg:
-                            fdbg.write("    %s : %d -> %d\n" % (_("Advance piece"), x_apz, rm.puntos))
+                            fdbg.write("    %s: %d -> %d\n" % (_("Advance piece"), x_apz, rm.puntos))
 
             if x_j:
                 if jg0.is_check:
                     rm.puntos += x_j
                     if dbg:
-                        fdbg.write("    %s : %d -> %d\n" % (_("Make check"), x_j, rm.puntos))
+                        fdbg.write("    %s: %d -> %d\n" % (_("Make check"), x_j, rm.puntos))
 
             if x_c:
                 if jg0.siCaptura():
                     rm.puntos += x_c
                     if dbg:
-                        fdbg.write("    %s : %d -> %d\n" % (_("Capture"), x_j, rm.puntos))
+                        fdbg.write("    %s: %d -> %d\n" % (_("Capture"), x_j, rm.puntos))
 
             if x2_b:
                 if ps_z.numPiezas("") == 2:
                     rm.puntos += x2_b
                     if dbg:
-                        fdbg.write("    %s : %d -> %d \n" % (_("Keep the two bishops"), x2_b, rm.puntos))
+                        fdbg.write("    %s: %d -> %d \n" % (_("Keep the two bishops"), x2_b, rm.puntos))
 
             if x_av_pr:
                 p_z = ps_z.pesoWB()
@@ -870,7 +870,7 @@ class MultiEngineResponse:
                             p0 = -p0
                             p_z = -p_z
                         fdbg.write(
-                            "    %s (%s) : %d -> %d [%d ≥ %d]\n" % (_("Advance"), dpr, x_av_pr, rm.puntos, p0, p_z))
+                            "    %s (%s): %d -> %d [%d ≥ %d]\n" % (_("Advance"), dpr, x_av_pr, rm.puntos, p0, p_z))
 
             if x_jpr:
                 n = True
@@ -878,7 +878,7 @@ class MultiEngineResponse:
                     if n and move.is_check:
                         rm.puntos += x_jpr
                         if dbg:
-                            fdbg.write("    %s (%s) : %d -> %d\n" % (_("Make check"), dpr, x_jpr, rm.puntos))
+                            fdbg.write("    %s (%s): %d -> %d\n" % (_("Make check"), dpr, x_jpr, rm.puntos))
                         break
                     n = not n
 
@@ -888,7 +888,7 @@ class MultiEngineResponse:
                     if n and move.siCaptura():
                         rm.puntos += x_cpr
                         if dbg:
-                            fdbg.write("    %s (%s) : %d -> %d\n" % (_("Capture"), dpr, x_cpr, rm.puntos))
+                            fdbg.write("    %s (%s): %d -> %d\n" % (_("Capture"), dpr, x_cpr, rm.puntos))
                         break
                     n = not n
 
@@ -921,9 +921,9 @@ class MultiEngineResponse:
                 pgn = pgn.strip("- ")
 
                 if rm.mate:
-                    fdbg.write("%d. %s : %d %s\n" % (num + 1, pgn, rm.mate, _("Mate")))
+                    fdbg.write("%d. %s: %d %s\n" % (num + 1, pgn, rm.mate, _("Mate")))
                 else:
-                    fdbg.write("%d. %s : %d\n" % (num + 1, pgn, rm.puntos))
+                    fdbg.write("%d. %s: %d\n" % (num + 1, pgn, rm.puntos))
 
             fdbg.write("\n")
             fdbg.close()
@@ -962,7 +962,7 @@ class MultiEngineResponse:
                 ADJUST_SOMEWHAT_WORSE_LESS: 25,
                 ADJUST_SOMEWHAT_WORSE_LESS_LESS: 10,
             }
-        else :
+        else:
             dic = {}
         tp = 0
         for k, v in dic.items():

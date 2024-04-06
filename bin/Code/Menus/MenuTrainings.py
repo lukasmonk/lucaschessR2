@@ -14,6 +14,7 @@ from Code.Base.Constantes import (
     GT_TURN_ON_LIGHTS,
     GT_TACTICS,
 )
+from Code.BestMoveTraining import WindowBMT
 from Code.CompetitionWithTutor import CompetitionWithTutor
 from Code.Coordinates import WCoordinatesBlocks, WCoordinatesBasic
 from Code.CountsCaptures import WCountsCaptures
@@ -34,7 +35,6 @@ from Code.QT import WindowVisualiza
 from Code.Resistance import Resistance, ManagerResistance, WindowResistance
 from Code.SQL import UtilSQL
 from Code.Tactics import Tactics, ManagerTactics, WindowTactics
-from Code.BestMoveTraining import WindowBMT
 from Code.Translations import TrListas
 from Code.TurnOnLights import ManagerTurnOnLights, WindowTurnOnLights
 from Code.TurnOnLights import TurnOnLights
@@ -349,7 +349,7 @@ class MenuTrainings:
         dicMenu = {}
         menu = QTVarios.LCMenu(self.parent)
 
-        talpha = Controles.FontType("Chess Alpha 2", self.configuration.x_menu_points + 4)
+        talpha = Controles.FontType("Chess Merida", self.configuration.x_menu_points + 4)
 
         def xopcion(menu, key, texto, icono, is_disabled=False):
             if "KP" in texto:
@@ -727,7 +727,7 @@ class MenuTrainings:
 
 
 def selectOneFNS(owner, procesador):
-    tpirat = Controles.FontType("Chess Alpha 2", procesador.configuration.x_font_points + 4)
+    tpirat = Controles.FontType("Chess Merida", procesador.configuration.x_font_points + 4)
 
     def xopcion(menu, key, texto, icono, is_disabled=False):
         if "KP" in texto:

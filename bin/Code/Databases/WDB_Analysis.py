@@ -1,8 +1,8 @@
 import Code
-from Code.Base import Game
-from Code.SQL import UtilSQL
-from Code.QT import Iconos, QTUtil2, QTVarios
 from Code.Analysis import WindowAnalysisParam
+from Code.Base import Game
+from Code.QT import Iconos, QTUtil2, QTVarios
+from Code.SQL import UtilSQL
 
 
 class DBAnalysis:

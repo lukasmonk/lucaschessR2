@@ -271,7 +271,7 @@ class ManagerWicker(Manager.Manager):
             self.tablasPlayer()
 
         elif key == TB_CONFIG:
-            self.configurar(siSonidos=True)
+            self.configurar(with_sounds=True)
 
         elif key == TB_UTILITIES:
             self.utilidadesElo()

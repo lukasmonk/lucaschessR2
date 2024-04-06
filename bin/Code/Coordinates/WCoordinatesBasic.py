@@ -1,6 +1,6 @@
 from Code import Util
-from Code.Coordinates import CoordinatesConfig
 from Code.Coordinates import CoordinatesBasic
+from Code.Coordinates import CoordinatesConfig
 from Code.Coordinates import WRunCoordinatesBasic
 from Code.QT import Colocacion, Columnas, Controles, Grid, Iconos, QTUtil2, QTVarios
 from Code.QT import LCDialog

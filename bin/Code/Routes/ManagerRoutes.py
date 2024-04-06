@@ -213,7 +213,7 @@ class ManagerRoutesPlay(ManagerRoutes):
             self.start(self.route)
 
         elif key == TB_CONFIG:
-            self.configurar(siSonidos=True)
+            self.configurar(with_sounds=True)
 
         elif key == TB_UTILITIES:
             self.utilities()
@@ -412,7 +412,7 @@ class ManagerRoutesEndings(ManagerRoutes):
             self.terminate()
 
         elif key == TB_CONFIG:
-            self.configurar(siSonidos=True, siCambioTutor=True)
+            self.configurar(with_sounds=True, with_change_tutor=True)
 
         elif key == TB_HELP:
             self.get_help()
@@ -622,7 +622,7 @@ class ManagerRoutesTactics(ManagerRoutes):
             self.terminate()
 
         elif key == TB_CONFIG:
-            self.configurar(siSonidos=True, siCambioTutor=True)
+            self.configurar(with_sounds=True, with_change_tutor=True)
 
         elif key == TB_HELP:
             self.get_help()

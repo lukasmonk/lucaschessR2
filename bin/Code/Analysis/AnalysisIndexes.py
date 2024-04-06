@@ -384,7 +384,7 @@ def gen_indexes(game, elos, elos_form, alm):
         xac(exchangetendency[False]),
         xac(exchangetendency_t),
     )
-    txt += plantilla_l % ("%", alm.porcW, prc, alm.porcB, prc, alm.porcT, prc)
+    txt += plantilla_l % (_("Accuracy"), alm.porcW, prc, alm.porcB, prc, alm.porcT, prc)
 
     txt_html = '<table border="1" cellpadding="5" cellspacing="0" >%s%s</table>' % (cab, txt)
 
@@ -457,6 +457,7 @@ def gen_indexes(game, elos, elos_form, alm):
         xac(exchangetendency[False]),
         xac(exchangetendency_t),
     )
+    txt += plantilla_l % (_("Accuracy"), alm.porcW, prc, alm.porcB, prc, alm.porcT, prc)
 
     return (
         txt_html,

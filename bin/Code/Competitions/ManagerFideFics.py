@@ -173,7 +173,7 @@ class ManagerFideFics(Manager.Manager):
             self.rendirse()
 
         elif key == TB_CONFIG:
-            self.configurar(siSonidos=True)
+            self.configurar(with_sounds=True)
 
         elif key == TB_TAKEBACK:
             return  # disable

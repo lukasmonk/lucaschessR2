@@ -11,9 +11,9 @@ from Code.QT import Columnas
 from Code.QT import Delegados
 from Code.QT import Grid
 from Code.QT import Iconos
+from Code.QT import LCDialog
 from Code.QT import QTVarios
 from Code.Voyager import Voyager
-from Code.QT import LCDialog
 
 
 class WPolyglot(LCDialog.LCDialog):

@@ -6,23 +6,28 @@ from Code.SQL import UtilSQL
 
 
 class CountCapture:
-    xid: int
+    xid: str
     date: datetime.datetime
     game: Game.Game
     current_posmove: int
     current_depth: int
     tries: list
+    is_captures: bool
 
-    def __init__(self):
+    def __init__(self, is_captures):
         self.date = datetime.datetime.now()
         self.xid = Util.huella()
         self.game = Game.Game()
         self.current_posmove = 0
         self.current_depth = 0
         self.tries = []  # pos,depth,success,time
+        self.is_captures = is_captures
 
     def is_finished(self):
-        return (self.current_posmove + self.current_depth) >= (len(self.game) + 1)
+        total = len(self.game) + 1
+        # if self.is_captures:
+        #     total += 1
+        return (self.current_posmove + self.current_depth) >= total
 
     def save(self):
         dic = {
@@ -84,7 +89,7 @@ class CountCapture:
         return '%.01f"' % media
 
     def copy(self):
-        capt_copy = CountCapture()
+        capt_copy = CountCapture(self.is_captures)
         capt_copy.game = self.game.copia()
         capt_copy.current_posmove = 0
         capt_copy.current_depth = 0
@@ -93,7 +98,7 @@ class CountCapture:
 
 
 class DBCountCapture:
-    def __init__(self, path):
+    def __init__(self, path, is_captures):
         self.path = path
 
         with self.db() as db:
@@ -101,7 +106,7 @@ class DBCountCapture:
             dic_data = db.as_dictionary()
             self.li_data = []
             for date in li_dates:
-                count_capture = CountCapture()
+                count_capture = CountCapture(is_captures)
                 count_capture.restore(dic_data[date])
                 self.li_data.append(count_capture)
 

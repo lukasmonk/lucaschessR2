@@ -159,7 +159,7 @@ class ManagerTactics(Manager.Manager):
             else:
                 li_mas_opciones.append(("lmo_jump", _("Jump to the next after solving"), Iconos.Jump()))
 
-            resp = self.configurar(siSonidos=True, siCambioTutor=False, li_extra_options=li_mas_opciones)
+            resp = self.configurar(with_sounds=True, with_change_tutor=False, li_extra_options=li_mas_opciones)
             if resp in ("lmo_stop", "lmo_jump"):
                 self.with_automatic_jump = resp == "lmo_jump"
                 self.tactic.set_automatic_jump(self.with_automatic_jump)
@@ -266,7 +266,7 @@ class ManagerTactics(Manager.Manager):
             if self.configuration.x_director_icon is not None:
                 self.board.dbvisual_set_show_always(True)
             self.game = self.game_obj.copia()
-            self.pgnRefresh(self.game.last_position.is_white)
+            self.goto_end()
 
         return True
 

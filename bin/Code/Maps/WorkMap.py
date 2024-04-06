@@ -7,9 +7,9 @@ import Code
 import Code.SQL.Base as SQLBase
 from Code import Util
 from Code.Engines import STS
+from Code.QT import QTUtil2
 from Code.SQL import UtilSQL
 from Code.Translations import TrListas
-from Code.QT import QTUtil2
 
 
 class RegWorkMap:

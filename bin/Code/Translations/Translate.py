@@ -107,5 +107,11 @@ class Translations:
 
 
 def install(lang):
-    if Code.translations is None or Code.translations.lang != lang:
+    do_install = Code.translations is None
+    if not do_install:
+        builtins_trans = builtins.__dict__.get("_")
+        do_install = builtins_trans is None or builtins_trans != Code.translations.translate
+        if not do_install:
+            do_install = Code.translations.lang != lang
+    if do_install:
         Code.translations = Translations(lang)

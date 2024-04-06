@@ -25,9 +25,8 @@ from Code.Base.Constantes import (
     ENG_WICKER,
 )
 from Code.Board import Board
-from Code.Engines import EngineManager, EnginesWicker, EngineResponse
-from Code.Swiss import SwissWork, Swiss
 from Code.Books import Books
+from Code.Engines import EngineManager, EnginesWicker, EngineResponse
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles
@@ -37,6 +36,7 @@ from Code.QT import Iconos
 from Code.QT import QTUtil
 from Code.QT import QTVarios
 from Code.Sound import Sound
+from Code.Swiss import SwissWork, Swiss
 
 
 class WSwissWorker(QtWidgets.QWidget):
@@ -60,7 +60,7 @@ class WSwissWorker(QtWidgets.QWidget):
         conf_board = Code.configuration.config_board("SWISSPLAY", 36)
         self.board = Board.Board(self, conf_board)
         self.board.crea()
-        Delegados.generaPM(self.board.piezas)
+        Delegados.genera_pm(self.board.piezas)
 
         ct = self.board.config_board
         self.antiguoAnchoPieza = ct.width_piece()

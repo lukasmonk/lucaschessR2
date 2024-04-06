@@ -653,7 +653,7 @@ class Configuration:
         li = []
         for key, cm in self.dic_engines.items():
             li.append((cm.nombre_ext(), key))
-        li.sort(key=lambda x: x[0])
+        li.sort(key=lambda x: x[0].upper())
         return li
 
     def combo_engines_multipv10(self, minimo=10):  # %#

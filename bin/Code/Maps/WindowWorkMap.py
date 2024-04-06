@@ -277,7 +277,6 @@ class WUnSTSMap(LCDialog.LCDialog):
 
         self.setLayout(ly)
 
-
         self.restore_video()
 
         self.pon_toolbar(self.cancelar)

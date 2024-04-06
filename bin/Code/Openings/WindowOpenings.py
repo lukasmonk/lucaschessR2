@@ -265,7 +265,7 @@ class WOpenings(LCDialog.LCDialog):
         #     if not self.game.last_jg().in_the_opening:
         #         p = Game.Game()
         #         p.read_pv(ap.a1h8)
-                # ap.tr_name += " + %s" % (self.game.pgn_translated()[len(p.pgn_translated()) + 1:],)
+        # ap.tr_name += " + %s" % (self.game.pgn_translated()[len(p.pgn_translated()) + 1:],)
 
         ap.a1h8 = self.game.pv()
         ap.pgn = self.game.pgn_translated()
@@ -273,7 +273,7 @@ class WOpenings(LCDialog.LCDialog):
 
     def read_pgn(self):
         game = Code.procesador.select_1_pgn(self)
-        if game and len(game) > 1 and game.siFenInicial():
+        if game and len(game) > 1 and game.is_fen_initial():
             self.game = game
             if not self.opening_block:
                 self.opening_block = OpeningsStd.Opening(_("Unknown"))

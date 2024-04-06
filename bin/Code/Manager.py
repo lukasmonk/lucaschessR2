@@ -88,6 +88,7 @@ class Manager:
         self.game_type = None
         self.hints = None
         self.ayudas_iniciales = 0
+        self.must_be_autosaved = False
 
         self.is_competitive = False
 
@@ -150,6 +151,8 @@ class Manager:
 
         self.messenger = None
 
+        self.closed = False
+
         self.kibitzers_manager = self.procesador.kibitzers_manager
 
         self.with_eboard = len(self.configuration.x_digital_board) > 0
@@ -158,6 +161,14 @@ class Manager:
 
         self.tc_white = TimeControl.TimeControl(self.main_window, self.game, WHITE)
         self.tc_black = TimeControl.TimeControl(self.main_window, self.game, BLACK)
+
+    def close(self):
+        if not self.closed:
+            self.procesador.reset()
+            if self.must_be_autosaved:
+                self.autosave_now()
+                self.must_be_autosaved = False
+            self.closed = True
 
     def disable_use_eboard(self):
         if self.configuration.x_digital_board:
@@ -189,7 +200,7 @@ class Manager:
             self.remove_hints(siQuitarAtras=not with_takeback)
             self.procesador.stop_engines()
         else:
-            self.procesador.reset()
+            self.close()
 
     def set_toolbar(self, li_options):
         self.main_window.pon_toolbar(li_options, with_eboard=self.with_eboard)
@@ -199,6 +210,8 @@ class Manager:
         self.board.atajos_raton = None
         if self.nonDistract:
             self.main_window.base.tb.setVisible(True)
+        if self.must_be_autosaved:
+            self.autosave_now()
 
     def atajosRatonReset(self):
         self.atajosRatonDestino = None
@@ -664,8 +677,8 @@ class Manager:
         lj = len(game)
         if starts_with_black:
             lj += 1
-        ultFila = (lj - 1) / 2
-        siUltBlancas = lj % 2 == 1
+        ult_fila = (lj - 1) / 2
+        si_ult_blancas = lj % 2 == 1
 
         if tipo == GO_BACK:
             if is_white:
@@ -689,26 +702,19 @@ class Manager:
             self.ponteAlPrincipio()
             return
         elif tipo == GO_END:
-            row = ultFila
+            row = ult_fila
             is_white = not game.last_position.is_white
 
-        if row == ultFila:
-            if siUltBlancas and not is_white:
+        if row == ult_fila:
+            if si_ult_blancas and not is_white:
                 return
 
-        if row < 0 or row > ultFila:
+        if row < 0 or row > ult_fila:
             self.refresh()
             return
         if row == 0 and is_white and starts_with_black:
             is_white = False
 
-        self.main_window.pgnColocate(row, is_white)
-        self.pgnMueve(row, is_white)
-
-    def ponteEnJugada(self, movenum):
-        row = (movenum + 1) / 2 if self.game.starts_with_black else movenum / 2
-        move = self.game.move(movenum)
-        is_white = move.position_before.is_white
         self.main_window.pgnColocate(row, is_white)
         self.pgnMueve(row, is_white)
 
@@ -725,7 +731,7 @@ class Manager:
             self.main_window.base.pgn.goto(0, 2 if move.position.is_white else 1)
             self.board.put_arrow_sc(move.from_sq, move.to_sq)
             self.refresh_pgn()  # No se puede usar pgnRefresh, ya que se usa con gobottom en otros lados
-                                # y aqui eso no funciona
+            # y aqui eso no funciona
             self.put_view()
         else:
             self.ponteAlPrincipio()
@@ -793,16 +799,22 @@ class Manager:
         self.informacionActivable = is_activatable
 
     def autosave(self):
+        self.must_be_autosaved = True
         if len(self.game) > 1:
+            self.game.tag_timeend()
+            self.game.set_extend_tags()
             if self.ayudas_iniciales > 0:
                 if not (self.hints is None):
                     usado = self.ayudas_iniciales - self.hints
                     if usado:
                         self.game.set_tag("HintsUsed", str(usado))
 
-            self.game.tag_timeend()
-            self.game.set_extend_tags()
+    def autosave_now(self):
+        if len(self.game) > 1:
+            if self.game.has_analisis():
+                self.game.add_accuracy_tags()
             DBgames.autosave(self.game)
+            self.must_be_autosaved = False
 
     def show_info_extra(self):
         key = "SHOW_INFO_EXTRA_" + DICT_GAME_TYPES[self.game_type]
@@ -1029,6 +1041,7 @@ class Manager:
             )
             self.xanalyzer.set_gui_dispatch(None)
             move.analysis = mrm, pos
+            move.refresh_nags()
             self.main_window.base.tb.setDisabled(False)
             self.main_window.base.hide_message()
 
@@ -1044,14 +1057,14 @@ class Manager:
         self.refresh()
 
     def borrar(self):
-        separador = FormLayout.separador
         li_del = []
+        separador = FormLayout.separador
         li_del.append((_("All") + ":", False))
         li_del.append(separador)
         li_del.append(separador)
         li_del.append((_("Variations") + ":", False))
         li_del.append(separador)
-        li_del.append((_("Ratings") + ":", False))
+        li_del.append((_("Ratings") + " (NAGs):", False))
         li_del.append(separador)
         li_del.append((_("Comments") + ":", False))
         li_del.append(separador)
@@ -1101,10 +1114,12 @@ class Manager:
 
                 self.main_window.set_title_toolbar_eboard()
                 QTUtil.refresh_gui()
+
         elif self.xRutinaAccionDef:
             self.xRutinaAccionDef(key)
+
         elif key == TB_CLOSE:
-            self.procesador.reset()
+            self.close()
 
         elif key == TB_REPLAY:
             self.replay_direct()
@@ -1127,13 +1142,13 @@ class Manager:
                 fen = self.fenActivoConInicio()
                 is_white = " w " in fen
                 if number == 1:
-                    siMB = is_white
+                    si_mb = is_white
                 else:
-                    siMB = not is_white
+                    si_mb = not is_white
                 self.board.remove_arrows()
                 if self.board.flechaSC:
                     self.board.flechaSC.hide()
-                li = FasterCode.get_captures(fen, siMB)
+                li = FasterCode.get_captures(fen, si_mb)
                 for m in li:
                     d = m.xfrom()
                     h = m.xto()
@@ -1149,10 +1164,10 @@ class Manager:
                 fen = self.fenActivoConInicio()
                 is_white = " w " in fen
                 if number == 2:
-                    siMB = is_white
+                    si_mb = is_white
                 else:
-                    siMB = not is_white
-                if siMB != is_white:
+                    si_mb = not is_white
+                if si_mb != is_white:
                     fen = FasterCode.fen_other(fen)
                 cp = Position.Position()
                 cp.read_fen(fen)
@@ -1260,23 +1275,23 @@ class Manager:
         if hasattr(self, "help_to_move"):
             getattr(self, "help_to_move")()
 
-    def configurar(self, li_extra_options=None, siCambioTutor=False, siSonidos=False, siBlinfold=True):
+    def configurar(self, li_extra_options=None, with_change_tutor=False, with_sounds=False, with_blinfold=True):
         menu = QTVarios.LCMenu(self.main_window)
 
         # Vista
-        menuVista = menu.submenu(_("Show/hide"), Iconos.Vista())
-        menuVista.opcion("vista_pgn_information", _("PGN information"),
-                         is_ckecked=self.main_window.is_active_information_pgn())
-        menuVista.separador()
-        menuVista.opcion("vista_capturas", _("Captured material"), is_ckecked=self.main_window.is_active_captures())
-        menuVista.separador()
-        menuVista.opcion(
+        menu_vista = menu.submenu(_("Show/hide"), Iconos.Vista())
+        menu_vista.opcion("vista_pgn_information", _("PGN information"),
+                          is_ckecked=self.main_window.is_active_information_pgn())
+        menu_vista.separador()
+        menu_vista.opcion("vista_capturas", _("Captured material"), is_ckecked=self.main_window.is_active_captures())
+        menu_vista.separador()
+        menu_vista.opcion(
             "vista_analysis_bar",
             _("Analysis Bar"),
             is_ckecked=self.main_window.is_active_analysisbar(),
         )
-        menuVista.separador()
-        menuVista.opcion(
+        menu_vista.separador()
+        menu_vista.opcion(
             "vista_bestmove",
             _("Arrow with the best move when there is an analysis"),
             is_ckecked=self.configuration.x_show_bestmove,
@@ -1284,8 +1299,8 @@ class Manager:
         menu.separador()
 
         # Ciega - Mostrar todas - Ocultar blancas - Ocultar negras
-        if siBlinfold:
-            menuCG = menu.submenu(_("Blindfold chess"), Iconos.Ojo())
+        if with_blinfold:
+            menu_cg = menu.submenu(_("Blindfold chess"), Iconos.Ojo())
 
             si = self.board.blindfold
             if si:
@@ -1294,14 +1309,15 @@ class Manager:
             else:
                 ico = Iconos.Verde()
                 tit = _("Enable")
-            menuCG.opcion("cg_change", tit, ico)
-            menuCG.separador()
-            menuCG.opcion("cg_conf", _("Configuration"), Iconos.Opciones())
-            menuCG.separador()
-            menuCG.opcion("cg_pgn", "%s: %s" % (_("PGN"), _("Hide") if self.pgn.must_show else _("Show")), Iconos.PGN())
+            menu_cg.opcion("cg_change", tit, ico)
+            menu_cg.separador()
+            menu_cg.opcion("cg_conf", _("Configuration"), Iconos.Opciones())
+            menu_cg.separador()
+            menu_cg.opcion("cg_pgn", "%s: %s" % (_("PGN"), _("Hide") if self.pgn.must_show else _("Show")),
+                           Iconos.PGN())
 
         # Sonidos
-        if siSonidos:
+        if with_sounds:
             menu.separador()
             menu.opcion("sonido", _("Sounds"), Iconos.S_Play())
 
@@ -1711,7 +1727,7 @@ class Manager:
         with QTUtil2.OneMomentPlease(self.main_window):
             elos = self.game.calc_elos(self.configuration)
             elos_form = self.game.calc_elosFORM(self.configuration)
-            alm = Histogram.genHistograms(self.game)
+            alm = Histogram.gen_histograms(self.game)
             (
                 alm.indexesHTML,
                 alm.indexesHTMLelo,
@@ -1977,7 +1993,7 @@ class Manager:
     def pgnInformacionMenu(self):
         menu = QTVarios.LCMenu(self.main_window)
 
-        for key, valor in self.game.dicTags().items():
+        for key, valor in self.game.dic_tags().items():
             siFecha = key.upper().endswith("DATE")
             if key.upper() == "FEN":
                 continue
@@ -2076,7 +2092,7 @@ class Manager:
                     return
 
                 game_var.add_move(new_move)
-                var_move.add_variation(game_var)
+                num_var = var_move.add_variation(game_var)
 
                 self.main_window.activaInformacionPGN(True)
                 row, column = self.main_window.pgnPosActual()
@@ -2085,7 +2101,8 @@ class Manager:
                     row += 1
                 self.main_window.pgnColocate(row, is_white)
                 self.put_view()
-                link_variation_pressed("%d|%d|0" % (num_var_move, len(var_move.variations) - 1))
+                # link_variation_pressed("%d|%d|0" % (num_var_move, len(var_move.variations) - 1))
+                link_variation_pressed(f"{num_var_move}|{num_var}|0")
                 self.kibitzers_manager.put_game(game_var, self.board.is_white_bottom)
         else:
             # si tiene mas movimientos se verifica si coincide con el siguiente

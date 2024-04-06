@@ -9,7 +9,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Alapin Opening"
-msgstr "阿拉宾开局"
+msgstr "阿拉平开局"
 
 msgid "Alekhine Defence"
 msgstr "阿廖欣防御"
@@ -21,10 +21,10 @@ msgid "Alekhine Defence: Brooklyn Defence"
 msgstr "阿廖欣防御：布鲁克林防御"
 
 msgid "Alekhine Defence: Brooklyn Variation, Everglades Variation"
-msgstr "阿廖欣防御:布鲁克林变例，沼泽地变例"
+msgstr "阿廖欣防御：布鲁克林变例，沼泽地变例"
 
 msgid "Alekhine Defence: Buckley Attack"
-msgstr "阿廖欣防御巴克利进攻"
+msgstr "阿廖欣防御：巴克利进攻"
 
 msgid "Alekhine Defence: Exchange Variation"
 msgstr "阿廖欣防御：兑换变例"
@@ -63,7 +63,7 @@ msgid "Alekhine Defence: Hunt Variation"
 msgstr "阿廖欣防御：亨特变化"
 
 msgid "Alekhine Defence: Hunt Variation, Lasker Simul Gambit"
-msgstr "阿廖欣防御:亨特变化, 拉斯克模拟弃兵"
+msgstr "阿廖欣防御：亨特变化, 拉斯克模拟弃兵"
 
 msgid "Alekhine Defence: Hunt Variation, Matsukevich Gambit"
 msgstr "阿廖欣防御：亨特变化，马苏克维奇弃兵"
@@ -78,7 +78,7 @@ msgid "Alekhine Defence: Krejcik Variation"
 msgstr "阿廖欣防御：Krejcik变例"
 
 msgid "Alekhine Defence: Krejcik Variation, Krejcik Gambit"
-msgstr "阿廖欣防御:克雷吉克变例, 克雷吉克弃兵"
+msgstr "阿廖欣防御：克雷吉克变例, 克雷吉克弃兵"
 
 msgid "Alekhine Defence: Maroczy Variation"
 msgstr "阿廖欣防御：Maroczy变例"
@@ -402,7 +402,7 @@ msgid "Benoni: Mikenas Variation"
 msgstr "别诺尼防御：Mikenas变例"
 
 msgid "Benoni: Nimzovich (knight Tour) Variation"
-msgstr "别诺尼防御：尼姆佐维奇变例"
+msgstr "别诺尼防御：尼姆佐维奇(马之旅)变例"
 
 msgid "Benoni: Pawn Storm Variation"
 msgstr "别诺尼防御：小兵风暴变例"
@@ -741,7 +741,7 @@ msgid "Blumenfeld Counter-gambit, Spielmann Variation"
 msgstr "布鲁门菲尔德反弃兵，斯皮尔曼变例"
 
 msgid "Blumenfeld CounterGambit"
-msgstr "布卢门菲尔德的反戈一击"
+msgstr "布鲁门菲尔德反弃兵"
 
 msgid "Boden-Kieseritsky Gambit"
 msgstr "博登-基舍利茨基弃兵"
@@ -9779,7 +9779,7 @@ msgid "Vienna Opening: Hamppe-Allgaier Gambit, Alapin Variation"
 msgstr "维也纳：Hamppe-ALLGAIER开局，Alapin变例"
 
 msgid "Vienna Opening: Hamppe-Muzio Gambit"
-msgstr "维也纳：Hamppe，Muzio开局"
+msgstr "维也纳：Hamppe，Muzio弃兵"
 
 msgid "Vienna Opening: Hamppe-Muzio, Dubois Variation"
 msgstr "维也纳：Hamppe-Muzio，杜波依斯的变例"
@@ -9794,19 +9794,19 @@ msgid "Vienna Opening: Paulsen-Mieses Variation"
 msgstr "维也纳：保尔森，米泽斯变例"
 
 msgid "Vienna Opening: Pierce Gambit"
-msgstr "维也纳：皮尔斯开局"
+msgstr "维也纳：皮尔斯弃兵"
 
 msgid "Vienna Opening: Pierce Gambit, Rushmere Attack"
-msgstr "维也纳：皮尔斯开局，Rushmere进攻"
+msgstr "维也纳：皮尔斯弃兵，Rushmere进攻"
 
 msgid "Vienna Opening: Steinitz Gambit"
-msgstr "维也纳：斯坦尼茨开局"
+msgstr "维也纳：斯坦尼茨弃兵"
 
 msgid "Vienna Opening: Steinitz Gambit, Fraser-Minckwitz Variation"
-msgstr "维也纳：斯坦尼茨开局，弗雷泽 -  Minckwitz变例"
+msgstr "维也纳：斯坦尼茨弃兵，弗雷泽 -  Minckwitz变例"
 
 msgid "Vienna Opening: Steinitz Gambit, Zukertort Defence"
-msgstr "维也纳：斯坦尼茨开局，楚凯尔拖特的防御"
+msgstr "维也纳：斯坦尼茨弃兵，楚凯尔拖特的防御"
 
 msgid "Vienna Opening: Zhuravlev Countergambit"
 msgstr "维也纳：ZHURAVLEV countergambit"
@@ -9821,25 +9821,25 @@ msgid "Ware (Meadow Hay) Opening"
 msgstr "洁具（草甸干草）开局"
 
 msgid "Ware Defence: Snagglepuss Defence"
-msgstr "器物防御:斯纳格尔普斯防御体系"
+msgstr "瓦尔防御:斯纳格尔普斯防御"
 
 msgid "Ware Opening: Cologne Gambit"
-msgstr "器物开局:科隆弃兵"
+msgstr "瓦尔开局:科隆弃兵"
 
 msgid "Ware Opening: Meadow Hay Trap"
-msgstr "器皿的开放:梅朵干草陷阱"
+msgstr "瓦尔开局:梅朵干草陷阱"
 
 msgid "Ware Opening: Ware Gambit"
-msgstr "器物开局:瓦尔开局"
+msgstr "瓦尔开局:瓦尔弃兵"
 
 msgid "Ware Opening: Wing Gambit"
-msgstr "器物开局:翼牌"
+msgstr "瓦尔开局:翼弃兵"
 
 msgid "Woozle Defence"
 msgstr "Woozle防御"
 
 msgid "Zaire Defence"
-msgstr "扎伊尔防务"
+msgstr "扎伊尔防御"
 
 msgid "Zukertort Defence: Kingside Variation"
 msgstr "祖克托尔防御:王翼的变化"
@@ -9866,7 +9866,7 @@ msgid "Zukertort Opening: Black Mustang Defence"
 msgstr "祖克托尔开局:黑方野马防御"
 
 msgid "Zukertort Opening: Double Fianchetto Attack"
-msgstr "祖克托尔开局:双重费安切托进攻"
+msgstr "祖克托尔开局:双堡垒象进攻"
 
 msgid "Zukertort Opening: Drunken Cavalry Variation"
 msgstr "祖克托尔开局:醉酒骑兵变化"
@@ -9875,10 +9875,10 @@ msgid "Zukertort Opening: Gruenfeld Reversed"
 msgstr "祖克托尔开局:格林菲尔德反转"
 
 msgid "Zukertort Opening: Kingside Fianchetto"
-msgstr "祖克托尔开局:金赛德-菲安谢托"
+msgstr "祖克托尔开局:王翼堡垒象"
 
 msgid "Zukertort Opening: Lemberger Gambit"
-msgstr "祖克托尔开局:兰贝格开局"
+msgstr "祖克托尔开局:兰贝格弃兵"
 
 msgid "Zukertort Opening: Myers Polish Attack"
 msgstr "祖克托尔开局:迈尔斯波兰式进攻"
@@ -9890,16 +9890,16 @@ msgid "Zukertort Opening: Pachman Gambit"
 msgstr "祖克托尔开局:帕克曼弃兵"
 
 msgid "Zukertort Opening: Pirc Invitation"
-msgstr "祖克托尔开局:Pirc邀请函"
+msgstr "祖克托尔开局:Pirc邀请"
 
 msgid "Zukertort Opening: Polish Defence"
 msgstr "祖克托尔开局:波兰防御"
 
 msgid "Zukertort Opening: Queen Gambit Invitation"
-msgstr "祖克托尔开局:皇后对局邀请函"
+msgstr "祖克托尔开局:后翼弃兵邀请"
 
 msgid "Zukertort Opening: Queenside Fianchetto Variation"
-msgstr "祖克托尔开局:皇后边的费恩切托变化"
+msgstr "祖克托尔开局:后翼堡垒象变化"
 
 msgid "Zukertort Opening: Quiet System"
 msgstr "祖克特公司开业:安静的体系"
@@ -9914,13 +9914,13 @@ msgid "Zukertort Opening: Ross Gambit"
 msgstr "祖克托尔开局:罗斯弃兵"
 
 msgid "Zukertort Opening: Shabalov Gambit"
-msgstr "祖克托尔开局:沙巴罗夫开局"
+msgstr "祖克托尔开局:沙巴罗夫弃兵"
 
 msgid "Zukertort Opening: Sicilian Invitation"
-msgstr "祖克托尔开局:西西里邀请函"
+msgstr "祖克托尔开局:西西里邀请"
 
 msgid "Zukertort Opening: Slav Invitation"
-msgstr "祖克托尔开局:斯拉夫邀请函"
+msgstr "祖克托尔开局:斯拉夫邀请"
 
 msgid "Zukertort Opening: Speelsmet Gambit"
 msgstr "祖克托尔开局:斯佩尔梅特开局"
@@ -9941,4 +9941,4 @@ msgid "Zukertort Opening: Wade Defence, Chigorin Plan"
 msgstr "祖克托尔开局:韦德防御, 奇戈林计划"
 
 msgid "Zukertort Opening: Ware Defence"
-msgstr "祖克托尔开局:器物防御"
+msgstr "祖克托尔开局:瓦尔防御"

@@ -43,6 +43,7 @@ from Code.Base.Constantes import (
     ENG_WICKER,
     TOP_RIGHT,
 )
+from Code.BestMoveTraining import WindowBMT
 from Code.Board import WBoardColors, Eboard
 from Code.Books import WFactory, WPolyglot, WBooksTrain, ManagerTrainBooks, WBooks, WBooksTrainOL, ManagerTrainBooksOL
 from Code.CompetitionWithTutor import WCompetitionWithTutor, ManagerCompeticion
@@ -79,7 +80,6 @@ from Code.SingularMoves import WindowSingularM, ManagerSingularM
 from Code.Sound import WindowSonido
 from Code.Swiss import WSwisses, ManagerSwiss
 from Code.Tournaments import WTournaments
-from Code.BestMoveTraining import WindowBMT
 from Code.Washing import ManagerWashing, WindowWashing
 from Code.WritingDown import WritingDown, ManagerWritingDown
 
@@ -917,6 +917,7 @@ class Procesador:
                 if QTUtil2.pregunta(self.main_window, "%s\n%s" % (_("Do you want to remove?"), resp)):
                     Util.remove_file(resp)
                     Util.remove_file(resp + ".st1")
+                    Util.remove_file(resp[:-5] + ".lcmv")
             return
 
         if accion == "R":
@@ -928,7 +929,7 @@ class Procesador:
                         if w.reiniciar:
                             self.database("R", self.configuration.get_last_database())
             else:
-                Delegados.generaPM(w.infoMove.board.piezas)
+                Delegados.genera_pm(w.infoMove.board.piezas)
                 w.show()
 
     def manual_save(self):
@@ -1180,10 +1181,8 @@ class Procesador:
 
     def learn_game(self, game=None):
         if game:
-            db = WindowLearnGame.DBLearnGame(self.configuration.file_learn_game())
-            reg = {"GAME": game.save()}
-            db.append(reg)
-            db.close()
+            with WindowLearnGame.DBLearnGame() as db:
+                db.append_game(game)
 
         w = WindowLearnGame.WLearnBase(self.main_window)
         w.exec_()

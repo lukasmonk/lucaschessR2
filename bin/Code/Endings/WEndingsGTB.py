@@ -5,12 +5,12 @@ import FasterCode
 from PySide2 import QtWidgets, QtCore
 
 import Code
-from Code.Engines import EngineManager
 from Code.Base import Game, Move
 from Code.Board import Board
 from Code.Databases import DBgames
 from Code.Endings import EndingsGTB
 from Code.Endings import LibChess
+from Code.Engines import EngineManager
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles
@@ -112,6 +112,7 @@ class WEndingsGTB(LCDialog.LCDialog):
         self.board.crea()
         self.board.set_side_bottom(True)
         self.board.set_dispatcher(self.player_has_moved)
+        self.board.dispatchSize(self.board_resized)
 
         self.pzs = self.board.piezas
         self.playing = False
@@ -120,6 +121,7 @@ class WEndingsGTB(LCDialog.LCDialog):
         w = QtWidgets.QWidget(self)
         w.setLayout(ly_left_bottom)
         w.setFixedWidth(self.board.ancho + 16)
+        self.w_board = w
 
         ly_bottom = Colocacion.H().control(w).otro(ly_pos)
 
@@ -143,9 +145,12 @@ class WEndingsGTB(LCDialog.LCDialog):
         self.help_changed()
         self.restart()
 
+    def board_resized(self):
+        self.w_board.setFixedWidth(self.board.ancho + 16)
+        self.adjustSize()
+
     def deactivate_eboard(self, ms):
         if Code.eboard and Code.eboard.driver:
-
             def deactivate():
                 Code.eboard.deactivate()
 
@@ -220,7 +225,7 @@ class WEndingsGTB(LCDialog.LCDialog):
             self.grid.refresh()
 
         if (
-            self.t4.dtm(self.game.first_position.fen()) is None
+                self.t4.dtm(self.game.first_position.fen()) is None
         ):  # En el caso de que se desinstale g5 y se trate de resolver un 5pzs
             QTUtil2.message_error(self, _("Invalid, this position is not evaluated by Gaviota Tablebases"))
             return
@@ -472,7 +477,8 @@ class WEndingsGTB(LCDialog.LCDialog):
             self.komodo.options(0, 7, False)
             self.komodo.check_engine()
             self.komodo.engine.put_line("setoption name Personality value Human")
-        self.komodo.engine.put_line("setoption name Armageddon value %s Must Win" % ("White" if self.game.last_position.is_white else "Black"))
+        self.komodo.engine.put_line(
+            "setoption name Armageddon value %s Must Win" % ("White" if self.game.last_position.is_white else "Black"))
         return self.komodo.play_game(self.game)
 
     def sigueMaquina(self):
@@ -494,7 +500,7 @@ class WEndingsGTB(LCDialog.LCDialog):
                         select = pos
                         break
             if select is None:
-                select = random.randint(0, len(lista)-1)
+                select = random.randint(0, len(lista) - 1)
         else:
             select = 0
         move = lista[select]

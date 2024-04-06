@@ -476,7 +476,7 @@ class PB(QtWidgets.QPushButton):
 
     def set_text(self, txt):
         self.setText(txt)
-        
+
     def set_pordefecto(self, ok):
         self.setDefault(ok)
         self.setAutoDefault(ok)

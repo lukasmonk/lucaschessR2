@@ -1,13 +1,14 @@
 import sys
+
 from PySide2 import QtWidgets
 
 import Code
 from Code import Util
 from Code.Config import Configuration
+from Code.MainWindow import InitApp
 from Code.Openings import OpeningsStd
 from Code.QT import Piezas
 from Code.Tournaments import WTournamentRun
-from Code.MainWindow import InitApp
 
 
 def run(user, file_tournament, file_work):

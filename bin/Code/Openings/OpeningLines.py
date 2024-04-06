@@ -944,7 +944,7 @@ class Opening:
                 break
 
             li_pv = game.all_pv("", with_variations)
-            if not game.siFenInicial():
+            if not game.is_fen_initial():
                 continue
             for pv in li_pv:
                 li = pv.split(" ")[:max_depth]
@@ -1014,7 +1014,7 @@ class Opening:
                 break
 
             li_pv = game.all_pv("", with_variations)
-            if not game.siFenInicial():
+            if not game.is_fen_initial():
                 continue
             for pv in li_pv:
                 li = pv.split(" ")[:max_depth]

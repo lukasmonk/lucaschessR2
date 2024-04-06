@@ -18,6 +18,9 @@ class WRunCounts(LCDialog.LCDialog):
         self.count = count
         self.db_counts = db_counts
 
+        self.move_base = None
+        self.position_obj = None
+
         conf_board = self.configuration.config_board("RUNCOUNTS", 64)
 
         self.board = Board.BoardEstaticoMensaje(self, conf_board, None)
@@ -130,6 +133,7 @@ class WRunCounts(LCDialog.LCDialog):
         self.seguir()
 
     def seguir(self):
+        self.pon_info_posic()
         self.set_position()
         self.lb_result.set_text("")
         self.ed_moves.set_text("")
@@ -175,16 +179,18 @@ class WRunCounts(LCDialog.LCDialog):
         cmoves = self.ed_moves.texto().strip()
         num_moves_calculated = int(cmoves) if cmoves.isdigit() else 0
         ok = num_moves_calculated == len(moves)
+
         xtry = self.count.current_posmove, self.count.current_depth, ok, tiempo
         self.count.tries.append(xtry)
 
         if ok:
-            if (self.count.current_posmove + self.count.current_depth) >= len(self.count.game):
-                QTUtil2.message(self, _("Training finished"))
+            self.count.current_depth += 1
+            if (self.count.current_posmove + self.count.current_depth) >= (len(self.count.game) + 1):
+                QTUtil2.message_result_win(self, _("Training finished") + "<br><br>" +
+                                           _('Congratulations, goal achieved'))
                 self.db_counts.change_count_capture(self.count)
                 self.terminar()
                 return
-            self.count.current_depth += 1
             self.lb_result.set_text("%s (%d)" % (_("Right, go to the next level of depth"), self.count.current_depth))
             self.lb_result.set_foreground("green")
 
@@ -195,7 +201,7 @@ class WRunCounts(LCDialog.LCDialog):
                     self.count.current_posmove = 0
                 self.count.current_depth = 0
                 self.lb_result.set_text(
-                    "%s (%d)" % (_("Wrong, return to the last position solved"), self.count.current_posmove + 1)
+                    "%s (%d)" % (_("Wrong, return to the last position solved"), self.count.current_posmove)
                 )
                 self.lb_result.set_foreground("red")
             else:
@@ -206,5 +212,4 @@ class WRunCounts(LCDialog.LCDialog):
                 self.board.creaFlechaTmp(x.xfrom(), x.xto(), False)
 
         self.db_counts.change_count_capture(self.count)
-        self.pon_info_posic()
         self.show_tb(self.terminar, self.seguir)

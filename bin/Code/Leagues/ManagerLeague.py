@@ -245,7 +245,7 @@ class ManagerLeague(Manager.Manager):
             self.xcontinue()
 
         elif key == TB_CONFIG:
-            self.configurar([], siSonidos=True)
+            self.configurar([], with_sounds=True)
 
         elif key == TB_UTILITIES:
             self.utilities()

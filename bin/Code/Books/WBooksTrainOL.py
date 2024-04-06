@@ -422,7 +422,7 @@ class WGenBooksTrainOL(LCDialog.LCDialog):
         if len(lines_pv) == 0:
             QTUtil2.message_error(self, _("There is no lines"))
             return False
-        
+
         um = QTUtil2.working(self)
         lines_resp = []
         for pos in range(len(lines_pv) - 1):
@@ -433,7 +433,7 @@ class WGenBooksTrainOL(LCDialog.LCDialog):
         lines_resp.append(lines_pv[-1])
         lines_resp = list(set(lines_resp))
         lines_resp.sort()
-        
+
         dic_fenm2 = {}
         start_fen = self.reg.start_fen
         p = Position.Position()

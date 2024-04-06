@@ -52,7 +52,7 @@ class LeaguesWork:
         return LeaguesWorkDB(self.path, table)
 
     def put_league(
-        self,
+            self,
     ):
         season = self.league.read_season()
 

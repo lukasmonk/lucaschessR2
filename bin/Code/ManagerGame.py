@@ -53,7 +53,7 @@ class ManagerGame(Manager.Manager):
         self.main_window.set_label2(None)
         self.set_dispatcher(self.player_has_moved)
         self.show_side_indicator(True)
-        self.put_pieces_bottom(game.iswhite())
+        self.put_pieces_bottom(game.is_white())
         self.ponteAlPrincipio()
         self.show_info_extra()
 
@@ -228,6 +228,7 @@ class ManagerGame(Manager.Manager):
             resp = WindowPgnTags.edit_tags_pgn(self.procesador.main_window, self.game.li_tags, not self.is_complete)
             if resp:
                 self.game.li_tags = resp
+                self.game.set_result()
                 fen_despues = self.game.get_tag("FEN")
                 if fen_antes != fen_despues:
                     fen_antes_fenm2 = FasterCode.fen_fenm2(fen_antes)
@@ -351,7 +352,7 @@ class ManagerGame(Manager.Manager):
     def replace_game(self, game):
         if not game:
             return
-        if self.is_complete and not game.siFenInicial():
+        if self.is_complete and not game.is_fen_initial():
             return
         p = Game.Game()
         p.assign_other_game(game)

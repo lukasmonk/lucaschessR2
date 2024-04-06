@@ -1,13 +1,13 @@
 from PySide2 import QtCore, QtGui, QtWidgets
 
 import Code
+from Code.Board import Eboard
 from Code.MainWindow import WInformation, WBase
 from Code.QT import Colocacion
 from Code.QT import Iconos
 from Code.QT import LCDialog
 from Code.QT import QTUtil
 from Code.Translations import WorkTranslate
-from Code.Board import Eboard
 
 
 class MainWindow(LCDialog.LCDialog):
@@ -97,7 +97,9 @@ class MainWindow(LCDialog.LCDialog):
 
     def closeEvent(self, event):  # Cierre con X
         self.final_processes()
-        if not self.manager.finalX0():
+        if Code.procesador.manager is not None:
+            if self.manager.finalX0():
+                Code.procesador.reset()
             event.ignore()
 
     def onTopWindow(self):
@@ -218,10 +220,10 @@ class MainWindow(LCDialog.LCDialog):
 
     def show_variations(self, titulo):
         flags = (
-            QtCore.Qt.Dialog
-            | QtCore.Qt.WindowTitleHint
-            | QtCore.Qt.WindowMinimizeButtonHint
-            | QtCore.Qt.WindowMaximizeButtonHint
+                QtCore.Qt.Dialog
+                | QtCore.Qt.WindowTitleHint
+                | QtCore.Qt.WindowMinimizeButtonHint
+                | QtCore.Qt.WindowMaximizeButtonHint
         )
 
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | flags)
@@ -486,7 +488,6 @@ class MainWindow(LCDialog.LCDialog):
             if self.informacionPGN.sp_sizes:
                 self.informacionPGN.splitter.setSizes(self.informacionPGN.sp_sizes)
 
-
     def check_translated_help_mode(self):
         if not Code.configuration.x_translation_mode:
             return
@@ -539,4 +540,3 @@ class MainWindow(LCDialog.LCDialog):
 
     def get_noboard_width(self):
         return self.base.analysis_bar.width() + self.informacionPGN.width() + Code.configuration.x_pgn_width
-

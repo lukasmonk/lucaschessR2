@@ -4,8 +4,8 @@ from Code.Databases import WDB_Games, WDB_Summary, WDB_Players, WDB_InfoMove, DB
 from Code.QT import Colocacion
 from Code.QT import Controles
 from Code.QT import Iconos
-from Code.QT import QTVarios
 from Code.QT import LCDialog
+from Code.QT import QTVarios
 
 
 class WBDatabase(LCDialog.LCDialog):
@@ -53,8 +53,8 @@ class WBDatabase(LCDialog.LCDialog):
         self.tab.set_font_type(puntos=procesador.configuration.x_tb_fontpoints)
 
         if self.owner and not self.is_temporary:
-            liAccionesWork = [(_("Select another database"), Iconos.Database(), self.tw_select_other)]
-            self.tbWork = QTVarios.LCTB(self, liAccionesWork, icon_size=20)
+            li_acciones_work = [(_("Select another database"), Iconos.Database(), self.tw_select_other)]
+            self.tbWork = QTVarios.LCTB(self, li_acciones_work, icon_size=20)
             self.tbWork.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
             self.tab.setCornerWidget(self.tbWork)
 

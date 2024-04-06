@@ -1,6 +1,6 @@
+import datetime
 import os
 import random
-import datetime
 
 import Code
 from Code import Util

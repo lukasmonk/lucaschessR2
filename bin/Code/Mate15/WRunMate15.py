@@ -4,11 +4,10 @@ from PySide2 import QtCore
 
 import Code
 from Code.Base import Position
-from Code.QT import Colocacion, Controles, Iconos, QTUtil, QTVarios
 from Code.Board import Board
-from Code.QT import LCDialog
-
 from Code.CountsCaptures import WRunCommon
+from Code.QT import Colocacion, Controles, Iconos, QTUtil, QTVarios
+from Code.QT import LCDialog
 
 
 class WRunMate15(LCDialog.LCDialog):

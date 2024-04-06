@@ -40,6 +40,8 @@ class AnalyzeGame:
         self.st_depths = alm.st_depths
         self.st_timelimit = alm.st_timelimit
 
+        self.accuracy_tags = alm.accuracy_tags
+
         # Asignacion de variables para blunders:
         # kblunders_condition: minima condición para considerar como erróneo
         # tacticblunders: folder donde guardar tactic
@@ -49,7 +51,7 @@ class AnalyzeGame:
         dic = {INACCURACY: {INACCURACY, }, MISTAKE: {MISTAKE, }, BLUNDER: {BLUNDER, },
                INACCURACY_MISTAKE_BLUNDER: {INACCURACY, BLUNDER, MISTAKE}, INACCURACY_MISTAKE: {INACCURACY, MISTAKE},
                MISTAKE_BLUNDER: {BLUNDER, MISTAKE}}
-        self.kblunders_condition_list = dic.get(alm.kblunders_condition,{BLUNDER, MISTAKE})
+        self.kblunders_condition_list = dic.get(alm.kblunders_condition, {BLUNDER, MISTAKE})
 
         self.tacticblunders = (
             Util.opj(self.configuration.personal_training_folder, "../Tactics", alm.tacticblunders)
@@ -155,12 +157,12 @@ class AnalyzeGame:
             return
 
         cab = ""
-        for k, v in game.dicTags().items():
+        for k, v in game.dic_tags().items():
             ku = k.upper()
             if not (ku in ("RESULT", "FEN")):
                 cab += '[%s "%s"]' % (k, v)
 
-        game_raw = Game.game_raw(game)
+        game_raw = Game.game_without_variations(game)
         p = Game.Game(fen=fen)
         rm = mrm.li_rm[0]
         p.read_pv(rm.pv)
@@ -197,7 +199,7 @@ FILESW=%s:100
                 )
 
         cab = ""
-        for k, v in game.dicTags().items():
+        for k, v in game.dic_tags().items():
             ku = k.upper()
             if not (ku in ("RESULT", "FEN")):
                 cab += '[%s "%s"]' % (k, v)
@@ -207,7 +209,7 @@ FILESW=%s:100
         p = Game.Game(fen=fen)
         rm = mrm.li_rm[0]
         p.read_pv(rm.pv)
-        game_raw = Game.game_raw(game)
+        game_raw = Game.game_without_variations(game)
         with open(Util.opj(self.tacticblunders, before), "at", encoding="utf-8", errors="ignore") as f:
             f.write("%s||%s|%s%s\n" % (fen, p.pgnBaseRAW(), cab, game_raw.pgnBaseRAWcopy(None, njg - 1)))
 
@@ -491,10 +493,11 @@ FILESW=%s:100
                 move.piecesactivity = AnalysisIndexes.calc_piecesactivity(cp, mrm)
                 move.exchangetendency = AnalysisIndexes.calc_exchangetendency(cp, mrm)
 
+                rm = mrm.li_rm[pos_act]
+                nag, color = mrm.set_nag_color(rm)
+                move.add_nag(nag)
+
                 if si_blunders or si_brilliancies or self.with_variations:
-                    rm = mrm.li_rm[pos_act]
-                    nag, color = mrm.set_nag_color(rm)
-                    move.add_nag(nag)
 
                     mj = mrm.li_rm[0]
                     rm_pts = rm.centipawns_abs()
@@ -512,11 +515,11 @@ FILESW=%s:100
 
                         self.graba_tactic(game, pos_move, mrm, pos_act)
 
-                        if self.save_pgn(self.pgnblunders, mrm.name, game.dicTags(), fen, move, rm, mj):
+                        if self.save_pgn(self.pgnblunders, mrm.name, game.dic_tags(), fen, move, rm, mj):
                             si_poner_pgn_original_blunders = True
 
                         if self.bmtblunders:
-                            txt_game = Game.game_raw(game).save()
+                            txt_game = Game.game_without_variations(game).save()
                             self.save_bmt(True, fen, mrm, pos_act, cl_game, txt_game)
                             self.si_bmt_blunders = True
 
@@ -524,11 +527,11 @@ FILESW=%s:100
                         move.add_nag(NAG_3)
                         self.save_brilliancies_fns(self.fnsbrilliancies, fen, mrm, game, pos_current_move)
 
-                        if self.save_pgn(self.pgnbrilliancies, mrm.name, game.dicTags(), fen, move, rm, None):
+                        if self.save_pgn(self.pgnbrilliancies, mrm.name, game.dic_tags(), fen, move, rm, None):
                             si_poner_pgn_original_brilliancies = True
 
                         if self.bmtbrilliancies:
-                            txt_game = Game.game_raw(game).save()
+                            txt_game = Game.game_without_variations(game).save()
                             self.save_bmt(False, fen, mrm, pos_act, cl_game, txt_game)
                             self.si_bmt_brilliancies = True
 
@@ -540,6 +543,9 @@ FILESW=%s:100
         if si_poner_pgn_original_brilliancies and self.oribrilliancies:
             with open(self.pgnbrilliancies, "at", encoding="utf-8", errors="ignore") as q:
                 q.write("\n%s\n\n" % game.pgn())
+
+        if self.accuracy_tags:
+            game.add_accuracy_tags()
 
         self.xmanager.remove_gui_dispatch()
 

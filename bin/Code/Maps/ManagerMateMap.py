@@ -92,7 +92,7 @@ class ManagerMateMap(Manager.Manager):
             self.reiniciar()
 
         elif key == TB_CONFIG:
-            self.configurar(siSonidos=True, siCambioTutor=True)
+            self.configurar(with_sounds=True, with_change_tutor=True)
 
         elif key == TB_UTILITIES:
             self.utilities()
@@ -204,7 +204,7 @@ class ManagerMateMap(Manager.Manager):
         if player_win:
             mensaje = _("Congratulations you have won %s.") % self.workmap.name_aim()
             is_finished = self.workmap.win_aim(self.main_window, self.game.pv())
-            if not is_finished: # si ha terminado ya ha puesto el mensaje
+            if not is_finished:  # si ha terminado ya ha puesto el mensaje
                 self.message_on_pgn(mensaje)
         else:
             self.message_on_pgn(mensaje)
