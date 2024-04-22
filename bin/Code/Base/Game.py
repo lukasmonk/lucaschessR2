@@ -306,17 +306,19 @@ class Game:
         return self.first_position.num_moves
 
     def move(self, num):
-        try:
+        total_moves = len(self.li_moves)
+        if 0 <= num < total_moves:
             return self.li_moves[num]
-        except:
-            return self.li_moves[-1] if len(self) > 0 else None
+        return self.li_moves[-1] if total_moves > 0 else None
 
     def verify(self):
         if self.pending_opening:
             self.assign_opening()
         if len(self.li_moves) == 0:
             return
-        move = self.move(-1)
+        move: Move.Move = self.move(-1)
+        if not move:
+            return
         if move.position.is_finished():
             if move.is_check:
                 self.set_termination(TERMINATION_MATE,
@@ -497,7 +499,7 @@ class Game:
             self.first_comment = "%s\n%s" % (self.first_comment.strip(), txt)
 
     def pgn_jg(self, move):
-        pgn = move.pgnFigurinesSP() if Code.configuration.x_pgn_withfigurines else move.pgn_translated()
+        pgn = move.pgn_figurines() if Code.configuration.x_pgn_withfigurines else move.pgn_translated()
         if self.termination == TERMINATION_MATE and move == self.last_jg():
             pgn += "#"
         return pgn
@@ -1032,6 +1034,14 @@ class Game:
         add("White", porc_w)
         add("Black", porc_b)
         add("Total", porc_t)
+
+    def has_comments(self):
+        if self.first_comment:
+            return True
+        for move in self.li_moves:
+            if move.comment:
+                return True
+        return False
 
 
 def pv_san(fen, pv):

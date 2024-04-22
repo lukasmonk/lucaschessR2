@@ -145,7 +145,7 @@ class ManagerFideFics(Manager.Manager):
 
         self.pon_toolbar()
 
-        self.main_window.activaJuego(True, False, siAyudas=False)
+        self.main_window.active_game(True, False)
         self.set_dispatcher(self.player_has_moved)
         self.set_position(self.game.last_position)
         self.put_pieces_bottom(self.is_human_side_white)
@@ -156,7 +156,7 @@ class ManagerFideFics(Manager.Manager):
         self.set_label1(label)
 
         self.set_label2("")
-        self.pgnRefresh(True)
+        self.pgn_refresh(True)
         self.show_info_extra()
 
         self.check_boards_setposition()
@@ -416,7 +416,7 @@ class ManagerFideFics(Manager.Manager):
         self.put_arrow_sc(move.from_sq, move.to_sq)
         self.beepExtendido(siNuestra)
 
-        self.pgnRefresh(self.game.last_position.is_white)
+        self.pgn_refresh(self.game.last_position.is_white)
         self.refresh()
 
     def show_result(self):

@@ -16,6 +16,7 @@ from Code.Engines import EnginesBunch
 from Code.Openings import OpeningsStd
 from Code.QT import QTUtil2
 from Code.SQL import UtilSQL
+from Code.Translations import TrListas
 
 
 class ItemTree:
@@ -27,10 +28,16 @@ class ItemTree:
         self.dicHijos = {}
         self.item = None
         self.side_resp = side_resp
+        self.elements = 0
+        self.with_figurines = Code.configuration.x_pgn_withfigurines
+        self.translated = Code.configuration.x_translator != "en" and not Code.configuration.x_pgn_english
+        if self.with_figurines:
+            self.translated = False
 
     def add(self, move, pgn, opening):
         if not (move in self.dicHijos):
             self.dicHijos[move] = ItemTree(self, move, pgn, opening, not self.side_resp)
+        self.elements += 1
         return self.dicHijos[move]
 
     def add_list(self, limoves, lipgn, liop):
@@ -50,9 +57,22 @@ class ItemTree:
             if item.pgn:
                 li.append(item.pgn)
             item = item.parent
+        if self.with_figurines or self.translated:
+            d = Move.dicHTMLFigs if self.with_figurines else TrListas.dic_conv()
+            nli = len(li)
+            for pos, uno in enumerate(li):
+                lc = []
+                for c in uno:
+                    if c.isupper():
+                        if self.translated:
+                            c = d[c]
+                        else:
+                            c = d[c if (nli - pos) % 2 == 1 else c.lower()]
+                    lc.append(c)
+                li[pos] = "".join(lc)
         return " ".join(reversed(li))
 
-    def listaPV(self):
+    def list_pv(self):
         li = []
         if self.move:
             li.append(self.move)
@@ -65,7 +85,7 @@ class ItemTree:
         return li[::-1]
 
     def next_in_parent(self):
-        li_pv = self.listaPV()
+        li_pv = self.list_pv()
         pos = len(li_pv) - 1
         xdata = self
         while pos >= 0:
@@ -84,10 +104,10 @@ class ItemTree:
 
 
 class ListaOpenings:
-    def __init__(self, configuration):
-        self.folder = configuration.folder_openings()
+    def __init__(self):
+        self.folder = Code.configuration.folder_openings()
         if not self.folder or not os.path.isdir(self.folder):
-            self.folder = configuration.folder_base_openings
+            self.folder = Code.configuration.folder_base_openings
 
         self.file = Util.opj(self.folder, "openinglines.pk")
 
@@ -181,8 +201,8 @@ class ListaOpenings:
     def filepath(self, num):
         return Util.opj(self.folder, self.lista[num]["file"])
 
-    def new(self, file, basepv, title):
-        dicline = {"file": file, "pv": basepv, "title": title, "lines": 0, "withtrainings": False}
+    def new(self, file, basepv, title, lines=0):
+        dicline = {"file": file, "pv": basepv, "title": title, "lines": lines, "withtrainings": False}
         self.lista.append(dicline)
         op = Opening(self.filepath(len(self.lista) - 1))
         op.setbasepv(basepv)
@@ -192,7 +212,7 @@ class ListaOpenings:
 
     def copy(self, pos):
         dicline = dict(self.lista[pos])
-        base = dicline["file"][:-3]
+        base = dicline["file"][:-4]
         if base.split("-")[-1].isdigit():
             li = base.split("-")
             base = "-".join(li[:-1])
@@ -219,6 +239,15 @@ class ListaOpenings:
         op.settitle(title)
         op.close()
         self.lista[num]["title"] = title
+        self.save()
+
+    def change_file(self, num, file):
+        self.lista[num]["file"] = os.path.basename(file)
+        self.save()
+
+    def change_first_moves(self, num, new_pv, num_lines):
+        self.lista[num]['pv'] = new_pv
+        self.lista[num]['lines'] = num_lines
         self.save()
 
     def add_training_file(self, file):
@@ -262,6 +291,9 @@ class Opening:
         # Check visual
         if not UtilSQL.check_table_in_db(path_file, "Flechas"):
             file_resources = Code.configuration.ficheroRecursos
+            if self.db_config_base:
+                self.db_config_base.close()
+                self.db_config_base = None
             for tabla in ("Config", "Flechas", "Marcos", "SVGs", "Markers"):
                 dbr = UtilSQL.DictSQL(path_file, tabla=tabla)
                 dbv = UtilSQL.DictSQL(file_resources, tabla=tabla)
@@ -350,8 +382,8 @@ class Opening:
     def setdbvisual_board(self, board):
         self.board = board
 
-    def get_others(self, configuration, game):
-        liOp = ListaOpenings(configuration)
+    def get_others(self, game):
+        liOp = ListaOpenings()
         fich = os.path.basename(self.path_file)
         pvbase = game.pv()
         liOp = [
@@ -402,6 +434,10 @@ class Opening:
     def setconfig(self, key, value):
         self.db_config[key] = value
 
+    def set_basepv(self, new_pv):
+        self.setconfig("BASEPV", new_pv)
+        self.basePV = new_pv
+
     def training(self):
         return self.getconfig("TRAINING")
 
@@ -417,7 +453,7 @@ class Opening:
     def preparaTraining(self, reg, procesador):
         maxmoves = reg["MAXMOVES"]
         is_white = reg["COLOR"] == "WHITE"
-        siRandom = reg["RANDOM"]
+        is_random = reg["RANDOM"]
 
         lilipv = [FasterCode.xpv_pv(xpv).split(" ") for xpv in self.li_xpv]
 
@@ -480,7 +516,7 @@ class Opening:
                     dicFENm2_lipv[fenm2] = lipv[:pos]
                 FasterCode.make_move(pv)
 
-        if siRandom:
+        if is_random:
             random.shuffle(ligamesSQ)
             random.shuffle(ligamesST)
 
@@ -562,7 +598,7 @@ class Opening:
         self.setconfig("TRAINING", reg)
         self.setconfig("ULT_PACK", 100)  # Se le obliga al VACUUM
 
-        lo = ListaOpenings(procesador.configuration)
+        lo = ListaOpenings()
         lo.add_training_file(os.path.basename(self.path_file))
 
     def createTrainingEngines(self, reg, procesador):
@@ -573,7 +609,7 @@ class Opening:
         self.setconfig("ENG_LEVEL", 0)
         self.setconfig("ENG_ENGINE", 0)
 
-        lo = ListaOpenings(procesador.configuration)
+        lo = ListaOpenings()
         lo.add_training_engines_file(os.path.basename(self.path_file))
         self.reinit_cache_engines()
 
@@ -858,23 +894,29 @@ class Opening:
     def recovering_history(self, key):
         self.save_history(_("Recovering"), key)
 
-        stActivo = set(self.li_xpv)
+        st_activo = set(self.li_xpv)
         li_xpv_rec = self.db_history[key]
-        stRecuperar = set(li_xpv_rec)
+
+        # se recuperan las que cumplan con base move
+        if self.basePV:
+            xpv_base = FasterCode.pv_xpv(self.basePV)
+            li_xpv_rec = [xpv for xpv in li_xpv_rec if xpv.startswith(xpv_base)]
+
+        st_recuperar = set(li_xpv_rec)
 
         cursor = self._conexion.cursor()
 
         # Borramos los que no estan en Recuperar
         sql = "DELETE FROM LINES where XPV=?"
-        for xpv in stActivo:
-            if not (xpv in stRecuperar):
+        for xpv in st_activo:
+            if not (xpv in st_recuperar):
                 cursor.execute(sql, (xpv,))
         self._conexion.commit()
 
         # Mas los que no estan en Activo
         sql = "INSERT INTO LINES( XPV ) VALUES( ? )"
-        for xpv in stRecuperar:
-            if not (xpv in stActivo):
+        for xpv in st_recuperar:
+            if not (xpv in st_activo):
                 cursor.execute(sql, (xpv,))
         self._conexion.commit()
 
@@ -1385,11 +1427,14 @@ class Opening:
 
         ws.pb_close()
 
-    def remove_info(self, is_comments, is_ratings, is_analysis):
+    def remove_info(self, is_comments, is_ratings, is_analysis, is_unused):
+        st_fen = self.get_all_fen() if is_unused else None
 
         self.db_fenvalues.set_faster_mode()
         dic_total = self.db_fenvalues.as_dictionary()
         for fenm2, dic in dic_total.items():
+            if is_unused and fenm2 not in st_fen:
+                dic = None
             if dic:
                 def remove(keyr):
                     if keyr in dic:
@@ -1468,6 +1513,11 @@ class Opening:
         self._conexion.execute("DELETE FROM LINES")
         self.cache = {}
         self._conexion.commit()
+
+    def lines_to_remove(self, a1h8):
+        xpv = FasterCode.pv_xpv(a1h8)
+        li = [pos for pos, xpv1 in enumerate(self.li_xpv) if not xpv1.startswith(xpv)]
+        return li
 
     def get_all_fen(self):
         st_fen_m2 = set()

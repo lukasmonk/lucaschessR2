@@ -20,6 +20,7 @@ from Code.Base.Constantes import (
     TB_PGN_LABELS,
     TB_PREVIOUS,
     TB_UTILITIES,
+    TB_COMMENTS,
     GT_POSITIONS,
     ON_TOOLBAR,
 )
@@ -53,7 +54,8 @@ class ManagerEntPos(Manager.Manager):
     is_rival_thinking: bool
     is_analyzing: bool
     current_helps: int
-    li_options_toolbar: list
+    li_options_toolbar: list = []
+    show_comments: bool
 
     def set_training(self, entreno):
         # Guarda el ultimo entrenamiento en el db de entrenos
@@ -70,7 +72,7 @@ class ManagerEntPos(Manager.Manager):
 
     def start(
             self, pos_training, num_trainings, title_training, li_trainings, is_tutor_enabled, is_automatic_jump,
-            remove_solutions, advanced
+            remove_solutions, show_comments, advanced
     ):
         if hasattr(self, "reiniciando"):
             if self.reiniciando:
@@ -88,6 +90,7 @@ class ManagerEntPos(Manager.Manager):
         self.is_automatic_jump = is_automatic_jump
         self.remove_solutions = remove_solutions
         self.advanced = advanced
+        self.show_comments = show_comments
 
         self.li_histo = [self.pos_training]
 
@@ -132,17 +135,9 @@ class ManagerEntPos(Manager.Manager):
 
         self.ayudas_iniciales = 0
 
-        li_options = [TB_CLOSE, TB_HELP, TB_CHANGE, TB_REINIT]
-        if not self.advanced:
-            li_options.append(TB_TAKEBACK)
-        li_options.append(TB_PGN_LABELS)
-        li_options.extend((TB_CONFIG, TB_UTILITIES))
-        if self.num_trainings > 1:
-            li_options.extend((TB_PREVIOUS, TB_NEXT))
-        self.li_options_toolbar = li_options
-        self.set_toolbar(li_options)
+        self.set_toolbar_comments()
 
-        self.main_window.activaJuego(True, False, siAyudas=False)
+        self.main_window.active_game(True, False)
         self.main_window.remove_hints(False, False)
         self.set_dispatcher(self.player_has_moved)
         self.set_position(self.game.last_position)
@@ -158,7 +153,7 @@ class ManagerEntPos(Manager.Manager):
             )
         else:
             self.set_label2("%d / %d" % (pos_training, num_trainings))
-        self.pgnRefresh(True)
+        self.pgn_refresh(True)
         QTUtil.refresh_gui()
 
         if self.xrival is None:
@@ -196,6 +191,27 @@ class ManagerEntPos(Manager.Manager):
 
         else:
             self.play_next_move()
+
+    def set_toolbar_comments(self, with_help=True, with_continue=False):
+        li_options = [TB_CLOSE, ]
+        if with_help:
+            li_options.append(TB_HELP)
+        li_options.extend([TB_CHANGE, TB_REINIT])
+        if not self.advanced:
+            li_options.append(TB_TAKEBACK)
+        li_options.append(TB_PGN_LABELS)
+        li_options.extend((TB_CONFIG, TB_UTILITIES))
+        if with_continue:
+            li_options.append(TB_CONTINUE)
+        if self.game_obj.has_comments():
+            self.main_window.base.set_title_toolbar(TB_COMMENTS, _("Disable") if self.show_comments else _("Enable"))
+            li_options.append(TB_COMMENTS)
+        if self.num_trainings > 1:
+            li_options.extend((TB_PREVIOUS, TB_NEXT))
+
+        if li_options != self.li_options_toolbar:
+            self.li_options_toolbar = li_options
+            self.set_toolbar(li_options)
 
     def advanced_return(self, solved):
         self.wsolve.hide()
@@ -259,11 +275,18 @@ class ManagerEntPos(Manager.Manager):
         elif key == TB_HELP:
             self.help()
 
+        elif key == TB_COMMENTS:
+            self.change_comments()
+
         elif key in self.procesador.li_opciones_inicio:
             self.procesador.run_action(key)
 
         else:
             Manager.Manager.rutinaAccionDef(self, key)
+
+    def change_comments(self):
+        self.show_comments = not self.show_comments
+        self.main_window.base.set_title_toolbar(TB_COMMENTS, _("Disable") if self.show_comments else _("Enable"))
 
     def help(self):
         if self.advanced:
@@ -290,8 +313,38 @@ class ManagerEntPos(Manager.Manager):
             self.is_tutor_enabled,
             self.is_automatic_jump,
             self.remove_solutions,
+            self.show_comments,
             self.advanced,
         )
+
+    def show_comment_move(self, pos):
+        if not self.show_comments:
+            return
+        if not self.game_obj:
+            return
+
+        if pos < 0:
+            comment = self.game_obj.first_comment
+        else:
+            comment = self.game_obj.move(pos).comment
+        comment = comment.strip()
+        if not comment:
+            return
+        if pos >= 0:
+            move = self.game_obj.move(pos)
+            text_move = "%d." % (pos // 2 + 1)
+            if not move.is_white():
+                text_move += ".."
+            text_move += move.pgn_translated()
+            if self.game_obj.first_position.is_white:
+                delayed = pos % 2 == 1
+            else:
+                delayed = pos % 2 == 0
+        else:
+            text_move = _("Information")
+            delayed = False
+
+        QTUtil2.message_menu(self.main_window.base.pgn, text_move, comment, delayed, zzpos=False)
 
     def ent_siguiente(self, tipo):
         if not self.advanced:
@@ -311,6 +364,7 @@ class ManagerEntPos(Manager.Manager):
             self.is_tutor_enabled,
             self.is_automatic_jump,
             self.remove_solutions,
+            self.show_comments,
             self.advanced,
         )
 
@@ -376,6 +430,7 @@ class ManagerEntPos(Manager.Manager):
 
         si_rival = is_white == self.is_engine_side_white
 
+        self.show_comment_move(len(self.game)-1)
         if si_rival:
             self.pon_help(False)
             self.piensa_rival()
@@ -469,13 +524,12 @@ class ManagerEntPos(Manager.Manager):
 
     def sigue(self):
         self.state = ST_PLAYING
-        if TB_CONTINUE in self.li_options_toolbar:
-            self.li_options_toolbar.remove(TB_CONTINUE)
-            self.set_toolbar(self.li_options_toolbar)
+        self.set_toolbar_comments(with_continue=False)
         self.game_obj = None
         self.play_next_move()
 
     def linea_terminada_opciones(self):
+        self.show_comment_move(len(self.game)-1)
         self.pon_help(False)
         self.state = ST_ENDGAME
         if self.is_automatic_jump:
@@ -484,9 +538,7 @@ class ManagerEntPos(Manager.Manager):
         else:
             QTUtil2.temporary_message(self.main_window, _("Line completed"), 0.9, fixed_size=None)
             if not self.is_finished():
-                if not (TB_CONTINUE in self.li_options_toolbar):
-                    self.li_options_toolbar.insert(5, TB_CONTINUE)
-                    self.set_toolbar(self.li_options_toolbar)
+                self.set_toolbar_comments(with_continue=True)
             self.game = self.game_obj.copia()
             self.goto_end()
             return False
@@ -494,12 +546,10 @@ class ManagerEntPos(Manager.Manager):
     def pon_help(self, si_poner):
         if si_poner:
             if TB_HELP not in self.li_options_toolbar:
-                self.li_options_toolbar.insert(1, TB_HELP)
-                self.set_toolbar(self.li_options_toolbar)
+                self.set_toolbar_comments(with_help=True)
         else:
             if TB_HELP in self.li_options_toolbar:
-                self.li_options_toolbar.remove(TB_HELP)
-                self.set_toolbar(self.li_options_toolbar)
+                self.set_toolbar_comments(with_help=False)
 
     def is_playing_gameobj(self):
         if self.game_obj:
@@ -565,14 +615,18 @@ class ManagerEntPos(Manager.Manager):
         self.play_next_move()
         return True
 
-    def add_move(self, move, si_nuestra):
+    def add_move(self, move: Move.Move, si_nuestra: bool):
+        if self.is_playing_gameobj():
+            move_obj = self.game_obj.move(self.pos_obj)
+            move = move_obj.clone(self.game)
         self.game.add_move(move)
+
         self.check_boards_setposition()
 
         self.put_arrow_sc(move.from_sq, move.to_sq)
         self.beepExtendido(si_nuestra)
 
-        self.pgnRefresh(self.game.last_position.is_white)
+        self.pgn_refresh(self.game.last_position.is_white)
         self.refresh()
 
     def pon_resultado(self):

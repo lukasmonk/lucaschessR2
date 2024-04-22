@@ -260,7 +260,7 @@ class WLeagueWorker(QtWidgets.QWidget):
             time_control += "+%d" % self.seconds_per_move
         self.game.set_tag("TimeControl", time_control)
 
-        self.lbRotulo3.altoFijo(32)
+        self.lbRotulo3.altoFijo(32 * Code.factor_big_fonts)
 
         self.board.disable_all()
         self.board.set_position(self.game.last_position)
@@ -555,7 +555,7 @@ class WLeagueWorker(QtWidgets.QWidget):
         if move.in_the_opening:
             indicador_inicial = "R"
 
-        pgn = move.pgnFigurinesSP() if self.configuration.x_pgn_withfigurines else move.pgn_translated()
+        pgn = move.pgn_figurines() if self.configuration.x_pgn_withfigurines else move.pgn_translated()
 
         return pgn, color, info, indicador_inicial, stNAGS
 

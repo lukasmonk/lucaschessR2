@@ -52,7 +52,7 @@ class WSwissConfig(LCDialog.LCDialog):
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("ROW", "", 15, align_center=True)
         o_columns.nueva("NAME", _("Name"), 280, edicion=Delegados.LineaTextoUTF8())
-        o_columns.nueva("ELO", _("Elo"), 50, align_right=True, edicion=Delegados.LineaTexto(siEntero=True))
+        o_columns.nueva("ELO", _("Elo"), 50, align_right=True, edicion=Delegados.LineaTexto(is_integer=True))
         self.grid = Grid.Grid(self, o_columns, siSelecFilas=True, is_editable=True)
         self.register_grid(self.grid)
         self.grid.setMinimumWidth(self.grid.anchoColumnas() + 20)

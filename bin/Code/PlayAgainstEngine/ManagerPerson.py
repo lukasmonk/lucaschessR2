@@ -96,7 +96,7 @@ class ManagerPerson(ManagerPlayAgainstEngine.ManagerPlayAgainstEngine):
         li = [TB_CANCEL, TB_RESIGN, TB_TAKEBACK, TB_REINIT, TB_ADJOURN, TB_PAUSE, TB_CONFIG, TB_UTILITIES]
         self.set_toolbar(li)
 
-        self.main_window.activaJuego(True, self.timed)
+        self.main_window.active_game(True, self.timed)
 
         self.set_dispatcher(self.player_has_moved)
         self.set_position(self.game.last_position)
@@ -109,7 +109,7 @@ class ManagerPerson(ManagerPlayAgainstEngine.ManagerPlayAgainstEngine):
 
         self.show_info_extra()
 
-        self.pgnRefresh(True)
+        self.pgn_refresh(True)
 
         rival = self.xrival.name
         player = self.configuration.x_player

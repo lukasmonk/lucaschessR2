@@ -184,7 +184,7 @@ def options(parent, configuration):
     form.checkbox(_("By default"), False)
     form.separador()
     form.apart(_("PGN table"))
-    form.spinbox(_("Width"), 283, 1000, 70, configuration.x_pgn_width)
+    form.spinbox(_("Width"), 283, 1000, 70 * Code.factor_big_fonts, configuration.x_pgn_width)
     form.spinbox(_("Height of each row"), 18, 99, 70, configuration.x_pgn_rowheight)
     form.spinbox(_("Font size"), 3, 99, 70, configuration.x_pgn_fontpoints)
     form.checkbox(_("PGN always in English"), configuration.x_pgn_english)
@@ -205,17 +205,18 @@ def options(parent, configuration):
 
     # ELOS ############################################################################################
     form.separador()
-    form.spinbox(_("Lucas-Elo"), 0, 3200, 70, configuration.x_elo)
+    width = 70 * Code.factor_big_fonts
+    form.spinbox(_("Lucas-Elo"), 0, 3200, width, configuration.x_elo)
     form.separador()
-    form.spinbox(_("Tourney-Elo"), 0, 3200, 70, configuration.x_michelo)
+    form.spinbox(_("Tourney-Elo"), 0, 3200, width, configuration.x_michelo)
     form.separador()
-    form.spinbox(_("The Wicker Park Tourney"), 0, 3200, 70, configuration.x_wicker)
+    form.spinbox(_("The Wicker Park Tourney"), 0, 3200, width, configuration.x_wicker)
     form.separador()
-    form.spinbox(_("Fics-Elo"), 0, 3200, 70, configuration.x_fics)
+    form.spinbox(_("Fics-Elo"), 0, 3200, width, configuration.x_fics)
     form.separador()
-    form.spinbox(_("Fide-Elo"), 0, 3200, 70, configuration.x_fide)
+    form.spinbox(_("Fide-Elo"), 0, 3200, width, configuration.x_fide)
     form.separador()
-    form.spinbox(_("Lichess-Elo"), 0, 3200, 70, configuration.x_lichess)
+    form.spinbox(_("Lichess-Elo"), 0, 3200, width, configuration.x_lichess)
 
     form.add_tab(_("Change elos"))
 
@@ -241,7 +242,7 @@ def options(parent, configuration):
 
         por_defecto = li_asp1[0]
         if por_defecto:
-            li_asp1 = ("", 10, 11, False, 11, False, QtCore.Qt.ToolButtonTextUnderIcon)
+            li_asp1 = ("", 11, 11, False, 11, False, QtCore.Qt.ToolButtonTextUnderIcon)
         else:
             del li_asp1[0]
         (
@@ -256,7 +257,7 @@ def options(parent, configuration):
 
         por_defecto = li_asp2[0]
         if por_defecto:
-            li_asp2 = (348, 24, 10, False, True, True, False, True, 10, True)
+            li_asp2 = (348, 24, 11, False, True, True, True, False, False, True, 14, True)
         else:
             del li_asp2[0]
         (

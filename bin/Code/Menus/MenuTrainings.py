@@ -459,6 +459,7 @@ class MenuTrainings:
                     advanced = data.get("ADVANCED", False)
                     tutor_active = data.get("TUTOR_ACTIVE", True)
                     remove_solutions = data.get("REMOVE_SOLUTIONS", False)
+                    show_comments = data.get("SHOW_COMMENTS", True)
                     resp = params_training_position(
                         self.procesador.main_window,
                         titentreno,
@@ -468,18 +469,20 @@ class MenuTrainings:
                         tutor_active,
                         tipo,
                         remove_solutions,
+                        show_comments,
                         advanced,
                     )
                     if resp is None:
                         db.close()
                         return
-                    pos, tipo, tutor_active, jump, remove_solutions, advanced = resp
+                    pos, tipo, tutor_active, jump, remove_solutions, show_comments, advanced = resp
                     db[entreno] = {
                         "POSULTIMO": pos,
                         "SALTA": jump,
                         "TYPE": tipo,
                         "ADVANCED": advanced,
                         "REMOVE_SOLUTIONS": remove_solutions,
+                        "SHOW_COMMENTS": show_comments,
                         "TUTOR_ACTIVE": tutor_active,
                     }
                     db.close()
@@ -490,7 +493,7 @@ class MenuTrainings:
                         pos = 1
                     self.procesador.train_position(
                         pos, n_posiciones, titentreno, li_entrenamientos, entreno, tutor_active, jump,
-                        remove_solutions, advanced
+                        remove_solutions, show_comments, advanced
                     )
 
                 elif resp == "learnGame":
@@ -747,7 +750,8 @@ def selectOneFNS(owner, procesador):
     return resp if resp is None else Util.relative_path(resp[3:])
 
 
-def params_training_position(w_parent, titulo, n_fen, pos, salta, tutor_active, tipo, remove_solutions, advanced):
+def params_training_position(w_parent, titulo, n_fen, pos, salta, tutor_active, tipo,
+                             remove_solutions, show_comments, advanced):
     form = FormLayout.FormLayout(w_parent, titulo, Iconos.Entrenamiento(), anchoMinimo=200)
 
     form.separador()
@@ -768,15 +772,18 @@ def params_training_position(w_parent, titulo, n_fen, pos, salta, tutor_active, 
     form.checkbox(_("Remove pre-defined solutions"), remove_solutions)
 
     form.separador()
+    form.checkbox(_("Comments"), show_comments)
+
+    form.separador()
     form.checkbox(_("Advanced mode"), advanced)
 
     form.apart_simple_np(_("This advanced mode applies only to positions<br>with a solution included in the file"))
 
     resultado = form.run()
     if resultado:
-        position, tipo, tutor_active, jump, remove_solutions, advanced = resultado[1]
+        position, tipo, tutor_active, jump, remove_solutions, show_comments, advanced = resultado[1]
         if remove_solutions:
             advanced = False
-        return position, tipo, tutor_active, jump, remove_solutions, advanced
+        return position, tipo, tutor_active, jump, remove_solutions, show_comments, advanced
     else:
         return None

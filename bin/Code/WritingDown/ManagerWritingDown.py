@@ -51,7 +51,7 @@ class ManagerWritingDown(Manager.Manager):
         self.main_window.show_option_toolbar(TB_EBOARD, False)
         self.informacion_activable = False
         self.main_window.activaInformacionPGN(False)
-        self.main_window.activaJuego(False, False, siAyudas=False)
+        self.main_window.active_game(False, False)
         self.set_activate_tutor(False)
         self.remove_hints()
         self.put_view()
@@ -135,7 +135,7 @@ class ManagerWritingDown(Manager.Manager):
     def finalizar(self):
         self.informacion_activable = True
         self.board.show_coordinates(True)
-        self.main_window.activaJuego(True, False, siAyudas=False)
+        self.main_window.active_game(True, False)
         self.remove_hints()
         self.set_toolbar((TB_CLOSE, TB_REINIT, TB_CONFIG, TB_UTILITIES))
         if self.cancelado:

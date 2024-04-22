@@ -31,9 +31,9 @@ def genera_pm(piezas):
 
 
 class ComboBox(QtWidgets.QItemDelegate):
-    def __init__(self, liTextos):
+    def __init__(self, li_textos):
         QtWidgets.QItemDelegate.__init__(self)
-        self.li_textos = liTextos
+        self.li_textos = li_textos
 
     def createEditor(self, parent, option, index):
         editor = QtWidgets.QComboBox(parent)
@@ -55,17 +55,17 @@ class ComboBox(QtWidgets.QItemDelegate):
 
 
 class LineaTexto(QtWidgets.QItemDelegate):
-    def __init__(self, parent=None, siPassword=False, siEntero=False, rx=None):
+    def __init__(self, parent=None, is_password=False, is_integer=False, rx=None):
         QtWidgets.QItemDelegate.__init__(self, parent)
-        self.siPassword = siPassword
-        self.siEntero = siEntero
+        self.is_password = is_password
+        self.is_integer = is_integer
         self.rx = rx
 
     def createEditor(self, parent, option, index):
         editor = QtWidgets.QLineEdit(parent)
-        if self.siPassword:
+        if self.is_password:
             editor.setEchoMode(QtWidgets.QLineEdit.Password)
-        if self.siEntero:
+        if self.is_integer:
             editor.setValidator(QtGui.QIntValidator(self))
             editor.setAlignment(QtCore.Qt.AlignRight)
         if self.rx:
@@ -88,13 +88,13 @@ class LineaTexto(QtWidgets.QItemDelegate):
 
 
 class LineaTextoUTF8(QtWidgets.QItemDelegate):
-    def __init__(self, parent=None, siPassword=False):
+    def __init__(self, parent=None, is_password=False):
         QtWidgets.QItemDelegate.__init__(self, parent)
-        self.siPassword = siPassword
+        self.is_password = is_password
 
     def createEditor(self, parent, option, index):
         editor = QtWidgets.QLineEdit(parent)
-        if self.siPassword:
+        if self.is_password:
             editor.setEchoMode(QtWidgets.QLineEdit.Password)
         editor.installEventFilter(self)
         return editor

@@ -341,7 +341,7 @@ class WUnSTSMap(LCDialog.LCDialog):
         self.board.disable_all()
 
         # Peon coronando
-        if not promotion and self.position.siPeonCoronando(from_sq, to_sq):
+        if not promotion and self.position.pawn_can_promote(from_sq, to_sq):
             promotion = self.board.peonCoronando(self.position.is_white)
 
         ok, mens, move = Move.get_game_move(None, self.position, from_sq, to_sq, promotion)

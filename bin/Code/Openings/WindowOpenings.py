@@ -1,4 +1,5 @@
 import copy
+from typing import Optional
 
 from PySide2 import QtCore, QtWidgets
 
@@ -21,7 +22,7 @@ from Code.QT import QTVarios
 
 
 class WOpenings(LCDialog.LCDialog):
-    def __init__(self, owner, configuration, opening_block):
+    def __init__(self, owner, opening_block: Optional[OpeningsStd.Opening]):
         icono = Iconos.Opening()
         titulo = _("Select an opening")
         extparam = "selectOpening"
@@ -30,13 +31,13 @@ class WOpenings(LCDialog.LCDialog):
         # Variables--------------------------------------------------------------------------
         self.ap_std = OpeningsStd.ap
         self.game = Game.Game()
-        self.opening_block = opening_block
+        self.opening_block: Optional[OpeningsStd.Opening] = opening_block
         self.liActivas = []
 
-        self.configuration = configuration
+        self.configuration = Code.configuration
 
         # Board
-        config_board = configuration.config_board("APERTURAS", 32)
+        config_board = self.configuration.config_board("APERTURAS", 32)
         self.board = Board.Board(self, config_board)
         self.board.crea()
         self.board.set_dispatcher(self.player_has_moved)
@@ -106,7 +107,7 @@ class WOpenings(LCDialog.LCDialog):
         position = self.game.move(self.posCurrent).position if self.posCurrent >= 0 else self.game.last_position
 
         # Peon coronando
-        if not promotion and position.siPeonCoronando(from_sq, to_sq):
+        if not promotion and position.pawn_can_promote(from_sq, to_sq):
             promotion = self.board.peonCoronando(position.is_white)
         if promotion:
             movimiento += promotion
@@ -261,11 +262,6 @@ class WOpenings(LCDialog.LCDialog):
         ap = self.game.opening
         if ap is None:
             ap = OpeningsStd.Opening(_("Unknown"))
-        # else:
-        #     if not self.game.last_jg().in_the_opening:
-        #         p = Game.Game()
-        #         p.read_pv(ap.a1h8)
-        # ap.tr_name += " + %s" % (self.game.pgn_translated()[len(p.pgn_translated()) + 1:],)
 
         ap.a1h8 = self.game.pv()
         ap.pgn = self.game.pgn_translated()

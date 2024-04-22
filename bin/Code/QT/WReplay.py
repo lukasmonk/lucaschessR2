@@ -182,7 +182,7 @@ class Replay:
             num += 1
         row = int(num / 2)
         self.main_window.pgnColocate(row, move.position_before.is_white)
-        self.main_window.base.pgnRefresh()
+        self.main_window.base.pgn_refresh()
 
         # primero los movimientos
         for movim in li_movs:

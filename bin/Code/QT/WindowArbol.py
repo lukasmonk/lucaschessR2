@@ -501,8 +501,8 @@ class TreeMoves(QtWidgets.QTreeWidget):
 
         self.goto(mov)
 
-    def menuContexto(self, position):
-        self.owner.wmoves.menuContexto()
+    def menu_context(self, position):
+        self.owner.wmoves.menu_context()
 
     def iconoValoracion(self, valoracion):
         return Iconos.icono("NAG_%d" % valoracion)

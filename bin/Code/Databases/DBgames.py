@@ -458,7 +458,7 @@ class DBgames:
             rowid, xpv = row
             if xpv.count("|") == 2:
                 nada, fen, xpv = xpv.split("|")
-                yield rowid, fen, -1
+                yield rowid, fen, -1, ""
             else:
                 fen = FEN_INITIAL
             set_fen(fen)

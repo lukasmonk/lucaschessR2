@@ -175,7 +175,7 @@ class Manager:
             self.with_eboard = False
 
     def refresh_pgn(self):
-        self.main_window.base.pgnRefresh()
+        self.main_window.base.pgn_refresh()
 
     def new_game(self):
         self.game = Game.Game()
@@ -615,12 +615,13 @@ class Manager:
         if siNuestro:
             if not self.configuration.x_sound_our:
                 return
-        if self.configuration.x_sound_beep:
-            self.runSound.playBeep()
+        played = False
         if self.configuration.x_sound_move:
             if len(self.game):
                 move = self.game.move(-1)
-                self.runSound.play_list(move.listaSonidos())
+                played = self.runSound.play_list(move.listaSonidos())
+        if not played and self.configuration.x_sound_beep:
+            self.runSound.playBeep()
 
     def beepZeitnot(self):
         self.runSound.playZeitnot()
@@ -651,8 +652,8 @@ class Manager:
                 return
             self.runSound.play_key(beep_result)
 
-    def pgnRefresh(self, is_white):
-        self.main_window.pgnRefresh(is_white)
+    def pgn_refresh(self, is_white):
+        self.main_window.pgn_refresh(is_white)
 
     def refresh(self):
         self.board.escena.update()
@@ -721,7 +722,7 @@ class Manager:
     def ponteAlPrincipio(self):
         self.set_position(self.game.first_position)
         self.main_window.base.pgn.goto(0, 0)
-        self.refresh_pgn()  # No se puede usar pgnRefresh, ya que se usa con gobottom en otros lados y aqui eso no funciona
+        self.refresh_pgn()  # No se puede usar pgn_refresh, ya que se usa con gobottom en otros lados y aqui eso no funciona
         self.put_view()
 
     def ponteAlPrincipioColor(self):
@@ -730,7 +731,7 @@ class Manager:
             self.set_position(move.position)
             self.main_window.base.pgn.goto(0, 2 if move.position.is_white else 1)
             self.board.put_arrow_sc(move.from_sq, move.to_sq)
-            self.refresh_pgn()  # No se puede usar pgnRefresh, ya que se usa con gobottom en otros lados
+            self.refresh_pgn()  # No se puede usar pgn_refresh, ya que se usa con gobottom en otros lados
             # y aqui eso no funciona
             self.put_view()
         else:
@@ -746,7 +747,7 @@ class Manager:
                 if self.pgn.variations_mode:
                     self.set_position(self.game.first_position, "-1")
                     self.main_window.base.pgn.goto(0, 0)
-                    self.refresh_pgn()  # No se puede usar pgnRefresh, ya que se usa con gobottom en otros lados y aqui eso no funciona
+                    self.refresh_pgn()  # No se puede usar pgn_refresh, ya que se usa con gobottom en otros lados y aqui eso no funciona
                     self.put_view()
                 else:
                     self.ponteAlPrincipio()
@@ -761,7 +762,7 @@ class Manager:
             self.mueveJugada(GO_END)
         else:
             self.set_position(self.game.first_position)
-            self.refresh_pgn()  # No se puede usar pgnRefresh, ya que se usa con gobottom en otros lados y aqui eso no funciona
+            self.refresh_pgn()  # No se puede usar pgn_refresh, ya que se usa con gobottom en otros lados y aqui eso no funciona
         self.put_view()
 
     def goto_current(self):
@@ -1239,7 +1240,7 @@ class Manager:
         movimiento = from_sq + to_sq
 
         # Peon coronando
-        if not promotion and self.game.last_position.siPeonCoronando(from_sq, to_sq):
+        if not promotion and self.game.last_position.pawn_can_promote(from_sq, to_sq):
             promotion = self.board.peonCoronando(self.game.last_position.is_white)
             if promotion is None:
                 self.sigueHumano()
@@ -2014,6 +2015,14 @@ class Manager:
         )
         self.procesador.entrenamientos.menu = None
 
+    def current_position(self):
+        num_moves, nj, row, is_white = self.jugadaActual()
+        if nj == -1:
+            return self.game.first_position
+        else:
+            move: Move.Move = self.game.move(nj)
+            return move.position
+
     def play_current_position(self):
         row, column = self.main_window.pgnPosActual()
         num_moves, nj, row, is_white = self.jugadaActual()
@@ -2071,7 +2080,7 @@ class Manager:
                     num_var_move = num
                 is_num_variation = not is_num_variation
 
-        if not promotion and var_move.position_before.siPeonCoronando(from_sq, to_sq):
+        if not promotion and var_move.position_before.pawn_can_promote(from_sq, to_sq):
             promotion = self.board.peonCoronando(var_move.position_before.is_white)
             if promotion is None:
                 return None

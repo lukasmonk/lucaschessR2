@@ -39,27 +39,34 @@ class Adjournments:
             Util.remove_file(self.file)
 
     def list_menu(self):
-        with self.open() as db:
-            li = db.keys(True)
-            li_resp = []
-            for key in li:
-                year, month, day, hour, minute, second, tp, label_menu = key.split("|")
-                label = "%d-%02d-%02d %02d:%02d:%02d " % (
-                    int(year),
-                    int(month),
-                    int(day),
-                    int(hour),
-                    int(minute),
-                    int(second),
-                )
-                tp = int(tp)
-                li_resp.append((key, label + label_menu, tp))
-            return li_resp
+        try:
+            with self.open() as db:
+                li = db.keys(True)
+                li_resp = []
+                for key in li:
+                    year, month, day, hour, minute, second, tp, label_menu = key.split("|")
+                    label = "%d-%02d-%02d %02d:%02d:%02d " % (
+                        int(year),
+                        int(month),
+                        int(day),
+                        int(hour),
+                        int(minute),
+                        int(second),
+                    )
+                    tp = int(tp)
+                    li_resp.append((key, label + label_menu, tp))
+                return li_resp
+        except:
+            Util.remove_file(self.file)
 
     def __len__(self):
         if Util.exist_file(self.file):
-            with self.open() as db:
-                return len(db)
+            try:
+                with self.open() as db:
+                    return len(db)
+            except:
+                Util.remove_file(self.file)
+                return 0
         else:
             return 0
 
@@ -69,7 +76,7 @@ class Adjournments:
             manager.main_window.accept()
             return False
         else:
-            manager.main_window.activaJuego(False, False)
+            manager.main_window.active_game(False, False)
             manager.quitaCapturas()
             manager.procesador.start()
             return True

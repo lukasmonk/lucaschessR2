@@ -57,7 +57,7 @@ class ManagerMateMap(Manager.Manager):
         li_options = [TB_CLOSE, TB_REINIT, TB_CONFIG, TB_UTILITIES]
         self.set_toolbar(li_options)
 
-        self.main_window.activaJuego(True, False, siAyudas=False)
+        self.main_window.active_game(True, False)
         self.main_window.remove_hints(True, True)
         self.set_dispatcher(self.player_has_moved)
         self.set_position(self.game.last_position)
@@ -65,7 +65,7 @@ class ManagerMateMap(Manager.Manager):
         self.put_pieces_bottom(is_white)
         self.set_label1(etiqueta)
         self.set_label2(workmap.name_aim())
-        self.pgnRefresh(True)
+        self.pgn_refresh(True)
         QTUtil.refresh_gui()
 
         self.xrival = self.procesador.creaManagerMotor(
@@ -174,7 +174,7 @@ class ManagerMateMap(Manager.Manager):
         self.put_arrow_sc(move.from_sq, move.to_sq)
         self.beepExtendido(siNuestra)
 
-        self.pgnRefresh(self.game.last_position.is_white)
+        self.pgn_refresh(self.game.last_position.is_white)
         self.refresh()
 
     def rival_has_moved(self, from_sq, to_sq, promotion):

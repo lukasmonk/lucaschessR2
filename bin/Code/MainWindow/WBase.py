@@ -225,7 +225,7 @@ class WBase(QtWidgets.QWidget):
 
     def columnas60(self, siPoner, cNivel, cWhite, cBlack):
         if cNivel is None:
-            cNivel = _("Level")
+            cNivel = _("Level")[0]
         if cWhite is None:
             cWhite = _("Errors")
         if cBlack is None:
@@ -314,10 +314,10 @@ class WBase(QtWidgets.QWidget):
         f = Controles.FontType(puntos=configuration.x_sizefont_infolabels)
         self.lbRotulo1 = Controles.LB(self).set_wrap().set_font(f)
         self.lbRotulo2 = Controles.LB(self).set_wrap().set_font(f)
-        f9 = Controles.FontType(puntos=9)
-        self.lbRotulo3 = Controles.LB(self).set_wrap().set_font(f9)
+        # f9 = Controles.FontType(puntos=9 * Code.factor_big_fonts)
+        self.lbRotulo3 = Controles.LB(self).set_wrap().set_font(f)
         self.lbRotulo3.setStyleSheet("*{ border: 1px solid darkgray }")
-        self.lbRotulo3.altoFijo(48)
+        # self.lbRotulo3.altoFijo(48 * Code.factor_big_fonts)
 
         # Rotulo de mensajes de trabajo con un cancelar
         self.wmessage = WMessage(self)
@@ -533,7 +533,7 @@ class WBase(QtWidgets.QWidget):
             if move.comment:
                 image_initial += "C"
 
-        pgn = move.pgnFigurinesSP() if self.manager.configuration.x_pgn_withfigurines else move.pgn_translated()
+        pgn = move.pgn_figurines() if Code.configuration.x_pgn_withfigurines else move.pgn_translated()
         if color_nag:
             color = Nags.nag_color(color_nag)
 
@@ -580,14 +580,12 @@ class WBase(QtWidgets.QWidget):
 
         self.procesandoEventos = False
 
-    def pgnRefresh(self):
+    def pgn_refresh(self):
         self.pgn.refresh()
 
-    def activaJuego(self, siActivar, siReloj, siAyudas=None):
-        self.pgn.setVisible(siActivar)
-        if siAyudas is None:
-            siAyudas = siActivar
-        self.bt_active_tutor.setVisible(siActivar)
+    def active_game(self, si_activar, si_reloj):
+        self.pgn.setVisible(si_activar)
+        self.bt_active_tutor.setVisible(si_activar)
         self.lbRotulo1.setVisible(False)
         self.lbRotulo2.setVisible(False)
         self.lbRotulo3.setVisible(False)
@@ -596,10 +594,10 @@ class WBase(QtWidgets.QWidget):
         self.wsolve.setVisible(False)
         self.wmessage.setVisible(False)
 
-        self.lb_player_white.setVisible(siReloj)
-        self.lb_player_black.setVisible(siReloj)
-        self.lb_clock_white.setVisible(siReloj)
-        self.lb_clock_black.setVisible(siReloj)
+        self.lb_player_white.setVisible(si_reloj)
+        self.lb_player_black.setVisible(si_reloj)
+        self.lb_clock_white.setVisible(si_reloj)
+        self.lb_clock_black.setVisible(si_reloj)
 
     def hide_replay(self):
         self.li_hide_replay = []
@@ -626,13 +624,13 @@ class WBase(QtWidgets.QWidget):
         for control in self.li_hide_replay:
             control.show()
 
-    def nonDistractMode(self, nonDistract):
-        if nonDistract:
-            for widget in nonDistract:
+    def nonDistractMode(self, non_distract):
+        if non_distract:
+            for widget in non_distract:
                 widget.setVisible(True)
-            nonDistract = None
+            non_distract = None
         else:
-            nonDistract = []
+            non_distract = []
             for widget in (
                     self.tb,
                     self.pgn,
@@ -651,9 +649,9 @@ class WBase(QtWidgets.QWidget):
                     self.wmessage,
             ):
                 if widget.isVisible():
-                    nonDistract.append(widget)
+                    non_distract.append(widget)
                     widget.setVisible(False)
-        return nonDistract
+        return non_distract
 
     def set_data_clock(self, bl, rb, ng, rn):
         self.set_clock_white(rb, "00:00")

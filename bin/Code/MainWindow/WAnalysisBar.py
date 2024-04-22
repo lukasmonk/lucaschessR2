@@ -19,7 +19,7 @@ class AnalysisBar(QProgressBar):
         self.engine_manager = None
         self.setOrientation(QtCore.Qt.Vertical)
         self.aeval = AnalysisEval.AnalysisEval()
-        self.max_range = 1000
+        self.max_range = 10000
         self.setRange(0, 10000)
         self.setValue(5000)
         self.setTextVisible(False)
@@ -101,7 +101,6 @@ class AnalysisBar(QProgressBar):
                         ev = ev_cache
                         rm = rm_cache
                         tooltip = tooltip_cache
-
                 self.update_value(ev)
 
                 if tooltip is None:

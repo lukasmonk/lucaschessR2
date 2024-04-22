@@ -346,12 +346,12 @@ class ManagerMate(Manager.Manager):
 
         self.main_window.columnas60(True, cNivel=_("Blk"))
 
-        self.main_window.activaJuego(True, False, siAyudas=False)
+        self.main_window.active_game(True, False)
         self.remove_hints(True, False)
         self.quitaCapturas()
         self.put_pieces_bottom(True)
         self.set_dispatcher(self.player_has_moved)
-        self.pgnRefresh(True)
+        self.pgn_refresh(True)
         self.main_window.base.pgn.gotop()
 
         self.main_window.set_label1("<center><h1>%s</h1></center>" % _X(_("Mate in %1"), str(mate)))

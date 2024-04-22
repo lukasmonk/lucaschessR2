@@ -36,7 +36,7 @@ def read_engines(folder_engines):
         cm.set_uci_option("Hash", "8")
         cm.set_uci_option("Threads", "1")
 
-    cm = mas("lc0", "The LCZero Authors", "0.27.0", "https://github.com/LeelaChessZero", "Lc0-0.27.0", 3332,
+    cm = mas("lc0", "The LCZero Authors", "0.32.0", "https://github.com/LeelaChessZero", "Lc0-0.32.0", 3332,
              nodes_compatible=True)
     cm.set_uci_option("Hash", "64")
     cm.set_uci_option("Threads", "2")

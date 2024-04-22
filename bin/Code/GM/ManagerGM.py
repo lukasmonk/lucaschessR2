@@ -85,7 +85,7 @@ class ManagerGM(Manager.Manager):
         self.thinking(False)
 
         self.set_toolbar((TB_CLOSE, TB_REINIT, TB_ADJOURN, TB_CONFIG, TB_UTILITIES))
-        self.main_window.activaJuego(True, False)
+        self.main_window.active_game(True, False)
         self.set_dispatcher(self.player_has_moved)
         self.set_position(self.game.last_position)
         self.show_side_indicator(True)
@@ -100,7 +100,7 @@ class ManagerGM(Manager.Manager):
         self.rival_name = ""
         self.textoPuntuacion = ""
         self.ponRotuloSecundario()
-        self.pgnRefresh(True)
+        self.pgn_refresh(True)
         self.show_info_extra()
 
         self.state = ST_PLAYING
@@ -432,7 +432,7 @@ class ManagerGM(Manager.Manager):
             self.rival_name = txt
         self.ponRotuloSecundario()
 
-        self.pgnRefresh(self.game.last_position.is_white)
+        self.pgn_refresh(self.game.last_position.is_white)
         self.refresh()
 
         self.engine_gm.play(move.movimiento())
@@ -504,7 +504,7 @@ class ManagerGM(Manager.Manager):
         if motorgm:
             self.engine_gm = motorgm
         self.restore_labels(labels)
-        self.pgnRefresh(True)
+        self.pgn_refresh(True)
         self.repiteUltimaJugada()
         self.play_next_move()
 

@@ -358,10 +358,10 @@ class WLines(LCDialog.LCDialog):
         li_gen.append((config, color))
 
         li_gen.append(separador)
-        li_gen.append((_("Random order"), random_order))
+        li_gen.append((_("Random order")+":", random_order))
 
         li_gen.append(separador)
-        li_gen.append((_("Maximum number of movements (0=all)"), max_moves))
+        li_gen.append((_("Maximum number of movements (0=all)")+":", max_moves))
 
         resultado = FormLayout.fedit(li_gen, title=_("New training"), parent=self, anchoMinimo=360, icon=Iconos.Study())
         if resultado is None:
@@ -586,7 +586,7 @@ class WLines(LCDialog.LCDialog):
 
         def haz_menu(frommenu, game_base, is_all=True):
             if is_all:
-                li_op = self.dbop.get_others(self.configuration, game_base)
+                li_op = self.dbop.get_others(game_base)
                 if li_op:
                     otra = frommenu.submenu(_("Other opening lines"), Iconos.OpeningLines())
                     for xfile, titulo in li_op:
@@ -664,7 +664,7 @@ class WLines(LCDialog.LCDialog):
 
     def import_opening(self, game):
         game.assign_opening()
-        w = WindowOpenings.WOpenings(self, self.configuration, game.opening)
+        w = WindowOpenings.WOpenings(self, game.opening)
         if w.exec_():
             ap = w.resultado()
             game = Game.Game()
@@ -885,7 +885,7 @@ class WLines(LCDialog.LCDialog):
             game = self.dbop[linea]
             if self.num_jg_inicial <= njug < len(game):
                 move = game.move(njug)
-                pgn = move.pgnFigurinesSP() if self.configuration.x_pgn_withfigurines else move.pgn_translated()
+                pgn = move.pgn_figurines() if self.configuration.x_pgn_withfigurines else move.pgn_translated()
 
                 if linea:
                     game_ant = self.dbop[linea - 1]
@@ -1243,7 +1243,7 @@ class WLines(LCDialog.LCDialog):
         me = QTUtil2.one_moment_please(self)
         op = OpeningsStd.Opening("")
         op.a1h8 = self.dbop.basePV
-        w = WindowOpenings.WOpenings(self, self.configuration, op)
+        w = WindowOpenings.WOpenings(self, op)
         me.final()
         if w.exec_():
             op = w.resultado()
@@ -1269,19 +1269,20 @@ class WLines(LCDialog.LCDialog):
         form.checkbox(_("Comments"), False)
         form.checkbox(_("Ratings"), False)
         form.checkbox(_("Analysis"), False)
+        form.checkbox(_("Unused data"), False)
 
         resultado = form.run()
 
         if resultado:
             accion, li_resp = resultado
-            is_all, is_comments, is_ratings, is_analysis = li_resp
+            is_all, is_comments, is_ratings, is_analysis, is_unused = li_resp
             if is_all:
-                is_comments = is_ratings = is_analysis = True
-            if is_comments or is_ratings or is_analysis:
+                is_comments = is_ratings = is_analysis = is_unused = True
+            if is_comments or is_ratings or is_analysis or is_unused:
                 QTUtil.refresh_gui()
                 um = QTUtil2.working(self)
                 self.tabsanalisis.tabengine.current_mrm = None
-                self.dbop.remove_info(is_comments, is_ratings, is_analysis)
+                self.dbop.remove_info(is_comments, is_ratings, is_analysis, is_unused)
                 self.refresh_lines()
                 self.glines.gotop()
                 um.final()
@@ -1341,7 +1342,7 @@ class WLines(LCDialog.LCDialog):
                 linea = li[0]
 
         njug = len(lipv)
-        if njug < self.num_jg_inicial:
+        if njug < self.num_jg_inicial or linea is None:
             return
 
         row = linea * 2

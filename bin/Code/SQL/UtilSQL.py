@@ -26,6 +26,10 @@ class DictSQL(object):
         self.normal_save_mode = True
         self.pending_commit = False
 
+    def reset(self):
+        cursor = self.conexion.execute("SELECT KEY FROM %s" % self.tabla)
+        self.li_keys = [reg[0] for reg in cursor.fetchall()]
+
     def set_faster_mode(self):
         self.normal_save_mode = False
 

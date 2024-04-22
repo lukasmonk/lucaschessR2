@@ -74,8 +74,8 @@ class FormLayout:
     def edit(self, label: str, init_value: str):
         self.eddefault(label, init_value)
 
-    def editbox(self, label, ancho=None, rx=None, tipo=str, siPassword=False, alto=1, decimales=1, init_value=None):
-        self.li_gen.append((Editbox(label, ancho, rx, tipo, siPassword, alto, decimales), init_value))
+    def editbox(self, label, ancho=None, rx=None, tipo=str, is_password=False, alto=1, decimales=1, init_value=None):
+        self.li_gen.append((Editbox(label, ancho, rx, tipo, is_password, alto, decimales), init_value))
 
     def combobox(self, label, lista, init_value, is_editable=False, tooltip=None):
         self.li_gen.append((Combobox(label, lista, is_editable, tooltip), init_value))
@@ -199,13 +199,13 @@ class Colorbox:
 
 
 class Editbox:
-    def __init__(self, label, ancho=None, rx=None, tipo=str, siPassword=False, alto=1, decimales=1):
+    def __init__(self, label, ancho=None, rx=None, tipo=str, is_password=False, alto=1, decimales=1):
         self.tipo = EDITBOX
         self.label = label + ":"
         self.ancho = ancho
         self.rx = rx
         self.tipoCampo = tipo
-        self.siPassword = siPassword
+        self.is_password = is_password
         self.alto = alto
         self.decimales = decimales
 
@@ -236,10 +236,10 @@ class XSlider:
 
 
 class Carpeta:
-    def __init__(self, label, carpetaDefecto):
+    def __init__(self, label, carpeta_defecto):
         self.tipo = CARPETA
         self.label = label + ":"
-        self.carpetaDefecto = carpetaDefecto
+        self.carpetaDefecto = carpeta_defecto
 
 
 class Fichero:
@@ -255,19 +255,19 @@ class Fichero:
 
 
 class BotonFichero(QtWidgets.QPushButton):
-    def __init__(self, file, extension, siSave, siRelativo, anchoMinimo, ficheroDefecto):
+    def __init__(self, file, extension, si_save, si_relativo, ancho_minimo, fichero_defecto):
         QtWidgets.QPushButton.__init__(self)
         self.clicked.connect(self.cambiaFichero)
         self.file = file
         self.extension = extension
-        self.siSave = siSave
-        self.siRelativo = siRelativo
-        self.anchoMinimo = anchoMinimo
-        if anchoMinimo:
-            self.setMinimumWidth(anchoMinimo)
+        self.siSave = si_save
+        self.siRelativo = si_relativo
+        self.anchoMinimo = ancho_minimo
+        if ancho_minimo:
+            self.setMinimumWidth(ancho_minimo)
         self.qm = QtGui.QFontMetrics(self.font())
         self.file = file
-        self.ficheroDefecto = ficheroDefecto
+        self.ficheroDefecto = fichero_defecto
         self.is_first_time = True
 
     def cambiaFichero(self):
@@ -286,15 +286,15 @@ class BotonFichero(QtWidgets.QPushButton):
             txt = os.path.realpath(txt)
             if self.siRelativo:
                 txt = Code.relative_root(txt)
-            tamTxt = self.qm.boundingRect(txt).width()
+            tam_txt = self.qm.boundingRect(txt).width()
             tmax = self.width() - 10
             if self.is_first_time:
                 self.is_first_time = False
                 tmax = self.anchoMinimo if self.anchoMinimo else tmax
 
-            while tamTxt > tmax:
+            while tam_txt > tmax:
                 txt = txt[1:]
-                tamTxt = self.qm.boundingRect(txt).width()
+                tam_txt = self.qm.boundingRect(txt).width()
 
         self.setText(txt)
 
@@ -309,16 +309,16 @@ class LBotonFichero(QtWidgets.QHBoxLayout):
         self.boton = BotonFichero(
             file, config.extension, config.siSave, config.siRelativo, config.anchoMinimo, config.ficheroDefecto
         )
-        btCancelar = Controles.PB(parent, "", self.cancelar)
-        btCancelar.ponIcono(Iconos.Delete()).anchoFijo(16)
+        bt_cancelar = Controles.PB(parent, "", self.cancelar)
+        bt_cancelar.ponIcono(Iconos.Delete()).anchoFijo(16)
         self.parent = parent
 
         self.addWidget(self.boton)
-        self.addWidget(btCancelar)
+        self.addWidget(bt_cancelar)
 
         if config.li_histo:
-            btHistorico = Controles.PB(parent, "", self.historico).ponIcono(Iconos.Favoritos())
-            self.addWidget(btHistorico)
+            bt_historico = Controles.PB(parent, "", self.historico).ponIcono(Iconos.Favoritos())
+            self.addWidget(bt_historico)
             self.li_histo = config.li_histo
         self.boton.ponFichero(file)
 
@@ -350,12 +350,12 @@ class LBotonCarpeta(QtWidgets.QHBoxLayout):
 
         self.carpeta = carpeta
         self.boton = Controles.PB(parent, self.carpeta, self.cambiarCarpeta, plano=False)
-        btCancelar = Controles.PB(parent, "", self.cancelar)
-        btCancelar.ponIcono(Iconos.Delete()).anchoFijo(16)
+        bt_cancelar = Controles.PB(parent, "", self.cancelar)
+        bt_cancelar.ponIcono(Iconos.Delete()).anchoFijo(16)
         self.parent = parent
 
         self.addWidget(self.boton)
-        self.addWidget(btCancelar)
+        self.addWidget(bt_cancelar)
 
     def cambiarCarpeta(self):
         carpeta = SelectFiles.get_existing_directory(self.parent, self.carpeta, self.config.label)
@@ -423,7 +423,7 @@ class BotonCheckColor(QtWidgets.QHBoxLayout):
 
         self.boton = BotonColor(parent, ancho, alto, False, dispatch)
         self.checkbox = QtWidgets.QCheckBox(parent)
-        self.checkbox.setFixedSize(20, 20)
+        self.checkbox.setFixedSize(20 * Code.factor_big_fonts, 20 * Code.factor_big_fonts)
 
         self.checkbox.clicked.connect(self.pulsado)
 
@@ -471,7 +471,7 @@ class Edit(Controles.ED):
             self.controlrx(config.rx)
         if config.ancho:
             self.anchoFijo(config.ancho)
-        if config.siPassword:
+        if config.is_password:
             self.setEchoMode(QtWidgets.QLineEdit.Password)
         self.tipo = config.tipoCampo
         self.decimales = config.decimales
@@ -617,6 +617,7 @@ class FormWidget(QtWidgets.QWidget):
                 self.labels.append(None)
 
             else:
+                field = None
                 # Otros tipos
                 if not isinstance(label, (bytes, str)):
                     config = label
@@ -697,9 +698,9 @@ class FormWidget(QtWidgets.QWidget):
                 elif isinstance(value, dict):
                     file = value["FICHERO"]
                     extension = value.get("EXTENSION", "pgn")
-                    siSave = value.get("SISAVE", True)
-                    siRelativo = value.get("SIRELATIVO", True)
-                    field = BotonFichero(file, extension, siSave, siRelativo, 250, file)
+                    si_save = value.get("SISAVE", True)
+                    si_relativo = value.get("SIRELATIVO", True)
+                    field = BotonFichero(file, extension, si_save, si_relativo, 250, file)
                 # Texto
                 elif isinstance(value, (bytes, str)):
                     field = QtWidgets.QLineEdit(value, self)
@@ -724,7 +725,7 @@ class FormWidget(QtWidgets.QWidget):
 
                 # Checkbox
                 elif isinstance(value, bool):
-                    field = QtWidgets.QCheckBox(self)
+                    field = QtWidgets.QCheckBox(" ", self)
                     field.setCheckState(QtCore.Qt.Checked if value else QtCore.Qt.Unchecked)
                     if dispatch:
                         field.stateChanged.connect(dispatch)
@@ -735,14 +736,14 @@ class FormWidget(QtWidgets.QWidget):
                     field = QtWidgets.QLineEdit(v, self)
                     field.setValidator(QtGui.QDoubleValidator(0.0, 36000.0, 1, field))  # Para los seconds
                     field.setAlignment(QtCore.Qt.AlignRight)
-                    field.setFixedWidth(40)
+                    field.setFixedWidth(40 * Code.factor_big_fonts)
 
                 # Numero
                 elif isinstance(value, int):
                     field = QtWidgets.QSpinBox(self)
                     field.setMaximum(9999)
                     field.setValue(value)
-                    field.setFixedWidth(80)
+                    field.setFixedWidth(80 * Code.factor_big_fonts)
 
                 # Linea
                 else:
@@ -815,34 +816,6 @@ class FormWidget(QtWidgets.QWidget):
         return None
 
 
-class FormComboWidget(QtWidgets.QWidget):
-    def __init__(self, datalist, comment="", parent=None):
-        super(FormComboWidget, self).__init__(parent)
-        layout = Colocacion.V()
-        self.setLayout(layout)
-        self.combobox = QtWidgets.QComboBox(self)
-        layout.control(self.combobox)
-
-        self.stackwidget = QtWidgets.QStackWidget(self)
-        layout.control(self.stackwidget)
-        self.connect(
-            self.combobox,
-            QtCore.SIGNAL("currentIndexChanged(int)"),
-            self.stackwidget,
-            QtCore.SLOT("setCurrentIndex(int)"),
-        )
-
-        self.widgetlist = []
-        for data, title, comment in datalist:
-            self.combobox.addItem(title)
-            widget = FormWidget(data, comment=comment, parent=self)
-            self.stackwidget.addWidget(widget)
-            self.widgetlist.append(widget)
-
-    def get(self):
-        return [widget.get() for widget in self.widgetlist]
-
-
 class FormTabWidget(QtWidgets.QWidget):
     def __init__(self, datalist, comment="", parent=None, dispatch=None):
         super(FormTabWidget, self).__init__(parent)
@@ -852,10 +825,7 @@ class FormTabWidget(QtWidgets.QWidget):
         self.setLayout(layout)
         self.widgetlist = []
         for data, title, comment in datalist:
-            if len(data[0]) == 3:
-                widget = FormComboWidget(data, comment=comment, parent=self)
-            else:
-                widget = FormWidget(data, comment=comment, parent=self, dispatch=dispatch)
+            widget = FormWidget(data, comment=comment, parent=self, dispatch=dispatch)
             index = self.tabwidget.addTab(widget, title)
             self.tabwidget.setTabToolTip(index, comment)
             self.widgetlist.append(widget)
@@ -880,8 +850,6 @@ class FormDialog(QtWidgets.QDialog):
             self.formwidget = FormTabWidget(data, comment=comment, parent=self, dispatch=dispatch)
             if dispatch:
                 dispatch(self.formwidget)
-        elif len(data[0]) == 3:
-            self.formwidget = FormComboWidget(data, comment=comment, parent=self)
         else:
             self.formwidget = FormWidget(data, comment=comment, parent=self, dispatch=dispatch)
             if dispatch:

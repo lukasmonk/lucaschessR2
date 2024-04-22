@@ -513,19 +513,16 @@ class Position:
                     peso += valor
         return peso
 
-    def distanciaPiezaKenemigo(self, a1):
-        pieza = self.squares.get(a1)
-        if pieza is None:
-            return 15
-        k = "k" if pieza.isupper() else "K"
+    def distance_king(self, a1, king_white):
+        k = "K" if king_white else "k"
         for i in range(8):
             for j in range(8):
                 if self.squares.get(chr(i + 97) + chr(j + 49)) == k:
                     c = ord(a1[0]) - 97
                     f = int(a1[1]) - 1
-                    return abs(i - c) + abs(j - f) - 1
+                    return (i - c) ** 2 + (j - f) ** 2
 
-    def siPeonCoronando(self, from_a1h8, to_a1h8):
+    def pawn_can_promote(self, from_a1h8, to_a1h8):
         pieza = self.squares.get(from_a1h8)
         if (not pieza) or (pieza.upper() != "P"):  # or self.squares[to_a1h8] is not None:
             return False

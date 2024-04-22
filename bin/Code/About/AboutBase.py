@@ -309,7 +309,7 @@ class ThanksTo:
                 "Cartoon animal icons",
                 "Martin Bérubé",
                 "https://www.how-to-draw-funny-cartoons.com/",
-                "Free for personal non-commercial use",
+                _("Free for personal non-commercial use"),
             ),
             (
                 "Album of vehicles",

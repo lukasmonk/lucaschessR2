@@ -13,7 +13,6 @@ from Code.Base.Constantes import (
     ADJUST_WORSE,
     ADJUST_WORST_MOVE,
 )
-from Code.QT import Controles
 from Code.QT import FormLayout
 from Code.QT import Iconos
 from Code.QT import QTUtil2
@@ -206,46 +205,46 @@ class Personalities:
 
     def lanzaMenu(self):
         menu = QTVarios.LCMenu(self.owner)
-        f = Controles.FontType(puntos=8, peso=75)
-        menu.set_font(f)
-        icoCrear = Iconos.Mas()
-        icoEditar = Iconos.ModificarP()
-        icoBorrar = Iconos.Delete()
-        icoVerde = Iconos.PuntoVerde()
-        icoRojo = Iconos.PuntoNaranja()
+        # f = Controles.FontType(puntos=8, peso=75)
+        # menu.set_font(f)
+        ico_crear = Iconos.Mas()
+        ico_editar = Iconos.ModificarP()
+        ico_borrar = Iconos.Delete()
+        ico_verde = Iconos.PuntoVerde()
+        ico_rojo = Iconos.PuntoNaranja()
 
-        menu.opcion(("c", None), _("New personality"), icoCrear)
+        menu.opcion(("c", None), _("New personality"), ico_crear)
 
         li_personalities = self.configuration.li_personalities
         if li_personalities:
             menu.separador()
-            menuMod = menu.submenu(_("Edit"), icoEditar)
+            menuMod = menu.submenu(_("Edit"), ico_editar)
             for num, una in enumerate(li_personalities):
-                menuMod.opcion(("e", num), una["NOMBRE"], icoVerde)
+                menuMod.opcion(("e", num), una["NOMBRE"], ico_verde)
             menu.separador()
-            menuBor = menu.submenu(_("Remove"), icoBorrar)
+            menuBor = menu.submenu(_("Remove"), ico_borrar)
             for num, una in enumerate(li_personalities):
-                menuBor.opcion(("b", num), una["NOMBRE"], icoRojo)
+                menuBor.opcion(("b", num), una["NOMBRE"], ico_rojo)
         resp = menu.lanza()
         if resp:
-            siRehacer = False
+            si_rehacer = False
             accion, num = resp
             if accion == "c":
-                una = self.edit(None, icoCrear)
+                una = self.edit(None, ico_crear)
                 if una:
                     li_personalities.append(una)
-                    siRehacer = True
+                    si_rehacer = True
             elif accion == "e":
-                una = self.edit(li_personalities[num], icoEditar)
+                una = self.edit(li_personalities[num], ico_editar)
                 if una:
                     li_personalities[num] = una
-                    siRehacer = True
+                    si_rehacer = True
             elif accion == "b":
                 if QTUtil2.pregunta(self.owner, _X(_("Delete %1?"), li_personalities[num]["NOMBRE"])):
                     del li_personalities[num]
-                    siRehacer = True
+                    si_rehacer = True
 
-            if siRehacer:
+            if si_rehacer:
                 self.configuration.graba()
                 return True
         return False

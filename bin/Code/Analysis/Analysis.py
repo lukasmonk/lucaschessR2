@@ -337,7 +337,7 @@ class AnalisisVariations:
     def player_has_moved(self, from_sq, to_sq, promotion=""):
 
         # Peon coronando
-        if not promotion and self.position_before.siPeonCoronando(from_sq, to_sq):
+        if not promotion and self.position_before.pawn_can_promote(from_sq, to_sq):
             promotion = self.w.board.peonCoronando(not self.move.position.is_white)
             if promotion is None:
                 return False

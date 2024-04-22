@@ -189,7 +189,7 @@ class Move:
         li = [d_conv.get(c, c) for c in self.pgnBase]
         return "".join(li)
 
-    def pgnFigurinesSP(self):
+    def pgn_figurines(self):
         return self.pgnBase
 
     def pgn_html_base(self, with_figurines):
@@ -291,14 +291,14 @@ class Move:
         resp = resp.strip()
         return " " + resp if resp else ""
 
-    def analisis2variantes(self, almVariations, delete_previous):
+    def analisis2variantes(self, alm_variations, delete_previous):
         if not self.analysis:
             return False
         mrm, pos = self.analysis
         if len(mrm.li_rm) == 0:
             return False
 
-        return self.variations.analisis2variantes(mrm, pos, almVariations, delete_previous)
+        return self.variations.analisis2variantes(mrm, pos, alm_variations, delete_previous)
 
     def remove_all_variations(self):
         self.variations.remove_all()
@@ -411,7 +411,8 @@ class Move:
             if position.is_mate():
                 return True, False
         for variation in self.variations.li_variations:
-            if variation.move(0).movimiento() == a1h8:
+            move = variation.move(0)
+            if move and move.movimiento() == a1h8:
                 return False, True
         return False, False
 

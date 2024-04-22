@@ -3,6 +3,6 @@ sortedcontainers>=2.1.0
 python-chess>=0.28.3
 pillow>=7.0.0
 pyside2>=5.14.0
-cython>=0.29.14
+cython==0.29.20
 psutil>=5.8.0
 polib>=1.1.1

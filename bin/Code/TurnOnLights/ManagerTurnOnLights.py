@@ -60,7 +60,7 @@ class ManagerTurnOnLights(Manager.Manager):
         self.main_window.set_activate_tutor(False)
         self.ayudas_iniciales = 0
 
-        self.main_window.activaJuego(True, False, siAyudas=False)
+        self.main_window.active_game(True, False)
         self.main_window.remove_hints(True, True)
         self.set_dispatcher(self.player_has_moved)
         self.show_side_indicator(True)
@@ -102,7 +102,7 @@ class ManagerTurnOnLights(Manager.Manager):
             self.is_engine_side_white = not is_white
             self.set_position(self.game.last_position)
             self.put_pieces_bottom(is_white)
-            self.pgnRefresh(True)
+            self.pgn_refresh(True)
 
             self.game.pending_opening = False
             self.pon_rotulos(1)
@@ -310,7 +310,7 @@ class ManagerTurnOnLights(Manager.Manager):
         self.put_arrow_sc(move.from_sq, move.to_sq)
         self.beepExtendido(siNuestra)
 
-        self.pgnRefresh(self.game.last_position.is_white)
+        self.pgn_refresh(self.game.last_position.is_white)
         self.refresh()
 
     def rival_has_moved(self, from_sq, to_sq, promotion):

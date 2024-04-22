@@ -103,7 +103,7 @@ class WPolyglot(WKibCommon.WKibCommon):
             self.siW = position.is_white
             self.board.set_position(position)
             self.board.activate_side(self.siW)
-            self.li_moves = self.book.almListaJugadas(position.fen(), extended=True)
+            self.li_moves = self.book.alm_list_moves(position.fen())
             self.grid.gotop()
             self.grid.refresh()
             self.ponFlecha(0)

@@ -1,12 +1,12 @@
 import os
-import os.path
+import shutil
 
 from PySide2 import QtWidgets
 
 import Code
 from Code import Util
 from Code.Base import Game
-from Code.Openings import WindowOpenings, OpeningLines
+from Code.Openings import WindowOpenings, OpeningLines, OpeningsStd
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles
@@ -25,7 +25,7 @@ class WOpeningLines(LCDialog.LCDialog):
         self.procesador = procesador
         self.configuration = procesador.configuration
         self.resultado = None
-        self.listaOpenings = OpeningLines.ListaOpenings(self.configuration)
+        self.listaOpenings = OpeningLines.ListaOpenings()
 
         LCDialog.LCDialog.__init__(
             self, procesador.main_window, self.getTitulo(), Iconos.OpeningLines(), "openingLines"
@@ -49,7 +49,7 @@ class WOpeningLines(LCDialog.LCDialog):
             None,
             (_("Copy"), Iconos.Copiar(), self.copy),
             None,
-            (_("Rename"), Iconos.Modificar(), self.renombrar),
+            (_("Change"), Iconos.Preferencias(), self.change),
             None,
             (_("Up"), Iconos.Arriba(), self.arriba),
             (_("Down"), Iconos.Abajo(), self.abajo),
@@ -84,7 +84,7 @@ class WOpeningLines(LCDialog.LCDialog):
 
         lytb = Colocacion.H().control(tb).control(self.wtrain).margen(0)
         wtb = QtWidgets.QWidget()
-        wtb.setFixedHeight(66)
+        wtb.setFixedHeight(66*Code.factor_big_fonts)
         wtb.setLayout(lytb)
 
         ly = Colocacion.V().control(wtb).control(self.glista).margen(4)
@@ -186,7 +186,7 @@ class WOpeningLines(LCDialog.LCDialog):
             path = Util.relative_path(path)
             self.configuration.set_folder_openings(path)
             self.configuration.graba()
-            self.listaOpenings = OpeningLines.ListaOpenings(self.configuration)
+            self.listaOpenings = OpeningLines.ListaOpenings()
             self.glista.refresh()
             self.glista.gotop()
             if len(self.listaOpenings) == 0:
@@ -223,7 +223,7 @@ class WOpeningLines(LCDialog.LCDialog):
         si_expl = len(self.listaOpenings) < 4
         if si_expl:
             QTUtil2.message_bold(self, _("In the next dialog box, play the initial fixed moves for your opening."))
-        w = WindowOpenings.WOpenings(self, self.configuration, None)
+        w = WindowOpenings.WOpenings(self, None)
         if w.exec_():
             ap = w.resultado()
             pv = ap.a1h8 if ap else ""
@@ -249,8 +249,7 @@ class WOpeningLines(LCDialog.LCDialog):
             self.glista.refresh()
 
     def get_nombre(self, name):
-        li_gen = [(None, None)]
-        li_gen.append((_("Opening studio name") + ":", name))
+        li_gen = [(None, None), (_("Opening studio name") + ":", name)]
         resultado = FormLayout.fedit(
             li_gen, title=_("Opening studio name"), parent=self, icon=Iconos.OpeningLines(), anchoMinimo=460
         )
@@ -261,14 +260,91 @@ class WOpeningLines(LCDialog.LCDialog):
                 return name
         return None
 
-    def renombrar(self):
+    def change(self):
         row = self.glista.recno()
-        if row >= 0:
-            op = self.listaOpenings[row]
-            name = self.get_nombre(op["title"])
-            if name:
-                self.listaOpenings.change_title(row, name)
-                self.glista.refresh()
+        if row < 0:
+            return
+        menu = QTVarios.LCMenu(self)
+        menu.opcion(self.change_name, _("Name"), Iconos.Modificar())
+        menu.opcion(self.change_firstmoves, _("First moves"), Iconos.Board())
+        menu.opcion(self.change_file, _("File"), Iconos.File())
+        resp = menu.lanza()
+        if resp:
+            resp(row)
+
+    def change_name(self, row):
+        op = self.listaOpenings[row]
+        name = self.get_nombre(op["title"])
+        if name:
+            self.listaOpenings.change_title(row, name)
+            self.glista.refresh()
+
+    def change_firstmoves(self, row):
+        op = self.listaOpenings[row]
+        previous_pv = op["pv"]
+        op_block = OpeningsStd.Opening("")
+        op_block.a1h8 = previous_pv
+        w = WindowOpenings.WOpenings(self, op_block)
+        if not w.exec_():
+            return
+        ap = w.resultado()
+        new_pv = ap.a1h8 if ap else ""
+
+        if new_pv == previous_pv:
+            return
+
+        dbop = OpeningLines.Opening(self.listaOpenings.filepath(row))
+        if not previous_pv.startswith(new_pv):
+            # Comprobamos si hay que borrar lineas
+            li_remove = dbop.lines_to_remove(new_pv)
+            if len(li_remove) > 0:
+                message = f'{len(li_remove)} {_("Lines")}'
+                if not QTUtil2.pregunta(self, _("Are you sure you want to remove %s?") % message):
+                    dbop.close()
+                    return
+                dbop.remove_list_lines(li_remove, f"{previous_pv} -> {new_pv}")
+
+        self.listaOpenings.change_first_moves(row, new_pv, len(dbop))
+        dbop.set_basepv(new_pv)
+        dbop.close()
+        self.glista.refresh()
+
+    def change_file(self, row, new_name=None):
+        dict_op = self.listaOpenings[row]
+        current_file = dict_op["file"]
+        current_path = Util.opj(self.listaOpenings.folder, current_file)
+        if not Util.exist_file(current_path):
+            self.listaOpenings.reiniciar()
+            self.glista.refresh()
+            return
+        name_file = current_file[:-4]
+        form = FormLayout.FormLayout(self, _("File"), Iconos.File(), anchoMinimo=300)
+        form.separador()
+        form.edit(_("Name"), name_file if new_name is None else new_name)
+        form.separador()
+        resp = form.run()
+        if resp is None:
+            return
+
+        accion, li_resp = resp
+        new_name = li_resp[0].strip()
+        if not new_name:
+            return
+        if new_name.endswith(".opk"):
+            new_name = new_name[:-4]
+        if new_name == name_file:
+            return
+        new_path = Util.opj(os.path.dirname(current_path), new_name + ".opk")
+        if os.path.isfile(new_path):
+            QTUtil2.message_error(self, "%s\n%s" % (_("This file already exists"), new_name + ".opk"))
+            return self.change_file(row, new_name)
+        try:
+            shutil.move(current_path, new_path)
+        except:
+            QTUtil2.message_error(self, _("This is not a valid file name"))
+            return self.change_file(row, new_name)
+        self.listaOpenings.change_file(row, new_path)
+        self.glista.refresh()
 
     def grid_remove(self):
         li = self.glista.recnosSeleccionados()
@@ -326,6 +402,17 @@ class WOpeningLines(LCDialog.LCDialog):
             self.tbtrain.set_action_visible(self.tr_engines, ok_eng)
         else:
             self.wtrain.setVisible(False)
+
+    def grid_right_button(self, grid, row, o_column, modif):
+        if row < 0:
+            return
+        col = o_column.key
+        if col == "TITLE":
+            self.change_name(row)
+        elif col == "FILE":
+            self.change_file(row)
+        elif col == "BASEPV":
+            self.change_firstmoves(row)
 
     def closeEvent(self, event):  # Cierre con X
         self.save_video()

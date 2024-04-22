@@ -111,7 +111,7 @@ class ManagerMotorAlbum:
             self.xsimilar.options(None, 5, True)
         mrm = self.xsimilar.control(fen, 5)
         mrm.game = self.game
-        return mrm.mejorMovAjustadoSimilar(self.cromo.dif_puntos, self.cromo.mate, self.cromo.aterrizaje)
+        return mrm.bestmov_adjusted_similar(self.cromo.dif_puntos, self.cromo.mate, self.cromo.aterrizaje)
 
 
 class Cromo:

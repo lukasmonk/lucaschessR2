@@ -191,7 +191,7 @@ class ManagerWicker(Manager.Manager):
 
         self.pon_toolbar()
 
-        self.main_window.activaJuego(True, siReloj=self.with_time, siAyudas=False)
+        self.main_window.active_game(True, self.with_time)
         self.set_dispatcher(self.player_has_moved)
         self.set_position(self.game.last_position)
         self.put_pieces_bottom(is_white)
@@ -212,7 +212,7 @@ class ManagerWicker(Manager.Manager):
         )
         self.set_label1("<center>%s</center>" % txt)
         self.set_label2("")
-        self.pgnRefresh(True)
+        self.pgn_refresh(True)
         self.show_info_extra()
 
         rival_name = self.engine_rival.name
@@ -485,7 +485,7 @@ class ManagerWicker(Manager.Manager):
         self.put_arrow_sc(move.from_sq, move.to_sq)
         self.beepExtendido(siNuestra)
 
-        self.pgnRefresh(self.game.last_position.is_white)
+        self.pgn_refresh(self.game.last_position.is_white)
         self.refresh()
 
         if self.pte_tool_resigndraw:

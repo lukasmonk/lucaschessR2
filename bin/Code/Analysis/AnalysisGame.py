@@ -500,7 +500,6 @@ FILESW=%s:100
                 if si_blunders or si_brilliancies or self.with_variations:
 
                     mj = mrm.li_rm[0]
-                    rm_pts = rm.centipawns_abs()
 
                     fen = move.position_before.fen()
 
@@ -510,9 +509,6 @@ FILESW=%s:100
 
                     ok_blunder = nag in self.kblunders_condition_list
                     if ok_blunder:
-                        dif = mj.centipawns_abs() - rm_pts
-                        rm.ponBlunder(dif)
-
                         self.graba_tactic(game, pos_move, mrm, pos_act)
 
                         if self.save_pgn(self.pgnblunders, mrm.name, game.dic_tags(), fen, move, rm, mj):

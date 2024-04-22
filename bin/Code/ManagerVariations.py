@@ -43,14 +43,14 @@ class ManagerVariations(Manager.Manager):
         self.set_toolbar((TB_ACCEPT, TB_CANCEL, TB_TAKEBACK, TB_REINIT, TB_CONFIG, TB_UTILITIES))
 
         self.is_human_side_white = is_white_bottom
-        self.main_window.activaJuego(True, False, siAyudas=False)
+        self.main_window.active_game(True, False)
         self.remove_hints(True, False)
         self.main_window.set_label1(None)
         self.main_window.set_label2(None)
         self.show_side_indicator(True)
         self.put_pieces_bottom(self.is_human_side_white)
         self.set_dispatcher(self.player_has_moved)
-        self.pgnRefresh(True)
+        self.pgn_refresh(True)
 
         self.show_info_extra()
 
@@ -187,7 +187,7 @@ class ManagerVariations(Manager.Manager):
 
         self.put_arrow_sc(move.from_sq, move.to_sq)
 
-        self.pgnRefresh(self.game.last_position.is_white)
+        self.pgn_refresh(self.game.last_position.is_white)
         self.refresh()
 
     def reiniciar(self):

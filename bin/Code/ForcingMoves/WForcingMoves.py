@@ -116,7 +116,7 @@ class WForcingMoves(LCDialog.LCDialog):
 
     def player_has_moved(self, from_sq, to_sq, promotion=""):
         move = from_sq + to_sq + promotion
-        if not promotion and self.board.last_position.siPeonCoronando(from_sq, to_sq):
+        if not promotion and self.board.last_position.pawn_can_promote(from_sq, to_sq):
             promotion = self.board.peonCoronando(self.board.last_position.is_white)
             if promotion is None:
                 return None

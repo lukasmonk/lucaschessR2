@@ -57,6 +57,8 @@ class WPosicion(QtWidgets.QWidget):
 
         self.wparent = wparent
 
+        factor_big_fonts = Code.factor_big_fonts
+
         QtWidgets.QWidget.__init__(self, wparent)
 
         config_board = configuration.config_board("VOYAGERPOS", 24)
@@ -104,11 +106,11 @@ class WPosicion(QtWidgets.QWidget):
         self.cbBooo = Controles.CHB(self, _("Black") + " O-O-O", True)
 
         lb_en_passant = Controles.LB(self, _("En passant") + ":")
-        self.edEnPassant = Controles.ED(self).controlrx("(-|[a-h][36])").anchoFijo(30)
+        self.edEnPassant = Controles.ED(self).controlrx("(-|[a-h][36])").anchoFijo(30*factor_big_fonts)
 
-        self.edMovesPawn, lbMovesPawn = QTUtil2.spinbox_lb(self, 0, 0, 999, etiqueta=_("Halfmove clock"), max_width=50)
+        self.edMovesPawn, lbMovesPawn = QTUtil2.spinbox_lb(self, 0, 0, 999, etiqueta=_("Halfmove clock"), max_width=50*factor_big_fonts)
 
-        self.edFullMoves, lbFullMoves = QTUtil2.spinbox_lb(self, 1, 1, 999, etiqueta=_("Fullmove number"), max_width=50)
+        self.edFullMoves, lbFullMoves = QTUtil2.spinbox_lb(self, 1, 1, 999, etiqueta=_("Fullmove number"), max_width=50*factor_big_fonts)
 
         self.vars_scanner = Scanner.ScannerVars(self.configuration.carpetaScanners)
 
@@ -120,13 +122,13 @@ class WPosicion(QtWidgets.QWidget):
         self.pb_scanner_learn_quit = Controles.PB(self, "", self.scanner_learn_quit).ponIcono(
             Iconos.Menos(), icon_size=24
         )
-        self.pb_scanner_learn_quit.ponToolTip(_("Remove last learned")).anchoFijo(24)
+        self.pb_scanner_learn_quit.ponToolTip(_("Remove last learned")).anchoFijo(24*factor_big_fonts)
 
         self.sb_scanner_tolerance, lb_scanner_tolerance = QTUtil2.spinbox_lb(
-            self, self.vars_scanner.tolerance, 3, 20, etiqueta=_("Deduction tolerance"), max_width=50
+            self, self.vars_scanner.tolerance, 3, 20, etiqueta=_("Deduction tolerance"), max_width=50*factor_big_fonts
         )
         self.sb_scanner_tolerance_learns, lb_scanner_tolerance_learns = QTUtil2.spinbox_lb(
-            self, self.vars_scanner.tolerance_learns, 1, 6, etiqueta=_("Learning tolerance"), max_width=50
+            self, self.vars_scanner.tolerance_learns, 1, 6, etiqueta=_("Learning tolerance"), max_width=50*factor_big_fonts
         )
 
         self.chb_rem_ghost_deductions = Controles.CHB(self, _("Remove ghost deductions"), self.vars_scanner.rem_ghost)
@@ -828,7 +830,7 @@ class WPGN(QtWidgets.QWidget):
         self.board.activate_side(self.game.last_position.is_white)
 
     def player_has_moved(self, from_sq, to_sq, promotion=""):
-        if not promotion and self.game.last_position.siPeonCoronando(from_sq, to_sq):
+        if not promotion and self.game.last_position.pawn_can_promote(from_sq, to_sq):
             promotion = self.board.peonCoronando(self.game.last_position.is_white)
 
         ok, mens, move = Move.get_game_move(self.game, self.game.last_position, from_sq, to_sq, promotion)
@@ -875,7 +877,7 @@ class WPGN(QtWidgets.QWidget):
                 return ""
             move = self.game.move(xn)
             if self.with_figurines:
-                return move.pgnFigurinesSP()
+                return move.pgn_figurines()
             else:
                 return move.pgn_translated()
 

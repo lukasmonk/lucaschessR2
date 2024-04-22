@@ -22,7 +22,7 @@ from Code.Tutor import Tutor
 from Code.Washing import Washing
 
 
-def managerWashing(procesador):
+def manager_washing(procesador):
     dbwashing = Washing.DBWashing(procesador.configuration)
     washing = dbwashing.washing
     engine = washing.last_engine(procesador.configuration)
@@ -55,7 +55,7 @@ class ManagerWashingReplay(Manager.Manager):
         self.main_window.set_activate_tutor(False)
         self.ayudas_iniciales = 0
 
-        self.main_window.activaJuego(True, False, siAyudas=False)
+        self.main_window.active_game(True, False)
         self.main_window.remove_hints(True, True)
         self.set_dispatcher(self.player_has_moved)
         self.show_side_indicator(True)
@@ -79,7 +79,7 @@ class ManagerWashingReplay(Manager.Manager):
 
         self.set_label1("%s: %s\n%s: %s" % (_("Opponent"), self.engine.name, _("Task"), self.engine.lbState()))
 
-        self.pgnRefresh(True)
+        self.pgn_refresh(True)
 
         self.game.pending_opening = True
         self.game.set_tag("Event", _("The Washing Machine"))
@@ -235,7 +235,7 @@ class ManagerWashingReplay(Manager.Manager):
         self.put_arrow_sc(move.from_sq, move.to_sq)
         self.beepExtendido(siNuestra)
 
-        self.pgnRefresh(self.game.last_position.is_white)
+        self.pgn_refresh(self.game.last_position.is_white)
         self.refresh()
 
     def rival_has_moved(self, from_sq, to_sq, promotion):
@@ -267,7 +267,7 @@ class ManagerWashingTactics(Manager.Manager):
         self.main_window.set_activate_tutor(False)
         self.ayudas_iniciales = 0
 
-        self.main_window.activaJuego(True, False, siAyudas=False)
+        self.main_window.active_game(True, False)
         self.main_window.remove_hints(True, True)
         self.set_dispatcher(self.player_has_moved)
         self.show_side_indicator(True)
@@ -301,7 +301,7 @@ class ManagerWashingTactics(Manager.Manager):
         self.set_label1(r1)
         r2 = "<b>%s: %d</b>" % (_("Pending"), self.num_lines)
         self.set_label2(r2)
-        self.pgnRefresh(True)
+        self.pgn_refresh(True)
 
         self.tc_keeper = self.tc_white
         self.tc_keeper.config_as_time_keeper()
@@ -426,7 +426,7 @@ class ManagerWashingTactics(Manager.Manager):
         self.put_arrow_sc(move.from_sq, move.to_sq)
         self.beepExtendido(siNuestra)
 
-        self.pgnRefresh(self.game.last_position.is_white)
+        self.pgn_refresh(self.game.last_position.is_white)
         self.refresh()
 
     def rival_has_moved(self, from_sq, to_sq, promotion):
@@ -454,6 +454,20 @@ class ManagerWashingTactics(Manager.Manager):
 
 
 class ManagerWashingCreate(Manager.Manager):
+    is_analyzing = False
+    is_analyzed_by_tutor = False
+    dbwashing = None
+    washing = None
+    engine = None
+    is_human_side_white = None
+    is_engine_side_white = None
+    is_competitive = True
+    opening = None
+    is_tutor_enabled = None
+    tc_player = None
+    tc_rival = None
+    tm_rival = None
+
     def start(self, dbwashing, washing, engine):
         self.dbwashing = dbwashing
         self.washing = washing
@@ -475,7 +489,6 @@ class ManagerWashingCreate(Manager.Manager):
 
         self.is_tutor_enabled = True
         self.if_analyzing = False
-        # self.main_window.set_activate_tutor(self.is_tutor_enabled)
 
         rival = self.configuration.buscaRival(self.engine.key)
 
@@ -487,7 +500,7 @@ class ManagerWashingCreate(Manager.Manager):
         self.xtutor.maximize_multipv()
         self.is_analyzed_by_tutor = False
 
-        self.main_window.activaJuego(True, False, False)
+        self.main_window.active_game(True, False)
         self.remove_hints()
         li = [TB_CLOSE, TB_REINIT, TB_TAKEBACK]
         self.set_toolbar(li)
@@ -504,14 +517,14 @@ class ManagerWashingCreate(Manager.Manager):
 
         self.show_info_extra()
 
-        self.pgnRefresh(True)
+        self.pgn_refresh(True)
 
         game = dbwashing.restoreGame(engine)
         if not (game is None):
             if not game.is_finished():
                 self.game = game
                 self.goto_end()
-                self.main_window.base.pgnRefresh()
+                self.main_window.base.pgn_refresh()
         else:
             player = self.configuration.nom_player()
             other = self.xrival.name
@@ -560,9 +573,9 @@ class ManagerWashingCreate(Manager.Manager):
         self.set_side_indicator(is_white)
         self.refresh()
 
-        siRival = is_white == self.is_engine_side_white
+        si_rival = is_white == self.is_engine_side_white
 
-        if siRival:
+        if si_rival:
             if self.play_rival():
                 self.play_next_move()
 
@@ -576,14 +589,14 @@ class ManagerWashingCreate(Manager.Manager):
         self.tc_rival.start()
 
         from_sq = to_sq = promotion = ""
-        siEncontrada = False
+        si_encontrada = False
 
         if self.opening:
-            siEncontrada, from_sq, to_sq, promotion = self.opening.run_engine(self.last_fen())
-            if not siEncontrada:
+            si_encontrada, from_sq, to_sq, promotion = self.opening.run_engine(self.last_fen())
+            if not si_encontrada:
                 self.opening = None
 
-        if siEncontrada:
+        if si_encontrada:
             self.rm_rival = EngineResponse.EngineResponse("Opening", self.is_engine_side_white)
             self.rm_rival.from_sq = from_sq
             self.rm_rival.to_sq = to_sq
@@ -677,13 +690,13 @@ class ManagerWashingCreate(Manager.Manager):
         time_s = self.tc_player.stop()
         self.add_time(time_s)
 
-        siAnalisis = False
+        si_analisis = False
 
         is_selected = False
 
         if self.opening:
-            fenBase = self.last_fen()
-            if self.opening.check_human(fenBase, from_sq, to_sq):
+            fen_base = self.last_fen()
+            if self.opening.check_human(fen_base, from_sq, to_sq):
                 is_selected = True
             else:
                 self.opening = None
@@ -697,9 +710,9 @@ class ManagerWashingCreate(Manager.Manager):
                     self.continue_analysis_human_move()
                     return False
                 self.mrm_tutor.add_rm(rm_user)
-            siAnalisis = True
-            pointsBest, pointsUser = self.mrm_tutor.difPointsBest(movimiento)
-            if (pointsBest - pointsUser) > 0:
+            si_analisis = True
+            points_best, points_user = self.mrm_tutor.difPointsBest(movimiento)
+            if (points_best - points_user) > 0:
                 if not move.is_mate:
                     tutor = Tutor.Tutor(self, move, from_sq, to_sq, False)
                     if tutor.elegir(True):
@@ -719,7 +732,7 @@ class ManagerWashingCreate(Manager.Manager):
         move.set_time_ms(time_s * 1000)  # puede haber cambiado
         move.set_clock_ms(self.tc_player.pending_time * 1000)
 
-        if siAnalisis:
+        if si_analisis:
             rm, nPos = self.mrm_tutor.buscaRM(move.movimiento())
             if rm:
                 move.analysis = self.mrm_tutor, nPos
@@ -736,13 +749,13 @@ class ManagerWashingCreate(Manager.Manager):
         self.put_arrow_sc(move.from_sq, move.to_sq)
         self.beepExtendido(siNuestra)
 
-        self.pgnRefresh(self.game.last_position.is_white)
+        self.pgn_refresh(self.game.last_position.is_white)
 
         self.refresh()
 
     def finalizar(self):
         self.analizaTerminar()
-        self.main_window.activaJuego(False, False)
+        self.main_window.active_game(False, False)
         self.quitaCapturas()
         self.procesador.start()
         self.procesador.showWashing()

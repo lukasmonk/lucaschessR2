@@ -33,11 +33,11 @@ class ManagerSingularM(Manager.Manager):
 
         self.ayudas_iniciales = 0
 
-        self.main_window.activaJuego(True, True, siAyudas=False)
+        self.main_window.active_game(True, True)
         self.main_window.remove_hints(True)
         self.set_dispatcher(self.player_has_moved)
 
-        self.pgnRefresh(True)
+        self.pgn_refresh(True)
 
         self.play_next_move()
 
@@ -157,7 +157,7 @@ class ManagerSingularM(Manager.Manager):
             self.put_arrow_sc(bm[:2], bm[2:])
             self.check_boards_setposition()
 
-        self.pgnRefresh(self.game.last_position.is_white)
+        self.pgn_refresh(self.game.last_position.is_white)
 
         self.pos_bloque += 1
         li = [TB_CLOSE, TB_CONFIG, TB_UTILITIES]

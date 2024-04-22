@@ -502,7 +502,7 @@ class WGM(LCDialog.LCDialog):
     def aperturasEditar(self):
         self.btOpening.setDisabled(True)  # Puede tardar bastante vtime
         me = QTUtil2.one_moment_please(self)
-        w = WindowOpenings.WOpenings(self, self.configuration, self.opening_block)
+        w = WindowOpenings.WOpenings(self, self.opening_block)
         me.final()
         self.btOpening.setDisabled(False)
         if w.exec_():

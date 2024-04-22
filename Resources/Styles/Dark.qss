@@ -370,7 +370,7 @@ QComboBox
     border-radius: 3px;
     padding-left: 6px;
     color: lightgray;
-    height: 20px;
+    /*height: 20px;*/
 }
 QComboBox::disabled
 {

@@ -1,7 +1,5 @@
 @echo off
 
-set FOLDER_PYTHON3="c:\Program Files (x86)\Python37-32\"
-
 call "c:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars32.bat"
 
 cd source\irina
@@ -12,9 +10,13 @@ del *.obj
 
 cd ..
 
+set PATH=f:\WPy32-3771\python-3.7.7;f:\WPy32-3771\python-3.7.7\scripts;%PATH%
+set PYTHON3="f:\WPy32-3771\python-3.7.7\python.exe"
+
+
 copy /B Faster_Irina.pyx+Faster_Polyglot.pyx FasterCode.pyx
 
-%FOLDER_PYTHON3%\python setup.py build_ext --inplace -i clean
+%PYTHON3% setup.py build_ext --inplace -i clean
 
 copy FasterCode.cp37-win32.pyd ..\..\OS\win32
 

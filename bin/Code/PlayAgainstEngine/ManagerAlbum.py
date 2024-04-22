@@ -45,7 +45,7 @@ class ManagerAlbum(Manager.Manager):
         self.xrival = Albums.ManagerMotorAlbum(self, self.cromo)
         self.set_toolbar((TB_RESIGN, TB_ADJOURN, TB_CONFIG, TB_UTILITIES))
 
-        self.main_window.activaJuego(True, False, siAyudas=False)
+        self.main_window.active_game(True, False)
         self.set_dispatcher(self.player_has_moved)
         self.set_position(self.game.last_position)
         self.put_pieces_bottom(is_white)
@@ -54,7 +54,7 @@ class ManagerAlbum(Manager.Manager):
 
         self.main_window.base.lbRotulo1.ponImagen(self.cromo.pixmap_level())
         self.main_window.base.lbRotulo2.ponImagen(self.cromo.pixmap())
-        self.pgnRefresh(True)
+        self.pgn_refresh(True)
         self.show_info_extra()
 
         self.check_boards_setposition()
@@ -99,7 +99,7 @@ class ManagerAlbum(Manager.Manager):
 
     def run_adjourn(self, dic):
         self.restore_state(dic)
-        self.pgnRefresh(not self.is_engine_side_white)
+        self.pgn_refresh(not self.is_engine_side_white)
         self.play_next_move()
 
     def adjourn(self):
@@ -208,7 +208,7 @@ class ManagerAlbum(Manager.Manager):
         self.put_arrow_sc(move.from_sq, move.to_sq)
         self.beepExtendido(siNuestra)
 
-        self.pgnRefresh(self.game.last_position.is_white)
+        self.pgn_refresh(self.game.last_position.is_white)
         self.refresh()
 
     def rival_has_moved(self, engine_response):

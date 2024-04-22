@@ -46,6 +46,12 @@ class DirectEngine(object):
             startupinfo.wShowWindow = subprocess.SW_HIDE
         else:
             startupinfo = None
+            ld_library = os.environ.get("LD_LIBRARY_PATH", "")
+            if ld_library:
+                ld_library += ":"
+            ld_library += direxe
+            os.environ["LD_LIBRARY_PATH"] = ld_library
+
         curdir = os.path.abspath(os.curdir)
         os.chdir(direxe)
         self.process = subprocess.Popen(xargs, stdout=subprocess.PIPE, stdin=subprocess.PIPE, startupinfo=startupinfo)

@@ -293,7 +293,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
 
         self.pon_toolbar()
 
-        self.main_window.activaJuego(True, self.timed)
+        self.main_window.active_game(True, self.timed)
 
         self.set_dispatcher(self.player_has_moved)
         self.set_position(self.game.last_position)
@@ -315,7 +315,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
 
         self.show_info_extra()
 
-        self.pgnRefresh(True)
+        self.pgn_refresh(True)
 
         rival = self.xrival.name
         player = self.configuration.x_player
@@ -629,6 +629,13 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                 self.is_analyzing = False
                 self.xtutor.ac_final(-1)
 
+            bp = dic["BOOKP"]
+            if bp:
+                bp.book = None
+            br = dic["BOOKR"]
+            if br:
+                br.book = None
+
             with Adjournments.Adjournments() as adj:
                 adj.add(self.game_type, dic, label_menu)
                 adj.si_seguimos(self)
@@ -644,7 +651,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             self.xrival.check_engine()
             self.start_message()
 
-        self.pgnRefresh(not self.is_engine_side_white)
+        self.pgn_refresh(not self.is_engine_side_white)
         self.play_next_move()
 
     def xpause(self):
@@ -706,7 +713,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                 self.xtutor.ac_final(-1)
             self.state = ST_ENDGAME
             self.stop_engine()
-            self.main_window.activaJuego(False, False)
+            self.main_window.active_game(False, False)
             self.quitaCapturas()
             if self.xRutinaAccionDef:
                 self.xRutinaAccionDef(TB_CLOSE)
@@ -736,7 +743,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                 self.autosave()
         else:
             self.analizaTerminar()
-            self.main_window.activaJuego(False, False)
+            self.main_window.active_game(False, False)
             self.quitaCapturas()
             self.procesador.start()
 
@@ -972,7 +979,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
 
         book = Books.Book("P", nombook, nombook, True)
         book.polyglot()
-        return self.select_book_move_base(book, "pr")
+        return self.select_book_move_base(book, BOOK_BEST_MOVE)
 
     def play_human(self, is_white):
         self.tc_player.start()
@@ -985,7 +992,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                 self.premove = from_sq, to_sq
         if self.premove:
             from_sq, to_sq = self.premove
-            promotion = "q" if self.game.last_position.siPeonCoronando(from_sq, to_sq) else None
+            promotion = "q" if self.game.last_position.pawn_can_promote(from_sq, to_sq) else None
             ok, error, move = Move.get_game_move(
                 self.game, self.game.last_position, self.premove[0], self.premove[1], promotion
             )
@@ -1191,20 +1198,16 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         if rm and rm.from_sq:
             self.player_has_moved_base(rm.from_sq, rm.to_sq, rm.promotion)
 
-    def pww_centipawns_lost(self, rm_best: EngineResponse.EngineResponse, rm_user: EngineResponse.EngineResponse):
-        cps = 0
+    def pww_centipawns_lost(self, rm_user: EngineResponse.EngineResponse):
         for move in self.game.li_moves:
             if move.is_white() == self.is_human_side_white:
                 if move.analysis:
                     mrm: EngineResponse.MultiEngineResponse
                     mrm, pos = move.analysis
                     rm_best1: EngineResponse.EngineResponse = mrm.rmBest()
-                    rm_user1: EngineResponse.EngineResponse = mrm.li_rm[pos]
-                    cps += rm_best1.score_abs5() - rm_user1.score_abs5()
-        rm_best = self.mrm_tutor.rmBest()
-        cps += rm_best.score_abs5() - rm_user.score_abs5()
+                    return rm_best1.score_abs5() - rm_user.score_abs5()
 
-        return cps
+        return 0
 
     def enable_toolbar(self):
         self.main_window.toolbar_enable(True)
@@ -1335,7 +1338,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                     if Tutor.launch_tutor(self.mrm_tutor, rm_user, tp=MISTAKE):
                         game_over_message_pww = _("You have made a bad move.")
                     else:
-                        cpws_lost = self.pww_centipawns_lost(self.mrm_tutor.rmBest, rm_user)
+                        cpws_lost = self.pww_centipawns_lost(rm_user)
                         if cpws_lost > self.limit_pww:
                             game_over_message_pww = "%s<br>%s" % (
                                 _("You have exceeded the limit of lost centipawns."),
@@ -1451,7 +1454,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
 
         self.show_hints()
 
-        self.pgnRefresh(self.game.last_position.is_white)
+        self.pgn_refresh(self.game.last_position.is_white)
 
         self.refresh()
 
@@ -1566,8 +1569,6 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             rival = dr["CM"]
             if hasattr(rival, "icono"):
                 delattr(rival, "icono")
-
-            Util.save_pickle(self.configuration.ficheroEntMaquina, dic)
             for k, v in dic.items():
                 self.reinicio[k] = v
 
@@ -1577,8 +1578,9 @@ class ManagerPlayAgainstEngine(Manager.Manager):
 
             self.nAjustarFuerza = dic["ADJUST"]
 
-            r_t = dr["TIME"] * 100  # Se guarda en decimas y se pasa a milesimas
-            r_p = dr["DEPTH"]
+            r_t = dr["ENGINE_TIME"] * 100  # Se guarda en decimas y se pasa a milesimas
+            r_p = dr["ENGINE_DEPTH"]
+            r_n = dr["ENGINE_NODES"]
             if r_t <= 0:
                 r_t = None
             if r_p <= 0:
@@ -1587,6 +1589,9 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             dr["RESIGN"] = self.resign_limit
             self.xrival.terminar()
             self.xrival = self.procesador.creaManagerMotor(rival, r_t, r_p, self.nAjustarFuerza != ADJUST_BETTER)
+            if r_n:
+                self.xrival.set_nodes(r_n)
+                self.nodes = r_n
 
             self.xrival.is_white = not is_white
 
@@ -1726,3 +1731,13 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                 previo = pv
                 opacity = max(opacity - 0.20, 0.40)
         return True
+
+    def setup_board_live(self, is_white, position):
+        previo = self.current_position().fen()
+        previo = " ".join(previo.split(" ")[:2])
+        new = position.fen()
+        new = " ".join(new.split(" ")[:2])
+        if previo != new:
+            self.board.set_side_bottom(is_white)
+            self.reinicio["FEN"] = position.fen()
+            self.reiniciar(False)

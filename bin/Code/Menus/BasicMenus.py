@@ -257,7 +257,7 @@ class WAtajos(LCDialog.LCDialog):
         o_columnas = Columnas.ListaColumnas()
         o_columnas.nueva("KEY", _("Key"), 80, align_center=True)
         o_columnas.nueva("OPCION", _("Option"), 300)
-        o_columnas.nueva("LABEL", _("Label"), 300, edicion=Delegados.LineaTextoUTF8(siPassword=False), is_editable=True)
+        o_columnas.nueva("LABEL", _("Label"), 300, edicion=Delegados.LineaTextoUTF8(is_password=False), is_editable=True)
 
         self.grid = Grid.Grid(self, o_columnas, siSelecFilas=True, is_editable=True)
         self.grid.setMinimumWidth(self.grid.anchoColumnas() + 20)

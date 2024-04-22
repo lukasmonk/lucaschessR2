@@ -103,12 +103,6 @@ class RunEngine:
 
         self.ucinewgame()
 
-    # def test_nodes(self):
-    #     self.put_line("position startpos moves e2e4 g8f6 e4e5 f6d5 d2d4 e7e6 g1f3 b8c6 b1c3 f8b4 c1d2 b4c3 d2c3 d5c3 b2c3")
-    #
-    #     self.put_line("go nodes 500")
-    #     self.wait_list("bestmove", 1000)
-
     def cerrar(self):
         self.working = False
 
@@ -220,13 +214,19 @@ class RunEngine:
             startupinfo = subprocess.STARTUPINFO()
             startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
             startupinfo.wShowWindow = subprocess.SW_HIDE
+            env = None
         else:
             startupinfo = None
+            ld_library = os.environ.get("LD_LIBRARY_PATH", "")
+            if ld_library:
+                ld_library += ":"
+            ld_library += os.path.abspath(self.direxe)
+            env = {**os.environ, "LD_LIBRARY_PATH": ld_library}
         curdir = os.path.abspath(os.curdir)  # problem with "." as curdir
         os.chdir(self.direxe)  # to fix problems with non ascii folders
 
         self.process = subprocess.Popen(
-            self.args, stdout=subprocess.PIPE, stdin=subprocess.PIPE, startupinfo=startupinfo
+            self.args, stdout=subprocess.PIPE, stdin=subprocess.PIPE, startupinfo=startupinfo, env=env
         )
         os.chdir(curdir)
 

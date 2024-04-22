@@ -169,7 +169,7 @@ class Processor:
     def create_shs(self):
         with open(os.path.join(self.destino, "setup_linux.sh"), "wt") as q:
             q.write(
-                """QT_LOGGING_RULES='*=falrose'
+                """QT_LOGGING_RULES='*=false'
 export QT_LOGGING_RULES
 if [ $(id -u) -eq 0 ]
 then
@@ -187,7 +187,7 @@ then
     fi
 fi
 cd bin
-./setup_linux
+./setup_linux 2>/dev/null
 """
             )
         with open(os.path.join(self.destino, "LucasR.sh"), "wt") as q:
@@ -195,7 +195,7 @@ cd bin
                 """QT_LOGGING_RULES='*=false'
 export QT_LOGGING_RULES
 cd bin
-./LucasR
+./LucasR 2>/dev/null
 """
             )
 

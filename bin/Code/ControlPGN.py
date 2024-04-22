@@ -75,7 +75,7 @@ class ControlPGN:
         move = self.only_move(row, key)
         if move:
             if self.must_show:
-                return move.pgnFigurinesSP() if self.with_figurines else move.pgn_translated()
+                return move.pgn_figurines() if self.with_figurines else move.pgn_translated()
             else:
                 return "-"
         else:

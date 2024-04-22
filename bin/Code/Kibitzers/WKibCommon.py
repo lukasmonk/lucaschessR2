@@ -121,7 +121,7 @@ class WKibCommon(QtWidgets.QDialog):
         self.save_video()
 
     def mensajero(self, from_sq, to_sq, promocion=""):
-        if not promocion and self.game.last_position.siPeonCoronando(from_sq, to_sq):
+        if not promocion and self.game.last_position.pawn_can_promote(from_sq, to_sq):
             promocion = self.board.peonCoronando(self.game.last_position.is_white)
             if promocion is None:
                 promocion = "q"

@@ -4,8 +4,6 @@
 import os
 import random
 
-import FasterCode
-
 import Code
 from Code import Util
 from Code.Base import Position
@@ -178,7 +176,7 @@ class Book:
             lista_jugadas.append((from_sq, to_sq, promotion, "%-5s -%7.02f%% -%7d" % (pgn, pc, w), 1.0 * w / maxim))
         return lista_jugadas
 
-    def almListaJugadas(self, fen, extended=False):
+    def alm_list_moves(self, fen):
         li = self.book.lista(self.path, fen)
         position = Position.Position()
         position.read_fen(fen)
@@ -191,45 +189,45 @@ class Book:
             if w > maxim:
                 maxim = w
 
-        listaJugadas = []
+        lista_jugadas = []
         st_pvs_included = set()
         for entry in li:
+            w = entry.weight
             alm = Util.Record()
             pv = alm.pv = entry.pv()
             st_pvs_included.add(pv.lower())
-            w = entry.weight
             alm.from_sq, alm.to_sq, alm.promotion = pv[:2], pv[2:4], pv[4:]
             alm.pgn = position.pgn_translated(alm.from_sq, alm.to_sq, alm.promotion)
             alm.pgnRaw = position.pgn(alm.from_sq, alm.to_sq, alm.promotion)
             alm.fen = fen
             alm.porc = "%0.02f%%" % (w * 100.0 / total,) if total else ""
             alm.weight = w
-            listaJugadas.append(alm)
+            lista_jugadas.append(alm)
 
-        if extended:
-            for exmove in position.get_exmoves():
-                pv = exmove.move()
-                if pv not in st_pvs_included:
-                    FasterCode.set_fen(fen)
-                    from_sq, to_sq, promotion = pv[:2], pv[2:4], pv[4:]
-                    FasterCode.move_pv(from_sq, to_sq, promotion)
-                    new_fen = FasterCode.get_fen()
-                    li = self.book.lista(self.path, new_fen)
-                    if len(li) > 0:
-                        alm = Util.Record()
-                        alm.from_sq, alm.to_sq, alm.promotion = from_sq, to_sq, promotion
-                        alm.pgn = position.pgn_translated(from_sq, to_sq, promotion)
-                        alm.pgnRaw = position.pgn(from_sq, to_sq, promotion)
-                        alm.fen = fen
-                        alm.porc = ""
-                        alm.weight = 0
-                        listaJugadas.append(alm)
+        # if extended:
+        #     for exmove in position.get_exmoves():
+        #         pv = exmove.move()
+        #         if pv not in st_pvs_included:
+        #             FasterCode.set_fen(fen)
+        #             from_sq, to_sq, promotion = pv[:2], pv[2:4], pv[4:]
+        #             FasterCode.move_pv(from_sq, to_sq, promotion)
+        #             new_fen = FasterCode.get_fen()
+        #             li = self.book.lista(self.path, new_fen)
+        #             if len(li) > 0:
+        #                 alm = Util.Record()
+        #                 alm.from_sq, alm.to_sq, alm.promotion = from_sq, to_sq, promotion
+        #                 alm.pgn = position.pgn_translated(from_sq, to_sq, promotion)
+        #                 alm.pgnRaw = position.pgn(from_sq, to_sq, promotion)
+        #                 alm.fen = fen
+        #                 alm.porc = ""
+        #                 alm.weight = 0
+        #                 listaJugadas.append(alm)
 
-        return listaJugadas
+        return lista_jugadas
 
     def eligeJugadaTipo(self, fen, tipo):
         maxim = 0
-        liMax = []
+        li_max = []
         li = self.book.lista(self.path, fen)
         nli = len(li)
         if nli == 0:
@@ -243,11 +241,11 @@ class Book:
                 w = entry.weight
                 if w > maxim:
                     maxim = w
-                    liMax = [entry]
+                    li_max = [entry]
                 elif w == maxim:
-                    liMax.append(entry)
-            pos = random.randint(0, len(liMax) - 1) if len(liMax) > 1 else 0
-            pv = liMax[pos].pv()
+                    li_max.append(entry)
+            pos = random.randint(0, len(li_max) - 1) if len(li_max) > 1 else 0
+            pv = li_max[pos].pv()
 
         elif tipo == BOOK_RANDOM_UNIFORM:  # Aleatorio uniforme
             pos = random.randint(0, len(li) - 1)

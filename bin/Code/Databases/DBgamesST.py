@@ -271,7 +271,7 @@ class TreeSTAT:
                 if p.num_moves():
                     move = p.last_jg()
                     num_moves = move.numMove()
-                    pgn = move.pgnFigurinesSP() if with_figurines else move.pgn_translated()
+                    pgn = move.pgn_figurines() if with_figurines else move.pgn_translated()
                     dic["move"] = pgn
                     dic["number"] = "%d." % num_moves
                     if not move.is_white():

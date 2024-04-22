@@ -43,7 +43,7 @@ class WUsuarios(LCDialog.LCDialog):
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("NUMBER", _("N."), 40, align_center=True)
         o_columns.nueva("USUARIO", _("User"), 140, edicion=Delegados.LineaTextoUTF8())
-        # o_columns.nueva("PASSWORD", _("Password"), 100, edicion=Delegados.LineaTextoUTF8(siPassword=True))
+        # o_columns.nueva("PASSWORD", _("Password"), 100, edicion=Delegados.LineaTextoUTF8(is_password=True))
 
         self.grid = Grid.Grid(self, o_columns, is_editable=True)
 
@@ -158,13 +158,13 @@ def set_password(procesador):
     while True:
         li_gen = [FormLayout.separador]
 
-        config = FormLayout.Editbox(_("Current"), ancho=120, siPassword=True)
+        config = FormLayout.Editbox(_("Current"), ancho=120, is_password=True)
         li_gen.append((config, ""))
 
-        config = FormLayout.Editbox(_("New"), ancho=120, siPassword=True)
+        config = FormLayout.Editbox(_("New"), ancho=120, is_password=True)
         li_gen.append((config, ""))
 
-        config = FormLayout.Editbox(_("Repeat"), ancho=120, siPassword=True)
+        config = FormLayout.Editbox(_("Repeat"), ancho=120, is_password=True)
         li_gen.append((config, ""))
 
         resultado = FormLayout.fedit(

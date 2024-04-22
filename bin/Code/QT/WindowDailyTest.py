@@ -414,7 +414,7 @@ class WDailyTest(LCDialog.LCDialog):
         movimiento = from_sq + to_sq
 
         # Peon coronando
-        if not promotion and self.position.siPeonCoronando(from_sq, to_sq):
+        if not promotion and self.position.pawn_can_promote(from_sq, to_sq):
             promotion = self.board.peonCoronando(self.position.is_white)
         if promotion:
             movimiento += promotion

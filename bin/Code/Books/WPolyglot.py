@@ -44,10 +44,10 @@ class WPolyglot(LCDialog.LCDialog):
         delegado = Delegados.EtiquetaPOS(True, siLineas=False) if self.configuration.x_pgn_withfigurines else None
         o_columnas.nueva("move", _("Move"), 80, align_center=True, edicion=delegado, is_editable=False)
         o_columnas.nueva("%", "%", 60, align_right=True, is_editable=False)
-        o_columnas.nueva("weight", _("Weight"), 60, align_right=True, edicion=Delegados.LineaTexto(siEntero=True))
-        o_columnas.nueva("score", _("Score"), 60, align_right=True, edicion=Delegados.LineaTexto(siEntero=True))
-        o_columnas.nueva("depth", _("Depth"), 60, align_right=True, edicion=Delegados.LineaTexto(siEntero=True))
-        o_columnas.nueva("learn", _("Learn"), 60, align_right=True, edicion=Delegados.LineaTexto(siEntero=True))
+        o_columnas.nueva("weight", _("Weight"), 60, align_right=True, edicion=Delegados.LineaTexto(is_integer=True))
+        o_columnas.nueva("score", _("Score"), 60, align_right=True, edicion=Delegados.LineaTexto(is_integer=True))
+        o_columnas.nueva("depth", _("Depth"), 60, align_right=True, edicion=Delegados.LineaTexto(is_integer=True))
+        o_columnas.nueva("learn", _("Learn"), 60, align_right=True, edicion=Delegados.LineaTexto(is_integer=True))
         self.grid_moves = Grid.Grid(self, o_columnas, is_editable=True)
         self.grid_moves.setMinimumWidth(self.grid_moves.anchoColumnas() + 20)
 

@@ -42,7 +42,7 @@ class EditCols(QtWidgets.QDialog):
         o_columns.nueva("SIMOSTRAR", "", 20, is_ckecked=True)
         o_columns.nueva("CLAVE", _("Key"), 80, align_center=True)
         o_columns.nueva("CABECERA", _("Title"), 150, edicion=Delegados.LineaTexto())
-        o_columns.nueva("ANCHO", _("Width"), 60, edicion=Delegados.LineaTexto(siEntero=True), align_right=True)
+        o_columns.nueva("ANCHO", _("Width"), 60, edicion=Delegados.LineaTexto(is_integer=True), align_right=True)
 
         self.liAlin = [_("Left"), _("Center"), _("Right")]
         o_columns.nueva("ALINEACION", _("Alignment"), 100, align_center=True, edicion=Delegados.ComboBox(self.liAlin))

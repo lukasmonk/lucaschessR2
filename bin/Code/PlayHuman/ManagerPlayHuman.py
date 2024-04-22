@@ -83,7 +83,7 @@ class ManagerPlayHuman(Manager.Manager):
 
         self.pon_toolbar()
 
-        self.main_window.activaJuego(True, self.timed)
+        self.main_window.active_game(True, self.timed)
 
         self.set_dispatcher(self.player_has_moved)
         self.set_position(self.game.last_position)
@@ -93,7 +93,7 @@ class ManagerPlayHuman(Manager.Manager):
 
         self.show_info_extra()
 
-        self.pgnRefresh(True)
+        self.pgn_refresh(True)
 
         self.white, self.black = w, b
 
@@ -281,7 +281,7 @@ class ManagerPlayHuman(Manager.Manager):
             self.show_clocks()
             self.start_message()
 
-        self.pgnRefresh(True)
+        self.pgn_refresh(True)
         self.play_next_move()
 
     def xpause(self):
@@ -326,7 +326,7 @@ class ManagerPlayHuman(Manager.Manager):
             if self.timed:
                 self.main_window.stop_clock()
             self.state = ST_ENDGAME
-            self.main_window.activaJuego(False, False)
+            self.main_window.active_game(False, False)
             self.quitaCapturas()
             if self.xRutinaAccionDef:
                 self.xRutinaAccionDef(TB_CLOSE)
@@ -352,7 +352,7 @@ class ManagerPlayHuman(Manager.Manager):
             self.autosave()
             self.set_end_game(False)
         else:
-            self.main_window.activaJuego(False, False)
+            self.main_window.active_game(False, False)
             self.quitaCapturas()
             self.procesador.start()
 
@@ -442,7 +442,7 @@ class ManagerPlayHuman(Manager.Manager):
 
         self.put_arrow_sc(move.from_sq, move.to_sq)
 
-        self.pgnRefresh(self.game.last_position.is_white)
+        self.pgn_refresh(self.game.last_position.is_white)
 
         self.refresh()
 

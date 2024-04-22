@@ -136,7 +136,7 @@ class ManagerRoutes(Manager.Manager):
         self.put_arrow_sc(move.from_sq, move.to_sq)
         self.beepExtendido(is_player)
 
-        self.pgnRefresh(self.game.last_position.is_white)
+        self.pgn_refresh(self.game.last_position.is_white)
         self.refresh()
 
 
@@ -171,7 +171,7 @@ class ManagerRoutesPlay(ManagerRoutes):
         li_options = [TB_CLOSE, TB_CONFIG, TB_REINIT]
         self.set_toolbar(li_options)
 
-        self.main_window.activaJuego(True, False, siAyudas=False)
+        self.main_window.active_game(True, False)
         self.main_window.remove_hints(True)
 
         self.set_label1(self.engine.label)
@@ -183,7 +183,7 @@ class ManagerRoutesPlay(ManagerRoutes):
         self.show_side_indicator(True)
         self.put_pieces_bottom(is_white)
 
-        self.pgnRefresh(True)
+        self.pgn_refresh(True)
         QTUtil.refresh_gui()
 
         self.check_boards_setposition()
@@ -382,7 +382,7 @@ class ManagerRoutesEndings(ManagerRoutes):
         li_options = [TB_CLOSE, TB_HELP]
         self.set_toolbar(li_options)
 
-        self.main_window.activaJuego(True, False, siAyudas=False)
+        self.main_window.active_game(True, False)
         self.main_window.remove_hints(True)
         self.set_dispatcher(self.player_has_moved)
         self.set_position(self.game.last_position)
@@ -391,7 +391,7 @@ class ManagerRoutesEndings(ManagerRoutes):
 
         self.ponWarnings()
 
-        self.pgnRefresh(True)
+        self.pgn_refresh(True)
         QTUtil.refresh_gui()
 
         self.check_boards_setposition()
@@ -603,14 +603,14 @@ class ManagerRoutesTactics(ManagerRoutes):
         li_options = [TB_CLOSE, TB_HELP]
         self.set_toolbar(li_options)
 
-        self.main_window.activaJuego(True, False, siAyudas=False)
+        self.main_window.active_game(True, False)
         self.main_window.remove_hints(True)
         self.set_dispatcher(self.player_has_moved)
         self.set_position(self.game.last_position)
         self.show_side_indicator(True)
         self.put_pieces_bottom(is_white)
         self.set_label2(route.mens_tactic(False))
-        self.pgnRefresh(True)
+        self.pgn_refresh(True)
         QTUtil.refresh_gui()
 
         self.check_boards_setposition()

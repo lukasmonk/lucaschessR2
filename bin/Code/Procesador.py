@@ -228,7 +228,7 @@ class Procesador:
         self.board.blindfoldQuitar()
         self.test_opcion_Adjournments()
         self.main_window.pon_toolbar(self.li_opciones_inicio, atajos=True)
-        self.main_window.activaJuego(False, False)
+        self.main_window.active_game(False, False)
         self.main_window.thinking(False)
         self.board.exePulsadoNum = None
         self.board.set_position(self.posicionInicial)
@@ -243,6 +243,7 @@ class Procesador:
     def start(self):
         Code.runSound.close()
         if self.manager:
+            self.manager.finManager()
             del self.manager
             self.manager = None
         self.reset()
@@ -1126,11 +1127,11 @@ class Procesador:
         return
 
     def train_position(self, position, n_posiciones, titentreno, li_entrenamientos, entreno, with_tutor, jump,
-                       remove_solutions, advanced):
+                       remove_solutions, show_comments, advanced):
         self.manager = ManagerEntPos.ManagerEntPos(self)
         self.manager.set_training(entreno)
         self.manager.start(position, n_posiciones, titentreno, li_entrenamientos, with_tutor, jump,
-                           remove_solutions, advanced)
+                           remove_solutions, show_comments, advanced)
 
     def playRoute(self, route):
         if route.state == Routes.BETWEEN:
@@ -1191,7 +1192,7 @@ class Procesador:
         self.entrenamientos.turn_on_lights(name)
 
     def playWashing(self):
-        ManagerWashing.managerWashing(self)
+        ManagerWashing.manager_washing(self)
 
     def showWashing(self):
         if WindowWashing.windowWashing(self):

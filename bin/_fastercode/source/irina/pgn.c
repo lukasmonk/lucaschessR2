@@ -309,6 +309,9 @@ int pgn_read(char * body, char * fen)
 
         if( to_18 )
         {
+            while( *c == ' ' ) c++;
+            if( *c == 'e' && *(c+1) == 'p' ) c+=2;
+
             to = (to_AH-'a') + (to_18-'1')*8;
 
             if(board.color)

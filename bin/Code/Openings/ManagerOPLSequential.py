@@ -71,13 +71,13 @@ class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
 
         self.tb_with_comments([TB_CLOSE, TB_HELP, TB_REINIT, TB_CONFIG])
 
-        self.main_window.activaJuego(True, False, siAyudas=False)
+        self.main_window.active_game(True, False)
         self.set_dispatcher(self.player_has_moved)
         self.set_position(self.game.last_position)
         self.show_side_indicator(True)
         self.remove_hints()
         self.put_pieces_bottom(self.is_human_side_white)
-        self.pgnRefresh(True)
+        self.pgn_refresh(True)
 
         self.show_info_extra()
 
@@ -157,7 +157,7 @@ class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
                 self.game_info["NOERROR"] -= 1
         self.game_info["NOERROR"] = max(0, self.game_info["NOERROR"])
 
-        self.pgnRefresh(self.is_human_side_white)
+        self.pgn_refresh(self.is_human_side_white)
 
         self.state = ST_ENDGAME
         self.calc_totalTiempo()

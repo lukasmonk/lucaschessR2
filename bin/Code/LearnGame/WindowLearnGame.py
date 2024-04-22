@@ -5,7 +5,7 @@ from PySide2 import QtWidgets, QtCore
 import Code
 from Code import Util
 from Code.Base import Game
-from Code.Base.Constantes import LI_BASIC_TAGS
+from Code.Base.Constantes import LI_BASIC_TAGS, WHITE, BLACK
 from Code.Board import Board
 from Code.Databases import WindowDatabase
 from Code.QT import Colocacion
@@ -350,19 +350,25 @@ class WLearn1(LCDialog.LCDialog):
         self.grid.refresh()
 
     def empezar(self):
-        reg_base = self.liIntentos[0] if self.liIntentos else {}
+        reg_base = self.liIntentos[-1] if self.liIntentos else {}
         dic = self.configuration.read_variables("MEMORIZING_GAME")
 
         form = FormLayout.FormLayout(self, _("New try"), Iconos.LearnGame(), anchoMinimo=300)
 
         form.separador()
         form.apart(_("Second board"))
-        form.spinbox(_("Movement displayed"), 0, len(self.game), 40, reg_base.get("LEVEL", 1))
+        label = _("Movement displayed")
+        label = f'{label}<br><small>{_("Disable")}=0'
+        form.spinbox(label, 0, len(self.game), 40, reg_base.get("LEVEL", 1))
         form.separador()
-
         form.apart(_("Side you play with"))
         form.checkbox(_("White"), "w" in reg_base.get("COLOR", "bw"))
         form.checkbox(_("Black"), "b" in reg_base.get("COLOR", "bw"))
+        form.separador()
+
+        form.apart(_("Board"))
+        li_options = ((_("White"), WHITE), (_("Black"), BLACK))
+        form.combobox(_("Side"), li_options, dic.get("BOARD_SIDE", WHITE))
 
         form.separador()
         form.checkbox(_("Show clock"), dic.get("CLOCK", True))
@@ -379,19 +385,21 @@ class WLearn1(LCDialog.LCDialog):
         black = li_resp[2]
         if not (white or black):
             return
-        si_clock = li_resp[3]
+        side = li_resp[3]
+        si_clock = li_resp[4]
 
+        dic["BOARD_SIDE"] = side
         dic["CLOCK"] = si_clock
         self.configuration.write_variables("MEMORIZING_GAME", dic)
 
-        w = WLearnPuente(self, self.game, level, white, black, si_clock)
+        w = WLearnPuente(self, self.game, level, white, black, side, si_clock)
         w.exec_()
 
 
 class WLearnPuente(LCDialog.LCDialog):
     INICIO, FINAL_JUEGO, REPLAY, REPLAY_CONTINUE = range(4)
 
-    def __init__(self, owner: WLearn1, game, nivel, white, black, siClock):
+    def __init__(self, owner: WLearn1, game, nivel, white, black, side, siClock):
 
         LCDialog.LCDialog.__init__(self, owner, owner.label(), Iconos.PGN(), "learnpuente")
 
@@ -417,6 +425,8 @@ class WLearnPuente(LCDialog.LCDialog):
 
         self.boardIni = Board.Board(self, config_board)
         self.boardIni.crea()
+        if side == BLACK:
+            self.boardIni.set_side_bottom(BLACK)
         self.boardIni.set_dispatcher(self.player_has_moved, None)
         self.lbIni = (
             Controles.LB(self)
@@ -429,6 +439,8 @@ class WLearnPuente(LCDialog.LCDialog):
         if self.nivel > 0:
             self.boardFin = Board.BoardEstatico(self, config_board)
             self.boardFin.crea()
+            if side == BLACK:
+                self.boardFin.set_side_bottom(BLACK)
             self.lbFin = (
                 Controles.LB(self)
                 .align_center()
@@ -671,7 +683,7 @@ class WLearnPuente(LCDialog.LCDialog):
         move = self.game.move(self.movActual)
 
         # Peon coronando
-        if not promotion and move.position_before.siPeonCoronando(from_sq, to_sq):
+        if not promotion and move.position_before.pawn_can_promote(from_sq, to_sq):
             promotion = self.boardIni.peonCoronando(move.position_before.is_white)
 
         if from_sq == move.from_sq and to_sq == move.to_sq and promotion.lower() == move.promotion.lower():
@@ -717,7 +729,9 @@ class WLearnPuente(LCDialog.LCDialog):
 
         self.pon_toolbar(self.FINAL_JUEGO)
 
-        QTUtil2.temporary_message(self, _("Ended"), 1.3)
+        texto = ('<hr><center><span style="color: red; font-weight: bold;'
+                 ' font-size: 18pt;">%s</center><hr>') % _("Ended") + self.lbInfo.text()
+        self.lbInfo.set_text(texto)
 
     def final(self):
         self.deactivate_eboard(500)

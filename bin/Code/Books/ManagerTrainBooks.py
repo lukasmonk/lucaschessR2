@@ -44,7 +44,7 @@ class ManagerTrainBooks(Manager.Manager):
         self.is_book_side_white = not is_white
 
         self.set_toolbar((TB_CLOSE, TB_REINIT, TB_TAKEBACK, TB_HELP, TB_CONFIG, TB_UTILITIES))
-        self.main_window.activaJuego(True, False, siAyudas=False)
+        self.main_window.active_game(True, False)
         self.set_dispatcher(self.play_human)
         self.set_position(self.game.last_position)
         self.show_side_indicator(True)
@@ -52,7 +52,7 @@ class ManagerTrainBooks(Manager.Manager):
         self.put_pieces_bottom(is_white)
         self.set_label1("%s: %s" % (_("Player"), self.book_player.name))
         self.set_label2("%s: %s" % (_("Opponent"), self.book_rival.name))
-        self.pgnRefresh(True)
+        self.pgn_refresh(True)
         self.show_info_extra()
 
         self.state = ST_PLAYING
@@ -310,7 +310,7 @@ class ManagerTrainBooks(Manager.Manager):
 
         self.check_boards_setposition()
 
-        self.pgnRefresh(self.game.last_position.is_white)
+        self.pgn_refresh(self.game.last_position.is_white)
         self.refresh()
 
     def takeback(self):

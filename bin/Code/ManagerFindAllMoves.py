@@ -28,13 +28,6 @@ class ControlFindAllMoves:
             for level in range(len(self.db)):
                 self.liPuntos.append([0, 0])
 
-        # import random
-        # self.liPuntos = []
-        # for level in range(len(self.db)):
-        #     self.liPuntos.append([0, 0])
-        # for level in range(59):
-        #     self.liPuntos[level][0] = random.randint(150, 450)*(level+1)
-
     def guardar(self):
         Util.save_pickle(self.fichPuntos, self.liPuntos)
 
@@ -138,14 +131,14 @@ class ManagerFindAllMoves(Manager.Manager):
 
         self.finJuego()
 
-        self.main_window.activaJuego(True, False, siAyudas=False)
+        self.main_window.active_game(True, False)
         self.remove_hints(True, False)
         self.main_window.set_label1(None)
         self.main_window.set_label2(None)
         self.show_side_indicator(False)
         self.put_pieces_bottom(True)
         self.set_dispatcher(self.player_has_moved)
-        self.pgnRefresh(True)
+        self.pgn_refresh(True)
         self.main_window.base.pgn.gotop()
         self.main_window.board.siPosibleRotarBoard = False
 
@@ -186,7 +179,7 @@ class ManagerFindAllMoves(Manager.Manager):
                         _("Are you sure you want to delete all results of all levels and start again from scratch?"),
                 ):
                     self.pgn.remove_all()
-                    self.pgnRefresh(True)
+                    self.pgn_refresh(True)
                     self.main_window.base.pgn.gotop()
                     self.ponRotulotm()
 

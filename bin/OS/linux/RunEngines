@@ -42,7 +42,7 @@ echo ">> K2" && chmod 755 ./Engines/k2/K2-0.99
 echo ">> Komodo" && chmod 755 ./Engines/komodo/dragon-linux
 echo ">> Komodo" && chmod 755 ./Engines/komodo/dragon-linux-avx2
 echo ">> Laser" && chmod 755 ./Engines/laser/Laser-1.17
-echo ">> Lc0" && chmod 755 ./Engines/lc0/Lc0-0.27.0
+echo ">> Lc0" && chmod 755 ./Engines/lc0/Lc0-0.32.0
 echo ">> Maia" && chmod 755 ./Engines/maia/Lc0-0.27.0
 echo ">> Marvin" && chmod 755 ./Engines/marvin/Marvin-5.0.0
 echo ">> Monochrome" && chmod 755 ./Engines/monochrome/Monochrome

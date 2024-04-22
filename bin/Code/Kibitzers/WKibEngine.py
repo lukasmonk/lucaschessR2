@@ -1,6 +1,5 @@
 import time
 
-import psutil
 from PySide2 import QtCore
 
 from Code import Util
@@ -144,25 +143,11 @@ class WKibEngine(WKibCommon.WKibCommon):
         self.pause()
         w = WindowKibitzers.WKibitzerLive(self, self.cpu.configuration, self.cpu.numkibitzer)
         if w.exec_():
-            xprioridad = w.result_xprioridad
-            if xprioridad is not None:
-                pid = self.engine.process.pid
-                p = psutil.Process(pid)
-                p.nice(xprioridad)
-            self.kibitzer.prioridad = self.cpu.kibitzer.prioridad = xprioridad
-            self.kibitzer.pointofview = self.cpu.kibitzer.pointofview = w.result_xpointofview
-            self.kibitzer.max_time = self.cpu.kibitzer.max_time = w.result_max_time
-            if w.result_opciones:
-                for opcion, valor in w.result_opciones:
-                    if valor is None:
-                        orden = "setoption name %s" % opcion
-                    else:
-                        if type(valor) == bool:
-                            valor = str(valor).lower()
-                        orden = "setoption name %s value %s" % (opcion, valor)
-                    self.engine.put_line(orden)
-            self.cpu.reprocesa()
+            self.kibitzer = self.cpu.reset_kibitzer()
+            self.engine.close()
+            self.engine = self.launch_engine()
         self.play()
+        self.grid.refresh()
 
     def stop(self):
         self.engine.ac_final(0)
@@ -181,7 +166,7 @@ class WKibEngine(WKibCommon.WKibCommon):
             p.read_pv(rm.movimiento())
             if len(p) > 0:
                 move: Move.Move = p.li_moves[0]
-                resp = move.pgnFigurinesSP() if self.with_figurines else move.pgn_translated()
+                resp = move.pgn_figurines() if self.with_figurines else move.pgn_translated()
                 if self.with_figurines:
                     is_white = self.game.last_position.is_white
                     return resp, is_white, None, None, None, None, False, True

@@ -47,6 +47,7 @@ class RunSound:
                 return
 
     def play_key(self, key, start=True):
+        played = False
         if key not in self.dic_sounds:
             name_wav = self.relations[key]["WAV_KEY"] + ".wav"
             path_wav = Util.opj(Code.configuration.carpeta_sounds(), name_wav)
@@ -56,9 +57,10 @@ class RunSound:
                 wf.close()
                 qsound = QtMultimedia.QSound(path_wav)
                 self.dic_sounds[key] = (qsound, seconds)
+                played = True
             else:
                 self.dic_sounds[key] = (None, 0)
-                return
+                return False
         else:
             seconds = self.dic_sounds[key][1]
 
@@ -66,6 +68,9 @@ class RunSound:
             self.queue.put(key)
             if start:
                 self.siguiente()
+            return True
+
+        return played
 
     def write_sounds(self):
         configuration = Code.configuration
@@ -111,14 +116,16 @@ class RunSound:
         self.queue = queue.Queue()
 
     def play_list(self, li):
+        played = False
         for key in li:
-            self.play_key(key, False)
+            played = played or self.play_key(key, False)
         if self.queue:
             self.working = True
             self.siguiente()
+        return played
 
     def playZeitnot(self):
-        self.play_key("ZEITNOT")
+        return self.play_key("ZEITNOT")
 
     def playError(self):
         self.play_key("ERROR")

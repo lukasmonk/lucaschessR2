@@ -30,6 +30,7 @@ from Code.Voyager import Voyager
 
 
 class ManagerGame(Manager.Manager):
+    dic_rival = None
     def start(self, game, is_complete, only_consult, with_previous_next, save_routine):
         self.game_type = GT_GAME
 
@@ -47,7 +48,7 @@ class ManagerGame(Manager.Manager):
 
         self.state = ST_PLAYING
 
-        self.main_window.activaJuego(True, False, siAyudas=False)
+        self.main_window.active_game(True, False)
         self.remove_hints(True, False)
         self.main_window.set_label1(None)
         self.main_window.set_label2(None)
@@ -219,7 +220,7 @@ class ManagerGame(Manager.Manager):
         self.put_arrow_sc(move.from_sq, move.to_sq)
         self.beepExtendido(siNuestra)
 
-        self.pgnRefresh(self.game.last_position.is_white)
+        self.pgn_refresh(self.game.last_position.is_white)
         self.refresh()
 
     def informacion(self):
@@ -386,13 +387,13 @@ class ManagerGame(Manager.Manager):
                 self.player_has_moved(rm.from_sq, rm.to_sq, rm.promotion)
 
     def change_rival(self):
-        if self.dicRival:
-            dicBase = self.dicRival
+        if self.dic_rival:
+            dic_base = self.dic_rival
         else:
-            dicBase = self.configuration.read_variables("ENG_MANAGERSOLO")
+            dic_base = self.configuration.read_variables("ENG_MANAGERSOLO")
 
-        dic = self.dicRival = WPlayAgainstEngine.change_rival(
-            self.main_window, self.configuration, dicBase, is_create_own_game=True
+        dic = self.dic_rival = WPlayAgainstEngine.change_rival(
+            self.main_window, self.configuration, dic_base, is_create_own_game=True
         )
 
         if dic:

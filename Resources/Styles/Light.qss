@@ -286,7 +286,7 @@ QComboBox
     border-radius: 3px;
     padding-left: 6px;
     color: #000000;
-    height: 20px;
+    /*height: 20px;*/
 }
 
 QComboBox::drop-down

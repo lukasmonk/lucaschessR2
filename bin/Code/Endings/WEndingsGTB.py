@@ -527,7 +527,7 @@ class WEndingsGTB(LCDialog.LCDialog):
         movimiento = from_sq + to_sq
 
         # Peon coronando
-        if not promotion and self.game.last_position.siPeonCoronando(from_sq, to_sq):
+        if not promotion and self.game.last_position.pawn_can_promote(from_sq, to_sq):
             promotion = self.board.peonCoronando(self.game.last_position.is_white)
         if promotion:
             movimiento += promotion

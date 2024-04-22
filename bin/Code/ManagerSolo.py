@@ -78,13 +78,13 @@ class ManagerSolo(Manager.Manager):
 
         self.pon_toolbar()
 
-        self.main_window.activaJuego(True, False, siAyudas=False)
+        self.main_window.active_game(True, False)
         self.remove_hints(True, False)
         self.main_window.set_label1(dic.get("ROTULO1", None))
         self.pon_rotulo()
         self.set_dispatcher(self.player_has_moved)
         self.show_side_indicator(True)
-        self.pgnRefresh(True)
+        self.pgn_refresh(True)
         self.show_info_extra()
 
         self.check_boards_setposition()
@@ -235,7 +235,7 @@ class ManagerSolo(Manager.Manager):
         self.put_arrow_sc(move.from_sq, move.to_sq)
         self.beepExtendido(siNuestra)
 
-        self.pgnRefresh(self.game.last_position.is_white)
+        self.pgn_refresh(self.game.last_position.is_white)
         self.refresh()
 
     def show_result(self):
@@ -494,7 +494,7 @@ class ManagerSolo(Manager.Manager):
 
         elif resp == "opening":
             me = self.one_moment_please()
-            w = WindowOpenings.WOpenings(self.main_window, self.configuration, self.opening_block)
+            w = WindowOpenings.WOpenings(self.main_window, self.opening_block)
             me.final()
             if w.exec_():
                 self.opening_block = w.resultado()
@@ -608,18 +608,23 @@ class ManagerSolo(Manager.Manager):
             self.main_window, self.game.first_position
         )
         if position is not None:
-            self.board.set_side_bottom(is_white_bottom)
-            self.game = Game.Game(first_position=position, li_tags=self.game.li_tags)
-            self.game.set_tag("FEN", None if self.game.is_fen_initial() else position.fen())
-            self.state = ST_PLAYING
-            self.game.order_tags()
-            self.xfichero = None
-            self.xpgn = None
-            self.xjugadaInicial = None
-            self.opening_block = None
-            self.board.activate_side(position.is_white)
+            self.set_current_position(is_white_bottom, position)
 
-            self.reiniciar()
+    def set_current_position(self, is_white, position):
+        self.board.set_side_bottom(is_white)
+        self.game = Game.Game(first_position=position, li_tags=self.game.li_tags)
+        self.game.set_tag("FEN", None if self.game.is_fen_initial() else position.fen())
+        self.state = ST_PLAYING
+        self.game.order_tags()
+        self.xfichero = None
+        self.xpgn = None
+        self.xjugadaInicial = None
+        self.opening_block = None
+        self.board.activate_side(position.is_white)
+        self.reiniciar()
+
+    def setup_board_live(self, is_white, position):
+        self.set_current_position(is_white, position)
 
     def paste(self, texto):
         try:
@@ -645,7 +650,7 @@ class ManagerSolo(Manager.Manager):
     def play_rival(self):
         if not self.is_finished():
             self.thinking(True)
-            rm = self.xrival.play_game(self.game, adjusted=self.xrival.nAjustarFuerza)
+            rm = self.xrival.play_game(self.game)
             self.thinking(False)
             if rm.from_sq:
                 self.player_has_moved(rm.from_sq, rm.to_sq, rm.promotion)
@@ -668,8 +673,8 @@ class ManagerSolo(Manager.Manager):
             rival = dr["CM"]
             if hasattr(rival, "icono"):
                 delattr(rival, "icono")  # problem with configuration.write_variables and saving qt variables
-            r_t = dr["TIME"] * 100  # Se guarda en decimas -> milesimas
-            r_p = dr["DEPTH"]
+            r_t = dr["ENGINE_TIME"] * 100  # Se guarda en decimas -> milesimas
+            r_p = dr["ENGINE_DEPTH"]
             if r_t <= 0:
                 r_t = None
             if r_p <= 0:
@@ -677,9 +682,11 @@ class ManagerSolo(Manager.Manager):
             if r_t is None and r_p is None and not dic.get("SITIEMPO", False):
                 r_t = 1000
 
-            n_ajustar_fuerza = dic["ADJUST"]
-            self.xrival = self.procesador.creaManagerMotor(rival, r_t, r_p, n_ajustar_fuerza != ADJUST_BETTER)
-            self.xrival.nAjustarFuerza = n_ajustar_fuerza
+            nodes = dr.get("ENGINE_NODES", 0)
+
+            self.xrival = self.procesador.creaManagerMotor(rival, r_t, r_p, ADJUST_BETTER)
+            if nodes:
+                self.xrival.set_nodes(nodes)
 
             dic["ROTULO1"] = _("Opponent") + ": <b>" + self.xrival.name
             self.set_label1(dic["ROTULO1"])

@@ -61,13 +61,13 @@ class ManagerOpeningLinesPositions(ManagerOPL.ManagerOpeningLines):
         self.dic_comments = self.dbop.dic_fen_comments()
 
         self.tb_with_comments([TB_CLOSE, TB_HELP, TB_CONFIG])
-        self.main_window.activaJuego(True, False, siAyudas=False)
+        self.main_window.active_game(True, False)
         self.set_dispatcher(self.player_has_moved)
         self.set_position(cp)
         self.show_side_indicator(True)
         self.remove_hints()
         self.put_pieces_bottom(self.is_human_side_white)
-        self.pgnRefresh(True)
+        self.pgn_refresh(True)
 
         self.show_info_extra()
 

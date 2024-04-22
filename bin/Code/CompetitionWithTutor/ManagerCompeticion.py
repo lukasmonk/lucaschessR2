@@ -66,7 +66,7 @@ class ManagerCompeticion(Manager.Manager):
         self.is_maia = self.xrival.name.lower().startswith("maia")
 
         self.set_toolbar((TB_CANCEL, TB_RESIGN, TB_TAKEBACK, TB_REINIT, TB_ADJOURN, TB_CONFIG, TB_UTILITIES))
-        self.main_window.activaJuego(True, False)
+        self.main_window.active_game(True, False)
         self.set_dispatcher(self.player_has_moved)
         self.set_position(self.game.last_position)
         self.put_pieces_bottom(is_white)
@@ -78,7 +78,7 @@ class ManagerCompeticion(Manager.Manager):
         self.set_label1(label)
         self.xrotulo2()
 
-        self.pgnRefresh(True)
+        self.pgn_refresh(True)
         self.show_info_extra()
 
         self.game.set_tag("Event", _("Competition with tutor"))
@@ -397,7 +397,7 @@ class ManagerCompeticion(Manager.Manager):
 
         self.ponAyudas(self.hints)
 
-        self.pgnRefresh(self.game.last_position.is_white)
+        self.pgn_refresh(self.game.last_position.is_white)
         self.refresh()
 
     def rival_has_moved(self, engine_response):

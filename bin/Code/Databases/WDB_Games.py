@@ -571,7 +571,7 @@ class WGames(QtWidgets.QWidget):
         def opening():
             me = QTUtil2.one_moment_please(self.wb_database)
 
-            w = WindowOpenings.WOpenings(self.wb_database, self.configuration, self.last_opening)
+            w = WindowOpenings.WOpenings(self.wb_database, self.last_opening)
             me.final()
             if w.exec_():
                 self.last_opening = ap = w.resultado()
@@ -780,8 +780,8 @@ class WGames(QtWidgets.QWidget):
                 position.read_fen(fen)
 
                 board.set_position(position)
-                if board.is_white_bottom != position.is_white:
-                    board.rotaBoard()
+                # if board.is_white_bottom != position.is_white:
+                #     board.rotaBoard()
                 path_img = self.configuration.ficheroTemporal("png")
                 board.save_as_img(path_img, "png", False, True)
 
@@ -790,7 +790,8 @@ class WGames(QtWidgets.QWidget):
                 cell = odt_doc.add_cell(row)
                 odt_doc.add_png(path_img, 6.6, align_center=True, parent=cell)
                 odt_doc.add_linebreak(parent=cell)
-                odt_doc.add_paragraph("%3d ___________________________" % (posx + 1,), align_center=True,
+                side = "_" if position.is_white else '■'
+                odt_doc.add_paragraph(f"{posx+1:3d} {side}___________________________", align_center=True,
                                       parent=cell)
                 odt_doc.add_linebreak(parent=cell)
 

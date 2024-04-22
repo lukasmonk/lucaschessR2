@@ -156,10 +156,10 @@ class Configuration:
         self.x_director_icon = False
         self.x_direct_graphics = False
 
-        self.x_sizefont_infolabels = 11
+        self.x_sizefont_infolabels = 14
 
         self.x_pgn_width = 348
-        self.x_pgn_fontpoints = 10
+        self.x_pgn_fontpoints = 11
         self.x_pgn_rowheight = 24
         self.x_pgn_withfigurines = True
 
@@ -170,7 +170,7 @@ class Configuration:
         self.x_copy_ctrl = True  # False = Alt C
 
         self.x_font_family = ""
-        self.x_font_points = 10
+        self.x_font_points = 11
 
         self.x_menu_points = 11
         self.x_menu_bold = False
@@ -401,7 +401,7 @@ class Configuration:
         self.lee()
         self.relee_engines()
         self.rival = self.buscaRival(self.x_rival_inicial)
-        self.leeConfBoards()
+        self.read_conf_boards()
 
     def changeActiveFolder(self, nueva):
         change_folder(nueva)
@@ -698,6 +698,7 @@ class Configuration:
         TrListas.pon_pieces_lng(self.x_pgn_english or self.translator() == "en")
 
         Code.analysis_eval = AnalysisEval.AnalysisEval()
+        Code.factor_big_fonts = max(1.0, self.x_font_points / 11)
 
         IconosBase.icons.reset(self.x_style_icons)
 
@@ -969,7 +970,7 @@ class Configuration:
     def change_theme_num(self, num):
         self.__theme_num = num
 
-    def leeConfBoards(self):
+    def read_conf_boards(self):
         with UtilSQL.DictSQL(self.ficheroConfBoards) as db:
             self.dic_conf_boards_pk = db.as_dictionary()
             if not ("BASE" in self.dic_conf_boards_pk):
@@ -1005,7 +1006,7 @@ class Configuration:
         db = UtilSQL.DictSQL(self.ficheroConfBoards)
         del db[key]
         db.close()
-        self.leeConfBoards()
+        self.read_conf_boards()
         return self.config_board(key, tamDef)
 
     def cambiaConfBoard(self, config_board):
@@ -1014,7 +1015,7 @@ class Configuration:
             db = UtilSQL.DictSQL(self.ficheroConfBoards)
             self.dic_conf_boards_pk[xid] = db[xid] = config_board.graba()
             db.close()
-            self.leeConfBoards()
+            self.read_conf_boards()
 
     def config_board(self, xid, tam_def, padre="BASE"):
         if xid == "BASE":

@@ -141,7 +141,7 @@ class TreeMoves(QtWidgets.QTreeWidget):
         self.setAlternatingRowColors(True)
         self.listaMoves = owner.listaMoves
         self.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
-        self.customContextMenuRequested.connect(self.menuContexto)
+        self.customContextMenuRequested.connect(self.menu_context)
 
         self.setHeaderLabels((_("Moves"), "", _("Games"), "", ""))
         self.setColumnHidden(3, True)
@@ -193,9 +193,9 @@ class TreeMoves(QtWidgets.QTreeWidget):
                 self.owner.resize(self.owner.width() + dif, self.owner.height())
                 self.owner.splitter.setSizes(sz)
 
-    def menuContexto(self, position):
-        if hasattr(self.owner.wmoves, "menuContexto"):
-            self.owner.wmoves.menuContexto()
+    def menu_context(self, position):
+        if hasattr(self.owner.wmoves, "menu_context"):
+            self.owner.wmoves.menu_context()
 
     def goto(self, mov):
         mov = mov.listaMovesPadre.buscaMovVisibleDesde(mov)

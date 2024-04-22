@@ -110,8 +110,8 @@ class BotonImagen(Colocacion.H):
 
             pm = QtGui.QPixmap()
             png = base64.b64decode(png64)
-
             pm.loadFromData(QtCore.QByteArray(png))
+            # pm.save("c:/temp/m.png", "png")
             icono = QtGui.QIcon(pm)
             self.btImagen.ponPlano(True)
             self.btImagen.set_text("")
@@ -238,6 +238,8 @@ class WBoardColors(LCDialog.LCDialog):
         self.configuration = Code.configuration
         self.config_board = boardOriginal.config_board.copia(boardOriginal.config_board._id)
         self.is_base = boardOriginal.config_board._id == "BASE"
+
+        factor_big_fonts = Code.factor_big_fonts
 
         # Temas #######################################################################################################
         li_options = [(_("Your themes"), self.configuration.ficheroTemas)]
@@ -410,24 +412,25 @@ class WBoardColors(LCDialog.LCDialog):
         l2mas1(lyG, 2, None, self.chbBold, self.chbDefBold)
 
         # _tamLetra
-        lbTamLetra = crea_lb(_("Size") + " %")
+        lb_tam_letra = crea_lb(_("Size") + " %")
         self.sbTamLetra = (
-            Controles.SB(self, self.config_board.tamLetra(), 1, 200).tamMaximo(50).capture_changes(self.actualizaBoardM)
+            Controles.SB(self, self.config_board.tamLetra(), 1, 200).tamMaximo(50 * factor_big_fonts)
+            .capture_changes(self.actualizaBoardM)
         )
         self.chbDefTamLetra = xDefecto(self.config_board.siDefTamLetra())
-        l2mas1(lyG, 3, lbTamLetra, self.sbTamLetra, self.chbDefTamLetra)
+        l2mas1(lyG, 3, lb_tam_letra, self.sbTamLetra, self.chbDefTamLetra)
 
         # _sepLetras
-        lbSepLetras = crea_lb(_("Separation") + " %")
+        lb_sep_letras = crea_lb(_("Separation") + " %")
         self.sbSepLetras = (
             Controles.SB(self, self.config_board.sepLetras(), -1000, 1000)
-            .tamMaximo(50)
+            .tamMaximo(50 * factor_big_fonts)
             .capture_changes(self.actualizaBoardM)
         )
         self.chbDefSepLetras = xDefecto(self.config_board.siDefSepLetras())
-        l2mas1(lyG, 4, lbSepLetras, self.sbSepLetras, self.chbDefSepLetras)
+        l2mas1(lyG, 4, lb_sep_letras, self.sbSepLetras, self.chbDefSepLetras)
 
-        gbCoordenadas = Controles.GB(self, _("Coordinates"), lyG)
+        gb_coordenadas = Controles.GB(self, _("Coordinates"), lyG)
 
         ly_otros = Colocacion.G()
         # _nomPiezas
@@ -442,35 +445,35 @@ class WBoardColors(LCDialog.LCDialog):
         l2mas1(ly_otros, 0, lbPiezas, self.cbPiezas, self.chbDefPiezas)
 
         # _tamRecuadro
-        lbTamRecuadro = crea_lb(_("Outer Border Size") + " %")
+        lb_tam_recuadro = crea_lb(_("Outer Border Size") + " %")
         self.sbTamRecuadro = (
             Controles.SB(self, self.config_board.tamRecuadro(), 0, 10000)
-            .tamMaximo(50)
+            .tamMaximo(50 * factor_big_fonts)
             .capture_changes(self.actualizaBoardM)
         )
         self.chbDefTamRecuadro = xDefecto(self.config_board.siDefTamRecuadro())
-        l2mas1(ly_otros, 1, lbTamRecuadro, self.sbTamRecuadro, self.chbDefTamRecuadro)
+        l2mas1(ly_otros, 1, lb_tam_recuadro, self.sbTamRecuadro, self.chbDefTamRecuadro)
 
         # _tamFrontera
-        lbTamFrontera = crea_lb(_("Inner Border Size") + " %")
+        lb_tam_frontera = crea_lb(_("Inner Border Size") + " %")
         self.sbTamFrontera = (
             Controles.SB(self, self.config_board.tamFrontera(), 0, 10000)
-            .tamMaximo(50)
+            .tamMaximo(50 * factor_big_fonts)
             .capture_changes(self.actualizaBoardM)
         )
         self.chbDefTamFrontera = xDefecto(self.config_board.siDefTamFrontera())
-        l2mas1(ly_otros, 2, lbTamFrontera, self.sbTamFrontera, self.chbDefTamFrontera)
+        l2mas1(ly_otros, 2, lb_tam_frontera, self.sbTamFrontera, self.chbDefTamFrontera)
 
         # _opacitySideIndicator
-        lbSideIndicator = crea_lb(_("Playing side indicator transparency"))
+        lb_side_indicator = crea_lb(_("Playing side indicator transparency"))
         self.dialSideIndicatorTrans = Slider(self, self.config_board.transSideIndicator, self.actualizaBoard)
-        ly_h = Colocacion.H().control(lbSideIndicator).otro(self.dialSideIndicatorTrans)
+        ly_h = Colocacion.H().control(lb_side_indicator).otro(self.dialSideIndicatorTrans)
         ly_otros.otro(ly_h, 3, 0)
 
-        ly = Colocacion.V().control(gbCoordenadas).espacio(50).otro(ly_otros).relleno()
+        ly = Colocacion.V().control(gb_coordenadas).espacio(50).otro(ly_otros).relleno()
 
-        gbOtros = Controles.GB(self, "", ly)
-        gbOtros.setFlat(True)
+        gb_otros = Controles.GB(self, "", ly)
+        gb_otros.setFlat(True)
 
         # Board #####################################################################################################
         cp = Position.Position().read_fen("2kr1b1r/2p1pppp/p7/3pPb2/1q3P2/2N1P3/PPP3PP/R1BQK2R w KQ - 0 1")
@@ -502,7 +505,7 @@ class WBoardColors(LCDialog.LCDialog):
 
         self.tab = Controles.Tab()
         self.tab.new_tab(gbTemas, _("Themes"))
-        self.tab.new_tab(gbOtros, _("Other options"))
+        self.tab.new_tab(gb_otros, _("Other options"))
         ly = Colocacion.H().otro(lyT).control(self.tab).margen(3)
 
         self.setLayout(ly)

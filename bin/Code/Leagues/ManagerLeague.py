@@ -127,7 +127,7 @@ class ManagerLeague(Manager.Manager):
 
         self.pon_toolbar()
 
-        self.main_window.activaJuego(True, self.timed)
+        self.main_window.active_game(True, self.timed)
 
         self.set_dispatcher(self.player_has_moved)
         self.set_position(self.game.last_position)
@@ -137,7 +137,7 @@ class ManagerLeague(Manager.Manager):
 
         self.show_info_extra()
 
-        self.pgnRefresh(True)
+        self.pgn_refresh(True)
 
         bl = opponent_w.name()
         ng = opponent_b.name()
@@ -309,7 +309,7 @@ class ManagerLeague(Manager.Manager):
         self.show_clocks()
         self.xrival.check_engine()
         self.start_message()
-        self.pgnRefresh(not self.is_engine_side_white)
+        self.pgn_refresh(not self.is_engine_side_white)
         self.play_next_move()
 
     def xpause(self):
@@ -393,7 +393,7 @@ class ManagerLeague(Manager.Manager):
                 self.premove = from_sq, to_sq
         if self.premove:
             from_sq, to_sq = self.premove
-            promotion = "q" if self.game.last_position.siPeonCoronando(from_sq, to_sq) else None
+            promotion = "q" if self.game.last_position.pawn_can_promote(from_sq, to_sq) else None
             ok, error, move = Move.get_game_move(
                 self.game, self.game.last_position, self.premove[0], self.premove[1], promotion
             )
@@ -499,7 +499,7 @@ class ManagerLeague(Manager.Manager):
 
         self.put_arrow_sc(move.from_sq, move.to_sq)
 
-        self.pgnRefresh(self.game.last_position.is_white)
+        self.pgn_refresh(self.game.last_position.is_white)
 
         self.refresh()
 

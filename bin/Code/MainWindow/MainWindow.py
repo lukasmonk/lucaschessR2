@@ -309,8 +309,8 @@ class MainWindow(LCDialog.LCDialog):
     def set_title_toolbar_eboard(self):
         self.base.set_title_toolbar_eboard()
 
-    def pgnRefresh(self, is_white):
-        self.base.pgnRefresh()
+    def pgn_refresh(self, is_white):
+        self.base.pgn_refresh()
         self.base.pgn.gobottom(2 if is_white else 1)
 
     def pgnColocate(self, fil, is_white):
@@ -366,8 +366,8 @@ class MainWindow(LCDialog.LCDialog):
     def put_informationPGN(self, game, move, opening):
         self.informacionPGN.set_move(game, move, opening)
 
-    def activaJuego(self, siActivar=True, siReloj=False, siAyudas=None):
-        self.base.activaJuego(siActivar, siReloj, siAyudas)
+    def active_game(self, si_activar, si_reloj):
+        self.base.active_game(si_activar, si_reloj)
         if not self.board.siF11:
             self.ajustaTamH()
 

@@ -57,6 +57,9 @@ class CPU:
         self.engine = None
         self.orden = None
 
+        self.kibitzer = None
+        self.prioridad = None
+
     def run(self):
         # Primero espera la orden de lucas
         while True:
@@ -80,6 +83,21 @@ class CPU:
     def reprocesa(self):
         self.procesa(self.orden)
 
+    def reset_kibitzer(self):
+        kibitzers = Kibitzers.Kibitzers()
+        self.kibitzer = kibitzers.kibitzer(self.numkibitzer)
+        prioridad = self.kibitzer.prioridad
+
+        priorities = Priorities.priorities
+
+        if prioridad != priorities.normal:
+            self.prioridad = priorities.value(prioridad)
+        else:
+            self.prioridad = None
+
+        self.titulo = self.kibitzer.name
+        return self.kibitzer
+
     def procesa(self, orden):
         self.orden = orden
         key = orden.key
@@ -87,7 +105,7 @@ class CPU:
             user = orden.dv["USER"]
             self.configuration = Configuration.Configuration(user)
             self.configuration.lee()
-            self.configuration.leeConfBoards()
+            self.configuration.read_conf_boards()
             self.configuration.relee_engines()
             OpeningsStd.ap.reset()
 

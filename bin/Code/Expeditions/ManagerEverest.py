@@ -44,7 +44,7 @@ class ManagerEverest(Manager.Manager):
 
         self.set_toolbar((TB_CANCEL, TB_CONFIG))
 
-        self.main_window.activaJuego(True, False, siAyudas=False)
+        self.main_window.active_game(True, False)
         self.remove_hints(True, True)
 
         self.set_dispatcher(self.player_has_moved)
@@ -54,7 +54,7 @@ class ManagerEverest(Manager.Manager):
         self.set_label1(self.expedition.label())
         self.set_label2("")
 
-        self.pgnRefresh(True)
+        self.pgn_refresh(True)
         self.show_info_extra()
         self.check_boards_setposition()
 
@@ -116,7 +116,7 @@ class ManagerEverest(Manager.Manager):
         self.book = Opening.OpeningPol(999)
         self.state = ST_PLAYING
         self.board.set_position(self.game.first_position)
-        self.pgnRefresh(True)
+        self.pgn_refresh(True)
         self.check_boards_setposition()
         self.analyze_end()
         self.terminaNoContinuo()
@@ -361,7 +361,7 @@ class ManagerEverest(Manager.Manager):
         self.put_arrow_sc(move.from_sq, move.to_sq)
         self.beepExtendido(siNuestra)
 
-        self.pgnRefresh(self.game.last_position.is_white)
+        self.pgn_refresh(self.game.last_position.is_white)
 
     def put_result(self):
         self.analizaTerminar()

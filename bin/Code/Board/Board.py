@@ -12,7 +12,7 @@ from PySide2.QtCore import Qt
 import Code
 import Code.Board.WBoardColors as WBoardColors
 from Code import Util, XRun
-from Code.Base import Game
+from Code.Base import Game, Position
 from Code.Base.Constantes import (
     WHITE,
     BLACK,
@@ -963,7 +963,7 @@ class Board(QtWidgets.QGraphicsView):
             nom_pieces_ori = self.config_board.nomPiezas()
             Code.all_pieces.save_all_png(nom_pieces_ori, 30)
             Delegados.genera_pm(self.piezas)
-            self.main_window.pgnRefresh()
+            self.main_window.pgn_refresh()
             if hasattr(self.main_window.manager, "put_view"):
                 self.main_window.manager.put_view()
 
@@ -2446,6 +2446,16 @@ class Board(QtWidgets.QGraphicsView):
                 return self.try_eboard_takeback(BLACK)
 
             elif quien == "stableBoard":
+                return 1
+
+            elif quien in ("stopSetupWTM", "stopSetupBTM"):
+                if hasattr(self.main_window, "manager") and hasattr(self.main_window.manager, "setup_board_live"):
+                    side = "w" if "W" in quien else "b"
+                    fen = f"{a1h8} {side} KQkq - 0 1"
+                    position = Position.Position()
+                    position.read_fen(fen)
+                    position.legal()
+                    self.main_window.manager.setup_board_live(side=="w", position)
                 return 1
 
             else:

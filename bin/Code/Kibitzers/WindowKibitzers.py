@@ -83,7 +83,7 @@ class WKibitzers(LCDialog.LCDialog):
         o_columns.nueva("CAMPO", _("Label"), 152, align_right=True)
         o_columns.nueva("VALOR", _("Value"), 390, edicion=Delegados.MultiEditor(self))
         self.grid_values = Grid.Grid(self, o_columns, siSelecFilas=False, xid="val", is_editable=True)
-        self.grid_values.font_type(puntos=self.configuration.x_pgn_fontpoints)
+        # self.grid_values.font_type(puntos=self.configuration.x_pgn_fontpoints)
         self.register_grid(self.grid_values)
 
         w = QtWidgets.QWidget()
@@ -296,7 +296,7 @@ class WKibitzers(LCDialog.LCDialog):
         form.float("%s (0=%s)" % (_("Fixed time in seconds"), _("all the time thinking")), 0.0)
         form.separador()
 
-        form.editbox(_("Fixed depth"), ancho=30, tipo=int, init_value=0)
+        form.editbox(_("Fixed depth"), ancho=30 * Code.factor_big_fonts, tipo=int, init_value=0)
         form.separador()
 
         resultado = form.run()

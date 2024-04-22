@@ -71,6 +71,8 @@ list_engine_managers = None
 
 mate_en_dos = 180805
 
+factor_big_fonts = 1.0
+
 runSound = None
 
 translations = None
@@ -97,7 +99,7 @@ def relative_root(path):
 
 
 BASE_VERSION = "B"  # Para el control de updates que necesitan reinstalar entero
-VERSION = "R 2.13"
+VERSION = "R 2.14"
 DEBUG = False
 DEBUG_ENGINES = False
 

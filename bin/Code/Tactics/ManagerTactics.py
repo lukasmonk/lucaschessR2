@@ -64,7 +64,7 @@ class ManagerTactics(Manager.Manager):
         self.human_is_playing = False
 
         self.main_window.set_activate_tutor(False)
-        self.main_window.activaJuego(True, False, siAyudas=False)
+        self.main_window.active_game(True, False)
         self.main_window.remove_hints(True, True)
         self.informacionActivable = True
         self.set_dispatcher(self.player_has_moved)
@@ -76,7 +76,7 @@ class ManagerTactics(Manager.Manager):
 
         titulo = self.tactic.work_info(False)
         self.set_label1(titulo)
-        self.pgnRefresh(True)
+        self.pgn_refresh(True)
         QTUtil.refresh_gui()
 
         self.check_boards_setposition()
@@ -113,7 +113,7 @@ class ManagerTactics(Manager.Manager):
             for move in self.game_obj.li_moves:
                 self.game.add_move(move)
             self.goto_end()
-            self.pgnRefresh(self.is_human_side_white)
+            self.pgn_refresh(self.is_human_side_white)
             self.end_line()
 
         else:
@@ -316,7 +316,7 @@ class ManagerTactics(Manager.Manager):
 
         self.beepExtendido(si_nuestra)
 
-        self.pgnRefresh(self.game.last_position.is_white)
+        self.pgn_refresh(self.game.last_position.is_white)
         self.board.set_position(move.position)
         self.put_arrow_sc(move.from_sq, move.to_sq)
         self.refresh()
