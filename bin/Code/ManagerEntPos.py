@@ -203,7 +203,7 @@ class ManagerEntPos(Manager.Manager):
         li_options.extend((TB_CONFIG, TB_UTILITIES))
         if with_continue:
             li_options.append(TB_CONTINUE)
-        if self.game_obj.has_comments():
+        if self.game_obj and self.game_obj.has_comments():
             self.main_window.base.set_title_toolbar(TB_COMMENTS, _("Disable") if self.show_comments else _("Enable"))
             li_options.append(TB_COMMENTS)
         if self.num_trainings > 1:
