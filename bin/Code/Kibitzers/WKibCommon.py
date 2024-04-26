@@ -172,7 +172,8 @@ class WKibCommon(QtWidgets.QDialog):
         self.save_video()
 
     def set_position(self):
-        position, is_white_bottom = Voyager.voyager_position(self, self.game.last_position)
+        position = self.game.last_position if self.game else None
+        position, is_white_bottom = Voyager.voyager_position(self, position)
         if position is not None:
             game = Game.Game(first_position=position)
             self.orden_game(game)
@@ -202,3 +203,12 @@ class WKibCommon(QtWidgets.QDialog):
     def stop(self):
         # Para que no den error los que no lo incluyen
         pass
+
+    def keyPressEvent(self, event):
+        k = event.key()
+
+        if k == QtCore.Qt.Key_V:
+            if hasattr(self, "pegar"):
+                self.pegar()
+
+        event.ignore()

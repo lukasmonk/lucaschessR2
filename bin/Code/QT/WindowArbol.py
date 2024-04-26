@@ -175,7 +175,7 @@ class ListaMoves:
 
         if mov.pv in self.dicAnalisis:
             rm = self.dicAnalisis[mov.pv]
-            resp = rm.abrTexto() if siExten else rm.abrTextoBase()
+            resp = rm.abbrev_text() if siExten else rm.abbrev_text_base()
         else:
             resp = "?"
         if self.nivel % 2:

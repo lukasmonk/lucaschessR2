@@ -259,7 +259,7 @@ class WBase(QtWidgets.QWidget):
         configuration = self.manager.configuration
         width_pgn = configuration.x_pgn_width
         with_each_color = (width_pgn - 52 - 24) // 2
-        nAnchoLabels = max(int((width_pgn - 3) // 2), 140)
+        n_ancho_labels = max(int((width_pgn - 3) // 2), 140)
         # # Pgn
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("NUMBER", _("N."), 52, align_center=True)
@@ -278,27 +278,27 @@ class WBase(QtWidgets.QWidget):
         self.pgn.set_right_button_without_rows(True)
 
         # # Blancas y negras
-        f = Controles.FontType(puntos=configuration.x_sizefont_infolabels + 2, peso=75)
-        self.lb_player_white = Controles.LB(self).anchoFijo(nAnchoLabels).align_center().set_font(f).set_wrap()
+        f = Controles.FontType(puntos=configuration.x_sizefont_players, peso=750)
+        self.lb_player_white = Controles.LB(self).anchoFijo(n_ancho_labels).align_center().set_font(f).set_wrap()
         self.configuration.set_property(self.lb_player_white, "white")
 
-        self.lb_player_black = Controles.LB(self).anchoFijo(nAnchoLabels).align_center().set_font(f).set_wrap()
+        self.lb_player_black = Controles.LB(self).anchoFijo(n_ancho_labels).align_center().set_font(f).set_wrap()
         self.configuration.set_property(self.lb_player_black, "black")
 
         # # Capturas
         n_alto_fijo = 3 * (configuration.x_sizefont_infolabels + 2)
-        self.lb_capt_white = Controles.LB(self).anchoFijo(nAnchoLabels).set_wrap().altoFijo(n_alto_fijo)
+        self.lb_capt_white = Controles.LB(self).anchoFijo(n_ancho_labels).set_wrap().altoFijo(n_alto_fijo)
         style = "QWidget { border-style: groove; border-width: 1px; border-color: LightGray; padding: 2px 0px 2px 0px;}"
         self.lb_capt_white.setStyleSheet(style)
 
-        self.lb_capt_black = Controles.LB(self).anchoFijo(nAnchoLabels).set_wrap().altoFijo(n_alto_fijo)
+        self.lb_capt_black = Controles.LB(self).anchoFijo(n_ancho_labels).set_wrap().altoFijo(n_alto_fijo)
         self.lb_capt_black.setStyleSheet(style)
 
         # Relojes
         f = Controles.FontType(puntos=26, peso=500)
 
         def lbReloj():
-            lb = Controles.LB(self, "00:00").set_font(f).align_center().anchoMinimo(nAnchoLabels)
+            lb = Controles.LB(self, "00:00").set_font(f).align_center().anchoMinimo(n_ancho_labels)
             lb.setFrameStyle(QtWidgets.QFrame.Box | QtWidgets.QFrame.Raised)
             self.configuration.set_property(lb, "clock")
             return lb

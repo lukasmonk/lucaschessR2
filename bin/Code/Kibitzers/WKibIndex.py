@@ -108,7 +108,7 @@ class WKibIndex(QtWidgets.QDialog):
             self.veces = 0
             if self.siPlay:
                 mrm = self.engine.ac_estado()
-                rm = mrm.rmBest()
+                rm = mrm.rm_best()
                 if rm and rm.depth > self.depth:
                     if mrm.li_rm:
 

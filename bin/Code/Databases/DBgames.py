@@ -371,6 +371,19 @@ class DBgames:
 
         self.remove_list_recnos(li_recnos)
 
+    def remove_data(self, li_recnos):
+        sql = "UPDATE Games SET _DATA_=NULL"
+        if li_recnos is None:
+            if self.filter:
+                sql += " WHERE %s" % self.filter
+            self.conexion.execute(sql)
+        else:
+            for recno in li_recnos:
+                rowid = self.li_row_ids[recno]
+                sql += " WHERE ROWID=?"
+                self.conexion.execute(sql, [rowid, ])
+        self.conexion.commit()
+
     def get_summary(self, pvBase, dicAnalisis, with_figurines, allmoves=True):
         return self.db_stat.get_summary(pvBase, dicAnalisis, with_figurines, allmoves) if self.with_db_stat else []
 

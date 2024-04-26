@@ -79,16 +79,16 @@ class EngineResponse:
     def movimiento(self):
         return self.from_sq + self.to_sq + self.promotion.lower()
 
-    def getPV(self):
+    def get_pv(self):
         if self.pv == "a1a1" or not self.pv:
             return self.movimiento()
         return self.pv.strip().lower()
 
-    def change_side(self, posicionAnterior=None):
+    def change_side(self, position_before=None):
         # Se usa en tutor para analizar las num_moves siguientes a la del usuario
         # Si no encuentra ninguna move y la move previa es jaque, pasa a mate en 1
-        if posicionAnterior and self.sinMovimientos:
-            if posicionAnterior.is_check():
+        if position_before and self.sinMovimientos:
+            if position_before.is_check():
                 self.mate = 1
                 return
         self.puntos = -self.puntos
@@ -98,7 +98,7 @@ class EngineResponse:
                 self.mate += 1
         self.is_white = not self.is_white
 
-    def siMejorQue(self, otra, control_difpts=0, control_difporc=0):
+    def is_better_than(self, otra, control_difpts=0, control_difporc=0):
         if self.mate:
             if otra.mate < 0:
                 if self.mate < 0:
@@ -197,21 +197,21 @@ class EngineResponse:
             cp = "%+0.2f" % (pt / 100.0)
             return "%s %s" % (cp, _("pawns"))
 
-    def abrTexto(self):
-        c = self.abrTextoBase()
+    def abbrev_text(self):
+        c = self.abbrev_text_base()
         if self.mate == 0:
             c = "%s %s" % (c, _("pws"))
         return c
 
-    def abrTextoPDT(self):
-        c = self.abrTextoBase()
+    def abbrev_text_pdt(self):
+        c = self.abbrev_text_base()
         if self.depth:
             c += "/%d" % self.depth
         if self.time:
             c += '/%0.01f"' % (self.time / 1000.0,)
         return c
 
-    def abrTextoBase(self):
+    def abbrev_text_base(self):
         if self.mate != 0:
             mt = self.mate
             if mt == 1:
@@ -272,7 +272,7 @@ class MultiEngineResponse:
     _init_time_working: float
     cache_bound: dict
     game: Game
-    fenBase: str
+    fen_base: str
 
     def __init__(self, name, is_white):
         self.name = name
@@ -372,7 +372,7 @@ class MultiEngineResponse:
     def __len__(self):
         return len(self.li_rm)
 
-    def getTime(self):
+    def get_time(self):
         if len(self.li_rm):
             return self.li_rm[0].time
         return 0
@@ -566,7 +566,8 @@ class MultiEngineResponse:
         else:
             rm.sinMovimientos = True
 
-    def check_claves(self, mensaje, st_claves):
+    @staticmethod
+    def check_claves(mensaje, st_claves):
         d_claves = {}
         key = ""
         dato = ""
@@ -622,13 +623,13 @@ class MultiEngineResponse:
                 return False
         return True
 
-    def mejorRMQue(self, rm, difpts, difporc):
-        if self.li_rm:
-            return self.li_rm[0].siMejorQue(rm, difpts, difporc)
-        else:
-            return False
+    # def mejorRMQue(self, rm, difpts, difporc):
+    #     if self.li_rm:
+    #         return self.li_rm[0].is_better_than(rm, difpts, difporc)
+    #     else:
+    #         return False
 
-    def buscaRM(self, movimiento):
+    def search_rm(self, movimiento):
         movimiento = movimiento.lower()
         for n, rm in enumerate(self.li_rm):
             if rm.movimiento() == movimiento:
@@ -642,49 +643,49 @@ class MultiEngineResponse:
                 return True
         return False
 
-    def mejorMovQue(self, movimiento):
+    def better_move_than(self, movimiento):
         if self.li_rm:
-            rm, n = self.buscaRM(movimiento)
+            rm, n = self.search_rm(movimiento)
             if rm is None:
                 return True
             if n == 0:
                 return False
-            return self.li_rm[0].siMejorQue(rm)
+            return self.li_rm[0].is_better_than(rm)
         return False
 
-    def numMejorMovQue(self, movimiento):
-        rm, n = self.buscaRM(movimiento)
+    def num_better_move_than(self, movimiento):
+        rm, n = self.search_rm(movimiento)
         num = len(self.li_rm)
         if rm is None:
             return num
         x = 0
         for rm1 in self.li_rm:
-            if rm1.siMejorQue(rm):
+            if rm1.is_better_than(rm):
                 x += 1
         return x
 
-    def rmBest(self):
+    def rm_best(self):
         num = len(self.li_rm)
         if num == 0:
             return None
         rm = self.li_rm[0]
         for x in range(1, num):
             rm1 = self.li_rm[x]
-            if rm1.siMejorQue(rm):
+            if rm1.is_better_than(rm):
                 rm = rm1
         return rm
 
-    def difPointsBest(self, movimiento):
-        rmbest = self.rmBest()
+    def dif_points_best(self, movimiento):
+        rmbest = self.rm_best()
         if not rmbest:
             return 0, 0
         pbest = rmbest.score_abs5()
-        rm, n = self.buscaRM(movimiento)
+        rm, n = self.search_rm(movimiento)
         if rm is None:
             return pbest, 0
         return pbest, rm.score_abs5()
 
-    def mejorMov(self):
+    def best_rm_ordered(self):
         if self.li_rm:
             return self.li_rm[0]
         return EngineResponse(self.name, self.is_white)
@@ -715,7 +716,7 @@ class MultiEngineResponse:
     def getdepth0(self):
         return self.li_rm[0].depth if self.li_rm else 0
 
-    def mejorMovDetectaBlunders(self, fdbg, mindifpuntos, maxmate):
+    def best_move_detecting_blunders(self, fdbg, mindifpuntos, maxmate):
         rm0 = self.li_rm[0]
         if maxmate:
             if 0 < rm0.mate <= maxmate:
@@ -750,7 +751,7 @@ class MultiEngineResponse:
             return una.get(key, default)
 
         cp = Position.Position()
-        cp.read_fen(self.fenBase)
+        cp.read_fen(self.fen_base)
 
         dbg = una.get("DEBUG")
         if dbg:
@@ -769,7 +770,7 @@ class MultiEngineResponse:
         for rm in self.li_rm:
             rm.puntosABS_3 = rm.centipawns_abs()  # Antes de cambiar los puntos, para poder guardar a posteriori
 
-        if self.mejorMovDetectaBlunders(fdbg, mindifpuntos, maxmate):
+        if self.best_move_detecting_blunders(fdbg, mindifpuntos, maxmate):
             if fdbg:
                 fdbg.close()
             return ADJUST_BETTER, mindifpuntos, maxmate, dbg, aterrizaje
@@ -789,20 +790,23 @@ class MultiEngineResponse:
         x_av_pr = x("AVANZARPR" + tipo)
         x_jpr = x("JAQUEPR" + tipo)
         x_cpr = x("CAPTURARPR" + tipo)
+        side_engine: bool = cp.is_white
 
         # Miramos todas las propuestas
         for num, rm in enumerate(self.li_rm):
             game = Game.Game(cp)
             game.read_pv(rm.pv)
-            jg0 = game.move(0)
-            ps0 = jg0.position_before
-            ps_z = game.last_position
+            first_move = game.move(0)
+            base_position: Position.Position = first_move.position_before
+            position_after_move: Position.Position = first_move.position
+            last_position: Position.Position = game.last_position
 
             if dbg:
                 lip = []
+                other_side = not game.li_moves[0].is_white()
                 for move in game.li_moves:
                     lip.append(move.pgnEN())
-                    if not move.is_white():
+                    if move.is_white() == other_side:
                         lip.append("-")
                 pgn = " ".join(lip)
 
@@ -815,53 +819,50 @@ class MultiEngineResponse:
                 continue
 
             if x_mpn:
-                if ps0.squares.get(jg0.from_sq, "").lower() == "p":
+                if base_position.squares.get(first_move.from_sq, "").lower() == "p":
                     rm.puntos += x_mpn
                     if dbg:
                         fdbg.write("    %s: %d -> %d\n" % (_("To move a pawn"), x_mpn, rm.puntos))
 
             if x_apz:
-                if ps0.squares.get(jg0.from_sq, "").lower() != "p":
+                if base_position.squares.get(first_move.from_sq, "p").lower() != "p":
                     if tipo == "F":
-                        ps1 = jg0.position
-                        king_white = ps1.is_white
-                        dif = ps0.distance_king(jg0.from_sq, king_white) - ps1.distance_king(jg0.to_sq, king_white)
+                        has_advanced = base_position.proximity_final(side_engine) > position_after_move.proximity_final(
+                            side_engine)
                     else:
-                        nd = int(jg0.from_sq[1])
-                        nh = int(jg0.to_sq[1])
-                        dif = nh - nd
-                        if not ps0.is_white:
-                            dif = -dif
-                    if dif > 0:
+                        has_advanced = base_position.proximity_middle(
+                            side_engine) > position_after_move.proximity_middle(side_engine)
+                    if has_advanced:
                         rm.puntos += x_apz
                         if dbg:
                             fdbg.write("    %s: %d -> %d\n" % (_("Advance piece"), x_apz, rm.puntos))
 
             if x_j:
-                if jg0.is_check:
+                if first_move.is_check:
                     rm.puntos += x_j
                     if dbg:
                         fdbg.write("    %s: %d -> %d\n" % (_("Make check"), x_j, rm.puntos))
 
             if x_c:
-                if jg0.siCaptura():
+                if first_move.siCaptura():
                     rm.puntos += x_c
                     if dbg:
                         fdbg.write("    %s: %d -> %d\n" % (_("Capture"), x_c, rm.puntos))
 
             if x2_b:
-                if ps_z.numPiezas("b") == 2:
+                if last_position.num_pieces("B" if side_engine else "b") == 2:
                     rm.puntos += x2_b
                     if dbg:
                         fdbg.write("    %s: %d -> %d \n" % (_("Keep the two bishops"), x2_b, rm.puntos))
 
             if x_av_pr:
-                p_z = ps_z.pesoWB()
-                p0 = ps0.pesoWB()
-                valor_wb = p_z - p0
-                if not cp.is_white:
-                    valor_wb = -valor_wb
-                if valor_wb > 0:
+                if tipo == "F":
+                    has_advanced = base_position.proximity_final(side_engine) > last_position.proximity_final(
+                        side_engine)
+                else:
+                    has_advanced = base_position.proximity_middle(side_engine) > last_position.proximity_middle(
+                        side_engine)
+                if has_advanced:
                     rm.puntos += x_av_pr
                     if dbg:
                         fdbg.write(f'    {_("Advance")} ({dpr}): {x_av_pr} -> {rm.puntos}\n')
@@ -891,7 +892,7 @@ class MultiEngineResponse:
         for rm in self.li_rm:
             elpeor = True
             for n, rm1 in enumerate(li):
-                if rm.siMejorQue(rm1, 0, 0):
+                if rm.is_better_than(rm1, 0, 0):
                     li.insert(n, rm)
                     elpeor = False
                     break
@@ -906,9 +907,12 @@ class MultiEngineResponse:
                 game.read_pv(rm.pv)
 
                 lip = []
+                other_side = not game.li_moves[0].is_white()
                 for move in game.li_moves:
                     lip.append(move.pgnEN())
-                pgn = " - ".join(lip)
+                    if move.is_white() == other_side:
+                        lip.append("-")
+                pgn = " ".join(lip)
 
                 if rm.mate:
                     fdbg.write("%2d. %s: %d %s\n" % (num + 1, pgn, rm.mate, _("Mate")))
@@ -967,7 +971,7 @@ class MultiEngineResponse:
 
     def bestmov_adjusted_blunders_neg(self, mindifpuntos, maxmate):
         rm0 = self.li_rm[0]
-        if self.mejorMovDetectaBlunders(None, mindifpuntos, maxmate):
+        if self.best_move_detecting_blunders(None, mindifpuntos, maxmate):
             return rm0
         if rm0.centipawns_abs() < -10:
             li = []
@@ -1096,6 +1100,19 @@ class MultiEngineResponse:
                 rm_sel = self.li_rm[0]
             elif n_tipo == ADJUST_WORST_MOVE:
                 rm_sel = self.li_rm[-1]
+                if aterrizaje:
+                    rm_best = self.li_rm[0]
+                    pts_best = rm_best.score_abs5()
+                    pts_sel = rm_sel.score_abs5()
+                    if (pts_best - pts_sel) > aterrizaje:
+                        rm_sel = rm_best
+                        for rm in self.li_rm:
+                            pts = rm.score_abs5()
+                            if (pts_best - pts) <= aterrizaje:
+                                rm_sel = rm
+                            else:
+                                break
+
             elif n_tipo in (ADJUST_HIGH_LEVEL, ADJUST_LOW_LEVEL, ADJUST_INTERMEDIATE_LEVEL):
                 n_tipo = self.bestmov_adjusted_level(n_tipo)  # Se corta el if para que se calcule el nTipo
 

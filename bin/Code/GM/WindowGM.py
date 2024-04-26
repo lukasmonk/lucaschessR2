@@ -208,11 +208,11 @@ class WGM(LCDialog.LCDialog):
         self.tab.setFont(flb)
 
         # Header
-        lyCab = Colocacion.H().control(gbGM)
+        ly_cab = Colocacion.H().control(gbGM)
         if self.li_personal:
-            lyCab.control(gb_personal)
+            ly_cab.control(gb_personal)
 
-        layout = Colocacion.V().control(tb).otro(lyCab).control(self.tab).margen(6)
+        layout = Colocacion.V().control(tb).otro(ly_cab).control(self.tab).margen(6)
 
         self.setLayout(layout)
 

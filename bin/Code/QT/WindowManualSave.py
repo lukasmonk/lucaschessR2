@@ -272,7 +272,7 @@ class WManualSave(LCDialog.LCDialog):
                 game = Game.Game(self.position)
                 game.read_pv(rm.pv)
                 game.ms_pgn = game.pgnBaseRAW()
-                game.ms_pdt = rm.abrTextoPDT()
+                game.ms_pdt = rm.abbrev_text_pdt()
                 li.append(game)
             self.li_analysis = li
             self.grid_analysis.refresh()

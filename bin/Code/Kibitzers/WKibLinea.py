@@ -112,7 +112,7 @@ class WKibLinea(QtWidgets.QDialog):
             self.veces = 0
             if self.valid_to_play():
                 mrm = self.engine.ac_estado()
-                rm = mrm.rmBest()
+                rm = mrm.rm_best()
                 if self.kibitzer.max_time and (time.time() - self.time_init) > self.kibitzer.max_time:
                     if not self.stopped:
                         self.engine.ac_final(0)
@@ -124,7 +124,7 @@ class WKibLinea(QtWidgets.QDialog):
                     game = Game.Game(first_position=self.game.last_position)
                     game.read_pv(rm.pv)
                     if len(game):
-                        self.em.ponHtml("[%02d] %s | %s" % (rm.depth, rm.abrTexto(), game.pgnBaseRAW()))
+                        self.em.ponHtml("[%02d] %s | %s" % (rm.depth, rm.abbrev_text(), game.pgnBaseRAW()))
             else:
                 self.em.ponHtml("")
 

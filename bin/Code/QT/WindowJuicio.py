@@ -45,9 +45,9 @@ class WJuicio(LCDialog.LCDialog):
         self.board.crea()
         self.board.set_side_bottom(position.is_white)
 
-        liMas = ((_("Close"), "close", Iconos.AceptarPeque()),)
-        lyBM, tbBM = QTVarios.ly_mini_buttons(
-            self, "", siLibre=False, icon_size=24, siMas=manager.continueTt, liMasAcciones=liMas
+        li_mas = ((_("Close"), "close", Iconos.AceptarPeque()),)
+        ly_bm, tb_bm = QTVarios.ly_mini_buttons(
+            self, "", siLibre=False, icon_size=24, siMas=manager.continueTt, liMasAcciones=li_mas
         )
 
         o_columns = Columnas.ListaColumnas()
@@ -57,10 +57,12 @@ class WJuicio(LCDialog.LCDialog):
 
         self.grid = Grid.Grid(self, o_columns, siSelecFilas=True)
 
-        lyT = Colocacion.V().control(self.board).otro(lyBM).control(self.lbComentario)
+        self.register_grid(self.grid)
+
+        ly_t = Colocacion.V().control(self.board).otro(ly_bm).control(self.lbComentario)
 
         # Layout
-        layout = Colocacion.H().otro(lyT).control(self.grid)
+        layout = Colocacion.H().otro(ly_t).control(self.grid)
 
         self.setLayout(layout)
 
@@ -70,12 +72,13 @@ class WJuicio(LCDialog.LCDialog):
         self.is_moving_time = False
 
         self.ponPuntos()
+        self.restore_video()
 
     def difPuntos(self):
         return self.rmUsu.score_abs5() - self.rmObj.score_abs5()
 
     def difPuntosMax(self):
-        return self.mrm.mejorMov().score_abs5() - self.rmUsu.score_abs5()
+        return self.mrm.best_rm_ordered().score_abs5() - self.rmUsu.score_abs5()
 
     def ponPuntos(self):
         pts = self.difPuntos()
@@ -116,10 +119,10 @@ class WJuicio(LCDialog.LCDialog):
 
     def do_lirm(self):
         li = []
-        posOP = 0
-        nombrePlayer = _("You")
-        posReal = 0
-        ultPts = -99999999
+        pos_op = 0
+        nombre_player = _("You")
+        pos_real = 0
+        ult_pts = -99999999
         for pos, rm in enumerate(self.mrm.li_rm):
             pv1 = rm.pv.split(" ")[0]
             from_sq = pv1[:2]
@@ -131,34 +134,34 @@ class WJuicio(LCDialog.LCDialog):
                 continue
             a = Util.Record()
             a.rm = rm
-            a.texto = "%s (%s)" % (pgn, rm.abrTextoBase())
+            a.texto = "%s (%s)" % (pgn, rm.abbrev_text_base())
             p = a.centipawns_abs = rm.centipawns_abs()
-            if p != ultPts:
-                ultPts = p
-                posReal += 1
+            if p != ult_pts:
+                ult_pts = p
+                pos_real += 1
 
-            siOP = rm.pv == self.rmObj.pv
-            siUsu = rm.pv == self.rmUsu.pv
-            if siOP and siUsu:
+            si_op = rm.pv == self.rmObj.pv
+            si_usu = rm.pv == self.rmUsu.pv
+            if si_op and si_usu:
                 txt = _("Both")
-                posOP = pos
-            elif siOP:
+                pos_op = pos
+            elif si_op:
                 txt = self.nombreOP
-                posOP = pos
-            elif siUsu:
-                txt = nombrePlayer
+                pos_op = pos
+            elif si_usu:
+                txt = nombre_player
             else:
                 txt = ""
             a.player = txt
 
-            a.is_selected = siOP or siUsu
+            a.is_selected = si_op or si_usu
             if a.is_selected or not self.is_competitive:
-                if siOP:
-                    posOP = len(li)
-                a.posReal = posReal
+                if si_op:
+                    pos_op = len(li)
+                a.posReal = pos_real
                 li.append(a)
 
-        return li, posOP
+        return li, pos_op
 
     def grid_bold(self, grid, row, column):
         return self.list_rm[row].is_selected
@@ -228,7 +231,7 @@ class WJuicio(LCDialog.LCDialog):
     def mueveMas(self):
         mrm = self.manager.analyze_state()
 
-        rmUsuN, pos = mrm.buscaRM(self.rmUsu.movimiento())
+        rmUsuN, pos = mrm.search_rm(self.rmUsu.movimiento())
         if rmUsuN is None:
             um = QTUtil2.analizando(self)
             self.manager.analyze_end()
@@ -239,7 +242,7 @@ class WJuicio(LCDialog.LCDialog):
 
         self.rmUsu = rmUsuN
 
-        rmObjN, pos = mrm.buscaRM(self.rmObj.movimiento())
+        rmObjN, pos = mrm.search_rm(self.rmObj.movimiento())
         if rmObjN is None:
             um = QTUtil2.analizando(self)
             self.manager.analyze_end()

@@ -340,14 +340,14 @@ class ManagerFideFics(Manager.Manager):
             mrm = self.analyze_minimum(5000)
             position = self.game.last_position
 
-            rmUsu, nada = mrm.buscaRM(jg_usu.movimiento())
+            rmUsu, nada = mrm.search_rm(jg_usu.movimiento())
             if rmUsu is None:
                 self.analyze_end()
                 rmUsu = self.xtutor.valora(position, jg_usu.from_sq, jg_usu.to_sq, jg_usu.promotion)
                 mrm.add_rm(rmUsu)
                 self.analyze_begin()
 
-            rmObj, posObj = mrm.buscaRM(jgObj.movimiento())
+            rmObj, posObj = mrm.search_rm(jgObj.movimiento())
             if rmObj is None:
                 self.analyze_end()
                 rmObj = self.xtutor.valora(position, jgObj.from_sq, jgObj.to_sq, jgObj.promotion)
@@ -366,8 +366,8 @@ class ManagerFideFics(Manager.Manager):
             self.puntos += dpts
             self.ponPuntos()
 
-            comentario_usu += " %s" % (w.rmUsu.abrTexto())
-            comentario_obj += " %s" % (w.rmObj.abrTexto())
+            comentario_usu += " %s" % (w.rmUsu.abbrev_text())
+            comentario_obj += " %s" % (w.rmObj.abbrev_text())
 
             comentarioPuntos = "%s = %d %+d %+d = %d" % (
                 _("Score"),

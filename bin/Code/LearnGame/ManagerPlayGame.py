@@ -183,9 +183,9 @@ class ManagerPlayGame(Manager.Manager):
         move = self.game_obj.move(self.posJugadaObj)
         if move.analysis:
             mrm, pos = move.analysis
-            msAnalisis = mrm.getTime()
+            msAnalisis = mrm.get_time()
             if msAnalisis > self.minTiempo:
-                if mrmActual.getTime() > msAnalisis and mrmActual.contain(pvUsu) and mrmActual.contain(pvObj):
+                if mrmActual.get_time() > msAnalisis and mrmActual.contain(pvUsu) and mrmActual.contain(pvObj):
                     return None
                 if mrm.contain(pvObj) and mrm.contain(pvUsu):
                     return mrm
@@ -303,8 +303,8 @@ class ManagerPlayGame(Manager.Manager):
             mrm = self.analyze_minimum(pv_usu, pv_obj)
             position = self.game.last_position
 
-            rm_usu, nada = mrm.buscaRM(pv_usu)
-            rm_obj, pos_obj = mrm.buscaRM(pv_obj)
+            rm_usu, nada = mrm.search_rm(pv_usu)
+            rm_obj, pos_obj = mrm.search_rm(pv_obj)
 
             analysis = mrm, pos_obj
             um.final()
@@ -328,13 +328,13 @@ class ManagerPlayGame(Manager.Manager):
                 rm_obj = w.rmObj
             else:
                 dpts = rm_usu.score_abs5() - rm_obj.score_abs5()
-                dpts_max = mrm.mejorMov().score_abs5() - rm_usu.score_abs5()
+                dpts_max = mrm.best_rm_ordered().score_abs5() - rm_usu.score_abs5()
 
             self.puntos += dpts
             self.puntosMax += dpts_max
 
-            comentario_usu = " %s" % (rm_usu.abrTexto())
-            comentario_obj = " %s" % (rm_obj.abrTexto())
+            comentario_usu = " %s" % (rm_usu.abbrev_text())
+            comentario_obj = " %s" % (rm_obj.abbrev_text())
             comentario_puntos = "%s = %d %+d %+d = %d" % (
                 _("Score"),
                 self.puntos - dpts,

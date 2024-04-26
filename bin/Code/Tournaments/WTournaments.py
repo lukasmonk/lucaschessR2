@@ -6,7 +6,6 @@ import Code
 from Code import Util
 from Code.QT import Colocacion
 from Code.QT import Columnas
-from Code.QT import FormLayout
 from Code.QT import Grid
 from Code.QT import Iconos
 from Code.QT import LCDialog
@@ -111,17 +110,12 @@ class WTournaments(LCDialog.LCDialog):
             self.accept()
 
     def edit_name(self, previo):
-        li_gen = [(None, None)]
-        li_gen.append((_("Name") + ":", previo))
-        resultado = FormLayout.fedit(li_gen, title=_("Tournaments between engines"), parent=self, icon=Iconos.Torneos())
-        nom_torneo = None
-        if resultado:
-            accion, li_gen = resultado
-            nom_torneo = Util.valid_filename(li_gen[0].strip())
-            if nom_torneo:
-                path = Util.opj(self.configuration.folder_tournaments(), nom_torneo + ".mvm")
-                if os.path.isfile(path):
-                    QTUtil2.message_error(self, _("The file %s already exist") % nom_torneo)
+        nom_torneo = QTUtil2.read_simple(self, _("Tournaments between engines"), _("Name"), previo)
+        if nom_torneo:
+            path = Util.opj(self.configuration.folder_tournaments(), nom_torneo + ".mvm")
+            if os.path.isfile(path):
+                QTUtil2.message_error(self, _("The file %s already exist") % nom_torneo)
+                return self.edit_name(nom_torneo)
         return nom_torneo
 
     def crear(self):

@@ -223,19 +223,19 @@ class PiezaSC(BloqueSC):
             self.ini_pos = event.scenePos()
             self.setZValue(ZVALUE_PIECE_MOVING)
             self.setCursor(QtCore.Qt.ClosedHandCursor)
+            physical_pos = self.bloquePieza.physical_pos
+            punto = QtCore.QPointF(self.ini_pos.x() - physical_pos.ancho/2, self.ini_pos.y() - physical_pos.alto/2)
+            self.setPos(punto)
             if self.dispatchMove:
                 self.dispatchMove()
-            QtWidgets.QGraphicsItem.mousePressEvent(self, event)
         else:
             event.ignore()
 
     def mouseMoveEvent(self, event):
         if self.dragable:
             current_pos = event.scenePos()
-            dx = current_pos.x() - self.ini_pos.x()
-            dy = current_pos.y() - self.ini_pos.y()
             physical_pos = self.bloquePieza.physical_pos
-            punto = QtCore.QPointF(dx + physical_pos.x, dy + physical_pos.y)
+            punto = QtCore.QPointF(current_pos.x() - physical_pos.ancho/2, current_pos.y() - physical_pos.alto/2)
             self.setPos(punto)
             self.update()
             event.ignore()

@@ -175,7 +175,7 @@ class EngineManager:
     def play_seconds(self, game, seconds):
         self.check_engine()
         mrm = self.engine.bestmove_game(game, seconds * 1000, None)
-        return mrm.mejorMov() if mrm else None
+        return mrm.best_rm_ordered() if mrm else None
 
     def play_time(self, game, seconds_white, seconds_black, seconds_move, adjusted=0):
         self.check_engine()
@@ -191,10 +191,10 @@ class EngineManager:
         if adjusted:
             mrm.game = game
             if adjusted >= 1000:
-                mrm.fenBase = game.last_position.fen()
+                mrm.fen_base = game.last_position.fen()
             return mrm.best_adjusted_move(adjusted) if adjusted != ADJUST_SELECTED_BY_PLAYER else mrm
         else:
-            return mrm.mejorMov()
+            return mrm.best_rm_ordered()
 
     def play_time_tourney(self, game, seconds_white, seconds_black, seconds_move):
         self.check_engine()
@@ -215,10 +215,10 @@ class EngineManager:
         if adjusted:
             mrm.game = game
             if adjusted >= 1000:
-                mrm.fenBase = game.last_position.fen()
+                mrm.fen_base = game.last_position.fen()
             return mrm.best_adjusted_move(adjusted) if adjusted != ADJUST_SELECTED_BY_PLAYER else mrm
         else:
-            return mrm.mejorMov()
+            return mrm.best_rm_ordered()
 
     def play_game_maia(self, game):
         self.check_engine()
@@ -227,7 +227,7 @@ class EngineManager:
             self.engine.nodes = int(self.depth_engine ** 2)
 
         mrm = self.engine.bestmove_game(game, self.mstime_engine, self.depth_engine)
-        return mrm.mejorMov()
+        return mrm.best_rm_ordered()
 
     def play_fixed_depth_time_tourney(self, game):
         self.check_engine()
@@ -242,7 +242,7 @@ class EngineManager:
         self.check_engine()
 
         posicionNueva = position.copia()
-        posicionNueva.mover(from_sq, to_sq, promotion)
+        posicionNueva.play(from_sq, to_sq, promotion)
 
         fen = posicionNueva.fen()
         if FasterCode.fen_ended(fen):
@@ -256,7 +256,7 @@ class EngineManager:
             return rm
 
         mrm = self.engine.bestmove_fen(fen, self.mstime_engine, self.depth_engine)
-        rm = mrm.mejorMov()
+        rm = mrm.best_rm_ordered()
         rm.change_side(position)
         mv = from_sq + to_sq + (promotion if promotion else "")
         rm.pv = mv + " " + rm.pv
@@ -284,7 +284,7 @@ class EngineManager:
         mv = move.movimiento()
         if not mv:
             return mrm, 0
-        rm, n = mrm.buscaRM(move.movimiento())
+        rm, n = mrm.search_rm(move.movimiento())
         if rm:
             return mrm, n
 
@@ -368,10 +368,10 @@ class EngineManager:
         mv = move.movimiento()
         if not mv:
             return mrm, 0
-        rm, n = mrm.buscaRM(mv)
+        rm, n = mrm.search_rm(mv)
         if rm:
             return mrm, n
-        rm_best = mrm.mejorMov()
+        rm_best = mrm.best_rm_ordered()
 
         if move.is_mate:
             rm = EngineResponse.EngineResponse(None, None)
@@ -472,7 +472,7 @@ class EngineManager:
         if mrm is None:
             return None
         mrm.ordena()
-        return mrm.mejorMov()
+        return mrm.best_rm_ordered()
 
     def play_time_routine(
             self, game, routine_return, seconds_white, seconds_black, seconds_move, adjusted=0, humanize=False
@@ -488,10 +488,10 @@ class EngineManager:
                     mrm.ordena()
                     mrm.game = game
                     if adjusted >= 1000:
-                        mrm.fenBase = game.last_position.fen()
+                        mrm.fen_base = game.last_position.fen()
                     resp = mrm.best_adjusted_move(adjusted) if adjusted != ADJUST_SELECTED_BY_PLAYER else mrm
                 else:
-                    resp = mrm.mejorMov()
+                    resp = mrm.best_rm_ordered()
             else:
                 resp = None
             routine_return(resp)

@@ -791,7 +791,7 @@ class WGames(QtWidgets.QWidget):
                 odt_doc.add_png(path_img, 6.6, align_center=True, parent=cell)
                 odt_doc.add_linebreak(parent=cell)
                 side = "_" if position.is_white else '■'
-                odt_doc.add_paragraph(f"{posx+1:3d} {side}___________________________", align_center=True,
+                odt_doc.add_paragraph(f"{posx + 1:3d} {side}___________________________", align_center=True,
                                       parent=cell)
                 odt_doc.add_linebreak(parent=cell)
 
@@ -1025,6 +1025,13 @@ class WGames(QtWidgets.QWidget):
             menu.opcion(self.tw_themes, _("Statistics on tactical themes"), Iconos.Tacticas())
             menu.separador()
             menu.opcion(self.tw_remove_duplicates, _("Remove duplicates"), Iconos.Remove1())
+            menu.separador()
+            submenu = menu.submenu(_("Remove comments/ratings/analysis"), Iconos.DeleteColumn())
+            submenu.opcion(self.tw_remove_comments_all, _("All registers"), Iconos.PuntoVerde())
+            li_sel = self.grid.recnosSeleccionados()
+            submenu.separador()
+            submenu.opcion(self.tw_remove_comments_selected, "%s [%d]" % (_("Only selected games"), len(li_sel)),
+                           Iconos.PuntoAzul())
             menu.separador()
             menu.opcion(self.generate_positions_file, _("Regenerate index positions file"), Iconos.Board())
             menu.separador()
@@ -1322,6 +1329,21 @@ class WGames(QtWidgets.QWidget):
         self.grid.refresh()
         self.updateStatus()
 
+    def tw_remove_comments_all(self):
+        self.tw_remove_comments(None)
+
+    def tw_remove_comments_selected(self):
+        self.tw_remove_comments(self.grid.recnosSeleccionados())
+
+    def tw_remove_comments(self, li_regs):
+        if not QTUtil2.pregunta(self, "%s\n%s" % (_("Remove comments/ratings/analysis"), _("Are you sure?"))):
+            return
+
+        with QTUtil2.OneMomentPlease(self.wb_database, _("Remove comments/ratings/analysis")):
+            self.db_games.remove_data(li_regs)
+
+        QTUtil2.temporary_message_without_image(self, _("Done"), 0.8)
+
     def tw_polyglot(self):
         titulo = self.db_games.get_name() + ".bin"
         resp = PolyglotImportExports.export_polyglot_config(self, self.configuration, titulo)
@@ -1374,9 +1396,11 @@ class WGames(QtWidgets.QWidget):
         self.changes = False
 
     def tw_exportar_pgn(self, only_selected):
-        w = WindowSavePGN.WSaveVarios(self, self.configuration)
+        w = WindowSavePGN.WSaveVarios(self, with_remcomments=True)
         if w.exec_():
-            ws = WindowSavePGN.FileSavePGN(self, w.dic_result)
+            dic_result = w.dic_result
+            remove_comments = dic_result["REMCOMMENTSVAR"]
+            ws = WindowSavePGN.FileSavePGN(self, dic_result)
             if ws.open():
                 pb = QTUtil2.BarraProgreso1(self, _("Saving..."), formato1="%p%")
                 pb.mostrar()
@@ -1392,6 +1416,8 @@ class WGames(QtWidgets.QWidget):
                         break
                     if game is None:
                         continue
+                    if remove_comments:
+                        game.remove_info_moves()
                     pgn = game.pgn()
                     result = game.resultado()
                     if n > 0 or not ws.is_new:

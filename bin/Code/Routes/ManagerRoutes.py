@@ -68,7 +68,7 @@ class GR_Engine:
     def play(self, fen):
         if self.manager:
             mrm = self.manager.analiza(fen)
-            return mrm.rmBest().movimiento()
+            return mrm.rm_best().movimiento()
         else:
             return FasterCode.run_fen(fen, 1, 0, 2)
 

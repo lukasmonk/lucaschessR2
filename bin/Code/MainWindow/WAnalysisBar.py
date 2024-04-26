@@ -86,7 +86,7 @@ class AnalysisBar(QProgressBar):
         if self.engine_manager:
             mrm = self.engine_manager.ac_estado()
             if mrm:
-                rm = mrm.rmBest()
+                rm = mrm.rm_best()
                 depth = rm.depth
                 cp = rm.centipawns_abs()
                 tooltip = None

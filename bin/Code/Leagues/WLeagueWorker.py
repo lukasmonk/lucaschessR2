@@ -473,7 +473,7 @@ class WLeagueWorker(QtWidgets.QWidget):
             if mrm is None:
                 self.sudden_end(is_white)
                 return True
-            rm = mrm.mejorMov()
+            rm = mrm.best_rm_ordered()
             analysis = mrm, 0
 
         from_sq = rm.from_sq
@@ -566,7 +566,7 @@ class WLeagueWorker(QtWidgets.QWidget):
             p = Game.Game(self.game.last_position)
             p.read_pv(rm.pv)
             rm.is_white = self.game.last_position.is_white
-            txt = "<b>[%s]</b> (%s) %s" % (rm.name, rm.abrTexto(), p.pgn_translated())
+            txt = "<b>[%s]</b> (%s) %s" % (rm.name, rm.abbrev_text(), p.pgn_translated())
             self.lbRotulo3.set_text(txt)
             self.showPV(rm.pv, 1)
         return self.set_clock()
@@ -614,7 +614,7 @@ class WLeagueWorker(QtWidgets.QWidget):
         if dr > 0 and num_moves >= self.league.draw_min_ply:
             if abs(pUlt) <= dr and abs(pAnt) <= dr:
                 mrmTut = self.xadjudicator.analiza(self.game.last_position.fen())
-                rmTut = mrmTut.mejorMov()
+                rmTut = mrmTut.best_rm_ordered()
                 pTut = rmTut.centipawns_abs()
                 if abs(pTut) <= dr:
                     self.game.set_termination(TERMINATION_ADJUDICATION, RESULT_DRAW)

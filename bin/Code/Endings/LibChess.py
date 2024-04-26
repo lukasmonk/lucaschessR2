@@ -87,7 +87,7 @@ class T4:
         #     pos_ch = -1
         #     for pos, mv in enumerate(lista):
         #         cp.read_fen(fen)
-        #         cp.mover(mv[:2], mv[2:4], mv[4:])
+        #         cp.play(mv[:2], mv[2:4], mv[4:])
         #         ch = cp.cohesion()
         #         if ch < min_ch:
         #             pos_ch = pos

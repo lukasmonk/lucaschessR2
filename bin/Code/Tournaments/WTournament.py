@@ -853,7 +853,7 @@ class WTournament(LCDialog.LCDialog):
 
     def gm_save_pgn(self):
         if self.torneo.num_games_finished() > 0:
-            w = WindowSavePGN.WSaveVarios(self, self.configuration)
+            w = WindowSavePGN.WSaveVarios(self)
             if w.exec_():
                 ws = WindowSavePGN.FileSavePGN(self, w.dic_result)
                 if ws.open():

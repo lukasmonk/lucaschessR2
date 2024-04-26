@@ -123,7 +123,7 @@ class DirectEngine(object):
         while (time.time() - ini) * 1000 < ms_maxtime:
             if (time.time() - tm_dispatch) >= 1.0:
                 mrm.ordena()
-                rm = mrm.mejorMov()
+                rm = mrm.best_rm_ordered()
                 if not self.gui_dispatch(rm):
                     return li, False
                 tm_dispatch = time.time()

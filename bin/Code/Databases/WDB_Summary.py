@@ -182,7 +182,7 @@ class WSummary(QtWidgets.QWidget):
         if key.startswith("p"):
             return "%.01f %%" % v
         elif key == "analysis":
-            return v.abrTextoBase() if v else ""
+            return v.abbrev_text_base() if v else ""
         elif key == "number":
             if self.with_figurines:
                 self.delegadoMove.setWhite(not ("..." in v))

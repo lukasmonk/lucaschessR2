@@ -320,7 +320,7 @@ class ManagerOpeningEngines(Manager.Manager):
             mrm = self.dbop.get_cache_engines(name, vtime, move.fenm2, depth)
             ok = False
             if mrm:
-                rm, pos = mrm.buscaRM(move.movimiento())
+                rm, pos = mrm.search_rm(move.movimiento())
                 if rm:
                     ok = True
             if not ok:
@@ -389,7 +389,7 @@ class ManagerOpeningEngines(Manager.Manager):
                 mrm = self.xjuez.analiza(fen)
                 self.dbop.set_cache_engines(name, vtime, fen, mrm)
 
-            rm = mrm.mejorMov()
+            rm = mrm.best_rm_ordered()
             if (" w " in fen) == self.is_human_side_white:
                 return rm.puntos, rm.mate
             else:

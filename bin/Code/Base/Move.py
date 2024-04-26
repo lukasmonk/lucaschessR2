@@ -169,8 +169,8 @@ class Move:
     def is_white(self):
         return self.position_before.is_white
 
-    def fenBase(self):
-        return self.position.fenBase()
+    def fen_base(self):
+        return self.position.fen_base()
 
     def pv2dgt(self):
         return self.position_before.pv2dgt(self.from_sq, self.to_sq, self.promotion)
@@ -367,7 +367,7 @@ class Move:
         self.from_sq, self.to_sq, self.promotion = move[:2], move[2:4], move[4:]
 
         cp = self.position_before.copia()
-        cp.mover(self.from_sq, self.to_sq, self.promotion)
+        cp.play(self.from_sq, self.to_sq, self.promotion)
         self.position = cp
 
         self.in_the_opening = dic["in_the_opening"]
@@ -407,7 +407,7 @@ class Move:
             return True, False
         if self.position.is_mate():
             position = self.position_before.copia()
-            position.moverPV(a1h8)
+            position.play_pv(a1h8)
             if position.is_mate():
                 return True, False
         for variation in self.variations.li_variations:
@@ -448,7 +448,7 @@ class Move:
 def get_game_move(game, position_before, from_sq, to_sq, promotion):
     position = position_before.copia()
 
-    ok, mens_error = position.mover(from_sq, to_sq, promotion)
+    ok, mens_error = position.play(from_sq, to_sq, promotion)
     if ok:
         move = Move(game, position_before, position, from_sq, to_sq, promotion)
         return True, None, move
@@ -570,7 +570,7 @@ class Variations:
             tmp_game.read_pv(rm.pv)
             move = tmp_game.move(0)
             if move:
-                puntuacion = rm.abrTextoPDT() if si_pdt else rm.abrTexto()
+                puntuacion = rm.abbrev_text_pdt() if si_pdt else rm.abbrev_text()
                 move.set_comment("%s%s" % (puntuacion, eti_t))
                 gm = tmp_game.copia(0 if si_un_move else None)
                 self.li_variations.append(gm)

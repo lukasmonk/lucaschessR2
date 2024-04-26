@@ -1409,7 +1409,7 @@ class Board(QtWidgets.QGraphicsView):
     def eboard_arrow(self, a1, h8, prom):
         if Code.eboard and Code.eboard.driver and self.allow_eboard:
             position = self.last_position.copia()
-            position.mover(a1, h8, prom)
+            position.play(a1, h8, prom)
             Code.eboard.set_position(position)
             time.sleep(2.0)
             Code.eboard.set_position(self.last_position)

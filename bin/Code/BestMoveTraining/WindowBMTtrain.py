@@ -639,9 +639,9 @@ class WTrainBMT(LCDialog.LCDialog):
         w = self.liBTrm[num]
         w.lb.set_text(f"{rm.nivelBMT + 1:2d}")
         txt = game.move(0).pgn_translated()
-        mas = rm.abrTexto()
+        mas = rm.abbrev_text()
         if mas:
-            txt += " = %s" % rm.abrTextoBase()
+            txt += " = %s" % rm.abbrev_text_base()
         if rm.siPrimero:
             txt = "%s *" % txt
             self.lbPrimera.setVisible(True)

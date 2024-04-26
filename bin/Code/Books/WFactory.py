@@ -8,7 +8,6 @@ from Code import Util
 from Code.Books import DBPolyglot, WPolyglot
 from Code.QT import Colocacion
 from Code.QT import Columnas
-from Code.QT import FormLayout
 from Code.QT import Grid
 from Code.QT import Iconos
 from Code.QT import LCDialog
@@ -77,13 +76,8 @@ class WFactoryPolyglots(LCDialog.LCDialog):
 
     def get_new_path(self, name):
         while True:
-            form = FormLayout.FormLayout(self, _("New polyglot book"), Iconos.Book(), anchoMinimo=340)
-            form.separador()
-            form.filename(_("Name"), name)
-            form.separador()
-            resp = form.run()
-            if resp:
-                name = resp[1][0]
+            name = QTUtil2.read_simple(self, _("New polyglot book"), _("Name"), name)
+            if name:
                 path = Util.opj(self.configuration.folder_polyglots_factory(), name + ".lcbin")
                 if os.path.isfile(path):
                     QTUtil2.message_error(self, "%s\n%s" % (_("This file already exists"), path))

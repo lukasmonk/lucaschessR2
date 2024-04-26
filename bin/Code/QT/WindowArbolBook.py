@@ -13,12 +13,12 @@ from Code.QT import QTVarios
 
 
 class UnMove:
-    def __init__(self, listaMovesPadre, book, fenBase, movBook):
+    def __init__(self, listaMovesPadre, book, fen_base, movBook):
 
         self.listaMovesPadre = listaMovesPadre
         self.listaMovesHijos = None
         self.book = book
-        self.fenBase = fenBase
+        self.fen_base = fen_base
         self.from_sq, self.to_sq, self.promotion, label, self.ratio = movBook
         label = label.replace(" - ", " ").strip()
         while "  " in label:

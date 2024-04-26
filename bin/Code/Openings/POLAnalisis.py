@@ -150,7 +150,7 @@ class TabEngine(QtWidgets.QWidget):
             else:
                 game.ms_sol = pgn0
             game.ms_pgn = pgn1
-            game.ms_pdt = rm.abrTextoPDT()
+            game.ms_pdt = rm.abbrev_text_pdt()
             li.append(game)
         self.li_analysis = li
         self.grid_analysis.refresh()

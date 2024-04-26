@@ -753,7 +753,7 @@ class WPotencia(LCDialog.LCDialog):
             from_sq, to_sq, promotion = wm.resultado()
             if from_sq:
                 cpNue = cp.copia()
-                ok, mensaje = cpNue.mover(from_sq, to_sq, promotion)
+                ok, mensaje = cpNue.play(from_sq, to_sq, promotion)
                 wm.siCorrecto(ok)
                 if not ok:
                     wm.ponError(_("Invalid move"))

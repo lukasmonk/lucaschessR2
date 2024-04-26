@@ -133,7 +133,7 @@ class WindowTutor(LCDialog.LCDialog):
 
     def launch_analysis(self):
         move = self.tutor.move
-        rm_user, pos_user = self.tutor.mrm_tutor.buscaRM(move.movimiento())
+        rm_user, pos_user = self.tutor.mrm_tutor.search_rm(move.movimiento())
         move.analysis = self.tutor.mrm_tutor, pos_user
         Analysis.show_analysis(Code.procesador, self.manager.xanalyzer, move, self.manager.board.is_white_bottom,
                                pos_user, main_window=self, must_save=False)

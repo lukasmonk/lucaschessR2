@@ -197,7 +197,8 @@ def options(parent, configuration):
     form.checkbox(_("Enable analysis bar by default"), configuration.x_analyzer_activate_ab)
     form.checkbox(_("Arrow with the best move when there is an analysis"), configuration.x_show_bestmove)
     form.separador()
-    form.spinbox(_("Font size of information labels"), 3, 30, 70, configuration.x_sizefont_infolabels)
+    form.spinbox(_("Font size of information labels"), 3, 99, 70, configuration.x_sizefont_infolabels)
+    form.spinbox(_("Players"), 3, 99, 70, configuration.x_sizefont_players)
     form.separador()
     form.checkbox(_("Enable high dpi scaling"), configuration.x_enable_highdpiscaling)
 
@@ -257,7 +258,7 @@ def options(parent, configuration):
 
         por_defecto = li_asp2[0]
         if por_defecto:
-            li_asp2 = (348, 24, 11, False, True, True, True, False, False, True, 14, True)
+            li_asp2 = (348, 24, 11, False, True, True, True, False, False, True, 14, 16, True)
         else:
             del li_asp2[0]
         (
@@ -272,6 +273,7 @@ def options(parent, configuration):
             configuration.x_analyzer_activate_ab,
             configuration.x_show_bestmove,
             configuration.x_sizefont_infolabels,
+            configuration.x_sizefont_players,
             configuration.x_enable_highdpiscaling,
         ) = li_asp2
 

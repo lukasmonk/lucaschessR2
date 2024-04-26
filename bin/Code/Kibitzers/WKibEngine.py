@@ -3,7 +3,7 @@ import time
 from PySide2 import QtCore
 
 from Code import Util
-from Code.Base import Game, Move
+from Code.Base import Game, Move, Position
 from Code.Engines import EngineRun
 from Code.Kibitzers import Kibitzers
 from Code.Kibitzers import WKibCommon
@@ -19,6 +19,8 @@ from Code.QT import QTUtil2
 
 
 class WKibEngine(WKibCommon.WKibCommon):
+    numMultiPV: int
+
     def __init__(self, cpu):
         WKibCommon.WKibCommon.__init__(self, cpu, Iconos.Kibitzer())
 
@@ -97,7 +99,7 @@ class WKibEngine(WKibCommon.WKibCommon):
             return
         if self.valid_to_play() and not self.stopped:
             mrm = self.engine.ac_estado()
-            rm = mrm.rmBest()
+            rm = mrm.rm_best()
             if (self.kibitzer.max_time and (time.time() - self.time_init) > self.kibitzer.max_time) or \
                     (self.kibitzer.max_depth and rm.depth >= self.kibitzer.max_depth):
                 if not self.stopped:
@@ -159,7 +161,7 @@ class WKibEngine(WKibCommon.WKibCommon):
         rm = self.li_moves[row]
         key = o_column.key
         if key == "EVALUATION":
-            return rm.abrTextoBase()
+            return rm.abbrev_text_base()
 
         elif key == "BESTMOVE":
             p = Game.Game(first_position=self.game.last_position)
@@ -243,7 +245,7 @@ class WKibEngine(WKibCommon.WKibCommon):
             p = Game.Game(fen=fen)
             p.read_pv(rm.pv)
             jg0 = p.move(0)
-            jg0.set_comment(rm.abrTextoPDT() + " " + self.nom_engine)
+            jg0.set_comment(rm.abbrev_text_pdt() + " " + self.nom_engine)
             pgn = p.pgnBaseRAW()
             resp = '[FEN "%s"]\n\n%s' % (fen, pgn)
             QTUtil.ponPortapapeles(resp)
@@ -272,3 +274,23 @@ class WKibEngine(WKibCommon.WKibCommon):
             self.time_init = time.time()
             self.stopped = False
         self.grid.refresh()
+
+    def pegar(self):
+        tp, data = QTUtil.get_clipboard()
+        if tp:
+            position = Position.Position()
+            if tp == "t":
+                try:
+                    position.read_fen(str(data))
+                except:
+                    return
+            elif tp == "h":
+                try:
+                    position.read_fen(QTUtil.get_txt_clipboard())
+                except:
+                    return
+            else:
+                return
+            game = Game.Game(first_position=position)
+            self.orden_game(game)
+

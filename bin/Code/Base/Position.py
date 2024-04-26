@@ -2,13 +2,19 @@ import collections
 
 import FasterCode
 
-from Code.Base.Constantes import FEN_INITIAL
+from Code.Base.Constantes import FEN_INITIAL, WHITE, BLACK
 from Code.Translations import TrListas
 
 
 class Position:
     def __init__(self):
         self.li_extras = []
+        self.squares = {}
+        self.castles = ""
+        self.en_passant = ""
+        self.is_white = True
+        self.num_moves = 0
+        self.mov_pawn_capt = 0
 
     def set_pos_initial(self):
         return self.read_fen(FEN_INITIAL)
@@ -101,14 +107,14 @@ class Position:
 
         d = {}
         for x, linea in enumerate(position.split("/")):
-            cFil = chr(48 + 8 - x)
+            c_fil = chr(48 + 8 - x)
             nc = 0
             for c in linea:
                 if c.isdigit():
                     nc += int(c)
                 elif c in "KQRBNPkqrbnp":
-                    cCol = chr(nc + 97)
-                    d[cCol + cFil] = c
+                    c_col = chr(nc + 97)
+                    d[c_col + c_fil] = c
                     nc += 1
                 else:
                     return self.set_pos_initial()
@@ -123,7 +129,7 @@ class Position:
         self.set_lce()
         return FasterCode.get_exmoves()
 
-    def fenBase(self):
+    def fen_base(self):
         n_sin = 0
         position = ""
         for i in range(8, 0, -1):
@@ -150,7 +156,7 @@ class Position:
         color = "w" if self.is_white else "b"
         return position + " " + color
 
-    def fenDGT(self):
+    def fen_dgt(self):
         n_sin = 0
         resp = ""
         for i in range(8, 0, -1):
@@ -169,24 +175,24 @@ class Position:
         return resp
 
     def fen(self):
-        position = self.fenBase()
+        position = self.fen_base()
         self.legal()
         return "%s %s %s %d %d" % (position, self.castles, self.en_passant, self.mov_pawn_capt, self.num_moves)
 
     def fenm2(self):
-        position = self.fenBase()
+        position = self.fen_base()
         self.legal()
         return "%s %s %s" % (position, self.castles, self.en_passant)
 
-    def siExistePieza(self, pieza, a1h8=None):
-        if a1h8:
-            return self.squares.get(a1h8) == pieza
-        else:
-            n = 0
-            for k, v in self.squares.items():
-                if v == pieza:
-                    n += 1
-            return n
+    # def siExistePieza(self, pieza, a1h8=None):
+    #     if a1h8:
+    #         return self.squares.get(a1h8) == pieza
+    #     else:
+    #         n = 0
+    #         for k, v in self.squares.items():
+    #             if v == pieza:
+    #                 n += 1
+    #         return n
 
     def get_pz(self, a1h8):
         return self.squares.get(a1h8)
@@ -234,10 +240,10 @@ class Position:
                 dif[pieza] = d
         return dif
 
-    def moverPV(self, pv):
-        return self.mover(pv[:2], pv[2:4], pv[4:])
+    def play_pv(self, pv):
+        return self.play(pv[:2], pv[2:4], pv[4:])
 
-    def mover(self, from_a1h8, to_a1h8, promotion=""):
+    def play(self, from_a1h8, to_a1h8, promotion=""):
         self.set_lce()
 
         mv = FasterCode.move_expv(from_a1h8, to_a1h8, promotion)
@@ -246,9 +252,9 @@ class Position:
 
         self.li_extras = []
 
-        enrK = mv.iscastle_k()
-        enrQ = mv.iscastle_q()
-        enPa = mv.is_enpassant()
+        enr_k = mv.iscastle_k()
+        enr_q = mv.iscastle_q()
+        en_pa = mv.is_enpassant()
 
         if promotion:
             if self.is_white:
@@ -257,19 +263,19 @@ class Position:
                 promotion = promotion.lower()
             self.li_extras.append(("c", to_a1h8, promotion))
 
-        elif enrK:
+        elif enr_k:
             if self.is_white:
                 self.li_extras.append(("m", "h1", "f1"))
             else:
                 self.li_extras.append(("m", "h8", "f8"))
 
-        elif enrQ:
+        elif enr_q:
             if self.is_white:
                 self.li_extras.append(("m", "a1", "d1"))
             else:
                 self.li_extras.append(("m", "a8", "d8"))
 
-        elif enPa:
+        elif en_pa:
             capt = self.en_passant.replace("6", "5").replace("3", "4")
             self.li_extras.append(("b", capt))
 
@@ -300,7 +306,7 @@ class Position:
         self.set_lce()
         return FasterCode.get_pgn(from_sq, to_sq, promotion)
 
-    def get_fenm2(self, from_sq, to_sq, promotion=""):
+    def get_fenm2(self):
         self.set_lce()
         fen = FasterCode.get_fen()
         return FasterCode.fen_fenm2(fen)
@@ -312,7 +318,8 @@ class Position:
         for c in pgn:
             if c in "NBRQK":
                 li.append(
-                    '<img src="../Resources/IntFiles/Figs/%s%s.png" width="20" height="20" style="vertical-align:bottom">'
+                    '<img src="../Resources/IntFiles/Figs/%s%s.png" '
+                    'width="20" height="20" style="vertical-align:bottom">'
                     % (tp, c.lower())
                 )
             else:
@@ -432,9 +439,7 @@ class Position:
                         piezas = v
         return False
 
-    def numPiezas(self, pieza):
-        if not self.is_white:
-            pieza = pieza.lower()
+    def num_pieces(self, pieza):
         num = 0
         for i in range(8):
             for j in range(8):
@@ -487,40 +492,46 @@ class Position:
 
         return " ".join(li)
 
-    def pesoWB(self):
-        dpesos = {"Q": 110, "N": 30, "B": 32, "R": 50, "P": 10}
-        peso = 0
+    def proximity_final(self, side: bool) -> float:
+        dic_weights = {"K": 110, "Q": 100, "N": 30, "B": 32, "R": 50, "P": 40}
+        result = 0
+        val_pieces = 0
+        for a1h8, piece in self.squares.items():
+            if side == BLACK and piece in "kqrbnp":
+                if piece == "p":
+                    result += int(a1h8[1]) * dic_weights[piece.upper()]
+                else:
+                    result += self.distance_king(a1h8, WHITE) * dic_weights[piece.upper()]
+                val_pieces += dic_weights[piece.upper()]
+            elif side == WHITE and piece in "KQRBNP":
+                if piece == "P":
+                    result += (9 - int(a1h8[1])) * dic_weights[piece]
+                else:
+                    result += self.distance_king(a1h8, BLACK) * dic_weights[piece]
+                val_pieces += dic_weights[piece.upper()]
+        return result / val_pieces
 
-        dposk = {True: [0, 0], False: [0, 0]}
-        for i in range(8):
-            for j in range(8):
-                pieza = self.squares.get(chr(i + 97) + chr(j + 49))
-                if pieza == "K":
-                    dposk[True] = i, j
-                elif pieza == "k":
-                    dposk[False] = i, j
+    def proximity_middle(self, side: bool) -> float:
+        dic_weights = {"Q": 100, "N": 30, "B": 32, "R": 50, "P": 10}
+        result = 0
+        val_pieces = 0
+        for a1h8, piece in self.squares.items():
+            if side == BLACK and piece in "qrbnp":
+                result += int(a1h8[1]) * dic_weights[piece.upper()]
+                val_pieces += dic_weights[piece.upper()]
+            elif side and piece in "QRBNP":
+                result += (9 - int(a1h8[1])) * dic_weights[piece]
+                val_pieces += dic_weights[piece]
+        return result / val_pieces if val_pieces else 9999
 
-        for i in range(8):
-            for j in range(8):
-                pieza = self.squares.get(chr(i + 97) + chr(j + 49))
-                if pieza and pieza.upper() != "K":
-                    is_white = pieza.isupper()
-                    ck, fk = dposk[not is_white]
-                    d = 14 - (abs(i - ck) + abs(j - fk))
-                    valor = d * dpesos[pieza.upper()]
-                    if not is_white:
-                        valor = -valor
-                    peso += valor
-        return peso
-
-    def distance_king(self, a1, king_white):
-        k = "K" if king_white else "k"
+    def distance_king(self, a1, side_king_rival):
+        k = "K" if side_king_rival == WHITE else "k"
         for i in range(8):
             for j in range(8):
                 if self.squares.get(chr(i + 97) + chr(j + 49)) == k:
                     c = ord(a1[0]) - 97
                     f = int(a1[1]) - 1
-                    return (i - c) ** 2 + (j - f) ** 2
+                    return ((i - c) ** 2 + (j - f) ** 2) ** 0.5
 
     def pawn_can_promote(self, from_a1h8, to_a1h8):
         pieza = self.squares.get(from_a1h8)
@@ -605,8 +616,8 @@ class Position:
                 return c + f
             return a1
 
-        def mp(pz):
-            return pz.upper() if pz.islower() else pz.lower()
+        def mp(xpz):
+            return xpz.upper() if xpz.islower() else xpz.lower()
 
         p = Position()
         p.squares = {}

@@ -337,7 +337,7 @@ class WBMT(LCDialog.LCDialog):
                     txt_lost = " (%s %s)" % (pts_lost / 100, _("pws lost"))
                 else:
                     txt_lost = ""
-                txt = "%d: %s = %s%s" % (rm.nivelBMT + 1, game.move(0).pgn_translated(), rm.abrTexto(), txt_lost)
+                txt = "%d: %s = %s%s" % (rm.nivelBMT + 1, game.move(0).pgn_translated(), rm.abbrev_text(), txt_lost)
                 if rm.siPrimero:
                     txt = "* %s" % txt
                 wodt.odt_doc.add_paragraph("%s | %s" % (txt, lst_moves))

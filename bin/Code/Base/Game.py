@@ -364,10 +364,10 @@ class Game:
     def si3repetidas(self):
         n_jug = len(self.li_moves)
         if n_jug > 5:
-            fen_base = self.li_moves[n_jug - 1].fenBase()
+            fen_base = self.li_moves[n_jug - 1].fen_base()
             li_rep = [n_jug - 1]
             for n in range(n_jug - 1):
-                if self.li_moves[n].fenBase() == fen_base:
+                if self.li_moves[n].fen_base() == fen_base:
                     li_rep.append(n)
                     if len(li_rep) == 3:
                         label = ""

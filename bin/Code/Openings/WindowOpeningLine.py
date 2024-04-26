@@ -136,7 +136,7 @@ class WLines(LCDialog.LCDialog):
         submenu.opcion("", _("Without Result"), Iconos.Gris())
         resp = menu.lanza()
         if resp is not None:
-            w = WindowSavePGN.WSaveVarios(self, self.configuration)
+            w = WindowSavePGN.WSaveVarios(self)
             if w.exec_():
                 ws = WindowSavePGN.FileSavePGN(self, w.dic_result)
                 if ws.open():
@@ -992,7 +992,7 @@ class WLines(LCDialog.LCDialog):
             if resp == "remove":
                 self.remove_current_line()
             else:
-                w = WindowSavePGN.WSaveVarios(self, self.configuration)
+                w = WindowSavePGN.WSaveVarios(self)
                 if w.exec_():
                     ws = WindowSavePGN.FileSavePGN(self, w.dic_result)
                     if ws.open():
@@ -1215,7 +1215,7 @@ class WLines(LCDialog.LCDialog):
                 if len(li) == 0:
                     mrm = xmanager.analiza(fen)
                     for a1h8 in dic_a1h8:
-                        rm, pos = mrm.buscaRM(a1h8)
+                        rm, pos = mrm.search_rm(a1h8)
                         li.append((a1h8, pos if pos >= 0 else 999))
                     li.sort(key=lambda x: x[1])
 

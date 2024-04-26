@@ -290,7 +290,7 @@ class WAnalisisGraph(LCDialog.LCDialog):
             from_sq = pv1[:2]
             to_sq = pv1[2:4]
             promotion = pv1[4] if len(pv1) == 5 else None
-            txt = rm0.abrTextoBase()
+            txt = rm0.abbrev_text_base()
 
             color = None
             if column == "MOVE":
@@ -298,7 +298,7 @@ class WAnalisisGraph(LCDialog.LCDialog):
                 nagc = move.nag_color[1]
                 color = Nags.nag_color(nagc)
             else:
-                fenm2 = move.position_before.get_fenm2(from_sq, to_sq, promotion)
+                fenm2 = move.position_before.get_fenm2()
             is_book = OpeningsStd.ap.is_book_fenm2(fenm2)
             book = "O" if is_book else None
 

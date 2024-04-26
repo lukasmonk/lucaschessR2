@@ -587,7 +587,7 @@ class ManagerEntPos(Manager.Manager):
             if self.is_tutor_enabled:
                 if not self.is_analyzed_by_tutor:
                     self.analizaTutor(True)
-                if self.mrm_tutor.mejorMovQue(a1h8):
+                if self.mrm_tutor.better_move_than(a1h8):
                     if not move.is_mate:
                         self.beepError()
                         tutor = Tutor.Tutor(self, move, from_sq, to_sq, False)
@@ -734,6 +734,6 @@ class ManagerEntPos(Manager.Manager):
     def play_instead_of_me(self):
         if not self.is_finished():
             mrm = self.analizaTutor(with_cursor=True)
-            rm = mrm.mejorMov()
+            rm = mrm.best_rm_ordered()
             if rm.from_sq:
                 self.player_has_moved_base(rm.from_sq, rm.to_sq, rm.promotion)

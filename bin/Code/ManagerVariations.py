@@ -275,6 +275,6 @@ class ManagerVariations(Manager.Manager):
     def play_instead_of_me(self):
         if not self.is_finished():
             mrm = self.analizaTutor(with_cursor=True)
-            rm = mrm.mejorMov()
+            rm = mrm.best_rm_ordered()
             if rm.from_sq:
                 self.player_has_moved_base(rm.from_sq, rm.to_sq, rm.promotion)

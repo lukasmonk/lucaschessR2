@@ -30,7 +30,7 @@ class Tutor:
 
     def elegir(self, has_hints, li_ap_posibles=None):
 
-        self.rmUsuario, posUsuario = self.mrm_tutor.buscaRM(self.move.movimiento())
+        self.rmUsuario, posUsuario = self.mrm_tutor.search_rm(self.move.movimiento())
         if self.rmUsuario is None:
             # Elegimos si la opcion del tutor es mejor que la del usuario
             # Ponemos un mensaje mientras piensa
@@ -59,7 +59,7 @@ class Tutor:
         self.list_rm = self.do_lirm(posUsuario)  # rm,name
 
         # Creamos la ventana
-        si_rival = self.rm_rival and " " in self.rm_rival.getPV()
+        si_rival = self.rm_rival and " " in self.rm_rival.get_pv()
 
         self.li_ap_posibles = li_ap_posibles
         in_the_opening = li_ap_posibles and len(li_ap_posibles) > 1
@@ -72,7 +72,7 @@ class Tutor:
 
         self.gameUsuario = Game.Game(self.move.position)
         self.gameUsuario.add_move(self.move)
-        self.gameUsuario.read_pv(self.rmUsuario.getPV())
+        self.gameUsuario.read_pv(self.rmUsuario.get_pv())
         self.posUsuario = 0
         self.max_user = len(self.gameUsuario.li_moves)
         self.boardUsuario.set_position(self.move.position)
@@ -85,7 +85,7 @@ class Tutor:
 
         if si_rival:
             self.rm_rival.change_side()
-            pvBloque = self.rm_rival.getPV()
+            pvBloque = self.rm_rival.get_pv()
             n = pvBloque.find(" ")
             if n > 0:
                 pvBloque = pvBloque[n + 1:].strip()
@@ -131,7 +131,7 @@ class Tutor:
         if self.list_rm:
             rm, name = self.list_rm[0]
             game = Game.Game(self.move.position_before)
-            game.read_pv(rm.getPV())
+            game.read_pv(rm.get_pv())
 
             jgvar = game.move(0)
             jgvar.set_comment(rm.texto())
@@ -139,7 +139,7 @@ class Tutor:
             move.add_variation(game)
 
             game_usuario = Game.Game(self.move.position_before)
-            game_usuario.read_pv(self.rmUsuario.getPV())
+            game_usuario.read_pv(self.rmUsuario.get_pv())
             txt = game_usuario.pgn_translated()
             puntos = self.rmUsuario.texto()
             vusu = "%s : %s" % (puntos, txt)
@@ -151,12 +151,12 @@ class Tutor:
 
         for n, rm in enumerate(self.mrm_tutor.li_rm):
             if n != posUsuario:
-                pv1 = rm.getPV().split(" ")[0]
+                pv1 = rm.get_pv().split(" ")[0]
                 from_sq = pv1[:2]
                 to_sq = pv1[2:4]
                 promotion = pv1[4] if len(pv1) == 5 else ""
                 name = pb.pgn_translated(from_sq, to_sq, promotion)
-                name += " " + rm.abrTexto()
+                name += " " + rm.abbrev_text()
 
                 li.append((rm, name))
         return li
@@ -165,7 +165,7 @@ class Tutor:
         self.pos_rm = pos
         rm = self.list_rm[pos][0]
         self.game_tutor = Game.Game(self.last_position)
-        self.game_tutor.read_pv(rm.getPV())
+        self.game_tutor.read_pv(rm.get_pv())
 
         message = _("Tutor's suggestion") + "<br><br>" + \
                   self.game_tutor.li_moves[0].pgn_html_base(Code.configuration.x_pgn_withfigurines) + \
@@ -404,7 +404,7 @@ class Tutor:
 def launch_tutor(mrm_tutor, rm_usuario, tp=None):
     if tp is None:
         tp = Code.configuration.x_tutor_diftype
-    rm_tutor = mrm_tutor.mejorMov()
+    rm_tutor = mrm_tutor.best_rm_ordered()
     if tp == 0:  # ALWAYS
         return (rm_tutor.movimiento() != rm_usuario.movimiento()) and (
                 rm_tutor.centipawns_abs() > rm_usuario.centipawns_abs()
@@ -421,7 +421,7 @@ def launch_tutor(mrm_tutor, rm_usuario, tp=None):
 
 def launch_tutor_movimiento(mrm_tutor, a1h8_user):
     if mrm_tutor.li_rm:
-        rm, n = mrm_tutor.buscaRM(a1h8_user)
+        rm, n = mrm_tutor.search_rm(a1h8_user)
         if rm is None:
             return True
         if n == 0:

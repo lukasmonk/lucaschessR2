@@ -157,6 +157,7 @@ class Configuration:
         self.x_direct_graphics = False
 
         self.x_sizefont_infolabels = 14
+        self.x_sizefont_players = 16
 
         self.x_pgn_width = 348
         self.x_pgn_fontpoints = 11
@@ -686,6 +687,8 @@ class Configuration:
                     if x in dic:
                         setattr(self, x, dic[x])
 
+            if "x_sizefont_players" not in dic:
+                self.x_sizefont_players = self.x_sizefont_infolabels + 2
             # self.palette = dic.get("PALETTE", self.palette)
             self.li_personalities = dic.get("PERSONALITIES", self.li_personalities)
 

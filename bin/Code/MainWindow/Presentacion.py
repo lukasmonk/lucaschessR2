@@ -163,7 +163,7 @@ class ManagerChallenge101:
         if from_sq + to_sq == self.result:  # No hay promotiones
             tm = time.time() - self.iniTime
             self.board.disable_all()
-            self.cp.mover(from_sq, to_sq, promotion)
+            self.cp.play(from_sq, to_sq, promotion)
             self.board.set_position(self.cp)
             self.board.put_arrow_sc(from_sq, to_sq)
 

@@ -137,7 +137,7 @@ class WRun(LCDialog.LCDialog):
             mrm = self.xengine.analiza(self.elem.fen)
             t_dif = time.time() - t0
             if mrm:
-                rm = mrm.mejorMov()
+                rm = mrm.best_rm_ordered()
                 if rm:
                     mov = rm.movimiento()
                     if mov:
@@ -351,7 +351,7 @@ class WRun2(LCDialog.LCDialog):
             mrm = self.xengine.analiza(self.elem.fen)
             t1 = time.time() - t0
             if mrm:
-                rm = mrm.mejorMov()
+                rm = mrm.best_rm_ordered()
                 if rm:
                     mov = rm.movimiento()
                     if mov:

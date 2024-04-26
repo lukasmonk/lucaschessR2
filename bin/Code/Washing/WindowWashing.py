@@ -310,7 +310,7 @@ class WWashing(LCDialog.LCDialog):
                     QTUtil2.message_bold(self, _X(_("Saved to %1"), database))
 
             else:
-                w = WindowSavePGN.WSaveVarios(self, self.configuration)
+                w = WindowSavePGN.WSaveVarios(self)
                 if w.exec_():
                     ws = WindowSavePGN.FileSavePGN(self, w.dic_result)
                     t = 0

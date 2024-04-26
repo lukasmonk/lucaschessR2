@@ -615,7 +615,7 @@ class WPuente(LCDialog.LCDialog):
                 self.incorrecto()
                 return
 
-            ok, mensaje = cp.mover(from_sq, to_sq, promotion)
+            ok, mensaje = cp.play(from_sq, to_sq, promotion)
             if not ok:
                 self.incorrecto()
                 return

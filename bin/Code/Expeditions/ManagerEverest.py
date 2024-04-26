@@ -275,11 +275,11 @@ class ManagerEverest(Manager.Manager):
                 else:
                     self.analizaNoContinuoFinal()
                     mrm = self.mrm
-                rm_obj, pos_obj = mrm.buscaRM(jg_obj.movimiento())
+                rm_obj, pos_obj = mrm.search_rm(jg_obj.movimiento())
                 analysis = mrm, pos_obj
                 self.dic_analysis[fen] = [rm_obj, pos_obj, analysis, mrm]
 
-            rm_usu, pos_usu = mrm.buscaRM(jg_usu.movimiento())
+            rm_usu, pos_usu = mrm.search_rm(jg_usu.movimiento())
             if rm_usu is None:
                 um = QTUtil2.analizando(self.main_window)
                 self.analyze_end()
@@ -316,8 +316,8 @@ class ManagerEverest(Manager.Manager):
             self.ponPuntos()
 
             if pos_usu != pos_obj:
-                comentario_usu = " %s" % rm_usu.abrTexto()
-                comentario_obj = " %s" % rm_obj.abrTexto()
+                comentario_usu = " %s" % rm_usu.abbrev_text()
+                comentario_obj = " %s" % rm_obj.abbrev_text()
 
                 comentario_puntos = "%s = %d %+d %+d = %d" % (
                     _("Score"),

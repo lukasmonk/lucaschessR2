@@ -48,7 +48,7 @@ class WBaseSave(QtWidgets.QWidget):
         # Rest
         self.chb_overwrite = Controles.CHB(self, _("Overwrite"), False)
         if with_remcomments:
-            self.chb_remove_c_v = Controles.CHB(self, _("Remove comments and variations"), self.remove_c_v)
+            self.chb_remove_c_v = Controles.CHB(self, _("Remove comments and variations"), False)
 
         lyF = Colocacion.H().control(lb_file).control(self.bt_file).control(bt_history).control(bt_boxrooms).relleno(1)
         lyC = Colocacion.H().control(lb_codec).control(self.cb_codecs).relleno(1)
@@ -620,7 +620,8 @@ class WSave(LCDialog.LCDialog):
 
 
 class WSaveVarios(LCDialog.LCDialog):
-    def __init__(self, owner, configuration):
+    def __init__(self, owner, with_remcomments=False):
+        configuration = Code.configuration
         titulo = _("Save to PGN")
         icono = Iconos.PGN()
         extparam = "savepgnvarios"
@@ -637,7 +638,7 @@ class WSaveVarios(LCDialog.LCDialog):
         ]
         self.tb = QTVarios.LCTB(self, li_options)
 
-        self.wbase = WBaseSave(self, configuration)
+        self.wbase = WBaseSave(self, configuration, with_remcomments=with_remcomments)
 
         layout = Colocacion.V().control(self.tb).control(self.wbase)
 

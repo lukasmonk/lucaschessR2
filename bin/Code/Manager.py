@@ -489,7 +489,7 @@ class Manager:
                 if move.analysis and self.configuration.x_show_bestmove:
                     mrm, pos = move.analysis
                     if pos:  # no se muestra la mejor move si es la realizada
-                        rm0 = mrm.mejorMov()
+                        rm0 = mrm.best_rm_ordered()
                         self.board.put_arrow_scvar([(rm0.from_sq, rm0.to_sq)])
 
             dic = self.board.last_position.capturas_diferencia()
@@ -1924,7 +1924,7 @@ class Manager:
                         break
                 if si_ceros:
                     mrm = self.xtutor.analiza(self.game.last_position.fen(), None, 7)
-                    rm = mrm.mejorMov()
+                    rm = mrm.best_rm_ordered()
                     if abs(rm.centipawns_abs()) < 15:
                         siAcepta = True
         if siAcepta:

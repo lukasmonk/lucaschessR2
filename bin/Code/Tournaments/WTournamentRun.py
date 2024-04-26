@@ -539,7 +539,7 @@ class WTournamentRun(QtWidgets.QWidget):
 
             if mrm is None:
                 return False
-            rm = mrm.mejorMov()
+            rm = mrm.best_rm_ordered()
             from_sq = rm.from_sq
             to_sq = rm.to_sq
             promotion = rm.promotion
@@ -628,7 +628,7 @@ class WTournamentRun(QtWidgets.QWidget):
             p = Game.Game(self.game.last_position)
             p.read_pv(rm.pv)
             rm.is_white = self.game.last_position.is_white
-            txt = "<b>[%s]</b> (%s) %s" % (rm.name, rm.abrTexto(), p.pgn_translated())
+            txt = "<b>[%s]</b> (%s) %s" % (rm.name, rm.abbrev_text(), p.pgn_translated())
             self.lbRotulo3.set_text(txt)
             self.showPV(rm.pv, 1)
         return self.set_clock()
@@ -667,22 +667,22 @@ class WTournamentRun(QtWidgets.QWidget):
         if not last_jg.analysis:
             return False
         mrm, pos = last_jg.analysis
-        rmUlt = mrm.li_rm[pos]
-        jgAnt = self.game.move(-2)
-        if not jgAnt.analysis:
+        rm_ult = mrm.li_rm[pos]
+        jg_ant = self.game.move(-2)
+        if not jg_ant.analysis:
             return False
-        mrm, pos = jgAnt.analysis
-        rmAnt = mrm.li_rm[pos]
+        mrm, pos = jg_ant.analysis
+        rm_ant = mrm.li_rm[pos]
 
         # Draw
-        pUlt = rmUlt.centipawns_abs()
-        pAnt = rmAnt.centipawns_abs()
+        pUlt = rm_ult.centipawns_abs()
+        pAnt = rm_ant.centipawns_abs()
         dr = self.torneo.draw_range()
         if dr > 0 and num_moves >= self.torneo.draw_min_ply():
             if abs(pUlt) <= dr and abs(pAnt) <= dr:
                 if self.xadjudicator:
                     mrmTut = self.xadjudicator.analiza(self.game.last_position.fen())
-                    rmTut = mrmTut.mejorMov()
+                    rmTut = mrmTut.best_rm_ordered()
                     pTut = rmTut.centipawns_abs()
                     if abs(pTut) <= dr:
                         self.game.set_termination(TERMINATION_ADJUDICATION, RESULT_DRAW)
@@ -699,7 +699,7 @@ class WTournamentRun(QtWidgets.QWidget):
                 rmTut = self.xadjudicator.play_game(self.game)
                 pTut = rmTut.centipawns_abs()
                 if abs(pTut) >= rs:
-                    is_white = self.game.last_position.is_white
+                    is_white = rmTut.is_white
                     if pTut > 0:
                         result = RESULT_WIN_WHITE if is_white else RESULT_WIN_BLACK
                     else:
@@ -710,7 +710,11 @@ class WTournamentRun(QtWidgets.QWidget):
             else:
                 if rs <= abs(pAnt):
                     if (pAnt > 0 and pUlt > 0) or (pAnt < 0 and pUlt < 0):
-                        result = RESULT_WIN_WHITE if pUlt > 0 else RESULT_WIN_BLACK
+                        is_white = rm_ult.is_white
+                        if pUlt > 0:
+                            result = RESULT_WIN_WHITE if is_white else RESULT_WIN_BLACK
+                        else:
+                            result = RESULT_WIN_BLACK if is_white else RESULT_WIN_WHITE
                         self.game.set_termination(TERMINATION_ADJUDICATION, result)
                         return True
 

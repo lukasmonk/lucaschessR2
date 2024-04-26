@@ -153,33 +153,36 @@ class RunEngine:
         self.stdout_lock.release()
 
     def xstdout_thread_base(self, stdout, lock):
-        try:
-            while self.working:
-                line = stdout.readline()
-                if not line:
-                    break
-                line = str(line, "latin-1", "ignore")
-                if self.end_time_humanize:
-                    if "bestmove" in line:
-                        while time.time() < self.end_time_humanize and self.working:
-                            time.sleep(0.1)
-                            lock.acquire()
-                            self.liBuffer.append("info string humanizing")
-                            lock.release()
-                        self.end_time_humanize = None
-                lock.acquire()
-                self.liBuffer.append(line)
-                if self.direct_dispatch:
-                    self.mrm.dispatch(line)
-                lock.release()
-                if self.log:
-                    self.log.write(line.strip() + "\n")
-                if self.direct_dispatch and "bestmove" in line:
-                    self.direct_dispatch()
-        except:
-            pass
-        finally:
-            stdout.close()
+        # try:
+        while self.working:
+            line = stdout.readline()
+            if not line:
+                break
+            line = str(line, "latin-1", "ignore")
+            if self.end_time_humanize:
+                if "bestmove" in line:
+                    while time.time() < self.end_time_humanize and self.working:
+                        time.sleep(0.1)
+                        lock.acquire()
+                        self.liBuffer.append("info string humanizing")
+                        lock.release()
+                    self.end_time_humanize = None
+            lock.acquire()
+            self.liBuffer.append(line)
+            if self.direct_dispatch:
+                self.mrm.dispatch(line)
+            lock.release()
+            if self.log:
+                self.log.write(line.strip() + "\n")
+            if self.direct_dispatch and "bestmove" in line:
+                self.direct_dispatch()
+        # except Exception as e:
+        #     sys.stderr.write("\n" + Code.stack_lines(True) + "\n")
+        #     sys.stderr.write("\nException: %s\n" % str(e))
+        #     sys.stderr.write("Type: %s\n" % type(e))
+        #     sys.stderr.write("Error: %s\n%s\n" % (str(e.args), "-"*80))
+        # finally:
+        stdout.close()
 
     def xstdout_thread_debug(self, stdout, lock):
         try:
@@ -293,7 +296,7 @@ class RunEngine:
                 return True
             self.ultDispatch = tm
             self.mrm.ordena()
-            rm = self.mrm.mejorMov()
+            rm = self.mrm.best_rm_ordered()
             rm.whoDispatch = self.whoDispatch
             if not self.gui_dispatch(rm):
                 return False
@@ -480,11 +483,11 @@ class RunEngine:
     def ac_minimoTD(self, min_time, min_depth, lock_ac):
         self.ac_lee()
         self.mrm.ordena()
-        rm = self.mrm.mejorMov()
+        rm = self.mrm.best_rm_ordered()
         while rm.time < min_time or rm.depth < min_depth:
             time.sleep(0.1)
             self.ac_lee()
-            rm = self.mrm.mejorMov()
+            rm = self.mrm.best_rm_ordered()
         self.lockAC = lock_ac
         return self.ac_estado()
 
@@ -498,11 +501,11 @@ class RunEngine:
         if not self.best_move_done:
             self.ac_lee()
             self.mrm.ordena()
-            rm = self.mrm.mejorMov()
+            rm = self.mrm.best_rm_ordered()
             while rm.time < minTime and not self.best_move_done:
                 time.sleep(0.1)
                 self.ac_lee()
-                rm = self.mrm.mejorMov()
+                rm = self.mrm.best_rm_ordered()
         return self.ac_estado()
 
     def analysis_stable(self, game, njg, ktime, kdepth, is_savelines, st_centipawns, st_depths, st_timelimit):
@@ -516,7 +519,7 @@ class RunEngine:
             for line in self.get_lines():
                 self.mrm.dispatch(line)
             self.mrm.ordena()
-            return self.mrm.mejorMov()
+            return self.mrm.best_rm_ordered()
 
         ok_time = False if ktime else True
         ok_depth = False if kdepth else True

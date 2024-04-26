@@ -611,8 +611,6 @@ def create_training_positions(procesador, wowner, li_registros_selected, li_regi
             li = pgn.split("\r")
         li = [linea for linea in li if not linea.strip().startswith("[")]
         num_moves = " ".join(li).replace("\r", "").replace("\n", "")
-        if not num_moves.strip("*"):
-            continue
 
         def xdic(k):
             x = dic_valores.get(k, "")

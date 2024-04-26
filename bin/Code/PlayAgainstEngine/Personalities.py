@@ -1,3 +1,4 @@
+import Code
 from Code.Base.Constantes import (
     ADJUST_BETTER,
     ADJUST_HIGH_LEVEL,
@@ -65,6 +66,8 @@ class Personalities:
         if una is None:
             una = {}
 
+        width_field = 50 * Code.factor_big_fonts
+
         # Datos basicos
         li_gen = [(None, None)]
         li_gen.append((FormLayout.Editbox(_("Name")), una.get("NOMBRE", "")))
@@ -78,11 +81,11 @@ class Personalities:
 
         li_gen.append((None, _("Serious errors, select the best move if:")))
         li_gen.append(
-            (FormLayout.Editbox(_("Mate is less than or equal to"), tipo=int, ancho=50), una.get("MAXMATE", 0))
+            (FormLayout.Editbox(_("Mate is less than or equal to"), tipo=int, ancho=width_field), una.get("MAXMATE", 0))
         )
         li_gen.append(
             (
-                FormLayout.Editbox(_("The loss of centipawns is greater than"), tipo=int, ancho=50),
+                FormLayout.Editbox(_("The loss of centipawns is greater than"), tipo=int,ancho=width_field),
                 una.get("MINDIFPUNTOS", 0),
             )
         )
@@ -91,10 +94,9 @@ class Personalities:
             (
                 FormLayout.Editbox(
                     _("Max. loss of centipawns per move by the <br> engine to reach a leveled evaluation"),
-                    tipo=int,
-                    ancho=50,
+                    tipo=int, ancho=width_field,
                 ),
-                una.get("ATERRIZAJE", 50),
+                una.get("ATERRIZAJE", width_field),
             )
         )
 
@@ -118,14 +120,16 @@ class Personalities:
         trlistaSG = [_("To move a pawn"), _("Advance piece"), _("Make check"), _("Capture")]
         listaSG = ["MOVERPEON", "AVANZARPIEZA", "JAQUE", "CAPTURAR"]
         for n, opcion in enumerate(listaSG):
-            liMJ.append((FormLayout.Spinbox(trlistaSG[n], -2000, +2000, 50), una.get(opcion, 0)))
+            liMJ.append(
+                (FormLayout.Spinbox(trlistaSG[n], -2000, +2000, width_field), una.get(opcion, 0)))
 
         # Movimientos previstos
         liMJ.append((None, _("In the expected moves")))
         trlistaPR = [_("Keep the two bishops"), _("Advance"), _("Make check"), _("Capture")]
         listaPR = ["2B", "AVANZAR", "JAQUE", "CAPTURAR"]
         for n, opcion in enumerate(listaPR):
-            liMJ.append((FormLayout.Spinbox(trlistaPR[n], -2000, +2000, 50), una.get(opcion + "PR", 0)))
+            liMJ.append(
+                (FormLayout.Spinbox(trlistaPR[n], -2000, +2000, width_field), una.get(opcion + "PR", 0)))
 
         # Final
         liF = [(None, None)]
@@ -135,18 +139,19 @@ class Personalities:
             (FormLayout.Combobox(_("Strength"), self.list_personalities(False)), una.get("AJUSTARFINAL", ADJUST_BETTER))
         )
 
-        liF.append((FormLayout.Spinbox(_("Maximum pieces at this stage"), 0, 32, 50), una.get("MAXPIEZASFINAL", 0)))
+        liF.append((FormLayout.Spinbox(_("Maximum pieces at this stage"), 0, 32, width_field),
+                    una.get("MAXPIEZASFINAL", 0)))
         liF.append((None, None))
 
         # Movimiento siguiente
         liF.append((None, _("In the next move")))
         for n, opcion in enumerate(listaSG):
-            liF.append((FormLayout.Spinbox(trlistaSG[n], -2000, +2000, 50), una.get(opcion + "F", 0)))
+            liF.append((FormLayout.Spinbox(trlistaSG[n], -2000, +2000, width_field), una.get(opcion + "F", 0)))
 
         # Movimientos previstos
         liF.append((None, _("In the expected moves")))
         for n, opcion in enumerate(listaPR):
-            liF.append((FormLayout.Spinbox(trlistaPR[n], -2000, +2000, 50), una.get(opcion + "PRF", 0)))
+            liF.append((FormLayout.Spinbox(trlistaPR[n], -2000, +2000, width_field), una.get(opcion + "PRF", 0)))
 
         while True:
             lista = []

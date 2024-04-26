@@ -403,7 +403,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             if self.is_analyzing:
                 mrm = self.xtutor.ac_estado()
                 if mrm:
-                    rm = mrm.mejorMov()
+                    rm = mrm.best_rm_ordered()
                     if self.nArrowsTt > 0:
                         if time.time() - self.last_time_show_arrows > 3.4:
                             self.last_time_show_arrows = time.time()
@@ -917,7 +917,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         li_options = []
         for rm in mrm.li_rm:
             li_options.append(
-                (rm, "%s (%s)" % (position.pgn_translated(rm.from_sq, rm.to_sq, rm.promotion), rm.abrTexto()))
+                (rm, "%s (%s)" % (position.pgn_translated(rm.from_sq, rm.to_sq, rm.promotion), rm.abbrev_text()))
             )
             mv = rm.movimiento()
             for x in range(len(li)):
@@ -1187,14 +1187,14 @@ class ManagerPlayAgainstEngine(Manager.Manager):
 
         if self.is_tutor_enabled:
             self.analyze_end()
-            rm = self.mrm_tutor.mejorMov()
+            rm = self.mrm_tutor.best_rm_ordered()
             return self.player_has_moved_base(rm.from_sq, rm.to_sq, rm.promotion)
 
         if self.if_analyzing:
             self.analyze_end()
 
         mrm = self.analizaTutor(with_cursor=True)
-        rm = mrm.mejorMov()
+        rm = mrm.best_rm_ordered()
         if rm and rm.from_sq:
             self.player_has_moved_base(rm.from_sq, rm.to_sq, rm.promotion)
 
@@ -1204,7 +1204,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                 if move.analysis:
                     mrm: EngineResponse.MultiEngineResponse
                     mrm, pos = move.analysis
-                    rm_best1: EngineResponse.EngineResponse = mrm.rmBest()
+                    rm_best1: EngineResponse.EngineResponse = mrm.rm_best()
                     return rm_best1.score_abs5() - rm_user.score_abs5()
 
         return 0
@@ -1316,7 +1316,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         self.analyze_end(is_mate)  # tiene que acabar siempre
         if not is_mate and not is_choosed and self.is_tutor_enabled:
             if not self.tutor_book.si_esta(fen_base, a1h8):
-                rm_user, n = self.mrm_tutor.buscaRM(a1h8)
+                rm_user, n = self.mrm_tutor.search_rm(a1h8)
                 if not rm_user:
                     self.main_window.pensando_tutor(True)
                     rm_user = self.xtutor.valora(self.game.last_position, from_sq, to_sq, move.promotion)
@@ -1330,7 +1330,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                 self.cache_analysis[fen_basem2] = self.mrm_tutor
 
                 si_analisis = True
-                points_best, points_user = self.mrm_tutor.difPointsBest(a1h8)
+                points_best, points_user = self.mrm_tutor.dif_points_best(a1h8)
                 self.set_summary("POINTSBEST", points_best)
                 self.set_summary("POINTSUSER", points_user)
 
@@ -1345,7 +1345,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                                 _("Lost centipawns %d") % cpws_lost,
                             )
                     if game_over_message_pww:
-                        rm0 = self.mrm_tutor.mejorMov()
+                        rm0 = self.mrm_tutor.best_rm_ordered()
                         self.board.put_arrow_scvar([(rm0.from_sq, rm0.to_sq)])
 
                 elif Tutor.launch_tutor(self.mrm_tutor, rm_user):
@@ -1353,13 +1353,13 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                         si_tutor = True
                         self.beepError()
                         if self.chance:
-                            num = self.mrm_tutor.numMejorMovQue(a1h8)
+                            num = self.mrm_tutor.num_better_move_than(a1h8)
                             if num:
-                                rm_tutor = self.mrm_tutor.rmBest()
+                                rm_tutor = self.mrm_tutor.rm_best()
                                 menu = QTVarios.LCMenu(self.main_window)
                                 menu.opcion("None", _("There are %d best movements") % num, Iconos.Engine())
                                 menu.separador()
-                                resp = rm_tutor.abrTextoBase()
+                                resp = rm_tutor.abbrev_text_base()
                                 if not resp:
                                     resp = _("Mate")
                                 menu.opcion("tutor", "&1. %s (%s)" % (_("Show tutor"), resp), Iconos.Tutor())
@@ -1368,7 +1368,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                                 menu.separador()
                                 menu.opcion(
                                     "user",
-                                    "&3. %s (%s)" % (_("Select my move"), rm_user.abrTextoBase()),
+                                    "&3. %s (%s)" % (_("Select my move"), rm_user.abbrev_text_base()),
                                     Iconos.Player(),
                                 )
                                 self.main_window.cursorFueraBoard()
@@ -1419,7 +1419,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         self.set_summary("TIMEUSER", time_s)
 
         if si_analisis:
-            rm, nPos = self.mrm_tutor.buscaRM(move.movimiento())
+            rm, nPos = self.mrm_tutor.search_rm(move.movimiento())
             if rm:
                 move.analysis = self.mrm_tutor, nPos
 
@@ -1623,7 +1623,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             li = [
                 '<span style="color:%s">%s' % (color_engine, rm.name),
                 '<b>%s</b> | <b>%d</b>%s | <b>%d"</b>%s'
-                % (rm.abrTextoBase(), rm.depth, seldepth, rm.time // 1000, nodes),
+                % (rm.abbrev_text_base(), rm.depth, seldepth, rm.time // 1000, nodes),
             ]
             pv = rm.pv
             if tp < 999:

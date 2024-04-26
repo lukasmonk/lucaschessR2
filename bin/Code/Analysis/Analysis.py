@@ -67,7 +67,7 @@ class ControlAnalysis:
                 else pb.pgn_translated(from_sq, to_sq, promotion)
             )
             if name:
-                txt = rm.abrTextoBase()
+                txt = rm.abbrev_text_base()
                 if txt:
                     name += "(%s)" % txt
                 li.append((rm, name, rm.centipawns_abs()))
@@ -200,7 +200,7 @@ class ControlAnalysis:
         variation = game.copia() if is_complete else game.copia(0)
 
         if len(variation) > 0:
-            comment = "%s %s %s" % (rm.abrTexto(), name, vtime)
+            comment = "%s %s %s" % (rm.abbrev_text(), name, vtime)
             variation.move(0).set_comment(comment.strip())
         self.move.add_variation(variation)
 

@@ -329,7 +329,7 @@ class ManagerGM(Manager.Manager):
             um = QTUtil2.analizando(self.main_window)
             mrm = self.analyze_minimum(self.vtime * 100)
 
-            rmUsu, nada = mrm.buscaRM(jgUsu.movimiento())
+            rmUsu, nada = mrm.search_rm(jgUsu.movimiento())
             if rmUsu is None:
                 um = QTUtil2.analizando(self.main_window)
                 self.analyze_end()
@@ -338,7 +338,7 @@ class ManagerGM(Manager.Manager):
                 self.analyze_begin()
                 um.final()
 
-            rmGM, pos_gm = mrm.buscaRM(jgGM.movimiento())
+            rmGM, pos_gm = mrm.search_rm(jgGM.movimiento())
             if rmGM is None:
                 self.analyze_end()
                 rmGM = self.xtutor.valora(position, desdeGM, hastaGM, promotionGM)
@@ -364,7 +364,7 @@ class ManagerGM(Manager.Manager):
                 )
                 w.exec_()
 
-                rm, pos_gm = w.analysis[0].buscaRM(jgGM.movimiento())
+                rm, pos_gm = w.analysis[0].search_rm(jgGM.movimiento())
                 analysis = w.analysis[0], pos_gm
 
                 rmUsu = w.rmUsu

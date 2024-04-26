@@ -102,7 +102,7 @@ class ManagerMotorAlbum:
     def run_irina(self, fen):
         mrm = self.xirina.control(fen, 1)
         mrm.game = self.game
-        return mrm.mejorMov()
+        return mrm.best_rm_ordered()
 
     def juega_similar(self, fen):
         if self.xsimilar is None:

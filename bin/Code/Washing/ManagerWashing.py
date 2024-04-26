@@ -179,11 +179,11 @@ class ManagerWashingReplay(Manager.Manager):
             if jgObj.analysis:
                 mrmObj, posObj = jgObj.analysis
                 rmObj = mrmObj.li_rm[posObj]
-                lic.append("%s: %s (%s)" % (_("Played previously"), jgObj.pgn_translated(), rmObj.abrTextoBase()))
+                lic.append("%s: %s (%s)" % (_("Played previously"), jgObj.pgn_translated(), rmObj.abbrev_text_base()))
                 ptsObj = rmObj.centipawns_abs()
-                rmUsu, posUsu = mrmObj.buscaRM(movUsu)
+                rmUsu, posUsu = mrmObj.search_rm(movUsu)
                 if posUsu >= 0:
-                    lic.append("%s: %s (%s)" % (_("Played now"), move.pgn_translated(), rmUsu.abrTextoBase()))
+                    lic.append("%s: %s (%s)" % (_("Played now"), move.pgn_translated(), rmUsu.abbrev_text_base()))
                     ptsUsu = rmUsu.centipawns_abs()
                     if ptsUsu < ptsObj - 10:
                         lic[-1] += ' <span style="color:red"><b>%s</b></span>' % _("Bad move")
@@ -703,7 +703,7 @@ class ManagerWashingCreate(Manager.Manager):
 
         self.analyze_end()  # tiene que acabar siempre
         if not is_selected:
-            rm_user, n = self.mrm_tutor.buscaRM(movimiento)
+            rm_user, n = self.mrm_tutor.search_rm(movimiento)
             if not rm_user:
                 rm_user = self.xtutor.valora(self.game.last_position, from_sq, to_sq, move.promotion)
                 if not rm_user:
@@ -711,7 +711,7 @@ class ManagerWashingCreate(Manager.Manager):
                     return False
                 self.mrm_tutor.add_rm(rm_user)
             si_analisis = True
-            points_best, points_user = self.mrm_tutor.difPointsBest(movimiento)
+            points_best, points_user = self.mrm_tutor.dif_points_best(movimiento)
             if (points_best - points_user) > 0:
                 if not move.is_mate:
                     tutor = Tutor.Tutor(self, move, from_sq, to_sq, False)
@@ -733,7 +733,7 @@ class ManagerWashingCreate(Manager.Manager):
         move.set_clock_ms(self.tc_player.pending_time * 1000)
 
         if si_analisis:
-            rm, nPos = self.mrm_tutor.buscaRM(move.movimiento())
+            rm, nPos = self.mrm_tutor.search_rm(move.movimiento())
             if rm:
                 move.analysis = self.mrm_tutor, nPos
 

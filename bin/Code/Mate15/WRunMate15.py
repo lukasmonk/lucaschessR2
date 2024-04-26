@@ -113,7 +113,7 @@ class WRunMate15(LCDialog.LCDialog):
         n_moves = len(li_moves)
 
         mv = self.mate15.move
-        cp.mover(mv[:2], mv[2:4], mv[4:])
+        cp.play(mv[:2], mv[2:4], mv[4:])
 
         for n, (lb, wm) in enumerate(self.li_lb_wm):
             if n < n_moves:
@@ -195,7 +195,7 @@ class WRunMate15(LCDialog.LCDialog):
         cp.read_fen(self.mate15.fen)
 
         first_move = self.mate15.move
-        cp.mover(first_move[:2], first_move[2:4], first_move[4:])
+        cp.play(first_move[:2], first_move[2:4], first_move[4:])
         fen = cp.fen()
 
         si_error = False
@@ -206,7 +206,7 @@ class WRunMate15(LCDialog.LCDialog):
             mv_done = wm.movimiento()
             if self.use_pgn:
                 cp.read_fen(fen)
-                cp.mover(move[:2], move[2:4], move[4:])
+                cp.play(move[:2], move[2:4], move[4:])
                 mv_done = mv_done.lower().replace(" ", "")
                 if not mv_done.endswith("#"):
                     mv_done += "#"

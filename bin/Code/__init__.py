@@ -99,7 +99,7 @@ def relative_root(path):
 
 
 BASE_VERSION = "B"  # Para el control de updates que necesitan reinstalar entero
-VERSION = "R 2.14a"
+VERSION = "R 2.14b"
 DEBUG = False
 DEBUG_ENGINES = False
 
@@ -140,6 +140,17 @@ if DEBUG:
             pr("\n" + "-" * 80 + "\n")
         for line in traceback.format_stack()[:-1]:
             pr(line.strip() + "\n")
+
+    # def stack_lines(si_previo=False):
+    #     li = []
+    #     if si_previo:
+    #         li.append("-" * 80 )
+    #         li.append(str(traceback.format_stack()))
+    #         li.append("")
+    #         li.append("-" * 80 )
+    #     for line in traceback.format_stack()[:-1]:
+    #         li.append(line.strip())
+    #     return "\n".join(li)
 
 
     def xpr(name, line):

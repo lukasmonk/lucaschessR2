@@ -197,7 +197,7 @@ padding: 2px;"""
                 linea += "%d." % num_move
                 num_move += 1
             linea += info_move.pgntr + " "
-            position.mover(info_move.xfrom(), info_move.xto(), info_move.promotion())
+            position.play(info_move.xfrom(), info_move.xto(), info_move.promotion())
 
         for ed in self.li_current_moves:
             ed.setText("")
