@@ -133,10 +133,9 @@ class WSwissWorker(QtWidgets.QWidget):
 
         # # Blancas y negras
         f = Controles.FontType(puntos=configuration.x_sizefont_infolabels + 2, peso=75)
-        alto_lb = 48
         self.lb_player = {}
         for side in (WHITE, BLACK):
-            self.lb_player[side] = Controles.LB(self).anchoFijo(n_ancho_labels).altoFijo(alto_lb)
+            self.lb_player[side] = Controles.LB(self).anchoFijo(n_ancho_labels)
             self.lb_player[side].align_center().set_font(f).set_wrap()
             self.lb_player[side].setFrameStyle(QtWidgets.QFrame.Box | QtWidgets.QFrame.Raised)
 
@@ -158,7 +157,7 @@ class WSwissWorker(QtWidgets.QWidget):
             self.configuration.set_property(self.lb_clock[side], "clock")
 
         # Rotulos de informacion
-        f = Controles.FontType(puntos=configuration.x_sizefont_infolabels)
+        f = Controles.FontType(puntos=configuration.x_pgn_fontpoints)
         self.lbRotulo3 = Controles.LB(self).set_wrap().set_font(f)
 
         # Layout
@@ -255,12 +254,18 @@ class WSwissWorker(QtWidgets.QWidget):
         self.tc_black.config_clock(self.max_seconds, self.seconds_per_move, 0, 0)
         self.tc_black.set_labels()
 
+        h_max = 0
+        for side in (WHITE, BLACK):
+            h = self.lb_player[side].height()
+            if h > h_max:
+                h_max = h
+        for side in (WHITE, BLACK):
+            self.lb_player[side].altoFijo(h_max)
+
         time_control = "%d" % int(self.max_seconds)
         if self.seconds_per_move:
             time_control += "+%d" % self.seconds_per_move
         self.game.set_tag("TimeControl", time_control)
-
-        self.lbRotulo3.altoFijo(32 * Code.factor_big_fonts)
 
         self.board.disable_all()
         self.board.set_position(self.game.last_position)

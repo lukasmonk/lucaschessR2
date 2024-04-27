@@ -677,7 +677,7 @@ class Season:
         num_divisions = self.num_divisions()
         li_panels, dic_xid_order = season_previous.gen_panels_classification()
 
-        li_xid_divisions = [set() for x in range(num_divisions)]
+        li_xid_divisions = [set()] * num_divisions
         dic_elo_todos = {}
         for num_division in range(num_divisions):
             d_panel = li_panels[num_division]
@@ -814,10 +814,10 @@ class Season:
                     return xmatch if xmatch.result else None
         return None
 
-    def new_journey(self, league: League):
-        self.current_journey += 1
-        self.save()
-        return self.current_journey
+    # def new_journey(self, league: League):
+    #     self.current_journey += 1
+    #     self.save()
+    #     return self.current_journey
 
     def put_match_done(self, xmatch, game):
         with UtilSQL.DictRawSQL(self.path, self.table) as dbl:

@@ -545,6 +545,29 @@ class AnalyzeGame:
         self.si_bmt_blunders = False
         self.si_bmt_brilliancies = False
 
+        if self.alm.num_moves:
+            li_moves = []
+            lni = Util.ListaNumerosImpresion(self.alm.num_moves)
+            num_move = int(game.primeraJugada())
+            is_white = not game.starts_with_black
+            for nRaw in range(game.num_moves()):
+                must_save = lni.siEsta(num_move)
+                if must_save:
+                    if is_white:
+                        if not self.alm.white:
+                            must_save = False
+                    elif not self.alm.black:
+                        must_save = False
+                if must_save:
+                    li_moves.append(nRaw)
+                is_white = not is_white
+                if is_white:
+                    num_move += 1
+
+            self.li_selected = li_moves
+        else:
+            self.li_selected = None
+
         def gui_dispatch(xrm):
             return not self.cpu.is_closed
 
@@ -602,10 +625,10 @@ class AnalyzeGame:
         si_poner_pgn_original_brilliancies = False
 
         n_mov = len(game)
-        if self.li_selected:
-            li_pos_moves = self.li_selected[:]
-        else:
+        if self.li_selected is None:
             li_pos_moves = list(range(n_mov))
+        else:
+            li_pos_moves = self.li_selected[:]
 
         st_borrar = set()
         if xlibro_aperturas is not None:

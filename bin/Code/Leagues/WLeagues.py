@@ -7,7 +7,6 @@ from Code import Util
 from Code.Leagues import WLeagueConfig, WLeague, Leagues
 from Code.QT import Colocacion
 from Code.QT import Columnas
-from Code.QT import FormLayout
 from Code.QT import Grid
 from Code.QT import Iconos
 from Code.QT import LCDialog
@@ -117,18 +116,15 @@ class WLeagues(LCDialog.LCDialog):
         return Leagues.League(filename[:-7])
 
     def edit_name(self, previo):
-        li_gen = [(None, None), (_("Name") + ":", previo)]
-        resultado = FormLayout.fedit(li_gen, title=_("Chess leagues"), parent=self, icon=Iconos.League())
-        nom_league = None
-        if resultado:
-            accion, li_gen = resultado
-            nom_league = Util.valid_filename(li_gen[0].strip())
+        name = QTUtil2.read_simple(self, _("Chess leagues"), _("Name"), previo)
+        if name:
+            nom_league = Util.valid_filename(name.strip())
             if nom_league:
                 path = Util.opj(Code.configuration.folder_leagues(), nom_league + ".league")
                 if os.path.isfile(path):
                     QTUtil2.message_error(self, _("The file %s already exist") % nom_league)
                     return self.edit_name(nom_league)
-        return nom_league
+            return nom_league
 
     def crear(self):
         nom_league = self.edit_name("")
@@ -174,8 +170,8 @@ class WLeagues(LCDialog.LCDialog):
             nom_origen = self.nom_league_pos(row)
             nom_destino = self.edit_name(nom_origen)
             if nom_destino and nom_origen != nom_destino:
-                path_origen = Util.opj(Code.configuration.folder_leagues(), f"{nom_origen}.league" % nom_origen)
-                path_destino = Util.opj(Code.configuration.folder_leagues(), f"{nom_destino}.league" % nom_destino)
+                path_origen = Util.opj(Code.configuration.folder_leagues(), f"{nom_origen}.league")
+                path_destino = Util.opj(Code.configuration.folder_leagues(), f"{nom_destino}.league")
                 shutil.copy(path_origen, path_destino)
                 self.refresh_lista()
 

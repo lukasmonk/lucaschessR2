@@ -465,9 +465,9 @@ class WLines(LCDialog.LCDialog):
         libooks.insert(0, ("--", None))
         li_books_sel = (
             ("", ""),
-            (_("Uniform random"), BOOK_RANDOM_UNIFORM),
-            (_("Proportional random"), BOOK_RANDOM_PROPORTIONAL),
             (_("Always the highest percentage"), BOOK_BEST_MOVE),
+            (_("Proportional random"), BOOK_RANDOM_PROPORTIONAL),
+            (_("Uniform random"), BOOK_RANDOM_UNIFORM),
         )
         for level in range(5):
             n = level + 1

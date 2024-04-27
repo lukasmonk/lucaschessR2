@@ -134,6 +134,7 @@ class Game:
             self.li_moves.append(move)
         self.assign_opening()
         self.si3repetidas()
+        self.set_result()
         self.li_tags = dic.get("li_tags", [])
 
     def __eq__(self, other):
@@ -388,8 +389,8 @@ class Game:
         position = self.last_position
         pv = []
         for mov in lipv:
-            if (len(mov) >= 4 and mov[0] in "abcdefgh" and mov[1] in "12345678" and mov[2] in "abcdefgh" and mov[
-                3] in "12345678"):
+            if (len(mov) >= 4 and mov[0] in "abcdefgh" and mov[1] in "12345678" and mov[2] in "abcdefgh"
+                    and mov[3] in "12345678"):
                 pv.append(mov)
             else:
                 break

@@ -979,7 +979,8 @@ class ManagerPlayAgainstEngine(Manager.Manager):
 
         book = Books.Book("P", nombook, nombook, True)
         book.polyglot()
-        return self.select_book_move_base(book, BOOK_BEST_MOVE)
+        mode = dic_personalidad.get("BOOKRR", BOOK_BEST_MOVE)
+        return self.select_book_move_base(book, mode)
 
     def play_human(self, is_white):
         self.tc_player.start()

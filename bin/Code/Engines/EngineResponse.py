@@ -801,6 +801,9 @@ class MultiEngineResponse:
             position_after_move: Position.Position = first_move.position
             last_position: Position.Position = game.last_position
 
+            rm.ori_puntos = rm.puntos
+            rm.ori_mate = rm.mate
+
             if dbg:
                 lip = []
                 other_side = not game.li_moves[0].is_white()
@@ -913,11 +916,16 @@ class MultiEngineResponse:
                     if move.is_white() == other_side:
                         lip.append("-")
                 pgn = " ".join(lip)
+                pgn = pgn.strip(" -")
 
                 if rm.mate:
-                    fdbg.write("%2d. %s: %d %s\n" % (num + 1, pgn, rm.mate, _("Mate")))
+                    dif = rm.mate - rm.ori_mate
+                    signo = "+" if dif >= 0 else "-"
+                    fdbg.write("%2d. %s: %d %s %d = %d %s\n" % (num + 1, pgn, rm.ori_mate, signo, abs(dif), rm.mate, _("Mate")))
                 else:
-                    fdbg.write("%2d. %s: %d\n" % (num + 1, pgn, rm.puntos))
+                    dif = rm.puntos - rm.ori_puntos
+                    signo = "+" if dif >= 0 else "-"
+                    fdbg.write("%2d. %s: %d %s %d = %d\n" % (num + 1, pgn, rm.ori_puntos, signo, abs(dif), rm.puntos))
 
             fdbg.write("\n")
             fdbg.close()

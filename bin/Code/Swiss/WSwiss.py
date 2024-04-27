@@ -799,6 +799,7 @@ class WSwiss(LCDialog.LCDialog):
                     if game_saved is not None:
                         game = Game.Game()
                         game.restore(game_saved)
+                        game.set_result()
                         xmatch.result = game.result
                         changed = True
 

@@ -371,10 +371,10 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         lib_inicial = li_books[0][1] if li_books else None
 
         li_resp_book = [
-            (_("Selected by the player"), SELECTED_BY_PLAYER),
-            (_("Uniform random"), BOOK_RANDOM_UNIFORM),
-            (_("Proportional random"), BOOK_RANDOM_PROPORTIONAL),
             (_("Always the highest percentage"), BOOK_BEST_MOVE),
+            (_("Proportional random"), BOOK_RANDOM_PROPORTIONAL),
+            (_("Uniform random"), BOOK_RANDOM_UNIFORM),
+            (_("Selected by the player"), SELECTED_BY_PLAYER),
         ]
 
         # #Rival

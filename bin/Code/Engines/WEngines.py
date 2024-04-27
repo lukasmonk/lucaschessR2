@@ -363,9 +363,9 @@ class WEngineExtend(QtWidgets.QDialog):
             bt_nuevo_book = Controles.PB(self, "", self.nuevoBook, plano=False).ponIcono(Iconos.Nuevo(), icon_size=16)
             # # Respuesta rival
             li = (
-                (_("Uniform random"), BOOK_RANDOM_UNIFORM),
-                (_("Proportional random"), BOOK_RANDOM_PROPORTIONAL),
                 (_("Always the highest percentage"), BOOK_BEST_MOVE),
+                (_("Proportional random"), BOOK_RANDOM_PROPORTIONAL),
+                (_("Uniform random"), BOOK_RANDOM_UNIFORM),
             )
             self.cbBooksRR = QTUtil2.combobox_lb(self, li, engine.bookRR)
             ly_book = (

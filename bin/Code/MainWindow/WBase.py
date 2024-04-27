@@ -311,7 +311,7 @@ class WBase(QtWidgets.QWidget):
         self.bt_active_tutor = Controles.PB(self, "", rutina=self.change_tutor_active, plano=False).set_font(f)
 
         # Rotulos de informacion
-        f = Controles.FontType(puntos=configuration.x_sizefont_infolabels)
+        f = Controles.FontType(puntos=configuration.x_pgn_fontpoints)
         self.lbRotulo1 = Controles.LB(self).set_wrap().set_font(f)
         self.lbRotulo2 = Controles.LB(self).set_wrap().set_font(f)
         # f9 = Controles.FontType(puntos=9 * Code.factor_big_fonts)

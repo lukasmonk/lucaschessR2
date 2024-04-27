@@ -44,6 +44,7 @@ class WLeague(LCDialog.LCDialog):
         )  # division - list - opponents objects   (alphabetically)
         self.mix_panels()
 
+        self.li_games = []
         self.li_matches = self.season.get_all_matches()
         self.current_journey = self.season.get_current_journey()
         self.max_journeys = self.season.get_max_journeys()
@@ -474,15 +475,15 @@ class WLeague(LCDialog.LCDialog):
             num_division = self.li_grids_divisions_crosstabs.index(grid)
             return self.grid_color_fondo_crosstabs(num_division, row, column)
 
-        if grid in self.li_grids_divisions:
-            if self.season.is_finished():
-                migration = self.league.migration
-                ndatos = self.grid_num_datos(grid)
-                num_division = self.li_grids_divisions.index(grid)
-                d_panel = self.li_panels[num_division][row]
-                order = d_panel["ORDER"]
-                if order <= migration or order > (ndatos - migration):
-                    return self.color_migration
+        # if grid in self.li_grids_divisions:
+        #     if self.season.is_finished():
+        #         migration = self.league.migration
+        #         ndatos = self.grid_num_datos(grid)
+        #         num_division = self.li_grids_divisions.index(grid)
+        #         d_panel = self.li_panels[num_division][row]
+        #         order = d_panel["ORDER"]
+        #         if order <= migration or order > (ndatos - migration):
+        #             return self.color_migration
 
     def grid_bold(self, grid, row, o_column):
         if grid in self.li_grids_divisions_crosstabs:
@@ -855,6 +856,9 @@ class WLeague(LCDialog.LCDialog):
             self.timer.stop()
             self.season.test_next()
             self.set_toolbar()
+            for grid in self.li_grids_divisions:
+                grid.refresh()
+                grid.resizeColumnToContents(0)
             return
         changed = False
         division: Leagues.Division
@@ -866,6 +870,7 @@ class WLeague(LCDialog.LCDialog):
                         if game_saved is not None:
                             game = Game.Game()
                             game.restore(game_saved)
+                            game.set_result()
                             xmatch.result = game.result
                             changed = True
 

@@ -132,11 +132,10 @@ class WLeagueWorker(QtWidgets.QWidget):
         self.grid_pgn.ponAltoFila(configuration.x_pgn_rowheight)
 
         # # Blancas y negras
-        f = Controles.FontType(puntos=configuration.x_sizefont_infolabels + 2, peso=75)
-        alto_lb = 48
+        f = Controles.FontType(puntos=configuration.x_sizefont_players, peso=75)
         self.lb_player = {}
         for side in (WHITE, BLACK):
-            self.lb_player[side] = Controles.LB(self).anchoFijo(n_ancho_labels).altoFijo(alto_lb)
+            self.lb_player[side] = Controles.LB(self).anchoFijo(n_ancho_labels)
             self.lb_player[side].align_center().set_font(f).set_wrap()
             self.lb_player[side].setFrameStyle(QtWidgets.QFrame.Box | QtWidgets.QFrame.Raised)
 
@@ -158,20 +157,20 @@ class WLeagueWorker(QtWidgets.QWidget):
             self.configuration.set_property(self.lb_clock[side], "clock")
 
         # Rotulos de informacion
-        f = Controles.FontType(puntos=configuration.x_sizefont_infolabels)
+        f = Controles.FontType(puntos=configuration.x_pgn_fontpoints)
         self.lbRotulo3 = Controles.LB(self).set_wrap().set_font(f)
 
         # Layout
-        lyColor = Colocacion.G()
-        lyColor.controlc(self.lb_player[WHITE], 0, 0).controlc(self.lb_player[BLACK], 0, 1)
-        lyColor.controlc(self.lb_clock[WHITE], 1, 0).controlc(self.lb_clock[BLACK], 1, 1)
+        ly_color = Colocacion.G()
+        ly_color.controlc(self.lb_player[WHITE], 0, 0).controlc(self.lb_player[BLACK], 0, 1)
+        ly_color.controlc(self.lb_clock[WHITE], 1, 0).controlc(self.lb_clock[BLACK], 1, 1)
 
         # Abajo
         lyAbajo = Colocacion.V()
         lyAbajo.setSizeConstraint(lyAbajo.SetFixedSize)
         lyAbajo.control(self.lbRotulo3)
 
-        lyV = Colocacion.V().otro(lyColor).control(self.grid_pgn)
+        lyV = Colocacion.V().otro(ly_color).control(self.grid_pgn)
         lyV.otro(lyAbajo).margen(7)
 
         return lyV
@@ -255,12 +254,18 @@ class WLeagueWorker(QtWidgets.QWidget):
         self.tc_black.config_clock(self.max_seconds, self.seconds_per_move, 0, 0)
         self.tc_black.set_labels()
 
+        h_max = 0
+        for side in (WHITE, BLACK):
+            h = self.lb_player[side].height()
+            if h > h_max:
+                h_max = h
+        for side in (WHITE, BLACK):
+            self.lb_player[side].altoFijo(h_max)
+
         time_control = "%d" % int(self.max_seconds)
         if self.seconds_per_move:
             time_control += "+%d" % self.seconds_per_move
         self.game.set_tag("TimeControl", time_control)
-
-        self.lbRotulo3.altoFijo(32 * Code.factor_big_fonts)
 
         self.board.disable_all()
         self.board.set_position(self.game.last_position)
@@ -515,13 +520,13 @@ class WLeagueWorker(QtWidgets.QWidget):
         self.game.set_termination(TERMINATION_ENGINE_MALFUNCTION, result)
 
     def grid_dato(self, grid, row, o_column):
-        controlPGN = self.pgn
+        control_pgn = self.pgn
 
         col = o_column.key
         if col == "NUMBER":
-            return controlPGN.dato(row, col)
+            return control_pgn.dato(row, col)
 
-        move = controlPGN.only_move(row, col)
+        move = control_pgn.only_move(row, col)
         if move is None:
             return ""
 
@@ -589,6 +594,7 @@ class WLeagueWorker(QtWidgets.QWidget):
             return False
 
         if self.state != ST_PLAYING or self.is_closed or self.game_finished() or self.game.is_finished():
+            self.game.set_result()
             return True
 
         self.next_control -= 1

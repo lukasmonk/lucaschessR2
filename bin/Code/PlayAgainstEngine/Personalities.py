@@ -13,6 +13,10 @@ from Code.Base.Constantes import (
     ADJUST_SOMEWHAT_WORSE_LESS_LESS,
     ADJUST_WORSE,
     ADJUST_WORST_MOVE,
+    BOOK_BEST_MOVE,
+    BOOK_RANDOM_UNIFORM,
+    BOOK_RANDOM_PROPORTIONAL,
+    SELECTED_BY_PLAYER
 )
 from Code.QT import FormLayout
 from Code.QT import Iconos
@@ -106,6 +110,14 @@ class Personalities:
         config = FormLayout.Fichero(_("Polyglot book"), "bin", False)
         liA.append((config, una.get("BOOK", "")))
 
+        li_resp_book = [
+            (_("Always the highest percentage"), BOOK_BEST_MOVE),
+            (_("Proportional random"), BOOK_RANDOM_PROPORTIONAL),
+            (_("Uniform random"), BOOK_RANDOM_UNIFORM),
+            (_("Selected by the player"), SELECTED_BY_PLAYER),
+        ]
+        liA.append((FormLayout.Combobox(_("Book selection mode"), li_resp_book), una.get("BOOKRR", BOOK_BEST_MOVE)))
+
         # Medio juego
         liMJ = [(None, None)]
 
@@ -182,6 +194,7 @@ class Personalities:
 
                 # Opening
                 una["BOOK"] = liAR[0]
+                una["BOOKRR"] = liAR[1]
 
                 # Medio
                 una["ADJUST"] = liMJR[0]

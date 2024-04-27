@@ -211,11 +211,10 @@ class WTournamentRun(QtWidgets.QWidget):
         self.grid_pgn.ponAltoFila(configuration.x_pgn_rowheight)
 
         # # Blancas y negras
-        f = Controles.FontType(puntos=configuration.x_sizefont_infolabels + 2, peso=75)
-        alto_lb = 48
+        f = Controles.FontType(puntos=configuration.x_sizefont_players, peso=750)
         self.lb_player = {}
         for side in (WHITE, BLACK):
-            self.lb_player[side] = Controles.LB(self).anchoFijo(n_ancho_labels).altoFijo(alto_lb)
+            self.lb_player[side] = Controles.LB(self).anchoFijo(n_ancho_labels).align_center()
             self.lb_player[side].align_center().set_font(f).set_wrap()
             self.lb_player[side].setFrameStyle(QtWidgets.QFrame.Box | QtWidgets.QFrame.Raised)
 
@@ -223,7 +222,7 @@ class WTournamentRun(QtWidgets.QWidget):
         self.configuration.set_property(self.lb_player[BLACK], "black")
 
         # Relojes
-        f = Controles.FontType("Arial Black", puntos=26, peso=75)
+        f = Controles.FontType("Arial Black", puntos=26, peso=500)
 
         self.lb_clock = {}
         for side in (WHITE, BLACK):
@@ -320,7 +319,7 @@ class WTournamentRun(QtWidgets.QWidget):
         self.game = Game.Game(fen=self.fen_inicial)
         self.pgn.game = self.game
 
-        self.lbRotulo3.altoFijo(32 * Code.factor_big_fonts)
+        self.lbRotulo3.set_text("")
 
         self.board.disable_all()
         self.board.set_position(self.game.last_position)
@@ -332,6 +331,14 @@ class WTournamentRun(QtWidgets.QWidget):
         self.tc_black = TimeControl.TimeControl(self, self.game, BLACK)
         self.tc_black.config_clock(self.max_seconds, self.seconds_per_move, 0, 0)
         self.tc_black.set_labels()
+
+        h_max = 0
+        for side in (WHITE, BLACK):
+            h = self.lb_player[side].height()
+            if h > h_max:
+                h_max = h
+        for side in (WHITE, BLACK):
+            self.lb_player[side].altoFijo(h_max)
 
         while self.state == ST_PAUSE or self.play_next_move():
             if self.state == ST_PAUSE:
@@ -577,13 +584,13 @@ class WTournamentRun(QtWidgets.QWidget):
                 runSound.playBeep()
 
     def grid_dato(self, grid, row, o_column):
-        controlPGN = self.pgn
+        control_pgn = self.pgn
 
         col = o_column.key
         if col == "NUMBER":
-            return controlPGN.dato(row, col)
+            return control_pgn.dato(row, col)
 
-        move = controlPGN.only_move(row, col)
+        move = control_pgn.only_move(row, col)
         if move is None:
             return ""
 

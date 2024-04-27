@@ -81,10 +81,10 @@ class WBooksTrain(LCDialog.LCDialog):
         self.cb_rival = Controles.CB(self, li, book_rival)
 
         li = (
-            (_("Selected by the player"), SELECTED_BY_PLAYER),
-            (_("Uniform random"), BOOK_RANDOM_UNIFORM),
-            (_("Proportional random"), BOOK_RANDOM_PROPORTIONAL),
             (_("Always the highest percentage"), BOOK_BEST_MOVE),
+            (_("Proportional random"), BOOK_RANDOM_PROPORTIONAL),
+            (_("Uniform random"), BOOK_RANDOM_UNIFORM),
+            (_("Selected by the player"), SELECTED_BY_PLAYER),
         )
         self.cb_resp_rival = Controles.CB(self, li, dic_data.get(self.RESP_RIVAL, BOOK_RANDOM_UNIFORM))
 
