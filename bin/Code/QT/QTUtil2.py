@@ -68,7 +68,7 @@ class MensEspera(QtWidgets.QWidget):
             fixed_size = parent.width()
 
         if puntos is None:
-            puntos = Code.configuration.x_sizefont_infolabels
+            puntos = Code.configuration.x_sizefont_messages
 
         self.lb = lb = (
             Controles.LB(parent, resalta(mensaje)).set_font(Controles.FontType(puntos=puntos)).align_center()
@@ -202,7 +202,7 @@ class ControlWaitingMessage:
             background = Code.dic_colors["CONTROLMENSESPERA"]
 
         if puntos is None:
-            puntos = Code.configuration.x_sizefont_infolabels
+            puntos = Code.configuration.x_sizefont_messages
 
         self.me = MensEspera(
             parent,
@@ -684,7 +684,7 @@ def message(owner, texto, explanation=None, titulo=None, pixmap=None, px=None, p
         else:
             msg.setIconPixmap(pixmap)
         msg.setText(texto)
-        msg.setFont(Controles.FontType(puntos=Code.configuration.x_sizefont_infolabels, peso=300 if si_bold else 50))
+        msg.setFont(Controles.FontType(puntos=Code.configuration.x_sizefont_messages, peso=300 if si_bold else 50))
         if explanation:
             msg.setInformativeText(explanation)
         msg.setWindowTitle(_("Message") if titulo is None else titulo)
@@ -734,7 +734,7 @@ def pregunta(parent, mens, label_yes=None, label_no=None, si_top=False, px=None,
     if label_no is None:
         label_no = _("No")
     si_button = msg_box.addButton(label_yes, QtWidgets.QMessageBox.YesRole)
-    msg_box.setFont(Controles.FontType(puntos=Code.configuration.x_sizefont_infolabels))
+    msg_box.setFont(Controles.FontType(puntos=Code.configuration.x_sizefont_messages))
     msg_box.addButton(label_no, QtWidgets.QMessageBox.NoRole)
     if si_top:
         msg_box.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
@@ -754,7 +754,7 @@ def question_withcancel(parent, mens, si, no):
     si_button = msg_box.addButton(si, QtWidgets.QMessageBox.YesRole)
     no_button = msg_box.addButton(no, QtWidgets.QMessageBox.NoRole)
     msg_box.addButton(_("Cancel"), QtWidgets.QMessageBox.RejectRole)
-    msg_box.setFont(Controles.FontType(puntos=Code.configuration.x_sizefont_infolabels))
+    msg_box.setFont(Controles.FontType(puntos=Code.configuration.x_sizefont_messages))
     msg_box.exec_()
     cb = msg_box.clickedButton()
     if cb == si_button:

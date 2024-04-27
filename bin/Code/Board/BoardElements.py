@@ -163,6 +163,103 @@ class TextoSC(BloqueSC):
             self.rutina(event.button() == QtCore.Qt.LeftButton, False, self.bloqueTexto.valor)
 
 
+# class PiezaSC(BloqueSC):
+#     def __init__(self, escena, bloquePieza, board):
+#
+#         self.board = board
+#
+#         physical_pos = bloquePieza.physical_pos
+#
+#         super(PiezaSC, self).__init__(escena, physical_pos)
+#
+#         self.bloqueDatos = self.bloquePieza = bloquePieza
+#
+#         # self.setFlag(QtWidgets.QGraphicsItem.ItemIsMovable, True)
+#         self.setFlag(QtWidgets.QGraphicsItem.ItemIgnoresTransformations, True)
+#
+#         pz = bloquePieza.pieza
+#         self.pixmap = board.piezas.render(pz)
+#
+#         self.ini_pos = None
+#
+#         self.pmRect = QtCore.QRectF(0, 0, physical_pos.ancho, physical_pos.ancho)
+#         self.is_active = False
+#         self.setAcceptHoverEvents(True)
+#
+#         ancho = physical_pos.ancho
+#         self.limL = -10  # ancho * 20 / 100
+#         self.limH = ancho - self.limL
+#         self.dragable = False
+#
+#         self.dispatchMove = None
+#
+#         self.setCacheMode(QtWidgets.QGraphicsItem.DeviceCoordinateCache)
+#
+#     def rehazPosicion(self):
+#         physical_pos = self.bloquePieza.physical_pos
+#         self.setPos(physical_pos.x, physical_pos.y)
+#         self.update()
+#
+#     def paint(self, painter, option, widget):
+#         self.pixmap.render(painter, self.rect)
+#
+#     def hoverMoveEvent(self, event):
+#         if self.is_active:
+#             pos = event.pos()
+#             x = pos.x()
+#             y = pos.y()
+#             self.dragable = (self.limL <= x <= self.limH) and (self.limL <= y <= self.limH)
+#             self.setCursor(QtCore.Qt.OpenHandCursor if self.dragable else QtCore.Qt.ArrowCursor)
+#             self.setFocus()
+#         else:
+#             self.dragable = False
+#             self.setCursor(QtCore.Qt.ArrowCursor)
+#
+#     def hoverLeaveEvent(self, event):
+#         self.setCursor(QtCore.Qt.ArrowCursor)
+#
+#     def mousePressEvent(self, event):
+#         if self.dragable:
+#             self.ini_pos = event.scenePos()
+#             self.setZValue(ZVALUE_PIECE_MOVING)
+#             self.setCursor(QtCore.Qt.ClosedHandCursor)
+#             physical_pos = self.bloquePieza.physical_pos
+#             punto = QtCore.QPointF(self.ini_pos.x() - physical_pos.ancho/2, self.ini_pos.y() - physical_pos.alto/2)
+#             self.setPos(punto)
+#             if self.dispatchMove:
+#                 self.dispatchMove()
+#         else:
+#             event.ignore()
+#
+#     def mouseMoveEvent(self, event):
+#         if self.dragable:
+#             current_pos = event.scenePos()
+#             physical_pos = self.bloquePieza.physical_pos
+#             punto = QtCore.QPointF(current_pos.x() - physical_pos.ancho/2, current_pos.y() - physical_pos.alto/2)
+#             self.setPos(punto)
+#             self.update()
+#             event.ignore()
+#         else:
+#             QtWidgets.QGraphicsItem.mouseMoveEvent(self, event)
+#
+#     def setDispatchMove(self, rutina):
+#         self.dispatchMove = rutina
+#
+#     def mouseReleaseEvent(self, event):
+#         QtWidgets.QGraphicsItem.mouseReleaseEvent(self, event)
+#         if self.dragable:
+#             self.setZValue(ZVALUE_PIECE)
+#             self.board.intentaMover(self, event.scenePos(), event.button())
+#
+#     def activa(self, siActivar):
+#         self.setFlag(QtWidgets.QGraphicsItem.ItemIsMovable, siActivar)
+#         self.is_active = siActivar
+#         if siActivar:
+#             self.setCursor(QtCore.Qt.OpenHandCursor)
+#             self.setFocus()
+#         else:
+#             self.setCursor(QtCore.Qt.ArrowCursor)
+
 class PiezaSC(BloqueSC):
     def __init__(self, escena, bloquePieza, board):
 
@@ -184,6 +281,7 @@ class PiezaSC(BloqueSC):
 
         self.pmRect = QtCore.QRectF(0, 0, physical_pos.ancho, physical_pos.ancho)
         self.is_active = False
+        self.is_dragging = False
         self.setAcceptHoverEvents(True)
 
         ancho = physical_pos.ancho
@@ -223,9 +321,7 @@ class PiezaSC(BloqueSC):
             self.ini_pos = event.scenePos()
             self.setZValue(ZVALUE_PIECE_MOVING)
             self.setCursor(QtCore.Qt.ClosedHandCursor)
-            physical_pos = self.bloquePieza.physical_pos
-            punto = QtCore.QPointF(self.ini_pos.x() - physical_pos.ancho/2, self.ini_pos.y() - physical_pos.alto/2)
-            self.setPos(punto)
+            QtWidgets.QGraphicsItem.mousePressEvent(self, event)
             if self.dispatchMove:
                 self.dispatchMove()
         else:
@@ -250,6 +346,7 @@ class PiezaSC(BloqueSC):
         if self.dragable:
             self.setZValue(ZVALUE_PIECE)
             self.board.intentaMover(self, event.scenePos(), event.button())
+        # self.is_dragging = False
 
     def activa(self, siActivar):
         self.setFlag(QtWidgets.QGraphicsItem.ItemIsMovable, siActivar)

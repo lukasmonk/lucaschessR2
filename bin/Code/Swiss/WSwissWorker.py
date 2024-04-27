@@ -132,7 +132,7 @@ class WSwissWorker(QtWidgets.QWidget):
         self.grid_pgn.ponAltoFila(configuration.x_pgn_rowheight)
 
         # # Blancas y negras
-        f = Controles.FontType(puntos=configuration.x_sizefont_infolabels + 2, peso=75)
+        f = Controles.FontType(puntos=configuration.x_sizefont_players, peso=500)
         self.lb_player = {}
         for side in (WHITE, BLACK):
             self.lb_player[side] = Controles.LB(self).anchoFijo(n_ancho_labels)

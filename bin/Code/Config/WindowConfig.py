@@ -178,8 +178,13 @@ def options(parent, configuration):
     )
     form.combobox(_("Icons"), li, configuration.type_icons())
 
+    form.separador()
+    form.apart(_("Message windows"))
+    form.spinbox(_("Font size"), 3, 64, 60, configuration.x_sizefont_messages)
+
     form.add_tab("%s 1" % _("Appearance"))
 
+    # Aspect 2/2 #######################################################################################################
     form.separador()
     form.checkbox(_("By default"), False)
     form.separador()
@@ -243,7 +248,7 @@ def options(parent, configuration):
 
         por_defecto = li_asp1[0]
         if por_defecto:
-            li_asp1 = ("", 11, 11, False, 11, False, QtCore.Qt.ToolButtonTextUnderIcon)
+            li_asp1 = ("", 11, 11, False, 11, False, QtCore.Qt.ToolButtonTextUnderIcon, 14)
         else:
             del li_asp1[0]
         (
@@ -254,11 +259,12 @@ def options(parent, configuration):
             configuration.x_tb_fontpoints,
             configuration.x_tb_bold,
             qt_iconstb,
+            configuration.x_sizefont_messages,
         ) = li_asp1
 
         por_defecto = li_asp2[0]
         if por_defecto:
-            li_asp2 = (348, 24, 11, False, True, True, True, False, False, True, 14, 16, True)
+            li_asp2 = (348, 24, 11, False, True, True, True, False, False, True, 11, 16, True)
         else:
             del li_asp2[0]
         (

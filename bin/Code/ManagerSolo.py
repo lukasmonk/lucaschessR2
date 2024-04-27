@@ -504,7 +504,7 @@ class ManagerSolo(Manager.Manager):
                 self.reiniciar()
 
         elif resp == "position":
-            self.startPosition()
+            self.start_position()
 
         elif resp == "pasteposicion":
             texto = QTUtil.get_txt_clipboard()
@@ -583,7 +583,7 @@ class ManagerSolo(Manager.Manager):
                 li = [self.game.first_position.fen(), "", self.game.pgnBaseRAW()]
                 self.saveSelectedPosition("|".join(li))
             elif nkey == QtCore.Qt.Key_S:
-                self.startPosition()
+                self.start_position()
             elif nkey == QtCore.Qt.Key_B:
                 is_control = (modifiers & QtCore.Qt.ControlModifier) > 0
                 if is_control:
@@ -600,7 +600,7 @@ class ManagerSolo(Manager.Manager):
             (ctrl + "2", _("Help to move")),
         ]
 
-    def startPosition(self):
+    def start_position(self):
         if Code.eboard and Code.eboard.deactivate():
             self.main_window.set_title_toolbar_eboard()
 

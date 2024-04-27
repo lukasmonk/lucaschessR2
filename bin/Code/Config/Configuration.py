@@ -156,7 +156,9 @@ class Configuration:
         self.x_director_icon = False
         self.x_direct_graphics = False
 
-        self.x_sizefont_infolabels = 14
+        self.x_sizefont_messages = 14
+
+        self.x_sizefont_infolabels = 11
         self.x_sizefont_players = 16
 
         self.x_pgn_width = 348

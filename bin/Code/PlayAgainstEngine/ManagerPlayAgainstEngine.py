@@ -1,6 +1,7 @@
 import os
 import time
 
+from PySide2 import QtCore
 import FasterCode
 
 import Code
@@ -49,6 +50,8 @@ from Code.QT import QTUtil
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
 from Code.Tutor import Tutor
+from Code.Voyager import Voyager
+
 
 
 class ManagerPlayAgainstEngine(Manager.Manager):
@@ -498,6 +501,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             li_mas_opciones = []
             if self.human_is_playing or self.is_finished():
                 li_mas_opciones.append(("books", _("Consult a book"), Iconos.Libros()))
+            li_mas_opciones.append(("start_position", _("Change the starting position"), Iconos.PGN()))
 
             resp = self.utilities(li_mas_opciones)
             if resp == "books":
@@ -508,6 +512,9 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                     self.player_has_moved(from_sq, to_sq, promotion)
             elif resp == "play":
                 self.play_current_position()
+            elif resp == "start_position":
+                self.start_position()
+            
 
         elif key == TB_ADJOURN:
             self.adjourn()
@@ -1742,3 +1749,18 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             self.board.set_side_bottom(is_white)
             self.reinicio["FEN"] = position.fen()
             self.reiniciar(False)
+
+    def start_position(self):
+        if Code.eboard and Code.eboard.deactivate():
+            self.main_window.set_title_toolbar_eboard()
+
+        position, is_white_bottom = Voyager.voyager_position(
+            self.main_window, self.game.first_position
+        )
+        if position is not None:
+            self.setup_board_live(is_white_bottom, position)
+
+    def control_teclado(self, nkey, modifiers):
+        if modifiers and (modifiers & QtCore.Qt.ControlModifier) > 0:
+            if nkey == QtCore.Qt.Key_S:
+                self.start_position()

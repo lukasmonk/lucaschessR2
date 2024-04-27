@@ -64,7 +64,7 @@ class WInfomove(QtWidgets.QWidget):
 
         self.lbPGN = LBKey(self).anchoFijo(self.board.ancho).set_wrap()
         self.lbPGN.wowner = self
-        self.lbPGN.set_font_type(puntos=configuration.x_pgn_fontpoints + 2)
+        self.lbPGN.set_font_type(puntos=configuration.x_pgn_fontpoints)
         Code.configuration.set_property(self.lbPGN, "pgn")
         self.lbPGN.setOpenExternalLinks(False)
         self.lbPGN.setAlignment(QtCore.Qt.AlignTop)

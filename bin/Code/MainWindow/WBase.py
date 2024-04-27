@@ -286,12 +286,11 @@ class WBase(QtWidgets.QWidget):
         self.configuration.set_property(self.lb_player_black, "black")
 
         # # Capturas
-        n_alto_fijo = 3 * (configuration.x_sizefont_infolabels + 2)
-        self.lb_capt_white = Controles.LB(self).anchoFijo(n_ancho_labels).set_wrap().altoFijo(n_alto_fijo)
+        self.lb_capt_white = Controles.LB(self).anchoFijo(n_ancho_labels).set_wrap()
         style = "QWidget { border-style: groove; border-width: 1px; border-color: LightGray; padding: 2px 0px 2px 0px;}"
         self.lb_capt_white.setStyleSheet(style)
 
-        self.lb_capt_black = Controles.LB(self).anchoFijo(n_ancho_labels).set_wrap().altoFijo(n_alto_fijo)
+        self.lb_capt_black = Controles.LB(self).anchoFijo(n_ancho_labels).set_wrap()
         self.lb_capt_black.setStyleSheet(style)
 
         # Relojes
@@ -311,13 +310,11 @@ class WBase(QtWidgets.QWidget):
         self.bt_active_tutor = Controles.PB(self, "", rutina=self.change_tutor_active, plano=False).set_font(f)
 
         # Rotulos de informacion
-        f = Controles.FontType(puntos=configuration.x_pgn_fontpoints)
+        f = Controles.FontType(puntos=configuration.x_sizefont_infolabels)
         self.lbRotulo1 = Controles.LB(self).set_wrap().set_font(f)
         self.lbRotulo2 = Controles.LB(self).set_wrap().set_font(f)
-        # f9 = Controles.FontType(puntos=9 * Code.factor_big_fonts)
         self.lbRotulo3 = Controles.LB(self).set_wrap().set_font(f)
         self.lbRotulo3.setStyleSheet("*{ border: 1px solid darkgray }")
-        # self.lbRotulo3.altoFijo(48 * Code.factor_big_fonts)
 
         # Rotulo de mensajes de trabajo con un cancelar
         self.wmessage = WMessage(self)

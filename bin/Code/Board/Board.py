@@ -1240,9 +1240,9 @@ class Board(QtWidgets.QGraphicsView):
 
         elif hasattr(self.main_window, "manager"):
             if hasattr(self.main_window.manager, "colect_candidates"):
-                liC = self.main_window.manager.colect_candidates(a1h8)
-                if liC:
-                    self.show_candidates(liC)
+                li_c = self.main_window.manager.colect_candidates(a1h8)
+                if li_c:
+                    self.show_candidates(li_c)
 
         QtWidgets.QGraphicsView.mousePressEvent(self, event)
 

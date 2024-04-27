@@ -122,7 +122,8 @@ class ManagerVariations(Manager.Manager):
 
     def final_x(self):
         self.procesador.stop_engines()
-        return True
+        self.main_window.reject()
+        return False
 
     def ponteEnJugada(self, movenum):
         row = (movenum + 1) / 2 if self.game.starts_with_black else movenum / 2
