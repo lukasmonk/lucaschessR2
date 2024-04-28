@@ -757,10 +757,8 @@ class MultiEngineResponse:
         if dbg:
             fdbg = open(dbg, "at", encoding="utf-8", errors="ignore")
             fdbg.write("\n%s\n" % cp.pr_board())
-            dpr = _("In the expected moves")
         else:
             fdbg = None
-            dpr = None
 
         aterrizaje = x("ATERRIZAJE", 100)
 
@@ -868,7 +866,7 @@ class MultiEngineResponse:
                 if has_advanced:
                     rm.puntos += x_av_pr
                     if dbg:
-                        fdbg.write(f'    {_("Advance")} ({dpr}): {x_av_pr} -> {rm.puntos}\n')
+                        fdbg.write(f'    {_("Advance")} : {x_av_pr} -> {rm.puntos}\n')
 
             if x_jpr:
                 n = True
@@ -876,7 +874,7 @@ class MultiEngineResponse:
                     if n and move.is_check:
                         rm.puntos += x_jpr
                         if dbg:
-                            fdbg.write("    %s (%s): %d -> %d\n" % (_("Make check"), dpr, x_jpr, rm.puntos))
+                            fdbg.write("    %s : %d -> %d\n" % (_("Make check"), x_jpr, rm.puntos))
                         break
                     n = not n
 
@@ -886,7 +884,7 @@ class MultiEngineResponse:
                     if n and move.siCaptura():
                         rm.puntos += x_cpr
                         if dbg:
-                            fdbg.write("    %s (%s): %d -> %d\n" % (_("Capture"), dpr, x_cpr, rm.puntos))
+                            fdbg.write("    %s: %d -> %d\n" % (_("Capture"), x_cpr, rm.puntos))
                         break
                     n = not n
 

@@ -1,8 +1,8 @@
 import os
 import time
 
-from PySide2 import QtCore
 import FasterCode
+from PySide2 import QtCore
 
 import Code
 from Code import Adjournments
@@ -51,7 +51,6 @@ from Code.QT import QTUtil2
 from Code.QT import QTVarios
 from Code.Tutor import Tutor
 from Code.Voyager import Voyager
-
 
 
 class ManagerPlayAgainstEngine(Manager.Manager):
@@ -514,7 +513,6 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                 self.play_current_position()
             elif resp == "start_position":
                 self.start_position()
-            
 
         elif key == TB_ADJOURN:
             self.adjourn()
@@ -1755,7 +1753,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             self.main_window.set_title_toolbar_eboard()
 
         position, is_white_bottom = Voyager.voyager_position(
-            self.main_window, self.game.first_position
+            self.main_window, self.game.last_position
         )
         if position is not None:
             self.setup_board_live(is_white_bottom, position)

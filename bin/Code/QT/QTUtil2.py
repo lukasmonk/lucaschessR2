@@ -509,31 +509,7 @@ class BarraProgreso1(QtWidgets.QDialog):
             self.li_times.append(tm)
             tm = sum(self.li_times) / len(self.li_times)
             previsto = int(tm * (self.total - valor))
-            minutos = previsto // 60
-            seconds = previsto % 60
-            if minutos > 120:
-                horas = minutos // 60
-                lb_hr = _("hours")
-                xmessage = f"{horas} {lb_hr}"
-            elif minutos > 60:
-                horas = minutos // 60
-                minutos -= horas * 60
-                lb_hr = _("hours") if horas > 1 else _("hour")
-                lb_min = _("minutes") if minutos != 1 else _("minute")
-                xmessage = f"{horas} {lb_hr}  {minutos} {lb_min}"
-
-            elif minutos > 1:
-                lb_min = _("minutes")
-                xmessage = f"{minutos} {lb_min}"
-
-            elif minutos == 1:
-                lb_min = _("minute")
-                lb_sec = _("seconds")
-                xmessage = f"{minutos} {lb_min} {seconds} {lb_sec}"
-
-            else:
-                lb_sec = _("seconds")
-                xmessage = f"{seconds} {lb_sec}"
+            xmessage = time_message(previsto)
 
             lb_pt = _("Pending time")
             self.lb_time.set_text(f"{lb_pt}: {xmessage}")
@@ -887,3 +863,31 @@ def read_simple(owner, title, label, value, mas_info=None, width=None, in_cursor
     if v.exec_():
         return v.resultado
     return None
+
+
+def time_message(seconds):
+    minutos = seconds // 60
+    seconds = seconds % 60
+    if minutos > 120:
+        horas = minutos // 60
+        lb_hr = _("hours")
+        return f"{horas} {lb_hr}"
+    elif minutos > 60:
+        horas = minutos // 60
+        minutos -= horas * 60
+        lb_hr = _("hours") if horas > 1 else _("hour")
+        lb_min = _("minutes") if minutos != 1 else _("minute")
+        return f"{horas} {lb_hr}  {minutos} {lb_min}"
+
+    elif minutos > 1:
+        lb_min = _("minutes")
+        return f"{minutos} {lb_min}"
+
+    elif minutos == 1:
+        lb_min = _("minute")
+        lb_sec = _("seconds")
+        return f"{minutos} {lb_min} {seconds} {lb_sec}"
+
+    else:
+        lb_sec = _("seconds")
+        return f"{seconds} {lb_sec}"

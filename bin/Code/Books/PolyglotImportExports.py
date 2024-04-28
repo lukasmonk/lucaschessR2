@@ -373,11 +373,12 @@ class ImportarPGNDB(QtWidgets.QDialog):
 
     def dispatch(self, is_total, valor, num_games):
         if is_total:
-            self.bp.setRange(0, valor)
+            self.bp.setRange(0, 100)
             self.time_inicial = time.time()
             self.total = valor
         elif valor > 0:
-            self.bp.setValue(valor)
+            porc_valor = valor*100/self.total
+            self.bp.setValue(porc_valor)
             self.lbgames_readed.set_text("%s: %d" % (_("Games read"), num_games))
             tm = time.time() - self.time_inicial
 
@@ -387,15 +388,8 @@ class ImportarPGNDB(QtWidgets.QDialog):
                 self.test_invalid_prevision()
             else:
                 previsto = int(tm1 * (self.total - valor))
-                minutos = previsto // 60
-                seconds = previsto % 60
-                lb_min = _("minutes") if minutos > 1 else _("minute")
-                if minutos > 0:
-                    self.lb_previsto.set_text(
-                        "%s: %d %s %d %s" % (_("Pending time"), minutos, lb_min, seconds, _("seconds"))
-                    )
-                else:
-                    self.lb_previsto.set_text("%s: %d %s" % (_("Pending time"), seconds, _("seconds")))
+                time_message = QTUtil2.time_message(previsto)
+                self.lb_previsto.set_text(f'{_("Pending time")}: {time_message}')
 
         QTUtil.refresh_gui()
         return not self.is_canceled

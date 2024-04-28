@@ -104,6 +104,9 @@ class ManagerFideFics(Manager.Manager):
                 key, valor = x.split("=")
                 self.game.set_tag(key, valor)
 
+        self.tag_result = self.game.get_tag("RESULT")
+
+        self.game.set_unknown()
         dbf.cerrar()
         db.cerrar()
 
@@ -276,12 +279,12 @@ class ManagerFideFics(Manager.Manager):
             self.show_result()
             return
 
-        siRival = is_white == self.is_engine_side_white
+        si_rival = is_white == self.is_engine_side_white
         self.set_side_indicator(is_white)
 
         self.refresh()
 
-        if siRival:
+        if si_rival:
             self.add_move(False)
             self.play_next_move()
         else:
@@ -452,6 +455,10 @@ class ManagerFideFics(Manager.Manager):
         mensaje += "<br><br>%s : %d<br>" % (self._newTitulo, self._activo())
 
         self.message_on_pgn(mensaje)
+
+        if self.tag_result:
+            self.game.set_tag("Result", self.tag_result)
+
         self.set_end_game()
 
     def historial(self, elo, nelo):

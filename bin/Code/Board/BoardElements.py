@@ -346,12 +346,11 @@ class PiezaSC(BloqueSC):
         if self.dragable:
             self.setZValue(ZVALUE_PIECE)
             self.board.intentaMover(self, event.scenePos(), event.button())
-        # self.is_dragging = False
 
-    def activa(self, siActivar):
-        self.setFlag(QtWidgets.QGraphicsItem.ItemIsMovable, siActivar)
-        self.is_active = siActivar
-        if siActivar:
+    def activa(self, activate):
+        self.setFlag(QtWidgets.QGraphicsItem.ItemIsMovable, activate)
+        self.is_active = activate
+        if activate:
             self.setCursor(QtCore.Qt.OpenHandCursor)
             self.setFocus()
         else:
