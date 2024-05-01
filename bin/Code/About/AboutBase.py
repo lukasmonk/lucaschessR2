@@ -141,7 +141,8 @@ class ThanksTo:
             "Reinhard",
             "Olav Stüwe",
             '<a href="http://99-developer-tools.com/chess/">A. Wicker</a>',
-            'Budana P'
+            'Budana P',
+            'Rudolf Krämer'
             ""
         ]
         li_resto = []

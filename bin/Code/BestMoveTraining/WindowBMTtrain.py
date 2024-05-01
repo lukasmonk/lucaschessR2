@@ -256,7 +256,7 @@ class WTrainBMT(LCDialog.LCDialog):
     def abandonar(self):
         self.bmt_uno.puntos = 0
         self.activaJugada(0)
-        self.ponPuntos(0)
+        self.set_score(0)
         self.pon_toolbar()
 
     def borrar(self):
@@ -292,7 +292,7 @@ class WTrainBMT(LCDialog.LCDialog):
 
     def empezar(self):
         self.buscaPrimero(0)
-        self.ponPuntos(0)
+        self.set_score(0)
         self.ponSegundos()
         self.set_clock()
 
@@ -590,7 +590,7 @@ class WTrainBMT(LCDialog.LCDialog):
         self.tb.li_acciones = li
         self.tb.update()
 
-    def ponPuntos(self, descontar):
+    def set_score(self, descontar):
         self.bmt_uno.puntos -= descontar
         if self.bmt_uno.puntos < 0:
             self.bmt_uno.puntos = 0
@@ -664,7 +664,7 @@ class WTrainBMT(LCDialog.LCDialog):
                 "%s (%s %s)" % (self.texto_lbPrimera, "%0.2f" % (-diferencia_pts_primero / 100.0), _("pws lost"))
             )
             self.muestra(num)
-            self.ponPuntos(0)
+            self.set_score(0)
             bt = self.liBT[self.actualP]
             bt.ponIcono(self.dicIconos[self.bmt_uno.state])
 
@@ -750,7 +750,7 @@ class WTrainBMT(LCDialog.LCDialog):
             else:
                 w.setVisible(False)
 
-        self.ponPuntos(0)
+        self.set_score(0)
         self.ponSegundos()
 
         self.pon_toolbar()
@@ -781,7 +781,7 @@ class WTrainBMT(LCDialog.LCDialog):
                 puntos_descontar = rm.nivelBMT
                 break
 
-        self.ponPuntos(puntos_descontar)
+        self.set_score(puntos_descontar)
 
         if n_elegido is not None:
             self.activaJugada(n_elegido)

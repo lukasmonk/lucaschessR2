@@ -373,17 +373,20 @@ class ManagerEntPos(Manager.Manager):
             self.ent_siguiente(TB_NEXT)
         elif nkey in (Qt.Key_Minus, Qt.Key_PageUp):
             self.ent_siguiente(TB_PREVIOUS)
-        elif nkey == Qt.Key_T:
-            li = self.line_fns.line.split("|")
-            li[2] = self.game.pgnBaseRAW()
-            self.saveSelectedPosition("|".join(li))
+        # elif nkey == Qt.Key_T:
+        #     self.save_current_position()
+
+    # def save_current_position(self):
+    #     li = self.line_fns.line.split("|")
+    #     li[2] = self.game.pgnBaseRAW()
+    #     self.save_selected_position("|".join(li))
 
     @staticmethod
     def list_help_keyboard():
         return [
             ("+/%s" % _("Page Down"), _("Next position")),
             ("-/%s" % _("Page Up"), _("Previous position")),
-            (_("CTRL") + " T", _("Save position in 'Selected positions' file")),
+            # (_("CTRL") + " T", _("Save position in 'Selected positions' file")),
         ]
 
     def end_game(self):

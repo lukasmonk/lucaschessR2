@@ -200,7 +200,8 @@ class ManagerTactics(Manager.Manager):
                 self.ent_siguiente()
 
     def list_help_keyboard(self):
-        return [("+/%s" % _("Page Down"), _("Next position")), ("T", _("Save position in 'Selected positions' file"))]
+        return [("+/%s" % _("Page Down"), _("Next position"))]
+                # ("T", _("Save position in 'Selected positions' file"))]
 
     def ent_siguiente(self):
         if self.tactic.work_game_finished():

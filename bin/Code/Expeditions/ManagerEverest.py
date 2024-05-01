@@ -69,7 +69,7 @@ class ManagerEverest(Manager.Manager):
         self.state = ST_PLAYING
         self.play_next_move()
 
-    def ponPuntos(self):
+    def set_score(self):
         self.set_label2("%s : <b>%d</b>" % (_("Score"), self.puntos))
 
     def run_action(self, key):
@@ -101,7 +101,7 @@ class ManagerEverest(Manager.Manager):
         return False
 
     def terminar(self):
-        self.analizaTerminar()
+        self.analyze_terminate()
         self.terminaNoContinuo()
         self.procesador.start()
         self.procesador.showEverest(self.expedition.recno)
@@ -111,7 +111,7 @@ class ManagerEverest(Manager.Manager):
         self.game.set_position()
         self.posJugadaObj = 0
         self.puntos = 0
-        self.ponPuntos()
+        self.set_score()
         self.vtime = 0.0
         self.book = Opening.OpeningPol(999)
         self.state = ST_PLAYING
@@ -122,7 +122,7 @@ class ManagerEverest(Manager.Manager):
         self.terminaNoContinuo()
 
         self.set_label1(self.expedition.label())
-        self.ponPuntos()
+        self.set_score()
         self.play_next_move()
 
     def restart(self, lost_points):
@@ -160,7 +160,7 @@ class ManagerEverest(Manager.Manager):
             self.if_analyzing = False
             self.xanalyzer.ac_final(-1)
 
-    def analizaTerminar(self):
+    def analyze_terminate(self):
         if self.if_analyzing:
             self.if_analyzing = False
             self.xanalyzer.terminar()
@@ -313,7 +313,7 @@ class ManagerEverest(Manager.Manager):
                 dpts = rm_usu.score_abs5() - rm_obj.score_abs5()
 
             self.puntos += dpts
-            self.ponPuntos()
+            self.set_score()
 
             if pos_usu != pos_obj:
                 comentario_usu = " %s" % rm_usu.abbrev_text()
@@ -364,7 +364,7 @@ class ManagerEverest(Manager.Manager):
         self.pgn_refresh(self.game.last_position.is_white)
 
     def put_result(self):
-        self.analizaTerminar()
+        self.analyze_terminate()
         self.disable_all()
         self.human_is_playing = False
 

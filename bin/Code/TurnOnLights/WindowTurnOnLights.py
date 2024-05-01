@@ -360,7 +360,7 @@ class WConfigOneLineTOL(LCDialog.LCDialog):
         return nl
 
     def newfile(self):
-        fns = self.procesador.selectOneFNS(self)
+        fns = self.procesador.select_one_fns(self)
         if fns:
             num_positions = self.calc_lines_fns(fns)
             if num_positions < self.cbNumPos.valor():

@@ -23,15 +23,13 @@ class AnalysisBar(QProgressBar):
         self.setRange(0, 10000)
         self.setValue(5000)
         self.setTextVisible(False)
-        b, w = Code.dic_colors["BLACK_ANALYSIS_BAR"], Code.dic_colors["WHITE_ANALYSIS_BAR"]
-        # style = """QProgressBar{background-color :%s;border : 1px solid %s; border-radius: 5px;}
-        #            QProgressBar::chunk {background-color: %s; border-bottom-right-radius: 5px;
-        # border-bottom-left-radius: 5px;}""" % (b, b, w)
-        style = """QProgressBar{background-color :%s;border : 1px solid %s;}  
-                   QProgressBar::chunk {background-color: %s;}""" % (b, b, w)
-        self.setStyleSheet(style)
         self.timer = None
         self.interval = Code.configuration.x_analyzer_mstime_refresh_ab
+
+        b, w = Code.dic_colors["BLACK_ANALYSIS_BAR"], Code.dic_colors["WHITE_ANALYSIS_BAR"]
+        style = """QProgressBar{background-color :%s;border : 1px solid %s;margin-left:4px;}  
+                   QProgressBar::chunk {background-color: %s;}""" % (b, b, w)
+        self.setStyleSheet(style)
 
         self.cache = {}
         self.xpv = None
@@ -39,7 +37,16 @@ class AnalysisBar(QProgressBar):
 
         self.animation = QPropertyAnimation(targetObject=self, propertyName=b"value")
 
-        # self.animation.setEasingCurve(QtCore.QEasingCurve.Type.InOutCubic)
+        self.board.set_analysis_bar(self)
+        self.previous_board = None
+        self.set_board_position()
+
+    def set_board_position(self):
+        if Code.configuration.x_analyzer_autorotate_ab:
+            new = self.board.is_white_bottom
+            if self.previous_board != new:
+                self.setInvertedAppearance(not new)
+                self.previous_board = new
 
     def activate(self, ok):
         self.setVisible(ok)
@@ -134,39 +141,32 @@ class AnalysisBar(QProgressBar):
                     self.timer.stop()
 
     def configure(self):
-        form = FormLayout.FormLayout(self, _("Limits in the Analysis Bar (0=no limit)"), Iconos.Configurar())
+        configuration = Code.configuration
+        form = FormLayout.FormLayout(self, _("Configuration"), Iconos.Configurar())
         form.separador()
-        form.editbox(_("Depth"), ancho=50, tipo=int, decimales=0, init_value=Code.configuration.x_analyzer_depth_ab)
+        form.checkbox(_("Auto-rotate"), configuration.x_analyzer_autorotate_ab)
         form.separador()
-
         form.separador()
-        form.float(_("Time in seconds"), Code.configuration.x_analyzer_mstime_ab / 1000.0)
+        form.apart_np(_("Limits in the Analysis Bar (0=no limit)"))
+        form.editbox(_("Depth"), ancho=50, tipo=int, decimales=0, init_value=configuration.x_analyzer_depth_ab)
+        form.float(_("Time in seconds"), configuration.x_analyzer_mstime_ab / 1000.0)
         form.separador()
 
         resultado = form.run()
         if resultado is None:
             return
 
-        Code.configuration.x_analyzer_depth_ab, Code.configuration.x_analyzer_mstime_ab = resultado[1]
-        Code.configuration.graba()
+        (configuration.x_analyzer_autorotate_ab, configuration.x_analyzer_depth_ab,
+         configuration.x_analyzer_mstime_ab) = resultado[1]
+        configuration.graba()
 
         self.set_game(self.game)
+        self.set_board_position()
 
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.RightButton:
             self.configure()
         super().mousePressEvent(event)
-
-    # def update_value(self, value):
-    #     desde = self.value()
-    #     hasta = value
-    #     inc = +1 if hasta > desde else -1
-    #     while desde != hasta:
-    #         desde += inc
-    #         self.setValue(desde)
-    #         self.update()
-    #     self.setValue(hasta)
-    #     self.update()
 
     def update_value(self, value):
         self.animation.stop()

@@ -105,6 +105,12 @@ class Engine:
             op.valor = op.default
         self.liUCI = []
 
+    def change_uci_default(self, name, default):
+        li_uci_options = self.li_uci_options()
+        for op in li_uci_options:
+            if op.name == name:
+                op.default = default
+
     def set_uci_option(self, name, valor):
         li_uci_options = self.li_uci_options()
         is_changed = False

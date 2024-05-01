@@ -141,7 +141,11 @@ class WKibitzers(LCDialog.LCDialog):
                 minimo = opcion.minimo
                 maximo = opcion.maximo
             elif tipo in ("check", "button"):
-                kibitzer.set_uci_option(opcion.name, not valor)
+                if valor == "true":
+                    valor = "false"
+                else:
+                    valor = "true"
+                kibitzer.set_uci_option(opcion.name, valor)
                 self.kibitzers.save()
                 self.goto(nk)
             elif tipo == "combo":
@@ -554,7 +558,11 @@ class WKibitzerLive(LCDialog.LCDialog):
                 minimo = opcion.minimo
                 maximo = opcion.maximo
             elif tipo in ("check", "button"):
-                opcion.valor = not valor
+                if valor == "true":
+                    valor = "false"
+                else:
+                    valor = "true"
+                opcion.valor = valor
                 self.li_options[recno][1] = opcion.valor
                 self.grid_values.refresh()
             elif tipo == "combo":

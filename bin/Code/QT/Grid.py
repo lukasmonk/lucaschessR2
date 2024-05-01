@@ -269,7 +269,7 @@ class Grid(QtWidgets.QTableView):
             w_parent,
             o_columns,
             dicVideo=None,
-            altoFila=24,
+            altoFila=None,
             siSelecFilas=False,
             siSeleccionMultiple=False,
             siLineas=True,
@@ -627,7 +627,8 @@ class Grid(QtWidgets.QTableView):
         hh.setFont(font)
 
     def ponAltoFila(self, altoFila):
-        vh = self.verticalHeader()
-        vh.setSectionResizeMode(QtWidgets.QHeaderView.Fixed)
-        vh.setDefaultSectionSize(altoFila)
-        vh.setVisible(self.with_header_vertical)
+        if altoFila:
+            vh = self.verticalHeader()
+            vh.setSectionResizeMode(QtWidgets.QHeaderView.Fixed)
+            vh.setDefaultSectionSize(altoFila)
+            vh.setVisible(self.with_header_vertical)

@@ -24,6 +24,7 @@ from Code.Base.Constantes import (
     BLINDFOLD_ALL,
 )
 from Code.Board import BoardElements, BoardMarkers, BoardBoxes, BoardSVGs, BoardTypes, BoardArrows, BoardCircles
+from Code.Databases import DBgames
 from Code.Director import TabVisual, WindowDirector
 from Code.QT import Colocacion
 from Code.QT import Controles
@@ -112,6 +113,11 @@ class Board(QtWidgets.QGraphicsView):
 
         self.active_premove = False
 
+        self.analysis_bar = None
+
+    def set_analysis_bar(self, analysis_bar):
+        self.analysis_bar = analysis_bar
+
     def disable_hard_focus(self):
         self.hard_focus = False
 
@@ -169,6 +175,15 @@ class Board(QtWidgets.QGraphicsView):
                     self.config_board.guardaEnDisco()
                     self.cambiadoAncho()
                     return
+
+            elif is_ctrl and key == Qt.Key_T:
+                resp = DBgames.save_selected_position(self.last_position)
+                if not resp.ok:
+                    mens = resp.mens_error.replace(_("Game").lower(), _("Position").lower())
+                    mens = mens.replace(_("Game"), _("Position"))
+                    QTUtil2.message_error(self, mens)
+                else:
+                    QTUtil2.temporary_message(self, f'{_("Saved")}\n{_("Databases")}: __Selected Positions__', 1.8)
 
             # ALT-F -> Rota board
             elif is_alt and key == Qt.Key_F:
@@ -767,6 +782,9 @@ class Board(QtWidgets.QGraphicsView):
             li_keys.append((None, None))
             li_keys.append((alt("N"), _("Activate/Deactivate non distract mode")))
 
+            li_keys.append((None, None))
+            li_keys.append((ctrl("T"), _("Save position in 'Selected positions' file")))
+
             if hasattr(self.main_window.manager, "list_help_keyboard"):
                 li_keys.append((None, None))
                 li_keys.extend(self.main_window.manager.list_help_keyboard())
@@ -822,7 +840,6 @@ class Board(QtWidgets.QGraphicsView):
         submenu = menu.submenu(_("By default"), Iconos.Defecto())
         submenu.opcion("def_todo1", "1", Iconos.m1())
         submenu.opcion("def_todo2", "2", Iconos.m2())
-        # menu.opcion("def_todo", _("By default"), Iconos.Defecto())
 
         menu.separador()
         if self.siDirector:
@@ -1995,6 +2012,9 @@ class Board(QtWidgets.QGraphicsView):
         if self.is_white_bottom == is_white_bottom:
             return
         self.is_white_bottom = is_white_bottom
+        if self.analysis_bar:
+            self.analysis_bar.set_board_position()
+
         for ver in self.liCoordenadasVerticales:
             ver.bloqueDatos.valor = str(9 - int(ver.bloqueDatos.valor))
             ver.update()
@@ -2154,10 +2174,10 @@ class Board(QtWidgets.QGraphicsView):
         return a1h8
 
     def creaMarco(self, bloqueMarco):
-        bloqueMarcoN = copy.deepcopy(bloqueMarco)
-        bloqueMarcoN.width_square = self.width_square
+        bloque_marco_n = copy.deepcopy(bloqueMarco)
+        bloque_marco_n.width_square = self.width_square
 
-        return BoardBoxes.MarcoSC(self.escena, bloqueMarcoN)
+        return BoardBoxes.MarcoSC(self.escena, bloque_marco_n)
 
     def creaCircle(self, bloque_circle):
         bloque_circle = copy.deepcopy(bloque_circle)
@@ -2166,10 +2186,10 @@ class Board(QtWidgets.QGraphicsView):
         return BoardCircles.CircleSC(self.escena, bloque_circle)
 
     def creaSVG(self, bloqueSVG, siEditando=False):
-        bloqueSVGN = copy.deepcopy(bloqueSVG)
-        bloqueSVGN.width_square = self.width_square
+        bloque_svgn = copy.deepcopy(bloqueSVG)
+        bloque_svgn.width_square = self.width_square
 
-        return BoardSVGs.SVGSC(self.escena, bloqueSVGN, siEditando=siEditando)
+        return BoardSVGs.SVGSC(self.escena, bloque_svgn, siEditando=siEditando)
 
     def creaMarker(self, bloqueMarker, siEditando=False):
         bloque_marker_n = copy.deepcopy(bloqueMarker)
@@ -2348,8 +2368,8 @@ class Board(QtWidgets.QGraphicsView):
 
         if otro_board.flechaSC and otro_board.flechaSC.isVisible():
             a1h8 = otro_board.flechaSC.bloqueDatos.a1h8
-            desdeA1h8, hastaA1h8 = a1h8[:2], a1h8[2:]
-            self.put_arrow_sc(desdeA1h8, hastaA1h8)
+            desde_a1h8, hasta_a1h8 = a1h8[:2], a1h8[2:]
+            self.put_arrow_sc(desde_a1h8, hasta_a1h8)
 
         self.escena.update()
         self.setFocus()
@@ -2455,7 +2475,7 @@ class Board(QtWidgets.QGraphicsView):
                     position = Position.Position()
                     position.read_fen(fen)
                     position.legal()
-                    self.main_window.manager.setup_board_live(side=="w", position)
+                    self.main_window.manager.setup_board_live(side == "w", position)
                 return 1
 
             else:
@@ -2516,7 +2536,7 @@ class WTamBoard(QtWidgets.QDialog):
             (_("By default"), -2),
         ]
 
-        self.cb = Controles.CB(self, li_tams, self.anchoParaCB(ap)).capture_changes(self.cambiadoTamCB)
+        self.cb = Controles.CB(self, li_tams, self.width_for_cb(ap)).capture_changes(self.changed_width_cb)
 
         minimo = self.board.minimum_size
         maximo = board.calculaAnchoMXpieza() + 30
@@ -2525,10 +2545,10 @@ class WTamBoard(QtWidgets.QDialog):
 
         self.sl = Controles.SL(self, minimo, maximo, ap, self.cambiadoTamSL, tick=0).set_width(180)
 
-        btAceptar = Controles.PB(self, "", rutina=self.aceptar, plano=False).ponIcono(Iconos.Aceptar())
+        bt_aceptar = Controles.PB(self, "", rutina=self.aceptar, plano=False).ponIcono(Iconos.Aceptar())
 
         layout = Colocacion.G()
-        layout.control(btAceptar, 0, 0).control(self.cb, 0, 1).control(self.sb, 0, 2)
+        layout.control(bt_aceptar, 0, 0).control(self.cb, 0, 1).control(self.sb, 0, 2)
         layout.controlc(self.sl, 1, 0, 1, 3).margen(5)
         self.setLayout(layout)
 
@@ -2536,7 +2556,8 @@ class WTamBoard(QtWidgets.QDialog):
         self.siCambio = False
         self.board.permitidoResizeExterno(False)
 
-    def anchoParaCB(self, ap):
+    @staticmethod
+    def width_for_cb(ap):
         return ap if ap in (80, 64, 48, 32, 24, 16) else 0
 
     def colocate(self):
@@ -2564,7 +2585,7 @@ class WTamBoard(QtWidgets.QDialog):
             t._dispatchSize()
         self.siCambio = True
 
-    def cambiadoTamCB(self):
+    def changed_width_cb(self):
         if self.siOcupado:
             return
         self.siOcupado = True
@@ -2576,10 +2597,10 @@ class WTamBoard(QtWidgets.QDialog):
         elif tam == -1:
             tpz = self.antes
             ct.width_piece(tpz)
-            self.cb.set_value(self.anchoParaCB(tpz))
+            self.cb.set_value(self.width_for_cb(tpz))
             self.cambiaAncho()
         elif tam == -2:
-            self.cb.set_value(self.anchoParaCB(ct.ponDefAnchoPieza()))
+            self.cb.set_value(self.width_for_cb(ct.ponDefAnchoPieza()))
             self.cambiaAncho()
         else:
             ct.width_piece(tam)
@@ -2596,7 +2617,7 @@ class WTamBoard(QtWidgets.QDialog):
         self.siOcupado = True
         tam = self.sb.valor()
         self.config_board.width_piece(tam)
-        self.cb.set_value(self.anchoParaCB(tam))
+        self.cb.set_value(self.width_for_cb(tam))
         self.cambiaAncho()
         self.sl.set_value(tam)
         self.siOcupado = False
@@ -2608,7 +2629,7 @@ class WTamBoard(QtWidgets.QDialog):
         self.siOcupado = True
         tam = self.sl.valor()
         self.config_board.width_piece(tam)
-        self.cb.set_value(self.anchoParaCB(tam))
+        self.cb.set_value(self.width_for_cb(tam))
         self.sb.set_value(tam)
         self.cambiaAncho()
         self.siOcupado = False

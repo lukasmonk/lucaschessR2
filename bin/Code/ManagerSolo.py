@@ -579,9 +579,8 @@ class ManagerSolo(Manager.Manager):
         if modifiers and (modifiers & QtCore.Qt.ControlModifier) > 0:
             if nkey == QtCore.Qt.Key_V:
                 self.paste(QTUtil.get_txt_clipboard())
-            elif nkey == QtCore.Qt.Key_T:
-                li = [self.game.first_position.fen(), "", self.game.pgnBaseRAW()]
-                self.saveSelectedPosition("|".join(li))
+            # elif nkey == QtCore.Qt.Key_T:
+            #     self.save_current_position()
             elif nkey == QtCore.Qt.Key_S:
                 self.start_position()
             elif nkey == QtCore.Qt.Key_B:
@@ -589,11 +588,16 @@ class ManagerSolo(Manager.Manager):
                 if is_control:
                     self.basic_initial_position()
 
-    def list_help_keyboard(self):
+    # def save_current_position(self):
+    #     li = [self.game.first_position.fen(), "", self.game.pgnBaseRAW()]
+    #     self.save_selected_position("|".join(li))
+
+    @staticmethod
+    def list_help_keyboard():
         ctrl = _("CTRL") + " "
         return [
             (ctrl + "V", _("Paste position")),
-            (ctrl + "T", _("Save position in 'Selected positions' file")),
+            # (ctrl + "T", _("Save position in 'Selected positions' file")),
             (ctrl + "S", _("Board editor")),
             (ctrl + "B", _("Basic position")),
             (ctrl + "1", _("Play instead of me")),

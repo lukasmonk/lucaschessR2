@@ -524,7 +524,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             Manager.Manager.rutinaAccionDef(self, key)
 
     def save_state(self):
-        self.analizaTerminar()
+        self.analyze_terminate()
         dic = self.reinicio
 
         # cache
@@ -598,7 +598,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                 return
         if self.timed:
             self.main_window.stop_clock()
-        self.analizaTerminar()
+        self.analyze_terminate()
         if self.book_rival_select == SELECTED_BY_PLAYER or self.nAjustarFuerza == ADJUST_SELECTED_BY_PLAYER:
             self.cache = {}
         self.reinicio["cache"] = self.cache
@@ -634,14 +634,18 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                 self.is_analyzing = False
                 self.xtutor.ac_final(-1)
 
-            bp = dic["BOOKP"]
+            bp = dic.get("BOOKP")
             if bp:
                 bp.book = None
-            br = dic["BOOKR"]
+            br = dic.get("BOOKR")
             if br:
                 br.book = None
 
             with Adjournments.Adjournments() as adj:
+                if self.game_type == GT_AGAINST_ENGINE:
+                    engine = dic["RIVAL"]["CM"]
+                    if hasattr(engine, "ICON"):
+                        delattr(engine, "ICON")
                 adj.add(self.game_type, dic, label_menu)
                 adj.si_seguimos(self)
 
@@ -737,7 +741,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             if with_question:
                 if not QTUtil2.pregunta(self.main_window, _("Do you want to resign?")):
                     return False  # no abandona
-            self.analizaTerminar()
+            self.analyze_terminate()
             self.game.set_termination(
                 TERMINATION_RESIGN, RESULT_WIN_WHITE if self.is_engine_side_white else RESULT_WIN_BLACK
             )
@@ -747,14 +751,14 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             if not self.play_while_win:
                 self.autosave()
         else:
-            self.analizaTerminar()
+            self.analyze_terminate()
             self.main_window.active_game(False, False)
             self.quitaCapturas()
             self.procesador.start()
 
         return False
 
-    def analizaTerminar(self):
+    def analyze_terminate(self):
         if self.is_analyzing:
             self.is_analyzing = False
             self.xtutor.ac_final(-1)
@@ -1684,7 +1688,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         if rm is None:
             return
 
-        self.analizaTerminar()
+        self.analyze_terminate()
 
         self.board.disable_eboard_here()
 

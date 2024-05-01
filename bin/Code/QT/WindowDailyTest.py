@@ -492,6 +492,6 @@ class WDailyTest(LCDialog.LCDialog):
         )
 
 
-def dailyTest(procesador):
+def daily_test(procesador):
     w = WDailyTestBase(procesador)
     w.exec_()

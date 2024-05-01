@@ -71,7 +71,7 @@ class WJuicio(LCDialog.LCDialog):
         self.grid.goto(self.posOP, 0)
         self.is_moving_time = False
 
-        self.ponPuntos()
+        self.set_score()
         self.restore_video()
 
     def difPuntos(self):
@@ -80,7 +80,7 @@ class WJuicio(LCDialog.LCDialog):
     def difPuntosMax(self):
         return self.mrm.best_rm_ordered().score_abs5() - self.rmUsu.score_abs5()
 
-    def ponPuntos(self):
+    def set_score(self):
         pts = self.difPuntos()
         if pts > 0:
             txt = _("Centipawns won %d") % pts
@@ -257,7 +257,7 @@ class WJuicio(LCDialog.LCDialog):
 
         self.mrm = mrm
 
-        self.ponPuntos()
+        self.set_score()
         self.list_rm, self.posOP = self.do_lirm()
         self.grid.refresh()
 

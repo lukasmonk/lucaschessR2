@@ -444,6 +444,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         self.cb_resign = Controles.CB(self, li_resign, -800).set_font(font)
 
         self.lb_path_engine = Controles.LB(self, "").set_wrap()
+        bt_default = Controles.PB(self, _("By default"), self.set_uci_default, plano = False)
 
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("OPTION", _("UCI option"), 240, align_center=True)
@@ -458,7 +459,8 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
                 self.bt_ajustar_rival).relleno()
         )
         ly_h3 = Colocacion.H().control(lb_resign).control(self.cb_resign).relleno()
-        ly = Colocacion.V().otro(ly_h2).otro(ly_h3).espacio(16).control(self.lb_path_engine).control(self.grid_uci)
+        ly_h4 = Colocacion.H().control(self.lb_path_engine).relleno().control(bt_default)
+        ly = Colocacion.V().otro(ly_h2).otro(ly_h3).espacio(16).otro(ly_h4).control(self.grid_uci)
 
         gb_advanced = new_groupbox(_("Opponent"), ly)
 
@@ -540,7 +542,11 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
             minimo = opcion.minimo
             maximo = opcion.maximo
         elif tipo in ("check", "button"):
-            self.rival.set_uci_option(key, not value)
+            if value == "true":
+                value = "false"
+            else:
+                value = "true"
+            self.rival.set_uci_option(key, value)
             self.grid_uci.refresh()
         elif tipo == "combo":
             lista = [(var, var) for var in opcion.li_vars]
@@ -558,6 +564,12 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         elif control == "sb":
             return Controles.SB(parent, value, minimo, maximo)
         return None
+
+    def set_uci_default(self):
+        for opcion in self.rival.li_uci_options_editable():
+            if opcion.valor != opcion.default:
+                self.rival.set_uci_option(opcion.name, opcion.default)
+        self.grid_uci.refresh()
 
     def me_set_value(self, editor, valor):
         if self.me_control == "ed":

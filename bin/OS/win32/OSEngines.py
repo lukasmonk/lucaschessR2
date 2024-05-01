@@ -140,7 +140,7 @@ def read_engines(folder_engines):
     mas("gull", "Vadim Demichev", "3 32bit", "https://sourceforge.net/projects/gullchess/", "Gull 3 w32 XP.exe", 3125)
     # cm.set_multipv(10, 64) Da problemas
 
-    mas("irina", "Lucas Monge", "0.16", "https://github.com/lukasmonk/irina", "irina.exe", 1500)
+    mas("irina", "Lucas Monge", "0.17", "https://github.com/lukasmonk/irina", "irina.exe", 1500)
 
     mas("rodentii", "Pawel Koziol", "0.9.64", "http://www.pkoziol.cal24.pl/rodent/rodent.htm", "RodentII_x32.exe", 2912,
         nodes_compatible=True)
@@ -180,7 +180,7 @@ def read_engines(folder_engines):
         "Arminius2017-01-01-32Bit.exe", 2662, emulate_movetime=True, nodes_compatible=True
     )
 
-    cm = mas("wildcat", "Igor Korshunov", "8", "http://www.igorkorshunov.narod.ru/WildCat", "WildCat_8.exe", 2627,
+    mas("wildcat", "Igor Korshunov", "8", "http://www.igorkorshunov.narod.ru/WildCat", "WildCat_8.exe", 2627,
              emulate_movetime=True)
 
     mas("demolito", "Lucas Braesch", "32bit", "https://github.com/lucasart/Demolito", "demolito_32bit_old.exe", 2627)

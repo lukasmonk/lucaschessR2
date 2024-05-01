@@ -140,7 +140,7 @@ class ManagerMicElo(Manager.Manager):
         self.showed_result = False  # Problema doble asignacion de ptos Thomas
 
         if human_side is None:
-            is_white = self.determinaColor(engine_rival)
+            is_white = self.get_the_side(engine_rival)
         else:
             is_white = human_side
 
@@ -554,7 +554,7 @@ class ManagerMicElo(Manager.Manager):
         dd[key] = self.is_human_side_white
         dd.close()
 
-    def determinaColor(self, engine_rival):
+    def get_the_side(self, engine_rival):
         key = engine_rival.name
 
         dd = UtilSQL.DictSQL(self.configuration.fichEstadMicElo, tabla="color")

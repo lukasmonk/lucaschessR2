@@ -2006,7 +2006,7 @@ class Manager:
 
         menu.lanza()
 
-    def saveSelectedPosition(self, lineaTraining):
+    def save_selected_position(self, lineaTraining):
         # Llamado from_sq ManagerEnPos and ManagerEntTac, para salvar la position tras pulsar una P
         with open(self.configuration.ficheroSelectedPositions, "at", encoding="utf-8", errors="ignore") as q:
             q.write(lineaTraining + "\n")

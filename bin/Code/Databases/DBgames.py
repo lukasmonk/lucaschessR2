@@ -1169,3 +1169,20 @@ def autosave(game: Game.Game):
 
     db.insert(game)
     db.close()
+
+
+def save_selected_position(position):
+    path_db = Code.configuration.file_selected_positions()
+    exist = os.path.isfile(path_db)
+    db = DBgames(path_db)
+    if not exist:
+        db.save_config("SUMMARY_DEPTH", 0)
+        db.save_config("ALLOWS_DUPLICATES", False)
+        db.save_config("ALLOWS_POSITIONS", True)
+        db.save_config("ALLOWS_ZERO_MOVES", True)
+        db.close()
+        db = DBgames(path_db)
+    game = Game.Game(position)
+    resp = db.insert(game)
+    db.close()
+    return resp

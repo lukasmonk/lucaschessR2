@@ -203,6 +203,7 @@ class Configuration:
         self.x_analyzer_priority = Priorities.priorities.low
         self.x_analyzer_depth_ab = 24
         self.x_analyzer_mstime_ab = 0
+        self.x_analyzer_autorotate_ab = True
         self.x_analyzer_mstime_refresh_ab = 200
         self.x_analyzer_activate_ab = False
 
@@ -486,6 +487,9 @@ class Configuration:
 
     def file_autosave(self):
         return Util.opj(self.folder_databases(), "__Autosave__.lcdb")
+
+    def file_selected_positions(self):
+        return Util.opj(self.folder_databases(), "__Selected Positions__.lcdb")
 
     def folder_databases_pgn(self):
         return self.create_base_folder("TemporaryDatabases")

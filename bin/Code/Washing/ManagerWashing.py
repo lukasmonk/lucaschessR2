@@ -672,7 +672,7 @@ class ManagerWashingCreate(Manager.Manager):
         self.thinking(False)
         self.is_analyzed_by_tutor = True
 
-    def analizaTerminar(self):
+    def analyze_terminate(self):
         if self.is_analyzing:
             self.is_analyzing = False
             self.xtutor.ac_final(-1)
@@ -754,7 +754,7 @@ class ManagerWashingCreate(Manager.Manager):
         self.refresh()
 
     def finalizar(self):
-        self.analizaTerminar()
+        self.analyze_terminate()
         self.main_window.active_game(False, False)
         self.quitaCapturas()
         self.procesador.start()
@@ -790,7 +790,7 @@ class ManagerWashingCreate(Manager.Manager):
 
     def takeback(self):
         if len(self.game):
-            self.analizaTerminar()
+            self.analyze_terminate()
             self.game.anulaUltimoMovimiento(self.is_human_side_white)
             self.game.assign_opening()
             self.goto_end()
@@ -805,7 +805,7 @@ class ManagerWashingCreate(Manager.Manager):
         if not QTUtil2.pregunta(self.main_window, _("Restart the game?")):
             return
 
-        self.analizaTerminar()
+        self.analyze_terminate()
 
         self.add_time()
         self.add_game()

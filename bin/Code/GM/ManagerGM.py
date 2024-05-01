@@ -107,8 +107,6 @@ class ManagerGM(Manager.Manager):
 
         self.check_boards_setposition()
 
-        self.play_next_move()
-
     def ponRotuloSecundario(self):
         self.set_label2(self.rival_name + "<br><br>" + self.textoPuntuacion)
 
@@ -140,7 +138,7 @@ class ManagerGM(Manager.Manager):
         return self.end_game()
 
     def end_game(self):
-        self.analizaTerminar()
+        self.analyze_terminate()
         siJugadas = len(self.game) > 0
         if siJugadas and self.state != ST_ENDGAME:
             self.game.set_unknown()
@@ -151,7 +149,7 @@ class ManagerGM(Manager.Manager):
 
     def reiniciar(self):
         if QTUtil2.pregunta(self.main_window, _("Restart the game?")):
-            self.analizaTerminar()
+            self.analyze_terminate()
             self.game.set_position()
             self.main_window.activaInformacionPGN(False)
             self.start(self.record)
@@ -159,6 +157,7 @@ class ManagerGM(Manager.Manager):
     def analyze_begin(self):
         if not self.is_finished():
             if self.continueTt:
+
                 self.xtutor.ac_inicio(self.game)
             else:
                 self.xtutor.ac_inicio_limit(self.game)
@@ -181,8 +180,13 @@ class ManagerGM(Manager.Manager):
             else:
                 self.mrm_tutor = self.xtutor.ac_final_limit()
 
+    def analyze_end_now(self):
+        if self.if_analyzing:
+            self.if_analyzing = False
+            self.mrm_tutor = self.xtutor.ac_final(0)
+
     def play_next_move(self):
-        self.analyze_end()
+        self.analyze_end_now()
         self.disable_all()
 
         if self.state == ST_ENDGAME:
@@ -202,7 +206,7 @@ class ManagerGM(Manager.Manager):
         self.set_side_indicator(is_white)
         self.refresh()
 
-        siRival = is_white == self.is_engine_side_white
+        si_rival = is_white == self.is_engine_side_white
 
         if self.jugInicial > 1:
             si_jug_inicial = len(self.game) < (self.jugInicial - 1) * 2
@@ -260,7 +264,7 @@ class ManagerGM(Manager.Manager):
                 self.play_next_move()
                 return
 
-        if siRival:
+        if si_rival:
             if nli_alternativas > 1:
                 if self.select_rival_move:
                     li_moves = self.engine_gm.get_moves_txt(self.game.last_position, False)
@@ -283,7 +287,7 @@ class ManagerGM(Manager.Manager):
                 self.thinking(False)
             self.activate_side(is_white)
 
-    def analizaTerminar(self):
+    def analyze_terminate(self):
         if self.if_analyzing:
             self.if_analyzing = False
             self.xtutor.terminar()
@@ -295,105 +299,105 @@ class ManagerGM(Manager.Manager):
 
         movimiento = jgUsu.movimiento()
         position = self.game.last_position
-        isValid = self.engine_gm.is_valid_move(movimiento)
+        is_valid = self.engine_gm.is_valid_move(movimiento)
         analysis = None
 
-        if not isValid:
+        if not is_valid:
             self.board.set_position(position)
             self.board.activate_side(self.is_human_side_white)
             li_moves = self.engine_gm.get_moves_txt(position, True)
-            desdeGM, hastaGM, promotionGM = WindowGM.select_move(self, li_moves, True)
-            siAnalizaJuez = self.with_adjudicator
-            if siAnalizaJuez:
+            desde_gm, hasta_gm, promotion_gm = WindowGM.select_move(self, li_moves, True)
+            si_analiza_juez = self.with_adjudicator
+            if si_analiza_juez:
                 if self.book:
                     fen = self.last_fen()
                     siH = self.book.check_human(fen, from_sq, to_sq)
-                    is_gm = self.book.check_human(fen, desdeGM, hastaGM)
+                    is_gm = self.book.check_human(fen, desde_gm, hasta_gm)
                     if is_gm and siH:
-                        siAnalizaJuez = False
+                        si_analiza_juez = False
                     else:
                         self.book = False
         else:
-            siAnalizaJuez = (
+            si_analiza_juez = (
                     self.with_adjudicator and self.mostrar is None
             )  # None es ver siempre False no ver nunca True ver si diferentes
             if len(movimiento) == 5:
                 promotion = movimiento[4].lower()
-            desdeGM, hastaGM, promotionGM = from_sq, to_sq, promotion
+            desde_gm, hasta_gm, promotion_gm = from_sq, to_sq, promotion
 
-        ok, mens, jgGM = Move.get_game_move(self.game, position, desdeGM, hastaGM, promotionGM)
-        movGM = jgGM.pgn_translated()
-        movUsu = jgUsu.pgn_translated()
+        ok, mens, jg_gm = Move.get_game_move(self.game, position, desde_gm, hasta_gm, promotion_gm)
+        mov_gm = jg_gm.pgn_translated()
+        mov_usu = jgUsu.pgn_translated()
 
-        if siAnalizaJuez:
+        if si_analiza_juez:
             um = QTUtil2.analizando(self.main_window)
             mrm = self.analyze_minimum(self.vtime * 100)
 
-            rmUsu, nada = mrm.search_rm(jgUsu.movimiento())
-            if rmUsu is None:
+            rm_usu, nada = mrm.search_rm(jgUsu.movimiento())
+            if rm_usu is None:
                 um = QTUtil2.analizando(self.main_window)
                 self.analyze_end()
-                rmUsu = self.xtutor.valora(position, from_sq, to_sq, promotion)
-                mrm.add_rm(rmUsu)
+                rm_usu = self.xtutor.valora(position, from_sq, to_sq, promotion)
+                mrm.add_rm(rm_usu)
                 self.analyze_begin()
                 um.final()
 
-            rmGM, pos_gm = mrm.search_rm(jgGM.movimiento())
-            if rmGM is None:
+            rm_gm, pos_gm = mrm.search_rm(jg_gm.movimiento())
+            if rm_gm is None:
                 self.analyze_end()
-                rmGM = self.xtutor.valora(position, desdeGM, hastaGM, promotionGM)
-                pos_gm = mrm.add_rm(rmGM)
+                rm_gm = self.xtutor.valora(position, desde_gm, hasta_gm, promotion_gm)
+                pos_gm = mrm.add_rm(rm_gm)
                 self.analyze_begin()
 
             um.final()
 
             analysis = mrm, pos_gm
-            dpts = rmUsu.centipawns_abs() - rmGM.centipawns_abs()
+            dpts = rm_usu.centipawns_abs() - rm_gm.centipawns_abs()
 
-            if self.mostrar is None or ((self.mostrar is True) and not isValid):
+            if self.mostrar is None or ((self.mostrar is True) and not is_valid):
                 w = WindowJuicio.WJuicio(
                     self,
                     self.xtutor,
                     self.nombreGM,
                     position,
                     mrm,
-                    rmGM,
-                    rmUsu,
+                    rm_gm,
+                    rm_usu,
                     analysis,
                     is_competitive=not self.show_evals,
                 )
                 w.exec_()
 
-                rm, pos_gm = w.analysis[0].search_rm(jgGM.movimiento())
+                rm, pos_gm = w.analysis[0].search_rm(jg_gm.movimiento())
                 analysis = w.analysis[0], pos_gm
 
-                rmUsu = w.rmUsu
-                rmGM = w.rmObj
+                rm_usu = w.rmUsu
+                rm_gm = w.rmObj
                 dpts = w.difPuntos()
 
             self.puntos += dpts
 
-            comentario0 = "<b>%s</b> : %s = %s<br>" % (self.configuration.x_player, movUsu, rmUsu.texto())
-            comentario0 += "<b>%s</b> : %s = %s<br>" % (self.nombreGM, movGM, rmGM.texto())
+            comentario0 = "<b>%s</b> : %s = %s<br>" % (self.configuration.x_player, mov_usu, rm_usu.texto())
+            comentario0 += "<b>%s</b> : %s = %s<br>" % (self.nombreGM, mov_gm, rm_gm.texto())
             comentario1 = "<br><b>%s</b> = %+d<br>" % (_("Difference"), dpts)
             comentario2 = "<b>%s</b> = %+d<br>" % (_("Centipawns accumulated"), self.puntos)
             self.textoPuntuacion = comentario2
             self.ponRotuloSecundario()
 
-            if not isValid:
-                jgGM.set_comment(
+            if not is_valid:
+                jg_gm.set_comment(
                     (comentario0 + comentario1 + comentario2)
                     .replace("<b>", "")
                     .replace("</b>", "")
                     .replace("<br>", "\n")
                 )
 
-        self.analyze_end()
+        self.analyze_end_now()
 
-        self.move_the_pieces(jgGM.liMovs)
+        self.move_the_pieces(jg_gm.liMovs)
 
-        jgGM.analysis = analysis
-        self.add_move(jgGM, True)
+        jg_gm.analysis = analysis
+        self.add_move(jg_gm, True)
         self.error = ""
         self.play_next_move()
         return True

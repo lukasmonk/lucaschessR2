@@ -34,6 +34,38 @@ from Code.SQL import UtilSQL
 
 
 class ManagerFideFics(Manager.Manager):
+    min_time = 5000
+    _db: str
+    _activo = None
+    _ponActivo = None
+    name_obj: str
+    _fichEstad: str
+    _titulo: str
+    _newTitulo: str
+    _TIPO: str
+    analysis = None
+    comment = None
+    if_analyzing = False
+    is_competitive = True
+    eloObj = 0
+    eloUsu = 0
+    pwin = 0
+    pdraw = 0
+    plost = 0
+    puntos = 0
+    is_tutor_enabled = False
+    nivel = 0
+    is_human_side_white = True
+    is_engine_side_white = True
+    game_obj = None
+    posJugadaObj = 0
+    numJugadasObj = 0
+    tag_result = None
+    id_game = 0
+    book = None
+    mrm = None
+    name = None
+
     def selecciona(self, type_play):
         self.game_type = type_play
         if type_play == GT_FICS:
@@ -67,7 +99,7 @@ class ManagerFideFics(Manager.Manager):
             self._TIPO = "LICHESS"
 
     def elige_juego(self, nivel):
-        color = self.determinaColor(nivel)
+        color = self.get_the_side(nivel)
         db = Base.DBBase(self._db)
         dbf = db.dbfT("data", "ROWID", condicion="LEVEL=%d AND WHITE=%d" % (nivel, 1 if color else 0))
         dbf.leer()
@@ -142,6 +174,7 @@ class ManagerFideFics(Manager.Manager):
         self.hints = 0
         self.ayudas_iniciales = 0
 
+        self.xtutor.options(self.min_time, 0, True)
         self.xtutor.maximize_multipv()
 
         self.book = Opening.OpeningPol(999)
@@ -164,12 +197,12 @@ class ManagerFideFics(Manager.Manager):
 
         self.check_boards_setposition()
 
-    def ponPuntos(self):
+    def set_score(self):
         self.set_label2("%s : <b>%d</b>" % (_("Score"), self.puntos))
 
     def pon_toolbar(self):
-        liTool = [TB_RESIGN, TB_ADJOURN, TB_CONFIG, TB_UTILITIES]
-        self.set_toolbar(liTool)
+        li_tool = [TB_RESIGN, TB_ADJOURN, TB_CONFIG, TB_UTILITIES]
+        self.set_toolbar(li_tool)
 
     def run_action(self, key):
         if key in (TB_RESIGN, TB_CANCEL):
@@ -204,7 +237,7 @@ class ManagerFideFics(Manager.Manager):
 
             with Adjournments.Adjournments() as adj:
                 adj.add(self.game_type, dic, self._titulo)
-                self.analizaTerminar()
+                self.finnish_the_analysis()
                 adj.si_seguimos(self)
 
     def run_adjourn(self, dic):
@@ -214,7 +247,7 @@ class ManagerFideFics(Manager.Manager):
         self.game.restore(dic["GAME_SAVE"])
         self.puntos = dic["PUNTOS"]
         self.mueveJugada(GO_END)
-        self.ponPuntos()
+        self.set_score()
 
         self.play_next_move()
 
@@ -223,16 +256,16 @@ class ManagerFideFics(Manager.Manager):
 
     def rendirse(self):
         if self.state == ST_ENDGAME:
-            self.analizaTerminar()
+            self.finnish_the_analysis()
             return True
         if len(self.game) > 0:
             if not QTUtil2.pregunta(self.main_window, _("Do you want to resign?") + " (%d)" % self.plost):
                 return False  # no abandona
             self.puntos = -999
-            self.analizaTerminar()
+            self.finnish_the_analysis()
             self.show_result()
         else:
-            self.analizaTerminar()
+            self.finnish_the_analysis()
             self.procesador.start()
 
         return False
@@ -250,8 +283,8 @@ class ManagerFideFics(Manager.Manager):
         self.mrm = copy.deepcopy(self.xtutor.ac_estado())
         return self.mrm
 
-    def analyze_minimum(self, minTime):
-        self.mrm = copy.deepcopy(self.xtutor.ac_minimo(minTime, False))
+    def analyze_minimum(self, min_time):
+        self.mrm = copy.deepcopy(self.xtutor.ac_minimo(min_time, False))
         return self.mrm
 
     def analyze_end(self):
@@ -259,7 +292,7 @@ class ManagerFideFics(Manager.Manager):
             self.if_analyzing = False
             self.xtutor.ac_final(-1)
 
-    def analizaTerminar(self):
+    def finnish_the_analysis(self):
         if self.if_analyzing:
             self.if_analyzing = False
             self.xtutor.terminar()
@@ -300,7 +333,7 @@ class ManagerFideFics(Manager.Manager):
         if not jg_usu:
             return False
 
-        jgObj = self.game_obj.move(self.posJugadaObj)
+        jg_obj = self.game_obj.move(self.posJugadaObj)
 
         analysis = None
         comment = None
@@ -308,23 +341,23 @@ class ManagerFideFics(Manager.Manager):
         comentario_usu = ""
         comentario_obj = ""
 
-        si_analiza_juez = jg_usu.movimiento() != jgObj.movimiento()
+        si_analiza_juez = jg_usu.movimiento() != jg_obj.movimiento()
         if self.book:
             fen = self.last_fen()
-            siBookUsu = self.book.check_human(fen, from_sq, to_sq)
-            siBookObj = self.book.check_human(fen, jgObj.from_sq, jgObj.to_sq)
-            if siBookUsu:
+            si_book_usu = self.book.check_human(fen, from_sq, to_sq)
+            si_book_obj = self.book.check_human(fen, jg_obj.from_sq, jg_obj.to_sq)
+            if si_book_usu:
                 comentario_usu = _("book move")
-            if siBookObj:
+            if si_book_obj:
                 comentario_obj = _("book move")
-            if siBookUsu and siBookObj:
-                if jgObj.movimiento() != jg_usu.movimiento():
-                    # comment = "%s: %s" % (_("Same book move"), jgObj.pgn_translated())
+            if si_book_usu and si_book_obj:
+                if jg_obj.movimiento() != jg_usu.movimiento():
+                    # comment = "%s: %s" % (_("Same book move"), jg_obj.pgn_translated())
                     # else:
                     bmove = _("book move")
                     comment = "%s: %s %s<br>%s: %s %s" % (
                         self.name_obj,
-                        jgObj.pgn_translated(),
+                        jg_obj.pgn_translated(),
                         bmove,
                         self.configuration.x_player,
                         jg_usu.pgn_translated(),
@@ -333,46 +366,46 @@ class ManagerFideFics(Manager.Manager):
                     QTUtil2.message_information(self.main_window, comment)
                 si_analiza_juez = False
             else:
-                if not siBookObj:
+                if not si_book_obj:
                     self.book = None
 
         if si_analiza_juez:
             um = QTUtil2.analizando(self.main_window)
             if not self.continueTt:
                 self.analyze_begin()
-            mrm = self.analyze_minimum(5000)
+            mrm = self.analyze_minimum(self.min_time)
             position = self.game.last_position
 
-            rmUsu, nada = mrm.search_rm(jg_usu.movimiento())
-            if rmUsu is None:
+            rm_usu, nada = mrm.search_rm(jg_usu.movimiento())
+            if rm_usu is None:
                 self.analyze_end()
-                rmUsu = self.xtutor.valora(position, jg_usu.from_sq, jg_usu.to_sq, jg_usu.promotion)
-                mrm.add_rm(rmUsu)
+                rm_usu = self.xtutor.valora(position, jg_usu.from_sq, jg_usu.to_sq, jg_usu.promotion)
+                mrm.add_rm(rm_usu)
                 self.analyze_begin()
 
-            rmObj, posObj = mrm.search_rm(jgObj.movimiento())
-            if rmObj is None:
+            rm_obj, pos_obj = mrm.search_rm(jg_obj.movimiento())
+            if rm_obj is None:
                 self.analyze_end()
-                rmObj = self.xtutor.valora(position, jgObj.from_sq, jgObj.to_sq, jgObj.promotion)
-                posObj = mrm.add_rm(rmObj)
+                rm_obj = self.xtutor.valora(position, jg_obj.from_sq, jg_obj.to_sq, jg_obj.promotion)
+                pos_obj = mrm.add_rm(rm_obj)
                 self.analyze_begin()
 
-            analysis = mrm, posObj
+            analysis = mrm, pos_obj
             um.final()
 
-            w = WindowJuicio.WJuicio(self, self.xtutor, self.name_obj, position, mrm, rmObj, rmUsu, analysis)
+            w = WindowJuicio.WJuicio(self, self.xtutor, self.name_obj, position, mrm, rm_obj, rm_usu, analysis)
             w.exec_()
 
             analysis = w.analysis
             dpts = w.difPuntos()
 
             self.puntos += dpts
-            self.ponPuntos()
+            self.set_score()
 
             comentario_usu += " %s" % (w.rmUsu.abbrev_text())
             comentario_obj += " %s" % (w.rmObj.abbrev_text())
 
-            comentarioPuntos = "%s = %d %+d %+d = %d" % (
+            comentario_puntos = "%s = %d %+d %+d = %d" % (
                 _("Score"),
                 self.puntos - dpts,
                 w.rmUsu.centipawns_abs(),
@@ -382,12 +415,12 @@ class ManagerFideFics(Manager.Manager):
 
             comment = "%s: %s %s\n%s: %s %s\n%s" % (
                 self.name_obj,
-                jgObj.pgn_translated(),
+                jg_obj.pgn_translated(),
                 comentario_obj,
                 self.configuration.x_player,
                 jg_usu.pgn_translated(),
                 comentario_usu,
-                comentarioPuntos,
+                comentario_puntos,
             )
 
         self.analyze_end()
@@ -396,8 +429,7 @@ class ManagerFideFics(Manager.Manager):
         self.play_next_move()
         return True
 
-    def add_move(self, siNuestra, comment=None, analysis=None):
-
+    def add_move(self, si_nuestra, comment=None, analysis=None):
         move = self.game_obj.move(self.posJugadaObj)
         self.posJugadaObj += 1
         if analysis:
@@ -408,7 +440,7 @@ class ManagerFideFics(Manager.Manager):
         if comment:
             self.comment = comment.replace("\n", "<br><br>") + "<br>"
 
-        if not siNuestra:
+        if not si_nuestra:
             if self.posJugadaObj:
                 self.comment = None
 
@@ -417,13 +449,13 @@ class ManagerFideFics(Manager.Manager):
         self.move_the_pieces(move.liMovs, True)
         self.board.set_position(move.position)
         self.put_arrow_sc(move.from_sq, move.to_sq)
-        self.beepExtendido(siNuestra)
+        self.beepExtendido(si_nuestra)
 
         self.pgn_refresh(self.game.last_position.is_white)
         self.refresh()
 
     def show_result(self):
-        self.analizaTerminar()
+        self.finnish_the_analysis()
         self.disable_all()
         self.human_is_playing = False
 
@@ -462,12 +494,13 @@ class ManagerFideFics(Manager.Manager):
         self.set_end_game()
 
     def historial(self, elo, nelo):
-        dic = {}
-        dic["FECHA"] = datetime.datetime.now()
-        dic["LEVEL"] = self.nivel
-        dic["RESULTADO"] = self.resultado
-        dic["AELO"] = elo
-        dic["NELO"] = nelo
+        dic = {
+            "FECHA": datetime.datetime.now(),
+            "LEVEL": self.nivel,
+            "RESULTADO": self.resultado,
+            "AELO": elo,
+            "NELO": nelo
+        }
 
         lik = UtilSQL.ListSQL(self._fichEstad)
         lik.append(dic)
@@ -478,7 +511,7 @@ class ManagerFideFics(Manager.Manager):
         dd[key] = self.is_human_side_white
         dd.close()
 
-    def determinaColor(self, nivel):
+    def get_the_side(self, nivel):
         key = "%s-%d" % (self._TIPO, nivel)
 
         dd = UtilSQL.DictSQL(self._fichEstad, tabla="color")

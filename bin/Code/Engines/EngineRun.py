@@ -497,12 +497,12 @@ class RunEngine:
         time.sleep(0.1)
         return self.ac_estado()
 
-    def ac_final_limit(self, minTime):
+    def ac_final_limit(self, min_time):
         if not self.best_move_done:
             self.ac_lee()
             self.mrm.ordena()
             rm = self.mrm.best_rm_ordered()
-            while rm.time < minTime and not self.best_move_done:
+            while rm.time < min_time and not self.best_move_done:
                 time.sleep(0.1)
                 self.ac_lee()
                 rm = self.mrm.best_rm_ordered()

@@ -30,9 +30,9 @@ class ManagerPlayGame(Manager.Manager):
     close_on_exit = False
     name_obj_white: str
     name_obj_black: str
+    is_analyzing: bool
 
     def start(self, recno, is_white, is_black, close_on_exit=False):
-
         self.game_type = GT_LEARN_PLAY
 
         self.close_on_exit = close_on_exit
@@ -53,7 +53,7 @@ class ManagerPlayGame(Manager.Manager):
         self.human_is_playing = False
         self.analysis = None
         self.comment = None
-        self.if_analyzing = False
+        self.is_analyzing = False
         self.is_human_side_white = is_white
         self.is_human_side_black = is_black
         self.numJugadasObj = game_obj.num_moves()
@@ -66,7 +66,8 @@ class ManagerPlayGame(Manager.Manager):
         self.siSave = False
         self.minTiempo = 5000
 
-        self.xanalyzer.maximize_multipv()
+        self.xtutor.options(self.minTiempo, 0, True)
+        self.xtutor.maximize_multipv()
 
         self.puntosMax = 0
         self.puntos = 0
@@ -113,11 +114,11 @@ class ManagerPlayGame(Manager.Manager):
         else:
             return self.name_obj_black
 
-    def ponPuntos(self):
+    def set_score(self):
         lb_score = _("Score in relation to")
         self.set_label2(f'{lb_score}:<table border="1" cellpadding="5" cellspacing="0" style="margin-left:60px">'
                         f'<tr><td align="right">{self.name_obj_common()}</td><td align="right"><b>{self.puntos:+d}</b></td></tr>'
-                        f'<tr><td align="right">{self.xanalyzer.name}</td>'
+                        f'<tr><td align="right">{self.xtutor.name}</td>'
                         f'<td align="right"><b>{-self.puntosMax:+d}</b></td>'
                         '</tr></table>')
 
@@ -155,7 +156,7 @@ class ManagerPlayGame(Manager.Manager):
 
     def cancelar(self):
         self.puntos = -999
-        self.analizaTerminar()
+        self.analyze_terminate()
         self.procesador.start()
         return False
 
@@ -168,7 +169,7 @@ class ManagerPlayGame(Manager.Manager):
         self.posJugadaObj = 0
         self.puntos = 0
         self.puntosMax = 0
-        self.ponPuntos()
+        self.set_score()
         self.vtime = 0.0
         self.book = Opening.OpeningPol(999)
         self.state = ST_PLAYING
@@ -193,32 +194,38 @@ class ManagerPlayGame(Manager.Manager):
 
     def analyze_begin(self):
         if not self.is_finished():
-            self.xanalyzer.ac_inicio(self.game)
-            self.if_analyzing = True
+            if self.continueTt:
+                self.xtutor.ac_inicio(self.game)
+            else:
+                self.xtutor.ac_inicio_limit(self.game)
+            self.is_analyzing = True
 
     def analyze_minimum(self, pvUsu, pvObj):
-        mrmActual = self.xanalyzer.ac_estado()
+        mrmActual = self.xtutor.ac_estado()
         mrm = self.validoMRM(pvUsu, pvObj, mrmActual)
         if mrm:
             return mrm
-        self.mrm = copy.deepcopy(self.xanalyzer.ac_minimo(self.minTiempo, False))
+        self.mrm = copy.deepcopy(self.xtutor.ac_minimo(self.minTiempo, False))
         return self.mrm
 
     def analyze_state(self):
-        self.xanalyzer.engine.ac_lee()
-        self.mrm = copy.deepcopy(self.xanalyzer.ac_estado())
+        self.xtutor.engine.ac_lee()
+        self.mrm = copy.deepcopy(self.xtutor.ac_estado())
         return self.mrm
 
     def analyze_end(self):
-        if self.if_analyzing:
-            self.if_analyzing = False
-            self.xanalyzer.ac_final(-1)
+        if self.is_analyzing:
             self.siSave = True
-
-    def analizaTerminar(self):
-        if self.if_analyzing:
             self.if_analyzing = False
-            self.xanalyzer.terminar()
+            if self.continueTt:
+                self.mrm_tutor = self.xtutor.ac_final(self.xtutor.mstime_engine)
+            else:
+                self.mrm_tutor = self.xtutor.ac_final_limit()
+
+    def analyze_terminate(self):
+        if self.is_analyzing:
+            self.is_analyzing = False
+            self.xtutor.terminar()
 
     def play_next_move(self):
         if self.state == ST_ENDGAME:
@@ -315,7 +322,7 @@ class ManagerPlayGame(Manager.Manager):
                 si_analiza_juez = False
 
             if si_analiza_juez:
-                w = WindowJuicio.WJuicio(self, self.xanalyzer, self.name_obj(), position, mrm, rm_obj, rm_usu, analysis,
+                w = WindowJuicio.WJuicio(self, self.xtutor, self.name_obj(), position, mrm, rm_obj, rm_usu, analysis,
                                          is_competitive=not self.show_all)
                 w.exec_()
 
@@ -351,7 +358,7 @@ class ManagerPlayGame(Manager.Manager):
                 comentario_usu,
                 comentario_puntos,
             )
-            self.ponPuntos()
+            self.set_score()
 
         self.analyze_end()
 
@@ -379,7 +386,7 @@ class ManagerPlayGame(Manager.Manager):
         self.refresh()
 
     def put_result(self):
-        self.analizaTerminar()
+        self.analyze_terminate()
         self.disable_all()
         self.human_is_playing = False
 

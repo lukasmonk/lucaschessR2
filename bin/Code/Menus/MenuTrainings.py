@@ -111,6 +111,7 @@ class MenuTrainings:
         self.configuration = procesador.configuration
         self.menu = None
         self.dicMenu = None
+        self.horse_def = None
 
     def menu_fns(self, menu, label, xopcion):
         td = TrainingDir(Code.path_resource("Trainings"))
@@ -189,7 +190,8 @@ class MenuTrainings:
         menu_basic.separador()
         xopcion(menu_basic, "anotar", _("Writing down moves of a game"), Iconos.Write())
 
-    def create_menu_openings(self, menu, xopcion):
+    @staticmethod
+    def create_menu_openings(menu, xopcion):
         menu.separador()
         menu_openings = menu.submenu(_("Openings"), Iconos.Openings())
         menu_openings.separador()
@@ -197,7 +199,8 @@ class MenuTrainings:
         xopcion(menu_openings, "train_book", _("Training with a book"), Iconos.Book())
         menu_openings.separador()
 
-    def create_menu_games(self, menu, xopcion):
+    @staticmethod
+    def create_menu_games(menu, xopcion):
         menu.separador()
 
         menu_games = menu.submenu(_("Games"), Iconos.Training_Games())
@@ -238,33 +241,33 @@ class MenuTrainings:
         # Tacticas ---------------------------------------------------------------------------------------------
         menu_t = menu_tactics.submenu(_("Learn tactics by repetition"), Iconos.Tacticas())
         nico = Util.Rondo(Iconos.Amarillo(), Iconos.Naranja(), Iconos.Verde(), Iconos.Azul(), Iconos.Magenta())
-        dicTraining = TrListas.dic_training()
+        dic_training = TrListas.dic_training()
 
-        def trTraining(txt):
-            return dicTraining.get(txt, _F(txt))
+        def tr_training(txt):
+            return dic_training.get(txt, _F(txt))
 
-        def menu_tacticas(submenu, tipo, carpeta_base, lista):
+        def menu_tacticas(submenu, tipo, carpeta_base, xlista):
             if os.path.isdir(carpeta_base):
                 entry: os.DirEntry
                 for entry in os.scandir(carpeta_base):
                     if entry.is_dir():
-                        carpeta = entry.path
-                        ini = Util.opj(carpeta, "Config.ini")
+                        xcarpeta = entry.path
+                        ini = Util.opj(xcarpeta, "Config.ini")
                         if os.path.isfile(ini):
-                            name = entry.name
+                            xname = entry.name
                             xopcion(
                                 submenu,
-                                f"tactica|{tipo}|{name}|{carpeta}|{ini}",
-                                trTraining(name),
+                                f"tactica|{tipo}|{xname}|{xcarpeta}|{ini}",
+                                tr_training(xname),
                                 nico.otro(),
                             )
                             submenu.separador()
-                            lista.append((carpeta, name))
+                            xlista.append((xcarpeta, xname))
                         else:
-                            submenu1 = submenu.submenu(entry.name, nico.otro())
-                            menu_tacticas(submenu1, tipo, carpeta, lista)
+                            xsubmenu1 = submenu.submenu(entry.name, nico.otro())
+                            menu_tacticas(xsubmenu1, tipo, xcarpeta, xlista)
             menu_t.separador()
-            return lista
+            return xlista
 
         menu_tacticas(menu_t, TACTICS_BASIC, Code.path_resource("Tactics"), [])
         lista = []
@@ -276,7 +279,7 @@ class MenuTrainings:
                 ico = Iconos.Delete()
                 menub = menu_t.submenu(_("Remove"), ico)
                 for carpeta, name in lista:
-                    xopcion(menub, "remtactica|%s|%s" % (carpeta, name), trTraining(name), ico)
+                    xopcion(menub, "remtactica|%s|%s" % (carpeta, name), tr_training(name), ico)
                     menub.separador()
         menu_tactics.separador()
 
@@ -312,7 +315,8 @@ class MenuTrainings:
         menu2.separador()
         xopcion(menu2, "tol_oneline", _("Turn on lights in one line"), Iconos.TOLline())
 
-    def create_menu_endings(self, menu, xopcion):
+    @staticmethod
+    def create_menu_endings(menu, xopcion):
         menu.separador()
         menu_endings = menu.submenu(_("Endings"), Iconos.Training_Endings())
 
@@ -327,7 +331,8 @@ class MenuTrainings:
 
         xopcion(menu_endings, "endings_gtb", _("Endings with Gaviota Tablebases"), Iconos.Finales())
 
-    def create_menu_long(self, menu, xopcion):
+    @staticmethod
+    def create_menu_long(menu, xopcion):
         menu.separador()
         menu_long = menu.submenu(_("Long-term trainings"), Iconos.Longhaul())
         # Maps
@@ -345,20 +350,20 @@ class MenuTrainings:
         menu_long.separador()
         xopcion(menu_long, "washing_machine", _("The Washing Machine"), Iconos.WashingMachine())
 
-    def creaMenu(self):
-        dicMenu = {}
+    def create_menu(self):
+        dic_menu = {}
         menu = QTVarios.LCMenu(self.parent)
 
         talpha = Controles.FontType("Chess Merida", self.configuration.x_menu_points + 4)
 
-        def xopcion(menu, key, texto, icono, is_disabled=False):
+        def xopcion(xmenu, key, texto, icono, is_disabled=False):
             if "KP" in texto:
                 k2 = texto.index("K", 2)
                 texto = texto[:k2] + texto[k2:].lower()
-                menu.opcion(key, texto, icono, is_disabled, font_type=talpha)
+                xmenu.opcion(key, texto, icono, is_disabled, font_type=talpha)
             else:
-                menu.opcion(key, texto, icono, is_disabled)
-            dicMenu[key] = (self.menu_run, texto, icono, is_disabled)
+                xmenu.opcion(key, texto, icono, is_disabled)
+            dic_menu[key] = (self.menu_run, texto, icono, is_disabled)
 
         self.create_menu_basic(menu, xopcion)
         self.create_menu_tactics(menu, xopcion)
@@ -367,14 +372,14 @@ class MenuTrainings:
         self.create_menu_endings(menu, xopcion)
         self.create_menu_long(menu, xopcion)
 
-        return menu, dicMenu
+        return menu, dic_menu
 
     def verify(self):
         if self.menu is None:
             self.rehaz()
 
     def rehaz(self):
-        self.menu, self.dicMenu = self.creaMenu()
+        self.menu, self.dicMenu = self.create_menu()
 
     def lanza(self):
         self.verify()
@@ -389,7 +394,7 @@ class MenuTrainings:
                     self.train_gm()
 
                 elif resp.startswith("mate"):
-                    self.jugarMate(int(resp[-1]))
+                    self.play_mate(int(resp[-1]))
 
                 elif resp == "bmt":
                     self.bmt()
@@ -401,7 +406,7 @@ class MenuTrainings:
                     self.find_all_moves(resp == "find_all_moves_player")
 
                 elif resp == "dailytest":
-                    self.dailyTest()
+                    self.daily_test()
 
                 elif resp == "potencia":
                     self.potencia()
@@ -618,12 +623,12 @@ class MenuTrainings:
         self.procesador.manager = ManagerFindAllMoves.ManagerFindAllMoves(self.procesador)
         self.procesador.manager.start(si_jugador)
 
-    def jugarMate(self, tipo):
+    def play_mate(self, tipo):
         self.procesador.manager = ManagerMate.ManagerMate(self.procesador)
         self.procesador.manager.start(tipo)
 
-    def dailyTest(self):
-        WindowDailyTest.dailyTest(self.procesador)
+    def daily_test(self):
+        WindowDailyTest.daily_test(self.procesador)
 
     def potencia(self):
         WindowPotencia.windowPotencia(self.procesador)
@@ -729,16 +734,16 @@ class MenuTrainings:
         w.exec_()
 
 
-def selectOneFNS(owner, procesador):
+def select_one_fns(owner, procesador):
     tpirat = Controles.FontType("Chess Merida", procesador.configuration.x_font_points + 4)
 
-    def xopcion(menu, key, texto, icono, is_disabled=False):
+    def xopcion(xmenu, key, texto, icono, is_disabled=False):
         if "KP" in texto:
             k2 = texto.index("K", 2)
             texto = texto[:k2] + texto[k2:].lower()
-            menu.opcion(key, texto, icono, is_disabled, font_type=tpirat)
+            xmenu.opcion(key, texto, icono, is_disabled, font_type=tpirat)
         else:
-            menu.opcion(key, texto, icono, is_disabled)
+            xmenu.opcion(key, texto, icono, is_disabled)
 
     menu = QTVarios.LCMenu(owner)
     td = TrainingDir(Code.path_resource("Trainings"))
@@ -772,7 +777,7 @@ def params_training_position(w_parent, titulo, n_fen, pos, salta, tutor_active, 
     form.checkbox(_("Remove pre-defined solutions"), remove_solutions)
 
     form.separador()
-    form.checkbox(_("Comments"), show_comments)
+    form.checkbox(_("Show comments"), show_comments)
 
     form.separador()
     form.checkbox(_("Advanced mode"), advanced)

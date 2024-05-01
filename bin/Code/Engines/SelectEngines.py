@@ -111,10 +111,14 @@ class SelectEngines:
             cm = Engines.Engine(name, cmbase.autor, cmbase.version, cmbase.url, cmbase.path_exe)
             cm.name = trans
             cm.alias = name
-            cm.__icono = ico
+            cm.ICON = ico
             cm.elo = elo
             cm.type = ENG_IRINA
             cm.set_uci_option("Personality", name)
+            cm.change_uci_default("Personality", name)
+            ownbook = "true" if name in ("Rat", "Snake", "Knight", "Steven") else "false"
+            cm.set_uci_option("OwnBook", ownbook)
+            cm.change_uci_default("OwnBook", ownbook)
             li.append(cm)
         return li
 
@@ -136,7 +140,7 @@ class SelectEngines:
     #         cm = Engines.Engine(name, cmbase.autor, cmbase.version, cmbase.url, cmbase.path_exe)
     #         cm.name = trans
     #         cm.alias = name
-    #         cm.__icono = ico
+    #         cm.ICON = ico
     #         cm.elo = elo
     #         cm.type = ENG_IRINA
     #         cm.set_uci_option("Personality", name)
@@ -272,7 +276,7 @@ class SelectEngines:
         menu.separador()
         menu1 = menu.submenu(dnames[ENG_IRINA], Iconos.RivalesMP())
         for cm in self.liIrina:
-            menu1.opcion(cm, cm.name, cm.__icono)
+            menu1.opcion(cm, cm.name, cm.ICON)
 
         menu.separador()
 

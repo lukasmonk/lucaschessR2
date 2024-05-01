@@ -1300,10 +1300,10 @@ class Procesador:
         else:
             return None
 
-    def selectOneFNS(self, owner=None):
+    def select_one_fns(self, owner=None):
         if owner is None:
             owner = self.main_window
-        return MenuTrainings.selectOneFNS(owner, self)
+        return MenuTrainings.select_one_fns(owner, self)
 
     def gaviota_endings(self):
         WEndingsGTB.train_gtb(self)

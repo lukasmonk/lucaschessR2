@@ -152,16 +152,13 @@ QPushButton:pressed {
                 if x + s.width() > w_screen:
                     x = w_screen - s.width() - 4
                 y = v.y() + 4
+                self.move(QtCore.QPoint(x, y))
             elif self.physical_pos == ON_TOOLBAR:
                 x = v.x() + 4
                 y = v.y() + 4
+                self.move(QtCore.QPoint(x, y))
             else:
-                s = self.size()
-                x = v.x() + (v.width() - s.width()) // 2
-                y = v.y() + (v.height() - s.height()) // 2
-
-            p = QtCore.QPoint(x, y)
-            self.move(p)
+                QTUtil.center_on_widget(self)
         QTUtil.refresh_gui()
         return self
 

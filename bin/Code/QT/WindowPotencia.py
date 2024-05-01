@@ -362,7 +362,7 @@ class WBlqMove(QtWidgets.QWidget):
     def resultado(self):
         return self.wm.resultado()
 
-    def ponPuntos(self, puntos):
+    def set_score(self, puntos):
         self.ms.set_text("%s: %d/100" % (_("Score"), puntos))
         self.ms.show()
         self.an.show()
@@ -772,7 +772,7 @@ class WPotencia(LCDialog.LCDialog):
                     puntos = 0
                 else:
                     puntos = 100 - dif
-                wm.ponPuntos(puntos)
+                wm.set_score(puntos)
                 cp = cpNue
                 totalPuntos += int(puntos * factor * previo / 100)
                 previo = puntos * previo / 100
