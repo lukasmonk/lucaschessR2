@@ -31,6 +31,25 @@ class ManagerPlayGame(Manager.Manager):
     name_obj_white: str
     name_obj_black: str
     is_analyzing: bool
+    recno: int
+    analysis: object
+    comment = None
+    numJugadasObj: int
+    posJugadaObj: int
+    siSave: bool
+    puntosMax: int
+    min_mstime: int
+    puntos: int
+    vtime: float
+    show_all: bool
+    book = None
+    show_rating_always = None
+    show_rating_different = None
+    show_rating_never = None
+    show_rating = None
+    mrm = None
+    mrm_tutor = None
+    iniTiempo = None
 
     def start(self, recno, is_white, is_black, close_on_exit=False):
         self.game_type = GT_LEARN_PLAY
@@ -64,9 +83,9 @@ class ManagerPlayGame(Manager.Manager):
             self.auto_rotate = self.get_auto_rotate()
 
         self.siSave = False
-        self.minTiempo = 5000
+        self.min_mstime = 5000
 
-        self.xtutor.options(self.minTiempo, 0, True)
+        self.xtutor.options(self.min_mstime, 0, True)
         self.xtutor.maximize_multipv()
 
         self.puntosMax = 0
@@ -117,7 +136,8 @@ class ManagerPlayGame(Manager.Manager):
     def set_score(self):
         lb_score = _("Score in relation to")
         self.set_label2(f'{lb_score}:<table border="1" cellpadding="5" cellspacing="0" style="margin-left:60px">'
-                        f'<tr><td align="right">{self.name_obj_common()}</td><td align="right"><b>{self.puntos:+d}</b></td></tr>'
+                        f'<tr><td align="right">{self.name_obj_common()}</td><td align="right"><b>{self.puntos:+d}'
+                        f'</b></td></tr>'
                         f'<tr><td align="right">{self.xtutor.name}</td>'
                         f'<td align="right"><b>{-self.puntosMax:+d}</b></td>'
                         '</tr></table>')
@@ -156,12 +176,12 @@ class ManagerPlayGame(Manager.Manager):
 
     def cancelar(self):
         self.puntos = -999
-        self.analyze_terminate()
+        self.analyzer_close()
         self.procesador.start()
         return False
 
-    def reiniciar(self, siPregunta):
-        if siPregunta:
+    def reiniciar(self, with_question):
+        if with_question:
             if not QTUtil2.pregunta(self.main_window, _("Restart the game?")):
                 return
         self.main_window.activaInformacionPGN(False)
@@ -180,15 +200,15 @@ class ManagerPlayGame(Manager.Manager):
 
         self.play_next_move()
 
-    def validoMRM(self, pvUsu, pvObj, mrmActual):
+    def valid_mrm(self, pv_usu, pv_obj, mrm_actual):
         move = self.game_obj.move(self.posJugadaObj)
         if move.analysis:
             mrm, pos = move.analysis
-            msAnalisis = mrm.get_time()
-            if msAnalisis > self.minTiempo:
-                if mrmActual.get_time() > msAnalisis and mrmActual.contain(pvUsu) and mrmActual.contain(pvObj):
+            ms_analisis = mrm.get_time()
+            if ms_analisis > self.min_mstime:
+                if mrm_actual.get_time() > ms_analisis and mrm_actual.contain(pv_usu) and mrm_actual.contain(pv_obj):
                     return None
-                if mrm.contain(pvObj) and mrm.contain(pvUsu):
+                if mrm.contain(pv_obj) and mrm.contain(pv_usu):
                     return mrm
         return None
 
@@ -200,12 +220,8 @@ class ManagerPlayGame(Manager.Manager):
                 self.xtutor.ac_inicio_limit(self.game)
             self.is_analyzing = True
 
-    def analyze_minimum(self, pvUsu, pvObj):
-        mrmActual = self.xtutor.ac_estado()
-        mrm = self.validoMRM(pvUsu, pvObj, mrmActual)
-        if mrm:
-            return mrm
-        self.mrm = copy.deepcopy(self.xtutor.ac_minimo(self.minTiempo, False))
+    def analyze_minimum(self):
+        self.mrm = copy.deepcopy(self.xtutor.ac_minimo(self.min_mstime, False))
         return self.mrm
 
     def analyze_state(self):
@@ -216,16 +232,13 @@ class ManagerPlayGame(Manager.Manager):
     def analyze_end(self):
         if self.is_analyzing:
             self.siSave = True
-            self.if_analyzing = False
-            if self.continueTt:
-                self.mrm_tutor = self.xtutor.ac_final(self.xtutor.mstime_engine)
-            else:
-                self.mrm_tutor = self.xtutor.ac_final_limit()
+            self.is_analyzing = False
+            self.xtutor.ac_final(-1)
 
-    def analyze_terminate(self):
+    def analyzer_close(self):
         if self.is_analyzing:
             self.is_analyzing = False
-            self.xtutor.terminar()
+        self.xtutor.terminar()
 
     def play_next_move(self):
         if self.state == ST_ENDGAME:
@@ -307,11 +320,23 @@ class ManagerPlayGame(Manager.Manager):
             um = QTUtil2.analizando(self.main_window)
             pv_usu = jg_usu.movimiento()
             pv_obj = jg_obj.movimiento()
-            mrm = self.analyze_minimum(pv_usu, pv_obj)
+            mrm = self.analyze_minimum()
             position = self.game.last_position
 
             rm_usu, nada = mrm.search_rm(pv_usu)
+            if rm_usu is None:
+                self.analyze_end()
+                rm_usu = self.xtutor.valora(position, jg_usu.from_sq, jg_usu.to_sq, jg_usu.promotion)
+                mrm.add_rm(rm_usu)
+                if self.continueTt:
+                    self.analyze_begin()
             rm_obj, pos_obj = mrm.search_rm(pv_obj)
+            if rm_obj is None:
+                self.analyze_end()
+                rm_obj = self.xtutor.valora(position, jg_obj.from_sq, jg_obj.to_sq, jg_obj.promotion)
+                pos_obj = mrm.add_rm(rm_obj)
+                if self.continueTt:
+                    self.analyze_begin()
 
             analysis = mrm, pos_obj
             um.final()
@@ -366,7 +391,7 @@ class ManagerPlayGame(Manager.Manager):
         self.play_next_move()
         return True
 
-    def add_move(self, siNuestra, analysis=None, comment=None):
+    def add_move(self, is_player_move, analysis=None, comment=None):
         move = self.game_obj.move(self.posJugadaObj)
         self.posJugadaObj += 1
         if analysis:
@@ -380,13 +405,13 @@ class ManagerPlayGame(Manager.Manager):
         self.move_the_pieces(move.liMovs, True)
         self.board.set_position(move.position)
         self.put_arrow_sc(move.from_sq, move.to_sq)
-        self.beepExtendido(siNuestra)
+        self.beepExtendido(is_player_move)
 
         self.pgn_refresh(self.game.last_position.is_white)
         self.refresh()
 
     def put_result(self):
-        self.analyze_terminate()
+        self.analyzer_close()
         self.disable_all()
         self.human_is_playing = False
 
@@ -399,7 +424,7 @@ class ManagerPlayGame(Manager.Manager):
             mensaje = _("Congratulations you have won.")
             quien = RS_WIN_PLAYER
 
-        self.beepResultadoCAMBIAR(quien)
+        self.beep_result_change(quien)
 
         self.message_on_pgn(mensaje)
         self.set_end_game()

@@ -405,7 +405,7 @@ class WLeagueWorker(QtWidgets.QWidget):
     def game_finished(self):
         return self.game.termination != TERMINATION_UNKNOWN
 
-    def showPV(self, pv, nArrows):
+    def show_pv(self, pv, nArrows):
         if not pv:
             return True
         self.board.remove_arrows()
@@ -573,7 +573,7 @@ class WLeagueWorker(QtWidgets.QWidget):
             rm.is_white = self.game.last_position.is_white
             txt = "<b>[%s]</b> (%s) %s" % (rm.name, rm.abbrev_text(), p.pgn_translated())
             self.lbRotulo3.set_text(txt)
-            self.showPV(rm.pv, 1)
+            self.show_pv(rm.pv, 1)
         return self.set_clock()
 
     def clocks_finished(self):
@@ -701,22 +701,22 @@ class WLeagueWorker(QtWidgets.QWidget):
         if nue.fullscreen:
             self.board.siF11 = True
             self.antiguoAnchoPieza = 1000 if ant.maximizado else ct.width_piece()
-            self.board.maximizaTam(True)
+            self.board.maximize_size(True)
         else:
             if ant.fullscreen:
                 self.base.tb.show()
-                self.board.normalTam(self.antiguoAnchoPieza)
-                self.ajustaTam()
+                self.board.normal_size(self.antiguoAnchoPieza)
+                self.adjust_size()
                 if self.antiguoAnchoPieza == 1000:
                     self.setWindowState(QtCore.Qt.WindowMaximized)
             elif nue.maximizado:
                 self.antiguoAnchoPieza = ct.width_piece()
-                self.board.maximizaTam(False)
+                self.board.maximize_size(False)
             elif ant.maximizado:
                 if not self.antiguoAnchoPieza or self.antiguoAnchoPieza == 1000:
-                    self.antiguoAnchoPieza = self.board.calculaAnchoMXpieza()
-                self.board.normalTam(self.antiguoAnchoPieza)
-                self.ajustaTam()
+                    self.antiguoAnchoPieza = self.board.calc_width_mx_piece()
+                self.board.normal_size(self.antiguoAnchoPieza)
+                self.adjust_size()
 
-    def ajustaTam(self):
+    def adjust_size(self):
         QTUtil.shrink(self)

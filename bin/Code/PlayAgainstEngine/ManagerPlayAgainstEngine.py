@@ -409,7 +409,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                     if self.nArrowsTt > 0:
                         if time.time() - self.last_time_show_arrows > 3.4:
                             self.last_time_show_arrows = time.time()
-                            self.showPV(rm.pv, self.nArrowsTt)
+                            self.show_pv(rm.pv, self.nArrowsTt)
                     if self.thoughtTt > -1:
                         self.show_dispatch(self.thoughtTt, rm)
         elif self.thoughtOp > -1 or self.nArrows > 0:
@@ -418,7 +418,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                 if self.nArrows:
                     if time.time() - self.last_time_show_arrows > 3.4:
                         self.last_time_show_arrows = time.time()
-                        self.showPV(rm.pv, self.nArrows)
+                        self.show_pv(rm.pv, self.nArrows)
                 if self.thoughtOp > -1:
                     self.show_dispatch(self.thoughtOp, rm)
 
@@ -451,7 +451,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                 return
 
             elif is_player and tc.is_zeitnot():
-                self.beepZeitnot()
+                self.beep_zeitnot()
 
     def stop_clock(self, is_player):
         tc = self.tc_player if is_player else self.tc_rival
@@ -1200,7 +1200,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             rm = self.mrm_tutor.best_rm_ordered()
             return self.player_has_moved_base(rm.from_sq, rm.to_sq, rm.promotion)
 
-        if self.if_analyzing:
+        if self.is_analyzing:
             self.analyze_end()
 
         mrm = self.analizaTutor(with_cursor=True)
@@ -1258,7 +1258,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                         game_over_message_pww = _("This movement is not in the mandatory opening")
                     else:
                         self.board.ponFlechasTmp(((apdesde, aphasta, False),))
-                        self.beepError()
+                        self.beep_error()
                         self.tc_player.restart()
                         self.enable_toolbar()
                         self.sigueHumano()
@@ -1278,7 +1278,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                         game_over_message_pww = _("This movement is not in the opening line selected")
                     else:
                         self.board.ponFlechasTmp(li_flechas)
-                        self.beepError()
+                        self.beep_error()
                         self.tc_player.restart()
                         self.enable_toolbar()
                         self.sigueHumano()
@@ -1361,7 +1361,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                 elif Tutor.launch_tutor(self.mrm_tutor, rm_user):
                     if not move.is_mate:
                         si_tutor = True
-                        self.beepError()
+                        self.beep_error()
                         if self.chance:
                             num = self.mrm_tutor.num_better_move_than(a1h8)
                             if num:
@@ -1558,7 +1558,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
     def muestra_resultado_delayed(self):
         mensaje, beep, player_win = self.game.label_resultado_player(self.is_human_side_white)
 
-        self.beepResultado(beep)
+        self.beep_result(beep)
         self.saveSummary()
         self.autosave()
         QTUtil.refresh_gui()
@@ -1715,7 +1715,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
 
         self.play_next_move()
 
-    def showPV(self, pv, n_arrows):
+    def show_pv(self, pv, n_arrows):
         if not pv:
             return True
         self.board.remove_arrows()

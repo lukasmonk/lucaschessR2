@@ -379,10 +379,20 @@ def editSonido(owner, titulo, wav):
         return None
 
 
+def db_sounds_coherent():
+    rs = Code.runSound
+    with UtilSQL.DictSQL(Code.configuration.file_sounds(), "general") as db:
+        for key in db.keys():
+            path_wav = rs.path_wav(key)
+            if not Util.exist_file(path_wav):
+                Code.runSound.save_wav(key, db[key])
+
+
 class WSonidos(LCDialog.LCDialog):
     def __init__(self, procesador):
 
         self.procesador = procesador
+        db_sounds_coherent()
 
         self.db = UtilSQL.DictSQL(procesador.configuration.file_sounds(), "general")
         self.li_sounds = self.create_soundslist()

@@ -284,7 +284,7 @@ class ManagerCompeticion(Manager.Manager):
 
         mensaje, beep, player_win = self.game.label_resultado_player(self.is_human_side_white)
 
-        self.beepResultado(beep)
+        self.beep_result(beep)
         if player_win:
             hecho = "B" if self.is_human_side_white else "N"
             if self.categorias.put_result(self.categoria, self.level_played, hecho):
@@ -310,22 +310,22 @@ class ManagerCompeticion(Manager.Manager):
         self.autosave()
 
     def analyze_begin(self):
-        self.if_analyzing = False
+        self.is_analyzing = False
         self.is_analyzed_by_tutor = False
         if self.is_tutor_enabled:
             self.is_analyzed_by_tutor = False
             if not self.is_finished():
-                self.if_analyzing = True
+                self.is_analyzing = True
                 if self.continueTt:
                     self.xtutor.ac_inicio(self.game)
                 else:
                     self.xtutor.ac_inicio_limit(self.game)
 
     def analyze_end(self):
-        if self.if_analyzing:
+        if self.is_analyzing:
             self.mrm_tutor = self.xtutor.ac_final(-1)
             self.is_analyzed_by_tutor = True
-            self.if_analyzing = False
+            self.is_analyzing = False
 
     def change_tutor_active(self):
         previous = self.is_tutor_enabled

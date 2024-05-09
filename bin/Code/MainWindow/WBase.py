@@ -270,11 +270,10 @@ class WBase(QtWidgets.QWidget):
         o_columns.nueva(
             "BLACK", _("Black"), with_each_color, edicion=Delegados.EtiquetaPGN(False if with_figurines else None)
         )
-        self.pgn = Grid.Grid(self, o_columns, siCabeceraMovible=False)
+        self.pgn = Grid.Grid(self, o_columns, siCabeceraMovible=False, altoFila=configuration.x_pgn_rowheight)
         self.pgn.setMinimumWidth(width_pgn)
         self.pgn.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.pgn.font_type(puntos=configuration.x_pgn_fontpoints)
-        self.pgn.ponAltoFila(configuration.x_pgn_rowheight)
         self.pgn.set_right_button_without_rows(True)
 
         # # Blancas y negras
@@ -715,6 +714,9 @@ class WBase(QtWidgets.QWidget):
             self.bt_active_tutor.setVisible(False)
             if siQuitarAtras and (TB_TAKEBACK in self.tb.li_acciones):
                 self.dic_toolbar[TB_TAKEBACK].setVisible(False)
+
+    def show_button_tutor(self, ok):
+        self.bt_active_tutor.setVisible(ok)
 
     def set_label1(self, label):
         if label:

@@ -530,7 +530,7 @@ class ManagerElo(Manager.Manager):
 
         mensaje, beep, player_win = self.game.label_resultado_player(self.is_human_side_white)
 
-        self.beepResultado(beep)
+        self.beep_result(beep)
 
         elo = self.configuration.eloActivo()
         if player_win:

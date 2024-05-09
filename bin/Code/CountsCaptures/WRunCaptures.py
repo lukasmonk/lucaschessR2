@@ -3,7 +3,7 @@ import time
 import FasterCode
 
 import Code
-from Code.Board import Board
+from Code.Board import Board2
 from Code.CountsCaptures import WRunCommon
 from Code.QT import Colocacion, Controles, Iconos, QTUtil, QTVarios, QTUtil2
 from Code.QT import LCDialog
@@ -20,7 +20,7 @@ class WRunCaptures(LCDialog.LCDialog):
 
         conf_board = self.configuration.config_board("RUNCAPTURES", 64)
 
-        self.board = Board.BoardEstaticoMensaje(self, conf_board, None)
+        self.board = Board2.BoardEstaticoMensaje(self, conf_board, None)
         self.board.crea()
 
         # Rotulo informacion

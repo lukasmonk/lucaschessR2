@@ -44,7 +44,7 @@ class RegKB:
 
 
 class Board(QtWidgets.QGraphicsView):
-    def __init__(self, parent, config_board, siMenuVisual=True, siDirector=True):
+    def __init__(self, parent, config_board, with_menu_visual=True, with_director=True):
         super(Board, self).__init__(None)
 
         self.setRenderHints(
@@ -67,9 +67,9 @@ class Board(QtWidgets.QGraphicsView):
 
         self.variation_history = None
 
-        self.siMenuVisual = siMenuVisual
-        self.siDirector = siDirector and siMenuVisual
-        self.siDirectorIcon = self.siDirector and self.configuration.x_director_icon
+        self.with_menu_visual = with_menu_visual
+        self.with_director = with_director and with_menu_visual
+        self.siDirectorIcon = self.with_director and self.configuration.x_director_icon
         self.dirvisual = None
         self.guion = None
         self.lastFenM2 = ""
@@ -173,7 +173,7 @@ class Board(QtWidgets.QGraphicsView):
                 if ap >= 10:
                     self.config_board.width_piece(ap)
                     self.config_board.guardaEnDisco()
-                    self.cambiadoAncho()
+                    self.width_changed()
                     return
 
             elif is_ctrl and key == Qt.Key_T:
@@ -285,7 +285,8 @@ class Board(QtWidgets.QGraphicsView):
     def sizeHint(self):
         return QtCore.QSize(self.ancho + 6, self.ancho + 6)
 
-    def xremoveItem(self, item):
+    @staticmethod
+    def xremove_item(item):
         scene = item.scene()
         if scene:
             scene.removeItem(item)
@@ -320,28 +321,28 @@ class Board(QtWidgets.QGraphicsView):
 
         self.exec_kb_buffer(k, m)
 
-    def activaMenuVisual(self, siActivar):
-        self.siMenuVisual = siActivar
+    def activa_menu_visual(self, si_activar):
+        self.with_menu_visual = si_activar
 
-    def permitidoResizeExterno(self, sino=None):
+    def allowed_extern_resize(self, sino=None):
         if sino is None:
             return self.siPermitidoResizeExterno
         else:
             self.siPermitidoResizeExterno = sino
 
-    def maximizaTam(self, activadoF11):
-        self.siF11 = activadoF11
+    def maximize_size(self, activado_f11):
+        self.siF11 = activado_f11
         self.config_board.width_piece(1000)
         self.config_board.guardaEnDisco()
-        self.cambiadoAncho()
+        self.width_changed()
 
-    def normalTam(self, xanchoPieza):
+    def normal_size(self, xancho_pieza):
         self.siF11 = False
-        self.config_board.width_piece(xanchoPieza)
+        self.config_board.width_piece(xancho_pieza)
         self.config_board.guardaEnDisco()
-        self.cambiadoAncho()
+        self.width_changed()
 
-    def cambiadoAncho(self):
+    def width_changed(self):
         is_white_bottom = self.is_white_bottom
         self.set_width()
         if not is_white_bottom:
@@ -349,7 +350,7 @@ class Board(QtWidgets.QGraphicsView):
         if self._dispatchSize:
             self._dispatchSize()
 
-    def siMaximizado(self):
+    def is_maximized(self):
         return self.config_board.width_piece() == 1000
 
     def crea(self):
@@ -372,7 +373,7 @@ class Board(QtWidgets.QGraphicsView):
         self.transNegras = self.config_board.transNegras()
         self.transSideIndicator = self.config_board.transSideIndicator()
 
-        self.extended_fondo = self.config_board.extendedColor()
+        self.extended_fondo = self.config_board.extended_color()
         if self.extended_fondo:
             self.colorExterior = self.colorFondo
             self.png64Exterior = self.png64Fondo
@@ -398,7 +399,7 @@ class Board(QtWidgets.QGraphicsView):
 
         self.set_width()
 
-    def calculaAnchoMXpieza(self):
+    def calc_width_mx_piece(self):
         at = QTUtil.desktop_height() - 50 - 64
         if self.siF11:
             at += 50 + 64
@@ -408,22 +409,22 @@ class Board(QtWidgets.QGraphicsView):
         return ap
 
     def set_width(self):
-        dTam = {16: (9, 23), 24: (10, 29), 32: (12, 33), 48: (14, 38), 64: (16, 42), 80: (18, 46)}
+        d_tam = {16: (9, 23), 24: (10, 29), 32: (12, 33), 48: (14, 38), 64: (16, 42), 80: (18, 46)}
 
         ap = self.config_board.width_piece()
         if ap == 1000:
-            ap = self.calculaAnchoMXpieza()
-        if ap in dTam:
-            self.puntos, self.margenCentro = dTam[ap]
+            ap = self.calc_width_mx_piece()
+        if ap in d_tam:
+            self.puntos, self.margenCentro = d_tam[ap]
         else:
             mx = 999999
             kt = 0
-            for k in dTam:
+            for k in d_tam:
                 mt = abs(k - ap)
                 if mt < mx:
                     mx = mt
                     kt = k
-            pt, mc = dTam[kt]
+            pt, mc = d_tam[kt]
             self.puntos = pt * ap // kt
             self.margenCentro = mc * ap // kt
 
@@ -688,7 +689,7 @@ class Board(QtWidgets.QGraphicsView):
         # Lanzador de menu visual
         self.indicadorSC_menu = None
         self.scriptSC_menu = None
-        if self.siMenuVisual:
+        if self.with_menu_visual:
             indicador_menu = BoardTypes.Imagen()
             indicador_menu.physical_pos.x = 2
             if self.configuration.x_position_tool_board == "B":
@@ -819,7 +820,7 @@ class Board(QtWidgets.QGraphicsView):
         menu.lanza()
 
     def lanzaMenuVisual(self, siIzquierdo=False):
-        if not self.siMenuVisual:
+        if not self.with_menu_visual:
             return
 
         menu = QTVarios.LCMenu(self)
@@ -842,7 +843,7 @@ class Board(QtWidgets.QGraphicsView):
         submenu.opcion("def_todo2", "2", Iconos.m2())
 
         menu.separador()
-        if self.siDirector:
+        if self.with_director:
             menu.opcion("director", _("Director") + " [%s] " % _("F1-F10"), Iconos.Director())
             menu.separador()
 
@@ -862,7 +863,7 @@ class Board(QtWidgets.QGraphicsView):
             menucol.separador()
             li_temas = Util.restore_pickle(Code.configuration.ficheroTemas)
             if li_temas:
-                WBoardColors.ponMenuTemas(menucol, li_temas, "tt_")
+                WBoardColors.add_menu_themes(menucol, li_temas, "tt_")
                 menucol.separador()
             for entry in Util.listdir(Code.path_resource("Themes")):
                 fich = entry.name
@@ -888,7 +889,7 @@ class Board(QtWidgets.QGraphicsView):
                         li.append((x.name, ico))
                 except:
                     pass
-            li.sort(key=lambda x: x[0])
+            li.sort(key=lambda rx: rx[0])
             for x, ico in li:
                 menup.opcion(x, x, ico)
             resp = menup.lanza()
@@ -916,11 +917,11 @@ class Board(QtWidgets.QGraphicsView):
                 nom_pieces_ori = self.config_board.nomPiezas()
                 self.cambiaPiezas(nom_pieces_ori)
             self.reset(self.config_board)
-            if hasattr(self.main_window.parent, "ajustaTam"):
-                self.main_window.parent.ajustaTam()
+            if hasattr(self.main_window.parent, "adjust_size"):
+                self.main_window.parent.adjust_size()
 
     def lanzaDirector(self):
-        if self.siDirector:
+        if self.with_director:
             if self.dirvisual:
                 self.dirvisual.terminar()
                 self.dirvisual = None
@@ -984,13 +985,13 @@ class Board(QtWidgets.QGraphicsView):
             if hasattr(self.main_window.manager, "put_view"):
                 self.main_window.manager.put_view()
 
-    def ponColores(self, liTemas, resp):
+    def ponColores(self, li_temas, resp):
         if resp.startswith("tt_"):
-            tema = liTemas[int(resp[3:])]
+            tema = li_temas[int(resp[3:])]
 
         else:
             fich = Code.path_resource("Themes/%s" % resp[3:])
-            tema = WBoardColors.eligeTema(self, fich)
+            tema = WBoardColors.elige_tema(self, fich)
 
         if tema:
             self.config_board.leeTema(tema["o_tema"])
@@ -1007,7 +1008,7 @@ class Board(QtWidgets.QGraphicsView):
     def reset(self, config_board):
         self.config_board = config_board
         for item in self.escena.items():
-            self.xremoveItem(item)
+            self.xremove_item(item)
             del item
         pac = self.pieces_are_active
         pac_sie = self.side_pieces_active
@@ -1015,7 +1016,8 @@ class Board(QtWidgets.QGraphicsView):
         if pac and pac_sie is not None:
             self.activate_side(pac_sie)
 
-    def key_current_graphlive(self, event):
+    @staticmethod
+    def key_current_graphlive(event):
         m = int(event.modifiers())
         key = ""
         if (m & QtCore.Qt.ControlModifier) > 0:
@@ -1118,7 +1120,7 @@ class Board(QtWidgets.QGraphicsView):
             self.current_graphlive = None
             self.borraUltimoMovible()
 
-    def mouseReleaseGraphLive(self, event):
+    def mouse_release_graph_live(self, event):
         if not self.configuration.x_direct_graphics:
             return
         h8 = self.event2a1h8(event)
@@ -1179,8 +1181,8 @@ class Board(QtWidgets.QGraphicsView):
         y = pos.y()
         minimo = self.margenCentro
         maximo = self.margenCentro + (self.width_square * 8)
-        siDentro = (minimo < x < maximo) and (minimo < y < maximo)
-        if siDentro and self.current_graphlive:
+        si_dentro = (minimo < x < maximo) and (minimo < y < maximo)
+        if si_dentro and self.current_graphlive:
             return self.mouseMoveGraphLive(event)
 
         QtWidgets.QGraphicsView.mouseMoveEvent(self, event)
@@ -1197,7 +1199,7 @@ class Board(QtWidgets.QGraphicsView):
             self.pendingRelease = None
         QtWidgets.QGraphicsView.mouseReleaseEvent(self, event)
         if self.current_graphlive:
-            self.mouseReleaseGraphLive(event)
+            self.mouse_release_graph_live(event)
 
     def event2a1h8(self, event):
         pos = event.pos()
@@ -1263,7 +1265,7 @@ class Board(QtWidgets.QGraphicsView):
 
         QtWidgets.QGraphicsView.mousePressEvent(self, event)
 
-    def checkLEDS(self):
+    def check_leds(self):
         if not hasattr(self, "dicXML"):
             def lee(fich):
                 with open(
@@ -1272,25 +1274,26 @@ class Board(QtWidgets.QGraphicsView):
                     resp = f.read()
                 return resp
 
-            self.dicXML = {}
-            self.dicXML["C"] = lee("candidate")
-            self.dicXML["P+"] = lee("player_check")
-            self.dicXML["Px"] = lee("player_capt")
-            self.dicXML["P#"] = lee("player_mate")
-            self.dicXML["R+"] = lee("rival_check")
-            self.dicXML["Rx"] = lee("rival_capt")
-            self.dicXML["R#"] = lee("rival_mate")
-            self.dicXML["R"] = lee("rival")
+            self.dicXML = {
+                "C": lee("candidate"),
+                "P+": lee("player_check"),
+                "Px": lee("player_capt"),
+                "P#": lee("player_mate"),
+                "R+": lee("rival_check"),
+                "Rx": lee("rival_capt"),
+                "R#": lee("rival_mate"),
+                "R": lee("rival")
+            }
 
-    def markPositionExt(self, a1, h8, tipo):
-        self.checkLEDS()
+    def mark_position_ext(self, a1, h8, tipo):
+        self.check_leds()
         lista = []
-        for posCuadro in range(4):
+        for pos_cuadro in range(4):
             reg_svg = BoardTypes.SVG()
             reg_svg.a1h8 = a1 + h8
             reg_svg.xml = self.dicXML[tipo]
             reg_svg.siMovible = False
-            reg_svg.posCuadro = posCuadro
+            reg_svg.posCuadro = pos_cuadro
             reg_svg.width_square = self.width_square
             if a1 != h8:
                 reg_svg.width_square *= 7.64
@@ -1306,26 +1309,26 @@ class Board(QtWidgets.QGraphicsView):
 
         QtCore.QTimer.singleShot(1600 if tipo == "C" else 500, quita)
 
-    def markPosition(self, a1):
-        self.markPositionExt(a1, a1, "C")
+    def mark_position(self, a1):
+        self.mark_position_ext(a1, a1, "C")
 
-    def markError(self, a1):
-        if a1:
-            self.markPositionExt(a1, a1, "R")
+    # def markError(self, a1):
+    #     if a1:
+    #         self.mark_position_ext(a1, a1, "R")
 
-    def show_candidates(self, liC):
-        if not liC or not self.configuration.x_show_candidates:
+    def show_candidates(self, li_c):
+        if not li_c or not self.configuration.x_show_candidates:
             return
-        self.checkLEDS()
+        self.check_leds()
 
-        dicPosCuadro = {"C": 0, "P+": 1, "Px": 1, "P#": 1, "R+": 2, "R#": 2, "Rx": 3}
+        dic_pos_cuadro = {"C": 0, "P+": 1, "Px": 1, "P#": 1, "R+": 2, "R#": 2, "Rx": 3}
         self.pendingRelease = []
-        for a1, tp in liC:
+        for a1, tp in li_c:
             reg_svg = BoardTypes.SVG()
             reg_svg.a1h8 = a1 + a1
             reg_svg.xml = self.dicXML[tp]
             reg_svg.siMovible = False
-            reg_svg.posCuadro = dicPosCuadro[tp]
+            reg_svg.posCuadro = dic_pos_cuadro[tp]
             reg_svg.width_square = self.width_square
             svg = BoardSVGs.SVGCandidate(self.escena, reg_svg, False)
             self.pendingRelease.append(svg)
@@ -1339,7 +1342,7 @@ class Board(QtWidgets.QGraphicsView):
 
     def wheelEvent(self, event):
         if QtWidgets.QApplication.keyboardModifiers() == QtCore.Qt.ControlModifier:
-            if self.permitidoResizeExterno():
+            if self.allowed_extern_resize():
                 salto = event.delta() < 0
                 ap = self.config_board.width_piece()
                 if ap > 500:
@@ -1348,7 +1351,7 @@ class Board(QtWidgets.QGraphicsView):
                 if ap >= self.minimum_size:
                     self.config_board.width_piece(ap)
                     self.config_board.guardaEnDisco()
-                    self.cambiadoAncho()
+                    self.width_changed()
                     return
 
         elif hasattr(self.main_window, "boardWheelEvent"):
@@ -1385,8 +1388,8 @@ class Board(QtWidgets.QGraphicsView):
 
     def saveVisual(self):
         alm = self.almSaveVisual = Util.Record()
-        alm.siMenuVisual = self.siMenuVisual
-        alm.siDirector = self.siDirector
+        alm.with_menu_visual = self.with_menu_visual
+        alm.with_director = self.with_director
         alm.siDirectorIcon = self.siDirectorIcon
         alm.dirvisual = self.dirvisual
         alm.guion = self.guion
@@ -1396,8 +1399,8 @@ class Board(QtWidgets.QGraphicsView):
 
     def restoreVisual(self):
         alm = self.almSaveVisual
-        self.siMenuVisual = alm.siMenuVisual
-        self.siDirector = alm.siDirector
+        self.with_menu_visual = alm.with_menu_visual
+        self.with_director = alm.with_director
         self.siDirectorIcon = alm.siDirectorIcon
         self.dirvisual = alm.dirvisual
         self.guion = alm.guion
@@ -1458,7 +1461,7 @@ class Board(QtWidgets.QGraphicsView):
     def removePieces(self):
         for x in self.liPiezas:
             if x[2]:
-                self.xremoveItem(x[1])
+                self.xremove_item(x[1])
         self.liPiezas = []
 
     def set_base_position(self, position, variation_history=None):
@@ -1480,7 +1483,7 @@ class Board(QtWidgets.QGraphicsView):
             self.setFocus()
         self.set_side_indicator(position.is_white)
         if self.flechaSC:
-            self.xremoveItem(self.flechaSC)
+            self.xremove_item(self.flechaSC)
             del self.flechaSC
             self.flechaSC = None
             self.remove_arrows()
@@ -1692,7 +1695,7 @@ class Board(QtWidgets.QGraphicsView):
         npieza = self.buscaPieza(posA1H8)
         if npieza >= 0:
             pieza_sc = self.liPiezas[npieza][1]
-            self.xremoveItem(pieza_sc)
+            self.xremove_item(pieza_sc)
             self.liPiezas[npieza][2] = False
             self.escena.update()
 
@@ -1704,7 +1707,7 @@ class Board(QtWidgets.QGraphicsView):
                 pieza = x[1].bloquePieza
                 if pieza.row == row and pieza.column == column and pieza.pieza == tipo:
                     pieza_sc = self.liPiezas[num][1]
-                    self.xremoveItem(pieza_sc)
+                    self.xremove_item(pieza_sc)
                     self.liPiezas[num][2] = False
                     self.escena.update()
                     return
@@ -2002,7 +2005,7 @@ class Board(QtWidgets.QGraphicsView):
 
     def remove_arrows(self):
         for arrow in self.liFlechas:
-            self.xremoveItem(arrow)
+            self.xremove_item(arrow)
             arrow.hide()
             del arrow
         self.liFlechas = []
@@ -2148,6 +2151,8 @@ class Board(QtWidgets.QGraphicsView):
         return contents
 
     def a1h8_fc(self, a1h8):
+        if len(a1h8) < 4:
+            return 0, 0, 0, 0
         df = int(a1h8[1])
         dc = ord(a1h8[0]) - 96
         hf = int(a1h8[3])
@@ -2274,7 +2279,7 @@ class Board(QtWidgets.QGraphicsView):
         for k, uno in self.dicMovibles.items():
             if uno == itemSC:
                 del self.dicMovibles[k]
-                self.xremoveItem(uno)
+                self.xremove_item(uno)
                 return
 
     def borraUltimoMovibleA1(self, a1):
@@ -2287,12 +2292,12 @@ class Board(QtWidgets.QGraphicsView):
     def borraUltimoMovible(self):
         keys = list(self.dicMovibles.keys())
         if keys:
-            self.xremoveItem(self.dicMovibles[keys[-1]])
+            self.xremove_item(self.dicMovibles[keys[-1]])
             del self.dicMovibles[keys[-1]]
 
     def borraMovibles(self):
         for k, uno in self.dicMovibles.items():
-            self.xremoveItem(uno)
+            self.xremove_item(uno)
         self.dicMovibles = collections.OrderedDict()
         self.lastFenM2 = None
 
@@ -2343,7 +2348,7 @@ class Board(QtWidgets.QGraphicsView):
     def copiaPosicionDe(self, otro_board):
         for x in self.liPiezas:
             if x[2]:
-                self.xremoveItem(x[1])
+                self.xremove_item(x[1])
         self.liPiezas = []
         for cpieza, pieza_sc, is_active in otro_board.liPiezas:
             if is_active:
@@ -2399,7 +2404,7 @@ class Board(QtWidgets.QGraphicsView):
             self.setFocus()
         self.set_side_indicator(position.is_white)
         if self.flechaSC:
-            self.xremoveItem(self.flechaSC)
+            self.xremove_item(self.flechaSC)
             del self.flechaSC
             self.flechaSC = None
             self.remove_arrows()
@@ -2539,7 +2544,7 @@ class WTamBoard(QtWidgets.QDialog):
         self.cb = Controles.CB(self, li_tams, self.width_for_cb(ap)).capture_changes(self.changed_width_cb)
 
         minimo = self.board.minimum_size
-        maximo = board.calculaAnchoMXpieza() + 30
+        maximo = board.calc_width_mx_piece() + 30
 
         self.sb = Controles.SB(self, ap, minimo, maximo).capture_changes(self.cambiadoTamSB)
 
@@ -2554,7 +2559,7 @@ class WTamBoard(QtWidgets.QDialog):
 
         self.siOcupado = False
         self.siCambio = False
-        self.board.permitidoResizeExterno(False)
+        self.board.allowed_extern_resize(False)
 
     @staticmethod
     def width_for_cb(ap):
@@ -2575,7 +2580,7 @@ class WTamBoard(QtWidgets.QDialog):
 
     def cambiaAncho(self):
         is_white_bottom = self.board.is_white_bottom
-        self.board.cambiadoAncho()
+        self.board.width_changed()
         if not is_white_bottom:
             self.board.intentaRotarBoard(None)
 
@@ -2641,151 +2646,4 @@ class WTamBoard(QtWidgets.QDialog):
         if self.siCambio:
             self.dispatch()
         if self.config_board.is_base:
-            self.board.permitidoResizeExterno(self.config_board.is_base)
-
-
-class PosBoard(Board):
-    def enable_all(self):
-        for pieza, pieza_sc, is_active in self.liPiezas:
-            pieza_sc.activa(True)
-
-    def keyPressEvent(self, event):
-        k = event.key()
-        if (96 > k > 64) and chr(k) in "PQKRNB":
-            self.parent().cambiaPiezaSegun(chr(k))
-        else:
-            Board.keyPressEvent(self, event)
-        event.ignore()
-
-    def mousePressEvent(self, event):
-        x = event.x()
-        y = event.y()
-        cx = self.punto2columna(x)
-        cy = self.punto2fila(y)
-        si_event = True
-        if cx in range(1, 9) and cy in range(1, 9):
-            a1h8 = self.num2alg(cy, cx)
-            si_izq = event.button() == QtCore.Qt.LeftButton
-            si_der = event.button() == QtCore.Qt.RightButton
-            if self.squares.get(a1h8):
-                self.parent().ultimaPieza = self.squares.get(a1h8)
-                if hasattr(self.parent(), "ponCursor"):
-                    self.parent().ponCursor()
-                    # ~ if si_izq:
-                    # ~ QtWidgets.QGraphicsView.mousePressEvent(self,event)
-                if si_der:
-                    if hasattr(self, "mensBorrar"):
-                        self.mensBorrar(a1h8)
-                    si_event = False
-            else:
-                if si_der:
-                    if hasattr(self, "mensCrear") and self.mensCrear:
-                        self.mensCrear(a1h8)
-                    si_event = False
-                if si_izq:
-                    if hasattr(self, "mensRepetir") and self.mensRepetir:
-                        self.mensRepetir(a1h8)
-                    si_event = False
-        else:
-            Board.mousePressEvent(self, event)
-            return
-        if si_event:
-            QtWidgets.QGraphicsView.mousePressEvent(self, event)
-
-    def ponDispatchDrop(self, dispatch):
-        self.dispatchDrop = dispatch
-
-    def dropEvent(self, event):
-        mime_data = event.mimeData()
-        if mime_data.hasFormat("image/x-lc-dato"):
-            dato = mime_data.data("image/x-lc-dato").data().decode()
-            p = event.pos()
-            x = p.x()
-            y = p.y()
-            cx = self.punto2columna(x)
-            cy = self.punto2fila(y)
-            if cx in range(1, 9) and cy in range(1, 9):
-                a1h8 = self.num2alg(cy, cx)
-                self.dispatchDrop(a1h8, dato)
-            event.setDropAction(QtCore.Qt.IgnoreAction)
-        event.ignore()
-
-
-class BoardEstatico(Board):
-    def mousePressEvent(self, event):
-        pos = event.pos()
-        x = pos.x()
-        y = pos.y()
-        minimo = self.margenCentro
-        maximo = self.margenCentro + (self.width_square * 8)
-        if not ((minimo < x < maximo) and (minimo < y < maximo)):
-            if self.atajos_raton:
-                self.atajos_raton(self.last_position, None)
-            Board.mousePressEvent(self, event)
-            return
-        xc = 1 + int(float(x - self.margenCentro) / self.width_square)
-        yc = 1 + int(float(y - self.margenCentro) / self.width_square)
-
-        if self.is_white_bottom:
-            yc = 9 - yc
-        else:
-            xc = 9 - xc
-
-        f = chr(48 + yc)
-        c = chr(96 + xc)
-
-        self.main_window.pulsada_celda(c + f)
-
-        Board.mousePressEvent(self, event)
-
-
-class BoardEstaticoMensaje(BoardEstatico):
-    def __init__(self, parent, config_board, color_mens, size_factor=None):
-        self.color_mens = Code.dic_colors["BOARD_STATIC"] if color_mens is None else color_mens
-        self.size_factor = 1.0 if size_factor is None else size_factor
-        BoardEstatico.__init__(self, parent, config_board)
-
-    def rehaz(self):
-        Board.rehaz(self)
-        self.mens = BoardTypes.Texto()
-        self.mens.font_type = BoardTypes.FontType(puntos=self.width_square * 2 * self.size_factor, peso=750)
-        self.mens.physical_pos.ancho = self.width_square * 8
-        self.mens.physical_pos.alto = self.width_square * 8
-        self.mens.physical_pos.orden = 99
-        self.mens.colorTexto = self.color_mens
-        self.mens.valor = ""
-        self.mens.alineacion = "c"
-        self.mens.physical_pos.x = (self.ancho - self.mens.physical_pos.ancho) / 2
-        self.mens.physical_pos.y = (self.ancho - self.mens.physical_pos.ancho) / 2
-        self.mensSC = BoardElements.TextoSC(self.escena, self.mens)
-
-        self.mens2 = BoardTypes.Texto()
-        self.mens2.font_type = BoardTypes.FontType(puntos=self.width_square * self.size_factor, peso=750)
-        self.mens2.physical_pos.ancho = self.width_square * 8
-        self.mens2.physical_pos.alto = self.width_square * 8
-        self.mens2.physical_pos.orden = 99
-        self.mens2.colorTexto = self.color_mens
-        self.mens2.valor = ""
-        self.mens2.alineacion = "c"
-        self.mens2.physical_pos.x = self.mens.physical_pos.x + self.width_square * 2
-        self.mens2.physical_pos.y = self.mens.physical_pos.y
-        self.mensSC2 = BoardElements.TextoSC(self.escena, self.mens2)
-
-    def pon_texto(self, texto, opacity):
-        self.mens.valor = texto
-        self.mensSC.setOpacity(opacity)
-        self.mensSC.show()
-        self.escena.update()
-
-    def pon_textos(self, texto1, texto2, opacity):
-        self.mens.valor = texto1
-        self.mensSC.setOpacity(opacity)
-        self.mensSC.show()
-        self.mens2.valor = texto2
-        self.mensSC2.setOpacity(opacity)
-        self.mensSC2.show()
-        self.escena.update()
-
-    def remove_pieces(self, st):
-        for a1h8 in st:
-            self.borraPieza(a1h8)
+            self.board.allowed_extern_resize(self.config_board.is_base)

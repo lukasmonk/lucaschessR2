@@ -268,7 +268,7 @@ class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
     def player_has_moved(self, from_sq, to_sq, promotion=""):
         move = self.check_human_move(from_sq, to_sq, promotion)
         if not move:
-            self.beepError()
+            self.beep_error()
             return False
         if promotion:
             pass
@@ -276,7 +276,7 @@ class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
         pvObj = self.li_pv[len(self.game)]
 
         if pvSel != pvObj:
-            self.beepError()
+            self.beep_error()
             fenm2 = move.position_before.fenm2()
             li = self.dicFENm2.get(fenm2, set())
             if pvSel in li:

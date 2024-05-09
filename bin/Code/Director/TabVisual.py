@@ -552,7 +552,7 @@ class Guion:
             self.board.mensajero = self.board_mensajero
         if self.board_activasPiezas[0]:
             self.board.activate_side(self.board_activasPiezas[1])
-        self.board.siDirector = True
+        self.board.with_director = True
         self.cierraPizarra()
 
     def nuevaTarea(self, tarea, row=-1):

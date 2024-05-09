@@ -466,7 +466,7 @@ class ManagerPlayHuman(Manager.Manager):
 
         mensaje = f"{player}. {mensaje}"
 
-        self.beepResultado(beep)
+        self.beep_result(beep)
         self.autosave()
         QTUtil.refresh_gui()
         p0 = self.main_window.base.pgn.pos()

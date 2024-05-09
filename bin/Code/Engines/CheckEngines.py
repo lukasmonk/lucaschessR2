@@ -96,6 +96,10 @@ def check_stockfish(window, check_again):
             if seek in linea:
                 lista.append(linea)
 
+    # Se guarda el primero, por si el resto no son validos, y no s emuestra el mensaje mas
+    conf_stockfish.name = lista[0].replace(".exe", "")
+    Code.configuration.write_variables(STOCKFISH_KEY, {"NAME": conf_stockfish.name})
+
     mensaje = _("Selecting the best stockfish version for your CPU")
     um = QTUtil2.one_moment_please(window, mensaje)
     for file_engine in lista[1:]:  # el primero no lo miramos

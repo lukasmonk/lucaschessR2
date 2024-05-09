@@ -322,7 +322,7 @@ class ManagerTurnOnLights(Manager.Manager):
     def get_help(self):
         self.hints += 1
         mov = self.line.get_move(self.num_move).lower()
-        self.board.markPosition(mov[:2])
+        self.board.mark_position(mov[:2])
         fen = self.game.last_position.fen()
         if not (fen in self.dicFENayudas):
             self.dicFENayudas[fen] = 1

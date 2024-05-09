@@ -228,7 +228,7 @@ class ManagerOpeningLinesPositions(ManagerOPL.ManagerOpeningLines):
     def player_has_moved(self, from_sq, to_sq, promotion=""):
         move = self.check_human_move(from_sq, to_sq, promotion)
         if not move:
-            self.beepError()
+            self.beep_error()
             return False
         pvSel = from_sq + to_sq + promotion
         lipvObj = self.trposition["MOVES"]
@@ -238,7 +238,7 @@ class ManagerOpeningLinesPositions(ManagerOPL.ManagerOpeningLines):
             mens = "%s: %d" % (_("Error"), self.errores)
             QTUtil2.temporary_message(self.main_window, mens, 1.0, physical_pos=TOP_RIGHT)
             self.show_labels()
-            self.beepError()
+            self.beep_error()
             self.sigueHumano()
             return False
 

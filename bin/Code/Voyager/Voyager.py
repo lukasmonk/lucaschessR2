@@ -9,7 +9,7 @@ import Code
 from Code import Util
 from Code.Base import Game, Move, Position
 from Code.Base.Constantes import BLACK
-from Code.Board import Board
+from Code.Board import Board, Board2
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles
@@ -62,13 +62,13 @@ class WPosicion(QtWidgets.QWidget):
         QtWidgets.QWidget.__init__(self, wparent)
 
         config_board = configuration.config_board("VOYAGERPOS", 24)
-        self.board = Board.PosBoard(self, config_board)
+        self.board = Board2.PosBoard(self, config_board)
         self.board.crea()
         self.board.set_dispatcher(self.mueve)
         self.board.mensBorrar = self.borraCasilla
         self.board.mensCrear = self.creaCasilla
         self.board.mensRepetir = self.repitePieza
-        self.board.ponDispatchDrop(self.dispatchDrop)
+        self.board.set_dispatch_drop(self.dispatchDrop)
         self.board.baseCasillasSC.setAcceptDrops(True)
         self.board.set_side_bottom(is_white_bottom)
 

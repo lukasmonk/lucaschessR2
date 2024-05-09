@@ -6,7 +6,7 @@ import Code
 from Code import Util
 from Code.Base import Game
 from Code.Base.Constantes import LI_BASIC_TAGS, WHITE, BLACK
-from Code.Board import Board
+from Code.Board import Board, Board2
 from Code.Databases import WindowDatabase
 from Code.QT import Colocacion
 from Code.QT import Columnas
@@ -437,7 +437,7 @@ class WLearnPuente(LCDialog.LCDialog):
         ly_ini = Colocacion.V().control(self.boardIni).control(self.lbIni)
 
         if self.nivel > 0:
-            self.boardFin = Board.BoardEstatico(self, config_board)
+            self.boardFin = Board2.BoardEstatico(self, config_board)
             self.boardFin.crea()
             if side == BLACK:
                 self.boardFin.set_side_bottom(BLACK)

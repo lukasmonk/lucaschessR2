@@ -249,16 +249,10 @@ class WOpeningLines(LCDialog.LCDialog):
             self.glista.refresh()
 
     def get_nombre(self, name):
-        li_gen = [(None, None), (_("Opening studio name") + ":", name)]
-        resultado = FormLayout.fedit(
-            li_gen, title=_("Opening studio name"), parent=self, icon=Iconos.OpeningLines(), anchoMinimo=460
-        )
-        if resultado:
-            accion, li_resp = resultado
-            name = li_resp[0].strip()
-            if name:
-                return name
-        return None
+        new_name = QTUtil2.read_simple(self, _("Opening studio name"), _("Name"), name, width=360)
+        if new_name:
+            new_name = new_name.strip()
+        return new_name
 
     def change(self):
         row = self.glista.recno()
@@ -318,18 +312,10 @@ class WOpeningLines(LCDialog.LCDialog):
             self.glista.refresh()
             return
         name_file = current_file[:-4]
-        form = FormLayout.FormLayout(self, _("File"), Iconos.File(), anchoMinimo=300)
-        form.separador()
-        form.edit(_("Name"), name_file if new_name is None else new_name)
-        form.separador()
-        resp = form.run()
-        if resp is None:
-            return
-
-        accion, li_resp = resp
-        new_name = li_resp[0].strip()
+        new_name = QTUtil2.read_simple(self, _("File"), _("Name"), name_file, width=360)
         if not new_name:
             return
+        new_name = new_name.strip()
         if new_name.endswith(".opk"):
             new_name = new_name[:-4]
         if new_name == name_file:

@@ -231,7 +231,7 @@ class ManagerOpeningEngines(Manager.Manager):
     def player_has_moved(self, from_sq, to_sq, promotion=""):
         move = self.check_human_move(from_sq, to_sq, promotion)
         if not move:
-            self.beepError()
+            self.beep_error()
             return False
 
         fenm2 = self.game.last_position.fenm2()

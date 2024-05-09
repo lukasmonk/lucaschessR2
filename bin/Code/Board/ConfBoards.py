@@ -341,10 +341,10 @@ class ConfigBoard(JS):
             self.o_tema.x_png64Thumb = png64
         return self.confPadre().png64Thumb() if self.o_tema.x_siTemaDefecto else self.o_tema.x_png64Thumb
 
-    def extendedColor(self, ext=None):
+    def extended_color(self, ext=None):
         if ext is not None:
             self.o_tema.x_extendedColor = ext
-        return self.confPadre().extendedColor() if self.o_tema.x_siTemaDefecto else self.o_tema.x_extendedColor
+        return self.confPadre().extended_color() if self.o_tema.x_siTemaDefecto else self.o_tema.x_extendedColor
 
     def colorExterior(self, nColor=None):
         if nColor is not None:

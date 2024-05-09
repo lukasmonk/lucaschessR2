@@ -426,9 +426,14 @@ class ThanksTo:
                 _("Permission of author"),
             ),
             (
-                "Magnetic-Leipzig<br>AlfonsoX-Maya<br>Condal",
-                '<a href="https://www.enpassant.dk/chess/fonteng.htm">Armando H. Marroquín</a>',
+                "Magnetic-AlfonsoX<br>Maya-Condal",
+                '<a href="https://www.enpassant.dk/chess/fonteng.htm">Armando H. Marroquín<br>(enpassant)</a>',
                 _("Freeware"),
+            ),
+            (
+                "Leipzig",
+                '<a href="https://github.com/artistofmind/Chess-Leipzig">Armando H. Marroquín<br>(github)</a>',
+                "GPL",
             ),
             ("Chess Pirat", '<a href="https://www.enpassant.dk/chess/fonteng.htm">Klaus Wolf</a>', _("Freeware")),
             ("Chess Regular", '<a href="https://www.enpassant.dk/chess/fonteng.htm">Alastair Scott</a>', _("Freeware")),

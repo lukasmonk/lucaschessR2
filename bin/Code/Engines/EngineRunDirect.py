@@ -25,7 +25,7 @@ class DirectEngine(object):
         self.minDispatch = 1.0
         self.ultDispatch = 0
 
-        self.whoDispatch = name
+        self.who_dispatch = name
         self.uci_ok = False
         self.pid = None
 
@@ -80,7 +80,7 @@ class DirectEngine(object):
             self.pwait_list("isready", "readyok", 1000)
         self.ucinewgame()
 
-    def set_gui_dispatch(self, gui_dispatch, whoDispatch=None):
+    def set_gui_dispatch(self, gui_dispatch, who_dispatch=None):
         self.gui_dispatch = gui_dispatch
 
     def put_line(self, line):

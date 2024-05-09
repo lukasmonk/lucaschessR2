@@ -4,7 +4,7 @@ import FasterCode
 from PySide2 import QtCore, QtGui
 
 import Code
-from Code.Board import Board
+from Code.Board import Board2
 from Code.QT import Colocacion, Controles, Iconos, QTUtil, QTVarios, QTUtil2
 from Code.QT import LCDialog
 
@@ -23,7 +23,7 @@ class WRunCounts(LCDialog.LCDialog):
 
         conf_board = self.configuration.config_board("RUNCOUNTS", 64)
 
-        self.board = Board.BoardEstaticoMensaje(self, conf_board, None)
+        self.board = Board2.BoardEstaticoMensaje(self, conf_board, None)
         self.board.crea()
 
         # Rotulo informacion

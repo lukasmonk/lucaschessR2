@@ -28,7 +28,7 @@ class EngineResponse:
         self.name = name
         self.mate = 0
         self.puntos = 0
-        self.sinMovimientos = False  # o por jaquemate o por ahogado
+        self.without_movements = False  # o por jaquemate o por ahogado
         self.pv = "a1a1"
         self.from_sq = ""
         self.to_sq = ""
@@ -87,7 +87,7 @@ class EngineResponse:
     def change_side(self, position_before=None):
         # Se usa en tutor para analizar las num_moves siguientes a la del usuario
         # Si no encuentra ninguna move y la move previa es jaque, pasa a mate en 1
-        if position_before and self.sinMovimientos:
+        if position_before and self.without_movements:
             if position_before.is_check():
                 self.mate = 1
                 return
@@ -440,11 +440,11 @@ class MultiEngineResponse:
             if score.startswith("cp "):
                 rm.puntos = int(score.split(" ")[1])
                 rm.mate = 0
-                rm.sinMovimientos = False
+                rm.without_movements = False
             elif score.startswith("mate "):
                 rm.puntos = 0
                 rm.mate = int(score.split(" ")[1])
-                rm.sinMovimientos = False
+                rm.without_movements = False
 
         pv = d_claves["pv"].strip()
         x = pv.find(" ")
@@ -503,7 +503,7 @@ class MultiEngineResponse:
         if score.startswith("cp "):
             rm.puntos = int(score.split(" ")[1])
             rm.mate = 0
-            rm.sinMovimientos = False
+            rm.without_movements = False
         elif score.startswith("mate "):
             rm.puntos = 0
             rm.mate = int(score.split(" ")[1])
@@ -541,10 +541,10 @@ class MultiEngineResponse:
         rm.from_sq = ""
         rm.to_sq = ""
         rm.promotion = ""
-        rm.sinMovimientos = False
+        rm.without_movements = False
         if "bestmove" in d_claves:
             bestmove = d_claves["bestmove"].strip()
-            rm.sinMovimientos = True
+            rm.without_movements = True
             if bestmove:
                 if len(bestmove) >= 4:
 
@@ -555,7 +555,7 @@ class MultiEngineResponse:
                     h = bestmove[2:4]
 
                     if bien(d) and bien(h):
-                        rm.sinMovimientos = d == h
+                        rm.without_movements = d == h
                         rm.from_sq = d
                         rm.to_sq = h
                         if len(bestmove) == 5 and bestmove[4].lower() in "qbrn":
@@ -564,7 +564,7 @@ class MultiEngineResponse:
                             rm.pv = bestmove
 
         else:
-            rm.sinMovimientos = True
+            rm.without_movements = True
 
     @staticmethod
     def check_claves(mensaje, st_claves):

@@ -183,6 +183,8 @@ class ManagerEntPos(Manager.Manager):
 
         self.show_info_extra()
 
+        self.show_button_tutor(not self.is_playing_gameobj())
+
         if self.is_playing_gameobj() and self.advanced:
             self.board.show_coordinates(False)
             self.put_view()
@@ -295,7 +297,7 @@ class ManagerEntPos(Manager.Manager):
             move_obj = self.game_obj.move(self.pos_obj)
             self.current_helps += 1
             if self.current_helps == 1:
-                self.board.markPosition(move_obj.from_sq)
+                self.board.mark_position(move_obj.from_sq)
             else:
                 self.board.ponFlechasTmp(([move_obj.from_sq, move_obj.to_sq, True],))
 
@@ -519,6 +521,7 @@ class ManagerEntPos(Manager.Manager):
         self.main_window.pensando_tutor(True)
         self.mrm_tutor = self.xtutor.ac_final(self.xtutor.mstime_engine)
         self.main_window.pensando_tutor(False)
+        self.is_analyzed_by_tutor = True
 
     def analiza_stop(self):
         if self.is_analyzing:
@@ -529,6 +532,7 @@ class ManagerEntPos(Manager.Manager):
         self.state = ST_PLAYING
         self.set_toolbar_comments(with_continue=False)
         self.game_obj = None
+        self.show_button_tutor(True)
         self.play_next_move()
 
     def linea_terminada_opciones(self):
@@ -565,10 +569,10 @@ class ManagerEntPos(Manager.Manager):
         if not move:
             return False
 
-        self.analyze_end(move.is_mate)  # tiene que acabar siempre
         a1h8 = move.movimiento()
         ok = False
-        if self.is_playing_gameobj():
+        is_playing_gameobj = self.is_playing_gameobj()
+        if is_playing_gameobj:
             move_obj = self.game_obj.move(self.pos_obj)
             is_main, is_var = move_obj.test_a1h8(a1h8)
             if is_main:
@@ -580,19 +584,19 @@ class ManagerEntPos(Manager.Manager):
                 li_movs = [(move.from_sq, move.to_sq, False), (move_obj.from_sq, move_obj.to_sq, True)]
                 self.board.ponFlechasTmp(li_movs)
             if not ok:
-                self.beepError()
+                self.beep_error()
                 self.sigueHumano()
                 return False
 
+        if not is_playing_gameobj:
+            self.analyze_end(move.is_mate)  # tiene que acabar siempre
         if not ok:
-            is_mate = move.is_mate
-            self.analyze_end(is_mate)  # tiene que acabar siempre
             if self.is_tutor_enabled:
                 if not self.is_analyzed_by_tutor:
                     self.analizaTutor(True)
                 if self.mrm_tutor.better_move_than(a1h8):
                     if not move.is_mate:
-                        self.beepError()
+                        self.beep_error()
                         tutor = Tutor.Tutor(self, move, from_sq, to_sq, False)
 
                         if tutor.elegir(True):

@@ -515,12 +515,13 @@ class WPanelDirector(LCDialog.LCDialog):
             return None
         return sc
 
-    def ponMarcado(self, row, siMarcado):
-        if row < len(self.guion.liGTareas):
-            self.guion.cambiaMarcaTarea(row, siMarcado)
-            itemSC = self.guion.itemTarea(row)
-            self.ponMarcadoItem(row, self.board, itemSC, siMarcado)
-        self.refresh_guion()
+    def ponMarcado(self, row, si_marcado):
+        if self.guion:
+            if row < len(self.guion.liGTareas):
+                self.guion.cambiaMarcaTarea(row, si_marcado)
+                item_sc = self.guion.itemTarea(row)
+                self.ponMarcadoItem(row, self.board, item_sc, si_marcado)
+            self.refresh_guion()
 
     def ponMarcadoItem(self, row, board, itemSC, siMarcado):
         if itemSC:

@@ -199,7 +199,7 @@ class ManagerMateMap(Manager.Manager):
 
         self.player_win = player_win
 
-        self.beepResultado(beep_result)
+        self.beep_result(beep_result)
         mensaje = _("Game ended")
         if player_win:
             mensaje = _("Congratulations you have won %s.") % self.workmap.name_aim()

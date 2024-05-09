@@ -4,7 +4,7 @@ from PySide2 import QtCore, QtWidgets
 
 import Code
 from Code.Base import Position
-from Code.Board import Board
+from Code.Board import Board2
 from Code.QT import Colocacion, Controles, Iconos, QTUtil, QTVarios, QTUtil2
 from Code.QT import LCDialog
 
@@ -25,7 +25,7 @@ class WRunCoordinatesBlocks(LCDialog.LCDialog):
 
         conf_board = self.configuration.config_board("RUNCOORDINATESBLOCKS", self.configuration.size_base())
 
-        self.board = Board.BoardEstaticoMensaje(self, conf_board, None, 0.6)
+        self.board = Board2.BoardEstaticoMensaje(self, conf_board, None, 0.6)
         self.board.crea()
         self.board.bloqueaRotacion(True)
         if config.with_pieces:

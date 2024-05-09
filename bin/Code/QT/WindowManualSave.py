@@ -392,7 +392,7 @@ class WManualSave(LCDialog.LCDialog):
         conf_engine = self.configuration.buscaRival(key)
 
         multipv = self.sb_multipv.valor()
-        self.manager_motor = self.procesador.creaManagerMotor(conf_engine, 0, 0, siMultiPV=multipv > 1)
+        self.manager_motor = self.procesador.creaManagerMotor(conf_engine, 0, 0, has_multipv=multipv > 1)
 
     def ext_engines(self):
         if self.analyzing:

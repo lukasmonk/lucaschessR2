@@ -179,7 +179,7 @@ class ManagerWicker(Manager.Manager):
         self.blackElo = eloplayer if not is_white else eloengine
 
         self.xrival = EnginesWicker.EngineManagerWicker(self.engine_rival)
-        self.xrival.options(None, None, siMultiPV=self.engine_rival.multiPV > 0)
+        self.xrival.options(None, None, has_multipv=self.engine_rival.multiPV > 0)
         self.xrival.check_engine()
 
         self.pte_tool_resigndraw = False
@@ -505,7 +505,7 @@ class ManagerWicker(Manager.Manager):
             self.is_human_side_white
         )
 
-        self.beepResultado(beep)
+        self.beep_result(beep)
         self.autosave()
         QTUtil.refresh_gui()
 

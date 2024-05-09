@@ -26,7 +26,7 @@ class ManagerEverest(Manager.Manager):
         self.human_is_playing = False
         self.analysis = None
         self.comment = None
-        self.if_analyzing = False
+        self.is_analyzing = False
         self.is_human_side_white = self.expedition.is_white
         self.is_engine_side_white = not self.expedition.is_white
         self.game_obj = self.expedition.game
@@ -144,7 +144,7 @@ class ManagerEverest(Manager.Manager):
 
     def analyze_begin(self):
         self.xanalyzer.ac_inicio(self.game)
-        self.if_analyzing = True
+        self.is_analyzing = True
 
     def analyze_minimum(self, minTime):
         self.mrm = copy.deepcopy(self.xanalyzer.ac_minimo(minTime, False))
@@ -156,13 +156,13 @@ class ManagerEverest(Manager.Manager):
         return self.mrm
 
     def analyze_end(self):
-        if self.if_analyzing:
-            self.if_analyzing = False
+        if self.is_analyzing:
+            self.is_analyzing = False
             self.xanalyzer.ac_final(-1)
 
     def analyze_terminate(self):
-        if self.if_analyzing:
-            self.if_analyzing = False
+        if self.is_analyzing:
+            self.is_analyzing = False
             self.xanalyzer.terminar()
 
     def analizaNoContinuo(self):

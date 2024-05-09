@@ -360,7 +360,7 @@ class WEngineExtend(QtWidgets.QDialog):
             li.insert(0, ("* " + _("None"), "-"))
             li.insert(0, ("* " + _("By default"), "*"))
             self.cbBooks = Controles.CB(self, li, engine.book)
-            bt_nuevo_book = Controles.PB(self, "", self.nuevoBook, plano=False).ponIcono(Iconos.Nuevo(), icon_size=16)
+            bt_nuevo_book = Controles.PB(self, "", self.new_book, plano=False).ponIcono(Iconos.Nuevo(), icon_size=16)
             # # Respuesta rival
             li = (
                 (_("Always the highest percentage"), BOOK_BEST_MOVE),
@@ -403,7 +403,7 @@ class WEngineExtend(QtWidgets.QDialog):
 
         self.edAlias.setFocus()
 
-    def nuevoBook(self):
+    def new_book(self):
         fbin = SelectFiles.leeFichero(self, self.list_books.path, "bin", titulo=_("Polyglot book"))
         if fbin:
             self.list_books.path = os.path.dirname(fbin)

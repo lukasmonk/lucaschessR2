@@ -439,7 +439,7 @@ class ManagerWashingTactics(Manager.Manager):
         self.set_label1(self.line.label)
         self.hints += 1
         mov = self.line.get_move(self.num_move).lower()
-        self.board.markPosition(mov[:2])
+        self.board.mark_position(mov[:2])
         self.ayudasEsteMov += 1
         if self.ayudasEsteMov > 1 and self.erroresEsteMov > 0:
             self.board.ponFlechasTmp([(mov[:2], mov[2:], True)], 1200)
@@ -488,7 +488,7 @@ class ManagerWashingCreate(Manager.Manager):
         self.opening = Opening.OpeningPol(30, self.engine.elo)
 
         self.is_tutor_enabled = True
-        self.if_analyzing = False
+        self.is_analyzing = False
 
         rival = self.configuration.buscaRival(self.engine.key)
 
@@ -821,7 +821,7 @@ class ManagerWashingCreate(Manager.Manager):
 
         mensaje, beep, player_win = self.game.label_resultado_player(self.is_human_side_white)
 
-        self.beepResultado(beep)
+        self.beep_result(beep)
         QTUtil.refresh_gui()
 
         QTUtil2.message(self.main_window, mensaje)

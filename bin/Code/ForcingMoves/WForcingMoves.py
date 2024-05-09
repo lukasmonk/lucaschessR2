@@ -3,25 +3,25 @@ import time
 from PySide2 import QtCore
 
 import Code
-from Code.Board import Board
+from Code.Board import Board2
 from Code.QT import Colocacion, Controles, Iconos, QTUtil, QTVarios, QTUtil2
 from Code.QT import LCDialog
 
 
-class BoardForcingMoves(Board.BoardEstatico):
+class BoardForcingMoves(Board2.BoardEstatico):
 
-    def __init__(self, parent, config_board, siMenuVisual=True, siDirector=True):
+    def __init__(self, parent, config_board, with_menu_visual=True, with_director=True):
         self.enable_borraMovibles = True
-        Board.BoardEstatico.__init__(self, parent, config_board, siMenuVisual, siDirector)
+        Board2.BoardEstatico.__init__(self, parent, config_board, with_menu_visual, with_director)
 
     def mousePressEvent(self, event):
         self.enable_borraMovibles = False
-        Board.BoardEstatico.mousePressEvent(self, event)
+        Board2.BoardEstatico.mousePressEvent(self, event)
         self.enable_borraMovibles = True
 
     def borraMovibles(self):
         if self.enable_borraMovibles:
-            Board.BoardEstatico.borraMovibles(self)
+            Board2.BoardEstatico.borraMovibles(self)
 
 
 class WForcingMoves(LCDialog.LCDialog):

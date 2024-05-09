@@ -41,11 +41,11 @@ class WTV_Flecha(QtWidgets.QDialog):
         # Board
         config_board = owner.board.config_board.copia(owner.board.config_board.id())
         config_board.width_piece(36)
-        self.board = Board.Board(self, config_board, siDirector=False)
+        self.board = Board.Board(self, config_board, with_director=False)
         self.board.crea()
         self.board.copiaPosicionDe(owner.board)
-        self.board.permitidoResizeExterno(False)
-        self.board.activaMenuVisual(False)
+        self.board.allowed_extern_resize(False)
+        self.board.activa_menu_visual(False)
 
         # Datos generales
         li_gen = []
@@ -243,7 +243,7 @@ class WTV_Flechas(LCDialog.LCDialog):
 
         # Board
         config_board = Code.configuration.config_board("EDIT_GRAPHICS", 48)
-        self.board = Board.Board(self, config_board, siDirector=False)
+        self.board = Board.Board(self, config_board, with_director=False)
         self.board.crea()
         self.board.copiaPosicionDe(owner.board)
 

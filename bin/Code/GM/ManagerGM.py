@@ -58,7 +58,7 @@ class ManagerGM(Manager.Manager):
             self.bypass_book.polyglot()
         self.on_opening = True if self.opening else False
 
-        self.if_analyzing = False
+        self.is_analyzing = False
 
         if self.with_adjudicator:
             self.puntos = 0
@@ -157,32 +157,31 @@ class ManagerGM(Manager.Manager):
     def analyze_begin(self):
         if not self.is_finished():
             if self.continueTt:
-
                 self.xtutor.ac_inicio(self.game)
             else:
                 self.xtutor.ac_inicio_limit(self.game)
-            self.if_analyzing = True
+            self.is_analyzing = True
 
     def analyze_state(self):
         self.xtutor.engine.ac_lee()
         self.mrm = copy.deepcopy(self.xtutor.ac_estado())
         return self.mrm
 
-    def analyze_minimum(self, minTime):
-        self.mrm = copy.deepcopy(self.xtutor.ac_minimo(minTime, False))
+    def analyze_minimum(self, min_time):
+        self.mrm = copy.deepcopy(self.xtutor.ac_minimo(min_time, False))
         return self.mrm
 
     def analyze_end(self):
-        if self.if_analyzing:
-            self.if_analyzing = False
+        if self.is_analyzing:
+            self.is_analyzing = False
             if self.continueTt:
                 self.mrm_tutor = self.xtutor.ac_final(self.xtutor.mstime_engine)
             else:
                 self.mrm_tutor = self.xtutor.ac_final_limit()
 
     def analyze_end_now(self):
-        if self.if_analyzing:
-            self.if_analyzing = False
+        if self.is_analyzing:
+            self.is_analyzing = False
             self.mrm_tutor = self.xtutor.ac_final(0)
 
     def play_next_move(self):
@@ -288,8 +287,8 @@ class ManagerGM(Manager.Manager):
             self.activate_side(is_white)
 
     def analyze_terminate(self):
-        if self.if_analyzing:
-            self.if_analyzing = False
+        if self.is_analyzing:
+            self.is_analyzing = False
             self.xtutor.terminar()
 
     def player_has_moved(self, from_sq, to_sq, promotion=""):

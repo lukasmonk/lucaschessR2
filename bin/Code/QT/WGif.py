@@ -5,7 +5,7 @@ from PySide2 import QtCore
 
 import Code
 from Code import Util
-from Code.Board import Board
+from Code.Board import Board2
 from Code.QT import Colocacion, Controles, Iconos, QTUtil, QTVarios, FormLayout
 from Code.QT import LCDialog, QTUtil2
 
@@ -22,7 +22,7 @@ class WGif(LCDialog.LCDialog):
 
         conf_board = self.configuration.config_board("GIF", 64)
 
-        self.board = Board.BoardEstatico(self, conf_board)
+        self.board = Board2.BoardEstatico(self, conf_board)
         self.board.crea()
 
         li_acciones = ((_("Save"), Iconos.GIF(), self.begin), (_("Cancel"), Iconos.Cancelar(), self.cancel))

@@ -180,7 +180,7 @@ class ManagerMicElo(Manager.Manager):
         self.blackElo = eloplayer if not is_white else eloengine
 
         self.xrival = self.procesador.creaManagerMotor(
-            self.engine_rival, None, None, siMultiPV=self.engine_rival.multiPV > 0
+            self.engine_rival, None, None, has_multipv=self.engine_rival.multiPV > 0
         )
         self.xrival.check_engine()
 
@@ -501,7 +501,7 @@ class ManagerMicElo(Manager.Manager):
 
         mensaje, beep, player_win = self.game.label_resultado_player(self.is_human_side_white)
 
-        self.beepResultado(beep)
+        self.beep_result(beep)
         self.autosave()
         QTUtil.refresh_gui()
 

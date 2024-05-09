@@ -489,7 +489,7 @@ class WAnalisis(LCDialog.LCDialog):
                     return True
 
                 xanalyzer.set_gui_dispatch(test_me)
-            mrm, pos = xanalyzer.analizaJugadaPartida(
+            mrm, pos = xanalyzer.analyzes_move_game(
                 game, len(game) - 1, xanalyzer.mstime_engine, xanalyzer.depth_engine, window=self
             )
             move.analysis = mrm, pos

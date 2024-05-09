@@ -202,7 +202,7 @@ class ManagerSwiss(Manager.Manager):
                 return
 
             elif siJugador and ot.is_zeitnot():
-                self.beepZeitnot()
+                self.beep_zeitnot()
 
             return
 
@@ -515,7 +515,7 @@ class ManagerSwiss(Manager.Manager):
     def muestra_resultado_delayed(self):
         mensaje, beep, player_win = self.game.label_resultado_player(self.is_human_side_white)
 
-        self.beepResultado(beep)
+        self.beep_result(beep)
         self.autosave()
         QTUtil.refresh_gui()
         p0 = self.main_window.base.pgn.pos()

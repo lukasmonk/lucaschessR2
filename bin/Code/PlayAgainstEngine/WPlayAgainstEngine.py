@@ -318,12 +318,12 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         # ##################################################################################################################################
         # Posicion
         self.btPosicion = (
-            Controles.PB(self, " " * 5 + _("Change") + " " * 5, self.posicionEditar).ponPlano(False).set_font(font)
+            Controles.PB(self, " " * 5 + _("Change") + " " * 5, self.position_edit).ponPlano(False).set_font(font)
         )
         self.fen = ""
-        self.btPosicionQuitar = Controles.PB(self, "", self.posicionQuitar).ponIcono(Iconos.Motor_No()).set_font(font)
+        self.btPosicionQuitar = Controles.PB(self, "", self.position_remove).ponIcono(Iconos.Motor_No()).set_font(font)
         self.btPosicionPegar = (
-            Controles.PB(self, "", self.posicionPegar).ponIcono(Iconos.Pegar16()).ponToolTip(_("Paste FEN position"))
+            Controles.PB(self, "", self.position_paste).ponIcono(Iconos.Pegar16()).ponToolTip(_("Paste FEN position"))
         ).set_font(font)
         hbox = (
             Colocacion.H()
@@ -379,7 +379,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
 
         # #Rival
         self.cbBooksR = QTUtil2.combobox_lb(self, li_books, lib_inicial).set_font(font)
-        self.btNuevoBookR = Controles.PB(self, "", self.nuevoBook).ponIcono(Iconos.Mas())
+        self.btNuevoBookR = Controles.PB(self, "", self.new_book).ponIcono(Iconos.Mas())
         self.cbBooksRR = QTUtil2.combobox_lb(self, li_resp_book, BOOK_BEST_MOVE).set_font(font)
         self.lbDepthBookR = Controles.LB2P(self, _("Max depth")).set_font(font)
         self.edDepthBookR = Controles.ED(self).set_font(font).tipoInt(0).anchoFijo(30*factor_big_fonts)
@@ -398,7 +398,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
 
         # Player
         self.cbBooksP = QTUtil2.combobox_lb(self, li_books, lib_inicial).set_font(font)
-        self.btNuevoBookP = Controles.PB(self, "", self.nuevoBook).ponIcono(Iconos.Mas())
+        self.btNuevoBookP = Controles.PB(self, "", self.new_book).ponIcono(Iconos.Mas())
         self.lbDepthBookP = Controles.LB2P(self, _("Max depth")).set_font(font)
         self.edDepthBookP = Controles.ED(self).set_font(font).tipoInt(0).anchoFijo(30*factor_big_fonts)
         hbox = (
@@ -793,15 +793,15 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         self.lb_unlimited.setVisible(visible)
         self.cb_unlimited.setVisible(visible)
 
-    def posicionEditar(self):
+    def position_edit(self):
         cp = Position.Position()
         cp.read_fen(self.fen)
         position, is_white_bottom = Voyager.voyager_position(self, cp, wownerowner=self.procesador.main_window)
         if position is not None:
             self.fen = position.fen()
-            self.muestraPosicion()
+            self.show_position()
 
-    def posicionPegar(self):
+    def position_paste(self):
         texto = QTUtil.get_txt_clipboard()
         if texto:
             cp = Position.Position()
@@ -810,11 +810,11 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
                 self.fen = cp.fen()
                 if self.fen == FEN_INITIAL:
                     self.fen = ""
-                self.muestraPosicion()
+                self.show_position()
             except:
                 pass
 
-    def muestraPosicion(self):
+    def show_position(self):
         if self.fen:
             label = self.fen
             self.btPosicionQuitar.show()
@@ -1133,7 +1133,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
 
         self.opening_show()
         self.opening_line_show()
-        self.muestraPosicion()
+        self.show_position()
         self.test_unlimited()
 
     def aceptar(self):
@@ -1153,7 +1153,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         self.save_video()
         self.reject()
 
-    def nuevoBook(self):
+    def new_book(self):
         WBooks.registered_books(self)
         self.list_books = Books.ListBooks()
         li = [(x.name, x) for x in self.list_books.lista]
@@ -1164,9 +1164,9 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         self.opening_block = None
         self.opening_show()
 
-    def posicionQuitar(self):
+    def position_remove(self):
         self.fen = ""
-        self.muestraPosicion()
+        self.show_position()
 
 
 def play_against_engine(procesador, titulo):
@@ -1179,7 +1179,7 @@ def play_against_engine(procesador, titulo):
 
 def play_position(procesador, titulo, is_white):
     w = WPlayAgainstEngine(procesador, titulo, False)
-    w.posicionQuitar()
+    w.position_remove()
     w.btPosicion.setDisabled(True)
     if is_white:
         w.rb_white.activa()

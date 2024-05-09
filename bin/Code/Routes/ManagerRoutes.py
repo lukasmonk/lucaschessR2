@@ -319,7 +319,7 @@ class ManagerRoutesPlay(ManagerRoutes):
         siwin = (jgUlt.is_white() == self.is_human_side_white) and not jgUlt.is_draw
         mensaje, beep, player_win = self.game.label_resultado_player(self.is_human_side_white)
 
-        self.beepResultado(beep)
+        self.beep_result(beep)
 
         self.autosave()
 

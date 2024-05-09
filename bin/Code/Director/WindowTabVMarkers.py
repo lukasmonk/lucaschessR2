@@ -46,7 +46,7 @@ class WTV_Marker(QtWidgets.QDialog):
 
         # Board
         config_board = owner.board.config_board
-        self.board = Board.Board(self, config_board, siDirector=False)
+        self.board = Board.Board(self, config_board, with_director=False)
         self.board.crea()
         self.board.copiaPosicionDe(owner.board)
 
@@ -173,7 +173,7 @@ class WTV_Markers(LCDialog.LCDialog):
 
         # Board
         config_board = self.configuration.config_board("EDIT_GRAPHICS", 48)
-        self.board = Board.Board(self, config_board, siDirector=False)
+        self.board = Board.Board(self, config_board, with_director=False)
         self.board.crea()
         self.board.copiaPosicionDe(owner.board)
 

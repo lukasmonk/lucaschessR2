@@ -463,7 +463,7 @@ FILESW=%s:100
 
                 # -# Procesamos
                 if move.analysis is None:
-                    resp = self.xmanager.analizaJugadaPartida(
+                    resp = self.xmanager.analyzes_move_game(
                         game_move,
                         pos_current_move,
                         self.vtime,

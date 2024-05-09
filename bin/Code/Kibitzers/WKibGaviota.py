@@ -20,7 +20,7 @@ class WGaviota(WKibCommon.WKibCommon):
         delegado = Delegados.EtiquetaPOS(True, siLineas=False) if self.with_figurines else None
         o_columns.nueva("MOVE", _("Move"), 80, align_center=True, edicion=delegado)
         o_columns.nueva("DTM", "DTM", 60, align_center=True)
-        self.grid = Grid.Grid(self, o_columns, dicVideo=self.dicVideo, siSelecFilas=True)
+        self.grid = Grid.Grid(self, o_columns, dicVideo=self.dicVideo, siSelecFilas=True, altoFila=self.cpu.configuration.x_pgn_rowheight)
         f = Controles.FontType(puntos=self.cpu.configuration.x_pgn_fontpoints)
         self.grid.set_font(f)
 

@@ -182,7 +182,7 @@ class TabEngine(QtWidgets.QWidget):
         conf_engine = self.configuration.buscaRival(key)
 
         multipv = self.sb_multipv.valor()
-        self.manager_motor = self.procesador.creaManagerMotor(conf_engine, 0, 0, siMultiPV=multipv > 1)
+        self.manager_motor = self.procesador.creaManagerMotor(conf_engine, 0, 0, has_multipv=multipv > 1)
 
     def grid_num_datos(self, grid):
         return len(self.li_analysis)

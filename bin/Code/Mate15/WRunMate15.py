@@ -4,7 +4,7 @@ from PySide2 import QtCore
 
 import Code
 from Code.Base import Position
-from Code.Board import Board
+from Code.Board import Board2
 from Code.CountsCaptures import WRunCommon
 from Code.QT import Colocacion, Controles, Iconos, QTUtil, QTVarios
 from Code.QT import LCDialog
@@ -23,7 +23,7 @@ class WRunMate15(LCDialog.LCDialog):
 
         conf_board = self.configuration.config_board("RUNMATE15", 64)
 
-        self.board = Board.BoardEstatico(self, conf_board)
+        self.board = Board2.BoardEstatico(self, conf_board)
         self.board.crea()
 
         # Rotulo informacion

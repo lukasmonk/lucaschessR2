@@ -257,7 +257,7 @@ class CreateAnalysis:
             if xengine is None:
                 conf_engine = self.configuration.buscaRival(alm.engine)
                 conf_engine.update_multipv(alm.multiPV)
-                xengine = self.procesador.creaManagerMotor(conf_engine, alm.vtime, alm.depth, siMultiPV=True)
+                xengine = self.procesador.creaManagerMotor(conf_engine, alm.vtime, alm.depth, has_multipv=True)
 
         me = QTUtil2.waiting_message.start(main_window, _("Analyzing the move...."), physical_pos=TOP_RIGHT)
         mrm, pos = xengine.analysis_move(self.move, alm.vtime, alm.depth)
@@ -358,7 +358,7 @@ class AnalisisVariations:
 
         secs = self.w.get_seconds()
         self.xanalyzer.remove_gui_dispatch()
-        self.rm = self.xanalyzer.analizaVariation(new_move, secs * 1000, self.is_white)
+        self.rm = self.xanalyzer.analyzes_variation(new_move, secs * 1000, self.is_white)
         me.final()
 
         self.game_analyzer = Game.Game(new_move.position)

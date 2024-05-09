@@ -3,7 +3,8 @@ import time
 import psutil
 from PySide2 import QtCore, QtGui, QtWidgets
 
-from Code.Base import Game
+import Code
+from Code.Base import Game, Move
 from Code.Engines import EngineRun
 from Code.Kibitzers import WindowKibitzers
 from Code.QT import Colocacion
@@ -15,7 +16,7 @@ from Code.QT import QTVarios
 
 class EDP(Controles.ED):
     def ponHtml(self, txt):
-        self.setText(txt)
+        self.setHtml(txt)
         self.setCursorPosition(0)
         return self
 
@@ -53,7 +54,7 @@ class WKibLinea(QtWidgets.QDialog):
         self.setBackgroundRole(QtGui.QPalette.Light)
 
         self.setStyleSheet(
-            """QLineEdit {
+            """QLabel {
     color: rgb(127, 0, 63);
     selection-color: white;
     border: 1px groove gray;
@@ -75,9 +76,12 @@ class WKibLinea(QtWidgets.QDialog):
         self.tb = Controles.TBrutina(self, li_acciones, with_text=False, icon_size=24)
         self.tb.setFixedSize(180, 32)
         self.tb.set_pos_visible(1, False)
-        self.em = EDP(self)
-        self.em.set_font_type(peso=75, puntos=10)
+        self.em = Controles.EM(self)
+        self.em.setFont(f)
         self.em.setReadOnly(True)
+        px = QTUtil.get_height_text(self.em, "N")
+        self.em.setFixedHeight(px+6)
+        self.em.verticalScrollBar().hide()
 
         layout = Colocacion.H().control(self.em).control(self.tb).margen(2)
 
@@ -124,7 +128,21 @@ class WKibLinea(QtWidgets.QDialog):
                     game = Game.Game(first_position=self.game.last_position)
                     game.read_pv(rm.pv)
                     if len(game):
-                        self.em.ponHtml("[%02d] %s | %s" % (rm.depth, rm.abbrev_text(), game.pgnBaseRAW()))
+                        pgn = game.pgnBaseRAW()
+                        if Code.configuration.x_pgn_withfigurines:
+                            d = Move.dicHTMLFigs
+                            lc = []
+                            is_white = pgn[0].isdigit()
+                            for c in pgn:
+                                if c == " ":
+                                    is_white = not is_white
+                                else:
+                                    if c.isupper():
+                                        c = d.get(c if is_white else c.lower(), c)
+                                lc.append(c)
+                            pgn = "".join(lc)
+
+                        self.em.ponHtml("[%02d] %s | %s" % (rm.depth, rm.abbrev_text(), pgn))
             else:
                 self.em.ponHtml("")
 

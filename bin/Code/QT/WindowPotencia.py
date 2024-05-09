@@ -9,7 +9,7 @@ import Code
 from Code import Util
 from Code.Analysis import Analysis
 from Code.Base import Game, Move, Position
-from Code.Board import Board
+from Code.Board import Board2
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles
@@ -584,7 +584,7 @@ class WPotencia(LCDialog.LCDialog):
 
         cp = self.game.move(self.jugadaInicial).position
 
-        self.board = Board.BoardEstatico(self, config_board)
+        self.board = Board2.BoardEstatico(self, config_board)
         self.board.crea()
         self.board.set_side_bottom(cp.is_white)
         self.board.set_position(cp)

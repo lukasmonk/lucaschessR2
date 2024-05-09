@@ -34,15 +34,17 @@ class WKibEngine(WKibCommon.WKibCommon):
             rotulo = _("Alternatives")
 
         delegado = Delegados.EtiquetaPOS(True, siLineas=False) if self.with_figurines else None
+        delegado_pgn = Delegados.LinePGN() if self.with_figurines else None
 
         o_columns = Columnas.ListaColumnas()
+        configuration = self.cpu.configuration
         if not self.is_candidates:
             o_columns.nueva("DEPTH", "^", 40, align_center=True)
         o_columns.nueva("BESTMOVE", rotulo, 80, align_center=True, edicion=delegado)
         o_columns.nueva("EVALUATION", _("Evaluation"), 85, align_center=True)
-        o_columns.nueva("MAINLINE", _("Main line"), 400)
-        self.grid = Grid.Grid(self, o_columns, dicVideo=self.dicVideo, siSelecFilas=True, altoFila=None)
-        f = Controles.FontType(puntos=self.cpu.configuration.x_pgn_fontpoints)
+        o_columns.nueva("MAINLINE", _("Main line"), 400, edicion=delegado_pgn)
+        self.grid = Grid.Grid(self, o_columns, dicVideo=self.dicVideo, siSelecFilas=True, altoFila=configuration.x_pgn_rowheight)
+        f = Controles.FontType(puntos=configuration.x_pgn_fontpoints)
         self.grid.set_font(f)
 
         self.lbDepth = Controles.LB(self)

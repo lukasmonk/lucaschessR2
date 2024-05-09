@@ -40,7 +40,7 @@ class RunEngine:
         self.gui_dispatch = None
         self.ultDispatch = 0
         self.minDispatch = 1.0  # seconds
-        self.whoDispatch = name
+        self.who_dispatch = name
         self.uci_ok = False
 
         self.emulate_movetime = False
@@ -70,7 +70,7 @@ class RunEngine:
 
         self.start()
 
-        self.lockAC = True
+        self.lock_ac = True
 
         self.orden_uci()
 
@@ -297,14 +297,14 @@ class RunEngine:
             self.ultDispatch = tm
             self.mrm.ordena()
             rm = self.mrm.best_rm_ordered()
-            rm.whoDispatch = self.whoDispatch
+            rm.who_dispatch = self.who_dispatch
             if not self.gui_dispatch(rm):
                 return False
         return True
 
     def wait_mrm(self, seektxt, msStop):
         self.stopped = False
-        iniTiempo = time.time()
+        ini_tiempo = time.time()
         stop = False
         while True:
             if self.hay_datos():
@@ -318,7 +318,7 @@ class RunEngine:
                             self.put_line("stop")
                         return True
 
-            queda = msStop - int((time.time() - iniTiempo) * 1000)
+            queda = msStop - int((time.time() - ini_tiempo) * 1000)
             if queda <= 0:
                 if stop:
                     return True
@@ -435,14 +435,14 @@ class RunEngine:
         self.work_ok("ucinewgame")
 
     def ac_inicio(self, game):
-        self.lockAC = True
+        self.lock_ac = True
         self.set_game_position(game)
         self.reset()
         self.put_line("go infinite")
-        self.lockAC = False
+        self.lock_ac = False
 
     def ac_inicio_limit(self, game, max_time, max_depth):
-        self.lockAC = True
+        self.lock_ac = True
         self.best_move_done = False
         self.set_game_position(game)
         self.reset()
@@ -452,10 +452,10 @@ class RunEngine:
         elif max_time:
             env += " movetime %d" % max_time
         self.put_line(env)
-        self.lockAC = False
+        self.lock_ac = False
 
     def ac_lee(self):
-        if self.lockAC:
+        if self.lock_ac:
             return True
         nlines = 0
         for line in self.get_lines():
@@ -477,10 +477,10 @@ class RunEngine:
         while self.mrm.time_used() * 1000 < minimo_tiempo:
             time.sleep(0.1)
 
-        self.lockAC = lock_ac
+        self.lock_ac = lock_ac
         return self.ac_estado()
 
-    def ac_minimoTD(self, min_time, min_depth, lock_ac):
+    def ac_minimo_td(self, min_time, min_depth, lock_ac):
         self.ac_lee()
         self.mrm.ordena()
         rm = self.mrm.best_rm_ordered()
@@ -488,7 +488,7 @@ class RunEngine:
             time.sleep(0.1)
             self.ac_lee()
             rm = self.mrm.best_rm_ordered()
-        self.lockAC = lock_ac
+        self.lock_ac = lock_ac
         return self.ac_estado()
 
     def ac_final(self, minimo_ms_time):
@@ -542,10 +542,10 @@ class RunEngine:
         self.put_line("stop")
         return self.mrm
 
-    def set_gui_dispatch(self, gui_dispatch, whoDispatch=None):
+    def set_gui_dispatch(self, gui_dispatch, who_dispatch=None):
         self.gui_dispatch = gui_dispatch
-        if whoDispatch is not None:
-            self.whoDispatch = whoDispatch
+        if who_dispatch is not None:
+            self.who_dispatch = who_dispatch
 
     def set_multipv(self, num_multipv):
         if num_multipv == 0:

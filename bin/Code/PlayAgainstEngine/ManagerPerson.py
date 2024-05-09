@@ -56,7 +56,7 @@ class ManagerPerson(ManagerPlayAgainstEngine.ManagerPlayAgainstEngine):
 
         self.human_is_playing = False
         self.state = ST_PLAYING
-        self.if_analyzing = False
+        self.is_analyzing = False
 
         self.aperturaStd = Opening.OpeningPol(1)
 

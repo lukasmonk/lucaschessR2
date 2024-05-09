@@ -342,7 +342,7 @@ class Configuration:
             Util.create_folder(folder)
         return folder
 
-    def carpeta_sounds(self):
+    def folder_sounds(self):
         return Util.opj(self.carpeta, "Sounds")
 
     def relee_engines(self):
@@ -641,17 +641,18 @@ class Configuration:
     def formlayout_combo_analyzer(self, only_multipv):
         li = []
         for key, cm in self.dic_engines.items():
-            if not only_multipv or cm.can_be_tutor():
+            if not only_multipv or cm.can_be_analyzer():
                 li.append((key, cm.nombre_ext()))
         li = sorted(li, key=operator.itemgetter(1))
         li.insert(0, ("default", _("Default analyzer")))
         li.insert(0, "default")
         return li
 
-    def help_multipv_engines(self):
+    def help_multipv_engines(self, is_tutor):
         li = []
         for key, cm in self.dic_engines.items():
-            if cm.can_be_tutor():
+            ok = cm.can_be_tutor() if is_tutor else cm.can_be_analyzer()
+            if ok:
                 li.append((cm.nombre_ext(), key))
         li.sort(key=operator.itemgetter(1))
         return li
@@ -870,6 +871,22 @@ class Configuration:
         self.x_tutor_clave = self.tutor_default
         return self.engine_tutor()
 
+    def engine_supertutor(self):
+        key_engine = self.x_tutor_clave
+        if key_engine not in self.dic_engines:
+            key_engine = self.tutor_default
+        eng = self.dic_engines[key_engine]
+        if not (eng.can_be_supertutor() and Util.exist_file(eng.path_exe)):
+            key_engine = self.tutor_default
+            eng = self.dic_engines[key_engine]
+        eng.reset_uci_options()
+        dic = self.read_variables("TUTOR_ANALYZER")
+        for key, value in dic.get("TUTOR", []):
+            if key != "MultiPV":
+                eng.set_uci_option(key, value)
+        eng.multiPV = eng.maxMultiPV
+        return eng
+
     def engine_analyzer(self):
         if self.x_analyzer_clave in self.dic_engines:
             eng = self.dic_engines[self.x_analyzer_clave]
@@ -972,9 +989,9 @@ class Configuration:
         # PATH_PO_OPENINGS
         # PATH_PO_OPENINGS_IMPORT
 
-    def write_variables(self, nomVar, dicValores):
+    def write_variables(self, nom_var, dic_valores):
         with UtilSQL.DictSQL(self.ficheroVariables) as db:
-            db[nomVar] = dicValores
+            db[nom_var] = dic_valores
 
     def change_theme_num(self, num):
         self.__theme_num = num

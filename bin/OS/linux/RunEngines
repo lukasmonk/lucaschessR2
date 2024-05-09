@@ -36,7 +36,7 @@ echo ">> Greko-98" && chmod 755 ./Engines/greko98/GreKo98a
 echo ">> Gunborg" && chmod 755 ./Engines/gunborg/Gunborg-1.35
 echo ">> Hactar" && chmod 755 ./Engines/hactar/Hactar-0.9.0
 echo ">> Igel" && chmod 755 ./Engines/igel/Igel-3.0.10
-echo ">> Irina" && chmod 755 ./Engines/irina/irina-0.16
+echo ">> Irina" && chmod 755 ./Engines/irina/irina
 echo ">> Jabba" && chmod 755 ./Engines/jabba/Jabba-1.0
 echo ">> K2" && chmod 755 ./Engines/k2/K2-0.99
 echo ">> Komodo" && chmod 755 ./Engines/komodo/dragon-linux

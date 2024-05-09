@@ -4,7 +4,7 @@ import time
 from PySide2 import QtCore, QtGui, QtWidgets
 
 from Code.Base import Position
-from Code.Board import Board
+from Code.Board import Board2
 from Code.QT import Colocacion
 from Code.QT import Controles
 from Code.QT import Iconos
@@ -75,9 +75,9 @@ class WMemoria(LCDialog.LCDialog):
 
         self.position = Position.Position()
 
-        self.board = Board.PosBoard(self, config_board)
+        self.board = Board2.PosBoard(self, config_board)
         self.board.crea()
-        self.board.ponDispatchDrop(self.dispatchDrop)
+        self.board.set_dispatch_drop(self.dispatchDrop)
         self.board.baseCasillasSC.setAcceptDrops(True)
         self.ultimaPieza = "P"
         self.piezas = self.board.piezas

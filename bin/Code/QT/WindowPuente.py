@@ -7,7 +7,7 @@ from PySide2 import QtWidgets, QtGui
 
 from Code import Util
 from Code.Base import Position
-from Code.Board import Board
+from Code.Board import Board2
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles
@@ -419,23 +419,23 @@ class WPuente(LCDialog.LCDialog):
         # Boards
         config_board = self.configuration.config_board("PUENTE", 32)
 
-        cpIni = Position.Position()
-        cpIni.read_fen(fenIni)
-        is_white = cpIni.is_white
-        self.boardIni = Board.BoardEstatico(self, config_board)
+        cp_ini = Position.Position()
+        cp_ini.read_fen(fenIni)
+        is_white = cp_ini.is_white
+        self.boardIni = Board2.BoardEstatico(self, config_board)
         self.boardIni.crea()
         self.boardIni.set_side_bottom(is_white)
-        self.boardIni.set_position(cpIni)
+        self.boardIni.set_position(cp_ini)
 
-        cpFin = Position.Position()
-        cpFin.read_fen(fenFin)
-        self.boardFin = Board.BoardEstatico(self, config_board)
+        cp_fin = Position.Position()
+        cp_fin.read_fen(fenFin)
+        self.boardFin = Board2.BoardEstatico(self, config_board)
         self.boardFin.crea()
         self.boardFin.set_side_bottom(is_white)  # esta bien
-        self.boardFin.set_position(cpFin)
+        self.boardFin.set_position(cp_fin)
 
         # Rotulo informacion
-        self.lbInformacion = Controles.LB(self, self.textoLBInformacion(info, cpIni)).align_center()
+        self.lbInformacion = Controles.LB(self, self.textoLBInformacion(info, cp_ini)).align_center()
 
         # Rotulo vtime
         self.lbTiempo = Controles.LB(self, "").align_center()

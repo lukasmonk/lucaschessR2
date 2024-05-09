@@ -279,7 +279,7 @@ class ManagerResistance(Manager.Manager):
         self.state = ST_ENDGAME
         self.procesador.stop_engines()
         self.xarbitro.terminar()
-        self.main_window.ajustaTam()
+        self.main_window.adjust_size()
         self.main_window.resize(0, 0)
         if self.movimientos >= 1:
             li_options = [TB_CLOSE, TB_CONFIG, TB_UTILITIES]

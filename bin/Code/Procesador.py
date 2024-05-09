@@ -234,7 +234,7 @@ class Procesador:
         self.board.set_position(self.posicionInicial)
         self.board.borraMovibles()
         self.board.remove_arrows()
-        self.main_window.ajustaTam()
+        self.main_window.adjust_size()
         self.main_window.set_title()
         self.stop_engines()
 
@@ -262,7 +262,7 @@ class Procesador:
         if not siEmpezar:
             self.cpu.stop()
             self.board.set_side_bottom(True)
-            self.board.activaMenuVisual(True)
+            self.board.activa_menu_visual(True)
             self.board.set_position(self.posicionInicial)
             self.board.setToolTip("")
             self.board.bloqueaRotacion(False)
@@ -270,7 +270,7 @@ class Procesador:
         else:
             self.board.bloqueaRotacion(True)
             self.board.setToolTip("")
-            self.board.activaMenuVisual(True)
+            self.board.activa_menu_visual(True)
             Presentacion.ManagerChallenge101(self)
 
     def XTutor(self):
@@ -294,6 +294,17 @@ class Procesador:
         if self.xtutor:
             self.xtutor.terminar()
         self.creaXTutor()
+
+    def super_tutor(self):
+        if self.xtutor:
+            self.xtutor.terminar()
+        xtutor = EngineManager.EngineManager(self.configuration.engine_supertutor())
+        xtutor.function = _("Tutor")
+        xtutor.set_priority(self.configuration.x_tutor_priority)
+        xtutor.maximize_multipv()
+        xtutor.options(self.configuration.x_tutor_mstime, self.configuration.x_tutor_depth, True)
+        self.xtutor = xtutor
+        return xtutor
 
     def XAnalyzer(self):
         if self.xanalyzer is None or not self.xanalyzer.activo:
@@ -326,12 +337,12 @@ class Procesador:
             self.xanalyzer.terminar()
         self.creaXAnalyzer()
 
-    def creaManagerMotor(self, conf_motor, vtime, depth, siMultiPV=False, priority=None):
+    def creaManagerMotor(self, conf_motor, vtime, depth, has_multipv=False, priority=None):
         if conf_motor.type == ENG_WICKER:
             xmanager = EnginesWicker.EngineManagerWicker(conf_motor)
         else:
             xmanager = EngineManager.EngineManager(conf_motor)
-        xmanager.options(vtime, depth, siMultiPV)
+        xmanager.options(vtime, depth, has_multipv)
         xmanager.set_priority(priority)
         return xmanager
 

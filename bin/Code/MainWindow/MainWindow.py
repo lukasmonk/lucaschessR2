@@ -45,8 +45,8 @@ class MainWindow(LCDialog.LCDialog):
         self.onTop = False
 
         self.board = self.base.board
-        self.board.dispatchSize(self.ajustaTam)
-        self.board.permitidoResizeExterno(True)
+        self.board.dispatchSize(self.adjust_size)
+        self.board.allowed_extern_resize(True)
         self.anchoAntesMaxim = None
 
         self.splitter = splitter = QtWidgets.QSplitter(self)
@@ -167,11 +167,11 @@ class MainWindow(LCDialog.LCDialog):
             flags |= QtCore.Qt.WindowStaysOnTopHint
 
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | flags)
-        if self.board.siMaximizado():
+        if self.board.is_maximized():
             self.showMaximized()
         else:
             self.xrestore_video()
-            self.ajustaTam()
+            self.adjust_size()
             self.show()
 
         self.set_title()
@@ -203,20 +203,20 @@ class MainWindow(LCDialog.LCDialog):
             self.base.tb.hide()
             self.board.siF11 = True
             self.save_width_piece()
-            self.board.maximizaTam(True)
+            self.board.maximize_size(True)
         else:
             if ant.fullscreen:
                 self.base.tb.show()
-                self.board.normalTam(self.restore_width_pieze())
-                self.ajustaTam()
+                self.board.normal_size(self.restore_width_pieze())
+                self.adjust_size()
                 if self.previous_f11_maximized:
                     self.setWindowState(QtCore.Qt.WindowMaximized)
             elif nue.maximizado:
                 self.save_width_piece()
-                self.board.maximizaTam(False)
+                self.board.maximize_size(False)
             elif ant.maximizado:
-                self.board.normalTam(self.restore_width_pieze())
-                self.ajustaTam()
+                self.board.normal_size(self.restore_width_pieze())
+                self.adjust_size()
 
     def show_variations(self, titulo):
         flags = (
@@ -231,16 +231,16 @@ class MainWindow(LCDialog.LCDialog):
         self.setWindowTitle(titulo if titulo else "-")
 
         # self.restore_main_window()
-        self.ajustaTam()
+        self.adjust_size()
 
         resp = self.exec_()
         self.save_video()
         return resp
 
-    def ajustaTam(self):
+    def adjust_size(self):
         if self.isMaximized():
-            if not self.board.siMaximizado():
-                self.board.maximizaTam(self.activadoF11)
+            if not self.board.is_maximized():
+                self.board.maximize_size(self.activadoF11)
         else:
             n = 0
             while self.height() > self.board.ancho + self.base.tb.height() + 18:
@@ -293,6 +293,9 @@ class MainWindow(LCDialog.LCDialog):
 
     def ponAyudas(self, puntos, with_takeback=True):
         self.base.ponAyudas(puntos, with_takeback)
+
+    def show_button_tutor(self, ok):
+        self.base.show_button_tutor(ok)
 
     def remove_hints(self, siTambienTutorAtras, with_takeback=True):
         self.base.remove_hints(siTambienTutorAtras, with_takeback)

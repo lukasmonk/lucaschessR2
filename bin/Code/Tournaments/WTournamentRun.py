@@ -46,7 +46,7 @@ class TournamentRun:
             self.run_drawRange = torneo.draw_range()
             self.run_drawMinPly = torneo.draw_min_ply()
             self.run_resign = torneo.resign()
-            self.run_bookDepth = torneo.bookDepth()
+            self.run_bookDepth = torneo.book_depth()
 
     def name(self):
         return self.run_name
@@ -60,25 +60,25 @@ class TournamentRun:
     def resign(self):
         return self.run_resign
 
-    def bookDepth(self):
+    def book_depth(self):
         return self.run_bookDepth
 
     def tournament(self):
         return Tournament.Tournament(self.file_tournament)
 
-    def get_game_queued(self, file_work, times=0):
+    def get_game_queued(self, file_work):
         with self.tournament() as torneo:
             self.run_name = torneo.name()
             self.run_drawRange = torneo.draw_range()
             self.run_drawMinPly = torneo.draw_min_ply()
             self.run_resign = torneo.resign()
-            self.run_bookDepth = torneo.bookDepth()
+            self.run_bookDepth = torneo.book_depth()
             game_tournament = torneo.get_game_queued(file_work)
             return game_tournament
 
-    def fenNorman(self):
+    def fen_norman(self):
         with self.tournament() as torneo:
-            return torneo.fenNorman()
+            return torneo.fen_norman()
 
     def slow_pieces(self):
         with self.tournament() as torneo:
@@ -96,9 +96,9 @@ class TournamentRun:
         with self.tournament() as torneo:
             return torneo.adjudicator_time()
 
-    def buscaHEngine(self, h):
+    def search_hengine(self, h):
         with self.tournament() as torneo:
-            return torneo.buscaHEngine(h)
+            return torneo.search_hengine(h)
 
     def book(self):
         with self.tournament() as torneo:
@@ -239,14 +239,14 @@ class WTournamentRun(QtWidgets.QWidget):
         self.lbRotulo3 = Controles.LB(self).set_wrap()
 
         # Layout
-        lyColor = Colocacion.G()
-        lyColor.controlc(self.lb_player[WHITE], 0, 0).controlc(self.lb_player[BLACK], 0, 1)
-        lyColor.controlc(self.lb_clock[WHITE], 1, 0).controlc(self.lb_clock[BLACK], 1, 1)
+        ly_color = Colocacion.G()
+        ly_color.controlc(self.lb_player[WHITE], 0, 0).controlc(self.lb_player[BLACK], 0, 1)
+        ly_color.controlc(self.lb_clock[WHITE], 1, 0).controlc(self.lb_clock[BLACK], 1, 1)
 
-        lyV = Colocacion.V().otro(lyColor).control(self.grid_pgn).control(self.lbRotulo3)
-        lyV.margen(7)
+        ly_v = Colocacion.V().otro(ly_color).control(self.grid_pgn).control(self.lbRotulo3)
+        ly_v.margen(7)
 
-        return lyV
+        return ly_v
 
     def grid_num_datos(self, grid):
         return self.pgn.num_rows()
@@ -264,7 +264,7 @@ class WTournamentRun(QtWidgets.QWidget):
         self.pon_estado(ST_PLAYING)
 
         # Configuración
-        self.fen_inicial = self.torneo.fenNorman()
+        self.fen_inicial = self.torneo.fen_norman()
 
         # Cerramos los motores anteriores si los hay
         Code.list_engine_managers.close_all()
@@ -283,8 +283,8 @@ class WTournamentRun(QtWidgets.QWidget):
 
         # abrimos motores
         rival = {
-            WHITE: self.torneo.buscaHEngine(self.tournament_game.hwhite),
-            BLACK: self.torneo.buscaHEngine(self.tournament_game.hblack),
+            WHITE: self.torneo.search_hengine(self.tournament_game.hwhite),
+            BLACK: self.torneo.search_hengine(self.tournament_game.hblack),
         }
         for side in (WHITE, BLACK):
             self.lb_player[side].set_text(rival[side].key)
@@ -459,7 +459,7 @@ class WTournamentRun(QtWidgets.QWidget):
         self.set_clock_label(BLACK, tm, tm2)
 
     def select_book_move(self, book, tipo):
-        bdepth = self.torneo.bookDepth()
+        bdepth = self.torneo.book_depth()
         if bdepth == 0 or len(self.game) < bdepth:
             fen = self.game.last_fen()
             pv = book.eligeJugadaTipo(fen, tipo)
@@ -485,7 +485,7 @@ class WTournamentRun(QtWidgets.QWidget):
     def game_finished(self):
         return self.game.termination != TERMINATION_UNKNOWN
 
-    def showPV(self, pv, nArrows):
+    def show_pv(self, pv, n_arrows):
         if not pv:
             return True
         self.board.remove_arrows()
@@ -496,7 +496,7 @@ class WTournamentRun(QtWidgets.QWidget):
             pv = pv.replace("  ", " ")
         lipv = pv.split(" ")
         npv = len(lipv)
-        nbloques = min(npv, nArrows)
+        nbloques = min(npv, n_arrows)
         salto = (80 - 15) * 2 / (nbloques - 1) if nbloques > 1 else 0
         cambio = max(30, salto)
 
@@ -575,13 +575,13 @@ class WTournamentRun(QtWidgets.QWidget):
     def sound(self, move):
         if self.configuration.x_sound_tournements:
             if not Code.runSound:
-                runSound = Sound.RunSound()
+                run_sound = Sound.RunSound()
             else:
-                runSound = Code.runSound
+                run_sound = Code.runSound
             if self.configuration.x_sound_move:
-                runSound.play_list(move.listaSonidos())
+                run_sound.play_list(move.listaSonidos())
             if self.configuration.x_sound_beep:
-                runSound.playBeep()
+                run_sound.playBeep()
 
     def grid_dato(self, grid, row, o_column):
         control_pgn = self.pgn
@@ -598,7 +598,7 @@ class WTournamentRun(QtWidgets.QWidget):
         info = ""
         indicador_inicial = None
 
-        stNAGS = set()
+        st_nags = set()
 
         if move.analysis:
             mrm, pos = move.analysis
@@ -619,14 +619,14 @@ class WTournamentRun(QtWidgets.QWidget):
                 info = "%+0.2f" % float(pts / 100.0)
 
             nag, color_nag = mrm.set_nag_color(rm)
-            stNAGS.add(nag)
+            st_nags.add(nag)
 
         if move.in_the_opening:
             indicador_inicial = "R"
 
         pgn = move.pgn_figurines() if self.configuration.x_pgn_withfigurines else move.pgn_translated()
 
-        return pgn, color, info, indicador_inicial, stNAGS
+        return pgn, color, info, indicador_inicial, st_nags
 
     def gui_dispatch(self, rm):
         if self.is_closed or self.state != ST_PLAYING:
@@ -637,7 +637,7 @@ class WTournamentRun(QtWidgets.QWidget):
             rm.is_white = self.game.last_position.is_white
             txt = "<b>[%s]</b> (%s) %s" % (rm.name, rm.abbrev_text(), p.pgn_translated())
             self.lbRotulo3.set_text(txt)
-            self.showPV(rm.pv, 1)
+            self.show_pv(rm.pv, 1)
         return self.set_clock()
 
     def clocks_finished(self):
@@ -682,16 +682,17 @@ class WTournamentRun(QtWidgets.QWidget):
         rm_ant = mrm.li_rm[pos]
 
         # Draw
-        pUlt = rm_ult.centipawns_abs()
-        pAnt = rm_ant.centipawns_abs()
+        p_ult = rm_ult.centipawns_abs()
+        p_ant = rm_ant.centipawns_abs()
         dr = self.torneo.draw_range()
-        if dr > 0 and num_moves >= self.torneo.draw_min_ply():
-            if abs(pUlt) <= dr and abs(pAnt) <= dr:
+        dmp = self.torneo.draw_min_ply()
+        if dmp and dr > 0 and num_moves >= dmp:
+            if abs(p_ult) <= dr and abs(p_ant) <= dr:
                 if self.xadjudicator:
-                    mrmTut = self.xadjudicator.analiza(self.game.last_position.fen())
-                    rmTut = mrmTut.best_rm_ordered()
-                    pTut = rmTut.centipawns_abs()
-                    if abs(pTut) <= dr:
+                    mrm_tut = self.xadjudicator.analiza(self.game.last_position.fen())
+                    rm_tut = mrm_tut.best_rm_ordered()
+                    p_tut = rm_tut.centipawns_abs()
+                    if abs(p_tut) <= dr:
                         self.game.set_termination(TERMINATION_ADJUDICATION, RESULT_DRAW)
                         return True
                     return False
@@ -701,13 +702,13 @@ class WTournamentRun(QtWidgets.QWidget):
 
         # Resign
         rs = self.torneo.resign()
-        if 0 < rs <= abs(pUlt):
+        if 0 < rs <= abs(p_ult):
             if self.xadjudicator:
-                rmTut = self.xadjudicator.play_game(self.game)
-                pTut = rmTut.centipawns_abs()
-                if abs(pTut) >= rs:
-                    is_white = rmTut.is_white
-                    if pTut > 0:
+                rm_tut = self.xadjudicator.play_game(self.game)
+                p_tut = rm_tut.centipawns_abs()
+                if abs(p_tut) >= rs:
+                    is_white = rm_tut.is_white
+                    if p_tut > 0:
                         result = RESULT_WIN_WHITE if is_white else RESULT_WIN_BLACK
                     else:
                         result = RESULT_WIN_BLACK if is_white else RESULT_WIN_WHITE
@@ -715,10 +716,10 @@ class WTournamentRun(QtWidgets.QWidget):
                     return True
                 self.next_control = 20
             else:
-                if rs <= abs(pAnt):
-                    if (pAnt > 0 and pUlt > 0) or (pAnt < 0 and pUlt < 0):
+                if rs <= abs(p_ant):
+                    if (p_ant > 0 and p_ult > 0) or (p_ant < 0 and p_ult < 0):
                         is_white = rm_ult.is_white
-                        if pUlt > 0:
+                        if p_ult > 0:
                             result = RESULT_WIN_WHITE if is_white else RESULT_WIN_BLACK
                         else:
                             result = RESULT_WIN_BLACK if is_white else RESULT_WIN_WHITE
@@ -785,22 +786,22 @@ class WTournamentRun(QtWidgets.QWidget):
         if nue.fullscreen:
             self.board.siF11 = True
             self.antiguoAnchoPieza = 1000 if ant.maximizado else ct.width_piece()
-            self.board.maximizaTam(True)
+            self.board.maximize_size(True)
         else:
             if ant.fullscreen:
                 self.base.tb.show()
-                self.board.normalTam(self.antiguoAnchoPieza)
-                self.ajustaTam()
+                self.board.normal_size(self.antiguoAnchoPieza)
+                self.adjust_size()
                 if self.antiguoAnchoPieza == 1000:
                     self.setWindowState(QtCore.Qt.WindowMaximized)
             elif nue.maximizado:
                 self.antiguoAnchoPieza = ct.width_piece()
-                self.board.maximizaTam(False)
+                self.board.maximize_size(False)
             elif ant.maximizado:
                 if not self.antiguoAnchoPieza or self.antiguoAnchoPieza == 1000:
-                    self.antiguoAnchoPieza = self.board.calculaAnchoMXpieza()
-                self.board.normalTam(self.antiguoAnchoPieza)
-                self.ajustaTam()
+                    self.antiguoAnchoPieza = self.board.calc_width_mx_piece()
+                self.board.normal_size(self.antiguoAnchoPieza)
+                self.adjust_size()
 
-    def ajustaTam(self):
+    def adjust_size(self):
         QTUtil.shrink(self)

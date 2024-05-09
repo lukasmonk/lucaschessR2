@@ -258,9 +258,9 @@ class WKibDatabases(WKibCommon.WKibCommon):
     def analyzer_clone(self, a, b, c):
         return self.xtutor
 
-    def creaManagerMotor(self, conf_motor, vtime, depth, siMultiPV=False, priority=None):
+    def creaManagerMotor(self, conf_motor, vtime, depth, has_multipv=False, priority=None):
         xmanager = EngineManager.EngineManager(conf_motor)
-        xmanager.options(vtime, depth, siMultiPV)
+        xmanager.options(vtime, depth, has_multipv)
         xmanager.set_priority(priority)
         return xmanager
 

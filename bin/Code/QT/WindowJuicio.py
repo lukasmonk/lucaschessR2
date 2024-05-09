@@ -45,10 +45,10 @@ class WJuicio(LCDialog.LCDialog):
         self.board.crea()
         self.board.set_side_bottom(position.is_white)
 
-        li_mas = ((_("Close"), "close", Iconos.AceptarPeque()),)
-        ly_bm, tb_bm = QTVarios.ly_mini_buttons(
-            self, "", siLibre=False, icon_size=24, siMas=manager.continueTt, liMasAcciones=li_mas
-        )
+        ly_bm, tb_bm = QTVarios.ly_mini_buttons(self, "", siLibre=False, icon_size=24, siMas=manager.continueTt)
+
+        bt_continue = Controles.PB(self, _("Continue"), self.terminar, plano=False).ponIcono(Iconos.Aceptar())
+        ly_control = Colocacion.H().relleno(2).otro(ly_bm).relleno(1).control(bt_continue).espacio(10)
 
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("POSREAL", "#", 40, align_center=True)
@@ -59,7 +59,7 @@ class WJuicio(LCDialog.LCDialog):
 
         self.register_grid(self.grid)
 
-        ly_t = Colocacion.V().control(self.board).otro(ly_bm).control(self.lbComentario)
+        ly_t = Colocacion.V().control(self.board).otro(ly_control).control(self.lbComentario)
 
         # Layout
         layout = Colocacion.H().otro(ly_t).control(self.grid)
@@ -94,12 +94,13 @@ class WJuicio(LCDialog.LCDialog):
         self.lbComentario.set_text(txt)
         self.lbComentario.set_foreground(color)
 
+    def terminar(self):
+        self.siMueveTiempo = False
+        self.accept()
+
     def process_toolbar(self):
         accion = self.sender().key
-        if accion == "close":
-            self.siMueveTiempo = False
-            self.accept()
-        elif accion == "MoverAdelante":
+        if accion == "MoverAdelante":
             self.mueve(n_saltar=1)
         elif accion == "MoverAtras":
             self.mueve(n_saltar=-1)

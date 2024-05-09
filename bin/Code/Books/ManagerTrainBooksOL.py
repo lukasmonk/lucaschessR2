@@ -223,7 +223,7 @@ class ManagerTrainBooksOL(Manager.Manager):
     def player_has_moved(self, from_sq, to_sq, promotion=""):
         move_player: Move.Move = self.check_human_move(from_sq, to_sq, promotion)
         if not move_player:
-            self.beepError()
+            self.beep_error()
             return False
         pv_player = move_player.movimiento().lower()
         move_obj: Move.Move = self.game_obj.move(len(self.game))
@@ -235,7 +235,7 @@ class ManagerTrainBooksOL(Manager.Manager):
                 mens = _("You have selected a correct move, but this line uses another one.")
                 background = "#C3D6E8"
             else:
-                self.beepError()
+                self.beep_error()
                 self.current_errors += 1
                 self.all_errors += 1
                 mens = "%s: %d" % (_("Error"), self.current_errors)

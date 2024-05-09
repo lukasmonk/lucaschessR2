@@ -1,13 +1,12 @@
 import audioop
 import os
-import queue
 import time
 import wave
+import queue
 from io import BytesIO
 
 from PySide2 import QtCore, QtMultimedia
 from PySide2.QtMultimedia import QAudioDeviceInfo, QAudioFormat, QAudioInput, QSound
-
 import Code
 from Code import Util
 from Code.QT import QTUtil
@@ -50,7 +49,7 @@ class RunSound:
         played = False
         if key not in self.dic_sounds:
             name_wav = self.relations[key]["WAV_KEY"] + ".wav"
-            path_wav = Util.opj(Code.configuration.carpeta_sounds(), name_wav)
+            path_wav = Util.opj(Code.configuration.folder_sounds(), name_wav)
             if os.path.isfile(path_wav):
                 wf = wave.open(path_wav)
                 seconds = 1000.0 * wf.getnframes() / wf.getframerate()
@@ -68,13 +67,11 @@ class RunSound:
             self.queue.put(key)
             if start:
                 self.siguiente()
-            return True
-
         return played
 
     def write_sounds(self):
         configuration = Code.configuration
-        folder_sounds = configuration.carpeta_sounds()
+        folder_sounds = configuration.folder_sounds()
 
         if not Util.create_folder(folder_sounds):
             for key in self.relations:
@@ -92,19 +89,23 @@ class RunSound:
         db.close()
 
     def save_wav(self, key, wav):
-        folder_sounds = Code.configuration.carpeta_sounds()
+        folder_sounds = Code.configuration.folder_sounds()
         path_wav = Util.opj(folder_sounds, self.relations[key]["WAV_KEY"] + ".wav")
         with open(path_wav, "wb") as q:
             q.write(wav)
 
     def remove_wav(self, key):
-        folder_sounds = Code.configuration.carpeta_sounds()
+        folder_sounds = Code.configuration.folder_sounds()
         path_wav = Util.opj(folder_sounds, self.relations[key]["WAV_KEY"] + ".wav")
         Util.remove_file(path_wav)
 
+    def path_wav(self, key):
+        folder_sounds = Code.configuration.folder_sounds()
+        return Util.opj(folder_sounds, self.relations[key]["WAV_KEY"] + ".wav")
+
     def read_sounds(self):
         configuration = Code.configuration
-        folder_sounds = configuration.carpeta_sounds()
+        folder_sounds = configuration.folder_sounds()
 
         if not os.path.isdir(folder_sounds):
             self.write_sounds()
@@ -116,16 +117,16 @@ class RunSound:
         self.queue = queue.Queue()
 
     def play_list(self, li):
-        played = False
         for key in li:
-            played = played or self.play_key(key, False)
+            self.play_key(key, False)
         if self.queue:
             self.working = True
             self.siguiente()
-        return played
+            return True
+        return False
 
     def playZeitnot(self):
-        return self.play_key("ZEITNOT")
+        self.play_key("ZEITNOT")
 
     def playError(self):
         self.play_key("ERROR")

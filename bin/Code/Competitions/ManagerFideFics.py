@@ -34,7 +34,7 @@ from Code.SQL import UtilSQL
 
 
 class ManagerFideFics(Manager.Manager):
-    min_time = 5000
+    min_mstime = 5000
     _db: str
     _activo = None
     _ponActivo = None
@@ -45,7 +45,7 @@ class ManagerFideFics(Manager.Manager):
     _TIPO: str
     analysis = None
     comment = None
-    if_analyzing = False
+    is_analyzing = False
     is_competitive = True
     eloObj = 0
     eloUsu = 0
@@ -152,7 +152,7 @@ class ManagerFideFics(Manager.Manager):
         self.state = ST_PLAYING
         self.analysis = None
         self.comment = None
-        self.if_analyzing = False
+        self.is_analyzing = False
 
         self.is_competitive = True
 
@@ -174,8 +174,9 @@ class ManagerFideFics(Manager.Manager):
         self.hints = 0
         self.ayudas_iniciales = 0
 
-        self.xtutor.options(self.min_time, 0, True)
-        self.xtutor.maximize_multipv()
+        if self.eloUsu < 1800:
+            self.xtutor = self.procesador.super_tutor()
+        self.xtutor.options(self.min_mstime, 0, True)
 
         self.book = Opening.OpeningPol(999)
 
@@ -237,7 +238,7 @@ class ManagerFideFics(Manager.Manager):
 
             with Adjournments.Adjournments() as adj:
                 adj.add(self.game_type, dic, self._titulo)
-                self.finnish_the_analysis()
+                self.analyzer_close()
                 adj.si_seguimos(self)
 
     def run_adjourn(self, dic):
@@ -256,16 +257,16 @@ class ManagerFideFics(Manager.Manager):
 
     def rendirse(self):
         if self.state == ST_ENDGAME:
-            self.finnish_the_analysis()
+            self.analyzer_close()
             return True
         if len(self.game) > 0:
             if not QTUtil2.pregunta(self.main_window, _("Do you want to resign?") + " (%d)" % self.plost):
                 return False  # no abandona
             self.puntos = -999
-            self.finnish_the_analysis()
+            self.analyzer_close()
             self.show_result()
         else:
-            self.finnish_the_analysis()
+            self.analyzer_close()
             self.procesador.start()
 
         return False
@@ -276,26 +277,26 @@ class ManagerFideFics(Manager.Manager):
                 self.xtutor.ac_inicio(self.game)
             else:
                 self.xtutor.ac_inicio_limit(self.game)
-            self.if_analyzing = True
+            self.is_analyzing = True
 
     def analyze_state(self):
         self.xtutor.engine.ac_lee()
         self.mrm = copy.deepcopy(self.xtutor.ac_estado())
         return self.mrm
 
-    def analyze_minimum(self, min_time):
-        self.mrm = copy.deepcopy(self.xtutor.ac_minimo(min_time, False))
+    def analyze_minimum(self):
+        self.mrm = copy.deepcopy(self.xtutor.ac_minimo(self.min_mstime, False))
         return self.mrm
 
     def analyze_end(self):
-        if self.if_analyzing:
-            self.if_analyzing = False
+        if self.is_analyzing:
+            self.is_analyzing = False
             self.xtutor.ac_final(-1)
 
-    def finnish_the_analysis(self):
-        if self.if_analyzing:
-            self.if_analyzing = False
-            self.xtutor.terminar()
+    def analyzer_close(self):
+        if self.is_analyzing:
+            self.is_analyzing = False
+        self.xtutor.terminar()
 
     def play_next_move(self):
         if self.state == ST_ENDGAME:
@@ -371,9 +372,7 @@ class ManagerFideFics(Manager.Manager):
 
         if si_analiza_juez:
             um = QTUtil2.analizando(self.main_window)
-            if not self.continueTt:
-                self.analyze_begin()
-            mrm = self.analyze_minimum(self.min_time)
+            mrm = self.analyze_minimum()
             position = self.game.last_position
 
             rm_usu, nada = mrm.search_rm(jg_usu.movimiento())
@@ -381,19 +380,20 @@ class ManagerFideFics(Manager.Manager):
                 self.analyze_end()
                 rm_usu = self.xtutor.valora(position, jg_usu.from_sq, jg_usu.to_sq, jg_usu.promotion)
                 mrm.add_rm(rm_usu)
-                self.analyze_begin()
-
+                if self.continueTt:
+                    self.analyze_begin()
             rm_obj, pos_obj = mrm.search_rm(jg_obj.movimiento())
             if rm_obj is None:
                 self.analyze_end()
                 rm_obj = self.xtutor.valora(position, jg_obj.from_sq, jg_obj.to_sq, jg_obj.promotion)
                 pos_obj = mrm.add_rm(rm_obj)
-                self.analyze_begin()
-
+                if self.continueTt:
+                    self.analyze_begin()
             analysis = mrm, pos_obj
             um.final()
 
-            w = WindowJuicio.WJuicio(self, self.xtutor, self.name_obj, position, mrm, rm_obj, rm_usu, analysis)
+            w = WindowJuicio.WJuicio(self, self.xtutor, self.name_obj, position, mrm, rm_obj, rm_usu, analysis,
+                                     is_competitive=True)
             w.exec_()
 
             analysis = w.analysis
@@ -455,7 +455,7 @@ class ManagerFideFics(Manager.Manager):
         self.refresh()
 
     def show_result(self):
-        self.finnish_the_analysis()
+        self.analyzer_close()
         self.disable_all()
         self.human_is_playing = False
 
@@ -474,7 +474,7 @@ class ManagerFideFics(Manager.Manager):
             quien = RS_DRAW
             difelo = self.pdraw
 
-        self.beepResultadoCAMBIAR(quien)
+        self.beep_result_change(quien)
 
         nelo = self.eloUsu + difelo
         if nelo < 0:

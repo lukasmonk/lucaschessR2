@@ -57,6 +57,12 @@ class EngineManager:
         self.mstime_engine = conf_engine.max_time * 1000
         self.depth_engine = conf_engine.max_depth
 
+        self.pv = ""
+        self.from_sq = ""
+        self.to_sq = ""
+        self.promotion = ""
+        self.without_movements = False
+
         self.nodes = 0
 
         self.function = _("Opponent").lower()  # para distinguir entre tutor y analizador
@@ -81,10 +87,10 @@ class EngineManager:
     def set_direct(self):
         self.direct = True
 
-    def options(self, mstime_engine, depth_engine, siMultiPV):
+    def options(self, mstime_engine, depth_engine, has_multipv):
         self.mstime_engine = mstime_engine
         self.depth_engine = depth_engine
-        self.num_multipv = self.confMotor.multiPV if siMultiPV else 0
+        self.num_multipv = self.confMotor.multiPV if has_multipv else 0
         if self.engine:
             self.update_multipv(self.num_multipv)
 
@@ -100,11 +106,11 @@ class EngineManager:
     def maximize_multipv(self):
         self.num_multipv = 9999
 
-    def set_gui_dispatch(self, rutina, whoDispatch=None):
+    def set_gui_dispatch(self, rutina, who_dispatch=None):
         if self.engine:
-            self.engine.set_gui_dispatch(rutina, whoDispatch)
+            self.engine.set_gui_dispatch(rutina, who_dispatch)
         else:
-            self.dispatching = rutina, whoDispatch
+            self.dispatching = rutina, who_dispatch
 
     def remove_gui_dispatch(self):
         self.set_gui_dispatch(None)
@@ -241,21 +247,24 @@ class EngineManager:
     def valora(self, position, from_sq, to_sq, promotion):
         self.check_engine()
 
-        posicionNueva = position.copia()
-        posicionNueva.play(from_sq, to_sq, promotion)
+        new_position = position.copia()
+        new_position.play(from_sq, to_sq, promotion)
 
-        fen = posicionNueva.fen()
+        fen = new_position.fen()
         if FasterCode.fen_ended(fen):
             rm = EngineResponse.EngineResponse("", position.is_white)
             rm.sinInicializar = False
-            self.sinMovimientos = True
+            self.without_movements = True
             self.pv = from_sq + to_sq + promotion
             self.from_sq = from_sq
             self.to_sq = to_sq
             self.promotion = promotion
             return rm
-
+        if self.num_multipv > 1:
+            self.engine.set_multipv(1)
         mrm = self.engine.bestmove_fen(fen, self.mstime_engine, self.depth_engine)
+        if self.num_multipv > 1:
+            self.engine.set_multipv(self.num_multipv)
         rm = mrm.best_rm_ordered()
         rm.change_side(position)
         mv = from_sq + to_sq + (promotion if promotion else "")
@@ -322,7 +331,7 @@ class EngineManager:
     def analysis_cached_end(self):
         self.cache_analysis.close()
 
-    def analizaJugadaPartida(
+    def analyzes_move_game(
             self,
             game,
             njg,
@@ -335,19 +344,20 @@ class EngineManager:
             window=None,
     ):
         self.check_engine()
+        key = None
         if self.cache_analysis is not None:
             move = game.move(njg)
             key = move.position_before.fenm2() + move.movimiento()
             if key in self.cache_analysis:
                 return self.cache_analysis[key]
-        resp = self.analizaJugadaPartidaRaw(
+        resp = self.analyzes_move_game_raw(
             game, njg, vtime, depth, stability, st_centipawns, st_depths, st_timelimit, window
         )
         if self.cache_analysis is not None:
             self.cache_analysis[key] = resp
         return resp
 
-    def analizaJugadaPartidaRaw(
+    def analyzes_move_game_raw(
             self, game, njg, mstime, depth, stability, st_centipawns, st_depths, st_timelimit, window
     ):
         self.check_engine()
@@ -414,7 +424,7 @@ class EngineManager:
 
         return mrm, pos
 
-    def analizaVariation(self, move, vtime, is_white):
+    def analyzes_variation(self, move, vtime, is_white):
         self.check_engine()
 
         mrm = self.engine.bestmove_fen(move.position.fen(), vtime, None)
@@ -433,21 +443,21 @@ class EngineManager:
         self.check_engine()
         self.engine.ac_inicio_limit(game, self.mstime_engine, self.depth_engine)
 
-    def ac_minimo(self, minTiempo, lockAC):
+    def ac_minimo(self, min_mstime, lock_ac):
         self.check_engine()
-        return self.engine.ac_minimo(minTiempo, lockAC)
+        return self.engine.ac_minimo(min_mstime, lock_ac)
 
-    def ac_minimoTD(self, minTiempo, minDepth, lockAC):
+    def ac_minimo_td(self, min_mstime, min_depth, lock_ac):
         self.check_engine()
-        return self.engine.ac_minimoTD(minTiempo, minDepth, lockAC)
+        return self.engine.ac_minimo_td(min_mstime, min_depth, lock_ac)
 
     def ac_estado(self):
         self.check_engine()
         return self.engine.ac_estado()
 
-    def ac_final(self, minTiempo):
+    def ac_final(self, min_mstime):
         self.check_engine()
-        return self.engine.ac_final(minTiempo)
+        return self.engine.ac_final(min_mstime)
 
     def ac_final_limit(self):
         self.check_engine()

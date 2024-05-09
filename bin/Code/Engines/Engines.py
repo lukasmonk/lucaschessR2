@@ -158,6 +158,12 @@ class Engine:
     def can_be_tutor(self):
         return self.maxMultiPV >= 4 and not self.is_maia()
 
+    def can_be_supertutor(self):
+        return self.maxMultiPV >= 256 and not self.is_maia()
+
+    def can_be_analyzer(self):
+        return self.maxMultiPV >= 10 and not self.is_maia()
+
     def is_maia(self):
         return self.key.startswith("maia-")
 

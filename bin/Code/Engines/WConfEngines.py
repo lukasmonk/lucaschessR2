@@ -564,7 +564,7 @@ class WConfTutor(QtWidgets.QWidget):
         self.engine = self.configuration.engine_tutor()
 
         lb_engine = Controles.LB2P(self, _("Engine"))
-        self.cb_engine = Controles.CB(self, self.configuration.help_multipv_engines(), self.engine.key)
+        self.cb_engine = Controles.CB(self, self.configuration.help_multipv_engines(True), self.engine.key)
         self.cb_engine.capture_changes(self.changed_engine)
 
         lb_time = Controles.LB2P(self, _("Duration of tutor analysis (secs)"))
@@ -676,7 +676,7 @@ class WConfTutor(QtWidgets.QWidget):
 
     def activate_this(self):
         valor = self.cb_engine.valor()
-        self.cb_engine.rehacer(self.configuration.help_multipv_engines(), valor)
+        self.cb_engine.rehacer(self.configuration.help_multipv_engines(True), valor)
         self.owner.set_engine(self.engine, False)
 
 
@@ -691,7 +691,7 @@ class WConfAnalyzer(QtWidgets.QWidget):
         self.is_changed = False
 
         lb_engine = Controles.LB2P(self, _("Engine"))
-        self.cb_engine = Controles.CB(self, self.configuration.help_multipv_engines(), self.engine.key)
+        self.cb_engine = Controles.CB(self, self.configuration.help_multipv_engines(False), self.engine.key)
         self.cb_engine.capture_changes(self.changed_engine)
 
         lb_time = Controles.LB2P(self, _("Duration of analysis (secs)"))
@@ -779,7 +779,7 @@ class WConfAnalyzer(QtWidgets.QWidget):
             Code.procesador.cambiaXAnalyzer()
 
     def activate_this(self):
-        self.cb_engine.rehacer(self.configuration.help_multipv_engines(), self.engine.key)
+        self.cb_engine.rehacer(self.configuration.help_multipv_engines(False), self.engine.key)
         self.owner.set_engine(self.engine, False)
 
 

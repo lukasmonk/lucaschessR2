@@ -961,7 +961,7 @@ class WLines(LCDialog.LCDialog):
             else:
                 me = QTUtil2.waiting_message.start(self, _("Analyzing the move...."), physical_pos=TOP_RIGHT)
 
-                move.analysis = xanalyzer.analizaJugadaPartida(
+                move.analysis = xanalyzer.analyzes_move_game(
                     game, len(game) - 1, xanalyzer.mstime_engine, xanalyzer.depth_engine, window=self
                 )
                 me.final()
@@ -1177,7 +1177,7 @@ class WLines(LCDialog.LCDialog):
             si_white = color == "WHITE"
             dic = self.dbop.dicRepeFen(si_white)
             mensaje = _("Move") + "  %d/" + str(len(dic))
-            xmanager = self.procesador.creaManagerMotor(self.configuration.engine_tutor(), ms, 0, siMultiPV=False)
+            xmanager = self.procesador.creaManagerMotor(self.configuration.engine_tutor(), ms, 0, has_multipv=False)
             xmanager.set_multipv(10)
 
             st_borrar = set()

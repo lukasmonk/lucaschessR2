@@ -213,7 +213,7 @@ class Tournament:
     def norman(self, valor=None):
         return self.config("norman", valor, False)
 
-    def fenNorman(self):
+    def fen_norman(self):
         fen = self.fen()
         if fen:
             return fen
@@ -252,7 +252,7 @@ class Tournament:
     def book(self, valor=None):
         return self.config("book", valor, "")
 
-    def bookDepth(self, valor=None):
+    def book_depth(self, valor=None):
         return self.config("bookdepth", valor, 0)
 
     def num_engines(self):
@@ -295,7 +295,7 @@ class Tournament:
             en = self.engine(pos)
             del self.db_engines[en.huella]
 
-    def buscaHEngine(self, huella):
+    def search_hengine(self, huella):
         return self.db_engines.get(huella)
 
     def dbs_reread(self):

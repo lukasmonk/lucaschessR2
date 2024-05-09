@@ -294,10 +294,10 @@ class ManagerTactics(Manager.Manager):
                 self.put_penalization()
                 self.num_bad_tries += 1
                 if self.num_bad_tries > 3:
-                    self.board.markPosition(move_obj.from_sq)
+                    self.board.mark_position(move_obj.from_sq)
                     if self.num_bad_tries > 6:
                         self.board.creaFlechaTmp(move_obj.from_sq, move_obj.to_sq, True)
-            self.beepError()
+            self.beep_error()
             self.sigueHumano()
             return False
 

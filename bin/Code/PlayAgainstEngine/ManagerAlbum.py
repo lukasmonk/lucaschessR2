@@ -236,7 +236,7 @@ class ManagerAlbum(Manager.Manager):
 
         mensaje, beep, player_win = self.game.label_resultado_player(self.is_human_side_white)
 
-        self.beepResultado(beep)
+        self.beep_result(beep)
 
         if player_win:
             mensaje = _X(_("Congratulations you have a new sticker %1."), self.cromo.name)

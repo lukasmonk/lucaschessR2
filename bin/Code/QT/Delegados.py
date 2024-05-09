@@ -5,6 +5,7 @@ Rutinas basicas para la edicion en las listas de registros.
 from PySide2 import QtCore, QtGui, QtWidgets
 
 import Code
+from Code.Base import Move
 from Code.Nags.Nags import dic_symbol_nags
 from Code.QT import Iconos
 
@@ -579,3 +580,44 @@ class EtiquetaPOS(QtWidgets.QStyledItemDelegate):
                 pen.setWidth(1)
                 painter.setPen(pen)
                 painter.drawLine(x0 + width - 2, y0, x0 + width - 2, y0 + height)
+
+
+class LinePGN(QtWidgets.QStyledItemDelegate):
+    def __init__(self):
+        QtWidgets.QStyledItemDelegate.__init__(self, None)
+
+    def paint(self, painter, option, index):
+        txt = index.model().data(index, QtCore.Qt.DisplayRole)
+
+        d = Move.dicHTMLFigs
+        lc = []
+        is_white = txt[0].isdigit()
+        for c in txt:
+            if c == " ":
+                is_white = not is_white
+            else:
+                if c.isupper():
+                    c = d.get(c if is_white else c.lower(), c)
+            lc.append(c)
+        pgn = "".join(lc)
+
+        rect = option.rect
+        if option.state & QtWidgets.QStyle.State_Selected:
+            painter.fillRect(rect, Code.dic_qcolors["PGN_SELBACKGROUND"])
+            color = Code.dic_colors["PGN_SELFOREGROUND"]
+        else:
+            color = Code.dic_colors["FOREGROUND"]
+
+        document_pgn = QtGui.QTextDocument()
+        document_pgn.setDefaultFont(option.font)
+        if color:
+            pgn = '<font color="%s">%s</font>' % (color, pgn)
+        document_pgn.setHtml(pgn)
+
+        x = rect.x()
+        y = rect.y()
+        r = QtCore.QRectF(0, 0, rect.width(), rect.height())
+        painter.save()
+        painter.translate(x, y)
+        document_pgn.drawContents(painter, r)
+        painter.restore()

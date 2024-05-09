@@ -22,7 +22,7 @@ class WPolyglot(WKibCommon.WKibCommon):
         o_columns.nueva("MOVE", _("Move"), 80, align_center=True, edicion=delegado)
         o_columns.nueva("PORC", "%", 60, align_center=True)
         o_columns.nueva("WEIGHT", _("Weight"), 80, align_right=True)
-        self.grid = Grid.Grid(self, o_columns, dicVideo=self.dicVideo, siSelecFilas=True)
+        self.grid = Grid.Grid(self, o_columns, dicVideo=self.dicVideo, siSelecFilas=True, altoFila=self.cpu.configuration.x_pgn_rowheight)
         f = Controles.FontType(puntos=self.cpu.configuration.x_pgn_fontpoints)
         self.grid.set_font(f)
 

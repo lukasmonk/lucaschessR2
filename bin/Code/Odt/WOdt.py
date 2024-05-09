@@ -3,7 +3,7 @@ import os
 from PySide2 import QtCore
 
 import Code
-from Code.Board import Board
+from Code.Board import Board2
 from Code.Odt import Odt
 from Code.QT import Colocacion, Controles, Iconos, QTUtil, QTVarios
 from Code.QT import LCDialog
@@ -40,7 +40,7 @@ class WOdt(LCDialog.LCDialog):
 
         conf_board = self.configuration.config_board("ODT", 64)
 
-        self.board = Board.BoardEstatico(self, conf_board)
+        self.board = Board2.BoardEstatico(self, conf_board)
         self.board.crea()
 
         li_acciones = ((_("Export"), Iconos.ODT(), self.begin), (_("Cancel"), Iconos.Cancelar(), self.cancel))

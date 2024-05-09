@@ -34,6 +34,7 @@ from Code.Base.Constantes import (
     TB_REINIT,
     TB_CONFIG,
     TB_UTILITIES,
+    TB_TAKEBACK,
     TB_EBOARD,
     TB_REPLAY,
     RS_DRAW_50,
@@ -111,7 +112,7 @@ class Manager:
         self.xanalyzer = procesador.XAnalyzer()
         self.xrival = None
 
-        self.if_analyzing = False
+        self.is_analyzing = False
         self.is_analyzed_by_tutor = False
 
         self.resign_limit = -99999
@@ -126,7 +127,7 @@ class Manager:
 
         self.xpelicula = None
 
-        self.main_window.ajustaTam()
+        self.main_window.adjust_size()
 
         self.board.exePulsadoNum = self.exePulsadoNum
         self.board.exePulsadaLetra = self.exePulsadaLetra
@@ -193,6 +194,8 @@ class Manager:
             if hasattr(self, "reiniciar"):
                 li_options.append(TB_REINIT)
             li_options.append(TB_REPLAY)
+            if with_takeback:
+                li_options.append(TB_TAKEBACK)
             li_options.append(TB_CONFIG)
             li_options.append(TB_UTILITIES)
 
@@ -545,13 +548,16 @@ class Manager:
     def ponAyudas(self, hints, siQuitarAtras=True):
         self.main_window.ponAyudas(hints, siQuitarAtras)
 
-    def thinking(self, siPensando):
-        if self.configuration.x_cursor_thinking:
-            self.main_window.thinking(siPensando)
+    def show_button_tutor(self, ok):
+        self.main_window.show_button_tutor(ok)
 
-    def set_activate_tutor(self, siActivar):
-        self.main_window.set_activate_tutor(siActivar)
-        self.is_tutor_enabled = siActivar
+    def thinking(self, si_pensando):
+        if self.configuration.x_cursor_thinking:
+            self.main_window.thinking(si_pensando)
+
+    def set_activate_tutor(self, si_activar):
+        self.main_window.set_activate_tutor(si_activar)
+        self.is_tutor_enabled = si_activar
 
     def change_tutor_active(self):
         self.is_tutor_enabled = not self.is_tutor_enabled
@@ -623,14 +629,14 @@ class Manager:
         if not played and self.configuration.x_sound_beep:
             self.runSound.playBeep()
 
-    def beepZeitnot(self):
+    def beep_zeitnot(self):
         self.runSound.playZeitnot()
 
-    def beepError(self):
+    def beep_error(self):
         if self.configuration.x_sound_error:
             self.runSound.playError()
 
-    def beepResultadoCAMBIAR(self, resfinal):  # TOO Cambiar por beepresultado1
+    def beep_result_change(self, resfinal):  # TOO Cambiar por beepresultado1
         if not self.configuration.x_sound_results:
             return
         dic = {
@@ -646,11 +652,11 @@ class Manager:
         if resfinal in dic:
             self.runSound.play_key(dic[resfinal])
 
-    def beepResultado(self, beep_result):
-        if beep_result:
+    def beep_result(self, xbeep_result):
+        if xbeep_result:
             if not self.configuration.x_sound_results:
                 return
-            self.runSound.play_key(beep_result)
+            self.runSound.play_key(xbeep_result)
 
     def pgn_refresh(self, is_white):
         self.main_window.pgn_refresh(is_white)
@@ -875,7 +881,7 @@ class Manager:
 
     def nonDistractMode(self):
         self.nonDistract = self.main_window.base.nonDistractMode(self.nonDistract)
-        self.main_window.ajustaTam()
+        self.main_window.adjust_size()
 
     def boardRightMouse(self, is_shift, is_control, is_alt):
         self.board.lanzaDirector()
@@ -1037,7 +1043,7 @@ class Manager:
                     return True
 
                 self.xanalyzer.set_gui_dispatch(test_me)
-            mrm, pos = self.xanalyzer.analizaJugadaPartida(
+            mrm, pos = self.xanalyzer.analyzes_move_game(
                 self.game, pos_jg, self.xanalyzer.mstime_engine, self.xanalyzer.depth_engine, window=self.main_window
             )
             self.xanalyzer.set_gui_dispatch(None)
@@ -1194,7 +1200,7 @@ class Manager:
 
             else:
                 for box in self.liMarcosTmp:
-                    self.board.xremoveItem(box)
+                    self.board.xremove_item(box)
                 self.liMarcosTmp = []
 
     def exePulsadaLetra(self, siActivar, letra):

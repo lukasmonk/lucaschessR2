@@ -141,11 +141,11 @@ class WDBAnalisis:
         else:
             conf_motor = Code.configuration.buscaRival(alm.engine)
             conf_motor.update_multipv(alm.multiPV)
-            xengine = Code.procesador.creaManagerMotor(conf_motor, alm.vtime, alm.depth, siMultiPV=True)
+            xengine = Code.procesador.creaManagerMotor(conf_motor, alm.vtime, alm.depth, has_multipv=True)
 
         game = Game.Game()
         game.read_pv(pv)
-        mrm, pos = xengine.analizaJugadaPartida(game, 9999, alm.vtime, alm.depth, window=self.wowner)
+        mrm, pos = xengine.analyzes_move_game(game, 9999, alm.vtime, alm.depth, window=self.wowner)
 
         rotulo = mrm.name
         if alm.vtime:

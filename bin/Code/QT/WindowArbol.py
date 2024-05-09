@@ -845,7 +845,7 @@ class WindowArbol(LCDialog.LCDialog):
         else:
             confMotor = Code.configuration.buscaRival(alm.engine)
             confMotor.update_multipv(alm.multiPV)
-            xengine = self.procesador.creaManagerMotor(confMotor, alm.vtime, alm.depth, siMultiPV=True)
+            xengine = self.procesador.creaManagerMotor(confMotor, alm.vtime, alm.depth, has_multipv=True)
 
         me = QTUtil2.analizando(self, True)
 
