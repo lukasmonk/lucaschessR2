@@ -188,7 +188,7 @@ class WKibEngine(WKibCommon.WKibCommon):
             move0: Move.Move = p.li_moves[0]
             p.first_position = move0.position
             p.li_moves = p.li_moves[1:]
-            txt = p.pgn_translated()
+            txt = p.pgnBaseRAW() if self.with_figurines else p.pgn_translated()
             return txt.lstrip("0123456789. ") if ".." in txt else txt
 
     def grid_doble_click(self, grid, row, o_column):

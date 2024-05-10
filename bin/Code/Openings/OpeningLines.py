@@ -1543,11 +1543,20 @@ class Opening:
     def totree(self, um):
         parent = ItemTree(None, None, None, None, WHITE)
         dic = OpeningsStd.ap.dic_fenm2_op
+        translated = Code.configuration.x_translator != "en" and not Code.configuration.x_pgn_english
+
+        game = Game.Game() if translated else None
+
         for xpv in self.li_xpv:
             if um.is_canceled():
                 break
             lipv = FasterCode.xpv_pv(xpv).split(" ")
-            lipgn = FasterCode.xpv_pgn(xpv).replace("\n", " ").strip().split(" ")
+            if translated:
+                game.reset()
+                game.read_lipv(lipv)
+                lipgn = [move.pgn_translated() for move in game.li_moves]
+            else:
+                lipgn = FasterCode.xpv_pgn(xpv).replace("\n", " ").strip().split(" ")
             linom = []
             FasterCode.set_init_fen()
             for pv in lipv:
