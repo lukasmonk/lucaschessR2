@@ -4,6 +4,7 @@ from PySide2 import QtCore
 
 from Code import Util
 from Code.Base import Game, Move, Position
+from Code.Base.Constantes import KIB_BEFORE_MOVE
 from Code.Engines import EngineRun
 from Code.Kibitzers import Kibitzers
 from Code.Kibitzers import WKibCommon
@@ -36,6 +37,8 @@ class WKibEngine(WKibCommon.WKibCommon):
         delegado = Delegados.EtiquetaPOS(True, siLineas=False) if self.with_figurines else None
         delegado_pgn = Delegados.LinePGN() if self.with_figurines else None
 
+        self.color_done = QTUtil.qtColorRGB(231, 244, 254)
+
         o_columns = Columnas.ListaColumnas()
         configuration = self.cpu.configuration
         if not self.is_candidates:
@@ -43,7 +46,8 @@ class WKibEngine(WKibCommon.WKibCommon):
         o_columns.nueva("BESTMOVE", rotulo, 80, align_center=True, edicion=delegado)
         o_columns.nueva("EVALUATION", _("Evaluation"), 85, align_center=True)
         o_columns.nueva("MAINLINE", _("Main line"), 400, edicion=delegado_pgn)
-        self.grid = Grid.Grid(self, o_columns, dicVideo=self.dicVideo, siSelecFilas=True, altoFila=configuration.x_pgn_rowheight)
+        self.grid = Grid.Grid(self, o_columns, dicVideo=self.dicVideo, siSelecFilas=True,
+                              altoFila=configuration.x_pgn_rowheight)
         f = Controles.FontType(puntos=configuration.x_pgn_fontpoints)
         self.grid.set_font(f)
 
@@ -102,24 +106,25 @@ class WKibEngine(WKibCommon.WKibCommon):
         if self.valid_to_play() and not self.stopped:
             mrm = self.engine.ac_estado()
             rm = mrm.rm_best()
-            if (self.kibitzer.max_time and (time.time() - self.time_init) > self.kibitzer.max_time) or \
-                    (self.kibitzer.max_depth and rm.depth >= self.kibitzer.max_depth):
-                if not self.stopped:
-                    self.engine.ac_final(0)
-                    self.stopped = True
-                else:
-                    self.depth = 999
-            if rm and rm.depth > self.depth:
+            if rm is None:
+                return
+            if rm.depth > self.depth:
                 self.depth = rm.depth
                 if self.is_candidates:
                     self.li_moves = mrm.li_rm
+                    if self.kibitzer.pointofview == KIB_BEFORE_MOVE and self.cpu.last_move:
+                        movimiento = self.cpu.last_move.movimiento()
+                        for pos, rm in enumerate(mrm.li_rm):
+                            if rm.movimiento() == movimiento:
+                                rm.is_done = True
+                                break
+
                     self.lbDepth.set_text("%s: %d" % (_("Depth"), rm.depth))
                 else:
                     self.li_moves.insert(0, rm.copia())
                     if len(self.li_moves) > 256:
                         self.li_moves = self.li_moves[:128]
 
-                # TODO mirar si es de posicion previa o posterior
                 game = Game.Game(first_position=self.game.last_position)
                 game.read_pv(rm.pv)
                 if len(game):
@@ -150,7 +155,7 @@ class WKibEngine(WKibCommon.WKibCommon):
             self.kibitzer = self.cpu.reset_kibitzer()
             self.engine.close()
             self.engine = self.launch_engine()
-        self.play()
+            self.play()
         self.grid.refresh()
 
     def stop(self):
@@ -183,13 +188,14 @@ class WKibEngine(WKibCommon.WKibCommon):
             return "%d" % rm.depth
 
         else:
-            p = Game.Game(first_position=self.game.last_position)
-            p.read_pv(rm.pv)
-            move0: Move.Move = p.li_moves[0]
-            p.first_position = move0.position
-            p.li_moves = p.li_moves[1:]
-            txt = p.pgnBaseRAW() if self.with_figurines else p.pgn_translated()
-            return txt.lstrip("0123456789. ") if ".." in txt else txt
+            if rm.pv:
+                p = Game.Game(first_position=self.game.last_position)
+                p.read_pv(rm.pv)
+                move0: Move.Move = p.li_moves[0]
+                p.first_position = move0.position
+                p.li_moves = p.li_moves[1:]
+                txt = p.pgnBaseRAW() if self.with_figurines else p.pgn_translated()
+                return txt.lstrip("0123456789. ") if ".." in txt else txt
 
     def grid_doble_click(self, grid, row, o_column):
         if 0 <= row < len(self.li_moves):
@@ -197,8 +203,14 @@ class WKibEngine(WKibCommon.WKibCommon):
             self.game.read_pv(rm.movimiento())
             self.reset()
 
+    def grid_color_fondo(self, grid, row, o_column):
+        rm = self.li_moves[row]
+        if hasattr(rm, "is_done"):
+            return self.color_done
+
     def grid_bold(self, grid, row, o_column):
-        return o_column.key in ("EVALUATION", "BESTMOVE", "DEPTH")
+        rm = self.li_moves[row]
+        return hasattr(rm, "is_done")
 
     def launch_engine(self):
         if self.is_candidates:
@@ -270,7 +282,10 @@ class WKibEngine(WKibCommon.WKibCommon):
         self.li_moves = []
 
         if self.valid_to_play():
-            self.engine.ac_inicio(game)
+            if self.kibitzer.max_depth or self.kibitzer.max_time:
+                self.engine.ac_inicio_limit(game, self.kibitzer.max_time * 1000, self.kibitzer.max_depth)
+            else:
+                self.engine.ac_inicio(game)
 
             # Para kibitzer con tiempo fijo
             self.time_init = time.time()
@@ -295,4 +310,3 @@ class WKibEngine(WKibCommon.WKibCommon):
                 return
             game = Game.Game(first_position=position)
             self.orden_game(game)
-

@@ -487,7 +487,7 @@ class ManagerSwiss(Manager.Manager):
         self.play_next_move()
         return True
 
-    def add_move(self, move, siNuestra):
+    def add_move(self, move, is_player_move):
         self.game.add_move(move)
         self.show_clocks()
         self.check_boards_setposition()

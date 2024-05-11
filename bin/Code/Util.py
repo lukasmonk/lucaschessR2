@@ -24,6 +24,8 @@ class Log:
         self.logname = logname
 
     def write(self, buf):
+        if buf.startswith("Traceback"):
+            buf = f"{today()}\n{buf}"
         with open(self.logname, "at") as ferr:
             ferr.write(buf)
 

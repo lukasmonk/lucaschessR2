@@ -96,25 +96,6 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
             w.setFont(font)
             tab.new_tab(w, xtitulo)
 
-        def nuevoG() -> Colocacion.G:
-            xly_g = Colocacion.G()
-            xly_g.filaActual = 0
-            xly_g.margen(10)
-            return xly_g
-
-        def _label(xly_g: Colocacion.G, txt, xlayout, checkable: object = False):
-            groupbox = Controles.GB(self, txt, xlayout)
-            if checkable:
-                groupbox.setCheckable(True)
-                groupbox.setChecked(False)
-
-            self.configuration.set_property(groupbox, "1")
-            groupbox.setMinimumWidth(640)
-            groupbox.setFont(font)
-            xly_g.controlc(groupbox, xly_g.filaActual, 0)
-            xly_g.filaActual += 1
-            return groupbox
-
         def new_groupbox(xlabel, xlayout, xrutinacheck=None, checkable=False):
             groupbox = Controles.GB(self, xlabel, xlayout)
             if xrutinacheck:
@@ -287,15 +268,16 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         # TAB Tiempo
         # ##################################################################################################################################
         self.lb_minutos = Controles.LB(self, _("Total minutes") + ":").set_font(font)
-        self.ed_minutos = Controles.ED(self).tipoFloat(10.0).set_font(font).anchoFijo(70*factor_big_fonts)
+        self.ed_minutos = Controles.ED(self).tipoFloat(10.0).set_font(font).anchoFijo(70 * factor_big_fonts)
         self.ed_segundos, self.lb_segundos = QTUtil2.spinbox_lb(
-            self, 6, -999, 999, max_width=50*factor_big_fonts, etiqueta=_("Seconds added per move"), fuente=font
+            self, 6, -999, 999, max_width=50 * factor_big_fonts, etiqueta=_("Seconds added per move"), fuente=font
         )
         self.edMinExtra, self.lbMinExtra = QTUtil2.spinbox_lb(
-            self, 0, -999, 999, max_width=50*factor_big_fonts, etiqueta=_("Extra minutes for the player"), fuente=font
+            self, 0, -999, 999, max_width=50 * factor_big_fonts, etiqueta=_("Extra minutes for the player"), fuente=font
         )
         self.edZeitnot, self.lbZeitnot = QTUtil2.spinbox_lb(
-            self, 0, -999, 999, max_width=50*factor_big_fonts, etiqueta=_("Zeitnot: alarm sounds when remaining seconds"), fuente=font
+            self, 0, -999, 999, max_width=50 * factor_big_fonts,
+            etiqueta=_("Zeitnot: alarm sounds when remaining seconds"), fuente=font
         )
         ly_h = Colocacion.H()
         ly_h.control(self.lb_minutos).control(self.ed_minutos).espacio(30)
@@ -325,13 +307,15 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         self.btPosicionPegar = (
             Controles.PB(self, "", self.position_paste).ponIcono(Iconos.Pegar16()).ponToolTip(_("Paste FEN position"))
         ).set_font(font)
+        self.bt_chessvariants = Controles.PB(self, _("Variants"), self.chess_variants).ponPlano(False).set_font(font)
         hbox = (
             Colocacion.H()
-            .relleno()
+            .relleno(2)
             .control(self.btPosicionQuitar)
             .control(self.btPosicion)
             .control(self.btPosicionPegar)
-            .relleno()
+            .relleno(1)
+            .control(self.bt_chessvariants)
         )
         gb_start_position = new_groupbox(_("Start position"), hbox)
 
@@ -382,7 +366,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         self.btNuevoBookR = Controles.PB(self, "", self.new_book).ponIcono(Iconos.Mas())
         self.cbBooksRR = QTUtil2.combobox_lb(self, li_resp_book, BOOK_BEST_MOVE).set_font(font)
         self.lbDepthBookR = Controles.LB2P(self, _("Max depth")).set_font(font)
-        self.edDepthBookR = Controles.ED(self).set_font(font).tipoInt(0).anchoFijo(30*factor_big_fonts)
+        self.edDepthBookR = Controles.ED(self).set_font(font).tipoInt(0).anchoFijo(30 * factor_big_fonts)
 
         hbox = (
             Colocacion.H()
@@ -394,13 +378,13 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
             .control(self.lbDepthBookR)
             .control(self.edDepthBookR)
         )
-        self.gb_book_rival = new_groupbox( "%s: %s" % (_("Activate book"), _("Opponent")), hbox, checkable=True)
+        self.gb_book_rival = new_groupbox("%s: %s" % (_("Activate book"), _("Opponent")), hbox, checkable=True)
 
         # Player
         self.cbBooksP = QTUtil2.combobox_lb(self, li_books, lib_inicial).set_font(font)
         self.btNuevoBookP = Controles.PB(self, "", self.new_book).ponIcono(Iconos.Mas())
         self.lbDepthBookP = Controles.LB2P(self, _("Max depth")).set_font(font)
-        self.edDepthBookP = Controles.ED(self).set_font(font).tipoInt(0).anchoFijo(30*factor_big_fonts)
+        self.edDepthBookP = Controles.ED(self).set_font(font).tipoInt(0).anchoFijo(30 * factor_big_fonts)
         hbox = (
             Colocacion.H()
             .control(self.cbBooksP)
@@ -410,7 +394,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
             .control(self.edDepthBookP)
         )
         self.gb_book_player = new_groupbox("%s: %s" % (_("Activate book"),
-                                                 self.configuration.nom_player()), hbox, checkable=True)
+                                                       self.configuration.nom_player()), hbox, checkable=True)
 
         ly = (Colocacion.V().control(gb_start_position).control(gb_opening)
               .control(gb_opening_line).control(self.gb_book_rival).control(self.gb_book_player))
@@ -426,7 +410,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         )
         lb_ajustar_rival = Controles.LB2P(self, _("Set strength")).set_font(font)
         self.bt_ajustar_rival = (
-            Controles.PB(self, _("Personality"), self.cambiaPersonalidades, plano=True)
+            Controles.PB(self, _("Personality"), self.change_personalities, plano=True)
             .ponIcono(Iconos.Mas(), icon_size=16)
             .set_font(font)
         )
@@ -444,7 +428,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         self.cb_resign = Controles.CB(self, li_resign, -800).set_font(font)
 
         self.lb_path_engine = Controles.LB(self, "").set_wrap()
-        bt_default = Controles.PB(self, _("By default"), self.set_uci_default, plano = False)
+        bt_default = Controles.PB(self, _("By default"), self.set_uci_default, plano=False)
 
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("OPTION", _("UCI option"), 240, align_center=True)
@@ -613,17 +597,10 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
                 if QTUtil2.pregunta(self, _X(_("Delete %1?"), k)):
                     del dbc[k]
             elif op == kagrega:
-                li_gen = [(None, None)]
-
-                li_gen.append((_("Name") + ":", ""))
-
-                resultado = FormLayout.fedit(li_gen, title=_("Name"), parent=self, icon=Iconos.Libre())
-                if resultado:
-                    accion, li_gen = resultado
-
-                    name = li_gen[0].strip()
-                    if name:
-                        dbc[name] = self.save_dic()
+                name = QTUtil2.read_simple(self, _("Configuration"), _("Name"), "")
+                if name:
+                    name = name.strip()
+                    dbc[name] = self.save_dic()
 
         dbc.close()
 
@@ -731,7 +708,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
             self.tab_advanced_active = True
             self.grid_uci.refresh()
 
-    def cambiaPersonalidades(self):
+    def change_personalities(self):
         si_rehacer = self.personalidades.lanzaMenu()
         if si_rehacer:
             actual = self.cbAjustarRival.valor()
@@ -813,6 +790,25 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
                 self.show_position()
             except:
                 pass
+
+    def chess_variants(self):
+        rondo = QTVarios.rondo_puntos()
+        rondo_main = QTVarios.rondoColores()
+        menu = QTVarios.LCMenuRondo(self)
+        chess18 = menu.submenu(_("Chess 18"), rondo_main.otro())
+        for pos, uno in enumerate(
+                ("rbbqknnr", "rqbbknnr", "rbbnkqnr", "rnbbkqnr", "rbbnknqr", "rnbbknqr", "rqbnkbnr",
+                 "rnbnkbqr", "rnnbkqbr", "rbnnkqbr", "rqnbknbr", "rnqbknbr", "rbqnknbr", "rbnqknbr",
+                 "rnnqkbbr", "rnqnkbbr", "rqnnkbbr"), 1):
+            fen = f"{uno}/pppppppp/8/8/8/8/PPPPPPPP/{uno.upper()} w KQkq - 0 1"
+            chess18.opcion(fen, f"{pos}. {uno}", rondo.otro())
+        menu.separador()
+        fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - - 0 1"
+        menu.opcion(fen, _("Without castle"), rondo_main.otro())
+        resp = menu.lanza()
+        if resp:
+            self.fen = resp
+            self.show_position()
 
     def show_position(self):
         if self.fen:
@@ -1241,7 +1237,7 @@ class WCambioRival(QtWidgets.QDialog):
         li_ajustes = self.personalidades.list_personalities(True)
         self.cbAjustarRival = Controles.CB(self, li_ajustes, ADJUST_BETTER).capture_changes(self.changed_adjust)
         self.lbAjustarRival = Controles.LB2P(self, _("Set strength"))
-        self.btAjustarRival = Controles.PB(self, "", self.cambiaPersonalidades, plano=False).ponIcono(
+        self.btAjustarRival = Controles.PB(self, "", self.change_personalities, plano=False).ponIcono(
             Iconos.Nuevo(), icon_size=16
         )
         self.btAjustarRival.ponToolTip(_("Personalities"))
@@ -1373,7 +1369,7 @@ class WCambioRival(QtWidgets.QDialog):
         self.ed_nodes.ponInt(dr.get("ENGINE_NODES", 0))
         self.cbAjustarRival.set_value(dic.get("ADJUST", ADJUST_BETTER))
 
-    def cambiaPersonalidades(self):
+    def change_personalities(self):
         si_rehacer = self.personalidades.lanzaMenu()
         if si_rehacer:
             actual = self.cbAjustarRival.valor()
@@ -1389,7 +1385,7 @@ def change_rival(parent, configuration, dic, is_create_own_game=False):
         return None
 
 
-def dameMinutosExtra(main_window):
+def get_extra_minutes(main_window):
     li_gen = [(None, None)]
 
     config = FormLayout.Spinbox(_("Extra minutes for the player"), 1, 99, 50)

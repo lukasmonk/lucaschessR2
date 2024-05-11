@@ -290,7 +290,7 @@ class ManagerTrainBooks(Manager.Manager):
         self.sumar_aciertos = True
         self.siguienteJugada()
 
-    def add_move(self, jg, siNuestra):
+    def add_move(self, jg, is_player_move):
 
         # Para facilitar el salto a variantes
         jg.aciertos = self.aciertos
@@ -306,7 +306,7 @@ class ManagerTrainBooks(Manager.Manager):
         self.game.add_move(jg)
 
         self.put_arrow_sc(jg.from_sq, jg.to_sq)
-        self.beepExtendido(siNuestra)
+        self.beepExtendido(is_player_move)
 
         self.check_boards_setposition()
 

@@ -438,7 +438,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                         self.main_window,
                         _X(_("%1 has won on time."), self.xrival.name) + "\n\n" + _("Add time and keep playing?"),
                 ):
-                    min_x = WPlayAgainstEngine.dameMinutosExtra(self.main_window)
+                    min_x = WPlayAgainstEngine.get_extra_minutes(self.main_window)
                     if min_x:
                         more = time.time() - t
                         tc.add_extra_seconds(min_x * 60 + more)

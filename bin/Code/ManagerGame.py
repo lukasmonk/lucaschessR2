@@ -31,6 +31,7 @@ from Code.Voyager import Voyager
 
 class ManagerGame(Manager.Manager):
     dic_rival = None
+
     def start(self, game, is_complete, only_consult, with_previous_next, save_routine):
         self.game_type = GT_GAME
 
@@ -46,7 +47,7 @@ class ManagerGame(Manager.Manager):
         self.human_is_playing = True
         self.is_human_side_white = True
 
-        self.state = ST_PLAYING
+        self.state = ST_ENDGAME if self.game.is_finished() else ST_PLAYING
 
         self.main_window.active_game(True, False)
         self.remove_hints(True, False)
@@ -55,7 +56,7 @@ class ManagerGame(Manager.Manager):
         self.set_dispatcher(self.player_has_moved)
         self.show_side_indicator(True)
         self.put_pieces_bottom(game.is_white())
-        self.ponteAlPrincipio()
+        self.goto_firstposition()
         self.show_info_extra()
 
         self.check_boards_setposition()
@@ -213,41 +214,46 @@ class ManagerGame(Manager.Manager):
             self.put_toolbar()
         return True
 
-    def add_move(self, move, siNuestra):
+    def add_move(self, move, is_player_move):
         self.game.add_move(move)
         self.check_boards_setposition()
 
         self.put_arrow_sc(move.from_sq, move.to_sq)
-        self.beepExtendido(siNuestra)
+        self.beepExtendido(is_player_move)
 
         self.pgn_refresh(self.game.last_position.is_white)
         self.refresh()
 
     def informacion(self):
-        if WindowPgnTags.menu_pgn_labels(self.main_window, self.game):
-            fen_antes = self.game.get_tag("FEN")
-            resp = WindowPgnTags.edit_tags_pgn(self.procesador.main_window, self.game.li_tags, not self.is_complete)
-            if resp:
-                self.game.li_tags = resp
-                self.game.set_result()
-                fen_despues = self.game.get_tag("FEN")
-                if fen_antes != fen_despues:
-                    fen_antes_fenm2 = FasterCode.fen_fenm2(fen_antes)
-                    fen_despues_fenm2 = FasterCode.fen_fenm2(fen_despues)
-                    if fen_antes_fenm2 != fen_despues_fenm2:
-                        cp = Position.Position()
-                        cp.read_fen(fen_despues)
-                        self.game.set_position(cp)
-                        self.start(
-                            self.game, self.is_complete, self.only_consult, self.with_previous_next,
-                            self.save_routine
-                        )
+        is_fen_possible = not self.is_complete
+        fen_antes = self.game.get_tag("FEN")
 
-                self.put_information()
-                if not self.changed:
-                    if self.is_changed():
-                        self.changed = True
-                        self.put_toolbar()
+        ret = WindowPgnTags.menu_pgn_labels(self.main_window, self.game, is_fen_possible)
+        if not ret:
+            return
+
+        self.game.set_result()
+
+        fen_despues = self.game.get_tag("FEN")
+        if fen_antes != fen_despues:
+            fen_antes_fenm2 = FasterCode.fen_fenm2(fen_antes)
+            fen_despues_fenm2 = FasterCode.fen_fenm2(fen_despues)
+            if fen_antes_fenm2 != fen_despues_fenm2:
+                cp = Position.Position()
+                cp.read_fen(fen_despues)
+                self.game.set_position(cp)
+                self.start(
+                    self.game, self.is_complete, self.only_consult, self.with_previous_next,
+                    self.save_routine
+                )
+
+        self.put_information()
+        self.state = ST_ENDGAME if self.game.is_finished() else ST_PLAYING
+
+        if not self.changed:
+            if self.is_changed():
+                self.changed = True
+                self.put_toolbar()
 
     def utilities_gs(self):
         sep = (None, None, None)

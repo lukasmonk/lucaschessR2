@@ -440,7 +440,7 @@ class WTrainBMT(LCDialog.LCDialog):
         else:
             return 0
 
-    def ponteAlPrincipio(self):
+    def goto_firstposition(self):
         self.board.set_position(self.game.first_position)
         self.pgn.goto(0, 0)
         self.pgn.refresh()
@@ -448,7 +448,7 @@ class WTrainBMT(LCDialog.LCDialog):
     def pgnMueveBase(self, row, column):
         if column == "NUMBER":
             if row == 0:
-                self.ponteAlPrincipio()
+                self.goto_firstposition()
                 return
             else:
                 row -= 1
@@ -520,7 +520,7 @@ class WTrainBMT(LCDialog.LCDialog):
             if not is_white:
                 pos += 1
             if row < 0 or (row == 0 and pos == 0 and starts_with_black):
-                self.ponteAlPrincipio()
+                self.goto_firstposition()
                 return
         elif tipo == GO_BACK2:
             row -= 1
@@ -531,7 +531,7 @@ class WTrainBMT(LCDialog.LCDialog):
         elif tipo == GO_FORWARD2:
             row += 1
         elif tipo == GO_START:  # Inicio
-            self.ponteAlPrincipio()
+            self.goto_firstposition()
             return
         elif tipo == GO_END:
             row = ult_fila

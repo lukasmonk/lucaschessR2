@@ -288,6 +288,7 @@ class WGames(QtWidgets.QWidget):
         if new_value is None:
             return
         new_value = new_value.strip()
+        self.changes = True
 
         self.db_games.set_field(row, key, new_value)
 

@@ -571,11 +571,11 @@ class ManagerElo(Manager.Manager):
         self.play_next_move()
         return True
 
-    def add_move(self, move, siNuestra):
+    def add_move(self, move, is_player_move):
         self.game.add_move(move)
 
         self.put_arrow_sc(move.from_sq, move.to_sq)
-        self.beepExtendido(siNuestra)
+        self.beepExtendido(is_player_move)
 
         # self.ponAyudas( self.hints )
 

@@ -161,7 +161,7 @@ def edit_tags_pgn(wowner, li_pgn, is_fen_possible):
         return None
 
 
-def menu_pgn_labels(wowner, game) -> bool:
+def menu_pgn_labels(wowner, game, is_fen_possible) -> bool:
     pos_cursor = QtGui.QCursor.pos()
     menu = QTVarios.LCMenu(wowner)
     f = Controles.FontType(puntos=10, peso=75)
@@ -169,18 +169,16 @@ def menu_pgn_labels(wowner, game) -> bool:
 
     is_opening = False
     is_eco = False
-    for key, valor in game.li_tags:
-        trad = TrListas.pgn_label(key)
-        if trad != key:
-            key = trad
-        menu.opcion(key, "%s : %s" % (key, valor), Iconos.PuntoAzul())
-        if key.upper() == "OPENING":
+    for tag, valor in game.li_tags:
+        trad = TrListas.pgn_label(tag)
+        menu.opcion(("tag", tag, valor), "%s : %s" % (trad, valor), Iconos.PuntoAzul())
+        if tag.upper() == "OPENING":
             is_opening = True
-        if key.upper() == "ECO":
+        if tag.upper() == "ECO":
             is_eco = True
 
     menu.separador()
-    menu.opcion("pgn", _("Edit PGN labels"), Iconos.PGN())
+    menu.opcion(("pgn", None, None), _("Edit PGN labels"), Iconos.PGN())
 
     opening = None
     if not is_opening or not is_eco:
@@ -193,26 +191,49 @@ def menu_pgn_labels(wowner, game) -> bool:
 
                 if not is_eco:
                     label += f" ({opening.eco})"
-                    key = "add_opening_eco"
+                    task = "add_opening_eco"
                 else:
-                    key = "add_opening"
+                    task = "add_opening"
             else:
-                key = "add_eco"
+                task = "add_eco"
                 label = f"ECO: {opening.eco}"
 
             menu.separador()
-            menu.opcion(key, label, Iconos.Mas())
+            menu.opcion((task, None, None), label, Iconos.Mas())
 
     resp = menu.lanza()
-    if resp:
-        if resp.startswith("add_"):
-            if "opening" in resp:
-                game.set_tag("Opening", opening.tr_name)
-            if "eco" in resp:
-                game.set_tag("ECO", opening.eco)
-            QtGui.QCursor.setPos(pos_cursor)
-            return menu_pgn_labels(wowner, game)
-        else:
+    if resp is None:
+        return False
+
+    task, tag, value = resp
+
+    # OPENING
+    if task.startswith("add_"):
+        if "opening" in task:
+            game.set_tag("Opening", opening.tr_name)
+        if "eco" in task:
+            game.set_tag("ECO", opening.eco)
+        QtGui.QCursor.setPos(pos_cursor)
+        return True
+
+    # EDIT
+    if task == "pgn":
+        resp = edit_tags_pgn(wowner, game.li_tags, is_fen_possible)
+        if resp:
+            game.li_tags = resp
             return True
+        else:
+            return False
+
+    # EDIT 1
+    new_value = QTUtil2.read_simple(wowner, _("Label"), TrListas.pgn_label(tag), value, in_cursor=True, width=400)
+    if new_value is not None:
+        new_value = new_value.strip()
+        if new_value:
+            game.set_tag(tag, new_value)
+        else:
+            game.del_tag(tag)
+
+        return True
 
     return False

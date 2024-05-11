@@ -332,21 +332,21 @@ class ManagerGM(Manager.Manager):
             um = QTUtil2.analizando(self.main_window)
             mrm = self.analyze_minimum(self.vtime * 100)
 
+            continue_tt = self.continueTt
+
             rm_usu, nada = mrm.search_rm(jgUsu.movimiento())
             if rm_usu is None:
-                um = QTUtil2.analizando(self.main_window)
-                self.analyze_end()
+                self.analyze_end_now()
+                continue_tt = False
                 rm_usu = self.xtutor.valora(position, from_sq, to_sq, promotion)
                 mrm.add_rm(rm_usu)
-                self.analyze_begin()
-                um.final()
 
             rm_gm, pos_gm = mrm.search_rm(jg_gm.movimiento())
             if rm_gm is None:
-                self.analyze_end()
+                self.analyze_end_now()
+                continue_tt = False
                 rm_gm = self.xtutor.valora(position, desde_gm, hasta_gm, promotion_gm)
                 pos_gm = mrm.add_rm(rm_gm)
-                self.analyze_begin()
 
             um.final()
 
@@ -364,6 +364,7 @@ class ManagerGM(Manager.Manager):
                     rm_usu,
                     analysis,
                     is_competitive=not self.show_evals,
+                    continue_tt=continue_tt
                 )
                 w.exec_()
 
@@ -423,12 +424,12 @@ class ManagerGM(Manager.Manager):
             self.error = mens
             return False
 
-    def add_move(self, move, siNuestra):
+    def add_move(self, move, is_player_move):
         self.game.add_move(move)
         self.check_boards_setposition()
 
         self.put_arrow_sc(move.from_sq, move.to_sq)
-        self.beepExtendido(siNuestra)
+        self.beepExtendido(is_player_move)
 
         txt = self.engine_gm.label_game_if_unique(is_gm=self.modo == "estandar")
         if txt:

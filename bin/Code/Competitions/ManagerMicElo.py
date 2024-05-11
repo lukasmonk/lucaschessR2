@@ -476,12 +476,12 @@ class ManagerMicElo(Manager.Manager):
             self.error = mens
             return False
 
-    def add_move(self, move, siNuestra):
+    def add_move(self, move, is_player_move):
         self.game.add_move(move)
         self.check_boards_setposition()
 
         self.put_arrow_sc(move.from_sq, move.to_sq)
-        self.beepExtendido(siNuestra)
+        self.beepExtendido(is_player_move)
 
         self.pgn_refresh(self.game.last_position.is_white)
         self.refresh()

@@ -228,12 +228,12 @@ class ManagerSolo(Manager.Manager):
         self.play_next_move()
         return True
 
-    def add_move(self, move, siNuestra):
+    def add_move(self, move, is_player_move):
         self.game.add_move(move)
         self.check_boards_setposition()
 
         self.put_arrow_sc(move.from_sq, move.to_sq)
-        self.beepExtendido(siNuestra)
+        self.beepExtendido(is_player_move)
 
         self.pgn_refresh(self.game.last_position.is_white)
         self.refresh()
@@ -419,28 +419,29 @@ class ManagerSolo(Manager.Manager):
         self.configuration.write_variables("FICH_MANAGERSOLO", dic)
 
     def informacion(self):
-        if WindowPgnTags.menu_pgn_labels(self.main_window, self.game):
-            fen_antes = self.game.get_tag("FEN")
-            resp = WindowPgnTags.edit_tags_pgn(self.procesador.main_window, self.game.li_tags, True)
-            if resp:
-                self.game.set_tags(resp)
-                fen_despues = self.game.get_tag("FEN")
-                if fen_antes != fen_despues:
-                    fen_antes_fenm2 = FasterCode.fen_fenm2(fen_antes)
-                    fen_despues_fenm2 = FasterCode.fen_fenm2(fen_despues)
-                    if fen_antes_fenm2 != fen_despues_fenm2:
-                        cp = Position.Position()
-                        cp.read_fen(fen_despues_fenm2)
-                        self.xfichero = None
-                        self.xpgn = None
-                        self.xjugadaInicial = None
-                        self.new_game()
-                        self.game.set_position(first_position=cp)
-                        self.state = ST_ENDGAME if self.game.is_finished() else ST_PLAYING
-                        self.opening_block = None
-                        self.reiniciar()
+        fen_antes = self.game.get_tag("FEN")
 
-                self.pon_rotulo()
+        ret = WindowPgnTags.menu_pgn_labels(self.main_window, self.game, True)
+        if not ret:
+            return
+
+        self.state = ST_ENDGAME if self.game.is_finished() else ST_PLAYING
+        fen_despues = self.game.get_tag("FEN")
+        if fen_antes != fen_despues:
+            fen_antes_fenm2 = FasterCode.fen_fenm2(fen_antes)
+            fen_despues_fenm2 = FasterCode.fen_fenm2(fen_despues)
+            if fen_antes_fenm2 != fen_despues_fenm2:
+                cp = Position.Position()
+                cp.read_fen(fen_despues_fenm2)
+                self.xfichero = None
+                self.xpgn = None
+                self.xjugadaInicial = None
+                self.new_game()
+                self.game.set_position(first_position=cp)
+                self.opening_block = None
+                self.reiniciar()
+
+        self.pon_rotulo()
 
     def leerpgn(self, game=None):
         if game is None:

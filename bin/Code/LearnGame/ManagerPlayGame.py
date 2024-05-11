@@ -323,20 +323,21 @@ class ManagerPlayGame(Manager.Manager):
             mrm = self.analyze_minimum()
             position = self.game.last_position
 
+            continue_tt = self.continueTt
+
             rm_usu, nada = mrm.search_rm(pv_usu)
             if rm_usu is None:
                 self.analyze_end()
+                continue_tt = False
                 rm_usu = self.xtutor.valora(position, jg_usu.from_sq, jg_usu.to_sq, jg_usu.promotion)
                 mrm.add_rm(rm_usu)
-                if self.continueTt:
-                    self.analyze_begin()
+
             rm_obj, pos_obj = mrm.search_rm(pv_obj)
             if rm_obj is None:
                 self.analyze_end()
+                continue_tt = False
                 rm_obj = self.xtutor.valora(position, jg_obj.from_sq, jg_obj.to_sq, jg_obj.promotion)
                 pos_obj = mrm.add_rm(rm_obj)
-                if self.continueTt:
-                    self.analyze_begin()
 
             analysis = mrm, pos_obj
             um.final()
@@ -348,7 +349,7 @@ class ManagerPlayGame(Manager.Manager):
 
             if si_analiza_juez:
                 w = WindowJuicio.WJuicio(self, self.xtutor, self.name_obj(), position, mrm, rm_obj, rm_usu, analysis,
-                                         is_competitive=not self.show_all)
+                                         is_competitive=not self.show_all, continue_tt=continue_tt)
                 w.exec_()
 
                 analysis = w.analysis

@@ -60,6 +60,8 @@ class CPU:
         self.kibitzer = None
         self.prioridad = None
 
+        self.last_move = None
+
     def run(self):
         # Primero espera la orden de lucas
         while True:
@@ -135,7 +137,7 @@ class CPU:
             if hasattr(self.ventana, "board"):
                 self.ventana.board.set_side_bottom(orden.dv["IS_WHITE_BOTTOM"])
             if self.kibitzer.pointofview == KIB_BEFORE_MOVE:
-                game.anulaSoloUltimoMovimiento()
+                self.last_move = game.anulaSoloUltimoMovimiento()
             if self.tipo == KIB_THREATS:
                 last_position = game.last_position
                 last_position.is_white = not last_position.is_white

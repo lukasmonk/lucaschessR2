@@ -695,7 +695,7 @@ class Manager:
             if not is_white:
                 pos += 1
             if row < 0 or (row == 0 and pos == 0 and starts_with_black):
-                self.ponteAlPrincipio()
+                self.goto_firstposition()
                 return
         elif tipo == GO_BACK2:
             row -= 1
@@ -706,7 +706,7 @@ class Manager:
         elif tipo == GO_FORWARD2:
             row += 1
         elif tipo == GO_START:
-            self.ponteAlPrincipio()
+            self.goto_firstposition()
             return
         elif tipo == GO_END:
             row = ult_fila
@@ -725,27 +725,28 @@ class Manager:
         self.main_window.pgnColocate(row, is_white)
         self.pgnMueve(row, is_white)
 
-    def ponteAlPrincipio(self):
+    def goto_firstposition(self):
         self.set_position(self.game.first_position)
         self.main_window.base.pgn.goto(0, 0)
         self.refresh_pgn()  # No se puede usar pgn_refresh, ya que se usa con gobottom en otros lados y aqui eso no funciona
         self.put_view()
 
-    def ponteAlPrincipioColor(self):
-        if self.game.li_moves:
-            move = self.game.move(0)
-            self.set_position(move.position)
-            self.main_window.base.pgn.goto(0, 2 if move.position.is_white else 1)
-            self.board.put_arrow_sc(move.from_sq, move.to_sq)
-            self.refresh_pgn()  # No se puede usar pgn_refresh, ya que se usa con gobottom en otros lados
-            # y aqui eso no funciona
-            self.put_view()
-        else:
-            self.ponteAlPrincipio()
+    # def ponteAlPrincipioColor(self):
+    #     if self.game.li_moves:
+    #         move = self.game.move(0)
+    #         self.set_position(move.position)
+    #         self.main_window.base.pgn.goto(0, 2 if move.position.is_white else 1)
+    #         self.board.put_arrow_sc(move.from_sq, move.to_sq)
+    #         self.refresh_pgn()  # No se puede usar pgn_refresh, ya que se usa con gobottom en otros lados
+    #         # y aqui eso no funciona
+    #         self.put_view()
+    #     else:
+    #         self.goto_firstposition()
 
     def pgnMueve(self, row, is_white):
         self.pgn.mueve(row, is_white)
         self.put_view()
+
 
     def pgnMueveBase(self, row, column):
         if column == "NUMBER":
@@ -756,7 +757,7 @@ class Manager:
                     self.refresh_pgn()  # No se puede usar pgn_refresh, ya que se usa con gobottom en otros lados y aqui eso no funciona
                     self.put_view()
                 else:
-                    self.ponteAlPrincipio()
+                    self.goto_firstposition()
                 return
             else:
                 row -= 1
@@ -946,13 +947,13 @@ class Manager:
     def analizaTutor(self, with_cursor=False):
         if with_cursor:
             self.main_window.pensando_tutor(True)
-        # self.thinking(True)
+        self.thinking(True)
         fen = self.game.last_position.fen()
         if not self.is_finished():
             self.mrm_tutor = self.xtutor.analiza(fen)
         else:
             self.mrm_tutor = None
-        # self.thinking(False)
+        self.thinking(False)
         if with_cursor:
             self.main_window.pensando_tutor(False)
         return self.mrm_tutor

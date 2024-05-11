@@ -591,7 +591,7 @@ class LinePGN(QtWidgets.QStyledItemDelegate):
 
         d = Move.dicHTMLFigs
         lc = []
-        is_white = txt[0].isdigit()
+        is_white = txt[0].isdigit() if txt else True
         for c in txt:
             if c == " ":
                 is_white = not is_white
@@ -616,8 +616,8 @@ class LinePGN(QtWidgets.QStyledItemDelegate):
 
         x = rect.x()
         y = rect.y()
-        r = QtCore.QRectF(0, 0, rect.width(), rect.height())
+        r = QtCore.QRectF(0, 0, rect.width(), rect.height()+4)
         painter.save()
-        painter.translate(x, y)
+        painter.translate(x, y-2)
         document_pgn.drawContents(painter, r)
         painter.restore()

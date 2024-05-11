@@ -261,7 +261,7 @@ class ManagerOpeningEngines(Manager.Manager):
         self.play_next_move()
         return True
 
-    def add_move(self, move, siNuestra):
+    def add_move(self, move, is_player_move):
         fenm2 = move.position_before.fenm2()
         move.es_linea = False
         if fenm2 in self.dicFENm2:
@@ -272,7 +272,7 @@ class ManagerOpeningEngines(Manager.Manager):
         self.check_boards_setposition()
 
         self.put_arrow_sc(move.from_sq, move.to_sq)
-        self.beepExtendido(siNuestra)
+        self.beepExtendido(is_player_move)
 
         self.pgn_refresh(self.game.last_position.is_white)
         self.refresh()

@@ -840,7 +840,7 @@ class WLeague(LCDialog.LCDialog):
         if game:
             game = Code.procesador.manager_game(self, game, True, False, None)
             if game:
-                if xmatch.is_human_vs_human(self.swiss):
+                if xmatch.is_human_vs_human(self.league):
                     result = game.resultado()
                     if result in (RESULT_WIN_WHITE, RESULT_WIN_BLACK, RESULT_DRAW):
                         xmatch.result = result
@@ -884,10 +884,10 @@ class WLeague(LCDialog.LCDialog):
             lw = LeaguesWork.LeaguesWork(self.league)
             if lw.num_working_matches():
                 self.timer.stop()
-                self.timer.start(10000)
+                self.timer.start(5000)
             else:
                 self.timer.stop()
-                self.timer.start(10000)
+                self.timer.start(20000)
 
     def show_current_season(self):
         self.li_panels, self.dic_xid_order = self.season.gen_panels_classification()

@@ -677,7 +677,7 @@ class Season:
         num_divisions = self.num_divisions()
         li_panels, dic_xid_order = season_previous.gen_panels_classification()
 
-        li_xid_divisions = [set()] * num_divisions
+        li_xid_divisions = [set() for n in range(num_divisions)]
         dic_elo_todos = {}
         for num_division in range(num_divisions):
             d_panel = li_panels[num_division]

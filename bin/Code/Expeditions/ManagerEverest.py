@@ -265,6 +265,8 @@ class ManagerEverest(Manager.Manager):
         if si_analiza_juez:
             position = self.game.last_position
             saved = fen in self.dic_analysis
+            continue_tt = self.continueTt
+
             if saved:
                 rm_obj, pos_obj, analysis, mrm = self.dic_analysis[fen]
             else:
@@ -283,9 +285,9 @@ class ManagerEverest(Manager.Manager):
             if rm_usu is None:
                 um = QTUtil2.analizando(self.main_window)
                 self.analyze_end()
+                continue_tt = False
                 rm_usu = self.xanalyzer.valora(position, from_sq, to_sq, promotion)
                 mrm.add_rm(rm_usu)
-                self.analyze_begin()
                 um.final()
 
             if self.show_rating == self.show_rating_different:
@@ -298,7 +300,7 @@ class ManagerEverest(Manager.Manager):
             if si_analiza_juez:
                 w = WindowJuicio.WJuicio(
                     self, self.xanalyzer, self.name_obj, position, mrm, rm_obj, rm_usu, analysis,
-                    is_competitive=not self.show_all
+                    is_competitive=not self.show_all, continue_tt=continue_tt
                 )
                 w.exec_()
 
@@ -345,7 +347,7 @@ class ManagerEverest(Manager.Manager):
         self.play_next_move()
         return True
 
-    def add_move(self, siNuestra, analysis=None, comment=None):
+    def add_move(self, is_player_move, analysis=None, comment=None):
         move = self.game_obj.move(self.posJugadaObj)
         self.posJugadaObj += 1
         if analysis:
@@ -359,7 +361,7 @@ class ManagerEverest(Manager.Manager):
         self.move_the_pieces(move.liMovs, True)
         self.board.set_position(move.position)
         self.put_arrow_sc(move.from_sq, move.to_sq)
-        self.beepExtendido(siNuestra)
+        self.beepExtendido(is_player_move)
 
         self.pgn_refresh(self.game.last_position.is_white)
 

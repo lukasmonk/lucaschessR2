@@ -31,7 +31,7 @@ class ManagerOpeningLines(Manager.Manager):
         dic["SHOWCOMMENTS"] = self.show_comments
         self.configuration.write_variables("OPENINLINES_TRAIN", dic)
 
-    def add_move(self, move, siNuestra):
+    def add_move(self, move, is_player_move):
         comment = None
         ventaja = None
         valoracion = None
@@ -53,7 +53,7 @@ class ManagerOpeningLines(Manager.Manager):
         self.check_boards_setposition()
 
         self.put_arrow_sc(move.from_sq, move.to_sq)
-        self.beepExtendido(siNuestra)
+        self.beepExtendido(is_player_move)
 
         self.pgn_refresh(self.game.last_position.is_white)
         self.refresh()
@@ -69,7 +69,7 @@ class ManagerOpeningLines(Manager.Manager):
                 text_move += ".."
             text_move += move.pgn_translated()
 
-            QTUtil2.message_menu(self.main_window.base.pgn, text_move, comment, not siNuestra)
+            QTUtil2.message_menu(self.main_window.base.pgn, text_move, comment, not is_player_move)
 
     def add_coments_all_game(self):
         for move in self.game.li_moves:

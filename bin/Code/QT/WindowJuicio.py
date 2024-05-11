@@ -16,7 +16,8 @@ from Code.QT import QTVarios
 
 
 class WJuicio(LCDialog.LCDialog):
-    def __init__(self, manager, xengine, nombreOP, position, mrm, rmObj, rmUsu, analysis, is_competitive=None):
+    def __init__(self, manager, xengine, nombreOP, position, mrm, rmObj, rmUsu, analysis, is_competitive=None,
+                 continue_tt=False):
         self.is_competitive = manager.is_competitive if is_competitive is None else is_competitive
         self.nombreOP = nombreOP
         self.position = position
@@ -45,7 +46,7 @@ class WJuicio(LCDialog.LCDialog):
         self.board.crea()
         self.board.set_side_bottom(position.is_white)
 
-        ly_bm, tb_bm = QTVarios.ly_mini_buttons(self, "", siLibre=False, icon_size=24, siMas=manager.continueTt)
+        ly_bm, tb_bm = QTVarios.ly_mini_buttons(self, "", siLibre=False, icon_size=24, siMas=continue_tt)
 
         bt_continue = Controles.PB(self, _("Continue"), self.terminar, plano=False).ponIcono(Iconos.Aceptar())
         ly_control = Colocacion.H().relleno(2).otro(ly_bm).relleno(1).control(bt_continue).espacio(10)

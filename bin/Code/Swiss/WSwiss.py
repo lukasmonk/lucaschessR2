@@ -813,10 +813,10 @@ class WSwiss(LCDialog.LCDialog):
             lw = SwissWork.SwissWork(self.swiss)
             if lw.num_working_matches():
                 self.timer.stop()
-                self.timer.start(10000)
+                self.timer.start(5000)
             else:
                 self.timer.stop()
-                self.timer.start(10000)
+                self.timer.start(20000)
 
     def show_current_season(self):
         self.panel_classification, self.dic_xid_order = self.season.gen_panel_classification()
