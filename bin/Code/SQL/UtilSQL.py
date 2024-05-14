@@ -511,6 +511,9 @@ class IPC(object):
             valor = None
         return valor
 
+    def read_again(self):
+        self.key -= 1
+
     def push(self, valor):
         dato = sqlite3.Binary(pickle.dumps(valor))
         sql = "INSERT INTO DATOS (dato) values(?)"

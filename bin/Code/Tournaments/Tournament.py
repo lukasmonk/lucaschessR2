@@ -246,7 +246,7 @@ class Tournament:
     def adjudicator_time(self, valor=None):
         return self.config("adjudicator_time", valor, 5.0)
 
-    def ultCarpetaEngines(self, valor=None):
+    def last_folder_engines(self, valor=None):
         return self.config("last_folder_engines", valor, None)
 
     def book(self, valor=None):
@@ -386,12 +386,12 @@ class Tournament:
 
             del self.db_games_finished[pos]
 
-    def new_game(self, hwhite, hblack, minutos, segundosJugada):
+    def new_game(self, hwhite, hblack, minutos, seconds_move):
         gm = GameTournament()
         gm.hwhite = hwhite
         gm.hblack = hblack
         gm.minutos = minutos
-        gm.seconds_per_move = segundosJugada
+        gm.seconds_per_move = seconds_move
         self.db_games_queued.append(gm, with_commit=False)
 
     def new_game_commit(self):

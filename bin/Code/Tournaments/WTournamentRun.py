@@ -120,6 +120,7 @@ class WTournamentRun(QtWidgets.QWidget):
         QtWidgets.QWidget.__init__(self)
 
         Code.list_engine_managers = EngineManager.ListEngineManagers()
+        Code.list_engine_managers.check_active_logs()
 
         self.torneo = TournamentRun(file_tournament)  # Tournament.Tournament(file_tournament)
         self.file_work = file_work
@@ -579,7 +580,7 @@ class WTournamentRun(QtWidgets.QWidget):
             else:
                 run_sound = Code.runSound
             if self.configuration.x_sound_move:
-                run_sound.play_list(move.listaSonidos())
+                run_sound.play_list(move.sounds_list())
             if self.configuration.x_sound_beep:
                 run_sound.playBeep()
 

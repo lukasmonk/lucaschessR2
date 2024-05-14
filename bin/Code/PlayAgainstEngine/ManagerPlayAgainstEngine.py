@@ -90,7 +90,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
     siBookAjustarFuerza = True
     timed = False
     max_seconds = 0
-    segundosJugada = 0
+    seconds_move = 0
     secs_extra = 0
     nodes = 0
     zeitnot = 0
@@ -99,7 +99,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
     premove = None
     last_time_show_arrows = None
     rival_is_thinking = False
-    humanize = False
+    humanize = 0
     unlimited_minutes = 5
     is_human_side_white: bool
     opening_line = None
@@ -177,7 +177,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             self.book_rival_depth = dic_var.get("BOOKRDEPTH", 0)
             self.book_rival.polyglot()
             self.book_rival_select = dic_var.get("BOOKRR", BOOK_BEST_MOVE)
-        elif self.conf_engine.book:
+        elif self.conf_engine.book and Util.exist_file(self.conf_engine.book):
             self.book_rival_active = True
             self.book_rival = Books.Book("P", self.conf_engine.book, self.conf_engine.book, True)
             self.book_rival.polyglot()
@@ -207,9 +207,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         self.play_while_win = dic_var.get("WITH_LIMIT_PWW", False)
         self.limit_pww = dic_var.get("LIMIT_PWW", 90)
 
-        self.humanize = dic_var.get("HUMANIZE", False)
-        # if dic_var.get("ANALYSIS_BAR", False):
-        #     self.main_window.activate_analysis_bar(True)
+        self.humanize = dic_var.get("LEVEL_HUMANIZE", 0)
 
         if dic_var.get("ACTIVATE_EBOARD"):
             Code.eboard.activate(self.board.dispatch_eboard)
@@ -1086,7 +1084,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                 seconds_black,
                 seconds_move,
                 adjusted=self.nAjustarFuerza,
-                humanize=self.humanize,
+                factor_humanize=self.humanize,
             )
 
     def continue_analysis_human_move(self):

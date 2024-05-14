@@ -294,7 +294,7 @@ class WConfExternals(QtWidgets.QWidget):
             Util.save_pickle(Code.configuration.file_external_engines(), li)
             Code.configuration.relee_engines()
 
-    def grid_cambiado_registro(self, grid, row, oCol):
+    def grid_cambiado_registro(self, grid, row, o_column):
         if grid == self.grid:
             if row >= 0:
                 self.owner.set_engine(self.lista_motores[row])
@@ -424,6 +424,7 @@ class WConfExternals(QtWidgets.QWidget):
         row = self.grid.recno()
         if row >= 0:
             if QTUtil2.pregunta(self, _X(_("Delete %1?"), self.lista_motores[row].key)):
+                self.lista_motores[row].remove_uci_options()
                 del self.lista_motores[row]
                 if row < len(self.lista_motores):
                     self.grid_cambiado_registro(self.grid, row, None)

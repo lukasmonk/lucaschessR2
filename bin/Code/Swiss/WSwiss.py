@@ -856,6 +856,7 @@ class WSwiss(LCDialog.LCDialog):
         resp = QTVarios.launch_workers(self)
 
         if resp:
+            Code.list_engine_managers.set_active_logs()
             self.update_matches()
             lw = SwissWork.SwissWork(self.swiss)
             journey_work, season_work = lw.get_journey_season()

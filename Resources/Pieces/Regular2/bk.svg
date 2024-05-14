@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
    id="svg23"
    version="1.1"
    sodipodi:docname="bk.svg"
@@ -31,9 +31,9 @@
      inkscape:bbox-nodes="false"
      inkscape:bbox-paths="false"
      inkscape:window-maximized="1"
-     inkscape:window-y="-10"
-     inkscape:window-x="-10"
-     inkscape:window-height="996"
+     inkscape:window-y="-11"
+     inkscape:window-x="-11"
+     inkscape:window-height="991"
      inkscape:window-width="1920"
      inkscape:snap-bbox-midpoints="true"
      inkscape:snap-bbox="true"
@@ -44,8 +44,8 @@
      showgrid="false"
      inkscape:current-layer="Template"
      inkscape:document-units="mm"
-     inkscape:cy="219.9102"
-     inkscape:cx="175.00892"
+     inkscape:cy="220.26376"
+     inkscape:cx="174.65537"
      inkscape:zoom="1.4142136"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
@@ -53,15 +53,19 @@
      bordercolor="#666666"
      pagecolor="#ffffff"
      inkscape:snap-nodes="false"
-     inkscape:pagecheckerboard="0">
+     inkscape:pagecheckerboard="0"
+     inkscape:showpageshadow="0"
+     inkscape:deskcolor="#d1d1d1">
     <sodipodi:guide
        id="guide2827"
        position="226.771653543,226.771653543"
-       orientation="1,0" />
+       orientation="1,0"
+       inkscape:locked="false" />
     <sodipodi:guide
        id="guide2829"
        position="226.771653543,226.771653543"
-       orientation="0,1" />
+       orientation="0,1"
+       inkscape:locked="false" />
     <inkscape:grid
        spacingy="0.1mm"
        spacingx="0.1mm"
@@ -99,6 +103,6 @@
        y="2"
        width="449.547"
        height="449.547"
-       transform="matrix(0.25777778,0,0,0.25777778,-58.515556,-58.490556)" />
+       transform="matrix(0.24888889,0,0,0.24888889,-56.497778,-56.497778)" />
   </g>
 </svg>

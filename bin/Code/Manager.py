@@ -625,7 +625,7 @@ class Manager:
         if self.configuration.x_sound_move:
             if len(self.game):
                 move = self.game.move(-1)
-                played = self.runSound.play_list(move.listaSonidos())
+                played = self.runSound.play_list(move.sounds_list())
         if not played and self.configuration.x_sound_beep:
             self.runSound.playBeep()
 
@@ -746,7 +746,6 @@ class Manager:
     def pgnMueve(self, row, is_white):
         self.pgn.mueve(row, is_white)
         self.put_view()
-
 
     def pgnMueveBase(self, row, column):
         if column == "NUMBER":
@@ -888,12 +887,15 @@ class Manager:
         self.board.lanzaDirector()
 
     def gridRightMouse(self, is_shift, is_control, is_alt):
-        if is_control:
-            self.capturas()
-        elif is_shift or is_alt:
+        if is_alt:
             self.arbol()
         else:
-            self.pgnInformacion()
+            menu = QTVarios.LCMenu(self.main_window)
+            # menu_vista = menu.submenu(_("Show/hide"), Iconos.Vista())
+            self.add_menu_vista(menu)
+            resp = menu.lanza()
+            if resp:
+                self.exec_menu_vista(resp)
 
     def listado(self, tipo):
         if tipo == "pgn":
@@ -1283,15 +1285,12 @@ class Manager:
         if hasattr(self, "help_to_move"):
             getattr(self, "help_to_move")()
 
-    def configurar(self, li_extra_options=None, with_change_tutor=False, with_sounds=False, with_blinfold=True):
-        menu = QTVarios.LCMenu(self.main_window)
-
-        # Vista
-        menu_vista = menu.submenu(_("Show/hide"), Iconos.Vista())
+    def add_menu_vista(self, menu_vista):
         menu_vista.opcion("vista_pgn_information", _("PGN information"),
                           is_ckecked=self.main_window.is_active_information_pgn())
         menu_vista.separador()
-        menu_vista.opcion("vista_capturas", _("Captured material"), is_ckecked=self.main_window.is_active_captures())
+        menu_vista.opcion("vista_captured_material", _("Captured material"),
+                          is_ckecked=self.main_window.is_active_captures())
         menu_vista.separador()
         menu_vista.opcion(
             "vista_analysis_bar",
@@ -1304,6 +1303,21 @@ class Manager:
             _("Arrow with the best move when there is an analysis"),
             is_ckecked=self.configuration.x_show_bestmove,
         )
+
+    def exec_menu_vista(self, resp):
+        resp = resp[6:]
+        if resp == "bestmove":
+            self.configuration.x_show_bestmove = not self.configuration.x_show_bestmove
+            self.configuration.graba()
+            self.put_view()
+        else:
+            self.change_info_extra(resp)
+
+    def configurar(self, li_extra_options=None, with_change_tutor=False, with_sounds=False, with_blinfold=True):
+        menu = QTVarios.LCMenu(self.main_window)
+
+        menu_vista = menu.submenu(_("Show/hide"), Iconos.Vista())
+        self.add_menu_vista(menu_vista)
         menu.separador()
 
         # Ciega - Mostrar todas - Ocultar blancas - Ocultar negras
@@ -1392,13 +1406,7 @@ class Manager:
                 Code.list_engine_managers.active_logs(False)
 
             elif resp.startswith("vista_"):
-                resp = resp[6:]
-                if resp == "bestmove":
-                    self.configuration.x_show_bestmove = not self.configuration.x_show_bestmove
-                    self.configuration.graba()
-                    self.put_view()
-                else:
-                    self.change_info_extra(resp)
+                self.exec_menu_vista(resp)
 
             elif resp == "sonido":
                 self.config_sonido()

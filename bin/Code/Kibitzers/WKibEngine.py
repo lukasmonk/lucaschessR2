@@ -155,6 +155,7 @@ class WKibEngine(WKibCommon.WKibCommon):
             self.kibitzer = self.cpu.reset_kibitzer()
             self.engine.close()
             self.engine = self.launch_engine()
+            self.cpu.reprocesa()
             self.play()
         self.grid.refresh()
 
@@ -203,14 +204,20 @@ class WKibEngine(WKibCommon.WKibCommon):
             self.game.read_pv(rm.movimiento())
             self.reset()
 
+    def is_move_done(self, row):
+        if self.is_candidates and self.kibitzer.pointofview == KIB_BEFORE_MOVE and self.cpu.last_move:
+            rm = self.li_moves[row]
+            movimiento = self.cpu.last_move.movimiento()
+            if rm.movimiento() == movimiento:
+                return True
+        return False
+
     def grid_color_fondo(self, grid, row, o_column):
-        rm = self.li_moves[row]
-        if hasattr(rm, "is_done"):
+        if self.is_move_done(row):
             return self.color_done
 
     def grid_bold(self, grid, row, o_column):
-        rm = self.li_moves[row]
-        return hasattr(rm, "is_done")
+        return self.is_move_done(row)
 
     def launch_engine(self):
         if self.is_candidates:

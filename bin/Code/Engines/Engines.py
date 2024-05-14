@@ -193,6 +193,10 @@ class Engine:
     def ejecutable(self):
         return self.path_exe
 
+    def remove_uci_options(self):
+        path_uci_options = self.path_exe + ".uci_options"
+        Util.remove_file(path_uci_options)
+
     def read_uci_options(self):
         path_uci_options = self.path_exe + ".uci_options"
         if os.path.isfile(path_uci_options):

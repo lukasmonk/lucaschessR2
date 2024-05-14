@@ -47,7 +47,7 @@ class ManagerLeague(Manager.Manager):
     next_test_resign = 0
     resign_limit = -99999
     max_seconds = 0
-    segundosJugada = 0
+    seconds_move = 0
     zeitnot = 0
     toolbar_state = None
     premove = None

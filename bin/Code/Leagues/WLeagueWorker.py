@@ -47,6 +47,8 @@ class WLeagueWorker(QtWidgets.QWidget):
         QtWidgets.QWidget.__init__(self)
 
         Code.list_engine_managers = EngineManager.ListEngineManagers()
+        Code.list_engine_managers.check_active_logs()
+
         self.league = Leagues.League(name_league)
         self.league_work = LeaguesWork.LeaguesWork(self.league)
 
@@ -232,6 +234,8 @@ class WLeagueWorker(QtWidgets.QWidget):
             self.xengine[side].set_gui_dispatch(self.gui_dispatch)
 
             bk = rv.book
+            if not Util.exist_file(bk):
+                bk = None
             if bk == "*":
                 bk = self.torneo.book()
             if bk == "-":  # Puede que el torneo tenga "-"
@@ -511,7 +515,7 @@ class WLeagueWorker(QtWidgets.QWidget):
             else:
                 runSound = Code.runSound
             if self.configuration.x_sound_move:
-                runSound.play_list(move.listaSonidos())
+                runSound.play_list(move.sounds_list())
             if self.configuration.x_sound_beep:
                 runSound.playBeep()
 

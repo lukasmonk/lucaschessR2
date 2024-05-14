@@ -116,7 +116,7 @@ class WFiltrar(QtWidgets.QDialog):
             li_conf = dbc.keys(si_ordenados=True)
             if len(li_conf) == 0 and len(self.li_filter) == 0:
                 return
-            menu = Controles.Menu(self)
+            menu = QTVarios.LCMenu(self)
             SELECCIONA, BORRA, GRABA = range(3)
             for x in li_conf:
                 menu.opcion((SELECCIONA, x), x, Iconos.PuntoAzul())

@@ -24,6 +24,62 @@ class Human:
         self.elo = dic.get("ELO", self.elo)
 
 
+class Opponent:
+    def __init__(self):
+        self.type = None
+        self.opponent = None
+        self.xid = Util.huella()
+        self.initialdivision = 0
+
+    def set_engine(self, engine):
+        self.type = ENGINE
+        self.opponent = engine
+
+    def set_human(self, name, elo):
+        self.type = HUMAN
+        self.opponent = Human(name, elo)
+
+    def set_initialdivision(self, division):
+        self.initialdivision = division
+
+    def name(self):
+        return self.opponent.name
+
+    def elo(self):
+        return self.opponent.elo
+
+    def set_elo(self, elo):
+        self.opponent.elo = elo
+
+    def set_name(self, name):
+        self.opponent.name = name
+
+    def is_human(self):
+        return self.type == HUMAN
+
+    def save(self):
+        dic = {
+            "TYPE": self.type,
+            "XID": self.xid,
+            "OPPONENT": self.opponent.save(),
+            "INITIALDIVISION": self.initialdivision,
+        }
+        return dic
+
+    def restore(self, dic):
+        self.type = dic.get("TYPE", self.type)
+        self.xid = dic.get("XID", self.xid)
+        self.initialdivision = dic.get("INITIALDIVISION", 0)
+        t = dic.get("OPPONENT")
+        if t:
+            if self.type == HUMAN:
+                self.opponent = Human(None, None)
+                self.opponent.restore(t)
+            else:
+                self.opponent = Engines.Engine()
+                self.opponent.restore(t)
+
+
 class Match:
     def __init__(self, xid_white: str, xid_black: str):
         self.xid = Util.huella()
@@ -224,62 +280,6 @@ def create_journeys(num_opponents: int) -> list:
     return journeys_with_returns
 
 
-class Opponent:
-    def __init__(self):
-        self.type = None
-        self.opponent = None
-        self.xid = Util.huella()
-        self.initialdivision = 0
-
-    def set_engine(self, engine):
-        self.type = ENGINE
-        self.opponent = engine
-
-    def set_human(self, name, elo):
-        self.type = HUMAN
-        self.opponent = Human(name, elo)
-
-    def set_initialdivision(self, division):
-        self.initialdivision = division
-
-    def name(self):
-        return self.opponent.name
-
-    def elo(self):
-        return self.opponent.elo
-
-    def set_elo(self, elo):
-        self.opponent.elo = elo
-
-    def set_name(self, name):
-        self.opponent.name = name
-
-    def is_human(self):
-        return self.type == HUMAN
-
-    def save(self):
-        dic = {
-            "TYPE": self.type,
-            "XID": self.xid,
-            "OPPONENT": self.opponent.save(),
-            "INITIALDIVISION": self.initialdivision,
-        }
-        return dic
-
-    def restore(self, dic):
-        self.type = dic.get("TYPE", self.type)
-        self.xid = dic.get("XID", self.xid)
-        self.initialdivision = dic.get("INITIALDIVISION", 0)
-        t = dic.get("OPPONENT")
-        if t:
-            if self.type == HUMAN:
-                self.opponent = Human(None, None)
-                self.opponent.restore(t)
-            else:
-                self.opponent = Engines.Engine()
-                self.opponent.restore(t)
-
-
 class Division:
     def __init__(self):
         self.dic_elo_opponents = {}  # xid: elo
@@ -337,7 +337,7 @@ class Division:
         def comp(x):
             xdif_elo = "%04d" % (x["ACT_ELO"] - x["INI_ELO"] + 1000)
             xelo = "%04d" % (9999 - x["ACT_ELO"])
-            xpts = "%03d" % x["PTS"]
+            xpts = "%6.02f" % float(x["PTS"])
             xwin = "%03d" % x["WIN"]
             xtb = "%d" % x["TB"]
             return xpts + xwin + xdif_elo + xelo + xtb

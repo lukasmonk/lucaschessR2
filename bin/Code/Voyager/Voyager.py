@@ -106,11 +106,13 @@ class WPosicion(QtWidgets.QWidget):
         self.cbBooo = Controles.CHB(self, _("Black") + " O-O-O", True)
 
         lb_en_passant = Controles.LB(self, _("En passant") + ":")
-        self.edEnPassant = Controles.ED(self).controlrx("(-|[a-h][36])").anchoFijo(30*factor_big_fonts)
+        self.edEnPassant = Controles.ED(self).controlrx("(-|[a-h][36])").anchoFijo(30 * factor_big_fonts)
 
-        self.edMovesPawn, lbMovesPawn = QTUtil2.spinbox_lb(self, 0, 0, 999, etiqueta=_("Halfmove clock"), max_width=50*factor_big_fonts)
+        self.edMovesPawn, lbMovesPawn = QTUtil2.spinbox_lb(self, 0, 0, 999, etiqueta=_("Halfmove clock"),
+                                                           max_width=50 * factor_big_fonts)
 
-        self.edFullMoves, lbFullMoves = QTUtil2.spinbox_lb(self, 1, 1, 999, etiqueta=_("Fullmove number"), max_width=50*factor_big_fonts)
+        self.edFullMoves, lbFullMoves = QTUtil2.spinbox_lb(self, 1, 1, 999, etiqueta=_("Fullmove number"),
+                                                           max_width=50 * factor_big_fonts)
 
         self.vars_scanner = Scanner.ScannerVars(self.configuration.carpetaScanners)
 
@@ -122,13 +124,14 @@ class WPosicion(QtWidgets.QWidget):
         self.pb_scanner_learn_quit = Controles.PB(self, "", self.scanner_learn_quit).ponIcono(
             Iconos.Menos(), icon_size=24
         )
-        self.pb_scanner_learn_quit.ponToolTip(_("Remove last learned")).anchoFijo(24*factor_big_fonts)
+        self.pb_scanner_learn_quit.ponToolTip(_("Remove last learned")).anchoFijo(24 * factor_big_fonts)
 
         self.sb_scanner_tolerance, lb_scanner_tolerance = QTUtil2.spinbox_lb(
-            self, self.vars_scanner.tolerance, 3, 20, etiqueta=_("Deduction tolerance"), max_width=50*factor_big_fonts
+            self, self.vars_scanner.tolerance, 3, 20, etiqueta=_("Deduction tolerance"), max_width=50 * factor_big_fonts
         )
         self.sb_scanner_tolerance_learns, lb_scanner_tolerance_learns = QTUtil2.spinbox_lb(
-            self, self.vars_scanner.tolerance_learns, 1, 6, etiqueta=_("Learning tolerance"), max_width=50*factor_big_fonts
+            self, self.vars_scanner.tolerance_learns, 1, 6, etiqueta=_("Learning tolerance"),
+            max_width=50 * factor_big_fonts
         )
 
         self.chb_rem_ghost_deductions = Controles.CHB(self, _("Remove ghost deductions"), self.vars_scanner.rem_ghost)
@@ -227,7 +230,7 @@ class WPosicion(QtWidgets.QWidget):
     def change_side(self):
         self.board.set_side_indicator(self.rbWhite.isChecked())
         self.actPosicion()
-        self.reset_position()
+        self.reset_position(reset_all=False)
 
     def save(self):
         self.actPosicion()
@@ -599,7 +602,7 @@ class WPosicion(QtWidgets.QWidget):
             fen = fen.replace("w", "b")
         self.position.read_fen(fen)
         self.actPosicion()
-        self.reset_position()
+        self.reset_position(reset_all=False)
         dic = self.scanner_deduce_base(False)
         for pos, pz in dic.items():
             self.ponPieza(pos, pz)
@@ -779,12 +782,12 @@ class WPGN(QtWidgets.QWidget):
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("NUMBER", _("N."), 35, align_center=True)
         self.with_figurines = configuration.x_pgn_withfigurines
-        nAnchoColor = (self.board.ancho - 35 - 20) // 2
+        n_ancho_color = (self.board.ancho - 35 - 20) // 2
         o_columns.nueva(
-            "WHITE", _("White"), nAnchoColor, edicion=Delegados.EtiquetaPGN(True if self.with_figurines else None)
+            "WHITE", _("White"), n_ancho_color, edicion=Delegados.EtiquetaPGN(True if self.with_figurines else None)
         )
         o_columns.nueva(
-            "BLACK", _("Black"), nAnchoColor, edicion=Delegados.EtiquetaPGN(False if self.with_figurines else None)
+            "BLACK", _("Black"), n_ancho_color, edicion=Delegados.EtiquetaPGN(False if self.with_figurines else None)
         )
         self.pgn = Grid.Grid(self, o_columns, siCabeceraMovible=False, siSelecFilas=True)
         self.pgn.setMinimumWidth(self.board.ancho)
@@ -951,6 +954,7 @@ def voyager_position(wowner, position, wownerowner=None):
 
     game = Game.Game(first_position=position)
     dlg = Voyager(wowner, False, game)
+
     resp = dlg.resultado if dlg.exec_() else None
 
     if wowner_maximized:

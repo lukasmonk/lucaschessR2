@@ -180,10 +180,19 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
                 self, "%s: %s" % (_("Activate e-board"), self.configuration.x_digital_board), False
             ).set_font(font)
             ly.control(self.chb_eboard)
-        self.chb_humanize = Controles.CHB(
-            self, _("To humanize the time it takes for the engine to respond"), False
-        ).set_font(font)
-        ly.control(self.chb_humanize)
+        li_humanize = (
+            (_("Disable"), 0),
+            (_("Normal"), 1),
+            (_("Fast"), 0.5),
+            (_("Very fast"), 0.2),
+            (_("Slow"), 1.5),
+            (_("Very slow"), 2),
+        )
+        self.cb_humanize = Controles.CB(self, li_humanize, 0).set_font(font)
+        lb_humanize = Controles.LB(self, _("To humanize the time it takes for the engine to respond")).set_font(font)
+        ly_humanize = Colocacion.H().control(self.cb_humanize).control(lb_humanize).relleno()
+
+        ly.otro(ly_humanize)
 
         nueva_tab(ly, _("Basic configuration"))
 
@@ -574,7 +583,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
     def configurations(self):
         dbc = UtilSQL.DictSQL(self.configuration.ficheroEntMaquinaConf)
         li_conf = dbc.keys(si_ordenados=True)
-        menu = Controles.Menu(self)
+        menu = QTVarios.LCMenu(self)
         kselecciona, kborra, kagrega = range(3)
         for x in li_conf:
             menu.opcion((kselecciona, x), x, Iconos.PuntoAzul())
@@ -959,7 +968,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         dr["ENGINE_NODES"] = self.ed_nodes.textoInt()
         dr["ENGINE_UNLIMITED"] = self.cb_unlimited.valor()
 
-        dic["HUMANIZE"] = self.chb_humanize.valor()
+        dic["LEVEL_HUMANIZE"] = self.cb_humanize.valor()
         if Code.eboard:
             dic["ACTIVATE_EBOARD"] = self.chb_eboard.valor()
         # dic["ANALYSIS_BAR"] = self.chb_analysis_bar.valor()
@@ -1035,7 +1044,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
 
         self.cb_unlimited.set_value(dr.get("ENGINE_UNLIMITED", 3))
 
-        self.chb_humanize.set_value(dic.get("HUMANIZE", False))
+        self.cb_humanize.set_value(dic.get("LEVEL_HUMANIZE", 0))
         if Code.eboard:
             self.chb_eboard.set_value(dic.get("ACTIVATE_EBOARD", False))
         # self.chb_analysis_bar.set_value(dic.get("ANALYSIS_BAR", False))

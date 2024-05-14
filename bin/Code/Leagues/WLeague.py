@@ -7,7 +7,7 @@ from Code import XRun
 from Code.Base import Game
 from Code.Base.Constantes import RESULT_WIN_WHITE, RESULT_DRAW, RESULT_WIN_BLACK
 from Code.Databases import DBgames, WDB_Games
-from Code.Leagues import LeaguesWork, Leagues
+from Code.Leagues import LeaguesWork, Leagues, EditPlayers
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles
@@ -345,15 +345,37 @@ class WLeague(LCDialog.LCDialog):
 
     def config(self):
         menu = QTVarios.LCMenu(self)
-        menu.opcion(
-            "continue",
-            _("Launch new workers when a matchday ends"),
-            Iconos.Unchecked() if self.season.stop_work_journey else Iconos.Checked(),
-        )
+        icon = Iconos.Unchecked() if self.season.stop_work_journey else Iconos.Checked()
+        menu.opcion("continue", _("Launch new workers when a matchday ends"), icon)
+        menu.opcion("players", _("Players"), Iconos.Player())
         resp = menu.lanza()
-        if resp:
+        if resp == "continue":
             self.season.stop_work_journey = not self.season.stop_work_journey
             self.season.save()
+        elif resp == "players":
+            w = EditPlayers.WEditPlayers(self, self.league.li_opponents)
+            if w.exec_():
+                if w.changed:
+                    self.league.save()
+                    self.reread()
+            else:
+                if w.changed:
+                    self.league.restore()
+                    self.reread()
+
+    def reread(self):
+        self.season = self.league.read_season()
+        self.li_panels, self.dic_xid_order = self.season.gen_panels_classification()
+        self.li_panels_crosstabs = self.season.gen_panels_crosstabs()
+        # division - dic[xid] = [wdl, wdl] RESULT_WIN_WHITE/....
+        self.li_sorted_opponents = self.season.list_sorted_opponents()
+        # division - list - opponents objects   (alphabetically)
+        self.mix_panels()
+
+        self.li_matches = self.season.get_all_matches()
+        self.current_journey = self.season.get_current_journey()
+        self.max_journeys = self.season.get_max_journeys()
+        self.dic_xid_name = self.league.dic_names()
 
     def set_journey_if_active(self):
         antes = self.current_journey
@@ -930,6 +952,7 @@ class WLeague(LCDialog.LCDialog):
         resp = QTVarios.launch_workers(self)
 
         if resp:
+            Code.list_engine_managers.set_active_logs()
             self.update_matches()
             lw = LeaguesWork.LeaguesWork(self.league)
             journey_work, season_work = lw.get_journey_season()

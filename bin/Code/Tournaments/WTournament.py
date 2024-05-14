@@ -556,6 +556,7 @@ class WTournament(LCDialog.LCDialog):
         resp = QTVarios.launch_workers(self)
 
         if resp:
+            Code.list_engine_managers.set_active_logs()
             with QTUtil2.OneMomentPlease(self):
                 last = 0
                 for num in range(resp):
@@ -617,10 +618,10 @@ class WTournament(LCDialog.LCDialog):
 
     def eng_new(self):
         # Pedimos el ejecutable
-        exe_motor = SelectFiles.leeFichero(self, self.torneo.ultCarpetaEngines(), "*", _("Engine"))
+        exe_motor = SelectFiles.leeFichero(self, self.torneo.last_folder_engines(), "*", _("Engine"))
         if not exe_motor:
             return
-        self.torneo.ultCarpetaEngines(os.path.dirname(exe_motor))
+        self.torneo.last_folder_engines(os.path.dirname(exe_motor))
 
         # Leemos el UCI
         me = Engines.read_engine_uci(exe_motor)

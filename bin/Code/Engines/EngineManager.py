@@ -44,6 +44,14 @@ class ListEngineManagers:
                 else:
                     engine_manager.log_close()
             self.with_logs = ok
+            
+    def set_active_logs(self):
+        # Tournaments/Leagues/Swiss
+        Code.configuration.log_engines_set(self.with_logs)
+            
+    def check_active_logs(self):
+        if Code.configuration.log_engines_check_active():
+            self.with_logs = True
 
 
 class EngineManager:
@@ -485,7 +493,7 @@ class EngineManager:
         return mrm.best_rm_ordered()
 
     def play_time_routine(
-            self, game, routine_return, seconds_white, seconds_black, seconds_move, adjusted=0, humanize=False
+            self, game, routine_return, seconds_white, seconds_black, seconds_move, adjusted=0, factor_humanize=0
     ):
         self.check_engine()
 
@@ -506,10 +514,10 @@ class EngineManager:
                 resp = None
             routine_return(resp)
 
-        if humanize:
+        if factor_humanize:
             if self.mstime_engine or self.depth_engine:
                 seconds_white, seconds_black, seconds_move = 15.0 * 60, 15.0 * 60, 6
-            self.humanize(game, seconds_white, seconds_black, seconds_move)
+            self.humanize(factor_humanize, game, seconds_white, seconds_black, seconds_move)
         else:
             self.engine.not_humanize()
 
@@ -522,7 +530,7 @@ class EngineManager:
                 play_return, game, seconds_white * 1000, seconds_black * 1000, seconds_move * 1000
             )
 
-    def humanize(self, game, seconds_white, seconds_black, seconds_move):
+    def humanize(self, factor, game, seconds_white, seconds_black, seconds_move):
         # Hay que tener en cuenta
         # Si estamos enla apertura -> mas rápido
         # Si hay muchas opciones -> mas lento
@@ -532,10 +540,10 @@ class EngineManager:
         movestogo = 40
         last_position = game.last_position
         if last_position.is_white:
-            movetime = seconds_white + movestogo * seconds_move
+            movetime_seconds = seconds_white + movestogo * seconds_move
         else:
-            movetime = seconds_black + movestogo * seconds_move
-        movetime = movetime * 9 / (movestogo * 10)
+            movetime_seconds = seconds_black + movestogo * seconds_move
+        movetime_seconds = movetime_seconds * 9 / (movestogo * 10)
 
         porc = 100.0
         if last_position.num_moves < 40:
@@ -551,15 +559,15 @@ class EngineManager:
         x = 80.0 + random.randint(1, 40)
         porc *= x / 100.0
 
-        movetime *= porc / 100.0
+        movetime_seconds *= porc / 100.0
 
-        movetime = max(random.randint(1, 4), movetime)
+        movetime_seconds = max(random.randint(1, 4), movetime_seconds)
 
         average_previous_user = game.average_mstime_user(5)
         if average_previous_user:
-            movetime = max(min(0.8 * average_previous_user / 1000, 60), movetime)  # max 1 minute
+            movetime_seconds = max(min(0.8 * average_previous_user / 1000, 60), movetime_seconds)  # max 1 minute
 
-        self.engine.set_humanize(movetime)
+        self.engine.set_humanize(movetime_seconds*factor)
 
     def log_open(self):
         if self.ficheroLog:

@@ -696,7 +696,7 @@ class Menu(QtWidgets.QMenu):
         self.setFont(f)
         return self
 
-    def opcion(self, key, label, icono=None, is_disabled=False, font_type=None, is_ckecked=False, toolTip: str = ""):
+    def opcion(self, key, label, icono=None, is_disabled=False, font_type=None, is_ckecked=None, toolTip: str = ""):
         if icono:
             accion = QtWidgets.QAction(icono, label, self)
         else:

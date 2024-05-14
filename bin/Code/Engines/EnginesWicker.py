@@ -57,7 +57,7 @@ class EngineManagerWicker(EngineManager.EngineManager):
 
     def check_book(self, game):
         if len(game) <= 2 and self.xbook is None:
-            if self.confMotor.book:
+            if self.confMotor.book and Util.exist_file(self.confMotor.book):
                 self.xbook = Books.Book("P", self.confMotor.book, self.confMotor.book, True)
                 self.xbook.polyglot()
             else:

@@ -83,7 +83,8 @@ class CPU:
         return orden
 
     def reprocesa(self):
-        self.procesa(self.orden)
+        self.ipc.read_again()
+        self.run()
 
     def reset_kibitzer(self):
         kibitzers = Kibitzers.Kibitzers()

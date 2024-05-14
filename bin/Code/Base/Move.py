@@ -215,12 +215,16 @@ class Move:
     def numMove(self):
         return self.position_before.num_moves
 
-    def listaSonidos(self):
+    def sounds_list(self):
         pgn = self.pgnBase
         li_medio = []
         li_final = []
         if pgn[0] == "O":
+            if pgn[-1] in "#+":
+                li_final = [pgn[-1],]
+                pgn = pgn[:-1]
             li_inicial = [pgn]
+
         else:
             if "=" in pgn:
                 ult = pgn[-1]
@@ -235,8 +239,6 @@ class Move:
             li_medio = [pgn[-2], pgn[-1]]
             pgn = pgn[:-2]
             li_inicial = list(pgn)
-            # if (not liInicial) or (not liInicial[0].isupper()):
-            #     liInicial.insert(0, "P")
 
         li = li_inicial
         li.extend(li_medio)

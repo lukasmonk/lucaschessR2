@@ -1001,7 +1001,7 @@ class Director:
 
         if is_right and is_shift and is_alt:
             pz_borrar = self.board.dameNomPiezaEn(a1h8)
-            menu = Controles.Menu(self.board)
+            menu = QTVarios.LCMenu(self.board)
             dicPieces = TrListas.dic_nom_pieces()
             icoPiece = self.board.piezas.icono
 

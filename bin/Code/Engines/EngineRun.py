@@ -611,8 +611,8 @@ class RunEngine:
         self.working = True
         self.put_line(line)
 
-    def set_humanize(self, movetime):
-        self.end_time_humanize = time.time() + movetime
+    def set_humanize(self, movetime_seconds):
+        self.end_time_humanize = time.time() + movetime_seconds
 
     def not_humanize(self):
         self.end_time_humanize = None

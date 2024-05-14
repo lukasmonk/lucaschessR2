@@ -47,6 +47,8 @@ class WSwissWorker(QtWidgets.QWidget):
         QtWidgets.QWidget.__init__(self)
 
         Code.list_engine_managers = EngineManager.ListEngineManagers()
+        Code.list_engine_managers.check_active_logs()
+
         self.swiss = Swiss.Swiss(name_swiss)
         self.swiss_work = SwissWork.SwissWork(self.swiss)
 
@@ -510,7 +512,7 @@ class WSwissWorker(QtWidgets.QWidget):
             else:
                 runSound = Code.runSound
             if self.configuration.x_sound_move:
-                runSound.play_list(move.listaSonidos())
+                runSound.play_list(move.sounds_list())
             if self.configuration.x_sound_beep:
                 runSound.playBeep()
 

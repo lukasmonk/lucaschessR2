@@ -926,6 +926,18 @@ class Configuration:
         except:
             pass
 
+    def log_engines_set(self, ok):
+        path_log = Util.opj(self.carpeta, "active_logs.engines")
+        if ok:
+            with open(path_log, "wt") as q:
+                q.write("x")
+        else:
+            Util.remove_file(path_log)
+            
+    def log_engines_check_active(self):
+        path_log = Util.opj(self.carpeta, "active_logs.engines")
+        return Util.exist_file(path_log)
+        
     def read_variables(self, nomVar):
         with UtilSQL.DictSQL(self.ficheroVariables) as db:
             resp = db[nomVar]

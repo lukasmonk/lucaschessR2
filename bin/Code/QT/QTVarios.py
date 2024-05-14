@@ -545,12 +545,13 @@ def rondoFolders(shuffle=True):
 
 
 class LCMenu(Controles.Menu):
-    def __init__(self, parent, puntos=None):
+    def __init__(self, parent, titulo=None, icono=None, is_disabled=False, puntos=None):
         configuration = Code.configuration
         if not puntos:
             puntos = configuration.x_menu_points
         bold = configuration.x_menu_bold
-        Controles.Menu.__init__(self, parent, puntos=puntos, bold=bold)
+        Controles.Menu.__init__(self, parent, titulo=titulo, icono=icono, is_disabled=is_disabled, puntos=puntos,
+                                bold=bold)
 
     def opcion(
             self,
@@ -559,18 +560,25 @@ class LCMenu(Controles.Menu):
             icono=None,
             is_disabled=False,
             font_type=None,
-            is_ckecked=False,
+            is_ckecked=None,
             toolTip: str = "",
     ):
         if icono is None:
             icono = Iconos.Empty()
 
-        Controles.Menu.opcion(
-            self, key, label, icono, is_disabled, font_type, is_ckecked, toolTip
-        )
+        if is_ckecked is not None:
+            icono = Iconos.Checked() if is_ckecked else Iconos.Unchecked()
+
+        Controles.Menu.opcion(self, key, label, icono, is_disabled, font_type, None, toolTip)
 
     def separador_blank(self):
         self.opcion(None, "")
+
+    def submenu(self, label, icono=None, is_disabled=False):
+        menu = LCMenu(self, label, icono, is_disabled)
+        menu.setFont(self.font())
+        self.addMenu(menu)
+        return menu
 
 
 class LCMenuRondo(LCMenu):

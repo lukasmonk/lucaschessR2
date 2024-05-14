@@ -473,6 +473,8 @@ class ManagerEntPos(Manager.Manager):
             self.thinking(True)
             self.rm_rival = self.xrival.play_game(self.game)
             self.thinking(False)
+            if self.rm_rival is None:
+                return
             from_sq, to_sq, promotion = (self.rm_rival.from_sq, self.rm_rival.to_sq, self.rm_rival.promotion)
 
         self.is_rival_thinking = False
