@@ -79,11 +79,11 @@ def filesize(file: str) -> int:
 
 
 def exist_file(file: str) -> bool:
-    return filesize(file) >= 0
+    return filesize(file) >= 0 if file else False
 
 
 def exist_folder(folder: str) -> bool:
-    return os.path.isdir(folder)
+    return os.path.isdir(folder) if folder else False
 
 
 def file_copy(origin: str, destino: str) -> bool:

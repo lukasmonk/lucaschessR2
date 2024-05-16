@@ -34,7 +34,7 @@ class WKibEngine(WKibCommon.WKibCommon):
         else:
             rotulo = _("Alternatives")
 
-        delegado = Delegados.EtiquetaPOS(True, siLineas=False) if self.with_figurines else None
+        delegado = Delegados.EtiquetaPOS(True, siLineas=False, siFondo=True) if self.with_figurines else None
         delegado_pgn = Delegados.LinePGN() if self.with_figurines else None
 
         self.color_done = QTUtil.qtColorRGB(231, 244, 254)

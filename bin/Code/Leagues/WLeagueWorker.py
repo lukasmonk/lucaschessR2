@@ -234,12 +234,13 @@ class WLeagueWorker(QtWidgets.QWidget):
             self.xengine[side].set_gui_dispatch(self.gui_dispatch)
 
             bk = rv.book
-            if not Util.exist_file(bk):
-                bk = None
-            if bk == "*":
-                bk = self.torneo.book()
-            if bk == "-":  # Puede que el torneo tenga "-"
-                bk = None
+            if bk:
+                if not Util.exist_file(bk):
+                    bk = None
+                if bk == "*":
+                    bk = self.torneo.book()
+                if bk == "-":  # Puede que el torneo tenga "-"
+                    bk = None
             if bk:
                 self.book[side] = Books.Book("P", bk, bk, True)
                 self.book[side].polyglot()

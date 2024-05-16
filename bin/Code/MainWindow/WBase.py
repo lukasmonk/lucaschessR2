@@ -683,7 +683,7 @@ class WBase(QtWidgets.QWidget):
 
         value = {"q": 1, "r": 2, "b": 3, "n": 4, "p": 5}
 
-        def xshow(max_num, tp, li, lb, num):
+        def xshow(tp, li, lb, num):
             html = "<small>%+d</small>" % num if num else ""
             li.sort(key=lambda x: value[x.lower()])
             for n, pz in enumerate(li):
@@ -694,9 +694,9 @@ class WBase(QtWidgets.QWidget):
                 html += '<img src="../Resources/IntFiles/Figs/%s%s.png" width="30" height="30">' % (tp, pz.lower())
             lb.set_text(html)
 
-        max_num = self.lb_capt_white.width() // 27
-        xshow(max_num, "b", d[True], self.lb_capt_white, xvpz if xvpz > 0 else 0)
-        xshow(max_num, "w", d[False], self.lb_capt_black, -xvpz if xvpz < 0 else 0)
+        # max_num = self.lb_capt_white.width() // 27
+        xshow("b", d[True], self.lb_capt_white, xvpz if xvpz > 0 else 0)
+        xshow("w", d[False], self.lb_capt_black, -xvpz if xvpz < 0 else 0)
         if self.lb_capt_white.isVisible():
             self.lb_capt_white.show()
             self.lb_capt_black.show()
