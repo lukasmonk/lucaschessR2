@@ -55,6 +55,7 @@ class WGames(QtWidgets.QWidget):
 
         self.is_temporary = wb_database.is_temporary
         self.changes = False
+        self.toolbar_save = False
 
         self.terminado = False  # singleShot
 
@@ -77,58 +78,49 @@ class WGames(QtWidgets.QWidget):
         self.status.setFixedHeight(22)
 
         # ToolBar
-        if si_select:
-            li_acciones_work = [
-                (_("Accept"), Iconos.Aceptar(), wb_database.tw_aceptar),
-                None,
-                (_("Cancel"), Iconos.Cancelar(), wb_database.tw_cancelar),
-                None,
-                (_("First"), Iconos.Inicio(), self.tw_gotop),
-                None,
-                (_("Last"), Iconos.Final(), self.tw_gobottom),
-                None,
-                (_("Filter"), Iconos.Filtrar(), self.tw_filtrar),
-                None,
-            ]
-        else:
-            li_acciones_work = [
-                (_("Close"), Iconos.MainMenu(), wb_database.tw_terminar),
-                None,
-                (_("Edit"), Iconos.Modificar(), self.tw_edit),
-                None,
-                (_("New"), Iconos.Nuevo(), self.tw_nuevo, _("Add a new game")),
-                None,
-                (_("Filter"), Iconos.Filtrar(), self.tw_filtrar),
-                None,
-                (_("First"), Iconos.Inicio(), self.tw_gotop),
-                None,
-                (_("Last"), Iconos.Final(), self.tw_gobottom),
-                None,
-                (_("Up"), Iconos.Arriba(), self.tw_up),
-                None,
-                (_("Down"), Iconos.Abajo(), self.tw_down),
-                None,
-                (_("Remove"), Iconos.Borrar(), self.tw_borrar),
-                None,
-                (_("Config"), Iconos.Configurar(), self.tw_configure),
-                None,
-                (_("Utilities"), Iconos.Utilidades(), self.tw_utilities),
-                None,
-                (_("Import"), Iconos.Import8(), self.tw_import),
-                None,
-                (_("Export"), Iconos.Export8(), self.tw_export),
-                None,
-                (_("Train"), Iconos.TrainStatic(), self.tw_train),
-                None,
-            ]
-
-        self.tbWork = QTVarios.LCTB(self, li_acciones_work)
+        self.tbWork = QTVarios.LCTB(self)
+        self.set_toolbar()
 
         ly_tb = Colocacion.H().control(self.tbWork)
 
         layout = Colocacion.V().otro(ly_tb).control(self.grid).control(self.status).margen(1)
 
         self.setLayout(layout)
+
+    def set_toolbar(self):
+        self.tbWork.clear()
+        add_tb = self.tbWork.new
+        if self.si_select:
+            add_tb(_("Accept"), Iconos.Aceptar(), self.wb_database.tw_aceptar)
+            add_tb(_("Cancel"), Iconos.Cancelar(), self.wb_database.tw_cancelar)
+            add_tb(_("First"), Iconos.Inicio(), self.tw_gotop)
+            add_tb(_("Last"), Iconos.Final(), self.tw_gobottom)
+            add_tb(_("Filter"), Iconos.Filtrar(), self.tw_filtrar)
+        else:
+            add_tb(_("Close"), Iconos.MainMenu(), self.wb_database.tw_terminar)
+            if self.changes and self.is_temporary:
+                add_tb(_("Save"), Iconos.Grabar(), self.tw_exportar_pgn)
+
+            add_tb(_("Edit"), Iconos.Modificar(), self.tw_edit)
+            add_tb(_("New"), Iconos.Nuevo(), self.tw_nuevo, _("Add a new game"))
+            add_tb(_("Filter"), Iconos.Filtrar(), self.tw_filtrar)
+            add_tb(_("First"), Iconos.Inicio(), self.tw_gotop)
+            add_tb(_("Last"), Iconos.Final(), self.tw_gobottom)
+            add_tb(_("Up"), Iconos.Arriba(), self.tw_up)
+            add_tb(_("Down"), Iconos.Abajo(), self.tw_down)
+            add_tb(_("Remove"), Iconos.Borrar(), self.tw_borrar)
+            add_tb(_("Config"), Iconos.Configurar(), self.tw_configure)
+            add_tb(_("Utilities"), Iconos.Utilidades(), self.tw_utilities)
+            add_tb(_("Import"), Iconos.Import8(), self.tw_import)
+            add_tb(_("Export"), Iconos.Export8(), self.tw_export)
+            add_tb(_("Train"), Iconos.TrainStatic(), self.tw_train)
+
+    def set_changes(self, ok):
+        if self.changes == ok:
+            return
+        self.changes = ok
+        if self.is_temporary:
+            self.set_toolbar()
 
     def tw_train(self):
         menu = QTVarios.LCMenu(self)
@@ -236,7 +228,7 @@ class WGames(QtWidgets.QWidget):
             nj = len(game)
             if nj > 1:
                 p = game.copia(nj - 2)
-                txt = "%s | " % p.pgnBaseRAW()
+                txt = "%s | " % p.pgn_base_raw()
             else:
                 txt = ""
             si_pte = self.db_games.if_there_are_records_to_read()
@@ -254,7 +246,7 @@ class WGames(QtWidgets.QWidget):
                     xpv = otro[: pos_apos - 1]
                     g = Game.Game()
                     g.read_xpv(xpv)
-                    pgn = g.pgnBaseRAW(translated=True)
+                    pgn = g.pgn_base_raw(translated=True)
                     where = where[:pos] + pgn + where[pos + len(wxpv) + pos_apos + 1:]
                 txt += " | %s: %s" % (_("Filter"), where)
             if si_pte:
@@ -288,7 +280,7 @@ class WGames(QtWidgets.QWidget):
         if new_value is None:
             return
         new_value = new_value.strip()
-        self.changes = True
+        self.set_changes(True)
 
         self.db_games.set_field(row, key, new_value)
 
@@ -436,7 +428,7 @@ class WGames(QtWidgets.QWidget):
         row = self.grid.recno()
         if row >= 0:
             fila_nueva = self.db_games.interchange(row, True)
-            self.changes = True
+            self.set_changes(True)
             if fila_nueva is not None:
                 self.grid.goto(fila_nueva, 0)
                 self.grid.refresh()
@@ -445,7 +437,7 @@ class WGames(QtWidgets.QWidget):
         row = self.grid.recno()
         if row >= 0:
             fila_nueva = self.db_games.interchange(row, False)
-            self.changes = True
+            self.set_changes(True)
             if fila_nueva is not None:
                 self.grid.goto(fila_nueva, 0)
                 self.grid.refresh()
@@ -470,7 +462,7 @@ class WGames(QtWidgets.QWidget):
                     self.grid_cambiado_registro(self, recno, None)
                 self.rehaz_columnas()
                 self.grid.refresh()
-                self.changes = True
+                self.set_changes(True)
 
             else:
                 QTUtil2.message_error(self, resp.mens_error)
@@ -512,7 +504,7 @@ class WGames(QtWidgets.QWidget):
             save_routine=self.edit_save,
         )
         if game:
-            self.changes = True
+            self.set_changes(True)
             self.edit_save(game.recno, game)
 
     def tw_nuevo(self):
@@ -664,7 +656,7 @@ class WGames(QtWidgets.QWidget):
                 return
 
             um = QTUtil2.working(self)
-            self.changes = True
+            self.set_changes(True)
             self.db_games.remove_list_recnos(li)
             if self.summaryActivo:
                 self.summaryActivo["games"] -= len(li)
@@ -955,7 +947,7 @@ class WGames(QtWidgets.QWidget):
                 um = QTUtil2.working(self)
                 lista = [x["KEY"] for x in lir]
                 self.db_games.remove_columns(lista)
-                self.changes = True
+                self.set_changes(True)
                 reinit = True
                 um.final()
 
@@ -1263,7 +1255,7 @@ class WGames(QtWidgets.QWidget):
             ap.xprocesa(game, tmp_bp)
 
             self.db_games.save_game_recno(recno, game)
-            self.changes = True
+            self.set_changes(True)
 
         ap.cached_end()
 
@@ -1394,9 +1386,10 @@ class WGames(QtWidgets.QWidget):
             dl_tmp.hide_duplicates()
         dbn.append_db(self.db_games, lista, dl_tmp)
         dbn.close()
-        self.changes = False
+        if not self.is_temporary:
+            self.changes = False
 
-    def tw_exportar_pgn(self, only_selected):
+    def tw_exportar_pgn(self, only_selected=False):
         w = WindowSavePGN.WSaveVarios(self, with_remcomments=True)
         if w.exec_():
             dic_result = w.dic_result
@@ -1429,7 +1422,7 @@ class WGames(QtWidgets.QWidget):
                     ws.write(pgn + "\n")
 
                 if not pb.is_canceled():
-                    self.changes = False
+                    self.set_changes(False)
                 pb.close()
                 ws.close()
 
@@ -1473,12 +1466,13 @@ class WGames(QtWidgets.QWidget):
                     li_data.append(self.db_games.field(recno, key))
                 game = self.db_games.read_game_recno(recno)
                 game_raw = Game.game_without_variations(game)
-                pgn = game_raw.pgnBaseRAW()
+                pgn = game_raw.pgn_base_raw()
                 li_data.append(pgn)
                 writer.writerow(li_data)
 
         if not pb.is_canceled():
-            self.changes = False
+            if not self.is_temporary:
+                self.changes = False
         pb.close()
         if not pb.is_canceled():
             Code.startfile(path_csv)
@@ -1493,7 +1487,7 @@ class WGames(QtWidgets.QWidget):
             dl_tmp.hide_duplicates()
         dl_tmp.show()
         self.db_games.import_pgns(files, dl_tmp)
-        self.changes = True
+        self.set_changes(True)
 
         self.rehaz_columnas()
         self.actualiza(True)
@@ -1512,7 +1506,7 @@ class WGames(QtWidgets.QWidget):
 
         dbn = DBgames.DBgames(path)
         self.db_games.append_db(dbn, range(dbn.all_reccount()), dl_tmp)
-        self.changes = True
+        self.set_changes(True)
 
         self.rehaz_columnas()
         self.actualiza(True)
@@ -1641,7 +1635,7 @@ class WGames(QtWidgets.QWidget):
                 n += 1
             pb.cerrar()
         self.db_games.commit()
-        self.changes = True
+        self.set_changes(True)
 
         self.rehaz_columnas()
         self.actualiza(True)
@@ -1701,7 +1695,7 @@ class WOptionsDatabase(QtWidgets.QDialog):
             Controles.PB(self, "", self.check_group).ponIcono(Iconos.BuscarC(), 16).ponToolTip(_("Group lists"))
         )
         ly_group = (
-            Colocacion.H().control(lb_group).control(self.ed_group).espacio(-10).control(self.bt_group).relleno(1)
+            Colocacion.H().control(lb_group).control(self.ed_group).espacio(-5).control(self.bt_group).relleno(1)
         )
 
         lb_subgroup_l1 = Controles.LB2P(self, _("Subgroup"))
@@ -1714,7 +1708,7 @@ class WOptionsDatabase(QtWidgets.QDialog):
             .espacio(40)
             .control(lb_subgroup_l1)
             .control(self.ed_subgroup_l1)
-            .espacio(-10)
+            .espacio(-5)
             .control(self.bt_subgroup_l1)
             .relleno(1)
         )
@@ -1729,7 +1723,7 @@ class WOptionsDatabase(QtWidgets.QDialog):
             .espacio(40)
             .control(lb_subgroup_l2)
             .control(self.ed_subgroup_l2)
-            .espacio(-10)
+            .espacio(-5)
             .control(self.bt_subgroup_l2)
             .relleno(1)
         )

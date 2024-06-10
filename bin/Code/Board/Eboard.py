@@ -136,6 +136,8 @@ class Eboard:
                 path_so = Util.opj(path_eboards, "libico.so")
             elif self.name == "Chessnut Evo":
                 path_so = Util.opj(path_eboards, "libevo.so")
+            elif self.name == "HOS Sensory":
+                path_so = Util.opj(path_eboards, "libhos.so")
             else:
                 path_so = Util.opj(path_eboards, "libucb.so")
             if os.path.isfile(path_so):
@@ -206,6 +208,8 @@ class Eboard:
                     path_dll = Util.opj(path_eboards, "ICO_DLL.dll")
                 elif self.name == "Chessnut Evo":
                     path_dll = Util.opj(path_eboards, "EVO_DLL.dll")
+                elif self.name == "HOS Sensory":
+                    path_dll = Util.opj(path_eboards, "HOS_DLL.dll")
                 else:
                     path_dll = Util.opj(path_eboards, "UCB_DLL.dll")
                 if os.path.isfile(path_dll):
@@ -406,6 +410,8 @@ class Eboard:
             return Iconos.Chessnut()
         elif board == "Chessnut Evo":
             return Iconos.Chessnut()
+        elif board == "HOS Sensory":
+            return Iconos.HOS()
         elif board == "iChessOne":
             return Iconos.IChessOne()
         elif board == "Millennium":

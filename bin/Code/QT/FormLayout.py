@@ -399,13 +399,8 @@ class BotonColor(QtWidgets.QPushButton):
         else:
             color = QtGui.QColor()
             color.setRgba(self.xcolor)
-        color = QtWidgets.QColorDialog.getColor(
-            color,
-            self.parentWidget(),
-            _("Color"),
-            QtWidgets.QColorDialog.ShowAlphaChannel | QtWidgets.QColorDialog.DontUseNativeDialog,
-        )
-        if color.isValid():
+        color = QTVarios.select_color(color)
+        if color:
             if self.siSTR:
                 self.set_color_foreground(color.name())
             else:

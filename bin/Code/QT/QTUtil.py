@@ -192,11 +192,11 @@ def desktop_height():
     return QtWidgets.QDesktopWidget().availableGeometry().height()
 
 
-def salirAplicacion(xid):
+def exit_application(xid):
     QtWidgets.QApplication.exit(xid)
 
 
-def ponPortapapeles(dato, tipo="t"):
+def set_clipboard(dato, tipo="t"):
     cb = QtWidgets.QApplication.clipboard()
     if tipo == "t":
         cb.setText(dato)

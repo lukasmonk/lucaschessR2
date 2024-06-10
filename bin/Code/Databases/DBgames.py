@@ -971,7 +971,7 @@ class DBgames:
 
         return None
 
-    def modify(self, recno, game_modificada):
+    def modify(self, recno, game_modificada: Game.Game):
         resp = Util.Record()
         resp.ok = True
         resp.changed = False
@@ -985,7 +985,7 @@ class DBgames:
             resp.mens_error = mens_error
             return resp
 
-        game_antigua = self.read_game_recno(recno)
+        game_antiguo = self.read_game_recno(recno)
         #
         # # La game antigua y la nueva son iguales ? no se hace nada.
         # if game_antigua == game_modificada:  # game.__eq__
@@ -1019,10 +1019,10 @@ class DBgames:
 
         # Summary
         if self.with_db_stat:
-            if game_antigua.get_tag("FEN") is None:
-                pv = game_antigua.pv()
+            if game_antiguo.get_tag("FEN") is None:
+                pv = game_antiguo.pv()
                 if pv:
-                    self.db_stat.append(pv, game_antigua.resultado(), r=-1)
+                    self.db_stat.append(pv, game_antiguo.resultado(), r=-1)
             if game_modificada.get_tag("FEN") is None:
                 pv = game_modificada.pv()
                 if pv:

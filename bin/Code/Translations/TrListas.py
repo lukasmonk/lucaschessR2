@@ -47,6 +47,10 @@ def dic_conv():
     return dConvTR[0]
 
 
+def conv_dic():
+    return {v: k for k, v in dConvTR[0].items()}
+
+
 def pon_pieces_lng(si_en):
     dConvTR[0] = {} if si_en else {"K": _("K"), "N": _("N"), "B": _("B"), "Q": _("Q"), "R": _("R")}
 

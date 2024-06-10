@@ -366,7 +366,7 @@ class WOpeningLines(LCDialog.LCDialog):
             if pv:
                 p = Game.Game()
                 p.read_pv(pv)
-                return p.pgnBaseRAW()
+                return p.pgn_base_raw()
             else:
                 return ""
 

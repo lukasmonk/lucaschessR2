@@ -7,7 +7,7 @@ from Code.Base.Constantes import (
     TB_REINIT,
     TB_TAKEBACK,
     TB_CONFIG,
-    TB_HELP,
+    TB_ADVICE,
     TB_NEXT,
     TB_UTILITIES,
     GT_WASHING_CREATE,
@@ -280,7 +280,7 @@ class ManagerWashingTactics(Manager.Manager):
         if not self.line:
             return
 
-        li_options = [TB_CLOSE, TB_HELP]
+        li_options = [TB_CLOSE, TB_ADVICE]
         self.set_toolbar(li_options)
 
         self.num_move = -1
@@ -320,7 +320,7 @@ class ManagerWashingTactics(Manager.Manager):
         if key == TB_CLOSE:
             self.end_game()
 
-        elif key == TB_HELP:
+        elif key == TB_ADVICE:
             self.get_help()
 
         elif key == TB_CONFIG:
@@ -416,7 +416,7 @@ class ManagerWashingTactics(Manager.Manager):
 
         self.errores += 1
         self.erroresEsteMov += 1
-        self.sigueHumano()
+        self.continue_human()
         return False
 
     def add_move(self, move, is_player_move):
@@ -679,7 +679,7 @@ class ManagerWashingCreate(Manager.Manager):
 
     def continue_analysis_human_move(self):
         self.analyze_begin()
-        Manager.Manager.sigueHumano(self)
+        Manager.Manager.continue_human(self)
 
     def player_has_moved(self, from_sq, to_sq, promotion=""):
         move = self.check_human_move(from_sq, to_sq, promotion)
@@ -791,7 +791,7 @@ class ManagerWashingCreate(Manager.Manager):
     def takeback(self):
         if len(self.game):
             self.analyze_terminate()
-            self.game.anulaUltimoMovimiento(self.is_human_side_white)
+            self.game.remove_last_move(self.is_human_side_white)
             self.game.assign_opening()
             self.goto_end()
             self.opening = Opening.OpeningPol(30, self.engine.elo)

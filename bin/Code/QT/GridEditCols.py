@@ -195,17 +195,15 @@ class EditCols(QtWidgets.QDialog):
                 negro = QtCore.Qt.black
                 rgb = column.rgbTexto
                 color = negro if rgb == -1 else QtGui.QColor(rgb)
-                color = QtWidgets.QColorDialog.getColor(color, self, _("Choose a color"),
-                                                        QtWidgets.QColorDialog.ShowAlphaChannel | QtWidgets.QColorDialog.DontUseNativeDialog)
-                if color.isValid():
+                color = QTVarios.select_color(color)
+                if color:
                     column.rgbTexto = -1 if color == negro else color.rgb()
             else:
                 blanco = QtCore.Qt.white
                 rgb = column.rgbFondo
                 color = blanco if rgb == -1 else QtGui.QColor(rgb)
-                color = QtWidgets.QColorDialog.getColor(color, self, _("Choose a color"),
-                                                        QtWidgets.QColorDialog.ShowAlphaChannel | QtWidgets.QColorDialog.DontUseNativeDialog)
-                if color.isValid():
+                color = QTVarios.select_color(color)
+                if color:
                     column.rgbFondo = -1 if color == blanco else color.rgb()
             column.ponQT()
 

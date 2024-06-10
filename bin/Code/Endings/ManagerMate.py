@@ -11,7 +11,7 @@ from Code.Base.Constantes import (
     TB_CLOSE,
     TB_REINIT,
     TB_CONFIG,
-    TB_HELP,
+    TB_ADVICE,
     TB_LEVEL,
     TB_QUIT,
     TB_RESIGN,
@@ -355,7 +355,7 @@ class ManagerMate(Manager.Manager):
         self.main_window.base.pgn.gotop()
 
         self.main_window.set_label1("<center><h1>%s</h1></center>" % _X(_("Mate in %1"), str(mate)))
-        self.board.exePulsadoNum = None
+        self.board.do_pressed_number = None
 
         self.lbNivel = self.main_window.base.lb_player_white.set_foreground_backgound(
             Code.dic_colors["MANAGERMATE_FOREGROUND"], Code.dic_colors["MANAGERMATE_BACKGROUND"])
@@ -395,7 +395,7 @@ class ManagerMate(Manager.Manager):
         elif key == TB_REINIT:
             self.repiteMate(False, self.numMov > 0)
 
-        elif key == TB_HELP:
+        elif key == TB_ADVICE:
             self.ayudaMate()
 
         else:
@@ -530,7 +530,7 @@ class ManagerMate(Manager.Manager):
         li = [TB_CLOSE]
         if self.mate > 1:
             li.append(TB_REINIT)
-        li.append(TB_HELP)
+        li.append(TB_ADVICE)
         self.set_toolbar(li)
         self.numMov = 0
         self.siAyuda = False

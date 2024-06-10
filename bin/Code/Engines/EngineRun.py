@@ -32,6 +32,7 @@ class RunEngine:
             self.xstdout_thread = self.xstdout_thread_base
 
         self.end_time_humanize = None
+        self.max_time_current = None
 
         self.name = name
 
@@ -56,7 +57,7 @@ class RunEngine:
         self.direxe = os.path.dirname(exe)
         self.priority = priority
         self.working = True
-        self.liBuffer = []
+        self.li_buffer = []
         self.starting = True
         self.best_move_done = True
         self.args = ["./%s" % os.path.basename(self.exe)]
@@ -139,36 +140,42 @@ class RunEngine:
 
     def get_lines(self):
         self.stdout_lock.acquire()
-        li = self.liBuffer
-        self.liBuffer = []
+        li = self.li_buffer
+        self.li_buffer = []
         self.stdout_lock.release()
         return li
 
     def hay_datos(self):
-        return len(self.liBuffer) > 0
+        return len(self.li_buffer) > 0
 
     def reset(self):
         self.stdout_lock.acquire()
         self.mrm = EngineResponse.MultiEngineResponse(self.name, self.is_white)
         self.stdout_lock.release()
 
+    def set_max_time_current(self, seconds):
+        self.max_time_current = (time.time() + seconds) if seconds else 0
+
     def xstdout_thread_base(self, stdout, lock):
-        # try:
         while self.working:
             line = stdout.readline()
             if not line:
                 break
+            if self.max_time_current:
+                if time.time() >= self.max_time_current:
+                    self.max_time_current = None
+                    self.put_line("stop")
             line = str(line, "latin-1", "ignore")
             if self.end_time_humanize:
                 if "bestmove" in line:
                     while time.time() < self.end_time_humanize and self.working:
                         time.sleep(0.1)
                         lock.acquire()
-                        self.liBuffer.append("info string humanizing")
+                        self.li_buffer.append("info string humanizing")
                         lock.release()
                     self.end_time_humanize = None
             lock.acquire()
-            self.liBuffer.append(line)
+            self.li_buffer.append(line)
             if self.direct_dispatch:
                 self.mrm.dispatch(line)
             lock.release()
@@ -176,12 +183,6 @@ class RunEngine:
                 self.log.write(line.strip() + "\n")
             if self.direct_dispatch and "bestmove" in line:
                 self.direct_dispatch()
-        # except Exception as e:
-        #     sys.stderr.write("\n" + Code.stack_lines(True) + "\n")
-        #     sys.stderr.write("\nException: %s\n" % str(e))
-        #     sys.stderr.write("Type: %s\n" % type(e))
-        #     sys.stderr.write("Error: %s\n%s\n" % (str(e.args), "-"*80))
-        # finally:
         stdout.close()
 
     def xstdout_thread_debug(self, stdout, lock):
@@ -190,18 +191,22 @@ class RunEngine:
                 line = stdout.readline()
                 if not line:
                     break
+                if self.max_time_current:
+                    if time.time() > self.max_time_current:
+                        self.max_time_current = None
+                        self.put_line("stop")
                 line = str(line, "latin-1", "ignore")
                 if self.end_time_humanize:
                     if "bestmove" in line:
                         while time.time() < self.end_time_humanize and self.working:
                             time.sleep(0.1)
                             lock.acquire()
-                            self.liBuffer.append("info string humanizing")
+                            self.li_buffer.append("info string humanizing")
                             lock.release()
                         self.end_time_humanize = None
                 Code.pr(self.name, line)
                 lock.acquire()
-                self.liBuffer.append(line)
+                self.li_buffer.append(line)
                 if self.direct_dispatch:
                     self.mrm.dispatch(line)
                 lock.release()

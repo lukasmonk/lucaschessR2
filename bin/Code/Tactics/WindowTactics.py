@@ -643,7 +643,7 @@ class WEditaTactica(LCDialog.LCDialog):
     def get_help(self):
         menu = QTVarios.LCMenu(self)
 
-        nico = QTVarios.rondoColores()
+        nico = QTVarios.rondo_colores()
 
         for opcion, txt in (
                 (self.remove_jumps, _("Without repetitions of each puzzle")),

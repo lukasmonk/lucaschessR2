@@ -509,7 +509,7 @@ class ManagerGM(Manager.Manager):
             self.engine_gm = motorgm
         self.restore_labels(labels)
         self.pgn_refresh(True)
-        self.repiteUltimaJugada()
+        self.repeat_last_movement()
         self.play_next_move()
 
     def adjourn(self):

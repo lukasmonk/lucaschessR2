@@ -215,7 +215,7 @@ class WWashing(LCDialog.LCDialog):
                 fich = name = li_resp[0]
                 if name.lower()[-4:] != ".wsm":
                     fich += ".wsm"
-                path = Util.opj(self.configuration.carpeta_results, fich)
+                path = Util.opj(self.configuration.folder_results, fich)
                 ok = True
                 if Util.exist_file(path):
                     ok = QTUtil2.pregunta(
@@ -228,7 +228,7 @@ class WWashing(LCDialog.LCDialog):
                     shutil.copy(self.dbwashing.file, path)
         elif resp == "restorefrom":
             li = []
-            for fich in os.listdir(self.configuration.carpeta_results):
+            for fich in os.listdir(self.configuration.folder_results):
                 if fich.endswith(".wsm") and fich != self.dbwashing.filename:
                     li.append(fich[:-4])
             if not li:
@@ -242,7 +242,7 @@ class WWashing(LCDialog.LCDialog):
                 if QTUtil2.pregunta(
                         self, "%s\n%s" % (_("Current data will be removed and overwritten."), _("Are you sure?"))
                 ):
-                    shutil.copy(Util.opj(self.configuration.carpeta_results, resp + ".wsm"), self.dbwashing.file)
+                    shutil.copy(Util.opj(self.configuration.folder_results, resp + ".wsm"), self.dbwashing.file)
                     self.wreload = True
                     self.save_video()
                     self.accept()

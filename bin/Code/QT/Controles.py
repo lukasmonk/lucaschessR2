@@ -372,7 +372,7 @@ class LB(QtWidgets.QLabel):
         self.setGeometry(rec)
         return self
 
-    def ponImagen(self, pm):
+    def put_image(self, pm):
         self.setPixmap(pm)
         return self
 
@@ -770,9 +770,9 @@ class TB(QtWidgets.QToolBar):
         if background:
             self.setStyleSheet("QWidget { background: %s }" % background)
 
-        self.ponAcciones(li_acciones)
+        self.set_actions(li_acciones)
 
-    def ponAcciones(self, li_acciones):
+    def set_actions(self, li_acciones):
         self.dic_toolbar = {}
         lista = []
         for datos in li_acciones:
@@ -797,7 +797,7 @@ class TB(QtWidgets.QToolBar):
 
     def reset(self, li_acciones):
         self.clear()
-        self.ponAcciones(li_acciones)
+        self.set_actions(li_acciones)
         self.update()
 
     def vertical(self):
@@ -850,7 +850,7 @@ class TBrutina(QtWidgets.QToolBar):
             self.setStyleSheet("QWidget { background: %s }" % background)
 
         if li_acciones:
-            self.ponAcciones(li_acciones)
+            self.set_actions(li_acciones)
 
         else:
             self.dic_toolbar = {}
@@ -872,7 +872,7 @@ class TBrutina(QtWidgets.QToolBar):
         if sep:
             self.addSeparator()
 
-    def ponAcciones(self, liAcc):
+    def set_actions(self, liAcc):
         self.dic_toolbar = {}
         self.li_acciones = []
         for datos in liAcc:
@@ -890,7 +890,7 @@ class TBrutina(QtWidgets.QToolBar):
 
     def reset(self, li_acciones):
         self.clear()
-        self.ponAcciones(li_acciones)
+        self.set_actions(li_acciones)
         self.update()
 
     def vertical(self):

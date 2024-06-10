@@ -437,7 +437,7 @@ class WPosicion(QtWidgets.QWidget):
                 tc = self.board.width_square * 8
                 self.pixmap = QtGui.QPixmap(path_png)
                 pm = self.pixmap.scaled(tc, tc)
-                self.lb_scanner.ponImagen(pm)
+                self.lb_scanner.put_image(pm)
                 self.lb_scanner.show()
                 self.gb_scanner.show()
                 self.scanner_deduce()
@@ -446,7 +446,7 @@ class WPosicion(QtWidgets.QWidget):
 
     def copiar(self):
         self.actPosicion()
-        QTUtil.ponPortapapeles(self.position.fen())
+        QTUtil.set_clipboard(self.position.fen())
         QTVarios.fen_is_in_clipboard(self)
 
     def clear_board(self):
@@ -533,7 +533,7 @@ class WPosicion(QtWidgets.QWidget):
         self.scanner_process()
         tc = self.board.width_square * 8
         pm = self.pixmap.scaled(tc, tc)
-        self.lb_scanner.ponImagen(pm)
+        self.lb_scanner.put_image(pm)
         self.lb_scanner.show()
         self.gb_scanner.show()
         self.scanner_deduce()

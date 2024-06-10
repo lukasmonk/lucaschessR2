@@ -207,7 +207,7 @@ class WEdMove(QtWidgets.QWidget):
             .capture_changes(self.miraPromocion)
         )
 
-        self.arrow = arrow = Controles.LB(self).ponImagen(Iconos.pmMover())
+        self.arrow = arrow = Controles.LB(self).put_image(Iconos.pmMover())
 
         self.destino = (
             EDCelda(self, "")
@@ -321,8 +321,8 @@ class WBlqMove(QtWidgets.QWidget):
         self.wm = WEdMove(self, conj_piezas, is_white)
         self.ms = Controles.LB(self, "")
         self.an = Controles.PB(self, "?", self.analizarUno, plano=False).anchoFijo(18)
-        self.cancelar = Controles.LB(self, "").ponImagen(Iconos.pmCancelarPeque())
-        self.aceptar = Controles.LB(self, "").ponImagen(Iconos.pmAceptarPeque())
+        self.cancelar = Controles.LB(self, "").put_image(Iconos.pmCancelarPeque())
+        self.aceptar = Controles.LB(self, "").put_image(Iconos.pmAceptarPeque())
         ly = (
             Colocacion.H()
             .control(self.aceptar)

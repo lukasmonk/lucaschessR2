@@ -67,10 +67,9 @@ class BotonColor(QtWidgets.QPushButton):
 
     def pulsado(self):
         ncolor = self.rut_actual()
-        color = QTUtil.qtColor(ncolor)
-        flag = QtWidgets.QColorDialog.ShowAlphaChannel | QtWidgets.QColorDialog.DontUseNativeDialog
-        color = QtWidgets.QColorDialog.getColor(color, self, _("Choose a color"), flag)
-        if color.isValid():
+        color_prev = QTUtil.qtColor(ncolor)
+        color = QTVarios.select_color(color_prev)
+        if color:
             self.rut_actual(color.rgba())
             self.rut_actualiza()
             self.set_color_foreground()
@@ -83,7 +82,7 @@ class BotonImagen(Colocacion.H):
         self.height = 32
         self.btImagen = Controles.PB(parent, "", self.cambiar)
         self.btImagen.setFixedSize(self.width, self.height)
-        self.btQuitar = Controles.PB(parent, "", self.quitaImagen).ponIcono(Iconos.Motor_No())
+        self.btQuitar = Controles.PB(parent, "", self.remove_image).ponIcono(Iconos.Motor_No())
         self.bt_asociado = bt_asociado
         self.parent = parent
 
@@ -93,18 +92,18 @@ class BotonImagen(Colocacion.H):
         self.control(self.btImagen)
         self.control(self.btQuitar)
 
-        self.ponImagen()
+        self.put_image()
 
     def setDisabled(self, si):
         self.btImagen.setDisabled(si)
         self.btQuitar.setDisabled(si)
 
-    def quitaImagen(self):
+    def remove_image(self):
         self.rut_actual("")
-        self.ponImagen()
+        self.put_image()
         self.rut_actualiza()
 
-    def ponImagen(self):
+    def put_image(self):
         png64 = self.rut_actual()
         if png64:
 
@@ -138,7 +137,7 @@ class BotonImagen(Colocacion.H):
                 configuration.write_variables("WindowColores", dic)
             with open(resp, "rb") as f:
                 self.rut_actual(base64.b64encode(f.read()))
-            self.ponImagen()
+            self.put_image()
             self.rut_actualiza()
 
 
@@ -159,7 +158,7 @@ class BotonFlecha(Colocacion.H):
         self.control(self.btFlecha)
         self.control(self.btQuitar)
 
-        self.ponImagen()
+        self.put_image()
 
     def setDisabled(self, si):
         self.btFlecha.setDisabled(si)
@@ -167,13 +166,13 @@ class BotonFlecha(Colocacion.H):
 
     def cambiaFlecha(self, nueva):
         self.rut_actual(nueva)
-        self.ponImagen()
+        self.put_image()
         self.rut_actualiza()
 
     def ponDefecto(self):
         self.cambiaFlecha(self.rut_defecto())
 
-    def ponImagen(self):
+    def put_image(self):
         bf = self.rut_actual()
         p = bf.physical_pos
         p.x = 0
@@ -238,8 +237,8 @@ class WBoardColors(LCDialog.LCDialog):
 
         self.boardOriginal = boardOriginal
         self.configuration = Code.configuration
-        self.config_board = boardOriginal.config_board.copia(boardOriginal.config_board._id)
-        self.is_base = boardOriginal.config_board._id == "BASE"
+        self.config_board = boardOriginal.config_board.copia(boardOriginal.config_board.id())
+        self.is_base = boardOriginal.config_board.id() == "BASE"
 
         factor_big_fonts = Code.factor_big_fonts
 
@@ -493,8 +492,6 @@ class WBoardColors(LCDialog.LCDialog):
             None,
             ("%s/%s" % (_("Save"), _("Save as")), Iconos.Grabar(), self.menu_save),
             None,
-            (_("Import"), Iconos.Import8(), self.importar),
-            None,
             (_("Export"), Iconos.Export8(), self.exportar),
             None,
             (_("Your themes"), Iconos.EditarColores(), self.browse_themes),
@@ -560,12 +557,12 @@ class WBoardColors(LCDialog.LCDialog):
 
         self.tb.set_action_title(self.browse_themes, self.cbTemas.currentText())
 
-        if not self.li_themes:
-            self.cbTemas.set_value(Code.path_resource("Themes", "Lucas.lktheme3"))
-            self.theme_changed()
-        else:
-            self.set_sections()
-            self.cambiadoSeccion()
+        # if not self.li_themes:
+        #     self.cbTemas.set_value(Code.path_resource("Themes", "Lucas.lktheme3"))
+        #     self.theme_changed()
+        # else:
+        self.set_sections()
+        self.cambiadoSeccion()
 
     def set_sections(self):
         previo = self.cbSecciones.valor()
@@ -644,29 +641,13 @@ class WBoardColors(LCDialog.LCDialog):
         self.save_video()
         self.reject()
 
-    def importar(self):
-        dr = self.configuration.read_variables("PCOLORES")
-        dir_base = dr["DIRBASE"] if dr else ""
-
-        fich = SelectFiles.leeFichero(self, dir_base, "lktheme3")
-        if fich:
-            dr["DIRBASE"] = os.path.dirname(fich)
-            self.configuration.write_variables("PCOLORES", dr)
-            obj = Util.restore_pickle(fich)
-            if obj:
-                if type(obj) == dict:
-                    li_temas = [obj]
-                else:
-                    li_temas = obj
-                self.read_own_themes()
-                self.li_themes.extend(li_temas)
-                self.save_own_themes()
-                self.set_sections()
-
     def exportar(self):
         dr = self.configuration.read_variables("PCOLORES")
-        dirBase = dr["DIRBASE"] if dr else ""
-        fich = SelectFiles.salvaFichero(self, _("Colors"), dirBase, "lktheme3", True)
+        dir_base = dr["DIRBASE"] if dr else ""
+        if self.current_theme.get("NOMBRE"):
+            dir_base = os.path.join(dir_base, self.current_theme.get("NOMBRE"))
+
+        fich = SelectFiles.salvaFichero(self, _("Colors"), dir_base, "lktheme3", True)
         if fich:
             dr["DIRBASE"] = os.path.dirname(fich)
             self.configuration.write_variables("PCOLORES", dr)
@@ -699,6 +680,7 @@ class WBoardColors(LCDialog.LCDialog):
                 if resp == "rename":
                     self.rename_theme(tema)
                     self.save_own_themes()
+                    self.set_sections()
                 elif resp == "delete":
                     name = tema.get("NOMBRE", "")
                     seccion = tema.get("SECCION", "")
@@ -714,7 +696,7 @@ class WBoardColors(LCDialog.LCDialog):
         ct = self.config_board
         self.chbTemas.set_value(False)
         self.themes_default()
-        self.sinElegir = False
+        # self.sinElegir = False
         ct.leeTema(tema["o_tema"])
 
         if "o_base" in tema:
@@ -726,15 +708,15 @@ class WBoardColors(LCDialog.LCDialog):
 
         ct = ct.copia(ct.id())  # para que los cambia captura no lo modifiquen
 
-        self.btBlancasPNG.ponImagen()
-        self.btNegrasPNG.ponImagen()
-        self.btFondoPNG.ponImagen()
-        self.btExteriorPNG.ponImagen()
+        self.btBlancasPNG.put_image()
+        self.btNegrasPNG.put_image()
+        self.btFondoPNG.put_image()
+        self.btExteriorPNG.put_image()
 
-        self.lyF.ponImagen()
-        self.lyFAlternativa.ponImagen()
-        self.lyFActual.ponImagen()
-        self.lyFRival.ponImagen()
+        self.lyF.put_image()
+        self.lyFAlternativa.put_image()
+        self.lyFActual.put_image()
+        self.lyFRival.put_image()
 
         self.cbCoordenadas.set_value(ct.nCoordenadas())
         self.chbDefCoordenadas.set_value(ct.siDefCoordenadas())
@@ -831,8 +813,6 @@ class WBoardColors(LCDialog.LCDialog):
         self.li_themes = Util.restore_pickle(file)
         if self.li_themes is None:
             self.li_themes = []
-        else:
-            self.li_themes.sort(key=lambda x: "%20s%s" % (x.get("SECCION", ""), x.get("NOMBRE")))
 
     @staticmethod
     def test_if_pieces(theme):
@@ -1297,7 +1277,7 @@ class WNameTheme(QtWidgets.QDialog):
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Dialog | QtCore.Qt.WindowTitleHint)
 
         lb_name = Controles.LB2P(self, _("Name"))
-        self.ed_name = Controles.ED(self, theme.get("NOMBRE", ""))
+        self.ed_name = Controles.ED(self, theme.get("NOMBRE", "")).anchoMinimo(400)
         ly_name = Colocacion.H().control(lb_name).control(self.ed_name)
 
         lb_section = Controles.LB2P(self, _("Section"))
@@ -1306,7 +1286,7 @@ class WNameTheme(QtWidgets.QDialog):
             Controles.PB(self, "", self.check_section).ponIcono(Iconos.BuscarC(), 16).ponToolTip(_("Section lists"))
         )
         ly_section = (
-            Colocacion.H().control(lb_section).control(self.ed_section).espacio(-10).control(bt_section).relleno(1)
+            Colocacion.H().control(lb_section).control(self.ed_section).espacio(-5).control(bt_section).relleno(1)
         )
 
         self.chb_pieces_set = Controles.CHB(self, _("Change piece set"), theme.get("CHANGE_PIECES", True))
@@ -1370,22 +1350,31 @@ class WBrowseThemes(LCDialog.LCDialog):
         self.owner = owner
         icono = Iconos.EditarColores()
         extparam = "WEditYourThemes"
-        LCDialog.LCDialog.__init__(self, owner, title, icono, extparam)
+        self.title = title
+        LCDialog.LCDialog.__init__(self, owner, title + f" ({len(li_themes)})", icono, extparam)
 
         self.is_own = is_own
         self.li_themes = li_themes
+
+        self.configuration = Code.configuration
 
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("SECCION", _("Section"), 150, edicion=Delegados.LineaTextoUTF8() if is_own else None)
         o_columns.nueva("NOMBRE", _("Name"), 150, edicion=Delegados.LineaTextoUTF8() if is_own else None)
         o_columns.nueva("BOARD", _("Board"), 200, edicion=DelegateBoard(self), is_editable=False)
-        self.grid = Grid.Grid(self, o_columns, is_editable=True, altoFila=200)
+        self.grid = Grid.Grid(self, o_columns, is_editable=True, altoFila=200, siSeleccionMultiple=True,
+                              siSelecFilas=True)
         self.grid.setMinimumWidth(self.grid.anchoColumnas() + 20)
 
         tb = QTVarios.LCTB(self)
         tb.new(_("Close"), Iconos.MainMenu(), self.aceptar)
         if is_own:
+            tb.new(_("Import"), Iconos.Import8(), self.importar)
+            tb.new(_("Export"), Iconos.Export8(), self.exportar)
+            tb.new(_("Up"), Iconos.Arriba(), self.up)
+            tb.new(_("Down"), Iconos.Abajo(), self.down)
             tb.new(_("Remove"), Iconos.Borrar(), self.remove)
+            tb.new(_("Utilities"), Iconos.Utilidades(), self.utilities)
 
         layout = Colocacion.V()
         layout.control(tb).control(self.grid)
@@ -1395,14 +1384,26 @@ class WBrowseThemes(LCDialog.LCDialog):
 
         self.restore_video(altoDefecto=560)
         self.grid.setFocus()
+        self.grid.gotop()
         self.changed = False
 
+    def check_save(self):
+        if self.changed:
+            Util.save_pickle(self.configuration.ficheroTemas, self.li_themes)
+
     def aceptar(self):
+        self.check_save()
         self.save_video()
         self.accept()
 
     def closeEvent(self, event):
+        self.check_save()
         self.save_video()
+
+    def set_changed(self):
+        self.changed = True
+        self.grid.refresh()
+        self.setWindowTitle(self.title + f" ({len(self.li_themes)})")
 
     def grid_num_datos(self, grid):
         return len(self.li_themes)
@@ -1410,7 +1411,9 @@ class WBrowseThemes(LCDialog.LCDialog):
     def grid_dato(self, grid, row, o_column):
         col = o_column.key
         theme = self.li_themes[row]
-        return theme.get(col, theme)
+        if col == "BOARD":
+            return theme
+        return theme[col]
 
     def grid_setvalue(self, grid, row, o_column, value):
         col = o_column.key
@@ -1419,8 +1422,7 @@ class WBrowseThemes(LCDialog.LCDialog):
         if col == "NOMBRE" and not value:
             return
         theme[col] = value
-        Util.save_pickle(Code.configuration.ficheroTemas, self.li_themes)
-        self.changed = True
+        self.set_changed()
 
     def grid_doble_click(self, grid, row, o_column):
         col = o_column.key
@@ -1436,19 +1438,155 @@ class WBrowseThemes(LCDialog.LCDialog):
         theme = self.li_themes[row]
         title = _("Name") if col == "NOMBRE" else _("Section")
 
-        resp = QTUtil2.read_simple(self, _("Your themes"), title, theme[col])
+        resp = QTUtil2.read_simple(self, _("Your themes"), title, theme[col], width=400)
         if resp is not None:
             self.grid_setvalue(grid, row, o_column, resp)
 
+    def grid_doubleclick_header(self, grid, o_column):
+        key = o_column.key
+        if key == "BOARD":
+            return
+
+        self.li_themes.sort(key=lambda theme: theme[key])
+        self.set_changed()
+        grid.gotop()
 
     def remove(self):
-        row = self.grid.recno()
-        if row >= 0:
-            theme = self.li_themes[row]
+        li = self.grid.recnosSeleccionados()
+        nli = len(li)
+        if nli > 0:
+            lista = []
+            for pos, row in enumerate(li, 1):
+                theme = self.li_themes[row]
+                lista.append(("" if nli == 1 else f"&nbsp;&nbsp;{pos}.") + theme["NOMBRE"] + "/" + theme["SECCION"])
+            pregunta = _("Remove") + ":<br><br>" + "<br>".join(lista) + "<br><br>" + _("Are you sure?")
+            if QTUtil2.pregunta(self, pregunta):
+                li.sort(reverse=True)
+                for pos in li:
+                    del self.li_themes[pos]
+                self.set_changed()
 
-            if QTUtil2.pregunta(self,
-                                _("Are you sure you want to remove %s?") % (
-                                        "<br>" + theme["NOMBRE"] + "/" + theme["SECCION"])):
-                self.li_themes.remove(theme)
-                Util.save_pickle(Code.configuration.ficheroTemas, self.li_themes)
-                self.changed = True
+    def utilities(self):
+        conf_board: ConfBoards.ConfigBoard = self.owner.board.config_board
+        menu = QTVarios.LCMenu(self)
+
+        rondo = QTVarios.rondo_colores()
+        rondo_op = QTVarios.rondo_puntos()
+
+        o_base: ConfBoards.ConfigTabBase = conf_board.o_base
+        submenu = menu.submenu(_("Copy values from main board to rest"), Iconos.Copiar())
+        submenu_coord = submenu.submenu(_("Coordinates"), rondo.otro())
+
+        dic_values = {}
+
+        def setting(smenu, xkey, xlabel, xvalue):
+            if type(xvalue) == str and xvalue in "SN":
+                xlabel += f' ({_("Yes") if xvalue == "S" else _("No")})'
+            else:
+                xlabel += f" ({xvalue})"
+            smenu.opcion(xkey, xlabel, rondo_op.otro())
+            dic_values[xkey] = xvalue
+
+        setting(submenu_coord, "x_nCoordenadas", _("Number"), o_base.x_nCoordenadas)
+        setting(submenu_coord, "x_tipoLetra", _("Font"), o_base.x_tipoLetra)
+        setting(submenu_coord, "x_cBold", _("Bold"), o_base.x_cBold)
+        setting(submenu_coord, "x_tamLetra", _("Size") + " %", o_base.x_tamLetra)
+        setting(submenu_coord, "x_sepLetras", _("Separation") + " %", o_base.x_sepLetras)
+
+        setting(submenu, "x_nomPiezas", _("Pieces"), o_base.x_nomPiezas)
+        setting(submenu, "x_tamRecuadro", _("Outer Border Size") + " %", o_base.x_tamRecuadro)
+        setting(submenu, "x_tamFrontera", _("Inner Border Size") + " %", o_base.x_tamFrontera)
+
+        key = menu.lanza()
+        if key:
+            value = dic_values[key]
+            for theme in self.li_themes:
+                theme["o_base"][key] = value
+            self.set_changed()
+
+    def exportar(self):
+        li = self.grid.recnosSeleccionados()
+        nli = len(li)
+        if nli > 0:
+            xall = True
+            if len(self.li_themes) > 1:
+                menu = QTVarios.LCMenu(self)
+                menu.opcion("all", _("All"), Iconos.PuntoVerde())
+                menu.separador()
+                menu.opcion("selected", _("Selection") + f" ({len(li)})", Iconos.PuntoVerde())
+                resp = menu.lanza()
+                if resp is None:
+                    return
+                xall = resp == "all"
+                if nli == 1 and xall:
+                    li = list(range(len(self.li_themes)))
+                    nli = len(li)
+
+            dr = self.configuration.read_variables("PCOLORES")
+            dir_base = dr["DIRBASE"] if dr else ""
+            if nli == 1:
+                dir_base = os.path.join(dir_base, self.li_themes[0]["NOMBRE"])
+            fich = SelectFiles.salvaFichero(self, _("Colors"), dir_base, "lktheme3", True)
+            if fich:
+                dr["DIRBASE"] = os.path.dirname(fich)
+                self.configuration.write_variables("PCOLORES", dr)
+                if not fich.lower().endswith("lktheme3"):
+                    fich += ".lktheme3"
+                if xall:
+                    li_themes_selected = self.li_themes
+                else:
+                    li_themes_selected = [self.li_themes[pos] for pos in li]
+                Util.save_pickle(fich, li_themes_selected)
+                QTUtil2.temporary_message(self, _("Saved"), 1.0)
+
+    def up(self):
+        recno = self.grid.recno()
+        if 0 < recno < len(self.li_themes):
+            self.li_themes[recno], self.li_themes[recno - 1] = self.li_themes[recno - 1], self.li_themes[recno]
+            self.set_changed()
+            self.grid.goto(recno - 1, 0)
+
+    def down(self):
+        recno = self.grid.recno()
+        if 0 <= recno < len(self.li_themes) - 1:
+            self.li_themes[recno], self.li_themes[recno + 1] = self.li_themes[recno + 1], self.li_themes[recno]
+            self.set_changed()
+            self.grid.goto(recno + 1, 0)
+
+    def importar(self):
+        dr = self.configuration.read_variables("PCOLORES")
+        dir_base = dr["DIRBASE"] if dr else ""
+
+        li_fich = SelectFiles.leeFicheros(self, dir_base, "lktheme3")
+        if li_fich:
+            dr["DIRBASE"] = os.path.dirname(li_fich[0])
+            self.configuration.write_variables("PCOLORES", dr)
+
+            dic_names = {theme["NOMBRE"]: pos for pos, theme in enumerate(self.li_themes)}
+
+            for fich in li_fich:
+                obj = Util.restore_pickle(fich)
+                if obj:
+                    if type(obj) == dict:
+                        li_themes_imported = [obj]
+                    else:
+                        li_themes_imported = obj
+                    for theme in li_themes_imported:
+                        name = theme["NOMBRE"]
+                        pos = -1
+                        if name in dic_names:
+                            yn = QTUtil2.question_withcancel(
+                                self,
+                                name + "<br>" + _("This name already exists, what do you want to do?"),
+                                si=_("Overwrite"),
+                                no=_("Append"),
+                                cancel=_("Discard")
+                            )
+                            if yn is None:
+                                continue
+                            pos = dic_names[name] if yn else -1
+                        if pos == -1:
+                            self.li_themes.append(theme)
+                        else:
+                            self.li_themes[pos] = theme
+                    self.set_changed()

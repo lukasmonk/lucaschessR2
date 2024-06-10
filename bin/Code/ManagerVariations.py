@@ -61,7 +61,7 @@ class ManagerVariations(Manager.Manager):
                 self.mueveJugada(GO_START)
                 move = self.game.move(0)
             else:
-                self.ponteEnJugada(go_to_move)
+                self.place_in_movement(go_to_move)
                 move = self.game.move(go_to_move)
             self.put_arrow_sc(move.from_sq, move.to_sq)
             self.disable_all()
@@ -125,7 +125,7 @@ class ManagerVariations(Manager.Manager):
         self.main_window.reject()
         return False
 
-    def ponteEnJugada(self, movenum):
+    def place_in_movement(self, movenum):
         row = (movenum + 1) / 2 if self.game.starts_with_black else movenum / 2
         move: Move.Move = self.game.move(movenum)
         is_white = move.position_before.is_white
@@ -135,7 +135,7 @@ class ManagerVariations(Manager.Manager):
 
     def takeback(self):
         if len(self.game):
-            self.game.anulaSoloUltimoMovimiento()
+            self.game.remove_only_last_movement()
             if not self.fen:
                 self.game.assign_opening()
             self.goto_end()

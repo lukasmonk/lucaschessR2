@@ -55,7 +55,7 @@ def read_engines(folder_engines):
     cm.set_uci_option("Threads", "2")
     cm.set_multipv(10, 218)
 
-    mas("alouette", "Roland Chastain", "0.1.4", "https://gitlab.com/rchastain/alouette", "Alouette-0.1.4", 689)
+    mas("alouette", "Roland Chastain", "0.1.4", "https://codeberg.org/rchastain/alouette", "Alouette-0.1.4", 800)
 
     mas("amoeba", "Richard Delorme", "2.6", "https://github.com/abulmo/amoeba", "Amoeba-2.6", 2911,
         nodes_compatible=True)

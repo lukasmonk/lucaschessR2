@@ -374,7 +374,7 @@ class AnalyzeGame:
         p = Game.Game(fen=fen)
         rm = mrm.li_rm[0]
         p.read_pv(rm.pv)
-        self.xsave_extra("file", file, f"{fen}||{p.pgnBaseRAW()}|{cab} {game_raw.pgnBaseRAWcopy(None, njg - 1)}")
+        self.xsave_extra("file", file, f"{fen}||{p.pgn_base_raw()}|{cab} {game_raw.pgn_base_raw_copy(None, njg - 1)}")
 
     def graba_tactic(self, game, njg, mrm, pos_act):
         if not self.tacticblunders:
@@ -422,7 +422,7 @@ class AnalyzeGame:
         p.read_pv(rm.pv)
 
         path = Util.opj(self.tacticblunders, before)
-        texto = "%s||%s|%s%s\n" % (fen, p.pgnBaseRAW(), cab, game.pgnBaseRAWcopy(None, njg - 1))
+        texto = "%s||%s|%s%s\n" % (fen, p.pgn_base_raw(), cab, game.pgn_base_raw_copy(None, njg - 1))
         self.xsave_extra("file", path, texto)
 
         fen = move.position.fen()
@@ -432,7 +432,7 @@ class AnalyzeGame:
         p.read_pv(" ".join(li[1:]))
 
         path = Util.opj(self.tacticblunders, after)
-        texto = "%s||%s|%s%s\n" % (fen, p.pgnBaseRAW(), cab, game.pgnBaseRAWcopy(None, njg))
+        texto = "%s||%s|%s%s\n" % (fen, p.pgn_base_raw(), cab, game.pgn_base_raw_copy(None, njg))
         self.xsave_extra("file", path, texto)
 
         self.siTacticBlunders = True

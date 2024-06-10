@@ -13,7 +13,7 @@ def edit_variation(procesador, game, titulo=None, with_engine_active=False, is_c
     procesador_variations.manager = manager_variations
 
     if titulo is None:
-        titulo = game.pgnBaseRAW()
+        titulo = game.pgn_base_raw()
 
     procesador_variations.main_window.show_variations(titulo)
 
@@ -30,7 +30,7 @@ def edit_variation_moves(procesador, window, is_white_bottom, fen, linea_pgn, ti
     procesador_variations.manager = manager_variations
 
     if titulo is None:
-        titulo = game.pgnBaseRAW()
+        titulo = game.pgn_base_raw()
 
     procesador_variations.main_window.show_variations(titulo)
 

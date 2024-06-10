@@ -193,7 +193,7 @@ class TabTree(QtWidgets.QWidget):
             d = Move.dicHTMLFigs
             lc = []
             white = True
-            for c in gamebase.pgnBaseRAW():
+            for c in gamebase.pgn_base_raw():
                 if c == " ":
                     white = not white
                 else:
@@ -203,7 +203,7 @@ class TabTree(QtWidgets.QWidget):
             pgn = "".join(lc)
         else:
             translated = Code.configuration.x_translator != "en" and not Code.configuration.x_pgn_english
-            pgn = gamebase.pgnBaseRAW(translated=translated)
+            pgn = gamebase.pgn_base_raw(translated=translated)
 
         self.pgn_initial = pgn
         self.lb_analisis = Controles.LB(self, self.pgn_initial)
@@ -220,7 +220,7 @@ class TabTree(QtWidgets.QWidget):
         item = self.tree.currentItem()
         if item:
             data_item = self.dicItems[str(item)]
-            self.lb_analisis.set_text(data_item.game())
+            self.lb_analisis.set_text(data_item.game_figurines())
             lipv = data_item.list_pv()
             li_moves_childs = [xchild.move for xchild in data_item.dicHijos.values()]
             self.tabsAnalisis.panelOpening.goto_next_lipv(lipv, li_moves_childs)
@@ -385,13 +385,7 @@ class TabTree(QtWidgets.QWidget):
         data_item = self.dicItems[str(item)]
         lipv = data_item.list_pv()
         a1h8 = " ".join(lipv)
-        pgn = data_item.game()
-        while "<" in pgn:
-            pos_ini = pgn.index("<")
-            pos_end = pgn.find(">")
-            if pos_end == -1:
-                break
-            pgn = pgn[:pos_ini] + pgn[pos_end+1:]
+        pgn = data_item.game_translated()
 
         form = FormLayout.FormLayout(self, _("File"), Iconos.File(), anchoMinimo=300)
         form.separador()
@@ -426,7 +420,7 @@ class TabTree(QtWidgets.QWidget):
         data_item = self.dicItems[str(item)]
         lipv = data_item.list_pv()
         a1h8 = " ".join(lipv)
-        pgn = data_item.game()
+        pgn = data_item.game_translated()
         if not self.tabsAnalisis.panelOpening.remove_pv(pgn, a1h8):
             return
 

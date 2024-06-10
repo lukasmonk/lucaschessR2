@@ -1,5 +1,4 @@
 from PySide2 import QtWidgets, QtCore
-from PySide2.QtCore import QPropertyAnimation
 from PySide2.QtWidgets import QProgressBar
 
 import Code
@@ -9,7 +8,6 @@ from Code.QT import FormLayout, Iconos
 
 
 class AnalysisBar(QProgressBar):
-    animation: QPropertyAnimation
 
     def __init__(self, w_parent, board):
         QtWidgets.QProgressBar.__init__(self, w_parent)
@@ -24,6 +22,10 @@ class AnalysisBar(QProgressBar):
         self.setValue(5000)
         self.setTextVisible(False)
         self.timer = None
+        self.activated = False
+        self.value_objective = 0
+        self.acercando = False
+
         self.interval = Code.configuration.x_analyzer_mstime_refresh_ab
 
         b, w = Code.dic_colors["BLACK_ANALYSIS_BAR"], Code.dic_colors["WHITE_ANALYSIS_BAR"]
@@ -34,8 +36,6 @@ class AnalysisBar(QProgressBar):
         self.cache = {}
         self.xpv = None
         self.game = None
-
-        self.animation = QPropertyAnimation(targetObject=self, propertyName=b"value")
 
         self.board.set_analysis_bar(self)
         self.previous_board = None
@@ -49,6 +49,7 @@ class AnalysisBar(QProgressBar):
                 self.previous_board = new
 
     def activate(self, ok):
+        self.activated =ok
         self.setVisible(ok)
         if ok:
             if self.engine_manager is None:
@@ -169,13 +170,24 @@ class AnalysisBar(QProgressBar):
         super().mousePressEvent(event)
 
     def update_value(self, value):
-        self.animation.stop()
-        desde = self.value()
-        hasta = value
-        tm = abs(desde - hasta) * 1000 // 10000
-        if tm == 0:
+        if not self.activated:
             return
-        self.animation.setDuration(tm)
-        self.animation.setStartValue(self.value())
-        self.animation.setEndValue(value)
-        self.animation.start()
+        self.value_objective = value
+        if not self.acercando:
+            self.goto_objective()
+
+    def goto_objective(self):
+        if not self.activated:
+            self.acercando = False
+            return
+        value = self.value()
+        if value != self.value_objective:
+            velocidad = max(abs(self.value_objective - value) // 50, 1)
+            self.acercando = True
+            add = +1 if self.value_objective > value else -1
+            self.setValue(value + add*velocidad)
+            self.update()
+            QtCore.QTimer.singleShot(2, self.goto_objective)
+        else:
+            self.acercando = False
+

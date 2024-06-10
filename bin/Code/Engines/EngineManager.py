@@ -44,11 +44,11 @@ class ListEngineManagers:
                 else:
                     engine_manager.log_close()
             self.with_logs = ok
-            
+
     def set_active_logs(self):
         # Tournaments/Leagues/Swiss
         Code.configuration.log_engines_set(self.with_logs)
-            
+
     def check_active_logs(self):
         if Code.configuration.log_engines_check_active():
             self.with_logs = True
@@ -220,6 +220,10 @@ class EngineManager:
             mseconds_move = int(seconds_move * 1000) if seconds_move else 0
             mrm = self.engine.bestmove_time(game, mseconds_white, mseconds_black, mseconds_move)
         return mrm
+
+    def play_game_raw(self, game):
+        self.check_engine()
+        return self.engine.bestmove_game(game, self.mstime_engine, self.depth_engine)
 
     def play_game(self, game, adjusted=0):
         self.check_engine()
@@ -493,9 +497,12 @@ class EngineManager:
         return mrm.best_rm_ordered()
 
     def play_time_routine(
-            self, game, routine_return, seconds_white, seconds_black, seconds_move, adjusted=0, factor_humanize=0
+            self, game, routine_return, seconds_white, seconds_black, seconds_move, adjusted=0, factor_humanize=0,
+            limit_time_seconds=None
     ):
         self.check_engine()
+
+        self.engine.set_max_time_current(limit_time_seconds)
 
         def play_return(mrm):
             if self.engine:
@@ -567,7 +574,7 @@ class EngineManager:
         if average_previous_user:
             movetime_seconds = max(min(0.8 * average_previous_user / 1000, 60), movetime_seconds)  # max 1 minute
 
-        self.engine.set_humanize(movetime_seconds*factor)
+        self.engine.set_humanize(movetime_seconds * factor)
 
     def log_open(self):
         if self.ficheroLog:

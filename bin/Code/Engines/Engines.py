@@ -51,7 +51,7 @@ class Engine:
         return self.is_external if self.nodes_compatible is None else self.nodes_compatible
 
     def save(self):
-        return Util.save_obj_pickle(self)
+        return Util.save_obj_pickle(self, li_exclude=["ICON",])
 
     def restore(self, txt):
         Util.restore_obj_pickle(self, txt)

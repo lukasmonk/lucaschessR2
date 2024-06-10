@@ -1,0 +1,3 @@
+id name Alouette 0.1.7
+id author Roland Chastain
+option name UCI_Chess960 type check default false

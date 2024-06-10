@@ -10,7 +10,6 @@ import sys
 import warnings
 
 import Code
-from Code.Translations import Translate
 
 warnings.simplefilter("ignore")
 
@@ -33,9 +32,9 @@ elif n_args >= 2:
         Code.Kibitzers.RunKibitzer.run(sys.argv[2])
 
     elif arg == "-translate":
-        import Code.Translations.RunTranslate
+        from Code.Translations.RunTranslate import run_wtranslation
 
-        Code.Translations.RunTranslate.run_wtranslation(sys.argv[2])
+        run_wtranslation(sys.argv[2])
 
     elif arg == "-tournament":
         import Code.Tournaments.RunTournament

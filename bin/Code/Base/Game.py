@@ -117,6 +117,7 @@ class Game:
         return Util.var2zip(dic)
 
     def restore(self, btxt_save):
+        self.reset()
         dic = Util.zip2var(btxt_save)
         if not dic:
             return
@@ -259,6 +260,136 @@ class Game:
     def pgn_tags(self):
         return "\n".join(['[%s "%s"]' % (k, v) for k, v in self.li_tags])
 
+    def pgn_base_raw(self, movenum=None, translated=False):
+        resp = ""
+        if movenum is None:
+            if self.first_comment:
+                resp = "{%s} " % self.first_comment
+            movenum = self.primeraJugada()
+        if self.starts_with_black:
+            resp += "%d... " % movenum
+            movenum += 1
+            salta = 1
+        else:
+            salta = 0
+        for n, move in enumerate(self.li_moves):
+            if n % 2 == salta:
+                resp += " %d." % movenum
+                movenum += 1
+            if translated:
+                resp += move.pgn_translated() + " "
+            else:
+                resp += move.pgnEN() + " "
+
+        resp = resp.replace("\r\n", " ").replace("\n", " ").replace("\r", " ").strip()
+        while "  " in resp:
+            resp = resp.replace("  ", " ")
+
+        return resp
+
+    def pgn_base(self, movenum=None, translated=False):
+        resp = self.pgn_base_raw(movenum, translated=translated)
+        li = []
+        ln = len(resp)
+        pos = 0
+        while pos < ln:
+            while resp[pos] == " ":
+                pos += 1
+            final = pos + 80
+            txt = resp[pos:final]
+            if txt[-1] == " ":
+                txt = txt[:-1]
+            elif final < ln:
+                if resp[final] == " ":
+                    final += 1
+                else:
+                    while final > pos and resp[final - 1] != " ":
+                        final -= 1
+                    if final > pos:
+                        txt = resp[pos:final]
+                    else:
+                        final = pos + 80
+            li.append(txt)
+            pos = final
+        if li:
+            li[-1] = li[-1].strip()
+            return "\n".join(li)
+        else:
+            return ""
+
+    def pgn_translated(self, movenum=None, hastaJugada=9999):
+        if self.first_comment:
+            resp = "{%s} " % self.first_comment
+        else:
+            resp = ""
+        if movenum is None:
+            movenum = self.primeraJugada()
+        if self.starts_with_black:
+            resp += "%d..." % movenum
+            movenum += 1
+            salta = 1
+        else:
+            salta = 0
+        for n, move in enumerate(self.li_moves):
+            if n > hastaJugada:
+                break
+            if n % 2 == salta:
+                resp += "%d." % movenum
+                movenum += 1
+
+            pgn = move.pgn_translated()
+            if n == len(self) - 1:
+                if self.termination == TERMINATION_MATE and not pgn.endswith("#"):
+                    pgn += "#"
+
+            resp += pgn + " "
+
+        return resp.strip()
+
+    def pgn_html(self, movenum=None, hastaJugada=9999, with_figurines=True):
+        li_resp = []
+        if self.first_comment:
+            li_resp.append("{%s}" % self.first_comment)
+        if movenum is None:
+            movenum = self.primeraJugada()
+        if self.starts_with_black:
+            li_resp.append('<span style="color:navy">%d...</span>' % movenum)
+            movenum += 1
+            salta = 1
+        else:
+            salta = 0
+        for n, move in enumerate(self.li_moves):
+            if n > hastaJugada:
+                break
+            if n % 2 == salta:
+                x = '<span style="color:navy">%d.</span>' % movenum
+                movenum += 1
+            else:
+                x = ""
+            li_resp.append(x + (move.pgn_html(with_figurines)))
+        return " ".join(li_resp)
+
+    def pgn_base_raw_copy(self, movenum, hasta_jugada):
+        resp = ""
+        if movenum is None:
+            movenum = self.primeraJugada()
+        if self.starts_with_black:
+            resp += "%d... " % movenum
+            movenum += 1
+            salta = 1
+        else:
+            salta = 0
+        for n, move in enumerate(self.li_moves[: hasta_jugada + 1]):
+            if n % 2 == salta:
+                resp += " %d." % movenum
+                movenum += 1
+
+            resp += move.pgnEN() + " "
+
+        resp = resp.replace("\n", " ").replace("\r", " ").replace("  ", " ").strip()
+
+        return resp
+
     def titulo(self, *litags, sep=" ∣ "):
         li = []
         for key in litags:
@@ -358,8 +489,8 @@ class Game:
     def last_jg(self):
         return self.li_moves[-1] if self.li_moves else None
 
-    def assign_other_game(self, otra):
-        txt = otra.save()
+    def assign_other_game(self, other):
+        txt = other.save()
         self.restore(txt)
 
     def si3repetidas(self):
@@ -433,129 +564,17 @@ class Game:
     def is_white(self):
         return self.last_position.is_white
 
+    def is_white_top(self):
+        return self.first_position.is_white
+
     def is_draw(self):
         return self.result == RESULT_DRAW
-
-    def pgnBaseRAW(self, movenum=None, translated=False):
-        resp = ""
-        if movenum is None:
-            if self.first_comment:
-                resp = "{%s} " % self.first_comment
-            movenum = self.primeraJugada()
-        if self.starts_with_black:
-            resp += "%d... " % movenum
-            movenum += 1
-            salta = 1
-        else:
-            salta = 0
-        for n, move in enumerate(self.li_moves):
-            if n % 2 == salta:
-                resp += " %d." % movenum
-                movenum += 1
-            if translated:
-                resp += move.pgn_translated() + " "
-            else:
-                resp += move.pgnEN() + " "
-
-        resp = resp.replace("\r\n", " ").replace("\n", " ").replace("\r", " ").strip()
-        while "  " in resp:
-            resp = resp.replace("  ", " ")
-
-        return resp
-
-    def pgn_base(self, movenum=None, translated=False):
-        resp = self.pgnBaseRAW(movenum, translated=translated)
-        li = []
-        ln = len(resp)
-        pos = 0
-        while pos < ln:
-            while resp[pos] == " ":
-                pos += 1
-            final = pos + 80
-            txt = resp[pos:final]
-            if txt[-1] == " ":
-                txt = txt[:-1]
-            elif final < ln:
-                if resp[final] == " ":
-                    final += 1
-                else:
-                    while final > pos and resp[final - 1] != " ":
-                        final -= 1
-                    if final > pos:
-                        txt = resp[pos:final]
-                    else:
-                        final = pos + 80
-            li.append(txt)
-            pos = final
-        if li:
-            li[-1] = li[-1].strip()
-            return "\n".join(li)
-        else:
-            return ""
 
     def set_first_comment(self, txt, siReplace=False):
         if siReplace or not self.first_comment:
             self.first_comment = txt
         elif txt not in self.first_comment:
             self.first_comment = "%s\n%s" % (self.first_comment.strip(), txt)
-
-    def pgn_jg(self, move):
-        pgn = move.pgn_figurines() if Code.configuration.x_pgn_withfigurines else move.pgn_translated()
-        if self.termination == TERMINATION_MATE and move == self.last_jg():
-            pgn += "#"
-        return pgn
-
-    def pgn_translated(self, movenum=None, hastaJugada=9999):
-        if self.first_comment:
-            resp = "{%s} " % self.first_comment
-        else:
-            resp = ""
-        if movenum is None:
-            movenum = self.primeraJugada()
-        if self.starts_with_black:
-            resp += "%d..." % movenum
-            movenum += 1
-            salta = 1
-        else:
-            salta = 0
-        for n, move in enumerate(self.li_moves):
-            if n > hastaJugada:
-                break
-            if n % 2 == salta:
-                resp += "%d." % movenum
-                movenum += 1
-
-            pgn = move.pgn_translated()
-            if n == len(self) - 1:
-                if self.termination == TERMINATION_MATE and not pgn.endswith("#"):
-                    pgn += "#"
-
-            resp += pgn + " "
-
-        return resp.strip()
-
-    def pgn_html(self, movenum=None, hastaJugada=9999, with_figurines=True):
-        li_resp = []
-        if self.first_comment:
-            li_resp.append("{%s}" % self.first_comment)
-        if movenum is None:
-            movenum = self.primeraJugada()
-        if self.starts_with_black:
-            li_resp.append('<span style="color:navy">%d...</span>' % movenum)
-            movenum += 1
-            salta = 1
-        else:
-            salta = 0
-        for n, move in enumerate(self.li_moves):
-            if n > hastaJugada:
-                break
-            if n % 2 == salta:
-                x = '<span style="color:navy">%d.</span>' % movenum
-                movenum += 1
-            else:
-                x = ""
-            li_resp.append(x + (move.pgn_html(with_figurines)))
-        return " ".join(li_resp)
 
     def is_finished(self):
         if self.termination != TERMINATION_UNKNOWN or self.result != RESULT_UNKNOWN:
@@ -640,7 +659,7 @@ class Game:
     def pv_hasta(self, njug):
         return " ".join([move.movimiento() for move in self.li_moves[: njug + 1]])
 
-    def anulaUltimoMovimiento(self, is_white):
+    def remove_last_move(self, is_white):
         del self.li_moves[-1]
         self.set_unknown()
         ndel = 1
@@ -650,7 +669,7 @@ class Game:
         self.assign_opening()
         return ndel
 
-    def anulaSoloUltimoMovimiento(self):
+    def remove_only_last_movement(self):
         if self.li_moves:
             move = self.li_moves[-1]
             del self.li_moves[-1]
@@ -685,27 +704,6 @@ class Game:
         p = Game(cp)
         p.li_moves = [move.clone(p) for move in self.li_moves[from_move:]]
         return p
-
-    def pgnBaseRAWcopy(self, movenum, hastaJugada):
-        resp = ""
-        if movenum is None:
-            movenum = self.primeraJugada()
-        if self.starts_with_black:
-            resp += "%d... " % movenum
-            movenum += 1
-            salta = 1
-        else:
-            salta = 0
-        for n, move in enumerate(self.li_moves[: hastaJugada + 1]):
-            if n % 2 == salta:
-                resp += " %d." % movenum
-                movenum += 1
-
-            resp += move.pgnEN() + " "
-
-        resp = resp.replace("\n", " ").replace("\r", " ").replace("  ", " ").strip()
-
-        return resp
 
     def resign(self, is_white):
         self.set_termination(TERMINATION_RESIGN, RESULT_WIN_BLACK if is_white else RESULT_WIN_WHITE)
@@ -813,7 +811,7 @@ class Game:
 
         return elos
 
-    def calc_elosFORM(self, configuration):
+    def calc_elos_form(self, configuration):
         for move in self.li_moves:
             move.is_book = False
         if self.is_fen_initial():
@@ -1077,7 +1075,7 @@ def lipv_lipgn(lipv):
 def pv_pgn_raw(fen, pv):
     p = Game(fen=fen)
     p.read_pv(pv)
-    return p.pgnBaseRAW()
+    return p.pgn_base_raw()
 
 
 def pgn_game(pgn):

@@ -128,7 +128,7 @@ class WKibLinea(QtWidgets.QDialog):
                     game = Game.Game(first_position=self.game.last_position)
                     game.read_pv(rm.pv)
                     if len(game):
-                        pgn = game.pgnBaseRAW()
+                        pgn = game.pgn_base_raw()
                         if Code.configuration.x_pgn_withfigurines:
                             d = Move.dicHTMLFigs
                             lc = []
@@ -305,7 +305,7 @@ class WKibLinea(QtWidgets.QDialog):
     def orden_game(self, game: Game.Game):
         posicion = game.last_position
 
-        self.siW = posicion.is_white
+        self.is_white = posicion.is_white
 
         self.escribe("stop")
 

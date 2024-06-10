@@ -312,7 +312,7 @@ class ManagerOpeningEngines(Manager.Manager):
         for pos, move in enumerate(lista, 1):
             if self.is_canceled():
                 break
-            self.ponteEnJugada(move.njg)
+            self.place_in_movement(move.njg)
             self.waiting_message(with_cancel=True, masTitulo="%d/%d" % (pos, total))
             name = self.xanalyzer.name
             vtime = self.xanalyzer.mstime_engine
@@ -333,6 +333,14 @@ class ManagerOpeningEngines(Manager.Manager):
                 move_max += 1
 
         return move_max < total  # si todos son lo máximo aunque pierda algo hay que darlo por probado
+
+    def place_in_movement(self, movenum):
+        row = (movenum + 1) / 2 if self.game.starts_with_black else movenum / 2
+        move: Move.Move = self.game.move(movenum)
+        is_white = move.position_before.is_white
+        self.main_window.pgnColocate(row, is_white)
+        self.set_position(move.position)
+        self.put_view()
 
     def waiting_message(self, siFinal=False, with_cancel=False, masTitulo=None):
         if siFinal:
@@ -355,8 +363,8 @@ class ManagerOpeningEngines(Manager.Manager):
         return si
 
     def runcontrol(self):
-        puntosInicio, mateInicio = 0, 0
-        puntosFinal, mateFinal = 0, 0
+        puntos_inicio, mate_inicio = 0, 0
+        puntos_final, mate_final = 0, 0
         num_moves = len(self.game)
         if num_moves == 0:
             return False
@@ -395,7 +403,7 @@ class ManagerOpeningEngines(Manager.Manager):
             else:
                 return -rm.puntos, -rm.mate
 
-        siCalcularInicio = True
+        si_calcular_inicio = True
         if self.game.is_finished():
             self.set_end_game()
             move = self.game.move(-1)
@@ -406,7 +414,7 @@ class ManagerOpeningEngines(Manager.Manager):
                     suspendido()
                 self.set_end_game()
                 return True
-            puntosFinal, mateFinal = 0, 0
+            puntos_final, mate_final = 0, 0
 
         else:
             move = self.game.move(-1)
@@ -418,11 +426,11 @@ class ManagerOpeningEngines(Manager.Manager):
                 return False
             # Si la ultima move es de la linea no se calcula nada
             self.waiting_message()
-            puntosFinal, mateFinal = calculaJG(move, False)
+            puntos_final, mate_final = calculaJG(move, False)
 
         # Se marcan todas las num_moves que no siguen las lineas
         # Y se busca la ultima del color del player
-        if siCalcularInicio:
+        if si_calcular_inicio:
             jg_inicial = None
             for njg in range(num_moves):
                 move = self.game.move(njg)
@@ -436,26 +444,26 @@ class ManagerOpeningEngines(Manager.Manager):
                 elif jg_inicial is None:
                     jg_inicial = move
             if jg_inicial:
-                puntosInicio, mateInicio = calculaJG(jg_inicial, True)
+                puntos_inicio, mate_inicio = calculaJG(jg_inicial, True)
             else:
-                puntosInicio, mateInicio = 0, 0
+                puntos_inicio, mate_inicio = 0, 0
 
         self.li_info.append("<b>%s:</b>" % _("Score"))
         template = "&nbsp;&nbsp;&nbsp;&nbsp;<b>%s</b>: %d"
 
-        def appendInfo(label, puntos, mate):
+        def append_info(label, puntos, mate):
             mens = template % (label, puntos)
             if mate:
                 mens += " %s %d" % (_("Mate"), mate)
             self.li_info.append(mens)
 
-        appendInfo(_("Begin"), puntosInicio, mateInicio)
-        appendInfo(_("End"), puntosFinal, mateFinal)
-        perdidos = puntosInicio - puntosFinal
+        append_info(_("Begin"), puntos_inicio, mate_inicio)
+        append_info(_("End"), puntos_final, mate_final)
+        perdidos = puntos_inicio - puntos_final
         ok = perdidos < self.lost_points
-        if mateInicio or mateFinal:
-            ok = mateFinal > mateInicio
-        mens = template % ("(%d)-(%d)" % (puntosInicio, puntosFinal), perdidos)
+        if mate_inicio or mate_final:
+            ok = mate_final > mate_inicio
+        mens = template % ("(%d)-(%d)" % (puntos_inicio, puntos_final), perdidos)
         mens = "%s %s %d" % (mens, "&lt;" if ok else "&gt;", self.lost_points)
         self.li_info.append(mens)
 

@@ -158,7 +158,7 @@ class WindowTutor(LCDialog.LCDialog):
     #     if self.boardOpening:
     #         self.boardOpening.crea()
 
-    def boardWheelEvent(self, board, forward):
+    def board_wheel_event(self, board, forward):
         forward = Code.configuration.wheel_board(forward)
         for t in ["Tutor", "Usuario", "Rival", "Opening"]:
             if eval("self.board%s == board" % t):

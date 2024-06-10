@@ -1,4 +1,4 @@
-from PySide2 import QtWidgets, QtCore, QtGui
+from PySide2 import QtCore, QtGui
 
 import Code
 from Code import Util
@@ -143,9 +143,8 @@ class WColors(LCDialog.LCDialog):
             qcolor_previo = self.dic_personal.get(key)
             if qcolor_previo is None:
                 qcolor_previo = self.dic_original[key]
-            qcolor_nuevo = QtWidgets.QColorDialog.getColor(qcolor_previo, self, _("Choose a color"),
-                                                           QtWidgets.QColorDialog.ShowAlphaChannel | QtWidgets.QColorDialog.DontUseNativeDialog)
-            if qcolor_nuevo.isValid():
+            qcolor_nuevo = QTVarios.select_color(qcolor_previo)
+            if qcolor_nuevo:
                 if qcolor_previo.name() != qcolor_nuevo.name():
                     self.li_ctrl_z.append(["add", key, self.dic_personal.get(key)])
                     self.dic_personal[key] = qcolor_nuevo
@@ -154,10 +153,9 @@ class WColors(LCDialog.LCDialog):
 
         elif col.key == "ORIGINAL":
             qcolor_previo = self.dic_original[key]
-            qcolor_nuevo = QtWidgets.QColorDialog.getColor(qcolor_previo, self, _("Choose a color"),
-                                                           QtWidgets.QColorDialog.ShowAlphaChannel | QtWidgets.QColorDialog.DontUseNativeDialog)
+            qcolor_nuevo = QTVarios.select_color(qcolor_previo)
 
-            if qcolor_nuevo.isValid():
+            if qcolor_nuevo:
                 color_original = qcolor_previo.name()
                 remove = qcolor_previo.name() == qcolor_nuevo.name()
                 self.li_ctrl_z.append(["end", None, None])

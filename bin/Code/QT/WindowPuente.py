@@ -147,7 +147,7 @@ class WEdMove(QtWidgets.QWidget):
             .capture_changes(self.miraPromocion)
         )
 
-        self.arrow = arrow = Controles.LB(self).ponImagen(Iconos.pmMover())
+        self.arrow = arrow = Controles.LB(self).put_image(Iconos.pmMover())
 
         self.destino = (
             EDCelda(self, "")

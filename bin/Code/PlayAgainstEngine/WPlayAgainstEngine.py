@@ -27,7 +27,7 @@ from Code.Books import Books
 from Code.Books import WBooks
 from Code.Engines import SelectEngines, WConfEngines, EngineRun
 from Code.Openings import WindowOpeningLines, WindowOpenings, OpeningsStd
-from Code.PlayAgainstEngine import Personalities
+from Code.PlayAgainstEngine import Personalities, Chess2880
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles
@@ -731,14 +731,19 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
     def change_depth(self):
         num = self.ed_rdepth.textoInt()
         if num > 0:
-            self.ed_rtime.ponFloat(0.0)
+            #     self.ed_rtime.ponFloat(0.0)
             self.ed_nodes.ponInt(0)
         self.test_unlimited()
 
     def change_nodes(self):
         nodes = self.ed_nodes.textoInt()
+        # if nodes > 0:
+        #     self.ed_rtime.ponFloat(0.0)
+        #     self.ed_rdepth.ponInt(0)
+        # elif self.rival.is_maia():
+        #     self.cancelar_nodes()
         if nodes > 0:
-            self.ed_rtime.ponFloat(0.0)
+            #     self.ed_rtime.ponFloat(0.0)
             self.ed_rdepth.ponInt(0)
         elif self.rival.is_maia():
             self.cancelar_nodes()
@@ -746,10 +751,10 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         self.test_unlimited()
 
     def change_time(self):
-        num = self.ed_rtime.textoFloat()
-        if num > 0.0:
-            self.ed_rdepth.ponInt(0)
-            self.ed_nodes.ponInt(0)
+        # num = self.ed_rtime.textoFloat()
+        # if num > 0.0:
+        #     self.ed_rdepth.ponInt(0)
+        #     self.ed_nodes.ponInt(0)
         self.test_unlimited()
 
     def cancelar_tiempo(self):
@@ -779,6 +784,12 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         self.lb_unlimited.setVisible(visible)
         self.cb_unlimited.setVisible(visible)
 
+        if self.ed_rdepth.textoInt() > 0 or self.ed_nodes.textoInt() > 0:
+            label = _("Maximum time in seconds")
+        else:
+            label = _("Fixed time in seconds")
+        self.lb_rtime.set_text(label + ":")
+
     def position_edit(self):
         cp = Position.Position()
         cp.read_fen(self.fen)
@@ -802,7 +813,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
 
     def chess_variants(self):
         rondo = QTVarios.rondo_puntos()
-        rondo_main = QTVarios.rondoColores()
+        rondo_main = QTVarios.rondo_colores()
         menu = QTVarios.LCMenuRondo(self)
         chess18 = menu.submenu(_("Chess 18"), rondo_main.otro())
         for pos, uno in enumerate(
@@ -811,12 +822,41 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
                  "rnnqkbbr", "rnqnkbbr", "rqnnkbbr"), 1):
             fen = f"{uno}/pppppppp/8/8/8/8/PPPPPPPP/{uno.upper()} w KQkq - 0 1"
             chess18.opcion(fen, f"{pos}. {uno}", rondo.otro())
+
+        menu.separador()
+        chess2880 = menu.submenu(_("Chess 2880"), rondo_main.otro())
+        chess2880.opcion("2880|manual", _("Select position"), rondo.otro())
+        chess2880.separador()
+        chess2880.opcion("2880|random", _("Random"), rondo.otro())
+
         menu.separador()
         fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - - 0 1"
         menu.opcion(fen, _("Without castle"), rondo_main.otro())
+
         resp = menu.lanza()
         if resp:
-            self.fen = resp
+
+            if resp.startswith("2880"):
+                o2880 = Chess2880.Chess2880()
+                opcion = resp.split("|")[1]
+                if opcion == "manual":
+                    number = QTUtil2.read_simple(self, _("Chess 2880"), _("Select position") + " 1...2879",
+                                                 o2880.get_last_manual())
+                    if not number:
+                        return
+                    if not number.isdigit():
+                        return
+                    x = int(number)
+                    if x < 1 or x > 2879:
+                        return
+                    x -= 1
+                    self.fen = o2880.get_fen(x)
+                    o2880.save_last_manual(x)
+                else:
+                    self.fen = o2880.get_fen_random()
+
+            else:
+                self.fen = resp
             self.show_position()
 
     def show_position(self):

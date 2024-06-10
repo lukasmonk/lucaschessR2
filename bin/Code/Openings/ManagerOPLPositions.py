@@ -8,7 +8,7 @@ from Code.Base.Constantes import (
     ST_PLAYING,
     TB_CLOSE,
     TB_CONFIG,
-    TB_HELP,
+    TB_ADVICE,
     TB_NEXT,
     TB_UTILITIES,
     TB_COMMENTS,
@@ -60,7 +60,7 @@ class ManagerOpeningLinesPositions(ManagerOPL.ManagerOpeningLines):
 
         self.dic_comments = self.dbop.dic_fen_comments()
 
-        self.tb_with_comments([TB_CLOSE, TB_HELP, TB_CONFIG])
+        self.tb_with_comments([TB_CLOSE, TB_ADVICE, TB_CONFIG])
         self.main_window.active_game(True, False)
         self.set_dispatcher(self.player_has_moved)
         self.set_position(cp)
@@ -187,7 +187,7 @@ class ManagerOpeningLinesPositions(ManagerOPL.ManagerOpeningLines):
         elif key == TB_NEXT:
             self.reinicio(self.dbop)
 
-        elif key == TB_HELP:
+        elif key == TB_ADVICE:
             self.get_help()
 
         elif key == TB_COMMENTS:
@@ -239,7 +239,7 @@ class ManagerOpeningLinesPositions(ManagerOPL.ManagerOpeningLines):
             QTUtil2.temporary_message(self.main_window, mens, 1.0, physical_pos=TOP_RIGHT)
             self.show_labels()
             self.beep_error()
-            self.sigueHumano()
+            self.continue_human()
             return False
 
         if "LIPV" in self.trposition:

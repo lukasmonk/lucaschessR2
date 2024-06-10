@@ -228,7 +228,7 @@ class TurnOnLights:
         return self.calculation_mode
 
     def recupera(self):
-        filepath = Util.opj(Code.configuration.carpeta_results, "%s.tol" % self.name)
+        filepath = Util.opj(Code.configuration.folder_results, "%s.tol" % self.name)
         tolr = Util.restore_pickle(filepath)
         if tolr is None:
             self.new()
@@ -343,7 +343,7 @@ class TurnOnLightsOneLine(TurnOnLights):
         self.li_tam_blocks = [k, 2 * k, 3 * k, num_pos]
 
     def recupera(self):
-        filepath = Util.opj(Code.configuration.carpeta_results, "%s.tol" % self.name)
+        filepath = Util.opj(Code.configuration.folder_results, "%s.tol" % self.name)
         try:
             tolr = Util.restore_pickle(filepath)
         except:
@@ -396,12 +396,12 @@ def read_tol(name, title, folder, li_tam_blocks):
 
 def write_tol(tol):
     tol.last_date = datetime.date.today()
-    filepath = Util.opj(Code.configuration.carpeta_results, "%s.tol" % tol.name)
+    filepath = Util.opj(Code.configuration.folder_results, "%s.tol" % tol.name)
     Util.save_pickle(filepath, tol)
 
 
 def remove_tol(tol):
-    filepath = Util.opj(Code.configuration.carpeta_results, "%s.tol" % tol.name)
+    filepath = Util.opj(Code.configuration.folder_results, "%s.tol" % tol.name)
     Util.remove_file(filepath)
 
 
@@ -419,7 +419,7 @@ def numColorMinimum(tol):
 
 
 def compruebaUweEasy(configuration, name):
-    file = Util.opj(configuration.carpeta_results, "%s.tol" % name)
+    file = Util.opj(configuration.folder_results, "%s.tol" % name)
     if Util.exist_file(file):
         return
     folderDest = configuration.temporary_folder()

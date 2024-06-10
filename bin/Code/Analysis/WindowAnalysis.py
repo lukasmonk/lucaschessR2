@@ -175,7 +175,7 @@ class OneAnalysis(QtWidgets.QWidget):
         elif accion == "Jugar":
             self.jugarPosicion()
         elif accion == "FEN":
-            QTUtil.ponPortapapeles(self.tab_analysis.fen_active())
+            QTUtil.set_clipboard(self.tab_analysis.fen_active())
             QTVarios.fen_is_in_clipboard(self)
 
     def jugarPosicion(self):
@@ -375,7 +375,7 @@ class WAnalisis(LCDialog.LCDialog):
         elif k == QtCore.Qt.Key_Escape:
             self.terminar()
 
-    def boardWheelEvent(self, board, forward):
+    def board_wheel_event(self, board, forward):
         forward = Code.configuration.wheel_board(forward)
         self.key_pressed(QtCore.Qt.Key.Key_Left if forward else QtCore.Qt.Key.Key_Right)
 

@@ -722,11 +722,11 @@ def pregunta(parent, mens, label_yes=None, label_no=None, si_top=False, px=None,
     return msg_box.clickedButton() == si_button
 
 
-def question_withcancel(parent, mens, si, no):
+def question_withcancel(parent, mens, si, no, cancel=None):
     msg_box = QtWidgets.QMessageBox(QtWidgets.QMessageBox.Question, _("Question"), resalta(mens), parent=parent)
     si_button = msg_box.addButton(si, QtWidgets.QMessageBox.YesRole)
     no_button = msg_box.addButton(no, QtWidgets.QMessageBox.NoRole)
-    msg_box.addButton(_("Cancel"), QtWidgets.QMessageBox.RejectRole)
+    msg_box.addButton(_("Cancel") if cancel is None else cancel, QtWidgets.QMessageBox.RejectRole)
     msg_box.setFont(Controles.FontType(puntos=Code.configuration.x_sizefont_messages))
     msg_box.exec_()
     cb = msg_box.clickedButton()

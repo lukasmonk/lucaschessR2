@@ -98,7 +98,7 @@ class MainWindow(LCDialog.LCDialog):
     def closeEvent(self, event):  # Cierre con X
         self.final_processes()
         if Code.procesador.manager is not None:
-            if self.manager.finalX0():
+            if self.manager.final_x0():
                 Code.procesador.reset()
             event.ignore()
 

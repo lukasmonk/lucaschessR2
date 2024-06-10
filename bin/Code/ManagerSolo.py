@@ -590,7 +590,7 @@ class ManagerSolo(Manager.Manager):
                     self.basic_initial_position()
 
     # def save_current_position(self):
-    #     li = [self.game.first_position.fen(), "", self.game.pgnBaseRAW()]
+    #     li = [self.game.first_position.fen(), "", self.game.pgn_base_raw()]
     #     self.save_selected_position("|".join(li))
 
     @staticmethod
@@ -706,9 +706,9 @@ class ManagerSolo(Manager.Manager):
 
     def takeback(self):
         if len(self.game):
-            self.game.anulaSoloUltimoMovimiento()
+            self.game.remove_only_last_movement()
             if self.play_against_engine:
-                self.game.anulaSoloUltimoMovimiento()
+                self.game.remove_only_last_movement()
             self.game.assign_opening()  # aunque no sea fen inicial
             self.goto_end()
             self.state = ST_PLAYING
@@ -727,5 +727,10 @@ class ManagerSolo(Manager.Manager):
 
     def help_to_move(self):
         if not self.is_finished():
+            mrm = self.analize_after_last_move()
+            if not mrm or len(mrm.li_rm) == 0:
+                return
             move = Move.Move(self.game, position_before=self.game.last_position.copia())
-            Analysis.show_analysis(self.procesador, self.xtutor, move, self.board.is_white_bottom, 0, must_save=False)
+            move.analysis = mrm, 0
+            Analysis.show_analysis(self.procesador, self.xanalyzer, move, self.board.is_white_bottom, 0,
+                                   must_save=False)

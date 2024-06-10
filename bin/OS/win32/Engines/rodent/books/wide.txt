@@ -1,2 +1,0 @@
-; this is wide book for Rodent chess engine
-;

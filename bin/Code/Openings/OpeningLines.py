@@ -16,7 +16,6 @@ from Code.Engines import EnginesBunch
 from Code.Openings import OpeningsStd
 from Code.QT import QTUtil2
 from Code.SQL import UtilSQL
-from Code.Translations import TrListas
 
 
 class ItemTree:
@@ -57,20 +56,38 @@ class ItemTree:
             if item.pgn:
                 li.append(item.pgn)
             item = item.parent
-        if self.with_figurines or self.translated:
-            d = Move.dicHTMLFigs if self.with_figurines else TrListas.dic_conv()
-            nli = len(li)
-            for pos, uno in enumerate(li):
-                lc = []
-                for c in uno:
-                    if c.isupper():
-                        if self.translated:
-                            c = d[c]
-                        else:
-                            c = d[c if (nli - pos) % 2 == 1 else c.lower()]
-                    lc.append(c)
-                li[pos] = "".join(lc)
         return " ".join(reversed(li))
+
+    def game_translated(self):
+        pgn = self.game()
+        if Code.configuration.x_translator != "en":
+            if not Code.configuration.x_pgn_english:
+                if Code.configuration.x_pgn_withfigurines:
+                    li = []
+                    for c in pgn:
+                        if c.isupper():
+                            c = _F(c)
+                        li.append(c)
+                    pgn = "".join(li)
+        return pgn
+
+    def game_figurines(self):
+        pgn = self.game()
+        if Code.configuration.x_pgn_withfigurines:
+            dconv_fig = Move.dicHTMLFigs
+            li = []
+            is_white = False
+            for c in pgn:
+                if c.isupper():
+                    c = dconv_fig.get(c if is_white else c.lower(), c)
+                elif c.isdigit():
+                    is_white = True
+                elif c == " ":
+                    is_white = False
+
+                li.append(c)
+            pgn = "".join(li)
+        return pgn
 
     def list_pv(self):
         li = []
@@ -1544,6 +1561,8 @@ class Opening:
         parent = ItemTree(None, None, None, None, WHITE)
         dic = OpeningsStd.ap.dic_fenm2_op
         translated = Code.configuration.x_translator != "en" and not Code.configuration.x_pgn_english
+        if Code.configuration.x_pgn_withfigurines:
+            translated = False
 
         game = Game.Game() if translated else None
 
@@ -1554,7 +1573,9 @@ class Opening:
             if translated:
                 game.reset()
                 game.read_lipv(lipv)
-                lipgn = [move.pgn_translated() for move in game.li_moves]
+                lipgn = [(str(pos // 2 + 1) + "." if pos % 2 == 0 else "") + move.pgn_translated()
+                         for pos, move in enumerate(game.li_moves)]
+
             else:
                 lipgn = FasterCode.xpv_pgn(xpv).replace("\n", " ").strip().split(" ")
             linom = []

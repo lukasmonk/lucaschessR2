@@ -31,6 +31,11 @@ from Code.Voyager import Voyager
 
 class ManagerGame(Manager.Manager):
     dic_rival = None
+    save_routine = None
+    changed: bool
+    is_complete: bool
+    only_consult: bool
+    reinicio = None
 
     def start(self, game, is_complete, only_consult, with_previous_next, save_routine):
         self.game_type = GT_GAME
@@ -44,6 +49,8 @@ class ManagerGame(Manager.Manager):
         self.changed = False
         self.auto_rotate = self.get_auto_rotate()
 
+        self.reinicio = self.game.save()
+
         self.human_is_playing = True
         self.is_human_side_white = True
 
@@ -55,31 +62,51 @@ class ManagerGame(Manager.Manager):
         self.main_window.set_label2(None)
         self.set_dispatcher(self.player_has_moved)
         self.show_side_indicator(True)
-        self.put_pieces_bottom(game.is_white())
+        self.put_pieces_bottom(game.is_white_top())
         self.goto_firstposition()
         self.show_info_extra()
 
         self.check_boards_setposition()
 
         self.put_information()
-        self.put_toolbar()
 
-        self.reinicio = self.game.save()
+        self.put_toolbar()
 
         if len(self.game) == 0:
             self.play_next_move()
 
+    def move_previous(self):
+        self.run_action(TB_PREVIOUS)
+
+    def move_next(self):
+        self.run_action(TB_NEXT)
+
     def is_changed(self):
-        return self.changed or self.game.save() != self.reinicio
+        return hasattr(self, "reinicio") and self.save_routine and (self.changed or self.game.save() != self.reinicio)
+
+    def check_changed(self):
+        self.set_changed(self.is_changed())
+
+    def set_changed(self, ok):
+        if ok == self.changed:
+            return
+        self.changed = ok
+        if self.save_routine:
+            self.put_toolbar()
 
     def ask_for_save_game(self):
         if self.is_changed():
-            return QTUtil2.question_withcancel(self.main_window, _("Do you want to save changes?"), _("Yes"), _("No"))
+            resp = QTUtil2.question_withcancel(self.main_window, _("Do you want to save changes?"), _("Yes"), _("No"))
+            if resp is None:
+                return None
+            if resp:
+                self.save_routine(self.game.recno, self.game)
+            return resp
         return False
 
     def put_toolbar(self):
         li = [TB_CLOSE, TB_PGN_LABELS, TB_TAKEBACK, TB_REINIT, TB_REPLAY, TB_CONFIG, TB_UTILITIES]
-        if self.changed and self.save_routine:
+        if self.save_routine and self.changed:
             pos = li.index(TB_PGN_LABELS)
             li.insert(pos, TB_SAVE)
         # if_previous, if_next = False, False
@@ -128,9 +155,10 @@ class ManagerGame(Manager.Manager):
         elif key == TB_SAVE:
             if self.save_routine:
                 self.save_routine(self.game.recno, self.game)
-                self.changed = False
+                self.set_changed(False)
                 self.reinicio = self.game.save()
                 self.put_toolbar()
+                QTUtil2.temporary_message(self.main_window, _("Saved"), 0.8)
             else:
                 self.main_window.accept()
 
@@ -149,9 +177,11 @@ class ManagerGame(Manager.Manager):
         elif key in (TB_PREVIOUS, TB_NEXT):
             if self.ask_for_save_game():
                 self.with_previous_next("save", self.game)
-            game1 = self.with_previous_next("previous" if key == TB_PREVIOUS else "next", self.game)
-            self.main_window.setWindowTitle(game1.window_title())
-            self.start(game1, self.is_complete, self.only_consult, self.with_previous_next, self.save_routine)
+            self.changed = False
+            with QTUtil2.OneMomentPlease(self.main_window):
+                game1 = self.with_previous_next("previous" if key == TB_PREVIOUS else "next", self.game)
+                self.main_window.setWindowTitle(game1.window_title())
+                self.start(game1, self.is_complete, self.only_consult, self.with_previous_next, self.save_routine)
 
         else:
             Manager.Manager.rutinaAccionDef(self, key)
@@ -209,9 +239,7 @@ class ManagerGame(Manager.Manager):
         self.add_move(move, True)
 
         self.play_next_move()
-        if not self.changed:
-            self.changed = True
-            self.put_toolbar()
+        self.set_changed(True)
         return True
 
     def add_move(self, move, is_player_move):
@@ -250,10 +278,7 @@ class ManagerGame(Manager.Manager):
         self.put_information()
         self.state = ST_ENDGAME if self.game.is_finished() else ST_PLAYING
 
-        if not self.changed:
-            if self.is_changed():
-                self.changed = True
-                self.put_toolbar()
+        self.set_changed(True)
 
     def utilities_gs(self):
         sep = (None, None, None)
@@ -295,8 +320,7 @@ class ManagerGame(Manager.Manager):
             if new_position and new_position != ini_position:
                 self.game.set_position(new_position)
                 self.start(self.game, self.is_complete, self.only_consult, self.with_previous_next, self.save_routine)
-                self.changed = True
-                self.put_toolbar()
+                self.set_changed(True)
                 self.board.set_side_bottom(is_white_bottom)
 
         elif resp == "pasteposicion":
@@ -311,8 +335,7 @@ class ManagerGame(Manager.Manager):
                         self.start(
                             self.game, self.is_complete, self.only_consult, self.with_previous_next, self.save_routine
                         )
-                        self.changed = True
-                        self.put_toolbar()
+                        self.set_changed(True)
 
                 except:
                     pass
@@ -334,9 +357,7 @@ class ManagerGame(Manager.Manager):
             self.replay_continuous()
 
         else:
-            if self.is_changed():
-                self.changed = True
-                self.put_toolbar()
+            self.check_changed()
 
     def replay_continuous(self):
         if self.ask_for_save_game():
@@ -366,12 +387,15 @@ class ManagerGame(Manager.Manager):
         p.recno = getattr(self.game, "recno", None)
         self.start(p, self.is_complete, self.only_consult, self.with_previous_next, self.save_routine)
 
-        self.changed = True
-        self.put_toolbar()
+        self.set_changed(True)
 
     def control_teclado(self, nkey, modifiers):
         if nkey == QtCore.Qt.Key_V:  # V
             self.paste_pgn()
+        if nkey in (QtCore.Qt.Key_Plus, QtCore.Qt.Key_PageDown):
+            self.move_next()
+        elif nkey in (QtCore.Qt.Key_Minus, QtCore.Qt.Key_PageUp):
+            self.move_previous()
 
     def paste_pgn(self):
         texto = QTUtil.get_txt_clipboard()
@@ -417,9 +441,9 @@ class ManagerGame(Manager.Manager):
             if r_t is None and r_p is None and not dic.get("SITIEMPO", False):
                 r_t = 1000
 
-            nAjustarFuerza = dic["ADJUST"]
-            self.xrival = self.procesador.creaManagerMotor(rival, r_t, r_p, nAjustarFuerza != ADJUST_BETTER)
-            self.xrival.nAjustarFuerza = nAjustarFuerza
+            n_ajustar_fuerza = dic["ADJUST"]
+            self.xrival = self.procesador.creaManagerMotor(rival, r_t, r_p, n_ajustar_fuerza != ADJUST_BETTER)
+            self.xrival.nAjustarFuerza = n_ajustar_fuerza
 
             dic["ROTULO1"] = _("Opponent") + ": <b>" + self.xrival.name
             self.set_label1(dic["ROTULO1"])
@@ -428,11 +452,19 @@ class ManagerGame(Manager.Manager):
 
     def takeback(self):
         if len(self.game) and self.in_end_of_line():
-            self.game.anulaSoloUltimoMovimiento()
+            self.game.remove_only_last_movement()
             self.game.assign_opening()
             self.goto_end()
             self.state = ST_PLAYING
             self.refresh()
-            self.changed = True
-            self.put_toolbar()
+            self.set_changed(True)
             self.play_next_move()
+
+    def list_help_keyboard(self):
+        if self.with_previous_next:
+            return [
+                ("-/%s" % _("Page Up"), _("Previous")),
+                ("+/%s" % _("Page Down"), _("Next")),
+            ]
+        else:
+            return []

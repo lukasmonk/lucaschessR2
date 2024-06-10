@@ -52,8 +52,8 @@ class ManagerAlbum(Manager.Manager):
         self.remove_hints(True, siQuitarAtras=True)
         self.show_side_indicator(True)
 
-        self.main_window.base.lbRotulo1.ponImagen(self.cromo.pixmap_level())
-        self.main_window.base.lbRotulo2.ponImagen(self.cromo.pixmap())
+        self.main_window.base.lbRotulo1.put_image(self.cromo.pixmap_level())
+        self.main_window.base.lbRotulo2.put_image(self.cromo.pixmap())
         self.pgn_refresh(True)
         self.show_info_extra()
 

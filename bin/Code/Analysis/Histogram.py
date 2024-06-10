@@ -433,7 +433,7 @@ class Histogram(QtWidgets.QGraphicsView):
             if resp:
                 pm = self.grab()
                 if resp == "clip":
-                    QTUtil.ponPortapapeles(pm, tipo="p")
+                    QTUtil.set_clipboard(pm, tipo="p")
                 else:
                     configuration = Code.configuration
                     path = SelectFiles.salvaFichero(self, _("File to save"), configuration.save_folder(), "png", False)

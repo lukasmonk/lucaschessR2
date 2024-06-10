@@ -91,8 +91,8 @@ class WPolyglot(WKibCommon.WKibCommon):
             return "%d" % alm.weight
 
     def whether_to_analyse(self):
-        siW = self.game.last_position.is_white
-        if not self.siPlay or (siW and (not self.is_white)) or ((not siW) and (not self.is_black)):
+        si_w = self.game.last_position.is_white
+        if not self.siPlay or (si_w and (not self.is_white)) or ((not si_w) and (not self.is_black)):
             return False
         return True
 
@@ -100,9 +100,9 @@ class WPolyglot(WKibCommon.WKibCommon):
         self.game = game
         if self.siPlay:
             position = game.last_position
-            self.siW = position.is_white
+            self.is_white = position.is_white
             self.board.set_position(position)
-            self.board.activate_side(self.siW)
+            self.board.activate_side(self.is_white)
             self.li_moves = self.book.alm_list_moves(position.fen())
             self.grid.gotop()
             self.grid.refresh()

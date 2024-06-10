@@ -32,10 +32,10 @@ class LBKey(Controles.LB):
             menu.opcion("copy_sel", _("Copy to selected position"), Iconos.Clipboard())
             resp = menu.lanza()
             if resp == "copy":
-                QTUtil.ponPortapapeles(self.game.pgn())
+                QTUtil.set_clipboard(self.game.pgn())
             elif resp == "copy_sel":
                 g = self.game.copia(self.pos_move)
-                QTUtil.ponPortapapeles(g.pgn())
+                QTUtil.set_clipboard(g.pgn())
 
 
 class WInfomove(QtWidgets.QWidget):
@@ -285,7 +285,7 @@ class WInfomove(QtWidgets.QWidget):
             self.MoverInicio()
             self.lanzaReloj()
 
-    def boardWheelEvent(self, board, forward):
+    def board_wheel_event(self, board, forward):
         forward = Code.configuration.wheel_board(forward)
         if forward:
             self.MoverAdelante()

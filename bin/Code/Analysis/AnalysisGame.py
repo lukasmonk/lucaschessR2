@@ -167,7 +167,7 @@ class AnalyzeGame:
         rm = mrm.li_rm[0]
         p.read_pv(rm.pv)
         with open(file, "at", encoding="utf-8", errors="ignore") as f:
-            f.write(f"{fen}||{p.pgnBaseRAW()}|{cab} {game_raw.pgnBaseRAWcopy(None, njg - 1)}")
+            f.write(f"{fen}||{p.pgn_base_raw()}|{cab} {game_raw.pgn_base_raw_copy(None, njg - 1)}")
         self.procesador.entrenamientos.menu = None
 
     def graba_tactic(self, game, njg, mrm, pos_act):
@@ -211,7 +211,7 @@ FILESW=%s:100
         p.read_pv(rm.pv)
         game_raw = Game.game_without_variations(game)
         with open(Util.opj(self.tacticblunders, before), "at", encoding="utf-8", errors="ignore") as f:
-            f.write("%s||%s|%s%s\n" % (fen, p.pgnBaseRAW(), cab, game_raw.pgnBaseRAWcopy(None, njg - 1)))
+            f.write("%s||%s|%s%s\n" % (fen, p.pgn_base_raw(), cab, game_raw.pgn_base_raw_copy(None, njg - 1)))
 
         fen = move.position.fen()
         p = Game.Game(fen=fen)
@@ -219,7 +219,7 @@ FILESW=%s:100
         li = rm.pv.split(" ")
         p.read_pv(" ".join(li[1:]))
         with open(Util.opj(self.tacticblunders, after), "at", encoding="utf-8", errors="ignore") as f:
-            f.write("%s||%s|%s%s\n" % (fen, p.pgnBaseRAW(), cab, game_raw.pgnBaseRAWcopy(None, njg)))
+            f.write("%s||%s|%s%s\n" % (fen, p.pgn_base_raw(), cab, game_raw.pgn_base_raw_copy(None, njg)))
 
         self.siTacticBlunders = True
 

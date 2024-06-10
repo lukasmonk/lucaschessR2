@@ -9,7 +9,7 @@ from Code.Base.Constantes import (
     TB_CLOSE,
     TB_REINIT,
     TB_CONFIG,
-    TB_HELP,
+    TB_ADVICE,
     TB_NEXT,
     TB_UTILITIES,
     TB_COMMENTS,
@@ -69,7 +69,7 @@ class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
         self.is_human_side_white = self.training["COLOR"] == "WHITE"
         self.is_engine_side_white = not self.is_human_side_white
 
-        self.tb_with_comments([TB_CLOSE, TB_HELP, TB_REINIT, TB_CONFIG])
+        self.tb_with_comments([TB_CLOSE, TB_ADVICE, TB_REINIT, TB_CONFIG])
 
         self.main_window.active_game(True, False)
         self.set_dispatcher(self.player_has_moved)
@@ -199,7 +199,7 @@ class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
         elif key == TB_NEXT:
             self.reinicio(self.dbop)
 
-        elif key == TB_HELP:
+        elif key == TB_ADVICE:
             self.get_help()
 
         elif key == TB_COMMENTS:
@@ -282,7 +282,7 @@ class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
             if pvSel in li:
                 mens = _("You have selected a correct move, but this line uses another one.")
                 QTUtil2.temporary_message(self.main_window, mens, 2, physical_pos=ON_TOOLBAR, background="#C3D6E8")
-                self.sigueHumano()
+                self.continue_human()
                 return False
 
             self.errores += 1
@@ -291,7 +291,7 @@ class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
                 self.main_window, mens, 0.8, physical_pos=TOP_RIGHT, background="#FF9B00", pm_image=Iconos.pmError()
             )
             self.show_labels()
-            self.sigueHumano()
+            self.continue_human()
             return False
 
         self.move_the_pieces(move.liMovs)

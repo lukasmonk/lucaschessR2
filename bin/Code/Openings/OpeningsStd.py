@@ -40,7 +40,7 @@ class Opening:
 class ListaOpeningsStd:
     def __init__(self):
         self.st_fenm2_test = set()
-        self.dic_fenm2_op, self.dic_fenm2_op_move = {}, {}
+        self.dic_fenm2_op, self.dic_fenm2_op_all = {}, {}
 
     @staticmethod
     def read_fenm2_test():
@@ -54,7 +54,7 @@ class ListaOpeningsStd:
     def read_fenm2_op():
         path = Code.path_resource("Openings", "openings.lkop")
         dic_fenm2_op = {}
-        dic_fenm2_op_move = collections.defaultdict(list)
+        dic_fenm2_op_all = collections.defaultdict(set)
         st_fenm2_test = set()
         with open(path, "rt", encoding="utf-8") as q:
             for linea in q:
@@ -64,7 +64,6 @@ class ListaOpeningsStd:
                 op.a1h8 = a1h8
                 op.eco = eco
                 op.pgn = pgn
-                # op.children_fm2 = hijos.split(",")
                 op.parent_fm2 = parent
                 op.is_basic = basic == "Y"
                 op.fm2 = fenm2
@@ -72,16 +71,16 @@ class ListaOpeningsStd:
                 if parent:
                     st_fenm2_test.add(parent)
                 st_fenm2_test.add(fenm2)
+                dic_fenm2_op_all[fenm2].add(op)
 
                 li_pv = a1h8.split(" ")
                 li_fenm2 = lfenm2.split(",")
                 for x in range(len(li_pv)):
                     fenm2 = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -" if x == 0 else li_fenm2[x - 1]
-                    pv = li_pv[x]
-                    dic_fenm2_op_move[fenm2].append([op, pv])
+                    dic_fenm2_op_all[fenm2].add(op)
                     st_fenm2_test.add(fenm2)
 
-        return dic_fenm2_op, dic_fenm2_op_move, st_fenm2_test
+        return dic_fenm2_op, dic_fenm2_op_all, st_fenm2_test
 
     @staticmethod
     def dic_fen64():
@@ -105,7 +104,7 @@ class ListaOpeningsStd:
         return dd
 
     def reset(self):
-        self.dic_fenm2_op, self.dic_fenm2_op_move, self.st_fenm2_test = self.read_fenm2_op()
+        self.dic_fenm2_op, self.dic_fenm2_op_all, self.st_fenm2_test = self.read_fenm2_op()
         self.read_personal()
 
     def read_personal(self):
@@ -149,19 +148,21 @@ class ListaOpeningsStd:
                     return
 
     def list_possible_openings(self, game):
-        li_ap = []
+        li_openings = []
         fm2 = game.last_position.fenm2()
-        if fm2 in self.dic_fenm2_op_move:
-            for op, a1h8 in self.dic_fenm2_op_move[fm2]:
-                li_ap.append(op)
-        li_ap.sort(key=lambda op: op.a1h8)
+        if fm2 in self.dic_fenm2_op_all:
+            op_select = self.dic_fenm2_op.get(fm2)
+            for op in self.dic_fenm2_op_all[fm2]:
+                if op != op_select:
+                    li_openings.append(op)
+        li_openings.sort(key=lambda xop: xop.a1h8)
         li = []
         ultima = "zzzz"
-        for op in li_ap:
+        for op in li_openings:
             if not op.a1h8.startswith(ultima):
                 ultima = op.a1h8
                 li.append(op)
-        li.sort(key=lambda op: ("A" if op.is_basic else "B") + op.tr_name)
+        li.sort(key=lambda xop: ("A" if xop.is_basic else "B") + xop.tr_name)
         return li
 
     def base_xpv(self, xpv):

@@ -20,7 +20,7 @@ class ControlFindAllMoves:
 
         self.db = eval(open(Code.path_resource("IntFiles", "findallmoves.dkv")).read())
         mas = "P" if siJugador else "R"
-        self.fichPuntos = "%s/score60%s.dkv" % (manager.configuration.carpeta_results, mas)
+        self.fichPuntos = "%s/score60%s.dkv" % (manager.configuration.folder_results, mas)
         if os.path.isfile(self.fichPuntos):
             self.liPuntos = Util.restore_pickle(self.fichPuntos)
         else:
@@ -142,7 +142,7 @@ class ManagerFindAllMoves(Manager.Manager):
         self.main_window.base.pgn.gotop()
         self.main_window.board.siPosibleRotarBoard = False
 
-        self.board.exePulsadoNum = None
+        self.board.do_pressed_number = None
         self.remove_info()
         self.ponRotulotm()
         self.refresh()
@@ -318,11 +318,11 @@ class ManagerFindAllMoves(Manager.Manager):
                             self.put_result()
                     else:
                         break
-                self.atajosRatonReset()
+                self.reset_shortcuts_mouse()
                 return
         self.errores += 1
         self.ponRotulo2n()
-        self.atajosRatonReset()
+        self.reset_shortcuts_mouse()
 
     def put_result(self):
         vtime = int((time.time() - self.iniTiempo) * 100.0)

@@ -318,9 +318,9 @@ class Tutor:
 
     def ponBoardsGUI(self, boardTutor, boardUsuario, boardRival, boardOpenings):
         self.boardTutor = boardTutor
-        self.boardTutor.exePulsadoNum = self.exePulsadoNumTutor
+        self.boardTutor.do_pressed_number = self.exePulsadoNumTutor
         self.boardUsuario = boardUsuario
-        self.boardUsuario.exePulsadoNum = self.exePulsadoNumUsuario
+        self.boardUsuario.do_pressed_number = self.exePulsadoNumUsuario
         self.boardRival = boardRival
         self.boardOpenings = boardOpenings
 

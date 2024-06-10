@@ -195,7 +195,7 @@ class WKibEngine(WKibCommon.WKibCommon):
                 move0: Move.Move = p.li_moves[0]
                 p.first_position = move0.position
                 p.li_moves = p.li_moves[1:]
-                txt = p.pgnBaseRAW() if self.with_figurines else p.pgn_translated()
+                txt = p.pgn_base_raw() if self.with_figurines else p.pgn_translated()
                 return txt.lstrip("0123456789. ") if ".." in txt else txt
 
     def grid_doble_click(self, grid, row, o_column):
@@ -267,9 +267,9 @@ class WKibEngine(WKibCommon.WKibCommon):
             p.read_pv(rm.pv)
             jg0 = p.move(0)
             jg0.set_comment(rm.abbrev_text_pdt() + " " + self.nom_engine)
-            pgn = p.pgnBaseRAW()
+            pgn = p.pgn_base_raw()
             resp = '[FEN "%s"]\n\n%s' % (fen, pgn)
-            QTUtil.ponPortapapeles(resp)
+            QTUtil.set_clipboard(resp)
             QTUtil2.temporary_message(self, _("The line selected is saved to the clipboard"), 0.7)
 
     def orden_game(self, game: Game.Game):

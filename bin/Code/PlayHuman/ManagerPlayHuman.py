@@ -360,7 +360,7 @@ class ManagerPlayHuman(Manager.Manager):
 
     def takeback(self):
         if len(self.game):
-            self.game.anulaUltimoMovimiento(self.is_human_side_white)
+            self.game.remove_last_move(self.is_human_side_white)
             if not self.fen:
                 self.game.assign_opening()
             self.goto_end()

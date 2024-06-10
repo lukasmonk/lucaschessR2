@@ -34,7 +34,7 @@ class WAbout(QtWidgets.QDialog):
         head += ' - <a style="font-size:10pt;" href="%s">Wiki</a>' % (procesador.wiki,)
         head += '<br>%s <a style="font-size:10pt;" href="http://www.gnu.org/copyleft/gpl.html"> GPL</a>' % _("License")
 
-        lb_ico = Controles.LB(self).ponImagen(Iconos.pmAplicacion64())
+        lb_ico = Controles.LB(self).put_image(Iconos.pmAplicacion64())
         lb_titulo = Controles.LB(self, head)
 
         # Tabs

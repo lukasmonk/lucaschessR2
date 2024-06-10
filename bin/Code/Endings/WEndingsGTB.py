@@ -177,11 +177,11 @@ class WEndingsGTB(LCDialog.LCDialog):
 
     def takeback(self):
         if len(self.game):
-            self.game.anulaSoloUltimoMovimiento()
-            self.game.anulaSoloUltimoMovimiento()
+            self.game.remove_only_last_movement()
+            self.game.remove_only_last_movement()
             self.pos_game = len(self.game) - 1
             self.set_position()
-            self.sigueHumano()
+            self.continue_human()
 
     def startup_control(self):
         if self.playing:
@@ -240,7 +240,7 @@ class WEndingsGTB(LCDialog.LCDialog):
         self.replaying = False
         self.timer = None
         self.playing = True
-        self.sigueHumano()
+        self.continue_human()
 
     def play_next(self):
         row = self.grid.recno()
@@ -304,7 +304,7 @@ class WEndingsGTB(LCDialog.LCDialog):
         pos = 0
         for c in key:
             lbl = self.wpzs.li_labels[pos]
-            lbl.ponImagen(self.pzs.pixmap(c, 48))
+            lbl.put_image(self.pzs.pixmap(c, 48))
             lbl.show()
             pos += 1
         while pos < 6:
@@ -429,7 +429,7 @@ class WEndingsGTB(LCDialog.LCDialog):
             self.set_key(resp)
             self.board.activate_side(self.game.last_position.is_white)
 
-    def sigueHumano(self):
+    def continue_human(self):
         ended, go_next = self.test_final()
         if ended:
             if go_next:
@@ -516,7 +516,7 @@ class WEndingsGTB(LCDialog.LCDialog):
                 self.board.cambiaPieza(movim[1], movim[2])
         self.timer = time.time()
         self.board.set_raw_last_position(self.game.last_position)
-        self.sigueHumano()
+        self.continue_human()
 
     def player_has_moved(self, from_sq, to_sq, promotion=""):
         if self.timer:

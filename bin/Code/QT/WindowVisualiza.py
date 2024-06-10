@@ -32,7 +32,7 @@ class WControl(LCDialog.LCDialog):
 
         self.path_bloque = path_bloque
 
-        file = Util.opj(self.configuration.carpeta_results, os.path.basename(path_bloque) + "db")
+        file = Util.opj(self.configuration.folder_results, os.path.basename(path_bloque) + "db")
         self.historico = UtilSQL.DictSQL(file)
         self.li_histo = self.calcListaHistorico()
 
@@ -323,7 +323,7 @@ class WPlay(LCDialog.LCDialog):
             self.liBloques.append(unBloque)
 
             # # Solucion
-            lb = Controles.LB(self, "").ponImagen(self.pmNada)
+            lb = Controles.LB(self, "").put_image(self.pmNada)
             ly.control(lb, row, colPos)
             unBloque.append(lb)
 
@@ -453,7 +453,7 @@ class WPlay(LCDialog.LCDialog):
             for elem in bloque:
                 elem.setVisible(siVisible)
             if siVisible:
-                bloque[0].ponImagen(self.pmNada)
+                bloque[0].put_image(self.pmNada)
                 pz = "K" if x == 0 else ("k" if x == 1 else "P")
                 bloque[1].set_value(pz)
                 pos = 1
@@ -549,7 +549,7 @@ class WPlay(LCDialog.LCDialog):
                 rsol.comprobada = True
                 break
 
-            bloque[0].ponImagen(self.pmBien if correcta else self.pmMal)
+            bloque[0].put_image(self.pmBien if correcta else self.pmMal)
             if not correcta:
                 nErrores += 1
         if nErrores == 0:

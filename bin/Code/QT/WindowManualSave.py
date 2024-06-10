@@ -271,7 +271,7 @@ class WManualSave(LCDialog.LCDialog):
             for rm in mrm.li_rm:
                 game = Game.Game(self.position)
                 game.read_pv(rm.pv)
-                game.ms_pgn = game.pgnBaseRAW()
+                game.ms_pgn = game.pgn_base_raw()
                 game.ms_pdt = rm.abbrev_text_pdt()
                 li.append(game)
             self.li_analysis = li
@@ -322,7 +322,7 @@ class WManualSave(LCDialog.LCDialog):
         pc = self.procesador.manager_game(self, pc, False, False, self.board)
         if pc:
             self.position = pc.first_position
-            self.em_solucion.set_text(pc.pgnBaseRAW())
+            self.em_solucion.set_text(pc.pgn_base_raw())
 
     def savesolucion(self):
         def open_file(fich):

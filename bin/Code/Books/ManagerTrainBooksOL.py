@@ -9,7 +9,7 @@ from Code.Base.Constantes import (
     TB_CLOSE,
     TB_REINIT,
     TB_CONFIG,
-    TB_HELP,
+    TB_ADVICE,
     TB_NEXT,
     TB_UTILITIES,
     GT_TRAINBOOKSOL,
@@ -66,7 +66,7 @@ class ManagerTrainBooksOL(Manager.Manager):
         self.put_pieces_bottom(self.is_human_side_white)
         self.pgn_refresh(True)
 
-        self.set_toolbar((TB_CLOSE, TB_REINIT, TB_HELP, TB_CONFIG, TB_UTILITIES))
+        self.set_toolbar((TB_CLOSE, TB_REINIT, TB_ADVICE, TB_CONFIG, TB_UTILITIES))
 
         self.show_info_extra()
 
@@ -163,7 +163,7 @@ class ManagerTrainBooksOL(Manager.Manager):
         elif key == TB_NEXT:
             self.reinicio()
 
-        elif key == TB_HELP:
+        elif key == TB_ADVICE:
             self.get_help()
 
         else:
@@ -243,7 +243,7 @@ class ManagerTrainBooksOL(Manager.Manager):
 
             QTUtil2.temporary_message(self.main_window, mens, 1.5, physical_pos=TOP_RIGHT, background=background)
             self.show_labels()
-            self.sigueHumano()
+            self.continue_human()
             return False
 
         self.close_time()

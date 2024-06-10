@@ -9,7 +9,7 @@ from Code import ControlPGN
 from Code import TimeControl
 from Code import Util
 from Code import XRun
-from Code.Analysis import Analysis, AnalysisGame, AnalysisIndexes, Histogram, WindowAnalysisGraph
+from Code.Analysis import Analysis, AnalysisGame, AnalysisIndexes, Histogram, WindowAnalysisGraph, AI
 from Code.Analysis import WindowAnalysisConfig
 from Code.Base import Game, Move, Position
 from Code.Base.Constantes import (
@@ -87,7 +87,7 @@ class Manager:
         self.state = ST_ENDGAME  # Para que siempre este definido
 
         self.game_type = None
-        self.hints = None
+        self.hints = 99999999
         self.ayudas_iniciales = 0
         self.must_be_autosaved = False
 
@@ -105,6 +105,7 @@ class Manager:
         self.listaOpeningsStd = OpeningsStd.ap
 
         self.human_is_playing = False
+        self.is_engine_side_white = False
 
         self.pgn = ControlPGN.ControlPGN(self)
 
@@ -129,8 +130,8 @@ class Manager:
 
         self.main_window.adjust_size()
 
-        self.board.exePulsadoNum = self.exePulsadoNum
-        self.board.exePulsadaLetra = self.exePulsadaLetra
+        self.board.do_pressed_number = self.do_pressed_number
+        self.board.do_pressed_letter = self.do_pressed_letter
 
         self.capturasActivable = False
         self.informacionActivable = False
@@ -208,7 +209,7 @@ class Manager:
     def set_toolbar(self, li_options):
         self.main_window.pon_toolbar(li_options, with_eboard=self.with_eboard)
 
-    def finManager(self):
+    def end_manager(self):
         # se llama from_sq procesador.start, antes de borrar el manager
         self.board.atajos_raton = None
         if self.nonDistract:
@@ -216,12 +217,12 @@ class Manager:
         if self.must_be_autosaved:
             self.autosave_now()
 
-    def atajosRatonReset(self):
+    def reset_shortcuts_mouse(self):
         self.atajosRatonDestino = None
         self.atajosRatonOrigen = None
 
     @staticmethod
-    def otherCandidates(liMoves, position, liC):
+    def other_candidates(liMoves, position, liC):
         li_player = []
         for mov in liMoves:
             if mov.mate():
@@ -309,12 +310,12 @@ class Manager:
             li_c = [(dh[1], "C") for dh in li_c]
         else:
             li_c = [(dh[0], "C") for dh in li_c]
-        self.otherCandidates(li, position, li_c)
+        self.other_candidates(li, position, li_c)
         return li_c
 
     def atajos_raton(self, position, a1h8):
         if a1h8 is None or not self.board.pieces_are_active:
-            self.atajosRatonReset()
+            self.reset_shortcuts_mouse()
             return
 
         FasterCode.set_fen(position.fen())
@@ -333,14 +334,14 @@ class Manager:
             if a1h8 == to_sq:
                 li_origenes.append(from_sq)
         if not (li_destinos or li_origenes):
-            self.atajosRatonReset()
+            self.reset_shortcuts_mouse()
             return
 
         def mueve():
             self.board.muevePiezaTemporal(self.atajosRatonOrigen, self.atajosRatonDestino)
             if (not self.board.mensajero(self.atajosRatonOrigen, self.atajosRatonDestino)) and self.atajosRatonOrigen:
                 self.board.set_piece_again(self.atajosRatonOrigen)
-            self.atajosRatonReset()
+            self.reset_shortcuts_mouse()
 
         def show_candidates():
             if self.configuration.x_show_candidates:
@@ -351,7 +352,7 @@ class Manager:
                     if a1 == self.atajosRatonOrigen:
                         li_c.append((h8, "C"))
                 if self.state != ST_PLAYING:
-                    self.otherCandidates(li_moves, position, li_c)
+                    self.other_candidates(li_moves, position, li_c)
                 self.board.show_candidates(li_c)
 
         if not self.configuration.x_mouse_shortcuts:
@@ -396,7 +397,7 @@ class Manager:
                 show_candidates()
             return
 
-    def repiteUltimaJugada(self):
+    def repeat_last_movement(self):
         # Manager ent tac + ent pos si hay game
         if len(self.game):
             move = self.game.last_jg()
@@ -467,7 +468,7 @@ class Manager:
                 elif movim[0] == "c":
                     self.board.cambiaPieza(movim[1], movim[2])
         # Aprovechamos que esta operacion se hace en cada move
-        self.atajosRatonReset()
+        self.reset_shortcuts_mouse()
 
     def num_rows(self):
         return self.pgn.num_rows()
@@ -517,9 +518,17 @@ class Manager:
                     self.check_kibitzers(True)
                 else:
                     self.kibitzers_manager.stop()
+        self.check_changed()
 
     def si_check_kibitzers(self):
         return (self.state == ST_ENDGAME) or (not self.is_competitive)
+
+    def show_bar_kibitzers_variation(self, game_run):
+        if self.kibitzers_manager.some_working():
+            if self.si_check_kibitzers():
+                self.kibitzers_manager.put_game(game_run, self.board.is_white_bottom, False)
+        if self.main_window.with_analysis_bar:
+            self.main_window.run_analysis_bar(game_run)
 
     def current_game(self):
         row, column = self.main_window.pgnPosActual()
@@ -912,8 +921,8 @@ class Manager:
         if self.game.starts_with_black:
             pos -= 1
         tam_lj = len(self.game)
-        siUltimo = (pos + 1) >= tam_lj
-        if siUltimo:
+        si_ultimo = (pos + 1) >= tam_lj
+        if si_ultimo:
             pos = tam_lj - 1
         return pos, self.game.move(pos) if tam_lj else None
 
@@ -973,7 +982,7 @@ class Manager:
         self.xanalyzer = self.procesador.xanalyzer
 
         if self.game_type == GT_AGAINST_ENGINE:
-            self.analyze_begin()
+            getattr(self, "analyze_begin")()
 
     def is_finished(self):
         return self.game.is_finished()
@@ -989,16 +998,48 @@ class Manager:
         tam_lj = len(self.game)
         if tam_lj == 0:
             return
-        siUltimo = (pos + 1) >= tam_lj
+        si_ultimo = (pos + 1) >= tam_lj
 
         move = self.game.move(pos)
-        return move, is_white, siUltimo, tam_lj, pos
+        return move, is_white, si_ultimo, tam_lj, pos
+
+    def analize_after_last_move(self):
+        si_cancelar = self.xanalyzer.mstime_engine > 2000 or self.xanalyzer.depth_engine > 8
+        mens = _("Analyzing the move....")
+        self.main_window.base.show_message(mens, si_cancelar, tit_cancel=_("Stop thinking"))
+        self.main_window.base.tb.setDisabled(True)
+        if si_cancelar:
+            ya_cancelado = [False]
+            tm_ini = time.time()
+
+            def test_me(rm):
+                if self.main_window.base.is_canceled():
+                    if not ya_cancelado[0]:
+                        self.xanalyzer.stop()
+                        ya_cancelado[0] = True
+                else:
+                    tm = time.time() - tm_ini
+                    self.main_window.base.change_message(
+                        '%s\n%s: %d %s: %.01f"' % (mens, _("Depth"), rm.depth, _("Time"), tm)
+                    )
+                    if self.xanalyzer.mstime_engine and tm * 1000 > self.xanalyzer.mstime_engine:
+                        self.xanalyzer.stop()
+                        ya_cancelado[0] = True
+                return True
+
+            self.xanalyzer.set_gui_dispatch(test_me)
+
+        mrm = self.xanalyzer.play_game_raw(self.game)
+        self.xanalyzer.set_gui_dispatch(None)
+        self.main_window.base.tb.setDisabled(False)
+        self.main_window.base.hide_message()
+        return mrm
 
     def analize_position(self, row, key):
         if row < 0:
             return
 
-        move, is_white, siUltimo, tam_lj, pos_jg = self.dameJugadaEn(row, key)
+        move, is_white, si_ultimo, tam_lj, pos_jg = self.dameJugadaEn(row, key)
         if not move:
             return
 
@@ -1019,7 +1060,7 @@ class Manager:
                     ]
                     or (self.game_type in [GT_ELO, GT_MICELO, GT_WICKER] and not self.is_competitive)
             ):
-                if siUltimo or self.hints == 0:
+                if si_ultimo or self.hints == 0:
                     return
         if move.analysis is None:
             si_cancelar = self.xanalyzer.mstime_engine > 1000 or self.xanalyzer.depth_engine > 8
@@ -1057,6 +1098,7 @@ class Manager:
 
         Analysis.show_analysis(self.procesador, self.xanalyzer, move, self.board.is_white_bottom, pos_jg)
         self.put_view()
+        self.check_changed()
 
     def analizar(self):
         if Code.eboard and Code.eboard.driver:
@@ -1065,6 +1107,10 @@ class Manager:
         AnalysisGame.analysis_game(self)
         self.main_window.base.tb.setDisabled(False)
         self.refresh()
+        self.check_changed()
+
+    def check_changed(self):
+        pass
 
     def borrar(self):
         li_del = []
@@ -1090,6 +1136,7 @@ class Manager:
             self.put_view()
             self.refresh_pgn()
             self.refresh()
+            self.check_changed()
 
     def replay(self):
         if not WReplay.param_replay(self.configuration, self.main_window, self.with_previous_next):
@@ -1137,17 +1184,17 @@ class Manager:
         else:
             self.procesador.run_action(key)
 
-    def finalX0(self):
+    def final_x0(self):
         # Se llama from_sq la main_window al pulsar X
         # Se verifica si estamos en la replay
         if self.xpelicula:
             self.xpelicula.terminar()
             return False
-        return self.final_x()
+        return getattr(self, "final_x")
 
-    def exePulsadoNum(self, siActivar, number):
+    def do_pressed_number(self, si_activar, number):
         if number in [1, 8]:
-            if siActivar:
+            if si_activar:
                 # Que move esta en el board
                 fen = self.fenActivoConInicio()
                 is_white = " w " in fen
@@ -1169,7 +1216,7 @@ class Manager:
                     self.board.flechaSC.show()
 
         elif number in [2, 7]:
-            if siActivar:
+            if si_activar:
                 # Que move esta en el board
                 fen = self.fenActivoConInicio()
                 is_white = " w " in fen
@@ -1181,23 +1228,23 @@ class Manager:
                     fen = FasterCode.fen_other(fen)
                 cp = Position.Position()
                 cp.read_fen(fen)
-                liMovs = cp.aura()
+                li_movs = cp.aura()
 
                 self.liMarcosTmp = []
-                regMarco = BoardTypes.Marco()
+                reg_marco = BoardTypes.Marco()
                 color = self.board.config_board.flechaActivoDefecto().colorinterior
                 if color == -1:
                     color = self.board.config_board.flechaActivoDefecto().color
 
                 st = set()
-                for h8 in liMovs:
+                for h8 in li_movs:
                     if not (h8 in st):
-                        regMarco.a1h8 = h8 + h8
-                        regMarco.siMovible = True
-                        regMarco.color = color
-                        regMarco.colorinterior = color
-                        regMarco.opacity = 0.5
-                        box = self.board.creaMarco(regMarco)
+                        reg_marco.a1h8 = h8 + h8
+                        reg_marco.siMovible = True
+                        reg_marco.color = color
+                        reg_marco.colorinterior = color
+                        reg_marco.opacity = 0.5
+                        box = self.board.creaMarco(reg_marco)
                         self.liMarcosTmp.append(box)
                         st.add(h8)
 
@@ -1206,8 +1253,8 @@ class Manager:
                     self.board.xremove_item(box)
                 self.liMarcosTmp = []
 
-    def exePulsadaLetra(self, siActivar, letra):
-        if siActivar:
+    def do_pressed_letter(self, si_activar, letra):
+        if si_activar:
             dic = {
                 "a": GO_START,
                 "b": GO_BACK,
@@ -1228,11 +1275,11 @@ class Manager:
             self.kibitzers_manager.run_new(huella)
             self.check_kibitzers(False)
 
-    def paraHumano(self):
+    def stop_human(self):
         self.human_is_playing = False
         self.disable_all()
 
-    def sigueHumano(self):
+    def continue_human(self):
         self.human_is_playing = True
         self.check_boards_setposition()
         self.activate_side(self.game.last_position.is_white)
@@ -1241,9 +1288,9 @@ class Manager:
     def check_human_move(self, from_sq, to_sq, promotion, with_premove=False):
         if self.human_is_playing:
             if not with_premove:
-                self.paraHumano()
+                self.stop_human()
         else:
-            self.sigueHumano()
+            self.continue_human()
             return None
 
         movimiento = from_sq + to_sq
@@ -1252,7 +1299,7 @@ class Manager:
         if not promotion and self.game.last_position.pawn_can_promote(from_sq, to_sq):
             promotion = self.board.peonCoronando(self.game.last_position.is_white)
             if promotion is None:
-                self.sigueHumano()
+                self.continue_human()
                 return None
         if promotion:
             movimiento += promotion
@@ -1261,7 +1308,7 @@ class Manager:
         if ok:
             return move
         else:
-            self.sigueHumano()
+            self.continue_human()
             return None
 
     def librosConsulta(self, siEnVivo):
@@ -1282,7 +1329,7 @@ class Manager:
             getattr(self, "play_instead_of_me")()
 
     def control2(self):
-        if hasattr(self, "help_to_move"):
+        if hasattr(self, "help_to_move") and self.hints > 0:
             getattr(self, "help_to_move")()
 
     def add_menu_vista(self, menu_vista):
@@ -1428,11 +1475,11 @@ class Manager:
                     self.refresh_pgn()
                 elif orden == "change":
                     x = str(self)
-                    modoPosicionBlind = False
+                    modo_posicion_blind = False
                     for tipo in ("ManagerEntPos",):
                         if tipo in x:
-                            modoPosicionBlind = True
-                    self.board.blindfoldChange(modoPosicionBlind)
+                            modo_posicion_blind = True
+                    self.board.blindfoldChange(modo_posicion_blind)
 
                 elif orden == "conf":
                     self.board.blindfoldConfig()
@@ -1569,17 +1616,18 @@ class Manager:
                     GT_ELO, GT_MICELO, GT_WICKER) and self.is_competitive and self.state == ST_PLAYING):
                 menu.separador()
 
+                submenu = menu.submenu(_("Analysis"), Iconos.Analizar())
+
                 has_analysis = self.game.has_analisis()
-                if has_analysis:
-                    submenu = menu.submenu(_("Analysis"), Iconos.Analizar())
-                else:
-                    submenu = menu
                 submenu.opcion("analizar", _("Analyze"), Iconos.Analizar())
                 if has_analysis:
                     submenu.separador()
                     submenu.opcion("analizar_grafico", _("Show graphics"), Iconos.Estadisticas())
-                menu.separador()
+                submenu.separador()
 
+                AI.add_submenu(submenu)
+
+                menu.separador()
                 menu.opcion("borrar", _("Remove"), Iconos.Delete())
                 menu.separador()
 
@@ -1593,9 +1641,9 @@ class Manager:
             menu.separador()
             menu.opcion("play_instead_of_me", _("Play instead of me") + "  [%s 1]" % _("CTRL"), Iconos.JuegaPorMi()),
 
-        if hasattr(self, "help_to_move") and self.state == ST_PLAYING:
+        if hasattr(self, "help_to_move") and self.state == ST_PLAYING and self.hints > 0:
             menu.separador()
-            menu.opcion("help_move", _("Help to move") + "  [%s 2]" % _("CTRL"), Iconos.BotonAyuda())
+            menu.opcion("help_to_move", _("Help to move") + "  [%s 2]" % _("CTRL"), Iconos.BotonAyuda())
 
         # Arbol de movimientos
         if with_tree:
@@ -1703,10 +1751,11 @@ class Manager:
         elif resp == "learn_mem":
             self.procesador.learn_game(self.game)
 
-        elif resp == "help_move":
-            self.help_to_move()
+        elif resp == "help_to_move":
+            getattr(self, "help_to_move")()
 
-        return None
+        elif resp.startswith("ai_"):
+            AI.run_menu(self.main_window, resp, self.game)
 
     def save_gif(self):
         from Code.QT import WGif
@@ -1742,7 +1791,7 @@ class Manager:
     def show_analysis(self):
         with QTUtil2.OneMomentPlease(self.main_window):
             elos = self.game.calc_elos(self.configuration)
-            elos_form = self.game.calc_elosFORM(self.configuration)
+            elos_form = self.game.calc_elos_form(self.configuration)
             alm = Histogram.gen_histograms(self.game)
             (
                 alm.indexesHTML,
@@ -1763,20 +1812,20 @@ class Manager:
     def save_db(self, database):
         try:
             pgn = self.listado("pgn")
-            liTags = []
+            li_tags = []
             for linea in pgn.split("\n"):
                 if linea.startswith("["):
                     ti = linea.split('"')
                     if len(ti) == 3:
                         key = ti[0][1:].strip()
                         valor = ti[1].strip()
-                        liTags.append([key, valor])
+                        li_tags.append([key, valor])
                 else:
                     break
         except AttributeError:
-            liTags = []
+            li_tags = []
 
-        pc = Game.Game(li_tags=liTags)
+        pc = Game.Game(li_tags=li_tags)
         pc.assign_other_game(self.game)
 
         db = DBgames.DBgames(database)
@@ -1828,7 +1877,7 @@ class Manager:
         w.exec_()
 
     def save_pgn_clipboard(self):
-        QTUtil.ponPortapapeles(self.game.pgn())
+        QTUtil.set_clipboard(self.game.pgn())
         QTUtil2.message_bold(self.main_window, _("PGN is in clipboard"))
 
     def save_fen(self, siFichero):
@@ -1862,7 +1911,7 @@ class Manager:
                     if direc != self.configuration.save_folder():
                         self.configuration.set_save_folder(direc)
                 except:
-                    QTUtil.ponPortapapeles(dato)
+                    QTUtil.set_clipboard(dato)
                     QTUtil2.message_error(
                         self.main_window,
                         "%s : %s\n\n%s"
@@ -1870,7 +1919,7 @@ class Manager:
                     )
 
         else:
-            QTUtil.ponPortapapeles(dato)
+            QTUtil.set_clipboard(dato)
             QTVarios.fen_is_in_clipboard(self.main_window)
 
     def arbol(self):
@@ -1902,23 +1951,23 @@ class Manager:
                     break
 
             p = self.game.copia(nj)
-            pgn += p.pgnBaseRAW()
+            pgn += p.pgn_base_raw()
             pgn = pgn.replace("|", "-")
 
             siguientes = ""
             if nj < len(self.game) - 1:
                 p = self.game.copy_from_move(nj + 1)
-                siguientes = p.pgnBaseRAW(p.first_position.num_moves).replace("|", "-")
+                siguientes = p.pgn_base_raw(p.first_position.num_moves).replace("|", "-")
 
             txt = "%s||%s|%s\n" % (fen, siguientes, pgn)
-            QTUtil.ponPortapapeles(txt)
+            QTUtil.set_clipboard(txt)
             QTUtil2.temporary_message(
                 self.main_window, _("It is saved in the clipboard to paste it wherever you want."), 2
             )
 
     def tablasPlayer(self):
         # Para elo games + entmaq
-        siAcepta = False
+        si_acepta = False
         nplies = len(self.game)
         if len(self.lirm_engine) >= 4 and nplies > 40:
             if nplies > 100:
@@ -1927,11 +1976,11 @@ class Manager:
                 limite = -100
             else:
                 limite = -150
-            siAcepta = True
+            si_acepta = True
             for rm in self.lirm_engine[-3:]:
                 if rm.centipawns_abs() > limite:
-                    siAcepta = False
-            if not siAcepta:
+                    si_acepta = False
+            if not si_acepta:
                 si_ceros = True
                 for rm in self.lirm_engine[-3:]:
                     if abs(rm.centipawns_abs()) > 15:
@@ -1941,14 +1990,14 @@ class Manager:
                     mrm = self.xtutor.analiza(self.game.last_position.fen(), None, 7)
                     rm = mrm.best_rm_ordered()
                     if abs(rm.centipawns_abs()) < 15:
-                        siAcepta = True
-        if siAcepta:
+                        si_acepta = True
+        if si_acepta:
             self.game.last_jg().is_draw_agreement = True
             self.game.set_termination(TERMINATION_DRAW_AGREEMENT, RESULT_DRAW)
         else:
             QTUtil2.message_bold(self.main_window, _("Sorry, but the engine doesn't accept a draw right now."))
         self.next_test_resign = 999
-        return siAcepta
+        return si_acepta
 
     def valoraRMrival(self):
         if len(self.game) < 50 or len(self.lirm_engine) <= 5:
@@ -2000,20 +2049,20 @@ class Manager:
 
             resp = self.utilities(li_extra_options, with_tree=True)
             if resp == "books":
-                liMovs = self.librosConsulta(True)
-                if liMovs:
-                    for x in range(len(liMovs) - 1, -1, -1):
-                        from_sq, to_sq, promotion = liMovs[x]
+                li_movs = self.librosConsulta(True)
+                if li_movs:
+                    for x in range(len(li_movs) - 1, -1, -1):
+                        from_sq, to_sq, promotion = li_movs[x]
                         self.player_has_moved_base(from_sq, to_sq, promotion)
 
-    def pgnInformacionMenu(self):
+    def pgn_informacion_menu(self):
         menu = QTVarios.LCMenu(self.main_window)
 
         for key, valor in self.game.dic_tags().items():
-            siFecha = key.upper().endswith("DATE")
+            si_fecha = key.upper().endswith("DATE")
             if key.upper() == "FEN":
                 continue
-            if siFecha:
+            if si_fecha:
                 valor = valor.replace(".??", "").replace(".?", "")
             valor = valor.strip("?")
             if valor:
@@ -2021,10 +2070,10 @@ class Manager:
 
         menu.lanza()
 
-    def save_selected_position(self, lineaTraining):
+    def save_selected_position(self, linea_training):
         # Llamado from_sq ManagerEnPos and ManagerEntTac, para salvar la position tras pulsar una P
         with open(self.configuration.ficheroSelectedPositions, "at", encoding="utf-8", errors="ignore") as q:
-            q.write(lineaTraining + "\n")
+            q.write(linea_training + "\n")
         QTUtil2.temporary_message(
             self.main_window, _('Position saved in "%s" file.') % self.configuration.ficheroSelectedPositions, 2
         )

@@ -252,7 +252,7 @@ class Information(QtWidgets.QWidget):
     def comment_changed(self):
         if self.move:
             self.move.set_comment(self.comment.texto())
-        else:
+        elif self.game:
             self.game.first_comment = self.comment.texto().replace("}", "]")
 
     def valoration_changed(self):
@@ -323,7 +323,7 @@ class WVariations(QtWidgets.QWidget):
 
         lb_variations = Controles.LB(self.owner, _("Variations")).set_font(f)
 
-        ly_head = Colocacion.H().control(lb_variations).relleno().control(tb_variations)
+        ly_head = Colocacion.H().control(lb_variations).relleno().control(tb_variations).margen(0)
 
         layout = Colocacion.V().otro(ly_head).control(self.em).margen(0)
         self.setLayout(layout)
@@ -354,8 +354,8 @@ class WVariations(QtWidgets.QWidget):
         self.mostrar()
 
         if variation is not None:
-            manager = self.owner.w_parent.manager
-            manager.kibitzers_manager.put_game(variation.copia(num_var_move), board.is_white_bottom)
+            manager = self.get_manager()
+            manager.show_bar_kibitzers_variation(variation.copia(num_var_move))
 
     def link_variation_edit(self, num_variation):
         self.edit(num_variation)
@@ -477,7 +477,7 @@ class WVariations(QtWidgets.QWidget):
         menu = QTVarios.LCMenuRondo(self)
         for num, variante in enumerate(li_variations):
             move = variante.move(0)
-            menu.opcion(num, "%d. %s" % (num + 1, move.pgn_translated()))
+            menu.opcion(num, move.pgn_translated())
         return menu.lanza()
 
     def edit(self, number, with_engine_active=False):

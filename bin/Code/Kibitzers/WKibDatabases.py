@@ -175,13 +175,13 @@ class WKibDatabases(WKibCommon.WKibCommon):
         if self.siPlay:
             self.game = game
             position = game.last_position
-            self.siW = position.is_white
+            self.is_white = position.is_white
             self.board.set_position(position)
             self.pv = game.pv()
             self.db.filter_pv(self.pv)
             self.wgames.grid.refresh()
             self.wgames.grid.gotop()
-            self.board.activate_side(self.siW)
+            self.board.activate_side(self.is_white)
             self.siPlay = True
             self.show_num_games()
             self.previous_stable = False

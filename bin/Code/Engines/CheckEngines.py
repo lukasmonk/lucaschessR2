@@ -38,6 +38,7 @@ def check_engine(path: str) -> bool:
     curdir = os.path.abspath(os.curdir)
     os.chdir(os.path.dirname(path))
     ok = False
+    process = None
     try:
         process = subprocess.Popen(xargs, stdout=subprocess.PIPE, stdin=subprocess.PIPE, startupinfo=startupinfo)
         os.chdir(curdir)
@@ -67,8 +68,9 @@ def check_engine(path: str) -> bool:
         pass
 
     try:
-        process.kill()
-        process.terminate()
+        if process:
+            process.kill()
+            process.terminate()
     except:
         pass
 
@@ -96,7 +98,7 @@ def check_stockfish(window, check_again):
             if seek in linea:
                 lista.append(linea)
 
-    # Se guarda el primero, por si el resto no son validos, y no s emuestra el mensaje mas
+    # Se guarda el primero, por si el resto no son validos, y no se muestra el mensaje mas veces
     conf_stockfish.name = lista[0].replace(".exe", "")
     Code.configuration.write_variables(STOCKFISH_KEY, {"NAME": conf_stockfish.name})
 

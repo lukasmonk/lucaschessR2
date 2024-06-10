@@ -170,7 +170,7 @@ class SelectEngines:
         dnames = get_dict_type_names()
 
         rp = QTVarios.rondo_puntos(False)
-        rc = QTVarios.rondoColores(False)
+        rc = QTVarios.rondo_colores(False)
 
         submenu = menu.submenu(dnames[ENG_INTERNAL], self.dicIconos[ENG_INTERNAL])
 

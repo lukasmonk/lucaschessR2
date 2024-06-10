@@ -408,7 +408,7 @@ class AnalisisVariations:
                 self.external_analysis()
             elif accion == "MoverFEN":
                 move = self.game_analyzer.move(self.pos_analyzer)
-                QTUtil.ponPortapapeles(move.position.fen())
+                QTUtil.set_clipboard(move.position.fen())
                 QTVarios.fen_is_in_clipboard(self.w)
 
     def moving_analyzer(self, si_inicio=False, n_saltar=0, si_final=False, is_base=False):

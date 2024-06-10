@@ -160,7 +160,7 @@ class Board(QtWidgets.QGraphicsView):
                         ):
                             self.main_window.manager.save_pgn_clipboard()
                     else:
-                        QTUtil.ponPortapapeles(self.last_position.fen())
+                        QTUtil.set_clipboard(self.last_position.fen())
                         QTVarios.fen_is_in_clipboard(self)
 
             # ALT-B : Menu visual
@@ -385,8 +385,8 @@ class Board(QtWidgets.QGraphicsView):
 
         self.colorFrontera = self.config_board.colorFrontera()
 
-        self.exePulsadoNum = None
-        self.exePulsadaLetra = None
+        self.do_pressed_number = None
+        self.do_pressed_letter = None
         self.atajos_raton = None
         self.pieces_are_active = False  # Control adicional, para responder a eventos del raton
         self.side_pieces_active = None
@@ -683,8 +683,7 @@ class Board(QtWidgets.QGraphicsView):
         indicador.norte = gap / 2
         self.side_indicator_sc = BoardElements.CirculoSC(self.escena, indicador, rutina=self.intentaRotarBoard)
 
-        if self.transSideIndicator != 100.0:
-            self.side_indicator_sc.setOpacity((100.0 - self.transSideIndicator * 1.0) / 100.0)
+        self.side_indicator_sc.setOpacity((100.0 - self.transSideIndicator * 1.0) / 100.0)
 
         # Lanzador de menu visual
         self.indicadorSC_menu = None
@@ -841,6 +840,7 @@ class Board(QtWidgets.QGraphicsView):
         submenu = menu.submenu(_("By default"), Iconos.Defecto())
         submenu.opcion("def_todo1", "1", Iconos.m1())
         submenu.opcion("def_todo2", "2", Iconos.m2())
+        submenu.opcion("def_todo3", "3", Iconos.m3())
 
         menu.separador()
         if self.with_director:
@@ -1354,8 +1354,8 @@ class Board(QtWidgets.QGraphicsView):
                     self.width_changed()
                     return
 
-        elif hasattr(self.main_window, "boardWheelEvent"):
-            self.main_window.boardWheelEvent(self, event.delta() < 0)
+        elif hasattr(self.main_window, "board_wheel_event"):
+            self.main_window.board_wheel_event(self, event.delta() < 0)
 
     def set_dispatcher(self, mensajero, atajos_raton=None):
         if self.dirvisual:
@@ -2066,16 +2066,16 @@ class Board(QtWidgets.QGraphicsView):
                 not siIzq
         ):  # si es derecho lo dejamos para el menu visual, y el izquierdo solo muestra capturas, si se quieren ver movimientos, que active show candidates
             return
-        if self.exePulsadoNum:
-            self.exePulsadoNum(siActivar, int(number))
+        if self.do_pressed_number:
+            self.do_pressed_number(siActivar, int(number))
 
     def pulsadaLetra(self, siIzq, siActivar, letra):
         if (
                 not siIzq
         ):  # si es derecho lo dejamos para el menu visual, y el izquierdo solo muestra capturas, si se quieren ver movimientos, que active show candidates
             return
-        if self.exePulsadaLetra:
-            self.exePulsadaLetra(siActivar, letra)
+        if self.do_pressed_letter:
+            self.do_pressed_letter(siActivar, letra)
 
     def save_as_img(self, file=None, tipo=None, is_ctrl=False, is_alt=False):
         act_ind = act_scr = False
@@ -2108,7 +2108,7 @@ class Board(QtWidgets.QGraphicsView):
             r = QtCore.QRect(x, y, w, h)
             pm = QtWidgets.QWidget.grab(self, r)
         if file is None:
-            QTUtil.ponPortapapeles(pm, tipo="p")
+            QTUtil.set_clipboard(pm, tipo="p")
         else:
             pm.save(file, tipo)
 
@@ -2461,7 +2461,7 @@ class Board(QtWidgets.QGraphicsView):
                 if self.side_pieces_active:
                     return 0
             elif quien == "scan":
-                QTUtil.ponPortapapeles(a1h8)
+                QTUtil.set_clipboard(a1h8)
                 return 1
 
             elif quien == "whiteTakeBack":

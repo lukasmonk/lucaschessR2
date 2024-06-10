@@ -142,7 +142,8 @@ class ThanksTo:
             "Olav Stüwe",
             '<a href="http://99-developer-tools.com/chess/">A. Wicker</a>',
             'Budana P',
-            'Rudolf Krämer'
+            'Rudolf Krämer',
+            "Luis"
             ""
         ]
         li_resto = []
@@ -162,17 +163,6 @@ class ThanksTo:
             "Remes",
             "Péter Rabi",
             "Iñaki Rodriguez",
-        ]
-        li_resto = ["Immortalchess forum"]
-        txt += version(11, li_base, li_resto)
-
-        # Version 10
-        li_base = ["Remes", "Max Aloyau", "Alfonso Solbes", "tico-tico", "Nils Andersson", "Bernhard", "Ed Smith"]
-        li_resto = ["Immortalchess forum"]
-        txt += version(10, li_base, li_resto)
-
-        # Version 9
-        li_base = [
             "Indianajones",
             "Pavel Rehulka",
             "ADT",
@@ -187,12 +177,7 @@ class ThanksTo:
             "Giovanni di Maria",
             "Filomeno Marmalé",
             "Max Aloyau",
-        ]
-        li_resto = ["Chessindia forum", "Immortalchess forum"]
-        txt += version(9, li_base, li_resto)
-
-        # Version 8
-        li_base = [
+            "Remes", "Max Aloyau", "Alfonso Solbes", "tico-tico", "Nils Andersson", "Bernhard", "Ed Smith",
             "Indianajones",
             "James",
             "Uli",
@@ -222,12 +207,6 @@ class ThanksTo:
             "Nils Andersson",
             "Chris K.",
             "Philou",
-        ]
-        li_resto = ["Chessindia forum", "Immortalchess forum"]
-        txt += version(8, li_base, li_resto, False)
-
-        # Version 1..7
-        li_base = [
             "Felicia",
             "Shahin Jafarli (shahinjy)",
             "Alfons",
@@ -243,9 +222,11 @@ class ThanksTo:
             "Lolo S.",
             "Joaquín Alvarez",
             "Ransith Fernando",
+            "Gianfranco Cutipa",
+            "Daniel Trebejo",
         ]
-        li_resto = ["Gianfranco Cutipa", "Daniel Trebejo", "Jose Luis García", "Carmen Martínez"]  # "Ezequiel Canario"
-        txt += version("1..7", li_base, li_resto, False)
+        li_resto = ["Chessindia forum", "Immortalchess forum", "Jose Luis García", "Carmen Martínez"]
+        txt += version("1..11", li_base, li_resto)
 
         txt += self.dl_end()
         return txt
@@ -266,7 +247,7 @@ class ThanksTo:
                 txt += "</td><td>"
                 txt += self.dl_ini()
             txt += self.dl_tit(d["NAME"])
-            txt += self.dl_elem(d["AUTHOR"])
+            txt += self.dl_elem(d.get("AUTHOR", ""))
             if "PREVIOUS" in d:
                 txt += self.dl_elem("%s: %s" % (_("Previous"), d["PREVIOUS"]))
 
@@ -362,6 +343,7 @@ class ThanksTo:
             ("Alexander", _("Permission of author")),
             ("Dan Brad", _("Permission of author")),
             ("Tamer64", _("Permission of author")),
+            ("Luis", _("Permission of author")),
         ]
         for autor, licencia in li:
             txt += "<tr>"
@@ -462,7 +444,11 @@ class ThanksTo:
                 '<a href="https://ixian.com/chess/jin-piece-sets/">Eric De Mund</a>',
                 "Creative Commons Attribution-Share<br>Alike3.0 Unported",
             ),
-            ("Etruscan<br>Etruscan clear", '<a href="https://zipanatura.fr/">Fabrice</a>', "CC BY-NC-ND 4.0"),
+            (
+                "Etruscan<br>Etruscan clear",
+                '<a href="https://zipanatura.fr/">Fabrice</a>',
+                '<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-ND 4.0</a>'
+            ),
             (
                 "Stauton 3D<br>Kidsdraw",
                 '<a href="https://plus.google.com/101635611158475796811/about">Marc Graziani</a>',
@@ -477,6 +463,11 @@ class ThanksTo:
                 "Balestegui<br>Balestegui2",
                 "",
                 _("Permission of author"),
+            ),
+            (
+                "Caballo R M",
+                'Luis',
+                '<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-ND 4.0</a>'
             ),
         ]
         salto = len(li) // 2

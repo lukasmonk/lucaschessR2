@@ -457,7 +457,7 @@ class WTrainBMT(LCDialog.LCDialog):
     def keyPressEvent(self, event):
         self.key_pressed("V", event.key())
 
-    def boardWheelEvent(self, nada, forward):
+    def board_wheel_event(self, nada, forward):
         forward = self.configuration.wheel_board(forward)
         self.key_pressed("T", QtCore.Qt.Key.Key_Left if forward else QtCore.Qt.Key.Key_Right)
 
@@ -760,10 +760,10 @@ class WTrainBMT(LCDialog.LCDialog):
         else:
             self.lbPrimera.setVisible(False)
             self.iniciaTiempo()
-            self.sigueHumano()
+            self.continue_human()
 
     def player_has_moved(self, from_sq, to_sq, promotion=""):
-        self.paraHumano()
+        self.stop_human()
 
         movimiento = from_sq + to_sq
 
@@ -787,13 +787,13 @@ class WTrainBMT(LCDialog.LCDialog):
             self.activaJugada(n_elegido)
 
         if not self.bmt_uno.finished:
-            self.sigueHumano()
+            self.continue_human()
         return True
 
-    def paraHumano(self):
+    def stop_human(self):
         self.board.disable_all()
 
-    def sigueHumano(self):
+    def continue_human(self):
         self.siMostrarPGN = False
         self.pgn.refresh()
         si_w = self.position.is_white

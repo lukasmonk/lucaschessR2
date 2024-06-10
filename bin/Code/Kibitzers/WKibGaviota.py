@@ -101,9 +101,9 @@ class WGaviota(WKibCommon.WKibCommon):
 
         if self.siPlay:
             position = game.last_position
-            self.siW = position.is_white
+            self.is_white = position.is_white
             self.board.set_position(position)
-            self.board.activate_side(self.siW)
+            self.board.activate_side(self.is_white)
             self.li_moves = self.t4.listFen(position.fen())
             self.grid.gotop()
             self.grid.refresh()

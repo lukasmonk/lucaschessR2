@@ -54,7 +54,7 @@ class ConjuntoPiezas:
     def label(self, owner, pieza, tam):
         pm = self.pixmap(pieza, tam)
         lb = Controles.LB(owner)
-        lb.ponImagen(pm)
+        lb.put_image(pm)
         lb.pieza = pieza
         lb.tam_pieza = tam
         return lb
@@ -62,7 +62,7 @@ class ConjuntoPiezas:
     def change_label(self, lb, tam):
         if lb.tam_pieza != tam:
             pm = self.pixmap(lb.pieza, tam)
-            lb.ponImagen(pm)
+            lb.put_image(pm)
 
     def icono(self, pieza):
         icon = QtGui.QIcon(self.pixmap(pieza, 32))
@@ -463,7 +463,7 @@ class WBlindfold(LCDialog.LCDialog):
                 else:
                     pm = QTVarios.fsvg2pm(fich, 32)
                     self.dicImgs[fich] = pm
-                lbPZw.ponImagen(pm)
+                lbPZw.put_image(pm)
             tipoNv = cbPZb.valor()
             if tipoB != tipoNv:
                 self.config.dicPiezas[pzB] = tipoNv
@@ -474,4 +474,4 @@ class WBlindfold(LCDialog.LCDialog):
                 else:
                     pm = QTVarios.fsvg2pm(fich, 32)
                     self.dicImgs[fich] = pm
-                lbPZb.ponImagen(pm)
+                lbPZb.put_image(pm)

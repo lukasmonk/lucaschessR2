@@ -491,7 +491,7 @@ class Variations:
 
     def get_pgn(self):
         if self.li_variations:
-            return " ".join(["(%s)" % v.pgnBaseRAW() for v in self.li_variations])
+            return " ".join(["(%s)" % v.pgn_base_raw() for v in self.li_variations])
         return ""
 
     def clear(self):

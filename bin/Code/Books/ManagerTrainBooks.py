@@ -12,7 +12,7 @@ from Code.Base.Constantes import (
     TB_REINIT,
     TB_TAKEBACK,
     TB_CONFIG,
-    TB_HELP,
+    TB_ADVICE,
     TB_UTILITIES,
     SELECTED_BY_PLAYER
 )
@@ -43,7 +43,7 @@ class ManagerTrainBooks(Manager.Manager):
         self.is_human_side_white = is_white
         self.is_book_side_white = not is_white
 
-        self.set_toolbar((TB_CLOSE, TB_REINIT, TB_TAKEBACK, TB_HELP, TB_CONFIG, TB_UTILITIES))
+        self.set_toolbar((TB_CLOSE, TB_REINIT, TB_TAKEBACK, TB_ADVICE, TB_CONFIG, TB_UTILITIES))
         self.main_window.active_game(True, False)
         self.set_dispatcher(self.play_human)
         self.set_position(self.game.last_position)
@@ -83,7 +83,7 @@ class ManagerTrainBooks(Manager.Manager):
         elif clave == TB_UTILITIES:
             self.utilities()
 
-        elif clave == TB_HELP:
+        elif clave == TB_ADVICE:
             self.get_help()
 
         else:
@@ -227,7 +227,7 @@ class ManagerTrainBooks(Manager.Manager):
                 resp = None
             if resp is None:
                 self.sumar_aciertos = False
-                self.sigueHumano()
+                self.continue_human()
                 return False
 
             xfrom, xto, promotion = resp
@@ -249,7 +249,7 @@ class ManagerTrainBooks(Manager.Manager):
 
     def get_help(self):
         if self.human_is_playing:
-            self.paraHumano()
+            self.stop_human()
         else:
             return
         self.board.set_position(self.game.last_position)
@@ -274,7 +274,7 @@ class ManagerTrainBooks(Manager.Manager):
         self.board.remove_arrows()
         if resp is None:
             self.sumar_aciertos = False
-            self.sigueHumano()
+            self.continue_human()
             return
 
         xfrom, xto, promotion = resp
@@ -322,7 +322,7 @@ class ManagerTrainBooks(Manager.Manager):
             self.aciertos -= 1
             if self.aciertos < 0:
                 self.aciertos = 0
-            self.game.anulaUltimoMovimiento(self.is_human_side_white)
+            self.game.remove_last_move(self.is_human_side_white)
             self.goto_end()
             self.refresh()
             self.siguienteJugada()

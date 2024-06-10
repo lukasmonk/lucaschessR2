@@ -97,7 +97,7 @@ def options(parent, configuration):
     li_wheel = [(_("Forward"), GO_FORWARD), (_("Backward"), GO_BACK)]
     form.combobox(_("Scroll direction with the mouse wheel"), li_wheel, configuration.x_wheel_board)
     form.checkbox(_("Always promote to queen\nALT key allows to change"), configuration.x_autopromotion_q)
-    form.slider(_("Margin of pieces in square") + ':<br><small>%s 10</small>' % _("By default"), 0, 20,
+    form.slider(_("Margin of pieces in square") + ':<br><small>%s 7</small>' % _("By default"), 0, 20,
                 Code.configuration.x_margin_pieces, siporc=False)
     form.separador()
 
@@ -105,39 +105,25 @@ def options(parent, configuration):
     form.separador()
 
     x = " - %s Graham O'Neill (https://goneill.co.nz)" % _("developed by")
+    li_db = [
+        (_("None"), ""),
+        (_("Certabo") + x, "Certabo"),
+        (_("Chessnut") + x, "Chessnut"),
+        (_("Chessnut Evo") + x, "Chessnut Evo"),
+        (_("DGT (Alternative)") + x, "DGT-gon"),
+        (_("DGT Pegasus") + x, "Pegasus"),
+        (_("HOS Sensory") + x, "HOS Sensory"),
+        (_("iChessOne") + x, "iChessOne"),
+        (_("Millennium") + x, "Millennium"),
+        (_("Novag Citrine") + x, "Citrine"),
+        (_("Novag UCB") + x, "Novag UCB"),
+        (_("Saitek") + x, "Saitek"),
+        (_("Square Off Pro") + x, "Square Off"),
+        (_("Tabutronic") + x, "Tabutronic"),
+    ]
     if Code.is_windows:
-        li_db = [
-            (_("None"), ""),
-            (_("Certabo") + x, "Certabo"),
-            (_("Chessnut") + x, "Chessnut"),
-            (_("Chessnut Evo") + x, "Chessnut Evo"),
-            (_("DGT"), "DGT"),
-            (_("DGT (Alternative)") + x, "DGT-gon"),
-            (_("DGT Pegasus") + x, "Pegasus"),
-            (_("iChessOne") + x, "iChessOne"),
-            (_("Millennium") + x, "Millennium"),
-            (_("Novag Citrine") + x, "Citrine"),
-            (_("Novag UCB") + x, "Novag UCB"),
-            (_("Saitek") + x, "Saitek"),
-            (_("Square Off Pro") + x, "Square Off"),
-            (_("Tabutronic") + x, "Tabutronic"),
-        ]
-    else:
-        li_db = [
-            (_("None"), ""),
-            (_("Certabo") + x, "Certabo"),
-            (_("Chessnut") + x, "Chessnut"),
-            (_("Chessnut Evo") + x, "Chessnut Evo"),
-            (_("DGT") + x, "DGT-gon"),
-            (_("DGT Pegasus") + x, "Pegasus"),
-            (_("iChessOne") + x, "iChessOne"),
-            (_("Millennium") + x, "Millennium"),
-            (_("Novag Citrine") + x, "Citrine"),
-            (_("Novag UCB") + x, "Novag UCB"),
-            (_("Saitek") + x, "Saitek"),
-            (_("Square Off Pro") + x, "Square Off"),
-            (_("Tabutronic") + x, "Tabutronic"),
-        ]
+        li_db.insert(4, (_("DGT"), "DGT"))
+
     form.combobox(_("Digital board"), li_db, configuration.x_digital_board)
 
     form.separador()
@@ -337,7 +323,7 @@ def options(parent, configuration):
                                     _("WARNING: selecting the wrong driver might cause damage to your board."),
                                     _("Proceed at your own risk."),
                                     _("Please read the driver's user manual at:"),
-                                    "\u00A0\u00A0\u00A0\u00A0\u00A0 https://goneill.co.nz/chess#eboard",
+                                    '<a href="https://goneill.co.nz/chess#eboard">https://goneill.co.nz/chess#eboard</a>',
                             ),
                     ):
                         dboard = ""

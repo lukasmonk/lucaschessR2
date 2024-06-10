@@ -582,7 +582,7 @@ class MenuTrainings:
             if not resp:
                 return
 
-            tactica = tacticas.eligeTactica(resp, self.configuration.carpeta_results)
+            tactica = tacticas.eligeTactica(resp, self.configuration.folder_results)
 
         if tactica:
             self.tactics_train(tactica)

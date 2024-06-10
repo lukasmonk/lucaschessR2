@@ -2619,6 +2619,12 @@ def pmKibitzer_Up():
 def Kibitzer_Up():
     return iget("Kibitzer_Up")
 
+def pmKibitzer_End():
+    return iget("pmKibitzer_End")
+
+def Kibitzer_End():
+    return iget("Kibitzer_End")
+
 def pmKibitzer_Back():
     return iget("pmKibitzer_Back")
 
@@ -3003,6 +3009,12 @@ def pmIChessOne():
 def IChessOne():
     return iget("IChessOne")
 
+def pmHOS():
+    return iget("pmHOS")
+
+def HOS():
+    return iget("HOS")
+
 def pmRodent():
     return iget("pmRodent")
 
@@ -3147,6 +3159,12 @@ def pmm2():
 def m2():
     return iget("m2")
 
+def pmm3():
+    return iget("pmm3")
+
+def m3():
+    return iget("m3")
+
 def pmApproval():
     return iget("pmApproval")
 
@@ -3170,3 +3188,15 @@ def pmEye():
 
 def Eye():
     return iget("Eye")
+
+def pmAI():
+    return iget("pmAI")
+
+def AI():
+    return iget("AI")
+
+def pmAdvice():
+    return iget("pmAdvice")
+
+def Advice():
+    return iget("Advice")

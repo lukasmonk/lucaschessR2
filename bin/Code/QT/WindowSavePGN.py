@@ -548,7 +548,7 @@ class WSave(LCDialog.LCDialog):
         elif pos_tab == 3:
             mens = self.em_body_sp.texto()
 
-        QTUtil.ponPortapapeles(mens)
+        QTUtil.set_clipboard(mens)
         QTUtil2.temporary_message(self, f"<big>{tab_text}</big><br><br>" + _(
             "It is saved in the clipboard to paste it wherever you want."), 2)
 

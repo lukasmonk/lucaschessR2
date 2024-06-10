@@ -28,6 +28,7 @@ from Code.Board import Board
 from Code.Books import Books
 from Code.Engines import EngineManager, EnginesWicker, EngineResponse
 from Code.Leagues import LeaguesWork, Leagues
+from Code.MainWindow import WAnalysisBar
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles
@@ -39,9 +40,34 @@ from Code.QT import QTVarios
 from Code.Sound import Sound
 
 
+class ProcesadorBar:
+
+    @staticmethod
+    def analyzer_clone(mstime, depth, multipv):
+        xclone = EngineManager.EngineManager(Code.configuration.engine_analyzer())
+        xclone.options(mstime, depth, True)
+        if multipv == 0:
+            xclone.maximize_multipv()
+        else:
+            xclone.set_multipv(multipv)
+        return xclone
+
+
 class WLeagueWorker(QtWidgets.QWidget):
     tc_white: TimeControl.TimeControl
     tc_black: TimeControl.TimeControl
+    grid_pgn: Grid.Grid
+    lb_player: dict
+    lb_clock: dict
+    lbRotulo3: Controles.LB
+    seconds_per_move: int
+    max_seconds: int
+    xmatch = None
+    xadjudicator = None
+    book = None
+    book_rr = None
+    book_max_plies = 0
+    xengine = None
 
     def __init__(self, name_league):
         QtWidgets.QWidget.__init__(self)
@@ -67,6 +93,14 @@ class WLeagueWorker(QtWidgets.QWidget):
         ct = self.board.config_board
         self.antiguoAnchoPieza = ct.width_piece()
 
+        # Analysis Bar
+        Code.procesador = ProcesadorBar()
+        self.analysis_bar = WAnalysisBar.AnalysisBar(self, self.board)
+        self.key = "RUN_LEAGUES"
+        dic = Code.configuration.read_variables(self.key)
+        activated = dic.get("ANALYSIS_BAR", Code.configuration.x_analyzer_activate_ab)
+        self.analysis_bar.activate(activated)
+
         self.configuration = Code.configuration
         self.game = Game.Game()
         self.pgn = ControlPGN.ControlPGN(self)
@@ -77,7 +111,8 @@ class WLeagueWorker(QtWidgets.QWidget):
         self.current_side = WHITE
         self.next_control = 0
 
-        ly_tt = Colocacion.V().control(self.tb).control(self.board)
+        ly_ab_board = Colocacion.H().control(self.analysis_bar).control(self.board)
+        ly_tt = Colocacion.V().control(self.tb).otro(ly_ab_board)
 
         layout = Colocacion.H().otro(ly_tt).otro(ly_pgn).relleno().margen(3)
         self.setLayout(layout)
@@ -110,6 +145,8 @@ class WLeagueWorker(QtWidgets.QWidget):
                     None,
                 ]
             )
+        li_acciones.append((_("Config"), Iconos.Configurar(), self.configurar))
+        li_acciones.append(None)
         self.tb.reset(li_acciones)
 
     def crea_bloque_informacion(self):
@@ -168,17 +205,35 @@ class WLeagueWorker(QtWidgets.QWidget):
         ly_color.controlc(self.lb_clock[WHITE], 1, 0).controlc(self.lb_clock[BLACK], 1, 1)
 
         # Abajo
-        lyAbajo = Colocacion.V()
-        lyAbajo.setSizeConstraint(lyAbajo.SetFixedSize)
-        lyAbajo.control(self.lbRotulo3)
+        ly_abajo = Colocacion.V()
+        ly_abajo.setSizeConstraint(ly_abajo.SetFixedSize)
+        ly_abajo.control(self.lbRotulo3)
 
-        lyV = Colocacion.V().otro(ly_color).control(self.grid_pgn)
-        lyV.otro(lyAbajo).margen(7)
+        ly_v = Colocacion.V().otro(ly_color).control(self.grid_pgn)
+        ly_v.otro(ly_abajo).margen(7)
 
-        return lyV
+        return ly_v
 
     def grid_num_datos(self, grid):
         return self.pgn.num_rows()
+
+    def configurar(self):
+        menu = QTVarios.LCMenu(self)
+        activated = self.analysis_bar.activated
+        menu.opcion("analysis_bar", _("Analysis Bar"), is_ckecked=activated)
+        resp = menu.lanza()
+        if resp == "analysis_bar":
+            activated = not activated
+            self.analysis_bar.activate(activated)
+
+            dic = Code.configuration.read_variables(self.key)
+            if activated == Code.configuration.x_analyzer_activate_ab:
+                activated = None
+            dic["ANALYSIS_BAR"] = activated
+            Code.configuration.write_variables(self.key, dic)
+
+    def grid_right_button(self, grid, row, col, modif):
+        self.configurar()
 
     def looking_for_work(self):
         try:
@@ -410,7 +465,7 @@ class WLeagueWorker(QtWidgets.QWidget):
     def game_finished(self):
         return self.game.termination != TERMINATION_UNKNOWN
 
-    def show_pv(self, pv, nArrows):
+    def show_pv(self, pv, n_arrows):
         if not pv:
             return True
         self.board.remove_arrows()
@@ -421,7 +476,7 @@ class WLeagueWorker(QtWidgets.QWidget):
             pv = pv.replace("  ", " ")
         lipv = pv.split(" ")
         npv = len(lipv)
-        nbloques = min(npv, nArrows)
+        nbloques = min(npv, n_arrows)
         salto = (80 - 15) * 2 / (nbloques - 1) if nbloques > 1 else 0
         cambio = max(30, salto)
 
@@ -471,6 +526,8 @@ class WLeagueWorker(QtWidgets.QWidget):
             time_pending_white = self.tc_white.pending_time
             time_pending_black = self.tc_black.pending_time
             self.start_clock(is_white)
+            if self.analysis_bar.activated:
+                self.analysis_bar.set_game(self.game)
             if xrival.depth_engine and xrival.depth_engine > 0:
                 mrm = xrival.play_fixed_depth_time_tourney(self.game)
             else:
@@ -512,13 +569,13 @@ class WLeagueWorker(QtWidgets.QWidget):
     def sound(self, move):
         if self.configuration.x_sound_tournements:
             if not Code.runSound:
-                runSound = Sound.RunSound()
+                run_sound = Sound.RunSound()
             else:
-                runSound = Code.runSound
+                run_sound = Code.runSound
             if self.configuration.x_sound_move:
-                runSound.play_list(move.sounds_list())
+                run_sound.play_list(move.sounds_list())
             if self.configuration.x_sound_beep:
-                runSound.playBeep()
+                run_sound.playBeep()
 
     def sudden_end(self, is_white):
         result = RESULT_WIN_BLACK if is_white else RESULT_WIN_WHITE
@@ -539,7 +596,7 @@ class WLeagueWorker(QtWidgets.QWidget):
         info = ""
         indicador_inicial = None
 
-        stNAGS = set()
+        st_nags = set()
 
         if move.analysis:
             mrm, pos = move.analysis
@@ -560,14 +617,14 @@ class WLeagueWorker(QtWidgets.QWidget):
                 info = "%+0.2f" % float(pts / 100.0)
 
             nag, color_nag = mrm.set_nag_color(rm)
-            stNAGS.add(nag)
+            st_nags.add(nag)
 
         if move.in_the_opening:
             indicador_inicial = "R"
 
         pgn = move.pgn_figurines() if self.configuration.x_pgn_withfigurines else move.pgn_translated()
 
-        return pgn, color, info, indicador_inicial, stNAGS
+        return pgn, color, info, indicador_inicial, st_nags
 
     def gui_dispatch(self, rm):
         if self.is_closed or self.state != ST_PLAYING:
@@ -611,35 +668,35 @@ class WLeagueWorker(QtWidgets.QWidget):
         if not last_jg.analysis:
             return False
         mrm, pos = last_jg.analysis
-        rmUlt = mrm.li_rm[pos]
-        jgAnt = self.game.move(-2)
-        if not jgAnt.analysis:
+        rm_ult = mrm.li_rm[pos]
+        jg_ant = self.game.move(-2)
+        if not jg_ant.analysis:
             return False
-        mrm, pos = jgAnt.analysis
-        rmAnt = mrm.li_rm[pos]
+        mrm, pos = jg_ant.analysis
+        rm_ant = mrm.li_rm[pos]
 
         # Draw
-        pUlt = rmUlt.centipawns_abs()
-        pAnt = rmAnt.centipawns_abs()
+        p_ult = rm_ult.centipawns_abs()
+        p_ant = rm_ant.centipawns_abs()
         dr = self.league.draw_range
         if dr > 0 and num_moves >= self.league.draw_min_ply:
-            if abs(pUlt) <= dr and abs(pAnt) <= dr:
-                mrmTut = self.xadjudicator.analiza(self.game.last_position.fen())
-                rmTut = mrmTut.best_rm_ordered()
-                pTut = rmTut.centipawns_abs()
-                if abs(pTut) <= dr:
+            if abs(p_ult) <= dr and abs(p_ant) <= dr:
+                mrm_tut = self.xadjudicator.analiza(self.game.last_position.fen())
+                rm_tut = mrm_tut.best_rm_ordered()
+                p_tut = rm_tut.centipawns_abs()
+                if abs(p_tut) <= dr:
                     self.game.set_termination(TERMINATION_ADJUDICATION, RESULT_DRAW)
                     return True
                 return False
 
         # Resign
         rs = self.league.resign
-        if 0 < rs <= abs(pUlt):
-            rmTut = self.xadjudicator.play_game(self.game)
-            pTut = rmTut.centipawns_abs()
-            if abs(pTut) >= rs:
+        if 0 < rs <= abs(p_ult):
+            rm_tut = self.xadjudicator.play_game(self.game)
+            p_tut = rm_tut.centipawns_abs()
+            if abs(p_tut) >= rs:
                 is_white = self.game.last_position.is_white
-                if pTut > 0:
+                if p_tut > 0:
                     result = RESULT_WIN_WHITE if is_white else RESULT_WIN_BLACK
                 else:
                     result = RESULT_WIN_BLACK if is_white else RESULT_WIN_WHITE
@@ -648,7 +705,7 @@ class WLeagueWorker(QtWidgets.QWidget):
 
         return False
 
-    def move_the_pieces(self, liMovs):
+    def move_the_pieces(self, li_movs):
         if self.slow_pieces:
 
             rapidez = self.configuration.pieces_speed_porc()
@@ -657,7 +714,7 @@ class WLeagueWorker(QtWidgets.QWidget):
             seconds = None
 
             # primero los movimientos
-            for movim in liMovs:
+            for movim in li_movs:
                 if movim[0] == "m":
                     if seconds is None:
                         from_sq, to_sq = movim[1], movim[2]
@@ -672,20 +729,20 @@ class WLeagueWorker(QtWidgets.QWidget):
                 seconds = 1.0
 
             # segundo los borrados
-            for movim in liMovs:
+            for movim in li_movs:
                 if movim[0] == "b":
                     n = cpu.duerme(seconds * 0.80 / rapidez)
                     cpu.borraPieza(movim[1], padre=n)
 
             # tercero los cambios
-            for movim in liMovs:
+            for movim in li_movs:
                 if movim[0] == "c":
                     cpu.cambiaPieza(movim[1], movim[2], siExclusiva=True)
 
             cpu.runLineal()
 
         else:
-            for movim in liMovs:
+            for movim in li_movs:
                 if movim[0] == "b":
                     self.board.borraPieza(movim[1])
                 elif movim[0] == "m":

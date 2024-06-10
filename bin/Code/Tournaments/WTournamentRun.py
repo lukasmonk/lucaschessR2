@@ -25,6 +25,7 @@ from Code.Base.Constantes import (
 from Code.Board import Board
 from Code.Books import Books
 from Code.Engines import EngineManager, EnginesWicker
+from Code.MainWindow import WAnalysisBar
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles
@@ -112,6 +113,19 @@ class TournamentRun:
         pass
 
 
+class ProcesadorBar:
+
+    @staticmethod
+    def analyzer_clone(mstime, depth, multipv):
+        xclone = EngineManager.EngineManager(Code.configuration.engine_analyzer())
+        xclone.options(mstime, depth, True)
+        if multipv == 0:
+            xclone.maximize_multipv()
+        else:
+            xclone.set_multipv(multipv)
+        return xclone
+
+
 class WTournamentRun(QtWidgets.QWidget):
     tc_white: TimeControl
     tc_black: TimeControl
@@ -140,6 +154,14 @@ class WTournamentRun(QtWidgets.QWidget):
         self.board.crea()
         Delegados.genera_pm(self.board.piezas)
 
+        # Analysis Bar
+        Code.procesador = ProcesadorBar()
+        self.analysis_bar = WAnalysisBar.AnalysisBar(self, self.board)
+        self.key = "RUN_TOURNAMENTS"
+        dic = Code.configuration.read_variables(self.key)
+        activated = dic.get("ANALYSIS_BAR", Code.configuration.x_analyzer_activate_ab)
+        self.analysis_bar.activate(activated)
+
         ct = self.board.config_board
         self.antiguoAnchoPieza = ct.width_piece()
 
@@ -155,7 +177,8 @@ class WTournamentRun(QtWidgets.QWidget):
         self.state = None
         self.current_side = WHITE
 
-        ly_tt = Colocacion.V().control(self.tb).control(self.board)
+        ly_ab_board = Colocacion.H().control(self.analysis_bar).control(self.board)
+        ly_tt = Colocacion.V().control(self.tb).otro(ly_ab_board)
 
         layout = Colocacion.H().otro(ly_tt).otro(ly_pgn).relleno().margen(3)
         self.setLayout(layout)
@@ -188,6 +211,8 @@ class WTournamentRun(QtWidgets.QWidget):
                     None,
                 ]
             )
+        li_acciones.append((_("Config"), Iconos.Configurar(), self.configurar))
+        li_acciones.append(None)
         self.tb.reset(li_acciones)
 
     def crea_bloque_informacion(self):
@@ -251,6 +276,24 @@ class WTournamentRun(QtWidgets.QWidget):
 
     def grid_num_datos(self, grid):
         return self.pgn.num_rows()
+
+    def configurar(self):
+        menu = QTVarios.LCMenu(self)
+        activated = self.analysis_bar.activated
+        menu.opcion("analysis_bar", _("Analysis Bar"), is_ckecked=activated)
+        resp = menu.lanza()
+        if resp == "analysis_bar":
+            activated = not activated
+            self.analysis_bar.activate(activated)
+
+            dic = Code.configuration.read_variables(self.key)
+            if activated == Code.configuration.x_analyzer_activate_ab:
+                activated = None
+            dic["ANALYSIS_BAR"] = activated
+            Code.configuration.write_variables(self.key, dic)
+
+    def grid_right_button(self, grid, row, col, modif):
+        self.configurar()
 
     def looking_for_work(self):
         if self.torneo:
@@ -534,6 +577,8 @@ class WTournamentRun(QtWidgets.QWidget):
             time_pending_white = self.tc_white.pending_time
             time_pending_black = self.tc_black.pending_time
             self.start_clock(is_white)
+            if self.analysis_bar.activated:
+                self.analysis_bar.set_game(self.game)
             if xrival.depth_engine and xrival.depth_engine > 0:
                 mrm = xrival.play_fixed_depth_time_tourney(self.game)
             else:

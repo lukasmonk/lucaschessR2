@@ -12,7 +12,7 @@ from Code.Base.Constantes import (
     TB_CLOSE,
     TB_REINIT,
     TB_CONFIG,
-    TB_HELP,
+    TB_ADVICE,
     TB_NEXT,
     TB_UTILITIES,
     GT_ROUTES,
@@ -292,7 +292,7 @@ class ManagerRoutesPlay(ManagerRoutes):
                     QTUtil2.message_error(
                         self.main_window, "%s\n%s" % (_("Wrong move"), _("Right move: %s") % Game.pv_san(fen, op_pv))
                     )
-                    self.sigueHumano()
+                    self.continue_human()
                 return False
             self.posOpening += 1
             if self.posOpening == len(self.liPVopening):
@@ -379,7 +379,7 @@ class ManagerRoutesEndings(ManagerRoutes):
 
         self.ayudas_iniciales = 0
 
-        li_options = [TB_CLOSE, TB_HELP]
+        li_options = [TB_CLOSE, TB_ADVICE]
         self.set_toolbar(li_options)
 
         self.main_window.active_game(True, False)
@@ -414,7 +414,7 @@ class ManagerRoutesEndings(ManagerRoutes):
         elif key == TB_CONFIG:
             self.configurar(with_sounds=True, with_change_tutor=True)
 
-        elif key == TB_HELP:
+        elif key == TB_ADVICE:
             self.get_help()
 
         elif key == TB_NEXT:
@@ -496,7 +496,7 @@ class ManagerRoutesEndings(ManagerRoutes):
                     self.show_error(_("Wrong move"))
                     self.warnings += 1
                     self.ponWarnings()
-                self.sigueHumano()
+                self.continue_human()
                 return False
             self.posPV += 1
         else:
@@ -510,7 +510,7 @@ class ManagerRoutesEndings(ManagerRoutes):
                 self.warnings += 1
                 self.ponWarnings()
                 self.set_position(self.game.last_position)
-                self.sigueHumano()
+                self.continue_human()
                 return False
 
         self.add_time()
@@ -600,7 +600,7 @@ class ManagerRoutesTactics(ManagerRoutes):
 
         self.ayudas_iniciales = 0
 
-        li_options = [TB_CLOSE, TB_HELP]
+        li_options = [TB_CLOSE, TB_ADVICE]
         self.set_toolbar(li_options)
 
         self.main_window.active_game(True, False)
@@ -624,7 +624,7 @@ class ManagerRoutesTactics(ManagerRoutes):
         elif key == TB_CONFIG:
             self.configurar(with_sounds=True, with_change_tutor=True)
 
-        elif key == TB_HELP:
+        elif key == TB_ADVICE:
             self.get_help()
 
         elif key == TB_NEXT:
@@ -690,12 +690,12 @@ class ManagerRoutesTactics(ManagerRoutes):
                         physical_pos=TOP_RIGHT,
                     )
                     self.get_help(False)
-                    self.sigueHumano()
+                    self.continue_human()
                     return False
             QTUtil2.temporary_message(self.main_window, _("Wrong move"), 0.8, physical_pos=TOP_RIGHT)
             self.route.error_tactic(self.game_objetivo.num_moves())
             self.set_label2(self.route.mens_tactic(False))
-            self.sigueHumano()
+            self.continue_human()
             return False
 
         self.move_the_pieces(jgSel.liMovs)

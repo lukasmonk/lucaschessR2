@@ -15,7 +15,7 @@ from Code.Base.Constantes import (
     TB_CONFIG,
     TB_CHANGE,
     TB_CONTINUE,
-    TB_HELP,
+    TB_ADVICE,
     TB_NEXT,
     TB_PGN_LABELS,
     TB_PREVIOUS,
@@ -174,7 +174,7 @@ class ManagerEntPos(Manager.Manager):
         self.check_boards_setposition()
 
         if self.line_fns.with_game_original():
-            self.repiteUltimaJugada()
+            self.repeat_last_movement()
 
         self.reiniciando = False
         self.is_rival_thinking = False
@@ -197,7 +197,7 @@ class ManagerEntPos(Manager.Manager):
     def set_toolbar_comments(self, with_help=True, with_continue=False):
         li_options = [TB_CLOSE, ]
         if with_help:
-            li_options.append(TB_HELP)
+            li_options.append(TB_ADVICE)
         li_options.extend([TB_CHANGE, TB_REINIT])
         if not self.advanced:
             li_options.append(TB_TAKEBACK)
@@ -266,7 +266,7 @@ class ManagerEntPos(Manager.Manager):
                 self.create_tactics()
 
         elif key == TB_PGN_LABELS:
-            self.pgnInformacionMenu()
+            self.pgn_informacion_menu()
 
         elif key in (TB_NEXT, TB_PREVIOUS):
             self.ent_siguiente(key)
@@ -274,7 +274,7 @@ class ManagerEntPos(Manager.Manager):
         elif key == TB_CONTINUE:
             self.sigue()
 
-        elif key == TB_HELP:
+        elif key == TB_ADVICE:
             self.help()
 
         elif key == TB_COMMENTS:
@@ -375,20 +375,12 @@ class ManagerEntPos(Manager.Manager):
             self.ent_siguiente(TB_NEXT)
         elif nkey in (Qt.Key_Minus, Qt.Key_PageUp):
             self.ent_siguiente(TB_PREVIOUS)
-        # elif nkey == Qt.Key_T:
-        #     self.save_current_position()
-
-    # def save_current_position(self):
-    #     li = self.line_fns.line.split("|")
-    #     li[2] = self.game.pgnBaseRAW()
-    #     self.save_selected_position("|".join(li))
 
     @staticmethod
     def list_help_keyboard():
         return [
-            ("+/%s" % _("Page Down"), _("Next position")),
-            ("-/%s" % _("Page Up"), _("Previous position")),
-            # (_("CTRL") + " T", _("Save position in 'Selected positions' file")),
+            ("-/%s" % _("Page Up"), _("Previous")),
+            ("+/%s" % _("Page Down"), _("Next")),
         ]
 
     def end_game(self):
@@ -405,7 +397,7 @@ class ManagerEntPos(Manager.Manager):
         if len(self.game):
             self.analiza_stop()
             self.rm_rival = None
-            self.game.anulaUltimoMovimiento(self.is_human_side_white)
+            self.game.remove_last_move(self.is_human_side_white)
             self.goto_end()
             self.is_analyzed_by_tutor = False
             self.state = ST_PLAYING
@@ -435,7 +427,7 @@ class ManagerEntPos(Manager.Manager):
 
         si_rival = is_white == self.is_engine_side_white
 
-        self.show_comment_move(len(self.game)-1)
+        self.show_comment_move(len(self.game) - 1)
         if si_rival:
             self.pon_help(False)
             self.piensa_rival()
@@ -538,7 +530,7 @@ class ManagerEntPos(Manager.Manager):
         self.play_next_move()
 
     def linea_terminada_opciones(self):
-        self.show_comment_move(len(self.game)-1)
+        self.show_comment_move(len(self.game) - 1)
         self.pon_help(False)
         self.state = ST_ENDGAME
         if self.is_automatic_jump:
@@ -554,10 +546,10 @@ class ManagerEntPos(Manager.Manager):
 
     def pon_help(self, si_poner):
         if si_poner:
-            if TB_HELP not in self.li_options_toolbar:
+            if TB_ADVICE not in self.li_options_toolbar:
                 self.set_toolbar_comments(with_help=True)
         else:
-            if TB_HELP in self.li_options_toolbar:
+            if TB_ADVICE in self.li_options_toolbar:
                 self.set_toolbar_comments(with_help=False)
 
     def is_playing_gameobj(self):
@@ -587,7 +579,7 @@ class ManagerEntPos(Manager.Manager):
                 self.board.ponFlechasTmp(li_movs)
             if not ok:
                 self.beep_error()
-                self.sigueHumano()
+                self.continue_human()
                 return False
 
         if not is_playing_gameobj:
@@ -711,7 +703,7 @@ class ManagerEntPos(Manager.Manager):
                             else:
                                 break
 
-                    num_moves = p.pgnBaseRAW()
+                    num_moves = p.pgn_base_raw()
                     txt = fen + "||%s\n" % num_moves
                 else:
                     txt = linea

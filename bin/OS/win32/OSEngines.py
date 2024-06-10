@@ -27,6 +27,8 @@ def read_engines(folder_engines):
             engine.set_nodes_compatible(nodes_compatible)
         return engine
 
+    mas("alouette", "Roland Chastain", "0.1.7", "https://codeberg.org/rchastain/alouette", "alouette32.exe", 800)
+
     mas("acqua", "Giovanni Di Maria", "2.0", "http://www.elektrosoft.it/scacchi/acqua/acqua.asp", "acqua.exe", 844)
     mas("foxcub", "Lucas Monge", "1.1", "", "FoxCub.exe", 800)
     mas("fox", "Lucas Monge", "1.1", "", "Fox.exe", 1400)
@@ -181,7 +183,7 @@ def read_engines(folder_engines):
     )
 
     mas("wildcat", "Igor Korshunov", "8", "http://www.igorkorshunov.narod.ru/WildCat", "WildCat_8.exe", 2627,
-             emulate_movetime=True)
+        emulate_movetime=True)
 
     mas("demolito", "Lucas Braesch", "32bit", "https://github.com/lucasart/Demolito", "demolito_32bit_old.exe", 2627)
 
@@ -257,9 +259,11 @@ def read_engines(folder_engines):
 
     if is64:
         if is_bmi2:
-            cm = mas("lc0", "The LCZero Authors", "v0.30.0", "https://github.com/LeelaChessZero", "lc0_dnnl.exe", 3300)
+            cm = mas("lc0", "The LCZero Authors", "v0.30.0", "https://github.com/LeelaChessZero", "lc0_dnnl.exe", 3300,
+                     nodes_compatible=True)
         else:
-            cm = mas("lc0", "The LCZero Authors", "v0.30.0", "https://github.com/LeelaChessZero", "lc0.exe", 3300)
+            cm = mas("lc0", "The LCZero Authors", "v0.30.0", "https://github.com/LeelaChessZero", "lc0.exe", 3300,
+                     nodes_compatible=True)
         cm.set_uci_option("Threads", "2")
         cm.set_multipv(10, 500)
 

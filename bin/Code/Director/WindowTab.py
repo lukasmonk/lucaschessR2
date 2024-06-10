@@ -17,7 +17,7 @@ class SelectUna(Controles.LB):
         self.toolTip = None
         self.seleccionada = False
         Controles.LB.__init__(self, owner)
-        self.ponImagen(pm_empty)
+        self.put_image(pm_empty)
         self.add_text = add_text
         self.set_style()
 
@@ -25,7 +25,7 @@ class SelectUna(Controles.LB):
         if pixmap:
             if pixmap.height() != 32:
                 pixmap = pixmap.scaled(32, 32)
-            self.ponImagen(pixmap)
+            self.put_image(pixmap)
         self.id = xid
         self.setToolTip(tooltip)
         self.pixmap = pixmap
@@ -85,17 +85,17 @@ class SelectBanda(QtWidgets.QWidget):
                     lyV = Colocacion.V().relleno(1)
 
                     if n in (3, 4, 5):
-                        lbct = Controles.LB(self).ponImagen(Iconos.pmControl())
+                        lbct = Controles.LB(self).put_image(Iconos.pmControl())
                         lyV.control(lbct).espacio(-8)
 
                     if n in (1, 4, 7):
-                        lbalt = Controles.LB(self).ponImagen(Iconos.pmAlt())
+                        lbalt = Controles.LB(self).put_image(Iconos.pmAlt())
                         lyV.control(lbalt)
                     elif n in (2, 5, 8):
-                        lbsh = Controles.LB(self).ponImagen(Iconos.pmShift())
+                        lbsh = Controles.LB(self).put_image(Iconos.pmShift())
                         lyV.control(lbsh)
                     elif n in (0, 6):
-                        lbim = Controles.LB(self).ponImagen(Iconos.pmRightMouse())
+                        lbim = Controles.LB(self).put_image(Iconos.pmRightMouse())
                         lyV.control(lbim)
 
                     lyV.relleno(1).margen(0)
@@ -301,11 +301,11 @@ class DragUna(Controles.LB):
         self.id = None
         self.toolTip = None
         Controles.LB.__init__(self, owner)
-        self.ponImagen(pm_empty)
+        self.put_image(pm_empty)
 
     def pon(self, pixmap, tooltip, xid):
         if pixmap:
-            self.ponImagen(pixmap)
+            self.put_image(pixmap)
         self.id = xid
         self.setToolTip(tooltip)
         self.pixmap = pixmap

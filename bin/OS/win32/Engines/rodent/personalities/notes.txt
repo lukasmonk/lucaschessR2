@@ -1,1 +1,0 @@
-default with tropism 100: 43,8 %

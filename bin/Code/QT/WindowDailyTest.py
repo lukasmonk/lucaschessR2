@@ -353,11 +353,11 @@ class WDailyTest(LCDialog.LCDialog):
 
         self.lbColor.set_text(mens)
 
-        self.sigueHumano()
+        self.continue_human()
         self.iniTiempo = time.time()
 
     def terminarTest(self):
-        self.paraHumano()
+        self.stop_human()
         self.xtutor.terminar()
 
         t = 0
@@ -398,10 +398,10 @@ class WDailyTest(LCDialog.LCDialog):
 
         self.accept()
 
-    def paraHumano(self):
+    def stop_human(self):
         self.board.disable_all()
 
-    def sigueHumano(self):
+    def continue_human(self):
         siW = self.position.is_white
         self.board.set_position(self.position)
         self.board.set_side_bottom(siW)
@@ -409,7 +409,7 @@ class WDailyTest(LCDialog.LCDialog):
         self.board.activate_side(siW)
 
     def player_has_moved(self, from_sq, to_sq, promotion=""):
-        self.paraHumano()
+        self.stop_human()
 
         movimiento = from_sq + to_sq
 
@@ -426,7 +426,7 @@ class WDailyTest(LCDialog.LCDialog):
             self.board.put_arrow_sc(from_sq, to_sq)
             self.calculaTiempoPuntos()
         else:
-            self.sigueHumano()
+            self.continue_human()
 
     def calculaTiempoPuntos(self):
         vtime = time.time() - self.iniTiempo

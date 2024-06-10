@@ -307,7 +307,7 @@ class DBWashing:
     def __init__(self, configuration):
         self.configuration = configuration
         self.filename = "washing.wsm"
-        self.file = Util.opj(configuration.carpeta_results, self.filename)
+        self.file = Util.opj(configuration.folder_results, self.filename)
         self.washing = self.restore()
 
     def new(self, tactic):

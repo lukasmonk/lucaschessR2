@@ -61,7 +61,7 @@ def change_folder(nueva):
 
 class BoxRooms:
     def __init__(self, configuration):
-        self.file = Util.opj(configuration.carpeta_config, "boxrooms.pk")
+        self.file = Util.opj(configuration.folder_config, "boxrooms.pk")
         self._list = self.read()
 
     def read(self):
@@ -102,11 +102,11 @@ class Configuration:
             self.first_run = Util.create_folder(self.carpetaBase)
             self.carpeta = self.carpetaBase
 
-        self.carpeta_config = Util.opj(self.carpeta, "__Config__")
-        Util.create_folder(self.carpeta_config)
+        self.folder_config = Util.opj(self.carpeta, "__Config__")
+        Util.create_folder(self.folder_config)
 
-        self.carpeta_results = Util.opj(self.carpeta, "Results")
-        Util.create_folder(self.carpeta_results)
+        self.folder_results = Util.opj(self.carpeta, "Results")
+        Util.create_folder(self.folder_results)
 
         self.user = user
         self.set_folders()
@@ -201,6 +201,7 @@ class Configuration:
         self.x_analyzer_mstime = 3000
         self.x_analyzer_depth = 0
         self.x_analyzer_priority = Priorities.priorities.low
+
         self.x_analyzer_depth_ab = 24
         self.x_analyzer_mstime_ab = 0
         self.x_analyzer_autorotate_ab = True
@@ -264,7 +265,7 @@ class Configuration:
 
         self.x_translation_mode = False
 
-        self.x_style = "windowsvista" if Code.is_windows else "Fusion"
+        self.x_style = "Fusion"
         self.x_style_mode = "By default"
         self.x_style_icons = IconosBase.icons.NORMAL
         self.style_sheet_default = None  # temporary var
@@ -418,7 +419,7 @@ class Configuration:
         return folder
 
     def file_competition_with_tutor(self):
-        return Util.opj(self.carpeta_results, "CompetitionWithTutor.db")
+        return Util.opj(self.folder_results, "CompetitionWithTutor.db")
 
     def folder_userdata(self):
         return self.carpeta
@@ -447,37 +448,37 @@ class Configuration:
         self.write_variables("OPENING_LINES", dic)
 
     def file_mate(self, mate):
-        return Util.opj(self.carpeta_results, "Mate%d.pk" % mate)
+        return Util.opj(self.folder_results, "Mate%d.pk" % mate)
 
     def file_endings_gtb(self):
-        return Util.opj(self.carpeta_results, "EndingsGTB.db")
+        return Util.opj(self.folder_results, "EndingsGTB.db")
 
     def file_external_engines(self):
-        return Util.opj(self.carpeta_config, "ExtEngines.pk")
+        return Util.opj(self.folder_config, "ExtEngines.pk")
 
     def file_kibitzers(self):
-        return Util.opj(self.carpeta_config, "kibitzers.pk")
+        return Util.opj(self.folder_config, "kibitzers.pk")
 
     def file_adjournments(self):
-        return Util.opj(self.carpeta_config, "Adjournments.ddb")
+        return Util.opj(self.folder_config, "Adjournments.ddb")
 
     def file_index_polyglots(self):
-        return Util.opj(self.carpeta_config, "index_polyglots.pk")
+        return Util.opj(self.folder_config, "index_polyglots.pk")
 
     def file_pers_openings(self):
-        return Util.opj(self.carpeta_config, "persaperturas.pkd")
+        return Util.opj(self.folder_config, "persaperturas.pkd")
 
     def file_captures(self):
-        return Util.opj(self.carpeta_results, "Captures.db")
+        return Util.opj(self.folder_results, "Captures.db")
 
     def file_counts(self):
-        return Util.opj(self.carpeta_results, "Counts.db")
+        return Util.opj(self.folder_results, "Counts.db")
 
     def file_mate15(self):
-        return Util.opj(self.carpeta_results, "Mate15.db")
+        return Util.opj(self.folder_results, "Mate15.db")
 
     def file_coordinates(self):
-        return Util.opj(self.carpeta_results, "Coordinates.db")
+        return Util.opj(self.folder_results, "Coordinates.db")
 
     def folder_tactics(self):
         return self.create_base_folder("Tactics")
@@ -490,6 +491,9 @@ class Configuration:
 
     def file_selected_positions(self):
         return Util.opj(self.folder_databases(), "__Selected Positions__.lcdb")
+    
+    def file_prompts(self):
+        return Util.opj(self.folder_config, "Prompts.db")
 
     def folder_databases_pgn(self):
         return self.create_base_folder("TemporaryDatabases")
@@ -498,7 +502,7 @@ class Configuration:
         return self.create_base_folder("PolyglotsFactory")
 
     def opj_config(self, file):
-        return Util.opj(self.carpeta_config, file)
+        return Util.opj(self.folder_config, file)
 
     def file_video(self):
         return self.opj_config("confvid.pkd")
@@ -513,63 +517,63 @@ class Configuration:
         return self.opj_config("analisis.db")
 
     def file_play_game(self):
-        return "%s/PlayGame.db" % self.carpeta_results
+        return "%s/PlayGame.db" % self.folder_results
 
     def file_learn_game(self):
-        return "%s/LearnPGN.db" % self.carpeta_results
+        return "%s/LearnPGN.db" % self.folder_results
 
     def file_train_books_ol(self):
-        return "%s/booksTrainOL.liobj" % self.carpeta_results
+        return "%s/booksTrainOL.liobj" % self.folder_results
 
     def file_gms(self):
-        return "%s/gm.pke" % self.carpeta_config
+        return "%s/gm.pke" % self.folder_config
 
     def set_folders(self):
 
-        self.file = Util.opj(self.carpeta_config, "lk.pk2")
+        self.file = Util.opj(self.folder_config, "lk.pk2")
 
         self.is_first_time = not Util.exist_file(self.file)
 
-        self.fichEstadElo = "%s/estad.pkli" % self.carpeta_results
-        self.fichEstadMicElo = "%s/estadMic.pkli" % self.carpeta_results
-        self.fichEstadWicker = "%s/estadWicker.pkli" % self.carpeta_results
-        self.fichEstadFicsElo = "%s/estadFics.pkli" % self.carpeta_results
-        self.fichEstadFideElo = "%s/estadFide.pkli" % self.carpeta_results
-        self.fichEstadLichessElo = "%s/estadLichess.pkli" % self.carpeta_results
-        self.file_books = "%s/books.lkv" % self.carpeta_config
-        self.file_train_books = "%s/booksTrain.lkv" % self.carpeta_results
-        self.file_memory = "%s/memo.pk" % self.carpeta_results
-        self.ficheroEntMaquina = "%s/entmaquina.pke" % self.carpeta_results
-        self.ficheroEntMaquinaPlay = "%s/entmaquinaplay.pke" % self.carpeta_results
-        self.ficheroEntMaquinaConf = "%s/entmaquinaconf.pkd" % self.carpeta_config
-        self.ficheroGMhisto = "%s/gmh.db" % self.carpeta_results
-        self.ficheroPuntuacion = "%s/punt.pke" % self.carpeta_results
-        self.ficheroDirSound = "%s/direc.pkv" % self.carpeta_config
+        self.fichEstadElo = "%s/estad.pkli" % self.folder_results
+        self.fichEstadMicElo = "%s/estadMic.pkli" % self.folder_results
+        self.fichEstadWicker = "%s/estadWicker.pkli" % self.folder_results
+        self.fichEstadFicsElo = "%s/estadFics.pkli" % self.folder_results
+        self.fichEstadFideElo = "%s/estadFide.pkli" % self.folder_results
+        self.fichEstadLichessElo = "%s/estadLichess.pkli" % self.folder_results
+        self.file_books = "%s/books.lkv" % self.folder_config
+        self.file_train_books = "%s/booksTrain.lkv" % self.folder_results
+        self.file_memory = "%s/memo.pk" % self.folder_results
+        self.ficheroEntMaquina = "%s/entmaquina.pke" % self.folder_results
+        self.ficheroEntMaquinaPlay = "%s/entmaquinaplay.pke" % self.folder_results
+        self.ficheroEntMaquinaConf = "%s/entmaquinaconf.pkd" % self.folder_config
+        self.ficheroGMhisto = "%s/gmh.db" % self.folder_results
+        self.ficheroPuntuacion = "%s/punt.pke" % self.folder_results
+        self.ficheroDirSound = "%s/direc.pkv" % self.folder_config
         self.ficheroEntOpenings = "%s/entaperturas.pkd" % self.carpeta
         self.ficheroEntOpeningsPar = "%s/entaperturaspar.pkd" % self.carpeta
-        self.ficheroDailyTest = "%s/nivel.pkd" % self.carpeta_results
-        self.ficheroTemas = "%s/themes.pkd" % self.carpeta_config
+        self.ficheroDailyTest = "%s/nivel.pkd" % self.folder_results
+        self.ficheroTemas = "%s/themes.pkd" % self.folder_config
         self.personal_training_folder = "%s/Personal Training" % self.carpeta
-        self.ficheroBMT = "%s/lucas.bmt" % self.carpeta_results
-        self.ficheroPotencia = "%s/power.db" % self.carpeta_results
-        self.ficheroPuente = "%s/bridge.db" % self.carpeta_results
-        self.ficheroMoves = "%s/moves.dbl" % self.carpeta_results
-        self.ficheroRecursos = "%s/recursos.dbl" % self.carpeta_config
+        self.ficheroBMT = "%s/lucas.bmt" % self.folder_results
+        self.ficheroPotencia = "%s/power.db" % self.folder_results
+        self.ficheroPuente = "%s/bridge.db" % self.folder_results
+        self.ficheroMoves = "%s/moves.dbl" % self.folder_results
+        self.ficheroRecursos = "%s/recursos.dbl" % self.folder_config
         self.ficheroFEN = self.ficheroRecursos
-        self.ficheroConfBoards = "%s/confBoards.pk" % self.carpeta_config
-        self.ficheroBoxing = "%s/boxing.pk" % self.carpeta_results
-        self.file_trainings = "%s/trainings.pk" % self.carpeta_results
-        self.ficheroHorses = "%s/horses.db" % self.carpeta_results
-        self.ficheroAlbumes = "%s/albumes.pkd" % self.carpeta_results
-        self.ficheroPuntuaciones = "%s/hpoints.pkd" % self.carpeta_results
-        self.ficheroAnotar = "%s/anotar.db" % self.carpeta_config
+        self.ficheroConfBoards = "%s/confBoards.pk" % self.folder_config
+        self.ficheroBoxing = "%s/boxing.pk" % self.folder_results
+        self.file_trainings = "%s/trainings.pk" % self.folder_results
+        self.ficheroHorses = "%s/horses.db" % self.folder_results
+        self.ficheroAlbumes = "%s/albumes.pkd" % self.folder_results
+        self.ficheroPuntuaciones = "%s/hpoints.pkd" % self.folder_results
+        self.ficheroAnotar = "%s/anotar.db" % self.folder_config
 
         self.ficheroSelectedPositions = "%s/Selected positions.fns" % self.personal_training_folder
         self.ficheroPresentationPositions = "%s/Challenge 101.fns" % self.personal_training_folder
 
-        self.ficheroVariables = "%s/Variables.pk" % self.carpeta_config
+        self.ficheroVariables = "%s/Variables.pk" % self.folder_config
 
-        self.ficheroFiltrosPGN = "%s/pgnFilters.db" % self.carpeta_config
+        self.ficheroFiltrosPGN = "%s/pgnFilters.db" % self.folder_config
 
         Util.create_folder(self.personal_training_folder)
 
@@ -578,8 +582,8 @@ class Configuration:
         self.carpetaScanners = "%s/%s" % (self.carpeta, "Scanners")
         Util.create_folder(self.carpetaScanners)
 
-        self.ficheroExpeditions = "%s/Expeditions.db" % self.carpeta_results
-        self.ficheroSingularMoves = "%s/SingularMoves.db" % self.carpeta_results
+        self.ficheroExpeditions = "%s/Expeditions.db" % self.folder_results
+        self.ficheroSingularMoves = "%s/SingularMoves.db" % self.folder_results
 
         if not Util.exist_file(self.ficheroRecursos):
             Util.file_copy(Code.path_resource("IntFiles", "recursos.dbl"), self.ficheroRecursos)
@@ -591,11 +595,11 @@ class Configuration:
         Util.create_folder(self.folder_base_openings)
 
     def file_colors(self):
-        return Util.opj(self.carpeta_config, "personal.colors")
+        return Util.opj(self.folder_config, "personal.colors")
 
     def compruebaBMT(self):
         if not Util.exist_file(self.ficheroBMT):
-            self.ficheroBMT = "%s/lucas.bmt" % self.carpeta_results
+            self.ficheroBMT = "%s/lucas.bmt" % self.folder_results
 
     def limpia(self, name):
         self.elo = 0
@@ -723,7 +727,7 @@ class Configuration:
 
     def get_favoritos(self):
         if self.li_favoritos is None:
-            file = Util.opj(self.carpeta_config, "Favoritos.pkd")
+            file = Util.opj(self.folder_config, "Favoritos.pkd")
             lista = Util.restore_pickle(file)
             if lista is None:
                 lista = []
@@ -732,7 +736,7 @@ class Configuration:
 
     def save_favoritos(self, lista):
         self.li_favoritos = lista
-        file = Util.opj(self.carpeta_config, "Favoritos.pkd")
+        file = Util.opj(self.folder_config, "Favoritos.pkd")
         Util.save_pickle(file, lista)
 
     def load_translation(self):
@@ -751,9 +755,9 @@ class Configuration:
             if os.path.isfile(fini):
                 dic = Util.ini_dic(fini)
                 if others:
-                    li.append((uno.name, dic["NAME"], int(dic["%"]), dic["AUTHOR"], dic.get("OTHERS", "")))
+                    li.append((uno.name, dic["NAME"], int(dic["%"]), dic.get("AUTHOR", ""), dic.get("PREVIOUS", "")))
                 else:
-                    li.append((uno.name, dic["NAME"], int(dic["%"]), dic["AUTHOR"]))
+                    li.append((uno.name, dic["NAME"], int(dic["%"]), dic.get("AUTHOR", "")))
         li = sorted(li, key=lambda lng: "AAA" + lng[0] if lng[1] > "Z" else lng[1])
         return li
 
@@ -1034,7 +1038,7 @@ class Configuration:
                     var["x_anchoPieza"] = ancho_pieza
                     db["BASE"] = self.dic_conf_boards_pk["BASE"] = var
             # Para cambiar el tema por defecto por el actual
-            # with open("../resources/IntFiles/basepk2.board", "wb") as f:
+            # with open("../resources/IntFiles/basepk3.board", "wb") as f:
             #      f.write(pickle.dumps(db["BASE"]))
 
     def size_base(self):
@@ -1048,7 +1052,7 @@ class Configuration:
         return self.config_board(key, tamDef)
 
     def cambiaConfBoard(self, config_board):
-        xid = config_board._id
+        xid = config_board.id()
         if xid:
             db = UtilSQL.DictSQL(self.ficheroConfBoards)
             self.dic_conf_boards_pk[xid] = db[xid] = config_board.graba()

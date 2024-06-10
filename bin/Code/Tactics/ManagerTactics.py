@@ -11,7 +11,7 @@ from Code.Base.Constantes import (
     TB_CONFIG,
     TB_CHANGE,
     TB_NEXT,
-    TB_HELP,
+    TB_ADVICE,
     TB_UTILITIES,
     GT_TACTICS,
 )
@@ -82,7 +82,7 @@ class ManagerTactics(Manager.Manager):
         self.check_boards_setposition()
 
         if self.game_base:
-            self.repiteUltimaJugada()
+            self.repeat_last_movement()
             self.goto_end()
 
         self.show_label_positions()
@@ -127,7 +127,7 @@ class ManagerTactics(Manager.Manager):
             if not self.tactic.reinforcement.is_activated():
                 li_opciones.insert(1, TB_CHANGE)
         else:
-            li_opciones = [TB_CLOSE, TB_HELP, TB_REINIT, TB_CONFIG]
+            li_opciones = [TB_CLOSE, TB_ADVICE, TB_REINIT, TB_CONFIG]
             if modo == "init":
                 if not self.tactic.reinforcement.is_activated():
                     li_opciones.insert(2, TB_CHANGE)
@@ -171,7 +171,7 @@ class ManagerTactics(Manager.Manager):
         elif key == TB_REINIT:
             self.reiniciar()
 
-        elif key == TB_HELP:
+        elif key == TB_ADVICE:
             self.help()
 
         elif key == TB_UTILITIES:
@@ -298,7 +298,7 @@ class ManagerTactics(Manager.Manager):
                     if self.num_bad_tries > 6:
                         self.board.creaFlechaTmp(move_obj.from_sq, move_obj.to_sq, True)
             self.beep_error()
-            self.sigueHumano()
+            self.continue_human()
             return False
 
         seconds = time.time() - self.ini_clock

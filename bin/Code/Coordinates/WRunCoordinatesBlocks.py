@@ -50,7 +50,7 @@ class WRunCoordinatesBlocks(LCDialog.LCDialog):
 
         lb_current_score_block_k = Controles.LB(self, _("Max score in block") + ":").set_font(font)
         self.lb_current_score_block = Controles.LB(self).set_font(font)
-        self.lb_current_score_enough = Controles.LB(self).ponImagen(Iconos.pmCorrecto())
+        self.lb_current_score_enough = Controles.LB(self).put_image(Iconos.pmCorrecto())
         self.lb_current_score_enough.hide()
 
         self.lb_active_score_k = Controles.LB(self, _("Active score") + ":").set_font(font)

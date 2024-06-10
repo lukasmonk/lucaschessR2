@@ -21,6 +21,7 @@ from Code.Base.Constantes import (
     TB_FAST_REPLAY,
     TB_FILE,
     TB_HELP,
+    TB_ADVICE,
     TB_INFORMATION,
     TB_LEVEL,
     TB_NEXT,
@@ -50,7 +51,7 @@ from Code.Base.Constantes import (
     TB_VARIATIONS,
     TB_EBOARD,
     TB_REPLAY,
-    TB_SETTINGS
+    TB_SETTINGS,
 )
 from Code.Board import Board
 from Code.MainWindow import WindowSolve, WAnalysisBar
@@ -142,13 +143,19 @@ class WBase(QtWidgets.QWidget):
             accion.key = key
             self.dic_toolbar[key] = accion
 
+        accion = self.dic_toolbar[TB_NEXT]
+        accion.setToolTip(f'{_("Next")}: [+, {_("Page Down")}]')
+        accion = self.dic_toolbar[TB_PREVIOUS]
+        accion.setToolTip(f'{_("Previous")}: [-, {_("Page Up")}]')
+
     def translate_again_tb(self):
         dic_opciones = self.dic_opciones_tb()
         for key, action in self.dic_toolbar.items():
             if key in dic_opciones:
                 action.setIconText(dic_opciones[key][0])
 
-    def dic_opciones_tb(self):
+    @staticmethod
+    def dic_opciones_tb():
         return {
             TB_PLAY: (_("Play"), Iconos.Libre()),
             TB_COMPETE: (_("Compete"), Iconos.NuevaPartida()),
@@ -186,6 +193,7 @@ class WBase(QtWidgets.QWidget):
             TB_REPEAT_REPLAY: (_("Repeat"), Iconos.Pelicula_Repetir()),
             TB_PGN_REPLAY: (_("PGN"), Iconos.Pelicula_PGN()),
             TB_HELP: (_("Help"), Iconos.AyudaGR()),
+            TB_ADVICE: (_("Advice"), Iconos.Advice()),
             TB_LEVEL: (_("Level"), Iconos.Jugar()),
             TB_ACCEPT: (_("Accept"), Iconos.Aceptar()),
             TB_CANCEL: (_("Cancel"), Iconos.Cancelar()),
@@ -421,6 +429,8 @@ class WBase(QtWidgets.QWidget):
         if 0 < self.num_hints < 99:
             mens += " [%d]" % self.num_hints
         self.bt_active_tutor.setText(mens)
+        if self.num_hints == 0:
+            self.bt_active_tutor.hide()
 
     def change_tutor_active(self):
         self.manager.change_tutor_active()
@@ -551,7 +561,7 @@ class WBase(QtWidgets.QWidget):
                     return
         self.key_pressed("V", event.key(), int(event.modifiers()))
 
-    def boardWheelEvent(self, board, forward):
+    def board_wheel_event(self, board, forward):
         forward = self.configuration.wheel_board(forward)
         self.key_pressed("T", QtCore.Qt.Key.Key_Left if forward else QtCore.Qt.Key.Key_Right)
 
@@ -705,9 +715,12 @@ class WBase(QtWidgets.QWidget):
         self.num_hints = puntos
         self.set_label_tutor()
 
-        if (puntos == 0) and siQuitarAtras:
-            if TB_TAKEBACK in self.tb.li_acciones:
-                self.dic_toolbar[TB_TAKEBACK].setVisible(False)
+        if puntos == 0:
+            if siQuitarAtras:
+                if TB_TAKEBACK in self.tb.li_acciones:
+                    self.dic_toolbar[TB_TAKEBACK].setVisible(False)
+            if TB_ADVICE in self.tb.li_acciones:
+                self.dic_toolbar[TB_ADVICE].setEnabled(False)
 
     def remove_hints(self, siTambienTutorAtras, siQuitarAtras=True):
         if siTambienTutorAtras:

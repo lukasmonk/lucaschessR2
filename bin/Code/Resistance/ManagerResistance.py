@@ -216,8 +216,8 @@ class ManagerResistance(Manager.Manager):
             self.put_current_label()
             if self.maxerror:
                 game1 = self.game.copia()
-                game1.anulaSoloUltimoMovimiento()
-                game1.anulaSoloUltimoMovimiento()
+                game1.remove_only_last_movement()
+                game1.remove_only_last_movement()
                 rm0 = self.xarbitro.play_seconds(game1, sc)
                 previoRival = -rm0.centipawns_abs()
                 self.lostmovepoints = self.rival_points - previoRival

@@ -104,7 +104,7 @@ class ManagerPerson(ManagerPlayAgainstEngine.ManagerPlayAgainstEngine):
         self.remove_hints(True, siQuitarAtras=False)
         self.put_pieces_bottom(is_white)
 
-        self.main_window.base.lbRotulo1.ponImagen(imagen)
+        self.main_window.base.lbRotulo1.put_image(imagen)
         self.main_window.base.lbRotulo1.show()
 
         self.show_info_extra()

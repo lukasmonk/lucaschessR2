@@ -73,20 +73,17 @@ class RunSound:
         configuration = Code.configuration
         folder_sounds = configuration.folder_sounds()
 
-        if not Util.create_folder(folder_sounds):
-            for key in self.relations:
+        Util.create_folder(folder_sounds)
+
+        for entry in os.scandir(folder_sounds):
+            os.remove(entry.path)
+
+        with UtilSQL.DictSQL(configuration.file_sounds(), "general") as db:
+            for key in db.keys():
                 wav = self.relations[key]["WAV_KEY"] + ".wav"
                 path_wav = Util.opj(folder_sounds, wav)
-                if os.path.isfile(path_wav):
-                    os.remove(path_wav)
-
-        db = UtilSQL.DictSQL(configuration.file_sounds(), "general")
-        for key in db.keys():
-            wav = self.relations[key]["WAV_KEY"] + ".wav"
-            path_wav = Util.opj(folder_sounds, wav)
-            with open(path_wav, "wb") as q:
-                q.write(db[key])
-        db.close()
+                with open(path_wav, "wb") as q:
+                    q.write(db[key])
 
     def save_wav(self, key, wav):
         folder_sounds = Code.configuration.folder_sounds()
@@ -119,7 +116,7 @@ class RunSound:
     def play_list(self, li):
         for key in li:
             self.play_key(key, False)
-        if self.queue:
+        if not self.queue.empty():
             self.working = True
             self.siguiente()
             return True

@@ -48,7 +48,12 @@ def select_language(owner, init):
             spaces += " "
 
         if k != "en":
+            if not author:
+                author = "-"
             option = f"{option}{spaces}({porc}%) {author}"
+            if others:
+                others = others.strip()
+                option = f"{option} | ️️{others}"
 
         if k == lng_default:
             menu.opcion(k, option, Iconos.AceptarPeque())

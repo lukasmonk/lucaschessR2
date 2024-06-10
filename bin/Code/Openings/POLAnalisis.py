@@ -135,7 +135,7 @@ class TabEngine(QtWidgets.QWidget):
         for rm in mrm.li_rm:
             game = Game.Game(self.position)
             game.read_pv(rm.pv)
-            pgn = game.pgnBaseRAW(translated=False)
+            pgn = game.pgn_base_raw(translated=False)
             lit = pgn.split(" ")
             is_white = self.position.is_white
             if is_white:

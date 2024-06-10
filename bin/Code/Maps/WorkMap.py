@@ -505,7 +505,7 @@ class WorkMap:
 
         self.svg, self.lineasSVG = self.leeSVG()
 
-        self.db = DBWorkMap("%s/%s.db" % (Code.configuration.carpeta_results, mapa))
+        self.db = DBWorkMap("%s/%s.db" % (Code.configuration.folder_results, mapa))
 
         self.current = None
         self.aim = None

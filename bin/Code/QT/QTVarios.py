@@ -39,10 +39,10 @@ class BlancasNegras(QtWidgets.QDialog):
 
         ly = Colocacion.H().control(bt_blancas).control(bt_negras)
         if both:
-            lb_white_both = Controles.LB(self, "").ponImagen(
+            lb_white_both = Controles.LB(self, "").put_image(
                 Code.all_pieces.default_pixmap("K", 64)
             )
-            lb_black_both = Controles.LB(self, "").ponImagen(
+            lb_black_both = Controles.LB(self, "").put_image(
                 Code.all_pieces.default_pixmap("k", 64)
             )
             lb_mas = Controles.LB(self, "+")
@@ -445,7 +445,7 @@ class LBPieza(Controles.LB):
         pixmap = board.piezas.pixmap(pieza, tam=tam)
         self.dragpixmap = pixmap
         Controles.LB.__init__(self, owner)
-        self.ponImagen(pixmap).anchoFijo(tam).altoFijo(tam)
+        self.put_image(pixmap).anchoFijo(tam).altoFijo(tam)
 
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.LeftButton:
@@ -516,7 +516,7 @@ def rondo_puntos(shuffle=True):
     return nico
 
 
-def rondoColores(shuffle=True):
+def rondo_colores(shuffle=True):
     nico = Util.Rondo(
         Iconos.Amarillo(),
         Iconos.Naranja(),
@@ -1158,7 +1158,7 @@ class WInfo(QtWidgets.QDialog):
 
         f = Controles.FontType(puntos=20)
 
-        lb_ico = Controles.LB(self).ponImagen(pm_icon)
+        lb_ico = Controles.LB(self).put_image(pm_icon)
         lb_titulo = Controles.LB(self, head).align_center().set_font(f)
         lb_texto = Controles.LB(self, txt)
         lb_texto.setMinimumWidth(min_tam - 84)
@@ -1242,3 +1242,14 @@ def launch_workers(wowner):
 
 def fen_is_in_clipboard(window):
     QTUtil2.temporary_message(window, _("FEN is in clipboard"), 1.2)
+
+
+def select_color(qcolor_ini):
+    dialog = QtWidgets.QColorDialog(qcolor_ini)
+    dialog.setWindowTitle(_("Choose a color"))
+    dialog.setWindowIcon(Iconos.Colores())
+    dialog.setOption(QtWidgets.QColorDialog.ShowAlphaChannel, False)
+    dialog.setOption(QtWidgets.QColorDialog.DontUseNativeDialog, True)
+    if dialog.exec():
+        return dialog.selectedColor()
+    return None

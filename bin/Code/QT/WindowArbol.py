@@ -428,7 +428,7 @@ class TreeMoves(QtWidgets.QTreeWidget):
 
         game = Game.Game(mov.game.last_position)
         game.read_pv(rm.pv)
-        linea_pgn = game.pgnBaseRAW()
+        linea_pgn = game.pgn_base_raw()
         wowner = self.owner
         board = wowner.infoMove.board
         import Code.Variations as Variations

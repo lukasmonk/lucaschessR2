@@ -211,7 +211,7 @@ class ManagerCompeticion(Manager.Manager):
             if QTUtil2.pregunta(self.main_window, _("Do you want to go back in the last movement?")):
                 self.hints -= 1
                 self.ponAyudas(self.hints)
-                self.game.anulaUltimoMovimiento(self.is_human_side_white)
+                self.game.remove_last_move(self.is_human_side_white)
                 self.in_the_opening = False
                 self.game.assign_opening()
                 self.goto_end()
@@ -353,7 +353,7 @@ class ManagerCompeticion(Manager.Manager):
                 self.mrm_tutor = self.analizaTutor()
 
             if self.mrm_tutor is None:
-                self.sigueHumano()
+                self.continue_human()
                 return False
             if not self.tutor_book.si_esta(self.last_fen(), movimiento):
                 if Tutor.launch_tutor_movimiento(self.mrm_tutor, movimiento):

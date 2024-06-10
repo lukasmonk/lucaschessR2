@@ -80,7 +80,7 @@ class WOpenings(LCDialog.LCDialog):
         gbDerecha = Controles.GB(self, "", lyD)
 
         # # Izquierda
-        lyI = Colocacion.V().control(self.board).otro(lyBM)
+        lyI = Colocacion.V().control(self.board).otro(lyBM).relleno()
         gbIzquierda = Controles.GB(self, "", lyI)
 
         splitter = QtWidgets.QSplitter(self)
@@ -162,10 +162,10 @@ class WOpenings(LCDialog.LCDialog):
         self.grid.refresh()
         self.grid.gotop()
 
-        w = self.width()
-        self.adjustSize()
-        if self.width() != w:
-            self.resize(w, self.height())
+        # w = self.width()
+        # self.adjustSize()
+        # if self.width() != w:
+        #     self.resize(w, self.height())
 
     def actualizaPosicion(self):
         if self.posCurrent > -1:
@@ -203,7 +203,7 @@ class WOpenings(LCDialog.LCDialog):
         self.reject()
 
     def atras(self):
-        self.game.anulaSoloUltimoMovimiento()
+        self.game.remove_only_last_movement()
         self.ponActivas()
 
     def borrar(self):
@@ -417,7 +417,7 @@ class OpeningsPersonales(LCDialog.LCDialog):
             reg = {}
             reg["NOMBRE"] = name
             reg["ECO"] = eco
-            reg["PGN"] = game.pgnBaseRAW()
+            reg["PGN"] = game.pgn_base_raw()
             reg["A1H8"] = game.pv()
             reg["ESTANDAR"] = is_basic
 

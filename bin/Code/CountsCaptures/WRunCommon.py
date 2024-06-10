@@ -25,12 +25,12 @@ class WEdMove(QtWidgets.QWidget):
 
         self.origen = EDCelda(self, "").caracteres(2).controlrx("(|[a-h][1-8])").anchoFijo(32).align_center()
 
-        self.arrow = arrow = Controles.LB(self).ponImagen(self.PM_MOVE)
+        self.arrow = arrow = Controles.LB(self).put_image(self.PM_MOVE)
         arrow.mousePressEvent = self.pulsa_flecha
 
         self.destino = EDCelda(self, "").caracteres(2).controlrx("(|[a-h][1-8])").anchoFijo(32).align_center()
 
-        self.result = Controles.LB(self).set_wrap().ponImagen(self.PM_EMPTY)
+        self.result = Controles.LB(self).set_wrap().put_image(self.PM_EMPTY)
 
         ly = (
             Colocacion.H()
@@ -76,7 +76,7 @@ class WEdMove(QtWidgets.QWidget):
     def habilita(self):
         self.origen.set_disabled(False)
         self.destino.set_disabled(False)
-        self.result.ponImagen(self.PM_EMPTY)
+        self.result.put_image(self.PM_EMPTY)
 
     def limpia(self):
         self.origen.set_text("")
@@ -85,13 +85,13 @@ class WEdMove(QtWidgets.QWidget):
         self.origen.setFocus()
 
     def correcta(self):
-        self.result.ponImagen(self.PM_OK)
+        self.result.put_image(self.PM_OK)
 
     def error(self):
-        self.result.ponImagen(self.PM_WRONG)
+        self.result.put_image(self.PM_WRONG)
 
     def repetida(self):
-        self.result.ponImagen(self.PM_REPEATED)
+        self.result.put_image(self.PM_REPEATED)
 
     def pulsa_flecha(self, event):
         self.limpia()
@@ -113,7 +113,7 @@ class WEdMovePGN(QtWidgets.QWidget):
 
         self.celda = EDCelda(self, "").caracteres(8).anchoFijo(64).align_center()
 
-        self.result = Controles.LB(self).set_wrap().ponImagen(self.PM_EMPTY)
+        self.result = Controles.LB(self).set_wrap().put_image(self.PM_EMPTY)
 
         ly = Colocacion.H().relleno().control(self.celda).espacio(2).control(self.result).margen(0).relleno()
         self.setLayout(ly)
@@ -133,7 +133,7 @@ class WEdMovePGN(QtWidgets.QWidget):
 
     def habilita(self):
         self.celda.set_disabled(False)
-        self.result.ponImagen(self.PM_EMPTY)
+        self.result.put_image(self.PM_EMPTY)
 
     def limpia(self):
         self.celda.set_text("")
@@ -141,10 +141,10 @@ class WEdMovePGN(QtWidgets.QWidget):
         self.celda.setFocus()
 
     def correcta(self):
-        self.result.ponImagen(self.PM_OK)
+        self.result.put_image(self.PM_OK)
 
     def error(self):
-        self.result.ponImagen(self.PM_WRONG)
+        self.result.put_image(self.PM_WRONG)
 
     def repetida(self):
-        self.result.ponImagen(self.PM_REPEATED)
+        self.result.put_image(self.PM_REPEATED)

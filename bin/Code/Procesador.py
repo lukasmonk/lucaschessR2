@@ -221,7 +221,7 @@ class Procesador:
         self.main_window.activaCapturas(False)
         self.main_window.activaInformacionPGN(False)
         if self.manager:
-            self.manager.finManager()
+            self.manager.end_manager()
             self.manager = None
         self.main_window.set_manager_active(self)  # Necesario, no borrar
         self.board.side_indicator_sc.setVisible(False)
@@ -230,7 +230,7 @@ class Procesador:
         self.main_window.pon_toolbar(self.li_opciones_inicio, atajos=True)
         self.main_window.active_game(False, False)
         self.main_window.thinking(False)
-        self.board.exePulsadoNum = None
+        self.board.do_pressed_number = None
         self.board.set_position(self.posicionInicial)
         self.board.borraMovibles()
         self.board.remove_arrows()
@@ -243,7 +243,7 @@ class Procesador:
     def start(self):
         Code.runSound.close()
         if self.manager:
-            self.manager.finManager()
+            self.manager.end_manager()
             del self.manager
             self.manager = None
         self.reset()
@@ -653,7 +653,10 @@ class Procesador:
         menu.opcion(self.cambiaconfiguration, _("General configuration"), Iconos.Opciones())
         menu.separador()
 
-        menu.opcion(self.select_language, _("Language"), Iconos.Language())
+        txt = _("Language")
+        if txt != "Language":
+            txt += " (Language)"
+        menu.opcion(self.select_language, txt, Iconos.Language())
         menu.separador()
 
         menu.opcion(self.engines, _("Engines configuration"), Iconos.ConfEngines())
@@ -748,7 +751,7 @@ class Procesador:
     def reiniciar(self):
         self.main_window.final_processes()
         self.main_window.accept()
-        QTUtil.salirAplicacion(OUT_REINIT)
+        QTUtil.exit_application(OUT_REINIT)
 
     def cambiaconfigurationPrimeraVez(self):
         if WindowConfig.options_first_time(self.main_window, self.configuration):
@@ -1279,7 +1282,7 @@ class Procesador:
     def final_x(self):
         return True
 
-    def finalX0(self):
+    def final_x0(self):
         return True
 
     def clonVariations(self, window, xtutor=None, is_competitive=False):

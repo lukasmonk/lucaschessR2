@@ -8,7 +8,7 @@ from Code.Base.Constantes import (
     TB_CLOSE,
     TB_REINIT,
     TB_CONFIG,
-    TB_HELP,
+    TB_ADVICE,
     TB_NEXT,
     TB_UTILITIES,
     GT_TURN_ON_LIGHTS,
@@ -108,7 +108,7 @@ class ManagerTurnOnLights(Manager.Manager):
             self.pon_rotulos(1)
 
     def next_line_run(self):
-        li_options = [TB_CLOSE, TB_HELP, TB_REINIT]
+        li_options = [TB_CLOSE, TB_ADVICE, TB_REINIT]
         self.set_toolbar(li_options)
 
         self.next_line()
@@ -125,7 +125,7 @@ class ManagerTurnOnLights(Manager.Manager):
         if key == TB_CLOSE:
             self.end_game()
 
-        elif key == TB_HELP:
+        elif key == TB_ADVICE:
             self.get_help()
 
         elif key == TB_REINIT:
@@ -300,7 +300,7 @@ class ManagerTurnOnLights(Manager.Manager):
             return True
 
         self.errores += 1
-        self.sigueHumano()
+        self.continue_human()
         return False
 
     def add_move(self, move, is_player_move):
