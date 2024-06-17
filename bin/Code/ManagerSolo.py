@@ -36,6 +36,7 @@ from Code.Voyager import Voyager
 
 class ManagerSolo(Manager.Manager):
     reinicio = None
+    valor_inicial = None
 
     def start(self, dic=None):
         self.game_type = GT_ALONE
@@ -47,6 +48,7 @@ class ManagerSolo(Manager.Manager):
                 self.game.restore(dic["GAME"])
                 game_new = False
                 um.final()
+
         else:
             dic = {}
 
@@ -97,8 +99,9 @@ class ManagerSolo(Manager.Manager):
             self.change_rival()
             del dic["SICAMBIORIVAL"]  # que no lo vuelva a pedir
 
-        self.valor_inicial = self.dame_valor_actual()
         self.game.add_tag_timestart()
+
+        self.valor_inicial = self.dame_valor_actual()
 
         self.play_next_move()
 
@@ -345,6 +348,7 @@ class ManagerSolo(Manager.Manager):
         self.start(dic)
         self.pon_toolbar()
         self.guardarHistorico(fich)
+        self.valor_inicial = self.dame_valor_actual()
 
     def file(self):
         menu = QTVarios.LCMenu(self.main_window)

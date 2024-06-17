@@ -94,7 +94,7 @@ def launch_prompt(main_window, oprompt: Prompt, game: Game.Game):
     prompt = prompt.strip() + f"\nThe game is:\n{game.pgn()}"
     QTUtil.set_clipboard(prompt)
 
-    QTUtil2.temporary_message(main_window, _("The prompt is on the clipboard, to paste into the AI chat."), 1.2)
+    QTUtil2.temporary_message(main_window, _("The prompt is on the clipboard, to paste into the AI chat."), 2.2)
 
 
 def maintenance(mainwindow, game: Game.Game):

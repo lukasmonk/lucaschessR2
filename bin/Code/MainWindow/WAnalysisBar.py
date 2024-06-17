@@ -4,29 +4,32 @@ from PySide2.QtWidgets import QProgressBar
 import Code
 from Code.Analysis import AnalysisEval
 from Code.Base import Game
-from Code.QT import FormLayout, Iconos
+from Code.QT import FormLayout, Iconos, Colocacion, Controles
 
 
-class AnalysisBar(QProgressBar):
+class AnalysisBar(QtWidgets.QWidget):
 
     def __init__(self, w_parent, board):
-        QtWidgets.QProgressBar.__init__(self, w_parent)
+        QtWidgets.QWidget.__init__(self, w_parent)
 
         self.w_parent = w_parent
         self.board = board
         self.engine_manager = None
-        self.setOrientation(QtCore.Qt.Vertical)
-        self.aeval = AnalysisEval.AnalysisEval()
-        self.max_range = 10000
-        self.setRange(0, 10000)
-        self.setValue(5000)
-        self.setTextVisible(False)
         self.timer = None
         self.activated = False
         self.value_objective = 0
         self.acercando = False
-
+        self.max_range = 10000
+        self.aeval = AnalysisEval.AnalysisEval()
         self.interval = Code.configuration.x_analyzer_mstime_refresh_ab
+
+        self.progressbar = QProgressBar(self)
+        self.progressbar.setOrientation(QtCore.Qt.Vertical)
+        self.progressbar.setRange(0, 10000)
+        self.progressbar.setValue(5000)
+        self.progressbar.setTextVisible(False)
+
+        self.lb_value = Controles.LB(self).set_font_type(puntos=7).align_center()
 
         b, w = Code.dic_colors["BLACK_ANALYSIS_BAR"], Code.dic_colors["WHITE_ANALYSIS_BAR"]
         style = """QProgressBar{background-color :%s;border : 1px solid %s;margin-left:4px;}  
@@ -41,15 +44,18 @@ class AnalysisBar(QProgressBar):
         self.previous_board = None
         self.set_board_position()
 
+        layout = Colocacion.V().control(self.lb_value).espacio(-6).control(self.progressbar).margen(0)
+        self.setLayout(layout)
+
     def set_board_position(self):
         if Code.configuration.x_analyzer_autorotate_ab:
             new = self.board.is_white_bottom
             if self.previous_board != new:
-                self.setInvertedAppearance(not new)
+                self.progressbar.setInvertedAppearance(not new)
                 self.previous_board = new
 
     def activate(self, ok):
-        self.activated =ok
+        self.activated = ok
         self.setVisible(ok)
         if ok:
             if self.engine_manager is None:
@@ -64,6 +70,7 @@ class AnalysisBar(QProgressBar):
         else:
             if self.engine_manager:
                 self.engine_manager.terminar()
+                self.engine_manager = None
             if self.timer:
                 self.timer.stop()
                 self.timer = None
@@ -95,8 +102,11 @@ class AnalysisBar(QProgressBar):
             mrm = self.engine_manager.ac_estado()
             if mrm:
                 rm = mrm.rm_best()
+                self.lb_value.set_text(rm.abbrev_text_base1())
+
                 depth = rm.depth
                 cp = rm.centipawns_abs()
+
                 tooltip = None
                 if not rm.is_white:
                     cp = -cp
@@ -177,17 +187,16 @@ class AnalysisBar(QProgressBar):
             self.goto_objective()
 
     def goto_objective(self):
-        if not self.activated:
+        if not self.engine_manager or not self.activated:
             self.acercando = False
             return
-        value = self.value()
+        value = self.progressbar.value()
         if value != self.value_objective:
             velocidad = max(abs(self.value_objective - value) // 50, 1)
             self.acercando = True
             add = +1 if self.value_objective > value else -1
-            self.setValue(value + add*velocidad)
+            self.progressbar.setValue(value + add * velocidad)
             self.update()
             QtCore.QTimer.singleShot(2, self.goto_objective)
         else:
             self.acercando = False
-

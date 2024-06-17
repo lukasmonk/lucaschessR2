@@ -28,4 +28,9 @@ If you call the engine with the option `-r` (or `--random`), it will play pure r
 
 ## Logo
 
-![alt text](https://raw.githubusercontent.com/rchastain/alouette/master/logo/logo.bmp)
+![alt text](https://gitlab.com/rchastain/alouette/-/raw/master/logo/logo.bmp)
+
+## Project migration warning
+
+The project has moved to [Codeberg](https://codeberg.org/rchastain/alouette).
+

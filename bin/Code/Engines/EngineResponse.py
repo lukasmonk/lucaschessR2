@@ -230,6 +230,25 @@ class EngineResponse:
                 pts = -pts
             return "%+0.2f" % (pts / 100.0)
 
+    def abbrev_text_base1(self):
+        if self.mate != 0:
+            mt = self.mate
+            if mt == 1:
+                return ""
+            if not self.is_white:
+                mt = -mt
+            if (mt > 1) and self.is_white:
+                mt -= 1
+            elif (mt < -1) and not self.is_white:
+                mt += 1
+
+            return "M%+d" % mt
+        else:
+            pts = self.puntos
+            if not self.is_white:
+                pts = -pts
+            return "%+0.1f" % (pts / 100.0)
+
     def copia(self):
         rm = EngineResponse(self.name, self.is_white)
         rm.restore(self.save())

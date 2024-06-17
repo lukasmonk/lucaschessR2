@@ -69,14 +69,14 @@ class WAnalisisGraph(LCDialog.LCDialog):
 
         self.dicLiJG = {"A": self.alm.lijg, "W": self.alm.lijgW, "B": self.alm.lijgB}
         grid_all = Grid.Grid(self, xcol(), siSelecFilas=True, xid="A", siCabeceraMovible=False)
-        ancho_grid = grid_all.fixMinWidth()
+        ancho_grid = grid_all.anchoColumnas()
         self.register_grid(grid_all)
         grid_w = Grid.Grid(self, xcol(), siSelecFilas=True, xid="W", siCabeceraMovible=False)
-        ancho_grid = max(grid_w.fixMinWidth(), ancho_grid)
+        ancho_grid = max(grid_w.anchoColumnas(), ancho_grid)
         self.register_grid(grid_w)
-        gridB = Grid.Grid(self, xcol(), siSelecFilas=True, xid="B", siCabeceraMovible=False)
-        ancho_grid = max(gridB.fixMinWidth(), ancho_grid)
-        self.register_grid(gridB)
+        grid_b = Grid.Grid(self, xcol(), siSelecFilas=True, xid="B", siCabeceraMovible=False)
+        ancho_grid = max(grid_b.anchoColumnas(), ancho_grid) + 24
+        self.register_grid(grid_b)
 
         font = Controles.FontType(puntos=Code.configuration.x_sizefont_infolabels)
 
@@ -98,25 +98,20 @@ class WAnalisisGraph(LCDialog.LCDialog):
         w_moves = QtWidgets.QWidget()
         w_moves.setLayout(ly)
 
-        self.tabGrid = tabGrid = Controles.Tab()
-        tabGrid.new_tab(grid_all, _("All moves"))
-        tabGrid.new_tab(grid_w, _("White"))
-        tabGrid.new_tab(gridB, _("Black"))
-        tabGrid.new_tab(w_idx, _("Indexes"))
-        tabGrid.new_tab(w_elo, _("Elo"))
-        tabGrid.new_tab(w_moves, _("Moves"))
-        tabGrid.dispatchChange(self.tabChanged)
+        self.tab_grid = tab_grid = Controles.Tab()
+        tab_grid.new_tab(grid_all, _("All moves"))
+        tab_grid.new_tab(grid_w, _("White"))
+        tab_grid.new_tab(grid_b, _("Black"))
+        tab_grid.new_tab(w_idx, _("Indexes"))
+        tab_grid.new_tab(w_elo, _("Elo"))
+        tab_grid.new_tab(w_moves, _("Moves"))
+        tab_grid.dispatchChange(self.tabChanged)
         self.tabActive = 0
 
-        config_board = Code.configuration.config_board("ANALISISGRAPH", 48)
+        config_board = Code.configuration.config_board("ANALISISGRAPH", 60)
         self.board = Board.Board(self, config_board)
         self.board.crea()
         self.board.set_side_bottom(alm.is_white_bottom)
-        self.board.dispatchSize(self.boardSizeChanged)
-
-        # self.capturas = WCapturas.CapturaLista(self, self.board)
-        ly_tc = Colocacion.H().control(self.board)
-        # .control(self.capturas)
 
         self.rbShowValues = Controles.RB(self, _("Values"), rutina=self.cambiadoShow).activa(True)
         self.rbShowElo = Controles.RB(self, _("Elo average"), rutina=self.cambiadoShow)
@@ -133,41 +128,61 @@ class WAnalisisGraph(LCDialog.LCDialog):
             .control(self.chbShowLostPoints)
             .relleno(1)
         )
-
-        layout = Colocacion.G()
-        layout.controlc(tabGrid, 0, 0)
-        layout.otroc(ly_rb, 1, 0)
-        layout.otroc(ly_tc, 0, 1, numFilas=2)
+        ly_left = Colocacion.V().control(tab_grid).otro(ly_rb).margen(0)
+        ly_up = Colocacion.H().otro(ly_left).control(self.board)
 
         Controles.Tab().set_position("W")
         ancho = self.board.width() + ancho_grid
         self.htotal = [
             Histogram.Histogram(self, alm.hgame, grid_all, ancho, True),
             Histogram.Histogram(self, alm.hwhite, grid_w, ancho, True),
-            Histogram.Histogram(self, alm.hblack, gridB, ancho, True),
+            Histogram.Histogram(self, alm.hblack, grid_b, ancho, True),
             Histogram.Histogram(self, alm.hgame, grid_all, ancho, False, alm.eloT),
             Histogram.Histogram(self, alm.hwhite, grid_w, ancho, False, alm.eloW),
-            Histogram.Histogram(self, alm.hblack, gridB, ancho, False, alm.eloB),
+            Histogram.Histogram(self, alm.hblack, grid_b, ancho, False, alm.eloB),
         ]
         lh = Colocacion.V()
+
+        f = Controles.FontType(puntos=8)
+        bt_left = Controles.PB(self, "←", rutina=self.scale_left).set_font(f)
+        bt_down = Controles.PB(self, "↓", rutina=self.scale_down).set_font(f)
+        bt_reset = Controles.PB(self, "=", rutina=self.scale_reset).set_font(f)
+        bt_up = Controles.PB(self, "↑", rutina=self.scale_up).set_font(f)
+        bt_right = Controles.PB(self, "→", rutina=self.scale_right).set_font(f)
+        ly_bt = Colocacion.H().relleno().control(bt_left).control(bt_down).control(bt_reset)
+        ly_bt.control(bt_up).control(bt_right).margen(0)
+
         for x in range(6):
             lh.control(self.htotal[x])
             if x:
                 self.htotal[x].hide()
+        lh.espacio(-7).otro(ly_bt)
 
-        layout.otroc(lh, 2, 0, 1, 3)
+        w_up = QtWidgets.QWidget(self)
+        w_up.setLayout(ly_up.margen(3))
+
+        w_down = QtWidgets.QWidget(self)
+        w_down.setLayout(lh.margen(3))
+
+        splitter = QtWidgets.QSplitter()
+        splitter.setOrientation(QtCore.Qt.Vertical)
+        splitter.addWidget(w_up)
+        splitter.addWidget(w_down)
+        self.register_splitter(splitter, "all")
+
+        layout = Colocacion.V().margen(3).control(splitter)
+
         self.setLayout(layout)
 
-        self.restore_video()
+        dic_def = {'_SIZE_': '1064,900', 'SP_all': [536, 354]}
+        self.restore_video(dicDef=dic_def)
 
         grid_all.gotop()
-        gridB.gotop()
+        grid_b.gotop()
         grid_w.gotop()
         self.grid_left_button(grid_all, 0, None)
-        th = self.board.height()
-        self.tabGrid.setFixedHeight(th)
-        self.adjustSize()
-        self.emIndexes.setFixedHeight(th - 72)
+
+        self.scale_init()
 
     def valorShowLostPoints(self):
         # Llamada from_sq histogram
@@ -183,14 +198,14 @@ class WAnalisisGraph(LCDialog.LCDialog):
         return dic.get("SHOWLOSTPOINTS", True) if dic else True
 
     def cambiadoShow(self):
-        self.tabChanged(self.tabGrid.currentIndex())
+        self.tabChanged(self.tab_grid.currentIndex())
 
-    def boardSizeChanged(self):
-        th = self.board.height()
-        self.tabGrid.setFixedHeight(th)
-        self.emIndexes.setFixedHeight(th - 72)
-        self.adjustSize()
-        self.cambiadoShow()
+    # def boardSizeChanged(self):
+    #     th = self.board.height()
+    #     self.tab_grid.setFixedHeight(th)
+    #     self.emIndexes.setFixedHeight(th - 72)
+    #     self.adjustSize()
+    #     self.cambiadoShow()
 
     def tabChanged(self, ntab):
         QtWidgets.QApplication.processEvents()
@@ -200,7 +215,7 @@ class WAnalisisGraph(LCDialog.LCDialog):
         for n in range(6):
             self.htotal[n].setVisible(False)
         self.htotal[tab_vis].setVisible(True)
-        self.adjustSize()
+        # self.adjustSize()
         self.tabActive = ntab
 
     def grid_cambiado_registro(self, grid, row, column):
@@ -333,7 +348,46 @@ class WAnalisisGraph(LCDialog.LCDialog):
     def closeEvent(self, event):
         self.save_video()
 
+    def hscale(self, p_width, p_height):
+        key = "HISTOGRAM"
+        dic = Code.configuration.read_variables(key)
+        scale_width = p_width * dic.get("P_WIDTH", 0.90)
+        scale_height = p_height * dic.get("P_HEIGHT", 0.80)
+        dic["P_WIDTH"] = scale_width
+        dic["P_HEIGHT"] = scale_height
+        Code.configuration.write_variables(key, dic)
 
-def showGraph(wowner, manager, alm, show_analysis):
+        for i in range(6):
+            self.htotal[i].resetMatrix()
+            self.htotal[i].scale(scale_width, scale_height)
+
+    def scale_reset(self):
+        key = "HISTOGRAM"
+        dic = Code.configuration.read_variables(key)
+        dic["P_WIDTH"] = scale_width = 0.90
+        dic["P_HEIGHT"] = scale_height = 0.80
+        Code.configuration.write_variables(key, dic)
+
+        for i in range(6):
+            self.htotal[i].resetMatrix()
+            self.htotal[i].scale(scale_width, scale_height)
+
+    def scale_left(self):
+        self.hscale(0.95, 1.0)
+
+    def scale_right(self):
+        self.hscale(1.05, 1.0)
+
+    def scale_up(self):
+        self.hscale(1.0, 1.05)
+
+    def scale_down(self):
+        self.hscale(1.0, 0.95)
+
+    def scale_init(self):
+        self.hscale(1.0, 1.0)
+
+
+def show_graph(wowner, manager, alm, show_analysis):
     w = WAnalisisGraph(wowner, manager, alm, show_analysis)
     w.exec_()

@@ -1806,10 +1806,25 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             if nkey == QtCore.Qt.Key_S:
                 self.start_position()
 
-    @staticmethod
-    def list_help_keyboard():
+    def list_help_keyboard(self):
         ctrl = _("CTRL") + " "
-        return [
-            (ctrl + "1", _("Play instead of me")),
-            (ctrl + "2", _("Help to move")),
-        ]
+        li = []
+        if self.active_play_instead_of_me():
+            li.append((ctrl + "1", _("Play instead of me")))
+        if self.active_help_to_move():
+            li.append((ctrl + "2", _("Help to move")))
+        return li
+
+    def active_play_instead_of_me(self):
+        if self.state != ST_PLAYING:
+            return False
+        if self.ayudas_iniciales == 0:
+            return True
+        return self.hints > 0
+
+    def active_help_to_move(self):
+        if self.state != ST_PLAYING:
+            return True
+        if self.ayudas_iniciales == 0:
+            return True
+        return self.hints > 0

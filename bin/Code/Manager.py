@@ -1325,12 +1325,21 @@ class Manager:
         self.board.set_raw_last_position(self.game.last_position)
 
     def control1(self):
-        if hasattr(self, "play_instead_of_me"):
-            getattr(self, "play_instead_of_me")()
+        if self.active_play_instead_of_me():
+            if hasattr(self, "play_instead_of_me"):
+                getattr(self, "play_instead_of_me")()
 
     def control2(self):
-        if hasattr(self, "help_to_move") and self.hints > 0:
-            getattr(self, "help_to_move")()
+        if self.active_help_to_move():
+            if hasattr(self, "help_to_move"):
+                getattr(self, "help_to_move")()
+
+    def active_play_instead_of_me(self):
+        return self.state == ST_PLAYING
+
+    @staticmethod
+    def active_help_to_move():
+        return True
 
     def add_menu_vista(self, menu_vista):
         menu_vista.opcion("vista_pgn_information", _("PGN information"),
@@ -1636,14 +1645,16 @@ class Manager:
             menu.opcion("replay", _("Replay game"), Iconos.Pelicula())
             menu.separador()
 
-        # Juega por mi
-        if hasattr(self, "play_instead_of_me") and self.state == ST_PLAYING:
-            menu.separador()
-            menu.opcion("play_instead_of_me", _("Play instead of me") + "  [%s 1]" % _("CTRL"), Iconos.JuegaPorMi()),
+        # Juega por mi + help to move
+        if self.active_play_instead_of_me():
+            if hasattr(self, "play_instead_of_me"):
+                menu.separador()
+                menu.opcion("play_instead_of_me", _("Play instead of me") + "  [%s 1]" % _("CTRL"), Iconos.JuegaPorMi()),
 
-        if hasattr(self, "help_to_move") and self.state == ST_PLAYING and self.hints > 0:
-            menu.separador()
-            menu.opcion("help_to_move", _("Help to move") + "  [%s 2]" % _("CTRL"), Iconos.BotonAyuda())
+        if self.active_help_to_move():
+            if hasattr(self, "help_to_move"):
+                menu.separador()
+                menu.opcion("help_to_move", _("Help to move") + "  [%s 2]" % _("CTRL"), Iconos.BotonAyuda())
 
         # Arbol de movimientos
         if with_tree:
@@ -1807,7 +1818,7 @@ class Manager:
         if len(alm.lijg) == 0:
             QTUtil2.message(self.main_window, _("There are no analyzed moves."))
         else:
-            WindowAnalysisGraph.showGraph(self.main_window, self, alm, Analysis.show_analysis)
+            WindowAnalysisGraph.show_graph(self.main_window, self, alm, Analysis.show_analysis)
 
     def save_db(self, database):
         try:

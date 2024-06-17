@@ -1,7 +1,7 @@
 #!/bin/bash
 echo ":: Making all engines executable"
 echo ""
-echo ">> Alouette" && chmod 755 ./Engines/alouette/Alouette-0.1.4
+echo ">> Alouette" && chmod 755 ./Engines/alouette/alouette64
 echo ">> Amoeba" && chmod 755 ./Engines/amoeba/Amoeba-2.6
 echo ">> Andscacs" && chmod 755 ./Engines/andscacs/Andscacs-0.95
 echo ">> Arasan" && chmod 755 ./Engines/arasan/Arasan-22.2

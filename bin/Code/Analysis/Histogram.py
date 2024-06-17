@@ -90,8 +90,8 @@ class HPoint:
             return QtCore.Qt.white, QtCore.Qt.black
         return QtCore.Qt.black, QtCore.Qt.black
 
-    def setGridPos(self, gridPos):
-        self.gridPos = gridPos
+    def setGridPos(self, grid_pos):
+        self.gridPos = grid_pos
 
     def minmax_rvalue(self, minimum, maximum):
         if minimum > self.value:
@@ -253,22 +253,21 @@ class Histogram(QtWidgets.QGraphicsView):
         scene.addItem(self.tooltip)
         self.tooltip.hide()
 
-        self.scale(0.90, 0.8)
-        # self.scale(0.45, 0.4)
-        self.setMinimumSize(sz_width + 26, sz_height + 26)
+        # self.scale(0.9, 0.8)
+
         self.setPointActive(0)
 
-    def dispatch(self, gridPos):
-        self.grid.goto(gridPos, 0)
+    def dispatch(self, grid_pos):
+        self.grid.goto(grid_pos, 0)
         self.grid.setFocus()
 
     def setPointActive(self, num):
         self.pointActive = num
         self.scene.invalidate()
 
-    def dispatch_enter(self, gridPos):
+    def dispatch_enter(self, grid_pos):
         self.grid.setFocus()
-        self.owner.grid_doble_click(self.grid, gridPos, 0)
+        self.owner.grid_doble_click(self.grid, grid_pos, 0)
 
     def show_tooltip(self, txt, x, y, dr):
         self.tooltip.set_textPos(txt, x, y, dr)
@@ -277,7 +276,7 @@ class Histogram(QtWidgets.QGraphicsView):
         self.tooltip.hide()
 
     def drawBackground(self, painter, rect):
-        sr = sceneRect = self.sceneRect()
+        sr = scene_rect = self.sceneRect()
         width = sr.width()
         height = sr.height()
         left = sr.left()
@@ -290,7 +289,7 @@ class Histogram(QtWidgets.QGraphicsView):
 
         painter.setBrush(QtCore.Qt.NoBrush)
 
-        textRect = QtCore.QRectF(left - 2, bottom + 4, width + 2, height)
+        text_rect = QtCore.QRectF(left - 2, bottom + 4, width + 2, height)
         font = painter.font()
         font.setPointSize(8)
         painter.setFont(font)
@@ -302,11 +301,11 @@ class Histogram(QtWidgets.QGraphicsView):
             num = firstmove + x
             decimal = num // 10
             if decimal:
-                painter.drawText(textRect.translated(x * step, 0), str(decimal))
+                painter.drawText(text_rect.translated(x * step, 0), str(decimal))
         for x in range(njg - 1):
             num = firstmove + x
             ent = num % 10
-            painter.drawText(textRect.translated(x * step, 12), str(ent))
+            painter.drawText(text_rect.translated(x * step, 12), str(ent))
 
         # Lineas verticales de referencia
         painter.setPen(QtGui.QColor("#D9D9D9"))
@@ -405,7 +404,7 @@ class Histogram(QtWidgets.QGraphicsView):
         pen.setWidth(1)
         pen.setColor(QtGui.QColor("#545454"))
         painter.setPen(pen)
-        painter.drawRect(sceneRect)
+        painter.drawRect(scene_rect)
 
         # Linea roja de la position actual
         pen = painter.pen()

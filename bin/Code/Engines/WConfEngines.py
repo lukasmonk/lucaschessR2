@@ -87,6 +87,9 @@ class WConfEngines(LCDialog.LCDialog):
         self.cambiada_tab(0)
 
     def cambiada_tab(self, num):
+        if self.w_current:
+            self.w_current.save()
+
         if num == 0:
             w = self.wexternals
         elif num == 1:
@@ -676,8 +679,7 @@ class WConfTutor(QtWidgets.QWidget):
             Code.procesador.cambiaXTutor()
 
     def activate_this(self):
-        valor = self.cb_engine.valor()
-        self.cb_engine.rehacer(self.configuration.help_multipv_engines(True), valor)
+        self.cb_engine.rehacer(self.configuration.help_multipv_engines(True), self.engine.key)
         self.owner.set_engine(self.engine, False)
 
 
@@ -737,7 +739,7 @@ class WConfAnalyzer(QtWidgets.QWidget):
         self.setLayout(lyh)
 
         for control in (
-        self.cb_priority, self.ed_multipv, self.ed_depth, self.ed_time, self.ed_depth_ab, self.ed_time_ab):
+                self.cb_priority, self.ed_multipv, self.ed_depth, self.ed_time, self.ed_depth_ab, self.ed_time_ab):
             control.capture_changes(self.set_changed)
 
     def config_analysis_parameters(self):

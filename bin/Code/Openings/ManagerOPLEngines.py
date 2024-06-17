@@ -27,6 +27,7 @@ from Code.QT import QTVarios
 
 
 class ManagerOpeningEngines(Manager.Manager):
+
     def start(self, pathFichero):
         self.board.saveVisual()
         self.pathFichero = pathFichero
@@ -107,7 +108,8 @@ class ManagerOpeningEngines(Manager.Manager):
         self.xrival = self.procesador.creaManagerMotor(rival, self.time, None)
         self.xrival.is_white = self.is_engine_side_white
 
-        self.xanalyzer.options(max(self.xanalyzer.mstime_engine, self.time + 5.0), 0, True)
+        self.xanalyzer_specific = self.procesador.analyzer_clone( 0, 0, 10)
+        self.xanalyzer_specific.options(max(self.xanalyzer.mstime_engine, self.time + 5000), 0, True)
 
         juez = self.configuration.buscaRival(self.trainingEngines["ENGINE_CONTROL"])
         self.xjuez = self.procesador.creaManagerMotor(juez, int(self.trainingEngines["ENGINE_TIME"] * 1000), None)
@@ -314,9 +316,9 @@ class ManagerOpeningEngines(Manager.Manager):
                 break
             self.place_in_movement(move.njg)
             self.waiting_message(with_cancel=True, masTitulo="%d/%d" % (pos, total))
-            name = self.xanalyzer.name
-            vtime = self.xanalyzer.mstime_engine
-            depth = self.xanalyzer.depth_engine
+            name = self.xanalyzer_specific.name
+            vtime = self.xanalyzer_specific.mstime_engine
+            depth = self.xanalyzer_specific.depth_engine
             mrm = self.dbop.get_cache_engines(name, vtime, move.fenm2, depth)
             ok = False
             if mrm:
@@ -324,7 +326,7 @@ class ManagerOpeningEngines(Manager.Manager):
                 if rm:
                     ok = True
             if not ok:
-                mrm, pos = self.xanalyzer.analysis_move(move, self.xanalyzer.mstime_engine, self.xanalyzer.depth_engine)
+                mrm, pos = self.xanalyzer_specific.analysis_move(move, self.xanalyzer_specific.mstime_engine, self.xanalyzer_specific.depth_engine)
                 self.dbop.set_cache_engines(name, vtime, move.fenm2, mrm, depth)
 
             move.analysis = mrm, pos
@@ -575,6 +577,7 @@ class ManagerOpeningEngines(Manager.Manager):
         return False
 
     def reiniciar(self):
+        self.procesador.stop_engines()
         self.main_window.activaInformacionPGN(False)
         self.reinicio(self.dbop)
 

@@ -796,7 +796,7 @@ class Procesador:
     def train_book_ol(self):
         dbli_books_train = UtilSQL.ListObjSQL(Code.configuration.file_train_books_ol(), WBooksTrainOL.BooksTrainOL,
                                               tabla="data", reverted=True)
-        # No es posiblñe con with porque self.manager termina y deja el control en main_window
+        # No es posible con with porque self.manager termina y deja el control en main_window
         w = WBooksTrainOL.WBooksTrainOL(self.main_window, dbli_books_train)
         if w.exec_():
             if w.train_rowid is None:
@@ -804,6 +804,8 @@ class Procesador:
                 return
             self.manager = ManagerTrainBooksOL.ManagerTrainBooksOL(self)
             self.manager.start(dbli_books_train, w.train_rowid)
+        else:
+            dbli_books_train.close()
 
     def menu_tools(self):
         resp = BasicMenus.menu_tools(self)
