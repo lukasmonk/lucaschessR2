@@ -86,6 +86,8 @@ class ManagerVariations(Manager.Manager):
 
         if not len(self.game):
             self.play_next_move()
+        else:
+            self.goto_current()
 
     def run_action(self, key):
         if key == TB_ACCEPT:

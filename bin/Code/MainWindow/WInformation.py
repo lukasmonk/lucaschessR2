@@ -19,6 +19,7 @@ class Information(QtWidgets.QWidget):
         self.width_saved = None
         self.parent_width_saved = None
         self.width_previous = None
+        self.saved_width = None
 
         configuration = Code.configuration
 
@@ -493,7 +494,7 @@ class WVariations(QtWidgets.QWidget):
         if number > -1:
             li_variations = self.li_variations()
             if li_variations:
-                game = li_variations[number]
+                game = li_variations[number].copia()
             else:
                 number = -1
 
