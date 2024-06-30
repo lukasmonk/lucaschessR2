@@ -20,20 +20,20 @@ from Code.SQL import UtilSQL
 
 
 class UnMove:
-    def __init__(self, listaMovesPadre, pv, dicCache):
+    def __init__(self, list_moves_parent, pv, dic_cache):
 
-        self.listaMovesPadre = listaMovesPadre
+        self.list_moves_parent = list_moves_parent
         self.listaMovesHijos = None
 
         self.pv = pv
 
-        self.game = listaMovesPadre.gameBase.copia()
+        self.game = list_moves_parent.gameBase.copia()
         self.game.read_pv(self.pv)
 
         self.titulo = self.game.last_jg().pgn_translated()
 
-        if dicCache:
-            dic = dicCache.get(self.pv, {})
+        if dic_cache:
+            dic = dic_cache.get(self.pv, {})
         else:
             dic = {}
 
@@ -47,29 +47,29 @@ class UnMove:
         self.current_position = len(self.game) - 1
 
     def row(self):
-        return self.listaMovesPadre.liMoves.index(self)
+        return self.list_moves_parent.liMoves.index(self)
 
     def analysis(self):
-        return self.listaMovesPadre.analisisMov(self)
+        return self.list_moves_parent.analisisMov(self)
 
-    def conHijosDesconocidos(self, dbCache):
+    def with_unknown_children(self, db_cache):
         if self.listaMovesHijos:
             return False
         fenm2 = self.game.last_position.fenm2()
-        return fenm2 in dbCache
+        return fenm2 in db_cache
 
-    def etiPuntos(self, siExten):
-        pts = self.listaMovesPadre.etiPuntosUnMove(self, siExten)
-        if not siExten:
+    def label_score(self, si_exten):
+        pts = self.list_moves_parent.etiPuntosUnMove(self, si_exten)
+        if not si_exten:
             return pts
-        nom = self.listaMovesPadre.nomAnalisis()
+        nom = self.list_moves_parent.nomAnalisis()
         if nom:
             return nom + ": " + pts
         else:
             return ""
 
-    def creaHijos(self):
-        self.listaMovesHijos = ListaMoves(self, self.game.last_position.fen(), self.listaMovesPadre.dbCache)
+    def create_children(self):
+        self.listaMovesHijos = ListaMoves(self, self.game.last_position.fen(), self.list_moves_parent.dbCache)
         return self.listaMovesHijos
 
     def start(self):
@@ -88,7 +88,7 @@ class UnMove:
     def final(self):
         self.current_position = len(self.game) - 1
 
-    def damePosicion(self):
+    def get_position(self):
         if self.current_position == -1:
             position = self.game.first_position
             from_sq, to_sq = None, None
@@ -99,13 +99,13 @@ class UnMove:
             to_sq = move.to_sq
         return position, from_sq, to_sq
 
-    def ponValoracion(self, valoracion):
-        self.valoracion = valoracion
+    # def ponValoracion(self, valoracion):
+    #     self.valoracion = valoracion
 
-    def ponComentario(self, comment):
-        self.comment = comment
+    # def ponComentario(self, comment):
+    #     self.comment = comment
 
-    def guardaCache(self, dicCache):
+    def guardaCache(self, dic_cache):
         dic = {}
         if self.valoracion != "-":
             dic["VAL"] = self.valoracion
@@ -116,7 +116,7 @@ class UnMove:
         if self.siOculto:
             dic["OCU"] = True
         if dic:
-            dicCache[self.pv] = dic
+            dic_cache[self.pv] = dic
 
         if self.listaMovesHijos:
             self.listaMovesHijos.guardaCache()
@@ -133,41 +133,41 @@ class ListaMoves:
             cp.read_fen(fen)
             self.gameBase = Game.Game(cp)
         else:
-            self.nivel = self.moveOwner.listaMovesPadre.nivel + 1
+            self.nivel = self.moveOwner.list_moves_parent.nivel + 1
             self.gameBase = self.moveOwner.game.copia()
 
         self.fenm2 = self.gameBase.last_position.fenm2()
 
-        dicCache = self.dbCache[self.fenm2]
+        dic_cache = self.dbCache[self.fenm2]
 
         FasterCode.set_fen(self.fenm2 + " 0 1")
-        liMov = [pv_pz for pv_pz in FasterCode.get_moves()]
-        liMov.sort()
-        liMov = [pv_pz[1:] for pv_pz in liMov]
-        liMoves = []
-        for pv in liMov:
-            um = UnMove(self, pv, dicCache)
-            liMoves.append(um)
+        li_mov = [pv_pz for pv_pz in FasterCode.get_moves()]
+        li_mov.sort()
+        li_mov = [pv_pz[1:] for pv_pz in li_mov]
+        li_moves = []
+        for pv in li_mov:
+            um = UnMove(self, pv, dic_cache)
+            li_moves.append(um)
 
-        self.liMoves = liMoves
-        self.liMovesInicial = liMoves[:]
-        self.li_analysis = dicCache.get("ANALISIS", []) if dicCache else []
+        self.liMoves = li_moves
+        self.liMovesInicial = li_moves[:]
+        self.li_analysis = dic_cache.get("ANALISIS", []) if dic_cache else []
 
         # self.analisisActivo
         # self.dicAnalisis
-        self.ponAnalisisActivo(dicCache.get("ANALISIS_ACTIVO", None) if dicCache else None)
+        self.ponAnalisisActivo(dic_cache.get("ANALISIS_ACTIVO", None) if dic_cache else None)
 
     def guardaCache(self):
-        dicCache = {}
+        dic_cache = {}
         for um in self.liMoves:
-            um.guardaCache(dicCache)
+            um.guardaCache(dic_cache)
 
         if self.li_analysis:
-            dicCache["ANALISIS"] = self.li_analysis
-            dicCache["ANALISIS_ACTIVO"] = self.analisisActivo
+            dic_cache["ANALISIS"] = self.li_analysis
+            dic_cache["ANALISIS_ACTIVO"] = self.analisisActivo
 
-        if dicCache:
-            self.dbCache[self.fenm2] = dicCache
+        if dic_cache:
+            self.dbCache[self.fenm2] = dic_cache
 
     def etiPuntosUnMove(self, mov, siExten):
         if self.analisisActivo is None:
@@ -220,10 +220,10 @@ class ListaMoves:
             dnum[v] += 1
             li.append((mov, num))
         li.sort(key=lambda x: x[1])
-        liMov = []
+        li_mov = []
         for mov, num in li:
-            liMov.append(mov)
-        self.liMoves = liMov
+            li_mov.append(mov)
+        self.liMoves = li_mov
 
     def ponAnalisisActivo(self, num):
 
@@ -242,18 +242,18 @@ class ListaMoves:
 
         dic = collections.OrderedDict()
 
-        dicPos = {}
+        dic_pos = {}
 
         mrm = self.li_analysis[num]
 
         for n, rm in enumerate(mrm.li_rm):
             a1h8 = rm.movimiento()
             dic[a1h8] = rm
-            dicPos[a1h8] = n + 1
+            dic_pos[a1h8] = n + 1
 
         li = []
         for mov in self.liMoves:
-            pos = dicPos.get(mov.pv, 999999)
+            pos = dic_pos.get(mov.pv, 999999)
             li.append((mov, pos))
 
         li.sort(key=lambda x: x[1])
@@ -316,7 +316,7 @@ class TreeMoves(QtWidgets.QTreeWidget):
         hitem.sectionDoubleClicked.connect(self.editedH)
 
         self.dicItemMoves = {}
-        self.ponMoves(self.listaMoves)
+        self.set_moves(self.listaMoves)
 
         self.sortItems(3, QtCore.Qt.AscendingOrder)
 
@@ -325,7 +325,7 @@ class TreeMoves(QtWidgets.QTreeWidget):
         if not item:
             return
         mov = self.dicItemMoves[str(item)]
-        lm = mov.listaMovesPadre
+        lm = mov.list_moves_parent
 
         if col == 0:
             lm.reordenaSegunValoracion()
@@ -334,16 +334,16 @@ class TreeMoves(QtWidgets.QTreeWidget):
             lm.ponAnalisisActivo(lm.analisisActivo)
             self.ordenaMoves(lm)
 
-    def ponMoves(self, listaMoves):
-        liMoves = listaMoves.liMoves
-        if liMoves:
-            moveOwner = listaMoves.moveOwner
-            padre = self if moveOwner is None else moveOwner.item
-            for n, mov in enumerate(liMoves):
+    def set_moves(self, listaMoves):
+        li_moves = listaMoves.liMoves
+        if li_moves:
+            move_owner = listaMoves.moveOwner
+            padre = self if move_owner is None else move_owner.item
+            for n, mov in enumerate(li_moves):
                 titulo = mov.titulo
-                if mov.conHijosDesconocidos(self.dbCache):
+                if mov.with_unknown_children(self.dbCache):
                     titulo += " ^"
-                item = QtWidgets.QTreeWidgetItem(padre, [titulo, mov.etiPuntos(False), mov.comment])
+                item = QtWidgets.QTreeWidgetItem(padre, [titulo, mov.label_score(False), mov.comment])
                 item.setTextAlignment(1, QtCore.Qt.AlignRight)
                 item.setTextAlignment(3, QtCore.Qt.AlignCenter)
                 item.setToolTip(2, mov.comment)
@@ -359,7 +359,7 @@ class TreeMoves(QtWidgets.QTreeWidget):
             for t in range(3):
                 x += self.columnWidth(t)
 
-            mov = listaMoves.buscaMovVisibleDesde(liMoves[0])
+            mov = listaMoves.buscaMovVisibleDesde(li_moves[0])
             self.setCurrentItem(mov.item)
 
             x = self.columnWidth(0)
@@ -386,7 +386,7 @@ class TreeMoves(QtWidgets.QTreeWidget):
             self.edit_comment(item, mov)
 
     def edit_comment(self, item, mov):
-        form = FormLayout.FormLayout(self, ("Comments") + " " + mov.titulo, Iconos.ComentarioEditar(), anchoMinimo=400)
+        form = FormLayout.FormLayout(self, _("Comments") + " " + mov.titulo, Iconos.ComentarioEditar(), anchoMinimo=400)
 
         form.separador()
 
@@ -439,14 +439,14 @@ class TreeMoves(QtWidgets.QTreeWidget):
             board.is_white_bottom,
             fen,
             linea_pgn,
-            titulo=mov.titulo + " - " + mov.etiPuntos(True),
+            titulo=mov.titulo + " - " + mov.label_score(True),
         )
         if game_resp:
             if game_resp.pv() != rm.pv and game_resp.first_position.fen() == game.first_position.fen():
                 rm.pv = game_resp.pv()
 
     def mostrarOcultar(self, item, mov):
-        lm = mov.listaMovesPadre
+        lm = mov.list_moves_parent
         n_visibles, n_ocultos = lm.numVisiblesOcultos()
         if n_visibles <= 1 and n_ocultos == 0:
             return
@@ -495,16 +495,17 @@ class TreeMoves(QtWidgets.QTreeWidget):
             for mv in lm.liMoves:
                 mv.siOculto = False
 
-        qmParent = self.indexFromItem(item, 0).parent()
+        qm_parent = self.indexFromItem(item, 0).parent()
         for nFila, mv in enumerate(lm.liMoves):
-            self.setRowHidden(nFila, qmParent, mv.siOculto)
+            self.setRowHidden(nFila, qm_parent, mv.siOculto)
 
         self.goto(mov)
 
     def menu_context(self, position):
         self.owner.wmoves.menu_context()
 
-    def iconoValoracion(self, valoracion):
+    @staticmethod
+    def iconoValoracion(valoracion):
         return Iconos.icono("NAG_%d" % valoracion)
 
     def ponIconoValoracion(self, item, valoracion):
@@ -517,7 +518,7 @@ class TreeMoves(QtWidgets.QTreeWidget):
         self.sortItems(3, QtCore.Qt.AscendingOrder)
 
     def goto(self, mov):
-        mov = mov.listaMovesPadre.buscaMovVisibleDesde(mov)
+        mov = mov.list_moves_parent.buscaMovVisibleDesde(mov)
         self.setCurrentItem(mov.item)
         self.owner.muestra(mov)
         self.setFocus()
@@ -551,15 +552,15 @@ class TreeMoves(QtWidgets.QTreeWidget):
             item = mov.item
         if mov.listaMovesHijos is None:
             item.setText(0, mov.titulo)
-            listaMovesHijos = mov.creaHijos()
-            self.ponMoves(listaMovesHijos)
+            lista_moves_hijos = mov.create_children()
+            self.set_moves(lista_moves_hijos)
 
     def menos(self, mov=None):
         if mov is None:
             item = self.currentItem()
             mov = self.dicItemMoves[str(item)]
 
-        lm = mov.listaMovesPadre
+        lm = mov.list_moves_parent
         n_visibles, n_ocultos = lm.numVisiblesOcultos()
         if n_visibles <= 1:
             return
@@ -641,15 +642,15 @@ class InfoMove(QtWidgets.QWidget):
         self.board.crea()
         self.board.set_side_bottom(is_white_bottom)
 
-        btInicio = Controles.PB(self, "", self.start).ponIcono(Iconos.MoverInicio())
-        btAtras = Controles.PB(self, "", self.atras).ponIcono(Iconos.MoverAtras())
-        btAdelante = Controles.PB(self, "", self.adelante).ponIcono(Iconos.MoverAdelante())
-        btFinal = Controles.PB(self, "", self.final).ponIcono(Iconos.MoverFinal())
+        bt_inicio = Controles.PB(self, "", self.start).ponIcono(Iconos.MoverInicio())
+        bt_atras = Controles.PB(self, "", self.atras).ponIcono(Iconos.MoverAtras())
+        bt_adelante = Controles.PB(self, "", self.adelante).ponIcono(Iconos.MoverAdelante())
+        bt_final = Controles.PB(self, "", self.final).ponIcono(Iconos.MoverFinal())
 
         self.lbAnalisis = Controles.LB(self, "")
 
         lybt = Colocacion.H().relleno()
-        for x in (btInicio, btAtras, btAdelante, btFinal):
+        for x in (bt_inicio, bt_atras, bt_adelante, bt_final):
             lybt.control(x)
         lybt.relleno()
 
@@ -667,13 +668,13 @@ class InfoMove(QtWidgets.QWidget):
         self.movActual = None
 
     def ponValores(self):
-        position, from_sq, to_sq = self.movActual.damePosicion()
+        position, from_sq, to_sq = self.movActual.get_position()
         self.board.set_position(position)
 
         if from_sq:
             self.board.put_arrow_sc(from_sq, to_sq)
 
-        self.lbAnalisis.set_text("<b>" + self.movActual.etiPuntos(True) + "</b>")
+        self.lbAnalisis.set_text("<b>" + self.movActual.label_score(True) + "</b>")
 
     def start(self):
         self.movActual.start()
@@ -709,7 +710,7 @@ class WindowArbol(LCDialog.LCDialog):
         extparam = "moves"
         LCDialog.LCDialog.__init__(self, main_window, titulo, icono, extparam)
 
-        dicVideo = self.restore_dicvideo()
+        dic_video = self.restore_dicvideo()
 
         self.dbCache = UtilSQL.DictSQL(Code.configuration.ficheroMoves)
         if nj >= 0:
@@ -741,22 +742,22 @@ class WindowArbol(LCDialog.LCDialog):
 
         self.wmoves.tree.setFocus()
 
-        anchoBoard = self.infoMove.board.width()
+        ancho_board = self.infoMove.board.width()
 
-        self.restore_video(anchoDefecto=869 - 242 + anchoBoard)
-        if not dicVideo:
-            dicVideo = {
+        self.restore_video(anchoDefecto=869 - 242 + ancho_board)
+        if not dic_video:
+            dic_video = {
                 "TREE_3": 27,
-                "SPLITTER": [260 - 242 + anchoBoard, 617],
+                "SPLITTER": [260 - 242 + ancho_board, 617],
                 "TREE_1": 49,
                 "TREE_2": 300,
                 "TREE_4": 25,
             }
-        sz = dicVideo.get("SPLITTER", None)
+        sz = dic_video.get("SPLITTER", None)
         if sz:
             self.splitter.setSizes(sz)
         for x in range(1, 2):
-            w = dicVideo.get("TREE_%d" % x, None)
+            w = dic_video.get("TREE_%d" % x, None)
             if w:
                 self.wmoves.tree.setColumnWidth(x, w)
 
@@ -785,8 +786,8 @@ class WindowArbol(LCDialog.LCDialog):
         self.save_video()
 
     def analizar(self, mov):
-        if mov.listaMovesPadre:
-            lm = mov.listaMovesPadre
+        if mov.list_moves_parent:
+            lm = mov.list_moves_parent
         else:
             lm = self.listaMoves
 
@@ -843,9 +844,9 @@ class WindowArbol(LCDialog.LCDialog):
         if alm.engine == "default":
             xengine = self.procesador.analyzer_clone(alm.vtime, alm.depth, alm.multiPV)
         else:
-            confMotor = Code.configuration.buscaRival(alm.engine)
-            confMotor.update_multipv(alm.multiPV)
-            xengine = self.procesador.creaManagerMotor(confMotor, alm.vtime, alm.depth, has_multipv=True)
+            conf_motor = Code.configuration.buscaRival(alm.engine)
+            conf_motor.update_multipv(alm.multiPV)
+            xengine = self.procesador.creaManagerMotor(conf_motor, alm.vtime, alm.depth, has_multipv=True)
 
         me = QTUtil2.analizando(self, True)
 
@@ -874,7 +875,7 @@ class WindowArbol(LCDialog.LCDialog):
         lm.ponAnalisisActivo(num)
 
         for um in lm.liMoves:
-            um.item.setText(1, um.etiPuntos(False))
+            um.item.setText(1, um.label_score(False))
 
         self.wmoves.tree.ordenaMoves(lm)
         self.wmoves.tree.goto(lm.liMoves[0])
@@ -886,7 +887,7 @@ class WindowArbol(LCDialog.LCDialog):
         lm.quitaAnalisis(num)
 
         for um in lm.liMoves:
-            um.item.setText(1, um.etiPuntos(False))
+            um.item.setText(1, um.label_score(False))
 
         self.wmoves.tree.ordenaMoves(lm)
         self.wmoves.tree.goto(lm.liMoves[0])

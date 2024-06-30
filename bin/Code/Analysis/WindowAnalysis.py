@@ -53,7 +53,7 @@ class OneAnalysis(QtWidgets.QWidget):
         configuration = Code.configuration
 
         self.with_figurines = configuration.x_pgn_withfigurines
-        with_col = (configuration.x_pgn_width - 52 - 24) // 2
+        with_col = (configuration.x_pgn_width - 52 - 12) // 2
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva(
             "JUGADAS",

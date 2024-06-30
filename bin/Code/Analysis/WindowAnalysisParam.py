@@ -54,6 +54,7 @@ def read_dic_params():
     alm.white = dic.get("white", True)
     alm.black = dic.get("black", True)
 
+    alm.li_players = dic.get("li_players", None)
     alm.workers = dic.get("workers", 1)
 
     alm.tags_accuracy = dic.get("tags_accuracy", False)
@@ -412,12 +413,13 @@ def massive_analysis_parameters(parent, configuration, multiple_selected, siData
         color = "BOTH"
     li_gen.append((config, color))
 
+    cjug = ";".join(alm.li_players) if alm.li_players else ""
     li_gen.append(
         (
             '<div align="right">'
             + _("Only the following players")
             + ":<br>%s</div>" % _("(You can add multiple aliases separated by ; and wildcards with *)"),
-            "",
+            cjug,
         )
     )
 
@@ -493,7 +495,7 @@ def massive_analysis_parameters(parent, configuration, multiple_selected, siData
         alm.white = color != "BLACK"
         alm.black = color != "WHITE"
         cjug = cjug.strip()
-        alm.li_players = cjug.upper().split(";") if cjug else None
+        alm.li_players = cjug.split(";") if cjug else None
         alm.book_name = alm.book.name if alm.book else None
 
         (

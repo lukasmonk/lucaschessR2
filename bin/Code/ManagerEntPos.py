@@ -196,7 +196,7 @@ class ManagerEntPos(Manager.Manager):
 
     def set_toolbar_comments(self, with_help=True, with_continue=False):
         li_options = [TB_CLOSE, ]
-        if with_help:
+        if with_help and self.state == ST_PLAYING:
             li_options.append(TB_ADVICE)
         li_options.extend([TB_CHANGE, TB_REINIT])
         if not self.advanced:

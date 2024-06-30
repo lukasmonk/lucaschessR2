@@ -1193,6 +1193,7 @@ class WGames(QtWidgets.QWidget):
             nregs = n_seleccionadas
         else:
             nregs = self.db_games.reccount()
+            li_seleccionadas = None
 
         if alm.workers == 1:
             self.tw_massive_analysis_1_worker(alm, nregs, li_seleccionadas)

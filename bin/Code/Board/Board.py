@@ -785,6 +785,10 @@ class Board(QtWidgets.QGraphicsView):
             li_keys.append((None, None))
             li_keys.append((ctrl("T"), _("Save position in 'Selected positions' file")))
 
+            if self.main_window.manager.can_be_analysed():
+                li_keys.append((None, None))
+                li_keys.append((alt("A"), _("Analyze")))
+
             if hasattr(self.main_window.manager, "list_help_keyboard"):
                 li_keys.append((None, None))
                 li_keys.extend(self.main_window.manager.list_help_keyboard())

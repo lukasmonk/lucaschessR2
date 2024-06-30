@@ -162,7 +162,7 @@ class Engine:
         return self.maxMultiPV >= 218 and not self.is_maia()
 
     def can_be_analyzer(self):
-        return self.maxMultiPV >= 10 and not self.is_maia()
+        return self.maxMultiPV >= 4 and not self.is_maia()
 
     def is_maia(self):
         return self.key.startswith("maia-")

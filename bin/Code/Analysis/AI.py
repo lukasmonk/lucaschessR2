@@ -43,10 +43,14 @@ class Prompt:
 
 
 def add_default(db):
-    prompt = """You are now an absolute chess-professional, with a similar level like Magnus Carlsen.
-Comment the moves which are weak or strong. Or which are marked in this way.
-You comment every move, with the aim of the purpose of the move, and the implications.
-The output format must be a pgn with these comments, and the coments must be between braces.
+    prompt = """Act as an International Master of chess.
+Analyze a chess game move by move, explaining what happened in each move, and the result should be displayed in a pgn file where the comments are in each move and in braces, following the pgn standard.
+The writing style should be instructive and detailed aimed at an intermediate player.
+Consider the following context: The analysis should include intermediate comments, covering both the player's and the opponent's moves. Additionally, it should include an evaluation of the positions after each move, focusing on both tactics and strategy.
+
+Here is the final prompt:
+
+Analyze the following chess game move by move, providing detailed comments for each move and displaying the result in a pgn file. The comments should be in braces and follow the pgn standard. The comments should be intermediate, covering both the player's and the opponent's moves, and including an evaluation of the positions after each move. The analysis should focus on both tactics and strategy.
 """
     if Code.configuration.x_translator != "en":
         prompt += f"The answer must be in {Code.configuration.language()}.\n"
@@ -159,7 +163,7 @@ class WPrompts(LCDialog.LCDialog):
         key = self.li_keys[row]
         prompt: Prompt = self.db[key]
         return getattr(prompt, col)
-    
+
     def next_order(self):
         x = -1
         for key in self.li_keys:
@@ -208,11 +212,11 @@ class WPrompts(LCDialog.LCDialog):
             if error:
                 form.apart_np(error)
                 form.separador()
-                
+
             resultado = form.run()
             if resultado is None:
                 return False
-        
+
             accion, li_resp = resultado
             name, prompt, web = li_resp
             web = web.strip()
@@ -245,7 +249,7 @@ class WPrompts(LCDialog.LCDialog):
         row = self.grid.recno()
         if row < 1:
             return
-        current_key, previous_key = self.li_keys[row], self.li_keys[row-1]
+        current_key, previous_key = self.li_keys[row], self.li_keys[row - 1]
         current_prompt, previous_prompt = self.db[current_key], self.db[previous_key]
         current_order, previous_order = current_prompt.order, previous_prompt.order
         current_prompt.order = previous_order
@@ -255,13 +259,13 @@ class WPrompts(LCDialog.LCDialog):
         self.db[current_prompt.key()] = current_prompt
         self.db[previous_prompt.key()] = previous_prompt
         self.refresh_all()
-        self.grid.goto(row-1, 0)
+        self.grid.goto(row - 1, 0)
 
     def down(self):
         row = self.grid.recno()
-        if row >= (len(self.li_keys)-1):
+        if row >= (len(self.li_keys) - 1):
             return
-        current_key, next_key = self.li_keys[row], self.li_keys[row+1]
+        current_key, next_key = self.li_keys[row], self.li_keys[row + 1]
         current_prompt, next_prompt = self.db[current_key], self.db[next_key]
         current_order, next_order = current_prompt.order, next_prompt.order
         current_prompt.order = next_order
@@ -271,7 +275,7 @@ class WPrompts(LCDialog.LCDialog):
         self.db[current_prompt.key()] = current_prompt
         self.db[next_prompt.key()] = next_prompt
         self.refresh_all()
-        self.grid.goto(row+1, 0)
+        self.grid.goto(row + 1, 0)
 
     def grid_doble_click(self, grid, row, o_column):
         self.modify()

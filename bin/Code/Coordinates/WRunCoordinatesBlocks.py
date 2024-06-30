@@ -89,7 +89,7 @@ class WRunCoordinatesBlocks(LCDialog.LCDialog):
 
         self.restore_video()
         self.show_data()
-        self.adjustSize()
+        # self.adjustSize()
 
     def new_try(self):
         is_white = self.coordinates.new_try()

@@ -1113,26 +1113,38 @@ class Manager:
         pass
 
     def borrar(self):
-        li_del = []
-        separador = FormLayout.separador
-        li_del.append((_("All") + ":", False))
-        li_del.append(separador)
-        li_del.append(separador)
-        li_del.append((_("Variations") + ":", False))
-        li_del.append(separador)
-        li_del.append((_("Ratings") + " (NAGs):", False))
-        li_del.append(separador)
-        li_del.append((_("Comments") + ":", False))
-        li_del.append(separador)
-        li_del.append((_("Analysis") + ":", False))
-        li_del.append(separador)
-        li_del.append((_("Themes") + ":", False))
-        resultado = FormLayout.fedit(li_del, title=_("Remove"), parent=self.main_window, icon=Iconos.Delete())
+        form = FormLayout.FormLayout(self.main_window, _("Remove"), Iconos.Delete(), anchoMinimo=300)
+        form.apart_np(_("Information"))
+        form.checkbox(_("All"), False)
+        form.separador()
+        form.checkbox(_("Variations"), False)
+        form.checkbox(_("Ratings") + " (NAGs)", False)
+        form.checkbox(_("Comments"), False)
+        form.checkbox(_("Analysis"), False)
+        form.checkbox(_("Themes"), False)
+        form.separador()
+
+        num_moves, nj, row, is_white = self.jugadaActual()
+        with_moves = num_moves > 0 and self.can_be_analysed()
+        if with_moves:
+            form.apart_np(_("Movements"))
+            form.checkbox(_("From the beginning to the active position"), False)
+            form.checkbox(_("From the active position to the end"), False)
+            form.separador()
+        resultado = form.run()
         if resultado:
-            is_all, variations, ratings, comments, analysis, themes = resultado[1]
+            is_all, variations, ratings, comments, analysis, themes = resultado[1][:6]
             if is_all:
                 variations = ratings = comments = analysis = themes = True
             self.game.remove_info_moves(variations, ratings, comments, analysis, themes)
+            if with_moves:
+                beginning, ending = resultado[1][6:]
+                if beginning:
+                    self.game.remove_moves(nj, False)
+                    self.goto_firstposition()
+                elif ending:
+                    self.game.remove_moves(nj, True)
+                    self.goto_end()
             self.put_view()
             self.refresh_pgn()
             self.refresh()
@@ -1311,8 +1323,8 @@ class Manager:
             self.continue_human()
             return None
 
-    def librosConsulta(self, siEnVivo):
-        w = WindowArbolBook.WindowArbolBook(self, siEnVivo)
+    def librosConsulta(self, on_live):
+        w = WindowArbolBook.WindowArbolBook(self, on_live)
         if w.exec_():
             return w.resultado
         else:
@@ -1333,6 +1345,15 @@ class Manager:
         if self.active_help_to_move():
             if hasattr(self, "help_to_move"):
                 getattr(self, "help_to_move")()
+
+    def can_be_analysed(self):
+        return (len(self.game) > 0
+                and not (self.game_type in (GT_ELO, GT_MICELO, GT_WICKER)
+                         and self.is_competitive and self.state == ST_PLAYING))
+
+    def alt_a(self):
+        if self.can_be_analysed():
+            self.analizar()
 
     def active_play_instead_of_me(self):
         return self.state == ST_PLAYING
@@ -1620,25 +1641,24 @@ class Manager:
             menu.opcion("play", _("Play current position"), Iconos.MoverJugar())
 
         # Analizar
-        if si_jugadas:
-            if not (self.game_type in (
-                    GT_ELO, GT_MICELO, GT_WICKER) and self.is_competitive and self.state == ST_PLAYING):
-                menu.separador()
+        if self.can_be_analysed():
+            menu.separador()
 
-                submenu = menu.submenu(_("Analysis"), Iconos.Analizar())
+            submenu = menu.submenu(_("Analysis"), Iconos.Analizar())
 
-                has_analysis = self.game.has_analisis()
-                submenu.opcion("analizar", _("Analyze"), Iconos.Analizar())
-                if has_analysis:
-                    submenu.separador()
-                    submenu.opcion("analizar_grafico", _("Show graphics"), Iconos.Estadisticas())
+            has_analysis = self.game.has_analisis()
+            submenu.opcion("analizar", _("Analyze") + "  [%s A]" % _("ALT"), Iconos.Analizar())
+            if has_analysis:
                 submenu.separador()
+                submenu.opcion("analizar_grafico", _("Show graphics"), Iconos.Estadisticas())
+            submenu.separador()
 
-                AI.add_submenu(submenu)
+            AI.add_submenu(submenu)
 
-                menu.separador()
-                menu.opcion("borrar", _("Remove"), Iconos.Delete())
-                menu.separador()
+        if si_jugadas:
+            menu.separador()
+            menu.opcion("borrar", _("Remove"), Iconos.Delete())
+            menu.separador()
 
         # Pelicula
         if si_jugadas:
@@ -1649,7 +1669,8 @@ class Manager:
         if self.active_play_instead_of_me():
             if hasattr(self, "play_instead_of_me"):
                 menu.separador()
-                menu.opcion("play_instead_of_me", _("Play instead of me") + "  [%s 1]" % _("CTRL"), Iconos.JuegaPorMi()),
+                menu.opcion("play_instead_of_me", _("Play instead of me") + "  [%s 1]" % _("CTRL"),
+                            Iconos.JuegaPorMi()),
 
         if self.active_help_to_move():
             if hasattr(self, "help_to_move"):

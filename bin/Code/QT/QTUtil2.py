@@ -587,20 +587,6 @@ def resalta(mens, tipo=4):
     return ("<h%d>%s</h%d>" % (tipo, mens, tipo)).replace("\n", "<br>")
 
 
-def tb_accept_cancel(parent, if_default=False, with_cancel=True):
-    li_acciones = [
-        (_("Accept"), Iconos.Aceptar(), parent.aceptar),
-        None,
-        (_("Cancel"), Iconos.Cancelar(), parent.reject if with_cancel else parent.cancelar),
-    ]
-    if if_default:
-        li_acciones.append(None)
-        li_acciones.append((_("By default"), Iconos.Defecto(), parent.defecto))
-    li_acciones.append(None)
-
-    return QTVarios.LCTB(parent, li_acciones)
-
-
 def lines_type():
     li = (
         (_("No pen"), 0),

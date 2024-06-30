@@ -42,7 +42,6 @@ class WConfEngines(LCDialog.LCDialog):
         self.li_uci_options = []
         self.grid_conf = None
 
-        # Toolbar
         li_acciones = [(_("Close"), Iconos.MainMenu(), self.terminar), None]
         tb = QTVarios.LCTB(self, li_acciones, style=QtCore.Qt.ToolButtonTextBesideIcon, icon_size=24)
 

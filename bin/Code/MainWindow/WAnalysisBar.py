@@ -19,7 +19,7 @@ class AnalysisBar(QtWidgets.QWidget):
         self.activated = False
         self.value_objective = 0
         self.acercando = False
-        self.max_range = 10000
+        # self.max_range = 10000
         self.aeval = AnalysisEval.AnalysisEval()
         self.interval = Code.configuration.x_analyzer_mstime_refresh_ab
 
@@ -29,7 +29,8 @@ class AnalysisBar(QtWidgets.QWidget):
         self.progressbar.setValue(5000)
         self.progressbar.setTextVisible(False)
 
-        self.lb_value = Controles.LB(self).set_font_type(puntos=7).align_center()
+        self.lb_value_up = Controles.LB(self).set_font_type(puntos=7).align_center()
+        self.lb_value_down = Controles.LB(self).set_font_type(puntos=7).align_center()
 
         b, w = Code.dic_colors["BLACK_ANALYSIS_BAR"], Code.dic_colors["WHITE_ANALYSIS_BAR"]
         style = """QProgressBar{background-color :%s;border : 1px solid %s;margin-left:4px;}  
@@ -44,8 +45,12 @@ class AnalysisBar(QtWidgets.QWidget):
         self.previous_board = None
         self.set_board_position()
 
-        layout = Colocacion.V().control(self.lb_value).espacio(-6).control(self.progressbar).margen(0)
+        layout = Colocacion.V().control(self.lb_value_up).espacio(-6).control(self.progressbar).espacio(-6).control(self.lb_value_down).margen(0)
         self.setLayout(layout)
+
+    @staticmethod
+    def with_cache():
+        return Code.configuration.x_analyzer_depth_ab or Code.configuration.x_analyzer_mstime_ab > 0
 
     def set_board_position(self):
         if Code.configuration.x_analyzer_autorotate_ab:
@@ -79,7 +84,7 @@ class AnalysisBar(QtWidgets.QWidget):
         self.timer.stop()
         self.game = game
         self.xpv = game.xpv()
-        if self.xpv in self.cache:
+        if self.with_cache() and self.xpv in self.cache:
             ev_cache, rm_cache, tooltip_cache = self.cache[self.xpv]
             close = False
             if 0 < Code.configuration.x_analyzer_depth_ab <= rm_cache.depth:
@@ -90,6 +95,7 @@ class AnalysisBar(QtWidgets.QWidget):
                 # Si ya está calculado y está fuera de límites se actualiza pero no se lanza el motor
                 self.update_value(ev_cache)
                 self.setToolTip(tooltip_cache)
+                self.show_score(rm_cache.abbrev_text_base1())
                 return
 
         self.timer.start(self.interval)
@@ -97,12 +103,15 @@ class AnalysisBar(QtWidgets.QWidget):
         self.engine_manager.ac_final(0)
         self.engine_manager.ac_inicio(game)
 
+    def show_score(self, txt):
+        self.lb_value_up.set_text(txt)
+        self.lb_value_down.set_text(txt)
+
     def control_state(self):
         if self.engine_manager:
             mrm = self.engine_manager.ac_estado()
             if mrm:
                 rm = mrm.rm_best()
-                self.lb_value.set_text(rm.abbrev_text_base1())
 
                 depth = rm.depth
                 cp = rm.centipawns_abs()
@@ -110,21 +119,19 @@ class AnalysisBar(QtWidgets.QWidget):
                 tooltip = None
                 if not rm.is_white:
                     cp = -cp
-                cp = max(cp, -self.max_range)
-                cp = min(cp, self.max_range)
                 ev = int(self.aeval.lv(cp) * 100)
-                if self.xpv in self.cache:
+                if self.with_cache() and self.xpv in self.cache:
                     ev_cache, rm_cache, tooltip_cache = self.cache[self.xpv]
                     if rm_cache.depth > depth:
                         ev = ev_cache
                         rm = rm_cache
                         tooltip = tooltip_cache
+                self.show_score(rm.abbrev_text_base1())
                 self.update_value(ev)
 
                 if tooltip is None:
                     pgn = Game.pv_pgn(self.game.last_position.fen(), rm.pv)
-                    k = cp / 100.0
-                    main = f"{k:+.02f} (^{rm.depth})"
+                    main = f"{rm.abbrev_text_base()} (^{rm.depth})"
                     li = pgn.split(" ")
                     if len(li) > 0:
                         sli = []
@@ -140,16 +147,17 @@ class AnalysisBar(QtWidgets.QWidget):
                     tooltip = main + "\n" + pgn
                     self.setToolTip(tooltip)
 
-                self.cache[self.xpv] = ev, rm, tooltip
+                if self.with_cache():
+                    self.cache[self.xpv] = ev, rm, tooltip
 
-                close = False
-                if 0 < Code.configuration.x_analyzer_depth_ab <= rm.depth:
-                    close = True
-                if 0 < Code.configuration.x_analyzer_mstime_ab <= rm.time:
-                    close = True
-                if close:
-                    self.engine_manager.ac_final(0)
-                    self.timer.stop()
+                    close = False
+                    if 0 < Code.configuration.x_analyzer_depth_ab <= rm.depth:
+                        close = True
+                    if 0 < Code.configuration.x_analyzer_mstime_ab <= rm.time:
+                        close = True
+                    if close:
+                        self.engine_manager.ac_final(0)
+                        self.timer.stop()
 
     def configure(self):
         configuration = Code.configuration
@@ -182,6 +190,10 @@ class AnalysisBar(QtWidgets.QWidget):
     def update_value(self, value):
         if not self.activated:
             return
+        if value > 10000:
+            value = 10000
+        elif value < 0:
+            value = 0
         self.value_objective = value
         if not self.acercando:
             self.goto_objective()

@@ -18,13 +18,20 @@ from Code.QT import Iconos
 
 
 class ManagerVariations(Manager.Manager):
+    accepted: bool
+    is_white_bottom: bool
+    with_engine_active: bool
+    dicRival: dict
+    play_against_engine: bool
+    is_human_side_white: bool
+
     def start(self, game, is_white_bottom, with_engine_active, is_competitive, go_to_move=None):
 
         self.thinking(True)
 
         self.kibitzers_manager = self.procesador.kibitzers_manager
 
-        self.siAceptado = False
+        self.accepted = False
 
         self.game = game
         self.is_white_bottom = is_white_bottom
@@ -82,7 +89,7 @@ class ManagerVariations(Manager.Manager):
 
     def run_action(self, key):
         if key == TB_ACCEPT:
-            self.siAceptado = True
+            self.accepted = True
             # self.resultado =
             self.procesador.stop_engines()
             self.main_window.accept()
@@ -115,12 +122,17 @@ class ManagerVariations(Manager.Manager):
             Manager.Manager.rutinaAccionDef(self, key)
 
     def valor(self):
-        if self.siAceptado:
+        if self.accepted:
             return self.game
         else:
             return None
 
     def final_x(self):
+        self.procesador.stop_engines()
+        self.main_window.reject()
+        return False
+
+    def final_x0(self):
         self.procesador.stop_engines()
         self.main_window.reject()
         return False

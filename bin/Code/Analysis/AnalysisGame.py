@@ -89,7 +89,10 @@ class AnalyzeGame:
         # delete_previous: si la game tiene un analysis previo, se determina si se hace o no
         self.white = alm.white
         self.black = alm.black
-        self.li_players = alm.li_players if is_massiv else None
+        if is_massiv:
+            self.li_players = [player.upper() for player in alm.li_players] if alm.li_players else []
+        else:
+            self.li_players = None
         self.book = alm.book
         if self.book is not None:
             self.book.polyglot()
@@ -344,7 +347,7 @@ FILESW=%s:100
         self.xmanager.set_gui_dispatch(gui_dispatch)  # Dispatch del engine, si esta puesto a 4 minutos por ejemplo que
         # compruebe si se ha indicado que se cancele.
 
-        si_blunders = self.pgnblunders or self.oriblunders or self.bmtblunders
+        si_blunders = self.pgnblunders or self.oriblunders or self.bmtblunders or self.tacticblunders
         si_brilliancies = self.fnsbrilliancies or self.pgnbrilliancies or self.bmtbrilliancies
 
         if self.bmtblunders and self.bmt_listaBlunders is None:

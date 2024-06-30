@@ -544,7 +544,7 @@ class Game:
             is_white = not is_white
         return self
 
-    def damePosicion(self, pos):
+    def get_position(self, pos):
         n_jugadas = len(self.li_moves)
         if n_jugadas:
             return self.li_moves[pos].position
@@ -986,6 +986,17 @@ class Game:
                 move.del_analysis()
             if themes:
                 move.del_themes()
+
+    def remove_moves(self, num_move, to_end):
+        if to_end:
+            self.li_moves = self.li_moves[:num_move]
+            self.set_unknown()
+        else:
+            self.li_moves = self.li_moves[num_move+1:]
+            if self.li_moves:
+                move: Move.Move = self.li_moves[0]
+                self.first_position = move.position_before.copia()
+        self.assign_opening()
 
     def has_analisis(self):
         for move in self.li_moves:

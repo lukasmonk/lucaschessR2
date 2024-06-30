@@ -1525,7 +1525,7 @@ class WBrowseThemes(LCDialog.LCDialog):
             dr = self.configuration.read_variables("PCOLORES")
             dir_base = dr["DIRBASE"] if dr else ""
             if nli == 1:
-                dir_base = os.path.join(dir_base, self.li_themes[0]["NOMBRE"])
+                dir_base = os.path.join(dir_base, self.li_themes[li[0]]["NOMBRE"])
             fich = SelectFiles.salvaFichero(self, _("Colors"), dir_base, "lktheme3", True)
             if fich:
                 dr["DIRBASE"] = os.path.dirname(fich)

@@ -469,6 +469,11 @@ class ThanksTo:
                 'Luis',
                 '<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-ND 4.0</a>'
             ),
+            (
+                "Cardinalv1",
+                'Luis',
+                '<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-ND 4.0</a>'
+            ),
         ]
         salto = len(li) // 2
         if salto * 2 < len(li):

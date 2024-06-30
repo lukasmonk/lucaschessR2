@@ -264,7 +264,7 @@ class EtiquetaPGN(QtWidgets.QStyledItemDelegate):
             document_analysis.setHtml(txt_analysis)
             w_analysis = document_analysis.idealWidth()
             painter.save()
-            painter.translate(x_total + (w_total - w_analysis), y)
+            painter.translate(x_total + (w_total - w_analysis - 4), y)
             document_analysis.drawContents(painter)
             painter.restore()
 
@@ -616,8 +616,8 @@ class LinePGN(QtWidgets.QStyledItemDelegate):
 
         x = rect.x()
         y = rect.y()
-        r = QtCore.QRectF(0, 0, rect.width(), rect.height()+4)
+        r = QtCore.QRectF(0, 0, rect.width(), rect.height() + 4)
         painter.save()
-        painter.translate(x, y-2)
+        painter.translate(x, y - 2)
         document_pgn.drawContents(painter, r)
         painter.restore()

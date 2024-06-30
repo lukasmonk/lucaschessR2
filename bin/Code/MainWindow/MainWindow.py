@@ -65,6 +65,10 @@ class MainWindow(LCDialog.LCDialog):
         ctrl2.setKey(QtGui.QKeySequence("Ctrl+2"))
         ctrl2.activated.connect(self.pressed_shortcut_Ctrl2)
 
+        alt_a = QtWidgets.QShortcut(self)
+        alt_a.setKey(QtGui.QKeySequence("Alt+a"))
+        alt_a.activated.connect(self.pressed_shortcut_alt_a)
+
         ctrlF10 = QtWidgets.QShortcut(self)
         ctrlF10.setKey(QtGui.QKeySequence("Ctrl+0"))
         ctrlF10.activated.connect(self.pressed_shortcut_Ctrl0)
@@ -95,7 +99,8 @@ class MainWindow(LCDialog.LCDialog):
         self.dato_notify = dato
         self.signal_notify.emit()
 
-    def closeEvent(self, event):  # Cierre con X
+    def closeEvent(self, event):
+        # Cierre con X
         self.final_processes()
         if Code.procesador.manager is not None:
             if self.manager.final_x0():
@@ -234,7 +239,10 @@ class MainWindow(LCDialog.LCDialog):
         self.adjust_size()
 
         resp = self.exec_()
-        self.save_video()
+        try:
+            self.save_video()
+        except RuntimeError:
+            pass
         return resp
 
     def adjust_size(self):
@@ -403,6 +411,10 @@ class MainWindow(LCDialog.LCDialog):
 
     def columnas60(self, siPoner, cNivel=None, cWhite=None, cBlack=None):
         self.base.columnas60(siPoner, cNivel, cWhite, cBlack)
+
+    def pressed_shortcut_alt_a(self):
+        if self.manager and hasattr(self.manager, "alt_a"):
+            self.manager.alt_a()
 
     def pressed_shortcut_Ctrl2(self):
         if self.manager and hasattr(self.manager, "control2"):

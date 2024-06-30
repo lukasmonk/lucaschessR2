@@ -318,7 +318,7 @@ class Procesador:
         if self.configuration.x_analyzer_multipv == 0:
             xanalyzer.maximize_multipv()
         else:
-            xanalyzer.set_multipv(self.configuration.x_analyzer_multipv)
+            xanalyzer.set_multipv(min(self.configuration.x_analyzer_multipv, xanalyzer.confMotor.maxMultiPV))
 
         self.xanalyzer = xanalyzer
         Code.xanalyzer = xanalyzer

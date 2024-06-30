@@ -680,6 +680,7 @@ class WPosicion(QtWidgets.QWidget):
 
     def scanner_change(self):
         fich_scanner = self.cb_scanner_select.valor()
+
         self.vars_scanner.scanner = os.path.basename(fich_scanner)[:-4]
         self.scanner_read()
 

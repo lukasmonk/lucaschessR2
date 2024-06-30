@@ -1126,15 +1126,24 @@ def change_interval(owner, configuration):
         configuration.graba()
 
 
+def accept_cancel_with_shortcut():
+    accept = _("Accept")
+    letter = accept[0].upper()
+    accept = "&" + accept
+    cancel = _("Cancel")
+    if cancel[0] != letter:
+        cancel = "&" + cancel
+    else:
+        cancel = cancel[0] + "&" + cancel[1:]
+    return accept, cancel
+
+
 def tb_accept_cancel(parent, if_default=False, with_cancel=True):
+    accept, cancel = accept_cancel_with_shortcut()
     li_acciones = [
-        (_("Accept"), Iconos.Aceptar(), parent.aceptar),
+        (accept, Iconos.Aceptar(), parent.aceptar),
         None,
-        (
-            _("Cancel"),
-            Iconos.Cancelar(),
-            parent.reject if with_cancel else parent.cancelar,
-        ),
+        (cancel, Iconos.Cancelar(), parent.reject if with_cancel else parent.cancelar),
     ]
     if if_default:
         li_acciones.append(None)

@@ -13,23 +13,23 @@ from Code.QT import QTVarios
 
 
 class UnMove:
-    def __init__(self, listaMovesPadre, book, fen_base, movBook):
+    def __init__(self, list_moves_parent, book, fen_base, mov_book):
 
-        self.listaMovesPadre = listaMovesPadre
+        self.list_moves_parent = list_moves_parent
         self.listaMovesHijos = None
         self.book = book
         self.fen_base = fen_base
-        self.from_sq, self.to_sq, self.promotion, label, self.ratio = movBook
+        self.from_sq, self.to_sq, self.promotion, label, self.ratio = mov_book
         label = label.replace(" - ", " ").strip()
         while "  " in label:
             label = label.replace("  ", " ")
         self.pgn, self.porcentaje, self.absoluto = label.split(" ")
-        self.porcentaje += "  " * listaMovesPadre.nivel
-        self.absoluto += "  " * listaMovesPadre.nivel
+        self.porcentaje += "  " * list_moves_parent.nivel
+        self.absoluto += "  " * list_moves_parent.nivel
 
         pv = self.from_sq + self.to_sq + self.promotion
 
-        self.game = listaMovesPadre.gameBase.copia()
+        self.game = list_moves_parent.gameBase.copia()
         self.game.read_pv(pv)
 
         self.item = None
@@ -37,28 +37,28 @@ class UnMove:
         self.current_position = len(self.game) - 1
 
     def row(self):
-        return self.listaMovesPadre.liMoves.index(self)
+        return self.list_moves_parent.liMoves.index(self)
 
     def analysis(self):
-        return self.listaMovesPadre.analisisMov(self)
+        return self.list_moves_parent.analisisMov(self)
 
-    def conHijosDesconocidos(self, dbCache):
+    def with_unknown_children(self, db_cache):
         if self.listaMovesHijos:
             return False
         fenm2 = self.game.last_position.fenm2()
-        return fenm2 in dbCache
+        return fenm2 in db_cache
 
-    def etiPuntos(self, siExten):
-        pts = self.listaMovesPadre.etiPuntosUnMove(self, siExten)
-        if not siExten:
+    def label_score(self, si_exten):
+        pts = self.list_moves_parent.etiPuntosUnMove(self, si_exten)
+        if not si_exten:
             return pts
-        nom = self.listaMovesPadre.nomAnalisis()
+        nom = self.list_moves_parent.nomAnalisis()
         if nom:
             return nom + ": " + pts
         else:
             return ""
 
-    def creaHijos(self):
+    def create_children(self):
         self.listaMovesHijos = ListaMoves(self, self.book, self.game.last_position.fen())
         return self.listaMovesHijos
 
@@ -78,10 +78,10 @@ class UnMove:
     def final(self):
         self.current_position = len(self.game) - 1
 
-    def numVariations(self):
-        return len(self.variantes)
+    # def numVariations(self):
+    #     return len(self.variantes)
 
-    def damePosicion(self):
+    def get_position(self):
         if self.current_position == -1:
             position = self.game.first_position
             from_sq, to_sq = None, None
@@ -92,46 +92,46 @@ class UnMove:
             to_sq = move.to_sq
         return position, from_sq, to_sq
 
-    def ponValoracion(self, valoracion):
-        self.valoracion = valoracion
-
-    def ponComentario(self, comment):
-        self.comment = comment
+    # def ponValoracion(self, valoracion):
+    #     self.valoracion = valoracion
+    #
+    # def ponComentario(self, comment):
+    #     self.comment = comment
 
 
 class ListaMoves:
-    def __init__(self, moveOwner, book, fen):
+    def __init__(self, move_owner, book, fen):
 
-        if not moveOwner:
+        if not move_owner:
             self.nivel = 0
             cp = Position.Position()
             cp.read_fen(fen)
             self.gameBase = Game.Game(cp)
         else:
-            self.nivel = moveOwner.listaMovesPadre.nivel + 1
-            self.gameBase = moveOwner.game.copia()
+            self.nivel = move_owner.list_moves_parent.nivel + 1
+            self.gameBase = move_owner.game.copia()
 
         self.book = book
         self.fen = fen
-        self.moveOwner = moveOwner
+        self.moveOwner = move_owner
         book.polyglot()
-        liMovesBook = book.get_list_moves(fen)
+        li_moves_book = book.get_list_moves(fen)
         self.liMoves = []
-        for uno in liMovesBook:
+        for uno in li_moves_book:
             self.liMoves.append(UnMove(self, book, fen, uno))
 
     def change_book(self, book):
         self.book = book
         book.polyglot()
-        liMovesBook = book.get_list_moves(self.fen)
+        li_moves_book = book.get_list_moves(self.fen)
         self.liMoves = []
-        for uno in liMovesBook:
+        for uno in li_moves_book:
             self.liMoves.append(UnMove(self, book, self.fen, uno))
 
-    def siEstaEnLibro(self, book):
+    def in_the_book(self, book):
         book.polyglot()
-        liMovesBook = book.get_list_moves(self.fen)
-        return len(liMovesBook) > 0
+        li_moves_book = book.get_list_moves(self.fen)
+        return len(li_moves_book) > 0
 
 
 class TreeMoves(QtWidgets.QTreeWidget):
@@ -154,17 +154,17 @@ class TreeMoves(QtWidgets.QTreeWidget):
         self.itemDoubleClicked.connect(self.owner.aceptar)
 
         self.dicItemMoves = {}
-        self.ponMoves(self.listaMoves)
+        self.set_moves(self.listaMoves)
 
         self.sortItems(4, QtCore.Qt.AscendingOrder)
 
-    def ponMoves(self, listaMoves):
+    def set_moves(self, lista_moves):
 
-        liMoves = listaMoves.liMoves
-        if liMoves:
-            moveOwner = listaMoves.moveOwner
-            padre = self if moveOwner is None else moveOwner.item
-            for n, mov in enumerate(liMoves):
+        li_moves = lista_moves.liMoves
+        if li_moves:
+            move_owner = lista_moves.moveOwner
+            padre = self if move_owner is None else move_owner.item
+            for n, mov in enumerate(li_moves):
                 item = QtWidgets.QTreeWidgetItem(
                     padre, [mov.pgn, mov.porcentaje, mov.absoluto, "%07d" % int(mov.absoluto)]
                 )
@@ -179,7 +179,7 @@ class TreeMoves(QtWidgets.QTreeWidget):
                 x += self.columnWidth(t)
                 self.resizeColumnToContents(t)
 
-            mov = listaMoves.liMoves[0]
+            mov = lista_moves.liMoves[0]
             self.setCurrentItem(mov.item)
 
             nv = 0
@@ -198,12 +198,12 @@ class TreeMoves(QtWidgets.QTreeWidget):
             self.owner.wmoves.menu_context()
 
     def goto(self, mov):
-        mov = mov.listaMovesPadre.buscaMovVisibleDesde(mov)
+        mov = mov.list_moves_parent.buscaMovVisibleDesde(mov)
         self.setCurrentItem(mov.item)
         self.owner.muestra(mov)
         self.setFocus()
 
-    def seleccionado(self, item, itemA):
+    def seleccionado(self, item, item_a):
         if item:
             self.owner.muestra(self.dicItemMoves[str(item)])
             self.setFocus()
@@ -224,8 +224,8 @@ class TreeMoves(QtWidgets.QTreeWidget):
             item = mov.item
         if mov.listaMovesHijos is None:
             item.setText(0, mov.pgn)
-            listaMovesHijos = mov.creaHijos()
-            self.ponMoves(listaMovesHijos)
+            lista_moves_hijos = mov.create_children()
+            self.set_moves(lista_moves_hijos)
 
     def currentMov(self):
         item = self.currentItem()
@@ -237,7 +237,7 @@ class TreeMoves(QtWidgets.QTreeWidget):
 
 
 class WMoves(QtWidgets.QWidget):
-    def __init__(self, owner, siEnviar):
+    def __init__(self, owner, si_enviar):
         QtWidgets.QWidget.__init__(self)
 
         self.owner = owner
@@ -247,7 +247,7 @@ class WMoves(QtWidgets.QWidget):
 
         # ToolBar
         tb = Controles.TBrutina(self, icon_size=20, with_text=False)
-        if siEnviar:
+        if si_enviar:
             tb.new(_("Accept"), Iconos.Aceptar(), self.owner.aceptar)
             tb.new(_("Cancel"), Iconos.Cancelar(), self.owner.cancelar)
         else:
@@ -270,7 +270,7 @@ class WMoves(QtWidgets.QWidget):
 
 
 class InfoMove(QtWidgets.QWidget):
-    def __init__(self, is_white_bottom, fenActivo):
+    def __init__(self, is_white_bottom, fen_activo):
         QtWidgets.QWidget.__init__(self)
 
         config_board = Code.configuration.config_board("INFOMOVE", 32)
@@ -279,18 +279,18 @@ class InfoMove(QtWidgets.QWidget):
         self.board.set_side_bottom(is_white_bottom)
 
         self.cpDefecto = Position.Position()
-        self.cpDefecto.read_fen(fenActivo)
+        self.cpDefecto.read_fen(fen_activo)
         self.porDefecto()
 
-        btInicio = Controles.PB(self, "", self.start).ponIcono(Iconos.MoverInicio())
-        btAtras = Controles.PB(self, "", self.atras).ponIcono(Iconos.MoverAtras())
-        btAdelante = Controles.PB(self, "", self.adelante).ponIcono(Iconos.MoverAdelante())
-        btFinal = Controles.PB(self, "", self.final).ponIcono(Iconos.MoverFinal())
+        bt_inicio = Controles.PB(self, "", self.start).ponIcono(Iconos.MoverInicio())
+        bt_atras = Controles.PB(self, "", self.atras).ponIcono(Iconos.MoverAtras())
+        bt_adelante = Controles.PB(self, "", self.adelante).ponIcono(Iconos.MoverAdelante())
+        bt_final = Controles.PB(self, "", self.final).ponIcono(Iconos.MoverFinal())
 
         self.lbTituloLibro = Controles.LB(self, "")
 
         lybt = Colocacion.H().relleno()
-        for x in (btInicio, btAtras, btAdelante, btFinal):
+        for x in (bt_inicio, bt_atras, bt_adelante, bt_final):
             lybt.control(x)
         lybt.relleno()
 
@@ -315,7 +315,7 @@ class InfoMove(QtWidgets.QWidget):
 
     def ponValores(self):
         if self.movActual:
-            position, from_sq, to_sq = self.movActual.damePosicion()
+            position, from_sq, to_sq = self.movActual.get_position()
             self.board.set_position(position)
 
             if from_sq:
@@ -350,7 +350,7 @@ class InfoMove(QtWidgets.QWidget):
 
 
 class WindowArbolBook(LCDialog.LCDialog):
-    def __init__(self, manager, siEnVivo):
+    def __init__(self, manager, si_en_vivo):
 
         titulo = _("Consult a book")
         icono = Iconos.Libros()
@@ -362,14 +362,16 @@ class WindowArbolBook(LCDialog.LCDialog):
 
         self.book = self.list_books.porDefecto()
 
+        self.resultado = None
+
         # fens
-        fenActivo = manager.fenActivoConInicio()  # Posicion en el board
-        fenUltimo = manager.last_fen()
-        self.siEnviar = siEnVivo and (fenActivo == fenUltimo)
+        fen_activo = manager.fenActivoConInicio()  # Posicion en el board
+        fen_ultimo = manager.last_fen()
+        self.siEnviar = si_en_vivo and (fen_activo == fen_ultimo)
 
-        self.listaMoves = ListaMoves(None, self.book, fenActivo)
+        self.listaMoves = ListaMoves(None, self.book, fen_activo)
 
-        self.infoMove = InfoMove(manager.board.is_white_bottom, fenActivo)
+        self.infoMove = InfoMove(manager.board.is_white_bottom, fen_activo)
 
         self.wmoves = WMoves(self, self.siEnviar)
 
@@ -383,10 +385,10 @@ class WindowArbolBook(LCDialog.LCDialog):
 
         self.wmoves.tree.setFocus()
 
-        anchoBoard = self.infoMove.board.width()
+        ancho_board = self.infoMove.board.width()
 
-        self.resize(600 - 278 + anchoBoard, anchoBoard + 30)
-        self.splitter.setSizes([296 - 278 + anchoBoard, 290])
+        self.resize(600 - 278 + ancho_board, ancho_board + 30)
+        self.splitter.setSizes([296 - 278 + ancho_board, 290])
         for col, ancho in enumerate((100, 59, 87, 0, 38)):
             self.wmoves.tree.setColumnWidth(col, ancho)
 
@@ -401,11 +403,11 @@ class WindowArbolBook(LCDialog.LCDialog):
             if mov:
                 li = []
                 while True:
-                    nv = mov.listaMovesPadre.nivel
+                    nv = mov.list_moves_parent.nivel
                     li.append((mov.from_sq, mov.to_sq, mov.promotion))
                     if nv == 0:
                         break
-                    mov = mov.listaMovesPadre.moveOwner
+                    mov = mov.list_moves_parent.moveOwner
                 self.resultado = li
                 self.accept()
             else:
@@ -428,7 +430,7 @@ class WindowArbolBook(LCDialog.LCDialog):
     def change_book(self, book):
         self.listaMoves.change_book(book)
         self.wmoves.tree.clear()
-        self.wmoves.tree.ponMoves(self.listaMoves)
+        self.wmoves.tree.set_moves(self.listaMoves)
         self.list_books.porDefecto(book)
         self.list_books.save()
         self.set_title(book)
@@ -441,13 +443,13 @@ class WindowArbolBook(LCDialog.LCDialog):
 
     def menu_books(self):
         menu = QTVarios.LCMenu(self)
-        nBooks = len(self.list_books.lista)
+        n_books = len(self.list_books.lista)
 
         for book in self.list_books.lista:
             ico = Iconos.PuntoVerde() if book == self.book else Iconos.PuntoNaranja()
             menu.opcion(("x", book), book.name, ico)
 
-        if nBooks > 1:
+        if n_books > 1:
             menu.separador()
             menu.opcion(("1", None), _("Next book") + " <F3>", Iconos.Buscar())
 
@@ -468,14 +470,14 @@ class WindowArbolBook(LCDialog.LCDialog):
         si = False
         for book in self.list_books.lista:
             if si:
-                if self.listaMoves.siEstaEnLibro(book):
+                if self.listaMoves.in_the_book(book):
                     self.change_book(book)
                     return
             if book == self.book:
                 si = True
         # del principio al actual
         for book in self.list_books.lista:
-            if self.listaMoves.siEstaEnLibro(book):
+            if self.listaMoves.in_the_book(book):
                 self.change_book(book)
                 return
             if book == self.book:

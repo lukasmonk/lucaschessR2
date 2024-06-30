@@ -143,7 +143,7 @@ class WAnalisisGraph(LCDialog.LCDialog):
         ]
         lh = Colocacion.V()
 
-        f = Controles.FontType(puntos=8)
+        f = Controles.FontType(puntos=10)
         bt_left = Controles.PB(self, "←", rutina=self.scale_left).set_font(f)
         bt_down = Controles.PB(self, "↓", rutina=self.scale_down).set_font(f)
         bt_reset = Controles.PB(self, "=", rutina=self.scale_reset).set_font(f)
@@ -168,8 +168,8 @@ class WAnalisisGraph(LCDialog.LCDialog):
         splitter.setOrientation(QtCore.Qt.Vertical)
         splitter.addWidget(w_up)
         splitter.addWidget(w_down)
+        splitter.setStyleSheet("QSplitter::handle { background-color: lightgray;}")
         self.register_splitter(splitter, "all")
-
         layout = Colocacion.V().margen(3).control(splitter)
 
         self.setLayout(layout)
@@ -373,16 +373,16 @@ class WAnalisisGraph(LCDialog.LCDialog):
             self.htotal[i].scale(scale_width, scale_height)
 
     def scale_left(self):
-        self.hscale(0.95, 1.0)
+        self.hscale(0.995, 1.0)
 
     def scale_right(self):
-        self.hscale(1.05, 1.0)
+        self.hscale(1.005, 1.0)
 
     def scale_up(self):
-        self.hscale(1.0, 1.05)
+        self.hscale(1.0, 1.005)
 
     def scale_down(self):
-        self.hscale(1.0, 0.95)
+        self.hscale(1.0, 0.995)
 
     def scale_init(self):
         self.hscale(1.0, 1.0)

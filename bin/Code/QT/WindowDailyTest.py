@@ -268,7 +268,7 @@ class WDailyTest(LCDialog.LCDialog):
         self.setLayout(ly)
 
         self.position = Position.Position()
-        self.restore_video(shrink=True)
+        self.restore_video()
 
         self.play_next_move()
 
