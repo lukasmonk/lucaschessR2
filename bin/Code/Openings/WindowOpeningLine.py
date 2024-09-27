@@ -29,6 +29,7 @@ from Code.QT import QTUtil2, SelectFiles
 from Code.QT import QTVarios
 from Code.QT import WindowSavePGN
 from Code.Voyager import Voyager
+from Code.Translations import TrListas
 
 
 class WLines(LCDialog.LCDialog):
@@ -341,7 +342,7 @@ class WLines(LCDialog.LCDialog):
 
     def train_new_ssp(self):
         training = self.dbop.training()
-        color = "WHITE"
+        color = "WHITE" if self.pboard.board.is_white_bottom else "BLACK"
         random_order = False
         max_moves = 0
 
@@ -471,7 +472,7 @@ class WLines(LCDialog.LCDialog):
         )
         for level in range(5):
             n = level + 1
-            title = "%s %d" % (_("Level"), n)
+            title = TrListas.level(n)
             # liLevels.append((None, title))
             tm = times[level] / 1000.0 if len(times) > level else 0.0
             li_levels.append(("%s. %s:" % (title, _("Time engines think in seconds")), tm))
@@ -795,16 +796,17 @@ class WLines(LCDialog.LCDialog):
         dic_vars = self.read_config_vars()
         carpeta = dic_vars.get("CARPETAPGN", "")
 
-        path_pgn = SelectFiles.leeFichero(self, carpeta, "pgn", titulo=_("File to import"))
-        if not path_pgn:
+        li_path_pgn = SelectFiles.leeFicheros(self, carpeta, "pgn", titulo=_("File to import"))
+        if not li_path_pgn:
             return
-        dic_vars["CARPETAPGN"] = os.path.dirname(path_pgn)
+        dic_vars["CARPETAPGN"] = os.path.dirname(li_path_pgn[0])
         self.write_config_vars(dic_vars)
 
-        depth, variations, comments = self.read_params_import(path_pgn)
+        depth, variations, comments = self.read_params_import(li_path_pgn[0])
 
         if depth is not None:
-            self.dbop.import_pgn(self, game, path_pgn, depth, variations, comments)
+            for path_pgn in li_path_pgn:
+                self.dbop.import_pgn(self, game, path_pgn, depth, variations, comments)
             self.glines.refresh()
             self.glines.gotop()
 
@@ -1365,7 +1367,7 @@ class WLines(LCDialog.LCDialog):
         self.dbop.setconfig("WHITEBOTTOM", board.is_white_bottom)
         self.tabsanalisis.saveConfig()
         self.save_video()
-        self.procesador.stop_engines()
+        self.procesador.close_engines()
 
     def terminar(self):
         self.final_processes()

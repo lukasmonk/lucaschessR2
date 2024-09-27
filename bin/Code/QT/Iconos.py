@@ -3200,3 +3200,15 @@ def pmAdvice():
 
 def Advice():
     return iget("Advice")
+
+def pmPauseBlue():
+    return iget("pmPauseBlue")
+
+def PauseBlue():
+    return iget("PauseBlue")
+
+def pmForest():
+    return iget("pmForest")
+
+def Forest():
+    return iget("Forest")

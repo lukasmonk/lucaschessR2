@@ -146,7 +146,13 @@ class Game:
 
     def set_tags(self, litags):
         self.li_tags = litags[:]
+        self.check_tags()
         self.set_result()
+
+    def check_tags(self):
+        if self.first_position and not self.first_position.is_initial() and not self.get_tag("FEN"):
+            self.set_tag("FEN", self.first_position.fen_base())
+            self.order_tags()
 
     def set_result(self):
         self.result = RESULT_UNKNOWN
@@ -252,12 +258,14 @@ class Game:
         return self
 
     def pgn(self):
+        self.check_tags()
         li = ['[%s "%s"]\n' % (k, v) for k, v in self.li_tags]
         txt = "".join(li)
         txt += "\n%s" % self.pgn_base()
         return txt
 
     def pgn_tags(self):
+        self.check_tags()
         return "\n".join(['[%s "%s"]' % (k, v) for k, v in self.li_tags])
 
     def pgn_base_raw(self, movenum=None, translated=False):

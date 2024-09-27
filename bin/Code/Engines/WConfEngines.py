@@ -60,7 +60,7 @@ class WConfEngines(LCDialog.LCDialog):
         self.tab.dispatchChange(self.cambiada_tab)
 
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("OPTION", _("Label"), 180)
+        o_columns.nueva("OPTION", _("UCI option"), 180)
         o_columns.nueva("VALUE", _("Value"), 200, edicion=Delegados.MultiEditor(self))
         o_columns.nueva("DEFAULT", _("By default"), 90)
         self.grid_conf = Grid.Grid(self, o_columns, siSelecFilas=False, is_editable=True)
@@ -219,7 +219,7 @@ class WConfEngines(LCDialog.LCDialog):
 
     def grid_bold(self, grid, row, o_column):
         op = self.li_uci_options[row]
-        return op.default != op.valor
+        return str(op.default).strip().lower() != str(op.valor).strip().lower()
 
 
 class WConfExternals(QtWidgets.QWidget):
@@ -228,6 +228,7 @@ class WConfExternals(QtWidgets.QWidget):
 
         self.owner = owner
 
+        Code.configuration.reread_external_engines()
         self.lista_motores = Code.configuration.list_external_engines()
         self.is_changed = False
 

@@ -1,5 +1,7 @@
 import time
 
+from PySide2.QtCore import Qt
+
 from Code import Manager
 from Code import Util
 from Code.Base import Game, Position
@@ -253,3 +255,8 @@ class ManagerOpeningLinesPositions(ManagerOPL.ManagerOpeningLines):
         self.goto_end()
         self.posicionTerminada()
         return True
+
+    def control_teclado(self, nkey, modifiers):
+        if nkey in (Qt.Key_Plus, Qt.Key_PageDown):
+            if self.main_window.is_enabled_option_toolbar(TB_NEXT):
+                self.run_action(TB_NEXT)

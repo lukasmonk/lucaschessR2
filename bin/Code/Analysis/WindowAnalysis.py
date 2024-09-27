@@ -60,7 +60,7 @@ class OneAnalysis(QtWidgets.QWidget):
             "%d %s" % (len(self.list_rm_name), _("Movements")),
             with_col,
             align_center=True,
-            edicion=Delegados.EtiquetaPGN(tab_analysis.move.is_white() if self.with_figurines else None),
+            edicion=Delegados.EtiquetaPGN(tab_analysis.move.is_white() if self.with_figurines else None, si_indicador_inicial=False),
         )
         self.wrm = Grid.Grid(self, o_columns, siLineas=False)
         n_with = self.wrm.anchoColumnas() + 20

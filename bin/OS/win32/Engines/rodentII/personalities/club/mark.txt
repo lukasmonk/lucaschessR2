@@ -48,5 +48,5 @@ setoption name Contempt value 0
 setoption name SlowMover value 100
 setoption name Selectivity value 175
 setoption name BookFilter value 20
-setoption name GuideBookFile value books/guide/mini.bin
+setoption name GuideBookFile value books/mini.bin
 setoption name MainBookFile value books/mini.bin

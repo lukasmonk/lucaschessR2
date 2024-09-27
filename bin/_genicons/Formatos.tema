@@ -606,9 +606,9 @@ Comment windows8 icons8_chat_room_16px.png
 Comment32 windows8 icons8_comments_32px.png
 
 VariationComment windows8 icons8_tree_structure_16px_2.png
-OpeningVariation windows8 icons8_books_16px.png
+OpeningVariation windows8 icons8-books-16.png
 OpeningComment windows8 icons8_book_16px.png
-OpeningVariationComment windows8 icons8_books_16px.png
+OpeningVariationComment windows8 icons8_booksl_16px.png
 
 DeleteRow windows8 icons8_delete_row_16px.png
 DeleteColumn windows8 icons8_delete_column_16px.png
@@ -760,3 +760,7 @@ Eye windows8 Eye-16.png
 AI windows8 icons8-ai-24.png
 
 Advice windows8 icons8-idea-32.png
+
+PauseBlue windows8 Sleep_Mode.png
+
+Forest windows8 icons8-bosque-32.png

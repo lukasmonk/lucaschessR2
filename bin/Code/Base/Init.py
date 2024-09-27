@@ -18,7 +18,7 @@ def init():
     resp = LucasChessGui.run_gui(main_procesador)
     run_sound.close()
 
-    main_procesador.stop_engines()
+    main_procesador.close_engines()
     main_procesador.kibitzers_manager.close()
 
     if resp == OUT_REINIT:

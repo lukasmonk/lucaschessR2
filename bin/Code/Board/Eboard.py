@@ -20,6 +20,7 @@ class Eboard:
         self.dispatch = None
         self.allowHumanTB = False
         self.working_time = None
+        self.side_takeback = None
 
     def is_working(self):
         return self.working_time is not None and 1.0 > (time.time() - self.working_time)
@@ -28,11 +29,11 @@ class Eboard:
         self.working_time = time.time()
 
     def envia(self, quien, dato):
-        # assert Code.prln(quien, dato, self.dispatch)
+        # assert prln(quien, dato, self.dispatch)
         return self.dispatch(quien, dato)
 
     def set_position(self, position):
-        # assert Code.prln("set position", position.fen())
+        # assert prln("set position", position.fen())
         if self.driver:
             if (self.name == "DGT") or (
                     self.name == "Novag UCB" and Code.configuration.x_digital_board_version == 0
@@ -51,59 +52,59 @@ class Eboard:
                 q.write("    %s\n" % line.strip())
 
     def registerStatusFunc(self, dato):
-        # assert Code.prln("registerStatusFunc", dato)
+        # assert prln("registerStatusFunc", dato)
         self.envia("status", dato)
         return 1
 
     def registerScanFunc(self, dato):
-        # assert Code.prln("registerScanFunc", dato)
+        # assert prln("registerScanFunc", dato)
         self.envia("scan", self.dgt2fen(dato))
         return 1
 
     def registerStartSetupFunc(self):
-        # assert Code.prln("registerStartSetupFunc")
+        # assert prln("registerStartSetupFunc")
         self.setup = True
         return 1
 
     def registerStableBoardFunc(self, dato):
-        # assert Code.prln("registerStableBoardFunc", dato)
+        # assert prln("registerStableBoardFunc", dato, self.setup)
         self.fen_eboard = self.dgt2fen(dato)
         if self.setup:
             self.envia("stableBoard", self.fen_eboard)
         return 1
 
     def registerStopSetupWTMFunc(self, dato):
-        # assert Code.prln("registerStopSetupWTMFunc", dato)
+        # assert prln("registerStopSetupWTMFunc", dato)
         if self.setup:
             self.envia("stopSetupWTM", self.dgt2fen(dato))
             self.setup = False
         return 1
 
     def registerStopSetupBTMFunc(self, dato):
-        # assert Code.prln("registerStopSetupBTMFunc", dato)
+        # assert prln("registerStopSetupBTMFunc", dato)
         if self.setup:
             self.envia("stopSetupBTM", self.dgt2fen(dato))
             self.setup = False
         return 1
 
     def registerWhiteMoveInputFunc(self, dato):
-        # assert Code.prln("registerWhiteMoveInputFunc", dato)
+        # assert prln("registerWhiteMoveInputFunc", dato)
         return self.envia("whiteMove", self.dgt2pv(dato))
 
     def registerBlackMoveInputFunc(self, dato):
-        # assert Code.prln("registerBlackMoveInputFunc", dato)
+        # assert prln("registerBlackMoveInputFunc", dato)
         return self.envia("blackMove", self.dgt2pv(dato))
 
     def registerWhiteTakeBackFunc(self):
-        # assert Code.prln("registerWhiteTakeBackFunc")
+        # assert prln("registerWhiteTakeBackFunc")
         return self.envia("whiteTakeBack", True)
 
     def registerBlackTakeBackFunc(self):
-        # assert Code.prln("registerBlackTakeBackFunc")
+        # assert prln("registerBlackTakeBackFunc")
         return self.envia("blackTakeBack", True)
 
     def activate(self, dispatch):
-        # assert Code.prln("activate")
+        # assert prln("activate")
         self.fen_eboard = None
         self.driver = driver = None
         self.side_takeback = None
@@ -313,8 +314,10 @@ class Eboard:
         return True
 
     def deactivate(self):
+        # assert prln("deactivate", self.driver)
         if self.driver:
             self.driver._DGTDLL_HideDialog(ctypes.c_int(1))
+            self.setup = False
             if Code.is_windows:
                 handle = self.driver._handle
                 ctypes.windll.kernel32.FreeLibrary(handle)
@@ -325,26 +328,26 @@ class Eboard:
         return False
 
     def show_dialog(self):
-        # assert Code.prln("showdialog")
+        # assert prln("showdialog")
         if self.driver:
             self.driver._DGTDLL_ShowDialog(ctypes.c_int(1))
 
     def write_debug(self, activar):
-        # assert Code.prln("writeDebug")
+        # assert prln("writeDebug")
         if self.driver:
             self.driver._DGTDLL_WriteDebug(activar)
 
     def write_position(self, cposicion):
-        # assert Code.prln("write_position", cposicion, self.fen_eboard)
+        # assert prln("write_position", cposicion, self.fen_eboard)
         if self.driver and cposicion != self.fen_eboard:
             # log( "Enviado a la DGT" + cposicion )
             self.driver._DGTDLL_WritePosition(cposicion.encode())
             self.fen_eboard = cposicion
-            # self.envia("stableBoard", cposicion.encode())
+            self.envia("stableBoard", cposicion.encode())
             Code.eboard.allowHumanTB = False
 
     def writeClocks(self, wclock, bclock):
-        # assert Code.prln("writeclocks")
+        # assert prln("writeclocks")
         if self.driver:
             if self.name in ("DGT", "DGT-gon"):
                 # log( "WriteClocks: W-%s B-%s"%(str(wclock), str(bclock)) )

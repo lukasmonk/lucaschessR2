@@ -83,3 +83,8 @@ DIRECTOR_BANDA_BACKGROUND_DISABLE=Background when disable
 [Analysis Bar]
 BLACK_ANALYSIS_BAR=Black
 WHITE_ANALYSIS_BAR=White
+
+[Tournaments between engines]
+TOURNAMENTS_RESULTS_WHITE=Results white
+TOURNAMENTS_RESULTS_BLACK=Results black
+TOURNAMENTS_RESULTS_SCORE=Score

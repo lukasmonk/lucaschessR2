@@ -6,6 +6,7 @@ from Code.Base import Game
 from Code.Nags import WNags, Nags
 from Code.QT import Colocacion, Controles, Iconos, QTVarios, ShowPGN, QTUtil2, FormLayout
 from Code.Themes import WThemes, Themes
+from Code.Analysis import Analysis
 
 
 class Information(QtWidgets.QWidget):
@@ -375,6 +376,18 @@ class WVariations(QtWidgets.QWidget):
                 var_move = variation.move(num)
             is_num_variation = not is_num_variation
         return variation, var_move
+
+    def analyze_move(self, num_move, num_variation, num_move_variation):
+        variation = self.move.variations.get(num_variation)
+        move_var = variation.move(num_move_variation)
+        xanalyzer = Code.procesador.XAnalyzer()
+        me = QTUtil2.waiting_message.start(self, _("Analyzing the move...."))
+        move_var.analysis = xanalyzer.analyzes_move_game(move_var.game, num_move_variation, xanalyzer.mstime_engine, xanalyzer.depth_engine, window=self)
+        me.final()
+        Analysis.show_analysis(
+            Code.procesador, xanalyzer, move_var, self.get_board().is_white_bottom, num_move_variation, main_window=self
+        )
+
 
     def remove_line(self):
         if QTUtil2.pregunta(self, _("Are you sure you want to delete this line?")):

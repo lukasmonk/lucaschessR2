@@ -68,9 +68,10 @@ class ManagerMateMap(Manager.Manager):
         self.pgn_refresh(True)
         QTUtil.refresh_gui()
 
-        self.xrival = self.procesador.creaManagerMotor(
-            self.configuration.engine_tutor(), self.configuration.x_tutor_mstime, None
-        )
+        if self.xrival is None:
+            self.xrival = self.procesador.creaManagerMotor(
+                self.configuration.engine_tutor(), self.configuration.x_tutor_mstime, None
+            )
 
         self.is_analyzed_by_tutor = False
 

@@ -36,7 +36,7 @@ def average_hash(img, hash_size=8):
     # Adaptation from https://github.com/bunchesofdonald/photohash, MIT license
     """Computes the average hash of the given image."""
     # Open the image, resize it and convert it to black & white.
-    image = img.resize((hash_size, hash_size), Image.ANTIALIAS).convert("L")
+    image = img.resize((hash_size, hash_size),).convert("L")
     pixels = list(image.getdata())
 
     avg = sum(pixels) // len(pixels)

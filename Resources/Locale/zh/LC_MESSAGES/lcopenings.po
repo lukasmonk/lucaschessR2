@@ -126,7 +126,7 @@ msgid "Alekhine Defence: Mokele Mbembe, Modern Line"
 msgstr "阿廖欣防御：莫克尔-姆本贝，现代线"
 
 msgid "Alekhine Defence: Mokele Mbembe, Vavra Defence"
-msgstr "阿廖欣防御：瓦夫拉防线：莫克尔-姆本贝"
+msgstr "阿廖欣防御：瓦夫拉防御，莫克莱姆班贝"
 
 msgid "Alekhine Defence: Normal Variation"
 msgstr "阿廖欣防御：正常变化"
@@ -1542,7 +1542,7 @@ msgid "English Opening: Anglo-Gruenfeld Defense, Korchnoi Variation"
 msgstr "英国式开局：盎格鲁格林菲尔德防御，Korchnoi变例"
 
 msgid "English Opening: Anglo-Gruenfeld, Czech Defense"
-msgstr "英国式开局：盎格鲁格林菲尔德，捷克防线"
+msgstr "英国式开局：盎格鲁格林菲尔德，捷克防御"
 
 msgid "English Opening: Anglo-Gruenfeld, Smyslov Defense"
 msgstr "英国式开局：盎格鲁格林菲尔德，斯梅斯洛夫防御"
@@ -2763,13 +2763,13 @@ msgid "Global Opening"
 msgstr "全部开局"
 
 msgid "Goldsmith Defence"
-msgstr "戈德史密斯辩护律师事务所"
+msgstr "戈德史密斯防御"
 
 msgid "Goldsmith Defence: Picklepuss Defence"
-msgstr "戈德史密斯的辩护:泡菜式防卫"
+msgstr "戈德史密斯防御:泡菜式"
 
 msgid "Greco Defence"
-msgstr "希腊防线"
+msgstr "希腊防御"
 
 msgid "Grob Attack"
 msgstr "格罗布的进攻"
@@ -3027,7 +3027,7 @@ msgid "Hippopotamus Defence"
 msgstr "河马防御"
 
 msgid "Horwitz Defence"
-msgstr "霍维茨辩护"
+msgstr "霍维茨防御"
 
 msgid "Horwitz Defence: Zilbermints Gambit"
 msgstr "霍维茨防御:齐伯明特弃兵"
@@ -4517,7 +4517,7 @@ msgid "Latvian Gambit: Diepstraten CounterGambit"
 msgstr "拉脱维亚弃兵:迪普斯特拉顿的反戈一击"
 
 msgid "Latvian Gambit: Fraser Defence"
-msgstr "拉脱维亚：弗雷泽辩护"
+msgstr "拉脱维亚弃兵：弗雷泽防御"
 
 msgid "Latvian Gambit: Greco Variation"
 msgstr "拉脱维亚式弃兵:格雷科变化"
@@ -5661,7 +5661,7 @@ msgid "Ponziani Opening: Caro Variation"
 msgstr "Ponziani：卡罗变例"
 
 msgid "Ponziani Opening: Fraser Defence"
-msgstr "Ponziani：弗雷泽辩护"
+msgstr "庞齐尼亚开局：弗雷泽防御"
 
 msgid "Ponziani Opening: Jaenisch Counter-attack"
 msgstr "Ponziani：詹尼士反击"

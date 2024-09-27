@@ -62,7 +62,7 @@ class BoardLines(QtWidgets.QWidget):
         self.board.crea()
         self.board.set_side_bottom(True)
         self.board.set_dispatcher(self.player_has_moved)
-        self.board.dispatchSize(self.ajustaAncho)
+        self.board.set_dispatch_size(self.ajustaAncho)
         self.board.dbvisual_set_file(self.dbop.path_file)
         self.board.dbvisual_set_show_always(True)
         self.board.dbvisual_set_save_always(True)

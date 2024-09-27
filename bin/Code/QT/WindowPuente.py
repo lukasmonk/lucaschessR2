@@ -18,6 +18,7 @@ from Code.QT import QTUtil
 from Code.QT import QTUtil2
 from Code.QT import WindowPotencia
 from Code.SQL import Base
+from Code.Translations import TrListas
 
 
 class PuenteHistorico:
@@ -272,7 +273,7 @@ class WEdMove(QtWidgets.QWidget):
 class WPuenteBase(LCDialog.LCDialog):
     def __init__(self, procesador, nivel):
 
-        titulo = "%s. %s %d" % (_("Moves between two positions"), _("Level"), nivel)
+        titulo = "%s. %s" % (_("Moves between two positions"), TrListas.level(nivel))
         LCDialog.LCDialog.__init__(self, procesador.main_window, titulo, Iconos.Puente(), "puenteBase")
 
         self.procesador = procesador

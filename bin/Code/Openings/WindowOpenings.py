@@ -77,15 +77,15 @@ class WOpenings(LCDialog.LCDialog):
 
         # # Derecha
         lyD = Colocacion.V().control(tb).control(gb).control(self.grid)
-        gbDerecha = Controles.GB(self, "", lyD)
+        gb_derecha = Controles.GB(self, "", lyD)
 
         # # Izquierda
         lyI = Colocacion.V().control(self.board).otro(lyBM).relleno()
-        gbIzquierda = Controles.GB(self, "", lyI)
+        gb_izquierda = Controles.GB(self, "", lyI)
 
         splitter = QtWidgets.QSplitter(self)
-        splitter.addWidget(gbIzquierda)
-        splitter.addWidget(gbDerecha)
+        splitter.addWidget(gb_izquierda)
+        splitter.addWidget(gb_derecha)
         self.register_splitter(splitter, "splitter")
 
         # Completo
@@ -127,7 +127,7 @@ class WOpenings(LCDialog.LCDialog):
         if key == "TYPE":
             return "b" if ap.is_basic else "n"
         else:
-            return ap.tr_name + "\n" + ap.pgn
+            return ap.tr_name + "\n" + ap.tr_pgn()
 
     def grid_doble_click(self, grid, row, column):
         if -1 < row < len(self.liActivas):

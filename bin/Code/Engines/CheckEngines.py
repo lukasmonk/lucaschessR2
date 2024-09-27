@@ -10,7 +10,7 @@ import Code
 from Code import Util
 from Code.QT import QTUtil2
 
-STOCKFISH_KEY = "STOCKFISH16.1"
+STOCKFISH_KEY = "STOCKFISH17"
 
 
 def process_running(pid):
@@ -88,7 +88,7 @@ def check_stockfish(window, check_again):
             return True
 
     seek = "64" if platform.machine().endswith("64") else "32"
-    Code.procesador.stop_engines()
+    Code.procesador.close_engines()
 
     path_versions = Util.opj(folder, "versions.txt")
     lista = []

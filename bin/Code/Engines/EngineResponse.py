@@ -172,11 +172,6 @@ class EngineResponse:
                     return _("Black is in checkmate")
                 else:
                     return _("White is in checkmate")
-            if mt == 1:
-                if self.is_white:
-                    return _X(_("White mates in %1"), 1)
-                else:
-                    return _X(_("Black mates in %1"), 1)
             if not self.is_white:
                 mt = -mt
             if (mt > 1) and self.is_white:
@@ -231,18 +226,15 @@ class EngineResponse:
             return "%+0.2f" % (pts / 100.0)
 
     def abbrev_text_base1(self):
+        is_black = not self.is_white
         if self.mate != 0:
             mt = self.mate
-            if not self.is_white:
+            if is_black:
                 mt = -mt
-            if (mt > 1) and self.is_white:
-                mt -= 1
-            elif (mt < -1) and not self.is_white:
-                mt += 1
             return "M%+d" % mt
         else:
             pts = self.puntos
-            if not self.is_white:
+            if is_black:
                 pts = -pts
             if abs(pts) < 1000:
                 return "%+0.1f" % (pts / 100.0)
@@ -938,11 +930,11 @@ class MultiEngineResponse:
                 if rm.mate:
                     dif = rm.mate - rm.ori_mate
                     signo = "+" if dif >= 0 else "-"
-                    fdbg.write("%2d. %s: %d %s %d = %d %s\n" % (num + 1, pgn, rm.ori_mate, signo, abs(dif), rm.mate, _("Mate")))
+                    fdbg.write(f"{num + 1:2d}. {pgn}: {rm.ori_mate:d} {signo} {abs(dif):d} = {rm.mate:d} {_('Mate')}\n")
                 else:
                     dif = rm.puntos - rm.ori_puntos
                     signo = "+" if dif >= 0 else "-"
-                    fdbg.write("%2d. %s: %d %s %d = %d\n" % (num + 1, pgn, rm.ori_puntos, signo, abs(dif), rm.puntos))
+                    fdbg.write(f"{num + 1:2d}. {pgn}: {rm.ori_puntos:d} {signo} {abs(dif):d} = {rm.puntos:d}\n")
 
             fdbg.write("\n")
             fdbg.close()
@@ -1184,6 +1176,10 @@ class MultiEngineResponse:
 
         # Si la mayoría son buenos movimientos
         if len(libest) * 1.0 / len(self.li_rm) >= 0.8:
+            return NO_RATING, GOOD_MOVE
+
+        # Si el mejor es un mate en contra, o una posición perdida no hay que hacer la ola
+        if self.li_rm[0].mate < 0 or self.li_rm[0].puntos <= -5:
             return NO_RATING, GOOD_MOVE
 
         # Si en la depth que se encontró era menor que 4

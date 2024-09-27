@@ -98,35 +98,6 @@ class AnalysisEval:
         quest = ev == INACCURACY
         return elo, quest, bad, vbad
 
-    # def calc_accuracy_game(self, game, factor=14):
-    #     n_jg = n_jg_w = n_jg_b = 0
-    #     porc_t = porc_w = porc_b = 0
-    #
-    #     for num, move in enumerate(game.li_moves):
-    #         if move.analysis:
-    #             mrm, pos = move.analysis
-    #             rm_best = mrm.li_rm[0]
-    #             rm_player = mrm.li_rm[pos]
-    #             porc_win = 100.0 - min(self.evaluate_dif(rm_best, rm_player)*factor, 100.0)
-    #             is_white = move.is_white()
-    #
-    #             porc_t += porc_win
-    #             n_jg += 1
-    #
-    #             if is_white:
-    #                 n_jg_w += 1
-    #                 porc_w += porc_win
-    #
-    #             else:
-    #                 n_jg_b += 1
-    #                 porc_b += porc_win
-    #
-    #     porc_t = porc_t * 1.0 / n_jg if n_jg else None
-    #     porc_w = porc_w * 1.0 / n_jg_w if n_jg_w else None
-    #     porc_b = porc_b * 1.0 / n_jg_b if n_jg_b else None
-    #
-    #     return porc_w, porc_b, porc_t
-
     @staticmethod
     def calc_accuracy_game(game):
         n_jg = n_jg_w = n_jg_b = 0

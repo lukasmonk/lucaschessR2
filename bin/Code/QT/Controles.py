@@ -404,6 +404,13 @@ class LB(QtWidgets.QLabel):
         self.setGeometry(r)
         return self
 
+    def set_fixed_lines(self, num_lines):
+        font_metrics = QtGui.QFontMetrics(self.font())
+        line_height = font_metrics.height()
+        required_height = line_height * num_lines
+        self.setFixedHeight(required_height)
+        return self
+
 
 def LB2P(parent, texto):
     return LB(parent, texto + ": ")
@@ -751,6 +758,8 @@ class TB(QtWidgets.QToolBar):
     @param rutina: rutina que se llama al pulsar una opcion. Por defecto sera parent.process_toolbar().
         Y la key enviada se obtiene de self.sender().key
     """
+    li_acciones: list
+    dic_toolbar: dict
 
     def __init__(self, parent, li_acciones, with_text=True, icon_size=32, rutina=None, puntos=None, background=None):
 
@@ -761,6 +770,8 @@ class TB(QtWidgets.QToolBar):
         self.parent = parent
 
         self.rutina = parent.process_toolbar if rutina is None else rutina
+
+        self.with_text = with_text
 
         if with_text:
             self.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
@@ -775,6 +786,8 @@ class TB(QtWidgets.QToolBar):
     def set_actions(self, li_acciones):
         self.dic_toolbar = {}
         lista = []
+        tooltips_bydefault =  not self.with_text
+
         for datos in li_acciones:
             if datos:
                 if type(datos) == int:
@@ -791,6 +804,9 @@ class TB(QtWidgets.QToolBar):
                     lista.append(accion)
                     self.addAction(accion)
                     self.dic_toolbar[key] = accion
+                    if not tooltips_bydefault:
+                        widget = self.widgetForAction(accion)
+                        widget.setToolTip("")
             else:
                 self.addSeparator()
         self.li_acciones = lista
@@ -826,18 +842,23 @@ class TBrutina(QtWidgets.QToolBar):
     @param icon_size: tama_o del icono
         Y la key enviada se obtiene de self.sender().key
     """
+    li_acciones: list
+    dic_toolbar: dict
 
     def __init__(
             self, parent, li_acciones=None, with_text=True, icon_size=None, puntos=None, background=None, style=None
     ):
 
         QtWidgets.QToolBar.__init__(self, "BASIC", parent)
+        self.tooltip_default = False
         if style:
             self.setToolButtonStyle(style)
             if style != QtCore.Qt.ToolButtonTextUnderIcon and icon_size is None:
                 icon_size = 16
         elif with_text:
             self.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
+
+        self.with_text = with_text
 
         tam = 32 if icon_size is None else icon_size
         self.setIconSize(QtCore.QSize(tam, tam))
@@ -872,10 +893,14 @@ class TBrutina(QtWidgets.QToolBar):
         if sep:
             self.addSeparator()
 
-    def set_actions(self, liAcc):
+        if tool_tip is None and self.with_text:
+            widget = self.widgetForAction(accion)
+            widget.setToolTip("")
+
+    def set_actions(self, li_acc):
         self.dic_toolbar = {}
         self.li_acciones = []
-        for datos in liAcc:
+        for datos in li_acc:
             if datos:
                 if type(datos) == int:
                     self.addWidget(LB("").anchoFijo(datos))

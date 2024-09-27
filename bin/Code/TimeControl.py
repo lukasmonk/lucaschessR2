@@ -115,6 +115,8 @@ class TimeControl:
             eti, eti2 = self.text(tp), self.text(tp2)
 
             if eti:
+                # if self.pending_time > 30000:
+                #     eti = ""
                 self.set_clock_side(eti, eti2)
 
     def label_dgt(self):

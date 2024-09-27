@@ -12,7 +12,6 @@ def read_engines(folder_engines):
     def mas(alias, autor, version, url, exe, elo, folder=None, emulate_movetime=None, nodes_compatible=None):
         if folder is None:
             folder = alias
-
         path_exe = Util.opj(folder_engines, folder, exe)
         engine = Engines.Engine(alias.lower(), autor, version, url, path_exe)
         engine.elo = elo
@@ -63,7 +62,7 @@ def read_engines(folder_engines):
              nodes_compatible=True)
     cm.set_uci_option("Hash", "32")
 
-    mas("ct800", "Rasmus Althoff", "1.45", "https://www.ct800.net/", "CT800_V1.45_x32.exe", 2380, nodes_compatible=True)
+    mas("ct800", "Rasmus Althoff", "1.46", "https://www.ct800.net/", "CT800_V1.46_x32.exe", 2600, nodes_compatible=True)
 
     cm = mas("gaia", "Jean-Francois Romang, David Rabel", "3.5", "http://gaiachess.free.fr", "gaia32.exe", 2378)
     cm.name = "Gaïa 3.5"
@@ -142,7 +141,7 @@ def read_engines(folder_engines):
     mas("gull", "Vadim Demichev", "3 32bit", "https://sourceforge.net/projects/gullchess/", "Gull 3 w32 XP.exe", 3125)
     # cm.set_multipv(10, 64) Da problemas
 
-    mas("irina", "Lucas Monge", "0.17", "https://github.com/lukasmonk/irina", "irina.exe", 1500)
+    mas("irina", "Lucas Monge", "0.18", "https://github.com/lukasmonk/irina", "irina.exe", 1500)
 
     mas("rodentii", "Pawel Koziol", "0.9.64", "http://www.pkoziol.cal24.pl/rodent/rodent.htm", "RodentII_x32.exe", 2912,
         nodes_compatible=True)
@@ -259,10 +258,10 @@ def read_engines(folder_engines):
 
     if is64:
         if is_bmi2:
-            cm = mas("lc0", "The LCZero Authors", "v0.30.0", "https://github.com/LeelaChessZero", "lc0_dnnl.exe", 3300,
+            cm = mas("lc0", "The LCZero Authors", "v0.31.1", "https://github.com/LeelaChessZero", "lc0_dnnl.exe", 3300,
                      nodes_compatible=True)
         else:
-            cm = mas("lc0", "The LCZero Authors", "v0.30.0", "https://github.com/LeelaChessZero", "lc0.exe", 3300,
+            cm = mas("lc0", "The LCZero Authors", "v0.31.1", "https://github.com/LeelaChessZero", "lc0.exe", 3300,
                      nodes_compatible=True)
         cm.set_uci_option("Threads", "2")
         cm.set_multipv(10, 500)
@@ -270,9 +269,9 @@ def read_engines(folder_engines):
     cm = mas(
         "stockfish",
         " T. Romstad, M. Costalba, J. Kiiski, G. Linscott",
-        f"16.1 {t32_64}",
+        f"17 {t32_64}",
         "https://stockfishchess.org/",
-        f"Stockfish-16.1-{t32_64}.exe",
+        f"Stockfish-17-{t32_64}.exe",
         3611,
         nodes_compatible=True
     )

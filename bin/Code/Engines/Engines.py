@@ -81,10 +81,13 @@ class Engine:
     def is_external(self, value):
         self.type = ENG_EXTERNAL if value else ENG_INTERNAL
 
-    def nombre_ext(self):
+    def nombre_ext(self, ext_with_symbol=True):
         name = self.name
         if self.is_external:
-            name += " *"
+            name = self.key
+            if ext_with_symbol:
+                name += " 📡"
+
         return name
 
     def clone(self):

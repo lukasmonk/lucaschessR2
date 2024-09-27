@@ -113,11 +113,12 @@ class LineaTextoUTF8(QtWidgets.QItemDelegate):
 
 
 class EtiquetaPGN(QtWidgets.QStyledItemDelegate):
-    def __init__(self, is_white, si_alineacion=False, si_fondo=False):
+    def __init__(self, is_white, si_alineacion=False, si_fondo=False, si_indicador_inicial=True):
         self.is_white = is_white  # None = no hacer
         self.with_figurines = is_white is not None
         self.si_alineacion = si_alineacion
         self.si_fondo = si_fondo
+        self.si_indicador_inicial = si_indicador_inicial
         QtWidgets.QStyledItemDelegate.__init__(self, None)
 
     def setWhite(self, is_white):
@@ -131,7 +132,7 @@ class EtiquetaPGN(QtWidgets.QStyledItemDelegate):
     def paint(self, painter, option, index):
         data = index.model().data(index, QtCore.Qt.DisplayRole)
         if type(data) == tuple:
-            pgn, color, txt_analysis, indicadorInicial, li_nags = data
+            pgn, color, txt_analysis, indicador_inicial, li_nags = data
             if li_nags:
                 li = []
                 st = set()
@@ -147,7 +148,7 @@ class EtiquetaPGN(QtWidgets.QStyledItemDelegate):
                             li.append(symbol)
                 li_nags = li
         else:
-            pgn, color, txt_analysis, indicadorInicial, li_nags = data, None, None, None, None
+            pgn, color, txt_analysis, indicador_inicial, li_nags = data, None, None, None, None
 
         is_color_origen = color
         if not color:
@@ -189,10 +190,10 @@ class EtiquetaPGN(QtWidgets.QStyledItemDelegate):
             if fondo:
                 painter.fillRect(rect, fondo)
 
-        if indicadorInicial:
+        if indicador_inicial:
             painter.save()
             painter.translate(x_total, y_total)
-            painter.drawPixmap(0, 0, dicPM[indicadorInicial])
+            painter.drawPixmap(0, 0, dicPM[indicador_inicial])
             painter.restore()
 
         document_pgn = QtGui.QTextDocument()
@@ -214,7 +215,7 @@ class EtiquetaPGN(QtWidgets.QStyledItemDelegate):
         if fin_pz:
             ancho += wpz + salto_fin_pz
 
-        x = x_total + 20
+        x = x_total + (20 if self.si_indicador_inicial else 10)
         y = y_total + (h_total - h_pgn * 0.9) / 2
 
         if ini_pz:
@@ -517,8 +518,8 @@ class EtiquetaPOS(QtWidgets.QStyledItemDelegate):
             painter.save()
             painter.translate(x, y + 1)
             pm = dicPZ[ini_pz]
-            pmRect = QtCore.QRectF(0, 0, hx, hx)
-            pm.render(painter, pmRect)
+            pm_rect = QtCore.QRectF(0, 0, hx, hx)
+            pm.render(painter, pm_rect)
             painter.restore()
             x += wpz
 
@@ -532,8 +533,8 @@ class EtiquetaPOS(QtWidgets.QStyledItemDelegate):
             painter.save()
             painter.translate(x - 0.3 * wpz, y + 1)
             pm = dicPZ[fin_pz]
-            pmRect = QtCore.QRectF(0, 0, hx, hx)
-            pm.render(painter, pmRect)
+            pm_rect = QtCore.QRectF(0, 0, hx, hx)
+            pm.render(painter, pm_rect)
             painter.restore()
             x += wpz + salto_fin_pz
 
@@ -615,9 +616,12 @@ class LinePGN(QtWidgets.QStyledItemDelegate):
         document_pgn.setHtml(pgn)
 
         x = rect.x()
-        y = rect.y()
-        r = QtCore.QRectF(0, 0, rect.width(), rect.height() + 4)
+        height = rect.height()
+        h_pgn = document_pgn.size().height()
+        y = rect.y() + (height - h_pgn) / 2
+        r = QtCore.QRectF(0, 0, rect.width(), height)
         painter.save()
-        painter.translate(x, y - 2)
+        painter.translate(x, y)
         document_pgn.drawContents(painter, r)
         painter.restore()
+

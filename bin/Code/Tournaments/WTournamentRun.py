@@ -168,7 +168,7 @@ class WTournamentRun(QtWidgets.QWidget):
         self.configuration = Code.configuration
 
         # PGN
-
+        self.is_opening = False
         self.game = Game.Game()
         self.pgn = ControlPGN.ControlPGN(self)
         ly_pgn = self.crea_bloque_informacion()
@@ -262,14 +262,16 @@ class WTournamentRun(QtWidgets.QWidget):
             self.configuration.set_property(self.lb_clock[side], "clock")
 
         # Rotulos de informacion
-        self.lbRotulo3 = Controles.LB(self).set_wrap()
+        self.lbRotulo2 = Controles.LB(self)
+        self.lbRotulo2.setStyleSheet("border: 1px solid gray;")
+        self.lbRotulo3 = Controles.LB(self).set_wrap().set_fixed_lines(3)
 
         # Layout
         ly_color = Colocacion.G()
         ly_color.controlc(self.lb_player[WHITE], 0, 0).controlc(self.lb_player[BLACK], 0, 1)
         ly_color.controlc(self.lb_clock[WHITE], 1, 0).controlc(self.lb_clock[BLACK], 1, 1)
 
-        ly_v = Colocacion.V().otro(ly_color).control(self.grid_pgn).control(self.lbRotulo3)
+        ly_v = Colocacion.V().otro(ly_color).control(self.grid_pgn).control(self.lbRotulo2).control(self.lbRotulo3)
         ly_v.margen(7)
 
         return ly_v
@@ -364,6 +366,9 @@ class WTournamentRun(QtWidgets.QWidget):
         self.pgn.game = self.game
 
         self.lbRotulo3.set_text("")
+        self.lbRotulo2.set_text("")
+        self.lbRotulo2.hide()
+        self.is_opening = False
 
         self.board.disable_all()
         self.board.set_position(self.game.last_position)
@@ -512,7 +517,17 @@ class WTournamentRun(QtWidgets.QWidget):
         return False, None, None, None
 
     def add_move(self, move):
+        show_opening = self.game.pending_opening
         self.game.add_move(move)
+
+        if show_opening:
+            opening = self.game.opening
+            if opening:
+                nom_opening = opening.tr_name
+                if opening.eco:
+                    nom_opening += " (%s)" % opening.eco
+                self.lbRotulo2.set_text(nom_opening)
+                self.lbRotulo2.show()
 
         self.board.borraMovibles()
         self.board.put_arrow_sc(move.from_sq, move.to_sq)
@@ -716,12 +731,12 @@ class WTournamentRun(QtWidgets.QWidget):
         #     return False
         self.next_control = 10
 
-        last_jg = self.game.last_jg()
+        last_jg = self.game.li_moves[-1]
         if not last_jg.analysis:
             return False
         mrm, pos = last_jg.analysis
         rm_ult = mrm.li_rm[pos]
-        jg_ant = self.game.move(-2)
+        jg_ant = self.game.li_moves[-2]
         if not jg_ant.analysis:
             return False
         mrm, pos = jg_ant.analysis

@@ -136,7 +136,7 @@ class MenuTrainings:
 
             nm = mem.nivel(x)
             if nm >= 0:
-                txt += " %s %d" % (_("Level"), nm + 1)
+                txt += " " + TrListas.level(nm + 1)
 
             xopcion(menu2, -100 - x, txt, cat.icono(), is_disabled=not mem.is_active(x))
 
@@ -176,7 +176,7 @@ class MenuTrainings:
         menu2 = menu_basic.submenu(_("Moves between two positions"), Iconos.Puente())
         rp = QTVarios.rondo_puntos()
         for x in range(1, 11):
-            xopcion(menu2, "puente_%d" % x, "%s %d" % (_("Level"), x), rp.otro())
+            xopcion(menu2, "puente_%d" % x, TrListas.level(x), rp.otro())
 
         menu_basic.separador()
         xopcion(menu_basic, "visualiza", _("The board at a glance"), Iconos.Gafas())
@@ -349,6 +349,9 @@ class MenuTrainings:
         # Washing
         menu_long.separador()
         xopcion(menu_long, "washing_machine", _("The Washing Machine"), Iconos.WashingMachine())
+        # menu_long.separador()
+        # menu2 = menu_long.submenu(_("The Forest Creator"), Iconos.Forest())
+        # xopcion(menu2, "forest_creator_1", TrListas.level(1), Iconos.Amarillo())
 
     def create_menu(self):
         dic_menu = {}
@@ -522,6 +525,9 @@ class MenuTrainings:
 
                 elif resp == "washing_machine":
                     self.washing_machine()
+
+                # elif resp.startswith("forest_creator"):
+                #     self.forest_creator(resp.split("_")[2])
 
                 elif resp == "captures":
                     self.captures()
@@ -712,6 +718,9 @@ class MenuTrainings:
 
     def washing_machine(self):
         self.procesador.showWashing()
+
+    # def forest_creator(self, level):
+    #     self.procesador.forest_creator(level)
 
     def captures(self):
         w = WCountsCaptures.WCountsCaptures(self.procesador, True)

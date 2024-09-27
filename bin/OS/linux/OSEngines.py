@@ -42,8 +42,8 @@ def read_engines(folder_engines):
     cm.set_uci_option("Threads", "2")
     cm.set_multipv(10, 500)
 
-    cm = mas("stockfish", "Tord Romstad, Marco Costalba, Joona Kiiski", f"16.1", "http://stockfishchess.org/",
-             f"stockfish-16.1-64", 3611)
+    cm = mas("stockfish", "Tord Romstad, Marco Costalba, Joona Kiiski", f"17", "http://stockfishchess.org/",
+             f"stockfish-17-64", 3611)
     cm.set_uci_option("Hash", "64")
     cm.set_uci_option("Threads", "2")
     cm.set_multipv(10, 256)
@@ -89,7 +89,7 @@ def read_engines(folder_engines):
 
     mas("critter", "Richard Vida", "1.6a", "http://www.vlasak.biz/critter", "Critter-1.6a", 3091)
 
-    mas("ct800", "Rasmus Althoff", "1.45", "https://www.ct800.net/", "CT800-1.45", 2380, nodes_compatible=True)
+    mas("ct800", "Rasmus Althoff", "1.46", "https://www.ct800.net/", "CT800_V1.46", 2600, nodes_compatible=True)
 
     mas("daydreamer", "Aaron Becker", "1.75 JA", "http://github.com/AaronBecker/daydreamer/downloads",
         "Daydreamer-1.75", 2670, nodes_compatible=True)
@@ -143,7 +143,7 @@ def read_engines(folder_engines):
     mas("igel", "Volodymyr Shcherbyna", "3.0.0", "https://github.com/vshcherbyna/igel/", "Igel-3.0.10", 3402,
         nodes_compatible=True)
 
-    mas("irina", "Lucas Monge", "0.17", "https://github.com/lukasmonk/irina", "irina", 1500)
+    mas("irina", "Lucas Monge", "0.18", "https://github.com/lukasmonk/irina", "irina", 1500)
 
     mas("jabba", "Richard Allbert", "1.0", "http://jabbachess.blogspot.com/", "Jabba-1.0", 2078)
 

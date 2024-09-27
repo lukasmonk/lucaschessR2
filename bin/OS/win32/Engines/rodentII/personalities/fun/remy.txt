@@ -18,8 +18,8 @@ setoption name ExchangeImbalance value 25
 setoption name KnightLikesClosed value 6
 setoption name RookLikesOpen value 5
 setoption name Material value 85
-setoption name OwnAttack value 100
-setoption name OppAttack value 400
+setoption name OwnAttack value 400
+setoption name OppAttack value 100
 setoption name OwnMobility value 250
 setoption name OppMobility value 110
 setoption name KingTropism value 85

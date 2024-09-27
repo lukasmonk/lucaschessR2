@@ -26,10 +26,13 @@ from Code.SQL import UtilSQL
 def lee_1_linea_mfn(linea):
     cabs, pv, move = linea.strip().split("||")
     dic = Util.SymbolDict()
-    for x in cabs.split("|"):
-        k, v = x.split("·")
-        dic[k] = v
     game = Game.Game()
+    for x in cabs.split("|"):
+        sp = x.index(" ")
+        k = x[:sp]
+        v = x[sp+1:]
+        dic[k] = v
+        game.set_tag(k, v)
     game.read_pv(pv)
     event = dic["Event"]
     site = dic["Site"]
@@ -44,7 +47,7 @@ def lee_1_linea_mfn(linea):
 
 
 def lee_linea_mfn():
-    npos = random.randint(0, 9999)
+    npos = random.randint(0, 15000-1)
     with open(Code.path_resource("IntFiles", "games.mfn"), "rt", encoding="utf-8") as f:
         for num, linea in enumerate(f):
             if num == npos:
@@ -271,12 +274,12 @@ class WEdMove(QtWidgets.QWidget):
     def miraPromocion(self):
         show = True
         ori, dest = self.filaPromocion
-        txtO = self.origen.texto()
-        if len(txtO) < 2 or int(txtO[-1]) != ori:
+        txt_o = self.origen.texto()
+        if len(txt_o) < 2 or int(txt_o[-1]) != ori:
             show = False
         if show:
-            txtD = self.destino.texto()
-            if len(txtD) < 2 or int(txtD[-1]) != dest:
+            txt_d = self.destino.texto()
+            if len(txt_d) < 2 or int(txt_d[-1]) != dest:
                 show = False
         self.pbPromocion.setVisible(show)
         return show
@@ -420,8 +423,8 @@ class WPotenciaBase(LCDialog.LCDialog):
         # self.pon_toolbar([self.terminar, self.empezar, self.repetir, self.configurar, self.borrar])
 
         # Colocamos
-        lyTB = Colocacion.H().control(self.tb).margen(0)
-        ly = Colocacion.V().otro(lyTB).control(self.ghistorico).margen(3)
+        ly_tb = Colocacion.H().control(self.tb).margen(0)
+        ly = Colocacion.V().otro(ly_tb).control(self.ghistorico).margen(3)
 
         self.setLayout(ly)
 
@@ -572,8 +575,8 @@ class WPotencia(LCDialog.LCDialog):
 
         if engine.startswith("*"):
             engine = engine[1:]
-        confMotor = self.configuration.buscaTutor(engine)
-        self.xtutor = self.procesador.creaManagerMotor(confMotor, seconds * 1000, None)
+        conf_motor = self.configuration.buscaTutor(engine)
+        self.xtutor = self.procesador.creaManagerMotor(conf_motor, seconds * 1000, None)
         self.xtutor.maximize_multipv()
 
         # Board
@@ -615,26 +618,26 @@ class WPotencia(LCDialog.LCDialog):
         self.tb = QTVarios.LCTB(self, li_acciones)
 
         # Layout
-        lyInfo = Colocacion.H().relleno().control(self.lbInformacion).control(self.btConsultar).relleno()
-        lyT = Colocacion.V().relleno().control(self.board).otro(lyInfo).controlc(self.lbTiempo).relleno()
+        ly_info = Colocacion.H().relleno().control(self.lbInformacion).control(self.btConsultar).relleno()
+        ly_t = Colocacion.V().relleno().control(self.board).otro(ly_info).controlc(self.lbTiempo).relleno()
 
-        lyV = Colocacion.V()
+        ly_v = Colocacion.V()
         for wm in self.liwm:
-            lyV.control(wm)
-        lyV.relleno()
+            ly_v.control(wm)
+        ly_v.relleno()
         f = Controles.FontType(puntos=10, peso=75)
-        self.gbMovs = Controles.GB(self, _("Next moves"), lyV).set_font(f)
+        self.gbMovs = Controles.GB(self, _("Next moves"), ly_v).set_font(f)
 
-        lyTV = Colocacion.H().otro(lyT).control(self.gbMovs).relleno()
+        ly_tv = Colocacion.H().otro(ly_t).control(self.gbMovs).relleno()
 
-        ly = Colocacion.V().control(self.tb).otro(lyTV).relleno()
+        ly = Colocacion.V().control(self.tb).otro(ly_tv).relleno()
 
         self.setLayout(ly)
 
         self.restore_video()
         self.adjustSize()
 
-        liTB = [self.cancelar]
+        li_tb = [self.cancelar]
 
         # Tiempo
         self.timer = None
@@ -644,10 +647,10 @@ class WPotencia(LCDialog.LCDialog):
                 self.gbMovs.hide()
                 self.start_clock(self.pensandoHastaMin)
             else:
-                liTB.insert(0, self.comprobar)
+                li_tb.insert(0, self.comprobar)
                 self.start_clock(self.pensandoHastaMax)
 
-        self.pon_toolbar(liTB)
+        self.pon_toolbar(li_tb)
 
         self.liwm[0].activa()
 
@@ -711,7 +714,7 @@ class WPotencia(LCDialog.LCDialog):
             self.timer.stop()
 
         self.timer = QtCore.QTimer(self)
-        self.connect(self.timer, QtCore.SIGNAL("timeout()"), enlace)
+        self.timer.timeout.connect(enlace)
         self.timer.start(transicion)
 
     def stop_clock(self):
@@ -745,21 +748,21 @@ class WPotencia(LCDialog.LCDialog):
         self.li_analysis = []
         cp = Position.Position()
         cp.read_fen(self.fen)
-        siError = False
-        totalPuntos = 0
+        si_error = False
+        total_puntos = 0
         factor = 1
         previo = 100
         for wm in self.liwm:
             from_sq, to_sq, promotion = wm.resultado()
             if from_sq:
-                cpNue = cp.copia()
-                ok, mensaje = cpNue.play(from_sq, to_sq, promotion)
+                cp_nue = cp.copia()
+                ok, mensaje = cp_nue.play(from_sq, to_sq, promotion)
                 wm.siCorrecto(ok)
                 if not ok:
                     wm.ponError(_("Invalid move"))
-                    siError = True
+                    si_error = True
                     break
-                move = Move.Move(None, cp, cpNue, from_sq, to_sq, promotion)
+                move = Move.Move(None, cp, cp_nue, from_sq, to_sq, promotion)
                 mrm, pos = self.xtutor.analysis_move(move, self.xtutor.mstime_engine)
                 move.analysis = mrm, pos
 
@@ -773,8 +776,8 @@ class WPotencia(LCDialog.LCDialog):
                 else:
                     puntos = 100 - dif
                 wm.set_score(puntos)
-                cp = cpNue
-                totalPuntos += int(puntos * factor * previo / 100)
+                cp = cp_nue
+                total_puntos += int(puntos * factor * previo / 100)
                 previo = puntos * previo / 100
                 factor *= 2
             else:
@@ -783,12 +786,12 @@ class WPotencia(LCDialog.LCDialog):
         um.final()
         self.btConsultar.show()
 
-        if not siError:
-            self.lbTiempo.set_text("<h2>%s: %d %s</h2>" % (_("Result"), totalPuntos, _("pts")))
+        if not si_error:
+            self.lbTiempo.set_text("<h2>%s: %d %s</h2>" % (_("Result"), total_puntos, _("pts")))
 
             self.historico.append(
                 Util.today(),
-                totalPuntos,
+                total_puntos,
                 self.xtutor.key,
                 int(self.xtutor.mstime_engine / 1000),
                 self.min_min,
@@ -810,29 +813,29 @@ class WPotencia(LCDialog.LCDialog):
         self.tb.update()
 
     def creaLBInformacion(self, info, cp):
-        color, colorR = _("White"), _("Black")
-        cK, cQ, cKR, cQR = "K", "Q", "k", "q"
+        color, color_r = _("White"), _("Black")
+        c_k, c_q, c_kr, c_qr = "K", "Q", "k", "q"
 
         mens = ""
 
         if cp.castles:
 
             def menr(ck, cq):
-                enr = ""
+                xenr = ""
                 if ck in cp.castles:
-                    enr += "O-O"
+                    xenr += "O-O"
                 if cq in cp.castles:
-                    if enr:
-                        enr += "  +  "
-                    enr += "O-O-O"
-                return enr
+                    if xenr:
+                        xenr += "  +  "
+                    xenr += "O-O-O"
+                return xenr
 
-            enr = menr(cK, cQ)
+            enr = menr(c_k, c_q)
             if enr:
                 mens += "  %s : %s" % (color, enr)
-            enr = menr(cKR, cQR)
+            enr = menr(c_kr, c_qr)
             if enr:
-                mens += " %s : %s" % (colorR, enr)
+                mens += " %s : %s" % (color_r, enr)
         if cp.en_passant != "-":
             mens += "     %s : %s" % (_("En passant"), cp.en_passant)
 

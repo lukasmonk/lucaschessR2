@@ -285,9 +285,9 @@ class ListaColumnas:
         return None
 
     def clone(self):
-        oColumnasCopy = ListaColumnas()
+        o_columnas_copy = ListaColumnas()
         for col in self.li_columns:
-            col_nueva = oColumnasCopy.nueva(
+            col_nueva = o_columnas_copy.nueva(
                 col.key,
                 head=col.head,
                 ancho=col.ancho,
@@ -303,7 +303,8 @@ class ListaColumnas:
                 is_ckecked=col.is_ckecked,
             )
             col_nueva.copia_defecto(col)
-        return oColumnasCopy
+            col_nueva.position = col.position
+        return o_columnas_copy
 
     def save_dic(self, grid):
         dic_conf = {}

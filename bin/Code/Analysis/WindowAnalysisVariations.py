@@ -10,10 +10,12 @@ from Code.QT import QTVarios
 
 
 class WAnalisisVariations(QtWidgets.QDialog):
-    def __init__(self, oBase, ventana, segundosPensando, is_white, cPuntos):
+    def __init__(self, o_base, ventana, segundos_pensando, is_white, c_puntos):
         super(WAnalisisVariations, self).__init__(ventana)
 
-        self.oBase = oBase
+        self.oBase = o_base
+        
+        self.timer = None
 
         # Creamos los controles
         self.setWindowTitle(_("Variations"))
@@ -24,7 +26,7 @@ class WAnalisisVariations(QtWidgets.QDialog):
         f = Controles.FontType(puntos=12, peso=75)
         flb = Controles.FontType(puntos=10)
 
-        lbPuntuacionAnterior = Controles.LB(self, cPuntos).align_center().set_font(flb)
+        lb_puntuacion_anterior = Controles.LB(self, c_puntos).align_center().set_font(flb)
         self.lbPuntuacionNueva = Controles.LB(self).align_center().set_font(flb)
 
         config_board = Code.configuration.config_board("ANALISISVARIANTES", 32)
@@ -36,26 +38,26 @@ class WAnalisisVariations(QtWidgets.QDialog):
         self.boardT.crea()
         self.boardT.set_side_bottom(is_white)
 
-        btTerminar = Controles.PB(self, _("Close"), self.close).ponPlano(False)
-        btReset = Controles.PB(self, _("Another change"), oBase.reset).ponIcono(Iconos.MoverLibre()).ponPlano(False)
-        liMasAcciones = (("FEN:%s" % _("Copy to clipboard"), "MoverFEN", Iconos.Clipboard()),)
-        lytbTutor, self.tb = QTVarios.ly_mini_buttons(self, "", siLibre=True, liMasAcciones=liMasAcciones)
+        bt_terminar = Controles.PB(self, _("Close"), self.close).ponPlano(False)
+        bt_reset = Controles.PB(self, _("Another change"), o_base.reset).ponIcono(Iconos.MoverLibre()).ponPlano(False)
+        li_mas_acciones = (("FEN:%s" % _("Copy to clipboard"), "MoverFEN", Iconos.Clipboard()),)
+        lytb_tutor, self.tb = QTVarios.ly_mini_buttons(self, "", siLibre=True, liMasAcciones=li_mas_acciones)
 
-        self.seconds, lb_segundos = QTUtil2.spinbox_lb(self, segundosPensando, 1, 999, max_width=40,
+        self.seconds, lb_segundos = QTUtil2.spinbox_lb(self, segundos_pensando, 1, 999, max_width=40,
                                                        etiqueta=_("Second(s)"))
 
         # Creamos los layouts
 
-        lyVariacion = Colocacion.V().control(lbPuntuacionAnterior).control(self.board)
-        gbVariacion = Controles.GB(self, _("Proposed change"), lyVariacion).set_font(f).align_center()
+        ly_variacion = Colocacion.V().control(lb_puntuacion_anterior).control(self.board)
+        gb_variacion = Controles.GB(self, _("Proposed change"), ly_variacion).set_font(f).align_center()
 
-        lyTutor = Colocacion.V().control(self.lbPuntuacionNueva).control(self.boardT)
-        gbTutor = Controles.GB(self, _("Analyzer's prediction"), lyTutor).set_font(f).align_center()
+        ly_tutor = Colocacion.V().control(self.lbPuntuacionNueva).control(self.boardT)
+        gb_tutor = Controles.GB(self, _("Analyzer's prediction"), ly_tutor).set_font(f).align_center()
 
-        lyBT = Colocacion.H().control(btTerminar).control(btReset).relleno().control(lb_segundos).control(self.seconds)
+        ly_bt = Colocacion.H().control(bt_terminar).control(bt_reset).relleno().control(lb_segundos).control(self.seconds)
 
-        layout = Colocacion.G().control(gbVariacion, 0, 0).control(gbTutor, 0, 1)
-        layout.otro(lyBT, 1, 0).otro(lytbTutor, 1, 1)
+        layout = Colocacion.G().control(gb_variacion, 0, 0).control(gb_tutor, 0, 1)
+        layout.otro(ly_bt, 1, 0).otro(lytb_tutor, 1, 1)
 
         self.setLayout(layout)
 
@@ -64,7 +66,7 @@ class WAnalisisVariations(QtWidgets.QDialog):
     def get_seconds(self):
         return int(self.seconds.value())
 
-    def ponPuntuacion(self, pts):
+    def set_score(self, pts):
         self.lbPuntuacionNueva.set_text(pts)
 
     def process_toolbar(self):

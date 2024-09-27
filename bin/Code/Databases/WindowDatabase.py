@@ -31,6 +31,10 @@ class WBDatabase(LCDialog.LCDialog):
 
         self.wplayer = WDB_Players.WPlayer(procesador, self, self.db_games)
         self.wplayer_active = False
+        self.register_grid(self.wplayer.gridMovesBlack)
+        self.register_grid(self.wplayer.gridMovesWhite)
+        self.register_grid(self.wplayer.gridOpeningWhite)
+        self.register_grid(self.wplayer.gridOpeningBlack)
 
         if siSummary:
             self.wsummary = WDB_Summary.WSummary(procesador, self, self.db_games, siMoves=False)

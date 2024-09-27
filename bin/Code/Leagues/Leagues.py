@@ -1,5 +1,4 @@
 import random
-import sys
 import time
 
 import Code
@@ -191,85 +190,97 @@ class MatchsDay:
 
 
 def create_journeys(num_opponents: int) -> list:
-    li_opponents = list(range(num_opponents))
-    if num_opponents % 2:
-        li_opponents.append(None)
-        num_opponents += 1
+    if 3 <= num_opponents <= 128:
+        path_round_robin = Code.path_resource("IntFiles", "RoundRobin.sqlite")
+        with UtilSQL.DictSQL(path_round_robin) as db:
+            dic = db[str(num_opponents)]
+            li_minimo = dic["LI_JOURNEYS"]
 
-    ################################################################################################################
-    # https://stackoverflow.com/questions/11245746/league-fixture-generator-in-python/48039377#48039377
-    # https://stackoverflow.com/users/9157436/carlos-fern%c3%a1ndez
-    matches = []
-    journeys = []
-    for xopp in range(1, num_opponents):
-        for i in range(num_opponents // 2):
-            x = li_opponents[i]
-            y = li_opponents[num_opponents - 1 - i]
-            if not (x is None or y is None):
-                matches.append((x, y))
-        li_opponents.insert(1, li_opponents.pop())
-        journeys.insert(len(journeys) // 2, matches)
+        li_ch = list(range(num_opponents))
+        random.shuffle(li_ch)
+        for journey in li_minimo:
+            for xpos, (w, b) in enumerate(journey):
+                journey[xpos] = (li_ch[w], li_ch[b])
+
+    else:
+
+        li_opponents = list(range(num_opponents))
+        if num_opponents % 2:
+            li_opponents.append(None)
+            num_opponents += 1
+
+        ################################################################################################################
+        # https://stackoverflow.com/questions/11245746/league-fixture-generator-in-python/48039377#48039377
+        # https://stackoverflow.com/users/9157436/carlos-fern%c3%a1ndez
         matches = []
-    ################################################################################################################
+        journeys = []
+        for xopp in range(1, num_opponents):
+            for i in range(num_opponents // 2):
+                x = li_opponents[i]
+                y = li_opponents[num_opponents - 1 - i]
+                if not (x is None or y is None):
+                    matches.append((x, y))
+            li_opponents.insert(1, li_opponents.pop())
+            journeys.insert(len(journeys) // 2, matches)
+            matches = []
+        ################################################################################################################
 
-    # A continuación se ordenan las jornadas para que se juegue una vez con blancas y la siguiente con negras
+        # A continuación se ordenan las jornadas para que se juegue una vez con blancas y la siguiente con negras
 
-    for opponent in li_opponents:
-        last = None
-        for journey in journeys:
-            for xpos, (w, b) in enumerate(journey):
-                if w == opponent:
-                    if last == WHITE:
+        for opponent in li_opponents:
+            last = None
+            for journey in journeys:
+                for xpos, (w, b) in enumerate(journey):
+                    if w == opponent:
+                        if last == WHITE:
+                            journey[xpos] = (b, w)
+                            last = BLACK
+                        else:
+                            last = WHITE
+                    elif b == opponent:
+                        if last == BLACK:
+                            journey[xpos] = (b, w)
+                            last = WHITE
+                        else:
+                            last = BLACK
+
+        min_uniones = None
+        li_minimo = None
+        t = time.time()
+        k_time = max(len(li_opponents) / 3, 1.0)
+        while (time.time() - t) < k_time:
+            dr = {xr: "" for xr in li_opponents}
+            for journey in journeys:
+                for xpos, (w, b) in enumerate(journey):
+                    if dr[w].endswith("W"):
                         journey[xpos] = (b, w)
-                        last = BLACK
-                    else:
-                        last = WHITE
-                elif b == opponent:
-                    if last == BLACK:
+                    elif dr[b].endswith("B"):
                         journey[xpos] = (b, w)
-                        last = WHITE
+                    w, b = journey[xpos]
+                    dr[w] += "W"
+                    dr[b] += "B"
+
+            uniones = 0
+            for x in range(len(li_opponents)):
+                if x in dr:
+                    if "WWWWW" in dr[x] or "BBBBB" in dr[x]:
+                        uniones += 1000_000_000_000_000_000_000
+                    elif "WWWW" in dr[x] or "BBBB" in dr[x]:
+                        uniones += 1000_000_000_000_0000
+                    elif "WWW" in dr[x] or "BBB" in dr[x]:
+                        uniones += 1000_000_000
+                    elif "WW" in dr[x] or "BB" in dr[x]:
+                        uniones += 1000
                     else:
-                        last = BLACK
-
-    min_uniones = sys.maxsize
-    li_minimo = None
-    t = time.time()
-    k_time = max(len(li_opponents) / 10, 1.0)
-    while (time.time() - t) < k_time:
-        dr = {xr: "" for xr in li_opponents}
-        for journey in journeys:
-            for xpos, (w, b) in enumerate(journey):
-                if dr[w].endswith("W"):
-                    journey[xpos] = (b, w)
-                elif dr[b].endswith("B"):
-                    journey[xpos] = (b, w)
-                w, b = journey[xpos]
-                dr[w] += "W"
-                dr[b] += "B"
-
-        uniones = 0
-        for x in range(len(li_opponents)):
-            if x in dr:
-                if "WWWWW" in dr[x] or "BBBBB" in dr[x]:
-                    uniones += 100000000000000
-                elif "WWWW" in dr[x] or "BBBB" in dr[x]:
-                    uniones += 10000000
-                elif dr[x].startswith(("BB", "WW")):
-                    uniones += 1000
-                elif dr[x].endswith(("BB", "WW")):
-                    uniones += 1000
-                elif "WWW" in dr[x] or "BBB" in dr[x]:
-                    uniones += 1000
-                else:
-                    for xpos, xc in enumerate(dr[x]):
-                        if xpos:
-                            if xc == dr[x][xpos - 1]:
-                                uniones += 1
-        if uniones < min_uniones:
-            li_minimo = [[(b, w) for w, b in journey] for journey in journeys]
-            min_uniones = uniones
-            t = time.time()
-        random.shuffle(journeys)
+                        for xpos, xc in enumerate(dr[x]):
+                            if xpos:
+                                if xc == dr[x][xpos - 1]:
+                                    uniones += 1
+            if min_uniones is None or uniones < min_uniones:
+                li_minimo = [[(w, b) for w, b in journey] for journey in journeys]
+                min_uniones = uniones
+                t = time.time()
+            random.shuffle(journeys)
 
     journeys_with_returns = li_minimo[:]
     for journey in li_minimo:

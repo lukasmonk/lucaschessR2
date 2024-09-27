@@ -12,7 +12,8 @@ from Code.Tournaments import WTournamentRun
 
 
 def run(user, file_tournament, file_work):
-    sys.stderr = Util.Log("./bug.tournaments")
+    if not Code.DEBUG:
+        sys.stderr = Util.Log("./bug.tournaments")
 
     app = QtWidgets.QApplication([])
 

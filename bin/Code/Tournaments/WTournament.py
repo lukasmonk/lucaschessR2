@@ -281,10 +281,15 @@ class WTournament(LCDialog.LCDialog):
         self.register_grid(self.gridResults)
 
         self.qtColor = {
-            "WHITE": QTUtil.qtColorRGB(255, 250, 227),
-            "BLACK": QTUtil.qtColorRGB(221, 255, 221),
-            "SCORE": QTUtil.qtColorRGB(170, 170, 170),
+            "WHITE": QTUtil.qtColor(Code.dic_colors["TOURNAMENTS_RESULTS_WHITE"]),
+            "BLACK": QTUtil.qtColor(Code.dic_colors["TOURNAMENTS_RESULTS_BLACK"]),
+            "SCORE": QTUtil.qtColor(Code.dic_colors["TOURNAMENTS_RESULTS_SCORE"]),
         }
+        # self.qtColor = {
+        #     "WHITE": QTUtil.qtColorRGB(255, 250, 227),
+        #     "BLACK": QTUtil.qtColorRGB(221, 255, 221),
+        #     "SCORE": QTUtil.qtColorRGB(170, 170, 170),
+        # }
 
         # Layout
         layout = Colocacion.V().control(self.gridResults)

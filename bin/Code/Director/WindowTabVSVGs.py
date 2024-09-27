@@ -122,25 +122,25 @@ class WTV_SVG(QtWidgets.QDialog):
         if hasattr(self, "form"):
             li = self.form.get()
             for n, svg in enumerate(self.liEjemplos):
-                regSVG = svg.bloqueDatos
-                regSVG.name = li[0]
-                regSVG.opacity = (100.0 - float(li[1])) / 100.0
-                regSVG.psize = li[2]
-                regSVG.physical_pos.orden = li[3]
-                svg.setOpacity(regSVG.opacity)
-                svg.setZValue(regSVG.physical_pos.orden)
+                reg_svg = svg.bloqueDatos
+                reg_svg.name = li[0]
+                reg_svg.opacity = (100.0 - float(li[1])) / 100.0
+                reg_svg.psize = li[2]
+                reg_svg.physical_pos.orden = li[3]
+                svg.setOpacity(reg_svg.opacity)
+                svg.setZValue(reg_svg.physical_pos.orden)
                 svg.update()
             self.board.escena.update()
             QTUtil.refresh_gui()
 
     def grabar(self):
-        regSVG = self.liEjemplos[0].bloqueDatos
-        name = regSVG.name.strip()
+        reg_svg = self.liEjemplos[0].bloqueDatos
+        name = reg_svg.name.strip()
         if name == "":
             QTUtil2.message_error(self, _("Name missing"))
             return
 
-        self.regSVG = regSVG
+        self.regSVG = reg_svg
 
         pm = self.liEjemplos[0].pixmapX()
         bf = QtCore.QBuffer()

@@ -294,7 +294,7 @@ class WTranslateOpenings(LCDialog.LCDialog):
             "to lukasmonk@gmail.com to be included in the next update.\n\n"
             "First the name and location of the file will be requested.\n"
             "Then an explorer is opened in the folder where the file is located "
-            "to make it easier to send it to poeditor.com.\n"
+            "to make it easier to send it to transifex.com.\n"
         )
 
         if not QTUtil2.pregunta(self, message, label_yes="Continue", label_no="Cancel"):

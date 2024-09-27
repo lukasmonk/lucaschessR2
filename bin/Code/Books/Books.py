@@ -56,7 +56,7 @@ class ListBooks:
         ok_rd = False
 
         engine_rodent = Code.configuration.buscaRival("rodentii")
-        path_rodent = Util.opj(os.path.dirname(engine_rodent.path_exe), "rodent.bin")
+        path_rodent = Util.opj(os.path.dirname(engine_rodent.path_exe), "books", "rodent.bin")
 
         for book in self.lista:
             if Util.same_path(book.path, Code.tbook):
@@ -117,10 +117,13 @@ class Book:
     def __init__(self, tipo, name, path, pordefecto, extras=None):
         self.tipo = tipo
         self.name = name
-        self.path = path
+        self.path = Util.norm_path(path)
         self.pordefecto = pordefecto
         self.orden = 100  # futuro ?
         self.extras = extras  # futuro ?
+
+    def clone(self):
+        return Book(self.tipo, self.name, self.path, self.pordefecto, self.extras)
 
     def to_dic(self):
         dic = {
@@ -151,7 +154,7 @@ class Book:
         return os.path.isfile(self.path)
 
     def polyglot(self):
-        self.book = Polyglot.Polyglot()
+        self.book = Polyglot.Polyglot(self.path)
 
     def get_list_moves(self, fen):
         li = self.book.lista(self.path, fen)
@@ -173,7 +176,7 @@ class Book:
             pc = w * 100.0 / total if total else "?"
             from_sq, to_sq, promotion = pv[:2], pv[2:4], pv[4:]
             pgn = position.pgn_translated(from_sq, to_sq, promotion)
-            lista_jugadas.append((from_sq, to_sq, promotion, "%-5s -%7.02f%% -%7d" % (pgn, pc, w), 1.0 * w / maxim))
+            lista_jugadas.append([from_sq, to_sq, promotion, "%-5s -%7.02f%% -%7d" % (pgn, pc, w), 1.0 * w / maxim])
         return lista_jugadas
 
     def alm_list_moves(self, fen):

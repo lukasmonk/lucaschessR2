@@ -108,6 +108,8 @@ class ShowPGN(QtWidgets.QScrollArea):
             menu.opcion("remove_move", _("Remove move"), Iconos.DeleteColumn())
         menu.separador()
         menu.opcion("comment", _("Edit comment"), Iconos.ComentarioEditar())
+        menu.separador()
+        menu.opcion("analyze", _("Analyze"), Iconos.Analizar())
 
         num_line, total_lines = self.wowner.num_total_variations()
         if total_lines > 1:
@@ -145,6 +147,10 @@ class ShowPGN(QtWidgets.QScrollArea):
         elif resp == "conv_mainline":
             if QTUtil2.pregunta(self, _("Convert into the main line") + "\n" + _("Are you sure?")):
                 self.wowner.convert_into_main_line()
+
+        elif resp == "analyze":
+            num_move, num_variation, num_move_variation = self.selected_link.split("|")
+            self.wowner.analyze_move(int(num_move), int(num_variation), int(num_move_variation))
 
     def change(self, num_pgn, pgn):
         if num_pgn >= self.num_showed:

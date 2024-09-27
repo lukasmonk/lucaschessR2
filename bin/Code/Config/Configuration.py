@@ -246,7 +246,7 @@ class Configuration:
         self.x_interval_replay = 1400
         self.x_beep_replay = False
 
-        self.x_margin_pieces = 7
+        self.x_margin_pieces = 10
 
         self.x_engine_notbackground = False
 
@@ -807,7 +807,6 @@ class Configuration:
 
     def list_external_engines(self):
         li = [cm for k, cm in self.dic_engines.items() if cm.is_external]
-        li = sorted(li, key=lambda cm: cm.name)
         return li
 
     def read_external_engines(self):
@@ -828,6 +827,10 @@ class Configuration:
                         eng.key = "%s-%d" % (key, n)
                     eng.set_extern()
                     self.dic_engines[eng.key] = eng
+
+    def reread_external_engines(self):
+        self.dic_engines = {k:cm for k, cm in self.dic_engines.items() if not cm.is_external}
+        self.read_external_engines()
 
     def list_engines(self, si_externos=True):
         li = []

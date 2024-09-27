@@ -1,4 +1,5 @@
 import os
+import sys
 import time
 
 import FasterCode
@@ -50,6 +51,7 @@ from Code.QT import Iconos
 from Code.QT import QTUtil
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
+from Code.Translations import TrListas
 from Code.Tutor import Tutor
 from Code.Voyager import Voyager
 
@@ -93,6 +95,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
     timed = False
     max_seconds = 0
     seconds_move = 0
+    disable_user_time = False
     secs_extra = 0
     nodes = 0
     zeitnot = 0
@@ -257,11 +260,15 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             if rival_depth > 0 or self.nodes > 0:
                 self.limit_time_seconds = rival_time_ms / 1000 if rival_time_ms else None
                 rival_time_ms = None
+            elif rival.emulate_movetime and rival_time_ms:
+                self.limit_time_seconds = rival_time_ms / 1000
 
             self.xrival = self.procesador.creaManagerMotor(rival, rival_time_ms, rival_depth,
                                                            self.nAjustarFuerza != ADJUST_BETTER)
             if self.nodes:
                 self.xrival.set_nodes(self.nodes)
+
+            self.xrival.check_engine() # para que el tiempo de carga del ejecutable no compute
 
             if self.nAjustarFuerza != ADJUST_BETTER:
                 self.xrival.maximize_multipv()
@@ -291,6 +298,11 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             secs_extra = dic_var.get("MINEXTRA", 0) * 60.0
             zeitnot = dic_var.get("ZEITNOT", 0)
 
+            self.disable_user_time = dic_var.get("DISABLEUSERTIME", False)
+            if self.disable_user_time:
+                secs_extra = sys.maxsize
+                self.tc_player.set_displayed(False)
+
             self.tc_player.config_clock(self.max_seconds, self.seconds_per_move, zeitnot, secs_extra)
             self.tc_rival.config_clock(self.max_seconds, self.seconds_per_move, zeitnot, 0)
 
@@ -299,11 +311,20 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                 time_control += "+%d" % self.seconds_per_move
             self.game.set_tag("TimeControl", time_control)
             if secs_extra:
-                self.game.set_tag("TimeExtra" + ("White" if self.is_human_side_white else "Black"), "%d" % secs_extra)
+                if self.disable_user_time:
+                    self.game.set_tag("TimeExtra" + ("White" if self.is_human_side_white else "Black"),
+                                      _("No limit"))
+                else:
+                    self.game.set_tag("TimeExtra" + ("White" if self.is_human_side_white else "Black"), "%d" % secs_extra)
 
         self.pon_toolbar()
 
         self.main_window.active_game(True, self.timed)
+        if self.disable_user_time:
+            if self.is_human_side_white:
+                self.main_window.hide_clock_white()
+            else:
+                self.main_window.hide_clock_black()
 
         self.set_dispatcher(self.player_has_moved)
         self.set_position(self.game.last_position)
@@ -514,6 +535,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             li_mas_opciones = []
             if self.human_is_playing or self.is_finished():
                 li_mas_opciones.append(("books", _("Consult a book"), Iconos.Libros()))
+            li_mas_opciones.append((None, None, None))
             li_mas_opciones.append(("start_position", _("Change the starting position"), Iconos.PGN()))
 
             resp = self.utilities(li_mas_opciones)
@@ -621,7 +643,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             self.autosave_now()
 
         if "play_position" in self.reinicio:
-            self.procesador.stop_engines()
+            self.procesador.close_engines()
             dic, restore_game = self.reinicio["play_position"]
             return self.play_position(dic, restore_game)
 
@@ -749,13 +771,13 @@ class ManagerPlayAgainstEngine(Manager.Manager):
     def rendirse(self, with_question=True):
         if self.state == ST_ENDGAME:
             return True
-        if self.timed:
-            self.main_window.stop_clock()
-            self.show_clocks()
         if len(self.game) > 0 or self.play_while_win:
             if with_question:
                 if not QTUtil2.pregunta(self.main_window, _("Do you want to resign?")):
                     return False  # no abandona
+            if self.timed:
+                self.main_window.stop_clock()
+                self.show_clocks()
             self.analyze_terminate()
             self.game.set_termination(
                 TERMINATION_RESIGN, RESULT_WIN_WHITE if self.is_engine_side_white else RESULT_WIN_BLACK
@@ -765,6 +787,9 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             if not self.play_while_win:
                 self.autosave()
         else:
+            if self.timed:
+                self.main_window.stop_clock()
+                self.show_clocks()
             self.analyze_terminate()
             self.main_window.active_game(False, False)
             self.quitaCapturas()
@@ -962,6 +987,10 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                 self.board.mark_position(rm.from_sq)
             else:
                 self.board.ponFlechasTmp(([rm.from_sq, rm.to_sq, True],))
+                if rm.promotion and rm.promotion.upper() != "Q":
+                    dic = TrListas.dic_nom_pieces()
+                    QTUtil2.temporary_message(self.main_window, dic[rm.promotion.upper()], 2.0)
+
             self.show_hints()
 
     def play_instead_of_me(self):
@@ -1002,6 +1031,11 @@ class ManagerPlayAgainstEngine(Manager.Manager):
 
         if self.is_analyzing:
             self.analyze_end()
+
+        if self.main_window.with_analysis_bar:
+            rm = self.bestmove_from_analysis_bar()
+            if rm:
+                return self.player_has_moved_base(rm.from_sq, rm.to_sq, rm.promotion)
 
         mrm = self.analizaTutor(with_cursor=True)
         rm = mrm.best_rm_ordered()
@@ -1169,7 +1203,6 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             else:
                 seconds_white = seconds_black = self.unlimited_minutes * 60
                 seconds_move = 0
-
             self.xrival.play_time_routine(
                 self.game,
                 self.main_window.notify,
@@ -1246,6 +1279,8 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             self.premove = None
 
     def pww_centipawns_lost(self, rm_user: EngineResponse.EngineResponse):
+        if len(self.game.li_moves) == 0:
+            return 0 - rm_user.score_abs5()
         for move in self.game.li_moves:
             if move.is_white() == self.is_human_side_white:
                 if move.analysis:
@@ -1462,13 +1497,16 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             self.show_clocks()
 
         move.set_time_ms(time_s * 1000)
-        move.set_clock_ms(self.tc_player.pending_time * 1000)
+        if not self.disable_user_time:
+            move.set_clock_ms(self.tc_player.pending_time * 1000)
         self.set_summary("TIMEUSER", time_s)
 
         if si_analisis:
             rm, n_pos = self.mrm_tutor.search_rm(move.movimiento())
             if rm:
                 move.analysis = self.mrm_tutor, n_pos
+                nag, color = self.mrm_tutor.set_nag_color(rm)
+                move.add_nag(nag)
 
         if game_over_message_pww:
             game_over_message_pww = '<span style="font-size:14pts">%s<br>%s<br><br><b>%s</b>' % (
@@ -1478,6 +1516,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             )
             self.message_on_pgn(game_over_message_pww)
             self.rendirse(with_question=False)
+            return
 
         self.add_move(move)
         self.move_the_pieces(move.liMovs, False)
@@ -1661,7 +1700,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
 
     def show_dispatch(self, tp, rm):
         if rm.time or rm.depth:
-            color_engine = "DarkBlue" if self.human_is_playing else "brown"
+            # color_engine = "DarkBlue" if self.human_is_playing else "brown"
             if rm.nodes:
                 nps = "/%d" % rm.nps if rm.nps else ""
                 nodes = " | %d%s" % (rm.nodes, nps)
@@ -1669,7 +1708,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                 nodes = ""
             seldepth = "/%d" % rm.seldepth if rm.seldepth else ""
             li = [
-                '<span style="color:%s">%s' % (color_engine, rm.name),
+                '%s' % rm.name,
                 '<b>%s</b> | <b>%d</b>%s | <b>%d"</b>%s'
                 % (rm.abbrev_text_base(), rm.depth, seldepth, rm.time // 1000, nodes),
             ]
@@ -1681,7 +1720,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             p = Game.Game(self.game.last_position)
             p.read_pv(pv)
             li.append(p.pgn_base_raw())
-            self.set_label3("<br>".join(li) + "</span>")
+            self.set_label3("<br>".join(li))
             QTUtil.refresh_gui()
 
     def show_clocks(self):

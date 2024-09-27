@@ -9,7 +9,7 @@ from Code.QT import Iconos
 from Code.QT import QTUtil
 
 
-class Physicalphysical_pos:
+class PhysicalPos:
     def __init__(self, x=0, y=0, ancho=0, alto=0, angulo=0, orden=15):
         self.x = x
         self.y = y
@@ -19,7 +19,7 @@ class Physicalphysical_pos:
         self.orden = int(orden)
 
     def copia(self):
-        p = Physicalphysical_pos(self.x, self.y, self.ancho, self.alto, self.angulo, self.orden)
+        p = PhysicalPos(self.x, self.y, self.ancho, self.alto, self.angulo, self.orden)
         return p
 
     def __str__(self):
@@ -135,7 +135,7 @@ class Bloque:
 
 class Texto(Bloque):
     font_type: FontType
-    physical_pos: Physicalphysical_pos
+    physical_pos: PhysicalPos
     alineacion: str
     colorTexto: int
     colorFondo: int
@@ -144,7 +144,7 @@ class Texto(Bloque):
     def __init__(self):
         li_vars = [
             ("font_type", "o", FontType()),
-            ("physical_pos", "o", Physicalphysical_pos(0, 0, 80, 16, 0)),
+            ("physical_pos", "o", PhysicalPos(0, 0, 80, 16, 0)),
             ("alineacion", "t", "i"),
             ("colorTexto", "n", 0),
             ("colorFondo", "n", 0xFFFFFF),
@@ -164,11 +164,11 @@ class Texto(Bloque):
 
 
 class Imagen(Bloque):
-    physical_pos: Physicalphysical_pos
+    physical_pos: PhysicalPos
     pixmap: str
 
     def __init__(self):
-        li_vars = [("physical_pos", "o", Physicalphysical_pos(0, 0, 80, 80, 0)), ("pixmap", "t", None)]
+        li_vars = [("physical_pos", "o", PhysicalPos(0, 0, 80, 80, 0)), ("pixmap", "t", None)]
         Bloque.__init__(self, li_vars)
 
     def copia(self):
@@ -179,7 +179,7 @@ class Imagen(Bloque):
 
 
 class Caja(Bloque):
-    physical_pos: Physicalphysical_pos
+    physical_pos: PhysicalPos
     color: int
     colorRelleno: int
     grosor: int
@@ -188,7 +188,7 @@ class Caja(Bloque):
 
     def __init__(self):
         li_vars = [
-            ("physical_pos", "o", Physicalphysical_pos(0, 0, 80, 80, 0)),
+            ("physical_pos", "o", PhysicalPos(0, 0, 80, 80, 0)),
             ("color", "n", 0),
             ("colorRelleno", "n", -1),
             ("grosor", "n", 1),
@@ -209,7 +209,7 @@ class Caja(Bloque):
 
 
 class Circulo(Bloque):
-    physical_pos: Physicalphysical_pos
+    physical_pos: PhysicalPos
     color: int
     colorRelleno: int
     grosor: int
@@ -218,7 +218,7 @@ class Circulo(Bloque):
 
     def __init__(self):
         li_vars = [
-            ("physical_pos", "o", Physicalphysical_pos(0, 0, 80, 80, 0)),
+            ("physical_pos", "o", PhysicalPos(0, 0, 80, 80, 0)),
             ("color", "n", 0),
             ("colorRelleno", "n", -1),
             ("grosor", "n", 1),
@@ -229,14 +229,14 @@ class Circulo(Bloque):
 
 
 class Pieza(Bloque):
-    physical_pos: Physicalphysical_pos
+    physical_pos: PhysicalPos
     pieza: str
     row: int
     column: int
 
     def __init__(self):
         li_vars = [
-            ("physical_pos", "o", Physicalphysical_pos(0, 0, 80, 1, 0)),
+            ("physical_pos", "o", PhysicalPos(0, 0, 80, 1, 0)),
             ("pieza", "t", "p"),
             ("row", "n", 1),
             ("column", "n", 1),
@@ -245,7 +245,7 @@ class Pieza(Bloque):
 
 
 class Flecha(Bloque):
-    physical_pos: Physicalphysical_pos
+    physical_pos: PhysicalPos
     a1h8: str
     grosor: int
     altocabeza: int
@@ -265,7 +265,7 @@ class Flecha(Bloque):
 
     def __init__(self, dic=None):
         li_vars = [
-            ("physical_pos", "o", Physicalphysical_pos(0, 0, 80, 1, 0)),
+            ("physical_pos", "o", PhysicalPos(0, 0, 80, 1, 0)),
             ("a1h8", "c", "a1h8"),
             ("grosor", "n", 1),  # ancho del trazo
             ("altocabeza", "n", 15),  # alto de la cabeza
@@ -310,7 +310,7 @@ class Flecha(Bloque):
 
 
 class Marco(Bloque):
-    physical_pos: Physicalphysical_pos
+    physical_pos: PhysicalPos
     a1h8: str
     color: int
     colorinterior: int
@@ -324,7 +324,7 @@ class Marco(Bloque):
 
     def __init__(self, dic=None):
         li_vars = [
-            ("physical_pos", "o", Physicalphysical_pos(0, 0, 80, 80, 0)),
+            ("physical_pos", "o", PhysicalPos(0, 0, 80, 80, 0)),
             ("a1h8", "c", "a1h8"),
             ("color", "n", 0),
             ("colorinterior", "n", -1),
@@ -340,7 +340,7 @@ class Marco(Bloque):
 
 
 class Circle(Bloque):
-    physical_pos: Physicalphysical_pos
+    physical_pos: PhysicalPos
     a1h8: str
     color: int
     colorinterior: int
@@ -354,7 +354,7 @@ class Circle(Bloque):
 
     def __init__(self, dic=None):
         li_vars = [
-            ("physical_pos", "o", Physicalphysical_pos(0, 0, 80, 80, 0)),
+            ("physical_pos", "o", PhysicalPos(0, 0, 80, 80, 0)),
             ("a1h8", "c", "a1h8"),
             ("color", "n", 0),
             ("colorinterior", "n", -1),
@@ -370,7 +370,7 @@ class Circle(Bloque):
 
 
 class SVG(Bloque):
-    physical_pos: Physicalphysical_pos
+    physical_pos: PhysicalPos
     fa1h8: str
     xml: str
     opacity: int
@@ -381,7 +381,7 @@ class SVG(Bloque):
     def __init__(self, dic=None):
         # orden por debajo de las piezas
         li_vars = [
-            ("physical_pos", "o", Physicalphysical_pos(0, 0, 80, 80, 0, 9)),
+            ("physical_pos", "o", PhysicalPos(0, 0, 80, 80, 0, 9)),
             ("fa1h8", "c", "0.0,0.0,0.0,0.0"),
             # se indica en unidades de ancho de square, podra tener valores negativos para que se pueda mover
             # fuera de main_window
@@ -395,7 +395,7 @@ class SVG(Bloque):
 
 
 class Marker(Bloque):
-    physical_pos: Physicalphysical_pos
+    physical_pos: PhysicalPos
     fa1h8: str
     xml: str
     opacity: int
@@ -407,7 +407,7 @@ class Marker(Bloque):
     def __init__(self, dic=None):
         # orden por debajo de las piezas
         li_vars = [
-            ("physical_pos", "o", Physicalphysical_pos(0, 0, 80, 80, 0, 9)),
+            ("physical_pos", "o", PhysicalPos(0, 0, 80, 80, 0, 9)),
             ("fa1h8", "c", "0.0,0.0,0.0,0.0"),
             # se indica en unidades de ancho de square, podra tener valores negativos
             # para que se pueda mover fuera de main_window

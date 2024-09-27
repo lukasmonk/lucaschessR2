@@ -1,6 +1,8 @@
 import random
 import time
 
+from PySide2.QtCore import Qt
+
 from Code import Manager
 from Code.Base import Game, Move
 from Code.Base.Constantes import (BOOK_BEST_MOVE,
@@ -577,7 +579,7 @@ class ManagerOpeningEngines(Manager.Manager):
         return False
 
     def reiniciar(self):
-        self.procesador.stop_engines()
+        self.procesador.close_engines()
         self.main_window.activaInformacionPGN(False)
         self.reinicio(self.dbop)
 
@@ -593,3 +595,9 @@ class ManagerOpeningEngines(Manager.Manager):
         li_options.append(TB_CONFIG)
         li_options.append(TB_UTILITIES)
         self.set_toolbar(li_options)
+
+    def control_teclado(self, nkey, modifiers):
+        if nkey in (Qt.Key_Plus, Qt.Key_PageDown):
+            if self.main_window.is_enabled_option_toolbar(TB_NEXT):
+                self.run_action(TB_NEXT)
+

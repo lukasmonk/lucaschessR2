@@ -19,7 +19,8 @@ from Code.QT import QTUtil
 
 
 def read_params():
-    dic = {"SECONDS": 2.0, "START": True, "PGN": True, "BEEP": False, "SECONDS_BEFORE": 0.0, "REPLAY_CONTINUOUS": False}
+    dic = {"SECONDS": 2.0, "START": True, "PGN": True, "BEEP": False, "CUSTOM_SOUNDS": False, "SECONDS_BEFORE": 0.0,
+           "REPLAY_CONTINUOUS": False}
     dic.update(Code.configuration.read_variables("PARAMPELICULA"))
     return dic
 
@@ -45,6 +46,9 @@ def param_replay(configuration, parent, with_previous_next) -> bool:
     form.checkbox(_("Beep after each move"), dic_var.get("BEEP", False))
     form.separador()
 
+    form.checkbox(_("Custom sounds"), dic_var.get("CUSTOM_SOUNDS", False))
+    form.separador()
+
     form.float(_("Seconds before first move"), dic_var.get("SECONDS_BEFORE", 0.0))
     form.separador()
 
@@ -57,14 +61,15 @@ def param_replay(configuration, parent, with_previous_next) -> bool:
     if resultado:
         accion, li_resp = resultado
 
-        seconds, if_start, if_pgn, if_beep, seconds_before = li_resp[:5]
+        seconds, if_start, if_pgn, if_beep, if_custom_sounds, seconds_before = li_resp[:6]
         dic_var["SECONDS"] = seconds
         dic_var["SECONDS_BEFORE"] = seconds_before
         dic_var["START"] = if_start
         dic_var["PGN"] = if_pgn
         dic_var["BEEP"] = if_beep
+        dic_var["CUSTOM_SOUNDS"] = if_custom_sounds
         if with_previous_next:
-            dic_var["REPLAY_CONTINUOUS"] = li_resp[5]
+            dic_var["REPLAY_CONTINUOUS"] = li_resp[6]
         nom_var = "PARAMPELICULA"
         configuration.write_variables(nom_var, dic_var)
         return True
@@ -84,6 +89,7 @@ class Replay:
         self.seconds_before = dic_var["SECONDS_BEFORE"]
         self.if_start = dic_var["START"]
         self.if_beep = dic_var["BEEP"]
+        self.if_custom_sounds = dic_var["CUSTOM_SOUNDS"]
         self.rapidez = 1.0
         self.next_game = next_game
 
@@ -181,6 +187,7 @@ class Replay:
         if self.starts_with_black:
             num += 1
         row = int(num / 2)
+        self.main_window.end_think_analysis_bar()
         self.main_window.pgnColocate(row, move.position_before.is_white)
         self.main_window.base.pgn_refresh()
 
@@ -211,18 +218,23 @@ class Replay:
                 cpu.cambiaPieza(movim[1], movim[2], siExclusiva=True)
 
         cpu.runLineal()
-        if self.if_beep:
+        wait_seconds = 0.0
+        if self.if_custom_sounds:
+            wait_seconds = Code.runSound.play_list_seconds(move.sounds_list())
+        if wait_seconds == 0.0 and self.if_beep:
             Code.runSound.playBeep()
+
         self.manager.put_arrow_sc(move.from_sq, move.to_sq)
 
         self.board.set_position(move.position)
 
+        if wait_seconds:
+            self.sleep_refresh(wait_seconds / 1000 + 0.2)
         self.manager.put_view()
 
     def show_pause(self, si_pausa, si_continue):
         self.main_window.show_option_toolbar(TB_PAUSE_REPLAY, si_pausa)
         self.main_window.show_option_toolbar(TB_CONTINUE_REPLAY, si_continue)
-        # self.main_window.show_option_toolbar(TB_SETTINGS, not si_pausa)
 
     def process_toolbar(self, key):
         if key == TB_END_REPLAY:
@@ -249,6 +261,7 @@ class Replay:
                 self.if_start = dic_var["START"]
                 self.with_pgn = dic_var["PGN"]
                 self.if_beep = dic_var["BEEP"]
+                self.if_custom_sounds = dic_var["CUSTOM_SOUNDS"]
                 self.seconds_before = dic_var["SECONDS_BEFORE"]
 
     def terminar(self):

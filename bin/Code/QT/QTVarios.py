@@ -457,29 +457,21 @@ class ListaPiezas(QtWidgets.QWidget):
         QtWidgets.QWidget.__init__(self)
 
         self.owner = owner
-        # self.board = board = owner.board
 
         if tam is None:
             tam = board.anchoPieza
 
-        liLB = []
+        li_lb = []
         for row, valor in enumerate(lista.split(";")):
             for column, pieza in enumerate(valor.split(",")):
                 lb = LBPieza(self, pieza, board, tam)
-                liLB.append((lb, row, column))
+                li_lb.append((lb, row, column))
 
         layout = Colocacion.G()
-        for lb, row, column in liLB:
+        for lb, row, column in li_lb:
             layout.control(lb, row, column)
         if margen is not None:
             layout.margen(margen)
-
-            # l1 = Colocacion.H().otro(layout).relleno()
-            # if margen:
-            # l1.margen(margen)
-            # l2 = Colocacion.V().otro(l1)
-            # if margen:
-            # l2.margen(margen)
 
         self.setLayout(layout)
 

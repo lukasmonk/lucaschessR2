@@ -115,7 +115,7 @@ class SelectEngines:
             cm.elo = elo
             cm.type = ENG_IRINA
             cm.set_uci_option("Personality", name)
-            cm.change_uci_default("Personality", name)
+            cm.change_uci_default("Personality", name )
             ownbook = "true" if name in ("Rat", "Snake", "Knight", "Steven") else "false"
             cm.set_uci_option("OwnBook", ownbook)
             cm.change_uci_default("OwnBook", ownbook)
@@ -165,6 +165,7 @@ class SelectEngines:
         return li
 
     def menu(self, parent):
+        self.redo_external_engines()
         menu = QTVarios.LCMenu(parent)
 
         dnames = get_dict_type_names()
@@ -198,6 +199,8 @@ class SelectEngines:
         submenu = menu.submenu(dnames[ENG_EXTERNAL], self.dicIconos[ENG_EXTERNAL])
         for cm in self.liMotoresExternos:
             texto = cm.key
+            if cm.elo:
+                texto = f"{texto} ({cm.elo})"
             icono = rp.otro()
             submenu.opcion(cm, texto, icono)
 

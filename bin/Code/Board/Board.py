@@ -92,7 +92,7 @@ class Board(QtWidgets.QGraphicsView):
 
         self.siF11 = False
 
-        self._dispatchSize = None  # configuration en vivo, dirige a la rutina de la main_window afectada
+        self._dispatch_size = None  # configuration en vivo, dirige a la rutina de la main_window afectada
 
         self.pendingRelease = None
 
@@ -347,8 +347,8 @@ class Board(QtWidgets.QGraphicsView):
         self.set_width()
         if not is_white_bottom:
             self.intentaRotarBoard(None)
-        if self._dispatchSize:
-            self._dispatchSize()
+        if self._dispatch_size:
+            self._dispatch_size()
 
     def is_maximized(self):
         return self.config_board.width_piece() == 1000
@@ -1826,10 +1826,10 @@ class Board(QtWidgets.QGraphicsView):
     def set_side_indicator(self, is_white):
         bd = self.side_indicator_sc.bloqueDatos
         if is_white:
-            bd.colorRelleno = self.colorBlancas
+            bd.colorRelleno = self.config_board.sideindicator_white()
             siAbajo = self.is_white_bottom
         else:
-            bd.colorRelleno = self.colorNegras
+            bd.colorRelleno = self.config_board.sideindicator_black()
             siAbajo = not self.is_white_bottom
         bd.physical_pos.y = bd.sur if siAbajo else bd.norte
         self.side_indicator_sc.mostrar()
@@ -2223,7 +2223,7 @@ class Board(QtWidgets.QGraphicsView):
             # self.put_arrow_sc( self.ultMovFlecha[0], self.ultMovFlecha[1])
             self.resetFlechaSC()
         bd = self.side_indicator_sc.bloqueDatos
-        self.set_side_indicator(bd.colorRelleno == self.colorBlancas)
+        self.set_side_indicator(bd.colorRelleno == self.config_board.sideindicator_white())
         for k, uno in self.dicMovibles.items():
             uno.physical_pos2xy()
         for arrow in self.liFlechas:
@@ -2305,11 +2305,11 @@ class Board(QtWidgets.QGraphicsView):
         self.dicMovibles = collections.OrderedDict()
         self.lastFenM2 = None
 
-    def bloqueaRotacion(self, siBloquea):  # se usa en la presentacion para que no rote
-        self.siPosibleRotarBoard = not siBloquea
+    def bloqueaRotacion(self, si_bloquea):  # se usa en la presentacion para que no rote
+        self.siPosibleRotarBoard = not si_bloquea
 
-    def dispatchSize(self, rutinaControl):
-        self._dispatchSize = rutinaControl
+    def set_dispatch_size(self, rutina_control):
+        self._dispatch_size = rutina_control
 
     # def boundingRect(self):
     #     return QtCore.QRect(0, 0, self.ancho, self.ancho)
@@ -2342,7 +2342,7 @@ class Board(QtWidgets.QGraphicsView):
             lineas.append(uno)
 
         bd = self.side_indicator_sc.bloqueDatos
-        is_white = bd.colorRelleno == self.colorBlancas
+        is_white = bd.colorRelleno == self.config_board.sideindicator_white()
 
         resto = "w" if is_white else "b"
         resto += " KQkq - 0 1"
@@ -2372,7 +2372,7 @@ class Board(QtWidgets.QGraphicsView):
 
             bd = self.side_indicator_sc.bloqueDatos
             bd.physical_pos.y = bd.sur if si_indicador_abajo else bd.norte
-            bd.colorRelleno = self.colorBlancas if is_white else self.colorNegras
+            bd.colorRelleno = self.config_board.sideindicator_white() if is_white else self.config_board.sideindicator_black()
             self.side_indicator_sc.mostrar()
 
         if otro_board.flechaSC and otro_board.flechaSC.isVisible():
@@ -2525,7 +2525,7 @@ class WTamBoard(QtWidgets.QDialog):
         self.setWindowIcon(Iconos.ResizeBoard())
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Dialog | QtCore.Qt.WindowTitleHint)
 
-        self._dispatchSize = board._dispatchSize
+        self._dispatch_size = board._dispatch_size
         self.board = board
         self.config_board = board.config_board
 
@@ -2590,8 +2590,8 @@ class WTamBoard(QtWidgets.QDialog):
 
     def dispatch(self):
         t = self.board
-        if t._dispatchSize:
-            t._dispatchSize()
+        if t._dispatch_size:
+            t._dispatch_size()
         self.siCambio = True
 
     def changed_width_cb(self):

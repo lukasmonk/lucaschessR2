@@ -112,7 +112,7 @@ class WEndingsGTB(LCDialog.LCDialog):
         self.board.crea()
         self.board.set_side_bottom(True)
         self.board.set_dispatcher(self.player_has_moved)
-        self.board.dispatchSize(self.board_resized)
+        self.board.set_dispatch_size(self.board_resized)
 
         self.pzs = self.board.piezas
         self.playing = False
@@ -401,7 +401,7 @@ class WEndingsGTB(LCDialog.LCDialog):
         self.save_video()
         self.db.close()
         self.t4.close()
-        self.procesador.stop_engines()
+        self.procesador.close_engines()
         self.deactivate_eboard(500)
         self.accept()
 

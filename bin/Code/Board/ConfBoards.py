@@ -49,6 +49,9 @@ class ConfigTabTema(JS):
         self.x_png64Thumb = ""
         self.x_extendedColor = False
         self.x_transSideIndicator = 0
+        self.x_sideindicator_white = 0
+        self.x_sideindicator_black = 0
+        self.x_sideindicator_default = True
 
     def flechaDefecto(self):
         bf = BoardTypes.Flecha()
@@ -284,19 +287,38 @@ class ConfigBoard(JS):
         ct.lee(self.graba())
         return ct
 
-    def colorBlancas(self, nColor=None):
-        if nColor is not None:
-            self.o_tema.x_colorBlancas = nColor
+    def colorBlancas(self, ncolor=None):
+        if ncolor is not None:
+            self.o_tema.x_colorBlancas = ncolor
         return self.confPadre().colorBlancas() if self.o_tema.x_siTemaDefecto else self.o_tema.x_colorBlancas
 
-    def colorNegras(self, nColor=None):
-        if nColor is not None:
-            self.o_tema.x_colorNegras = nColor
+    def colorNegras(self, ncolor=None):
+        if ncolor is not None:
+            self.o_tema.x_colorNegras = ncolor
         return self.confPadre().colorNegras() if self.o_tema.x_siTemaDefecto else self.o_tema.x_colorNegras
 
-    def colorFondo(self, nColor=None):
-        if nColor is not None:
-            self.o_tema.x_colorFondo = nColor
+    def sideindicator_white(self, ncolor=None):
+        if ncolor is not None:
+            self.o_tema.x_sideindicator_white = ncolor
+        if self.o_tema.x_siTemaDefecto:
+            return self.confPadre().sideindicator_white()
+        return self.colorBlancas() if self.o_tema.x_sideindicator_default else self.o_tema.x_sideindicator_white
+
+    def sideindicator_black(self, ncolor=None):
+        if ncolor is not None:
+            self.o_tema.x_sideindicator_black = ncolor
+        if self.o_tema.x_siTemaDefecto:
+            return self.confPadre().sideindicator_black()
+        return self.colorNegras() if self.o_tema.x_sideindicator_default else self.o_tema.x_sideindicator_black
+
+    def sideindicators_default(self, ok=None):
+        if ok is not None:
+            self.o_tema.x_sideindicator_default = ok
+        return self.o_tema.x_sideindicator_default
+
+    def colorFondo(self, ncolor=None):
+        if ncolor is not None:
+            self.o_tema.x_colorFondo = ncolor
         return self.confPadre().colorFondo() if self.o_tema.x_siTemaDefecto else self.o_tema.x_colorFondo
 
     def transBlancas(self, nTrans=None):
@@ -346,19 +368,19 @@ class ConfigBoard(JS):
             self.o_tema.x_extendedColor = ext
         return self.confPadre().extended_color() if self.o_tema.x_siTemaDefecto else self.o_tema.x_extendedColor
 
-    def colorExterior(self, nColor=None):
-        if nColor is not None:
-            self.o_tema.x_colorExterior = nColor
+    def colorExterior(self, ncolor=None):
+        if ncolor is not None:
+            self.o_tema.x_colorExterior = ncolor
         return self.confPadre().colorExterior() if self.o_tema.x_siTemaDefecto else self.o_tema.x_colorExterior
 
-    def colorTexto(self, nColor=None):
-        if nColor is not None:
-            self.o_tema.x_colorTexto = nColor
+    def colorTexto(self, ncolor=None):
+        if ncolor is not None:
+            self.o_tema.x_colorTexto = ncolor
         return self.confPadre().colorTexto() if self.o_tema.x_siTemaDefecto else self.o_tema.x_colorTexto
 
-    def colorFrontera(self, nColor=None):
-        if nColor is not None:
-            self.o_tema.x_colorFrontera = nColor
+    def colorFrontera(self, ncolor=None):
+        if ncolor is not None:
+            self.o_tema.x_colorFrontera = ncolor
         return self.confPadre().colorFrontera() if self.o_tema.x_siTemaDefecto else self.o_tema.x_colorFrontera
 
     def fTransicion(self, valor=None):

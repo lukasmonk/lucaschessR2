@@ -49,7 +49,7 @@ class WInfomove(QtWidgets.QWidget):
 
         config_board = configuration.config_board("INFOMOVE", 32)
         self.board = BoardKey(self, config_board)
-        self.board.dispatchSize(self.cambiado_board)
+        self.board.set_dispatch_size(self.cambiado_board)
         self.board.crea()
         self.board.set_side_bottom(True)
         self.board.disable_hard_focus()  # Para que los movimientos con el teclado from_sq grid wgames no cambien el foco

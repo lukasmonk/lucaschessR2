@@ -26,11 +26,12 @@ from Code.Endings import LibChess
 from Code.QT import QTUtil
 from Code.QT import QTUtil2
 from Code.Routes import Routes
+from Code.Translations import TrListas
 
 
 class GR_Engine:
     def __init__(self, procesador, nlevel):
-        self._label = "%s - %s %d" % (_("Engine"), _("Level"), nlevel)
+        self._label = "%s - %s" % (_("Engine"), TrListas.level(nlevel))
         self.configuration = procesador.configuration
         self.level = nlevel
         if nlevel == 0:
@@ -141,6 +142,8 @@ class ManagerRoutes(Manager.Manager):
 
 
 class ManagerRoutesPlay(ManagerRoutes):
+    engine = None
+
     def start(self, route):
         ManagerRoutes.start(self, route)
 
@@ -154,7 +157,8 @@ class ManagerRoutesPlay(ManagerRoutes):
         self.book = Books.Book("P", Code.tbookI, Code.tbookI, True)
         self.book.polyglot()
 
-        self.engine = GR_Engine(self.procesador, line.engine)
+        if self.engine is None:
+            self.engine = GR_Engine(self.procesador, line.engine)
         self.must_win = route.must_win()
         self.is_rival_thinking = False
 

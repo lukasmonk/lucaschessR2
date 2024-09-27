@@ -70,7 +70,7 @@ def options(parent, configuration):
     form.add_tab(_("Sounds"))
 
     # Boards #########################################################################################################
-    form.separador()
+    # form.separador()
     form.checkbox(_("Visual effects"), configuration.x_show_effects)
 
     drap = {1: 100, 2: 125, 3: 150, 4: 175, 5: 200, 6: 225, 7: 250, 8: 275, 9: 300}
@@ -97,7 +97,7 @@ def options(parent, configuration):
     li_wheel = [(_("Forward"), GO_FORWARD), (_("Backward"), GO_BACK)]
     form.combobox(_("Scroll direction with the mouse wheel"), li_wheel, configuration.x_wheel_board)
     form.checkbox(_("Always promote to queen\nALT key allows to change"), configuration.x_autopromotion_q)
-    form.slider(_("Margin of pieces in square") + ':<br><small>%s 7</small>' % _("By default"), 0, 20,
+    form.slider(_("Margin of pieces in square") + ':<br><small>%s 10</small>' % _("By default"), 0, 20,
                 Code.configuration.x_margin_pieces, siporc=False)
     form.separador()
 
@@ -134,13 +134,13 @@ def options(parent, configuration):
 
     li_gr = [(_("Show nothing"), None), (_("Show icon"), True), (_("Show graphics"), False)]
     form.combobox(_("When position has graphic information"), li_gr, configuration.x_director_icon)
-    form.separador()
+    # form.separador()
     form.checkbox(_("Live graphics with the right mouse button"), configuration.x_direct_graphics)
 
     form.add_tab(_("Boards"))
 
     # Aspect 1/2 #######################################################################################################
-    form.separador()
+    # form.separador()
     form.checkbox(_("By default"), False)
     form.separador()
     form.apart(_("General"))
@@ -171,7 +171,7 @@ def options(parent, configuration):
     form.add_tab("%s 1" % _("Appearance"))
 
     # Aspect 2/2 #######################################################################################################
-    form.separador()
+    # form.separador()
     form.checkbox(_("By default"), False)
     form.separador()
     form.apart(_("PGN table"))

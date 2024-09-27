@@ -126,8 +126,8 @@ class WPlayer(QtWidgets.QWidget):
         o_columns.nueva("pdrawwin", "%% %s" % _("W+D"), ancho, align_right=True)
         o_columns.nueva("pdrawlost", "%% %s" % _("L+D"), ancho, align_right=True)
 
-        self.gridOpeningWhite = Grid.Grid(self, o_columns, siSelecFilas=True)
-        self.gridOpeningBlack = Grid.Grid(self, o_columns, siSelecFilas=True)
+        self.gridOpeningWhite = Grid.Grid(self, o_columns, siSelecFilas=True, xid="OpeningWhite")
+        self.gridOpeningBlack = Grid.Grid(self, o_columns, siSelecFilas=True, xid="OpeningBlack")
 
         # GridWhite/GridBlack
         o_columns = Columnas.ListaColumnas()
@@ -158,9 +158,9 @@ class WPlayer(QtWidgets.QWidget):
                 edicion=Delegados.EtiquetaPOS(with_figurines, siLineas=False),
             )
 
-        self.gridMovesWhite = Grid.Grid(self, o_columns, siSelecFilas=True)
+        self.gridMovesWhite = Grid.Grid(self, o_columns, siSelecFilas=True, xid="MovesWhite")
         self.gridMovesWhite.font_type(puntos=self.configuration.x_pgn_fontpoints)
-        self.gridMovesBlack = Grid.Grid(self, o_columns, siSelecFilas=True)
+        self.gridMovesBlack = Grid.Grid(self, o_columns, siSelecFilas=True, xid="MovesBlack")
         self.gridMovesBlack.font_type(puntos=self.configuration.x_pgn_fontpoints)
 
         wWhite = QtWidgets.QWidget(self)

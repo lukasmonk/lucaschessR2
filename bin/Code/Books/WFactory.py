@@ -30,8 +30,8 @@ class WFactoryPolyglots(LCDialog.LCDialog):
         )
 
         o_columnas = Columnas.ListaColumnas()
-        o_columnas.nueva("NAME", _("Name"), 240)
-        o_columnas.nueva("MTIME", _("Last modification"), 100, align_center=True)
+        o_columnas.nueva("NAME", _("Name"), 200)
+        o_columnas.nueva("MTIME", _("Last modification"), 160, align_center=True)
         o_columnas.nueva("SIZE", _("Moves"), 100, align_right=True)
         self.glista = Grid.Grid(self, o_columnas, siSelecFilas=True, siSeleccionMultiple=True)
 
@@ -57,7 +57,7 @@ class WFactoryPolyglots(LCDialog.LCDialog):
         self.setLayout(ly)
 
         self.register_grid(self.glista)
-        self.restore_video(anchoDefecto=self.glista.anchoColumnas() + 20)
+        self.restore_video(anchoDefecto=self.glista.anchoColumnas() + 20, altoDefecto=324)
 
         self.glista.gotop()
 

@@ -434,7 +434,7 @@ class Grid(QtWidgets.QTableView):
         """
         if self.is_editable:
             QtWidgets.QTableView.mouseDoubleClickEvent(self, event)
-        if hasattr(self.w_parent, "grid_doble_click") and event.button() == 1:
+        if hasattr(self.w_parent, "grid_doble_click") and event.button() == QtCore.Qt.LeftButton:
             fil, column = self.current_position()
             self.w_parent.grid_doble_click(self, fil, column)
 
@@ -506,16 +506,16 @@ class Grid(QtWidgets.QTableView):
 
         @param dic: diccionario de video donde se guarda la configuration de las columnas
         """
-        liClaves = []
+        li_claves = []
         for n, column in enumerate(self.oColumnasR.li_columns):
             column.ancho = self.columnWidth(n)
-            column.position = self.columnViewportPosition(n)
+            column.position = n #self.columnViewportPosition(n)
             column.guardarConf(dic, self)
-            liClaves.append(column.key)
+            li_claves.append(column.key)
 
         # Las que no se muestran
         for column in self.o_columns.li_columns:
-            if not (column.key in liClaves):
+            if not (column.key in li_claves):
                 column.guardarConf(dic, self)
 
     def restore_video(self, dic):
@@ -528,7 +528,7 @@ class Grid(QtWidgets.QTableView):
     def columnas(self):
         for n, column in enumerate(self.oColumnasR.li_columns):
             column.ancho = self.columnWidth(n)
-            column.position = self.columnViewportPosition(n)
+            column.position = n #self.columnViewportPosition(n)
         if self.siCabeceraMovible:
             self.o_columns.li_columns.sort(key=lambda xcol: xcol.position)
         return self.o_columns

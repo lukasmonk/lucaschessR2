@@ -1,10 +1,11 @@
 import os
+
 from PySide2 import QtWidgets, QtCore, QtGui
 
 import Code
-from Code.Base.Constantes import WHITE, BLACK
-from Code.Base import Move, Game
 from Code import Util
+from Code.Base import Move, Game
+from Code.Base.Constantes import WHITE, BLACK
 from Code.Openings import OpeningLines
 from Code.QT import Colocacion
 from Code.QT import Controles
@@ -13,7 +14,6 @@ from Code.QT import Iconos
 from Code.QT import QTUtil
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
-from Code.QT import FormLayout
 
 
 class LabelTreeDelegate(QtWidgets.QStyledItemDelegate):
@@ -59,7 +59,7 @@ class LabelTreeDelegate(QtWidgets.QStyledItemDelegate):
         pen.setWidth(1)
         painter.setPen(pen)
         ny = y + rect.height() - 2
-        painter.drawLine(x, ny, rect.width()+x, ny)
+        painter.drawLine(x, ny, rect.width() + x, ny)
         painter.restore()
 
         if option.state & QtWidgets.QStyle.State_Selected:
@@ -119,7 +119,7 @@ class LabelTreeDelegate(QtWidgets.QStyledItemDelegate):
             painter.restore()
             x += wpz + salto_fin_pz
 
-        x = rect.x() + Code.configuration.x_pgn_fontpoints*7
+        x = rect.x() + Code.configuration.x_pgn_fontpoints * 7
         if resto:
             document_resto = QtGui.QTextDocument()
             document_resto.setDefaultFont(self.font)
@@ -197,7 +197,7 @@ class TabTree(QtWidgets.QWidget):
                 if c == " ":
                     white = not white
                 else:
-                    if c.isupper():
+                    if c.isupper() and c != "O":
                         c = d[c if white else c.lower()]
                 lc.append(c)
             pgn = "".join(lc)
@@ -345,7 +345,6 @@ class TabTree(QtWidgets.QWidget):
             data = self.dicItems[str(quien)] if quien else self.tree_data
             work(data)
 
-
     def goto_next(self, item: QtWidgets.QTreeWidgetItem, side):
         def work(xdata: OpeningLines.ItemTree):
             if xdata.side_resp == side:
@@ -387,19 +386,12 @@ class TabTree(QtWidgets.QWidget):
         a1h8 = " ".join(lipv)
         pgn = data_item.game_translated()
 
-        form = FormLayout.FormLayout(self, _("File"), Iconos.File(), anchoMinimo=300)
-        form.separador()
-        form.edit(_("Name"), pgn)
-        form.separador()
-        resp = form.run()
-        if resp is None:
+        name = QTUtil2.read_simple(self, _("Create a new opening line from this branch"), _("Name"), value=pgn,
+                                   width=480, in_cursor=True)
+        if not name:
             return
 
-        accion, li_resp = resp
-        filename = li_resp[0].strip()
-        if not filename:
-            return
-        filename = Util.valid_filename(filename)
+        filename = Util.valid_filename(name)
         if filename.endswith(".opk"):
             filename = filename[:-4]
         list_openings = OpeningLines.ListaOpenings()
@@ -413,8 +405,8 @@ class TabTree(QtWidgets.QWidget):
             game = Game.pv_game(None, a1h8)
             dbop_new.import_other(dbop_current.path_file, game)
             dbop_new.close()
-            list_openings.new(filename + ".opk", a1h8, filename, lines=len(dbop_new))
-        QTUtil2.message_bold(self, _("Created") + ": " + filename)
+            list_openings.new(filename + ".opk", a1h8, name, lines=len(dbop_new))
+        QTUtil2.message_bold(self, _("Created") + ": " + name)
 
     def remove_branch(self, item: QtWidgets.QTreeWidgetItem):
         data_item = self.dicItems[str(item)]

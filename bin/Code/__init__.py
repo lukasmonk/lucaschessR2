@@ -99,7 +99,7 @@ def relative_root(path):
 
 
 BASE_VERSION = "B"  # Para el control de updates que necesitan reinstalar entero
-VERSION = "R 2.15c"
+VERSION = "R 2.16"
 DEBUG = False
 DEBUG_ENGINES = False
 
@@ -118,22 +118,22 @@ if DEBUG:
                 sys.stdout.write(" ")
 
 
-    def prn(*x):
+    def prln(*x):
         pr(*x)
-        sys.stdout.write("\n")
+        pr("\n")
         return True
 
 
-    def prns(*x):
-        prn("-" * 80)
-        pr(*x)
-        sys.stdout.write("\n")
+    def prlns(*x):
+        prln("-" * 80)
+        prln(*x)
         stack()
-        prn("-" * 80)
+        prln("-" * 80)
         return True
 
 
     def stack(si_previo=False):
+
         if si_previo:
             pr("-" * 80 + "\n")
             pr(traceback.format_stack())
@@ -155,26 +155,28 @@ if DEBUG:
 
     tdbg = [time.time(), 0]
     if DEBUG_ENGINES:
-        prn("", "Modo debug engine")
+        prln("", "Modo debug engine")
 
 
     def ini_timer(txt=None):
         tdbg[1] = time.time()
         if txt:
-            prn(txt)
+            prln(txt)
 
 
     def end_timer(txt=None):
         t = time.time() - tdbg[1]
         c = txt + " " if txt else ""
         c += "%0.03f" % t
-        prn(c)
+        prln(c)
 
 
     import builtins
 
     builtins.__dict__["stack"] = stack
-    builtins.__dict__["prns"] = prns
+    builtins.__dict__["pr"] = pr
+    builtins.__dict__["prln"] = prln
+    builtins.__dict__["prlns"] = prlns
     builtins.__dict__["ini_timer"] = ini_timer
     builtins.__dict__["end_timer"] = end_timer
-    prn("Modo debug PYLCR2")
+    prln("Modo debug PYLCR2")

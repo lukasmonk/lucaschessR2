@@ -1,6 +1,10 @@
 import Code
 
 
+def level(num):
+    return _("Level %1").replace("%1", str(num))
+
+
 def categoria(key):
     return {
         "FUTUROPRINCIPIANTE": _("Future beginner"),
@@ -161,7 +165,7 @@ def dic_training():
         d["Mate in %d" % n] = _X(_("Mate in %1"), str(n))
 
     for n in range(1, 10):
-        d["Level %d" % n] = _X(_("Level %1"), str(n))
+        d["Level %d" % n] = level(n)
     return d
 
 

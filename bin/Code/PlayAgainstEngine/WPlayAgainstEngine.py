@@ -282,8 +282,9 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
             self, 6, -999, 999, max_width=50 * factor_big_fonts, etiqueta=_("Seconds added per move"), fuente=font
         )
         self.edMinExtra, self.lbMinExtra = QTUtil2.spinbox_lb(
-            self, 0, -999, 999, max_width=50 * factor_big_fonts, etiqueta=_("Extra minutes for the player"), fuente=font
+            self, 0, 0, 10000, max_width=50 * factor_big_fonts, etiqueta=_("Extra minutes for the player"), fuente=font
         )
+        self.chb_disable_usertime = Controles.CHB(self, _("Disable user time control"), False).set_font(font)
         self.edZeitnot, self.lbZeitnot = QTUtil2.spinbox_lb(
             self, 0, -999, 999, max_width=50 * factor_big_fonts,
             etiqueta=_("Zeitnot: alarm sounds when remaining seconds"), fuente=font
@@ -292,7 +293,8 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         ly_h.control(self.lb_minutos).control(self.ed_minutos).espacio(30)
         ly_h.control(self.lb_segundos).control(self.ed_segundos).relleno()
         ly_h2 = Colocacion.H()
-        ly_h2.control(self.lbMinExtra).control(self.edMinExtra).relleno()
+        ly_h2.control(self.lbMinExtra).control(self.edMinExtra).espacio(30)
+        ly_h2.control(self.chb_disable_usertime).relleno()
         ly_h3 = Colocacion.H()
         ly_h3.control(self.lbZeitnot).control(self.edZeitnot).relleno()
         ly = Colocacion.V().otro(ly_h).otro(ly_h2).otro(ly_h3)
@@ -442,6 +444,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("OPTION", _("UCI option"), 240, align_center=True)
         o_columns.nueva("VALUE", _("Value"), 200, align_center=True, edicion=Delegados.MultiEditor(self))
+        o_columns.nueva("DEFAULT", _("By default"), 200, align_center=True)
         self.grid_uci = Grid.Grid(self, o_columns, is_editable=True)
         self.grid_uci.setFixedHeight(320)
         self.grid_uci.set_font(font)
@@ -461,7 +464,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
 
         nueva_tab(ly_g, _("Advanced"))
 
-        layout = Colocacion.V().control(tb).control(tab).relleno().margen(3)
+        layout = Colocacion.V().control(tb).control(tab).margen(3)
 
         self.setLayout(layout)
 
@@ -478,7 +481,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
 
         self.ajustesCambiado()
 
-        self.restore_video()
+        self.restore_video(anchoDefecto=710)
 
     def gb_tutor_pressed(self):
         if self.gb_tutor.isChecked():
@@ -499,16 +502,24 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
 
     def grid_dato(self, grid, row, o_column):
         col = o_column.key
-        name = self.rival.li_uci_options_editable()[row].name
+        op = self.rival.li_uci_options_editable()[row]
         if col == "OPTION":
-            return name
-
+            if op.minimo != op.maximo:
+                if op.minimo < 0:
+                    return op.name + " (%d - %+d)" % (op.minimo, op.maximo)
+                else:
+                    return op.name + " (%d - %d)" % (op.minimo, op.maximo)
+            else:
+                return op.name
         else:
-            valor = self.rival.li_uci_options_editable()[row].valor
-            for xnombre, xvalor in self.rival.liUCI:
-                if xnombre == name:
-                    valor = xvalor
-                    break
+            if col == "DEFAULT":
+                valor = op.default
+            else:
+                valor = op.valor
+                for xnombre, xvalor in self.rival.liUCI:
+                    if xnombre == op.name:
+                        valor = xvalor
+                        break
             tv = type(valor)
             if tv == bool:
                 valor = str(valor).lower()
@@ -559,10 +570,21 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         return None
 
     def set_uci_default(self):
-        for opcion in self.rival.li_uci_options_editable():
-            if opcion.valor != opcion.default:
-                self.rival.set_uci_option(opcion.name, opcion.default)
-        self.grid_uci.refresh()
+        if QTUtil2.pregunta(self, _("Are you sure you want to set the default configuration?")):
+            for opcion in self.rival.li_uci_options_editable():
+                if opcion.valor != opcion.default:
+                    self.rival.set_uci_option(opcion.name, opcion.default)
+            self.grid_uci.refresh()
+
+    def grid_bold(self, grid, row, o_column):
+        op = self.rival.li_uci_options_editable()[row]
+        name = op.name
+        valor = op.valor
+        for xnombre, xvalor in self.rival.liUCI:
+            if xnombre == name:
+                valor = xvalor
+                break
+        return str(op.default).strip().lower() != str(valor).strip().lower()
 
     def me_set_value(self, editor, valor):
         if self.me_control == "ed":
@@ -644,6 +666,8 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
 
         if self.rival.is_external:
             name = self.rival.key
+            if self.rival.elo:
+                name = f"{name} ({self.rival.elo})"
         elif self.rival.type == ENG_MICPER:
             name = Util.primera_mayuscula(
                 self.rival.alias + " (%d, %s)" % (self.rival.elo, self.rival.id_info.replace("\n", "-"))
@@ -687,11 +711,6 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
                 self.ed_rdepth.ponInt(self.rival.max_depth)
                 self.ed_rtime.ponFloat(self.rival.max_time)
 
-        emulate_movetime = self.rival.emulate_movetime
-        self.ed_rtime.setVisible(not emulate_movetime)
-        self.lb_rtime.setVisible(not emulate_movetime)
-        self.bt_cancel_rtime.setVisible(not emulate_movetime)
-
         hide_nodes = not self.rival.is_nodes_compatible()
         self.ed_nodes.setVisible(not hide_nodes)
         self.bt_cancel_nodes.setVisible(not hide_nodes)
@@ -709,6 +728,12 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         self.tab_advanced_active = False
 
         time_depth(not is_maia)
+
+        # emulate_movetime = self.rival.emulate_movetime
+        # self.ed_rtime.setVisible(not emulate_movetime)
+        # self.lb_rtime.setVisible(not emulate_movetime)
+        # self.bt_cancel_rtime.setVisible(not emulate_movetime)
+
 
         self.test_unlimited()
 
@@ -1036,6 +1061,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
             dic["MINUTES"] = self.ed_minutos.textoFloat()
             dic["SECONDS"] = self.ed_segundos.value()
             dic["MINEXTRA"] = self.edMinExtra.value()
+            dic["DISABLEUSERTIME"] = self.chb_disable_usertime.valor()
             dic["ZEITNOT"] = self.edZeitnot.value()
 
         # Mov. iniciales
@@ -1113,6 +1139,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
             self.ed_minutos.ponFloat(float(dic["MINUTES"]))
             self.ed_segundos.setValue(dic["SECONDS"])
             self.edMinExtra.setValue(dic.get("MINEXTRA", 0))
+            self.chb_disable_usertime.set_value(dic.get("DISABLEUSERTIME", False))
             self.edZeitnot.setValue(dic.get("ZEITNOT", 0))
         else:
             self.gb_time.setChecked(False)

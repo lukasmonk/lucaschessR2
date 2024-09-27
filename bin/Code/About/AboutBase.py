@@ -509,7 +509,7 @@ class ThanksTo:
         li = (
             (
                 _("Checkmates by Eduardo Sadier"),
-                '<a href="https://edusadier.googlepages.com/">https://edusadier.googlepages.com</a>',
+                '<a href="https://sites.google.com/site/edusadier/home">https://sites.google.com/site/edusadier</a>',
                 _("Permission of author"),
             ),
             (_("Endgames by Rui Grafino"), "", _("Permission of author")),
@@ -518,8 +518,8 @@ class ThanksTo:
             (_("Endgames by Victor Perez"), "", _("Permission of author")),
             (
                 _("Tactics by UNED chess school"),
-                '<a href="https://portal.uned.es/portal/page?_pageid=93,2564320&_dad=portal&_schema=PORTAL">'
-                "https://portal.uned.es/portal</a>",
+                '<a href="https://www.uned.es/universidad/inicio/unidad/cultura-deporte/escuela-de-ajedrez/descargas.html10">'
+                "escuela-de-ajedrez/descargas</a>",
                 _("Permission of author"),
             ),
         )
@@ -552,7 +552,7 @@ class ThanksTo:
     @staticmethod
     def games():
         li = (
-            ("Jordi Gonzalez Boada", "http://www.jordigonzalezboada.com/ajedrez/aperturas.php"),
+            ("Jordi Gonzalez Boada", "https://www.jordigonzalezboada.com/ajedrez/aperturas.html"),
             ("PGN Mentor", "https://www.pgnmentor.com/files.html"),
             ("Dann Corbit", "http://cap.connx.com/"),
             ("The Week in Chess", "https://theweekinchess.com/"),

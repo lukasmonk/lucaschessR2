@@ -192,8 +192,10 @@ class BotonFlecha(Colocacion.H):
 
 
 class Slider(Colocacion.H):
-    def __init__(self, parent, rut_actual, rut_actualiza):
+    def __init__(self, parent, name, rut_actual, rut_actualiza):
         Colocacion.H.__init__(self)
+
+        self.name = name
 
         self.dial = QtWidgets.QSlider(QtCore.Qt.Horizontal, parent)
         self.dial.setFocusPolicy(QtCore.Qt.StrongFocus)
@@ -202,6 +204,8 @@ class Slider(Colocacion.H):
         self.dial.setSingleStep(1)
         self.dial.setMinimum(0)
         self.dial.setMaximum(100)
+        self.dial.previous_mousePressEvent = self.dial.mousePressEvent
+        self.dial.mousePressEvent = self.mousePressEvent
 
         self.dial.valueChanged.connect(self.movido)
         self.lb = QtWidgets.QLabel(parent)
@@ -223,6 +227,18 @@ class Slider(Colocacion.H):
         self.rut_actual(valor)
         self.set_value()
         self.rut_actualiza()
+
+    def mousePressEvent(self, ev: QtGui.QMouseEvent):
+        if ev.button() == QtCore.Qt.RightButton:
+            nvalor = self.rut_actual()
+            cvalor = QTUtil2.read_simple(self.dial, _("Degree of transparency"), self.name, str(nvalor))
+            if cvalor is not None:
+                if cvalor.isdigit():
+                    nvalor = int(cvalor)
+                    if 0 <= nvalor <= 100:
+                        self.movido(nvalor)
+            return
+        self.dial.previous_mousePressEvent(ev)
 
 
 class WBoardColors(LCDialog.LCDialog):
@@ -285,16 +301,18 @@ class WBoardColors(LCDialog.LCDialog):
         lb_png = Controles.LB(self, _("Image"))
 
         # # Blancas
-        lb_blancas = crea_lb(_("White squares"))
+        name = _("White squares")
+        lb_blancas = crea_lb(name)
         self.btBlancas = BotonColor(self, self.config_board.colorBlancas, self.actualizaBoard)
         self.btBlancasPNG = BotonImagen(self, self.config_board.png64Blancas, self.actualizaBoard, self.btBlancas)
-        self.dialBlancasTrans = Slider(self, self.config_board.transBlancas, self.actualizaBoard)
+        self.dialBlancasTrans = Slider(self, name, self.config_board.transBlancas, self.actualizaBoard)
 
         # # Negras
-        lb_negras = crea_lb(_("Black squares"))
+        name = _("Black squares")
+        lb_negras = crea_lb(name)
         self.btNegras = BotonColor(self, self.config_board.colorNegras, self.actualizaBoard)
         self.btNegrasPNG = BotonImagen(self, self.config_board.png64Negras, self.actualizaBoard, self.btNegras)
-        self.dialNegrasTrans = Slider(self, self.config_board.transNegras, self.actualizaBoard)
+        self.dialNegrasTrans = Slider(self, name, self.config_board.transNegras, self.actualizaBoard)
 
         # Background
         lb_fondo = crea_lb(_("Background"))
@@ -322,6 +340,23 @@ class WBoardColors(LCDialog.LCDialog):
         # Frontera
         lb_frontera = crea_lb(_("Inner Border"))
         self.btFrontera = BotonColor(self, self.config_board.colorFrontera, self.actualizaBoard)
+
+        # Side indicator
+        lb_sideindicator = crea_lb(_("Side indicator"))
+        default_sideindicator = self.config_board.sideindicators_default()
+        self.chb_sideindicator_default = Controles.CHB(self, _("By default"), default_sideindicator)
+        self.chb_sideindicator_default.capture_changes(self, self.sideindicator_default_changed)
+        self.lb_sideindicator_white = Controles.LB(self, _("White"))
+        self.bt_sideindicator_white = BotonColor(self, self.config_board.sideindicator_white, self.actualizaBoard)
+        ly_sideindicator_white = Colocacion.H().control(self.lb_sideindicator_white).control(self.bt_sideindicator_white)
+        self.lb_sideindicator_black = Controles.LB(self, _("Black"))
+        self.bt_sideindicator_black = BotonColor(self, self.config_board.sideindicator_black, self.actualizaBoard)
+        ly_sideindicator_black = Colocacion.H().control(self.lb_sideindicator_black).control(self.bt_sideindicator_black)
+        if default_sideindicator:
+            self.bt_sideindicator_white.hide()
+            self.bt_sideindicator_black.hide()
+            self.lb_sideindicator_white.hide()
+            self.lb_sideindicator_black.hide()
 
         # Flechas
         lb_flecha = crea_lb(_("Move indicator"))
@@ -356,10 +391,14 @@ class WBoardColors(LCDialog.LCDialog):
         ly_actual.controld(lb_exterior, 4, 0).control(self.btExterior, 4, 1).otroc(self.btExteriorPNG, 4, 2)
         ly_actual.controld(lb_texto, 5, 0).control(self.btTexto, 5, 1)
         ly_actual.controld(lb_frontera, 6, 0).control(self.btFrontera, 6, 1)
-        ly_actual.controld(lb_flecha, 7, 0).otro(self.lyF, 7, 1, 1, 4)
-        ly_actual.controld(lb_flecha_alternativa, 8, 0).otro(self.lyFAlternativa, 8, 1, 1, 4)
-        ly_actual.controld(lb_flecha_activo, 9, 0).otro(self.lyFActual, 9, 1, 1, 4)
-        ly_actual.controld(lb_flecha_rival, 10, 0).otro(self.lyFRival, 10, 1, 1, 4)
+
+        ly_actual.controld(lb_sideindicator, 7, 0).control(self.chb_sideindicator_default, 7, 1)
+        ly_actual.otro(ly_sideindicator_white, 7, 2).otro(ly_sideindicator_black, 7, 3)
+
+        ly_actual.controld(lb_flecha, 8, 0).otro(self.lyF, 8, 1, 1, 4)
+        ly_actual.controld(lb_flecha_alternativa, 9, 0).otro(self.lyFAlternativa, 9, 1, 1, 4)
+        ly_actual.controld(lb_flecha_activo, 10, 0).otro(self.lyFActual, 10, 1, 1, 4)
+        ly_actual.controld(lb_flecha_rival, 11, 0).otro(self.lyFRival, 11, 1, 1, 4)
 
         gb_actual = Controles.GB(self, _("Active theme"), ly_actual)
 
@@ -467,8 +506,9 @@ class WBoardColors(LCDialog.LCDialog):
         l2mas1(ly_otros, 2, lb_tam_frontera, self.sbTamFrontera, self.chbDefTamFrontera)
 
         # _opacitySideIndicator
-        lb_side_indicator = crea_lb(_("Playing side indicator transparency"))
-        self.dialSideIndicatorTrans = Slider(self, self.config_board.transSideIndicator, self.actualizaBoard)
+        name = _("Playing side indicator transparency")
+        lb_side_indicator = crea_lb(name)
+        self.dialSideIndicatorTrans = Slider(self, name, self.config_board.transSideIndicator, self.actualizaBoard)
         ly_h = Colocacion.H().control(lb_side_indicator).otro(self.dialSideIndicatorTrans)
         ly_otros.otro(ly_h, 3, 0)
 
@@ -737,6 +777,9 @@ class WBoardColors(LCDialog.LCDialog):
         self.dialBlancasTrans.dial.setValue(ct.transBlancas())
         self.dialNegrasTrans.dial.setValue(ct.transNegras())
 
+        self.chb_sideindicator_default.set_value(ct.sideindicators_default())
+        self.sideindicator_default_changed()
+
         self.chbExtended.set_value(ct.extended_color())
 
         self.actualizaBoard()
@@ -797,6 +840,7 @@ class WBoardColors(LCDialog.LCDialog):
         if hasattr(self, "board"):  # tras crear dial no se ha creado board
             # ct = self.config_board
             self.board.crea()
+            self.board.set_side_indicator(True)
             self.rehaz_flechas()
             self.btExterior.set_color_foreground()
             self.btBlancas.set_color_foreground()
@@ -876,6 +920,19 @@ class WBoardColors(LCDialog.LCDialog):
         if w.changed:
             self.cbTemas.set_value(self.configuration.ficheroTemas)
             self.theme_changed()
+
+    def sideindicator_default_changed(self):
+        ok = self.chb_sideindicator_default.valor()
+
+        self.bt_sideindicator_white.setVisible(not ok)
+        self.bt_sideindicator_black.setVisible(not ok)
+
+        self.lb_sideindicator_white.setVisible(not ok)
+        self.lb_sideindicator_black.setVisible(not ok)
+
+        self.config_board.sideindicators_default(ok)
+        self.theme_changed()
+        self.actualizaBoard()
 
 
 def add_menu_themes(menu_base, li_temas, base_resp):

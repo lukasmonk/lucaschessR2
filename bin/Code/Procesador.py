@@ -82,6 +82,7 @@ from Code.Swiss import WSwisses, ManagerSwiss
 from Code.Tournaments import WTournaments
 from Code.Washing import ManagerWashing, WindowWashing
 from Code.WritingDown import WritingDown, ManagerWritingDown
+from Code import RemoveResults
 
 
 class Procesador:
@@ -236,7 +237,7 @@ class Procesador:
         self.board.remove_arrows()
         self.main_window.adjust_size()
         self.main_window.set_title()
-        self.stop_engines()
+        self.close_engines()
 
         self.main_window.current_height = self.main_window.height()
 
@@ -255,7 +256,7 @@ class Procesador:
             self.is_first_time = False
             self.presentacion()
         self.kibitzers_manager.stop()
-        self.stop_engines()
+        self.close_engines()
 
     def presentacion(self, siEmpezar=True):
         self.siPresentacion = siEmpezar
@@ -346,7 +347,8 @@ class Procesador:
         xmanager.set_priority(priority)
         return xmanager
 
-    def stop_engines(self):
+    @staticmethod
+    def close_engines():
         Code.list_engine_managers.close_all()
 
     def menuplay(self):
@@ -545,7 +547,7 @@ class Procesador:
         self.manager.start(xid)
 
     def run_action(self, key):
-        self.stop_engines()
+        self.close_engines()
         self.main_window.deactivate_eboard(0)
 
         if self.siPresentacion:
@@ -686,6 +688,9 @@ class Procesador:
         menu.opcion(self.atajos_edit, _("Shortcuts"), Iconos.Atajos())
         menu.separador()
 
+        menu.opcion(self.remove_results, _("Remove results"), Iconos.Delete())
+        menu.separador()
+
         menu.opcion(self.set_password, _("Set password"), Iconos.Password())
         menu.separador()
 
@@ -705,6 +710,10 @@ class Procesador:
                 resp[0](resp[1])
             else:
                 resp()
+
+    def remove_results(self):
+        rem = RemoveResults.RemoveResults(self.main_window)
+        rem.menu()
 
     def select_language(self):
         if LucasChessGui.select_language(self.main_window, False):
@@ -1213,6 +1222,9 @@ class Procesador:
     def showWashing(self):
         if WindowWashing.windowWashing(self):
             self.playWashing()
+
+    # def forest_creator(self, level):
+    #     pass
 
     def informacion(self):
         resp = BasicMenus.menu_information(self)

@@ -13,6 +13,7 @@ from Code.CompetitionWithTutor import WCompetitionWithTutor
 from Code.QT import Iconos
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
+from Code.Translations import TrListas
 
 
 class ControlFindAllMoves:
@@ -285,8 +286,8 @@ class ManagerFindAllMoves(Manager.Manager):
 
     def ponRotulo2n(self):
         self.main_window.set_label2(
-            "<h3>%s - %s %d - %s : %d</h3>"
-            % (_("White") if self.is_white else _("Black"), _("Level"), self.nivel + 1, _("Errors"), self.errores)
+            "<h3>%s - %s - %s : %d</h3>"
+            % (_("White") if self.is_white else _("Black"), TrListas.level(self.nivel + 1), _("Errors"), self.errores)
         )
 
     def ponRotulotm(self):

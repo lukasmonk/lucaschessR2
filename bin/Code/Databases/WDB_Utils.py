@@ -189,7 +189,6 @@ class WFiltrar(QtWidgets.QDialog):
             self.liC[i][5].set_value(False)
             if i > 0:
                 self.liC[i][0].setCurrentIndex(0)
-        self.aceptar()
 
     def lee_filtro_actual(self):
         self.li_filter = []

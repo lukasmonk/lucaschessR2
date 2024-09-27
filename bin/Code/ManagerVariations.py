@@ -93,11 +93,11 @@ class ManagerVariations(Manager.Manager):
         if key == TB_ACCEPT:
             self.accepted = True
             # self.resultado =
-            self.procesador.stop_engines()
+            self.procesador.close_engines()
             self.main_window.accept()
 
         elif key == TB_CANCEL:
-            self.procesador.stop_engines()
+            self.procesador.close_engines()
             self.main_window.reject()
 
         elif key == TB_TAKEBACK:
@@ -114,10 +114,10 @@ class ManagerVariations(Manager.Manager):
 
             resp = self.utilities(li_extra_options)
             if resp == "books":
-                liMovs = self.librosConsulta(True)
-                if liMovs:
-                    for x in range(len(liMovs) - 1, -1, -1):
-                        from_sq, to_sq, promotion = liMovs[x]
+                li_movs = self.librosConsulta(True)
+                if li_movs:
+                    for x in range(len(li_movs) - 1, -1, -1):
+                        from_sq, to_sq, promotion = li_movs[x]
                         self.player_has_moved(from_sq, to_sq, promotion)
 
         else:
@@ -130,12 +130,12 @@ class ManagerVariations(Manager.Manager):
             return None
 
     def final_x(self):
-        self.procesador.stop_engines()
+        self.procesador.close_engines()
         self.main_window.reject()
         return False
 
     def final_x0(self):
-        self.procesador.stop_engines()
+        self.procesador.close_engines()
         self.main_window.reject()
         return False
 

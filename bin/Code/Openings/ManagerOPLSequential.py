@@ -1,5 +1,7 @@
 import time
 
+from PySide2.QtCore import Qt
+
 from Code import Manager
 from Code import Util
 from Code.Base import Game, Move
@@ -135,6 +137,8 @@ class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
         if self.errores > 0:
             li.append("%s: %d" % (_("Errors"), self.errores))
 
+        without_error = self.errores == 0 and self.used_hints == 0
+        is_finished = self.num_linea + 1 >= len(self.liGames) and without_error and is_complete
         if is_complete:
             mensaje = "\n".join(li)
             self.message_on_pgn(mensaje)
@@ -142,18 +146,20 @@ class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
                   "ERRORS": self.errores}
         self.game_info["TRIES"].append(dictry)
 
-        sinError = self.errores == 0 and self.used_hints == 0
         if is_complete:
-            if sinError:
+            if without_error:
                 self.game_info["NOERROR"] += 1
                 self.training["NUMLINEA_SEQUENTIAL"] = self.num_linea + 1
-                self.main_window.pon_toolbar((TB_CLOSE, TB_CONFIG, TB_NEXT))
+                if is_finished:
+                    self.main_window.pon_toolbar((TB_CLOSE, TB_CONFIG))
+                else:
+                    self.set_toolbar((TB_CLOSE, TB_CONFIG, TB_NEXT))
             else:
                 self.game_info["NOERROR"] -= 1
 
                 self.set_toolbar((TB_CLOSE, TB_REINIT, TB_CONFIG, TB_UTILITIES))
         else:
-            if not sinError:
+            if not without_error:
                 self.game_info["NOERROR"] -= 1
         self.game_info["NOERROR"] = max(0, self.game_info["NOERROR"])
 
@@ -161,7 +167,6 @@ class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
 
         self.state = ST_ENDGAME
         self.calc_totalTiempo()
-        is_finished = self.num_linea + 1 >= len(self.liGames) and sinError and is_complete
         self.show_labels()
         if is_finished:
             QTUtil2.message(
@@ -172,8 +177,6 @@ class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
             self.training["NUMLINEA_SEQUENTIAL"] = 0
 
         self.dbop.setTraining(self.training)
-        if is_finished:
-            self.end_game()
 
     def show_help(self):
         pv = self.li_pv[len(self.game)]
@@ -242,7 +245,7 @@ class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
         self.set_side_indicator(is_white)
         self.refresh()
 
-        siRival = is_white == self.is_engine_side_white
+        si_rival = is_white == self.is_engine_side_white
 
         num_moves = len(self.game)
         if num_moves >= self.numPV:
@@ -250,7 +253,7 @@ class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
             return
         pv = self.li_pv[num_moves]
 
-        if siRival:
+        if si_rival:
             self.disable_all()
 
             self.rm_rival = EngineResponse.EngineResponse("Opening", self.is_engine_side_white)
@@ -317,3 +320,10 @@ class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
         else:
             self.error = mens
             return False
+
+    def control_teclado(self, nkey, modifiers):
+        if nkey in (Qt.Key_Plus, Qt.Key_PageDown):
+            if self.main_window.is_enabled_option_toolbar(TB_NEXT):
+                self.run_action(TB_NEXT)
+
+

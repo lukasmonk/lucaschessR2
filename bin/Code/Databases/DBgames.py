@@ -161,52 +161,52 @@ class DBgames:
             self.cache = ncache
         self.cache[rowid] = reg
 
-    def interchange(self, nfila, siUP):
+    def interchange(self, nfila, si_up):
         rowid = self.li_row_ids[nfila]
-        if siUP:
+        if si_up:
             # buscamos el mayor, menor que rowid
-            filOther = None
-            rowidOther = -1
+            fil_other = None
+            rowid_other = -1
             for fil0, rowid0 in enumerate(self.li_row_ids):
                 if rowid0 < rowid:
-                    if rowid0 > rowidOther:
-                        filOther = fil0
-                        rowidOther = rowid0
-            if filOther is None:
+                    if rowid0 > rowid_other:
+                        fil_other = fil0
+                        rowid_other = rowid0
+            if fil_other is None:
                 return None
         else:
             # buscamos el menor, mayor que rowid
-            filOther = None
-            rowidOther = 999999999999
+            fil_other = None
+            rowid_other = 999999999999
             for fil0, rowid0 in enumerate(self.li_row_ids):
                 if rowid0 > rowid:
-                    if rowid0 < rowidOther:
-                        filOther = fil0
-                        rowidOther = rowid0
-            if filOther is None:
+                    if rowid0 < rowid_other:
+                        fil_other = fil0
+                        rowid_other = rowid0
+            if fil_other is None:
                 return None
-        # Hay que intercambiar rowid, con rowidOther
-        selectAll = ",".join(self.li_fields)
-        cursor = self.conexion.execute("SELECT %s FROM Games WHERE rowid =%d" % (selectAll, rowid))
+        # Hay que intercambiar rowid, con rowid_other
+        select_all = ",".join(self.li_fields)
+        cursor = self.conexion.execute("SELECT %s FROM Games WHERE rowid =%d" % (select_all, rowid))
         reg = cursor.fetchone()
-        cursor = self.conexion.execute("SELECT %s FROM Games WHERE rowid =%d" % (selectAll, rowidOther))
-        regOther = cursor.fetchone()
+        cursor = self.conexion.execute("SELECT %s FROM Games WHERE rowid =%d" % (select_all, rowid_other))
+        reg_other = cursor.fetchone()
 
         # Problema con error por XPV unico cuando se intercambia, en RowidOther ponemos un xpv ficticio
-        sql = "UPDATE Games SET XPV=? WHERE ROWID = %d" % rowidOther
+        sql = "UPDATE Games SET XPV=? WHERE ROWID = %d" % rowid_other
         self.conexion.execute(sql, ("?????",))
 
-        updateAll = ",".join(["%s=?" % campo for campo in self.li_fields])
-        sql = "UPDATE Games SET %s" % updateAll + " WHERE ROWID = %d"
+        update_all = ",".join(["%s=?" % campo for campo in self.li_fields])
+        sql = "UPDATE Games SET %s" % update_all + " WHERE ROWID = %d"
 
-        self.conexion.execute(sql % rowid, regOther)
-        self.conexion.execute(sql % rowidOther, reg)
+        self.conexion.execute(sql % rowid, reg_other)
+        self.conexion.execute(sql % rowid_other, reg)
         self.conexion.commit()
 
-        self.addcache(rowid, regOther)
-        self.addcache(rowidOther, reg)
+        self.addcache(rowid, reg_other)
+        self.addcache(rowid_other, reg)
 
-        return filOther
+        return fil_other
 
     def get_rowid(self, nfila):
         return self.li_row_ids[nfila]
@@ -305,7 +305,8 @@ class DBgames:
     def depth_stat(self):
         return self.db_stat.depth if self.with_db_stat else 0
 
-    def read_xpv(self, xpv):
+    @staticmethod
+    def read_xpv(xpv):
         if xpv.startswith("|"):
             nada, fen, xpv = xpv.split("|")
         else:
@@ -333,14 +334,14 @@ class DBgames:
         return self.li_order
 
     def remove_list_recnos(self, lista_recnos):
-        cSQL = "DELETE FROM Games WHERE rowid = ?"
+        c_sql = "DELETE FROM Games WHERE rowid = ?"
         lista_recnos.sort(reverse=True)
         for recno in lista_recnos:
             fen, pv = self.get_pv(recno)
             result = self.field(recno, "RESULT")
             if not fen and self.with_db_stat:
                 self.db_stat.append(pv, result, -1)
-            self.conexion.execute(cSQL, (self.li_row_ids[recno],))
+            self.conexion.execute(c_sql, (self.li_row_ids[recno],))
             del self.li_row_ids[recno]
         if self.with_db_stat:
             self.db_stat.commit()
@@ -447,6 +448,18 @@ class DBgames:
 
         cursor = self.conexion.execute(sql)
         return cursor.fetchone()[0]
+
+    def get_fens_pgn(self, li_registros, skip_first):
+        li = []
+        for recno in li_registros:
+            game = self.read_game_recno(recno)
+            if not game.is_fen_initial():
+                if skip_first:
+                    game.skip_first()
+                fen = game.first_position.fen()
+                pgn = game.pgn_base_raw(translated=True)
+                li.append((fen,pgn))
+        return li
 
     def yield_fens(self):
         for rowid in self.li_row_ids:
@@ -569,7 +582,7 @@ class DBgames:
         return self.read_game_raw(raw)
 
     def read_game_raw(self, raw):
-        p = Game.Game()
+        game = Game.Game()
         xpgn = raw["_DATA_"]
         ok = False
         fen, pv = self.read_xpv(raw["XPV"])
@@ -578,18 +591,18 @@ class DBgames:
                 pgn_read = xpgn[len(BODY_SAVE):].strip()
                 if fen:
                     pgn_read = b'[FEN "%s"]\n' % fen.encode() + pgn_read
-                ok, p = Game.pgn_game(pgn_read)
+                ok, game = Game.pgn_game(pgn_read)
             else:
                 try:
-                    p.restore(xpgn)
+                    game.restore(xpgn)
                     ok = True
                 except:
                     ok = False
 
         if not ok:
             if fen:
-                p.set_fen(fen)
-            p.read_pv(pv)
+                game.set_fen(fen)
+            game.read_pv(pv)
 
         litags = []
         for field in self.li_fields:
@@ -599,16 +612,21 @@ class DBgames:
                     litags.append((drots.get(field, Util.primera_mayuscula(field)), v if type(v) == str else str(v)))
         litags.append(("PlyCount", str(raw["PLYCOUNT"])))
 
-        p.set_tags(litags)
-        p.assign_opening()
-        p.order_tags()
-        p.resultado()
-        return p
+        game.set_tags(litags)
+        if fen and not game.get_tag("FEN"):
+            game.set_tag("FEN", fen)
+        if not game.get_tag("Opening"):
+            game.assign_opening()
 
-    def blank_game(self):
+        game.order_tags()
+        game.resultado()
+        return game
+
+    @staticmethod
+    def blank_game():
         hoy = Util.today()
-        liTags = [["Date", "%d.%02d.%02d" % (hoy.year, hoy.month, hoy.day)]]
-        return Game.Game(li_tags=liTags)
+        li_tags = [["Date", f"{hoy.year:d}.{hoy.month:02d}.{hoy.day:02d}"]]
+        return Game.Game(li_tags=li_tags)
 
     def save_game_recno(self, recno, game):
         return self.insert(game) if recno is None else self.modify(recno, game)
@@ -731,17 +749,17 @@ class DBgames:
                         write_logs(fich_erroneos, fpgn.bpgn())
                         continue
 
-                    dCab = {decode(k).replace(" ", ""): decode(v) for k, v in bdCab.items()}
-                    dCablwr = {decode(k).replace(" ", ""): decode(v) for k, v in bdCablwr.items()}
-                    dcabs.update(dCablwr)
+                    d_cab = {decode(k).replace(" ", ""): decode(v) for k, v in bdCab.items()}
+                    d_cablwr = {decode(k).replace(" ", ""): decode(v) for k, v in bdCablwr.items()}
+                    dcabs.update(d_cablwr)
 
                     xpv = pv_xpv(pv)
 
-                    fen = dCab.get("FEN", None)
+                    fen = d_cab.get("FEN", None)
                     if fen:
                         if fen == FEN_INITIAL:
-                            del dCab["FEN"]
-                            del dCablwr["FEN"]
+                            del d_cab["FEN"]
+                            del d_cablwr["FEN"]
                             fen = None
                         else:
                             if not allows_fen:
@@ -774,7 +792,7 @@ class DBgames:
 
                     st_xpv_bloque.add(xpv)
 
-                    for k in dCab:
+                    for k in d_cab:
                         if not (k.upper() in self.st_fields):
 
                             # Grabamos lo que hay
@@ -807,9 +825,9 @@ class DBgames:
                         elif campo == "PLYCOUNT":
                             reg.append((pv.count(" ") + 1) if pv else 0)
                         else:
-                            reg.append(dCab.get(campo))
+                            reg.append(d_cab.get(campo))
                             if campo == "RESULT":
-                                result = dCab.get(campo, "*")
+                                result = d_cab.get(campo, "*")
 
                     if self.with_db_stat and fen is None and pv:
                         self.db_stat.append(pv, result)
@@ -845,7 +863,7 @@ class DBgames:
 
         return si_cols_cambiados
 
-    def append_db(self, db, liRecnos, dl_tmp):
+    def append_db(self, db, li_recnos, dl_tmp):
         erroneos = duplicados = importados = 0
 
         allows_fen = self.allows_positions
@@ -875,15 +893,15 @@ class DBgames:
 
         st_xpv_bloque = set()
 
-        liRegs = []
-        nRegs = 0
+        li_regs = []
+        n_regs = 0
 
         conexion = self.conexion
 
         next_n = random.randint(1000, 2000)
 
-        bsize = len(liRecnos)
-        for btell, recno in enumerate(liRecnos):
+        bsize = len(li_recnos)
+        for btell, recno in enumerate(li_recnos):
             if btell == next_n:
                 if time.time() - t1 > 0.9:
                     if not dl_tmp.actualiza(
@@ -931,13 +949,13 @@ class DBgames:
                 result = row[pos_result]
                 self.db_stat.append(pv, result)
 
-            liRegs.append(row)
-            nRegs += 1
+            li_regs.append(row)
+            n_regs += 1
             importados += 1
-            if nRegs == 10000:
-                nRegs = 0
-                conexion.executemany(sql, liRegs)
-                liRegs = []
+            if n_regs == 10000:
+                n_regs = 0
+                conexion.executemany(sql, li_regs)
+                li_regs = []
                 st_xpv_bloque = set()
                 conexion.commit()
                 if self.with_db_stat:
@@ -945,8 +963,8 @@ class DBgames:
 
         dl_tmp.actualiza(erroneos + duplicados + importados, erroneos, duplicados, importados, 100.00)
         dl_tmp.ponSaving()
-        if liRegs:
-            conexion.executemany(sql, liRegs)
+        if li_regs:
+            conexion.executemany(sql, li_regs)
         if self.with_db_stat:
             self.db_stat.massive_append_set(False)
             self.db_stat.commit()
@@ -970,6 +988,36 @@ class DBgames:
                 return _("This database does not allows games without moves.")
 
         return None
+
+    def check_columns(self, li_tags):
+        dcabs_new = {}
+        for tag in li_tags:
+            if not (tag.upper() in self.st_fields):
+                self.add_column(tag)
+                dcabs_new[tag.upper()] = tag
+        if dcabs_new:
+            dcabs = self.read_config("dcabs", drots)
+            dcabs.update(dcabs_new)
+            self.save_config("dcabs", dcabs)
+
+    @staticmethod
+    def create_sql_insert(li_tags):
+        li_fields = li_tags[:]
+        li_fields.insert(0, "PLYCOUNT")
+        li_fields.insert(0, "XPV")
+        fields = ",".join(li_fields)
+        values = ",".join(["?"] * len(li_fields))
+        return "INSERT INTO Games (%s) VALUES (%s)" % (fields, values)
+
+    def add_reg_lichess(self, sql, fen, pv, row, with_commit):
+        xpv = f"|{fen}|{pv_xpv(pv)}"
+        plycount = (pv.count(" ") + 1) if pv else 0
+        row.insert(0, plycount)
+        row.insert(0, xpv)
+        cursor = self.conexion.execute(sql, row)
+        self.li_row_ids.append(cursor.lastrowid)
+        if with_commit:
+            self.conexion.commit()
 
     def modify(self, recno, game_modificada: Game.Game):
         resp = Util.Record()
@@ -1011,7 +1059,7 @@ class DBgames:
 
         resp.changed = True
 
-        fields = ",".join(["%s=?" % field for field in self.li_fields])
+        fields = ",".join([f"'{field}'=?" for field in self.li_fields])
         rowid = self.li_row_ids[recno]
         sql = "UPDATE Games SET %s WHERE ROWID = %d" % (fields, rowid)
         self.conexion.execute(sql, li_data)
@@ -1046,6 +1094,11 @@ class DBgames:
             return resp
 
         # Test si hay nuevos tags
+        si_fen_nue = not game_new.is_fen_initial()
+        if si_fen_nue:
+            if not game_new.get_tag("FEN"):
+                game_new.check_tags()
+
         dcabs_new = {}
         for tag, valor in game_new.li_tags:
             if not (tag.upper() in self.st_fields):
@@ -1065,7 +1118,6 @@ class DBgames:
 
         pv_nue = game_new.pv()
         xpv_nue = pv_xpv(pv_nue)
-        si_fen_nue = not game_new.is_fen_initial()
         if si_fen_nue:
             fen_nue = game_new.first_position.fen()
             xpv_nue = "|%s|%s" % (fen_nue, xpv_nue)
@@ -1117,7 +1169,7 @@ class DBgames:
             self.db_stat.commit()
 
     def has_positions(self):
-        return "FEN" in self.st_fields
+        return self.allows_positions
 
     def has_field(self, field):
         return field.upper() in self.st_fields

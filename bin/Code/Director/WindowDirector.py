@@ -864,7 +864,7 @@ class WPanelDirector(LCDialog.LCDialog):
                     else:
                         pos = 0
                 lb_sel = self.selectBanda.get_pos(pos)
-            if lb_sel:
+            if lb_sel and lb_sel.id:
                 nada, tp, nid = lb_sel.id.split("_")
                 nid = int(nid)
                 if tp == TabVisual.TP_FLECHA:
@@ -883,13 +883,13 @@ class WPanelDirector(LCDialog.LCDialog):
             sc = self.datos_new[0].itemSC()
             sc.mouseMoveExt(event)
 
-    def boardRelease(self, a1, siRight, is_shift, is_alt, is_ctrl):
+    def boardRelease(self, a1, is_right, is_shift, is_alt, is_ctrl):
         if self.origin_new:
             tarea, row = self.datos_new
             sc = tarea.itemSC()
             sc.mouseReleaseExt()
             self.g_guion.goto(row, 0)
-            if siRight:
+            if is_right:
                 if a1 == self.origin_new and not is_ctrl:
                     if is_shift:
                         pos = 8

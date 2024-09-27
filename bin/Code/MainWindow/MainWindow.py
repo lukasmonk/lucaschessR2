@@ -45,7 +45,7 @@ class MainWindow(LCDialog.LCDialog):
         self.onTop = False
 
         self.board = self.base.board
-        self.board.dispatchSize(self.adjust_size)
+        self.board.set_dispatch_size(self.adjust_size)
         self.board.allowed_extern_resize(True)
         self.anchoAntesMaxim = None
 
@@ -308,8 +308,8 @@ class MainWindow(LCDialog.LCDialog):
     def remove_hints(self, siTambienTutorAtras, with_takeback=True):
         self.base.remove_hints(siTambienTutorAtras, with_takeback)
 
-    def enable_option_toolbar(self, opcion, siHabilitar):
-        self.base.enable_option_toolbar(opcion, siHabilitar)
+    def enable_option_toolbar(self, opcion, enable):
+        self.base.enable_option_toolbar(opcion, enable)
 
     def show_option_toolbar(self, opcion, must_show):
         self.base.show_option_toolbar(opcion, must_show)
@@ -390,6 +390,12 @@ class MainWindow(LCDialog.LCDialog):
 
     def set_clock_black(self, tm, tm2):
         self.base.set_clock_black(tm, tm2)
+
+    def hide_clock_white(self):
+        self.base.hide_clock_white()
+
+    def hide_clock_black(self):
+        self.base.hide_clock_black()
 
     def change_player_labels(self, bl, ng):
         self.base.change_player_labels(bl, ng)
@@ -519,7 +525,6 @@ class MainWindow(LCDialog.LCDialog):
 
     def deactivate_eboard(self, ms=500):
         if Code.eboard and Code.eboard.driver:
-            QTUtil.refresh_gui()
 
             def deactive():
                 Code.eboard.deactivate()
@@ -543,6 +548,16 @@ class MainWindow(LCDialog.LCDialog):
     def run_analysis_bar(self, game):
         if self.with_analysis_bar:
             self.base.analysis_bar.set_game(game)
+
+    def bestmove_from_analysis_bar(self):
+        if self.with_analysis_bar:
+            return self.base.analysis_bar.current_bestmove()
+        return None
+
+    def end_think_analysis_bar(self):
+        if self.with_analysis_bar:
+            self.base.analysis_bar.end_think()
+
 
     def is_active_information_pgn(self):
         return self.informacionPGN.isVisible()

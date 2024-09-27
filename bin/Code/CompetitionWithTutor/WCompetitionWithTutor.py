@@ -8,6 +8,7 @@ from Code.QT import Iconos
 from Code.QT import QTUtil
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
+from Code.Translations import TrListas
 
 
 def datos(w_parent, configuration, procesador):
@@ -56,7 +57,7 @@ def dame_categoria(w_parent, configuration, procesador):
         nh = cat.hecho
 
         if nm > 0:
-            txt += " %s %d" % (_("Level"), nm)
+            txt += " %s" % TrListas.level(nm)
         if nh:
             if "B" in nh:
                 txt += " +%s:%d" % (_("White"), nm + 1)

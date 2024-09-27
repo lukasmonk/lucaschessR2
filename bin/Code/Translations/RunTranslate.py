@@ -553,7 +553,7 @@ class WTranslate(LCDialog.LCDialog):
         menu = QTVarios.LCMenu(self)
         menu.opcion(self.export_po, "Export translated labels to a .po file", Iconos.Export8())
         menu.separador()
-        menu.opcion(self.import_mo, "Import .mo file downloaded from poeditor", Iconos.Import8())
+        menu.opcion(self.import_mo, "Import .mo file downloaded from transifex", Iconos.Import8())
 
         resp = menu.lanza()
         if resp:
@@ -562,10 +562,10 @@ class WTranslate(LCDialog.LCDialog):
     def export_po(self):
         message = (
             "This option creates a file that can be imported "
-            "from the poeditor website to complete the public translation.\n\n"
+            "from the transifex website to complete the public translation.\n\n"
             "First the name and location of the file will be requested.\n"
             "Then an explorer is opened in the folder where the file is located "
-            "to make it easier to send it to poeditor.com.\n"
+            "to make it easier to send it to transifex.com.\n"
         )
 
         if not QTUtil2.pregunta(self, message, label_yes="Continue", label_no="Cancel"):
@@ -587,7 +587,7 @@ class WTranslate(LCDialog.LCDialog):
 
     def import_mo(self):
         message = (
-            "The utility of this option is to import a .mo file that has been exported from poeditor.com, "
+            "The utility of this option is to import a .mo file that has been exported from transifex.com, "
             "and set it as the general translation of the program, "
             "which works when this translation window is not active.\n"
         )
@@ -598,7 +598,7 @@ class WTranslate(LCDialog.LCDialog):
         folder = self.configuration.read_variables("PATH_MO")
         if not folder or not os.path.isdir(folder):
             folder = self.configuration.folder_translations()
-        path_mo = SelectFiles.leeFichero(self, folder, "mo", ".mo file downloaded from poeditor")
+        path_mo = SelectFiles.leeFichero(self, folder, "mo", ".mo file downloaded from transifex")
         if path_mo:
             path_mo = os.path.abspath(path_mo)
             folder = os.path.dirname(path_mo)

@@ -1,0 +1,8 @@
+Chessnut, added icon to screen
+
+Version 24: Fixed button display on screens with high DPI.
+Version 23: Added HOS Sensory board driver.
+Version 22: Added a driver for the iChessOne board. Allowed a position setup screen to be accessed by lifting both kings on the DGT Pegasus, Millennium eOne, Square Off Pro and Tabutonic boards.Fixed a bug in setting up positions on the other boards when the board was rotated.
+Version 21: Chessnut EVO driver updated. It is now more stable if the Evo breaks the connection.
+Version 20: Added Chessnut EVO driver.
+Version 19: For most of the boards added an option on the Config screen to "Show possible moves". This will highlight the squares a piece can move to when it's lifted up. For some boards (Novag/Saitek/Square Off) it wasn't possible and for the DGT Pegasus it didn't work well as only one LED can light at a time.Added BLE support to the Certabo and Tabutronic boards.

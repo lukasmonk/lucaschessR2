@@ -8,6 +8,7 @@ from Code.QT import LCDialog
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
 from Code.Routes import Routes
+from Code.Translations import TrListas
 
 
 class WTranssiberian(LCDialog.LCDialog):
@@ -15,7 +16,7 @@ class WTranssiberian(LCDialog.LCDialog):
 
         route = self.route = Routes.Transsiberian(procesador.configuration)
 
-        titulo = "%s (%s)" % (_("Transsiberian Railway"), _X(_("Level %1"), str(route.level)))
+        titulo = "%s (%s)" % (_("Transsiberian Railway"), TrListas.level(route.level))
         icono = Iconos.Train()
         extparam = "transsiberian"
         LCDialog.LCDialog.__init__(self, procesador.main_window, titulo, icono, extparam)
@@ -211,7 +212,7 @@ class WTranssiberian(LCDialog.LCDialog):
         level = self.route.level
         for lv in range(1, 6):
             if lv != level:
-                smenu.opcion("l%d" % lv, "%s %d" % (_("Level"), lv), rondo.otro())
+                smenu.opcion("l%d" % lv, TrListas.level(lv), rondo.otro())
 
         resp = menu.lanza()
         if resp:

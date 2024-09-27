@@ -8,7 +8,6 @@ import Code
 from Code import Util
 from Code.Base.Constantes import ADJUST_SELECTED_BY_PLAYER
 from Code.Engines import Priorities, EngineResponse, EngineRunDirect, EngineRun
-from Code.QT import QTUtil2
 from Code.SQL import UtilSQL
 
 
@@ -59,7 +58,7 @@ class EngineManager:
 
         self.engine = None
         self.confMotor = conf_engine
-        self.name = conf_engine.name
+        self.name = conf_engine.nombre_ext(False)
         self.key = conf_engine.key
         self.num_multipv = 0
         self.mstime_engine = conf_engine.max_time * 1000
@@ -412,14 +411,17 @@ class EngineManager:
         if ms_used < mstime:
             mstime = ms_used
 
-        um = QTUtil2.one_moment_please(window, _("Finishing the analysis...")) if mstime > 1000 else None
+        # if window:
+        #     um = QTUtil2.one_moment_please(window, _("Finishing the analysis...")) if mstime > 1000 else None
+        # else:
+        #     um = None
 
         self.engine.set_multipv(1)
         mrm_next = self.engine.bestmove_game_jg(game, njg + 1, mstime, depth, is_savelines=True)
         self.engine.set_multipv(self.engine.num_multipv)
 
-        if um:
-            um.final()
+        # if um:
+        #     um.final()
 
         if mrm_next and mrm_next.li_rm:
             rm = mrm_next.li_rm[0]

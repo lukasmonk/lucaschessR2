@@ -19,6 +19,7 @@ from Code.Base.Constantes import (
 from Code.QT import Iconos
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
+from Code.Translations import TrListas
 
 
 class PositionMate:
@@ -426,7 +427,7 @@ class ManagerMate(Manager.Manager):
         menu.set_font_type(name=Code.font_mono, puntos=12)
         li_info, all_done = self.control_mate.info_levels()
         for num_level, info, enabled in li_info:
-            menu.opcion(num_level, "%s %d %s" % (_("Level"), num_level, info), is_disabled=not enabled)
+            menu.opcion(num_level, "%s %s" % (TrListas.level(num_level), info), is_disabled=not enabled)
         num_level = menu.lanza()
         if num_level is None:
             return

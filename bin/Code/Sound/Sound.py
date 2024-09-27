@@ -36,7 +36,7 @@ class RunSound:
     def siguiente(self):
         if not self.queue.empty():
             if self.current and not self.current.isFinished():
-                QtCore.QTimer.singleShot(100, self.siguiente)
+                QtCore.QTimer.singleShot(50, self.siguiente)
                 return
             key = self.queue.get()
             self.current, mseconds = self.dic_sounds[key]
@@ -122,7 +122,18 @@ class RunSound:
             return True
         return False
 
-    def playZeitnot(self):
+    def play_list_seconds(self, li):
+        secs = 0.0
+        for key in li:
+            self.play_key(key, False)
+            secs += self.dic_sounds[key][1]
+        if not self.queue.empty():
+            self.working = True
+            self.siguiente()
+            return secs
+        return 0.0
+
+    def play_zeinot(self):
         self.play_key("ZEITNOT")
 
     def playError(self):

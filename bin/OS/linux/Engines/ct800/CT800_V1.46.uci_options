@@ -1,0 +1,18 @@
+id name CT800 V1.46 32 bit
+id author Rasmus Althoff
+option name Hash type spin default 8 min 1 max 1024
+option name Keep Hash Tables type check default true
+option name Clear Hash type button
+option name Book Moves type button
+option name OwnBook type check default true
+option name Contempt Value [cps] type spin default 30 min -300 max 300
+option name Contempt End [moves] type spin default 35 min 0 max 400
+option name Eval Noise [%] type spin default 0 min 0 max 100
+option name Move Overhead [ms] type spin default 50 min 0 max 1000
+option name UCI_Elo type spin default 2550 min 1000 max 2550
+option name UCI_LimitStrength type check default false
+option name CPU Speed Throttle type check default false
+option name CPU Speed [%] type spin default 100 min 1 max 100
+option name CPU Speed [kNPS] type spin default 32000 min 1 max 32000
+option name Show Current Move type combo default Every Second var Every Second var Continuously
+option name UCI_EngineAbout type string default The CT800 is free software under GPLv3+. Website: www.ct800.net

@@ -21,6 +21,7 @@ from Code.Engines import EngineResponse
 from Code.Openings import Opening
 from Code.QT import QTUtil2
 from Code.Tutor import Tutor
+from Code.Translations import TrListas
 
 
 class ManagerCompeticion(Manager.Manager):
@@ -72,7 +73,7 @@ class ManagerCompeticion(Manager.Manager):
         self.put_pieces_bottom(is_white)
         self.ponAyudas(self.hints)
         self.show_side_indicator(True)
-        label = "%s: %s\n%s %s %d" % (_("Opponent"), self.xrival.name, categoria.name(), _("Level"), nivel)
+        label = "%s: %s\n%s %s" % (_("Opponent"), self.xrival.name, categoria.name(), TrListas.level(nivel))
         if self.puntos:
             label += " (+%d %s)" % (self.puntos, _("points"))
         self.set_label1(label)
@@ -84,7 +85,7 @@ class ManagerCompeticion(Manager.Manager):
         self.game.set_tag("Event", _("Competition with tutor"))
 
         player = self.configuration.nom_player()
-        other = "%s (%s %d)" % (self.xrival.name, _("Level"), self.level_played)
+        other = "%s (%s)" % (self.xrival.name, TrListas.level(self.level_played))
         w, b = (player, other) if self.is_human_side_white else (other, player)
         self.game.set_tag("White", w)
         self.game.set_tag("Black", b)
@@ -132,7 +133,7 @@ class ManagerCompeticion(Manager.Manager):
             self.analyze_end()
             self.game.set_position()
             categoria, nivel, is_white = self.li_reiniciar
-            self.procesador.stop_engines()
+            self.procesador.close_engines()
             self.main_window.activaInformacionPGN(False)
             self.start(self.categorias, categoria, nivel, is_white, self.puntos)
 

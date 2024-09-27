@@ -1,0 +1,131 @@
+msgid ""
+msgstr ""
+"Last-Translator: lukasmonk <lukasmonk@gmail.com>, 2024\n"
+"Language-Team: English (United Kingdom) (https://app.transifex.com/lukasmonk/teams/13068/en_GB/)\n"
+"Language: en_GB\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Petrov Defence Classical Attack, Chigorin Variation, Browne Attack"
+msgstr "Petrov Defence: Classical Attack, Chigorin Variation, Browne Attack"
+
+msgid "Petrov Defence Classical Attack, Chigorin Variation, Main Line"
+msgstr "Petrov Defence: Classical Attack, Chigorin Variation, Main Line"
+
+msgid "Petrov Defence Classical Attack, Marshall Variation, Chinese Gambit"
+msgstr "Petrov Defence: Classical Attack, Marshall Variation, Chinese Gambit"
+
+msgid "Petrov Defence Classical Attack, Mason-Showalter Variation"
+msgstr "Petrov Defence: Classical Attack, Mason-Showalter Variation"
+
+msgid "Petrov Defence Classical Attack, Staunton Variation"
+msgstr "Petrov Defence: Classical Attack, Staunton Variation"
+
+msgid "Petrov Defence Cochrane Gambit, Bishop Check Line"
+msgstr "Petrov Defence: Cochrane Gambit, Bishop Check Line"
+
+msgid "Petrov Defence Cochrane Gambit, Center Variation"
+msgstr "Petrov Defence: Cochrane Gambit, Center Variation"
+
+msgid "Petrov Defence Damiano Variation, Kholmov Gambit"
+msgstr "Petrov Defence: Damiano Variation, Kholmov Gambit"
+
+msgid "Petrov Defence Karklins-Martinovsky Variation"
+msgstr "Petrov Defence: Karklins-Martinovsky Variation"
+
+msgid "Petrov Defence Millennium Attack"
+msgstr "Petrov Defence: Millennium Attack"
+
+msgid "Petrov Defence Modern Attack"
+msgstr "Petrov Defence: Modern Attack"
+
+msgid "Petrov Defence Modern Attack, Center Variation"
+msgstr "Petrov Defence: Modern Attack, Center Variation"
+
+msgid "Petrov Defence Modern Attack, Murrey Variation"
+msgstr "Petrov Defence: Modern Attack, Murrey Variation"
+
+msgid "Petrov Defence Modern Attack, Symmetrical Variation"
+msgstr "Petrov Defence: Modern Attack, Symmetrical Variation"
+
+msgid "Petrov Defence Modern Attack, Tal Gambit"
+msgstr "Petrov Defence: Modern Attack, Tal Gambit"
+
+msgid "Petrov Defence Moody Gambit"
+msgstr "Petrov Defence: Moody Gambit"
+
+msgid "Petrov Defence Stafford Gambit"
+msgstr "Petrov Defence: Stafford Gambit"
+
+msgid "Queen Gambit Declined: Tarrasch Defence, Pseudo-Tarrasch Bishop Attack"
+msgstr ""
+"Queen Gambit Declined: Tarrasch Defence, Pseudo-Tarrasch, Bishop Attack"
+
+msgid "Scandinavian Defence Defence"
+msgstr "Scandinavian Defence"
+
+msgid "Scandinavian Defence Defence, Gruenfeld Variation"
+msgstr "Scandinavian Defence: Gruenfeld Variation"
+
+msgid "Scandinavian Defence Defence, Lasker Variation"
+msgstr "Scandinavian Defence: Lasker Variation"
+
+msgid "Scandinavian Defence Defence: Blackburne Gambit"
+msgstr "Scandinavian Defence: Blackburne Gambit"
+
+msgid "Scandinavian Defence Defence: Blackburne-Kloosterboer Gambit"
+msgstr "Scandinavian Defence: Blackburne-Kloosterboer Gambit"
+
+msgid "Scandinavian Defence Defence: Boehnke Gambit"
+msgstr "Scandinavian Defence: Boehnke Gambit"
+
+msgid "Scandinavian Defence Defence: Bronstein Variation"
+msgstr "Scandinavian Defence: Bronstein Variation"
+
+msgid "Scandinavian Defence Defence: Kloosterboer Gambit"
+msgstr "Scandinavian Defence: Kloosterboer Gambit"
+
+msgid "Scandinavian Defence Defence: Kádas Gambit"
+msgstr "Scandinavian Defence: Kádas Gambit"
+
+msgid "Scandinavian Defence Defence: Main Line"
+msgstr "Scandinavian Defence: Main Line"
+
+msgid "Scandinavian Defence Defence: Main Line, Mieses Variation"
+msgstr "Scandinavian Defence: Main Line, Mieses Variation"
+
+msgid "Scandinavian Defence Defence: Mieses-Kotroc Variation"
+msgstr "Scandinavian Defence: Mieses-Kotroc Variation"
+
+msgid "Scandinavian Defence Defence: Modern Variation"
+msgstr "Scandinavian Defence: Modern Variation"
+
+msgid "Scandinavian Defence Defence: Modern Variation, Gipslis Variation"
+msgstr "Scandinavian Defence: Modern Variation, Gipslis Variation"
+
+msgid "Scandinavian Defence Defence: Modern Variation, Wing Gambit"
+msgstr "Scandinavian Defence: Modern Variation, Wing Gambit"
+
+msgid "Scandinavian Defence Defence: Portuguese Variation"
+msgstr "Scandinavian Defence: Portuguese Variation"
+
+msgid "Scandinavian Defence Defence: Portuguese Variation, Portuguese Gambit"
+msgstr "Scandinavian Defence: Portuguese Variation, Portuguese Gambit"
+
+msgid "Scandinavian Defence Defence: Richter Variation"
+msgstr "Scandinavian Defence: Richter Variation"
+
+msgid "Scandinavian Defence Defence: Schiller-Pytel Variation"
+msgstr "Scandinavian Defence: Schiller-Pytel Variation"
+
+msgid ""
+"Scandinavian Defence Defence: Schiller-Pytel Variation, Modern Variation"
+msgstr "Scandinavian Defence: Schiller-Pytel Variation, Modern Variation"
+
+msgid "Scandinavian Defence Defence: Zilbermints Gambit"
+msgstr "Scandinavian Defence: Zilbermints Gambit"
+
+msgid "Vienna Game: Vienna Gambit, Hamppe-Allgaier Gambit, ThorOld Variation"
+msgstr "Vienna Game: Vienna Gambit, Hamppe-Allgaier Gambit, Thorold Variation"

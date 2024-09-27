@@ -188,23 +188,22 @@ class Manager:
     def set_end_game(self, with_takeback=False):
         self.main_window.thinking(False)
         self.runSound.close()
+        self.state = ST_ENDGAME
+        self.disable_all()
+        li_options = [TB_CLOSE]
+        if hasattr(self, "reiniciar"):
+            li_options.append(TB_REINIT)
         if len(self.game):
-            self.state = ST_ENDGAME
-            self.disable_all()
-            li_options = [TB_CLOSE]
-            if hasattr(self, "reiniciar"):
-                li_options.append(TB_REINIT)
             li_options.append(TB_REPLAY)
             if with_takeback:
                 li_options.append(TB_TAKEBACK)
-            li_options.append(TB_CONFIG)
-            li_options.append(TB_UTILITIES)
+        li_options.append(TB_CONFIG)
+        li_options.append(TB_UTILITIES)
 
-            self.main_window.pon_toolbar(li_options, with_eboard=self.with_eboard)
-            self.remove_hints(siQuitarAtras=not with_takeback)
-            self.procesador.stop_engines()
-        else:
-            self.close()
+        self.set_toolbar(li_options)
+        self.main_window.toolbar_enable(True)
+        self.remove_hints(siQuitarAtras=not with_takeback)
+        self.procesador.close_engines()
 
     def set_toolbar(self, li_options):
         self.main_window.pon_toolbar(li_options, with_eboard=self.with_eboard)
@@ -415,6 +414,7 @@ class Manager:
             # self.goto_end()
 
     def move_the_pieces(self, liMovs, is_rival=False):
+        self.main_window.end_think_analysis_bar()
         if is_rival and self.configuration.x_show_effects:
 
             rapidez = self.configuration.pieces_speed_porc()
@@ -627,6 +627,7 @@ class Manager:
         pon(lb3, self.set_label3)
 
     def beepExtendido(self, siNuestro=False):
+        self.main_window.end_think_analysis_bar()
         if siNuestro:
             if not self.configuration.x_sound_our:
                 return
@@ -639,7 +640,7 @@ class Manager:
             self.runSound.playBeep()
 
     def beep_zeitnot(self):
-        self.runSound.playZeitnot()
+        self.runSound.play_zeinot()
 
     def beep_error(self):
         if self.configuration.x_sound_error:
@@ -2243,3 +2244,63 @@ class Manager:
                 cvariation_move = "|".join([cnum for cnum in self.board.variation_history.split("|")][:-1])
                 link_variation_pressed("%s|%d" % (cvariation_move, (num_var_move + 1)))
                 self.kibitzers_manager.put_game(variation, self.board.is_white_bottom)
+
+    def keypressed_in_variation(self, nkey):
+        variation_history = self.board.variation_history
+        if variation_history.count("|") != 2:
+            return self.mueveJugada(nkey)
+
+        num_move, num_variation, num_variation_move = [int(cnum) for cnum in self.board.variation_history.split("|")]
+        main_move: Move.Move = self.game.move(num_move)
+        num_variations = len(main_move.variations)
+        num_moves_current_variation = len(main_move.variations.li_variations[num_variation])
+
+        if nkey == GO_BACK:
+            if num_variation_move > 0:
+                num_variation_move -= 1
+            elif num_variation > 0:
+                num_variation -= 1
+                num_variation_move = 0
+            else:
+                return
+        elif nkey == GO_FORWARD:
+            if num_variation_move < num_moves_current_variation-1:
+                num_variation_move += 1
+            elif num_variation < num_variations -1:
+                num_variation += 1
+                num_variation_move = 0
+            else:
+                return
+        elif nkey == GO_BACK2:
+            if num_variation > 0:
+                num_variation -= 1
+                num_variation_move = 0
+            else:
+                return
+        elif nkey == GO_FORWARD2:
+            if num_variation < num_variations -1:
+                num_variation += 1
+                num_variation_move = 0
+            else:
+                return
+        else:
+            return
+
+        # if to_main:
+        #     row, column = self.main_window.pgnPosActual()
+        #
+        #     key = column.key
+        #     is_white = key != "BLACK"
+        #     self.main_window.pgnColocate(row, is_white)
+        #     self.pgnMueve(row, is_white)
+        #     return
+
+        link = f"{num_move}|{num_variation}|{num_variation_move}"
+        self.main_window.informacionPGN.variantes.link_variation_pressed(link)
+
+    def bestmove_from_analysis_bar(self):
+        return self.main_window.bestmove_from_analysis_bar()
+
+    def is_active_analysys_bar(self):
+        return self.main_window.with_analysis_bar
+

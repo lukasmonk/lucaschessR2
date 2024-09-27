@@ -206,7 +206,8 @@ class PolyglotImport:
         li_path_pgn = SelectFiles.select_pgns(self.wpolyglot)
         if not li_path_pgn:
             return
-        titulo = "%s %d %s" % (_("Import"), len(li_path_pgn), _("PGN"))
+        pgns = ",".join(os.path.basename(path) for path in li_path_pgn)
+        titulo = "%s %d %s = %s" % (_("Import"), len(li_path_pgn), _("PGN"), pgns)
         resp = self.import_polyglot_config(titulo)
         if resp is None:
             return
@@ -376,8 +377,8 @@ class ImportarPGNDB(QtWidgets.QDialog):
             self.bp.setRange(0, 100)
             self.time_inicial = time.time()
             self.total = valor
-        elif valor > 0:
-            porc_valor = valor*100/self.total
+        elif valor > 0 and self.total > 0:
+            porc_valor = valor * 100 / self.total
             self.bp.setValue(porc_valor)
             self.lbgames_readed.set_text("%s: %d" % (_("Games read"), num_games))
             tm = time.time() - self.time_inicial
@@ -416,7 +417,7 @@ def fuente_dbbig(db, min_games, min_score, calc_weight, save_score):
         if max_weight > 32767:
             factor = max_weight / 32767
             for imove, (num, suma) in dic.items():
-                dic_act[imove] = (num // factor, suma // factor)
+                dic_act[imove] = (int(round(num / factor, 0)), int(round(suma / factor, 0)))
         return True
 
     def dic_entry(xkey, dic_act):
@@ -655,7 +656,7 @@ def add_db(db, plies, st_results, st_side, li_players, unknown_convert, ftime, t
     cancelled = False
     st_results = {x.decode() for x in st_results}
 
-    dispatch(True, len(db), 0)
+    dispatch(True, db.all_reccount(), 0)
     for num_games, (xpv, result, white, black) in enumerate(db.yield_polyglot()):
         if (ftime() - time_prev) >= time_dispatch:
             time_prev = ftime()

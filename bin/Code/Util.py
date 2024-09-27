@@ -5,10 +5,8 @@ import hashlib
 import inspect
 import os
 import pickle
-import queue
 import random
 import shutil
-import threading
 import time
 import urllib.request
 import zlib
@@ -774,43 +772,3 @@ def fen_fen64(fen):
                 ln.append(c)
         li.append("".join(ln))
     return "".join(li)
-
-
-class QueueMutex:
-    def __init__(self):
-        self.queue = queue.Queue()
-        self.mutex = threading.Lock()
-
-    def put_item(self, item):
-        self.mutex.acquire()
-        self.queue.put(item)
-        self.mutex.release()
-
-    def put_list(self, li_item):
-        self.mutex.acquire()
-        for item in li_item:
-            self.queue.put(item)
-        self.mutex.release()
-
-    def get_item(self):
-        if self.queue.empty():
-            return None
-        self.mutex.acquire()
-        item = self.queue.get()
-        self.mutex.release()
-        return item
-
-    def get_all(self):
-        li = []
-        if not self.queue.empty():
-            self.mutex.acquire()
-            while not self.queue.empty():
-                li.append(self.queue.get())
-            self.mutex.release()
-        return li
-
-    def empty(self):
-        return self.queue.empty()
-
-    def with_data(self):
-        return not self.queue.empty()

@@ -80,6 +80,12 @@ class AnalysisBar(QtWidgets.QWidget):
                 self.timer.stop()
                 self.timer = None
 
+    def end_think(self):
+        if self.timer:
+            self.timer.stop()
+            if self.engine_manager:
+                self.engine_manager.ac_final(0)
+
     def set_game(self, game):
         self.timer.stop()
         self.game = game
@@ -107,10 +113,19 @@ class AnalysisBar(QtWidgets.QWidget):
         self.lb_value_up.set_text(txt)
         self.lb_value_down.set_text(txt)
 
+    def current_bestmove(self):
+        rm = None
+        if self.engine_manager:
+            mrm = self.engine_manager.ac_estado()
+            if mrm:
+                rm = mrm.rm_best()
+        return rm
+
     def control_state(self):
         if self.engine_manager:
             mrm = self.engine_manager.ac_estado()
             if mrm:
+
                 rm = mrm.rm_best()
 
                 depth = rm.depth
@@ -131,7 +146,7 @@ class AnalysisBar(QtWidgets.QWidget):
 
                 if tooltip is None:
                     pgn = Game.pv_pgn(self.game.last_position.fen(), rm.pv)
-                    main = f"{rm.abbrev_text_base()} (^{rm.depth})"
+                    main = f"{rm.abbrev_text_base1()} (^{rm.depth})"
                     li = pgn.split(" ")
                     if len(li) > 0:
                         sli = []
@@ -158,6 +173,11 @@ class AnalysisBar(QtWidgets.QWidget):
                     if close:
                         self.engine_manager.ac_final(0)
                         self.timer.stop()
+            else:
+                self.setToolTip("")
+                self.show_score("")
+                self.engine_manager.ac_final(0)
+                self.timer.stop()
 
     def configure(self):
         configuration = Code.configuration

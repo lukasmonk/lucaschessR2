@@ -97,10 +97,10 @@ class WMemoria(LCDialog.LCDialog):
         self.gbAyuda = Controles.GB(self, _("Help"), ly)
 
         # Rotulos informacion
-        lbCategoria = Controles.LB(self, txtcategoria).set_font(f)
-        lbNivel = Controles.LB(self, _X(_("Level %1/%2"), str(nivel + 1), "25")).set_font(f)
+        lb_categoria = Controles.LB(self, txtcategoria).set_font(f)
+        lb_nivel = Controles.LB(self, _X(_("Level %1/%2"), str(nivel + 1), "25")).set_font(f)
         if record:
-            lbRecord = Controles.LB(self, _X(_("Record %1 seconds"), str(record))).set_font(f)
+            lb_record = Controles.LB(self, _X(_("Record %1 seconds"), str(record))).set_font(f)
 
         # Rotulo de vtime
         self.rotuloDispone = (
@@ -127,7 +127,7 @@ class WMemoria(LCDialog.LCDialog):
 
         self.rotuloDispone1.hide()
 
-        # Tool bar
+        # Toolbar
         li_acciones = (
             (_("Start"), Iconos.Empezar(), "empezar"),
             (_("Continue"), Iconos.Pelicula_Seguir(), "seguir"),
@@ -141,22 +141,22 @@ class WMemoria(LCDialog.LCDialog):
         self.pon_toolbar(["empezar"])
 
         # Colocamos
-        lyP = Colocacion.H().relleno().control(self.listaPiezasW).control(self.listaPiezasB).relleno().margen(0)
-        lyT = Colocacion.V().control(self.board).otro(lyP).margen(0)
+        ly_p = Colocacion.H().relleno().control(self.listaPiezasW).control(self.listaPiezasB).relleno().margen(0)
+        ly_t = Colocacion.V().control(self.board).otro(ly_p).margen(0)
 
-        lyI = Colocacion.V()
-        lyI.control(tb)
-        lyI.relleno()
-        lyI.controlc(lbCategoria)
-        lyI.controlc(lbNivel)
+        ly_i = Colocacion.V()
+        ly_i.control(tb)
+        ly_i.relleno()
+        ly_i.controlc(lb_categoria)
+        ly_i.controlc(lb_nivel)
         if record:
-            lyI.controlc(lbRecord)
-        lyI.controlc(self.gbTiempo)
-        lyI.relleno()
-        lyI.control(self.gbAyuda)
-        lyI.margen(3)
+            ly_i.controlc(lb_record)
+        ly_i.controlc(self.gbTiempo)
+        ly_i.relleno()
+        ly_i.control(self.gbAyuda)
+        ly_i.margen(3)
 
-        ly = Colocacion.H().otro(lyT).otro(lyI).relleno()
+        ly = Colocacion.H().otro(ly_t).otro(ly_i).relleno()
         ly.margen(3)
 
         self.setLayout(ly)

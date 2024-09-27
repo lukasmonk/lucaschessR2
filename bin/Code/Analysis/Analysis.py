@@ -367,7 +367,7 @@ class AnalisisVariations:
         if len(self.game_analyzer):
             self.w.boardT.set_position(self.game_analyzer.move(0).position)
 
-        self.w.ponPuntuacion(self.rm.texto())
+        self.w.set_score(self.rm.texto())
 
         self.pos_analyzer = 0
         self.max_analyzer = len(self.game_analyzer)

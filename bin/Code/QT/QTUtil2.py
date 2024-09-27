@@ -50,7 +50,7 @@ class MensEspera(QtWidgets.QWidget):
             QtCore.Qt.WindowCloseButtonHint
             | QtCore.Qt.Window
             | QtCore.Qt.FramelessWindowHint
-            | QtCore.Qt.WindowStaysOnTopHint
+            # | QtCore.Qt.WindowStaysOnTopHint
         )
         self.setStyleSheet("QWidget, QLabel { background: %s }" % background)
 

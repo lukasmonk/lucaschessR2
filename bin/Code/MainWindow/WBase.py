@@ -111,9 +111,9 @@ class WBase(QtWidgets.QWidget):
 
     def create_toolbar(self):
         self.tb = QtWidgets.QToolBar("BASIC", self)
-        iconsTB = self.configuration.type_icons()
-        self.tb.setToolButtonStyle(iconsTB)
-        sz = 32 if iconsTB == QtCore.Qt.ToolButtonTextUnderIcon else 16
+        icons_tb = self.configuration.type_icons()
+        self.tb.setToolButtonStyle(icons_tb)
+        sz = 32 if icons_tb == QtCore.Qt.ToolButtonTextUnderIcon else 16
         self.tb.setIconSize(QtCore.QSize(sz, sz))
         style = "QToolBar {border-bottom: 1px solid gray; border-top: 1px solid gray;}"
         self.tb.setStyleSheet(style)
@@ -135,18 +135,18 @@ class WBase(QtWidgets.QWidget):
         font = Controles.FontType(puntos=puntos, peso=peso)
 
         for key, (titulo, icono) in dic_opciones.items():
-            accion = QtWidgets.QAction(titulo, None)
-            accion.setIcon(icono)
-            accion.setIconText(titulo)
-            accion.setFont(font)
-            accion.triggered.connect(self.run_action)
-            accion.key = key
-            self.dic_toolbar[key] = accion
+            action = QtWidgets.QAction(titulo, None)
+            action.setIcon(icono)
+            action.setIconText(titulo)
+            action.setFont(font)
+            action.triggered.connect(self.run_action)
+            action.key = key
+            self.dic_toolbar[key] = action
 
-        accion = self.dic_toolbar[TB_NEXT]
-        accion.setToolTip(f'{_("Next")}: [+, {_("Page Down")}]')
-        accion = self.dic_toolbar[TB_PREVIOUS]
-        accion.setToolTip(f'{_("Previous")}: [-, {_("Page Up")}]')
+        action = self.dic_toolbar[TB_NEXT]
+        action.setToolTip(f'{_("Next")}: [+, {_("Page Down")}]')
+        action = self.dic_toolbar[TB_PREVIOUS]
+        action.setToolTip(f'{_("Previous")}: [-, {_("Page Up")}]')
 
     def translate_again_tb(self):
         dic_opciones = self.dic_opciones_tb()
@@ -388,6 +388,9 @@ class WBase(QtWidgets.QWidget):
             self.tb.addAction(self.dic_toolbar[k])
             if separator and n != last:
                 self.tb.addSeparator()
+            if k not in (TB_NEXT, TB_PREVIOUS) and self.tb.toolButtonStyle() != QtCore.Qt.ToolButtonIconOnly:
+                widget = self.tb.widgetForAction(self.dic_toolbar[k])
+                widget.setToolTip("")
 
         self.tb.li_acciones = li_acciones
         self.tb.update()
@@ -574,7 +577,10 @@ class WBase(QtWidgets.QWidget):
         dic = QTUtil2.dic_keys()
         if tecla in dic:
             if hasattr(self.manager, "mueveJugada"):
-                self.manager.mueveJugada(dic[tecla])
+                if self.board.variation_history:
+                    self.manager.keypressed_in_variation(dic[tecla])
+                else:
+                    self.manager.mueveJugada(dic[tecla])
         elif tecla in (QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return):
             row, column = self.pgn.current_position()
             if column.key != "NUMBER":
@@ -773,6 +779,12 @@ class WBase(QtWidgets.QWidget):
         if tm2 is not None:
             tm += '<br><FONT SIZE="-4">' + tm2
         self.lb_clock_black.set_text(tm)
+
+    def hide_clock_white(self):
+        self.lb_clock_white.hide()
+
+    def hide_clock_blck(self):
+        self.lb_clock_black.hide()
 
     def show_message(self, txt, with_cancel, tit_cancel=None):
         self.wmessage.set_message(txt, with_cancel)

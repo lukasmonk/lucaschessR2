@@ -1,10 +1,30 @@
 ******************************************************************************
 
-Current CT800 firmware version: V1.45
+Current CT800 firmware version: V1.46
 
 ******************************************************************************
 
 Change history:
+
+V1.46:
+- Made the root aspiration window in search incremental.
+
+- Removed pawn race and PV trade deepening.
+
+- More opening book knowledge.
+
+- Cleaned up configuration definitions.
+
+- Updated the ARM GCC version from 12.3.1 to 13.3.1.
+
+
+UCI versions:
+- Moved automated tuner to its own source file.
+
+Windows:
+- Updated the GCC version from 9.3.0 to 13.2.0.
+
+******************************************************************************
 
 V1.45:
 - Added more options for the operator time bonus in tournament and game-in

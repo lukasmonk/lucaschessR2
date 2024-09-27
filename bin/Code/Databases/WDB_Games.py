@@ -282,7 +282,8 @@ class WGames(QtWidgets.QWidget):
         new_value = new_value.strip()
         self.set_changes(True)
 
-        self.db_games.set_field(row, key, new_value)
+        for row in self.grid.recnosSeleccionados():
+            self.db_games.set_field(row, key, new_value)
 
         self.grid.refresh()
 
@@ -737,18 +738,52 @@ class WGames(QtWidgets.QWidget):
                 funcion()
 
     def tw_odt(self):
+        key_var = "ODT"
+        dic = self.configuration.read_variables(key_var)
+        folder = dic.get("FOLDER_SAVE", self.configuration.carpeta)
+        path = os.path.join(folder, self.db_games.get_name() + ".odt")
+
+        form = FormLayout.FormLayout(self, _("Export"), Iconos.ODT(), anchoMinimo=640)
+        form.separador()
+        form.file(_("Save as"), "odt", True, path)
+        form.separador()
+        form.checkbox(_("Skip the first move"), False)
+        form.separador()
+
+        li_registros_selected = self.grid.recnosSeleccionados()
+        li_registros_total = list(range(self.db_games.reccount()))
+        nreg_selected = len(li_registros_selected)
+        if nreg_selected > 1:
+            form.checkbox(f'{_("Only selected games")} ({nreg_selected})', True)
+            form.separador()
+
+        resultado = form.run()
+        if not resultado:
+            return
+
+        accion, li_gen = resultado
+
+        path_odt = li_gen[0]
+        if not path_odt:
+            return
+        dic["FOLDER_SAVE"] = os.path.dirname(path)
+        self.configuration.write_variables(key_var, dic)
+
+        skip_first = li_gen[1]
+        if nreg_selected > 1:
+            li_registros = li_registros_selected if li_gen[2] else li_registros_total
+        else:
+            li_registros = li_registros_total
+
         um = QTUtil2.working(self)
-        li_fens = [(fen, pgn) for fen, pgn in self.db_games.yield_fens()]
-        total = len(li_fens)
+        li_fens_pgn = self.db_games.get_fens_pgn(li_registros, skip_first)
+        total = len(li_fens_pgn)
         um.final()
         if total == 0:
             return
 
         dic = {"POS": 0, "TOTAL": total}
 
-        path_odt = WOdt.path_saveas_odt(self, self.db_games.get_name())
-        if not path_odt:
-            return
         wodt = WOdt.WOdt(self, path_odt)
         board = wodt.board
         tname = "Table3x2"
@@ -768,7 +803,7 @@ class WGames(QtWidgets.QWidget):
             row = None
 
             for posx in range(current_pos, min(current_pos + 6, total)):
-                fen, pgn = li_fens[posx]
+                fen, pgn = li_fens_pgn[posx]
                 position = Position.Position()
                 position.read_fen(fen)
 
@@ -794,7 +829,7 @@ class WGames(QtWidgets.QWidget):
         wodt.set_routine(run_data)
         if wodt.exec_():
             wodt.odt_doc.add_pagebreak()
-            for pos, (fen, pgn) in enumerate(li_fens, 1):
+            for pos, (fen, pgn) in enumerate(li_fens_pgn, 1):
                 if pgn:
                     wodt.odt_doc.add_paragraph(f"{pos:3d}:   {pgn}")
                     wodt.odt_doc.add_linebreak()
@@ -1426,6 +1461,7 @@ class WGames(QtWidgets.QWidget):
                     self.set_changes(False)
                 pb.close()
                 ws.close()
+                QTUtil2.temporary_message(self, _("Saved"), 1.2)
 
     def tw_exportar_csv(self, only_selected):
         dic_csv = self.configuration.read_variables("CSV")
@@ -1523,14 +1559,14 @@ class WGames(QtWidgets.QWidget):
         link_7z = "https://peazip.github.io/"
         mens_unzip = _("Uncompress this file")
 
-        mens_eco = _(
-            "If you want to include a field with the opening, you have to download and unzip in the same folder as the puzzle file, the file indicated below"
-        )
-        link_eco = (
-            "https://sourceforge.net/projects/lucaschessr/files/Version_R2/lichess_dict_pv_ids.zip/download"
-        )
-        idea = _("Original idea and more information")
-        link_idea = "https://cshancock.netlify.app/post/2021-06-23-lichess-puzzles-by-eco"
+        # mens_eco = _(
+        #     "If you want to include a field with the opening, you have to download and unzip in the same folder as the puzzle file, the file indicated below"
+        # )
+        # link_eco = (
+        #     "https://sourceforge.net/projects/lucaschessr/files/Version_R2/lichess_dict_pv_ids.zip/download"
+        # )
+        # idea = _("Original idea and more information")
+        # link_idea = "https://cshancock.netlify.app/post/2021-06-23-lichess-puzzles-by-eco"
 
         mensaje = "%s:" % mens_base
         mensaje += "<ol>"
@@ -1546,12 +1582,12 @@ class WGames(QtWidgets.QWidget):
         else:
             mensaje += "<li>%s</li>" % mens_unzip
 
-        mensaje += "<li>%s" % mens_eco
-        mensaje += "<ul>"
-        mensaje += '<li><a href="%s">%s</a></li>' % (link_eco, link_eco)
-        mensaje += '<li>%s: <a href="%s">%s</a></li>' % (idea, link_idea, link_idea)
-        mensaje += "</ul>"
-        mensaje += "</li>"
+        # mensaje += "<li>%s" % mens_eco
+        # mensaje += "<ul>"
+        # mensaje += '<li><a href="%s">%s</a></li>' % (link_eco, link_eco)
+        # mensaje += '<li>%s: <a href="%s">%s</a></li>' % (idea, link_idea, link_idea)
+        # mensaje += "</ul>"
+        # mensaje += "</li>"
 
         mensaje += "</ol>"
         mensaje += "<br>%s" % _("The import takes a long time.")
@@ -1592,48 +1628,54 @@ class WGames(QtWidgets.QWidget):
                 key = key.split("#")[0]
             return key
 
-        with open(path, "rt") as f:
-            pb = QTUtil2.BarraProgreso1(self, _("Importing"), formato1="%p%")
+        with open(path, "r") as f:
+            pb = QTUtil2.BarraProgreso1(self, _("Importing"), formato1="%p%", show_time=False)
             pb.setFocus()
             pb.set_total(tam)
             pb.show()
-            line = f.readline()
-            n = 1
-            g = Game.Game()
-            while line:
-                line = line.strip()
-                if line:
-                    li = line.split(",")
-                    nli = len(li)
-                    if nli < 9:
-                        continue
-                    puzzleid, fen, moves, rating, ratingdeviation, popularity, nbplays, themes, gameurl = (
-                        li[:9] if nli > 9 else li
-                    )
-                    g.li_moves = []
-                    g.li_tags = []
-                    g.set_fen(fen)
-                    g.read_pv(moves)
-                    g.set_tag("Themes", themes)
-                    g.set_tag("Puzzle", "%s" % puzzleid)
+            csv_reader = csv.reader(f)
+            pos_ftell = 0
+            for pos, row in enumerate(csv_reader):
+                if len(row) < 9:
+                    continue
+
+                pos_ftell += sum(len(tag) for tag in row) + 1 + len(row)
+
+                if pos == 0:
+                    li_tags = [tag.upper() for tag in row]
+                    pos_fen = li_tags.index("FEN")
+                    pos_gameurl = li_tags.index("GAMEURL")
+                    pos_moves = li_tags.index("MOVES")
+                    del row[pos_moves]
                     if dic_gid_pv:
-                        gid = url_id(gameurl)
-                        opening = dic_gid_pv.get(gid)
-                        if opening:
-                            g.set_tag("Opening", opening.tr_name)
-                            g.set_tag("ECO", opening.eco)
-                    g.set_tag("Rating", rating)
-                    g.set_tag("RatingDeviation", ratingdeviation)
-                    g.set_tag("Popularity", popularity)
-                    g.set_tag("NBPlays", nbplays)
-                    g.set_tag("GameURL", gameurl)
-                    self.db_games.insert(g, with_commit=(n % 1000) == 0)
-                if n % 10 == 0:
-                    pb.pon(f.tell())
+                        row.append("Opening")
+                        row.append("ECO")
+                    li_tags = [tag.upper() for tag in row]
+                    sql = self.db_games.create_sql_insert(li_tags)
+                    self.db_games.check_columns(row)
+                    continue
+                fen = row[pos_fen]
+                pv = row[pos_moves]
+                del row[pos_moves]
+                if dic_gid_pv:
+                    gid = url_id(row[pos_gameurl])
+                    opening = dic_gid_pv.get(gid)
+                    if opening:
+                        name = opening.tr_name
+                        eco = opening.eco
+                    else:
+                        name = ""
+                        eco = ""
+                    row.append(name)
+                    row.append(eco)
+
+                with_commit = pos % 100000 == 0
+                self.db_games.add_reg_lichess(sql, fen, pv, row, with_commit)
+
+                if pos % 10 == 0:
+                    pb.pon(pos_ftell)
                     if pb.is_canceled():
                         break
-                line = f.readline()
-                n += 1
             pb.cerrar()
         self.db_games.commit()
         self.set_changes(True)

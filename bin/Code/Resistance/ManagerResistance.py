@@ -40,7 +40,7 @@ class ManagerResistance(Manager.Manager):
         self.moves_rival = 0
 
         # debe hacerse antes que rival
-        self.procesador.stop_engines()
+        self.procesador.close_engines()
         self.xarbitro = self.procesador.creaManagerMotor(self.configuration.engine_tutor(), self.seconds * 1000, None)
         self.xarbitro.remove_multipv()
 
@@ -117,7 +117,7 @@ class ManagerResistance(Manager.Manager):
             self.finJuego(False)
 
         elif key == TB_CLOSE:
-            self.procesador.stop_engines()
+            self.procesador.close_engines()
             self.procesador.start()
             self.procesador.entrenamientos.resistance(self.resistance.tipo)
 
@@ -277,7 +277,7 @@ class ManagerResistance(Manager.Manager):
 
         self.disable_all()
         self.state = ST_ENDGAME
-        self.procesador.stop_engines()
+        self.procesador.close_engines()
         self.xarbitro.terminar()
         self.main_window.adjust_size()
         self.main_window.resize(0, 0)

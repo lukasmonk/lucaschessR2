@@ -24,6 +24,7 @@ from Code.Base.Constantes import (
     GT_POSITIONS,
     ON_TOOLBAR,
 )
+from Code.Engines import EngineResponse
 from Code.CompetitionWithTutor import WCompetitionWithTutor
 from Code.QT import Iconos
 from Code.QT import QTUtil
@@ -293,13 +294,43 @@ class ManagerEntPos(Manager.Manager):
     def help(self):
         if self.advanced:
             self.wsolve.help()
-        elif self.is_playing_gameobj():
-            move_obj = self.game_obj.move(self.pos_obj)
+        elif self.is_playing_gameobj() or self.is_tutor_enabled or self.is_active_analysys_bar():
+            if self.is_playing_gameobj():
+                move_obj: Move.Move = self.game_obj.move(self.pos_obj)
+                from_sq = move_obj.from_sq
+                to_sq = move_obj.to_sq
+                promotion = move_obj.promotion
+            elif self.is_tutor_enabled:
+                mrm: EngineResponse.MultiEngineResponse
+                if self.is_analyzed_by_tutor:
+                    mrm = self.mrm_tutor
+                else:
+                    mrm = self.xtutor.ac_estado()
+
+                if mrm and mrm.li_rm:
+                    mrm.ordena()
+                    rm: EngineResponse.EngineResponse = mrm.li_rm[0]
+                    from_sq = rm.from_sq
+                    to_sq = rm.to_sq
+                    promotion = rm.promotion
+                else:
+                    return
+            else:
+                rm = self.bestmove_from_analysis_bar()
+                if not rm:
+                    return
+                from_sq = rm.from_sq
+                to_sq = rm.to_sq
+                promotion = rm.promotion
+
             self.current_helps += 1
             if self.current_helps == 1:
-                self.board.mark_position(move_obj.from_sq)
+                self.board.mark_position(from_sq)
             else:
-                self.board.ponFlechasTmp(([move_obj.from_sq, move_obj.to_sq, True],))
+                self.board.ponFlechasTmp(([from_sq, to_sq, True],))
+                if promotion and promotion.upper() != "Q":
+                    dic = TrListas.dic_nom_pieces()
+                    QTUtil2.temporary_message(self.main_window, dic[promotion.upper()], 2.0)
 
     def reiniciar(self):
         if self.is_rival_thinking:
@@ -433,8 +464,7 @@ class ManagerEntPos(Manager.Manager):
             self.piensa_rival()
 
         else:
-            is_obj = self.is_playing_gameobj()
-            self.pon_help(is_obj)
+            self.update_help()
             self.piensa_humano(is_white)
 
     def piensa_humano(self, is_white):
@@ -528,6 +558,7 @@ class ManagerEntPos(Manager.Manager):
         self.game_obj = None
         self.show_button_tutor(True)
         self.play_next_move()
+        self.update_help()
 
     def linea_terminada_opciones(self):
         self.show_comment_move(len(self.game) - 1)
@@ -540,7 +571,8 @@ class ManagerEntPos(Manager.Manager):
             QTUtil2.temporary_message(self.main_window, _("Line completed"), 0.9, fixed_size=None)
             if not self.is_finished():
                 self.set_toolbar_comments(with_continue=True)
-            self.game = self.game_obj.copia()
+            if not self.line_fns.with_game_original():
+                self.game = self.game_obj.copia()
             self.goto_end()
             return False
 
@@ -629,6 +661,9 @@ class ManagerEntPos(Manager.Manager):
 
         self.pgn_refresh(self.game.last_position.is_white)
         self.refresh()
+
+        if self.game.is_finished():
+            self.pon_help(False)
 
     def pon_resultado(self):
         mensaje, beep, player_win = self.game.label_resultado_player(self.is_human_side_white)
@@ -738,3 +773,25 @@ class ManagerEntPos(Manager.Manager):
             rm = mrm.best_rm_ordered()
             if rm.from_sq:
                 self.player_has_moved_base(rm.from_sq, rm.to_sq, rm.promotion)
+
+    def set_activate_tutor(self, si_activar):
+        self.main_window.set_activate_tutor(si_activar)
+        self.is_tutor_enabled = si_activar
+        self.update_help()
+
+    def update_help(self):
+        if self.is_finished():
+            with_help = False
+        elif self.is_playing_gameobj():
+            with_help = True
+        elif self.is_tutor_enabled:
+            with_help = True
+        elif self.is_active_analysys_bar():
+            with_help = True
+        else:
+            with_help = False
+        self.pon_help(with_help)
+
+    def show_info_extra(self):
+        Manager.Manager.show_info_extra(self)
+        self.update_help()

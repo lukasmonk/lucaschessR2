@@ -634,7 +634,11 @@ class RunEngine:
         if max_depth:
             env += " depth %d" % max_depth
         elif max_time:
-            env += " movetime %d" % max_time
+            if self.emulate_movetime:
+                env += " infinite"
+                self.set_max_time_current(max_time/1000)
+            else:
+                env += " movetime %d" % max_time
         self.play_with_return(play_return, game, env, max_time, max_depth)
 
     def play_bestmove_nodes(self, play_return, game, nodes, max_time, max_depth):
