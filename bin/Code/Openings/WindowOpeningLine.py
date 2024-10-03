@@ -794,7 +794,7 @@ class WLines(LCDialog.LCDialog):
 
     def import_pgn(self, game):
         dic_vars = self.read_config_vars()
-        carpeta = dic_vars.get("CARPETAPGN", "")
+        carpeta = dic_vars.get("CARPETAPGN", self.configuration.carpeta)
 
         li_path_pgn = SelectFiles.leeFicheros(self, carpeta, "pgn", titulo=_("File to import"))
         if not li_path_pgn:
@@ -812,7 +812,7 @@ class WLines(LCDialog.LCDialog):
 
     def ta_import_pgn_comments(self):
         dic_var = self.read_config_vars()
-        carpeta = dic_var.get("CARPETAPGN", "")
+        carpeta = dic_var.get("CARPETAPGN", self.configuration.carpeta)
 
         fichero_pgn = SelectFiles.leeFichero(self, carpeta, "pgn", titulo=_("File to import"))
         if not fichero_pgn:

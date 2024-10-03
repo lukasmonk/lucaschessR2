@@ -69,7 +69,8 @@ class WBaseSave(QtWidgets.QWidget):
             last_dir = os.path.dirname(self.history_list[0])
             if not os.path.isdir(last_dir):
                 last_dir = ""
-
+        if not last_dir:
+            last_dir = self.configuration.carpeta
         fich = SelectFiles.leeCreaFichero(self, last_dir, "pgn")
         if fich:
             if not fich.lower().endswith(".pgn"):

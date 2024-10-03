@@ -26,6 +26,8 @@ class DictSQL(object):
         self.normal_save_mode = True
         self.pending_commit = False
 
+        self.li_breplaces_pickle = []
+
     def reset(self):
         cursor = self.conexion.execute("SELECT KEY FROM %s" % self.tabla)
         self.li_keys = [reg[0] for reg in cursor.fetchall()]
@@ -67,6 +69,9 @@ class DictSQL(object):
         elif not self.pending_commit:
             self.pending_commit = True
 
+    def wrong_pickle(self, bwrong, bcorrect):
+        self.li_breplaces_pickle.append((bwrong, bcorrect))
+
     def __getitem__(self, key):
         if key in self.li_keys:
             if key in self.cache:
@@ -74,7 +79,17 @@ class DictSQL(object):
 
             sql = "SELECT VALUE FROM %s WHERE KEY= ?" % self.tabla
             row = self.conexion.execute(sql, (key,)).fetchone()
-            obj = pickle.loads(row[0])
+            try:
+                obj = pickle.loads(row[0])
+            except AttributeError:
+                if self.li_breplaces_pickle:
+                    btxt = row[0]
+                    for btxt_wrong, btxt_correct in self.li_breplaces_pickle:
+                        btxt = btxt.replace(btxt_wrong, btxt_correct)
+                    obj = pickle.loads(btxt)
+                    self.__setitem__(key, obj)
+                else:
+                    obj = None
 
             self.add_cache(key, obj)
             return obj

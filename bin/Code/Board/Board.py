@@ -1382,7 +1382,10 @@ class Board(QtWidgets.QGraphicsView):
         self.dbVisual.close()
 
     def dbvisual_contains(self, fenm2):
-        return fenm2 in self.dbVisual.dbFEN and len(self.dbVisual.dbFEN[fenm2]) > 0
+        try:
+            return fenm2 in self.dbVisual.dbFEN and len(self.dbVisual.dbFEN[fenm2]) > 0
+        except AttributeError:
+            return False
 
     def dbvisual_list(self, fenm2):
         return self.dbVisual.dbFEN[fenm2]

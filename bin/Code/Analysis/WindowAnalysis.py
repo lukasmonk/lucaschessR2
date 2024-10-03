@@ -318,31 +318,31 @@ class WAnalisis(LCDialog.LCDialog):
 
         ly_motor = Colocacion.H().control(self.lbPuntuacion).relleno().control(self.lb_engine).control(self.lb_time)
 
-        lyV = Colocacion.V()
-        lyV.control(tb_work)
-        lyV.otro(ly_tabl)
-        lyV.otro(lytb).espacio(20)
-        lyV.otro(ly_motor)
-        lyV.control(scroll)
-        lyV.relleno()
+        ly_v = Colocacion.V()
+        ly_v.control(tb_work)
+        ly_v.otro(ly_tabl)
+        ly_v.otro(lytb).espacio(20)
+        ly_v.otro(ly_motor)
+        ly_v.control(scroll)
+        # ly_v.relleno()
 
         wm = OneAnalysis(self, tab_analysis_init)
         tab_analysis_init.wmu = wm
 
         # Layout
         self.ly = Colocacion.H().margen(10)
-        self.ly.otro(lyV)
+        self.ly.otro(ly_v)
         self.ly.control(wm)
 
-        lyM = Colocacion.H().margen(0).otro(self.ly).relleno()
+        ly_m = Colocacion.H().margen(0).otro(self.ly).relleno()
 
         layout = Colocacion.V()
-        layout.otro(lyM)
+        layout.otro(ly_m)
         layout.margen(3)
         layout.setSpacing(1)
         self.setLayout(layout)
 
-        self.restore_video(siTam=False)
+        self.restore_video(siAncho=False)
         wm.cambiadoRM(tab_analysis_init.pos_selected)
         self.activate_analysis(tab_analysis_init)
 

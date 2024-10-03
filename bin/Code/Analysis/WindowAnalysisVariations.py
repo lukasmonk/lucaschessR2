@@ -79,7 +79,7 @@ class WAnalisisVariations(QtWidgets.QDialog):
         self.timer.start(1000)
 
     def stop_clock(self):
-        if hasattr(self, "timer"):
+        if hasattr(self, "timer") and self.timer:
             self.timer.stop()
             delattr(self, "timer")
 

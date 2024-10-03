@@ -381,8 +381,8 @@ class DBgames:
         else:
             for recno in li_recnos:
                 rowid = self.li_row_ids[recno]
-                sql += " WHERE ROWID=?"
-                self.conexion.execute(sql, [rowid, ])
+                sqln = f"{sql} WHERE ROWID=?"
+                self.conexion.execute(sqln, [rowid, ])
         self.conexion.commit()
 
     def get_summary(self, pvBase, dicAnalisis, with_figurines, allmoves=True):

@@ -114,22 +114,25 @@ class Kibitzer(Engines.Engine):
         Engines.Engine.read_uci_options(self)
 
     def restore(self, txt):
+        Util.restore_obj_pickle(self, txt)
+        ok = True
         if self.tipo in (KIB_CANDIDATES, KIB_BESTMOVE, KIB_BESTMOVE_ONELINE, KIB_THREATS, KIB_STOCKFISH):
-            Engines.Engine.restore(self, txt)
             if not os.path.isfile(self.path_exe):
                 eng = Code.configuration.buscaRival(self.alias)
                 if eng:
                     self.path_exe = eng.path_exe
-        else:
-            Util.restore_obj_pickle(self, txt)
+                else:
+                    ok = False
 
-        if self.tipo == KIB_POLYGLOT:
+        elif self.tipo == KIB_POLYGLOT:
             if not os.path.isfile(self.path_exe):
                 lbooks = Books.ListBooks()
                 book = lbooks.seek_book(self.key)
                 if book:
                     self.path_exe = book.path
-
+                else:
+                    ok = False
+        return ok
 
 class Kibitzers:
     def __init__(self):
@@ -147,8 +150,8 @@ class Kibitzers:
             if lista_pk:
                 for txt in lista_pk:
                     kib = Kibitzer()
-                    kib.restore(txt)
-                    lista.append(kib)
+                    if kib.restore(txt):
+                        lista.append(kib)
         return lista, lastfolder
 
     def number(self, huella):

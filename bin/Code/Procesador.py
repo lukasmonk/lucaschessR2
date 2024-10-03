@@ -931,8 +931,9 @@ class Procesador:
             Code.startfile(self.configuration.folder_databases())
             return
 
+        path_pgn = None
         if accion == "N":
-            dbpath = WDB_Games.new_database(self.main_window, self.configuration)
+            dbpath, path_pgn = WDB_Games.new_database(self.main_window, self.configuration, with_import_pgn=True)
             if dbpath is None:
                 return
             accion = "R"
@@ -951,6 +952,9 @@ class Procesador:
             w = WindowDatabase.WBDatabase(self.main_window, self, dbpath, is_temporary, False)
             if self.main_window:
                 with QTUtil.EscondeWindow(self.main_window):
+                    if path_pgn:
+                        w.show()
+                        w.wgames.tw_importar_pgn(path_pgn)
                     if w.exec_():
                         if w.reiniciar:
                             self.database("R", self.configuration.get_last_database())

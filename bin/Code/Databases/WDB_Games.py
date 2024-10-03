@@ -221,9 +221,8 @@ class WGames(QtWidgets.QWidget):
     def updateStatus(self):
         if self.terminado:
             return
-        if not self.summaryActivo:
-            txt = ""
-        else:
+        recs = self.db_games.reccount()
+        if self.summaryActivo:
             game = self.summaryActivo.get("game", Game.Game())
             nj = len(game)
             if nj > 1:
@@ -233,9 +232,10 @@ class WGames(QtWidgets.QWidget):
                 txt = ""
             si_pte = self.db_games.if_there_are_records_to_read()
             if not si_pte:
-                recs = self.db_games.reccount()
                 if recs:
                     txt += "%s: %d" % (_("Games"), recs)
+            else:
+                txt += f'{_("Working...")}'
             if self.where:
                 where = self.where
                 wxpv = 'XPV LIKE "'
@@ -249,8 +249,19 @@ class WGames(QtWidgets.QWidget):
                     pgn = g.pgn_base_raw(translated=True)
                     where = where[:pos] + pgn + where[pos + len(wxpv) + pos_apos + 1:]
                 txt += " | %s: %s" % (_("Filter"), where)
-            if si_pte:
-                QtCore.QTimer.singleShot(1000, self.updateStatus)
+        else:
+            si_pte = self.db_games.if_there_are_records_to_read()
+            txt = ""
+            if not si_pte:
+                if recs:
+                    txt += "%s: %d" % (_("Games"), recs)
+            else:
+                txt += f'{_("Working...")}'
+
+        if si_pte:
+            QtCore.QTimer.singleShot(500, self.updateStatus)
+
+        self.grid.refresh()
 
         self.status.showMessage(txt, 0)
 
@@ -1409,7 +1420,8 @@ class WGames(QtWidgets.QWidget):
         if not dbpath:
             return
         if dbpath == ":n":
-            dbpath = new_database(self, self.configuration)
+            name = os.path.basename(self.db_games.path_file) if self.is_temporary else ""
+            dbpath = new_database(self, self.configuration, name=name)
             if dbpath is None:
                 return
 
@@ -1432,7 +1444,7 @@ class WGames(QtWidgets.QWidget):
             remove_comments = dic_result["REMCOMMENTSVAR"]
             ws = WindowSavePGN.FileSavePGN(self, dic_result)
             if ws.open():
-                pb = QTUtil2.BarraProgreso1(self, _("Saving..."), formato1="%p%")
+                pb = QTUtil2.BarraProgreso1(self, _("Saving..."), formato1="%v/%m (%p%)")
                 pb.mostrar()
                 if only_selected:
                     li_sel = self.grid.recnosSeleccionados()
@@ -1441,7 +1453,10 @@ class WGames(QtWidgets.QWidget):
                 pb.set_total(len(li_sel))
                 for n, recno in enumerate(li_sel):
                     pb.pon(n)
-                    game = self.db_games.read_game_recno(recno)
+                    try:
+                        game = self.db_games.read_game_recno(recno)
+                    except AttributeError:
+                        return
                     if pb.is_canceled():
                         break
                     if game is None:
@@ -1469,6 +1484,8 @@ class WGames(QtWidgets.QWidget):
                                             dic_csv.get("FOLDER", self.configuration.carpeta), "csv")
         if not path_csv:
             return
+        if not path_csv.lower().endswith(".csv"):
+            path_csv = path_csv.strip() + ".csv"
         dic_csv["FOLDER"] = os.path.dirname(path_csv)
         self.configuration.write_variables("CSV", dic_csv)
         pb = QTUtil2.BarraProgreso1(self, _("Saving..."))
@@ -1508,16 +1525,20 @@ class WGames(QtWidgets.QWidget):
                 writer.writerow(li_data)
 
         if not pb.is_canceled():
+            QTUtil2.temporary_message(self, _("Saved"), 0.8)
             if not self.is_temporary:
                 self.changes = False
         pb.close()
         if not pb.is_canceled():
             Code.startfile(path_csv)
 
-    def tw_importar_pgn(self):
-        files = SelectFiles.select_pgns(self)
-        if not files:
-            return None
+    def tw_importar_pgn(self, path_pgn=None):
+        if path_pgn is None:
+            files = SelectFiles.select_pgns(self)
+            if not files:
+                return None
+        else:
+            files = [path_pgn,]
 
         dl_tmp = QTVarios.ImportarFicheroPGN(self)
         if self.db_games.allows_duplicates:
@@ -1656,7 +1677,6 @@ class WGames(QtWidgets.QWidget):
                     continue
                 fen = row[pos_fen]
                 pv = row[pos_moves]
-                del row[pos_moves]
                 if dic_gid_pv:
                     gid = url_id(row[pos_gameurl])
                     opening = dic_gid_pv.get(gid)
@@ -1668,6 +1688,7 @@ class WGames(QtWidgets.QWidget):
                         eco = ""
                     row.append(name)
                     row.append(eco)
+                del row[pos_moves]
 
                 with_commit = pos % 100000 == 0
                 self.db_games.add_reg_lichess(sql, fen, pv, row, with_commit)
@@ -1685,16 +1706,17 @@ class WGames(QtWidgets.QWidget):
 
 
 class WOptionsDatabase(QtWidgets.QDialog):
-    def __init__(self, owner, configuration, dic_data):
+    def __init__(self, owner, configuration, dic_data, with_import_pgn=False, name=""):
         super(WOptionsDatabase, self).__init__(owner)
 
         self.new = len(dic_data) == 0
 
         self.dic_data = dic_data
         self.dic_data_resp = None
+        self.with_import_pgn = with_import_pgn
 
-        def d_str(key):
-            return dic_data.get(key, "")
+        def d_str(key, default=""):
+            return dic_data.get(key, default)
 
         def d_true(key):
             return dic_data.get(key, True)
@@ -1713,7 +1735,7 @@ class WOptionsDatabase(QtWidgets.QDialog):
         valid_rx = r'^[^<>:;,?"*|/\\]+'
 
         lb_name = Controles.LB2P(self, _("Name"))
-        self.ed_name = Controles.ED(self, d_str("NAME")).controlrx(valid_rx)
+        self.ed_name = Controles.ED(self, d_str("NAME", name)).controlrx(valid_rx)
 
         ly_name = Colocacion.H().control(lb_name).control(self.ed_name)
 
@@ -1774,6 +1796,16 @@ class WOptionsDatabase(QtWidgets.QDialog):
         x1 = -2
         ly_group = Colocacion.V().otro(ly_group).espacio(x1).otro(ly_subgroup_l1).espacio(x1).otro(ly_subgroup_l2)
 
+        self.path_import_pgn = None
+        ly_import_pgn = None
+        if self.with_import_pgn:
+            self.lb_import_pgn = Controles.LB2P(self, f'{_("Import")}/{_("PGN")}')
+            self.pb_select_import_pgn = Controles.PB(self, "", self.select_pgn, False)
+            self.pb_select_import_pgn.setSizePolicy(
+                QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+            )
+            ly_import_pgn = Colocacion.H().control(self.lb_import_pgn).control(self.pb_select_import_pgn)
+
         gb_group = Controles.GB(self, "%s (%s)" % (_("Group"), _("optional")), ly_group)
 
         lb_summary = Controles.LB2P(self, _("Opening explorer depth (0=disable)"))
@@ -1819,6 +1851,8 @@ class WOptionsDatabase(QtWidgets.QDialog):
         layout.otro(ly_name).espacio(x0).control(gb_group).espacio(x0)
         layout.otro(ly_summary).espacio(x0)
         layout.otro(ly_external).espacio(x0)
+        if ly_import_pgn:
+            layout.otro(ly_import_pgn).espacio(x0)
         layout.control(gb_restrictions)
         layout.margen(9)
 
@@ -1839,6 +1873,23 @@ class WOptionsDatabase(QtWidgets.QDialog):
             self.external_folder = folder
 
         self.bt_external.set_text(self.external_folder)
+
+    def select_pgn(self):
+        key_var = "OPENINGLINES"
+        dic_var = self.configuration.read_variables(key_var)
+        carpeta = dic_var.get("CARPETAPGN", self.configuration.carpeta)
+
+        fichero_pgn = SelectFiles.leeFichero(self, carpeta, "pgn", titulo=_("File to import"))
+        if not fichero_pgn:
+            return
+        dic_var["CARPETAPGN"] = os.path.dirname(fichero_pgn)
+        self.configuration.write_variables(key_var, dic_var)
+        self.path_import_pgn = fichero_pgn
+        name_pgn = os.path.basename(fichero_pgn)
+        self.pb_select_import_pgn.set_text(name_pgn)
+        name = self.ed_name.texto().strip()
+        if not name:
+            self.ed_name.set_text(name_pgn[:-4])
 
     def remove_external(self):
         self.external_folder = ""
@@ -1929,15 +1980,17 @@ class WOptionsDatabase(QtWidgets.QDialog):
             "ALLOWS_COMPLETE_GAMES": self.chb_complete.valor(),
             "ALLOWS_ZERO_MOVES": self.chb_zeromoves.valor(), "SUMMARY_DEPTH": self.sb_summary.valor(),
             "FILEPATH": filepath_in_databases, "EXTERNAL_FOLDER": self.external_folder,
-            "FILEPATH_WITH_DATA": filepath_with_data
+            "FILEPATH_WITH_DATA": filepath_with_data,
         }
+        if self.with_import_pgn:
+            self.dic_data_resp["IMPORT_PGN"] = self.path_import_pgn
 
         self.accept()
 
 
-def new_database(owner, configuration):
+def new_database(owner, configuration, with_import_pgn=False, name = ""):
     dic_data = {}
-    w = WOptionsDatabase(owner, configuration, dic_data)
+    w = WOptionsDatabase(owner, configuration, dic_data, with_import_pgn, name)
     if w.exec_():
         filepath = w.dic_data_resp["FILEPATH"]
         if w.external_folder:
@@ -1947,9 +2000,15 @@ def new_database(owner, configuration):
         for key, value in w.dic_data_resp.items():
             db.save_config(key, value)
         db.close()
-        return filepath
+        if with_import_pgn:
+            return filepath, w.dic_data_resp["IMPORT_PGN"]
+        else:
+            return filepath
     else:
-        return None
+        if with_import_pgn:
+            return None, None
+        else:
+            return None
 
 
 class WTags(LCDialog.LCDialog):

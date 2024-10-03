@@ -178,6 +178,8 @@ class WPlayer(QtWidgets.QWidget):
         tabs.new_tab(self.gridOpeningBlack, _("Black openings"))
         tabs.new_tab(wWhite, _("White moves"))
         tabs.new_tab(wblack, _("Black moves"))
+        tabs.dispatchChange(self.tabChanged)
+        self.tabs = tabs
 
         # ToolBar
         liAccionesWork = [
@@ -200,23 +202,42 @@ class WPlayer(QtWidgets.QWidget):
         self.setdbGames(db_games)
         self.setPlayer(self.leeVariable("PLAYER", ""))
 
+    def tabChanged(self, ntab):
+        QtWidgets.QApplication.processEvents()
+
+        if ntab == 0: #in (0, 2):
+            grid = self.gridOpeningWhite
+        elif ntab == 1:
+            grid = self.gridOpeningBlack
+        elif ntab == 2:
+            grid = self.gridMovesWhite
+        else:
+            grid = self.gridMovesBlack
+        recno = grid.recno()
+        reccount = grid.reccount()
+        if reccount:
+            self.grid_cambiado_registro(grid, recno, None)
+
+    def actualiza(self):
+        self.tabChanged(self.tabs.current_position())
+
     def dispatchMoves(self, side, opcion):
-        dataSide = self.data[MOVES_WHITE if side == "white" else MOVES_BLACK]
+        data_side = self.data[MOVES_WHITE if side == "white" else MOVES_BLACK]
 
         if opcion == "all":
-            showData = range(len(dataSide))
+            show_data = range(len(data_side))
 
         elif opcion in ("e2e4", "d2d4", "c2c4", "g1f3"):
-            showData = [n for n in range(len(dataSide)) if dataSide[n]["pv"].startswith(opcion)]
+            show_data = [n for n in range(len(data_side)) if data_side[n]["pv"].startswith(opcion)]
 
         elif opcion == "other":
-            showData = [
+            show_data = [
                 n
-                for n in range(len(dataSide))
-                if not dataSide[n]["pv"].startswith("e2e4")
-                   and not dataSide[n]["pv"].startswith("d2d4")
-                   and not dataSide[n]["pv"].startswith("c2c4")
-                   and not dataSide[n]["pv"].startswith("g1f3")
+                for n in range(len(data_side))
+                if not data_side[n]["pv"].startswith("e2e4")
+                   and not data_side[n]["pv"].startswith("d2d4")
+                   and not data_side[n]["pv"].startswith("c2c4")
+                   and not data_side[n]["pv"].startswith("g1f3")
             ]
 
         else:  # if opcion.startswith("p"):
@@ -224,17 +245,17 @@ class WPlayer(QtWidgets.QWidget):
             if num == 0:
                 return self.dispatchMoves(side, "all")
             if self.lastFilterMoves[side].startswith("p"):
-                showDataPrevio = range(len(dataSide))
+                show_data_previo = range(len(data_side))
             else:
-                showDataPrevio = self.movesWhite if side == "white" else self.movesBlack
-            showData = [n for n in showDataPrevio if dataSide[n]["pv"].count(" ") < num]
+                show_data_previo = self.movesWhite if side == "white" else self.movesBlack
+            show_data = [n for n in show_data_previo if data_side[n]["pv"].count(" ") < num]
 
         if side == "white":
-            self.movesWhite = showData
+            self.movesWhite = show_data
             self.gridMovesWhite.refresh()
 
         else:
-            self.movesBlack = showData
+            self.movesBlack = show_data
             self.gridMovesBlack.refresh()
 
         self.lastFilterMoves[side] = opcion
@@ -666,3 +687,5 @@ class WPlayer(QtWidgets.QWidget):
         self.gridMovesWhite.gotop()
         self.gridMovesBlack.gotop()
         self.gridOpeningWhite.setFocus()
+
+        self.actualiza()

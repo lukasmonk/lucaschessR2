@@ -863,7 +863,10 @@ class ManagerPlayAgainstEngine(Manager.Manager):
 
     def is_mandatory_move(self):
         if self.opening_mandatory:
-            return True
+            if len(self.opening_mandatory.dicFEN) <= len(self.game):
+                self.opening_mandatory = None
+            else:
+                return True
 
         # OPENING LINE--------------------------------------------------------------------------------------------------
         if self.opening_line:

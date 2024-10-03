@@ -19,7 +19,7 @@ from Code.QT import QTVarios
 
 
 class WindowTutor(LCDialog.LCDialog):
-    def __init__(self, manager, tutor, siRival, siOpenings, is_white, has_hints):
+    def __init__(self, manager, tutor, with_rival, with_openings, is_white, has_hints):
         titulo = _("Tutor")
         icono = Iconos.Tutor()
         extparam = "tutor"
@@ -29,6 +29,7 @@ class WindowTutor(LCDialog.LCDialog):
         self.manager = manager
         self.respLibro = None
         self.siElegidaOpening = False
+        self.timer = None
 
         self.x_tutor_view = manager.configuration.x_tutor_view
 
@@ -41,40 +42,45 @@ class WindowTutor(LCDialog.LCDialog):
 
         # Boards
 
-        def create_board(name, si=True, siLibre=True, siMas=False):
+        def create_board(name, si=True, si_libre=True, si_mas=False):
             if not si:
                 return None, None, None
             board = Board.Board(self, config_board)
             board.crea()
             board.set_side_bottom(is_white)
-            lytb, tb = QTVarios.ly_mini_buttons(self, name, siLibre, siMas=siMas)
+            lytb, tb = QTVarios.ly_mini_buttons(self, name, si_libre, siMas=si_mas)
             return board, lytb, tb
 
         self.boardTutor, lytbtutor, self.tbtutor = create_board("tutor")
         self.boardUsuario, lytbuser, self.tbuser = create_board("user")
-        self.boardRival, lytbRival, self.tbRival = create_board("rival", siRival)
-        self.boardOpening, lytbOpening, self.tbOpening = create_board("opening", siOpenings, siLibre=False)
+        self.boardRival, lytbRival, self.tbRival = create_board("rival", with_rival)
+        self.boardOpening, lytbOpening, self.tbOpening = create_board("opening", with_openings, si_libre=False)
         tutor.ponBoardsGUI(self.boardTutor, self.boardUsuario, self.boardRival, self.boardOpening)
+
+        tb_analisis = Controles.TBrutina(self, icon_size=16, with_text=False)
+        tb_analisis.new("", Iconos.Analisis(), self.launch_analysis, tool_tip=_("Analysis"))
+        lytbtutor = Colocacion.H().relleno().otro(lytbtutor).relleno().control(tb_analisis)
 
         # Puntuaciones
         self.lb_tutor = Controles.LB(self).set_font(f).align_center()
         self.lb_tutor.setFixedWidth(self.boardTutor.ancho)
         manager.configuration.set_property(self.lb_tutor, "tutor-tutor" if has_hints else "tutor-tutor-disabled")
         if has_hints:
-            self.lb_tutor.mousePressEvent = self.elegirTutor
+            self.lb_tutor.mousePressEvent = self.select_tutor
 
         self.lb_player = Controles.LB(self).set_font(f).align_center()
         self.lb_player.setFixedWidth(self.boardUsuario.ancho)
-        self.lb_player.mousePressEvent = self.elegirUsuario
+        self.lb_player.mousePressEvent = self.select_user
         manager.configuration.set_property(self.lb_player, "tutor-player" if has_hints else "tutor-tutor")
 
-        if siRival:
+        if with_rival:
             self.lb_rival = Controles.LB(self).set_font(f).align_center()
             self.lb_rival.setFixedWidth(self.boardRival.ancho)
             manager.configuration.set_property(self.lb_rival, "tutor-tutor-disabled")
 
         # Openings
-        if siOpenings:
+        ly_openings = None
+        if with_openings:
             li_options = self.tutor.opcionesOpenings()
             self.cbOpenings = Controles.CB(self, li_options, 0)
             self.cbOpenings.setFont(flba)
@@ -85,7 +91,7 @@ class WindowTutor(LCDialog.LCDialog):
             lb_openings.setFixedWidth(self.boardOpening.ancho)
             manager.configuration.set_property(lb_openings, "tutor-tutor" if has_hints else "tutor-tutor-disabled")
             if has_hints:
-                lb_openings.mousePressEvent = self.elegirOpening
+                lb_openings.mousePressEvent = self.select_opening
             ly_openings = Colocacion.V().control(lb_openings).control(self.cbOpenings)
             self.tutor.cambiarOpening(0)
 
@@ -96,11 +102,10 @@ class WindowTutor(LCDialog.LCDialog):
 
         self.cbRM, self.lbRM = QTUtil2.combobox_lb(self, li_rm, li_rm[0][1], _("Moves analyzed"))
         self.cbRM.capture_changes(tutor.cambiadoRM)
-        bt_eye = Controles.PB(self, "", self.launch_analysis).ponIcono(Iconos.Eye())
 
-        ly_rm = Colocacion.H().control(self.lbRM).control(self.cbRM).control(bt_eye).relleno(1)
+        ly_rm = Colocacion.H().control(self.lbRM).control(self.cbRM).relleno(1)
 
-        btLibros = Controles.PB(self, " %s " % _("Consult a book"), self.consultaLibro).ponPlano(False)
+        bt_libros = Controles.PB(self, " %s " % _("Consult a book"), self.consult_book).ponPlano(False)
 
         dic_vista = {
             POS_TUTOR_HORIZONTAL: ((0, 1), (0, 2)),
@@ -118,11 +123,11 @@ class WindowTutor(LCDialog.LCDialog):
         layout.controlc(self.lb_tutor, 0, 0).controlc(self.boardTutor, 1, 0).otro(lytbtutor, 2, 0).otroc(ly_rm, 3, 0)
         layout.controlc(self.lb_player, fu, cu).controlc(self.boardUsuario, fu + 1, cu).otro(lytbuser, fu + 2,
                                                                                              cu).controlc(
-            btLibros, fu + 3, cu
+            bt_libros, fu + 3, cu
         )
-        if siRival:
+        if with_rival:
             layout.controlc(self.lb_rival, fr, cr).controlc(self.boardRival, fr + 1, cr).otro(lytbRival, fr + 2, cr)
-        elif siOpenings:
+        elif with_openings:
             layout.otroc(ly_openings, fr, cr).controlc(self.boardOpening, fr + 1, cr).otro(lytbOpening, fr + 2, cr)
 
         layout.margen(8)
@@ -143,61 +148,54 @@ class WindowTutor(LCDialog.LCDialog):
         QTVarios.change_interval(self, Code.configuration)
 
     def process_toolbar(self):
-        self.exeTB(self.sender().key)
+        self.run_toolbar(self.sender().key)
 
-    def exeTB(self, accion):
+    def run_toolbar(self, accion):
         x = accion.index("Mover")
         quien = accion[:x]
         que = accion[x + 5:]
         self.tutor.mueve(quien, que)
 
-    # def cambioBoard(self):
-    #     self.boardUsuario.crea()
-    #     if self.boardRival:
-    #         self.boardRival.crea()
-    #     if self.boardOpening:
-    #         self.boardOpening.crea()
-
     def board_wheel_event(self, board, forward):
         forward = Code.configuration.wheel_board(forward)
         for t in ["Tutor", "Usuario", "Rival", "Opening"]:
             if eval("self.board%s == board" % t):
-                self.exeTB(t.lower() + "Mover" + ("Adelante" if forward else "Atras"))
+                self.run_toolbar(t.lower() + "Mover" + ("Adelante" if forward else "Atras"))
                 return
 
-    def consultaLibro(self):
-        liMovs = self.manager.librosConsulta(True)
-        if liMovs:
-            self.respLibro = liMovs[-1]
+    def consult_book(self):
+        li_movs = self.manager.librosConsulta(True)
+        if li_movs:
+            self.respLibro = li_movs[-1]
             self.save_video()
             self.accept()
 
-    def elegirTutor(self, ev):
+    def select_tutor(self, ev):
         self.save_video()
         self.accept()
 
-    def elegirOpening(self, ev):
+    def select_opening(self, ev):
         self.siElegidaOpening = True
         self.save_video()
         self.accept()
 
-    def elegirUsuario(self, ev):
+    def select_user(self, ev):
         self.save_video()
         self.reject()
 
-    def ponPuntuacionUsuario(self, txt):
+    def set_score_user(self, txt):
         self.lb_player.setText(txt)
 
-    def ponPuntuacionTutor(self, txt):
+    def set_score_tutor(self, txt):
         self.lb_tutor.setText(txt)
 
-    def ponPuntuacionRival(self, txt):
+    def set_score_rival(self, txt):
         self.lb_rival.setText(txt)
 
     def start_clock(self, funcion):
         if not hasattr(self, "timer"):
             self.timer = QtCore.QTimer(self)
-            self.connect(self.timer, QtCore.SIGNAL("timeout()"), funcion)
+            self.timer.timeout.connect(funcion)
         self.timer.start(Code.configuration.x_interval_replay)
 
     def stop_clock(self):

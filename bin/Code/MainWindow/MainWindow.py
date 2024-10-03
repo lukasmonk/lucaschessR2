@@ -69,9 +69,9 @@ class MainWindow(LCDialog.LCDialog):
         alt_a.setKey(QtGui.QKeySequence("Alt+a"))
         alt_a.activated.connect(self.pressed_shortcut_alt_a)
 
-        ctrlF10 = QtWidgets.QShortcut(self)
-        ctrlF10.setKey(QtGui.QKeySequence("Ctrl+0"))
-        ctrlF10.activated.connect(self.pressed_shortcut_Ctrl0)
+        ctrl_f10 = QtWidgets.QShortcut(self)
+        ctrl_f10.setKey(QtGui.QKeySequence("Ctrl+0"))
+        ctrl_f10.activated.connect(self.pressed_shortcut_Ctrl0)
 
         F11 = QtWidgets.QShortcut(self)
         F11.setKey(QtGui.QKeySequence("F11"))
@@ -126,15 +126,15 @@ class MainWindow(LCDialog.LCDialog):
 
     def pressed_shortcut_F12(self):
         if not self.trayIcon:
-            restoreAction = QtWidgets.QAction(Iconos.PGN(), _("Show"), self, triggered=self.restauraTrayIcon)
-            quitAction = QtWidgets.QAction(Iconos.Terminar(), _("Quit"), self, triggered=self.quitTrayIcon)
-            trayIconMenu = QtWidgets.QMenu(self)
-            trayIconMenu.addAction(restoreAction)
-            trayIconMenu.addSeparator()
-            trayIconMenu.addAction(quitAction)
+            restore_action = QtWidgets.QAction(Iconos.PGN(), _("Show"), self, triggered=self.restauraTrayIcon)
+            quit_action = QtWidgets.QAction(Iconos.Terminar(), _("Quit"), self, triggered=self.quitTrayIcon)
+            tray_icon_menu = QtWidgets.QMenu(self)
+            tray_icon_menu.addAction(restore_action)
+            tray_icon_menu.addSeparator()
+            tray_icon_menu.addAction(quit_action)
 
             self.trayIcon = QtWidgets.QSystemTrayIcon(self)
-            self.trayIcon.setContextMenu(trayIconMenu)
+            self.trayIcon.setContextMenu(tray_icon_menu)
             self.trayIcon.setIcon(Iconos.Aplicacion64())
             self.trayIcon.activated.connect(self.activateTrayIcon)
             self.trayIcon.hide()
@@ -188,7 +188,8 @@ class MainWindow(LCDialog.LCDialog):
             dic["WIDTH_PIEZE_MAIN"] = ct.width_piece()
             Code.configuration.write_variables("WIDTH_PIEZES", dic)
 
-    def restore_width_pieze(self):
+    @staticmethod
+    def restore_width_pieze():
         dic = Code.configuration.read_variables("WIDTH_PIEZES")
         return dic.get("WIDTH_PIEZE_MAIN")
 
@@ -489,7 +490,7 @@ class MainWindow(LCDialog.LCDialog):
                 if sps is None or sps[1] == 0:
                     dr = self.restore_dicvideo()
                     if key in dr:
-                        dic[key] = dr
+                        dic[key] = dr[key]
                         continue
                     sps = [1, 1]
             dic["SP_%s" % name] = sps
@@ -507,7 +508,10 @@ class MainWindow(LCDialog.LCDialog):
             self.informacionPGN.parent_width_saved = dic.get("WINFOPARENT_WIDTH")
             self.informacionPGN.sp_sizes = dic.get("SP_InformacionPGN")
             if self.informacionPGN.sp_sizes:
-                self.informacionPGN.splitter.setSizes(self.informacionPGN.sp_sizes)
+                try:
+                    self.informacionPGN.splitter.setSizes(self.informacionPGN.sp_sizes)
+                except TypeError:
+                    pass
 
     def check_translated_help_mode(self):
         if not Code.configuration.x_translation_mode:

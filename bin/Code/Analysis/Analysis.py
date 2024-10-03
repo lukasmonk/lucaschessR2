@@ -156,9 +156,11 @@ class ControlAnalysis:
             return move_active.position, move_active.from_sq, move_active.to_sq
 
     def get_game(self):
-        game_original = self.move.game
+        game_original: Game.Game = self.move.game
         if self.move.movimiento():
             game_send = game_original.copy_until_move(self.move)
+            if len(game_send) == 0:
+                game_send = game_original.copia()
         else:
             game_send = game_original.copia()
         if self.pos_mov_active > -1:

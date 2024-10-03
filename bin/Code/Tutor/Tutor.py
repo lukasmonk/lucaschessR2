@@ -81,7 +81,7 @@ class Tutor:
                   self.gameUsuario.li_moves[0].pgn_html_base(Code.configuration.x_pgn_withfigurines) + \
                   " " + self.rmUsuario.texto()
 
-        w.ponPuntuacionUsuario(message)
+        w.set_score_user(message)
 
         if si_rival:
             self.rm_rival.change_side()
@@ -103,7 +103,7 @@ class Tutor:
                     message = _("Opponent's prediction") + "<br><br>" + \
                               self.gameRival.li_moves[0].pgn_html_base(Code.configuration.x_pgn_withfigurines) + \
                               " " + self.rm_rival.texto_rival()
-                    w.ponPuntuacionRival(message)
+                    w.set_score_rival(message)
 
         self.moving_tutor(True)
         self.moving_user(True)
@@ -140,10 +140,17 @@ class Tutor:
 
             game_usuario = Game.Game(self.move.position_before)
             game_usuario.read_pv(self.rmUsuario.get_pv())
-            txt = game_usuario.pgn_translated()
-            puntos = self.rmUsuario.texto()
-            vusu = "%s : %s" % (puntos, txt)
-            move.set_comment(vusu.replace("\n", ""))
+
+            jgvar = game_usuario.move(0)
+            jgvar.set_comment(self.rmUsuario.texto())
+
+            move.add_variation(game_usuario)
+            #
+            #
+            # txt = game_usuario.pgn_translated()
+            # puntos = self.rmUsuario.texto()
+            # vusu = "%s : %s" % (puntos, txt)
+            # move.set_comment(vusu.replace("\n", ""))
 
     def do_lirm(self, posUsuario):
         li = []
@@ -171,7 +178,7 @@ class Tutor:
                   self.game_tutor.li_moves[0].pgn_html_base(Code.configuration.x_pgn_withfigurines) + \
                   " " + rm.texto()
 
-        self.w.ponPuntuacionTutor(message)
+        self.w.set_score_tutor(message)
 
         self.pos_tutor = 0
         self.max_tutor = len(self.game_tutor)

@@ -904,6 +904,7 @@ class DBManagerVisual:
     def dbFEN(self):
         if self._dbFEN is None:
             self._dbFEN = UtilSQL.DictSQL(self._fichero, tabla="FEN")
+            self._dbFEN.wrong_pickle(b"Physicalphysical_pos", b"PhysicalPos")
         return self._dbFEN
 
     @property

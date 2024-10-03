@@ -47,7 +47,7 @@ class LCDialog(QtWidgets.QDialog):
     def restore_dicvideo(self):
         return Code.configuration.restore_video(self.key_video)
 
-    def restore_video(self, siTam=True, anchoDefecto=None, altoDefecto=None, dicDef=None, shrink=False):
+    def restore_video(self, siTam=True, siAncho=True, anchoDefecto=None, altoDefecto=None, dicDef=None, shrink=False):
         dic = self.restore_dicvideo()
         if not dic:
             dic = dicDef
@@ -75,14 +75,20 @@ class LCDialog(QtWidgets.QDialog):
                     h = hE - 40
                 elif h < 20:
                     h = 20
-                self.resize(w, h)
+                if siAncho:
+                    self.resize(w, h)
+                else:
+                    self.resize(self.width(), h)
             for grid in self.liGrids:
                 grid.restore_video(dic)
                 grid.releerColumnas()
-            for sp, name in self.liSplitters:
-                k = "SP_%s" % name
-                if k in dic:
-                    sp.setSizes(dic[k])
+            try:
+                for sp, name in self.liSplitters:
+                    k = "SP_%s" % name
+                    if k in dic:
+                        sp.setSizes(dic[k])
+            except TypeError:
+                pass
             if shrink:
                 QTUtil.shrink(self)
             if "_POSICION_" in dic:

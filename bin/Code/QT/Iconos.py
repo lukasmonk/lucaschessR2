@@ -3212,3 +3212,9 @@ def pmForest():
 
 def Forest():
     return iget("Forest")
+
+def pmAnalisis():
+    return iget("pmAnalisis")
+
+def Analisis():
+    return iget("Analisis")

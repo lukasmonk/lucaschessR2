@@ -789,7 +789,7 @@ class WTournamentRun(QtWidgets.QWidget):
 
         return False
 
-    def move_the_pieces(self, liMovs):
+    def move_the_pieces(self, li_movs):
         if self.slow_pieces:
 
             rapidez = self.configuration.pieces_speed_porc()
@@ -798,7 +798,7 @@ class WTournamentRun(QtWidgets.QWidget):
             seconds = None
 
             # primero los movimientos
-            for movim in liMovs:
+            for movim in li_movs:
                 if movim[0] == "m":
                     if seconds is None:
                         from_sq, to_sq = movim[1], movim[2]
@@ -813,20 +813,20 @@ class WTournamentRun(QtWidgets.QWidget):
                 seconds = 1.0
 
             # segundo los borrados
-            for movim in liMovs:
+            for movim in li_movs:
                 if movim[0] == "b":
                     n = cpu.duerme(seconds * 0.80 / rapidez)
                     cpu.borraPieza(movim[1], padre=n)
 
             # tercero los cambios
-            for movim in liMovs:
+            for movim in li_movs:
                 if movim[0] == "c":
                     cpu.cambiaPieza(movim[1], movim[2], siExclusiva=True)
 
             cpu.runLineal()
 
         else:
-            for movim in liMovs:
+            for movim in li_movs:
                 if movim[0] == "b":
                     self.board.borraPieza(movim[1])
                 elif movim[0] == "m":

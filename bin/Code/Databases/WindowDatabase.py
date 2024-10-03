@@ -25,9 +25,9 @@ class WBDatabase(LCDialog.LCDialog):
         self.db_games = DBgames.DBgames(file_database)
 
         self.dicvideo = self.restore_dicvideo()
-        dicVideo = self.dicvideo
+        dic_video = self.dicvideo
 
-        siSummary = not si_select
+        si_summary = not si_select
 
         self.wplayer = WDB_Players.WPlayer(procesador, self, self.db_games)
         self.wplayer_active = False
@@ -36,7 +36,7 @@ class WBDatabase(LCDialog.LCDialog):
         self.register_grid(self.wplayer.gridOpeningWhite)
         self.register_grid(self.wplayer.gridOpeningBlack)
 
-        if siSummary:
+        if si_summary:
             self.wsummary = WDB_Summary.WSummary(procesador, self, self.db_games, siMoves=False)
             self.register_grid(self.wsummary.grid)
 
@@ -49,7 +49,7 @@ class WBDatabase(LCDialog.LCDialog):
 
         self.tab = Controles.Tab()
         self.tab.new_tab(self.wgames, _("Games"))
-        if siSummary:
+        if si_summary:
             self.tab.new_tab(self.wsummary, _("Opening explorer"))
             self.tab.dispatchChange(self.tabChanged)
         if not si_select:
@@ -76,15 +76,15 @@ class WBDatabase(LCDialog.LCDialog):
         self.setLayout(layout)
 
         self.restore_video(anchoDefecto=1200, altoDefecto=600)
-        if not dicVideo:
-            dicVideo = {"SPLITTER": [800, 380], "TREE_1": 25, "TREE_2": 25, "TREE_3": 50, "TREE_4": 661}
+        if not dic_video:
+            dic_video = {"SPLITTER": [800, 380], "TREE_1": 25, "TREE_2": 25, "TREE_3": 50, "TREE_4": 661}
 
-        if not ("SPLITTER" in dicVideo):
+        if not ("SPLITTER" in dic_video):
             ancho = self.width()
             ancho_board = self.infoMove.board.width()
             sz = [ancho - ancho_board, ancho_board]
         else:
-            sz = dicVideo["SPLITTER"]
+            sz = dic_video["SPLITTER"]
         self.splitter.setSizes(sz)
 
         dic_grid = self.db_games.read_config("dic_grid")
@@ -141,10 +141,13 @@ class WBDatabase(LCDialog.LCDialog):
         board = self.infoMove.board
         board.disable_all()
 
-        if ntab in (0, 2):
+        if ntab == 0: #in (0, 2):
             self.wgames.actualiza()
+        elif ntab == 2:
+            self.wplayer.actualiza()
         else:
             self.wsummary.gridActualiza()
+
 
     def inicializa(self):
         self.setWindowTitle(self.db_games.label())
