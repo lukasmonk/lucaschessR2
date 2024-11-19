@@ -11,7 +11,7 @@ class Translations:
     def __init__(self, lang):
         self.lang = self.check_lang(lang)
         self.dic_translate = self.read_mo()
-        self.dic_openings = self.read_po_openings()
+        self.dic_openings = self.read_mo_openings()
         builtins.__dict__["_X"] = self.x
         builtins.__dict__["_F"] = self.f
         builtins.__dict__["_FO"] = self.translate_opening
@@ -32,13 +32,21 @@ class Translations:
         path_mo = self.get_path(self.lang)
         mofile = polib.mofile(path_mo)
         dic = {entry.msgid: entry.msgstr for entry in mofile}
+        if Code.configuration.x_use_googletranslator and not Code.configuration.x_translation_mode:
+            path_mo = self.get_path_google_translate(self.lang)
+            try:
+                mofile = polib.mofile(path_mo)
+                dicg = {entry.msgid: entry.msgstr for entry in mofile}
+                dic.update(dicg)
+            except:
+                pass
         self.sinonimos(dic)
         return dic
 
-    def read_po_openings(self):
-        path_po = self.get_path_openings(self.lang)
-        pofile = polib.pofile(path_po)
-        return {entry.msgid: entry.msgstr for entry in pofile}
+    def read_mo_openings(self):
+        path_mo = self.get_path_openings(self.lang)
+        mofile = polib.mofile(path_mo)
+        return {entry.msgid: entry.msgstr for entry in mofile}
 
     def translate(self, txt):
         trans = self.dic_translate.get(txt)
@@ -60,12 +68,17 @@ class Translations:
     @staticmethod
     def get_path(lang):
         path_locale = Code.path_resource("Locale")
-        return "%s/%s/LC_MESSAGES/lucaschess.mo" % (path_locale, lang)
+        return f"{path_locale}/{lang}/LC_MESSAGES/lucaschess.mo"
+
+    @staticmethod
+    def get_path_google_translate(lang):
+        path_locale = Code.path_resource("Locale")
+        return f"{path_locale}/{lang}/LC_MESSAGES/google_translate.mo"
 
     @staticmethod
     def get_path_openings(lang):
         path_locale = Code.path_resource("Locale")
-        return "%s/%s/LC_MESSAGES/lcopenings.po" % (path_locale, lang)
+        return "%s/%s/LC_MESSAGES/lcopenings.mo" % (path_locale, lang)
 
     def check_lang(self, lang):
         if not lang:

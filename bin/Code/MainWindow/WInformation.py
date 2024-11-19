@@ -2,11 +2,11 @@ from PySide2 import QtWidgets, QtCore
 
 import Code
 from Code import Variations
+from Code.Analysis import Analysis
 from Code.Base import Game
 from Code.Nags import WNags, Nags
 from Code.QT import Colocacion, Controles, Iconos, QTVarios, ShowPGN, QTUtil2, FormLayout
 from Code.Themes import WThemes, Themes
-from Code.Analysis import Analysis
 
 
 class Information(QtWidgets.QWidget):
@@ -382,12 +382,12 @@ class WVariations(QtWidgets.QWidget):
         move_var = variation.move(num_move_variation)
         xanalyzer = Code.procesador.XAnalyzer()
         me = QTUtil2.waiting_message.start(self, _("Analyzing the move...."))
-        move_var.analysis = xanalyzer.analyzes_move_game(move_var.game, num_move_variation, xanalyzer.mstime_engine, xanalyzer.depth_engine, window=self)
+        move_var.analysis = xanalyzer.analyzes_move_game(move_var.game, num_move_variation, xanalyzer.mstime_engine,
+                                                         xanalyzer.depth_engine, window=self)
         me.final()
         Analysis.show_analysis(
             Code.procesador, xanalyzer, move_var, self.get_board().is_white_bottom, num_move_variation, main_window=self
         )
-
 
     def remove_line(self):
         if QTUtil2.pregunta(self, _("Are you sure you want to delete this line?")):
@@ -483,6 +483,9 @@ class WVariations(QtWidgets.QWidget):
 
     def mostrar(self):
         self.em.show_variations(self.move, self.selected_link)
+        if self.selected_link.count("|") == 2:
+            num_variation = int(self.selected_link.split("|")[1])
+            self.em.ensure_visible(num_variation)
 
     def select(self):
         li_variations = self.li_variations()

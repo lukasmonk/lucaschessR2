@@ -162,7 +162,7 @@ class ListaOpeningsStd:
             if not op.a1h8.startswith(ultima):
                 ultima = op.a1h8
                 li.append(op)
-        li.sort(key=lambda xop: ("A" if xop.is_basic else "B") + xop.tr_name)
+        li.sort(key=lambda xop: ("A" if xop.is_basic else "B") + xop.tr_name.upper())
         return li
 
     def base_xpv(self, xpv):

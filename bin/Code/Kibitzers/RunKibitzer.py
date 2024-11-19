@@ -80,6 +80,12 @@ class CPU:
         orden = Orden()
         orden.key = dv["__CLAVE__"]
         orden.dv = dv
+        if orden.key == KIBRUN_GAME:
+            if self.ipc.has_more_data():
+                return self.recibe()
+            time.sleep(0.2)
+            if self.ipc.has_more_data():
+                return self.recibe()
         return orden
 
     def reprocesa(self):
@@ -143,9 +149,9 @@ class CPU:
                 last_position = game.last_position
                 last_position.is_white = not last_position.is_white
                 game_thread = Game.Game(first_position=last_position)
-                self.ventana.orden_game(game_thread)
+                self.ventana.orden_game_original(game_thread)
             else:
-                self.ventana.orden_game(game)
+                self.ventana.orden_game_original(game)
 
         elif key == KIBRUN_STOP:
             self.ventana.stop()
@@ -193,7 +199,7 @@ class CPU:
 
         self.ventana.show()
 
-        # Code.gc = QTUtil.GarbageCollector()
+        Code.gc = QTUtil.GarbageCollector()
 
         return app.exec_()
 

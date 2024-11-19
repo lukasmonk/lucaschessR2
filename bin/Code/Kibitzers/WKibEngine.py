@@ -57,6 +57,7 @@ class WKibEngine(WKibCommon.WKibCommon):
             (_("Quit"), Iconos.Kibitzer_Close(), self.terminar),
             (_("Continue"), Iconos.Kibitzer_Play(), self.play),
             (_("Pause"), Iconos.Kibitzer_Pause(), self.pause),
+            (_("Original position"), Iconos.HomeBlack(), self.home),
             (_("Takeback"), Iconos.Kibitzer_Back(), self.takeback),
             (
                 _("The line selected is saved to the clipboard"),
@@ -66,14 +67,15 @@ class WKibEngine(WKibCommon.WKibCommon):
             (_("Analyze color"), Iconos.Kibitzer_Side(), self.color),
             (_("Show/hide board"), Iconos.Kibitzer_Board(), self.config_board),
             (_("Manual position"), Iconos.Kibitzer_Voyager(), self.set_position),
-            ("%s: %s" % (_("Enable"), _("window on top")), Iconos.Kibitzer_Up(), self.windowTop),
-            ("%s: %s" % (_("Disable"), _("window on top")), Iconos.Kibitzer_Down(), self.windowBottom),
+            ("%s: %s" % (_("Enable"), _("window on top")), Iconos.Pin(), self.windowTop),
+            ("%s: %s" % (_("Disable"), _("window on top")), Iconos.Unpin(), self.windowBottom),
             (_("Options"), Iconos.Kibitzer_Options(), self.change_options),
         ]
         if cpu.tipo == Kibitzers.KIB_THREATS:
             del li_acciones[4]
         self.tb = Controles.TBrutina(self, li_acciones, with_text=False, icon_size=24)
-        self.tb.set_action_visible(self.play, False)
+        for rut in (self.play, self.home):
+            self.tb.set_action_visible(rut, False)
 
         ly1 = Colocacion.H().control(self.tb).relleno().control(self.lbDepth).margen(0)
         ly2 = Colocacion.H().control(self.board).control(self.grid).margen(0)
@@ -107,6 +109,8 @@ class WKibEngine(WKibCommon.WKibCommon):
             mrm = self.engine.ac_estado()
             rm = mrm.rm_best()
             if rm is None:
+                time.sleep(0.2)
+                self.cpu.check_input()
                 return
             if rm.depth > self.depth:
                 self.depth = rm.depth
@@ -299,6 +303,8 @@ class WKibEngine(WKibCommon.WKibCommon):
             self.stopped = False
         self.grid.refresh()
 
+        self.test_tb_home()
+
     def pegar(self):
         tp, data = QTUtil.get_clipboard()
         if tp:
@@ -317,3 +323,9 @@ class WKibEngine(WKibCommon.WKibCommon):
                 return
             game = Game.Game(first_position=position)
             self.orden_game(game)
+
+            self.test_tb_home()
+
+
+
+

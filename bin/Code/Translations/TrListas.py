@@ -34,7 +34,8 @@ def pgn_label(key):
             "PLIES": _("Movements"),
             "WHITEELO": _("White elo"),
             "BLACKELO": _("Black elo"),
-            "PLYCOUNT": _("Movements")
+            "PLYCOUNT": _("Movements"),
+            "OPENING": _("Opening"),
         }.get(key, _F(key))
     else:
         return ""

@@ -30,8 +30,9 @@ def select_language(owner, init):
 
     menu = QTVarios.LCMenuRondo(owner)
     menu.set_font_type(Code.font_mono, puntos=10, peso=700)
-    menu.opcion(None, "Select your language", Iconos.Aplicacion64())
-    menu.separador()
+    # symbol_ant = "⌛️"
+    # menu.opcion(None, f"Select your language", Iconos.Aplicacion64())
+    # menu.separador()
     menu.opcion(lng_default, "By default: %s" % name_default, Iconos.AceptarPeque())
     menu.separador()
 
@@ -49,21 +50,25 @@ def select_language(owner, init):
 
         if k != "en":
             if not author:
-                author = "-"
+                author = "      "
             option = f"{option}{spaces}({porc}%) {author}"
-            if others:
-                others = others.strip()
-                option = f"{option} | ️️{others}"
+            # if others:
+            #     others = others.strip()
+            #     option = f"{option}  {symbol_ant}{others}"
 
         if k == lng_default:
-            menu.opcion(k, option, Iconos.AceptarPeque())
+            menu.opcion((k, porc), option, Iconos.AceptarPeque())
         else:
-            menu.opcion(k, option)
+            menu.opcion((k, porc), option)
 
     menu.separador()
     resp = menu.lanza()
+    Code.configuration.x_use_googletranslator = False
     if resp:
-        lng = resp
+        lng, porc = resp
+    #     if lng != "en" and porc < 90:
+    #         if QTUtil2.pregunta(owner, _("Do you want to use Google Translator (offline) to complete translations?")):
+    #             Code.configuration.x_use_googletranslator = True
     else:
         lng = lng_default
     configuration.set_translator(lng)

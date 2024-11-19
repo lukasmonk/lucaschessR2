@@ -27,6 +27,7 @@ class WKibCommon(QtWidgets.QDialog):
         if not self.dicVideo:
             self.dicVideo = {}
         self.game = None
+        self.home_game = None
         self.li_moves = []
         self.is_black = True
         self.is_white = True
@@ -56,6 +57,8 @@ class WKibCommon(QtWidgets.QDialog):
         self.with_figurines = cpu.configuration.x_pgn_withfigurines
 
     def takeback(self):
+        if self.game is None:
+            return
         nmoves = len(self.game)
         if nmoves:
             self.game.shrink(nmoves - 2)
@@ -165,6 +168,21 @@ class WKibCommon(QtWidgets.QDialog):
         self.tb.set_pos_visible(2, True)
         self.orden_game(self.game)
 
+    def orden_game_original(self, game: Game.Game):
+        self.home_game = game.save(), game.last_position.fen()
+        self.orden_game(game)
+
+    def home(self):
+        if self.home_game:
+            game = Game.Game()
+            game.restore(self.home_game[0])
+            self.orden_game(game)
+
+    def is_home(self):
+        if self.game is None or self.home_game is None:
+            return True
+        return self.game.last_position.fen() == self.home_game[1]
+
     def closeEvent(self, event):
         self.finalizar()
 
@@ -212,3 +230,7 @@ class WKibCommon(QtWidgets.QDialog):
                 self.pegar()
 
         event.ignore()
+
+    def test_tb_home(self):
+        self.tb.set_action_visible(self.home, not self.is_home())
+        self.tb.set_action_visible(self.takeback, len(self.game) > 0)

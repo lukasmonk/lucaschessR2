@@ -8,7 +8,7 @@ from PySide2 import QtCore, QtGui, QtWidgets
 import Code
 from Code import Util
 from Code.Base import Game, Move, Position
-from Code.Base.Constantes import BLACK
+from Code.Base.Constantes import BLACK, WHITE
 from Code.Board import Board, Board2
 from Code.QT import Colocacion
 from Code.QT import Columnas
@@ -65,8 +65,8 @@ class WPosicion(QtWidgets.QWidget):
         self.board = Board2.PosBoard(self, config_board)
         self.board.crea()
         self.board.set_dispatcher(self.mueve)
-        self.board.mensBorrar = self.borraCasilla
-        self.board.mensCrear = self.creaCasilla
+        self.board.mensBorrar = self.clean_square
+        self.board.mensCrear = self.rightmouse_square
         self.board.mensRepetir = self.repitePieza
         self.board.set_dispatch_drop(self.dispatchDrop)
         self.board.baseCasillasSC.setAcceptDrops(True)
@@ -85,17 +85,22 @@ class WPosicion(QtWidgets.QWidget):
             None,
             (_("Copy FEN position"), Iconos.Copiar(), self.copiar),
             None,
-            (_("Scanner"), Iconos.Scanner(), self.scanner),
+            (_("Scanner"), Iconos.Scanner(), self.scanner1),
             None,
         ]
+        if len(QTUtil.dic_monitores()) > 1:
+            li_acciones.append((_("To scan on the second monitor"), Iconos.Scanner2(), self.scanner2)),
+            li_acciones.append(None)
+
         if Code.eboard:
             li_acciones.append((_("Enable"), Code.eboard.icon_eboard(), self.eboard_activate))
             li_acciones.append(None)
 
         self.tb = Controles.TBrutina(self, li_acciones, with_text=False, icon_size=24)
 
-        drag_drop_wb = QTVarios.ListaPiezas(self, "P,N,B,R,Q,K", self.board, margen=0)
-        drag_drop_ba = QTVarios.ListaPiezas(self, "k,q,r,b,n,p", self.board, margen=0)
+
+        self.drag_drop_up = QTVarios.ListaPiezas(self, WHITE, self.board, margen=0)
+        self.drag_drop_down = QTVarios.ListaPiezas(self, BLACK, self.board, margen=0)
 
         self.rbWhite = Controles.RB(self, _("White"), rutina=self.change_side)
         self.rbBlack = Controles.RB(self, _("Black"), rutina=self.change_side)
@@ -139,6 +144,7 @@ class WPosicion(QtWidgets.QWidget):
         self.cb_scanner_select, lb_scanner_select = QTUtil2.combobox_lb(self, [], None, _("OPR"))
         self.cb_scanner_select.capture_changes(self.scanner_change)
         pb_scanner_more = Controles.PB(self, "", self.scanner_more).ponIcono(Iconos.Mas())
+        pb_scanner_remove = Controles.PB(self, "", self.scanner_remove).ponIcono(Iconos.Borrar())
 
         self.chb_scanner_ask = Controles.CHB(self, _("Ask before new capture"), self.vars_scanner.ask)
 
@@ -178,16 +184,16 @@ class WPosicion(QtWidgets.QWidget):
             .relleno()
         )
         ly_l = Colocacion.H().control(self.pb_scanner_learn).control(self.pb_scanner_learn_quit)
-        ly_s = Colocacion.H().control(lb_scanner_select).control(self.cb_scanner_select).control(pb_scanner_more)
+        ly_s = Colocacion.H().control(lb_scanner_select).control(self.cb_scanner_select).control(pb_scanner_more).control(pb_scanner_remove)
         ly = Colocacion.V().control(self.chb_scanner_flip).control(pb_scanner_deduce).otro(ly_l).otro(ly_t).otro(ly_tl)
         ly.control(self.chb_rem_ghost_deductions).otro(ly_s)
         ly.control(self.chb_scanner_ask)
         self.gb_scanner = Controles.GB(self, _("Scanner"), ly)
 
         ly_g = Colocacion.G()
-        ly_g.controlc(drag_drop_ba, 0, 0)
+        ly_g.controlc(self.drag_drop_down, 0, 0)
         ly_g.control(self.board, 1, 0).control(self.lb_scanner, 1, 1)
-        ly_g.controlc(drag_drop_wb, 2, 0).controlc(self.gb_scanner, 2, 1, numFilas=4)
+        ly_g.controlc(self.drag_drop_up, 2, 0).controlc(self.gb_scanner, 2, 1, numFilas=4)
         ly_g.controlc(gb_color, 3, 0)
         ly_g.controlc(gb_enroques, 4, 0)
         ly_g.controlc(gb_otros, 5, 0)
@@ -206,6 +212,11 @@ class WPosicion(QtWidgets.QWidget):
         self.lb_scanner.hide()
         self.pb_scanner_learn_quit.hide()
         self.gb_scanner.hide()
+
+    def rotate_board(self):
+        self.drag_drop_up.change_side()
+        self.drag_drop_down.change_side()
+
 
     def eboard_activate(self):
         if Code.eboard.driver:
@@ -305,14 +316,14 @@ class WPosicion(QtWidgets.QWidget):
     def dispatchDrop(self, from_sq, qbpieza):
         pieza = qbpieza[0]
         if self.squares.get(from_sq):
-            self.borraCasilla(from_sq)
+            self.clean_square(from_sq)
         self.ponPieza(from_sq, pieza)
 
-    def borraCasilla(self, from_sq):
+    def clean_square(self, from_sq):
         self.squares[from_sq] = None
         self.board.borraPieza(from_sq)
 
-    def creaCasilla(self, from_sq):
+    def rightmouse_square(self, from_sq):
         menu = QtWidgets.QMenu(self)
 
         si_kw = False
@@ -363,7 +374,7 @@ class WPosicion(QtWidgets.QWidget):
         if pieza in "kK":
             for pos, pz in self.squares.items():
                 if pz == pieza:
-                    self.borraCasilla(pos)
+                    self.clean_square(pos)
                     break
         if QtWidgets.QApplication.keyboardModifiers() == QtCore.Qt.ShiftModifier:
             if pieza.islower():
@@ -481,64 +492,70 @@ class WPosicion(QtWidgets.QWidget):
             self.edFullMoves.setValue(self.position.num_moves)
             self.edMovesPawn.setValue(self.position.mov_pawn_capt)
 
-    def scanner(self):
-        self.wparent.showMinimized()
-        QTUtil.refresh_gui()
+    def scanner1(self):
+        return self.scanner(0)
 
-        if self.chb_scanner_ask.valor() and not QTUtil2.pregunta(
-                None, _("Bring the window to scan to front"), label_yes=_("Accept"), label_no=_("Cancel"), si_top=True,
-        ):
+    def scanner2(self):
+        return self.scanner(1)
+
+    def scanner(self, monitor):
+        dic_monitores = QTUtil.dic_monitores()
+
+        with QTUtil.EscondeWindow(self.wparent):
+
+            if self.chb_scanner_ask.valor() and not QTUtil2.pregunta(
+                    None, _("Bring the window to scan to front"), label_yes=_("Done"), label_no=_("Cancel"), si_top=True,
+            ):
+                return
+
+            time.sleep(0.2)
+            QTUtil.refresh_gui()
+            time.sleep(0.2)
+            QTUtil.refresh_gui()
+
+            screen = QtWidgets.QApplication.screens()[monitor]
+            desktop = screen.grabWindow(0, 0, 0, dic_monitores[monitor].width(), dic_monitores[monitor].height())
+
             self.wparent.showNormal()
-            return
 
-        time.sleep(0.2)
-        QTUtil.refresh_gui()
-        time.sleep(0.2)
-        QTUtil.refresh_gui()
+            if not self.is_scan_init:
+                self.scanner_init()
+                self.is_scan_init = True
 
-        screen = QtWidgets.QApplication.primaryScreen()
-        desktop = screen.grabWindow(0, 0, 0, QTUtil.desktop_width(), QTUtil.desktop_height())
+            if Code.configuration.x_enable_highdpiscaling:
+                QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_DisableHighDpiScaling)
 
-        self.wparent.showNormal()
+            sc = Scanner.Scanner(self, self.configuration.carpetaScanners, desktop, dic_monitores[monitor])
+            if not sc.exec_():
+                if Code.configuration.x_enable_highdpiscaling:
+                    QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
+                return
 
-        if not self.is_scan_init:
-            self.scanner_init()
-            self.is_scan_init = True
-
-        if Code.configuration.x_enable_highdpiscaling:
-            QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_DisableHighDpiScaling)
-
-        sc = Scanner.Scanner(self, self.configuration.carpetaScanners, desktop)
-        if not sc.exec_():
             if Code.configuration.x_enable_highdpiscaling:
                 QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
-            return
+            self.vars_scanner.read()
+            self.vars_scanner.tolerance = self.sb_scanner_tolerance.valor()  # releemos la variable
+            self.vars_scanner.tolerance_learns = min(
+                self.sb_scanner_tolerance_learns.valor(), self.vars_scanner.tolerance
+            )
 
-        if Code.configuration.x_enable_highdpiscaling:
-            QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
-        self.vars_scanner.read()
-        self.vars_scanner.tolerance = self.sb_scanner_tolerance.valor()  # releemos la variable
-        self.vars_scanner.tolerance_learns = min(
-            self.sb_scanner_tolerance_learns.valor(), self.vars_scanner.tolerance
-        )
+            self.chb_scanner_flip.set_value(sc.side == BLACK)
 
-        self.chb_scanner_flip.set_value(sc.side == BLACK)
+            self.pixmap = sc.selected_pixmap
+            img = self.pixmap.toImage()
+            buffer = QtCore.QBuffer()
+            buffer.open(QtCore.QBuffer.ReadWrite)
+            img.save(buffer, "PNG")
+            self.im_scanner = Image.open(io.BytesIO(buffer.data()))
+            self.scanner_process()
+            tc = self.board.width_square * 8
+            pm = self.pixmap.scaled(tc, tc)
+            self.lb_scanner.put_image(pm)
+            self.lb_scanner.show()
+            self.gb_scanner.show()
+            self.scanner_deduce()
 
-        self.pixmap = sc.selected_pixmap
-        img = self.pixmap.toImage()
-        buffer = QtCore.QBuffer()
-        buffer.open(QtCore.QBuffer.ReadWrite)
-        img.save(buffer, "PNG")
-        self.im_scanner = Image.open(io.BytesIO(buffer.data()))
-        self.scanner_process()
-        tc = self.board.width_square * 8
-        pm = self.pixmap.scaled(tc, tc)
-        self.lb_scanner.put_image(pm)
-        self.lb_scanner.show()
-        self.gb_scanner.show()
-        self.scanner_deduce()
-
-        self.setFocus()
+            self.setFocus()
 
     def scanner_process(self):
         im = self.im_scanner
@@ -567,7 +584,7 @@ class WPosicion(QtWidgets.QWidget):
         self.dic_pos_color = dic_color
         is_white_bottom = self.board.is_white_bottom
         if (is_white_bottom and flipped) or ((not is_white_bottom) and (not flipped)):
-            self.board.rotaBoard()
+            self.board.rotate_board()
 
     def scanner_flip(self):
         self.scanner_process()
@@ -674,6 +691,19 @@ class WPosicion(QtWidgets.QWidget):
                         continue
             return
 
+    def scanner_remove(self):
+        path_scanner = self.cb_scanner_select.valor()
+        name = os.path.basename(path_scanner)[:-4]
+        if QTUtil2.pregunta(self, _("Are you sure you want to remove %s?") % name):
+            Util.remove_file(path_scanner)
+            pos = self.cb_scanner_select.currentIndex()
+            li_options = self.cb_scanner_select.li_options
+            if pos < len(li_options)-1:
+                default = li_options[pos][0]
+            else:
+                default = li_options[-2][0] if len(li_options) > 1 else ""
+            self.scanner_reread(default)
+
     def scanner_init(self):
         scanner = self.vars_scanner.scanner
         self.scanner_reread(scanner)
@@ -681,8 +711,9 @@ class WPosicion(QtWidgets.QWidget):
     def scanner_change(self):
         fich_scanner = self.cb_scanner_select.valor()
 
-        self.vars_scanner.scanner = os.path.basename(fich_scanner)[:-4]
-        self.scanner_read()
+        if fich_scanner:
+            self.vars_scanner.scanner = os.path.basename(fich_scanner)[:-4]
+            self.scanner_read()
 
     def scanner_reread(self, label_default):
         dsc = self.configuration.carpetaScanners

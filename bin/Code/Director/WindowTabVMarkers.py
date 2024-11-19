@@ -150,23 +150,14 @@ class WTV_Markers(LCDialog.LCDialog):
 
         self.grid = Grid.Grid(self, o_columns, xid="M", siSelecFilas=True)
 
-        li_acciones = [
-            (_("Close"), Iconos.MainMenu(), self.terminar),
-            None,
-            (_("New"), Iconos.Nuevo(), self.mas),
-            None,
-            (_("Remove"), Iconos.Borrar(), self.borrar),
-            None,
-            (_("Modify"), Iconos.Modificar(), self.modificar),
-            None,
-            (_("Copy"), Iconos.Copiar(), self.copiar),
-            None,
-            (_("Up"), Iconos.Arriba(), self.arriba),
-            None,
-            (_("Down"), Iconos.Abajo(), self.abajo),
-            None,
-        ]
-        tb = QTVarios.LCTB(self, li_acciones)
+        tb =  QTVarios.LCTB(self)
+        tb.new(_("Close"), Iconos.MainMenu(), self.terminar)
+        tb.new(_("New"), Iconos.Nuevo(), self.mas)
+        tb.new(_("Remove"), Iconos.Borrar(), self.borrar)
+        tb.new(_("Modify"), Iconos.Modificar(), self.modificar)
+        tb.new(_("Copy"), Iconos.Copiar(), self.copiar)
+        tb.new(_("Up"), Iconos.Arriba(), self.arriba)
+        tb.new(_("Down"), Iconos.Abajo(), self.abajo)
         tb.setFont(flb)
 
         ly = Colocacion.V().control(tb).control(self.grid)
@@ -253,11 +244,11 @@ class WTV_Markers(LCDialog.LCDialog):
         name = os.path.basename(file)[:-4]
         w = WTV_Marker(self, None, xml=contenido, name=name)
         if w.exec_():
-            regMarker = w.regMarker
-            regMarker.id = Util.huella_num()
-            regMarker.ordenVista = (self.liPMarkers[-1].ordenVista + 1) if self.liPMarkers else 1
-            self.dbMarkers[regMarker.id] = regMarker.save_dic()
-            self.liPMarkers.append(regMarker)
+            reg_marker = w.regMarker
+            reg_marker.id = Util.huella_num()
+            reg_marker.ordenVista = (self.liPMarkers[-1].ordenVista + 1) if self.liPMarkers else 1
+            self.dbMarkers[reg_marker.id] = reg_marker.save_dic()
+            self.liPMarkers.append(reg_marker)
             self.grid.refresh()
             self.grid.gobottom()
             self.grid.setFocus()
@@ -266,8 +257,8 @@ class WTV_Markers(LCDialog.LCDialog):
         row = self.grid.recno()
         if row >= 0:
             if QTUtil2.pregunta(self, _X(_("Delete %1?"), self.liPMarkers[row].name)):
-                regMarker = self.liPMarkers[row]
-                str_id = regMarker.id
+                reg_marker = self.liPMarkers[row]
+                str_id = reg_marker.id
                 del self.liPMarkers[row]
                 del self.dbMarkers[str_id]
                 self.grid.refresh()
@@ -311,11 +302,11 @@ class WTV_Markers(LCDialog.LCDialog):
             self.grid.setFocus()
 
     def interchange(self, fila1, fila2):
-        regMarker1, regMarker2 = self.liPMarkers[fila1], self.liPMarkers[fila2]
-        regMarker1.ordenVista, regMarker2.ordenVista = regMarker2.ordenVista, regMarker1.ordenVista
-        self.dbMarkers[regMarker1.id] = regMarker1
-        self.dbMarkers[regMarker2.id] = regMarker2
-        self.liPMarkers[fila1], self.liPMarkers[fila2] = self.liPMarkers[fila1], self.liPMarkers[fila2]
+        reg_marker1, reg_marker2 = self.liPMarkers[fila1], self.liPMarkers[fila2]
+        reg_marker1.ordenVista, reg_marker2.ordenVista = reg_marker2.ordenVista, reg_marker1.ordenVista
+        self.dbMarkers[reg_marker1.id] = reg_marker1.save_dic()
+        self.dbMarkers[reg_marker2.id] = reg_marker2.save_dic()
+        self.liPMarkers[fila1], self.liPMarkers[fila2] = self.liPMarkers[fila2], self.liPMarkers[fila1]
         self.grid.goto(fila2, 0)
         self.grid.refresh()
         self.grid.setFocus()

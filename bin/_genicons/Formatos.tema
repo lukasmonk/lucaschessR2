@@ -58,6 +58,7 @@ Arriba gnome 64px-Gnome-go-up.png
 Abajo gnome 64px-Gnome-go-down.png
 
 Estadisticas nuvola kchart.png
+Estadisticas2 windows8 icons8-estadisticas-32.png
 
 Check gnome 64px-Gnome-dialog-question.png
 
@@ -121,7 +122,7 @@ Elo ultimate gnome-app-install-star.png
 Mate silk brick.png
 EloTimed qt4 datetimeedit.png
 
-PGN nuvola kappfinder.png
+PGN nuvola pgn.png
 PGN_Importar qt4 newdirectory-32.png
 
 AyudaGR nuvola khelpcenter64.png
@@ -414,9 +415,6 @@ Negras windows8 rectangle-26.png
 FolderChange gnome 64px-Gnome-folder-saved-search.png
 Markers ultimate edit-cut.png
 
-Top qt4 icon_nav-top.png
-Bottom qt4 icon_nav-bottom.png
-
 STS lucas sts.png
 
 Run woocons Button_PlayR.png
@@ -446,7 +444,8 @@ Measure gnome 32px-Gnome-software-update-availableD.png
 
 PlayGame gnome 64px-Gnome-accessories-text-editor.png
 
-Scanner windows8 scanner-26.png
+Scanner windows8 icons8-escaner-32.png
+Scanner2 windows8 icons8-escaner2-32.png
 CursorScanner windows8 icons8_move_32px.png
 
 Menos qt4 minus(3)R.png
@@ -517,6 +516,7 @@ TOLchange gnome edit-redo.png
 Pack windows8 icons8_Collapse_32px.png
 
 Home nuvola folder_home.png
+HomeBlack windows8 icons8-casa-32.png
 
 Import8 windows8 Download_32px.png
 Export8 windows8 upload_32px.png
@@ -621,8 +621,6 @@ Kibitzer_Options windows8 icons8_gear_24px.png
 Kibitzer_Voyager windows8 icons8_rocket_24px.png
 Kibitzer_Close windows8 icons8_close_window_24px.png
 Kibitzer_Down windows8 icons8_download_24px.png
-Kibitzer_Up windows8 icons8_upload_24px.png
-Kibitzer_End windows8 icons8-fin-24.png
 Kibitzer_Back windows8 icons8_left_24px.png
 Kibitzer_Clipboard windows8 icons8_inspection_24px.png
 Kibitzer_Play windows8 icons8_play_24px.png
@@ -693,8 +691,9 @@ Reference windows8 icons8_magazine_32px.png
 ODT windows8 icons8_typewriter_with_paper_32px.png
 
 Engines windows8 icons8_services_30px.png
-ConfEngines windows8 icons8_automatic_32px_1.png
+ConfEngines windows8 icons8-maquinaria-32.png
 Engine windows8 icons8_gear_30px.png
+Engine2 windows8 icons8-motor-32.png
 
 Zip windows8 icons8_zip_code_32px.png
 
@@ -766,3 +765,8 @@ PauseBlue windows8 Sleep_Mode.png
 Forest windows8 icons8-bosque-32.png
 
 Analisis windows8 icons8-analysis-16.png
+
+GoogleTranslator windows8 icons8-traductor-google-32.png
+
+Pin windows8 icons8-pin-32.png
+Unpin windows8 icons8-unpin-32.png

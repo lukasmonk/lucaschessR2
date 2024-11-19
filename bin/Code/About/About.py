@@ -5,7 +5,6 @@ from Code.About import AboutBase
 from Code.QT import Colocacion
 from Code.QT import Controles
 from Code.QT import Iconos
-from Code.QT import QTUtil
 
 
 class WAbout(QtWidgets.QDialog):
@@ -17,8 +16,8 @@ class WAbout(QtWidgets.QDialog):
 
         self.setWindowTitle(_("About"))  # noqa: F821
         self.setWindowIcon(Iconos.Aplicacion64())
-        self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Dialog | QtCore.Qt.WindowTitleHint)
-        self.setMaximumWidth(QTUtil.desktop_width())
+        self.setWindowFlags(
+            QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Dialog | QtCore.Qt.WindowTitleHint | QtCore.Qt.WindowMaximizeButtonHint)
 
         f = Controles.FontType(puntos=10)  # 0, peso=75 )
 
@@ -85,7 +84,7 @@ class WAbout(QtWidgets.QDialog):
 #
 #     dic = ib.dic
 #
-#     with open(r"f:\lucaschess\WEB\mysite\templates\Thanksto.html", "wt", encoding="utf-8") as q:
+#     with open(r"c:\lucaschess\WEB\mysite\templates\Thanksto.html", "wt", encoding="utf-8") as q:
 #
 #         li = ['{% extends "base.html" %}',
 #               '{% block contenido %}',

@@ -199,9 +199,10 @@ class ManagerTactics(Manager.Manager):
             if self.state == ST_ENDGAME:
                 self.ent_siguiente()
 
-    def list_help_keyboard(self):
-        return [("+/%s" % _("Page Down"), _("Next position"))]
-                # ("T", _("Save position in 'Selected positions' file"))]
+    @staticmethod
+    def list_help_keyboard(add_key):
+        add_key("+/%s" % _("Page Down"), _("Next position"))
+        # ("T", _("Save position in 'Selected positions' file"))]
 
     def ent_siguiente(self):
         if self.tactic.work_game_finished():

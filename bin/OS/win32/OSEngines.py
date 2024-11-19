@@ -93,7 +93,7 @@ def read_engines(folder_engines):
         "daydreamer",
         "Aaron Becker",
         "1.75 JA",
-        "http://github.com/AaronBecker/daydreamer/downloads",
+        "https://github.com/AaronBecker/daydreamer",
         "windows/32 bit/daydreamer-175-32-ja.exe",
         2670, nodes_compatible=True
     )
@@ -133,7 +133,7 @@ def read_engines(folder_engines):
     cm.set_multipv(10, 100)
 
     cm = mas(
-        "texel", "Peter Österlund", "1.07 32bit", "http://hem.bredband.net/petero2b/javachess/index.html#texel",
+        "texel", "Peter Österlund", "1.07 32bit", "https://github.com/peterosterlund2/texel",
         "texel32old.exe", 3100, nodes_compatible=True
     )
     cm.set_multipv(10, 256)
@@ -258,10 +258,10 @@ def read_engines(folder_engines):
 
     if is64:
         if is_bmi2:
-            cm = mas("lc0", "The LCZero Authors", "v0.31.1", "https://github.com/LeelaChessZero", "lc0_dnnl.exe", 3300,
+            cm = mas("lc0", "The LCZero Authors", "v0.31.2", "https://github.com/LeelaChessZero", "lc0_dnnl.exe", 3300,
                      nodes_compatible=True)
         else:
-            cm = mas("lc0", "The LCZero Authors", "v0.31.1", "https://github.com/LeelaChessZero", "lc0.exe", 3300,
+            cm = mas("lc0", "The LCZero Authors", "v0.31.2", "https://github.com/LeelaChessZero", "lc0.exe", 3300,
                      nodes_compatible=True)
         cm.set_uci_option("Threads", "2")
         cm.set_multipv(10, 500)

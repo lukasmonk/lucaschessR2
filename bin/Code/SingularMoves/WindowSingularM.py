@@ -85,7 +85,11 @@ class WSingularM(LCDialog.LCDialog):
         if col == "STRENGTH":
             return "%0.2f" % registro.get("STRENGTH", 0.0)
         if col == "BEST":
-            return "%0.2f" % registro.get("BEST", 0.0)
+            rep = registro.get("REPETITIONS", [])
+            if len(rep):
+                return "%0.2f" % registro.get("BEST", 0.0)
+            else:
+                return ""
         if col == "REPETITIONS":
             rep = registro.get("REPETITIONS", [])
             return len(rep) if len(rep) else ""

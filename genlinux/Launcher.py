@@ -44,6 +44,7 @@ from PySide2 import QtCore, QtGui, QtWidgets, QtSvg, QtMultimedia
 import chardet.universaldetector
 import chess
 from chess import gaviota, engine, pgn, svg
+import deep_translator,requests,urllib3,idna,certifi,bs4
 
 import marshal
 

@@ -74,8 +74,14 @@ class FormLayout:
     def edit(self, label: str, init_value: str):
         self.eddefault(label, init_value)
 
-    def editbox(self, label, ancho=None, rx=None, tipo=str, is_password=False, alto=1, decimales=1, init_value=None):
+    def editbox(self, label, ancho=None, rx=None, tipo=None, is_password=False, alto=1, decimales=1, init_value=None):
         self.li_gen.append((Editbox(label, ancho, rx, tipo, is_password, alto, decimales), init_value))
+
+    def seconds(self, label: str, init_value: float):
+        self.editbox(label, ancho=60, tipo=float, init_value=init_value)
+
+    def minutes(self, label: str, init_value: float):
+        self.editbox(label, ancho=60, tipo=float, init_value=init_value, decimales=2)
 
     def combobox(self, label, lista, init_value, is_editable=False, tooltip=None):
         self.li_gen.append((Combobox(label, lista, is_editable, tooltip), init_value))
@@ -83,8 +89,8 @@ class FormLayout:
     def checkbox(self, label: str, init_value: bool):
         self.eddefault(label, init_value)
 
-    def float(self, label: str, init_value: float):
-        self.eddefault(label, float(init_value) if init_value else 0.0)
+    # def float(self, label: str, init_value: float):
+    #     self.eddefault(label, float(init_value) if init_value else 0.0)
 
     def spinbox(self, label, minimo, maximo, ancho, init_value):
         self.li_gen.append((Spinbox(label, minimo, maximo, ancho), init_value))
@@ -199,12 +205,12 @@ class Colorbox:
 
 
 class Editbox:
-    def __init__(self, label, ancho=None, rx=None, tipo=str, is_password=False, alto=1, decimales=1):
+    def __init__(self, label, ancho=None, rx=None, tipo=None, is_password=False, alto=1, decimales=1):
         self.tipo = EDITBOX
         self.label = label + ":"
         self.ancho = ancho
         self.rx = rx
-        self.tipoCampo = tipo
+        self.tipoCampo = str if tipo is None else tipo
         self.is_password = is_password
         self.alto = alto
         self.decimales = decimales
@@ -470,6 +476,8 @@ class Edit(Controles.ED):
             self.setEchoMode(QtWidgets.QLineEdit.Password)
         self.tipo = config.tipoCampo
         self.decimales = config.decimales
+        if self.tipo == float:
+            self.controlrx(r"\d+\.\d{%d}$" % self.decimales)
 
     def valor(self):
         if self.tipo == int:
@@ -675,7 +683,8 @@ class FormWidget(QtWidgets.QWidget):
                                 field.tipoInt()
                                 field.ponInt(value)
                             elif tp == float:
-                                field.tipoFloat(0.0)
+                                field.align_right()
+                                # field.tipoFloat(0.0)
                                 field.ponFloat(value)
                         else:
                             field = TextEdit(self, config, dispatch)
@@ -792,7 +801,7 @@ class FormWidget(QtWidgets.QWidget):
             elif isinstance(value, bool):
                 value = field.checkState() == QtCore.Qt.Checked
             elif isinstance(value, float):
-                value = float(field.text())
+                value = float(field.text().replace(",", "."))
             elif isinstance(value, int):
                 value = int(field.value())
             else:

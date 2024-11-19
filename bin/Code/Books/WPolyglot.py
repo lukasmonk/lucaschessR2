@@ -51,19 +51,14 @@ class WPolyglot(LCDialog.LCDialog):
         self.grid_moves = Grid.Grid(self, o_columnas, is_editable=True)
         self.grid_moves.setMinimumWidth(self.grid_moves.anchoColumnas() + 20)
 
-        li_acciones = (
-            (_("Close"), Iconos.MainMenu(), self.terminar),
-            None,
-            (_("Takeback"), Iconos.Atras(), self.takeback),
-            None,
-            (_("Voyager"), Iconos.Voyager32(), self.voyager),
-            None,
-            (_("Import"), Iconos.Import8(), self.pol_import.importar),
-            None,
-            (_("Create book"), Iconos.BinBook(), self.pol_export.exportar),
-            None,
-        )
-        self.tb = QTVarios.LCTB(self, li_acciones)
+        self.tb = QTVarios.LCTB(self)
+        self.tb.new(_("Close"), Iconos.MainMenu(), self.terminar)
+        self.tb.new(_("Takeback"), Iconos.Atras(), self.takeback)
+        self.tb.new(_("Voyager"), Iconos.Voyager32(), self.voyager)
+        self.tb.new(_("Import"), Iconos.Import8(), self.pol_import.importar)
+        # (_("Create book"), Iconos.BinBook(), self.pol_export.exportar),
+        # None,
+        self.tb.new(_("Export"), Iconos.Export8(), self.pol_export.export)
 
         ly2 = Colocacion.V().control(self.tb).control(self.grid_moves)
 

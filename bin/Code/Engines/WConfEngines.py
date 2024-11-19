@@ -852,7 +852,7 @@ class WOthers(QtWidgets.QWidget):
         self.save()
 
     def change_stockfish(self):
-        self.lb_stockfish_version.set_text("")
+        self.lb_stockfish_version.set_text(" ? ")
         CheckEngines.check_stockfish(self.owner, True)
         self.lb_stockfish_version.set_text(CheckEngines.current_stockfish())
 

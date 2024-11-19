@@ -93,6 +93,9 @@ class ManagerEntPos(Manager.Manager):
         self.advanced = advanced
         self.show_comments = show_comments
 
+        if self.board.blindfold:
+            self.board.blindfoldChange()
+
         self.li_histo = [self.pos_training]
 
         self.hints = 99999
@@ -408,11 +411,9 @@ class ManagerEntPos(Manager.Manager):
             self.ent_siguiente(TB_PREVIOUS)
 
     @staticmethod
-    def list_help_keyboard():
-        return [
-            ("-/%s" % _("Page Up"), _("Previous")),
-            ("+/%s" % _("Page Down"), _("Next")),
-        ]
+    def list_help_keyboard(add_key):
+            add_key("-/%s" % _("Page Up"), _("Previous"))
+            add_key("+/%s" % _("Page Down"), _("Next"))
 
     def end_game(self):
         self.board.show_coordinates(True)

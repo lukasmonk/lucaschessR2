@@ -21,8 +21,20 @@ from Code.Engines import EngineResponse
 
 
 class ManagerTrainBooks(Manager.Manager):
+    movimientos: int
+    book_player = None
+    book_rival = None
+    player_highest: bool
+    resp_rival = None
+    show_menu: bool
+    aciertos: int
+    sumar_aciertos: bool
+    li_reinit = None
+    is_human_side_white: bool
+    is_book_side_white: bool
+    
     def start(self, book_player, player_highest, book_rival, resp_rival, is_white, show_menu):
-        self.type_play = GT_BOOK
+        self.game_type = GT_BOOK
 
         self.hints = 9999  # Para que analice sin problemas
 
@@ -65,7 +77,7 @@ class ManagerTrainBooks(Manager.Manager):
         self.game.set_tag("White", w)
         self.game.set_tag("Black", b)
 
-        self.siguienteJugada()
+        self.play_next_move()
 
     def run_action(self, clave):
         if clave == TB_CLOSE:
@@ -102,7 +114,12 @@ class ManagerTrainBooks(Manager.Manager):
         self.main_window.activaInformacionPGN(False)
         self.start(book_player, player_highest, book_rival, resp_rival, is_white, show_menu)
 
-    def siguienteJugada(self):
+    def get_list_moves(self, is_rival):
+        book = self.book_rival if is_rival else self.book_player
+        fen = self.game.last_position.fen()
+        return book.get_list_moves(fen)
+
+    def play_next_move(self):
         if self.state == ST_ENDGAME:
             return
 
@@ -112,59 +129,55 @@ class ManagerTrainBooks(Manager.Manager):
         self.put_view()
 
         is_white = self.game.last_position.is_white
+        play_the_rival = is_white == self.is_book_side_white
 
         self.set_side_indicator(is_white)
         self.refresh()
 
-        fen = self.game.last_position.fen()
-
-        siRival = is_white == self.is_book_side_white
-        book = self.book_rival if siRival else self.book_player
-        self.list_moves = book.get_list_moves(fen)
-        if not self.list_moves:
+        list_moves = self.get_list_moves(play_the_rival)
+        if not list_moves:
             self.put_result()
             return
 
-        if siRival:
+        if play_the_rival:
             self.disable_all()
 
-            nli = len(self.list_moves)
+            nli = len(list_moves)
             if nli > 1:
-                resp = self.select_rival_move()
+                resp = self.select_rival_move(list_moves)
             else:
-                resp = self.list_moves[0][0], self.list_moves[0][1], self.list_moves[0][2]
+                resp = list_moves[0][0], list_moves[0][1], list_moves[0][2]
             xfrom, xto, promotion = resp
 
-            self.book_move = EngineResponse.EngineResponse("Apertura", self.is_book_side_white)
-            self.book_move.from_sq = xfrom
-            self.book_move.to_sq = xto
-            self.book_move.promotion = promotion
+            book_move = EngineResponse.EngineResponse("Apertura", self.is_book_side_white)
+            book_move.from_sq = xfrom
+            book_move.to_sq = xto
+            book_move.promotion = promotion
 
-            self.rival_has_moved(self.book_move)
-            self.siguienteJugada()
+            self.rival_has_moved(book_move)
+            self.play_next_move()
 
         else:
-
             self.human_is_playing = True
             self.activate_side(is_white)
 
-    def select_rival_move(self):
+    def select_rival_move(self, list_moves):
         select = self.resp_rival
 
         if select == SELECTED_BY_PLAYER:
-            resp = WBooks.eligeJugadaBooks(self.main_window, self.list_moves, self.game.last_position.is_white)
+            resp = WBooks.select_move_books(self.main_window, list_moves, self.game.last_position.is_white, True)
         elif select == BOOK_BEST_MOVE:
-            resp = self.list_moves[0][0], self.list_moves[0][1], self.list_moves[0][2]
-            nmax = self.list_moves[0][4]
-            for xfrom, xto, promotion, pgn, peso in self.list_moves:
+            resp = list_moves[0][0], list_moves[0][1], list_moves[0][2]
+            nmax = list_moves[0][4]
+            for xfrom, xto, promotion, pgn, peso in list_moves:
                 if peso > nmax:
                     resp = xfrom, xto, promotion
                     nmax = peso
         elif select == BOOK_RANDOM_UNIFORM:
-            pos = random.randint(0, len(self.list_moves) - 1)
-            resp = self.list_moves[pos][0], self.list_moves[pos][1], self.list_moves[pos][2]
+            pos = random.randint(0, len(list_moves) - 1)
+            resp = list_moves[pos][0], list_moves[pos][1], list_moves[pos][2]
         else:
-            li = [int(x[4] * 100000) for x in self.list_moves]
+            li = [int(x[4] * 100000) for x in list_moves]
             t = sum(li)
             num = random.randint(1, t)
             pos = 0
@@ -174,7 +187,7 @@ class ManagerTrainBooks(Manager.Manager):
                 if num <= t:
                     pos = n
                     break
-            resp = self.list_moves[pos][0], self.list_moves[pos][1], self.list_moves[pos][2]
+            resp = list_moves[pos][0], list_moves[pos][1], list_moves[pos][2]
 
         return resp
 
@@ -185,7 +198,8 @@ class ManagerTrainBooks(Manager.Manager):
 
         found = False
         actpeso = 0
-        for jdesde, jhasta, jpromotion, jpgn, peso in self.list_moves:
+        list_moves = self.get_list_moves(False)
+        for jdesde, jhasta, jpromotion, jpgn, peso in list_moves:
             if xfrom == jdesde and xto == jhasta and jg.promotion == jpromotion:
                 found = True
                 actpeso = peso
@@ -193,7 +207,7 @@ class ManagerTrainBooks(Manager.Manager):
 
         if found and self.player_highest:  # si el jugador busca elegir el maximo
             maxpeso = 0.0
-            for jdesde, jhasta, jpromotion, jpgn, peso in self.list_moves:
+            for jdesde, jhasta, jpromotion, jpgn, peso in list_moves:
                 if peso > maxpeso:
                     maxpeso = peso
             if actpeso < maxpeso:
@@ -202,11 +216,11 @@ class ManagerTrainBooks(Manager.Manager):
         if not found:
             self.board.set_position(self.game.last_position)
 
-            main = self.list_moves[0][4]
+            main = list_moves[0][4]
             saux = False
             paux = 0
 
-            for n, jug in enumerate(self.list_moves):
+            for n, jug in enumerate(list_moves):
                 opacity = p = jug[4]
                 simain = p == main
                 if not simain:
@@ -219,9 +233,7 @@ class ManagerTrainBooks(Manager.Manager):
                     self.board.eboard_arrow(jug[0], jug[1], jug[2])
 
             if self.show_menu:
-                resp = WBooks.eligeJugadaBooks(
-                    self.main_window, self.list_moves, self.is_human_side_white, siSelectSiempre=False
-                )
+                resp = WBooks.select_move_books(self.main_window, list_moves, self.is_human_side_white, False)
                 self.board.remove_arrows()
             else:
                 resp = None
@@ -244,21 +256,18 @@ class ManagerTrainBooks(Manager.Manager):
         self.add_move(jg, True)
         self.error = ""
         self.sumar_aciertos = True
-        self.siguienteJugada()
+        self.play_next_move()
         return True
 
     def get_help(self):
-        if self.human_is_playing:
-            self.stop_human()
-        else:
+        if not self.human_is_playing:
             return
-        self.board.set_position(self.game.last_position)
-
-        main = self.list_moves[0][4]
+        list_moves = self.get_list_moves(False)
+        main = list_moves[0][4]
         saux = False
         paux = 0
 
-        for n, jug in enumerate(self.list_moves):
+        for n, jug in enumerate(list_moves):
             opacity = p = jug[4]
             simain = p == main
             if not simain:
@@ -268,27 +277,7 @@ class ManagerTrainBooks(Manager.Manager):
                 opacity = 1.0 if p == paux else max(p, 0.25)
             self.board.creaFlechaMulti(jug[0] + jug[1], siMain=simain, opacity=opacity)
 
-        resp = WBooks.eligeJugadaBooks(
-            self.main_window, self.list_moves, self.is_human_side_white, siSelectSiempre=False
-        )
-        self.board.remove_arrows()
-        if resp is None:
-            self.sumar_aciertos = False
-            self.continue_human()
-            return
-
-        xfrom, xto, promotion = resp
-        ok, mens, jg = Move.get_game_move(self.game, self.game.last_position, xfrom, xto, promotion)
-        self.movimientos += 1
-
-        self.set_label3("<b>%s</b>" % self.txt_matches())
-
-        self.move_the_pieces(jg.liMovs)
-
-        self.add_move(jg, True)
-        self.error = ""
-        self.sumar_aciertos = True
-        self.siguienteJugada()
+        self.sumar_aciertos = False
 
     def add_move(self, jg, is_player_move):
 
@@ -297,7 +286,7 @@ class ManagerTrainBooks(Manager.Manager):
         jg.movimientos = self.movimientos
         jg.numpos = len(self.game)
 
-        self.ponVariantes(jg)
+        self.set_variations(is_player_move, jg)
         # Preguntamos al motor si hay movimiento
         if self.is_finished():
             jg.siJaqueMate = jg.siJaque
@@ -325,9 +314,9 @@ class ManagerTrainBooks(Manager.Manager):
             self.game.remove_last_move(self.is_human_side_white)
             self.goto_end()
             self.refresh()
-            self.siguienteJugada()
+            self.play_next_move()
 
-    def ponVariantes(self, jg):
+    def set_variations(self, is_human, jg):
         xfrom = jg.from_sq
         xto = jg.to_sq
         promotion = jg.promotion
@@ -337,12 +326,13 @@ class ManagerTrainBooks(Manager.Manager):
         comentario = ""
 
         linea = "-" * 24 + "\n"
-        for jdesde, jhasta, jpromotion, jpgn, peso in self.list_moves:
-            siLineas = xfrom == jdesde and xto == jhasta and promotion == jpromotion
-            if siLineas:
+        list_moves = self.get_list_moves(not is_human)
+        for jdesde, jhasta, jpromotion, jpgn, peso in list_moves:
+            si_lineas = xfrom == jdesde and xto == jhasta and promotion == jpromotion
+            if si_lineas:
                 comentario += linea
             comentario += jpgn + "\n"
-            if siLineas:
+            if si_lineas:
                 comentario += linea
 
         jg.set_comment(comentario)
@@ -355,7 +345,7 @@ class ManagerTrainBooks(Manager.Manager):
 
         ok, mens, jg = Move.get_game_move(self.game, self.game.last_position, xfrom, xto, promotion)
         if ok:
-            self.ponVariantes(jg)
+            self.set_variations(False, jg)
 
             self.add_move(jg, False)
             self.move_the_pieces(jg.liMovs, True)
@@ -369,11 +359,12 @@ class ManagerTrainBooks(Manager.Manager):
 
     def txt_matches(self):
         if self.movimientos:
-            self.game.set_tag("Score", "%d/%d" % (self.aciertos, self.movimientos))
-            return "%s : %d/%d (%0.2f%%)" % (
+            plant = "%d/%d" if self.player_highest else "%0.1f/%d"
+            score = plant % (self.aciertos, self.movimientos)
+            self.game.set_tag("Score", score)
+            return "%s : %s (%0.2f%%)" % (
                 _("Score"),
-                self.aciertos,
-                self.movimientos,
+                score,
                 100.0 * self.aciertos / self.movimientos,
             )
         else:

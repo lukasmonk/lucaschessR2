@@ -185,7 +185,7 @@ class WOpenings(LCDialog.LCDialog):
         if self.opening_block:
             self.game.read_pv(self.opening_block.a1h8)
         self.ponActivas()
-        self.mueve(siFinal=True)
+        self.mueve(is_end=True)
 
     def terminar(self):
         self.is_moving_time = False
@@ -219,11 +219,11 @@ class WOpenings(LCDialog.LCDialog):
         elif accion == "MoverInicio":
             self.mueve(si_inicio=True)
         elif accion == "MoverFinal":
-            self.mueve(siFinal=True)
+            self.mueve(is_end=True)
         elif accion == "MoverTiempo":
             self.move_timed()
 
-    def mueve(self, si_inicio=False, n_saltar=0, siFinal=False):
+    def mueve(self, si_inicio=False, n_saltar=0, is_end=False):
         num_moves = len(self.game)
         if n_saltar:
             pos = self.posCurrent + n_saltar
@@ -233,7 +233,7 @@ class WOpenings(LCDialog.LCDialog):
                 return
         elif si_inicio:
             self.posCurrent = -1
-        elif siFinal:
+        elif is_end:
             self.posCurrent = num_moves - 1
         else:
             return
@@ -252,7 +252,7 @@ class WOpenings(LCDialog.LCDialog):
         if self.is_moving_time:
             if self.posCurrent < len(self.game) - 1:
                 self.mueve(n_saltar=1)
-                QtCore.QTimer.singleShot(2500, self.siguienteTiempo)
+                QtCore.QTimer.singleShot(Code.configuration.x_interval_replay, self.siguienteTiempo)
             else:
                 self.is_moving_time = False
 
@@ -275,7 +275,7 @@ class WOpenings(LCDialog.LCDialog):
                 self.opening_block = OpeningsStd.Opening(_("Unknown"))
             self.opening_block.a1h8 = game.pv()
             self.ponActivas()
-            self.mueve(siFinal=True)
+            self.mueve(is_end=True)
 
 
 class OpeningsPersonales(LCDialog.LCDialog):

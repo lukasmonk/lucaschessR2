@@ -1,5 +1,6 @@
 import os
 import os.path
+import time
 
 import Code
 from Code import Util
@@ -10,12 +11,13 @@ from Code.QT import Controles
 from Code.QT import Grid
 from Code.QT import Iconos
 from Code.QT import LCDialog
+from Code.QT import QTUtil
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
 from Code.QT import SelectFiles
 
 
-def eligeJugadaBooks(main_window, li_moves, is_white, siSelectSiempre=True):
+def select_move_books(main_window, li_moves, is_white, always_select):
     main_window.cursorFueraBoard()
     menu = QTVarios.LCMenu(main_window)
     f = Controles.FontType(name=Code.font_mono, puntos=10)
@@ -37,9 +39,10 @@ def eligeJugadaBooks(main_window, li_moves, is_white, siSelectSiempre=True):
     if resp:
         return resp
     else:
-        if siSelectSiempre:
-            from_sq, to_sq, promotion, pgn, peso = li_moves[0]
-            return from_sq, to_sq, promotion
+        if always_select:
+            time.sleep(0.2)
+            QTUtil.refresh_gui()
+            return li_moves[0][0], li_moves[0][1], li_moves[0][2]
         else:
             return None
 
@@ -89,7 +92,7 @@ class WRegisteredBooks(LCDialog.LCDialog):
     def go_down(self):
         row = self.glista.recno()
         lista = self.list_books.lista
-        if row < len(lista)-1:
+        if row < len(lista) - 1:
             lista[row], lista[row + 1] = lista[row + 1], lista[row]
             self.glista.goto(row + 1, 0)
             self.glista.refresh()

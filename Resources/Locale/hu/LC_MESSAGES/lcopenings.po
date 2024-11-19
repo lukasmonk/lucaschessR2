@@ -1,8 +1,0 @@
-msgid ""
-msgstr ""
-"Language-Team: Hungarian (Hungary) (https://app.transifex.com/lukasmonk/teams/13068/hu_HU/)\n"
-"Language: hu_HU\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"

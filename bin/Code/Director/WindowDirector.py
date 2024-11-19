@@ -149,11 +149,16 @@ class WPanelDirector(LCDialog.LCDialog):
         else:
             self.selectBanda.seleccionarNum(number)
 
-    def grabar(self):
+    def save(self):
         if self.guion is not None:
             li = self.guion.guarda()
-            self.board.dbVisual_save(self.fenm2, li)
-            QTUtil2.temporary_message(None, _("Saved"), 1.2)
+        else:
+            li = None
+        self.board.dbVisual_save(self.fenm2, li)
+
+    def grabar(self):
+        self.save()
+        QTUtil2.temporary_message(self, _("Saved"), 1.0)
 
     def recuperar(self):
         self.guion.recupera()
@@ -613,7 +618,7 @@ class WPanelDirector(LCDialog.LCDialog):
 
     def test_siGrabar(self):
         if self.chbSaveWhenFinished.valor():
-            self.grabar()
+            self.save()
 
     def closeEvent(self, event):
         self.cierraRecursos()
@@ -741,9 +746,9 @@ class WPanelDirector(LCDialog.LCDialog):
                 self.dbConfig["SAVEWHENFINISHED"] = self.chbSaveWhenFinished.valor()
             self.dbManager.close()
 
+            self.test_siGrabar()
             self.save_video()
             self.guion.restoreBoard()
-            self.test_siGrabar()
             self.guion = None
 
     def actualizaBandas(self):

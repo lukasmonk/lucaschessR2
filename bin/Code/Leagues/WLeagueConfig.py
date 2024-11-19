@@ -43,7 +43,7 @@ class WLeagueConfig(LCDialog.LCDialog):
             None,
             (_("Cancel"), Iconos.Cancelar(), self.cancel),
             None,
-            (_("External engines"), Iconos.ConfEngines(), self.engines),
+            (_("Engines configuration"), Iconos.ConfEngines(), self.engines),
         ]
         if not self.league.is_editable():
             li_acciones.append(None)

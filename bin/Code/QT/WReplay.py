@@ -34,7 +34,7 @@ def param_replay(configuration, parent, with_previous_next) -> bool:
     )
     form.separador()
 
-    form.float(_("Number of seconds between moves"), dic_var.get("SECONDS", 2.0))
+    form.seconds(_("Number of seconds between moves"), dic_var.get("SECONDS", 2.0))
     form.separador()
 
     form.checkbox(_("Start from first move"), dic_var.get("START", True))
@@ -49,7 +49,7 @@ def param_replay(configuration, parent, with_previous_next) -> bool:
     form.checkbox(_("Custom sounds"), dic_var.get("CUSTOM_SOUNDS", False))
     form.separador()
 
-    form.float(_("Seconds before first move"), dic_var.get("SECONDS_BEFORE", 0.0))
+    form.seconds(_("Seconds before first move"), dic_var.get("SECONDS_BEFORE", 0.0))
     form.separador()
 
     if with_previous_next:
@@ -263,6 +263,7 @@ class Replay:
                 self.if_beep = dic_var["BEEP"]
                 self.if_custom_sounds = dic_var["CUSTOM_SOUNDS"]
                 self.seconds_before = dic_var["SECONDS_BEFORE"]
+                self.show_information()
 
     def terminar(self):
         self.stopped = True

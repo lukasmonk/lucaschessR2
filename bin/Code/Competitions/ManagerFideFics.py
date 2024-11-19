@@ -356,7 +356,7 @@ class ManagerFideFics(Manager.Manager):
                     # comment = "%s: %s" % (_("Same book move"), jg_obj.pgn_translated())
                     # else:
                     bmove = _("book move")
-                    comment = "%s: %s %s<br>%s: %s %s" % (
+                    comment = "%s: %s %s\n%s: %s %s" % (
                         self.name_obj,
                         jg_obj.pgn_translated(),
                         bmove,
@@ -364,7 +364,7 @@ class ManagerFideFics(Manager.Manager):
                         jg_usu.pgn_translated(),
                         bmove,
                     )
-                    QTUtil2.message_information(self.main_window, comment)
+                    QTUtil2.message_information(self.main_window, comment.replace("\n", "<br>"))
                 si_analiza_juez = False
             else:
                 if not si_book_obj:

@@ -305,6 +305,10 @@ class OpcionUCI:
             return False
 
         self.name = txt[11:n].strip()
+
+        if self.name.lower() == "ponder":
+            return False
+
         li = txt[n:].split(" ")
         self.tipo = li[1]
 

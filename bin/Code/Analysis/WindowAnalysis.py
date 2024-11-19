@@ -89,7 +89,7 @@ class OneAnalysis(QtWidgets.QWidget):
     def cancelar(self):
         self.owner.remove_analysis(self.tab_analysis)
 
-    def cambiadoRM(self, row):
+    def changed_rm(self, row):
         self.tab_analysis.set_pos_rm_active(row)
         self.lbPuntuacion.set_text(self.tab_analysis.score_active_depth())
         self.ponBoard()
@@ -111,11 +111,11 @@ class OneAnalysis(QtWidgets.QWidget):
         return len(self.list_rm_name)
 
     def grid_left_button(self, grid, row, column):
-        self.cambiadoRM(row)
+        self.changed_rm(row)
         self.owner.activate_analysis(self.tab_analysis)
 
     def grid_right_button(self, grid, row, column, modificadores):
-        self.cambiadoRM(row)
+        self.changed_rm(row)
 
     def grid_bold(self, grid, row, column):
         return self.tab_analysis.is_selected(row)
@@ -144,7 +144,7 @@ class OneAnalysis(QtWidgets.QWidget):
     def situate(self, recno):
         if 0 <= recno < len(self.list_rm_name):
             self.wrm.goto(recno, 0)
-            self.cambiadoRM(recno)
+            self.changed_rm(recno)
             self.owner.activate_analysis(self.tab_analysis)
 
     def abajo(self):
@@ -278,8 +278,6 @@ class WAnalisis(LCDialog.LCDialog):
         self.board.set_side_bottom(is_white)
         self.board.set_dispatcher(self.player_has_moved)
 
-        self.board.allow_eboard = False
-
         self.lb_engine = Controles.LB(self).align_center()
         self.lb_time = Controles.LB(self).align_center()
         self.lbPuntuacion = Controles.LB(self).align_center()
@@ -343,7 +341,7 @@ class WAnalisis(LCDialog.LCDialog):
         self.setLayout(layout)
 
         self.restore_video(siAncho=False)
-        wm.cambiadoRM(tab_analysis_init.pos_selected)
+        wm.changed_rm(tab_analysis_init.pos_selected)
         self.activate_analysis(tab_analysis_init)
 
     def change_mov_active(self, pos):
@@ -378,9 +376,6 @@ class WAnalisis(LCDialog.LCDialog):
     def board_wheel_event(self, board, forward):
         forward = Code.configuration.wheel_board(forward)
         self.key_pressed(QtCore.Qt.Key.Key_Left if forward else QtCore.Qt.Key.Key_Right)
-
-    def toolbar_rightmouse(self):
-        QTVarios.change_interval(self, Code.configuration)
 
     def closeEvent(self, event):  # Cierre con X
         self.terminar(False)

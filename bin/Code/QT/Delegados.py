@@ -624,4 +624,3 @@ class LinePGN(QtWidgets.QStyledItemDelegate):
         painter.translate(x, y)
         document_pgn.drawContents(painter, r)
         painter.restore()
-

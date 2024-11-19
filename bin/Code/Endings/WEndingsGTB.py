@@ -586,9 +586,6 @@ class WEndingsGTB(LCDialog.LCDialog):
             Code.runSound.playBeep()
         QtCore.QTimer.singleShot(self.configuration.x_interval_replay, self.mover_tiempo)
 
-    def toolbar_rightmouse(self):
-        QTVarios.change_interval(self, self.configuration)
-
     def run_botones(self):
         key = self.sender().key
         if key == "MoverTiempo":
@@ -611,6 +608,9 @@ class WEndingsGTB(LCDialog.LCDialog):
         elif key == "MoverFinal":
             self.pos_game = len(self.game) - 1
         self.set_position()
+
+    def stop_clock(self):
+        self.replaying = False
 
     def utilities(self):
         menu = QTVarios.LCMenu(self)

@@ -7,7 +7,9 @@ from PySide2 import QtCore, QtWidgets
 
 import Code
 from Code import Util
-from Code.Base.Constantes import CALCWEIGHT_NUMGAMES, CALCWEIGHT_SCORE, FEN_INITIAL, CALCWEIGHT_NUMGAMES_SCORE
+from Code.Base import Game
+from Code.Base.Constantes import CALCWEIGHT_NUMGAMES, CALCWEIGHT_SCORE, FEN_INITIAL, CALCWEIGHT_NUMGAMES_SCORE, WHITE, \
+    BLACK
 from Code.Databases import DBgames
 from Code.QT import Colocacion
 from Code.QT import Controles
@@ -20,13 +22,117 @@ from Code.QT import SelectFiles
 from Code.SQL import UtilSQL
 
 
+class WExportarPGN(QtWidgets.QDialog):
+    def __init__(self, parent, path_white, path_black):
+        QtWidgets.QDialog.__init__(self, parent)
+        self.setWindowFlags(
+            QtCore.Qt.WindowCloseButtonHint
+            | QtCore.Qt.Dialog
+            | QtCore.Qt.WindowTitleHint
+        )
+
+        self.setWindowTitle(_("Export") + " - " + _("PGN"))
+        self.setWindowIcon(Iconos.Board())
+        self.fontB = f = Controles.FontType(puntos=14)
+
+        self.is_canceled = False
+
+        lb_file = Controles.LB(self, _("File") + ": " + os.path.basename(path_white)).set_font(f)
+        lb_positions = Controles.LB(self, _("Positions") + ":").set_font(f)
+        self.lb_positions_white = Controles.LB(self, "0").set_font(f)
+        ly_positions = Colocacion.H().control(lb_positions).control(self.lb_positions_white).margen(0)
+        self.lb_games_white = Controles.LB(self, _("Games") + ":").set_font(f)
+        self.lb_games_white_number = Controles.LB(self, "").set_font(f)
+        ly_games = Colocacion.H().control(self.lb_games_white).control(self.lb_games_white_number).margen(0)
+        ly = Colocacion.V().control(lb_file).otro(ly_positions).otro(ly_games)
+        gb_white = Controles.GB(self, _("White"), ly)
+        Code.configuration.set_property(gb_white, "1")
+
+        lb_file = Controles.LB(self, _("File") + ": " + os.path.basename(path_black)).set_font(f)
+        lb_positions = Controles.LB(self, _("Positions") + ":").set_font(f)
+        self.lb_positions_black = Controles.LB(self, "0").set_font(f)
+        ly_positions = Colocacion.H().control(lb_positions).control(self.lb_positions_black).margen(0)
+        self.lb_games_black = Controles.LB(self, _("Games") + ":").set_font(f)
+        self.lb_games_black_number = Controles.LB(self, "").set_font(f)
+        ly_games = Colocacion.H().control(self.lb_games_black).control(self.lb_games_black_number).margen(0)
+        ly = Colocacion.V().control(lb_file).otro(ly_positions).otro(ly_games)
+        gb_black = Controles.GB(self, _("Black"), ly)
+        Code.configuration.set_property(gb_black, "1")
+
+        ly_datos = Colocacion.H().control(gb_white).control(gb_black)
+
+        self.bt_cancel_continue = Controles.PB(self, _("Cancel"), self.cancelar, plano=False).ponIcono(Iconos.Delete())
+        ly_control = Colocacion.H().relleno().control(self.bt_cancel_continue)
+
+        layout = Colocacion.V().otro(ly_datos).otro(ly_control)
+
+        self.setLayout(layout)
+
+        self.lb_positions = None
+        self.lb_games = None
+
+    def set_side(self, side):
+        self.lb_positions = self.lb_positions_white if side == WHITE else self.lb_positions_black
+        self.lb_games = self.lb_games_white_number if side == WHITE else self.lb_games_black_number
+
+    def set_positions(self, num):
+        self.lb_positions.setText('{:,}'.format(num).replace(',', '.'))
+        QTUtil.refresh_gui()
+
+    def set_games(self, num):
+        self.lb_games.setText('{:,}'.format(num).replace(',', '.'))
+        QTUtil.refresh_gui()
+
+    def cancelar(self):
+        self.is_canceled = True
+        self.pon_continue()
+
+    def pon_saving(self):
+        self.bt_cancel_continue.setDisabled(False)
+        self.bt_cancel_continue.set_text(_("Saving..."))
+        self.bt_cancel_continue.set_font(self.fontB)
+        self.bt_cancel_continue.ponIcono(Iconos.Grabar())
+        QTUtil.refresh_gui()
+
+    def pon_cancel(self):
+        self.bt_cancel_continue.setDisabled(False)
+        self.bt_cancel_continue.set_text(_("Cancel"))
+        self.bt_cancel_continue.set_font(self.fontB)
+        self.bt_cancel_continue.ponIcono(Iconos.Delete())
+        QTUtil.refresh_gui()
+
+    def pon_continue(self):
+        self.bt_cancel_continue.set_text(_("Continue"))
+        self.bt_cancel_continue.to_connect(self.continuar)
+        self.bt_cancel_continue.set_font(self.fontB)
+        self.bt_cancel_continue.ponIcono(Iconos.Aceptar())
+        self.bt_cancel_continue.setDisabled(False)
+        QTUtil.refresh_gui()
+
+    def continuar(self):
+        self.accept()
+
+
 class PolyglotExport:
     def __init__(self, wpolyglot):
         self.wpolyglot = wpolyglot
         self.configuration = wpolyglot.configuration
         self.db_entries = wpolyglot.db_entries
 
-    def exportar(self):
+    def export(self):
+        menu = QTVarios.LCMenu(self.wpolyglot)
+        menu.separador()
+        menu.opcion("polyglot", _("Polyglot book"), Iconos.BinBook())
+        menu.separador()
+        menu.opcion("pgn", _("PGN"), Iconos.Board())
+        menu.separador()
+        resp = menu.lanza()
+        if resp == "pgn":
+            self.export_pgn()
+        elif resp == "polyglot":
+            self.export_polyglot()
+
+    def export_polyglot(self):
         resp = self.export_polyglot_config()
         if resp is None:
             return None
@@ -90,6 +196,123 @@ class PolyglotExport:
         if not cancelled:
             QTUtil2.message_bold(self.wpolyglot, "%s\n%s" % (_("Saved"), path_bin))
 
+    def export_pgn(self):
+        dir_salvados = Code.configuration.pgn_folder()
+        path = SelectFiles.salvaFichero(self.wpolyglot, _("File to save"), dir_salvados, "pgn", False)
+        if not path:
+            return
+        folder = os.path.dirname(path)
+        Code.configuration.save_pgn_folder(folder)
+
+        path_white = path[:-4] + "_White.pgn"
+        path_black = path[:-4] + "_Black.pgn"
+
+        wexport = WExportarPGN(self.wpolyglot, path_white, path_black)
+        wexport.show()
+        QTUtil.refresh_gui()
+
+        game = Game.Game()
+        game.set_tag("Event", self.wpolyglot.title)
+
+        control = [time.time() + 0.8, 0]
+
+        for side in (WHITE, BLACK):
+            control[1] = 0
+            wexport.set_side(side)
+            wexport.pon_cancel()
+            if wexport.is_canceled:
+                break
+            with UtilSQL.ListSQLBig(Code.configuration.ficheroTemporal("sqlite")) as dblist:
+                current_path = path_white if side == WHITE else path_black
+
+                st_hash = set()
+                st_fenm2 = set()
+
+                control[0] = time.time()
+
+                def add_lipv(li_pv):
+                    spv = " ".join(li_pv)
+                    h = Util.md5_lc(spv)
+                    if h in st_hash:
+                        return
+                    st_hash.add(h)
+
+                    dblist.append(spv)
+                    if time.time() - control[0] > 1.0:
+                        wexport.set_positions(control[1])
+                        control[0] = time.time()
+
+                def is_already_fen(fen):
+                    fenm2 = FasterCode.fen_fenm2(fen)
+                    if fenm2 in st_fenm2:
+                        return True
+                    st_fenm2.add(fenm2)
+                    return wexport.is_canceled
+
+                def add_entries(fen, li_pv):
+                    if is_already_fen(fen):
+                        return
+
+                    li = self.db_entries.get_entries(fen)
+                    if li:
+                        # entry.rowid, entry.move, entry.weight, entry.score, entry.depth, entry.learn
+                        for entry in li:
+                            control[1] += 1
+                            FasterCode.set_fen(fen)
+                            li_pv_tmp = li_pv[:]
+                            move = entry.pv()
+                            li_pv_tmp.append(move)
+                            FasterCode.make_move(move)
+                            add_moves(FasterCode.get_fen(), li_pv_tmp)
+
+                def add_moves(fen, li_pv):
+                    if is_already_fen(fen):
+                        return
+
+                    if li_pv:
+                        add_lipv(li_pv)
+                    FasterCode.set_fen(fen)
+                    li_moves = FasterCode.get_exmoves()
+                    if li_moves:
+                        for imove in li_moves:
+                            FasterCode.set_fen(fen)
+                            li_pv_tmp = li_pv[:]
+                            move = imove.move()
+                            li_pv_tmp.append(move)
+                            FasterCode.make_move(move)
+                            add_entries(FasterCode.get_fen(), li_pv_tmp)
+
+                if side == WHITE:
+                    add_entries(FEN_INITIAL, [])
+                else:
+                    add_moves(FEN_INITIAL, [])
+
+                if not wexport.is_canceled:
+                    wexport.set_positions(control[1])
+                    previo = ""
+                    with open(current_path, "at", encoding="utf-8") as q:
+                        wexport.pon_saving()
+                        result = "1-0" if side == WHITE else "0-1"
+                        num_games = 0
+                        control[0] = time.time() + 0.8
+                        for pv in dblist.lista(True):
+                            if not previo.startswith(pv):
+                                previo = pv
+                                game = Game.Game()
+                                game.set_tag("Event", self.wpolyglot.title)
+                                game.set_tag("Result", result)
+                                game.read_pv(pv)
+                                q.write(game.pgn() + "\n\n\n")
+                                num_games += 1
+                                if time.time() - control[0] > 1.0:
+                                    control[0] = time.time()
+                                    wexport.set_games(num_games)
+                                if wexport.is_canceled:
+                                    break
+                        wexport.set_games(num_games)
+
+        wexport.pon_continue()
+
 
 class PolyglotImport:
     def __init__(self, wpolyglot):
@@ -103,7 +326,7 @@ class PolyglotImport:
         menu.separador()
         menu.opcion("database", _("Database"), Iconos.Database())
         menu.separador()
-        menu.opcion("polyglot", _("Polyglot book"), Iconos.Libros())
+        menu.opcion("polyglot", _("Polyglot book"), Iconos.BinBook())
         menu.separador()
         resp = menu.lanza()
         if resp == "pgn":

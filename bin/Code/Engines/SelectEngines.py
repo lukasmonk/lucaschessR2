@@ -195,14 +195,15 @@ class SelectEngines:
         haz(2750, 3000, "2750 - 3000")
         haz(3000, 5000, _("Above 3000"))
 
-        menu.separador()
-        submenu = menu.submenu(dnames[ENG_EXTERNAL], self.dicIconos[ENG_EXTERNAL])
-        for cm in self.liMotoresExternos:
-            texto = cm.key
-            if cm.elo:
-                texto = f"{texto} ({cm.elo})"
-            icono = rp.otro()
-            submenu.opcion(cm, texto, icono)
+        if self.liMotoresExternos:
+            menu.separador()
+            submenu = menu.submenu(dnames[ENG_EXTERNAL], self.dicIconos[ENG_EXTERNAL])
+            for cm in self.liMotoresExternos:
+                texto = cm.key
+                if cm.elo:
+                    texto = f"{texto} ({cm.elo})"
+                icono = rp.otro()
+                submenu.opcion(cm, texto, icono)
 
         menu.separador()
         submenu = menu.submenu(dnames[ENG_MICGM], self.dicIconos[ENG_MICGM])

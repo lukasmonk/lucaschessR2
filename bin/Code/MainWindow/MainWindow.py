@@ -291,8 +291,8 @@ class MainWindow(LCDialog.LCDialog):
     def set_activate_tutor(self, siActivar):
         self.base.set_activate_tutor(siActivar)
 
-    def pon_toolbar(self, li_acciones, separator=True, atajos=False, with_eboard=False):
-        return self.base.pon_toolbar(li_acciones, separator, atajos, with_eboard=with_eboard)
+    def pon_toolbar(self, li_acciones, separator=True, shortcuts=False, with_eboard=False):
+        return self.base.pon_toolbar(li_acciones, separator, shortcuts, with_eboard=with_eboard)
 
     def get_toolbar(self):
         return self.base.get_toolbar()

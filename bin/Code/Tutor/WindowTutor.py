@@ -1,4 +1,4 @@
-from PySide2 import QtCore
+from PySide2 import QtCore, QtWidgets
 
 import Code
 from Code.Analysis import Analysis
@@ -42,20 +42,21 @@ class WindowTutor(LCDialog.LCDialog):
 
         # Boards
 
-        def create_board(name, si=True, si_libre=True, si_mas=False):
+        def create_board(name, si=True, si_libre=False, si_mas=False):
             if not si:
                 return None, None, None
             board = Board.Board(self, config_board)
             board.crea()
             board.set_side_bottom(is_white)
+            board.disable_eboard_here()
             lytb, tb = QTVarios.ly_mini_buttons(self, name, si_libre, siMas=si_mas)
             return board, lytb, tb
 
-        self.boardTutor, lytbtutor, self.tbtutor = create_board("tutor")
-        self.boardUsuario, lytbuser, self.tbuser = create_board("user")
-        self.boardRival, lytbRival, self.tbRival = create_board("rival", with_rival)
+        self.board_tutor, lytbtutor, self.tbtutor = create_board("tutor")
+        self.board_user, lytbuser, self.tbuser = create_board("user")
+        self.board_rival, lytbRival, self.tbrival = create_board("rival", with_rival)
         self.boardOpening, lytbOpening, self.tbOpening = create_board("opening", with_openings, si_libre=False)
-        tutor.ponBoardsGUI(self.boardTutor, self.boardUsuario, self.boardRival, self.boardOpening)
+        tutor.ponBoardsGUI(self.board_tutor, self.board_user, self.board_rival, self.boardOpening)
 
         tb_analisis = Controles.TBrutina(self, icon_size=16, with_text=False)
         tb_analisis.new("", Iconos.Analisis(), self.launch_analysis, tool_tip=_("Analysis"))
@@ -63,24 +64,25 @@ class WindowTutor(LCDialog.LCDialog):
 
         # Puntuaciones
         self.lb_tutor = Controles.LB(self).set_font(f).align_center()
-        self.lb_tutor.setFixedWidth(self.boardTutor.ancho)
+        self.lb_tutor.setFixedWidth(self.board_tutor.ancho)
         manager.configuration.set_property(self.lb_tutor, "tutor-tutor" if has_hints else "tutor-tutor-disabled")
         if has_hints:
             self.lb_tutor.mousePressEvent = self.select_tutor
 
         self.lb_player = Controles.LB(self).set_font(f).align_center()
-        self.lb_player.setFixedWidth(self.boardUsuario.ancho)
+        self.lb_player.setFixedWidth(self.board_user.ancho)
         self.lb_player.mousePressEvent = self.select_user
         manager.configuration.set_property(self.lb_player, "tutor-player" if has_hints else "tutor-tutor")
 
         if with_rival:
             self.lb_rival = Controles.LB(self).set_font(f).align_center()
-            self.lb_rival.setFixedWidth(self.boardRival.ancho)
+            self.lb_rival.setFixedWidth(self.board_rival.ancho)
             manager.configuration.set_property(self.lb_rival, "tutor-tutor-disabled")
 
         # Openings
         ly_openings = None
         if with_openings:
+            self.tutor.set_toolbaropening_gui(self.tbOpening)
             li_options = self.tutor.opcionesOpenings()
             self.cbOpenings = Controles.CB(self, li_options, 0)
             self.cbOpenings.setFont(flba)
@@ -89,6 +91,7 @@ class WindowTutor(LCDialog.LCDialog):
 
             lb_openings = Controles.LB(self, _("Opening")).set_font(f).align_center()
             lb_openings.setFixedWidth(self.boardOpening.ancho)
+            lb_openings.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
             manager.configuration.set_property(lb_openings, "tutor-tutor" if has_hints else "tutor-tutor-disabled")
             if has_hints:
                 lb_openings.mousePressEvent = self.select_opening
@@ -101,7 +104,7 @@ class WindowTutor(LCDialog.LCDialog):
             li_rm.append((uno[1], n))
 
         self.cbRM, self.lbRM = QTUtil2.combobox_lb(self, li_rm, li_rm[0][1], _("Moves analyzed"))
-        self.cbRM.capture_changes(tutor.cambiadoRM)
+        self.cbRM.capture_changes(tutor.changed_rm)
 
         ly_rm = Colocacion.H().control(self.lbRM).control(self.cbRM).relleno(1)
 
@@ -120,13 +123,13 @@ class WindowTutor(LCDialog.LCDialog):
         fr, cr = riv
 
         layout = Colocacion.G()
-        layout.controlc(self.lb_tutor, 0, 0).controlc(self.boardTutor, 1, 0).otro(lytbtutor, 2, 0).otroc(ly_rm, 3, 0)
-        layout.controlc(self.lb_player, fu, cu).controlc(self.boardUsuario, fu + 1, cu).otro(lytbuser, fu + 2,
+        layout.controlc(self.lb_tutor, 0, 0).controlc(self.board_tutor, 1, 0).otro(lytbtutor, 2, 0).otroc(ly_rm, 3, 0)
+        layout.controlc(self.lb_player, fu, cu).controlc(self.board_user, fu + 1, cu).otro(lytbuser, fu + 2,
                                                                                              cu).controlc(
             bt_libros, fu + 3, cu
         )
         if with_rival:
-            layout.controlc(self.lb_rival, fr, cr).controlc(self.boardRival, fr + 1, cr).otro(lytbRival, fr + 2, cr)
+            layout.controlc(self.lb_rival, fr, cr).controlc(self.board_rival, fr + 1, cr).otro(lytbRival, fr + 2, cr)
         elif with_openings:
             layout.otroc(ly_openings, fr, cr).controlc(self.boardOpening, fr + 1, cr).otro(lytbOpening, fr + 2, cr)
 
@@ -142,10 +145,6 @@ class WindowTutor(LCDialog.LCDialog):
         move.analysis = self.tutor.mrm_tutor, pos_user
         Analysis.show_analysis(Code.procesador, self.manager.xanalyzer, move, self.manager.board.is_white_bottom,
                                pos_user, main_window=self, must_save=False)
-
-    def toolbar_rightmouse(self):
-        self.stop_clock()
-        QTVarios.change_interval(self, Code.configuration)
 
     def process_toolbar(self):
         self.run_toolbar(self.sender().key)
@@ -193,12 +192,14 @@ class WindowTutor(LCDialog.LCDialog):
         self.lb_rival.setText(txt)
 
     def start_clock(self, funcion):
-        if not hasattr(self, "timer"):
+        if self.timer is None:
             self.timer = QtCore.QTimer(self)
             self.timer.timeout.connect(funcion)
         self.timer.start(Code.configuration.x_interval_replay)
 
     def stop_clock(self):
-        if hasattr(self, "timer"):
+        if self.timer:
             self.timer.stop()
-            delattr(self, "timer")
+            self.timer = None
+            self.tutor.is_moving_time = False
+            self.tutor.time_others_tb(True)

@@ -93,11 +93,11 @@ class ThanksTo:
             ),  # Programme wiki administrator"),
             (
                 "Laudecir Daniel",
-                "Main promoter of the Linux version, he did the selection and compilation of engines, as well as the establishment of the working Linux version.",
+                "Main promoter of the Linux version, he did the selection and compilation of engines,<br>as well as the establishment of the working Linux version.",
             ),
             (
                 '<a href="https://goneill.co.nz/index.php">Graham O\'Neill</a>',
-                "Author of the drivers for the use of the electronic boards (except the official DGT ones). Also co-operator in the development of the interface code with the electronic boards.",
+                "Author of the drivers for the use of the electronic boards (except the official DGT ones).<br>Also co-operator in the development of the interface code with the electronic boards.",
             ),
         )
 
@@ -120,7 +120,7 @@ class ThanksTo:
                 el_txt += "Michele Tumbarello, "
             n = 0
             for uno in li_basex:
-                if n >= 110:
+                if n >= 80:
                     el_txt += "<br>"
                     n = 0
                 el_txt += uno + ", "
@@ -143,7 +143,8 @@ class ThanksTo:
             '<a href="http://99-developer-tools.com/chess/">A. Wicker</a>',
             'Budana P',
             'Rudolf Krämer',
-            "Luis"
+            "Luis",
+            "Stefan Akall"
             ""
         ]
         li_resto = []
@@ -232,34 +233,67 @@ class ThanksTo:
         return txt
 
     def translators(self):
-        txt = self.table_ini(center=False, border="0")
-        txt += "<tr><td>"
-        txt += self.dl_ini()
-        li = os.listdir(Code.path_resource("Locale"))
-        salto = len(li) // 2
-        for n, lng in enumerate(li):
-            if len(lng) > 2:
-                continue
-            d = Util.ini_base2dic(Code.path_resource("Locale", "%s/lang.ini" % lng))
-            if n >= salto:
-                salto = 99
-                txt += self.dl_end()
-                txt += "</td><td>"
-                txt += self.dl_ini()
-            txt += self.dl_tit(d["NAME"])
-            txt += self.dl_elem(d.get("AUTHOR", ""))
-            if "PREVIOUS" in d:
-                txt += self.dl_elem("%s: %s" % (_("Previous"), d["PREVIOUS"]))
+        txt = "<center>"+self.table_ini(center=False, border="1")
+        txt += f'<tr><th></th><th>{_("Current")}</th><th>{_("Previous")}</th><th></th><th>{_("Current")}</th><th>{_("Previous")}</th></tr>'
+        li = [x for x in os.listdir(Code.path_resource("Locale")) if len(x) == 2]
+        nli = len(li)
+        for pos in range(0, nli, 2):
+            txt += '<tr>'
+            for elem in (pos, pos +1):
+                if elem == nli:
+                    break
+                d = Util.ini_base2dic(Code.path_resource("Locale", "%s/lang.ini" % li[elem]))
+                author = d.get("AUTHOR", "")
+                language = d["NAME"]
+                previous = d.get("PREVIOUS", "")
+                if previous.count(",") > 2:
+                    liprev = previous.split(",")
+                    previous = ",".join(liprev[:3]) + "<br>" + ",".join(liprev[3:])
+                txt += f'<td><b>{language}</b></td>'
+                txt += f'<td><b>{author}</b></td>'
+                txt += f'<td><small>{previous}</small></td>'
+            txt += '</tr>'
 
-        txt += self.dl_end()
-        txt += "</td></tr>"
-        txt += self.table_end()
+        txt += self.table_end() + "</center>"
         txt += (
                 '<big><bold><center>%s: <a href="https://explore.transifex.com/">Transifex</a>'
                 % _("Web")
         )
-        txt += ' -  <a href="https://app.transifex.com/join/?o=lukasmonk&p=lucaschess&t=opensource">Join Translation of LucasChess</a></center></bold></big>'
+        txt += ' -  <a href="mailto:lukasmonk@gmail.com">Join Translation of LucasChess: mail to lukasmonk@gmail.com</a></center></bold></big>'
         return txt
+
+    # def translators(self):
+    #     txt = self.table_ini(center=False, border="1")
+    #     txt += '<tr><td>'
+    #     txt += self.dl_ini()
+    #     li = os.listdir(Code.path_resource("Locale"))
+    #     salto = len(li) // 2
+    #     for n, lng in enumerate(li):
+    #         if len(lng) > 2:
+    #             continue
+    #         d = Util.ini_base2dic(Code.path_resource("Locale", "%s/lang.ini" % lng))
+    #         author = d.get("AUTHOR", "")
+    #         if n >= salto:
+    #             salto = 99
+    #             txt += self.dl_end()
+    #             txt += '</td><td>'
+    #             txt += self.dl_ini()
+    #         translate = d["NAME"]
+    #         if author:
+    #             translate += f": <big>{author}</big>"
+    #         txt += self.dl_tit(translate)
+    #         if "PREVIOUS" in d:
+    #             txt += self.dl_elem("%s: %s" % (_("Previous"), d["PREVIOUS"]))
+    #
+    #     txt += self.dl_end()
+    #     txt += "</td></tr>"
+    #     txt += self.table_end()
+    #     txt += (
+    #             '<big><bold><center>%s: <a href="https://explore.transifex.com/">Transifex</a>'
+    #             % _("Web")
+    #     )
+    #     txt += ' -  <a href="mailto:lukasmonk@gmail.com">Join Translation of LucasChess: mail to lukasmonk@gmail.com</a></center></bold></big>'
+    #     return txt
 
     def images(self):
         txt = self.table_ini()
@@ -421,7 +455,7 @@ class ThanksTo:
             ("Chess Regular", '<a href="https://www.enpassant.dk/chess/fonteng.htm">Alastair Scott</a>', _("Freeware")),
             (
                 "Chess Regular2",
-                '<a href="https://www.enpassant.dk/chess/fonteng.htm">Regular redesigned by Tamer64</a>',
+                '<a href="https://www.enpassant.dk/chess/fonteng.htm">Regular redesigned<br>by Tamer64</a>',
                 _("Freeware"),
             ),
             (
@@ -432,17 +466,17 @@ class ThanksTo:
             (
                 "Cartoon",
                 '<a href="https://www.how-to-draw-funny-cartoons.com">Based on work by <br>Martin Bérubé</a>',
-                _("Free for personal non-commercial use"),
+                "Free for personal<br>non-commercial use",
             ),
             (
                 "Qwertyxp2000",
                 '<a href="https://commons.wikimedia.org/wiki/File%3AChess_pieces_(qwertyxp2000).svg">Qwertyxp2000</a>',
-                "Creative Commons Attribution 2.5 License",
+                "Creative Commons<br>Attribution 2.5 License",
             ),
             (
                 "Jin Alpha",
                 '<a href="https://ixian.com/chess/jin-piece-sets/">Eric De Mund</a>',
-                "Creative Commons Attribution-Share<br>Alike3.0 Unported",
+                "Creative Commons<br>Attribution-Share<br>Alike3.0 Unported",
             ),
             (
                 "Etruscan<br>Etruscan clear",
@@ -461,7 +495,7 @@ class ThanksTo:
             ),
             (
                 "Balestegui<br>Balestegui2",
-                "",
+                "Balestegui",
                 _("Permission of author"),
             ),
             (
@@ -473,6 +507,13 @@ class ThanksTo:
                 "Cardinalv1",
                 'Luis',
                 '<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-ND 4.0</a>'
+            ),
+            (
+                "Berlin",
+                '<a href="https://github.com/lukasmonk/lucaschessR2/issues/168">Pete Schaefer</a>',
+                '''Free for personal non commercial use.<br>
+                True Type Font by Eric Bentzen for diagrams<br> and figurine notation. 
+                Based on the familiar<br>design from the East German "Sportverlag"'''
             ),
         ]
         salto = len(li) // 2
@@ -577,38 +618,48 @@ class ThanksTo:
 
     def programming(self):
         li = (
-            (_("Programming language"), "Python 3.7", "https://www.python.org/"),
-            (_("GUI"), "PySide2", "https://wiki.qt.io/Qt_for_Python"),
-            ("psutil", _X(_("Created by %1"), "Giampaolo Rodola"), "https://github.com/giampaolo/psutil"),
-            ("chardet", _X(_("Created by %1"), "Ian Cordasco"), "https://github.com/chardet/chardet"),
+            (_("Programming language"), "Python 3.7", "https://www.python.org/", "PSF License Agreement"),
+            (_("GUI"), "PySide2", "https://wiki.qt.io/Qt_for_Python", "LGPLv3"),
+            ("psutil", _X(_("Created by %1"), "Giampaolo Rodola"), "https://github.com/giampaolo/psutil", "BSD License (BSD-3-Clause)"),
+            ("chardet", _X(_("Created by %1"), "Ian Cordasco"), "https://github.com/chardet/chardet", "LGPLv2 or later"),
             (
                 _("Polyglot books"),
                 _X(_("Based on work by %1"), "Michel Van den Bergh"),
-                "https://hardy.uhasselt.be/personal/vdbergh/Members/michel_id.html",
+                "",
+                ""
             ),
-            ("python-chess", _X(_("Created by %1"), "Niklas Fiekas"), "https://github.com/niklasf/python-chess"),
-            ("pillow", "Copyright 2010-2022, Alex Clark and Contributors", "https://github.com/python-pillow/Pillow"),
-            ("photohash", "Chris Pickett and others", "https://github.com/bunchesofdonald/photohash"),
+            ("python-chess", _X(_("Created by %1"), "Niklas Fiekas"), "https://github.com/niklasf/python-chess", "GPL-3.0+"),
+            ("pillow", "Copyright 2010-2022, Alex Clark and Contributors", "https://github.com/python-pillow/Pillow", "CMU License"),
+            ("photohash", "Chris Pickett and others", "https://github.com/bunchesofdonald/photohash", "MIT License"),
             (
                 "cython",
                 "Stefan Behnel, Robert Bradshaw, Lisandro Dalcín,<br>Mark Florisson, Vitja Makarov, Dag Sverre Seljebotn",
                 "https://cython.org/",
+                "Apache Software License 2.0"
             ),
-            ("formlayout", _X(_("Created by %1"), "Pierre Raybaut"), "https://github.com/PierreRaybaut/formlayout"),
+            ("formlayout", _X(_("Created by %1"), "Pierre Raybaut"), "https://github.com/PierreRaybaut/formlayout", "MIT License"),
             (
                 "sortedcontainers",
                 _X(_("Created by %1"), "Grant Jenks"),
                 "https://www.grantjenks.com/docs/sortedcontainers/",
+                "Apache Software License 2.0"
             ),
-            ("polib", "David Jean Louis and others", "https://github.com/izimobil/polib"),
+            ("polib", "David Jean Louis and others", "https://github.com/izimobil/polib", "MIT License"),
+            ("deep_translator", "Nidhal Baccouri", "https://github.com/nidhaloff/deep-translator", "MIT License"),
+            ("requests", "Kenneth Reitz", "https://requests.readthedocs.io/en/latest", "Apache Software License 2.0"),
+            ("urllib3", "Andrey Petrov", "https://pypi.org/project/urllib3/", "MIT License"),
+            ("idna", "Kim Davies", "https://pypi.org/project/idna/", "BSD License"),
+            ("certifi", "Kenneth Reitz", "https://github.com/certifi/python-certifi", "Mozilla Public License 2.0"),
+            ("bs4", "Leonard Richardson", "https://pypi.org/project/bs4", "Mozilla Public License 2.0"),
         )
         txt = self.table_ini()
 
-        for tipo, nom, web in li:
+        for tipo, nom, web, licencia in li:
             txt += "<tr>"
             txt += "<th>%s</th>" % tipo
             txt += "<td><center>%s</center></td>" % nom
             txt += '<td><a href="%s">%s</a></td>' % (web, web)
+            txt += '<td>%s</td>' % licencia
             txt += "</tr>"
 
         txt += self.table_end()

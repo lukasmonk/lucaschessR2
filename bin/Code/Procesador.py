@@ -228,7 +228,7 @@ class Procesador:
         self.board.side_indicator_sc.setVisible(False)
         self.board.blindfoldQuitar()
         self.test_opcion_Adjournments()
-        self.main_window.pon_toolbar(self.li_opciones_inicio, atajos=True)
+        self.main_window.pon_toolbar(self.li_opciones_inicio, shortcuts=True)
         self.main_window.active_game(False, False)
         self.main_window.thinking(False)
         self.board.do_pressed_number = None
@@ -359,7 +359,8 @@ class Procesador:
     def menuPlay_run(self, resp):
         tipo, rival = resp
         if tipo == "free":
-            self.libre()
+            config = rival
+            self.libre(config)
 
         elif tipo == "person":
             self.playPerson(rival)
@@ -638,10 +639,10 @@ class Procesador:
                 Adjournments.Adjournments().remove(key)
 
             self.test_opcion_Adjournments()
-            self.main_window.pon_toolbar(self.li_opciones_inicio, atajos=True)
+            self.main_window.pon_toolbar(self.li_opciones_inicio, shortcuts=True)
 
     def launch_shortcuts(self):
-        BasicMenus.atajos(self)
+        BasicMenus.shortcuts(self)
 
     def launch_shortcut_with_alt(self, key):
         BasicMenus.atajos_alt(self, key)
@@ -971,8 +972,13 @@ class Procesador:
     def sts(self):
         WindowSTS.sts(self, self.main_window)
 
-    def libre(self):
-        dic = WPlayAgainstEngine.play_against_engine(self, _("Play against an engine"))
+    def libre(self, conf):
+        dic = None
+        if conf:
+            with UtilSQL.DictSQL(self.configuration.ficheroEntMaquinaConf) as dbc:
+                dic = dbc[conf]
+        if dic is None:
+            dic = WPlayAgainstEngine.play_against_engine(self, _("Play against an engine"))
         if dic:
             self.entrenaMaquina(dic)
 

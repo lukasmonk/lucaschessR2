@@ -200,7 +200,7 @@ class WLines(LCDialog.LCDialog):
         )
         form.separador()
 
-        form.float(
+        form.seconds(
             _("Duration of engine analysis (secs)"),
             dic_var.get("SEGUNDOS", float(self.configuration.x_tutor_mstime / 1000.0)),
         )
@@ -1159,7 +1159,7 @@ class WLines(LCDialog.LCDialog):
 
         tm = float(self.configuration.x_tutor_mstime / 1000.0)
 
-        form.float(_("Duration of engine analysis (secs)"), dic_data.get("SECS", tm if tm > 0.0 else 3.0))
+        form.seconds(_("Duration of engine analysis (secs)"), dic_data.get("SECS", tm if tm > 0.0 else 3.0))
         form.separador()
 
         resultado = form.run()

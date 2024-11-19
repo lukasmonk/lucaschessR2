@@ -297,7 +297,7 @@ class WKibitzers(LCDialog.LCDialog):
         form.combobox(_("Point of view"), Kibitzers.cb_pointofview_options(), KIB_AFTER_MOVE)
         form.separador()
 
-        form.float("%s (0=%s)" % (_("Fixed time in seconds"), _("all the time thinking")), 0.0)
+        form.seconds("%s (0=%s)" % (_("Fixed time in seconds"), _("all the time thinking")), 0.0)
         form.separador()
 
         form.editbox(_("Fixed depth"), ancho=30 * Code.factor_big_fonts, tipo=int, init_value=0)

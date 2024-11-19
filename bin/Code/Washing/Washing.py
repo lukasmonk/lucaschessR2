@@ -223,9 +223,9 @@ class Washing:
         else:
             eng.state = ENDED
 
-    def saveGame(self, db, game, siFinal):
+    def saveGame(self, db, game, is_end):
         eng = self.liEngines[-1]
-        if siFinal:
+        if is_end:
             self.assign_tactics(eng)
             if eng.state == ENDED:
                 eng.assign_date()
@@ -340,10 +340,10 @@ class DBWashing:
         self.washing.add_game()
         self.save()
 
-    def saveGame(self, game, siFinal):
+    def saveGame(self, game, is_end):
         with UtilSQL.DictRawSQL(self.file) as db:
-            self.washing.saveGame(db, game, siFinal)
-            if siFinal:
+            self.washing.saveGame(db, game, is_end)
+            if is_end:
                 db.pack()
 
     def restoreGame(self, engine):

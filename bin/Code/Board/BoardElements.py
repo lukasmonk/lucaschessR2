@@ -372,7 +372,7 @@ class TiempoSC(BloqueSC):
         self.inicialx = bloqueTexto.physical_pos.x
         self.rutina = bloqueTexto.rutina
 
-        self.siFinal = self.maximo == self.inicialx
+        self.is_end = self.maximo == self.inicialx
 
         self.centesimas = 0
 
@@ -403,7 +403,7 @@ class TiempoSC(BloqueSC):
         return self.bloqueDatos.physical_pos.x != self.inicialx
 
     def calcCentesimas(self):
-        if self.siFinal:
+        if self.is_end:
             t = int(round(self.chunk * (self.bloqueDatos.physical_pos.x - self.inicialx + 400), 0))
         else:
             t = int(round(self.chunk * (self.bloqueDatos.physical_pos.x - self.inicialx), 0))

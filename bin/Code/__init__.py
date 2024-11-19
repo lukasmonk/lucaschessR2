@@ -99,7 +99,7 @@ def relative_root(path):
 
 
 BASE_VERSION = "B"  # Para el control de updates que necesitan reinstalar entero
-VERSION = "R 2.16a"
+VERSION = "R 2.17"
 DEBUG = False
 DEBUG_ENGINES = False
 
@@ -133,7 +133,6 @@ if DEBUG:
 
 
     def stack(si_previo=False):
-
         if si_previo:
             pr("-" * 80 + "\n")
             pr(traceback.format_stack())

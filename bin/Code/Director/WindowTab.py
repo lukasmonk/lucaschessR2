@@ -14,7 +14,7 @@ class SelectUna(Controles.LB):
         self.owner = owner
         self.pixmap = None
         self.id = None
-        self.toolTip = None
+        self.tooltip = None
         self.seleccionada = False
         Controles.LB.__init__(self, owner)
         self.put_image(pm_empty)
@@ -299,7 +299,7 @@ class DragUna(Controles.LB):
         self.owner = owner
         self.pixmap = None
         self.id = None
-        self.toolTip = None
+        self.tooltip = None
         Controles.LB.__init__(self, owner)
         self.put_image(pm_empty)
 

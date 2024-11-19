@@ -100,7 +100,9 @@ class ManagerGame(Manager.Manager):
             if resp is None:
                 return None
             if resp:
-                self.save_routine(self.game.recno, self.game)
+                resp_save = self.save_routine(self.game.recno, self.game)
+                if resp_save and resp_save.ok and not self.game.recno:
+                    self.game.recno = resp_save.recno
             return resp
         return False
 
@@ -154,7 +156,10 @@ class ManagerGame(Manager.Manager):
 
         elif key == TB_SAVE:
             if self.save_routine:
-                self.save_routine(self.game.recno, self.game)
+                resp_save = self.save_routine(self.game.recno, self.game)
+                if resp_save and resp_save.ok and not self.game.recno:
+                    self.game.recno = resp_save.recno
+
                 self.set_changed(False)
                 self.reinicio = self.game.save()
                 self.put_toolbar()
@@ -460,11 +465,7 @@ class ManagerGame(Manager.Manager):
             self.set_changed(True)
             self.play_next_move()
 
-    def list_help_keyboard(self):
+    def list_help_keyboard(self, add_key):
         if self.with_previous_next:
-            return [
-                ("-/%s" % _("Page Up"), _("Previous")),
-                ("+/%s" % _("Page Down"), _("Next")),
-            ]
-        else:
-            return []
+            add_key("-/%s" % _("Page Up"), _("Previous"))
+            add_key("+/%s" % _("Page Down"), _("Next"))

@@ -87,6 +87,7 @@ def options(parent, configuration):
     form.separador()
 
     li_mouse_sh = [
+        (_("Disable"), None),
         (_("Fixed type: you must always indicate origin and destination"), False),
         (_("Predictive type: program tries to guess your intention"), True),
     ]

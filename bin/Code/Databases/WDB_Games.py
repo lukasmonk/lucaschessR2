@@ -128,7 +128,19 @@ class WGames(QtWidgets.QWidget):
         submenu.opcion(self.tw_memorize, _("Memorizing their moves"), Iconos.LearnGame())
         submenu.separador()
         submenu.opcion(self.tw_play_against, _("Playing against"), Iconos.Law())
+        menu.separador()
 
+        submenu = menu.submenu(_("Create trainings"), Iconos.Entrenamiento())
+        eti = '"' + _("Play like a Grandmaster") + '"'
+        submenu.opcion(self.tw_gm, _X(_("Create training to %1"), eti), Iconos.GranMaestro())
+        submenu.separador()
+        eti = '"' + _("Learn tactics by repetition") + '"'
+        submenu.opcion(self.tw_uti_tactic, _X(_("Create training to %1"), eti), Iconos.Tacticas())
+        if self.db_games.has_positions():
+            submenu.separador()
+            eti = '"' + _("Training positions") + '"'
+            submenu.opcion(self.tw_training_positions, _X(_("Create training to %1"), eti), Iconos.Carpeta())
+            
         resp = menu.lanza()
         if resp:
             resp()
@@ -355,6 +367,8 @@ class WGames(QtWidgets.QWidget):
             self.tw_gobottom()
         elif k == QtCore.Qt.Key_G and is_control:
             self.goto_registro()
+        elif k == QtCore.Qt.Key_R and is_alt:
+            self.tw_resize_columns()
         else:
             return True  # que siga con el resto de teclas
 
@@ -470,14 +484,17 @@ class WGames(QtWidgets.QWidget):
                 if recno is None:
                     self.grid.gobottom()
                 else:
+                    resp.recmo = recno
                     self.grid.goto(recno, 0)
                     self.grid_cambiado_registro(self, recno, None)
                 self.rehaz_columnas()
                 self.grid.refresh()
                 self.set_changes(True)
+                return resp
 
             else:
                 QTUtil2.message_error(self, resp.mens_error)
+        return None
 
     def edit_previous_next(self, order, game):
         if order == "save":
@@ -729,16 +746,6 @@ class WGames(QtWidgets.QWidget):
             menu.opcion((self.tw_odt, None), _("To a position sheet in ODF format"), Iconos.ODT())
 
         menu.separador()
-        submenu = menu.submenu(_("Create trainings"), Iconos.Entrenamiento())
-        eti = '"' + _("Play like a Grandmaster") + '"'
-        submenu.opcion((self.tw_gm, None), _X(_("Create training to %1"), eti), Iconos.GranMaestro())
-        submenu.separador()
-        eti = '"' + _("Learn tactics by repetition") + '"'
-        submenu.opcion((self.tw_uti_tactic, None), _X(_("Create training to %1"), eti), Iconos.Tacticas())
-        if self.db_games.has_positions():
-            submenu.separador()
-            eti = '"' + _("Training positions") + '"'
-            submenu.opcion((self.tw_training_positions, None), _X(_("Create training to %1"), eti), Iconos.Carpeta())
 
         resp = menu.lanza()
         if resp:
@@ -820,7 +827,7 @@ class WGames(QtWidgets.QWidget):
 
                 board.set_position(position)
                 # if board.is_white_bottom != position.is_white:
-                #     board.rotaBoard()
+                #     board.rotate_board()
                 path_img = self.configuration.ficheroTemporal("png")
                 board.save_as_img(path_img, "png", False, True)
 
@@ -858,7 +865,7 @@ class WGames(QtWidgets.QWidget):
         submenu = menu.submenu(_("Appearance"), Iconos.Appearance())
 
         dico = {True: Iconos.Aceptar(), False: Iconos.PuntoRojo()}
-        submenu.opcion(self.tw_resize_columns, _("Resize all columns to contents"), Iconos.ResizeAll())
+        submenu.opcion(self.tw_resize_columns, f'{_("Resize all columns to contents")} ({_("ALT")}-R)', Iconos.ResizeAll())
         submenu.separador()
         submenu.opcion(self.tw_edit_columns, _("Configure the columns"), Iconos.EditColumns())
         submenu.separador()
@@ -1055,7 +1062,7 @@ class WGames(QtWidgets.QWidget):
         menu.opcion(self.tw_tags, _("Update tags"), Iconos.Tags())
         menu.separador()
         if not is_empty:
-            menu.opcion(self.goto_registro, "%s (CTRL G)" % _("Go to the record"), Iconos.GoToNext())
+            menu.opcion(self.goto_registro, f'{_("Go to the record")} ({_("CTRL")}-G)', Iconos.GoToNext())
             menu.separador()
             menu.opcion(self.tw_massive_analysis, _("Mass analysis"), Iconos.Analizar())
             menu.separador()
@@ -1580,14 +1587,14 @@ class WGames(QtWidgets.QWidget):
         link_7z = "https://peazip.github.io/"
         mens_unzip = _("Uncompress this file")
 
-        # mens_eco = _(
-        #     "If you want to include a field with the opening, you have to download and unzip in the same folder as the puzzle file, the file indicated below"
-        # )
-        # link_eco = (
-        #     "https://sourceforge.net/projects/lucaschessr/files/Version_R2/lichess_dict_pv_ids.zip/download"
-        # )
-        # idea = _("Original idea and more information")
-        # link_idea = "https://cshancock.netlify.app/post/2021-06-23-lichess-puzzles-by-eco"
+        mens_eco = _(
+            "If you want to include a field with the opening, you have to download and unzip in the same folder as the puzzle file, the file indicated below"
+        )
+        link_eco = (
+            "https://sourceforge.net/projects/lucaschessr/files/Version_R2/lichess_dict_pv_ids.zip/download"
+        )
+        idea = _("Original idea and more information")
+        link_idea = "https://cshancock.netlify.app/post/2021-06-23-lichess-puzzles-by-eco"
 
         mensaje = "%s:" % mens_base
         mensaje += "<ol>"
@@ -1603,12 +1610,12 @@ class WGames(QtWidgets.QWidget):
         else:
             mensaje += "<li>%s</li>" % mens_unzip
 
-        # mensaje += "<li>%s" % mens_eco
-        # mensaje += "<ul>"
-        # mensaje += '<li><a href="%s">%s</a></li>' % (link_eco, link_eco)
-        # mensaje += '<li>%s: <a href="%s">%s</a></li>' % (idea, link_idea, link_idea)
-        # mensaje += "</ul>"
-        # mensaje += "</li>"
+        mensaje += "<li>%s" % mens_eco
+        mensaje += "<ul>"
+        mensaje += '<li><a href="%s">%s</a></li>' % (link_eco, link_eco)
+        mensaje += '<li>%s: <a href="%s">%s</a></li>' % (idea, link_idea, link_idea)
+        mensaje += "</ul>"
+        mensaje += "</li>"
 
         mensaje += "</ol>"
         mensaje += "<br>%s" % _("The import takes a long time.")

@@ -202,7 +202,7 @@ class ManagerSolo(Manager.Manager):
         if self.auto_rotate:
             time.sleep(0.5)
             if is_white != self.board.is_white_bottom:
-                self.board.rotaBoard()
+                self.board.rotate_board()
 
         if self.game.is_finished():
             self.show_result()
@@ -459,28 +459,27 @@ class ManagerSolo(Manager.Manager):
     def utilities_gs(self):
         mt = _("Engine").lower()
         mt = _X(_("Disable %1"), mt) if self.play_against_engine else _X(_("Enable %1"), mt)
-        sep = (None, None, None)
+        sep = (None, None, None, None)
 
-        ctrl = _("CTRL") + " "
         li_extra_options = (
-            (None, _("Change the starting position"), Iconos.PGN()),
+            ("books", _("Consult a book"), Iconos.Libros()),
             sep,
-            ("position", _("Board editor") + " [%sS]" % ctrl, Iconos.Datos()),
+            (None, _("Change the starting position"), Iconos.Board()),
             sep,
-            ("initial", _("Basic position") + " [%sB]" % ctrl, Iconos.Board()),
+            ("position", _("Board editor"), Iconos.Datos(), "Ctrl+S"),
+            sep,
+            ("initial", _("Basic position"), Iconos.Board(), "Ctrl+B"),
             sep,
             ("opening", _("Opening"), Iconos.Opening()),
             sep,
-            ("pasteposicion", _("Paste FEN position") + " [%sV]" % ctrl, Iconos.Pegar16()),
+            ("pasteposicion", _("Paste FEN position"), Iconos.Pegar16(), "Ctrl+V"),
             sep,
             ("leerpgn", _("Read PGN file"), Iconos.PGN_Importar()),
             sep,
-            ("pastepgn", _("Paste PGN") + " [%sV]" % ctrl, Iconos.Pegar16()),
+            ("pastepgn", _("Paste PGN"), Iconos.Pegar16(), "Ctrl+Shift+V"),
             sep,
             ("voyager", _("Voyager 2"), Iconos.Voyager()),
             (None, None, True),
-            sep,
-            ("books", _("Consult a book"), Iconos.Libros()),
             sep,
             ("engine", mt, Iconos.Engines()),
             sep,
@@ -488,10 +487,10 @@ class ManagerSolo(Manager.Manager):
 
         resp = self.utilities(li_extra_options)
         if resp == "books":
-            liMovs = self.librosConsulta(True)
-            if liMovs:
-                for x in range(len(liMovs) - 1, -1, -1):
-                    from_sq, to_sq, promotion = liMovs[x]
+            li_movs = self.librosConsulta(True)
+            if li_movs:
+                for x in range(len(li_movs) - 1, -1, -1):
+                    from_sq, to_sq, promotion = li_movs[x]
                     self.player_has_moved(from_sq, to_sq, promotion)
 
         elif resp == "initial":
@@ -598,16 +597,13 @@ class ManagerSolo(Manager.Manager):
     #     self.save_selected_position("|".join(li))
 
     @staticmethod
-    def list_help_keyboard():
-        ctrl = _("CTRL") + " "
-        return [
-            (ctrl + "V", _("Paste position")),
-            # (ctrl + "T", _("Save position in 'Selected positions' file")),
-            (ctrl + "S", _("Board editor")),
-            (ctrl + "B", _("Basic position")),
-            (ctrl + "1", _("Play instead of me")),
-            (ctrl + "2", _("Help to move")),
-        ]
+    def list_help_keyboard(add_key):
+        add_key("V", _("Paste position"), is_ctrl=True)
+        # (ctrl + "T", _("Save position in 'Selected positions' file")),
+        add_key("S", _("Board editor"), is_ctrl=True)
+        add_key("B", _("Basic position"), is_ctrl=True)
+        add_key("1", _("Play instead of me"), is_ctrl=True)
+        add_key("2", _("Help to move"), is_ctrl=True)
 
     def start_position(self):
         if Code.eboard and Code.eboard.deactivate():

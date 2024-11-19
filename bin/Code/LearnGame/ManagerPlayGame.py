@@ -3,7 +3,7 @@ import time
 
 from Code import Manager
 from Code import Util
-from Code.Base import Game
+from Code.Base import Game, Move
 from Code.Base.Constantes import (
     GT_LEARN_PLAY,
     ST_ENDGAME,
@@ -49,7 +49,7 @@ class ManagerPlayGame(Manager.Manager):
     show_rating = None
     mrm = None
     mrm_tutor = None
-    iniTiempo = None
+    ini_time = None
 
     def start(self, recno, is_white, is_black, close_on_exit=False):
         self.game_type = GT_LEARN_PLAY
@@ -268,14 +268,14 @@ class ManagerPlayGame(Manager.Manager):
             self.human_is_playing = True
             if self.auto_rotate:
                 if is_white != self.board.is_white_bottom:
-                    self.board.rotaBoard()
+                    self.board.rotate_board()
 
             self.human_is_playing = True
             self.thinking(True)
             self.analyze_begin()
             self.activate_side(is_white)
             self.thinking(False)
-            self.iniTiempo = time.time()
+            self.ini_time = time.time()
         else:
             self.add_move(False)
             self.play_next_move()
@@ -285,7 +285,8 @@ class ManagerPlayGame(Manager.Manager):
         if not jg_usu:
             return False
 
-        self.vtime += time.time() - self.iniTiempo
+        time_used = time.time() - self.ini_time
+        self.vtime += time_used
 
         jg_obj = self.game_obj.move(self.posJugadaObj)
 
@@ -297,7 +298,7 @@ class ManagerPlayGame(Manager.Manager):
             if si_book_usu and si_book_obj:
                 if jg_obj.movimiento() != jg_usu.movimiento():
                     bmove = _("book move")
-                    comment = "%s: %s %s<br>%s: %s %s" % (
+                    comment = "%s: %s %s\n%s: %s %s" % (
                         self.name_obj(),
                         jg_obj.pgn_translated(),
                         bmove,
@@ -388,17 +389,20 @@ class ManagerPlayGame(Manager.Manager):
 
         self.analyze_end()
 
-        self.add_move(True, analysis, comment)
+        self.add_move(True, analysis, comment, time_used_s=time_used)
         self.play_next_move()
         return True
 
-    def add_move(self, is_player_move, analysis=None, comment=None):
-        move = self.game_obj.move(self.posJugadaObj)
+    def add_move(self, is_player_move, analysis=None, comment=None, time_used_s= None):
+        move: Move.Move = self.game_obj.move(self.posJugadaObj)
         self.posJugadaObj += 1
         if analysis:
             move.analysis = analysis
         if comment:
             move.set_comment(comment)
+
+        if time_used_s:
+            move.set_time_ms(int(time_used_s*1000))
 
         self.game.add_move(move)
         self.check_boards_setposition()

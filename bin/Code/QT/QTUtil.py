@@ -6,46 +6,35 @@ import Code
 
 
 class GarbageCollector(QtCore.QObject):
-    """
-    http://pydev.blogspot.com.br/2014/03/should-python-garbage-collector-be.html
-    Erik Janssens
-    Disable automatic garbage collection and instead collect manually
-    every INTERVAL milliseconds.
-
-    This is done to ensure that garbage collection only happens in the GUI
-    thread, as otherwise Qt can crash.
-    """
+    # http://pydev.blogspot.com.br/2014/03/should-python-garbage-collector-be.html
+    # Erik Janssens
+    #
+    # Disable automatic garbage collection and instead collect manually
+    # every INTERVAL milliseconds.
+    #
+    # This is done to ensure that garbage collection only happens in the GUI
+    # thread, as otherwise Qt can crash.
 
     INTERVAL = 10000
 
     def __init__(self):
-        QtCore.QObject.__init__(self, None)
+        QtCore.QObject.__init__(self)
 
         self.timer = QtCore.QTimer(self)
-        self.timer.timeout.connect(self.verify)
+        self.timer.timeout.connect(self.check)
 
         self.threshold = gc.get_threshold()
         gc.disable()
         self.timer.start(self.INTERVAL)
 
-    def verify(self):
-        # num = gc.collect()
+    def check(self):
         l0, l1, l2 = gc.get_count()
-        num = 0
         if l0 > self.threshold[0]:
-            num = gc.collect(0)
+            gc.collect(0)
             if l1 > self.threshold[1]:
-                num = gc.collect(1)
+                gc.collect(1)
                 if l2 > self.threshold[2]:
-                    num = gc.collect(2)
-        # lista = gc.get_objects()
-        # with open("mira", "wb") as f:
-        #     for x in lista:
-        #         f.write(str(x)+"\n")
-        return num
-
-    def collect(self):
-        gc.collect()
+                    gc.collect(2)
 
 
 def beep():
@@ -148,6 +137,22 @@ def center_on_widget(window):
     window.move(window.parent().mapToGlobal(QtCore.QPoint(x, y)))
 
 
+def monitor_actual(window):
+    ventana_geometry = window.frameGeometry()
+    desktop = QtWidgets.QDesktopWidget()
+    monitor_num = desktop.screenNumber(ventana_geometry.center())
+    return monitor_num, desktop.screenGeometry(monitor_num)
+
+
+def dic_monitores():
+    desktop = QtWidgets.QDesktopWidget()
+    num = desktop.screenCount()
+    dic = {}
+    for i in range(num):
+        dic[i] = desktop.screenGeometry(i)
+    return dic
+
+
 class EscondeWindow:
     def __init__(self, window):
         self.window = window
@@ -156,8 +161,9 @@ class EscondeWindow:
     def __enter__(self):
         if Code.is_windows:
             self.pos = self.window.pos()
-            screen = QtWidgets.QDesktopWidget().screenGeometry()
-            self.window.move(screen.width() * 10, 0)
+            d = dic_monitores()
+            ancho = sum(geometry.width() for geometry in d.values())
+            self.window.move(ancho + self.window.width()+10, 0)
         else:
             self.window.showMinimized()
         return self

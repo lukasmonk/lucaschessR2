@@ -763,10 +763,10 @@ class WTournament(LCDialog.LCDialog):
         form.spinbox(_("Rounds"), 1, 999, 50, get("ROUNDS", 1))
 
         form.separador()
-        form.float(_("Total minutes"), get("MINUTES", 10.00))
+        form.minutes(_("Total minutes"), get("MINUTES", 10.00))
 
         form.separador()
-        form.float(_("Seconds added per move"), get("SECONDS", 0.0))
+        form.seconds(_("Seconds added per move"), get("SECONDS", 0.0))
 
         form.add_tab(_("Options"))
 

@@ -108,7 +108,7 @@ class WJuicio(LCDialog.LCDialog):
         elif accion == "MoverInicio":
             self.mueve(is_base=True)
         elif accion == "MoverFinal":
-            self.mueve(siFinal=True)
+            self.mueve(is_end=True)
         elif accion == "MoverTiempo":
             self.move_timed()
         elif accion == "MoverMas":
@@ -193,7 +193,7 @@ class WJuicio(LCDialog.LCDialog):
 
         self.grid.setFocus()
 
-    def mueve(self, si_inicio=False, n_saltar=0, siFinal=False, is_base=False):
+    def mueve(self, si_inicio=False, n_saltar=0, is_end=False, is_base=False):
         if n_saltar:
             pos = self.posMueve + n_saltar
             if 0 <= pos < self.maxMoves:
@@ -204,7 +204,7 @@ class WJuicio(LCDialog.LCDialog):
             self.posMueve = 0
         elif is_base:
             self.posMueve = -1
-        elif siFinal:
+        elif is_end:
             self.posMueve = self.maxMoves - 1
         if len(self.game):
             move = self.game.move(self.posMueve if self.posMueve > -1 else 0)

@@ -4,7 +4,6 @@ import shutil
 
 import Code
 from Code import ManagerFindAllMoves
-from Code import Memory
 from Code import Util
 from Code.Base.Constantes import (
     ST_PLAYING,
@@ -22,6 +21,7 @@ from Code.Endings import ManagerMate
 from Code.Expeditions import WindowEverest
 from Code.GM import ManagerGM, WindowGM
 from Code.Mate15 import WMate15
+from Code.Memory import Memory
 from Code.QT import Controles
 from Code.QT import FormLayout
 from Code.QT import Iconos
@@ -138,7 +138,10 @@ class MenuTrainings:
             if nm >= 0:
                 txt += " " + TrListas.level(nm + 1)
 
-            xopcion(menu2, -100 - x, txt, cat.icono(), is_disabled=not mem.is_active(x))
+            xopcion(menu2, f"memory_{x}", txt, cat.icono(), is_disabled=not mem.is_active(x))
+
+        menu2.separador()
+        xopcion(menu2, "memory_results", _("Results"), Iconos.Estadisticas2())
 
         menu_basic.separador()
 
@@ -544,11 +547,13 @@ class MenuTrainings:
                 elif resp == "coordinates_basic":
                     self.coordinates_basic()
 
-            else:
-                if resp <= -100:
-                    self.menu = None  # ya que puede cambiar y la etiqueta es diferente
+                elif resp.startswith("memory"):
                     mem = Memory.Memoria(self.procesador)
-                    mem.lanza(abs(resp) - 100)
+                    if resp == "memory_results":
+                        mem.show_results()
+                    else:
+                        cat = int(resp[7:])
+                        mem.lanza(cat)
 
     def tacticas(self, tipo, name, carpeta, ini):
         dic_training = TrListas.dic_training()

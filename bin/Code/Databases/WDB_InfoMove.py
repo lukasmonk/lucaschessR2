@@ -69,10 +69,10 @@ class WInfomove(QtWidgets.QWidget):
         self.lbPGN.setOpenExternalLinks(False)
         self.lbPGN.setAlignment(QtCore.Qt.AlignTop)
 
-        def muestraPos(txt):
+        def muestra_pos(txt):
             self.colocatePartida(int(txt))
 
-        self.lbPGN.linkActivated.connect(muestraPos)
+        self.lbPGN.linkActivated.connect(muestra_pos)
 
         scroll = QtWidgets.QScrollArea()
         scroll.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
@@ -103,7 +103,7 @@ class WInfomove(QtWidgets.QWidget):
         self.usoNormal = True
         self.pos_move = -1
 
-        self.siReloj = False
+        self.clock_running = False
 
     def cambiado_board(self):
         self.lbPGN.anchoFijo(self.board.ancho)
@@ -140,7 +140,7 @@ class WInfomove(QtWidgets.QWidget):
             return
         lh = len(self.historia) - 1
         if pos >= lh:
-            self.siReloj = False
+            self.clock_running = False
             pos = lh
         if pos < 0:
             return self.MoverInicio()
@@ -183,7 +183,7 @@ class WInfomove(QtWidgets.QWidget):
             return
         lh = len(self.game) - 1
         if pos >= lh:
-            self.siReloj = False
+            self.clock_running = False
             pos = lh
 
         p = self.game
@@ -278,12 +278,12 @@ class WInfomove(QtWidgets.QWidget):
         self.board.play_current_position()
 
     def MoverTiempo(self):
-        if self.siReloj:
-            self.siReloj = False
+        if self.clock_running:
+            self.clock_running = False
         else:
-            self.siReloj = True
+            self.clock_running = True
             self.MoverInicio()
-            self.lanzaReloj()
+            self.run_clock()
 
     def board_wheel_event(self, board, forward):
         forward = Code.configuration.wheel_board(forward)
@@ -292,15 +292,15 @@ class WInfomove(QtWidgets.QWidget):
         else:
             self.MoverAtras()
 
-    def toolbar_rightmouse(self):
+    def run_clock(self):
         configuration = Code.configuration
-        QTVarios.change_interval(self, configuration)
         self.interval_replay = configuration.x_interval_replay
         self.beep_replay = configuration.x_beep_replay
-
-    def lanzaReloj(self):
-        if self.siReloj:
+        if self.clock_running:
             self.MoverAdelante()
             if self.beep_replay:
                 Code.runSound.playBeep()
-            QtCore.QTimer.singleShot(self.interval_replay, self.lanzaReloj)
+            QtCore.QTimer.singleShot(self.interval_replay, self.run_clock)
+
+    def stop_clock(self):
+        self.clock_running = False

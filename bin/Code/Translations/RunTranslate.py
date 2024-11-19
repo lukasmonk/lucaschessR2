@@ -6,6 +6,8 @@ import sys
 import polib
 from PySide2 import QtCore, QtWidgets
 
+from deep_translator import GoogleTranslator
+
 import Code
 from Code import Util
 from Code.Config import Configuration
@@ -66,10 +68,12 @@ class WTranslate(LCDialog.LCDialog):
         self.color_new = QTUtil.qtColor("#840C24")
         self.color_ult = QTUtil.qtColor("#90caff")
 
-        li_acciones = (
+        li_acciones = [
             ("Close", Iconos.FinPartida(), self.cerrar),
             None,
             ("Edit", Iconos.EditColumns(), self.editar),
+            None,
+            ("Google", Iconos.GoogleTranslator(), self.google_translate),
             None,
             ("Config", Iconos.Configurar(), self.config),
             None,
@@ -81,7 +85,8 @@ class WTranslate(LCDialog.LCDialog):
             None,
             ("Quit mode", Iconos.MainMenu(), self.quit_mode),
             None,
-        )
+        ]
+
         self.tb = QTVarios.LCTB(self, li_acciones, icon_size=24)
 
         self.lb_porcentage = Controles.LB(self, "").set_font_type(puntos=18, peso=300).anchoFijo(114).align_right()
@@ -144,7 +149,7 @@ class WTranslate(LCDialog.LCDialog):
         self.create_po(self.configuration.po_saved())
         if trans == new_value:
             return
-        send = new_value if new_value else trans
+        send = new_value #if new_value else trans
         self.work_translate.send_to_lucas(key, send)
 
     def save(self):
@@ -191,6 +196,7 @@ class WTranslate(LCDialog.LCDialog):
 
         key = self.li_labels[fila]
         dic = self.dic_translate[key]
+        value = value.strip() if value else ""
         if value:
             li_porc = ["%1", "%2", "%3", "%s", "%d"]
 
@@ -680,6 +686,28 @@ class WTranslate(LCDialog.LCDialog):
     def help(self):
         path_pdf = Code.path_resource("IntFiles", "translation.pdf")
         os.startfile(path_pdf)
+
+    def google_translate(self):
+        row = self.grid.recno()
+        label = self.li_labels[row]
+        current = self.dic_translate[label]
+        if not (current["TRANS"] or current["NEW"]):
+            target = Code.configuration.x_translator
+            if target == "zh":
+                target = "zh-CN"
+            elif target == "gr":
+                target = "el"
+            elif target == "br":
+                target = "pt"
+            elif target == "si":
+                target = "sl"
+            google = GoogleTranslator(source='en', target=target).translate(label)
+            if google:
+                self.grid_setvalue(None, row, None, google)
+                self.grid.refresh()
+                self.grid.goto(row + 1, 0)
+            else:
+                QTUtil2.temporary_message(self, "No translation", 0.7, background="white")
 
 
 def run_wtranslation(path_db):

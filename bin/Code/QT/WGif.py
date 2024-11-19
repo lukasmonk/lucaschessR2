@@ -68,7 +68,7 @@ class WGif(LCDialog.LCDialog):
         form.separador()
 
         seconds = dic_vars.get("SECONDS", 1.0)
-        form.float(_("Number of seconds between moves"), seconds)
+        form.seconds(_("Number of seconds between moves"), seconds)
         form.separador()
 
         loop = dic_vars.get("LOOP", True)

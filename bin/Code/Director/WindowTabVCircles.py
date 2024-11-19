@@ -15,6 +15,7 @@ from Code.QT import Iconos
 from Code.QT import LCDialog
 from Code.QT import QTUtil
 from Code.QT import QTUtil2
+from Code.QT import QTVarios
 
 
 class WTV_Circle(QtWidgets.QDialog):
@@ -141,8 +142,6 @@ class WTV_Circles(LCDialog.LCDialog):
 
         self.db_circles = db_circles
 
-        self.lip_circles = owner.list_circles()
-
         # Lista
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("NUMBER", _("N."), 60, align_center=True)
@@ -150,23 +149,14 @@ class WTV_Circles(LCDialog.LCDialog):
 
         self.grid = Grid.Grid(self, o_columns, xid="M", siSelecFilas=True)
 
-        li_acciones = [
-            (_("Close"), Iconos.MainMenu(), "terminar"),
-            None,
-            (_("New"), Iconos.Nuevo(), "mas"),
-            None,
-            (_("Remove"), Iconos.Borrar(), "borrar"),
-            None,
-            (_("Modify"), Iconos.Modificar(), "modificar"),
-            None,
-            (_("Copy"), Iconos.Copiar(), "copiar"),
-            None,
-            (_("Up"), Iconos.Arriba(), "arriba"),
-            None,
-            (_("Down"), Iconos.Abajo(), "abajo"),
-            None,
-        ]
-        tb = Controles.TB(self, li_acciones)
+        tb =  QTVarios.LCTB(self)
+        tb.new(_("Close"), Iconos.MainMenu(), self.terminar)
+        tb.new(_("New"), Iconos.Nuevo(), self.mas)
+        tb.new(_("Remove"), Iconos.Borrar(), self.borrar)
+        tb.new(_("Modify"), Iconos.Modificar(), self.modificar)
+        tb.new(_("Copy"), Iconos.Copiar(), self.copiar)
+        tb.new(_("Up"), Iconos.Arriba(), self.arriba)
+        tb.new(_("Down"), Iconos.Abajo(), self.abajo)
         tb.setFont(flb)
 
         ly = Colocacion.V().control(tb).control(self.grid)
@@ -185,10 +175,10 @@ class WTV_Circles(LCDialog.LCDialog):
         self.restore_video()
 
         # Ejemplos
-        liMovs = ["b4c4", "e2e2", "e4g7"]
+        li_movs = ["b4c4", "e2e2", "e4g7"]
         self.liEjemplos = []
         reg_circle = BoardTypes.Circle()
-        for a1h8 in liMovs:
+        for a1h8 in li_movs:
             reg_circle.a1h8 = a1h8
             reg_circle.siMovible = True
             circle = self.board.creaCircle(reg_circle)
@@ -228,10 +218,6 @@ class WTV_Circles(LCDialog.LCDialog):
                 ejemplo.bloqueDatos = bd
                 ejemplo.reset()
             self.board.escena.update()
-
-    def process_toolbar(self):
-        accion = self.sender().key
-        eval("self.%s()" % accion)
 
     def mas(self):
         w = WTV_Circle(self, None)
@@ -288,7 +274,7 @@ class WTV_Circles(LCDialog.LCDialog):
             reg_circle.name = name
             reg_circle.id = Util.huella_num()
             reg_circle.ordenVista = self.lip_circles[-1].ordenVista + 1
-            self.db_circles[reg_circle.id] = reg_circle
+            self.db_circles[reg_circle.id] = reg_circle.save_dic()
             self.lip_circles.append(reg_circle)
             self.grid.refresh()
             self.grid.setFocus()
@@ -296,9 +282,9 @@ class WTV_Circles(LCDialog.LCDialog):
     def interchange(self, fila1, fila2):
         reg_circle1, reg_circle2 = self.lip_circles[fila1], self.lip_circles[fila2]
         reg_circle1.ordenVista, reg_circle2.ordenVista = reg_circle2.ordenVista, reg_circle1.ordenVista
-        self.db_circles[reg_circle1.id] = reg_circle1
-        self.db_circles[reg_circle2.id] = reg_circle2
-        self.lip_circles[fila1], self.lip_circles[fila2] = self.lip_circles[fila1], self.lip_circles[fila2]
+        self.db_circles[reg_circle1.id] = reg_circle1.save_dic()
+        self.db_circles[reg_circle2.id] = reg_circle2.save_dic()
+        self.lip_circles[fila1], self.lip_circles[fila2] = self.lip_circles[fila2], self.lip_circles[fila1]
         self.grid.goto(fila2, 0)
         self.grid.refresh()
         self.grid.setFocus()

@@ -3,6 +3,8 @@ import os
 import polib
 from PySide2 import QtCore, QtWidgets
 
+from deep_translator import GoogleTranslator
+
 import Code
 from Code import Util
 from Code.QT import Colocacion
@@ -34,12 +36,10 @@ class WTranslateOpenings(LCDialog.LCDialog):
 
         self.color_new = QTUtil.qtColor("#840C24")
 
-        li_acciones = (
-            ("Close", Iconos.FinPartida(), self.cerrar),
-            None,
-            ("Utilities", Iconos.Utilidades(), self.utilities),
-            None,
-        )
+        li_acciones = [("Close", Iconos.FinPartida(), self.cerrar), None,
+                       ("Utilities", Iconos.Utilidades(), self.utilities), None,
+                       ("Google", Iconos.GoogleTranslator(), self.google_translate), None]
+
         self.tb = QTVarios.LCTB(self, li_acciones, icon_size=24)
 
         self.lb_porcentage = Controles.LB(self, "").set_font_type(puntos=18, peso=300).align_right()
@@ -74,6 +74,28 @@ class WTranslateOpenings(LCDialog.LCDialog):
 
         self.orders = {"BASE": 0, "CURRENT": 0}
         self.order_by_type("BASE")
+
+    def google_translate(self):
+        row = self.grid.recno()
+        label = self.li_labels[row]
+        current = self.dic_translate[label]
+        if not (current["TRANS"] or current["NEW"]):
+            target = Code.configuration.x_translator
+            if target == "zh":
+                target = "zh-CN"
+            elif target == "gr":
+                target = "el"
+            elif target == "br":
+                target = "pt"
+            elif target == "si":
+                target = "sl"
+            google = GoogleTranslator(source='en', target=target).translate(label)
+            if google:
+                self.grid_setvalue(None, row, None, google)
+                self.grid.refresh()
+                self.grid.goto(row + 1, 0)
+            else:
+                QTUtil2.temporary_message(self, "No translation", 0.7, background="white")
 
     @staticmethod
     def read_openings_std():

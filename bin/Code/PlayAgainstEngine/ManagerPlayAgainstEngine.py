@@ -44,7 +44,7 @@ from Code.Base.Constantes import (
     SELECTED_BY_PLAYER
 )
 from Code.Books import Books, WBooks
-from Code.Engines import EngineResponse
+from Code.Engines import EngineResponse, SelectEngines
 from Code.Openings import Opening, OpeningLines
 from Code.PlayAgainstEngine import WPlayAgainstEngine, Personalities
 from Code.QT import Iconos
@@ -148,7 +148,11 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         self.is_human_side_white = is_white
         self.is_engine_side_white = not is_white
 
-        self.conf_engine = dic_var["RIVAL"].get("CM", None)
+        dr = dic_var["RIVAL"]
+        if "CM" not in dr:
+            motores = SelectEngines.SelectEngines(self.main_window)
+            dr["CM"] = motores.busca(dr["TYPE"], dr["ENGINE"])
+        self.conf_engine = dr["CM"]
 
         self.lirm_engine = []
         self.next_test_resign = 0
@@ -535,8 +539,8 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             li_mas_opciones = []
             if self.human_is_playing or self.is_finished():
                 li_mas_opciones.append(("books", _("Consult a book"), Iconos.Libros()))
-            li_mas_opciones.append((None, None, None))
-            li_mas_opciones.append(("start_position", _("Change the starting position"), Iconos.PGN()))
+            # li_mas_opciones.append((None, None, None))
+            # li_mas_opciones.append(("start_position", _("Change the starting position"), Iconos.PGN()))
 
             resp = self.utilities(li_mas_opciones)
             if resp == "books":
@@ -545,10 +549,10 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                 if li_movs and si_en_vivo:
                     from_sq, to_sq, promotion = li_movs[-1]
                     self.player_has_moved(from_sq, to_sq, promotion)
-            elif resp == "play":
-                self.play_current_position()
-            elif resp == "start_position":
-                self.start_position()
+            # elif resp == "play":
+            #     self.play_current_position()
+            # elif resp == "start_position":
+            #     self.start_position()
 
         elif key == TB_ADJOURN:
             self.adjourn()
@@ -1094,7 +1098,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         if book_select == SELECTED_BY_PLAYER:
             lista_jugadas = book.get_list_moves(fen)
             if lista_jugadas:
-                resp = WBooks.eligeJugadaBooks(self.main_window, lista_jugadas, self.game.last_position.is_white)
+                resp = WBooks.select_move_books(self.main_window, lista_jugadas, self.game.last_position.is_white, True)
                 return True, resp[0], resp[1], resp[2]
         else:
             pv = book.eligeJugadaTipo(fen, book_select)
@@ -1458,12 +1462,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                                 )
                                 self.main_window.cursorFueraBoard()
                                 resp = menu.lanza()
-                                if resp == "try":
-                                    self.continue_analysis_human_move()
-                                    self.enable_toolbar()
-                                    self.tc_player.restart()
-                                    return False
-                                elif resp == "user":
+                                if resp == "user":
                                     si_tutor = False
                                 elif resp != "tutor":
                                     self.continue_analysis_human_move()
@@ -1490,7 +1489,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                                         move = jg_tutor
                                         self.set_summary("SELECTTUTOR", True)
                             if self.configuration.x_save_tutor_variations:
-                                tutor.ponVariations(move, 1 + len(self.game) / 2)
+                                tutor.add_variations_to_move(move, 1 + len(self.game) / 2)
 
                             del tutor
 
@@ -1848,14 +1847,11 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             if nkey == QtCore.Qt.Key_S:
                 self.start_position()
 
-    def list_help_keyboard(self):
-        ctrl = _("CTRL") + " "
-        li = []
+    def list_help_keyboard(self, add_key):
         if self.active_play_instead_of_me():
-            li.append((ctrl + "1", _("Play instead of me")))
+            add_key("1", _("Play instead of me"), is_ctrl=True)
         if self.active_help_to_move():
-            li.append((ctrl + "2", _("Help to move")))
-        return li
+            add_key("2", _("Help to move"), is_ctrl=True)
 
     def active_play_instead_of_me(self):
         if self.state != ST_PLAYING:

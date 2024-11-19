@@ -100,12 +100,11 @@ class WHistoricoTacticas(LCDialog.LCDialog):
                 posiciones = reg["POS"]
                 if row == 0:
                     current_position = self.tactica.current_position()
-                    if current_position is not None and current_position < posiciones:
-                        return "%d/%d" % (current_position, posiciones)
-                    else:
-                        return str(posiciones)
+                    if current_position is None:
+                        current_position = 0
                 else:
-                    return str(posiciones)
+                    current_position = posiciones
+                return f"{current_position}/{posiciones}"
             return "-"
         elif col == "SECONDS":
             seconds = reg.get("SECONDS", None)

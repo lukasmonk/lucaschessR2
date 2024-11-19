@@ -277,6 +277,10 @@ class WSummary(QtWidgets.QWidget):
         return self.reindexar_question(self.db_games.depth_stat(), True)
 
     def reindexar_question(self, depth, question):
+        if not self.db_games.has_result_field():
+            QTUtil2.message_error(self, _("This database does not have a RESULT field"))
+            return
+
         if question or self.wb_database.is_temporary:
             # if not QTUtil2.pregunta(self, _("Do you want to rebuild stats?")):
             #     return

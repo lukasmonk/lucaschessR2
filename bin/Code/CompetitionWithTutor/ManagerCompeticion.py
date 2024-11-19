@@ -179,8 +179,8 @@ class ManagerCompeticion(Manager.Manager):
         if self.state == ST_ENDGAME:
             self.set_end_game()
             return True
-        siJugadas = len(self.game) > 0
-        if siJugadas:
+        si_jugadas = len(self.game) > 0
+        if si_jugadas:
             if not QTUtil2.pregunta(self.main_window, _("End game?")):
                 return False  # no termina
             self.set_end_game()
@@ -239,16 +239,16 @@ class ManagerCompeticion(Manager.Manager):
                 self.remove_hints()
                 self.is_tutor_enabled = False
 
-        siRival = is_white == self.is_engine_side_white
+        si_rival = is_white == self.is_engine_side_white
         self.set_side_indicator(is_white)
 
         self.refresh()
 
-        if siRival:
+        if si_rival:
             self.thinking(True)
             self.disable_all()
 
-            siPensar = True
+            si_pensar = True
 
             if self.in_the_opening:
 
@@ -259,15 +259,15 @@ class ManagerCompeticion(Manager.Manager):
                     self.rm_rival.from_sq = from_sq
                     self.rm_rival.to_sq = to_sq
                     self.rm_rival.promotion = promotion
-                    siPensar = False
+                    si_pensar = False
                 else:
                     self.in_the_opening = False
 
-            if siPensar:
+            if si_pensar:
                 if self.is_maia:
-                    self.rm_rival = self.xrival.play_game(self.game)
-                else:
                     self.rm_rival = self.xrival.play_game_maia(self.game)
+                else:
+                    self.rm_rival = self.xrival.play_game(self.game)
 
             self.thinking(False)
 
@@ -374,13 +374,13 @@ class ManagerCompeticion(Manager.Manager):
                                 from_sq = tutor.from_sq
                                 to_sq = tutor.to_sq
                                 promotion = tutor.promotion
-                                ok, mens, jgTutor = Move.get_game_move(
+                                ok, mens, jg_tutor = Move.get_game_move(
                                     self.game, self.game.last_position, from_sq, to_sq, promotion
                                 )
                                 if ok:
-                                    move = jgTutor
+                                    move = jg_tutor
                         elif self.configuration.x_save_tutor_variations:
-                            tutor.ponVariations(move, 1 + len(self.game) / 2)
+                            tutor.add_variations_to_move(move, 1 + len(self.game) / 2)
 
                         del tutor
 

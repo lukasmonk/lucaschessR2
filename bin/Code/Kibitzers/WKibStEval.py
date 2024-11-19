@@ -22,9 +22,11 @@ class WStEval(WKibCommon.WKibCommon):
             (_("Quit"), Iconos.Kibitzer_Close(), self.terminar),
             (_("Continue"), Iconos.Kibitzer_Play(), self.play),
             (_("Pause"), Iconos.Kibitzer_Pause(), self.pause),
+            (_("Original position"), Iconos.HomeBlack(), self.home),
+            (_("Takeback"), Iconos.Kibitzer_Back(), self.takeback),
             (_("Show/hide board"), Iconos.Kibitzer_Board(), self.config_board),
-            ("%s: %s" % (_("Enable"), _("window on top")), Iconos.Kibitzer_Up(), self.windowTop),
-            ("%s: %s" % (_("Disable"), _("window on top")), Iconos.Kibitzer_Down(), self.windowBottom),
+            ("%s: %s" % (_("Enable"), _("window on top")), Iconos.Pin(), self.windowTop),
+            ("%s: %s" % (_("Disable"), _("window on top")), Iconos.Unpin(), self.windowBottom),
         )
         self.tb = Controles.TBrutina(self, li_acciones, with_text=False, icon_size=24)
         self.tb.set_action_visible(self.play, False)
@@ -90,3 +92,5 @@ class WStEval(WKibCommon.WKibCommon):
                 txt = "".join(li)
 
         self.em.set_text(txt)
+
+        self.test_tb_home()

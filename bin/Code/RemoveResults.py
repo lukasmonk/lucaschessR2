@@ -30,10 +30,12 @@ class RemoveResults:
             if not QTUtil2.pregunta(self.wowner, mens):
                 return
             action()
+            Code.procesador.entrenamientos.rehaz()
             QTUtil2.temporary_message(self.wowner, _("Done"), 0.8)
 
     def rem_101(self):
         self.configuration.write_variables("challenge101", {})
+
 
     def rem_check_your_memory(self):
         os.remove(self.configuration.file_memory)

@@ -109,7 +109,7 @@ class ControlPGN:
             move = self.manager.game.move(pos)
 
             if is_last:
-                self.manager.set_position(move.position)
+                self.manager.set_position(move.position, variation_history=str(pos))
                 if self.manager.human_is_playing and self.manager.state == ST_PLAYING:
                     if self.manager.game_type in (GT_ALONE, GT_GAME, GT_VARIATIONS, GT_LEARN_PLAY):
                         side = move.position.is_white

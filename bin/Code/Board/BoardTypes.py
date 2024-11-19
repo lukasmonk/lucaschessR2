@@ -119,6 +119,14 @@ class Bloque:
         return dic
 
     def restore_dic(self, dic):
+
+        # Recuperando error de la anterior version
+        if type(dic) != dict:
+            if hasattr(dic, "save_dic"):
+                dic = dic.save_dic()
+            else:
+                return
+
         for var, tipo in self.li_vars:
             if var in dic:
                 value = dic[var]

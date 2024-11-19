@@ -73,15 +73,15 @@ class WAnalisisVariations(QtWidgets.QDialog):
         self.oBase.process_toolbar(self.sender().key)
 
     def start_clock(self, funcion):
-        if not hasattr(self, "timer"):
+        if self.timer is None:
             self.timer = QtCore.QTimer(self)
             self.timer.timeout.connect(funcion)
         self.timer.start(1000)
 
     def stop_clock(self):
-        if hasattr(self, "timer") and self.timer:
+        if self.timer:
             self.timer.stop()
-            delattr(self, "timer")
+            self.timer = None
 
     def closeEvent(self, event):  # Cierre con X
         self.stop_clock()

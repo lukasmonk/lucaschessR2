@@ -399,6 +399,7 @@ class Grid(QtWidgets.QTableView):
         is_shift = (m & QtCore.Qt.ShiftModifier) > 0
         is_control = (m & QtCore.Qt.ControlModifier) > 0
         is_alt = (m & QtCore.Qt.AltModifier) > 0
+
         if hasattr(self.w_parent, "grid_tecla_pulsada"):
             if not (is_control or is_alt) and k < 256:
                 if self.w_parent.grid_tecla_pulsada(self, event.text()) is None:

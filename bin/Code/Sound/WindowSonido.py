@@ -234,7 +234,7 @@ class WEdicionSonido(LCDialog.LCDialog):
         )
 
         for titulo, icono, key in li_options:
-            accion = QtWidgets.QAction(titulo, None)
+            accion = QtWidgets.QAction(titulo, self.tb)
             accion.setIcon(icono)
             accion.setIconText(titulo)
             accion.triggered.connect(self.procesaTB)

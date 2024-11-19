@@ -450,6 +450,41 @@ class ListSQL:
             return -1
 
 
+class ListSQLBig:
+    def __init__(self, path_file, tabla="LIST"):
+        self.path_file = path_file
+        self._conexion = sqlite3.connect(path_file)
+        self.tabla = tabla
+        self.insert = "INSERT INTO %s( DATA ) VALUES( ? )" % self.tabla
+
+        self._conexion.execute("CREATE TABLE IF NOT EXISTS %s( DATA TEXT );" % tabla)
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.close()
+
+    def append(self, valor):
+        self._conexion.execute(self.insert, (valor,))
+
+    def close(self):
+        if self._conexion:
+            self._conexion.commit()
+            self._conexion.close()
+            self._conexion = None
+
+    def lista(self, rev):
+        self._conexion.commit()
+        cursor = self._conexion.execute(f"SELECT DATA FROM {self.tabla} ORDER BY DATA" + " DESC;" if rev else ";")
+        while True:
+            row = cursor.fetchone()
+            if row:
+                yield row[0]
+            else:
+                break
+
+
 class ListObjSQL(ListSQL):
     def __init__(self, path_file, class_storage, tabla="datos", max_cache=2048, reverted=False):
         self.class_storage = class_storage
@@ -528,6 +563,13 @@ class IPC(object):
 
     def read_again(self):
         self.key -= 1
+
+    def has_more_data(self):
+        nk = self.key + 1
+        sql = "SELECT dato FROM DATOS WHERE ROWID = %d" % nk
+        cursor = self._conexion.execute(sql)
+        reg = cursor.fetchone()
+        return reg is not None
 
     def push(self, valor):
         dato = sqlite3.Binary(pickle.dumps(valor))
@@ -783,6 +825,7 @@ class DictBigDB(object):
         k, v = self.rows_iter[self.pos_iter]
         self.pos_iter += 1
         return k, pickle.loads(v)
+
 
 
 def check_table_in_db(path_db: str, table: str):

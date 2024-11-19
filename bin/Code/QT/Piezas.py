@@ -232,7 +232,7 @@ class Blindfold(ConjuntoPiezas):
 class WBlindfold(LCDialog.LCDialog):
     def __init__(self, owner, nom_pieces_ori):
 
-        titulo = _("Blindfold") + " - " + _("Configuration")
+        titulo = _("Blindfold chess") + " - " + _("Configuration")
         icono = Iconos.Ojo()
         extparam = "wblindfold"
         LCDialog.LCDialog.__init__(self, owner, titulo, icono, extparam)

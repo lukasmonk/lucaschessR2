@@ -34,7 +34,7 @@ class CPU:
         tarea.enlaza(self)
         return self.masTarea(tarea, padre, siExclusiva)
 
-    def toolTip(self, texto, padre=0, siExclusiva=False):
+    def tooltip(self, texto, padre=0, siExclusiva=False):
         tarea = Tareas.TareaToolTip(texto)
         tarea.enlaza(self)
         return self.masTarea(tarea, padre, siExclusiva)

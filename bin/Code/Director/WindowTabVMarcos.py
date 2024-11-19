@@ -15,6 +15,7 @@ from Code.QT import Iconos
 from Code.QT import LCDialog
 from Code.QT import QTUtil
 from Code.QT import QTUtil2
+from Code.QT import QTVarios
 
 
 class WTV_Marco(QtWidgets.QDialog):
@@ -155,23 +156,14 @@ class WTV_Marcos(LCDialog.LCDialog):
 
         self.grid = Grid.Grid(self, o_columns, xid="M", siSelecFilas=True)
 
-        li_acciones = [
-            (_("Close"), Iconos.MainMenu(), "terminar"),
-            None,
-            (_("New"), Iconos.Nuevo(), "mas"),
-            None,
-            (_("Remove"), Iconos.Borrar(), "borrar"),
-            None,
-            (_("Modify"), Iconos.Modificar(), "modificar"),
-            None,
-            (_("Copy"), Iconos.Copiar(), "copiar"),
-            None,
-            (_("Up"), Iconos.Arriba(), "arriba"),
-            None,
-            (_("Down"), Iconos.Abajo(), "abajo"),
-            None,
-        ]
-        tb = Controles.TB(self, li_acciones)
+        tb =  QTVarios.LCTB(self)
+        tb.new(_("Close"), Iconos.MainMenu(), self.terminar)
+        tb.new(_("New"), Iconos.Nuevo(), self.mas)
+        tb.new(_("Remove"), Iconos.Borrar(), self.borrar)
+        tb.new(_("Modify"), Iconos.Modificar(), self.modificar)
+        tb.new(_("Copy"), Iconos.Copiar(), self.copiar)
+        tb.new(_("Up"), Iconos.Arriba(), self.arriba)
+        tb.new(_("Down"), Iconos.Abajo(), self.abajo)
         tb.setFont(flb)
 
         ly = Colocacion.V().control(tb).control(self.grid)
@@ -224,28 +216,24 @@ class WTV_Marcos(LCDialog.LCDialog):
 
     def grid_cambiado_registro(self, grid, row, o_column):
         if row >= 0:
-            regMarco = self.liPMarcos[row]
+            reg_marco = self.liPMarcos[row]
             for ejemplo in self.liEjemplos:
                 a1h8 = ejemplo.bloqueDatos.a1h8
-                bd = copy.deepcopy(regMarco)
+                bd = copy.deepcopy(reg_marco)
                 bd.a1h8 = a1h8
                 bd.width_square = self.board.width_square
                 ejemplo.bloqueDatos = bd
                 ejemplo.reset()
             self.board.escena.update()
 
-    def process_toolbar(self):
-        accion = self.sender().key
-        eval("self.%s()" % accion)
-
     def mas(self):
         w = WTV_Marco(self, None)
         if w.exec_():
-            regMarco = w.regMarco
-            regMarco.id = Util.huella_num()
-            regMarco.ordenVista = (self.liPMarcos[-1].ordenVista + 1) if self.liPMarcos else 1
-            self.dbMarcos[regMarco.id] = regMarco.save_dic()
-            self.liPMarcos.append(regMarco)
+            reg_marco = w.regMarco
+            reg_marco.id = Util.huella_num()
+            reg_marco.ordenVista = (self.liPMarcos[-1].ordenVista + 1) if self.liPMarcos else 1
+            self.dbMarcos[reg_marco.id] = reg_marco.save_dic()
+            self.liPMarcos.append(reg_marco)
             self.grid.refresh()
             self.grid.gobottom()
             self.grid.setFocus()
@@ -254,8 +242,8 @@ class WTV_Marcos(LCDialog.LCDialog):
         row = self.grid.recno()
         if row >= 0:
             if QTUtil2.pregunta(self, _X(_("Delete box %1?"), self.liPMarcos[row].name)):
-                regMarco = self.liPMarcos[row]
-                str_id = regMarco.id
+                reg_marco = self.liPMarcos[row]
+                str_id = reg_marco.id
                 del self.dbMarcos[str_id]
                 del self.liPMarcos[row]
                 self.grid.refresh()
@@ -277,7 +265,7 @@ class WTV_Marcos(LCDialog.LCDialog):
     def copiar(self):
         row = self.grid.recno()
         if row >= 0:
-            regMarco = copy.deepcopy(self.liPMarcos[row])
+            reg_marco = copy.deepcopy(self.liPMarcos[row])
 
             def siEstaNombre(name):
                 for rf in self.liPMarcos:
@@ -286,24 +274,24 @@ class WTV_Marcos(LCDialog.LCDialog):
                 return False
 
             n = 1
-            name = "%s-%d" % (regMarco.name, n)
+            name = "%s-%d" % (reg_marco.name, n)
             while siEstaNombre(name):
                 n += 1
-                name = "%s-%d" % (regMarco.name, n)
-            regMarco.name = name
-            regMarco.id = Util.huella_num()
-            regMarco.ordenVista = self.liPMarcos[-1].ordenVista + 1
-            self.dbMarcos[regMarco.id] = regMarco
-            self.liPMarcos.append(regMarco)
+                name = "%s-%d" % (reg_marco.name, n)
+            reg_marco.name = name
+            reg_marco.id = Util.huella_num()
+            reg_marco.ordenVista = self.liPMarcos[-1].ordenVista + 1
+            self.dbMarcos[reg_marco.id] = reg_marco
+            self.liPMarcos.append(reg_marco)
             self.grid.refresh()
             self.grid.setFocus()
 
     def interchange(self, fila1, fila2):
-        regMarco1, regMarco2 = self.liPMarcos[fila1], self.liPMarcos[fila2]
-        regMarco1.ordenVista, regMarco2.ordenVista = regMarco2.ordenVista, regMarco1.ordenVista
-        self.dbMarcos[regMarco1.id] = regMarco1
-        self.dbMarcos[regMarco2.id] = regMarco2
-        self.liPMarcos[fila1], self.liPMarcos[fila2] = self.liPMarcos[fila1], self.liPMarcos[fila2]
+        reg_marco1, reg_marco2 = self.liPMarcos[fila1], self.liPMarcos[fila2]
+        reg_marco1.ordenVista, reg_marco2.ordenVista = reg_marco2.ordenVista, reg_marco1.ordenVista
+        self.dbMarcos[reg_marco1.id] = reg_marco1.save_dic()
+        self.dbMarcos[reg_marco2.id] = reg_marco2.save_dic()
+        self.liPMarcos[fila1], self.liPMarcos[fila2] = self.liPMarcos[fila2], self.liPMarcos[fila1]
         self.grid.goto(fila2, 0)
         self.grid.refresh()
         self.grid.setFocus()

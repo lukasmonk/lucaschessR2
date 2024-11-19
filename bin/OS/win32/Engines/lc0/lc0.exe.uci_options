@@ -1,11 +1,11 @@
-id name Lc0 v0.29.0
+id name Lc0 v0.31.2
 id author The LCZero Authors.
 option name WeightsFile type string default <autodiscover>
 option name Backend type combo default blas var blas var eigen var trivial var random var check var recordreplay var roundrobin var multiplexing var demux
 option name BackendOptions type string default
-option name Threads type spin default 2 min 1 max 128
+option name Threads type spin default 0 min 0 max 128
 option name NNCacheSize type spin default 2000000 min 0 max 999999999
-option name MinibatchSize type spin default 7 min 1 max 1024
+option name MinibatchSize type spin default 0 min 0 max 1024
 option name MaxPrefetch type spin default 0 min 0 max 1024
 option name CPuct type string default 1.745000
 option name CPuctBase type string default 38739.000000
@@ -27,37 +27,43 @@ option name StickyEndgames type check default true
 option name SyzygyFastPlay type check default false
 option name MultiPV type spin default 1 min 1 max 500
 option name PerPVCounters type check default false
-option name ScoreType type combo default centipawn var centipawn var centipawn_with_drawscore var centipawn_2019 var centipawn_2018 var win_percentage var Q var W-L
+option name ScoreType type combo default WDL_mu var centipawn var centipawn_with_drawscore var centipawn_2019 var centipawn_2018 var win_percentage var Q var W-L var WDL_mu
 option name HistoryFill type combo default fen_only var no var fen_only var always
 option name MovesLeftMaxEffect type string default 0.034500
-option name MovesLeftThreshold type string default 0.000000
+option name MovesLeftThreshold type string default 0.800000
 option name MovesLeftSlope type string default 0.002700
 option name MovesLeftConstantFactor type string default 0.000000
 option name MovesLeftScaledFactor type string default 1.652100
 option name MovesLeftQuadraticFactor type string default -0.652100
 option name MaxConcurrentSearchers type spin default 1 min 0 max 128
-option name DrawScoreSideToMove type spin default 0 min -100 max 100
-option name DrawScoreOpponent type spin default 0 min -100 max 100
-option name DrawScoreWhite type spin default 0 min -100 max 100
-option name DrawScoreBlack type spin default 0 min -100 max 100
+option name DrawScore type string default 0.000000
+option name ContemptMode type combo default play var play var white_side_analysis var black_side_analysis var disable
+option name Contempt type string default
+option name WDLCalibrationElo type string default 0.000000
+option name WDLEvalObjectivity type string default 1.000000
+option name WDLDrawRateReference type string default 0.500000
 option name NodesPerSecondLimit type string default 0.000000
 option name SolidTreeThreshold type spin default 100 min 1 max 2000000000
-option name TaskWorkers type spin default 0 min 0 max 128
+option name TaskWorkers type spin default -1 min -1 max 128
 option name MinimumProcessingWork type spin default 20 min 2 max 100000
 option name MinimumPickingWork type spin default 1 min 1 max 100000
 option name MinimumRemainingPickingWork type spin default 20 min 0 max 100000
 option name MinimumPerTaskProcessing type spin default 8 min 1 max 100000
 option name IdlingMinimumWork type spin default 0 min 0 max 10000
 option name ThreadIdlingThreshold type spin default 1 min 0 max 128
+option name UCI_Opponent type string default
+option name UCI_RatingAdv type string default 0.000000
+option name SearchSpinBackoff type check default false
+option name ConfigFile type string default lc0.config
 option name SyzygyPath type string default
 option name Ponder type check default true
 option name UCI_Chess960 type check default false
 option name UCI_ShowWDL type check default false
 option name UCI_ShowMovesLeft type check default false
-option name ConfigFile type string default lc0.config
 option name SmartPruningFactor type string default 1.330000
 option name SmartPruningMinimumBatches type spin default 0 min 0 max 10000
 option name RamLimitMb type spin default 0 min 0 max 100000000
 option name MoveOverheadMs type spin default 200 min 0 max 100000000
 option name TimeManager type string default legacy
+option name ValueOnly type check default false
 option name LogFile type string default

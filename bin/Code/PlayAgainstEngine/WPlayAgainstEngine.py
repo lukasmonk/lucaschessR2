@@ -65,17 +65,11 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         li_books = [(x.name, x) for x in self.list_books.lista]
 
         # Toolbar
-        li_acciones = [
-            ("&" + _("Accept"), Iconos.Aceptar(), self.aceptar),
-            None,
-            (_("Cancel"), Iconos.Cancelar(), self.cancelar),
-            None,
-            (_("Save/Restore"), Iconos.Grabar(), self.configurations),
-            None,
-            (_("Configurations"), Iconos.ConfEngines(), self.conf_engines),
-            None,
-        ]
-        tb = QTVarios.LCTB(self, li_acciones)
+        tb = QTVarios.LCTB(self)
+        tb.new("&" + _("Accept"), Iconos.Aceptar(), self.aceptar)
+        tb.new(_("Cancel"), Iconos.Cancelar(), self.cancelar)
+        tb.new(_("Save/Restore"), Iconos.Grabar(), self.configurations)
+        tb.new(_("Engines configuration"), Iconos.ConfEngines(), self.conf_engines)
 
         # Tab
         tab = Controles.Tab()
@@ -438,7 +432,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         )
         self.cb_resign = Controles.CB(self, li_resign, -800).set_font(font)
 
-        self.lb_path_engine = Controles.LB(self, "").set_wrap()
+        self.lb_path_engine = Controles.LB(self, "").set_font(font)
         bt_default = Controles.PB(self, _("By default"), self.set_uci_default, plano=False)
 
         o_columns = Columnas.ListaColumnas()
@@ -603,37 +597,27 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         self.rival.set_uci_option(opcion.name, valor)
 
     def configurations(self):
-        dbc = UtilSQL.DictSQL(self.configuration.ficheroEntMaquinaConf)
-        li_conf = dbc.keys(si_ordenados=True)
-        menu = QTVarios.LCMenu(self)
-        kselecciona, kborra, kagrega = range(3)
-        for x in li_conf:
-            menu.opcion((kselecciona, x), x, Iconos.PuntoAzul())
-        menu.separador()
-        menu.opcion((kagrega, None), _("Save current configuration"), Iconos.Mas())
-        if li_conf:
+        with UtilSQL.DictSQL(self.configuration.ficheroEntMaquinaConf) as dbc:
+            dic = dbc.as_dictionary()
+            li_conf = [(key, dic.get("MNT_ORDER", 0)) for key, dic in dic.items() if dic.get("MNT_VISIBLE", True)]
+            li_conf.sort(key=lambda x: x[1])
+            menu = QTVarios.LCMenu(self)
+            kselecciona, kmantenimiento = range(2)
+            for x, order in li_conf:
+                menu.opcion((kselecciona, x), x, Iconos.Engine2())
             menu.separador()
-            submenu = menu.submenu(_("Remove"), Iconos.Delete())
-            for x in li_conf:
-                submenu.opcion((kborra, x), x, Iconos.PuntoRojo())
-        resp = menu.lanza()
+            menu.opcion((kmantenimiento, None), _("Maintenance"), Iconos.Calculo())
+            resp = menu.lanza()
 
-        if resp:
-            op, k = resp
+            if resp:
+                op, k = resp
 
-            if op == kselecciona:
-                dic = dbc[k]
-                self.restore_dic(dic)
-            elif op == kborra:
-                if QTUtil2.pregunta(self, _X(_("Delete %1?"), k)):
-                    del dbc[k]
-            elif op == kagrega:
-                name = QTUtil2.read_simple(self, _("Configuration"), _("Name"), "")
-                if name:
-                    name = name.strip()
-                    dbc[name] = self.save_dic()
-
-        dbc.close()
+                if op == kselecciona:
+                    dic = dbc[k]
+                    self.restore_dic(dic)
+                elif op == kmantenimiento:
+                    w = WMantenimientoConfiguraciones(self, dbc)
+                    w.exec()
 
     def select_engine(self):
         resp = self.motores.menu(self)
@@ -733,7 +717,6 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         # self.ed_rtime.setVisible(not emulate_movetime)
         # self.lb_rtime.setVisible(not emulate_movetime)
         # self.bt_cancel_rtime.setVisible(not emulate_movetime)
-
 
         self.test_unlimited()
 
@@ -1473,3 +1456,166 @@ def get_extra_minutes(main_window):
         return li_resp[0]
 
     return None
+
+
+class WMantenimientoConfiguraciones(LCDialog.LCDialog):
+    korder = "MNT_ORDER"
+    kvisible = "MNT_VISIBLE"
+
+    def __init__(self, w_parent, dbc):
+        LCDialog.LCDialog.__init__(self, w_parent, _("Maintenance"), Iconos.Calculo(), "play_save")
+
+        self.dbc = dbc
+        self.w_parent = w_parent
+        self.li_data = []
+        self.read_data()
+
+        tb = QTVarios.LCTB(self)
+        tb.new(_("Close"), Iconos.MainMenu(), self.terminate)
+        tb.new(_("Up"), Iconos.Arriba(), self.up, sep=False)
+        tb.new(_("Down"), Iconos.Abajo(), self.down)
+        tb.new(_("Remove"), Iconos.Borrar(), self.remove)
+        tb.new(_("New")+"/"+_("Change"), Iconos.GrabarComo(), self.new,
+               tool_tip=_("Play against an engine") + " --> " + _("Save current configuration"))
+
+        o_columns = Columnas.ListaColumnas()
+        o_columns.nueva("KEY", _("Name"), 360, edicion=Delegados.LineaTextoUTF8())
+        o_columns.nueva("VISIBLE", _("Visible"), 100, align_center=True, is_editable=True, is_ckecked=True)
+        self.grid = Grid.Grid(self, o_columns, is_editable=True)
+        font = Controles.FontType(puntos=Code.configuration.x_font_points)
+        self.grid.set_font(font)
+        self.register_grid(self.grid)
+
+        ly = Colocacion.V().control(tb).control(self.grid)
+        self.setLayout(ly)
+        self.restore_video(anchoDefecto=520, altoDefecto=360)
+
+    def terminate(self):
+        self.save_video()
+        self.accept()
+
+    def closeEvent(self, event):
+        self.save_video()
+
+    def last_order(self):
+        dic = self.dbc.as_dictionary()
+        the_last_order = 0
+        for dicv in dic.values():
+            norder = dicv[self.korder]
+            if norder > the_last_order:
+                the_last_order = norder
+        return the_last_order
+
+    def refresh_gui(self):
+        self.read_data()
+        self.grid.refresh()
+
+    def read_data(self):
+        dic = self.dbc.as_dictionary()
+        order = 0
+        for key, dicv in dic.items():
+            if self.korder not in dicv:
+                order += 1
+                dicv[self.korder] = order
+                dicv[self.kvisible] = True
+                self.dbc[key] = dicv
+
+        li = [(key, dicv[self.kvisible], dicv[self.korder]) for key, dicv in dic.items()]
+        li.sort(key=lambda x: x[2])
+        self.li_data = li
+
+    def grid_num_datos(self, grid):
+        return len(self.li_data)
+
+    def grid_dato(self, grid, row, o_column):
+        col = o_column.key
+
+        if col == "KEY":
+            return self.li_data[row][0]
+        if col == "VISIBLE":
+            return self.li_data[row][1]
+
+    def grid_setvalue(self, grid, nfila, o_column, value):
+        col = o_column.key
+        key = self.li_data[nfila][0]
+        if col == "KEY":
+            if key != value and value:
+                if value not in self.dbc:
+                    dic = self.dbc[key]
+                    del self.dbc[key]
+                    self.dbc[value] = dic
+                    self.refresh_gui()
+        elif col == "VISIBLE":
+            dic = self.dbc[key]
+            dic[self.kvisible] = value
+            self.dbc[key] = dic
+            self.refresh_gui()
+
+    def grid_right_button(self, grid, row, o_column, modif):
+        col = o_column.key
+        if col == "KEY":
+            key = self.li_data[row][0]
+            result = QTUtil2.read_simple(self, _("Maintenance"), _("Name"), key)
+            if result:
+                self.grid_setvalue(grid, row, o_column, result)
+
+    def grid_tecla_control(self, grid, k, is_shift, is_control, is_alt):
+        if k in (QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace):
+            self.remove()
+
+    def remove(self):
+        recno = self.grid.recno()
+        if recno >= 0:
+            key = self.li_data[recno][0]
+            if QTUtil2.pregunta(self, _X(_("Delete %1?"), key)):
+                del self.dbc[key]
+                self.refresh_gui()
+
+    def up(self):
+        recno = self.grid.recno()
+        if recno < 1:
+            return
+        key_act = self.li_data[recno][0]
+        key_otr = self.li_data[recno - 1][0]
+        dic_act = self.dbc[key_act]
+        dic_otr = self.dbc[key_otr]
+        dic_act[self.korder], dic_otr[self.korder] = dic_otr[self.korder], dic_act[self.korder]
+        self.dbc[key_act] = dic_act
+        self.dbc[key_otr] = dic_otr
+        self.refresh_gui()
+        self.grid.goto(recno - 1, 0)
+
+    def down(self):
+        recno = self.grid.recno()
+        if recno < 0 or recno >= len(self.li_data) - 1:
+            return
+        key_act = self.li_data[recno][0]
+        key_otr = self.li_data[recno + 1][0]
+        dic_act = self.dbc[key_act]
+        dic_otr = self.dbc[key_otr]
+        dic_act[self.korder], dic_otr[self.korder] = dic_otr[self.korder], dic_act[self.korder]
+        self.dbc[key_act] = dic_act
+        self.dbc[key_otr] = dic_otr
+        self.refresh_gui()
+        self.grid.goto(recno + 1, 0)
+
+    def new(self):
+        li_values = [x[0] for x in self.li_data]
+        value = self.w_parent.bt_rival.text().strip()
+        result = QTUtil2.read_simple(self, _("Save current configuration"), _("Name"), value, width=360,
+                                     li_values=li_values)
+        if result:
+            dicn = self.w_parent.save_dic()
+            if result in self.dbc:
+                dicant = self.dbc[result]
+                dicn[self.korder] = dicant[self.korder]
+                dicn[self.kvisible] = dicant[self.kvisible]
+            else:
+                dicn[self.korder] = self.last_order() + 1
+                dicn[self.kvisible] = True
+            self.dbc[result] = dicn
+            self.refresh_gui()
+            for pos, reg in enumerate(self.li_data):
+                if reg[0] == result:
+                    self.grid.goto(pos, 0)
+                    return

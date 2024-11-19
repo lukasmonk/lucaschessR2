@@ -36,10 +36,10 @@ def check_engine(path: str) -> bool:
         startupinfo = None
 
     curdir = os.path.abspath(os.curdir)
-    os.chdir(os.path.dirname(path))
     ok = False
     process = None
     try:
+        os.chdir(os.path.dirname(path))
         process = subprocess.Popen(xargs, stdout=subprocess.PIPE, stdin=subprocess.PIPE, startupinfo=startupinfo)
         os.chdir(curdir)
         pid = process.pid
@@ -65,7 +65,7 @@ def check_engine(path: str) -> bool:
             return False
 
     except:
-        pass
+        os.chdir(curdir)
 
     try:
         if process:

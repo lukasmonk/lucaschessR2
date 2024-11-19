@@ -229,7 +229,7 @@ def gen_installer():
 
     xf.copy_template()
 
-    xf.crea_pendiente_stockfish()
+    # xf.crea_pendiente_stockfish()
 
     xf.calc_files_dic()
 

@@ -15,6 +15,7 @@ from Code.QT import Iconos
 from Code.QT import LCDialog
 from Code.QT import QTUtil
 from Code.QT import QTUtil2
+from Code.QT import QTVarios
 
 
 def tiposDestino():
@@ -220,23 +221,14 @@ class WTV_Flechas(LCDialog.LCDialog):
 
         self.grid = Grid.Grid(self, o_columns, xid="F", siSelecFilas=True)
 
-        li_acciones = [
-            (_("Close"), Iconos.MainMenu(), "terminar"),
-            None,
-            (_("New"), Iconos.Nuevo(), "mas"),
-            None,
-            (_("Remove"), Iconos.Borrar(), "borrar"),
-            None,
-            (_("Modify"), Iconos.Modificar(), "modificar"),
-            None,
-            (_("Copy"), Iconos.Copiar(), "copiar"),
-            None,
-            (_("Up"), Iconos.Arriba(), "arriba"),
-            None,
-            (_("Down"), Iconos.Abajo(), "abajo"),
-            None,
-        ]
-        tb = Controles.TB(self, li_acciones)
+        tb =  QTVarios.LCTB(self)
+        tb.new(_("Close"), Iconos.MainMenu(), self.terminar)
+        tb.new(_("New"), Iconos.Nuevo(), self.mas)
+        tb.new(_("Remove"), Iconos.Borrar(), self.borrar)
+        tb.new(_("Modify"), Iconos.Modificar(), self.modificar)
+        tb.new(_("Copy"), Iconos.Copiar(), self.copiar)
+        tb.new(_("Up"), Iconos.Arriba(), self.arriba)
+        tb.new(_("Down"), Iconos.Abajo(), self.abajo)
         tb.setFont(flb)
 
         ly = Colocacion.V().control(tb).control(self.grid)
@@ -255,13 +247,13 @@ class WTV_Flechas(LCDialog.LCDialog):
         self.restore_video()
 
         # Ejemplos
-        liMovs = ["d2d6", "a8h8", "h5b7"]
+        li_movs = ["d2d6", "a8h8", "h5b7"]
         self.liEjemplos = []
-        regFlecha = BoardTypes.Flecha()
-        for a1h8 in liMovs:
-            regFlecha.a1h8 = a1h8
-            regFlecha.siMovible = True
-            arrow = self.board.creaFlecha(regFlecha)
+        reg_flecha = BoardTypes.Flecha()
+        for a1h8 in li_movs:
+            reg_flecha.a1h8 = a1h8
+            reg_flecha.siMovible = True
+            arrow = self.board.creaFlecha(reg_flecha)
             self.liEjemplos.append(arrow)
 
         self.grid.gotop()
@@ -300,10 +292,6 @@ class WTV_Flechas(LCDialog.LCDialog):
                 ejemplo.bloqueDatos = bd
                 ejemplo.reset()
             self.board.escena.update()
-
-    def process_toolbar(self):
-        accion = self.sender().key
-        eval("self.%s()" % accion)
 
     def mas(self):
         w = WTV_Flecha(self, None, True)
@@ -366,11 +354,11 @@ class WTV_Flechas(LCDialog.LCDialog):
             self.grid.setFocus()
 
     def interchange(self, fila1, fila2):
-        regFlecha1, regFlecha2 = self.liPFlechas[fila1], self.liPFlechas[fila2]
-        regFlecha1.ordenVista, regFlecha2.ordenVista = regFlecha2.ordenVista, regFlecha1.ordenVista
-        self.dbFlechas[regFlecha1.id] = regFlecha1.save_dic()
-        self.dbFlechas[regFlecha2.id] = regFlecha2.save_dic()
-        self.liPFlechas[fila1], self.liPFlechas[fila2] = self.liPFlechas[fila1], self.liPFlechas[fila2]
+        reg_flecha1, reg_flecha2 = self.liPFlechas[fila1], self.liPFlechas[fila2]
+        reg_flecha1.ordenVista, reg_flecha2.ordenVista = reg_flecha2.ordenVista, reg_flecha1.ordenVista
+        self.dbFlechas[reg_flecha1.id] = reg_flecha1.save_dic()
+        self.dbFlechas[reg_flecha2.id] = reg_flecha2.save_dic()
+        self.liPFlechas[fila1], self.liPFlechas[fila2] = self.liPFlechas[fila2], self.liPFlechas[fila1]
         self.grid.goto(fila2, 0)
         self.grid.refresh()
         self.grid.setFocus()

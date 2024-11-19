@@ -135,7 +135,7 @@ class WBase(QtWidgets.QWidget):
         font = Controles.FontType(puntos=puntos, peso=peso)
 
         for key, (titulo, icono) in dic_opciones.items():
-            action = QtWidgets.QAction(titulo, None)
+            action = QtWidgets.QAction(titulo, self.tb)
             action.setIcon(icono)
             action.setIconText(titulo)
             action.setFont(font)
@@ -222,7 +222,7 @@ class WBase(QtWidgets.QWidget):
         mx = int(ae * 0.08)
         key = "BASE" if self.parent.key_video == "maind" else "BASEV"
         config_board = self.manager.configuration.config_board(key, mx)
-        self.board = Board.Board(self, config_board)
+        self.board = Board.Board(self, config_board, allow_eboard=True)
         self.board.crea()
         self.board.setFocus()
 
@@ -578,7 +578,7 @@ class WBase(QtWidgets.QWidget):
         if tecla in dic:
             if hasattr(self.manager, "mueveJugada"):
                 if self.board.variation_history:
-                    self.manager.keypressed_in_variation(dic[tecla])
+                    self.manager.keypressed_when_variations(dic[tecla], modifiers)
                 else:
                     self.manager.mueveJugada(dic[tecla])
         elif tecla in (QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return):

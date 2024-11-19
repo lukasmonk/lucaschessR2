@@ -43,7 +43,7 @@ class ScannerVars:
 
 
 class Scanner(QtWidgets.QDialog):
-    def __init__(self, owner, folder_scanners, desktop):
+    def __init__(self, owner, folder_scanners, desktop, geometry):
         QtWidgets.QDialog.__init__(self)
 
         self.vars = ScannerVars(folder_scanners)
@@ -52,7 +52,7 @@ class Scanner(QtWidgets.QDialog):
 
         self.setWindowFlags(
             QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint)
-        self.setGeometry(QtWidgets.QDesktopWidget().availableGeometry())
+        self.setGeometry(geometry)
 
         self.setCursor(QtGui.QCursor(Iconos.pmCursorScanner()))
 

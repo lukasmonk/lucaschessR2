@@ -188,7 +188,7 @@ class AnalysisBar(QtWidgets.QWidget):
         form.separador()
         form.apart_np(_("Limits in the Analysis Bar (0=no limit)"))
         form.editbox(_("Depth"), ancho=50, tipo=int, decimales=0, init_value=configuration.x_analyzer_depth_ab)
-        form.float(_("Time in seconds"), configuration.x_analyzer_mstime_ab / 1000.0)
+        form.seconds(_("Time in seconds"), configuration.x_analyzer_mstime_ab / 1000.0)
         form.separador()
 
         resultado = form.run()

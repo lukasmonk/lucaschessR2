@@ -141,7 +141,7 @@ class BoardLines(QtWidgets.QWidget):
 
         self.ajustaAncho()
 
-        self.siReloj = False
+        self.clock_running = False
 
         self.ponPartida(self.gamebase)
 
@@ -223,7 +223,7 @@ class BoardLines(QtWidgets.QWidget):
             return
 
         if pos >= num_jugadas:
-            self.siReloj = False
+            self.clock_running = False
             pos = num_jugadas - 1
         elif pos < self.num_jg_inicial - 1:
             pos = self.num_jg_inicial - 1
@@ -276,7 +276,7 @@ class BoardLines(QtWidgets.QWidget):
         if move:
             self.board.put_arrow_sc(move.from_sq, move.to_sq)
 
-        if self.siReloj:
+        if self.clock_running:
             self.board.disable_all()
         else:
             self.activaPiezas()
@@ -285,7 +285,7 @@ class BoardLines(QtWidgets.QWidget):
 
     def activaPiezas(self):
         self.board.disable_all()
-        if not self.siReloj and self.pos_move >= self.num_jg_inicial - 1:
+        if not self.clock_running and self.pos_move >= self.num_jg_inicial - 1:
             if self.pos_move >= 0:
                 move = self.game.move(self.pos_move)
                 color = not move.is_white() if move else True
@@ -306,17 +306,14 @@ class BoardLines(QtWidgets.QWidget):
         self.colocatePartida(99999)
 
     def MoverTiempo(self):
-        if self.siReloj:
-            self.siReloj = False
+        if self.clock_running:
+            self.clock_running = False
         else:
-            self.siReloj = True
+            self.clock_running = True
             if self.pos_move == len(self.game) - 1:
                 self.MoverInicio()
-            self.lanzaReloj()
+            self.run_clock()
         self.activaPiezas()
-
-    def toolbar_rightmouse(self):
-        QTVarios.change_interval(self, self.configuration)
 
     def board_wheel_event(self, board, forward):
         forward = Code.configuration.wheel_board(forward)
@@ -325,12 +322,15 @@ class BoardLines(QtWidgets.QWidget):
         else:
             self.MoverAtras()
 
-    def lanzaReloj(self):
-        if self.siReloj:
+    def run_clock(self):
+        if self.clock_running:
             self.MoverAdelante()
             if self.configuration.x_beep_replay:
                 Code.runSound.playBeep()
-            QtCore.QTimer.singleShot(self.configuration.x_interval_replay, self.lanzaReloj)
+            QtCore.QTimer.singleShot(self.configuration.x_interval_replay, self.run_clock)
+
+    def stop_clock(self):
+        self.clock_running = False
 
     def show_responses(self, li_moves):
         self.board.put_arrow_scvar([(move[:2], move[2:4]) for move in li_moves])

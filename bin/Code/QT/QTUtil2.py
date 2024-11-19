@@ -802,18 +802,26 @@ def message_menu(owner, main, the_message, delayed, zzpos=True):
 
 
 class SimpleWindow(QtWidgets.QDialog):
-    def __init__(self, owner, title, label, valor, mas_info, width, in_cursor):
+    def __init__(self, owner, title, label, valor, mas_info, width, in_cursor, li_values):
         QtWidgets.QDialog.__init__(self, owner)
         self.setWindowTitle(title)
         self.resultado = None
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Dialog | QtCore.Qt.WindowTitleHint)
 
         lb_clave = Controles.LB(self, label + ": ")
-        self.ed_clave = Controles.ED(self, valor)
-        if width:
-            self.ed_clave.anchoFijo(width)
+        self.with_list_values = li_values is not None
+        if self.with_list_values:
+            li_values = [(value,value) for value in li_values]
+            li_values.insert(0, ("", ""))
+            self.cb_clave = Controles.CB(self, li_values, valor, extend_seek=True)
+            self.cb_clave.setEditable(True)
+            self.cb_clave.setCurrentText(valor)
+            field = self.cb_clave
         else:
-            self.ed_clave.anchoMinimo(60)
+            self.ed_clave = Controles.ED(self, valor)
+            field = self.ed_clave
+
+        field.setMinimumWidth(width if width else 100)
 
         lb_mas_info = Controles.LB(self, mas_info if mas_info else "").align_center()
 
@@ -821,7 +829,7 @@ class SimpleWindow(QtWidgets.QDialog):
         bt_aceptar.setDefault(True)
         bt_cancelar = Controles.PB(self, _("Cancel"), self.reject, plano=False).ponIcono(Iconos.CancelarPeque())
 
-        ly0 = Colocacion.H().relleno().control(lb_clave).control(self.ed_clave).relleno()
+        ly0 = Colocacion.H().relleno().control(lb_clave).control(field).relleno()
         ly = Colocacion.V().otro(ly0).control(lb_mas_info)
 
         ly_bt = Colocacion.H().relleno().control(bt_aceptar).relleno().control(bt_cancelar).relleno()
@@ -829,20 +837,20 @@ class SimpleWindow(QtWidgets.QDialog):
         layout = Colocacion.V().otro(ly).otro(ly_bt)
         self.setLayout(layout)
 
-        self.ed_clave.setFocus()
+        field.setFocus()
         if in_cursor:
             pos = QtGui.QCursor().pos()
             self.show()
             self.move(pos)
 
     def aceptar(self):
-        txt = self.ed_clave.texto().strip()
-        self.resultado = txt
+        txt = self.cb_clave.currentText() if self.with_list_values else self.ed_clave.texto()
+        self.resultado = txt.strip()
         self.accept()
 
 
-def read_simple(owner, title, label, value, mas_info=None, width=None, in_cursor=False):
-    v = SimpleWindow(owner, title, label, value, mas_info, width, in_cursor)
+def read_simple(owner, title, label, value, mas_info=None, width=None, in_cursor=False, li_values=None):
+    v = SimpleWindow(owner, title, label, value, mas_info, width, in_cursor, li_values)
     if v.exec_():
         return v.resultado
     return None

@@ -154,7 +154,11 @@ class ED(QtWidgets.QLineEdit):
 
     def textoInt(self):
         txt = self.text()
-        return int(txt) if txt else 0
+        try:
+            int_num = int(float(txt))
+        except ValueError:
+            int_num = 0
+        return int_num
 
 
 class SB(QtWidgets.QSpinBox):
@@ -197,13 +201,13 @@ class CB(QtWidgets.QComboBox):
     ComboBox : entrada de una lista de options = etiqueta,key[,icono]
     """
 
-    def __init__(self, parent, li_options, valorInicial, extend_seek=False):
+    def __init__(self, parent, li_options, init_value, extend_seek=False):
         """
         @param li_options: lista de (etiqueta,key)
-        @param valorInicial: valor inicial
+        @param init_value: valor inicial
         """
         QtWidgets.QComboBox.__init__(self, parent)
-        self.rehacer(li_options, valorInicial)
+        self.rehacer(li_options, init_value)
         if extend_seek:
             self.setEditable(True)
             self.setInsertPolicy(self.NoInsert)
@@ -215,7 +219,7 @@ class CB(QtWidgets.QComboBox):
         self.setFont(f)
         return self
 
-    def rehacer(self, li_options, valorInicial):
+    def rehacer(self, li_options, init_value):
         self.li_options = li_options
         self.clear()
         nindex = 0
@@ -226,7 +230,7 @@ class CB(QtWidgets.QComboBox):
             else:
                 etiqueta, key, icono = opcion
                 self.addItem(icono, etiqueta, key)
-            if key == valorInicial:
+            if key == init_value:
                 nindex = n
         self.setCurrentIndex(nindex)
 
@@ -270,13 +274,13 @@ class CHB(QtWidgets.QCheckBox):
     CheckBox : entrada de una campo seleccionable
     """
 
-    def __init__(self, parent, etiqueta, valorInicial):
+    def __init__(self, parent, etiqueta, init_value):
         """
         @param etiqueta: label mostrado
-        @param valorInicial: valor inicial : True/False
+        @param init_value: valor inicial : True/False
         """
         QtWidgets.QCheckBox.__init__(self, etiqueta, parent)
-        self.setChecked(valorInicial)
+        self.setChecked(init_value)
 
     def set_value(self, si):
         self.setChecked(si)
@@ -703,7 +707,7 @@ class Menu(QtWidgets.QMenu):
         self.setFont(f)
         return self
 
-    def opcion(self, key, label, icono=None, is_disabled=False, font_type=None, is_ckecked=None, toolTip: str = ""):
+    def opcion(self, key, label, icono=None, is_disabled=False, font_type=None, is_ckecked=None, tooltip: str = "", shortcut: str = ""):
         if icono:
             accion = QtWidgets.QAction(icono, label, self)
         else:
@@ -716,9 +720,10 @@ class Menu(QtWidgets.QMenu):
         if is_ckecked is not None:
             accion.setCheckable(True)
             accion.setChecked(is_ckecked)
-        if toolTip != "":
-            accion.setToolTip(toolTip)
-
+        if tooltip != "":
+            accion.setToolTip(tooltip)
+        if shortcut:
+            accion.setShortcut(QtGui.QKeySequence(shortcut))
         self.addAction(accion)
         return accion
 
@@ -825,12 +830,12 @@ class TB(QtWidgets.QToolBar):
             if accion.key == key:
                 accion.setVisible(value)
 
-    def mousePressEvent(self, event: QtGui.QMouseEvent):
-        if event.button() == QtCore.Qt.RightButton:
-            if hasattr(self.parent, "toolbar_rightmouse"):
-                self.parent.toolbar_rightmouse()
-                return
-        QtWidgets.QToolBar.mousePressEvent(self, event)
+    # def mousePressEvent(self, event: QtGui.QMouseEvent):
+    #     if event.button() == QtCore.Qt.RightButton:
+    #         if hasattr(self.parent, "toolbar_rightmouse"):
+    #             self.parent.toolbar_rightmouse()
+    #             return
+    #     QtWidgets.QToolBar.mousePressEvent(self, event)
 
 
 class TBrutina(QtWidgets.QToolBar):
@@ -910,13 +915,20 @@ class TBrutina(QtWidgets.QToolBar):
                 else:
                     titulo, icono, key, tool_tip = datos
                     self.new(titulo, icono, key, False, tool_tip=tool_tip)
-            else:
+        else:
                 self.addSeparator()
 
     def reset(self, li_acciones):
         self.clear()
         self.set_actions(li_acciones)
         self.update()
+
+    def remove_tooltips(self):
+        if self.with_text:
+            for action in self.dic_toolbar.values():
+                widget = self.widgetForAction(action)
+                if widget:
+                    widget.setToolTip("")
 
     def vertical(self):
         self.setOrientation(QtCore.Qt.Vertical)

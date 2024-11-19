@@ -388,6 +388,9 @@ class DBgames:
     def get_summary(self, pvBase, dicAnalisis, with_figurines, allmoves=True):
         return self.db_stat.get_summary(pvBase, dicAnalisis, with_figurines, allmoves) if self.with_db_stat else []
 
+    def has_result_field(self):
+        return "RESULT" in self.st_fields
+
     def rebuild_stat(self, dispatch, depth):
         if not ("RESULT" in self.st_fields):
             return
@@ -1152,6 +1155,7 @@ class DBgames:
             self.conexion.commit()
         self.li_row_ids.append(cursor.lastrowid)
         cursor.close()
+        resp.recno = len(self.li_row_ids)-1
 
         if self.with_db_stat and not si_fen_nue and pv_nue:
             self.db_stat.append(pv_nue, result_nue, +1)

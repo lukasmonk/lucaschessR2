@@ -4,7 +4,7 @@ from PySide2 import QtCore, QtGui, QtWidgets, QtSvg
 
 import Code
 from Code import Util
-from Code.Base.Constantes import RESULT_WIN_WHITE, RESULT_DRAW, RESULT_WIN_BLACK
+from Code.Base.Constantes import RESULT_WIN_WHITE, RESULT_DRAW, RESULT_WIN_BLACK, BLACK
 from Code.QT import Colocacion
 from Code.QT import Controles
 from Code.QT import FormLayout
@@ -348,6 +348,17 @@ def ly_mini_buttons(
             li_acciones.append(None)
 
     tb = Controles.TB(owner, li_acciones, False, icon_size=icon_size, rutina=rutina)
+
+    if siTiempo:
+        def mouse_check_right(event):
+            if event.button() == QtCore.Qt.RightButton:
+                if hasattr(tb.parent, "stop_clock"):
+                    tb.parent.stop_clock()
+                change_interval(owner, Code.configuration)
+            QtWidgets.QToolBar.mousePressEvent(tb, event)
+
+        tb.mousePressEvent = mouse_check_right
+
     tb.setMinimumHeight(icon_size + 4)
     ly = Colocacion.H().relleno().control(tb).relleno()
     return ly, tb
@@ -442,6 +453,8 @@ class LBPieza(Controles.LB):
     def __init__(self, owner, pieza, board, tam):
         self.pieza = pieza
         self.owner = owner
+        self.tam = tam
+        self.board = board
         pixmap = board.piezas.pixmap(pieza, tam=tam)
         self.dragpixmap = pixmap
         Controles.LB.__init__(self, owner)
@@ -451,9 +464,15 @@ class LBPieza(Controles.LB):
         if event.button() == QtCore.Qt.LeftButton:
             self.owner.startDrag(self)
 
+    def change_side(self):
+        self.pieza = self.pieza.upper() if self.pieza.islower() else self.pieza.lower()
+        pixmap = self.board.piezas.pixmap(self.pieza, tam=self.tam)
+        self.dragpixmap = pixmap
+        self.put_image(pixmap).anchoFijo(self.tam).altoFijo(self.tam)
+
 
 class ListaPiezas(QtWidgets.QWidget):
-    def __init__(self, owner, lista, board, tam=None, margen=None):
+    def __init__(self, owner, side, board, tam=None, margen=None):
         QtWidgets.QWidget.__init__(self)
 
         self.owner = owner
@@ -462,16 +481,19 @@ class ListaPiezas(QtWidgets.QWidget):
             tam = board.anchoPieza
 
         li_lb = []
-        for row, valor in enumerate(lista.split(";")):
-            for column, pieza in enumerate(valor.split(",")):
-                lb = LBPieza(self, pieza, board, tam)
-                li_lb.append((lb, row, column))
+        pieces = "K,Q,R,B,N,P"
+        if side == BLACK:
+            pieces = pieces.lower()
+        layout = Colocacion.H()
+        for pieza in pieces.split(","):
+            lb = LBPieza(self, pieza, board, tam)
+            li_lb.append(lb)
+            layout.control(lb)
 
-        layout = Colocacion.G()
-        for lb, row, column in li_lb:
-            layout.control(lb, row, column)
         if margen is not None:
             layout.margen(margen)
+
+        self.li_lb = li_lb
 
         self.setLayout(layout)
 
@@ -492,6 +514,10 @@ class ListaPiezas(QtWidgets.QWidget):
         drag.setPixmap(pixmap)
 
         drag.exec_(QtCore.Qt.MoveAction)
+
+    def change_side(self):
+        for lb in self.li_lb:
+            lb.change_side()
 
 
 def rondo_puntos(shuffle=True):
@@ -545,23 +571,15 @@ class LCMenu(Controles.Menu):
         Controles.Menu.__init__(self, parent, titulo=titulo, icono=icono, is_disabled=is_disabled, puntos=puntos,
                                 bold=bold)
 
-    def opcion(
-            self,
-            key,
-            label,
-            icono=None,
-            is_disabled=False,
-            font_type=None,
-            is_ckecked=None,
-            toolTip: str = "",
-    ):
+    def opcion(self, key, label, icono=None, is_disabled=False, font_type=None, is_ckecked=None, tooltip: str = "",
+               shortcut=""):
         if icono is None:
             icono = Iconos.Empty()
 
         if is_ckecked is not None:
             icono = Iconos.Checked() if is_ckecked else Iconos.Unchecked()
 
-        Controles.Menu.opcion(self, key, label, icono, is_disabled, font_type, None, toolTip)
+        Controles.Menu.opcion(self, key, label, icono, is_disabled, font_type, None, tooltip, shortcut)
 
     def separador_blank(self):
         self.opcion(None, "")
@@ -578,45 +596,29 @@ class LCMenuRondo(LCMenu):
         LCMenu.__init__(self, parent, puntos)
         self.rondo = rondo_puntos()
 
-    def opcion(
-            self,
-            key,
-            label,
-            icono=None,
-            is_disabled=False,
-            font_type=None,
-            is_ckecked=None,
-            toolTip: str = "",
-    ):
+    def opcion(self, key, label, icono=None, is_disabled=False, font_type=None, is_ckecked=None, tooltip="",
+               shortcut=""):
         if icono is None:
             icono = self.rondo.otro()
-        LCMenu.opcion(
-            self, key, label, icono, is_disabled, font_type, is_ckecked, toolTip
-        )
+        LCMenu.opcion(self, key, label, icono, is_disabled, font_type, is_ckecked, tooltip, shortcut)
 
-    # def submenu(self, label, icono=None, is_disabled=False):
-    #     if icono is None:
-    #         icono = self.rondo.otro()
-    #     return LCMenu.submenu(self, label, icono, is_disabled)
-    #
+
+# def submenu(self, label, icono=None, is_disabled=False):
+#     if icono is None:
+#         icono = self.rondo.otro()
+#     return LCMenu.submenu(self, label, icono, is_disabled)
+#
 
 
 class LCMenuPiezas(Controles.Menu):
-    def __init__(
-            self,
-            parent,
-            titulo=None,
-            icono=None,
-            is_disabled=False,
-            puntos=None,
-            bold=True,
-    ):
+    def __init__(self, parent, titulo=None, icono=None, is_disabled=False, puntos=None, bold=True):
         Controles.Menu.__init__(
             self, parent, titulo, icono, is_disabled, puntos, bold
         )
         self.set_font_type("Chess Merida", 16)
 
-    def opcion(self, key, label, icono=None, is_disabled=False, tipo_letra=None, is_ckecked=False, toolTip=""):
+    def opcion(self, key, label, icono=None, is_disabled=False, tipo_letra=None, is_ckecked=False, tooltip="",
+               shortcut=""):
         Controles.Menu.opcion(
             self, key, label, icono=icono, is_disabled=is_disabled, is_ckecked=is_ckecked
         )
@@ -1101,9 +1103,7 @@ def change_interval(owner, configuration):
         owner, _("Replay game"), Iconos.Pelicula_Repetir(), anchoMinimo=250
     )
     form.separador()
-    form.float(
-        _("Number of seconds between moves"), configuration.x_interval_replay / 1000
-    )
+    form.seconds(_("Number of seconds between moves"), init_value=configuration.x_interval_replay / 1000)
     form.separador()
     form.checkbox(_("Beep after each move"), configuration.x_beep_replay)
     form.separador()

@@ -2,25 +2,34 @@ import os
 import random
 import time
 
+from PySide2.QtCore import Qt
+
 import FasterCode
 
 import Code
 from Code import Manager
 from Code import Util
 from Code.Base import Position
-from Code.Base.Constantes import ST_ENDGAME, ST_PLAYING, TB_CLOSE, TB_CONFIG, TB_PLAY, TB_RESIGN
+from Code.Base.Constantes import ST_ENDGAME, ST_PLAYING, TB_CLOSE, TB_CONFIG, TB_PLAY, TB_RESIGN, TB_NEXT
 from Code.CompetitionWithTutor import WCompetitionWithTutor
 from Code.QT import Iconos
+from Code.QT import QTUtil
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
 from Code.Translations import TrListas
 
 
 class ControlFindAllMoves:
-    def __init__(self, manager, siJugador):
-
+    def __init__(self, manager, is_the_player):
         self.db = eval(open(Code.path_resource("IntFiles", "findallmoves.dkv")).read())
-        mas = "P" if siJugador else "R"
+        # for nivel in range(len(self.db)):
+        #     lista = self.db[nivel]
+        #     for fenm2 in lista:
+        #         FasterCode.set_fen(fenm2 + " 0 1")
+        #         pos = len(FasterCode.get_moves())
+        #         if pos != nivel + 1:
+        #             prln (nivel, fenm2)
+        mas = "P" if is_the_player else "R"
         self.fichPuntos = "%s/score60%s.dkv" % (manager.configuration.folder_results, mas)
         if os.path.isfile(self.fichPuntos):
             self.liPuntos = Util.restore_pickle(self.fichPuntos)
@@ -35,7 +44,7 @@ class ControlFindAllMoves:
     def num_rows(self):
         return len(self.db)
 
-    def primeroSinHacer(self):
+    def first_no_solved(self):
         nd = self.num_rows()
         for i in range(nd):
             if self.liPuntos[i][0] == 0:
@@ -122,11 +131,13 @@ class ControlFindAllMoves:
 
 
 class ManagerFindAllMoves(Manager.Manager):
-    def start(self, siJugador):
+    is_the_player: bool
 
-        self.siJugador = siJugador
+    def start(self, is_the_player):
 
-        self.pgn = ControlFindAllMoves(self, siJugador)
+        self.is_the_player = is_the_player
+
+        self.pgn = ControlFindAllMoves(self, is_the_player)
 
         self.main_window.columnas60(True, cBlack="%s / %s" % (_("Time"), _("Avg || Abrev. of Average")))
 
@@ -165,6 +176,9 @@ class ManagerFindAllMoves(Manager.Manager):
         elif key == TB_CONFIG:
             self.config()
 
+        elif key == TB_NEXT:
+            self.next()
+
         else:
             Manager.Manager.rutinaAccionDef(self, key)
 
@@ -191,10 +205,23 @@ class ManagerFindAllMoves(Manager.Manager):
         self.procesador.start()
 
     def finJuego(self):
-        self.main_window.pon_toolbar((TB_CLOSE, TB_PLAY, TB_CONFIG))
+        self.main_window.pon_toolbar((TB_CLOSE, TB_PLAY, TB_CONFIG, TB_NEXT))
         self.disable_all()
         self.state = ST_ENDGAME
         self.ponRotulotm()
+
+    def next(self):
+        if self.state == ST_PLAYING:
+            return
+        pos = self.pgn.first_no_solved()
+        pos_with_error = self.pgn.pos_with_error()
+        if pos_with_error <= pos:
+            pos = pos_with_error
+        self.jugar(pos)
+
+    def control_teclado(self, nkey, modifiers):
+        if nkey in (Qt.Key_Plus, Qt.Key_PageDown):
+            self.next()
 
     def jugar(self, number=None):
         if self.state == ST_PLAYING:
@@ -203,7 +230,7 @@ class ManagerFindAllMoves(Manager.Manager):
 
         if number is None:
 
-            pos = self.pgn.primeroSinHacer() + 1
+            pos = self.pgn.first_no_solved() + 1
             pos_with_error = self.pgn.pos_with_error() + 1
             if pos_with_error <= pos:
                 pos = pos_with_error
@@ -228,9 +255,9 @@ class ManagerFindAllMoves(Manager.Manager):
         cp.read_fen(fen)
         self.is_human_side_white = self.is_white = cp.is_white
         if self.is_white:
-            siP = self.siJugador
+            siP = self.is_the_player
         else:
-            siP = not self.siJugador
+            siP = not self.is_the_player
         self.put_pieces_bottom(siP)
         self.set_position(cp)
         self.cp = cp
@@ -307,18 +334,20 @@ class ManagerFindAllMoves(Manager.Manager):
     def player_has_moved(self, from_sq, to_sq, promotion=""):
         if from_sq == to_sq:
             return
+        QTUtil.refresh_gui()
         a1h8 = from_sq + to_sq
         for mov in self.liMovs:
             if (mov.xfrom() + mov.xto()) == a1h8:
                 if not mov.is_selected:
                     if mov.piece() == self.ordenPZ[0]:
-                        self.board.creaFlechaMulti(a1h8, False, opacity=0.4)
+                        # self.board.creaFlechaMulti(a1h8, False, opacity=0.4)
                         mov.is_selected = True
                         self.ordenPZ = self.ordenPZ[1:]
                         if len(self.ordenPZ) == 0:
                             self.put_result()
                     else:
                         break
+                self.board.put_arrow_scvar([(mov.xfrom(), mov.xto()) for mov in self.liMovs if mov.is_selected])
                 self.reset_shortcuts_mouse()
                 return
         self.errores += 1
@@ -342,7 +371,7 @@ class ManagerFindAllMoves(Manager.Manager):
         if self.state == ST_PLAYING:
             self.finJuego()
             return
-        if row <= self.pgn.primeroSinHacer():
+        if row <= self.pgn.first_no_solved():
             pos_with_error = self.pgn.pos_with_error()
             if pos_with_error < row:
                 QTUtil2.message(

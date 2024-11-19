@@ -3,7 +3,6 @@ from PySide2 import QtWidgets, QtCore
 
 import Code
 from Code.Base import Game
-from Code.Base.Constantes import TOP_RIGHT
 from Code.Openings import OpeningsStd
 from Code.QT import Colocacion
 from Code.QT import Columnas
@@ -205,7 +204,7 @@ class WPlayer(QtWidgets.QWidget):
     def tabChanged(self, ntab):
         QtWidgets.QApplication.processEvents()
 
-        if ntab == 0: #in (0, 2):
+        if ntab == 0:  # in (0, 2):
             grid = self.gridOpeningWhite
         elif ntab == 1:
             grid = self.gridOpeningBlack
@@ -517,7 +516,7 @@ class WPlayer(QtWidgets.QWidget):
 
         pb.close()
 
-        um = QTUtil2.one_moment_please(self, _("Working..."), physical_pos=TOP_RIGHT)
+        um = QTUtil2.one_moment_please(self, _("Working..."))
 
         def color3(x, y, z):
             if x > y and x > z:

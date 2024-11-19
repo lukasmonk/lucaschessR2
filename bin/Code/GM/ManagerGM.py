@@ -1,5 +1,7 @@
+import time
 import copy
 import random
+
 
 import Code
 from Code import Adjournments
@@ -25,6 +27,8 @@ from Code.SQL import UtilSQL
 
 
 class ManagerGM(Manager.Manager):
+    ini_time_s = 0.0
+
     def start(self, record):
         self.base_inicio(record)
         self.play_next_move()
@@ -280,6 +284,7 @@ class ManagerGM(Manager.Manager):
 
         else:
             self.human_is_playing = True
+            self.ini_time_s = time.time()
             if self.with_adjudicator:
                 self.thinking(True)
                 self.analyze_begin()
@@ -292,9 +297,11 @@ class ManagerGM(Manager.Manager):
             self.xtutor.terminar()
 
     def player_has_moved(self, from_sq, to_sq, promotion=""):
+        time_s_end = time.time()
         jgUsu = self.check_human_move(from_sq, to_sq, promotion)
         if not jgUsu:
             return False
+
 
         movimiento = jgUsu.movimiento()
         position = self.game.last_position
@@ -397,6 +404,7 @@ class ManagerGM(Manager.Manager):
         self.move_the_pieces(jg_gm.liMovs)
 
         jg_gm.analysis = analysis
+        jg_gm.set_time_ms(int((time_s_end-self.ini_time_s) * 1000))
         self.add_move(jg_gm, True)
         self.error = ""
         self.play_next_move()

@@ -9,6 +9,7 @@ from Code.QT import Grid
 from Code.QT import Iconos
 from Code.QT import LCDialog
 from Code.QT import QTVarios
+from Code.SQL import UtilSQL
 
 
 class SaveMenu:
@@ -147,6 +148,15 @@ def menuplay_youngs(menu1):
 def menuplay_savemenu(procesador, dic_data=None):
     savemenu = SaveMenu(dic_data, procesador.menuPlay_run)
 
+    if procesador.configuration.x_menu_play_config:
+        with UtilSQL.DictSQL(procesador.configuration.ficheroEntMaquinaConf) as dbc:
+            dic = dbc.as_dictionary()
+            li_conf = [(key, dic.get("MNT_ORDER", 0)) for key, dic in dic.items() if dic.get("MNT_VISIBLE", True)]
+            li_conf.sort(key = lambda x: x[1])
+            if li_conf:
+                for conf, order in li_conf:
+                    savemenu.opcion(("free", conf), conf, Iconos.Engine2())
+                savemenu.separador()
     savemenu.opcion(("free", None), _("Play against an engine"), Iconos.Libre())
     savemenu.separador()
 
@@ -164,7 +174,21 @@ def menuplay(procesador, extended=False):
         configuration = procesador.configuration
         opcion = configuration.x_menu_play
         if opcion == MENU_PLAY_ANY_ENGINE:
+            if procesador.configuration.x_menu_play_config:
+                with UtilSQL.DictSQL(procesador.configuration.ficheroEntMaquinaConf) as dbc:
+                    dic = dbc.as_dictionary()
+                    li_conf = [(key, dic.get("MNT_ORDER", 0)) for key, dic in dic.items() if
+                               dic.get("MNT_VISIBLE", True)]
+                    li_conf.sort(key=lambda x: x[1])
+                    if len(li_conf) > 0:
+                        menu = QTVarios.LCMenu(procesador.main_window)
+                        for conf, order in li_conf:
+                            menu.opcion(("free", conf), conf, Iconos.Engine2())
+                        menu.separador()
+                        menu.opcion(("free", None), _("Play against an engine"), Iconos.Libre())
+                        return menu.lanza()
             return "free", None
+
         elif opcion == MENU_PLAY_YOUNG_PLAYERS:
             menu = QTVarios.LCMenu(procesador.main_window)
             menuplay_youngs(menu)
@@ -226,7 +250,7 @@ def menu_compete(procesador):
     return savemenu.lanza(procesador)
 
 
-class WAtajos(LCDialog.LCDialog):
+class WShortcuts(LCDialog.LCDialog):
     def __init__(self, procesador, dic_data):
         entrenamientos = procesador.entrenamientos
         entrenamientos.verify()
@@ -235,7 +259,7 @@ class WAtajos(LCDialog.LCDialog):
         self.li_favoritos = self.procesador.configuration.get_favoritos()
         self.dic_data = dic_data
 
-        LCDialog.LCDialog.__init__(self, self.procesador.main_window, _("Shortcuts"), Iconos.Atajos(), "atajos")
+        LCDialog.LCDialog.__init__(self, self.procesador.main_window, _("Shortcuts"), Iconos.Atajos(), "shortcuts")
 
         li_acciones = [
             (_("Close"), Iconos.MainMenu(), self.terminar),
@@ -257,7 +281,8 @@ class WAtajos(LCDialog.LCDialog):
         o_columnas = Columnas.ListaColumnas()
         o_columnas.nueva("KEY", _("Key"), 80, align_center=True)
         o_columnas.nueva("OPCION", _("Option"), 300)
-        o_columnas.nueva("LABEL", _("Label"), 300, edicion=Delegados.LineaTextoUTF8(is_password=False), is_editable=True)
+        o_columnas.nueva("LABEL", _("Label"), 300, edicion=Delegados.LineaTextoUTF8(is_password=False),
+                         is_editable=True)
 
         self.grid = Grid.Grid(self, o_columnas, siSelecFilas=True, is_editable=True)
         self.grid.setMinimumWidth(self.grid.anchoColumnas() + 20)
@@ -265,7 +290,7 @@ class WAtajos(LCDialog.LCDialog):
         self.grid.set_font(f)
 
         # Layout
-        layout = Colocacion.V().control(tb).control(self.grid).relleno().margen(3)
+        layout = Colocacion.V().control(tb).control(self.grid).margen(3)
         self.setLayout(layout)
 
         self.restore_video(siTam=True)
@@ -293,7 +318,7 @@ class WAtajos(LCDialog.LCDialog):
 
     def grid_dato(self, grid, row, o_column):
         if o_column.key == "KEY":
-            return "%s %d" % (_("ALT"), row + 1)
+            return "%s %d" % (_("ALT"), row + 1) if row < 9 else ""
         dic = self.li_favoritos[row]
         opcion = dic["OPCION"]
         if opcion in self.dic_data:
@@ -360,7 +385,7 @@ class WAtajos(LCDialog.LCDialog):
             atajos_alt(self.procesador, fila + 1)
 
 
-def atajos(procesador):
+def shortcuts(procesador):
     procesador.entrenamientos.verify()
     dic_data = procesador.entrenamientos.dicMenu
     menuplay_savemenu(procesador, dic_data)
@@ -381,10 +406,10 @@ def atajos(procesador):
             nx += 1
             menu.separador()
     menu.separador()
-    menu.opcion("ed_atajos", _("Add new shortcuts"), Iconos.Mas())
+    menu.opcion("shortcuts", _("Add new shortcuts"), Iconos.Mas())
     resp = menu.lanza()
-    if resp == "ed_atajos":
-        w = WAtajos(procesador, dic_data)
+    if resp == "shortcuts":
+        w = WShortcuts(procesador, dic_data)
         w.exec_()
     elif resp is not None and resp in dic_data:
         launcher, label, icono, is_disabled = dic_data[resp]
@@ -397,7 +422,7 @@ def atajos_edit(procesador):
     menuplay_savemenu(procesador, dic_data)
     menu_compete_savemenu(procesador, dic_data)
     menu_tools_savemenu(procesador, dic_data)
-    w = WAtajos(procesador, dic_data)
+    w = WShortcuts(procesador, dic_data)
     w.exec_()
 
 

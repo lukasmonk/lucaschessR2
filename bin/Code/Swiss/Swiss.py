@@ -188,6 +188,7 @@ class MatchsDay:
 
         li_opponents = swiss.li_opponents
 
+
         if len(li_opponents) % 2 == 1:  # hay un bye
             num_byes = 0
             while True:
@@ -207,14 +208,16 @@ class MatchsDay:
             dic_xid_oponents_played[xid1].append(xid2)
             dic_xid_oponents_played[xid2].append(xid1)
 
-        li_opponents_play.sort(key=lambda opponent: opponent.key_order(swiss), reverse=True)
+        if len(set_mached_played) == 0:
+            random.shuffle(li_opponents)
+        else:
+            li_opponents_play.sort(key=lambda opponent: opponent.key_order(swiss), reverse=True)
 
         st_xid_playing = set()
         num_players_play = len(li_opponents_play)
-        player: Opponent
         for first_pass in (True, False):
             for num in range(num_players_play - 1):
-                player = li_opponents_play[num]
+                player: Opponent = li_opponents_play[num]
                 if player.xid in st_xid_playing:
                     continue
 

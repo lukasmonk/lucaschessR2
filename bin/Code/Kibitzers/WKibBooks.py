@@ -30,11 +30,12 @@ class WPolyglot(WKibCommon.WKibCommon):
             (_("Quit"), Iconos.Kibitzer_Close(), self.terminar),
             (_("Continue"), Iconos.Kibitzer_Play(), self.play),
             (_("Pause"), Iconos.Kibitzer_Pause(), self.pause),
+            (_("Original position"), Iconos.HomeBlack(), self.home),
             (_("Takeback"), Iconos.Kibitzer_Back(), self.takeback),
             (_("Manual position"), Iconos.Kibitzer_Voyager(), self.set_position),
             (_("Show/hide board"), Iconos.Kibitzer_Board(), self.config_board),
-            ("%s: %s" % (_("Enable"), _("window on top")), Iconos.Kibitzer_Up(), self.windowTop),
-            ("%s: %s" % (_("Disable"), _("window on top")), Iconos.Kibitzer_Down(), self.windowBottom),
+            ("%s: %s" % (_("Enable"), _("window on top")), Iconos.Pin(), self.windowTop),
+            ("%s: %s" % (_("Disable"), _("window on top")), Iconos.Unpin(), self.windowBottom),
         )
         self.tb = Controles.TBrutina(self, li_acciones, with_text=False, icon_size=24)
         self.tb.set_action_visible(self.play, False)
@@ -107,3 +108,8 @@ class WPolyglot(WKibCommon.WKibCommon):
             self.grid.gotop()
             self.grid.refresh()
             self.ponFlecha(0)
+
+        self.test_tb_home()
+
+    def test_tb_home(self):
+        self.tb.set_action_visible(self.home, not self.is_home())

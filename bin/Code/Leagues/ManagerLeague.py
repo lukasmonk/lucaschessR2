@@ -196,15 +196,15 @@ class ManagerLeague(Manager.Manager):
             ot = self.tc_white if xis_white else self.tc_black
             ot.set_labels()
 
-            siJugador = self.is_human_side_white == xis_white
+            is_the_player = self.is_human_side_white == xis_white
             if ot.time_is_consumed():
                 self.game.set_termination(TERMINATION_WIN_ON_TIME, RESULT_WIN_BLACK if xis_white else RESULT_WIN_WHITE)
                 self.state = ST_ENDGAME  # necesario que esté antes de stop_clock para no entrar en bucle
-                self.stop_clock(siJugador)
+                self.stop_clock(is_the_player)
                 self.show_result()
                 return
 
-            elif siJugador and ot.is_zeitnot():
+            elif is_the_player and ot.is_zeitnot():
                 self.beep_zeitnot()
 
             return

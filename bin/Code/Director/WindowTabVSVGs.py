@@ -173,7 +173,7 @@ class WTV_SVGs(LCDialog.LCDialog):
 
         self.grid = Grid.Grid(self, o_columns, xid="M", siSelecFilas=True)
 
-        tb = Controles.TBrutina(self)
+        tb =  QTVarios.LCTB(self)
         tb.new(_("Close"), Iconos.MainMenu(), self.terminar)
         tb.new(_("New"), Iconos.Nuevo(), self.mas)
         tb.new(_("Remove"), Iconos.Borrar(), self.borrar)
@@ -350,11 +350,11 @@ class WTV_SVGs(LCDialog.LCDialog):
             self.grid.setFocus()
 
     def interchange(self, fila1, fila2):
-        regSVG1, regSVG2 = self.liPSVGs[fila1], self.liPSVGs[fila2]
-        regSVG1.ordenVista, regSVG2.ordenVista = regSVG2.ordenVista, regSVG1.ordenVista
-        self.dbSVGs[regSVG1.id] = regSVG1
-        self.dbSVGs[regSVG2.id] = regSVG2
-        self.liPSVGs[fila1], self.liPSVGs[fila2] = self.liPSVGs[fila1], self.liPSVGs[fila2]
+        reg_svg1, reg_svg2 = self.liPSVGs[fila1], self.liPSVGs[fila2]
+        reg_svg1.ordenVista, reg_svg2.ordenVista = reg_svg2.ordenVista, reg_svg1.ordenVista
+        self.dbSVGs[reg_svg1.id] = reg_svg1.save_dic()
+        self.dbSVGs[reg_svg2.id] = reg_svg2.save_dic()
+        self.liPSVGs[fila1], self.liPSVGs[fila2] = self.liPSVGs[fila2], self.liPSVGs[fila1]
         self.grid.goto(fila2, 0)
         self.grid.refresh()
         self.grid.setFocus()

@@ -117,12 +117,13 @@ class Configuration:
 
         self.x_id = Util.huella()
         self.x_player = ""
-        self.x_save_folder = ""
+        self.x_save_folder = "UserData"
         self.x_save_pgn_folder = ""
         self.x_save_lcsb = ""
         self.x_translator = ""
 
         self.x_enable_highdpiscaling = False
+
 
         self.x_show_effects = False
         self.x_pieces_speed = 100
@@ -149,6 +150,8 @@ class Configuration:
         self.x_wheel_pgn = GO_FORWARD
 
         self.x_menu_play = MENU_PLAY_BOTH
+        self.x_menu_play_config = True
+
 
         self.x_opacity_tool_board = 10
         self.x_position_tool_board = "T"
@@ -264,6 +267,7 @@ class Configuration:
         self.rival = None
 
         self.x_translation_mode = False
+        self.x_use_googletranslator = False
 
         self.x_style = "Fusion"
         self.x_style_mode = "By default"
@@ -491,7 +495,7 @@ class Configuration:
 
     def file_selected_positions(self):
         return Util.opj(self.folder_databases(), "__Selected Positions__.lcdb")
-    
+
     def file_prompts(self):
         return Util.opj(self.folder_config, "Prompts.db")
 
@@ -829,7 +833,7 @@ class Configuration:
                     self.dic_engines[eng.key] = eng
 
     def reread_external_engines(self):
-        self.dic_engines = {k:cm for k, cm in self.dic_engines.items() if not cm.is_external}
+        self.dic_engines = {k: cm for k, cm in self.dic_engines.items() if not cm.is_external}
         self.read_external_engines()
 
     def list_engines(self, si_externos=True):
@@ -897,7 +901,7 @@ class Configuration:
     def engine_analyzer(self):
         if self.x_analyzer_clave in self.dic_engines:
             eng = self.dic_engines[self.x_analyzer_clave]
-            if eng.can_be_tutor() and Util.exist_file(eng.path_exe):
+            if eng.can_be_analyzer() and Util.exist_file(eng.path_exe):
                 eng.reset_uci_options()
                 dic = self.read_variables("TUTOR_ANALYZER")
                 for key, value in dic.get("ANALYZER", []):
@@ -940,11 +944,11 @@ class Configuration:
                 q.write("x")
         else:
             Util.remove_file(path_log)
-            
+
     def log_engines_check_active(self):
         path_log = Util.opj(self.carpeta, "active_logs.engines")
         return Util.exist_file(path_log)
-        
+
     def read_variables(self, nomVar):
         with UtilSQL.DictSQL(self.ficheroVariables) as db:
             resp = db[nomVar]

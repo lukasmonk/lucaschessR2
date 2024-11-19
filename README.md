@@ -13,7 +13,7 @@ This is an update of Lucas Chess with a new version of python (2.7 -> 3.7) and t
 
 Incompatibilities
 -----------------
-* **Does not support Windows XP.**
+* **Does not support Windows XP. Windows 7 32 bit incompatibilities have been reported.**
 * **Data files are not compatible with previous versions of Lucas Chess.**
 
 Dependencies
@@ -30,6 +30,13 @@ Dependencies
 * cython
 * sortedcontainers
 * polib
+* deep_translator
+* requests
+* urllib3
+* idna
+* certifi
+* bs4
+
 
 
 Links

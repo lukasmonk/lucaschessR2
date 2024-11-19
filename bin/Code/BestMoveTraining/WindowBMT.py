@@ -297,7 +297,7 @@ class WBMT(LCDialog.LCDialog):
             position.read_fen(bmt_uno.fen)
             board.set_position(position)
             if board.is_white_bottom != position.is_white:
-                board.rotaBoard()
+                board.rotate_board()
 
             wodt.odt_doc.add_paragraph("%s %d" % (_("Position"), current_pos + 1), bold=True)
             wodt.odt_doc.add_linebreak()

@@ -781,8 +781,8 @@ class ManagerWashingCreate(Manager.Manager):
         self.dbwashing.add_game()
         self.put_data_label()
 
-    def saveGame(self, siFinal):
-        self.dbwashing.saveGame(self.game, siFinal)
+    def saveGame(self, is_end):
+        self.dbwashing.saveGame(self.game, is_end)
 
     def cancelGame(self):
         self.dbwashing.saveGame(None, False)

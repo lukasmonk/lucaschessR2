@@ -73,6 +73,10 @@ class PosBoard(Board.Board):
             event.setDropAction(QtCore.Qt.IgnoreAction)
         event.ignore()
 
+    def rotate_board(self):
+        Board.Board.rotate_board(self)
+        if hasattr(self.main_window, "rotate_board"):
+            self.main_window.rotate_board()
 
 class BoardEstatico(Board.Board):
     def mousePressEvent(self, event):

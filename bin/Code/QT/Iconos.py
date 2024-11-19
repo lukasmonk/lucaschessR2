@@ -285,6 +285,12 @@ def pmEstadisticas():
 def Estadisticas():
     return iget("Estadisticas")
 
+def pmEstadisticas2():
+    return iget("pmEstadisticas2")
+
+def Estadisticas2():
+    return iget("Estadisticas2")
+
 def pmCheck():
     return iget("pmCheck")
 
@@ -1857,18 +1863,6 @@ def pmMarkers():
 def Markers():
     return iget("Markers")
 
-def pmTop():
-    return iget("pmTop")
-
-def Top():
-    return iget("Top")
-
-def pmBottom():
-    return iget("pmBottom")
-
-def Bottom():
-    return iget("Bottom")
-
 def pmSTS():
     return iget("pmSTS")
 
@@ -1976,6 +1970,12 @@ def pmScanner():
 
 def Scanner():
     return iget("Scanner")
+
+def pmScanner2():
+    return iget("pmScanner2")
+
+def Scanner2():
+    return iget("Scanner2")
 
 def pmCursorScanner():
     return iget("pmCursorScanner")
@@ -2222,6 +2222,12 @@ def pmHome():
 
 def Home():
     return iget("Home")
+
+def pmHomeBlack():
+    return iget("pmHomeBlack")
+
+def HomeBlack():
+    return iget("HomeBlack")
 
 def pmImport8():
     return iget("pmImport8")
@@ -2613,18 +2619,6 @@ def pmKibitzer_Down():
 def Kibitzer_Down():
     return iget("Kibitzer_Down")
 
-def pmKibitzer_Up():
-    return iget("pmKibitzer_Up")
-
-def Kibitzer_Up():
-    return iget("Kibitzer_Up")
-
-def pmKibitzer_End():
-    return iget("pmKibitzer_End")
-
-def Kibitzer_End():
-    return iget("Kibitzer_End")
-
 def pmKibitzer_Back():
     return iget("pmKibitzer_Back")
 
@@ -2937,6 +2931,12 @@ def pmEngine():
 def Engine():
     return iget("Engine")
 
+def pmEngine2():
+    return iget("pmEngine2")
+
+def Engine2():
+    return iget("Engine2")
+
 def pmZip():
     return iget("pmZip")
 
@@ -3218,3 +3218,21 @@ def pmAnalisis():
 
 def Analisis():
     return iget("Analisis")
+
+def pmGoogleTranslator():
+    return iget("pmGoogleTranslator")
+
+def GoogleTranslator():
+    return iget("GoogleTranslator")
+
+def pmPin():
+    return iget("pmPin")
+
+def Pin():
+    return iget("Pin")
+
+def pmUnpin():
+    return iget("pmUnpin")
+
+def Unpin():
+    return iget("Unpin")

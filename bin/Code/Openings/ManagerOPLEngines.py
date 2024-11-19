@@ -346,8 +346,8 @@ class ManagerOpeningEngines(Manager.Manager):
         self.set_position(move.position)
         self.put_view()
 
-    def waiting_message(self, siFinal=False, with_cancel=False, masTitulo=None):
-        if siFinal:
+    def waiting_message(self, is_end=False, with_cancel=False, masTitulo=None):
+        if is_end:
             if self.um:
                 self.um.final()
         else:
@@ -476,13 +476,13 @@ class ManagerOpeningEngines(Manager.Manager):
                 si_suspendido = self.run_auto_analysis()
             else:
                 si_suspendido = True
-            self.waiting_message(siFinal=True)
+            self.waiting_message(is_end=True)
             if si_suspendido:
                 suspendido()
             else:
                 aprobado()
         else:
-            self.waiting_message(siFinal=True)
+            self.waiting_message(is_end=True)
             aprobado()
 
         self.set_end_game()
@@ -563,7 +563,7 @@ class ManagerOpeningEngines(Manager.Manager):
                 self.um = None
                 self.waiting_message()
                 self.run_auto_analysis()
-                self.waiting_message(siFinal=True)
+                self.waiting_message(is_end=True)
 
         else:
             Manager.Manager.rutinaAccionDef(self, key)

@@ -18,6 +18,10 @@ BOTON_COLOR0 = "#FFFBDB"
 BOTON_COLOR1 = "white"
 COLOR_BORDE = "#8f8f91"
 
+class EmptyConfiguration:
+    def __init__(self):
+        self.x_use_googletranslator = False
+
 
 class WSetup(QtWidgets.QDialog):
     def __init__(self, owner):
@@ -36,7 +40,7 @@ class WSetup(QtWidgets.QDialog):
 
         self.layout = Colocacion.V()
 
-        lb_icono = Controles.LB(self).ponImagen(Iconos.pmAplicacion64())
+        lb_icono = Controles.LB(self).put_image(Iconos.pmAplicacion64())
         lb_icono.setFixedWidth(70)
 
         path_version = os.path.join(self.data.original_folder, "version.txt")
@@ -407,6 +411,7 @@ class Data:
 IconosBase.icons.reset(0)
 
 app = QtWidgets.QApplication([])
+Code.configuration = EmptyConfiguration()
 Translate.install("en")
 wsetup = WSetup(app)
 wsetup.exec_()

@@ -393,7 +393,7 @@ class ManagerPlayHuman(Manager.Manager):
 
         if self.auto_rotate:
             if is_white != self.board.is_white_bottom:
-                self.board.rotaBoard()
+                self.board.rotate_board()
         self.play_human(is_white)
 
     def play_human(self, is_white):

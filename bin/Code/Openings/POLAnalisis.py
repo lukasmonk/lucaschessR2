@@ -17,7 +17,7 @@ from Code.QT import QTVarios
 
 
 class TabEngine(QtWidgets.QWidget):
-    def __init__(self, tabsAnalisis, procesador, configuration):
+    def __init__(self, tabs_analisis, procesador, configuration):
         QtWidgets.QWidget.__init__(self)
 
         self.analyzing = False
@@ -27,14 +27,14 @@ class TabEngine(QtWidgets.QWidget):
         self.current_mrm = None
         self.pv = None
 
-        self.dbop = tabsAnalisis.dbop
+        self.dbop = tabs_analisis.dbop
 
         self.procesador = procesador
         self.configuration = configuration
 
         self.with_figurines = configuration.x_pgn_withfigurines
 
-        self.tabsAnalisis = tabsAnalisis
+        self.tabsAnalisis = tabs_analisis
         self.bt_start = Controles.PB(self, "", self.start).ponIcono(Iconos.Pelicula_Seguir(), 32)
         self.bt_stop = Controles.PB(self, "", self.stop).ponIcono(Iconos.Pelicula_Pausa(), 32)
         self.bt_stop.hide()
@@ -74,7 +74,7 @@ class TabEngine(QtWidgets.QWidget):
 
         self.reset_motor()
 
-    def saveCurrent(self):
+    def save_current(self):
         if self.current_mrm:
             fenm2 = self.current_posicion.fenm2()
             dic = self.dbop.getfenvalue(fenm2)
@@ -86,7 +86,7 @@ class TabEngine(QtWidgets.QWidget):
             self.dbop.setfenvalue(fenm2, dic)
 
     def setData(self, label, position, pv):
-        self.saveCurrent()
+        self.save_current()
         self.position = position
         self.pv = pv
         self.lb_analisis.set_text(label)
@@ -162,7 +162,7 @@ class TabEngine(QtWidgets.QWidget):
             QtCore.QTimer.singleShot(2000, self.lee_analisis)
 
     def stop(self):
-        self.saveCurrent()
+        self.save_current()
         self.sb_multipv.setDisabled(False)
         self.cb_engine.setDisabled(False)
         self.analyzing = False
@@ -171,7 +171,7 @@ class TabEngine(QtWidgets.QWidget):
             self.manager_motor.ac_final(0)
 
     def reset_motor(self):
-        self.saveCurrent()
+        self.save_current()
         key = self.cb_engine.valor()
         if not key:
             return
@@ -554,15 +554,15 @@ class TabsAnalisis(QtWidgets.QWidget):
 
         self.tabs.dispatchChange(self.tabChanged)
 
-        tabButton = QtWidgets.QToolButton(self)
-        tabButton.setIcon(Iconos.Nuevo())
-        tabButton.clicked.connect(self.creaTab)
+        tab_button = QtWidgets.QToolButton(self)
+        tab_button.setIcon(Iconos.Nuevo())
+        tab_button.clicked.connect(self.creaTab)
         li = [(_("Analysis of next move"), True), (_("Analysis of current move"), False)]
         self.cb_nextmove = Controles.CB(self, li, True).capture_changes(self.changedNextMove)
 
         corner_widget = QtWidgets.QWidget(self)
-        lyCorner = Colocacion.H().control(self.cb_nextmove).control(tabButton).margen(0)
-        corner_widget.setLayout(lyCorner)
+        ly_corner = Colocacion.H().control(self.cb_nextmove).control(tab_button).margen(0)
+        corner_widget.setLayout(ly_corner)
 
         self.tabs.setCornerWidget(corner_widget)
         self.tabs.setTabsClosable(True)

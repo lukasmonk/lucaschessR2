@@ -59,6 +59,7 @@ from Code.Base.Constantes import (
 from Code.Board import BoardTypes
 from Code.Databases import DBgames
 from Code.Engines import WConfEngines
+from Code.Engines.EngineResponse import EngineResponse
 from Code.ForcingMoves import ForcingMoves
 from Code.Kibitzers import Kibitzers
 from Code.Openings import OpeningsStd
@@ -354,7 +355,10 @@ class Manager:
                     self.other_candidates(li_moves, position, li_c)
                 self.board.show_candidates(li_c)
 
-        if not self.configuration.x_mouse_shortcuts:
+        if self.configuration.x_mouse_shortcuts is None:
+            return
+
+        if not self.configuration.x_mouse_shortcuts is None:
             if li_destinos:
                 self.atajosRatonOrigen = a1h8
                 self.atajosRatonDestino = None
@@ -676,20 +680,65 @@ class Manager:
         self.main_window.update()
         QTUtil.refresh_gui()
 
+    def mueve_number(self, tipo):
+        game = self.game
+        row, column = self.main_window.pgnPosActual()
+
+        col = 0
+
+        starts_with_black = game.starts_with_black
+        lj = len(game)
+        if starts_with_black:
+            lj += 1
+        ult_fila = (lj - 1) // 2
+
+        if tipo == GO_BACK:
+            row -= 1
+            if row < 0:
+                self.goto_firstposition()
+                return
+            col = 1
+        elif tipo == GO_BACK2:
+            if row == 0:
+                return
+            row -= 1
+        elif tipo == GO_FORWARD:
+            if row == 0 and game.starts_with_black:
+                return self.goto_firstposition()
+            col = 1
+        elif tipo == GO_FORWARD2:
+            row += 1
+        elif tipo == GO_START:
+            self.goto_firstposition()
+            return
+        elif tipo == GO_END:
+            row = ult_fila
+
+        if row > ult_fila:
+            return
+
+        move: Move.Move = self.game.move(row * 2 + col)
+        self.set_position(move.position_before)
+        self.main_window.base.pgn.goto(row, col)
+        self.refresh_pgn()  # No se puede usar pgn_refresh, ya que se usa con gobottom en otros lados y aqui eso no funciona
+        self.put_view()
+        if row > 0 or col > 0:
+            move: Move.Move = self.game.move(row * 2 + col - 1)
+            self.board.put_arrow_sc(move.from_sq, move.to_sq)
+
     def mueveJugada(self, tipo):
         game = self.game
         if not len(game):
             return
         row, column = self.main_window.pgnPosActual()
 
+        starts_with_black = game.starts_with_black
+
         key = column.key
         if key == "NUMBER":
-            is_white = tipo == "-"
-            row -= 1
+            return self.mueve_number(tipo)
         else:
             is_white = key != "BLACK"
-
-        starts_with_black = game.starts_with_black
 
         lj = len(game)
         if starts_with_black:
@@ -901,7 +950,6 @@ class Manager:
             self.arbol()
         else:
             menu = QTVarios.LCMenu(self.main_window)
-            # menu_vista = menu.submenu(_("Show/hide"), Iconos.Vista())
             self.add_menu_vista(menu)
             resp = menu.lanza()
             if resp:
@@ -1267,18 +1315,51 @@ class Manager:
                 self.liMarcosTmp = []
 
     def do_pressed_letter(self, si_activar, letra):
+        num_moves, nj, row, is_white = self.jugadaActual()
+        if not (num_moves and num_moves > nj):
+            return
+        move = self.game.move(nj)
+        if not move.analysis:
+            return
+
         if si_activar:
-            dic = {
-                "a": GO_START,
-                "b": GO_BACK,
-                "c": GO_BACK,
-                "d": GO_BACK,
-                "e": GO_FORWARD,
-                "f": GO_FORWARD,
-                "g": GO_FORWARD,
-                "h": GO_END,
-            }
-            self.mueveJugada(dic[letra])
+            self.board.remove_arrows()
+            if self.board.flechaSC:
+                self.board.flechaSC.hide()
+            mrm, pos = move.analysis
+            self.board.set_position(move.position_before)
+
+            def show(xpos):
+                if xpos >= len(mrm.li_rm):
+                    return
+                rm: EngineResponse = mrm.li_rm[xpos]
+                li_pv = rm.pv.split(" ")
+                for side in range(2):
+                    base = "s" if side == 0 else "t"
+                    alt = "m" + base
+                    opacity = 0.8
+                    li = [li_pv[x] for x in range(len(li_pv)) if x % 2 == side]
+                    for pv in li:
+                        self.board.show_arrow_mov(pv[:2], pv[2:4], alt, opacity=opacity)
+                        opacity = max(opacity / 1.4, 0.3)
+
+            if letra == "a":
+                show(pos)
+            else:
+                cpos = 0
+                for c in "bcdefgh":
+                    cpos += 1
+                    if pos == cpos:
+                        continue
+                    elif c == letra:
+                        show(cpos)
+                        return
+
+        else:
+            self.board.set_position(move.position)
+            self.board.remove_arrows()
+            if self.board.flechaSC:
+                self.board.flechaSC.show()
 
     def kibitzers(self, orden):
         if orden == "edit":
@@ -1398,7 +1479,6 @@ class Manager:
         self.add_menu_vista(menu_vista)
         menu.separador()
 
-        # Ciega - Mostrar todas - Ocultar blancas - Ocultar negras
         if with_blinfold:
             menu_cg = menu.submenu(_("Blindfold chess"), Iconos.Ojo())
 
@@ -1409,9 +1489,9 @@ class Manager:
             else:
                 ico = Iconos.Verde()
                 tit = _("Enable")
-            menu_cg.opcion("cg_change", tit, ico)
+            menu_cg.opcion("cg_change", tit, ico, shortcut="Alt+Y")
             menu_cg.separador()
-            menu_cg.opcion("cg_conf", _("Configuration"), Iconos.Opciones())
+            menu_cg.opcion("cg_conf", _("Configuration"), Iconos.Opciones(), shortcut="CTRL+Y")
             menu_cg.separador()
             menu_cg.opcion("cg_pgn", "%s: %s" % (_("PGN"), _("Hide") if self.pgn.must_show else _("Show")),
                            Iconos.PGN())
@@ -1428,7 +1508,7 @@ class Manager:
         menu.separador()
         label = _("Disable") if self.main_window.onTop else _("Enable")
         menu.opcion(
-            "ontop", "%s: %s" % (label, _("window on top")), Iconos.Bottom() if self.main_window.onTop else Iconos.Top()
+            "ontop", "%s: %s" % (label, _("window on top")), Iconos.Unpin() if self.main_window.onTop else Iconos.Pin()
         )
 
         # Right mouse
@@ -1505,12 +1585,7 @@ class Manager:
                     self.pgn.must_show = not self.pgn.must_show
                     self.refresh_pgn()
                 elif orden == "change":
-                    x = str(self)
-                    modo_posicion_blind = False
-                    for tipo in ("ManagerEntPos",):
-                        if tipo in x:
-                            modo_posicion_blind = True
-                    self.board.blindfoldChange(modo_posicion_blind)
+                    self.board.blindfoldChange()
 
                 elif orden == "conf":
                     self.board.blindfoldConfig()
@@ -1529,7 +1604,7 @@ class Manager:
         is_white = self.game.last_position.is_white
         if self.auto_rotate:
             if is_white != self.board.is_white_bottom:
-                self.board.rotaBoard()
+                self.board.rotate_board()
 
     def get_auto_rotate(self):
         return Code.configuration.get_auto_rotate(self.game_type)
@@ -1593,19 +1668,17 @@ class Manager:
 
         menu_save = menu.submenu(_("Save"), ico_grabar)
 
-        key_ctrl = _("CTRL") if self.configuration.x_copy_ctrl else _("ALT")
+        key_ctrl = "Ctrl" if self.configuration.x_copy_ctrl else "Alt"
         menu_pgn = menu_save.submenu(_("PGN Format"), Iconos.PGN())
-        menu_pgn.opcion("pgnfile", tr_fichero, Iconos.PGN())
+        menu_pgn.opcion("pgnfile", tr_fichero, Iconos.GrabarFichero())
         menu_pgn.separador()
-        menu_pgn.opcion(
-            "pgnclipboard", "%s [%s %s C]" % (tr_portapapeles, key_ctrl, _("SHIFT || From keyboard")), ico_clip
-        )
+        menu_pgn.opcion("pgnclipboard", tr_portapapeles, ico_clip, shortcut=f"{key_ctrl}+Shift+C")
         menu_save.separador()
 
         menu_fen = menu_save.submenu(_("FEN Format"), Iconos.Naranja())
         menu_fen.opcion("fenfile", tr_fichero, ico_fichero)
         menu_fen.separador()
-        menu_fen.opcion("fenclipboard", "%s [%s C]" % (tr_portapapeles, key_ctrl), ico_clip)
+        menu_fen.opcion("fenclipboard", tr_portapapeles, ico_clip, shortcut=f'{key_ctrl}+C')
 
         menu_save.separador()
 
@@ -1638,9 +1711,6 @@ class Manager:
             menu_kibitzers.separador()
             menu_kibitzers.opcion("kibitzer_edit", _("Maintenance"), Iconos.ModificarP())
 
-            menu.separador()
-            menu.opcion("play", _("Play current position"), Iconos.MoverJugar())
-
         # Analizar
         if self.can_be_analysed():
             menu.separador()
@@ -1648,7 +1718,7 @@ class Manager:
             submenu = menu.submenu(_("Analysis"), Iconos.Analizar())
 
             has_analysis = self.game.has_analisis()
-            submenu.opcion("analizar", _("Analyze") + "  [%s A]" % _("ALT"), Iconos.Analizar())
+            submenu.opcion("analizar", _("Analyze"), Iconos.Analizar(), shortcut="Alt+A")
             if has_analysis:
                 submenu.separador()
                 submenu.opcion("analizar_grafico", _("Show graphics"), Iconos.Estadisticas())
@@ -1670,18 +1740,20 @@ class Manager:
         if self.active_play_instead_of_me():
             if hasattr(self, "play_instead_of_me"):
                 menu.separador()
-                menu.opcion("play_instead_of_me", _("Play instead of me") + "  [%s 1]" % _("CTRL"),
-                            Iconos.JuegaPorMi()),
+                menu.opcion("play_instead_of_me", _("Play instead of me"), Iconos.JuegaPorMi(), shortcut='Ctrl+1')
 
         if self.active_help_to_move():
             if hasattr(self, "help_to_move"):
                 menu.separador()
-                menu.opcion("help_to_move", _("Help to move") + "  [%s 2]" % _("CTRL"), Iconos.BotonAyuda())
+                menu.opcion("help_to_move", _("Help to move"), Iconos.BotonAyuda(), shortcut='Ctrl+2')
 
         # Arbol de movimientos
         if with_tree:
             menu.separador()
             menu.opcion("arbol", _("Moves tree"), Iconos.Arbol())
+
+        menu.separador()
+        menu.opcion("play", _("Play current position"), Iconos.MoverJugar(), shortcut='Alt+X')
 
         # Hints
         menu.separador()
@@ -1696,7 +1768,15 @@ class Manager:
         if li_extra_options:
             menu.separador()
             submenu = menu
-            for key, label, icono in li_extra_options:
+            for data in li_extra_options:
+                if len(data) == 3:
+                    key, label, icono = data
+                    shortcut = ""
+                elif len(data) == 4:
+                    key, label, icono, shortcut = data
+                else:
+                    key, label, icono, shortcut = None, None, None, None
+
                 if label is None:
                     if icono is None:
                         submenu.separador()
@@ -1706,7 +1786,7 @@ class Manager:
                     submenu = menu.submenu(label, icono)
 
                 else:
-                    submenu.opcion(key, label, icono)
+                    submenu.opcion(key, label, icono, shortcut=shortcut)
             menu.separador()
 
         resp = menu.lanza()
@@ -1715,7 +1795,8 @@ class Manager:
             return
 
         if li_extra_options:
-            for key, label, icono in li_extra_options:
+            for data in li_extra_options:
+                key = data[0]
                 if resp == key:
                     return resp
 
@@ -2149,7 +2230,7 @@ class Manager:
         self.mensaje(mensaje, delayed=nomodal)
 
     def player_has_moved_base(self, from_sq, to_sq, promotion=""):
-        if self.board.variation_history is not None:
+        if self.board.variation_history and self.board.variation_history.count("|") == 2:
             return self.mueve_variation(from_sq, to_sq, promotion="")
         return self.messenger(from_sq, to_sq, promotion)
 
@@ -2245,12 +2326,28 @@ class Manager:
                 link_variation_pressed("%s|%d" % (cvariation_move, (num_var_move + 1)))
                 self.kibitzers_manager.put_game(variation, self.board.is_white_bottom)
 
-    def keypressed_in_variation(self, nkey):
-        variation_history = self.board.variation_history
-        if variation_history.count("|") != 2:
+    def keypressed_when_variations(self, nkey, modifiers):
+        if len(self.game) == 0:
+            return
+
+        # Si no tiene variantes -> mueveJugada
+        num_moves, nj, row, is_white = self.jugadaActual()
+        main_move: Move.Move = self.game.move(nj)
+        if len(main_move.variations) == 0:
             return self.mueveJugada(nkey)
 
-        num_move, num_variation, num_variation_move = [int(cnum) for cnum in self.board.variation_history.split("|")]
+        variation_history = self.board.variation_history
+        navigating_variations = variation_history.count("|") == 2
+        if modifiers:  # and modifiers == QtCore.Qt.ShiftModifier:
+            if not navigating_variations:
+                variation_history = f'{variation_history.split("|")[0]}|0|0'
+                self.main_window.informacionPGN.variantes.link_variation_pressed(variation_history)
+                return
+
+        if not navigating_variations:
+            return self.mueveJugada(nkey)
+
+        num_move, num_variation, num_variation_move = [int(cnum) for cnum in variation_history.split("|")]
         main_move: Move.Move = self.game.move(num_move)
         num_variations = len(main_move.variations)
         num_moves_current_variation = len(main_move.variations.li_variations[num_variation])
@@ -2258,17 +2355,13 @@ class Manager:
         if nkey == GO_BACK:
             if num_variation_move > 0:
                 num_variation_move -= 1
-            elif num_variation > 0:
-                num_variation -= 1
-                num_variation_move = 0
             else:
+                self.main_window.informacionPGN.variantes.link_variation_pressed(str(num_move))
+                self.mueveJugada(nkey)
                 return
         elif nkey == GO_FORWARD:
-            if num_variation_move < num_moves_current_variation-1:
+            if num_variation_move < num_moves_current_variation - 1:
                 num_variation_move += 1
-            elif num_variation < num_variations -1:
-                num_variation += 1
-                num_variation_move = 0
             else:
                 return
         elif nkey == GO_BACK2:
@@ -2278,22 +2371,13 @@ class Manager:
             else:
                 return
         elif nkey == GO_FORWARD2:
-            if num_variation < num_variations -1:
+            if num_variation < num_variations - 1:
                 num_variation += 1
                 num_variation_move = 0
             else:
                 return
         else:
             return
-
-        # if to_main:
-        #     row, column = self.main_window.pgnPosActual()
-        #
-        #     key = column.key
-        #     is_white = key != "BLACK"
-        #     self.main_window.pgnColocate(row, is_white)
-        #     self.pgnMueve(row, is_white)
-        #     return
 
         link = f"{num_move}|{num_variation}|{num_variation_move}"
         self.main_window.informacionPGN.variantes.link_variation_pressed(link)
@@ -2303,4 +2387,3 @@ class Manager:
 
     def is_active_analysys_bar(self):
         return self.main_window.with_analysis_bar
-

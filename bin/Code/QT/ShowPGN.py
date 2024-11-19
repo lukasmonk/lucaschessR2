@@ -43,6 +43,7 @@ class ShowPGN(QtWidgets.QScrollArea):
         self.link_edit = None
 
         self.selected_link = None
+        self.last_runlink = None
 
         self.num_showed = 0
 
@@ -60,6 +61,9 @@ class ShowPGN(QtWidgets.QScrollArea):
         w = QtWidgets.QWidget()
         w.setLayout(ly)
         self.setWidget(w)
+
+    def ensure_visible(self, num_variation):
+        self.ensureWidgetVisible(self.li_variations[num_variation])
 
     def set_link(self, link_externo):
         self.link_externo = link_externo
@@ -102,14 +106,14 @@ class ShowPGN(QtWidgets.QScrollArea):
             self.selected_link = href
 
         menu = QTVarios.LCMenu(self)
+        menu.opcion("analyze", _("Analyze"), Iconos.Analizar())
+        menu.separador()
         menu.opcion("remove_line", _("Remove line"), Iconos.DeleteRow())
         if not self.selected_link.endswith("|0"):  # si no es el primero
             menu.separador()
             menu.opcion("remove_move", _("Remove move"), Iconos.DeleteColumn())
         menu.separador()
         menu.opcion("comment", _("Edit comment"), Iconos.ComentarioEditar())
-        menu.separador()
-        menu.opcion("analyze", _("Analyze"), Iconos.Analizar())
 
         num_line, total_lines = self.wowner.num_total_variations()
         if total_lines > 1:
