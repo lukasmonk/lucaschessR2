@@ -2353,7 +2353,6 @@ class Manager:
             if num_variation_move > 0:
                 num_variation_move -= 1
             else:
-                self.main_window.informacionPGN.variantes.link_variation_pressed(str(num_move))
                 self.mueveJugada(nkey)
                 return
         elif nkey == GO_FORWARD:

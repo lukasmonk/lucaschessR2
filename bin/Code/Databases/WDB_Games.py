@@ -484,7 +484,7 @@ class WGames(QtWidgets.QWidget):
                 if recno is None:
                     self.grid.gobottom()
                 else:
-                    resp.recmo = recno
+                    resp.recno = recno
                     self.grid.goto(recno, 0)
                     self.grid_cambiado_registro(self, recno, None)
                 self.rehaz_columnas()
