@@ -473,6 +473,7 @@ class WVariations(QtWidgets.QWidget):
 
     def set_move(self, move):
         self.move = move
+        self.selected_link = None
         self.em.show_variations(move, self.selected_link)
 
     def get_board(self):

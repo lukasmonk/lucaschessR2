@@ -372,7 +372,7 @@ class MainWindow(LCDialog.LCDialog):
         if not self.siInformacionPGN:
             self.ajustaTamH()
 
-    def ponCapturas(self, dic):
+    def put_captures(self, dic):
         self.base.put_captures(dic)
 
     def put_informationPGN(self, game, move, opening):

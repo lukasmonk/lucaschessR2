@@ -3,6 +3,7 @@ import random
 import time
 
 import FasterCode
+from PySide2 import QtCore
 
 import Code
 from Code import ControlPGN
@@ -58,8 +59,8 @@ from Code.Base.Constantes import (
 )
 from Code.Board import BoardTypes
 from Code.Databases import DBgames
+from Code.Engines import EngineResponse
 from Code.Engines import WConfEngines
-from Code.Engines.EngineResponse import EngineResponse
 from Code.ForcingMoves import ForcingMoves
 from Code.Kibitzers import Kibitzers
 from Code.Openings import OpeningsStd
@@ -509,7 +510,7 @@ class Manager:
                 if opening.eco:
                     nom_opening += " (%s)" % opening.eco
             if self.main_window.siCapturas:
-                self.main_window.ponCapturas(dic)
+                self.main_window.put_captures(dic)
             if self.main_window.siInformacionPGN:
                 if (row == 0 and column.key == "NUMBER") or row < 0:
                     self.main_window.put_informationPGN(self.game, None, nom_opening)
@@ -1321,18 +1322,19 @@ class Manager:
         move = self.game.move(nj)
         if not move.analysis:
             return
+        mrm: EngineResponse.MultiEngineResponse
+        mrm, pos = move.analysis
 
         if si_activar:
             self.board.remove_arrows()
             if self.board.flechaSC:
                 self.board.flechaSC.hide()
-            mrm, pos = move.analysis
             self.board.set_position(move.position_before)
 
             def show(xpos):
                 if xpos >= len(mrm.li_rm):
                     return
-                rm: EngineResponse = mrm.li_rm[xpos]
+                rm: EngineResponse.EngineResponse = mrm.li_rm[xpos]
                 li_pv = rm.pv.split(" ")
                 for side in range(2):
                     base = "s" if side == 0 else "t"
@@ -1346,20 +1348,15 @@ class Manager:
             if letra == "a":
                 show(pos)
             else:
-                cpos = 0
-                for c in "bcdefgh":
-                    cpos += 1
-                    if pos == cpos:
-                        continue
-                    elif c == letra:
-                        show(cpos)
-                        return
+                show(ord(letra) - ord("b"))
 
         else:
             self.board.set_position(move.position)
             self.board.remove_arrows()
-            if self.board.flechaSC:
-                self.board.flechaSC.show()
+            self.board.put_arrow_sc(move.from_sq, move.to_sq)
+            if Code.configuration.x_show_bestmove:
+                rm0 = mrm.best_rm_ordered()
+                self.board.put_arrow_scvar([(rm0.from_sq, rm0.to_sq)])
 
     def kibitzers(self, orden):
         if orden == "edit":
@@ -2365,10 +2362,12 @@ class Manager:
             else:
                 return
         elif nkey == GO_BACK2:
-            if num_variation > 0:
+            if num_variation > 0 and modifiers != QtCore.Qt.ShiftModifier:
                 num_variation -= 1
                 num_variation_move = 0
             else:
+                if modifiers == QtCore.Qt.ShiftModifier:
+                    self.main_window.informacionPGN.variantes.link_variation_pressed(str(num_move))
                 return
         elif nkey == GO_FORWARD2:
             if num_variation < num_variations - 1:
