@@ -1273,9 +1273,21 @@ class Manager:
                     h = m.xto()
                     self.board.show_arrow_mov(d, h, "c")
             else:
+                num_moves, nj, row, is_white = self.jugadaActual()
+                if nj < 0:
+                    return
+                move = self.game.move(nj)
+                self.board.set_position(move.position)
                 self.board.remove_arrows()
-                if self.board.flechaSC:
-                    self.board.flechaSC.show()
+                self.board.put_arrow_sc(move.from_sq, move.to_sq)
+                if Code.configuration.x_show_bestmove:
+                    move = self.game.move(nj)
+                    mrm: EngineResponse.MultiEngineResponse
+                    mrm, pos = move.analysis
+                    if not move.analysis:
+                        return
+                    rm0 = mrm.best_rm_ordered()
+                    self.board.put_arrow_scvar([(rm0.from_sq, rm0.to_sq)])
 
         elif number in [2, 7]:
             if si_activar:

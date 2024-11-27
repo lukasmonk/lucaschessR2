@@ -105,7 +105,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
     last_time_show_arrows = None
     rival_is_thinking = False
     humanize = 0
-    unlimited_minutes = 5
+    unlimited_minutes = 3
     is_human_side_white: bool
     opening_line = None
     play_while_win = None

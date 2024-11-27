@@ -3236,3 +3236,9 @@ def pmUnpin():
 
 def Unpin():
     return iget("Unpin")
+
+def pmCircles():
+    return iget("pmCircles")
+
+def Circles():
+    return iget("Circles")

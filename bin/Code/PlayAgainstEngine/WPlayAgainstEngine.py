@@ -700,6 +700,9 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         self.bt_cancel_nodes.setVisible(not hide_nodes)
         self.lb_nodes.setVisible(not hide_nodes)
         self.gb_thinks.setVisible(not hide_time_depth)
+        if hide_time_depth:
+            tm = 1 if "DeepToga" in self.rival.path_exe else 3
+            self.cb_unlimited.set_value(tm)
 
         if si_multi:
             li_elements = self.personalidades.list_personalities(True)
@@ -832,6 +835,12 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
             chess18.opcion(fen, f"{pos}. {uno}", rondo.otro())
 
         menu.separador()
+        chess324 = menu.submenu(_("Chess 2880").replace("2880", "324"), rondo_main.otro())
+        chess324.opcion("324|manual", _("Select position"), rondo.otro())
+        chess324.separador()
+        chess324.opcion("324|random", _("Random"), rondo.otro())
+
+        menu.separador()
         chess2880 = menu.submenu(_("Chess 2880"), rondo_main.otro())
         chess2880.opcion("2880|manual", _("Select position"), rondo.otro())
         chess2880.separador()
@@ -862,6 +871,25 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
                     o2880.save_last_manual(x)
                 else:
                     self.fen = o2880.get_fen_random()
+
+            elif resp.startswith("324"):
+                o324 = Chess2880.Chess324()
+                opcion = resp.split("|")[1]
+                if opcion == "manual":
+                    number = QTUtil2.read_simple(self, _("Chess 2880").replace("2880", "324"), _("Select position") + " 1...324",
+                                                 o324.get_last_manual())
+                    if not number:
+                        return
+                    if not number.isdigit():
+                        return
+                    x = int(number)
+                    if x < 1 or x > 324:
+                        return
+                    x -= 1
+                    self.fen = o324.get_fen(x)
+                    o324.save_last_manual(x)
+                else:
+                    self.fen = o324.get_fen_random()
 
             else:
                 self.fen = resp

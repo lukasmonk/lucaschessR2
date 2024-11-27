@@ -4,7 +4,7 @@ stockfish-17-x86-64-ssse3
 stockfish-17-x86-64-sse41-popcnt
 stockfish-17-x86-64-avx2
 stockfish-17-x86-64-bmi2
-stockfish-17-x86-64-avxvnni
 stockfish-17-x86-64-avx512
+stockfish-17-x86-64-avxvnni
 stockfish-17-x86-64-vnni256
 stockfish-17-x86-64-vnni512

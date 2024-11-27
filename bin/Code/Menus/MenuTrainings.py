@@ -352,9 +352,9 @@ class MenuTrainings:
         # Washing
         menu_long.separador()
         xopcion(menu_long, "washing_machine", _("The Washing Machine"), Iconos.WashingMachine())
-        # menu_long.separador()
-        # menu2 = menu_long.submenu(_("The Forest Creator"), Iconos.Forest())
-        # xopcion(menu2, "forest_creator_1", TrListas.level(1), Iconos.Amarillo())
+        menu_long.separador()
+        # menu2 = menu_long.submenu(_("The Circles"), Iconos.Circles())
+        # xopcion(menu2, "circles_1", TrListas.level(1), Iconos.Amarillo())
 
     def create_menu(self):
         dic_menu = {}
