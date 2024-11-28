@@ -1258,7 +1258,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             move.set_clock_ms(int(self.tc_rival.pending_time * 1000))
             self.add_move(move)
             self.move_the_pieces(move.liMovs, True)
-            self.beepExtendido(False)
+            self.beep_extended(False)
             if with_cache:
                 if self.timed:
                     move.cacheTime = self.tc_rival.save()
@@ -1522,7 +1522,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
 
         self.add_move(move)
         self.move_the_pieces(move.liMovs, False)
-        self.beepExtendido(True)
+        self.beep_extended(True)
 
         # if game_over_message_pww:
         #     return True

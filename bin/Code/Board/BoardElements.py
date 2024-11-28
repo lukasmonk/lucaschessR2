@@ -249,7 +249,7 @@ class TextoSC(BloqueSC):
 #         QtWidgets.QGraphicsItem.mouseReleaseEvent(self, event)
 #         if self.dragable:
 #             self.setZValue(ZVALUE_PIECE)
-#             self.board.intentaMover(self, event.scenePos(), event.button())
+#             self.board.try_to_move(self, event.scenePos(), event.button())
 #
 #     def activa(self, siActivar):
 #         self.setFlag(QtWidgets.QGraphicsItem.ItemIsMovable, siActivar)
@@ -345,7 +345,7 @@ class PiezaSC(BloqueSC):
         QtWidgets.QGraphicsItem.mouseReleaseEvent(self, event)
         if self.dragable:
             self.setZValue(ZVALUE_PIECE)
-            self.board.intentaMover(self, event.scenePos(), event.button())
+            self.board.try_to_move(self, event.scenePos(), event.button())
 
     def activa(self, activate):
         self.setFlag(QtWidgets.QGraphicsItem.ItemIsMovable, activate)

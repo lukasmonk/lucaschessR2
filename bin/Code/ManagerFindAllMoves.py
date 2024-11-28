@@ -381,7 +381,7 @@ class ManagerFindAllMoves(Manager.Manager):
                 return
             self.jugar(row)
 
-    def mueveJugada(self, tipo):
+    def move_according_key(self, tipo):
         row, col = self.main_window.pgnPosActual()
         if tipo == "+":
             if row > 0:

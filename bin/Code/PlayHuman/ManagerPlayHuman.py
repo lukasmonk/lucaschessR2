@@ -427,7 +427,7 @@ class ManagerPlayHuman(Manager.Manager):
         move.set_clock_ms(tc.pending_time * 1000)
         self.add_move(move)
         self.move_the_pieces(move.liMovs, False)
-        self.beepExtendido(True)
+        self.beep_extended(True)
 
         self.error = ""
 

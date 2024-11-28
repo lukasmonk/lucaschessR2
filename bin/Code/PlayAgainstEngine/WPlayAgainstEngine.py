@@ -857,14 +857,14 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
                 o2880 = Chess2880.Chess2880()
                 opcion = resp.split("|")[1]
                 if opcion == "manual":
-                    number = QTUtil2.read_simple(self, _("Chess 2880"), _("Select position") + " 1...2879",
+                    number = QTUtil2.read_simple(self, _("Chess 2880"), _("Select position") + " 1...2880",
                                                  o2880.get_last_manual())
                     if not number:
                         return
                     if not number.isdigit():
                         return
                     x = int(number)
-                    if x < 1 or x > 2879:
+                    if x < 1 or x > 2880:
                         return
                     x -= 1
                     self.fen = o2880.get_fen(x)

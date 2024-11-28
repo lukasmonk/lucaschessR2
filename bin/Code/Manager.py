@@ -631,9 +631,9 @@ class Manager:
         pon(lb2, self.set_label2)
         pon(lb3, self.set_label3)
 
-    def beepExtendido(self, siNuestro=False):
+    def beep_extended(self, is_player_move):
         self.main_window.end_think_analysis_bar()
-        if siNuestro:
+        if is_player_move:
             if not self.configuration.x_sound_our:
                 return
         played = False
@@ -727,7 +727,7 @@ class Manager:
             move: Move.Move = self.game.move(row * 2 + col - 1)
             self.board.put_arrow_sc(move.from_sq, move.to_sq)
 
-    def mueveJugada(self, tipo):
+    def move_according_key(self, tipo):
         game = self.game
         if not len(game):
             return
@@ -825,7 +825,7 @@ class Manager:
 
     def goto_end(self):
         if len(self.game):
-            self.mueveJugada(GO_END)
+            self.move_according_key(GO_END)
         else:
             self.set_position(self.game.first_position)
             self.refresh_pgn()  # No se puede usar pgn_refresh, ya que se usa con gobottom en otros lados y aqui eso no funciona
@@ -1265,8 +1265,8 @@ class Manager:
                 else:
                     si_mb = not is_white
                 self.board.remove_arrows()
-                if self.board.flechaSC:
-                    self.board.flechaSC.hide()
+                if self.board.arrow_sc:
+                    self.board.arrow_sc.hide()
                 li = FasterCode.get_captures(fen, si_mb)
                 for m in li:
                     d = m.xfrom()
@@ -1339,8 +1339,8 @@ class Manager:
 
         if si_activar:
             self.board.remove_arrows()
-            if self.board.flechaSC:
-                self.board.flechaSC.hide()
+            if self.board.arrow_sc:
+                self.board.arrow_sc.hide()
             self.board.set_position(move.position_before)
 
             def show(xpos):
@@ -2239,7 +2239,7 @@ class Manager:
         self.mensaje(mensaje, delayed=nomodal)
 
     def player_has_moved_base(self, from_sq, to_sq, promotion=""):
-        if self.board.variation_history and self.board.variation_history.count("|") == 2:
+        if self.board.variation_history is not None: #and self.board.variation_history.count("|") == 2:
             return self.mueve_variation(from_sq, to_sq, promotion="")
         return self.messenger(from_sq, to_sq, promotion)
 
@@ -2278,7 +2278,7 @@ class Manager:
 
         if is_in_main_move:
             if var_move.movimiento() == movimiento:
-                self.mueveJugada(GO_FORWARD)
+                self.move_according_key(GO_FORWARD)
                 return
             else:
                 position_before = var_move.position_before.copia()
@@ -2339,11 +2339,11 @@ class Manager:
         if len(self.game) == 0:
             return
 
-        # Si no tiene variantes -> mueveJugada
+        # Si no tiene variantes -> move_according_key
         num_moves, nj, row, is_white = self.jugadaActual()
         main_move: Move.Move = self.game.move(nj)
         if len(main_move.variations) == 0:
-            return self.mueveJugada(nkey)
+            return self.move_according_key(nkey)
 
         variation_history = self.board.variation_history
         navigating_variations = variation_history.count("|") == 2
@@ -2354,7 +2354,7 @@ class Manager:
                 return
 
         if not navigating_variations:
-            return self.mueveJugada(nkey)
+            return self.move_according_key(nkey)
 
         num_move, num_variation, num_variation_move = [int(cnum) for cnum in variation_history.split("|")]
         main_move: Move.Move = self.game.move(num_move)
@@ -2365,7 +2365,7 @@ class Manager:
             if num_variation_move > 0:
                 num_variation_move -= 1
             else:
-                self.mueveJugada(nkey)
+                self.move_according_key(nkey)
                 return
         elif nkey == GO_FORWARD:
             if num_variation_move < num_moves_current_variation - 1:

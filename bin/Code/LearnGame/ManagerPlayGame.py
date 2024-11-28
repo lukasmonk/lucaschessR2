@@ -410,7 +410,7 @@ class ManagerPlayGame(Manager.Manager):
         self.move_the_pieces(move.liMovs, True)
         self.board.set_position(move.position)
         self.put_arrow_sc(move.from_sq, move.to_sq)
-        self.beepExtendido(is_player_move)
+        self.beep_extended(is_player_move)
 
         self.pgn_refresh(self.game.last_position.is_white)
         self.refresh()

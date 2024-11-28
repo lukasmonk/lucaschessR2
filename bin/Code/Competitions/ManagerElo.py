@@ -575,7 +575,7 @@ class ManagerElo(Manager.Manager):
         self.game.add_move(move)
 
         self.put_arrow_sc(move.from_sq, move.to_sq)
-        self.beepExtendido(is_player_move)
+        self.beep_extended(is_player_move)
 
         # self.ponAyudas( self.hints )
 

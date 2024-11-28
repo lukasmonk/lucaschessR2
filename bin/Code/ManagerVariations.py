@@ -65,7 +65,7 @@ class ManagerVariations(Manager.Manager):
 
         if len(self.game):
             if go_to_move is None:
-                self.mueveJugada(GO_START)
+                self.move_according_key(GO_START)
                 move = self.game.move(0)
             else:
                 self.place_in_movement(go_to_move)
@@ -196,7 +196,7 @@ class ManagerVariations(Manager.Manager):
     def add_move(self, move):
         self.game.add_move(move)
 
-        self.beepExtendido(True)
+        self.beep_extended(True)
 
         self.changed = True
 

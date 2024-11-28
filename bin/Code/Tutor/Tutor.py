@@ -431,8 +431,8 @@ class Tutor:
                 else:
                     siMB = number == 8
                 self.board_tutor.remove_arrows()
-                if self.board_tutor.flechaSC:
-                    self.board_tutor.flechaSC.hide()
+                if self.board_tutor.arrow_sc:
+                    self.board_tutor.arrow_sc.hide()
                 li = FasterCode.get_captures(fen, siMB)
                 for m in li:
                     d = m.xfrom()
@@ -440,8 +440,8 @@ class Tutor:
                     self.board_tutor.show_arrow_mov(d, h, "c")
             else:
                 self.board_tutor.remove_arrows()
-                if self.board_tutor.flechaSC:
-                    self.board_tutor.flechaSC.show()
+                if self.board_tutor.arrow_sc:
+                    self.board_tutor.arrow_sc.show()
 
     def exePulsadoNumUsuario(self, siActivar, number):
         if number in [1, 8]:
@@ -458,8 +458,8 @@ class Tutor:
                 else:
                     siMB = number == 8
                 self.board_user.remove_arrows()
-                if self.board_user.flechaSC:
-                    self.board_user.flechaSC.hide()
+                if self.board_user.arrow_sc:
+                    self.board_user.arrow_sc.hide()
                 li = FasterCode.get_captures(fen, siMB)
                 for m in li:
                     d = m.xfrom()
@@ -467,8 +467,8 @@ class Tutor:
                     self.board_user.show_arrow_mov(d, h, "c")
             else:
                 self.board_user.remove_arrows()
-                if self.board_user.flechaSC:
-                    self.board_user.flechaSC.show()
+                if self.board_user.arrow_sc:
+                    self.board_user.arrow_sc.show()
 
 
 def launch_tutor(mrm_tutor, rm_usuario, tp=None):

@@ -151,7 +151,7 @@ class ManagerSingularM(Manager.Manager):
             self.put_arrow_sc(jgSel.from_sq, jgSel.to_sq)
             if not ok:
                 self.board.creaFlechaTmp(bm[:2], bm[2:], False)
-            self.beepExtendido(True)
+            self.beep_extended(True)
 
         else:
             self.put_arrow_sc(bm[:2], bm[2:])

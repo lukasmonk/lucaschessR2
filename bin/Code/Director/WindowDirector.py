@@ -543,8 +543,8 @@ class WPanelDirector(LCDialog.LCDialog):
                     board.muevePieza(to_sq, from_sq)
                     if borra:
                         board.creaPieza(borra, to_sq)
-                    if board.flechaSC:
-                        board.flechaSC.hide()
+                    if board.arrow_sc:
+                        board.arrow_sc.hide()
                 board.enable_all()
 
             elif isinstance(tarea, TabVisual.GT_PiezaCrea):

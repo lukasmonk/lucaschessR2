@@ -383,8 +383,8 @@ class GT_Action(GTarea):
         if self._action == self.GTA_INICIO:
             guion.restoreBoard()
         elif self._action == self.GTA_MAINARROW_REMOVE:
-            if board.flechaSC:
-                board.flechaSC.hide()
+            if board.arrow_sc:
+                board.arrow_sc.hide()
         elif self._action == self.GTA_PIECES_REMOVEALL:
             board.removePieces()
         elif self._action == self.GTA_GRAPHICS_REMOVEALL:
@@ -529,8 +529,8 @@ class Guion:
     def saveBoard(self):
         self.board_last_position = self.board.last_position
         self.board_is_white_bottom = self.board.is_white_bottom
-        if self.board.flechaSC and self.board.flechaSC.isVisible():
-            a1h8 = self.board.flechaSC.bloqueDatos.a1h8
+        if self.board.arrow_sc and self.board.arrow_sc.isVisible():
+            a1h8 = self.board.arrow_sc.bloqueDatos.a1h8
             self.board_flechaSC = a1h8[:2], a1h8[2:]
         else:
             self.board_flechaSC = None

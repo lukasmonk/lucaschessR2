@@ -316,7 +316,7 @@ class ManagerTactics(Manager.Manager):
 
         self.pos_obj += 1
 
-        self.beepExtendido(si_nuestra)
+        self.beep_extended(si_nuestra)
 
         self.pgn_refresh(self.game.last_position.is_white)
         self.board.set_position(move.position)

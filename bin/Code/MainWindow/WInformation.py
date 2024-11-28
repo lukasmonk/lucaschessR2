@@ -484,7 +484,7 @@ class WVariations(QtWidgets.QWidget):
 
     def mostrar(self):
         self.em.show_variations(self.move, self.selected_link)
-        if self.selected_link.count("|") == 2:
+        if self.selected_link and self.selected_link.count("|") == 2:
             num_variation = int(self.selected_link.split("|")[1])
             self.em.ensure_visible(num_variation)
 

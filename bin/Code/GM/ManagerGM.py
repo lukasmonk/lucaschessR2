@@ -437,7 +437,7 @@ class ManagerGM(Manager.Manager):
         self.check_boards_setposition()
 
         self.put_arrow_sc(move.from_sq, move.to_sq)
-        self.beepExtendido(is_player_move)
+        self.beep_extended(is_player_move)
 
         txt = self.engine_gm.label_game_if_unique(is_gm=self.modo == "estandar")
         if txt:

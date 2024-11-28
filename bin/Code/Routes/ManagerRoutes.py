@@ -135,7 +135,7 @@ class ManagerRoutes(Manager.Manager):
         self.check_boards_setposition()
 
         self.put_arrow_sc(move.from_sq, move.to_sq)
-        self.beepExtendido(is_player)
+        self.beep_extended(is_player)
 
         self.pgn_refresh(self.game.last_position.is_white)
         self.refresh()

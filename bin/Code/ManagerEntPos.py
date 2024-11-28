@@ -658,7 +658,7 @@ class ManagerEntPos(Manager.Manager):
         self.check_boards_setposition()
 
         self.put_arrow_sc(move.from_sq, move.to_sq)
-        self.beepExtendido(si_nuestra)
+        self.beep_extended(si_nuestra)
 
         self.pgn_refresh(self.game.last_position.is_white)
         self.refresh()

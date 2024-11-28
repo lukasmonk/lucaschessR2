@@ -295,7 +295,7 @@ class ManagerTrainBooks(Manager.Manager):
         self.game.add_move(jg)
 
         self.put_arrow_sc(jg.from_sq, jg.to_sq)
-        self.beepExtendido(is_player_move)
+        self.beep_extended(is_player_move)
 
         self.check_boards_setposition()
 

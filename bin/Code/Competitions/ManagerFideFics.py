@@ -247,7 +247,7 @@ class ManagerFideFics(Manager.Manager):
         self.posJugadaObj = dic["POSJUGADAOBJ"]
         self.game.restore(dic["GAME_SAVE"])
         self.puntos = dic["PUNTOS"]
-        self.mueveJugada(GO_END)
+        self.move_according_key(GO_END)
         self.set_score()
 
         self.play_next_move()
@@ -451,7 +451,7 @@ class ManagerFideFics(Manager.Manager):
         self.move_the_pieces(move.liMovs, True)
         self.board.set_position(move.position)
         self.put_arrow_sc(move.from_sq, move.to_sq)
-        self.beepExtendido(si_nuestra)
+        self.beep_extended(si_nuestra)
 
         self.pgn_refresh(self.game.last_position.is_white)
         self.refresh()

@@ -485,7 +485,7 @@ class WTrainBMT(LCDialog.LCDialog):
         if self.siMostrarPGN:
             dic = QTUtil2.dic_keys()
             if tecla in dic:
-                self.mueveJugada(dic[tecla])
+                self.move_according_key(dic[tecla])
         if tecla == 82 and tipo == "V":  # R = resign
             self.abandonar()
         elif tecla == 78 and tipo == "V":  # N = next
@@ -493,7 +493,7 @@ class WTrainBMT(LCDialog.LCDialog):
         elif tecla in (QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace):  # Del
             self.borrar()
 
-    def mueveJugada(self, tipo):
+    def move_according_key(self, tipo):
         game = self.game
         row, column = self.pgn.current_position()
 

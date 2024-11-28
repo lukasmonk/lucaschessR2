@@ -114,6 +114,8 @@ class Board(QtWidgets.QGraphicsView):
 
         self.analysis_bar = None
 
+        self.arrow_sc = None
+
     def set_analysis_bar(self, analysis_bar):
         self.analysis_bar = analysis_bar
 
@@ -462,7 +464,7 @@ class Board(QtWidgets.QGraphicsView):
                     li_pz.append((cpieza, pos_a1_h8))
 
             ap, apc = self.pieces_are_active, self.side_pieces_active
-            si_flecha = self.flechaSC is not None
+            si_flecha = self.arrow_sc is not None
 
             self.rehaz()
 
@@ -474,7 +476,7 @@ class Board(QtWidgets.QGraphicsView):
                 self.set_side_indicator(apc)
 
             if si_flecha:
-                self.resetFlechaSC()
+                self.reset_arrow_sc()
 
         else:
             self.rehaz()
@@ -486,7 +488,7 @@ class Board(QtWidgets.QGraphicsView):
         self.escena.clear()
         self.liPiezas = []
         self.liFlechas = []
-        self.flechaSC = None
+        self.arrow_sc = None
         self.dicMovibles = collections.OrderedDict()  # Flechas, Marcos, SVG
         self.idUltimoMovibles = 0
         self.side_indicator_sc = None
@@ -1031,7 +1033,7 @@ class Board(QtWidgets.QGraphicsView):
         self.config_board.cambiaPiezas(cual)
         self.config_board.guardaEnDisco()
         ap, apc = self.pieces_are_active, self.side_pieces_active
-        si_flecha = self.flechaSC is not None
+        si_flecha = self.arrow_sc is not None
         atajos_raton = self.atajos_raton
 
         self.crea()
@@ -1042,7 +1044,7 @@ class Board(QtWidgets.QGraphicsView):
         self.atajos_raton = atajos_raton
 
         if si_flecha:
-            self.resetFlechaSC()
+            self.reset_arrow_sc()
 
         self.init_kb_buffer()
 
@@ -1405,8 +1407,8 @@ class Board(QtWidgets.QGraphicsView):
     def mouseDoubleClickEvent(self, event):
         item = self.itemAt(event.pos())
         if item:
-            if item == self.flechaSC:
-                self.flechaSC.hide()
+            if item == self.arrow_sc:
+                self.arrow_sc.hide()
 
     def wheelEvent(self, event):
         if QtWidgets.QApplication.keyboardModifiers() == QtCore.Qt.ControlModifier:
@@ -1554,10 +1556,10 @@ class Board(QtWidgets.QGraphicsView):
         if self.hard_focus:
             self.setFocus()
         self.set_side_indicator(position.is_white)
-        if self.flechaSC:
-            self.xremove_item(self.flechaSC)
-            del self.flechaSC
-            self.flechaSC = None
+        if self.arrow_sc:
+            self.xremove_item(self.arrow_sc)
+            del self.arrow_sc
+            self.arrow_sc = None
             self.remove_arrows()
         self.init_kb_buffer()
         self.set_last_position(position)
@@ -1645,7 +1647,7 @@ class Board(QtWidgets.QGraphicsView):
 
     def blindfoldReset(self):
         ap, apc = self.pieces_are_active, self.side_pieces_active
-        siFlecha = self.flechaSC is not None
+        siFlecha = self.arrow_sc is not None
 
         is_white_bottom = self.is_white_bottom
 
@@ -1660,7 +1662,7 @@ class Board(QtWidgets.QGraphicsView):
             self.set_side_indicator(apc)
 
         if siFlecha:
-            self.resetFlechaSC()
+            self.reset_arrow_sc()
 
         self.atajos_raton = atajos_raton
         self.init_kb_buffer()
@@ -1821,12 +1823,12 @@ class Board(QtWidgets.QGraphicsView):
         y = self.fila2punto(ord(a1[1]) - 48)
         return x, y
 
-    def intentaMover(self, pieza_sc, posCursor, eventButton):
+    def try_to_move(self, pieza_sc, pos_cursor, eventButton):
         pieza = pieza_sc.bloquePieza
         from_sq = self.num2alg(pieza.row, pieza.column)
 
-        x = int(posCursor.x())
-        y = int(posCursor.y())
+        x = int(pos_cursor.x())
+        y = int(pos_cursor.y())
         cx = self.punto2columna(x)
         cy = self.punto2fila(y)
 
@@ -1883,25 +1885,25 @@ class Board(QtWidgets.QGraphicsView):
         bd = self.side_indicator_sc.bloqueDatos
         if is_white:
             bd.colorRelleno = self.config_board.sideindicator_white()
-            siAbajo = self.is_white_bottom
+            si_abajo = self.is_white_bottom
         else:
             bd.colorRelleno = self.config_board.sideindicator_black()
-            siAbajo = not self.is_white_bottom
-        bd.physical_pos.y = bd.sur if siAbajo else bd.norte
+            si_abajo = not self.is_white_bottom
+        bd.physical_pos.y = bd.sur if si_abajo else bd.norte
         self.side_indicator_sc.mostrar()
 
-    def resetFlechaSC(self):
-        if self.flechaSC:
-            a1h8 = self.flechaSC.bloqueDatos.a1h8
+    def reset_arrow_sc(self):
+        if self.arrow_sc:
+            a1h8 = self.arrow_sc.bloqueDatos.a1h8
             self.put_arrow_sc(a1h8[:2], a1h8[2:])
 
-    def put_arrow_sc(self, desdeA1h8, hastaA1h8):
-        a1h8 = desdeA1h8 + hastaA1h8
-        if self.flechaSC is None:
-            self.flechaSC = self.creaFlechaSC(a1h8)
-        self.flechaSC.show()
-        self.flechaSC.ponA1H8(a1h8)
-        self.flechaSC.update()
+    def put_arrow_sc(self, from_a1h8, to_a1h8):
+        a1h8 = from_a1h8 + to_a1h8
+        if self.arrow_sc is None:
+            self.arrow_sc = self.creaFlechaSC(a1h8)
+        self.arrow_sc.show()
+        self.arrow_sc.ponA1H8(a1h8)
+        self.arrow_sc.update()
 
     def put_arrow_scvar(self, liArrows, destino=None, opacity=None):
         if destino is None:
@@ -1913,7 +1915,7 @@ class Board(QtWidgets.QGraphicsView):
                 self.creaFlechaMulti(from_sq + to_sq, False, destino=destino, opacity=opacity)
 
     def pulsadaFlechaSC(self):
-        self.flechaSC.hide()
+        self.arrow_sc.hide()
 
     def creaFlechaMulti(self, a1h8, siMain, destino="c", opacity=0.9):
         bf = copy.deepcopy(self.config_board.fTransicion() if siMain else self.config_board.fAlternativa())
@@ -1933,9 +1935,9 @@ class Board(QtWidgets.QGraphicsView):
 
         return self.creaFlecha(bf, self.pulsadaFlechaSC)
 
-    def creaFlechaTmp(self, desdeA1h8, hastaA1h8, siMain):
+    def creaFlechaTmp(self, from_a1h8, to_a1h8, siMain):
         bf = copy.deepcopy(self.config_board.fTransicion() if siMain else self.config_board.fAlternativa())
-        bf.a1h8 = desdeA1h8 + hastaA1h8
+        bf.a1h8 = from_a1h8 + to_a1h8
         arrow = self.creaFlecha(bf)
         self.liFlechas.append(arrow)
         arrow.show()
@@ -1949,9 +1951,9 @@ class Board(QtWidgets.QGraphicsView):
         arrow.show()
         self.update()
 
-    def creaFlechaTutor(self, desdeA1h8, hastaA1h8, factor):
+    def creaFlechaTutor(self, from_a1h8, to_a1h8, factor):
         bf = copy.deepcopy(self.config_board.fTransicion())
-        bf.a1h8 = desdeA1h8 + hastaA1h8
+        bf.a1h8 = from_a1h8 + to_a1h8
         bf.opacity = max(factor, 0.20)
         bf.ancho = max(bf.ancho * 2 * (factor ** 2.2), bf.ancho / 3)
         bf.altocabeza = max(bf.altocabeza * (factor ** 2.2), bf.altocabeza / 3)
@@ -1970,16 +1972,16 @@ class Board(QtWidgets.QGraphicsView):
 
         def quitaFlechasTmp():
             self.remove_arrows()
-            if self.flechaSC:
-                self.flechaSC.show()
+            if self.arrow_sc:
+                self.arrow_sc.show()
 
         if ms is None:
             ms = 2000 if len(lista) > 1 else 1400
         QtCore.QTimer.singleShot(ms, quitaFlechasTmp)
 
     def ponFlechas(self, lista):
-        if self.flechaSC:
-            self.flechaSC.hide()
+        if self.arrow_sc:
+            self.arrow_sc.hide()
         for from_sq, to_sq, siMain in lista:
             self.creaFlechaTmp(from_sq, to_sq, siMain)
         QTUtil.refresh_gui()
@@ -2184,8 +2186,8 @@ class Board(QtWidgets.QGraphicsView):
                 pieza_sc.hide()
         for arrow in self.liFlechas:
             arrow.hide()
-        if self.flechaSC:
-            self.flechaSC.hide()
+        if self.arrow_sc:
+            self.arrow_sc.hide()
 
         pm = QtWidgets.QWidget.grab(self)
         thumb = pm.scaled(ancho, ancho, QtCore.Qt.KeepAspectRatio, QtCore.Qt.SmoothTransformation)
@@ -2196,8 +2198,8 @@ class Board(QtWidgets.QGraphicsView):
                 pieza_sc.show()
         for arrow in self.liFlechas:
             arrow.show()
-        if self.flechaSC:
-            self.flechaSC.show()
+        if self.arrow_sc:
+            self.arrow_sc.show()
 
         byte_array = QtCore.QByteArray()
         xbuffer = QtCore.QBuffer(byte_array)
@@ -2275,9 +2277,9 @@ class Board(QtWidgets.QGraphicsView):
 
     def rotate_board(self):
         self.set_side_bottom(not self.is_white_bottom)
-        if self.flechaSC:
+        if self.arrow_sc:
             # self.put_arrow_sc( self.ultMovFlecha[0], self.ultMovFlecha[1])
-            self.resetFlechaSC()
+            self.reset_arrow_sc()
         bd = self.side_indicator_sc.bloqueDatos
         self.set_side_indicator(bd.colorRelleno == self.config_board.sideindicator_white())
         for k, uno in self.dicMovibles.items():
@@ -2431,8 +2433,8 @@ class Board(QtWidgets.QGraphicsView):
             bd.colorRelleno = self.config_board.sideindicator_white() if is_white else self.config_board.sideindicator_black()
             self.side_indicator_sc.mostrar()
 
-        if otro_board.flechaSC and otro_board.flechaSC.isVisible():
-            a1h8 = otro_board.flechaSC.bloqueDatos.a1h8
+        if otro_board.arrow_sc and otro_board.arrow_sc.isVisible():
+            a1h8 = otro_board.arrow_sc.bloqueDatos.a1h8
             desde_a1h8, hasta_a1h8 = a1h8[:2], a1h8[2:]
             self.put_arrow_sc(desde_a1h8, hasta_a1h8)
 
@@ -2463,10 +2465,10 @@ class Board(QtWidgets.QGraphicsView):
         if self.hard_focus:
             self.setFocus()
         self.set_side_indicator(position.is_white)
-        if self.flechaSC:
-            self.xremove_item(self.flechaSC)
-            del self.flechaSC
-            self.flechaSC = None
+        if self.arrow_sc:
+            self.xremove_item(self.arrow_sc)
+            del self.arrow_sc
+            self.arrow_sc = None
             self.remove_arrows()
         self.init_kb_buffer()
         self.pieces_are_active = True
@@ -2504,8 +2506,8 @@ class Board(QtWidgets.QGraphicsView):
             #     m_1 = game.move(-1)
             #     self.set_tmp_position(m_1.position_before)
             #     m_2 = game.move(-2)
-            #     if self.flechaSC:
-            #         self.flechaSC.hide()
+            #     if self.arrow_sc:
+            #         self.arrow_sc.hide()
             #     self.show_arrow_mov(m_2.to_sq, m_2.from_sq, "tb", opacity=0.50)
 
             Code.eboard.allowHumanTB = True

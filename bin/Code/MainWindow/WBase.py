@@ -576,11 +576,11 @@ class WBase(QtWidgets.QWidget):
 
         dic = QTUtil2.dic_keys()
         if tecla in dic:
-            if hasattr(self.manager, "mueveJugada"):
+            if hasattr(self.manager, "move_according_key"):
                 if self.board.variation_history:
                     self.manager.keypressed_when_variations(dic[tecla], modifiers)
                 else:
-                    self.manager.mueveJugada(dic[tecla])
+                    self.manager.move_according_key(dic[tecla])
         elif tecla in (QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return):
             row, column = self.pgn.current_position()
             if column.key != "NUMBER":

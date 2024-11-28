@@ -262,7 +262,7 @@ class ManagerTrainBooksOL(Manager.Manager):
         self.game.add_move(move)
 
         self.put_arrow_sc(move.from_sq, move.to_sq)
-        self.beepExtendido(is_player)
+        self.beep_extended(is_player)
 
         self.check_boards_setposition()
 
