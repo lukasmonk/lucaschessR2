@@ -394,9 +394,11 @@ class WVariations(QtWidgets.QWidget):
         )
 
     def remove_line(self):
-        if QTUtil2.pregunta(self, _("Are you sure you want to delete this line?")):
-            li_variation_move = self.selected_link.split("|")
-            num_line = int(li_variation_move[-2])
+        li_variation_move = self.selected_link.split("|")
+        num_line = int(li_variation_move[-2])
+        game: Game.Game = self.move.variations.li_variations[num_line]
+        pgn = game.pgn_base_raw(translated=True)
+        if QTUtil2.pregunta(self, pgn + "<br><br>" + _("Are you sure you want to delete this line?")):
 
             li_variation_move = li_variation_move[:-2]
             selected_link = "|".join(li_variation_move)
@@ -493,7 +495,7 @@ class WVariations(QtWidgets.QWidget):
             num_variation = int(self.selected_link.split("|")[1])
             self.em.ensure_visible(num_variation)
 
-    def select(self):
+    def select(self, with_all):
         li_variations = self.li_variations()
         n_variations = len(li_variations)
         if n_variations == 0:
@@ -501,9 +503,13 @@ class WVariations(QtWidgets.QWidget):
         if n_variations == 1:
             return 0
         menu = QTVarios.LCMenuRondo(self)
+        menu.opcion(None, _("Remove"))
         for num, variante in enumerate(li_variations):
             move = variante.move(0)
             menu.opcion(num, move.pgn_translated())
+        if with_all:
+            menu.separador()
+            menu.opcion(-1, _("All variations"))
         return menu.lanza()
 
     def edit(self, number, with_engine_active=False):
@@ -544,13 +550,25 @@ class WVariations(QtWidgets.QWidget):
         self.edit(-1, True)
 
     def tb_edit_variation(self):
-        num = self.select()
+        num = self.select(False)
         if num is not None:
             self.edit(num)
 
     def tb_remove_variation(self):
-        num = self.select()
-        if num is not None:
-            self.move.variations.remove(num)
-            self.mostrar()
-            self.get_manager().refresh_pgn()
+        num = self.select(True)
+        if num is None:
+            return
+        elif num == -1:
+            pregunta = _("Remove") + ":<br><br>&nbsp;&nbsp;&nbsp;&nbsp;" + _("All variations") + "<br><br>" + _("Are you sure?")
+            if QTUtil2.pregunta(self, pregunta):
+                self.move.variations.clear()
+                self.mostrar()
+                self.get_manager().refresh_pgn()
+
+        else:
+            game: Game.Game = self.move.variations.li_variations[num]
+            pgn = game.pgn_base_raw(translated=True)
+            if QTUtil2.pregunta(self, pgn + "<br><br>" + _("Are you sure you want to delete this line?")):
+                self.move.variations.remove(num)
+                self.mostrar()
+                self.get_manager().refresh_pgn()
