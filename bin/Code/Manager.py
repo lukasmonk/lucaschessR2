@@ -2239,8 +2239,9 @@ class Manager:
         self.mensaje(mensaje, delayed=nomodal)
 
     def player_has_moved_base(self, from_sq, to_sq, promotion=""):
-        if self.board.variation_history is not None: #and self.board.variation_history.count("|") == 2:
-            return self.mueve_variation(from_sq, to_sq, promotion="")
+        if self.board.variation_history is not None:
+            if not (self.in_end_of_line() and self.board.variation_history.count("|") == 0):
+                return self.mueve_variation(from_sq, to_sq, promotion="")
         return self.messenger(from_sq, to_sq, promotion)
 
     def mueve_variation(self, from_sq, to_sq, promotion=""):

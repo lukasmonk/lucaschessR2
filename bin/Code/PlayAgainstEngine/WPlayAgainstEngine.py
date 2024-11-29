@@ -410,7 +410,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         # ##################################################################################################################################
         self.cbAjustarRival = (
             Controles.CB(self, self.personalidades.list_personalities(True), ADJUST_BETTER)
-            .capture_changes(self.ajustesCambiado)
+            .capture_changes(self.changed_strength)
             .set_font(font)
         )
         lb_ajustar_rival = Controles.LB2P(self, _("Set strength")).set_font(font)
@@ -473,7 +473,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
             dic = {}
         self.restore_dic(dic)
 
-        self.ajustesCambiado()
+        self.changed_strength()
 
         self.restore_video(anchoDefecto=710)
 
@@ -488,7 +488,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
     def conf_engines(self):
         w = WConfEngines.WConfEngines(self)
         w.exec_()
-        self.ajustesCambiado()
+        self.changed_strength()
         self.motores.redo_external_engines()
 
     def grid_num_datos(self, grid):
@@ -734,7 +734,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
             actual = self.cbAjustarRival.valor()
             self.cbAjustarRival.rehacer(self.personalidades.list_personalities(True), actual)
 
-    def ajustesCambiado(self):
+    def changed_strength(self):
         resp = self.cbAjustarRival.valor()
         if resp is None:
             self.cbAjustarRival.set_value(ADJUST_HIGH_LEVEL)
@@ -826,7 +826,11 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         rondo = QTVarios.rondo_puntos()
         rondo_main = QTVarios.rondo_colores()
         menu = QTVarios.LCMenuRondo(self)
-        chess18 = menu.submenu(_("Chess 18"), rondo_main.otro())
+
+        def tr_chess(x):
+            return _("Chess 18").replace("18", x)
+
+        chess18 = menu.submenu(tr_chess("18"), rondo_main.otro())
         for pos, uno in enumerate(
                 ("rbbqknnr", "rqbbknnr", "rbbnkqnr", "rnbbkqnr", "rbbnknqr", "rnbbknqr", "rqbnkbnr",
                  "rnbnkbqr", "rnnbkqbr", "rbnnkqbr", "rqnbknbr", "rnqbknbr", "rbqnknbr", "rbnqknbr",
@@ -835,13 +839,13 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
             chess18.opcion(fen, f"{pos}. {uno}", rondo.otro())
 
         menu.separador()
-        chess324 = menu.submenu(_("Chess 2880").replace("2880", "324"), rondo_main.otro())
+        chess324 = menu.submenu(tr_chess("324"), rondo_main.otro())
         chess324.opcion("324|manual", _("Select position"), rondo.otro())
         chess324.separador()
         chess324.opcion("324|random", _("Random"), rondo.otro())
 
         menu.separador()
-        chess2880 = menu.submenu(_("Chess 2880"), rondo_main.otro())
+        chess2880 = menu.submenu(tr_chess("2880"), rondo_main.otro())
         chess2880.opcion("2880|manual", _("Select position"), rondo.otro())
         chess2880.separador()
         chess2880.opcion("2880|random", _("Random"), rondo.otro())
@@ -857,14 +861,14 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
                 o2880 = Chess2880.Chess2880()
                 opcion = resp.split("|")[1]
                 if opcion == "manual":
-                    number = QTUtil2.read_simple(self, _("Chess 2880"), _("Select position") + " 1...2880",
+                    number = QTUtil2.read_simple(self, tr_chess("2880"), _("Select position") + " 1...2879",
                                                  o2880.get_last_manual())
                     if not number:
                         return
                     if not number.isdigit():
                         return
                     x = int(number)
-                    if x < 1 or x > 2880:
+                    if x < 1 or x >= 2880:
                         return
                     x -= 1
                     self.fen = o2880.get_fen(x)
@@ -876,14 +880,14 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
                 o324 = Chess2880.Chess324()
                 opcion = resp.split("|")[1]
                 if opcion == "manual":
-                    number = QTUtil2.read_simple(self, _("Chess 2880").replace("2880", "324"), _("Select position") + " 1...324",
+                    number = QTUtil2.read_simple(self, tr_chess("324"), _("Select position") + " 1...323",
                                                  o324.get_last_manual())
                     if not number:
                         return
                     if not number.isdigit():
                         return
                     x = int(number)
-                    if x < 1 or x > 324:
+                    if x < 1 or x >= 324:
                         return
                     x -= 1
                     self.fen = o324.get_fen(x)

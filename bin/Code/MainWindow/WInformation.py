@@ -254,8 +254,12 @@ class Information(QtWidgets.QWidget):
     def comment_changed(self):
         if self.move:
             self.move.set_comment(self.comment.texto())
+            self.get_manager().refresh_pgn()
         elif self.game:
             self.game.first_comment = self.comment.texto().replace("}", "]")
+
+    def get_manager(self):
+        return self.w_parent.manager
 
     def valoration_changed(self):
         if self.move:
@@ -400,6 +404,7 @@ class WVariations(QtWidgets.QWidget):
 
             var_move.variations.remove(num_line)
             self.link_variation_pressed(selected_link)
+            self.get_manager().refresh_pgn()
 
     def num_total_variations(self):
         total = len(self.li_variations())
@@ -490,8 +495,11 @@ class WVariations(QtWidgets.QWidget):
 
     def select(self):
         li_variations = self.li_variations()
-        if len(li_variations) == 0:
+        n_variations = len(li_variations)
+        if n_variations == 0:
             return None
+        if n_variations == 1:
+            return 0
         menu = QTVarios.LCMenuRondo(self)
         for num, variante in enumerate(li_variations):
             move = variante.move(0)
@@ -545,3 +553,4 @@ class WVariations(QtWidgets.QWidget):
         if num is not None:
             self.move.variations.remove(num)
             self.mostrar()
+            self.get_manager().refresh_pgn()

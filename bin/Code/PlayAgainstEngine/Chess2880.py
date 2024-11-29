@@ -59,7 +59,7 @@ class Chess2880:
 
 class Chess324:
     def __init__(self):
-        self.num_basic, self.lista = self.generate()
+        self.lista = self.generate()
         self.key = "CHESS324"
 
     @staticmethod
@@ -86,16 +86,14 @@ class Chess324:
         permutation_white: str
         for permutation_black in li:
             for permutation_white in li:
+                if permutation_black == permutation_white and permutation_white == "RNBQKBNR":
+                    continue
                 li_total.append((permutation_black.lower(), permutation_white))
 
         random.seed(324)
         random.shuffle(li_total)
         random.seed(time.time_ns())
-        pos_basic = -1
-        for pos, (permutation_white, permutation_black) in enumerate(li_total):
-            if permutation_black != permutation_white or permutation_white != "RNBQKBNR":
-                pos_basic = pos
-        return pos_basic, li_total
+        return li_total
 
     def get_fen(self, num):
         grp_black, grp_white = self.lista[num]
@@ -103,10 +101,8 @@ class Chess324:
         return fen
 
     def get_fen_random(self):
-        while True:
-            pos = random.randint(0, 324)
-            if pos != self.num_basic:
-                return self.get_fen(pos)
+        pos = random.randint(0, 323)
+        return self.get_fen(pos)
 
     def save_last_manual(self, number):
         dic = {"LAST_MANUAL": str(number + 1)}
