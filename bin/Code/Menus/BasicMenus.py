@@ -150,6 +150,7 @@ def menuplay_savemenu(procesador, dic_data=None):
 
     if procesador.configuration.x_menu_play_config:
         with UtilSQL.DictSQL(procesador.configuration.ficheroEntMaquinaConf) as dbc:
+            dbc.wrong_pickle(b"Code.Polyglots", b"Code.Books")
             dic = dbc.as_dictionary()
             li_conf = [(key, dic.get("MNT_ORDER", 0)) for key, dic in dic.items() if dic.get("MNT_VISIBLE", True)]
             li_conf.sort(key = lambda x: x[1])
@@ -176,6 +177,7 @@ def menuplay(procesador, extended=False):
         if opcion == MENU_PLAY_ANY_ENGINE:
             if procesador.configuration.x_menu_play_config:
                 with UtilSQL.DictSQL(procesador.configuration.ficheroEntMaquinaConf) as dbc:
+                    dbc.wrong_pickle(b"Code.Polyglots", b"Code.Books")
                     dic = dbc.as_dictionary()
                     li_conf = [(key, dic.get("MNT_ORDER", 0)) for key, dic in dic.items() if
                                dic.get("MNT_VISIBLE", True)]

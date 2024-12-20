@@ -321,6 +321,9 @@ class WKibLinea(QtWidgets.QDialog):
         else:
             self.em.setText("")
 
+    def orden_game_original(self, game: Game.Game):
+        self.orden_game(game)
+
     def valid_to_play(self):
         if self.game is None:
             return False

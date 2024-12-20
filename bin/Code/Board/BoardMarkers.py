@@ -102,11 +102,11 @@ class MarkerSC(BoardBlocks.BloqueEspSC):
         alto = physical_pos.alto
 
         self.rect = rect = QtCore.QRectF(dx, dy, ancho, alto)
-        dicEsquinas = {"tl": rect.topLeft(), "tr": rect.topRight(), "bl": rect.bottomLeft(), "br": rect.bottomRight()}
+        dic_esquinas = {"tl": rect.topLeft(), "tr": rect.topRight(), "bl": rect.bottomLeft(), "br": rect.bottomRight()}
 
         db = self.distBordes
         self.tpSize = None
-        for k, v in dicEsquinas.items():
+        for k, v in dic_esquinas.items():
             if distancia(p, v) <= db:
                 self.tpSize = k
                 return True
@@ -206,7 +206,8 @@ class MarkerSC(BoardBlocks.BloqueEspSC):
         painter.end()
         return pm
 
-    def name(self):
+    @staticmethod
+    def name():
         return _("Marker")
 
     def paint(self, painter, option, widget):
@@ -265,7 +266,7 @@ class MarkerSC(BoardBlocks.BloqueEspSC):
             dn = dn0
 
         self.rect = QtCore.QRectF(physical_pos.x, physical_pos.y, physical_pos.ancho, physical_pos.alto)
-        if self.siRecuadro:
+        if self.siRecuadro and self.siEditando:
             pen = QtGui.QPen()
             pen.setColor(QtGui.QColor("blue"))
             pen.setWidth(2)

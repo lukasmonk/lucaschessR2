@@ -113,6 +113,8 @@ class WLines(LCDialog.LCDialog):
         self.last_numlines = -1
         self.show_lines()
 
+        self.desactive_cambio_registro = False
+
     def refresh_glines(self):
         self.glines.refresh()
 
@@ -845,6 +847,9 @@ class WLines(LCDialog.LCDialog):
             return self.colorPar if linea % 2 == 1 else self.colorNon
 
     def grid_cambiado_registro(self, grid, row, o_column):
+        if self.desactive_cambio_registro:
+            self.desactive_cambio_registro = False
+            return
         col = o_column.key
         linea = row // 2
         self.game = self.dbop[linea]
@@ -1269,7 +1274,7 @@ class WLines(LCDialog.LCDialog):
         form.separador()
 
         form.checkbox(_("Comments"), False)
-        form.checkbox(_("Ratings"), False)
+        form.checkbox(_("Ratings") + " (NAGs)", False)
         form.checkbox(_("Analysis"), False)
         form.checkbox(_("Unused data"), False)
 

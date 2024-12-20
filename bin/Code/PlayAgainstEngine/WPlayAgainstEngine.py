@@ -598,6 +598,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
 
     def configurations(self):
         with UtilSQL.DictSQL(self.configuration.ficheroEntMaquinaConf) as dbc:
+            dbc.wrong_pickle(b"Code.Polyglots", b"Code.Books")
             dic = dbc.as_dictionary()
             li_conf = [(key, dic.get("MNT_ORDER", 0)) for key, dic in dic.items() if dic.get("MNT_VISIBLE", True)]
             li_conf.sort(key=lambda x: x[1])
@@ -654,10 +655,10 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
                 name = f"{name} ({self.rival.elo})"
         elif self.rival.type == ENG_MICPER:
             name = Util.primera_mayuscula(
-                self.rival.alias + " (%d, %s)" % (self.rival.elo, self.rival.id_info.replace("\n", "-"))
+                self.rival.alias + " (%d, %s)" % (self.rival.elo, self.rival.id_info.replace("\n", ", "))
             )
         elif self.rival.type == ENG_WICKER:
-            name = self.rival.name + " (%d, %s)" % (self.rival.elo, self.rival.id_info.replace("\n", "-"))
+            name = self.rival.name + " (%d, %s)" % (self.rival.elo, self.rival.id_info.replace("\n", ", "))
         else:
             name = self.rival.name
         if len(name) > 70:

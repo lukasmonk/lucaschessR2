@@ -1,24 +1,17 @@
 import gc
+import sys
 
-from PySide2 import QtCore, QtGui, QtWidgets
+from PySide2 import QtCore
+from PySide2 import QtGui, QtWidgets
 
 import Code
 
 
 class GarbageCollector(QtCore.QObject):
-    # http://pydev.blogspot.com.br/2014/03/should-python-garbage-collector-be.html
-    # Erik Janssens
-    #
-    # Disable automatic garbage collection and instead collect manually
-    # every INTERVAL milliseconds.
-    #
-    # This is done to ensure that garbage collection only happens in the GUI
-    # thread, as otherwise Qt can crash.
-
     INTERVAL = 10000
 
     def __init__(self):
-        QtCore.QObject.__init__(self)
+        super().__init__()
 
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.check)
@@ -30,11 +23,21 @@ class GarbageCollector(QtCore.QObject):
     def check(self):
         l0, l1, l2 = gc.get_count()
         if l0 > self.threshold[0]:
-            gc.collect(0)
-            if l1 > self.threshold[1]:
-                gc.collect(1)
-                if l2 > self.threshold[2]:
-                    gc.collect(2)
+            self.collect_garbage(0)
+        if l1 > self.threshold[1]:
+            self.collect_garbage(1)
+        if l2 > self.threshold[2]:
+            self.collect_garbage(2)
+
+    def collect_garbage(self, generation):
+        try:
+            QtCore.QTimer.singleShot(0, lambda: self.collect(generation))
+        except Exception as e:
+            sys.stderr.write(f"Error during garbage collection: {e}\n")
+
+    @QtCore.Slot(int)
+    def collect(self, generation):
+        gc.collect(generation)
 
 
 def beep():
@@ -163,7 +166,7 @@ class EscondeWindow:
             self.pos = self.window.pos()
             d = dic_monitores()
             ancho = sum(geometry.width() for geometry in d.values())
-            self.window.move(ancho + self.window.width()+10, 0)
+            self.window.move(ancho + self.window.width() + 10, 0)
         else:
             self.window.showMinimized()
         return self
@@ -217,6 +220,18 @@ def get_txt_clipboard():
     return cb.text()
 
 
+class MaintainGeometry:
+    def __init__(self, window):
+        self.window = window
+        self.geometry = window.geometry()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, type, value, traceback):
+        self.window.setGeometry(self.geometry)
+
+
 def get_clipboard():
     clipboard = QtWidgets.QApplication.clipboard()
     mimedata = clipboard.mimeData()
@@ -233,6 +248,7 @@ def get_clipboard():
 
 
 def shrink(widget):
+    widget.adjustSize()
     r = widget.geometry()
     r.setWidth(0)
     r.setHeight(0)

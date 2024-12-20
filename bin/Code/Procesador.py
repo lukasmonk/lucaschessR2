@@ -10,6 +10,7 @@ from Code import CPU
 from Code import ManagerEntPos
 from Code import ManagerGame
 from Code import ManagerSolo
+from Code import RemoveResults
 from Code import Update
 from Code import Util
 from Code.About import About
@@ -82,7 +83,6 @@ from Code.Swiss import WSwisses, ManagerSwiss
 from Code.Tournaments import WTournaments
 from Code.Washing import ManagerWashing, WindowWashing
 from Code.WritingDown import WritingDown, ManagerWritingDown
-from Code import RemoveResults
 
 
 class Procesador:
@@ -174,15 +174,15 @@ class Procesador:
                 self.read_pgn(comando)
                 return
 
-        self.entrenamientos = MenuTrainings.MenuTrainings(self)
-        if self.configuration.x_translation_mode:
-            self.entrenamientos.verify()
-
         self.main_window = MainWindow.MainWindow(self)
         self.main_window.set_manager_active(self)  # antes que muestra
         self.main_window.muestra()
         self.main_window.check_translated_help_mode()
         self.kibitzers_manager = KibitzersManager.Manager(self)
+
+        self.entrenamientos = MenuTrainings.MenuTrainings(self)
+        if self.configuration.x_translation_mode:
+            self.entrenamientos.verify()
 
         self.board = self.main_window.board
 
@@ -700,6 +700,7 @@ class Procesador:
             menu.separador()
 
             menu1 = menu.submenu(_("User data folder"), Iconos.Carpeta())
+            menu1.opcion(self.open_explorer, _("Current") + ": " + self.configuration.carpeta)
             menu1.opcion(self.folder_change, _("Change the folder"), Iconos.FolderChange())
             if not Configuration.is_default_folder():
                 menu1.separador()
@@ -711,6 +712,9 @@ class Procesador:
                 resp[0](resp[1])
             else:
                 resp()
+
+    def open_explorer(self):
+        Code.startfile(self.configuration.carpeta)
 
     def remove_results(self):
         rem = RemoveResults.RemoveResults(self.main_window)
@@ -976,6 +980,7 @@ class Procesador:
         dic = None
         if conf:
             with UtilSQL.DictSQL(self.configuration.ficheroEntMaquinaConf) as dbc:
+                dbc.wrong_pickle(b"Code.Polyglots", b"Code.Books")
                 dic = dbc[conf]
         if dic is None:
             dic = WPlayAgainstEngine.play_against_engine(self, _("Play against an engine"))

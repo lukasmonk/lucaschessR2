@@ -48,7 +48,7 @@ class WTV_Marker(QtWidgets.QDialog):
         config_board = owner.board.config_board
         self.board = Board.Board(self, config_board, with_director=False)
         self.board.crea()
-        self.board.copiaPosicionDe(owner.board)
+        self.board.copia_posicion_de(owner.board)
 
         # Datos generales
         li_gen = []
@@ -99,21 +99,21 @@ class WTV_Marker(QtWidgets.QDialog):
         if hasattr(self, "form"):
             li = self.form.get()
             for n, marker in enumerate(self.liEjemplos):
-                regMarker = marker.bloqueDatos
-                regMarker.name = li[0]
-                regMarker.opacity = (100.0 - float(li[1])) / 100.0
-                regMarker.psize = li[2]
-                regMarker.poscelda = li[3]
-                regMarker.physical_pos.orden = li[4]
-                marker.setOpacity(regMarker.opacity)
-                marker.setZValue(regMarker.physical_pos.orden)
+                reg_marker = marker.bloqueDatos
+                reg_marker.name = li[0]
+                reg_marker.opacity = (100.0 - float(li[1])) / 100.0
+                reg_marker.psize = li[2]
+                reg_marker.poscelda = li[3]
+                reg_marker.physical_pos.orden = li[4]
+                marker.setOpacity(reg_marker.opacity)
+                marker.setZValue(reg_marker.physical_pos.orden)
                 marker.update()
             self.board.escena.update()
             QTUtil.refresh_gui()
 
     def grabar(self):
-        regMarker = self.liEjemplos[0].bloqueDatos
-        name = regMarker.name.strip()
+        reg_marker = self.liEjemplos[0].bloqueDatos
+        name = reg_marker.name.strip()
         if name == "":
             QTUtil2.message_error(self, _("Name missing"))
             return
@@ -121,9 +121,9 @@ class WTV_Marker(QtWidgets.QDialog):
         pm = self.liEjemplos[0].pixmapX()
         bf = QtCore.QBuffer()
         pm.save(bf, "PNG")
-        regMarker.png = bytes(bf.buffer())
+        reg_marker.png = bytes(bf.buffer())
 
-        self.regMarker = regMarker
+        self.regMarker = reg_marker
         self.accept()
 
 
@@ -166,7 +166,7 @@ class WTV_Markers(LCDialog.LCDialog):
         config_board = self.configuration.config_board("EDIT_GRAPHICS", 48)
         self.board = Board.Board(self, config_board, with_director=False)
         self.board.crea()
-        self.board.copiaPosicionDe(owner.board)
+        self.board.copia_posicion_de(owner.board)
 
         # Layout
         layout = Colocacion.H().otro(ly).control(self.board)
@@ -234,9 +234,14 @@ class WTV_Markers(LCDialog.LCDialog):
             return
 
         if resp == "@":
-            file = SelectFiles.leeFichero(self, "imgs", "svg", titulo=_("Image"))
+            key = "MARKERS"
+            dic = Code.configuration.read_variables(key)
+            folder = dic.get("PATH_SEEK", Code.configuration.carpeta)
+            file = SelectFiles.leeFichero(self, folder, "svg", titulo=_("Image"))
             if not file:
                 return
+            dic["PATH_SEEK"] = os.path.dirname(file)
+            Code.configuration.write_variables(key, dic)
         else:
             file = resp
         with open(file, "rt", encoding="utf-8", errors="ignore") as f:

@@ -68,6 +68,7 @@ class Scanner(QtWidgets.QDialog):
             self.width = self.vars.last_width
             self.height = self.vars.last_height
             self.setPathW()
+            self.selected = True
 
     def save(self):
         self.vars.last_width = self.width
@@ -118,23 +119,32 @@ class Scanner(QtWidgets.QDialog):
         self.path = rect
         self.update()
 
-    def mouseMoveEvent(self, eventMouse):
+    def mouseMoveEvent(self, event_mouse):
         if self.selecting:
-            self.setPath(eventMouse.pos())
+            modifiers = QtWidgets.QApplication.keyboardModifiers()
+            if modifiers == QtCore.Qt.ShiftModifier:
+                width = event_mouse.pos().x() - self.x
+                height = event_mouse.pos().y() - self.y
+                side_length = min(width, height)
+                self.width = self.height = side_length
+                self.setPathW()
+                QtGui.QCursor.setPos(self.mapToGlobal(QtCore.QPoint(self.x + self.width, self.y + self.height)))
+            else:
+                self.setPath(event_mouse.pos())
 
-    def mousePressEvent(self, eventMouse):
-        if eventMouse.button() in (QtCore.Qt.LeftButton, QtCore.Qt.RightButton):
+    def mousePressEvent(self, event_mouse):
+        if event_mouse.button() in (QtCore.Qt.LeftButton, QtCore.Qt.RightButton):
             self.selecting = True
             self.selected = False
-            origin = eventMouse.pos()
+            origin = event_mouse.pos()
             self.x = origin.x()
             self.y = origin.y()
             self.width = 0
             self.height = 0
-            self.side = WHITE if eventMouse.button() == QtCore.Qt.LeftButton else BLACK
-        eventMouse.ignore()
+            self.side = WHITE if event_mouse.button() == QtCore.Qt.LeftButton else BLACK
+        event_mouse.ignore()
 
-    def mouseReleaseEvent(self, eventMouse):
+    def mouseReleaseEvent(self, event_mouse):
         self.selecting = False
         self.selected = True
         if self.width < 10:
@@ -148,7 +158,8 @@ class Scanner(QtWidgets.QDialog):
             self.vars.x = self.x
             self.vars.y = self.y
             self.save()
-            self.accept()
+            if not (event_mouse.modifiers()):
+                self.accept()
 
     def keyPressEvent(self, event):
         k = event.key()

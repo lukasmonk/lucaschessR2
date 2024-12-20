@@ -259,14 +259,14 @@ class SelectEngines:
         li = sorted(self.dict_engines_fixed_elo.keys())
         for elo in li:
             icono = rp.otro()
-            submenuElo = submenu.submenu(str(elo), icono)
+            submenu_elo = submenu.submenu(str(elo), icono)
             lien = self.dict_engines_fixed_elo[elo]
             lien.sort(key=lambda x: x.name)
             for cm in lien:
                 texto = cm.name
                 cm.elo = elo
-                submenuElo.opcion(cm, texto, icono)
-            submenuElo.separador()
+                submenu_elo.opcion(cm, texto, icono)
+            submenu_elo.separador()
 
         menu.separador()
         submenu = menu.submenu(dnames[ENG_RODENT], self.dicIconos[ENG_RODENT])

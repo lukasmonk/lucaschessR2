@@ -15,7 +15,7 @@ from Code.Base.Constantes import (
 )
 from Code.BestMoveTraining import WindowBMT
 from Code.CompetitionWithTutor import CompetitionWithTutor
-from Code.Coordinates import WCoordinatesBlocks, WCoordinatesBasic
+from Code.Coordinates import WCoordinatesBlocks, WCoordinatesBasic, WCoordinatesWrite
 from Code.CountsCaptures import WCountsCaptures
 from Code.Endings import ManagerMate
 from Code.Expeditions import WindowEverest
@@ -189,6 +189,8 @@ class MenuTrainings:
         xopcion(menu2, "coordinates_basic", _("Basic"), Iconos.West())
         menu2.separador()
         xopcion(menu2, "coordinates_blocks", _("By blocks"), Iconos.Blocks())
+        menu2.separador()
+        xopcion(menu2, "coordinates_write", _("Visualise and write"), Iconos.CoordinatesWrite())
 
         menu_basic.separador()
         xopcion(menu_basic, "anotar", _("Writing down moves of a game"), Iconos.Write())
@@ -547,6 +549,9 @@ class MenuTrainings:
                 elif resp == "coordinates_basic":
                     self.coordinates_basic()
 
+                elif resp == "coordinates_write":
+                    self.coordinates_write()
+
                 elif resp.startswith("memory"):
                     mem = Memory.Memoria(self.procesador)
                     if resp == "memory_results":
@@ -745,6 +750,10 @@ class MenuTrainings:
 
     def coordinates_basic(self):
         w = WCoordinatesBasic.WCoordinatesBasic(self.procesador)
+        w.exec_()
+
+    def coordinates_write(self):
+        w = WCoordinatesWrite.WCoordinatesWrite(self.procesador)
         w.exec_()
 
 

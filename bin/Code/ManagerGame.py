@@ -199,6 +199,8 @@ class ManagerGame(Manager.Manager):
         if ok is None:
             return ok
 
+        self.procesador.close_engines()
+
         if ok:
             self.main_window.accept()
         else:

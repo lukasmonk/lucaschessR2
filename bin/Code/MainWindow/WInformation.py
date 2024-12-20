@@ -64,13 +64,10 @@ class Information(QtWidgets.QWidget):
             self.lb_clock)
         ly_rating.otro(ly_pw_tm)
 
-        li_acciones = [
-            (_("Rating"), Iconos.Mas(), self.edit_rating),
-            None,
-            (_("Theme"), Iconos.MasR(), self.edit_theme),
-        ]
-        tb = QTVarios.LCTB(self, li_acciones, icon_size=16, style=QtCore.Qt.ToolButtonTextBesideIcon)
-        ly_rating.control(tb)
+        bt_rating = Controles.PB(self, _("Rating") + " (NAG)", rutina=self.edit_rating).ponIcono(Iconos.Mas(), 16)
+        bt_theme = Controles.PB(self, _("Theme"), rutina=self.edit_theme).ponIcono(Iconos.MasR(), 16)
+        ly_rt = Colocacion.H().relleno().control(bt_rating).relleno().control(bt_theme).relleno()
+        ly_rating.otro(ly_rt)
 
         self.lb_rating = Controles.LB(self).set_font(font_bold).set_wrap()
         self.lb_rating.hide()
@@ -114,8 +111,6 @@ class Information(QtWidgets.QWidget):
         layout.margen(1)
 
         self.setLayout(layout)
-
-        self.setMinimumWidth(220)
 
     def edit_theme(self, event=None):
         if event:
@@ -329,7 +324,7 @@ class WVariations(QtWidgets.QWidget):
 
         lb_variations = Controles.LB(self.owner, _("Variations")).set_font(f)
 
-        ly_head = Colocacion.H().control(lb_variations).relleno().control(tb_variations).margen(0)
+        ly_head = Colocacion.H().control(lb_variations).relleno().control(tb_variations).relleno().margen(0)
 
         layout = Colocacion.V().otro(ly_head).control(self.em).margen(0)
         self.setLayout(layout)
@@ -399,7 +394,6 @@ class WVariations(QtWidgets.QWidget):
         game: Game.Game = self.move.variations.li_variations[num_line]
         pgn = game.pgn_base_raw(translated=True)
         if QTUtil2.pregunta(self, pgn + "<br><br>" + _("Are you sure you want to delete this line?")):
-
             li_variation_move = li_variation_move[:-2]
             selected_link = "|".join(li_variation_move)
             variation, var_move = self.det_variation_move(li_variation_move)
@@ -502,14 +496,17 @@ class WVariations(QtWidgets.QWidget):
             return None
         if n_variations == 1:
             return 0
-        menu = QTVarios.LCMenuRondo(self)
-        menu.opcion(None, _("Remove"))
+        menu = QTVarios.LCMenu(self)
+        menu.separador()
+        menu.opcion(None, "  " + _("Remove"), is_disabled=True, font_type=Controles.FontType(puntos=16))
+        menu.separador()
+        rondo = QTVarios.rondo_puntos()
         for num, variante in enumerate(li_variations):
             move = variante.move(0)
-            menu.opcion(num, move.pgn_translated())
+            menu.opcion(num, move.pgn_translated(), rondo.otro())
         if with_all:
             menu.separador()
-            menu.opcion(-1, _("All variations"))
+            menu.opcion(-1, _("All variations"), Iconos.Borrar())
         return menu.lanza()
 
     def edit(self, number, with_engine_active=False):
@@ -559,7 +556,8 @@ class WVariations(QtWidgets.QWidget):
         if num is None:
             return
         elif num == -1:
-            pregunta = _("Remove") + ":<br><br>&nbsp;&nbsp;&nbsp;&nbsp;" + _("All variations") + "<br><br>" + _("Are you sure?")
+            pregunta = _("Remove") + ":<br><br>&nbsp;&nbsp;&nbsp;&nbsp;" + _("All variations") + "<br><br>" + _(
+                "Are you sure?")
             if QTUtil2.pregunta(self, pregunta):
                 self.move.variations.clear()
                 self.mostrar()
@@ -570,5 +568,8 @@ class WVariations(QtWidgets.QWidget):
             pgn = game.pgn_base_raw(translated=True)
             if QTUtil2.pregunta(self, pgn + "<br><br>" + _("Are you sure you want to delete this line?")):
                 self.move.variations.remove(num)
-                self.mostrar()
+                if self.selected_link:
+                    selected_link = self.selected_link.split("|")[0] if self.selected_link.count("|") == 2 \
+                        else self.selected_link
+                    self.link_variation_pressed(selected_link)
                 self.get_manager().refresh_pgn()

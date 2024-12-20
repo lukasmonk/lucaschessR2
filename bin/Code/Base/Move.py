@@ -35,7 +35,7 @@ class Move:
         self.time_ms = 0
         self.clock_ms = 0
 
-        self.is_book = False
+        self.is_book = None
 
         self.elo = None
         self.questionable_move = None
@@ -142,6 +142,12 @@ class Move:
 
     def is_brilliant(self):
         return NAG_3 in self.li_nags
+
+    def get_nag(self):
+        for nag in self.li_nags:
+            if nag <= NAG_6:
+                return nag
+        return NAG_0
 
     def del_nags(self):
         self.li_nags = []

@@ -196,11 +196,12 @@ class WKibEngine(WKibCommon.WKibCommon):
             if rm.pv:
                 p = Game.Game(first_position=self.game.last_position)
                 p.read_pv(rm.pv)
-                move0: Move.Move = p.li_moves[0]
-                p.first_position = move0.position
-                p.li_moves = p.li_moves[1:]
-                txt = p.pgn_base_raw() if self.with_figurines else p.pgn_translated()
-                return txt.lstrip("0123456789. ") if ".." in txt else txt
+                if p.li_moves:
+                    move0: Move.Move = p.li_moves[0]
+                    p.first_position = move0.position
+                    p.li_moves = p.li_moves[1:]
+                    txt = p.pgn_base_raw() if self.with_figurines else p.pgn_translated()
+                    return txt.lstrip("0123456789. ") if ".." in txt else txt
 
     def grid_doble_click(self, grid, row, o_column):
         if 0 <= row < len(self.li_moves):

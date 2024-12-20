@@ -42,6 +42,8 @@ class AnalyzeGame:
 
         self.accuracy_tags = alm.accuracy_tags
 
+        self.skip_standard_moves = alm.standard_openings
+
         # Asignacion de variables para blunders:
         # kblunders_condition: minima condición para considerar como erróneo
         # tacticblunders: folder donde guardar tactic
@@ -411,10 +413,26 @@ FILESW=%s:100
 
                 move = game.move(mov)
                 if xlibro_aperturas.get_list_moves(move.position.fen()):
+                    move.is_book = True
                     st_borrar.add(mov)
                     continue
                 else:
                     break
+        if self.skip_standard_moves:
+            for mov in li_pos_moves:
+                if tmp_bp.is_canceled():
+                    self.xmanager.remove_gui_dispatch()
+                    return
+
+                move = game.move(mov)
+                if move.in_the_opening:
+                    move.is_book = True
+                    st_borrar.add(mov)
+                    continue
+                else:
+                    break
+
+
 
         if self.from_last_move:
             li_pos_moves.reverse()

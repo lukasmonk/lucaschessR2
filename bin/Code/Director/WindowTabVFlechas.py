@@ -44,7 +44,7 @@ class WTV_Flecha(QtWidgets.QDialog):
         config_board.width_piece(36)
         self.board = Board.Board(self, config_board, with_director=False)
         self.board.crea()
-        self.board.copiaPosicionDe(owner.board)
+        self.board.copia_posicion_de(owner.board)
         self.board.allowed_extern_resize(False)
         self.board.activa_menu_visual(False)
 
@@ -237,7 +237,7 @@ class WTV_Flechas(LCDialog.LCDialog):
         config_board = Code.configuration.config_board("EDIT_GRAPHICS", 48)
         self.board = Board.Board(self, config_board, with_director=False)
         self.board.crea()
-        self.board.copiaPosicionDe(owner.board)
+        self.board.copia_posicion_de(owner.board)
 
         # Layout
         layout = Colocacion.H().otro(ly).control(self.board)

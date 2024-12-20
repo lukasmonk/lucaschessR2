@@ -22,233 +22,23 @@ from Code.QT import QTVarios
 
 
 class WRun(LCDialog.LCDialog):
-    def __init__(self, w_parent, sts, work, procesador):
+    def __init__(self, w_parent, sts, work, procesador, with_board):
         titulo = "%s - %s - %s" % (sts.name, work.ref, work.pathToExe())
         icono = Iconos.STS()
         extparam = "runsts"
+        if with_board:
+            extparam += "2"
         LCDialog.LCDialog.__init__(self, w_parent, titulo, icono, extparam)
 
         self.work = work
         self.sts = sts
         self.ngroup = -1
         self.xengine = procesador.creaManagerMotor(work.configEngine(), work.seconds * 1000, work.depth)
-        self.xengine.set_direct()
+        if not with_board:
+            self.xengine.set_direct()
         self.playing = False
         self.configuration = procesador.configuration
-        self.run_test_close = work.seconds > 3 or work.depth > 10
-
-        # Toolbar
-        li_acciones = [
-            (_("Close"), Iconos.MainMenu(), self.cerrar),
-            None,
-            (_("Run"), Iconos.Run(), self.run),
-            (_("Pause"), Iconos.Pelicula_Pausa(), self.pause),
-            None,
-        ]
-        self.tb = tb = QTVarios.LCTB(self, li_acciones, icon_size=24)
-
-        # Area resultados
-        o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("GROUP", _("Group"), 180)
-        o_columns.nueva("DONE", _("Done"), 100, align_center=True)
-        o_columns.nueva("WORK", work.ref, 120, align_center=True)
-
-        self.dworks = self.read_works()
-        self.calc_max()
-        for x in range(len(self.sts.works) - 1, -1, -1):
-            work = self.sts.works.getWork(x)
-            if work != self.work:
-                key = "OTHER%d" % x
-                reg = self.dworks[key]
-                o_columns.nueva(key, reg.title, 120, align_center=True)
-
-        self.grid = Grid.Grid(self, o_columns, siSelecFilas=True)
-
-        self.colorMax = QTUtil.qtColor("#840C24")
-        self.colorOth = QTUtil.qtColor("#4668A6")
-
-        layout = Colocacion.H()
-        layout.control(self.grid)
-        layout.margen(3)
-
-        ly = Colocacion.V().control(tb).otro(layout)
-
-        self.setLayout(ly)
-
-        self.restore_video(siTam=True, anchoDefecto=800, altoDefecto=430)
-
-        resp = self.sts.siguientePosicion(self.work)
-        if resp:
-            self.tb.set_action_visible(self.pause, False)
-            self.tb.set_action_visible(self.run, True)
-        else:
-            self.tb.set_action_visible(self.pause, False)
-            self.tb.set_action_visible(self.run, False)
-
-    def cerrar(self):
-        if self.playing:
-            self.pause()
-            return
-        self.sts.save()
-        self.xengine.terminar()
-        self.save_video()
-        self.playing = False
-        self.accept()
-
-    def closeEvent(self, event):
-        self.cerrar()
-
-    def test_close(self, rm):
-        QTUtil.refresh_gui()
-        return self.playing
-
-    def run(self):
-        if not Util.exist_file(self.work.pathToExe()):
-            QTUtil2.message_error(self, "%s\n%s" % (self.work.pathToExe(), _("Path does not exist.")))
-            return
-        self.tb.set_action_visible(self.pause, True)
-        self.tb.set_action_visible(self.run, False)
-        QTUtil.refresh_gui()
-        self.playing = True
-
-        if self.run_test_close:
-            self.xengine.set_gui_dispatch(self.test_close)
-        while self.playing:
-            self.siguiente()
-
-    def pause(self):
-        self.tb.set_action_visible(self.pause, False)
-        self.tb.set_action_visible(self.run, True)
-        QTUtil.refresh_gui()
-        self.playing = False
-        self.sts.save()
-
-    def siguiente(self):
-        resp = self.sts.siguientePosicion(self.work)
-        if resp:
-            ngroup, self.nfen, self.elem = resp
-            if ngroup != self.ngroup:
-                self.calc_max()
-                self.grid.refresh()
-                self.ngroup = ngroup
-            if not self.playing:
-                return
-            t0 = time.time()
-            mrm = self.xengine.analiza(self.elem.fen)
-            t_dif = time.time() - t0
-            if mrm:
-                rm = mrm.best_rm_ordered()
-                if rm:
-                    mov = rm.movimiento()
-                    if mov:
-                        self.sts.setResult(self.work, self.ngroup, self.nfen, mov, t_dif)
-                        self.grid.refresh()
-
-        else:
-            self.sts.save()
-            self.calc_max()
-            self.grid.refresh()
-            self.tb.set_action_visible(self.pause, False)
-            self.tb.set_action_visible(self.run, False)
-            self.playing = False
-
-        QTUtil.refresh_gui()
-
-    def grid_num_datos(self, grid):
-        return len(self.sts.groups)
-
-    def grid_bold(self, grid, row, o_column):
-        column = o_column.key
-        if column.startswith("OTHER") or column == "WORK":
-            return self.dworks[column].labels[row].is_max
-        return False
-
-        # def grid_color_texto(self, grid, row, o_column):
-        # column = o_column.key
-        # if column.startswith("OTHER") or column == "WORK":
-        # mx_col = []
-        # mx_pt = 0
-        # for col, work in self.dworks.items():
-        # pt = self.sts.xdonePoints(work, row)
-        # if pt:
-        # if pt == mx_pt:
-        # mx_col.append(col)
-        # elif pt > mx_pt:
-        # mx_col = [col]
-        # mx_pt = pt
-        # if column in mx_col:
-        # return self.colorMax
-        # else:
-        # return self.colorOth
-        # return None
-
-    def grid_dato(self, grid, row, o_column):
-        column = o_column.key
-        group = self.sts.groups.group(row)
-        if column == "GROUP":
-            return group.name
-        elif column == "DONE":
-            return self.sts.donePositions(self.work, row)
-        elif column == "WORK":
-            return self.sts.donePoints(self.work, row)
-        elif column.startswith("OTHER"):
-            return self.dworks[column].labels[row].label
-
-    def read_work(self, work):
-        tm = '%0.02f"' % work.seconds if work.seconds else ""
-        dp = "%d^" % work.depth if work.depth else ""
-        r = Util.Record()
-        r.title = "%s %s%s" % (work.ref, tm, dp)
-        r.labels = []
-        for ng in range(len(self.sts.groups)):
-            rl = Util.Record()
-            rl.points = self.sts.xdonePoints(work, ng)
-            rl.label = self.sts.donePoints(work, ng)
-            rl.is_max = False
-            r.labels.append(rl)
-        return r
-
-    def read_works(self):
-        d = {}
-        nworks = len(self.sts.works)
-        for xw in range(nworks):
-            work = self.sts.works.getWork(xw)
-            key = "OTHER%d" % xw if work != self.work else "WORK"
-            d[key] = self.read_work(work)
-        return d
-
-    def calc_max(self):
-        self.dworks["WORK"] = self.read_work(self.work)
-        ngroups = len(self.sts.groups)
-        for ng in range(ngroups):
-            mx = 0
-            st = set()
-            for key, r in self.dworks.items():
-                rl = r.labels[ng]
-                pt = rl.points
-                if pt > mx:
-                    mx = pt
-                    st = {key}
-                elif pt > 0 and pt == mx:
-                    st.add(key)
-            for key, r in self.dworks.items():
-                r.labels[ng].is_max = key in st
-
-
-class WRun2(LCDialog.LCDialog):
-    def __init__(self, w_parent, sts, work, procesador):
-        titulo = "%s - %s - %s" % (sts.name, work.ref, work.pathToExe())
-        icono = Iconos.STS()
-        extparam = "runsts2"
-        LCDialog.LCDialog.__init__(self, w_parent, titulo, icono, extparam)
-
-        self.work = work
-        self.sts = sts
-        self.ngroup = -1
-        self.xengine = procesador.creaManagerMotor(work.configEngine(), work.seconds * 1000, work.depth)
-        self.xengine.set_direct()
-        self.playing = False
-        self.configuration = procesador.configuration
+        self.with_board = with_board
 
         # Toolbar
         li_acciones = [
@@ -260,10 +50,11 @@ class WRun2(LCDialog.LCDialog):
         ]
         self.tb = tb = Controles.TBrutina(self, li_acciones, icon_size=24)
 
-        # Board
-        config_board = self.configuration.config_board("STS", 32)
-        self.board = Board.Board(self, config_board)
-        self.board.crea()
+        if with_board:
+            # Board
+            config_board = self.configuration.config_board("STS", 32)
+            self.board = Board.Board(self, config_board)
+            self.board.crea()
 
         # Area resultados
         o_columns = Columnas.ListaColumnas()
@@ -286,7 +77,8 @@ class WRun2(LCDialog.LCDialog):
         self.colorOth = QTUtil.qtColor("#4668A6")
 
         layout = Colocacion.H()
-        layout.control(self.board)
+        if with_board:
+            layout.control(self.board)
         layout.control(self.grid)
         layout.margen(3)
 
@@ -337,14 +129,15 @@ class WRun2(LCDialog.LCDialog):
                 self.calc_max()
                 self.grid.refresh()
                 self.ngroup = ngroup
-            cp = Position.Position()
-            cp.read_fen(self.elem.fen)
-            self.board.set_position(cp)
-            self.xengine.set_gui_dispatch(self.dispatch)
             xpt, xa1h8 = self.elem.bestA1H8()
-            self.board.remove_arrows()
-            self.board.put_arrow_sc(xa1h8[:2], xa1h8[2:4])
-            QTUtil.refresh_gui()
+            if self.with_board:
+                cp = Position.Position()
+                cp.read_fen(self.elem.fen)
+                self.board.set_position(cp)
+                self.xengine.set_gui_dispatch(self.dispatch)
+                self.board.remove_arrows()
+                self.board.put_arrow_sc(xa1h8[:2], xa1h8[2:4])
+                QTUtil.refresh_gui()
             if not self.playing:
                 return
             t0 = time.time()
@@ -355,7 +148,8 @@ class WRun2(LCDialog.LCDialog):
                 if rm:
                     mov = rm.movimiento()
                     if mov:
-                        self.board.creaFlechaTmp(rm.from_sq, rm.to_sq, False)
+                        if self.with_board:
+                            self.board.creaFlechaTmp(rm.from_sq, rm.to_sq, False)
                         self.sts.setResult(self.work, self.ngroup, self.nfen, mov, t1)
                         self.grid.refresh()
             else:
@@ -637,23 +431,21 @@ class WUnSTS(LCDialog.LCDialog):
         menu.opcion("formula", _("Formula to calculate elo"), Iconos.STS())
         resp = menu.lanza()
         if resp:
-            X = self.sts.X
-            K = self.sts.K
+            x = self.sts.X
+            k = self.sts.K
             while True:
-                li_gen = [(None, None)]
-                li_gen.append((None, "X * %s + K" % _("Result")))
-                config = FormLayout.Editbox("X", 100, tipo=float, decimales=4)
-                li_gen.append((config, X))
-                config = FormLayout.Editbox("K", 100, tipo=float, decimales=4)
-                li_gen.append((config, K))
-                resultado = FormLayout.fedit(
-                    li_gen, title=_("Formula to calculate elo"), parent=self, icon=Iconos.Elo(), if_default=True
-                )
+                form = FormLayout.FormLayout(self, _("Formula to calculate elo"), Iconos.Elo(), with_default=True)
+                form.separador()
+                form.apart(f'X * {_("Result")} + K')
+                form.separador()
+                form.editbox("X", 100, tipo=float, decimales=4, init_value=x, negatives=True)
+                form.editbox("K", 100, tipo=float, decimales=4, init_value=k, negatives=True)
+                resultado = form.run()
                 if resultado:
                     resp, valor = resultado
                     if resp == "defecto":
-                        X = self.sts.Xdefault
-                        K = self.sts.Kdefault
+                        x = self.sts.Xdefault
+                        k = self.sts.Kdefault
                     else:
                         x, k = valor
                         self.sts.formulaChange(x, k)
@@ -683,14 +475,14 @@ class WUnSTS(LCDialog.LCDialog):
         row = self.grid.recno()
         if row >= 0:
             work = self.sts.getWork(row)
-            w = WRun(self, self.sts, work, self.procesador)
+            w = WRun(self, self.sts, work, self.procesador, False)
             w.exec_()
 
     def wkRun2(self):
         row = self.grid.recno()
         if row >= 0:
             work = self.sts.getWork(row)
-            w = WRun2(self, self.sts, work, self.procesador)
+            w = WRun(self, self.sts, work, self.procesador, True)
             w.exec_()
 
     def grid_doble_click(self, grid, row, column):

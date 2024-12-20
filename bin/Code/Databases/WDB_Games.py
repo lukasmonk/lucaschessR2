@@ -11,7 +11,7 @@ from Code.Analysis import AnalysisGame, WindowAnalysisParam, RunAnalysisControl
 from Code.Base import Game, Position
 from Code.Base.Constantes import WHITE, BLACK, FEN_INITIAL
 from Code.Books import PolyglotImportExports
-from Code.Databases import DBgames, WDB_Utils, DBgamesMov
+from Code.Databases import DBgames, WDB_Utils, DBgamesMov, RemoveCommentsVariations
 from Code.GM import GM
 from Code.LearnGame import WindowPlayGame, WindowLearnGame
 from Code.Odt import WOdt
@@ -140,7 +140,7 @@ class WGames(QtWidgets.QWidget):
             submenu.separador()
             eti = '"' + _("Training positions") + '"'
             submenu.opcion(self.tw_training_positions, _X(_("Create training to %1"), eti), Iconos.Carpeta())
-            
+
         resp = menu.lanza()
         if resp:
             resp()
@@ -423,9 +423,14 @@ class WGames(QtWidgets.QWidget):
                 self.grid.refresh()
                 self.grid.gotop()
 
+        self.show_current()
+
+    def show_current(self):
         recno = self.grid.recno()
         if recno >= 0:
             self.grid_cambiado_registro(None, recno, None)
+        else:
+            self.infoMove.modoPartida(Game.Game(), 0)
 
     def grid_cambiado_registro(self, grid, row, oCol):
         if self.grid_num_datos(grid) > row >= 0:
@@ -693,11 +698,19 @@ class WGames(QtWidgets.QWidget):
             self.grid.refresh()
             self.updateStatus()
 
+            self.show_current()
+            recno = self.grid.recno()
+            if recno >= 0:
+                self.grid.goto(recno, 0)
+
             um.final()
 
     def tw_import(self):
         menu = QTVarios.LCMenu(self)
-        menu.opcion(self.tw_importar_pgn, _("From a PGN file"), Iconos.FichPGN())
+        submenu = menu.submenu(_("From a PGN file"), Iconos.FichPGN())
+        submenu.opcion(self.tw_importar_pgn, _("Complete"), Iconos.PuntoVerde())
+        submenu.separador()
+        submenu.opcion(self.tw_importar_pgn_rem, _("Remove comments and variations"), Iconos.PuntoRojo())
         menu.separador()
         menu.opcion(self.tw_importar_db, _("From other database"), Iconos.Database())
         menu.separador()
@@ -865,7 +878,8 @@ class WGames(QtWidgets.QWidget):
         submenu = menu.submenu(_("Appearance"), Iconos.Appearance())
 
         dico = {True: Iconos.Aceptar(), False: Iconos.PuntoRojo()}
-        submenu.opcion(self.tw_resize_columns, f'{_("Resize all columns to contents")} ({_("ALT")}-R)', Iconos.ResizeAll())
+        submenu.opcion(self.tw_resize_columns, f'{_("Resize all columns to contents")} ({_("ALT")}-R)',
+                       Iconos.ResizeAll())
         submenu.separador()
         submenu.opcion(self.tw_edit_columns, _("Configure the columns"), Iconos.EditColumns())
         submenu.separador()
@@ -1073,10 +1087,17 @@ class WGames(QtWidgets.QWidget):
             menu.opcion(self.tw_remove_duplicates, _("Remove duplicates"), Iconos.Remove1())
             menu.separador()
             submenu = menu.submenu(_("Remove comments/ratings/analysis"), Iconos.DeleteColumn())
-            submenu.opcion(self.tw_remove_comments_all, _("All registers"), Iconos.PuntoVerde())
+            submenu1 = submenu.submenu(_("All elements"), Iconos.Borrar())
+            submenu1.opcion(self.tw_remove_comments_all, _("All registers"), Iconos.PuntoVerde())
             li_sel = self.grid.recnosSeleccionados()
+            submenu1.separador()
+            submenu1.opcion(self.tw_remove_comments_selected, "%s [%d]" % (_("Only selected games"), len(li_sel)),
+                           Iconos.PuntoAzul())
             submenu.separador()
-            submenu.opcion(self.tw_remove_comments_selected, "%s [%d]" % (_("Only selected games"), len(li_sel)),
+            submenu2 = submenu.submenu(_("Certain elements"), Iconos.Director())
+            submenu2.opcion(self.tw_remove_comments_partial_all, _("All registers"), Iconos.PuntoVerde())
+            submenu2.separador()
+            submenu2.opcion(self.tw_remove_comments_partial_selected, "%s [%d]" % (_("Only selected games"), len(li_sel)),
                            Iconos.PuntoAzul())
             menu.separador()
             menu.opcion(self.generate_positions_file, _("Regenerate index positions file"), Iconos.Board())
@@ -1391,6 +1412,37 @@ class WGames(QtWidgets.QWidget):
 
         QTUtil2.temporary_message_without_image(self, _("Done"), 0.8)
 
+    def tw_remove_comments_partial_all(self):
+        self.tw_remove_comments_partial(None)
+
+    def tw_remove_comments_partial_selected(self):
+        self.tw_remove_comments_partial(self.grid.recnosSeleccionados())
+
+    def tw_remove_comments_partial(self, li_regs):
+        w = RemoveCommentsVariations.WRemoveCommentsVariations(self, "databases_partial_remove", False)
+        if w.exec_():
+            if li_regs is None:
+                li_regs = range(self.db_games.reccount())
+
+            if len(li_regs) == 0:
+                return
+
+            pb = QTUtil2.BarraProgreso1(self, _("Remove comments and variations"), show_time=True)
+            pb.set_total(len(li_regs))
+            pb.mostrar()
+            for pos, recno in enumerate(li_regs):
+                if pb.is_canceled():
+                    break
+                pb.pon(pos)
+                game = self.db_games.read_data(recno)
+                if game is not None:
+                    game, changed = w.run_game(game)
+                    if changed:
+                        self.set_changes(True)
+                        self.db_games.save_data(recno, game)
+            pb.close()
+            QTUtil2.temporary_message_without_image(self, _("Done"), 0.8)
+
     def tw_polyglot(self):
         titulo = self.db_games.get_name() + ".bin"
         resp = PolyglotImportExports.export_polyglot_config(self, self.configuration, titulo)
@@ -1539,25 +1591,31 @@ class WGames(QtWidgets.QWidget):
         if not pb.is_canceled():
             Code.startfile(path_csv)
 
-    def tw_importar_pgn(self, path_pgn=None):
+    def tw_importar_pgn(self, path_pgn=None, rem_comvar_run=None):
         if path_pgn is None:
             files = SelectFiles.select_pgns(self)
             if not files:
                 return None
         else:
-            files = [path_pgn,]
+            files = [path_pgn, ]
 
         dl_tmp = QTVarios.ImportarFicheroPGN(self)
         if self.db_games.allows_duplicates:
             dl_tmp.hide_duplicates()
         dl_tmp.show()
-        self.db_games.import_pgns(files, dl_tmp)
+        self.db_games.import_pgns(files, dl_tmp, rem_comvar_run=rem_comvar_run)
         self.set_changes(True)
 
         self.rehaz_columnas()
         self.actualiza(True)
         if self.wsummary:
             self.wsummary.reset()
+
+    def tw_importar_pgn_rem(self):
+        w = RemoveCommentsVariations.WRemoveCommentsVariations(self, "databases_remove_comvar", True)
+        if w.exec_():
+            self.tw_importar_pgn(rem_comvar_run=w.run)
+
 
     def tw_importar_db(self):
         path = QTVarios.select_db(self, self.configuration, False, False)
@@ -1995,7 +2053,7 @@ class WOptionsDatabase(QtWidgets.QDialog):
         self.accept()
 
 
-def new_database(owner, configuration, with_import_pgn=False, name = ""):
+def new_database(owner, configuration, with_import_pgn=False, name=""):
     dic_data = {}
     w = WOptionsDatabase(owner, configuration, dic_data, with_import_pgn, name)
     if w.exec_():

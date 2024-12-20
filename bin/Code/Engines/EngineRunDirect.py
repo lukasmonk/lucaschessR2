@@ -112,7 +112,7 @@ class DirectEngine(object):
             li.append(line.strip())
             if line.startswith(txt_busca):
                 return li, True
-        return li, False
+        return li, True
 
     def pwait_list_dispatch(self, orden, txt_busca, ms_maxtime):
         self.put_line(orden)

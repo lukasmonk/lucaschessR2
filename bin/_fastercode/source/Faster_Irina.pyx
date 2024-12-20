@@ -866,7 +866,7 @@ def xparse_body(fen, body):
 
 def xparse_pgn(pgn):
     pgn = bytes(pgn, "utf-8")
-    resp = bytearray(len(pgn)+200)
+    resp = bytearray(len(pgn)*14//10)
     tam = parse_pgn( pgn, resp )
     if tam:
         return resp[:tam].decode("utf-8").split("\n")

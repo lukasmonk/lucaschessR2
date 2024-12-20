@@ -2367,24 +2367,6 @@ def pmEndGame():
 def EndGame():
     return iget("EndGame")
 
-def pmPause():
-    return iget("pmPause")
-
-def Pause():
-    return iget("Pause")
-
-def pmContinue():
-    return iget("pmContinue")
-
-def Continue():
-    return iget("Continue")
-
-def pmClose():
-    return iget("pmClose")
-
-def Close():
-    return iget("Close")
-
 def pmStop():
     return iget("pmStop")
 
@@ -2492,6 +2474,12 @@ def pmCoordinates():
 
 def Coordinates():
     return iget("Coordinates")
+
+def pmCoordinatesWrite():
+    return iget("pmCoordinatesWrite")
+
+def CoordinatesWrite():
+    return iget("CoordinatesWrite")
 
 def pmKnight():
     return iget("pmKnight")
@@ -3242,3 +3230,21 @@ def pmCircles():
 
 def Circles():
     return iget("Circles")
+
+def pmPause():
+    return iget("pmPause")
+
+def Pause():
+    return iget("Pause")
+
+def pmContinue():
+    return iget("pmContinue")
+
+def Continue():
+    return iget("Continue")
+
+def pmClose():
+    return iget("pmClose")
+
+def Close():
+    return iget("Close")

@@ -484,12 +484,12 @@ class Transsiberian:
 
     def get_ending(self):
         line = self.get_line()
-        liEndings = self.dicEndings[line.ending]
+        li_endings = self.dicEndings[line.ending]
         if not (line.ending in self._dpos_endings):
             self._dpos_endings[line.ending] = 0
             self.write_current()
         pos = self._dpos_endings[line.ending]
-        return liEndings[pos % len(liEndings)]
+        return li_endings[pos % len(li_endings)]
 
     def end_ending(self):
         self._state = PLAYING

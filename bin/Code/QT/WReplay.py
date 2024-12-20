@@ -163,7 +163,7 @@ class Replay:
             return
 
         move = self.li_moves[self.current_position]
-        self.board.set_position(move.position_before)
+        # self.board.set_position(move.position_before)
         if self.current_position > self.initial_position:
             if not self.sleep_refresh(self.seconds / self.rapidez):
                 return
@@ -228,9 +228,9 @@ class Replay:
 
         self.board.set_position(move.position)
 
+        self.manager.put_view()
         if wait_seconds:
             self.sleep_refresh(wait_seconds / 1000 + 0.2)
-        self.manager.put_view()
 
     def show_pause(self, si_pausa, si_continue):
         self.main_window.show_option_toolbar(TB_PAUSE_REPLAY, si_pausa)

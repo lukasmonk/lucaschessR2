@@ -266,8 +266,8 @@ class WBase(QtWidgets.QWidget):
     def creaBloqueInformacion(self):
         configuration = self.manager.configuration
         width_pgn = configuration.x_pgn_width
-        with_each_color = (width_pgn - 52 - 24) // 2
-        n_ancho_labels = max(int((width_pgn - 3) // 2), 140)
+        with_each_color = (width_pgn - 52) // 2 - 10
+        n_ancho_labels = width_pgn // 2 + 2
         # # Pgn
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("NUMBER", _("N."), 52, align_center=True)
@@ -283,6 +283,7 @@ class WBase(QtWidgets.QWidget):
         self.pgn.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.pgn.font_type(puntos=configuration.x_pgn_fontpoints)
         self.pgn.set_right_button_without_rows(True)
+        # self.pgn.setSizePolicy(QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Expanding))
 
         # # Blancas y negras
         f = Controles.FontType(puntos=configuration.x_sizefont_players, peso=750)
@@ -293,12 +294,16 @@ class WBase(QtWidgets.QWidget):
         self.configuration.set_property(self.lb_player_black, "black")
 
         # # Capturas
-        self.lb_capt_white = Controles.LB(self).anchoFijo(n_ancho_labels).set_wrap()
+        n_ancho_capt = n_ancho_labels - 12
+        self.lb_capt_white = Controles.LB(self).anchoFijo(n_ancho_capt).set_wrap()
         style = "QWidget { border-style: groove; border-width: 1px; border-color: LightGray; padding: 2px 0px 2px 0px;}"
         self.lb_capt_white.setStyleSheet(style)
 
-        self.lb_capt_black = Controles.LB(self).anchoFijo(n_ancho_labels).set_wrap()
+        self.lb_capt_black = Controles.LB(self).anchoFijo(n_ancho_capt).set_wrap()
         self.lb_capt_black.setStyleSheet(style)
+
+        self.bt_capt = (Controles.PB(self, self.captures_symbol(), self.captures_mouse_pressed).anchoFijo(12)
+                        .set_font_type(puntos=16))
 
         # Relojes
         f = Controles.FontType(puntos=26, peso=500)
@@ -334,6 +339,7 @@ class WBase(QtWidgets.QWidget):
         self.lb_player_black.hide()
         self.lb_capt_white.hide()
         self.lb_capt_black.hide()
+        self.bt_capt.hide()
         self.lb_clock_white.hide()
         self.lb_clock_black.hide()
         self.pgn.hide()
@@ -352,7 +358,9 @@ class WBase(QtWidgets.QWidget):
         ly_color.controlc(self.lb_clock_white, 2, 0).controlc(self.lb_clock_black, 2, 1)
 
         # Abajo
-        ly_capturas = Colocacion.H().control(self.lb_capt_white).control(self.lb_capt_black)
+        separador = -4
+        ly_capturas = (Colocacion.H().control(self.lb_capt_white).espacio(separador).margen(0)
+                       .control(self.bt_capt).espacio(separador).control(self.lb_capt_black))
 
         ly_abajo = Colocacion.V()
         ly_abajo.setSizeConstraint(ly_abajo.SetFixedSize)
@@ -364,6 +372,16 @@ class WBase(QtWidgets.QWidget):
         ly_v.otro(ly_abajo)
 
         return ly_v
+
+    def captures_symbol(self):
+        return "-" if self.configuration.x_captures_mode_diferences else "≡"
+
+    def captures_mouse_pressed(self, event):
+        Code.configuration.x_captures_mode_diferences = not Code.configuration.x_captures_mode_diferences
+        self.bt_capt.set_text(self.captures_symbol())
+        self.configuration.graba()
+
+        self.manager.put_view()
 
     def run_action(self):
         self.manager.run_action(self.sender().key)
@@ -470,12 +488,16 @@ class WBase(QtWidgets.QWidget):
             col_white.ancho = new_width
             col_black.ancho = new_width
             self.pgn.set_widthsColumnas()
-            nAnchoPgn = new_width * 2 + self.pgn.columnWidth(0) + 28
-            self.pgn.setMinimumWidth(nAnchoPgn)
-            QTUtil.refresh_gui()
-            self.manager.configuration.x_pgn_width = nAnchoPgn
+            n_ancho_pgn = self.pgn.anchoColumnas() + 20
+            self.pgn.setMinimumWidth(n_ancho_pgn)
+            self.manager.configuration.x_pgn_width = n_ancho_pgn
             self.manager.configuration.graba()
-            self.reset_widths()
+            n_ancho_labels = n_ancho_pgn // 2
+            self.lb_player_white.anchoFijo(n_ancho_labels)
+            self.lb_player_black.anchoFijo(n_ancho_labels)
+            n_ancho_labels -= self.bt_capt.width() // 2 + 2
+            self.lb_capt_white.anchoFijo(n_ancho_labels)
+            self.lb_capt_black.anchoFijo(n_ancho_labels)
 
     def grid_tecla_control(self, grid, k, is_shift, is_control, is_alt):
         self.key_pressed("G", k)
@@ -603,6 +625,7 @@ class WBase(QtWidgets.QWidget):
         self.lbRotulo3.setVisible(False)
         self.lb_capt_white.setVisible(False)
         self.lb_capt_black.setVisible(False)
+        self.bt_capt.setVisible(False)
         self.wsolve.setVisible(False)
         self.wmessage.setVisible(False)
 
@@ -621,6 +644,7 @@ class WBase(QtWidgets.QWidget):
                 self.lbRotulo3,
                 self.lb_capt_white,
                 self.lb_capt_black,
+                self.bt_capt,
                 self.lb_player_white,
                 self.lb_player_black,
                 self.lb_clock_white,
@@ -656,6 +680,7 @@ class WBase(QtWidgets.QWidget):
                     self.lb_clock_black,
                     self.lb_capt_white,
                     self.lb_capt_black,
+                    self.bt_capt,
                     self.parent.informacionPGN,
                     self.wsolve,
                     self.wmessage,
@@ -703,19 +728,15 @@ class WBase(QtWidgets.QWidget):
             html = "<small>%+d</small>" % num if num else ""
             li.sort(key=lambda x: value[x.lower()])
             for n, pz in enumerate(li):
-                # if n >= max_num: # la situación en la que sobran
-                #     html += "+++"
-                #     break
-                # html += '<img src="../Resources/IntFiles/Figs/%s%s.png">' % (tp, pz.lower())
                 html += '<img src="../Resources/IntFiles/Figs/%s%s.png" width="30" height="30">' % (tp, pz.lower())
             lb.set_text(html)
 
-        # max_num = self.lb_capt_white.width() // 27
         xshow("b", d[True], self.lb_capt_white, xvpz if xvpz > 0 else 0)
         xshow("w", d[False], self.lb_capt_black, -xvpz if xvpz < 0 else 0)
         if self.lb_capt_white.isVisible():
             self.lb_capt_white.show()
             self.lb_capt_black.show()
+            self.bt_capt.show()
 
     def ponAyudas(self, puntos, siQuitarAtras=True):
         self.num_hints = puntos

@@ -24,6 +24,12 @@ class ListBooks:
 
         self.restore()
 
+    # def add_standard_openings(self ):
+    #     path = Code.path_resource("Openings", "standard_openings.bin")
+    #     book = Book("P", _("Standard openings"), path, False)
+    #     book.polyglot()
+    #     self.lista.insert(0, book)
+
     def restore_pickle(self, file):
         dic_booklist = Util.restore_pickle(file)
         if dic_booklist:

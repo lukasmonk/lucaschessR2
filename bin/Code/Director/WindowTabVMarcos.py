@@ -37,7 +37,7 @@ class WTV_Marco(QtWidgets.QDialog):
         config_board = owner.board.config_board
         self.board = Board.Board(self, config_board, with_director=False)
         self.board.crea()
-        self.board.copiaPosicionDe(owner.board)
+        self.board.copia_posicion_de(owner.board)
 
         # Datos generales
         li_gen = []
@@ -172,7 +172,7 @@ class WTV_Marcos(LCDialog.LCDialog):
         config_board = Code.configuration.config_board("EDIT_GRAPHICS", 48)
         self.board = Board.Board(self, config_board, with_director=False)
         self.board.crea()
-        self.board.copiaPosicionDe(owner.board)
+        self.board.copia_posicion_de(owner.board)
 
         # Layout
         layout = Colocacion.H().otro(ly).control(self.board)

@@ -74,8 +74,8 @@ class FormLayout:
     def edit(self, label: str, init_value: str):
         self.eddefault(label, init_value)
 
-    def editbox(self, label, ancho=None, rx=None, tipo=None, is_password=False, alto=1, decimales=1, init_value=None):
-        self.li_gen.append((Editbox(label, ancho, rx, tipo, is_password, alto, decimales), init_value))
+    def editbox(self, label, ancho=None, rx=None, tipo=None, is_password=False, alto=1, decimales=1, init_value=None, negatives=False):
+        self.li_gen.append((Editbox(label, ancho, rx, tipo, is_password, alto, decimales, negatives=negatives), init_value))
 
     def seconds(self, label: str, init_value: float):
         self.editbox(label, ancho=60, tipo=float, init_value=init_value)
@@ -205,7 +205,7 @@ class Colorbox:
 
 
 class Editbox:
-    def __init__(self, label, ancho=None, rx=None, tipo=None, is_password=False, alto=1, decimales=1):
+    def __init__(self, label, ancho=None, rx=None, tipo=None, is_password=False, alto=1, decimales=1, negatives=False):
         self.tipo = EDITBOX
         self.label = label + ":"
         self.ancho = ancho
@@ -214,6 +214,7 @@ class Editbox:
         self.is_password = is_password
         self.alto = alto
         self.decimales = decimales
+        self.negatives = negatives
 
 
 class Casillabox(Editbox):
@@ -477,7 +478,10 @@ class Edit(Controles.ED):
         self.tipo = config.tipoCampo
         self.decimales = config.decimales
         if self.tipo == float:
-            self.controlrx(r"\d+\.\d{%d}$" % self.decimales)
+            if config.negatives:
+                self.controlrx(r"^-?\d+(\.\d{1,%d})?$" % self.decimales)
+            else:
+                self.controlrx(r"\d+(\.\d{1,%d})?$" % self.decimales)
 
     def valor(self):
         if self.tipo == int:

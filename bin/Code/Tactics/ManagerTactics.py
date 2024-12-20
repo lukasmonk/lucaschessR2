@@ -30,7 +30,7 @@ class ManagerTactics(Manager.Manager):
         self.tactic.work_reset_positions()
         self.is_tutor_enabled = False
         self.ayudas_iniciales = 0
-        self.is_competitive = True
+        self.is_competitive = False
         self.game_obj, self.game_base = self.tactic.work_read_position()
         self.reiniciar()
 
@@ -39,7 +39,7 @@ class ManagerTactics(Manager.Manager):
             return
         self.reiniciando = True
 
-        self.main_window.activaInformacionPGN(False)
+        self.main_window.activaInformacionPGN(True)
 
         self.pointView = self.tactic.pointView()
 
@@ -71,6 +71,8 @@ class ManagerTactics(Manager.Manager):
         self.set_position(self.game.last_position)
         self.show_side_indicator(True)
         self.put_pieces_bottom(is_white)
+
+        self.show_info_extra()
 
         self.set_toolbar("init")
 

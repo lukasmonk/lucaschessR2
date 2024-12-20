@@ -239,9 +239,6 @@ class WAnalisisGraph(LCDialog.LCDialog):
         self.htotal[ta].setPointActive(row)
         self.htotal[ta + 3].setPointActive(row)
 
-        # dic, is_white = move.position.capturas()
-        # self.capturas.pon(dic)
-
     def grid_doble_click(self, grid, row, column):
         move = self.dicLiJG[grid.id][row]
         mrm, pos = move.analysis

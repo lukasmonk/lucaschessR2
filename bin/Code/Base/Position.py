@@ -50,9 +50,13 @@ class Position:
             }
             enr = ""
             for tipo in self.castles:
-                king, rook, pos_king, pos_rook = dic[tipo]
-                if self.squares.get(pos_king) == king and self.squares.get(pos_rook) == rook:
-                    enr += tipo
+                try:
+                    king, rook, pos_king, pos_rook = dic[tipo]
+                    if self.squares.get(pos_king) == king and self.squares.get(pos_rook) == rook:
+                        enr += tipo
+                except KeyError:
+                    pass
+
             self.castles = enr if enr else "-"
 
         # https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation#:~:text=En%20passant%20target%20square%20in,make%20an%20en%20passant%20capture.
@@ -207,10 +211,6 @@ class Position:
         return key
 
     def capturas(self):
-        """
-        Devuelve las piezas capturadas, liNuestro, liOponente. ( pieza, number )
-        """
-
         dic = {}
         for pieza, num in (("P", 8), ("R", 2), ("N", 2), ("B", 2), ("Q", 1), ("K", 1)):
             dic[pieza] = num
@@ -219,8 +219,7 @@ class Position:
         for pieza in self.squares.values():
             if pieza and dic[pieza] > 0:
                 dic[pieza] -= 1
-
-        return dic, self.is_white
+        return { pieza.upper() if pieza.islower() else pieza.lower(): value for pieza, value in dic.items()}
 
     def capturas_diferencia(self):
         """

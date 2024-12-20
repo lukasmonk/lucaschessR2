@@ -504,7 +504,7 @@ class WPosicion(QtWidgets.QWidget):
         with QTUtil.EscondeWindow(self.wparent):
 
             if self.chb_scanner_ask.valor() and not QTUtil2.pregunta(
-                    None, _("Bring the window to scan to front"), label_yes=_("Done"), label_no=_("Cancel"), si_top=True,
+                    None, _("Bring the window to scan to front"), label_yes=_("Accept"), label_no=_("Cancel"), si_top=True,
             ):
                 return
 

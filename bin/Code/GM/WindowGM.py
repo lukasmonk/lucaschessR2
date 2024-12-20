@@ -614,7 +614,7 @@ class WImportar(LCDialog.LCDialog):
         o_columns.nueva("ELEGIDO", "", 22, is_ckecked=True)
         o_columns.nueva("NOMBRE", _("Grandmaster"), 140)
         o_columns.nueva("PARTIDAS", _("Games"), 60, align_right=True)
-        o_columns.nueva("BORN", _("Birth date"), 60, align_center=True)
+        o_columns.nueva("BORN", _("Birth date"), 80, align_center=True)
 
         self.grid = Grid.Grid(self, o_columns, alternate=False)
         n = self.grid.anchoColumnas()
@@ -628,7 +628,7 @@ class WImportar(LCDialog.LCDialog):
 
         self.last_order = "NOMBRE", False
 
-        self.restore_video(anchoDefecto=n + 26)
+        self.restore_video(anchoDefecto=n + 26, altoDefecto=400)
 
     def importar(self):
         self.save_video()
@@ -784,7 +784,7 @@ class SelectGame(LCDialog.LCDialog):
         layout = Colocacion.V().control(tb).control(self.grid).margen(3)
         self.setLayout(layout)
 
-        self.restore_video(anchoDefecto=400)
+        self.restore_video(anchoDefecto=400, altoDefecto=400)
         self.gameElegida = None
 
     def grid_num_datos(self, grid):

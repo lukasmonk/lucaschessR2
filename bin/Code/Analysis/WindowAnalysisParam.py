@@ -31,6 +31,7 @@ def read_dic_params():
     alm.priority = dic.get("priority", Priorities.priorities.normal)
 
     alm.book_name = dic.get("book_name", None)
+    alm.standard_openings = dic.get("standard_openings", False)
 
     alm.accuracy_tags = dic.get("accuracy_tags", False)
 
@@ -234,6 +235,8 @@ def analysis_parameters(parent, extended_mode, all_engines=False):
         config = FormLayout.Combobox(_("Do not scan the opening moves based on book"), li)
         li_gen.append((config, defecto))
 
+        li_gen.append((_("Do not scan standard opening moves") + ":", alm.standard_openings ))
+
         li_gen.append((_("Add accuracy tags to the game") + ":", alm.accuracy_tags))
 
         li_gen.append((_("Redo any existing prior analysis (if they exist)") + ":", alm.delete_previous))
@@ -320,10 +323,11 @@ def analysis_parameters(parent, extended_mode, all_engines=False):
             alm.num_moves = li_gen[6]
             alm.book = li_gen[7]
             alm.book_name = alm.book.name if alm.book else None
-            alm.accuracy_tags = li_gen[8]
-            alm.delete_previous = li_gen[9]
-            alm.from_last_move = li_gen[10]
-            alm.show_graphs = li_gen[11]
+            alm.standard_openings = li_gen[8]
+            alm.accuracy_tags = li_gen[9]
+            alm.delete_previous = li_gen[10]
+            alm.from_last_move = li_gen[11]
+            alm.show_graphs = li_gen[12]
 
             (
                 alm.analyze_variations,
@@ -440,6 +444,9 @@ def massive_analysis_parameters(parent, configuration, multiple_selected, siData
         li.append((book.name, book))
     config = FormLayout.Combobox(_("Do not scan the opening moves based on book"), li)
     li_gen.append((config, defecto))
+
+    li_gen.append((_("Do not scan standard opening moves") + ":", alm.standard_openings))
+
     li_gen.append((_("Add accuracy tags to the game") + ":", alm.accuracy_tags))
 
     li_gen.append(SEPARADOR)
@@ -484,6 +491,7 @@ def massive_analysis_parameters(parent, configuration, multiple_selected, siData
             cjug,
             alm.num_moves,
             alm.book,
+            alm.standard_openings,
             alm.accuracy_tags,
             alm.from_last_move,
             alm.delete_previous,

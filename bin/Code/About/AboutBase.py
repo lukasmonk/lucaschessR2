@@ -499,7 +499,7 @@ class ThanksTo:
                 _("Permission of author"),
             ),
             (
-                "Caballo R M",
+                "Caballo R<br>(M, MM, P, RC C)",
                 'Luis',
                 '<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-ND 4.0</a>'
             ),

@@ -29,7 +29,7 @@ from Code.Routes import Routes
 from Code.Translations import TrListas
 
 
-class GR_Engine:
+class GREngine:
     def __init__(self, procesador, nlevel):
         self._label = "%s - %s" % (_("Engine"), TrListas.level(nlevel))
         self.configuration = procesador.configuration
@@ -38,11 +38,11 @@ class GR_Engine:
             self.manager = None
             self._name = self._label
         else:
-            dEngines = self.elos()
+            d_engines = self.elos()
             x = +1 if nlevel < 6 else -1
             while True:
-                if len(dEngines[nlevel]) > 0:
-                    nom_engine, depth, elo = random.choice(dEngines[nlevel])
+                if len(d_engines[nlevel]) > 0:
+                    nom_engine, depth, elo = random.choice(d_engines[nlevel])
                     break
                 else:
                     nlevel += x
@@ -78,23 +78,23 @@ class GR_Engine:
         d = {1: [], 2: [], 3: [], 4: [], 5: [], 6: []}
 
         def mas(nom_engine, xdepth, xelo):
-            elo = int(xelo)
-            if elo < 1100:
+            xelo = int(xelo)
+            if xelo < 1100:
                 tp = 1
-            elif elo < 1200:
+            elif xelo < 1200:
                 tp = 2
-            elif elo < 1400:
+            elif xelo < 1400:
                 tp = 3
-            elif elo < 1700:
+            elif xelo < 1700:
                 tp = 4
-            elif elo < 2000:
+            elif xelo < 2000:
                 tp = 5
-            elif elo < 2200:
+            elif xelo < 2200:
                 tp = 6
             else:
                 return
             if nom_engine in self.configuration.dic_engines:
-                d[tp].append((nom_engine, xdepth, elo))
+                d[tp].append((nom_engine, xdepth, xelo))
 
         li_engines = ManagerElo.listaMotoresElo()  # list (elo, key, depth)
         for elo, key, depth in li_engines:
@@ -158,7 +158,7 @@ class ManagerRoutesPlay(ManagerRoutes):
         self.book.polyglot()
 
         if self.engine is None:
-            self.engine = GR_Engine(self.procesador, line.engine)
+            self.engine = GREngine(self.procesador, line.engine)
         self.must_win = route.must_win()
         self.is_rival_thinking = False
 
@@ -233,7 +233,7 @@ class ManagerRoutesPlay(ManagerRoutes):
             return
 
         if self.game.is_finished():
-            self.lineaTerminada()
+            self.line_ended()
             return
 
         self.state = ST_PLAYING
@@ -246,8 +246,8 @@ class ManagerRoutesPlay(ManagerRoutes):
         self.set_side_indicator(is_white)
         self.refresh()
 
-        siRival = is_white == self.is_engine_side_white
-        if siRival:
+        is_rival = is_white == self.is_engine_side_white
+        if is_rival:
             self.play_rival()
         else:
             self.human_is_playing = True
@@ -280,12 +280,12 @@ class ManagerRoutesPlay(ManagerRoutes):
         self.play_next_move()
 
     def player_has_moved(self, from_sq, to_sq, promotion=""):
-        jgSel = self.check_human_move(from_sq, to_sq, promotion)
-        if not jgSel:
+        move_sel = self.check_human_move(from_sq, to_sq, promotion)
+        if not move_sel:
             return False
 
         fen = self.game.last_position.fen()
-        pv = jgSel.movimiento().lower()
+        pv = move_sel.movimiento().lower()
         if self.is_opening:
             op_pv = self.liPVopening[self.posOpening]
             if pv != op_pv:
@@ -302,15 +302,15 @@ class ManagerRoutesPlay(ManagerRoutes):
             if self.posOpening == len(self.liPVopening):
                 self.is_opening = False
 
-        self.move_the_pieces(jgSel.liMovs)
+        self.move_the_pieces(move_sel.liMovs)
 
-        self.add_move(jgSel, True)
+        self.add_move(move_sel, True)
         self.error = ""
 
         self.play_next_move()
         return True
 
-    def lineaTerminada(self):
+    def line_ended(self):
         self.add_time()
         self.disable_all()
         self.human_is_playing = False
@@ -318,9 +318,9 @@ class ManagerRoutesPlay(ManagerRoutes):
         self.refresh()
         li_options = [TB_CLOSE, TB_UTILITIES, TB_NEXT]
         self.set_toolbar(li_options)
-        jgUlt = self.game.last_jg()
+        last_move = self.game.last_jg()
 
-        siwin = (jgUlt.is_white() == self.is_human_side_white) and not jgUlt.is_draw
+        siwin = (last_move.is_white() == self.is_human_side_white) and not last_move.is_draw
         mensaje, beep, player_win = self.game.label_resultado_player(self.is_human_side_white)
 
         self.beep_result(beep)
@@ -358,6 +358,7 @@ class ManagerRoutesEndings(ManagerRoutes):
             self.is_guided = False
             self.t4 = LibChess.T4(self.configuration)
             self.fen = ending + " - - 0 1"
+            label = None
 
         self.is_rival_thinking = False
 
@@ -393,7 +394,7 @@ class ManagerRoutesEndings(ManagerRoutes):
         self.show_side_indicator(True)
         self.put_pieces_bottom(is_white)
 
-        self.ponWarnings()
+        self.set_warnings()
 
         self.pgn_refresh(True)
         QTUtil.refresh_gui()
@@ -405,7 +406,7 @@ class ManagerRoutesEndings(ManagerRoutes):
 
         self.play_next_move()
 
-    def ponWarnings(self):
+    def set_warnings(self):
         if self.warnings <= self.max_warnings:
             self.set_label2(_("Warnings: %d/%d") % (self.warnings, self.max_warnings))
         else:
@@ -426,7 +427,7 @@ class ManagerRoutesEndings(ManagerRoutes):
             if self.route.km_pending():
                 self.start(self.route)
             else:
-                self.end_game()
+                self.terminate()
 
         elif key == TB_UTILITIES:
             self.utilities()
@@ -447,7 +448,7 @@ class ManagerRoutesEndings(ManagerRoutes):
             return
 
         if self.game.is_finished():
-            self.lineaTerminada()
+            self.line_ended()
             return
 
         self.state = ST_PLAYING
@@ -460,8 +461,8 @@ class ManagerRoutesEndings(ManagerRoutes):
         self.set_side_indicator(is_white)
         self.refresh()
 
-        siRival = is_white == self.is_engine_side_white
-        if siRival:
+        is_rival = is_white == self.is_engine_side_white
+        if is_rival:
             if self.is_guided:
                 pv = self.li_pv[self.posPV].split("-")[0]
                 self.posPV += 1
@@ -482,45 +483,45 @@ class ManagerRoutesEndings(ManagerRoutes):
         QTUtil2.temporary_message(self.main_window, mens, 4, physical_pos=ON_TOOLBAR, background="#C3D6E8")
 
     def player_has_moved(self, from_sq, to_sq, promotion=""):
-        jgSel = self.check_human_move(from_sq, to_sq, promotion)
-        if not jgSel:
+        move_sel = self.check_human_move(from_sq, to_sq, promotion)
+        if not move_sel:
             return False
 
         if self.is_guided:
-            pvSel = jgSel.movimiento().lower()
-            pvObj = self.li_pv[self.posPV]
-            li = pvObj.split("-")
-            if li[0] != pvSel:
-                if pvSel in li:
-                    pgn = Game.pv_pgn(jgSel.position_before.fen(), pvObj)
+            pv_sel = move_sel.movimiento().lower()
+            pv_obj = self.li_pv[self.posPV]
+            li = pv_obj.split("-")
+            if li[0] != pv_sel:
+                if pv_sel in li:
+                    pgn = Game.pv_pgn(move_sel.position_before.fen(), pv_obj)
                     self.show_mens(_("You have selected one correct move, but the line use %s") % pgn)
-                    self.put_arrow_sc(pvObj[:2], pvObj[2:4])
+                    self.put_arrow_sc(pv_obj[:2], pv_obj[2:4])
                     self.get_help(False)
                 else:
                     self.show_error(_("Wrong move"))
                     self.warnings += 1
-                    self.ponWarnings()
+                    self.set_warnings()
                 self.continue_human()
                 return False
             self.posPV += 1
         else:
             fen = self.game.last_position.fen()
-            pv = jgSel.movimiento().lower()
+            pv = move_sel.movimiento().lower()
             b_wdl = self.t4.wdl(fen)
             m_wdl = self.t4.wdl_move(fen, pv)
 
-            if b_wdl != m_wdl:
+            if b_wdl > m_wdl:
                 self.show_error(_("Wrong move"))
                 self.warnings += 1
-                self.ponWarnings()
+                self.set_warnings()
                 self.set_position(self.game.last_position)
                 self.continue_human()
                 return False
 
         self.add_time()
-        self.move_the_pieces(jgSel.liMovs)
+        self.move_the_pieces(move_sel.liMovs)
 
-        self.add_move(jgSel, True)
+        self.add_move(move_sel, True)
         self.error = ""
 
         self.play_next_move()
@@ -532,27 +533,27 @@ class ManagerRoutesEndings(ManagerRoutes):
         self.move_the_pieces(move.liMovs, True)
         return True
 
-    def get_help(self, siWarning=True):
+    def get_help(self, is_warning=True):
         if self.is_guided:
-            pvObj = self.li_pv[self.posPV]
-            li = pvObj.split("-")
+            pv_obj = self.li_pv[self.posPV]
+            li = pv_obj.split("-")
         else:
             li = self.t4.better_moves(self.game.last_position.fen(), None)
-        liMovs = [(pv[:2], pv[2:4], n == 0) for n, pv in enumerate(li)]
-        self.board.ponFlechasTmp(liMovs)
-        if siWarning:
+        li_movs = [(pv[:2], pv[2:4], n == 0) for n, pv in enumerate(li)]
+        self.board.ponFlechasTmp(li_movs)
+        if is_warning:
             self.warnings += self.max_warnings
-            self.ponWarnings()
+            self.set_warnings()
 
-    def lineaTerminada(self):
+    def line_ended(self):
         self.add_time()
         self.disable_all()
         self.human_is_playing = False
         self.state = ST_ENDGAME
         self.refresh()
 
-        jgUlt = self.game.last_jg()
-        if jgUlt.is_draw:
+        last_move = self.game.last_jg()
+        if last_move.is_draw:
             mensaje = "%s<br>%s" % (_("Draw"), _("You must repeat the puzzle."))
             self.message_on_pgn(mensaje)
             self.start(self.route)
@@ -646,7 +647,7 @@ class ManagerRoutesTactics(ManagerRoutes):
         else:
             Manager.Manager.rutinaAccionDef(self, key)
 
-    def jugadaObjetivo(self):
+    def target_move(self):
         return self.game_objetivo.move(self.game.num_moves())
 
     def play_next_move(self):
@@ -654,7 +655,7 @@ class ManagerRoutesTactics(ManagerRoutes):
             return
 
         if len(self.game) == self.game_objetivo.num_moves():
-            self.lineaTerminada()
+            self.line_ended()
             return
 
         self.state = ST_PLAYING
@@ -667,9 +668,9 @@ class ManagerRoutesTactics(ManagerRoutes):
         self.set_side_indicator(is_white)
         self.refresh()
 
-        siRival = is_white == self.is_engine_side_white
-        if siRival:
-            move = self.jugadaObjetivo()
+        is_rival = is_white == self.is_engine_side_white
+        if is_rival:
+            move = self.target_move()
             self.rival_has_moved(move.from_sq, move.to_sq, move.promotion)
             self.play_next_move()
         else:
@@ -678,18 +679,18 @@ class ManagerRoutesTactics(ManagerRoutes):
             self.activate_side(is_white)
 
     def player_has_moved(self, from_sq, to_sq, promotion=""):
-        jgSel = self.check_human_move(from_sq, to_sq, promotion)
-        if not jgSel:
+        move_sel = self.check_human_move(from_sq, to_sq, promotion)
+        if not move_sel:
             return False
 
-        jgObj = self.jugadaObjetivo()
-        if jgObj.movimiento() != jgSel.movimiento():
-            for variation in jgObj.variations.li_variations:
-                jgObjV = variation.move(0)
-                if jgObjV.movimiento() == jgSel.movimiento():
+        move_obj = self.target_move()
+        if move_obj.movimiento() != move_sel.movimiento():
+            for variation in move_obj.variations.li_variations:
+                move_obj_v = variation.move(0)
+                if move_obj_v.movimiento() == move_sel.movimiento():
                     QTUtil2.temporary_message(
                         self.main_window,
-                        _("You have selected one correct move, but the line use %s") % jgObj.pgn_translated(),
+                        _("You have selected one correct move, but the line use %s") % move_obj.pgn_translated(),
                         3,
                         physical_pos=TOP_RIGHT,
                     )
@@ -702,9 +703,9 @@ class ManagerRoutesTactics(ManagerRoutes):
             self.continue_human()
             return False
 
-        self.move_the_pieces(jgSel.liMovs)
+        self.move_the_pieces(move_sel.liMovs)
 
-        self.add_move(jgSel, True)
+        self.add_move(move_sel, True)
         self.error = ""
 
         self.add_time()
@@ -718,18 +719,18 @@ class ManagerRoutesTactics(ManagerRoutes):
         self.move_the_pieces(move.liMovs, True)
         return True
 
-    def get_help(self, siQuitarPuntos=True):
-        jgObj = self.jugadaObjetivo()
-        liMovs = [(jgObj.from_sq, jgObj.to_sq, True)]
-        for variation in jgObj.variations.li_variations:
+    def get_help(self, remove_points=True):
+        move_obj = self.target_move()
+        li_movs = [(move_obj.from_sq, move_obj.to_sq, True)]
+        for variation in move_obj.variations.li_variations:
             jg0 = variation.move(0)
-            liMovs.append((jg0.from_sq, jg0.to_sq, False))
-        self.board.ponFlechasTmp(liMovs)
-        if siQuitarPuntos:
+            li_movs.append((jg0.from_sq, jg0.to_sq, False))
+        self.board.ponFlechasTmp(li_movs)
+        if remove_points:
             self.route.error_tactic(self.game_objetivo.num_moves())
             self.set_label2(self.route.mens_tactic(False))
 
-    def lineaTerminada(self):
+    def line_ended(self):
         self.disable_all()
         self.refresh()
         km = self.route.end_tactic()

@@ -133,8 +133,10 @@ class Configuration:
         self.x_show_candidates = False
 
         self.x_captures_activate = True
+        self.x_captures_mode_diferences = True
         self.x_info_activate = False
         self.x_show_bestmove = True
+        self.x_show_rating = False
 
         self.x_default_tutor_active = True
 
@@ -483,6 +485,9 @@ class Configuration:
 
     def file_coordinates(self):
         return Util.opj(self.folder_results, "Coordinates.db")
+
+    def file_coordinates_write(self):
+        return Util.opj(self.folder_results, "CoordinatesWrite.db")
 
     def folder_tactics(self):
         return self.create_base_folder("Tactics")

@@ -659,6 +659,18 @@ class Game:
                 if move.li_nags:
                     d["N"] = move.li_nags
                 dic[fenm2] = d
+        if self.first_comment:
+            if self.li_moves:
+                move = self.li_moves[0]
+                fenm2 = move.position.fenm2()
+                d = dic.get(fenm2, {})
+                comment = self.first_comment
+                previo = d.get("C")
+                if previo:
+                    comment += " " + previo
+                d["C"] = comment
+                dic[fenm2] = d
+
         return dic
 
     def lipv(self):
@@ -982,7 +994,9 @@ class Game:
             else:
                 move0.add_variation(variation)
 
-    def remove_info_moves(self, variations=True, ratings=True, comments=True, analysis=True, themes=True):
+    def remove_info_moves(self, variations=True, ratings=True, comments=True, analysis=True, themes=True, time_ms=True, clock_ms=True):
+        if comments:
+            self.first_comment = ""
         for move in self.li_moves:
             if variations:
                 move.del_variations()
@@ -994,6 +1008,10 @@ class Game:
                 move.del_analysis()
             if themes:
                 move.del_themes()
+            if clock_ms:
+                move.clock_ms = 0
+            if time_ms:
+                move.time_ms = 0
 
     def remove_moves(self, num_move, to_end):
         if to_end:

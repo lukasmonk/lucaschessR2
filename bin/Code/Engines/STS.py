@@ -227,9 +227,9 @@ class Work:
     def siguientePosicion(self, ngroup):
         if not self.liGroupActive[ngroup]:
             return None
-        resoultGroup = self.results.resoultGroup(ngroup)
+        resoult_group = self.results.resoultGroup(ngroup)
         for x in range(self.ini, self.end + 1):
-            elem = resoultGroup.elem(x)
+            elem = resoult_group.elem(x)
             if elem is None:
                 return x
         return None

@@ -105,7 +105,7 @@ class UnMove:
     # def ponComentario(self, comment):
     #     self.comment = comment
 
-    def guardaCache(self, dic_cache):
+    def save_cache(self, dic_cache):
         dic = {}
         if self.valoracion != "-":
             dic["VAL"] = self.valoracion
@@ -119,15 +119,15 @@ class UnMove:
             dic_cache[self.pv] = dic
 
         if self.listaMovesHijos:
-            self.listaMovesHijos.guardaCache()
+            self.listaMovesHijos.save_cache()
 
 
 class ListaMoves:
-    def __init__(self, moveOwner, fen, dbCache):
-        self.moveOwner = moveOwner
-        self.dbCache = dbCache
+    def __init__(self, move_owner, fen, db_cache):
+        self.moveOwner = move_owner
+        self.dbCache = db_cache
 
-        if not moveOwner:
+        if not move_owner:
             self.nivel = 0
             cp = Position.Position()
             cp.read_fen(fen)
@@ -157,10 +157,10 @@ class ListaMoves:
         # self.dicAnalisis
         self.ponAnalisisActivo(dic_cache.get("ANALISIS_ACTIVO", None) if dic_cache else None)
 
-    def guardaCache(self):
+    def save_cache(self):
         dic_cache = {}
         for um in self.liMoves:
-            um.guardaCache(dic_cache)
+            um.save_cache(dic_cache)
 
         if self.li_analysis:
             dic_cache["ANALISIS"] = self.li_analysis
@@ -593,7 +593,7 @@ class WMoves(QtWidgets.QWidget):
         self.tb = Controles.TBrutina(self, with_text=False, icon_size=24)
         self.tb.new(_("Open new branch"), Iconos.Mas(), self.rama)
         self.tb.new(_("Show") + "/" + _("Hide"), Iconos.Mostrar(), self.mostrar)
-        self.tb.new(_("Rating"), self.tree.iconoValoracion(0), self.valorar)
+        self.tb.new(_("Rating") + " (NAG)", self.tree.iconoValoracion(0), self.valorar)
         self.tb.new(_("Analyze"), Iconos.Analizar(), self.analizar)
         self.tb.new(_("Comments"), Iconos.ComentarioEditar(), self.comment)
 
@@ -772,7 +772,7 @@ class WindowArbol(LCDialog.LCDialog):
         LCDialog.LCDialog.save_video(self, dic_extended)
 
     def grabar(self):
-        self.listaMoves.guardaCache()
+        self.listaMoves.save_cache()
         self.dbCache.close()
 
         self.accept()

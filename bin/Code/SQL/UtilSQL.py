@@ -81,7 +81,7 @@ class DictSQL(object):
             row = self.conexion.execute(sql, (key,)).fetchone()
             try:
                 obj = pickle.loads(row[0])
-            except AttributeError:
+            except:
                 if self.li_breplaces_pickle:
                     btxt = row[0]
                     for btxt_wrong, btxt_correct in self.li_breplaces_pickle:
@@ -135,7 +135,13 @@ class DictSQL(object):
         cursor = self.conexion.execute(sql)
         dic = {}
         for key, dato in cursor.fetchall():
-            dic[key] = pickle.loads(dato)
+            try:
+                dic[key] = pickle.loads(dato)
+            except:
+                if self.li_breplaces_pickle:
+                    for btxt_wrong, btxt_correct in self.li_breplaces_pickle:
+                        dato = dato.replace(btxt_wrong, btxt_correct)
+                    dic[key] = pickle.loads(dato)
         return dic
 
     def pack(self):

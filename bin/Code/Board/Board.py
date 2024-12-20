@@ -22,10 +22,18 @@ from Code.Base.Constantes import (
     BLINDFOLD_BLACK,
     BLINDFOLD_WHITE,
     BLINDFOLD_ALL,
+    NO_RATING,
+    GOOD_MOVE,
+    MISTAKE,
+    VERY_GOOD_MOVE,
+    BLUNDER,
+    INTERESTING_MOVE,
+    INACCURACY
 )
 from Code.Board import BoardElements, BoardMarkers, BoardBoxes, BoardSVGs, BoardTypes, BoardArrows, BoardCircles
 from Code.Databases import DBgames
 from Code.Director import TabVisual, WindowDirector
+from Code.Nags import Nags
 from Code.QT import Colocacion
 from Code.QT import Controles
 from Code.QT import Delegados
@@ -2258,6 +2266,48 @@ class Board(QtWidgets.QGraphicsView):
 
         return BoardSVGs.SVGSC(self.escena, bloque_svgn, siEditando=siEditando)
 
+    def put_colorbox(self, a1h8, color):
+        if color == NO_RATING:
+            return
+        if 100 not in Code.dic_markers:
+            with open(Code.path_resource("IntFiles", "Svg", "eval_color.svg"), "rt") as f:
+                Code.dic_markers[100] = f.read()
+        xcolor = Nags.nag_color(color)
+        dic = {
+            'xml': Code.dic_markers[100].replace("#222222", xcolor),
+            'name': 'eval_color', 'ordenVista': 4}
+        reg_svg = BoardTypes.SVG(dic=dic)
+        reg_svg.a1h8 = a1h8 + a1h8
+        reg_svg.siMovible = False
+        svg = self.creaSVG(reg_svg)
+        svg.bloqueDatos.psize = 110
+        self.registraMovible(svg)
+
+    def put_rating(self, from_sq, to_sq, color, poscelda):
+        if color not in Code.dic_markers:
+            dicm = { GOOD_MOVE: "good_move",
+                     MISTAKE: "mistake",
+                     VERY_GOOD_MOVE: "very_good_move",
+                     BLUNDER: "blunder",
+                     INTERESTING_MOVE: "interesting_move",
+                     INACCURACY: "inaccuracy",
+                     NO_RATING: "none",
+                     999: "good_move_raw",
+                     1000: "book",
+                     1001: "book_bin"
+            }
+            with open(Code.path_resource("IntFiles", "Svg", f"eval_{dicm[color]}.svg"), "rt") as f:
+                Code.dic_markers[color] = f.read()
+        dic = { 'xml': Code.dic_markers[color], 'name': f'eval_{color}', 'ordenVista': 24}
+        reg_svg = BoardTypes.Marker(dic=dic)
+        reg_svg.physical_pos.orden = 25
+        reg_svg.a1h8 = to_sq + to_sq
+        reg_svg.siMovible = False
+        reg_svg.poscelda = poscelda
+        marker = self.creaMarker(reg_svg)
+        self.registraMovible(marker)
+        self.escena.update()
+
     def creaMarker(self, bloqueMarker, siEditando=False):
         bloque_marker_n = copy.deepcopy(bloqueMarker)
         bloque_marker_n.width_square = self.width_square
@@ -2407,7 +2457,7 @@ class Board(QtWidgets.QGraphicsView):
 
         return "/".join(lineas) + " " + resto
 
-    def copiaPosicionDe(self, otro_board):
+    def copia_posicion_de(self, otro_board):
         for x in self.liPiezas:
             if x[2]:
                 self.xremove_item(x[1])
@@ -2610,9 +2660,9 @@ class WTamBoard(QtWidgets.QDialog):
         minimo = self.board.minimum_size
         maximo = board.calc_width_mx_piece() + 30
 
-        self.sb = Controles.SB(self, ap, minimo, maximo).capture_changes(self.cambiadoTamSB)
+        self.sb = Controles.SB(self, ap, minimo, maximo).capture_changes(self.cambiado_tam_sb)
 
-        self.sl = Controles.SL(self, minimo, maximo, ap, self.cambiadoTamSL, tick=0).set_width(180)
+        self.sl = Controles.SL(self, minimo, maximo, ap, self.cambiado_tam_sl, tick=0).set_width(180)
 
         bt_aceptar = Controles.PB(self, "", rutina=self.aceptar, plano=False).ponIcono(Iconos.Aceptar())
 
@@ -2642,7 +2692,7 @@ class WTamBoard(QtWidgets.QDialog):
     def aceptar(self):
         self.close()
 
-    def cambiaAncho(self):
+    def change_width(self):
         is_white_bottom = self.board.is_white_bottom
         self.board.width_changed()
         if not is_white_bottom:
@@ -2667,32 +2717,32 @@ class WTamBoard(QtWidgets.QDialog):
             tpz = self.antes
             ct.width_piece(tpz)
             self.cb.set_value(self.width_for_cb(tpz))
-            self.cambiaAncho()
+            self.change_width()
         elif tam == -2:
             self.cb.set_value(self.width_for_cb(ct.ponDefAnchoPieza()))
-            self.cambiaAncho()
+            self.change_width()
         else:
             ct.width_piece(tam)
-            self.cambiaAncho()
+            self.change_width()
 
         self.sb.set_value(self.board.anchoPieza)
         self.sl.set_value(self.board.anchoPieza)
         self.siOcupado = False
         self.dispatch()
 
-    def cambiadoTamSB(self):
+    def cambiado_tam_sb(self):
         if self.siOcupado:
             return
         self.siOcupado = True
         tam = self.sb.valor()
         self.config_board.width_piece(tam)
         self.cb.set_value(self.width_for_cb(tam))
-        self.cambiaAncho()
+        self.change_width()
         self.sl.set_value(tam)
         self.siOcupado = False
         self.dispatch()
 
-    def cambiadoTamSL(self):
+    def cambiado_tam_sl(self):
         if self.siOcupado:
             return
         self.siOcupado = True
@@ -2700,7 +2750,7 @@ class WTamBoard(QtWidgets.QDialog):
         self.config_board.width_piece(tam)
         self.cb.set_value(self.width_for_cb(tam))
         self.sb.set_value(tam)
-        self.cambiaAncho()
+        self.change_width()
         self.siOcupado = False
         self.dispatch()
 

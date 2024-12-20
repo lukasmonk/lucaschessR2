@@ -555,9 +555,6 @@ Lanzamientos windows8 icons8_diagonal_arrows_up_32px.png
 
 EndGame windows8 icons8_Close_Pane_32px.png
 
-Pause windows8 icons8_Pause_Button_32px.png
-Continue windows8 icons8_Next_page_32px.png
-Close windows8 icons8_Close_Window_32px.png
 
 Stop windows8 icons8_Stop_Sign_32px.png
 
@@ -590,7 +587,9 @@ Count windows8 icons8_Abacus_32px.png
 
 Mate15 windows8 icons8_Mate_32px.png
 
-Coordinates windows8 icons8_North_Direction_32px.png
+#Coordinates windows8 icons8-abscisa-32.png
+Coordinates otros coordinates.png
+CoordinatesWrite windows8 icons8-multiedicion-32.png
 
 Knight windows8 icons8_Chess_32px.png
 
@@ -772,3 +771,7 @@ Pin windows8 icons8-pin-32.png
 Unpin windows8 icons8-unpin-32.png
 
 Circles lucas circles.png
+
+Pause windows8 icons8_Pause_Button_32px.png
+Continue windows8 icons8_Next_page_32px.png
+Close windows8 icons8_Close_Window_32px.png

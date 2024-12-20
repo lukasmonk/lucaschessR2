@@ -1,5 +1,6 @@
-Chessnut, added icon to screen
+Many drivers now allow the option to highlight the king's square when he is in check.
 
+Version 25: Chessnut, added icon to screen
 Version 24: Fixed button display on screens with high DPI.
 Version 23: Added HOS Sensory board driver.
 Version 22: Added a driver for the iChessOne board. Allowed a position setup screen to be accessed by lifting both kings on the DGT Pegasus, Millennium eOne, Square Off Pro and Tabutonic boards.Fixed a bug in setting up positions on the other boards when the board was rotated.

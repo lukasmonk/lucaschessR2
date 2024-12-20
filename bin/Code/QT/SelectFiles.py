@@ -18,8 +18,7 @@ def select_pgns(wowner):
     configuration = Code.configuration
     files = leeFicheros(wowner, configuration.pgn_folder(), "pgn")
     if files:
-        path = files[0]
-        carpeta, file = os.path.split(path)
+        carpeta = os.path.dirname(files[0])
         configuration.save_pgn_folder(carpeta)
     return files
 

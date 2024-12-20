@@ -177,7 +177,7 @@ class Tutor:
             game_usuario.read_pv(self.rm_user.get_pv())
 
             jgvar = game_usuario.move(0)
-            jgvar.set_comment(self.rm_user.texto())
+            jgvar.set_comment(Code.configuration.nom_player() + " " + self.rm_user.texto())
 
             move.add_variation(game_usuario)
 

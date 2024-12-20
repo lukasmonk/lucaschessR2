@@ -6,6 +6,7 @@ import FasterCode
 from PySide2 import QtCore
 
 import Code
+from Code.Openings import Opening
 from Code import ControlPGN
 from Code import TimeControl
 from Code import Util
@@ -56,6 +57,7 @@ from Code.Base.Constantes import (
     GT_TACTICS,
     TERMINATION_DRAW_AGREEMENT,
     DICT_GAME_TYPES,
+    NO_RATING, GOOD_MOVE,
 )
 from Code.Board import BoardTypes
 from Code.Databases import DBgames
@@ -165,6 +167,8 @@ class Manager:
 
         self.tc_white = TimeControl.TimeControl(self.main_window, self.game, WHITE)
         self.tc_black = TimeControl.TimeControl(self.main_window, self.game, BLACK)
+
+        self.ap_ratings = None
 
     def close(self):
         if not self.closed:
@@ -501,7 +505,40 @@ class Manager:
                         rm0 = mrm.best_rm_ordered()
                         self.board.put_arrow_scvar([(rm0.from_sq, rm0.to_sq)])
 
-            dic = self.board.last_position.capturas_diferencia()
+                if self.configuration.x_show_rating:
+                    move_nag = move
+                    if column.key == "NUMBER":
+                        pos_move -= 1
+                        move_nag = self.game.move(pos_move)
+                    if move_nag:
+                        nag = move_nag.get_nag()
+                        color = NO_RATING
+                        if not nag:
+                            if move_nag.analysis:
+                                mrm, pos = move_nag.analysis
+                                rm = mrm.li_rm[pos]
+                                nag, color = mrm.set_nag_color(rm)
+                        if nag == NO_RATING:
+                            if move_nag.in_the_opening:
+                                nag = 1000
+                            elif color == GOOD_MOVE:
+                                nag = 999
+                            else:
+                                if move_nag.is_book:
+                                    nag = 1001
+                                elif move_nag.is_book is None:
+                                    if self.ap_ratings is None:
+                                        self.ap_ratings = Opening.OpeningPol(999)
+                                    move_nag.is_book = self.ap_ratings.check_human(move_nag.position_before.fen(), move_nag.from_sq,
+                                                                          move_nag.to_sq)
+                                    if move_nag.is_book:
+                                        nag = 1001
+                        poscelda = 0 if (move_nag.to_sq[0] < move_nag.from_sq[0]) and (move_nag.to_sq[1] < move_nag.from_sq[1]) else 1
+                        if nag != NO_RATING or (nag == NO_RATING and move_nag.analysis):
+                            self.board.put_rating(move_nag.from_sq, move_nag.to_sq, nag, poscelda)
+                        if nag != 1000 and move_nag.in_the_opening:
+                            poscelda = 1 if poscelda == 0 else 0
+                            self.board.put_rating(move_nag.from_sq, move_nag.to_sq, 1000, poscelda)
 
             nom_opening = ""
             opening = self.game.opening
@@ -510,6 +547,10 @@ class Manager:
                 if opening.eco:
                     nom_opening += " (%s)" % opening.eco
             if self.main_window.siCapturas:
+                if Code.configuration.x_captures_mode_diferences:
+                    dic = self.board.last_position.capturas_diferencia()
+                else:
+                    dic = self.board.last_position.capturas()
                 self.main_window.put_captures(dic)
             if self.main_window.siInformacionPGN:
                 if (row == 0 and column.key == "NUMBER") or row < 0:
@@ -902,6 +943,8 @@ class Manager:
             analysis_bar = self.configuration.x_analyzer_activate_ab
         self.main_window.activate_analysis_bar(analysis_bar)
 
+        self.put_view()
+
     def change_info_extra(self, who):
         key = "SHOW_INFO_EXTRA_" + DICT_GAME_TYPES[self.game_type]
         dic = self.configuration.read_variables(key)
@@ -1172,6 +1215,8 @@ class Manager:
         form.checkbox(_("Comments"), False)
         form.checkbox(_("Analysis"), False)
         form.checkbox(_("Themes"), False)
+        form.checkbox(_("Time used") + " (%emt)", False)
+        form.checkbox(_("Pending time") + " (%clk)", False)
         form.separador()
 
         num_moves, nj, row, is_white = self.jugadaActual()
@@ -1183,12 +1228,12 @@ class Manager:
             form.separador()
         resultado = form.run()
         if resultado:
-            is_all, variations, ratings, comments, analysis, themes = resultado[1][:6]
+            is_all, variations, ratings, comments, analysis, themes, time_ms, clock_ms = resultado[1][:8]
             if is_all:
-                variations = ratings = comments = analysis = themes = True
-            self.game.remove_info_moves(variations, ratings, comments, analysis, themes)
+                variations = ratings = comments = analysis = themes = time_ms = clock_ms = True
+            self.game.remove_info_moves(variations, ratings, comments, analysis, themes, time_ms, clock_ms)
             if with_moves:
-                beginning, ending = resultado[1][6:]
+                beginning, ending = resultado[1][8:]
                 if beginning:
                     self.game.remove_moves(nj, False)
                     self.goto_firstposition()
@@ -1471,11 +1516,21 @@ class Manager:
             _("Arrow with the best move when there is an analysis"),
             is_ckecked=self.configuration.x_show_bestmove,
         )
+        menu_vista.separador()
+        menu_vista.opcion(
+            "vista_rating",
+            _("Ratings") + " (NAGs)",
+            is_ckecked=self.configuration.x_show_rating,
+        )
 
     def exec_menu_vista(self, resp):
         resp = resp[6:]
         if resp == "bestmove":
             self.configuration.x_show_bestmove = not self.configuration.x_show_bestmove
+            self.configuration.graba()
+            self.put_view()
+        elif resp == "rating":
+            self.configuration.x_show_rating = not self.configuration.x_show_rating
             self.configuration.graba()
             self.put_view()
         else:

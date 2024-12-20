@@ -8,6 +8,7 @@ from Code.QT import Iconos
 from Code.QT import LCDialog
 from Code.QT import QTUtil
 from Code.Translations import WorkTranslate
+from Code import ManagerGame
 
 
 class MainWindow(LCDialog.LCDialog):
@@ -102,6 +103,10 @@ class MainWindow(LCDialog.LCDialog):
     def closeEvent(self, event):
         # Cierre con X
         self.final_processes()
+        if isinstance(self.manager, ManagerGame.ManagerGame):
+            event.ignore()
+            self.manager.final_x()
+            return
         if Code.procesador.manager is not None:
             if self.manager.final_x0():
                 Code.procesador.reset()
@@ -334,11 +339,9 @@ class MainWindow(LCDialog.LCDialog):
 
     def hide_pgn(self):
         self.base.pgn.hide()
-        # self.base.pgn.setDisabled(True)
 
     def show_pgn(self):
         self.base.pgn.show()
-        # self.base.pgn.setDisabled(False)
 
     def refresh(self):
         self.update()
@@ -353,6 +356,7 @@ class MainWindow(LCDialog.LCDialog):
             self.siCapturas = siActivar
         self.base.lb_capt_white.setVisible(self.siCapturas)
         self.base.lb_capt_black.setVisible(self.siCapturas)
+        self.base.bt_capt.setVisible(self.siCapturas)
 
     def activaInformacionPGN(self, siActivar=None):
         if siActivar is None:

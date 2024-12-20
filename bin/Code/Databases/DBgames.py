@@ -385,8 +385,8 @@ class DBgames:
                 self.conexion.execute(sqln, [rowid, ])
         self.conexion.commit()
 
-    def get_summary(self, pvBase, dicAnalisis, with_figurines, allmoves=True):
-        return self.db_stat.get_summary(pvBase, dicAnalisis, with_figurines, allmoves) if self.with_db_stat else []
+    def get_summary(self, pv_base, dic_analisis, with_figurines, allmoves=True):
+        return self.db_stat.get_summary(pv_base, dic_analisis, with_figurines, allmoves) if self.with_db_stat else []
 
     def has_result_field(self):
         return "RESULT" in self.st_fields
@@ -461,7 +461,7 @@ class DBgames:
                     game.skip_first()
                 fen = game.first_position.fen()
                 pgn = game.pgn_base_raw(translated=True)
-                li.append((fen,pgn))
+                li.append((fen, pgn))
         return li
 
     def yield_fens(self):
@@ -580,6 +580,21 @@ class DBgames:
         lista.sort(key=lambda name: name.upper())
         return lista
 
+    def read_data(self, recno):
+        raw = self.read_complete_recno(recno)
+        xpgn = raw["_DATA_"]
+        if xpgn is None:
+            return None
+        else:
+            return self.read_game_raw(raw)
+
+    def save_data(self, recno, game):
+        data = None if game.only_has_moves() else game.save(False)
+        rowid = self.li_row_ids[recno]
+        sql = f"UPDATE Games SET _DATA_=? WHERE ROWID = {rowid}"
+        self.conexion.execute(sql, (data,))
+        self.conexion.commit()
+
     def read_game_recno(self, recno):
         raw = self.read_complete_recno(recno)
         return self.read_game_raw(raw)
@@ -618,8 +633,13 @@ class DBgames:
         game.set_tags(litags)
         if fen and not game.get_tag("FEN"):
             game.set_tag("FEN", fen)
-        if not game.get_tag("Opening"):
-            game.assign_opening()
+        opening = game.get_tag("Opening")
+        eco = game.get_tag("ECO")
+        game.assign_opening()
+        if opening:
+            game.set_tag("Opening", opening)
+        if eco:
+            game.set_tag("ECO", eco)
 
         game.order_tags()
         game.resultado()
@@ -685,7 +705,7 @@ class DBgames:
             except sqlite3.OperationalError:
                 pass
 
-    def import_pgns(self, ficheros, dl_tmp):
+    def import_pgns(self, ficheros, dl_tmp, rem_comvar_run=None):
 
         erroneos = duplicados = importados = 0
 
@@ -822,6 +842,10 @@ class DBgames:
                             reg.append(xpv)
                         elif campo == "_DATA_":
                             data = None
+                            if rem_comvar_run:
+                                body = rem_comvar_run(body)
+                                is_raw = not (b"{" in body or b"(" in body or
+                                              b"?" in body or b"!" in body or b"$" in body)
                             if not is_raw:
                                 data = memoryview(BODY_SAVE + body)
                             reg.append(data)
@@ -1155,7 +1179,7 @@ class DBgames:
             self.conexion.commit()
         self.li_row_ids.append(cursor.lastrowid)
         cursor.close()
-        resp.recno = len(self.li_row_ids)-1
+        resp.recno = len(self.li_row_ids) - 1
 
         if self.with_db_stat and not si_fen_nue and pv_nue:
             self.db_stat.append(pv_nue, result_nue, +1)

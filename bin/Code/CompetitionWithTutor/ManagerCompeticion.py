@@ -379,7 +379,7 @@ class ManagerCompeticion(Manager.Manager):
                                 )
                                 if ok:
                                     move = jg_tutor
-                        elif self.configuration.x_save_tutor_variations:
+                        if self.configuration.x_save_tutor_variations:
                             tutor.add_variations_to_move(move, 1 + len(self.game) / 2)
 
                         del tutor
