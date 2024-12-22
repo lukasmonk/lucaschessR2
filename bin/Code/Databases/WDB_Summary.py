@@ -74,23 +74,14 @@ class WSummary(QtWidgets.QWidget):
         self.grid.font_type(puntos=self.configuration.x_pgn_fontpoints)
 
         # ToolBar
-        li_acciones = [
-            (_("Close"), Iconos.MainMenu(), wb_database.tw_terminar),
-            None,
-            (_("Basic position"), Iconos.Inicio(), self.start),
-            None,
-            (_("Previous"), Iconos.AnteriorF(), self.anterior),
-            (_("Next"), Iconos.SiguienteF(), self.siguiente),
-            None,
-            (_("Analyze"), Iconos.Analizar(), self.analizar),
-            None,
-            (_("Rebuild"), Iconos.Reindexar(), self.reindexar),
-            None,
-            (_("Config"), Iconos.Configurar(), self.config),
-            None,
-        ]
-
-        self.tb = QTVarios.LCTB(self, li_acciones, icon_size=20, with_text=not self.siMoves)
+        self.tb = QTVarios.LCTB(self, icon_size=20, with_text=not self.siMoves)
+        self.tb.new(_("Close"), Iconos.MainMenu(), wb_database.tw_terminar)
+        self.tb.new(_("Basic position"), Iconos.Inicio(), self.start)
+        self.tb.new(_("Previous"), Iconos.AnteriorF(), self.anterior, sep=False)
+        self.tb.new(_("Next"), Iconos.SiguienteF(), self.siguiente)
+        self.tb.new(_("Analyze"), Iconos.Analizar(), self.analizar)
+        self.tb.new(_("Rebuild"), Iconos.Reindexar(), self.reindexar)
+        self.tb.new(_("Config"), Iconos.Configurar(), self.config)
         if self.siMoves:
             self.tb.vertical()
 

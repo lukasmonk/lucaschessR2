@@ -493,7 +493,7 @@ class MainWindow(LCDialog.LCDialog):
                 sps = self.informacionPGN.sp_sizes
                 if sps is None or sps[1] == 0:
                     dr = self.restore_dicvideo()
-                    if key in dr:
+                    if dr and key in dr:
                         dic[key] = dr[key]
                         continue
                     sps = [1, 1]

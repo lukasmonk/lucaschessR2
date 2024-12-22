@@ -2,7 +2,7 @@ import random
 
 import Code
 from Code.Base import Game
-from Code.Books import Polyglot
+from Code.Books import Polyglot, Books
 
 
 class EtiOpening:
@@ -66,6 +66,24 @@ class OpeningPol:
             return False
 
         li = self.book.lista(self.file, fen)
+        if not li:
+            return False
+
+        for entry in li:
+            pv = entry.pv()
+            if pv[:2] == from_sq and pv[2:4] == to_sq:
+                return True
+        return False
+
+
+class OpeningGM:
+    def __init__(self):
+        books = Books.ListBooks()
+        self.path = books.lista[0].path
+        self.book = Polyglot.Polyglot()
+
+    def check_human(self, fen, from_sq, to_sq):
+        li = self.book.lista(self.path, fen)
         if not li:
             return False
 

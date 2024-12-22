@@ -64,8 +64,8 @@ class Information(QtWidgets.QWidget):
             self.lb_clock)
         ly_rating.otro(ly_pw_tm)
 
-        bt_rating = Controles.PB(self, _("Rating") + " (NAG)", rutina=self.edit_rating).ponIcono(Iconos.Mas(), 16)
-        bt_theme = Controles.PB(self, _("Theme"), rutina=self.edit_theme).ponIcono(Iconos.MasR(), 16)
+        bt_rating = Controles.PB(self, _("Rating") + " (NAG)", rutina=self.edit_rating, plano=False).ponIcono(Iconos.Mas(), 16).set_font(font_bold)
+        bt_theme = Controles.PB(self, _("Theme"), rutina=self.edit_theme, plano=False).ponIcono(Iconos.MasR(), 16).set_font(font_bold)
         ly_rt = Colocacion.H().relleno().control(bt_rating).relleno().control(bt_theme).relleno()
         ly_rating.otro(ly_rt)
 

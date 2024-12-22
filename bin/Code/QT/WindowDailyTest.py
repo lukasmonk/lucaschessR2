@@ -252,7 +252,7 @@ class WDailyTest(LCDialog.LCDialog):
 
         # Tool bar
         li_acciones = (
-            # ( _( "Start" ), Iconos.Empezar(), "empezar" ),
+            # ( _( "Start" ), Iconos.Empezar(), "empezar" ),None,
             (_("Analysis"), Iconos.Tutor(), "analizar"),
             (_("Cancel"), Iconos.Cancelar(), "cancelar"),
             (_("Continue"), Iconos.Pelicula_Seguir(), "seguir"),

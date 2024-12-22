@@ -6,7 +6,6 @@ import FasterCode
 from PySide2 import QtCore
 
 import Code
-from Code.Openings import Opening
 from Code import ControlPGN
 from Code import TimeControl
 from Code import Util
@@ -65,6 +64,7 @@ from Code.Engines import EngineResponse
 from Code.Engines import WConfEngines
 from Code.ForcingMoves import ForcingMoves
 from Code.Kibitzers import Kibitzers
+from Code.Openings import Opening
 from Code.Openings import OpeningsStd
 from Code.QT import FormLayout
 from Code.QT import Iconos
@@ -497,48 +497,51 @@ class Manager:
                 or self.kibitzers_manager.some_working()
                 or self.configuration.x_show_bestmove
         ):
-            if move:
-                # dic = move.position.capturas_diferencia()
-                if move.analysis and self.configuration.x_show_bestmove:
-                    mrm, pos = move.analysis
-                    if pos:  # no se muestra la mejor move si es la realizada
-                        rm0 = mrm.best_rm_ordered()
-                        self.board.put_arrow_scvar([(rm0.from_sq, rm0.to_sq)])
+            if move and (self.configuration.x_show_bestmove or self.configuration.x_show_rating):
+                move_check = move
+                if column.key == "NUMBER":
+                    pos_move -= 1
+                    if pos_move < 0:
+                        move_check = None
+                    else:
+                        move_check = self.game.move(pos_move)
+                if move_check:
+                    if move_check.analysis and self.configuration.x_show_bestmove:
+                        mrm, pos = move_check.analysis
+                        if pos:  # no se muestra la mejor move si es la realizada
+                            rm0 = mrm.best_rm_ordered()
+                            self.board.put_arrow_scvar([(rm0.from_sq, rm0.to_sq)])
 
-                if self.configuration.x_show_rating:
-                    move_nag = move
-                    if column.key == "NUMBER":
-                        pos_move -= 1
-                        move_nag = self.game.move(pos_move)
-                    if move_nag:
-                        nag = move_nag.get_nag()
+                    if self.configuration.x_show_rating:
+                        nag = move_check.get_nag()
                         color = NO_RATING
                         if not nag:
-                            if move_nag.analysis:
-                                mrm, pos = move_nag.analysis
+                            if move_check.analysis:
+                                mrm, pos = move_check.analysis
                                 rm = mrm.li_rm[pos]
                                 nag, color = mrm.set_nag_color(rm)
                         if nag == NO_RATING:
-                            if move_nag.in_the_opening:
+                            if move_check.in_the_opening:
                                 nag = 1000
                             elif color == GOOD_MOVE:
                                 nag = 999
                             else:
-                                if move_nag.is_book:
+                                if move_check.is_book:
                                     nag = 1001
-                                elif move_nag.is_book is None:
+                                elif move_check.is_book is None:
                                     if self.ap_ratings is None:
-                                        self.ap_ratings = Opening.OpeningPol(999)
-                                    move_nag.is_book = self.ap_ratings.check_human(move_nag.position_before.fen(), move_nag.from_sq,
-                                                                          move_nag.to_sq)
-                                    if move_nag.is_book:
+                                        self.ap_ratings = Opening.OpeningGM()
+                                    move_check.is_book = self.ap_ratings.check_human(move_check.position_before.fen(),
+                                                                                   move_check.from_sq, move_check.to_sq)
+                                    if move_check.is_book:
                                         nag = 1001
-                        poscelda = 0 if (move_nag.to_sq[0] < move_nag.from_sq[0]) and (move_nag.to_sq[1] < move_nag.from_sq[1]) else 1
-                        if nag != NO_RATING or (nag == NO_RATING and move_nag.analysis):
-                            self.board.put_rating(move_nag.from_sq, move_nag.to_sq, nag, poscelda)
-                        if nag != 1000 and move_nag.in_the_opening:
+                        poscelda = 0 if (move_check.to_sq[0] < move_check.from_sq[0]) and (
+                                    move_check.to_sq[1] < move_check.from_sq[1]) else 1
+                        if nag != NO_RATING or (nag == NO_RATING and move_check.analysis):
+                            self.board.put_rating(move_check.from_sq, move_check.to_sq, nag, poscelda)
+                        if nag != 1000 and move_check.in_the_opening:
                             poscelda = 1 if poscelda == 0 else 0
-                            self.board.put_rating(move_nag.from_sq, move_nag.to_sq, 1000, poscelda)
+                            self.board.put_rating(move_check.from_sq, move_check.to_sq, 1000, poscelda)
 
             nom_opening = ""
             opening = self.game.opening
@@ -547,11 +550,12 @@ class Manager:
                 if opening.eco:
                     nom_opening += " (%s)" % opening.eco
             if self.main_window.siCapturas:
-                if Code.configuration.x_captures_mode_diferences:
-                    dic = self.board.last_position.capturas_diferencia()
-                else:
-                    dic = self.board.last_position.capturas()
-                self.main_window.put_captures(dic)
+                if self.board.last_position:
+                    if Code.configuration.x_captures_mode_diferences:
+                        dic = self.board.last_position.capturas_diferencia()
+                    else:
+                        dic = self.board.last_position.capturas()
+                    self.main_window.put_captures(dic)
             if self.main_window.siInformacionPGN:
                 if (row == 0 and column.key == "NUMBER") or row < 0:
                     self.main_window.put_informationPGN(self.game, None, nom_opening)
@@ -994,6 +998,7 @@ class Manager:
             self.arbol()
         else:
             menu = QTVarios.LCMenu(self.main_window)
+            menu.opcion(None, f'{_("Show/hide")}:', Iconos.Flechas(), is_disabled=True)
             self.add_menu_vista(menu)
             resp = menu.lanza()
             if resp:

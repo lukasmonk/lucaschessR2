@@ -254,29 +254,20 @@ class WBase(QtWidgets.QWidget):
         o_columns.li_columns[1].head = white if white else _("White")
         o_columns.li_columns[2].head = black if black else _("Black")
 
-    def reset_widths(self):
-        configuration = self.manager.configuration
-        width_pgn = configuration.x_pgn_width
-        n_ancho_labels = max(int((width_pgn - 3) // 2), 140)
-        self.lb_player_white.anchoFijo(n_ancho_labels)
-        self.lb_player_black.anchoFijo(n_ancho_labels)
-        self.lb_capt_white.anchoFijo(n_ancho_labels)
-        self.lb_capt_black.anchoFijo(n_ancho_labels)
-
     def creaBloqueInformacion(self):
         configuration = self.manager.configuration
         width_pgn = configuration.x_pgn_width
-        with_each_color = (width_pgn - 52) // 2 - 10
-        n_ancho_labels = width_pgn // 2 + 2
+        width_each_color = (width_pgn - 52 - 25) // 2
+        n_ancho_labels = width_pgn // 2 - 4
         # # Pgn
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("NUMBER", _("N."), 52, align_center=True)
         with_figurines = configuration.x_pgn_withfigurines
         o_columns.nueva(
-            "WHITE", _("White"), with_each_color, edicion=Delegados.EtiquetaPGN(True if with_figurines else None)
+            "WHITE", _("White"), width_each_color, edicion=Delegados.EtiquetaPGN(True if with_figurines else None)
         )
         o_columns.nueva(
-            "BLACK", _("Black"), with_each_color, edicion=Delegados.EtiquetaPGN(False if with_figurines else None)
+            "BLACK", _("Black"), width_each_color, edicion=Delegados.EtiquetaPGN(False if with_figurines else None)
         )
         self.pgn = Grid.Grid(self, o_columns, siCabeceraMovible=False, altoFila=configuration.x_pgn_rowheight)
         self.pgn.setMinimumWidth(width_pgn)
@@ -294,7 +285,7 @@ class WBase(QtWidgets.QWidget):
         self.configuration.set_property(self.lb_player_black, "black")
 
         # # Capturas
-        n_ancho_capt = n_ancho_labels - 12
+        n_ancho_capt = (width_pgn - 12) // 2
         self.lb_capt_white = Controles.LB(self).anchoFijo(n_ancho_capt).set_wrap()
         style = "QWidget { border-style: groove; border-width: 1px; border-color: LightGray; padding: 2px 0px 2px 0px;}"
         self.lb_capt_white.setStyleSheet(style)
@@ -302,7 +293,7 @@ class WBase(QtWidgets.QWidget):
         self.lb_capt_black = Controles.LB(self).anchoFijo(n_ancho_capt).set_wrap()
         self.lb_capt_black.setStyleSheet(style)
 
-        self.bt_capt = (Controles.PB(self, self.captures_symbol(), self.captures_mouse_pressed).anchoFijo(12)
+        self.bt_capt = (Controles.PB(self, self.captures_symbol(), self.captures_mouse_pressed)
                         .set_font_type(puntos=16))
 
         # Relojes

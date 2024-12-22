@@ -915,7 +915,7 @@ class TBrutina(QtWidgets.QToolBar):
                 else:
                     titulo, icono, key, tool_tip = datos
                     self.new(titulo, icono, key, False, tool_tip=tool_tip)
-        else:
+            else:
                 self.addSeparator()
 
     def reset(self, li_acciones):

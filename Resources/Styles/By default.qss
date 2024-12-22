@@ -108,7 +108,7 @@ QLabel[type="black"]
     background-color: #000000;
     color: #fafafa;
     padding: 4px 4px 4px 4px;
-    border: 1px solid #d3d3d3;
+    border: 1px solid #000000;
 }
 QLabel[type="time_ms"]
 {
