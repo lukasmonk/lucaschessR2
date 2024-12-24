@@ -174,15 +174,17 @@ class Procesador:
                 self.read_pgn(comando)
                 return
 
+        # Importante: debe estar antes de la definición de main_window, sino al lanzar ayuda traducción,
+        # la reposiciona continuamente con todos las etiquetas traducidas
+        self.entrenamientos = MenuTrainings.MenuTrainings(self)
+        if self.configuration.x_translation_mode:
+            self.entrenamientos.verify()
+
         self.main_window = MainWindow.MainWindow(self)
         self.main_window.set_manager_active(self)  # antes que muestra
         self.main_window.muestra()
         self.main_window.check_translated_help_mode()
         self.kibitzers_manager = KibitzersManager.Manager(self)
-
-        self.entrenamientos = MenuTrainings.MenuTrainings(self)
-        if self.configuration.x_translation_mode:
-            self.entrenamientos.verify()
 
         self.board = self.main_window.board
 

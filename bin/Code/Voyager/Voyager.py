@@ -192,7 +192,7 @@ class WPosicion(QtWidgets.QWidget):
 
         ly_g = Colocacion.G()
         ly_g.controlc(self.drag_drop_down, 0, 0)
-        ly_g.control(self.board, 1, 0).control(self.lb_scanner, 1, 1)
+        ly_g.controlc(self.board, 1, 0).control(self.lb_scanner, 1, 1)
         ly_g.controlc(self.drag_drop_up, 2, 0).controlc(self.gb_scanner, 2, 1, numFilas=4)
         ly_g.controlc(gb_color, 3, 0)
         ly_g.controlc(gb_enroques, 4, 0)

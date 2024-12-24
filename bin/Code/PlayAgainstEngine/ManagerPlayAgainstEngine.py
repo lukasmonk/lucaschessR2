@@ -1536,6 +1536,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
     def add_move(self, move):
         self.game.add_move(move)
         self.show_clocks()
+        self.board.borraMovibles()
         self.check_boards_setposition()
 
         self.put_arrow_sc(move.from_sq, move.to_sq)

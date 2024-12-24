@@ -415,7 +415,7 @@ class Board(QtWidgets.QGraphicsView):
         self.set_width()
 
     def calc_width_mx_piece(self):
-        at = QTUtil.desktop_height() - 50 - 64
+        at = min(QTUtil.desktop_height(), QTUtil.desktop_width()) - 50 - 64
         if self.siF11:
             at += 50 + 64
         tr = 1.0 * self.config_board.tamRecuadro() / 100.0

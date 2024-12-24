@@ -496,6 +496,7 @@ class Manager:
                 or self.main_window.siInformacionPGN
                 or self.kibitzers_manager.some_working()
                 or self.configuration.x_show_bestmove
+                or self.configuration.x_show_rating
         ):
             if move and (self.configuration.x_show_bestmove or self.configuration.x_show_rating):
                 move_check = move
@@ -550,7 +551,7 @@ class Manager:
                 if opening.eco:
                     nom_opening += " (%s)" % opening.eco
             if self.main_window.siCapturas:
-                if self.board.last_position:
+                if self.board.last_position is not None:
                     if Code.configuration.x_captures_mode_diferences:
                         dic = self.board.last_position.capturas_diferencia()
                     else:

@@ -132,6 +132,7 @@ class ControlFindAllMoves:
 
 class ManagerFindAllMoves(Manager.Manager):
     is_the_player: bool
+    last_a1h8 = None
 
     def start(self, is_the_player):
 
@@ -265,6 +266,7 @@ class ManagerFindAllMoves(Manager.Manager):
 
         FasterCode.set_fen(fen)
         self.liMovs = FasterCode.get_exmoves()
+        self.last_a1h8 = None
 
         # Creamos un avariable para controlar que se mueven en orden
         d = {}
@@ -332,10 +334,13 @@ class ManagerFindAllMoves(Manager.Manager):
         return False
 
     def player_has_moved(self, from_sq, to_sq, promotion=""):
+        a1h8 = from_sq + to_sq
+        if self.last_a1h8 == a1h8:
+            return
+        self.last_a1h8 = a1h8
         if from_sq == to_sq:
             return
         QTUtil.refresh_gui()
-        a1h8 = from_sq + to_sq
         for mov in self.liMovs:
             if (mov.xfrom() + mov.xto()) == a1h8:
                 if not mov.is_selected:
