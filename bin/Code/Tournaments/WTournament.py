@@ -148,20 +148,14 @@ class WTournament(LCDialog.LCDialog):
         # Tab-engines --------------------------------------------------
         self.splitterEngines = QtWidgets.QSplitter(self)
         self.register_splitter(self.splitterEngines, "engines")
+
         # TB
-        li_acciones = [
-            (_("New"), Iconos.TutorialesCrear(), self.eng_new),
-            None,
-            (_("Modify"), Iconos.Modificar(), self.eng_modify),
-            None,
-            (_("Remove"), Iconos.Borrar(), self.eng_remove),
-            None,
-            (_("Copy"), Iconos.Copiar(), self.eng_copy),
-            None,
-            (_("Import"), Iconos.MasDoc(), self.eng_import),
-            None,
-        ]
-        tb_en_a = Controles.TBrutina(self, li_acciones, icon_size=16, style=QtCore.Qt.ToolButtonTextBesideIcon)
+        tb_en_a = Controles.TBrutina(self, icon_size=16, style=QtCore.Qt.ToolButtonTextBesideIcon)
+        tb_en_a.new(_("New"), Iconos.TutorialesCrear(), self.eng_new)
+        tb_en_a.new(_("Modify"), Iconos.Modificar(), self.eng_modify)
+        tb_en_a.new(_("Remove"), Iconos.Borrar(), self.eng_remove)
+        tb_en_a.new(_("Copy"), Iconos.Copiar(), self.eng_copy)
+        tb_en_a.new(_("Import"), Iconos.MasDoc(), self.eng_import)
 
         # Grid engine
         o_columns = Columnas.ListaColumnas()
@@ -193,33 +187,25 @@ class WTournament(LCDialog.LCDialog):
         w.setLayout(ly)
         tab.new_tab(w, _("Engines"))
 
-        # Creamos
-
         # Tab-games queued--------------------------------------------------
         w = QtWidgets.QWidget()
-        # TB
-        li_acciones = [
-            (_("New"), Iconos.TutorialesCrear(), self.gm_crear_queued),
-            None,
-            (_("Remove"), Iconos.Borrar(), self.gm_borrar_queued),
-            None,
-        ]
-        tb_en_g = Controles.TBrutina(self, li_acciones, icon_size=16, style=QtCore.Qt.ToolButtonTextBesideIcon)
+
+        tb_en_g = Controles.TBrutina(self, icon_size=16, style=QtCore.Qt.ToolButtonTextBesideIcon)
+        tb_en_g.new(_("New"), Iconos.TutorialesCrear(), self.gm_crear_queued)
+        tb_en_g.new(_("Remove"), Iconos.Borrar(), self.gm_borrar_queued)
 
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("NUM", _("N."), 50, align_center=True)
         o_columns.nueva("WHITE", _("White"), 190, align_center=True)
         o_columns.nueva("BLACK", _("Black"), 190, align_center=True)
         o_columns.nueva("TIME", _("Time"), 170, align_center=True)
-        # o_columns.nueva("STATE", _("State"), 190, align_center=True)
         self.gridGamesQueued = Grid.Grid(
             self, o_columns, siSelecFilas=True, siSeleccionMultiple=True, xid=GRID_GAMES_QUEUED
         )
         self.register_grid(self.gridGamesQueued)
-        # Layout
+
         layout = Colocacion.V().control(tb_en_g).control(self.gridGamesQueued)
 
-        # Creamos
         w.setLayout(layout)
         tab.new_tab(w, _("Games queued"))
 
@@ -227,16 +213,12 @@ class WTournament(LCDialog.LCDialog):
         w = QtWidgets.QWidget()
         # TB
         li_acciones = [
-            (_("Remove"), Iconos.Borrar(), self.gm_borrar_finished),
-            None,
-            (_("Show"), Iconos.PGN(), self.gm_show_finished),
-            None,
-            (_("Save") + "(%s)" % _("PGN"), Iconos.GrabarComo(), self.gm_save_pgn),
-            None,
-            (_("Save") + "(%s)" % _("Database"), Iconos.GrabarComo(), self.gm_save_database),
-            None,
         ]
         tb_en_gt = Controles.TBrutina(self, li_acciones, icon_size=16, style=QtCore.Qt.ToolButtonTextBesideIcon)
+        tb_en_gt.new(_("Remove"), Iconos.Borrar(), self.gm_borrar_finished)
+        tb_en_gt.new(_("Show"), Iconos.PGN(), self.gm_show_finished)
+        tb_en_gt.new(_("Save") + "(%s)" % _("PGN"), Iconos.GrabarComo(), self.gm_save_pgn)
+        tb_en_gt.new(_("Save") + "(%s)" % _("Database"), Iconos.GrabarComo(), self.gm_save_database)
 
         self.cache_games_finished = {}
         o_columns = Columnas.ListaColumnas()
@@ -285,11 +267,6 @@ class WTournament(LCDialog.LCDialog):
             "BLACK": QTUtil.qtColor(Code.dic_colors["TOURNAMENTS_RESULTS_BLACK"]),
             "SCORE": QTUtil.qtColor(Code.dic_colors["TOURNAMENTS_RESULTS_SCORE"]),
         }
-        # self.qtColor = {
-        #     "WHITE": QTUtil.qtColorRGB(255, 250, 227),
-        #     "BLACK": QTUtil.qtColorRGB(221, 255, 221),
-        #     "SCORE": QTUtil.qtColorRGB(170, 170, 170),
-        # }
 
         # Layout
         layout = Colocacion.V().control(self.gridResults)
@@ -299,7 +276,6 @@ class WTournament(LCDialog.LCDialog):
         tab.new_tab(w, _("Results"))
 
         # Layout
-        # tab.set_position("W")
         layout = Colocacion.V().control(tb).espacio(-3).control(tab).margen(2)
         self.setLayout(layout)
 
@@ -515,7 +491,6 @@ class WTournament(LCDialog.LCDialog):
             return gm.etiTiempo()
         elif column == "PLYCOUNT":
             return str(len(game))
-
 
     def grid_cambiado_registro(self, grid, row, column):
         if grid.id == GRID_ALIAS:

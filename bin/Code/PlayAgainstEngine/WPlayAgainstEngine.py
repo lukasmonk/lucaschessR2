@@ -692,9 +692,10 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
 
         elif self.rival.type == ENG_EXTERNAL:
             si_multi = self.rival.has_multipv()
-            if self.rival.max_depth or self.rival.max_time:
+            if self.rival.max_depth or self.rival.max_time or self.rival.nodes:
                 self.ed_rdepth.ponInt(self.rival.max_depth)
                 self.ed_rtime.ponFloat(self.rival.max_time)
+                self.ed_nodes.ponInt(self.rival.nodes)
 
         hide_nodes = not self.rival.is_nodes_compatible()
         self.ed_nodes.setVisible(not hide_nodes)

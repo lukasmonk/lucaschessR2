@@ -17,6 +17,7 @@ class EngineTournament(Engines.Engine):
 
         self.depth = 0
         self.time = 0
+        self.nodes = 0
 
         self.elo_current = None
 

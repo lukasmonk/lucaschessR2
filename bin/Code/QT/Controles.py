@@ -736,8 +736,7 @@ class Menu(QtWidgets.QMenu):
     def mousePressEvent(self, event):
         self.siIzq = event.button() == QtCore.Qt.LeftButton
         self.siDer = event.button() == QtCore.Qt.RightButton
-        resp = QtWidgets.QMenu.mousePressEvent(self, event)
-        return resp
+        return QtWidgets.QMenu.mousePressEvent(self, event)
 
     def separador(self):
         if self.si_separadores:

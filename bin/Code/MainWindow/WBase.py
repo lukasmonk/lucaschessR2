@@ -294,7 +294,7 @@ class WBase(QtWidgets.QWidget):
         self.lb_capt_black.setStyleSheet(style)
 
         self.bt_capt = (Controles.PB(self, self.captures_symbol(), self.captures_mouse_pressed)
-                        .set_font_type(puntos=16))
+                        .set_font_type(puntos=14)).anchoFijo(10)
 
         # Relojes
         f = Controles.FontType(puntos=26, peso=500)

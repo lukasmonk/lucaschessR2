@@ -85,8 +85,9 @@ class LCDialog(QtWidgets.QDialog):
             try:
                 for sp, name in self.liSplitters:
                     k = "SP_%s" % name
-                    if k in dic:
-                        sp.setSizes(dic[k])
+                    li_sp = dic.get(k)
+                    if li_sp and type(li_sp) == list and len(li_sp) == 2 and type(li_sp[0]) == int:
+                        sp.setSizes(li_sp)
             except TypeError:
                 pass
             if shrink:

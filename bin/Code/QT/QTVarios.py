@@ -591,6 +591,23 @@ class LCMenu(Controles.Menu):
         return menu
 
 
+class LCMenu12(LCMenu):
+    def __init__(self, parent, titulo=None, icono=None, is_disabled=False, puntos=None):
+        LCMenu.__init__(self, parent, titulo, icono, is_disabled, puntos)
+        self.setStyleSheet("""
+                   QMenu::item:disabled {
+                       height: 0px;
+                       padding: 0px;
+                       margin: 0px;
+                   }
+               """)
+        self.opcion("", "", is_disabled=True)
+
+    def lanza(self):
+        self.opcion("", "", is_disabled=True)
+        return LCMenu.lanza(self)
+
+
 class LCMenuRondo(LCMenu):
     def __init__(self, parent, puntos=None):
         LCMenu.__init__(self, parent, puntos)
@@ -601,13 +618,6 @@ class LCMenuRondo(LCMenu):
         if icono is None:
             icono = self.rondo.otro()
         LCMenu.opcion(self, key, label, icono, is_disabled, font_type, is_ckecked, tooltip, shortcut)
-
-
-# def submenu(self, label, icono=None, is_disabled=False):
-#     if icono is None:
-#         icono = self.rondo.otro()
-#     return LCMenu.submenu(self, label, icono, is_disabled)
-#
 
 
 class LCMenuPiezas(Controles.Menu):

@@ -29,19 +29,17 @@ class WBDatabase(LCDialog.LCDialog):
 
         si_summary = not si_select
 
-        self.wplayer = WDB_Players.WPlayer(procesador, self, self.db_games)
-        self.wplayer_active = False
-        self.register_grid(self.wplayer.gridMovesBlack)
-        self.register_grid(self.wplayer.gridMovesWhite)
-        self.register_grid(self.wplayer.gridOpeningWhite)
-        self.register_grid(self.wplayer.gridOpeningBlack)
-
+        self.wplayer = None
+        self.wsummary = None
         if si_summary:
+            self.wplayer = WDB_Players.WPlayer(procesador, self, self.db_games)
+            self.wplayer_active = False
+            self.register_grid(self.wplayer.gridMovesBlack)
+            self.register_grid(self.wplayer.gridMovesWhite)
+            self.register_grid(self.wplayer.gridOpeningWhite)
+            self.register_grid(self.wplayer.gridOpeningBlack)
             self.wsummary = WDB_Summary.WSummary(procesador, self, self.db_games, siMoves=False)
             self.register_grid(self.wsummary.grid)
-
-        else:
-            self.wsummary = None
 
         self.wgames = WDB_Games.WGames(self, self.db_games, self.wsummary, si_select)
 
@@ -71,6 +69,7 @@ class WBDatabase(LCDialog.LCDialog):
         self.splitter = splitter = QtWidgets.QSplitter()
         splitter.addWidget(w)
         splitter.addWidget(self.infoMove)
+        # self.splitter.splitterMoved.connect(self.handle_splitter_resize)
 
         layout = Colocacion.H().control(splitter).margen(0)
         self.setLayout(layout)
@@ -153,9 +152,10 @@ class WBDatabase(LCDialog.LCDialog):
         self.setWindowTitle(self.db_games.label())
         self.wgames.setdbGames(self.db_games)
         self.wgames.setInfoMove(self.infoMove)
-        self.wplayer.setInfoMove(self.infoMove)
-        self.wplayer.setdbGames(self.db_games)
-        if self.wsummary:
+        if self.wplayer is not None:
+            self.wplayer.setInfoMove(self.infoMove)
+            self.wplayer.setdbGames(self.db_games)
+        if self.wsummary is not None:
             self.wsummary.setInfoMove(self.infoMove)
             self.wsummary.setdbGames(self.db_games)
             self.wsummary.actualizaPV("")

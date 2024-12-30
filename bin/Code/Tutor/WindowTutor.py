@@ -63,19 +63,19 @@ class WindowTutor(LCDialog.LCDialog):
         lytbtutor = Colocacion.H().relleno().otro(lytbtutor).relleno().control(tb_analisis)
 
         # Puntuaciones
-        self.lb_tutor = Controles.LB(self).set_font(f).align_center()
+        self.lb_tutor = Controles.LB(self).set_font(f).align_center().set_wrap()
         self.lb_tutor.setFixedWidth(self.board_tutor.ancho)
         manager.configuration.set_property(self.lb_tutor, "tutor-tutor" if has_hints else "tutor-tutor-disabled")
         if has_hints:
             self.lb_tutor.mousePressEvent = self.select_tutor
 
-        self.lb_player = Controles.LB(self).set_font(f).align_center()
+        self.lb_player = Controles.LB(self).set_font(f).align_center().set_wrap()
         self.lb_player.setFixedWidth(self.board_user.ancho)
         self.lb_player.mousePressEvent = self.select_user
         manager.configuration.set_property(self.lb_player, "tutor-player" if has_hints else "tutor-tutor")
 
         if with_rival:
-            self.lb_rival = Controles.LB(self).set_font(f).align_center()
+            self.lb_rival = Controles.LB(self).set_font(f).align_center().set_wrap()
             self.lb_rival.setFixedWidth(self.board_rival.ancho)
             manager.configuration.set_property(self.lb_rival, "tutor-tutor-disabled")
 

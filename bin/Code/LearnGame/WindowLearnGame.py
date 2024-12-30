@@ -264,7 +264,7 @@ class WLearn1(LCDialog.LCDialog):
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("DATE", _("Date"), 100, align_center=True)
         o_columns.nueva("LEVEL", _("Level"), 80, align_center=True)
-        o_columns.nueva("COLOR", _("Side you play with"), 80, align_center=True)
+        o_columns.nueva("COLOR", _("Side you play with"),120, align_center=True)
         o_columns.nueva("ERRORS", _("Errors"), 80, align_center=True)
         o_columns.nueva("HINTS", _("Hints"), 80, align_center=True)
         o_columns.nueva("TIME", _("Time"), 80, align_center=True)

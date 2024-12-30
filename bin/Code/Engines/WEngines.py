@@ -348,11 +348,14 @@ class WEngineExtend(QtWidgets.QDialog):
         lb_exe = Controles.LB(self, "%s: %s" % (_("File"), Util.relative_path(engine.path_exe)))
 
         if is_tournament:
-            lb_depth = Controles.LB(self, _("Max depth") + ": ")
+            lb_depth = Controles.LB2P(self, _("Max depth"))
             self.sbDepth = Controles.SB(self, engine.depth, 0, 50)
 
-            lb_time = Controles.LB(self, _("Maximum seconds to think") + ": ")
+            lb_time = Controles.LB2P(self, _("Maximum seconds to think"))
             self.edTime = Controles.ED(self, "").ponFloat(engine.time).anchoFijo(60).align_right()
+
+            lb_nodes = Controles.LB2P(self, _("Fixed nodes"))
+            self.edNodes = Controles.ED(self, "").ponInt(engine.nodes).anchoFijo(80).align_right()
 
             lb_book = Controles.LB(self, _("Opening book") + ": ")
             self.list_books = Books.ListBooks()
@@ -383,6 +386,9 @@ class WEngineExtend(QtWidgets.QDialog):
                 .espacio(40)
                 .control(lb_time)
                 .control(self.edTime)
+                .espacio(40)
+                .control(lb_nodes)
+                .control(self.edNodes)
                 .relleno()
             )
             ly_torneo = Colocacion.V().otro(ly_dt).otro(ly_book)
@@ -440,6 +446,7 @@ class WEngineExtend(QtWidgets.QDialog):
         if self.is_tournament:
             self.external_engine.depth = self.sbDepth.valor()
             self.external_engine.time = self.edTime.textoFloat()
+            self.external_engine.nodes = self.edNodes.textoInt()
             pbook = self.cbBooks.valor()
             self.external_engine.book = pbook
             self.external_engine.bookRR = self.cbBooksRR.valor()

@@ -594,8 +594,8 @@ class WTournamentRun(QtWidgets.QWidget):
             self.start_clock(is_white)
             if self.analysis_bar.activated:
                 self.analysis_bar.set_game(self.game)
-            if xrival.depth_engine and xrival.depth_engine > 0:
-                mrm = xrival.play_fixed_depth_time_tourney(self.game)
+            if xrival.is_fixed():
+                mrm = xrival.play_fixed_tourney(self.game)
             else:
                 mrm = xrival.play_time_tourney(self.game, time_pending_white, time_pending_black, self.seconds_per_move)
             if self.state == ST_PAUSE:

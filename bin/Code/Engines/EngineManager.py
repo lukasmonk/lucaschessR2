@@ -70,7 +70,7 @@ class EngineManager:
         self.promotion = ""
         self.without_movements = False
 
-        self.nodes = 0
+        self.nodes = conf_engine.nodes
 
         self.function = _("Opponent").lower()  # para distinguir entre tutor y analizador
 
@@ -93,6 +93,9 @@ class EngineManager:
 
     def set_direct(self):
         self.direct = True
+        
+    def is_fixed(self):
+        return self.mstime_engine or self.depth_engine or self.nodes
 
     def options(self, mstime_engine, depth_engine, has_multipv):
         self.mstime_engine = mstime_engine
@@ -246,10 +249,13 @@ class EngineManager:
         mrm = self.engine.bestmove_game(game, self.mstime_engine, self.depth_engine)
         return mrm.best_rm_ordered()
 
-    def play_fixed_depth_time_tourney(self, game):
+    def play_fixed_tourney(self, game):
         self.check_engine()
 
-        return self.engine.bestmove_game(game, self.mstime_engine, self.depth_engine)
+        if self.nodes == 0:
+            return self.engine.bestmove_game(game, self.mstime_engine, self.depth_engine)
+        else:
+            return self.engine.bestmove_nodes_game(game, self.mstime_engine, self.depth_engine, self.nodes)
 
     def analiza(self, fen):
         self.check_engine()

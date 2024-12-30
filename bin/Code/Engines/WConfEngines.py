@@ -233,25 +233,15 @@ class WConfExternals(QtWidgets.QWidget):
         self.is_changed = False
 
         # Toolbar
-        li_acciones = [
-            (_("New"), Iconos.TutorialesCrear(), self.nuevo),
-            None,
-            (_("Modify"), Iconos.Modificar(), self.modificar),
-            None,
-            (_("Remove"), Iconos.Borrar(), self.borrar),
-            None,
-            (_("Copy"), Iconos.Copiar(), self.copiar),
-            None,
-            (_("Internal engines"), Iconos.MasDoc(), self.importar),
-            None,
-            (_("Up"), Iconos.Arriba(), self.arriba),
-            None,
-            (_("Down"), Iconos.Abajo(), self.abajo),
-            None,
-            (_("Command"), Iconos.Terminal(), self.command),
-            None,
-        ]
-        tb = QTVarios.LCTB(self, li_acciones)
+        tb = QTVarios.LCTB(self)
+        tb.new(_("New"), Iconos.TutorialesCrear(), self.nuevo)
+        tb.new(_("Modify"), Iconos.Modificar(), self.modificar)
+        tb.new(_("Remove"), Iconos.Borrar(), self.borrar)
+        tb.new(_("Copy"), Iconos.Copiar(), self.copiar)
+        tb.new(_("Internal engines"), Iconos.MasDoc(), self.importar)
+        tb.new(_("Up"), Iconos.Arriba(), self.arriba)
+        tb.new(_("Down"), Iconos.Abajo(), self.abajo)
+        tb.new(_("Command"), Iconos.Terminal(), self.command)
 
         # Lista
         o_columns = Columnas.ListaColumnas()
@@ -511,6 +501,9 @@ class WEngineFast(QtWidgets.QDialog):
         lb_time = Controles.LB(self, _("Maximum seconds to think") + ": ")
         self.edTime = Controles.ED(self, "").ponFloat(engine.max_time).anchoFijo(60).align_right()
 
+        lb_nodes = Controles.LB(self, _("Fixed nodes") + ": ")
+        self.edNodes = Controles.ED(self, "").ponInt(engine.nodes).anchoFijo(60).align_right()
+
         lb_exe = Controles.LB(self, "%s: %s" % (_("File"), Code.relative_root(engine.path_exe)))
 
         # Layout
@@ -522,7 +515,8 @@ class WEngineFast(QtWidgets.QDialog):
         ly.controld(lb_elo, 3, 0).control(self.sbElo, 3, 1)
         ly.controld(lb_depth, 4, 0).control(self.sbDepth, 4, 1)
         ly.controld(lb_time, 5, 0).control(self.edTime, 5, 1)
-        ly.control(lb_exe, 6, 0, 1, 2)
+        ly.controld(lb_nodes, 6, 0).control(self.edNodes, 6, 1)
+        ly.control(lb_exe, 7, 0, 1, 2)
 
         layout = Colocacion.V().control(tb).otro(ly)
 
@@ -554,6 +548,7 @@ class WEngineFast(QtWidgets.QDialog):
         self.external_engine.elo = self.sbElo.valor()
         self.external_engine.max_depth = self.sbDepth.valor()
         self.external_engine.max_time = self.edTime.textoFloat()
+        self.external_engine.nodes = self.edNodes.textoInt()
 
         self.accept()
 

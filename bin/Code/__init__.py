@@ -101,7 +101,7 @@ def relative_root(path):
 
 
 BASE_VERSION = "B"  # Para el control de updates que necesitan reinstalar entero
-VERSION = "R 2.18b"
+VERSION = "R 2.18c"
 DEBUG = False
 DEBUG_ENGINES = False
 
@@ -109,7 +109,6 @@ if DEBUG:
     import traceback
     import sys
     import time
-
 
     def pr(*x):
         lx = len(x) - 1

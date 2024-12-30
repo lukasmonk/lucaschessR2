@@ -408,6 +408,26 @@ class RunEngine:
 
         return self.mrm
 
+    def seek_bestmove_nodes(self, max_time, max_depth, nodes, is_savelines):
+        env = "go nodes %d" % nodes
+
+        ms_time = 10000
+        if max_time:
+            ms_time = max_time if max_depth else max_time + 5000
+        elif max_depth:
+            ms_time = 10000000000  # non stop
+
+        self.reset()
+        if is_savelines:
+            self.mrm.save_lines()
+        self.mrm.set_time_depth(max_time, max_depth)
+
+        self.work_bestmove(env, ms_time)
+
+        self.mrm.ordena()
+
+        return self.mrm
+
     def seek_bestmove_time(self, time_white, time_black, inc_time_move):
         env = "go wtime %d btime %d" % (time_white, time_black)
         if inc_time_move:
@@ -572,6 +592,10 @@ class RunEngine:
     def bestmove_game(self, game, max_time, max_depth):
         self.set_game_position(game)
         return self.seek_bestmove(max_time, max_depth, False)
+
+    def bestmove_nodes_game(self, game, max_time, max_depth, nodes):
+        self.set_game_position(game)
+        return self.seek_bestmove_nodes(max_time, max_depth, nodes, False)
 
     def bestmove_game_jg(self, game, njg, max_time, max_depth, is_savelines=False):
         self.set_game_position(game, njg)

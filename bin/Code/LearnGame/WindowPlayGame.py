@@ -176,13 +176,13 @@ class WPlayGameBase(LCDialog.LCDialog):
             db = QTVarios.select_db(self, self.configuration, True, False)
             if db:
                 w = WindowDatabase.WBDatabase(self, self.procesador, db, False, True)
-                resp = w.exec_()
-                if resp:
+                if w.exec_():
                     game = w.game
         if game and len(game) > 0:
             game.remove_info_moves()
             reg = {"GAME": game.save()}
             self.db.append(reg)
+            self.cache = {}
             self.grid.refresh()
             self.grid.gotop()
 
@@ -257,26 +257,21 @@ class WPlay1(LCDialog.LCDialog):
 
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("DATE", _("Date"), 80, align_center=True)
-        o_columns.nueva("COLOR", _("Side you play with"), 80, align_center=True)
+        o_columns.nueva("COLOR", _("Side you play with"), 120, align_center=True)
         o_columns.nueva("POINTS", _("Score"), 80, align_center=True)
         o_columns.nueva("TIME", _("Time"), 80, align_center=True)
         self.grid = Grid.Grid(self, o_columns, siSelecFilas=True, siSeleccionMultiple=True)
         self.grid.setMinimumWidth(self.grid.anchoColumnas() + 20)
 
         # Tool bar
-        li_acciones = (
-            (_("Close"), Iconos.MainMenu(), self.terminar),
-            None,
-            (_("Train"), Iconos.Entrenar(), self.empezar),
-            None,
-            (_("Remove"), Iconos.Borrar(), self.borrar),
-            None,
-        )
-        self.tb = QTVarios.LCTB(self, li_acciones)
+        self.tb = QTVarios.LCTB(self)
+        self.tb.new(_("Close"), Iconos.MainMenu(), self.terminar)
+        self.tb.new(_("Train"), Iconos.Entrenar(), self.empezar)
+        self.tb.new(_("Remove"), Iconos.Borrar(), self.borrar)
 
         # Colocamos
-        lyTB = Colocacion.H().control(self.tb).margen(0)
-        ly = Colocacion.V().otro(lyTB).control(self.grid).control(self.lbRotulo).margen(3)
+        ly_tb = Colocacion.H().control(self.tb).margen(0)
+        ly = Colocacion.V().otro(ly_tb).control(self.grid).control(self.lbRotulo).margen(3)
 
         self.setLayout(ly)
 

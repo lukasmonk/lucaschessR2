@@ -998,8 +998,7 @@ class Manager:
         if is_alt:
             self.arbol()
         else:
-            menu = QTVarios.LCMenu(self.main_window)
-            menu.opcion(None, f'{_("Show/hide")}:', Iconos.Flechas(), is_disabled=True)
+            menu = QTVarios.LCMenu12(self.main_window)
             self.add_menu_vista(menu)
             resp = menu.lanza()
             if resp:
