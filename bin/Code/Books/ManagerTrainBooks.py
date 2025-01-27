@@ -165,7 +165,7 @@ class ManagerTrainBooks(Manager.Manager):
         select = self.resp_rival
 
         if select == SELECTED_BY_PLAYER:
-            resp = WBooks.select_move_books(self.main_window, list_moves, self.game.last_position.is_white, True)
+            resp = WBooks.select_move_books(self.main_window, list_moves, self.game.last_position.is_white)
         elif select == BOOK_BEST_MOVE:
             resp = list_moves[0][0], list_moves[0][1], list_moves[0][2]
             nmax = list_moves[0][4]
@@ -233,7 +233,7 @@ class ManagerTrainBooks(Manager.Manager):
                     self.board.eboard_arrow(jug[0], jug[1], jug[2])
 
             if self.show_menu:
-                resp = WBooks.select_move_books(self.main_window, list_moves, self.is_human_side_white, False)
+                resp = WBooks.select_move_books(self.main_window, list_moves, self.is_human_side_white)
                 self.board.remove_arrows()
             else:
                 resp = None

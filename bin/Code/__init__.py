@@ -101,7 +101,7 @@ def relative_root(path):
 
 
 BASE_VERSION = "B"  # Para el control de updates que necesitan reinstalar entero
-VERSION = "R 2.18c"
+VERSION = "R 2.19"
 DEBUG = False
 DEBUG_ENGINES = False
 
@@ -113,8 +113,8 @@ if DEBUG:
     def pr(*x):
         lx = len(x) - 1
 
-        for n, l in enumerate(x):
-            sys.stdout.write(str(l))
+        for n, cl in enumerate(x):
+            sys.stdout.write(str(cl))
             if n < lx:
                 sys.stdout.write(" ")
 

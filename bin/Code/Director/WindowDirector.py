@@ -370,10 +370,10 @@ class WPanelDirector(LCDialog.LCDialog):
 
     def gmas(self, insert):
         ta = TabVisual.GT_Action(None)
-        liActions = [(_F(txt), Iconos.PuntoRojo(), "GTA_%s" % action) for action, txt in ta.dicTxt.items()]
+        li_actions = [(_F(txt), Iconos.PuntoRojo(), "GTA_%s" % action) for action, txt in ta.dicTxt.items()]
 
-        liMore = [(_("Text"), Iconos.Texto(), TabVisual.TP_TEXTO), (_("Actions"), Iconos.Run(), liActions)]
-        resp = self.selectBanda.menuParaExterior(liMore)
+        li_more = [(_("Text"), Iconos.Texto(), TabVisual.TP_TEXTO), (_("Actions"), Iconos.Run(), li_actions)]
+        resp = self.selectBanda.menuParaExterior(li_more)
         if resp:
             xid = resp
             row = self.g_guion.recno() if insert else -1
@@ -705,7 +705,7 @@ class WPanelDirector(LCDialog.LCDialog):
         dic = self.dbSVGs.as_dictionary()
         li = []
         for k, dicSVG in dic.items():
-            if type(dicSVG) != dict:
+            if not isinstance(dicSVG, dict):
                 continue
             svg = BoardTypes.SVG(dic=dicSVG)
             svg.id = k

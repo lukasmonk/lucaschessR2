@@ -570,6 +570,12 @@ class LCMenu(Controles.Menu):
         bold = configuration.x_menu_bold
         Controles.Menu.__init__(self, parent, titulo=titulo, icono=icono, is_disabled=is_disabled, puntos=puntos,
                                 bold=bold)
+        first_option_widget = QtWidgets.QLabel("")
+        first_option_widget.setFixedHeight(1)
+        first_widget_action = QtWidgets.QWidgetAction(self)
+        first_widget_action.setDefaultWidget(first_option_widget)
+        first_widget_action.setDisabled(True)
+        self.addAction(first_widget_action)
 
     def opcion(self, key, label, icono=None, is_disabled=False, font_type=None, is_ckecked=None, tooltip: str = "",
                shortcut=""):
@@ -594,18 +600,15 @@ class LCMenu(Controles.Menu):
 class LCMenu12(LCMenu):
     def __init__(self, parent, titulo=None, icono=None, is_disabled=False, puntos=None):
         LCMenu.__init__(self, parent, titulo, icono, is_disabled, puntos)
-        self.setStyleSheet("""
-                   QMenu::item:disabled {
-                       height: 0px;
-                       padding: 0px;
-                       margin: 0px;
-                   }
-               """)
-        self.opcion("", "", is_disabled=True)
 
-    def lanza(self):
-        self.opcion("", "", is_disabled=True)
-        return LCMenu.lanza(self)
+    #     first_option_widget = QtWidgets.QLabel("")
+    #     first_option_widget.setFixedHeight(1)
+    #     first_widget_action = QtWidgets.QWidgetAction(self)
+    #     first_widget_action.setDefaultWidget(first_option_widget)
+    #     self.addAction(first_widget_action)
+    #
+    # def lanza(self):
+    #     return LCMenu.lanza(self)
 
 
 class LCMenuRondo(LCMenu):
@@ -1023,6 +1026,7 @@ class ReadAnnotation(QtWidgets.QDialog):
             | QtCore.Qt.Dialog
             | QtCore.Qt.FramelessWindowHint
         )
+        self.setModal(QtCore.Qt.ApplicationModal)
 
         self.edAnotacion = (
             Controles.ED(self, "")

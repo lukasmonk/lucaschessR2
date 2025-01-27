@@ -142,18 +142,18 @@ class SelectBanda(QtWidgets.QWidget):
     def mousePressEventGraphics(self, event):
         self.seleccionar(None)
 
-    def menu(self, lb, liMore=None):
+    def menu(self, lb, li_more=None):
         # Los dividimos por tipos
         dic = collections.OrderedDict()
         for xid, (nom, pm, tipo) in self.dic_data.items():
-            if not (tipo in dic):
+            if tipo not in dic:
                 dic[tipo] = collections.OrderedDict()
             dic[tipo][xid] = (nom, pm)
 
         menu = QTVarios.LCMenu(self)
         dicmenu = {}
         for xid, (nom, pm, tp) in self.dic_data.items():
-            if not (tp in dicmenu):
+            if tp not in dicmenu:
                 ico = Iconos.PuntoVerde()
                 for txt, icot, rut in self.li_tipos:
                     if tp == txt:
@@ -163,9 +163,9 @@ class SelectBanda(QtWidgets.QWidget):
             dicmenu[tp].opcion(xid, nom, QtGui.QIcon(pm))
 
         menu.separador()
-        if liMore:
-            for txt, ico, rut in liMore:
-                if type(rut) == list:
+        if li_more:
+            for txt, ico, rut in li_more:
+                if isinstance(rut, list):
                     submenu = menu.submenu(txt, ico)
                     for stxt, sico, srut in rut:
                         submenu.opcion(srut, stxt, sico)
@@ -206,8 +206,8 @@ class SelectBanda(QtWidgets.QWidget):
             lb.pon(pm, nom, resp)
             self.seleccionar(lb)
 
-    def menuParaExterior(self, liMore=None):
-        resp = self.menu(None, liMore)
+    def menuParaExterior(self, li_more=None):
+        resp = self.menu(None, li_more)
         if resp is not None:
             for txt, ico, rut in self.li_tipos:
                 if rut == resp:
@@ -225,7 +225,7 @@ class SelectBanda(QtWidgets.QWidget):
     def finActualizacion(self):
         st = set()
         for xid in self.dic_data:
-            if not (xid in self.setControl):
+            if xid not in self.setControl:
                 st.add(xid)
         for xid in st:
             del self.dic_data[xid]
@@ -359,14 +359,14 @@ class DragBanda(QtWidgets.QWidget):
         # Los dividimos por tipos
         dic = collections.OrderedDict()
         for xid, (nom, pm, tipo) in self.dic_data.items():
-            if not (tipo in dic):
+            if tipo not in dic:
                 dic[tipo] = collections.OrderedDict()
             dic[tipo][xid] = (nom, pm)
 
         menu = QTVarios.LCMenu(self)
         dicmenu = {}
         for xid, (nom, pm, tp) in self.dic_data.items():
-            if not (tp in dicmenu):
+            if tp not in dicmenu:
                 ico = Iconos.PuntoVerde()
                 for txt, icot, rut in liTipos:
                     if tp == txt:
@@ -410,14 +410,14 @@ class DragBanda(QtWidgets.QWidget):
         # Los dividimos por tipos
         dic = collections.OrderedDict()
         for xid, (nom, pm, tipo) in self.dic_data.items():
-            if not (tipo in dic):
+            if tipo not in dic:
                 dic[tipo] = collections.OrderedDict()
             dic[tipo][xid] = (nom, pm)
 
         menu = QTVarios.LCMenu(self)
         dicmenu = {}
         for xid, (nom, pm, tp) in self.dic_data.items():
-            if not (tp in dicmenu):
+            if tp not in dicmenu:
                 dicmenu[tp] = menu.submenu(tp, Iconos.PuntoVerde())
                 menu.separador()
             dicmenu[tp].opcion((xid, tp), nom, QtGui.QIcon(pm))
@@ -439,7 +439,7 @@ class DragBanda(QtWidgets.QWidget):
     def finActualizacion(self):
         st = set()
         for xid in self.dic_data:
-            if not (xid in self.setControl):
+            if xid not in self.setControl:
                 st.add(xid)
         for xid in st:
             del self.dic_data[xid]

@@ -126,7 +126,7 @@ class GM:
         li = []
         for gmPartida in self.li_gm_games:
             move = gmPartida.move(self.ply)
-            if move and not (move in li):
+            if move and move not in li:
                 li.append(move)
         return li
 
@@ -136,7 +136,7 @@ class GM:
         for gmPartida in self.li_gm_games:
             move = gmPartida.move(self.ply)
             if move:
-                if not (move in d_repeticiones):
+                if move not in d_repeticiones:
                     d_repeticiones[move] = [len(li), 1]
                     from_sq, to_sq, promotion = move[:2], move[2:4], move[4:]
                     ok, mens, move = Move.get_game_move(gmPartida, position_before, from_sq, to_sq, promotion)

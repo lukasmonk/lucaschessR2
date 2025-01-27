@@ -36,7 +36,7 @@ class ManagerChallenge101:
         num_lineas_posicion = len(self.li_lineas_posicion)
         while True:
             random_pos = random.randint(0, num_lineas_posicion - 1)
-            if not (random_pos in self.st_randoms):
+            if random_pos not in self.st_randoms:
                 self.st_randoms.add(random_pos)
                 break
         self.fen, self.result, self.pgn_result, self.pgn, self.difficult = (
@@ -93,7 +93,7 @@ class ManagerChallenge101:
 
     def menu(self):
         main_window = self.procesador.main_window
-        main_window.cursorFueraBoard()
+        main_window.cursor_out_board()
         menu = QTVarios.LCMenu(main_window)
         self.configuration.set_property(menu, "101")
         f = Controles.FontType(name=Code.font_mono, puntos=12)
@@ -195,7 +195,7 @@ class ManagerChallenge101:
 
     def savePosition(self):
         line = "%s|%s|%s|%s\n" % (self.fen, str(self.key)[:19], self.pgn_result, self.pgn)
-        if not (line in self.st_lines):
+        if line not in self.st_lines:
             self.st_lines.add(line)
             fich = self.configuration.ficheroPresentationPositions
             existe = Util.exist_file(fich)

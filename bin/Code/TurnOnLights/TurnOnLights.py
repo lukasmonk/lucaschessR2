@@ -167,7 +167,7 @@ class TOL_level:
         li = range(len(theme.lines))
         while li:
             li1 = random.sample(li, self.lines_per_block)
-            li = [x for x in li if not (x in li1)]
+            li = [x for x in li if x not in li1]
             tol_block = TOL_Block()
             for i in li1:
                 tol_block.add_line(theme.lines[i])

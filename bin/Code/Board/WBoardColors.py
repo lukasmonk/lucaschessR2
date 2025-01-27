@@ -612,7 +612,7 @@ class WBoardColors(LCDialog.LCDialog):
             if uno:
                 if "SECCION" in uno:
                     folder = uno["SECCION"]
-                    if not (folder in li_folders):
+                    if folder not in li_folders:
                         li_folders.append(folder)
                         li_options.append((folder, folder))
 
@@ -944,7 +944,7 @@ def add_menu_themes(menu_base, li_temas, base_resp):
         if uno:
             if "SECCION" in uno and uno["SECCION"]:
                 folder = uno["SECCION"]
-                if not (folder in d_folders):
+                if folder not in d_folders:
                     d_folders[folder] = []
                 d_folders[folder].append((uno, n))
             else:
@@ -1537,7 +1537,7 @@ class WBrowseThemes(LCDialog.LCDialog):
         dic_values = {}
 
         def setting(smenu, xkey, xlabel, xvalue):
-            if type(xvalue) == str and xvalue in "SN":
+            if isinstance(xvalue, str) and xvalue in "SN":
                 xlabel += f' ({_("Yes") if xvalue == "S" else _("No")})'
             else:
                 xlabel += f" ({xvalue})"
@@ -1624,7 +1624,7 @@ class WBrowseThemes(LCDialog.LCDialog):
             for fich in li_fich:
                 obj = Util.restore_pickle(fich)
                 if obj:
-                    if type(obj) == dict:
+                    if isinstance(obj, dict):
                         li_themes_imported = [obj]
                     else:
                         li_themes_imported = obj

@@ -65,14 +65,15 @@ class BooksTrainOL(object):
         self.read_dic(dic_other)
 
     def current_training(self) -> dict:
-        if not self.li_trainings or self.li_trainings[-1]["DATE_END"]:
+        if not self.li_trainings or self.li_trainings[-1]["DATE_END"] is not None:
             dic_training = {
                 "DATE_INIT": Util.today(),
                 "POS": 0,
                 "ERRORS": 0,
                 "HINTS": 0,
-                "DATE_EMD": None,
-                "TIME_USED": 0
+                "DATE_END": None,
+                "TIME_USED": 0,
+
             }
         else:
             dic_training = self.li_trainings[-1]
@@ -84,21 +85,24 @@ class BooksTrainOL(object):
         dic_training["ERRORS"] = errors
         dic_training["HINTS"] = hints
         dic_training["TIME_USED"] = time_used
+
+        must_saved_previously = len(self.li_trainings) > 0 and self.li_trainings[-1]["DATE_END"] is None
+
         if pos >= len(self.lines):
             dic_training["DATE_END"] = Util.today()
         else:
             dic_training["DATE_END"] = None
-        if not self.li_trainings or self.li_trainings[-1]["DATE_END"]:
-            self.li_trainings.append(dic_training)
-        else:
+        if must_saved_previously:
             self.li_trainings[-1] = dic_training
+        else:
+            self.li_trainings.append(dic_training)
 
 
 class WBooksTrainOL(LCDialog.LCDialog):
     def __init__(self, owner, dbli_books_train):
 
         titulo = _("Train the opening lines of a book")
-        LCDialog.LCDialog.__init__(self, owner, titulo, Iconos.Opening(), "book_openings_ol1")
+        LCDialog.LCDialog.__init__(self, owner, titulo, Iconos.Opening(), "book_openings_ol2")
 
         self.dbli_books_train = dbli_books_train
         self.dic_modes = Polyglot.dic_modes()
@@ -112,7 +116,7 @@ class WBooksTrainOL(LCDialog.LCDialog):
         o_columns.nueva("LIMIT_DEPTH", _("Max depth"), 80, align_center=True)
         o_columns.nueva("LIMIT_LINES", _("Max lines"), 100, align_center=True)
         o_columns.nueva("NUM_LINES", _("Lines"), 60, align_center=True)
-        o_columns.nueva("NUM_TRAININGS", _("Trainings"), 60, align_center=True)
+        o_columns.nueva("DONE", _("Done"), 60, align_center=True)
         o_columns.nueva("START_FEN", _("Start position"), 100, align_center=True)
         self.grid = Grid.Grid(self, o_columns, siSelecFilas=True, siSeleccionMultiple=True)
         self.grid.setMinimumWidth(self.grid.anchoColumnas() + 20)
@@ -162,8 +166,11 @@ class WBooksTrainOL(LCDialog.LCDialog):
             return str(reg.limit_lines) if reg.limit_lines else ""
         if col == "NUM_LINES":
             return str(len(reg.lines))
-        if col == "NUM_TRAININGS":
-            return str(len(reg.li_trainings))
+        if col == "DONE":
+            num = len(reg.li_trainings)
+            if num and reg.li_trainings[-1].get("DATE_END") is None:
+                num -= 1
+            return str(num)
         if col == "START_FEN":
             return reg.start_fen
 

@@ -88,25 +88,25 @@ class WExportarPGN(QtWidgets.QDialog):
         self.pon_continue()
 
     def pon_saving(self):
-        self.bt_cancel_continue.setDisabled(False)
+        self.bt_cancel_continue.setEnabled(True)
         self.bt_cancel_continue.set_text(_("Saving..."))
         self.bt_cancel_continue.set_font(self.fontB)
         self.bt_cancel_continue.ponIcono(Iconos.Grabar())
         QTUtil.refresh_gui()
 
     def pon_cancel(self):
-        self.bt_cancel_continue.setDisabled(False)
+        self.bt_cancel_continue.setEnabled(True)
         self.bt_cancel_continue.set_text(_("Cancel"))
         self.bt_cancel_continue.set_font(self.fontB)
         self.bt_cancel_continue.ponIcono(Iconos.Delete())
         QTUtil.refresh_gui()
 
     def pon_continue(self):
+        self.bt_cancel_continue.setEnabled(True)
         self.bt_cancel_continue.set_text(_("Continue"))
         self.bt_cancel_continue.to_connect(self.continuar)
         self.bt_cancel_continue.set_font(self.fontB)
         self.bt_cancel_continue.ponIcono(Iconos.Aceptar())
-        self.bt_cancel_continue.setDisabled(False)
         QTUtil.refresh_gui()
 
     def continuar(self):
@@ -222,7 +222,7 @@ class PolyglotExport:
             wexport.pon_cancel()
             if wexport.is_canceled:
                 break
-            with UtilSQL.ListSQLBig(Code.configuration.ficheroTemporal("sqlite")) as dblist:
+            with UtilSQL.ListSQLBig(Code.configuration.temporary_file("sqlite")) as dblist:
                 current_path = path_white if side == WHITE else path_black
 
                 st_hash = set()
@@ -480,7 +480,7 @@ class PolyglotImport:
                 result = bdCab.get(b"RESULT", b"*")
                 if result == b"*":
                     result = bunknown_convert
-                if not (result in st_results):
+                if result not in st_results:
                     continue
 
                 if result == b"1-0":
@@ -853,6 +853,8 @@ def export_polyglot_config(owner, configuration, file_nom_def):
 def test_players(li_players, player) -> bool:
     if not li_players:
         return True
+    if player is None:
+        return False
     player = player.upper()
     ok = False
     for ref_player in li_players:
@@ -886,7 +888,7 @@ def add_db(db, plies, st_results, st_side, li_players, unknown_convert, ftime, t
             if not dispatch(False, num_games, num_games):
                 cancelled = True
                 break
-        if not (result in st_results):
+        if result not in st_results:
             continue
         if result == "*":
             result = unknown_convert

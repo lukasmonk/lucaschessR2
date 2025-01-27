@@ -236,17 +236,17 @@ class AnalyzeGame:
             if alm.multiPV:
                 conf_engine.update_multipv(alm.multiPV)
             self.xmanager = self.cpu.analyzer_engine(conf_engine, alm.vtime, alm.depth)
+        if alm.nodes:
+            self.xmanager.set_nodes(alm.nodes)
         self.vtime = alm.vtime
         self.depth = alm.depth
+        self.nodes = alm.nodes
 
         self.with_variations = alm.include_variations
 
-        self.stability = alm.stability
-        self.st_centipawns = alm.st_centipawns
-        self.st_depths = alm.st_depths
-        self.st_timelimit = alm.st_timelimit
-
         self.accuracy_tags = alm.accuracy_tags
+
+        self.skip_standard_moves = alm.standard_openings
 
         # Asignacion de variables para blunders:
         # kblunders_condition: minima condición para considerar como erróneo
@@ -367,7 +367,7 @@ class AnalyzeGame:
         cab = ""
         for k, v in game.dic_tags().items():
             ku = k.upper()
-            if not (ku in ("RESULT", "FEN")):
+            if ku not in ("RESULT", "FEN"):
                 cab += '[%s "%s"]' % (k, v)
 
         game_raw = Game.game_without_variations(game)
@@ -412,7 +412,7 @@ class AnalyzeGame:
         cab = ""
         for k, v in game.dic_tags().items():
             ku = k.upper()
-            if not (ku in ("RESULT", "FEN")):
+            if ku not in ("RESULT", "FEN"):
                 cab += '[%s "%s"]' % (k, v)
         move = game.move(njg)
 
@@ -485,7 +485,7 @@ class AnalyzeGame:
         cab = ""
         for k, v in dic_cab.items():
             ku = k.upper()
-            if not (ku in ("RESULT", "FEN")):
+            if ku not in ("RESULT", "FEN"):
                 cab += '[%s "%s"]\n' % (k, v)
         # Nos protegemos de que se hayan escrito en el pgn original de otra forma
         cab += '[FEN "%s"]\n' % fen
@@ -574,7 +574,7 @@ class AnalyzeGame:
         self.xmanager.set_gui_dispatch(gui_dispatch)  # Dispatch del engine, si esta puesto a 4 minutos por ejemplo que
         # compruebe si se ha indicado que se cancele.
 
-        si_blunders = self.pgnblunders or self.oriblunders or self.bmtblunders
+        si_blunders = self.pgnblunders or self.oriblunders or self.bmtblunders or self.tacticblunders
         si_brilliancies = self.fnsbrilliancies or self.pgnbrilliancies or self.bmtbrilliancies
 
         if self.bmtblunders and self.bmt_listaBlunders is None:
@@ -693,11 +693,6 @@ class AnalyzeGame:
                         pos_current_move,
                         self.vtime,
                         depth=self.depth,
-                        stability=self.stability,
-                        st_centipawns=self.st_centipawns,
-                        st_depths=self.st_depths,
-                        st_timelimit=self.st_timelimit,
-                        window=self.cpu.window,
                     )
                     if not resp:
                         return

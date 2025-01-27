@@ -1,3 +1,5 @@
+import FasterCode
+
 import copy
 import time
 
@@ -18,7 +20,7 @@ from Code.Base.Constantes import (
     TB_QUIT
 )
 from Code.LearnGame import WindowPlayGame
-from Code.Openings import Opening
+from Code.Openings import Opening, OpeningsStd
 from Code.QT import QTUtil2
 from Code.QT import WindowJuicio
 
@@ -280,6 +282,15 @@ class ManagerPlayGame(Manager.Manager):
             self.add_move(False)
             self.play_next_move()
 
+    def check_book(self, fen, from_sq, to_sq):
+        if self.book.check_human(fen, from_sq, to_sq):
+            return True
+        FasterCode.set_fen(fen)
+        FasterCode.make_move(from_sq + to_sq)
+        fen1 = FasterCode.get_fen()
+        fenm2 = FasterCode.fen_fenm2(fen1)
+        return OpeningsStd.ap.is_book_fenm2(fenm2)
+
     def player_has_moved(self, from_sq, to_sq, promotion=""):
         jg_usu = self.check_human_move(from_sq, to_sq, promotion)
         if not jg_usu:
@@ -293,12 +304,12 @@ class ManagerPlayGame(Manager.Manager):
         si_analiza_juez = True
         if self.book:
             fen = self.last_fen()
-            si_book_usu = self.book.check_human(fen, from_sq, to_sq)
-            si_book_obj = self.book.check_human(fen, jg_obj.from_sq, jg_obj.to_sq)
+            si_book_usu = self.check_book(fen, from_sq, to_sq)
+            si_book_obj = self.check_book(fen, jg_obj.from_sq, jg_obj.to_sq)
             if si_book_usu and si_book_obj:
                 if jg_obj.movimiento() != jg_usu.movimiento():
                     bmove = _("book move")
-                    comment = "%s: %s %s\n%s: %s %s" % (
+                    comment = "%s: %s %s<br>%s: %s %s" % (
                         self.name_obj(),
                         jg_obj.pgn_translated(),
                         bmove,
@@ -393,7 +404,7 @@ class ManagerPlayGame(Manager.Manager):
         self.play_next_move()
         return True
 
-    def add_move(self, is_player_move, analysis=None, comment=None, time_used_s= None):
+    def add_move(self, is_player_move, analysis=None, comment=None, time_used_s=None):
         move: Move.Move = self.game_obj.move(self.posJugadaObj)
         self.posJugadaObj += 1
         if analysis:
@@ -402,7 +413,7 @@ class ManagerPlayGame(Manager.Manager):
             move.set_comment(comment)
 
         if time_used_s:
-            move.set_time_ms(int(time_used_s*1000))
+            move.set_time_ms(int(time_used_s * 1000))
 
         self.game.add_move(move)
         self.check_boards_setposition()
@@ -447,7 +458,7 @@ class ManagerPlayGame(Manager.Manager):
             "TIME": self.vtime,
         }
 
-        if not ("LIINTENTOS" in reg):
+        if "LIINTENTOS" not in reg:
             reg["LIINTENTOS"] = []
         reg["LIINTENTOS"].insert(0, dic_intento)
 

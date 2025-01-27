@@ -116,6 +116,8 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
 
         self.lb_depth = Controles.LB2P(self, _("Fixed depth")).set_font(font)
         self.ed_rdepth = Controles.ED(self).tipoInt().anchoMaximo(80).set_font(font).capture_changes(self.change_depth)
+        tooltip = _("If time and depth are given, the depth is attempted and the time becomes a maximum.")
+        self.ed_rdepth.setToolTip(tooltip)
         self.bt_cancel_rdepth = Controles.PB(self, "", rutina=self.cancelar_depth).ponIcono(Iconos.S_Cancelar())
         ly_depth = Colocacion.H().control(self.ed_rdepth).control(self.bt_cancel_rdepth).relleno(1)
 
@@ -126,6 +128,8 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
 
         self.lb_nodes = Controles.LB2P(self, _("Fixed nodes")).set_font(font)
         self.ed_nodes = Controles.ED(self).tipoInt().anchoMaximo(80).set_font(font).capture_changes(self.change_nodes)
+        tooltip = _("If time and nodes are given, the nodes is attempted and the time becomes a maximum.")
+        self.ed_nodes.setToolTip(tooltip)
         self.bt_cancel_nodes = Controles.PB(self, "", rutina=self.cancelar_nodes).ponIcono(Iconos.S_Cancelar())
         ly_nodes = Colocacion.H().control(self.ed_nodes).control(self.bt_cancel_nodes).relleno(1)
 
@@ -1021,7 +1025,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
                     if xnombre == name:
                         valor = xvalor
                         break
-                if type(valor) == bool:
+                if isinstance(valor, bool):
                     valor = str(valor).lower()
                 else:
                     valor = str(valor)

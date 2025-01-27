@@ -63,14 +63,13 @@ class EngineManager:
         self.num_multipv = 0
         self.mstime_engine = conf_engine.max_time * 1000
         self.depth_engine = conf_engine.max_depth
+        self.nodes = conf_engine.nodes
 
         self.pv = ""
         self.from_sq = ""
         self.to_sq = ""
         self.promotion = ""
         self.without_movements = False
-
-        self.nodes = conf_engine.nodes
 
         self.function = _("Opponent").lower()  # para distinguir entre tutor y analizador
 
@@ -93,7 +92,7 @@ class EngineManager:
 
     def set_direct(self):
         self.direct = True
-        
+
     def is_fixed(self):
         return self.mstime_engine or self.depth_engine or self.nodes
 
@@ -348,18 +347,7 @@ class EngineManager:
     def analysis_cached_end(self):
         self.cache_analysis.close()
 
-    def analyzes_move_game(
-            self,
-            game,
-            njg,
-            vtime,
-            depth=0,
-            stability=False,
-            st_centipawns=0,
-            st_depths=0,
-            st_timelimit=0,
-            window=None,
-    ):
+    def analyzes_move_game(self, game, njg, vtime, depth=0):
         self.check_engine()
         key = None
         if self.cache_analysis is not None:
@@ -367,25 +355,21 @@ class EngineManager:
             key = move.position_before.fenm2() + move.movimiento()
             if key in self.cache_analysis:
                 return self.cache_analysis[key]
-        resp = self.analyzes_move_game_raw(
-            game, njg, vtime, depth, stability, st_centipawns, st_depths, st_timelimit, window
-        )
+        resp = self.analyzes_move_game_raw(game, njg, vtime, depth)
         if self.cache_analysis is not None:
             self.cache_analysis[key] = resp
         return resp
 
-    def analyzes_move_game_raw(
-            self, game, njg, mstime, depth, stability, st_centipawns, st_depths, st_timelimit, window
-    ):
+    def analyzes_move_game_raw(self, game, njg, mstime, depth):
         self.check_engine()
         ini_time = time.time()
-        if stability:
-            mrm = self.engine.analysis_stable(game, njg, mstime, depth, True, st_centipawns, st_depths, st_timelimit)
+        if self.nodes:
+            mrm = self.engine.bestmove_nodes_game(game, njg, mstime, depth, self.nodes, is_savelines=True)
         else:
             mrm = self.engine.bestmove_game_jg(game, njg, mstime, depth, is_savelines=True)
 
         mrm.ordena()
-        self.remove_gui_dispatch()
+        # self.remove_gui_dispatch()
         ms_used = int((time.time() - ini_time) * 1000)
 
         if njg > 9000:

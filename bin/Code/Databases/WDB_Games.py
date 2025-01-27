@@ -11,7 +11,7 @@ from Code.Analysis import AnalysisGame, WindowAnalysisParam, RunAnalysisControl
 from Code.Base import Game, Position
 from Code.Base.Constantes import WHITE, BLACK, FEN_INITIAL
 from Code.Books import PolyglotImportExports
-from Code.Databases import DBgames, WDB_Utils, DBgamesMov, RemoveCommentsVariations
+from Code.Databases import DBgames, WDB_Utils, DBgamesMov, RemoveCommentsVariations, WebExternalImporter
 from Code.GM import GM
 from Code.LearnGame import WindowPlayGame, WindowLearnGame
 from Code.Odt import WOdt
@@ -108,7 +108,7 @@ class WGames(QtWidgets.QWidget):
             add_tb(_("Last"), Iconos.Final(), self.tw_gobottom)
             add_tb(_("Up"), Iconos.Arriba(), self.tw_up)
             add_tb(_("Down"), Iconos.Abajo(), self.tw_down)
-            add_tb(_("Remove"), Iconos.Borrar(), self.tw_borrar)
+            add_tb(_("Remove"), Iconos.Borrar(), self.tw_remove)
             add_tb(_("Config"), Iconos.Configurar(), self.tw_configure)
             add_tb(_("Utilities"), Iconos.Utilidades(), self.tw_utilities)
             add_tb(_("Import"), Iconos.Import8(), self.tw_import)
@@ -185,7 +185,7 @@ class WGames(QtWidgets.QWidget):
             label = TrListas.pgn_label(tag)
             if label == tag:
                 label = dcabs.get(tag, drots.get(label.upper(), label))
-            align_center = not (tag in ("EVENT", "SITE"))
+            align_center = tag not in ("EVENT", "SITE")
             ancho = 100 if tag in st100 else 80
             o_columns.nueva(tag, label, ancho, align_center=align_center)
         o_columns.nueva("rowid", _("Row ID"), 60, align_center=True)
@@ -199,7 +199,7 @@ class WGames(QtWidgets.QWidget):
         li_remove = []
         for n, col in enumerate(o_columns.li_columns):
             key = col.key
-            if not (key in li_tags) and not (key in ("__num__", "rowid")):
+            if key not in li_tags and key not in ("__num__", "rowid"):
                 li_remove.append(n)
         if li_remove:
             si_cambios = True
@@ -212,11 +212,11 @@ class WGames(QtWidgets.QWidget):
         st100 = {"Event", "Site", "White", "Black"}
         st_actual = {col.key for col in self.grid.o_columns.li_columns}
         for tag in li_tags:
-            if not (tag in st_actual):
+            if tag not in st_actual:
                 label = TrListas.pgn_label(tag)
                 if label == tag:
                     label = dcabs.get(label, drots.get(label.upper(), label))
-                o_columns.nueva(tag, label, 100 if tag in st100 else 70, align_center=not (tag in ("Event", "Site")))
+                o_columns.nueva(tag, label, 100 if tag in st100 else 70, align_center=tag not in ("Event", "Site"))
                 si_cambios = True
 
         if si_cambios:
@@ -245,9 +245,9 @@ class WGames(QtWidgets.QWidget):
             si_pte = self.db_games.if_there_are_records_to_read()
             if not si_pte:
                 if recs:
-                    txt += "%s: %d" % (_("Games"), recs)
+                    txt += f'{_("Games")}: {recs:,}'
             else:
-                txt += f'{_("Working...")}'
+                txt += _("Reading") + "..."
             if self.where:
                 where = self.where
                 wxpv = 'XPV LIKE "'
@@ -369,6 +369,8 @@ class WGames(QtWidgets.QWidget):
             self.goto_registro()
         elif k == QtCore.Qt.Key_R and is_alt:
             self.tw_resize_columns()
+        elif k == QtCore.Qt.Key_Delete:
+            self.tw_remove()
         else:
             return True  # que siga con el resto de teclas
 
@@ -683,7 +685,7 @@ class WGames(QtWidgets.QWidget):
         txt = "%s: %d | %s: %s" % (_("Games"), self.db_games.reccount(), _("Filter"), fen)
         self.status.showMessage(txt, 0)
 
-    def tw_borrar(self):
+    def tw_remove(self):
         li = self.grid.recnosSeleccionados()
         if li:
             if not QTUtil2.pregunta(self, _("Do you want to delete all selected records?")):
@@ -715,7 +717,12 @@ class WGames(QtWidgets.QWidget):
         menu.opcion(self.tw_importar_db, _("From other database"), Iconos.Database())
         menu.separador()
         if self.db_games.allows_positions and (self.db_games.reccount() == 0 or not self.db_games.allows_duplicates):
-            menu.opcion(self.tw_importar_lichess, _("From the Lichess Puzzle Database"), Iconos.Lichess())
+            menu.opcion(self.tw_importar_lichess_puzzles, _("From the Lichess Puzzle Database"), Iconos.Lichess())
+        menu.separador()
+        submenu = menu.submenu(_("Games of a user in"), Iconos.Usuarios())
+        submenu.opcion(self.tw_importar_lichess_user, "lichess.org", Iconos.Lichess())
+        submenu.separador()
+        submenu.opcion(self.tw_importar_chesscom_user, "chess.com", Iconos.ChessCom())
         resp = menu.lanza()
         if resp:
             resp()
@@ -841,7 +848,7 @@ class WGames(QtWidgets.QWidget):
                 board.set_position(position)
                 # if board.is_white_bottom != position.is_white:
                 #     board.rotate_board()
-                path_img = self.configuration.ficheroTemporal("png")
+                path_img = self.configuration.temporary_file("png")
                 board.save_as_img(path_img, "png", False, True)
 
                 if posx % 2 == 0:
@@ -866,7 +873,7 @@ class WGames(QtWidgets.QWidget):
                     wodt.odt_doc.add_linebreak()
 
             wodt.odt_doc.create(path_odt)
-            os.startfile(path_odt)
+            Code.startfile(path_odt)
 
     def tw_configure(self):
         menu = QTVarios.LCMenu(self)
@@ -1207,16 +1214,21 @@ class WGames(QtWidgets.QWidget):
             return
 
     def tw_uti_tactic(self):
-        def rutinaDatos(recno, skip_first):
+        def rutina_datos(recno, skip_first):
             dic = {}
             for key in self.db_games.li_fields:
                 dic[key] = self.db_games.field(recno, key)
-            p = self.db_games.read_game_recno(recno)
+            p: Game.Game = self.db_games.read_game_recno(recno)
             if skip_first:
                 dic["PGN_REAL"] = p.pgn()
                 p.skip_first()
-                dic["FEN"] = p.get_tag("FEN")
-            dic["PGN"] = p.pgn()
+            p.remove_bad_variations()
+            fen = dic["FEN"] = p.first_position.fen()
+            p.set_tag("FEN", fen )
+            try:
+                dic["PGN"] = p.pgn()
+            except TypeError:
+                return None
             dic["PLIES"] = len(p)
             return dic
 
@@ -1224,7 +1236,7 @@ class WGames(QtWidgets.QWidget):
         li_registros_total = range(self.db_games.reccount())
 
         WDB_Utils.create_tactics(
-            self.procesador, self, li_registros_selected, li_registros_total, rutinaDatos, self.db_games.get_name()
+            self.procesador, self, li_registros_selected, li_registros_total, rutina_datos, self.db_games.get_name()
         )
 
     def tw_training_positions(self):
@@ -1237,6 +1249,7 @@ class WGames(QtWidgets.QWidget):
                 dic["PGN_REAL"] = p.pgn()
                 p.skip_first()
                 dic["FEN"] = p.get_tag("FEN")
+            p.remove_bad_variations()
             dic["PGN"] = p.pgn()
             dic["PLIES"] = len(p)
             return dic
@@ -1636,7 +1649,7 @@ class WGames(QtWidgets.QWidget):
         if self.wsummary:
             self.wsummary.reset()
 
-    def tw_importar_lichess(self):
+    def tw_importar_lichess_puzzles(self):
         mens_base = _("You must follow the next steps")
         mens_puzzles = _("Download the puzzles in csv format from LiChess website")
         link_puzzles = "https://database.lichess.org/#puzzles"
@@ -1768,6 +1781,24 @@ class WGames(QtWidgets.QWidget):
 
         self.rehaz_columnas()
         self.actualiza(True)
+
+    def tw_importar_lichess_user(self):
+        iext = WebExternalImporter.Lichess(self, self.db_games)
+        if iext.params():
+            if iext.import_games():
+                self.rehaz_columnas()
+                self.grid.refresh()
+                self.updateStatus()
+                self.grid.gotop()
+
+    def tw_importar_chesscom_user(self):
+        iext = WebExternalImporter.ChessCom(self, self.db_games)
+        if iext.params():
+            if iext.import_games():
+                self.rehaz_columnas()
+                self.grid.refresh()
+                self.updateStatus()
+                self.grid.gotop()
 
 
 class WOptionsDatabase(QtWidgets.QDialog):

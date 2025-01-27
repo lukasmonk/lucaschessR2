@@ -272,7 +272,7 @@ class TallerSonido:
 
     def play(self, cent_desde, cent_hasta):
         io_wav = self.io_wav(cent_desde, cent_hasta)
-        path_wav = Code.configuration.ficheroTemporal("wav")
+        path_wav = Code.configuration.temporary_file("wav")
         with open(path_wav, "wb") as q:
             q.write(io_wav)
         self.qsound = QSound(path_wav)

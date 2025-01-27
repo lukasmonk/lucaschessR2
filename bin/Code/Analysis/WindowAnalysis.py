@@ -33,7 +33,7 @@ class OneAnalysis(QtWidgets.QWidget):
 
         self.board = owner.board
 
-        self.lb_engine_m = Controles.LB(self, self.time_engine).align_center().set_font_type(puntos=9, peso=75)
+        self.lb_engine_m = Controles.LB(self, self.time_engine).align_center().set_font_type(puntos=9, peso=75).set_wrap()
         self.lb_tiempo_m = Controles.LB(self, self.time_label).align_center().set_font_type(puntos=9, peso=75)
         self.dic_fonts = {True: "blue", False: "grey"}
 
@@ -183,7 +183,7 @@ class OneAnalysis(QtWidgets.QWidget):
         game = Game.Game(first_position=position)
         dic_sended = {"ISWHITE": position.is_white, "GAME": game.save()}
 
-        fichero = Code.configuration.ficheroTemporal("pk")
+        fichero = Code.configuration.temporary_file("pk")
         Util.save_pickle(fichero, dic_sended)
 
         XRun.run_lucas("-play", fichero)
@@ -485,7 +485,7 @@ class WAnalisis(LCDialog.LCDialog):
 
                 xanalyzer.set_gui_dispatch(test_me)
             mrm, pos = xanalyzer.analyzes_move_game(
-                game, len(game) - 1, xanalyzer.mstime_engine, xanalyzer.depth_engine, window=self
+                game, len(game) - 1, xanalyzer.mstime_engine, xanalyzer.depth_engine
             )
             move.analysis = mrm, pos
             me.final()

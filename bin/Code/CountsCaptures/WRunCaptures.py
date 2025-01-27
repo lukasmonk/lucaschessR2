@@ -103,7 +103,7 @@ class WRunCaptures(LCDialog.LCDialog):
 
         self.liwm_captures[0].activa()
 
-        self.ultimaCelda = None
+        self.last_square = None
 
         self.pon_info_posic()
         self.set_position()
@@ -133,16 +133,16 @@ class WRunCaptures(LCDialog.LCDialog):
         )
 
     def pulsada_celda(self, celda):
-        if self.ultimaCelda:
-            self.ultimaCelda.set_text(celda)
+        if self.last_square:
+            self.last_square.set_text(celda)
 
             self.test_celdas()
-            ucld = self.ultimaCelda
+            ucld = self.last_square
             for liwm in (self.liwm_captures, self.liwm_threats):
                 for num, wm in enumerate(liwm):
                     if wm.origen == ucld:
                         wm.activaDestino()
-                        self.ultimaCelda = wm.destino
+                        self.last_square = wm.destino
                         return
                     elif wm.destino == ucld:
                         if num < (len(liwm) - 1):
@@ -151,7 +151,7 @@ class WRunCaptures(LCDialog.LCDialog):
                             x = 0
                         wm = liwm[x]
                         wm.activa()
-                        self.ultimaCelda = wm.origen
+                        self.last_square = wm.origen
                         return
 
     def test_celdas(self):
@@ -183,8 +183,8 @@ class WRunCaptures(LCDialog.LCDialog):
                     if num < self.visible_threats:
                         wm.show()
 
-    def ponUltimaCelda(self, wmcelda):
-        self.ultimaCelda = wmcelda
+    def set_last_square(self, wmcelda):
+        self.last_square = wmcelda
 
     def closeEvent(self, event):
         self.save_video()

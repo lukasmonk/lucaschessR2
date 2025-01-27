@@ -1,4 +1,5 @@
-# import datetime
+import datetime
+
 from PySide2 import QtCore, QtGui, QtWidgets
 
 
@@ -121,6 +122,10 @@ class ED(QtWidgets.QLineEdit):
         self.ponFloat(valor)
         return self
 
+    # def type_float_positive(self, valor: float = 0.00, decimals: int = 2):
+    #     self.controlrx(rf"^\d+(\.\d{{1,{decimals}}})?$")
+    #     self.ponFloat(valor)
+
     def ponFloat(self, valor):
         fm = "%0." + str(self.decimales) + "f"
         self.set_text(fm % valor)
@@ -130,6 +135,10 @@ class ED(QtWidgets.QLineEdit):
         txt = self.text()
         if "," in txt:
             txt = txt.replace(",", ".")
+        while txt.count(".") > 1:
+            x = txt.index(".")
+            txt = txt[:x] + txt[x+1:]
+            self.set_text(txt)
         return round(float(txt), self.decimales) if txt else 0.0
 
     def tipoInt(self, valor=0):
@@ -707,7 +716,8 @@ class Menu(QtWidgets.QMenu):
         self.setFont(f)
         return self
 
-    def opcion(self, key, label, icono=None, is_disabled=False, font_type=None, is_ckecked=None, tooltip: str = "", shortcut: str = ""):
+    def opcion(self, key, label, icono=None, is_disabled=False, font_type=None, is_ckecked=None, tooltip: str = "",
+               shortcut: str = ""):
         if icono:
             accion = QtWidgets.QAction(icono, label, self)
         else:
@@ -790,11 +800,11 @@ class TB(QtWidgets.QToolBar):
     def set_actions(self, li_acciones):
         self.dic_toolbar = {}
         lista = []
-        tooltips_bydefault =  not self.with_text
+        tooltips_bydefault = not self.with_text
 
         for datos in li_acciones:
             if datos:
-                if type(datos) == int:
+                if isinstance(datos, int):
                     self.addWidget(LB("").anchoFijo(datos))
                 else:
                     titulo, icono, key = datos
@@ -906,7 +916,7 @@ class TBrutina(QtWidgets.QToolBar):
         self.li_acciones = []
         for datos in li_acc:
             if datos:
-                if type(datos) == int:
+                if isinstance(datos, int):
                     self.addWidget(LB("").anchoFijo(datos))
                 elif len(datos) == 3:
                     titulo, icono, key = datos
@@ -1064,60 +1074,30 @@ class SL(QtWidgets.QSlider):
         self.setFixedWidth(px)
         return self
 
-    # class PRB(QtWidgets.QProgressBar):
-    # def __init__(self, minimo, maximo):
-    # QtWidgets.QProgressBar.__init__(self)
-    # self.setMinimum(minimo)
-    # self.setMaximum(maximo)
 
-    # def ponFormatoValor(self):
-    # self.setFormat("%v")
-    # return self
+class GetDate(QtWidgets.QDateTimeEdit):
+    def __init__(self, owner, date: datetime.date):
+        QtWidgets.QDateTimeEdit.__init__(self, owner)
 
-    # class Fecha(QtWidgets.QDateTimeEdit):
-    # def __init__(self, fecha=None):
-    # QtWidgets.QDateTimeEdit.__init__(self)
+        self.setDisplayFormat("yyyy-MM-dd")
 
-    # self.setDisplayFormat("dd-MM-yyyy")
+        self.setCalendarPopup(True)
+        calendar = QtWidgets.QCalendarWidget()
+        calendar.setFirstDayOfWeek(QtCore.Qt.Monday)
+        calendar.setGridVisible(True)
+        self.setCalendarWidget(calendar)
 
-    # self.setCalendarPopup(True)
-    # calendar = QtWidgets.QCalendarWidget()
-    # calendar.setFirstDayOfWeek(QtCore.Qt.Monday)
-    # calendar.setGridVisible(True)
-    # self.setCalendarWidget(calendar)
+        self.setDate(self.date2qdate(date))
 
-    # if fecha:
-    # self.ponFecha(fecha)
+    @staticmethod
+    def date2qdate(date: datetime.date):
+        qdate = QtCore.QDate()
+        qdate.setDate(date.year, date.month, date.day)
+        return qdate
 
-    # def fecha2date(self, fecha):
-    # date = QtCore.QDate()
-    # date.setDate(fecha.year, fecha.month, fecha.day)
-    # return date
+    def set_date(self, date: datetime.date):
+        self.setDate(self.date2qdate(date))
 
-    # def ponFecha(self, fecha):
-    # self.setDate(self.fecha2date(fecha))
-    # return self
+    def pydate(self):
+        return self.date().toPython()
 
-    # def fecha(self):
-    # date = self.date()
-    # fecha = datetime.date(date.year(), date.month(), date.day())
-    # return fecha
-
-    # def minima(self, fecha):
-    # previa = self.date()
-    # fecha = self.fecha2date(fecha)
-
-    # if previa < fecha:
-    # self.ponFecha(fecha)
-
-    # self.setMinimumDate(fecha)
-    # return self
-
-    # def maxima(self, fecha):
-    # previa = self.date()
-    # fecha = self.fecha2date(fecha)
-    # if previa > fecha:
-    # self.ponFecha(fecha)
-
-    # self.setMaximumDate(fecha)
-    # return self

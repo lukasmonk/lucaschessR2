@@ -244,7 +244,7 @@ class ManagerEverest(Manager.Manager):
             if si_book_usu and si_book_obj:
                 if jg_obj.movimiento() != jg_usu.movimiento():
                     bmove = _("book move")
-                    comment = "%s: %s %s\n%s: %s %s" % (
+                    comment = "%s: %s %s<br>%s: %s %s" % (
                         self.name_obj,
                         jg_obj.pgn_translated(),
                         bmove,

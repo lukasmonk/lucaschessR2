@@ -81,7 +81,7 @@ class RunEngine:
         setoptions = False
         if li_options_uci:
             for opcion, valor in li_options_uci:
-                if type(valor) == bool:
+                if isinstance(valor, bool):
                     valor = str(valor).lower()
                 self.set_option(opcion, valor)
                 setoptions = True
@@ -334,7 +334,7 @@ class RunEngine:
                 if not self.dispatch():
                     self.put_line("stop")
                     return False
-                time.sleep(0.001)
+                time.sleep(0.01)
 
     def wait_list(self, txt, ms_stop):
         ini_tiempo = time.time()
@@ -421,6 +421,7 @@ class RunEngine:
         if is_savelines:
             self.mrm.save_lines()
         self.mrm.set_time_depth(max_time, max_depth)
+        self.mrm.set_nodes(nodes)
 
         self.work_bestmove(env, ms_time)
 
@@ -593,9 +594,9 @@ class RunEngine:
         self.set_game_position(game)
         return self.seek_bestmove(max_time, max_depth, False)
 
-    def bestmove_nodes_game(self, game, max_time, max_depth, nodes):
-        self.set_game_position(game)
-        return self.seek_bestmove_nodes(max_time, max_depth, nodes, False)
+    def bestmove_nodes_game(self, game, njg, max_time, max_depth, nodes, is_savelines=False):
+        self.set_game_position(game, njg)
+        return self.seek_bestmove_nodes(max_time, max_depth, nodes, is_savelines)
 
     def bestmove_game_jg(self, game, njg, max_time, max_depth, is_savelines=False):
         self.set_game_position(game, njg)

@@ -408,7 +408,7 @@ class GT_Configuration(GTarea):
         return self._configuration
 
     def value(self, value=None):
-        if type(value) == int:
+        if isinstance(value, int):
             self._value = value
         return self._value
 
@@ -800,7 +800,7 @@ class Guion:
 
         if self.winDirector:
             for tarea in self.liGTareas:
-                if not (tarea.tp() in (TP_ACTION, TP_CONFIGURATION, TP_TEXTO)):
+                if tarea.tp() not in (TP_ACTION, TP_CONFIGURATION, TP_TEXTO):
                     # if not hasattr("tarea", "_itemSC") or not tarea._itemSC():
                     #      tarea.run()
                     tarea.marcado(True)

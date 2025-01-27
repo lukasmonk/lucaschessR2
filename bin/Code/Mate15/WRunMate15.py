@@ -91,7 +91,7 @@ class WRunMate15(LCDialog.LCDialog):
 
         self.li_lb_wm[0][1].activa()
 
-        self.ultimaCelda = None
+        self.last_square = None
 
     def set_position(self):
         self.show_tb(self.terminar, self.restart)
@@ -133,14 +133,14 @@ class WRunMate15(LCDialog.LCDialog):
         if self.use_pgn:
             return
 
-        if self.ultimaCelda:
-            self.ultimaCelda.set_text(celda)
+        if self.last_square:
+            self.last_square.set_text(celda)
 
-            ucld = self.ultimaCelda
+            ucld = self.last_square
             for num, (lb, wm) in enumerate(self.li_lb_wm):
                 if wm.origen == ucld:
                     wm.activaDestino()
-                    self.ultimaCelda = wm.destino
+                    self.last_square = wm.destino
                     return
                 elif wm.destino == ucld:
                     if num < (len(self.mate15.resp) - 1):
@@ -149,11 +149,11 @@ class WRunMate15(LCDialog.LCDialog):
                         x = 0
                     lb, wm = self.li_lb_wm[x]
                     wm.activa()
-                    self.ultimaCelda = wm.origen
+                    self.last_square = wm.origen
                     return
 
-    def ponUltimaCelda(self, wmcelda):
-        self.ultimaCelda = wmcelda
+    def set_last_square(self, wmcelda):
+        self.last_square = wmcelda
 
     def closeEvent(self, event):
         self.save_video()

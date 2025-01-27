@@ -71,7 +71,7 @@ class DirectEngine(object):
         setoptions = False
         if li_options_uci:
             for opcion, valor in li_options_uci:
-                if type(valor) == bool:
+                if isinstance(valor, bool):
                     valor = str(valor).lower()
                 self.set_option(opcion, valor)
                 setoptions = True
@@ -160,9 +160,9 @@ class DirectEngine(object):
     def bestmove_fen(self, fen, max_time, max_depth):
         self.work_ok("position fen %s" % fen)
         self.is_white = is_white = "w" in fen
-        return self._mejorMov(max_time, max_depth, is_white)
+        return self._best_move(max_time, max_depth, is_white)
 
-    def _mejorMov(self, max_time, max_depth, is_white):
+    def _best_move(self, max_time, max_depth, is_white):
         env = "go"
         if max_depth:
             env += " depth %d" % max_depth

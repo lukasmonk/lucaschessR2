@@ -26,7 +26,7 @@ from Code.Base.Constantes import (
     GT_LICHESS,
     GO_END,
 )
-from Code.Openings import Opening
+from Code.Openings import Opening, OpeningsStd
 from Code.QT import QTUtil2
 from Code.QT import WindowJuicio
 from Code.SQL import Base
@@ -174,9 +174,10 @@ class ManagerFideFics(Manager.Manager):
         self.hints = 0
         self.ayudas_iniciales = 0
 
-        if self.eloUsu < 1800:
-            self.xtutor = self.procesador.super_tutor()
-        self.xtutor.options(self.min_mstime, 0, True)
+        # if self.eloUsu < 1800:
+        #     self.xanalyzer = self.procesador.super_tutor()
+        # self.xanalyzer.options(self.min_mstime, 0, True)
+        self.xanalyzer.options(self.min_mstime, 0, True)
 
         self.book = Opening.OpeningPol(999)
 
@@ -274,29 +275,29 @@ class ManagerFideFics(Manager.Manager):
     def analyze_begin(self):
         if not self.is_finished():
             if self.continueTt:
-                self.xtutor.ac_inicio(self.game)
+                self.xanalyzer.ac_inicio(self.game)
             else:
-                self.xtutor.ac_inicio_limit(self.game)
+                self.xanalyzer.ac_inicio_limit(self.game)
             self.is_analyzing = True
 
     def analyze_state(self):
-        self.xtutor.engine.ac_lee()
-        self.mrm = copy.deepcopy(self.xtutor.ac_estado())
+        self.xanalyzer.engine.ac_lee()
+        self.mrm = copy.deepcopy(self.xanalyzer.ac_estado())
         return self.mrm
 
     def analyze_minimum(self):
-        self.mrm = copy.deepcopy(self.xtutor.ac_minimo(self.min_mstime, False))
+        self.mrm = copy.deepcopy(self.xanalyzer.ac_minimo(self.min_mstime, False))
         return self.mrm
 
     def analyze_end(self):
         if self.is_analyzing:
             self.is_analyzing = False
-            self.xtutor.ac_final(-1)
+            self.xanalyzer.ac_final(-1)
 
     def analyzer_close(self):
         if self.is_analyzing:
             self.is_analyzing = False
-        self.xtutor.terminar()
+        self.xanalyzer.terminar()
 
     def play_next_move(self):
         if self.state == ST_ENDGAME:
@@ -329,6 +330,15 @@ class ManagerFideFics(Manager.Manager):
             self.activate_side(is_white)
             self.thinking(False)
 
+    def check_book(self, fen, from_sq, to_sq):
+        if self.book.check_human(fen, from_sq, to_sq):
+            return True
+        FasterCode.set_fen(fen)
+        FasterCode.make_move(from_sq+to_sq)
+        fen1 = FasterCode.get_fen()
+        fenm2 = FasterCode.fen_fenm2(fen1)
+        return OpeningsStd.ap.is_book_fenm2(fenm2)
+
     def player_has_moved(self, from_sq, to_sq, promotion=""):
         jg_usu = self.check_human_move(from_sq, to_sq, promotion)
         if not jg_usu:
@@ -345,8 +355,8 @@ class ManagerFideFics(Manager.Manager):
         si_analiza_juez = jg_usu.movimiento() != jg_obj.movimiento()
         if self.book:
             fen = self.last_fen()
-            si_book_usu = self.book.check_human(fen, from_sq, to_sq)
-            si_book_obj = self.book.check_human(fen, jg_obj.from_sq, jg_obj.to_sq)
+            si_book_usu = self.check_book(fen, from_sq, to_sq)
+            si_book_obj = self.check_book(fen, jg_obj.from_sq, jg_obj.to_sq)
             if si_book_usu:
                 comentario_usu = _("book move")
             if si_book_obj:
@@ -356,7 +366,7 @@ class ManagerFideFics(Manager.Manager):
                     # comment = "%s: %s" % (_("Same book move"), jg_obj.pgn_translated())
                     # else:
                     bmove = _("book move")
-                    comment = "%s: %s %s\n%s: %s %s" % (
+                    comment = "%s: %s %s<br>%s: %s %s" % (
                         self.name_obj,
                         jg_obj.pgn_translated(),
                         bmove,
@@ -381,20 +391,20 @@ class ManagerFideFics(Manager.Manager):
             if rm_usu is None:
                 self.analyze_end()
                 continue_tt = False
-                rm_usu = self.xtutor.valora(position, jg_usu.from_sq, jg_usu.to_sq, jg_usu.promotion)
+                rm_usu = self.xanalyzer.valora(position, jg_usu.from_sq, jg_usu.to_sq, jg_usu.promotion)
                 mrm.add_rm(rm_usu)
 
             rm_obj, pos_obj = mrm.search_rm(jg_obj.movimiento())
             if rm_obj is None:
                 self.analyze_end()
                 continue_tt = False
-                rm_obj = self.xtutor.valora(position, jg_obj.from_sq, jg_obj.to_sq, jg_obj.promotion)
+                rm_obj = self.xanalyzer.valora(position, jg_obj.from_sq, jg_obj.to_sq, jg_obj.promotion)
                 pos_obj = mrm.add_rm(rm_obj)
 
             analysis = mrm, pos_obj
             um.final()
 
-            w = WindowJuicio.WJuicio(self, self.xtutor, self.name_obj, position, mrm, rm_obj, rm_usu, analysis,
+            w = WindowJuicio.WJuicio(self, self.xanalyzer, self.name_obj, position, mrm, rm_obj, rm_usu, analysis,
                                      is_competitive=True, continue_tt=continue_tt)
             w.exec_()
 

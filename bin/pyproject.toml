@@ -1,0 +1,4 @@
+[tool.ruff]
+builtins = ["_", "_F", "_X", "_FO", "_SP"]
+ignore = ["E722"]
+line-length = 120

@@ -136,7 +136,7 @@ class BMTLista:
         return True
 
     def check_game(self, cl_game, txt_game):
-        if not (cl_game in self.dic_games):
+        if cl_game not in self.dic_games:
             self.dic_games[cl_game] = txt_game
 
     def dame_uno(self, num):

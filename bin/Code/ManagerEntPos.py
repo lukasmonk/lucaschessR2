@@ -768,13 +768,6 @@ class ManagerEntPos(Manager.Manager):
 
         self.procesador.entrenamientos.rehaz()
 
-    def play_instead_of_me(self):
-        if not self.is_finished():
-            mrm = self.analizaTutor(with_cursor=True)
-            rm = mrm.best_rm_ordered()
-            if rm.from_sq:
-                self.player_has_moved_base(rm.from_sq, rm.to_sq, rm.promotion)
-
     def set_activate_tutor(self, si_activar):
         self.main_window.set_activate_tutor(si_activar)
         self.is_tutor_enabled = si_activar

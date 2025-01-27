@@ -130,8 +130,28 @@ class WTranslateOpenings(LCDialog.LCDialog):
                             dic[entry.msgid]["NEW"] = ""
         return num_new
 
+    def add_mo_file(self, path_mo, field):
+        num_new = 0
+        if os.path.isfile(path_mo):
+            dic = self.dic_translate
+            mo_file = polib.mofile(path_mo)
+            for entry in mo_file:
+                if entry.msgid in dic:
+                    if field == "NEW":
+                        trans = dic[entry.msgid]["TRANS"]
+                        new_old = dic[entry.msgid]["NEW"]
+                        new = entry.msgstr
+                        if new != new_old and new != trans:
+                            dic[entry.msgid]["NEW"] = new
+                            num_new += 1
+                    else:
+                        dic[entry.msgid][field] = entry.msgstr
+                        if dic[entry.msgid]["NEW"] == dic[entry.msgid]["TRANS"]:
+                            dic[entry.msgid]["NEW"] = ""
+        return num_new
+
     def read_po_openings(self):
-        self.add_po_file(Code.path_resource("Locale", self.tr_actual, "LC_MESSAGES", "lcopenings.po"), "TRANS")
+        self.add_mo_file(Code.path_resource("Locale", self.tr_actual, "LC_MESSAGES", "lcopenings.mo"), "TRANS")
         self.add_po_file(self.path_current_pofile(), "NEW")
 
     def set_porcentage(self):
@@ -191,6 +211,12 @@ class WTranslateOpenings(LCDialog.LCDialog):
             dic = self.dic_translate[key]
             if dic["NEW"]:
                 return self.color_new
+
+    def grid_bold(self, grid, row, o_column):
+        if o_column.key == "CURRENT":
+            key = self.li_labels[row]
+            dic = self.dic_translate[key]
+            return dic["NEW"]
 
     def order_by_type(self, key_col):
         order = self.orders[key_col]

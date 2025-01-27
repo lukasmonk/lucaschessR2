@@ -148,8 +148,8 @@ class CPU:
             if self.tipo == KIB_THREATS:
                 last_position = game.last_position
                 last_position.is_white = not last_position.is_white
-                game_thread = Game.Game(first_position=last_position)
-                self.ventana.orden_game_original(game_thread)
+                game_threat = Game.Game(first_position=last_position)
+                self.ventana.orden_game_original(game_threat)
             else:
                 self.ventana.orden_game_original(game)
 

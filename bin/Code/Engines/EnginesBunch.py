@@ -18,7 +18,7 @@ def bunch(key_engine, tam_bunch, dic_engines):
         minimo = 999
         selec = None
         for key, puntos in dic_relac.items():
-            if not (key in no_incluir):
+            if key not in no_incluir:
                 if puntos < minimo:
                     minimo = puntos
                     selec = key

@@ -40,7 +40,7 @@ class FNSLine:
                             self.game_original.set_unknown()
 
     def with_game_original(self):
-        return not (self.game_original is None)
+        return self.game_original is not None
 
     def with_solution(self):
-        return not (self.game_obj is None)
+        return self.game_obj is not None

@@ -169,7 +169,7 @@ class Washing:
         for k, m in configuration.dic_engines.items():
             if 0 < m.elo < 3000 and not m.is_external:
                 for color in (True, False):
-                    if not ((m.key, color) in st):
+                    if (m.key, color) not in st:
                         engine = WEngine(m.key, m.name, m.elo, color)
                         li.append(engine)
         li.sort(key=lambda x: "%4d%s" % (x.elo, "0" if x.color else "1"))
@@ -317,7 +317,7 @@ class DBWashing:
     def restore(self, tactic=None):
         with UtilSQL.DictRawSQL(self.file) as db:
             w = Washing()
-            if not ("TACTICS" in db):
+            if "TACTICS" not in db:
                 w.create_tactics(db, tactic)
             else:
                 w.restore(db)

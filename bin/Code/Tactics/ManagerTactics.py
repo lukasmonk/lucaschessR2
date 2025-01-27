@@ -23,6 +23,8 @@ from Code.Tactics import Tactics
 
 
 class ManagerTactics(Manager.Manager):
+    requested_help: bool
+
     def start(self, tactic: Tactics.Tactic):
         self.reiniciando = False
         self.tactic = tactic
@@ -30,6 +32,7 @@ class ManagerTactics(Manager.Manager):
         self.tactic.work_reset_positions()
         self.is_tutor_enabled = False
         self.ayudas_iniciales = 0
+        self.requested_help = False
         self.is_competitive = False
         self.game_obj, self.game_base = self.tactic.work_read_position()
         self.reiniciar()
@@ -66,7 +69,7 @@ class ManagerTactics(Manager.Manager):
         self.main_window.set_activate_tutor(False)
         self.main_window.active_game(True, False)
         self.main_window.remove_hints(True, True)
-        self.informacionActivable = True
+        self.activatable_info = True
         self.set_dispatcher(self.player_has_moved)
         self.set_position(self.game.last_position)
         self.show_side_indicator(True)
@@ -193,7 +196,11 @@ class ManagerTactics(Manager.Manager):
 
     def help(self):
         move_obj = self.game_obj.move(self.pos_obj)
-        self.board.ponFlechasTmp(([move_obj.from_sq, move_obj.to_sq, True],))
+        if self.requested_help:
+            self.board.ponFlechasTmp(([move_obj.from_sq, move_obj.to_sq, False],))
+        else:
+            self.board.mark_position(move_obj.from_sq)
+            self.requested_help = True
         self.put_penalization()
 
     def control_teclado(self, nkey, modifiers):
@@ -226,6 +233,8 @@ class ManagerTactics(Manager.Manager):
             return
 
         self.state = ST_PLAYING
+
+        self.requested_help = False
 
         self.human_is_playing = False
         self.put_view()

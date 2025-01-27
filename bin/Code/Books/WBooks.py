@@ -17,34 +17,32 @@ from Code.QT import QTVarios
 from Code.QT import SelectFiles
 
 
-def select_move_books(main_window, li_moves, is_white, always_select):
-    main_window.cursorFueraBoard()
-    menu = QTVarios.LCMenu(main_window)
-    f = Controles.FontType(name=Code.font_mono, puntos=10)
-    menu.set_font(f)
+def select_move_books(main_window, li_moves, is_white):
+    while True:
+        main_window.cursor_out_board()
+        menu = QTVarios.LCMenu12(main_window)
+        f = Controles.FontType(name=Code.font_mono, puntos=10)
+        menu.set_font(f)
 
-    titulo = _("White") if is_white else _("Black")
-    icono = Iconos.Carpeta()
+        titulo = _("White") if is_white else _("Black")
+        icono = Iconos.Carpeta()
 
-    menu.opcion(None, titulo, icono)
-    menu.separador()
-
-    icono = Iconos.PuntoNaranja() if is_white else Iconos.PuntoNegro()
-
-    for from_sq, to_sq, promotion, pgn, peso in li_moves:
-        menu.opcion((from_sq, to_sq, promotion), pgn, icono)
+        menu.opcion(None, titulo, icono)
         menu.separador()
 
-    resp = menu.lanza()
-    if resp:
-        return resp
-    else:
-        if always_select:
+        icono = Iconos.PuntoNaranja() if is_white else Iconos.PuntoNegro()
+
+        for from_sq, to_sq, promotion, pgn, peso in li_moves:
+            menu.opcion((from_sq, to_sq, promotion), pgn, icono)
+            menu.separador()
+
+        resp = menu.lanza()
+        if resp:
+            return resp
+        else:
             time.sleep(0.2)
             QTUtil.refresh_gui()
-            return li_moves[0][0], li_moves[0][1], li_moves[0][2]
-        else:
-            return None
+            return select_move_books(main_window, li_moves, is_white)
 
 
 class WRegisteredBooks(LCDialog.LCDialog):

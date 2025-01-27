@@ -254,7 +254,7 @@ class WJuicio(LCDialog.LCDialog):
             um.final()
 
         self.rmObj = rmObjN
-        self.analysis = self.mrm, pos
+        self.analysis = mrm, pos
         self.siAnalisisCambiado = True
 
         self.mrm = mrm

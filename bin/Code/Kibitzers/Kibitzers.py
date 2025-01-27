@@ -48,7 +48,7 @@ class Tipos:
     def comboSinIndices(self):
         return [
             (label, key) for key, label, pm in self.li_tipos if
-            not (key in (KIB_INDEXES, KIB_GAVIOTA, KIB_POLYGLOT, KIB_DATABASES))
+            key not in (KIB_INDEXES, KIB_GAVIOTA, KIB_POLYGLOT, KIB_DATABASES)
         ]
 
     def texto(self, tipo):
@@ -78,7 +78,7 @@ class Kibitzer(Engines.Engine):
         li_huellas = [en.huella for en in li_engines if en != self]
         while True:
             self.huella = Util.huella()
-            if not (self.huella in li_huellas):
+            if self.huella not in li_huellas:
                 return
 
     def clonar(self, li_engines):

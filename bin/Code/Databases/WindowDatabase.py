@@ -78,7 +78,7 @@ class WBDatabase(LCDialog.LCDialog):
         if not dic_video:
             dic_video = {"SPLITTER": [800, 380], "TREE_1": 25, "TREE_2": 25, "TREE_3": 50, "TREE_4": 661}
 
-        if not ("SPLITTER" in dic_video):
+        if "SPLITTER" not in dic_video:
             ancho = self.width()
             ancho_board = self.infoMove.board.width()
             sz = [ancho - ancho_board, ancho_board]

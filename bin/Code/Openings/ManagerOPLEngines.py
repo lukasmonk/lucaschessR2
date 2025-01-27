@@ -61,7 +61,7 @@ class ManagerOpeningEngines(Manager.Manager):
             liBooks_sel = ["", "", "", "", ""]
         liEngines = self.trainingEngines["ENGINES"]
         num_engines_base = len(liEngines)
-        liEnginesExt = [key for key in self.trainingEngines.get("EXT_ENGINES", []) if not (key in liEngines)]
+        liEnginesExt = [key for key in self.trainingEngines.get("EXT_ENGINES", []) if key not in liEngines]
         num_engines = num_engines_base + len(liEnginesExt)
 
         if self.numengine >= num_engines:
@@ -216,7 +216,7 @@ class ManagerOpeningEngines(Manager.Manager):
                 self.dbop.set_cache_engines(self.keyengine, self.time, fenm2, move)
             from_sq, to_sq, promotion = move[:2], move[2:4], move[4:]
             if si_obligatorio:
-                if not (move in moves):
+                if move not in moves:
                     move = list(moves)[0]
                     from_sq, to_sq, promotion = move[:2], move[2:4], move[4:]
 
@@ -242,7 +242,7 @@ class ManagerOpeningEngines(Manager.Manager):
         li_mv = self.dicFENm2.get(fenm2, [])
         nmv = len(li_mv)
         if nmv > 0:
-            if not (move.movimiento() in li_mv):
+            if move.movimiento() not in li_mv:
                 for mv in li_mv:
                     self.board.creaFlechaMulti(mv, False)
                 self.board.creaFlechaMulti(move.movimiento(), True)
@@ -307,7 +307,7 @@ class ManagerOpeningEngines(Manager.Manager):
             move = self.game.move(njg)
             if move.is_white() == self.is_human_side_white:
                 fenm2 = move.position_before.fenm2()
-                if not (fenm2 in self.dicFENm2):
+                if fenm2 not in self.dicFENm2:
                     move.njg = njg
                     lista.append(move)
                     move.fenm2 = fenm2
@@ -441,7 +441,7 @@ class ManagerOpeningEngines(Manager.Manager):
                 fenm2 = move.position_before.fenm2()
                 if fenm2 in self.dicFENm2:
                     moves = self.dicFENm2[fenm2]
-                    if not (move.movimiento() in moves):
+                    if move.movimiento() not in moves:
                         move.add_nag(INACCURACY)
                         if jg_inicial is None:
                             jg_inicial = move

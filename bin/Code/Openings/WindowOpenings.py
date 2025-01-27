@@ -339,7 +339,7 @@ class OpeningsPersonales(LCDialog.LCDialog):
         #     return _("Yes") if reg["ESTANDAR"] else _("No")
         if key == "PGN":
             pgn = reg["PGN"]
-            if not (pgn in self.dicPGNSP):
+            if pgn not in self.dicPGNSP:
                 p = Game.Game()
                 p.read_pv(reg["A1H8"])
                 self.dicPGNSP[pgn] = p.pgn_translated()

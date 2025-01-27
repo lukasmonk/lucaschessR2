@@ -324,7 +324,7 @@ class ManagerTurnOnLights(Manager.Manager):
         mov = self.line.get_move(self.num_move).lower()
         self.board.mark_position(mov[:2])
         fen = self.game.last_position.fen()
-        if not (fen in self.dicFENayudas):
+        if fen not in self.dicFENayudas:
             self.dicFENayudas[fen] = 1
         else:
             self.dicFENayudas[fen] += 1

@@ -60,7 +60,7 @@ class WTagsPGN(LCDialog.LCDialog):
 
         li = [[k, v] for k, v in li_pgn]
         for eti in self.listandard:
-            if not (eti in st):
+            if eti not in st:
                 li.append([eti, ""])
         while len(li) < 30:
             li.append(["", ""])

@@ -145,7 +145,7 @@ class WDBAnalisis:
 
         game = Game.Game()
         game.read_pv(pv)
-        mrm, pos = xengine.analyzes_move_game(game, 9999, alm.vtime, alm.depth, window=self.wowner)
+        mrm, pos = xengine.analyzes_move_game(game, 9999, alm.vtime, alm.depth)
 
         rotulo = mrm.name
         if alm.vtime:

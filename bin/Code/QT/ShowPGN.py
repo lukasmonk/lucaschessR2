@@ -63,7 +63,17 @@ class ShowPGN(QtWidgets.QScrollArea):
         self.setWidget(w)
 
     def ensure_visible(self, num_variation):
-        self.ensureWidgetVisible(self.li_variations[num_variation])
+        label = self.li_variations[num_variation]
+        y = label.pos().y()
+        # doc = QtGui.QTextDocument()
+        # doc.setHtml(label.text())
+        # cursor = QtGui.QTextCursor(doc)
+        # cursor = doc.find("<a", cursor)
+        # if not cursor.isNull():
+        #     # link_text = cursor.selectedText()
+        #     rect = doc.documentLayout().blockBoundingRect(cursor.block())
+        #     y += rect.top()
+        self.verticalScrollBar().setValue(y)
 
     def set_link(self, link_externo):
         self.link_externo = link_externo

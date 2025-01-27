@@ -275,6 +275,7 @@ class MultiEngineResponse:
     depth: int
     max_time: int
     max_depth: int
+    nodes: int
     dicDepth: dict
     dicMultiPV: dict
     li_rm: list
@@ -299,6 +300,7 @@ class MultiEngineResponse:
 
         self.max_time = 0
         self.max_depth = 0
+        self.nodes = 0
 
         self.dicDepth = {}
         self.dicMultiPV = {}
@@ -322,6 +324,7 @@ class MultiEngineResponse:
             "depth": self.depth,
             "max_time": self.max_time,
             "max_depth": self.max_depth,
+            "nodes": self.nodes,
             "li_rm": [rm.save() for rm in self.li_rm],
         }
         return dic
@@ -333,6 +336,7 @@ class MultiEngineResponse:
         self.depth = dic["depth"]
         self.max_time = dic["max_time"]
         self.max_depth = dic["max_depth"]
+        self.nodes = dic.get("nodes", 0)
         for num, sv in enumerate(dic["li_rm"]):
             rm = EngineResponse(self.name, self.is_white)
             rm.restore(sv)
@@ -346,6 +350,9 @@ class MultiEngineResponse:
     def set_time_depth(self, max_time, max_depth):
         self.max_time = max_time
         self.max_depth = max_depth
+
+    def set_nodes(self, fixed_nodes):
+        self.nodes = fixed_nodes
 
     def dispatch(self, linea):
         is_bound = False
@@ -375,7 +382,7 @@ class MultiEngineResponse:
         for k in keys:
             rm = dic[k]
             mov = rm.movimiento()
-            if not (mov in set_ya) and mov:
+            if mov not in set_ya and mov:
                 set_ya.add(mov)
                 li.append(rm)
         self.li_rm = sorted(li, key=lambda xrm: -xrm.centipawns_abs())  # de mayor a menor
@@ -399,7 +406,7 @@ class MultiEngineResponse:
             return
 
         if "nodes" in d_claves:  # Toga en multipv, envia 0 si no tiene nada que contar
-            if (d_claves["nodes"] == "0") and not ("mate" in pv_base):
+            if (d_claves["nodes"] == "0") and "mate" not in pv_base:
                 return
 
         if "score" in d_claves:
@@ -408,7 +415,7 @@ class MultiEngineResponse:
 
         if "multipv" in d_claves:
             k_multi = d_claves["multipv"]
-            if not (k_multi in self.dicMultiPV):
+            if k_multi not in self.dicMultiPV:
                 self.dicMultiPV[k_multi] = EngineResponse(self.name, self.is_white)
         else:
             if len(self.dicMultiPV) == 0:
@@ -483,7 +490,7 @@ class MultiEngineResponse:
 
         if "multipv" in d_claves:
             k_multi = d_claves["multipv"]
-            if not (k_multi in self.dicMultiPV):
+            if k_multi not in self.dicMultiPV:
                 self.dicMultiPV[k_multi] = EngineResponse(self.name, self.is_white)
         else:
             if len(self.dicMultiPV) == 0:
@@ -623,7 +630,7 @@ class MultiEngineResponse:
                 return False
 
             for mov0 in li_mov0:
-                if not (mov0 in li_mov1):
+                if mov0 not in li_mov1:
                     return False
             return True
 
@@ -1171,7 +1178,7 @@ class MultiEngineResponse:
             return ev, ev
 
         libest = self.bestmoves()
-        if not (rm in libest):
+        if rm not in libest:
             return NO_RATING, NO_RATING
 
         # Si la mayoría son buenos movimientos

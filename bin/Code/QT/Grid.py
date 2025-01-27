@@ -516,7 +516,7 @@ class Grid(QtWidgets.QTableView):
 
         # Las que no se muestran
         for column in self.o_columns.li_columns:
-            if not (column.key in li_claves):
+            if column.key not in li_claves:
                 column.guardarConf(dic, self)
 
     def restore_video(self, dic):

@@ -1,5 +1,6 @@
 import gc
 import sys
+import time
 
 from PySide2 import QtCore
 from PySide2 import QtGui, QtWidgets
@@ -73,6 +74,19 @@ def refresh_gui():
     """
     QtCore.QCoreApplication.processEvents()
     QtWidgets.QApplication.processEvents()
+
+
+time_ini = time.time()
+
+def refresh_gui_time():
+    """
+    Procesa eventos pendientes para que se muestren correctamente las windows
+    """
+    global time_ini
+    if time.time() - time_ini > 0.5:
+        QtCore.QCoreApplication.processEvents()
+        QtWidgets.QApplication.processEvents()
+        time_ini = time.time()
 
 
 def xrefresh_gui():

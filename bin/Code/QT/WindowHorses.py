@@ -317,7 +317,7 @@ class WHorses(LCDialog.LCDialog):
             self.moves += 1
             self.movesParcial += 1
             self.ponNumMoves()
-            if not (p1 in self.camino):
+            if p1 not in self.camino:
                 return False
             self.cpActivo.squares[from_sq] = None
             self.cpActivo.squares[to_sq] = "N" if self.is_white else "n"

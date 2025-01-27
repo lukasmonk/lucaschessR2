@@ -296,7 +296,11 @@ class OneMomentPlease:
         if self.um and self.um.cancelado():
             self.close()
             return True
-        return False
+        return self.um is None
+
+    def label(self, mens):
+        if self.um:
+            self.um.label(mens)
 
 
 def analizando(owner, with_cancel=False):

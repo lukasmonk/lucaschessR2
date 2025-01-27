@@ -70,7 +70,7 @@ class IPCKibitzer:
     def __init__(self, huella_kibitzer):
         configuration = Code.configuration
 
-        fdb = configuration.ficheroTemporal("db")
+        fdb = configuration.temporary_file("db")
 
         self.ipc = UtilSQL.IPC(fdb, True)
 

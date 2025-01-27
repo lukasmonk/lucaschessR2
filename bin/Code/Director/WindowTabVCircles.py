@@ -120,7 +120,7 @@ class WTV_Circle(QtWidgets.QDialog):
         pm = self.liEjemplos[0].pixmap()
         bf = QtCore.QBuffer()
         pm.save(bf, "PNG")
-        self.reg_circle.png = bytes(bf.buffer())
+        self.reg_circle.png = bytes(bf.data().data())
 
         self.accept()
 

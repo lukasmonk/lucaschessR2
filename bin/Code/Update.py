@@ -67,7 +67,7 @@ def update_file(titulo, urlfichero, tam):
 def update_eboard(main_window):
     version_local = Eboard.version()
 
-    ftxt = Code.configuration.ficheroTemporal("txt")
+    ftxt = Code.configuration.temporary_file("txt")
     ok = Util.urlretrieve(WEBUPDATES_EBOARD_VERSION, ftxt)
 
     if not ok:
@@ -81,7 +81,7 @@ def update_eboard(main_window):
 
     um = QTUtil2.one_moment_please(main_window, _("Downloading eboards drivers"))
 
-    fzip = Code.configuration.ficheroTemporal("zip")
+    fzip = Code.configuration.temporary_file("zip")
     ok = Util.urlretrieve(WEBUPDATES_EBOARD_ZIP, fzip)
 
     um.final()

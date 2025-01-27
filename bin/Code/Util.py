@@ -131,7 +131,7 @@ def list_vars_values(obj, li_exclude: [list, None] = None):
         li_exclude = []
     li = []
     for name, value in inspect.getmembers(obj):
-        if not ("__" in name) and name not in li_exclude:
+        if "__" not in name and name not in li_exclude:
             if not inspect.ismethod(value):
                 li.append((name, value))
     return li
@@ -461,19 +461,19 @@ class SymbolDict:
         return len(self._keys)
 
     def __getitem__(self, key):
-        if type(key) == int:
+        if isinstance(key, int):
             return self._keys[key]
         return self._dic[key.upper()]
 
     def __setitem__(self, key, valor):
         clu = key.upper()
-        if not (clu in self._dic):
+        if clu not in self._dic:
             self._keys.append(key)
         self._dic[clu] = valor
 
     def get(self, key, default=None):
         clu = key.upper()
-        if not (clu in self._dic):
+        if clu not in self._dic:
             return default
         return self.__getitem__(key)
 

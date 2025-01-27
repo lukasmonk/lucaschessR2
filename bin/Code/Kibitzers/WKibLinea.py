@@ -167,7 +167,7 @@ class WKibLinea(QtWidgets.QDialog):
                     if valor is None:
                         orden = "setoption name %s" % opcion
                     else:
-                        if type(valor) == bool:
+                        if isinstance(valor, bool):
                             valor = str(valor).lower()
                         orden = "setoption name %s value %s" % (opcion, valor)
                     self.escribe(orden)
@@ -283,7 +283,7 @@ class WKibLinea(QtWidgets.QDialog):
             if not (0 <= y <= (hE - 50)):
                 y = 0
             self.move(x, y)
-            if not ("_SIZE_" in dicVideo):
+            if "_SIZE_" not in dicVideo:
                 w, h = self.width(), self.height()
                 for k in dicVideo:
                     if k.startswith("_TAMA"):

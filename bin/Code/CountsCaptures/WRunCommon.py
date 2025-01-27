@@ -48,7 +48,7 @@ class WEdMove(QtWidgets.QWidget):
         self.setLayout(ly)
 
     def focusOut(self, quien):
-        self.owner.ponUltimaCelda(quien)
+        self.owner.set_last_square(quien)
 
     def activa(self):
         self.setFocus()
@@ -119,7 +119,7 @@ class WEdMovePGN(QtWidgets.QWidget):
         self.setLayout(ly)
 
     def focusOut(self, quien):
-        self.owner.ponUltimaCelda(quien)
+        self.owner.set_last_square(quien)
 
     def activa(self):
         self.setFocus()

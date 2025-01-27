@@ -183,7 +183,7 @@ class Game:
             if k in dic:
                 li_main.append(dic[k])
         for k in dic:
-            if not (k in LI_BASIC_TAGS):
+            if k not in LI_BASIC_TAGS:
                 li_resto.append(dic[k])
         self.li_tags = li_main
         self.li_tags.extend(li_resto)
@@ -600,6 +600,13 @@ class Game:
                 self.test_tag_result()
                 return True
         return False
+
+    def is_possible_add_moves(self):
+        if self.li_moves:
+            move = self.li_moves[-1]
+            if move.position.is_finished():
+                return False
+        return True
 
     def test_tag_result(self):
         if not self.get_tag("RESULT"):
@@ -1079,6 +1086,10 @@ class Game:
                 return True
         return False
 
+    def remove_bad_variations(self):
+        for move in self.li_moves:
+            move.remove_bad_variations()
+
 
 def pv_san(fen, pv):
     p = Game(fen=fen)
@@ -1119,7 +1130,7 @@ def pgn_game(pgn):
     game = Game()
     last_posicion = game.first_position
     jg_activa = None
-    if type(pgn) == bytes:
+    if isinstance(pgn, bytes):
         try:
             pgn, codec = Util.bytes_str_codec(pgn)
         except:

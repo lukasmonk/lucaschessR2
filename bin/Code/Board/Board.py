@@ -53,7 +53,7 @@ class RegKB:
 
 class Board(QtWidgets.QGraphicsView):
     def __init__(self, parent, config_board, with_menu_visual=True, with_director=True, allow_eboard=False):
-        super(Board, self).__init__(None)
+        super(Board, self).__init__()
 
         self.setRenderHints(
             QtGui.QPainter.Antialiasing | QtGui.QPainter.TextAntialiasing | QtGui.QPainter.SmoothPixmapTransform
@@ -174,7 +174,7 @@ class Board(QtWidgets.QGraphicsView):
 
             # ALT-B : Menu visual
             elif is_alt and key == Qt.Key_B:
-                self.lanzaMenuVisual()
+                self.launch_visual_menu()
 
             elif is_alt and key == Qt.Key_Y:
                 self.blindfoldChange()
@@ -719,7 +719,7 @@ class Board(QtWidgets.QGraphicsView):
             indicador_menu.sur = indicador.physical_pos.y
             indicador_menu.norte = gap / 2
             self.indicadorSC_menu = BoardElements.PixmapSC(
-                self.escena, indicador_menu, pixmap=Iconos.pmSettings(), rutina=self.lanzaMenuVisual
+                self.escena, indicador_menu, pixmap=Iconos.pmSettings(), rutina=self.launch_visual_menu
             )
             self.indicadorSC_menu.setOpacity(0.50 if self.configuration.x_opacity_tool_board == 10 else 0.01)
 
@@ -881,7 +881,7 @@ class Board(QtWidgets.QGraphicsView):
         add_key("F12", _("Minimize to the tray icon"))
         close_group()
 
-        menu = QTVarios.LCMenu(self)
+        menu = QTVarios.LCMenu12(self)
         # rondo = QTVarios.rondo_puntos(shuffle=False)
         # menu.set_font(Code.font_mono)
         menu.opcion(None, _("Active keys"), Iconos.Rename())
@@ -897,11 +897,11 @@ class Board(QtWidgets.QGraphicsView):
         if reg:
             reg.run(self.exec_kb_buffer)
 
-    def lanzaMenuVisual(self, siIzquierdo=False):
+    def launch_visual_menu(self):
         if not self.with_menu_visual:
             return
 
-        menu = QTVarios.LCMenu(self)
+        menu = QTVarios.LCMenu12(self)
 
         menu.opcion("colors", _("Colors"), Iconos.Colores())
         menu.separador()
@@ -1314,7 +1314,7 @@ class Board(QtWidgets.QGraphicsView):
             if a1h8:
                 return self.mousePressGraphLive(event, a1h8)
             else:
-                self.lanzaMenuVisual()
+                self.launch_visual_menu()
                 return
 
         si_izq = event.button() == QtCore.Qt.LeftButton
@@ -2620,7 +2620,7 @@ class Board(QtWidgets.QGraphicsView):
         else:
             gm = Game.Game(first_position=self.last_position)
             dic = {"GAME": gm.save(), "ISWHITE": gm.last_position.is_white}
-            fich = Util.relative_path(self.configuration.ficheroTemporal("pkd"))
+            fich = Util.relative_path(self.configuration.temporary_file("pkd"))
             Util.save_pickle(fich, dic)
 
             XRun.run_lucas("-play", fich)

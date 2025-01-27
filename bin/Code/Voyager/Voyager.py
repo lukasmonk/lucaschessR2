@@ -441,7 +441,7 @@ class WPosicion(QtWidgets.QWidget):
                     self.scanner_init()
                     self.is_scan_init = True
                 img: QtGui.QImage = data
-                path_png = Code.configuration.ficheroTemporal("png")
+                path_png = Code.configuration.temporary_file("png")
                 img.save(path_png)
                 self.im_scanner = Image.open(path_png)
                 self.scanner_process()
@@ -543,9 +543,10 @@ class WPosicion(QtWidgets.QWidget):
 
             self.pixmap = sc.selected_pixmap
             img = self.pixmap.toImage()
+
             buffer = QtCore.QBuffer()
             buffer.open(QtCore.QBuffer.ReadWrite)
-            img.save(buffer, "PNG")
+            img.save(buffer, "BMP")
             self.im_scanner = Image.open(io.BytesIO(buffer.data()))
             self.scanner_process()
             tc = self.board.width_square * 8
@@ -987,7 +988,7 @@ def voyager_position(wowner, position, wownerowner=None):
     game = Game.Game(first_position=position)
     dlg = Voyager(wowner, False, game)
 
-    resp = dlg.resultado if dlg.exec_() else None
+    resp_position = dlg.resultado if dlg.exec_() else None
 
     if wowner_maximized:
         wowner.showMaximized()
@@ -1000,7 +1001,7 @@ def voyager_position(wowner, position, wownerowner=None):
             wownerowner.showNormal()
     QTUtil.refresh_gui()
 
-    return resp, dlg.is_white_bottom()
+    return resp_position, dlg.is_white_bottom()
 
 
 def voyager_game(wowner, game):

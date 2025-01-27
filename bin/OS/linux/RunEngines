@@ -62,7 +62,7 @@ echo ">> Stash" && chmod 755 ./Engines/stash/Stash-29.0
 echo ">> Stockfish" && chmod 755 ./Engines/stockfish/stockfish*
 echo ">> Supernova" && chmod 755 ./Engines/supernova/Supernova-2.3
 echo ">> Teki" && chmod 755 ./Engines/teki/Teki-2
-echo ">> Texel" && chmod 755 ./Engines/texel/Texel-1.06
+echo ">> Texel" && chmod 755 ./Engines/texel/texel64
 echo ">> Toga" && chmod 755 ./Engines/toga/DeepToga1.9.6nps
 echo ">> Tucano" && chmod 755 ./Engines/tucano/Tucano-9.00
 echo ">> Tunguska" && chmod 755 ./Engines/tunguska/Tunguska-1.1

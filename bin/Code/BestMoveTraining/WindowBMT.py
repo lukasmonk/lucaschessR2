@@ -1,5 +1,6 @@
 import os.path
 
+import Code
 from Code import Util
 from Code.Base import Game, Position
 from Code.BestMoveTraining import BMT, WindowBMTtrain
@@ -301,7 +302,7 @@ class WBMT(LCDialog.LCDialog):
 
             wodt.odt_doc.add_paragraph("%s %d" % (_("Position"), current_pos + 1), bold=True)
             wodt.odt_doc.add_linebreak()
-            path_img = self.configuration.ficheroTemporal("png")
+            path_img = self.configuration.temporary_file("png")
             board.save_as_img(path_img, "png", False, True)
             wodt.odt_doc.add_png(path_img, 13.4)
             wodt.odt_doc.add_pagebreak()
@@ -378,7 +379,7 @@ class WBMT(LCDialog.LCDialog):
                 return True
             else:
                 wodt.odt_doc.create(path_odt)
-                os.startfile(path_odt)
+                Code.startfile(path_odt)
                 return False
 
         wodt.set_routine(run_data)
@@ -390,13 +391,23 @@ class WBMT(LCDialog.LCDialog):
         self.releer()
         um.final()
 
+    def zip2var_bmt_lista(self, dbf, recno):
+        var = Util.zip2var(dbf.leeOtroCampo(recno, "BMT_LISTA"))
+        if var is None:
+            QTUtil2.message_error(self, _("There was an error while reading the data"))
+            return None
+        else:
+            return var.patch()
+
     def rehacer(self):
         grid, dbf, recno = self.actual()
         if recno < 0:
             return
         name = dbf.NOMBRE
         extra = dbf.EXTRA
-        bmt_lista = Util.zip2var(dbf.leeOtroCampo(recno, "BMT_LISTA")).patch()
+        bmt_lista = self.zip2var_bmt_lista(dbf, recno)
+        if bmt_lista is None:
+            return
 
         # Motor y vtime, cogemos los estandars de analysis
         file = self.configuration.file_param_analysis()
@@ -586,7 +597,9 @@ class WBMT(LCDialog.LCDialog):
             bl = li_gen[0]
 
             um = QTUtil2.one_moment_please(self)
-            bmt_lista = Util.zip2var(dbf.leeOtroCampo(recno, "BMT_LISTA")).patch()
+            bmt_lista = self.zip2var_bmt_lista(dbf, recno)
+            if bmt_lista is None:
+                return
 
             from_sq = 0
             pos = 1
@@ -633,7 +646,9 @@ class WBMT(LCDialog.LCDialog):
         if resultado:
             accion, li_gen = resultado
 
-            bmt_lista = Util.zip2var(dbf.leeOtroCampo(recno, "BMT_LISTA")).patch()
+            bmt_lista = self.zip2var_bmt_lista(dbf, recno)
+            if bmt_lista is None:
+                return
             clista = li_gen[0]
             if clista:
                 lni = Util.ListaNumerosImpresion(clista)
@@ -709,9 +724,10 @@ class WBMT(LCDialog.LCDialog):
         li_unos = []
         dic_games = {}
         for recno in li:
-            bmt_lista1 = Util.zip2var(dbf.leeOtroCampo(recno, "BMT_LISTA")).patch()
-            li_unos.extend(bmt_lista1.li_bmt_uno)
-            dic_games.update(bmt_lista1.dic_games)
+            bmt_lista1 = self.zip2var_bmt_lista(dbf, recno)
+            if bmt_lista1 is not None:
+                li_unos.extend(bmt_lista1.li_bmt_uno)
+                dic_games.update(bmt_lista1.dic_games)
 
         st_fen = set()
         if eliminar_state_minimo < 9:
@@ -775,33 +791,34 @@ class WBMT(LCDialog.LCDialog):
             self.grid.refresh()
             self.gridT.refresh()
 
-    def exportar(self, siLimpiar):
+    def exportar(self, si_limpiar):
         grid, dbf, recno = self.actual()
 
         if recno >= 0:
-            regActual = dbf.registroActual()
+            reg_actual = dbf.registroActual()
             carpeta = "%s/%s.bm1" % (
                 os.path.dirname(self.configuration.ficheroBMT),
                 dbf.NOMBRE,
-            )  # @Lucas: ya tienes este cambio
+            )
             fbm1 = SelectFiles.salvaFichero(self, _("Export the current training"), carpeta, "bm1", True)
             if fbm1:
-                if siLimpiar:
-                    regActual.ESTADO = "0"
-                    regActual.HECHOS = 0
-                    regActual.PUNTOS = 0
-                    regActual.FFINAL = ""
-                    regActual.SEGUNDOS = 0
-                    bmt_lista = Util.zip2var(dbf.leeOtroCampo(recno, "BMT_LISTA")).patch()
-                    bmt_lista.reiniciar()
-                    regActual.BMT_LISTA = bmt_lista
-                    regActual.HISTORIAL = []
-                    regActual.REPE = 0
-                else:
-                    regActual.BMT_LISTA = Util.zip2var(dbf.leeOtroCampo(recno, "BMT_LISTA")).patch()
-                    regActual.HISTORIAL = Util.zip2var(dbf.leeOtroCampo(recno, "HISTORIAL"))
+                bmt_lista = self.zip2var_bmt_lista(dbf, recno)
+                if bmt_lista is not None:
+                    if si_limpiar:
+                        reg_actual.ESTADO = "0"
+                        reg_actual.HECHOS = 0
+                        reg_actual.PUNTOS = 0
+                        reg_actual.FFINAL = ""
+                        reg_actual.SEGUNDOS = 0
+                        bmt_lista.reiniciar()
+                        reg_actual.BMT_LISTA = bmt_lista
+                        reg_actual.HISTORIAL = []
+                        reg_actual.REPE = 0
+                    else:
+                        reg_actual.BMT_LISTA = bmt_lista
+                        reg_actual.HISTORIAL = Util.zip2var(dbf.leeOtroCampo(recno, "HISTORIAL"))
 
-                Util.save_pickle(fbm1, regActual)
+                    Util.save_pickle(fbm1, reg_actual)
 
     def modificar(self):
         grid, dbf, recno = self.actual()
@@ -992,8 +1009,8 @@ class WBMT(LCDialog.LCDialog):
         # Motor y vtime, cogemos los estandars de analysis
         file = self.configuration.file_param_analysis()
         dic = Util.restore_pickle(file)
-        engine = self.configuration.x_tutor_clave
-        vtime = self.configuration.x_tutor_mstime
+        engine = self.configuration.x_analyzer_clave
+        vtime = self.configuration.x_analyzer_mstime
         if dic:
             engine = dic.get("ENGINE", engine)
             vtime = dic.get("TIME", vtime)
@@ -1003,26 +1020,18 @@ class WBMT(LCDialog.LCDialog):
 
         # Bucle para control de errores
         while True:
-            # Datos
-            li_gen = [(None, None)]
+            form = FormLayout.FormLayout(self, name, Iconos.Opciones(), anchoMinimo=560)
+            form.separador()
+            form.edit(_("Name"), name)
+            form.combobox(_("Engine"), self.configuration.combo_engines_multipv10(),
+                          self.configuration.x_analyzer_clave)
+            form.editbox(_("Duration of engine analysis (secs)"), ancho=60, decimales=2, tipo=float,
+                         init_value=vtime / 1000.0)
+            form.spinbox(_("From number"), 1, nFEN, 50, init_value=1)
+            form.spinbox(_("To number"), 1, nFEN, 50, init_value=nFEN if nFEN < 20 else 20)
+            form.separador()
 
-            # # Nombre del entrenamiento
-            li_gen.append((_("Name") + ":", name))
-
-            # # Tutor
-            li = self.configuration.ayudaCambioTutor()
-            li[0] = engine
-            li_gen.append((_("Engine") + ":", li))
-
-            # Decimas de segundo a pensar el tutor
-            li_gen.append((_("Duration of engine analysis (secs)") + ":", vtime / 1000.0))
-
-            li_gen.append((None, None))
-
-            li_gen.append((FormLayout.Spinbox(_("From number"), 1, nFEN, 50), 1))
-            li_gen.append((FormLayout.Spinbox(_("To number"), 1, nFEN, 50), nFEN if nFEN < 20 else 20))
-
-            resultado = FormLayout.fedit(li_gen, title=name, parent=self, anchoMinimo=560, icon=Iconos.Opciones())
+            resultado = form.run()
 
             if resultado:
                 accion, li_gen = resultado
@@ -1033,9 +1042,6 @@ class WBMT(LCDialog.LCDialog):
 
                 if not vtime or not name:
                     return
-
-                dic = {"ENGINE": engine, "TIME": vtime}
-                Util.save_pickle(file, dic)
 
                 from_sq = li_gen[3]
                 to_sq = li_gen[4]
@@ -1048,9 +1054,9 @@ class WBMT(LCDialog.LCDialog):
                 return
 
         # Analizamos todos, creamos las games, y lo salvamos
-        confMotor = self.configuration.buscaRival(engine)
-        confMotor.multiPV = 16
-        xmanager = self.procesador.creaManagerMotor(confMotor, vtime, None, True)
+        conf_motor = self.configuration.buscaRival(engine)
+        conf_motor.multiPV = 16
+        xmanager = self.procesador.creaManagerMotor(conf_motor, vtime, None, True)
 
         mensaje = _("Analyzing the move....")
         tmpBP = QTUtil2.BarraProgreso(self.procesador.main_window, name, mensaje, nDH).mostrar()

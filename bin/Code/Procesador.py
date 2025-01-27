@@ -811,7 +811,7 @@ class Procesador:
 
     def train_book_ol(self):
         dbli_books_train = UtilSQL.ListObjSQL(Code.configuration.file_train_books_ol(), WBooksTrainOL.BooksTrainOL,
-                                              tabla="data", reverted=True)
+                                              tabla="data", reversed=True)
         # No es posible con with porque self.manager termina y deja el control en main_window
         w = WBooksTrainOL.WBooksTrainOL(self.main_window, dbli_books_train)
         if w.exec_():
@@ -916,17 +916,17 @@ class Procesador:
         self.configuration.ficheroBMT = file
         WindowBMT.windowBMT(self)
 
-    def anotar(self, game, siblancasabajo):
+    def anotar(self, game, if_white_below): 
         self.manager = ManagerWritingDown.ManagerWritingDown(self)
-        self.manager.start(game, siblancasabajo)
+        self.manager.start(game, if_white_below)
 
     def show_anotar(self):
         w = WritingDown.WritingDown(self)
         if w.exec_():
-            pc, siblancasabajo = w.resultado
-            if pc is None:
-                pc = DBgames.get_random_game()
-            self.anotar(pc, siblancasabajo)
+            game, if_white_below = w.resultado
+            if game is None:
+                game = DBgames.get_random_game()
+            self.anotar(game, if_white_below)
 
     def externDatabase(self, file):
         # self.configuration.ficheroDBgames = file
@@ -1099,7 +1099,7 @@ class Procesador:
         return None
 
     def pgn_paste(self):
-        path = self.configuration.ficheroTemporal("pgn")
+        path = self.configuration.temporary_file("pgn")
         texto = QTUtil.get_txt_clipboard()
         if texto:
             texto = texto.strip()

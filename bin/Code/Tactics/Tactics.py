@@ -31,7 +31,7 @@ class Reinforcement:
     def add_error(self, num):
         if self.max_errors == 0:
             return
-        if not (num in self.li_num_fens):
+        if num not in self.li_num_fens:
             self.li_num_fens.append(num)
             self.save()
             if len(self.li_num_fens) >= self.max_errors:
@@ -612,7 +612,7 @@ class Tactic:
             liHisto = self.historico()
             liNueHisto = []
             for x in range(len(liHisto)):
-                if not (x in liNum):
+                if x not in liNum:
                     liNueHisto.append(liHisto[x])
             db["HISTO"] = liNueHisto
             if 0 in liNum:

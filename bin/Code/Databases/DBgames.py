@@ -213,7 +213,7 @@ class DBgames:
 
     def field(self, nfila, name):
         rowid = self.li_row_ids[nfila]
-        if not (rowid in self.cache):
+        if rowid not in self.cache:
             cursor = self.conexion.execute("SELECT %s FROM Games WHERE rowid =%d" % (self.select, rowid))
             reg = cursor.fetchone()
             self.addcache(rowid, reg)
@@ -237,7 +237,7 @@ class DBgames:
 
     def filter_pv(self, pv, condicionAdicional=None):
         condicion = ""
-        if type(pv) == list:  # transpositions
+        if isinstance(pv, list):  # transpositions
             if pv:
                 li = []
                 for unpv in pv:
@@ -342,6 +342,9 @@ class DBgames:
             if not fen and self.with_db_stat:
                 self.db_stat.append(pv, result, -1)
             self.conexion.execute(c_sql, (self.li_row_ids[recno],))
+            rowid = self.li_row_ids[recno]
+            if rowid in self.cache:
+                del self.cache[rowid]
             del self.li_row_ids[recno]
         if self.with_db_stat:
             self.db_stat.commit()
@@ -392,7 +395,7 @@ class DBgames:
         return "RESULT" in self.st_fields
 
     def rebuild_stat(self, dispatch, depth):
-        if not ("RESULT" in self.st_fields):
+        if "RESULT" not in self.st_fields:
             return
 
         if not self.with_db_stat:
@@ -624,10 +627,10 @@ class DBgames:
 
         litags = []
         for field in self.li_fields:
-            if not (field in ("XPV", "_DATA_", "PLYCOUNT")):
+            if field not in ("XPV", "_DATA_", "PLYCOUNT"):
                 v = raw[field]
                 if v:
-                    litags.append((drots.get(field, Util.primera_mayuscula(field)), v if type(v) == str else str(v)))
+                    litags.append((drots.get(field, Util.primera_mayuscula(field)), v if isinstance(v, str) else str(v)))
         litags.append(("PlyCount", str(raw["PLYCOUNT"])))
 
         game.set_tags(litags)
@@ -691,7 +694,7 @@ class DBgames:
         return self.insert(game)
 
     def li_tags(self):
-        return [tag for tag in self.li_fields if not (tag in ("XPV", "_DATA_"))]
+        return [tag for tag in self.li_fields if tag not in ("XPV", "_DATA_")]
 
     def add_column(self, column: str):
         column = column.upper()
@@ -816,7 +819,7 @@ class DBgames:
                     st_xpv_bloque.add(xpv)
 
                     for k in d_cab:
-                        if not (k.upper() in self.st_fields):
+                        if k.upper() not in self.st_fields:
 
                             # Grabamos lo que hay
                             if li_regs:
@@ -1019,7 +1022,7 @@ class DBgames:
     def check_columns(self, li_tags):
         dcabs_new = {}
         for tag in li_tags:
-            if not (tag.upper() in self.st_fields):
+            if tag.upper() not in self.st_fields:
                 self.add_column(tag)
                 dcabs_new[tag.upper()] = tag
         if dcabs_new:
@@ -1068,7 +1071,7 @@ class DBgames:
 
         # Test si hay nuevos tags
         for tag, valor in game_modificada.li_tags:
-            if not (tag.upper() in self.st_fields):
+            if tag.upper() not in self.st_fields:
                 self.add_column(tag)
 
         # Modificamos datos antiguos
@@ -1128,7 +1131,7 @@ class DBgames:
 
         dcabs_new = {}
         for tag, valor in game_new.li_tags:
-            if not (tag.upper() in self.st_fields):
+            if tag.upper() not in self.st_fields:
                 self.add_column(tag)
                 dcabs_new[tag.upper()] = tag
         if dcabs_new:

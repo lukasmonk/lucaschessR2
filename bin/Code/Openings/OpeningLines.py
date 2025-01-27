@@ -34,7 +34,7 @@ class ItemTree:
             self.translated = False
 
     def add(self, move, pgn, opening):
-        if not (move in self.dicHijos):
+        if move not in self.dicHijos:
             self.dicHijos[move] = ItemTree(self, move, pgn, opening, not self.side_resp)
         self.elements += 1
         return self.dicHijos[move]
@@ -527,7 +527,7 @@ class Opening:
                 cp.read_fen(fen)
                 if busca in fen:
                     fenm2 = cp.fenm2()
-                    if not (fenm2 in dicFENm2):
+                    if fenm2 not in dicFENm2:
                         dicFENm2[fenm2] = set()
                     dicFENm2[fenm2].add(pv)
                     dicFENm2_lipv[fenm2] = lipv[:pos]
@@ -567,7 +567,7 @@ class Opening:
                 fen = FasterCode.get_fen()
                 cp.read_fen(fen)
                 fenm2 = cp.fenm2()
-                if not (fenm2 in dicFENm2):
+                if fenm2 not in dicFENm2:
                     dicFENm2[fenm2] = set()
                 dicFENm2[fenm2].add(pv)
                 FasterCode.make_move(pv)
@@ -926,14 +926,14 @@ class Opening:
         # Borramos los que no estan en Recuperar
         sql = "DELETE FROM LINES where XPV=?"
         for xpv in st_activo:
-            if not (xpv in st_recuperar):
+            if xpv not in st_recuperar:
                 cursor.execute(sql, (xpv,))
         self._conexion.commit()
 
         # Mas los que no estan en Activo
         sql = "INSERT INTO LINES( XPV ) VALUES( ? )"
         for xpv in st_recuperar:
-            if not (xpv in st_activo):
+            if xpv not in st_activo:
                 cursor.execute(sql, (xpv,))
         self._conexion.commit()
 
@@ -1179,7 +1179,7 @@ class Opening:
         for game in liPartidas:
             if minMoves <= len(game) > gamebase.num_moves():
                 xpv = FasterCode.pv_xpv(game.pv())
-                if not (xpv in self.li_xpv):
+                if xpv not in self.li_xpv:
                     updated = False
                     for npos, xpv_ant in enumerate(self.li_xpv):
                         if xpv.startswith(xpv_ant):
@@ -1201,7 +1201,7 @@ class Opening:
         sql_update = "UPDATE LINES SET XPV=? WHERE XPV=?"
         cursor = self._conexion.cursor()
         for xpv in liXPV:
-            if not (xpv in self.li_xpv):
+            if xpv not in self.li_xpv:
                 updated = False
                 for npos, xpv_ant in enumerate(self.li_xpv):
                     if xpv.startswith(xpv_ant):
@@ -1218,7 +1218,7 @@ class Opening:
 
     def import_polyglot(self, li_pv):
         self.save_history(_("Import"), _("Polyglot book"))
-        li_xpv_new = [FasterCode.pv_xpv(pv) for pv in li_pv]
+        li_xpv_new = [FasterCode.pv_xpv(pv.strip()) for pv in li_pv]
         self.li_xpv.extend(li_xpv_new)
         self.clean()
         return True
@@ -1291,7 +1291,7 @@ class Opening:
         lista = []
         for n, xpv in enumerate(otra.li_xpv):
             if xpv.startswith(xpvbase) and len(xpv) > tambase:
-                if not (xpv in self.li_xpv):
+                if xpv not in self.li_xpv:
                     lista.append(xpv)
         self.guardaLiXPV("%s,%s" % (_("Other opening lines"), otra.title), lista)
         self.db_fenvalues.copy_from(otra.db_fenvalues)

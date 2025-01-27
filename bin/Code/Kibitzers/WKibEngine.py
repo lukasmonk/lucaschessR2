@@ -160,7 +160,7 @@ class WKibEngine(WKibCommon.WKibCommon):
             self.engine.close()
             self.engine = self.launch_engine()
             self.cpu.reprocesa()
-            self.play()
+        self.play()
         self.grid.refresh()
 
     def stop(self):

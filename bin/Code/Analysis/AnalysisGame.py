@@ -30,15 +30,13 @@ class AnalyzeGame:
                 conf_engine.update_multipv(alm.multiPV)
             self.xmanager = self.procesador.creaManagerMotor(conf_engine, alm.vtime, alm.depth, True,
                                                              priority=alm.priority)
+        if alm.nodes:
+            self.xmanager.set_nodes(alm.nodes)
         self.vtime = alm.vtime
         self.depth = alm.depth
+        self.nodes = alm.nodes
 
         self.with_variations = alm.include_variations
-
-        self.stability = alm.stability
-        self.st_centipawns = alm.st_centipawns
-        self.st_depths = alm.st_depths
-        self.st_timelimit = alm.st_timelimit
 
         self.accuracy_tags = alm.accuracy_tags
 
@@ -148,7 +146,7 @@ class AnalyzeGame:
             self.terminar_bmt(self.bmt_listaBlunders, self.bmtblunders)
             self.terminar_bmt(self.bmt_listaBrilliancies, self.bmtbrilliancies)
 
-    def dispatch_bp(self, rut_dispatch_bp):
+    def set_dispatch_bp(self, rut_dispatch_bp):
         """
         Se determina la rutina que se llama cada analysis
         """
@@ -164,7 +162,7 @@ class AnalyzeGame:
         cab = ""
         for k, v in game.dic_tags().items():
             ku = k.upper()
-            if not (ku in ("RESULT", "FEN")):
+            if ku not in ("RESULT", "FEN"):
                 cab += '[%s "%s"]' % (k, v)
 
         game_raw = Game.game_without_variations(game)
@@ -206,7 +204,7 @@ FILESW=%s:100
         cab = ""
         for k, v in game.dic_tags().items():
             ku = k.upper()
-            if not (ku in ("RESULT", "FEN")):
+            if ku not in ("RESULT", "FEN"):
                 cab += '[%s "%s"]' % (k, v)
         move = game.move(njg)
 
@@ -279,7 +277,7 @@ FILESW=%s:100
         cab = ""
         for k, v in dic_cab.items():
             ku = k.upper()
-            if not (ku in ("RESULT", "FEN")):
+            if ku not in ("RESULT", "FEN"):
                 cab += '[%s "%s"]\n' % (k, v)
         # Nos protegemos de que se hayan escrito en el pgn original de otra forma
         cab += '[FEN "%s"]\n' % fen
@@ -344,6 +342,8 @@ FILESW=%s:100
         si_bp2 = hasattr(tmp_bp, "bp2")  # Para diferenciar el analysis de un game que usa una progressbar unica del
 
         def gui_dispatch(xrm):
+            if self.rut_dispatch_bp:
+                self.rut_dispatch_bp(None, None, None, xrm)
             return not tmp_bp.is_canceled()
 
         self.xmanager.set_gui_dispatch(gui_dispatch)  # Dispatch del engine, si esta puesto a 4 minutos por ejemplo que
@@ -432,8 +432,6 @@ FILESW=%s:100
                 else:
                     break
 
-
-
         if self.from_last_move:
             li_pos_moves.reverse()
 
@@ -489,11 +487,6 @@ FILESW=%s:100
                         pos_current_move,
                         self.vtime,
                         depth=self.depth,
-                        stability=self.stability,
-                        st_centipawns=self.st_centipawns,
-                        st_depths=self.st_depths,
-                        st_timelimit=self.st_timelimit,
-                        window=window if window else self.procesador.main_window
                     )
                     if not resp:
                         self.xmanager.remove_gui_dispatch()
@@ -605,21 +598,29 @@ def analysis_game(manager):
     mens = _("Analyzing the move....")
 
     manager_main_window_base = manager.main_window.base
-    manager_main_window_base.show_message(mens, True, tit_cancel=_("Cancel"))
+    manager_main_window_base.show_message(mens, True, tit_cancel=_("Stop thinking"))
     manager_main_window_base.tb.setDisabled(True)
 
     ap = AnalyzeGame(alm, False, li_moves)
 
-    def dispatch_bp(pos, ntotal, njg):
-        manager_main_window_base.change_message("%s: %d/%d" % (_("Analyzing the move...."), pos + 1, ntotal))
-        move = game.move(njg)
-        manager.set_position(move.position)
-        manager.main_window.pgnColocate(njg / 2, (njg + 1) % 2)
-        manager.board.put_arrow_sc(move.from_sq, move.to_sq)
-        manager.put_view()
+    def dispatch_bp(pos, ntotal, njg, rm=None):
+        if rm is None:
+            message = f'{_("Analyzing the move....")}: {pos + 1}/{ntotal}'
+            ap.dispatch_bp_message = message
+            message = f'{ap.dispatch_bp_message}<br><small>{_("Depth")}: 0  {_("Time")}: 0"'
+            manager_main_window_base.change_message(message)
+            move = game.move(njg)
+            manager.set_position(move.position)
+            manager.main_window.pgnColocate(njg / 2, (njg + 1) % 2)
+            manager.board.put_arrow_sc(move.from_sq, move.to_sq)
+            manager.put_view()
+        else:
+            message = f'{ap.dispatch_bp_message}<br><small>{_("Depth")}: {rm.depth} {_("Time")}: {rm.time / 1000:.01f}"'
+            manager_main_window_base.change_message(message)
+
         return not manager_main_window_base.is_canceled()
 
-    ap.dispatch_bp(dispatch_bp)
+    ap.set_dispatch_bp(dispatch_bp)
 
     ap.xprocesa(game, manager_main_window_base, window=main_window)
 

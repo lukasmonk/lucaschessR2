@@ -494,9 +494,9 @@ class WPlayer(QtWidgets.QWidget):
                 ap = self.ap.base_xpv(xpv)
                 hap = hash(ap)
                 dco = dicOpenings[side]
-                if not (hap in dic_hap):
+                if hap not in dic_hap:
                     dic_hap[hap] = ap
-                if not (hap in dco):
+                if hap not in dco:
                     dco[hap] = {"win": 0, "draw": 0, "lost": 0}
                 dco[hap][result] += 1
 
@@ -509,7 +509,7 @@ class WPlayer(QtWidgets.QWidget):
                         pvt += " " + pv
                     else:
                         pvt = pv
-                    if not (pvt in dcm):
+                    if pvt not in dcm:
                         dcm[pvt] = {"win": 0, "draw": 0, "lost": 0, "games": 0}
                     dcm[pvt][result] += 1
                     dcm[pvt]["games"] += 1

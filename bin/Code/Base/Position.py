@@ -66,7 +66,7 @@ class Position:
         ok = len(self.en_passant) == 2
         if ok:
             lt, nm = self.en_passant[0], self.en_passant[1]
-            if not (nm in "36"):
+            if nm not in "36":
                 ok = False
             else:
                 pawn = "P" if nm == "6" else "p"
@@ -462,7 +462,7 @@ class Position:
                 c_col = chr(i + 97)
                 c_fil = chr(j + 49)
                 pz = self.squares.get(c_col + c_fil)
-                if pz and not (pz in "pkPK"):
+                if pz and pz not in "pkPK":
                     if pz.islower():
                         n_black += 1
                     else:

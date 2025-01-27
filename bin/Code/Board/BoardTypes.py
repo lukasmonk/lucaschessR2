@@ -121,7 +121,7 @@ class Bloque:
     def restore_dic(self, dic):
 
         # Recuperando error de la anterior version
-        if type(dic) != dict:
+        if not isinstance(dic, dict):
             if hasattr(dic, "save_dic"):
                 dic = dic.save_dic()
             else:
@@ -135,7 +135,7 @@ class Bloque:
                     xvar.restore_dic(value)
                 else:
                     if var == "png":
-                        if type(value) == str:
+                        if isinstance(value, str):
                             value = value.encode()
                         value = base64.decodebytes(value)
                     setattr(self, var, value)

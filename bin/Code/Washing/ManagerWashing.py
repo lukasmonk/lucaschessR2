@@ -198,10 +198,10 @@ class ManagerWashingReplay(Manager.Manager):
             else:
                 # Debe ser una move de book para aceptarla
                 fen = self.last_fen()
-                siBookUsu = self.book.check_human(fen, from_sq, to_sq)
+                si_book_usu = self.book.check_human(fen, from_sq, to_sq)
                 bmove = _("book move")
                 lic.append("%s: %s (%s)" % (_("Played previously"), jgObj.pgn_translated(), bmove))
-                if siBookUsu:
+                if si_book_usu:
                     lic.append("%s: %s (%s)" % (_("Played now"), move.pgn_translated(), bmove))
                 else:
                     lic.append("%s: %s - %s" % (_("Played now"), move.pgn_translated(), _("Bad move")))
@@ -520,7 +520,7 @@ class ManagerWashingCreate(Manager.Manager):
         self.pgn_refresh(True)
 
         game = dbwashing.restoreGame(engine)
-        if not (game is None):
+        if game is not None:
             if not game.is_finished():
                 self.game = game
                 self.goto_end()

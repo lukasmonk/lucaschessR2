@@ -142,7 +142,7 @@ class Categorias:
 
     def put_result(self, categoria, nivel, hecho):
         if nivel > categoria.level_done:
-            if not (hecho in categoria.hecho):
+            if hecho not in categoria.hecho:
                 categoria.hecho += hecho
                 self.check_done_levels()
                 return categoria.level_done == nivel

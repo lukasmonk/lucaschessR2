@@ -113,7 +113,7 @@ class WSelectEngineElo(LCDialog.LCDialog):
                 mt.li_caract = li = mt.id_info.split("\n")
                 mt.txt_caract = ", ".join(li)
                 for x in li:
-                    if not (x in st):
+                    if x not in st:
                         st.add(x)
                         li_caract.append((x, x))
             li_caract.sort(key=lambda x: x[1])

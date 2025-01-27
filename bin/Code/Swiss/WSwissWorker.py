@@ -387,6 +387,7 @@ class WSwissWorker(QtWidgets.QWidget):
         if resp is not None:
             self.game.set_termination(TERMINATION_ADJUDICATION, resp)
             self.save_game_done()
+            self.seguir()
 
     def set_clock(self):
         if self.is_closed or self.game_finished():

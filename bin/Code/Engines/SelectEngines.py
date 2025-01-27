@@ -555,11 +555,14 @@ class WSelectEngines(LCDialog.LCDialog):
     def grid_doubleclick_header(self, grid, col):
         key = col.key
         if key == "ELO":
-            lmbd = lambda x: x.elo
+            def lmbd(x):
+                return x.elo
         elif key == "NAME":
-            lmbd = lambda x: x.name
+            def lmdb(x):
+                return x.name
         elif key == "TYPE":
-            lmbd = lambda x: self.dict_typenames[x.type]
+            def lmdb(x):
+                return self.dict_typenames[x.type]
         else:
             return
         self.list_all_engines.sort(key=lmbd, reverse=self.reversed)

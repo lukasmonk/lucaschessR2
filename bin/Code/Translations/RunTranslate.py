@@ -685,7 +685,7 @@ class WTranslate(LCDialog.LCDialog):
 
     def help(self):
         path_pdf = Code.path_resource("IntFiles", "translation.pdf")
-        os.startfile(path_pdf)
+        Code.startfile(path_pdf)
 
     def google_translate(self):
         row = self.grid.recno()

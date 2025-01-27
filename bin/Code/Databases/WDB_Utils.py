@@ -236,7 +236,7 @@ class WFiltrar(QtWidgets.QDialog):
             valor = valor.upper()
             if condicion in ("LIKE", "NOT LIKE"):
                 valor = valor.replace("*", "%")
-                if not ("%" in valor):
+                if "%" not in valor:
                     valor = "%" + valor + "%"
 
             if union:
@@ -427,6 +427,8 @@ def create_tactics(procesador, wowner, li_registros_selected, li_registros_total
         recno = li_registros[n]
 
         dic_valores = rutina_datos(recno, skip_first)
+        if dic_valores is None:
+            continue
         plies = dic_valores["PLIES"]
         if plies == 0:
             continue

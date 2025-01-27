@@ -358,7 +358,7 @@ def ld_countries(mapa):
     ):
 
         if filtro:
-            if not (iso in filtro):
+            if iso not in filtro:
                 continue
             border = [biso for biso in border if biso in filtro]
             assoc = [biso for biso in assoc if biso in filtro]

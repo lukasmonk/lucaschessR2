@@ -248,7 +248,7 @@ class WDatos(QtWidgets.QDialog):
         p = 0
         if self.ed.value() >= self.max_level:
             color = "B" if self.rb_white.isChecked() else "N"
-            if not (color in self.maxNivelHecho):
+            if color not in self.maxNivelHecho:
                 p = self.max_puntos
         self.lbPuntos.setText("%d %s" % (p, _("points")))
         self.puntos = p

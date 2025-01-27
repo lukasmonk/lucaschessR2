@@ -199,7 +199,7 @@ class ControlPGN:
             resp += '[FEN "%s"]\n' % self.manager.fen
 
         xrival = getattr(self.manager, "xrival", None)
-        if xrival and not (game_type in [GT_BOOK]):
+        if xrival and game_type not in [GT_BOOK]:
             if xrival.depth_engine:
                 resp += '[Depth "%d"]\n' % xrival.depth_engine
 
@@ -209,7 +209,7 @@ class ControlPGN:
             if self.manager.categoria:
                 resp += '[Category "%s"]\n' % self.manager.categoria.name()
 
-        if not (game_type in [GT_BOOK, GT_RESISTANCE]):
+        if game_type not in [GT_BOOK, GT_RESISTANCE]:
             if self.manager.hints:
                 resp += '[Hints "%d"]\n' % self.manager.hints
 

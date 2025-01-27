@@ -74,8 +74,8 @@ class FormLayout:
     def edit(self, label: str, init_value: str):
         self.eddefault(label, init_value)
 
-    def editbox(self, label, ancho=None, rx=None, tipo=None, is_password=False, alto=1, decimales=1, init_value=None, negatives=False):
-        self.li_gen.append((Editbox(label, ancho, rx, tipo, is_password, alto, decimales, negatives=negatives), init_value))
+    def editbox(self, label, ancho=None, rx=None, tipo=None, is_password=False, alto=1, decimales=1, init_value=None, negatives=False, tooltip=None):
+        self.li_gen.append((Editbox(label, ancho, rx, tipo, is_password, alto, decimales, negatives=negatives, tooltip=tooltip), init_value))
 
     def seconds(self, label: str, init_value: float):
         self.editbox(label, ancho=60, tipo=float, init_value=init_value)
@@ -205,7 +205,7 @@ class Colorbox:
 
 
 class Editbox:
-    def __init__(self, label, ancho=None, rx=None, tipo=None, is_password=False, alto=1, decimales=1, negatives=False):
+    def __init__(self, label, ancho=None, rx=None, tipo=None, is_password=False, alto=1, decimales=1, negatives=False, tooltip=None):
         self.tipo = EDITBOX
         self.label = label + ":"
         self.ancho = ancho
@@ -215,6 +215,7 @@ class Editbox:
         self.alto = alto
         self.decimales = decimales
         self.negatives = negatives
+        self.tooltip = tooltip
 
 
 class Casillabox(Editbox):
@@ -693,6 +694,8 @@ class FormWidget(QtWidgets.QWidget):
                         else:
                             field = TextEdit(self, config, dispatch)
                             field.set_text(value)
+                        if config.tooltip:
+                            field.setToolTip(config.tooltip)
 
                     elif tipo == FICHERO:
                         field = LBotonFichero(self, config, value)
@@ -805,7 +808,16 @@ class FormWidget(QtWidgets.QWidget):
             elif isinstance(value, bool):
                 value = field.checkState() == QtCore.Qt.Checked
             elif isinstance(value, float):
-                value = float(field.text().replace(",", "."))
+                txt = field.text()
+                if "," in txt:
+                    txt = txt.replace(",", ".")
+                while txt.count(".") > 1:
+                    x = txt.index(".")
+                    txt = txt[:x] + txt[x + 1:]
+                try:
+                    value = float(txt)
+                except ValueError:
+                    value = 0.0
             elif isinstance(value, int):
                 value = int(field.value())
             else:

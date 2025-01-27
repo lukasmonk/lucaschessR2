@@ -103,7 +103,7 @@ class WNewExpedition(LCDialog.LCDialog):
         if not path_pgn:
             return
 
-        path_db = self.configuration.ficheroTemporal("lcdb")
+        path_db = self.configuration.temporary_file("lcdb")
         db = DBgames.DBgames(path_db)
         dl_tmp = QTVarios.ImportarFicheroPGN(self)
         dl_tmp.show()

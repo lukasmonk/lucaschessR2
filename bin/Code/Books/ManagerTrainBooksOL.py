@@ -178,6 +178,7 @@ class ManagerTrainBooksOL(Manager.Manager):
         self.dbli_books_train[self.train_pos] = self.reg
         self.dbli_books_train.close()
         self.procesador.start()
+        self.procesador.train_book_ol()
         return False
 
     def reiniciar(self):

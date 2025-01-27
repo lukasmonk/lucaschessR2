@@ -215,7 +215,7 @@ class TreeSTAT:
 
         if allmoves:
             for pvmove in dic_analysis:
-                if not (pvmove in lipvmove):
+                if pvmove not in lipvmove:
                     dic = {}
                     pv = pv_base + " " + pvmove
                     pv = pv.strip()

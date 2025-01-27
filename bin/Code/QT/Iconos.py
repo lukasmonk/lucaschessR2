@@ -2151,6 +2151,12 @@ def pmLichess():
 def Lichess():
     return iget("Lichess")
 
+def pmChessCom():
+    return iget("pmChessCom")
+
+def ChessCom():
+    return iget("ChessCom")
+
 def pmMiniatura():
     return iget("pmMiniatura")
 

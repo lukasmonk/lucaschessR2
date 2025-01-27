@@ -1,4 +1,4 @@
-from PySide2 import QtWidgets
+from PySide2 import QtWidgets, QtCore
 
 from Code.Base import Game
 from Code.QT import Colocacion
@@ -23,38 +23,36 @@ class WDBMoveAnalysis(LCDialog.LCDialog):
 
     def __init__(self, w_parent, li_output_dic, titulo, missing_tags_output):
         icono = Iconos.Tacticas()
-        extparam = "themeanalysis"
+        extparam = "themeanalysis2"
         LCDialog.LCDialog.__init__(self, w_parent, titulo, icono, extparam)
         self.owner = w_parent
         self.li_output_dic = li_output_dic
 
         # Lista
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("theme", _("Theme"), 120, align_center=True)
+        o_columns.nueva("theme", _("Theme"), 152, align_center=True)
         o_columns.nueva("games", _("Games"), 100, align_center=True)
-        o_columns.nueva("centipawns_lost", _("Centipawns lost"), 104, align_center=True)
-        o_columns.nueva("count", _("Occurrences"), 80, align_center=True)
+        o_columns.nueva("centipawns_lost", _("Centipawns lost"), 116, align_center=True)
+        o_columns.nueva("count", _("Occurrences"), 100, align_center=True)
         symbol = "\u2605"
-        o_columns.nueva("occ_game", symbol + " " + _("Occ / game"), 90, align_center=True)
-        o_columns.nueva("loss_game", symbol + " " + _("Loss / game"), 90, align_center=True)
+        o_columns.nueva("occ_game", symbol + " " + _("Occ / game"),125, align_center=True)
+        o_columns.nueva("loss_game", symbol + " " + _("Loss / game"), 125, align_center=True)
 
-        self.grid = grid = Grid.Grid(self, o_columns, xid=False, siSelecFilas=True, siSeleccionMultiple=True)
-        self.register_grid(grid)
+        self.grid = Grid.Grid(self, o_columns, siSelecFilas=True, siSeleccionMultiple=True)
+        self.register_grid(self.grid)
 
         self.status = QtWidgets.QStatusBar(self)
         self.status.setFixedHeight(22)
         self.status.showMessage(" %s %s %s" % (symbol, _("calculated using all games"), missing_tags_output))
 
-        # Colocamos ---------------------------------------------------------------
         ly = Colocacion.V().control(self.grid).control(self.status).margen(1)
 
         self.setLayout(ly)
 
-        self.restore_video(siTam=True, anchoDefecto=750, altoDefecto=562)
+        self.restore_video(anchoDefecto=750, altoDefecto=562)
 
-    def terminar(self):
+    def closeEvent(self, event):
         self.save_video()
-        self.accept()
 
     def grid_num_datos(self, grid):
         return len(self.li_output_dic)
@@ -62,6 +60,13 @@ class WDBMoveAnalysis(LCDialog.LCDialog):
     def grid_dato(self, grid, row, o_column):
         col = o_column.key
         return self.li_output_dic[row][col]
+
+    def keyPressEvent(self, event):
+        if event.key() == QtCore.Qt.Key_Escape:
+            self.close()
+        else:
+            super().keyPressEvent(event)
+
 
 
 class SelectedGameThemeAnalyzer:

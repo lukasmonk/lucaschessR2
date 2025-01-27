@@ -25,6 +25,7 @@ def read_dic_params():
     alm.engine = dic.get("engine", configuration.x_tutor_clave)
     alm.vtime = dic.get("vtime", configuration.x_tutor_mstime)
     alm.depth = dic.get("depth", configuration.x_tutor_depth)
+    alm.nodes = dic.get("nodes", 0)
     alm.kblunders_condition = dic.get("kblunders_condition", MISTAKE_BLUNDER)
     alm.from_last_move = dic.get("from_last_move", False)
     alm.multiPV = dic.get("multiPV", "PD")
@@ -46,11 +47,6 @@ def read_dic_params():
     alm.si_pdt = dic.get("si_pdt", False)
 
     alm.show_graphs = dic.get("show_graphs", True)
-
-    alm.stability = dic.get("stability", False)
-    alm.st_centipawns = dic.get("st_centipawns", 5)
-    alm.st_depths = dic.get("st_depths", 3)
-    alm.st_timelimit = dic.get("st_timelimit", 5)
 
     alm.white = dic.get("white", True)
     alm.black = dic.get("black", True)
@@ -186,14 +182,16 @@ def analysis_parameters(parent, extended_mode, all_engines=False):
     li_gen.append((config, alm.vtime / 1000.0))
 
     # Depth
-    li_depths = [("--", 0)]
-    for x in range(1, 51):
-        li_depths.append((str(x), x))
     tooltip = _("If time and depth are given, the depth is attempted and the time becomes a maximum.")
-    config = FormLayout.Combobox(_("Depth"), li_depths, tooltip=tooltip)
+    config = FormLayout.Editbox(f'{_("Depth")} (0={_("Disable")})', 40, tipo=int, tooltip=tooltip)
     li_gen.append((config, alm.depth))
 
+    tooltip = _("If time and nodes are given, the nodes is attempted and the time becomes a maximum.")
+    config = FormLayout.Editbox(f'{_("Fixed nodes")} (0={_("Disable")})', 80, tipo=int, tooltip=tooltip)
+    li_gen.append((config, alm.nodes))
+
     # MultiPV
+    li_gen.append(SEPARADOR)
     li = [(_("By default"), "PD"), (_("Maximum"), "MX")]
     for x in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 20, 30, 40, 50, 75, 100, 150, 200):
         li.append((str(x), str(x)))
@@ -312,22 +310,22 @@ def analysis_parameters(parent, extended_mode, all_engines=False):
         alm.engine = li_gen[0]
         alm.vtime = int(li_gen[1] * 1000)
         alm.depth = li_gen[2]
-        # alm.timedepth = li_gen[3]
-        alm.multiPV = li_gen[3]
-        alm.priority = li_gen[4]
+        alm.nodes = li_gen[3]
+        alm.multiPV = li_gen[4]
+        alm.priority = li_gen[5]
 
         if extended_mode:
-            color = li_gen[5]
+            color = li_gen[6]
             alm.white = color != "BLACK"
             alm.black = color != "WHITE"
-            alm.num_moves = li_gen[6]
-            alm.book = li_gen[7]
+            alm.num_moves = li_gen[7]
+            alm.book = li_gen[8]
             alm.book_name = alm.book.name if alm.book else None
-            alm.standard_openings = li_gen[8]
-            alm.accuracy_tags = li_gen[9]
-            alm.delete_previous = li_gen[10]
-            alm.from_last_move = li_gen[11]
-            alm.show_graphs = li_gen[12]
+            alm.standard_openings = li_gen[9]
+            alm.accuracy_tags = li_gen[10]
+            alm.delete_previous = li_gen[11]
+            alm.from_last_move = li_gen[12]
+            alm.show_graphs = li_gen[13]
 
             (
                 alm.analyze_variations,
@@ -354,9 +352,6 @@ def analysis_parameters(parent, extended_mode, all_engines=False):
                 alm.oribrilliancies,
                 alm.bmtbrilliancies,
             ) = li_brilliancies
-
-            # (alm.stability, alm.st_depths, alm.st_centipawns, alm.st_timelimit) = liST
-            alm.stability = False
 
         dic = {}
         for x in dir(alm):
@@ -386,18 +381,16 @@ def massive_analysis_parameters(parent, configuration, multiple_selected, siData
     config = FormLayout.Editbox(_("Duration of engine analysis (secs)"), 40, tipo=float)
     li_gen.append((config, alm.vtime / 1000.0))
 
-    # Depth
-    liDepths = [("--", 0)]
-    for x in range(1, 100):
-        liDepths.append((str(x), x))
-    config = FormLayout.Combobox(_("Depth"), liDepths)
+    tooltip = _("If time and depth are given, the depth is attempted and the time becomes a maximum.")
+    config = FormLayout.Editbox(f'{_("Depth")} (0={_("Disable")})', 40, tipo=int, tooltip=tooltip)
     li_gen.append((config, alm.depth))
 
-    # Time+Depth
-    # li_gen.append(("%s+%s:" % (_("Time"), _("Depth")), alm.timedepth))
+    tooltip = _("If time and nodes are given, the nodes is attempted and the time becomes a maximum.")
+    config = FormLayout.Editbox(f'{_("Fixed nodes")} (0={_("Disable")})', 80, tipo=int, tooltip=tooltip)
+    li_gen.append((config, alm.nodes))
 
     # MultiPV
-    # li_gen.append(SEPARADOR)
+    li_gen.append(SEPARADOR)
     li = [(_("By default"), "PD"), (_("Maximum"), "MX")]
     for x in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 20, 30, 40, 50, 75, 100, 150, 200):
         li.append((str(x), str(x)))
@@ -486,6 +479,7 @@ def massive_analysis_parameters(parent, configuration, multiple_selected, siData
             alm.engine,
             vtime,
             alm.depth,
+            alm.nodes,
             alm.multiPV,
             color,
             cjug,

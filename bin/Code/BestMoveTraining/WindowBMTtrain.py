@@ -82,11 +82,17 @@ class WTrainBMT(LCDialog.LCDialog):
         self.board.dbvisual_set_show_always(False)
 
         # Info -------------------------------------------------------------------
-        color_fondo = QTUtil.qtColor(config_board.colorNegras())
+        f = Controles.FontType(puntos=self.configuration.x_sizefont_players, peso=750)
+        width_pgn = self.configuration.x_pgn_width
+        n_ancho_labels = width_pgn // 2 - 4
+
+        # color_fondo = QTUtil.qtColor(config_board.colorNegras())
         self.trPuntos = "<big><b>" + _("Score") + "<br>%s</b></big>"
         self.trSegundos = "<big><b>" + _("Time") + "<br>%s</b></big>"
-        self.lbPuntos = Controles.LB(self, "").set_color_background(color_fondo).align_center().anchoMinimo(80)
-        self.lb_segundos = Controles.LB(self, "").set_color_background(color_fondo).align_center().anchoMinimo(80)
+        self.lbPuntos = Controles.LB(self, "").align_center().anchoMinimo(n_ancho_labels).set_font(f)
+        self.configuration.set_property(self.lbPuntos, "white")
+        self.lb_segundos = Controles.LB(self, "").align_center().anchoMinimo(n_ancho_labels).set_font(f)
+        self.configuration.set_property(self.lb_segundos, "black")
         self.texto_lbPrimera = _("* indicates actual move played in game")
         self.ptsMejor = 0
         self.ptsPrimero = 0
@@ -428,7 +434,7 @@ class WTrainBMT(LCDialog.LCDialog):
         self.update()
         QTUtil.refresh_gui()
 
-    def set_position(self, position):
+    def set_position(self, position, variation_history=None):
         self.board.set_position(position)
 
     def put_arrow_sc(self, from_sq, to_sq, liVar=None):  # liVar incluido por compatibilidad
@@ -922,4 +928,4 @@ class WTrainBMT(LCDialog.LCDialog):
         if move.is_mate:
             return
 
-        Analysis.show_analysis(self.procesador, self.procesador.XTutor(), move, is_white, pos, main_window=self)
+        Analysis.show_analysis(self.procesador, self.procesador.XAnalyzer(), move, is_white, pos, main_window=self)

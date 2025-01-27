@@ -303,18 +303,10 @@ class WVariations(QtWidgets.QWidget):
 
         QtWidgets.QWidget.__init__(self, self.owner)
 
-        li_acciones = (
-            None,
-            (_("Add"), Iconos.Mas(), self.tb_mas_variation),
-            None,
-            ("%s+%s" % (_("Add"), _("Engine")), Iconos.MasR(), self.tb_mas_variation_r),
-            None,
-            (_("Edit in other board"), Iconos.EditVariation(), self.tb_edit_variation),
-            None,
-            (_("Remove"), Iconos.Borrar(), self.tb_remove_variation),
-            None,
-        )
-        tb_variations = Controles.TBrutina(self, li_acciones, with_text=False, icon_size=16)
+        bt_mas = Controles.PB(self, "", self.tb_mas_variation).ponIcono(Iconos.Mas(), 16).ponToolTip(_("Add"))
+        bt_mas_engine = Controles.PB(self, "", self.tb_mas_variation_r).ponIcono(Iconos.MasR(), 16).ponToolTip(f'{_("Add")}+{_("Engine")}')
+        bt_edit = Controles.PB(self, "", self.tb_edit_variation).ponIcono(Iconos.EditVariation(), 16).ponToolTip(_("Edit in other board"))
+        bt_remove = Controles.PB(self, "", self.tb_remove_variation).ponIcono(Iconos.Borrar(), 16).ponToolTip(_("Remove"))
 
         self.em = ShowPGN.ShowPGN(self, puntos, self.with_figurines)
         self.em.set_link(self.link_variation_pressed)
@@ -324,7 +316,7 @@ class WVariations(QtWidgets.QWidget):
 
         lb_variations = Controles.LB(self.owner, _("Variations")).set_font(f)
 
-        ly_head = Colocacion.H().control(lb_variations).relleno().control(tb_variations).relleno().margen(0)
+        ly_head = Colocacion.H().control(lb_variations).relleno().control(bt_mas).control(bt_mas_engine).control(bt_edit).control(bt_remove).margen(0)
 
         layout = Colocacion.V().otro(ly_head).control(self.em).margen(0)
         self.setLayout(layout)
@@ -352,6 +344,8 @@ class WVariations(QtWidgets.QWidget):
         board = self.get_board()
         board.set_position(var_move.position, variation_history=selected_link)
         board.put_arrow_sc(var_move.from_sq, var_move.to_sq)
+        if Code.configuration.x_show_rating:
+            self.get_manager().show_rating(var_move)
         self.mostrar()
 
         if variation is not None:
@@ -382,7 +376,7 @@ class WVariations(QtWidgets.QWidget):
         xanalyzer = Code.procesador.XAnalyzer()
         me = QTUtil2.waiting_message.start(self, _("Analyzing the move...."))
         move_var.analysis = xanalyzer.analyzes_move_game(move_var.game, num_move_variation, xanalyzer.mstime_engine,
-                                                         xanalyzer.depth_engine, window=self)
+                                                         xanalyzer.depth_engine)
         me.final()
         Analysis.show_analysis(
             Code.procesador, xanalyzer, move_var, self.get_board().is_white_bottom, num_move_variation, main_window=self
@@ -486,10 +480,12 @@ class WVariations(QtWidgets.QWidget):
     def mostrar(self):
         self.em.show_variations(self.move, self.selected_link)
         if self.selected_link and self.selected_link.count("|") == 2:
-            num_variation = int(self.selected_link.split("|")[1])
-            self.em.ensure_visible(num_variation)
+            num_pos = int(self.selected_link.split("|")[2])
+            if num_pos == 0:
+                num_variation = int(self.selected_link.split("|")[1])
+                self.em.ensure_visible(num_variation)
 
-    def select(self, with_all):
+    def select(self, with_all, title):
         li_variations = self.li_variations()
         n_variations = len(li_variations)
         if n_variations == 0:
@@ -498,7 +494,7 @@ class WVariations(QtWidgets.QWidget):
             return 0
         menu = QTVarios.LCMenu(self)
         menu.separador()
-        menu.opcion(None, "  " + _("Remove"), is_disabled=True, font_type=Controles.FontType(puntos=16))
+        menu.opcion(None, "  " + title, is_disabled=True, font_type=Controles.FontType(puntos=16))
         menu.separador()
         rondo = QTVarios.rondo_puntos()
         for num, variante in enumerate(li_variations):
@@ -547,12 +543,12 @@ class WVariations(QtWidgets.QWidget):
         self.edit(-1, True)
 
     def tb_edit_variation(self):
-        num = self.select(False)
+        num = self.select(False, _("Edit"))
         if num is not None:
             self.edit(num)
 
     def tb_remove_variation(self):
-        num = self.select(True)
+        num = self.select(True, _("Remove"))
         if num is None:
             return
         elif num == -1:
@@ -572,4 +568,4 @@ class WVariations(QtWidgets.QWidget):
                     selected_link = self.selected_link.split("|")[0] if self.selected_link.count("|") == 2 \
                         else self.selected_link
                     self.link_variation_pressed(selected_link)
-                self.get_manager().refresh_pgn()
+                self.get_manager().put_view()

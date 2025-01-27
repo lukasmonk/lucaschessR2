@@ -191,7 +191,7 @@ class WTV_Flecha(QtWidgets.QDialog):
         pm = BoardArrows.pixmapArrow(bf, 32, 32)
         buf = QtCore.QBuffer()
         pm.save(buf, "PNG")
-        regFlecha.png = bytes(buf.buffer())
+        regFlecha.png = bytes(buf.data().data())
         self.regFlecha = regFlecha
         self.accept()
 

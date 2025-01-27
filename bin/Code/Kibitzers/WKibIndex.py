@@ -281,7 +281,7 @@ class WKibIndex(QtWidgets.QDialog):
             if not (0 <= y <= (hE - 50)):
                 y = 0
             self.move(x, y)
-            if not ("_SIZE_" in dicVideo):
+            if "_SIZE_" not in dicVideo:
                 w, h = self.width(), self.height()
                 for k in dicVideo:
                     if k.startswith("_TAMA"):
@@ -323,6 +323,9 @@ class WKibIndex(QtWidgets.QDialog):
 
         self.siPlay = True
         self.engine.ac_inicio(game)
+
+    def orden_game_original(self, game):
+        self.orden_game(game)
 
     def escribe(self, linea):
         self.engine.put_line(linea)

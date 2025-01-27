@@ -240,7 +240,7 @@ class WEdMove(QtWidgets.QWidget):
         self.miraPromocion()
 
     def focusOut(self, quien):
-        self.owner.ponUltimaCelda(quien)
+        self.owner.set_last_square(quien)
 
     def activa(self):
         self.setFocus()
@@ -345,8 +345,8 @@ class WBlqMove(QtWidgets.QWidget):
 
         self.position = position
 
-    def ponUltimaCelda(self, quien):
-        self.owner.ponUltimaCelda(quien)
+    def set_last_square(self, quien):
+        self.owner.set_last_square(quien)
 
     def activa(self):
         self.setFocus()
@@ -656,22 +656,22 @@ class WPotencia(LCDialog.LCDialog):
 
         self.btConsultar.hide()
 
-        self.ultimaCelda = None
+        self.last_square = None
 
     def consultar(self):
         self.procesador.manager_game(self, self.game, False, True, self.board)
 
     def pulsada_celda(self, celda):
-        if self.ultimaCelda:
-            self.ultimaCelda.set_text(celda)
+        if self.last_square:
+            self.last_square.set_text(celda)
 
-            ucld = self.ultimaCelda
+            ucld = self.last_square
             for num, blq in enumerate(self.liwm):
                 wm = blq.wm
                 if wm.origen == ucld:
                     wm.miraPromocion()
                     wm.activaDestino()
-                    self.ultimaCelda = wm.destino
+                    self.last_square = wm.destino
                     return
                 elif wm.destino == ucld:
                     wm.miraPromocion()
@@ -682,11 +682,11 @@ class WPotencia(LCDialog.LCDialog):
                     blq = self.liwm[x]
                     wm = blq.wm
                     wm.activa()
-                    self.ultimaCelda = wm.origen
+                    self.last_square = wm.origen
                     return
 
-    def ponUltimaCelda(self, wmcelda):
-        self.ultimaCelda = wmcelda
+    def set_last_square(self, wmcelda):
+        self.last_square = wmcelda
 
     def pensandoHastaMin(self):
         dif = self.min_min * 60 - int(time.time() - self.time_base)

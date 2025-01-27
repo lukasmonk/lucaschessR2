@@ -1,3 +1,5 @@
+import time
+
 from PySide2 import QtCore, QtWidgets
 
 import Code
@@ -806,14 +808,22 @@ class WBase(QtWidgets.QWidget):
 
     def change_message(self, txt):
         self.wmessage.change_message(txt)
-        self.wmessage.show()
+        if self.wmessage.isHidden():
+            self.wmessage.show()
 
     def hide_message(self):
         self.wmessage.hide()
 
     def is_canceled(self):
-        QTUtil.refresh_gui()
+        QTUtil.refresh_gui_time()
         return self.wmessage.canceled
+
+    def check_is_hide(self):
+        if self.wmessage.isVisible():
+            self.wmessage.canceled = True
+            self.wmessage.hide()
+            QTUtil.refresh_gui()
+            time.sleep(0.7)
 
 
 class WMessage(QtWidgets.QWidget):

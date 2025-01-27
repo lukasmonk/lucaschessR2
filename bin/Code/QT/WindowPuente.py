@@ -22,6 +22,9 @@ from Code.Translations import TrListas
 
 
 class PuenteHistorico:
+    mejor: float
+    media: float
+    
     def __init__(self, file, nivel):
         self.file = file
         self.nivel = nivel
@@ -29,11 +32,11 @@ class PuenteHistorico:
         self.tabla = "Nivel%d" % self.nivel
 
         if not self.db.existeTabla(self.tabla):
-            self.creaTabla()
+            self.crea_tabla()
 
         self.dbf = self.db.dbf(self.tabla, "FECHA,SEGUNDOS", orden="FECHA DESC")
         self.dbf.leer()
-        self.calculaMedia()
+        self.calcula_media()
 
         self.orden = "FECHA", "DESC"
 
@@ -45,14 +48,14 @@ class PuenteHistorico:
             self.dbf = None
         self.db.cerrar()
 
-    def creaTabla(self):
+    def crea_tabla(self):
         tb = Base.TablaBase(self.tabla)
         tb.nuevoCampo("FECHA", "VARCHAR", notNull=True, primaryKey=True)
         tb.nuevoCampo("SEGUNDOS", "FLOAT")
         tb.nuevoIndice("IND_SEGUNDOS%d" % self.nivel, "SEGUNDOS")
         self.db.generarTabla(tb)
 
-    def calculaMedia(self):
+    def calcula_media(self):
         ts = 0.0
         n = self.dbf.reccount()
         self.mejor = 99999999.0
@@ -83,10 +86,12 @@ class PuenteHistorico:
         self.dbf.leer()
         self.dbf.gotop()
 
-    def fecha2txt(self, fecha):
+    @staticmethod
+    def fecha2txt(fecha):
         return "%4d%02d%02d%02d%02d%02d" % (fecha.year, fecha.month, fecha.day, fecha.hour, fecha.minute, fecha.second)
 
-    def txt2fecha(self, txt):
+    @staticmethod
+    def txt2fecha(txt):
         def x(d, h):
             return int(txt[d:h])
 
@@ -104,7 +109,7 @@ class PuenteHistorico:
         br.FECHA = self.fecha2txt(fecha)
         br.SEGUNDOS = seconds
         self.dbf.insertar(br)
-        self.calculaMedia()
+        self.calcula_media()
 
     def __getitem__(self, num):
         self.dbf.goto(num)
@@ -112,11 +117,11 @@ class PuenteHistorico:
         reg.FECHA = self.txt2fecha(reg.FECHA)
         return reg
 
-    def remove_list_recnos(self, liNum):
-        self.dbf.remove_list_recnos(liNum)
+    def remove_list_recnos(self, li_num):
+        self.dbf.remove_list_recnos(li_num)
         self.dbf.pack()
         self.dbf.leer()
-        self.calculaMedia()
+        self.calcula_media()
 
 
 class EDCelda(Controles.ED):
@@ -145,7 +150,7 @@ class WEdMove(QtWidgets.QWidget):
             .controlrx("(|[a-h][1-8])")
             .anchoFijo(32)
             .align_center()
-            .capture_changes(self.miraPromocion)
+            .capture_changes(self.mira_promocion)
         )
 
         self.arrow = arrow = Controles.LB(self).put_image(Iconos.pmMover())
@@ -156,10 +161,10 @@ class WEdMove(QtWidgets.QWidget):
             .controlrx("(|[a-h][1-8])")
             .anchoFijo(32)
             .align_center()
-            .capture_changes(self.miraPromocion)
+            .capture_changes(self.mira_promocion)
         )
 
-        self.pbPromocion = Controles.PB(self, "", self.pulsadoPromocion, plano=False).anchoFijo(24)
+        self.pbPromocion = Controles.PB(self, "", self.pulsado_promocion, plano=False).anchoFijo(24)
 
         ly = (
             Colocacion.H()
@@ -175,22 +180,20 @@ class WEdMove(QtWidgets.QWidget):
         )
         self.setLayout(ly)
 
-        self.miraPromocion()
+        self.mira_promocion()
 
     def focusOut(self, quien):
-        self.owner.ponUltimaCelda(quien)
+        self.owner.set_last_square(quien)
 
     def activa(self):
         self.setFocus()
         self.origen.setFocus()
 
-    def activaDestino(self):
+    def activa_destino(self):
         self.setFocus()
         self.destino.setFocus()
 
     def resultado(self):
-        from_sq = to_sq = ""
-
         from_sq = self.origen.texto()
         if len(from_sq) != 2:
             from_sq = ""
@@ -218,28 +221,28 @@ class WEdMove(QtWidgets.QWidget):
         self.origen.show()
         self.destino.show()
         self.arrow.show()
-        self.miraPromocion()
+        self.mira_promocion()
 
     def limpia(self):
         self.origen.set_text("")
         self.destino.set_text("")
         self.habilita()
 
-    def miraPromocion(self):
+    def mira_promocion(self):
         show = True
         ori, dest = self.filaPromocion
-        txtO = self.origen.texto()
-        if len(txtO) < 2 or int(txtO[-1]) != ori:
+        txt_o = self.origen.texto()
+        if len(txt_o) < 2 or int(txt_o[-1]) != ori:
             show = False
         if show:
-            txtD = self.destino.texto()
-            if len(txtD) < 2 or int(txtD[-1]) != dest:
+            txt_d = self.destino.texto()
+            if len(txt_d) < 2 or int(txt_d[-1]) != dest:
                 show = False
         self.pbPromocion.setVisible(show)
         return show
 
-    def pulsadoPromocion(self):
-        if not self.miraPromocion():
+    def pulsado_promocion(self):
+        if not self.mira_promocion():
             return
         resp = self.menuPromocion.exec_(QtGui.QCursor.pos())
         if resp is not None:
@@ -273,7 +276,7 @@ class WEdMove(QtWidgets.QWidget):
 class WPuenteBase(LCDialog.LCDialog):
     def __init__(self, procesador, nivel):
 
-        titulo = "%s. %s" % (_("Moves between two positions"), TrListas.level(nivel))
+        titulo = _("Moves between two positions")
         LCDialog.LCDialog.__init__(self, procesador.main_window, titulo, Iconos.Puente(), "puenteBase")
 
         self.procesador = procesador
@@ -286,6 +289,10 @@ class WPuenteBase(LCDialog.LCDialog):
         self.colorBien = QTUtil.qtColorRGB(0, 0, 255)
         self.colorMal = QTUtil.qtColorRGB(255, 72, 72)
         self.colorMejor = QTUtil.qtColorRGB(255, 255, 255)
+
+        lb_level = (Controles.LB(self, TrListas.level(nivel)).align_center().
+                    set_font_type(puntos=self.configuration.x_font_points, peso=700))
+        lb_level.setStyleSheet("QLabel { border-style: outset; border: 1px solid LightSlateGray ;}")
 
         # Historico
         o_columns = Columnas.ListaColumnas()
@@ -306,8 +313,8 @@ class WPuenteBase(LCDialog.LCDialog):
         self.pon_toolbar("terminar", "empezar", "borrar")
 
         # Colocamos
-        lyTB = Colocacion.H().control(self.tb).margen(0)
-        ly = Colocacion.V().otro(lyTB).control(self.ghistorico).margen(3)
+        ly_tb = Colocacion.H().control(self.tb).margen(0)
+        ly = Colocacion.V().otro(ly_tb).control(lb_level).control(self.ghistorico).margen(3)
 
         self.setLayout(ly)
 
@@ -370,39 +377,41 @@ class WPuenteBase(LCDialog.LCDialog):
         self.ghistorico.refresh()
 
     def pon_toolbar(self, *li_acciones):
-
         self.tb.clear()
         for k in li_acciones:
             self.tb.dic_toolbar[k].setVisible(True)
             self.tb.dic_toolbar[k].setEnabled(True)
             self.tb.addAction(self.tb.dic_toolbar[k])
 
-        self.tb.li_acciones = li_acciones
+        self.tb.li_acciones = list(li_acciones)
         self.tb.update()
 
-    def dameOtro(self):
-        game, dicPGN, info, jugadaInicial, linea = WindowPotencia.lee_linea_mfn()
-        # Tenemos 10 num_moves validas from_sq jugadaInicial
-        n = random.randint(jugadaInicial, jugadaInicial + 10 - self.nivel)
-        fenIni = game.move(n).position_before.fen()
-        liMV = []
+    def dame_otro(self):
+        game, dic_pgn, info, from_move, linea = WindowPotencia.lee_linea_mfn()
+        # Tenemos 10 num_moves validas from_sq jugada inicial
+        to_move = min(len(game) - 1, from_move+10) - self.nivel
+        if to_move < from_move:
+            from_move, to_move = to_move, from_move
+        n = random.randint(from_move, to_move)
+        fen_ini = game.move(n).position_before.fen()
+        li_mv = []
         for x in range(self.nivel):
             move = game.move(x + n)
             mv = move.movimiento()
-            liMV.append(mv)
-        fenFin = game.move(n + self.nivel).position_before.fen()
-        return fenIni, fenFin, liMV, info
+            li_mv.append(mv)
+        fen_fin = game.move(n + self.nivel).position_before.fen()
+        return fen_ini, fen_fin, li_mv, info
 
     def empezar(self):
-        fenIni, fenFin, liMV, info = self.dameOtro()
-        w = WPuente(self, fenIni, fenFin, liMV, info)
+        fen_ini, fen_fin, li_mv, info = self.dame_otro()
+        w = WPuente(self, fen_ini, fen_fin, li_mv, info)
         w.exec_()
         self.ghistorico.gotop()
         self.ghistorico.refresh()
 
 
 class WPuente(LCDialog.LCDialog):
-    def __init__(self, owner, fenIni, fenFin, liMV, info):
+    def __init__(self, owner, fen_ini, fen_fin, li_mv, info):
 
         LCDialog.LCDialog.__init__(self, owner, _("Moves between two positions"), Iconos.Puente(), "puente")
 
@@ -411,17 +420,17 @@ class WPuente(LCDialog.LCDialog):
         self.procesador = owner.procesador
         self.configuration = self.procesador.configuration
 
-        self.liMV = liMV
-        self.fenIni = fenIni
-        self.fenFin = fenFin
+        self.liMV = li_mv
+        self.fenIni = fen_ini
+        self.fenFin = fen_fin
 
-        nivel = len(liMV)
+        nivel = len(li_mv)
 
         # Boards
         config_board = self.configuration.config_board("PUENTE", 32)
 
         cp_ini = Position.Position()
-        cp_ini.read_fen(fenIni)
+        cp_ini.read_fen(fen_ini)
         is_white = cp_ini.is_white
         self.boardIni = Board2.BoardEstatico(self, config_board)
         self.boardIni.crea()
@@ -429,17 +438,17 @@ class WPuente(LCDialog.LCDialog):
         self.boardIni.set_position(cp_ini)
 
         cp_fin = Position.Position()
-        cp_fin.read_fen(fenFin)
+        cp_fin.read_fen(fen_fin)
         self.boardFin = Board2.BoardEstatico(self, config_board)
         self.boardFin.crea()
         self.boardFin.set_side_bottom(is_white)  # esta bien
         self.boardFin.set_position(cp_fin)
 
         # Rotulo informacion
-        self.lbInformacion = Controles.LB(self, self.textoLBInformacion(info, cp_ini)).align_center()
+        self.lbInformacion = Controles.LB(self, self.texto_lb_informacion(info, cp_ini)).align_center()
 
         # Rotulo vtime
-        self.lbTiempo = Controles.LB(self, "").align_center()
+        self.lb_time = Controles.LB(self, "").align_center()
 
         # Movimientos
         self.liwm = []
@@ -451,46 +460,48 @@ class WPuente(LCDialog.LCDialog):
             is_white = not is_white
             ly.control(wm)
         ly.relleno()
-        gbMovs = Controles.GB(self, _("Next moves"), ly).set_font(Controles.FontType(puntos=10, peso=75))
+        gb_movs = Controles.GB(self, _("Next moves"), ly).set_font(Controles.FontType(puntos=10, peso=75))
 
         # Botones
         f = Controles.FontType(puntos=12, peso=75)
-        self.btComprobar = (
+        self.bt_comprobar = (
             Controles.PB(self, _("Verify"), self.comprobar, plano=False)
             .ponIcono(Iconos.Check(), icon_size=32)
             .set_font(f)
         )
-        self.btSeguir = (
+        self.bt_seguir = (
             Controles.PB(self, _("Continue"), self.seguir, plano=False)
             .ponIcono(Iconos.Pelicula_Seguir(), icon_size=32)
             .set_font(f)
         )
-        self.btTerminar = (
+        self.bt_terminar = (
             Controles.PB(self, _("Close"), self.terminar, plano=False)
             .ponIcono(Iconos.MainMenu(), icon_size=32)
             .set_font(f)
         )
-        self.btCancelar = (
+        self.bt_cancelar = (
             Controles.PB(self, _("Cancel"), self.terminar, plano=False)
             .ponIcono(Iconos.Cancelar(), icon_size=32)
             .set_font(f)
         )
+        self.bt_resign = Controles.PB(self, _("Resign"), self.resign, plano=False)
 
         # Layout
-        lyC = (
+        ly_c = (
             Colocacion.V()
-            .control(self.btCancelar)
-            .control(self.btTerminar)
+            .control(self.bt_cancelar)
+            .control(self.bt_terminar)
             .relleno()
-            .control(gbMovs)
+            .control(gb_movs)
             .relleno(1)
-            .control(self.btComprobar)
-            .control(self.btSeguir)
-            .relleno()
+            .control(self.bt_comprobar)
+            .control(self.bt_seguir)
+            .relleno(1)
+            .control(self.bt_resign)
         )
-        lyTM = Colocacion.H().control(self.boardIni).otro(lyC).control(self.boardFin).relleno()
+        ly_tm = Colocacion.H().control(self.boardIni).otro(ly_c).control(self.boardFin).relleno()
 
-        ly = Colocacion.V().otro(lyTM).controlc(self.lbInformacion).controlc(self.lbTiempo).relleno().margen(3)
+        ly = Colocacion.V().otro(ly_tm).controlc(self.lbInformacion).controlc(self.lb_time).relleno().margen(3)
 
         self.setLayout(ly)
 
@@ -500,37 +511,37 @@ class WPuente(LCDialog.LCDialog):
         # Tiempo
         self.time_base = time.time()
 
-        self.btSeguir.hide()
-        self.btTerminar.hide()
+        self.bt_seguir.hide()
+        self.bt_terminar.hide()
 
         self.liwm[0].activa()
 
-        self.ultimaCelda = None
+        self.last_square = None
 
     def pulsada_celda(self, celda):
-        if self.ultimaCelda:
-            self.ultimaCelda.set_text(celda)
+        if self.last_square:
+            self.last_square.set_text(celda)
 
-            ucld = self.ultimaCelda
+            ucld = self.last_square
             for num, wm in enumerate(self.liwm):
                 if wm.origen == ucld:
-                    wm.miraPromocion()
-                    wm.activaDestino()
-                    self.ultimaCelda = wm.destino
+                    wm.mira_promocion()
+                    wm.activa_destino()
+                    self.last_square = wm.destino
                     return
                 elif wm.destino == ucld:
-                    wm.miraPromocion()
+                    wm.mira_promocion()
                     if num < (len(self.liwm) - 1):
                         x = num + 1
                     else:
                         x = 0
                     wm = self.liwm[x]
                     wm.activa()
-                    self.ultimaCelda = wm.origen
+                    self.last_square = wm.origen
                     return
 
-    def ponUltimaCelda(self, wmcelda):
-        self.ultimaCelda = wmcelda
+    def set_last_square(self, wmcelda):
+        self.last_square = wmcelda
 
     def closeEvent(self, event):
         self.save_video()
@@ -550,56 +561,74 @@ class WPuente(LCDialog.LCDialog):
         self.save_video()
         self.reject()
 
-    def seguir(self):
+    def resign(self):
+        mens = "<ol>"
+        for pos, mv in enumerate(self.liMV):
+            wm = self.liwm[pos]
+            mens += f"<li>{mv[:2]} ➡ {mv[2:]}</li>"
+            wm.deshabilita()
 
-        fenIni, fenFin, liMV, info = self.owner.dameOtro()
-        self.liMV = liMV
-        self.fenIni = fenIni
-        self.fenFin = fenFin
+        self.bt_comprobar.hide()
+        self.bt_seguir.show()
+        self.bt_cancelar.hide()
+        self.bt_terminar.show()
+        self.bt_resign.hide()
+
+        QTUtil2.message_bold(self, mens, _("Resign"), False)
+
+
+    def seguir(self):
+        fen_ini, fen_fin, li_mv, info = self.owner.dame_otro()
+        self.liMV = li_mv
+        self.fenIni = fen_ini
+        self.fenFin = fen_fin
 
         # Boards
-        cpIni = Position.Position()
-        cpIni.read_fen(fenIni)
-        is_white = cpIni.is_white
+        cp_ini = Position.Position()
+        cp_ini.read_fen(fen_ini)
+        is_white = cp_ini.is_white
         self.boardIni.set_side_bottom(is_white)
-        self.boardIni.set_position(cpIni)
+        self.boardIni.set_position(cp_ini)
 
-        cpFin = Position.Position()
-        cpFin.read_fen(fenFin)
+        cp_fin = Position.Position()
+        cp_fin.read_fen(fen_fin)
         self.boardFin.set_side_bottom(is_white)  # esta bien
-        self.boardFin.set_position(cpFin)
+        self.boardFin.set_position(cp_fin)
 
         # Rotulo informacion
-        self.lbInformacion.set_text(self.textoLBInformacion(info, cpIni))
+        self.lbInformacion.set_text(self.texto_lb_informacion(info, cp_ini))
 
         # Rotulo vtime
-        self.lbTiempo.set_text("")
+        self.lb_time.set_text("")
 
         for wm in self.liwm:
             wm.limpia()
 
         self.time_base = time.time()
 
-        self.btComprobar.show()
-        self.btSeguir.hide()
-        self.btCancelar.show()
-        self.btTerminar.hide()
+        self.bt_comprobar.show()
+        self.bt_seguir.hide()
+        self.bt_cancelar.show()
+        self.bt_terminar.hide()
+        self.bt_resign.show()
 
         self.liwm[0].activa()
+        QTUtil.shrink(self)
 
     def correcto(self):
         seconds = float(time.time() - self.time_base)
-        self.lbTiempo.set_text("<h2>%s</h2>" % _X(_("Right, it took %1 seconds."), "%.02f" % seconds))
+        self.lb_time.set_text("<h2>%s</h2>" % _X(_("Right, it took %1 seconds."), "%.02f" % seconds))
 
         self.historico.append(Util.today(), seconds)
 
-        self.btComprobar.hide()
-        self.btSeguir.show()
-        self.btCancelar.hide()
-        self.btTerminar.show()
+        self.bt_comprobar.hide()
+        self.bt_seguir.show()
+        self.bt_cancelar.hide()
+        self.bt_terminar.show()
+        self.bt_resign.hide()
 
     def incorrecto(self):
-        QTUtil2.temporary_message(self, _("Wrong"), 2)
+        QTUtil2.temporary_message(self, _("Wrong"), 1.0)
         for wm in self.liwm:
             wm.habilita()
         self.liwm[0].activa()
@@ -625,31 +654,31 @@ class WPuente(LCDialog.LCDialog):
         else:
             self.incorrecto()
 
-    def textoLBInformacion(self, info, cp):
-
-        color, colorR = _("White"), _("Black")
-        cK, cQ, cKR, cQR = "K", "Q", "k", "q"
+    @staticmethod
+    def texto_lb_informacion(info, cp):
+        color, color_r = _("White"), _("Black")
+        c_k, c_q, c_kr, c_qr = "K", "Q", "k", "q"
 
         mens = ""
 
         if cp.castles:
 
             def menr(ck, cq):
-                enr = ""
+                xenr = ""
                 if ck in cp.castles:
-                    enr += "O-O"
+                    xenr += "O-O"
                 if cq in cp.castles:
-                    if enr:
-                        enr += "  +  "
-                    enr += "O-O-O"
-                return enr
+                    if xenr:
+                        xenr += "  +  "
+                    xenr += "O-O-O"
+                return xenr
 
-            enr = menr(cK, cQ)
+            enr = menr(c_k, c_q)
             if enr:
                 mens += "  %s : %s" % (color, enr)
-            enr = menr(cKR, cQR)
+            enr = menr(c_kr, c_qr)
             if enr:
-                mens += " %s : %s" % (colorR, enr)
+                mens += " %s : %s" % (color_r, enr)
         if cp.en_passant != "-":
             mens += "     %s : %s" % (_("En passant"), cp.en_passant)
 
@@ -662,6 +691,6 @@ class WPuente(LCDialog.LCDialog):
         return mens
 
 
-def windowPuente(procesador, nivel):
+def window_puente(procesador, nivel):
     w = WPuenteBase(procesador, nivel)
     w.exec_()

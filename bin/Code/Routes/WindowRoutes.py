@@ -58,16 +58,16 @@ class WTranssiberian(LCDialog.LCDialog):
         )
 
     def set_border(self, *lb):
-        for l in lb:
-            l.setStyleSheet("QWidget { border-style: groove; border-width: 2px; border-color: LightSlateGray ;}")
+        for xl in lb:
+            xl.setStyleSheet("QWidget { border-style: groove; border-width: 2px; border-color: LightSlateGray ;}")
 
     def set_style(self, fore, back, *lb):
         if fore:
             style = "QWidget { color: %s; background-color: %s}" % (fore, back)
         else:
             style = "QWidget { background-color: %s}" % back
-        for l in lb:
-            l.setStyleSheet(style)
+        for xl in lb:
+            xl.setStyleSheet(style)
 
     def init_working(self, route, lyTitle, lySVG):
 

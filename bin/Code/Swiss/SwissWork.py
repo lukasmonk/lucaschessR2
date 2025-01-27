@@ -100,11 +100,18 @@ class SwissWork:
 
             random.shuffle(li)
 
-            xid = li[0]
-            xmatch = db[xid]
-            if not xmatch:
+            ok = False
+            for xid in li:
+                xmatch: Swiss.Match = db[xid]
+                if not xmatch:
+                    return None
+                if xmatch.is_engine_vs_engine(self.swiss):
+                    del db[xid]
+                    ok = True
+                    break
+
+            if not ok:
                 return None
-            del db[xid]
 
             with self.db_work("MATCHS_WORKING") as dbw:
                 xmatch.pid_tmp = os.getpid()

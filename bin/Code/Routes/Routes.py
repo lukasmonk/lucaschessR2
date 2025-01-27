@@ -485,7 +485,7 @@ class Transsiberian:
     def get_ending(self):
         line = self.get_line()
         li_endings = self.dicEndings[line.ending]
-        if not (line.ending in self._dpos_endings):
+        if line.ending not in self._dpos_endings:
             self._dpos_endings[line.ending] = 0
             self.write_current()
         pos = self._dpos_endings[line.ending]

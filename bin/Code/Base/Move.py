@@ -4,7 +4,7 @@ from Code import Util
 from Code.Base import Position
 from Code.Base.Constantes import HIGHEST_VARIATIONS, BETTER_VARIATIONS
 from Code.Engines import EngineResponse
-from Code.Nags.Nags import NAG_0, NAG_3, NAG_6, html_nag_txt, html_nag_symbol
+from Code.Nags.Nags import NAG_0, NAG_3, NAG_6, NAG_2, NAG_4, html_nag_txt, html_nag_symbol
 from Code.Translations import TrListas
 
 
@@ -143,6 +143,12 @@ class Move:
     def is_brilliant(self):
         return NAG_3 in self.li_nags
 
+    def is_bad(self):
+        for nag in (NAG_2, NAG_4, NAG_6):
+            if nag in self.li_nags:
+                return True
+        return False
+
     def get_nag(self):
         for nag in self.li_nags:
             if nag <= NAG_6:
@@ -227,7 +233,7 @@ class Move:
         li_final = []
         if pgn[0] == "O":
             if pgn[-1] in "#+":
-                li_final = [pgn[-1],]
+                li_final = [pgn[-1], ]
                 pgn = pgn[:-1]
             li_inicial = [pgn]
 
@@ -254,7 +260,7 @@ class Move:
     def pgnEN(self):
         resto = self.resto()
         if resto:
-            if not (resto[0] in "?!"):
+            if resto[0] not in "?!":
                 resto = " " + resto
             return self.pgnBase + resto
         else:
@@ -310,6 +316,9 @@ class Move:
 
     def remove_all_variations(self):
         self.variations.remove_all()
+
+    def remove_bad_variations(self):
+        self.variations.remove_bad()
 
     def has_alternatives(self):
         return len(self.position_before.get_exmoves()) > 1
@@ -521,6 +530,14 @@ class Variations:
     def remove_all(self):
         self.li_variations = []
 
+    def remove_bad(self):
+        def variation_bad(variation):
+            if len(variation) == 0:
+                return True
+            return variation.li_moves[0].is_bad()
+
+        self.li_variations = [variation for variation in self.li_variations if not variation_bad(variation)]
+
     def up_variation(self, num):
         if num:
             self.li_variations[num], self.li_variations[num - 1] = self.li_variations[num - 1], self.li_variations[num]
@@ -600,7 +617,7 @@ class Variations:
         gm = game.copia()
         if pos_add is None:
             self.li_variations.append(gm)
-            return len(self.li_variations)-1
+            return len(self.li_variations) - 1
         else:
             self.li_variations[pos_add] = gm
             return pos_add

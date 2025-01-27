@@ -60,23 +60,27 @@ class MainWindow(LCDialog.LCDialog):
 
         ctrl1 = QtWidgets.QShortcut(self)
         ctrl1.setKey(QtGui.QKeySequence("Ctrl+1"))
-        ctrl1.activated.connect(self.pressed_shortcut_Ctrl1)
+        ctrl1.activated.connect(self.pressed_shortcut_ctrl1)
 
         ctrl2 = QtWidgets.QShortcut(self)
         ctrl2.setKey(QtGui.QKeySequence("Ctrl+2"))
-        ctrl2.activated.connect(self.pressed_shortcut_Ctrl2)
+        ctrl2.activated.connect(self.pressed_shortcut_ctrl2)
 
         alt_a = QtWidgets.QShortcut(self)
         alt_a.setKey(QtGui.QKeySequence("Alt+a"))
         alt_a.activated.connect(self.pressed_shortcut_alt_a)
 
-        ctrl_f10 = QtWidgets.QShortcut(self)
-        ctrl_f10.setKey(QtGui.QKeySequence("Ctrl+0"))
-        ctrl_f10.activated.connect(self.pressed_shortcut_Ctrl0)
+        ctrl_0 = QtWidgets.QShortcut(self)
+        ctrl_0.setKey(QtGui.QKeySequence("Ctrl+0"))
+        ctrl_0.activated.connect(self.pressed_shortcut_ctrl0)
 
-        F11 = QtWidgets.QShortcut(self)
-        F11.setKey(QtGui.QKeySequence("F11"))
-        F11.activated.connect(self.pressed_shortcut_F11)
+        alt_o = QtWidgets.QShortcut(self)
+        alt_o.setKey(QtGui.QKeySequence("Alt+O"))
+        alt_o.activated.connect(self.pressed_shortcut_alt_o)
+
+        f11 = QtWidgets.QShortcut(self)
+        f11.setKey(QtGui.QKeySequence("F11"))
+        f11.activated.connect(self.pressed_shortcut_F11)
         self.activadoF11 = False
         self.previous_f11_maximized = False
 
@@ -427,28 +431,31 @@ class MainWindow(LCDialog.LCDialog):
         if self.manager and hasattr(self.manager, "alt_a"):
             self.manager.alt_a()
 
-    def pressed_shortcut_Ctrl2(self):
+    def pressed_shortcut_ctrl2(self):
         if self.manager and hasattr(self.manager, "control2"):
             self.manager.control2()
 
-    def pressed_shortcut_Ctrl1(self):
+    def pressed_shortcut_ctrl1(self):
         if self.manager and hasattr(self.manager, "control1"):
             self.manager.control1()
 
-    def pressed_shortcut_Ctrl0(self):
+    def pressed_shortcut_ctrl0(self):
         if self.manager and hasattr(self.manager, "control0"):
             self.manager.control0()
 
-    def soloEdicionPGN(self, file):
-        if file:
-            titulo = file
-        else:
-            titulo = "<<< %s >>>" % _("Temporary file")
+    def pressed_shortcut_alt_o(self):
+        self.move(QtCore.QPoint(0,0))
 
-        self.setWindowTitle(titulo)
-        self.setWindowIcon(Iconos.PGN())
+    # def soloEdicionPGN(self, file):
+    #     if file:
+    #         titulo = file
+    #     else:
+    #         titulo = "<<< %s >>>" % _("Temporary file")
+    # 
+    #     self.setWindowTitle(titulo)
+    #     self.setWindowIcon(Iconos.PGN())
 
-    def cursorFueraBoard(self):
+    def cursor_out_board(self):
         p = self.mapToParent(self.board.pos())
         p.setX(p.x() + self.board.ancho + 4)
 

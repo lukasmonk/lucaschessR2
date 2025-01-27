@@ -34,17 +34,11 @@ class WritingDown(LCDialog.LCDialog):
         o_columns.nueva("SUCCESS", _("Success"), 90, align_center=True)
         self.glista = Grid.Grid(self, o_columns, siSelecFilas=True, siSeleccionMultiple=True)
 
-        li_acciones = (
-            (_("Close"), Iconos.MainMenu(), self.terminar),
-            None,
-            (_("New"), Iconos.Nuevo(), self.new),
-            None,
-            (_("Repeat"), Iconos.Copiar(), self.repetir),
-            None,
-            (_("Remove"), Iconos.Borrar(), self.borrar),
-            None,
-        )
-        tb = QTVarios.LCTB(self, li_acciones)
+        tb = QTVarios.LCTB(self)
+        tb.new(_("Close"), Iconos.MainMenu(), self.terminar)
+        tb.new(_("New"), Iconos.Nuevo(), self.new)
+        tb.new(_("Repeat"), Iconos.Copiar(), self.repetir)
+        tb.new(_("Remove"), Iconos.Borrar(), self.borrar)
 
         ly = Colocacion.V().control(tb).control(self.glista).margen(4)
 
@@ -72,10 +66,10 @@ class WritingDown(LCDialog.LCDialog):
             game.restore(game_saved)
         else:
             game = None
-        siblancasabajo = QTVarios.white_or_black(self, False)
-        if siblancasabajo is None:
+        if_white_below = QTVarios.white_or_black(self, False)
+        if if_white_below is None:
             return
-        self.resultado = game, siblancasabajo
+        self.resultado = game, if_white_below
         self.save_video()
         self.db.close()
         self.accept()

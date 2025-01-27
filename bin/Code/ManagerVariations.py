@@ -286,10 +286,3 @@ class ManagerVariations(Manager.Manager):
         self.set_label1(dic["ROTULO1"])
         self.play_against_engine = True
         self.configuration.write_variables("ENG_VARIANTES", dic)
-
-    def play_instead_of_me(self):
-        if not self.is_finished():
-            mrm = self.analizaTutor(with_cursor=True)
-            rm = mrm.best_rm_ordered()
-            if rm.from_sq:
-                self.player_has_moved_base(rm.from_sq, rm.to_sq, rm.promotion)

@@ -145,7 +145,7 @@ class WTV_SVG(QtWidgets.QDialog):
         pm = self.liEjemplos[0].pixmapX()
         bf = QtCore.QBuffer()
         pm.save(bf, "PNG")
-        self.regSVG.png = bytes(bf.buffer())
+        self.regSVG.png = bytes(bf.data().data())
 
         self.accept()
 

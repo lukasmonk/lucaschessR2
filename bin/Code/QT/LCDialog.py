@@ -58,7 +58,7 @@ class LCDialog(QtWidgets.QDialog):
             wE, hE = QTUtil.desktop_size()
         if dic:
             if siTam:
-                if not ("_SIZE_" in dic):
+                if "_SIZE_" not in dic:
                     w, h = self.width(), self.height()
                     for k in dic:
                         if k.startswith("_TAMA"):
@@ -86,7 +86,7 @@ class LCDialog(QtWidgets.QDialog):
                 for sp, name in self.liSplitters:
                     k = "SP_%s" % name
                     li_sp = dic.get(k)
-                    if li_sp and type(li_sp) == list and len(li_sp) == 2 and type(li_sp[0]) == int:
+                    if li_sp and isinstance(li_sp, list) and len(li_sp) == 2 and isinstance(li_sp[0], int):
                         sp.setSizes(li_sp)
             except TypeError:
                 pass

@@ -235,7 +235,7 @@ class ManagerOpeningLinesPositions(ManagerOPL.ManagerOpeningLines):
         pvSel = from_sq + to_sq + promotion
         lipvObj = self.trposition["MOVES"]
 
-        if not (pvSel in lipvObj):
+        if pvSel not in lipvObj:
             self.errores += 1
             mens = "%s: %d" % (_("Error"), self.errores)
             QTUtil2.temporary_message(self.main_window, mens, 1.0, physical_pos=TOP_RIGHT)

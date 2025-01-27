@@ -2,9 +2,6 @@ from PySide2 import QtWidgets, QtCore, QtGui
 
 import Code
 from Code.Base.Constantes import KIB_CANDIDATES, KIB_INDEXES, KIB_POLYGLOT, KIB_GAVIOTA, KIB_DATABASES
-
-KIB_BEFORE_MOVE, KIB_AFTER_MOVE = True, False
-
 from Code.Books import Books, WBooks
 from Code.Engines import Priorities
 from Code.Kibitzers import Kibitzers
@@ -18,6 +15,8 @@ from Code.QT import Iconos
 from Code.QT import LCDialog
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
+
+KIB_BEFORE_MOVE, KIB_AFTER_MOVE = True, False
 
 
 class WKibitzers(LCDialog.LCDialog):
@@ -253,7 +252,7 @@ class WKibitzers(LCDialog.LCDialog):
 
         resp = menu.lanza()
         if resp:
-            if type(resp) == str:
+            if isinstance(resp, str):
                 resp = ("database", resp)
 
             orden, extra = resp
@@ -414,23 +413,23 @@ class WKibitzers(LCDialog.LCDialog):
         tipo = me.tipo
         self.liKibActual.append((_("Name"), me.name, "name"))
 
-        if not (tipo in (KIB_POLYGLOT, KIB_GAVIOTA, KIB_INDEXES, KIB_DATABASES)):
+        if tipo not in (KIB_POLYGLOT, KIB_GAVIOTA, KIB_INDEXES, KIB_DATABASES):
             self.liKibActual.append((_("Type"), me.ctipo(), "tipo"))
             self.liKibActual.append((_("Priority"), me.cpriority(), "prioridad"))
 
         self.liKibActual.append((_("Visible in menu"), str(me.visible), "visible"))
         self.liKibActual.append((_("Point of view"), me.cpointofview(), "pointofview"))
 
-        if not (tipo in (KIB_POLYGLOT, KIB_GAVIOTA, KIB_INDEXES, KIB_DATABASES)):
+        if tipo not in (KIB_POLYGLOT, KIB_GAVIOTA, KIB_INDEXES, KIB_DATABASES):
             self.liKibActual.append((_("Engine"), me.name, None))
 
-        if not (tipo in (KIB_POLYGLOT, KIB_DATABASES)):
+        if tipo not in (KIB_POLYGLOT, KIB_DATABASES):
             self.liKibActual.append((_("Author"), me.autor, None))
 
-        if not (tipo in (KIB_GAVIOTA, KIB_INDEXES)):
+        if tipo not in (KIB_GAVIOTA, KIB_INDEXES):
             self.liKibActual.append((_("File"), me.path_exe, None))
 
-        if not (tipo in (KIB_POLYGLOT, KIB_GAVIOTA, KIB_INDEXES, KIB_DATABASES)):
+        if tipo not in (KIB_POLYGLOT, KIB_GAVIOTA, KIB_INDEXES, KIB_DATABASES):
             self.liKibActual.append((_("Information"), me.id_info, "info"))
             self.liKibActual.append((_("Fixed time in seconds"), me.max_time, "max_time"))
             self.liKibActual.append((_("Fixed depth"), me.max_depth, "max_depth"))

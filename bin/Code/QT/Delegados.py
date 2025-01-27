@@ -300,7 +300,7 @@ class PmIconosBMT(QtWidgets.QStyledItemDelegate):
         if "." in pos:
             pos = pos[: pos.index(".")]
 
-        if not (pos in self.dicIconos):
+        if pos not in self.dicIconos:
             return
         painter.save()
         painter.translate(option.rect.x(), option.rect.y())
@@ -327,7 +327,7 @@ class PmIconosColor(QtWidgets.QStyledItemDelegate):
 
     def paint(self, painter, option, index):
         pos = str(index.model().data(index, QtCore.Qt.DisplayRole))
-        if not (pos in self.dicpmIconos):
+        if pos not in self.dicpmIconos:
             return
         painter.save()
         painter.translate(option.rect.x(), option.rect.y())
@@ -349,7 +349,7 @@ class PmIconosWeather(QtWidgets.QStyledItemDelegate):
 
     def paint(self, painter, option, index):
         pos = str(index.model().data(index, QtCore.Qt.DisplayRole))
-        if not (pos in self.dicIconos):
+        if pos not in self.dicIconos:
             if pos.isdigit():
                 pos = "4" if int(pos) > 4 else "0"
             else:
@@ -589,6 +589,8 @@ class LinePGN(QtWidgets.QStyledItemDelegate):
 
     def paint(self, painter, option, index):
         txt = index.model().data(index, QtCore.Qt.DisplayRole)
+        if txt is None:
+            return
 
         d = Move.dicHTMLFigs
         lc = []

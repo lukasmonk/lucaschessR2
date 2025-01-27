@@ -50,7 +50,7 @@ class WGif(LCDialog.LCDialog):
         self.reject()
 
     def save_board(self):
-        path_png = Code.configuration.ficheroTemporal("png")
+        path_png = Code.configuration.temporary_file("png")
         self.board.save_as_img(path_png)
         self.li_frames.append(Image.open(path_png))
 

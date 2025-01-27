@@ -30,7 +30,7 @@ def read_engines(folder_engines):
 
     mas("acqua", "Giovanni Di Maria", "2.0", "http://www.elektrosoft.it/scacchi/acqua/acqua.asp", "acqua.exe", 844)
     mas("foxcub", "Lucas Monge", "1.1", "", "FoxCub.exe", 800)
-    mas("fox", "Lucas Monge", "1.1", "", "Fox.exe", 1400)
+    mas("fox", "Lucas Monge", "1.2", "", "Fox.exe", 1500)
 
     mas("tarrasch", "Bill Forster", "ToyEngine Beta V0.906", "http://www.triplehappy.com/",
         "TarraschToyEngineV0.906.exe", 1481, emulate_movetime=True)
@@ -133,7 +133,7 @@ def read_engines(folder_engines):
     cm.set_multipv(10, 100)
 
     cm = mas(
-        "texel", "Peter Österlund", "1.07 32bit", "https://github.com/peterosterlund2/texel",
+        "texel", "Peter Österlund", "1.08 32bit", "https://github.com/peterosterlund2/texel",
         "texel32old.exe", 3100, nodes_compatible=True
     )
     cm.set_multipv(10, 256)
@@ -310,7 +310,9 @@ def dict_engines_fixed_elo(folder_engines):
             ("hamsters", 1000, 2000),
             ("rybka", 1200, 2400),
             ("ufim", 700, 2000),
-            ("delfi", 1000, 1000),
+            ("delfi", 1000, 2600),
+            ("texel", 700, 2500),
+            ("fox", 1000, 2700)
     ):
         for elo in range(xfrom, xto + 100, 100):
             cm = d[nm].clona()

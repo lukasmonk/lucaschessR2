@@ -75,7 +75,7 @@ class HPoint:
         self.nummove = nummove
         self.rvalue = self.value = value
         self.tooltip = tooltip
-        self.is_white = not ("..." in tooltip)
+        self.is_white = "..." not in tooltip
         self.dir_tooltip = ""
         self.rlostp = self.lostp = lostp
         self.lostp_abs = lostp_abs

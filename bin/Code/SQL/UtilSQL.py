@@ -335,13 +335,13 @@ class DictRawSQL(DictSQL):
 
 
 class ListSQL:
-    def __init__(self, path_file, tabla="LISTA", max_cache=2048, reverted=False):
+    def __init__(self, path_file, tabla="LISTA", max_cache=2048, reversed=False):
         self.path_file = path_file
         self._conexion = sqlite3.connect(path_file)
         self.tabla = tabla
         self.max_cache = max_cache
         self.cache = {}
-        self.reverted = reverted
+        self.reversed = reversed
 
         self._conexion.execute("CREATE TABLE IF NOT EXISTS %s( DATO BLOB );" % tabla)
 
@@ -355,7 +355,7 @@ class ListSQL:
 
     def read_rowids(self):
         sql = "SELECT ROWID FROM %s" % self.tabla
-        if self.reverted:
+        if self.reversed:
             sql += " ORDER BY ROWID DESC"
         cursor = self._conexion.execute(sql)
         return [rowid for rowid, in cursor.fetchall()]
@@ -377,7 +377,7 @@ class ListSQL:
         cursor = self._conexion.execute(sql, (memoryview(obj),))
         self._conexion.commit()
         lastrowid = cursor.lastrowid
-        if self.reverted:
+        if self.reversed:
             self.li_row_ids.insert(0, lastrowid)
         else:
             self.li_row_ids.append(lastrowid)
@@ -492,9 +492,9 @@ class ListSQLBig:
 
 
 class ListObjSQL(ListSQL):
-    def __init__(self, path_file, class_storage, tabla="datos", max_cache=2048, reverted=False):
+    def __init__(self, path_file, class_storage, tabla="datos", max_cache=2048, reversed=False):
         self.class_storage = class_storage
-        ListSQL.__init__(self, path_file, tabla, max_cache, reverted)
+        ListSQL.__init__(self, path_file, tabla, max_cache, reversed)
 
     def append(self, obj, with_cache=False, with_commit=True):
         sql = "INSERT INTO %s( DATO ) VALUES( ? )" % self.tabla
@@ -503,7 +503,7 @@ class ListObjSQL(ListSQL):
         if with_commit:
             self._conexion.commit()
         lastrowid = cursor.lastrowid
-        if self.reverted:
+        if self.reversed:
             self.li_row_ids.insert(0, lastrowid)
         else:
             self.li_row_ids.append(lastrowid)
@@ -766,7 +766,7 @@ class DictBig(object):
 
 class DictBigDB(object):
     def __init__(self):
-        self.conexion = sqlite3.connect(Code.configuration.ficheroTemporal("dbdb"))
+        self.conexion = sqlite3.connect(Code.configuration.temporary_file("dbdb"))
         self.conexion.execute("CREATE TABLE IF NOT EXISTS DATA( KEY TEXT PRIMARY KEY, VALUE BLOB );")
         self.conexion.execute("PRAGMA journal_mode=REPLACE")
         self.conexion.execute("PRAGMA synchronous=OFF")

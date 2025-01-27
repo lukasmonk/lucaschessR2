@@ -121,7 +121,7 @@ class WTV_Marker(QtWidgets.QDialog):
         pm = self.liEjemplos[0].pixmapX()
         bf = QtCore.QBuffer()
         pm.save(bf, "PNG")
-        reg_marker.png = bytes(bf.buffer())
+        reg_marker.png = bytes(bf.data().data())
 
         self.regMarker = reg_marker
         self.accept()

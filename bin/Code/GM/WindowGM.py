@@ -684,7 +684,7 @@ def importar_gm(owner_gm):
 
     fich_name = "_listaGM.txt"
     url_lista = "%s/%s" % (web, fich_name)
-    fich_tmp = Code.configuration.ficheroTemporal("txt")
+    fich_tmp = Code.configuration.temporary_file("txt")
     fich_lista = Util.opj(GM.get_folder_gm(), fich_name)
     si_bien = Util.urlretrieve(url_lista, fich_tmp)
     me.final()

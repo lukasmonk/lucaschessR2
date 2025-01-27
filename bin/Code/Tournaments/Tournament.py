@@ -38,7 +38,7 @@ class EngineTournament(Engines.Engine):
             st_huellas.add(eng.huella)
         while True:
             self.huella = Util.huella()
-            if not (self.huella in st_huellas):
+            if self.huella not in st_huellas:
                 return
 
     def copiar(self, torneo):
@@ -152,7 +152,8 @@ class GameTournament(object):
 
     def etiTiempo(self):
         if self.minutos:
-            wdec = lambda x: ("%f" % x).rstrip("0").rstrip(".")
+            def wdec(x):
+                return ("%f" % x).rstrip("0").rstrip(".")
             if self.seconds_per_move:
                 return "%s+%s" % (wdec(self.minutos * 60), wdec(self.seconds_per_move))
             else:

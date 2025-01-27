@@ -95,7 +95,7 @@ class WKibCommon(QtWidgets.QDialog):
                 if not (0 <= y <= (h_e - 50)):
                     y = 0
                 self.move(x, y)
-            if not ("_SIZE_" in dic_video):
+            if "_SIZE_" not in dic_video:
                 w, h = self.width(), self.height()
                 for k in dic_video:
                     if k.startswith("_TAMA"):

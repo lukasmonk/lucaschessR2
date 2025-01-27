@@ -125,7 +125,7 @@ class WTV_Marco(QtWidgets.QDialog):
         pm = self.liEjemplos[0].pixmap()
         bf = QtCore.QBuffer()
         pm.save(bf, "PNG")
-        self.regMarco.png = bytes(bf.buffer())
+        self.regMarco.png = bytes(bf.data().data())
 
         self.accept()
 

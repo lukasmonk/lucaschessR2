@@ -122,7 +122,7 @@ class MenuTrainings:
         td.menu(bmenu, xopcion)
 
     def create_menu_basic(self, menu, xopcion):
-        menu.separador()
+        # menu.separador()
         menu_basic = menu.submenu(_("Basics"), Iconos.Training_Basic())
 
         menu2 = menu_basic.submenu(_("Check your memory on a chessboard"), Iconos.Memoria())
@@ -327,7 +327,7 @@ class MenuTrainings:
 
         menu1 = menu_endings.submenu(_("Training mates"), Iconos.Mate())
         for mate in range(1, 8):
-            xopcion(menu1, "mate%d" % mate, _X(_("Mate in %1"), str(mate)), Iconos.PuntoAzul())
+            xopcion(menu1, f"mate{mate}", _X(_("Mate in %1"), str(mate)), Iconos.PuntoAzul())
             menu1.separador()
         menu_endings.separador()
 
@@ -397,7 +397,7 @@ class MenuTrainings:
 
     def menu_run(self, resp):
         if resp:
-            if type(resp) == str:
+            if isinstance(resp, str):
                 if resp == "gm":
                     self.train_gm()
 
@@ -464,7 +464,7 @@ class MenuTrainings:
                         return
                     db = UtilSQL.DictSQL(self.configuration.file_trainings)
                     data = db[entreno]
-                    if type(data) != dict:
+                    if not isinstance(data, dict):
                         data = {}
                     pos_ultimo = data.get("POSULTIMO", 1)
                     jump = data.get("SALTA", False)
@@ -581,7 +581,7 @@ class MenuTrainings:
                         t = ""
                         for x in range(len(lista) - 1):
                             t += "|%s" % lista[x]
-                            if not (t in dmenu):
+                            if t not in dmenu:
                                 v_trad = dic_training.get(lista[x], _F(lista[x]))
                                 dmenu[t] = actmenu.submenu(v_trad, nico.otro())
                                 actmenu.separador()
@@ -665,7 +665,7 @@ class MenuTrainings:
         self.procesador.gaviota_endings()
 
     def puente(self, nivel):
-        WindowPuente.windowPuente(self.procesador, nivel)
+        WindowPuente.window_puente(self.procesador, nivel)
 
     def horses(self, test, titulo, icono):
         WindowHorses.windowHorses(self.procesador, test, titulo, icono)

@@ -1,4 +1,6 @@
-id name Fox 1.1
+id name Fox 1.2
 id author Lucas Monge (based in MiniRodent by Pawel Koziol)
 option name Hash type spin default 16 min 1 max 4096
 option name Clear Hash type button
+option name UCI_LimitStrength type check default false
+option name UCI_Elo type spin default 1500 min 1000 max 2700

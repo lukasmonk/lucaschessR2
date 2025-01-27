@@ -167,7 +167,7 @@ class WSummary(QtWidgets.QWidget):
             elif key == "move":
                 return _("Total")
 
-        if self.liMoves[nfila]["games"] == 0 and not (key in ("number", "analysis", "move")):
+        if self.liMoves[nfila]["games"] == 0 and key not in ("number", "analysis", "move"):
             return ""
         v = self.liMoves[nfila][key]
         if key.startswith("p"):
@@ -176,7 +176,7 @@ class WSummary(QtWidgets.QWidget):
             return v.abbrev_text_base() if v else ""
         elif key == "number":
             if self.with_figurines:
-                self.delegadoMove.setWhite(not ("..." in v))
+                self.delegadoMove.setWhite("..." not in v)
             return v
         else:
             return str(v)
@@ -201,7 +201,7 @@ class WSummary(QtWidgets.QWidget):
 
     def grid_color_fondo(self, grid, nfila, ocol):
         key = ocol.key
-        if self.siFilaTotales(nfila) and not (key in ("number", "analysis")):
+        if self.siFilaTotales(nfila) and key not in ("number", "analysis"):
             return Code.dic_qcolors["SUMMARY_TOTAL"]
         if key in ("pwin", "pdraw", "plost"):
             dic = self.posicionFila(nfila)
@@ -484,14 +484,14 @@ class WSummaryBase(QtWidgets.QWidget):
             elif key == "move":
                 return _("Total")
 
-        if self.liMoves[nfila]["games"] == 0 and not (key in ("number", "move")):
+        if self.liMoves[nfila]["games"] == 0 and key not in ("number", "move"):
             return ""
         v = self.liMoves[nfila][key]
         if key.startswith("p"):
             return "%.01f %%" % v
         elif key == "number":
             if self.with_figurines:
-                self.delegadoMove.setWhite(not ("..." in v))
+                self.delegadoMove.setWhite("..." not in v)
             return v
         else:
             return str(v)
@@ -516,7 +516,7 @@ class WSummaryBase(QtWidgets.QWidget):
 
     def grid_color_fondo(self, grid, nfila, ocol):
         key = ocol.key
-        if self.siFilaTotales(nfila) and not (key in ("number", "analysis")):
+        if self.siFilaTotales(nfila) and key not in ("number", "analysis"):
             return Code.dic_qcolors["SUMMARY_TOTAL"]
         if key in ("pwin", "pdraw", "plost"):
             dic = self.posicionFila(nfila)

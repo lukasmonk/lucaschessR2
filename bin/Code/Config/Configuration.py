@@ -920,7 +920,7 @@ class Configuration:
         Util.create_folder(dir_tmp)
         return dir_tmp
 
-    def ficheroTemporal(self, extension):
+    def temporary_file(self, extension):
         dir_tmp = Util.opj(self.carpeta, "tmp")
         return Util.temporary_file(dir_tmp, extension)
 
@@ -1027,7 +1027,7 @@ class Configuration:
     def read_conf_boards(self):
         with UtilSQL.DictSQL(self.ficheroConfBoards) as db:
             self.dic_conf_boards_pk = db.as_dictionary()
-            if not ("BASE" in self.dic_conf_boards_pk):
+            if "BASE" not in self.dic_conf_boards_pk:
                 with open(Code.path_resource("IntFiles", f"basepk{self.__theme_num}.board"), "rb") as f:
                     var = pickle.loads(f.read())
                     alto = QTUtil.desktop_height()

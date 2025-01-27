@@ -138,7 +138,7 @@ class Manager:
         self.board.do_pressed_letter = self.do_pressed_letter
 
         self.capturasActivable = False
-        self.informacionActivable = False
+        self.activatable_info = False
 
         self.auto_rotate = None
 
@@ -308,7 +308,7 @@ class Manager:
 
             if (si_o and si_d) or ((si_o is None) and si_d) or ((si_d is None) and si_o):
                 t = (a1, h8)
-                if not (t in li_c):
+                if t not in li_c:
                     li_c.append(t)
 
         if origen:
@@ -363,7 +363,7 @@ class Manager:
         if self.configuration.x_mouse_shortcuts is None:
             return
 
-        if not self.configuration.x_mouse_shortcuts is None:
+        if self.configuration.x_mouse_shortcuts is not None:
             if li_destinos:
                 self.atajosRatonOrigen = a1h8
                 self.atajosRatonDestino = None
@@ -487,6 +487,9 @@ class Manager:
             return
         row, column = self.main_window.pgnPosActual()
         pos_move, move = self.pgn.move(row, column.key)
+        if column.key == "NUMBER":
+            if row > 0:
+                pos_move, move = self.pgn.move(row-1, "BLACK")
 
         if self.main_window.with_analysis_bar:
             self.main_window.run_analysis_bar(self.current_game())
@@ -501,11 +504,8 @@ class Manager:
             if move and (self.configuration.x_show_bestmove or self.configuration.x_show_rating):
                 move_check = move
                 if column.key == "NUMBER":
-                    pos_move -= 1
-                    if pos_move < 0:
+                    if row == 0:
                         move_check = None
-                    else:
-                        move_check = self.game.move(pos_move)
                 if move_check:
                     if move_check.analysis and self.configuration.x_show_bestmove:
                         mrm, pos = move_check.analysis
@@ -514,35 +514,7 @@ class Manager:
                             self.board.put_arrow_scvar([(rm0.from_sq, rm0.to_sq)])
 
                     if self.configuration.x_show_rating:
-                        nag = move_check.get_nag()
-                        color = NO_RATING
-                        if not nag:
-                            if move_check.analysis:
-                                mrm, pos = move_check.analysis
-                                rm = mrm.li_rm[pos]
-                                nag, color = mrm.set_nag_color(rm)
-                        if nag == NO_RATING:
-                            if move_check.in_the_opening:
-                                nag = 1000
-                            elif color == GOOD_MOVE:
-                                nag = 999
-                            else:
-                                if move_check.is_book:
-                                    nag = 1001
-                                elif move_check.is_book is None:
-                                    if self.ap_ratings is None:
-                                        self.ap_ratings = Opening.OpeningGM()
-                                    move_check.is_book = self.ap_ratings.check_human(move_check.position_before.fen(),
-                                                                                   move_check.from_sq, move_check.to_sq)
-                                    if move_check.is_book:
-                                        nag = 1001
-                        poscelda = 0 if (move_check.to_sq[0] < move_check.from_sq[0]) and (
-                                    move_check.to_sq[1] < move_check.from_sq[1]) else 1
-                        if nag != NO_RATING or (nag == NO_RATING and move_check.analysis):
-                            self.board.put_rating(move_check.from_sq, move_check.to_sq, nag, poscelda)
-                        if nag != 1000 and move_check.in_the_opening:
-                            poscelda = 1 if poscelda == 0 else 0
-                            self.board.put_rating(move_check.from_sq, move_check.to_sq, 1000, poscelda)
+                        self.show_rating(move_check)
 
             nom_opening = ""
             opening = self.game.opening
@@ -561,8 +533,9 @@ class Manager:
                 if (row == 0 and column.key == "NUMBER") or row < 0:
                     self.main_window.put_informationPGN(self.game, None, nom_opening)
                 else:
-                    move.pos_in_game = pos_move
-                    self.main_window.put_informationPGN(None, move, nom_opening)
+                    move_check = move
+                    move_check.pos_in_game = pos_move
+                    self.main_window.put_informationPGN(None, move_check, nom_opening)
 
             if self.kibitzers_manager.some_working():
                 if self.si_check_kibitzers():
@@ -570,6 +543,37 @@ class Manager:
                 else:
                     self.kibitzers_manager.stop()
         self.check_changed()
+
+    def show_rating(self, move_check):
+        nag = move_check.get_nag()
+        color = NO_RATING
+        if not nag:
+            if move_check.analysis:
+                mrm, pos = move_check.analysis
+                rm = mrm.li_rm[pos]
+                nag, color = mrm.set_nag_color(rm)
+        if nag == NO_RATING:
+            if move_check.in_the_opening:
+                nag = 1000
+            elif color == GOOD_MOVE:
+                nag = 999
+            else:
+                if move_check.is_book:
+                    nag = 1001
+                elif move_check.is_book is None:
+                    if self.ap_ratings is None:
+                        self.ap_ratings = Opening.OpeningGM()
+                    move_check.is_book = self.ap_ratings.check_human(move_check.position_before.fen(),
+                                                                     move_check.from_sq, move_check.to_sq)
+                    if move_check.is_book:
+                        nag = 1001
+        poscelda = 0 if (move_check.to_sq[0] < move_check.from_sq[0]) and (
+                move_check.to_sq[1] < move_check.from_sq[1]) else 1
+        if nag != NO_RATING or (nag == NO_RATING and move_check.analysis):
+            self.board.put_rating(move_check.from_sq, move_check.to_sq, nag, poscelda)
+        if nag != 1000 and move_check.in_the_opening:
+            poscelda = 1 if poscelda == 0 else 0
+            self.board.put_rating(move_check.from_sq, move_check.to_sq, 1000, poscelda)
 
     def si_check_kibitzers(self):
         return (self.state == ST_ENDGAME) or (not self.is_competitive)
@@ -866,7 +870,10 @@ class Manager:
                 return
             else:
                 row -= 1
-        self.pgn.mueve(row, column == "WHITE")
+                is_white = False
+        else:
+            is_white = column == "WHITE"
+        self.pgn.mueve(row, is_white)
         self.put_view()
 
     def goto_end(self):
@@ -902,14 +909,14 @@ class Manager:
         return nj == num_moves - 1
 
     def pgnInformacion(self):
-        if self.informacionActivable:
+        if self.activatable_info:
             self.main_window.activaInformacionPGN()
             self.put_view()
             self.refresh()
 
     def remove_info(self, is_activatable=False):
         self.main_window.activaInformacionPGN(False)
-        self.informacionActivable = is_activatable
+        self.activatable_info = is_activatable
 
     def autosave(self):
         self.must_be_autosaved = True
@@ -917,7 +924,7 @@ class Manager:
             self.game.tag_timeend()
             self.game.set_extend_tags()
             if self.ayudas_iniciales > 0:
-                if not (self.hints is None):
+                if self.hints is not None:
                     usado = self.ayudas_iniciales - self.hints
                     if usado:
                         self.game.set_tag("HintsUsed", str(usado))
@@ -1118,7 +1125,7 @@ class Manager:
                 else:
                     tm = time.time() - tm_ini
                     self.main_window.base.change_message(
-                        '%s\n%s: %d %s: %.01f"' % (mens, _("Depth"), rm.depth, _("Time"), tm)
+                        '%s<br><small>%s: %d %s: %.01f"' % (mens, _("Depth"), rm.depth, _("Time"), rm.time / 1000)
                     )
                     if self.xanalyzer.mstime_engine and tm * 1000 > self.xanalyzer.mstime_engine:
                         self.xanalyzer.stop()
@@ -1177,7 +1184,7 @@ class Manager:
                     else:
                         tm = time.time() - tm_ini
                         self.main_window.base.change_message(
-                            '%s\n%s: %d %s: %.01f"' % (mens, _("Depth"), rm.depth, _("Time"), tm)
+                            '%s<br><small>%s: %d %s: %.01f"' % (mens, _("Depth"), rm.depth, _("Time"), rm.time / 1000)
                         )
                         if self.xanalyzer.mstime_engine and tm * 1000 > self.xanalyzer.mstime_engine:
                             self.xanalyzer.stop()
@@ -1186,7 +1193,7 @@ class Manager:
 
                 self.xanalyzer.set_gui_dispatch(test_me)
             mrm, pos = self.xanalyzer.analyzes_move_game(
-                self.game, pos_jg, self.xanalyzer.mstime_engine, self.xanalyzer.depth_engine, window=self.main_window
+                self.game, pos_jg, self.xanalyzer.mstime_engine, self.xanalyzer.depth_engine
             )
             self.xanalyzer.set_gui_dispatch(None)
             move.analysis = mrm, pos
@@ -1202,7 +1209,9 @@ class Manager:
         if Code.eboard and Code.eboard.driver:
             self.rutinaAccionDef(TB_EBOARD)
         self.main_window.base.tb.setDisabled(True)
+        self.is_analyzing = True
         AnalysisGame.analysis_game(self)
+        self.is_analyzing = False
         self.main_window.base.tb.setDisabled(False)
         self.refresh()
         self.check_changed()
@@ -1302,6 +1311,8 @@ class Manager:
         if self.xpelicula:
             self.xpelicula.terminar()
             return False
+        if self.is_analyzing:
+            self.main_window.base.check_is_hide()
         return getattr(self, "final_x")
 
     def do_pressed_number(self, si_activar, number):
@@ -1362,7 +1373,7 @@ class Manager:
 
                 st = set()
                 for h8 in li_movs:
-                    if not (h8 in st):
+                    if h8 not in st:
                         reg_marco.a1h8 = h8 + h8
                         reg_marco.siMovible = True
                         reg_marco.color = color
@@ -1497,7 +1508,22 @@ class Manager:
             self.analizar()
 
     def active_play_instead_of_me(self):
-        return self.state == ST_PLAYING
+        if self.is_competitive and not self.game.is_finished():
+            return False
+        return True
+
+    def play_instead_of_me(self):
+        rm = self.bestmove_from_analysis_bar()
+        if rm is None:
+            self.main_window.pensando_tutor(True)
+            self.thinking(True)
+            cp = self.current_position()
+            mrm_tutor = self.xtutor.analiza(cp.fen())
+            self.thinking(False)
+            self.main_window.pensando_tutor(False)
+            rm = mrm_tutor.best_rm_ordered()
+        if rm.from_sq:
+            self.player_has_moved_base(rm.from_sq, rm.to_sq, rm.promotion)
 
     @staticmethod
     def active_help_to_move():
@@ -2289,7 +2315,7 @@ class Manager:
             if ori:
                 gm.set_tag(f"Original{previous}", ori)
         dic = {"GAME": gm.save(), "ISWHITE": gm.last_position.is_white}
-        fich = Util.relative_path(self.configuration.ficheroTemporal("pkd"))
+        fich = Util.relative_path(self.configuration.temporary_file("pkd"))
         Util.save_pickle(fich, dic)
 
         XRun.run_lucas("-play", fich)

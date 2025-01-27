@@ -45,7 +45,7 @@ class ODT:
             os.remove(pzip)
         shutil.make_archive(path, "zip", folder)
         os.rename(pzip, path)
-        os.startfile(path)
+        Code.startfile(path)
 
     def landscape(self):
         self.styles.landscape()

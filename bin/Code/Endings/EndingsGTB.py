@@ -40,7 +40,7 @@ class DBendings:
         return [x for x in lst if len(x) <= pzs_gaviota]
 
     def read_key(self, key, order):
-        if not (key in self.db_data) and self.examples_auto:
+        if key not in self.db_data and self.examples_auto:
             cp = Position.Position()
             lista = self.db_examples[key]
             if lista:

@@ -625,7 +625,6 @@ class ManagerSolo(Manager.Manager):
         self.xpgn = None
         self.xjugadaInicial = None
         self.opening_block = None
-        self.board.activate_side(position.is_white)
         self.reiniciar()
 
     def setup_board_live(self, is_white, position):
@@ -717,15 +716,6 @@ class ManagerSolo(Manager.Manager):
 
     def current_pgn(self):
         return self.game.pgn()
-
-    def play_instead_of_me(self):
-        if not self.is_finished():
-            rm = self.bestmove_from_analysis_bar()
-            if rm is None:
-                mrm = self.analizaTutor(with_cursor=True)
-                rm = mrm.best_rm_ordered()
-            if rm.from_sq:
-                self.player_has_moved_base(rm.from_sq, rm.to_sq, rm.promotion)
 
     def help_to_move(self):
         if not self.is_finished():

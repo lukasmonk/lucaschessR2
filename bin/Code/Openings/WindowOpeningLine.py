@@ -969,7 +969,7 @@ class WLines(LCDialog.LCDialog):
                 me = QTUtil2.waiting_message.start(self, _("Analyzing the move...."), physical_pos=TOP_RIGHT)
 
                 move.analysis = xanalyzer.analyzes_move_game(
-                    game, len(game) - 1, xanalyzer.mstime_engine, xanalyzer.depth_engine, window=self
+                    game, len(game) - 1, xanalyzer.mstime_engine, xanalyzer.depth_engine
                 )
                 me.final()
             Analysis.show_analysis(

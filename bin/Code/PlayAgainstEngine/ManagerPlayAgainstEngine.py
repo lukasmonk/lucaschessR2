@@ -861,7 +861,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
 
     def set_summary(self, key, value):
         njug = len(self.game)
-        if not (njug in self.summary):
+        if njug not in self.summary:
             self.summary[njug] = {}
         self.summary[njug][key] = value
 
@@ -1044,8 +1044,13 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             if rm:
                 return self.player_has_moved_base(rm.from_sq, rm.to_sq, rm.promotion)
 
-        mrm = self.analizaTutor(with_cursor=True)
-        rm = mrm.best_rm_ordered()
+        rm = self.bestmove_from_analysis_bar()
+        if rm is None:
+            cp = self.current_position()
+            self.thinking(True)
+            mrm = self.xtutor.analiza(cp.fen())
+            self.thinking(False)
+            rm = mrm.best_rm_ordered()
         if rm and rm.from_sq:
             self.player_has_moved_base(rm.from_sq, rm.to_sq, rm.promotion)
 
@@ -1081,7 +1086,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         titulo = _("White") if position.is_white else _("Black")
         icono = Iconos.Carpeta()
 
-        self.main_window.cursorFueraBoard()
+        self.main_window.cursor_out_board()
         menu.opcion(None, titulo, icono)
         menu.separador()
         icono = Iconos.PuntoNaranja() if position.is_white else Iconos.PuntoNegro()
@@ -1460,7 +1465,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                                     "&3. %s (%s)" % (_("Select my move"), rm_user.abbrev_text_base()),
                                     Iconos.Player(),
                                 )
-                                self.main_window.cursorFueraBoard()
+                                self.main_window.cursor_out_board()
                                 resp = menu.lanza()
                                 if resp == "user":
                                     si_tutor = False
@@ -1617,6 +1622,11 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                 comment += "%s: %0.2f\n" % (self.configuration.x_player, time_user / ntime_user)
             if ntime_rival:
                 comment += "%s: %0.2f\n" % (self.xrival.name, time_rival / ntime_rival)
+            comment += "\n" + _("Total time") + ":\n"
+            if ntime_user:
+                comment += "%s: %0.2f\n" % (self.configuration.x_player, time_user)
+            if ntime_rival:
+                comment += "%s: %0.2f\n" % (self.xrival.name, time_rival)
 
         self.game.first_comment = comment
 
@@ -1750,7 +1760,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
     def change_last_move_engine(self):
         if self.state != ST_PLAYING or not self.human_is_playing or len(self.game) == 0:
             return
-        self.main_window.cursorFueraBoard()
+        self.main_window.cursor_out_board()
         menu = QTVarios.LCMenu(self.main_window)
         last_move = self.game.move(-1)
         position = last_move.position_before

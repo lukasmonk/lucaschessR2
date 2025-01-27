@@ -198,7 +198,7 @@ class WorkTranslate(object):
 
 
 def launch_wtranslation():
-    path_workfile = Code.configuration.ficheroTemporal("db")
+    path_workfile = Code.configuration.temporary_file("db")
     work_translate = WorkTranslate(path_workfile, True, Code.configuration.x_translator)
 
     popen = XRun.run_lucas("-translate", path_workfile)
