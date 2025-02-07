@@ -67,7 +67,7 @@ class WTranslateOpenings(LCDialog.LCDialog):
         layout = Colocacion.V().otro(laytb).control(self.grid).otro(ly_seek).margen(3)
         self.setLayout(layout)
 
-        self.restore_video(anchoDefecto=self.grid.anchoColumnas() + 28, altoDefecto=640)
+        self.restore_video(default_width=self.grid.anchoColumnas() + 28, default_height=640)
         self.grid.setFocus()
 
         self.set_porcentage()
@@ -323,8 +323,35 @@ class WTranslateOpenings(LCDialog.LCDialog):
             row = self.grid.recno()
             if row >= 0:
                 key = self.li_labels[row]
-                self.change_new(key, "")
+                self.grid_setvalue(None, row, None, "")
                 self.grid.refresh()
+        elif k == QtCore.Qt.Key_F5:
+            row = self.grid.recno()
+            if row >= 0:
+                key = self.li_labels[row]
+                valor = self.dic_translate[key]["TRANS"]
+                if not valor:
+                    self.grid_setvalue(None, row, None, key)
+                    self.grid.refresh()
+                    # valor = key
+                # if "King" in valor:
+                #     valor = valor.replace("King ", "King's ")
+                # if "Queen" in valor:
+                #     valor = valor.replace("Queen ", "Queen's ")
+                # self.grid_setvalue(None, row, None, valor)
+                # self.grid.refresh()
+                # self.siguiente()
+
+    def change_new(self, key, new_value):
+        trans = self.dic_translate[key]["TRANS"]
+        self.dic_translate[key]["NEW"] = new_value
+        self.create_po(self.configuration.po_saved())
+        if trans == new_value:
+            return
+        send = new_value #if new_value else trans
+        self.work_translate.send_to_lucas(key, send)
+
+
 
     def utilities(self):
         menu = QTVarios.LCMenu(self)

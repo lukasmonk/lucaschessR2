@@ -857,7 +857,7 @@ def fen_ended(fen):
 def xparse_body(fen, body):
     body = bytes(body, "utf-8")
     fen = bytes(fen, "utf-8")
-    resp = bytearray(len(body)+200)
+    resp = bytearray(len(body)+14//10)
     tam = parse_body( fen, body, resp )
     if tam:
         return resp[:tam].decode("utf-8").split("\n")

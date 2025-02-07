@@ -468,6 +468,7 @@ def get_game_move(game, position_before, from_sq, to_sq, promotion):
     ok, mens_error = position.play(from_sq, to_sq, promotion)
     if ok:
         move = Move(game, position_before, position, from_sq, to_sq, promotion)
+
         return True, None, move
     else:
         return False, mens_error, None
@@ -479,9 +480,9 @@ class Variations:
         self.li_variations = []
 
     def add_pgn_variation(self, pgn):
-        pgn_var = '[FEN "%s"]\n%s' % (self.move_base.position_before.fen(), pgn)
+        pgn_var = '[FEN "%s"]\n\n%s' % (self.move_base.position_before.fen(), pgn)
         ok, game = Code.Base.Game.pgn_game(pgn_var)
-        if ok:
+        if ok and len(game) > 0:
             self.li_variations.append(game)
 
     def save(self):

@@ -86,7 +86,7 @@ class ControlAnalysis:
         return pos_rm == self.pos_selected
 
     def set_pos_rm_active(self, pos_rm):
-        self.pos_rm_active = pos_rm
+        self.pos_rm_active = min(pos_rm, len(self.list_rm_name)-1)
         self.rm = self.list_rm_name[self.pos_rm_active][0]
         self.game = Game.Game(self.move.position_before)
         self.game.read_pv(self.rm.pv)
@@ -168,6 +168,7 @@ class ControlAnalysis:
                 move = self.game.move(nmove)
                 move_send = move.clone(game_send)
                 game_send.add_move(move_send)
+
         return game_send
 
     def change_mov_active(self, accion):
@@ -233,6 +234,7 @@ class CreateAnalysis:
             mrm, pos = xengine.analysis_move(move, xengine.mstime_engine, xengine.depth_engine)
             move.analysis = mrm, pos
 
+
             si_cancelado = me.cancelado()
             me.final()
             if si_cancelado:
@@ -271,13 +273,13 @@ class CreateAnalysis:
         return tab_analysis
 
 
-def show_analysis(procesador, xtutor, move, is_white, pos_move, main_window=None, must_save=True, subanalysis=False):
+def show_analysis(procesador, xanalyzer, move, is_white, pos_move, main_window=None, must_save=True, subanalysis=False):
     main_window = procesador.main_window if main_window is None else main_window
 
     ma = CreateAnalysis(procesador, move, pos_move)
-    if xtutor is None:
-        xtutor = procesador.XTutor()
-    tab_analysis0 = ma.create_initial_show(main_window, xtutor)
+    if xanalyzer is None:
+        xanalyzer = procesador.XAnalyzer()
+    tab_analysis0 = ma.create_initial_show(main_window, xanalyzer)
     move = ma.move
     if not tab_analysis0:
         return
@@ -294,7 +296,7 @@ def show_analysis(procesador, xtutor, move, is_white, pos_move, main_window=None
 
                     busca = False
             xengine = uno.xengine
-            if not xtutor or xengine.key != xtutor.key:
+            if not xanalyzer or xengine.key != xanalyzer.key:
                 xengine.terminar()
 
 
@@ -347,7 +349,8 @@ class AnalisisVariations:
         si_bien, mens, new_move = Move.get_game_move(None, self.position_before, from_sq, to_sq, promotion)
 
         if si_bien:
-
+            game = Game.Game(self.position_before)
+            game.add_move(new_move)
             self.move_the_pieces(new_move.liMovs)
             self.w.board.put_arrow_sc(new_move.from_sq, new_move.to_sq)
             self.analysis_move(new_move)
@@ -382,11 +385,11 @@ class AnalisisVariations:
         """
         for movim in li_movs:
             if movim[0] == "b":
-                self.w.board.borraPieza(movim[1])
+                self.w.board.remove_piece(movim[1])
             elif movim[0] == "m":
-                self.w.board.muevePieza(movim[1], movim[2])
+                self.w.board.move_piece(movim[1], movim[2])
             elif movim[0] == "c":
-                self.w.board.cambiaPieza(movim[1], movim[2])
+                self.w.board.change_piece(movim[1], movim[2])
 
         self.w.board.disable_all()
 

@@ -45,7 +45,7 @@ class WSingularM(LCDialog.LCDialog):
         self.setLayout(ly)
 
         grid.gotop()
-        self.restore_video(anchoDefecto=510, altoDefecto=640)
+        self.restore_video(default_width=510, default_height=640)
 
     def cerrar(self):
         self.save_video()

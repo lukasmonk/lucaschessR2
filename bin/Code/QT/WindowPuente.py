@@ -319,7 +319,7 @@ class WPuenteBase(LCDialog.LCDialog):
         self.setLayout(ly)
 
         self.register_grid(self.ghistorico)
-        self.restore_video(siTam=False)
+        self.restore_video(with_tam=False)
 
         self.ghistorico.gotop()
 

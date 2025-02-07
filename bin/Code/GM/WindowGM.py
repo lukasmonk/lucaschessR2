@@ -225,7 +225,7 @@ class WGM(LCDialog.LCDialog):
         if not self.li_preferred_openings:
             self.btOpeningsFavoritas.hide()
 
-        self.restore_video(anchoDefecto=750)
+        self.restore_video(default_width=750)
 
     def change_depth(self, num):
         vtime = self.edJtiempo.textoFloat()
@@ -628,7 +628,7 @@ class WImportar(LCDialog.LCDialog):
 
         self.last_order = "NOMBRE", False
 
-        self.restore_video(anchoDefecto=n + 26, altoDefecto=400)
+        self.restore_video(default_width=n + 26, default_height=400)
 
     def importar(self):
         self.save_video()
@@ -784,7 +784,7 @@ class SelectGame(LCDialog.LCDialog):
         layout = Colocacion.V().control(tb).control(self.grid).margen(3)
         self.setLayout(layout)
 
-        self.restore_video(anchoDefecto=400, altoDefecto=400)
+        self.restore_video(default_width=400, default_height=400)
         self.gameElegida = None
 
     def grid_num_datos(self, grid):

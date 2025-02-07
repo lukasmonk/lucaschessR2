@@ -51,6 +51,9 @@ class TabEngine(QtWidgets.QWidget):
         lb_multipv = Controles.LB(self, _("Multi PV") + ": ")
         self.sb_multipv = Controles.SB(self, multipv, 1, 500).tamMaximo(50)
 
+        self.chb_show_analysis = Controles.CHB(self, _("Show the analysis"), self.dbop.getconfig("SHOW_ANALYSIS", True))
+        self.chb_show_analysis.capture_changes(self, self.check_show_analysis)
+
         self.lb_analisis = Controles.LB(self, "").set_font_type(puntos=configuration.x_pgn_fontpoints).set_wrap()
         self.configuration.set_property(self.lb_analisis, "pgn")
 
@@ -67,12 +70,17 @@ class TabEngine(QtWidgets.QWidget):
 
         ly_lin1 = Colocacion.H().control(self.bt_start).control(self.bt_stop).control(self.lb_engine)
         ly_lin1.control(self.cb_engine)
-        ly_lin1.espacio(50).control(lb_multipv).control(self.sb_multipv).relleno()
+        ly_lin1.espacio(50).control(lb_multipv).control(self.sb_multipv).relleno().control(self.chb_show_analysis)
         ly = Colocacion.V().otro(ly_lin1).control(self.lb_analisis).control(self.grid_analysis).margen(3)
 
         self.setLayout(ly)
 
         self.reset_motor()
+
+    def check_show_analysis(self):
+        ok = self.chb_show_analysis.valor()
+        self.dbop.setconfig("SHOW_ANALYSIS", ok)
+        self.tabsAnalisis.panelOpening.check_show_analysis()
 
     def save_current(self):
         if self.current_mrm:
@@ -169,6 +177,7 @@ class TabEngine(QtWidgets.QWidget):
         self.show_start()
         if self.manager_motor:
             self.manager_motor.ac_final(0)
+        self.tabsAnalisis.refresh_lines()
 
     def reset_motor(self):
         self.save_current()

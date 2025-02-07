@@ -95,7 +95,7 @@ class WKibitzers(LCDialog.LCDialog):
         ly = Colocacion.V().control(tb).control(self.splitter)
         self.setLayout(ly)
 
-        self.restore_video(anchoDefecto=849, altoDefecto=400)
+        self.restore_video(default_width=849, default_height=400)
 
         self.grid_kibitzers.gotop()
 
@@ -475,7 +475,7 @@ class WKibitzerLive(LCDialog.LCDialog):
         ly = Colocacion.V().control(tb).control(self.grid_values)
         self.setLayout(ly)
 
-        self.restore_video(anchoDefecto=600, altoDefecto=400)
+        self.restore_video(default_width=600, default_height=400)
 
         self.grid_values.gotop()
 

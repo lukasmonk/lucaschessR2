@@ -196,7 +196,7 @@ class WEdicionSonido(LCDialog.LCDialog):
 
         self.ponBaseTB()
 
-        self.restore_video(siTam=False)
+        self.restore_video(with_tam=False)
 
     def name(self):  # Para los guiones
         return self.edNom.texto()

@@ -307,34 +307,30 @@ class RunEngine:
                 return False
         return True
 
-    def wait_mrm(self, seektxt, msStop):
+    def wait_mrm(self, seektxt, ms_stop):
         self.stopped = False
         ini_tiempo = time.time()
         stop = False
         while True:
             if self.hay_datos():
                 for line in self.get_lines():
-                    if (
-                            not self.stopped
-                    ):  # problema con información que llega tras stop, que no muestra lineas completas de pv en stockfish
-                        self.mrm.dispatch(line)
+                    self.mrm.dispatch(line)
                     if seektxt in line:
-                        if not self.dispatch():
-                            self.put_line("stop")
                         return True
 
-            queda = msStop - int((time.time() - ini_tiempo) * 1000)
+            time.sleep(0.01)
+            if not self.dispatch():
+                self.put_line("stop")
+                stop = True
+
+            queda = ms_stop - int((time.time() - ini_tiempo) * 1000)
             if queda <= 0:
                 if stop:
                     return True
                 self.put_line("stop")
-                msStop += 2000
+                time.sleep(0.1)
+                ms_stop += 2000
                 stop = True
-            if not self.hay_datos():
-                if not self.dispatch():
-                    self.put_line("stop")
-                    return False
-                time.sleep(0.01)
 
     def wait_list(self, txt, ms_stop):
         ini_tiempo = time.time()

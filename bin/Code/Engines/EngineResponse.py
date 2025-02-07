@@ -137,6 +137,17 @@ class EngineResponse:
 
         return puntos
 
+    def centipawns_abs_color(self):
+        if self.mate:
+            if self.mate < 0:
+                puntos = -30000 - (self.mate + 1) * 10
+            else:
+                puntos = +30000 - (self.mate - 1) * 10
+        else:
+            puntos = self.puntos
+
+        return puntos
+
     def score_abs5(self):
         if self.mate:
             if self.mate < 0:
@@ -640,12 +651,6 @@ class MultiEngineResponse:
             if not equal(l_d[pos], l_0):
                 return False
         return True
-
-    # def mejorRMQue(self, rm, difpts, difporc):
-    #     if self.li_rm:
-    #         return self.li_rm[0].is_better_than(rm, difpts, difporc)
-    #     else:
-    #         return False
 
     def search_rm(self, movimiento):
         movimiento = movimiento.lower()

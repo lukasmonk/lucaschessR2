@@ -247,7 +247,7 @@ class WExpedition(LCDialog.LCDialog):
         self.setLayout(ly)
 
         self.register_grid(grid)
-        self.restore_video(anchoDefecto=784, altoDefecto=670)
+        self.restore_video(default_width=784, default_height=670)
 
     def grid_num_datos(self, grid):
         return 12

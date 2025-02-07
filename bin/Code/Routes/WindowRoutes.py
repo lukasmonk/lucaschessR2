@@ -43,7 +43,7 @@ class WTranssiberian(LCDialog.LCDialog):
         else:
             self.init_working(route, lyTitle, lySVG)
 
-        self.restore_video(siTam=False)
+        self.restore_video(with_tam=False)
 
     def LINE(self, st_from, st_to, puntos, peso=50):
         return Controles.LB(_("From %s to %s") % (st_from, st_to)).align_center().set_font_type(puntos=puntos,

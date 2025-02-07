@@ -57,7 +57,7 @@ class WResistance(LCDialog.LCDialog):
         layout = Colocacion.V().control(tb).otro(lyB).margen(0)
         self.setLayout(layout)
 
-        self.restore_video(siTam=True, anchoDefecto=677, altoDefecto=562)
+        self.restore_video(with_tam=True, default_width=677, default_height=562)
 
         self.grid.gotop()
 

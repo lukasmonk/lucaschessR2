@@ -29,7 +29,7 @@ def read_engines(folder_engines):
     mas("alouette", "Roland Chastain", "0.1.7", "https://codeberg.org/rchastain/alouette", "alouette32.exe", 800)
 
     mas("acqua", "Giovanni Di Maria", "2.0", "http://www.elektrosoft.it/scacchi/acqua/acqua.asp", "acqua.exe", 844)
-    mas("foxcub", "Lucas Monge", "1.1", "", "FoxCub.exe", 800)
+    mas("foxcub", "Lucas Monge", "1.1", "", "FoxCub.exe", 1000)
     mas("fox", "Lucas Monge", "1.2", "", "Fox.exe", 1500)
 
     mas("tarrasch", "Bill Forster", "ToyEngine Beta V0.906", "http://www.triplehappy.com/",
@@ -310,7 +310,6 @@ def dict_engines_fixed_elo(folder_engines):
             ("hamsters", 1000, 2000),
             ("rybka", 1200, 2400),
             ("ufim", 700, 2000),
-            ("delfi", 1000, 2600),
             ("texel", 700, 2500),
             ("fox", 1000, 2700)
     ):

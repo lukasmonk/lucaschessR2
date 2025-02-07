@@ -133,7 +133,7 @@ class WPlayGameBase(LCDialog.LCDialog):
         self.setLayout(ly)
 
         self.register_grid(self.grid)
-        self.restore_video(siTam=False)
+        self.restore_video(with_tam=False)
 
         self.grid.gotop()
 

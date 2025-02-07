@@ -536,9 +536,9 @@ class Guion:
             self.board_flechaSC = None
 
         if self.winDirector:
-            if getattr(self, "board_mensajero", None) != self.winDirector.muevePieza:
+            if getattr(self, "board_mensajero", None) != self.winDirector.move_piece:
                 self.board_mensajero = self.board.mensajero
-                self.board.mensajero = self.winDirector.muevePieza
+                self.board.mensajero = self.winDirector.move_piece
 
         self.board_activasPiezas = self.board.pieces_are_active, self.board.side_pieces_active
 
@@ -824,11 +824,11 @@ class Guion:
                 return
 
     def mueve_pieza(self, xfrom, xto):
-        self.board.muevePieza(xfrom, xto)
+        self.board.move_piece(xfrom, xto)
         self.board.put_arrow_sc(xfrom, xto)
 
     def borra_pieza(self, xfrom):
-        self.board.borraPieza(xfrom)
+        self.board.remove_piece(xfrom)
 
     def crea_pieza(self, pieza, xfrom):
         self.board.creaPieza(pieza, xfrom)

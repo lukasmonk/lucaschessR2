@@ -82,7 +82,7 @@ class WConfEngines(LCDialog.LCDialog):
         self.setLayout(layout)
 
         dic_def = {"_SIZE_": "1209,540", "SP_conf": [719, 463]}
-        self.restore_video(siTam=True, dicDef=dic_def)
+        self.restore_video(with_tam=True, defaul_dic=dic_def)
         self.cambiada_tab(0)
 
     def cambiada_tab(self, num):

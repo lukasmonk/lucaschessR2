@@ -1711,7 +1711,7 @@ class Board(QtWidgets.QGraphicsView):
             return self.liPiezas[npieza][0]
         return None
 
-    def muevePiezaTemporal(self, from_a1h8, to_a1h8):
+    def move_pieceTemporal(self, from_a1h8, to_a1h8):
         npieza = self.buscaPieza(from_a1h8)
         if npieza >= 0:
             pieza_sc = self.liPiezas[npieza][1]
@@ -1721,17 +1721,17 @@ class Board(QtWidgets.QGraphicsView):
             y = self.fila2punto(row)
             pieza_sc.setPos(x, y)
 
-    def muevePieza(self, from_a1h8, to_a1h8):
+    def move_piece(self, from_a1h8, to_a1h8):
         npieza = self.buscaPieza(from_a1h8)
         if npieza >= 0:
-            self.borraPieza(to_a1h8)
+            self.remove_piece(to_a1h8)
             pieza_sc = self.liPiezas[npieza][1]
             self.colocaPieza(pieza_sc.bloquePieza, to_a1h8)
             pieza_sc.rehazPosicion()
             pieza_sc.update()
             self.escena.update()
 
-    # def muevePieza_timed(self, from_a1h8, to_a1h8, seconds):
+    # def move_piece_timed(self, from_a1h8, to_a1h8, seconds):
     #     npieza = self.buscaPieza(from_a1h8)
     #     if npieza >= 0:
     #         def a1h8_xy(a1h8):
@@ -1761,7 +1761,7 @@ class Board(QtWidgets.QGraphicsView):
             pieza_sc.update()
             self.escena.update()
 
-    def borraPieza(self, posA1H8):
+    def remove_piece(self, posA1H8):
         npieza = self.buscaPieza(posA1H8)
         if npieza >= 0:
             pieza_sc = self.liPiezas[npieza][1]
@@ -1782,8 +1782,8 @@ class Board(QtWidgets.QGraphicsView):
                     self.escena.update()
                     return
 
-    def cambiaPieza(self, posA1H8, nueva):
-        self.borraPieza(posA1H8)
+    def change_piece(self, posA1H8, nueva):
+        self.remove_piece(posA1H8)
         return self.creaPieza(nueva, posA1H8)
 
     def activate_side(self, is_white):

@@ -754,7 +754,7 @@ class WorkMap:
 
             elem = g.element(pos)
             alm.fen = elem.fen
-            alm.dicResults = elem.dicResults
+            alm.dicResults = elem.dic_results
             alm.donePV = ""
             alm.strGroup = g.name
 

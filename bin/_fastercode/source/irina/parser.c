@@ -9,6 +9,9 @@
 
 extern unsigned PZNAME[];
 
+
+char x[1000];
+
 char * limpia(char *c)
 {
     for(; *c; c++ )
@@ -68,7 +71,7 @@ int parse_pgn( char * pgn, char * resp )
         }
         if(strstr(label, "FEN") != NULL)
         {
-            strncpy(fen, value, 63);
+            strcpy(fen, value);
         }
         c = limpia(++c);
         if(*c == ']') {

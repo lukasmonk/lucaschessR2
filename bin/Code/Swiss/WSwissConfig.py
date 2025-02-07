@@ -178,7 +178,7 @@ class WSwissConfig(LCDialog.LCDialog):
         layout = Colocacion.V().control(self.tb).otro(layout_h).relleno().margen(3)
         self.setLayout(layout)
 
-        self.restore_video(siTam=True, anchoDefecto=1032)
+        self.restore_video(with_tam=True, default_width=1032)
 
         self.sort_list()
 

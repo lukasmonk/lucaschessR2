@@ -1,6 +1,8 @@
+from PySide2 import QtCore
+
 from Code import Manager
 from Code import Util
-from Code.Base import Move
+from Code.Base import Move, Game
 from Code.Base.Constantes import (
     GT_VARIATIONS,
     ST_ENDGAME,
@@ -14,7 +16,7 @@ from Code.Base.Constantes import (
     GO_START,
     ADJUST_BETTER,
 )
-from Code.QT import Iconos
+from Code.QT import Iconos, QTUtil, QTUtil2
 
 
 class ManagerVariations(Manager.Manager):
@@ -110,7 +112,12 @@ class ManagerVariations(Manager.Manager):
             self.configurar()
 
         elif key == TB_UTILITIES:
-            li_extra_options = [("books", _("Consult a book"), Iconos.Libros())]
+            sep = (None, None, None, None)
+            li_extra_options = [
+                ("books", _("Consult a book"), Iconos.Libros()),
+                sep,
+                ("pastepgn", _("Paste PGN"), Iconos.Pegar16(), "Ctrl+V"),
+            ]
 
             resp = self.utilities(li_extra_options)
             if resp == "books":
@@ -119,9 +126,31 @@ class ManagerVariations(Manager.Manager):
                     for x in range(len(li_movs) - 1, -1, -1):
                         from_sq, to_sq, promotion = li_movs[x]
                         self.player_has_moved(from_sq, to_sq, promotion)
+                elif resp == "pastepgn":
+                    self.paste_pgn()
+
 
         else:
             Manager.Manager.rutinaAccionDef(self, key)
+
+    def control_teclado(self, nkey, modifiers):
+        if modifiers and (modifiers & QtCore.Qt.ControlModifier) > 0:
+            if nkey == QtCore.Qt.Key_V:
+                self.paste_pgn()
+
+    def paste_pgn(self):
+        texto = QTUtil.get_txt_clipboard()
+        if texto:
+            ok, game = Game.pgn_game(texto)
+            if not ok:
+                QTUtil2.message_error(
+                    self.main_window, _("The text from the clipboard does not contain a chess game in PGN format")
+                )
+                return
+            if self.game.first_position != game.first_position:
+                return
+            self.game = game
+            self.reiniciar()
 
     def valor(self):
         if self.accepted:

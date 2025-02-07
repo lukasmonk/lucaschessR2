@@ -175,7 +175,7 @@ class WManualSave(LCDialog.LCDialog):
         self.inicializa()
 
     def inicializa(self):
-        self.restore_video(anchoDefecto=758, altoDefecto=596)
+        self.restore_video(default_width=758, default_height=596)
 
         dic_vars = self.configuration.read_variables("manual_save")
         if dic_vars:

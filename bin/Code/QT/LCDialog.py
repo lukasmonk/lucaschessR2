@@ -47,17 +47,17 @@ class LCDialog(QtWidgets.QDialog):
     def restore_dicvideo(self):
         return Code.configuration.restore_video(self.key_video)
 
-    def restore_video(self, siTam=True, siAncho=True, anchoDefecto=None, altoDefecto=None, dicDef=None, shrink=False):
+    def restore_video(self, with_tam=True, with_width=True, default_width=None, default_height=None, defaul_dic=None,
+                      shrink=False):
         dic = self.restore_dicvideo()
         if not dic:
-            dic = dicDef
+            dic = defaul_dic
 
-        if QtWidgets.QDesktopWidget().screenCount() > 1:
-            wE = hE = 1024 * 1024
-        else:
-            wE, hE = QTUtil.desktop_size()
+        screen_geometry = QTUtil.get_screen_geometry(self)
+        width_desktop = screen_geometry.width()
+        height_desktop = screen_geometry.height()
         if dic:
-            if siTam:
+            if with_tam:
                 if "_SIZE_" not in dic:
                     w, h = self.width(), self.height()
                     for k in dic:
@@ -67,15 +67,15 @@ class LCDialog(QtWidgets.QDialog):
                     w, h = dic["_SIZE_"].split(",")
                 w = int(w)
                 h = int(h)
-                if w > wE:
-                    w = wE
+                if w > width_desktop:
+                    w = width_desktop
                 elif w < 20:
                     w = 20
-                if h > (hE - 40):
-                    h = hE - 40
+                if h > (height_desktop - 40):
+                    h = height_desktop - 40
                 elif h < 20:
                     h = 20
-                if siAncho:
+                if with_width:
                     self.resize(w, h)
                 else:
                     self.resize(self.width(), h)
@@ -96,23 +96,27 @@ class LCDialog(QtWidgets.QDialog):
                 x, y = dic["_POSICION_"].split(",")
                 x = int(x)
                 y = int(y)
-                if not (0 <= x <= (wE - 50)):
-                    x = 0
-                if not (0 <= y <= (hE - 50)):
-                    y = 0
+                if x > width_desktop:
+                    max_x = sum(screen_geometry.width() for pos, screen_geometry in QTUtil.dic_monitores().items())
+                    if x > max_x - 50:
+                        x = (width_desktop - self.width()) // 2
+                # if not (0 <= x <= (width_desktop - 50)):
+                #     x = 0
+                # if not (0 <= y <= (height_desktop - 50)):
+                #     y = 0
                 self.move(x, y)
             return True
         else:
-            if anchoDefecto or altoDefecto:
-                if anchoDefecto is None:
-                    anchoDefecto = self.width()
-                if altoDefecto is None:
-                    altoDefecto = self.height()
-                if anchoDefecto > wE:
-                    anchoDefecto = wE
-                if altoDefecto > (hE - 40):
-                    altoDefecto = hE - 40
-                self.resize(anchoDefecto, altoDefecto)
+            if default_width or default_height:
+                if default_width is None:
+                    default_width = self.width()
+                if default_height is None:
+                    default_height = self.height()
+                if default_width > width_desktop:
+                    default_width = width_desktop
+                if default_height > (height_desktop - 40):
+                    default_height = height_desktop - 40
+                self.resize(default_width, default_height)
 
         return False
 

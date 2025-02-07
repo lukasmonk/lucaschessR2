@@ -295,7 +295,7 @@ class WShortcuts(LCDialog.LCDialog):
         layout = Colocacion.V().control(tb).control(self.grid).margen(3)
         self.setLayout(layout)
 
-        self.restore_video(siTam=True)
+        self.restore_video(with_tam=True)
 
         self.grid.gotop()
 

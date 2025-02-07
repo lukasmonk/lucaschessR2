@@ -107,7 +107,7 @@ def read_engines(folder_engines):
     mas("ethereal", "Andrew Grant, Alayan & Laldon", "12.75", "https://github.com/AndyGrant/Ethereal", "Ethereal-12.75",
         3392)
 
-    mas("foxcub", "Lucas Monge", "1.1", "", "FoxCub", 800)
+    mas("foxcub", "Lucas Monge", "1.1", "", "FoxCub", 1000)
 
     mas("fox", "Lucas Monge", "1.2", "", "Fox", 1500)
 

@@ -205,14 +205,14 @@ class WMemoria(LCDialog.LCDialog):
         if from_sq == to_sq:
             return
         if self.squares.get(to_sq):
-            self.board.borraPieza(to_sq)
+            self.board.remove_piece(to_sq)
         self.squares[to_sq] = self.squares.get(from_sq)
         self.squares[from_sq] = None
-        self.board.muevePieza(from_sq, to_sq)
+        self.board.move_piece(from_sq, to_sq)
 
     def clean_square(self, from_sq):
         self.squares[from_sq] = None
-        self.board.borraPieza(from_sq)
+        self.board.remove_piece(from_sq)
 
     def rightmouse_square(self, from_sq):
         menu = QtWidgets.QMenu(self)
@@ -498,7 +498,7 @@ class WMemoryResults(LCDialog.LCDialog):
 
         self.setLayout(layout)
 
-        self.restore_video(anchoDefecto=grid.anchoColumnas() + 24, altoDefecto=720)
+        self.restore_video(default_width=grid.anchoColumnas() + 24, default_height=720)
         grid.gotop()
         grid.setFocus()
 

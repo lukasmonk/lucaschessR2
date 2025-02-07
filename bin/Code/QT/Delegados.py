@@ -583,6 +583,191 @@ class EtiquetaPOS(QtWidgets.QStyledItemDelegate):
                 painter.drawLine(x0 + width - 2, y0, x0 + width - 2, y0 + height)
 
 
+class EtiquetaPOSN(QtWidgets.QStyledItemDelegate):
+    def __init__(self, with_figurines, siFondo=False, siLineas=True):
+        self.with_figurines = with_figurines
+        self.siAlineacion = False
+        self.siLineas = siLineas
+        self.siFondo = siFondo
+        QtWidgets.QStyledItemDelegate.__init__(self, None)
+
+    def rehazPosicion(self):
+        position = self.bloquePieza.position
+        self.setPos(position.x, position.y)
+
+    def paint(self, painter, option, index):
+        data = index.model().data(index, QtCore.Qt.DisplayRole)
+        if not data:
+            return
+        pgn, is_white, color, txt_analysis, indicador_inicial, li_nags, agrisar, si_shortcut = data
+        if li_nags:
+            li = []
+            st = set()
+            for x in li_nags:
+                x = str(x)
+                if x in st:
+                    continue
+                st.add(x)
+                if x.isdigit():
+                    symbol = dic_symbol_nags(int(x))
+                    if symbol:
+                        li.append(symbol)
+            li_nags = li
+
+        is_color_origen = color
+        if not color:
+            color = index.model().fore_color_name()
+
+        ini_pz = None
+        fin_pz = None
+        post_pz = None
+        salto_fin_pz = 0
+        if self.with_figurines and pgn:
+            if pgn[0] in "QBKRN":
+                ini_pz = pgn[0] if is_white else pgn[0].lower()
+                pgn = pgn[1:]
+            elif pgn[-1] in "QBRN":
+                fin_pz = pgn[-1] if is_white else pgn[-1].lower()
+                pgn = pgn[:-1]
+            elif len(pgn) > 2 and pgn[-2] in "QBRN":
+                fin_pz = pgn[-2] if is_white else pgn[-2].lower()
+                post_pz = pgn[-1]
+                pgn = pgn[:-2]
+                salto_fin_pz = -6
+
+        if li_nags:
+            if post_pz is None:
+                post_pz = ""
+            post_pz += " " + " ".join(li_nags)
+
+        rect = option.rect
+        width = rect.width()
+        height = rect.height()
+        x0 = rect.x()
+        y0 = rect.y()
+        if option.state & QtWidgets.QStyle.State_Selected:
+            painter.fillRect(rect, Code.dic_qcolors["PGN_SELBACKGROUND"])
+            color = Code.dic_colors["PGN_SELFOREGROUND"]
+        elif self.siFondo:
+            fondo = index.model().getFondo(index)
+            if fondo:
+                painter.fillRect(rect, fondo)
+
+        if agrisar:
+            painter.setOpacity(0.44)
+
+        if indicador_inicial:
+            painter.save()
+            painter.translate(x0, y0)
+            painter.drawPixmap(0, 0, dicPM[indicador_inicial])
+            painter.restore()
+
+        document_pgn = QtGui.QTextDocument()
+        document_pgn.setDefaultFont(option.font)
+        if color:
+            if is_color_origen:
+                pgn = '<font color="%s"><b>%s</b></font>' % (color, pgn)
+            else:
+                pgn = '<font color="%s">%s</font>' % (color, pgn)
+        document_pgn.setHtml(pgn)
+        w_pgn = document_pgn.idealWidth()
+        h_pgn = document_pgn.size().height()
+        hx = h_pgn * 80 / 100
+        wpz = int(hx * 0.8)
+
+        ancho = w_pgn
+        if ini_pz:
+            ancho += wpz
+        if fin_pz:
+            ancho += wpz
+
+        if txt_analysis is None:
+            x = x0 + (width - ancho) / 2
+        else:
+            x = x0 + 22
+        if self.siAlineacion:
+            alineacion = index.model().getAlineacion(index)
+            if alineacion == "i":
+                x = x0 + 3
+            elif alineacion == "d":
+                x = x0 + (width - ancho - 3)
+
+        y = y0 + (height - h_pgn * 0.9) / 2
+
+        if ini_pz:
+            painter.save()
+            painter.translate(x, y + 1)
+            pm = dicPZ[ini_pz]
+            pm_rect = QtCore.QRectF(0, 0, hx, hx)
+            pm.render(painter, pm_rect)
+            painter.restore()
+            x += wpz
+
+        painter.save()
+        painter.translate(x, y)
+        document_pgn.drawContents(painter)
+        painter.restore()
+        x += w_pgn
+
+        if fin_pz:
+            painter.save()
+            painter.translate(x - 0.3 * wpz, y + 1)
+            pm = dicPZ[fin_pz]
+            pm_rect = QtCore.QRectF(0, 0, hx, hx)
+            pm.render(painter, pm_rect)
+            painter.restore()
+            x += wpz + salto_fin_pz
+
+        if post_pz:
+            document_pgn = QtGui.QTextDocument()
+            document_pgn.setDefaultFont(option.font)
+            if color:
+                post_pz = '<font color="%s"><b>%s</b></font>' % (color, post_pz)
+            else:
+                post_pz = "<b>%s</b>" % post_pz
+            document_pgn.setHtml(post_pz)
+            w_pgn = document_pgn.idealWidth()
+            painter.save()
+            painter.translate(x, y)
+            document_pgn.drawContents(painter)
+            painter.restore()
+            x += w_pgn
+
+        if txt_analysis:
+            txt_analysis = txt_analysis.replace("(", "").replace(")", "")
+            document_analysis = QtGui.QTextDocument()
+            document_analysis.setDefaultFont(option.font)
+            if color:
+                txt_analysis = '<font color="%s"><small>%s</small></font>' % (color, txt_analysis)
+            document_analysis.setHtml(txt_analysis)
+            w_analysis = document_analysis.idealWidth()
+            painter.save()
+            painter.translate(x0 + (width - w_analysis), y)
+            document_analysis.drawContents(painter)
+            painter.restore()
+
+        if agrisar:
+            painter.setOpacity(1.0)
+
+        if self.siLineas:
+            if not is_white:
+                pen = QtGui.QPen()
+                pen.setWidth(1)
+                painter.setPen(pen)
+                painter.drawLine(x0, y0 + height - 1, x0 + width, y0 + height - 1)
+
+            if si_shortcut:
+                # painter.save()
+                pen = QtGui.QPen()
+                pen.setWidth(2)
+                pen.setColor(QtGui.QColor("#ff6961"))
+                painter.setPen(pen)
+                painter.drawLine(x0+1, y0+1, x0 + width - 1, y0+1)
+                painter.drawLine(x0 + width - 1, y0, x0 + width - 1, y0 + height - 1)
+                painter.drawLine(x0+1, y0+1, x0 + 1, y0 + height - 1)
+                painter.drawLine(x0 + 1, y0 +height - 1, x0 + width - 1, y0 + height - 1)
+
+
 class LinePGN(QtWidgets.QStyledItemDelegate):
     def __init__(self):
         QtWidgets.QStyledItemDelegate.__init__(self, None)

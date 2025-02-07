@@ -570,12 +570,13 @@ class LCMenu(Controles.Menu):
         bold = configuration.x_menu_bold
         Controles.Menu.__init__(self, parent, titulo=titulo, icono=icono, is_disabled=is_disabled, puntos=puntos,
                                 bold=bold)
-        first_option_widget = QtWidgets.QLabel("")
-        first_option_widget.setFixedHeight(1)
-        first_widget_action = QtWidgets.QWidgetAction(self)
-        first_widget_action.setDefaultWidget(first_option_widget)
-        first_widget_action.setDisabled(True)
-        self.addAction(first_widget_action)
+        if Code.is_windows:
+            first_option_widget = QtWidgets.QLabel("")
+            first_option_widget.setFixedHeight(1)
+            first_widget_action = QtWidgets.QWidgetAction(self)
+            first_widget_action.setDefaultWidget(first_option_widget)
+            first_widget_action.setDisabled(True)
+            self.addAction(first_widget_action)
 
     def opcion(self, key, label, icono=None, is_disabled=False, font_type=None, is_ckecked=None, tooltip: str = "",
                shortcut=""):

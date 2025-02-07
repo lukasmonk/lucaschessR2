@@ -299,6 +299,8 @@ class TabTree(QtWidgets.QWidget):
 
         menu.separador()
         menu.opcion("remove", _("Remove this branch"), Iconos.Delete())
+        menu.separador()
+        menu.opcion("analysis", _("Analysis"), Iconos.Analisis())
         resp = menu.lanza()
         if not resp:
             return
@@ -313,6 +315,9 @@ class TabTree(QtWidgets.QWidget):
             return
         if resp == "create":
             self.create_from_branch(item)
+            return
+        if resp == "analysis":
+            self.tabsAnalisis.panelOpening.grid_doble_click(None, None, None)
             return
 
         quien = si_expand = None

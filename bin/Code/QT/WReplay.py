@@ -202,7 +202,7 @@ class Replay:
                     dist = (dc ** 2 + df ** 2) ** 0.5
                     rp = self.rapidez if self.rapidez > 1.0 else 1.0
                     secs = 4.0 * dist / (9.9 * rp)
-                cpu.muevePieza(from_sq, to_sq, secs)
+                cpu.move_piece(from_sq, to_sq, secs)
         # return
         if secs is None:
             secs = 1.0
@@ -210,14 +210,14 @@ class Replay:
         # segundo los borrados
         for movim in li_movs:
             if movim[0] == "b":
-                cpu.borraPiezaSecs(movim[1], secs)
+                cpu.remove_piece_insecs(movim[1], secs)
 
         # tercero los cambios
         for movim in li_movs:
             if movim[0] == "c":
-                cpu.cambiaPieza(movim[1], movim[2], siExclusiva=True)
+                cpu.change_piece(movim[1], movim[2], is_exclusive=True)
 
-        cpu.runLineal()
+        cpu.run_lineal()
         wait_seconds = 0.0
         if self.if_custom_sounds:
             wait_seconds = Code.runSound.play_list_seconds(move.sounds_list())

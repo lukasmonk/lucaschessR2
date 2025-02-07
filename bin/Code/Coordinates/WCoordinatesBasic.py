@@ -43,7 +43,7 @@ class WCoordinatesBasic(LCDialog.LCDialog):
         self.setLayout(ly)
 
         self.register_grid(self.glista)
-        self.restore_video(anchoDefecto=self.glista.anchoColumnas() + 30, altoDefecto=340)
+        self.restore_video(default_width=self.glista.anchoColumnas() + 30, default_height=340)
 
         self.glista.gotop()
 

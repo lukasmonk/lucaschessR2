@@ -58,7 +58,7 @@ class WCountsCaptures(LCDialog.LCDialog):
         self.setLayout(ly)
 
         self.register_grid(self.glista)
-        self.restore_video(anchoDefecto=self.glista.anchoColumnas() + 32, altoDefecto=360)
+        self.restore_video(default_width=self.glista.anchoColumnas() + 32, default_height=360)
         self.glista.gotop()
 
     def grid_doble_click(self, grid, row, o_column):

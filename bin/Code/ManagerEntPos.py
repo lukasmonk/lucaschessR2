@@ -165,6 +165,7 @@ class ManagerEntPos(Manager.Manager):
             self.xrival = self.procesador.creaManagerMotor(
                 conf_engine, self.configuration.x_tutor_mstime, self.configuration.x_tutor_depth
             )
+            self.xrival.set_gui_dispatch(self.rival_dispatch)
 
         player = self.configuration.nom_player()
         other = self.xrival.name
@@ -416,10 +417,14 @@ class ManagerEntPos(Manager.Manager):
             add_key("+/%s" % _("Page Down"), _("Next"))
 
     def end_game(self):
+        self.state = ST_ENDGAME
         self.board.show_coordinates(True)
         self.procesador.start()
 
-    def final_x(self):
+    def rival_dispatch(self, rm):
+        return self.state == ST_PLAYING
+
+    def final_x0(self):
         self.end_game()
         return False
 
@@ -496,7 +501,7 @@ class ManagerEntPos(Manager.Manager):
             self.thinking(True)
             self.rm_rival = self.xrival.play_game(self.game)
             self.thinking(False)
-            if self.rm_rival is None:
+            if self.rm_rival is None or self.state == ST_ENDGAME:
                 return
             from_sq, to_sq, promotion = (self.rm_rival.from_sq, self.rm_rival.to_sq, self.rm_rival.promotion)
 

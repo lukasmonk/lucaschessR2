@@ -570,7 +570,7 @@ class WBoardColors(LCDialog.LCDialog):
 
         self.siActualizando = False
 
-        self.restore_video(siTam=False)
+        self.restore_video(with_tam=False)
 
         self.show()  # necesario para que se vean bien la primera vez
         self.theme_changed()
@@ -1439,7 +1439,7 @@ class WBrowseThemes(LCDialog.LCDialog):
 
         self.register_grid(self.grid)
 
-        self.restore_video(altoDefecto=560)
+        self.restore_video(default_height=560)
         self.grid.setFocus()
         self.grid.gotop()
         self.changed = False

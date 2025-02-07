@@ -20,9 +20,12 @@ class Variable:
 
 
 class Tarea:
+    def __init__(self):
+        self.is_exclusive = False
+        
     def enlaza(self, cpu):
         self.cpu = cpu
-        self.id = cpu.nuevaID()
+        self.id = cpu.new_id()
         self.padre = 0
 
 
@@ -74,14 +77,14 @@ class TareaCambiaPieza(Tarea):
         self.pieza = pieza
 
     def unPaso(self):
-        self.cpu.board.cambiaPieza(self.a1h8, self.pieza)
+        self.cpu.board.change_piece(self.a1h8, self.pieza)
         return True
 
     def __str__(self):
         return _X(_("Change piece in %1 to %2"), self.a1h8, self.pieza)
 
     def directo(self, board):
-        return board.cambiaPieza(self.a1h8, self.pieza)
+        return board.change_piece(self.a1h8, self.pieza)
 
 
 class TareaBorraPieza(Tarea):
@@ -93,14 +96,14 @@ class TareaBorraPieza(Tarea):
         if self.tipo:
             self.cpu.board.borraPiezaTipo(self.a1h8, self.tipo)
         else:
-            self.cpu.board.borraPieza(self.a1h8)
+            self.cpu.board.remove_piece(self.a1h8)
         return True
 
     def __str__(self):
         return _X(_("Remove piece on %1"), self.a1h8)
 
     def directo(self, board):
-        board.borraPieza(self.a1h8)
+        board.remove_piece(self.a1h8)
 
 
 class TareaBorraPiezaSecs(Tarea):
@@ -123,7 +126,7 @@ class TareaBorraPiezaSecs(Tarea):
             if self.tipo:
                 self.cpu.board.borraPiezaTipo(self.a1h8, self.tipo)
             else:
-                self.cpu.board.borraPieza(self.a1h8)
+                self.cpu.board.remove_piece(self.a1h8)
 
         self.pasoActual += 1
         return self.pasoActual >= self.totalPasos  # si es ultimo
@@ -132,10 +135,10 @@ class TareaBorraPiezaSecs(Tarea):
         return _X(_("Remove piece on %1"), self.a1h8)
 
     def directo(self, board):
-        board.borraPieza(self.a1h8)
+        board.remove_piece(self.a1h8)
 
 
-class TareaMuevePieza(Tarea):
+class Tareamove_piece(Tarea):
     def __init__(self, from_a1h8, to_a1h8, seconds=0.0):
         self.pieza = None
         self.from_a1h8 = from_a1h8
@@ -194,7 +197,7 @@ class TareaMuevePieza(Tarea):
         return _X(_("Move piece from %1 to %2 on %3 second (s)"), self.from_a1h8, self.to_a1h8, "%0.2f" % self.seconds)
 
     def directo(self, board):
-        board.muevePieza(self.from_a1h8, self.to_a1h8)
+        board.move_piece(self.from_a1h8, self.to_a1h8)
 
 
 class TareaCreaFlecha(Tarea):

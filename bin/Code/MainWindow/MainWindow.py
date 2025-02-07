@@ -25,6 +25,8 @@ class MainWindow(LCDialog.LCDialog):
         LCDialog.LCDialog.__init__(self, owner, titulo, icono, extparam)
 
         self.owner = owner
+        if owner is None:
+            Code.main_window = self
 
         self.base = WBase.WBase(self, manager)
 
@@ -445,15 +447,6 @@ class MainWindow(LCDialog.LCDialog):
 
     def pressed_shortcut_alt_o(self):
         self.move(QtCore.QPoint(0,0))
-
-    # def soloEdicionPGN(self, file):
-    #     if file:
-    #         titulo = file
-    #     else:
-    #         titulo = "<<< %s >>>" % _("Temporary file")
-    # 
-    #     self.setWindowTitle(titulo)
-    #     self.setWindowIcon(Iconos.PGN())
 
     def cursor_out_board(self):
         p = self.mapToParent(self.board.pos())

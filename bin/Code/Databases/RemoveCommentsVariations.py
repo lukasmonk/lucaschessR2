@@ -69,7 +69,7 @@ class WRemoveCommentsVariations(LCDialog.LCDialog):
         layout.relleno()
         self.setLayout(layout)
 
-        self.restore_video(anchoDefecto=460)
+        self.restore_video(default_width=460)
         self.changes_done()
 
     def changes_done(self):

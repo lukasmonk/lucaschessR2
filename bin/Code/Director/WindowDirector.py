@@ -537,10 +537,10 @@ class WPanelDirector(LCDialog.LCDialog):
             if isinstance(tarea, TabVisual.GT_PiezaMueve):
                 from_sq, to_sq, borra = tarea.desdeHastaBorra()
                 if siMarcado:
-                    board.muevePieza(from_sq, to_sq)
+                    board.move_piece(from_sq, to_sq)
                     board.put_arrow_sc(from_sq, to_sq)
                 else:
-                    board.muevePieza(to_sq, from_sq)
+                    board.move_piece(to_sq, from_sq)
                     if borra:
                         board.creaPieza(borra, to_sq)
                     if board.arrow_sc:
@@ -550,18 +550,18 @@ class WPanelDirector(LCDialog.LCDialog):
             elif isinstance(tarea, TabVisual.GT_PiezaCrea):
                 from_sq, pz_borrada = tarea.from_sq()
                 if siMarcado:
-                    board.cambiaPieza(from_sq, tarea.pieza())
+                    board.change_piece(from_sq, tarea.pieza())
                 else:
-                    board.borraPieza(from_sq)
+                    board.remove_piece(from_sq)
                     if pz_borrada:
                         board.creaPieza(pz_borrada, from_sq)
                 board.enable_all()
 
             elif isinstance(tarea, TabVisual.GT_PiezaBorra):
                 if siMarcado:
-                    board.borraPieza(tarea.from_sq())
+                    board.remove_piece(tarea.from_sq())
                 else:
-                    board.cambiaPieza(tarea.from_sq(), tarea.pieza())
+                    board.change_piece(tarea.from_sq(), tarea.pieza())
                 board.enable_all()
 
             elif isinstance(tarea, TabVisual.GT_Texto):
@@ -845,9 +845,9 @@ class WPanelDirector(LCDialog.LCDialog):
                 pass
         self.refresh_guion()
 
-    def muevePieza(self, from_sq, to_sq):
+    def move_piece(self, from_sq, to_sq):
         self.creaTarea("P", None, from_sq + to_sq, -1)
-        self.board.muevePieza(from_sq, to_sq)
+        self.board.move_piece(from_sq, to_sq)
 
     def boardPress(self, event, origin, siRight, is_shift, is_alt, is_ctrl):
         if origin:
@@ -958,9 +958,9 @@ class Director:
         self.w.test_siGrabar()
         self.w.terminar()
 
-    def muevePieza(self, from_sq, to_sq, promotion=""):
+    def move_piece(self, from_sq, to_sq, promotion=""):
         self.w.creaTarea("P", None, from_sq + to_sq, -1)
-        self.board.muevePieza(from_sq, to_sq)
+        self.board.move_piece(from_sq, to_sq)
         return True
 
     def setChange(self, ok):

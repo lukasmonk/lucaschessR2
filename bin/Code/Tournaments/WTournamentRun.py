@@ -160,6 +160,8 @@ class WTournamentRun(QtWidgets.QWidget):
         self.key = "RUN_TOURNAMENTS"
         dic = Code.configuration.read_variables(self.key)
         activated = dic.get("ANALYSIS_BAR", Code.configuration.x_analyzer_activate_ab)
+        if activated is None:
+            activated = False
         self.analysis_bar.activate(activated)
 
         ct = self.board.config_board
@@ -664,20 +666,7 @@ class WTournamentRun(QtWidgets.QWidget):
         if move.analysis:
             mrm, pos = move.analysis
             rm = mrm.li_rm[pos]
-            mate = rm.mate
-            si_w = move.position_before.is_white
-            if mate:
-                if mate == 1:
-                    info = ""
-                else:
-                    if not si_w:
-                        mate = -mate
-                    info = "M%+d" % mate
-            else:
-                pts = rm.puntos
-                if not si_w:
-                    pts = -pts
-                info = "%+0.2f" % float(pts / 100.0)
+            info = rm.abbrev_text_base()
 
             nag, color_nag = mrm.set_nag_color(rm)
             st_nags.add(nag)
@@ -715,28 +704,25 @@ class WTournamentRun(QtWidgets.QWidget):
             return True
 
         num_moves = len(self.game)
-        if num_moves == 0:
+        if num_moves < 2:
             return False
 
         if self.state != ST_PLAYING or self.is_closed or self.game_finished() or self.game.is_finished():
+            self.game.set_result()
             return True
-
-        if num_moves < 2:
-            return False
 
         self.next_control -= 1
         if self.next_control > 0:
             return False
-        # if not self.xadjudicator:
-        #     return False
+
         self.next_control = 10
 
-        last_jg = self.game.li_moves[-1]
+        last_jg = self.game.last_jg()
         if not last_jg.analysis:
             return False
         mrm, pos = last_jg.analysis
         rm_ult = mrm.li_rm[pos]
-        jg_ant = self.game.li_moves[-2]
+        jg_ant = self.game.move(-2)
         if not jg_ant.analysis:
             return False
         mrm, pos = jg_ant.analysis
@@ -744,7 +730,7 @@ class WTournamentRun(QtWidgets.QWidget):
 
         # Draw
         p_ult = rm_ult.centipawns_abs()
-        p_ant = rm_ant.centipawns_abs()
+        p_ant = -rm_ant.centipawns_abs()
         dr = self.torneo.draw_range()
         dmp = self.torneo.draw_min_ply()
         if dmp and dr > 0 and num_moves >= dmp:
@@ -779,11 +765,11 @@ class WTournamentRun(QtWidgets.QWidget):
             else:
                 if rs <= abs(p_ant):
                     if (p_ant > 0 and p_ult > 0) or (p_ant < 0 and p_ult < 0):
-                        is_white = rm_ult.is_white
                         if p_ult > 0:
-                            result = RESULT_WIN_WHITE if is_white else RESULT_WIN_BLACK
+                            win = WHITE if rm_ult.is_white else BLACK
                         else:
-                            result = RESULT_WIN_BLACK if is_white else RESULT_WIN_WHITE
+                            win = BLACK if rm_ult.is_white else WHITE
+                        result = RESULT_WIN_WHITE if win == WHITE else RESULT_WIN_BLACK
                         self.game.set_termination(TERMINATION_ADJUDICATION, result)
                         return True
 
@@ -807,7 +793,7 @@ class WTournamentRun(QtWidgets.QWidget):
                         # Maxima distancia = 9.9 ( 9,89... sqrt(7**2+7**2)) = 4 seconds
                         dist = (dc ** 2 + df ** 2) ** 0.5
                         seconds = 4.0 * dist / (9.9 * rapidez)
-                    cpu.muevePieza(movim[1], movim[2], siExclusiva=False, seconds=seconds)
+                    cpu.move_piece(movim[1], movim[2], is_exclusive=False, seconds=seconds)
 
             if seconds is None:
                 seconds = 1.0
@@ -816,23 +802,23 @@ class WTournamentRun(QtWidgets.QWidget):
             for movim in li_movs:
                 if movim[0] == "b":
                     n = cpu.duerme(seconds * 0.80 / rapidez)
-                    cpu.borraPieza(movim[1], padre=n)
+                    cpu.remove_piece(movim[1], padre=n)
 
             # tercero los cambios
             for movim in li_movs:
                 if movim[0] == "c":
-                    cpu.cambiaPieza(movim[1], movim[2], siExclusiva=True)
+                    cpu.change_piece(movim[1], movim[2], is_exclusive=True)
 
-            cpu.runLineal()
+            cpu.run_lineal()
 
         else:
             for movim in li_movs:
                 if movim[0] == "b":
-                    self.board.borraPieza(movim[1])
+                    self.board.remove_piece(movim[1])
                 elif movim[0] == "m":
-                    self.board.muevePieza(movim[1], movim[2])
+                    self.board.move_piece(movim[1], movim[2])
                 elif movim[0] == "c":
-                    self.board.cambiaPieza(movim[1], movim[2])
+                    self.board.change_piece(movim[1], movim[2])
 
     def changeEvent(self, event):
         QtWidgets.QWidget.changeEvent(self, event)

@@ -97,7 +97,7 @@ class WOpenings(LCDialog.LCDialog):
         self.actualizaPosicion()
 
         dic = {"_SIZE_": "916,444", "SP_splitter": [356, 548]}
-        self.restore_video(dicDef=dic)
+        self.restore_video(defaul_dic=dic)
 
     def player_has_moved(self, from_sq, to_sq, promotion=""):
         self.board.disable_all()
@@ -319,7 +319,7 @@ class OpeningsPersonales(LCDialog.LCDialog):
         layout = Colocacion.V().control(tb).control(self.grid).margen(8)
         self.setLayout(layout)
 
-        self.restore_video(siTam=True)
+        self.restore_video(with_tam=True)
 
         self.dicPGNSP = {}
 
@@ -335,8 +335,6 @@ class OpeningsPersonales(LCDialog.LCDialog):
     def grid_dato(self, grid, row, o_column):
         key = o_column.key
         reg = self.lista[row]
-        # if key == "ESTANDAR":
-        #     return _("Yes") if reg["ESTANDAR"] else _("No")
         if key == "PGN":
             pgn = reg["PGN"]
             if pgn not in self.dicPGNSP:
@@ -362,7 +360,6 @@ class OpeningsPersonales(LCDialog.LCDialog):
         self.grabar()
 
     def edit(self, row):
-
         is_basic = True
         if row is None:
             name = ""
@@ -386,7 +383,6 @@ class OpeningsPersonales(LCDialog.LCDialog):
         li_gen.append((_("Name") + ":", name))
         config = FormLayout.Editbox("ECO", ancho=30, rx="[A-Z, a-z][0-9][0-9]")
         li_gen.append((config, eco))
-        # li_gen.append((_("Main") + ":", is_basic))
 
         # Editamos
         resultado = FormLayout.fedit(li_gen, title=titulo, parent=self, anchoMinimo=460, icon=Iconos.Opening())
@@ -398,7 +394,6 @@ class OpeningsPersonales(LCDialog.LCDialog):
         if not name:
             return
         eco = li_resp[1].upper()
-        # is_basic = li_resp[2]
 
         self.procesador.procesador = self.procesador  # ya que edit_variation espera un manager
 

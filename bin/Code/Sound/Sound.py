@@ -1,4 +1,3 @@
-import audioop
 import os
 import time
 import wave
@@ -12,6 +11,7 @@ from Code import Util
 from Code.QT import QTUtil
 from Code.SQL import UtilSQL
 from Code.Translations import TrListas
+import audioop
 
 DATABASE = "D"
 PLAY_ESPERA = "P"
@@ -243,7 +243,9 @@ class TallerSonido:
     def mic_end(self):
         self.audio_input.stop()
 
-        resp = b"".join(self.datos)
+        # resp = b"".join(self.datos)
+        # Util.save_pickle("hh", resp)
+        resp = Util.restore_pickle("hh")
         tx = audioop.lin2alaw(resp, 2)
         frames = audioop.alaw2lin(tx, 2)
         io = BytesIO()

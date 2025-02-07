@@ -260,7 +260,7 @@ class WProgress(LCDialog.LCDialog):
         self._is_canceled = False
         self._is_closed = False
 
-        self.restore_video(anchoDefecto=400, altoDefecto=40)
+        self.restore_video(default_width=400, default_height=40)
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.xreceive)
         self.timer.start(200)

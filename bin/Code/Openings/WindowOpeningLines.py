@@ -92,7 +92,7 @@ class WOpeningLines(LCDialog.LCDialog):
         self.setLayout(ly)
 
         self.register_grid(self.glista)
-        self.restore_video(anchoDefecto=self.glista.anchoColumnas() + 20, altoDefecto=640)
+        self.restore_video(default_width=self.glista.anchoColumnas() + 20, default_height=640)
 
         self.wtrain.setVisible(False)
         self.glista.gotop()
@@ -449,7 +449,7 @@ class WStaticTraining(LCDialog.LCDialog):
         self.setLayout(ly)
 
         alto = self.num_filas * ancho + 146
-        self.restore_video(siTam=True, altoDefecto=alto, anchoDefecto=nAnchoPgn)
+        self.restore_video(with_tam=True, default_height=alto, default_width=nAnchoPgn)
 
     def terminar(self):
 

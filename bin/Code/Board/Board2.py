@@ -160,6 +160,6 @@ class BoardEstaticoMensaje(BoardEstatico):
 
     def remove_pieces(self, st):
         for a1h8 in st:
-            self.borraPieza(a1h8)
+            self.remove_piece(a1h8)
 
 

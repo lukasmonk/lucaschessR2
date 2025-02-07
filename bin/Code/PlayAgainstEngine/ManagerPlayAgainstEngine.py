@@ -1103,7 +1103,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         if book_select == SELECTED_BY_PLAYER:
             lista_jugadas = book.get_list_moves(fen)
             if lista_jugadas:
-                resp = WBooks.select_move_books(self.main_window, lista_jugadas, self.game.last_position.is_white, True)
+                resp = WBooks.select_move_books(self.main_window, lista_jugadas, self.game.last_position.is_white)
                 return True, resp[0], resp[1], resp[2]
         else:
             pv = book.eligeJugadaTipo(fen, book_select)

@@ -472,16 +472,15 @@ FILESW=%s:100
                         continue
 
                 allow_add_variations = True
-                if self.delete_previous:
-                    move.analysis = None
-
-                # si no se borran los análisis previos y existe un análisis no se tocan las variantes
-                elif move.analysis:
-                    if self.with_variations and move.variations:
-                        allow_add_variations = False
+                analyze = True if self.delete_previous else move.analysis is None
+                if not self.delete_previous:
+                    # si no se borran los análisis previos y existe un análisis no se tocan las variantes
+                    if move.analysis:
+                        if self.with_variations and move.variations:
+                            allow_add_variations = False
 
                 # -# Procesamos
-                if move.analysis is None:
+                if analyze:
                     resp = self.xmanager.analyzes_move_game(
                         game_move,
                         pos_current_move,

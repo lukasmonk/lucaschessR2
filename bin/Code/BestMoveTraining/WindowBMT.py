@@ -64,7 +64,7 @@ class WHistorialBMT(LCDialog.LCDialog):
 
         self.setLayout(ly)
 
-        self.restore_video(siTam=True)
+        self.restore_video(with_tam=True)
 
     def terminar(self):
         self.save_video()
@@ -177,7 +177,7 @@ class WBMT(LCDialog.LCDialog):
         layout = Colocacion.V().control(tb).control(tab).margen(8)
         self.setLayout(layout)
 
-        self.restore_video(siTam=True, anchoDefecto=760, altoDefecto=500)
+        self.restore_video(with_tam=True, default_width=760, default_height=500)
 
         self.grid.gotop()
         self.gridT.gotop()

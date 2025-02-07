@@ -61,7 +61,7 @@ class WTournaments(LCDialog.LCDialog):
         layout = Colocacion.V().control(tb).control(self.grid).margen(8)
         self.setLayout(layout)
 
-        self.restore_video(siTam=True, anchoDefecto=400, altoDefecto=500)
+        self.restore_video(with_tam=True, default_width=400, default_height=500)
 
         self.grid.gotop()
 

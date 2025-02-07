@@ -3254,3 +3254,9 @@ def pmClose():
 
 def Close():
     return iget("Close")
+
+def pmAddAnalysis():
+    return iget("pmAddAnalysis")
+
+def AddAnalysis():
+    return iget("AddAnalysis")

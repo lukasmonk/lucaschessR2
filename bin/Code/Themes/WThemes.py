@@ -55,7 +55,7 @@ class WThemes(LCDialog.LCDialog):
         layout = Colocacion.V().control(tb).control(self.grid).control(lb_right_click).margen(3)
         self.setLayout(layout)
 
-        self.restore_video(anchoDefecto=self.grid.anchoColumnas() + 48)
+        self.restore_video(default_width=self.grid.anchoColumnas() + 48)
 
     def clear_themes(self):
         self.st_current_themes.clear()

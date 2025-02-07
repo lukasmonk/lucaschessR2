@@ -23,7 +23,7 @@ from Code.QT import QTVarios
 
 class WRun(LCDialog.LCDialog):
     def __init__(self, w_parent, sts, work, procesador, with_board):
-        titulo = "%s - %s - %s" % (sts.name, work.ref, work.pathToExe())
+        titulo = "%s - %s - %s" % (sts.name, work.ref, work.path_to_exe())
         icono = Iconos.STS()
         extparam = "runsts"
         if with_board:
@@ -33,7 +33,7 @@ class WRun(LCDialog.LCDialog):
         self.work = work
         self.sts = sts
         self.ngroup = -1
-        self.xengine = procesador.creaManagerMotor(work.configEngine(), work.seconds * 1000, work.depth)
+        self.xengine = procesador.creaManagerMotor(work.config_engine(), work.seconds * 1000, work.depth)
         if not with_board:
             self.xengine.set_direct()
         self.playing = False
@@ -65,7 +65,7 @@ class WRun(LCDialog.LCDialog):
         self.dworks = self.read_works()
         self.calc_max()
         for x in range(len(self.sts.works) - 1, -1, -1):
-            work = self.sts.works.getWork(x)
+            work = self.sts.works.get_work(x)
             if work != self.work:
                 key = "OTHER%d" % x
                 reg = self.dworks[key]
@@ -86,9 +86,9 @@ class WRun(LCDialog.LCDialog):
 
         self.setLayout(ly)
 
-        self.restore_video(siTam=True, anchoDefecto=800, altoDefecto=430)
+        self.restore_video(with_tam=True, default_width=800, default_height=430)
 
-        resp = self.sts.siguientePosicion(self.work)
+        resp = self.sts.siguiente_posicion(self.work)
         if resp:
             self.tb.set_action_visible(self.pause, False)
             self.tb.set_action_visible(self.run, True)
@@ -122,14 +122,14 @@ class WRun(LCDialog.LCDialog):
         self.sts.save()
 
     def siguiente(self):
-        resp = self.sts.siguientePosicion(self.work)
+        resp = self.sts.siguiente_posicion(self.work)
         if resp:
             ngroup, self.nfen, self.elem = resp
             if ngroup != self.ngroup:
                 self.calc_max()
                 self.grid.refresh()
                 self.ngroup = ngroup
-            xpt, xa1h8 = self.elem.bestA1H8()
+            xpt, xa1h8 = self.elem.best_a1_h8()
             if self.with_board:
                 cp = Position.Position()
                 cp.read_fen(self.elem.fen)
@@ -150,7 +150,7 @@ class WRun(LCDialog.LCDialog):
                     if mov:
                         if self.with_board:
                             self.board.creaFlechaTmp(rm.from_sq, rm.to_sq, False)
-                        self.sts.setResult(self.work, self.ngroup, self.nfen, mov, t1)
+                        self.sts.set_result(self.work, self.ngroup, self.nfen, mov, t1)
                         self.grid.refresh()
             else:
                 self.pause()
@@ -186,9 +186,9 @@ class WRun(LCDialog.LCDialog):
         if column == "GROUP":
             return group.name
         elif column == "DONE":
-            return self.sts.donePositions(self.work, row)
+            return self.sts.done_positions(self.work, row)
         elif column == "WORK":
-            return self.sts.donePoints(self.work, row)
+            return self.sts.done_points(self.work, row)
         elif column.startswith("OTHER"):
             return self.dworks[column].labels[row].label
 
@@ -200,8 +200,8 @@ class WRun(LCDialog.LCDialog):
         r.labels = []
         for ng in range(len(self.sts.groups)):
             rl = Util.Record()
-            rl.points = self.sts.xdonePoints(work, ng)
-            rl.label = self.sts.donePoints(work, ng)
+            rl.points = self.sts.xdone_points(work, ng)
+            rl.label = self.sts.done_points(work, ng)
             rl.is_max = False
             r.labels.append(rl)
         return r
@@ -210,7 +210,7 @@ class WRun(LCDialog.LCDialog):
         d = {}
         nworks = len(self.sts.works)
         for xw in range(nworks):
-            work = self.sts.works.getWork(xw)
+            work = self.sts.works.get_work(xw)
             key = "OTHER%d" % xw if work != self.work else "WORK"
             d[key] = self.read_work(work)
         return d
@@ -239,7 +239,7 @@ class WWork(QtWidgets.QDialog):
 
         self.work = work
 
-        self.setWindowTitle(work.pathToExe())
+        self.setWindowTitle(work.path_to_exe())
         self.setWindowIcon(Iconos.Engine())
         self.setWindowFlags(
             QtCore.Qt.WindowCloseButtonHint
@@ -368,32 +368,19 @@ class WUnSTS(LCDialog.LCDialog):
         self.procesador = procesador
 
         # Toolbar
-        li_acciones = [
-            (_("Close"), Iconos.MainMenu(), self.terminar),
-            None,
-            (_("Run"), Iconos.Run(), self.wkRun),
-            None,
-            ("+%s" % _("Board"), Iconos.Run2(), self.wkRun2),
-            None,
-            (_("New"), Iconos.NuevoMas(), self.wkNew),
-            None,
-            (_("Import"), Iconos.Import8(), self.wkImport),
-            None,
-            (_("Edit"), Iconos.Modificar(), self.wkEdit),
-            None,
-            (_("Copy"), Iconos.Copiar(), self.wkCopy),
-            None,
-            (_("Remove"), Iconos.Borrar(), self.wkRemove),
-            None,
-            (_("Up"), Iconos.Arriba(), self.up),
-            (_("Down"), Iconos.Abajo(), self.down),
-            None,
-            (_("Export"), Iconos.Grabar(), self.export),
-            None,
-            (_("Config"), Iconos.Configurar(), self.configurar),
-            None,
-        ]
-        tb = Controles.TBrutina(self, li_acciones, icon_size=24)
+        tb = Controles.TBrutina(self, icon_size=24)
+        tb.new(_("Close"), Iconos.MainMenu(), self.terminar)
+        tb.new(_("Run"), Iconos.Run(), self.wkRun, sep=False)
+        tb.new("+%s" % _("Board"), Iconos.Run2(), self.wkRun2)
+        tb.new(_("New"), Iconos.NuevoMas(), self.wkNew)
+        tb.new(_("Import"), Iconos.Import8(), self.wkImport)
+        tb.new(_("Edit"), Iconos.Modificar(), self.wkEdit)
+        tb.new(_("Copy"), Iconos.Copiar(), self.wkCopy)
+        tb.new(_("Remove"), Iconos.Borrar(), self.wkRemove)
+        tb.new(_("Up"), Iconos.Arriba(), self.up, sep=False)
+        tb.new(_("Down"), Iconos.Abajo(), self.down)
+        tb.new(_("Export"), Iconos.Grabar(), self.export)
+        tb.new(_("Config"), Iconos.Configurar(), self.configurar)
 
         # # Grid works
         o_columns = Columnas.ListaColumnas()
@@ -415,15 +402,17 @@ class WUnSTS(LCDialog.LCDialog):
         layout = Colocacion.V().control(tb).control(self.grid).margen(8)
         self.setLayout(layout)
 
-        self.restore_video(siTam=True, anchoDefecto=800, altoDefecto=430)
+        self.restore_video(with_tam=True, default_width=800, default_height=430)
 
         self.grid.gotop()
 
     def terminar(self):
+        self.procesador.close_engines()
         self.save_video()
         self.accept()
 
     def closeEvent(self, event):
+        self.procesador.close_engines()
         self.save_video()
 
     def configurar(self):
@@ -431,33 +420,31 @@ class WUnSTS(LCDialog.LCDialog):
         menu.opcion("formula", _("Formula to calculate elo"), Iconos.STS())
         resp = menu.lanza()
         if resp:
-            x = self.sts.X
-            k = self.sts.K
-            while True:
-                form = FormLayout.FormLayout(self, _("Formula to calculate elo"), Iconos.Elo(), with_default=True)
-                form.separador()
-                form.apart(f'X * {_("Result")} + K')
-                form.separador()
-                form.editbox("X", 100, tipo=float, decimales=4, init_value=x, negatives=True)
-                form.editbox("K", 100, tipo=float, decimales=4, init_value=k, negatives=True)
-                resultado = form.run()
-                if resultado:
-                    resp, valor = resultado
-                    if resp == "defecto":
-                        x = self.sts.Xdefault
-                        k = self.sts.Kdefault
-                    else:
-                        x, k = valor
-                        self.sts.formulaChange(x, k)
-                        self.grid.refresh()
-                        return
-                else:
-                    return
+            formula = self.sts.formula
+            formula_general = STS.Formula()
+
+            form = FormLayout.FormLayout(self, _("Formula to calculate elo"), Iconos.Elo(), with_default=False)
+            form.apart_np(f'{_("Elo")} = X * {_("Result")} + K')
+            form.separador()
+            form.checkbox(f'<center><b>{_("By default")}</b></center>' + f'X={formula_general.x_default:.04f} K={formula_general.k_default:.04f}', False)
+            form.separador()
+            form.editbox("X", 100, tipo=float, decimales=4, init_value=formula.x, negatives=True)
+            form.editbox("K", 100, tipo=float, decimales=4, init_value=formula.k, negatives=True)
+            resultado = form.run()
+            if resultado:
+                resp, valor = resultado
+                by_default, x, k = valor
+                if by_default:
+                    x = formula_general.x_default
+                    k = formula_general.k_default
+                formula.change(x, k)
+                self.sts.save()
+                self.grid.refresh()
 
     def export(self):
         resp = SelectFiles.salvaFichero(self, _("CSV file"), Code.configuration.save_folder(), "csv", True)
         if resp:
-            self.sts.writeCSV(resp)
+            self.sts.write_csv(resp)
 
     def up(self):
         row = self.grid.recno()
@@ -474,14 +461,14 @@ class WUnSTS(LCDialog.LCDialog):
     def wkRun(self):
         row = self.grid.recno()
         if row >= 0:
-            work = self.sts.getWork(row)
+            work = self.sts.get_work(row)
             w = WRun(self, self.sts, work, self.procesador, False)
             w.exec_()
 
     def wkRun2(self):
         row = self.grid.recno()
         if row >= 0:
-            work = self.sts.getWork(row)
+            work = self.sts.get_work(row)
             w = WRun(self, self.sts, work, self.procesador, True)
             w.exec_()
 
@@ -491,7 +478,7 @@ class WUnSTS(LCDialog.LCDialog):
     def wkEdit(self):
         row = self.grid.recno()
         if row >= 0:
-            work = self.sts.getWork(row)
+            work = self.sts.get_work(row)
             w = WWork(self, self.sts, work)
             if w.exec_():
                 self.sts.save()
@@ -501,13 +488,13 @@ class WUnSTS(LCDialog.LCDialog):
             me = WEngines.select_engine(self)
             if not me:
                 return
-            work = self.sts.createWork(me)
+            work = self.sts.create_work(me)
         else:
             work.workTime = 0.0
 
         w = WWork(self, self.sts, work)
         if w.exec_():
-            self.sts.addWork(work)
+            self.sts.add_work(work)
             self.sts.save()
             self.grid.refresh()
             self.grid.gobottom()
@@ -518,7 +505,7 @@ class WUnSTS(LCDialog.LCDialog):
             me = self.select_engines.menu(self)
             if not me:
                 return
-            work = self.sts.createWork(me)
+            work = self.sts.create_work(me)
             work.ref = me.name
             work.info = me.id_info
 
@@ -527,7 +514,7 @@ class WUnSTS(LCDialog.LCDialog):
 
         w = WWork(self, self.sts, work)
         if w.exec_():
-            self.sts.addWork(work)
+            self.sts.add_work(work)
             self.sts.save()
             self.grid.refresh()
             self.grid.gobottom()
@@ -536,7 +523,7 @@ class WUnSTS(LCDialog.LCDialog):
     def wkCopy(self):
         row = self.grid.recno()
         if row >= 0:
-            work = self.sts.getWork(row)
+            work = self.sts.get_work(row)
             self.wkNew(work.clone())
 
     def wkRemove(self):
@@ -545,7 +532,7 @@ class WUnSTS(LCDialog.LCDialog):
             if QTUtil2.pregunta(self, _("Do you want to delete all selected records?")):
                 li.sort(reverse=True)
                 for row in li:
-                    self.sts.removeWork(row)
+                    self.sts.remove_work(row)
                 self.sts.save()
                 self.grid.refresh()
 
@@ -566,11 +553,11 @@ class WUnSTS(LCDialog.LCDialog):
         if column == "SAMPLE":
             return "%d-%d" % (work.ini + 1, work.end + 1)
         if column == "RESULT":
-            return str(self.sts.allPoints(work))
+            return str(self.sts.all_points(work))
         if column == "ELO":
             return self.sts.elo(work)
         if column == "WORKTIME":
-            secs = work.workTime
+            secs = work.work_time
             if secs == 0.0:
                 return "-"
             d = int(secs * 10) % 10
@@ -578,11 +565,11 @@ class WUnSTS(LCDialog.LCDialog):
             m = int(secs) // 60
             return "%d' %02d.%d\"" % (m, s, d)
         test = int(column[1:])
-        return self.sts.donePoints(work, test)
+        return self.sts.done_points(work, test)
 
     def grid_doubleclick_header(self, grid, oCol):
         if oCol.key != "POS":
-            self.sts.ordenWorks(oCol.key)
+            self.sts.orden_works(oCol.key)
             self.sts.save()
             self.grid.refresh()
             self.grid.gotop()
@@ -601,23 +588,21 @@ class WSTS(LCDialog.LCDialog):
         self.carpetaSTS = procesador.configuration.carpetaSTS
         self.lista = self.leeSTS()
 
-        # Toolbar
-        li_acciones = (
-            (_("Close"), Iconos.MainMenu(), self.terminar),
-            (_("Select"), Iconos.Seleccionar(), self.modificar),
-            (_("New"), Iconos.NuevoMas(), self.crear),
-            (_("Rename"), Iconos.Rename(), self.rename),
-            (_("Copy"), Iconos.Copiar(), self.copiar),
-            (_("Remove"), Iconos.Borrar(), self.borrar),
-        )
-        tb = QTVarios.LCTB(self, li_acciones)
+        tb = QTVarios.LCTB(self)
+        tb.new(_("Close"), Iconos.MainMenu(), self.terminar)
+        tb.new(_("Select"), Iconos.Seleccionar(), self.modificar)
+        tb.new(_("New"), Iconos.NuevoMas(), self.crear)
+        tb.new(_("Rename"), Iconos.Rename(), self.rename)
+        tb.new(_("Copy"), Iconos.Copiar(), self.copiar)
+        tb.new(_("Remove"), Iconos.Borrar(), self.borrar)
+        tb.new(_("Config"), Iconos.Configurar(), self.configurar)
         if len(self.lista) == 0:
             for x in (self.modificar, self.borrar, self.copiar, self.rename):
                 tb.set_action_visible(x, False)
 
         # grid
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("NOMBRE", _("Name"), 240)
+        o_columns.nueva("NOMBRE", _("Name"), 340)
         o_columns.nueva("FECHA", _("Date"), 120, align_center=True)
 
         self.grid = Grid.Grid(self, o_columns, siSelecFilas=True)
@@ -633,7 +618,7 @@ class WSTS(LCDialog.LCDialog):
         layout = Colocacion.V().control(tb).control(self.grid).control(lb).margen(8)
         self.setLayout(layout)
 
-        self.restore_video(siTam=True, anchoDefecto=400, altoDefecto=500)
+        self.restore_video(with_tam=True, default_width=400, default_height=500)
 
         self.grid.gotop()
 
@@ -646,7 +631,7 @@ class WSTS(LCDialog.LCDialog):
                 st = entry.stat()
                 li.append((x, st.st_ctime, st.st_mtime))
 
-        sorted(li, key=lambda x: x[2], reverse=True)  # por ultima modificacin y al reves
+        li.sort(key=lambda x: x[2], reverse=True)  # por ultima modificacin y al reves
         return li
 
     def grid_num_datos(self, grid):
@@ -743,10 +728,32 @@ class WSTS(LCDialog.LCDialog):
             name = self.editNombre(nombreBase, True)
             if name:
                 sts = STS.STS(nombreBase)
-                sts.saveCopyNew(name)
+                sts.save_copy_new(name)
                 sts = STS.STS(name)
                 self.reread()
                 self.trabajar(sts)
+
+    def configurar(self):
+        menu = QTVarios.LCMenu(self)
+        menu.opcion("formula", _("Formula to calculate elo"), Iconos.STS())
+        resp = menu.lanza()
+        if resp:
+            formula = STS.Formula()
+
+            form = FormLayout.FormLayout(self, _("Formula to calculate elo"), Iconos.Elo(), with_default=False)
+            form.apart_np(f'{_("Elo")} = X * {_("Result")} + K')
+            form.separador()
+            form.checkbox(f'<center><b>{_("Initial")}<b></center>' + f'X={formula.x_default_base:.04f} K={formula.k_default_base:.04f}', False)
+            form.separador()
+            form.editbox("X", 100, tipo=float, decimales=4, init_value=formula.x_default, negatives=True)
+            form.editbox("K", 100, tipo=float, decimales=4, init_value=formula.k_default, negatives=True)
+            resultado = form.run()
+            if resultado:
+                resp, valor = resultado
+                by_default, x, k = valor
+                if by_default:
+                    x, k = formula.x_default_base, formula.k_default_base
+                formula.change_default(x, k)
 
 
 def sts(procesador, parent):

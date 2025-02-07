@@ -478,6 +478,7 @@ class Game:
     def add_move(self, move):
         self.li_moves.append(move)
         self.verify()
+        move.game = self
 
     def is_fen_initial(self):
         return self.first_position.fen() == FEN_INITIAL
@@ -631,6 +632,10 @@ class Game:
         if not self.first_position.is_initial():
             resp = "|%s|%s" % (self.first_position.fen(), resp)
         return resp
+
+    def xpv_until_move(self, num_move):
+        pv = " ".join([move.movimiento() for move in self.li_moves[:num_move+1]])
+        return FasterCode.pv_xpv(pv)
 
     def all_pv(self, pv_previo, with_variations):
         li_pvc = []

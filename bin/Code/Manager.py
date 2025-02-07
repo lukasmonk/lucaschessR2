@@ -227,9 +227,9 @@ class Manager:
         self.atajosRatonOrigen = None
 
     @staticmethod
-    def other_candidates(liMoves, position, liC):
+    def other_candidates(li_moves, position, li_c):
         li_player = []
-        for mov in liMoves:
+        for mov in li_moves:
             if mov.mate():
                 li_player.append((mov.xto(), "P#"))
             elif mov.check():
@@ -254,8 +254,8 @@ class Manager:
             elif mov.capture():
                 li_player.append((mov.xto(), "Rx"))
 
-        liC.extend(li_rival)
-        liC.extend(li_player)
+        li_c.extend(li_rival)
+        li_c.extend(li_player)
 
     def colect_candidates(self, a1h8):
         if not hasattr(self.pgn, "move"):  # manager60 por ejemplo
@@ -343,7 +343,7 @@ class Manager:
             return
 
         def mueve():
-            self.board.muevePiezaTemporal(self.atajosRatonOrigen, self.atajosRatonDestino)
+            self.board.move_pieceTemporal(self.atajosRatonOrigen, self.atajosRatonDestino)
             if (not self.board.mensajero(self.atajosRatonOrigen, self.atajosRatonDestino)) and self.atajosRatonOrigen:
                 self.board.set_piece_again(self.atajosRatonOrigen)
             self.reset_shortcuts_mouse()
@@ -351,9 +351,9 @@ class Manager:
         def show_candidates():
             if self.configuration.x_show_candidates:
                 li_c = []
-                for mov in li_moves:
-                    a1 = mov.xfrom()
-                    h8 = mov.xto()
+                for xmov in li_moves:
+                    a1 = xmov.xfrom()
+                    h8 = xmov.xto()
                     if a1 == self.atajosRatonOrigen:
                         li_c.append((h8, "C"))
                 if self.state != ST_PLAYING:
@@ -422,7 +422,7 @@ class Manager:
             self.main_window.base.pgn.gobottom(1 if move.is_white() else 2)
             # self.goto_end()
 
-    def move_the_pieces(self, liMovs, is_rival=False):
+    def move_the_pieces(self, li_moves, is_rival=False):
         self.main_window.end_think_analysis_bar()
         if is_rival and self.configuration.x_show_effects:
 
@@ -432,7 +432,7 @@ class Manager:
             seconds = None
 
             # primero los movimientos
-            for movim in liMovs:
+            for movim in li_moves:
                 if movim[0] == "m":
                     if seconds is None:
                         from_sq, to_sq = movim[1], movim[2]
@@ -442,7 +442,7 @@ class Manager:
                         dist = (dc ** 2 + df ** 2) ** 0.5
                         seconds = 4.0 * dist / (9.9 * rapidez)
                     if self.procesador.manager:
-                        cpu.muevePieza(movim[1], movim[2], seconds)
+                        cpu.move_piece(movim[1], movim[2], seconds)
                     else:
                         return
 
@@ -450,32 +450,32 @@ class Manager:
                 seconds = 1.0
 
             # segundo los borrados
-            for movim in liMovs:
+            for movim in li_moves:
                 if movim[0] == "b":
                     if self.procesador.manager:
-                        cpu.borraPiezaSecs(movim[1], seconds)
+                        cpu.remove_piece_insecs(movim[1], seconds)
                     else:
                         return
 
             # tercero los cambios
-            for movim in liMovs:
+            for movim in li_moves:
                 if movim[0] == "c":
                     if self.procesador.manager:
-                        cpu.cambiaPieza(movim[1], movim[2], siExclusiva=True)
+                        cpu.change_piece(movim[1], movim[2], is_exclusive=True)
                     else:
                         return
 
             if self.procesador.manager:
-                cpu.runLineal()
+                cpu.run_lineal()
 
         else:
-            for movim in liMovs:
+            for movim in li_moves:
                 if movim[0] == "b":
-                    self.board.borraPieza(movim[1])
+                    self.board.remove_piece(movim[1])
                 elif movim[0] == "m":
-                    self.board.muevePieza(movim[1], movim[2])
+                    self.board.move_piece(movim[1], movim[2])
                 elif movim[0] == "c":
-                    self.board.cambiaPieza(movim[1], movim[2])
+                    self.board.change_piece(movim[1], movim[2])
         # Aprovechamos que esta operacion se hace en cada move
         self.reset_shortcuts_mouse()
 
@@ -1147,7 +1147,6 @@ class Manager:
         move, is_white, si_ultimo, tam_lj, pos_jg = self.dameJugadaEn(row, key)
         if not move:
             return
-
         if self.state != ST_ENDGAME:
             if not (
                     self.game_type
@@ -1313,7 +1312,7 @@ class Manager:
             return False
         if self.is_analyzing:
             self.main_window.base.check_is_hide()
-        return getattr(self, "final_x")
+        return getattr(self, "final_x")()
 
     def do_pressed_number(self, si_activar, number):
         if number in [1, 8]:

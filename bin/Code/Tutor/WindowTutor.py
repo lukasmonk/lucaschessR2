@@ -137,13 +137,17 @@ class WindowTutor(LCDialog.LCDialog):
 
         self.setLayout(layout)
 
-        self.restore_video(siTam=False)
+        self.restore_video(with_tam=False)
 
     def launch_analysis(self):
+        game_base = self.tutor.game.copia()
         move = self.tutor.move
+        game_base.add_move(move)
         rm_user, pos_user = self.tutor.mrm_tutor.search_rm(move.movimiento())
         move.analysis = self.tutor.mrm_tutor, pos_user
-        Analysis.show_analysis(Code.procesador, self.manager.xanalyzer, move, self.manager.board.is_white_bottom,
+        move_tmp = game_base.move(-1)
+
+        Analysis.show_analysis(Code.procesador, self.manager.xanalyzer, move_tmp, self.manager.board.is_white_bottom,
                                pos_user, main_window=self, must_save=False)
 
     def process_toolbar(self):

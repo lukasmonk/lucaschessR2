@@ -340,7 +340,7 @@ class WAnalisis(LCDialog.LCDialog):
         layout.setSpacing(1)
         self.setLayout(layout)
 
-        self.restore_video(siAncho=False)
+        self.restore_video(with_width=False)
         wm.changed_rm(tab_analysis_init.pos_selected)
         self.activate_analysis(tab_analysis_init)
 

@@ -51,6 +51,7 @@ class SelectEngines:
     def __init__(self, owner):
         um = QTUtil2.one_moment_please(owner, _("Reading the list of engines"))
         self.configuration = Code.configuration
+        self.configuration.relee_engines()
         self.dicIconos = {
             ENG_INTERNAL: Iconos.Engine(),
             ENG_EXTERNAL: Iconos.MotoresExternos(),
@@ -508,7 +509,7 @@ class WSelectEngines(LCDialog.LCDialog):
         layout = Colocacion.V().otro(ly_head).control(self.grid).margen(3)
         self.setLayout(layout)
 
-        self.restore_video(anchoDefecto=self.grid.anchoColumnas() + 48, altoDefecto=640)
+        self.restore_video(default_width=self.grid.anchoColumnas() + 48, default_height=640)
 
     def clear_all(self):
         self.st_selected = set()

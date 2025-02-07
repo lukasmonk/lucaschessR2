@@ -58,7 +58,7 @@ class WSwisses(LCDialog.LCDialog):
         layout = Colocacion.V().control(tb).control(self.grid).margen(8)
         self.setLayout(layout)
 
-        self.restore_video(siTam=True, anchoDefecto=500, altoDefecto=500)
+        self.restore_video(with_tam=True, default_width=500, default_height=500)
 
         self.grid.gotop()
 

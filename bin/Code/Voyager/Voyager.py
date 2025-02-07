@@ -36,7 +36,7 @@ def average_hash(img, hash_size=8):
     # Adaptation from https://github.com/bunchesofdonald/photohash, MIT license
     """Computes the average hash of the given image."""
     # Open the image, resize it and convert it to black & white.
-    image = img.resize((hash_size, hash_size),).convert("L")
+    image = img.resize((hash_size, hash_size), ).convert("L")
     pixels = list(image.getdata())
 
     avg = sum(pixels) // len(pixels)
@@ -72,32 +72,17 @@ class WPosicion(QtWidgets.QWidget):
         self.board.baseCasillasSC.setAcceptDrops(True)
         self.board.set_side_bottom(is_white_bottom)
 
-        li_acciones = [
-            (_("Save"), Iconos.GrabarComo(), self.save),
-            None,
-            (_("Cancel"), Iconos.Cancelar(), self.cancelar),
-            None,
-            (_("Basic position"), Iconos.Inicio(), self.inicial),
-            None,
-            (_("Clear board"), Iconos.Borrar(), self.clear_board),
-            None,
-            (_("Paste FEN position"), Iconos.Pegar(), self.pegar),
-            None,
-            (_("Copy FEN position"), Iconos.Copiar(), self.copiar),
-            None,
-            (_("Scanner"), Iconos.Scanner(), self.scanner1),
-            None,
-        ]
-        if len(QTUtil.dic_monitores()) > 1:
-            li_acciones.append((_("To scan on the second monitor"), Iconos.Scanner2(), self.scanner2)),
-            li_acciones.append(None)
+        self.tb = Controles.TBrutina(self, with_text=False, icon_size=24)
+        self.tb.new(_("Save"), Iconos.GrabarComo(), self.save)
+        self.tb.new(_("Cancel"), Iconos.Cancelar(), self.cancelar)
+        self.tb.new(_("Basic position"), Iconos.Inicio(), self.inicial)
+        self.tb.new(_("Clear board"), Iconos.Borrar(), self.clear_board)
+        self.tb.new(_("Paste FEN position"), Iconos.Pegar(), self.pegar)
+        self.tb.new(_("Copy FEN position"), Iconos.Copiar(), self.copiar)
+        self.tb.new(_("Scanner"), Iconos.Scanner(), self.scanner1)
 
         if Code.eboard:
-            li_acciones.append((_("Enable"), Code.eboard.icon_eboard(), self.eboard_activate))
-            li_acciones.append(None)
-
-        self.tb = Controles.TBrutina(self, li_acciones, with_text=False, icon_size=24)
-
+            self.tb.new(_("Enable"), Code.eboard.icon_eboard(), self.eboard_activate)
 
         self.drag_drop_up = QTVarios.ListaPiezas(self, WHITE, self.board, margen=0)
         self.drag_drop_down = QTVarios.ListaPiezas(self, BLACK, self.board, margen=0)
@@ -184,7 +169,8 @@ class WPosicion(QtWidgets.QWidget):
             .relleno()
         )
         ly_l = Colocacion.H().control(self.pb_scanner_learn).control(self.pb_scanner_learn_quit)
-        ly_s = Colocacion.H().control(lb_scanner_select).control(self.cb_scanner_select).control(pb_scanner_more).control(pb_scanner_remove)
+        ly_s = Colocacion.H().control(lb_scanner_select).control(self.cb_scanner_select).control(
+            pb_scanner_more).control(pb_scanner_remove)
         ly = Colocacion.V().control(self.chb_scanner_flip).control(pb_scanner_deduce).otro(ly_l).otro(ly_t).otro(ly_tl)
         ly.control(self.chb_rem_ghost_deductions).otro(ly_s)
         ly.control(self.chb_scanner_ask)
@@ -216,7 +202,6 @@ class WPosicion(QtWidgets.QWidget):
     def rotate_board(self):
         self.drag_drop_up.change_side()
         self.drag_drop_down.change_side()
-
 
     def eboard_activate(self):
         if Code.eboard.driver:
@@ -306,10 +291,10 @@ class WPosicion(QtWidgets.QWidget):
         if from_sq == to_sq:
             return
         if self.squares.get(to_sq):
-            self.board.borraPieza(to_sq)
+            self.board.remove_piece(to_sq)
         self.squares[to_sq] = self.squares.get(from_sq)
         self.squares.pop(from_sq, None)
-        self.board.muevePieza(from_sq, to_sq)
+        self.board.move_piece(from_sq, to_sq)
 
         self.ponCursor()
 
@@ -321,7 +306,7 @@ class WPosicion(QtWidgets.QWidget):
 
     def clean_square(self, from_sq):
         self.squares[from_sq] = None
-        self.board.borraPieza(from_sq)
+        self.board.remove_piece(from_sq)
 
     def rightmouse_square(self, from_sq):
         menu = QtWidgets.QMenu(self)
@@ -493,18 +478,17 @@ class WPosicion(QtWidgets.QWidget):
             self.edMovesPawn.setValue(self.position.mov_pawn_capt)
 
     def scanner1(self):
-        return self.scanner(0)
+        return self.scanner()
 
     def scanner2(self):
-        return self.scanner(1)
+        return self.scanner()
 
-    def scanner(self, monitor):
-        dic_monitores = QTUtil.dic_monitores()
-
+    def scanner(self):
         with QTUtil.EscondeWindow(self.wparent):
 
             if self.chb_scanner_ask.valor() and not QTUtil2.pregunta(
-                    None, _("Bring the window to scan to front"), label_yes=_("Accept"), label_no=_("Cancel"), si_top=True,
+                    None, _("Bring the window to scan to front"), label_yes=_("Accept"), label_no=_("Cancel"),
+                    si_top=True,
             ):
                 return
 
@@ -513,8 +497,9 @@ class WPosicion(QtWidgets.QWidget):
             time.sleep(0.2)
             QTUtil.refresh_gui()
 
-            screen = QtWidgets.QApplication.screens()[monitor]
-            desktop = screen.grabWindow(0, 0, 0, dic_monitores[monitor].width(), dic_monitores[monitor].height())
+            screen = QTUtil.get_screen(self)
+            screen_geometry = screen.geometry()
+            desktop = screen.grabWindow(0, 0, 0, screen_geometry.width(), screen_geometry.height())
 
             self.wparent.showNormal()
 
@@ -525,7 +510,7 @@ class WPosicion(QtWidgets.QWidget):
             if Code.configuration.x_enable_highdpiscaling:
                 QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_DisableHighDpiScaling)
 
-            sc = Scanner.Scanner(self, self.configuration.carpetaScanners, desktop, dic_monitores[monitor])
+            sc = Scanner.Scanner(self, self.configuration.carpetaScanners, desktop, screen_geometry)
             if not sc.exec_():
                 if Code.configuration.x_enable_highdpiscaling:
                     QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
@@ -699,7 +684,7 @@ class WPosicion(QtWidgets.QWidget):
             Util.remove_file(path_scanner)
             pos = self.cb_scanner_select.currentIndex()
             li_options = self.cb_scanner_select.li_options
-            if pos < len(li_options)-1:
+            if pos < len(li_options) - 1:
                 default = li_options[pos][0]
             else:
                 default = li_options[-2][0] if len(li_options) > 1 else ""
@@ -945,7 +930,7 @@ class Voyager(LCDialog.LCDialog):
 
         self.ponModo(MODO_PARTIDA if self.is_game else MODO_POSICION)
 
-        self.restore_video(siTam=False)
+        self.restore_video(with_tam=False)
 
     def is_white_bottom(self):
         return self.wPos.board.is_white_bottom

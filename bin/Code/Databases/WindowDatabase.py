@@ -74,7 +74,7 @@ class WBDatabase(LCDialog.LCDialog):
         layout = Colocacion.H().control(splitter).margen(0)
         self.setLayout(layout)
 
-        self.restore_video(anchoDefecto=1200, altoDefecto=600)
+        self.restore_video(default_width=1200, default_height=600)
         if not dic_video:
             dic_video = {"SPLITTER": [800, 380], "TREE_1": 25, "TREE_2": 25, "TREE_3": 50, "TREE_4": 661}
 

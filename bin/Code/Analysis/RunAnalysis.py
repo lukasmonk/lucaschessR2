@@ -188,7 +188,7 @@ class WAnalysis(LCDialog.LCDialog):
         layout = Colocacion.H().control(self.lb_game).control(self.pb_moves)
         self.setLayout(layout)
 
-        self.restore_video(anchoDefecto=400, altoDefecto=40)
+        self.restore_video(default_width=400, default_height=40)
 
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.xreceive)

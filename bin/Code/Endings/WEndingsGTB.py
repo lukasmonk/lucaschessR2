@@ -509,11 +509,11 @@ class WEndingsGTB(LCDialog.LCDialog):
         self.game.add_move(move)
         for movim in move.liMovs:
             if movim[0] == "b":
-                self.board.borraPieza(movim[1])
+                self.board.remove_piece(movim[1])
             elif movim[0] == "m":
-                self.board.muevePieza(movim[1], movim[2])
+                self.board.move_piece(movim[1], movim[2])
             elif movim[0] == "c":
-                self.board.cambiaPieza(movim[1], movim[2])
+                self.board.change_piece(movim[1], movim[2])
         self.timer = time.time()
         self.board.set_raw_last_position(self.game.last_position)
         self.continue_human()

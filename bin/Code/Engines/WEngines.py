@@ -143,13 +143,10 @@ class WSelectEngineElo(LCDialog.LCDialog):
         if self.siMic:
             o_columns.nueva("INFO", _("Information"), 300, align_center=True)
 
-        self.grid = Grid.Grid(self, o_columns, siSelecFilas=True, siCabeceraMovible=False, altoFila=24)
+        self.grid = Grid.Grid(self, o_columns, siSelecFilas=True, siCabeceraMovible=False, altoFila=Code.configuration.x_pgn_rowheight)
         n = self.grid.anchoColumnas()
         self.grid.setMinimumWidth(n + 20)
         self.register_grid(self.grid)
-
-        f = Controles.FontType(puntos=9)
-        self.grid.set_font(f)
 
         self.grid.gotop()
 

@@ -86,6 +86,8 @@ dic_qcolors = None
 
 dic_markers = {}
 
+main_window = None
+
 
 def relative_root(path):
     # Used only for titles/labels
@@ -101,7 +103,7 @@ def relative_root(path):
 
 
 BASE_VERSION = "B"  # Para el control de updates que necesitan reinstalar entero
-VERSION = "R 2.19"
+VERSION = "R 2.19a"
 DEBUG = False
 DEBUG_ENGINES = False
 
@@ -109,6 +111,7 @@ if DEBUG:
     import traceback
     import sys
     import time
+
 
     def pr(*x):
         lx = len(x) - 1
@@ -171,6 +174,17 @@ if DEBUG:
         prln(c)
 
 
+    # def dbg_print(move_base):
+    #     from Code.Base import Game, Position, Move
+    #     game: Game.Game = move_base.game
+    #     position: Position.Position = game.first_position.copia()
+    #     move: Move.Move
+    #     for move in move_base.game.li_moves:
+    #         ok, li = position.play(move.from_sq, move.to_sq, move.promotion)
+    #         if not ok:
+    #             stack()
+    #         break
+
     import builtins
 
     builtins.__dict__["stack"] = stack
@@ -179,4 +193,5 @@ if DEBUG:
     builtins.__dict__["prlns"] = prlns
     builtins.__dict__["ini_timer"] = ini_timer
     builtins.__dict__["end_timer"] = end_timer
+    # builtins.__dict__["dbg_print"] = dbg_print
     prln("Modo debug PYLCR2")

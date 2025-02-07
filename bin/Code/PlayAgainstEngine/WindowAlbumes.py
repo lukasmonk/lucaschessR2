@@ -66,7 +66,7 @@ class WAlbum(LCDialog.LCDialog):
 
         self.setLayout(lyT)
 
-        self.restore_video(siTam=False)
+        self.restore_video(with_tam=False)
 
         self.resultado = None, None
 

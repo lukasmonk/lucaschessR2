@@ -140,7 +140,7 @@ class WPrompts(LCDialog.LCDialog):
 
         self.register_grid(self.grid)
 
-        self.restore_video(altoDefecto=560)
+        self.restore_video(default_height=560)
         self.grid.setFocus()
         self.grid.gotop()
 

@@ -195,7 +195,7 @@ class WTrainBMT(LCDialog.LCDialog):
         )
         self.tb = Controles.TB(self, li_acciones)
 
-        self.restore_video(siTam=False)
+        self.restore_video(with_tam=False)
 
         # Colocamos ---------------------------------------------------------------
         ly_ps = Colocacion.H().relleno().control(self.lbPuntos).relleno(2).control(self.lb_segundos).relleno()

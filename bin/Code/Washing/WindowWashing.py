@@ -175,7 +175,7 @@ class WWashing(LCDialog.LCDialog):
         ly = Colocacion.V().control(tb).control(self.tab)
         self.setLayout(ly)
 
-        self.restore_video(siTam=True, anchoDefecto=n_ancho_pgn)
+        self.restore_video(with_tam=True, default_width=n_ancho_pgn)
 
     def terminar(self):
         self.save_video()

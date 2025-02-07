@@ -401,17 +401,13 @@ class EngineManager:
         if ms_used < mstime:
             mstime = ms_used
 
-        # if window:
-        #     um = QTUtil2.one_moment_please(window, _("Finishing the analysis...")) if mstime > 1000 else None
-        # else:
-        #     um = None
-
         self.engine.set_multipv(1)
-        mrm_next = self.engine.bestmove_game_jg(game, njg + 1, mstime, depth, is_savelines=True)
-        self.engine.set_multipv(self.engine.num_multipv)
+        if self.nodes:
+            mrm_next = self.engine.bestmove_nodes_game(game, njg + 1, mstime, depth, self.nodes, is_savelines=True)
+        else:
+            mrm_next = self.engine.bestmove_game_jg(game, njg + 1, mstime, depth, is_savelines=True)
 
-        # if um:
-        #     um.final()
+        self.engine.set_multipv(self.engine.num_multipv)
 
         if mrm_next and mrm_next.li_rm:
             rm = mrm_next.li_rm[0]
@@ -424,7 +420,9 @@ class EngineManager:
         rm.to_sq = mv[2:4]
         rm.promotion = mv[4] if len(mv) == 5 else ""
         rm.is_white = move.position_before.is_white
-        pos = mrm.add_rm(rm)
+        mrm.add_rm(rm)
+        mrm.ordena()
+        rm, pos = mrm.search_rm(mv)
 
         return mrm, pos
 

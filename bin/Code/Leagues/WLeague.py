@@ -252,7 +252,7 @@ class WLeague(LCDialog.LCDialog):
         layout = Colocacion.V().control(self.tb).control(self.tab).margen(8)
         self.setLayout(layout)
 
-        self.restore_video(siTam=True, anchoDefecto=784, altoDefecto=460)
+        self.restore_video(with_tam=True, default_width=784, default_height=460)
 
         self.update_matches()
 

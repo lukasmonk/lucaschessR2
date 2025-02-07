@@ -148,7 +148,7 @@ QPushButton:pressed {
             if self.physical_pos == TOP_RIGHT:
                 s = self.size()
                 x = v.x() + v.width() - s.width()
-                w_screen = QtWidgets.QDesktopWidget().screenGeometry().width()
+                w_screen = QTUtil.desktop_width()
                 if x + s.width() > w_screen:
                     x = w_screen - s.width() - 4
                 y = v.y() + 4

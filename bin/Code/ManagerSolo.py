@@ -476,7 +476,7 @@ class ManagerSolo(Manager.Manager):
             sep,
             ("leerpgn", _("Read PGN file"), Iconos.PGN_Importar()),
             sep,
-            ("pastepgn", _("Paste PGN"), Iconos.Pegar16(), "Ctrl+Shift+V"),
+            ("pastepgn", _("Paste PGN"), Iconos.Pegar16(), "Ctrl+V"),
             sep,
             ("voyager", _("Voyager 2"), Iconos.Voyager()),
             (None, None, True),

@@ -60,6 +60,8 @@ class AnalysisBar(QtWidgets.QWidget):
                 self.previous_board = new
 
     def activate(self, ok):
+        if ok is None:
+            ok = False
         self.activated = ok
         self.setVisible(ok)
         if ok:

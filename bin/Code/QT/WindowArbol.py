@@ -744,7 +744,7 @@ class WindowArbol(LCDialog.LCDialog):
 
         ancho_board = self.infoMove.board.width()
 
-        self.restore_video(anchoDefecto=869 - 242 + ancho_board)
+        self.restore_video(default_width=869 - 242 + ancho_board)
         if not dic_video:
             dic_video = {
                 "TREE_3": 27,

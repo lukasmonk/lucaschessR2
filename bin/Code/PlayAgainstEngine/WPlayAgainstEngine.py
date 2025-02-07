@@ -479,7 +479,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
 
         self.changed_strength()
 
-        self.restore_video(anchoDefecto=710)
+        self.restore_video(default_width=710)
 
     def gb_tutor_pressed(self):
         if self.gb_tutor.isChecked():
@@ -1526,7 +1526,7 @@ class WMantenimientoConfiguraciones(LCDialog.LCDialog):
 
         ly = Colocacion.V().control(tb).control(self.grid)
         self.setLayout(ly)
-        self.restore_video(anchoDefecto=520, altoDefecto=360)
+        self.restore_video(default_width=520, default_height=360)
 
     def terminate(self):
         self.save_video()

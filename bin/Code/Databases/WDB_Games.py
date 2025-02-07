@@ -1241,17 +1241,21 @@ class WGames(QtWidgets.QWidget):
 
     def tw_training_positions(self):
         def rutina_datos(recno, skip_first):
-            dic = {}
-            for key in self.db_games.li_fields:
-                dic[key] = self.db_games.field(recno, key)
-            p = self.db_games.read_game_recno(recno)
-            if skip_first:
-                dic["PGN_REAL"] = p.pgn()
-                p.skip_first()
-                dic["FEN"] = p.get_tag("FEN")
-            p.remove_bad_variations()
-            dic["PGN"] = p.pgn()
-            dic["PLIES"] = len(p)
+            try:
+                dic = {}
+                for key in self.db_games.li_fields:
+                    dic[key] = self.db_games.field(recno, key)
+                p = self.db_games.read_game_recno(recno)
+                if skip_first:
+                    dic["PGN_REAL"] = p.pgn()
+                    p.skip_first()
+                    dic["FEN"] = p.get_tag("FEN")
+                p.remove_bad_variations()
+                dic["PGN"] = p.pgn()
+                dic["PLIES"] = len(p)
+            except TypeError:
+                QTUtil2.message_error(self, _("Error") + f": {recno+1}")
+                return {}
             return dic
 
         li_registros_selected = self.grid.recnosSeleccionados()
@@ -2160,7 +2164,7 @@ class WTags(LCDialog.LCDialog):
         self.setLayout(ly)
 
         self.register_grid(self.gtags)
-        self.restore_video(anchoDefecto=self.gtags.anchoColumnas() + 20, altoDefecto=400)
+        self.restore_video(default_width=self.gtags.anchoColumnas() + 20, default_height=400)
 
         self.gtags.gotop()
 

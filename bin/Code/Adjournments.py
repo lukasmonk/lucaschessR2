@@ -66,9 +66,7 @@ class Adjournments:
                     return len(db)
             except:
                 Util.remove_file(self.file)
-                return 0
-        else:
-            return 0
+        return 0
 
     @staticmethod
     def si_seguimos(manager):

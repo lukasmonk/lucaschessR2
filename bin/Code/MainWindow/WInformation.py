@@ -1,9 +1,11 @@
+import time
+
 from PySide2 import QtWidgets, QtCore
 
 import Code
 from Code import Variations
 from Code.Analysis import Analysis
-from Code.Base import Game
+from Code.Base import Game, Position
 from Code.Nags import WNags, Nags
 from Code.QT import Colocacion, Controles, Iconos, QTVarios, ShowPGN, QTUtil2, FormLayout
 from Code.Themes import WThemes, Themes
@@ -64,8 +66,10 @@ class Information(QtWidgets.QWidget):
             self.lb_clock)
         ly_rating.otro(ly_pw_tm)
 
-        bt_rating = Controles.PB(self, _("Rating") + " (NAG)", rutina=self.edit_rating, plano=False).ponIcono(Iconos.Mas(), 16).set_font(font_bold)
-        bt_theme = Controles.PB(self, _("Theme"), rutina=self.edit_theme, plano=False).ponIcono(Iconos.MasR(), 16).set_font(font_bold)
+        bt_rating = Controles.PB(self, _("Rating") + " (NAG)", rutina=self.edit_rating, plano=False).ponIcono(
+            Iconos.Mas(), 16).set_font(font_bold)
+        bt_theme = Controles.PB(self, _("Theme"), rutina=self.edit_theme, plano=False).ponIcono(Iconos.MasR(),
+                                                                                                16).set_font(font_bold)
         ly_rt = Colocacion.H().relleno().control(bt_rating).relleno().control(bt_theme).relleno()
         ly_rating.otro(ly_rt)
 
@@ -304,9 +308,14 @@ class WVariations(QtWidgets.QWidget):
         QtWidgets.QWidget.__init__(self, self.owner)
 
         bt_mas = Controles.PB(self, "", self.tb_mas_variation).ponIcono(Iconos.Mas(), 16).ponToolTip(_("Add"))
-        bt_mas_engine = Controles.PB(self, "", self.tb_mas_variation_r).ponIcono(Iconos.MasR(), 16).ponToolTip(f'{_("Add")}+{_("Engine")}')
-        bt_edit = Controles.PB(self, "", self.tb_edit_variation).ponIcono(Iconos.EditVariation(), 16).ponToolTip(_("Edit in other board"))
-        bt_remove = Controles.PB(self, "", self.tb_remove_variation).ponIcono(Iconos.Borrar(), 16).ponToolTip(_("Remove"))
+        bt_mas_engine = Controles.PB(self, "", self.tb_mas_variation_r).ponIcono(Iconos.MasR(), 16).ponToolTip(
+            f'{_("Add")}+{_("Play against an engine")}')
+        bt_edit = Controles.PB(self, "", self.tb_edit_variation).ponIcono(Iconos.EditVariation(), 16).ponToolTip(
+            _("Edit in other board"))
+        bt_remove = Controles.PB(self, "", self.tb_remove_variation).ponIcono(Iconos.Borrar(), 16).ponToolTip(
+            _("Remove"))
+        bt_add_analysis = Controles.PB(self, "", self.tb_add_analysis).ponIcono(Iconos.AddAnalysis(), 16).ponToolTip(
+            f'{_("Add")}/{_("Result of analysis")}')
 
         self.em = ShowPGN.ShowPGN(self, puntos, self.with_figurines)
         self.em.set_link(self.link_variation_pressed)
@@ -316,7 +325,8 @@ class WVariations(QtWidgets.QWidget):
 
         lb_variations = Controles.LB(self.owner, _("Variations")).set_font(f)
 
-        ly_head = Colocacion.H().control(lb_variations).relleno().control(bt_mas).control(bt_mas_engine).control(bt_edit).control(bt_remove).margen(0)
+        ly_head = (Colocacion.H().control(lb_variations).relleno().control(bt_mas).control(bt_mas_engine)
+                   .control(bt_add_analysis).control(bt_edit).control(bt_remove).margen(0))
 
         layout = Colocacion.V().otro(ly_head).control(self.em).margen(0)
         self.setLayout(layout)
@@ -546,6 +556,97 @@ class WVariations(QtWidgets.QWidget):
         num = self.select(False, _("Edit"))
         if num is not None:
             self.edit(num)
+
+    def tb_add_analysis(self):
+        position: Position.Position = self.move.position_before.copia()
+        li_variations = self.li_variations()
+        st_moves = set()
+        for variante in li_variations:
+            st_moves.add(variante.move(0).movimiento().lower())
+
+        dic_tr_keymoves = self.get_board().dic_tr_keymoves
+        li_pend = []
+        for exmove in position.get_exmoves():
+            mv = exmove.move()
+            if mv in st_moves:
+                continue
+            san = exmove.san().replace("+", "").replace("#", "")
+            if len(san) > 2:
+                if san[-1].upper() in dic_tr_keymoves:
+                    san = san[:-1] + dic_tr_keymoves[san[-1].upper()]
+                elif san[0].upper() in dic_tr_keymoves:
+                    san = dic_tr_keymoves[san[0].upper()] + san[1:]
+            li_pend.append((exmove, san))
+        li_pend.sort(key=lambda x: x[1])
+        menu = QTVarios.LCMenu(self)
+        menu.separador()
+        rondo = QTVarios.rondo_puntos()
+        for exmove, san in li_pend:
+            menu.opcion(exmove, san, rondo.otro())
+        menu.separador()
+
+        key_conf = "ANALYSISEXTRA"
+        dic = Code.configuration.read_variables(key_conf)
+        num_moves_extra = dic.get("NUM_MOVES", 0)
+        title_moves_extra = f'{_("Movements")} = {str(num_moves_extra) if num_moves_extra > 0 else _("All")}'
+        menu.opcion("num_moves", title_moves_extra)
+        exmove = menu.lanza()
+        if exmove is None:
+            return
+        if exmove == "num_moves":
+            resp = QTUtil2.read_simple(self, title_moves_extra, f'{_("Movements")} (0={_("All")})', str(num_moves_extra))
+            if resp and resp.isdigit():
+                num_moves_extra = int(resp)
+                if num_moves_extra >= 0:
+                    dic["NUM_MOVES"] = num_moves_extra
+                    Code.configuration.write_variables(key_conf, dic)
+            return
+
+        mens = _("Analyzing the move....")
+        manager = self.get_manager()
+        xanalyzer = manager.xanalyzer
+        main_window = manager.main_window
+        main_window_base = main_window.base
+        main_window_base.show_message(mens, True, tit_cancel=_("Stop thinking"))
+        main_window_base.tb.setDisabled(True)
+        ya_cancelado = [False]
+        tm_ini = time.time()
+        position_before: Position.Position = self.move.position_before.copia()
+        position = position_before.copia()
+        position.play_pv(exmove.move())
+
+        def test_me(xrm):
+            if main_window_base.is_canceled():
+                if not ya_cancelado[0]:
+                    xanalyzer.stop()
+                    ya_cancelado[0] = True
+            else:
+                tm = time.time() - tm_ini
+                main_window_base.change_message(
+                    '%s<br><small>%s: %d %s: %.01f"' % (mens, _("Depth"), xrm.depth, _("Time"), xrm.time / 1000)
+                )
+                if xanalyzer.mstime_engine and tm * 1000 > xanalyzer.mstime_engine:
+                    xanalyzer.stop()
+                    ya_cancelado[0] = True
+            return True
+
+        xanalyzer.set_gui_dispatch(test_me)
+
+        rm = xanalyzer.valora(position_before, exmove.xfrom(), exmove.xto(), exmove.promotion())
+        xanalyzer.set_gui_dispatch(None)
+        main_window_base.tb.setDisabled(False)
+        main_window_base.hide_message()
+
+        game_base = Game.Game(first_position=position_before)
+        nmoves = num_moves_extra if num_moves_extra else 999999
+        li_pv = rm.pv.split(" ")[:nmoves]
+        game_base.read_lipv(li_pv)
+
+        puntuacion = rm.abbrev_text()
+        move0 = game_base.move(0)
+        move0.set_comment(puntuacion)
+        self.move.add_variation(game_base)
+        self.mostrar()
 
     def tb_remove_variation(self):
         num = self.select(True, _("Remove"))

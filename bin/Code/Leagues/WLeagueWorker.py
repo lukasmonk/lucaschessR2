@@ -662,7 +662,8 @@ class WLeagueWorker(QtWidgets.QWidget):
         self.next_control -= 1
         if self.next_control > 0:
             return False
-        self.next_control = 20
+
+        self.next_control = 10
 
         last_jg = self.game.last_jg()
         if not last_jg.analysis:
@@ -677,9 +678,10 @@ class WLeagueWorker(QtWidgets.QWidget):
 
         # Draw
         p_ult = rm_ult.centipawns_abs()
-        p_ant = rm_ant.centipawns_abs()
+        p_ant = -rm_ant.centipawns_abs()
         dr = self.league.draw_range
-        if dr > 0 and num_moves >= self.league.draw_min_ply:
+        dmp = self.league.draw_min_ply
+        if dmp and dr > 0 and num_moves >= dmp:
             if abs(p_ult) <= dr and abs(p_ant) <= dr:
                 mrm_tut = self.xadjudicator.analiza(self.game.last_position.fen())
                 rm_tut = mrm_tut.best_rm_ordered()
@@ -723,7 +725,7 @@ class WLeagueWorker(QtWidgets.QWidget):
                         # Maxima distancia = 9.9 ( 9,89... sqrt(7**2+7**2)) = 4 seconds
                         dist = (dc ** 2 + df ** 2) ** 0.5
                         seconds = 4.0 * dist / (9.9 * rapidez)
-                    cpu.muevePieza(movim[1], movim[2], siExclusiva=False, seconds=seconds)
+                    cpu.move_piece(movim[1], movim[2], is_exclusive=False, seconds=seconds)
 
             if seconds is None:
                 seconds = 1.0
@@ -732,23 +734,23 @@ class WLeagueWorker(QtWidgets.QWidget):
             for movim in li_movs:
                 if movim[0] == "b":
                     n = cpu.duerme(seconds * 0.80 / rapidez)
-                    cpu.borraPieza(movim[1], padre=n)
+                    cpu.remove_piece(movim[1], padre=n)
 
             # tercero los cambios
             for movim in li_movs:
                 if movim[0] == "c":
-                    cpu.cambiaPieza(movim[1], movim[2], siExclusiva=True)
+                    cpu.change_piece(movim[1], movim[2], is_exclusive=True)
 
-            cpu.runLineal()
+            cpu.run_lineal()
 
         else:
             for movim in li_movs:
                 if movim[0] == "b":
-                    self.board.borraPieza(movim[1])
+                    self.board.remove_piece(movim[1])
                 elif movim[0] == "m":
-                    self.board.muevePieza(movim[1], movim[2])
+                    self.board.move_piece(movim[1], movim[2])
                 elif movim[0] == "c":
-                    self.board.cambiaPieza(movim[1], movim[2])
+                    self.board.change_piece(movim[1], movim[2])
 
     def changeEvent(self, event):
         QtWidgets.QWidget.changeEvent(self, event)

@@ -3,7 +3,7 @@ import operator
 import os
 import os.path
 
-from PySide2 import QtCore, QtWidgets
+from PySide2 import QtCore, QtWidgets, QtGui
 
 import Code
 from Code import Util
@@ -15,7 +15,7 @@ from Code.Books import Books, Polyglot, WBooks
 from Code.Databases import DBgames
 from Code.Engines import EnginesBunch
 from Code.Engines import Priorities
-from Code.Openings import WindowOpenings, POLAnalisis, POLBoard, OpeningLines, OpeningsStd
+from Code.Openings import WindowOpenings, POLAnalisis, POLBoard, OpeningLines, OpeningsStd, POLShortcuts
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles
@@ -28,8 +28,8 @@ from Code.QT import QTUtil
 from Code.QT import QTUtil2, SelectFiles
 from Code.QT import QTVarios
 from Code.QT import WindowSavePGN
-from Code.Voyager import Voyager
 from Code.Translations import TrListas
+from Code.Voyager import Voyager
 
 
 class WLines(LCDialog.LCDialog):
@@ -44,36 +44,36 @@ class WLines(LCDialog.LCDialog):
         self.num_jg_inicial = self.gamebase.num_moves()
         self.num_jg_actual = None
         self.game = None
+        self.show_analysis = self.dbop.getconfig("SHOW_ANALYSIS", True)
+        self.shortcuts = POLShortcuts.ShortCuts(self)
+        self.last_numlines = -1
 
         LCDialog.LCDialog.__init__(self, self.procesador.main_window, self.title, Iconos.OpeningLines(), "studyOpening")
 
         self.resultado = None
         with_figurines = self.configuration.x_pgn_withfigurines
 
-        li_acciones = (
-            (_("Close"), Iconos.MainMenu(), self.terminar),
-            None,
-            (_("Remove"), Iconos.Borrar(), self.remove),
-            None,
-            (_("Import"), Iconos.Import8(), self.importar),
-            None,
-            (_("Export"), Iconos.Export8(), self.exportar),
-            None,
-            (_("Utilities"), Iconos.Utilidades(), self.utilities),
-            None,
-            (_("Train"), Iconos.Study(), self.train),
-            None,
-        )
-        self.tb = QTVarios.LCTB(self, li_acciones, style=QtCore.Qt.ToolButtonTextBesideIcon, icon_size=32)
+        self.tb = QTVarios.LCTB(self, style=QtCore.Qt.ToolButtonTextBesideIcon, icon_size=32)
+        self.tb.new(_("Close"), Iconos.MainMenu(), self.terminar)
+        self.tb.new(_("Remove"), Iconos.Borrar(), self.remove)
+        self.tb.new(_("Import"), Iconos.Import8(), self.importar)
+        self.tb.new(_("Export"), Iconos.Export8(), self.exportar)
+        self.tb.new(_("Utilities"), Iconos.Utilidades(), self.utilities)
+        self.tb.new(_("Train"), Iconos.Study(), self.train)
+
+        self.tb.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
+        self.tb.customContextMenuRequested.connect(self.shortcuts.launch_menu)
 
         self.pboard = POLBoard.BoardLines(self, self.configuration)
 
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("LINE", _("Line"), 45, edicion=Delegados.EtiquetaPOS(False, True))
+        o_columns.nueva("LINE", _("Line"), 65, edicion=Delegados.EtiquetaPOS(False, True))
         start = self.gamebase.num_moves() // 2 + 1
-        ancho_col = int(((self.configuration.x_pgn_width - 35 - 20) / 2) * 80 / 100)
+        # ancho_col = int(((self.configuration.x_pgn_width - 35 - 20) / 2) * 80 / 100)
+        ancho_col = (self.configuration.x_pgn_width - 52 - 25) // 2
+        # width_each_color = (width_pgn - 52 - 25) // 2
         for x in range(start, 75):
-            o_columns.nueva(str(x), str(x), ancho_col, edicion=Delegados.EtiquetaPOS(with_figurines, True))
+            o_columns.nueva(str(x), str(x), ancho_col, edicion=Delegados.EtiquetaPOSN(with_figurines, True))
         self.glines = Grid.Grid(self, o_columns, siCabeceraMovible=False)
         self.glines.setAlternatingRowColors(False)
         self.glines.font_type(puntos=self.configuration.x_pgn_fontpoints)
@@ -110,13 +110,28 @@ class WLines(LCDialog.LCDialog):
 
         self.restore_video()
 
-        self.last_numlines = -1
         self.show_lines()
 
         self.desactive_cambio_registro = False
 
+        alt_a = QtWidgets.QShortcut(self)
+        alt_a.setKey(QtGui.QKeySequence("Alt+a"))
+        alt_a.activated.connect(self.ta_massive)
+
+    def keyPressEvent(self, event):
+        k = event.key()
+        if 49 <= k <= 57:
+            m = int(event.modifiers())
+            if (m & QtCore.Qt.AltModifier) > 0:
+                self.shortcuts.launch_shortcut_with_alt(k - 48)
+                return
+
     def refresh_glines(self):
         self.glines.refresh()
+
+    def check_show_analysis(self):
+        self.show_analysis = self.dbop.getconfig("SHOW_ANALYSIS", True)
+        self.refresh_glines()
 
     def show_lines(self):
         numlines = len(self.dbop)
@@ -149,7 +164,7 @@ class WLines(LCDialog.LCDialog):
 
     def utilities(self):
         menu = QTVarios.LCMenu(self)
-        menu.opcion(self.ta_massive, _("Mass analysis"), Iconos.Analizar())
+        menu.opcion(self.ta_massive, _("Mass analysis"), Iconos.Analizar(), shortcut="Alt+A")
         menu.separador()
         menu.opcion(self.ta_transpositions, _("Complete with transpositions"), Iconos.Arbol())
         menu.separador()
@@ -189,7 +204,7 @@ class WLines(LCDialog.LCDialog):
         self.glines.gotop()
         um.final()
 
-    def ta_massive(self):
+    def ta_massive(self, line=None):
         dic_var = self.configuration.read_variables("MASSIVE_OLINES")
 
         form = FormLayout.FormLayout(self, _("Mass analysis"), Iconos.Analizar(), anchoMinimo=460)
@@ -254,7 +269,10 @@ class WLines(LCDialog.LCDialog):
         self.configuration.write_variables("MASSIVE_OLINES", dic_var)
 
         um = QTUtil2.one_moment_please(self)
-        st_fens_m2 = self.dbop.get_all_fen()
+        if line is None:
+            st_fens_m2 = self.dbop.get_all_fen()
+        else:
+            st_fens_m2 = self.dbop.get_all_fen_line(line)
         stfen = set()
         for fenm2 in st_fens_m2:
             if color == "WHITE":
@@ -361,10 +379,10 @@ class WLines(LCDialog.LCDialog):
         li_gen.append((config, color))
 
         li_gen.append(separador)
-        li_gen.append((_("Random order")+":", random_order))
+        li_gen.append((_("Random order") + ":", random_order))
 
         li_gen.append(separador)
-        li_gen.append((_("Maximum number of movements (0=all)")+":", max_moves))
+        li_gen.append((_("Maximum number of movements (0=all)") + ":", max_moves))
 
         resultado = FormLayout.fedit(li_gen, title=_("New training"), parent=self, anchoMinimo=360, icon=Iconos.Study())
         if resultado is None:
@@ -597,6 +615,8 @@ class WLines(LCDialog.LCDialog):
                     frommenu.separador()
             frommenu.opcion(("pgn", game_base), _("PGN with variations"), Iconos.Board())
             frommenu.separador()
+            frommenu.opcion(("pastepgn", game_base), _("Paste PGN"), Iconos.Pegar16())
+            frommenu.separador()
             frommenu.opcion(("polyglot", game_base), _("Polyglot book"), Iconos.Libros())
             frommenu.separador()
             frommenu.opcion(("database", game_base), _("Database"), Iconos.Database())
@@ -636,6 +656,8 @@ class WLines(LCDialog.LCDialog):
         tipo, game = resp
         if tipo == "pgn":
             self.import_pgn(game)
+        elif tipo == "pastepgn":
+            self.import_pastepgn(game)
         elif tipo == "polyglot":
             self.import_polyglot(game)
         elif tipo == "summary":
@@ -812,6 +834,31 @@ class WLines(LCDialog.LCDialog):
             self.glines.refresh()
             self.glines.gotop()
 
+    def import_pastepgn(self, game):
+        txt = QTUtil.get_txt_clipboard()
+        if txt:
+            ok, game1 = Game.pgn_game(txt)
+            if not ok:
+                QTUtil2.message_error(
+                    self, _("The text from the clipboard does not contain a chess game in PGN format")
+                )
+                return
+            path_pgn = self.configuration.temporary_file("pgn")
+            nlines = len(self.dbop)
+            dic_vars = self.read_config_vars()
+            depth = dic_vars.get("IPGN_DEPTH", 999)
+            variations = dic_vars.get("IPGN_VARIATIONSMODE", ALL)
+            comments = dic_vars.get("IPGN_COMMENTS", True)
+            with open(path_pgn, "wt", encoding="utf-8") as q:
+                q.write(txt)
+            self.dbop.import_pgn(self, game, path_pgn, depth, variations, comments)
+            self.glines.refresh()
+            self.glines.gotop()
+            nlines_imported = len(self.dbop) - nlines
+
+            if nlines_imported:
+                QTUtil2.message(self, "%s: %d %s" % (_("Imported"), nlines_imported, _("Lines")))
+
     def ta_import_pgn_comments(self):
         dic_var = self.read_config_vars()
         carpeta = dic_var.get("CARPETAPGN", self.configuration.carpeta)
@@ -878,12 +925,12 @@ class WLines(LCDialog.LCDialog):
         info = None
         indicador_inicial = None
         li_nags = []
-        si_line = False
+        si_line_o_shortcut = False
         agrisar = False
 
         if col == "LINE":
             pgn = str(linea + 1) if iswhite else ""
-            si_line = True
+            si_line_o_shortcut = True
 
         else:
             njug = (int(col) - 1) * 2
@@ -898,7 +945,8 @@ class WLines(LCDialog.LCDialog):
                     game_ant = self.dbop[linea - 1]
                     if game_ant.pv_hasta(njug) == game.pv_hasta(njug):
                         agrisar = True
-                dic = self.dbop.getfenvalue(move.position.fenm2())
+                fenm2 = move.position.fenm2()
+                dic = self.dbop.getfenvalue(fenm2)
                 if dic:
                     if "COMENTARIO" in dic:
                         v = dic["COMENTARIO"]
@@ -912,10 +960,28 @@ class WLines(LCDialog.LCDialog):
                         v = dic["VENTAJA"]
                         if v:
                             li_nags.append(str(v))
+                    if self.show_analysis and "ANALISIS" in dic:
+                        mrm = dic["ANALISIS"]
+                        rm = mrm.rm_best()
+                        if rm:
+                            info = rm.abbrev_text_base()
+                if self.show_analysis:
+                    dic = self.dbop.getfenvalue(move.position_before.fenm2())
+                    if dic and "ANALISIS" in dic:
+                        mrm = dic["ANALISIS"]
+                        rm, pos = mrm.search_rm(move.movimiento())
+                        if rm:
+                            info = mrm.li_rm[pos].abbrev_text_base()
+                    if not info:
+                        info = ""
+
+                if self.shortcuts.can_be_shortcut(fenm2):
+                    xpv = self.dbop.li_xpv[linea]
+                    si_line_o_shortcut = self.shortcuts.is_shortcut(xpv, fenm2)
             else:
                 pgn = ""
 
-        return pgn, iswhite, color, info, indicador_inicial, li_nags, agrisar, si_line
+        return pgn, iswhite, color, info, indicador_inicial, li_nags, agrisar, si_line_o_shortcut
 
     def grid_num_datos(self, grid):
         return len(self.dbop) * 2
@@ -954,6 +1020,12 @@ class WLines(LCDialog.LCDialog):
             if row < self.grid_num_datos(None) - 1:
                 self.glines.goto(row + 1, pos)
 
+        elif is_control and k == QtCore.Qt.Key_V:
+            self.import_pastepgn(self.gamebase)
+
+        elif is_alt and QtCore.Qt.Key_1 <= k <= QtCore.Qt.Key_9:
+            self.shortcuts.launch_shortcut_with_alt(k-QtCore.Qt.Key_0)
+
     def grid_doble_click(self, grid, row, o_column):
         game = self.game_actual()
         if game is not None:
@@ -964,7 +1036,8 @@ class WLines(LCDialog.LCDialog):
             dic = self.dbop.getfenvalue(fenm2)
             if "ANALISIS" in dic:
                 mrm = dic["ANALISIS"]
-                move.analysis = mrm, 0
+                rm, pos = mrm.search_rm(move.movimiento())
+                move.analysis = mrm, pos if pos >= 0 else 0
             else:
                 me = QTUtil2.waiting_message.start(self, _("Analyzing the move...."), physical_pos=TOP_RIGHT)
 
@@ -980,7 +1053,7 @@ class WLines(LCDialog.LCDialog):
             dic["ANALISIS"] = move.analysis[0]
             self.dbop.setfenvalue(fenm2, dic)
 
-    def grid_right_button(self, grid, row, col, modif):
+    def grid_right_button(self, grid, row, o_column, modif):
         if row < 0:
             return
 
@@ -994,10 +1067,38 @@ class WLines(LCDialog.LCDialog):
         menu.separador()
         current = row // 2
         menu.opcion("remove", "%s %d" % (_("Remove line"), current + 1), Iconos.Mover())
+        menu.separador()
+        menu.opcion("mass_analysis", _("Mass analysis"), Iconos.Analizar())
+
+        col = o_column.key
+        if col.isdigit():
+            linea = row // 2
+            iswhite = (row % 2) == 0
+            njug = (int(col) - 1) * 2
+            if not iswhite:
+                njug += 1
+            game = self.dbop[linea]
+            move = game.move(njug)
+            fenm2 = move.position.fenm2()
+            xpv = self.dbop.li_xpv[linea]
+            is_shortcut = self.shortcuts.can_be_shortcut(fenm2) and self.shortcuts.is_shortcut(xpv, fenm2)
+
+            menu.separador()
+            if is_shortcut:
+                menu.opcion("rem_shortcut", _("Remove shortcut"), Iconos.Atajos())
+            else:
+                menu.opcion("add_shortcut", _("Add shortcut"), Iconos.Atajos())
+
         resp = menu.lanza()
         if resp is not None:
             if resp == "remove":
                 self.remove_current_line()
+            elif resp == "mass_analysis":
+                self.ta_massive(row // 2)
+            elif resp == "add_shortcut":
+                self.shortcuts.add(move.pgn_translated(), fenm2, xpv, game.xpv_until_move(njug))
+            elif resp == "rem_shortcut":
+                self.shortcuts.remove(fenm2, xpv)
             else:
                 w = WindowSavePGN.WSaveVarios(self)
                 if w.exec_():

@@ -97,7 +97,7 @@ class WMap(LCDialog.LCDialog):
         ly = Colocacion.H().control(self.tab).margen(0)
         self.setLayout(ly)
 
-        self.restore_video(siTam=True, anchoDefecto=960, altoDefecto=600)
+        self.restore_video(with_tam=True, default_width=960, default_height=600)
 
         self.workmap.set_widget(wsvg)
         self.workmap.reset_widget()
@@ -364,7 +364,7 @@ class WUnSTSMap(LCDialog.LCDialog):
         self.pon_toolbar(self.seguir, self.analizar)
 
         done_pv = move.movimiento().lower()
-        dic_results = self.alm.dicResults
+        dic_results = self.alm.dic_results
 
         mens = "<h2>%s</h2><br>" % self.alm.name
 

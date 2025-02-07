@@ -78,6 +78,7 @@ def refresh_gui():
 
 time_ini = time.time()
 
+
 def refresh_gui_time():
     """
     Procesa eventos pendientes para que se muestren correctamente las windows
@@ -134,14 +135,27 @@ def qtBrush(nColor):
     """
     return QtGui.QBrush(qtColor(nColor))
 
+def get_screen_geometry(widget:QtWidgets.QWidget):
+    screen = get_screen(widget)
+    return screen.geometry()
+
+def get_screen(widget:QtWidgets.QWidget):
+    try:
+        screen = widget.screen()
+    except AttributeError: #Qt512
+        punto = widget.mapToGlobal(QtCore.QPoint(2, 2))
+        screen = QtGui.QGuiApplication.screenAt(punto)
+    if screen is None:
+        screen = QtWidgets.QDesktopWidget()
+    return screen
 
 def center_on_desktop(window):
     """
     Centra la ventana en el escritorio
     """
-    screen = QtWidgets.QDesktopWidget().screenGeometry()
+    screen_geometry = get_screen_geometry(window)
     size = window.geometry()
-    window.move((screen.width() - size.width()) / 2, (screen.height() - size.height()) / 2)
+    window.move((screen_geometry.width() - size.width()) / 2, (screen_geometry.height() - size.height()) / 2)
 
 
 def center_on_widget(window):
@@ -154,20 +168,8 @@ def center_on_widget(window):
     window.move(window.parent().mapToGlobal(QtCore.QPoint(x, y)))
 
 
-def monitor_actual(window):
-    ventana_geometry = window.frameGeometry()
-    desktop = QtWidgets.QDesktopWidget()
-    monitor_num = desktop.screenNumber(ventana_geometry.center())
-    return monitor_num, desktop.screenGeometry(monitor_num)
-
-
 def dic_monitores():
-    desktop = QtWidgets.QDesktopWidget()
-    num = desktop.screenCount()
-    dic = {}
-    for i in range(num):
-        dic[i] = desktop.screenGeometry(i)
-    return dic
+    return {pos: screen.geometry() for pos, screen in enumerate(QtGui.QGuiApplication.screens())}
 
 
 class EscondeWindow:
@@ -203,16 +205,20 @@ def colorIcon(xcolor, ancho, alto):
 
 
 def desktop_size():
-    screen = QtWidgets.QDesktopWidget().availableGeometry()
-    return screen.width(), screen.height()
+    if Code.main_window:
+        screen_geometry = get_screen_geometry(Code.main_window)
+    else:
+        desktop = QtWidgets.QDesktopWidget()
+        screen_geometry = desktop.geometry()
+    return screen_geometry.width(), screen_geometry.height()
 
 
 def desktop_width():
-    return QtWidgets.QDesktopWidget().availableGeometry().width()
+    return desktop_size()[0]
 
 
 def desktop_height():
-    return QtWidgets.QDesktopWidget().availableGeometry().height()
+    return desktop_size()[1]
 
 
 def exit_application(xid):

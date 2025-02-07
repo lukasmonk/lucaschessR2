@@ -49,7 +49,7 @@ class WDBMoveAnalysis(LCDialog.LCDialog):
 
         self.setLayout(ly)
 
-        self.restore_video(anchoDefecto=750, altoDefecto=562)
+        self.restore_video(default_width=750, default_height=562)
 
     def closeEvent(self, event):
         self.save_video()

@@ -109,15 +109,10 @@ class WColors(LCDialog.LCDialog):
         )
 
         # Tool bar
-        li_acciones = [
-            (_("Save"), Iconos.Aceptar(), self.aceptar),
-            None,
-            (_("Cancel"), Iconos.Cancelar(), self.cancelar),
-            None,
-            (_("Remove all"), Iconos.Borrar(), self.remove_all),
-            None,
-        ]
-        self.tb = QTVarios.LCTB(self, li_acciones)
+        self.tb = QTVarios.LCTB(self)
+        self.tb.new(_("Save"), Iconos.Aceptar(), self.aceptar)
+        self.tb.new(_("Cancel"), Iconos.Cancelar(), self.cancelar)
+        self.tb.new(_("Remove all"), Iconos.Borrar(), self.remove_all)
 
         # Colocamos
         ly_tb = Colocacion.H().control(self.tb).margen(0)
@@ -127,7 +122,7 @@ class WColors(LCDialog.LCDialog):
 
         self.register_grid(self.grid)
         self.grid.resizeColumnToContents(0)
-        self.restore_video(anchoDefecto=self.grid.anchoColumnas() + 24, altoDefecto=QTUtil.desktop_height() * 2 // 3)
+        self.restore_video(default_width=self.grid.anchoColumnas() + 24, default_height=QTUtil.desktop_height() * 2 // 3)
 
         self.grid.gotop()
         for row, (is_head, key, value) in enumerate(self.li_colors):

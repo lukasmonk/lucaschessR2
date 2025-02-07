@@ -114,7 +114,7 @@ class WTranslate(LCDialog.LCDialog):
         layout = Colocacion.V().otro(laytb).control(self.grid).otro(ly_seek).margen(3)
         self.setLayout(layout)
 
-        self.restore_video(anchoDefecto=self.grid.anchoColumnas() + 28, altoDefecto=640)
+        self.restore_video(default_width=self.grid.anchoColumnas() + 28, default_height=640)
         self.grid.setFocus()
 
         self.set_porcentage()

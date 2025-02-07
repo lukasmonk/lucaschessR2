@@ -1552,6 +1552,22 @@ class Opening:
                 st_fen_m2.add(fenm2)
         return st_fen_m2
 
+    def get_all_fen_line(self, num_line):
+        st_fen_m2 = set()
+        xpv = self.li_xpv[num_line]
+        lipv = FasterCode.xpv_pv(xpv).split(" ")
+        p = Position.Position()
+        FasterCode.set_init_fen()
+        for pv in lipv:
+            FasterCode.make_move(pv)
+            fen = FasterCode.get_fen()
+            fenm2 = FasterCode.fen_fenm2(fen)
+            if not fenm2.endswith("-"):
+                p.read_fen(fen)
+                fenm2 = p.fenm2()
+            st_fen_m2.add(fenm2)
+        return st_fen_m2
+
     def get_numlines_pv(self, lipv, base=1):
         xpv = FasterCode.pv_xpv(" ".join(lipv))
         li = [num for num, xpv0 in enumerate(self.li_xpv, base) if xpv0.startswith(xpv)]
@@ -1605,3 +1621,43 @@ class Opening:
                     p.read_fen(fen)
                     fenm2 = p.fenm2()
         return dic
+
+    def seek_xpv(self, from_xpv, obj_xpv):
+
+        def seek_begin():
+            left, right = 0, len(self.li_xpv) - 1
+
+            while left <= right:
+                mid = (left + right) // 2
+
+                if self.li_xpv[mid].startswith(from_xpv):
+                    while mid > 0 and self.li_xpv[mid-1].startswith(from_xpv):
+                        mid -= 1
+                    return mid
+                elif self.li_xpv[mid] < from_xpv:
+                    left = mid + 1
+                else:
+                    right = mid - 1
+
+            return -1
+
+        pos_begin = seek_begin()
+        if pos_begin == -1:
+            return False, False, None
+
+        li_valid = []
+
+        for pos, xpv in enumerate(self.li_xpv[pos_begin:]):
+            if xpv == obj_xpv:
+                return True, True, pos+pos_begin
+            if xpv.startswith(from_xpv):
+                li_valid.append((pos, xpv))
+            else:
+                break
+        for pos, xpv in li_valid:
+            if xpv.startswith(obj_xpv) or obj_xpv.startswith(xpv):
+                return True, False, pos+pos_begin
+
+        return True, False, pos_begin
+
+

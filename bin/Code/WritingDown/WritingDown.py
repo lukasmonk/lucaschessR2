@@ -45,7 +45,7 @@ class WritingDown(LCDialog.LCDialog):
         self.setLayout(ly)
 
         self.register_grid(self.glista)
-        self.restore_video(anchoDefecto=self.glista.anchoColumnas() + 20)
+        self.restore_video(default_width=self.glista.anchoColumnas() + 20)
         self.glista.gotop()
 
     def grid_doble_click(self, grid, row, o_column):

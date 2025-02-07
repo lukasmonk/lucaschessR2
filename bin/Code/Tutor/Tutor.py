@@ -73,14 +73,20 @@ class Tutor:
             mrm_usuario = self.xtutor.analiza(fen)
             if len(mrm_usuario.li_rm) == 0:
                 self.rm_user = self.mrm_tutor.li_rm[0].copia()
-                self.rm_user.from_sq = self.move.from_sq
-                self.rm_user.to_sq = self.move.to_sq
-                self.rm_user.promotion = self.move.promotion
                 self.rm_user.mate = 0
                 self.rm_user.puntos = 0
             else:
                 self.rm_user = mrm_usuario.li_rm[0]
                 self.rm_user.change_side(self.move.position)
+                self.rm_user.pv = self.move.movimiento() + " " + self.rm_user.pv
+
+            self.rm_user.from_sq = self.move.from_sq
+            self.rm_user.to_sq = self.move.to_sq
+            self.rm_user.promotion = self.move.promotion
+
+            self.mrm_tutor.add_rm(self.rm_user)
+            self.mrm_tutor.ordena()
+            pos_user = self.mrm_tutor.search_rm(self.move.movimiento())
 
             me.final()
 
@@ -103,7 +109,7 @@ class Tutor:
 
         self.changed_rm(0)
 
-        self.game_user = Game.Game(self.move.position)
+        self.game_user = Game.Game(self.move.position_before)
         self.game_user.add_move(self.move)
         self.game_user.read_pv(self.rm_user.get_pv())
         self.pos_user = 0

@@ -82,7 +82,7 @@ class WTurnOnLights(LCDialog.LCDialog):
         self.setLayout(ly)
 
         alto = self.tol.num_themes * 42 + 146
-        self.restore_video(siTam=True, altoDefecto=alto, anchoDefecto=max(nAnchoPgn, 480))
+        self.restore_video(with_tam=True, default_height=alto, default_width=max(nAnchoPgn, 480))
 
     def terminar(self):
         self.save_video()
@@ -332,7 +332,7 @@ class WConfigOneLineTOL(LCDialog.LCDialog):
 
         self.setLayout(layout)
 
-        self.restore_video(siTam=True)
+        self.restore_video(with_tam=True)
 
     def aceptar(self):
         num_positions = self.calc_lines_fns(self.tol.fns)

@@ -74,7 +74,7 @@ class WRegisteredBooks(LCDialog.LCDialog):
         self.setLayout(ly)
 
         self.register_grid(self.glista)
-        self.restore_video(anchoDefecto=742, altoDefecto=329)
+        self.restore_video(default_width=742, default_height=329)
 
         self.glista.gotop()
 
