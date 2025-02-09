@@ -103,6 +103,8 @@ class WBase(QtWidgets.QWidget):
 
         ly_ai = Colocacion.H().relleno().otroi(ly_t).otroi(ly_bi).relleno().margen(0)
         ly = Colocacion.V().control(self.tb).relleno().otro(ly_ai).relleno().margen(2)
+        # ly_ai = Colocacion.H().relleno().control(self.tb).otroi(ly_t).otroi(ly_bi).relleno().margen(0)
+        # ly = Colocacion.V().relleno().otro(ly_ai).relleno().margen(2)
 
         self.setLayout(ly)
 
@@ -113,6 +115,7 @@ class WBase(QtWidgets.QWidget):
 
     def create_toolbar(self):
         self.tb = QtWidgets.QToolBar("BASIC", self)
+        # self.tb.setOrientation(QtCore.Qt.Orientation.Vertical)
         icons_tb = self.configuration.type_icons()
         self.tb.setToolButtonStyle(icons_tb)
         sz = 32 if icons_tb == QtCore.Qt.ToolButtonTextUnderIcon else 16

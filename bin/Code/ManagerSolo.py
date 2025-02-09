@@ -613,6 +613,7 @@ class ManagerSolo(Manager.Manager):
             self.main_window, self.game.first_position
         )
         if position is not None:
+            QTUtil.refresh_gui()
             self.set_current_position(is_white_bottom, position)
 
     def set_current_position(self, is_white, position):

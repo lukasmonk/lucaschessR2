@@ -120,7 +120,7 @@ class ThanksTo:
                 el_txt += "Michele Tumbarello, "
             n = 0
             for uno in li_basex:
-                if n >= 80:
+                if n >= 100:
                     el_txt += "<br>"
                     n = 0
                 el_txt += uno + ", "
@@ -226,6 +226,7 @@ class ThanksTo:
             "Gianfranco Cutipa",
             "Daniel Trebejo",
         ]
+        li_base = list(set(li_base))
         li_resto = ["Chessindia forum", "Immortalchess forum", "Jose Luis García", "Carmen Martínez"]
         txt += version("1..11", li_base, li_resto)
 

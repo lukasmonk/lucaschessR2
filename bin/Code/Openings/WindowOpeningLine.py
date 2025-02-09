@@ -1071,7 +1071,7 @@ class WLines(LCDialog.LCDialog):
         menu.opcion("mass_analysis", _("Mass analysis"), Iconos.Analizar())
 
         col = o_column.key
-        if col.isdigit():
+        if self.grid_dato(grid, row, o_column)[0] and col.isdigit():
             linea = row // 2
             iswhite = (row % 2) == 0
             njug = (int(col) - 1) * 2
@@ -1079,15 +1079,16 @@ class WLines(LCDialog.LCDialog):
                 njug += 1
             game = self.dbop[linea]
             move = game.move(njug)
-            fenm2 = move.position.fenm2()
-            xpv = self.dbop.li_xpv[linea]
-            is_shortcut = self.shortcuts.can_be_shortcut(fenm2) and self.shortcuts.is_shortcut(xpv, fenm2)
+            if move:
+                fenm2 = move.position.fenm2()
+                xpv = self.dbop.li_xpv[linea]
+                is_shortcut = self.shortcuts.can_be_shortcut(fenm2) and self.shortcuts.is_shortcut(xpv, fenm2)
 
-            menu.separador()
-            if is_shortcut:
-                menu.opcion("rem_shortcut", _("Remove shortcut"), Iconos.Atajos())
-            else:
-                menu.opcion("add_shortcut", _("Add shortcut"), Iconos.Atajos())
+                menu.separador()
+                if is_shortcut:
+                    menu.opcion("rem_shortcut", _("Remove shortcut"), Iconos.Atajos())
+                else:
+                    menu.opcion("add_shortcut", _("Add shortcut"), Iconos.Atajos())
 
         resp = menu.lanza()
         if resp is not None:

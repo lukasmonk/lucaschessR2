@@ -68,6 +68,7 @@ class WLeagueWorker(QtWidgets.QWidget):
     book_rr = None
     book_max_plies = 0
     xengine = None
+    next_control: int
 
     def __init__(self, name_league):
         QtWidgets.QWidget.__init__(self)
@@ -109,7 +110,6 @@ class WLeagueWorker(QtWidgets.QWidget):
         self.is_closed = False
         self.state = None
         self.current_side = WHITE
-        self.next_control = 0
 
         ly_ab_board = Colocacion.H().control(self.analysis_bar).control(self.board)
         ly_tt = Colocacion.V().control(self.tb).otro(ly_ab_board)
@@ -259,7 +259,11 @@ class WLeagueWorker(QtWidgets.QWidget):
             self.xadjudicator.remove_multipv()
         else:
             self.xadjudicator = None
-        self.next_control = 0
+
+        if self.league.draw_range == 0 and self.league.resign == 0:
+            self.next_control = 99999
+        else:
+            self.next_control = 21
 
         max_minute, self.seconds_per_move = self.league.time_engine_engine
         self.max_seconds = max_minute * 60
@@ -651,10 +655,6 @@ class WLeagueWorker(QtWidgets.QWidget):
         if self.clocks_finished():
             return True
 
-        num_moves = len(self.game)
-        if num_moves < 2:
-            return False
-
         if self.state != ST_PLAYING or self.is_closed or self.game_finished() or self.game.is_finished():
             self.game.set_result()
             return True
@@ -663,29 +663,35 @@ class WLeagueWorker(QtWidgets.QWidget):
         if self.next_control > 0:
             return False
 
-        self.next_control = 10
+        self.next_control = 1
 
-        last_jg = self.game.last_jg()
-        if not last_jg.analysis:
+        num_moves = len(self.game)
+
+        last_move = self.game.last_jg()
+        if not last_move.analysis:
             return False
-        mrm, pos = last_jg.analysis
+        mrm, pos = last_move.analysis
         rm_ult = mrm.li_rm[pos]
-        jg_ant = self.game.move(-2)
-        if not jg_ant.analysis:
+        ant_move = self.game.move(-2)
+        if not ant_move.analysis:
             return False
-        mrm, pos = jg_ant.analysis
+        mrm, pos = ant_move.analysis
         rm_ant = mrm.li_rm[pos]
 
-        # Draw
         p_ult = rm_ult.centipawns_abs()
         p_ant = -rm_ant.centipawns_abs()
+
+        def adjudicator_score():
+            rm = self.xadjudicator.play_game(self.game)
+            self.next_control = 10
+            return rm.centipawns_abs()
+
+        # Draw
         dr = self.league.draw_range
         dmp = self.league.draw_min_ply
         if dmp and dr > 0 and num_moves >= dmp:
             if abs(p_ult) <= dr and abs(p_ant) <= dr:
-                mrm_tut = self.xadjudicator.analiza(self.game.last_position.fen())
-                rm_tut = mrm_tut.best_rm_ordered()
-                p_tut = rm_tut.centipawns_abs()
+                p_tut = adjudicator_score()
                 if abs(p_tut) <= dr:
                     self.game.set_termination(TERMINATION_ADJUDICATION, RESULT_DRAW)
                     return True
@@ -693,9 +699,8 @@ class WLeagueWorker(QtWidgets.QWidget):
 
         # Resign
         rs = self.league.resign
-        if 0 < rs <= abs(p_ult):
-            rm_tut = self.xadjudicator.play_game(self.game)
-            p_tut = rm_tut.centipawns_abs()
+        if 0 < rs <= abs(p_ult) or 0 < rs <= abs(p_ant):
+            p_tut = adjudicator_score()
             if abs(p_tut) >= rs:
                 is_white = self.game.last_position.is_white
                 if p_tut > 0:

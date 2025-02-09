@@ -79,7 +79,7 @@ class WPosicion(QtWidgets.QWidget):
         self.tb.new(_("Clear board"), Iconos.Borrar(), self.clear_board)
         self.tb.new(_("Paste FEN position"), Iconos.Pegar(), self.pegar)
         self.tb.new(_("Copy FEN position"), Iconos.Copiar(), self.copiar)
-        self.tb.new(_("Scanner"), Iconos.Scanner(), self.scanner1)
+        self.tb.new(_("Scanner"), Iconos.Scanner(), self.scanner)
 
         if Code.eboard:
             self.tb.new(_("Enable"), Code.eboard.icon_eboard(), self.eboard_activate)
@@ -477,13 +477,8 @@ class WPosicion(QtWidgets.QWidget):
             self.edFullMoves.setValue(self.position.num_moves)
             self.edMovesPawn.setValue(self.position.mov_pawn_capt)
 
-    def scanner1(self):
-        return self.scanner()
-
-    def scanner2(self):
-        return self.scanner()
-
     def scanner(self):
+        screen = QTUtil.get_screen(self)
         with QTUtil.EscondeWindow(self.wparent):
 
             if self.chb_scanner_ask.valor() and not QTUtil2.pregunta(
@@ -497,7 +492,6 @@ class WPosicion(QtWidgets.QWidget):
             time.sleep(0.2)
             QTUtil.refresh_gui()
 
-            screen = QTUtil.get_screen(self)
             screen_geometry = screen.geometry()
             desktop = screen.grabWindow(0, 0, 0, screen_geometry.width(), screen_geometry.height())
 

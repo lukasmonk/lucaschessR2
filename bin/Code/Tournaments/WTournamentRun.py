@@ -129,6 +129,7 @@ class ProcesadorBar:
 class WTournamentRun(QtWidgets.QWidget):
     tc_white: TimeControl
     tc_black: TimeControl
+    next_control: int
 
     def __init__(self, file_tournament, file_work):
         QtWidgets.QWidget.__init__(self)
@@ -324,7 +325,14 @@ class WTournamentRun(QtWidgets.QWidget):
             self.xadjudicator.remove_multipv()
         else:
             self.xadjudicator = None
-        self.next_control = 0
+
+        dr = self.torneo.draw_range()
+        rs = self.torneo.resign()
+
+        if dr == 0 and rs == 0:
+            self.next_control = 9999
+        else:
+            self.next_control = 21 if self.fen_inicial == "" else 11
 
         self.max_seconds = self.tournament_game.minutos * 60.0
         self.seconds_per_move = self.tournament_game.seconds_per_move
@@ -703,10 +711,6 @@ class WTournamentRun(QtWidgets.QWidget):
         if self.clocks_finished():
             return True
 
-        num_moves = len(self.game)
-        if num_moves < 2:
-            return False
-
         if self.state != ST_PLAYING or self.is_closed or self.game_finished() or self.game.is_finished():
             self.game.set_result()
             return True
@@ -715,31 +719,37 @@ class WTournamentRun(QtWidgets.QWidget):
         if self.next_control > 0:
             return False
 
-        self.next_control = 10
+        self.next_control = 1
 
-        last_jg = self.game.last_jg()
-        if not last_jg.analysis:
+        num_moves = len(self.game)
+
+        last_move = self.game.last_jg()
+        if not last_move.analysis:
             return False
-        mrm, pos = last_jg.analysis
+        mrm, pos = last_move.analysis
         rm_ult = mrm.li_rm[pos]
-        jg_ant = self.game.move(-2)
-        if not jg_ant.analysis:
+        prev_move = self.game.move(-2)
+        if not prev_move.analysis:
             return False
-        mrm, pos = jg_ant.analysis
+        mrm, pos = prev_move.analysis
         rm_ant = mrm.li_rm[pos]
 
-        # Draw
         p_ult = rm_ult.centipawns_abs()
         p_ant = -rm_ant.centipawns_abs()
+
+        def adjudicator_score():
+            rm = self.xadjudicator.play_game(self.game)
+            self.next_control = 10
+            return rm.centipawns_abs()
+
+        # Draw
         dr = self.torneo.draw_range()
         dmp = self.torneo.draw_min_ply()
         if dmp and dr > 0 and num_moves >= dmp:
             if abs(p_ult) <= dr and abs(p_ant) <= dr:
                 if self.xadjudicator:
-                    mrm_tut = self.xadjudicator.analiza(self.game.last_position.fen())
-                    rm_tut = mrm_tut.best_rm_ordered()
-                    p_tut = rm_tut.centipawns_abs()
-                    if abs(p_tut) <= dr:
+                    pts = adjudicator_score()
+                    if abs(pts) <= dr:
                         self.game.set_termination(TERMINATION_ADJUDICATION, RESULT_DRAW)
                         return True
                     return False
@@ -749,19 +759,17 @@ class WTournamentRun(QtWidgets.QWidget):
 
         # Resign
         rs = self.torneo.resign()
-        if 0 < rs <= abs(p_ult):
+        if 0 < rs <= abs(p_ult) or 0 < rs <= abs(p_ant):
             if self.xadjudicator:
-                rm_tut = self.xadjudicator.play_game(self.game)
-                p_tut = rm_tut.centipawns_abs()
-                if abs(p_tut) >= rs:
-                    is_white = rm_tut.is_white
-                    if p_tut > 0:
+                pts = adjudicator_score()
+                if abs(pts) >= rs:
+                    is_white = self.game.last_position.is_white
+                    if pts > 0:
                         result = RESULT_WIN_WHITE if is_white else RESULT_WIN_BLACK
                     else:
                         result = RESULT_WIN_BLACK if is_white else RESULT_WIN_WHITE
                     self.game.set_termination(TERMINATION_ADJUDICATION, result)
                     return True
-                self.next_control = 20
             else:
                 if rs <= abs(p_ant):
                     if (p_ant > 0 and p_ult > 0) or (p_ant < 0 and p_ult < 0):

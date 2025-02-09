@@ -447,9 +447,11 @@ class Game:
 
     def move(self, num):
         total_moves = len(self.li_moves)
-        if 0 <= num < total_moves:
-            return self.li_moves[num]
-        return self.li_moves[-1] if total_moves > 0 else None
+        if num < 0:
+            num = total_moves + num
+        if num >= 0:
+            return self.li_moves[num] if num < total_moves else self.li_moves[-1]
+        return None
 
     def verify(self):
         if self.pending_opening:

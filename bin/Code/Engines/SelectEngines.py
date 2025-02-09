@@ -566,7 +566,7 @@ class WSelectEngines(LCDialog.LCDialog):
                 return self.dict_typenames[x.type]
         else:
             return
-        self.list_all_engines.sort(key=lmbd, reverse=self.reversed)
+        self.list_all_engines.sort(key=lmdb, reverse=self.reversed)
         self.reversed = not self.reversed
         self.grid.refresh()
 
