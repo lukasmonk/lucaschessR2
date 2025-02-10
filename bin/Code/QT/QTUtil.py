@@ -213,6 +213,16 @@ def desktop_size():
     return screen_geometry.width(), screen_geometry.height()
 
 
+def desktop_size_available():
+    if Code.main_window:
+        screen = get_screen(Code.main_window)
+        screen_geometry = screen.availableGeometry()
+    else:
+        desktop = QtWidgets.QDesktopWidget()
+        screen_geometry = desktop.availableGeometry()
+    return screen_geometry.width(), screen_geometry.height()
+
+
 def desktop_width():
     return desktop_size()[0]
 

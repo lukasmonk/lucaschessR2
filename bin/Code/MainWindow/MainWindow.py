@@ -51,6 +51,7 @@ class MainWindow(LCDialog.LCDialog):
         self.board.set_dispatch_size(self.adjust_size)
         self.board.allowed_extern_resize(True)
         self.anchoAntesMaxim = None
+        self.resizing = False
 
         self.splitter = splitter = QtWidgets.QSplitter(self)
         splitter.addWidget(self.base)
@@ -258,18 +259,23 @@ class MainWindow(LCDialog.LCDialog):
         return resp
 
     def adjust_size(self):
+        if self.resizing:
+            return
+        self.resizing = True
         if self.isMaximized():
             if not self.board.is_maximized():
                 self.board.maximize_size(self.activadoF11)
         else:
+            tb_height = self.base.tb.height() if Code.configuration.x_tb_orientation_horizontal else 0
             n = 0
-            while self.height() > self.board.ancho + self.base.tb.height() + 18:
+            while self.height() > self.board.ancho + tb_height + 18:
                 self.adjustSize()
                 self.refresh()
                 n += 1
                 if n > 3:
                     break
         self.refresh()
+        self.resizing = False
 
     def ajustaTamH(self):
         if not (self.isMaximized() or self.board.siF11):

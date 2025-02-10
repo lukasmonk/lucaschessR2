@@ -164,6 +164,8 @@ def options(parent, configuration):
         (_("The text appears under the icon"), QtCore.Qt.ToolButtonTextUnderIcon),
     )
     form.combobox(_("Icons"), li, configuration.type_icons())
+    li_mto = [(_("Horizontal"), True), (_("Vertical"), False)]
+    form.combobox(_("Main Toolbar Orientation"), li_mto, configuration.x_tb_orientation_horizontal)
 
     form.separador()
     form.apart(_("Message windows"))
@@ -247,6 +249,7 @@ def options(parent, configuration):
             configuration.x_tb_fontpoints,
             configuration.x_tb_bold,
             qt_iconstb,
+            configuration.x_tb_orientation_horizontal,
             configuration.x_sizefont_messages,
         ) = li_asp1
 

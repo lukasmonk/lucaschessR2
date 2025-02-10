@@ -195,7 +195,7 @@ class WTournamentRun(QtWidgets.QWidget):
         self.pon_toolbar(state)
 
     def pon_toolbar(self, state):
-        li_acciones = [(_("Close"), Iconos.Close(), self.close), None]
+        li_acciones = [(_("Cancel"), Iconos.Cancelar(), self.terminar), None]
         if state == ST_PLAYING:
             li_acciones.extend(
                 [
@@ -449,6 +449,8 @@ class WTournamentRun(QtWidgets.QWidget):
             self.torneo = None
             self.db_work = None
             Util.remove_file(self.file_work)
+            self.close()
+
 
     def closeEvent(self, event):
         self.terminar()
@@ -723,7 +725,7 @@ class WTournamentRun(QtWidgets.QWidget):
 
         num_moves = len(self.game)
 
-        last_move = self.game.last_jg()
+        last_move: Move.Move = self.game.last_jg()
         if not last_move.analysis:
             return False
         mrm, pos = last_move.analysis
@@ -771,7 +773,7 @@ class WTournamentRun(QtWidgets.QWidget):
                     self.game.set_termination(TERMINATION_ADJUDICATION, result)
                     return True
             else:
-                if rs <= abs(p_ant):
+                if rs <= abs(p_ant) and rs <= abs(p_ult):
                     if (p_ant > 0 and p_ult > 0) or (p_ant < 0 and p_ult < 0):
                         if p_ult > 0:
                             win = WHITE if rm_ult.is_white else BLACK

@@ -62,6 +62,8 @@ class ManagerTactics(Manager.Manager):
         else:
             self.game.set_position(cp)
 
+        self.game.set_first_comment(self.game_obj.first_comment, True)
+
         self.game_type = GT_TACTICS
 
         self.human_is_playing = False

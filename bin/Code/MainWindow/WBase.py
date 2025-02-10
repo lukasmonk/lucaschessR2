@@ -74,6 +74,8 @@ class WBase(QtWidgets.QWidget):
         super(WBase, self).__init__(parent)
 
         self.parent = parent
+        if "MainWindow" in str(self.parent):
+            self.parent.base = self
         self.manager = manager
 
         self.configuration = Code.configuration
@@ -82,9 +84,9 @@ class WBase(QtWidgets.QWidget):
 
         self.setWindowIcon(Iconos.Aplicacion64())
 
-        self.create_board()
-
         self.create_toolbar()
+
+        self.create_board()
 
         self.analysis_bar = None
         self.create_analysis_bar()
@@ -92,7 +94,7 @@ class WBase(QtWidgets.QWidget):
         ly_bi = self.creaBloqueInformacion()
 
         ly_bb = Colocacion.H().control(self.analysis_bar).control(self.board)
-        ly_t = Colocacion.V().otro(ly_bb).relleno()
+        ly_t = Colocacion.V().otro(ly_bb).relleno().margen(0)
 
         self.with_shortcuts = True
 
@@ -101,10 +103,12 @@ class WBase(QtWidgets.QWidget):
 
         self.li_hide_replay = []
 
-        ly_ai = Colocacion.H().relleno().otroi(ly_t).otroi(ly_bi).relleno().margen(0)
-        ly = Colocacion.V().control(self.tb).relleno().otro(ly_ai).relleno().margen(2)
-        # ly_ai = Colocacion.H().relleno().control(self.tb).otroi(ly_t).otroi(ly_bi).relleno().margen(0)
-        # ly = Colocacion.V().relleno().otro(ly_ai).relleno().margen(2)
+        if self.configuration.x_tb_orientation_horizontal:
+            ly_ai = Colocacion.H().relleno().otroi(ly_t).otroi(ly_bi).relleno().margen(0)
+            ly = Colocacion.V().control(self.tb).relleno().otro(ly_ai).relleno().margen(2)
+        else:
+            ly_ai = Colocacion.H().relleno().control(self.tb).otroi(ly_t).otroi(ly_bi).relleno().margen(0)
+            ly = Colocacion.V().relleno().otro(ly_ai).relleno().margen(2)
 
         self.setLayout(ly)
 
@@ -115,7 +119,8 @@ class WBase(QtWidgets.QWidget):
 
     def create_toolbar(self):
         self.tb = QtWidgets.QToolBar("BASIC", self)
-        # self.tb.setOrientation(QtCore.Qt.Orientation.Vertical)
+        if not self.configuration.x_tb_orientation_horizontal:
+            self.tb.setOrientation(QtCore.Qt.Orientation.Vertical)
         icons_tb = self.configuration.type_icons()
         self.tb.setToolButtonStyle(icons_tb)
         sz = 32 if icons_tb == QtCore.Qt.ToolButtonTextUnderIcon else 16

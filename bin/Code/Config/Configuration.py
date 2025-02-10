@@ -186,6 +186,7 @@ class Configuration:
         self.x_tb_fontpoints = 11
         self.x_tb_bold = False
         self.x_tb_icons = toolbutton_int(Qt.ToolButtonTextUnderIcon)
+        self.x_tb_orientation_horizontal = True
 
         self.x_cursor_thinking = True
 

@@ -415,12 +415,23 @@ class Board(QtWidgets.QGraphicsView):
         self.set_width()
 
     def calc_width_mx_piece(self):
-        at = min(QTUtil.desktop_height(), QTUtil.desktop_width()) - 50 - 64
         if self.siF11:
-            at += 50 + 64
+            sz_width, sz_height = QTUtil.desktop_size()
+            limit = min(sz_width, sz_height)
+        else:
+            sz_width, sz_height = QTUtil.desktop_size_available()
+            if sz_width > sz_height:
+                limit = sz_height
+            else:
+                limit = sz_width
+            if Code.configuration.x_tb_orientation_horizontal:
+                limit -= 80
+                
+            limit -= 42
+
         tr = 1.0 * self.config_board.tamRecuadro() / 100.0
 
-        ap = int((1.0 * at - 16.0 * self.margin_pieces) / (8.0 + tr * 92.0 / 80))
+        ap = int((1.0 * limit - 16.0 * self.margin_pieces) / (8.0 + tr * 92.0 / 80))
         return ap
 
     def set_width(self):

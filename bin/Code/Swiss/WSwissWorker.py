@@ -360,11 +360,13 @@ class WSwissWorker(QtWidgets.QWidget):
     def terminar(self):
         self.is_closed = True
         Code.list_engine_managers.close_all()
+        self.close()
 
     def cancel_match(self):
         self.is_closed = True
         Code.list_engine_managers.close_all()
         self.swiss_work.cancel_match(self.xmatch.xid)
+        self.terminar()
 
     def closeEvent(self, event):
         self.terminar()
