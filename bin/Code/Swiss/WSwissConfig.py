@@ -2,6 +2,12 @@ from PySide2 import QtCore
 
 import Code
 from Code import Util
+from Code.Base.Constantes import (
+    BOOK_BEST_MOVE,
+    BOOK_RANDOM_UNIFORM,
+    BOOK_RANDOM_PROPORTIONAL
+)
+from Code.Books import Books, WBooks
 from Code.Engines import SelectEngines, WConfEngines
 from Code.QT import Colocacion
 from Code.QT import Columnas
@@ -124,7 +130,36 @@ class WSwissConfig(LCDialog.LCDialog):
         ly = Colocacion.H().control(lb_minutes).control(self.ed_minutes_eng_human)
         ly.control(lb_seconds).control(self.sb_seconds_eng_human)
 
-        gb_time_eng_human = Controles.GB(self, _("Engine vs human"), ly)
+        minutes = self.swiss.time_added_human
+        lb_added_human = Controles.LB2P(self, _("Extra minutes for the player"))
+        self.ed_added_human = Controles.ED(self).tipoFloat(minutes).anchoFijo(65)
+        ly1 = Colocacion.H().control(lb_added_human).control(self.ed_added_human).relleno()
+        ly2 = Colocacion.V().otro(ly).otro(ly1)
+
+        gb_time_eng_human = Controles.GB(self, _("Engine vs human"), ly2)
+
+        # Libro
+        self.list_books = Books.ListBooks()
+        li_books = [(x.name, x) for x in self.list_books.lista]
+        li_books.insert(0, ("-", None))
+        lib_inicial = self.swiss.book
+
+        li_resp_book = [
+            (_("Always the highest percentage"), BOOK_BEST_MOVE),
+            (_("Proportional random"), BOOK_RANDOM_PROPORTIONAL),
+            (_("Uniform random"), BOOK_RANDOM_UNIFORM),
+        ]
+
+        self.cbBooksR = QTUtil2.combobox_lb(self, li_books, lib_inicial)
+        self.btNuevoBookR = Controles.PB(self, "", self.new_book).ponIcono(Iconos.Mas())
+        self.cbBooksRR = QTUtil2.combobox_lb(self, li_resp_book, self.swiss.book_rr)
+        self.lbDepthBookR = Controles.LB2P(self, _("Max depth"))
+        self.edDepthBookR = Controles.ED(self).tipoInt(self.swiss.book_depth).anchoFijo(30)
+
+        hbox = Colocacion.H().control(self.cbBooksR).control(self.btNuevoBookR).control(self.cbBooksRR)
+        hbox1 = Colocacion.H().control(self.lbDepthBookR).control(self.edDepthBookR).relleno()
+        vbox = Colocacion.V().otro(hbox).otro(hbox1)
+        gb_book = Controles.GB(self, _("Engines") + " - " + _("Book"), vbox)
 
         lb_score_win = Controles.LB2P(self, _("Win"))
         lb_score_draw = Controles.LB2P(self, _("Draw"))
@@ -156,6 +191,7 @@ class WSwissConfig(LCDialog.LCDialog):
         ly_options.controld(lb_slow, 5, 0).control(self.chb_slow, 5, 1)
         ly_options.control(gb_time_eng_eng, 6, 0, 1, 2)
         ly_options.control(gb_time_eng_human, 7, 0, 1, 2)
+        ly_options.control(gb_book, 8, 0, 1, 2)
         ly_options.control(self.gb_score, 9, 0, 1, 2)
         ly_options.controld(lb_matchdays, 11, 0).control(self.ed_matchdays, 11, 1)
 
@@ -194,6 +230,13 @@ class WSwissConfig(LCDialog.LCDialog):
             previous = widget
 
         self.show_num_opponents()
+
+    def new_book(self):
+        WBooks.registered_books(self)
+        self.list_books = Books.ListBooks()
+        li = [(x.name, x) for x in self.list_books.lista]
+        li.insert(0, ("", None))
+        self.cbBooksR.rehacer(li, self.cbBooksR.valor())
 
     def remove_seasons(self):
         if QTUtil2.pregunta(self, _("Do you want to remove all results of all seasons?")):
@@ -267,6 +310,10 @@ class WSwissConfig(LCDialog.LCDialog):
         self.swiss.score_lost = self.ed_score_lost.textoFloat()
         self.swiss.score_byes = self.ed_score_byes.textoFloat()
         self.swiss.num_matchdays = self.ed_matchdays.textoInt()
+        self.swiss.time_added_human = self.ed_added_human.textoFloat()
+        self.swiss.book = self.cbBooksR.valor()
+        self.swiss.book_rr = self.cbBooksRR.valor()
+        self.swiss.book_depth = self.edDepthBookR.textoInt()
         self.swiss.save()
         if self.remove_seasons_delayed:
             self.swiss.remove_seasons()

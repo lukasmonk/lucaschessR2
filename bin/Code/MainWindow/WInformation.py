@@ -254,7 +254,7 @@ class Information(QtWidgets.QWidget):
         if self.move:
             self.move.set_comment(self.comment.texto())
             self.get_manager().refresh_pgn()
-        elif self.game:
+        elif self.game is not None:
             self.game.first_comment = self.comment.texto().replace("}", "]")
 
     def get_manager(self):

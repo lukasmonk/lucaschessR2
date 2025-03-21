@@ -25,10 +25,13 @@ from Code.Base.Constantes import (
     WHITE,
     BLACK,
     ST_PAUSE,
+    ENG_WICKER,
 )
+from Code.Books import Books
 from Code.Leagues import WLeagues, Leagues
 from Code.QT import QTUtil
 from Code.QT import QTUtil2
+from Code.Engines import EngineManager, EnginesWicker, EngineResponse
 
 
 class ManagerLeague(Manager.Manager):
@@ -53,6 +56,10 @@ class ManagerLeague(Manager.Manager):
     premove = None
     last_time_show_arrows = None
     rival_is_thinking = False
+
+    book = None
+    book_rr = None
+    book_depth = None
 
     def start(self, league: Leagues.League, xmatch: Leagues.Match, division: int):
         self.base_inicio(league, xmatch, division)
@@ -84,6 +91,31 @@ class ManagerLeague(Manager.Manager):
 
         opponent_engine = xmatch.get_engine(league, self.engine_side)
         self.conf_engine = opponent_engine.opponent
+
+        rv = opponent_engine.element
+        if rv.type == ENG_WICKER:
+            self.xrival = EnginesWicker.EngineManagerWicker(rv)
+        else:
+            self.xrival = EngineManager.EngineManager(rv)
+
+        self.book = None
+        bk = rv.book
+        if bk == "*":
+            bk = None
+        elif bk == "-":
+            bk = None
+        if bk:
+            self.book = Books.Book("P", bk, bk, True)
+            self.book.polyglot()
+            self.book_rr = rv.book_rr
+            self.book_depth = rv.book_max_plies
+        else:
+            if self.league.book:
+                self.book = self.league.book
+                self.book.polyglot()
+                self.book_rr = self.league.book_rr
+                self.book_depth = self.league.book_depth
+
 
         self.lirm_engine = []
         self.next_test_resign = 0
@@ -122,8 +154,12 @@ class ManagerLeague(Manager.Manager):
                 time_control += "+%d" % self.seconds_per_move
             self.game.set_tag("TimeControl", time_control)
 
-            self.tc_player.config_clock(minutes * 60, self.seconds_per_move, 0, 0)
+            secs_extra = self.league.time_added_human * 60.0
+            self.tc_player.config_clock(minutes * 60, self.seconds_per_move, 0, secs_extra)
             self.tc_rival.config_clock(minutes * 60, self.seconds_per_move, 0, 0)
+
+            if secs_extra:
+                self.game.set_tag("TimeExtra" + ("White" if self.is_human_side_white else "Black"), "%d" % secs_extra)
 
         self.pon_toolbar()
 
@@ -406,6 +442,18 @@ class ManagerLeague(Manager.Manager):
 
         self.activate_side(is_white)
 
+    def select_book_move(self, book, tipo, bdepth):
+        if bdepth == 0 or len(self.game) < bdepth:
+            fen = self.game.last_fen()
+            pv = book.eligeJugadaTipo(fen, tipo)
+            if pv:
+                rm_rival = EngineResponse.EngineResponse("Opening", self.game.last_position.is_white)
+                rm_rival.from_sq = pv[:2]
+                rm_rival.to_sq = pv[2:4]
+                rm_rival.promotion = pv[4:]
+                return True, rm_rival
+        return False, None
+
     def play_rival(self, is_white):
         self.board.remove_arrows()
         self.start_clock(False)
@@ -414,6 +462,14 @@ class ManagerLeague(Manager.Manager):
         self.rm_rival = None
         self.pon_toolbar()
         self.activate_side(self.is_human_side_white)
+
+        if self.book:
+            move_found, rm = self.select_book_move(self.book, self.book_rr, self.book_depth)
+            if move_found:
+                self.rival_has_moved(rm)
+                return
+            else:
+                self.book = None
 
         self.thinking(True)
         if self.timed:

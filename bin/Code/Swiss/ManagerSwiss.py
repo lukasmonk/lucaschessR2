@@ -25,10 +25,13 @@ from Code.Base.Constantes import (
     WHITE,
     BLACK,
     ST_PAUSE,
+    ENG_WICKER,
 )
+from Code.Books import Books
 from Code.QT import QTUtil
 from Code.QT import QTUtil2
-from Code.Swiss import WSwiss, Swiss
+from Code.Swiss import WSwisses, Swiss
+from Code.Engines import EngineManager, EnginesWicker, EngineResponse
 
 
 class ManagerSwiss(Manager.Manager):
@@ -52,6 +55,10 @@ class ManagerSwiss(Manager.Manager):
     premove = None
     last_time_show_arrows = None
     rival_is_thinking = False
+
+    book = None
+    book_rr = None
+    book_depth = None
 
     def start(self, swiss: Swiss.Swiss, xmatch: Swiss.Match):
         self.base_inicio(swiss, xmatch)
@@ -83,15 +90,36 @@ class ManagerSwiss(Manager.Manager):
         opponent_engine = xmatch.get_engine(swiss, self.engine_side)
         self.conf_engine = opponent_engine.element
 
+        rv = opponent_engine.element
+        if rv.type == ENG_WICKER:
+            self.xrival = EnginesWicker.EngineManagerWicker(rv)
+        else:
+            self.xrival = EngineManager.EngineManager(rv)
+
+        self.book = None
+        bk = rv.book
+        if bk == "*":
+            bk = None
+        elif bk == "-":
+            bk = None
+        if bk:
+            self.book = Books.Book("P", bk, bk, True)
+            self.book.polyglot()
+            self.book_rr = rv.book_rr
+            self.book_depth = rv.book_max_plies
+        else:
+            if self.swiss.book:
+                self.book = self.swiss.book
+                self.book.polyglot()
+                self.book_rr = self.swiss.book_rr
+                self.book_depth = self.swiss.book_depth
+
         self.lirm_engine = []
         self.next_test_resign = 0
         self.resign_limit = -99999  # never
 
         self.main_window.set_activate_tutor(False)
 
-        self.xrival = self.procesador.creaManagerMotor(
-            self.conf_engine, self.conf_engine.max_time * 1000, self.conf_engine.max_depth
-        )
         self.resign_limit = swiss.resign
 
         self.game.set_tag("Event", _("Chess leagues"))
@@ -119,8 +147,13 @@ class ManagerSwiss(Manager.Manager):
                 time_control += "+%d" % self.seconds_per_move
             self.game.set_tag("TimeControl", time_control)
 
-            self.tc_player.config_clock(minutes * 60, self.seconds_per_move, 0, 0)
+            secs_extra = swiss.time_added_human * 60.0
+            self.tc_player.config_clock(minutes * 60, self.seconds_per_move, 0, secs_extra)
             self.tc_rival.config_clock(minutes * 60, self.seconds_per_move, 0, 0)
+
+            if secs_extra:
+                self.game.set_tag("TimeExtra" + ("White" if self.is_human_side_white else "Black"), "%d" % secs_extra)
+
 
         self.pon_toolbar()
 
@@ -252,7 +285,7 @@ class ManagerSwiss(Manager.Manager):
 
         elif key == TB_CLOSE:
             self.procesador.start()
-            WSwiss.play_swiss(self.main_window, self.swiss)
+            WSwisses.play_swiss(self.main_window, self.swiss)
 
         else:
             Manager.Manager.rutinaAccionDef(self, key)
@@ -369,9 +402,9 @@ class ManagerSwiss(Manager.Manager):
         self.set_side_indicator(is_white)
         self.refresh()
 
-        siRival = is_white == self.is_engine_side_white
+        si_rival = is_white == self.is_engine_side_white
 
-        if siRival:
+        if si_rival:
             self.play_rival(is_white)
 
         else:
@@ -401,6 +434,18 @@ class ManagerSwiss(Manager.Manager):
 
         self.activate_side(is_white)
 
+    def select_book_move(self, book, tipo, bdepth):
+        if bdepth == 0 or len(self.game) < bdepth:
+            fen = self.game.last_fen()
+            pv = book.eligeJugadaTipo(fen, tipo)
+            if pv:
+                rm_rival = EngineResponse.EngineResponse("Opening", self.game.last_position.is_white)
+                rm_rival.from_sq = pv[:2]
+                rm_rival.to_sq = pv[2:4]
+                rm_rival.promotion = pv[4:]
+                return True, rm_rival
+        return False, None
+
     def play_rival(self, is_white):
         self.board.remove_arrows()
         self.start_clock(False)
@@ -409,6 +454,14 @@ class ManagerSwiss(Manager.Manager):
         self.rm_rival = None
         self.pon_toolbar()
         self.activate_side(self.is_human_side_white)
+
+        if self.book:
+            move_found, rm = self.select_book_move(self.book, self.book_rr, self.book_depth)
+            if move_found:
+                self.rival_has_moved(rm)
+                return
+            else:
+                self.book = None
 
         self.thinking(True)
         if self.timed:

@@ -100,9 +100,9 @@ def options(parent, configuration):
     form.checkbox(_("Always promote to queen\nALT key allows to change"), configuration.x_autopromotion_q)
     form.slider(_("Margin of pieces in square") + ':<br><small>%s 10</small>' % _("By default"), 0, 20,
                 Code.configuration.x_margin_pieces, siporc=False)
-    form.separador()
-
     form.checkbox(_("Show cursor when engine is thinking"), configuration.x_cursor_thinking)
+    form.checkbox(_("Show ratings (NAGs) on the board"), configuration.x_show_rating)
+    form.checkbox(_("Arrow with the best move when there is an analysis"), configuration.x_show_bestmove)
     form.separador()
 
     x = " - %s Graham O'Neill (https://goneill.co.nz)" % _("developed by")
@@ -189,8 +189,7 @@ def options(parent, configuration):
     form.checkbox(_("Enable captured material window by default"), configuration.x_captures_activate)
     form.checkbox(_("Enable information panel by default"), configuration.x_info_activate)
     form.checkbox(_("Enable analysis bar by default"), configuration.x_analyzer_activate_ab)
-    form.checkbox(_("Show ratings (NAGs) on the board"), configuration.x_show_rating)
-    form.checkbox(_("Arrow with the best move when there is an analysis"), configuration.x_show_bestmove)
+    form.checkbox(_("Show puzzles on startup"), configuration.x_show_puzzles_on_startup)
     form.separador()
     form.spinbox(_("Font size of information labels"), 3, 99, 70, configuration.x_sizefont_infolabels)
     form.spinbox(_("Players"), 3, 99, 70, configuration.x_sizefont_players)
@@ -268,8 +267,7 @@ def options(parent, configuration):
             configuration.x_captures_activate,
             configuration.x_info_activate,
             configuration.x_analyzer_activate_ab,
-            configuration.x_show_rating,
-            configuration.x_show_bestmove,
+            configuration.x_show_puzzles_on_startup,
             configuration.x_sizefont_infolabels,
             configuration.x_sizefont_players,
             configuration.x_enable_highdpiscaling,
@@ -299,6 +297,8 @@ def options(parent, configuration):
             configuration.x_autopromotion_q,
             configuration.x_margin_pieces,
             configuration.x_cursor_thinking,
+            configuration.x_show_rating,
+            configuration.x_show_bestmove,
             dboard,
             toolIcon,
             configuration.x_position_tool_board,

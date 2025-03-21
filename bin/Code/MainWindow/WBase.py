@@ -1,6 +1,6 @@
 import time
 
-from PySide2 import QtCore, QtWidgets
+from PySide2 import QtCore, QtWidgets, QtGui
 
 import Code
 from Code.Base.Constantes import (
@@ -11,7 +11,7 @@ from Code.Base.Constantes import (
     TB_ACCEPT,
     TB_ADJOURN,
     TB_ADJOURNMENTS,
-    TB_BOXROOMS_PGN,
+    # TB_BOXROOMS_PGN,
     TB_CANCEL,
     TB_CHANGE,
     TB_COMPETE,
@@ -119,8 +119,7 @@ class WBase(QtWidgets.QWidget):
 
     def create_toolbar(self):
         self.tb = QtWidgets.QToolBar("BASIC", self)
-        if not self.configuration.x_tb_orientation_horizontal:
-            self.tb.setOrientation(QtCore.Qt.Orientation.Vertical)
+
         icons_tb = self.configuration.type_icons()
         self.tb.setToolButtonStyle(icons_tb)
         sz = 32 if icons_tb == QtCore.Qt.ToolButtonTextUnderIcon else 16
@@ -133,11 +132,23 @@ class WBase(QtWidgets.QWidget):
         self.dic_toolbar = {}
 
         dic_opciones = self.dic_opciones_tb()
+
         if Code.eboard:
-            dic_opciones[TB_EBOARD] = [
-                "%s/%s %s" % (_("Enable"), _("Disable"), self.configuration.x_digital_board),
-                Code.eboard.icon_eboard(),
-            ]
+            dic_opciones[TB_EBOARD] = [_("Enable"), Code.eboard.icon_eboard()]
+
+        if not self.configuration.x_tb_orientation_horizontal:
+            self.tb.setOrientation(QtCore.Qt.Orientation.Vertical)
+            font_metrics = QtGui.QFontMetrics(self.tb.font())
+            max_px = max(font_metrics.width(label) for label, ico in dic_opciones.values())
+            self.tb.setFixedWidth(max_px+12)
+
+            # mx = 0
+            # lb = ""
+            # for label, ico in dic_opciones.values():
+            #     fm = font_metrics.width(label)
+            #     if fm  > mx:
+            #         mx = fm
+            #         lb = label
 
         cf = self.manager.configuration
         peso = 75 if cf.x_tb_bold else 50
@@ -191,7 +202,7 @@ class WBase(QtWidgets.QWidget):
             TB_PGN_LABELS: (_("PGN labels"), Iconos.InformacionPGN()),
             TB_OTHER_GAME: (_("Other game"), Iconos.FicheroRepite()),
             TB_DRAW: (_("Draw"), Iconos.Tablas()),
-            TB_BOXROOMS_PGN: (_("Boxrooms PGN"), Iconos.BoxRooms()),
+            # TB_BOXROOMS_PGN: (_("Boxrooms PGN"), Iconos.BoxRooms()),
             TB_END_REPLAY: (_("End"), Iconos.MainMenu()),
             TB_SLOW_REPLAY: (_("Slow"), Iconos.Pelicula_Lento()),
             TB_PAUSE: (_("Pause"), Iconos.Pelicula_Pausa()),

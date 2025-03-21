@@ -1698,11 +1698,11 @@ class Board(QtWidgets.QGraphicsView):
             self.blindfold = BLINDFOLD_CONFIG
             self.blindfoldReset()
 
-    def buscaPieza(self, posA1H8):
-        if posA1H8 is None:
+    def buscaPieza(self, pos_a1):
+        if pos_a1 is None or len(pos_a1) < 2:
             return -1
-        row = int(posA1H8[1])
-        column = ord(posA1H8[0]) - 96
+        row = int(pos_a1[1])
+        column = ord(pos_a1[0]) - 96
         for num, x in enumerate(self.liPiezas):
             if x[2]:
                 pieza = x[1].bloquePieza

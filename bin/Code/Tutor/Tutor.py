@@ -105,7 +105,7 @@ class Tutor:
         if in_the_opening:
             si_rival = False
 
-        self.w = w = WindowTutor.WindowTutor(self.manager, self, si_rival, in_the_opening, self.is_white, has_hints)
+        self.w = WindowTutor.WindowTutor(self.manager, self, si_rival, in_the_opening, self.is_white, has_hints)
 
         self.changed_rm(0)
 
@@ -120,7 +120,7 @@ class Tutor:
                   self.game_user.li_moves[0].pgn_html_base(Code.configuration.x_pgn_withfigurines) + \
                   " " + self.rm_user.texto()
 
-        w.set_score_user(message)
+        self.w.set_score_user(message)
 
         if si_rival:
             self.rm_rival.change_side()
@@ -144,13 +144,13 @@ class Tutor:
                     message = _("Opponent's prediction") + "<br><br>" + \
                               self.game_rival.li_moves[0].pgn_html_base(Code.configuration.x_pgn_withfigurines) + \
                               " " + self.rm_rival.texto_rival()
-                    w.set_score_rival(message)
+                    self.w.set_score_rival(message)
 
         self.moving_tutor(True)
         self.moving_user(True)
 
-        if w.exec_():
-            if w.siElegidaOpening:
+        if self.w.exec_():
+            if self.w.siElegidaOpening:
                 from_sq = self.game_opening.move(0).from_sq
                 to_sq = self.game_opening.move(0).to_sq
                 if from_sq == self.from_sq and to_sq == self.to_sq:
@@ -158,8 +158,8 @@ class Tutor:
                 self.from_sq = from_sq
                 self.to_sq = to_sq
                 self.promotion = ""
-            elif w.respLibro:
-                self.from_sq, self.to_sq, self.promotion = w.respLibro
+            elif self.w.respLibro:
+                self.from_sq, self.to_sq, self.promotion = self.w.respLibro
             else:
                 rm = self.list_rm[self.pos_rm][0]
                 self.from_sq = rm.from_sq

@@ -1844,7 +1844,7 @@ class Manager:
         # Arbol de movimientos
         if with_tree:
             menu.separador()
-            menu.opcion("arbol", _("Moves tree"), Iconos.Arbol())
+            menu.opcion("arbol", _("Moves tree"), Iconos.Arbol(), shortcut='Alt+M')
 
         menu.separador()
         menu.opcion("play", _("Play current position"), Iconos.MoverJugar(), shortcut='Alt+X')
@@ -2432,7 +2432,7 @@ class Manager:
             return self.move_according_key(nkey)
 
         variation_history = self.board.variation_history
-        navigating_variations = variation_history.count("|") == 2
+        navigating_variations = variation_history.count("|") >= 2
         if modifiers:  # and modifiers == QtCore.Qt.ShiftModifier:
             if not navigating_variations:
                 variation_history = f'{variation_history.split("|")[0]}|0|0'
@@ -2442,41 +2442,68 @@ class Manager:
         if not navigating_variations:
             return self.move_according_key(nkey)
 
-        num_move, num_variation, num_variation_move = [int(cnum) for cnum in variation_history.split("|")]
-        main_move: Move.Move = self.game.move(num_move)
-        num_variations = len(main_move.variations)
-        num_moves_current_variation = len(main_move.variations.li_variations[num_variation])
+        if variation_history.count("|") == 2:
+            num_move, num_variation, num_variation_move = [int(cnum) for cnum in variation_history.split("|")]
+            main_move: Move.Move = self.game.move(num_move)
+            num_variations = len(main_move.variations)
+            num_moves_current_variation = len(main_move.variations.li_variations[num_variation])
 
-        if nkey == GO_BACK:
-            if num_variation_move > 0:
-                num_variation_move -= 1
+            if nkey == GO_BACK:
+                if num_variation_move > 0:
+                    num_variation_move -= 1
+                else:
+                    self.move_according_key(nkey)
+                    return
+            elif nkey == GO_FORWARD:
+                if num_variation_move < num_moves_current_variation - 1:
+                    num_variation_move += 1
+                else:
+                    return
+            elif nkey == GO_BACK2:
+                if num_variation > 0 and modifiers != QtCore.Qt.ShiftModifier:
+                    num_variation -= 1
+                    num_variation_move = 0
+                else:
+                    if modifiers == QtCore.Qt.ShiftModifier:
+                        self.main_window.informacionPGN.variantes.link_variation_pressed(str(num_move))
+                    return
+            elif nkey == GO_FORWARD2:
+                if num_variation < num_variations - 1:
+                    num_variation += 1
+                    num_variation_move = 0
+                else:
+                    return
             else:
-                self.move_according_key(nkey)
                 return
-        elif nkey == GO_FORWARD:
-            if num_variation_move < num_moves_current_variation - 1:
-                num_variation_move += 1
-            else:
-                return
-        elif nkey == GO_BACK2:
-            if num_variation > 0 and modifiers != QtCore.Qt.ShiftModifier:
-                num_variation -= 1
-                num_variation_move = 0
-            else:
-                if modifiers == QtCore.Qt.ShiftModifier:
-                    self.main_window.informacionPGN.variantes.link_variation_pressed(str(num_move))
-                return
-        elif nkey == GO_FORWARD2:
-            if num_variation < num_variations - 1:
-                num_variation += 1
-                num_variation_move = 0
-            else:
-                return
+
+            link = f"{num_move}|{num_variation}|{num_variation_move}"
+            self.main_window.informacionPGN.variantes.link_variation_pressed(link)
+
         else:
-            return
 
-        link = f"{num_move}|{num_variation}|{num_variation_move}"
-        self.main_window.informacionPGN.variantes.link_variation_pressed(link)
+            li_var = variation_history.split("|")
+            last = int(li_var[-1])
+
+            if nkey == GO_BACK:
+                if last > 0:
+                    li_var[-1] = str(last-1)
+                else:
+                    li_var = li_var[:-2]
+
+            elif nkey == GO_FORWARD:
+                li_var[-1] = str(last+1)
+
+            elif nkey == GO_BACK2:
+                li_var = li_var[:-2]
+
+            elif nkey == GO_FORWARD2:
+                li_var = li_var[:-2]
+
+            else:
+                return
+
+            link = "|".join(li_var)
+            self.main_window.informacionPGN.variantes.link_variation_pressed(link)
 
     def bestmove_from_analysis_bar(self):
         return self.main_window.bestmove_from_analysis_bar()

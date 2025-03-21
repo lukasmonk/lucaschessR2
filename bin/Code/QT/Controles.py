@@ -650,6 +650,8 @@ class EM(QtWidgets.QTextEdit):
     def mouseDoubleClickEvent(self, event):
         if self.rutinaDobleClick:
             self.rutinaDobleClick(event)
+        else:
+            super().mouseDoubleClickEvent(event)
 
     def position(self):
         return self.textCursor().position()

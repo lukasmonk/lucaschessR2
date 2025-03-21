@@ -1624,9 +1624,9 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                 comment += "%s: %0.2f\n" % (self.xrival.name, time_rival / ntime_rival)
             comment += "\n" + _("Total time") + ":\n"
             if ntime_user:
-                comment += "%s: %0.2f\n" % (self.configuration.x_player, time_user)
+                comment += "%s: %s\n" % (self.configuration.x_player, Util.secs2str(time_user))
             if ntime_rival:
-                comment += "%s: %0.2f\n" % (self.xrival.name, time_rival)
+                comment += "%s: %s\n" % (self.xrival.name, Util.secs2str(time_rival))
 
         self.game.first_comment = comment
 

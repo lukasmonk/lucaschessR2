@@ -165,7 +165,9 @@ class ManagerTrainBooks(Manager.Manager):
         select = self.resp_rival
 
         if select == SELECTED_BY_PLAYER:
+            self.main_window.toolbar_enable(False)
             resp = WBooks.select_move_books(self.main_window, list_moves, self.game.last_position.is_white)
+            self.main_window.toolbar_enable(True)
         elif select == BOOK_BEST_MOVE:
             resp = list_moves[0][0], list_moves[0][1], list_moves[0][2]
             nmax = list_moves[0][4]

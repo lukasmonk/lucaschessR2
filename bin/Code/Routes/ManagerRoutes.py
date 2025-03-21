@@ -329,10 +329,12 @@ class ManagerRoutesPlay(ManagerRoutes):
 
         if siwin:
             if self.route.end_playing():
-                mensaje = _("Congratulations, you have completed the game.")
+                mensaje = _("Congratulations, goal achieved") + "<br><br>" + \
+                          _("Level %d") % self.route.level + ": " + _("Finished")
+                QTUtil2.message_result_win(self.main_window, mensaje)
             else:
                 mensaje = _("Well done")
-            self.message_on_pgn(mensaje)
+                self.message_on_pgn(mensaje)
         else:
             if self.must_win:
                 QTUtil2.message_error(self.main_window, _("You must win to pass this step."))

@@ -504,6 +504,8 @@ class WGames(QtWidgets.QWidget):
         return None
 
     def edit_previous_next(self, order, game):
+        if not hasattr(game, "recno"):
+            game.recno = self.grid.recno()
         if order == "save":
             self.edit_save(game.recno, game)
         elif order == "with_previous_next":

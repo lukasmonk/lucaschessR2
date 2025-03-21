@@ -256,7 +256,8 @@ class Procesador:
             self.main_window.set_title()
         if self.is_first_time:
             self.is_first_time = False
-            self.presentacion()
+            if self.configuration.x_show_puzzles_on_startup:
+                self.presentacion()
         self.kibitzers_manager.stop()
         self.close_engines()
 
@@ -1364,7 +1365,7 @@ class Procesador:
         else:
             self.manager.start(league, xmatch, division)
 
-    def play_swiss_human(self, league, xmatch):
+    def play_swiss_human(self, swiss, xmatch):
         self.manager = ManagerSwiss.ManagerSwiss(self)
         adj = Adjournments.Adjournments()
         key_dic = adj.key_match_swiss(xmatch)
@@ -1373,7 +1374,7 @@ class Procesador:
             adj.remove(key)
             self.manager.run_adjourn(dic_adjourn)
         else:
-            self.manager.start(league, xmatch)
+            self.manager.start(swiss, xmatch)
 
     def check_engines(self):
         return CheckEngines.check_engines(self.main_window)

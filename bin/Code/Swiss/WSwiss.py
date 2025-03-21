@@ -26,7 +26,7 @@ class WSwiss(LCDialog.LCDialog):
 
         self.swiss: Swiss.Swiss = swiss
         self.season = swiss.read_season()
-        titulo = swiss.name()
+        titulo = swiss.name() + " - " + _("Season") + " " + str(self.season.num_season + 1)
         icono = Iconos.Swiss()
         extparam = "swiss"
         LCDialog.LCDialog.__init__(self, w_parent, titulo, icono, extparam)
@@ -46,6 +46,8 @@ class WSwiss(LCDialog.LCDialog):
         self.result = NONE
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.update_matches)
+
+        self.game_tmp = None
 
         self.num_workers_launched = 0
 
@@ -647,7 +649,8 @@ class WSwiss(LCDialog.LCDialog):
         elif xmatch.is_human_vs_engine(self.swiss):
             self.play_human = self.swiss, xmatch
             self.result = PLAY_HUMAN
-            self.accept()
+            grid.refresh()
+            self.terminar()
 
         elif xmatch.is_human_vs_human(self.swiss):
             game = Game.Game()
@@ -665,10 +668,16 @@ class WSwiss(LCDialog.LCDialog):
                     elo_black = elem["ACT_ELO"]
             game.set_tag("WhiteElo", str(elo_white))
             game.set_tag("BlackElo", str(elo_black))
+            game.recno = 0
+            self.game_tmp = None
 
-            game_resp = Code.procesador.manager_game(self, game, True, False, None)
-            if game_resp:
-                game_resp.verify()
+            def save_routine(recno, game_to_save):
+                self.game_tmp = game_to_save
+
+            Code.procesador.manager_game(self, game, True, False, None, save_routine=save_routine)
+            if self.game_tmp:
+                game = self.game_tmp
+                game.verify()
 
                 result = game.resultado()
                 if result not in (RESULT_WIN_BLACK, RESULT_DRAW, RESULT_WIN_WHITE):
@@ -990,6 +999,8 @@ class WSwiss(LCDialog.LCDialog):
                     un_elem[key] = valor
 
     def seasons(self):
+        if self.season.is_finished():
+            self.update_matches()
         li_seasons = self.swiss.list_seasons()
         if len(li_seasons) > 1:
             rondo = QTVarios.rondo_puntos()
@@ -1007,7 +1018,7 @@ class WSwiss(LCDialog.LCDialog):
             num_season = int(resp)
             self.swiss.set_current_season(num_season)
             self.result = REINIT
-            self.accept()
+            self.terminar()
 
 
 def play_swiss(parent, swiss):

@@ -279,6 +279,8 @@ class Configuration:
 
         self.x_mode_select_lc = False
 
+        self.x_show_puzzles_on_startup = True
+
         self._dic_books = None
 
         self.__theme_num = 1  # 1=red 2=old
@@ -851,7 +853,7 @@ class Configuration:
                     continue
                 name += " *"
             li.append([name, v.autor, v.url])
-        li = sorted(li, key=operator.itemgetter(0))
+        li = sorted(li, key=lambda x: x[0].upper())
         return li
 
     def list_engines_show(self):

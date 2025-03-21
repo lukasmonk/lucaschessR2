@@ -315,10 +315,10 @@ class ManagerGame(Manager.Manager):
         resp = self.utilities(li_mas_opciones)
 
         if resp == "books":
-            liMovs = self.librosConsulta(True)
-            if liMovs:
-                for x in range(len(liMovs) - 1, -1, -1):
-                    from_sq, to_sq, promotion = liMovs[x]
+            li_movs = self.librosConsulta(True)
+            if li_movs:
+                for x in range(len(li_movs) - 1, -1, -1):
+                    from_sq, to_sq, promotion = li_movs[x]
                     self.player_has_moved(from_sq, to_sq, promotion)
 
         elif resp == "position":

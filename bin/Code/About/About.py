@@ -84,7 +84,7 @@ class WAbout(QtWidgets.QDialog):
 #
 #     dic = ib.dic
 #
-#     with open(r"c:\lucaschess\WEB\mysite\templates\Thanksto.html", "wt", encoding="utf-8") as q:
+#     with open(r"h:\lucaschess\WEB\mysite\templates\Thanksto.html", "wt", encoding="utf-8") as q:
 #
 #         li = ['{% extends "base.html" %}',
 #               '{% block contenido %}',
@@ -166,8 +166,16 @@ class WAbout(QtWidgets.QDialog):
 #                                 nombre = "Maia-1100/1900"
 #                             if "{bmi2}" in nombre:
 #                                 nombre = nombre.replace("{bmi2}", "")
+#                             if nombre == "Fox":
+#                                 nombre += " " + version
+#                             if nombre == "FoxCub":
+#                                 nombre = "Foxcub " +version
+#                             if nombre == "irina":
+#                                 nombre = "Irina " +version
+#                             if nombre[0].islower():
+#                                 nombre = nombre[0].upper() + nombre[1:]
 #                             li_eng.append((nombre, autor, url, "Linux"))
-#                 li_eng.sort(key=lambda xt: xt[0])
+#                 li_eng.sort(key=lambda xt: xt[0].upper())
 #
 #                 for pos, (name, autor, url, so) in enumerate(li_eng, 1):
 #                     li_eng_txt.append("<tr>")

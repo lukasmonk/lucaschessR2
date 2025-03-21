@@ -304,7 +304,10 @@ class WLeagueWorker(QtWidgets.QWidget):
                 self.book[side] = Books.Book("P", bk, bk, True)
                 self.book[side].polyglot()
             else:
-                self.book[side] = None
+                self.book[side] = self.swiss.book if self.swiss.book else None
+                self.book_rr[side] = self.swiss.book_rr
+                self.book_max_plies[side] = self.swiss.book_depth
+
             self.book_rr[side] = rv.book_rr
             self.book_max_plies[side] = rv.book_max_plies
 

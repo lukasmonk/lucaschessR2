@@ -55,6 +55,8 @@ class WLeague(LCDialog.LCDialog):
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.update_matches)
 
+        self.game_tmp = None
+
         self.li_grids_divisions = []
         self.li_grids_divisions_crosstabs = []
 
@@ -784,10 +786,16 @@ class WLeague(LCDialog.LCDialog):
                     elo_black = elem["ACT_ELO"]
             game.set_tag("WhiteElo", str(elo_white))
             game.set_tag("BlackElo", str(elo_black))
+            game.recno = 0
+            self.game_tmp = None
 
-            game_resp = Code.procesador.manager_game(self, game, True, False, None)
-            if game_resp:
-                game_resp.verify()
+            def save_routine(recno, game_to_save):
+                self.game_tmp = game_to_save
+
+            Code.procesador.manager_game(self, game, True, False, None, save_routine=save_routine)
+            if self.game_tmp:
+                game = self.game_tmp
+                game.verify()
 
                 result = game.resultado()
                 if result not in (RESULT_WIN_BLACK, RESULT_DRAW, RESULT_WIN_WHITE):

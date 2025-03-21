@@ -8,6 +8,7 @@ from Code.Base import Game
 from Code.Base.Constantes import RESULT_WIN_WHITE, RESULT_WIN_BLACK, RESULT_DRAW, ENGINE, HUMAN, WHITE, BLACK
 from Code.Engines import Engines
 from Code.SQL import UtilSQL
+from Code.Base.Constantes import BOOK_RANDOM_UNIFORM
 
 
 class Human:
@@ -112,12 +113,12 @@ class Opponent:
             return WHITE
         elif self.white > self.black:
             return BLACK
-        elif self.last_played is not None:
-            return WHITE if self.last_played == BLACK else BLACK
+        # elif self.last_played is not None:
+        #     return WHITE if self.last_played == BLACK else BLACK
         else:
             return None
 
-    def reset(self):
+    def reset(self, current_elo=None):
         self.white = 0
         self.black = 0
         self.last_played = None
@@ -125,7 +126,7 @@ class Opponent:
         self.li_win = []
         self.li_draw = []
         self.li_lost = []
-        self.current_elo = self.element.elo
+        self.current_elo = self.element.elo if current_elo is None else current_elo
 
 
 class Match:
@@ -188,6 +189,108 @@ class MatchsDay:
 
         li_opponents = swiss.li_opponents
 
+        if len(li_opponents) % 2 == 1:  # hay un bye
+            num_byes = 0
+            while True:
+                li_no_bye = [opponent for opponent in li_opponents if opponent.byes == num_byes]
+                if len(li_no_bye) == 0:
+                    num_byes += 1
+                else:
+                    break
+            player_bye = random.choice(li_no_bye)
+            player_bye.byes += 1
+            li_opponents_play = [opponent for opponent in li_opponents if opponent != player_bye]
+        else:
+            li_opponents_play = li_opponents[:]
+
+        dic_xid_oponents_played = collections.defaultdict(set)
+        for xid1, xid2 in set_mached_played:
+            dic_xid_oponents_played[xid1].add(xid2)
+            dic_xid_oponents_played[xid2].add(xid1)
+
+        first_match = len(set_mached_played) == 0
+        opponent: Opponent
+        if first_match:
+            random.shuffle(li_opponents_play)
+            li_opponents_play.sort(key=lambda opponent: opponent.current_elo, reverse=True)
+        else:
+            li_opponents_play.sort(key=lambda opponent: opponent.key_order(swiss), reverse=True)
+
+        st_xid_playing = set()
+        num_players_play = len(li_opponents_play)
+        for pos, opponent in enumerate(li_opponents_play):
+            xid = opponent.xid
+            if xid in st_xid_playing:
+                continue
+
+            if first_match:
+                rival_selected = li_opponents_play[pos+num_players_play//2]
+                player_w, player_b = rival_selected, opponent
+                if random.randint(1, 100) > 75:
+                    player_w, player_b = player_b, player_w
+
+            else:
+                st_opponents_played = dic_xid_oponents_played[xid]
+                rival_selected = None
+
+                for pos_rival in range(pos+1, num_players_play):
+                    opponent_rival: Opponent = li_opponents_play[pos_rival]
+                    xid_rival = opponent_rival.xid
+                    if xid_rival in st_xid_playing:
+                        continue
+                    if xid_rival in st_opponents_played:
+                        continue
+                    rival_selected = opponent_rival
+                    break
+
+                if rival_selected is None:
+                    for pos_rival in range(pos + 1, num_players_play):
+                        opponent_rival: Opponent = li_opponents_play[pos_rival]
+                        xid_rival = opponent_rival.xid
+                        if xid_rival in st_xid_playing:
+                            continue
+                        rival_selected = opponent_rival
+                        break
+
+                side = opponent.next_side()
+                side_rival = rival_selected.next_side()
+                ok = False
+                if side in (WHITE, BLACK) and side_rival in (WHITE, BLACK):
+                    if side != side_rival:
+                        if side == WHITE:
+                            player_w, player_b = opponent, rival_selected
+                        else:
+                            player_w, player_b = rival_selected, opponent
+                        ok = True
+
+                if not ok:
+                    if side in (WHITE, BLACK):
+                        if side == WHITE:
+                            player_w, player_b = opponent, rival_selected
+                        else:
+                            player_w, player_b = rival_selected, opponent
+                    else:
+                        if side_rival == BLACK:
+                            player_w, player_b = opponent, rival_selected
+                        elif side_rival == WHITE:
+                            player_w, player_b = rival_selected, opponent
+                        else:
+                            player_w, player_b = rival_selected, opponent
+
+            player_w.white += 1
+            player_b.black += 1
+            player_w.last_played = WHITE
+            player_b.last_played = BLACK
+            st_xid_playing.add(player_w.xid)
+            st_xid_playing.add(player_b.xid)
+            match = Match(player_w.xid, player_b.xid)
+            self.li_matches.append(match)
+
+
+    def genera_matches0(self, swiss, set_mached_played):
+        self.li_matches = []
+
+        li_opponents = swiss.li_opponents
 
         if len(li_opponents) % 2 == 1:  # hay un bye
             num_byes = 0
@@ -395,6 +498,11 @@ class Swiss:
         self.adjudicator_time = 5.0
         self.time_engine_human = (15.0, 6)
         self.time_engine_engine = (3.0, 0)
+        self.time_added_human = 0.0
+
+        self.book = None
+        self.book_rr = BOOK_RANDOM_UNIFORM
+        self.book_depth = 0
 
         self.score_win = 3
         self.score_draw = 1
@@ -429,6 +537,10 @@ class Swiss:
             "SCORE_LOST": self.score_lost,
             "SCORE_BYES": self.score_byes,
             "NUM_MATCHDAYS": self.num_matchdays,
+            "TIME_ADDED_HUMAN": self.time_added_human,
+            "BOOK": self.book,
+            "BOOK_RR": self.book_rr,
+            "BOOK_DEPTH": self.book_depth,
         }
         with UtilSQL.DictRawSQL(self.path(), "SWISS") as dbl:
             for key, value in dic.items():
@@ -453,6 +565,10 @@ class Swiss:
         self.score_lost = dic_data.get("SCORE_LOST", self.score_lost)
         self.score_byes = dic_data.get("SCORE_BYES", self.score_byes)
         self.num_matchdays = dic_data.get("NUM_MATCHDAYS", self.num_matchdays)
+        self.time_added_human = dic_data.get("TIME_ADDED_HUMAN", self.time_added_human)
+        self.book = dic_data.get("BOOK", self.book)
+        self.book_rr = dic_data.get("BOOK_RR", self.book_rr)
+        self.book_depth = dic_data.get("BOOK_DEPTH", self.book_depth)
 
         self.li_opponents = []
         for saved in dic_data.get("SAVED_OPPONENTS", []):
@@ -603,11 +719,14 @@ class Season:
         self.path = swiss.path()
         self.table = "SEASON_%d" % num_season
 
+        self.dic_init_elos = {}
+
     def save(self):
         with UtilSQL.DictRawSQL(self.path, self.table) as dbs:
             dbs["CURRENT_JOURNEY"] = self.current_journey
             dbs["STOP_WORK_JOURNEY"] = self.stop_work_journey
             dbs["LI_MATCHSDAYS"] = [matchesday.save() for matchesday in self.li_matchesdays]
+            dbs["DIC_INIT_ELOS"] = self.dic_init_elos
 
     def restore(self):
         with UtilSQL.DictRawSQL(self.path, self.table) as dbs:
@@ -619,8 +738,29 @@ class Season:
                 matchesday.restore(matchesday_saved)
                 self.li_matchesdays.append(matchesday)
 
+            self.dic_init_elos = dbs.get("DIC_INIT_ELOS", {})
+        if not self.dic_init_elos:
+            self.calcula_elos_iniciales()
+        op: Opponent
+        for op in self.swiss.li_opponents:
+            op.current_elo = self.dic_init_elos[op.xid]
+        self.update_opponents()
+
+    def calcula_elos_iniciales(self):
+        op: Opponent
+        if self.num_season == 0:
+            for op in self.swiss.li_opponents:
+                self.dic_init_elos[op.xid] = op.get_start_elo()
+        else:
+            num_prev_season = self.num_season - 1
+            prev_season = Season(self.swiss, num_prev_season)
+            prev_season.restore()
+            for op in self.swiss.li_opponents:
+                self.dic_init_elos[op.xid] = op.current_elo
+
     def create_first_season(self):
         self.create_matches_day()
+        self.calcula_elos_iniciales()
 
     def create_matches_day(self):
         set_matches_played = {(match.xid_white, match.xid_black) for match in self.get_all_matches_played()}
@@ -632,7 +772,7 @@ class Season:
     def update_opponents(self):
         opponent: Opponent
         for opponent in self.swiss.li_opponents:
-            opponent.reset()
+            opponent.reset(self.dic_init_elos[opponent.xid])
 
         matchesday: MatchsDay
         for matchesday in self.li_matchesdays:
@@ -660,7 +800,7 @@ class Season:
                 "LOST": len(op.li_lost),
                 "DRAW": len(op.li_draw),
                 "TIEBREAK": op.tiebreak,
-                "INI_ELO": op.element.elo,
+                "INI_ELO": self.dic_init_elos[op.xid],
                 "ACT_ELO": op.current_elo
             }
             for op in li_opponents
@@ -724,16 +864,16 @@ class Season:
             season_next.create_from(self)
             season_next.save()
 
-    @staticmethod
-    def create_from(season_previous):
+    def create_from(self, season_previous):
         d_panel, dic_xid_order = season_previous.gen_panel_classification()
 
-        dic_elo_todos = {}
+        self.dic_init_elos = {}
 
         num_opponents = len(d_panel)
         for pos_opponent in range(num_opponents):
             xid = d_panel[pos_opponent]["XID"]
-            dic_elo_todos[xid] = d_panel[pos_opponent]["ACT_ELO"]
+            self.dic_init_elos[xid] = d_panel[pos_opponent]["ACT_ELO"]
+        self.update_opponents()
 
     def dic_raw_games(self):
         with UtilSQL.DictRawSQL(self.path, self.table) as dbs:

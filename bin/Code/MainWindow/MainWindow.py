@@ -81,6 +81,10 @@ class MainWindow(LCDialog.LCDialog):
         alt_o.setKey(QtGui.QKeySequence("Alt+O"))
         alt_o.activated.connect(self.pressed_shortcut_alt_o)
 
+        alt_m = QtWidgets.QShortcut(self)
+        alt_m.setKey(QtGui.QKeySequence("Alt+M"))
+        alt_m.activated.connect(self.pressed_shortcut_alt_m)
+
         f11 = QtWidgets.QShortcut(self)
         f11.setKey(QtGui.QKeySequence("F11"))
         f11.activated.connect(self.pressed_shortcut_F11)
@@ -453,6 +457,10 @@ class MainWindow(LCDialog.LCDialog):
 
     def pressed_shortcut_alt_o(self):
         self.move(QtCore.QPoint(0,0))
+
+    def pressed_shortcut_alt_m(self):
+        if self.manager and hasattr(self.manager, "arbol"):
+            self.manager.arbol()
 
     def cursor_out_board(self):
         p = self.mapToParent(self.board.pos())

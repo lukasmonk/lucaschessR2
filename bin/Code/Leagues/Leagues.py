@@ -4,7 +4,7 @@ import time
 import Code
 from Code import Util
 from Code.Base import Game
-from Code.Base.Constantes import ENGINE, WHITE, BLACK
+from Code.Base.Constantes import ENGINE, WHITE, BLACK, BOOK_RANDOM_UNIFORM
 from Code.Base.Constantes import RESULT_WIN_WHITE, RESULT_WIN_BLACK, RESULT_DRAW, HUMAN
 from Code.Engines import Engines
 from Code.SQL import UtilSQL
@@ -416,6 +416,12 @@ class League:
         self.adjudicator_time = 5.0
         self.time_engine_human = (15.0, 6)
         self.time_engine_engine = (3.0, 0)
+        self.time_added_human = 0.0
+
+        self.book = None
+        self.book_rr = BOOK_RANDOM_UNIFORM
+        self.book_depth = 0
+
         self.migration = 3
 
         self.score_win = 3.0
@@ -571,6 +577,10 @@ class League:
             "SCORE_WIN": self.score_win,
             "SCORE_DRAW": self.score_draw,
             "SCORE_LOST": self.score_lost,
+            "TIME_ADDED_HUMAN": self.time_added_human,
+            "BOOK": self.book,
+            "BOOK_RR": self.book_rr,
+            "BOOK_DEPTH": self.book_depth,
         }
         with UtilSQL.DictRawSQL(self.path(), "LEAGUE") as dbl:
             for key, value in dic.items():
@@ -594,6 +604,10 @@ class League:
         self.score_win = dic_data.get("SCORE_WIN", self.score_win)
         self.score_draw = dic_data.get("SCORE_DRAW", self.score_draw)
         self.score_lost = dic_data.get("SCORE_LOST", self.score_lost)
+        self.time_added_human = dic_data.get("TIME_ADDED_HUMAN", self.time_added_human)
+        self.book = dic_data.get("BOOK", self.book)
+        self.book_rr = dic_data.get("BOOK_RR", self.book_rr)
+        self.book_depth = dic_data.get("BOOK_DEPTH", self.book_depth)
         self.li_opponents = []
         for saved in dic_data.get("SAVED_OPPONENTS", []):
             op = Opponent()

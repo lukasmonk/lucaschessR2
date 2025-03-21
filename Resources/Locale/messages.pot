@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2025-02-10 08:13+0100\n"
+"POT-Creation-Date: 2025-03-20 17:20+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: .\About\About.py:25 .\Procesador.py:1274 .\Update.py:131
+#: .\About\About.py:25 .\Procesador.py:1275 .\Update.py:131
 msgid "version %1"
 msgstr ""
 
@@ -28,21 +28,22 @@ msgstr ""
 #: .\CompetitionWithTutor\WCompetitionWithTutor.py:182
 #: .\CompetitionWithTutor\WCompetitionWithTutor.py:200
 #: .\Engines\WConfEngines.py:250 .\Kibitzers\WindowKibitzers.py:427
-#: .\Procesador.py:1278 .\Tournaments\WTournament.py:509
+#: .\Procesador.py:1279 .\Tournaments\WTournament.py:509
 msgid "Author"
 msgstr ""
 
 #: .\About\About.py:34 .\About\AboutBase.py:366 .\About\AboutBase.py:395
-#: .\About\AboutBase.py:548 .\Procesador.py:1281
+#: .\About\AboutBase.py:548 .\Procesador.py:1282
 msgid "License"
 msgstr ""
 
 #: .\About\About.py:56 .\About\AboutBase.py:18 .\About\AboutBase.py:19
 #: .\About\AboutBase.py:20 .\About\AboutBase.py:21 .\About\AboutBase.py:22
 #: .\Engines\SelectEngines.py:464 .\Leagues\WLeagueConfig.py:63
-#: .\Menus\BasicMenus.py:92 .\Swiss\WSwissConfig.py:60
-#: .\Tournaments\WTournament.py:188 .\Tournaments\WTournament.py:307
-#: .\Tournaments\WTournament.py:752 .\Washing\WindowWashing.py:97
+#: .\Menus\BasicMenus.py:92 .\Swiss\WSwissConfig.py:66
+#: .\Swiss\WSwissConfig.py:162 .\Tournaments\WTournament.py:188
+#: .\Tournaments\WTournament.py:307 .\Tournaments\WTournament.py:752
+#: .\Washing\WindowWashing.py:97
 msgid "Engines"
 msgstr ""
 
@@ -68,7 +69,7 @@ msgstr ""
 msgid "Themes"
 msgstr ""
 
-#: .\About\AboutBase.py:16 .\Board\Board.py:918 .\Board\WBoardColors.py:479
+#: .\About\AboutBase.py:16 .\Board\Board.py:919 .\Board\WBoardColors.py:479
 #: .\Board\WBoardColors.py:1553 .\Coordinates\WCoordinatesWrite.py:41
 #: .\Sound\WindowSonido.py:533
 msgid "Pieces"
@@ -80,17 +81,17 @@ msgstr ""
 
 #: .\About\AboutBase.py:23 .\Books\PolyglotImportExports.py:44
 #: .\Books\PolyglotImportExports.py:55 .\Databases\WDB_Games.py:248
-#: .\Databases\WDB_Games.py:269 .\Databases\WDB_Games.py:685
+#: .\Databases\WDB_Games.py:269 .\Databases\WDB_Games.py:687
 #: .\Databases\WDB_Players.py:117 .\Databases\WDB_Players.py:118
 #: .\Databases\WDB_Players.py:133 .\Databases\WDB_Summary.py:61
 #: .\Databases\WDB_Summary.py:62 .\Databases\WDB_Summary.py:427
 #: .\Databases\WDB_Summary.py:428 .\Databases\WDB_Utils.py:410
 #: .\Databases\WindowDatabase.py:49 .\Expeditions\WindowEverest.py:230
 #: .\Expeditions\WindowEverest.py:339 .\GM\WindowGM.py:616
-#: .\Kibitzers\WKibDatabases.py:195 .\Leagues\WLeague.py:210
+#: .\Kibitzers\WKibDatabases.py:195 .\Leagues\WLeague.py:212
 #: .\Menus\MenuTrainings.py:211 .\QT\WindowArbolBook.py:146
 #: .\Routes\WindowRoutes.py:135 .\Routes\WindowRoutes.py:169
-#: .\Swiss\WSwiss.py:169 .\Themes\WDB_Theme_Analysis.py:34
+#: .\Swiss\WSwiss.py:171 .\Themes\WDB_Theme_Analysis.py:34
 #: .\Tournaments\WTournament.py:261 .\Tournaments\WTournament.py:735
 #: .\Tournaments\WTournament.py:789 .\Washing\ManagerWashing.py:548
 msgid "Games"
@@ -110,17 +111,17 @@ msgstr ""
 
 #: .\About\AboutBase.py:238 .\Books\WBooksTrainOL.py:515
 #: .\Config\WindowUsuarios.py:161 .\Director\WindowTab.py:179
-#: .\Director\WindowTab.py:381 .\Leagues\WLeague.py:186
+#: .\Director\WindowTab.py:381 .\Leagues\WLeague.py:188
 #: .\Openings\ManagerOPLPositions.py:109
 #: .\Openings\ManagerOPLSequential.py:124 .\Openings\ManagerOPLStatic.py:121
-#: .\Openings\POLAnalisis.py:232 .\Procesador.py:705 .\QT\WColors.py:101
-#: .\Swiss\WSwiss.py:145 .\TurnOnLights\ManagerTurnOnLights.py:82
+#: .\Openings\POLAnalisis.py:232 .\Procesador.py:706 .\QT\WColors.py:101
+#: .\Swiss\WSwiss.py:147 .\TurnOnLights\ManagerTurnOnLights.py:82
 #: .\Washing\WindowWashing.py:171
 msgid "Current"
 msgstr ""
 
 #: .\About\AboutBase.py:238 .\Databases\WDB_Summary.py:80
-#: .\MainWindow\WBase.py:157 .\MainWindow\WBase.py:184 .\ManagerEntPos.py:416
+#: .\MainWindow\WBase.py:170 .\MainWindow\WBase.py:197 .\ManagerEntPos.py:416
 #: .\ManagerGame.py:472 .\Openings\POLAnalisis.py:236 .\QT\WindowSavePGN.py:33
 #: .\QT\WindowSavePGN.py:207 .\Tactics\WindowTactics.py:286
 #: .\TurnOnLights\WindowTurnOnLights.py:51
@@ -153,9 +154,9 @@ msgstr ""
 msgid "Permission of author"
 msgstr ""
 
-#: .\About\AboutBase.py:392 .\Board\Board.py:916 .\Board\WBoardColors.py:249
+#: .\About\AboutBase.py:392 .\Board\Board.py:917 .\Board\WBoardColors.py:249
 #: .\Board\WBoardColors.py:690 .\Board\WBoardColors.py:1586
-#: .\Procesador.py:683 .\QT\WColors.py:18
+#: .\Procesador.py:684 .\QT\WColors.py:18
 msgid "Colors"
 msgstr ""
 
@@ -200,7 +201,7 @@ msgstr ""
 #: .\QT\WindowDailyTest.py:135 .\QT\WindowManualSave.py:134
 #: .\QT\WindowPotencia.py:403 .\QT\WindowPotencia.py:514
 #: .\Resistance\WindowResistance.py:47 .\Routes\ManagerRoutes.py:34
-#: .\Swiss\WSwissConfig.py:70 .\Swiss\WSwissConfig.py:95
+#: .\Swiss\WSwissConfig.py:76 .\Swiss\WSwissConfig.py:101
 #: .\Tournaments\WTournament.py:81 .\Tournaments\WTournament.py:250
 #: .\Tournaments\WTournament.py:508 .\Tournaments\WTournament.py:601
 #: .\Washing\WindowWashing.py:123 .\Washing\WindowWashing.py:152
@@ -264,7 +265,7 @@ msgstr ""
 #: .\BestMoveTraining\WindowBMT.py:1025 .\Board\WBoardColors.py:1336
 #: .\Board\WBoardColors.py:1420 .\Board\WBoardColors.py:1496
 #: .\Books\WBooks.py:59 .\Books\WFactory.py:33 .\Books\WFactory.py:79
-#: .\Databases\WDB_Games.py:1837 .\Databases\WDB_Players.py:391
+#: .\Databases\WDB_Games.py:1839 .\Databases\WDB_Players.py:391
 #: .\Databases\WDB_Utils.py:153 .\Databases\WDB_Utils.py:347
 #: .\Databases\WDB_Utils.py:546 .\Director\WindowDirector.py:77
 #: .\Director\WindowDirector.py:285 .\Director\WindowDirector.py:289
@@ -289,8 +290,8 @@ msgstr ""
 #: .\PlayAgainstEngine\WPlayAgainstEngine.py:1596
 #: .\PlayAgainstEngine\WPlayAgainstEngine.py:1643 .\QT\GridEditCols.py:100
 #: .\QT\GridEditCols.py:103 .\QT\Piezas.py:352 .\QT\WColors.py:99
-#: .\Sound\WindowSonido.py:175 .\Swiss\WSwissConfig.py:54
-#: .\Swiss\WSwissConfig.py:229 .\Swiss\WSwisses.py:51 .\Swiss\WSwisses.py:127
+#: .\Sound\WindowSonido.py:175 .\Swiss\WSwissConfig.py:60
+#: .\Swiss\WSwissConfig.py:272 .\Swiss\WSwisses.py:51 .\Swiss\WSwisses.py:127
 #: .\Themes\WThemes.py:129 .\Tournaments\WTournaments.py:54
 #: .\Tournaments\WTournaments.py:113 .\Voyager\Voyager.py:650
 #: .\Washing\WindowWashing.py:209 .\Washing\WindowWashing.py:212
@@ -319,11 +320,11 @@ msgstr ""
 #: .\Engines\WindowSTS.py:45 .\Engines\WindowSTS.py:372
 #: .\Engines\WindowSTS.py:592 .\Expeditions\WindowEverest.py:212
 #: .\Expeditions\WindowEverest.py:347 .\ForcingMoves\WForcingMoves.py:79
-#: .\Kibitzers\WindowKibitzers.py:41 .\Leagues\WLeague.py:397
+#: .\Kibitzers\WindowKibitzers.py:41 .\Leagues\WLeague.py:399
 #: .\Leagues\WLeagues.py:31 .\LearnGame\WindowLearnGame.py:137
 #: .\LearnGame\WindowLearnGame.py:276 .\LearnGame\WindowLearnGame.py:510
 #: .\LearnGame\WindowPlayGame.py:117 .\LearnGame\WindowPlayGame.py:268
-#: .\MainWindow\Presentacion.py:154 .\MainWindow\WBase.py:183
+#: .\MainWindow\Presentacion.py:154 .\MainWindow\WBase.py:196
 #: .\Maps\WindowWorkMap.py:43 .\Maps\WindowWorkMap.py:77
 #: .\Maps\WindowWorkMap.py:268 .\Mate15\WMate15.py:33
 #: .\Mate15\WRunMate15.py:62 .\Memory\WindowMemoria.py:149
@@ -339,11 +340,10 @@ msgstr ""
 #: .\QT\WindowVisualiza.py:369 .\Resistance\WindowResistance.py:32
 #: .\Routes\WindowRoutes.py:124 .\Routes\WindowRoutes.py:166
 #: .\SingularMoves\WindowSingularM.py:22 .\Sound\WindowSonido.py:407
-#: .\Swiss\WSwiss.py:316 .\Swiss\WSwisses.py:32 .\Tactics\WindowTactics.py:47
-#: .\Tournaments\WTournament.py:56 .\Tournaments\WTournamentRun.py:198
-#: .\Tournaments\WTournaments.py:37 .\TurnOnLights\WindowTurnOnLights.py:48
-#: .\Washing\WindowWashing.py:45 .\WritingDown\WritingDown.py:38
-#: .\setup_linux.py:76
+#: .\Swiss\WSwiss.py:318 .\Swiss\WSwisses.py:32 .\Tactics\WindowTactics.py:47
+#: .\Tournaments\WTournament.py:56 .\Tournaments\WTournaments.py:37
+#: .\TurnOnLights\WindowTurnOnLights.py:48 .\Washing\WindowWashing.py:45
+#: .\WritingDown\WritingDown.py:38 .\setup_linux.py:76
 msgid "Close"
 msgstr ""
 
@@ -353,7 +353,7 @@ msgstr ""
 #: .\Config\WindowUsuarios.py:35 .\Config\WindowUsuarios.py:164
 #: .\Coordinates\WCoordinatesWrite.py:37
 #: .\CountsCaptures\WCountsCaptures.py:45 .\Databases\WDB_Games.py:105
-#: .\Databases\WDB_Games.py:2157 .\Databases\WDB_Utils.py:131
+#: .\Databases\WDB_Games.py:2159 .\Databases\WDB_Utils.py:131
 #: .\Director\WindowDirector.py:56 .\Director\WindowTabVCircles.py:154
 #: .\Director\WindowTabVFlechas.py:226 .\Director\WindowTabVMarcos.py:161
 #: .\Director\WindowTabVMarkers.py:155 .\Director\WindowTabVSVGs.py:178
@@ -410,7 +410,7 @@ msgstr ""
 #: .\Openings\WindowOpeningLine.py:58 .\Openings\WindowOpeningLine.py:1372
 #: .\Openings\WindowOpeningLines.py:57 .\Openings\WindowOpenings.py:63
 #: .\Openings\WindowOpenings.py:300 .\PlayAgainstEngine\Personalities.py:243
-#: .\PlayAgainstEngine\WPlayAgainstEngine.py:1515 .\Procesador.py:601
+#: .\PlayAgainstEngine\WPlayAgainstEngine.py:1515 .\Procesador.py:602
 #: .\QT\Piezas.py:332 .\QT\WindowDailyTest.py:56 .\QT\WindowHorses.py:138
 #: .\QT\WindowPotencia.py:304 .\QT\WindowPotencia.py:415
 #: .\QT\WindowPuente.py:261 .\QT\WindowPuente.py:309
@@ -486,7 +486,7 @@ msgstr ""
 #: .\Analysis\RunAnalysis.py:479 .\Analysis\WindowAnalysisVariations.py:47
 #: .\Base\Move.py:561 .\BestMoveTraining\BMT.py:64
 #: .\BestMoveTraining\WindowBMTtrain.py:698 .\Endings\ManagerMate.py:324
-#: .\Endings\ManagerMate.py:483 .\MainWindow\WBase.py:248
+#: .\Endings\ManagerMate.py:483 .\MainWindow\WBase.py:261
 #: .\QT\WindowDailyTest.py:42 .\QT\WindowHorses.py:127
 #: .\QT\WindowHorses.py:303 .\QT\WindowPotencia.py:404
 #: .\QT\WindowPuente.py:300 .\QT\WindowVisualiza.py:171
@@ -630,7 +630,7 @@ msgid "Material asymmetry"
 msgstr ""
 
 #: .\Analysis\AnalysisIndexes.py:231 .\Analysis\AnalysisIndexes.py:397
-#: .\Databases\WDB_Games.py:626 .\Databases\WDB_Players.py:116 .\GM\GM.py:165
+#: .\Databases\WDB_Games.py:628 .\Databases\WDB_Players.py:116 .\GM\GM.py:165
 #: .\GM\WindowGM.py:144 .\ManagerSolo.py:473
 #: .\Openings\WindowOpeningLine.py:630 .\Openings\WindowOpeningLine.py:1171
 #: .\PlayAgainstEngine\Personalities.py:171
@@ -675,18 +675,18 @@ msgstr ""
 #: .\Coordinates\CoordinatesBasic.py:47 .\Coordinates\WCoordinatesBlocks.py:81
 #: .\Coordinates\WCoordinatesWrite.py:46
 #: .\Coordinates\WRunCoordinatesBlocks.py:126
-#: .\Coordinates\WRunCoordinatesWrite.py:187 .\Databases\WDB_Games.py:1150
+#: .\Coordinates\WRunCoordinatesWrite.py:187 .\Databases\WDB_Games.py:1152
 #: .\Databases\WDB_Utils.py:350 .\Expeditions\WindowEverest.py:63
 #: .\GM\WindowGM.py:76 .\Kibitzers\WKibCommon.py:205
 #: .\Kibitzers\WKibCommon.py:207 .\Kibitzers\WKibIndex.py:128
 #: .\Kibitzers\WKibIndex.py:235 .\Kibitzers\WKibIndex.py:237
 #: .\Kibitzers\WKibLinea.py:241 .\Kibitzers\WKibLinea.py:243
-#: .\Leagues\WLeague.py:161 .\Leagues\WLeague.py:219 .\Leagues\WLeague.py:237
+#: .\Leagues\WLeague.py:163 .\Leagues\WLeague.py:221 .\Leagues\WLeague.py:239
 #: .\Leagues\WLeagueWorker.py:162 .\LearnGame\WindowLearnGame.py:317
 #: .\LearnGame\WindowLearnGame.py:319 .\LearnGame\WindowLearnGame.py:365
 #: .\LearnGame\WindowLearnGame.py:370 .\LearnGame\WindowPlayGame.py:299
-#: .\MainWindow\WBase.py:251 .\MainWindow\WBase.py:262
-#: .\MainWindow\WBase.py:275 .\ManagerFindAllMoves.py:319 .\ManagerGame.py:137
+#: .\MainWindow\WBase.py:264 .\MainWindow\WBase.py:275
+#: .\MainWindow\WBase.py:288 .\ManagerFindAllMoves.py:319 .\ManagerGame.py:137
 #: .\ManagerSolo.py:114 .\Maps\WindowWorkMap.py:306
 #: .\Openings\POLAnalisisTree.py:293 .\Openings\WindowOpeningLine.py:241
 #: .\Openings\WindowOpeningLine.py:377 .\Openings\WindowOpeningLine.py:436
@@ -696,8 +696,8 @@ msgstr ""
 #: .\PlayAgainstEngine\WPlayAgainstEngine.py:1312 .\PlayHuman\WPlayHuman.py:31
 #: .\QT\Piezas.py:243 .\QT\WindowDailyTest.py:325 .\QT\WindowPotencia.py:816
 #: .\QT\WindowPuente.py:659 .\QT\WindowVisualiza.py:439
-#: .\Resistance\WindowResistance.py:48 .\Swiss\WSwiss.py:73
-#: .\Swiss\WSwiss.py:120 .\Swiss\WSwiss.py:176 .\Swiss\WSwiss.py:192
+#: .\Resistance\WindowResistance.py:48 .\Swiss\WSwiss.py:75
+#: .\Swiss\WSwiss.py:122 .\Swiss\WSwiss.py:178 .\Swiss\WSwiss.py:194
 #: .\Swiss\WSwissWorker.py:150 .\Tournaments\WTournament.py:199
 #: .\Tournaments\WTournament.py:226 .\Tournaments\WTournamentRun.py:231
 #: .\Translations\TrListas.py:28 .\Voyager\Voyager.py:90
@@ -722,18 +722,18 @@ msgstr ""
 #: .\Coordinates\CoordinatesBasic.py:47 .\Coordinates\WCoordinatesBlocks.py:81
 #: .\Coordinates\WCoordinatesWrite.py:46
 #: .\Coordinates\WRunCoordinatesBlocks.py:126
-#: .\Coordinates\WRunCoordinatesWrite.py:187 .\Databases\WDB_Games.py:1150
+#: .\Coordinates\WRunCoordinatesWrite.py:187 .\Databases\WDB_Games.py:1152
 #: .\Databases\WDB_Utils.py:350 .\Expeditions\WindowEverest.py:63
 #: .\GM\WindowGM.py:79 .\Kibitzers\WKibCommon.py:206
 #: .\Kibitzers\WKibCommon.py:207 .\Kibitzers\WKibIndex.py:128
 #: .\Kibitzers\WKibIndex.py:236 .\Kibitzers\WKibIndex.py:237
 #: .\Kibitzers\WKibLinea.py:242 .\Kibitzers\WKibLinea.py:243
-#: .\Leagues\WLeague.py:162 .\Leagues\WLeague.py:221 .\Leagues\WLeague.py:238
+#: .\Leagues\WLeague.py:164 .\Leagues\WLeague.py:223 .\Leagues\WLeague.py:240
 #: .\Leagues\WLeagueWorker.py:165 .\LearnGame\WindowLearnGame.py:315
 #: .\LearnGame\WindowLearnGame.py:319 .\LearnGame\WindowLearnGame.py:366
 #: .\LearnGame\WindowLearnGame.py:370 .\LearnGame\WindowPlayGame.py:297
-#: .\MainWindow\WBase.py:252 .\MainWindow\WBase.py:263
-#: .\MainWindow\WBase.py:278 .\ManagerFindAllMoves.py:319 .\ManagerGame.py:137
+#: .\MainWindow\WBase.py:265 .\MainWindow\WBase.py:276
+#: .\MainWindow\WBase.py:291 .\ManagerFindAllMoves.py:319 .\ManagerGame.py:137
 #: .\ManagerSolo.py:116 .\Maps\WindowWorkMap.py:306
 #: .\Openings\POLAnalisisTree.py:295 .\Openings\WindowOpeningLine.py:241
 #: .\Openings\WindowOpeningLine.py:377 .\Openings\WindowOpeningLine.py:436
@@ -743,8 +743,8 @@ msgstr ""
 #: .\PlayAgainstEngine\WPlayAgainstEngine.py:1313 .\PlayHuman\WPlayHuman.py:34
 #: .\QT\Piezas.py:244 .\QT\WindowDailyTest.py:325 .\QT\WindowPotencia.py:816
 #: .\QT\WindowPuente.py:659 .\QT\WindowVisualiza.py:439
-#: .\Resistance\WindowResistance.py:49 .\Swiss\WSwiss.py:74
-#: .\Swiss\WSwiss.py:121 .\Swiss\WSwiss.py:178 .\Swiss\WSwiss.py:193
+#: .\Resistance\WindowResistance.py:49 .\Swiss\WSwiss.py:76
+#: .\Swiss\WSwiss.py:123 .\Swiss\WSwiss.py:180 .\Swiss\WSwiss.py:195
 #: .\Swiss\WSwissWorker.py:153 .\Tournaments\WTournament.py:200
 #: .\Tournaments\WTournament.py:227 .\Tournaments\WTournamentRun.py:234
 #: .\Translations\TrListas.py:29 .\Voyager\Voyager.py:91
@@ -798,6 +798,7 @@ msgstr ""
 #: .\Openings\WindowOpeningLine.py:502 .\Openings\WindowOpeningLine.py:1264
 #: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:424
 #: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:426
+#: .\Swiss\WSwissConfig.py:162
 msgid "Book"
 msgstr ""
 
@@ -832,19 +833,19 @@ msgstr ""
 
 #: .\Analysis\Histogram.py:430 .\Board\WBoardColors.py:533
 #: .\Board\WBoardColors.py:871 .\Board\WBoardColors.py:1352
-#: .\Databases\WDB_Games.py:102 .\Databases\WDB_Games.py:1941
-#: .\Databases\WDB_Games.py:2153 .\Director\WindowDirector.py:55
+#: .\Databases\WDB_Games.py:102 .\Databases\WDB_Games.py:1943
+#: .\Databases\WDB_Games.py:2155 .\Director\WindowDirector.py:55
 #: .\Director\WindowTabVCircles.py:33 .\Director\WindowTabVFlechas.py:39
 #: .\Director\WindowTabVMarcos.py:32 .\Director\WindowTabVMarkers.py:40
 #: .\Director\WindowTabVSVGs.py:77 .\Engines\SelectEngines.py:480
 #: .\Kibitzers\WindowKibitzers.py:461 .\Leagues\EditPlayers.py:26
-#: .\Leagues\WLeagueConfig.py:42 .\MainWindow\WBase.py:174 .\Manager.py:1763
+#: .\Leagues\WLeagueConfig.py:42 .\MainWindow\WBase.py:187 .\Manager.py:1763
 #: .\ManagerSolo.py:356 .\ManagerSolo.py:362 .\ManagerSolo.py:366
 #: .\Nags\WNags.py:30 .\QT\GridEditCols.py:28 .\QT\GridEditCols.py:83
 #: .\QT\Piezas.py:272 .\QT\QTVarios.py:334 .\QT\QTVarios.py:338
 #: .\QT\WColors.py:113 .\QT\WGif.py:28 .\QT\WindowArbol.py:723
 #: .\QT\WindowSavePGN.py:192 .\QT\WindowSavePGN.py:635
-#: .\Swiss\WSwissConfig.py:40 .\Themes\WThemes.py:36
+#: .\Swiss\WSwissConfig.py:46 .\Themes\WThemes.py:36
 #: .\Tournaments\WTournament.py:220 .\Tournaments\WTournament.py:221
 #: .\Voyager\Voyager.py:76 .\Voyager\Voyager.py:774
 msgid "Save"
@@ -861,7 +862,7 @@ msgid "File to save"
 msgstr ""
 
 #: .\Analysis\RunAnalysis.py:180 .\Analysis\WindowAnalysisParam.py:470
-#: .\Databases\WDB_Games.py:1088 .\Databases\WDB_Games.py:1304
+#: .\Databases\WDB_Games.py:1090 .\Databases\WDB_Games.py:1306
 #: .\Openings\WindowOpeningLine.py:167 .\Openings\WindowOpeningLine.py:210
 #: .\Openings\WindowOpeningLine.py:302 .\Openings\WindowOpeningLine.py:1071
 msgid "Mass analysis"
@@ -883,8 +884,8 @@ msgstr ""
 
 #: .\Analysis\RunAnalysis.py:204 .\Analysis\RunAnalysisControl.py:249
 #: .\Board\Board.py:197 .\Board\Board.py:198
-#: .\CountsCaptures\WCountsCaptures.py:35 .\Databases\WDB_Games.py:1185
-#: .\Databases\WDB_Games.py:1306 .\MainWindow\WInformation.py:241
+#: .\CountsCaptures\WCountsCaptures.py:35 .\Databases\WDB_Games.py:1187
+#: .\Databases\WDB_Games.py:1308 .\MainWindow\WInformation.py:241
 #: .\WritingDown\WritingDown.py:29
 msgid "Game"
 msgstr ""
@@ -899,8 +900,8 @@ msgstr ""
 #: .\Books\PolyglotImportExports.py:99 .\Books\PolyglotImportExports.py:564
 #: .\Books\WBooksTrain.py:35 .\Books\WBooksTrainOL.py:269
 #: .\Config\WindowUsuarios.py:33 .\Databases\RemoveCommentsVariations.py:45
-#: .\Databases\WDB_Games.py:95 .\Databases\WDB_Games.py:1698
-#: .\Databases\WDB_Games.py:1943 .\Databases\WDB_Games.py:2155
+#: .\Databases\WDB_Games.py:95 .\Databases\WDB_Games.py:1700
+#: .\Databases\WDB_Games.py:1945 .\Databases\WDB_Games.py:2157
 #: .\Databases\WDB_Utils.py:93 .\Databases\WDB_Utils.py:304
 #: .\Director\WindowTabVCircles.py:33 .\Director\WindowTabVFlechas.py:39
 #: .\Director\WindowTabVMarcos.py:32 .\Director\WindowTabVMarkers.py:42
@@ -911,8 +912,8 @@ msgstr ""
 #: .\Leagues\WLeagueConfig.py:44 .\Leagues\WLeagueWorker.py:129
 #: .\LearnGame\WindowLearnGame.py:496 .\LearnGame\WindowLearnGame.py:519
 #: .\LearnGame\WindowLearnGame.py:532 .\MainWindow\LucasChessGui.py:160
-#: .\MainWindow\WBase.py:207 .\MainWindow\WBase.py:812
-#: .\MainWindow\WBase.py:842 .\Maps\WindowWorkMap.py:269 .\Nags\WNags.py:32
+#: .\MainWindow\WBase.py:220 .\MainWindow\WBase.py:825
+#: .\MainWindow\WBase.py:855 .\Maps\WindowWorkMap.py:269 .\Nags\WNags.py:32
 #: .\Odt\WOdt.py:46 .\Openings\ManagerOPLEngines.py:357
 #: .\Openings\ManagerOPLEngines.py:513 .\Openings\ManagerOPLEngines.py:516
 #: .\Openings\WindowOpeningLine.py:1538 .\Openings\WindowOpenings.py:60
@@ -927,10 +928,11 @@ msgstr ""
 #: .\QT\WindowPgnTags.py:33 .\QT\WindowPotencia.py:615
 #: .\QT\WindowPuente.py:483 .\QT\WindowSavePGN.py:194
 #: .\QT\WindowSavePGN.py:637 .\Sound\WindowSonido.py:224
-#: .\Sound\WindowSonido.py:231 .\Swiss\WSwissConfig.py:42
+#: .\Sound\WindowSonido.py:231 .\Swiss\WSwissConfig.py:48
 #: .\Swiss\WSwissWorker.py:117 .\Tactics\WindowTactics.py:617
-#: .\Themes\WThemes.py:38 .\TurnOnLights\WindowTurnOnLights.py:322
-#: .\Voyager\Voyager.py:77 .\Voyager\Voyager.py:485 .\Voyager\Voyager.py:776
+#: .\Themes\WThemes.py:38 .\Tournaments\WTournamentRun.py:198
+#: .\TurnOnLights\WindowTurnOnLights.py:322 .\Voyager\Voyager.py:77
+#: .\Voyager\Voyager.py:485 .\Voyager\Voyager.py:776
 #: .\Washing\WindowWashing.py:225 .\setup_linux.py:197
 msgid "Cancel"
 msgstr ""
@@ -988,7 +990,7 @@ msgstr ""
 
 #: .\Analysis\WindowAnalysisConfig.py:30 .\Analysis\WindowAnalysisConfig.py:39
 #: .\Analysis\WindowAnalysisParam.py:195 .\Analysis\WindowAnalysisParam.py:394
-#: .\Board\Board.py:929 .\Board\Board.py:2665 .\Board\WBoardColors.py:326
+#: .\Board\Board.py:930 .\Board\Board.py:2666 .\Board\WBoardColors.py:326
 #: .\Board\WBoardColors.py:347 .\Board\WBoardColors.py:415
 #: .\Config\WindowConfig.py:81 .\Config\WindowConfig.py:101
 #: .\Config\WindowConfig.py:145 .\Config\WindowConfig.py:178
@@ -1028,14 +1030,14 @@ msgstr ""
 #: .\Analysis\WindowAnalysisConfig.py:38 .\Kibitzers\WKibBooks.py:30
 #: .\Kibitzers\WKibDatabases.py:76 .\Kibitzers\WKibEngine.py:57
 #: .\Kibitzers\WKibGaviota.py:28 .\Kibitzers\WKibLinea.py:69
-#: .\Kibitzers\WKibStEval.py:22 .\MainWindow\MainWindow.py:141
-#: .\MainWindow\WBase.py:186
+#: .\Kibitzers\WKibStEval.py:22 .\MainWindow\MainWindow.py:142
+#: .\MainWindow\WBase.py:199
 msgid "Quit"
 msgstr ""
 
 #: .\Analysis\WindowAnalysisConfig.py:40
 #: .\CompetitionWithTutor\WCompetitionWithTutor.py:117
-#: .\LearnGame\WindowLearnGame.py:500 .\MainWindow\WBase.py:203
+#: .\LearnGame\WindowLearnGame.py:500 .\MainWindow\WBase.py:216
 #: .\Memory\WindowMemoria.py:104 .\QT\WindowHorses.py:225
 #: .\Tactics\WindowTactics.py:619
 msgid "Help"
@@ -1054,10 +1056,10 @@ msgstr ""
 #: .\Director\WindowTabVMarcos.py:154 .\Director\WindowTabVMarkers.py:148
 #: .\Director\WindowTabVSVGs.py:171 .\Endings\WEndingsGTB.py:94
 #: .\Engines\WEngines.py:131 .\Engines\WindowSTS.py:387
-#: .\Leagues\WLeague.py:234 .\Leagues\WLeagueWorker.py:159
-#: .\MainWindow\WBase.py:250 .\MainWindow\WBase.py:272 .\Mate15\WMate15.py:23
+#: .\Leagues\WLeague.py:236 .\Leagues\WLeagueWorker.py:159
+#: .\MainWindow\WBase.py:263 .\MainWindow\WBase.py:285 .\Mate15\WMate15.py:23
 #: .\QT\WindowPotencia.py:400 .\SingularMoves\WindowSingularM.py:34
-#: .\Swiss\WSwiss.py:190 .\Swiss\WSwissWorker.py:147
+#: .\Swiss\WSwiss.py:192 .\Swiss\WSwissWorker.py:147
 #: .\Tactics\WindowTactics.py:301 .\Tactics\WindowTactics.py:320
 #: .\Tournaments\WTournament.py:162 .\Tournaments\WTournament.py:198
 #: .\Tournaments\WTournament.py:225 .\Tournaments\WTournament.py:249
@@ -1083,8 +1085,8 @@ msgstr ""
 #: .\Engines\WEngines.py:106 .\Engines\WEngines.py:139
 #: .\Engines\WindowSTS.py:393 .\Engines\WindowSTS.py:427
 #: .\Engines\WindowSTS.py:744 .\Leagues\WLeagueConfig.py:58
-#: .\Leagues\WLeagueConfig.py:246 .\Swiss\WSwissConfig.py:55
-#: .\Swiss\WSwissConfig.py:231 .\Washing\WindowWashing.py:125
+#: .\Leagues\WLeagueConfig.py:246 .\Swiss\WSwissConfig.py:61
+#: .\Swiss\WSwissConfig.py:274 .\Washing\WindowWashing.py:125
 #: .\Washing\WindowWashing.py:153
 msgid "Elo"
 msgstr ""
@@ -1103,7 +1105,7 @@ msgstr ""
 #: .\Analysis\WindowAnalysisParam.py:424
 #: .\BestMoveTraining\WindowBMTtrain.py:183 .\Books\WBooks.py:61
 #: .\Books\WFactory.py:35 .\CountsCaptures\WCountsCaptures.py:31
-#: .\Databases\WDB_Games.py:1307 .\Endings\WEndingsGTB.py:99
+#: .\Databases\WDB_Games.py:1309 .\Endings\WEndingsGTB.py:99
 #: .\GM\WindowGM.py:764 .\Openings\POLAnalisisTree.py:183
 #: .\Openings\WindowOpeningLine.py:715 .\QT\WindowArbol.py:298
 #: .\QT\WindowArbolBook.py:146 .\QT\WindowHorses.py:126
@@ -1128,10 +1130,10 @@ msgstr ""
 #: .\Analysis\WindowAnalysisGraph.py:226 .\Board\Board.py:201
 #: .\Board\WBoardColors.py:705 .\Board\WBoardColors.py:1597
 #: .\Books\PolyglotImportExports.py:197 .\Books\PolyglotImportExports.py:716
-#: .\Databases\WDB_Games.py:1555 .\Databases\WDB_Games.py:1604
-#: .\Director\WindowDirector.py:161 .\Leagues\WLeague.py:1054
+#: .\Databases\WDB_Games.py:1557 .\Databases\WDB_Games.py:1606
+#: .\Director\WindowDirector.py:161 .\Leagues\WLeague.py:1062
 #: .\Manager.py:2043 .\ManagerGame.py:166 .\QT\WindowManualSave.py:343
-#: .\QT\WindowSavePGN.py:532 .\Swiss\WSwiss.py:958
+#: .\QT\WindowSavePGN.py:532 .\Swiss\WSwiss.py:967
 #: .\Tournaments\WTournament.py:882
 msgid "Saved"
 msgstr ""
@@ -1232,7 +1234,7 @@ msgstr ""
 
 #: .\Analysis\WindowAnalysisParam.py:156 .\BestMoveTraining\WindowBMT.py:53
 #: .\BestMoveTraining\WindowBMT.py:145 .\BestMoveTraining\WindowBMT.py:162
-#: .\BestMoveTraining\WindowBMTtrain.py:90 .\Books\ManagerTrainBooks.py:366
+#: .\BestMoveTraining\WindowBMTtrain.py:90 .\Books\ManagerTrainBooks.py:368
 #: .\Books\PolyglotImportExports.py:752 .\Books\PolyglotImportExports.py:753
 #: .\Books\WPolyglot.py:48 .\Competitions\ManagerFideFics.py:203
 #: .\Competitions\ManagerFideFics.py:421 .\Coordinates\WCoordinatesBasic.py:24
@@ -1266,21 +1268,21 @@ msgstr ""
 
 #: .\Analysis\WindowAnalysisParam.py:186 .\Analysis\WindowAnalysisParam.py:190
 #: .\Analysis\WindowAnalysisParam.py:385 .\Analysis\WindowAnalysisParam.py:389
-#: .\Board\Board.py:858 .\Config\WindowConfig.py:90
+#: .\Board\Board.py:859 .\Config\WindowConfig.py:90
 #: .\Endings\WEndingsGTB.py:170 .\Kibitzers\WKibBooks.py:38
 #: .\Kibitzers\WKibDatabases.py:84 .\Kibitzers\WKibEngine.py:71
 #: .\Kibitzers\WKibGaviota.py:36 .\Kibitzers\WKibIndex.py:74
 #: .\Kibitzers\WKibStEval.py:29 .\Leagues\WLeagueConfig.py:88
 #: .\Leagues\WLeagueConfig.py:94 .\LearnGame\WindowLearnGame.py:361
-#: .\LearnGame\WindowLearnGame.py:504 .\MainWindow\WBase.py:136
-#: .\MainWindow\WBase.py:215 .\MainWindow\WBase.py:399
-#: .\MainWindow\WBase.py:437 .\Manager.py:1582 .\Manager.py:1603
-#: .\Manager.py:1610 .\Manager.py:1634 .\ManagerEntPos.py:214
-#: .\ManagerEntPos.py:248 .\ManagerEntPos.py:296 .\Openings\ManagerOPL.py:22
-#: .\Openings\ManagerOPL.py:29 .\PlayAgainstEngine\WPlayAgainstEngine.py:182
-#: .\Swiss\WSwissConfig.py:80 .\Swiss\WSwissConfig.py:86
-#: .\Tactics\ManagerTactics.py:156 .\Tactics\WindowTactics.py:340
-#: .\Tournaments\WTournament.py:66 .\Tournaments\WTournament.py:72
+#: .\LearnGame\WindowLearnGame.py:504 .\MainWindow\WBase.py:228
+#: .\MainWindow\WBase.py:412 .\MainWindow\WBase.py:450 .\Manager.py:1582
+#: .\Manager.py:1603 .\Manager.py:1610 .\Manager.py:1634
+#: .\ManagerEntPos.py:214 .\ManagerEntPos.py:248 .\ManagerEntPos.py:296
+#: .\Openings\ManagerOPL.py:22 .\Openings\ManagerOPL.py:29
+#: .\PlayAgainstEngine\WPlayAgainstEngine.py:182 .\Swiss\WSwissConfig.py:86
+#: .\Swiss\WSwissConfig.py:92 .\Tactics\ManagerTactics.py:158
+#: .\Tactics\WindowTactics.py:340 .\Tournaments\WTournament.py:66
+#: .\Tournaments\WTournament.py:72
 msgid "Disable"
 msgstr ""
 
@@ -1309,7 +1311,7 @@ msgid "Process priority"
 msgstr ""
 
 #: .\Analysis\WindowAnalysisParam.py:209 .\Analysis\WindowAnalysisParam.py:401
-#: .\Databases\WDB_Games.py:1150 .\LearnGame\WindowPlayGame.py:301
+#: .\Databases\WDB_Games.py:1152 .\LearnGame\WindowPlayGame.py:301
 #: .\Openings\WindowOpeningLine.py:241
 msgid "White & Black"
 msgstr ""
@@ -1358,7 +1360,7 @@ msgstr ""
 
 #: .\Analysis\WindowAnalysisParam.py:252 .\Analysis\WindowAnalysisParam.py:462
 #: .\Analysis\WindowAnalysisVariations.py:21
-#: .\Databases\RemoveCommentsVariations.py:23 .\MainWindow\WBase.py:210
+#: .\Databases\RemoveCommentsVariations.py:23 .\MainWindow\WBase.py:223
 #: .\MainWindow\WInformation.py:326 .\Manager.py:1226
 msgid "Variations"
 msgstr ""
@@ -1371,7 +1373,7 @@ msgstr ""
 msgid "Brilliancies"
 msgstr ""
 
-#: .\Analysis\WindowAnalysisParam.py:291 .\Board\Board.py:859
+#: .\Analysis\WindowAnalysisParam.py:291 .\Board\Board.py:860
 #: .\Director\TabVisual.py:416 .\Endings\WEndingsGTB.py:262
 #: .\Expeditions\WindowEverest.py:355 .\Expeditions\WindowEverest.py:451
 #: .\LearnGame\WindowPlayGame.py:124 .\LearnGame\WindowPlayGame.py:215
@@ -1388,19 +1390,19 @@ msgid "Analysis Configuration"
 msgstr ""
 
 #: .\Analysis\WindowAnalysisParam.py:417 .\Books\PolyglotImportExports.py:745
-#: .\Databases\WDB_Games.py:1140
+#: .\Databases\WDB_Games.py:1142
 msgid "Only the following players"
 msgstr ""
 
 #: .\Analysis\WindowAnalysisParam.py:418 .\Books\PolyglotImportExports.py:746
-#: .\Databases\WDB_Games.py:1141
+#: .\Databases\WDB_Games.py:1143
 msgid "(You can add multiple aliases separated by ; and wildcards with *)"
 msgstr ""
 
-#: .\Analysis\WindowAnalysisParam.py:450 .\Databases\WDB_Games.py:743
-#: .\Databases\WDB_Games.py:752 .\Databases\WDB_Games.py:761
-#: .\Databases\WDB_Games.py:795 .\Databases\WDB_Games.py:1101
-#: .\Databases\WDB_Games.py:1107 .\Databases\WDB_Games.py:1147
+#: .\Analysis\WindowAnalysisParam.py:450 .\Databases\WDB_Games.py:745
+#: .\Databases\WDB_Games.py:754 .\Databases\WDB_Games.py:763
+#: .\Databases\WDB_Games.py:797 .\Databases\WDB_Games.py:1103
+#: .\Databases\WDB_Games.py:1109 .\Databases\WDB_Games.py:1149
 #: .\Databases\WDB_Utils.py:358 .\Databases\WDB_Utils.py:553
 msgid "Only selected games"
 msgstr ""
@@ -1447,16 +1449,16 @@ msgstr ""
 
 #: .\Base\Game.py:935 .\Competitions\ManagerElo.py:336
 #: .\Competitions\ManagerMicElo.py:209 .\Competitions\ManagerWicker.py:207
-#: .\Databases\WDB_Games.py:1157 .\Databases\WDB_Games.py:1159
+#: .\Databases\WDB_Games.py:1159 .\Databases\WDB_Games.py:1161
 #: .\Databases\WDB_Players.py:120 .\Databases\WDB_Players.py:123
 #: .\Databases\WDB_Players.py:135 .\Databases\WDB_Players.py:138
 #: .\Databases\WDB_Summary.py:64 .\Databases\WDB_Summary.py:67
 #: .\Databases\WDB_Summary.py:430 .\Databases\WDB_Summary.py:433
 #: .\Endings\LibChess.py:154 .\Endings\WEndingsGTB.py:353
-#: .\Engines\WEngines.py:141 .\Leagues\WLeague.py:718
-#: .\Leagues\WLeagueConfig.py:143 .\MainWindow\WBase.py:191
-#: .\Resistance\Resistance.py:77 .\Routes\ManagerRoutes.py:557
-#: .\Swiss\WSwiss.py:601 .\Swiss\WSwissConfig.py:130
+#: .\Engines\WEngines.py:141 .\Leagues\WLeague.py:720
+#: .\Leagues\WLeagueConfig.py:143 .\MainWindow\WBase.py:204
+#: .\Resistance\Resistance.py:77 .\Routes\ManagerRoutes.py:559
+#: .\Swiss\WSwiss.py:603 .\Swiss\WSwissConfig.py:165
 msgid "Draw"
 msgstr ""
 
@@ -1465,15 +1467,15 @@ msgid "Lost on time"
 msgstr ""
 
 #: .\Base\Game.py:950 .\Coordinates\WRunCoordinatesBasic.py:83
-#: .\Coordinates\WRunCoordinatesBlocks.py:126 .\Databases\WDB_Games.py:1161
+#: .\Coordinates\WRunCoordinatesBlocks.py:126 .\Databases\WDB_Games.py:1163
 #: .\Engines\STS.py:532 .\Engines\WindowSTS.py:392 .\Engines\WindowSTS.py:427
 #: .\Engines\WindowSTS.py:744 .\GM\GM.py:166 .\GM\WindowGM.py:763
-#: .\Leagues\WLeague.py:163 .\Leagues\WLeague.py:223 .\Leagues\WLeague.py:239
+#: .\Leagues\WLeague.py:165 .\Leagues\WLeague.py:225 .\Leagues\WLeague.py:241
 #: .\ManagerGame.py:139 .\ManagerSolo.py:118 .\Maps\WindowWorkMap.py:71
 #: .\Maps\WindowWorkMap.py:207 .\Openings\WindowOpeningLine.py:150
 #: .\Openings\WindowOpeningLine.py:1062 .\QT\QTUtil2.py:690
 #: .\QT\WindowDailyTest.py:397 .\QT\WindowPotencia.py:790
-#: .\Swiss\WSwiss.py:122 .\Swiss\WSwiss.py:180 .\Swiss\WSwiss.py:194
+#: .\Swiss\WSwiss.py:124 .\Swiss\WSwiss.py:182 .\Swiss\WSwiss.py:196
 #: .\Tournaments\WTournament.py:229 .\Translations\TrListas.py:30
 #: .\TurnOnLights\ManagerTurnOnLights.py:265
 #: .\WritingDown\ManagerWritingDown.py:160
@@ -1549,7 +1551,7 @@ msgstr ""
 #: .\BestMoveTraining\WindowBMT.py:124 .\Coordinates\WCoordinatesBasic.py:32
 #: .\Coordinates\WCoordinatesBlocks.py:34
 #: .\CountsCaptures\WCountsCaptures.py:43 .\LearnGame\WindowPlayGame.py:119
-#: .\MainWindow\WBase.py:168 .\Maps\WindowWorkMap.py:45 .\Mate15\WMate15.py:35
+#: .\MainWindow\WBase.py:181 .\Maps\WindowWorkMap.py:45 .\Mate15\WMate15.py:35
 #: .\Menus\BasicMenus.py:269 .\QT\QTVarios.py:324 .\QT\WindowVisualiza.py:58
 #: .\Routes\WindowRoutes.py:122 .\Washing\WindowWashing.py:48
 msgid "Play"
@@ -1557,7 +1559,7 @@ msgstr ""
 
 #: .\BestMoveTraining\WindowBMT.py:134 .\Board\WBoardColors.py:1434
 #: .\Databases\WDB_Games.py:113 .\Endings\WEndingsGTB.py:50
-#: .\MainWindow\WBase.py:209 .\Openings\WindowOpeningLine.py:61
+#: .\MainWindow\WBase.py:222 .\Openings\WindowOpeningLine.py:61
 msgid "Utilities"
 msgstr ""
 
@@ -1577,8 +1579,8 @@ msgstr ""
 
 #: .\BestMoveTraining\WindowBMT.py:148 .\BestMoveTraining\WindowBMT.py:166
 #: .\BestMoveTraining\WindowBMT.py:695 .\BestMoveTraining\WindowBMT.py:840
-#: .\Leagues\WLeague.py:133 .\Leagues\WLeague.py:681 .\Swiss\WSwiss.py:95
-#: .\Swiss\WSwiss.py:567 .\Tactics\WindowTactics.py:287
+#: .\Leagues\WLeague.py:135 .\Leagues\WLeague.py:683 .\Swiss\WSwiss.py:97
+#: .\Swiss\WSwiss.py:569 .\Tactics\WindowTactics.py:287
 msgid "Order"
 msgstr ""
 
@@ -1598,8 +1600,8 @@ msgid "Positions"
 msgstr ""
 
 #: .\BestMoveTraining\WindowBMT.py:172 .\Maps\WorkMap.py:680
-#: .\QT\WindowVisualiza.py:100 .\Washing\Washing.py:69
-#: .\Washing\WindowWashing.py:95
+#: .\QT\WindowVisualiza.py:100 .\Routes\ManagerRoutes.py:333
+#: .\Washing\Washing.py:69 .\Washing\WindowWashing.py:95
 msgid "Finished"
 msgstr ""
 
@@ -1610,16 +1612,16 @@ msgstr ""
 #: .\BestMoveTraining\WindowBMT.py:223 .\Board\WBoardColors.py:535
 #: .\Board\WBoardColors.py:1430 .\Books\PolyglotImportExports.py:34
 #: .\Books\WPolyglot.py:61 .\Databases\WDB_Games.py:115
-#: .\Databases\WDB_Games.py:784 .\Databases\WDB_Games.py:1559
-#: .\Engines\WindowSTS.py:382 .\Leagues\WLeague.py:401 .\Odt\WOdt.py:46
-#: .\Openings\WindowOpeningLine.py:60 .\Swiss\WSwiss.py:320
+#: .\Databases\WDB_Games.py:786 .\Databases\WDB_Games.py:1561
+#: .\Engines\WindowSTS.py:382 .\Leagues\WLeague.py:403 .\Odt\WOdt.py:46
+#: .\Openings\WindowOpeningLine.py:60 .\Swiss\WSwiss.py:322
 msgid "Export"
 msgstr ""
 
 #: .\BestMoveTraining\WindowBMT.py:223 .\Board\WBoardColors.py:1429
 #: .\Books\PolyglotImportExports.py:374 .\Books\PolyglotImportExports.py:400
 #: .\Books\PolyglotImportExports.py:433 .\Books\WPolyglot.py:58
-#: .\Databases\WDB_Games.py:114 .\Databases\WDB_Games.py:1902
+#: .\Databases\WDB_Games.py:114 .\Databases\WDB_Games.py:1904
 #: .\Endings\WEndingsGTB.py:618 .\Engines\WindowSTS.py:376 .\GM\WindowGM.py:48
 #: .\GM\WindowGM.py:594 .\GM\WindowGM.py:603 .\Openings\OpeningLines.py:991
 #: .\Openings\OpeningLines.py:995 .\Openings\OpeningLines.py:1060
@@ -1770,14 +1772,14 @@ msgid "* indicates actual move played in game"
 msgstr ""
 
 #: .\BestMoveTraining\WindowBMTtrain.py:188 .\Config\WindowUsuarios.py:167
-#: .\CountsCaptures\WCountsCaptures.py:47 .\MainWindow\WBase.py:200
-#: .\MainWindow\WBase.py:201 .\Mate15\WMate15.py:39
+#: .\CountsCaptures\WCountsCaptures.py:47 .\MainWindow\WBase.py:213
+#: .\MainWindow\WBase.py:214 .\Mate15\WMate15.py:39
 #: .\Memory\WindowMemoria.py:158 .\QT\WindowPotencia.py:419
 #: .\SingularMoves\WindowSingularM.py:26 .\WritingDown\WritingDown.py:40
 msgid "Repeat"
 msgstr ""
 
-#: .\BestMoveTraining\WindowBMTtrain.py:189 .\MainWindow\WBase.py:177
+#: .\BestMoveTraining\WindowBMTtrain.py:189 .\MainWindow\WBase.py:190
 #: .\Memory\WindowMemoria.py:159 .\QT\WindowDailyTest.py:259
 #: .\QT\WindowPuente.py:487 .\QT\WindowPuente.py:577
 #: .\Resistance\ManagerResistance.py:271
@@ -1787,9 +1789,9 @@ msgstr ""
 #: .\BestMoveTraining\WindowBMTtrain.py:191
 #: .\CountsCaptures\WCountsCaptures.py:51 .\Kibitzers\WKibEngine.py:72
 #: .\Kibitzers\WKibLinea.py:74 .\Leagues\WLeagueConfig.py:172
-#: .\MainWindow\WBase.py:171 .\MainWindow\WBase.py:217
+#: .\MainWindow\WBase.py:184 .\MainWindow\WBase.py:230
 #: .\Openings\ManagerOPLEngines.py:512 .\QT\WReplay.py:33
-#: .\Swiss\WSwissConfig.py:166 .\Tournaments\WTournament.py:746
+#: .\Swiss\WSwissConfig.py:202 .\Tournaments\WTournament.py:746
 msgid "Options"
 msgstr ""
 
@@ -1801,7 +1803,7 @@ msgid "Start"
 msgstr ""
 
 #: .\BestMoveTraining\WindowBMTtrain.py:194 .\Databases\WDB_Summary.py:81
-#: .\MainWindow\WBase.py:155 .\MainWindow\WBase.py:185 .\ManagerEntPos.py:417
+#: .\MainWindow\WBase.py:168 .\MainWindow\WBase.py:198 .\ManagerEntPos.py:417
 #: .\ManagerGame.py:473 .\Tactics\Tactics.py:726 .\Tactics\Tactics.py:729
 #: .\Tactics\Tactics.py:734 .\TurnOnLights\WindowTurnOnLights.py:53
 msgid "Next"
@@ -1859,125 +1861,125 @@ msgstr ""
 msgid "Board image is in clipboard"
 msgstr ""
 
-#: .\Board\Board.py:832
+#: .\Board\Board.py:833
 msgid "Board menu"
 msgstr ""
 
-#: .\Board\Board.py:835 .\Board\Board.py:940 .\Voyager\Voyager.py:112
+#: .\Board\Board.py:836 .\Board\Board.py:941 .\Voyager\Voyager.py:112
 msgid "Flip the board"
 msgstr ""
 
-#: .\Board\Board.py:839 .\Board\Board.py:841
+#: .\Board\Board.py:840 .\Board\Board.py:842
 msgid "Copy FEN to clipboard"
 msgstr ""
 
-#: .\Board\Board.py:846
+#: .\Board\Board.py:847
 msgid "Copy PGN to clipboard"
 msgstr ""
 
-#: .\Board\Board.py:849 .\Board\Board.py:850 .\Board\Board.py:851
+#: .\Board\Board.py:850 .\Board\Board.py:851 .\Board\Board.py:852
 msgid "Copy board as image to clipboard"
 msgstr ""
 
-#: .\Board\Board.py:850 .\Board\Board.py:854
+#: .\Board\Board.py:851 .\Board\Board.py:855
 msgid "without border"
 msgstr ""
 
-#: .\Board\Board.py:851 .\Board\Board.py:855
+#: .\Board\Board.py:852 .\Board\Board.py:856
 msgid "without coordinates"
 msgstr ""
 
-#: .\Board\Board.py:853 .\Board\Board.py:854 .\Board\Board.py:855
+#: .\Board\Board.py:854 .\Board\Board.py:855 .\Board\Board.py:856
 msgid "Copy board as image to a file"
 msgstr ""
 
-#: .\Board\Board.py:858 .\Board\Board.py:859 .\Manager.py:1577
+#: .\Board\Board.py:859 .\Board\Board.py:860 .\Manager.py:1577
 #: .\Menus\MenuTrainings.py:228 .\QT\Piezas.py:235
 #: .\Resistance\ManagerResistance.py:76 .\Resistance\WindowResistance.py:21
 msgid "Blindfold chess"
 msgstr ""
 
-#: .\Board\Board.py:858 .\Endings\WEndingsGTB.py:54
+#: .\Board\Board.py:859 .\Endings\WEndingsGTB.py:54
 #: .\Endings\WEndingsGTB.py:166 .\Kibitzers\WKibBooks.py:37
 #: .\Kibitzers\WKibDatabases.py:83 .\Kibitzers\WKibEngine.py:70
 #: .\Kibitzers\WKibGaviota.py:35 .\Kibitzers\WKibIndex.py:73
 #: .\Kibitzers\WKibStEval.py:28 .\LearnGame\WindowLearnGame.py:504
-#: .\MainWindow\WBase.py:136 .\MainWindow\WBase.py:399
-#: .\MainWindow\WBase.py:437 .\Manager.py:1585 .\Manager.py:1603
+#: .\MainWindow\WBase.py:137 .\MainWindow\WBase.py:412
+#: .\MainWindow\WBase.py:450 .\Manager.py:1585 .\Manager.py:1603
 #: .\Manager.py:1610 .\Manager.py:1634 .\ManagerEntPos.py:214
 #: .\ManagerEntPos.py:251 .\ManagerEntPos.py:296 .\Openings\ManagerOPL.py:22
 #: .\Openings\ManagerOPL.py:29 .\Openings\ManagerOPLEngines.py:513
-#: .\Openings\ManagerOPLEngines.py:516 .\Tactics\ManagerTactics.py:159
+#: .\Openings\ManagerOPLEngines.py:516 .\Tactics\ManagerTactics.py:161
 #: .\Voyager\Voyager.py:85
 msgid "Enable"
 msgstr ""
 
-#: .\Board\Board.py:862
+#: .\Board\Board.py:863
 msgid "Open position in LiChess"
 msgstr ""
 
-#: .\Board\Board.py:863
+#: .\Board\Board.py:864
 msgid "Open position in ChessTempo"
 msgstr ""
 
-#: .\Board\Board.py:864 .\Manager.py:1850 .\Manager.py:2311
+#: .\Board\Board.py:865 .\Manager.py:1850 .\Manager.py:2311
 msgid "Play current position"
 msgstr ""
 
-#: .\Board\Board.py:868
+#: .\Board\Board.py:869
 msgid "To indicate origin and destination of a move"
 msgstr ""
 
-#: .\Board\Board.py:873
+#: .\Board\Board.py:874
 msgid "Show/Hide PGN information"
 msgstr ""
 
-#: .\Board\Board.py:877
+#: .\Board\Board.py:878
 msgid "Save position in 'Selected positions' file"
 msgstr ""
 
-#: .\Board\Board.py:881 .\Databases\WDB_Summary.py:82 .\Manager.py:1815
+#: .\Board\Board.py:882 .\Databases\WDB_Summary.py:82 .\Manager.py:1815
 #: .\QT\ShowPGN.py:119 .\QT\WindowArbol.py:597
 msgid "Analyze"
 msgstr ""
 
-#: .\Board\Board.py:888
+#: .\Board\Board.py:889
 msgid "Activate/Deactivate non distract mode"
 msgstr ""
 
-#: .\Board\Board.py:890
+#: .\Board\Board.py:891
 msgid "Full screen On/Off"
 msgstr ""
 
-#: .\Board\Board.py:891
+#: .\Board\Board.py:892
 msgid "Minimize to the tray icon"
 msgstr ""
 
-#: .\Board\Board.py:897 .\Board\Board.py:943
+#: .\Board\Board.py:898 .\Board\Board.py:944
 msgid "Active keys"
 msgstr ""
 
-#: .\Board\Board.py:926 .\Board\Board.py:2644
+#: .\Board\Board.py:927 .\Board\Board.py:2645
 msgid "Change board size"
 msgstr ""
 
-#: .\Board\Board.py:936
+#: .\Board\Board.py:937
 msgid "F1-F10"
 msgstr ""
 
-#: .\Board\Board.py:936 .\Director\WindowDirector.py:43
+#: .\Board\Board.py:937 .\Director\WindowDirector.py:43
 #: .\Director\WindowDirector.py:390
 msgid "Director"
 msgstr ""
 
-#: .\Board\Board.py:940 .\Board\Board.py:943 .\Config\WindowConfig.py:96
-#: .\Databases\WDB_Games.py:888 .\Menus\BasicMenus.py:323
+#: .\Board\Board.py:941 .\Board\Board.py:944 .\Config\WindowConfig.py:96
+#: .\Databases\WDB_Games.py:890 .\Menus\BasicMenus.py:323
 #: .\Menus\BasicMenus.py:406 .\Openings\POLShortcuts.py:126
 #: .\Openings\POLShortcuts.py:127
 msgid "ALT"
 msgstr ""
 
-#: .\Board\Board.py:951 .\Books\WFactory.py:41 .\Databases\WDB_Games.py:104
+#: .\Board\Board.py:952 .\Books\WFactory.py:41 .\Databases\WDB_Games.py:104
 #: .\Databases\WDB_Games.py:302 .\Director\WindowTab.py:177
 #: .\Director\WindowTab.py:180 .\Director\WindowTab.py:379
 #: .\Director\WindowTab.py:382 .\Engines\WindowSTS.py:377
@@ -1988,7 +1990,7 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: .\Board\Board.py:2129 .\Memory\WindowMemoria.py:232
+#: .\Board\Board.py:2130 .\Memory\WindowMemoria.py:232
 #: .\Memory\WindowMemoria.py:237 .\QT\WindowPotencia.py:299
 #: .\QT\WindowPuente.py:256 .\Translations\TrListas.py:45
 #: .\Translations\TrListas.py:157 .\Translations\TrListas.py:158
@@ -1997,7 +1999,7 @@ msgstr ""
 msgid "Queen"
 msgstr ""
 
-#: .\Board\Board.py:2129 .\Memory\WindowMemoria.py:232
+#: .\Board\Board.py:2130 .\Memory\WindowMemoria.py:232
 #: .\Memory\WindowMemoria.py:237 .\QT\WindowPotencia.py:299
 #: .\QT\WindowPuente.py:256 .\Translations\TrListas.py:45
 #: .\Translations\TrListas.py:157 .\Translations\TrListas.py:160
@@ -2006,7 +2008,7 @@ msgstr ""
 msgid "Rook"
 msgstr ""
 
-#: .\Board\Board.py:2129 .\Memory\WindowMemoria.py:232
+#: .\Board\Board.py:2130 .\Memory\WindowMemoria.py:232
 #: .\Memory\WindowMemoria.py:237 .\QT\WindowPotencia.py:299
 #: .\QT\WindowPuente.py:256 .\Translations\TrListas.py:45
 #: .\Translations\TrListas.py:158 .\Translations\TrListas.py:160
@@ -2015,7 +2017,7 @@ msgstr ""
 msgid "Bishop"
 msgstr ""
 
-#: .\Board\Board.py:2129 .\Memory\WindowMemoria.py:232
+#: .\Board\Board.py:2130 .\Memory\WindowMemoria.py:232
 #: .\Memory\WindowMemoria.py:237 .\QT\WindowPotencia.py:299
 #: .\QT\WindowPuente.py:256 .\Translations\TrListas.py:45
 #: .\Translations\TrListas.py:159 .\Translations\TrListas.py:161
@@ -2024,35 +2026,35 @@ msgstr ""
 msgid "Knight"
 msgstr ""
 
-#: .\Board\Board.py:2657
+#: .\Board\Board.py:2658
 msgid "Very large"
 msgstr ""
 
-#: .\Board\Board.py:2658
+#: .\Board\Board.py:2659
 msgid "Large"
 msgstr ""
 
-#: .\Board\Board.py:2659 .\Maps\WindowWorkMap.py:134 .\Maps\WorkMap.py:385
+#: .\Board\Board.py:2660 .\Maps\WindowWorkMap.py:134 .\Maps\WorkMap.py:385
 msgid "Medium"
 msgstr ""
 
-#: .\Board\Board.py:2660
+#: .\Board\Board.py:2661
 msgid "Medium-small"
 msgstr ""
 
-#: .\Board\Board.py:2661
+#: .\Board\Board.py:2662
 msgid "Small"
 msgstr ""
 
-#: .\Board\Board.py:2662
+#: .\Board\Board.py:2663
 msgid "Very small"
 msgstr ""
 
-#: .\Board\Board.py:2663
+#: .\Board\Board.py:2664
 msgid "Custom size"
 msgstr ""
 
-#: .\Board\Board.py:2664
+#: .\Board\Board.py:2665
 msgid "Initial size"
 msgstr ""
 
@@ -2088,13 +2090,13 @@ msgstr ""
 #: .\Coordinates\WRunCoordinatesBasic.py:49
 #: .\Coordinates\WRunCoordinatesBlocks.py:63
 #: .\CountsCaptures\WRunCaptures.py:72 .\CountsCaptures\WRunCounts.py:58
-#: .\Databases\WDB_Games.py:1698 .\ForcingMoves\WForcingMoves.py:83
+#: .\Databases\WDB_Games.py:1700 .\ForcingMoves\WForcingMoves.py:83
 #: .\Kibitzers\WKibBooks.py:31 .\Kibitzers\WKibDatabases.py:77
 #: .\Kibitzers\WKibEngine.py:58 .\Kibitzers\WKibGaviota.py:29
 #: .\Kibitzers\WKibIndex.py:67 .\Kibitzers\WKibLinea.py:70
 #: .\Kibitzers\WKibStEval.py:23 .\Leagues\WLeagueWorker.py:142
 #: .\LearnGame\WindowLearnGame.py:534 .\MainWindow\Presentacion.py:152
-#: .\MainWindow\WBase.py:197 .\MainWindow\WBase.py:198
+#: .\MainWindow\WBase.py:210 .\MainWindow\WBase.py:211
 #: .\Mate15\WRunMate15.py:66 .\Memory\WindowMemoria.py:154 .\QT\QTUtil2.py:324
 #: .\QT\QTUtil2.py:656 .\QT\QTVarios.py:733 .\QT\QTVarios.py:811
 #: .\QT\QTVarios.py:865 .\QT\QTVarios.py:1183 .\QT\WindowDailyTest.py:258
@@ -2224,7 +2226,7 @@ msgstr ""
 #: .\Databases\RemoveCommentsVariations.py:44 .\Databases\WDB_Games.py:94
 #: .\Databases\WDB_Utils.py:91 .\Databases\WDB_Utils.py:302
 #: .\Expeditions\WindowEverest.py:69 .\GM\WindowGM.py:42 .\GM\WindowGM.py:773
-#: .\MainWindow\LucasChessGui.py:159 .\MainWindow\WBase.py:206
+#: .\MainWindow\LucasChessGui.py:159 .\MainWindow\WBase.py:219
 #: .\Openings\WindowOpeningLine.py:1537
 #: .\PlayAgainstEngine\WPlayAgainstEngine.py:69
 #: .\PlayAgainstEngine\WPlayAgainstEngine.py:1304 .\PlayHuman\WPlayHuman.py:25
@@ -2236,7 +2238,7 @@ msgid "Accept"
 msgstr ""
 
 #: .\Board\WBoardColors.py:533 .\Board\WBoardColors.py:873
-#: .\Databases\WDB_Games.py:786 .\MainWindow\WBase.py:175 .\ManagerSolo.py:364
+#: .\Databases\WDB_Games.py:788 .\MainWindow\WBase.py:188 .\ManagerSolo.py:364
 #: .\QT\WGif.py:67
 msgid "Save as"
 msgstr ""
@@ -2248,12 +2250,12 @@ msgstr ""
 #: .\Board\WBoardColors.py:619 .\Board\WBoardColors.py:1571
 #: .\Config\WindowConfig.py:35 .\Databases\WDB_Players.py:30
 #: .\Director\WindowDirector.py:308 .\Engines\WindowSTS.py:297
-#: .\GM\WindowGM.py:641 .\Leagues\WLeague.py:302
+#: .\GM\WindowGM.py:641 .\Leagues\WLeague.py:304
 #: .\MainWindow\WInformation.py:591 .\MainWindow\WInformation.py:597
 #: .\Manager.py:1224 .\Openings\POLAnalisis.py:234
 #: .\Openings\POLAnalisisTree.py:282 .\Openings\POLAnalisisTree.py:287
 #: .\Openings\WindowOpeningLine.py:783 .\Openings\WindowOpeningLine.py:1375
-#: .\PlayAgainstEngine\WPlayAgainstEngine.py:223 .\Swiss\WSwiss.py:249
+#: .\PlayAgainstEngine\WPlayAgainstEngine.py:223 .\Swiss\WSwiss.py:251
 msgid "All"
 msgstr ""
 
@@ -2279,8 +2281,8 @@ msgstr ""
 msgid "Board"
 msgstr ""
 
-#: .\Board\WBoardColors.py:1519 .\Databases\WDB_Games.py:1407
-#: .\Databases\WDB_Games.py:1424 .\Endings\ManagerMate.py:444
+#: .\Board\WBoardColors.py:1519 .\Databases\WDB_Games.py:1409
+#: .\Databases\WDB_Games.py:1426 .\Endings\ManagerMate.py:444
 #: .\MainWindow\WInformation.py:656 .\Openings\POLShortcuts.py:84
 #: .\Openings\WindowOpeningLine.py:197 .\QT\ShowPGN.py:162
 #: .\RemoveResults.py:29 .\Routes\WindowRoutes.py:220
@@ -2293,15 +2295,15 @@ msgstr ""
 msgid "Copy values from main board to rest"
 msgstr ""
 
-#: .\Board\WBoardColors.py:1541 .\Databases\WDB_Games.py:898
-#: .\Databases\WDB_Games.py:903 .\ManagerGame.py:99 .\ManagerSolo.py:177
+#: .\Board\WBoardColors.py:1541 .\Databases\WDB_Games.py:900
+#: .\Databases\WDB_Games.py:905 .\ManagerGame.py:99 .\ManagerSolo.py:177
 #: .\QT\QTUtil2.py:696 .\QT\WindowVisualiza.py:102
 #: .\Tactics\WindowTactics.py:319 .\setup_linux.py:197
 msgid "Yes"
 msgstr ""
 
-#: .\Board\WBoardColors.py:1541 .\Databases\WDB_Games.py:900
-#: .\Databases\WDB_Games.py:905 .\ManagerGame.py:99 .\ManagerSolo.py:177
+#: .\Board\WBoardColors.py:1541 .\Databases\WDB_Games.py:902
+#: .\Databases\WDB_Games.py:907 .\ManagerGame.py:99 .\ManagerSolo.py:177
 #: .\QT\QTUtil2.py:698 .\QT\WindowVisualiza.py:102
 #: .\Tactics\WindowTactics.py:319 .\setup_linux.py:197
 msgid "No"
@@ -2331,13 +2333,13 @@ msgstr ""
 msgid "Discard"
 msgstr ""
 
-#: .\Books\ManagerTrainBooks.py:65 .\Config\Configuration.py:369
+#: .\Books\ManagerTrainBooks.py:65 .\Config\Configuration.py:371
 #: .\Config\WindowConfig.py:353 .\Config\WindowConfig.py:357
 #: .\Databases\WDB_Players.py:270 .\Databases\WDB_Players.py:399
-#: .\Leagues\WLeague.py:102 .\Leagues\WLeague.py:217
+#: .\Leagues\WLeague.py:104 .\Leagues\WLeague.py:219
 #: .\Menus\MenuTrainings.py:149
 #: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:426 .\QT\WindowJuicio.py:57
-#: .\Swiss\WSwiss.py:70 .\Swiss\WSwiss.py:174
+#: .\Swiss\WSwiss.py:72 .\Swiss\WSwiss.py:176
 msgid "Player"
 msgstr ""
 
@@ -2359,9 +2361,9 @@ msgstr ""
 msgid "Opponent"
 msgstr ""
 
-#: .\Books\ManagerTrainBooks.py:380 .\Books\ManagerTrainBooksOL.py:116
+#: .\Books\ManagerTrainBooks.py:382 .\Books\ManagerTrainBooksOL.py:116
 #: .\ManagerEntPos.py:577 .\Openings\ManagerOPLSequential.py:134
-#: .\Openings\ManagerOPLStatic.py:131 .\Tactics\ManagerTactics.py:276
+#: .\Openings\ManagerOPLStatic.py:131 .\Tactics\ManagerTactics.py:278
 #: .\TurnOnLights\ManagerTurnOnLights.py:272
 msgid "Line completed"
 msgstr ""
@@ -2377,7 +2379,7 @@ msgstr ""
 #: .\Coordinates\WRunCoordinatesWrite.py:186
 #: .\Coordinates\WRunCoordinatesWrite.py:196 .\Endings\ManagerMate.py:468
 #: .\Endings\ManagerMate.py:481 .\LearnGame\WindowLearnGame.py:268
-#: .\LearnGame\WindowLearnGame.py:638 .\MainWindow\WBase.py:246
+#: .\LearnGame\WindowLearnGame.py:638 .\MainWindow\WBase.py:259
 #: .\ManagerFindAllMoves.py:104 .\ManagerFindAllMoves.py:319
 #: .\Openings\ManagerOPLPositions.py:94 .\Openings\ManagerOPLSequential.py:111
 #: .\Openings\ManagerOPLSequential.py:138 .\Openings\ManagerOPLStatic.py:108
@@ -2412,7 +2414,7 @@ msgstr ""
 #: .\Maps\WorkMap.py:680 .\Openings\ManagerOPLEngines.py:379
 #: .\Openings\ManagerOPLPositions.py:132
 #: .\Openings\ManagerOPLSequential.py:175 .\QT\WindowHorses.py:298
-#: .\Tactics\ManagerTactics.py:353
+#: .\Routes\ManagerRoutes.py:332 .\Tactics\ManagerTactics.py:355
 msgid "Congratulations, goal achieved"
 msgstr ""
 
@@ -2428,7 +2430,7 @@ msgstr ""
 
 #: .\Books\ManagerTrainBooksOL.py:242
 #: .\Coordinates\WRunCoordinatesBasic.py:117
-#: .\Coordinates\WRunCoordinatesBlocks.py:171 .\Databases\WDB_Games.py:1257
+#: .\Coordinates\WRunCoordinatesBlocks.py:171 .\Databases\WDB_Games.py:1259
 #: .\Databases\WebExternalImporter.py:41 .\Openings\ManagerOPLPositions.py:240
 #: .\Openings\ManagerOPLSequential.py:292 .\Openings\ManagerOPLStatic.py:293
 #: .\QT\QTUtil2.py:672 .\QT\QTUtil2.py:678 .\Sound\Sound.py:157
@@ -2453,8 +2455,8 @@ msgstr ""
 
 #: .\Books\PolyglotImportExports.py:34 .\Books\PolyglotImportExports.py:127
 #: .\Books\PolyglotImportExports.py:325 .\Books\PolyglotImportExports.py:433
-#: .\Databases\WDB_Games.py:1902 .\Endings\WEndingsGTB.py:621
-#: .\MainWindow\WBase.py:202 .\Manager.py:1590 .\Menus\BasicMenus.py:71
+#: .\Databases\WDB_Games.py:1904 .\Endings\WEndingsGTB.py:621
+#: .\MainWindow\WBase.py:215 .\Manager.py:1590 .\Menus\BasicMenus.py:71
 #: .\QT\WindowManualSave.py:87 .\QT\WindowManualSave.py:355
 #: .\Tournaments\WTournament.py:220
 msgid "PGN"
@@ -2463,7 +2465,7 @@ msgstr ""
 #: .\Books\PolyglotImportExports.py:40 .\Books\PolyglotImportExports.py:51
 #: .\Engines\WConfEngines.py:319 .\Engines\WConfEngines.py:507
 #: .\Engines\WEngines.py:345 .\Kibitzers\WindowKibitzers.py:430
-#: .\MainWindow\WBase.py:173 .\Openings\WindowOpeningLines.py:38
+#: .\MainWindow\WBase.py:186 .\Openings\WindowOpeningLines.py:38
 #: .\Openings\WindowOpeningLines.py:264 .\Openings\WindowOpeningLines.py:315
 #: .\QT\SelectFiles.py:42 .\QT\SelectFiles.py:49 .\QT\WindowDailyTest.py:44
 #: .\QT\WindowDailyTest.py:147 .\QT\WindowSavePGN.py:248
@@ -2474,7 +2476,7 @@ msgstr ""
 
 #: .\Books\PolyglotImportExports.py:92 .\Books\PolyglotImportExports.py:528
 #: .\Books\PolyglotImportExports.py:686 .\Databases\DBgamesMov.py:58
-#: .\Databases\WDB_Games.py:1523 .\Databases\WDB_Games.py:1567
+#: .\Databases\WDB_Games.py:1525 .\Databases\WDB_Games.py:1569
 #: .\QT\QTVarios.py:727 .\QT\WindowSavePGN.py:701
 #: .\Tournaments\WTournament.py:874 .\Washing\WindowWashing.py:300
 msgid "Saving..."
@@ -2494,7 +2496,7 @@ msgstr ""
 msgid "Create book"
 msgstr ""
 
-#: .\Books\PolyglotImportExports.py:327 .\Databases\WDB_Games.py:1827
+#: .\Books\PolyglotImportExports.py:327 .\Databases\WDB_Games.py:1829
 #: .\Databases\WindowDatabase.py:16 .\Endings\WEndingsGTB.py:623
 #: .\Kibitzers\Kibitzers.py:226 .\Kibitzers\WindowKibitzers.py:249
 #: .\Openings\POLAnalisis.py:609 .\Openings\WindowOpeningLine.py:622
@@ -2636,7 +2638,7 @@ msgstr ""
 #: .\Books\WBooksTrain.py:63 .\Books\WBooksTrain.py:84
 #: .\Engines\WEngines.py:366 .\Openings\WindowOpeningLine.py:489
 #: .\PlayAgainstEngine\Personalities.py:114
-#: .\PlayAgainstEngine\WPlayAgainstEngine.py:367
+#: .\PlayAgainstEngine\WPlayAgainstEngine.py:367 .\Swiss\WSwissConfig.py:148
 #: .\Tournaments\WTournament.py:522
 msgid "Always the highest percentage"
 msgstr ""
@@ -2648,7 +2650,7 @@ msgstr ""
 #: .\Books\WBooksTrain.py:85 .\Engines\WEngines.py:367
 #: .\Openings\WindowOpeningLine.py:490
 #: .\PlayAgainstEngine\Personalities.py:115
-#: .\PlayAgainstEngine\WPlayAgainstEngine.py:368
+#: .\PlayAgainstEngine\WPlayAgainstEngine.py:368 .\Swiss\WSwissConfig.py:149
 #: .\Tournaments\WTournament.py:521
 msgid "Proportional random"
 msgstr ""
@@ -2656,7 +2658,7 @@ msgstr ""
 #: .\Books\WBooksTrain.py:86 .\Engines\WEngines.py:368
 #: .\Openings\WindowOpeningLine.py:491
 #: .\PlayAgainstEngine\Personalities.py:116
-#: .\PlayAgainstEngine\WPlayAgainstEngine.py:369
+#: .\PlayAgainstEngine\WPlayAgainstEngine.py:369 .\Swiss\WSwissConfig.py:150
 #: .\Tournaments\WTournament.py:521
 msgid "Uniform random"
 msgstr ""
@@ -2680,7 +2682,7 @@ msgid "Train the opening lines of a book"
 msgstr ""
 
 #: .\Books\WBooksTrainOL.py:111 .\Coordinates\WCoordinatesBasic.py:23
-#: .\Coordinates\WCoordinatesWrite.py:45 .\Databases\WDB_Games.py:1151
+#: .\Coordinates\WCoordinatesWrite.py:45 .\Databases\WDB_Games.py:1153
 #: .\LearnGame\WindowLearnGame.py:371 .\Openings\WindowOpeningLine.py:1250
 msgid "Side"
 msgstr ""
@@ -2704,7 +2706,7 @@ msgstr ""
 #: .\Engines\WConfEngines.py:498 .\Engines\WEngines.py:348
 #: .\Engines\WindowSTS.py:264 .\Openings\WindowOpeningLine.py:1592
 #: .\PlayAgainstEngine\WPlayAgainstEngine.py:377
-#: .\PlayAgainstEngine\WPlayAgainstEngine.py:395
+#: .\PlayAgainstEngine\WPlayAgainstEngine.py:395 .\Swiss\WSwissConfig.py:156
 #: .\Tournaments\WTournament.py:513
 msgid "Max depth"
 msgstr ""
@@ -2722,13 +2724,13 @@ msgstr ""
 
 #: .\Books\WBooksTrainOL.py:119 .\Coordinates\WCoordinatesBlocks.py:24
 #: .\Coordinates\WCoordinatesWrite.py:28
-#: .\Coordinates\WRunCoordinatesWrite.py:183 .\Databases\WDB_Games.py:1430
-#: .\Databases\WDB_Games.py:1461 .\Endings\ManagerMate.py:326
+#: .\Coordinates\WRunCoordinatesWrite.py:183 .\Databases\WDB_Games.py:1432
+#: .\Databases\WDB_Games.py:1463 .\Endings\ManagerMate.py:326
 #: .\Endings\WEndingsGTB.py:465 .\Engines\WindowSTS.py:62
 #: .\Expeditions\WindowEverest.py:231 .\Maps\WindowWorkMap.py:69
 #: .\Maps\WindowWorkMap.py:206 .\Openings\ManagerOPLEngines.py:550
 #: .\Openings\WindowOpeningLine.py:1347 .\RemoveResults.py:34
-#: .\Routes\ManagerRoutes.py:562 .\Routes\ManagerRoutes.py:738
+#: .\Routes\ManagerRoutes.py:564 .\Routes\ManagerRoutes.py:740
 msgid "Done"
 msgstr ""
 
@@ -2740,7 +2742,7 @@ msgstr ""
 
 #: .\Books\WBooksTrainOL.py:126 .\Databases\WDB_Games.py:116
 #: .\Databases\WDB_Utils.py:521 .\LearnGame\WindowLearnGame.py:278
-#: .\LearnGame\WindowPlayGame.py:269 .\MainWindow\WBase.py:170
+#: .\LearnGame\WindowPlayGame.py:269 .\MainWindow\WBase.py:183
 #: .\Menus\BasicMenus.py:270 .\Openings\WindowOpeningLine.py:62
 #: .\Tactics\WindowTactics.py:48
 msgid "Train"
@@ -2750,7 +2752,7 @@ msgstr ""
 #: .\Books\WFactory.py:123 .\Coordinates\WCoordinatesBasic.py:59
 #: .\Coordinates\WCoordinatesBlocks.py:58
 #: .\Coordinates\WCoordinatesWrite.py:100
-#: .\CountsCaptures\WCountsCaptures.py:106 .\Databases\WDB_Games.py:691
+#: .\CountsCaptures\WCountsCaptures.py:106 .\Databases\WDB_Games.py:693
 #: .\Engines\WindowSTS.py:532 .\Expeditions\WindowEverest.py:414
 #: .\GM\WindowGM.py:827 .\LearnGame\WindowLearnGame.py:204
 #: .\LearnGame\WindowLearnGame.py:344 .\LearnGame\WindowPlayGame.py:192
@@ -2786,7 +2788,7 @@ msgstr ""
 #: .\Databases\WDB_Players.py:449 .\Databases\WDB_Players.py:519
 #: .\Manager.py:1621 .\ManagerEntPos.py:715 .\Openings\OpeningLines.py:995
 #: .\Openings\OpeningLines.py:1060 .\Openings\OpeningLines.py:1128
-#: .\Openings\WindowOpeningLine.py:1676 .\Procesador.py:675
+#: .\Openings\WindowOpeningLine.py:1676 .\Procesador.py:676
 #: .\QT\QTUtil2.py:271
 msgid "Working..."
 msgstr ""
@@ -2796,7 +2798,7 @@ msgid "There is no lines"
 msgstr ""
 
 #: .\Books\WBooksTrainOL.py:480 .\Databases\WDB_Players.py:430
-#: .\MainWindow\WBase.py:212 .\Openings\WindowOpeningLines.py:52
+#: .\MainWindow\WBase.py:225 .\Openings\WindowOpeningLines.py:52
 #: .\PlayAgainstEngine\WPlayAgainstEngine.py:312
 #: .\PlayAgainstEngine\WPlayAgainstEngine.py:916
 #: .\PlayAgainstEngine\WPlayAgainstEngine.py:1516
@@ -2825,9 +2827,9 @@ msgid "Rename"
 msgstr ""
 
 #: .\Books\WFactory.py:51 .\Engines\WConfEngines.py:814
-#: .\Leagues\WLeague.py:400 .\Openings\POLAnalisisTree.py:188
+#: .\Leagues\WLeague.py:402 .\Openings\POLAnalisisTree.py:188
 #: .\Openings\POLAnalisisTree.py:189 .\Openings\WindowOpeningLines.py:59
-#: .\Swiss\WSwiss.py:319 .\Update.py:169
+#: .\Swiss\WSwiss.py:321 .\Update.py:169
 msgid "Update"
 msgstr ""
 
@@ -2854,7 +2856,7 @@ msgstr ""
 #: .\Kibitzers\WKibBooks.py:34 .\Kibitzers\WKibDatabases.py:80
 #: .\Kibitzers\WKibEngine.py:61 .\Kibitzers\WKibGaviota.py:32
 #: .\Kibitzers\WKibIndex.py:69 .\Kibitzers\WKibStEval.py:26
-#: .\MainWindow\WBase.py:179 .\Openings\WindowOpenings.py:62
+#: .\MainWindow\WBase.py:192 .\Openings\WindowOpenings.py:62
 #: .\Voyager\Voyager.py:782
 msgid "Takeback"
 msgstr ""
@@ -2893,7 +2895,7 @@ msgstr ""
 #: .\CompetitionWithTutor\WCompetitionWithTutor.py:214
 #: .\Engines\WConfEngines.py:57 .\Kibitzers\WKibDatabases.py:34
 #: .\Manager.py:1083 .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:1598
-#: .\Procesador.py:286 .\Procesador.py:305 .\Tutor\WindowTutor.py:23
+#: .\Procesador.py:287 .\Procesador.py:306 .\Tutor\WindowTutor.py:23
 #: .\Washing\ManagerWashing.py:514
 msgid "Tutor"
 msgstr ""
@@ -2912,7 +2914,7 @@ msgstr ""
 #: .\GM\ManagerGM.py:524 .\Leagues\ManagerLeague.py:294
 #: .\PlayAgainstEngine\ManagerAlbum.py:106
 #: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:665
-#: .\PlayHuman\ManagerPlayHuman.py:263 .\Swiss\ManagerSwiss.py:289
+#: .\PlayHuman\ManagerPlayHuman.py:263 .\Swiss\ManagerSwiss.py:294
 msgid "Do you want to adjourn the game?"
 msgstr ""
 
@@ -2928,7 +2930,7 @@ msgstr ""
 #: .\Leagues\ManagerLeague.py:347 .\PlayAgainstEngine\ManagerAlbum.py:146
 #: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:780
 #: .\PlayHuman\ManagerPlayHuman.py:347 .\QT\WindowDailyTest.py:283
-#: .\Swiss\ManagerSwiss.py:342
+#: .\Swiss\ManagerSwiss.py:347
 msgid "Do you want to resign?"
 msgstr ""
 
@@ -2964,7 +2966,7 @@ msgstr ""
 
 #: .\CompetitionWithTutor\WCompetitionWithTutor.py:162
 #: .\Endings\ManagerMate.py:452 .\LearnGame\WindowLearnGame.py:266
-#: .\MainWindow\WBase.py:205 .\MainWindow\WBase.py:244
+#: .\MainWindow\WBase.py:218 .\MainWindow\WBase.py:257
 #: .\ManagerFindAllMoves.py:102 .\ManagerFindAllMoves.py:242
 #: .\Memory\WindowMemoria.py:31 .\Memory\WindowMemoria.py:484
 #: .\Openings\ManagerOPLEngines.py:122 .\QT\WindowVisualiza.py:43
@@ -2976,31 +2978,31 @@ msgid "Training unit"
 msgstr ""
 
 #: .\Competitions\ManagerElo.py:333 .\Competitions\ManagerMicElo.py:206
-#: .\Competitions\ManagerWicker.py:204 .\Databases\WDB_Games.py:1156
-#: .\Databases\WDB_Games.py:1157 .\Databases\WDB_Players.py:119
+#: .\Competitions\ManagerWicker.py:204 .\Databases\WDB_Games.py:1158
+#: .\Databases\WDB_Games.py:1159 .\Databases\WDB_Players.py:119
 #: .\Databases\WDB_Players.py:122 .\Databases\WDB_Players.py:134
 #: .\Databases\WDB_Players.py:137 .\Databases\WDB_Summary.py:63
 #: .\Databases\WDB_Summary.py:66 .\Databases\WDB_Summary.py:429
 #: .\Databases\WDB_Summary.py:432 .\Engines\WEngines.py:140
-#: .\Leagues\WLeague.py:717 .\Leagues\WLeagueConfig.py:142
-#: .\Swiss\WSwiss.py:600 .\Swiss\WSwissConfig.py:129
+#: .\Leagues\WLeague.py:719 .\Leagues\WLeagueConfig.py:142
+#: .\Swiss\WSwiss.py:602 .\Swiss\WSwissConfig.py:164
 msgid "Win"
 msgstr ""
 
 #: .\Competitions\ManagerElo.py:339 .\Competitions\ManagerMicElo.py:212
-#: .\Competitions\ManagerWicker.py:210 .\Databases\WDB_Games.py:1158
-#: .\Databases\WDB_Games.py:1159 .\Databases\WDB_Players.py:121
+#: .\Competitions\ManagerWicker.py:210 .\Databases\WDB_Games.py:1160
+#: .\Databases\WDB_Games.py:1161 .\Databases\WDB_Players.py:121
 #: .\Databases\WDB_Players.py:124 .\Databases\WDB_Players.py:136
 #: .\Databases\WDB_Players.py:139 .\Databases\WDB_Summary.py:65
 #: .\Databases\WDB_Summary.py:68 .\Databases\WDB_Summary.py:431
 #: .\Databases\WDB_Summary.py:434 .\Engines\WEngines.py:142
-#: .\Leagues\WLeague.py:719 .\Leagues\WLeagueConfig.py:144
-#: .\Swiss\WSwiss.py:602 .\Swiss\WSwissConfig.py:131
+#: .\Leagues\WLeague.py:721 .\Leagues\WLeagueConfig.py:144
+#: .\Swiss\WSwiss.py:604 .\Swiss\WSwissConfig.py:166
 msgid "Loss"
 msgstr ""
 
 #: .\Competitions\ManagerElo.py:349 .\Competitions\ManagerElo.py:374
-#: .\Config\WindowConfig.py:205 .\Engines\SelectEngines.py:44
+#: .\Config\WindowConfig.py:204 .\Engines\SelectEngines.py:44
 #: .\Engines\SelectEngines.py:298 .\Engines\WEngines.py:280
 #: .\Menus\BasicMenus.py:209
 msgid "Lucas-Elo"
@@ -3014,7 +3016,7 @@ msgstr ""
 msgid "Fics-player"
 msgstr ""
 
-#: .\Competitions\ManagerFideFics.py:77 .\Config\WindowConfig.py:211
+#: .\Competitions\ManagerFideFics.py:77 .\Config\WindowConfig.py:210
 #: .\Menus\BasicMenus.py:217 .\QT\QTVarios.py:788
 msgid "Fics-Elo"
 msgstr ""
@@ -3027,7 +3029,7 @@ msgstr ""
 msgid "Fide-player"
 msgstr ""
 
-#: .\Competitions\ManagerFideFics.py:87 .\Config\WindowConfig.py:213
+#: .\Competitions\ManagerFideFics.py:87 .\Config\WindowConfig.py:212
 #: .\Menus\BasicMenus.py:224 .\QT\QTVarios.py:842
 msgid "Fide-Elo"
 msgstr ""
@@ -3040,7 +3042,7 @@ msgstr ""
 msgid "Lichess-player"
 msgstr ""
 
-#: .\Competitions\ManagerFideFics.py:97 .\Config\WindowConfig.py:215
+#: .\Competitions\ManagerFideFics.py:97 .\Config\WindowConfig.py:214
 #: .\Menus\BasicMenus.py:230
 msgid "Lichess-Elo"
 msgstr ""
@@ -3060,7 +3062,7 @@ msgid "book move"
 msgstr ""
 
 #: .\Competitions\ManagerMicElo.py:228 .\Competitions\ManagerMicElo.py:337
-#: .\Competitions\ManagerWicker.py:226 .\Config\WindowConfig.py:207
+#: .\Competitions\ManagerWicker.py:226 .\Config\WindowConfig.py:206
 #: .\Menus\BasicMenus.py:211
 msgid "Tourney-Elo"
 msgstr ""
@@ -3069,17 +3071,17 @@ msgstr ""
 msgid "New Tourney-Elo"
 msgstr ""
 
-#: .\Competitions\ManagerWicker.py:336 .\Config\WindowConfig.py:209
+#: .\Competitions\ManagerWicker.py:336 .\Config\WindowConfig.py:208
 #: .\Engines\SelectEngines.py:41 .\Engines\WEngines.py:300
 #: .\Menus\BasicMenus.py:213
 msgid "The Wicker Park Tourney"
 msgstr ""
 
-#: .\Config\Configuration.py:661
+#: .\Config\Configuration.py:663
 msgid "Default analyzer"
 msgstr ""
 
-#: .\Config\WindowConfig.py:13 .\Procesador.py:658
+#: .\Config\WindowConfig.py:13 .\Procesador.py:659
 msgid "General configuration"
 msgstr ""
 
@@ -3099,7 +3101,7 @@ msgstr ""
 #: .\Menus\BasicMenus.py:161 .\Menus\BasicMenus.py:190
 #: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:281
 #: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:669
-#: .\PlayAgainstEngine\WPlayAgainstEngine.py:1517 .\Procesador.py:988
+#: .\PlayAgainstEngine\WPlayAgainstEngine.py:1517 .\Procesador.py:989
 msgid "Play against an engine"
 msgstr ""
 
@@ -3125,7 +3127,7 @@ msgid "Check for updates at startup"
 msgstr ""
 
 #: .\Config\WindowConfig.py:50 .\Config\WindowConfig.py:147
-#: .\Procesador.py:686
+#: .\Procesador.py:687
 msgid "General"
 msgstr ""
 
@@ -3195,7 +3197,7 @@ msgstr ""
 msgid "Show candidates"
 msgstr ""
 
-#: .\Config\WindowConfig.py:96 .\Databases\WDB_Games.py:1086
+#: .\Config\WindowConfig.py:96 .\Databases\WDB_Games.py:1088
 #: .\Director\WindowTab.py:109
 msgid "CTRL"
 msgstr ""
@@ -3226,8 +3228,16 @@ msgstr ""
 msgid "Margin of pieces in square"
 msgstr ""
 
-#: .\Config\WindowConfig.py:105
+#: .\Config\WindowConfig.py:103
 msgid "Show cursor when engine is thinking"
+msgstr ""
+
+#: .\Config\WindowConfig.py:104
+msgid "Show ratings (NAGs) on the board"
+msgstr ""
+
+#: .\Config\WindowConfig.py:105 .\Manager.py:1546
+msgid "Arrow with the best move when there is an analysis"
 msgstr ""
 
 #: .\Config\WindowConfig.py:108
@@ -3390,8 +3400,8 @@ msgstr ""
 msgid "Message windows"
 msgstr ""
 
-#: .\Config\WindowConfig.py:174 .\Config\WindowConfig.py:200
-#: .\Databases\WDB_Games.py:885
+#: .\Config\WindowConfig.py:174 .\Config\WindowConfig.py:199
+#: .\Databases\WDB_Games.py:887
 msgid "Appearance"
 msgstr ""
 
@@ -3428,29 +3438,25 @@ msgid "Enable analysis bar by default"
 msgstr ""
 
 #: .\Config\WindowConfig.py:192
-msgid "Show ratings (NAGs) on the board"
+msgid "Show puzzles on startup"
 msgstr ""
 
-#: .\Config\WindowConfig.py:193 .\Manager.py:1546
-msgid "Arrow with the best move when there is an analysis"
-msgstr ""
-
-#: .\Config\WindowConfig.py:195
+#: .\Config\WindowConfig.py:194
 msgid "Font size of information labels"
 msgstr ""
 
-#: .\Config\WindowConfig.py:196 .\Databases\WindowDatabase.py:54
-#: .\Leagues\EditPlayers.py:15 .\Leagues\WLeague.py:350
+#: .\Config\WindowConfig.py:195 .\Databases\WindowDatabase.py:54
+#: .\Leagues\EditPlayers.py:15 .\Leagues\WLeague.py:352
 #: .\Leagues\WLeagueConfig.py:173 .\PlayHuman\WPlayHuman.py:41
-#: .\Swiss\WSwissConfig.py:167
+#: .\Swiss\WSwissConfig.py:203
 msgid "Players"
 msgstr ""
 
-#: .\Config\WindowConfig.py:198
+#: .\Config\WindowConfig.py:197
 msgid "Enable high dpi scaling"
 msgstr ""
 
-#: .\Config\WindowConfig.py:217
+#: .\Config\WindowConfig.py:216
 msgid "Change elos"
 msgstr ""
 
@@ -3470,7 +3476,7 @@ msgstr ""
 msgid "Please read the driver's user manual at:"
 msgstr ""
 
-#: .\Config\WindowUsuarios.py:24 .\Procesador.py:701
+#: .\Config\WindowUsuarios.py:24 .\Procesador.py:702
 msgid "Users"
 msgstr ""
 
@@ -3487,7 +3493,7 @@ msgstr ""
 msgid "Do you want to remove all data of this user?"
 msgstr ""
 
-#: .\Config\WindowUsuarios.py:171 .\Procesador.py:697
+#: .\Config\WindowUsuarios.py:171 .\Procesador.py:698
 msgid "Set password"
 msgstr ""
 
@@ -3532,11 +3538,11 @@ msgstr ""
 #: .\Coordinates\WCoordinatesBlocks.py:38 .\Databases\WDB_Games.py:112
 #: .\Databases\WDB_Summary.py:84 .\Director\WindowDirector.py:66
 #: .\Endings\WEndingsGTB.py:48 .\Engines\WindowSTS.py:383
-#: .\Engines\WindowSTS.py:598 .\Leagues\WLeague.py:406
-#: .\Leagues\WLeagueWorker.py:148 .\MainWindow\WBase.py:208
+#: .\Engines\WindowSTS.py:598 .\Leagues\WLeague.py:408
+#: .\Leagues\WLeagueWorker.py:148 .\MainWindow\WBase.py:221
 #: .\Mate15\WMate15.py:43 .\Resistance\WindowResistance.py:36
 #: .\Resistance\WindowResistance.py:129 .\Routes\WindowRoutes.py:123
-#: .\Routes\WindowRoutes.py:165 .\Swiss\WSwiss.py:325
+#: .\Routes\WindowRoutes.py:165 .\Swiss\WSwiss.py:327
 #: .\Swiss\WSwissWorker.py:136 .\Tournaments\WTournamentRun.py:217
 #: .\TurnOnLights\WindowTurnOnLights.py:54
 msgid "Config"
@@ -3721,8 +3727,8 @@ msgstr ""
 msgid "This game is duplicated"
 msgstr ""
 
-#: .\Databases\RemoveCommentsVariations.py:15 .\Databases\WDB_Games.py:715
-#: .\Databases\WDB_Games.py:1447 .\QT\WindowSavePGN.py:51
+#: .\Databases\RemoveCommentsVariations.py:15 .\Databases\WDB_Games.py:717
+#: .\Databases\WDB_Games.py:1449 .\QT\WindowSavePGN.py:51
 msgid "Remove comments and variations"
 msgstr ""
 
@@ -3774,7 +3780,7 @@ msgid "Last"
 msgstr ""
 
 #: .\Databases\WDB_Games.py:98 .\Databases\WDB_Games.py:106
-#: .\Databases\WDB_Games.py:263 .\Databases\WDB_Games.py:685
+#: .\Databases\WDB_Games.py:263 .\Databases\WDB_Games.py:687
 #: .\Databases\WDB_Utils.py:26 .\Databases\WDB_Utils.py:155
 #: .\Databases\WDB_Utils.py:286
 msgid "Filter"
@@ -3801,13 +3807,13 @@ msgstr ""
 msgid "Create trainings"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:134 .\Databases\WDB_Games.py:1128
+#: .\Databases\WDB_Games.py:134 .\Databases\WDB_Games.py:1130
 #: .\GM\ManagerGM.py:527 .\GM\WindowGM.py:32 .\Menus\MenuTrainings.py:214
 msgid "Play like a Grandmaster"
 msgstr ""
 
 #: .\Databases\WDB_Games.py:135 .\Databases\WDB_Games.py:138
-#: .\Databases\WDB_Games.py:142 .\Databases\WDB_Games.py:1129
+#: .\Databases\WDB_Games.py:142 .\Databases\WDB_Games.py:1131
 msgid "Create training to %1"
 msgstr ""
 
@@ -3830,7 +3836,7 @@ msgstr ""
 msgid "Reading"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:380 .\Databases\WDB_Games.py:1086
+#: .\Databases\WDB_Games.py:380 .\Databases\WDB_Games.py:1088
 msgid "Go to the record"
 msgstr ""
 
@@ -3838,318 +3844,318 @@ msgstr ""
 msgid "Changes have been made, do you want to export them to a PGN file?"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:553 .\Tournaments\WTournament.py:839
+#: .\Databases\WDB_Games.py:555 .\Tournaments\WTournament.py:839
 msgid "Reading the game"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:559
+#: .\Databases\WDB_Games.py:561
 msgid "This game is wrong and can not be edited"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:622
+#: .\Databases\WDB_Games.py:624
 msgid "Standard"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:624 .\GM\WindowGM.py:206
+#: .\Databases\WDB_Games.py:626 .\GM\WindowGM.py:206
 #: .\PlayAgainstEngine\WPlayAgainstEngine.py:463
 msgid "Advanced"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:628
+#: .\Databases\WDB_Games.py:630
 msgid "By position"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:631
+#: .\Databases\WDB_Games.py:633
 msgid "Remove filter"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:638 .\Databases\WDB_Games.py:649
+#: .\Databases\WDB_Games.py:640 .\Databases\WDB_Games.py:651
 msgid "Indexing..."
 msgstr ""
 
-#: .\Databases\WDB_Games.py:660
+#: .\Databases\WDB_Games.py:662
 msgid "A position index file needs to be created, which can be a lengthy process, shall we continue?"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:679
+#: .\Databases\WDB_Games.py:681
 msgid "No game has been found with this position"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:712
+#: .\Databases\WDB_Games.py:714
 msgid "From a PGN file"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:713 .\Menus\MenuTrainings.py:306
+#: .\Databases\WDB_Games.py:715 .\Menus\MenuTrainings.py:306
 #: .\Menus\MenuTrainings.py:310 .\Menus\MenuTrainings.py:315
 #: .\Menus\MenuTrainings.py:319 .\SingularMoves\ManagerSingularM.py:94
 msgid "Complete"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:717
+#: .\Databases\WDB_Games.py:719
 msgid "From other database"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:720 .\Databases\WDB_Games.py:1702
+#: .\Databases\WDB_Games.py:722 .\Databases\WDB_Games.py:1704
 msgid "From the Lichess Puzzle Database"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:722
+#: .\Databases\WDB_Games.py:724
 msgid "Games of a user in"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:738
+#: .\Databases\WDB_Games.py:740
 msgid "To a PGN file"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:739 .\Databases\WDB_Games.py:748
-#: .\Databases\WDB_Games.py:757 .\Databases\WDB_Games.py:1098
-#: .\Databases\WDB_Games.py:1105
+#: .\Databases\WDB_Games.py:741 .\Databases\WDB_Games.py:750
+#: .\Databases\WDB_Games.py:759 .\Databases\WDB_Games.py:1100
+#: .\Databases\WDB_Games.py:1107
 msgid "All registers"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:747 .\Databases\WDB_Games.py:1559
+#: .\Databases\WDB_Games.py:749 .\Databases\WDB_Games.py:1561
 msgid "To a CSV file"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:756
+#: .\Databases\WDB_Games.py:758
 msgid "To other database"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:766
+#: .\Databases\WDB_Games.py:768
 msgid "To a position sheet in ODF format"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:788 .\Databases\WDB_Utils.py:354
+#: .\Databases\WDB_Games.py:790 .\Databases\WDB_Utils.py:354
 #: .\Databases\WDB_Utils.py:549
 msgid "Skip the first move"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:882
+#: .\Databases\WDB_Games.py:884
 msgid "Database options"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:888
+#: .\Databases\WDB_Games.py:890
 msgid "Resize all columns to contents"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:891 .\Kibitzers\WKibDatabases.py:82
+#: .\Databases\WDB_Games.py:893 .\Kibitzers\WKibDatabases.py:82
 msgid "Configure the columns"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:896
+#: .\Databases\WDB_Games.py:898
 msgid "Graphic elements (Director)"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:897
+#: .\Databases\WDB_Games.py:899
 msgid "Show always"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:902
+#: .\Databases\WDB_Games.py:904
 msgid "Specific to this database"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1075
+#: .\Databases\WDB_Games.py:1077
 msgid "Resizing"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1083
+#: .\Databases\WDB_Games.py:1085
 msgid "Update tags"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1090
+#: .\Databases\WDB_Games.py:1092
 msgid "Create a polyglot book"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1092 .\Themes\WDB_Theme_Analysis.py:127
+#: .\Databases\WDB_Games.py:1094 .\Themes\WDB_Theme_Analysis.py:127
 msgid "Statistics on tactical themes"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1094 .\Databases\WDB_Games.py:1407
-#: .\Databases\WDB_Games.py:1410
+#: .\Databases\WDB_Games.py:1096 .\Databases\WDB_Games.py:1409
+#: .\Databases\WDB_Games.py:1412
 msgid "Remove duplicates"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1096 .\Databases\WDB_Games.py:1424
-#: .\Databases\WDB_Games.py:1427 .\Openings\WindowOpeningLine.py:1180
+#: .\Databases\WDB_Games.py:1098 .\Databases\WDB_Games.py:1426
+#: .\Databases\WDB_Games.py:1429 .\Openings\WindowOpeningLine.py:1180
 msgid "Remove comments/ratings/analysis"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1097
+#: .\Databases\WDB_Games.py:1099
 msgid "All elements"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1104
+#: .\Databases\WDB_Games.py:1106
 msgid "Certain elements"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1110
+#: .\Databases\WDB_Games.py:1112
 msgid "Regenerate index positions file"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1113
+#: .\Databases\WDB_Games.py:1115
 msgid "Pack database"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1134
+#: .\Databases\WDB_Games.py:1136
 msgid "Training name"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1155
+#: .\Databases\WDB_Games.py:1157
 msgid "Any"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1173 .\Director\WindowTabVCircles.py:116
+#: .\Databases\WDB_Games.py:1175 .\Director\WindowTabVCircles.py:116
 #: .\Director\WindowTabVFlechas.py:181 .\Director\WindowTabVMarcos.py:121
 #: .\Director\WindowTabVMarkers.py:118 .\Director\WindowTabVSVGs.py:140
 #: .\PlayAgainstEngine\Personalities.py:184
 msgid "Name missing"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1396
+#: .\Databases\WDB_Games.py:1398
 msgid "Analyzing tactical themes"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1401
+#: .\Databases\WDB_Games.py:1403
 msgid "No themes were found in selected games!"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1657
+#: .\Databases\WDB_Games.py:1659
 msgid "You must follow the next steps"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1658
+#: .\Databases\WDB_Games.py:1660
 msgid "Download the puzzles in csv format from LiChess website"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1661
+#: .\Databases\WDB_Games.py:1663
 msgid "Uncompress this file with a tool like PeaZip"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1663
+#: .\Databases\WDB_Games.py:1665
 msgid "Uncompress this file"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1665
+#: .\Databases\WDB_Games.py:1667
 msgid "If you want to include a field with the opening, you have to download and unzip in the same folder as the puzzle file, the file indicated below"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1671
+#: .\Databases\WDB_Games.py:1673
 msgid "Original idea and more information"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1696
+#: .\Databases\WDB_Games.py:1698
 msgid "The import takes a long time."
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1735
+#: .\Databases\WDB_Games.py:1737
 msgid "Importing"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1827
+#: .\Databases\WDB_Games.py:1829
 msgid "New database"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1857 .\Databases\WDB_Games.py:1909
+#: .\Databases\WDB_Games.py:1859 .\Databases\WDB_Games.py:1911
 #: .\Engines\WindowSTS.py:61 .\Openings\WindowOpeningLine.py:454
 msgid "Group"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1860 .\Databases\WDB_Games.py:1869
-#: .\Databases\WDB_Games.py:1884
+#: .\Databases\WDB_Games.py:1862 .\Databases\WDB_Games.py:1871
+#: .\Databases\WDB_Games.py:1886
 msgid "Group lists"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1866 .\Databases\WDB_Games.py:1881
+#: .\Databases\WDB_Games.py:1868 .\Databases\WDB_Games.py:1883
 msgid "Subgroup"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1909
+#: .\Databases\WDB_Games.py:1911
 msgid "optional"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1911
+#: .\Databases\WDB_Games.py:1913
 msgid "Opening explorer depth (0=disable)"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1916
+#: .\Databases\WDB_Games.py:1918
 msgid "Store in an external folder"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1926
+#: .\Databases\WDB_Games.py:1928
 msgid "Allow complete games"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1927
+#: .\Databases\WDB_Games.py:1929
 msgid "Allow positions"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1928
+#: .\Databases\WDB_Games.py:1930
 msgid "Allow duplicates"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1929
+#: .\Databases\WDB_Games.py:1931
 msgid "Allow without moves"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1938
+#: .\Databases\WDB_Games.py:1940
 msgid "Import restrictions"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1964
+#: .\Databases\WDB_Games.py:1966
 msgid "Use an external folder"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1970
+#: .\Databases\WDB_Games.py:1972
 msgid "The folder must be outside the default folder"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:1982 .\Openings\WindowOpeningLine.py:823
+#: .\Databases\WDB_Games.py:1984 .\Openings\WindowOpeningLine.py:823
 #: .\Openings\WindowOpeningLine.py:866
 msgid "File to import"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:2035
+#: .\Databases\WDB_Games.py:2037
 msgid "You must indicate a name"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:2052 .\Openings\WindowOpeningLines.py:176
+#: .\Databases\WDB_Games.py:2054 .\Openings\WindowOpeningLines.py:176
 msgid "Unable to create the folder"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:2067
+#: .\Databases\WDB_Games.py:2069
 msgid "This database already exists."
 msgstr ""
 
-#: .\Databases\WDB_Games.py:2116
+#: .\Databases\WDB_Games.py:2118
 msgid "Tags"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:2138 .\Menus\BasicMenus.py:284
+#: .\Databases\WDB_Games.py:2140 .\Menus\BasicMenus.py:284
 #: .\QT\GridEditCols.py:43
 msgid "Key"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:2140
+#: .\Databases\WDB_Games.py:2142
 msgid "PGN Label"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:2143
+#: .\Databases\WDB_Games.py:2145
 msgid "Fill column with value"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:2144
+#: .\Databases\WDB_Games.py:2146
 msgid "Fill column with PGN"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:2145
+#: .\Databases\WDB_Games.py:2147
 msgid "Remove column"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:2148 .\Director\TabVisual.py:375
+#: .\Databases\WDB_Games.py:2150 .\Director\TabVisual.py:375
 msgid "Action"
 msgstr ""
 
-#: .\Databases\WDB_Games.py:2192
+#: .\Databases\WDB_Games.py:2194
 msgid "This tag is repeated"
 msgstr ""
 
@@ -4274,7 +4280,7 @@ msgstr ""
 
 #: .\Databases\WDB_Utils.py:95 .\LearnGame\WindowLearnGame.py:498
 #: .\LearnGame\WindowLearnGame.py:512 .\LearnGame\WindowLearnGame.py:521
-#: .\MainWindow\WBase.py:178 .\Openings\WindowOpenings.py:61
+#: .\MainWindow\WBase.py:191 .\Openings\WindowOpenings.py:61
 #: .\QT\GridEditCols.py:88 .\QT\WindowHorses.py:223 .\QT\WindowSavePGN.py:198
 msgid "Reinit"
 msgstr ""
@@ -4448,7 +4454,7 @@ msgstr ""
 #: .\Director\WindowDirector.py:78 .\Engines\WConfEngines.py:251
 #: .\Engines\WConfEngines.py:492 .\Engines\WEngines.py:144
 #: .\Engines\WEngines.py:339 .\Engines\WindowSTS.py:261
-#: .\Kibitzers\WindowKibitzers.py:433 .\MainWindow\WBase.py:172
+#: .\Kibitzers\WindowKibitzers.py:433 .\MainWindow\WBase.py:185
 #: .\Manager.py:1223 .\ManagerEntPos.py:381 .\Mate15\WMate15.py:25
 #: .\QT\QTUtil2.py:686 .\Tournaments\WTournament.py:511
 #: .\TurnOnLights\WindowTurnOnLights.py:55
@@ -4902,12 +4908,12 @@ msgstr ""
 
 #: .\Engines\WConfEngines.py:36 .\Kibitzers\WindowKibitzers.py:53
 #: .\Leagues\WLeagueConfig.py:46 .\Manager.py:1599 .\Menus\BasicMenus.py:93
-#: .\PlayAgainstEngine\WPlayAgainstEngine.py:72 .\Procesador.py:667
-#: .\Swiss\WSwissConfig.py:44
+#: .\PlayAgainstEngine\WPlayAgainstEngine.py:72 .\Procesador.py:668
+#: .\Swiss\WSwissConfig.py:50
 msgid "Engines configuration"
 msgstr ""
 
-#: .\Engines\WConfEngines.py:58 .\Procesador.py:319
+#: .\Engines\WConfEngines.py:58 .\Procesador.py:320
 msgid "Analyzer"
 msgstr ""
 
@@ -4981,7 +4987,7 @@ msgstr ""
 
 #: .\Engines\WConfEngines.py:717 .\GM\WindowGM.py:97
 #: .\Leagues\WLeagueConfig.py:105 .\MainWindow\WAnalysisBar.py:193
-#: .\Swiss\WSwissConfig.py:97 .\Tournaments\WTournament.py:83
+#: .\Swiss\WSwissConfig.py:103 .\Tournaments\WTournament.py:83
 msgid "Time in seconds"
 msgstr ""
 
@@ -5051,7 +5057,7 @@ msgstr ""
 #: .\Kibitzers\WKibGaviota.py:30 .\Kibitzers\WKibIndex.py:68
 #: .\Kibitzers\WKibLinea.py:71 .\Kibitzers\WKibStEval.py:24
 #: .\Leagues\WLeagueWorker.py:133 .\LearnGame\WindowLearnGame.py:525
-#: .\MainWindow\WBase.py:195 .\MainWindow\WBase.py:196
+#: .\MainWindow\WBase.py:208 .\MainWindow\WBase.py:209
 #: .\Swiss\WSwissWorker.py:121 .\Tournaments\WTournamentRun.py:202
 msgid "Pause"
 msgstr ""
@@ -5517,7 +5523,7 @@ msgid "Undetermined"
 msgstr ""
 
 #: .\GM\WindowGM.py:165 .\GM\WindowGM.py:196 .\Leagues\WLeagueConfig.py:109
-#: .\Swiss\WSwissConfig.py:101 .\Tournaments\WTournament.py:87
+#: .\Swiss\WSwissConfig.py:107 .\Tournaments\WTournament.py:87
 msgid "Adjudicator"
 msgstr ""
 
@@ -5691,8 +5697,8 @@ msgid "Visible in menu"
 msgstr ""
 
 #: .\Leagues\EditPlayers.py:54 .\Leagues\WLeagueConfig.py:68
-#: .\Leagues\WLeagueConfig.py:259 .\Swiss\WSwissConfig.py:65
-#: .\Swiss\WSwissConfig.py:244
+#: .\Leagues\WLeagueConfig.py:259 .\Swiss\WSwissConfig.py:71
+#: .\Swiss\WSwissConfig.py:287
 msgid "Human"
 msgstr ""
 
@@ -5703,171 +5709,171 @@ msgid "Chess leagues"
 msgstr ""
 
 #: .\Leagues\ManagerLeague.py:568 .\Manager.py:2225
-#: .\Swiss\ManagerSwiss.py:563
+#: .\Swiss\ManagerSwiss.py:568
 msgid "%1 wants to resign, do you accept it?"
 msgstr ""
 
 #: .\Leagues\ManagerLeague.py:587 .\Manager.py:2241
-#: .\Swiss\ManagerSwiss.py:582
+#: .\Swiss\ManagerSwiss.py:587
 msgid "%1 proposes draw, do you accept it?"
 msgstr ""
 
-#: .\Leagues\WLeague.py:31
+#: .\Leagues\WLeague.py:31 .\Swiss\WSwiss.py:29
 msgid "Season"
 msgstr ""
 
-#: .\Leagues\WLeague.py:79
+#: .\Leagues\WLeague.py:81
 msgid "First Division"
 msgstr ""
 
-#: .\Leagues\WLeague.py:80
+#: .\Leagues\WLeague.py:82
 msgid "Second Division"
 msgstr ""
 
-#: .\Leagues\WLeague.py:81
+#: .\Leagues\WLeague.py:83
 msgid "Third Division"
 msgstr ""
 
-#: .\Leagues\WLeague.py:82
+#: .\Leagues\WLeague.py:84
 msgid "Fourth Division"
 msgstr ""
 
-#: .\Leagues\WLeague.py:83
+#: .\Leagues\WLeague.py:85
 msgid "Fifth Division"
 msgstr ""
 
-#: .\Leagues\WLeague.py:84
+#: .\Leagues\WLeague.py:86
 msgid "Sixth Division"
 msgstr ""
 
-#: .\Leagues\WLeague.py:85
+#: .\Leagues\WLeague.py:87
 msgid "Seventh Division"
 msgstr ""
 
-#: .\Leagues\WLeague.py:86
+#: .\Leagues\WLeague.py:88
 msgid "Eighth Division"
 msgstr ""
 
-#: .\Leagues\WLeague.py:87
+#: .\Leagues\WLeague.py:89
 msgid "Ninth Division"
 msgstr ""
 
-#: .\Leagues\WLeague.py:88
+#: .\Leagues\WLeague.py:90
 msgid "Tenth Division"
 msgstr ""
 
-#: .\Leagues\WLeague.py:89
+#: .\Leagues\WLeague.py:91
 msgid "Eleventh Division"
 msgstr ""
 
-#: .\Leagues\WLeague.py:90
+#: .\Leagues\WLeague.py:92
 msgid "Twelfth Division"
 msgstr ""
 
-#: .\Leagues\WLeague.py:96 .\Leagues\WLeague.py:160 .\Leagues\WLeague.py:213
-#: .\Leagues\WLeague.py:235 .\Leagues\WLeagueConfig.py:56
+#: .\Leagues\WLeague.py:98 .\Leagues\WLeague.py:162 .\Leagues\WLeague.py:215
+#: .\Leagues\WLeague.py:237 .\Leagues\WLeagueConfig.py:56
 msgid "Division"
 msgstr ""
 
-#: .\Leagues\WLeague.py:103 .\Swiss\WSwiss.py:71
+#: .\Leagues\WLeague.py:105 .\Swiss\WSwiss.py:73
 msgid "Pts ||Points/score"
 msgstr ""
 
-#: .\Leagues\WLeague.py:104 .\Swiss\WSwiss.py:72
+#: .\Leagues\WLeague.py:106 .\Swiss\WSwiss.py:74
 msgid "GP ||Games played"
 msgstr ""
 
-#: .\Leagues\WLeague.py:105 .\Swiss\WSwiss.py:75
+#: .\Leagues\WLeague.py:107 .\Swiss\WSwiss.py:77
 msgid "W ||Games won"
 msgstr ""
 
-#: .\Leagues\WLeague.py:106 .\Leagues\WLeague.py:672 .\Swiss\WSwiss.py:76
-#: .\Swiss\WSwiss.py:547
+#: .\Leagues\WLeague.py:108 .\Leagues\WLeague.py:674 .\Swiss\WSwiss.py:78
+#: .\Swiss\WSwiss.py:549
 msgid "D ||Games drawn"
 msgstr ""
 
-#: .\Leagues\WLeague.py:107 .\Swiss\WSwiss.py:77
+#: .\Leagues\WLeague.py:109 .\Swiss\WSwiss.py:79
 msgid "L ||Games lost"
 msgstr ""
 
-#: .\Leagues\WLeague.py:108 .\Swiss\WSwiss.py:78
+#: .\Leagues\WLeague.py:110 .\Swiss\WSwiss.py:80
 msgid "Current ELO"
 msgstr ""
 
-#: .\Leagues\WLeague.py:110 .\Swiss\WSwiss.py:80
+#: .\Leagues\WLeague.py:112 .\Swiss\WSwiss.py:82
 msgid "Initial ELO"
 msgstr ""
 
-#: .\Leagues\WLeague.py:124 .\Swiss\WSwiss.py:88
+#: .\Leagues\WLeague.py:126 .\Swiss\WSwiss.py:90
 msgid "Classification"
 msgstr ""
 
-#: .\Leagues\WLeague.py:154 .\Swiss\WSwiss.py:114
+#: .\Leagues\WLeague.py:156 .\Swiss\WSwiss.py:116
 msgid "Crosstabs"
 msgstr ""
 
-#: .\Leagues\WLeague.py:179 .\Swiss\WSwiss.py:138 .\Swiss\WSwiss.py:172
-#: .\Swiss\WSwiss.py:191 .\Translations\TrListas.py:27
+#: .\Leagues\WLeague.py:181 .\Swiss\WSwiss.py:140 .\Swiss\WSwiss.py:174
+#: .\Swiss\WSwiss.py:193 .\Translations\TrListas.py:27
 msgid "Round"
 msgstr ""
 
-#: .\Leagues\WLeague.py:215 .\Leagues\WLeague.py:236
+#: .\Leagues\WLeague.py:217 .\Leagues\WLeague.py:238
 msgid "Journey"
 msgstr ""
 
-#: .\Leagues\WLeague.py:250
+#: .\Leagues\WLeague.py:252
 msgid "All games"
 msgstr ""
 
-#: .\Leagues\WLeague.py:349 .\Swiss\WSwiss.py:288
+#: .\Leagues\WLeague.py:351 .\Swiss\WSwiss.py:290
 msgid "Launch new workers when a matchday ends"
 msgstr ""
 
-#: .\Leagues\WLeague.py:399 .\Swiss\WSwiss.py:318
+#: .\Leagues\WLeague.py:401 .\Swiss\WSwiss.py:320
 #: .\Tournaments\WTournament.py:57
 msgid "Launch workers"
 msgstr ""
 
-#: .\Leagues\WLeague.py:405 .\Swiss\WSwiss.py:324
+#: .\Leagues\WLeague.py:407 .\Swiss\WSwiss.py:326
 msgid "Seasons"
 msgstr ""
 
-#: .\Leagues\WLeague.py:468 .\Swiss\WSwiss.py:384
+#: .\Leagues\WLeague.py:470 .\Swiss\WSwiss.py:386
 msgid "Double click to play"
 msgstr ""
 
-#: .\Leagues\WLeague.py:470 .\Swiss\WSwiss.py:386
+#: .\Leagues\WLeague.py:472 .\Swiss\WSwiss.py:388
 msgid "Double click to edit"
 msgstr ""
 
-#: .\Leagues\WLeague.py:674 .\Swiss\WSwiss.py:549
+#: .\Leagues\WLeague.py:676 .\Swiss\WSwiss.py:551
 #: .\Tournaments\WTournament.py:246
 msgid "W ||White"
 msgstr ""
 
-#: .\Leagues\WLeague.py:676 .\Swiss\WSwiss.py:551
+#: .\Leagues\WLeague.py:678 .\Swiss\WSwiss.py:553
 #: .\Tournaments\WTournament.py:247
 msgid "B ||Black"
 msgstr ""
 
-#: .\Leagues\WLeague.py:967 .\Swiss\WSwiss.py:871
+#: .\Leagues\WLeague.py:975 .\Swiss\WSwiss.py:880
 msgid "There are no pending matches in the current matchday"
 msgstr ""
 
-#: .\Leagues\WLeague.py:971 .\Leagues\WLeague.py:1028 .\Swiss\WSwiss.py:875
-#: .\Swiss\WSwiss.py:932
+#: .\Leagues\WLeague.py:979 .\Leagues\WLeague.py:1036 .\Swiss\WSwiss.py:884
+#: .\Swiss\WSwiss.py:941
 msgid "Save all games to a database"
 msgstr ""
 
-#: .\Leagues\WLeague.py:1000 .\Swiss\WSwiss.py:904
+#: .\Leagues\WLeague.py:1008 .\Swiss\WSwiss.py:913
 msgid "Generating the list of games to save"
 msgstr ""
 
-#: .\Leagues\WLeague.py:1047 .\Swiss\WSwiss.py:951
+#: .\Leagues\WLeague.py:1055 .\Swiss\WSwiss.py:960
 msgid "The database did not allow %d duplicate games to be recorded"
 msgstr ""
 
-#: .\Leagues\WLeague.py:1063 .\Swiss\WSwiss.py:997
+#: .\Leagues\WLeague.py:1071 .\Swiss\WSwiss.py:1008
 msgid "Change the active season"
 msgstr ""
 
@@ -5875,49 +5881,49 @@ msgstr ""
 msgid "League"
 msgstr ""
 
-#: .\Leagues\WLeagueConfig.py:50 .\Swiss\WSwissConfig.py:48
+#: .\Leagues\WLeagueConfig.py:50 .\Swiss\WSwissConfig.py:54
 msgid "Remove all seasons"
 msgstr ""
 
-#: .\Leagues\WLeagueConfig.py:88 .\Swiss\WSwissConfig.py:80
+#: .\Leagues\WLeagueConfig.py:88 .\Swiss\WSwissConfig.py:86
 #: .\Tournaments\WTournament.py:66
 msgid "Minimum centipawns to assign winner"
 msgstr ""
 
-#: .\Leagues\WLeagueConfig.py:94 .\Swiss\WSwissConfig.py:86
+#: .\Leagues\WLeagueConfig.py:94 .\Swiss\WSwissConfig.py:92
 #: .\Tournaments\WTournament.py:72
 msgid "Minimum movements to assign draw"
 msgstr ""
 
-#: .\Leagues\WLeagueConfig.py:97 .\Swiss\WSwissConfig.py:89
+#: .\Leagues\WLeagueConfig.py:97 .\Swiss\WSwissConfig.py:95
 #: .\Tournaments\WTournament.py:75
 msgid "Maximum centipawns to assign draw"
 msgstr ""
 
-#: .\Leagues\WLeagueConfig.py:111 .\Swiss\WSwissConfig.py:103
+#: .\Leagues\WLeagueConfig.py:111 .\Swiss\WSwissConfig.py:109
 #: .\Tournaments\WTournament.py:102
 msgid "Slow down the movement of pieces"
 msgstr ""
 
 #: .\Leagues\WLeagueConfig.py:116 .\Leagues\WLeagueConfig.py:127
 #: .\PlayAgainstEngine\WPlayAgainstEngine.py:277 .\PlayHuman\WPlayHuman.py:44
-#: .\QT\QTVarios.py:115 .\QT\QTVarios.py:236 .\Swiss\WSwissConfig.py:108
-#: .\Swiss\WSwissConfig.py:119 .\Tournaments\WTournament.py:741
+#: .\QT\QTVarios.py:115 .\QT\QTVarios.py:236 .\Swiss\WSwissConfig.py:114
+#: .\Swiss\WSwissConfig.py:125 .\Tournaments\WTournament.py:741
 msgid "Total minutes"
 msgstr ""
 
 #: .\Leagues\WLeagueConfig.py:119 .\Leagues\WLeagueConfig.py:130
 #: .\PlayAgainstEngine\WPlayAgainstEngine.py:280 .\PlayHuman\WPlayHuman.py:47
-#: .\QT\QTVarios.py:118 .\QT\QTVarios.py:245 .\Swiss\WSwissConfig.py:111
-#: .\Swiss\WSwissConfig.py:122 .\Tournaments\WTournament.py:744
+#: .\QT\QTVarios.py:118 .\QT\QTVarios.py:245 .\Swiss\WSwissConfig.py:117
+#: .\Swiss\WSwissConfig.py:128 .\Tournaments\WTournament.py:744
 msgid "Seconds added per move"
 msgstr ""
 
-#: .\Leagues\WLeagueConfig.py:124 .\Swiss\WSwissConfig.py:116
+#: .\Leagues\WLeagueConfig.py:124 .\Swiss\WSwissConfig.py:122
 msgid "Engine vs engine"
 msgstr ""
 
-#: .\Leagues\WLeagueConfig.py:135 .\Swiss\WSwissConfig.py:127
+#: .\Leagues\WLeagueConfig.py:135 .\Swiss\WSwissConfig.py:139
 msgid "Engine vs human"
 msgstr ""
 
@@ -5925,16 +5931,16 @@ msgstr ""
 msgid "Opponents who change divisions every season"
 msgstr ""
 
-#: .\Leagues\WLeagueConfig.py:153 .\Swiss\WSwissConfig.py:144
+#: .\Leagues\WLeagueConfig.py:153 .\Swiss\WSwissConfig.py:179
 msgid "System score"
 msgstr ""
 
-#: .\Leagues\WLeagueConfig.py:194 .\Swiss\WSwissConfig.py:199
+#: .\Leagues\WLeagueConfig.py:194 .\Swiss\WSwissConfig.py:242
 msgid "Do you want to remove all results of all seasons?"
 msgstr ""
 
-#: .\Leagues\WLeagueConfig.py:348 .\Procesador.py:951
-#: .\Swiss\WSwissConfig.py:334
+#: .\Leagues\WLeagueConfig.py:348 .\Procesador.py:952
+#: .\Swiss\WSwissConfig.py:381
 msgid "Do you want to remove?"
 msgstr ""
 
@@ -5976,13 +5982,13 @@ msgstr ""
 msgid "Replay game"
 msgstr ""
 
-#: .\LearnGame\WindowLearnGame.py:523 .\MainWindow\WBase.py:194
+#: .\LearnGame\WindowLearnGame.py:523 .\MainWindow\WBase.py:207
 #: .\PlayAgainstEngine\WPlayAgainstEngine.py:126
 #: .\PlayAgainstEngine\WPlayAgainstEngine.py:186
 msgid "Slow"
 msgstr ""
 
-#: .\LearnGame\WindowLearnGame.py:527 .\MainWindow\WBase.py:199
+#: .\LearnGame\WindowLearnGame.py:527 .\MainWindow\WBase.py:212
 #: .\PlayAgainstEngine\WPlayAgainstEngine.py:126
 #: .\PlayAgainstEngine\WPlayAgainstEngine.py:184
 msgid "Fast"
@@ -6000,7 +6006,7 @@ msgstr ""
 msgid "Select your user"
 msgstr ""
 
-#: .\MainWindow\MainWindow.py:140 .\Manager.py:1590
+#: .\MainWindow\MainWindow.py:141 .\Manager.py:1590
 #: .\PlayAgainstEngine\WPlayAgainstEngine.py:225
 #: .\PlayAgainstEngine\WPlayAgainstEngine.py:256 .\QT\Piezas.py:249
 #: .\QT\WindowArbol.py:595 .\Tournaments\WTournament.py:219
@@ -6014,7 +6020,7 @@ msgstr ""
 
 #: .\MainWindow\Presentacion.py:137
 #: .\PlayAgainstEngine\ManagerPlayAgainstEngine.py:1520
-#: .\Tactics\ManagerTactics.py:353 .\Tactics\Tactics.py:724
+#: .\Tactics\ManagerTactics.py:355 .\Tactics\Tactics.py:724
 msgid "GAME OVER"
 msgstr ""
 
@@ -6038,89 +6044,83 @@ msgstr ""
 msgid "Auto-rotate"
 msgstr ""
 
-#: .\MainWindow\WBase.py:155 .\ManagerEntPos.py:417 .\ManagerGame.py:473
-#: .\Tactics\ManagerTactics.py:213
+#: .\MainWindow\WBase.py:168 .\ManagerEntPos.py:417 .\ManagerGame.py:473
+#: .\Tactics\ManagerTactics.py:215
 msgid "Page Down"
 msgstr ""
 
-#: .\MainWindow\WBase.py:157 .\ManagerEntPos.py:416 .\ManagerGame.py:472
+#: .\MainWindow\WBase.py:170 .\ManagerEntPos.py:416 .\ManagerGame.py:472
 msgid "Page Up"
 msgstr ""
 
-#: .\MainWindow\WBase.py:169 .\Menus\BasicMenus.py:271
+#: .\MainWindow\WBase.py:182 .\Menus\BasicMenus.py:271
 msgid "Compete"
 msgstr ""
 
-#: .\MainWindow\WBase.py:176 .\ManagerSolo.py:370
+#: .\MainWindow\WBase.py:189 .\ManagerSolo.py:370
 #: .\Tournaments\WTournaments.py:41
 msgid "Open"
 msgstr ""
 
-#: .\MainWindow\WBase.py:180
+#: .\MainWindow\WBase.py:193
 msgid "Adjourn"
 msgstr ""
 
-#: .\MainWindow\WBase.py:181
+#: .\MainWindow\WBase.py:194
 msgid "Adjournments"
 msgstr ""
 
-#: .\MainWindow\WBase.py:187 .\ManagerGame.py:309 .\ManagerSolo.py:479
+#: .\MainWindow\WBase.py:200 .\ManagerGame.py:309 .\ManagerSolo.py:479
 #: .\ManagerVariations.py:119 .\Menus\BasicMenus.py:74
 #: .\Openings\WindowOpeningLine.py:618
-#: .\PlayAgainstEngine\WPlayAgainstEngine.py:339 .\Procesador.py:1107
+#: .\PlayAgainstEngine\WPlayAgainstEngine.py:339 .\Procesador.py:1108
 msgid "Paste PGN"
 msgstr ""
 
-#: .\MainWindow\WBase.py:188 .\ManagerGame.py:307 .\ManagerSolo.py:477
+#: .\MainWindow\WBase.py:201 .\ManagerGame.py:307 .\ManagerSolo.py:477
 #: .\Menus\BasicMenus.py:72 .\Openings\WindowOpenings.py:64
 msgid "Read PGN file"
 msgstr ""
 
-#: .\MainWindow\WBase.py:189 .\QT\WindowManualSave.py:127
+#: .\MainWindow\WBase.py:202 .\QT\WindowManualSave.py:127
 #: .\QT\WindowSavePGN.py:277
 msgid "PGN labels"
 msgstr ""
 
-#: .\MainWindow\WBase.py:190
+#: .\MainWindow\WBase.py:203
 msgid "Other game"
 msgstr ""
 
-#: .\MainWindow\WBase.py:192 .\QT\WindowSavePGN.py:35
-#: .\QT\WindowSavePGN.py:147 .\QT\WindowSavePGN.py:209
-#: .\QT\WindowSavePGN.py:467
-msgid "Boxrooms PGN"
-msgstr ""
-
-#: .\MainWindow\WBase.py:193 .\Openings\ManagerOPLEngines.py:465
+#: .\MainWindow\WBase.py:206 .\Openings\ManagerOPLEngines.py:465
 #: .\Sound\WindowSonido.py:228 .\Sound\WindowSonido.py:229
 msgid "End"
 msgstr ""
 
-#: .\MainWindow\WBase.py:204
+#: .\MainWindow\WBase.py:217
 msgid "Advice"
 msgstr ""
 
-#: .\MainWindow\WBase.py:211 .\Menus\BasicMenus.py:272
+#: .\MainWindow\WBase.py:224 .\Menus\BasicMenus.py:272
 msgid "Tools"
 msgstr ""
 
-#: .\MainWindow\WBase.py:213
+#: .\MainWindow\WBase.py:226
 msgid "Show text"
 msgstr ""
 
-#: .\MainWindow\WBase.py:214
+#: .\MainWindow\WBase.py:227
 msgid "Play now"
 msgstr ""
 
-#: .\MainWindow\WBase.py:216
+#: .\MainWindow\WBase.py:229
 msgid "Replay"
 msgstr ""
 
-#: .\MainWindow\WBase.py:446
+#: .\MainWindow\WBase.py:459
 msgid "Tutor enabled"
 msgstr ""
 
-#: .\MainWindow\WBase.py:448
+#: .\MainWindow\WBase.py:461
 msgid "Tutor disabled"
 msgstr ""
 
@@ -6141,7 +6141,7 @@ msgid "Comment"
 msgstr ""
 
 #: .\MainWindow\WindowSolve.py:35 .\ManagerEntPos.py:254
-#: .\Menus\MenuTrainings.py:806 .\Tactics\ManagerTactics.py:161
+#: .\Menus\MenuTrainings.py:806 .\Tactics\ManagerTactics.py:163
 #: .\Tactics\WindowTactics.py:354
 msgid "Advanced mode"
 msgstr ""
@@ -6193,7 +6193,7 @@ msgstr ""
 msgid "Hide"
 msgstr ""
 
-#: .\Manager.py:1618 .\Procesador.py:672
+#: .\Manager.py:1618 .\Procesador.py:673
 msgid "Save engines log"
 msgstr ""
 
@@ -7290,11 +7290,11 @@ msgstr ""
 msgid "Custom openings"
 msgstr ""
 
-#: .\Menus\BasicMenus.py:117 .\Procesador.py:409
+#: .\Menus\BasicMenus.py:117 .\Procesador.py:410
 msgid "Album of animals"
 msgstr ""
 
-#: .\Menus\BasicMenus.py:129 .\Procesador.py:424
+#: .\Menus\BasicMenus.py:129 .\Procesador.py:425
 msgid "Album of vehicles"
 msgstr ""
 
@@ -7320,7 +7320,7 @@ msgstr ""
 msgid "Swiss Tournaments"
 msgstr ""
 
-#: .\Menus\BasicMenus.py:264 .\Procesador.py:691
+#: .\Menus\BasicMenus.py:264 .\Procesador.py:692
 msgid "Shortcuts"
 msgstr ""
 
@@ -7472,7 +7472,7 @@ msgid "World map"
 msgstr ""
 
 #: .\Menus\MenuTrainings.py:350 .\Routes\ManagerRoutes.py:195
-#: .\Routes\ManagerRoutes.py:570 .\Routes\ManagerRoutes.py:750
+#: .\Routes\ManagerRoutes.py:572 .\Routes\ManagerRoutes.py:752
 #: .\Routes\WindowRoutes.py:19
 msgid "Transsiberian Railway"
 msgstr ""
@@ -7509,7 +7509,7 @@ msgid "Tutor initially active"
 msgstr ""
 
 #: .\Menus\MenuTrainings.py:797 .\Routes\WindowRoutes.py:203
-#: .\Tactics\ManagerTactics.py:165
+#: .\Tactics\ManagerTactics.py:167
 msgid "Jump to the next after solving"
 msgstr ""
 
@@ -9109,7 +9109,7 @@ msgid "Help configuration"
 msgstr ""
 
 #: .\PlayAgainstEngine\WPlayAgainstEngine.py:283
-#: .\PlayAgainstEngine\WPlayAgainstEngine.py:1488
+#: .\PlayAgainstEngine\WPlayAgainstEngine.py:1488 .\Swiss\WSwissConfig.py:134
 msgid "Extra minutes for the player"
 msgstr ""
 
@@ -9206,47 +9206,47 @@ msgstr ""
 msgid "Do both players agree to end the game with a draw?"
 msgstr ""
 
-#: .\Procesador.py:661
+#: .\Procesador.py:662
 msgid "Language"
 msgstr ""
 
-#: .\Procesador.py:684
+#: .\Procesador.py:685
 msgid "Main board"
 msgstr ""
 
-#: .\Procesador.py:689 .\QT\WReplay.py:49 .\Sound\WindowSonido.py:400
+#: .\Procesador.py:690 .\QT\WReplay.py:49 .\Sound\WindowSonido.py:400
 msgid "Custom sounds"
 msgstr ""
 
-#: .\Procesador.py:694 .\RemoveResults.py:19 .\RemoveResults.py:29
+#: .\Procesador.py:695 .\RemoveResults.py:19 .\RemoveResults.py:29
 msgid "Remove results"
 msgstr ""
 
-#: .\Procesador.py:704
+#: .\Procesador.py:705
 msgid "User data folder"
 msgstr ""
 
-#: .\Procesador.py:706
+#: .\Procesador.py:707
 msgid "Change the folder"
 msgstr ""
 
-#: .\Procesador.py:709
+#: .\Procesador.py:710
 msgid "Reset to default"
 msgstr ""
 
-#: .\Procesador.py:757
+#: .\Procesador.py:758
 msgid "Be careful please"
 msgstr ""
 
-#: .\Procesador.py:757
+#: .\Procesador.py:758
 msgid "Change the folder where all data is saved"
 msgstr ""
 
-#: .\Procesador.py:1136
+#: .\Procesador.py:1137
 msgid "Play a position"
 msgstr ""
 
-#: .\Procesador.py:1298 .\QT\QTUtil2.py:266 .\QT\QTUtil2.py:277
+#: .\Procesador.py:1299 .\QT\QTUtil2.py:266 .\QT\QTUtil2.py:277
 #: .\QT\QTVarios.py:799 .\QT\QTVarios.py:853 .\setup_linux.py:312
 msgid "One moment please..."
 msgstr ""
@@ -9801,6 +9801,11 @@ msgstr ""
 msgid "Invalid move"
 msgstr ""
 
+#: .\QT\WindowSavePGN.py:35 .\QT\WindowSavePGN.py:147
+#: .\QT\WindowSavePGN.py:209 .\QT\WindowSavePGN.py:467
+msgid "Boxrooms PGN"
+msgstr ""
+
 #: .\QT\WindowSavePGN.py:44 .\QT\WindowSavePGN.py:218
 msgid "Same as file"
 msgstr ""
@@ -9881,7 +9886,7 @@ msgstr ""
 msgid "Go to next level"
 msgstr ""
 
-#: .\QT\WindowVisualiza.py:416
+#: .\QT\WindowVisualiza.py:416 .\Routes\ManagerRoutes.py:333
 msgid "Level %d"
 msgstr ""
 
@@ -9945,14 +9950,14 @@ msgstr ""
 msgid "Estimated elo"
 msgstr ""
 
-#: .\Routes\ManagerRoutes.py:183 .\Routes\ManagerRoutes.py:338
+#: .\Routes\ManagerRoutes.py:183 .\Routes\ManagerRoutes.py:340
 #: .\Routes\Routes.py:436
 msgid "You must win to pass this step."
 msgstr ""
 
 #: .\Routes\ManagerRoutes.py:293 .\Routes\ManagerRoutes.py:297
-#: .\Routes\ManagerRoutes.py:501 .\Routes\ManagerRoutes.py:514
-#: .\Routes\ManagerRoutes.py:700
+#: .\Routes\ManagerRoutes.py:503 .\Routes\ManagerRoutes.py:516
+#: .\Routes\ManagerRoutes.py:702
 msgid "Wrong move"
 msgstr ""
 
@@ -9960,32 +9965,28 @@ msgstr ""
 msgid "Right move: %s"
 msgstr ""
 
-#: .\Routes\ManagerRoutes.py:332
-msgid "Congratulations, you have completed the game."
-msgstr ""
-
-#: .\Routes\ManagerRoutes.py:334
+#: .\Routes\ManagerRoutes.py:336
 msgid "Well done"
 msgstr ""
 
-#: .\Routes\ManagerRoutes.py:411
+#: .\Routes\ManagerRoutes.py:413
 msgid "Warnings: %d/%d"
 msgstr ""
 
-#: .\Routes\ManagerRoutes.py:413 .\Routes\ManagerRoutes.py:557
-#: .\Routes\ManagerRoutes.py:565
+#: .\Routes\ManagerRoutes.py:415 .\Routes\ManagerRoutes.py:559
+#: .\Routes\ManagerRoutes.py:567
 msgid "You must repeat the puzzle."
 msgstr ""
 
-#: .\Routes\ManagerRoutes.py:497 .\Routes\ManagerRoutes.py:693
+#: .\Routes\ManagerRoutes.py:499 .\Routes\ManagerRoutes.py:695
 msgid "You have selected one correct move, but the line use %s"
 msgstr ""
 
-#: .\Routes\ManagerRoutes.py:565 .\Washing\ManagerWashing.py:161
+#: .\Routes\ManagerRoutes.py:567 .\Washing\ManagerWashing.py:161
 msgid "Done with errors."
 msgstr ""
 
-#: .\Routes\ManagerRoutes.py:738
+#: .\Routes\ManagerRoutes.py:740
 msgid "You have traveled %s"
 msgstr ""
 
@@ -10085,7 +10086,7 @@ msgstr ""
 msgid "Miles (internally works in km)"
 msgstr ""
 
-#: .\Routes\WindowRoutes.py:202 .\Tactics\ManagerTactics.py:163
+#: .\Routes\WindowRoutes.py:202 .\Tactics\ManagerTactics.py:165
 msgid "Stop after solving"
 msgstr ""
 
@@ -10177,19 +10178,19 @@ msgstr ""
 msgid "Operations"
 msgstr ""
 
-#: .\Swiss\WSwiss.py:205
+#: .\Swiss\WSwiss.py:207
 msgid "All games played"
 msgstr ""
 
-#: .\Swiss\WSwissConfig.py:132
+#: .\Swiss\WSwissConfig.py:167
 msgid "Byes"
 msgstr ""
 
-#: .\Swiss\WSwissConfig.py:146 .\Tournaments\WTournament.py:738
+#: .\Swiss\WSwissConfig.py:181 .\Tournaments\WTournament.py:738
 msgid "Rounds"
 msgstr ""
 
-#: .\Tactics\ManagerTactics.py:213
+#: .\Tactics\ManagerTactics.py:215
 msgid "Next position"
 msgstr ""
 

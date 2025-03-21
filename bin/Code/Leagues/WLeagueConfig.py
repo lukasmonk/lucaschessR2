@@ -2,6 +2,12 @@ from PySide2 import QtCore
 
 import Code
 from Code import Util
+from Code.Base.Constantes import (
+    BOOK_BEST_MOVE,
+    BOOK_RANDOM_UNIFORM,
+    BOOK_RANDOM_PROPORTIONAL
+)
+from Code.Books import Books, WBooks
 from Code.Engines import SelectEngines, WConfEngines
 from Code.Leagues import Leagues
 from Code.QT import Colocacion
@@ -132,7 +138,36 @@ class WLeagueConfig(LCDialog.LCDialog):
         ly = Colocacion.H().control(lb_minutes).control(self.ed_minutes_eng_human)
         ly.control(lb_seconds).control(self.sb_seconds_eng_human)
 
-        gb_time_eng_human = Controles.GB(self, _("Engine vs human"), ly)
+        minutes = self.league.time_added_human
+        lb_added_human = Controles.LB2P(self, _("Extra minutes for the player"))
+        self.ed_added_human = Controles.ED(self).tipoFloat(minutes).anchoFijo(65)
+        ly1 = Colocacion.H().control(lb_added_human).control(self.ed_added_human).relleno()
+        ly2 = Colocacion.V().otro(ly).otro(ly1)
+
+        gb_time_eng_human = Controles.GB(self, _("Engine vs human"), ly2)
+
+        # Libro
+        self.list_books = Books.ListBooks()
+        li_books = [(x.name, x) for x in self.list_books.lista]
+        li_books.insert(0, ("-", None))
+        lib_inicial = self.league.book
+
+        li_resp_book = [
+            (_("Always the highest percentage"), BOOK_BEST_MOVE),
+            (_("Proportional random"), BOOK_RANDOM_PROPORTIONAL),
+            (_("Uniform random"), BOOK_RANDOM_UNIFORM),
+        ]
+
+        self.cbBooksR = QTUtil2.combobox_lb(self, li_books, lib_inicial)
+        self.btNuevoBookR = Controles.PB(self, "", self.new_book).ponIcono(Iconos.Mas())
+        self.cbBooksRR = QTUtil2.combobox_lb(self, li_resp_book, self.league.book_rr)
+        self.lbDepthBookR = Controles.LB2P(self, _("Max depth"))
+        self.edDepthBookR = Controles.ED(self).tipoInt(self.league.book_depth).anchoFijo(30)
+
+        hbox = Colocacion.H().control(self.cbBooksR).control(self.btNuevoBookR).control(self.cbBooksRR)
+        hbox1 = Colocacion.H().control(self.lbDepthBookR).control(self.edDepthBookR).relleno()
+        vbox = Colocacion.V().otro(hbox).otro(hbox1)
+        gb_book = Controles.GB(self, _("Engines") + " - " + _("Book"), vbox)
 
         self.sb_migration, lb_migration = QTUtil2.spinbox_lb(
             self, self.league.migration, 0, 100, max_width=35, etiqueta=_("Opponents who change divisions every season")
@@ -162,8 +197,9 @@ class WLeagueConfig(LCDialog.LCDialog):
         ly_options.controld(lb_slow, 5, 0).control(self.chb_slow, 5, 1)
         ly_options.control(gb_time_eng_eng, 6, 0, 1, 2)
         ly_options.control(gb_time_eng_human, 7, 0, 1, 2)
-        ly_options.controld(lb_migration, 8, 0).control(self.sb_migration, 8, 1)
-        ly_options.control(self.gb_score, 9, 0, 1, 2)
+        ly_options.control(gb_book, 9, 0, 1, 2)
+        ly_options.controld(lb_migration, 11, 0).control(self.sb_migration, 11, 1)
+        ly_options.control(self.gb_score, 12, 0, 1, 2)
 
         layout_v = Colocacion.V().otro(ly_bt0).otro(ly_bt1).control(self.grid)
 
@@ -197,6 +233,13 @@ class WLeagueConfig(LCDialog.LCDialog):
             self.tb.set_action_visible(self.remove_seasons, False)
             self.sb_migration.setEnabled(True)
             self.gb_score.setEnabled(True)
+
+    def new_book(self):
+        WBooks.registered_books(self)
+        self.list_books = Books.ListBooks()
+        li = [(x.name, x) for x in self.list_books.lista]
+        li.insert(0, ("", None))
+        self.cbBooksR.rehacer(li, self.cbBooksR.valor())
 
     def set_num_elements(self):
         li = self.league.list_numdivision()
@@ -275,6 +318,11 @@ class WLeagueConfig(LCDialog.LCDialog):
             mnt = 3.0
         self.league.time_engine_engine = (mnt, self.sb_seconds_eng_eng.valor())
         self.league.time_engine_human = (self.ed_minutes_eng_human.textoFloat(), self.sb_seconds_eng_human.valor())
+        self.league.time_added_human = self.ed_added_human.textoFloat()
+        self.league.book = self.cbBooksR.valor()
+        self.league.book_rr = self.cbBooksRR.valor()
+        self.league.book_depth = self.edDepthBookR.textoInt()
+
         self.league.migration = self.sb_migration.valor()
         self.league.score_win = self.ed_score_win.textoFloat()
         self.league.score_draw = self.ed_score_draw.textoFloat()

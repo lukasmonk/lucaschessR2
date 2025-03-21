@@ -376,9 +376,9 @@ def dic2ini_base(file, dic):
 
 
 def secs2str(s):
-    m = s / 60
+    m = s // 60
     s = s % 60
-    h = m / 60
+    h = m // 60
     m = m % 60
     return "%02d:%02d:%02d" % (h, m, s)
 
