@@ -92,7 +92,7 @@ class ManagerLeague(Manager.Manager):
         opponent_engine = xmatch.get_engine(league, self.engine_side)
         self.conf_engine = opponent_engine.opponent
 
-        rv = opponent_engine.element
+        rv = opponent_engine.opponent
         if rv.type == ENG_WICKER:
             self.xrival = EnginesWicker.EngineManagerWicker(rv)
         else:
