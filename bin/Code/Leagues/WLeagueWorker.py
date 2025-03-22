@@ -292,24 +292,21 @@ class WLeagueWorker(QtWidgets.QWidget):
             self.xengine[side] = xmanager
             self.xengine[side].set_gui_dispatch(self.gui_dispatch)
 
+            self.book[side] = None
             bk = rv.book
-            if bk:
-                if not Util.exist_file(bk):
-                    bk = None
-                if bk == "*":
-                    bk = self.torneo.book()
-                if bk == "-":  # Puede que el torneo tenga "-"
-                    bk = None
+            if bk and bk in "*-":
+                bk = None
             if bk:
                 self.book[side] = Books.Book("P", bk, bk, True)
                 self.book[side].polyglot()
+                self.book_rr[side] = rv.book_rr
+                self.book_max_plies[side] = rv.book_max_plies
             else:
-                self.book[side] = self.swiss.book if self.swiss.book else None
-                self.book_rr[side] = self.swiss.book_rr
-                self.book_max_plies[side] = self.swiss.book_depth
-
-            self.book_rr[side] = rv.book_rr
-            self.book_max_plies[side] = rv.book_max_plies
+                if self.league.book:
+                    self.book[side] = self.league.book
+                    self.book[side].polyglot()
+                    self.book_rr[side] = self.league.book_rr
+                    self.book_max_plies[side] = self.league.book_depth
 
         self.game = Game.Game()
         self.pgn.game = self.game

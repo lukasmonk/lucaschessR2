@@ -282,9 +282,7 @@ class WSwissWorker(QtWidgets.QWidget):
 
             self.book[side] = None
             bk = rv.book
-            if bk == "*":
-                bk = self.torneo.book()
-            if bk == "-":
+            if bk and bk in "*-":
                 bk = None
             if bk:
                 self.book[side] = Books.Book("P", bk, bk, True)
@@ -295,8 +293,8 @@ class WSwissWorker(QtWidgets.QWidget):
                 if self.swiss.book:
                     self.book[side] = self.swiss.book
                     self.book[side].polyglot()
-                    self.book_rr[side] = rv.book_rr
-                    self.book_max_plies[side] = rv.book_max_plies
+                    self.book_rr[side] = self.swiss.book_rr
+                    self.book_max_plies[side] = self.swiss.book_depth
 
         self.game = Game.Game()
         self.pgn.game = self.game

@@ -32,6 +32,7 @@ from Code.Base.Constantes import (
     GT_MICELO,
     GT_WICKER,
     GT_AGAINST_ENGINE_LEAGUE,
+    GT_AGAINST_ENGINE_SWISS,
     GT_AGAINST_CHILD_ENGINE,
     GT_AGAINST_ENGINE,
     GT_ALBUM,
@@ -631,6 +632,8 @@ class Procesador:
                     self.manager.selecciona(tp)
                 elif tp == GT_AGAINST_ENGINE_LEAGUE:
                     self.manager = ManagerLeague.ManagerLeague(self)
+                elif tp == GT_AGAINST_ENGINE_SWISS:
+                    self.manager = ManagerSwiss.ManagerSwiss(self)
                 elif tp == GT_HUMAN:
                     self.manager = ManagerPlayHuman.ManagerPlayHuman(self)
                 else:

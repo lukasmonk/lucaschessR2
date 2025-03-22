@@ -235,8 +235,10 @@ class ManagerTrainBooks(Manager.Manager):
                     self.board.eboard_arrow(jug[0], jug[1], jug[2])
 
             if self.show_menu:
+                self.main_window.toolbar_enable(False)
                 resp = WBooks.select_move_books(self.main_window, list_moves, self.is_human_side_white)
                 self.board.remove_arrows()
+                self.main_window.toolbar_enable(True)
             else:
                 resp = None
             if resp is None:

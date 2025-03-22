@@ -15,7 +15,7 @@ from Code.Base.Constantes import (
     TB_PAUSE,
     TB_RESIGN,
     TB_UTILITIES,
-    GT_AGAINST_ENGINE_LEAGUE,
+    GT_AGAINST_ENGINE_SWISS,
     RESULT_WIN_BLACK,
     RESULT_WIN_WHITE,
     RESULT_DRAW,
@@ -77,7 +77,7 @@ class ManagerSwiss(Manager.Manager):
         opponent_b: Swiss.Opponent
         opponent_w, opponent_b = self.xmatch.get_opponents(swiss)
 
-        self.game_type = GT_AGAINST_ENGINE_LEAGUE
+        self.game_type = GT_AGAINST_ENGINE_SWISS
 
         self.human_is_playing = False
         self.rival_is_thinking = False
