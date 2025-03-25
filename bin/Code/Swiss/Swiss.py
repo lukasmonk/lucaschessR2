@@ -5,10 +5,10 @@ import random
 import Code
 from Code import Util
 from Code.Base import Game
+from Code.Base.Constantes import BOOK_RANDOM_UNIFORM
 from Code.Base.Constantes import RESULT_WIN_WHITE, RESULT_WIN_BLACK, RESULT_DRAW, ENGINE, HUMAN, WHITE, BLACK
 from Code.Engines import Engines
 from Code.SQL import UtilSQL
-from Code.Base.Constantes import BOOK_RANDOM_UNIFORM
 
 
 class Human:
@@ -224,7 +224,7 @@ class MatchsDay:
                 continue
 
             if first_match:
-                rival_selected = li_opponents_play[pos+num_players_play//2]
+                rival_selected = li_opponents_play[pos + num_players_play // 2]
                 player_w, player_b = rival_selected, opponent
                 if random.randint(1, 100) > 75:
                     player_w, player_b = player_b, player_w
@@ -233,7 +233,7 @@ class MatchsDay:
                 st_opponents_played = dic_xid_oponents_played[xid]
                 rival_selected = None
 
-                for pos_rival in range(pos+1, num_players_play):
+                for pos_rival in range(pos + 1, num_players_play):
                     opponent_rival: Opponent = li_opponents_play[pos_rival]
                     xid_rival = opponent_rival.xid
                     if xid_rival in st_xid_playing:
@@ -285,7 +285,6 @@ class MatchsDay:
             st_xid_playing.add(player_b.xid)
             match = Match(player_w.xid, player_b.xid)
             self.li_matches.append(match)
-
 
     def genera_matches0(self, swiss, set_mached_played):
         self.li_matches = []
@@ -515,6 +514,9 @@ class Swiss:
 
         self.dic_opponents = None
         self.restore()
+
+    def remove_work(self):
+        Util.remove_file(self.__path + ".work")
 
     def path(self):
         return self.__path

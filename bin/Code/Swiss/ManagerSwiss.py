@@ -60,6 +60,8 @@ class ManagerSwiss(Manager.Manager):
     book_rr = None
     book_depth = None
 
+    key_crash = None
+
     def start(self, swiss: Swiss.Swiss, xmatch: Swiss.Match):
         self.base_inicio(swiss, xmatch)
         self.xrival.check_engine()
@@ -186,6 +188,8 @@ class ManagerSwiss(Manager.Manager):
 
         self.check_boards_setposition()
 
+        self.crash_adjourn_init()
+
     def pon_toolbar(self):
         if self.state == ST_PLAYING:
             if self.toolbar_state != self.state:
@@ -266,7 +270,8 @@ class ManagerSwiss(Manager.Manager):
             self.rendirse()
 
         elif key == TB_DRAW:
-            self.tablasPlayer()
+            if self.tablasPlayer():
+                self.crash_adjourn_end()
 
         elif key == TB_PAUSE:
             self.xpause()
@@ -284,6 +289,7 @@ class ManagerSwiss(Manager.Manager):
             self.adjourn()
 
         elif key == TB_CLOSE:
+            self.crash_adjourn_end()
             self.procesador.start()
             WSwisses.play_swiss(self.main_window, self.swiss)
 
@@ -320,6 +326,7 @@ class ManagerSwiss(Manager.Manager):
 
     def adjourn(self):
         if QTUtil2.pregunta(self.main_window, _("Do you want to adjourn the game?")):
+            self.crash_adjourn_end()
             dic = self.save_state()
 
             # se guarda en una bd Adjournments dic key = fecha y hora y tipo
@@ -330,6 +337,24 @@ class ManagerSwiss(Manager.Manager):
             with Adjournments.Adjournments() as adj:
                 adj.add(self.game_type, dic, label_menu)
                 adj.si_seguimos(self)
+
+    def crash_adjourn_init(self):
+        label_menu = "%s: %s vs %s" % (self.swiss.name(), self.game.get_tag("WHITE"), self.game.get_tag("BLACK"))
+        with Adjournments.Adjournments() as adj:
+            self.key_crash = adj.key_crash(self.game_type, label_menu)
+
+    def crash_adjourn(self):
+        if self.key_crash is None:
+            return
+        with Adjournments.Adjournments() as adj:
+            dic = self.save_state()
+            adj.add_crash(self.key_crash, dic)
+
+    def crash_adjourn_end(self):
+        if self.key_crash:
+            with Adjournments.Adjournments() as adj:
+                adj.rem_crash(self.key_crash)
+                self.key_crash = None
 
     def run_adjourn(self, dic):
         self.restore_state(dic)
@@ -377,6 +402,7 @@ class ManagerSwiss(Manager.Manager):
         self.game.set_termination(
             TERMINATION_RESIGN, RESULT_WIN_WHITE if self.is_engine_side_white else RESULT_WIN_BLACK
         )
+        self.crash_adjourn_end()
         self.set_end_game()
         self.autosave()
         self.save_match()
@@ -388,6 +414,8 @@ class ManagerSwiss(Manager.Manager):
             return
 
         self.state = ST_PLAYING
+
+        self.crash_adjourn()
 
         self.human_is_playing = False
         self.rival_is_thinking = False

@@ -1157,7 +1157,7 @@ class DBgames:
             row = cursor.fetchone()
             if row[0] > 0:
                 resp.ok = False
-                resp.mens_error = _("This game is duplicated")
+                resp.mens_error = _("This position is duplicated") if si_fen_nue else _("This game is duplicated")
                 return resp
         li_fields.append("XPV")
         li_data.append(xpv_nue)

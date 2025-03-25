@@ -28,10 +28,10 @@ from Code.Base.Constantes import (
     ENG_WICKER,
 )
 from Code.Books import Books
+from Code.Engines import EngineManager, EnginesWicker, EngineResponse
 from Code.Leagues import WLeagues, Leagues
 from Code.QT import QTUtil
 from Code.QT import QTUtil2
-from Code.Engines import EngineManager, EnginesWicker, EngineResponse
 
 
 class ManagerLeague(Manager.Manager):
@@ -60,6 +60,8 @@ class ManagerLeague(Manager.Manager):
     book = None
     book_rr = None
     book_depth = None
+
+    key_crash = None
 
     def start(self, league: Leagues.League, xmatch: Leagues.Match, division: int):
         self.base_inicio(league, xmatch, division)
@@ -115,7 +117,6 @@ class ManagerLeague(Manager.Manager):
                 self.book.polyglot()
                 self.book_rr = self.league.book_rr
                 self.book_depth = self.league.book_depth
-
 
         self.lirm_engine = []
         self.next_test_resign = 0
@@ -191,6 +192,8 @@ class ManagerLeague(Manager.Manager):
         self.game.add_tag_timestart()
 
         self.check_boards_setposition()
+
+        self.crash_adjourn_init()
 
     def pon_toolbar(self):
         if self.state == ST_PLAYING:
@@ -272,7 +275,8 @@ class ManagerLeague(Manager.Manager):
             self.rendirse()
 
         elif key == TB_DRAW:
-            self.tablasPlayer()
+            if self.tablasPlayer():
+                self.crash_adjourn_end()
 
         elif key == TB_PAUSE:
             self.xpause()
@@ -290,6 +294,7 @@ class ManagerLeague(Manager.Manager):
             self.adjourn()
 
         elif key == TB_CLOSE:
+            self.crash_adjourn_end()
             self.procesador.start()
             WLeagues.play_league(self.main_window, self.league)
 
@@ -328,6 +333,8 @@ class ManagerLeague(Manager.Manager):
 
     def adjourn(self):
         if QTUtil2.pregunta(self.main_window, _("Do you want to adjourn the game?")):
+            self.crash_adjourn_end()
+
             dic = self.save_state()
 
             # se guarda en una bd Adjournments dic key = fecha y hora y tipo
@@ -338,6 +345,24 @@ class ManagerLeague(Manager.Manager):
             with Adjournments.Adjournments() as adj:
                 adj.add(self.game_type, dic, label_menu)
                 adj.si_seguimos(self)
+
+    def crash_adjourn_init(self):
+        label_menu = "%s: %s vs %s" % (self.league.name(), self.game.get_tag("WHITE"), self.game.get_tag("BLACK"))
+        with Adjournments.Adjournments() as adj:
+            self.key_crash = adj.key_crash(self.game_type, label_menu)
+
+    def crash_adjourn(self):
+        if self.key_crash is None:
+            return
+        with Adjournments.Adjournments() as adj:
+            dic = self.save_state()
+            adj.add_crash(self.key_crash, dic)
+
+    def crash_adjourn_end(self):
+        if self.key_crash:
+            with Adjournments.Adjournments() as adj:
+                adj.rem_crash(self.key_crash)
+                self.key_crash = None
 
     def run_adjourn(self, dic):
         self.restore_state(dic)
@@ -385,6 +410,7 @@ class ManagerLeague(Manager.Manager):
         self.game.set_termination(
             TERMINATION_RESIGN, RESULT_WIN_WHITE if self.is_engine_side_white else RESULT_WIN_BLACK
         )
+        self.crash_adjourn_end()
         self.set_end_game()
         self.autosave()
         self.save_match()
@@ -397,6 +423,8 @@ class ManagerLeague(Manager.Manager):
 
         self.state = ST_PLAYING
 
+        self.crash_adjourn()
+
         self.human_is_playing = False
         self.rival_is_thinking = False
         self.put_view()
@@ -404,15 +432,16 @@ class ManagerLeague(Manager.Manager):
         is_white = self.game.is_white()
 
         if self.game.is_finished():
+            self.crash_adjourn_end()
             self.show_result()
             return
 
         self.set_side_indicator(is_white)
         self.refresh()
 
-        siRival = is_white == self.is_engine_side_white
+        si_rival = is_white == self.is_engine_side_white
 
-        if siRival:
+        if si_rival:
             self.play_rival(is_white)
 
         else:

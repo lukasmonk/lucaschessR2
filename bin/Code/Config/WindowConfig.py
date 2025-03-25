@@ -43,6 +43,8 @@ def options(parent, configuration):
     form.checkbox(_("Activate translator help mode"), configuration.x_translation_mode)
 
     form.separador()
+    form.checkbox(_("Show puzzles on startup"), configuration.x_show_puzzles_on_startup)
+
     form.separador()
 
     form.checkbox(_("Check for updates at startup"), configuration.x_check_for_update)
@@ -189,7 +191,6 @@ def options(parent, configuration):
     form.checkbox(_("Enable captured material window by default"), configuration.x_captures_activate)
     form.checkbox(_("Enable information panel by default"), configuration.x_info_activate)
     form.checkbox(_("Enable analysis bar by default"), configuration.x_analyzer_activate_ab)
-    form.checkbox(_("Show puzzles on startup"), configuration.x_show_puzzles_on_startup)
     form.separador()
     form.spinbox(_("Font size of information labels"), 3, 99, 70, configuration.x_sizefont_infolabels)
     form.spinbox(_("Players"), 3, 99, 70, configuration.x_sizefont_players)
@@ -230,6 +231,7 @@ def options(parent, configuration):
             configuration.x_menu_play,
             mode_native_select,
             configuration.x_translation_mode,
+            configuration.x_show_puzzles_on_startup,
             configuration.x_check_for_update,
         ) = li_gen
 
@@ -267,7 +269,6 @@ def options(parent, configuration):
             configuration.x_captures_activate,
             configuration.x_info_activate,
             configuration.x_analyzer_activate_ab,
-            configuration.x_show_puzzles_on_startup,
             configuration.x_sizefont_infolabels,
             configuration.x_sizefont_players,
             configuration.x_enable_highdpiscaling,

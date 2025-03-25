@@ -194,9 +194,7 @@ class Board(QtWidgets.QGraphicsView):
             elif is_ctrl and key == Qt.Key_T:
                 resp = DBgames.save_selected_position(self.last_position)
                 if not resp.ok:
-                    mens = resp.mens_error.replace(_("Game").lower(), _("Position").lower())
-                    mens = mens.replace(_("Game"), _("Position"))
-                    QTUtil2.message_error(self, mens)
+                    QTUtil2.message_error(self, resp.mens_error)
                 else:
                     QTUtil2.temporary_message(self, f'{_("Saved")}\n{_("Databases")}: __Selected Positions__', 1.8)
 

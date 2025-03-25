@@ -12,6 +12,27 @@ class Adjournments:
     def open(self):
         return UtilSQL.DictSQL(self.file)
 
+    @staticmethod
+    def key_crash(tp: int, label_menu: str):
+        now = Util.today()
+        return "%d|%d|%d|%d|%d|%d|%d|%s" % (
+            now.year,
+            now.month,
+            now.day,
+            now.hour,
+            now.minute,
+            now.second,
+            tp,
+            label_menu,
+        )
+
+    def add_crash(self, key_crash, dic: dict):
+        with self.open() as db:
+            db[key_crash] = dic
+
+    def rem_crash(self, key_crash):
+        self.remove(key_crash)
+
     def add(self, tp: int, dic: dict, label_menu: str):
         with self.open() as db:
             now = Util.today()

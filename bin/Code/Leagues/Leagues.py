@@ -282,7 +282,7 @@ def create_journeys(num_opponents: int) -> list:
                 t = time.time()
             random.shuffle(journeys)
 
-    journeys_with_returns = li_minimo[:]
+    journeys_with_returns = list(li_minimo[:])
     for journey in li_minimo:
         new_journey = [(b, w) for w, b in journey]
         random.shuffle(new_journey)
@@ -432,6 +432,9 @@ class League:
 
         self.dic_opponents = None
         self.restore()
+
+    def remove_work(self):
+        Util.remove_file(self.__path + ".work")
 
     def get_current_season(self):
         if self.current_num_season is None:

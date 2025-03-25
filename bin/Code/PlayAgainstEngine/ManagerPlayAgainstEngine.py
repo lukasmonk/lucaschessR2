@@ -118,6 +118,8 @@ class ManagerPlayAgainstEngine(Manager.Manager):
     limit_time_seconds = 0
     error = None
 
+    key_crash: [str, None]
+
     def start(self, dic_var):
         self.base_inicio(dic_var)
         if self.timed:
@@ -272,7 +274,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             if self.nodes:
                 self.xrival.set_nodes(self.nodes)
 
-            self.xrival.check_engine() # para que el tiempo de carga del ejecutable no compute
+            self.xrival.check_engine()  # para que el tiempo de carga del ejecutable no compute
 
             if self.nAjustarFuerza != ADJUST_BETTER:
                 self.xrival.maximize_multipv()
@@ -319,7 +321,8 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                     self.game.set_tag("TimeExtra" + ("White" if self.is_human_side_white else "Black"),
                                       _("No limit"))
                 else:
-                    self.game.set_tag("TimeExtra" + ("White" if self.is_human_side_white else "Black"), "%d" % secs_extra)
+                    self.game.set_tag("TimeExtra" + ("White" if self.is_human_side_white else "Black"),
+                                      "%d" % secs_extra)
 
         self.pon_toolbar()
 
@@ -373,6 +376,8 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         self.is_analyzed_by_tutor = False
         if self.play_while_win:
             self.is_tutor_enabled = True
+
+        self.crash_adjourn_init()
 
         self.game.add_tag_timestart()
 
@@ -663,6 +668,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
 
     def adjourn(self):
         if QTUtil2.pregunta(self.main_window, _("Do you want to adjourn the game?")):
+            self.crash_adjourn_end()
             dic = self.save_state()
 
             # se guarda en una bd Adjournments dic key = fecha y hora y tipo
@@ -689,6 +695,28 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                         delattr(engine, "ICON")
                 adj.add(self.game_type, dic, label_menu)
                 adj.si_seguimos(self)
+
+    def crash_adjourn_init(self):
+        label_menu = _("Play against an engine") + ". " + self.xrival.name
+        with Adjournments.Adjournments() as adj:
+            self.key_crash = adj.key_crash(self.game_type, label_menu)
+
+    def crash_adjourn(self):
+        if self.key_crash is None:
+            return
+        with Adjournments.Adjournments() as adj:
+            dic = self.save_state()
+            if self.game_type == GT_AGAINST_ENGINE:
+                engine = dic["RIVAL"]["CM"]
+                if hasattr(engine, "ICON"):
+                    delattr(engine, "ICON")
+            adj.add_crash(self.key_crash, dic)
+
+    def crash_adjourn_end(self):
+        if self.key_crash:
+            with Adjournments.Adjournments() as adj:
+                adj.rem_crash(self.key_crash)
+                self.key_crash = None
 
     def run_adjourn(self, dic):
         self.restore_state(dic)
@@ -738,12 +766,15 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             self.xrival.stop()
 
     def finalizar(self):
+        self.crash_adjourn_end()
+
         if self.state == ST_ENDGAME:
             return True
         si_jugadas = len(self.game) > 0
         if si_jugadas:
             if not QTUtil2.pregunta(self.main_window, _("End game?")):
                 return False  # no abandona
+
             if self.timed:
                 self.main_window.stop_clock()
                 self.show_clocks()
@@ -787,6 +818,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                 TERMINATION_RESIGN, RESULT_WIN_WHITE if self.is_engine_side_white else RESULT_WIN_BLACK
             )
             self.save_summary()
+            self.crash_adjourn_end()
             self.set_end_game(self.with_takeback)
             if not self.play_while_win:
                 self.autosave()
@@ -832,6 +864,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
 
     def play_next_move(self):
         if self.state == ST_ENDGAME:
+            self.crash_adjourn_end()
             return
 
         self.state = ST_PLAYING
@@ -843,6 +876,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         is_white = self.game.is_white()
 
         if self.game.is_finished():
+            self.crash_adjourn_end()
             self.show_result()
             return
 
@@ -850,6 +884,9 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         self.refresh()
 
         si_rival = is_white == self.is_engine_side_white
+
+        if len(self.game) > 1:
+            self.crash_adjourn()
 
         if si_rival:
             self.play_rival()

@@ -131,6 +131,7 @@ class WLeagues(LCDialog.LCDialog):
         if nom_league:
             nom_league = Util.valid_filename(nom_league)
             league = Leagues.League(nom_league)
+            league.remove_work()   # Problem when reused
             self.edit(league)
             self.refresh_lista()
 
@@ -161,7 +162,8 @@ class WLeagues(LCDialog.LCDialog):
             name = self.nom_league_pos(row)
             if QTUtil2.pregunta(self, _X(_("Delete %1?"), name)):
                 path = Util.opj(Code.configuration.folder_leagues(), "%s.league" % name)
-                os.remove(path)
+                Util.remove_file(path)
+                Util.remove_file(path + ".work")
                 self.refresh_lista()
 
     def copiar(self):

@@ -137,6 +137,7 @@ class WSwisses(LCDialog.LCDialog):
         if nom_swiss:
             nom_swiss = Util.valid_filename(nom_swiss)
             swiss = Swiss.Swiss(nom_swiss)
+            swiss.remove_work()   # Problem when reused
             self.edit(swiss)
             self.refresh_lista()
 
@@ -167,7 +168,8 @@ class WSwisses(LCDialog.LCDialog):
             name = self.nom_swiss_pos(row)
             if QTUtil2.pregunta(self, _X(_("Delete %1?"), name)):
                 path = Util.opj(Code.configuration.folder_swisses(), "%s.swiss" % name)
-                os.remove(path)
+                Util.remove_file(path)
+                Util.remove_file(path + ".work")
                 self.refresh_lista()
 
     def copiar(self):
