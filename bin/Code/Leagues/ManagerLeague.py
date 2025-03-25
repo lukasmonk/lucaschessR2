@@ -358,7 +358,7 @@ class ManagerLeague(Manager.Manager):
             return
         with Adjournments.Adjournments() as adj:
             dic = self.save_state(temporary=True)
-            self.main_window.start_clock()
+            self.main_window.start_clock(self.set_clock, 1000)
             adj.add_crash(self.key_crash, dic)
 
     def crash_adjourn_end(self):
