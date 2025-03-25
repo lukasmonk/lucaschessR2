@@ -118,7 +118,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
     limit_time_seconds = 0
     error = None
 
-    key_crash: [str, None]
+    key_crash: [str, None] = None
 
     def start(self, dic_var):
         self.base_inicio(dic_var)
@@ -568,7 +568,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         else:
             Manager.Manager.rutinaAccionDef(self, key)
 
-    def save_state(self):
+    def save_state(self, temporary=False):
         self.analyze_terminate()
         dic = self.reinicio
 
@@ -584,6 +584,8 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             self.main_window.stop_clock()
             dic["time_white"] = self.tc_white.save()
             dic["time_black"] = self.tc_black.save()
+            if temporary:
+                self.main_window.start_clock(self.set_clock, 1000)
 
         dic["is_tutor_enabled"] = self.is_tutor_enabled
 
@@ -705,7 +707,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         if self.key_crash is None:
             return
         with Adjournments.Adjournments() as adj:
-            dic = self.save_state()
+            dic = self.save_state(temporary=True)
             if self.game_type == GT_AGAINST_ENGINE:
                 engine = dic["RIVAL"]["CM"]
                 if hasattr(engine, "ICON"):

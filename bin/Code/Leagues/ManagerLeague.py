@@ -301,7 +301,7 @@ class ManagerLeague(Manager.Manager):
         else:
             Manager.Manager.rutinaAccionDef(self, key)
 
-    def save_state(self):
+    def save_state(self, temporary=False):
         dic = {
             "league_name": self.league.name(),
             "match_saved": self.xmatch.save(),
@@ -314,6 +314,8 @@ class ManagerLeague(Manager.Manager):
             self.main_window.stop_clock()
             dic["time_white"] = self.tc_white.save()
             dic["time_black"] = self.tc_black.save()
+            if temporary:
+                self.main_window.start_clock(self.set_clock, 1000)
 
         return dic
 
@@ -355,7 +357,8 @@ class ManagerLeague(Manager.Manager):
         if self.key_crash is None:
             return
         with Adjournments.Adjournments() as adj:
-            dic = self.save_state()
+            dic = self.save_state(temporary=True)
+            self.main_window.start_clock()
             adj.add_crash(self.key_crash, dic)
 
     def crash_adjourn_end(self):

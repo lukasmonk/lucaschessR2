@@ -145,19 +145,20 @@ class WPassword(QtWidgets.QDialog):
         self.setWindowTitle(Code.lucas_chess)
         self.setWindowIcon(Iconos.Aplicacion64())
 
-        self.setFont(Controles.FontType(puntos=14))
+        font = Controles.FontType(puntos=14)
+        self.setFont(font)
 
         self.liUsuarios = li_usuarios
 
         li_options = [(usuario.name, nusuario) for nusuario, usuario in enumerate(li_usuarios)]
-        lb_u = Controles.LB(self, _("User") + ":")
-        self.cbU = Controles.CB(self, li_options, li_usuarios[0])
+        lb_u = Controles.LB(self, _("User") + ":").set_font(font)
+        self.cbU = Controles.CB(self, li_options, li_usuarios[0]).set_font(font)
 
-        lb_p = Controles.LB(self, _("Password") + ":")
-        self.edP = Controles.ED(self).password()
+        lb_p = Controles.LB(self, _("Password") + ":").set_font(font)
+        self.edP = Controles.ED(self).password().set_font(font)
 
-        btaceptar = Controles.PB(self, _("Accept"), rutina=self.accept, plano=False)
-        btcancelar = Controles.PB(self, _("Cancel"), rutina=self.reject, plano=False)
+        btaceptar = Controles.PB(self, _("Accept"), rutina=self.accept, plano=False).set_font(font)
+        btcancelar = Controles.PB(self, _("Cancel"), rutina=self.reject, plano=False).set_font(font)
 
         ly = Colocacion.G()
         ly.controld(lb_u, 0, 0).control(self.cbU, 0, 1)
@@ -195,7 +196,7 @@ def pide_usuario(li_usuarios):
 
             intentos -= 1
             if intentos == 0:
-                return None
+                sys.exit()
     else:
         if len(li_usuarios) <= 1:
             return None

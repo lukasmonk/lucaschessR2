@@ -49,12 +49,14 @@ class Processor:
     def remove_fastercode(self):
         print("Removing _fastercode")
         fastercode = os.path.join(self.destino, "bin", "_fastercode")
-        shutil.rmtree(fastercode)
+        if os.path.isdir(fastercode):
+            shutil.rmtree(fastercode)
 
     def remove_genicons(self):
         print("Removing _genicons")
         genicons = os.path.join(self.destino, "bin", "_genicons")
-        shutil.rmtree(genicons)
+        if os.path.isdir(genicons):
+            shutil.rmtree(genicons)
 
     def remove_win32(self):
         print("Removing win32")
