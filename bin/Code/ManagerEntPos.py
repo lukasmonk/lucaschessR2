@@ -578,7 +578,9 @@ class ManagerEntPos(Manager.Manager):
             if not self.is_finished():
                 self.set_toolbar_comments(with_continue=True)
             if not self.line_fns.with_game_original():
+                li_tags = self.game.li_tags
                 self.game = self.game_obj.copia()
+                self.game.li_tags = li_tags
             self.goto_end()
             return False
 

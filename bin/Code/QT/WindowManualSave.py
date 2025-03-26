@@ -319,10 +319,13 @@ class WManualSave(LCDialog.LCDialog):
     def edit_solucion(self):
         self.reset_motor()
         pc = self.crea_game()
-        pc = self.procesador.manager_game(self, pc, False, False, self.board)
-        if pc:
-            self.position = pc.first_position
-            self.em_solucion.set_text(pc.pgn_base_raw())
+        pc.recno = 0
+
+        def save(recno, game):
+            self.position = game.first_position
+            self.em_solucion.set_text(game.pgn_base_raw())
+
+        self.procesador.manager_game(self, pc, False, False, self.board, save_routine=save)
 
     def savesolucion(self):
         def open_file(fich):

@@ -708,6 +708,10 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             return
         with Adjournments.Adjournments() as adj:
             dic = self.save_state(temporary=True)
+            if "BOOKR" in dic:
+                del dic["BOOKR"]
+            if "BOOKP" in dic:
+                del dic["BOOKP"]
             if self.game_type == GT_AGAINST_ENGINE:
                 engine = dic["RIVAL"]["CM"]
                 if hasattr(engine, "ICON"):
