@@ -643,6 +643,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         if si_pregunta:
             if not QTUtil2.pregunta(self.main_window, _("Restart the game?")):
                 return
+        self.crash_adjourn_end()
         if self.timed:
             self.main_window.stop_clock()
         self.analyze_terminate()
@@ -708,15 +709,15 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             return
         with Adjournments.Adjournments() as adj:
             dic = self.save_state(temporary=True)
-            if "BOOKR" in dic:
-                del dic["BOOKR"]
-            if "BOOKP" in dic:
-                del dic["BOOKP"]
+            dic1 = {}
+            for k, v in dic.items():
+                if k not in ("BOOKR", "BOOKP"):
+                    dic1[k] = v
             if self.game_type == GT_AGAINST_ENGINE:
-                engine = dic["RIVAL"]["CM"]
+                engine = dic1["RIVAL"]["CM"]
                 if hasattr(engine, "ICON"):
                     delattr(engine, "ICON")
-            adj.add_crash(self.key_crash, dic)
+            adj.add_crash(self.key_crash, dic1)
 
     def crash_adjourn_end(self):
         if self.key_crash:
