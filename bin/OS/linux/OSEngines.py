@@ -39,13 +39,13 @@ def read_engines(folder_engines):
     cm.set_uci_option("Threads", "2")
     cm.set_multipv(10, 500)
 
-    cm = mas("stockfish", "Tord Romstad, Marco Costalba, Joona Kiiski", f"17", "http://stockfishchess.org/",f"stockfish-17-64", 3611)
+    cm = mas("stockfish", "Tord Romstad, Marco Costalba, Joona Kiiski", f"17.1", "https://stockfishchess.org/",f"stockfish-17.1-64", 3611)
     cm.set_uci_option("Hash", "64")
     cm.set_uci_option("Threads", "2")
     cm.set_multipv(10, 256)
 
     avx2 = "-avx2" if bmi2 else ""
-    cm = mas("komodo", "Don Dailey, Larry Kaufman, Mark Lefler, Dmitry Pervov, Dietrich Kappe", f"dragon-1{avx2}","http://komodochess.com/", f"dragon-linux{avx2}", 3529, nodes_compatible=True)
+    cm = mas("komodo", "Don Dailey, Larry Kaufman, Mark Lefler, Dmitry Pervov, Dietrich Kappe", f"dragon-1{avx2}","https://komodochess.com/", f"dragon-linux{avx2}", 3529, nodes_compatible=True)
     cm.set_uci_option("Hash", "64")
     cm.set_uci_option("Threads", "2")
     cm.set_multipv(10, 218)
@@ -138,6 +138,8 @@ def read_engines(folder_engines):
 
     mas("octochess", "Tim Kosse", "r5190", "http://octochess.org/", "Octochess-r5190", 2771)  # New build
 
+    mas("patricia", "Adam Kulju", "4 v2","https://github.com/Adam-Kulju/Patricia", "patricia_4_v2", 3500)
+
     mas("pawny", "Mincho Georgiev", "1.2", "http://pawny.netii.net/", "Pawny-1.2", 2550)
 
     mas("pigeon", "Stuart Riffle", "1.5.1", "https://github.com/StuartRiffle/pigeon", "Pigeon-1.5.1", 1836)
@@ -192,19 +194,20 @@ def dict_engines_fixed_elo(folder_engines):
     d = read_engines(folder_engines)
     dic = {}
     for nm, xfrom, xto in (
-            ("stockfish", 1400, 2800),
+            ("stockfish", 1400, 3000),
             ("arasan", 1000, 2600),
             ("cheng", 800, 2500),
             ("greko", 1600, 2400),
             ("texel", 700, 2500),
             ("fox", 1000, 2700),
+            # ("patricia", 500, 3000)
     ):
         for elo in range(xfrom, xto + 100, 100):
             cm = d[nm].clona()
             if elo not in dic:
                 dic[elo] = []
-            cm.set_uci_option("UCI_Elo", str(elo))
             cm.set_uci_option("UCI_LimitStrength", "true")
+            cm.set_uci_option("UCI_Elo", str(elo))
             cm.name += " (%d)" % elo
             cm.key += " (%d)" % elo
             cm.elo = elo

@@ -52,13 +52,13 @@ class AnalysisEval:
             return max(self.lv_dif(rm_best.centipawns_abs(), rm_player.centipawns_abs()), self.conf.x_eval_mistake)
 
         else:
-            dif_mate = rm_best.mate - rm_player.mate
+            dif_mate = abs(rm_best.mate - rm_player.mate)
             if dif_mate >= self.conf.x_eval_difmate_blunder:
                 return self.conf.x_eval_blunder
             if dif_mate >= self.conf.x_eval_difmate_mistake:
                 return self.conf.x_eval_mistake
             if dif_mate >= self.conf.x_eval_difmate_inaccuracy:
-                return self.conf.x_eval_mistake
+                return self.conf.x_eval_inaccuracy
             return 0
 
     def evaluate(self, rm_best, rm_player):

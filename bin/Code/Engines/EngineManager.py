@@ -57,6 +57,7 @@ class EngineManager:
     def __init__(self, conf_engine, direct=False):
 
         self.engine = None
+        self.starting_the_engine = False
         self.confMotor = conf_engine
         self.name = conf_engine.nombre_ext(False)
         self.key = conf_engine.key
@@ -138,8 +139,10 @@ class EngineManager:
         self.num_multipv = self.confMotor.multiPV
 
     def check_engine(self):
-        if self.engine is not None:
+        if self.starting_the_engine or self.engine is not None:
             return False
+        self.starting_the_engine = True
+        self.engine = True
         self.set_multipv(self.num_multipv)
 
         exe = self.confMotor.ejecutable()
@@ -185,6 +188,7 @@ class EngineManager:
             rutina, who_dispatch = self.dispatching
             self.engine.set_gui_dispatch(rutina, who_dispatch)
 
+        self.starting_the_engine = False
         return True
 
     def play_seconds(self, game, seconds):

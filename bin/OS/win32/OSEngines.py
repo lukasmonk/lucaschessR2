@@ -222,6 +222,10 @@ def read_engines(folder_engines):
     t32_64 = "64" if is64 else "32"
     is_bmi2 = FasterCode.bmi2() == 1 if is64 else False
 
+    if is64:
+        mas("patricia", "Adam Kulju", "4 v2",
+            "https://github.com/Adam-Kulju/Patricia", "patricia_4_v2.exe", 3500)
+
     # 32 bits permanece Komodo 12 64 bit Komodo 13
     if is64:
         if is_bmi2:
@@ -269,9 +273,9 @@ def read_engines(folder_engines):
     cm = mas(
         "stockfish",
         " T. Romstad, M. Costalba, J. Kiiski, G. Linscott",
-        f"17 {t32_64}",
+        f"17.1 {t32_64}",
         "https://stockfishchess.org/",
-        f"Stockfish-17-{t32_64}.exe",
+        f"Stockfish-17.1-{t32_64}.exe",
         3611,
         nodes_compatible=True
     )
@@ -303,7 +307,7 @@ def dict_engines_fixed_elo(folder_engines):
     dic = {}
     for nm, xfrom, xto in (
             ("amyan", 1000, 2400),
-            ("stockfish", 1400, 2800),
+            ("stockfish", 1400, 3000),
             ("rhetoric", 1300, 2600),
             ("cheng", 800, 2500),
             ("greko", 1600, 2400),
@@ -311,14 +315,15 @@ def dict_engines_fixed_elo(folder_engines):
             ("rybka", 1200, 2400),
             ("ufim", 700, 2000),
             ("texel", 700, 2500),
-            ("fox", 1000, 2700)
+            ("fox", 1000, 2700),
+            # ("patricia", 500, 3000)
     ):
         for elo in range(xfrom, xto + 100, 100):
             cm = d[nm].clona()
             if elo not in dic:
                 dic[elo] = []
-            cm.set_uci_option("UCI_Elo", str(elo))
             cm.set_uci_option("UCI_LimitStrength", "true")
+            cm.set_uci_option("UCI_Elo", str(elo))
             cm.name += " (%d)" % elo
             cm.key += " (%d)" % elo
             cm.elo = elo

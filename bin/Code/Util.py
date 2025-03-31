@@ -772,3 +772,7 @@ def fen_fen64(fen):
                 ln.append(c)
         li.append("".join(ln))
     return "".join(li)
+
+
+def randomize():
+    random.seed(int.from_bytes(os.urandom(4), 'little'))

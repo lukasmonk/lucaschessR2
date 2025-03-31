@@ -23,7 +23,7 @@ class ManagerChallenge101:
         self.st_randoms = set()
         self.st_lines = set()  # para no salvar mas de una vez una linea
         self.key = str(Util.today())
-        random.seed()
+        Util.randomize()
 
         fmt = Code.path_resource("IntFiles", "tactic0.bm")
 

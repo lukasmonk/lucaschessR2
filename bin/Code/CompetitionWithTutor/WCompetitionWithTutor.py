@@ -104,9 +104,13 @@ def dame_categoria(w_parent, configuration, procesador):
         for rv in grupo.li_rivales:
             si_actual = rv.key == rival.key
             ico = ico_actual if si_actual else ico_m
+            if rv.is_external:
+                name = rv.nombre_ext()
+            else:
+                name = rv.name
             submenu.opcion(
                 "MT_" + rv.key,
-                "%s: [%d %s]" % (rv.name, dbm.get_puntos_rival(rv.key), _("pts")),
+                "%s: [%d %s]" % (name, dbm.get_puntos_rival(rv.key), _("pts")),
                 ico,
                 si_des or si_actual,
             )

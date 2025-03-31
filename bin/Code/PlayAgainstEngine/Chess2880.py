@@ -1,8 +1,8 @@
 import random
-import time
 from itertools import permutations
 
 import Code
+from Code import Util
 
 
 class Chess2880:
@@ -28,7 +28,7 @@ class Chess2880:
         li.sort()
         random.seed(2880)
         random.shuffle(li)
-        random.seed(time.time_ns())
+        Util.randomize()
         return li
 
     def get_fen(self, num):
@@ -92,7 +92,7 @@ class Chess324:
 
         random.seed(324)
         random.shuffle(li_total)
-        random.seed(time.time_ns())
+        Util.randomize()
         return li_total
 
     def get_fen(self, num):
@@ -111,4 +111,3 @@ class Chess324:
     def get_last_manual(self):
         dic = Code.configuration.read_variables(self.key)
         return dic.get("LAST_MANUAL", "")
-

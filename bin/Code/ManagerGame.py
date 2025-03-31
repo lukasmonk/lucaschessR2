@@ -221,7 +221,7 @@ class ManagerGame(Manager.Manager):
         is_white = self.game.last_position.is_white
         self.is_human_side_white = is_white  # Compatibilidad, sino no funciona el cambio en pgn
 
-        if self.game.is_finished():
+        if not self.game.is_possible_add_moves():
             self.show_result()
             return
 
@@ -244,6 +244,8 @@ class ManagerGame(Manager.Manager):
         self.move_the_pieces(move.liMovs)
 
         self.add_move(move, True)
+
+        self.state = ST_PLAYING if self.game.is_possible_add_moves() else ST_ENDGAME
 
         self.play_next_move()
         self.set_changed(True)

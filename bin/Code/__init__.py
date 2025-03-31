@@ -4,6 +4,8 @@ import sys
 
 from Code import Util
 
+Util.randomize()
+
 current_dir = os.path.abspath(os.path.realpath(os.path.dirname(sys.argv[0])))
 if current_dir:
     os.chdir(current_dir)
@@ -103,7 +105,7 @@ def relative_root(path):
 
 
 BASE_VERSION = "B"  # Para el control de updates que necesitan reinstalar entero
-VERSION = "R 2.19k"
+VERSION = "R 2.19l"
 DEBUG = False
 DEBUG_ENGINES = False
 
@@ -143,6 +145,30 @@ if DEBUG:
             pr("\n" + "-" * 80 + "\n")
         for line in traceback.format_stack()[:-1]:
             pr(line.strip() + "\n")
+
+
+    def stackf(txt, sif=False):
+        with open("stack.txt", "at", encoding="utf-8") as q:
+            q.write("-" * 80 + "\n")
+            q.write(txt + "\n")
+            q.write("-" * 80 + "\n")
+            for line in traceback.format_stack()[:-1]:
+                q.write(line.strip() + "\n")
+        if sif:
+            print("-" * 80)
+            print(txt)
+            print("-" * 80)
+            for line in traceback.format_stack()[:-1]:
+                print(line.strip())
+
+
+    def printf(*txt, sif=False):
+        with open("stack.txt", "at", encoding="utf-8") as q:
+            for t in txt:
+                q.write(str(t) + " ")
+            q.write("\n")
+        if sif:
+            print(txt)
 
 
     def xpr(name, line):

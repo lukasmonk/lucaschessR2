@@ -1231,6 +1231,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         if not is_choosed and self.book_rival_active:
             if self.book_rival_depth == 0 or self.book_rival_depth > len(self.game):
                 is_choosed, from_sq, to_sq, promotion = self.select_book_move()
+
                 if not is_choosed:
                     self.dic_reject["book_rival"] += 1
             else:

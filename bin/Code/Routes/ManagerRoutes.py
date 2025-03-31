@@ -5,6 +5,7 @@ import FasterCode
 
 import Code
 from Code import Manager
+from Code import Util
 from Code.Base import Game, Move, Position
 from Code.Base.Constantes import (
     ST_ENDGAME,
@@ -42,6 +43,7 @@ class GREngine:
             x = +1 if nlevel < 6 else -1
             while True:
                 if len(d_engines[nlevel]) > 0:
+                    Util.randomize()
                     nom_engine, depth, elo = random.choice(d_engines[nlevel])
                     break
                 else:
@@ -274,7 +276,9 @@ class ManagerRoutesPlay(ManagerRoutes):
                 if not pv:
                     pv = self.engine.play(fen)
 
+        self.thinking(True)
         ok, mens, move = Move.get_game_move(self.game, self.game.last_position, pv[:2], pv[2:4], pv[4:])
+        self.thinking(False)
         self.add_move(move, False)
         self.move_the_pieces(move.liMovs, True)
         self.play_next_move()
