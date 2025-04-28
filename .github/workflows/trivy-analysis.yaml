@@ -1,0 +1,47 @@
+name: Trivy Analysis
+
+permissions:
+  contents: read
+  actions: read
+  security-events: write
+
+on:
+  pull_request:
+  workflow_dispatch:
+  push:
+
+env:
+  SARIF_FILE: 'trivy-results.sarif'
+
+jobs:
+  build:
+    name: Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.2.2
+
+      - name: Run Trivy vulnerability scanner on the cloned repository files
+        uses: aquasecurity/trivy-action@0.30.0
+        with:
+          version: 'v0.61.1'
+          scan-type: 'fs'
+          scanners: 'vuln,misconfig,secret,license'
+          ignore-unfixed: true
+          format: 'sarif'
+          output: ${{ env.SARIF_FILE }}
+          severity: 'UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL'
+
+      - name: Check Trivy scan results existence
+        run: |
+          if [ ! -f "${{ env.SARIF_FILE }}" ]; then
+            echo "Error: ${{ env.SARIF_FILE }} does not exist."
+            exit 1
+          fi
+          ls -lash ${{ env.SARIF_FILE }}
+          
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3.28.16
+        with:
+          sarif_file: ${{ env.SARIF_FILE }}
+
