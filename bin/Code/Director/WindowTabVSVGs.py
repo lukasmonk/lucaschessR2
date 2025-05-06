@@ -293,7 +293,7 @@ class WTV_SVGs(LCDialog.LCDialog):
         w = WTV_SVG(self, None, xml=contenido, name=name)
         if w.exec_():
             reg_svg = w.regSVG
-            reg_svg.id = Util.huella_num()
+            reg_svg.id = Util.huella()
             reg_svg.ordenVista = (self.liPSVGs[-1].ordenVista + 1) if self.liPSVGs else 1
             self.dbSVGs[reg_svg.id] = reg_svg.save_dic()
             self.liPSVGs.append(reg_svg)
@@ -342,7 +342,7 @@ class WTV_SVGs(LCDialog.LCDialog):
                 n += 1
                 name = "%s-%d" % (regSVG.name, n)
             regSVG.name = name
-            regSVG.id = Util.huella_num()
+            regSVG.id = Util.huella()
             regSVG.ordenVista = self.liPSVGs[-1].ordenVista + 1
             self.dbSVGs[regSVG.id] = regSVG
             self.liPSVGs.append(regSVG)

@@ -1205,6 +1205,12 @@ class DBgames:
     def has_field(self, field):
         return field.upper() in self.st_fields
 
+    def has_fields(self, *li_fields):
+        for field in li_fields:
+            if field.upper() not in self.st_fields:
+                return False
+        return True
+
     def lastrowid(self):
         cursor = self.conexion.execute("SELECT MAX(ROWID) FROM GAMES;")
         row = cursor.fetchone()

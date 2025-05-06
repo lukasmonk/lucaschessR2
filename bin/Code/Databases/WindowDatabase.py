@@ -1,6 +1,6 @@
 from PySide2 import QtWidgets, QtCore
 
-from Code.Databases import WDB_Games, WDB_Summary, WDB_Players, WDB_InfoMove, DBgames
+from Code.Databases import WDB_Games, WDB_Summary, WDB_Players, WDB_InfoMove, DBgames, WDB_GUtils, WDB_Perfomance
 from Code.QT import Colocacion
 from Code.QT import Controles
 from Code.QT import Iconos
@@ -24,6 +24,8 @@ class WBDatabase(LCDialog.LCDialog):
 
         self.db_games = DBgames.DBgames(file_database)
 
+        self.game = None
+
         self.dicvideo = self.restore_dicvideo()
         dic_video = self.dicvideo
 
@@ -43,15 +45,20 @@ class WBDatabase(LCDialog.LCDialog):
 
         self.wgames = WDB_Games.WGames(self, self.db_games, self.wsummary, si_select)
 
+        if si_summary:
+            self.wperfomance = WDB_Perfomance.WPerfomance(self, self.wgames, self.db_games)
+            self.register_grid(self.wperfomance.grid)
+
         self.ultFocus = None
 
         self.tab = Controles.Tab()
         self.tab.new_tab(self.wgames, _("Games"))
         if si_summary:
             self.tab.new_tab(self.wsummary, _("Opening explorer"))
-            self.tab.dispatchChange(self.tabChanged)
-        if not si_select:
+            self.tab.dispatchChange(self.tab_changed)
+        # if not si_select:
             self.tab.new_tab(self.wplayer, _("Players"))
+            self.tab.new_tab(self.wperfomance, _("Perfomance Rating"))
         self.tab.set_font_type(puntos=procesador.configuration.x_tb_fontpoints)
 
         if self.owner and not self.is_temporary:
@@ -124,7 +131,7 @@ class WBDatabase(LCDialog.LCDialog):
         resp = QTVarios.select_db(self, self.configuration, False, True)
         if resp:
             if resp == ":n":
-                dbpath = WDB_Games.new_database(self, self.configuration)
+                dbpath = WDB_GUtils.new_database(self, self.configuration)
                 if dbpath is not None:
                     self.configuration.set_last_database(dbpath)
                     self.reinit()
@@ -132,20 +139,23 @@ class WBDatabase(LCDialog.LCDialog):
                 self.configuration.set_last_database(resp)
                 self.reinit()
 
-    def listaGamesSelected(self, no1=False):
-        return self.wgames.listaSelected(no1)
+    # def listaGamesSelected(self, no1=False):
+    #     return self.wgames.listaSelected(no1)
 
-    def tabChanged(self, ntab):
+    def tab_changed(self, ntab):
         QtWidgets.QApplication.processEvents()
         board = self.infoMove.board
         board.disable_all()
 
-        if ntab == 0: #in (0, 2):
+        if ntab == 0:  # in (0, 2):
             self.wgames.actualiza()
+        elif ntab == 1:
+            self.wsummary.gridActualiza()
         elif ntab == 2:
             self.wplayer.actualiza()
-        else:
-            self.wsummary.gridActualiza()
+        elif ntab == 3:
+            self.wperfomance.actualiza()
+        self.infoMove.setVisible(ntab!=3)
 
 
     def inicializa(self):

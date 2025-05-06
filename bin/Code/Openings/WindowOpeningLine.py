@@ -1107,7 +1107,7 @@ class WLines(LCDialog.LCDialog):
                     if ws.open():
                         nline = row // 2
                         white_or_black = row % 2
-                        pos = int(col.key) - 1 if col.key.isdigit() else 0
+                        pos = int(col) - 1 if col.isdigit() else 0
                         pos = pos * 2 + white_or_black
                         self.dbop.exportar_pgn_one(ws, nline, pos, resp)
                         ws.close()

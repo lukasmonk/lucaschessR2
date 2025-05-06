@@ -250,7 +250,7 @@ class WTV_Markers(LCDialog.LCDialog):
         w = WTV_Marker(self, None, xml=contenido, name=name)
         if w.exec_():
             reg_marker = w.regMarker
-            reg_marker.id = Util.huella_num()
+            reg_marker.id = Util.huella()
             reg_marker.ordenVista = (self.liPMarkers[-1].ordenVista + 1) if self.liPMarkers else 1
             self.dbMarkers[reg_marker.id] = reg_marker.save_dic()
             self.liPMarkers.append(reg_marker)
@@ -299,7 +299,7 @@ class WTV_Markers(LCDialog.LCDialog):
                 n += 1
                 name = "%s-%d" % (regMarker.name, n)
             regMarker.name = name
-            regMarker.id = Util.huella_num()
+            regMarker.id = Util.huella()
             regMarker.ordenVista = self.liPMarkers[-1].ordenVista + 1
             self.dbMarkers[regMarker.id] = regMarker
             self.liPMarkers.append(regMarker)

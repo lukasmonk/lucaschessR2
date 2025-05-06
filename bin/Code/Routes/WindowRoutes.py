@@ -29,19 +29,19 @@ class WTranssiberian(LCDialog.LCDialog):
         lySVG = Colocacion.H().relleno(1).control(wsvg).relleno(1)
 
         # Title
-        lbTit = self.LINE(_("Moscow"), _("Vladivostok"), 14, 500).altoFijo(26)
-        lbKM = self.KM(route.total_km, 12, 500).altoFijo(26)
+        lb_tit = self.LINE(_("Moscow"), _("Vladivostok"), 14, 500)
+        lb_km = self.KM(route.total_km, 12, 500)
         color_foreground = Code.dic_colors["ROUTES_FOREGROUND"]
         color_background = Code.dic_colors["ROUTES_BACKGROUND"]
-        self.set_style(color_foreground, color_background, lbTit, lbKM)
-        lbKMdone = self.KM(route.km, 12, 500).altoFijo(26)
-        self.set_border(lbKMdone)
-        lyTitle = Colocacion.H().control(lbTit).control(lbKM).control(lbKMdone)
+        self.set_style(color_foreground, color_background, lb_tit, lb_km)
+        lb_km_done = self.KM(route.km, 12, 500)
+        self.set_border(lb_km_done)
+        ly_title = Colocacion.H().control(lb_tit).control(lb_km).control(lb_km_done)
 
         if route.is_ended():
-            self.init_ended(route, lyTitle, lySVG)
+            self.init_ended(route, ly_title, lySVG)
         else:
-            self.init_working(route, lyTitle, lySVG)
+            self.init_working(route, ly_title, lySVG)
 
         self.restore_video(with_tam=False)
 
@@ -61,7 +61,8 @@ class WTranssiberian(LCDialog.LCDialog):
         for xl in lb:
             xl.setStyleSheet("QWidget { border-style: groove; border-width: 2px; border-color: LightSlateGray ;}")
 
-    def set_style(self, fore, back, *lb):
+    @staticmethod
+    def set_style(fore, back, *lb):
         if fore:
             style = "QWidget { color: %s; background-color: %s}" % (fore, back)
         else:
@@ -69,13 +70,13 @@ class WTranssiberian(LCDialog.LCDialog):
         for xl in lb:
             xl.setStyleSheet(style)
 
-    def init_working(self, route, lyTitle, lySVG):
+    def init_working(self, route, ly_title, ly_svg):
 
         # Line
         line = route.get_line()
         tt = route.tool_tip_line()
         lb_tip = Controles.LB(_("Stage") + " %d/%d" % (line.stage, route.num_stages)).set_font_type(puntos=11)
-        lb_tip.anchoFijo(120).align_center()
+        lb_tip.anchoFijo(150).align_center()
         lb_tip.setToolTip(tt)
         lb_tit = self.LINE(line.st_from.name, line.st_to.name, 11)
         lb_tit.setToolTip(tt)
@@ -91,7 +92,7 @@ class WTranssiberian(LCDialog.LCDialog):
         st_from, st_to = route.get_track()
         tt = route.tool_tip_track()
         lb_tip = Controles.LB(_("Track") + " %d/%d" % (route.num_track, line.num_stations))
-        lb_tip.set_font_type(puntos=11).anchoFijo(120).align_center()
+        lb_tip.set_font_type(puntos=11).anchoFijo(150).align_center()
         lb_tip.setToolTip(tt)
         lb_tit = self.LINE(st_from.name, st_to.name, 11)
         lb_tit.setToolTip(tt)
@@ -104,7 +105,7 @@ class WTranssiberian(LCDialog.LCDialog):
         ly_track = Colocacion.H().control(lb_tip).control(lb_tit).control(lb_km).control(lb_km_done)
 
         # State
-        lb_tip = Controles.LB(_("State")).set_font_type(puntos=11, peso=200).anchoFijo(120).align_center()
+        lb_tip = Controles.LB(_("State")).set_font_type(puntos=11, peso=200).anchoFijo(150).align_center()
         lb_tit = Controles.LB(route.mens_state()).set_font_type(puntos=11, peso=200).align_center()
         fore, back = Code.dic_colors["ROUTES_STATE_FOREGROUND"], Code.dic_colors["ROUTES_STATE_BACKGROUND"]
         self.set_style(fore, back, lb_tip, lb_tit)
@@ -112,7 +113,7 @@ class WTranssiberian(LCDialog.LCDialog):
 
         # Next task
         texto, color = route.next_task()
-        lb_tip = Controles.LB(_("Next task")).set_font_type(puntos=11, peso=500).anchoFijo(120).align_center()
+        lb_tip = Controles.LB(_("Next task")).set_font_type(puntos=11, peso=500).anchoFijo(150).align_center().set_wrap()
         lb_tit = Controles.LB(texto).set_font_type(puntos=11, peso=500).align_center()
         fore = Code.dic_colors["ROUTES_NEXTTASK_FOREGROUND"]
         self.set_style(fore, color, lb_tip, lb_tit, lb_km)
@@ -146,10 +147,10 @@ class WTranssiberian(LCDialog.LCDialog):
         ly_st_ta = Colocacion.V().otro(ly_state).otro(ly_task)
         ly_tb = Colocacion.V().control(lb_tim).control(tb)
         ly_all = Colocacion.H().otro(ly_st_ta).otro(ly_tb)
-        ly = Colocacion.V().otro(lyTitle).otro(lySVG).otro(ly_line).otro(ly_track).otro(ly_all).relleno(1)
+        ly = Colocacion.V().otro(ly_title).otro(ly_svg).otro(ly_line).otro(ly_track).otro(ly_all).relleno(1)
         self.setLayout(ly)
 
-    def init_ended(self, route, lyTitle, lySVG):
+    def init_ended(self, route, ly_title, ly_svg):
         def ly(rt, va):
             lbrt = Controles.LB(rt).set_font_type(puntos=11).align_center()
             lbva = Controles.LB(va).set_font_type(puntos=11).align_center()
@@ -176,7 +177,7 @@ class WTranssiberian(LCDialog.LCDialog):
 
         lyT_D = Colocacion.H().otro(lyT).otro(lyD)
 
-        ly = Colocacion.V().otro(lyTitle).otro(lySVG).otro(lyT_D).relleno(1)
+        ly = Colocacion.V().otro(ly_title).otro(ly_svg).otro(lyT_D).relleno(1)
         self.setLayout(ly)
 
     def play(self):

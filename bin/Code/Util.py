@@ -1,3 +1,4 @@
+import base64
 import collections
 import datetime
 import glob
@@ -9,6 +10,7 @@ import random
 import shutil
 import time
 import urllib.request
+import uuid
 import zlib
 
 import chardet.universaldetector
@@ -177,36 +179,11 @@ def today():
     return datetime.datetime.now()
 
 
-ORDERED_NUMBER = [random.randint(0, 99)]
-
-
-def huella_num() -> str:
-    ns = time.time_ns()
-    if ns % 100 == 0:
-        ns //= 100
-    ORDERED_NUMBER[0] += 1
-    txt = "%d%d" % (ns, ORDERED_NUMBER[0])
-    return txt
-
-
 def huella() -> str:
-    def conv(num100: int) -> str:
-        if num100 < 9:
-            return chr(49 + num100)
-        if num100 < 35:
-            return chr(65 - 9 + num100)
-        if num100 < 61:
-            return chr(97 - 35 + num100)
-        return chr(122) + conv(num100 - 61)
-
-    txt = huella_num()
-    if len(txt) % 2 == 1:
-        txt += str(random.randint(0, 9))
-    li = []
-    for n in range(len(txt) // 2):
-        num = int(txt[n * 2: n * 2 + 2])
-        li.append(conv(num))
-    return "".join(li)
+    unique_part = uuid.uuid4().bytes
+    time_part = int(time.time()).to_bytes(4, byteorder='big')
+    combined = time_part + unique_part
+    return base64.urlsafe_b64encode(combined).decode().replace("=", "")
 
 
 def save_pickle(fich: str, obj) -> bool:

@@ -208,7 +208,7 @@ class ManagerCompeticion(Manager.Manager):
         return False
 
     def takeback(self):
-        if self.hints and len(self.game):
+        if self.hints and len(self.game) and self.in_end_of_line():
             if QTUtil2.pregunta(self.main_window, _("Do you want to go back in the last movement?")):
                 self.hints -= 1
                 self.ponAyudas(self.hints)

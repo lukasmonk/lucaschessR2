@@ -125,7 +125,13 @@ class Engine:
                         valor = "false"
                 op.valor = valor
                 if op.default != valor:
-                    is_changed = True
+                    if isinstance(op.default, int):
+                        if isinstance(op.default, int) or (isinstance(op.default, str) and valor.isdigit()):
+                            is_changed = op.default != int(valor)
+                        else:
+                            is_changed = True
+                    else:
+                        is_changed = True
                     break
         for pos, (xcomando, xvalor) in enumerate(self.liUCI):
             if xcomando == name:

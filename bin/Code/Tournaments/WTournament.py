@@ -9,7 +9,7 @@ from Code import XRun
 from Code.Base import Game, Position
 from Code.Base.Constantes import FEN_INITIAL, BOOK_BEST_MOVE, BOOK_RANDOM_UNIFORM, BOOK_RANDOM_PROPORTIONAL
 from Code.Books import Books
-from Code.Databases import DBgames, WDB_Games
+from Code.Databases import DBgames, WDB_GUtils
 from Code.Engines import Engines, WEngines
 from Code.Engines import SelectEngines
 from Code.QT import Colocacion
@@ -868,7 +868,7 @@ class WTournament(LCDialog.LCDialog):
             if dbpath is None:
                 return
             if dbpath == ":n":
-                dbpath = WDB_Games.new_database(self, self.configuration)
+                dbpath = WDB_GUtils.new_database(self, self.configuration)
                 if dbpath is None:
                     return
             um = QTUtil2.one_moment_please(self, _("Saving..."))

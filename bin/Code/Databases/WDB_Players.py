@@ -181,20 +181,15 @@ class WPlayer(QtWidgets.QWidget):
         self.tabs = tabs
 
         # ToolBar
-        liAccionesWork = [
-            (_("Close"), Iconos.MainMenu(), wb_database.tw_terminar),
-            None,
-            ("", Iconos.Usuarios(), self.tw_changeplayer),
-            None,
-            (_("Rebuild"), Iconos.Reindexar(), self.tw_rebuild),
-            None,
-        ]
+        self.tbWork = QTVarios.LCTB(self)
+        self.tbWork.new(_("Close"), Iconos.MainMenu(), wb_database.tw_terminar)
+        self.tbWork.new("", Iconos.Player32(), self.tw_changeplayer)
+        self.tbWork.new(_("Rebuild"), Iconos.Reindexar(), self.tw_rebuild)
 
-        self.tbWork = QTVarios.LCTB(self, liAccionesWork)
-        self.tbWork.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
+        # self.tbWork.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
 
-        lyTB = Colocacion.H().control(self.tbWork)
-        layout = Colocacion.V().otro(lyTB).control(tabs).margen(1)
+        ly_tb = Colocacion.H().control(self.tbWork)
+        layout = Colocacion.V().otro(ly_tb).control(tabs).margen(1)
 
         self.setLayout(layout)
 

@@ -31,7 +31,7 @@ class WFiltrar(QtWidgets.QDialog):
         n_filtro = len(li_filter)
         self.db_save_nom = db_save_nom
 
-        li_fields = [(x.head, '"%s"' % x.key) for x in o_columns.li_columns if x.key not in ("__num__", "opening")]
+        li_fields = [(x.head.strip("+-"), '"%s"' % x.key) for x in o_columns.li_columns if x.key not in ("__num__", "opening")]
         li_fields.insert(0, ("", None))
         li_condicion = [
             ("", None),

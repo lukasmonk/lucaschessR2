@@ -776,6 +776,8 @@ class Manager:
         if row > 0 or col > 0:
             move: Move.Move = self.game.move(row * 2 + col - 1)
             self.board.put_arrow_sc(move.from_sq, move.to_sq)
+            self.main_window.pgnColocate(row, col)
+            self.pgnMueve(row, move.is_white())
 
     def move_according_key(self, tipo):
         game = self.game
@@ -892,6 +894,32 @@ class Manager:
         game = self.game
         row, column = self.main_window.pgnPosActual()
         is_white = column.key != "BLACK"
+        starts_with_black = game.starts_with_black
+
+        num_moves = len(game)
+        if num_moves == 0:
+            return 0, -1, -1, game.first_position.is_white
+        nj = row * 2
+        if not is_white:
+            nj += 1
+        if starts_with_black:
+            nj -= 1
+        return num_moves, nj, row, is_white
+
+    def current_move_number(self):
+        game = self.game
+        row, column = self.main_window.pgnPosActual()
+        if column.key == "WHITE":
+            is_white = True
+        elif column.key == "BLACK":
+            is_white = False
+        else:
+            if row > 0:
+                is_white = False
+                row -= 1
+            else:
+                is_white = True
+        # is_white = column.key != "BLACK"
         starts_with_black = game.starts_with_black
 
         num_moves = len(game)
@@ -1318,7 +1346,7 @@ class Manager:
         if number in [1, 8]:
             if si_activar:
                 # Que move esta en el board
-                fen = self.fenActivoConInicio()
+                fen = self.board.fen_active() #fenActivoConInicio()
                 is_white = " w " in fen
                 if number == 1:
                     si_mb = is_white
@@ -1333,7 +1361,7 @@ class Manager:
                     h = m.xto()
                     self.board.show_arrow_mov(d, h, "c")
             else:
-                num_moves, nj, row, is_white = self.jugadaActual()
+                num_moves, nj, row, is_white = self.current_move_number()
                 if nj < 0:
                     return
                 move = self.game.move(nj)
@@ -1352,7 +1380,7 @@ class Manager:
         elif number in [2, 7]:
             if si_activar:
                 # Que move esta en el board
-                fen = self.fenActivoConInicio()
+                fen = self.board.fen_active() #fenActivoConInicio()
                 is_white = " w " in fen
                 if number == 2:
                     si_mb = is_white
@@ -1388,7 +1416,7 @@ class Manager:
                 self.liMarcosTmp = []
 
     def do_pressed_letter(self, si_activar, letra):
-        num_moves, nj, row, is_white = self.jugadaActual()
+        num_moves, nj, row, is_white = self.current_move_number()
         if not (num_moves and num_moves > nj):
             return
         move = self.game.move(nj)
@@ -1886,7 +1914,7 @@ class Manager:
         resp = menu.lanza()
 
         if not resp:
-            return
+            return None
 
         if li_extra_options:
             for data in li_extra_options:
@@ -1896,27 +1924,35 @@ class Manager:
 
         if resp == "play_instead_of_me":
             getattr(self, "play_instead_of_me")()
+            return None
 
         elif resp == "analizar":
             self.analizar()
+            return None
 
         elif resp == "analizar_grafico":
             self.show_analysis()
+            return None
 
         elif resp == "borrar":
             self.borrar()
+            return None
 
         elif resp == "replay":
             self.replay()
+            return None
 
         elif resp == "play":
             self.play_current_position()
+            return None
 
         elif resp.startswith("kibitzer_"):
             self.kibitzers(resp[9:])
+            return None
 
         elif resp == "arbol":
             self.arbol()
+            return None
 
         elif resp.startswith("vol"):
             accion = resp[3:]
@@ -1926,44 +1962,58 @@ class Manager:
                 )
                 if resp:
                     self.board.save_as_img(resp, "png")
+                    return None
+                return None
 
             else:
                 self.board.save_as_img()
+                return None
 
         elif resp == "gif":
             self.save_gif()
+            return None
 
         elif resp == "lcsbfichero":
             self.game.set_extend_tags()
             self.save_lcsb()
+            return None
 
         elif resp == "pgnfile":
             self.game.set_extend_tags()
             self.save_pgn()
+            return None
 
         elif resp == "pgnclipboard":
             self.game.set_extend_tags()
             self.save_pgn_clipboard()
+            return None
 
         elif resp.startswith("dbf_"):
             self.game.set_extend_tags()
             self.save_db(resp[4:])
+            return None
 
         elif resp.startswith("fen"):
             si_fichero = resp.endswith("file")
             self.save_fen(si_fichero)
+            return None
 
         elif resp == "forcing_moves":
             self.forcing_moves()
+            return None
 
         elif resp == "learn_mem":
             self.procesador.learn_game(self.game)
+            return None
 
         elif resp == "help_to_move":
             getattr(self, "help_to_move")()
+            return None
 
         elif resp.startswith("ai_"):
             AI.run_menu(self.main_window, resp, self.game)
+            return None
+        return None
 
     def save_gif(self):
         from Code.QT import WGif
@@ -1983,7 +2033,7 @@ class Manager:
                 return
 
         self.main_window.pensando_tutor(True)
-        mrm = self.xtutor.analiza(fen)
+        mrm = self.xanalyzer.analiza(fen)
         self.main_window.pensando_tutor(False)
         forcing_moves = ForcingMoves.ForcingMoves(self.board, mrm, self.main_window)
         forcing_moves.fm_show_checklist()
@@ -2379,11 +2429,11 @@ class Manager:
                 self.main_window.activaInformacionPGN(True)
                 row, column = self.main_window.pgnPosActual()
                 is_white = var_move.position_before.is_white
-                if is_white:
+                # if is_white and column.key == "WHITE":
+                if is_white and column.key == "BLACK":
                     row += 1
                 self.main_window.pgnColocate(row, is_white)
                 self.put_view()
-                # link_variation_pressed("%d|%d|0" % (num_var_move, len(var_move.variations) - 1))
                 link_variation_pressed(f"{num_var_move}|{num_var}|0")
                 self.kibitzers_manager.put_game(game_var, self.board.is_white_bottom)
         else:

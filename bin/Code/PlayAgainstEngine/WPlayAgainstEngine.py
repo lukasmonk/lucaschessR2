@@ -1328,7 +1328,7 @@ class WCambioRival(QtWidgets.QDialog):
         lb_depth = Controles.LB2P(self, _("Depth"))
         self.ed_depth = Controles.ED(self).tipoInt().anchoMaximo(ancho).capture_changes(self.change_depth)
         self.lb_nodes = Controles.LB2P(self, _("Fixed nodes"))
-        self.ed_nodes = Controles.ED(self).tipoInt().anchoMaximo(ancho).capture_changes(self.change_nodes)
+        self.ed_nodes = Controles.ED(self).tipoInt().anchoMaximo(ancho*2).capture_changes(self.change_nodes)
 
         # # Ajustar rival
         li_ajustes = self.personalidades.list_personalities(True)

@@ -61,7 +61,7 @@ class PMarker(BoardTypes.Marker):
 class GTarea:
     def __init__(self, guion, tp):
         self.guion = guion
-        self._id = Util.huella_num()
+        self._id = Util.huella()
         self._tp = tp
         self._marcado = False
         self._orden = 0
@@ -592,7 +592,7 @@ class Guion:
 
     def nuevaCopia(self, ntarea):
         tarea = copy.copy(self.tarea(ntarea))
-        tarea._id = Util.huella_num()
+        tarea._id = Util.huella()
         return self.nuevaTarea(tarea, ntarea + 1)
 
     def borra(self, nTarea):

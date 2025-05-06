@@ -23,7 +23,6 @@ class RunEngine:
         self.log = None
         if log:
             self.log_open(log)
-
         if Code.DEBUG_ENGINES:
             self.put_line = self.put_line_debug
             self.xstdout_thread = self.xstdout_thread_debug
@@ -129,6 +128,7 @@ class RunEngine:
                 self.stopped = True
             self.stdin_lock.acquire()
             line = line.encode()
+
             if self.log:
                 self.log.write(">>> %s\n" % line)
             self.stdin.write(line + b"\n")

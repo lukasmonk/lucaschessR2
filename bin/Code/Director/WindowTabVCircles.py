@@ -223,7 +223,7 @@ class WTV_Circles(LCDialog.LCDialog):
         w = WTV_Circle(self, None)
         if w.exec_():
             reg_circle = w.reg_circle
-            reg_circle.id = Util.huella_num()
+            reg_circle.id = Util.huella()
             reg_circle.ordenVista = (self.lip_circles[-1].ordenVista + 1) if self.lip_circles else 1
             self.db_circles[reg_circle.id] = reg_circle.save_dic()
             self.lip_circles.append(reg_circle)
@@ -272,7 +272,7 @@ class WTV_Circles(LCDialog.LCDialog):
                 n += 1
                 name = "%s-%d" % (reg_circle.name, n)
             reg_circle.name = name
-            reg_circle.id = Util.huella_num()
+            reg_circle.id = Util.huella()
             reg_circle.ordenVista = self.lip_circles[-1].ordenVista + 1
             self.db_circles[reg_circle.id] = reg_circle.save_dic()
             self.lip_circles.append(reg_circle)

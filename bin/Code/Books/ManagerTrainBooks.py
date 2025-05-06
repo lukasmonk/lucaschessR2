@@ -307,7 +307,7 @@ class ManagerTrainBooks(Manager.Manager):
         self.refresh()
 
     def takeback(self):
-        if len(self.game):
+        if len(self.game) and self.in_end_of_line():
             self.state = ST_PLAYING
             self.movimientos -= 1
             if self.movimientos < 0:

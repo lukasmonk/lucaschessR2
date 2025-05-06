@@ -297,7 +297,7 @@ class WTV_Flechas(LCDialog.LCDialog):
         w = WTV_Flecha(self, None, True)
         if w.exec_():
             regFlecha = w.regFlecha
-            regFlecha.id = Util.huella_num()
+            regFlecha.id = Util.huella()
             regFlecha.ordenVista = (self.liPFlechas[-1].ordenVista + 1) if self.liPFlechas else 1
             self.dbFlechas[regFlecha.id] = regFlecha.save_dic()
             self.liPFlechas.append(regFlecha)
@@ -346,7 +346,7 @@ class WTV_Flechas(LCDialog.LCDialog):
                 n += 1
                 name = "%s-%d" % (regFlecha.name, n)
             regFlecha.name = name
-            regFlecha.id = Util.huella_num()
+            regFlecha.id = Util.huella()
             regFlecha.ordenVista = self.liPFlechas[-1].ordenVista + 1
             self.dbFlechas[regFlecha.id] = regFlecha.save_dic()
             self.liPFlechas.append(regFlecha)

@@ -74,7 +74,7 @@ class WSummary(QtWidgets.QWidget):
         self.grid.font_type(puntos=self.configuration.x_pgn_fontpoints)
 
         # ToolBar
-        self.tb = QTVarios.LCTB(self, icon_size=20, with_text=not self.siMoves)
+        self.tb = QTVarios.LCTB(self, with_text=not self.siMoves)
         self.tb.new(_("Close"), Iconos.MainMenu(), wb_database.tw_terminar)
         self.tb.new(_("Basic position"), Iconos.Inicio(), self.start)
         self.tb.new(_("Previous"), Iconos.AnteriorF(), self.anterior, sep=False)

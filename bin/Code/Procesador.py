@@ -51,7 +51,7 @@ from Code.Books import WFactory, WPolyglot, WBooksTrain, ManagerTrainBooks, WBoo
 from Code.CompetitionWithTutor import WCompetitionWithTutor, ManagerCompeticion
 from Code.Competitions import ManagerElo, ManagerFideFics, ManagerMicElo, ManagerWicker
 from Code.Config import Configuration, WindowConfig, WindowUsuarios
-from Code.Databases import WindowDatabase, WDB_Games, DBgames
+from Code.Databases import WindowDatabase, WDB_GUtils, DBgames
 from Code.Endings import WEndingsGTB
 from Code.Engines import EngineManager, WEngines, WConfEngines, WindowSTS, EnginesWicker, CheckEngines
 from Code.Expeditions import WindowEverest, ManagerEverest
@@ -944,7 +944,7 @@ class Procesador:
 
         path_pgn = None
         if accion == "N":
-            dbpath, path_pgn = WDB_Games.new_database(self.main_window, self.configuration, with_import_pgn=True)
+            dbpath, path_pgn = WDB_GUtils.new_database(self.main_window, self.configuration, with_import_pgn=True)
             if dbpath is None:
                 return
             accion = "R"

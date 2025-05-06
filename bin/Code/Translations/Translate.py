@@ -12,11 +12,15 @@ class Translations:
         self.lang = self.check_lang(lang)
         self.dic_translate = self.read_mo()
         self.dic_openings = self.read_mo_openings()
-        builtins.__dict__["_X"] = self.x
-        builtins.__dict__["_F"] = self.f
-        builtins.__dict__["_FO"] = self.translate_opening
-        builtins.__dict__["_SP"] = self.sp
-        builtins.__dict__["_"] = self.translate
+
+        for key, routine in (
+                ("_X", self.x),
+                ("_F", self.f),
+                ("_FO", self.translate_opening),
+                ("_SP", self.sp),
+                ("_", self.translate)):
+            setattr(builtins, key, routine)
+
         Code.lucas_chess = "%s %s" % (self.translate("Lucas Chess"), Code.VERSION)
 
     @staticmethod
@@ -122,7 +126,7 @@ class Translations:
 def install(lang):
     do_install = Code.translations is None
     if not do_install:
-        builtins_trans = builtins.__dict__.get("_")
+        builtins_trans = getattr(builtins, "_")
         do_install = builtins_trans is None or builtins_trans != Code.translations.translate
         if not do_install:
             do_install = Code.translations.lang != lang

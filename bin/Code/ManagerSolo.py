@@ -511,41 +511,13 @@ class ManagerSolo(Manager.Manager):
             self.start_position()
 
         elif resp == "pasteposicion":
-            texto = QTUtil.get_txt_clipboard()
-            if texto:
-                cp = Position.Position()
-                try:
-                    cp.read_fen(str(texto))
-                    self.xfichero = None
-                    self.xpgn = None
-                    self.xjugadaInicial = None
-                    self.new_game()
-                    self.game.set_position(first_position=cp)
-                    self.opening_block = None
-                    self.reiniciar()
-                except:
-                    pass
+            self.paste_position()
 
         elif resp == "leerpgn":
             self.leerpgn()
 
         elif resp == "pastepgn":
-            texto = QTUtil.get_txt_clipboard()
-            if texto:
-                ok, game = Game.pgn_game(texto)
-                if not ok:
-                    QTUtil2.message_error(
-                        self.main_window, _("The text from the clipboard does not contain a chess game in PGN format")
-                    )
-                    return
-                self.xfichero = None
-                self.xpgn = None
-                self.xjugadaInicial = None
-                self.opening_block = None
-                dic = self.creaDic()
-                dic["GAME"] = game.save()
-                dic["WHITEBOTTOM"] = game.first_position.is_white
-                self.reiniciar(dic)
+            self.paste_pgn()
 
         elif resp == "engine":
             self.set_label1("")
@@ -567,6 +539,48 @@ class ManagerSolo(Manager.Manager):
                 dic["GAME"] = ptxt
                 dic["WHITEBOTTOM"] = self.board.is_white_bottom
                 self.reiniciar(dic)
+
+    def paste_position(self):
+        texto = QTUtil.get_txt_clipboard()
+        ok = False
+        if texto:
+            cp = Position.Position()
+            try:
+                texto = str(texto)
+                if texto.count("/") == 7:
+                    cp.read_fen(str(texto))
+                    self.xfichero = None
+                    self.xpgn = None
+                    self.xjugadaInicial = None
+                    self.new_game()
+                    self.game.set_position(first_position=cp)
+                    self.opening_block = None
+                    self.reiniciar()
+                    ok = True
+            except:
+                pass
+        if not ok:
+            QTUtil2.message_error(
+                self.main_window, _("There is not a valid FEN position in the clipboard")
+            )
+
+    def paste_pgn(self):
+        texto = QTUtil.get_txt_clipboard()
+        if texto:
+            ok, game = Game.pgn_game(texto)
+            if not ok:
+                QTUtil2.message_error(
+                    self.main_window, _("The text from the clipboard does not contain a chess game in PGN format")
+                )
+                return
+            self.xfichero = None
+            self.xpgn = None
+            self.xjugadaInicial = None
+            self.opening_block = None
+            dic = self.creaDic()
+            dic["GAME"] = game.save()
+            dic["WHITEBOTTOM"] = game.first_position.is_white
+            self.reiniciar(dic)
 
     def basic_initial_position(self):
         if len(self.game) > 0:
@@ -632,25 +646,10 @@ class ManagerSolo(Manager.Manager):
         self.set_current_position(is_white, position)
 
     def paste(self, texto):
-        try:
-            if "." in texto or '"' in texto:
-                ok, game = Game.pgn_game(texto)
-                if not ok:
-                    return
-            elif "/" in texto:
-                game = Game.Game(fen=texto)
-            else:
-                return
-            self.opening_block = None
-            self.xfichero = None
-            self.xpgn = None
-            self.xjugadaInicial = None
-            dic = self.creaDic()
-            dic["GAME"] = game.save()
-            dic["WHITEBOTTOM"] = game.last_position.is_white
-            self.reiniciar(dic)
-        except:
-            pass
+        if "." in texto or '"' in texto:
+            self.paste_pgn()
+        else:
+            self.paste_position()
 
     def play_rival(self):
         if not self.is_finished():
@@ -705,7 +704,7 @@ class ManagerSolo(Manager.Manager):
                 self.play_against_engine = True
 
     def takeback(self):
-        if len(self.game):
+        if len(self.game) and self.in_end_of_line():
             self.game.remove_only_last_movement()
             if self.play_against_engine:
                 self.game.remove_only_last_movement()

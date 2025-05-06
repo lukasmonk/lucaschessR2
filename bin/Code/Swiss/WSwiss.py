@@ -6,7 +6,7 @@ import Code
 from Code import XRun
 from Code.Base import Game
 from Code.Base.Constantes import RESULT_WIN_WHITE, RESULT_DRAW, RESULT_WIN_BLACK
-from Code.Databases import DBgames, WDB_Games
+from Code.Databases import DBgames, WDB_GUtils
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles
@@ -894,7 +894,7 @@ class WSwiss(LCDialog.LCDialog):
 
     def export_to_database(self, dbf):
         if dbf.endswith(":n"):
-            database = WDB_Games.new_database(self, Code.configuration)
+            database = WDB_GUtils.new_database(self, Code.configuration)
             if database is None:
                 return
         else:

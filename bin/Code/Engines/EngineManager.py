@@ -80,7 +80,7 @@ class EngineManager:
 
         self.activo = True  # No es suficiente con engine == None para saber si esta activo y se puede logear
 
-        self.ficheroLog = None
+        self.fichero_log = None
 
         self.direct = direct
 
@@ -114,7 +114,7 @@ class EngineManager:
         self.priority = Priorities.priorities.verylow
 
     def maximize_multipv(self):
-        self.num_multipv = 9999
+        self.update_multipv("MX")
 
     def set_gui_dispatch(self, rutina, who_dispatch=None):
         if self.engine:
@@ -165,16 +165,16 @@ class EngineManager:
                 self.num_multipv,
                 priority=self.priority,
                 args=args,
-                log=self.ficheroLog,
+                log=self.fichero_log,
                 level=maia_level,
             )
         elif self.direct:
             self.engine = EngineRunDirect.DirectEngine(
-                self.name, exe, li_uci, self.num_multipv, priority=self.priority, args=args, log=self.ficheroLog
+                self.name, exe, li_uci, self.num_multipv, priority=self.priority, args=args, log=self.fichero_log
             )
         else:
             self.engine = EngineRun.RunEngine(
-                self.name, exe, li_uci, self.num_multipv, priority=self.priority, args=args, log=self.ficheroLog
+                self.name, exe, li_uci, self.num_multipv, priority=self.priority, args=args, log=self.fichero_log
             )
 
         if self.confMotor.siDebug:
@@ -233,7 +233,11 @@ class EngineManager:
     def play_game(self, game, adjusted=0):
         self.check_engine()
 
-        mrm = self.engine.bestmove_game(game, self.mstime_engine, self.depth_engine)
+        if self.nodes == 0:
+            mrm = self.engine.bestmove_game(game, self.mstime_engine, self.depth_engine)
+        else:
+            mrm = self.engine.bestmove_nodes_game(game, 9999, self.mstime_engine, self.depth_engine, self.nodes)
+
 
         if adjusted:
             mrm.game = game
@@ -258,7 +262,7 @@ class EngineManager:
         if self.nodes == 0:
             return self.engine.bestmove_game(game, self.mstime_engine, self.depth_engine)
         else:
-            return self.engine.bestmove_nodes_game(game, self.mstime_engine, self.depth_engine, self.nodes)
+            return self.engine.bestmove_nodes_game(game, 9999, self.mstime_engine, self.depth_engine, self.nodes)
 
     def analiza(self, fen):
         self.check_engine()
@@ -571,7 +575,7 @@ class EngineManager:
         self.engine.set_humanize(movetime_seconds * factor)
 
     def log_open(self):
-        if self.ficheroLog:
+        if self.fichero_log:
             return
         carpeta = Util.opj(Code.configuration.carpeta, "EngineLogs")
         if not os.path.isdir(carpeta):
@@ -583,12 +587,12 @@ class EngineManager:
         while os.path.isfile(nomlog):
             pos += 1
             nomlog = plantlog % pos
-        self.ficheroLog = nomlog
+        self.fichero_log = nomlog
 
         if self.engine:
             self.engine.log_open(nomlog)
 
     def log_close(self):
-        self.ficheroLog = None
+        self.fichero_log = None
         if self.engine:
             self.engine.log_close()

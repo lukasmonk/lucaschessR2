@@ -213,25 +213,39 @@ def menu_compete_savemenu(procesador, dic_data=None):
     submenu.opcion(("wicker", 0), "%s (%d)" % (_("The Wicker Park Tourney"), procesador.configuration.x_wicker),
                    Iconos.Park())
     submenu.separador()
+
+    rp = QTVarios.rondo_puntos()
+
+    def haz_submenu_ffl(key, label, icon, current_elo, level_min, level_max):
+        if current_elo < level_min*100:
+            min_elo = level_min*100
+            max_elo = max(current_elo + 400, min_elo +99)
+        elif current_elo > level_max*100:
+            max_elo = level_max*100 + 99
+            min_elo = min(current_elo - 400, level_max*100)
+        else:
+            min_elo = max(current_elo - 400, level_min * 100)
+            max_elo = min(current_elo + 400, level_max * 100)
+
+        if min_elo > max_elo:
+            min_elo, max_elo = max_elo, min_elo
+
+        menu_ffl = submenu.submenu("%s (%d)" % (label, current_elo), icon)
+        for level in range(level_min, level_max+1):
+            elo_level = level * 100
+            if min_elo <= elo_level and elo_level + 99 <= max_elo:
+                menu_ffl.opcion((key, level), "%d-%d" % (elo_level, elo_level + 99), rp.otro())
+        submenu.separador()
+
     fics = procesador.configuration.x_fics
-    menuf = submenu.submenu("%s (%d)" % (_("Fics-Elo"), fics), Iconos.Fics())
-    rp = QTVarios.rondo_puntos()
-    for elo in range(900, 2800, 100):
-        if (elo == 900) or (0 <= (elo + 99 - fics) <= 400 or 0 <= (fics - elo) <= 400):
-            menuf.opcion(("fics", elo / 100), "%d-%d" % (elo, elo + 99), rp.otro())
-    submenu.separador()
+    haz_submenu_ffl("fics", _("Fics-Elo"), Iconos.Fics(), fics, 9, 27)
+
     fide = procesador.configuration.x_fide
-    menuf = submenu.submenu("%s (%d)" % (_("Fide-Elo"), fide), Iconos.Fide())
-    for elo in range(1500, 2700, 100):
-        if (elo == 1500) or (0 <= (elo + 99 - fide) <= 400 or 0 <= (fide - elo) <= 400):
-            menuf.opcion(("fide", elo / 100), "%d-%d" % (elo, elo + 99), rp.otro())
+    haz_submenu_ffl("fide", _("Fide-Elo"), Iconos.Fide(), fide, 10, 28)
+
     lichess = procesador.configuration.x_lichess
-    submenu.separador()
-    menuf = submenu.submenu("%s (%d)" % (_("Lichess-Elo"), lichess), Iconos.Lichess())
-    rp = QTVarios.rondo_puntos()
-    for elo in range(800, 2700, 100):
-        if (elo == 800) or (0 <= (elo + 99 - lichess) <= 400 or 0 <= (lichess - elo) <= 400):
-            menuf.opcion(("lichess", elo / 100), "%d-%d" % (elo, elo + 99), rp.otro())
+    haz_submenu_ffl("lichess", _("Lichess-Elo"), Iconos.Lichess(), lichess, 8, 26)
+
     savemenu.separador()
     submenu = savemenu.submenu(_("Singular moves"), Iconos.Singular())
     submenu.opcion(("strenght101", 0), _("Calculate your strength"), Iconos.Strength())

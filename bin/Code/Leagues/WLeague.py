@@ -4,9 +4,10 @@ from PySide2 import QtWidgets, QtCore
 
 import Code
 from Code import XRun
+from Code import Util
 from Code.Base import Game
 from Code.Base.Constantes import RESULT_WIN_WHITE, RESULT_DRAW, RESULT_WIN_BLACK
-from Code.Databases import DBgames, WDB_Games
+from Code.Databases import DBgames, WDB_GUtils
 from Code.Leagues import LeaguesWork, Leagues, EditPlayers
 from Code.QT import Colocacion
 from Code.QT import Columnas
@@ -824,6 +825,27 @@ class WLeague(LCDialog.LCDialog):
                 self.show_match_done(xmatch)
 
     def grid_right_button(self, grid, row, col, modif):
+        if grid == self.grid_matches:
+            # journey_work, season_work = lw.get_journey_season()
+            # current_journey = self.season.get_current_journey()
+            # if journey_work != current_journey or self.league.current_num_season != season_work:
+            #     lw.put_league()
+
+            xmatch = self.li_matches[row]
+            if xmatch.result:
+                menu = QTVarios.LCMenu(self)
+                menu.opcion("show", _("Show game"), Iconos.LearnGame())
+                menu.separador()
+                menu.opcion("remove", _("Remove"), Iconos.Delete())
+                resp = menu.lanza()
+                if resp == "remove":
+                    if QTUtil2.pregunta(self, _("Are you sure?")):
+                        xmatch.result = None
+                        xmatch.xid = Util.huella()
+                        self.season.save()
+                        self.league.save()
+                        self.show_current_season()
+                    return
         self.grid_doble_click(grid, row, col)
 
     def grid_doble_click(self, grid, row, o_column):
@@ -989,7 +1011,7 @@ class WLeague(LCDialog.LCDialog):
 
     def export_to_database(self, dbf):
         if dbf.endswith(":n"):
-            database = WDB_Games.new_database(self, Code.configuration)
+            database = WDB_GUtils.new_database(self, Code.configuration)
             if database is None:
                 return
         else:

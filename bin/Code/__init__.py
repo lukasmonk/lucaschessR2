@@ -105,7 +105,7 @@ def relative_root(path):
 
 
 BASE_VERSION = "B"  # Para el control de updates que necesitan reinstalar entero
-VERSION = "R 2.19l"
+VERSION = "R 2.20"
 DEBUG = False
 DEBUG_ENGINES = False
 
@@ -147,28 +147,13 @@ if DEBUG:
             pr(line.strip() + "\n")
 
 
-    def stackf(txt, sif=False):
-        with open("stack.txt", "at", encoding="utf-8") as q:
-            q.write("-" * 80 + "\n")
-            q.write(txt + "\n")
-            q.write("-" * 80 + "\n")
-            for line in traceback.format_stack()[:-1]:
-                q.write(line.strip() + "\n")
-        if sif:
-            print("-" * 80)
-            print(txt)
-            print("-" * 80)
-            for line in traceback.format_stack()[:-1]:
-                print(line.strip())
-
-
     def printf(*txt, sif=False):
         with open("stack.txt", "at", encoding="utf-8") as q:
             for t in txt:
                 q.write(str(t) + " ")
             q.write("\n")
         if sif:
-            print(txt)
+            prln(txt)
 
 
     def xpr(name, line):
@@ -213,11 +198,14 @@ if DEBUG:
 
     import builtins
 
-    builtins.__dict__["stack"] = stack
-    builtins.__dict__["pr"] = pr
-    builtins.__dict__["prln"] = prln
-    builtins.__dict__["prlns"] = prlns
-    builtins.__dict__["ini_timer"] = ini_timer
-    builtins.__dict__["end_timer"] = end_timer
+    for key, routine in (
+            ("stack", stack),
+            ("pr", pr),
+            ("prln", prln),
+            ("prlns", prlns),
+            ("ini_timer", ini_timer),
+            ("end_timer", end_timer)):
+        setattr(builtins, key, routine)
+
     # builtins.__dict__["dbg_print"] = dbg_print
-    prln("Modo debug PYLCR2")
+    prln("Modo debug")

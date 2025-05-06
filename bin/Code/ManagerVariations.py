@@ -17,6 +17,7 @@ from Code.Base.Constantes import (
     ADJUST_BETTER,
 )
 from Code.QT import Iconos, QTUtil, QTUtil2
+import Code.PlayAgainstEngine.WPlayAgainstEngine as WindowEntMaq
 
 
 class ManagerVariations(Manager.Manager):
@@ -84,7 +85,8 @@ class ManagerVariations(Manager.Manager):
         self.human_is_playing = True
 
         if with_engine_active and not is_competitive:
-            self.activeEngine()
+            self.change_rival()
+            self.active_engine()
 
         if not len(self.game):
             self.play_next_move()
@@ -177,7 +179,7 @@ class ManagerVariations(Manager.Manager):
         self.put_view()
 
     def takeback(self):
-        if len(self.game):
+        if len(self.game) and self.in_end_of_line():
             self.game.remove_only_last_movement()
             if not self.fen:
                 self.game.assign_opening()
@@ -239,23 +241,31 @@ class ManagerVariations(Manager.Manager):
         self.start(self.game, self.is_white_bottom, self.with_engine_active, self.is_competitive)
 
     def configurar(self):
-        mt = _("Engine").lower()
-        mt = _X(_("Disable %1"), mt) if self.play_against_engine else _X(_("Enable %1"), mt)
-
         if not self.is_competitive:
-            li_extra_options = (("engine", mt, Iconos.Engines()),)
+            if self.play_against_engine:
+                mt = _X(_("Disable %1"), self.xrival.name)
+                li_extra_options = [("engine_disable", mt, Iconos.Engines()), (None, None, None),
+                                    ("engine_change", _("Change opponent"), Iconos.Engine2())]
+            else:
+                mt = _X(_("Enable %1"), _("Engine").lower())
+                li_extra_options = [("engine_enable", mt, Iconos.Engines()), ]
+
+
         else:
             li_extra_options = []
 
         resp = Manager.Manager.configurar(self, li_extra_options, with_change_tutor=not self.is_competitive)
-
-        if resp == "engine":
+        if resp:
             self.set_label1("")
-            if self.play_against_engine:
+            if resp == "engine_disable":
                 self.xrival.terminar()
                 self.xrival = None
                 self.play_against_engine = False
-            else:
+            elif resp in ("engine_enable", "engine_change"):
+                if self.play_against_engine:
+                    self.xrival.terminar()
+                    self.xrival = None
+                    self.play_against_engine = False
                 self.change_rival()
 
     def play_rival(self):
@@ -270,24 +280,23 @@ class ManagerVariations(Manager.Manager):
                 self.move_the_pieces(move.liMovs)
             self.thinking(False)
 
-    def activeEngine(self):
-        dicBase = self.configuration.read_variables("ENG_VARIANTES")
-        if dicBase:
-            self.set_rival(dicBase)
+    def active_engine(self):
+        dic_base = self.configuration.read_variables("ENG_VARIANTES")
+        if dic_base:
+            self.set_rival(dic_base)
         else:
             self.change_rival()
 
     def change_rival(self):
 
         if self.dicRival:
-            dicBase = self.dicRival
+            dic_base = self.dicRival
         else:
-            dicBase = self.configuration.read_variables("ENG_VARIANTES")
-
-        import Code.PlayAgainstEngine.WPlayAgainstEngine as WindowEntMaq
+            dic_base = self.configuration.read_variables("ENG_VARIANTES")
+        dic_base["ISWHITE"] = self.is_human_side_white
 
         dic = self.dicRival = WindowEntMaq.change_rival(
-            self.main_window, self.configuration, dicBase, is_create_own_game=True
+            self.main_window, self.configuration, dic_base, is_create_own_game=True
         )
 
         if dic:
@@ -298,20 +307,31 @@ class ManagerVariations(Manager.Manager):
         rival = dr["CM"]
         if not Util.exist_file(rival.path_exe):
             return self.change_rival()
-        r_t = dr.get("TIME", 0) * 100  # Se guarda en decimas -> milesimas
-        r_p = dr.get("DEPTH", 0)
-        if r_t <= 0:
-            r_t = None
-        if r_p <= 0:
-            r_p = None
-        if r_t is None and r_p is None and not dic.get("SITIEMPO", False):
-            r_t = 1000
+        r_timems = dr.get("ENGINE_TIME", 0) * 100  # Se guarda en decimas -> milesimas
+        r_depth = dr.get("ENGINE_DEPTH", 0)
+        r_nodes = dr.get("ENGINE_NODES", 0)
+        if r_timems <= 0:
+            r_timems = None
+        if r_depth <= 0:
+            r_depth = None
+        if r_nodes <= 0:
+            r_nodes = None
+        if r_timems is None and r_depth is None and r_nodes is None and not dic.get("SITIEMPO", False):
+            r_timems = 1000
 
-        nAjustarFuerza = dic["ADJUST"]
-        self.xrival = self.procesador.creaManagerMotor(rival, r_t, r_p, nAjustarFuerza != ADJUST_BETTER)
-        self.xrival.nAjustarFuerza = nAjustarFuerza
+        n_ajustar_fuerza = dic["ADJUST"]
+        self.xrival = self.procesador.creaManagerMotor(rival, r_timems, r_depth, n_ajustar_fuerza != ADJUST_BETTER)
+        if r_nodes:
+            self.xrival.set_nodes(r_nodes)
+        self.xrival.nAjustarFuerza = n_ajustar_fuerza
+
+        self.is_human_side_white = dic["ISWHITE"]
+        self.is_engine_side_white = not self.is_human_side_white
 
         dic["ROTULO1"] = _("Opponent") + ": <b>" + self.xrival.name
         self.set_label1(dic["ROTULO1"])
         self.play_against_engine = True
         self.configuration.write_variables("ENG_VARIANTES", dic)
+        if self.game.is_white() == self.is_engine_side_white:
+            self.play_rival()
+            self.play_next_move()

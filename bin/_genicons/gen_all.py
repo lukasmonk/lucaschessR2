@@ -120,7 +120,7 @@ def funcion_dark(qbin, qdic, dic, desde, nom_funcion, nom_dir, nom_fichero):
 
 
 def do_iconos(li_imgs):
-    q = open("../Code/QT/Iconos.py", "w")
+    q = open("../Code/QT/Iconos.py", "wt", newline="\n")
 
     q.write(
         """from Code.QT.IconosBase import iget

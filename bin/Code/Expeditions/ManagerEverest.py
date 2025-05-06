@@ -309,8 +309,8 @@ class ManagerEverest(Manager.Manager):
                     self.dic_analysis[fen][2] = analysis
 
                 dpts = w.difPuntos()
-                rm_usu = w.rmUsu
-                rm_obj = w.rmObj
+                rm_usu = w.rm_usu
+                rm_obj = w.rm_obj
             else:
                 dpts = rm_usu.score_abs5() - rm_obj.score_abs5()
 

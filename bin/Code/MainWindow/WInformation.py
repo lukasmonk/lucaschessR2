@@ -146,7 +146,7 @@ class Information(QtWidgets.QWidget):
                     if cpws_lost:
                         str_cpws_lost = f'{img} ⨠M'
                     else:
-                        str_cpws_lost = f'{img} M↓{abs(mate)}'
+                        str_cpws_lost = f'M↓{abs(mate)}'
                 else:
                     str_cpws_lost = img + " %.02f %s" % (cpws_lost / 100.0, _("pws"))
                 str_cpws_lost += " (%s %s)" % (_("Depth"), analysis_depth)

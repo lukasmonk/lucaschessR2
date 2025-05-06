@@ -16,13 +16,13 @@ from Code.QT import QTVarios
 
 
 class WJuicio(LCDialog.LCDialog):
-    def __init__(self, manager, xengine, nombreOP, position, mrm, rmObj, rmUsu, analysis, is_competitive=None,
+    def __init__(self, manager, xengine, name_op, position, mrm, rm_obj, rm_usu, analysis, is_competitive=None,
                  continue_tt=False):
         self.is_competitive = manager.is_competitive if is_competitive is None else is_competitive
-        self.nombreOP = nombreOP
+        self.name_op = name_op
         self.position = position
-        self.rmObj = rmObj
-        self.rmUsu = rmUsu
+        self.rm_obj = rm_obj
+        self.rm_usu = rm_usu
         self.mrm = mrm
         self.analysis = analysis
         self.siAnalisisCambiado = False
@@ -76,10 +76,10 @@ class WJuicio(LCDialog.LCDialog):
         self.restore_video()
 
     def difPuntos(self):
-        return self.rmUsu.score_abs5() - self.rmObj.score_abs5()
+        return self.rm_usu.score_abs5() - self.rm_obj.score_abs5()
 
     def difPuntosMax(self):
-        return self.mrm.best_rm_ordered().score_abs5() - self.rmUsu.score_abs5()
+        return self.mrm.best_rm_ordered().score_abs5() - self.rm_usu.score_abs5()
 
     def set_score(self):
         pts = self.difPuntos()
@@ -142,13 +142,13 @@ class WJuicio(LCDialog.LCDialog):
                 ult_pts = p
                 pos_real += 1
 
-            si_op = rm.pv == self.rmObj.pv
-            si_usu = rm.pv == self.rmUsu.pv
+            si_op = rm.pv == self.rm_obj.pv
+            si_usu = rm.pv == self.rm_usu.pv
             if si_op and si_usu:
                 txt = _("Both")
                 pos_op = pos
             elif si_op:
-                txt = self.nombreOP
+                txt = self.name_op
                 pos_op = pos
             elif si_usu:
                 txt = nombre_player
@@ -233,27 +233,27 @@ class WJuicio(LCDialog.LCDialog):
     def mueveMas(self):
         mrm = self.manager.analyze_state()
 
-        rmUsuN, pos = mrm.search_rm(self.rmUsu.movimiento())
+        rmUsuN, pos = mrm.search_rm(self.rm_usu.movimiento())
         if rmUsuN is None:
             um = QTUtil2.analizando(self)
             self.manager.analyze_end()
-            rmUsuN = self.xengine.valora(self.position, self.rmUsu.from_sq, self.rmUsu.to_sq, self.rmUsu.promotion)
+            rmUsuN = self.xengine.valora(self.position, self.rm_usu.from_sq, self.rm_usu.to_sq, self.rm_usu.promotion)
             mrm.add_rm(rmUsuN)
             self.manager.analyze_begin()
             um.final()
 
-        self.rmUsu = rmUsuN
+        self.rm_usu = rmUsuN
 
-        rmObjN, pos = mrm.search_rm(self.rmObj.movimiento())
+        rmObjN, pos = mrm.search_rm(self.rm_obj.movimiento())
         if rmObjN is None:
             um = QTUtil2.analizando(self)
             self.manager.analyze_end()
-            rmObjN = self.xengine.valora(self.position, self.rmObj.from_sq, self.rmObj.to_sq, self.rmObj.promotion)
+            rmObjN = self.xengine.valora(self.position, self.rm_obj.from_sq, self.rm_obj.to_sq, self.rm_obj.promotion)
             pos = mrm.add_rm(rmObjN)
             self.manager.analyze_begin()
             um.final()
 
-        self.rmObj = rmObjN
+        self.rm_obj = rmObjN
         self.analysis = mrm, pos
         self.siAnalisisCambiado = True
 

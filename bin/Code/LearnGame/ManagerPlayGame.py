@@ -87,8 +87,9 @@ class ManagerPlayGame(Manager.Manager):
         self.siSave = False
         self.min_mstime = 5000
 
-        self.xtutor.options(self.min_mstime, 0, True)
-        self.xtutor.maximize_multipv()
+        # self.xanalyzer = self.procesador.analyzer_clone()
+        # self.xanalyzer.options(self.min_mstime, 0, True)
+        # self.xanalyzer.maximize_multipv()
 
         self.puntosMax = 0
         self.puntos = 0
@@ -140,7 +141,7 @@ class ManagerPlayGame(Manager.Manager):
         self.set_label2(f'{lb_score}:<table border="1" cellpadding="5" cellspacing="0" style="margin-left:60px">'
                         f'<tr><td align="right">{self.name_obj_common()}</td><td align="right"><b>{self.puntos:+d}'
                         f'</b></td></tr>'
-                        f'<tr><td align="right">{self.xtutor.name}</td>'
+                        f'<tr><td align="right">{self.xanalyzer.name}</td>'
                         f'<td align="right"><b>{-self.puntosMax:+d}</b></td>'
                         '</tr></table>')
 
@@ -217,30 +218,30 @@ class ManagerPlayGame(Manager.Manager):
     def analyze_begin(self):
         if not self.is_finished():
             if self.continueTt:
-                self.xtutor.ac_inicio(self.game)
+                self.xanalyzer.ac_inicio(self.game)
             else:
-                self.xtutor.ac_inicio_limit(self.game)
+                self.xanalyzer.ac_inicio_limit(self.game)
             self.is_analyzing = True
 
     def analyze_minimum(self):
-        self.mrm = copy.deepcopy(self.xtutor.ac_minimo(self.min_mstime, False))
+        self.mrm = copy.deepcopy(self.xanalyzer.ac_minimo(self.min_mstime, False))
         return self.mrm
 
     def analyze_state(self):
-        self.xtutor.engine.ac_lee()
-        self.mrm = copy.deepcopy(self.xtutor.ac_estado())
+        self.xanalyzer.engine.ac_lee()
+        self.mrm = copy.deepcopy(self.xanalyzer.ac_estado())
         return self.mrm
 
     def analyze_end(self):
         if self.is_analyzing:
             self.siSave = True
             self.is_analyzing = False
-            self.xtutor.ac_final(-1)
+            self.xanalyzer.ac_final(-1)
 
     def analyzer_close(self):
         if self.is_analyzing:
             self.is_analyzing = False
-        self.xtutor.terminar()
+        self.xanalyzer.terminar()
 
     def play_next_move(self):
         if self.state == ST_ENDGAME:
@@ -341,14 +342,14 @@ class ManagerPlayGame(Manager.Manager):
             if rm_usu is None:
                 self.analyze_end()
                 continue_tt = False
-                rm_usu = self.xtutor.valora(position, jg_usu.from_sq, jg_usu.to_sq, jg_usu.promotion)
+                rm_usu = self.xanalyzer.valora(position, jg_usu.from_sq, jg_usu.to_sq, jg_usu.promotion)
                 mrm.add_rm(rm_usu)
 
             rm_obj, pos_obj = mrm.search_rm(pv_obj)
             if rm_obj is None:
                 self.analyze_end()
                 continue_tt = False
-                rm_obj = self.xtutor.valora(position, jg_obj.from_sq, jg_obj.to_sq, jg_obj.promotion)
+                rm_obj = self.xanalyzer.valora(position, jg_obj.from_sq, jg_obj.to_sq, jg_obj.promotion)
                 pos_obj = mrm.add_rm(rm_obj)
 
             analysis = mrm, pos_obj
@@ -360,7 +361,7 @@ class ManagerPlayGame(Manager.Manager):
                 si_analiza_juez = False
 
             if si_analiza_juez:
-                w = WindowJuicio.WJuicio(self, self.xtutor, self.name_obj(), position, mrm, rm_obj, rm_usu, analysis,
+                w = WindowJuicio.WJuicio(self, self.xanalyzer, self.name_obj(), position, mrm, rm_obj, rm_usu, analysis,
                                          is_competitive=not self.show_all, continue_tt=continue_tt)
                 w.exec_()
 
@@ -369,8 +370,8 @@ class ManagerPlayGame(Manager.Manager):
                     self.siSave = True
                 dpts = w.difPuntos()
                 dpts_max = w.difPuntosMax()
-                rm_usu = w.rmUsu
-                rm_obj = w.rmObj
+                rm_usu = w.rm_usu
+                rm_obj = w.rm_obj
             else:
                 dpts = rm_usu.score_abs5() - rm_obj.score_abs5()
                 dpts_max = mrm.best_rm_ordered().score_abs5() - rm_usu.score_abs5()

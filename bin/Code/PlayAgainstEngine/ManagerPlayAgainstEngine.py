@@ -118,7 +118,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
     limit_time_seconds = 0
     error = None
 
-    key_crash: [str, None] = None
+    key_crash = None
 
     def start(self, dic_var):
         self.base_inicio(dic_var)
@@ -841,7 +841,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         return False
 
     def takeback(self):
-        if len(self.game):
+        if len(self.game) and self.in_end_of_line():
             if self.is_analyzing:
                 self.is_analyzing = False
                 self.xtutor.stop()
@@ -1560,6 +1560,12 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                 nag, color = self.mrm_tutor.set_nag_color(rm)
                 move.add_nag(nag)
 
+        self.add_move(move)
+        self.move_the_pieces(move.liMovs, False)
+        self.beep_extended(True)
+
+        self.error = ""
+
         if game_over_message_pww:
             game_over_message_pww = '<span style="font-size:14pts">%s<br>%s<br><br><b>%s</b>' % (
                 _("GAME OVER"),
@@ -1570,14 +1576,6 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             self.rendirse(with_question=False)
             return
 
-        self.add_move(move)
-        self.move_the_pieces(move.liMovs, False)
-        self.beep_extended(True)
-
-        # if game_over_message_pww:
-        #     return True
-
-        self.error = ""
 
         self.enable_toolbar()
         self.play_next_move()

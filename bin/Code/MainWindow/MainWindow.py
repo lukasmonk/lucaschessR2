@@ -70,7 +70,7 @@ class MainWindow(LCDialog.LCDialog):
         ctrl2.activated.connect(self.pressed_shortcut_ctrl2)
 
         alt_a = QtWidgets.QShortcut(self)
-        alt_a.setKey(QtGui.QKeySequence("Alt+a"))
+        alt_a.setKey(QtGui.QKeySequence("Alt+A"))
         alt_a.activated.connect(self.pressed_shortcut_alt_a)
 
         ctrl_0 = QtWidgets.QShortcut(self)

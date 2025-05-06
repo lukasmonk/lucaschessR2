@@ -610,6 +610,9 @@ def analysis_game(manager):
             manager_main_window_base.change_message(message)
             move = game.move(njg)
             manager.set_position(move.position)
+
+            if game.starts_with_black:
+                njg += 1
             manager.main_window.pgnColocate(njg / 2, (njg + 1) % 2)
             manager.board.put_arrow_sc(move.from_sq, move.to_sq)
             manager.put_view()

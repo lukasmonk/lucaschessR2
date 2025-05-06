@@ -96,7 +96,7 @@ def read_engines(folder_engines):
 
     mas("foxcub", "Lucas Monge", "1.1", "", "FoxCub", 1000)
 
-    mas("fox", "Lucas Monge", "1.2", "", "Fox", 1500)
+    mas("fox", "Lucas Monge", "1.4", "", "Fox", 1500)
 
     mas("fractal", "Visan Alexandru", "1.0", "https://github.com/visanalexandru/FracTal-ChessEngine", "FracTal-1.0",2010)
 
@@ -137,8 +137,6 @@ def read_engines(folder_engines):
     mas("monochrome","Dan Ravensloft, formerly Matthew Brades (England), Manik Charan (India), George Koskeridis, Robert Taylor", "","https://github.com/cpirc/Monochrome", "Monochrome", 1601)
 
     mas("octochess", "Tim Kosse", "r5190", "http://octochess.org/", "Octochess-r5190", 2771)  # New build
-
-    mas("patricia", "Adam Kulju", "4 v2","https://github.com/Adam-Kulju/Patricia", "patricia_4_v2", 3500)
 
     mas("pawny", "Mincho Georgiev", "1.2", "http://pawny.netii.net/", "Pawny-1.2", 2550)
 
@@ -200,7 +198,6 @@ def dict_engines_fixed_elo(folder_engines):
             ("greko", 1600, 2400),
             ("texel", 700, 2500),
             ("fox", 1000, 2700),
-            # ("patricia", 500, 3000)
     ):
         for elo in range(xfrom, xto + 100, 100):
             cm = d[nm].clona()

@@ -89,6 +89,14 @@ class WConfAnalysis(LCDialog.LCDialog):
             if field == "TYPE":
                 return xtype
 
+    def grid_bold(self, grid, row, o_column):
+        field = o_column.key
+        if field == "VALUE":
+            key = self.li_keys[row]
+            return self.dic_eval[key] != self.dic_eval_default[key]
+
+        return False
+
     def grid_setvalue(self, grid, row, o_column, valor):
         key = self.li_keys[row]
         try:

@@ -118,8 +118,9 @@ class WKibEngine(WKibCommon.WKibCommon):
                     self.li_moves = mrm.li_rm
                     if self.kibitzer.pointofview == KIB_BEFORE_MOVE and self.cpu.last_move:
                         movimiento = self.cpu.last_move.movimiento()
-                        for pos, rm in enumerate(mrm.li_rm):
-                            if rm.movimiento() == movimiento:
+                        for pos, rm1 in enumerate(mrm.li_rm):
+                            if rm1.movimiento() == movimiento:
+                                rm = rm1
                                 rm.is_done = True
                                 break
 

@@ -816,7 +816,7 @@ class WBase(QtWidgets.QWidget):
     def hide_clock_white(self):
         self.lb_clock_white.hide()
 
-    def hide_clock_blck(self):
+    def hide_clock_black(self):
         self.lb_clock_black.hide()
 
     def show_message(self, txt, with_cancel, tit_cancel=None):

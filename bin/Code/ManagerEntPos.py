@@ -431,7 +431,7 @@ class ManagerEntPos(Manager.Manager):
     def takeback(self):
         if self.is_rival_thinking:
             return
-        if len(self.game):
+        if len(self.game) and self.in_end_of_line():
             self.analiza_stop()
             self.rm_rival = None
             self.game.remove_last_move(self.is_human_side_white)

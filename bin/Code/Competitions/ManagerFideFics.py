@@ -27,6 +27,8 @@ from Code.Base.Constantes import (
     GO_END,
 )
 from Code.Openings import Opening, OpeningsStd
+from Code.QT import FormLayout
+from Code.QT import Iconos
 from Code.QT import QTUtil2
 from Code.QT import WindowJuicio
 from Code.SQL import Base
@@ -34,7 +36,9 @@ from Code.SQL import UtilSQL
 
 
 class ManagerFideFics(Manager.Manager):
+    min_mstime_base = 5000
     min_mstime = 5000
+    show_all_evaluations = False
     _db: str
     _activo = None
     _ponActivo = None
@@ -43,6 +47,7 @@ class ManagerFideFics(Manager.Manager):
     _titulo: str
     _newTitulo: str
     _TIPO: str
+    _key_configuration: str
     analysis = None
     comment = None
     is_analyzing = False
@@ -97,6 +102,8 @@ class ManagerFideFics(Manager.Manager):
             self._titulo = _("Lichess-Elo")
             self._newTitulo = _("New Lichess-Elo")
             self._TIPO = "LICHESS"
+
+        self._key_configuration = f"manager{self._TIPO}"
 
     def elige_juego(self, nivel):
         color = self.get_the_side(nivel)
@@ -174,10 +181,8 @@ class ManagerFideFics(Manager.Manager):
         self.hints = 0
         self.ayudas_iniciales = 0
 
-        # if self.eloUsu < 1800:
-        #     self.xanalyzer = self.procesador.super_tutor()
-        # self.xanalyzer.options(self.min_mstime, 0, True)
-        self.xanalyzer.options(self.min_mstime, 0, True)
+        multipv, self.min_mstime, self.show_all_evaluations = self.get_adjudicator_options()
+        self.xanalyzer = self.procesador.analyzer_clone(self.min_mstime, 0, multipv)
 
         self.book = Opening.OpeningPol(999)
 
@@ -211,7 +216,7 @@ class ManagerFideFics(Manager.Manager):
             self.rendirse()
 
         elif key == TB_CONFIG:
-            self.configurar(with_sounds=True)
+            self.configurar_local()
 
         elif key == TB_TAKEBACK:
             return  # disable
@@ -227,6 +232,77 @@ class ManagerFideFics(Manager.Manager):
 
         else:
             Manager.Manager.rutinaAccionDef(self, key)
+
+    def configurar_local(self):
+        li_extra_options = [("adjudicator_options", _("Adjudicator") + " - " + _("Options"), Iconos.Engines()), ]
+
+        resp = Manager.Manager.configurar(self, li_extra_options)
+        if resp:
+            if resp == "adjudicator_options":
+                self.change_adjudicator_options()
+
+    def get_adjudicator_options(self):
+        dic = self.configuration.read_variables(self._key_configuration)
+        conf_multipv = dic.get("MULTIPV", "PD")
+        conf_seconds = dic.get("SECONDS", self.min_mstime_base / 1000)
+        show_all = dic.get("SHOW_ALL", False)
+        if conf_multipv == "PD":
+            multipv = self.configuration.x_analyzer_multipv
+            elo_min = min(self.eloUsu, self.eloObj)
+            if multipv == 0 or elo_min < 1500:
+                multipv = "MX"
+            else:
+                multipv_min = 5
+                if elo_min < 2400:
+                    multipv_min += int(13 * (2400 - elo_min) // 1000)
+                multipv = max(multipv, multipv_min)
+        else:
+            multipv = conf_multipv
+        return multipv, conf_seconds * 1000, show_all
+
+    def change_adjudicator_options(self):
+        dic = self.configuration.read_variables(self._key_configuration)
+        multipv = dic.get("MULTIPV", "PD")
+        seconds = dic.get("SECONDS", self.min_mstime_base / 1000)
+        show_all = dic.get("SHOW_ALL", False)
+
+        form = FormLayout.FormLayout(self.main_window, _("Adjudicator") + " - " + _("Options") + " - " + self._TIPO, Iconos.Engines(),
+                                     with_default=True)
+        form.separador()
+        form.editbox(_("Duration of engine analysis (secs)"), ancho=60, decimales=2, tipo=float, init_value=seconds)
+        form.separador()
+        li = [(_("By default"), "PD"), (_("Maximum"), "MX")]
+        for x in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 20, 30, 40, 50, 75, 100, 150, 200):
+            li.append((str(x), str(x)))
+        form.combobox(_("Number of variations evaluated by the engine (MultiPV)"), li, multipv)
+        form.separador()
+        form.checkbox(_("Show all evaluations"), show_all)
+        form.separador()
+        resp = form.run()
+        if resp is None:
+            return
+        control, values = resp
+        if control == "defecto":
+            multipv = "PD"
+            seconds = self.min_mstime_base / 1000
+            show_all = False
+        else:
+            seconds, multipv, show_all = values
+            if seconds <= 0:
+                seconds = self.min_mstime_base / 1000
+        dic["MULTIPV"] = multipv
+        dic["SECONDS"] = seconds
+        dic["SHOW_ALL"] = show_all
+        self.show_all_evaluations = show_all
+        self.configuration.write_variables(self._key_configuration, dic)
+        multipv, self.min_mstime, show_all = self.get_adjudicator_options()
+        fich_log = self.xanalyzer.fichero_log
+        self.xanalyzer.terminar()
+        self.xanalyzer.update_multipv(multipv)
+        self.xanalyzer.options(self.min_mstime, 0, True)
+        if fich_log:
+            self.xanalyzer.log_open()
+        self.play_next_move()
 
     def adjourn(self):
         if len(self.game) > 0 and QTUtil2.pregunta(self.main_window, _("Do you want to adjourn the game?")):
@@ -334,7 +410,7 @@ class ManagerFideFics(Manager.Manager):
         if self.book.check_human(fen, from_sq, to_sq):
             return True
         FasterCode.set_fen(fen)
-        FasterCode.make_move(from_sq+to_sq)
+        FasterCode.make_move(from_sq + to_sq)
         fen1 = FasterCode.get_fen()
         fenm2 = FasterCode.fen_fenm2(fen1)
         return OpeningsStd.ap.is_book_fenm2(fenm2)
@@ -405,7 +481,7 @@ class ManagerFideFics(Manager.Manager):
             um.final()
 
             w = WindowJuicio.WJuicio(self, self.xanalyzer, self.name_obj, position, mrm, rm_obj, rm_usu, analysis,
-                                     is_competitive=True, continue_tt=continue_tt)
+                                     is_competitive=not self.show_all_evaluations, continue_tt=continue_tt)
             w.exec_()
 
             analysis = w.analysis
@@ -414,14 +490,14 @@ class ManagerFideFics(Manager.Manager):
             self.puntos += dpts
             self.set_score()
 
-            comentario_usu += " %s" % (w.rmUsu.abbrev_text())
-            comentario_obj += " %s" % (w.rmObj.abbrev_text())
+            comentario_usu += " %s" % (w.rm_usu.abbrev_text())
+            comentario_obj += " %s" % (w.rm_obj.abbrev_text())
 
             comentario_puntos = "%s = %d %+d %+d = %d" % (
                 _("Score"),
                 self.puntos - dpts,
-                w.rmUsu.centipawns_abs(),
-                -w.rmObj.centipawns_abs(),
+                w.rm_usu.centipawns_abs(),
+                -w.rm_obj.centipawns_abs(),
                 self.puntos,
             )
 

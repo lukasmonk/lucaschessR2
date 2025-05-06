@@ -5,6 +5,7 @@ from PySide2 import QtCore, QtGui, QtWidgets
 
 import Code
 from Code import Util
+from Code.Base import Game
 from Code.QT import Iconos
 from Code.QT import QTUtil
 from Code.QT import QTVarios
@@ -453,7 +454,7 @@ class Histogram(QtWidgets.QGraphicsView):
         self.owner.grid_tecla_control(self.grid, k, False, False, False)
 
 
-def gen_histograms(game):
+def gen_histograms(game: Game.Game):
     hgame = HSerie()
     hwhite = HSerie()
     hblack = HSerie()
@@ -466,7 +467,14 @@ def gen_histograms(game):
     porc_w = 0
     porc_b = 0
 
-    for num, move in enumerate(game.li_moves):
+    if not game.is_fen_initial():
+        pos_inicial = (game.first_position.num_moves-1)*2
+        if game.starts_with_black:
+            pos_inicial += 1
+    else:
+        pos_inicial = 0
+
+    for num, move in enumerate(game.li_moves, pos_inicial):
         if move.analysis:
             mrm, pos = move.analysis
             is_white = move.is_white()

@@ -30,7 +30,7 @@ def read_engines(folder_engines):
 
     mas("acqua", "Giovanni Di Maria", "2.0", "http://www.elektrosoft.it/scacchi/acqua/acqua.asp", "acqua.exe", 844)
     mas("foxcub", "Lucas Monge", "1.1", "", "FoxCub.exe", 1000)
-    mas("fox", "Lucas Monge", "1.2", "", "Fox.exe", 1500)
+    mas("fox", "Lucas Monge", "1.4", "", "Fox.exe", 1500)
 
     mas("tarrasch", "Bill Forster", "ToyEngine Beta V0.906", "http://www.triplehappy.com/",
         "TarraschToyEngineV0.906.exe", 1481, emulate_movetime=True)

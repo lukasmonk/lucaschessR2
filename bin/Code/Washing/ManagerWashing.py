@@ -178,13 +178,13 @@ class ManagerWashingReplay(Manager.Manager):
             lic = []
             if jgObj.analysis:
                 mrmObj, posObj = jgObj.analysis
-                rmObj = mrmObj.li_rm[posObj]
-                lic.append("%s: %s (%s)" % (_("Played previously"), jgObj.pgn_translated(), rmObj.abbrev_text_base()))
-                ptsObj = rmObj.centipawns_abs()
-                rmUsu, posUsu = mrmObj.search_rm(movUsu)
+                rm_obj = mrmObj.li_rm[posObj]
+                lic.append("%s: %s (%s)" % (_("Played previously"), jgObj.pgn_translated(), rm_obj.abbrev_text_base()))
+                ptsObj = rm_obj.centipawns_abs()
+                rm_usu, posUsu = mrmObj.search_rm(movUsu)
                 if posUsu >= 0:
-                    lic.append("%s: %s (%s)" % (_("Played now"), move.pgn_translated(), rmUsu.abbrev_text_base()))
-                    ptsUsu = rmUsu.centipawns_abs()
+                    lic.append("%s: %s (%s)" % (_("Played now"), move.pgn_translated(), rm_usu.abbrev_text_base()))
+                    ptsUsu = rm_usu.centipawns_abs()
                     if ptsUsu < ptsObj - 10:
                         lic[-1] += ' <span style="color:red"><b>%s</b></span>' % _("Bad move")
                         self.errores += 1
@@ -789,7 +789,7 @@ class ManagerWashingCreate(Manager.Manager):
         self.add_game()
 
     def takeback(self):
-        if len(self.game):
+        if len(self.game) and self.in_end_of_line():
             self.analyze_terminate()
             self.game.remove_last_move(self.is_human_side_white)
             self.game.assign_opening()

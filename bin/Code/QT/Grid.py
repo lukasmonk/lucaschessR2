@@ -18,6 +18,8 @@ siempre que la rutina se haya definido en la ventana:
 
 from PySide2 import QtCore, QtGui, QtWidgets
 
+from Code.QT import QTUtil2
+
 
 class ControlGrid(QtCore.QAbstractTableModel):
     """
@@ -358,8 +360,10 @@ class Grid(QtWidgets.QTableView):
         return self.o_columns.buscaColumna(key)
 
     def selectAll(self):
-        if self.w_parent.grid_num_datos(self) > 10000:
-            return
+        if self.w_parent.grid_num_datos(self) > 20000:
+            if not QTUtil2.pregunta(self, _("This process takes a very long time") + ".<br><br>" + \
+                                          _("What do you want to do?"), label_yes=_("Continue"), label_no=_("Cancel")):
+                return
         QtWidgets.QTableView.selectAll(self)
 
     def coloresAlternados(self):
@@ -510,7 +514,7 @@ class Grid(QtWidgets.QTableView):
         li_claves = []
         for n, column in enumerate(self.oColumnasR.li_columns):
             column.ancho = self.columnWidth(n)
-            column.position = n #self.columnViewportPosition(n)
+            column.position = n  # self.columnViewportPosition(n)
             column.guardarConf(dic, self)
             li_claves.append(column.key)
 
@@ -529,7 +533,7 @@ class Grid(QtWidgets.QTableView):
     def columnas(self):
         for n, column in enumerate(self.oColumnasR.li_columns):
             column.ancho = self.columnWidth(n)
-            column.position = n #self.columnViewportPosition(n)
+            column.position = n  # self.columnViewportPosition(n)
         if self.siCabeceraMovible:
             self.o_columns.li_columns.sort(key=lambda xcol: xcol.position)
         return self.o_columns

@@ -507,6 +507,12 @@ def pmPlayer():
 def Player():
     return iget("Player")
 
+def pmPlayer32():
+    return iget("pmPlayer32")
+
+def Player32():
+    return iget("Player32")
+
 def pmJS_Rotacion():
     return iget("pmJS_Rotacion")
 
@@ -3260,3 +3266,21 @@ def pmAddAnalysis():
 
 def AddAnalysis():
     return iget("AddAnalysis")
+
+def pmLinear():
+    return iget("pmLinear")
+
+def Linear():
+    return iget("Linear")
+
+def pmFideBuilding():
+    return iget("pmFideBuilding")
+
+def FideBuilding():
+    return iget("FideBuilding")
+
+def pmMath():
+    return iget("pmMath")
+
+def Math():
+    return iget("Math")
