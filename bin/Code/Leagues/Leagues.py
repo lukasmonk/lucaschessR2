@@ -56,6 +56,14 @@ class Opponent:
     def is_human(self):
         return self.type == HUMAN
 
+    def is_engine(self):
+        return self.type == ENGINE
+
+    def exists(self):
+        if self.type == ENGINE:
+            return self.opponent.exists()
+        return True
+
     def save(self):
         dic = {
             "TYPE": self.type,
@@ -120,6 +128,14 @@ class Match:
 
     def get_opponents(self, league):
         return league.opponent_by_xid(self.xid_white), league.opponent_by_xid(self.xid_black)
+
+    def list_non_existent_engines(self, league):
+        opponent: Opponent
+        li = []
+        for opponent in (league.opponent_by_xid(self.xid_white), league.opponent_by_xid(self.xid_black)):
+            if not opponent.exists():
+                li.append(opponent)
+        return li
 
 
 class MatchsDay:

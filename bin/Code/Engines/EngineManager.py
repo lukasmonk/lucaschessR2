@@ -142,7 +142,6 @@ class EngineManager:
         if self.starting_the_engine or self.engine is not None:
             return False
         self.starting_the_engine = True
-        self.engine = True
         self.set_multipv(self.num_multipv)
 
         exe = self.confMotor.ejecutable()
@@ -463,11 +462,13 @@ class EngineManager:
 
     def ac_estado(self):
         self.check_engine()
-        return self.engine.ac_estado()
+        if self.engine:
+            return self.engine.ac_estado()
 
     def ac_final(self, min_mstime):
         self.check_engine()
-        return self.engine.ac_final(min_mstime)
+        if self.engine:
+            return self.engine.ac_final(min_mstime)
 
     def ac_final_limit(self):
         self.check_engine()

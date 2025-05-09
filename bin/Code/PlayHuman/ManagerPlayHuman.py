@@ -198,7 +198,7 @@ class ManagerPlayHuman(Manager.Manager):
 
         elif key == TB_CONFIG:
             if self.state == ST_PLAYING:
-                self.configurar([], with_sounds=True, with_change_tutor=self.ayudas_iniciales > 0)
+                self.configurar([], with_sounds=True)
 
         elif key == TB_UTILITIES:
             li_mas_opciones = [("books", _("Consult a book"), Iconos.Libros())]

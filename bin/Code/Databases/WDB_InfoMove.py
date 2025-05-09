@@ -2,12 +2,13 @@ from PySide2 import QtWidgets, QtCore
 from PySide2.QtCore import Qt
 
 import Code
+from Code.Analysis import Analysis
 from Code.Base import Position
 from Code.Board import Board
 from Code.QT import Colocacion
 from Code.QT import Controles
 from Code.QT import Iconos
-from Code.QT import QTVarios, QTUtil
+from Code.QT import QTVarios, QTUtil, QTUtil2
 
 
 class BoardKey(Board.Board):
@@ -18,6 +19,10 @@ class BoardKey(Board.Board):
 
 
 class LBKey(Controles.LB):
+    wowner = None
+    game = None
+    pos_move = None
+
     def keyPressEvent(self, event):
         k = event.key()
         self.wowner.tecla_pulsada(k)
@@ -36,6 +41,9 @@ class LBKey(Controles.LB):
             elif resp == "copy_sel":
                 g = self.game.copia(self.pos_move)
                 QTUtil.set_clipboard(g.pgn())
+
+    def mouseDoubleClickEvent(self, event):
+        self.wowner.analizar_actual()
 
 
 class WInfomove(QtWidgets.QWidget):
@@ -63,6 +71,7 @@ class WInfomove(QtWidgets.QWidget):
         lybt, bt = QTVarios.ly_mini_buttons(self, "", siTiempo=True, siLibre=False, icon_size=24, siJugar=True)
 
         self.lbPGN = LBKey(self).anchoFijo(self.board.ancho).set_wrap()
+        self.lbPGN.setTextInteractionFlags(Qt.LinksAccessibleByMouse| Qt.LinksAccessibleByKeyboard)
         self.lbPGN.wowner = self
         self.lbPGN.set_font_type(puntos=configuration.x_pgn_fontpoints)
         Code.configuration.set_property(self.lbPGN, "pgn")
@@ -89,18 +98,18 @@ class WInfomove(QtWidgets.QWidget):
 
         self.lb_opening = Controles.LB(self).align_center().anchoFijo(self.board.ancho).set_wrap()
         self.lb_opening.set_font_type(puntos=10, peso=200)
-        lyO = Colocacion.H().relleno().control(self.lb_opening).relleno()
+        ly_o = Colocacion.H().relleno().control(self.lb_opening).relleno()
 
         lya = Colocacion.H().relleno().control(scroll).relleno()
 
         layout = Colocacion.G()
         layout.controlc(self.board, 0, 0)
         layout.otroc(lybt, 1, 0)
-        layout.otro(lyO, 2, 0)
+        layout.otro(ly_o, 2, 0)
         layout.otro(lya, 3, 0)
         self.setLayout(layout)
+        self.layout = layout
 
-        self.usoNormal = True
         self.pos_move = -1
 
         self.clock_running = False
@@ -108,16 +117,12 @@ class WInfomove(QtWidgets.QWidget):
     def cambiado_board(self):
         self.lbPGN.anchoFijo(self.board.ancho)
         self.lb_opening.anchoFijo(self.board.ancho)
+        self.setLayout(self.layout)
 
     def process_toolbar(self):
         getattr(self, self.sender().key)()
 
-    def modoNormal(self):
-        self.usoNormal = True
-        self.MoverFinal()
-
     def modoPartida(self, game, move):
-        self.usoNormal = False
         self.game = game
         if game.opening:
             txt = game.opening.tr_name
@@ -129,51 +134,9 @@ class WInfomove(QtWidgets.QWidget):
         self.colocatePartida(move)
 
     def modoFEN(self, game, fen, move):
-        self.usoNormal = False
         self.game = game
         self.lb_opening.set_text(fen)
         self.colocatePartida(move)
-
-    def colocate(self, pos):
-        if not self.historia:
-            self.board.activate_side(True)
-            return
-        lh = len(self.historia) - 1
-        if pos >= lh:
-            self.clock_running = False
-            pos = lh
-        if pos < 0:
-            return self.MoverInicio()
-
-        self.posHistoria = pos
-
-        move = self.historia[self.posHistoria]
-        self.cpActual.read_fen(move.fen())
-        self.board.set_position(self.cpActual)
-        pv = move.pv()
-        if pv:
-            self.board.put_arrow_sc(pv[:2], pv[2:4])
-
-        if self.posHistoria != lh:
-            self.board.disable_all()
-        else:
-            self.board.activate_side(self.cpActual.is_white)
-
-        nh = len(self.historia)
-        li = []
-        for x in range(1, nh):
-            uno = self.historia[x]
-            xp = uno.pgnNum()
-            if x > 1:
-                if ".." in xp:
-                    xp = xp.split("...")[1]
-            if x == self.posHistoria:
-                xp = '<span style="color:blue">%s</span>' % xp
-            li.append(xp)
-        pgn = " ".join(li)
-        self.lbPGN.set_text(pgn)
-        self.lbPGN.game = self.game
-        self.lbPGN.pos_move = self.pos_move
 
     def colocatePartida(self, pos):
         if not len(self.game):
@@ -210,7 +173,7 @@ class WInfomove(QtWidgets.QWidget):
             else:
                 xp = '<span style="%s">%s</span>' % (style_moves, xp)
 
-            pgn += '<a href="%d" style="text-decoration:none;">%s</a> ' % (n, xp)
+            pgn += '<nobr><a href="%d" style="text-decoration:none;">%s</a></nobr> ' % (n, xp)
 
         self.lbPGN.set_text(pgn)
         self.lbPGN.game = self.game
@@ -244,35 +207,36 @@ class WInfomove(QtWidgets.QWidget):
         return True
 
     def MoverInicio(self):
-        if self.usoNormal:
-            self.posHistoria = -1
-            position = Position.Position().set_pos_initial()
-        else:
-            # self.colocatePartida(-1)
-            self.pos_move = -1
-            position = self.game.first_position
+        self.pos_move = -1
+        position = self.game.first_position
         self.board.set_position(position)
 
     def MoverAtras(self):
-        if self.usoNormal:
-            if self.posHistoria is not None:
-                self.colocate(self.posHistoria - 1)
-        else:
-            self.colocatePartida(self.pos_move - 1)
+        self.colocatePartida(self.pos_move - 1)
 
     def MoverAdelante(self):
-        if self.usoNormal:
-            if self.posHistoria is not None:
-                self.colocate(self.posHistoria + 1)
-        else:
-            self.colocatePartida(self.pos_move + 1)
+        self.colocatePartida(self.pos_move + 1)
+
+    def analizar_actual(self):
+        lh = len(self.game)
+        if lh == 0 or self.pos_move >= lh:
+            return
+        move = self.game.move(self.pos_move)
+        xanalyzer = Code.procesador.XAnalyzer()
+        me = QTUtil2.waiting_message.start(self, _("Analyzing the move...."))
+        move.analysis = xanalyzer.analyzes_move_game(move.game, self.pos_move, xanalyzer.mstime_engine,
+                                                     xanalyzer.depth_engine)
+        me.final()
+        Analysis.show_analysis(
+            Code.procesador, xanalyzer, move,
+            self.board.is_white_bottom, self.pos_move, main_window=self,
+            must_save=False
+        )
+        self.lbPGN.set_text("") #necesario para que desaparezca la selección
+        self.colocatePartida(self.pos_move)
 
     def MoverFinal(self):
-        if self.usoNormal:
-            if self.historia is not None:
-                self.colocate(len(self.historia) - 1)
-        else:
-            self.colocatePartida(99999)
+        self.colocatePartida(99999)
 
     def MoverJugar(self):
         self.board.play_current_position()

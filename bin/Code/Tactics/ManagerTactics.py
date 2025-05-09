@@ -166,7 +166,7 @@ class ManagerTactics(Manager.Manager):
             else:
                 li_mas_opciones.append(("lmo_jump", _("Jump to the next after solving"), Iconos.Jump()))
 
-            resp = self.configurar(with_sounds=True, with_change_tutor=False, li_extra_options=li_mas_opciones)
+            resp = self.configurar(with_sounds=True, li_extra_options=li_mas_opciones)
             if resp in ("lmo_stop", "lmo_jump"):
                 self.with_automatic_jump = resp == "lmo_jump"
                 self.tactic.set_automatic_jump(self.with_automatic_jump)

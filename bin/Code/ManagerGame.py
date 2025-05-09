@@ -54,7 +54,8 @@ class ManagerGame(Manager.Manager):
         self.human_is_playing = True
         self.is_human_side_white = True
 
-        self.state = ST_ENDGAME if self.game.is_finished() else ST_PLAYING
+        # self.state = ST_ENDGAME if self.game.is_finished() else ST_PLAYING
+        self.state = ST_PLAYING if self.game.is_possible_add_moves() else ST_ENDGAME
 
         self.main_window.active_game(True, False)
         self.remove_hints(True, False)

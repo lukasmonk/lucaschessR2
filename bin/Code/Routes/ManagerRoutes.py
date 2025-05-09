@@ -423,7 +423,7 @@ class ManagerRoutesEndings(ManagerRoutes):
             self.terminate()
 
         elif key == TB_CONFIG:
-            self.configurar(with_sounds=True, with_change_tutor=True)
+            self.configurar(with_sounds=True)
 
         elif key == TB_ADVICE:
             self.get_help()
@@ -633,7 +633,7 @@ class ManagerRoutesTactics(ManagerRoutes):
             self.terminate()
 
         elif key == TB_CONFIG:
-            self.configurar(with_sounds=True, with_change_tutor=True)
+            self.configurar(with_sounds=True)
 
         elif key == TB_ADVICE:
             self.get_help()

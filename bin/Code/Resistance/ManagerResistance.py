@@ -125,7 +125,7 @@ class ManagerResistance(Manager.Manager):
             self.reiniciar()
 
         elif key == TB_CONFIG:
-            self.configurar(with_sounds=True, with_change_tutor=False, with_blinfold=False)
+            self.configurar(with_sounds=True, with_blinfold=False)
 
         elif key == TB_UTILITIES:
             self.utilities(with_tree=self.state == ST_ENDGAME)

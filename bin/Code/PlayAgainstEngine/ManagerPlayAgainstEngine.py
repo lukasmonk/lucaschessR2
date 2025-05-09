@@ -534,7 +534,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                 if len(self.game) > 0:
                     li_mas_opciones.append((None, None, None))
                     li_mas_opciones.append(("moverival", _("Change opponent move"), Iconos.TOLchange()))
-            resp = self.configurar(li_mas_opciones, with_sounds=True, with_change_tutor=self.ayudas_iniciales > 0)
+            resp = self.configurar(li_mas_opciones, with_sounds=True)
             if resp == "rival":
                 self.change_rival()
             elif resp == "moverival":
@@ -711,19 +711,14 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             dic = self.save_state(temporary=True)
             dic1 = {}
             for k, v in dic.items():
-                if k not in ("BOOKR", "BOOKP"):
+                if k not in ("BOOKR", "BOOKP", "play_position"):
                     dic1[k] = v
+
             if self.game_type == GT_AGAINST_ENGINE:
                 engine = dic1["RIVAL"]["CM"]
                 if hasattr(engine, "ICON"):
                     delattr(engine, "ICON")
             adj.add_crash(self.key_crash, dic1)
-
-    def crash_adjourn_end(self):
-        if self.key_crash:
-            with Adjournments.Adjournments() as adj:
-                adj.rem_crash(self.key_crash)
-                self.key_crash = None
 
     def run_adjourn(self, dic):
         self.restore_state(dic)

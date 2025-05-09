@@ -108,7 +108,7 @@ class ManagerWashingReplay(Manager.Manager):
             self.terminar()
 
         elif key == TB_CONFIG:
-            self.configurar(with_sounds=True, with_change_tutor=False)
+            self.configurar(with_sounds=True)
 
         elif key == TB_UTILITIES:
             self.utilities()
@@ -324,7 +324,7 @@ class ManagerWashingTactics(Manager.Manager):
             self.get_help()
 
         elif key == TB_CONFIG:
-            self.configurar(with_sounds=True, with_change_tutor=False)
+            self.configurar(with_sounds=True)
 
         elif key == TB_UTILITIES:
             self.utilities()

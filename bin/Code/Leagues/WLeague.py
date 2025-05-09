@@ -759,16 +759,21 @@ class WLeague(LCDialog.LCDialog):
             self.show_match_done(xmatch)
 
     def consult_matches_classification(self, grid, row):
-        xmatch = self.li_matches[row]
+        xmatch: Leagues.Match = self.li_matches[row]
         division = int(xmatch.label_division) - 1
         if xmatch.result:
             self.show_match_done(xmatch)
             grid.refresh()
 
         elif xmatch.is_human_vs_engine(self.league):
-            self.play_human = self.league, xmatch, division
-            self.result = PLAY_HUMAN
-            self.accept()
+            li = xmatch.list_non_existent_engines(self.league)
+            if li:
+                engine = li[0].opponent
+                QTUtil2.message_error(self, f'{_("Engine not found")}:\n{engine.path_exe}')
+            else:
+                self.play_human = self.league, xmatch, division
+                self.result = PLAY_HUMAN
+                self.accept()
 
         elif xmatch.is_human_vs_human(self.league):
             game = Game.Game()
@@ -832,7 +837,7 @@ class WLeague(LCDialog.LCDialog):
             #     lw.put_league()
 
             xmatch = self.li_matches[row]
-            if xmatch.result:
+            if xmatch.result and (xmatch.is_human_vs_engine(self.league) or xmatch.is_human_vs_human(self.league)):
                 menu = QTVarios.LCMenu(self)
                 menu.opcion("show", _("Show game"), Iconos.LearnGame())
                 menu.separador()
@@ -979,6 +984,14 @@ class WLeague(LCDialog.LCDialog):
         return resp
 
     def launch_worker(self):
+        li_engines_error = []
+        for xmatch in self.li_matches:
+            if not xmatch.result:
+                li_engines_error.extend(xmatch.list_non_existent_engines(self.league))
+        if li_engines_error:
+            mens = "\n".join([opponent.opponent.path_exe for opponent in li_engines_error])
+            QTUtil2.message_error(self, f'{_("Engine not found")}:\n{mens}')
+            return
         resp = QTVarios.launch_workers(self)
 
         if resp:

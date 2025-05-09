@@ -252,7 +252,7 @@ class ManagerEntPos(Manager.Manager):
                 ico = Iconos.Add()
 
             li_extra_options = [("lmo_advanced", "%s: %s" % (txt, _("Advanced mode")), ico)]
-            resp = self.configurar(with_sounds=True, with_change_tutor=True, li_extra_options=li_extra_options)
+            resp = self.configurar(with_sounds=True, li_extra_options=li_extra_options)
             if resp == "lmo_advanced":
                 self.advanced = not self.advanced
                 self.reiniciar()

@@ -93,7 +93,7 @@ class ManagerMateMap(Manager.Manager):
             self.reiniciar()
 
         elif key == TB_CONFIG:
-            self.configurar(with_sounds=True, with_change_tutor=True)
+            self.configurar(with_sounds=True)
 
         elif key == TB_UTILITIES:
             self.utilities()

@@ -21,7 +21,6 @@ class Information(QtWidgets.QWidget):
         self.game = None
         self.width_saved = None
         self.parent_width_saved = None
-        self.width_previous = None
         self.saved_width = None
 
         configuration = Code.configuration
@@ -260,24 +259,21 @@ class Information(QtWidgets.QWidget):
     def get_manager(self):
         return self.w_parent.manager
 
-    def valoration_changed(self):
-        if self.move:
-            li = []
-            for x in range(self.max_nags):
-                v = self.li_nags[x].valor()
-                if v:
-                    li.append(v)
-            self.move.li_nags = li
-            self.set_nags(li)
+    # def valoration_changed(self):
+    #     if self.move:
+    #         li = []
+    #         for x in range(self.max_nags):
+    #             v = self.li_nags[x].valor()
+    #             if v:
+    #                 li.append(v)
+    #         self.move.li_nags = li
+    #         self.set_nags(li)
 
     def resizeEvent(self, event):
         if self.isVisible() and not self.w_parent.isMaximized():
             new_width = self.width()
-            if self.width_previous:
-                if abs(self.width_previous - new_width) < 15:
-                    self.width_saved = new_width
-                    self.parent_width_saved = self.w_parent.width()
-            self.width_previous = new_width
+            self.width_saved = new_width
+            self.parent_width_saved = self.w_parent.width()
 
     def save_width_parent(self):
         self.saved_width = self.width_saved, self.parent_width_saved

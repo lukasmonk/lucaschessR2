@@ -151,7 +151,7 @@ class Game:
 
     def check_tags(self):
         if self.first_position and not self.first_position.is_initial() and not self.get_tag("FEN"):
-            self.set_tag("FEN", self.first_position.fen_base())
+            self.set_tag("FEN", self.first_position.fen())
             self.order_tags()
 
     def set_result(self):

@@ -10,6 +10,7 @@ from Code import ControlPGN
 from Code import TimeControl
 from Code import Util
 from Code import XRun
+from Code import Adjournments
 from Code.Analysis import Analysis, AnalysisGame, AnalysisIndexes, Histogram, WindowAnalysisGraph, AI
 from Code.Analysis import WindowAnalysisConfig
 from Code.Base import Game, Move, Position
@@ -170,6 +171,8 @@ class Manager:
 
         self.ap_ratings = None
 
+        self.key_crash = None
+
     def close(self):
         if not self.closed:
             self.procesador.reset()
@@ -221,6 +224,13 @@ class Manager:
             self.main_window.base.tb.setVisible(True)
         if self.must_be_autosaved:
             self.autosave_now()
+        self.crash_adjourn_end()
+
+    def crash_adjourn_end(self):
+        if self.key_crash:
+            with Adjournments.Adjournments() as adj:
+                adj.rem_crash(self.key_crash)
+                self.key_crash = None
 
     def reset_shortcuts_mouse(self):
         self.atajosRatonDestino = None
@@ -420,6 +430,7 @@ class Manager:
             self.board.set_position(move.position)
             self.main_window.base.pgn.refresh()
             self.main_window.base.pgn.gobottom(1 if move.is_white() else 2)
+            self.board.put_arrow_sc(move.from_sq, move.to_sq)
             # self.goto_end()
 
     def move_the_pieces(self, li_moves, is_rival=False):
@@ -1594,7 +1605,7 @@ class Manager:
         else:
             self.change_info_extra(resp)
 
-    def configurar(self, li_extra_options=None, with_change_tutor=False, with_sounds=False, with_blinfold=True):
+    def configurar(self, li_extra_options=None, with_sounds=False, with_blinfold=True):
         menu = QTVarios.LCMenu(self.main_window)
 
         menu_vista = menu.submenu(_("Show/hide"), Iconos.Vista())

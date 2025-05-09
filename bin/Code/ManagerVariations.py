@@ -27,11 +27,12 @@ class ManagerVariations(Manager.Manager):
     dicRival: dict
     play_against_engine: bool
     is_human_side_white: bool
+    changed: bool
+    error = None
 
     def start(self, game, is_white_bottom, with_engine_active, is_competitive, go_to_move=None):
 
         self.thinking(True)
-
         self.kibitzers_manager = self.procesador.kibitzers_manager
 
         self.accepted = False
@@ -85,8 +86,13 @@ class ManagerVariations(Manager.Manager):
         self.human_is_playing = True
 
         if with_engine_active and not is_competitive:
-            self.change_rival()
-            self.active_engine()
+            if self.change_rival():
+                self.active_engine()
+            else:
+                if self.xrival:
+                    self.xrival.terminar()
+                    self.xrival = None
+                self.play_against_engine = False
 
         if not len(self.game):
             self.play_next_move()
@@ -111,7 +117,7 @@ class ManagerVariations(Manager.Manager):
             self.reiniciar()
 
         elif key == TB_CONFIG:
-            self.configurar()
+            self.config()
 
         elif key == TB_UTILITIES:
             sep = (None, None, None, None)
@@ -202,7 +208,9 @@ class ManagerVariations(Manager.Manager):
 
         if self.game.is_finished():
             return
-
+        if len(self.game) > 0:
+            move = self.game.move(-1)
+            self.put_arrow_sc(move.from_sq, move.to_sq)
         self.set_side_indicator(is_white)
 
         self.activate_side(is_white)
@@ -240,7 +248,7 @@ class ManagerVariations(Manager.Manager):
         self.main_window.activaInformacionPGN(False)
         self.start(self.game, self.is_white_bottom, self.with_engine_active, self.is_competitive)
 
-    def configurar(self):
+    def config(self):
         if not self.is_competitive:
             if self.play_against_engine:
                 mt = _X(_("Disable %1"), self.xrival.name)
@@ -254,7 +262,7 @@ class ManagerVariations(Manager.Manager):
         else:
             li_extra_options = []
 
-        resp = Manager.Manager.configurar(self, li_extra_options, with_change_tutor=not self.is_competitive)
+        resp = self.configurar(self, li_extra_options)
         if resp:
             self.set_label1("")
             if resp == "engine_disable":
@@ -276,9 +284,10 @@ class ManagerVariations(Manager.Manager):
                 ok, self.error, move = Move.get_game_move(
                     self.game, self.game.last_position, rm.from_sq, rm.to_sq, rm.promotion
                 )
-                self.add_move(move)
                 self.move_the_pieces(move.liMovs)
+                self.add_move(move)
             self.thinking(False)
+
 
     def active_engine(self):
         dic_base = self.configuration.read_variables("ENG_VARIANTES")
@@ -301,6 +310,8 @@ class ManagerVariations(Manager.Manager):
 
         if dic:
             self.set_rival(dic)
+            return True
+        return False
 
     def set_rival(self, dic):
         dr = dic["RIVAL"]

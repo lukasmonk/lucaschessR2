@@ -361,12 +361,6 @@ class ManagerLeague(Manager.Manager):
             self.main_window.start_clock(self.set_clock, 1000)
             adj.add_crash(self.key_crash, dic)
 
-    def crash_adjourn_end(self):
-        if self.key_crash:
-            with Adjournments.Adjournments() as adj:
-                adj.rem_crash(self.key_crash)
-                self.key_crash = None
-
     def run_adjourn(self, dic):
         self.restore_state(dic)
         self.check_boards_setposition()
