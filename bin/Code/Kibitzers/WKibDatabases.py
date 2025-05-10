@@ -14,7 +14,7 @@ from Code.QT import Piezas
 class InfoMoveReplace:
     board = None
 
-    def modoPartida(self, x, y):
+    def game_mode(self, x, y):
         return True
 
 

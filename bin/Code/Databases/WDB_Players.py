@@ -320,7 +320,7 @@ class WPlayer(QtWidgets.QWidget):
                 pv = dt[nfila]["pv"]
                 game = Game.Game()
                 game.read_pv(pv)
-            self.infoMove.modoPartida(game, len(game) - 1)
+            self.infoMove.game_mode(game, len(game) - 1)
             grid.setFocus()
 
     def grid_color_fondo(self, grid, nfila, ocol):

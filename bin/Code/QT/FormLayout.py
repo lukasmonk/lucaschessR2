@@ -478,16 +478,16 @@ class Edit(Controles.ED):
             self.setEchoMode(QtWidgets.QLineEdit.Password)
         self.tipo = config.tipoCampo
         self.decimales = config.decimales
-        if self.tipo == float:
+        if self.tipo is float:
             if config.negatives:
                 self.controlrx(r"^-?\d+(\.\d{1,%d})?$" % self.decimales)
             else:
                 self.controlrx(r"\d+(\.\d{1,%d})?$" % self.decimales)
 
     def valor(self):
-        if self.tipo == int:
+        if self.tipo is int:
             v = self.textoInt()
-        elif self.tipo == float:
+        elif self.tipo is float:
             v = self.textoFloat()
         else:
             v = self.texto()
@@ -682,12 +682,12 @@ class FormWidget(QtWidgets.QWidget):
                         if config.alto == 1:
                             field = Edit(self, config, dispatch)
                             tp = config.tipoCampo
-                            if tp == str:
+                            if tp is str:
                                 field.set_text(value)
-                            elif tp == int:
+                            elif tp is int:
                                 field.tipoInt()
                                 field.ponInt(value)
-                            elif tp == float:
+                            elif tp is float:
                                 field.align_right()
                                 # field.tipoFloat(0.0)
                                 field.ponFloat(value)

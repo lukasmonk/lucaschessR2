@@ -352,11 +352,15 @@ class WVariations(QtWidgets.QWidget):
         board.put_arrow_sc(var_move.from_sq, var_move.to_sq)
         if Code.configuration.x_show_rating:
             self.get_manager().show_rating(var_move)
+        if var_move.analysis and Code.configuration.x_show_bestmove:
+            self.get_manager().show_bestmove(var_move)
         self.mostrar()
 
         if variation is not None:
             manager = self.get_manager()
             manager.show_bar_kibitzers_variation(variation.copia(num_var_move))
+        else:
+            self.get_manager().put_view()
 
     def link_variation_edit(self, num_variation):
         self.edit(num_variation)

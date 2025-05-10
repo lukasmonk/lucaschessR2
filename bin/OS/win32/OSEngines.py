@@ -296,7 +296,7 @@ def read_engines(folder_engines):
             nodes_compatible=True
         )
         cm.set_uci_option("WeightsFile", "maia-%d.pb.gz" % level)
-        cm.path_exe = Util.opj(folder_engines, "maia", "lc0.exe")
+        cm.path_exe = Util.relative_path(Util.opj(folder_engines, "maia", "lc0.exe"))
         cm.name = "Maia-%d" % level
 
     return dic_engines

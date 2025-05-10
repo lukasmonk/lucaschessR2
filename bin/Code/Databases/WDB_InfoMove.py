@@ -47,6 +47,8 @@ class LBKey(Controles.LB):
 
 
 class WInfomove(QtWidgets.QWidget):
+    game: None
+
     def __init__(self, wb_database):
         QtWidgets.QWidget.__init__(self)
 
@@ -71,7 +73,7 @@ class WInfomove(QtWidgets.QWidget):
         lybt, bt = QTVarios.ly_mini_buttons(self, "", siTiempo=True, siLibre=False, icon_size=24, siJugar=True)
 
         self.lbPGN = LBKey(self).anchoFijo(self.board.ancho).set_wrap()
-        self.lbPGN.setTextInteractionFlags(Qt.LinksAccessibleByMouse| Qt.LinksAccessibleByKeyboard)
+        self.lbPGN.setTextInteractionFlags(Qt.LinksAccessibleByMouse | Qt.LinksAccessibleByKeyboard)
         self.lbPGN.wowner = self
         self.lbPGN.set_font_type(puntos=configuration.x_pgn_fontpoints)
         Code.configuration.set_property(self.lbPGN, "pgn")
@@ -79,7 +81,7 @@ class WInfomove(QtWidgets.QWidget):
         self.lbPGN.setAlignment(QtCore.Qt.AlignTop)
 
         def muestra_pos(txt):
-            self.colocatePartida(int(txt))
+            self.goto_move_num(int(txt))
 
         self.lbPGN.linkActivated.connect(muestra_pos)
 
@@ -122,7 +124,7 @@ class WInfomove(QtWidgets.QWidget):
     def process_toolbar(self):
         getattr(self, self.sender().key)()
 
-    def modoPartida(self, game, move):
+    def game_mode(self, game, move):
         self.game = game
         if game.opening:
             txt = game.opening.tr_name
@@ -131,14 +133,14 @@ class WInfomove(QtWidgets.QWidget):
             self.lb_opening.set_text(txt)
         else:
             self.lb_opening.set_text("")
-        self.colocatePartida(move)
+        self.goto_move_num(move)
 
-    def modoFEN(self, game, fen, move):
+    def fen_mode(self, game, fen, move):
         self.game = game
         self.lb_opening.set_text(fen)
-        self.colocatePartida(move)
+        self.goto_move_num(move)
 
-    def colocatePartida(self, pos):
+    def goto_move_num(self, pos):
         if not len(self.game):
             self.lbPGN.game = None
             self.lbPGN.set_text("")
@@ -152,29 +154,31 @@ class WInfomove(QtWidgets.QWidget):
         p = self.game
 
         movenum = p.primeraJugada()
-        pgn = ""
-        style_number = "color:%s; font-weight: bold;" % Code.dic_colors["PGN_NUMBER"]
-        style_select = "color:%s;font-weight: bold;" % Code.dic_colors["PGN_SELECT"]
-        style_moves = "color:%s;" % Code.dic_colors["PGN_MOVES"]
+        li_pgn = []
+        style_number = f'color:{Code.dic_colors["PGN_NUMBER"]}'
+        style_select = f'color:{Code.dic_colors["PGN_SELECT"]};font-weight:bold;'
+        style_moves = f'color:{Code.dic_colors["PGN_MOVES"]}'
         if p.starts_with_black:
-            pgn += '<span style="%s">%d...</span>' % (style_number, movenum)
+            li_pgn.append(f'<span style="{style_number}">{movenum}...</span>')
             movenum += 1
             salta = 1
         else:
             salta = 0
         for n, move in enumerate(p.li_moves):
             if n % 2 == salta:
-                pgn += '<span style="%s">%d.</span>' % (style_number, movenum)
+                li_pgn.append(f'<span style="{style_number}">{movenum}.</span>')
                 movenum += 1
-
             xp = move.pgn_html(self.with_figurines)
             if n == pos:
-                xp = '<span style="%s">%s</span>' % (style_select, xp)
+                xp = f'<span style="{style_select}">{xp}</span>'
             else:
-                xp = '<span style="%s">%s</span>' % (style_moves, xp)
+                xp = f'<span style="{style_moves}">{xp}</span>'
 
-            pgn += '<nobr><a href="%d" style="text-decoration:none;">%s</a></nobr> ' % (n, xp)
-
+            li_pgn.append(f'<a href="{n}" style="text-decoration:none;">{xp}</a> ')
+        pgn = "".join(li_pgn)
+        if "O-" in pgn:
+            pgn = pgn.replace("O-O-O", "O\u2060-\u2060O-\u2060O").replace("O-O", "O\u2060-\u2060O")
+        self.lbPGN.set_text("")  # necesario para que no aparezca la selección
         self.lbPGN.set_text(pgn)
         self.lbPGN.game = self.game
         self.lbPGN.pos_move = pos
@@ -212,10 +216,10 @@ class WInfomove(QtWidgets.QWidget):
         self.board.set_position(position)
 
     def MoverAtras(self):
-        self.colocatePartida(self.pos_move - 1)
+        self.goto_move_num(self.pos_move - 1)
 
     def MoverAdelante(self):
-        self.colocatePartida(self.pos_move + 1)
+        self.goto_move_num(self.pos_move + 1)
 
     def analizar_actual(self):
         lh = len(self.game)
@@ -232,11 +236,11 @@ class WInfomove(QtWidgets.QWidget):
             self.board.is_white_bottom, self.pos_move, main_window=self,
             must_save=False
         )
-        self.lbPGN.set_text("") #necesario para que desaparezca la selección
-        self.colocatePartida(self.pos_move)
+        self.lbPGN.set_text("")  # necesario para que desaparezca la selección
+        self.goto_move_num(self.pos_move)
 
     def MoverFinal(self):
-        self.colocatePartida(99999)
+        self.goto_move_num(99999)
 
     def MoverJugar(self):
         self.board.play_current_position()

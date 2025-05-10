@@ -131,7 +131,7 @@ class EtiquetaPGN(QtWidgets.QStyledItemDelegate):
 
     def paint(self, painter, option, index):
         data = index.model().data(index, QtCore.Qt.DisplayRole)
-        if type(data) == tuple:
+        if isinstance(data, tuple):
             pgn, color, txt_analysis, indicador_inicial, li_nags = data
             if li_nags:
                 li = []

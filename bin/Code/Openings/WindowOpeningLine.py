@@ -909,7 +909,7 @@ class WLines(LCDialog.LCDialog):
             njug = -1
         self.num_jg_actual = njug
         self.pboard.ponPartida(self.game)
-        self.pboard.colocatePartida(njug)
+        self.pboard.goto_move_num(njug)
         self.glines.setFocus()
 
     def set_jugada(self, njug):

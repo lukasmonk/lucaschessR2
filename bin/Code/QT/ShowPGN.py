@@ -187,36 +187,40 @@ class ShowPGN(QtWidgets.QScrollArea):
 
         def do_variation(variation_game: Game.Game, base_select):
             num_move = variation_game.primeraJugada()
-            pgn_work = ""
+            li_pgn = []
             if variation_game.first_comment:
-                pgn_work = "{%s} " % variation_game.first_comment
+                li_pgn.append("{%s} " % variation_game.first_comment)
 
             if variation_game.starts_with_black:
-                pgn_work += '<span style="%s">%d...</span>' % (style_number, num_move)
+                li_pgn.append(f'<span style="{style_number}">{num_move}...</span>')
                 num_move += 1
                 salta = 1
             else:
                 salta = 0
             for nvar_move, var_move in enumerate(variation_game.li_moves):
                 if nvar_move % 2 == salta:
-                    pgn_work += '<span style="%s">%d.</span>' % (style_number, num_move)
+                    li_pgn.append(f'<span style="{style_number}">{num_move}.</span>')
                     num_move += 1
 
-                xp = (f"<nobr>{var_move.pgn_html_base(self.with_figurines)}</nobr>"
+                xp = (var_move.pgn_html_base(self.with_figurines)
                       + var_move.resto(with_variations=False, with_nag_symbols=True))
 
                 link = "%s|%d" % (base_select, nvar_move)
                 style = style_select if link == selected_link else style_moves
                 xp = '<span style="%s">%s</span>' % (style, xp)
-                pgn_work += '<a href="%s" style="text-decoration:none;">%s</a> ' % (link, xp)
+                li_pgn.append(f'<a href="{link}" style="text-decoration:none;">{xp}</a> ')
 
                 if var_move.variations:
                     for num_var, work_variation in enumerate(var_move.variations.list_games()):
                         link_var = "%s|%d" % (link, num_var)
                         style = style_select if link_var == selected_link else style_moves
-                        pgn_work += ' <span style="%s">(%s)</span> ' % (style, do_variation(work_variation, link_var))
+                        li_pgn.append(f' <span style="{style}">({do_variation(work_variation, link_var)})</span> ')
 
-            return pgn_work.strip().replace("  ", " ")
+            pgn_work = "".join(li_pgn).strip().replace("  ", " ")
+            if "O-" in pgn_work:
+                pgn_work = pgn_work.replace("O-O-O", "O\u2060-\u2060O-\u2060O").replace("O-O", "O\u2060-\u2060O")
+            
+            return pgn_work
 
         base = "%d|" % work_move.pos_in_game
         base += "%d"

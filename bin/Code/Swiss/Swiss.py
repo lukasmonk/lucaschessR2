@@ -883,16 +883,17 @@ class Season:
 
     def get_all_matches_opponent(self, xid_opponent):
         li = []
-        for journey in range(self.current_journey + 1):
-            li_matches = self.get_all_matches(journey)
+        matchsday: MatchsDay
+        for matchsday in self.li_matchesdays:
+            li_matches = matchsday.li_matches
             for xmatch in li_matches:
                 if xid_opponent in (xmatch.xid_black, xmatch.xid_white) and xmatch.result:
                     li.append(xmatch)
         return li
 
     def get_match(self, xid_white, xid_black):
-        for journey in range(self.current_journey + 1):
-            li_matches = self.get_all_matches(journey)
+        for matchsday in self.li_matchesdays:
+            li_matches = matchsday.li_matches
             for xmatch in li_matches:
                 if xid_white == xmatch.xid_white and xid_black == xmatch.xid_black:
                     return xmatch if xmatch.result else None

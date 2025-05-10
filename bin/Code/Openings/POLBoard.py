@@ -81,7 +81,7 @@ class BoardLines(QtWidgets.QWidget):
         self.lbPGN.setOpenExternalLinks(False)
 
         def muestra_pos(txt):
-            self.colocatePartida(int(txt))
+            self.goto_move_num(int(txt))
 
         self.lbPGN.linkActivated.connect(muestra_pos)
 
@@ -210,7 +210,7 @@ class BoardLines(QtWidgets.QWidget):
         self.cbVentaja.set_value(V_SIN)
         self.emComentario.set_text("")
 
-    def colocatePartida(self, pos):
+    def goto_move_num(self, pos):
         self.fenm2 = None
         num_jugadas = len(self.game)
         if num_jugadas == 0:
@@ -294,16 +294,16 @@ class BoardLines(QtWidgets.QWidget):
             self.board.activate_side(color)
 
     def MoverInicio(self):
-        self.colocatePartida(0)
+        self.goto_move_num(0)
 
     def MoverAtras(self):
-        self.colocatePartida(self.pos_move - 1)
+        self.goto_move_num(self.pos_move - 1)
 
     def MoverAdelante(self):
-        self.colocatePartida(self.pos_move + 1)
+        self.goto_move_num(self.pos_move + 1)
 
     def MoverFinal(self):
-        self.colocatePartida(99999)
+        self.goto_move_num(99999)
 
     def MoverTiempo(self):
         if self.clock_running:

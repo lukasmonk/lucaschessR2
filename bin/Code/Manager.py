@@ -519,10 +519,7 @@ class Manager:
                         move_check = None
                 if move_check:
                     if move_check.analysis and self.configuration.x_show_bestmove:
-                        mrm, pos = move_check.analysis
-                        if pos:  # no se muestra la mejor move si es la realizada
-                            rm0 = mrm.best_rm_ordered()
-                            self.board.put_arrow_scvar([(rm0.from_sq, rm0.to_sq)])
+                        self.show_bestmove(move_check)
 
                     if self.configuration.x_show_rating:
                         self.show_rating(move_check)
@@ -585,6 +582,12 @@ class Manager:
         if nag != 1000 and move_check.in_the_opening:
             poscelda = 1 if poscelda == 0 else 0
             self.board.put_rating(move_check.from_sq, move_check.to_sq, 1000, poscelda)
+
+    def show_bestmove(self, move_check):
+        mrm, pos = move_check.analysis
+        if pos:  # no se muestra la mejor move si es la realizada
+            rm0 = mrm.best_rm_ordered()
+            self.board.put_arrow_scvar([(rm0.from_sq, rm0.to_sq)])
 
     def si_check_kibitzers(self):
         return (self.state == ST_ENDGAME) or (not self.is_competitive)
@@ -853,18 +856,6 @@ class Manager:
         self.main_window.base.pgn.goto(0, 0)
         self.refresh_pgn()  # No se puede usar pgn_refresh, ya que se usa con gobottom en otros lados y aqui eso no funciona
         self.put_view()
-
-    # def ponteAlPrincipioColor(self):
-    #     if self.game.li_moves:
-    #         move = self.game.move(0)
-    #         self.set_position(move.position)
-    #         self.main_window.base.pgn.goto(0, 2 if move.position.is_white else 1)
-    #         self.board.put_arrow_sc(move.from_sq, move.to_sq)
-    #         self.refresh_pgn()  # No se puede usar pgn_refresh, ya que se usa con gobottom en otros lados
-    #         # y aqui eso no funciona
-    #         self.put_view()
-    #     else:
-    #         self.goto_firstposition()
 
     def pgnMueve(self, row, is_white):
         self.pgn.mueve(row, is_white)

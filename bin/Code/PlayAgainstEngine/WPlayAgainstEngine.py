@@ -518,8 +518,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
                     if xnombre == op.name:
                         valor = xvalor
                         break
-            tv = type(valor)
-            if tv == bool:
+            if isinstance(valor, bool):
                 valor = str(valor).lower()
             else:
                 valor = str(valor)
@@ -938,7 +937,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         menu.set_font(f)
         n_pos = 0
         for nli, bloque in enumerate(self.li_preferred_openings):
-            if type(bloque) == tuple:  # compatibilidad con versiones anteriores
+            if isinstance(bloque, tuple):  # compatibilidad con versiones anteriores
                 bloque = bloque[0]
                 self.li_preferred_openings[nli] = bloque
             menu.opcion((nli, bloque), bloque.tr_name + " (%s)" % bloque.pgn, Iconos.PuntoVerde())

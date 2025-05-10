@@ -518,7 +518,7 @@ class WGM(LCDialog.LCDialog):
         menu.set_font(f)
         n_pos = 0
         for nli, bloque in enumerate(self.li_preferred_openings):
-            if type(bloque) == tuple:  # compatibilidad con versiones anteriores
+            if isinstance(bloque, tuple):  # compatibilidad con versiones anteriores
                 bloque = bloque[0]
                 self.li_preferred_openings[nli] = bloque
             menu.opcion((n_pos, bloque), bloque.tr_name, Iconos.PuntoVerde())

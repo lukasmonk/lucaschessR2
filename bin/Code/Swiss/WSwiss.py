@@ -765,7 +765,7 @@ class WSwiss(LCDialog.LCDialog):
             self.consult_matches_crosstabs(grid, row, o_column.key)
 
         elif grid == self.grid_games:
-            match = self.li_matches[row]
+            match = self.li_matches_played[row]
             xmatch = Swiss.Match(match.xid_white, match.xid_black)
             xmatch.xid = match.xid
             self.show_match_done(xmatch)

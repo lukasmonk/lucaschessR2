@@ -493,7 +493,7 @@ class InfoMoveReplace:
         self.tab_database = owner
         self.board = self.tab_database.tabsAnalisis.panelOpening.pboard.board
 
-    def modoPartida(self, x, y):
+    def game_mode(self, x, y):
         return True
 
 

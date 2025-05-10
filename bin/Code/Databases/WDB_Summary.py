@@ -374,7 +374,7 @@ class WSummary(QtWidgets.QWidget):
             p.read_pv(pv)
             p.is_finished()
             p.assign_opening()
-            self.infoMove.modoPartida(p, 9999)
+            self.infoMove.game_mode(p, 9999)
             self.setFocus()
             self.grid.setFocus()
 

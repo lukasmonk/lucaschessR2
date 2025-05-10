@@ -28,7 +28,7 @@ def read_engines(folder_engines):
     for level in range(1100, 2000, 100):
         cm = mas("maia-%d" % level,"Reid McIlroy-Young,Ashton Anderson,Siddhartha Sen,Jon Kleinberg,Russell Wang + LcZero team","%d" % level, "https://maiachess.com/", "Lc0-0.27.0", level, folder="maia", nodes_compatible=True)
         cm.set_uci_option("WeightsFile", "maia-%d.pb.gz" % level)
-        cm.path_exe = Util.opj(folder_engines, "maia", "Lc0-0.27.0")
+        cm.path_exe = Util.relative_path(Util.opj(folder_engines, "maia", "Lc0-0.27.0"))
         cm.name = "maia-%d" % level
         cm.set_uci_option("Ponder", "false")
         cm.set_uci_option("Hash", "8")

@@ -431,7 +431,7 @@ class WGames(QtWidgets.QWidget):
         if recno >= 0:
             self.grid_cambiado_registro(None, recno, None)
         else:
-            self.infoMove.modoPartida(Game.Game(), 0)
+            self.infoMove.game_mode(Game.Game(), 0)
 
     def grid_cambiado_registro(self, grid, row, oCol):
         if self.grid_num_datos(grid) > row >= 0:
@@ -442,13 +442,13 @@ class WGames(QtWidgets.QWidget):
                 p = Game.Game(fen=fen)
                 p.read_pv(pv)
                 p.is_finished()
-                self.infoMove.modoFEN(p, fen, -1)
+                self.infoMove.fen_mode(p, fen, -1)
             else:
                 p = Game.Game()
                 p.read_pv(pv)
                 p.assign_opening()
                 p.is_finished()
-                self.infoMove.modoPartida(p, 0)
+                self.infoMove.game_mode(p, 0)
 
     def tw_gobottom(self):
         self.grid.gobottom()
