@@ -396,7 +396,7 @@ class WSummary(QtWidgets.QWidget):
 
     def config(self):
         menu = QTVarios.LCMenu(self)
-        menu.opcion("allmoves", _("Show all moves"), is_ckecked=self.allmoves)
+        menu.opcion("allmoves", _("Show all moves"), is_checked=self.allmoves)
         resp = menu.lanza()
         if resp is None:
             return

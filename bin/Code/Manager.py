@@ -1560,27 +1560,27 @@ class Manager:
 
     def add_menu_vista(self, menu_vista):
         menu_vista.opcion("vista_pgn_information", _("PGN information"),
-                          is_ckecked=self.main_window.is_active_information_pgn())
+                          is_checked=self.main_window.is_active_information_pgn())
         menu_vista.separador()
         menu_vista.opcion("vista_captured_material", _("Captured material"),
-                          is_ckecked=self.main_window.is_active_captures())
+                          is_checked=self.main_window.is_active_captures())
         menu_vista.separador()
         menu_vista.opcion(
             "vista_analysis_bar",
             _("Analysis Bar"),
-            is_ckecked=self.main_window.is_active_analysisbar(),
+            is_checked=self.main_window.is_active_analysisbar(),
         )
         menu_vista.separador()
         menu_vista.opcion(
             "vista_bestmove",
             _("Arrow with the best move when there is an analysis"),
-            is_ckecked=self.configuration.x_show_bestmove,
+            is_checked=self.configuration.x_show_bestmove,
         )
         menu_vista.separador()
         menu_vista.opcion(
             "vista_rating",
             _("Ratings") + " (NAGs)",
-            is_ckecked=self.configuration.x_show_rating,
+            is_checked=self.configuration.x_show_rating,
         )
 
     def exec_menu_vista(self, resp):

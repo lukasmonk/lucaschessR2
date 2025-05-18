@@ -44,7 +44,7 @@ class WThemes(LCDialog.LCDialog):
 
         # Grid
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("SELECTED", "", 20, is_ckecked=True)
+        o_columns.nueva("SELECTED", "", 20, is_checked=True)
         o_columns.nueva("THEME", "", 280)
 
         self.o_columnas = o_columns

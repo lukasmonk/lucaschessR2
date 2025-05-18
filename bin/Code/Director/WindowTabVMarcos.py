@@ -55,7 +55,7 @@ class WTV_Marco(QtWidgets.QDialog):
         li_gen.append((config, regMarco.color))
 
         # ( "colorinterior", "n", -1 ),
-        config = FormLayout.Colorbox(_("Internal color"), 80, 20, is_ckecked=True)
+        config = FormLayout.Colorbox(_("Internal color"), 80, 20, is_checked=True)
         li_gen.append((config, regMarco.colorinterior))
 
         # ( "opacity", "n", 1.0 ),

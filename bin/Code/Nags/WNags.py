@@ -38,7 +38,7 @@ class WNags(LCDialog.LCDialog):
 
         # Grid
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("SELECTED", "", 20, is_ckecked=True)
+        o_columns.nueva("SELECTED", "", 20, is_checked=True)
         o_columns.nueva("ICON", "", 16, align_center=True)
         o_columns.nueva("NUMBER", "", 30, align_center=True)
         o_columns.nueva("TITLE", "", 240)

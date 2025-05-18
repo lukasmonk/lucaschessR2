@@ -718,7 +718,7 @@ class Menu(QtWidgets.QMenu):
         self.setFont(f)
         return self
 
-    def opcion(self, key, label, icono=None, is_disabled=False, font_type=None, is_ckecked=None, tooltip: str = "",
+    def opcion(self, key, label, icono=None, is_disabled=False, font_type=None, is_checked=None, tooltip: str = "",
                shortcut: str = ""):
         if icono:
             accion = QtWidgets.QAction(icono, label, self)
@@ -729,9 +729,9 @@ class Menu(QtWidgets.QMenu):
             accion.setDisabled(True)
         if font_type:
             accion.setFont(font_type)
-        if is_ckecked is not None:
+        if is_checked is not None:
             accion.setCheckable(True)
-            accion.setChecked(is_ckecked)
+            accion.setChecked(is_checked)
         if tooltip != "":
             accion.setToolTip(tooltip)
         if shortcut:

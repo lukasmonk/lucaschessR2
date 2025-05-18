@@ -44,6 +44,8 @@ class WGames(QtWidgets.QWidget):
         self.procesador = Code.procesador
         self.configuration = Code.configuration
 
+        self.key_columns = "columns_database"
+
         self.wsummary = wsummary
         self.infoMove = None  # <-- setInfoMove
         self.summaryActivo = None  # movimiento activo en summary
@@ -370,6 +372,9 @@ class WGames(QtWidgets.QWidget):
             self.tw_resize_columns()
         elif k == QtCore.Qt.Key_Delete:
             self.tw_remove()
+        elif is_alt and k == QtCore.Qt.Key_C:
+            self.tw_menu_columns()
+
         else:
             return True  # que siga con el resto de teclas
 
@@ -883,28 +888,22 @@ class WGames(QtWidgets.QWidget):
             menu.opcion(self.tw_options, _("Database options"), Iconos.Opciones())
             menu.separador()
 
-        submenu = menu.submenu(_("Appearance"), Iconos.Appearance())
+        menu.opcion(self.tw_edit_columns, _("Configure the columns"), Iconos.EditColumns(), shortcut="ALT+C")
+        menu.separador()
 
-        dico = {True: Iconos.Aceptar(), False: Iconos.PuntoRojo()}
-        submenu.opcion(self.tw_resize_columns, f'{_("Resize all columns to contents")} ({_("ALT")}-R)',
-                       Iconos.ResizeAll())
-        submenu.separador()
-        submenu.opcion(self.tw_edit_columns, _("Configure the columns"), Iconos.EditColumns())
-        submenu.separador()
+        menu.opcion(self.tw_resize_columns, _("Resize all columns to contents"), Iconos.ResizeAll(),
+                    shortcut="ALT+R")
+        menu.separador()
+
+        submenu = menu.submenu(_("Graphic elements (Director)"), Iconos.Script())
 
         si_show = self.db_games.read_config("GRAPHICS_SHOW_ALLWAYS", False)
+        submenu.opcion(self.tw_dir_show_change, _("Show always"), is_checked=si_show)
+        submenu.separador()
+
         si_graphics_specific = self.db_games.read_config("GRAPHICS_SPECIFIC", False)
-        menu1 = submenu.submenu(_("Graphic elements (Director)"), Iconos.Script())
-        menu2 = menu1.submenu(_("Show always"), Iconos.PuntoAzul())
-        menu2.opcion(self.tw_dir_show_yes, _("Yes"), dico[si_show])
-        menu2.separador()
-        menu2.opcion(self.tw_dir_show_no, _("No"), dico[not si_show])
-        menu1.separador()
-        menu2 = menu1.submenu(_("Specific to this database"), Iconos.PuntoAzul())
-        menu2.opcion(self.tw_locale_yes, _("Yes"), dico[si_graphics_specific])
-        menu2.separador()
-        menu2.opcion(self.tw_locale_no, _("No"), dico[not si_graphics_specific])
-        menu.separador()
+        submenu.opcion(self.tw_locale_change, _("Specific to this database"), Iconos.PuntoAzul(),
+                       is_checked=si_graphics_specific)
 
         resp = menu.lanza()
         if resp:
@@ -1035,16 +1034,6 @@ class WGames(QtWidgets.QWidget):
 
             um.final()
 
-    def tw_edit_columns(self):
-        w = GridEditCols.EditCols(self.grid, "columns_database")
-        if w.exec_():
-            o_columns = self.grid.o_columns
-            dcabs = self.db_games.read_config("dcabs", {})
-            for col in o_columns.li_columns:
-                dcabs[col.key] = col.head
-            self.db_games.save_config("dcabs", dcabs)
-            self.grid.releerColumnas()
-
     def readVarsConfig(self):
         show_always = self.db_games.read_config("GRAPHICS_SHOW_ALLWAYS")
         specific = self.db_games.read_config("GRAPHICS_SPECIFIC")
@@ -1056,20 +1045,14 @@ class WGames(QtWidgets.QWidget):
         self.infoMove.board.dbvisual_set_file(fich_graphic)
         self.infoMove.board.dbvisual_set_show_always(show_always)
 
-    def tw_dir_show_yes(self):
-        self.db_games.save_config("GRAPHICS_SHOW_ALLWAYS", True)
+    def tw_dir_show_change(self):
+        previo = self.db_games.read_config("GRAPHICS_SHOW_ALLWAYS", False)
+        self.db_games.save_config("GRAPHICS_SHOW_ALLWAYS", not previo)
         self.graphicBoardReset()
 
-    def tw_dir_show_no(self):
-        self.db_games.save_config("GRAPHICS_SHOW_ALLWAYS", False)
-        self.graphicBoardReset()
-
-    def tw_locale_yes(self):
-        self.db_games.save_config("GRAPHICS_SPECIFIC", True)
-        self.graphicBoardReset()
-
-    def tw_locale_no(self):
-        self.db_games.save_config("GRAPHICS_SPECIFIC", False)
+    def tw_locale_change(self):
+        previo = self.db_games.read_config("GRAPHICS_SPECIFIC", False)
+        self.db_games.save_config("GRAPHICS_SPECIFIC", not previo)
         self.graphicBoardReset()
 
     def tw_resize_columns(self):
@@ -1438,7 +1421,7 @@ class WGames(QtWidgets.QWidget):
         self.tw_remove_comments_partial(self.grid.recnosSeleccionados())
 
     def tw_remove_comments_partial(self, li_regs):
-        w = RemoveCommentsVariations.WRemoveCommentsVariations(self, "databases_partial_remove", False)
+        w = RemoveCommentsVariations.WRemoveCommentsVariations(self.wb_database, "databases_partial_remove2", False)
         if w.exec_():
             if li_regs is None:
                 li_regs = range(self.db_games.reccount())
@@ -1631,7 +1614,7 @@ class WGames(QtWidgets.QWidget):
             self.wsummary.reset()
 
     def tw_importar_pgn_rem(self):
-        w = RemoveCommentsVariations.WRemoveCommentsVariations(self, "databases_remove_comvar", True)
+        w = RemoveCommentsVariations.WRemoveCommentsVariations(self, "databases_remove_comvar2", True)
         if w.exec_():
             self.tw_importar_pgn(rem_comvar_run=w.run)
 
@@ -1805,3 +1788,49 @@ class WGames(QtWidgets.QWidget):
                 self.updateStatus()
                 self.grid.gotop()
 
+    def tw_menu_columns(self):
+        dic_conf = self.configuration.read_variables(self.key_columns)
+        menu = QTVarios.LCMenu(self)
+        menu.opcion(self.tw_edit_columns, _("Configure the columns"), Iconos.EditColumns())
+        menu.separador()
+
+        st_letters = set()
+
+        def set_name(x):
+            for pos, c in enumerate(x):
+                if c.upper() not in st_letters:
+                    st_letters.add(c.upper())
+                    return x[:pos] + "&" + x[pos:]
+            return x
+
+        for name in dic_conf:
+            menu.opcion(name, set_name(name), Iconos.PuntoAzul())
+        menu.separador()
+        menu.opcion(self.tw_reinit_columns, _("Reinit"), Iconos.Reiniciar())
+        resp = menu.lanza()
+        if resp is None:
+            return
+        if isinstance(resp, str):
+            conf = dic_conf.get(resp)
+            self.grid.o_columns.restore_dic(conf, self.grid)
+            dcabs = self.db_games.read_config("dcabs", {})
+            for col in self.grid.o_columns.li_columns:
+                dcabs[col.key] = col.head
+            self.db_games.save_config("dcabs", dcabs)
+            self.grid.releerColumnas()
+        else:
+            resp()
+
+    def tw_reinit_columns(self):
+        self.grid.o_columns = self.lista_columnas()
+        self.grid.releerColumnas()
+
+    def tw_edit_columns(self):
+        w = GridEditCols.EditCols(self.grid, self.key_columns)
+        if w.exec_():
+            o_columns = self.grid.o_columns
+            dcabs = self.db_games.read_config("dcabs", {})
+            for col in o_columns.li_columns:
+                dcabs[col.key] = col.head
+            self.db_games.save_config("dcabs", dcabs)
+            self.grid.releerColumnas()

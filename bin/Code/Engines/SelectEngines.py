@@ -495,7 +495,7 @@ class WSelectEngines(LCDialog.LCDialog):
 
         # Grid
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("SELECTED", "", 20, is_ckecked=True)
+        o_columns.nueva("SELECTED", "", 20, is_checked=True)
         o_columns.nueva("ELO", _("Elo"), 86, align_right=True)
         o_columns.nueva("NAME", _("Name"), 240)
         o_columns.nueva("TYPE", _("Type"), 180, align_center=True)

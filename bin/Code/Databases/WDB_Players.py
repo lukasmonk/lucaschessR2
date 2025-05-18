@@ -320,6 +320,8 @@ class WPlayer(QtWidgets.QWidget):
                 pv = dt[nfila]["pv"]
                 game = Game.Game()
                 game.read_pv(pv)
+            if game.pending_opening:
+                game.assign_opening()
             self.infoMove.game_mode(game, len(game) - 1)
             grid.setFocus()
 

@@ -1517,7 +1517,7 @@ class WMantenimientoConfiguraciones(LCDialog.LCDialog):
 
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("KEY", _("Name"), 360, edicion=Delegados.LineaTextoUTF8())
-        o_columns.nueva("VISIBLE", _("Visible"), 100, align_center=True, is_editable=True, is_ckecked=True)
+        o_columns.nueva("VISIBLE", _("Visible"), 100, align_center=True, is_editable=True, is_checked=True)
         self.grid = Grid.Grid(self, o_columns, is_editable=True)
         font = Controles.FontType(puntos=Code.configuration.x_font_points)
         self.grid.set_font(font)

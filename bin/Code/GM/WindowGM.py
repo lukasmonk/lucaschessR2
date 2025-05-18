@@ -611,7 +611,7 @@ class WImportar(LCDialog.LCDialog):
 
         # Lista
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("ELEGIDO", "", 22, is_ckecked=True)
+        o_columns.nueva("ELEGIDO", "", 22, is_checked=True)
         o_columns.nueva("NOMBRE", _("Grandmaster"), 140)
         o_columns.nueva("PARTIDAS", _("Games"), 60, align_right=True)
         o_columns.nueva("BORN", _("Birth date"), 80, align_center=True)

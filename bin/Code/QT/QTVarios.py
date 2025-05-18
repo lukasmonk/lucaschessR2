@@ -578,13 +578,13 @@ class LCMenu(Controles.Menu):
             first_widget_action.setDisabled(True)
             self.addAction(first_widget_action)
 
-    def opcion(self, key, label, icono=None, is_disabled=False, font_type=None, is_ckecked=None, tooltip: str = "",
-               shortcut=""):
+    def opcion(self, key, label, icono=None, is_disabled=False, font_type=None, is_checked=None, tooltip=None,
+               shortcut=None):
         if icono is None:
             icono = Iconos.Empty()
 
-        if is_ckecked is not None:
-            icono = Iconos.Checked() if is_ckecked else Iconos.Unchecked()
+        if is_checked is not None:
+            icono = Iconos.Checked() if is_checked else Iconos.Unchecked()
 
         Controles.Menu.opcion(self, key, label, icono, is_disabled, font_type, None, tooltip, shortcut)
 
@@ -617,11 +617,11 @@ class LCMenuRondo(LCMenu):
         LCMenu.__init__(self, parent, puntos)
         self.rondo = rondo_puntos()
 
-    def opcion(self, key, label, icono=None, is_disabled=False, font_type=None, is_ckecked=None, tooltip="",
+    def opcion(self, key, label, icono=None, is_disabled=False, font_type=None, is_checked=None, tooltip="",
                shortcut=""):
         if icono is None:
             icono = self.rondo.otro()
-        LCMenu.opcion(self, key, label, icono, is_disabled, font_type, is_ckecked, tooltip, shortcut)
+        LCMenu.opcion(self, key, label, icono, is_disabled, font_type, is_checked, tooltip, shortcut)
 
 
 class LCMenuPiezas(Controles.Menu):
@@ -631,10 +631,10 @@ class LCMenuPiezas(Controles.Menu):
         )
         self.set_font_type("Chess Merida", 16)
 
-    def opcion(self, key, label, icono=None, is_disabled=False, tipo_letra=None, is_ckecked=False, tooltip="",
+    def opcion(self, key, label, icono=None, is_disabled=False, tipo_letra=None, is_checked=False, tooltip="",
                shortcut=""):
         Controles.Menu.opcion(
-            self, key, label, icono=icono, is_disabled=is_disabled, is_ckecked=is_ckecked
+            self, key, label, icono=icono, is_disabled=is_disabled, is_checked=is_checked
         )
 
     def submenu(self, label, icono=None, is_disabled=False):

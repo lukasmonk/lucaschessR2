@@ -22,7 +22,7 @@ class Columna:
             edicion=None,
             is_editable=None,
             must_show=True,
-            is_ckecked=False,
+            is_checked=False,
     ):
         """
 
@@ -39,7 +39,7 @@ class Columna:
         @param edicion: objeto delegate usado para la edicion de los campos de esta column
         @param is_editable: este parametro se usa cuando aunque la column tiene un delegate asociado para mostrarla, sin embargo no es editable.
         @param must_show: si se muestra o no.
-        @param is_ckecked: si es un campo de chequeo.
+        @param is_checked: si es un campo de chequeo.
         """
 
         self.key = key
@@ -69,9 +69,9 @@ class Columna:
                 self.is_editable = is_editable
 
         self.siMostrarDef = self.must_show = must_show
-        self.is_ckecked = is_ckecked
+        self.is_checked = is_checked
 
-        if is_ckecked:
+        if is_checked:
             self.edicion = Delegados.PmIconosCheck()
             self.is_editable = True
 
@@ -206,7 +206,7 @@ class ListaColumnas:
             edicion=None,
             is_editable=None,
             must_show=True,
-            is_ckecked=False,
+            is_checked=False,
     ):
         """
         Contiene los mismos parametros que la Columna.
@@ -224,7 +224,7 @@ class ListaColumnas:
         @param edicion: objeto delegate usado para la edicion de los campos de esta column
         @param is_editable: este parametro se usa cuando aunque la column tiene un delegate asociado para mostrarla, sin embargo no es editable.
         @param must_show: si se muestra o no.
-        @param is_ckecked: si es un campo de chequeo.
+        @param is_checked: si es un campo de chequeo.
 
         @return: la column creada.
         """
@@ -241,7 +241,7 @@ class ListaColumnas:
             edicion,
             is_editable,
             must_show,
-            is_ckecked,
+            is_checked,
         )
         self.li_columns.append(column)
         self.posCreacion += 1
@@ -300,7 +300,7 @@ class ListaColumnas:
                 edicion=col.edicion,
                 is_editable=col.is_editable,
                 must_show=col.must_show,
-                is_ckecked=col.is_ckecked,
+                is_checked=col.is_checked,
             )
             col_nueva.copia_defecto(col)
             col_nueva.position = col.position

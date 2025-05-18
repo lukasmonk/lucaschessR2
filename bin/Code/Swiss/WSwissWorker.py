@@ -208,7 +208,7 @@ class WSwissWorker(QtWidgets.QWidget):
     def configurar(self):
         menu = QTVarios.LCMenu(self)
         activated = self.analysis_bar.activated
-        menu.opcion("analysis_bar", _("Analysis Bar"), is_ckecked=activated)
+        menu.opcion("analysis_bar", _("Analysis Bar"), is_checked=activated)
         resp = menu.lanza()
         if resp == "analysis_bar":
             activated = not activated

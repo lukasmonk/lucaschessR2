@@ -142,7 +142,7 @@ class ControlGrid(QtCore.QAbstractTableModel):
         if column.is_editable:
             flag |= QtCore.Qt.ItemIsEditable
 
-        if column.is_ckecked:
+        if column.is_checked:
             flag |= QtCore.Qt.ItemIsUserCheckable
         return flag
 
@@ -468,7 +468,7 @@ class Grid(QtWidgets.QTableView):
         elif button == QtCore.Qt.LeftButton:
             if fil < 0:
                 return
-            if col.is_ckecked:
+            if col.is_checked:
                 value = self.w_parent.grid_dato(self, fil, col)
                 self.w_parent.grid_setvalue(self, fil, col, not value)
                 self.refresh()

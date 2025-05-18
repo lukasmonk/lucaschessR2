@@ -4,11 +4,31 @@ import Code
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Delegados
-from Code.QT import FormLayout
 from Code.QT import Grid
 from Code.QT import Iconos
 from Code.QT import QTUtil2
 from Code.QT import QTVarios
+
+
+def rignt_in_name(owner, key_save, dic_conf, name, pos):
+    resp = "remove"
+    if pos > 0:
+        op_menu = QTVarios.LCMenu(owner)
+        op_menu.opcion(None, name)
+        op_menu.separador()
+        op_menu.opcion("remove", _("Remove"), Iconos.Delete())
+        op_menu.opcion("up", _("Up"), Iconos.Arriba())
+        resp = op_menu.lanza()
+        if not resp:
+            return
+    if resp == "remove" and QTUtil2.pregunta(owner, _X(_("Delete %1?"), name)):
+        del dic_conf[name]
+        Code.configuration.write_variables(key_save, dic_conf)
+    elif resp == "up":
+        li_ord = list(dic_conf.keys())
+        li_ord[pos], li_ord[pos - 1] = li_ord[pos - 1], li_ord[pos]
+        dic_nue = {key: dic_conf[key] for key in li_ord}
+        Code.configuration.write_variables(key_save, dic_nue)
 
 
 class EditCols(QtWidgets.QDialog):
@@ -16,6 +36,11 @@ class EditCols(QtWidgets.QDialog):
         QtWidgets.QDialog.__init__(self, grid_owner)
         self.setWindowTitle(_("Edit columns"))
         self.setWindowIcon(Iconos.EditColumns())
+        self.setWindowFlags(
+            QtCore.Qt.Dialog
+            | QtCore.Qt.WindowTitleHint
+            | QtCore.Qt.WindowCloseButtonHint
+        )
 
         self.grid_owner = grid_owner
         self.o_columns_base = grid_owner.columnas()
@@ -39,7 +64,7 @@ class EditCols(QtWidgets.QDialog):
 
         # Grid
         o_columns = Columnas.ListaColumnas()
-        o_columns.nueva("SIMOSTRAR", "", 20, is_ckecked=True)
+        o_columns.nueva("SIMOSTRAR", "", 20, is_checked=True)
         o_columns.nueva("CLAVE", _("Key"), 80, align_center=True)
         o_columns.nueva("CABECERA", _("Title"), 150, edicion=Delegados.LineaTexto())
         o_columns.nueva("ANCHO", _("Width"), 60, edicion=Delegados.LineaTexto(is_integer=True), align_right=True)
@@ -80,55 +105,56 @@ class EditCols(QtWidgets.QDialog):
     def configurations(self):
         dic_conf = self.configuration.read_variables(self.work)
         menu = QTVarios.LCMenu(self)
-        submenu = menu.submenu(_("Save"), Iconos.ManualSave())
-        submenu.opcion("save_name", _("Save with name"), Iconos.Grabar())
-        submenu.separador()
-        submenu.opcion("save_default", _("Save as default"), Iconos.Defecto())
-        menu.separador()
-        menu.opcion("reinit", _("Reinit"), Iconos.Reiniciar())
+        menu.opcion("save_name", _("Save with name"), Iconos.Grabar())
         menu.separador()
         if dic_conf:
-            menu.setToolTip(_("To choose: <b>left button</b> <br>To erase: <b>right button</b>"))
-            for name in dic_conf:
-                menu.opcion(name, name, Iconos.PuntoAzul())
+            if len(dic_conf) == 1:
+                menu.setToolTip(_("To choose: <b>left button</b> <br>To erase: <b>right button</b>"))
+            else:
+                menu.setToolTip(_("To choose: <b>left button</b> <br>To change: <b>right button</b>"))
+            for pos, name in enumerate(dic_conf):
+                menu.opcion(f"{pos:3d}{name}", name, Iconos.PuntoAzul())
 
         resp = menu.lanza()
         if resp is None:
             return
 
         elif resp == "save_name":
-            form = FormLayout.FormLayout(self, _("Name"), Iconos.Opciones(), anchoMinimo=240)
-            form.separador()
-
-            form.edit(_("Name"), "")
-
-            resultado = form.run()
-            if resultado:
-                accion, resp = resultado
-                name = resp[0].strip()
+            name = QTUtil2.read_simple(self, _("Save"), _("Name"), "", width=240)
+            if name:
+                name = name.strip()
                 if name:
+                    if name in dic_conf:
+                        if not QTUtil2.pregunta(
+                            self,
+                            name + "<br>" + _("This name already exists, what do you want to do?"),
+                            label_yes=_("Overwrite"),
+                            label_no=_("Cancel")
+                        ):
+                            return
                     dic_current = self.o_columns.save_dic(self.grid_owner)
                     dic_conf[name] = dic_current
                     self.configuration.write_variables(self.work, dic_conf)
 
-        elif resp == "save_default":
-            key = "databases_columns_default"
-            dic_current = self.o_columns.save_dic(self.grid_owner)
-            self.configuration.write_variables(key, dic_current)
+        # elif resp == "save_default":
+        #     key = "databases_columns_default"
+        #     dic_current = self.o_columns.save_dic(self.grid_owner)
+        #     self.configuration.write_variables(key, dic_current)
 
-        elif resp == "reinit":
-            dic_current = self.o_columns_base.save_dic(self.grid_owner)
-            self.o_columns.restore_dic(dic_current, self.grid_owner)
-            self.o_columns.li_columns.sort(key=lambda x: x.position)
-            self.grid.refresh()
+        # elif resp == "reinit":
+        #     dic_current = self.o_columns_base.save_dic(self.grid_owner)
+        #     self.o_columns.restore_dic(dic_current, self.grid_owner)
+        #     self.o_columns.li_columns.sort(key=lambda x: x.position)
+        #     self.grid.refresh()
 
         else:
+            cpos, name = resp[:3], resp[3:]
+            pos = int(cpos)
             if menu.siDer:
-                if QTUtil2.pregunta(self, _X(_("Delete %1?"), resp)):
-                    del dic_conf[resp]
-                    self.configuration.write_variables(self.work, dic_conf)
+                rignt_in_name(self, self.work, dic_conf, name, pos)
+
             else:
-                dic_current = dic_conf[resp]
+                dic_current = dic_conf[name]
                 self.o_columns.restore_dic(dic_current, self.grid_owner)
                 self.o_columns.li_columns.sort(key=lambda x: x.position)
                 self.grid.refresh()

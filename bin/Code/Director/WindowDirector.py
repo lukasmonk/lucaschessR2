@@ -72,7 +72,7 @@ class WPanelDirector(LCDialog.LCDialog):
 
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("NUMBER", _("N."), 20, align_center=True)
-        o_columns.nueva("MARCADO", "", 20, align_center=True, is_ckecked=True)
+        o_columns.nueva("MARCADO", "", 20, align_center=True, is_checked=True)
         o_columns.nueva("TYPE", _("Type"), 50, align_center=True)
         o_columns.nueva("NOMBRE", _("Name"), 100, align_center=True, edicion=Delegados.LineaTextoUTF8())
         o_columns.nueva("INFO", _("Information"), 100, align_center=True)

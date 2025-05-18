@@ -1330,9 +1330,10 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             self.board.remove_arrows()
             self.premove = None
 
-    def pww_centipawns_lost(self, rm_user: EngineResponse.EngineResponse):
+    def pww_centipawns_lost(self, mrm:EngineResponse.MultiEngineResponse, rm_user: EngineResponse.EngineResponse):
         if len(self.game.li_moves) == 0:
-            return 0 - rm_user.score_abs5()
+            best = mrm.best_rm_ordered()
+            return best.score_abs5() - rm_user.score_abs5()
         for move in self.game.li_moves:
             if move.is_white() == self.is_human_side_white:
                 if move.analysis:
@@ -1472,7 +1473,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                     if Tutor.launch_tutor(self.mrm_tutor, rm_user, tp=MISTAKE):
                         game_over_message_pww = _("You have made a bad move.")
                     else:
-                        cpws_lost = self.pww_centipawns_lost(rm_user)
+                        cpws_lost = self.pww_centipawns_lost(self.mrm_tutor, rm_user)
                         if cpws_lost > self.limit_pww:
                             game_over_message_pww = "%s<br>%s" % (
                                 _("You have exceeded the limit of lost centipawns."),
