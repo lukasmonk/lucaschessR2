@@ -1,2 +1,6 @@
-UserData/
+__pycache__/
 
+bin/OS/linux/Engines/*/*.cfg
+bin/OS/linux/Engines/*/*.uci_options
+
+UserData/
