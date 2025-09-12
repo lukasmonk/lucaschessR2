@@ -1,6 +1,9 @@
 __pycache__/
 
-bin/OS/linux/Engines/*/*.cfg
-bin/OS/linux/Engines/*/*.uci_options
+dist/
+*.egg-info/
+
+src/OS/linux/Engines/alouette/alouette64.cfg
+src/OS/linux/Engines/alouette/alouette64.uci_options
 
 UserData/
