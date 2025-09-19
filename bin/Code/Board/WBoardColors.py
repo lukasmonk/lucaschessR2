@@ -24,8 +24,10 @@ class BotonTema(QtWidgets.QPushButton):
     def __init__(self, parent, rutina):
         QtWidgets.QPushButton.__init__(self, parent)
 
-        self.setFixedSize(64, 64)
-        self.qs = QtCore.QSize(64, 64)
+        x64 = Controles.calc_fixed_width(64)
+
+        self.setFixedSize(x64, x64)
+        self.qs = QtCore.QSize(x64, x64)
         self.setIconSize(self.qs)
 
         self.rutina = rutina
@@ -51,7 +53,8 @@ class BotonColor(QtWidgets.QPushButton):
     def __init__(self, parent, rut_actual, rut_actualiza):
         QtWidgets.QPushButton.__init__(self, parent)
 
-        self.setFixedSize(32, 32)
+        x32 = Controles.calc_fixed_width(32)
+        self.setFixedSize(x32, x32)
 
         self.rut_actual = rut_actual
         self.rut_actualiza = rut_actualiza
@@ -256,8 +259,6 @@ class WBoardColors(LCDialog.LCDialog):
         self.config_board = boardOriginal.config_board.copia(boardOriginal.config_board.id())
         self.is_base = boardOriginal.config_board.id() == "BASE"
 
-        factor_big_fonts = Code.factor_big_fonts
-
         # Temas #######################################################################################################
         li_options = [(_("Your themes"), self.configuration.ficheroTemas)]
         for entry in Util.listdir(Code.path_resource("Themes")):
@@ -455,7 +456,7 @@ class WBoardColors(LCDialog.LCDialog):
         # _tamLetra
         lb_tam_letra = crea_lb(_("Size") + " %")
         self.sbTamLetra = (
-            Controles.SB(self, self.config_board.tamLetra(), 1, 200).tamMaximo(50 * factor_big_fonts)
+            Controles.SB(self, self.config_board.tamLetra(), 1, 200).relative_width(50)
             .capture_changes(self.actualizaBoardM)
         )
         self.chbDefTamLetra = xDefecto(self.config_board.siDefTamLetra())
@@ -465,7 +466,7 @@ class WBoardColors(LCDialog.LCDialog):
         lb_sep_letras = crea_lb(_("Separation") + " %")
         self.sbSepLetras = (
             Controles.SB(self, self.config_board.sepLetras(), -1000, 1000)
-            .tamMaximo(50 * factor_big_fonts)
+            .relative_width(50)
             .capture_changes(self.actualizaBoardM)
         )
         self.chbDefSepLetras = xDefecto(self.config_board.siDefSepLetras())
@@ -489,7 +490,7 @@ class WBoardColors(LCDialog.LCDialog):
         lb_tam_recuadro = crea_lb(_("Outer Border Size") + " %")
         self.sbTamRecuadro = (
             Controles.SB(self, self.config_board.tamRecuadro(), 0, 10000)
-            .tamMaximo(50 * factor_big_fonts)
+            .relative_width(50)
             .capture_changes(self.actualizaBoardM)
         )
         self.chbDefTamRecuadro = xDefecto(self.config_board.siDefTamRecuadro())
@@ -499,7 +500,7 @@ class WBoardColors(LCDialog.LCDialog):
         lb_tam_frontera = crea_lb(_("Inner Border Size") + " %")
         self.sbTamFrontera = (
             Controles.SB(self, self.config_board.tamFrontera(), 0, 10000)
-            .tamMaximo(50 * factor_big_fonts)
+            .relative_width(50)
             .capture_changes(self.actualizaBoardM)
         )
         self.chbDefTamFrontera = xDefecto(self.config_board.siDefTamFrontera())
@@ -584,6 +585,7 @@ class WBoardColors(LCDialog.LCDialog):
 
     def rehaz_flechas(self):
         self.board.remove_arrows()
+        self.board.crea_doubleboxes("f2", "f4")
         self.board.creaFlechaTmp("f2", "f4", True)
         self.board.creaFlechaTmp("d1", "d4", False)
         self.board.show_arrow_mov("f5", "d7", "ms")

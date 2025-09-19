@@ -86,16 +86,16 @@ class WGM(LCDialog.LCDialog):
         )
 
         # Juez
-        liDepths = [("--", 0)]
+        li_depths = [("--", 0)]
         for x in range(1, 31):
-            liDepths.append((str(x), x))
+            li_depths.append((str(x), x))
         self.list_engines = self.configuration.combo_engines_multipv10()
         self.cbJmotor, self.lbJmotor = QTUtil2.combobox_lb(
             self, self.list_engines, self.configuration.tutor_default, _("Engine")
         )
-        self.edJtiempo = Controles.ED(self).tipoFloat().ponFloat(1.0).anchoFijo(50)
+        self.edJtiempo = Controles.ED(self).tipoFloat().ponFloat(1.0).relative_width(50)
         self.lbJtiempo = Controles.LB2P(self, _("Time in seconds"))
-        self.cbJdepth = Controles.CB(self, liDepths, 0).capture_changes(self.change_depth)
+        self.cbJdepth = Controles.CB(self, li_depths, 0).capture_changes(self.change_depth)
         self.lbJdepth = Controles.LB2P(self, _("Depth"))
         self.lbJshow = Controles.LB2P(self, _("Show rating"))
         self.chbEvals = Controles.CHB(self, _("Show all evaluations"), False)
@@ -137,9 +137,10 @@ class WGM(LCDialog.LCDialog):
         # Openings
         self.btOpening = Controles.PB(self, " " * 5 + _("Undetermined") + " " * 5, self.aperturasEditar).ponPlano(False)
         self.btOpeningsFavoritas = (
-            Controles.PB(self, "", self.preferred_openings).ponIcono(Iconos.Favoritos()).anchoFijo(24)
+            Controles.PB(self, "", self.preferred_openings).ponIcono(Iconos.Favoritos()).relative_width(24)
         )
-        self.btOpeningsQuitar = Controles.PB(self, "", self.aperturasQuitar).ponIcono(Iconos.Motor_No()).anchoFijo(24)
+        self.btOpeningsQuitar = Controles.PB(self, "", self.aperturasQuitar).ponIcono(Iconos.Motor_No()).relative_width(
+            24)
         hbox = Colocacion.H().control(self.btOpeningsQuitar).control(self.btOpening).control(self.btOpeningsFavoritas)
         gbOpening = Controles.GB(self, _("Opening"), hbox)
 

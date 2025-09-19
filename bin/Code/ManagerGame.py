@@ -2,7 +2,7 @@ import FasterCode
 from PySide2 import QtCore
 
 from Code import Manager
-from Code.Base import Game, Position
+from Code.Base import Game, Position, Move
 from Code.Base.Constantes import (
     GT_GAME,
     ST_ENDGAME,
@@ -20,6 +20,8 @@ from Code.Base.Constantes import (
     TB_UTILITIES,
     ADJUST_BETTER,
 )
+from Code.Engines import EngineResponse
+from Code.Analysis import Analysis
 from Code.PlayAgainstEngine import WPlayAgainstEngine
 from Code.QT import Iconos
 from Code.QT import QTUtil
@@ -64,10 +66,10 @@ class ManagerGame(Manager.Manager):
         self.set_dispatcher(self.player_has_moved)
         self.show_side_indicator(True)
         self.put_pieces_bottom(game.is_white_top())
-        self.goto_firstposition()
         self.show_info_extra()
+        self.goto_firstposition()
 
-        self.check_boards_setposition()
+        # self.check_boards_setposition()
 
         self.put_information()
 
@@ -368,6 +370,16 @@ class ManagerGame(Manager.Manager):
 
         else:
             self.check_changed()
+
+    def help_to_move(self):
+        if self.is_in_last_move():
+            mrm: EngineResponse.MultiEngineResponse
+            mrm = self.analize_after_last_move()
+            if not mrm or len(mrm.li_rm) == 0:
+                return
+            move = Move.Move(self.game, position_before=self.game.last_position.copia())
+            move.analysis = mrm, 0
+            Analysis.show_analysis(self.procesador, self.xanalyzer, move, self.board.is_white_bottom, 0, must_save=False)
 
     def replay_continuous(self):
         if self.ask_for_save_game():

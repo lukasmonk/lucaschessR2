@@ -87,28 +87,28 @@ class H(QtWidgets.QHBoxLayout):
 class G(QtWidgets.QGridLayout):
     dicAlineacion = {None: QtCore.Qt.AlignLeft, "d": QtCore.Qt.AlignRight, "c": QtCore.Qt.AlignCenter}
 
-    def control(self, control, row, column, numFilas=1, numColumnas=1, alineacion=None):
-        self.addWidget(control, row, column, numFilas, numColumnas, self.dicAlineacion[alineacion])
+    def control(self, control, row, column, numFilas=1, num_columns=1, alineacion=None):
+        self.addWidget(control, row, column, numFilas, num_columns, self.dicAlineacion[alineacion])
         return self
 
-    def controld(self, control, row, column, numFilas=1, numColumnas=1):
-        self.addWidget(control, row, column, numFilas, numColumnas, self.dicAlineacion["d"])
+    def controld(self, control, row, column, numFilas=1, num_columns=1):
+        self.addWidget(control, row, column, numFilas, num_columns, self.dicAlineacion["d"])
         return self
 
-    def controlc(self, control, row, column, numFilas=1, numColumnas=1):
-        self.addWidget(control, row, column, numFilas, numColumnas, self.dicAlineacion["c"])
+    def controlc(self, control, row, column, numFilas=1, num_columns=1):
+        self.addWidget(control, row, column, numFilas, num_columns, self.dicAlineacion["c"])
         return self
 
-    def otro(self, layout, row, column, numFilas=1, numColumnas=1, alineacion=None):
-        self.addLayout(layout, row, column, numFilas, numColumnas, self.dicAlineacion[alineacion])
+    def otro(self, layout, row, column, numFilas=1, num_columns=1, alineacion=None):
+        self.addLayout(layout, row, column, numFilas, num_columns, self.dicAlineacion[alineacion])
         return self
 
-    def otroc(self, layout, row, column, numFilas=1, numColumnas=1):
-        self.addLayout(layout, row, column, numFilas, numColumnas, self.dicAlineacion["c"])
+    def otroc(self, layout, row, column, numFilas=1, num_columns=1):
+        self.addLayout(layout, row, column, numFilas, num_columns, self.dicAlineacion["c"])
         return self
 
-    def otrod(self, layout, row, column, numFilas=1, numColumnas=1):
-        self.addLayout(layout, row, column, numFilas, numColumnas, self.dicAlineacion["d"])
+    def otrod(self, layout, row, column, numFilas=1, num_columns=1):
+        self.addLayout(layout, row, column, numFilas, num_columns, self.dicAlineacion["d"])
         return self
 
     def margen(self, n):

@@ -60,7 +60,7 @@ class ManagerTrainBooks(Manager.Manager):
         self.set_dispatcher(self.play_human)
         self.set_position(self.game.last_position)
         self.show_side_indicator(True)
-        self.remove_hints(siQuitarAtras=False)
+        self.remove_hints(remove_back=False)
         self.put_pieces_bottom(is_white)
         self.set_label1("%s: %s" % (_("Player"), self.book_player.name))
         self.set_label2("%s: %s" % (_("Opponent"), self.book_rival.name))

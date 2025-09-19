@@ -127,10 +127,11 @@ class Replay:
         self.show_information()
 
         if self.seconds_before > 0.0:
-            move = self.li_moves[self.current_position]
-            self.board.set_position(move.position_before)
-            if not self.sleep_refresh(self.seconds_before):
-                return
+            if self.li_moves:
+                move = self.li_moves[self.current_position]
+                self.board.set_position(move.position_before)
+                if not self.sleep_refresh(self.seconds_before):
+                    return
 
         self.show_current()
 

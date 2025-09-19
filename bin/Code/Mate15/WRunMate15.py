@@ -51,8 +51,8 @@ class WRunMate15(LCDialog.LCDialog):
             wm.hide()
 
         ly.filaVacia(10, 20)
-        ly.controlc(self.bt_check, 11, 0, numColumnas=3)
-        ly.controlc(self.lb_result, 12, 0, numColumnas=3)
+        ly.controlc(self.bt_check, 11, 0, num_columns=3)
+        ly.controlc(self.lb_result, 12, 0, num_columns=3)
         self.gb = Controles.GB(self, _("Next moves and their solutions"), ly).set_font(
             Controles.FontType(puntos=10, peso=75)
         )

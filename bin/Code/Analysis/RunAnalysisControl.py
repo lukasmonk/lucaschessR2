@@ -150,6 +150,9 @@ class AnalysisMassiveWithWorkers:
         if self.window.is_canceled():
             return self.close()
 
+        if self.window.is_paused():
+            return
+
         actives = 0
 
         worker: IPCAnalysis
@@ -166,7 +169,6 @@ class AnalysisMassiveWithWorkers:
             if order is None:
                 pass
             elif order.key == RUNA_GAME:
-
                 self.send_game_worker(num_worker)
 
                 game: Game.Game = order.get("GAME")
@@ -249,9 +251,12 @@ class WProgress(LCDialog.LCDialog):
         self.pb_moves.setFormat(_("Game") + " %v/%m")
         self.pb_moves.setRange(0, nregs)
 
+        self._is_paused = False
+        self.bt_pause = Controles.PB(self, "", self.pause_continue, plano=True)
+        self.icon_pause_continue()
         pb_cancel = Controles.PB(self, _("Cancel"), self.xcancel, plano=False).ponIcono(Iconos.Delete())
 
-        lay = Colocacion.H().control(self.lb_game).control(self.pb_moves)
+        lay = Colocacion.H().control(self.lb_game).control(self.pb_moves).control(self.bt_pause)
         lay2 = Colocacion.H().relleno().control(pb_cancel)
         layout = Colocacion.V().otro(lay).espacio(20).otro(lay2)
         self.setLayout(layout)
@@ -280,8 +285,23 @@ class WProgress(LCDialog.LCDialog):
         self._is_canceled = True
         self.amww.close()
 
+    def pause_continue(self):
+        if self._is_paused:
+            self._is_paused = False
+            self.icon_pause_continue()
+        else:
+            self._is_paused = True
+            self.icon_pause_continue()
+
+    def icon_pause_continue(self):
+        # self.bt_pause.ponIcono(Iconos.Kibitzer_Play() if self._is_paused else Iconos.Kibitzer_Pause())
+        self.bt_pause.ponIcono(Iconos.ContinueColor() if self._is_paused else Iconos.PauseColor())
+
     def is_canceled(self):
         return self._is_canceled
+
+    def is_paused(self):
+        return self._is_paused
 
     def set_pos(self, pos):
         if not self._is_canceled:

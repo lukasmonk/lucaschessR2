@@ -1,4 +1,4 @@
-from PySide2 import QtCore, QtWidgets
+from PySide2 import QtCore, QtWidgets, QtGui
 
 import Code
 from Code.QT import QTUtil
@@ -13,12 +13,12 @@ class LCDialog(QtWidgets.QDialog):
         self.setWindowTitle(titulo)
         self.setWindowIcon(icono)
         self.setWindowFlags(
-            QtCore.Qt.Dialog
-            | QtCore.Qt.WindowTitleHint
-            | QtCore.Qt.WindowMinimizeButtonHint
-            | QtCore.Qt.WindowMaximizeButtonHint
-            | QtCore.Qt.WindowCloseButtonHint
-        )
+            QtCore.Qt.Dialog | QtCore.Qt.WindowTitleHint | QtCore.Qt.WindowMinimizeButtonHint | QtCore.Qt.WindowMaximizeButtonHint | QtCore.Qt.WindowCloseButtonHint)
+        alt_o: QtWidgets.QShortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Alt+O"), self)
+        alt_o.activated.connect(self.pressed_shortcut_alt_o)
+
+    def pressed_shortcut_alt_o(self):
+        self.move(QtCore.QPoint(0, 0))
 
     def register_grid(self, grid):
         self.liGrids.append(grid)
@@ -100,10 +100,10 @@ class LCDialog(QtWidgets.QDialog):
                     max_x = sum(screen_geometry.width() for pos, screen_geometry in QTUtil.dic_monitores().items())
                     if x > max_x - 50:
                         x = (width_desktop - self.width()) // 2
-                # if not (0 <= x <= (width_desktop - 50)):
-                #     x = 0
-                # if not (0 <= y <= (height_desktop - 50)):
-                #     y = 0
+                elif x < -10:
+                    x = 1
+                if y < 0:
+                    y = 1
                 self.move(x, y)
             return True
         else:

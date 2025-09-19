@@ -375,7 +375,7 @@ class STS:
     def path(self):
         folder = Code.configuration.carpetaSTS
         if not os.path.isdir(folder):
-            os.mkdir(folder)
+            Util.create_folder(folder)
         return Util.opj(folder, "%s.sts" % self.name)
 
     def restore(self):

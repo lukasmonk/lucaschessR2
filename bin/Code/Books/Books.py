@@ -81,7 +81,7 @@ class ListBooks:
     def modoAnalisis(self, apli):
         return apli in self._modoAnalisis
 
-    def porDefecto(self, book=None):
+    def by_default(self, book=None):
         if book:
             for book1 in self.lista:
                 book1.pordefecto = False

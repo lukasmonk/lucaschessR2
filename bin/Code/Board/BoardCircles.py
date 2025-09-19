@@ -4,12 +4,12 @@ from Code.Board import BoardBlocks
 
 
 class CircleSC(BoardBlocks.BloqueEspSC):
-    def __init__(self, escena, bloque_circle, rutinaPulsada=None):
+    def __init__(self, escena, bloque_circle, routine_if_pressed=None):
 
         super(CircleSC, self).__init__(escena, bloque_circle)
 
-        self.rutinaPulsada = rutinaPulsada
-        self.rutinaPulsadaCarga = None
+        self.routine_if_pressed = routine_if_pressed
+        self.routine_if_pressed_argum = None
 
         self.distBordes = 0.20 * self.board.width_square
 
@@ -27,9 +27,9 @@ class CircleSC(BoardBlocks.BloqueEspSC):
         # rect = QtCore.QRectF( dx, dy, ancho, alto )
         # self.dicEsquinas = { "tl":rect.topLeft(), "tr":rect.topRight(), "bl":rect.bottomLeft(), "br":rect.bottomRight() }
 
-    def ponRutinaPulsada(self, rutina, carga):
-        self.rutinaPulsada = rutina
-        self.rutinaPulsadaCarga = carga
+    def set_routine_if_pressed(self, rutina, carga):
+        self.routine_if_pressed = rutina
+        self.routine_if_pressed_argum = carga
 
     def reset(self):
         self.physical_pos2xy()
@@ -78,7 +78,7 @@ class CircleSC(BoardBlocks.BloqueEspSC):
 
         self.physical_pos2xy()
 
-    def ponA1H8(self, a1h8):
+    def set_a1h8(self, a1h8):
         self.bloqueDatos.a1h8 = a1h8
         self.physical_pos2xy()
 
@@ -112,13 +112,13 @@ class CircleSC(BoardBlocks.BloqueEspSC):
 
     def mousePressEvent(self, event):
         QtWidgets.QGraphicsItem.mousePressEvent(self, event)
-        self.mousePressExt(event)
+        self.mouse_press_ext(event)
 
         p = event.scenePos()
         self.expX = p.x()
         self.expY = p.y()
 
-    def mousePressExt(self, event):
+    def mouse_press_ext(self, event):
         """Needed in Scripts"""
         p = event.pos()
         p = self.mapFromScene(p)
@@ -194,11 +194,11 @@ class CircleSC(BoardBlocks.BloqueEspSC):
                 self.tpSize = None
             self.activa(False)
 
-        if self.rutinaPulsada:
-            if self.rutinaPulsadaCarga:
-                self.rutinaPulsada(self.rutinaPulsadaCarga)
+        if self.routine_if_pressed:
+            if self.routine_if_pressed_argum:
+                self.routine_if_pressed(self.routine_if_pressed_argum)
             else:
-                self.rutinaPulsada()
+                self.routine_if_pressed()
 
     def mouseReleaseExt(self):
         self.xy2physical_pos()
@@ -224,7 +224,7 @@ class CircleSC(BoardBlocks.BloqueEspSC):
         self.paint(painter, None, None)
         painter.end()
 
-        self.ponA1H8(bm.a1h8)
+        self.set_a1h8(bm.a1h8)
         return pm.scaled(32, 32, QtCore.Qt.IgnoreAspectRatio, QtCore.Qt.SmoothTransformation)
 
     def paint(self, painter, option, widget):
@@ -255,7 +255,7 @@ class CircleSC(BoardBlocks.BloqueEspSC):
         pen.setWidth(int(bm.grosor * xk))
         pen.setStyle(bm.tipoqt())
         painter.setPen(pen)
-        if bm.colorinterior >= 0:
+        if bm.colorinterior and bm.colorinterior >= 0:
             color = QtGui.QColor(bm.colorinterior)
             if bm.colorinterior2 >= 0:
                 color2 = QtGui.QColor(bm.colorinterior2)

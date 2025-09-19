@@ -10,7 +10,7 @@ import Code
 from Code import Util
 from Code.Analysis import AnalysisEval
 from Code.Base.Constantes import (MENU_PLAY_BOTH, POS_TUTOR_HORIZONTAL, INACCURACY, ENG_FIXED, DICT_GAME_TYPES,
-                                  GO_FORWARD)
+                                  GO_FORWARD, DBSHOW_INITIAL_POSITION, DBSHOW_LAST_MOVE)
 from Code.Board import ConfBoards
 from Code.Engines import Priorities
 from Code.QT import IconosBase
@@ -124,7 +124,6 @@ class Configuration:
 
         self.x_enable_highdpiscaling = False
 
-
         self.x_show_effects = False
         self.x_pieces_speed = 100
         self.x_save_tutor_variations = True
@@ -154,9 +153,10 @@ class Configuration:
         self.x_menu_play = MENU_PLAY_BOTH
         self.x_menu_play_config = True
 
-
         self.x_opacity_tool_board = 10
         self.x_position_tool_board = "T"
+
+        self.x_movement_doublebox_board = False
 
         self.x_director_icon = False
         self.x_direct_graphics = False
@@ -170,6 +170,8 @@ class Configuration:
         self.x_pgn_fontpoints = 11
         self.x_pgn_rowheight = 24
         self.x_pgn_withfigurines = True
+
+        self.x_databases_rowheight = 24
 
         self.x_pgn_english = False
 
@@ -280,6 +282,11 @@ class Configuration:
         self.x_mode_select_lc = False
 
         self.x_show_puzzles_on_startup = True
+
+        self.x_prevention_crashes = True
+
+        self.x_dbshow_positions = DBSHOW_INITIAL_POSITION
+        self.x_dbshow_completegames = DBSHOW_LAST_MOVE
 
         self._dic_books = None
 
@@ -444,6 +451,9 @@ class Configuration:
 
     def folder_swisses(self):
         return self.create_base_folder("Swiss")
+
+    def folder_pieces_png(self):
+        return self.create_base_folder("Figs")
 
     def folder_openings(self):
         dic = self.read_variables("OPENING_LINES")
@@ -724,7 +734,6 @@ class Configuration:
         TrListas.pon_pieces_lng(self.x_pgn_english or self.translator() == "en")
 
         Code.analysis_eval = AnalysisEval.AnalysisEval()
-        Code.factor_big_fonts = max(1.0, self.x_font_points / 11)
 
         IconosBase.icons.reset(self.x_style_icons)
 
@@ -1053,8 +1062,8 @@ class Configuration:
                     var["x_anchoPieza"] = ancho_pieza
                     db["BASE"] = self.dic_conf_boards_pk["BASE"] = var
             # Para cambiar el tema por defecto por el actual
-            # with open("../resources/IntFiles/basepk3.board", "wb") as f:
-            #      f.write(pickle.dumps(db["BASE"]))
+            # with open("../resources/IntFiles/basepk(((1,2,3))).board", "wb") as f:
+            #       f.write(pickle.dumps(db["BASE"]))
 
     def size_base(self):
         return self.dic_conf_boards_pk["BASE"]["x_anchoPieza"]

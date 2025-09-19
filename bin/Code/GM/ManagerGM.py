@@ -1,7 +1,6 @@
-import time
 import copy
 import random
-
+import time
 
 import Code
 from Code import Adjournments
@@ -302,7 +301,6 @@ class ManagerGM(Manager.Manager):
         if not jgUsu:
             return False
 
-
         movimiento = jgUsu.movimiento()
         position = self.game.last_position
         is_valid = self.engine_gm.is_valid_move(movimiento)
@@ -404,7 +402,7 @@ class ManagerGM(Manager.Manager):
         self.move_the_pieces(jg_gm.liMovs)
 
         jg_gm.analysis = analysis
-        jg_gm.set_time_ms(int((time_s_end-self.ini_time_s) * 1000))
+        jg_gm.set_time_ms(int((time_s_end - self.ini_time_s) * 1000))
         self.add_move(jg_gm, True)
         self.error = ""
         self.play_next_move()

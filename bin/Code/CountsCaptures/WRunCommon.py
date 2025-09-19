@@ -23,12 +23,12 @@ class WEdMove(QtWidgets.QWidget):
 
         self.owner = owner
 
-        self.origen = EDCelda(self, "").caracteres(2).controlrx("(|[a-h][1-8])").anchoFijo(32).align_center()
+        self.origen = EDCelda(self, "").caracteres(2).controlrx("(|[a-h][1-8])").relative_width(32).align_center()
 
         self.arrow = arrow = Controles.LB(self).put_image(self.PM_MOVE)
         arrow.mousePressEvent = self.pulsa_flecha
 
-        self.destino = EDCelda(self, "").caracteres(2).controlrx("(|[a-h][1-8])").anchoFijo(32).align_center()
+        self.destino = EDCelda(self, "").caracteres(2).controlrx("(|[a-h][1-8])").relative_width(32).align_center()
 
         self.result = Controles.LB(self).set_wrap().put_image(self.PM_EMPTY)
 
@@ -111,7 +111,7 @@ class WEdMovePGN(QtWidgets.QWidget):
 
         self.owner = owner
 
-        self.celda = EDCelda(self, "").caracteres(8).anchoFijo(64).align_center()
+        self.celda = EDCelda(self, "").caracteres(8).relative_width(64).align_center()
 
         self.result = Controles.LB(self).set_wrap().put_image(self.PM_EMPTY)
 

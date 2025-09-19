@@ -238,7 +238,7 @@ class ConfigBoard(JS):
     def guardaEnDisco(self):
         Code.configuration.cambiaConfBoard(self)
 
-    def porDefecto(self, tipo):
+    def by_default(self, tipo):
         tp = tipo[0]
         siC = siS = siR = False
         if tp == "t":

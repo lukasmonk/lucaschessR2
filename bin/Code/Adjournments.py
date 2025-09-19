@@ -109,7 +109,7 @@ class Adjournments:
                     dic = db[key]
                     saved_match = dic["match_saved"]
                     if saved_match["XID"] == xmatch.xid:
-                        return dic
+                        return key, dic
             return None
 
     def key_match_swiss(self, xmatch):
@@ -121,7 +121,7 @@ class Adjournments:
                     dic = db[key]
                     saved_match = dic["match_saved"]
                     if saved_match["XID"] == xmatch.xid:
-                        return dic
+                        return key, dic
             return None
 
     def __enter__(self):

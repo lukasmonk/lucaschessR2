@@ -1,7 +1,0 @@
-Certabo, iChessOne, Tabutronic now have an option to indicate that the board is rotated.
-
-Version 27: Fix error in HOS and ICO drivers on high DPI screens.
-Version 26: Many drivers now allow the option to highlight the king's square when he is in check.
-Version 25: Fixed button display on screens with high DPI.
-Version 24: Added HOS Sensory board driver.
-Version 23: Certabo, Tabutronic and IChessOne drivers only load the BLE support library if BluetoothLE is selected.

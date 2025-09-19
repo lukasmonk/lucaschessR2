@@ -599,7 +599,7 @@ class WEndingsGTB(LCDialog.LCDialog):
             return
         elif key == "MoverInicio":
             self.pos_game = -1
-        elif key == "MoverAtras":
+        elif key == "move_back":
             if 0 <= self.pos_game:
                 self.pos_game -= 1
         elif key == "MoverAdelante":

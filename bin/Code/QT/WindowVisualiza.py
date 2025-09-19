@@ -337,7 +337,7 @@ class WPlay(LCDialog.LCDialog):
             unBloque.append(cb)
 
             if self.position:
-                ec = Controles.ED(self, "").caracteres(2).controlrx("(|[a-h][1-8])").anchoFijo(24).align_center()
+                ec = Controles.ED(self, "").caracteres(2).controlrx("(|[a-h][1-8])").relative_width(24).align_center()
                 colPos += 1
                 ly.controlc(ec, row, colPos)
                 unBloque.append(ec)

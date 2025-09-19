@@ -49,7 +49,6 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         LCDialog.LCDialog.__init__(self, procesador.main_window, titulo, Iconos.Libre(), "entMaquina")
 
         font = Controles.FontType(puntos=procesador.configuration.x_font_points)
-        factor_big_fonts = Code.factor_big_fonts
 
         self.direct_option = direct_option
         self.si_edit_uci = False
@@ -63,6 +62,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
 
         self.list_books = Books.ListBooks()
         li_books = [(x.name, x) for x in self.list_books.lista]
+
 
         # Toolbar
         tb = QTVarios.LCTB(self)
@@ -226,7 +226,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         self.cbThoughtTt = Controles.CB(self, li_thinks, -1).set_font(font)
 
         lb_arrows = Controles.LB2P(self, _("Arrows with the best movements")).set_font(font)
-        self.sbArrowsTt = Controles.SB(self, 0, 0, 999).tamMaximo(50).set_font(font)
+        self.sbArrowsTt = Controles.SB(self, 0, 0, 999).set_font(font).relative_width(50)
 
         ly_t1 = Colocacion.H().control(lb_ayudas).control(self.cbAyudas).relleno()
         ly_t1.control(self.chbChance).relleno()
@@ -246,7 +246,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
                 _("The game also ends after playing a bad move"),
             ),
         ).set_font(font)
-        self.ed_limit_pww = Controles.ED(self).tipoIntPositive(90).set_font(font).anchoFijo(50)
+        self.ed_limit_pww = Controles.ED(self).tipoIntPositive(90).set_font(font).relative_width(50)
 
         ly = Colocacion.H().control(lb).control(self.ed_limit_pww).relleno()
         self.gb_pww = Controles.GB(self, _("Play as long as you make no mistakes"), ly)
@@ -256,13 +256,13 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         lb = Controles.LB(self, _("Show") + ":").set_font(font)
         self.cbThoughtOp = Controles.CB(self, li_thinks, -1).set_font(font)
         lb_arrows = Controles.LB2P(self, _("Arrows to show")).set_font(font)
-        self.sbArrows = Controles.SB(self, 0, 0, 999).tamMaximo(50).set_font(font)
+        self.sbArrows = Controles.SB(self, 0, 0, 999).relative_width(50).set_font(font)
         ly = Colocacion.H().control(lb).control(self.cbThoughtOp).relleno()
         ly.control(lb_arrows).control(self.sbArrows)
         gb_thought_op = new_groupbox(_("Opponent's thought information"), ly)
 
         self.lbBoxHeight = Controles.LB2P(self, _("Height of displaying box")).set_font(font)
-        self.sbBoxHeight = Controles.SB(self, 0, 0, 999).tamMaximo(50 * factor_big_fonts).set_font(font)
+        self.sbBoxHeight = Controles.SB(self, 0, 0, 999).relative_width(50).set_font(font)
 
         ly_box = Colocacion.H().control(self.lbBoxHeight).control(self.sbBoxHeight).relleno()
 
@@ -275,16 +275,16 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         # TAB Tiempo
         # ##################################################################################################################################
         self.lb_minutos = Controles.LB(self, _("Total minutes") + ":").set_font(font)
-        self.ed_minutos = Controles.ED(self).tipoFloat(10.0).set_font(font).anchoFijo(70 * factor_big_fonts)
+        self.ed_minutos = Controles.ED(self).tipoFloat(10.0).set_font(font).relative_width(70)
         self.ed_segundos, self.lb_segundos = QTUtil2.spinbox_lb(
-            self, 6, -999, 999, max_width=50 * factor_big_fonts, etiqueta=_("Seconds added per move"), fuente=font
+            self, 6, -999, 999, max_width=50, etiqueta=_("Seconds added per move"), fuente=font
         )
         self.edMinExtra, self.lbMinExtra = QTUtil2.spinbox_lb(
-            self, 0, 0, 10000, max_width=50 * factor_big_fonts, etiqueta=_("Extra minutes for the player"), fuente=font
+            self, 0, 0, 10000, max_width=50, etiqueta=_("Extra minutes for the player"), fuente=font
         )
         self.chb_disable_usertime = Controles.CHB(self, _("Disable user time control"), False).set_font(font)
         self.edZeitnot, self.lbZeitnot = QTUtil2.spinbox_lb(
-            self, 0, -999, 999, max_width=50 * factor_big_fonts,
+            self, 0, -999, 999, max_width=50,
             etiqueta=_("Zeitnot: alarm sounds when remaining seconds"), fuente=font
         )
         ly_h = Colocacion.H()
@@ -375,7 +375,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         self.btNuevoBookR = Controles.PB(self, "", self.new_book).ponIcono(Iconos.Mas())
         self.cbBooksRR = QTUtil2.combobox_lb(self, li_resp_book, BOOK_BEST_MOVE).set_font(font)
         self.lbDepthBookR = Controles.LB2P(self, _("Max depth")).set_font(font)
-        self.edDepthBookR = Controles.ED(self).set_font(font).tipoInt(0).anchoFijo(30 * factor_big_fonts)
+        self.edDepthBookR = Controles.ED(self).set_font(font).tipoInt(0).relative_width(30)
 
         hbox = (
             Colocacion.H()
@@ -393,7 +393,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
         self.cbBooksP = QTUtil2.combobox_lb(self, li_books, lib_inicial).set_font(font)
         self.btNuevoBookP = Controles.PB(self, "", self.new_book).ponIcono(Iconos.Mas())
         self.lbDepthBookP = Controles.LB2P(self, _("Max depth")).set_font(font)
-        self.edDepthBookP = Controles.ED(self).set_font(font).tipoInt(0).anchoFijo(30 * factor_big_fonts)
+        self.edDepthBookP = Controles.ED(self).set_font(font).tipoInt(0).relative_width(30)
         hbox = (
             Colocacion.H()
             .control(self.cbBooksP)
@@ -602,6 +602,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
     def configurations(self):
         with UtilSQL.DictSQL(self.configuration.ficheroEntMaquinaConf) as dbc:
             dbc.wrong_pickle(b"Code.Polyglots", b"Code.Books")
+            dbc.wrong_pickle(b"OpeningStd", b"Opening")
             dic = dbc.as_dictionary()
             li_conf = [(key, dic.get("MNT_ORDER", 0)) for key, dic in dic.items() if dic.get("MNT_VISIBLE", True)]
             li_conf.sort(key=lambda x: x[1])
@@ -1322,7 +1323,7 @@ class WCambioRival(QtWidgets.QDialog):
         self.rival = self.motores.busca(ENG_INTERNAL, configuration.x_rival_inicial)
         self.bt_rival = Controles.PB(self, "", self.change_rival, plano=False)
         lb_time = Controles.LB2P(self, _("Time"))
-        ancho = 50 * Code.factor_big_fonts
+        ancho = 50
         self.ed_time = Controles.ED(self).tipoFloat().anchoMaximo(ancho).capture_changes(self.change_time)
         lb_depth = Controles.LB2P(self, _("Depth"))
         self.ed_depth = Controles.ED(self).tipoInt().anchoMaximo(ancho).capture_changes(self.change_depth)

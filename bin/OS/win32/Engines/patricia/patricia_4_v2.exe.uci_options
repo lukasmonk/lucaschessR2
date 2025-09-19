@@ -4,5 +4,6 @@ option name Hash type spin default 32 min 1 max 131072
 option name Threads type spin default 1 min 1 max 1024
 option name MultiPV type spin default 1 min 1 max 255
 option name UCI_LimitStrength type check default false
-option name Skill_Level type spin default 20 min 1 max 20
-option name UCI_Elo type spin default 3000 min 500 max 3000
+option name Skill_Level type spin default 21 min 1 max 21
+option name UCI_Elo type spin default 3001 min 500 max 3001
+option name UCI_Chess960 type check default false

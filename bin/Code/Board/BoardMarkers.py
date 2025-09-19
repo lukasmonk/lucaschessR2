@@ -4,11 +4,11 @@ from Code.Board import BoardBlocks
 
 
 class MarkerSC(BoardBlocks.BloqueEspSC):
-    def __init__(self, escena, bloqueMarker, rutinaPulsada=None, siEditando=False):
+    def __init__(self, escena, bloqueMarker, routine_if_pressed=None, siEditando=False):
         super(MarkerSC, self).__init__(escena, bloqueMarker)
 
-        self.rutinaPulsada = rutinaPulsada
-        self.rutinaPulsadaCarga = None
+        self.routine_if_pressed = routine_if_pressed
+        self.routine_if_pressed_argum = None
 
         self.distBordes = 0.20 * self.board.width_square
 
@@ -33,9 +33,9 @@ class MarkerSC(BoardBlocks.BloqueEspSC):
         self.siRecuadro = False
         self.update()
 
-    def ponRutinaPulsada(self, rutina, carga):
-        self.rutinaPulsada = rutina
-        self.rutinaPulsadaCarga = carga
+    def set_routine_if_pressed(self, rutina, carga):
+        self.routine_if_pressed = rutina
+        self.routine_if_pressed_argum = carga
 
     def reset(self):
         self.physical_pos2xy()
@@ -84,7 +84,7 @@ class MarkerSC(BoardBlocks.BloqueEspSC):
 
         self.physical_pos2xy()
 
-    def ponA1H8(self, a1h8):
+    def set_a1h8(self, a1h8):
         self.bloqueDatos.a1h8 = a1h8
         self.physical_pos2xy()
 
@@ -120,7 +120,7 @@ class MarkerSC(BoardBlocks.BloqueEspSC):
         self.expX = p.x()
         self.expY = p.y()
 
-    def mousePressExt(self, event):
+    def mouse_press_ext(self, event):
         p = event.pos()
         p = self.mapFromScene(p)
 
@@ -181,11 +181,11 @@ class MarkerSC(BoardBlocks.BloqueEspSC):
                 self.tpSize = None
             self.activa(False)
 
-        if self.rutinaPulsada:
-            if self.rutinaPulsadaCarga:
-                self.rutinaPulsada(self.rutinaPulsadaCarga)
+        if self.routine_if_pressed:
+            if self.routine_if_pressed_argum:
+                self.routine_if_pressed(self.routine_if_pressed_argum)
             else:
-                self.rutinaPulsada()
+                self.routine_if_pressed()
 
     def mouseReleaseExt(self):
         if self.siActivo:

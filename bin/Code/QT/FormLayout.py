@@ -318,7 +318,7 @@ class LBotonFichero(QtWidgets.QHBoxLayout):
             file, config.extension, config.siSave, config.siRelativo, config.anchoMinimo, config.ficheroDefecto
         )
         bt_cancelar = Controles.PB(parent, "", self.cancelar)
-        bt_cancelar.ponIcono(Iconos.Delete()).anchoFijo(16)
+        bt_cancelar.ponIcono(Iconos.Delete()).relative_width(16)
         self.parent = parent
 
         self.addWidget(self.boton)
@@ -359,7 +359,7 @@ class LBotonCarpeta(QtWidgets.QHBoxLayout):
         self.carpeta = carpeta
         self.boton = Controles.PB(parent, self.carpeta, self.cambiarCarpeta, plano=False)
         bt_cancelar = Controles.PB(parent, "", self.cancelar)
-        bt_cancelar.ponIcono(Iconos.Delete()).anchoFijo(16)
+        bt_cancelar.ponIcono(Iconos.Delete()).relative_width(16)
         self.parent = parent
 
         self.addWidget(self.boton)
@@ -380,7 +380,7 @@ class BotonColor(QtWidgets.QPushButton):
     def __init__(self, parent, ancho, alto, siSTR, dispatch):
         QtWidgets.QPushButton.__init__(self, parent)
 
-        self.setFixedSize(ancho, alto)
+        self.setFixedSize(Controles.calc_fixed_width(ancho), Controles.calc_fixed_width(alto))
 
         self.clicked.connect(self.pulsado)
 
@@ -426,7 +426,8 @@ class BotonCheckColor(QtWidgets.QHBoxLayout):
 
         self.boton = BotonColor(parent, ancho, alto, False, dispatch)
         self.checkbox = QtWidgets.QCheckBox(parent)
-        self.checkbox.setFixedSize(20 * Code.factor_big_fonts, 20 * Code.factor_big_fonts)
+        x20 = Controles.calc_fixed_width(20)
+        self.checkbox.setFixedSize(x20, x20)
 
         self.checkbox.clicked.connect(self.pulsado)
 
@@ -473,7 +474,7 @@ class Edit(Controles.ED):
         if config.rx:
             self.controlrx(config.rx)
         if config.ancho:
-            self.anchoFijo(config.ancho)
+            self.relative_width(config.ancho)
         if config.is_password:
             self.setEchoMode(QtWidgets.QLineEdit.Password)
         self.tipo = config.tipoCampo
@@ -514,7 +515,8 @@ class DialNum(Colocacion.H):
         self.dial.setMinimum(config.minimo)
         self.dial.setMaximum(config.maximo)
         self.dial.setNotchesVisible(True)
-        self.dial.setFixedSize(40, 40)
+        x40 = Controles.calc_fixed_width(40)
+        self.dial.setFixedSize(x40, x40)
         self.lb = QtWidgets.QLabel(parent)
 
         self.dispatch = dispatch
@@ -635,7 +637,7 @@ class FormWidget(QtWidgets.QWidget):
                         field.setMinimum(config.minimo)
                         field.setMaximum(config.maximo)
                         field.setValue(value)
-                        field.setFixedWidth(config.ancho)
+                        field.setFixedWidth(Controles.calc_fixed_width(config.ancho))
                         if dispatch:
                             field.valueChanged.connect(dispatch)
                     elif tipo == COMBOBOX:
@@ -747,14 +749,14 @@ class FormWidget(QtWidgets.QWidget):
                     field = QtWidgets.QLineEdit(v, self)
                     field.setValidator(QtGui.QDoubleValidator(0.0, 36000.0, 1, field))  # Para los seconds
                     field.setAlignment(QtCore.Qt.AlignRight)
-                    field.setFixedWidth(40 * Code.factor_big_fonts)
+                    field.setFixedWidth(Controles.calc_fixed_width(40))
 
                 # Numero
                 elif isinstance(value, int):
                     field = QtWidgets.QSpinBox(self)
                     field.setMaximum(9999)
                     field.setValue(value)
-                    field.setFixedWidth(80 * Code.factor_big_fonts)
+                    field.setFixedWidth(Controles.calc_fixed_width(80))
 
                 # Linea
                 else:

@@ -35,13 +35,13 @@ class WRunCounts(LCDialog.LCDialog):
         self.ed_moves = Controles.ED(self, "").set_font_type(puntos=32)
         self.ed_moves.setValidator(QtGui.QIntValidator(self.ed_moves))
         self.ed_moves.setAlignment(QtCore.Qt.AlignRight)
-        self.ed_moves.anchoFijo(72)
+        self.ed_moves.relative_width(72)
 
         ly = Colocacion.H().relleno().control(self.ed_moves).relleno()
 
         self.gb_counts = Controles.GB(self, _("Number of moves"), ly).set_font(Controles.FontType(puntos=10, peso=75))
 
-        self.lb_result = Controles.LB(self).set_font_type(puntos=10, peso=500).anchoFijo(254).altoFijo(32).set_wrap()
+        self.lb_result = Controles.LB(self).set_font_type(puntos=10, peso=500).relative_width(254).altoFijo(32).set_wrap()
         self.lb_info = (
             Controles.LB(self)
             .set_font_type(puntos=14, peso=500)

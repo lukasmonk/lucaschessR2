@@ -192,7 +192,7 @@ class ManagerFideFics(Manager.Manager):
         self.set_dispatcher(self.player_has_moved)
         self.set_position(self.game.last_position)
         self.put_pieces_bottom(self.is_human_side_white)
-        self.remove_hints(True, siQuitarAtras=True)
+        self.remove_hints(True, remove_back=True)
         self.show_side_indicator(True)
         label = "%s: <b>%d</b> | %s: <b>%d</b>" % (self._titulo, self.eloUsu, _("Elo rival"), self.eloObj)
         label += " | %+d %+d %+d" % (self.pwin, self.pdraw, self.plost)

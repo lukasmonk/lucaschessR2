@@ -23,6 +23,7 @@ class WRemoveCommentsVariations(LCDialog.LCDialog):
         self.chb_variations = Controles.CHB(self, _("Variations"), self.rem.rem_variations)
         self.chb_nags = Controles.CHB(self, _("Ratings") + " (NAGs)", self.rem.rem_nags)
         self.chb_analysis = Controles.CHB(self, _("Analysis"), self.rem.rem_analysis)
+        self.chb_themes = Controles.CHB(self, _("Themes"), self.rem.rem_themes)
         self.chb_comments = Controles.CHB(self, _("Comments"), self.rem.rem_comments)
         self.chb_comments.capture_changes(self, self.changes_done)
         self.chb_brackets = Controles.CHB(self, _("Brackets in comments"), self.rem.rem_brackets)
@@ -39,6 +40,8 @@ class WRemoveCommentsVariations(LCDialog.LCDialog):
         if is_body:
             self.chb_analysis.hide()
             self.chb_analysis.set_value(False)
+            self.chb_themes.hide()
+            self.chb_themes.set_value(False)
 
         tb = QTVarios.LCTB(self)
         tb.new(_("Accept"), Iconos.Aceptar(), self.aceptar)
@@ -51,8 +54,9 @@ class WRemoveCommentsVariations(LCDialog.LCDialog):
         layout.espacio(10)
 
         sp = 50
-        for chb in (self.chb_variations, self.chb_analysis, self.chb_nags, self.chb_comments, self.chb_brackets,
-                    self.chb_clk, self.chb_emt, self.chb_eval, self.chb_csl, self.chb_cal, self.chb_other):
+        for chb in (self.chb_variations, self.chb_analysis, self.chb_themes, self.chb_nags, self.chb_comments,
+                    self.chb_brackets, self.chb_clk, self.chb_emt, self.chb_eval, self.chb_csl, self.chb_cal,
+                    self.chb_other):
             if chb == self.chb_brackets:
                 sp += 20
             elif chb == self.chb_clk:
@@ -62,7 +66,7 @@ class WRemoveCommentsVariations(LCDialog.LCDialog):
                 layout.otro(lychb)
                 continue
 
-            lychb = Colocacion.H().espacio(sp).control(chb)
+            lychb = Colocacion.H().espacio(sp).control(chb).relleno()
             layout.otro(lychb)
 
         layout.espacio(20)
@@ -90,7 +94,6 @@ class WRemoveCommentsVariations(LCDialog.LCDialog):
 
         QTUtil.shrink(self)
 
-
     def aceptar(self):
         self.rem.remove_variations(self.chb_variations.valor())
         self.rem.remove_nags(self.chb_nags.valor())
@@ -102,6 +105,7 @@ class WRemoveCommentsVariations(LCDialog.LCDialog):
         self.rem.remove_csl(self.chb_csl.valor())
         self.rem.remove_cal(self.chb_cal.valor())
         self.rem.remove_analysis(self.chb_analysis.valor())
+        self.rem.remove_themes(self.chb_themes.valor())
         self.rem.remove_other(self.chb_other.valor(), self.ed_other.texto().strip())
         self.rem.save()
 
@@ -122,6 +126,7 @@ class RemoveCommentsVariations:
         self.rem_variations = dic.get("rem_variations", False)
         self.rem_nags = dic.get("rem_nags", False)
         self.rem_analysis = dic.get("rem_analysis", False)
+        self.rem_themes = dic.get("rem_themes", False)
         self.rem_comments = dic.get("rem_comments", False)
         self.rem_brackets = dic.get("rem_brackets", False)
         self.rem_clk = dic.get("rem_clk", False)
@@ -138,6 +143,7 @@ class RemoveCommentsVariations:
         dic["rem_variations"] = self.rem_variations
         dic["rem_nags"] = self.rem_nags
         dic["rem_analysis"] = self.rem_analysis
+        dic["rem_themes"] = self.rem_themes
         dic["rem_comments"] = self.rem_comments
         dic["rem_brackets"] = self.rem_brackets
         dic["rem_clk"] = self.rem_clk
@@ -158,6 +164,9 @@ class RemoveCommentsVariations:
 
     def remove_analysis(self, value):
         self.rem_analysis = value
+
+    def remove_themes(self, value):
+        self.rem_themes = value
 
     def remove_comments(self, value):
         self.rem_comments = value
@@ -326,6 +335,11 @@ class RemoveCommentsVariations:
             if self.rem_analysis:
                 if move.analysis:
                     move.analysis = None
+                    changed = True
+
+            if self.rem_themes:
+                if move.li_themes:
+                    move.li_themes = []
                     changed = True
 
             if move.comment:

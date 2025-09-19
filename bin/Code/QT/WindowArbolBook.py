@@ -280,7 +280,7 @@ class InfoMove(QtWidgets.QWidget):
 
         self.cpDefecto = Position.Position()
         self.cpDefecto.read_fen(fen_activo)
-        self.porDefecto()
+        self.by_default()
 
         bt_inicio = Controles.PB(self, "", self.start).ponIcono(Iconos.MoverInicio())
         bt_atras = Controles.PB(self, "", self.atras).ponIcono(Iconos.MoverAtras())
@@ -307,7 +307,7 @@ class InfoMove(QtWidgets.QWidget):
 
         self.movActual = None
 
-    def porDefecto(self):
+    def by_default(self):
         self.board.set_position(self.cpDefecto)
 
     def cambioBoard(self):
@@ -360,7 +360,7 @@ class WindowArbolBook(LCDialog.LCDialog):
         # Se lee la lista de libros1
         self.list_books = Books.ListBooks()
 
-        self.book = self.list_books.porDefecto()
+        self.book = self.list_books.by_default()
 
         self.resultado = None
 
@@ -431,7 +431,7 @@ class WindowArbolBook(LCDialog.LCDialog):
         self.listaMoves.change_book(book)
         self.wmoves.tree.clear()
         self.wmoves.tree.set_moves(self.listaMoves)
-        self.list_books.porDefecto(book)
+        self.list_books.by_default(book)
         self.list_books.save()
         self.set_title(book)
         self.book = book

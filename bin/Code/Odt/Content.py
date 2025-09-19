@@ -1,4 +1,3 @@
-import os
 import shutil
 
 from Code import Util
@@ -123,7 +122,7 @@ class Content(XML.XML):
     def run(self, folder):
         if self.li_path_png:
             folder_pictures = Util.opj(folder, "Pictures")
-            os.mkdir(folder_pictures)
+            Util.create_folder(folder_pictures)
             for pos, path_ori in enumerate(self.li_path_png):
                 path_dest = Util.opj(folder, self.fmt_png % pos)
                 shutil.copy(path_ori, path_dest)

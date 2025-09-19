@@ -214,7 +214,7 @@ class WOpenings(LCDialog.LCDialog):
         accion = self.sender().key
         if accion == "MoverAdelante":
             self.mueve(n_saltar=1)
-        elif accion == "MoverAtras":
+        elif accion == "move_back":
             self.mueve(n_saltar=-1)
         elif accion == "MoverInicio":
             self.mueve(si_inicio=True)

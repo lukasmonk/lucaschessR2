@@ -4,12 +4,12 @@ from Code.Board import BoardBlocks
 
 
 class SVGSC(BoardBlocks.BloqueEspSC):
-    def __init__(self, escena, bloqueImgSVG, rutinaPulsada=None, siEditando=False):
+    def __init__(self, escena, bloqueImgSVG, routine_if_pressed=None, siEditando=False):
 
         super(SVGSC, self).__init__(escena, bloqueImgSVG)
 
-        self.rutinaPulsada = rutinaPulsada
-        self.rutinaPulsadaCarga = None
+        self.routine_if_pressed = routine_if_pressed
+        self.routine_if_pressed_argum = None
 
         self.distBordes = 0.30 * bloqueImgSVG.width_square
 
@@ -32,9 +32,9 @@ class SVGSC(BoardBlocks.BloqueEspSC):
         self.siRecuadro = False
         self.update()
 
-    def ponRutinaPulsada(self, rutina, carga):
-        self.rutinaPulsada = rutina
-        self.rutinaPulsadaCarga = carga
+    def set_routine_if_pressed(self, rutina, carga):
+        self.routine_if_pressed = rutina
+        self.routine_if_pressed_argum = carga
 
     def reset(self):
         self.physical_pos2xy()
@@ -44,7 +44,7 @@ class SVGSC(BoardBlocks.BloqueEspSC):
         self.setZValue(bm.physical_pos.orden)
         self.update()
 
-    def ponA1H8(self, a1h8):
+    def set_a1h8(self, a1h8):
         self.bloqueDatos.a1h8 = a1h8
         self.physical_pos2xy()
 
@@ -112,7 +112,7 @@ class SVGSC(BoardBlocks.BloqueEspSC):
         self.expX = p.x()
         self.expY = p.y()
 
-    def mousePressExt(self, event):
+    def mouse_press_ext(self, event):
         p = event.pos()
         p = self.mapFromScene(p)
         self.expX = p.x()
@@ -168,11 +168,11 @@ class SVGSC(BoardBlocks.BloqueEspSC):
                 self.tpSize = None
             self.activa(False)
 
-        if self.rutinaPulsada:
-            if self.rutinaPulsadaCarga:
-                self.rutinaPulsada(self.rutinaPulsadaCarga)
+        if self.routine_if_pressed:
+            if self.routine_if_pressed_argum:
+                self.routine_if_pressed(self.routine_if_pressed_argum)
             else:
-                self.rutinaPulsada()
+                self.routine_if_pressed()
 
     def mouseReleaseExt(self):
         if self.siActivo:
@@ -203,7 +203,7 @@ class SVGSC(BoardBlocks.BloqueEspSC):
         self.paint(painter, None, None)
         painter.end()
 
-        self.ponA1H8(bm.a1h8)
+        self.set_a1h8(bm.a1h8)
         bm.psize = ant_psize
 
         return pm

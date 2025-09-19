@@ -12,6 +12,10 @@ from Code.QT import QTUtil2
 def options(parent, configuration):
     form = FormLayout.FormLayout(parent, _("General configuration"), Iconos.Opciones(), anchoMinimo=640)
 
+    sb_width_60 = 60
+    sb_width_70 = 70
+    sb_width_100 = 100
+
     # Datos generales ##############################################################################################
     form.separador()
 
@@ -46,7 +50,9 @@ def options(parent, configuration):
     form.checkbox(_("Show puzzles on startup"), configuration.x_show_puzzles_on_startup)
 
     form.separador()
+    form.checkbox(_("Preventing system crashes when playing"), configuration.x_prevention_crashes)
 
+    form.separador()
     form.checkbox(_("Check for updates at startup"), configuration.x_check_for_update)
 
     form.add_tab(_("General"))
@@ -100,19 +106,21 @@ def options(parent, configuration):
     li_wheel = [(_("Forward"), GO_FORWARD), (_("Backward"), GO_BACK)]
     form.combobox(_("Scroll direction with the mouse wheel"), li_wheel, configuration.x_wheel_board)
     form.checkbox(_("Always promote to queen\nALT key allows to change"), configuration.x_autopromotion_q)
-    form.slider(_("Margin of pieces in square") + ':<br><small>%s 10</small>' % _("By default"), 0, 20,
+    form.slider(f'{_("Margin of pieces in square")}:<br><small>{_("By default")} 10</small>', 0, 20,
                 Code.configuration.x_margin_pieces, siporc=False)
     form.checkbox(_("Show cursor when engine is thinking"), configuration.x_cursor_thinking)
     form.checkbox(_("Show ratings (NAGs) on the board"), configuration.x_show_rating)
     form.checkbox(_("Arrow with the best move when there is an analysis"), configuration.x_show_bestmove)
+    form.checkbox(_("The movement performed is shown by colouring the squares"), configuration.x_movement_doublebox_board)
     form.separador()
 
-    x = " - %s Graham O'Neill (https://goneill.co.nz)" % _("developed by")
+    x = f" - {_('developed by')} Graham O'Neill (https://goneill.co.nz)"
     li_db = [
         (_("None"), ""),
         (_("Certabo") + x, "Certabo"),
         (_("Chessnut") + x, "Chessnut"),
         (_("Chessnut Evo") + x, "Chessnut Evo"),
+        (_("Chessnut Move") + x, "Chessnut Move"),
         (_("DGT (Alternative)") + x, "DGT-gon"),
         (_("DGT Pegasus") + x, "Pegasus"),
         (_("HOS Sensory") + x, "HOS Sensory"),
@@ -125,7 +133,7 @@ def options(parent, configuration):
         (_("Tabutronic") + x, "Tabutronic"),
     ]
     if Code.is_windows:
-        li_db.insert(4, (_("DGT"), "DGT"))
+        li_db.insert(5, (_("DGT"), "DGT"))
 
     form.combobox(_("Digital board"), li_db, configuration.x_digital_board)
 
@@ -144,20 +152,21 @@ def options(parent, configuration):
 
     # Aspect 1/2 #######################################################################################################
     # form.separador()
+
     form.checkbox(_("By default"), False)
     form.separador()
     form.apart(_("General"))
     form.font(_("Font"), configuration.x_font_family)
-    form.spinbox(_("Font size"), 3, 64, 60, configuration.x_font_points)
+    form.spinbox(_("Font size"), 3, 64, sb_width_60, configuration.x_font_points)
 
     form.separador()
     form.apart(_("Menus"))
-    form.spinbox(_("Font size"), 3, 64, 60, configuration.x_menu_points)
+    form.spinbox(_("Font size"), 3, 64, sb_width_60, configuration.x_menu_points)
     form.checkbox(_("Bold"), configuration.x_menu_bold)
 
     form.separador()
     form.apart(_("Toolbars"))
-    form.spinbox(_("Font size"), 3, 64, 60, configuration.x_tb_fontpoints)
+    form.spinbox(_("Font size"), 3, 64, sb_width_60, configuration.x_tb_fontpoints)
     form.checkbox(_("Bold"), configuration.x_tb_bold)
     li = (
         (_("Only display the icon"), QtCore.Qt.ToolButtonIconOnly),
@@ -171,7 +180,7 @@ def options(parent, configuration):
 
     form.separador()
     form.apart(_("Message windows"))
-    form.spinbox(_("Font size"), 3, 64, 60, configuration.x_sizefont_messages)
+    form.spinbox(_("Font size"), 3, 64, sb_width_60, configuration.x_sizefont_messages)
 
     form.add_tab("%s 1" % _("Appearance"))
 
@@ -180,9 +189,9 @@ def options(parent, configuration):
     form.checkbox(_("By default"), False)
     form.separador()
     form.apart(_("PGN table"))
-    form.spinbox(_("Width"), 283, 1000, 70 * Code.factor_big_fonts, configuration.x_pgn_width)
-    form.spinbox(_("Height of each row"), 18, 99, 70, configuration.x_pgn_rowheight)
-    form.spinbox(_("Font size"), 3, 99, 70, configuration.x_pgn_fontpoints)
+    form.spinbox(_("Width"), 283, 1000, sb_width_70, configuration.x_pgn_width)
+    form.spinbox(_("Height of each row"), 18, 99, sb_width_70, configuration.x_pgn_rowheight)
+    form.spinbox(_("Font size"), 3, 99, sb_width_70, configuration.x_pgn_fontpoints)
     form.checkbox(_("PGN always in English"), configuration.x_pgn_english)
     form.checkbox(_("PGN with figurines"), configuration.x_pgn_withfigurines)
     form.combobox(_("Scroll direction with the mouse wheel"), li_wheel, configuration.x_wheel_pgn)
@@ -192,8 +201,8 @@ def options(parent, configuration):
     form.checkbox(_("Enable information panel by default"), configuration.x_info_activate)
     form.checkbox(_("Enable analysis bar by default"), configuration.x_analyzer_activate_ab)
     form.separador()
-    form.spinbox(_("Font size of information labels"), 3, 99, 70, configuration.x_sizefont_infolabels)
-    form.spinbox(_("Players"), 3, 99, 70, configuration.x_sizefont_players)
+    form.spinbox(_("Font size of information labels"), 3, 99, sb_width_70, configuration.x_sizefont_infolabels)
+    form.spinbox(_("Players"), 3, 99, sb_width_70, configuration.x_sizefont_players)
     form.separador()
     form.checkbox(_("Enable high dpi scaling"), configuration.x_enable_highdpiscaling)
 
@@ -201,18 +210,17 @@ def options(parent, configuration):
 
     # ELOS ############################################################################################
     form.separador()
-    width = 70 * Code.factor_big_fonts
-    form.spinbox(_("Lucas-Elo"), 0, 3200, width, configuration.x_elo)
+    form.spinbox(_("Lucas-Elo"), 0, 3200, sb_width_100, configuration.x_elo)
     form.separador()
-    form.spinbox(_("Tourney-Elo"), 0, 3200, width, configuration.x_michelo)
+    form.spinbox(_("Tourney-Elo"), 0, 3200, sb_width_100, configuration.x_michelo)
     form.separador()
-    form.spinbox(_("The Wicker Park Tourney"), 0, 3200, width, configuration.x_wicker)
+    form.spinbox(_("The Wicker Park Tourney"), 0, 3200, sb_width_100, configuration.x_wicker)
     form.separador()
-    form.spinbox(_("Fics-Elo"), 0, 3200, width, configuration.x_fics)
+    form.spinbox(_("Fics-Elo"), 0, 3200, sb_width_100, configuration.x_fics)
     form.separador()
-    form.spinbox(_("Fide-Elo"), 0, 3200, width, configuration.x_fide)
+    form.spinbox(_("Fide-Elo"), 0, 3200, sb_width_100, configuration.x_fide)
     form.separador()
-    form.spinbox(_("Lichess-Elo"), 0, 3200, width, configuration.x_lichess)
+    form.spinbox(_("Lichess-Elo"), 0, 3200, sb_width_100, configuration.x_lichess)
 
     form.add_tab(_("Change elos"))
 
@@ -232,6 +240,7 @@ def options(parent, configuration):
             mode_native_select,
             configuration.x_translation_mode,
             configuration.x_show_puzzles_on_startup,
+            configuration.x_prevention_crashes,
             configuration.x_check_for_update,
         ) = li_gen
 
@@ -239,7 +248,7 @@ def options(parent, configuration):
 
         por_defecto = li_asp1[0]
         if por_defecto:
-            li_asp1 = ("", 11, 11, False, 11, False, QtCore.Qt.ToolButtonTextUnderIcon, 14)
+            li_asp1 = ("", 11, 11, False, 11, False, QtCore.Qt.ToolButtonTextUnderIcon, True, 14)
         else:
             del li_asp1[0]
         (
@@ -256,7 +265,8 @@ def options(parent, configuration):
 
         por_defecto = li_asp2[0]
         if por_defecto:
-            li_asp2 = (348, 24, 11, False, True, True, True, False, False, False, True, 11, 16, True)
+            li_asp2 = (348, 24, 11, False, True, True,
+                       True, False, False, 11, 16, True)
         else:
             del li_asp2[0]
         (
@@ -300,12 +310,14 @@ def options(parent, configuration):
             configuration.x_cursor_thinking,
             configuration.x_show_rating,
             configuration.x_show_bestmove,
+            configuration.x_movement_doublebox_board,
             dboard,
             toolIcon,
             configuration.x_position_tool_board,
             configuration.x_director_icon,
             configuration.x_direct_graphics,
         ) = li_b
+
         configuration.x_opacity_tool_board = 10 if toolIcon else 1
         configuration.x_pieces_speed = drap[rapidezMovPiezas]
         if configuration.x_digital_board != dboard:

@@ -69,10 +69,9 @@ class WInfomove(QtWidgets.QWidget):
 
         self.interval_replay = configuration.x_interval_replay
         self.beep_replay = configuration.x_beep_replay
-
         lybt, bt = QTVarios.ly_mini_buttons(self, "", siTiempo=True, siLibre=False, icon_size=24, siJugar=True)
 
-        self.lbPGN = LBKey(self).anchoFijo(self.board.ancho).set_wrap()
+        self.lbPGN = LBKey(self).relative_width(self.board.ancho).set_wrap()
         self.lbPGN.setTextInteractionFlags(Qt.LinksAccessibleByMouse | Qt.LinksAccessibleByKeyboard)
         self.lbPGN.wowner = self
         self.lbPGN.set_font_type(puntos=configuration.x_pgn_fontpoints)
@@ -98,7 +97,7 @@ class WInfomove(QtWidgets.QWidget):
 
         self.with_figurines = configuration.x_pgn_withfigurines
 
-        self.lb_opening = Controles.LB(self).align_center().anchoFijo(self.board.ancho).set_wrap()
+        self.lb_opening = Controles.LB(self).align_center().relative_width(self.board.ancho).set_wrap()
         self.lb_opening.set_font_type(puntos=10, peso=200)
         ly_o = Colocacion.H().relleno().control(self.lb_opening).relleno()
 
@@ -117,8 +116,8 @@ class WInfomove(QtWidgets.QWidget):
         self.clock_running = False
 
     def cambiado_board(self):
-        self.lbPGN.anchoFijo(self.board.ancho)
-        self.lb_opening.anchoFijo(self.board.ancho)
+        self.lbPGN.relative_width(self.board.ancho)
+        self.lb_opening.relative_width(self.board.ancho)
         self.setLayout(self.layout)
 
     def process_toolbar(self):
@@ -199,7 +198,7 @@ class WInfomove(QtWidgets.QWidget):
 
     def tecla_pulsada(self, k):
         if k in (Qt.Key_Left, Qt.Key_Up):
-            self.MoverAtras()
+            self.move_back()
         elif k in (Qt.Key_Right, Qt.Key_Down):
             self.MoverAdelante()
         elif k == Qt.Key_Home:
@@ -215,7 +214,7 @@ class WInfomove(QtWidgets.QWidget):
         position = self.game.first_position
         self.board.set_position(position)
 
-    def MoverAtras(self):
+    def move_back(self):
         self.goto_move_num(self.pos_move - 1)
 
     def MoverAdelante(self):
@@ -231,11 +230,8 @@ class WInfomove(QtWidgets.QWidget):
         move.analysis = xanalyzer.analyzes_move_game(move.game, self.pos_move, xanalyzer.mstime_engine,
                                                      xanalyzer.depth_engine)
         me.final()
-        Analysis.show_analysis(
-            Code.procesador, xanalyzer, move,
-            self.board.is_white_bottom, self.pos_move, main_window=self,
-            must_save=False
-        )
+        Analysis.show_analysis(Code.procesador, xanalyzer, move, self.board.is_white_bottom, self.pos_move,
+            main_window=self, must_save=False)
         self.lbPGN.set_text("")  # necesario para que desaparezca la selección
         self.goto_move_num(self.pos_move)
 
@@ -258,7 +254,7 @@ class WInfomove(QtWidgets.QWidget):
         if forward:
             self.MoverAdelante()
         else:
-            self.MoverAtras()
+            self.move_back()
 
     def run_clock(self):
         configuration = Code.configuration

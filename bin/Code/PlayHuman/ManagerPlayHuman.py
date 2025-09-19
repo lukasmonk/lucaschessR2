@@ -88,7 +88,7 @@ class ManagerPlayHuman(Manager.Manager):
         self.set_dispatcher(self.player_has_moved)
         self.set_position(self.game.last_position)
         self.show_side_indicator(True)
-        self.remove_hints(siQuitarAtras=False)
+        self.remove_hints(remove_back=False)
         self.put_pieces_bottom(True)
 
         self.show_info_extra()

@@ -101,7 +101,7 @@ class ManagerPerson(ManagerPlayAgainstEngine.ManagerPlayAgainstEngine):
         self.set_dispatcher(self.player_has_moved)
         self.set_position(self.game.last_position)
         self.show_side_indicator(True)
-        self.remove_hints(True, siQuitarAtras=False)
+        self.remove_hints(True, remove_back=False)
         self.put_pieces_bottom(is_white)
 
         self.main_window.base.lbRotulo1.put_image(imagen)

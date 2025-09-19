@@ -25,14 +25,21 @@ def read_engines(folder_engines):
 
     bmi2 = "-bmi2" if FasterCode.bmi2() else ""
 
-    for level in range(1100, 2000, 100):
-        cm = mas("maia-%d" % level,"Reid McIlroy-Young,Ashton Anderson,Siddhartha Sen,Jon Kleinberg,Russell Wang + LcZero team","%d" % level, "https://maiachess.com/", "Lc0-0.27.0", level, folder="maia", nodes_compatible=True)
-        cm.set_uci_option("WeightsFile", "maia-%d.pb.gz" % level)
+    levels = list(range(1100, 2000, 100)) + [2200]
+    for level in levels:
+        cm = mas(
+            f"maia-{level}",
+            "Reid McIlroy-Young,Ashton Anderson,Siddhartha Sen,Jon Kleinberg,Russell Wang + LcZero team",
+            str(level),
+            "https://www.maiachess.com/",
+            "Lc0-0.27.0",
+            level,
+            folder="maia",
+            nodes_compatible=True
+        )
+        cm.set_uci_option("WeightsFile", f"maia-{level}.pb.gz")
         cm.path_exe = Util.relative_path(Util.opj(folder_engines, "maia", "Lc0-0.27.0"))
-        cm.name = "maia-%d" % level
-        cm.set_uci_option("Ponder", "false")
-        cm.set_uci_option("Hash", "8")
-        cm.set_uci_option("Threads", "1")
+        cm.name = f"Maia-{level}"
 
     cm = mas("lc0", "The LCZero Authors", "0.32.0", "https://github.com/LeelaChessZero", "Lc0-0.32.0", 3332, nodes_compatible=True)
     cm.set_uci_option("Hash", "64")

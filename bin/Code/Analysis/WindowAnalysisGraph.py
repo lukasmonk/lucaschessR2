@@ -98,13 +98,19 @@ class WAnalisisGraph(LCDialog.LCDialog):
         w_moves = QtWidgets.QWidget()
         w_moves.setLayout(ly)
 
+        # self.em_moves_old = Controles.EM(self, alm.indexesHTMLold).read_only().set_font(font)
+        # ly = Colocacion.V().control(self.em_moves_old)
+        # w_moves_old = QtWidgets.QWidget()
+        # w_moves_old.setLayout(ly)
+
         self.tab_grid = tab_grid = Controles.Tab()
         tab_grid.new_tab(grid_all, _("All moves"))
         tab_grid.new_tab(grid_w, _("White"))
         tab_grid.new_tab(grid_b, _("Black"))
         tab_grid.new_tab(w_idx, _("Indexes"))
         tab_grid.new_tab(w_elo, _("Elo"))
-        tab_grid.new_tab(w_moves, _("Moves"))
+        tab_grid.new_tab(w_moves, _("Moves analyzed"))
+        # tab_grid.new_tab(w_moves_old, _("Summary"))
         tab_grid.dispatchChange(self.tabChanged)
         self.tabActive = 0
 
@@ -272,7 +278,7 @@ class WAnalisisGraph(LCDialog.LCDialog):
             move = self.alm.lijgW[row]
         else:  # if grid.id == "B":
             move = self.alm.lijgB[row]
-        if len(move.nag_color) == 2:
+        if hasattr(move, "nag_color") and move.nag_color and len(move.nag_color) == 2:
             nagc = move.nag_color[1]
             return Nags.nag_qcolor(nagc)
 
@@ -301,7 +307,7 @@ class WAnalisisGraph(LCDialog.LCDialog):
             pv1 = rm0.pv.split(" ")[0]
             from_sq = pv1[:2]
             to_sq = pv1[2:4]
-            promotion = pv1[4] if len(pv1) == 5 else None
+            promotion = pv1[4] if len(pv1) == 5 else ""
             txt = rm0.abbrev_text_base()
 
             color = None

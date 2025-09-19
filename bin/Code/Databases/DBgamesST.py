@@ -45,6 +45,9 @@ class TreeSTAT:
         self.cache = None
         self.cache_active = False
 
+    def conexion(self):
+        return self._conexion
+
     def _check_table(self):
         cursor = self._conexion.execute("pragma table_info(STATS)")
         if not cursor.fetchall():

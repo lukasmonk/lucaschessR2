@@ -1,44 +1,9 @@
-import gc
-import sys
 import time
 
 from PySide2 import QtCore
 from PySide2 import QtGui, QtWidgets
 
 import Code
-
-
-class GarbageCollector(QtCore.QObject):
-    INTERVAL = 10000
-
-    def __init__(self):
-        super().__init__()
-
-        self.timer = QtCore.QTimer(self)
-        self.timer.timeout.connect(self.check)
-
-        self.threshold = gc.get_threshold()
-        gc.disable()
-        self.timer.start(self.INTERVAL)
-
-    def check(self):
-        l0, l1, l2 = gc.get_count()
-        if l0 > self.threshold[0]:
-            self.collect_garbage(0)
-        if l1 > self.threshold[1]:
-            self.collect_garbage(1)
-        if l2 > self.threshold[2]:
-            self.collect_garbage(2)
-
-    def collect_garbage(self, generation):
-        try:
-            QtCore.QTimer.singleShot(0, lambda: self.collect(generation))
-        except Exception as e:
-            sys.stderr.write(f"Error during garbage collection: {e}\n")
-
-    @QtCore.Slot(int)
-    def collect(self, generation):
-        gc.collect(generation)
 
 
 def beep():
@@ -108,7 +73,7 @@ def send_key_widget(widget, key, ckey):
 dAlineacion = {"i": QtCore.Qt.AlignLeft, "d": QtCore.Qt.AlignRight, "c": QtCore.Qt.AlignCenter}
 
 
-def qtAlineacion(cAlin):
+def qt_alignment(cAlin):
     """
     Convierte alineacion en letras (i-c-d) en constantes qt
     """
@@ -135,19 +100,22 @@ def qtBrush(nColor):
     """
     return QtGui.QBrush(qtColor(nColor))
 
-def get_screen_geometry(widget:QtWidgets.QWidget):
+
+def get_screen_geometry(widget: QtWidgets.QWidget):
     screen = get_screen(widget)
     return screen.geometry()
 
-def get_screen(widget:QtWidgets.QWidget):
+
+def get_screen(widget: QtWidgets.QWidget):
     try:
         screen = widget.screen()
-    except AttributeError: #Qt512
+    except AttributeError:  # Qt512
         punto = widget.mapToGlobal(QtCore.QPoint(2, 2))
         screen = QtGui.QGuiApplication.screenAt(punto)
     if screen is None:
         screen = QtWidgets.QDesktopWidget()
     return screen
+
 
 def center_on_desktop(window):
     """
@@ -176,23 +144,43 @@ class EscondeWindow:
     def __init__(self, window):
         self.window = window
         self.is_maximized = self.window.isMaximized()
+        self.was_minimized = False
 
     def __enter__(self):
         if Code.is_windows:
+            # Guardar geometría exacta antes de mover
+            self.normal_geometry = self.window.normalGeometry()
             self.pos = self.window.pos()
+            self.size = self.window.size()
+
             d = dic_monitores()
             ancho = sum(geometry.width() for geometry in d.values())
-            self.window.move(ancho + self.window.width() + 10, 0)
+            # Mover la ventana manteniendo el tamaño exacto
+            self.window.setGeometry(ancho + self.window.width() + 10, 0,
+                                    self.size.width(), self.size.height())
         else:
+            self.was_minimized = True
             self.window.showMinimized()
         return self
 
     def __exit__(self, type, value, traceback):
         if Code.is_windows:
-            self.window.move(self.pos)
+            # Restaurar posición y tamaño exactos
+            if hasattr(self, 'normal_geometry') and self.normal_geometry.isValid():
+                self.window.setGeometry(self.normal_geometry)
+            else:
+                self.window.resize(self.size)
+                self.window.move(self.pos)
+
+            # Pequeño retraso para asegurar que Windows procese el movimiento
+            QtCore.QTimer.singleShot(50, lambda: self.finalize_restore())
+        else:
+            self.finalize_restore()
+
+    def finalize_restore(self):
         if self.is_maximized:
             self.window.showMaximized()
-        else:
+        elif self.was_minimized:
             self.window.showNormal()
         refresh_gui()
 
@@ -277,20 +265,25 @@ def get_clipboard():
     return None, None
 
 
-def shrink(widget):
-    widget.adjustSize()
-    r = widget.geometry()
-    r.setWidth(0)
-    r.setHeight(0)
-    widget.setGeometry(r)
-
-
 def keyboard_modifiers():
     modifiers = QtWidgets.QApplication.keyboardModifiers()
     is_shift = modifiers == QtCore.Qt.ShiftModifier
     is_control = modifiers == QtCore.Qt.ControlModifier
     is_alt = modifiers == QtCore.Qt.AltModifier
     return is_shift, is_control, is_alt
+
+
+def shrink(widget: QtWidgets.QWidget):
+    pos = widget.pos()
+    r = widget.geometry()
+    r.setWidth(0)
+    r.setHeight(0)
+    widget.setGeometry(r)
+    widget.setSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+    widget.adjustSize()
+    if widget.layout():
+        widget.layout().activate()
+    widget.move(pos)
 
 
 class EstadoWindow:

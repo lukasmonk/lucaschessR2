@@ -179,7 +179,7 @@ class BoardLines(QtWidgets.QWidget):
 
     def ajustaAncho(self):
         self.setFixedWidth(self.board.ancho + 20)
-        self.lbPGN.anchoFijo(self.board.ancho)
+        self.lbPGN.relative_width(self.board.ancho)
 
     def camposEdicion(self, siVisible):
         if self.siMoves:
@@ -296,7 +296,7 @@ class BoardLines(QtWidgets.QWidget):
     def MoverInicio(self):
         self.goto_move_num(0)
 
-    def MoverAtras(self):
+    def move_back(self):
         self.goto_move_num(self.pos_move - 1)
 
     def MoverAdelante(self):
@@ -320,7 +320,7 @@ class BoardLines(QtWidgets.QWidget):
         if forward:
             self.MoverAdelante()
         else:
-            self.MoverAtras()
+            self.move_back()
 
     def run_clock(self):
         if self.clock_running:

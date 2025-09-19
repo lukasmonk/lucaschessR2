@@ -55,10 +55,10 @@ class WRunCaptures(LCDialog.LCDialog):
 
         self.gb_threats = Controles.GB(self, _("Threats"), ly).set_font(Controles.FontType(puntos=10, peso=750))
 
-        self.lb_result = Controles.LB(self).set_font_type(puntos=10, peso=500).anchoFijo(254).set_wrap()
+        self.lb_result = Controles.LB(self).set_font_type(puntos=10, peso=500).relative_width(254).set_wrap()
         self.lb_info = (
             Controles.LB(self)
-            .anchoFijo(254)
+            .relative_width(254)
             .set_foreground_backgound("white", "#496075")
             .align_center()
             .set_font_type(puntos=self.configuration.x_font_points)

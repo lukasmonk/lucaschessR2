@@ -1,8 +1,10 @@
+import string
 import collections
 
 import FasterCode
 
-from Code.Base.Constantes import FEN_INITIAL, WHITE, BLACK
+import Code
+from Code.Base.Constantes import FEN_INITIAL, WHITE, BLACK, PZ_VALUES
 from Code.Translations import TrListas
 
 
@@ -201,6 +203,13 @@ class Position:
     def get_pz(self, a1h8):
         return self.squares.get(a1h8)
 
+    def get_pos_king(self, is_white):
+        king = "K" if is_white else "k"
+        for pos, pz in self.squares.items():
+            if pz == king:
+                return pos
+        return None
+
     def pzs_key(self):
         td = "KQRBNPkqrbnp"
         key = ""
@@ -317,9 +326,8 @@ class Position:
         for c in pgn:
             if c in "NBRQK":
                 li.append(
-                    '<img src="../Resources/IntFiles/Figs/%s%s.png" '
+                    f'<img src="{Code.configuration.folder_pieces_png()}/{tp}{c.lower()}.png" '
                     'width="20" height="20" style="vertical-align:bottom">'
-                    % (tp, c.lower())
                 )
             else:
                 li.append(c)
@@ -382,10 +390,21 @@ class Position:
 
     def valor_material(self):
         valor = 0
-        d = {"R": 5, "Q": 10, "B": 3, "N": 3, "P": 1, "K": 0}
         for v in self.squares.values():
             if v:
-                valor += d[v.upper()]
+                valor += PZ_VALUES[v.upper()]
+        return valor
+
+    def valor_material_side(self, is_white):
+        valor = 0
+        if is_white:
+            d = PZ_VALUES
+        else:
+            d = {key.lower(): value for key, value in PZ_VALUES.items()}
+        for v in self.squares.values():
+            if v:
+                if v in d:
+                    valor += d[v]
         return valor
 
     def siFaltaMaterial(self):
@@ -455,7 +474,7 @@ class Position:
                 num += 1
         return num
 
-    def numPiezasWB(self):
+    def num_piezas_wb(self):
         n_white = n_black = 0
         for i in range(8):
             for j in range(8):
@@ -464,6 +483,18 @@ class Position:
                 pz = self.squares.get(c_col + c_fil)
                 if pz and pz not in "pkPK":
                     if pz.islower():
+                        n_black += 1
+                    else:
+                        n_white += 1
+        return n_white, n_black
+
+    def num_allpiezas_wb(self):
+        n_white = n_black = 0
+        for col in string.ascii_lowercase[:8]:
+            for row in '12345678':
+                piece = self.squares.get(f"{col}{row}")
+                if piece:
+                    if piece.islower():
                         n_black += 1
                     else:
                         n_white += 1

@@ -256,7 +256,7 @@ class WPanelDirector(LCDialog.LCDialog):
                 tarea = TabVisual.GT_Marker(self.guion)
             else:
                 return
-            sc.ponRutinaPulsada(None, tarea.id())
+            sc.set_routine_if_pressed(None, tarea.id())
             tarea.itemSC(sc)
 
         tarea.marcado(True)
@@ -470,7 +470,7 @@ class WPanelDirector(LCDialog.LCDialog):
                     from_sq, to_sq = self.desdeHasta(tarea.txt_tipo() + " " + tarea.name(), a1h8[:2], a1h8[2:])
                     if from_sq:
                         sc = tarea.itemSC()
-                        sc.ponA1H8(from_sq + to_sq)
+                        sc.set_a1h8(from_sq + to_sq)
                         self.board.refresh()
 
             mo = tarea.marcadoOwner()
@@ -871,7 +871,8 @@ class WPanelDirector(LCDialog.LCDialog):
                 lb_sel = self.selectBanda.get_pos(pos)
             if lb_sel and lb_sel.id:
                 nada, tp, nid = lb_sel.id.split("_")
-                nid = int(nid)
+                if nid.isdigit():
+                    nid = int(nid)
                 if tp == TabVisual.TP_FLECHA:
                     self.siGrabarInicio = True
                 self.datos_new = self.creaTarea(tp, nid, origin + origin, -1)
@@ -879,7 +880,7 @@ class WPanelDirector(LCDialog.LCDialog):
                 if tp in (TabVisual.TP_FLECHA, TabVisual.TP_MARCO):
                     self.origin_new = origin
                     sc = self.datos_new[0].itemSC()
-                    sc.mousePressExt(event)
+                    sc.mouse_press_ext(event)
                 else:
                     self.origin_new = None
 
@@ -1074,7 +1075,7 @@ class Director:
             self.ultTareaSelect = tarea_elegida
             itemSC = self.ultTareaSelect.itemSC()
             itemSC.activa(True)
-            itemSC.mousePressExt(event)
+            itemSC.mouse_press_ext(event)
             self.directorItemSC = itemSC
 
             return True

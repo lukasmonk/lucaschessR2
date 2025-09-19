@@ -499,10 +499,10 @@ class WEngineFast(QtWidgets.QDialog):
         self.sbDepth = Controles.SB(self, engine.max_depth, 0, 50)
 
         lb_time = Controles.LB(self, _("Maximum seconds to think") + ": ")
-        self.edTime = Controles.ED(self, "").ponFloat(engine.max_time).anchoFijo(60).align_right()
+        self.edTime = Controles.ED(self, "").ponFloat(engine.max_time).relative_width(60).align_right()
 
         lb_nodes = Controles.LB(self, _("Fixed nodes") + ": ")
-        self.edNodes = Controles.ED(self, "").ponInt(engine.nodes).anchoFijo(60).align_right()
+        self.edNodes = Controles.ED(self, "").ponInt(engine.nodes).relative_width(60).align_right()
 
         lb_exe = Controles.LB(self, "%s: %s" % (_("File"), Code.relative_root(engine.path_exe)))
 
@@ -567,13 +567,13 @@ class WConfTutor(QtWidgets.QWidget):
         self.cb_engine.capture_changes(self.changed_engine)
 
         lb_time = Controles.LB2P(self, _("Duration of tutor analysis (secs)"))
-        self.ed_time = Controles.ED(self).tipoFloat(self.configuration.x_tutor_mstime / 1000.0).anchoFijo(40)
+        self.ed_time = Controles.ED(self).tipoFloat(self.configuration.x_tutor_mstime / 1000.0).relative_width(40)
 
         lb_depth = Controles.LB2P(self, _("Depth"))
-        self.ed_depth = Controles.ED(self).tipoInt(self.configuration.x_tutor_depth).anchoFijo(30)
+        self.ed_depth = Controles.ED(self).tipoInt(self.configuration.x_tutor_depth).relative_width(30)
 
         lb_multipv = Controles.LB2P(self, _("Number of variations evaluated by the engine (MultiPV)"))
-        self.ed_multipv = Controles.ED(self).tipoIntPositive(self.configuration.x_tutor_multipv).anchoFijo(30)
+        self.ed_multipv = Controles.ED(self).tipoIntPositive(self.configuration.x_tutor_multipv).relative_width(30)
         lb_maximum = Controles.LB(self, _("0 = Maximum"))
         ly_multi = Colocacion.H().control(self.ed_multipv).control(lb_maximum).relleno()
 
@@ -613,8 +613,8 @@ class WConfTutor(QtWidgets.QWidget):
         layout.filaVacia(6, 30)
         layout.controld(lb_sensitivity, 7, 0).control(self.cb_type, 7, 1)
         layout.filaVacia(8, 30)
-        layout.control(self.chb_disabled, 9, 0, numColumnas=2)
-        layout.control(self.chb_background, 10, 0, numColumnas=2)
+        layout.control(self.chb_disabled, 9, 0, num_columns=2)
+        layout.control(self.chb_background, 10, 0, num_columns=2)
 
         ly = Colocacion.V().otro(layout).relleno(1)
         lyh = Colocacion.H().otro(ly).relleno(1).margen(30)
@@ -693,13 +693,13 @@ class WConfAnalyzer(QtWidgets.QWidget):
         self.cb_engine.capture_changes(self.changed_engine)
 
         lb_time = Controles.LB2P(self, _("Duration of analysis (secs)"))
-        self.ed_time = Controles.ED(self).tipoFloat(self.configuration.x_analyzer_mstime / 1000.0).anchoFijo(40)
+        self.ed_time = Controles.ED(self).tipoFloat(self.configuration.x_analyzer_mstime / 1000.0).relative_width(40)
 
         lb_depth = Controles.LB2P(self, _("Depth"))
-        self.ed_depth = Controles.ED(self).tipoInt(self.configuration.x_analyzer_depth).anchoFijo(30)
+        self.ed_depth = Controles.ED(self).tipoInt(self.configuration.x_analyzer_depth).relative_width(30)
 
         lb_multipv = Controles.LB2P(self, _("Number of variations evaluated by the engine (MultiPV)"))
-        self.ed_multipv = Controles.ED(self).tipoIntPositive(self.configuration.x_analyzer_multipv).anchoFijo(30)
+        self.ed_multipv = Controles.ED(self).tipoIntPositive(self.configuration.x_analyzer_multipv).relative_width(30)
         lb_maximum = Controles.LB(self, _("0 = Maximum"))
         ly_multi = Colocacion.H().control(self.ed_multipv).control(lb_maximum).relleno()
 
@@ -708,14 +708,15 @@ class WConfAnalyzer(QtWidgets.QWidget):
 
         bt_analysis_parameters = Controles.PB(
             self, _("Analysis configuration parameters"), rutina=self.config_analysis_parameters, plano=False
-        )
+        ).ponIcono(Iconos.ConfAnalysis())
 
         lb_analysis_bar = Controles.LB2P(self, _("Limits in the Analysis Bar (0=no limit)")).set_font_type(puntos=12,
                                                                                                            peso=700)
         lb_depth_ab = Controles.LB2P(self, _("Depth"))
-        self.ed_depth_ab = Controles.ED(self).tipoInt(self.configuration.x_analyzer_depth_ab).anchoFijo(30)
+        self.ed_depth_ab = Controles.ED(self).tipoInt(self.configuration.x_analyzer_depth_ab).relative_width(30)
         lb_time_ab = Controles.LB2P(self, _("Time in seconds"))
-        self.ed_time_ab = Controles.ED(self).tipoFloat(self.configuration.x_analyzer_mstime_ab / 1000.0).anchoFijo(40)
+        self.ed_time_ab = Controles.ED(self).tipoFloat(self.configuration.x_analyzer_mstime_ab / 1000.0).relative_width(
+            40)
 
         layout = Colocacion.G()
         layout.controld(lb_engine, 0, 0).control(self.cb_engine, 0, 1)
@@ -793,7 +794,9 @@ class WOthers(QtWidgets.QWidget):
         lb_maia = Controles.LB2P(self, _("Nodes used with Maia engines"))
         li_options = [
             (_("1 node as advised by the authors"), False),
-            (_("From 1 (1100) to 450 nodes (1900), similar strength as other engines"), True),
+            (_("From 1 (1100) to 450 nodes (1900), similar strength as other engines")
+             .replace("1900", "2200").replace("450", "800"),
+             True),
         ]
         self.cb_maia = Controles.CB(self, li_options, Code.configuration.x_maia_nodes_exponential).capture_changes(
             self.save

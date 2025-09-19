@@ -86,10 +86,10 @@ class WManualSave(LCDialog.LCDialog):
         # Ficheros PGN + FNS
         lb_pgn = Controles.LB(self, _("PGN") + ": ")
         self.bt_pgn = Controles.PB(self, "", self.pgn_select, plano=False).anchoMinimo(300)
-        bt_no_pgn = Controles.PB(self, "", self.pgn_unselect).ponIcono(Iconos.Delete()).anchoFijo(16)
+        bt_no_pgn = Controles.PB(self, "", self.pgn_unselect).ponIcono(Iconos.Delete()).relative_width(16)
         lb_fns = Controles.LB(self, _("FNS") + ": ")
         self.bt_fns = Controles.PB(self, "", self.fns_select, plano=False).anchoMinimo(300)
-        bt_no_fns = Controles.PB(self, "", self.fns_unselect).ponIcono(Iconos.Delete()).anchoFijo(16)
+        bt_no_fns = Controles.PB(self, "", self.fns_unselect).ponIcono(Iconos.Delete()).relative_width(16)
 
         # #Codec
         lb_codec = Controles.LB(self, _("Encoding") + ": ")
@@ -117,7 +117,7 @@ class WManualSave(LCDialog.LCDialog):
 
         ##
         lb_number = Controles.LB(self, _("Correlative number") + ": ")
-        self.sb_number = Controles.SB(self, 0, 0, 99999999).tamMaximo(50)
+        self.sb_number = Controles.SB(self, 0, 0, 99999999).relative_width(50)
         lb_number_help = Controles.LB(self, _("Replace symbol # in Value column (#=3, ###=003)"))
         lb_number_help.setWordWrap(True)
 
@@ -138,7 +138,7 @@ class WManualSave(LCDialog.LCDialog):
         )
 
         lb_multipv = Controles.LB(self, _("Multi PV") + ": ")
-        self.sb_multipv = Controles.SB(self, 1, 1, 500).tamMaximo(50)
+        self.sb_multipv = Controles.SB(self, 1, 1, 500).relative_width(50)
         ##
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("PDT", _("Evaluation"), 100, align_center=True)
@@ -468,7 +468,7 @@ class WManualSave(LCDialog.LCDialog):
         self.game.mover_jugada = -1
         self.board.set_position(self.position)
 
-    def MoverAtras(self):
+    def move_back(self):
         self.test_game()
         if self.game.mover_jugada >= 0:
             self.game.mover_jugada -= 1

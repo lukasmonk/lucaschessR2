@@ -45,7 +45,7 @@ class WTournament(LCDialog.LCDialog):
 
         # Datos
 
-        self.liEnActual = []
+        self.li_data_current_engine = []
         self.xjugar = None
         self.liResult = None
         self.last_change = Util.today()
@@ -64,22 +64,22 @@ class WTournament(LCDialog.LCDialog):
 
         # Adjudicator
         lb_resign = Controles.LB(self, "%s (%s): " % (_("Minimum centipawns to assign winner"), "0=%s" % _("Disable")))
-        self.ed_resign = Controles.ED(self).tipoInt(torneo.resign()).anchoFijo(30)
+        self.ed_resign = Controles.ED(self).tipoInt(torneo.resign()).relative_width(30)
         bt_resign = Controles.PB(self, "", rutina=self.borra_resign).ponIcono(Iconos.Reciclar())
 
         # Draw-plys
         lb_draw_min_ply = Controles.LB(self,
                                        "%s (%s): " % (_("Minimum movements to assign draw"), "0=%s" % _("Disable")))
-        self.ed_draw_min_ply = Controles.ED(self).ponInt(torneo.draw_min_ply()).anchoFijo(30).align_right()
+        self.ed_draw_min_ply = Controles.ED(self).ponInt(torneo.draw_min_ply()).relative_width(30).align_right()
         # Draw-puntos
         lb_draw_range = Controles.LB(self, _("Maximum centipawns to assign draw") + ": ")
-        self.ed_draw_range = Controles.ED(self).tipoInt(torneo.draw_range()).anchoFijo(30)
+        self.ed_draw_range = Controles.ED(self).tipoInt(torneo.draw_range()).relative_width(30)
         bt_draw_range = Controles.PB(self, "", rutina=self.borra_draw_range).ponIcono(Iconos.Reciclar())
 
         # adjudicator
         self.list_engines = self.configuration.combo_engines_multipv10()
         self.cbJmotor, self.lbJmotor = QTUtil2.combobox_lb(self, self.list_engines, torneo.adjudicator(), _("Engine"))
-        self.edJtiempo = Controles.ED(self).tipoFloat(torneo.adjudicator_time()).anchoFijo(50)
+        self.edJtiempo = Controles.ED(self).tipoFloat(torneo.adjudicator_time()).relative_width(50)
         self.lbJtiempo = Controles.LB2P(self, _("Time in seconds"))
         layout = Colocacion.G()
         layout.controld(self.lbJmotor, 3, 0).control(self.cbJmotor, 3, 1)
@@ -391,7 +391,7 @@ class WTournament(LCDialog.LCDialog):
         if gid == GRID_ALIAS:
             return self.torneo.num_engines()
         elif gid == GRID_VALUES:
-            return len(self.liEnActual)
+            return len(self.li_data_current_engine)
         elif gid == GRID_GAMES_QUEUED:
             return self.torneo.num_games_queued()
         elif gid == GRID_GAMES_FINISHED:
@@ -412,6 +412,8 @@ class WTournament(LCDialog.LCDialog):
             return self.grid_dato_games_queued(row, column)
         elif gid == GRID_GAMES_FINISHED:
             return self.grid_dato_games_finished(row, column)
+        else:
+            return None
 
     def grid_dato_engines_alias(self, row, column):
         me = self.torneo.engine(row)
@@ -421,7 +423,7 @@ class WTournament(LCDialog.LCDialog):
             return str(row + 1)
 
     def grid_dato_engines_values(self, row, column):
-        li = self.liEnActual[row]
+        li = self.li_data_current_engine[row]
         if column == "CAMPO":
             return li[0]
         else:
@@ -499,22 +501,22 @@ class WTournament(LCDialog.LCDialog):
             self.gridEnginesValores.refresh()
 
     def act_engine(self, me):
-        self.liEnActual = []
+        self.li_data_current_engine = []
         row = self.gridEnginesAlias.recno()
         if row < 0:
             return
 
         # tipo, key, label, valor
-        self.liEnActual.append((_("Engine"), me.name))
-        self.liEnActual.append((_("Author"), me.autor))
-        self.liEnActual.append((_("File"), Util.relative_path(me.path_exe)))
-        self.liEnActual.append((_("Information"), me.id_info.replace("\n", " - ")))
-        self.liEnActual.append(("ELO", me.elo))
-        self.liEnActual.append((_("Max depth"), me.depth))
-        self.liEnActual.append((_("Maximum seconds to think"), me.time))
+        self.li_data_current_engine.append((_("Engine"), me.name))
+        self.li_data_current_engine.append((_("Author"), me.autor))
+        self.li_data_current_engine.append((_("File"), Util.relative_path(me.path_exe)))
+        self.li_data_current_engine.append((_("Information"), me.id_info.replace("\n", " - ")))
+        self.li_data_current_engine.append(("ELO", me.elo))
+        self.li_data_current_engine.append((_("Max depth"), me.depth))
+        self.li_data_current_engine.append((_("Maximum seconds to think"), me.time))
         pbook = me.book
         if pbook in ("-", None):
-            pbook = "* " + _("Engine book")
+            pbook = "* " + _("None")
         else:
             if pbook == "*":
                 pbook = "* " + _("By default")
@@ -522,10 +524,10 @@ class WTournament(LCDialog.LCDialog):
                    BOOK_BEST_MOVE: _("Always the highest percentage")}
             pbook += "   (%s)" % dic.get(me.bookRR, BOOK_BEST_MOVE)
 
-        self.liEnActual.append((_("Opening book"), pbook))
+        self.li_data_current_engine.append((_("Opening book"), pbook))
 
         for opcion in me.li_uci_options():
-            self.liEnActual.append((opcion.name, str(opcion.valor)))
+            self.li_data_current_engine.append((opcion.name, str(opcion.valor)))
 
     def gm_launch(self):
         if self.torneo.num_games_queued() == 0:
@@ -703,7 +705,7 @@ class WTournament(LCDialog.LCDialog):
                 if self.torneo.num_engines() > 0:
                     self.grid_cambiado_registro(self.gridEnginesAlias, 0, None)
                 else:
-                    self.liEnActual = []
+                    self.li_data_current_engine = []
                 self.gridEnginesValores.refresh()
                 self.gridGamesQueued.refresh()
                 self.gridEnginesAlias.setFocus()
@@ -857,6 +859,8 @@ class WTournament(LCDialog.LCDialog):
                     for gm in self.torneo.db_games_finished:
                         game = Game.Game()
                         game.restore(gm.game_save)
+                        if ws.seventags:
+                            game.add_seventags()
                         ws.write(game.pgn())
                         ws.write("\n\n\n")
                     ws.close()

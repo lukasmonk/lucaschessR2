@@ -525,6 +525,8 @@ class WSonidos(LCDialog.LCDialog):
         xadd("TABLASFALTAMATERIAL")
         xadd("GANAMOSTIEMPO")
         xadd("GANARIVALTIEMPO")
+        xadd("OFRECETABLAS")
+        xadd("OFRECERESIGNAR")
 
         xapart(_("Coordinates"))
         for c in "abcdefgh12345678":
@@ -537,5 +539,6 @@ class WSonidos(LCDialog.LCDialog):
         xapart(_("Operations"))
         for c in ("O-O", "O-O-O", "=", "x", "#", "+"):
             xadd(c)
+
 
         return li_sounds

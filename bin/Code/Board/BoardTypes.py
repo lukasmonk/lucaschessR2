@@ -263,7 +263,7 @@ class Flecha(Bloque):
     color: int
     colorinterior: int
     colorinterior2: int
-    opacity: int
+    opacity: float
     redondeos: bool
     forma: str
     ancho: int
@@ -326,7 +326,7 @@ class Marco(Bloque):
     grosor: int
     redEsquina: int
     tipo: int
-    opacity: int
+    opacity: float
     width_square: int
     png: str
 
@@ -356,7 +356,7 @@ class Circle(Bloque):
     grosor: int
     redEsquina: int
     tipo: int
-    opacity: int
+    opacity: float
     width_square: int
     png: str
 
@@ -381,7 +381,7 @@ class SVG(Bloque):
     physical_pos: PhysicalPos
     fa1h8: str
     xml: str
-    opacity: int
+    opacity: float
     width_square: int
     psize: int
     png: str
@@ -406,7 +406,7 @@ class Marker(Bloque):
     physical_pos: PhysicalPos
     fa1h8: str
     xml: str
-    opacity: int
+    opacity: float
     width_square: int
     psize: int
     poscelda: int
@@ -451,10 +451,10 @@ class Pizarra(QtWidgets.QWidget):
         else:
             self.mensaje.read_only()
 
-        self.pbLeft = Controles.PB(self, "", self.go_left).ponIcono(Iconos.AnteriorF()).anchoFijo(24)
-        self.pbRight = Controles.PB(self, "", self.go_right).ponIcono(Iconos.SiguienteF()).anchoFijo(24)
-        self.pbDown = Controles.PB(self, "", self.go_down).ponIcono(Iconos.Abajo()).anchoFijo(24)
-        self.pbClose = Controles.PB(self, "", self.borrar).ponIcono(Iconos.CancelarPeque()).anchoFijo(24)
+        self.pbLeft = Controles.PB(self, "", self.go_left).ponIcono(Iconos.AnteriorF()).relative_width(24)
+        self.pbRight = Controles.PB(self, "", self.go_right).ponIcono(Iconos.SiguienteF()).relative_width(24)
+        self.pbDown = Controles.PB(self, "", self.go_down).ponIcono(Iconos.Abajo()).relative_width(24)
+        self.pbClose = Controles.PB(self, "", self.borrar).ponIcono(Iconos.CancelarPeque()).relative_width(24)
 
         cajon = QtWidgets.QWidget(self)
         ly = Colocacion.H()

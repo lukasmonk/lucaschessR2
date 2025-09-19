@@ -339,7 +339,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         if self.ayudas_iniciales:
             self.show_hints()
         else:
-            self.remove_hints(siQuitarAtras=False)
+            self.remove_hints(remove_back=False)
         self.put_pieces_bottom(is_white)
 
         self.show_basic_label()
@@ -700,9 +700,12 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                 adj.si_seguimos(self)
 
     def crash_adjourn_init(self):
-        label_menu = _("Play against an engine") + ". " + self.xrival.name
-        with Adjournments.Adjournments() as adj:
-            self.key_crash = adj.key_crash(self.game_type, label_menu)
+        if self.configuration.x_prevention_crashes:
+            label_menu = _("Play against an engine") + ". " + self.xrival.name
+            with Adjournments.Adjournments() as adj:
+                self.key_crash = adj.key_crash(self.game_type, label_menu)
+        else:
+            self.key_crash = None
 
     def crash_adjourn(self):
         if self.key_crash is None:
@@ -765,7 +768,8 @@ class ManagerPlayAgainstEngine(Manager.Manager):
 
     def stop_engine(self):
         if not self.human_is_playing:
-            self.xrival.stop()
+            if self.xrival is not None:
+                self.xrival.stop()
 
     def finalizar(self):
         self.crash_adjourn_end()
@@ -822,7 +826,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             self.save_summary()
             self.crash_adjourn_end()
             self.set_end_game(self.with_takeback)
-            if not self.play_while_win:
+            if len(self.game) > 0:
                 self.autosave()
         else:
             if self.timed:
@@ -1005,16 +1009,17 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             self.xtutor.ac_final(-1)
 
     def help_to_move(self):
-        mrm: EngineResponse.MultiEngineResponse
-        mrm = self.analize_after_last_move()
-        if not mrm or len(mrm.li_rm) == 0:
-            return
-        move = Move.Move(self.game, position_before=self.game.last_position.copia())
-        move.analysis = mrm, 0
-        Analysis.show_analysis(self.procesador, self.xanalyzer, move, self.board.is_white_bottom, 0, must_save=False)
-        if self.hints:
-            self.hints -= 1
-            self.show_hints()
+        if self.is_in_last_move():
+            mrm: EngineResponse.MultiEngineResponse
+            mrm = self.analize_after_last_move()
+            if not mrm or len(mrm.li_rm) == 0:
+                return
+            move = Move.Move(self.game, position_before=self.game.last_position.copia())
+            move.analysis = mrm, 0
+            Analysis.show_analysis(self.procesador, self.xanalyzer, move, self.board.is_white_bottom, 0, must_save=False)
+            if self.hints:
+                self.hints -= 1
+                self.show_hints()
 
     def help_current(self):
         mrm: EngineResponse.MultiEngineResponse
@@ -1040,6 +1045,8 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             self.show_hints()
 
     def play_instead_of_me(self):
+        if not self.is_in_last_move():
+            return
         if self.state != ST_PLAYING or self.is_finished() or self.game_type != GT_AGAINST_ENGINE:
             return
 
@@ -1697,7 +1704,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
         self.set_end_game(self.with_takeback)
 
     def show_hints(self):
-        self.ponAyudas(self.hints, siQuitarAtras=False)
+        self.ponAyudas(self.hints, remove_back=False)
         self.pon_toolbar(hardreset=True)
 
     def change_rival(self):

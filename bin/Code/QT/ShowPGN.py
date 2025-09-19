@@ -115,7 +115,7 @@ class ShowPGN(QtWidgets.QScrollArea):
             self.wowner.link_variation_pressed(href)
             self.selected_link = href
 
-        menu = QTVarios.LCMenu12(self)
+        menu = QTVarios.LCMenu(self)
         menu.opcion("analyze", _("Analyze"), Iconos.Analizar())
         menu.separador()
         menu.opcion("remove_line", _("Remove line"), Iconos.DeleteRow())

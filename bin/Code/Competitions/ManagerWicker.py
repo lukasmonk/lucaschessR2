@@ -195,7 +195,7 @@ class ManagerWicker(Manager.Manager):
         self.set_dispatcher(self.player_has_moved)
         self.set_position(self.game.last_position)
         self.put_pieces_bottom(is_white)
-        self.remove_hints(True, siQuitarAtras=True)
+        self.remove_hints(True, remove_back=True)
         self.show_side_indicator(True)
 
         nbsp = "&nbsp;" * 3
@@ -239,7 +239,7 @@ class ManagerWicker(Manager.Manager):
                 time_control += "+%d" % self.seconds_per_move
             self.game.set_tag("TimeControl", time_control)
 
-            self.tc_player.config_clock(self.max_seconds, self.seconds_per_move, 0, 0)
+            self.tc_player.config_clock(self.max_seconds, self.seconds_per_move, 0, 0) #print
             self.tc_rival.config_clock(self.max_seconds, self.seconds_per_move, 0, 0)
 
             tp_bl, tp_ng = self.tc_white.label(), self.tc_black.label()
@@ -575,7 +575,7 @@ class ManagerWicker(Manager.Manager):
             tc.set_labels()
 
             if tc.time_is_consumed():
-                self.game.set_termination_time()
+                self.game.set_termination_time(is_white)
                 self.show_result()
                 return False
 

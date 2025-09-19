@@ -1,3 +1,5 @@
+from types import SimpleNamespace
+
 from PySide2 import QtWidgets
 
 import Code
@@ -11,6 +13,7 @@ from Code.QT import FormLayout
 from Code.QT import Iconos
 from Code.QT import QTUtil
 from Code.QT import QTUtil2
+from Code.Themes import AssignThemes
 
 SEPARADOR = FormLayout.separador
 
@@ -21,40 +24,36 @@ def read_dic_params():
     dic = Util.restore_pickle(file)
     if not dic:
         dic = {}
-    alm = Util.Record()
-    alm.engine = dic.get("engine", configuration.x_tutor_clave)
-    alm.vtime = dic.get("vtime", configuration.x_tutor_mstime)
-    alm.depth = dic.get("depth", configuration.x_tutor_depth)
-    alm.nodes = dic.get("nodes", 0)
-    alm.kblunders_condition = dic.get("kblunders_condition", MISTAKE_BLUNDER)
-    alm.from_last_move = dic.get("from_last_move", False)
-    alm.multiPV = dic.get("multiPV", "PD")
-    alm.priority = dic.get("priority", Priorities.priorities.normal)
-
-    alm.book_name = dic.get("book_name", None)
-    alm.standard_openings = dic.get("standard_openings", False)
-
-    alm.accuracy_tags = dic.get("accuracy_tags", False)
-
-    alm.analyze_variations = dic.get("analyze_variations", False)
-    alm.include_variations = dic.get("include_variations", True)
-    alm.what_variations = dic.get("what_variations", ALL_VARIATIONS)
-    alm.include_played = dic.get("include_played", True)
-    alm.limit_include_variations = dic.get("limit_include_variations", 0)
-    alm.info_variation = dic.get("info_variation", True)
-    alm.one_move_variation = dic.get("one_move_variation", False)
-    alm.delete_previous = dic.get("delete_previous", True)
-    alm.si_pdt = dic.get("si_pdt", False)
-
-    alm.show_graphs = dic.get("show_graphs", True)
-
-    alm.white = dic.get("white", True)
-    alm.black = dic.get("black", True)
-
-    alm.li_players = dic.get("li_players", None)
-    alm.workers = dic.get("workers", 1)
-
-    alm.tags_accuracy = dic.get("tags_accuracy", False)
+    alm = SimpleNamespace(
+        engine=dic.get("engine", configuration.x_tutor_clave),
+        vtime=dic.get("vtime", configuration.x_tutor_mstime),
+        depth=dic.get("depth", configuration.x_tutor_depth),
+        nodes=dic.get("nodes", 0),
+        kblunders_condition=dic.get("kblunders_condition", MISTAKE_BLUNDER),
+        from_last_move=dic.get("from_last_move", False),
+        multiPV=dic.get("multiPV", "PD"),
+        priority=dic.get("priority", Priorities.priorities.normal),
+        book_name=dic.get("book_name", None),
+        standard_openings=dic.get("standard_openings", False),
+        accuracy_tags=dic.get("accuracy_tags", False),
+        analyze_variations=dic.get("analyze_variations", False),
+        include_variations=dic.get("include_variations", True),
+        what_variations=dic.get("what_variations", ALL_VARIATIONS),
+        include_played=dic.get("include_played", True),
+        limit_include_variations=dic.get("limit_include_variations", 0),
+        info_variation=dic.get("info_variation", True),
+        one_move_variation=dic.get("one_move_variation", False),
+        delete_previous=dic.get("delete_previous", True),
+        si_pdt=dic.get("si_pdt", False),
+        show_graphs=dic.get("show_graphs", True),
+        white=dic.get("white", True),
+        black=dic.get("black", True),
+        li_players=dic.get("li_players", None),
+        workers=dic.get("workers", 1),
+        themes_tags=dic.get("themes_tags", False),
+        themes_assign=dic.get("themes_assign", False),
+        themes_reset=dic.get("themes_reset", False)
+    )
 
     return alm
 
@@ -160,6 +159,18 @@ def form_variations(alm):
     return li_var
 
 
+def form_themes(alm):
+    li_themes = [SEPARADOR,
+                 (_("Automatic assignment") + ":", alm.themes_assign), SEPARADOR, SEPARADOR,
+                 (None, _("In case automatic assignment is activated") + ":"), SEPARADOR,
+                 (_("Add themes tag to the game") + " (TacticThemes):", alm.themes_tags), SEPARADOR,
+                 (_("Pre-delete the following themes?") + ":", alm.themes_reset),
+                 (None, "@|" + AssignThemes.AssignThemes().txt_all_themes()), SEPARADOR
+                 ]
+
+    return li_themes
+
+
 def analysis_parameters(parent, extended_mode, all_engines=False):
     alm = read_dic_params()
 
@@ -233,7 +244,7 @@ def analysis_parameters(parent, extended_mode, all_engines=False):
         config = FormLayout.Combobox(_("Do not scan the opening moves based on book"), li)
         li_gen.append((config, defecto))
 
-        li_gen.append((_("Do not scan standard opening moves") + ":", alm.standard_openings ))
+        li_gen.append((_("Do not scan standard opening moves") + ":", alm.standard_openings))
 
         li_gen.append((_("Add accuracy tags to the game") + ":", alm.accuracy_tags))
 
@@ -247,11 +258,14 @@ def analysis_parameters(parent, extended_mode, all_engines=False):
 
         li_blunders, li_brilliancies = form_blunders_brilliancies(alm, configuration)
 
+        li_themes = form_themes(alm)
+
         lista = [
             (li_gen, _("General options"), ""),
             (li_var, _("Variations"), ""),
             (li_blunders, _("Wrong moves"), ""),
-            (li_brilliancies, _("Brilliancies"), "")
+            (li_brilliancies, _("Brilliancies"), ""),
+            (li_themes, _("Tactical themes"), "")
         ]
 
     else:
@@ -303,7 +317,7 @@ def analysis_parameters(parent, extended_mode, all_engines=False):
         accion, li_resp = resultado
 
         if extended_mode:
-            li_gen, li_var, li_blunders, li_brilliancies = li_resp
+            li_gen, li_var, li_blunders, li_brilliancies, li_themes = li_resp
         else:
             li_gen = li_resp
 
@@ -353,6 +367,12 @@ def analysis_parameters(parent, extended_mode, all_engines=False):
                 alm.bmtbrilliancies,
             ) = li_brilliancies
 
+            (
+                alm.themes_assign,
+                alm.themes_tags,
+                alm.themes_reset
+            ) = li_themes
+
         dic = {}
         for x in dir(alm):
             if not x.startswith("__"):
@@ -364,7 +384,7 @@ def analysis_parameters(parent, extended_mode, all_engines=False):
         return None
 
 
-def massive_analysis_parameters(parent, configuration, multiple_selected, siDatabase=False):
+def massive_analysis_parameters(parent, configuration, multiple_selected, is_database=False):
     alm = read_dic_params()
 
     # Datos
@@ -398,8 +418,8 @@ def massive_analysis_parameters(parent, configuration, multiple_selected, siData
     li_gen.append((config, alm.multiPV))
     li_gen.append(SEPARADOR)
 
-    liJ = [(_("White"), "WHITE"), (_("Black"), "BLACK"), (_("White & Black"), "BOTH")]
-    config = FormLayout.Combobox(_("Analyze color"), liJ)
+    li_j = [(_("White"), "WHITE"), (_("Black"), "BLACK"), (_("White & Black"), "BOTH")]
+    config = FormLayout.Combobox(_("Analyze color"), li_j)
     if alm.white and alm.black:
         color = "BOTH"
     elif alm.black:
@@ -456,12 +476,15 @@ def massive_analysis_parameters(parent, configuration, multiple_selected, siData
     li_var = form_variations(alm)
 
     li_blunders, li_brilliancies = form_blunders_brilliancies(alm, configuration)
+    li_themes = form_themes(alm)
 
-    lista = []
-    lista.append((li_gen, _("General options"), ""))
-    lista.append((li_var, _("Variations"), ""))
-    lista.append((li_blunders, _("Wrong moves"), ""))
-    lista.append((li_brilliancies, _("Brilliancies"), ""))
+    lista = [
+        (li_gen, _("General options"), ""),
+        (li_var, _("Variations"), ""),
+        (li_blunders, _("Wrong moves"), ""),
+        (li_brilliancies, _("Brilliancies"), ""),
+        (li_themes, _("Tactical themes"), "")
+    ]
 
     reg = Util.Record()
     reg.form = None
@@ -473,7 +496,7 @@ def massive_analysis_parameters(parent, configuration, multiple_selected, siData
     if resultado:
         accion, li_resp = resultado
 
-        li_gen, li_var, li_blunders, li_brilliancies = li_resp
+        li_gen, li_var, li_blunders, li_brilliancies, li_themes = li_resp
 
         (
             alm.engine,
@@ -526,6 +549,12 @@ def massive_analysis_parameters(parent, configuration, multiple_selected, siData
             alm.bmtbrilliancies,
         ) = li_brilliancies
 
+        (
+            alm.themes_assign,
+            alm.themes_tags,
+            alm.themes_reset
+        ) = li_themes
+
         dic = {}
         for x in dir(alm):
             if not x.startswith("__"):
@@ -539,10 +568,10 @@ def massive_analysis_parameters(parent, configuration, multiple_selected, siData
                 or alm.fnsbrilliancies
                 or alm.pgnbrilliancies
                 or alm.bmtbrilliancies
-                or siDatabase
+                or is_database
         ):
             QTUtil2.message_error(parent, _("No file was specified where to save results"))
-            return
+            return None
 
         return alm
     else:

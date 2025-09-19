@@ -116,7 +116,7 @@ class WMemoria(LCDialog.LCDialog):
         for lb in (lb_nivel, lb_categoria, lb_record):
             lb.set_font(f_rot16 if lb == lb_categoria else f_rot14)
             lb.align_center()
-            lb.anchoFijo(460)
+            lb.relative_width(460)
 
         ly_rot_basicos = Colocacion.V().control(lb_categoria).control(lb_nivel).control(lb_record).margen(0)
 
@@ -188,7 +188,7 @@ class WMemoria(LCDialog.LCDialog):
         self.timer = None
 
         for lb in (lb_ayuda, self.rotuloDispone1, self.rotuloDispone):
-            lb.anchoFijo(420)
+            lb.relative_width(420)
 
         self.encenderExtras(False)
 

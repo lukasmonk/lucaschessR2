@@ -162,7 +162,7 @@ class WDatos(QtWidgets.QDialog):
         self.is_white = None
         self.puntos = 0
 
-        self.ed = Controles.SB(self, self.max_level, 1, self.max_level).tamMaximo(40)
+        self.ed = Controles.SB(self, self.max_level, 1, self.max_level).relative_width(40)
         lb = Controles.LB(self, categoria.name() + " " + _("Level"))
 
         lb.set_font(f)
@@ -180,15 +180,15 @@ class WDatos(QtWidgets.QDialog):
 
         # Rival
         lb_r_motor = (
-            Controles.LB(self, "<b>%s</b> : %s" % (_("Engine"), rival.name)).set_font(flb).set_wrap().anchoFijo(400)
+            Controles.LB(self, "<b>%s</b> : %s" % (_("Engine"), rival.name)).set_font(flb).set_wrap().relative_width(400)
         )
         lb_r_autor = (
-            Controles.LB(self, "<b>%s</b> : %s" % (_("Author"), rival.autor)).set_font(flb).set_wrap().anchoFijo(400)
+            Controles.LB(self, "<b>%s</b> : %s" % (_("Author"), rival.autor)).set_font(flb).set_wrap().relative_width(400)
         )
         lb_r_web = (
             Controles.LB(self, '<b>%s</b> : <a href="%s">%s</a>' % (_("Web"), rival.url, rival.url))
             .set_wrap()
-            .anchoFijo(400)
+            .relative_width(400)
             .set_font(flb)
         )
 
@@ -198,10 +198,10 @@ class WDatos(QtWidgets.QDialog):
         # Tutor
         tutor = configuration.engine_tutor()
         lb_t_motor = (
-            Controles.LB(self, "<b>%s</b> : %s" % (_("Engine"), tutor.name)).set_font(flb).set_wrap().anchoFijo(400)
+            Controles.LB(self, "<b>%s</b> : %s" % (_("Engine"), tutor.name)).set_font(flb).set_wrap().relative_width(400)
         )
         lb_t_autor = (
-            Controles.LB(self, "<b>%s</b> : %s" % (_("Author"), tutor.autor)).set_font(flb).set_wrap().anchoFijo(400)
+            Controles.LB(self, "<b>%s</b> : %s" % (_("Author"), tutor.autor)).set_font(flb).set_wrap().relative_width(400)
         )
         ly = Colocacion.V().control(lb_t_motor).control(lb_t_autor)
 
@@ -209,7 +209,7 @@ class WDatos(QtWidgets.QDialog):
             lb_t_web = (
                 Controles.LB(self, '<b>%s</b> : <a href="%s">%s</a>' % ("Web", tutor.url, tutor.url))
                 .set_wrap()
-                .anchoFijo(400)
+                .relative_width(400)
                 .set_font(flb)
             )
             ly.control(lb_t_web)

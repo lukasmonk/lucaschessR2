@@ -1,5 +1,6 @@
 import time
 
+import shiboken2
 from PySide2 import QtCore, QtWidgets, QtGui
 
 import Code
@@ -140,7 +141,7 @@ class WBase(QtWidgets.QWidget):
             self.tb.setOrientation(QtCore.Qt.Orientation.Vertical)
             font_metrics = QtGui.QFontMetrics(self.tb.font())
             max_px = max(font_metrics.width(label) for label, ico in dic_opciones.values())
-            self.tb.setFixedWidth(max_px+12)
+            self.tb.setFixedWidth(max_px + 12)
 
             # mx = 0
             # lb = ""
@@ -299,23 +300,23 @@ class WBase(QtWidgets.QWidget):
 
         # # Blancas y negras
         f = Controles.FontType(puntos=configuration.x_sizefont_players, peso=750)
-        self.lb_player_white = Controles.LB(self).anchoFijo(n_ancho_labels).align_center().set_font(f).set_wrap()
+        self.lb_player_white = Controles.LB(self).relative_width(n_ancho_labels).align_center().set_font(f).set_wrap()
         self.configuration.set_property(self.lb_player_white, "white")
 
-        self.lb_player_black = Controles.LB(self).anchoFijo(n_ancho_labels).align_center().set_font(f).set_wrap()
+        self.lb_player_black = Controles.LB(self).relative_width(n_ancho_labels).align_center().set_font(f).set_wrap()
         self.configuration.set_property(self.lb_player_black, "black")
 
         # # Capturas
         n_ancho_capt = (width_pgn - 12) // 2
-        self.lb_capt_white = Controles.LB(self).anchoFijo(n_ancho_capt).set_wrap()
+        self.lb_capt_white = Controles.LB(self).relative_width(n_ancho_capt).set_wrap()
         style = "QWidget { border-style: groove; border-width: 1px; border-color: LightGray; padding: 2px 0px 2px 0px;}"
         self.lb_capt_white.setStyleSheet(style)
 
-        self.lb_capt_black = Controles.LB(self).anchoFijo(n_ancho_capt).set_wrap()
+        self.lb_capt_black = Controles.LB(self).relative_width(n_ancho_capt).set_wrap()
         self.lb_capt_black.setStyleSheet(style)
 
         self.bt_capt = (Controles.PB(self, self.captures_symbol(), self.captures_mouse_pressed)
-                        .set_font_type(puntos=14)).anchoFijo(10)
+                        .set_font_type(puntos=14)).relative_width(10)
 
         # Relojes
         f = Controles.FontType(puntos=26, peso=500)
@@ -424,6 +425,7 @@ class WBase(QtWidgets.QWidget):
 
         self.tb.li_acciones = li_acciones
         self.tb.update()
+        self.tb.setEnabled(True)
         QTUtil.refresh_gui()
 
         return self.tb
@@ -505,11 +507,11 @@ class WBase(QtWidgets.QWidget):
             self.manager.configuration.x_pgn_width = n_ancho_pgn
             self.manager.configuration.graba()
             n_ancho_labels = n_ancho_pgn // 2
-            self.lb_player_white.anchoFijo(n_ancho_labels)
-            self.lb_player_black.anchoFijo(n_ancho_labels)
+            self.lb_player_white.relative_width(n_ancho_labels)
+            self.lb_player_black.relative_width(n_ancho_labels)
             n_ancho_labels -= self.bt_capt.width() // 2 + 2
-            self.lb_capt_white.anchoFijo(n_ancho_labels)
-            self.lb_capt_black.anchoFijo(n_ancho_labels)
+            self.lb_capt_white.relative_width(n_ancho_labels)
+            self.lb_capt_black.relative_width(n_ancho_labels)
 
     def grid_tecla_control(self, grid, k, is_shift, is_control, is_alt):
         self.key_pressed("G", k)
@@ -519,17 +521,17 @@ class WBase(QtWidgets.QWidget):
                          QtCore.Qt.Key.Key_Left if self.configuration.wheel_pgn(forward) else QtCore.Qt.Key.Key_Right)
 
     def grid_dato(self, grid, row, o_columna):
-        controlPGN = self.manager.pgn
+        control_pgn = self.manager.pgn
 
         col = o_columna.key
         if col == "NUMBER":
-            return controlPGN.dato(row, col)
+            return control_pgn.dato(row, col)
 
-        move = controlPGN.only_move(row, col)
+        move = control_pgn.only_move(row, col)
         if not move:
             return self.manager.pgn.dato(row, col)  # ManagerMate,...
 
-        if not controlPGN.must_show:
+        if not control_pgn.must_show:
             return "-"
 
         color = None
@@ -569,8 +571,10 @@ class WBase(QtWidgets.QWidget):
             if color_nag == NAG_0:  # Son prioritarios los nags manuales
                 nothing, color_nag = mrm.set_nag_color(rm)
 
-        if move.in_the_opening or move.comment or move.variations:
-            image_initial = "O" if move.in_the_opening else ""
+        is_opening = move.is_book_move()
+
+        if is_opening or move.comment or move.variations:
+            image_initial = "O" if is_opening else ""
             if len(move.variations) > 0:
                 image_initial += "V"
             if move.comment:
@@ -581,7 +585,9 @@ class WBase(QtWidgets.QWidget):
             color = Nags.nag_color(color_nag)
 
         if move.has_themes():
-            image_initial = "T"
+            if not image_initial:
+                image_initial = ""
+            image_initial += "|" + (move.li_themes[0] if len(move.li_themes) == 1 else "⧉")  # "📚")
 
         return pgn, color, info, image_initial, st_nags
 
@@ -736,11 +742,11 @@ class WBase(QtWidgets.QWidget):
 
         value = {"q": 1, "r": 2, "b": 3, "n": 4, "p": 5}
 
-        def xshow(tp, li, lb, num):
-            html = "<small>%+d</small>" % num if num else ""
-            li.sort(key=lambda x: value[x.lower()])
-            for n, pz in enumerate(li):
-                html += '<img src="../Resources/IntFiles/Figs/%s%s.png" width="30" height="30">' % (tp, pz.lower())
+        def xshow(tp, li, lb, xnum):
+            html = "<small>%+d</small>" % xnum if xnum else ""
+            li.sort(key=lambda xx: value[xx.lower()])
+            for n, xpz in enumerate(li):
+                html += f'<img src="{Code.configuration.folder_pieces_png()}/{tp}{xpz.lower()}.png" width="30" height="30">'
             lb.set_text(html)
 
         xshow("b", d[True], self.lb_capt_white, xvpz if xvpz > 0 else 0)
@@ -750,21 +756,21 @@ class WBase(QtWidgets.QWidget):
             self.lb_capt_black.show()
             self.bt_capt.show()
 
-    def ponAyudas(self, puntos, siQuitarAtras=True):
+    def ponAyudas(self, puntos, remove_back=True):
         self.num_hints = puntos
         self.set_label_tutor()
 
         if puntos == 0:
-            if siQuitarAtras:
+            if remove_back:
                 if TB_TAKEBACK in self.tb.li_acciones:
                     self.dic_toolbar[TB_TAKEBACK].setVisible(False)
             if TB_ADVICE in self.tb.li_acciones:
                 self.dic_toolbar[TB_ADVICE].setEnabled(False)
 
-    def remove_hints(self, siTambienTutorAtras, siQuitarAtras=True):
-        if siTambienTutorAtras:
+    def remove_hints(self, also_tutor_back, remove_back=True):
+        if also_tutor_back:
             self.bt_active_tutor.setVisible(False)
-            if siQuitarAtras and (TB_TAKEBACK in self.tb.li_acciones):
+            if remove_back and (TB_TAKEBACK in self.tb.li_acciones):
                 self.dic_toolbar[TB_TAKEBACK].setVisible(False)
 
     def show_button_tutor(self, ok):
@@ -826,16 +832,16 @@ class WBase(QtWidgets.QWidget):
         self.wmessage.show()
 
     def change_message(self, txt):
-        self.wmessage.change_message(txt)
-        if self.wmessage.isHidden():
-            self.wmessage.show()
+        if not self.is_canceled():
+            self.wmessage.change_message(txt)
+            # if self.wmessage.isHidden():
+            #     self.wmessage.show()
 
     def hide_message(self):
         self.wmessage.hide()
 
     def is_canceled(self):
-        QTUtil.refresh_gui_time()
-        return self.wmessage.canceled
+        return self.wmessage.is_canceled()
 
     def check_is_hide(self):
         if self.wmessage.isVisible():
@@ -862,12 +868,18 @@ class WMessage(QtWidgets.QWidget):
         if with_cancel:
             self.canceled = False
             self.bt_cancel.show()
+
         else:
             self.bt_cancel.hide()
 
     def change_message(self, message):
-        self.lb_message.setText(message)
+        if self.lb_message and shiboken2.isValid(self.lb_message):
+            self.lb_message.setText(message)
+        QTUtil.refresh_gui()
 
     def cancel(self):
-        self.close()
         self.canceled = True
+
+    def is_canceled(self):
+        QTUtil.refresh_gui()
+        return self.canceled

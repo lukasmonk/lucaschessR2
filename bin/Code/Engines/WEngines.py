@@ -349,10 +349,10 @@ class WEngineExtend(QtWidgets.QDialog):
             self.sbDepth = Controles.SB(self, engine.depth, 0, 50)
 
             lb_time = Controles.LB2P(self, _("Maximum seconds to think"))
-            self.edTime = Controles.ED(self, "").ponFloat(engine.time).anchoFijo(60).align_right()
+            self.edTime = Controles.ED(self, "").ponFloat(engine.time).relative_width(60).align_right()
 
             lb_nodes = Controles.LB2P(self, _("Fixed nodes"))
-            self.edNodes = Controles.ED(self, "").ponInt(engine.nodes).anchoFijo(80).align_right()
+            self.edNodes = Controles.ED(self, "").ponInt(engine.nodes).relative_width(80).align_right()
 
             lb_book = Controles.LB(self, _("Opening book") + ": ")
             self.list_books = Books.ListBooks()

@@ -139,6 +139,8 @@ class Eboard:
                 path_so = Util.opj(path_eboards, "libevo.so")
             elif self.name == "HOS Sensory":
                 path_so = Util.opj(path_eboards, "libhos.so")
+            elif self.name == "Chessnut Move":
+                path_so = Util.opj(path_eboards, "libmov.so")
             else:
                 path_so = Util.opj(path_eboards, "libucb.so")
             if os.path.isfile(path_so):
@@ -172,18 +174,21 @@ class Eboard:
             path_eboards = Util.opj(Code.folder_OS, "DigitalBoards")
 
             if self.name == "DGT":
-                for path_dll_dgt in (
+                for folder_dll_dgt in (
+                        "C:/Program Files (x86)/DGT/DGT e-Board drivers",
+                        "C:/Program Files (x86)/DGT/DGT e-Board drivers/Applications/RabbitPlugin/32bit/Common Files",
                         "C:/Program Files (x86)/DGT Projects/",
                         "C:/Program Files (x86)/Common Files/DGT Projects/",
                         "C:/Program Files/DGT Projects/",
                         "C:/Program Files/Common Files/DGT Projects/",
                         "",
-                        path_eboards
-                ):
-                    path_dll = Util.opj(path_dll_dgt, "DGTEBDLL.dll")
+                        path_eboards):
+                    path_dll = Util.opj(folder_dll_dgt, "DGTEBDLL.dll")
                     if os.path.isfile(path_dll):
                         try:
+                            os.chdir(os.path.dirname(folder_dll_dgt))
                             driver = ctypes.WinDLL(path_dll)
+                            break
                         except:
                             pass
             else:
@@ -211,6 +216,8 @@ class Eboard:
                     path_dll = Util.opj(path_eboards, "EVO_DLL.dll")
                 elif self.name == "HOS Sensory":
                     path_dll = Util.opj(path_eboards, "HOS_DLL.dll")
+                elif self.name == "Chessnut Move":
+                    path_dll = Util.opj(path_eboards, "MOV_DLL.dll")
                 else:
                     path_dll = Util.opj(path_eboards, "UCB_DLL.dll")
                 if os.path.isfile(path_dll):
@@ -412,6 +419,8 @@ class Eboard:
         elif board == "Chessnut":
             return Iconos.Chessnut()
         elif board == "Chessnut Evo":
+            return Iconos.Chessnut()
+        elif board == "Chessnut Move":
             return Iconos.Chessnut()
         elif board == "HOS Sensory":
             return Iconos.HOS()

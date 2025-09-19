@@ -5,6 +5,8 @@ import glob
 import hashlib
 import inspect
 import os
+import sys
+import stat
 import pickle
 import random
 import shutil
@@ -23,7 +25,7 @@ def md5_lc(x: str) -> int:
 
 class Log:
     def __init__(self, logname):
-        self.logname = logname
+        self.logname = os.path.abspath(logname)
 
     def write(self, buf):
         if buf.startswith("Traceback"):
@@ -59,13 +61,33 @@ def remove_folder_files(folder: str) -> bool:
         pass
     return not os.path.isdir(folder)
 
+def is_linux() -> bool:
+    return sys.platform.startswith("linux")
 
-def create_folder(carpeta: str):
+
+def create_folder(folder: str) -> bool:
     try:
-        os.mkdir(carpeta)
+        os.mkdir(folder)
+        if is_linux():
+            os.chmod(folder, stat.S_IRWXU | stat.S_IRGRP | stat.S_IXGRP | stat.S_IROTH | stat.S_IXOTH)
         return True
     except:
         return False
+
+def check_folders(folder: str) -> bool:
+    if folder:
+        if not os.path.isdir(folder):
+            try:
+                os.makedirs(folder, exist_ok=True)
+                if is_linux():
+                    os.chmod(folder, stat.S_IRWXU | stat.S_IRGRP | stat.S_IXGRP | stat.S_IROTH | stat.S_IXOTH)
+            except:
+                return False
+    return True
+
+
+def check_folders_filepath(filepath):
+    check_folders(os.path.dirname(filepath))
 
 
 def same_path(path1: str, path2: str) -> bool:
@@ -753,3 +775,14 @@ def fen_fen64(fen):
 
 def randomize():
     random.seed(int.from_bytes(os.urandom(4), 'little'))
+
+
+def file_crc(ruta_archivo):
+    crc = 0
+    with open(ruta_archivo, 'rb') as f:
+        while True:
+            chunk = f.read(4096)
+            if not chunk:
+                break
+            crc = zlib.crc32(chunk, crc)
+    return crc & 0xFFFFFFFF

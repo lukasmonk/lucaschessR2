@@ -12,6 +12,7 @@ from Code import Util
 
 class DictSQL(object):
     def __init__(self, path_db, tabla="Data", max_cache=2048):
+        self.path_db = path_db
         self.tabla = tabla
         self.max_cache = max_cache
         self.cache = {}
@@ -137,7 +138,7 @@ class DictSQL(object):
         for key, dato in cursor.fetchall():
             try:
                 dic[key] = pickle.loads(dato)
-            except:
+            except AttributeError:
                 if self.li_breplaces_pickle:
                     for btxt_wrong, btxt_correct in self.li_breplaces_pickle:
                         dato = dato.replace(btxt_wrong, btxt_correct)

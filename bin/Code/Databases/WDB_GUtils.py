@@ -256,12 +256,9 @@ class WOptionsDatabase(QtWidgets.QDialog):
                 subgroup_l2 = self.ed_subgroup_l2.texto()
                 if subgroup_l2:
                     folder = Util.opj(folder, subgroup_l2)
-        if not Util.exist_folder(folder):
-            try:
-                os.makedirs(folder, True)
-            except:
-                QTUtil2.message_error(self, "%s\n%s" % (_("Unable to create the folder"), folder))
-                return
+        if not Util.check_folders(folder):
+            QTUtil2.message_error(self, "%s\n%s" % (_("Unable to create the folder"), folder))
+            return
 
         filename = "%s.lcdb" % name
         if self.external_folder:

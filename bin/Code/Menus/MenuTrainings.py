@@ -271,6 +271,7 @@ class MenuTrainings:
                         else:
                             xsubmenu1 = submenu.submenu(entry.name, nico.otro())
                             menu_tacticas(xsubmenu1, tipo, xcarpeta, xlista)
+                            submenu.separador()
             menu_t.separador()
             return xlista
 
@@ -784,7 +785,7 @@ def params_training_position(w_parent, titulo, n_fen, pos, salta, tutor_active, 
 
     form.separador()
     label = "%s (1..%d)" % (_("Select position"), n_fen)
-    form.spinbox(label, 1, n_fen, 50, pos)
+    form.spinbox(label, 1, n_fen, 70, pos)
 
     form.separador()
     li = [(_("Sequential"), "s"), (_("Random"), "r"), (_("Random with same sequence based on position"), "rk")]

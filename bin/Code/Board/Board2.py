@@ -30,7 +30,7 @@ class PosBoard(Board.Board):
             a1h8 = self.num2alg(cy, cx)
             si_izq = event.button() == QtCore.Qt.LeftButton
             si_der = event.button() == QtCore.Qt.RightButton
-            if self.squares.get(a1h8):
+            if hasattr(self, "squares") and self.squares.get(a1h8):
                 self.parent().ultimaPieza = self.squares.get(a1h8)
                 if hasattr(self.parent(), "ponCursor"):
                     self.parent().ponCursor()

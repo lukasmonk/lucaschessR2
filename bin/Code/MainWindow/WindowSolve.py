@@ -55,7 +55,7 @@ padding: 2px;"""
         for n in range(self.MAX_NMOVES):
             col = n % 2 + 1
             row = n // 2
-            ed = Controles.ED(self, "").align_center().anchoFijo(60)
+            ed = Controles.ED(self, "").align_center().relative_width(60)
             ed.capture_enter(self.pressed_enter).set_font_type(puntos=11)
             ed.setStyleSheet(self.style_normal)
             ed.nmove = n

@@ -49,7 +49,7 @@ class ManagerAlbum(Manager.Manager):
         self.set_dispatcher(self.player_has_moved)
         self.set_position(self.game.last_position)
         self.put_pieces_bottom(is_white)
-        self.remove_hints(True, siQuitarAtras=True)
+        self.remove_hints(True, remove_back=True)
         self.show_side_indicator(True)
 
         self.main_window.base.lbRotulo1.put_image(self.cromo.pixmap_level())

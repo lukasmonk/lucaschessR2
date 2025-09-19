@@ -60,4 +60,5 @@ elif n_args >= 2:
         Code.Analysis.RunAnalysis.run(sys.argv[2])
 
     elif arg == "-healthcheck":
-            sys.exit(0)
+        sys.exit(0)
+

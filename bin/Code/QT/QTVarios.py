@@ -311,7 +311,7 @@ def ly_mini_buttons(
     li_acciones.append(None)
     x("MoverInicio", _("Start position"), Iconos.MoverInicio())
     li_acciones.append(None)
-    x("MoverAtras", _("Previous move"), Iconos.MoverAtras())
+    x("move_back", _("Previous move"), Iconos.MoverAtras())
     li_acciones.append(None)
     x("MoverAdelante", _("Next move"), Iconos.MoverAdelante())
     li_acciones.append(None)
@@ -458,7 +458,7 @@ class LBPieza(Controles.LB):
         pixmap = board.piezas.pixmap(pieza, tam=tam)
         self.dragpixmap = pixmap
         Controles.LB.__init__(self, owner)
-        self.put_image(pixmap).anchoFijo(tam).altoFijo(tam)
+        self.put_image(pixmap).relative_width(tam).altoFijo(tam)
 
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.LeftButton:
@@ -468,7 +468,7 @@ class LBPieza(Controles.LB):
         self.pieza = self.pieza.upper() if self.pieza.islower() else self.pieza.lower()
         pixmap = self.board.piezas.pixmap(self.pieza, tam=self.tam)
         self.dragpixmap = pixmap
-        self.put_image(pixmap).anchoFijo(self.tam).altoFijo(self.tam)
+        self.put_image(pixmap).relative_width(self.tam).altoFijo(self.tam)
 
 
 class ListaPiezas(QtWidgets.QWidget):
@@ -481,11 +481,10 @@ class ListaPiezas(QtWidgets.QWidget):
             tam = board.anchoPieza
 
         li_lb = []
-        pieces = "K,Q,R,B,N,P"
-        if side == BLACK:
-            pieces = pieces.lower()
         layout = Colocacion.H()
-        for pieza in pieces.split(","):
+        for pieza in ("K", "Q", "R", "B", "N", "P"):
+            if side == BLACK:
+                pieza = pieza.lower()
             lb = LBPieza(self, pieza, board, tam)
             li_lb.append(lb)
             layout.control(lb)
@@ -564,19 +563,11 @@ def rondoFolders(shuffle=True):
 
 class LCMenu(Controles.Menu):
     def __init__(self, parent, titulo=None, icono=None, is_disabled=False, puntos=None):
-        configuration = Code.configuration
-        if not puntos:
-            puntos = configuration.x_menu_points
-        bold = configuration.x_menu_bold
+        if puntos is None:
+            puntos = Code.configuration.x_menu_points
+        bold = Code.configuration.x_menu_bold
         Controles.Menu.__init__(self, parent, titulo=titulo, icono=icono, is_disabled=is_disabled, puntos=puntos,
                                 bold=bold)
-        if Code.is_windows:
-            first_option_widget = QtWidgets.QLabel("")
-            first_option_widget.setFixedHeight(1)
-            first_widget_action = QtWidgets.QWidgetAction(self)
-            first_widget_action.setDefaultWidget(first_option_widget)
-            first_widget_action.setDisabled(True)
-            self.addAction(first_widget_action)
 
     def opcion(self, key, label, icono=None, is_disabled=False, font_type=None, is_checked=None, tooltip=None,
                shortcut=None):
@@ -596,20 +587,6 @@ class LCMenu(Controles.Menu):
         menu.setFont(self.font())
         self.addMenu(menu)
         return menu
-
-
-class LCMenu12(LCMenu):
-    def __init__(self, parent, titulo=None, icono=None, is_disabled=False, puntos=None):
-        LCMenu.__init__(self, parent, titulo, icono, is_disabled, puntos)
-
-    #     first_option_widget = QtWidgets.QLabel("")
-    #     first_option_widget.setFixedHeight(1)
-    #     first_widget_action = QtWidgets.QWidgetAction(self)
-    #     first_widget_action.setDefaultWidget(first_option_widget)
-    #     self.addAction(first_widget_action)
-    #
-    # def lanza(self):
-    #     return LCMenu.lanza(self)
 
 
 class LCMenuRondo(LCMenu):
@@ -708,12 +685,18 @@ class ImportarFichero(QtWidgets.QDialog):
 
         self.setLayout(layout)
 
+    @staticmethod
+    def refresh_gui():
+        QTUtil.refresh_gui()
+
     def pon_titulo(self, titulo):
         self.setWindowTitle(titulo)
+        self.refresh_gui()
 
     def hide_duplicates(self):
         self.lbRotDuplicados.hide()
         self.lbDuplicados.hide()
+        self.refresh_gui()
 
     def cancelar(self):
         self.is_canceled = True
@@ -721,13 +704,14 @@ class ImportarFichero(QtWidgets.QDialog):
 
     def ponExportados(self):
         self.lbRotImportados.set_text(_("Exported") + ":")
+        self.refresh_gui()
 
     def ponSaving(self):
         self.btCancelarSeguir.setDisabled(True)
         self.btCancelarSeguir.set_text(_("Saving..."))
         self.btCancelarSeguir.set_font(self.fontB)
         self.btCancelarSeguir.ponIcono(Iconos.Grabar())
-        QTUtil.refresh_gui()
+        self.refresh_gui()
 
     def ponContinuar(self):
         self.btCancelarSeguir.set_text(_("Continue"))
@@ -735,7 +719,7 @@ class ImportarFichero(QtWidgets.QDialog):
         self.btCancelarSeguir.set_font(self.fontB)
         self.btCancelarSeguir.ponIcono(Iconos.Aceptar())
         self.btCancelarSeguir.setDisabled(False)
-        QTUtil.refresh_gui()
+        self.refresh_gui()
 
     def continuar(self):
         self.accept()
@@ -751,7 +735,7 @@ class ImportarFichero(QtWidgets.QDialog):
         self.lbImportados.set_text(pts(importados))
         if self.siWorkDone:
             self.lbWorkDone.set_text("%d%%" % int(workdone))
-        QTUtil.refresh_gui()
+        self.refresh_gui()
         return not self.is_canceled
 
 
@@ -921,12 +905,15 @@ class ElemDB:
     @staticmethod
     def read(folder):
         li = []
-        for f in os.listdir(folder):
-            path = Util.opj(folder, f)
-            if os.path.isdir(path):
-                li.append(ElemDB(path, True))
-            elif f.endswith(".lcdb") or f.endswith(".lcdblink"):
-                li.append(ElemDB(path, False))
+        try:
+            for f in os.listdir(folder):
+                path = Util.opj(folder, f)
+                if os.path.isdir(path):
+                    li.append(ElemDB(path, True))
+                elif f.endswith(".lcdb") or f.endswith(".lcdblink"):
+                    li.append(ElemDB(path, False))
+        except PermissionError:
+            pass
         return li
 
     def remove(self, path):
@@ -1032,7 +1019,7 @@ class ReadAnnotation(QtWidgets.QDialog):
         self.edAnotacion = (
             Controles.ED(self, "")
             .set_font_type(puntos=Code.configuration.x_menu_points)
-            .anchoFijo(70)
+            .relative_width(70)
         )
         btAceptar = Controles.PB(self, "", rutina=self.aceptar).ponIcono(
             Iconos.Aceptar(), 32

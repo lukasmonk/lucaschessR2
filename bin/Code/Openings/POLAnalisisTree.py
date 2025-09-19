@@ -149,6 +149,7 @@ class TabTree(QtWidgets.QWidget):
 
         self.tabsAnalisis = tabs_analisis
 
+        self.wlines = tabs_analisis.wlines
         self.tree = TreeMoves(self)
 
         self.tree_data = None
@@ -186,7 +187,7 @@ class TabTree(QtWidgets.QWidget):
             self.tree.setItemDelegate(LabelTreeDelegate())
 
         bt_act = Controles.PB(self, _("Update"), self.bt_update, plano=False).ponIcono(Iconos.Actualiza(), 16)
-        bt_act.anchoFijo(QTUtil.get_width_text(bt_act, " " + _("Update")) + 50)
+        bt_act.relative_width(QTUtil.get_width_text(bt_act, " " + _("Update")) + 50)
 
         gamebase = self.tabsAnalisis.dbop.getgamebase()
         if Code.configuration.x_pgn_withfigurines:
@@ -226,7 +227,8 @@ class TabTree(QtWidgets.QWidget):
             self.tabsAnalisis.panelOpening.goto_next_lipv(lipv, li_moves_childs)
 
     def bt_update(self):
-        with QTUtil2.OneMomentPlease(self.parent().parent().parent(), with_cancel=True) as um:
+        self.wlines.active_tb(False)
+        with QTUtil2.OneMomentPlease(self, with_cancel=True) as um:
             self.tree.clear()
 
             dbop = self.tabsAnalisis.dbop
@@ -260,6 +262,7 @@ class TabTree(QtWidgets.QWidget):
             haz(tr, self.tree, 1)
 
             self.lb_analisis.set_text(self.pgn_initial)
+        self.wlines.active_tb(True)
 
     def start(self):
         if len(self.dicItems) == 0:
@@ -300,6 +303,7 @@ class TabTree(QtWidgets.QWidget):
         menu.separador()
         menu.opcion("remove", _("Remove this branch"), Iconos.Delete())
         menu.separador()
+
         menu.opcion("analysis", _("Analysis"), Iconos.Analisis())
         resp = menu.lanza()
         if not resp:
@@ -312,6 +316,9 @@ class TabTree(QtWidgets.QWidget):
             return
         if resp == "remove":
             self.remove_branch(item)
+            return
+        if resp.startswith("delbranches"):
+            self.delbranches_num(item, "white" in resp)
             return
         if resp == "create":
             self.create_from_branch(item)

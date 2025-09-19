@@ -148,7 +148,7 @@ class WEdMove(QtWidgets.QWidget):
             EDCelda(self, "")
             .caracteres(2)
             .controlrx("(|[a-h][1-8])")
-            .anchoFijo(32)
+            .relative_width(32)
             .align_center()
             .capture_changes(self.mira_promocion)
         )
@@ -159,12 +159,12 @@ class WEdMove(QtWidgets.QWidget):
             EDCelda(self, "")
             .caracteres(2)
             .controlrx("(|[a-h][1-8])")
-            .anchoFijo(32)
+            .relative_width(32)
             .align_center()
             .capture_changes(self.mira_promocion)
         )
 
-        self.pbPromocion = Controles.PB(self, "", self.pulsado_promocion, plano=False).anchoFijo(24)
+        self.pbPromocion = Controles.PB(self, "", self.pulsado_promocion, plano=False).relative_width(24)
 
         ly = (
             Colocacion.H()

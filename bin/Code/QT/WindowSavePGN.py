@@ -19,7 +19,20 @@ from Code.QT import QTVarios
 from Code.Translations import TrListas
 
 
+def read_config_savepgn() -> dict:
+    return Code.configuration.read_variables("SAVEPGN")
+
+
+def write_config_savepgn(dic: dict) -> None:
+    Code.configuration.write_variables("SAVEPGN", dic)
+
+
 class WBaseSave(QtWidgets.QWidget):
+    history_list: list
+    codec: str
+    seventags: bool
+    dic_result: dict
+
     def __init__(self, wowner, configuration, with_remcomments=False):
         QtWidgets.QWidget.__init__(self, wowner)
 
@@ -38,23 +51,26 @@ class WBaseSave(QtWidgets.QWidget):
 
         # Codec
         lb_codec = Controles.LB(self, _("Encoding") + ": ")
-        liCodecs = [k for k in set(v for k, v in encodings.aliases.aliases.items())]
-        liCodecs.sort()
-        liCodecs = [(k, k) for k in liCodecs]
-        liCodecs.insert(0, (_("Same as file"), "file"))
-        liCodecs.insert(0, ("%s: %s" % (_("By default"), _("UTF-8")), "default"))
-        self.cb_codecs = Controles.CB(self, liCodecs, self.codec)
+        li_codecs = [k for k in set(v for k, v in encodings.aliases.aliases.items())]
+        li_codecs.sort()
+        li_codecs = [(k, k) for k in li_codecs]
+        li_codecs.insert(0, (_("Same as file"), "file"))
+        li_codecs.insert(0, ("%s: %s" % (_("By default"), _("UTF-8")), "default"))
+        self.cb_codecs = Controles.CB(self, li_codecs, self.codec)
 
         # Rest
         self.chb_overwrite = Controles.CHB(self, _("Overwrite"), False)
         if with_remcomments:
             self.chb_remove_c_v = Controles.CHB(self, _("Remove comments and variations"), False)
 
-        lyF = Colocacion.H().control(lb_file).control(self.bt_file).control(bt_history).control(bt_boxrooms).relleno(1)
-        lyC = Colocacion.H().control(lb_codec).control(self.cb_codecs).relleno(1)
-        ly = Colocacion.V().espacio(15).otro(lyF).otro(lyC).control(self.chb_overwrite)
+        self.chb_seventags = Controles.CHB(self, _("With the seven standard labels (STR)"), True)
+
+        ly_f = Colocacion.H().control(lb_file).control(self.bt_file).control(bt_history).control(bt_boxrooms).relleno(1)
+        ly_c = Colocacion.H().control(lb_codec).control(self.cb_codecs).relleno(1)
+        ly = Colocacion.V().espacio(15).otro(ly_f).otro(ly_c).control(self.chb_overwrite)
         if with_remcomments:
             ly.control(self.chb_remove_c_v)
+        ly.control(self.chb_seventags)
         ly.relleno(1)
 
         self.chb_overwrite.hide()
@@ -88,19 +104,21 @@ class WBaseSave(QtWidgets.QWidget):
         self.wowner.check_toolbar()
 
     def vars_read(self):
-        dicVariables = self.configuration.read_variables("SAVEPGN")
-        self.history_list = dicVariables.get("LIHISTORICO", [])
-        self.codec = dicVariables.get("CODEC", "default")
+        dic_vars = read_config_savepgn()
+        self.history_list = dic_vars.get("LIHISTORICO", [])
+        self.codec = dic_vars.get("CODEC", "default")
+        self.seventags = dic_vars.get("SEVENTAGS", True)
 
     def vars_save(self):
         if self.file:
-            dicVariables = self.configuration.read_variables("SAVEPGN")
+            dic_vars = read_config_savepgn()
             if self.file in self.history_list:
                 del self.history_list[self.history_list.index(self.file)]
             self.history_list.insert(0, self.file)
-            dicVariables["LIHISTORICO"] = self.history_list
-            dicVariables["CODEC"] = self.cb_codecs.valor()
-            self.configuration.write_variables("SAVEPGN", dicVariables)
+            dic_vars["LIHISTORICO"] = self.history_list
+            dic_vars["CODEC"] = self.cb_codecs.valor()
+            dic_vars["SEVENTAGS"] = self.chb_seventags.isChecked()
+            write_config_savepgn(dic_vars)
 
     def history(self):
         menu = QTVarios.LCMenu(self, puntos=9)
@@ -121,12 +139,12 @@ class WBaseSave(QtWidgets.QWidget):
         menu = QTVarios.LCMenu(self, puntos=9)
         menu.setToolTip(_("To choose: <b>left button</b> <br>To erase: <b>right button</b>"))
 
-        icoTras = Iconos.BoxRoom()
+        ico_tras = Iconos.BoxRoom()
         boxrooms = self.configuration.boxrooms()
         li_tras = boxrooms.lista()
         for ntras, uno in enumerate(li_tras):
             folder, boxroom = uno
-            menu.opcion((0, ntras), "%s  (%s)" % (boxroom, folder), icoTras)
+            menu.opcion((0, ntras), "%s  (%s)" % (boxroom, folder), ico_tras)
         menu.separador()
         menu.opcion((1, 0), _("New boxroom"), Iconos.NewBoxRoom())
 
@@ -162,30 +180,34 @@ class WBaseSave(QtWidgets.QWidget):
             "CODEC": self.cb_codecs.valor(),
             "OVERWRITE": self.chb_overwrite.valor(),
             "REMCOMMENTSVAR": self.chb_remove_c_v.valor() if self.with_remcomments else False,
+            "SEVENTAGS": self.chb_seventags.isChecked()
         }
         self.vars_save()
 
 
 class WSave(LCDialog.LCDialog):
+    history_list: list
+    codec: str
+    remove_comments: bool
+    remove_variations: bool
+    remove_nags: bool
+    seventags: bool
+
     def __init__(self, owner, game):
         titulo = _("Save to PGN")
         icono = Iconos.PGN()
         extparam = "savepgn"
         LCDialog.LCDialog.__init__(self, owner, titulo, icono, extparam)
 
-        self.game = game
-        self.game.order_tags()
+        self.vars_read()
 
-        if self.game.opening:
-            if not self.game.get_tag("ECO"):
-                self.game.set_tag("ECO", self.game.opening.eco)
-            if not self.game.get_tag("Opening"):
-                self.game.set_tag("Opening", self.game.opening.tr_name)
+        self.game_base = game
+
+        self.game = self.game_reset(self.seventags)
 
         self.li_labels = [[k, v] for k, v in self.game.li_tags]
         self.configuration = Code.configuration
         self.file = ""
-        self.vars_read()
 
         # Opciones
         li_options = [
@@ -212,12 +234,12 @@ class WSave(LCDialog.LCDialog):
 
         # Codec
         lb_codec = Controles.LB(self, _("Encoding") + ": ")
-        liCodecs = [k for k in set(v for k, v in encodings.aliases.aliases.items())]
-        liCodecs.sort()
-        liCodecs = [(k, k) for k in liCodecs]
-        liCodecs.insert(0, (_("Same as file"), "file"))
-        liCodecs.insert(0, ("%s: %s" % (_("By default"), _("UTF-8")), "default"))
-        self.cb_codecs = Controles.CB(self, liCodecs, self.codec)
+        li_codecs = [k for k in set(v for k, v in encodings.aliases.aliases.items())]
+        li_codecs.sort()
+        li_codecs = [(k, k) for k in li_codecs]
+        li_codecs.insert(0, (_("Same as file"), "file"))
+        li_codecs.insert(0, ("%s: %s" % (_("By default"), _("UTF-8")), "default"))
+        self.cb_codecs = Controles.CB(self, li_codecs, self.codec)
 
         # Rest
         self.chb_overwrite = Controles.CHB(self, _("Overwrite"), False)
@@ -227,20 +249,22 @@ class WSave(LCDialog.LCDialog):
                                                    self.remove_variations).capture_changes(self, self.check_all)
         self.chb_remove_nags = Controles.CHB(self, _("Remove NAGs"), self.remove_nags).capture_changes(self,
                                                                                                        self.check_all)
+        self.chb_seventags = Controles.CHB(self, _("With the seven standard labels (STR)"), self.seventags).capture_changes(self, self.check_seventags)
 
-        lyF = Colocacion.H().control(lb_file).control(self.bt_file).control(bt_history).control(bt_boxrooms).relleno(1)
-        lyC = Colocacion.H().control(lb_codec).control(self.cb_codecs).relleno(1)
+        ly_f = Colocacion.H().control(lb_file).control(self.bt_file).control(bt_history).control(bt_boxrooms).relleno(1)
+        ly_c = Colocacion.H().control(lb_codec).control(self.cb_codecs).relleno(1)
         ly = (
             Colocacion.V()
             .espacio(15)
-            .otro(lyF)
-            .otro(lyC)
+            .otro(ly_f)
+            .otro(ly_c)
             .espacio(10)
             .control(self.chb_overwrite)
             .espacio(10)
             .control(self.chb_remove_comments)
             .control(self.chb_remove_variations)
             .control(self.chb_remove_nags)
+            .control(self.chb_seventags)
             .relleno(1)
         )
         w = QtWidgets.QWidget()
@@ -303,6 +327,18 @@ class WSave(LCDialog.LCDialog):
 
         self.tabs = tabs
 
+    def game_reset(self, with_seventags):
+        game = self.game_base.copia()
+        if game.opening:
+            if not game.get_tag("ECO"):
+                game.set_tag("ECO", self.game.opening.eco)
+            if not game.get_tag("Opening"):
+                game.set_tag("Opening", self.game.opening.tr_name)
+        if with_seventags:
+            game.add_seventags()
+        return game
+
+
     def check_info_base(self):
         body = self.check_info(self.game.pgn_base())
         self.em_body.set_text(body)
@@ -310,6 +346,11 @@ class WSave(LCDialog.LCDialog):
     def check_info_sp(self):
         body_sp = self.check_info(self.game.pgn_translated())
         self.em_body_sp.set_text(body_sp)
+
+    def check_seventags(self):
+        self.game = self.game_reset(self.chb_seventags.isChecked())
+        self.li_labels = [[k, v] for k, v in self.game.li_tags]
+        self.grid_labels.refresh()
 
     def check_all(self):
         self.check_info_base()
@@ -407,21 +448,24 @@ class WSave(LCDialog.LCDialog):
             self.chb_overwrite.hide()
 
     def vars_read(self):
-        dicVariables = self.configuration.read_variables("SAVEPGN")
-        self.history_list = dicVariables.get("LIHISTORICO", [])
-        self.codec = dicVariables.get("CODEC", "default")
-        self.remove_comments = dicVariables.get("REMCOMMENTS", False)
-        self.remove_variations = dicVariables.get("REMVARIATIONS", False)
-        self.remove_nags = dicVariables.get("REMNAGS", False)
+        dic_variables = read_config_savepgn()
+        self.history_list = dic_variables.get("LIHISTORICO", [])
+        self.codec = dic_variables.get("CODEC", "default")
+        self.remove_comments = dic_variables.get("REMCOMMENTS", False)
+        self.remove_variations = dic_variables.get("REMVARIATIONS", False)
+        self.remove_nags = dic_variables.get("REMNAGS", False)
+        self.seventags = dic_variables.get("SEVENTAGS", True)
 
     def vars_save(self):
-        dicVariables = {}
-        dicVariables["LIHISTORICO"] = self.history_list
-        dicVariables["CODEC"] = self.cb_codecs.valor()
-        dicVariables["REMCOMMENTS"] = self.chb_remove_comments.isChecked()
-        dicVariables["REMVARIATIONS"] = self.chb_remove_variations.isChecked()
-        dicVariables["REMNAGS"] = self.chb_remove_nags.isChecked()
-        self.configuration.write_variables("SAVEPGN", dicVariables)
+        dic_vars = {
+            "LIHISTORICO": self.history_list,
+            "CODEC": self.cb_codecs.valor(),
+            "REMCOMMENTS": self.chb_remove_comments.isChecked(),
+            "REMVARIATIONS": self.chb_remove_variations.isChecked(),
+            "REMNAGS": self.chb_remove_nags.isChecked(),
+            "SEVENTAGS": self.chb_seventags.isChecked()
+        }
+        write_config_savepgn(dic_vars)
 
     def history(self):
         menu = QTVarios.LCMenu(self, puntos=9)
@@ -441,12 +485,12 @@ class WSave(LCDialog.LCDialog):
         menu = QTVarios.LCMenu(self, puntos=9)
         menu.setToolTip(_("To choose: <b>left button</b> <br>To erase: <b>right button</b>"))
 
-        icoTras = Iconos.BoxRoom()
+        ico_tras = Iconos.BoxRoom()
         boxrooms = self.configuration.boxrooms()
         li_tras = boxrooms.lista()
         for ntras, uno in enumerate(li_tras):
             folder, boxroom = uno
-            menu.opcion((0, ntras), "%s  (%s)" % (boxroom, folder), icoTras)
+            menu.opcion((0, ntras), "%s  (%s)" % (boxroom, folder), ico_tras)
         menu.separador()
         menu.opcion((1, 0), _("New boxroom"), Iconos.NewBoxRoom())
 
@@ -621,6 +665,8 @@ class WSave(LCDialog.LCDialog):
 
 
 class WSaveVarios(LCDialog.LCDialog):
+    dic_result: dict
+
     def __init__(self, owner, with_remcomments=False):
         configuration = Code.configuration
         titulo = _("Save to PGN")
@@ -663,11 +709,17 @@ class WSaveVarios(LCDialog.LCDialog):
 
 
 class FileSavePGN:
+    is_new: bool
+    _progress_bar = None
+    _pb_total: int
+    _file_handle = None
+
     def __init__(self, owner, dic_vars):
         self.owner = owner
         self.file = dic_vars["FILE"]
         self.overwrite = dic_vars["OVERWRITE"]
         self.codec = dic_vars["CODEC"]
+        self.seventags = dic_vars.get("SEVENTAGS", True)
         if self.codec == "default" or self.codec is None:
             self.codec = "utf-8"
         elif self.codec == "file":
@@ -684,18 +736,22 @@ class FileSavePGN:
         self.xum = None
 
     def open(self):
-        # try:
-        modo = "wt" if self.overwrite else "at"
+        modo = "wt"
+        if Util.exist_file(self.file):
+            if not self.overwrite:
+                modo = "at"
         self.is_new = self.overwrite or not os.path.isfile(self.file)
-
-        self.f = open(self.file, modo, encoding=self.codec, errors="ignore")
-        return True
+        try:
+            self._file_handle = open(self.file, modo, encoding=self.codec, errors="ignore")
+            return True
+        except FileNotFoundError:
+            return False
 
     def write(self, pgn):
-        self.f.write(pgn)
+        self._file_handle.write(pgn)
 
     def close(self):
-        self.f.close()
+        self._file_handle.close()
 
     def um(self):
         self.xum = QTUtil2.one_moment_please(self.owner, _("Saving..."))
@@ -707,16 +763,16 @@ class FileSavePGN:
             QTUtil2.message_bold(self.owner, _X(_("Saved to %1"), self.file))
 
     def pb(self, total):
-        self._pb = QTUtil2.BarraProgreso(self.owner, self.file, "", total)
+        self._progress_bar = QTUtil2.BarraProgreso(self.owner, self.file, "", total)
         self._pb_total = total
         self.pb_pos(0)
 
     def pb_pos(self, pos):
-        self._pb.pon(pos)
-        self._pb.mensaje("%d/%d" % (pos, self._pb_total))
+        self._progress_bar.pon(pos)
+        self._progress_bar.mensaje("%d/%d" % (pos, self._pb_total))
 
     def pb_cancel(self):
-        return self._pb.is_canceled()
+        return self._progress_bar.is_canceled()
 
     def pb_close(self):
-        self._pb.cerrar()
+        self._progress_bar.cerrar()

@@ -1241,7 +1241,7 @@ class Procesador:
         ManagerWashing.manager_washing(self)
 
     def showWashing(self):
-        if WindowWashing.windowWashing(self):
+        if WindowWashing.window_washing(self):
             self.playWashing()
 
     # def forest_creator(self, level):

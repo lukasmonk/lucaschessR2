@@ -47,10 +47,9 @@ class MensEspera(QtWidgets.QWidget):
         )  # No se indica parent cuando le afecta el disable general, cuando se analiza posicion por ejemplo
 
         self.setWindowFlags(
-            QtCore.Qt.WindowCloseButtonHint
-            | QtCore.Qt.Window
+            QtCore.Qt.Tool
+            | QtCore.Qt.WindowCloseButtonHint
             | QtCore.Qt.FramelessWindowHint
-            # | QtCore.Qt.WindowStaysOnTopHint
         )
         self.setStyleSheet("QWidget, QLabel { background: %s }" % background)
 
@@ -74,14 +73,14 @@ class MensEspera(QtWidgets.QWidget):
             Controles.LB(parent, resalta(mensaje)).set_font(Controles.FontType(puntos=puntos)).align_center()
         )
         if fixed_size is not None:
-            lb.set_wrap().anchoFijo(fixed_size - 60)
+            lb.set_wrap().relative_width(fixed_size - 60)
 
         if with_cancel:
             if not tit_cancel:
                 tit_cancel = _("Cancel")
             self.btCancelar = (
                 Controles.PB(self, tit_cancel, rutina=self.cancelar, plano=False).ponIcono(Iconos.Cancelar())
-                # .anchoFijo(100)
+                # .relative_width(100)
             )
             self.btCancelar.setStyleSheet(
                 """QPushButton {
@@ -282,6 +281,7 @@ class OneMomentPlease:
     def __enter__(self):
         self.um = waiting_message.start(self.owner, self.the_message, physical_pos=self.physical_pos,
                                         with_cancel=self.with_cancel)
+        QTUtil.refresh_gui()
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
@@ -301,6 +301,7 @@ class OneMomentPlease:
     def label(self, mens):
         if self.um:
             self.um.label(mens)
+            QTUtil.refresh_gui()
 
 
 def analizando(owner, with_cancel=False):
@@ -353,11 +354,14 @@ def temporary_message_without_image(main_window, mensaje, seconds, background=No
 
 
 class BarraProgreso2(QtWidgets.QDialog):
-    def __init__(self, owner, titulo, formato1="%v/%m", formato2="%v/%m"):
+    def __init__(self, owner, titulo, formato1="%v/%m", formato2="%v/%m", with_pause=False):
         QtWidgets.QDialog.__init__(self, owner)
 
         self.owner = owner
         self.is_closed = False
+
+        self.with_pause = with_pause
+        self._is_paused = False
 
         # self.setWindowModality(QtCore.Qt.WindowModal)
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.Dialog | QtCore.Qt.WindowTitleHint)
@@ -377,7 +381,14 @@ class BarraProgreso2(QtWidgets.QDialog):
 
         # cancelar
         bt = Controles.PB(self, _("Cancel"), self.cancelar, plano=False)  # .ponIcono( Iconos.Delete() )
-        ly_bt = Colocacion.H().relleno().control(bt)
+        ly_bt = Colocacion.H().relleno()
+
+        # pausa
+        if with_pause:
+            self.bt_pause = Controles.PB(self, _("Pause"), self.pausar_continuar, plano=False)
+            ly_bt.control(self.bt_pause)
+
+        ly_bt.control(bt)
 
         layout = Colocacion.V().control(self.gb1).control(self.gb2).otro(ly_bt)
 
@@ -408,6 +419,22 @@ class BarraProgreso2(QtWidgets.QDialog):
         self._is_canceled = True
         self.cerrar()
 
+    def pausar_continuar(self):
+        if self._is_paused:
+            self.bt_pause.set_text(_("Pause"))
+        else:
+            self.bt_pause.set_text(_("Continue"))
+        self._is_paused = not self._is_paused
+
+    def check_pause(self):
+        if self._is_paused:
+            while self._is_paused and not self._is_canceled:
+                time.sleep(0.05)
+                QTUtil.refresh_gui()
+
+    def is_paused(self):
+        return False if self._is_canceled else self._is_paused
+
     def put_label(self, cual, texto):
         gb = self.gb1 if cual == 1 else self.gb2
         gb.set_text(texto)
@@ -419,6 +446,8 @@ class BarraProgreso2(QtWidgets.QDialog):
     def pon(self, cual, valor):
         bp = self.bp1 if cual == 1 else self.bp2
         bp.setValue(valor)
+        if self.with_pause:
+            self.check_pause()
 
     def is_canceled(self):
         QTUtil.refresh_gui()
@@ -621,7 +650,7 @@ def spinbox_lb(owner, valor, from_sq, to_sq, etiqueta=None, max_width=None, fuen
     if fuente:
         ed.setFont(fuente)
     if max_width:
-        ed.tamMaximo(max_width)
+        ed.relative_width(max_width)
     if etiqueta:
         label = Controles.LB(owner, etiqueta + ": ")
         if fuente:
@@ -747,7 +776,7 @@ def question_withcancel_123(parent, title, mens, si, no, cancel):
     return resp
 
 
-def message_menu(owner, main, the_message, delayed, zzpos=True):
+def message_menu(owner, main, the_message, delayed, zzpos=True, dont_show=False):
     def show():
 
         previo = QtGui.QCursor.pos()
@@ -791,18 +820,27 @@ def message_menu(owner, main, the_message, delayed, zzpos=True):
         for linea in ret:
             menu.opcion("k", linea)
 
+        if dont_show:
+            menu.separador_blank()
+            menu.separador()
+            pointsize = menu.font().pointSize() - 3
+            menu.opcion("dontshow", _("Do not show again"), Iconos.PuntoRojo(), font_type=Controles.FontType(puntos=pointsize))
+
         def vuelve():
             QtGui.QCursor.setPos(previo)
 
         if zzpos:
             QtCore.QTimer.singleShot(50, vuelve)
 
-        menu.lanza()
+        resp = menu.lanza()
+        if resp == "dontshow":
+            return True
+        return False
 
     if delayed:
         QtCore.QTimer.singleShot(50, show)
     else:
-        show()
+        return show()
 
 
 class SimpleWindow(QtWidgets.QDialog):
@@ -815,7 +853,7 @@ class SimpleWindow(QtWidgets.QDialog):
         lb_clave = Controles.LB(self, label + ": ")
         self.with_list_values = li_values is not None
         if self.with_list_values:
-            li_values = [(value,value) for value in li_values]
+            li_values = [(value, value) for value in li_values]
             li_values.insert(0, ("", ""))
             self.cb_clave = Controles.CB(self, li_values, valor, extend_seek=True)
             self.cb_clave.setEditable(True)

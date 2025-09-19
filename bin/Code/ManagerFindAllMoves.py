@@ -153,7 +153,7 @@ class ManagerFindAllMoves(Manager.Manager):
         self.set_dispatcher(self.player_has_moved)
         self.pgn_refresh(True)
         self.main_window.base.pgn.gotop()
-        self.main_window.board.siPosibleRotarBoard = False
+        self.main_window.board.can_be_rotated_the_board = False
 
         self.board.do_pressed_number = None
         self.remove_info()
@@ -200,7 +200,7 @@ class ManagerFindAllMoves(Manager.Manager):
                     self.ponRotulotm()
 
     def fin60(self):
-        self.main_window.board.siPosibleRotarBoard = True
+        self.main_window.board.can_be_rotated_the_board = True
         self.board.remove_arrows()
         self.main_window.columnas60(False)
         self.procesador.start()

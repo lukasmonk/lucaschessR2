@@ -262,7 +262,7 @@ class ManagerVariations(Manager.Manager):
         else:
             li_extra_options = []
 
-        resp = self.configurar(self, li_extra_options)
+        resp = self.configurar(li_extra_options)
         if resp:
             self.set_label1("")
             if resp == "engine_disable":

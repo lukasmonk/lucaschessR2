@@ -48,9 +48,10 @@ class RunEngine:
         self.uci_lines = []
 
         if not os.path.isfile(exe):
-            QTUtil2.message_error(None, "%s:\n  %s" % (_("Engine not found"), exe))
+            QTUtil2.message_error(None, f"{_('Engine not found')}:\n  {exe}")
             return
 
+        # Configuración del proceso
         self.pid = None
         self.exe = os.path.abspath(exe)
         self.direxe = os.path.dirname(exe)
@@ -59,12 +60,11 @@ class RunEngine:
         self.li_buffer = []
         self.starting = True
         self.best_move_done = True
-        self.args = ["./%s" % os.path.basename(self.exe)]
+        self.args = [f"./{os.path.basename(self.exe)}"]
         if args:
             self.args.extend(args)
 
         self.direct_dispatch = None
-
         self.mrm = None
         self.stopped = False
 
@@ -76,8 +76,8 @@ class RunEngine:
 
         txt_uci_analysismode = "UCI_AnalyseMode"
         uci_analysismode_set = False
-
         setoptions = False
+
         if li_options_uci:
             for opcion, valor in li_options_uci:
                 if isinstance(valor, bool):
@@ -181,8 +181,10 @@ class RunEngine:
             lock.release()
             if self.log:
                 self.log.write(line.strip() + "\n")
-            if self.direct_dispatch and "bestmove" in line:
-                self.direct_dispatch()
+            if "bestmove" in line:
+                self.max_time_current = None
+                if self.direct_dispatch:
+                    self.direct_dispatch()
         stdout.close()
 
     def xstdout_thread_debug(self, stdout, lock):
@@ -272,9 +274,14 @@ class RunEngine:
                 if self.process.poll() is None:
                     self.put_line("stop")
                     self.put_line("quit")
-                    time.sleep(0.1)
-                    self.process.kill()
                     self.process.terminate()
+                    try:
+                        self.process.wait(timeout=2)
+                    except subprocess.TimeoutExpired:
+                        self.process.kill()
+                    # time.sleep(0.1)
+                    # self.process.kill()
+                    # self.process.terminate()
             except:
                 if Code.is_windows:
                     subprocess.call(["taskkill", "/F", "/T", "/PID", str(self.pid)])
@@ -667,11 +674,15 @@ class RunEngine:
         self.play_with_return(play_return, game, env, max_time, max_depth)
 
 
-def nodes_maia(level):
-    dic_nodes = {1100: 1, 1200: 2, 1300: 5, 1400: 12, 1500: 30, 1600: 60, 1700: 130, 1800: 300, 1900: 450}
+def nodes_maia(level: int) -> int:
+    """Devuelve el número de nodos para el motor Maia según su nivel."""
     if not Code.configuration.x_maia_nodes_exponential:
-        for elo in dic_nodes:
-            dic_nodes[elo] = 1
+        return 1
+    dic_nodes = {
+        1100: 1, 1200: 2, 1300: 5, 1400: 12,
+        1500: 30, 1600: 60, 1700: 130, 1800: 300,
+        1900: 450, 2200: 800
+    }
     return dic_nodes.get(level, 1)
 
 
@@ -681,7 +692,12 @@ class MaiaEngine(RunEngine):
         self.stopping = False
         self.level = level
 
-        book_name = "1100-1500.bin" if level <= 1500 else "1600-1900.bin"
+        if level <= 1500:
+            book_name = "1100-1500.bin"
+        elif level < 2000:
+            book_name = "1600-1900.bin"
+        else:
+            book_name = "2200.bin"
         book_path = Util.opj(os.path.dirname(exe), book_name)
         self.book = Books.Book("P", book_name, book_path, True)
         self.book.polyglot()

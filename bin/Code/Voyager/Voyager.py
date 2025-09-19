@@ -57,8 +57,6 @@ class WPosicion(QtWidgets.QWidget):
 
         self.wparent = wparent
 
-        factor_big_fonts = Code.factor_big_fonts
-
         QtWidgets.QWidget.__init__(self, wparent)
 
         config_board = configuration.config_board("VOYAGERPOS", 24)
@@ -96,13 +94,13 @@ class WPosicion(QtWidgets.QWidget):
         self.cbBooo = Controles.CHB(self, _("Black") + " O-O-O", True)
 
         lb_en_passant = Controles.LB(self, _("En passant") + ":")
-        self.edEnPassant = Controles.ED(self).controlrx("(-|[a-h][36])").anchoFijo(30 * factor_big_fonts)
+        self.edEnPassant = Controles.ED(self).controlrx("(-|[a-h][36])").relative_width(30)
 
         self.edMovesPawn, lbMovesPawn = QTUtil2.spinbox_lb(self, 0, 0, 999, etiqueta=_("Halfmove clock"),
-                                                           max_width=50 * factor_big_fonts)
+                                                           max_width=50)
 
         self.edFullMoves, lbFullMoves = QTUtil2.spinbox_lb(self, 1, 1, 999, etiqueta=_("Fullmove number"),
-                                                           max_width=50 * factor_big_fonts)
+                                                           max_width=50)
 
         self.vars_scanner = Scanner.ScannerVars(self.configuration.carpetaScanners)
 
@@ -114,14 +112,14 @@ class WPosicion(QtWidgets.QWidget):
         self.pb_scanner_learn_quit = Controles.PB(self, "", self.scanner_learn_quit).ponIcono(
             Iconos.Menos(), icon_size=24
         )
-        self.pb_scanner_learn_quit.ponToolTip(_("Remove last learned")).anchoFijo(24 * factor_big_fonts)
+        self.pb_scanner_learn_quit.ponToolTip(_("Remove last learned")).relative_width(24)
 
         self.sb_scanner_tolerance, lb_scanner_tolerance = QTUtil2.spinbox_lb(
-            self, self.vars_scanner.tolerance, 3, 20, etiqueta=_("Deduction tolerance"), max_width=50 * factor_big_fonts
+            self, self.vars_scanner.tolerance, 3, 20, etiqueta=_("Deduction tolerance"), max_width=50
         )
         self.sb_scanner_tolerance_learns, lb_scanner_tolerance_learns = QTUtil2.spinbox_lb(
             self, self.vars_scanner.tolerance_learns, 1, 6, etiqueta=_("Learning tolerance"),
-            max_width=50 * factor_big_fonts
+            max_width=50
         )
 
         self.chb_rem_ghost_deductions = Controles.CHB(self, _("Remove ghost deductions"), self.vars_scanner.rem_ghost)

@@ -42,9 +42,9 @@ class WPlayHuman(LCDialog.LCDialog):
         self.configuration.set_property(gb_players, "1")
 
         self.lb_minutos = Controles.LB(self, _("Total minutes") + ":").set_font(font)
-        self.ed_minutos = Controles.ED(self).tipoFloat(10.0).set_font(font).anchoFijo(50*Code.factor_big_fonts)
+        self.ed_minutos = Controles.ED(self).tipoFloat(10.0).set_font(font).relative_width(50)
         self.ed_segundos, self.lb_segundos = QTUtil2.spinbox_lb(
-            self, 0, -999, 999, max_width=54*Code.factor_big_fonts, etiqueta=_("Seconds added per move"), fuente=font
+            self, 0, -999, 999, max_width=54, etiqueta=_("Seconds added per move"), fuente=font
         )
         ly_h = Colocacion.H()
         ly_h.control(self.lb_minutos).control(self.ed_minutos).espacio(30)

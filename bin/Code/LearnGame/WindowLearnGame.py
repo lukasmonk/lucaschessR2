@@ -1,4 +1,5 @@
 import time
+import random
 
 from PySide2 import QtWidgets, QtCore
 
@@ -263,6 +264,7 @@ class WLearn1(LCDialog.LCDialog):
 
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("DATE", _("Date"), 100, align_center=True)
+        o_columns.nueva("TYPE", _("Type"), 80, align_center=True)
         o_columns.nueva("LEVEL", _("Level"), 80, align_center=True)
         o_columns.nueva("COLOR", _("Side you play with"),120, align_center=True)
         o_columns.nueva("ERRORS", _("Errors"), 80, align_center=True)
@@ -326,6 +328,9 @@ class WLearn1(LCDialog.LCDialog):
             m = s // 60
             s -= m * 60
             return "%2d' %02d\"" % (m, s)
+        if col == "TYPE":
+            is_random = reg.get("TYPE", "s") == "r"
+            return _("Random") if is_random else _("Sequential")
 
     def guardar(self, dic):
         self.liIntentos.insert(0, dic)
@@ -348,10 +353,13 @@ class WLearn1(LCDialog.LCDialog):
                     del self.liIntentos[x]
         self.grid.gotop()
         self.grid.refresh()
+        self.registro["LIINTENTOS"] = self.liIntentos
+        self.db.change_value(self.numRegistro, self.registro)
 
     def empezar(self):
-        reg_base = self.liIntentos[-1] if self.liIntentos else {}
         dic = self.configuration.read_variables("MEMORIZING_GAME")
+        if self.liIntentos:
+            dic.update(self.liIntentos[0])
 
         form = FormLayout.FormLayout(self, _("New try"), Iconos.LearnGame(), anchoMinimo=300)
 
@@ -359,11 +367,11 @@ class WLearn1(LCDialog.LCDialog):
         form.apart(_("Second board"))
         label = _("Movement displayed")
         label = f'{label}<br><small>{_("Disable")}=0'
-        form.spinbox(label, 0, len(self.game), 40, reg_base.get("LEVEL", 1))
+        form.spinbox(label, 0, len(self.game), 40, dic.get("LEVEL", 1))
         form.separador()
         form.apart(_("Side you play with"))
-        form.checkbox(_("White"), "w" in reg_base.get("COLOR", "bw"))
-        form.checkbox(_("Black"), "b" in reg_base.get("COLOR", "bw"))
+        form.checkbox(_("White"), "w" in dic.get("COLOR", "bw"))
+        form.checkbox(_("Black"), "b" in dic.get("COLOR", "bw"))
         form.separador()
 
         form.apart(_("Board"))
@@ -372,7 +380,10 @@ class WLearn1(LCDialog.LCDialog):
 
         form.separador()
         form.checkbox(_("Show clock"), dic.get("CLOCK", True))
+
         form.separador()
+        li = [(_("Sequential"), "s"), (_("Random"), "r")]
+        form.combobox(_("Type"), li, dic.get("TYPE", "s"))
 
         resultado = form.run()
 
@@ -387,30 +398,62 @@ class WLearn1(LCDialog.LCDialog):
             return
         side = li_resp[3]
         si_clock = li_resp[4]
+        ctype = li_resp[5]
+        color = ""
+        if white:
+            color += "w"
+        if black:
+            color += "b"
+        if not color:
+            color = "wb"
+
+        dic["COLOR"] = color
+        dic["TYPE"] = ctype
 
         dic["BOARD_SIDE"] = side
         dic["CLOCK"] = si_clock
         self.configuration.write_variables("MEMORIZING_GAME", dic)
 
-        w = WLearnPuente(self, self.game, level, white, black, side, si_clock)
+        w = WLearnPuente(self, self.game, level, white, black, side, si_clock, ctype)
         w.exec_()
 
 
 class WLearnPuente(LCDialog.LCDialog):
     INICIO, FINAL_JUEGO, REPLAY, REPLAY_CONTINUE = range(4)
+    replay_num_move: int
+    current_num_move: int
+    time_base: float
+    errors: int
+    hints: int
 
-    def __init__(self, owner: WLearn1, game, nivel, white, black, side, siClock):
+    def __init__(self, owner: WLearn1, game, nivel, white, black, side, si_clock, ctype):
 
         LCDialog.LCDialog.__init__(self, owner, owner.label(), Iconos.PGN(), "learnpuente")
 
         self.owner = owner
         self.procesador = owner.procesador
         self.configuration = self.procesador.configuration
-        self.game = game
         self.nivel = nivel
         self.white = white
         self.black = black
-        self.siClock = siClock
+        self.siClock = si_clock
+        self.is_random = ctype == "r"
+
+        self.game = game.copia()
+        for pos, move in enumerate(self.game.li_moves):
+            move.previous_move = self.game.li_moves[pos-1] if pos else None
+            move.pos_move = pos
+            if self.nivel > 0:
+                if pos + self.nivel >= len(self.game):
+                    move.next_position = self.game.last_position
+                else:
+                    move.next_position = self.game.move(pos+self.nivel).position_before
+
+        if self.is_random:
+            random.shuffle(self.game.li_moves)
+            if not (white and black):
+                self.game.li_moves = [move for move in self.game.li_moves if move.is_white() == white]
+                self.game.first_position = self.game.li_moves[0].position_before
 
         self.repTiempo = 3000
         self.repWorking = False
@@ -436,6 +479,7 @@ class WLearnPuente(LCDialog.LCDialog):
         )
         ly_ini = Colocacion.V().control(self.boardIni).control(self.lbIni)
 
+        ly_fin = None
         if self.nivel > 0:
             self.boardFin = Board2.BoardEstatico(self, config_board)
             self.boardFin.crea()
@@ -450,6 +494,7 @@ class WLearnPuente(LCDialog.LCDialog):
             self.boardFin.disable_eboard_here()
             ly_fin = Colocacion.V().control(self.boardFin).control(self.lbFin)
 
+
         # Rotulo vtime
         f = Controles.FontType(puntos=30, peso=75)
         self.lbReloj = (
@@ -459,11 +504,11 @@ class WLearnPuente(LCDialog.LCDialog):
             .set_foreground_backgound("#076C9F", "#EFEFEF")
             .anchoMinimo(200)
         )
-        self.lbReloj.setFrameStyle(QtWidgets.QFrame.Box | QtWidgets.QFrame.Raised)
+        self.lbReloj.setFrameStyle(QtWidgets.QFrame.Box or QtWidgets.QFrame.Raised)
 
         # Movimientos
         flb = Controles.FontType(puntos=11)
-        self.lbInfo = Controles.LB(self).anchoFijo(200).set_wrap().set_font(flb)
+        self.lbInfo = Controles.LB(self).relative_width(200).set_wrap().set_font(flb)
 
         # Layout
         ly_c = Colocacion.V().control(self.lbReloj).control(self.lbInfo).relleno()
@@ -478,19 +523,17 @@ class WLearnPuente(LCDialog.LCDialog):
         self.restore_video()
         self.adjustSize()
 
-        self.working_clock = siClock
-        if siClock:
-            QtCore.QTimer.singleShot(500, self.ajustaReloj)
+        self.working_clock = si_clock
+        if si_clock:
+            QtCore.QTimer.singleShot(500, self.adjust_clock)
         else:
             self.lbReloj.hide()
 
         self.reset()
 
-    def process_toolbar(self):
-        getattr(self, self.sender().key)()
-
     def pon_toolbar(self, tipo):
 
+        li_acciones = []
         if tipo == self.INICIO:
             li_acciones = [
                 (_("Cancel"), Iconos.Cancelar(), self.cancelar),
@@ -516,26 +559,30 @@ class WLearnPuente(LCDialog.LCDialog):
             ]
         elif tipo == self.REPLAY:
             li_acciones = [
-                (_("Cancel"), Iconos.Cancelar(), self.repCancelar),
+                (_("Cancel"), Iconos.Cancelar(), self.replay_cancel),
                 None,
-                (_("Reinit"), Iconos.Inicio(), self.repReiniciar),
+                (_("Reinit"), Iconos.Inicio(), self.replay_reinit),
                 None,
-                (_("Slow"), Iconos.Pelicula_Lento(), self.repSlow),
+                (_("Slow"), Iconos.Pelicula_Lento(), self.replay_slow),
                 None,
-                (_("Pause"), Iconos.Pelicula_Pausa(), self.repPause),
+                (_("Pause"), Iconos.Pelicula_Pausa(), self.replay_pause),
                 None,
-                (_("Fast"), Iconos.Pelicula_Rapido(), self.repFast),
+                (_("Fast"), Iconos.Pelicula_Rapido(), self.replay_fast),
                 None,
             ]
         elif tipo == self.REPLAY_CONTINUE:
             li_acciones = (
-                (_("Cancel"), Iconos.Cancelar(), self.repCancelar),
+                (_("Cancel"), Iconos.Cancelar(), self.replay_cancel),
                 None,
-                (_("Continue"), Iconos.Pelicula_Seguir(), self.repContinue),
+                (_("Continue"), Iconos.Pelicula_Seguir(), self.replay_continue),
                 None,
             )
 
         self.tb.reset(li_acciones)
+        if self.is_random:
+            self.tb.set_action_visible(self.replay, False)
+            self.tb.set_action_visible(self.eboard, False)
+
 
     @staticmethod
     def deactivate_eboard(ms):
@@ -557,72 +604,72 @@ class WLearnPuente(LCDialog.LCDialog):
     def replay(self):
         self.pon_toolbar(self.REPLAY)
 
-        self.repJugada = -1
+        self.replay_num_move = -1
         self.repWorking = True
         self.boardIni.set_position(self.game.first_position)
-        self.replayDispatch()
+        self.replay_dispatch()
 
-    def replayDispatch(self):
+    def replay_dispatch(self):
         QTUtil.refresh_gui()
         if not self.repWorking:
             return
-        self.repJugada += 1
-        self.ponInfo()
+        self.replay_num_move += 1
+        self.show_info()
         num_moves = len(self.game)
-        if self.repJugada == num_moves:
+        if self.replay_num_move == num_moves:
             self.pon_toolbar(self.FINAL_JUEGO)
             return
 
-        move = self.game.move(self.repJugada)
+        move = self.game.move(self.replay_num_move)
         self.boardIni.set_position(move.position)
         self.boardIni.put_arrow_sc(move.from_sq, move.to_sq)
-        self.lbIni.set_text("%d/%d" % (self.repJugada + 1, num_moves))
+        self.lbIni.set_text("%d/%d" % (self.replay_num_move + 1, num_moves))
 
         if self.nivel > 0:
             self.boardFin.set_position(move.position)
             self.boardFin.put_arrow_sc(move.from_sq, move.to_sq)
-            self.lbFin.set_text("%d/%d" % (self.repJugada + 1, num_moves))
+            self.lbFin.set_text("%d/%d" % (self.replay_num_move + 1, num_moves))
 
-        QtCore.QTimer.singleShot(self.repTiempo, self.replayDispatch)
+        QtCore.QTimer.singleShot(self.repTiempo, self.replay_dispatch)
 
-    def repCancelar(self):
+    def replay_cancel(self):
         self.repWorking = False
         self.pon_toolbar(self.FINAL_JUEGO)
-        self.ponInfo()
+        self.show_info()
 
-    def repReiniciar(self):
-        self.repJugada = -1
+    def replay_reinit(self):
+        self.replay_num_move = -1
 
-    def repSlow(self):
+    def replay_slow(self):
         self.repTiempo += 500
 
-    def repFast(self):
+    def replay_fast(self):
         if self.repTiempo >= 800:
             self.repTiempo -= 500
         else:
             self.repTiempo = 200
 
-    def repPause(self):
+    def replay_pause(self):
         self.repWorking = False
         self.pon_toolbar(self.REPLAY_CONTINUE)
 
-    def repContinue(self):
+    def replay_continue(self):
         self.repWorking = True
         self.pon_toolbar(self.REPLAY)
-        self.replayDispatch()
+        self.replay_dispatch()
 
     def reset(self):
         self.time_base = time.time()
-        self.boardIni.set_position(self.game.first_position)
+        self.boardIni.set_position(self.game.move(0).position_before)
 
-        self.movActual = -1
+        self.current_num_move = -1
 
         self.errors = 0
         self.hints = 0
 
         if self.siClock:
             self.working_clock = True
-            QtCore.QTimer.singleShot(500, self.ajustaReloj)
+            QtCore.QTimer.singleShot(500, self.adjust_clock)
             self.lbReloj.show()
         else:
             self.lbReloj.hide()
@@ -631,9 +678,11 @@ class WLearnPuente(LCDialog.LCDialog):
 
         self.siguiente()
 
-    def ponInfo(self):
-        njg = self.repJugada if self.repWorking else self.movActual - 1
+    def show_info(self):
+        njg = self.replay_num_move if self.repWorking else self.current_num_move - 1
         txt_pgn = self.game.pgn_translated(hastaJugada=njg)
+        if self.is_random:
+            txt_pgn = ""
         texto = "<big><center><b>%s</b>: %d<br><b>%s</b>: %d</center><br><br>%s</big>" % (
             _("Errors"),
             self.errors,
@@ -645,32 +694,24 @@ class WLearnPuente(LCDialog.LCDialog):
 
     def siguiente(self):
         num_moves = len(self.game)
-        self.movActual += 1
-        self.ponInfo()
-        self.lbIni.set_text("%d/%d" % (self.movActual, num_moves))
-        if self.movActual == num_moves:
-            self.finalJuego()
+        self.current_num_move += 1
+        self.show_info()
+        self.lbIni.set_text("%d/%d" % (self.current_num_move, num_moves))
+        if self.current_num_move == num_moves:
+            self.end_game()
             return
 
-        move = self.game.move(self.movActual)
+        move = self.game.move(self.current_num_move)
 
         self.boardIni.set_position(move.position_before)
-        if self.movActual > 0:
-            jgant = self.game.move(self.movActual - 1)
-            self.boardIni.put_arrow_sc(jgant.from_sq, jgant.to_sq)
 
-        mfin = self.movActual + self.nivel - 1
-        if self.nivel == 0:
-            mfin += 1
-        if mfin >= num_moves:
-            mfin = num_moves - 1
+        move_prev = move.previous_move
+        if move_prev:
+            self.boardIni.put_arrow_sc(move_prev.from_sq, move_prev.to_sq)
 
         if self.nivel > 0:
-            jgf = self.game.move(mfin)
-            self.boardFin.set_position(jgf.position)
-            if self.nivel == 0:
-                self.boardFin.put_arrow_sc(jgf.from_sq, jgf.to_sq)
-            self.lbFin.set_text("%d/%d" % (mfin + 1, num_moves))
+            self.boardFin.set_position(move.next_position)
+            self.lbFin.set_text("%d/%d" % (min(move.pos_move + self.nivel, num_moves), num_moves))
 
         color = move.position_before.is_white
 
@@ -680,7 +721,7 @@ class WLearnPuente(LCDialog.LCDialog):
             self.siguiente()
 
     def player_has_moved(self, from_sq, to_sq, promotion=""):
-        move = self.game.move(self.movActual)
+        move = self.game.move(self.current_num_move)
 
         # Peon coronando
         if not promotion and move.position_before.pawn_can_promote(from_sq, to_sq):
@@ -694,15 +735,15 @@ class WLearnPuente(LCDialog.LCDialog):
             if to_sq != from_sq:
                 self.errors += 1
                 self.boardIni.ponFlechasTmp([(move.from_sq, move.to_sq, False)])
-            self.ponInfo()
+            self.show_info()
             return False
 
     def get_help(self):
-        move = self.game.move(self.movActual)
+        move = self.game.move(self.current_num_move)
         self.boardIni.put_arrow_sc(move.from_sq, move.to_sq)
         self.hints += 1
 
-        self.ponInfo()
+        self.show_info()
 
     def guardar(self):
         color = ""
@@ -716,11 +757,12 @@ class WLearnPuente(LCDialog.LCDialog):
             "LEVEL": self.nivel,
             "COLOR": color,
             "HINTS": self.hints,
-            "ERRORS": self.errors
+            "ERRORS": self.errors,
+            "TYPE": "r" if self.is_random else "s"
         }
         self.owner.guardar(dic)
 
-    def finalJuego(self):
+    def end_game(self):
         self.working_clock = False
         num_moves = len(self.game)
         self.lbIni.set_text("%d/%d" % (num_moves, num_moves))
@@ -742,7 +784,7 @@ class WLearnPuente(LCDialog.LCDialog):
     def cancelar(self):
         self.final()
 
-    def ajustaReloj(self):
+    def adjust_clock(self):
         if self.working_clock:
             s = int(time.time() - self.time_base)
 
@@ -750,4 +792,4 @@ class WLearnPuente(LCDialog.LCDialog):
             s -= m * 60
 
             self.lbReloj.set_text("%02d:%02d" % (m, s))
-            QtCore.QTimer.singleShot(500, self.ajustaReloj)
+            QtCore.QTimer.singleShot(500, self.adjust_clock)

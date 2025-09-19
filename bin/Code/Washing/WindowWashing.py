@@ -85,15 +85,15 @@ class WWashing(LCDialog.LCDialog):
             svg = svg.replace(c_ia, d_ia)
             wsvg.load(QtCore.QByteArray(svg.encode("utf-8")))
         p = 1.0
-        wsvg.setFixedSize(287.79 * p, 398.83 * p)
+        wsvg.setFixedSize(int(287.79 * p), int(398.83 * p))
 
         if finished:
             plant = '<tr><td align="right">%s:</td><td><b>%s</b></td></tr>'
             hints, times, games = self.washing.totals()
-            nEngines = self.washing.num_engines()
+            n_engines = self.washing.num_engines()
             html = '<h2><center>%s: %d %s</center></h2><br><table cellpadding="4">' % (
                 _("Finished"),
-                nEngines,
+                n_engines,
                 _("Engines"),
             )
             for x in range(3):
@@ -102,11 +102,11 @@ class WWashing(LCDialog.LCDialog):
 
             html = html % (
                 _("Hints"),
-                "%d (%0.02f)" % (hints, hints * 1.0 / nEngines),
+                "%d (%0.02f)" % (hints, hints * 1.0 / n_engines),
                 _("Repetitions"),
-                "%d (%0.02f)" % (games, games * 1.0 / nEngines),
+                "%d (%0.02f)" % (games, games * 1.0 / n_engines),
                 _("Time"),
-                "%s (%s)" % (Util.secs2str(times), Util.secs2str(int(times / nEngines))),
+                "%s (%s)" % (Util.secs2str(times), Util.secs2str(int(times / n_engines))),
             )
 
         else:
@@ -138,13 +138,13 @@ class WWashing(LCDialog.LCDialog):
                 eng.cindex(),
             )
 
-        lbTxt = Controles.LB(self, html).set_font_type(puntos=12)
-        lbIdx = Controles.LB(self, "%0.2f%%" % ia).align_center().set_font_type(puntos=36, peso=700)
+        lb_txt = Controles.LB(self, html).set_font_type(puntos=12)
+        lb_idx = Controles.LB(self, "%0.2f%%" % ia).align_center().set_font_type(puntos=36, peso=700)
 
         ly0 = Colocacion.V().control(wsvg).relleno(1)
-        ly1 = Colocacion.V().espacio(20).control(lbTxt).espacio(20).control(lbIdx).relleno(1)
+        ly1 = Colocacion.V().espacio(20).control(lb_txt).espacio(20).control(lb_idx).relleno(1)
         ly2 = Colocacion.H().otro(ly0).otro(ly1)
-        gbCurrent = Controles.GB(self, "", ly2)
+        gb_current = Controles.GB(self, "", ly2)
 
         # Lista
         o_columns = Columnas.ListaColumnas()
@@ -168,7 +168,7 @@ class WWashing(LCDialog.LCDialog):
         gb_datos = Controles.GB(self, "", ly0)
 
         self.tab = Controles.Tab()
-        self.tab.new_tab(gbCurrent, _("Current"))
+        self.tab.new_tab(gb_current, _("Current"))
         self.tab.new_tab(gb_datos, _("Data"))
 
         # Colocamos ---------------------------------------------------------------
@@ -197,17 +197,19 @@ class WWashing(LCDialog.LCDialog):
         submenu = menu.submenu(_("Export to"), Iconos.DatabaseMas())
         submenu.opcion("save_pgn", _("A PGN file"), Iconos.FichPGN())
         submenu.separador()
-        menuDB = submenu.submenu(_("Database"), Iconos.DatabaseMas())
-        QTVarios.menuDB(menuDB, self.configuration, True, indicador_previo="dbf_")  # , remove_autosave=True)
+        menu_db = submenu.submenu(_("Database"), Iconos.DatabaseMas())
+        QTVarios.menuDB(menu_db, self.configuration, True, indicador_previo="dbf_")  # , remove_autosave=True)
         submenu.separador()
 
         resp = menu.lanza()
         if resp is None:
             return
         if resp == "saveas":
-            li_gen = [(None, None)]
             config = FormLayout.Editbox(_("Name"), ancho=160)
-            li_gen.append((config, ""))
+            li_gen = [
+                (None, None),
+                (config, "")
+            ]
 
             resultado = FormLayout.fedit(li_gen, title=_("Name"), parent=self, icon=Iconos.GrabarComo())
             if resultado:
@@ -258,12 +260,12 @@ class WWashing(LCDialog.LCDialog):
 
         elif resp.startswith("save_") or resp.startswith("dbf_"):
 
-            def other_pc():
+            def other_game():
                 for engine in self.washing.liEngines:
                     if engine.state == Washing.ENDED:
-                        game = self.dbwashing.restoreGame(engine)
-                        pc = Game.Game()
-                        pc.assign_other_game(game)
+                        xgame = self.dbwashing.restoreGame(engine)
+                        game_resp = Game.Game()
+                        game_resp.assign_other_game(xgame)
                         dt = engine.date if engine.date else Util.today()
                         if engine.color:
                             white = self.configuration.x_player
@@ -287,20 +289,20 @@ class WWashing(LCDialog.LCDialog):
                             ["BlackElo", blackelo],
                             ["Result", result],
                         ]
-                        ap = game.opening
+                        ap = xgame.opening
                         if ap:
                             tags.append(["ECO", ap.eco])
                             tags.append(["Opening", ap.tr_name])
-                        pc.set_tags(tags)
-                        yield pc
+                        game_resp.set_tags(tags)
+                        yield game_resp
 
             if resp.startswith("dbf_"):
                 database = resp[4:]
                 db = DBgames.DBgames(database)
                 me = QTUtil2.waiting_message.start(self, _("Saving..."))
                 n = 0
-                for pc in other_pc():
-                    db.insert(pc)
+                for game in other_game():
+                    db.insert(game)
                     n += 1
                 me.final()
                 db.close()
@@ -315,10 +317,12 @@ class WWashing(LCDialog.LCDialog):
                     ws = WindowSavePGN.FileSavePGN(self, w.dic_result)
                     t = 0
                     if ws.open():
-                        for n, pc in enumerate(other_pc()):
+                        for n, game in enumerate(other_game()):
                             if n or not ws.is_new:
                                 ws.write("\n\n")
-                            ws.write(pc.pgn())
+                            if ws.seventags:
+                                game.add_seventags()
+                            ws.write(game.pgn())
                             t += 1
                         ws.close()
                         if t == 0:
@@ -358,7 +362,7 @@ class WWashing(LCDialog.LCDialog):
         self.accept()
 
 
-def windowWashing(procesador):
+def window_washing(procesador):
     while True:
         w = WWashing(procesador)
         if w.exec_():

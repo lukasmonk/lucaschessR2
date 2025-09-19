@@ -234,13 +234,13 @@ class ThanksTo:
         return txt
 
     def translators(self):
-        txt = "<center>"+self.table_ini(center=False, border="1")
+        txt = "<center>" + self.table_ini(center=False, border="1")
         txt += f'<tr><th></th><th>{_("Current")}</th><th>{_("Previous")}</th><th></th><th>{_("Current")}</th><th>{_("Previous")}</th></tr>'
         li = [x for x in os.listdir(Code.path_resource("Locale")) if len(x) == 2]
         nli = len(li)
         for pos in range(0, nli, 2):
             txt += '<tr>'
-            for elem in (pos, pos +1):
+            for elem in (pos, pos + 1):
                 if elem == nli:
                     break
                 d = Util.ini_base2dic(Code.path_resource("Locale", "%s/lang.ini" % li[elem]))
@@ -621,16 +621,20 @@ class ThanksTo:
         li = (
             (_("Programming language"), "Python 3.7", "https://www.python.org/", "PSF License Agreement"),
             (_("GUI"), "PySide2", "https://wiki.qt.io/Qt_for_Python", "LGPLv3"),
-            ("psutil", _X(_("Created by %1"), "Giampaolo Rodola"), "https://github.com/giampaolo/psutil", "BSD License (BSD-3-Clause)"),
-            ("chardet", _X(_("Created by %1"), "Ian Cordasco"), "https://github.com/chardet/chardet", "LGPLv2 or later"),
+            ("psutil", _X(_("Created by %1"), "Giampaolo Rodola"), "https://github.com/giampaolo/psutil",
+             "BSD License (BSD-3-Clause)"),
+            ("chardet", _X(_("Created by %1"), "Ian Cordasco"), "https://github.com/chardet/chardet",
+             "LGPLv2 or later"),
             (
                 _("Polyglot books"),
                 _X(_("Based on work by %1"), "Michel Van den Bergh"),
                 "",
                 ""
             ),
-            ("python-chess", _X(_("Created by %1"), "Niklas Fiekas"), "https://github.com/niklasf/python-chess", "GPL-3.0+"),
-            ("pillow", "Copyright 2010-2022, Alex Clark and Contributors", "https://github.com/python-pillow/Pillow", "CMU License"),
+            ("python-chess", _X(_("Created by %1"), "Niklas Fiekas"), "https://github.com/niklasf/python-chess",
+             "GPL-3.0+"),
+            ("pillow", "Copyright 2010-2022, Alex Clark and Contributors", "https://github.com/python-pillow/Pillow",
+             "CMU License"),
             ("photohash", "Chris Pickett and others", "https://github.com/bunchesofdonald/photohash", "MIT License"),
             (
                 "cython",
@@ -638,7 +642,8 @@ class ThanksTo:
                 "https://cython.org/",
                 "Apache Software License 2.0"
             ),
-            ("formlayout", _X(_("Created by %1"), "Pierre Raybaut"), "https://github.com/PierreRaybaut/formlayout", "MIT License"),
+            ("formlayout", _X(_("Created by %1"), "Pierre Raybaut"), "https://github.com/PierreRaybaut/formlayout",
+             "MIT License"),
             (
                 "sortedcontainers",
                 _X(_("Created by %1"), "Grant Jenks"),
@@ -666,7 +671,37 @@ class ThanksTo:
         txt += self.table_end()
         return txt
 
-    @staticmethod
-    def dedicated():
-        txt = '<center><big style="color:teal;"><b>Lucas & Luisa</b></big></center>'
-        return txt
+    def dedicated(self):
+        # db_path = Code.path_resource("IntFiles", "dedicated10.sqlite")
+        #
+        # with UtilSQL.DictSQL(db_path) as db:
+        #     hoy = Util.today()
+        #     key = f"{hoy.month:02d}-{hoy.day:02d}"
+        #     lista = db.get(key, [])
+        #
+        #     lista.sort(key=lambda x: f"{x[3]}{x[1]}")
+        #
+        # if not lista:
+        #     sys.exit()
+
+        # if len(lista) % 2 != 0:
+        #     lista.append(("", "", "", ""))  # Añadir elemento vacío si es impar
+        #
+        # mitad = len(lista) // 2
+        # li1, li2 = lista[:mitad], lista[mitad:]
+        #
+        html = [
+            '<center><big style="color:teal;"><b>Lucas & Luisa</b><br><br>',
+            # self.table_ini()
+        ]
+
+        # for (n1, e1, s1, a1), (n2, e2, s2, a2) in zip(li1, li2):
+        #     html.append("<tr>")
+        #     html.append(f"<th>{n1}</th><td><center>{e1} ({s1})</center></td><td>{a1}</td>")
+        #     html.append("<td></td>")  # Separador entre columnas
+        #     html.append(f"<th>{n2}</th><td><center>{e2} ({s2})</center></td><td>{a2}</td>")
+        #     html.append("</tr>")
+        #
+        # html.append(self.table_end())
+
+        return "".join(html)

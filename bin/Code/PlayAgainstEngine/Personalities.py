@@ -1,4 +1,3 @@
-import Code
 from Code.Base.Constantes import (
     ADJUST_BETTER,
     ADJUST_HIGH_LEVEL,
@@ -18,6 +17,7 @@ from Code.Base.Constantes import (
     BOOK_RANDOM_PROPORTIONAL,
     SELECTED_BY_PLAYER
 )
+from Code.QT import Controles
 from Code.QT import FormLayout
 from Code.QT import Iconos
 from Code.QT import QTUtil2
@@ -70,7 +70,7 @@ class Personalities:
         if una is None:
             una = {}
 
-        width_field = 50 * Code.factor_big_fonts
+        width_field = Controles.calc_fixed_width(50)
 
         # Datos basicos
         li_gen = [(None, None)]
@@ -89,7 +89,7 @@ class Personalities:
         )
         li_gen.append(
             (
-                FormLayout.Editbox(_("The loss of centipawns is greater than"), tipo=int,ancho=width_field),
+                FormLayout.Editbox(_("The loss of centipawns is greater than"), tipo=int, ancho=width_field),
                 una.get("MINDIFPUNTOS", 0),
             )
         )

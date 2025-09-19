@@ -262,11 +262,11 @@ def read_engines(folder_engines):
 
     if is64:
         if is_bmi2:
-            cm = mas("lc0", "The LCZero Authors", "v0.31.2", "https://github.com/LeelaChessZero", "lc0_dnnl.exe", 3300,
-                     nodes_compatible=True)
+            cm = mas("lc0", "The LCZero Authors", "v0.32", "https://github.com/LeelaChessZero", "lc0_dnnl.exe", 3300,
+                     nodes_compatible=True, emulate_movetime=True)
         else:
-            cm = mas("lc0", "The LCZero Authors", "v0.31.2", "https://github.com/LeelaChessZero", "lc0.exe", 3300,
-                     nodes_compatible=True)
+            cm = mas("lc0", "The LCZero Authors", "v0.32", "https://github.com/LeelaChessZero", "lc0.exe", 3300,
+                     nodes_compatible=True, emulate_movetime=True)
         cm.set_uci_option("Threads", "2")
         cm.set_multipv(10, 500)
 
@@ -284,20 +284,24 @@ def read_engines(folder_engines):
     cm.set_uci_option("Hash", "64")
     cm.set_multipv(10, 256)
 
-    for level in range(1100, 2000, 100):
+    levels = list(range(1100, 2000, 100)) + [2200]
+    for level in levels:
         cm = mas(
-            "maia-%d" % level,
+            f"maia-{level}",
             "Reid McIlroy-Young,Ashton Anderson,Siddhartha Sen,Jon Kleinberg,Russell Wang + LcZero team",
-            "%d" % level,
-            "https://maiachess.com/",
+            str(level),
+            "https://www.maiachess.com/",
             "lc0.exe",
             level,
             folder="maia",
             nodes_compatible=True
         )
-        cm.set_uci_option("WeightsFile", "maia-%d.pb.gz" % level)
+        cm.set_uci_option("WeightsFile", f"maia-{level}.pb.gz")
         cm.path_exe = Util.relative_path(Util.opj(folder_engines, "maia", "lc0.exe"))
-        cm.name = "Maia-%d" % level
+        cm.name = f"Maia-{level}"
+        cm.set_uci_option("Ponder", "false")
+        cm.set_uci_option("Hash", "8")
+        cm.set_uci_option("Threads", "1")
 
     return dic_engines
 
@@ -305,7 +309,7 @@ def read_engines(folder_engines):
 def dict_engines_fixed_elo(folder_engines):
     d = read_engines(folder_engines)
     dic = {}
-    for nm, xfrom, xto in (
+    li_engines = [
             ("amyan", 1000, 2400),
             ("stockfish", 1400, 3000),
             ("rhetoric", 1300, 2600),
@@ -316,8 +320,12 @@ def dict_engines_fixed_elo(folder_engines):
             ("ufim", 700, 2000),
             ("texel", 700, 2500),
             ("fox", 1000, 2700),
-            # ("patricia", 500, 3000)
-    ):
+    ]
+    is64 = platform.machine().endswith("64")
+    if is64:
+        li_engines.append( ("patricia", 500, 3000))
+
+    for nm, xfrom, xto in li_engines:
         for elo in range(xfrom, xto + 100, 100):
             cm = d[nm].clona()
             if elo not in dic:

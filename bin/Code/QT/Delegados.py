@@ -25,7 +25,8 @@ def genera_pm(piezas):
     dicPM["OV"] = Iconos.pmOpeningVariation()
     dicPM["VC"] = Iconos.pmVariationComment()
     dicPM["OVC"] = Iconos.pmOpeningVariationComment()
-    dicPM["T"] = Iconos.pmThemes()
+    if piezas.is_only_board():
+        piezas = piezas.get_default()
 
     for k in "KQRNBkqrnb":
         dicPZ[k] = piezas.render(k)
@@ -190,10 +191,24 @@ class EtiquetaPGN(QtWidgets.QStyledItemDelegate):
             if fondo:
                 painter.fillRect(rect, fondo)
 
+        theme = None
+        if indicador_inicial:
+            if "|" in indicador_inicial:
+                pos_ii = indicador_inicial.index("|")
+                theme = indicador_inicial[pos_ii + 1:]
+                indicador_inicial = indicador_inicial[:pos_ii]
+
         if indicador_inicial:
             painter.save()
             painter.translate(x_total, y_total)
             painter.drawPixmap(0, 0, dicPM[indicador_inicial])
+            painter.restore()
+        if theme:
+            painter.save()
+            themes = Code.get_themes()
+            pm: QtGui.QPixmap = themes.pixmap(theme)
+            painter.translate(x_total, y_total + h_total - pm.height())
+            painter.drawPixmap(0, 0, pm)
             painter.restore()
 
         document_pgn = QtGui.QTextDocument()
@@ -222,8 +237,8 @@ class EtiquetaPGN(QtWidgets.QStyledItemDelegate):
             painter.save()
             painter.translate(x, y + 1)
             pm = dicPZ[ini_pz]
-            pmRect = QtCore.QRectF(0, 0, hx, hx)
-            pm.render(painter, pmRect)
+            pm_rect = QtCore.QRectF(0, 0, hx, hx)
+            pm.render(painter, pm_rect)
             painter.restore()
             x += wpz
 
@@ -237,12 +252,13 @@ class EtiquetaPGN(QtWidgets.QStyledItemDelegate):
             painter.save()
             painter.translate(x - 0.3 * wpz, y + 1)
             pm = dicPZ[fin_pz]
-            pmRect = QtCore.QRectF(0, 0, hx, hx)
-            pm.render(painter, pmRect)
+            pm_rect = QtCore.QRectF(0, 0, hx, hx)
+            pm.render(painter, pm_rect)
             painter.restore()
             x += wpz + salto_fin_pz
 
         if post_pz:
+            x -= 3
             document_pgn = QtGui.QTextDocument()
             document_pgn.setDefaultFont(option.font)
             if color:
@@ -259,13 +275,16 @@ class EtiquetaPGN(QtWidgets.QStyledItemDelegate):
 
         if txt_analysis:
             document_analysis = QtGui.QTextDocument()
-            document_analysis.setDefaultFont(option.font)
+            font = option.font
+            new_size = max(6, font.pointSize() - 1)  # aseguramos que no baje de 6
+            font.setPointSize(new_size)
+            document_analysis.setDefaultFont(font)
             if color:
                 txt_analysis = '<font color="%s">%s</font>' % (color, txt_analysis)
             document_analysis.setHtml(txt_analysis)
             w_analysis = document_analysis.idealWidth()
             painter.save()
-            painter.translate(x_total + (w_total - w_analysis - 4), y)
+            painter.translate(x_total + (w_total - w_analysis) + 2, y)
             document_analysis.drawContents(painter)
             painter.restore()
 
@@ -762,10 +781,10 @@ class EtiquetaPOSN(QtWidgets.QStyledItemDelegate):
                 pen.setWidth(2)
                 pen.setColor(QtGui.QColor("#ff6961"))
                 painter.setPen(pen)
-                painter.drawLine(x0+1, y0+1, x0 + width - 1, y0+1)
+                painter.drawLine(x0 + 1, y0 + 1, x0 + width - 1, y0 + 1)
                 painter.drawLine(x0 + width - 1, y0, x0 + width - 1, y0 + height - 1)
-                painter.drawLine(x0+1, y0+1, x0 + 1, y0 + height - 1)
-                painter.drawLine(x0 + 1, y0 +height - 1, x0 + width - 1, y0 + height - 1)
+                painter.drawLine(x0 + 1, y0 + 1, x0 + 1, y0 + height - 1)
+                painter.drawLine(x0 + 1, y0 + height - 1, x0 + width - 1, y0 + height - 1)
 
 
 class LinePGN(QtWidgets.QStyledItemDelegate):

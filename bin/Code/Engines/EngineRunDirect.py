@@ -194,11 +194,13 @@ class DirectEngine(object):
     def close(self):
         if self.pid:
             if self.process.poll() is None:
+                self.put_line("stop")
                 self.put_line("quit")
-                wtime = 40  # wait for it, wait for it...
-                while self.process.poll() is None and wtime > 0:
-                    time.sleep(0.05)
-                    wtime -= 1
+                self.process.terminate()
+                try:
+                    self.process.wait(timeout=2)
+                except subprocess.TimeoutExpired:
+                    self.process.kill()
 
                 if self.process.poll() is None:  # nope, no luck
                     sys.stderr.write("INFO X CLOSE525: the engine %s won't close properly.\n" % self.exe)

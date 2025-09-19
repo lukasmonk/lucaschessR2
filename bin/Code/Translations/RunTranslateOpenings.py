@@ -56,10 +56,10 @@ class WTranslateOpenings(LCDialog.LCDialog):
 
         tooltip = "F3 to search forward\nshift F3 to search backward"
 
-        self.lb_seek = Controles.LB(self, "Find (Ctrl F):").set_font_type(puntos=10).anchoFijo(74)
+        self.lb_seek = Controles.LB(self, "Find (Ctrl F):").set_font_type(puntos=10).relative_width(74)
         self.ed_seek = Controles.ED(self, "").set_font_type(puntos=10).capture_enter(self.siguiente)
         self.ed_seek.setToolTip(tooltip)
-        self.f3_seek = Controles.PB(self, "F3", self.siguiente, plano=False).set_font_type(puntos=10).anchoFijo(30)
+        self.f3_seek = Controles.PB(self, "F3", self.siguiente, plano=False).set_font_type(puntos=10).relative_width(30)
         self.f3_seek.setToolTip(tooltip)
         ly_seek = Colocacion.H().control(self.lb_seek).control(self.ed_seek).control(self.f3_seek).margen(0)
 

@@ -71,7 +71,23 @@ class ManagerEntPos(Manager.Manager):
         db[self.entreno] = data
         db.close()
 
-    def start(
+    def start(self, pos_training, num_trainings, title_training, li_trainings, is_tutor_enabled, is_automatic_jump,
+            remove_solutions, show_comments, advanced):
+
+        self.game_type = GT_POSITIONS
+        if self.board.blindfold:
+            self.board.blindfoldChange()
+
+        self.main_window.active_game(True, False)
+        self.main_window.remove_hints(False, False)
+        self.show_info_extra()
+        self.set_dispatcher(self.player_has_moved)
+        QTUtil.refresh_gui()
+
+        self.the_next(pos_training, num_trainings, title_training, li_trainings, is_tutor_enabled, is_automatic_jump,
+            remove_solutions, show_comments, advanced)
+
+    def the_next(
             self, pos_training, num_trainings, title_training, li_trainings, is_tutor_enabled, is_automatic_jump,
             remove_solutions, show_comments, advanced
     ):
@@ -92,9 +108,6 @@ class ManagerEntPos(Manager.Manager):
         self.remove_solutions = remove_solutions
         self.advanced = advanced
         self.show_comments = show_comments
-
-        if self.board.blindfold:
-            self.board.blindfoldChange()
 
         self.li_histo = [self.pos_training]
 
@@ -121,10 +134,7 @@ class ManagerEntPos(Manager.Manager):
             self.game.set_position(cp)
             if self.game_obj:
                 self.game.set_first_comment(self.game_obj.first_comment, True)
-
         self.game.pending_opening = False
-
-        self.game_type = GT_POSITIONS
 
         self.human_is_playing = False
         self.state = ST_PLAYING
@@ -141,9 +151,6 @@ class ManagerEntPos(Manager.Manager):
 
         self.set_toolbar_comments()
 
-        self.main_window.active_game(True, False)
-        self.main_window.remove_hints(False, False)
-        self.set_dispatcher(self.player_has_moved)
         self.set_position(self.game.last_position)
         self.show_side_indicator(True)
         self.put_pieces_bottom(is_white)
@@ -158,7 +165,6 @@ class ManagerEntPos(Manager.Manager):
         else:
             self.set_label2("%d / %d" % (pos_training, num_trainings))
         self.pgn_refresh(True)
-        QTUtil.refresh_gui()
 
         if self.xrival is None:
             conf_engine = self.configuration.buscaRival(self.configuration.x_tutor_clave)
@@ -185,8 +191,7 @@ class ManagerEntPos(Manager.Manager):
         self.is_rival_thinking = False
         self.is_analyzing = False
         self.current_helps = 0
-
-        self.show_info_extra()
+        self.update_help()
 
         self.show_button_tutor(not self.is_playing_gameobj())
 
@@ -342,7 +347,7 @@ class ManagerEntPos(Manager.Manager):
         if self.is_analyzing:
             self.xtutor.stop()
         self.main_window.activaInformacionPGN(False)
-        self.start(
+        self.the_next(
             self.pos_training,
             self.num_trainings,
             self.title_training,
@@ -393,7 +398,7 @@ class ManagerEntPos(Manager.Manager):
         elif pos == 0:
             pos = self.num_trainings
         self.analiza_stop()
-        self.start(
+        self.the_next(
             pos,
             self.num_trainings,
             self.title_training,
@@ -413,8 +418,8 @@ class ManagerEntPos(Manager.Manager):
 
     @staticmethod
     def list_help_keyboard(add_key):
-            add_key("-/%s" % _("Page Up"), _("Previous"))
-            add_key("+/%s" % _("Page Down"), _("Next"))
+        add_key("-/%s" % _("Page Up"), _("Previous"))
+        add_key("+/%s" % _("Page Down"), _("Next"))
 
     def end_game(self):
         self.state = ST_ENDGAME
@@ -793,6 +798,6 @@ class ManagerEntPos(Manager.Manager):
             with_help = False
         self.pon_help(with_help)
 
-    def show_info_extra(self):
-        Manager.Manager.show_info_extra(self)
-        self.update_help()
+    # def show_info_extra(self):
+        # Manager.Manager.show_info_extra(self)
+        # self.update_help()

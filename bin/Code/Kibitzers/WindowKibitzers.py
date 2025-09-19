@@ -299,7 +299,7 @@ class WKibitzers(LCDialog.LCDialog):
         form.seconds("%s (0=%s)" % (_("Fixed time in seconds"), _("all the time thinking")), 0.0)
         form.separador()
 
-        form.editbox(_("Fixed depth"), ancho=30 * Code.factor_big_fonts, tipo=int, init_value=0)
+        form.editbox(_("Fixed depth"), ancho=30, tipo=int, init_value=0)
         form.separador()
 
         resultado = form.run()

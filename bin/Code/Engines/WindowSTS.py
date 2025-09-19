@@ -262,10 +262,10 @@ class WWork(QtWidgets.QDialog):
         self.emInfo = Controles.EM(self, work.info, siHTML=False).anchoMinimo(360).altoFijo(60)
 
         lbDepth = Controles.LB(self, _("Max depth") + ": ")
-        self.sbDepth = Controles.ED(self).tipoInt(work.depth).anchoFijo(30)
+        self.sbDepth = Controles.ED(self).tipoInt(work.depth).relative_width(30)
 
         lbSeconds = Controles.LB(self, _("Maximum seconds to think") + ": ")
-        self.sbSeconds = Controles.ED(self).tipoFloat(float(work.seconds), decimales=3).anchoFijo(60)
+        self.sbSeconds = Controles.ED(self).tipoFloat(float(work.seconds), decimales=3).relative_width(60)
 
         lbSample = Controles.LB(self, _("Sample") + ": ")
         self.sbIni = Controles.SB(self, work.ini + 1, 1, 100).capture_changes(self.changeSample)
@@ -311,7 +311,7 @@ class WWork(QtWidgets.QDialog):
             fil = x % mitad
 
             ly.control(chb, fil, col)
-        ly.otroc(lyAN, mitad, 0, numColumnas=3)
+        ly.otroc(lyAN, mitad, 0, num_columns=3)
 
         w = QtWidgets.QWidget()
         w.setLayout(ly)
@@ -610,7 +610,7 @@ class WSTS(LCDialog.LCDialog):
 
         lb = Controles.LB(
             self,
-            'STS %s: <b>Dann Corbit & Swaminathan</b> <a href="https://sites.google.com/site/strategictestsuite/about-1">%s</a>'
+            'STS %s: <b>Dann Corbit & Swaminathan</b> <a href="https://sites.google.com/site/strategictestsuite">%s</a>'
             % (_("Authors"), _("More info")),
         )
 

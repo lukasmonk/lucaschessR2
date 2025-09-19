@@ -25,7 +25,7 @@ class ODT:
             pos += 1
 
         folder = plant_folder % pos
-        os.mkdir(folder)
+        Util.create_folder(folder)
 
         self.meta_inf.run(folder)
         self.content.run(folder)

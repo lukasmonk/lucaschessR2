@@ -357,7 +357,7 @@ class WAnalisis(LCDialog.LCDialog):
         elif k == QtCore.Qt.Key_Up:
             self.muestraActual.wmu.arriba()
         elif k == QtCore.Qt.Key_Left:
-            self.muestraActual.wmu.process_toolbar("MoverAtras")
+            self.muestraActual.wmu.process_toolbar("move_back")
         elif k == QtCore.Qt.Key_Right:
             self.muestraActual.wmu.process_toolbar("MoverAdelante")
         elif k == QtCore.Qt.Key_Home:
@@ -431,7 +431,7 @@ class WAnalisis(LCDialog.LCDialog):
             self.muestraActual.wmu.process_toolbar(key)
 
     def start_clock(self, funcion):
-        if self.tiomer is None:
+        if self.timer is None:
             self.timer = QtCore.QTimer(self)
             self.timer.timeout.connect(funcion)
         self.timer.start(1000)

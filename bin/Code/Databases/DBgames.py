@@ -8,7 +8,7 @@ import FasterCode
 import Code
 from Code import Util
 from Code.Base import Game
-from Code.Base.Constantes import STANDARD_TAGS, FEN_INITIAL
+from Code.Base.Constantes import STANDARD_TAGS, FEN_INITIAL, TACTICTHEMES
 from Code.Databases import DBgamesST
 from Code.SQL import UtilSQL
 
@@ -35,6 +35,11 @@ BODY_SAVE = b"BODY "
 
 
 class DBgames:
+    allows_duplicates: bool
+    allows_positions: bool
+    allows_complete_games: bool
+    allows_zero_moves: bool
+
     def __init__(self, path_db):
         self.link_file = path_db
         if path_db.endswith(".lcdblink"):
@@ -44,6 +49,7 @@ class DBgames:
         else:
             self.external_folder = ""
         self.path_file = os.path.abspath(path_db)
+        Util.check_folders_filepath(self.path_file)
 
         self.conexion = sqlite3.connect(self.path_file)
         self.conexion.row_factory = sqlite3.Row
@@ -77,7 +83,7 @@ class DBgames:
     def read_options(self):
         self.allows_duplicates = self.read_config("ALLOWS_DUPLICATES", True)
         self.allows_positions = self.read_config("ALLOWS_POSITIONS", True)
-        self.allows_complete_game = self.read_config("ALLOWS_COMPLETE_GAMES", True)
+        self.allows_complete_games = self.read_config("ALLOWS_COMPLETE_GAMES", True)
         self.allows_zero_moves = self.read_config("ALLOWS_ZERO_MOVES", True)
 
     def remove_columns(self, lista):
@@ -128,10 +134,11 @@ class DBgames:
             for sql in (
                     "CREATE TABLE Games(XPV VARCHAR,_DATA_ BLOB,PLYCOUNT INT);",
                     "CREATE INDEX XPV_INDEX ON Games (XPV);",
-                    "PRAGMA page_size = 4096;",
-                    "PRAGMA synchronous = OFF;",
+                    "PRAGMA journal_mode = WAL;",
+                    "PRAGMA synchronous = NORMAL;",
+                    "PRAGMA temp_store = MEMORY;",
                     "PRAGMA cache_size = 10000;",
-                    "PRAGMA journal_mode = MEMORY;",
+                    "PRAGMA mmap_size = 268435456;",
             ):
                 self.conexion.execute(sql)
             self.conexion.commit()
@@ -219,7 +226,7 @@ class DBgames:
             self.addcache(rowid, reg)
         try:
             return self.cache[rowid][name]
-        except:
+        except IndexError:
             return ""
 
     def set_field(self, nfila, name, value):
@@ -235,7 +242,7 @@ class DBgames:
             return False
         return not self.rowidReader.terminado()
 
-    def filter_pv(self, pv, condicionAdicional=None):
+    def filter_pv(self, pv, additional_condition=None):
         condicion = ""
         if isinstance(pv, list):  # transpositions
             if pv:
@@ -247,11 +254,11 @@ class DBgames:
         elif pv:
             xpv = pv_xpv(pv)
             condicion = 'XPV LIKE "%s%%"' % xpv if xpv else ""
-        if condicionAdicional:
+        if additional_condition:
             if condicion:
-                condicion += " AND (%s)" % condicionAdicional
+                condicion += " AND (%s)" % additional_condition
             else:
-                condicion = condicionAdicional
+                condicion = additional_condition
         self.filter = condicion
 
         self.li_row_ids = []
@@ -630,7 +637,8 @@ class DBgames:
             if field not in ("XPV", "_DATA_", "PLYCOUNT"):
                 v = raw[field]
                 if v:
-                    litags.append((drots.get(field, Util.primera_mayuscula(field)), v if isinstance(v, str) else str(v)))
+                    litags.append(
+                        (drots.get(field, Util.primera_mayuscula(field)), v if isinstance(v, str) else str(v)))
         litags.append(("PlyCount", str(raw["PLYCOUNT"])))
 
         game.set_tags(litags)
@@ -655,6 +663,7 @@ class DBgames:
         return Game.Game(li_tags=li_tags)
 
     def save_game_recno(self, recno, game):
+        game.refresh_tacticthemes(TACTICTHEMES.upper() in self.st_fields)
         return self.insert(game) if recno is None else self.modify(recno, game)
 
     def fill(self, li_field_value):
@@ -685,7 +694,7 @@ class DBgames:
     def pack(self):
         self.conexion.execute("VACUUM")
         if self.with_db_stat:
-            self.db_stat._conexion.execute("VACUUM")
+            self.db_stat.conexion().execute("VACUUM")
 
     def insert_lcsb(self, path_lcsb):
         dic = Util.restore_pickle(path_lcsb)
@@ -713,7 +722,7 @@ class DBgames:
         erroneos = duplicados = importados = 0
 
         allows_fen = self.allows_positions
-        allows_complete_game = self.allows_complete_game
+        allows_complete_games = self.allows_complete_games
         allows_cero_moves = self.allows_zero_moves
         duplicate_check = not self.allows_duplicates
 
@@ -749,7 +758,7 @@ class DBgames:
             fich_erroneos = Util.opj(Code.configuration.temporary_folder(), nomfichero[:-3] + "errors.pgn")
             fich_duplicados = Util.opj(Code.configuration.temporary_folder(), nomfichero[:-3] + "duplicates.pgn")
             dl_tmp.pon_titulo(nomfichero)
-            next_n = random.randint(1000, 2000)
+            next_n = random.randint(800, 1500)
 
             obj_decode.read_file(file)
 
@@ -757,7 +766,7 @@ class DBgames:
                 bsize = fpgn.size
                 for n, (body, is_raw, pv, fens, bdCab, bdCablwr, btell) in enumerate(fpgn, 1):
                     if n == next_n:
-                        if time.time() - t1 > 0.8:
+                        if time.time() - t1 > 0.5:
                             if not dl_tmp.actualiza(
                                     erroneos + duplicados + importados,
                                     erroneos,
@@ -767,12 +776,14 @@ class DBgames:
                             ):
                                 break
                             t1 = time.time()
-                        next_n = n + random.randint(1000, 2000)
+                        next_n = n + random.randint(800, 1500)
 
                     # Sin movimientos
                     if not pv and not allows_cero_moves:
                         erroneos += 1
+                        dl_tmp.refresh_gui()
                         write_logs(fich_erroneos, fpgn.bpgn())
+                        dl_tmp.refresh_gui()
                         continue
 
                     d_cab = {decode(k).replace(" ", ""): decode(v) for k, v in bdCab.items()}
@@ -795,7 +806,7 @@ class DBgames:
                             xpv = "|%s|%s" % (fen, xpv)
 
                     if not fen:
-                        if not allows_complete_game:
+                        if not allows_complete_games:
                             erroneos += 1
                             write_logs(fich_erroneos, fpgn.bpgn())
                             continue
@@ -824,10 +835,12 @@ class DBgames:
                             # Grabamos lo que hay
                             if li_regs:
                                 n_regs = 0
+                                dl_tmp.refresh_gui()
                                 conexion.executemany(sql, li_regs)
                                 li_regs = []
                                 st_xpv_bloque = set()
                                 conexion.commit()
+                                dl_tmp.refresh_gui()
                                 if self.with_db_stat:
                                     self.db_stat.massive_append_set(False)
                                     self.db_stat.commit()
@@ -897,7 +910,7 @@ class DBgames:
         erroneos = duplicados = importados = 0
 
         allows_fen = self.allows_positions
-        allows_complete_game = self.allows_complete_game
+        allows_complete_games = self.allows_complete_games
         allows_cero_moves = self.allows_zero_moves
         duplicate_check = not self.allows_duplicates
 
@@ -952,7 +965,7 @@ class DBgames:
                     continue
                 nada, fen, xpv = xpv.split("|")
             else:
-                if not allows_complete_game:
+                if not allows_complete_games:
                     erroneos += 1
                     continue
 
@@ -1009,7 +1022,7 @@ class DBgames:
             if not is_complete:
                 return _("This database does not allow games that are not complete.")
 
-        if not self.allows_complete_game:
+        if not self.allows_complete_games:
             if is_complete:
                 return _("This database only allows positions.")
 

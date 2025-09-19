@@ -6,6 +6,7 @@ from Code.Base.Constantes import HIGHEST_VARIATIONS, BETTER_VARIATIONS
 from Code.Engines import EngineResponse
 from Code.Nags.Nags import NAG_0, NAG_3, NAG_6, NAG_2, NAG_4, html_nag_txt, html_nag_symbol
 from Code.Translations import TrListas
+from Code.Openings import OpeningsStd
 
 
 def crea_dic_html():
@@ -44,6 +45,12 @@ class Move:
 
         self.elo_avg = 0
 
+    def is_book_move(self):
+        if self.in_the_opening or self.is_book:
+            return True
+        fenm2 = self.position.fenm2()
+        return OpeningsStd.ap.is_book_fenm2(fenm2)
+
     def set_time_ms(self, ms):
         self.time_ms = ms
 
@@ -60,19 +67,24 @@ class Move:
                 or self.time_ms
         )
 
-    @property
-    def get_themes(self) -> []:
+    def get_themes(self) -> list:
         return self.li_themes
 
     def has_themes(self) -> bool:
-        return len(self.get_themes) > 0
+        return len(self.li_themes) > 0
+
+    def has_theme(self, theme):
+        return theme in self.li_themes
 
     def add_theme(self, theme):
-        if theme not in self.get_themes:
+        if theme not in self.li_themes:
             self.li_themes.append(theme)
 
-    def clear_themes(self):
-        self.li_themes = []
+    def rem_theme(self, theme):
+        self.li_themes.remove(theme)
+
+    def clear_themes(self, list_to_delete):
+        self.li_themes = [theme for theme in self.li_themes if theme not in list_to_delete]
 
     def get_points_lost(self):
         if self.analysis is None:

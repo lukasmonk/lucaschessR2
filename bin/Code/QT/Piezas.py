@@ -16,10 +16,25 @@ from Code.QT import QTVarios
 from Code.Translations import TrListas
 
 
+DEFAULT_PIECES = "Cburnett"
+
+
+def is_only_board(name) -> bool:
+    fich = Code.path_resource("Pieces", name, "only_board")
+    return os.path.isfile(fich)
+
+
 class ConjuntoPiezas:
     def __init__(self, name):
         self.name = name
         self.dicPiezas = self.leePiezas(name)
+
+    def is_only_board(self):
+        return is_only_board(self.name)
+
+    @staticmethod
+    def get_default():
+        return ConjuntoPiezas(DEFAULT_PIECES)
 
     def leePiezas(self, name):
         try:
@@ -31,7 +46,7 @@ class ConjuntoPiezas:
                 dic[pieza] = qb
             return dic
         except:
-            return self.leePiezas("Cburnett")
+            return self.leePiezas(DEFAULT_PIECES)
 
     def render(self, pieza):
         return QtSvg.QSvgRenderer(self.dicPiezas[pieza])
@@ -96,7 +111,7 @@ class AllPieces:
             with open(fich, "rb") as f:
                 qb = QtCore.QByteArray(f.read())
         except FileNotFoundError:
-            return self.icono(pieza, "Cburnett")
+            return self.icono(pieza, DEFAULT_PIECES)
         pm = QtGui.QPixmap(width, width)
         pm.fill(QtCore.Qt.transparent)
         render = QtSvg.QSvgRenderer(qb)
@@ -107,13 +122,16 @@ class AllPieces:
         return pm
 
     def default_icon(self, pieza, width=32):
-        return self.icono(pieza, "Cburnett", width)
+        return self.icono(pieza, DEFAULT_PIECES, width)
 
     def default_pixmap(self, pieza, width):
-        return self.pixmap(pieza, "Cburnett", width)
+        return self.pixmap(pieza, DEFAULT_PIECES, width)
 
     @staticmethod
     def save_all_png(name, px):
+        if is_only_board(name):
+            name = DEFAULT_PIECES
+        folder_to_save = Code.configuration.folder_pieces_png()
         for pieza in "pnbrqk":
             for color in "wb":
                 fich = Code.path_resource("Pieces", name, "%s%s.svg" % (color, pieza))
@@ -126,7 +144,8 @@ class AllPieces:
                 painter.begin(pm)
                 render.render(painter)
                 painter.end()
-                pm.save(Code.path_resource("IntFiles", "Figs", "%s%s.png" % (color, pieza)), "PNG")
+                path = Util.opj(folder_to_save, f"{color}{pieza}.png")
+                pm.save(path, "PNG")
 
 
 HIDE, GREY, CHECKER, SHOW = range(4)
@@ -217,7 +236,7 @@ class Blindfold(ConjuntoPiezas):
                 dicTPiezas[pieza.upper()] = w
         self.configBF = BlindfoldConfig(nom_pieces_ori, dicPiezas=dicTPiezas)
         if not os.path.isdir(self.carpetaBF):
-            os.mkdir(self.carpetaBF)
+            Util.create_folder(self.carpetaBF)
 
         for siWhite in (True, False):
             for pieza in "rnbqkp":

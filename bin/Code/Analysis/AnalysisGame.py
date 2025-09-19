@@ -10,6 +10,7 @@ from Code.Base.Constantes import INACCURACY, MISTAKE, BLUNDER, INACCURACY_MISTAK
 from Code.BestMoveTraining import BMT
 from Code.Databases import WDB_Utils
 from Code.Nags.Nags import NAG_3
+from Code.Themes import AssignThemes
 
 
 class AnalyzeGame:
@@ -100,6 +101,10 @@ class AnalyzeGame:
         self.from_last_move = alm.from_last_move
         self.delete_previous = alm.delete_previous
 
+        self.themes_assign = AssignThemes.AssignThemes() if alm.themes_assign else None
+        self.with_themes_tags = alm.themes_tags
+        self.themes_reset = alm.themes_reset
+
     def cached_begin(self):
         self.xmanager.analysis_cached_begin()
 
@@ -183,8 +188,8 @@ class AnalyzeGame:
         if not os.path.isdir(self.tacticblunders):
             dtactics = Util.opj(self.configuration.personal_training_folder, "../Tactics")
             if not os.path.isdir(dtactics):
-                os.mkdir(dtactics)
-            os.mkdir(self.tacticblunders)
+                Util.create_folder(dtactics)
+            Util.create_folder(self.tacticblunders)
             with open(Util.opj(self.tacticblunders, "Config.ini"), "wt", encoding="utf-8", errors="ignore") as f:
                 f.write(
                     """[COMMON]
@@ -555,6 +560,9 @@ FILESW=%s:100
 
         if self.accuracy_tags:
             game.add_accuracy_tags()
+
+        if self.themes_assign:
+            self.themes_assign.assign_game(game, self.with_themes_tags, self.themes_reset)
 
         self.xmanager.remove_gui_dispatch()
 

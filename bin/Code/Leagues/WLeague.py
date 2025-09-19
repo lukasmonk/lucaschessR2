@@ -500,16 +500,6 @@ class WLeague(LCDialog.LCDialog):
             num_division = self.li_grids_divisions_crosstabs.index(grid)
             return self.grid_color_fondo_crosstabs(num_division, row, column)
 
-        # if grid in self.li_grids_divisions:
-        #     if self.season.is_finished():
-        #         migration = self.league.migration
-        #         ndatos = self.grid_num_datos(grid)
-        #         num_division = self.li_grids_divisions.index(grid)
-        #         d_panel = self.li_panels[num_division][row]
-        #         order = d_panel["ORDER"]
-        #         if order <= migration or order > (ndatos - migration):
-        #             return self.color_migration
-
     def grid_bold(self, grid, row, o_column):
         if grid in self.li_grids_divisions_crosstabs:
             return True
@@ -771,6 +761,8 @@ class WLeague(LCDialog.LCDialog):
                 engine = li[0].opponent
                 QTUtil2.message_error(self, f'{_("Engine not found")}:\n{engine.path_exe}')
             else:
+                self.season.current_journey = self.sb_journey.valor() - 1
+                self.season.save()
                 self.play_human = self.league, xmatch, division
                 self.result = PLAY_HUMAN
                 self.accept()
@@ -831,11 +823,6 @@ class WLeague(LCDialog.LCDialog):
 
     def grid_right_button(self, grid, row, col, modif):
         if grid == self.grid_matches:
-            # journey_work, season_work = lw.get_journey_season()
-            # current_journey = self.season.get_current_journey()
-            # if journey_work != current_journey or self.league.current_num_season != season_work:
-            #     lw.put_league()
-
             xmatch = self.li_matches[row]
             if xmatch.result and (xmatch.is_human_vs_engine(self.league) or xmatch.is_human_vs_human(self.league)):
                 menu = QTVarios.LCMenu(self)
@@ -847,6 +834,8 @@ class WLeague(LCDialog.LCDialog):
                     if QTUtil2.pregunta(self, _("Are you sure?")):
                         xmatch.result = None
                         xmatch.xid = Util.huella()
+                        self.season.current_journey = self.sb_journey.valor()-1
+                        self.update_matches()
                         self.season.save()
                         self.league.save()
                         self.show_current_season()

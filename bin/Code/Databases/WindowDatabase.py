@@ -29,7 +29,7 @@ class WBDatabase(LCDialog.LCDialog):
         self.dicvideo = self.restore_dicvideo()
         dic_video = self.dicvideo
 
-        si_summary = not si_select
+        si_summary = not si_select and self.db_games.allows_complete_games
 
         self.wplayer = None
         self.wsummary = None
@@ -56,7 +56,7 @@ class WBDatabase(LCDialog.LCDialog):
         if si_summary:
             self.tab.new_tab(self.wsummary, _("Opening explorer"))
             self.tab.dispatchChange(self.tab_changed)
-        # if not si_select:
+            # if not si_select:
             self.tab.new_tab(self.wplayer, _("Players"))
             self.tab.new_tab(self.wperfomance, _("Perfomance Rating"))
         self.tab.set_font_type(puntos=procesador.configuration.x_tb_fontpoints)
@@ -155,8 +155,7 @@ class WBDatabase(LCDialog.LCDialog):
             self.wplayer.actualiza()
         elif ntab == 3:
             self.wperfomance.actualiza()
-        self.infoMove.setVisible(ntab!=3)
-
+        self.infoMove.setVisible(ntab != 3)
 
     def inicializa(self):
         self.setWindowTitle(self.db_games.label())

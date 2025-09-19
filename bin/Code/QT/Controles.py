@@ -3,6 +3,28 @@ import datetime
 from PySide2 import QtCore, QtGui, QtWidgets
 
 
+def calc_fixed_width(fixed_width: int) -> int:
+    metricas = QtGui.QFontMetrics(QtWidgets.QApplication.font())
+    ancho_caracter = metricas.horizontalAdvance('M')
+    return max(int(fixed_width * ancho_caracter / 12), fixed_width)
+
+
+# def calc_fixed_chars(widget, num_caracteres) -> int:
+#     font = widget.font()
+#     font_metrics = QtGui.QFontMetrics(font)
+# 
+#     ancho_promedio = font_metrics.averageCharWidth()
+#     margen = font_metrics.maxWidth() * 0.2
+# 
+#     return int(num_caracteres * ancho_promedio + margen)
+# 
+# 
+# def calc_fixed_numbers(widget, num_numbers) -> int:
+#     font_metrics = QtGui.QFontMetrics(widget.font())
+#     ancho_promedio = font_metrics.width("8")
+#     return int(num_numbers * ancho_promedio * 1.2)
+
+
 class ED(QtWidgets.QLineEdit):
     """
     Control de entrada de texto en una linea.
@@ -59,11 +81,11 @@ class ED(QtWidgets.QLineEdit):
         return self
 
     def anchoMinimo(self, px):
-        self.setMinimumWidth(px)
+        self.setMinimumWidth(calc_fixed_width(px))
         return self
 
     def anchoMaximo(self, px):
-        self.setMaximumWidth(px)
+        self.setMaximumWidth(calc_fixed_width(px))
         return self
 
     def caracteres(self, num):
@@ -71,8 +93,8 @@ class ED(QtWidgets.QLineEdit):
         self.numCaracteres = num
         return self
 
-    def anchoFijo(self, px):
-        self.setFixedWidth(px)
+    def relative_width(self, px):
+        self.setFixedWidth(calc_fixed_width(px))
         return self
 
     def controlrx(self, regexpr):
@@ -80,16 +102,6 @@ class ED(QtWidgets.QLineEdit):
         validator = QtGui.QRegExpValidator(rx, self)
         self.setValidator(validator)
         return self
-
-    # def invalid_characters(self, c_invalid):
-    #     def validador(x):
-    #         for c in x:
-    #             if c in c_invalid:
-    #                 return False
-    #         return True
-    #
-    #     self.setValidator(validador)
-    #     return self
 
     def set_font(self, f):
         self.setFont(f)
@@ -137,7 +149,7 @@ class ED(QtWidgets.QLineEdit):
             txt = txt.replace(",", ".")
         while txt.count(".") > 1:
             x = txt.index(".")
-            txt = txt[:x] + txt[x+1:]
+            txt = txt[:x] + txt[x + 1:]
             self.set_text(txt)
         return round(float(txt), self.decimales) if txt else 0.0
 
@@ -186,8 +198,8 @@ class SB(QtWidgets.QSpinBox):
         self.setSingleStep(1)
         self.setValue(int(valor))
 
-    def tamMaximo(self, px):
-        self.setFixedWidth(px)
+    def relative_width(self, px):
+        self.setFixedWidth(calc_fixed_width(px))
         return self
 
     def valor(self):
@@ -256,10 +268,6 @@ class CB(QtWidgets.QComboBox):
         self.setGeometry(r)
         return self
 
-    def set_widthFijo(self, px):
-        self.setFixedWidth(px)
-        return self
-
     def set_widthMinimo(self):
         self.setSizeAdjustPolicy(self.AdjustToMinimumContentsLengthWithIcon)
         return self
@@ -269,7 +277,7 @@ class CB(QtWidgets.QComboBox):
         return self
 
     def set_multiline(self, max_px):
-        self.setFixedWidth(max_px)
+        self.setFixedWidth(calc_fixed_width(max_px))
         listView = QtWidgets.QListView()
         # Turn On the word wrap
         listView.setWordWrap(True)
@@ -306,8 +314,8 @@ class CHB(QtWidgets.QCheckBox):
         self.clicked.connect(rutina)
         return self
 
-    def anchoFijo(self, px):
-        self.setFixedWidth(px)
+    def relative_width(self, px):
+        self.setFixedWidth(calc_fixed_width(px))
         return self
 
 
@@ -354,15 +362,15 @@ class LB(QtWidgets.QLabel):
         return self
 
     def anchoMaximo(self, px):
-        self.setMaximumWidth(px)
+        self.setMaximumWidth(calc_fixed_width(px))
         return self
 
-    def anchoFijo(self, px):
-        self.setFixedWidth(px)
+    def relative_width(self, px):
+        self.setFixedWidth(calc_fixed_width(px))
         return self
 
     def anchoMinimo(self, px):
-        self.setMinimumWidth(px)
+        self.setMinimumWidth(calc_fixed_width(px))
         return self
 
     def altoMinimo(self, px):
@@ -462,8 +470,8 @@ class PB(QtWidgets.QPushButton):
         self.setFont(f)
         return self
 
-    def anchoFijo(self, px):
-        self.setFixedWidth(px)
+    def relative_width(self, px):
+        self.setFixedWidth(calc_fixed_width(px))
         return self
 
     def altoFijo(self, px):
@@ -471,11 +479,12 @@ class PB(QtWidgets.QPushButton):
         return self
 
     def cuadrado(self, px):
+        px = calc_fixed_width(px)
         self.setFixedSize(px, px)
         return self
 
     def anchoMinimo(self, px):
-        self.setMinimumWidth(px)
+        self.setMinimumWidth(calc_fixed_width(px))
         return self
 
     def to_connect(self, rutina):
@@ -620,8 +629,8 @@ class EM(QtWidgets.QTextEdit):
         self.setFixedHeight(px)
         return self
 
-    def anchoFijo(self, px):
-        self.setFixedWidth(px)
+    def relative_width(self, px):
+        self.setFixedWidth(calc_fixed_width(px))
         return self
 
     def set_font(self, f):
@@ -807,7 +816,7 @@ class TB(QtWidgets.QToolBar):
         for datos in li_acciones:
             if datos:
                 if isinstance(datos, int):
-                    self.addWidget(LB("").anchoFijo(datos))
+                    self.addWidget(LB("").relative_width(datos))
                 else:
                     titulo, icono, key = datos
                     accion = QtWidgets.QAction(titulo, self.parent)
@@ -919,7 +928,7 @@ class TBrutina(QtWidgets.QToolBar):
         for datos in li_acc:
             if datos:
                 if isinstance(datos, int):
-                    self.addWidget(LB("").anchoFijo(datos))
+                    self.addWidget(LB("").relative_width(datos))
                 elif len(datos) == 3:
                     titulo, icono, key = datos
                     self.new(titulo, icono, key, False)
@@ -1073,7 +1082,7 @@ class SL(QtWidgets.QSlider):
         return self.value()
 
     def set_width(self, px):
-        self.setFixedWidth(px)
+        self.setFixedWidth(calc_fixed_width(px))
         return self
 
 
@@ -1102,4 +1111,3 @@ class GetDate(QtWidgets.QDateTimeEdit):
 
     def pydate(self):
         return self.date().toPython()
-

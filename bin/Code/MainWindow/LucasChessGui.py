@@ -9,8 +9,8 @@ from Code.MainWindow import InitApp
 from Code.QT import Colocacion
 from Code.QT import Controles
 from Code.QT import Iconos
-from Code.QT import QTUtil
 from Code.QT import QTVarios
+from Code.QT import GarbageCollector
 
 
 def select_language(owner, init):
@@ -84,7 +84,9 @@ def run_gui(procesador):
         QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
         QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps)
     QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_UseStyleSheetPropagationInWidgetStyles, True)
+
     app = QtWidgets.QApplication([])
+
     first_run = main_config.first_run
     main_config.lee()  # Necesaria la doble lectura, para que _ permanezca como builting tras QApplication
 
@@ -100,9 +102,8 @@ def run_gui(procesador):
     procesador.start_with_user(user)
     configuration = procesador.configuration
 
-    if len(list_users) > 1:  # Para que las capturas se muestren con las piezas de cada usuario
-        nom_pieces_ori = configuration.dic_conf_boards_pk["BASE"]["o_base"]["x_nomPiezas"]
-        Code.all_pieces.save_all_png(nom_pieces_ori, 30)
+    nom_pieces_ori = configuration.dic_conf_boards_pk["BASE"]["o_base"]["x_nomPiezas"]
+    Code.all_pieces.save_all_png(nom_pieces_ori, 30)
 
     if user:
         if not configuration.x_player:
@@ -128,11 +129,13 @@ def run_gui(procesador):
 
     InitApp.init_app_style(app, configuration)
 
-    Code.gc = QTUtil.GarbageCollector()
-
     procesador.iniciar_gui()
 
+    Code.garbage_collector = GarbageCollector.GarbageCollector()
+    Code.garbage_collector.start()
+
     resp = app.exec_()
+    Code.garbage_collector.stop()
 
     return resp
 

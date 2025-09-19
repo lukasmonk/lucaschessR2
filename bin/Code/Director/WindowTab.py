@@ -72,7 +72,7 @@ class SelectBanda(QtWidgets.QWidget):
         self.pm_empty = pm
         for n in range(num_elem):
             lb_f = Controles.LB("F%d" % (n + 1,))
-            lb_f.anchoFijo(32)
+            lb_f.relative_width(32)
             lb_f.altoFijo(40)
             lb_f.align_center()
             layout.controlc(lb_f, n, 1)
@@ -82,25 +82,25 @@ class SelectBanda(QtWidgets.QWidget):
             else:
                 lb = SelectUna(self, self.pm_empty, False)
                 if n < 9:
-                    lyV = Colocacion.V().relleno(1)
+                    ly_v = Colocacion.V().relleno(1)
 
                     if n in (3, 4, 5):
                         lbct = Controles.LB(self).put_image(Iconos.pmControl())
-                        lyV.control(lbct).espacio(-8)
+                        ly_v.control(lbct).espacio(-6)
 
                     if n in (1, 4, 7):
                         lbalt = Controles.LB(self).put_image(Iconos.pmAlt())
-                        lyV.control(lbalt)
+                        ly_v.control(lbalt)
                     elif n in (2, 5, 8):
                         lbsh = Controles.LB(self).put_image(Iconos.pmShift())
-                        lyV.control(lbsh)
+                        ly_v.control(lbsh)
                     elif n in (0, 6):
                         lbim = Controles.LB(self).put_image(Iconos.pmRightMouse())
-                        lyV.control(lbim)
+                        ly_v.control(lbim)
 
-                    lyV.relleno(1).margen(0)
+                    ly_v.relleno(1).margen(0)
 
-                    layout.otro(lyV, n, 2)
+                    layout.otro(ly_v, n, 2)
 
             lb_f.mousePressEvent = lb.mousePressEvent
             self.liLB.append(lb)
@@ -348,7 +348,7 @@ class DragBanda(QtWidgets.QWidget):
         if not self.dic_data:
             return
 
-        liTipos = (
+        li_tipos = (
             (_("Arrows"), Iconos.Flechas(), self.owner.flechas),
             (_("Boxes"), Iconos.Marcos(), self.owner.marcos),
             (_("Circles"), Iconos.Circle(), self.owner.circles),
@@ -368,7 +368,7 @@ class DragBanda(QtWidgets.QWidget):
         for xid, (nom, pm, tp) in self.dic_data.items():
             if tp not in dicmenu:
                 ico = Iconos.PuntoVerde()
-                for txt, icot, rut in liTipos:
+                for txt, icot, rut in li_tipos:
                     if tp == txt:
                         ico = icot
                 dicmenu[tp] = menu.submenu(tp, ico)
@@ -378,13 +378,13 @@ class DragBanda(QtWidgets.QWidget):
         menu.separador()
         submenu = menu.submenu(_("Edit"), Iconos.Modificar())
         if lb.id is not None:
-            submenuCurrent = submenu.submenu(_("Current"), QtGui.QIcon(lb.pixmap))
-            submenuCurrent.opcion(-1, _("Edit"), Iconos.Modificar())
-            submenuCurrent.separador()
-            submenuCurrent.opcion(-2, _("Remove"), Iconos.Delete())
+            submenu_current = submenu.submenu(_("Current"), QtGui.QIcon(lb.pixmap))
+            submenu_current.opcion(-1, _("Edit"), Iconos.Modificar())
+            submenu_current.separador()
+            submenu_current.opcion(-2, _("Remove"), Iconos.Delete())
             submenu.separador()
 
-        for txt, ico, rut in liTipos:
+        for txt, ico, rut in li_tipos:
             submenu.opcion(rut, txt, ico)
             submenu.separador()
 
@@ -396,7 +396,7 @@ class DragBanda(QtWidgets.QWidget):
             if resp == -2:
                 lb.pon(self.pm_empty, None, None)
                 return
-            for txt, ico, rut in liTipos:
+            for txt, ico, rut in li_tipos:
                 if rut == resp:
                     rut()
                     return
@@ -475,13 +475,13 @@ class DragBanda(QtWidgets.QWidget):
     def startDrag(self, lb):
         pixmap = lb.pixmap
         dato = lb.id
-        itemData = QtCore.QByteArray(str(dato))
+        item_data = QtCore.QByteArray(str(dato))
 
-        mimeData = QtCore.QMimeData()
-        mimeData.setData("image/x-lc-dato", itemData)
+        mime_data = QtCore.QMimeData()
+        mime_data.setData("image/x-lc-dato", item_data)
 
         drag = QtGui.QDrag(self)
-        drag.setMimeData(mimeData)
+        drag.setMimeData(mime_data)
         drag.setHotSpot(QtCore.QPoint(pixmap.width() / 2, pixmap.height() / 2))
         drag.setPixmap(pixmap)
 

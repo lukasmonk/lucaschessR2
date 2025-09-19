@@ -7,6 +7,7 @@ from Code.QT import QTUtil2
 class ManagerOpeningLines(Manager.Manager):
     show_comments = None
     dic_comments: dict
+    st_nocomments = set()
 
     def tb_with_comments(self, li_tb):
         ok_comments = False
@@ -58,7 +59,7 @@ class ManagerOpeningLines(Manager.Manager):
         self.pgn_refresh(self.game.last_position.is_white)
         self.refresh()
 
-        if self.show_comments and comment:
+        if self.show_comments and comment and fenm2 not in self.st_nocomments:
             if ventaja:
                 comment += "\n\n* " + Nags.dic_text_nags(ventaja)
             if valoracion:
@@ -69,7 +70,9 @@ class ManagerOpeningLines(Manager.Manager):
                 text_move += ".."
             text_move += move.pgn_translated()
 
-            QTUtil2.message_menu(self.main_window.base.pgn, text_move, comment, not is_player_move)
+            resp = QTUtil2.message_menu(self.main_window.base.pgn, text_move, comment, not is_player_move, dont_show=True)
+            if resp:
+                self.st_nocomments.add(fenm2)
 
     def add_coments_all_game(self):
         for move in self.game.li_moves:

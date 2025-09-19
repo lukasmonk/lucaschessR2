@@ -52,6 +52,12 @@ class Processor:
         if os.path.isdir(fastercode):
             shutil.rmtree(fastercode)
 
+    def remove_ruff_cache(self):
+        print("Removing _ruffcache")
+        ruffcache = os.path.join(self.destino, "bin", ".ruff_cache")
+        if os.path.isdir(ruffcache):
+            shutil.rmtree(ruffcache)
+
     def remove_genicons(self):
         print("Removing _genicons")
         genicons = os.path.join(self.destino, "bin", "_genicons")
@@ -222,6 +228,7 @@ def gen_installer():
     xf.remove_fastercode()
     xf.remove_genicons()
     xf.remove_win32()
+    xf.remove_ruff_cache()
     xf.clean_bin()
     xf.compile_bin()
     xf.set_bug()

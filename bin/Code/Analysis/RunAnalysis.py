@@ -1,7 +1,9 @@
 import copy
 import os
 import sys
+import time
 from queue import Queue
+from typing import Optional, Any
 
 from PySide2 import QtWidgets, QtCore
 
@@ -10,9 +12,11 @@ from Code import Util
 from Code.Analysis import AnalysisIndexes
 from Code.Analysis import RunAnalysisControl
 from Code.Base import Game
-from Code.Base.Constantes import (INACCURACY, MISTAKE, BLUNDER, INACCURACY_MISTAKE, INACCURACY_MISTAKE_BLUNDER,
-                                  MISTAKE_BLUNDER)
-from Code.Base.Constantes import RUNA_GAME, RUNA_HALT, RUNA_CONFIGURATION, RUNA_TERMINATE
+from Code.Base.Constantes import (
+    INACCURACY, MISTAKE, BLUNDER,
+    INACCURACY_MISTAKE, INACCURACY_MISTAKE_BLUNDER, MISTAKE_BLUNDER,
+    RUNA_GAME, RUNA_HALT, RUNA_CONFIGURATION, RUNA_TERMINATE
+)
 from Code.BestMoveTraining import BMT
 from Code.Config import Configuration
 from Code.Engines import EngineManager
@@ -21,110 +25,137 @@ from Code.Nags.Nags import NAG_3
 from Code.Openings import OpeningsStd
 from Code.QT import LCDialog, Controles, Colocacion, Iconos, QTUtil
 from Code.SQL import UtilSQL
+from Code.Themes import AssignThemes
 
 
 class CPU:
-    def __init__(self, filebase):
+    """Clase principal que maneja el análisis en segundo plano"""
 
-        # Los paths de ficheros van AL REVÉS que en el principal
+    def __init__(self, filebase: str):
+        # Configuración de IPC
         self.ipc_send = UtilSQL.IPC(filebase + "_receive.sqlite", False)
         self.ipc_receive = UtilSQL.IPC(filebase + "_send.sqlite", False)
 
-        self.configuration = None
-
-        self.window = None
-        self.engine = None
+        # Estado del análisis
+        self.configuration: Optional[Configuration.Configuration] = None
+        self.window: Optional[WAnalysis] = None
+        self.engine: Optional[EngineManager.EngineManager] = None
         self.queue_orders = Queue()
-        self.timer = None
+        self.timer: Optional[QtCore.QTimer] = None
+
+        # Flags de estado
         self.is_closed = False
         self.is_analyzing = False
 
-        self.alm = None
-        self.ag = None
-        self.num_worker = None
+        # Datos de análisis
+        self.alm: Optional[Any] = None
+        self.ag: Optional[AnalyzeGame] = None
+        self.num_worker: Optional[int] = None
 
-    def xreceive(self):
+    def xreceive(self) -> None:
+        """Recibe órdenes del proceso principal"""
         if self.is_closed:
             return
+
         if self.window:
             QTUtil.refresh_gui()
+
         dv = self.ipc_receive.pop()
         if not dv:
-            return None
+            return
 
         orden = RunAnalysisControl.Orden()
         orden.key = dv["__CLAVE__"]
         orden.dv = dv
+
         if orden.key == RUNA_HALT:
             self.close()
+
         self.queue_orders.put(orden)
         self.xreceive()
 
-    def send(self, orden):
+    def send(self, orden: RunAnalysisControl.Orden) -> None:
+        """Envía resultados al proceso principal"""
         self.ipc_send.push(orden)
 
-    def procesa(self):
+    def procesa(self) -> None:
+        """Procesa las órdenes recibidas"""
         if self.is_closed or self.queue_orders.empty():
             return
+
         orden = self.queue_orders.get()
         key = orden.key
+
         if key == RUNA_CONFIGURATION:
-            user = orden.dv["USER"]
-            self.configuration = Configuration.Configuration(user)
-            self.configuration.lee()
-            Code.list_engine_managers = EngineManager.ListEngineManagers()
-            self.configuration.relee_engines()
-            Code.configuration = self.configuration
-            Code.procesador = self
-            OpeningsStd.ap.reset()
-
-            self.alm = orden.dv["ALM"]
-            self.num_worker = orden.dv["NUM_WORKER"]
-
-            self.xreceive()
-            self.lanzawindow()
-
+            self._process_configuration(orden)
         elif key == RUNA_GAME:
-            game = orden.dv["GAME"]
-            recno = orden.dv["RECNO"]
-            self.analyze(game, recno)
-
+            self._process_game(orden)
         elif key == RUNA_TERMINATE:
             self.close()
 
-    def lanzawindow(self):
+    def _process_configuration(self, orden: RunAnalysisControl.Orden) -> None:
+        """Procesa la configuración inicial"""
+        user = orden.dv["USER"]
+        self.configuration = Configuration.Configuration(user)
+        self.configuration.lee()
+        Code.list_engine_managers = EngineManager.ListEngineManagers()
+        self.configuration.relee_engines()
+        Code.configuration = self.configuration
+        Code.procesador = self
+        OpeningsStd.ap.reset()
+
+        self.alm = orden.dv["ALM"]
+        self.num_worker = orden.dv["NUM_WORKER"]
+
+        self.xreceive()
+        self.lanzawindow()
+
+    def _process_game(self, orden: RunAnalysisControl.Orden) -> None:
+        """Procesa un juego para análisis"""
+        game = orden.dv["GAME"]
+        recno = orden.dv["RECNO"]
+        self.analyze(game, recno)
+
+    def lanzawindow(self) -> int:
+        """Inicia la ventana de análisis"""
         app = QtWidgets.QApplication([])
         InitApp.init_app_style(app, self.configuration)
-
         self.configuration.load_translation()
 
         self.window = WAnalysis(self)
-
         self.ag = AnalyzeGame(self, self.alm)
         self.ag.cached_begin()
 
         self.window.show()
-
         self.procesa()
 
         return app.exec_()
 
-    def close(self):
+    def close(self) -> None:
+        """Cierra el proceso de análisis"""
         if not self.is_closed:
             self.is_closed = True
-            self.window.finalizar()
+            if self.window:
+                self.window.finalizar()
             QTUtil.refresh_gui()
-            self.ag.cached_end()
+
+            if self.ag:
+                self.ag.cached_end()
+
             orden = RunAnalysisControl.Orden()
             orden.key = RUNA_TERMINATE
             self.send(orden)
+
             self.ipc_send.close()
             self.ipc_receive.close()
-            Code.list_engine_managers.close_all()
+
+            if hasattr(Code, 'list_engine_managers'):
+                Code.list_engine_managers.close_all()
 
             sys.exit()
 
-    def analyzer_clone(self, mstime, depth, multipv):
+    def analyzer_clone(self, mstime: int, depth: int, multipv: int) -> EngineManager.EngineManager:
+        """Crea un clon del motor de análisis"""
         xclone = EngineManager.EngineManager(self.configuration.engine_analyzer())
         xclone.options(mstime, depth, True)
         if multipv == 0:
@@ -133,15 +164,18 @@ class CPU:
             xclone.set_multipv(multipv)
         return xclone
 
-    def analyzer_engine(self, conf_motor, vtime, depth):
+    def analyzer_engine(self, conf_motor: Any, vtime: int, depth: int) -> EngineManager.EngineManager:
+        """Configura un motor de análisis específico"""
         xmanager = EngineManager.EngineManager(conf_motor)
         xmanager.options(vtime, depth, True)
         xmanager.set_priority(self.alm.priority)
         return xmanager
 
-    def analyze(self, game, recno):
+    def analyze(self, game: Game.Game, recno: int) -> None:
+        """Inicia el análisis de un juego"""
         if self.is_closed:
             return
+
         self.window.init_game(recno, len(game))
         self.is_analyzing = True
         self.ag.xprocesa(game)
@@ -151,20 +185,23 @@ class CPU:
         orden.key = RUNA_GAME
         orden.set("GAME", game)
         orden.set("RECNO", recno)
+
         li_save_extra = self.ag.xsave_extra_get()
         if li_save_extra:
             orden.set("EXTRA", li_save_extra)
-        self.send(orden)
 
+        self.send(orden)
         self.procesa()
 
-    def progress(self, npos, n_moves):
+    def progress(self, npos: int, n_moves: int) -> bool:
+        """Actualiza la barra de progreso"""
         self.window.progress(npos, n_moves)
         QTUtil.refresh_gui()
         return not self.is_closed
 
 
-def run(filebase):
+def run(filebase: str) -> None:
+    """Función principal para iniciar el análisis"""
     if not Code.DEBUG:
         sys.stderr = Util.Log("./bug.analysis")
 
@@ -174,134 +211,173 @@ def run(filebase):
 
 
 class WAnalysis(LCDialog.LCDialog):
+    """Ventana de progreso del análisis"""
+
     def __init__(self, cpu: CPU):
         self.cpu: CPU = cpu
-        self.game = None
-        title = "%s - %s %d" % (_("Mass analysis"), _("Worker"), cpu.num_worker + 1)
+        self.game: Optional[Game.Game] = None
+
+        self.is_paused: bool = False
+
+        title = f"{_('Mass analysis')} - {_('Worker')} {cpu.num_worker + 1}"
         LCDialog.LCDialog.__init__(self, None, title, Iconos.Analizar(), f"worker_analyisis_{self.cpu.num_worker}")
+        flags = self.windowFlags()
+        flags |= QtCore.Qt.WindowStaysOnTopHint
+        self.setWindowFlags(flags)
 
+        # UI Elements
         self.lb_game = Controles.LB(self)
-
         self.pb_moves = QtWidgets.QProgressBar()
         self.pb_moves.setFormat(_("Move") + " %v/%m")
 
-        layout = Colocacion.H().control(self.lb_game).control(self.pb_moves)
-        self.setLayout(layout)
+        self.bt_pause = Controles.PB(self, "", self.pause_continue, plano=True)
+        self.icon_pause_continue()
 
+        # Layout
+        layout = Colocacion.H().control(self.lb_game).control(self.pb_moves).control(self.bt_pause)
+        self.setLayout(layout)
         self.restore_video(default_width=400, default_height=40)
 
+        # Timer setup
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.xreceive)
         self.timer.start(200)
         self.is_closed = False
 
-    def xreceive(self):
+    def xreceive(self) -> None:
+        """Maneja las actualizaciones periódicas"""
         self.cpu.xreceive()
         if not self.cpu.is_analyzing:
             self.cpu.procesa()
 
-    def init_game(self, num_game, num_moves):
-        self.lb_game.set_text("%s %d" % (_("Game"), num_game + 1))
+    def init_game(self, num_game: int, num_moves: int) -> None:
+        """Inicializa la visualización para un nuevo juego"""
+        self.lb_game.set_text(f"{_('Game')} {num_game + 1}")
         QTUtil.refresh_gui()
 
-    def closeEvent(self, event):
+    def closeEvent(self, event) -> None:
+        """Maneja el cierre de la ventana"""
         self.finalizar()
 
-    def finalizar(self):
+    def finalizar(self) -> None:
+        """Finaliza el análisis"""
         if not self.is_closed:
             self.is_closed = True
             self.cpu.is_closed = True
             self.timer.stop()
             self.accept()
 
-    def progress(self, npos, nmoves):
+    def progress(self, npos: int, nmoves: int) -> None:
+        """Actualiza la barra de progreso"""
         self.pb_moves.setRange(0, nmoves)
         self.pb_moves.setValue(npos)
 
+    def pause_continue(self):
+        if self.is_paused:
+            self.is_paused = False
+            self.icon_pause_continue()
+        else:
+            self.is_paused = True
+            self.icon_pause_continue()
+            while self.is_paused and not self.is_closed:
+                time.sleep(0.05)
+                QTUtil.refresh_gui()
+
+    def icon_pause_continue(self):
+        # self.bt_pause.ponIcono(Iconos.Kibitzer_Play() if self.is_paused else Iconos.Kibitzer_Pause())
+        self.bt_pause.ponIcono(Iconos.ContinueColor() if self.is_paused else Iconos.PauseColor())
+
 
 class AnalyzeGame:
-    def __init__(self, cpu, alm):
-        self.alm = alm
+    """Clase que maneja el análisis de un juego de ajedrez"""
+
+    def __init__(self, cpu: CPU, alm: Any):
         self.cpu = cpu
-
-        self.si_bmt_blunders = False
-        self.si_bmt_brilliancies = False
-
+        self.alm = alm
         self.configuration = Code.configuration
-        if alm.engine == "default":
-            self.xmanager = self.cpu.analyzer_clone(alm.vtime, alm.depth, alm.multiPV)
-            self.xmanager.set_priority(alm.priority)
+
+        # Configuración del motor de análisis
+        self._setup_engine()
+
+        # Configuración de blunders
+        self._setup_blunders()
+
+        # Configuración de brilliancies
+        self._setup_brilliancies()
+
+        # Configuración general
+        self._setup_general()
+
+        # Listas para resultados
+        self.li_save_extra = []
+
+    def _setup_engine(self) -> None:
+        """Configura el motor de análisis"""
+        if self.alm.engine == "default":
+            self.xmanager = self.cpu.analyzer_clone(self.alm.vtime, self.alm.depth, self.alm.multiPV)
+            self.xmanager.set_priority(self.alm.priority)
         else:
-            conf_engine = copy.deepcopy(self.configuration.buscaRival(alm.engine))
-            if alm.multiPV:
-                conf_engine.update_multipv(alm.multiPV)
-            self.xmanager = self.cpu.analyzer_engine(conf_engine, alm.vtime, alm.depth)
-        if alm.nodes:
-            self.xmanager.set_nodes(alm.nodes)
-        self.vtime = alm.vtime
-        self.depth = alm.depth
-        self.nodes = alm.nodes
+            conf_engine = copy.deepcopy(self.configuration.buscaRival(self.alm.engine))
+            if self.alm.multiPV:
+                conf_engine.update_multipv(self.alm.multiPV)
+            self.xmanager = self.cpu.analyzer_engine(conf_engine, self.alm.vtime, self.alm.depth)
 
-        self.with_variations = alm.include_variations
+        if self.alm.nodes:
+            self.xmanager.set_nodes(self.alm.nodes)
 
-        self.accuracy_tags = alm.accuracy_tags
+        self.vtime = self.alm.vtime
+        self.depth = self.alm.depth
+        self.nodes = self.alm.nodes
+        self.with_variations = self.alm.include_variations
+        self.accuracy_tags = self.alm.accuracy_tags
+        self.skip_standard_moves = self.alm.standard_openings
 
-        self.skip_standard_moves = alm.standard_openings
-
-        # Asignacion de variables para blunders:
-        # kblunders_condition: minima condición para considerar como erróneo
-        # tacticblunders: folder donde guardar tactic
-        # pgnblunders: file pgn donde guardar la games
-        # oriblunders: si se guarda la game original
-        # bmtblunders: name del entrenamiento BMT a crear
-        dic = {INACCURACY: {INACCURACY, }, MISTAKE: {MISTAKE, }, BLUNDER: {BLUNDER, },
-               INACCURACY_MISTAKE_BLUNDER: {INACCURACY, BLUNDER, MISTAKE}, INACCURACY_MISTAKE: {INACCURACY, MISTAKE},
-               MISTAKE_BLUNDER: {BLUNDER, MISTAKE}}
-        self.kblunders_condition_list = dic.get(alm.kblunders_condition, {BLUNDER, MISTAKE})
+    def _setup_blunders(self) -> None:
+        """Configura la detección de blunders"""
+        blunder_conditions = {
+            INACCURACY: {INACCURACY},
+            MISTAKE: {MISTAKE},
+            BLUNDER: {BLUNDER},
+            INACCURACY_MISTAKE_BLUNDER: {INACCURACY, BLUNDER, MISTAKE},
+            INACCURACY_MISTAKE: {INACCURACY, MISTAKE},
+            MISTAKE_BLUNDER: {BLUNDER, MISTAKE}
+        }
+        self.kblunders_condition_list = blunder_conditions.get(self.alm.kblunders_condition, {BLUNDER, MISTAKE})
 
         self.tacticblunders = (
-            Util.opj(self.configuration.personal_training_folder, "../Tactics", alm.tacticblunders)
-            if alm.tacticblunders
-            else None
+            Util.opj(self.configuration.personal_training_folder, "../Tactics", self.alm.tacticblunders)
+            if self.alm.tacticblunders else None
         )
-        self.pgnblunders = alm.pgnblunders
-        self.oriblunders = alm.oriblunders
-        self.bmtblunders = alm.bmtblunders
+        self.pgnblunders = self.alm.pgnblunders
+        self.oriblunders = self.alm.oriblunders
+        self.bmtblunders = self.alm.bmtblunders
         self.bmt_listaBlunders = None
-
         self.siTacticBlunders = False
-
         self.delete_previous = True
 
-        # fnsbrilliancies: file fns donde guardar posiciones fen
-        # pgnbrilliancies: file pgn donde guardar la games
-        # oribrilliancies: si se guarda la game original
-        # bmtbrilliancies: name del entrenamiento BMT a crear
-        self.fnsbrilliancies = alm.fnsbrilliancies
-        self.pgnbrilliancies = alm.pgnbrilliancies
-        self.oribrilliancies = alm.oribrilliancies
-        self.bmtbrilliancies = alm.bmtbrilliancies
+    def _setup_brilliancies(self) -> None:
+        """Configura la detección de brilliancies"""
+        self.fnsbrilliancies = self.alm.fnsbrilliancies
+        self.pgnbrilliancies = self.alm.pgnbrilliancies
+        self.oribrilliancies = self.alm.oribrilliancies
+        self.bmtbrilliancies = self.alm.bmtbrilliancies
         self.bmt_listaBrilliancies = None
 
-        # Asignacion de variables comunes
-        # white: si se analizan las white
-        # black: si se analizan las black
-        # li_players: si solo se miran los movimiento de determinados jugadores
-        # book: si se usa un book de aperturas para no analizar los iniciales
-        # li_selected: si se indica un alista de movimientos concreta que analizar
-        # from_last_move: se determina si se empieza de atras adelante o al reves
-        # delete_previous: si la game tiene un analysis previo, se determina si se hace o no
-        self.white = alm.white
-        self.black = alm.black
-        self.li_players = alm.li_players
-        self.book = alm.book
+    def _setup_general(self) -> None:
+        """Configura parámetros generales de análisis"""
+        self.white = self.alm.white
+        self.black = self.alm.black
+        self.li_players = self.alm.li_players
+        self.book = self.alm.book
         if self.book is not None:
             self.book.polyglot()
-        self.li_selected = None
-        self.from_last_move = alm.from_last_move
-        self.delete_previous = alm.delete_previous
 
-        self.li_save_extra = []
+        self.li_selected = None
+        self.from_last_move = self.alm.from_last_move
+        self.delete_previous = self.alm.delete_previous
+        self.themes_assign = AssignThemes.AssignThemes() if self.alm.themes_assign else None
+        self.with_themes_tags = self.alm.themes_tags
+        self.reset_themes = self.alm.themes_reset
 
     def xsave_extra(self, tip, par1, par2, par3=None):
         self.li_save_extra.append((tip, par1, par2, par3))
@@ -388,8 +464,8 @@ class AnalyzeGame:
             if not os.path.isdir(self.tacticblunders):
                 dtactics = Util.opj(self.configuration.personal_training_folder, "../Tactics")
                 if not os.path.isdir(dtactics):
-                    os.mkdir(dtactics)
-                os.mkdir(self.tacticblunders)
+                    Util.create_folder(dtactics)
+                Util.create_folder(self.tacticblunders)
                 with open(Util.opj(self.tacticblunders, "Config.ini"), "wt", encoding="utf-8",
                           errors="ignore") as f:
                     f.write(
@@ -755,5 +831,8 @@ class AnalyzeGame:
 
         if si_poner_pgn_original_brilliancies and self.oribrilliancies:
             self.xsave_extra("file", self.pgnbrilliancies, "\n%s\n\n" % game.pgn())
+
+        if self.themes_assign:
+            self.themes_assign.assign_game(game, self.with_themes_tags, self.reset_themes)
 
         self.xmanager.remove_gui_dispatch()

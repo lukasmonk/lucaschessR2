@@ -489,7 +489,7 @@ class WSelectEngines(LCDialog.LCDialog):
         self.lb_number = (
             Controles.LB(self, str(len(self.st_selected)))
             .set_font_type(puntos=18, peso=300)
-            .anchoFijo(114)
+            .relative_width(114)
             .align_right()
         )
 
@@ -556,7 +556,7 @@ class WSelectEngines(LCDialog.LCDialog):
     def grid_doubleclick_header(self, grid, col):
         key = col.key
         if key == "ELO":
-            def lmbd(x):
+            def lmdb(x):
                 return x.elo
         elif key == "NAME":
             def lmdb(x):

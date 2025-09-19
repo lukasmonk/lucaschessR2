@@ -6,10 +6,10 @@ from Code.Board import BoardBlocks
 
 
 class FlechaSC(BoardBlocks.BloqueEspSC):
-    def __init__(self, escena, bloqueFlecha, rutinaPulsada=None):
+    def __init__(self, escena, bloqueFlecha, routine_if_pressed=None):
         super(FlechaSC, self).__init__(escena, bloqueFlecha)
-        self.rutinaPulsada = rutinaPulsada
-        self.rutinaPulsadaCarga = None
+        self.routine_if_pressed = routine_if_pressed
+        self.routine_if_pressed_argum = None
 
         self.poligonoSizeTop = None
         self.poligonoSizeBottom = None
@@ -17,11 +17,11 @@ class FlechaSC(BoardBlocks.BloqueEspSC):
 
         self.physical_pos2xy()
 
-    def ponRutinaPulsada(self, rutina, carga):
-        self.rutinaPulsada = rutina
-        self.rutinaPulsadaCarga = carga
+    def set_routine_if_pressed(self, rutina, carga):
+        self.routine_if_pressed = rutina
+        self.routine_if_pressed_argum = carga
 
-    def ponA1H8(self, a1h8):
+    def set_a1h8(self, a1h8):
         self.bloqueDatos.a1h8 = a1h8
         self.physical_pos2xy()
 
@@ -110,7 +110,7 @@ class FlechaSC(BoardBlocks.BloqueEspSC):
         self.expX = p.x()
         self.expY = p.y()
 
-    def mousePressExt(self, event):
+    def mouse_press_ext(self, event):
         p = event.pos()
         p = self.mapFromScene(p)
         if self.poligonoSizeTop:
@@ -180,11 +180,11 @@ class FlechaSC(BoardBlocks.BloqueEspSC):
                 self.siMove = self.siSizeTop = self.siSizeBottom = False
             self.activa(False)
 
-        if self.rutinaPulsada:
-            if self.rutinaPulsadaCarga:
-                self.rutinaPulsada(self.rutinaPulsadaCarga)
+        if self.routine_if_pressed:
+            if self.routine_if_pressed_argum:
+                self.routine_if_pressed(self.routine_if_pressed_argum)
             else:
-                self.rutinaPulsada()
+                self.routine_if_pressed()
 
     def mouseReleaseExt(self):
         self.xy2physical_pos()
@@ -201,7 +201,7 @@ class FlechaSC(BoardBlocks.BloqueEspSC):
 
         bf.width_square = 8
         bf.destino = "c"
-        self.ponA1H8("a8d5")
+        self.set_a1h8("a8d5")
 
         pm = QtGui.QPixmap(self.rect.width(), self.rect.height())
         pm.fill(QtCore.Qt.transparent)
@@ -217,7 +217,7 @@ class FlechaSC(BoardBlocks.BloqueEspSC):
 
         bf.destino = destino
         bf.width_square = width_square
-        self.ponA1H8(a1h8)
+        self.set_a1h8(a1h8)
 
         return pm1
 

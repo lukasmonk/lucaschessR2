@@ -28,12 +28,15 @@ from Code.QT import QTUtil2
 class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
     show_comments = None
     used_hints = 0
+    repeat_moves: bool
+    repeating : bool = False
 
     def start(self, pathFichero):
         self.board.saveVisual()
 
         self.pathFichero = pathFichero
         dbop = OpeningLines.Opening(pathFichero)
+        self.repeat_moves = dbop.getconfig("REPEAT_MOVES", True)
         self.board.dbvisual_set_file(dbop.path_file)
         self.reinicio(dbop)
 
@@ -90,6 +93,23 @@ class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
         self.errores = 0
         self.ini_time = time.time()
         self.show_labels()
+
+        if not self.repeat_moves:
+            if self.num_linea > 0:
+                # self.main_window.toolbar_enable(False)
+                lipv_game_previous = self.liGames[self.num_linea-1]["LIPV"]
+                lipv_game_current = self.liGames[self.num_linea]["LIPV"]
+                lipv = []
+                for prev, curr in zip(lipv_game_previous, lipv_game_current):
+                    if prev == curr:
+                        lipv.append(prev)
+                    else:
+                        break
+                self.game.read_lipv(lipv)
+                self.game.assign_opening()
+                self.repeat_last_movement()
+                # self.main_window.toolbar_enable(True)
+
         self.play_next_move()
 
     def calc_totalTiempo(self):
@@ -194,7 +214,26 @@ class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
             self.reiniciar()
 
         elif key == TB_CONFIG:
-            self.configurar(with_sounds=True)
+            sep = (None, None, None, None)
+            ico_all, ico_dif = Iconos.AceptarPeque(), None
+            if not self.repeat_moves:
+                ico_all, ico_dif = ico_dif, ico_all
+            li_extra_options = (
+                (None, _("Movements to repeat"), Iconos.Repeat()),
+                sep,
+                ("repeat_all", _("All movements"), ico_all),
+                sep,
+                ("repeat_different", _("Those different from the previous line"), ico_dif),
+            )
+
+            resp = self.configurar(li_extra_options=li_extra_options, with_sounds=True)
+            if resp and resp.startswith("repeat"):
+                if resp == "repeat_all":
+                    self.repeat_moves = True
+                elif resp == "repeat_different":
+                    self.repeat_moves = False
+                self.dbop.setconfig("REPEAT_MOVES", self.repeat_moves)
+                self.reiniciar()
 
         elif key == TB_UTILITIES:
             self.utilities()
@@ -215,6 +254,7 @@ class ManagerOpeningLinesSequential(ManagerOPL.ManagerOpeningLines):
         return self.end_game()
 
     def end_game(self):
+        self.state = ST_ENDGAME
         self.dbop.close()
         self.board.restoreVisual()
         self.procesador.start()

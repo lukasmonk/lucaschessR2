@@ -225,7 +225,7 @@ class GT_Flecha(GT_Item):
     def run(self):
         if self._bloqueDatos:
             sc = self.guion.board.creaFlecha(self._bloqueDatos)
-            sc.ponRutinaPulsada(None, self.id())
+            sc.set_routine_if_pressed(None, self.id())
             self.itemSC(sc)
             self.marcado(True)
             if self._itemSC:
@@ -250,7 +250,7 @@ class GT_Marco(GT_Item):
             self._itemSC.show()
 
         sc = self.guion.board.creaMarco(self._bloqueDatos)
-        sc.ponRutinaPulsada(None, self.id())
+        sc.set_routine_if_pressed(None, self.id())
         self.itemSC(sc)
         self.marcado(True)
 
@@ -273,7 +273,7 @@ class GT_Circle(GT_Item):
             self._itemSC.show()
 
         sc = self.guion.board.creaCircle(self._bloqueDatos)
-        sc.ponRutinaPulsada(None, self.id())
+        sc.set_routine_if_pressed(None, self.id())
         self.itemSC(sc)
         self.marcado(True)
 
@@ -318,7 +318,7 @@ class GT_SVG(GT_Item):
         siEditando = self.guion.siEditando()
 
         sc = self.guion.board.creaSVG(self._bloqueDatos, siEditando=siEditando)
-        sc.ponRutinaPulsada(None, self.id())
+        sc.set_routine_if_pressed(None, self.id())
         sc.bloqueDatos = self._bloqueDatos  # necesario para svg con physical_pos no ajustado a squares
         sc.update()
         self.itemSC(sc)

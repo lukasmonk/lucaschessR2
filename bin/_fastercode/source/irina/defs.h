@@ -39,7 +39,7 @@ typedef char bool;
 
 #define MAX_MOVES       16384   // Max number of moves that we can store (all plies)
 #define MAX_PLY         512    // Max search depth
-#define MAX_GAMELINE    1024   // Max number of moves in the (game + search) line that we can store
+#define MAX_GAMELINE    2024   // Max number of moves in the (game + search) line that we can store
 typedef struct
 {
    unsigned from      : 6;

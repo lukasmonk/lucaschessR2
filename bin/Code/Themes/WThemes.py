@@ -3,17 +3,17 @@ from Code.Base import Move
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Controles
-from Code.QT import FormLayout
+from Code.QT import Delegados
 from Code.QT import Grid
 from Code.QT import Iconos
 from Code.QT import LCDialog
 from Code.QT import QTUtil
+from Code.QT import QTUtil2
 from Code.QT import QTVarios
-from Code.Themes import Themes
 
 
 class WThemes(LCDialog.LCDialog):
-    def __init__(self, owner, themes: Themes.Themes, current_move: Move.Move):
+    def __init__(self, owner, current_move: Move.Move):
         title = _("Select themes")
         extparam = "selelectthemes"
 
@@ -25,7 +25,7 @@ class WThemes(LCDialog.LCDialog):
         icono = Iconos.Themes()
         LCDialog.LCDialog.__init__(self, owner, title, icono, extparam)
 
-        self.themes = themes
+        self.themes = Code.get_themes()
 
         self.themes.verify(self.st_current_themes)
         self.qt_custom = QTUtil.qtColor("#bf5b16")
@@ -46,6 +46,7 @@ class WThemes(LCDialog.LCDialog):
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("SELECTED", "", 20, is_checked=True)
         o_columns.nueva("THEME", "", 280)
+        o_columns.nueva("SHOW", "", 30, edicion=Delegados.EtiquetaPGN(None))
 
         self.o_columnas = o_columns
         self.grid = Grid.Grid(self, o_columns, is_editable=True, altoCabecera=4)
@@ -55,7 +56,7 @@ class WThemes(LCDialog.LCDialog):
         layout = Colocacion.V().control(tb).control(self.grid).control(lb_right_click).margen(3)
         self.setLayout(layout)
 
-        self.restore_video(default_width=self.grid.anchoColumnas() + 48)
+        self.restore_video(default_width=self.grid.anchoColumnas() + 48, default_height=640)
 
     def clear_themes(self):
         self.st_current_themes.clear()
@@ -74,6 +75,8 @@ class WThemes(LCDialog.LCDialog):
             return self.themes.key_pos(row) in self.st_current_themes
         elif key == "THEME":
             return self.themes.name_pos(row)
+        elif key == "SHOW":
+            return "", "", "", "|" + self.themes.key_pos(row), None
 
     def grid_setvalue(self, grid, row, o_column, value):
         if o_column.key == "SELECTED":
@@ -107,7 +110,12 @@ class WThemes(LCDialog.LCDialog):
         if is_custom:
             menu.opcion("rem_custom", _("Remove this theme"), Iconos.Borrar())
             menu.separador()
+
         menu.opcion("add_custom", _("Add a custom theme"), Iconos.NuevoMas())
+        menu.separador()
+        menu.opcion("change_abbr", _("Change abbreviation"), Iconos.Abreviatura())
+        menu.separador()
+        menu.opcion("change_color", _("Change colour"), Iconos.Colores())
         resp = menu.lanza()
         if resp == "head":
             self.themes.add_head(key)
@@ -124,16 +132,27 @@ class WThemes(LCDialog.LCDialog):
         elif resp == "add_custom":
             self.add_custom()
 
-    def add_custom(self):
-        li_gen = [(None, None)]
-        li_gen.append((_("Name") + ":", ""))
-        resultado = FormLayout.fedit(
-            li_gen, title=_("Add a custom theme"), parent=self, anchoMinimo=560, icon=Iconos.Themes()
-        )
+        elif resp == "change_abbr":
+            self.change_abbreviation(key)
 
-        if resultado:
-            accion, li_gen = resultado
-            txt_custom = li_gen[0].strip()
-            if txt_custom:
-                self.themes.add_custom(txt_custom)
-                self.grid.refresh()
+        elif resp == "change_color":
+            self.change_color(key)
+
+    def change_abbreviation(self, theme_key):
+        abbr = self.themes.get_letters(theme_key)
+        new = QTUtil2.read_simple(self, _("Change abbreviation"), _("Abbreviation"), abbr)
+        if new is None:
+            return
+        self.themes.change_custom_letters(theme_key, new.strip())
+
+    def change_color(self, theme_key):
+        color_prev = self.themes.get_color(theme_key)
+        color = QTVarios.select_color(color_prev)
+        if color:
+            self.themes.change_custom_color(theme_key, color)
+
+    def add_custom(self):
+        txt_custom = QTUtil2.read_simple(self, _("Add a custom theme"), _("Name"), "")
+        if txt_custom and txt_custom.strip():
+            self.themes.add_custom(txt_custom.strip())
+            self.grid.refresh()

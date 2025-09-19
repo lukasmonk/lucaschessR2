@@ -1,12 +1,13 @@
 from PySide2 import QtWidgets, QtCore
 
+import Code
 from Code.Base import Game
 from Code.QT import Colocacion
 from Code.QT import Columnas
 from Code.QT import Grid
 from Code.QT import Iconos
 from Code.QT import LCDialog
-from Code.Themes import Themes
+from Code.QT import QTUtil2
 
 
 class WDBMoveAnalysis(LCDialog.LCDialog):
@@ -35,7 +36,7 @@ class WDBMoveAnalysis(LCDialog.LCDialog):
         o_columns.nueva("centipawns_lost", _("Centipawns lost"), 116, align_center=True)
         o_columns.nueva("count", _("Occurrences"), 100, align_center=True)
         symbol = "\u2605"
-        o_columns.nueva("occ_game", symbol + " " + _("Occ / game"),125, align_center=True)
+        o_columns.nueva("occ_game", symbol + " " + _("Occ / game"), 125, align_center=True)
         o_columns.nueva("loss_game", symbol + " " + _("Loss / game"), 125, align_center=True)
 
         self.grid = Grid.Grid(self, o_columns, siSelecFilas=True, siSeleccionMultiple=True)
@@ -68,24 +69,32 @@ class WDBMoveAnalysis(LCDialog.LCDialog):
             super().keyPressEvent(event)
 
 
-
 class SelectedGameThemeAnalyzer:
-    def __init__(self, w_parent):
+    def __init__(self, w_parent, um:QTUtil2.OneMomentPlease):
         li_sel = w_parent.grid.recnosSeleccionados()
+        if len(li_sel) == 1:
+            li_sel = range(w_parent.db_games.reccount())
         self.dic_themes = dict()
         self.li_output_dic = []
         self.missing_tags_output = ""
         self.game_count = len(li_sel)
         self.li_games_missing_themes = []
         self.tag_count = 0
-        self.themes = Themes.Themes()
+        self.themes = Code.get_themes()
+        self.is_canceled = False
 
         for n, recno in enumerate(li_sel):
+            if um.is_canceled():
+                self.is_canceled = True
+                return
 
             game_has_themes = False
             themes_in_game = []
             my_game: Game.Game = w_parent.db_games.read_game_recno(recno)
             for move_num, move in enumerate(my_game.li_moves):
+                if um.is_canceled():
+                    self.is_canceled = True
+                    return
                 lostp_abs = move.get_points_lost()
                 if lostp_abs is not None:
                     for theme in self.themes.get_themes_labels(move):
@@ -101,8 +110,6 @@ class SelectedGameThemeAnalyzer:
                             self.dic_themes[theme]["games"] += 1
 
             if not game_has_themes:
-                # self.li_games_missing_themes.append("# %s (%s-%s)" % (recno + 1, my_game.get_tag("White"),
-                #                                                  my_game.get_tag("Black")))
                 self.li_games_missing_themes.append("#%s" % (recno + 1,))
 
         for key, value in sorted(self.dic_themes.items(), key=lambda i: i[1]["count"], reverse=True):

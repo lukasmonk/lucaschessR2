@@ -30,7 +30,8 @@ from Code.Base.Constantes import (
     INTERESTING_MOVE,
     INACCURACY
 )
-from Code.Board import BoardElements, BoardMarkers, BoardBoxes, BoardSVGs, BoardTypes, BoardArrows, BoardCircles
+from Code.Board import BoardElements, BoardMarkers, BoardBoxes, BoardSVGs, BoardTypes, BoardArrows, BoardCircles, \
+    LichessCommentParser, BoardDoubleBoxes
 from Code.Databases import DBgames
 from Code.Director import TabVisual, WindowDirector
 from Code.Nags import Nags
@@ -77,7 +78,7 @@ class Board(QtWidgets.QGraphicsView):
 
         self.with_menu_visual = with_menu_visual
         self.with_director = with_director and with_menu_visual
-        self.siDirectorIcon = self.with_director and self.configuration.x_director_icon
+        self.show_graphic_icon = self.with_director and self.configuration.x_director_icon
         self.dirvisual = None
         self.guion = None
         self.lastFenM2 = ""
@@ -200,7 +201,7 @@ class Board(QtWidgets.QGraphicsView):
 
             # ALT-F -> Rota board
             elif is_alt and key == Qt.Key_F:
-                self.intentaRotarBoard(None)
+                self.try_to_rotate_the_board(None)
 
             # ALT-I Save image to clipboard (CTRL->no border)
             elif key == Qt.Key_I:
@@ -359,7 +360,7 @@ class Board(QtWidgets.QGraphicsView):
         is_white_bottom = self.is_white_bottom
         self.set_width()
         if not is_white_bottom:
-            self.intentaRotarBoard(None)
+            self.try_to_rotate_the_board(None)
         if self._dispatch_size:
             self._dispatch_size()
 
@@ -404,7 +405,7 @@ class Board(QtWidgets.QGraphicsView):
         self.pieces_are_active = False  # Control adicional, para responder a eventos del raton
         self.side_pieces_active = None
 
-        self.siPosibleRotarBoard = True
+        self.can_be_rotated_the_board = True
 
         self.is_white_bottom = True
 
@@ -424,7 +425,7 @@ class Board(QtWidgets.QGraphicsView):
                 limit = sz_width
             if Code.configuration.x_tb_orientation_horizontal:
                 limit -= 80
-                
+
             limit -= 42
 
         tr = 1.0 * self.config_board.tamRecuadro() / 100.0
@@ -705,7 +706,7 @@ class Board(QtWidgets.QGraphicsView):
         indicador.tipo = 1
         indicador.sur = indicador.physical_pos.y
         indicador.norte = gap / 2
-        self.side_indicator_sc = BoardElements.CirculoSC(self.escena, indicador, rutina=self.intentaRotarBoard)
+        self.side_indicator_sc = BoardElements.CirculoSC(self.escena, indicador, rutina=self.try_to_rotate_the_board)
 
         self.side_indicator_sc.setOpacity((100.0 - self.transSideIndicator * 1.0) / 100.0)
 
@@ -732,7 +733,7 @@ class Board(QtWidgets.QGraphicsView):
             )
             self.indicadorSC_menu.setOpacity(0.50 if self.configuration.x_opacity_tool_board == 10 else 0.01)
 
-            if self.siDirectorIcon:
+            if self.show_graphic_icon:
                 script = BoardTypes.Imagen()
                 script.physical_pos.x = p_frontera.x - ancho + ancho
                 if self.configuration.x_position_tool_board == "B":
@@ -806,7 +807,7 @@ class Board(QtWidgets.QGraphicsView):
                 if len(self.key) == 1:
                     flags = 0
                     if self.is_ctrl:
-                        flags |=  QtCore.Qt.ControlModifier
+                        flags |= QtCore.Qt.ControlModifier
                     if self.is_alt:
                         flags |= QtCore.Qt.AltModifier
                     if self.is_shift:
@@ -872,7 +873,6 @@ class Board(QtWidgets.QGraphicsView):
                 alt("P", _("Show/Hide PGN information"))
                 close_group()
 
-
             ctrl("T", _("Save position in 'Selected positions' file"))
             close_group()
 
@@ -886,11 +886,12 @@ class Board(QtWidgets.QGraphicsView):
 
             alt("N", _("Activate/Deactivate non distract mode"))
 
+        alt("O", _("Move the window to the top left corner"))
         add_key("F11", _("Full screen On/Off"))
         add_key("F12", _("Minimize to the tray icon"))
         close_group()
 
-        menu = QTVarios.LCMenu12(self)
+        menu = QTVarios.LCMenu(self)
         # rondo = QTVarios.rondo_puntos(shuffle=False)
         # menu.set_font(Code.font_mono)
         menu.opcion(None, _("Active keys"), Iconos.Rename())
@@ -910,7 +911,7 @@ class Board(QtWidgets.QGraphicsView):
         if not self.with_menu_visual:
             return
 
-        menu = QTVarios.LCMenu12(self)
+        menu = QTVarios.LCMenu(self)
 
         menu.opcion("colors", _("Colors"), Iconos.Colores())
         menu.separador()
@@ -935,7 +936,7 @@ class Board(QtWidgets.QGraphicsView):
             menu.opcion("director", _("Director") + " [%s] " % _("F1-F10"), Iconos.Director())
             menu.separador()
 
-        if self.siPosibleRotarBoard:
+        if self.can_be_rotated_the_board:
             menu.opcion("girar", _("Flip the board") + " [%s-F]" % _("ALT"), Iconos.JS_Rotacion())
             menu.separador()
 
@@ -1123,24 +1124,24 @@ class Board(QtWidgets.QGraphicsView):
         key += "MR"
         if self.dic_graphlive is None:
             self.dic_graphlive = self.readGraphLive()
-        elem = self.dic_graphlive.get(key, None)
-        if elem:
+        if key in self.dic_graphlive:
+            elem = self.dic_graphlive.get(key)
             elem.a1h8 = a1h8 + a1h8
             if TabVisual.TP_FLECHA == elem.TP:
                 self.current_graphlive = self.creaFlecha(elem)
-                self.current_graphlive.mousePressExt(event)
+                self.current_graphlive.mouse_press_ext(event)
             elif TabVisual.TP_MARCO == elem.TP:
                 self.current_graphlive = self.creaMarco(elem)
-                self.current_graphlive.mousePressExt(event)
+                self.current_graphlive.mouse_press_ext(event)
             elif TabVisual.TP_CIRCLE == elem.TP:
                 self.current_graphlive = self.creaCircle(elem)
-                self.current_graphlive.mousePressExt(event)
+                self.current_graphlive.mouse_press_ext(event)
             elif TabVisual.TP_MARKER == elem.TP:
                 self.current_graphlive = self.creaMarker(elem)
-                self.current_graphlive.mousePressExt(event)
+                self.current_graphlive.mouse_press_ext(event)
             elif TabVisual.TP_SVG == elem.TP:
                 self.current_graphlive = self.creaSVG(elem, False)
-                self.current_graphlive.mousePressExt(event)
+                self.current_graphlive.mouse_press_ext(event)
 
             self.current_graphlive.TP = elem.TP
 
@@ -1196,7 +1197,7 @@ class Board(QtWidgets.QGraphicsView):
                     if dic_current:
                         obj.restore_dic(dic_current)
                     obj.TP = tp
-                    obj.id = int(cnum_id)
+                    obj.id = int(cnum_id) if cnum_id.isdigit() else cnum_id
                     obj.tpid = (tp, obj.id)
                     dic[rel[pos]] = obj
         return dic
@@ -1238,7 +1239,7 @@ class Board(QtWidgets.QGraphicsView):
                     self.current_graphlive.TP = tp
 
             else:
-                self.current_graphlive.ponA1H8(a1 + h8)
+                self.current_graphlive.set_a1h8(a1 + h8)
             keys = list(self.dicMovibles.keys())
             if len(keys) > 1:
                 last = len(keys) - 1
@@ -1483,7 +1484,7 @@ class Board(QtWidgets.QGraphicsView):
         alm = self.almSaveVisual = Util.Record()
         alm.with_menu_visual = self.with_menu_visual
         alm.with_director = self.with_director
-        alm.siDirectorIcon = self.siDirectorIcon
+        alm.show_graphic_icon = self.show_graphic_icon
         alm.dirvisual = self.dirvisual
         alm.guion = self.guion
         alm.lastFenM2 = self.lastFenM2
@@ -1494,7 +1495,7 @@ class Board(QtWidgets.QGraphicsView):
         alm = self.almSaveVisual
         self.with_menu_visual = alm.with_menu_visual
         self.with_director = alm.with_director
-        self.siDirectorIcon = alm.siDirectorIcon
+        self.show_graphic_icon = alm.show_graphic_icon
         self.dirvisual = alm.dirvisual
         self.guion = alm.guion
         self.lastFenM2 = alm.lastFenM2
@@ -1507,16 +1508,16 @@ class Board(QtWidgets.QGraphicsView):
         self.last_position = position
         if Code.eboard and Code.eboard.driver and self.allow_eboard:
             Code.eboard.set_position(position)
-        if self.siDirectorIcon or self.dbVisual.show_always():
+        if self.show_graphic_icon or self.dbVisual.show_always():
             fenm2 = position.fenm2()
             if self.lastFenM2 != fenm2:
                 self.lastFenM2 = fenm2
                 if self.dbvisual_contains(fenm2):
-                    if self.siDirectorIcon:
+                    if self.show_graphic_icon:
                         self.scriptSC_menu.show()
                     if self.dbVisual.show_always():
                         self.lanzaGuion()
-                elif self.siDirectorIcon:
+                elif self.show_graphic_icon:
                     self.scriptSC_menu.hide()
 
     def eboard_arrow(self, a1, h8, prom):
@@ -1672,7 +1673,7 @@ class Board(QtWidgets.QGraphicsView):
 
         self.crea()
         if not is_white_bottom:
-            self.intentaRotarBoard(None)
+            self.try_to_rotate_the_board(None)
 
         if ap:
             self.activate_side(apc)
@@ -1919,15 +1920,15 @@ class Board(QtWidgets.QGraphicsView):
         if self.arrow_sc is None:
             self.arrow_sc = self.creaFlechaSC(a1h8)
         self.arrow_sc.show()
-        self.arrow_sc.ponA1H8(a1h8)
+        self.arrow_sc.set_a1h8(a1h8)
         self.arrow_sc.update()
 
-    def put_arrow_scvar(self, liArrows, destino=None, opacity=None):
+    def put_arrow_scvar(self, li_arrows, destino=None, opacity=None):
         if destino is None:
             destino = "m"
         if opacity is None:
             opacity = 0.4
-        for from_sq, to_sq in liArrows:
+        for from_sq, to_sq in li_arrows:
             if from_sq and to_sq:
                 self.creaFlechaMulti(from_sq + to_sq, False, destino=destino, opacity=opacity)
 
@@ -1950,7 +1951,12 @@ class Board(QtWidgets.QGraphicsView):
         bf.width_square = self.width_square
         bf.siMovible = False
 
-        return self.creaFlecha(bf, self.pulsadaFlechaSC)
+        bf.tamFrontera = self.tamFrontera
+
+        if self.configuration.x_movement_doublebox_board:
+            return BoardDoubleBoxes.DoubleBoxesSC(self.escena, bf, self.pulsadaFlechaSC)
+        else:
+            return BoardArrows.FlechaSC(self.escena, bf, self.pulsadaFlechaSC)
 
     def creaFlechaTmp(self, from_a1h8, to_a1h8, siMain):
         bf = copy.deepcopy(self.config_board.fTransicion() if siMain else self.config_board.fAlternativa())
@@ -1958,6 +1964,17 @@ class Board(QtWidgets.QGraphicsView):
         arrow = self.creaFlecha(bf)
         self.liFlechas.append(arrow)
         arrow.show()
+
+    def crea_doubleboxes(self, from_a1h8, to_a1h8):
+        bf = copy.deepcopy(self.config_board.fTransicion())
+        bf.a1h8 = from_a1h8 + to_a1h8
+        bf.width_square = self.width_square
+        bf.siMovible = False
+
+        bf.tamFrontera = self.tamFrontera
+        double = BoardDoubleBoxes.DoubleBoxesSC(self.escena, bf, None)
+        double.show()
+        self.registraMovible(double)
 
     def creaFlechaPremove(self, xfrom, xto):
         self.active_premove = True
@@ -2162,7 +2179,7 @@ class Board(QtWidgets.QGraphicsView):
             if self.indicadorSC_menu.isVisible():
                 act_ind = True
                 self.indicadorSC_menu.hide()
-        if self.siDirectorIcon and self.scriptSC_menu:
+        if self.show_graphic_icon and self.scriptSC_menu:
             if self.scriptSC_menu.isVisible():
                 act_scr = True
                 self.scriptSC_menu.hide()
@@ -2294,20 +2311,20 @@ class Board(QtWidgets.QGraphicsView):
 
     def put_rating(self, from_sq, to_sq, color, poscelda):
         if color not in Code.dic_markers:
-            dicm = { GOOD_MOVE: "good_move",
-                     MISTAKE: "mistake",
-                     VERY_GOOD_MOVE: "very_good_move",
-                     BLUNDER: "blunder",
-                     INTERESTING_MOVE: "interesting_move",
-                     INACCURACY: "inaccuracy",
-                     NO_RATING: "none",
-                     999: "good_move_raw",
-                     1000: "book",
-                     1001: "book_bin"
-            }
+            dicm = {GOOD_MOVE: "good_move",
+                    MISTAKE: "mistake",
+                    VERY_GOOD_MOVE: "very_good_move",
+                    BLUNDER: "blunder",
+                    INTERESTING_MOVE: "interesting_move",
+                    INACCURACY: "inaccuracy",
+                    NO_RATING: "none",
+                    999: "good_move_raw",
+                    1000: "book",
+                    1001: "book_bin"
+                    }
             with open(Code.path_resource("IntFiles", "Svg", f"eval_{dicm[color]}.svg"), "rt") as f:
                 Code.dic_markers[color] = f.read()
-        dic = { 'xml': Code.dic_markers[color], 'name': f'eval_{color}', 'ordenVista': 24}
+        dic = {'xml': Code.dic_markers[color], 'name': f'eval_{color}', 'ordenVista': 24}
         reg_svg = BoardTypes.Marker(dic=dic)
         reg_svg.physical_pos.orden = 25
         reg_svg.a1h8 = to_sq + to_sq
@@ -2330,8 +2347,8 @@ class Board(QtWidgets.QGraphicsView):
 
         return BoardArrows.FlechaSC(self.escena, bloque_flecha_n, rutina)
 
-    def intentaRotarBoard(self, si_izquierdo):
-        if self.siPosibleRotarBoard:
+    def try_to_rotate_the_board(self, si_izquierdo):
+        if self.can_be_rotated_the_board:
             self.rotate_board()
 
     def rotate_board(self):
@@ -2423,7 +2440,7 @@ class Board(QtWidgets.QGraphicsView):
         self.lastFenM2 = None
 
     def bloqueaRotacion(self, si_bloquea):  # se usa en la presentacion para que no rote
-        self.siPosibleRotarBoard = not si_bloquea
+        self.can_be_rotated_the_board = not si_bloquea
 
     def set_dispatch_size(self, rutina_control):
         self._dispatch_size = rutina_control
@@ -2634,6 +2651,51 @@ class Board(QtWidgets.QGraphicsView):
 
             XRun.run_lucas("-play", fich)
 
+    def show_lichess_graphics(self, comment: str):
+        squares, arrows = LichessCommentParser.parse_lichess_graphics(comment)
+        square: LichessCommentParser.ColoredSquare
+        arrow: LichessCommentParser.Arrow
+
+        xdic_colors = {
+            "G": 0x15781B,
+            "R": 0x882020,
+            "Y": 0xE68F00,
+            "B": 0x003088,
+        }
+        for square in squares:
+            elem = BoardTypes.Circle()
+            elem.a1h8 = square.square + square.square
+            elem.color = xdic_colors.get(square.color, xdic_colors["G"])
+            elem.grosor = 4
+            elem.ordenVista = 4
+            elem.opacity = 0.8
+            elem.tamFrontera = self.tamFrontera
+
+            self.registraMovible(self.creaCircle(elem))
+
+        for arrow in arrows:
+            elem = BoardTypes.Flecha()
+            elem.a1h8 = arrow.origin + arrow.target
+            elem.grosor = 1
+            elem.altocabeza = 20
+            elem.tipo = 1
+            elem.destino = "c"
+            elem.color = xdic_colors.get(arrow.color, xdic_colors["R"])
+            elem.colorinterior = elem.color
+            elem.width_square = self.width_square
+            elem.opacity = 0.5
+            elem.redondeos = True
+            elem.forma = "1"
+            elem.ancho = 4
+            elem.vuelo = 8
+            elem.descuelgue = 0
+            elem.width_square = self.width_square
+            elem.siMovible = False
+            elem.ordenVista = 5
+            elem.tamFrontera = self.tamFrontera
+
+            self.registraMovible(self.creaFlecha(elem))
+
 
 class WTamBoard(QtWidgets.QDialog):
     def __init__(self, board):
@@ -2705,7 +2767,7 @@ class WTamBoard(QtWidgets.QDialog):
         is_white_bottom = self.board.is_white_bottom
         self.board.width_changed()
         if not is_white_bottom:
-            self.board.intentaRotarBoard(None)
+            self.board.try_to_rotate_the_board(None)
 
     def dispatch(self):
         t = self.board

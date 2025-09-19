@@ -126,7 +126,7 @@ class TextoSC(BloqueSC):
 
         self.font = Controles.FontType(txt=str(bloqueTexto.font_type))
         self.font.setPixelSize(bloqueTexto.font_type.puntos)
-        self.textOption = QtGui.QTextOption(QTUtil.qtAlineacion(bloqueTexto.alineacion))
+        self.textOption = QtGui.QTextOption(QTUtil.qt_alignment(bloqueTexto.alineacion))
         self.rutina = rutina
 
     def paint(self, painter, option, widget):
@@ -365,7 +365,7 @@ class TiempoSC(BloqueSC):
         self.bloqueDatos = self.bloqueTexto = bloqueTexto
 
         self.font = Controles.FontType(txt=str(bloqueTexto.font_type))
-        self.textOption = QtGui.QTextOption(QTUtil.qtAlineacion("c"))
+        self.textOption = QtGui.QTextOption(QTUtil.qt_alignment("c"))
         self.rutina = rutina
         self.minimo = bloqueTexto.min
         self.maximo = bloqueTexto.max

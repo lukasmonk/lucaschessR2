@@ -1,6 +1,8 @@
 import os
 import ssl
+import subprocess
 import sys
+from shutil import which
 
 from Code import Util
 
@@ -36,21 +38,46 @@ def path_resource(*lista):
     return os.path.realpath(p)
 
 
-is_linux = sys.platform.startswith("linux")
+is_linux = Util.is_linux()
 is_windows = not is_linux
 
-if is_linux:
-    startfile = os.system
-    os.environ["XDG_SESSION_TYPE"] = "xcb"
-else:
-    if not sys.argv[0].endswith(".py"):
-        os.environ["QT_PLUGIN_PATH"] = Util.opj(
-            current_dir, "extlibs", "PySide2", "plugins"
-        )
-        os.environ["QT_QPA_PLATFORM_PLUGIN_PATH"] = Util.opj(
-            current_dir, "extlibs", "PySide2", "plugins", "platform"
-        )
-    startfile = os.startfile
+
+def startfile(path: str) -> bool:
+    try:
+        path = os.path.abspath(path)
+        if is_windows:
+            os.startfile(path)
+        else:  # Linux
+            opener = None
+
+            if os.path.isdir(path):
+                desktop = os.environ.get("XDG_CURRENT_DESKTOP", "").lower()
+                if "kde" in desktop and which("dolphin"):
+                    opener = "dolphin"
+                elif "gnome" in desktop and which("nautilus"):
+                    opener = "nautilus"
+                elif which("xdg-open"):
+                    opener = "xdg-open"
+            elif which("xdg-open"):
+                opener = "xdg-open"
+
+            if not opener:
+                return False
+
+            env = os.environ.copy()
+            env.pop("LD_LIBRARY_PATH", None)
+            env['DISPLAY'] = os.getenv('DISPLAY', ':0')
+            env['DBUS_SESSION_BUS_ADDRESS'] = os.getenv('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/{os.getuid()}/bus')
+            env['HOME'] = os.getenv('HOME', os.path.expanduser('~'))
+
+            subprocess.Popen([opener, path],
+                             env=env,
+                             stdout=subprocess.DEVNULL,
+                             stderr=subprocess.DEVNULL)
+        return True
+    except Exception:
+        return False
+
 
 if not os.environ.get("PYTHONHTTPSVERIFY", "") and getattr(
         ssl, "_create_unverified_context", None
@@ -73,8 +100,6 @@ list_engine_managers = None
 
 mate_en_dos = 180805
 
-factor_big_fonts = 1.0
-
 runSound = None
 
 translations = None
@@ -88,7 +113,19 @@ dic_qcolors = None
 
 dic_markers = {}
 
+themes = None
+
 main_window = None
+
+garbage_collector = None
+
+
+def get_themes():
+    global themes
+    if themes is None:
+        from Code.Themes import Themes
+        themes = Themes.Themes()
+    return themes
 
 
 def relative_root(path):
@@ -105,7 +142,7 @@ def relative_root(path):
 
 
 BASE_VERSION = "B"  # Para el control de updates que necesitan reinstalar entero
-VERSION = "R 2.20c"
+VERSION = "R 2.21-FP"
 DEBUG = False
 DEBUG_ENGINES = False
 

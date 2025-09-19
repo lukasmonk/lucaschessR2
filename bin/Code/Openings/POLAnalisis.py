@@ -49,7 +49,7 @@ class TabEngine(QtWidgets.QWidget):
 
         multipv = self.dbop.getconfig("ENGINE_MULTIPV", 5)
         lb_multipv = Controles.LB(self, _("Multi PV") + ": ")
-        self.sb_multipv = Controles.SB(self, multipv, 1, 500).tamMaximo(50)
+        self.sb_multipv = Controles.SB(self, multipv, 1, 500).relative_width(50)
 
         self.chb_show_analysis = Controles.CHB(self, _("Show the analysis"), self.dbop.getconfig("SHOW_ANALYSIS", True))
         self.chb_show_analysis.capture_changes(self, self.check_show_analysis)
@@ -80,7 +80,7 @@ class TabEngine(QtWidgets.QWidget):
     def check_show_analysis(self):
         ok = self.chb_show_analysis.valor()
         self.dbop.setconfig("SHOW_ANALYSIS", ok)
-        self.tabsAnalisis.panelOpening.check_show_analysis()
+        self.tabsAnalisis.wlines.check_show_analysis()
 
     def save_current(self):
         if self.current_mrm:
@@ -491,7 +491,7 @@ class TabDatabaseSummary(QtWidgets.QWidget):
 class InfoMoveReplace:
     def __init__(self, owner):
         self.tab_database = owner
-        self.board = self.tab_database.tabsAnalisis.panelOpening.pboard.board
+        self.board = self.tab_database.tabsAnalisis.wlines.pboard.board
 
     def game_mode(self, x, y):
         return True
@@ -537,11 +537,12 @@ class TabDatabase(QtWidgets.QWidget):
 
 
 class TabsAnalisis(QtWidgets.QWidget):
-    def __init__(self, panelOpening, procesador, configuration):
+    def __init__(self, wlines, procesador, configuration):
         QtWidgets.QWidget.__init__(self)
 
-        self.panelOpening = panelOpening
-        self.dbop = panelOpening.dbop
+        
+        self.wlines = wlines
+        self.dbop = wlines.dbop
 
         self.procesador = procesador
         self.configuration = configuration
@@ -554,7 +555,7 @@ class TabsAnalisis(QtWidgets.QWidget):
         self.li_tabs = [("engine", self.tabengine), ("tree", self.tabtree)]
         self.tabActive = 0
 
-        self.tabs = Controles.Tab(panelOpening)
+        self.tabs = Controles.Tab(wlines)
         self.tabs.set_font_type(puntos=self.configuration.x_pgn_fontpoints)
         self.tabs.setTabIcon(0, Iconos.Engine())
         self.tabs.new_tab(self.tabengine, _("Engine"))
@@ -701,4 +702,4 @@ class TabsAnalisis(QtWidgets.QWidget):
                 wtab.saveConfig()
 
     def refresh_lines(self):
-        self.panelOpening.refresh_lines()
+        self.wlines.refresh_lines()

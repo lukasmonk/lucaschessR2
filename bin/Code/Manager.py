@@ -6,11 +6,11 @@ import FasterCode
 from PySide2 import QtCore
 
 import Code
+from Code import Adjournments
 from Code import ControlPGN
 from Code import TimeControl
 from Code import Util
 from Code import XRun
-from Code import Adjournments
 from Code.Analysis import Analysis, AnalysisGame, AnalysisIndexes, Histogram, WindowAnalysisGraph, AI
 from Code.Analysis import WindowAnalysisConfig
 from Code.Base import Game, Move, Position
@@ -57,7 +57,7 @@ from Code.Base.Constantes import (
     GT_TACTICS,
     TERMINATION_DRAW_AGREEMENT,
     DICT_GAME_TYPES,
-    NO_RATING, GOOD_MOVE,
+    NO_RATING, GOOD_MOVE
 )
 from Code.Board import BoardTypes
 from Code.Databases import DBgames
@@ -75,6 +75,7 @@ from Code.QT import WReplay
 from Code.QT import WindowArbol
 from Code.QT import WindowArbolBook
 from Code.QT import WindowSavePGN
+from Code.Themes import AssignThemes
 
 
 class Manager:
@@ -211,7 +212,7 @@ class Manager:
 
         self.set_toolbar(li_options)
         self.main_window.toolbar_enable(True)
-        self.remove_hints(siQuitarAtras=not with_takeback)
+        self.remove_hints(remove_back=not with_takeback)
         self.procesador.close_engines()
 
     def set_toolbar(self, li_options):
@@ -423,10 +424,15 @@ class Manager:
             self.board.put_arrow_sc(move.from_sq, move.to_sq)
             QTUtil.refresh_gui()
             time.sleep(0.6)
-            ant = self.configuration.x_show_effects
+
+            ant_show = self.configuration.x_show_effects
+            ant_speed = self.configuration.x_pieces_speed
             self.configuration.x_show_effects = True
+            self.configuration.x_pieces_speed = 200
             self.move_the_pieces(move.liMovs, True)
-            self.configuration.x_show_effects = ant
+            self.configuration.x_show_effects = ant_show
+            self.configuration.x_pieces_speed = ant_speed
+
             self.board.set_position(move.position)
             self.main_window.base.pgn.refresh()
             self.main_window.base.pgn.gobottom(1 if move.is_white() else 2)
@@ -498,12 +504,19 @@ class Manager:
             return
         row, column = self.main_window.pgnPosActual()
         pos_move, move = self.pgn.move(row, column.key)
+        inicio = False
         if column.key == "NUMBER":
             if row > 0:
-                pos_move, move = self.pgn.move(row-1, "BLACK")
+                pos_move, move = self.pgn.move(row - 1, "BLACK")
+            else:
+                inicio = True
 
         if self.main_window.with_analysis_bar:
             self.main_window.run_analysis_bar(self.current_game())
+
+        if move and self.configuration.x_director_icon is False and not inicio:
+            if "%csl" in move.comment or "%cal" in move.comment:
+                self.board.show_lichess_graphics(move.comment)
 
         if (
                 self.main_window.siCapturas
@@ -522,7 +535,7 @@ class Manager:
                         self.show_bestmove(move_check)
 
                     if self.configuration.x_show_rating:
-                        self.show_rating(move_check)
+                        self.show_nags(move_check)
 
             nom_opening = ""
             opening = self.game.opening
@@ -530,13 +543,9 @@ class Manager:
                 nom_opening = opening.tr_name
                 if opening.eco:
                     nom_opening += " (%s)" % opening.eco
-            if self.main_window.siCapturas:
-                if self.board.last_position is not None:
-                    if Code.configuration.x_captures_mode_diferences:
-                        dic = self.board.last_position.capturas_diferencia()
-                    else:
-                        dic = self.board.last_position.capturas()
-                    self.main_window.put_captures(dic)
+
+            self.check_captures()
+
             if self.main_window.siInformacionPGN:
                 if (row == 0 and column.key == "NUMBER") or row < 0:
                     self.main_window.put_informationPGN(self.game, None, nom_opening)
@@ -552,7 +561,16 @@ class Manager:
                     self.kibitzers_manager.stop()
         self.check_changed()
 
-    def show_rating(self, move_check):
+    def check_captures(self):
+        if self.main_window.siCapturas:
+            if self.board.last_position is not None:
+                if Code.configuration.x_captures_mode_diferences:
+                    dic = self.board.last_position.capturas_diferencia()
+                else:
+                    dic = self.board.last_position.capturas()
+                self.main_window.put_captures(dic)
+
+    def show_nags(self, move_check):
         nag = move_check.get_nag()
         color = NO_RATING
         if not nag:
@@ -585,7 +603,7 @@ class Manager:
 
     def show_bestmove(self, move_check):
         mrm, pos = move_check.analysis
-        if pos:  # no se muestra la mejor move si es la realizada
+        if pos:  # no se muestra el mejor move si es la realizada
             rm0 = mrm.best_rm_ordered()
             self.board.put_arrow_scvar([(rm0.from_sq, rm0.to_sq)])
 
@@ -619,12 +637,12 @@ class Manager:
     def put_pieces_bottom(self, is_white):
         self.board.set_side_bottom(is_white)
 
-    def remove_hints(self, siTambienTutorAtras=True, siQuitarAtras=True):
-        self.main_window.remove_hints(siTambienTutorAtras, siQuitarAtras)
+    def remove_hints(self, also_tutor_back=True, remove_back=True):
+        self.main_window.remove_hints(also_tutor_back, remove_back)
         self.set_activate_tutor(False)
 
-    def ponAyudas(self, hints, siQuitarAtras=True):
-        self.main_window.ponAyudas(hints, siQuitarAtras)
+    def ponAyudas(self, hints, remove_back=True):
+        self.main_window.ponAyudas(hints, remove_back)
 
     def show_button_tutor(self, ok):
         self.main_window.show_button_tutor(ok)
@@ -768,8 +786,14 @@ class Manager:
                 return
             row -= 1
         elif tipo == GO_FORWARD:
-            if row == 0 and game.starts_with_black:
-                return self.goto_firstposition()
+            if (row == 0 and col == 0) and game.starts_with_black:
+                move: Move.Move = self.game.move(0)
+                self.set_position(move.position)
+                self.main_window.base.pgn.goto(0, 2)
+                self.board.put_arrow_sc(move.from_sq, move.to_sq)
+                self.refresh_pgn()
+                self.put_view()
+                return
             col = 1
         elif tipo == GO_FORWARD2:
             row += 1
@@ -856,6 +880,7 @@ class Manager:
         self.main_window.base.pgn.goto(0, 0)
         self.refresh_pgn()  # No se puede usar pgn_refresh, ya que se usa con gobottom en otros lados y aqui eso no funciona
         self.put_view()
+        self.board.set_last_position(self.game.first_position)
 
     def pgnMueve(self, row, is_white):
         self.pgn.mueve(row, is_white)
@@ -1035,7 +1060,7 @@ class Manager:
         if is_alt:
             self.arbol()
         else:
-            menu = QTVarios.LCMenu12(self.main_window)
+            menu = QTVarios.LCMenu(self.main_window)
             self.add_menu_vista(menu)
             resp = menu.lanza()
             if resp:
@@ -1301,7 +1326,8 @@ class Manager:
         self.xpelicula = WReplay.Replay(self)
 
     def replay_direct(self):
-        self.xpelicula = WReplay.Replay(self)
+        if self.game:
+            self.xpelicula = WReplay.Replay(self)
 
     def ponRutinaAccionDef(self, rutina):
         self.xRutinaAccionDef = rutina
@@ -1348,7 +1374,7 @@ class Manager:
         if number in [1, 8]:
             if si_activar:
                 # Que move esta en el board
-                fen = self.board.fen_active() #fenActivoConInicio()
+                fen = self.board.fen_active()  # fenActivoConInicio()
                 is_white = " w " in fen
                 if number == 1:
                     si_mb = is_white
@@ -1382,7 +1408,7 @@ class Manager:
         elif number in [2, 7]:
             if si_activar:
                 # Que move esta en el board
-                fen = self.board.fen_active() #fenActivoConInicio()
+                fen = self.board.fen_active()  # fenActivoConInicio()
                 is_white = " w " in fen
                 if number == 2:
                     si_mb = is_white
@@ -1542,17 +1568,18 @@ class Manager:
         return True
 
     def play_instead_of_me(self):
-        rm = self.bestmove_from_analysis_bar()
-        if rm is None:
-            self.main_window.pensando_tutor(True)
-            self.thinking(True)
-            cp = self.current_position()
-            mrm_tutor = self.xtutor.analiza(cp.fen())
-            self.thinking(False)
-            self.main_window.pensando_tutor(False)
-            rm = mrm_tutor.best_rm_ordered()
-        if rm.from_sq:
-            self.player_has_moved_base(rm.from_sq, rm.to_sq, rm.promotion)
+        if self.is_in_last_move():
+            rm = self.bestmove_from_analysis_bar()
+            if rm is None:
+                self.main_window.pensando_tutor(True)
+                self.thinking(True)
+                cp = self.current_position()
+                mrm_tutor = self.xtutor.analiza(cp.fen())
+                self.thinking(False)
+                self.main_window.pensando_tutor(False)
+                rm = mrm_tutor.best_rm_ordered()
+            if rm.from_sq:
+                self.player_has_moved_base(rm.from_sq, rm.to_sq, rm.promotion)
 
     @staticmethod
     def active_help_to_move():
@@ -1595,6 +1622,33 @@ class Manager:
             self.put_view()
         else:
             self.change_info_extra(resp)
+
+    @staticmethod
+    def add_extra_options(menu, li_extra_options):
+        # Mas Opciones
+        if li_extra_options:
+            menu.separador()
+            submenu = menu
+            for data in li_extra_options:
+                if len(data) == 3:
+                    key, label, icono = data
+                    shortcut = ""
+                elif len(data) == 4:
+                    key, label, icono, shortcut = data
+                else:
+                    key, label, icono, shortcut = None, None, None, None
+
+                if label is None:
+                    if icono is None:
+                        submenu.separador()
+                    else:
+                        submenu = menu
+                elif key is None:
+                    submenu = menu.submenu(label, icono)
+
+                else:
+                    submenu.opcion(key, label, icono, shortcut=shortcut)
+            menu.separador()
 
     def configurar(self, li_extra_options=None, with_sounds=False, with_blinfold=True):
         menu = QTVarios.LCMenu(self.main_window)
@@ -1656,8 +1710,6 @@ class Manager:
         menu.opcion(key, label, icono)
         menu.separador()
 
-        menu.opcion("analysis_config", _("Analysis configuration parameters"), Iconos.ConfAnalysis())
-
         # auto_rotate
         if self.auto_rotate is not None:
             menu.separador()
@@ -1665,19 +1717,14 @@ class Manager:
             menu.opcion("auto_rotate", "%s: %s" % (prefix, _("Auto-rotate board")), Iconos.JS_Rotacion())
 
         # Mas Opciones
-        if li_extra_options:
-            menu.separador()
-            for key, label, icono in li_extra_options:
-                if label is None:
-                    menu.separador()
-                else:
-                    menu.opcion(key, label, icono)
+        self.add_extra_options(menu, li_extra_options)
 
         resp = menu.lanza()
         if resp:
 
             if li_extra_options:
-                for key, label, icono in li_extra_options:
+                for data in li_extra_options:
+                    key = data[0]
                     if resp == key:
                         return resp
 
@@ -1713,9 +1760,6 @@ class Manager:
 
                 elif orden == "conf":
                     self.board.blindfoldConfig()
-
-            elif resp == "analysis_config":
-                self.config_analysis_parameters()
 
             elif resp == "auto_rotate":
                 self.change_auto_rotate()
@@ -1777,6 +1821,9 @@ class Manager:
             self.configuration.graba()
 
     def utilities(self, li_extra_options=None, with_tree=True):
+        QTUtil.refresh_gui()
+        time.sleep(0.1)
+
         menu = QTVarios.LCMenu(self.main_window)
 
         si_jugadas = len(self.game) > 0
@@ -1850,6 +1897,11 @@ class Manager:
 
             AI.add_submenu(submenu)
 
+            if has_analysis:
+                menu.separador()
+                label = _("Update themes") if self.game.has_themes() else _("Assign themes")
+                menu.opcion("themes_assign", label, Iconos.Themes())
+
         if si_jugadas:
             menu.separador()
             menu.opcion("borrar", _("Remove"), Iconos.Delete())
@@ -1889,29 +1941,7 @@ class Manager:
             menu.opcion("learn_mem", _("Learn") + " - " + _("Memorizing their moves"), Iconos.LearnGame())
 
         # Mas Opciones
-        if li_extra_options:
-            menu.separador()
-            submenu = menu
-            for data in li_extra_options:
-                if len(data) == 3:
-                    key, label, icono = data
-                    shortcut = ""
-                elif len(data) == 4:
-                    key, label, icono, shortcut = data
-                else:
-                    key, label, icono, shortcut = None, None, None, None
-
-                if label is None:
-                    if icono is None:
-                        submenu.separador()
-                    else:
-                        submenu = menu
-                elif key is None:
-                    submenu = menu.submenu(label, icono)
-
-                else:
-                    submenu.opcion(key, label, icono, shortcut=shortcut)
-            menu.separador()
+        self.add_extra_options(menu, li_extra_options)
 
         resp = menu.lanza()
 
@@ -1927,6 +1957,11 @@ class Manager:
         if resp == "play_instead_of_me":
             getattr(self, "play_instead_of_me")()
             return None
+
+        elif resp == "help_to_move":
+            getattr(self, "help_to_move")()
+            return None
+
 
         elif resp == "analizar":
             self.analizar()
@@ -2008,13 +2043,28 @@ class Manager:
             self.procesador.learn_game(self.game)
             return None
 
-        elif resp == "help_to_move":
-            getattr(self, "help_to_move")()
-            return None
-
         elif resp.startswith("ai_"):
             AI.run_menu(self.main_window, resp, self.game)
             return None
+
+        elif resp == "themes_assign":
+            st_themes = set()
+            for move in self.game.li_moves:
+                if move.has_themes():
+                    st_themes.update(move.li_themes)
+            if st_themes:
+                themes = ", ".join(AssignThemes.AssignThemes().liblk80_themes(st_themes))
+                if themes:
+                    delete_previous = QTUtil2.pregunta(self.main_window, _("Pre-delete the following themes?") + f"<br><br>{themes}")
+                else:
+                    delete_previous = False
+            else:
+                delete_previous = False
+            at = AssignThemes.AssignThemes()
+            at.assign_game(self.game, True, delete_previous)
+            self.refresh_pgn()
+            QTUtil2.temporary_message_without_image(self.main_window, _("Done"), 1.4)
+
         return None
 
     def save_gif(self):
@@ -2057,6 +2107,7 @@ class Manager:
                 alm.indexesHTML,
                 alm.indexesHTMLelo,
                 alm.indexesHTMLmoves,
+                alm.indexesHTMLold,
                 alm.indexesRAW,
                 alm.eloW,
                 alm.eloB,
@@ -2137,12 +2188,18 @@ class Manager:
         w.exec_()
 
     def save_pgn_clipboard(self):
-        QTUtil.set_clipboard(self.game.pgn())
+        dic = WindowSavePGN.read_config_savepgn()
+        if dic.get("SEVENTAGS", False):
+            game_tmp = self.game.copia()
+            game_tmp.add_seventags()
+        else:
+            game_tmp = self.game
+        QTUtil.set_clipboard(game_tmp.pgn())
         QTUtil2.message_bold(self.main_window, _("PGN is in clipboard"))
 
-    def save_fen(self, siFichero):
+    def save_fen(self, with_file):
         dato = self.listado("fen")
-        if siFichero:
+        if with_file:
             extension = "fns"
             resp = SelectFiles.salvaFichero(
                 self.main_window, _("File to save"), self.configuration.save_folder(), extension, False
@@ -2274,6 +2331,8 @@ class Manager:
                 is_resign = False
                 break
         if is_resign:
+            if self.runSound and self.configuration.x_sound_results:
+                self.runSound.play_key("OFRECERESIGNAR")
             resp = QTUtil2.pregunta(self.main_window, _X(_("%1 wants to resign, do you accept it?"), self.xrival.name))
             if resp:
                 self.game.resign(self.is_engine_side_white)
@@ -2290,6 +2349,8 @@ class Manager:
                 is_draw = False
                 break
         if is_draw:
+            if self.runSound and self.configuration.x_sound_results:
+                self.runSound.play_key("OFRECETABLAS")
             resp = QTUtil2.pregunta(self.main_window, _X(_("%1 proposes draw, do you accept it?"), self.xrival.name))
             if resp:
                 self.game.last_jg().is_draw_agreement = True
@@ -2538,12 +2599,12 @@ class Manager:
 
             if nkey == GO_BACK:
                 if last > 0:
-                    li_var[-1] = str(last-1)
+                    li_var[-1] = str(last - 1)
                 else:
                     li_var = li_var[:-2]
 
             elif nkey == GO_FORWARD:
-                li_var[-1] = str(last+1)
+                li_var[-1] = str(last + 1)
 
             elif nkey == GO_BACK2:
                 li_var = li_var[:-2]
@@ -2562,3 +2623,11 @@ class Manager:
 
     def is_active_analysys_bar(self):
         return self.main_window.with_analysis_bar
+
+    def is_in_last_move(self) -> bool:
+        if self.board.last_position == self.game.last_position and not self.is_finished():
+            return True
+        else:
+            QTUtil2.message(self.main_window, _("This utility only works in the last position of the game and if it is not finished."))
+            return False
+

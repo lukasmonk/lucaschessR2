@@ -1,5 +1,4 @@
 import datetime
-import os
 
 from Code import Util
 from Code.Odt import XML
@@ -72,10 +71,8 @@ class Meta(XML.XML):
         element3.add_param("meta:word-count", "0")
         element3.add_param("meta:character-count", "0")
         element3.add_param("meta:non-whitespace-character-count", "0")
-        element1.add_content(element3)
-        # element4 = XML.Element("meta:generator")
-        # element1.add_content(element4)
-        # element4.set_value("Lucas Chess")
+        element1.add_content(
+            element3)  # element4 = XML.Element("meta:generator")  # element1.add_content(element4)  # element4.set_value("Lucas Chess")
 
     def run(self, folder):
         path_manifest = Util.opj(folder, "meta.xml")
@@ -138,6 +135,6 @@ class MetaINF(XML.XML):
 
     def run(self, folder):
         folder_meta = Util.opj(folder, "META-INF")
-        os.mkdir(folder_meta)
+        Util.create_folder(folder_meta)
         path_manifest = Util.opj(folder_meta, "manifest.xml")
         self.save(path_manifest)

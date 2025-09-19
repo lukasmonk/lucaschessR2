@@ -243,7 +243,7 @@ class WTournamentRun(QtWidgets.QWidget):
         f = Controles.FontType(puntos=configuration.x_sizefont_players, peso=750)
         self.lb_player = {}
         for side in (WHITE, BLACK):
-            self.lb_player[side] = Controles.LB(self).anchoFijo(n_ancho_labels).align_center()
+            self.lb_player[side] = Controles.LB(self).relative_width(n_ancho_labels).align_center()
             self.lb_player[side].align_center().set_font(f).set_wrap()
             self.lb_player[side].setFrameStyle(QtWidgets.QFrame.Box | QtWidgets.QFrame.Raised)
 
@@ -478,11 +478,11 @@ class WTournamentRun(QtWidgets.QWidget):
     def set_clock(self):
         if self.is_closed or self.game_finished():
             return False
-
-        tc = self.tc_white if self.current_side == WHITE else self.tc_black
+        is_white = self.current_side == WHITE
+        tc = self.tc_white if is_white else self.tc_black
         tc.set_labels()
         if tc.time_is_consumed():
-            self.game.set_termination_time()
+            self.game.set_termination_time(is_white)
             return False
 
         QTUtil.refresh_gui()

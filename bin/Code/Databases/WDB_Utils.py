@@ -1,5 +1,6 @@
 import os
 import time
+import webbrowser
 
 from PySide2 import QtCore, QtWidgets
 
@@ -17,8 +18,8 @@ from Code.SQL import UtilSQL
 
 
 class WFiltrar(QtWidgets.QDialog):
-    def __init__(self, w_parent, o_columns, li_filter, db_save_nom=None):
-        super(WFiltrar, self).__init__()
+    def __init__(self, w_parent, li_filter, db_save_nom=None):
+        super(WFiltrar, self).__init__(w_parent)
 
         if db_save_nom is None:
             db_save_nom = Code.configuration.ficheroFiltrosPGN
@@ -31,8 +32,26 @@ class WFiltrar(QtWidgets.QDialog):
         n_filtro = len(li_filter)
         self.db_save_nom = db_save_nom
 
-        li_fields = [(x.head.strip("+-"), '"%s"' % x.key) for x in o_columns.li_columns if x.key not in ("__num__", "opening")]
-        li_fields.insert(0, ("", None))
+        li_cols = w_parent.grid.list_columns(True)
+        st = {col.key for col in li_cols}
+        st.add("__num__")
+        st.add("opening")
+        li_fields: list = [("", None),]
+        li_fields.extend([(x.head.strip("+-"), f'"{x.key}"') for x in li_cols if x.key not in ("__num__", "opening")])
+
+        li_cols.append(None)
+        ok_sep = True
+        li = []
+        for col in w_parent.grid.o_columns.li_columns:
+            if col.key not in st:
+                if ok_sep:
+                    li.append(("", ""))
+                    ok_sep = False
+                li.append((col.head.strip("+-"), f'"{col.key}"'))
+        if not ok_sep:
+            li.sort()
+            li_fields.extend(li)
+
         li_condicion = [
             ("", None),
             (_("Equal"), "="),
@@ -43,6 +62,8 @@ class WFiltrar(QtWidgets.QDialog):
             (_("Less than or equal"), "<="),
             (_("Like (wildcard = *)"), "LIKE"),
             (_("Not like (wildcard = *)"), "NOT LIKE"),
+            (_("Is empty"), "EMPTY"),
+            (_("Is not empty"), "NOT EMPTY"),
         ]
 
         li_union = [("", None), (_("AND"), "AND"), (_("OR"), "OR")]
@@ -71,7 +92,7 @@ class WFiltrar(QtWidgets.QDialog):
             else:
                 c_union = None
 
-            c_par0 = Controles.CHB(self, "", par0).anchoFijo(20)
+            c_par0 = Controles.CHB(self, "", par0).relative_width(20)
             ly.controlc(c_par0, i + 1, 1)
             c_campo = Controles.CB(self, li_fields, campo)
             ly.controlc(c_campo, i + 1, 2)
@@ -79,26 +100,26 @@ class WFiltrar(QtWidgets.QDialog):
             ly.controlc(c_condicion, i + 1, 3)
             c_valor = Controles.ED(self, valor)
             ly.controlc(c_valor, i + 1, 4)
-            c_par1 = Controles.CHB(self, "", par1).anchoFijo(20)
+            c_par1 = Controles.CHB(self, "", par1).relative_width(20)
             ly.controlc(c_par1, i + 1, 5)
 
             li_c.append((c_union, c_par0, c_campo, c_condicion, c_valor, c_par1))
 
         self.liC = li_c
 
-        # Toolbar
-        li_acciones = [
-            (_("Accept"), Iconos.Aceptar(), self.aceptar),
-            None,
-            (_("Cancel"), Iconos.Cancelar(), self.reject),
-            None,
-            (_("Reinit"), Iconos.Reiniciar(), self.reiniciar),
-            None,
-            (_("Save/Restore"), Iconos.Grabar(), self.grabar),
-            None,
-        ]
 
-        tb = QTVarios.LCTB(self, li_acciones)
+
+        # Toolbar
+        def ayuda():
+            url = "https://lucaschess.blogspot.com/2025/05/game-list-filter-button-practical-uses.html"
+            webbrowser.open(url)
+
+        tb = QTVarios.LCTB(self)
+        tb.new(_("Accept"), Iconos.Aceptar(), self.aceptar)
+        tb.new(_("Cancel"), Iconos.Cancelar(), self.reject)
+        tb.new(_("Reinit"), Iconos.Reiniciar(), self.reiniciar)
+        tb.new(_("Save/Restore"), Iconos.Grabar(), self.grabar)
+        tb.new(_("Help"), Iconos.AyudaGR(), ayuda)
 
         # Layout
         layout = Colocacion.V().control(tb).otro(ly).margen(3)
@@ -109,6 +130,9 @@ class WFiltrar(QtWidgets.QDialog):
         if n_filtro > 0:
             self.lee_filtro(self.li_filter)
 
+        for widget in (lb_col, lb_par0, lb_par1, lb_con, lb_val, lb_uni, ):
+            widget.setFocusPolicy(QtCore.Qt.NoFocus)
+
     def grabar(self):
         if not self.lee_filtro_actual():
             return
@@ -117,48 +141,41 @@ class WFiltrar(QtWidgets.QDialog):
             if len(li_conf) == 0 and len(self.li_filter) == 0:
                 return
             menu = QTVarios.LCMenu(self)
-            SELECCIONA, BORRA, GRABA = range(3)
+            kselecciona, kborra, kgraba = range(3)
             for x in li_conf:
-                menu.opcion((SELECCIONA, x), x, Iconos.PuntoAzul())
+                menu.opcion((kselecciona, x), x, Iconos.PuntoAzul())
             menu.separador()
 
             if len(self.li_filter) > 0:
                 submenu = menu.submenu(_("Save current"), Iconos.Mas())
                 if li_conf:
                     for x in li_conf:
-                        submenu.opcion((GRABA, x), x, Iconos.PuntoAmarillo())
+                        submenu.opcion((kgraba, x), x, Iconos.PuntoAmarillo())
                 submenu.separador()
-                submenu.opcion((GRABA, None), _("New"), Iconos.NuevoMas())
+                submenu.opcion((kgraba, None), _("New"), Iconos.NuevoMas())
 
             if li_conf:
                 menu.separador()
                 submenu = menu.submenu(_("Remove"), Iconos.Delete())
                 for x in li_conf:
-                    submenu.opcion((BORRA, x), x, Iconos.PuntoRojo())
+                    submenu.opcion((kborra, x), x, Iconos.PuntoRojo())
             resp = menu.lanza()
 
             if resp:
                 op, name = resp
 
-                if op == SELECCIONA:
+                if op == kselecciona:
                     li_filter = dbc[name]
                     self.lee_filtro(li_filter)
-                elif op == BORRA:
+                elif op == kborra:
                     if QTUtil2.pregunta(self, _X(_("Delete %1?"), name)):
                         del dbc[name]
-                elif op == GRABA:
+                elif op == kgraba:
                     if self.lee_filtro_actual():
                         if name is None:
-                            li_gen = [FormLayout.separador]
-                            li_gen.append((_("Name") + ":", ""))
-
-                            resultado = FormLayout.fedit(li_gen, title=_("Filter"), parent=self, icon=Iconos.Libre())
-                            if resultado:
-                                accion, li_gen = resultado
-
-                                name = li_gen[0].strip()
-                                if name:
-                                    dbc[name] = self.li_filter
+                            name = QTUtil2.read_simple(self, _("Filter"), _("Name"), "")
+                            if name:
+                                dbc[name] = self.li_filter
                         else:
                             dbc[name] = self.li_filter
 
@@ -199,7 +216,7 @@ class WFiltrar(QtWidgets.QDialog):
             par0 = self.liC[i][1].valor()
             campo = self.liC[i][2].valor()
             condicion = self.liC[i][3].valor()
-            valor = self.liC[i][4].texto().rstrip()
+            valor = self.liC[i][4].texto()
             par1 = self.liC[i][5].valor()
 
             if campo and condicion:
@@ -236,6 +253,8 @@ class WFiltrar(QtWidgets.QDialog):
             valor = valor.upper()
             if condicion in ("LIKE", "NOT LIKE"):
                 valor = valor.replace("*", "%")
+                if not valor:
+                    continue
                 if "%" not in valor:
                     valor = "%" + valor + "%"
 
@@ -244,12 +263,12 @@ class WFiltrar(QtWidgets.QDialog):
             if par0:
                 where += "("
             if condicion in ("=", "<>") and not valor:
-                where += "(( %s %s ) OR (%s %s ''))" % (
-                    campo,
-                    "IS NULL" if condicion == "=" else "IS NOT NULL",
-                    campo,
-                    condicion,
-                )
+                where += (f"(( {campo} {'IS NULL' if condicion == '=' else 'IS NOT NULL'} ) "
+                          f"{'OR' if condicion == '=' else 'AND'} ({campo} {condicion} ''))")
+            elif condicion == "EMPTY":
+                where += f"({campo} IS NULL OR TRIM({campo}) = '')"
+            elif condicion == "NOT EMPTY":
+                where += f"({campo} IS NOT NULL AND TRIM({campo}) != '')"
             else:
                 valor = valor.upper()
                 if valor.isupper():
@@ -259,6 +278,8 @@ class WFiltrar(QtWidgets.QDialog):
                     where += "CAST(%s as decimal) %s %s" % (campo, condicion, valor)  # fonkap patch
                 else:
                     where += "%s %s '%s'" % (campo, condicion, valor)  # fonkap patch
+            if condicion == "NOT LIKE":
+                where += f" OR {campo} IS NULL"
             if par1:
                 where += ")"
         return where

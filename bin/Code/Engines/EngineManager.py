@@ -408,6 +408,9 @@ class EngineManager:
         if ms_used < mstime:
             mstime = ms_used
 
+        if not self.engine:
+            return mrm, 0
+
         self.engine.set_multipv(1)
         if self.nodes:
             mrm_next = self.engine.bestmove_nodes_game(game, njg + 1, mstime, depth, self.nodes, is_savelines=True)
@@ -567,11 +570,11 @@ class EngineManager:
 
         movetime_seconds *= porc / 100.0
 
-        movetime_seconds = max(random.randint(1, 4), movetime_seconds)
+        # movetime_seconds = max(random.randint(1, 4), movetime_seconds)
 
         average_previous_user = game.average_mstime_user(5)
         if average_previous_user:
-            movetime_seconds = max(min(0.8 * average_previous_user / 1000, 60), movetime_seconds)  # max 1 minute
+            movetime_seconds = min(0.8 * average_previous_user / 1000, 60, movetime_seconds)  # max 1 minute
 
         self.engine.set_humanize(movetime_seconds * factor)
 
@@ -580,7 +583,7 @@ class EngineManager:
             return
         carpeta = Util.opj(Code.configuration.carpeta, "EngineLogs")
         if not os.path.isdir(carpeta):
-            os.mkdir(carpeta)
+            Util.create_folder(carpeta)
         plantlog = "%s_%%05d" % Util.opj(carpeta, self.name)
         pos = 1
         nomlog = plantlog % pos

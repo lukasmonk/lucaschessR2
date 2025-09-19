@@ -1,21 +1,11 @@
 import FasterCode
 
 import Code
+from Code.Analysis import AnalysisIndexesShow
 from Code.Base import Game
-from Code.Base.Constantes import (
-    ALLGAME,
-    OPENING,
-    MIDDLEGAME,
-    ENDGAME,
-    GOOD_MOVE,
-    MISTAKE,
-    VERY_GOOD_MOVE,
-    INTERESTING_MOVE,
-    BLUNDER,
-    INACCURACY,
-)
+from Code.Base.Constantes import (GOOD_MOVE, MISTAKE, VERY_GOOD_MOVE,
+                                  INTERESTING_MOVE, BLUNDER, INACCURACY, )
 from Code.Nags import Nags
-from Code.Openings import OpeningsStd
 
 
 def calc_formula(cual, cp, mrm):  # , limit=200.0):
@@ -57,15 +47,8 @@ def calc_formula(cual, cp, mrm):  # , limit=200.0):
     xshow = +1 if is_white else -1
     xshow = 0.01 * xshow
 
-    li = (
-        ("xpiec", piew if is_white else pieb),
-        ("xpie", piew + pieb),
-        ("xmov", mov),
-        ("xeval", base if is_white else -base),
-        ("xstm", +1 if is_white else -1),
-        ("xplm", plm),
-        ("xshow", xshow),
-    )
+    li = (("xpiec", piew if is_white else pieb), ("xpie", piew + pieb), ("xmov", mov),
+          ("xeval", base if is_white else -base), ("xstm", +1 if is_white else -1), ("xplm", plm), ("xshow", xshow),)
     for k, v in li:
         if k in formula:
             formula = formula.replace(k, "%d.0" % v)
@@ -227,13 +210,8 @@ def get_gamestage(cp, mrm):
         gst = 4
     else:
         gst = 5
-    dic = {
-        1: _("Opening"),
-        2: _("Transition to middlegame"),
-        3: _("Middlegame"),
-        4: _("Transition to endgame"),
-        5: _("Endgame"),
-    }
+    dic = {1: _("Opening"), 2: _("Transition to middlegame"), 3: _("Middlegame"), 4: _("Transition to endgame"),
+           5: _("Endgame"), }
     return dic[gst]
 
 
@@ -253,21 +231,24 @@ def gen_indexes(game, elos, elos_form, alm):
     moves_best = {True: 0, False: 0}
     moves_very_good = {True: 0, False: 0}
     moves_good = {True: 0, False: 0}
+    moves_good_no = {True: 0, False: 0}
     moves_interestings = {True: 0, False: 0}
     moves_inaccuracies = {True: 0, False: 0}
     moves_mistakes = {True: 0, False: 0}
     moves_blunders = {True: 0, False: 0}
     moves_book = {True: 0, False: 0}
+    moves_gray = {True: 0, False: 0}
+    moves_noanalyzed = {True: 0, False: 0}
 
     n = {True: 0, False: 0}
     nmoves_analyzed = {True: 0, False: 0}
     for move in game.li_moves:
+        is_white = move.is_white()
         if move.analysis:
             mrm, pos = move.analysis
             rm = mrm.li_rm[pos]
-            if (
-                    not hasattr(mrm, "dic_depth") or len(mrm.dic_depth) == 0
-            ):  # Generación de gráficos sin un análisis previo con su depth
+            if (not hasattr(mrm, "dic_depth") or len(
+                    mrm.dic_depth) == 0):  # Generación de gráficos sin un análisis previo con su depth
                 if INTERESTING_MOVE in move.li_nags:
                     nag_move, nag_color = INTERESTING_MOVE, INTERESTING_MOVE
                 elif VERY_GOOD_MOVE in move.li_nags:
@@ -281,7 +262,6 @@ def gen_indexes(game, elos, elos_form, alm):
                 nag_move, nag_color = mrm.set_nag_color(rm)
             move.nag_color = nag_move, nag_color
 
-            is_white = move.is_white()
             nmoves_analyzed[is_white] += 1
             pts = mrm.li_rm[pos].centipawns_abs()
             if pts > 100:
@@ -305,15 +285,15 @@ def gen_indexes(game, elos, elos_form, alm):
             n[is_white] += 1
             exchangetendency[is_white] += move.exchangetendency
 
-            fenm2 = move.position.fenm2()
-            if OpeningsStd.ap.is_book_fenm2(fenm2):
-                moves_book[is_white] += 1
             if nag_color in (GOOD_MOVE, INTERESTING_MOVE):
                 moves_best[is_white] += 1
             if nag_move == VERY_GOOD_MOVE:
                 moves_very_good[is_white] += 1
-            elif nag_move == GOOD_MOVE:
-                moves_good[is_white] += 1
+            elif nag_color == GOOD_MOVE:
+                if nag_move == GOOD_MOVE:
+                    moves_good[is_white] += 1
+                else:
+                    moves_good_no[is_white] += 1
             elif nag_move == INTERESTING_MOVE:
                 moves_interestings[is_white] += 1
             elif nag_color == MISTAKE:
@@ -322,6 +302,12 @@ def gen_indexes(game, elos, elos_form, alm):
                 moves_blunders[is_white] += 1
             elif nag_color == INACCURACY:
                 moves_inaccuracies[is_white] += 1
+            else:
+                moves_gray[is_white] += 1
+        else:
+            moves_noanalyzed[is_white] += 1
+        if move.is_book_move():
+            moves_book[is_white] += 1
 
     t = n[True] + n[False]
     for color in (True, False):
@@ -346,63 +332,59 @@ def gen_indexes(game, elos, elos_form, alm):
     average[False] /= 100.0
     average_t = (average[True] + average[False]) / 2.0
 
-    cw = _("White")
-    cb = _("Black")
-    ct = _("Total")
-    cpt = " " + _("pws")
+    cpt = _("pws")
     xac = txt_levels
     prc = "%"
 
+    li_indices = [
+        (_("Average lost scores"), f"{average[True]:.02f}{cpt}", f"{average[False]:0.02f}{cpt}",
+         f"{average_t:0.02f}{cpt}"),
+        (_("Domination"), f"{domination[True]:.02f}%", f"{domination[False]:.02f}%", ""),
+        (_("Complexity"), xac(complexity[True]), xac(complexity[False]), xac(complexity_t)),
+        (_("Efficient mobility"), xac(efficientmobility[True]), xac(efficientmobility[False]),
+         xac(efficientmobility_t)),
+        (_("Narrowness"), xac(narrowness[True]), xac(narrowness[False]), xac(narrowness_t)),
+        (_("Pieces activity"), xac(piecesactivity[True]), xac(piecesactivity[False]), xac(piecesactivity_t)),
+        (_("Exchange tendency"), xac(exchangetendency[True]), xac(exchangetendency[False]), xac(exchangetendency_t)),
+        (_("Accuracy"), f"{alm.porcW:.02f} {prc}", f"{alm.porcB:.02f} {prc}", f"{alm.porcT:.02f} {prc}")
+    ]
+
+    txt_indices_raw = f'{_("Result of analysis")}:'
+    w = _("W ||White")
+    b = _("B ||Black")
+    t = _("Total")
+    for label, cw, cb, ct in li_indices:
+        txt_indices_raw += f"\n {label}: {w}={cw} {b}={cb}"
+        if ct:
+            txt_indices_raw += f" {t}={ct}"
+
+    sh = AnalysisIndexesShow.ShowHtml(nmoves_analyzed)
+    txt_html_elo = sh.elo_html(elos_form)
+    txt_html_moves = sh.moves_html(moves_very_good, moves_good, moves_good_no, moves_interestings,
+                                   moves_gray, moves_inaccuracies, moves_mistakes, moves_blunders)
+    txt_indices = sh.indices_html(li_indices)
+
+    txt_old = old_way(nmoves_analyzed, moves_best, moves_book, moves_very_good, moves_good, moves_interestings,
+                      moves_inaccuracies, moves_mistakes, moves_blunders, moves_good_no, moves_noanalyzed, moves_gray)
+
+    return (txt_indices, txt_html_elo, txt_html_moves, txt_old, txt_indices_raw, elos[True][Game.ALLGAME],
+            elos[False][Game.ALLGAME],
+            elos[None][Game.ALLGAME],)
+
+
+def old_way(nmoves_analyzed, moves_best, moves_book, moves_very_good, moves_good, moves_interestings,
+                      moves_inaccuracies, moves_mistakes, moves_blunders, moves_good_no, moves_noanalyzed, moves_gray):
+    cw = _("White")
+    cb = _("Black")
+    ct = _("Total")
     start = '<tr><td align="center">%s</td>'
     resto = '<td align="center">%s</td><td align="center">%s</td><td align="center">%s</td></tr>'
-    plantilla_d = start + resto % ("%.02f%%", "%.02f%%", "-")
-    plantilla_l = start + resto % ("%.02f%s", "%.02f%s", "%.02f%s")
     plantilla_c = start + resto  # % ("%s", "%s", "%s")
     color = '<b><span style="color:%s">%s</span></b>'
     plantilla_e = start % color + resto % (color, color, color)
 
-    cab = (plantilla_c % (_("Result of analysis"), cw, cb, ct)).replace("<td", "<th")
-    txt = plantilla_l % (_("Average lost scores"), average[True], cpt, average[False], cpt, average_t, cpt)
-    txt += plantilla_d % (_("Domination"), domination[True], domination[False])
-    txt += plantilla_c % (_("Complexity"), xac(complexity[True]), xac(complexity[False]), xac(complexity_t))
-    txt += plantilla_c % (
-        _("Efficient mobility"),
-        xac(efficientmobility[True]),
-        xac(efficientmobility[False]),
-        xac(efficientmobility_t),
-    )
-    txt += plantilla_c % (_("Narrowness"), xac(narrowness[True]), xac(narrowness[False]), xac(narrowness_t))
-    txt += plantilla_c % (
-        _("Pieces activity"),
-        xac(piecesactivity[True]),
-        xac(piecesactivity[False]),
-        xac(piecesactivity_t),
-    )
-    txt += plantilla_c % (
-        _("Exchange tendency"),
-        xac(exchangetendency[True]),
-        xac(exchangetendency[False]),
-        xac(exchangetendency_t),
-    )
-    txt += plantilla_l % (_("Accuracy"), alm.porcW, prc, alm.porcB, prc, alm.porcT, prc)
-
-    txt_html = '<table border="1" cellpadding="5" cellspacing="0" >%s%s</table>' % (cab, txt)
-
-    txt = plantilla_c % (
-        _("Elo performance"),
-        elos_form[True][ALLGAME],
-        elos_form[False][ALLGAME],
-        elos_form[None][ALLGAME],
-    )
-    for std, tit in ((OPENING, _("Opening")), (MIDDLEGAME, _("Middlegame")), (ENDGAME, _("Endgame"))):
-        if elos[None][std]:
-            txt += plantilla_c % (tit, int(elos_form[True][std]), int(elos_form[False][std]), int(elos_form[None][std]))
-
-    cab = (plantilla_c % ("", cw, cb, ct)).replace("<td", "<th")
-    txt_html_elo = '<table border="1" cellpadding="15" cellspacing="0" >%s%s</table>' % (cab, txt)
-
-    def xm(label, var, color):
-        return plantilla_e % (color, label, color, var[True], color, var[False], color, var[True] + var[False])
+    def xm(label, var, xcolor):
+        return plantilla_e % (xcolor, label, xcolor, var[True], xcolor, var[False], xcolor, var[True] + var[False])
 
     tmoves = nmoves_analyzed[True] + nmoves_analyzed[False]
     if tmoves > 0:
@@ -419,52 +401,17 @@ def gen_indexes(game, elos, elos_form, alm):
     else:
         best_moves = ""
     txt = best_moves
-    txt += xm(_("Book"), moves_book, "black")
+    txt += xm(_("Opening"), moves_book, "black")
     txt += xm(_("Brilliant moves"), moves_very_good, Nags.nag_color(VERY_GOOD_MOVE))
-    txt += xm(_("Good moves"), moves_good, Nags.nag_color(GOOD_MOVE))
+    txt += xm(_("Good moves") + " (!)", moves_good, Nags.nag_color(GOOD_MOVE))
+    txt += xm(_("Good moves"), moves_good_no, Nags.nag_color(GOOD_MOVE))
     txt += xm(_("Interesting moves"), moves_interestings, Nags.nag_color(INTERESTING_MOVE))
+    txt += xm(_("Acceptable moves"), moves_gray, "#333333")
     txt += xm(_("Dubious moves"), moves_inaccuracies, Nags.nag_color(INACCURACY))
     txt += xm(_("Mistakes"), moves_mistakes, Nags.nag_color(MISTAKE))
     txt += xm(_("Blunders"), moves_blunders, Nags.nag_color(BLUNDER))
+    txt += xm(_("Not analysed"), moves_noanalyzed, "#aaaaaa")
 
     cab = (plantilla_c % ("", cw, cb, ct)).replace("<td", "<th")
     txt_html_moves = '<table border="1" cellpadding="5" cellspacing="0" >%s%s</table>' % (cab, txt)
-
-    plantilla_d = "%s:\n" + cw + "= %.02f%s " + cb + "= %.02f%s\n"
-    plantilla_l = "%s:\n" + cw + "= %.02f%s " + cb + "= %.02f%s " + ct + "= %.02f%s\n"
-    plantilla_c = "%s:\n" + cw + "= %s " + cb + "= %s " + ct + "= %s\n"
-
-    txt = "%s:\n" % _("Result of analysis")
-    txt += plantilla_l % (_("Average lost scores"), average[True], cpt, average[False], cpt, average_t, cpt)
-    txt += plantilla_d % (_("Domination"), domination[True], "%", domination[False], "%")
-    txt += plantilla_c % (_("Complexity"), xac(complexity[True]), xac(complexity[False]), xac(complexity_t))
-    txt += plantilla_c % (_("Narrowness"), xac(narrowness[True]), xac(narrowness[False]), xac(narrowness_t))
-    txt += plantilla_c % (
-        _("Efficient mobility"),
-        xac(efficientmobility[True]),
-        xac(efficientmobility[False]),
-        xac(efficientmobility_t),
-    )
-    txt += plantilla_c % (
-        _("Pieces activity"),
-        xac(piecesactivity[True]),
-        xac(piecesactivity[False]),
-        xac(piecesactivity_t),
-    )
-    txt += plantilla_c % (
-        _("Exchange tendency"),
-        xac(exchangetendency[True]),
-        xac(exchangetendency[False]),
-        xac(exchangetendency_t),
-    )
-    txt += plantilla_l % (_("Accuracy"), alm.porcW, prc, alm.porcB, prc, alm.porcT, prc)
-
-    return (
-        txt_html,
-        txt_html_elo,
-        txt_html_moves,
-        txt,
-        elos[True][Game.ALLGAME],
-        elos[False][Game.ALLGAME],
-        elos[None][Game.ALLGAME],
-    )
+    return txt_html_moves

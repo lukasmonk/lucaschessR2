@@ -40,7 +40,7 @@ class WAnalisisVariations(QtWidgets.QDialog):
 
         bt_terminar = Controles.PB(self, _("Close"), self.close).ponPlano(False)
         bt_reset = Controles.PB(self, _("Another change"), o_base.reset).ponIcono(Iconos.MoverLibre()).ponPlano(False)
-        li_mas_acciones = (("FEN:%s" % _("Copy to clipboard"), "MoverFEN", Iconos.Clipboard()),)
+        li_mas_acciones = (("FEN: %s" % _("Copy to clipboard"), "MoverFEN", Iconos.Clipboard()),)
         lytb_tutor, self.tb = QTVarios.ly_mini_buttons(self, "", siLibre=True, liMasAcciones=li_mas_acciones)
 
         self.seconds, lb_segundos = QTUtil2.spinbox_lb(self, segundos_pensando, 1, 999, max_width=40,
@@ -89,11 +89,11 @@ class WAnalisisVariations(QtWidgets.QDialog):
     def keyPressEvent(self, event):
         k = event.key()
         if k == QtCore.Qt.Key.Key_Down:  # abajo
-            key = "MoverAtras"
+            key = "move_back"
         elif k == QtCore.Qt.Key.Key_Up:  # arriba
             key = "MoverAdelante"
         elif k == QtCore.Qt.Key.Key_Left:  # izda
-            key = "MoverAtras"
+            key = "move_back"
         elif k == QtCore.Qt.Key.Key_Right:  # dcha
             key = "MoverAdelante"
         elif k == QtCore.Qt.Key.Key_Home:  # start

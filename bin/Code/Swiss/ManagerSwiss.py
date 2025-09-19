@@ -164,7 +164,7 @@ class ManagerSwiss(Manager.Manager):
         self.set_dispatcher(self.player_has_moved)
         self.set_position(self.game.last_position)
         self.show_side_indicator(True)
-        self.remove_hints(siQuitarAtras=True)
+        self.remove_hints(remove_back=True)
         self.put_pieces_bottom(self.is_human_side_white)
 
         self.show_info_extra()
@@ -341,9 +341,12 @@ class ManagerSwiss(Manager.Manager):
                 adj.si_seguimos(self)
 
     def crash_adjourn_init(self):
-        label_menu = "%s: %s vs %s" % (self.swiss.name(), self.game.get_tag("WHITE"), self.game.get_tag("BLACK"))
-        with Adjournments.Adjournments() as adj:
-            self.key_crash = adj.key_crash(self.game_type, label_menu)
+        if self.configuration.x_prevention_crashes:
+            label_menu = "%s: %s vs %s" % (self.swiss.name(), self.game.get_tag("WHITE"), self.game.get_tag("BLACK"))
+            with Adjournments.Adjournments() as adj:
+                self.key_crash = adj.key_crash(self.game_type, label_menu)
+        else:
+            self.key_crash = None
 
     def crash_adjourn(self):
         if self.key_crash is None:

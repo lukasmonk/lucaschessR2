@@ -1,17 +1,18 @@
+import audioop
 import os
+import queue
 import time
 import wave
-import queue
 from io import BytesIO
 
 from PySide2 import QtCore, QtMultimedia
 from PySide2.QtMultimedia import QAudioDeviceInfo, QAudioFormat, QAudioInput, QSound
+
 import Code
 from Code import Util
 from Code.QT import QTUtil
 from Code.SQL import UtilSQL
 from Code.Translations import TrListas
-import audioop
 
 DATABASE = "D"
 PLAY_ESPERA = "P"
@@ -165,6 +166,8 @@ class RunSound:
         add("TABLASFALTAMATERIAL", _("Draw by insufficient material"), "DRAW_MATERIAL")
         add("GANAMOSTIEMPO", _("You win on time"), "WIN_TIME")
         add("GANARIVALTIEMPO", _("Opponent has won on time"), "LOST_TIME")
+        add("OFRECETABLAS", _("Opponent offers draw"), "OFFERS_DRAW")
+        add("OFRECERESIGNAR", _("Opponent offers resignation"), "OFFERS_RESIGN")
 
         for c in "abcdefgh12345678":
             add(c, c, "COORD_" + c)

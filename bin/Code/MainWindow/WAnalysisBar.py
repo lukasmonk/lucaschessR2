@@ -51,6 +51,7 @@ class AnalysisBar(QtWidgets.QWidget):
     @staticmethod
     def with_cache():
         return Code.configuration.x_analyzer_depth_ab or Code.configuration.x_analyzer_mstime_ab > 0
+        # return (Code.configuration.x_analyzer_depth_ab > 0) or (Code.configuration.x_analyzer_mstime_ab > 0)
 
     def set_board_position(self):
         if Code.configuration.x_analyzer_autorotate_ab:
@@ -199,6 +200,7 @@ class AnalysisBar(QtWidgets.QWidget):
 
         (configuration.x_analyzer_autorotate_ab, configuration.x_analyzer_depth_ab,
          configuration.x_analyzer_mstime_ab) = resultado[1]
+        configuration.x_analyzer_mstime_ab *= 1000
         configuration.graba()
 
         self.set_game(self.game)

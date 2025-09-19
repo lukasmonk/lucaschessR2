@@ -331,6 +331,7 @@ class Division:
             "LI_MATCHDAYS": [matchday.save() for matchday in self.li_matchdays],
         }
 
+
     def restore(self, dic):
         self.dic_elo_opponents = dic["DIC_ELO_OPPONENTS"]
         self.dic_tiebreak = dic["DIC_TIEBREAK"]
@@ -857,11 +858,6 @@ class Season:
                 if xid_white == xmatch.xid_white and xid_black == xmatch.xid_black:
                     return xmatch if xmatch.result else None
         return None
-
-    # def new_journey(self, league: League):
-    #     self.current_journey += 1
-    #     self.save()
-    #     return self.current_journey
 
     def put_match_done(self, xmatch, game):
         with UtilSQL.DictRawSQL(self.path, self.table) as dbl:

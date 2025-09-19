@@ -244,6 +244,17 @@ def nag_color(num_nag):
     return xdic_colors.get(num_nag)
 
 
+def nag_less_color(num_nag, opacity):
+    qcolor = QtGui.QColor(nag_color(num_nag))
+
+    # Obtener valores RGB + alpha (por defecto 255 = opaco)
+    r = int(qcolor.red() * opacity) % 255
+    g = int(qcolor.green() * opacity) % 255
+    b = int(qcolor.blue() * opacity) % 255
+
+    return f"rgb({r}, {g}, {b})"
+
+
 def nag_qcolor(num_nag):
     if NAG_0 < num_nag <= NAG_6:
         return QtGui.QColor(nag_color(num_nag))

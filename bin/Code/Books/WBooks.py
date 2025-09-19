@@ -20,7 +20,7 @@ from Code.QT import SelectFiles
 def select_move_books(main_window, li_moves, is_white):
     while True:
         main_window.cursor_out_board()
-        menu = QTVarios.LCMenu12(main_window)
+        menu = QTVarios.LCMenu(main_window)
         f = Controles.FontType(name=Code.font_mono, puntos=10)
         menu.set_font(f)
 

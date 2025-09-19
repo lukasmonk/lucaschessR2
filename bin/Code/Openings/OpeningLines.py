@@ -573,7 +573,7 @@ class Opening:
                 FasterCode.make_move(pv)
         return dicFENm2
 
-    def dicRepeFen(self, si_white):
+    def dict_repeat_fen(self, si_white):
         lilipv = [FasterCode.xpv_pv(xpv).split(" ") for xpv in self.li_xpv]
 
         dic = {}
@@ -879,6 +879,14 @@ class Opening:
         li = [pos for pos, xpv1 in enumerate(self.li_xpv) if xpv1.startswith(xpv)]
         self.remove_list_lines(li, pgn)
 
+    def remove_lipv(self, label, lipv):
+        li_xpv = []
+        for a1h8 in lipv:
+            li_xpv.append(FasterCode.pv_xpv(a1h8))
+        li = [pos for pos, xpv in enumerate(self.li_xpv) if xpv.startswith(tuple(li_xpv))]
+        self.remove_list_lines(li, label)
+        return len(li)
+
     def remove_lastmove(self, is_white, label):
         self.save_history(_("Removing"), label)
         n = len(self.li_xpv)
@@ -946,15 +954,15 @@ class Opening:
             si_pack = ult_pack > 50
             self.setconfig("ULT_PACK", 0 if si_pack else ult_pack + 1)
 
-            if self.db_config_base:
+            if self.db_config_base is not None:
                 self.db_config_base.close()
                 self.db_config_base = None
 
-            if self.db_fenvalues_base:
+            if self.db_fenvalues_base is not None:
                 self.db_fenvalues_base.close()
                 self.db_fenvalues_base = None
 
-            if self.db_cache_engines:
+            if self.db_cache_engines is not None:
                 self.db_cache_engines.close()
                 self.db_cache_engines = None
 
@@ -977,7 +985,7 @@ class Opening:
                 self._conexion.commit()
 
             else:
-                if self.db_history_base:
+                if self.db_history_base is not None:
                     self.db_history_base.close()
                     self.db_history_base = None
 
@@ -1053,7 +1061,9 @@ class Opening:
             self.db_fenvalues.set_normal_mode()
             um.final()
 
-    def import_pgn(self, owner, gamebase, path_pgn, max_depth, with_variations, with_comments):
+    def import_pgn(self, owner, gamebase, path_pgn, max_depth, with_variations, with_comments) -> bool:
+
+        return_value = True
 
         name = os.path.basename(path_pgn)
 
@@ -1070,6 +1080,7 @@ class Opening:
             dl_tmp.pon(nbytes)
 
             if dl_tmp.is_canceled():
+                return_value = False
                 break
 
             li_pv = game.all_pv("", with_variations)
@@ -1123,9 +1134,14 @@ class Opening:
             self.db_fenvalues.set_normal_mode()
             um.final()
 
-    def import_pgn_comments(self, owner, path_pgn):
+        return return_value
 
-        dl_tmp = QTUtil2.BarraProgreso(owner, _("Import"), _("Working..."), Util.filesize(path_pgn)).mostrar()
+    def import_pgn_comments(self, owner, path_pgn) -> bool:
+        return_value = True
+
+        name = os.path.basename(path_pgn)
+        dl_tmp = QTUtil2.BarraProgreso(owner, _("Import") + " - " + name, _("Working..."), Util.filesize(path_pgn),
+                                       width=600).mostrar()
 
         dic_comments = {}
 
@@ -1133,6 +1149,7 @@ class Opening:
             dl_tmp.pon(nbytes)
 
             if dl_tmp.is_canceled():
+                return_value = False
                 break
 
             dic_comments_game = game.all_comments(True)
@@ -1162,6 +1179,8 @@ class Opening:
                 self.setfenvalue(fenm2, dic_comments_game)
             self.db_fenvalues.set_normal_mode()
             um.final()
+
+        return return_value
 
     def import_other_comments(self, path_opk):
         otra = Opening(path_opk)
@@ -1304,7 +1323,7 @@ class Opening:
         self.pack_database()
         otra.close()
 
-    def export_to_pgn(self, ws, result):
+    def export_to_pgn(self, ws, result, with_seventags):
         li_tags = [["Event", self.title.replace('"', "")], ["Site", ""], ["Date", Util.today().strftime("%Y-%m-%d")]]
         if result:
             li_tags.append(["Result", result])
@@ -1332,6 +1351,9 @@ class Opening:
             li_tags[1] = ["Site", "%s %d" % (_("Line"), recno + 1)]
             for tag, value in li_tags:
                 game.set_tag(tag, value)
+
+            if with_seventags:
+                game.add_seventags()
 
             for move in game.li_moves:
                 fenm2 = move.position.fenm2()
@@ -1435,12 +1457,15 @@ class Opening:
         game_main.set_tag("Event", self.title)
         if result:
             game_main.set_tag("Result", result)
+        if ws.seventags:
+            game_main.add_seventags()
 
         if not ws.is_new:
             ws.write("\n\n")
         tags = "".join(['[%s "%s"]\n' % (k, v) for k, v in game_main.li_tags])
         ws.write(tags)
-        ws.write("\n%s" % game_main.pgn_base())
+        ws.write("\n%s\n" % game_main.pgn_base())
+        ws.write("\n\n")
 
         ws.pb_close()
 
@@ -1631,7 +1656,7 @@ class Opening:
                 mid = (left + right) // 2
 
                 if self.li_xpv[mid].startswith(from_xpv):
-                    while mid > 0 and self.li_xpv[mid-1].startswith(from_xpv):
+                    while mid > 0 and self.li_xpv[mid - 1].startswith(from_xpv):
                         mid -= 1
                     return mid
                 elif self.li_xpv[mid] < from_xpv:
@@ -1649,15 +1674,13 @@ class Opening:
 
         for pos, xpv in enumerate(self.li_xpv[pos_begin:]):
             if xpv == obj_xpv:
-                return True, True, pos+pos_begin
+                return True, True, pos + pos_begin
             if xpv.startswith(from_xpv):
                 li_valid.append((pos, xpv))
             else:
                 break
         for pos, xpv in li_valid:
             if xpv.startswith(obj_xpv) or obj_xpv.startswith(xpv):
-                return True, False, pos+pos_begin
+                return True, False, pos + pos_begin
 
         return True, False, pos_begin
-
-

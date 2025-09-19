@@ -27,18 +27,18 @@ class ToolbarMoves(QtWidgets.QWidget):
 
         ancho = 54
 
-        bt_all = Controles.PB(self, _("All"), self.run_all, plano=False).anchoFijo(ancho + 16)
-        bt_e4 = Controles.PB(self, "e4", self.run_e4, plano=False).anchoFijo(ancho)
-        bt_d4 = Controles.PB(self, "d4", self.run_d4, plano=False).anchoFijo(ancho)
-        bt_c4 = Controles.PB(self, "c4", self.run_c4, plano=False).anchoFijo(ancho)
-        bt_nf3 = Controles.PB(self, "Nf3", self.run_nf3, plano=False).anchoFijo(ancho)
-        bt_other = Controles.PB(self, _("Others"), self.run_other, plano=False).anchoFijo(ancho + 16)
+        bt_all = Controles.PB(self, _("All"), self.run_all, plano=False).relative_width(ancho + 16)
+        bt_e4 = Controles.PB(self, "e4", self.run_e4, plano=False).relative_width(ancho)
+        bt_d4 = Controles.PB(self, "d4", self.run_d4, plano=False).relative_width(ancho)
+        bt_c4 = Controles.PB(self, "c4", self.run_c4, plano=False).relative_width(ancho)
+        bt_nf3 = Controles.PB(self, "Nf3", self.run_nf3, plano=False).relative_width(ancho)
+        bt_other = Controles.PB(self, _("Others"), self.run_other, plano=False).relative_width(ancho + 16)
 
-        ply1 = Controles.PB(self, "^1", self.run_p1, plano=False).anchoFijo(ancho)
-        ply2 = Controles.PB(self, "^2", self.run_p2, plano=False).anchoFijo(ancho)
-        ply3 = Controles.PB(self, "^3", self.run_p3, plano=False).anchoFijo(ancho)
-        ply4 = Controles.PB(self, "^4", self.run_p4, plano=False).anchoFijo(ancho)
-        ply5 = Controles.PB(self, "^5", self.run_p5, plano=False).anchoFijo(ancho)
+        ply1 = Controles.PB(self, "^1", self.run_p1, plano=False).relative_width(ancho)
+        ply2 = Controles.PB(self, "^2", self.run_p2, plano=False).relative_width(ancho)
+        ply3 = Controles.PB(self, "^3", self.run_p3, plano=False).relative_width(ancho)
+        ply4 = Controles.PB(self, "^4", self.run_p4, plano=False).relative_width(ancho)
+        ply5 = Controles.PB(self, "^5", self.run_p5, plano=False).relative_width(ancho)
 
         self.sbply = Controles.SB(self, 0, 0, 100)
         self.sbply.capture_changes(self.run_p)
@@ -162,10 +162,10 @@ class WPlayer(QtWidgets.QWidget):
         self.gridMovesBlack = Grid.Grid(self, o_columns, siSelecFilas=True, xid="MovesBlack")
         self.gridMovesBlack.font_type(puntos=self.configuration.x_pgn_fontpoints)
 
-        wWhite = QtWidgets.QWidget(self)
+        w_white = QtWidgets.QWidget(self)
         tbmovesw = ToolbarMoves("white", self.dispatchMoves)
         ly = Colocacion.V().control(tbmovesw).control(self.gridMovesWhite).margen(3)
-        wWhite.setLayout(ly)
+        w_white.setLayout(ly)
 
         wblack = QtWidgets.QWidget(self)
         tbmovesb = ToolbarMoves("black", self.dispatchMoves)
@@ -175,7 +175,7 @@ class WPlayer(QtWidgets.QWidget):
         tabs = Controles.Tab(self)
         tabs.new_tab(self.gridOpeningWhite, _("White openings"))
         tabs.new_tab(self.gridOpeningBlack, _("Black openings"))
-        tabs.new_tab(wWhite, _("White moves"))
+        tabs.new_tab(w_white, _("White moves"))
         tabs.new_tab(wblack, _("Black moves"))
         tabs.dispatchChange(self.tabChanged)
         self.tabs = tabs

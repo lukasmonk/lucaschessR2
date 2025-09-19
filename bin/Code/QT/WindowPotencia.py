@@ -205,7 +205,7 @@ class WEdMove(QtWidgets.QWidget):
             EDCelda(self, "")
             .caracteres(2)
             .controlrx("(|[a-h][1-8])")
-            .anchoFijo(24)
+            .relative_width(24)
             .align_center()
             .capture_changes(self.miraPromocion)
         )
@@ -216,12 +216,12 @@ class WEdMove(QtWidgets.QWidget):
             EDCelda(self, "")
             .caracteres(2)
             .controlrx("(|[a-h][1-8])")
-            .anchoFijo(24)
+            .relative_width(24)
             .align_center()
             .capture_changes(self.miraPromocion)
         )
 
-        self.pbPromocion = Controles.PB(self, "", self.pulsadoPromocion, plano=False).anchoFijo(24)
+        self.pbPromocion = Controles.PB(self, "", self.pulsadoPromocion, plano=False).relative_width(24)
 
         ly = (
             Colocacion.H()
@@ -323,7 +323,7 @@ class WBlqMove(QtWidgets.QWidget):
         self.owner = owner
         self.wm = WEdMove(self, conj_piezas, is_white)
         self.ms = Controles.LB(self, "")
-        self.an = Controles.PB(self, "?", self.analizarUno, plano=False).anchoFijo(18)
+        self.an = Controles.PB(self, "?", self.analizarUno, plano=False).relative_width(18)
         self.cancelar = Controles.LB(self, "").put_image(Iconos.pmCancelarPeque())
         self.aceptar = Controles.LB(self, "").put_image(Iconos.pmAceptarPeque())
         ly = (

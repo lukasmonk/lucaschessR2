@@ -58,7 +58,7 @@ class WOpeningLines(LCDialog.LCDialog):
             None,
             (_("Update"), Iconos.Reiniciar(), self.reiniciar),
             None,
-            (_("Folder"), Iconos.File(), self.changeFolder),
+            (_("Folder"), Iconos.File(), self.change_folder),
             None,
         )
         tb = QTVarios.LCTB(self, li_acciones)
@@ -84,7 +84,7 @@ class WOpeningLines(LCDialog.LCDialog):
 
         lytb = Colocacion.H().control(tb).control(self.wtrain).margen(0)
         wtb = QtWidgets.QWidget()
-        wtb.setFixedHeight(66*Code.factor_big_fonts)
+        wtb.setFixedHeight(66)
         wtb.setLayout(lytb)
 
         ly = Colocacion.V().control(wtb).control(self.glista).margen(4)
@@ -127,7 +127,7 @@ class WOpeningLines(LCDialog.LCDialog):
         if len(self.listaOpenings) == 0:
             self.wtrain.setVisible(False)
 
-    def changeFolder(self):
+    def change_folder(self):
         nof = _("New opening folder")
         base = self.configuration.folder_base_openings
         li = [x for x in os.listdir(base) if os.path.isdir(Util.opj(base, x))]
@@ -138,13 +138,10 @@ class WOpeningLines(LCDialog.LCDialog):
         menu.separador()
         menu.opcion("", _("Home folder"), Iconos.Home())
         menu.separador()
-        if Code.is_windows:
-            submenu = menu.submenu(_("Maintenance"), Iconos.Configurar())
-            submenu.opcion(":n", nof, Iconos.Nuevo())
-            submenu.separador()
-            submenu.opcion(":m", _("Direct maintenance"), Iconos.Carpeta())
-        else:
-            menu.opcion(":n", nof, Iconos.Nuevo())
+        submenu = menu.submenu(_("Maintenance"), Iconos.Configurar())
+        submenu.opcion(":n", nof, Iconos.Nuevo())
+        submenu.separador()
+        submenu.opcion(":m", _("Direct maintenance"), Iconos.Carpeta())
 
         resp = menu.lanza()
         if resp is not None:
@@ -156,8 +153,7 @@ class WOpeningLines(LCDialog.LCDialog):
                 name = ""
                 error = ""
                 while True:
-                    li_gen = [FormLayout.separador]
-                    li_gen.append((nof + ":", name))
+                    li_gen = [FormLayout.separador, (nof + ":", name)]
                     if error:
                         li_gen.append(FormLayout.separador)
                         li_gen.append((None, error))
@@ -170,9 +166,7 @@ class WOpeningLines(LCDialog.LCDialog):
                         name = li_resp[0].strip()
                         if name:
                             path = Util.opj(base, name)
-                            try:
-                                os.mkdir(path)
-                            except:
+                            if not Util.create_folder(path):
                                 error = _("Unable to create the folder")
                                 continue
                             if not os.path.isdir(path):

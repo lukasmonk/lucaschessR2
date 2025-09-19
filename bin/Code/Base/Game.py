@@ -10,7 +10,7 @@ from Code.Base.Constantes import (RESULT_DRAW, RESULT_UNKNOWN, RESULT_WIN_BLACK,
                                   TERMINATION_WIN_ON_TIME, TERMINATION_ENGINE_MALFUNCTION, STANDARD_TAGS, NONE, ALL,
                                   ONLY_BLACK, ONLY_WHITE, MIDDLEGAME, ENDGAME, ALLGAME, WHITE, BLACK, BEEP_DRAW,
                                   BEEP_DRAW_50, BEEP_DRAW_MATERIAL, BEEP_DRAW_REPETITION, BEEP_WIN_OPPONENT,
-                                  BEEP_WIN_OPPONENT_TIME, BEEP_WIN_PLAYER, BEEP_WIN_PLAYER_TIME, LI_BASIC_TAGS)
+                                  BEEP_WIN_OPPONENT_TIME, BEEP_WIN_PLAYER, BEEP_WIN_PLAYER_TIME, LI_BASIC_TAGS, TACTICTHEMES)
 from Code.Nags.Nags import NAG_1, NAG_2, NAG_3, NAG_4, NAG_5, NAG_6
 from Code.Openings import OpeningsStd, Opening
 
@@ -67,10 +67,9 @@ class Game:
     def is_mate(self):
         return self.termination == TERMINATION_MATE
 
-    def set_termination_time(self):
+    def set_termination_time(self, white_has_lost):
         self.termination = TERMINATION_WIN_ON_TIME
-        # Pierde el que le toca jugar, que se indica en position resultado del ultimo movimiento
-        self.result = RESULT_WIN_BLACK if self.last_position.is_white else RESULT_WIN_WHITE
+        self.result = RESULT_WIN_BLACK if white_has_lost else RESULT_WIN_WHITE
         self.set_extend_tags()
 
     def set_termination(self, termination, result):
@@ -171,6 +170,9 @@ class Game:
                 return v
         return ""
 
+    def has_tag(self, tag):
+        return len(self.get_tag(tag)) > 0
+
     def dic_tags(self):
         return {k: v for k, v in self.li_tags}
 
@@ -189,6 +191,9 @@ class Game:
         self.li_tags.extend(li_resto)
 
     def set_tag(self, key, value):
+        if not value:
+            self.del_tag(key)
+            return
         found = False
         key_upper = key.upper()
         for n, (xkey, xvalue) in enumerate(self.li_tags):
@@ -256,6 +261,14 @@ class Game:
         ok, game_tmp = pgn_game(pgn)
         self.restore(game_tmp.save())
         return self
+
+    def add_seventags(self):
+        for upper_tag in LI_BASIC_TAGS[:7]:
+            if not self.has_tag(upper_tag):
+                tag = upper_tag[0] + upper_tag[1:].lower()
+                value = "????.??.??" if upper_tag == "DATE" else "?"
+                self.set_tag(tag, value)
+        self.order_tags()
 
     def pgn(self):
         self.check_tags()
@@ -772,7 +785,7 @@ class Game:
                         if material < 15:
                             std = ENDGAME
                         else:
-                            pz_w, pz_b = move.position_before.numPiezasWB()
+                            pz_w, pz_b = move.position_before.num_piezas_wb()
                             if pz_w < 3 and pz_b < 3:
                                 std = ENDGAME
                 move.stateOME = std
@@ -1096,6 +1109,27 @@ class Game:
     def remove_bad_variations(self):
         for move in self.li_moves:
             move.remove_bad_variations()
+
+    def refresh_tacticthemes(self, create: bool) -> None:
+        if not create:
+            if self.get_tag(TACTICTHEMES):
+                create = True
+
+        if create:
+            li = []
+            for move in self.li_moves:
+                if move.li_themes:
+                    for theme in move.li_themes:
+                        if theme not in li:
+                            li.append(theme)
+            tag = ",".join(li)
+            self.set_tag(TACTICTHEMES, tag)
+
+    def has_themes(self):
+        for move in self.li_moves:
+            if move.li_themes:
+                return True
+        return False
 
 
 def pv_san(fen, pv):

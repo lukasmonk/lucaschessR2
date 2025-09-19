@@ -59,9 +59,11 @@ class WLeagueConfig(LCDialog.LCDialog):
 
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("ROW", "", 15, align_center=True)
-        o_columns.nueva("DIVISION", _("Division"), 60, align_center=True, edicion=Delegados.LineaTexto(is_integer=True))
+        o_columns.nueva("DIVISION", _("Division"), 60, align_center=True,
+                        edicion=Delegados.LineaTexto(is_integer=True))
         o_columns.nueva("NAME", _("Name"), 280, edicion=Delegados.LineaTextoUTF8())
-        o_columns.nueva("ELO", _("Elo"), 50, align_right=True, edicion=Delegados.LineaTexto(is_integer=True))
+        o_columns.nueva("ELO", _("Elo"), 50, align_right=True,
+                        edicion=Delegados.LineaTexto(is_integer=True))
         self.grid = Grid.Grid(self, o_columns, siSelecFilas=True, is_editable=True)
         self.register_grid(self.grid)
         self.grid.setMinimumWidth(self.grid.anchoColumnas() + 20)
@@ -92,22 +94,23 @@ class WLeagueConfig(LCDialog.LCDialog):
         ly_bt1.relleno()
         # Config
         lb_resign = Controles.LB(self, "%s (%s): " % (_("Minimum centipawns to assign winner"), "0=%s" % _("Disable")))
-        self.ed_resign = Controles.ED(self).tipoInt(league.resign).anchoFijo(30)
+        self.ed_resign = Controles.ED(self).tipoInt(league.resign).relative_width(40)
         bt_resign = Controles.PB(self, "", rutina=self.borra_resign).ponIcono(Iconos.Reciclar())
 
         # Draw-plys
         lb_draw_min_ply = Controles.LB(self,
                                        "%s (%s): " % (_("Minimum movements to assign draw"), "0=%s" % _("Disable")))
-        self.ed_draw_min_ply = Controles.ED(self).ponInt(league.draw_min_ply).anchoFijo(30).align_right()
+        self.ed_draw_min_ply = Controles.ED(self).ponInt(league.draw_min_ply).relative_width(
+            30).align_right()
         # Draw-puntos
         lb_draw_range = Controles.LB(self, _("Maximum centipawns to assign draw") + ": ")
-        self.ed_draw_range = Controles.ED(self).tipoInt(league.draw_range).anchoFijo(30)
+        self.ed_draw_range = Controles.ED(self).tipoInt(league.draw_range).relative_width(30)
         bt_draw_range = Controles.PB(self, "", rutina=self.borra_draw_range).ponIcono(Iconos.Reciclar())
 
         # adjudicator
         self.list_engines = Code.configuration.combo_engines_multipv10()
         self.cbJmotor, self.lbJmotor = QTUtil2.combobox_lb(self, self.list_engines, league.adjudicator, _("Engine"))
-        self.edJtiempo = Controles.ED(self).tipoFloat(league.adjudicator_time).anchoFijo(50)
+        self.edJtiempo = Controles.ED(self).tipoFloat(league.adjudicator_time).relative_width(50)
         self.lbJtiempo = Controles.LB2P(self, _("Time in seconds"))
         ly = Colocacion.G()
         ly.controld(self.lbJmotor, 3, 0).control(self.cbJmotor, 3, 1)
@@ -120,7 +123,7 @@ class WLeagueConfig(LCDialog.LCDialog):
         # Times
         minutes, seconds = self.league.time_engine_engine
         lb_minutes = Controles.LB2P(self, _("Total minutes"))
-        self.ed_minutes_eng_eng = Controles.ED(self).tipoFloat(minutes).anchoFijo(35)
+        self.ed_minutes_eng_eng = Controles.ED(self).tipoFloat(minutes).relative_width(35)
         self.sb_seconds_eng_eng, lb_seconds = QTUtil2.spinbox_lb(
             self, seconds, -999, 999, max_width=40, etiqueta=_("Seconds added per move")
         )
@@ -131,16 +134,16 @@ class WLeagueConfig(LCDialog.LCDialog):
 
         minutes, seconds = self.league.time_engine_human
         lb_minutes = Controles.LB2P(self, _("Total minutes"))
-        self.ed_minutes_eng_human = Controles.ED(self).tipoFloat(minutes).anchoFijo(65)
+        self.ed_minutes_eng_human = Controles.ED(self).tipoFloat(minutes).relative_width(65)
         self.sb_seconds_eng_human, lb_seconds = QTUtil2.spinbox_lb(
-            self, seconds, -999, 999, max_width=35, etiqueta=_("Seconds added per move")
+            self, seconds, -999, 999, max_width=40, etiqueta=_("Seconds added per move")
         )
         ly = Colocacion.H().control(lb_minutes).control(self.ed_minutes_eng_human)
         ly.control(lb_seconds).control(self.sb_seconds_eng_human)
 
         minutes = self.league.time_added_human
         lb_added_human = Controles.LB2P(self, _("Extra minutes for the player"))
-        self.ed_added_human = Controles.ED(self).tipoFloat(minutes).anchoFijo(65)
+        self.ed_added_human = Controles.ED(self).tipoFloat(minutes).relative_width(65)
         ly1 = Colocacion.H().control(lb_added_human).control(self.ed_added_human).relleno()
         ly2 = Colocacion.V().otro(ly).otro(ly1)
 
@@ -162,7 +165,7 @@ class WLeagueConfig(LCDialog.LCDialog):
         self.btNuevoBookR = Controles.PB(self, "", self.new_book).ponIcono(Iconos.Mas())
         self.cbBooksRR = QTUtil2.combobox_lb(self, li_resp_book, self.league.book_rr)
         self.lbDepthBookR = Controles.LB2P(self, _("Max depth"))
-        self.edDepthBookR = Controles.ED(self).tipoInt(self.league.book_depth).anchoFijo(30)
+        self.edDepthBookR = Controles.ED(self).tipoInt(self.league.book_depth).relative_width(30)
 
         hbox = Colocacion.H().control(self.cbBooksR).control(self.btNuevoBookR).control(self.cbBooksRR)
         hbox1 = Colocacion.H().control(self.lbDepthBookR).control(self.edDepthBookR).relleno()
@@ -170,16 +173,20 @@ class WLeagueConfig(LCDialog.LCDialog):
         gb_book = Controles.GB(self, _("Engines") + " - " + _("Book"), vbox)
 
         self.sb_migration, lb_migration = QTUtil2.spinbox_lb(
-            self, self.league.migration, 0, 100, max_width=35, etiqueta=_("Opponents who change divisions every season")
+            self, self.league.migration, 0, 100, max_width=35,
+            etiqueta=_("Opponents who change divisions every season")
         )
         self.sb_migration.capture_changes(self.set_num_elements)
 
         lb_score_win = Controles.LB(self, _("Win") + ":")
         lb_score_draw = Controles.LB(self, _("Draw") + ":")
         lb_score_lost = Controles.LB(self, _("Loss") + ":")
-        self.ed_score_win = Controles.ED(self).ponFloat(self.league.score_win).anchoFijo(40).align_right()
-        self.ed_score_draw = Controles.ED(self).ponFloat(self.league.score_draw).anchoFijo(40).align_right()
-        self.ed_score_lost = Controles.ED(self).ponFloat(self.league.score_lost).anchoFijo(40).align_right()
+        self.ed_score_win = Controles.ED(self).ponFloat(self.league.score_win).relative_width(
+            40).align_right()
+        self.ed_score_draw = Controles.ED(self).ponFloat(self.league.score_draw).relative_width(
+            40).align_right()
+        self.ed_score_lost = Controles.ED(self).ponFloat(self.league.score_lost).relative_width(
+            40).align_right()
         ly_score = Colocacion.H().relleno()
         ly_score.control(lb_score_win).control(self.ed_score_win)
         ly_score.control(lb_score_draw).control(self.ed_score_draw)

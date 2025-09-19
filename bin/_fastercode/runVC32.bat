@@ -10,8 +10,8 @@ del *.obj
 
 cd ..
 
-set PATH=f:\WPy32-3771\python-3.7.7;f:\WPy32-3771\python-3.7.7\scripts;%PATH%
-set PYTHON3="f:\WPy32-3771\python-3.7.7\python.exe"
+set PATH=h:\WPy32-3771\python-3.7.7;h:\WPy32-3771\python-3.7.7\scripts;%PATH%
+set PYTHON3="h:\WPy32-3771\python-3.7.7\python.exe"
 
 
 copy /B Faster_Irina.pyx+Faster_Polyglot.pyx FasterCode.pyx

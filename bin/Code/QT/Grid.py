@@ -33,7 +33,7 @@ class ControlGrid(QtCore.QAbstractTableModel):
         QtCore.QAbstractTableModel.__init__(self, w_parent)
         self.grid = grid
         self.w_parent = w_parent
-        self.siOrden = False
+        self.is_ordered = False
         self.hh = grid.horizontalHeader()
         self.siColorTexto = hasattr(self.w_parent, "grid_color_texto")
         self.siColorFondo = hasattr(self.w_parent, "grid_color_fondo")
@@ -69,7 +69,7 @@ class ControlGrid(QtCore.QAbstractTableModel):
             self.num_rows = nue_ndatos
 
         ant_ncols = self.num_cols
-        nue_ncols = self.oColumnasR.numColumnas()
+        nue_ncols = self.oColumnasR.num_columns()
         if ant_ncols != nue_ncols:
             if ant_ncols < nue_ncols:
                 self.insertColumns(0, nue_ncols - ant_ncols)
@@ -82,7 +82,7 @@ class ControlGrid(QtCore.QAbstractTableModel):
         """
         Llamada interna, solicitando el number de columnas.
         """
-        self.num_cols = self.oColumnasR.numColumnas()
+        self.num_cols = self.oColumnasR.num_columns()
         return self.num_cols
 
     def data(self, index, role):
@@ -98,20 +98,20 @@ class ControlGrid(QtCore.QAbstractTableModel):
             if self.siAlineacion:
                 resp = self.w_parent.grid_alineacion(self.grid, index.row(), column)
                 if resp:
-                    return column.QTalineacion(resp)
-            return column.qtAlineacion
+                    return column.set_qt_alignment(resp)
+            return column.qt_alignment
         elif role == QtCore.Qt.BackgroundRole:
             if self.siColorFondo:
                 resp = self.w_parent.grid_color_fondo(self.grid, index.row(), column)
                 if resp:
                     return resp
-            return column.qtColorFondo
+            return column.qt_color_background
         elif role == QtCore.Qt.TextColorRole:
             if self.siColorTexto:
                 resp = self.w_parent.grid_color_texto(self.grid, index.row(), column)
                 if resp:
                     return resp
-            return column.qtColorTexto
+            return column.qt_color_foreground
         elif self.bold and role == QtCore.Qt.FontRole:
             if self.w_parent.grid_bold(self.grid, index.row(), column):
                 return self.bfont
@@ -305,7 +305,7 @@ class Grid(QtWidgets.QTableView):
         self.o_columns = o_columns
         if dicVideo:
             self.restore_video(dicVideo)
-        self.oColumnasR = self.o_columns.columnasMostrables(self)  # Necesario tras recuperar video
+        self.oColumnasR = self.o_columns.displayable_columns(self)  # Necesario tras recuperar video
 
         self.cg = ControlGrid(self, w_parent, self.oColumnasR)
 
@@ -323,7 +323,7 @@ class Grid(QtWidgets.QTableView):
         if altoCabecera:
             hh = HeaderFixedHeight(self, siCabeceraMovible, altoCabecera)
         elif cab_vertical_font:
-            hh = HeaderFontVertical(self)  # , height=cab_vertical_font)
+            hh = HeaderFontVertical(self)  # , height=cab_vertical_font
         else:
             hh = Header(self, siCabeceraMovible)
         self.setHorizontalHeader(hh)
@@ -357,7 +357,7 @@ class Grid(QtWidgets.QTableView):
         self.cabecera.set_tooltip(message)
 
     def buscaCabecera(self, key):
-        return self.o_columns.buscaColumna(key)
+        return self.o_columns.locate_column(key)
 
     def selectAll(self):
         if self.w_parent.grid_num_datos(self) > 20000:
@@ -382,7 +382,7 @@ class Grid(QtWidgets.QTableView):
         """
         Cuando se cambia la configuration de las columnas, se vuelven a releer y se indican al control de datos.
         """
-        self.oColumnasR = self.o_columns.columnasMostrables(self)
+        self.oColumnasR = self.o_columns.displayable_columns(self)
         self.cg.oColumnasR = self.oColumnasR
         self.cg.refresh()
         self.set_widthsColumnas()
@@ -511,21 +511,34 @@ class Grid(QtWidgets.QTableView):
 
         @param dic: diccionario de video donde se guarda la configuration de las columnas
         """
-        li_claves = []
+        st_claves = set()
         for n, column in enumerate(self.oColumnasR.li_columns):
             column.ancho = self.columnWidth(n)
-            column.position = n  # self.columnViewportPosition(n)
-            column.guardarConf(dic, self)
-            li_claves.append(column.key)
+            column.position = self.columnViewportPosition(n)
+            column.save_configuration(dic, self)
+            st_claves.add(column.key)
 
         # Las que no se muestran
         for column in self.o_columns.li_columns:
-            if column.key not in li_claves:
-                column.guardarConf(dic, self)
+            if column.key not in st_claves:
+                column.save_configuration(dic, self)
+
+    def list_columns(self, only_visible):
+        li = []
+        if only_visible:
+            for n, column in enumerate(self.oColumnasR.li_columns):
+                column.ancho = self.columnWidth(n)
+                column.position = self.columnViewportPosition(n)
+                li.append(column)
+            li.sort(key=lambda col: col.position)
+        else:
+            for column in self.o_columns.li_columns:
+                li.append(column)
+        return li
 
     def restore_video(self, dic):
         for column in self.o_columns.li_columns:
-            column.recuperarConf(dic, self)
+            column.restore_configuration(dic, self)
 
         if self.siCabeceraMovible:
             self.o_columns.li_columns.sort(key=lambda xcol: xcol.position)
@@ -533,7 +546,7 @@ class Grid(QtWidgets.QTableView):
     def columnas(self):
         for n, column in enumerate(self.oColumnasR.li_columns):
             column.ancho = self.columnWidth(n)
-            column.position = n  # self.columnViewportPosition(n)
+            column.position = self.columnViewportPosition(n)
         if self.siCabeceraMovible:
             self.o_columns.li_columns.sort(key=lambda xcol: xcol.position)
         return self.o_columns
@@ -545,9 +558,9 @@ class Grid(QtWidgets.QTableView):
         return sum(self.columnWidth(n) for n in range(len(self.oColumnasR.li_columns)))
 
     def fixMinWidth(self):
-        nAncho = self.anchoColumnas() + 24
-        self.setMinimumWidth(nAncho)
-        return nAncho
+        n_ancho = self.anchoColumnas() + 24
+        self.setMinimumWidth(n_ancho)
+        return n_ancho
 
     def recno(self):
         """

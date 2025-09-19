@@ -34,7 +34,7 @@ from Code.Kibitzers import WKibLinea
 from Code.Kibitzers import WKibStEval
 from Code.MainWindow import InitApp
 from Code.Openings import OpeningsStd
-from Code.QT import QTUtil
+from Code.QT import QTUtil, GarbageCollector
 from Code.SQL import UtilSQL
 
 
@@ -199,7 +199,8 @@ class CPU:
 
         self.ventana.show()
 
-        Code.gc = QTUtil.GarbageCollector()
+        Code.garbage_collector = GarbageCollector.GarbageCollector()
+        Code.garbage_collector.start()
 
         return app.exec_()
 

@@ -8,7 +8,7 @@ from Code.Analysis import Analysis
 from Code.Base import Game, Position
 from Code.Nags import WNags, Nags
 from Code.QT import Colocacion, Controles, Iconos, QTVarios, ShowPGN, QTUtil2, FormLayout
-from Code.Themes import WThemes, Themes
+from Code.Themes import WThemes
 
 
 class Information(QtWidgets.QWidget):
@@ -31,7 +31,7 @@ class Information(QtWidgets.QWidget):
         font7 = Controles.FontType(puntos=8)
         font_bold = Controles.FontType(puntos=puntos, peso=75)
 
-        self.themes = Themes.Themes()
+        self.themes = Code.get_themes()
         self.nags = Nags.Nags()
 
         # Opening
@@ -118,9 +118,10 @@ class Information(QtWidgets.QWidget):
     def edit_theme(self, event=None):
         if event:
             event.ignore()
-        w = WThemes.WThemes(self, self.themes, self.move)
-        if w.exec_():
-            self.show_themes()
+        if self.move:
+            w = WThemes.WThemes(self, self.move)
+            if w.exec_():
+                self.show_themes()
 
     def show_themes(self):
         if self.move:
@@ -187,9 +188,10 @@ class Information(QtWidgets.QWidget):
     def edit_rating(self, event=None):
         if event:
             event.ignore()
-        w = WNags.WNags(self, self.nags, self.move)
-        if w.exec_():
-            self.show_rating()
+        if self.move:
+            w = WNags.WNags(self, self.nags, self.move)
+            if w.exec_():
+                self.show_rating()
 
     def show_rating(self):
         if self.move:
@@ -350,6 +352,7 @@ class WVariations(QtWidgets.QWidget):
         board = self.get_board()
         board.set_position(var_move.position, variation_history=selected_link)
         board.put_arrow_sc(var_move.from_sq, var_move.to_sq)
+        self.get_manager().check_captures()
         if Code.configuration.x_show_rating:
             self.get_manager().show_rating(var_move)
         if var_move.analysis and Code.configuration.x_show_bestmove:
@@ -594,7 +597,8 @@ class WVariations(QtWidgets.QWidget):
         if exmove is None:
             return
         if exmove == "num_moves":
-            resp = QTUtil2.read_simple(self, title_moves_extra, f'{_("Movements")} (0={_("All")})', str(num_moves_extra))
+            resp = QTUtil2.read_simple(self, title_moves_extra, f'{_("Movements")} (0={_("All")})',
+                                       str(num_moves_extra))
             if resp and resp.isdigit():
                 num_moves_extra = int(resp)
                 if num_moves_extra >= 0:

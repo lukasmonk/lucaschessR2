@@ -172,7 +172,7 @@ class ManagerSolo(Manager.Manager):
         self.board.setAcceptDropPGNs(None)
 
         # Comprobamos que no haya habido cambios from_sq el ultimo grabado
-        if self.is_changed() and len(self.game):
+        if self.is_changed() and (len(self.game) > 0 or not self.game.is_fen_initial()):
             resp = QTUtil2.question_withcancel(
                 self.main_window, _("Do you want to save changes to a file?"), _("Yes"), _("No")
             )
@@ -422,6 +422,9 @@ class ManagerSolo(Manager.Manager):
         dic["HISTORICO"] = Util.unique_list(lista[:20])
         self.configuration.write_variables("FICH_MANAGERSOLO", dic)
 
+    def set_as_changed(self):
+        self.valor_inicial = Util.var2txt({"GAME": ""})
+
     def informacion(self):
         fen_antes = self.game.get_tag("FEN")
 
@@ -444,6 +447,7 @@ class ManagerSolo(Manager.Manager):
                 self.game.set_position(first_position=cp)
                 self.opening_block = None
                 self.reiniciar()
+                self.set_as_changed()
 
         self.pon_rotulo()
 
@@ -455,6 +459,7 @@ class ManagerSolo(Manager.Manager):
             dic["GAME"] = game.save()
             dic["WHITEBOTTOM"] = self.board.is_white_bottom
             self.reiniciar(dic)
+            self.set_as_changed()
 
     def utilities_gs(self):
         mt = _("Engine").lower()
@@ -506,6 +511,7 @@ class ManagerSolo(Manager.Manager):
                 self.xpgn = None
                 self.xjugadaInicial = None
                 self.reiniciar()
+                self.set_as_changed()
 
         elif resp == "position":
             self.start_position()
@@ -539,6 +545,7 @@ class ManagerSolo(Manager.Manager):
                 dic["GAME"] = ptxt
                 dic["WHITEBOTTOM"] = self.board.is_white_bottom
                 self.reiniciar(dic)
+                self.set_as_changed()
 
     def paste_position(self):
         texto = QTUtil.get_txt_clipboard()
@@ -556,6 +563,7 @@ class ManagerSolo(Manager.Manager):
                     self.game.set_position(first_position=cp)
                     self.opening_block = None
                     self.reiniciar()
+                    self.set_as_changed()
                     ok = True
             except:
                 pass
@@ -581,6 +589,7 @@ class ManagerSolo(Manager.Manager):
             dic["GAME"] = game.save()
             dic["WHITEBOTTOM"] = game.first_position.is_white
             self.reiniciar(dic)
+            self.set_as_changed()
 
     def basic_initial_position(self):
         if len(self.game) > 0:
@@ -592,6 +601,7 @@ class ManagerSolo(Manager.Manager):
         self.new_game()
         self.opening_block = None
         self.reiniciar()
+        self.set_as_changed()
 
     def control_teclado(self, nkey, modifiers):
         if modifiers and (modifiers & QtCore.Qt.ControlModifier) > 0:
@@ -641,6 +651,7 @@ class ManagerSolo(Manager.Manager):
         self.xjugadaInicial = None
         self.opening_block = None
         self.reiniciar()
+        self.set_as_changed()
 
     def setup_board_live(self, is_white, position):
         self.set_current_position(is_white, position)
@@ -718,7 +729,7 @@ class ManagerSolo(Manager.Manager):
         return self.game.pgn()
 
     def help_to_move(self):
-        if not self.is_finished():
+        if self.is_in_last_move():
             mrm = self.analize_after_last_move()
             if not mrm or len(mrm.li_rm) == 0:
                 return

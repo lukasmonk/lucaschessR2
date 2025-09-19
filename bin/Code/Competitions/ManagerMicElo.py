@@ -93,18 +93,18 @@ class ManagerMicElo(Manager.Manager):
 
         li = []
         self.list_engines = lista()
-        numX = len(self.list_engines)
+        num_x = len(self.list_engines)
         for num, mt in enumerate(self.list_engines):
-            mtElo = mt.elo
-            mt.siJugable = abs(mtElo - elo) < 400
+            mt_elo = mt.elo
+            mt.siJugable = abs(mt_elo - elo) < 400
             mt.siOut = not mt.siJugable
             mt.baseElo = elo  # servira para rehacer la lista y elegir en aplazamiento
-            if mt.siJugable or (mtElo > elo):
+            if mt.siJugable or (mt_elo > elo):
                 def rot(res):
-                    return self.calc_dif_elo(elo, mtElo, res)
+                    return self.calc_dif_elo(elo, mt_elo, res)
 
                 def rrot(res):
-                    return self.calc_dif_elo(mtElo, elo, res)
+                    return self.calc_dif_elo(mt_elo, elo, res)
 
                 mt.pgana = rot(RS_WIN_PLAYER)
                 mt.ptablas = rot(RS_DRAW)
@@ -114,7 +114,7 @@ class ManagerMicElo(Manager.Manager):
                 mt.rtablas = rrot(RS_DRAW)
                 mt.rpierde = rrot(RS_WIN_OPPONENT)
 
-                mt.number = numX - num
+                mt.number = num_x - num
 
                 li.append(mt)
 
@@ -197,7 +197,7 @@ class ManagerMicElo(Manager.Manager):
         self.set_dispatcher(self.player_has_moved)
         self.set_position(self.game.last_position)
         self.put_pieces_bottom(is_white)
-        self.remove_hints(True, siQuitarAtras=True)
+        self.remove_hints(True, remove_back=True)
         self.show_side_indicator(True)
 
         nbsp = "&nbsp;" * 3
@@ -240,7 +240,6 @@ class ManagerMicElo(Manager.Manager):
             if self.seconds_per_move:
                 time_control += "+%d" % self.seconds_per_move
             self.game.set_tag("TimeControl", time_control)
-
             self.tc_player.config_clock(self.max_seconds, self.seconds_per_move, 0, 0)
             self.tc_rival.config_clock(self.max_seconds, self.seconds_per_move, 0, 0)
 
@@ -259,11 +258,11 @@ class ManagerMicElo(Manager.Manager):
 
     def pon_toolbar(self):
         if self.pte_tool_resigndraw:
-            liTool = (TB_CANCEL, TB_ADJOURN, TB_TAKEBACK, TB_CONFIG, TB_UTILITIES)
+            li_tool = (TB_CANCEL, TB_ADJOURN, TB_TAKEBACK, TB_CONFIG, TB_UTILITIES)
         else:
-            liTool = (TB_RESIGN, TB_DRAW, TB_ADJOURN, TB_CONFIG, TB_UTILITIES)
+            li_tool = (TB_RESIGN, TB_DRAW, TB_ADJOURN, TB_CONFIG, TB_UTILITIES)
 
-        self.set_toolbar(liTool)
+        self.set_toolbar(li_tool)
 
     def run_action(self, key):
 
@@ -382,17 +381,18 @@ class ManagerMicElo(Manager.Manager):
             self.show_result()
             return
 
-        siRival = is_white == self.is_engine_side_white
+        is_rival_play = is_white == self.is_engine_side_white
         self.set_side_indicator(is_white)
 
         self.refresh()
 
-        if siRival:
+        if is_rival_play:
             self.tc_rival.start()
             self.thinking(True)
             self.disable_all()
 
             si_encontrada = False
+            rm_rival = None
 
             if self.book:
                 if self.game.last_position.num_moves >= self.maxMoveBook:
@@ -419,7 +419,7 @@ class ManagerMicElo(Manager.Manager):
                 rm_rival = self.xrival.play_time(self.game, time_white, time_black, self.seconds_per_move)
                 if rm_rival is None:
                     self.thinking(False)
-                    return False
+                    return
 
             self.thinking(False)
             if self.rival_has_moved(rm_rival):
@@ -538,12 +538,12 @@ class ManagerMicElo(Manager.Manager):
         self.set_end_game()
 
     def historial(self, elo, nelo):
-        dic = {}
-        dic["FECHA"] = datetime.datetime.now()
-        dic["RIVAL"] = self.engine_rival.name
-        dic["RESULTADO"] = self.resultado
-        dic["AELO"] = elo
-        dic["NELO"] = nelo
+        dic = {"FECHA": datetime.datetime.now(),
+               "RIVAL": self.engine_rival.name,
+               "RESULTADO": self.resultado,
+               "AELO": elo,
+               "NELO": nelo
+               }
 
         lik = UtilSQL.ListSQL(self.configuration.fichEstadMicElo)
         lik.append(dic)
@@ -564,14 +564,14 @@ class ManagerMicElo(Manager.Manager):
 
     def set_clock(self):
         if self.state != ST_PLAYING:
-            return
+            return False
 
-        def mira(is_white):
-            tc = self.tc_white if is_white else self.tc_black
+        def mira(xis_white):
+            tc = self.tc_white if xis_white else self.tc_black
             tc.set_labels()
 
             if tc.time_is_consumed():
-                self.game.set_termination_time()
+                self.game.set_termination_time(xis_white)
                 self.show_result()
                 return False
 

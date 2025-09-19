@@ -118,6 +118,10 @@ class WLines(LCDialog.LCDialog):
         alt_a.setKey(QtGui.QKeySequence("Alt+a"))
         alt_a.activated.connect(self.ta_massive)
 
+    def active_tb(self, ok):
+        self.tb.setEnabled(ok)
+
+
     def keyPressEvent(self, event):
         k = event.key()
         if 49 <= k <= 57:
@@ -158,7 +162,7 @@ class WLines(LCDialog.LCDialog):
             if w.exec_():
                 ws = WindowSavePGN.FileSavePGN(self, w.dic_result)
                 if ws.open():
-                    self.dbop.export_to_pgn(ws, resp)
+                    self.dbop.export_to_pgn(ws, resp, ws.seventags)
                     ws.close()
                     ws.um_final()
 
@@ -777,11 +781,11 @@ class WLines(LCDialog.LCDialog):
 
         form.apart(_("Select the number of half-moves <br> for each game to be considered"))
 
-        form.spinbox(_("Depth"), 3, 999, 50, dic_vars.get("IPGN_DEPTH", 30))
+        form.spinbox(_("Depth"), 3, 999, 50, dic_vars.get("IPGN_DEPTH", 999))
         form.separador()
 
         li_variations = ((_("All"), ALL), (_("None"), NONE), (_("White"), ONLY_WHITE), (_("Black"), ONLY_BLACK))
-        form.combobox(_("Include variations"), li_variations, dic_vars.get("IPGN_VARIATIONSMODE", "A"))
+        form.combobox(_("Include variations"), li_variations, dic_vars.get("IPGN_VARIATIONSMODE", ALL))
         form.separador()
 
         form.checkbox(_("Include comments"), dic_vars.get("IPGN_COMMENTS", True))
@@ -830,7 +834,8 @@ class WLines(LCDialog.LCDialog):
 
         if depth is not None:
             for path_pgn in li_path_pgn:
-                self.dbop.import_pgn(self, game, path_pgn, depth, variations, comments)
+                if not self.dbop.import_pgn(self, game, path_pgn, depth, variations, comments):
+                    break
             self.glines.refresh()
             self.glines.gotop()
 
@@ -863,13 +868,16 @@ class WLines(LCDialog.LCDialog):
         dic_var = self.read_config_vars()
         carpeta = dic_var.get("CARPETAPGN", self.configuration.carpeta)
 
-        fichero_pgn = SelectFiles.leeFichero(self, carpeta, "pgn", titulo=_("File to import"))
-        if not fichero_pgn:
+        li_path_pgn = SelectFiles.leeFicheros(self, carpeta, "pgn", titulo=_("File to import"))
+        if not li_path_pgn:
             return
+        fichero_pgn = li_path_pgn[0]
         dic_var["CARPETAPGN"] = os.path.dirname(fichero_pgn)
         self.write_config_vars(dic_var)
 
-        self.dbop.import_pgn_comments(self, fichero_pgn)
+        for fichero_pgn in li_path_pgn:
+            if not self.dbop.import_pgn_comments(self, fichero_pgn):
+                break
         self.glines.refresh()
         self.glines.gotop()
 
@@ -1112,6 +1120,8 @@ class WLines(LCDialog.LCDialog):
                         self.dbop.exportar_pgn_one(ws, nline, pos, resp)
                         ws.close()
                         ws.um_final()
+                    else:
+                        QTUtil2.message_error(self, "%s : %s" % (_("Unable to save"), ws.file))
 
     def borrar_move(self):
         row, col = self.glines.current_position()
@@ -1250,44 +1260,46 @@ class WLines(LCDialog.LCDialog):
         form.combobox(_("Side"), li_j, "WHITE" if self.pboard.board.is_white_bottom else "BLACK")
         form.separador()
 
+        form.checkbox(_("Based on number of lines using each movement"), bool(dic_data.get("DESCENDANTS", False)))
+        form.separador()
+
         list_books = Books.ListBooks()
         libooks = [(bookx.name, bookx) for bookx in list_books.lista]
         libooks.insert(0, ("--", None))
-
         book_name = dic_data.get("BOOK_NAME", None)
         book_selected = None
         for name, book in libooks:
             if name == book_name:
                 book_selected = book
                 break
-
         form.combobox(_("Book"), libooks, book_selected)
         form.separador()
 
         tm = float(self.configuration.x_tutor_mstime / 1000.0)
-
         form.seconds(_("Duration of engine analysis (secs)"), dic_data.get("SECS", tm if tm > 0.0 else 3.0))
         form.separador()
 
         resultado = form.run()
         if resultado:
             um = QTUtil2.working(self)
-            color, book, segs = resultado[1]
-            ms = int(segs * 1000)
-            if ms < 0.01:
-                return
+            color, num_descendants, book, segs = resultado[1]
+            ms = abs(int(segs * 1000))
             if book:
                 book.polyglot()
 
             dic_data["SECS"] = segs
+            dic_data["DESCENDANTS"] = num_descendants
             dic_data["BOOK_NAME"] = book.name if book else None
             Code.configuration.write_variables(key, dic_data)
 
             si_white = color == "WHITE"
-            dic = self.dbop.dicRepeFen(si_white)
+            dic = self.dbop.dict_repeat_fen(si_white)
             mensaje = _("Move") + "  %d/" + str(len(dic))
-            xmanager = self.procesador.creaManagerMotor(self.configuration.engine_tutor(), ms, 0, has_multipv=False)
-            xmanager.set_multipv(10)
+            if ms:
+                xmanager = self.procesador.creaManagerMotor(self.configuration.engine_tutor(), ms, 0, has_multipv=False)
+                xmanager.set_multipv(10)
+            else:
+                xmanager = None
 
             st_borrar = set()
 
@@ -1307,46 +1319,67 @@ class WLines(LCDialog.LCDialog):
                 tmp_bp.mensaje(mensaje % n)
 
                 dic_a1h8 = dic[fen]
-                st_a1h8 = set(dic_a1h8.keys())
-                li = []
+                if len(dic_a1h8) == 1:
+                    continue
+                if num_descendants:
+                    st_a1h8 = set(dic_a1h8.keys())
+                    best_num = 0
+                    for a1h8, lines in dic_a1h8.items():
+                        num = len(lines)
+                        if num > best_num:
+                            best_num = num
+                    if best_num:
+                        for a1h8 in st_a1h8:
+                            num = len(dic_a1h8[a1h8])
+                            if num < best_num:
+                                st_borrar.update(dic_a1h8[a1h8])
+                                del dic_a1h8[a1h8]
+
                 if book:
                     li_moves = book.get_list_moves(fen)
                     if li_moves:
                         # (from_sq, to_sq, promotion, "%-5s -%7.02f%% -%7d" % (pgn, pc, w), 1.0 * w / maxim))
-                        li = [(m[0] + m[1] + m[2], m[4]) for m in li_moves if m[0] + m[1] + m[2] in st_a1h8]
-                        if li:
-                            li.sort(key=lambda x: x[1], reverse=True)
-                            st_ya = set(x[0] for x in li)
+                        li_en_book = [(m[0] + m[1] + m[2], m[4]) for m in li_moves]
+                        li_en_book.sort(key=lambda x: x[1], reverse=True)
+                        selected = None
+                        for a1h8, value in li_en_book:
+                            if a1h8 in dic_a1h8:
+                                selected = a1h8
+                                break
+                        if selected:
+                            st_a1h8 = set(dic_a1h8.keys())
+                            st_a1h8.remove(selected)
                             for a1h8 in st_a1h8:
-                                if a1h8 not in st_ya:
-                                    li.append((a1h8, 0))
+                                st_borrar.update(dic_a1h8[a1h8])
+                                del dic_a1h8[a1h8]
 
-                if len(li) == 0:
+                if xmanager and len(dic_a1h8) > 1:
                     mrm = xmanager.analiza(fen)
+                    li_analisis = []
                     for a1h8 in dic_a1h8:
                         rm, pos = mrm.search_rm(a1h8)
-                        li.append((a1h8, pos if pos >= 0 else 999))
-                    li.sort(key=lambda x: x[1])
-
-                for a1h8, pos in li[1:]:
-                    for num_linea in dic_a1h8[a1h8]:
-                        st_borrar.add(num_linea)
+                        li_analisis.append((a1h8, pos if pos >= 0 else 999))
+                    li_analisis.sort(key=lambda x: x[1])
+                    for a1h8, pos in li_analisis[1:]:
+                        st_borrar.update(dic_a1h8[a1h8])
 
             tmp_bp.cerrar()
 
-            xmanager.terminar()
+            if xmanager:
+                xmanager.terminar()
 
             if ok:
-                li_borrar = list(st_borrar)
-                n = len(li_borrar)
-                if n:
-                    self.dbop.remove_list_lines(li_borrar, _("Remove worst lines"))
-                    self.dbop.pack_database()
-                    QTUtil2.message_bold(self, _("Removed %d lines") % n)
-                else:
-                    QTUtil2.message_bold(self, _("Done"))
-                self.refresh_lines()
-                self.goto_inilinea()
+                with QTUtil2.OneMomentPlease(self, _("Working...")):
+                    li_borrar = list(st_borrar)
+                    n = len(li_borrar)
+                    if n:
+                        self.dbop.remove_list_lines(li_borrar, _("Remove worst lines"))
+                        self.dbop.pack_database()
+                        QTUtil2.message_bold(self, _("Removed %d lines") % n)
+                    else:
+                        QTUtil2.message_bold(self, _("Done"))
+                    self.refresh_lines()
+                    self.goto_inilinea()
 
     def remove_opening(self):
         me = QTUtil2.one_moment_please(self)
@@ -1473,6 +1506,7 @@ class WLines(LCDialog.LCDialog):
         board.dbVisual.saveMoviblesBoard(board)
         self.dbop.setconfig("WHITEBOTTOM", board.is_white_bottom)
         self.tabsanalisis.saveConfig()
+        self.dbop.close()
         self.save_video()
         self.procesador.close_engines()
 
@@ -1554,10 +1588,10 @@ class WImportPolyglot(LCDialog.LCDialog):
         self.cb_white = Controles.CB(self, li_books, book_obj("BOOK_WHITE"))
         self.cb_mode_white = Controles.CB(self, li_modes, dic_data.get("MODE_WHITE"))
         lb_white_porc_min = Controles.LB2P(self, _("Minimum percentage")).set_font_type(puntos=8)
-        self.ed_white_porc_min = (Controles.ED(self).anchoFijo(60).
+        self.ed_white_porc_min = (Controles.ED(self).relative_width(60).
                                   tipoFloat(decimales=3, valor=dic_data.get("PORC_WHITE", 0.0)).set_font_type(puntos=8))
         lb_white_weight_min = Controles.LB2P(self, _("Minimum weight")).set_font_type(puntos=8)
-        self.ed_white_weight_min = (Controles.ED(self).anchoFijo(60).
+        self.ed_white_weight_min = (Controles.ED(self).relative_width(60).
                                     tipoInt(dic_data.get("WEIGHT_WHITE", 0)).set_font_type(puntos=8))
 
         ly_arr = Colocacion.H().control(self.cb_white).control(self.cb_mode_white)
@@ -1572,10 +1606,10 @@ class WImportPolyglot(LCDialog.LCDialog):
         self.cb_black = Controles.CB(self, li_books, book_obj("BOOK_BLACK"))
         self.cb_mode_black = Controles.CB(self, li_modes, dic_data.get("MODE_BLACK"))
         lb_black_min = Controles.LB2P(self, _("Minimum percentage")).set_font_type(puntos=8)
-        self.ed_black_min = (Controles.ED(self).anchoFijo(60).
+        self.ed_black_min = (Controles.ED(self).relative_width(60).
                              tipoFloat(decimales=3, valor=dic_data.get("PORC_BLACK", 0.0)).set_font_type(puntos=8))
         lb_black_weight_min = Controles.LB2P(self, _("Minimum weight")).set_font_type(puntos=8)
-        self.ed_black_weight_min = (Controles.ED(self).anchoFijo(60).
+        self.ed_black_weight_min = (Controles.ED(self).relative_width(60).
                                     tipoInt(dic_data.get("WEIGHT_BLACK", 0)).set_font_type(puntos=8))
 
         ly_arr = Colocacion.H().control(self.cb_black).control(self.cb_mode_black)

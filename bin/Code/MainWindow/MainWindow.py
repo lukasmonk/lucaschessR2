@@ -1,6 +1,7 @@
 from PySide2 import QtCore, QtGui, QtWidgets
 
 import Code
+from Code import ManagerGame
 from Code.Board import Eboard
 from Code.MainWindow import WInformation, WBase
 from Code.QT import Colocacion
@@ -8,7 +9,6 @@ from Code.QT import Iconos
 from Code.QT import LCDialog
 from Code.QT import QTUtil
 from Code.Translations import WorkTranslate
-from Code import ManagerGame
 
 
 class MainWindow(LCDialog.LCDialog):
@@ -61,40 +61,29 @@ class MainWindow(LCDialog.LCDialog):
 
         self.setLayout(ly)
 
-        ctrl1 = QtWidgets.QShortcut(self)
-        ctrl1.setKey(QtGui.QKeySequence("Ctrl+1"))
+        ctrl1: QtWidgets.QShortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Ctrl+1"), self)
         ctrl1.activated.connect(self.pressed_shortcut_ctrl1)
 
-        ctrl2 = QtWidgets.QShortcut(self)
-        ctrl2.setKey(QtGui.QKeySequence("Ctrl+2"))
+        ctrl2: QtWidgets.QShortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Ctrl+2"), self)
         ctrl2.activated.connect(self.pressed_shortcut_ctrl2)
 
-        alt_a = QtWidgets.QShortcut(self)
-        alt_a.setKey(QtGui.QKeySequence("Alt+A"))
+        alt_a: QtWidgets.QShortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Alt+A"), self)
         alt_a.activated.connect(self.pressed_shortcut_alt_a)
 
-        ctrl_0 = QtWidgets.QShortcut(self)
-        ctrl_0.setKey(QtGui.QKeySequence("Ctrl+0"))
+        ctrl_0: QtWidgets.QShortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Ctrl+0"), self)
         ctrl_0.activated.connect(self.pressed_shortcut_ctrl0)
 
-        alt_o = QtWidgets.QShortcut(self)
-        alt_o.setKey(QtGui.QKeySequence("Alt+O"))
-        alt_o.activated.connect(self.pressed_shortcut_alt_o)
-
-        alt_m = QtWidgets.QShortcut(self)
-        alt_m.setKey(QtGui.QKeySequence("Alt+M"))
+        alt_m: QtWidgets.QShortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Alt+M"), self)
         alt_m.activated.connect(self.pressed_shortcut_alt_m)
 
-        f11 = QtWidgets.QShortcut(self)
-        f11.setKey(QtGui.QKeySequence("F11"))
-        f11.activated.connect(self.pressed_shortcut_F11)
+        f11: QtWidgets.QShortcut = QtWidgets.QShortcut(QtGui.QKeySequence("F11"), self)
+        f11.activated.connect(self.pressed_shortcut_f11)
         self.activadoF11 = False
         self.previous_f11_maximized = False
 
         if QtWidgets.QSystemTrayIcon.isSystemTrayAvailable():
-            F12 = QtWidgets.QShortcut(self)
-            F12.setKey(QtGui.QKeySequence("F12"))
-            F12.activated.connect(self.pressed_shortcut_F12)
+            f12: QtWidgets.QShortcut = QtWidgets.QShortcut(QtGui.QKeySequence("F12"), self)
+            f12.activated.connect(self.pressed_shortcut_f12)
             self.trayIcon = None
 
         self.cursor_pensando = False
@@ -113,6 +102,7 @@ class MainWindow(LCDialog.LCDialog):
 
     def closeEvent(self, event):
         # Cierre con X
+        # super().closeEvent(event)
         self.final_processes()
         if isinstance(self.manager, ManagerGame.ManagerGame):
             event.ignore()
@@ -140,16 +130,18 @@ class MainWindow(LCDialog.LCDialog):
         self.final_processes()
         self.accept()
 
-    def pressed_shortcut_F12(self):
+    def pressed_shortcut_f12(self):
         if not self.trayIcon:
-            restore_action = QtWidgets.QAction(Iconos.PGN(), _("Show"), self, triggered=self.restauraTrayIcon)
-            quit_action = QtWidgets.QAction(Iconos.Terminar(), _("Quit"), self, triggered=self.quitTrayIcon)
+            restore_action: QtWidgets.QAction = QtWidgets.QAction(Iconos.PGN(), _("Show"), self,
+                                                                  triggered=self.restauraTrayIcon)
+            quit_action: QtWidgets.QAction = QtWidgets.QAction(Iconos.Terminar(), _("Quit"), self,
+                                                               triggered=self.quitTrayIcon)
             tray_icon_menu = QtWidgets.QMenu(self)
             tray_icon_menu.addAction(restore_action)
             tray_icon_menu.addSeparator()
             tray_icon_menu.addAction(quit_action)
 
-            self.trayIcon = QtWidgets.QSystemTrayIcon(self)
+            self.trayIcon: QtWidgets.QSystemTrayIcon = QtWidgets.QSystemTrayIcon(self)
             self.trayIcon.setContextMenu(tray_icon_menu)
             self.trayIcon.setIcon(Iconos.Aplicacion64())
             self.trayIcon.activated.connect(self.activateTrayIcon)
@@ -159,7 +151,7 @@ class MainWindow(LCDialog.LCDialog):
             self.trayIcon.show()
             self.hide()
 
-    def pressed_shortcut_F11(self):
+    def pressed_shortcut_f11(self):
         self.activadoF11 = not self.activadoF11
         if self.activadoF11:
             if self.siInformacionPGN:
@@ -263,23 +255,27 @@ class MainWindow(LCDialog.LCDialog):
         return resp
 
     def adjust_size(self):
-        if self.resizing:
-            return
-        self.resizing = True
-        if self.isMaximized():
-            if not self.board.is_maximized():
-                self.board.maximize_size(self.activadoF11)
-        else:
-            tb_height = self.base.tb.height() if Code.configuration.x_tb_orientation_horizontal else 0
-            n = 0
-            while self.height() > self.board.ancho + tb_height + 18:
-                self.adjustSize()
-                self.refresh()
-                n += 1
-                if n > 3:
-                    break
-        self.refresh()
-        self.resizing = False
+        def adjust():
+            if self.resizing:
+                return
+            self.resizing = True
+            if self.isMaximized():
+                if not self.board.is_maximized():
+                    self.board.maximize_size(self.activadoF11)
+            else:
+                QTUtil.shrink(self)
+                tb_height = self.base.tb.height() if Code.configuration.x_tb_orientation_horizontal else 0
+                n = 0
+                while self.height() > self.board.ancho + tb_height + 18:
+                    self.adjustSize()
+                    self.refresh()
+                    n += 1
+                    if n > 3:
+                        break
+            self.refresh()
+            self.resizing = False
+
+        QtCore.QTimer.singleShot(15, adjust)
 
     def ajustaTamH(self):
         if not (self.isMaximized() or self.board.siF11):
@@ -327,8 +323,8 @@ class MainWindow(LCDialog.LCDialog):
     def show_button_tutor(self, ok):
         self.base.show_button_tutor(ok)
 
-    def remove_hints(self, siTambienTutorAtras, with_takeback=True):
-        self.base.remove_hints(siTambienTutorAtras, with_takeback)
+    def remove_hints(self, also_tutor_back, with_takeback=True):
+        self.base.remove_hints(also_tutor_back, with_takeback)
 
     def enable_option_toolbar(self, opcion, enable):
         self.base.enable_option_toolbar(opcion, enable)
@@ -455,9 +451,6 @@ class MainWindow(LCDialog.LCDialog):
         if self.manager and hasattr(self.manager, "control0"):
             self.manager.control0()
 
-    def pressed_shortcut_alt_o(self):
-        self.move(QtCore.QPoint(0,0))
-
     def pressed_shortcut_alt_m(self):
         if self.manager and hasattr(self.manager, "arbol"):
             self.manager.arbol()
@@ -579,7 +572,6 @@ class MainWindow(LCDialog.LCDialog):
     def end_think_analysis_bar(self):
         if self.with_analysis_bar:
             self.base.analysis_bar.end_think()
-
 
     def is_active_information_pgn(self):
         return self.informacionPGN.isVisible()

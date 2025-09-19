@@ -69,7 +69,6 @@ class WGaviota(WKibCommon.WKibCommon):
 
     def stop(self):
         self.siPlay = False
-        self.engine.ac_final(0)
 
     def grid_num_datos(self, grid):
         return len(self.li_moves)

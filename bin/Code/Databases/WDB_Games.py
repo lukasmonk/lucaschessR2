@@ -9,7 +9,7 @@ import Code
 from Code import Util, XRun
 from Code.Analysis import AnalysisGame, WindowAnalysisParam, RunAnalysisControl
 from Code.Base import Game, Position
-from Code.Base.Constantes import WHITE, BLACK, FEN_INITIAL
+from Code.Base.Constantes import WHITE, BLACK, FEN_INITIAL, TACTICTHEMES, DBSHOW_INITIAL_POSITION, DBSHOW_FIRST_MOVE, DBSHOW_LAST_MOVE
 from Code.Books import PolyglotImportExports
 from Code.Databases import DBgames, WDB_Utils, DBgamesMov, RemoveCommentsVariations, WebExternalImporter
 from Code.Databases import WDB_GUtils
@@ -20,6 +20,7 @@ from Code.Openings import OpeningsStd
 from Code.Openings import WindowOpenings
 from Code.QT import Colocacion
 from Code.QT import Columnas
+from Code.QT import Controles
 from Code.QT import FormLayout
 from Code.QT import Grid
 from Code.QT import GridEditCols
@@ -68,14 +69,14 @@ class WGames(QtWidgets.QWidget):
 
         # Grid
         o_columns = self.lista_columnas()
-        self.grid = Grid.Grid(self, o_columns, siSelecFilas=True, altoFila=24, siSeleccionMultiple=True, xid="wgames")
+        self.grid = Grid.Grid(self, o_columns, siSelecFilas=True, altoFila=self.configuration.x_databases_rowheight,
+                              siSeleccionMultiple=True, xid="wgames")
         self.grid.set_tooltip_header(
-            _("For a numerical sort, press Ctrl (Alt or Shift) while double-clicking on the header.")
-        )
+            _("For a numerical sort, press Ctrl (Alt or Shift) while double-clicking on the header."))
 
         # Status bar
         self.status = QtWidgets.QStatusBar(self)
-        self.status.setFixedHeight(22)
+        self.status.setFixedHeight(Controles.calc_fixed_width(22))
 
         # ToolBar
         self.tbWork = QTVarios.LCTB(self)
@@ -447,13 +448,25 @@ class WGames(QtWidgets.QWidget):
                 p = Game.Game(fen=fen)
                 p.read_pv(pv)
                 p.is_finished()
-                self.infoMove.fen_mode(p, fen, -1)
+                option = self.configuration.x_dbshow_positions
             else:
                 p = Game.Game()
                 p.read_pv(pv)
                 p.assign_opening()
                 p.is_finished()
-                self.infoMove.game_mode(p, 0)
+                option = self.configuration.x_dbshow_completegames
+
+            if option == DBSHOW_LAST_MOVE:
+                pos = len(p)-1
+            elif option == DBSHOW_INITIAL_POSITION:
+                pos = -1
+            else:
+                pos = 0
+
+            if fen:
+                self.infoMove.fen_mode(p, fen, pos)
+            else:
+                self.infoMove.game_mode(p, pos)
 
     def tw_gobottom(self):
         self.grid.gobottom()
@@ -486,7 +499,7 @@ class WGames(QtWidgets.QWidget):
                 if not resp.changed:
                     return
 
-                if resp.summary_changed:
+                if self.wsummary and resp.summary_changed:
                     self.wsummary.rehazActual()
 
                 if resp.inserted:
@@ -536,15 +549,8 @@ class WGames(QtWidgets.QWidget):
         else:
             with_previous_next = self.edit_previous_next
         game.recno = recno
-        game = self.procesador.manager_game(
-            self,
-            game,
-            not self.db_games.allows_positions,
-            False,
-            self.infoMove.board,
-            with_previous_next=with_previous_next,
-            save_routine=self.edit_save,
-        )
+        game = self.procesador.manager_game(self, game, not self.db_games.allows_positions, False, self.infoMove.board,
+            with_previous_next=with_previous_next, save_routine=self.edit_save, )
         if game:
             self.set_changes(True)
             self.edit_save(game.recno, game)
@@ -588,7 +594,7 @@ class WGames(QtWidgets.QWidget):
             self.grid_cambiado_registro(None, 0, 0)
 
         def standard():
-            w = WDB_Utils.WFiltrar(self, self.grid.o_columns, self.li_filter, self.db_games.path_file)
+            w = WDB_Utils.WFiltrar(self, self.li_filter, self.db_games.path_file)
             if w.exec_():
                 self.li_filter = w.li_filter
 
@@ -722,6 +728,13 @@ class WGames(QtWidgets.QWidget):
         menu.separador()
         menu.opcion(self.tw_importar_db, _("From other database"), Iconos.Database())
         menu.separador()
+        submenu = menu.submenu(_("Paste PGN"), Iconos.Pegar16())
+        submenu.opcion(self.tw_paste_pgn, _("Complete"), Iconos.PuntoVerde())
+        submenu.separador()
+        submenu.opcion(self.tw_paste_pgn_rem, _("Remove comments and variations"), Iconos.PuntoRojo())
+        menu.separador()
+        menu.opcion(self.tw_importar_db, _("From other database"), Iconos.Database())
+        menu.separador()
         if self.db_games.allows_positions and (self.db_games.reccount() == 0 or not self.db_games.allows_duplicates):
             menu.opcion(self.tw_importar_lichess_puzzles, _("From the Lichess Puzzle Database"), Iconos.Lichess())
         menu.separador()
@@ -745,27 +758,24 @@ class WGames(QtWidgets.QWidget):
         submenu.opcion((self.tw_exportar_pgn, False), _("All registers"), Iconos.PuntoVerde())
         if li_sel:
             submenu.separador()
-            submenu.opcion(
-                (self.tw_exportar_pgn, True), "%s [%d]" % (_("Only selected games"), len(li_sel)), Iconos.PuntoAzul()
-            )
+            submenu.opcion((self.tw_exportar_pgn, True), "%s [%d]" % (_("Only selected games"), len(li_sel)),
+                Iconos.PuntoAzul())
 
         menu.separador()
         submenu = menu.submenu(_("To a CSV file"), Iconos.CSV())
         submenu.opcion((self.tw_exportar_csv, False), _("All registers"), Iconos.PuntoVerde())
         if li_sel:
             submenu.separador()
-            submenu.opcion(
-                (self.tw_exportar_csv, True), "%s [%d]" % (_("Only selected games"), len(li_sel)), Iconos.PuntoAzul()
-            )
+            submenu.opcion((self.tw_exportar_csv, True), "%s [%d]" % (_("Only selected games"), len(li_sel)),
+                Iconos.PuntoAzul())
 
         menu.separador()
         submenu = menu.submenu(_("To other database"), Iconos.Database())
         submenu.opcion((self.tw_exportar_db, li_all), _("All registers"), Iconos.PuntoVerde())
         if li_sel:
             submenu.separador()
-            submenu.opcion(
-                (self.tw_exportar_db, li_sel), "%s [%d]" % (_("Only selected games"), len(li_sel)), Iconos.PuntoAzul()
-            )
+            submenu.opcion((self.tw_exportar_db, li_sel), "%s [%d]" % (_("Only selected games"), len(li_sel)),
+                Iconos.PuntoAzul())
 
         if self.db_games.has_positions():
             menu.separador()
@@ -879,7 +889,6 @@ class WGames(QtWidgets.QWidget):
                     wodt.odt_doc.add_linebreak()
 
             wodt.odt_doc.create(path_odt)
-            Code.startfile(path_odt)
 
     def tw_configure(self):
         menu = QTVarios.LCMenu(self)
@@ -891,8 +900,10 @@ class WGames(QtWidgets.QWidget):
         menu.opcion(self.tw_edit_columns, _("Configure the columns"), Iconos.EditColumns(), shortcut="ALT+C")
         menu.separador()
 
-        menu.opcion(self.tw_resize_columns, _("Resize all columns to contents"), Iconos.ResizeAll(),
-                    shortcut="ALT+R")
+        menu.opcion(self.tw_resize_columns, _("Resize all columns to contents"), Iconos.ResizeAll(), shortcut="ALT+R")
+        menu.separador()
+
+        menu.opcion(self.tw_change_height, _("Change the height of each row"), Iconos.Height())
         menu.separador()
 
         submenu = menu.submenu(_("Graphic elements (Director)"), Iconos.Script())
@@ -904,24 +915,53 @@ class WGames(QtWidgets.QWidget):
         si_graphics_specific = self.db_games.read_config("GRAPHICS_SPECIFIC", False)
         submenu.opcion(self.tw_locale_change, _("Specific to this database"), Iconos.PuntoAzul(),
                        is_checked=si_graphics_specific)
+        menu.separador()
+
+        si_show = self.db_games.read_config("GRAPHICS_SHOW_ALLWAYS", False)
+        submenu.opcion(self.tw_dir_show_change, _("Show always"), is_checked=si_show)
+        submenu.separador()
+
+        si_graphics_specific = self.db_games.read_config("GRAPHICS_SPECIFIC", False)
+        submenu.opcion(self.tw_locale_change, _("Specific to this database"), Iconos.PuntoAzul(),
+                       is_checked=si_graphics_specific)
+        menu.separador()
+
+        submenu = menu.submenu(_("First display on the board"), Iconos.Board())
+
+        def add_subsubmenu(label, ico, key, option):
+            subsubmenu = submenu.submenu(label, ico)
+            subsubmenu.opcion((key, DBSHOW_INITIAL_POSITION), _("Initial position"), is_checked= option == DBSHOW_INITIAL_POSITION)
+            subsubmenu.separador()
+            subsubmenu.opcion((key, DBSHOW_FIRST_MOVE), _("First movement"), is_checked= option == DBSHOW_FIRST_MOVE)
+            subsubmenu.separador()
+            subsubmenu.opcion((key, DBSHOW_LAST_MOVE), _("Last movement"), is_checked= option == DBSHOW_LAST_MOVE)
+            submenu.separador()
+
+        add_subsubmenu(_("Positions"), Iconos.Board(), "show_positions", self.configuration.x_dbshow_positions)
+        add_subsubmenu(_("Complete games"), Iconos.Training_Games(), "show_completegames", self.configuration.x_dbshow_completegames)
 
         resp = menu.lanza()
         if resp:
-            resp()
+            if isinstance(resp, tuple):
+                key, option = resp
+                if key == "show_positions":
+                    self.configuration.x_dbshow_positions = option
+                else:
+                    self.configuration.x_dbshow_completegames = option
+                self.configuration.graba()
+                if self.grid.recno() > -1:
+                    self.grid_cambiado_registro(None, self.grid.recno(), None)
+            else:
+                resp()
 
     def tw_options(self):
         db = self.db_games
-        dic_data = {
-            "NAME": db.get_name(),
-            "LINK_FILE": db.link_file,
-            "FILEPATH": db.path_file,
-            "EXTERNAL_FOLDER": db.external_folder,
-            "SUMMARY_DEPTH": db.depth_stat(),
+        dic_data = {"NAME": db.get_name(), "LINK_FILE": db.link_file, "FILEPATH": db.path_file,
+            "EXTERNAL_FOLDER": db.external_folder, "SUMMARY_DEPTH": db.depth_stat(),
             "ALLOWS_DUPLICATES": db.read_config("ALLOWS_DUPLICATES", True),
             "ALLOWS_POSITIONS": db.read_config("ALLOWS_POSITIONS", True),
             "ALLOWS_COMPLETE_GAMES": db.read_config("ALLOWS_COMPLETE_GAMES", True),
-            "ALLOWS_ZERO_MOVES": db.read_config("ALLOWS_ZERO_MOVES", True),
-        }
+            "ALLOWS_ZERO_MOVES": db.read_config("ALLOWS_ZERO_MOVES", True), }
         w = WDB_GUtils.WOptionsDatabase(self, self.configuration, dic_data)
         if not w.exec_():
             return None
@@ -1060,16 +1100,25 @@ class WGames(QtWidgets.QWidget):
         self.grid.resizeColumnsToContents()
         um.final()
 
+    def tw_change_height(self):
+        cheight = QTUtil2.read_simple(self, _("Databases"), _("Height"), str(self.configuration.x_databases_rowheight),
+                                      mas_info=f'{_("By default")} = 24')
+        if cheight:
+            if cheight.isdigit():
+                height = int(cheight)
+                if height > 0:
+                    self.configuration.x_databases_rowheight = height
+                    self.configuration.graba()
+                    self.grid.ponAltoFila(height)
+
     def tw_utilities(self):
         is_empty = self.db_games.is_empty()
 
         menu = QTVarios.LCMenu(self)
-        menu.opcion(self.tw_tags, _("Update tags"), Iconos.Tags())
-        menu.separador()
         if not is_empty:
-            menu.opcion(self.goto_registro, f'{_("Go to the record")} ({_("CTRL")}-G)', Iconos.GoToNext())
-            menu.separador()
             menu.opcion(self.tw_massive_analysis, _("Mass analysis"), Iconos.Analizar())
+            menu.separador()
+            menu.opcion(self.goto_registro, f'{_("Go to the record")} ({_("CTRL")}-G)', Iconos.GoToNext())
             menu.separador()
             menu.opcion(self.tw_polyglot, _("Create a polyglot book"), Iconos.Book())
             menu.separador()
@@ -1089,12 +1138,13 @@ class WGames(QtWidgets.QWidget):
             submenu2.opcion(self.tw_remove_comments_partial_all, _("All registers"), Iconos.PuntoVerde())
             submenu2.separador()
             submenu2.opcion(self.tw_remove_comments_partial_selected,
-                            "%s [%d]" % (_("Only selected games"), len(li_sel)),
-                            Iconos.PuntoAzul())
+                            "%s [%d]" % (_("Only selected games"), len(li_sel)), Iconos.PuntoAzul())
             menu.separador()
             menu.opcion(self.generate_positions_file, _("Regenerate index positions file"), Iconos.Board())
             menu.separador()
 
+        menu.opcion(self.tw_tags, _("Update tags"), Iconos.Tags())
+        menu.separador()
         menu.opcion(self.tw_pack, _("Pack database"), Iconos.Pack())
 
         resp = menu.lanza()
@@ -1119,14 +1169,9 @@ class WGames(QtWidgets.QWidget):
             form.edit(_("Training name"), name)
             form.separador()
 
-            form.edit_np(
-                '<div align="right">%s:<br>%s</div>'
-                % (
-                    _("Only the following players"),
-                    _("(You can add multiple aliases separated by ; and wildcards with *)"),
-                ),
-                player,
-            )
+            form.edit_np('<div align="right">%s:<br>%s</div>' % (_("Only the following players"),
+                                                                 _("(You can add multiple aliases separated by ; and wildcards with *)"),),
+                player, )
             form.separador()
 
             form.checkbox(_("Only selected games"), selected)
@@ -1136,13 +1181,8 @@ class WGames(QtWidgets.QWidget):
             form.combobox(_("Side"), li, side)
             form.separador()
 
-            li = [
-                (_("Any"), None),
-                (_("Win"), "Win"),
-                (f'{_("Win")}+{_("Draw")}', "Win+Draw"),
-                (_("Loss"), "Lost"),
-                (f'{_("Loss")}+{_("Draw")}', "Lost+Draw"),
-            ]
+            li = [(_("Any"), None), (_("Win"), "Win"), (f'{_("Win")}+{_("Draw")}', "Win+Draw"), (_("Loss"), "Lost"),
+                (f'{_("Loss")}+{_("Draw")}', "Lost+Draw"), ]
             form.combobox(_("Result"), li, result)
             form.separador()
 
@@ -1220,9 +1260,8 @@ class WGames(QtWidgets.QWidget):
         li_registros_selected = self.grid.recnosSeleccionados()
         li_registros_total = range(self.db_games.reccount())
 
-        WDB_Utils.create_tactics(
-            self.procesador, self, li_registros_selected, li_registros_total, rutina_datos, self.db_games.get_name()
-        )
+        WDB_Utils.create_tactics(self.procesador, self, li_registros_selected, li_registros_total, rutina_datos,
+            self.db_games.get_name())
 
     def tw_training_positions(self):
         def rutina_datos(recno, skip_first):
@@ -1246,9 +1285,8 @@ class WGames(QtWidgets.QWidget):
         li_registros_selected = self.grid.recnosSeleccionados()
         li_registros_total = range(self.db_games.reccount())
 
-        WDB_Utils.create_training_positions(
-            self.procesador, self, li_registros_selected, li_registros_total, rutina_datos, self.db_games.get_name()
-        )
+        WDB_Utils.create_training_positions(self.procesador, self, li_registros_selected, li_registros_total,
+            rutina_datos, self.db_games.get_name())
 
     def tw_pack(self):
         um = QTUtil2.one_moment_please(self.wb_database)
@@ -1259,9 +1297,8 @@ class WGames(QtWidgets.QWidget):
         li_seleccionadas = self.grid.recnosSeleccionados()
         n_seleccionadas = len(li_seleccionadas)
 
-        alm = WindowAnalysisParam.massive_analysis_parameters(
-            self, self.configuration, n_seleccionadas > 1, siDatabase=True
-        )
+        alm = WindowAnalysisParam.massive_analysis_parameters(self, self.configuration, n_seleccionadas > 1,
+            is_database=True)
         if not alm:
             return
 
@@ -1280,13 +1317,16 @@ class WGames(QtWidgets.QWidget):
         rac = RunAnalysisControl.AnalysisMassiveWithWorkers(self, alm, nregs, li_seleccionadas)
         rac.run()
 
-        if alm.accuracy_tags:
+        if alm.accuracy_tags or alm.themes_tags:
             self.rehaz_columnas()
 
         self.procesador.entrenamientos.menu = None
 
     def tw_massive_analysis_1_worker(self, alm, nregs, li_seleccionadas):
-        tmp_bp = QTUtil2.BarraProgreso2(self, _("Mass analysis"), formato2="%p%")
+        self.grid.setDisabled(True)
+        self.tbWork.setDisabled(True)
+
+        tmp_bp = QTUtil2.BarraProgreso2(self, _("Mass analysis"), formato2="%p%", with_pause=True)
         tmp_bp.set_total(1, nregs)
         tmp_bp.put_label(1, _("Game"))
         tmp_bp.put_label(2, _("Moves"))
@@ -1305,7 +1345,6 @@ class WGames(QtWidgets.QWidget):
 
             if tmp_bp.is_canceled():
                 break
-
             tmp_bp.pon(1, n + 1)
 
             if alm.multiple_selected:
@@ -1372,16 +1411,20 @@ class WGames(QtWidgets.QWidget):
         else:
             ap.terminar(False)
 
-        if alm.accuracy_tags:
+        if alm.accuracy_tags or alm.themes_tags:
             self.rehaz_columnas()
 
         tmp_bp.cerrar()
 
-    def tw_themes(self):
-        um = QTUtil2.one_moment_please(self.wb_database, _("Analyzing tactical themes"))
-        a = WDB_Theme_Analysis.SelectedGameThemeAnalyzer(self)
+        self.grid.setDisabled(False)
+        self.tbWork.setDisabled(False)
 
-        um.final()
+    def tw_themes(self):
+        with QTUtil2.OneMomentPlease(self.wb_database, _("Analyzing tactical themes"), with_cancel=True) as um:
+            a = WDB_Theme_Analysis.SelectedGameThemeAnalyzer(self, um)
+            if a.is_canceled:
+                return
+
         if len(a.dic_themes) == 0:
             QTUtil2.message(self, _("No themes were found in selected games!"))
             return
@@ -1429,6 +1472,8 @@ class WGames(QtWidgets.QWidget):
             if len(li_regs) == 0:
                 return
 
+            rem_themes = w.rem.rem_themes if self.db_games.has_field(TACTICTHEMES) else False
+
             pb = QTUtil2.BarraProgreso1(self, _("Remove comments and variations"), show_time=True)
             pb.set_total(len(li_regs))
             pb.mostrar()
@@ -1441,8 +1486,13 @@ class WGames(QtWidgets.QWidget):
                     game, changed = w.run_game(game)
                     if changed:
                         self.set_changes(True)
-                        self.db_games.save_data(recno, game)
+                        if rem_themes:
+                            game.del_tag(TACTICTHEMES)
+                            self.db_games.modify(recno, game)
+                        else:
+                            self.db_games.save_data(recno, game)
             pb.close()
+            self.grid.refresh()
             QTUtil2.temporary_message_without_image(self, _("Done"), 0.8)
 
     def tw_polyglot(self):
@@ -1466,15 +1516,13 @@ class WGames(QtWidgets.QWidget):
         dltmp = PolyglotImportExports.ImportarPGNDB(self, titulo)
         dltmp.show()
 
-        ok = PolyglotImportExports.add_db(
-            self.db_games, plies, st_results, st_side, li_players, ru, time.time, 1.2, dltmp.dispatch, fsum
-        )
+        ok = PolyglotImportExports.add_db(self.db_games, plies, st_results, st_side, li_players, ru, time.time, 1.2,
+            dltmp.dispatch, fsum)
         dltmp.close()
 
         if ok:
-            PolyglotImportExports.create_bin_from_dbbig(
-                self, path_bin, db, min_games, min_score, calc_weight, save_score, uniform
-            )
+            PolyglotImportExports.create_bin_from_dbbig(self, path_bin, db, min_games, min_score, calc_weight,
+                save_score, uniform)
 
     def tw_exportar_db(self, lista):
         dbpath = QTVarios.select_db(self, self.configuration, False, True)
@@ -1503,6 +1551,7 @@ class WGames(QtWidgets.QWidget):
         if w.exec_():
             dic_result = w.dic_result
             remove_comments = dic_result["REMCOMMENTSVAR"]
+            with_seventags = dic_result["SEVENTAGS"]
             ws = WindowSavePGN.FileSavePGN(self, dic_result)
             if ws.open():
                 pb = QTUtil2.BarraProgreso1(self, _("Saving..."), formato1="%v/%m (%p%)")
@@ -1524,6 +1573,8 @@ class WGames(QtWidgets.QWidget):
                         continue
                     if remove_comments:
                         game.remove_info_moves()
+                    if with_seventags:
+                        game.add_seventags()
                     pgn = game.pgn()
                     result = game.resultado()
                     if n > 0 or not ws.is_new:
@@ -1593,11 +1644,29 @@ class WGames(QtWidgets.QWidget):
         if not pb.is_canceled():
             Code.startfile(path_csv)
 
+    def tw_paste_pgn_rem(self):
+        w = RemoveCommentsVariations.WRemoveCommentsVariations(self, "databases_remove_comvar", True)
+        if w.exec_():
+            self.tw_paste_pgn(rem_comvar_run=w.run)
+
+    def tw_paste_pgn(self, rem_comvar_run=None):
+        texto = QTUtil.get_txt_clipboard()
+        if texto:
+            path_temp = self.configuration.temporary_file("pgn")
+            try:
+                with open(path_temp, "wt", encoding="utf-8") as q:
+                    q.write(texto)
+                self.tw_importar_pgn(path_temp, rem_comvar_run)
+                return
+            except:
+                pass
+        QTUtil2.message_error(self, _("The text from the clipboard does not contain a chess game in PGN format"))
+
     def tw_importar_pgn(self, path_pgn=None, rem_comvar_run=None):
         if path_pgn is None:
             files = SelectFiles.select_pgns(self)
             if not files:
-                return None
+                return
         else:
             files = [path_pgn, ]
 
@@ -1614,15 +1683,14 @@ class WGames(QtWidgets.QWidget):
             self.wsummary.reset()
 
     def tw_importar_pgn_rem(self):
-        w = RemoveCommentsVariations.WRemoveCommentsVariations(self, "databases_remove_comvar2", True)
+        w = RemoveCommentsVariations.WRemoveCommentsVariations(self, "databases_remove_comvar", True)
         if w.exec_():
             self.tw_importar_pgn(rem_comvar_run=w.run)
 
     def tw_importar_db(self):
         path = QTVarios.select_db(self, self.configuration, False, False)
         if not path:
-            return None
-
+            return
         dl_tmp = QTVarios.ImportarFicheroDB(self)
         if self.db_games.allows_duplicates:
             dl_tmp.hide_duplicates()
@@ -1634,7 +1702,7 @@ class WGames(QtWidgets.QWidget):
 
         self.rehaz_columnas()
         self.actualiza(True)
-        if self.wsummary:
+        if self.wsummary is not None:
             self.wsummary.reset()
 
     def tw_importar_lichess_puzzles(self):
@@ -1647,11 +1715,8 @@ class WGames(QtWidgets.QWidget):
         mens_unzip = _("Uncompress this file")
 
         mens_eco = _(
-            "If you want to include a field with the opening, you have to download and unzip in the same folder as the puzzle file, the file indicated below"
-        )
-        link_eco = (
-            "https://sourceforge.net/projects/lucaschessr/files/Version_R2/lichess_dict_pv_ids.zip/download"
-        )
+            "If you want to include a field with the opening, you have to download and unzip in the same folder as the puzzle file, the file indicated below")
+        link_eco = ("https://sourceforge.net/projects/lucaschessr/files/Version_R2/lichess_dict_pv_ids.zip/download")
         idea = _("Original idea and more information")
         link_idea = "https://cshancock.netlify.app/post/2021-06-23-lichess-puzzles-by-eco"
 
@@ -1682,9 +1747,8 @@ class WGames(QtWidgets.QWidget):
         if not QTUtil2.pregunta(self, mensaje, label_yes=_("Continue"), label_no=_("Cancel")):
             return
 
-        path = SelectFiles.leeFichero(
-            self, self.configuration.carpetaBase, "csv", _("From the Lichess Puzzle Database")
-        )
+        path = SelectFiles.leeFichero(self, self.configuration.carpetaBase, "csv",
+            _("From the Lichess Puzzle Database"))
         if not path:
             return
 
@@ -1826,7 +1890,7 @@ class WGames(QtWidgets.QWidget):
         self.grid.releerColumnas()
 
     def tw_edit_columns(self):
-        w = GridEditCols.EditCols(self.grid, self.key_columns)
+        w = GridEditCols.EditCols(self.grid, self.key_columns, self.lista_columnas())
         if w.exec_():
             o_columns = self.grid.o_columns
             dcabs = self.db_games.read_config("dcabs", {})

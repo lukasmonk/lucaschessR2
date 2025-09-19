@@ -98,12 +98,11 @@ class Polyglot:
     def find_key(self, key):
         first = -1
         try:
-            if not self.f.seek(-16, os.SEEK_END):
-                entry = Entry()
-                entry.key = key + 1
-                return -1, entry
-        except:
-            return -1, None
+            self.f.seek(-16, os.SEEK_END)
+        except OSError:
+            entry = Entry()
+            entry.key = key + 1
+            return -1, entry
 
         last = self.f.tell() // 16
         ret, last_entry = self.entry_from_file()

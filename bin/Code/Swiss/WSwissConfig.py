@@ -84,22 +84,23 @@ class WSwissConfig(LCDialog.LCDialog):
 
         # Config
         lb_resign = Controles.LB(self, "%s (%s): " % (_("Minimum centipawns to assign winner"), "0=%s" % _("Disable")))
-        self.ed_resign = Controles.ED(self).tipoInt(swiss.resign).anchoFijo(30)
+        self.ed_resign = Controles.ED(self).tipoInt(swiss.resign).relative_width(40)
         bt_resign = Controles.PB(self, "", rutina=self.borra_resign).ponIcono(Iconos.Reciclar())
 
         # Draw-plys
         lb_draw_min_ply = Controles.LB(self,
                                        "%s (%s): " % (_("Minimum movements to assign draw"), "0=%s" % _("Disable")))
-        self.ed_draw_min_ply = Controles.ED(self).ponInt(swiss.draw_min_ply).anchoFijo(30).align_right()
+        self.ed_draw_min_ply = Controles.ED(self).ponInt(swiss.draw_min_ply).relative_width(
+            30).align_right()
         # Draw-puntos
         lb_draw_range = Controles.LB(self, _("Maximum centipawns to assign draw") + ": ")
-        self.ed_draw_range = Controles.ED(self).tipoInt(swiss.draw_range).anchoFijo(30)
+        self.ed_draw_range = Controles.ED(self).tipoInt(swiss.draw_range).relative_width(30)
         bt_draw_range = Controles.PB(self, "", rutina=self.borra_draw_range).ponIcono(Iconos.Reciclar())
 
         # adjudicator
         self.list_engines = Code.configuration.combo_engines_multipv10()
         self.cb_jmotor, self.lb_jmotor = QTUtil2.combobox_lb(self, self.list_engines, swiss.adjudicator, _("Engine"))
-        self.ed_jtiempo = Controles.ED(self).tipoFloat(swiss.adjudicator_time).anchoFijo(50)
+        self.ed_jtiempo = Controles.ED(self).tipoFloat(swiss.adjudicator_time).relative_width(50)
         self.lb_jtiempo = Controles.LB2P(self, _("Time in seconds"))
         ly = Colocacion.G()
         ly.controld(self.lb_jmotor, 3, 0).control(self.cb_jmotor, 3, 1)
@@ -112,7 +113,7 @@ class WSwissConfig(LCDialog.LCDialog):
         # Times
         minutes, seconds = self.swiss.time_engine_engine
         lb_minutes = Controles.LB2P(self, _("Total minutes"))
-        self.ed_minutes_eng_eng = Controles.ED(self).tipoFloat(minutes).anchoFijo(35)
+        self.ed_minutes_eng_eng = Controles.ED(self).tipoFloat(minutes).relative_width(35)
         self.sb_seconds_eng_eng, lb_seconds = QTUtil2.spinbox_lb(
             self, seconds, -999, 999, max_width=40, etiqueta=_("Seconds added per move")
         )
@@ -123,16 +124,16 @@ class WSwissConfig(LCDialog.LCDialog):
 
         minutes, seconds = self.swiss.time_engine_human
         lb_minutes = Controles.LB2P(self, _("Total minutes"))
-        self.ed_minutes_eng_human = Controles.ED(self).tipoFloat(minutes).anchoFijo(65)
+        self.ed_minutes_eng_human = Controles.ED(self).tipoFloat(minutes).relative_width(65)
         self.sb_seconds_eng_human, lb_seconds = QTUtil2.spinbox_lb(
-            self, seconds, -999, 999, max_width=35, etiqueta=_("Seconds added per move")
+            self, seconds, -999, 999, max_width=40, etiqueta=_("Seconds added per move")
         )
         ly = Colocacion.H().control(lb_minutes).control(self.ed_minutes_eng_human)
         ly.control(lb_seconds).control(self.sb_seconds_eng_human)
 
         minutes = self.swiss.time_added_human
         lb_added_human = Controles.LB2P(self, _("Extra minutes for the player"))
-        self.ed_added_human = Controles.ED(self).tipoFloat(minutes).anchoFijo(65)
+        self.ed_added_human = Controles.ED(self).tipoFloat(minutes).relative_width(65)
         ly1 = Colocacion.H().control(lb_added_human).control(self.ed_added_human).relleno()
         ly2 = Colocacion.V().otro(ly).otro(ly1)
 
@@ -154,7 +155,7 @@ class WSwissConfig(LCDialog.LCDialog):
         self.btNuevoBookR = Controles.PB(self, "", self.new_book).ponIcono(Iconos.Mas())
         self.cbBooksRR = QTUtil2.combobox_lb(self, li_resp_book, self.swiss.book_rr)
         self.lbDepthBookR = Controles.LB2P(self, _("Max depth"))
-        self.edDepthBookR = Controles.ED(self).tipoInt(self.swiss.book_depth).anchoFijo(30)
+        self.edDepthBookR = Controles.ED(self).tipoInt(self.swiss.book_depth).relative_width(30)
 
         hbox = Colocacion.H().control(self.cbBooksR).control(self.btNuevoBookR).control(self.cbBooksRR)
         hbox1 = Colocacion.H().control(self.lbDepthBookR).control(self.edDepthBookR).relleno()
@@ -165,10 +166,14 @@ class WSwissConfig(LCDialog.LCDialog):
         lb_score_draw = Controles.LB2P(self, _("Draw"))
         lb_score_lost = Controles.LB2P(self, _("Loss"))
         lb_score_byes = Controles.LB2P(self, _("Byes"))
-        self.ed_score_win = Controles.ED(self).ponFloat(self.swiss.score_win).anchoFijo(40).align_right()
-        self.ed_score_draw = Controles.ED(self).ponFloat(self.swiss.score_draw).anchoFijo(40).align_right()
-        self.ed_score_lost = Controles.ED(self).ponFloat(self.swiss.score_lost).anchoFijo(40).align_right()
-        self.ed_score_byes = Controles.ED(self).ponFloat(self.swiss.score_byes).anchoFijo(40).align_right()
+        self.ed_score_win = Controles.ED(self).ponFloat(self.swiss.score_win).relative_width(
+            40).align_right()
+        self.ed_score_draw = Controles.ED(self).ponFloat(self.swiss.score_draw).relative_width(
+            40).align_right()
+        self.ed_score_lost = Controles.ED(self).ponFloat(self.swiss.score_lost).relative_width(
+            40).align_right()
+        self.ed_score_byes = Controles.ED(self).ponFloat(self.swiss.score_byes).relative_width(
+            40).align_right()
         ly_score = Colocacion.H().relleno()
         sep = 6
         ly_score.control(lb_score_win).espacio(-sep).control(self.ed_score_win).espacio(sep)
@@ -179,7 +184,8 @@ class WSwissConfig(LCDialog.LCDialog):
         self.gb_score = Controles.GB(self, _("System score"), ly_score)
 
         lb_matchdays = Controles.LB2P(self, _("Rounds"))
-        self.ed_matchdays = Controles.ED(self).ponInt(self.swiss.num_matchdays).anchoFijo(40).align_right()
+        self.ed_matchdays = Controles.ED(self).ponInt(self.swiss.num_matchdays).relative_width(
+            40).align_right()
 
         ly_options = Colocacion.G().margen(20)
         ly_res = Colocacion.H().control(self.ed_resign).control(bt_resign).relleno()

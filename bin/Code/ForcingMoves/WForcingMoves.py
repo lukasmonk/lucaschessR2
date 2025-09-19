@@ -61,7 +61,7 @@ class WForcingMoves(LCDialog.LCDialog):
         self.ed_moves = Controles.ED(self, "").set_font_type(puntos=32)
         #  self.ed_moves.setValidator(QtGui.QIntValidator(self.ed_moves))
         self.ed_moves.setAlignment(QtCore.Qt.AlignRight)
-        self.ed_moves.anchoFijo(72)
+        self.ed_moves.relative_width(72)
 
         ly = Colocacion.H().relleno().control(self.ed_moves).relleno()
 
