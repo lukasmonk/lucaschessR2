@@ -1630,18 +1630,18 @@ class WGames(QtWidgets.QWidget):
                 li_data = []
                 for key, head in li_fields:
                     li_data.append(self.db_games.field(recno, key))
-                game = self.db_games.read_game_recno(recno)
-                game_raw = Game.game_without_variations(game)
-                pgn = game_raw.pgn_base_raw()
+                game = self.db_games.read_game_recno_base(recno)
+                pgn = game.pgn_base_raw()
                 li_data.append(pgn)
                 writer.writerow(li_data)
 
-        if not pb.is_canceled():
+        canceled = pb.is_canceled()
+        if not canceled :
             QTUtil2.temporary_message(self, _("Saved"), 0.8)
             if not self.is_temporary:
                 self.changes = False
         pb.close()
-        if not pb.is_canceled():
+        if not canceled:
             Code.startfile(path_csv)
 
     def tw_paste_pgn_rem(self):

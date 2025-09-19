@@ -11,8 +11,6 @@ import warnings
 
 import Code
 
-warnings.simplefilter("ignore")
-
 n_args = len(sys.argv)
 if n_args == 1:
     import Code.Base.Init

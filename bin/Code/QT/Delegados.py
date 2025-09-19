@@ -276,8 +276,8 @@ class EtiquetaPGN(QtWidgets.QStyledItemDelegate):
         if txt_analysis:
             document_analysis = QtGui.QTextDocument()
             font = option.font
-            new_size = max(6, font.pointSize() - 1)  # aseguramos que no baje de 6
-            font.setPointSize(new_size)
+            # new_size = max(6, font.pointSize() - 1)  # aseguramos que no baje de 6
+            # font.setPointSize(new_size)
             document_analysis.setDefaultFont(font)
             if color:
                 txt_analysis = '<font color="%s">%s</font>' % (color, txt_analysis)

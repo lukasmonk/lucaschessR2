@@ -605,6 +605,38 @@ class DBgames:
         self.conexion.execute(sql, (data,))
         self.conexion.commit()
 
+    def read_game_recno_base(self, recno):
+        raw = self.read_complete_recno(recno)
+        game = Game.Game()
+        fen, pv = self.read_xpv(raw["XPV"])
+        if fen:
+            game.set_fen(fen)
+        game.read_pv(pv)
+
+        litags = []
+        for field in self.li_fields:
+            if field not in ("XPV", "_DATA_", "PLYCOUNT"):
+                v = raw[field]
+                if v:
+                    litags.append(
+                        (drots.get(field, Util.primera_mayuscula(field)), v if isinstance(v, str) else str(v)))
+        litags.append(("PlyCount", str(raw["PLYCOUNT"])))
+
+        game.set_tags(litags)
+        if fen and not game.get_tag("FEN"):
+            game.set_tag("FEN", fen)
+        opening = game.get_tag("Opening")
+        eco = game.get_tag("ECO")
+        game.assign_opening()
+        if opening:
+            game.set_tag("Opening", opening)
+        if eco:
+            game.set_tag("ECO", eco)
+
+        game.order_tags()
+        game.resultado()
+        return game
+
     def read_game_recno(self, recno):
         raw = self.read_complete_recno(recno)
         return self.read_game_raw(raw)

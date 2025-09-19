@@ -8,7 +8,7 @@ from PySide2 import QtCore
 
 class GarbageCollector(QtCore.QObject):
 
-    def __init__(self, parent: Optional[QtCore.QObject] = None, interval_seconds: int = 3):
+    def __init__(self, parent: Optional[QtCore.QObject] = None, interval_seconds: int = 30):
         super().__init__(parent)
         self.interval_seconds = int(interval_seconds)
         self._timer = QtCore.QTimer(self)

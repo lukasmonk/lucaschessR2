@@ -120,13 +120,18 @@ class ManagerPlayAgainstEngine(Manager.Manager):
 
     key_crash = None
 
+    start_pending_continue = False
+
     def start(self, dic_var):
         self.base_inicio(dic_var)
         if self.timed:
             if self.hints:
                 self.xtutor.check_engine()
             self.xrival.check_engine()
+            self.start_pending_continue = True
             self.start_message(nomodal=Code.eboard and Code.is_linux)  # nomodal: problema con eboard
+            self.start_pending_continue = False
+
 
         self.play_next_move()
 
@@ -440,6 +445,9 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             self.main_window.stop_clock()
             return
         if self.state != ST_PLAYING:
+            return
+
+        if self.start_pending_continue:
             return
 
         if self.human_is_playing:
