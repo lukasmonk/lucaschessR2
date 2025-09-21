@@ -125,7 +125,7 @@ class WNewExpedition(LCDialog.LCDialog):
         while True:
             form = FormLayout.FormLayout(self, _("Select games"), Iconos.Opciones(), anchoMinimo=200)
             form.apart_np("%s: %d" % (_("Total games"), nreccount))
-            form.editbox(_("Select games"), rx="[0-9,\-,\,]*", init_value=plant)
+            form.editbox(_("Select games"), rx=r"[0-9,\-]*", init_value=plant)
             form.apart_simple_np(
                 "%s  -5,7-9,14,19-<br>%s<br>%s"
                 % (_("By example:"), _("Number of games must be in range 12-500"), _("Empty means all games"))

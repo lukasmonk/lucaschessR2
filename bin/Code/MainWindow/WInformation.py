@@ -354,7 +354,7 @@ class WVariations(QtWidgets.QWidget):
         board.put_arrow_sc(var_move.from_sq, var_move.to_sq)
         self.get_manager().check_captures()
         if Code.configuration.x_show_rating:
-            self.get_manager().show_rating(var_move)
+            self.get_manager().show_nags(var_move)
         if var_move.analysis and Code.configuration.x_show_bestmove:
             self.get_manager().show_bestmove(var_move)
         self.mostrar()

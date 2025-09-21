@@ -230,7 +230,7 @@ def analysis_parameters(parent, extended_mode, all_engines=False):
         li_gen.append((config, color))
 
         config = FormLayout.Editbox(
-            '<div align="right">' + _("Moves") + "<br>" + _("By example:") + " -5,8-12,14,19-", rx="[0-9,\-,\,]*"
+            '<div align="right">' + _("Moves") + "<br>" + _("By example:") + " -5,8-12,14,19-", rx=r"[0-9,\-]*"
         )
         li_gen.append((config, ""))
 
@@ -416,6 +416,10 @@ def massive_analysis_parameters(parent, configuration, multiple_selected, is_dat
         li.append((str(x), str(x)))
     config = FormLayout.Combobox(_("Number of variations evaluated by the engine (MultiPV)"), li)
     li_gen.append((config, alm.multiPV))
+
+    # Priority
+    config = FormLayout.Combobox(_("Process priority"), Priorities.priorities.combo())
+    li_gen.append((config, alm.priority))
     li_gen.append(SEPARADOR)
 
     li_j = [(_("White"), "WHITE"), (_("Black"), "BLACK"), (_("White & Black"), "BOTH")]
@@ -441,7 +445,7 @@ def massive_analysis_parameters(parent, configuration, multiple_selected, is_dat
     )
 
     config = FormLayout.Editbox(
-        '<div align="right">' + _("Moves") + "<br>" + _("By example:") + " -5,8-12,14,19-", rx="[0-9,\-,\,]*"
+        '<div align="right">' + _("Moves") + "<br>" + _("By example:") + " -5,8-12,14,19-", rx=r"[0-9,\-]*"
     )
     li_gen.append((config, ""))
 
@@ -504,6 +508,7 @@ def massive_analysis_parameters(parent, configuration, multiple_selected, is_dat
             alm.depth,
             alm.nodes,
             alm.multiPV,
+            alm.priority,
             color,
             cjug,
             alm.num_moves,

@@ -1197,7 +1197,7 @@ class WLines(LCDialog.LCDialog):
         elif resp == "lines":
             li_gen = [FormLayout.separador]
             config = FormLayout.Editbox(
-                '<div align="right">' + _("Lines") + "<br>" + _("By example:") + " -5,8-12,14,19-", rx=r"[0-9,\-,\,]*"
+                '<div align="right">' + _("Lines") + "<br>" + _("By example:") + " -5,8-12,14,19-", rx=r"[0-9,\-]*"
             )
             li_gen.append((config, ""))
             resultado = FormLayout.fedit(
