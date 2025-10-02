@@ -184,8 +184,8 @@ class GraphToolTip(QtWidgets.QGraphicsItem):
         self.dr = dr
         self.x = x
         self.y = y
-        rancho = self.metrics.width(self.texto) + 10
-        ralto = self.metrics.height() + 12
+        rancho = self.metrics.horizontalAdvance(self.texto) + 10
+        ralto = self.metrics.hheight() + 12
 
         rx = 10 if "e" in self.dr else -rancho
         ry = -ralto if "n" in self.dr else +ralto

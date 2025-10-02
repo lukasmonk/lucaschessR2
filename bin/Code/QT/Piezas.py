@@ -127,16 +127,19 @@ class AllPieces:
     def default_pixmap(self, pieza, width):
         return self.pixmap(pieza, DEFAULT_PIECES, width)
 
-    @staticmethod
-    def save_all_png(name, px):
+    def save_all_png(self, name, px):
         if is_only_board(name):
             name = DEFAULT_PIECES
         folder_to_save = Code.configuration.folder_pieces_png()
+
         for pieza in "pnbrqk":
             for color in "wb":
                 fich = Code.path_resource("Pieces", name, "%s%s.svg" % (color, pieza))
-                with open(fich, "rb") as f:
-                    qb = QtCore.QByteArray(f.read())
+                try:
+                    with open(fich, "rb") as f:
+                        qb = QtCore.QByteArray(f.read())
+                except FileNotFoundError:
+                    return self.save_all_png(DEFAULT_PIECES, px)
                 pm = QtGui.QPixmap(px, px)
                 pm.fill(QtCore.Qt.transparent)
                 render = QtSvg.QSvgRenderer(qb)

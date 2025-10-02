@@ -45,6 +45,9 @@ class LBKey(Controles.LB):
     def mouseDoubleClickEvent(self, event):
         self.wowner.analizar_actual()
 
+    def wheelEvent(self, event):
+       self.wowner.pgn_wheel_event(event.delta() < 0)
+
 
 class WInfomove(QtWidgets.QWidget):
     game: None
@@ -250,7 +253,14 @@ class WInfomove(QtWidgets.QWidget):
             self.run_clock()
 
     def board_wheel_event(self, board, forward):
-        forward = Code.configuration.wheel_board(forward)
+        forward = Code.configuration.wheel_board(not forward)
+        if forward:
+            self.MoverAdelante()
+        else:
+            self.move_back()
+
+    def pgn_wheel_event(self, forward):
+        forward = Code.configuration.wheel_pgn(forward)
         if forward:
             self.MoverAdelante()
         else:

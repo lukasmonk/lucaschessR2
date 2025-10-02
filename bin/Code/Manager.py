@@ -2152,6 +2152,7 @@ class Manager:
             return getattr(self, "grabarComo")()
 
         dic = dict(GAME=self.game.save(True))
+
         extension = "lcsb"
         file = self.configuration.folder_save_lcsb()
         while True:

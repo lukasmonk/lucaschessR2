@@ -719,7 +719,6 @@ class Configuration:
                 if x.startswith("x_"):
                     if x in dic:
                         setattr(self, x, dic[x])
-
             if "x_sizefont_players" not in dic:
                 self.x_sizefont_players = self.x_sizefont_infolabels + 2
             # self.palette = dic.get("PALETTE", self.palette)

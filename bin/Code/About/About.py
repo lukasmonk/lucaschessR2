@@ -145,36 +145,42 @@ class WAbout(QtWidgets.QDialog):
 #                 so = "Windows"
 #                 for (name, autor, url) in li_eng:
 #                     if name == "Maia-1100":
-#                         name = "Maia-1100/1900"
+#                         name = "Maia-1100/2200"
 #                     elif name.startswith("Maia"):
 #                         continue
 #                     if "-bmi2" in name:
 #                         name = name.replace("-bmi2", "")
 #                     if name.endswith("64"):
 #                         name = name.replace("64", "")
+#                     if name == "Komodo Dragon 1":
+#                         name = "Dragon-1"
 #                     lix.append((name, autor, url, so))
 #                 li_eng = lix
+#
 #                 with open(r".\OS\linux\OSEngines.py", "rt", encoding="utf-8") as flnx:
-#                     for linea in flnx:
-#                         linea = linea.strip()
-#                         if linea.startswith("cm = mas(") or linea.startswith("mas("):
-#                             if "maia-" in linea:
-#                                 linea = linea.replace(" % level", "")
-#                             lir = linea.split('"')
-#                             x, alias, x, autor, x, version, x, url, x, nombre, x = lir[:11]
-#                             if alias == "Maia-%d":
-#                                 nombre = "Maia-1100/1900"
-#                             if "{bmi2}" in nombre:
-#                                 nombre = nombre.replace("{bmi2}", "")
-#                             if nombre == "Fox":
-#                                 nombre += " " + version
-#                             if nombre == "FoxCub":
-#                                 nombre = "Foxcub " +version
-#                             if nombre == "irina":
-#                                 nombre = "Irina " +version
-#                             if nombre[0].islower():
-#                                 nombre = nombre[0].upper() + nombre[1:]
-#                             li_eng.append((nombre, autor, url, "Linux"))
+#                     cod_linux = flnx.read()
+#
+#                     # Crear un namespace para ejecutar
+#                     namespace = {}
+#                     exec(cod_linux, namespace)
+#
+#                     # Ejecutar la función
+#                     dic = namespace['read_engines'](".")
+#                     for key, engine in dic.items():
+#                         name = engine.name
+#                         autor = engine.autor
+#                         url = engine.url
+#                         so = "Linux"
+#                         if name == "Maia-1100":
+#                             name = "Maia-1100/2200"
+#                         elif name.startswith("Maia"):
+#                             continue
+#                         if "-bmi2" in name:
+#                             name = name.replace("-bmi2", "")
+#                         if name.endswith("64"):
+#                             name = name.replace("64", "")
+#                         li_eng.append((name, autor, url, so))
+#
 #                 li_eng.sort(key=lambda xt: xt[0].upper())
 #
 #                 for pos, (name, autor, url, so) in enumerate(li_eng, 1):

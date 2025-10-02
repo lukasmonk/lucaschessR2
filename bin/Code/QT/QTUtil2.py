@@ -192,6 +192,7 @@ class ControlWaitingMessage:
             with_image=True,
             if_parent_none=False,
     ):
+        assert parent is not None
         if self.me:
             self.final()
         if background is None:

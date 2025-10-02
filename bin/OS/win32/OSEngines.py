@@ -164,6 +164,7 @@ def read_engines(folder_engines):
         emulate_movetime=True
     )
     cm.set_multipv(10, 40)
+    cm.name = "DeepToga1.9.6nps"
 
     mas("greko98", "Vladimir Medvedev", "9.8", "http://sourceforge.net/projects/greko", "GreKo98a.exe", 2500)
 
@@ -208,7 +209,7 @@ def read_engines(folder_engines):
     mas("cdrill", "Ferdinand Mosca", "1800 Build 4", "https://sites.google.com/view/cdrill", "CDrill_1800_Build_4.exe",
         1800)
 
-    mas(
+    cm = mas(
         "gambitfruit",
         "Ryan Benitez, Thomas Gaksch and Fabien Letouzey",
         "Beta 4bx",
@@ -217,6 +218,7 @@ def read_engines(folder_engines):
         2750,
         nodes_compatible=True
     )
+    cm.name = "Gambit-fruit"
 
     is64 = platform.machine().endswith("64")
     t32_64 = "64" if is64 else "32"

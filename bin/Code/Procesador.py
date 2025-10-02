@@ -220,8 +220,8 @@ class Procesador:
             self.start()
 
     def reset(self):
-        self.main_window.deactivate_eboard(0)
         self.main_window.activate_analysis_bar(False)
+        self.main_window.deactivate_eboard(0)
         self.main_window.activaCapturas(False)
         self.main_window.activaInformacionPGN(False)
         if self.manager:

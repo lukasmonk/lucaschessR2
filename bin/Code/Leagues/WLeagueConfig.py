@@ -438,6 +438,11 @@ class WLeagueConfig(LCDialog.LCDialog):
             self.sortby = "elo"
         self.sort_list()
 
+    def grid_right_button(self, grid, row, col, modif):
+        opponent: Leagues.Opponent = self.league.opponent(row)
+        if opponent.is_engine():
+            opponent.opponent.list_to_show(self)
+
     def terminar(self):
         self.save_video()
         self.accept()

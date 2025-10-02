@@ -236,6 +236,9 @@ class CB(QtWidgets.QComboBox):
     def valor(self):
         return self.itemData(self.currentIndex())
 
+    def label(self):
+        return self.itemText(self.currentIndex())
+
     def set_font(self, f):
         self.setFont(f)
         return self

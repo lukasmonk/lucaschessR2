@@ -33,8 +33,8 @@ class AnalysisBar(QtWidgets.QWidget):
         self.lb_value_down = Controles.LB(self).set_font_type(puntos=7).align_center()
 
         b, w = Code.dic_colors["BLACK_ANALYSIS_BAR"], Code.dic_colors["WHITE_ANALYSIS_BAR"]
-        style = """QProgressBar{background-color :%s;border : 1px solid %s;margin-left:4px;}  
-                   QProgressBar::chunk {background-color: %s;}""" % (b, b, w)
+        style = f"""QProgressBar{{background-color :{b};border : 1px solid {b};margin-left:4px;}}  
+                   QProgressBar::chunk {{background-color: {w};}}"""
         self.setStyleSheet(style)
 
         self.cache = {}
@@ -76,12 +76,12 @@ class AnalysisBar(QtWidgets.QWidget):
                 self.timer.stop()
             self.timer.start(self.interval)
         else:
-            if self.engine_manager:
-                self.engine_manager.terminar()
-                self.engine_manager = None
             if self.timer:
                 self.timer.stop()
                 self.timer = None
+            if self.engine_manager:
+                self.engine_manager.terminar()
+                self.engine_manager = None
 
     def end_think(self):
         if self.timer:

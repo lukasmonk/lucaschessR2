@@ -74,6 +74,7 @@ class ManagerGame(Manager.Manager):
         self.put_information()
 
         self.put_toolbar()
+        self.set_changed(False)
 
         if len(self.game) == 0:
             self.play_next_move()
@@ -168,6 +169,7 @@ class ManagerGame(Manager.Manager):
                 self.put_toolbar()
                 QTUtil2.temporary_message(self.main_window, _("Saved"), 0.8)
             else:
+                self.main_window.activate_analysis_bar(False)
                 self.main_window.accept()
 
         elif key == TB_CONFIG:
@@ -202,6 +204,7 @@ class ManagerGame(Manager.Manager):
         if ok is None:
             return ok
 
+        self.main_window.activate_analysis_bar(False)
         self.procesador.close_engines()
 
         if ok:

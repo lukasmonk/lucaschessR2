@@ -141,6 +141,10 @@ class OneAnalysis(QtWidgets.QWidget):
         else:
             return None
 
+    def grid_wheel_event(self, ogrid, forward):
+        recno = ogrid.recno() + (-1 if forward else +1)
+        self.situate(recno)
+
     def situate(self, recno):
         if 0 <= recno < len(self.list_rm_name):
             self.wrm.goto(recno, 0)
@@ -357,7 +361,7 @@ class WAnalisis(LCDialog.LCDialog):
         elif k == QtCore.Qt.Key_Up:
             self.muestraActual.wmu.arriba()
         elif k == QtCore.Qt.Key_Left:
-            self.muestraActual.wmu.process_toolbar("move_back")
+            self.muestraActual.wmu.process_toolbar("MoverAtras")
         elif k == QtCore.Qt.Key_Right:
             self.muestraActual.wmu.process_toolbar("MoverAdelante")
         elif k == QtCore.Qt.Key_Home:

@@ -202,8 +202,9 @@ cd bin
             q.write(
                 """QT_LOGGING_RULES='*=false'
 export QT_LOGGING_RULES
+
 cd bin
-./LucasR 2>/dev/null
+exec ./LucasR "$@" 2>/dev/null
 """
             )
 

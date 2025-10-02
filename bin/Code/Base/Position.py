@@ -253,7 +253,8 @@ class Position:
 
     def play(self, from_a1h8, to_a1h8, promotion=""):
         self.set_lce()
-
+        if promotion is None:
+            promotion = ""
         mv = FasterCode.move_expv(from_a1h8, to_a1h8, promotion)
         if not mv:
             return False, "Error"

@@ -23,6 +23,8 @@ NONE, PLAY_HUMAN, REINIT = range(3)
 
 
 class WLeague(LCDialog.LCDialog):
+    temporary_game = None
+
     def __init__(self, w_parent, league):
 
         if league.current_num_season is None:
@@ -823,7 +825,7 @@ class WLeague(LCDialog.LCDialog):
 
     def grid_right_button(self, grid, row, col, modif):
         if grid == self.grid_matches:
-            xmatch = self.li_matches[row]
+            xmatch: Leagues.Match = self.li_matches[row]
             if xmatch.result and (xmatch.is_human_vs_engine(self.league) or xmatch.is_human_vs_human(self.league)):
                 menu = QTVarios.LCMenu(self)
                 menu.opcion("show", _("Show game"), Iconos.LearnGame())
@@ -840,6 +842,11 @@ class WLeague(LCDialog.LCDialog):
                         self.league.save()
                         self.show_current_season()
                     return
+            else:
+                if col.key in ("WHITE", "BLACK"):
+                    opponent: Leagues.Opponent = xmatch.get_engine(self.league, col.key == "WHITE")
+                    if opponent.is_engine():
+                        opponent.opponent.list_to_show(self)
         self.grid_doble_click(grid, row, col)
 
     def grid_doble_click(self, grid, row, o_column):
@@ -884,13 +891,18 @@ class WLeague(LCDialog.LCDialog):
     def show_match_done(self, xmatch):
         game = self.season.get_game_match(xmatch)
         if game:
-            game = Code.procesador.manager_game(self, game, True, False, None)
-            if game:
-                if xmatch.is_human_vs_human(self.league):
-                    result = game.resultado()
-                    if result in (RESULT_WIN_WHITE, RESULT_WIN_BLACK, RESULT_DRAW):
-                        xmatch.result = result
-                self.season.put_match_done(xmatch, game)
+            game.recno = 0
+            self.temporary_game = None
+
+            def save(recno, xgame):
+                self.temporary_game = xgame
+
+            Code.procesador.manager_game(self, game, True, False, None, save_routine=save)
+            if self.temporary_game is not None:
+                result = self.temporary_game.resultado()
+                if result in (RESULT_WIN_WHITE, RESULT_WIN_BLACK, RESULT_DRAW):
+                    xmatch.result = result
+                    self.season.put_match_done(xmatch, self.temporary_game)
                 self.show_current_season()
 
     def update_matches(self):

@@ -31,7 +31,6 @@ class ManagerVariations(Manager.Manager):
     error = None
 
     def start(self, game, is_white_bottom, with_engine_active, is_competitive, go_to_move=None):
-
         self.thinking(True)
         self.kibitzers_manager = self.procesador.kibitzers_manager
 

@@ -641,6 +641,9 @@ class DBgames:
         raw = self.read_complete_recno(recno)
         return self.read_game_raw(raw)
 
+    def read_raw_recno(self, recno):
+        return self.read_complete_recno(recno)
+
     def read_game_raw(self, raw):
         game = Game.Game()
         xpgn = raw["_DATA_"]

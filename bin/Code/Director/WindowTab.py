@@ -217,6 +217,7 @@ class SelectBanda(QtWidgets.QWidget):
 
     def iniActualizacion(self):
         self.setControl = set()
+        self.dic_data = {}
 
     def actualiza(self, xid, name, pixmap, tipo):
         self.dic_data[xid] = (name, pixmap, tipo)

@@ -56,6 +56,7 @@ def read_engines(folder_engines):
     cm.set_uci_option("Hash", "64")
     cm.set_uci_option("Threads", "2")
     cm.set_multipv(10, 218)
+    cm.name = "Dragon-1"
 
     mas("alouette", "Roland Chastain", "0.1.7", "https://codeberg.org/rchastain/alouette", "alouette64", 800)
 
@@ -70,7 +71,7 @@ def read_engines(folder_engines):
 
     mas("beef", "Jonathan Tseng", "0.36", "https://github.com/jtseng20/Beef", "Beef-0.36", 3097)
 
-    cm = mas("cassandre", "Jean-Francois Romang), Raphael Grundrich, Thomas Adolph, Chad Koch", "0.24","https://sourceforge.net/projects/cassandre/", "Cassandre-0.24", 1140)
+    mas("cassandre", "Jean-Francois Romang), Raphael Grundrich, Thomas Adolph, Chad Koch", "0.24","https://sourceforge.net/projects/cassandre/", "Cassandre-0.24", 1140)
 
     mas("ceechess", "Tom Reinitz", "1.3.2", "https://github.com/bctboi23/CeeChess", "CeeChess-1.3.2", 2268)
 
@@ -109,13 +110,15 @@ def read_engines(folder_engines):
 
     mas("fruit", "Fabien Letouzey", "2.1", "http://www.fruitchess.com/", "Fruit-2.1", 2784)
 
-    mas("gambitfruit", "Ryan Benitez, Thomas Gaksch and Fabien Letouzey", "1.0 Beta 4bx","https://github.com/lazydroid/gambit-fruit", "gfruit", 2750)
+    cm = mas("gambitfruit", "Ryan Benitez, Thomas Gaksch and Fabien Letouzey", "1.0 Beta 4bx","https://github.com/lazydroid/gambit-fruit", "gfruit", 2750)
+    cm.name = "Gambit-fruit"
 
     mas("gaviota", "Miguel Ballicora", "0.84", "https://sites.google.com/site/gaviotachessengine/Home", "Gaviota-0.84",2638, nodes_compatible=True)
 
     mas("glaurung", "Tord RomsTad", "2.2", "http://www.glaurungchess.com/", "Glaurung-2.2", 2765, nodes_compatible=True)
 
-    mas("godel", "Juan Manuel Vazquez", "7.0", "https://sites.google.com/site/godelchessengine", "Godel-7.0", 2979, nodes_compatible=True)
+    cm = mas("godel", "Juan Manuel Vazquez", "7.0", "https://sites.google.com/site/godelchessengine", "Godel-7.0", 2979, nodes_compatible=True)
+    cm.name = "Gödel 7.0"
 
     mas("goldfish", "Bendik Samseth", "1.13.0", "https://github.com/bsamseth/Goldfish", "Goldfish-1.13.0", 2050, nodes_compatible=True)
 
@@ -144,6 +147,8 @@ def read_engines(folder_engines):
     mas("monochrome","Dan Ravensloft, formerly Matthew Brades (England), Manik Charan (India), George Koskeridis, Robert Taylor", "","https://github.com/cpirc/Monochrome", "Monochrome", 1601)
 
     mas("octochess", "Tim Kosse", "r5190", "http://octochess.org/", "Octochess-r5190", 2771)  # New build
+
+    mas("patricia", "Adam Kulju", "4 v2", "https://github.com/Adam-Kulju/Patricia", "patricia_4_v2", 3500)
 
     mas("pawny", "Mincho Georgiev", "1.2", "http://pawny.netii.net/", "Pawny-1.2", 2550)
 
@@ -175,6 +180,7 @@ def read_engines(folder_engines):
 
     cm = mas("toga", "WHMoweryJr,Thomas Gaksch,Fabien Letouzey", "deepTogaNPS 1.9.6","http://www.computerchess.info/tdbb/phpBB3/viewtopic.php?f=9&t=357", "DeepToga1.9.6nps", 2843)
     cm.set_multipv(10, 40)
+    cm.name = "DeepToga1.9.6nps"
 
     mas("tucano", "Alcides Schulz", "9.00", "https://sites.google.com/site/tucanochess", "Tucano-9.00", 2940, nodes_compatible=True)
 

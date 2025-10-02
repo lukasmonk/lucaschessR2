@@ -71,7 +71,7 @@ class WSelectEngineElo(LCDialog.LCDialog):
             None,
             (_("Cancel"), Iconos.Cancelar(), self.cancelar),
             None,
-            (_("Random opponent"), Iconos.FAQ(), self.selectRandom),
+            (_("Random opponent"), Iconos.FAQ(), self.select_random),
             None,
         ]
         if self.siMicElo or self.siWicker:
@@ -116,7 +116,7 @@ class WSelectEngineElo(LCDialog.LCDialog):
                     if x not in st:
                         st.add(x)
                         li_caract.append((x, x))
-            li_caract.sort(key=lambda x: x[1])
+            li_caract.sort(key=lambda rx: rx[1])
             li_caract.insert(0, ("---", None))
             self.cbCaract = Controles.CB(self, li_caract, dic_save.get("CARACT")).capture_changes(self.filtrar)
 
@@ -124,7 +124,7 @@ class WSelectEngineElo(LCDialog.LCDialog):
         if self.siMic:
             ly.control(self.cbCaract)
         ly.relleno(1)
-        gbRandom = Controles.GB(self, "", ly)
+        gb_random = Controles.GB(self, "", ly)
 
         # Lista
         o_columns = Columnas.ListaColumnas()
@@ -151,16 +151,16 @@ class WSelectEngineElo(LCDialog.LCDialog):
         self.grid.gotop()
 
         # Layout
-        lyH = Colocacion.H().control(self.tb).control(gbRandom)
-        layout = Colocacion.V().otro(lyH).control(self.grid).margen(3)
+        ly_h = Colocacion.H().control(self.tb).control(gb_random)
+        layout = Colocacion.V().otro(ly_h).control(self.grid).margen(3)
         self.setLayout(layout)
 
         self.filtrar()
 
         self.restore_video()
 
-    def removeReset(self):
-        self.tb.set_action_visible(self.reset, False)
+    # def removeReset(self):
+    #     self.tb.set_action_visible(self.reset, False)
 
     def filtrar(self):
         cb = self.cbElo.valor()
@@ -214,7 +214,7 @@ class WSelectEngineElo(LCDialog.LCDialog):
         else:
             QTUtil.beep()
 
-    def selectRandom(self):
+    def select_random(self):
         li = []
         for mt in self.liMotoresActivos:
             if mt.siJugable:
@@ -268,7 +268,7 @@ class WSelectEngineElo(LCDialog.LCDialog):
                 pts = mt.pgana
             elif key == "TABLAS":
                 pts = mt.ptablas
-            elif key == "PIERDE":
+            else: #if key == "PIERDE":
                 pts = mt.ppierde
 
             valor = "%+d" % pts
@@ -357,8 +357,8 @@ class WEngineExtend(QtWidgets.QDialog):
             lb_book = Controles.LB(self, _("Opening book") + ": ")
             self.list_books = Books.ListBooks()
             li = [(x.name, x.path) for x in self.list_books.lista]
-            li.insert(0, ("* " + _("None"), "-"))
-            li.insert(0, ("* " + _("By default"), "*"))
+            li.insert(0, (f'<{_("None")}>', "-"))
+            li.insert(0, (f'<{_("By default")}>', "*"))
             self.cbBooks = Controles.CB(self, li, engine.book)
             bt_nuevo_book = Controles.PB(self, "", self.new_book, plano=False).ponIcono(Iconos.Nuevo(), icon_size=16)
             # # Respuesta rival
@@ -389,6 +389,8 @@ class WEngineExtend(QtWidgets.QDialog):
                 .relleno()
             )
             ly_torneo = Colocacion.V().otro(ly_dt).otro(ly_book)
+        else:
+            ly_torneo = None
 
         # Layout
         ly = Colocacion.G()
@@ -461,6 +463,7 @@ def wgen_options_engine(owner, engine):
     for opcion in engine.li_uci_options_editable():
         tipo = opcion.tipo
         lb = Controles.LB(owner, opcion.name + ":").align_right()
+        control = None
         if tipo == "spin":
             control = QTUtil2.spinbox_lb(
                 owner, opcion.valor, opcion.minimo, opcion.maximo, max_width=50 if opcion.maximo < 1000 else 80
@@ -475,8 +478,6 @@ def wgen_options_engine(owner, engine):
             control = Controles.CB(owner, li_vars, opcion.valor)
         elif tipo == "string":
             control = Controles.ED(owner, opcion.valor)
-        # elif tipo == "button":
-        #     control = Controles.CHB(owner, " ", opcion.valor)
 
         layout.controld(lb, fil, col).control(control, fil, col + 1)
         col += 2
@@ -487,16 +488,16 @@ def wgen_options_engine(owner, engine):
 
     w = QtWidgets.QWidget(owner)
     w.setLayout(layout)
-    scrollArea = QtWidgets.QScrollArea()
-    scrollArea.setBackgroundRole(QtGui.QPalette.Light)
-    scrollArea.setWidget(w)
-    scrollArea.setWidgetResizable(True)
+    scroll_area = QtWidgets.QScrollArea()
+    scroll_area.setBackgroundRole(QtGui.QPalette.Light)
+    scroll_area.setWidget(w)
+    scroll_area.setWidgetResizable(True)
 
-    return scrollArea
+    return scroll_area
 
 
 def wsave_options_engine(engine):
-    liUCI = engine.liUCI = []
+    li_uci = engine.liUCI = []
     for opcion in engine.li_uci_options_editable():
         tipo = opcion.tipo
         control = opcion.control
@@ -513,7 +514,7 @@ def wsave_options_engine(engine):
         # elif tipo == "button":
         #     valor = control.isChecked()
         if valor != opcion.default:
-            liUCI.append((opcion.name, valor))
+            li_uci.append((opcion.name, valor))
         opcion.valor = valor
         if opcion.name == "MultiPV":
             engine.maxMultiPV = opcion.maximo

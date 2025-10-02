@@ -404,7 +404,7 @@ class ManagerLeague(Manager.Manager):
             self.xrival.stop()
 
     def save_match(self):
-        self.xmatch.result = self.game.result
+        self.xmatch.result = self.game.resultado()
         self.season.put_match_done(self.xmatch, self.game)
 
     def rendirse(self):

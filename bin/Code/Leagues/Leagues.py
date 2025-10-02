@@ -42,7 +42,7 @@ class Opponent:
         self.initialdivision = division
 
     def name(self):
-        return self.opponent.name
+        return _F(self.opponent.name)
 
     def elo(self):
         return self.opponent.elo
@@ -220,7 +220,7 @@ def create_journeys(num_opponents: int) -> list:
 
     else:
 
-        li_opponents = list(range(num_opponents))
+        li_opponents: list = list(range(num_opponents))
         if num_opponents % 2:
             li_opponents.append(None)
             num_opponents += 1
@@ -722,7 +722,7 @@ class Season:
         num_divisions = self.num_divisions()
         li_panels, dic_xid_order = season_previous.gen_panels_classification()
 
-        li_xid_divisions = [set() for n in range(num_divisions)]
+        li_xid_divisions = [set() for __ in range(num_divisions)]
         dic_elo_todos = {}
         for num_division in range(num_divisions):
             d_panel = li_panels[num_division]

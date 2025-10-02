@@ -118,7 +118,7 @@ class LeaguesWork:
                 dbw[xmatch.xid] = xmatch
             return xmatch
 
-    def put_match_done(self, xmatch, game):
+    def put_match_done(self, xmatch: Leagues.Match, game):
         with self.db_work("MATCHS_WORKING") as dbw:
             del dbw[xmatch.xid]
         self.season.put_match_done(xmatch, game)

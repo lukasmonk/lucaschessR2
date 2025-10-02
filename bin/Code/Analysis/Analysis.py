@@ -401,7 +401,7 @@ class AnalisisVariations:
         if self.rm:
             if accion == "MoverAdelante":
                 self.moving_analyzer(n_saltar=1)
-            elif accion == "move_back":
+            elif accion == "MoverAtras":
                 self.moving_analyzer(n_saltar=-1)
             elif accion == "MoverInicio":
                 self.moving_analyzer(si_inicio=True)

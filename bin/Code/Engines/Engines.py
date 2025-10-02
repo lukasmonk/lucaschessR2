@@ -6,6 +6,7 @@ import Code
 from Code import Util
 from Code.Base.Constantes import ENG_EXTERNAL, ENG_INTERNAL, BOOK_BEST_MOVE
 from Code.Engines import EngineRunDirect
+from Code.QT import QTVarios
 
 
 class Engine:
@@ -279,8 +280,43 @@ class Engine:
         return self.liUCI
 
     def xhash(self):
-        return hash(self.name + self.key)
+        return hash(self.alias + self.key)
 
+    def list_to_show(self, wowner):
+        li: list = [ f'{_("Name")} = {self.name}', f'{_("Key")} = {self.key}']
+        if self.key != self.alias:
+            li.append(f'{_("Alias")} = {self.alias}')
+        li.append(f'{self.path_exe}')
+        dic_options = {uci.name: uci.valor for uci in self.li_uci_options() if uci.valor}
+        if dic_options:
+            li_opt = []
+            for name, valor in dic_options.items():
+                li_opt.append(f"{name} = {valor}")
+            li.append((_("Options"), li_opt))
+        if self.multiPV:
+            li.append(f'{_("Number of variations evaluated by the engine (MultiPV)")} = {self.multiPV}')
+
+        if self.max_depth or self.max_time or self.nodes:
+            li_limits = []
+            if self.max_depth:
+                li_limits.append(f'{_("Fixed depth")} = {self.max_depth}')
+            if self.max_time:
+                li_limits.append(f'{_("Fixed time in seconds")} = {self.max_time:.01f}')
+            if self.nodes:
+                li_limits.append(f'{_("Fixed nodes")} = {self.nodes}')
+            li.append((_("Limits of engine thinking"), li_limits))
+        menu = QTVarios.LCMenuRondo(wowner)
+        for opt in li:
+            menu.separador()
+            if type(opt) is str:
+                menu.opcion(None, opt)
+            else:
+                label, li_opt = opt
+                submenu = menu.submenu(label)
+                for op in li_opt:
+                    submenu.separador()
+                    submenu.opcion(None, op)
+        menu.lanza()
 
 class OpcionUCI:
     name = ""

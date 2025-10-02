@@ -113,6 +113,8 @@ class Game:
         if with_litags and self.li_tags:
             dic["li_tags"] = self.li_tags
 
+        if self.first_position.is_initial():
+            self.del_tag("FEN")
         return Util.var2zip(dic)
 
     def restore(self, btxt_save):

@@ -205,24 +205,24 @@ class WPanelDirector(LCDialog.LCDialog):
         else:
             xid = str(xid)
             if tp == TabVisual.TP_FLECHA:
-                dicFlecha = self.dbFlechas[xid]
-                if dicFlecha is None:
+                dic_arrow = self.dbFlechas[xid]
+                if dic_arrow is None:
                     return None, None
-                regFlecha = BoardTypes.Flecha()
-                regFlecha.restore_dic(dicFlecha)
-                regFlecha.tpid = tpid
-                regFlecha.a1h8 = a1h8
-                sc = self.board.creaFlecha(regFlecha)
+                reg_arrow = BoardTypes.Flecha()
+                reg_arrow.restore_dic(dic_arrow)
+                reg_arrow.tpid = tpid
+                reg_arrow.a1h8 = a1h8
+                sc = self.board.creaFlecha(reg_arrow)
                 tarea = TabVisual.GT_Flecha(self.guion)
             elif tp == TabVisual.TP_MARCO:
-                dicMarco = self.dbMarcos[xid]
-                if dicMarco is None:
+                dic_marco = self.dbMarcos[xid]
+                if dic_marco is None:
                     return None, None
-                regMarco = BoardTypes.Marco()
-                regMarco.restore_dic(dicMarco)
-                regMarco.tpid = tpid
-                regMarco.a1h8 = a1h8
-                sc = self.board.creaMarco(regMarco)
+                reg_marco = BoardTypes.Marco()
+                reg_marco.restore_dic(dic_marco)
+                reg_marco.tpid = tpid
+                reg_marco.a1h8 = a1h8
+                sc = self.board.creaMarco(reg_marco)
                 tarea = TabVisual.GT_Marco(self.guion)
             elif tp == TabVisual.TP_CIRCLE:
                 dic_circle = self.dbCircles[xid]
@@ -235,24 +235,24 @@ class WPanelDirector(LCDialog.LCDialog):
                 sc = self.board.creaCircle(reg_circle)
                 tarea = TabVisual.GT_Circle(self.guion)
             elif tp == TabVisual.TP_SVG:
-                dicSVG = self.dbSVGs[xid]
-                if dicSVG is None:
+                dic_svg = self.dbSVGs[xid]
+                if dic_svg is None:
                     return None, None
-                regSVG = BoardTypes.SVG()
-                regSVG.restore_dic(dicSVG)
-                regSVG.tpid = tpid
-                regSVG.a1h8 = a1h8
-                sc = self.board.creaSVG(regSVG, siEditando=True)
+                reg_svg = BoardTypes.SVG()
+                reg_svg.restore_dic(dic_svg)
+                reg_svg.tpid = tpid
+                reg_svg.a1h8 = a1h8
+                sc = self.board.creaSVG(reg_svg, siEditando=True)
                 tarea = TabVisual.GT_SVG(self.guion)
             elif tp == TabVisual.TP_MARKER:
-                dicMarker = self.dbMarkers[xid]
-                if dicMarker is None:
+                dic_marker = self.dbMarkers[xid]
+                if dic_marker is None:
                     return None, None
-                regMarker = BoardTypes.Marker()
-                regMarker.restore_dic(dicMarker)
-                regMarker.tpid = tpid
-                regMarker.a1h8 = a1h8
-                sc = self.board.creaMarker(regMarker, siEditando=True)
+                reg_marker = BoardTypes.Marker()
+                reg_marker.restore_dic(dic_marker)
+                reg_marker.tpid = tpid
+                reg_marker.a1h8 = a1h8
+                sc = self.board.creaMarker(reg_marker, siEditando=True)
                 tarea = TabVisual.GT_Marker(self.guion)
             else:
                 return
@@ -591,8 +591,8 @@ class WPanelDirector(LCDialog.LCDialog):
         tp = li[1]
         xid = li[2]
         if tp == TabVisual.TP_FLECHA:
-            regFlecha = BoardTypes.Flecha(dic=self.dbFlechas[xid])
-            w = WindowTabVFlechas.WTV_Flecha(self, regFlecha, True)
+            reg_arrow = BoardTypes.Flecha(dic=self.dbFlechas[xid])
+            w = WindowTabVFlechas.WTV_Flecha(self, reg_arrow, True)
             if w.exec_():
                 self.dbFlechas[xid] = w.regFlecha.save_dic()
         elif tp == TabVisual.TP_MARCO:
@@ -636,14 +636,14 @@ class WPanelDirector(LCDialog.LCDialog):
         QTUtil2.temporary_message(self, _X(_("Saved to %1"), txt), 0.8)
 
     def grabarFichero(self):
-        dirSalvados = self.configuration.save_folder()
-        resp = SelectFiles.salvaFichero(self, _("File to save"), dirSalvados, "png", False)
+        dir_salvados = self.configuration.save_folder()
+        resp = SelectFiles.salvaFichero(self, _("File to save"), dir_salvados, "png", False)
         if resp:
             self.board.save_as_img(resp, "png")
             txt = resp
             QTUtil2.temporary_message(self, _X(_("Saved to %1"), txt), 0.8)
             direc = os.path.dirname(resp)
-            if direc != dirSalvados:
+            if direc != dir_salvados:
                 self.configuration.set_save_folder(direc)
 
     def flechas(self):
@@ -796,7 +796,7 @@ class WPanelDirector(LCDialog.LCDialog):
 
         self.selectBanda.finActualizacion()
 
-        dicCampos = {
+        dic_campos = {
             TabVisual.TP_FLECHA: (
                 "name",
                 "altocabeza",
@@ -826,7 +826,7 @@ class WPanelDirector(LCDialog.LCDialog):
             TabVisual.TP_SVG: ("name", "opacity"),
             TabVisual.TP_MARKER: ("name", "opacity"),
         }
-        dicDB = {
+        dic_db = {
             TabVisual.TP_FLECHA: self.dbFlechas,
             TabVisual.TP_MARCO: self.dbMarcos,
             TabVisual.TP_CIRCLE: self.dbCircles,
@@ -837,8 +837,8 @@ class WPanelDirector(LCDialog.LCDialog):
             bd = sc.bloqueDatos
             try:
                 tp, xid = bd.tpid
-                bdn = dicDB[tp][xid]
-                for campo in dicCampos[tp]:
+                bdn = dic_db[tp][xid]
+                for campo in dic_campos[tp]:
                     setattr(bd, campo, getattr(bdn, campo))
                 sc.update()
             except:
@@ -1008,14 +1008,14 @@ class Director:
         if is_right and is_shift and is_alt:
             pz_borrar = self.board.dameNomPiezaEn(a1h8)
             menu = QTVarios.LCMenu(self.board)
-            dicPieces = TrListas.dic_nom_pieces()
-            icoPiece = self.board.piezas.icono
+            dic_pieces = TrListas.dic_nom_pieces()
+            ico_piece = self.board.piezas.icono
 
             if pz_borrar or len(li_tareas):
                 mrem = menu.submenu(_("Remove"), Iconos.Delete())
                 if pz_borrar:
-                    label = dicPieces[pz_borrar.upper()]
-                    mrem.opcion(("rem_pz", None), label, icoPiece(pz_borrar))
+                    label = dic_pieces[pz_borrar.upper()]
+                    mrem.opcion(("rem_pz", None), label, ico_piece(pz_borrar))
                     mrem.separador()
                 for pos_guion, tarea in li_tareas:
                     label = "%s - %s - %s" % (tarea.txt_tipo(), tarea.name(), tarea.info())
@@ -1027,7 +1027,7 @@ class Director:
                 if pz != pz_borrar:
                     if pz == "k":
                         menu.separador()
-                    menu.opcion(("create", pz), dicPieces[pz.upper()], icoPiece(pz))
+                    menu.opcion(("create", pz), dic_pieces[pz.upper()], ico_piece(pz))
             resp = menu.lanza()
             if resp is not None:
                 orden, arg = resp
@@ -1073,10 +1073,10 @@ class Director:
             if self.ultTareaSelect:
                 self.ultTareaSelect.itemSC().activa(False)
             self.ultTareaSelect = tarea_elegida
-            itemSC = self.ultTareaSelect.itemSC()
-            itemSC.activa(True)
-            itemSC.mouse_press_ext(event)
-            self.directorItemSC = itemSC
+            item_sc = self.ultTareaSelect.itemSC()
+            item_sc.activa(True)
+            item_sc.mouse_press_ext(event)
+            self.directorItemSC = item_sc
 
             return True
         else:
@@ -1121,12 +1121,12 @@ class Director:
 
         a1h8 = self.punto2a1h8(event.pos())
         if a1h8:
-            siRight = event.button() == QtCore.Qt.RightButton
+            is_right = event.button() == QtCore.Qt.RightButton
             m = int(event.modifiers())
             is_shift = (m & QtCore.Qt.ShiftModifier) > 0
             is_alt = (m & QtCore.Qt.AltModifier) > 0
             is_ctrl = (m & QtCore.Qt.ControlModifier) > 0
-            self.w.boardRelease(a1h8, siRight, is_shift, is_alt, is_ctrl)
+            self.w.boardRelease(a1h8, is_right, is_shift, is_alt, is_ctrl)
         return True
 
     def terminar(self):

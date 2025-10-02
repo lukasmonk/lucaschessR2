@@ -58,6 +58,7 @@ class WTournament(LCDialog.LCDialog):
 
         # Tabs
         self.tab = tab = Controles.Tab()
+        tab.dispatchChange(self.tab_changed)
 
         # Tab-configuration --------------------------------------------------
         w = QtWidgets.QWidget()
@@ -91,7 +92,7 @@ class WTournament(LCDialog.LCDialog):
         lb_book = Controles.LB(self, _("Opening book") + ": ")
         self.list_books = Books.ListBooks()
         li = [(x.name, x.path) for x in self.list_books.lista]
-        li.insert(0, ("* " + _("None"), "-"))
+        li.insert(0, (f'<{_("None")}>', "-"))
         self.cbBooks = Controles.CB(self, li, torneo.book())
         bt_nuevo_book = Controles.PB(self, "", self.new_book, plano=False).ponIcono(Iconos.Nuevo(), icon_size=16)
         ly_book = Colocacion.H().control(self.cbBooks).control(bt_nuevo_book).relleno()
@@ -309,6 +310,14 @@ class WTournament(LCDialog.LCDialog):
         self.tab.set_value(3, "%d %s" % (self.torneo.num_games_finished(), _("Games finished")))
         self.calc_results()
 
+    def tab_changed(self, new_tab):
+        if new_tab == 1:
+            row = self.gridEnginesAlias.recno()
+            if row < 0:
+                return
+            me = self.torneo.engine(row)
+            self.act_engine(me)
+
     def calc_results(self):
         self.li_results = []
         for num in range(self.torneo.num_engines()):
@@ -516,15 +525,20 @@ class WTournament(LCDialog.LCDialog):
         self.li_data_current_engine.append((_("Maximum seconds to think"), me.time))
         pbook = me.book
         if pbook in ("-", None):
-            pbook = "* " + _("None")
+            pbook = f'<{_("None")}>'
+            mode = ""
         else:
             if pbook == "*":
-                pbook = "* " + _("By default")
+                pbook = f'{_("By default")} → {self.cbBooks.label()}'
             dic = {BOOK_RANDOM_UNIFORM: _("Uniform random"), BOOK_RANDOM_PROPORTIONAL: _("Proportional random"),
                    BOOK_BEST_MOVE: _("Always the highest percentage")}
-            pbook += "   (%s)" % dic.get(me.bookRR, BOOK_BEST_MOVE)
+            if self.cbBooks.valor() is None:
+                mode = ""
+            else:
+                mode = dic.get(me.bookRR, dic[BOOK_BEST_MOVE])
 
         self.li_data_current_engine.append((_("Opening book"), pbook))
+        self.li_data_current_engine.append(( "⤷   " + _("Mode"), mode))
 
         for opcion in me.li_uci_options():
             self.li_data_current_engine.append((opcion.name, str(opcion.valor)))

@@ -574,6 +574,7 @@ class WGames(QtWidgets.QWidget):
         li = self.grid.recnosSeleccionados()
         if li:
             recno = li[0]
+
             game = self.db_games.read_game_recno(recno)
         else:
             recno = None
@@ -907,15 +908,6 @@ class WGames(QtWidgets.QWidget):
         menu.separador()
 
         submenu = menu.submenu(_("Graphic elements (Director)"), Iconos.Script())
-
-        si_show = self.db_games.read_config("GRAPHICS_SHOW_ALLWAYS", False)
-        submenu.opcion(self.tw_dir_show_change, _("Show always"), is_checked=si_show)
-        submenu.separador()
-
-        si_graphics_specific = self.db_games.read_config("GRAPHICS_SPECIFIC", False)
-        submenu.opcion(self.tw_locale_change, _("Specific to this database"), Iconos.PuntoAzul(),
-                       is_checked=si_graphics_specific)
-        menu.separador()
 
         si_show = self.db_games.read_config("GRAPHICS_SHOW_ALLWAYS", False)
         submenu.opcion(self.tw_dir_show_change, _("Show always"), is_checked=si_show)
