@@ -49,7 +49,7 @@ echo ">> Monochrome" && chmod 755 ./Engines/monochrome/Monochrome
 echo ">> Monolith" && chmod 755 ./Engines/monolith/Monolith-2.01
 echo ">> Octochess" && chmod 755 ./Engines/octochess/Octochess-r5190
 echo ">> Pawny" && chmod 755 ./Engines/pawny/Pawny-1.2
-echo ">> Patricia" && chmod 755 ./Engines/patricia/patricia_4_V2
+echo ">> Patricia" && chmod 755 ./Engines/patricia/patricia_4_v2
 echo ">> Pigeon" && chmod 755 ./Engines/pigeon/Pigeon-1.5.1
 echo ">> Pulse" && chmod 755 ./Engines/pulse/Pulse-1.6.1
 echo ">> Quokka" && chmod 755 ./Engines/quokka/Quokka-2.1
