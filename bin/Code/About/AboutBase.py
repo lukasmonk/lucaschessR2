@@ -138,13 +138,14 @@ class ThanksTo:
             "Nambi",
             '<a href="https://github.com/phihag">Philipp Hagemeister</a>',
             '<a href="https://github.com/futurelauncher">futurelauncher</a>',
+            '<a href="https://github.com/cja000">cja000</a>',
             "Reinhard",
             "Olav Stüwe",
             '<a href="http://99-developer-tools.com/chess/">A. Wicker</a>',
             'Budana P',
             'Rudolf Krämer',
             "Luis",
-            "Stefan Akall"
+            "Stefan Akall",
             ""
         ]
         li_resto = []

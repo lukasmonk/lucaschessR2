@@ -263,7 +263,8 @@ class MainWindow(LCDialog.LCDialog):
                 if not self.board.is_maximized():
                     self.board.maximize_size(self.activadoF11)
             else:
-                QTUtil.shrink(self)
+                if not self.activadoF11:
+                    QTUtil.shrink(self)
                 tb_height = self.base.tb.height() if Code.configuration.x_tb_orientation_horizontal else 0
                 n = 0
                 while self.height() > self.board.ancho + tb_height + 18:

@@ -1,5 +1,6 @@
 import os
 import subprocess
+import signal
 import sys
 import time
 
@@ -193,20 +194,26 @@ class DirectEngine(object):
 
     def close(self):
         if self.pid:
-            if self.process.poll() is None:
-                self.put_line("stop")
-                self.put_line("quit")
-                self.process.terminate()
-                try:
-                    self.process.wait(timeout=2)
-                except subprocess.TimeoutExpired:
-                    self.process.kill()
-
-                if self.process.poll() is None:  # nope, no luck
-                    sys.stderr.write("INFO X CLOSE525: the engine %s won't close properly.\n" % self.exe)
-                    self.process.kill()
+            try:
+                if self.process.poll() is None:
+                    self.put_line("stop")
+                    self.put_line("quit")
                     self.process.terminate()
+                    try:
+                        self.process.wait(timeout=2)
+                    except subprocess.TimeoutExpired:
+                        self.process.kill()
+                    # time.sleep(0.1)
+                    # self.process.kill()
+                    # self.process.terminate()
+            except:
+                if Code.is_windows:
+                    subprocess.call(["taskkill", "/F", "/T", "/PID", str(self.pid)])
+                else:
+                    os.kill(self.pid, signal.SIGTERM)
+                sys.stderr.write("INFO X CLOSE: except - the engine %s won't close properly.\n" % self.exe)
 
             self.pid = None
         if self.log:
             self.log_close()
+            self.log = None

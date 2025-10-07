@@ -242,6 +242,8 @@ class WDailyTest(LCDialog.LCDialog):
         self.li_tiempos = []
         self.fns = fns
 
+        self.move_done = None
+
         self.board = Board.Board(self, config_board)
         self.board.crea()
         self.board.set_dispatcher(self.player_has_moved)
@@ -420,9 +422,9 @@ class WDailyTest(LCDialog.LCDialog):
             movimiento += promotion
 
         game = Game.Game(first_position=self.position)
-        ok, mens, self.move = Move.get_game_move(game, self.position, from_sq, to_sq, promotion)
+        ok, mens, self.move_done = Move.get_game_move(game, self.position, from_sq, to_sq, promotion)
         if ok:
-            self.board.set_position(self.move.position)
+            self.board.set_position(self.move_done.position)
             self.board.put_arrow_sc(from_sq, to_sq)
             self.calculaTiempoPuntos()
         else:
@@ -432,10 +434,10 @@ class WDailyTest(LCDialog.LCDialog):
         vtime = time.time() - self.iniTiempo
 
         um = QTUtil2.analizando(self)
-        self.rmr, pos = self.xtutor.analysis_move(self.move, self.xtutor.mstime_engine)
-        self.move.analysis = self.rmr, pos
+        self.rmr, pos = self.xtutor.analysis_move(self.move_done, self.xtutor.mstime_engine)
+        self.move_done.analysis = self.rmr, pos
         um.final()
-        pv = self.move.movimiento()
+        pv = self.move_done.movimiento()
         li = []
         pv = pv.lower()
 
@@ -488,7 +490,7 @@ class WDailyTest(LCDialog.LCDialog):
 
     def analizar(self):
         Analysis.show_analysis(
-            self.procesador, self.xtutor, self.move, self.position.is_white, 1, main_window=self, must_save=False
+            self.procesador, self.xtutor, self.move_done, self.position.is_white, 1, main_window=self, must_save=False
         )
 
 

@@ -871,7 +871,7 @@ class Configuration:
         for engine in li:
             if engine[0].lower().startswith("maia"):
                 if maia:
-                    engine[0] = "Maia 1100-1900"
+                    engine[0] = "Maia 1100-2200"
                     maia = False
                 else:
                     continue

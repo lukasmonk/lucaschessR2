@@ -317,6 +317,7 @@ class WTournament(LCDialog.LCDialog):
                 return
             me = self.torneo.engine(row)
             self.act_engine(me)
+            self.gridEnginesValores.refresh()
 
     def calc_results(self):
         self.li_results = []
@@ -532,13 +533,14 @@ class WTournament(LCDialog.LCDialog):
                 pbook = f'{_("By default")} → {self.cbBooks.label()}'
             dic = {BOOK_RANDOM_UNIFORM: _("Uniform random"), BOOK_RANDOM_PROPORTIONAL: _("Proportional random"),
                    BOOK_BEST_MOVE: _("Always the highest percentage")}
-            if self.cbBooks.valor() is None:
+            if self.cbBooks.valor() in (None, "-"):
                 mode = ""
             else:
                 mode = dic.get(me.bookRR, dic[BOOK_BEST_MOVE])
 
         self.li_data_current_engine.append((_("Opening book"), pbook))
-        self.li_data_current_engine.append(( "⤷   " + _("Mode"), mode))
+        if mode:
+            self.li_data_current_engine.append(( "⤷   " + _("Mode"), mode))
 
         for opcion in me.li_uci_options():
             self.li_data_current_engine.append((opcion.name, str(opcion.valor)))

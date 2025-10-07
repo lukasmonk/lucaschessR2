@@ -419,10 +419,7 @@ class Board(QtWidgets.QGraphicsView):
             limit = min(sz_width, sz_height)
         else:
             sz_width, sz_height = QTUtil.desktop_size_available()
-            if sz_width > sz_height:
-                limit = sz_height
-            else:
-                limit = sz_width
+            limit = min(sz_width, sz_height)
             if Code.configuration.x_tb_orientation_horizontal:
                 limit -= 80
 
