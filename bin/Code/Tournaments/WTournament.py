@@ -529,14 +529,15 @@ class WTournament(LCDialog.LCDialog):
             pbook = f'<{_("None")}>'
             mode = ""
         else:
-            if pbook == "*":
-                pbook = f'{_("By default")} → {self.cbBooks.label()}'
             dic = {BOOK_RANDOM_UNIFORM: _("Uniform random"), BOOK_RANDOM_PROPORTIONAL: _("Proportional random"),
                    BOOK_BEST_MOVE: _("Always the highest percentage")}
-            if self.cbBooks.valor() in (None, "-"):
-                mode = ""
+            mode = dic.get(me.bookRR, dic[BOOK_BEST_MOVE])
+            if pbook == "*":
+                pbook = f'{_("By default")} → {self.cbBooks.label()}'
+                if self.cbBooks.valor() == "-":
+                    mode = ""
             else:
-                mode = dic.get(me.bookRR, dic[BOOK_BEST_MOVE])
+                pbook = os.path.basename(pbook[:-4])
 
         self.li_data_current_engine.append((_("Opening book"), pbook))
         if mode:

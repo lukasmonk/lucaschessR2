@@ -73,7 +73,6 @@ class BooksTrainOL(object):
                 "HINTS": 0,
                 "DATE_END": None,
                 "TIME_USED": 0,
-
             }
         else:
             dic_training = self.li_trainings[-1]
@@ -102,7 +101,7 @@ class WBooksTrainOL(LCDialog.LCDialog):
     def __init__(self, owner, dbli_books_train):
 
         titulo = _("Train the opening lines of a book")
-        LCDialog.LCDialog.__init__(self, owner, titulo, Iconos.Opening(), "book_openings_ol2")
+        LCDialog.LCDialog.__init__(self, owner, titulo, Iconos.Opening(), "book_openings_ol3")
 
         self.dbli_books_train = dbli_books_train
         self.dic_modes = Polyglot.dic_modes()
@@ -117,6 +116,7 @@ class WBooksTrainOL(LCDialog.LCDialog):
         o_columns.nueva("LIMIT_LINES", _("Max lines"), 100, align_center=True)
         o_columns.nueva("NUM_LINES", _("Lines"), 60, align_center=True)
         o_columns.nueva("DONE", _("Done"), 60, align_center=True)
+        o_columns.nueva("CURRENT", _("Current"), 60, align_center=True)
         o_columns.nueva("START_FEN", _("Start position"), 100, align_center=True)
         self.grid = Grid.Grid(self, o_columns, siSelecFilas=True, siSeleccionMultiple=True)
         self.grid.setMinimumWidth(self.grid.anchoColumnas() + 20)
@@ -173,6 +173,9 @@ class WBooksTrainOL(LCDialog.LCDialog):
             return str(num)
         if col == "START_FEN":
             return reg.start_fen
+        if col == "CURRENT":
+            dic = reg.current_training()
+            return f'{dic["POS"] + 1}/{len(reg.lines)}'
 
     def terminar(self):
         self.save_video()

@@ -200,10 +200,18 @@ cd bin
             )
         with open(os.path.join(self.destino, "LucasR.sh"), "wt") as q:
             q.write(
-                """QT_LOGGING_RULES='*=false'
+                """#!/bin/bash
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Desactivar logs de Qt
+QT_LOGGING_RULES='*=false'
 export QT_LOGGING_RULES
 
-cd bin
+# Ir a la carpeta bin dentro del mismo directorio del script
+cd "$SCRIPT_DIR/bin" || exit 1
+
+# Ejecutar LucasR con los mismos parámetros
 exec ./LucasR "$@" 2>/dev/null
 """
             )

@@ -347,6 +347,9 @@ class Grid(QtWidgets.QTableView):
 
         self.right_button_without_rows = False
 
+        self.setHorizontalScrollMode(QtWidgets.QAbstractItemView.ScrollPerPixel)
+        self.setVerticalScrollMode(QtWidgets.QAbstractItemView.ScrollPerPixel)
+
     def set_headervertical_alinright(self):
         self.verticalHeader().setDefaultAlignment(QtCore.Qt.AlignRight)
 

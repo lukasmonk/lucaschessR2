@@ -7,7 +7,7 @@ from Code import Util
 from Code.Base.Constantes import ENG_EXTERNAL, ENG_INTERNAL, BOOK_BEST_MOVE
 from Code.Engines import EngineRunDirect
 from Code.QT import QTVarios
-
+from Code.SQL import UtilSQL
 
 class Engine:
 
@@ -207,28 +207,28 @@ class Engine:
         path_uci_options = self.path_exe + ".uci_options"
         Util.remove_file(path_uci_options)
 
+    def key_engine(self):
+        stat = os.stat(self.path_exe)
+        return f"{os.path.basename(self.path_exe)}_{stat.st_size}_{stat.st_mtime}"
+
     def read_uci_options(self):
-        path_uci_options = self.path_exe + ".uci_options"
-        if os.path.isfile(path_uci_options):
-            with open(path_uci_options, "rt", encoding="utf-8", errors="ignore") as f:
-                lines = f.read().split("\n")
-
+        if self.type == ENG_INTERNAL:
+            path_uci_options = os.path.join(Code.folder_OS, "uci_options.sqlite")
         else:
-            engine = EngineRunDirect.DirectEngine("-", self.path_exe, args=self.args)
-            if engine.uci_ok:
-                lines = engine.uci_lines
-                engine.close()
-                try:
-                    with open(path_uci_options, "wt", encoding="utf-8", errors="ignore") as q:
-                        for line in lines:
-                            line = line.strip()
-                            if line:
-                                q.write(line + "\n")
-                except:
-                    pass
+            path_uci_options = os.path.join(Code.configuration.folder_config, "uci_options.sqlite")
 
+        with UtilSQL.DictSQL(path_uci_options) as dbuci:
+            key = self.key_engine()
+            if key in dbuci:
+                lines = dbuci[key]
             else:
-                lines = []
+                engine = EngineRunDirect.DirectEngine("-", self.path_exe, args=self.args)
+                if engine.uci_ok:
+                    lines = engine.uci_lines
+                    dbuci[key] = lines
+                else:
+                    lines = []
+                engine.close()
 
         self.__li_uci_options = []
         dc_op = {}
