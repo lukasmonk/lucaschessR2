@@ -208,24 +208,28 @@ class Engine:
         Util.remove_file(path_uci_options)
 
     def key_engine(self):
-        stat = os.stat(self.path_exe)
-        return f"{os.path.basename(self.path_exe)}_{stat.st_size}_{stat.st_mtime}"
+        if self.type == ENG_INTERNAL:
+            return "maia" if self.alias.startswith("maia") else self.alias
+        else:
+            stat = os.stat(self.path_exe)
+            return f"{os.path.basename(self.path_exe)}_{stat.st_size}_{stat.st_mtime}"
 
     def read_uci_options(self):
         if self.type == ENG_INTERNAL:
-            path_uci_options = os.path.join(Code.folder_OS, "uci_options.sqlite")
+            path_uci_options = os.path.join(Code.folder_OS, "uci_options1.sqlite")
         else:
-            path_uci_options = os.path.join(Code.configuration.folder_config, "uci_options.sqlite")
+            path_uci_options = os.path.join(Code.configuration.folder_config, "uci_options1.sqlite")
 
-        with UtilSQL.DictSQL(path_uci_options) as dbuci:
+        with UtilSQL.DictTextSQL(path_uci_options) as dbuci:
             key = self.key_engine()
             if key in dbuci:
-                lines = dbuci[key]
+                clines = dbuci[key]
+                lines = clines.split("\n")
             else:
                 engine = EngineRunDirect.DirectEngine("-", self.path_exe, args=self.args)
                 if engine.uci_ok:
                     lines = engine.uci_lines
-                    dbuci[key] = lines
+                    dbuci[key] = "\n".join(lines)
                 else:
                     lines = []
                 engine.close()

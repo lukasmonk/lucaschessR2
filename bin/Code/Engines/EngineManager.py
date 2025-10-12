@@ -114,7 +114,7 @@ class EngineManager:
         self.priority = Priorities.priorities.verylow
 
     def maximize_multipv(self):
-        self.update_multipv("MX")
+        self.set_multipv("MX")
 
     def set_gui_dispatch(self, rutina, who_dispatch=None):
         if self.engine:
@@ -137,6 +137,8 @@ class EngineManager:
     def set_multipv(self, num_multipv):
         self.confMotor.update_multipv(num_multipv)
         self.num_multipv = self.confMotor.multiPV
+        if self.engine:
+            self.engine.set_multipv(self.num_multipv)
 
     def check_engine(self):
         if self.starting_the_engine or self.engine is not None:

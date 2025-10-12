@@ -1103,9 +1103,9 @@ class Procesador:
         return None
 
     def pgn_paste(self):
-        path = self.configuration.temporary_file("pgn")
         texto = QTUtil.get_txt_clipboard()
         if texto:
+            path = self.configuration.temporary_file("pgn")
             texto = texto.strip()
             if not texto.startswith("["):
                 texto = '[Event "%s"]\n\n %s' % (_("Paste PGN"), texto)

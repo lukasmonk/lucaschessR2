@@ -224,9 +224,14 @@ def read_engines(folder_engines):
     t32_64 = "64" if is64 else "32"
     is_bmi2 = FasterCode.bmi2() == 1 if is64 else False
 
+
+
     if is64:
-        mas("patricia", "Adam Kulju", "4 v2",
-            "https://github.com/Adam-Kulju/Patricia", "patricia_4_v2.exe", 3500)
+        try:
+            mas("patricia", "Adam Kulju", "4 v2",
+                "https://github.com/Adam-Kulju/Patricia", "patricia_4_v2.exe", 3500)
+        except:
+            pass
 
     # 32 bits permanece Komodo 12 64 bit Komodo 13
     if is64:

@@ -179,6 +179,7 @@ class Processor:
             q.write(
                 """QT_LOGGING_RULES='*=false'
 export QT_LOGGING_RULES
+export QT_QPA_PLATFORM=xcb
 if [ $(id -u) -eq 0 ]
 then
     echo
@@ -210,7 +211,7 @@ export QT_LOGGING_RULES
 
 # Ir a la carpeta bin dentro del mismo directorio del script
 cd "$SCRIPT_DIR/bin" || exit 1
-
+export QT_QPA_PLATFORM=xcb
 # Ejecutar LucasR con los mismos parámetros
 exec ./LucasR "$@" 2>/dev/null
 """
