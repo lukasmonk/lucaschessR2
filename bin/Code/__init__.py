@@ -75,7 +75,7 @@ def startfile(path: str) -> bool:
                              stdout=subprocess.DEVNULL,
                              stderr=subprocess.DEVNULL)
         return True
-    except Exception:
+    except:
         return False
 
 
@@ -142,7 +142,7 @@ def relative_root(path):
 
 
 BASE_VERSION = "B"  # Para el control de updates que necesitan reinstalar entero
-VERSION = "R 2.21-FP-6"
+VERSION = "R 2.21-FP-7"
 DEBUG = False
 DEBUG_ENGINES = False
 

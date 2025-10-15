@@ -224,7 +224,7 @@ class TabTree(QtWidgets.QWidget):
             self.lb_analisis.set_text(data_item.game_figurines())
             lipv = data_item.list_pv()
             li_moves_childs = [xchild.move for xchild in data_item.dicHijos.values()]
-            self.tabsAnalisis.panelOpening.goto_next_lipv(lipv, li_moves_childs)
+            self.tabsAnalisis.wlines.goto_next_lipv(lipv, li_moves_childs)
 
     def bt_update(self):
         self.wlines.active_tb(False)

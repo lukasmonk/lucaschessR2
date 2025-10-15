@@ -32,7 +32,7 @@ class LBKey(Controles.LB):
                 return
             event.ignore()
             menu = QTVarios.LCMenu(self)
-            menu.opcion("copy", _("Copy"), Iconos.Clipboard())
+            menu.opcion("copy", _("Copy"), Iconos.Copiar())
             menu.opcion("copy_sel", _("Copy to selected position"), Iconos.Clipboard())
             resp = menu.lanza()
             if resp == "copy":
@@ -175,6 +175,9 @@ class BoardLines(QtWidgets.QWidget):
         self.setvalue("VENTAJA", self.cbVentaja.valor())
 
     def cambiadoComentario(self):
+        comment = self.emComentario.texto().strip()
+        if "%csl" in comment or "%cal" in comment:
+            self.board.show_lichess_graphics(comment)
         self.setvalue("COMENTARIO", self.emComentario.texto().strip())
 
     def ajustaAncho(self):
@@ -273,6 +276,8 @@ class BoardLines(QtWidgets.QWidget):
         self.emComentario.set_text(comment)
 
         self.board.set_position(position)
+        if "%csl" in comment or "%cal" in comment:
+            self.board.show_lichess_graphics(comment)
         if move:
             self.board.put_arrow_sc(move.from_sq, move.to_sq)
 

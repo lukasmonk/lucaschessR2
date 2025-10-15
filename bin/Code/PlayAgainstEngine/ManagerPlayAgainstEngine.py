@@ -1043,9 +1043,9 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             self.pon_toolbar()
             self.current_helps += 1
             if self.current_helps == 1:
-                self.board.mark_position(rm.from_sq)
+                self.board.mark_position(rm.from_sq, ms=2000)
             else:
-                self.board.ponFlechasTmp(([rm.from_sq, rm.to_sq, True],))
+                self.board.ponFlechas(([rm.from_sq, rm.to_sq, True],))
                 if rm.promotion and rm.promotion.upper() != "Q":
                     dic = TrListas.dic_nom_pieces()
                     QTUtil2.temporary_message(self.main_window, dic[rm.promotion.upper()], 2.0)

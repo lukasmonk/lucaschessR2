@@ -121,7 +121,6 @@ class WLines(LCDialog.LCDialog):
     def active_tb(self, ok):
         self.tb.setEnabled(ok)
 
-
     def keyPressEvent(self, event):
         k = event.key()
         if 49 <= k <= 57:
@@ -998,9 +997,10 @@ class WLines(LCDialog.LCDialog):
         row, pos = self.glines.posActualN()
 
         if k == QtCore.Qt.Key_Left:
-            if pos > 1:
+            if pos >= 1:
                 if row % 2 == 0:
-                    self.glines.goto(row + 1, pos - 1)
+                    if pos > 1:
+                        self.glines.goto(row + 1, pos - 1)
                 else:
                     self.glines.goto(row - 1, pos)
                 return
@@ -1032,7 +1032,7 @@ class WLines(LCDialog.LCDialog):
             self.import_pastepgn(self.gamebase)
 
         elif is_alt and QtCore.Qt.Key_1 <= k <= QtCore.Qt.Key_9:
-            self.shortcuts.launch_shortcut_with_alt(k-QtCore.Qt.Key_0)
+            self.shortcuts.launch_shortcut_with_alt(k - QtCore.Qt.Key_0)
 
     def grid_doble_click(self, grid, row, o_column):
         game = self.game_actual()

@@ -33,7 +33,7 @@ class LBKey(Controles.LB):
                 return
             event.ignore()
             menu = QTVarios.LCMenu(self)
-            menu.opcion("copy", _("Copy"), Iconos.Clipboard())
+            menu.opcion("copy", _("Copy"), Iconos.Copiar())
             menu.opcion("copy_sel", _("Copy to selected position"), Iconos.Clipboard())
             resp = menu.lanza()
             if resp == "copy":

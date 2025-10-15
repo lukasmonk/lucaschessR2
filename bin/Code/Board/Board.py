@@ -1370,7 +1370,7 @@ class Board(QtWidgets.QGraphicsView):
                 "R": lee("rival")
             }
 
-    def mark_position_ext(self, a1, h8, tipo):
+    def mark_position_ext(self, a1, h8, tipo, ms=None):
         self.check_leds()
         lista = []
         for pos_cuadro in range(4):
@@ -1392,10 +1392,12 @@ class Board(QtWidgets.QGraphicsView):
                 del objeto
             self.update()
 
-        QtCore.QTimer.singleShot(1600 if tipo == "C" else 500, quita)
+        if ms is None:
+            ms = 2000 if tipo == "C" else 500
+        QtCore.QTimer.singleShot(ms, quita)
 
-    def mark_position(self, a1):
-        self.mark_position_ext(a1, a1, "C")
+    def mark_position(self, a1, ms=None):
+        self.mark_position_ext(a1, a1, "R", ms=ms)
 
     # def markError(self, a1):
     #     if a1:
@@ -2001,14 +2003,14 @@ class Board(QtWidgets.QGraphicsView):
     def ponFlechasTmp(self, lista, ms=None):
         self.ponFlechas(lista)
 
-        def quitaFlechasTmp():
+        def quita_flechas_tmp():
             self.remove_arrows()
             if self.arrow_sc:
                 self.arrow_sc.show()
 
         if ms is None:
             ms = 2000 if len(lista) > 1 else 1400
-        QtCore.QTimer.singleShot(ms, quitaFlechasTmp)
+        QtCore.QTimer.singleShot(ms, quita_flechas_tmp)
 
     def ponFlechas(self, lista):
         if self.arrow_sc:

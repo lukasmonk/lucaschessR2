@@ -307,16 +307,19 @@ class WBase(QtWidgets.QWidget):
         self.configuration.set_property(self.lb_player_black, "black")
 
         # # Capturas
-        n_ancho_capt = (width_pgn - 12) // 2
-        self.lb_capt_white = Controles.LB(self).relative_width(n_ancho_capt).set_wrap()
+        self.lb_capt_white = Controles.LB(self).set_wrap()
         style = "QWidget { border-style: groove; border-width: 1px; border-color: LightGray; padding: 2px 0px 2px 0px;}"
         self.lb_capt_white.setStyleSheet(style)
 
-        self.lb_capt_black = Controles.LB(self).relative_width(n_ancho_capt).set_wrap()
+        self.lb_capt_black = Controles.LB(self).set_wrap()
         self.lb_capt_black.setStyleSheet(style)
 
         self.bt_capt = (Controles.PB(self, self.captures_symbol(), self.captures_mouse_pressed)
                         .set_font_type(puntos=14)).relative_width(10)
+
+        n_ancho_capt = ((self.pgn.anchoColumnas() + 20) - self.bt_capt.width() - 2) // 2
+        self.lb_capt_white.setFixedWidth(n_ancho_capt)
+        self.lb_capt_black.setFixedWidth(n_ancho_capt)
 
         # Relojes
         f = Controles.FontType(puntos=26, peso=500)
@@ -507,11 +510,11 @@ class WBase(QtWidgets.QWidget):
             self.manager.configuration.x_pgn_width = n_ancho_pgn
             self.manager.configuration.graba()
             n_ancho_labels = n_ancho_pgn // 2
-            self.lb_player_white.relative_width(n_ancho_labels)
-            self.lb_player_black.relative_width(n_ancho_labels)
+            self.lb_player_white.setFixedWidth(n_ancho_labels)
+            self.lb_player_black.setFixedWidth(n_ancho_labels)
             n_ancho_labels -= self.bt_capt.width() // 2 + 2
-            self.lb_capt_white.relative_width(n_ancho_labels)
-            self.lb_capt_black.relative_width(n_ancho_labels)
+            self.lb_capt_white.setFixedWidth(n_ancho_labels)
+            self.lb_capt_black.setFixedWidth(n_ancho_labels)
 
     def grid_tecla_control(self, grid, k, is_shift, is_control, is_alt):
         self.key_pressed("G", k)
