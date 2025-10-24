@@ -1016,6 +1016,52 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             self.is_analyzing = False
             self.xtutor.ac_final(-1)
 
+    def current_bestmove(self):
+        if not self.is_in_last_move():
+            return None, None, None
+        if self.state != ST_PLAYING or self.is_finished() or self.game_type != GT_AGAINST_ENGINE:
+            return None, None, None
+
+        fen_base = self.last_fen()
+
+        if self.opening_mandatory:
+            apdesde, aphasta, promotion = self.opening_mandatory.from_to_active(fen_base)
+            if apdesde:
+                return apdesde, aphasta, promotion
+
+        if self.opening_line:
+            fenm2 = FasterCode.fen_fenm2(fen_base)
+            if fenm2 in self.opening_line:
+                st = self.opening_line[fenm2]
+                sel = list(st)[0]
+                return sel[:2], sel[2:4], sel[4:]
+
+        if self.book_player_active:
+            if self.book_player_depth == 0 or self.book_player_depth >= len(self.game):
+                pv = self.book_player.eligeJugadaTipo(fen_base, BOOK_BEST_MOVE)
+                if pv:
+                    return pv[:2], pv[2:4], pv[4:]
+
+        if self.is_active_analysys_bar():
+            rm = self.bestmove_from_analysis_bar()
+            if rm:
+                return rm.from_sq, rm.to_sq, rm.promotion
+
+        if self.is_analyzing:
+            mrm = self.analyze_current()
+            rm = mrm.best_rm_ordered()
+            if rm:
+                return rm.from_sq, rm.to_sq, rm.promotion
+
+        self.thinking(True)
+        mrm = self.xtutor.analiza(fen_base)
+        self.thinking(False)
+        rm = mrm.best_rm_ordered()
+        if rm:
+            return rm.from_sq, rm.to_sq, rm.promotion
+
+        return None, None, None
+
     def help_to_move(self):
         if self.is_in_last_move():
             mrm: EngineResponse.MultiEngineResponse
@@ -1030,35 +1076,35 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                 self.show_hints()
 
     def help_current(self):
-        mrm: EngineResponse.MultiEngineResponse
-        if self.is_analyzed_by_tutor:
-            mrm = self.mrm_tutor
-        else:
-            mrm = self.xtutor.ac_estado()
+        xfrom, xto, xpromotion = self.current_bestmove()
+        if xfrom is None:
+            return None
 
-        if mrm and mrm.li_rm:
-            mrm.ordena()
-            rm: EngineResponse.EngineResponse = mrm.li_rm[0]
+        if self.hints:
             self.hints -= 1
-            self.pon_toolbar()
-            self.current_helps += 1
-            if self.current_helps == 1:
-                self.board.mark_position(rm.from_sq, ms=2000)
+            if self.hints:
+                self.ponAyudas(self.hints)
             else:
-                self.board.ponFlechas(([rm.from_sq, rm.to_sq, True],))
-                if rm.promotion and rm.promotion.upper() != "Q":
-                    dic = TrListas.dic_nom_pieces()
-                    QTUtil2.temporary_message(self.main_window, dic[rm.promotion.upper()], 2.0)
+                self.remove_hints()
+        self.pon_toolbar()
+        self.current_helps += 1
+        if self.current_helps == 1:
+            self.board.mark_position(xfrom, ms=2000)
+        else:
+            if self.current_helps > 2:
+                self.board.remove_arrows()
+            self.board.ponFlechas(([xfrom, xto, True],))
+            self.board.show_arrow_sc()
+            if xpromotion and xpromotion != "Q":
+                dic = TrListas.dic_nom_pieces()
+                QTUtil2.temporary_message(self.main_window, dic[xpromotion.upper()], 2.0)
 
-            self.show_hints()
+        self.show_hints()
 
     def play_instead_of_me(self):
-        if not self.is_in_last_move():
-            return
-        if self.state != ST_PLAYING or self.is_finished() or self.game_type != GT_AGAINST_ENGINE:
-            return
-
-        fen_base = self.last_fen()
+        xfrom, xto, xpromotion = self.current_bestmove()
+        if xfrom is None:
+            return None
 
         if self.hints:
             self.hints -= 1
@@ -1067,46 +1113,8 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             else:
                 self.remove_hints()
 
-        if self.book_rival:
-            lista_jugadas = self.book_rival.get_list_moves(fen_base)
-            if lista_jugadas:
-                apdesde, aphasta, appromotion, nada, nada1 = lista_jugadas[0]
-                return self.player_has_moved_base(apdesde, aphasta, appromotion)
-
-        if self.opening_mandatory:
-            apdesde, aphasta, promotion = self.opening_mandatory.from_to_active(fen_base)
-            if apdesde:
-                return self.player_has_moved_base(apdesde, aphasta, promotion)
-
-        if self.opening_line:
-            fenm2 = FasterCode.fen_fenm2(fen_base)
-            if fenm2 in self.opening_line:
-                st = self.opening_line[fenm2]
-                sel = list(st)[0]
-                return self.player_has_moved_base(sel[:2], sel[2:4], sel[4:])
-
-        if self.is_tutor_enabled:
-            self.analyze_end()
-            rm = self.mrm_tutor.best_rm_ordered()
-            return self.player_has_moved_base(rm.from_sq, rm.to_sq, rm.promotion)
-
-        if self.is_analyzing:
-            self.analyze_end()
-
-        if self.main_window.with_analysis_bar:
-            rm = self.bestmove_from_analysis_bar()
-            if rm:
-                return self.player_has_moved_base(rm.from_sq, rm.to_sq, rm.promotion)
-
-        rm = self.bestmove_from_analysis_bar()
-        if rm is None:
-            cp = self.current_position()
-            self.thinking(True)
-            mrm = self.xtutor.analiza(cp.fen())
-            self.thinking(False)
-            rm = mrm.best_rm_ordered()
-        if rm and rm.from_sq:
-            self.player_has_moved_base(rm.from_sq, rm.to_sq, rm.promotion)
+        self.pon_toolbar()
+        self.player_has_moved_base(xfrom, xto, xpromotion)
 
     def adjust_player(self, mrm):
         position = self.game.last_position

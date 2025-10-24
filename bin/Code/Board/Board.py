@@ -1393,7 +1393,7 @@ class Board(QtWidgets.QGraphicsView):
             self.update()
 
         if ms is None:
-            ms = 2000 if tipo == "C" else 500
+            ms = 2500 if tipo == "C" else 1500
         QtCore.QTimer.singleShot(ms, quita)
 
     def mark_position(self, a1, ms=None):
@@ -1914,6 +1914,12 @@ class Board(QtWidgets.QGraphicsView):
             a1h8 = self.arrow_sc.bloqueDatos.a1h8
             self.put_arrow_sc(a1h8[:2], a1h8[2:])
 
+    def show_arrow_sc(self):
+        if self.arrow_sc:
+            self.arrow_sc.show()
+
+
+
     def put_arrow_sc(self, from_a1h8, to_a1h8):
         a1h8 = from_a1h8 + to_a1h8
         if self.arrow_sc is None:
@@ -2103,7 +2109,7 @@ class Board(QtWidgets.QGraphicsView):
             self.xremove_item(arrow)
             arrow.hide()
             del arrow
-        self.liFlechas = []
+
         self.update()
 
     def set_side_bottom(self, is_white_bottom):

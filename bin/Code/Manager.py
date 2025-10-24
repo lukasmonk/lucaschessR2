@@ -1264,7 +1264,14 @@ class Manager:
             self.rutinaAccionDef(TB_EBOARD)
         self.main_window.base.tb.setDisabled(True)
         self.is_analyzing = True
+        activate_analisisbar = False
+        if self.main_window.is_active_analysisbar:
+            activate_analisisbar = True
+            self.main_window.activate_analysis_bar(False)
         AnalysisGame.analysis_game(self)
+        if activate_analisisbar:
+            self.main_window.activate_analysis_bar(True)
+            self.put_view()
         self.is_analyzing = False
         self.main_window.base.tb.setDisabled(False)
         self.refresh()

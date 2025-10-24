@@ -180,6 +180,7 @@ class Processor:
                 """QT_LOGGING_RULES='*=false'
 export QT_LOGGING_RULES
 export QT_QPA_PLATFORM=xcb
+export WAYLAND_DISPLAY=""
 if [ $(id -u) -eq 0 ]
 then
     echo
@@ -202,17 +203,13 @@ cd bin
         with open(os.path.join(self.destino, "LucasR.sh"), "wt") as q:
             q.write(
                 """#!/bin/bash
-
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
 # Desactivar logs de Qt
-QT_LOGGING_RULES='*=false'
-export QT_LOGGING_RULES
-
-# Ir a la carpeta bin dentro del mismo directorio del script
-cd "$SCRIPT_DIR/bin" || exit 1
+export QT_LOGGING_RULES='*=false'
 export QT_QPA_PLATFORM=xcb
+export WAYLAND_DISPLAY=""
 # Ejecutar LucasR con los mismos parámetros
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR/bin" || exit 1
 exec ./LucasR "$@" 2>/dev/null
 """
             )

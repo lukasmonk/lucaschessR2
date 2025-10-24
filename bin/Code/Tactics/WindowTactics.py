@@ -38,24 +38,17 @@ class WHistoricoTacticas(LCDialog.LCDialog):
         o_columns.nueva("POSICIONES", _("Num. puzzles"), 100, align_center=True)
         o_columns.nueva("SECONDS", _("Working time"), 100, align_center=True)
         o_columns.nueva("ERRORS", _("Errors"), 100, align_center=True)
-        o_columns.nueva("FACTOR", "Δ", 70, align_center=True)
+        o_columns.nueva("FACTOR", "∇", 120, align_center=True)
         self.ghistorico = Grid.Grid(self, o_columns, siSelecFilas=True, siSeleccionMultiple=True)
         self.ghistorico.setMinimumWidth(self.ghistorico.anchoColumnas() + 20)
 
         # Toolbar
-        li_acciones = (
-            (_("Close"), Iconos.MainMenu(), "terminar"),
-            (_("Train"), Iconos.Empezar(), "entrenar"),
-            (_("New"), Iconos.Nuevo(), "nuevo"),
-            (_("Remove"), Iconos.Borrar(), "borrar"),
-        )
-        self.tb = Controles.TB(self, li_acciones)
-        accion = "nuevo" if tactica.finished() else "entrenar"
-        self.pon_toolbar("terminar", accion, "borrar")
+        self.tb = Controles.TBrutina(self)
+        self.set_toolbar()
 
         # Colocamos
-        lyTB = Colocacion.H().control(self.tb).margen(0)
-        ly = Colocacion.V().otro(lyTB).control(self.ghistorico).margen(3)
+        ly_tb = Colocacion.H().control(self.tb).margen(0)
+        ly = Colocacion.V().otro(ly_tb).control(self.ghistorico).margen(3)
 
         self.setLayout(ly)
 
@@ -138,8 +131,10 @@ class WHistoricoTacticas(LCDialog.LCDialog):
                 posiciones = reg["POS"]
                 if row == 0 and not self.tactica.finished():
                     posiciones = self.tactica.current_position()
+                if posiciones == 0:
+                    return ""
 
-                return "%.02f" % (errors / posiciones) if posiciones > 0 else "∞"
+                return f"{errors / posiciones:.02f} ({errors}/{posiciones})"
 
             return "-"
 
@@ -149,9 +144,6 @@ class WHistoricoTacticas(LCDialog.LCDialog):
             else:
                 reference = reg.get("REFERENCE", "")
             return reference
-
-    def process_toolbar(self):
-        getattr(self, self.sender().key)()
 
     def terminar(self):
         self.save_video()
@@ -191,20 +183,29 @@ class WHistoricoTacticas(LCDialog.LCDialog):
                 self.li_histo = self.tactica.historico()
         self.ghistorico.gotop()
         self.ghistorico.refresh()
-        accion = "nuevo" if self.tactica.finished() else "entrenar"
-        self.pon_toolbar("terminar", accion, "borrar")
 
-    def pon_toolbar(self, *li_acciones):
+        self.set_toolbar()
 
+    # def pon_toolbar(self, *li_acciones):
+    #     self.tb.clear()
+    #     for k in li_acciones:
+    #         self.tb.dic_toolbar[k].setVisible(True)
+    #         self.tb.dic_toolbar[k].setEnabled(True)
+    #         self.tb.addAction(self.tb.dic_toolbar[k])
+    #         self.tb.addSeparator()
+    #
+    #     self.tb.li_acciones = li_acciones
+    #     self.tb.update()
+
+    def set_toolbar(self):
         self.tb.clear()
-        for k in li_acciones:
-            self.tb.dic_toolbar[k].setVisible(True)
-            self.tb.dic_toolbar[k].setEnabled(True)
-            self.tb.addAction(self.tb.dic_toolbar[k])
-            self.tb.addSeparator()
-
-        self.tb.li_acciones = li_acciones
-        self.tb.update()
+        self.tb.new(_("Close"), Iconos.MainMenu(), self.terminar)
+        if self.tactica.finished():
+            self.tb.new(_("New"), Iconos.Nuevo(), self.nuevo)
+        else:
+            self.tb.new(_("Train"), Iconos.Empezar(), self.entrenar)
+        if self.ghistorico.reccount():
+            self.tb.new(_("Remove"), Iconos.Borrar(), self.borrar)
 
 
 class WConfTactics(QtWidgets.QWidget):
@@ -325,7 +326,7 @@ class WConfTactics(QtWidgets.QWidget):
         self.grid_show = Grid.Grid(self, o_col, siSelecFilas=True, is_editable=True, xid="s")
         self.grid_show.setMinimumWidth(self.grid_show.anchoColumnas() + 20)
         ly = Colocacion.V().control(tb).control(self.grid_show)
-        gbShow = Controles.GB(self, _("Show the reference associated with each puzzle"), ly).set_font(f)
+        gb_show = Controles.GB(self, _("Show the reference associated with each puzzle"), ly).set_font(f)
         self.grid_show.gotop()
 
         # Reinforcement
@@ -388,7 +389,7 @@ class WConfTactics(QtWidgets.QWidget):
         ly.controld(gb_jumps, 2, 0).control(gb_penal, 2, 1)
         ly.filaVacia(3, 5)
         ly.controld(gb_repeat, 4, 0)
-        ly.control(gbShow, 4, 1)
+        ly.control(gb_show, 4, 1)
         ly.filaVacia(5, 5)
         ly.otro(ly_gb_adv, 6, 0, 1, 2)
         ly.filaVacia(6, 5)
@@ -416,10 +417,11 @@ class WConfTactics(QtWidgets.QWidget):
         if xid == "f":
             return len(self.liFILES)
 
-    def etiPorc(self, row, numFilas):
-        if numFilas == 0:
+    @staticmethod
+    def eti_porc(row, num_filas):
+        if num_filas == 0:
             return "100%"
-        p = 100.0 / numFilas
+        p = 100.0 / num_filas
         de = p * row
         a = p * (row + 1)
         return "%d%%  -  %d%%" % (int(de), int(a))
@@ -440,12 +442,12 @@ class WConfTactics(QtWidgets.QWidget):
         elif col == "PENAL_POSITIONS":
             return str(self.liPENAL[row])
         elif col == "PENAL_%":
-            return self.etiPorc(row, len(self.liPENAL))
+            return self.eti_porc(row, len(self.liPENAL))
         elif col == "SHOW_VISIBLE":
             n = self.liSHOWTEXT[row]
             return self.liSHOWTEXTtxt[n]
         elif col == "SHOW_%":
-            return self.etiPorc(row, len(self.liSHOWTEXT))
+            return self.eti_porc(row, len(self.liSHOWTEXT))
         elif col == "FILE":
             return self.liFILES[row][0]
         elif col == "WEIGHT":

@@ -8,7 +8,6 @@ from Code.QT import QTUtil
 
 
 class BloqueSC(QtWidgets.QGraphicsItem):
-    # class BloqueSC(QtWidgets.QGraphicsObject):
     def __init__(self, escena, physical_pos):
 
         super(BloqueSC, self).__init__()

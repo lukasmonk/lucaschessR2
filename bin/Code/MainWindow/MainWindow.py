@@ -248,10 +248,10 @@ class MainWindow(LCDialog.LCDialog):
         self.adjust_size()
 
         resp = self.exec_()
-        try:
-            self.save_video()
-        except RuntimeError:
-            pass
+        # try:
+        #     self.save_video()
+        # except RuntimeError:
+        #     pass
         return resp
 
     def adjust_size(self):
@@ -263,8 +263,8 @@ class MainWindow(LCDialog.LCDialog):
                 if not self.board.is_maximized():
                     self.board.maximize_size(self.activadoF11)
             else:
-                if not self.activadoF11:
-                    QTUtil.shrink(self)
+                # if not self.activadoF11:
+                #     QTUtil.shrink(self)
                 tb_height = self.base.tb.height() if Code.configuration.x_tb_orientation_horizontal else 0
                 n = 0
                 while self.height() > self.board.ancho + tb_height + 18:
@@ -509,7 +509,6 @@ class MainWindow(LCDialog.LCDialog):
 
         dic["WINFO_WIDTH"] = self.informacionPGN.width_saved
         dic["WINFOPARENT_WIDTH"] = self.informacionPGN.parent_width_saved
-
         Code.configuration.save_video(self.key_video, dic)
         return dic
 
@@ -517,6 +516,8 @@ class MainWindow(LCDialog.LCDialog):
         if self.restore_video():
             dic = self.restore_dicvideo()
             self.informacionPGN.width_saved = dic.get("WINFO_WIDTH")
+            if self.informacionPGN.width_saved:
+                self.informacionPGN.resize(self.informacionPGN.width_saved, self.informacionPGN.height())
             self.informacionPGN.parent_width_saved = dic.get("WINFOPARENT_WIDTH")
             self.informacionPGN.sp_sizes = dic.get("SP_InformacionPGN")
             if self.informacionPGN.sp_sizes:

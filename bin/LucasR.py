@@ -5,7 +5,7 @@
 # Blog : https://lucaschess.blogspot.com
 # Licence : GPL 3.0
 # ==============================================================================
-
+import os
 import sys
 import warnings
 

@@ -662,7 +662,12 @@ class WTournament(LCDialog.LCDialog):
         me = Tournament.EngineTournament()
         me.pon_huella(self.torneo)
         me.restore(resp.save())
-        me.alias = me.key = me.name
+        if me.is_external:
+            me.alias = me.key
+        else:
+            me.alias = me.key = me.name
+
+        me.key = me.alias
         me.depth = me.max_depth
 
         self.torneo.save_engine(me)

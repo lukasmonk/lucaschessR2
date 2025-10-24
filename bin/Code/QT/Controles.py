@@ -428,6 +428,10 @@ class LB(QtWidgets.QLabel):
         self.setGeometry(r)
         return self
 
+    # def set_fixed_width(self, px):
+    #     self.setFixedWidth(px)
+    #     return self
+
     def set_fixed_lines(self, num_lines):
         font_metrics = QtGui.QFontMetrics(self.font())
         line_height = font_metrics.height()
@@ -776,6 +780,19 @@ class Menu(QtWidgets.QMenu):
             return None
 
 
+def equalize_toolbar_buttons(toolbar:QtWidgets.QToolBar) -> int:
+    buttons = [toolbar.widgetForAction(a) for a in toolbar.actions() if toolbar.widgetForAction(a)]
+    if not buttons:
+        return 0
+
+    max_w = max(btn.sizeHint().width() for btn in buttons)
+
+    for btn in buttons:
+        btn.setFixedWidth(max_w)
+
+    return max_w
+
+
 class TB(QtWidgets.QToolBar):
     """
     Crea una barra de tareas simple.
@@ -852,6 +869,9 @@ class TB(QtWidgets.QToolBar):
         for accion in self.li_acciones:
             if accion.key == key:
                 accion.setVisible(value)
+
+    def set_same_width(self) -> int:
+        return equalize_toolbar_buttons(self)
 
     # def mousePressEvent(self, event: QtGui.QMouseEvent):
     #     if event.button() == QtCore.Qt.RightButton:
@@ -979,6 +999,9 @@ class TBrutina(QtWidgets.QToolBar):
 
     def mousePressEvent(self, event: QtGui.QMouseEvent):
         QtWidgets.QToolBar.mousePressEvent(self, event)
+
+    def set_same_width(self) -> int:
+        return equalize_toolbar_buttons(self)
 
 
 class FontType(QtGui.QFont):

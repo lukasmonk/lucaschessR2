@@ -279,8 +279,8 @@ class WBase(QtWidgets.QWidget):
     def creaBloqueInformacion(self):
         configuration = self.manager.configuration
         width_pgn = configuration.x_pgn_width
-        width_each_color = (width_pgn - 52 - 25) // 2
-        n_ancho_labels = width_pgn // 2 - 4
+        width_each_color = (width_pgn - 52 - 18) // 2
+        # n_ancho_labels = width_pgn // 2 - 4
         # # Pgn
         o_columns = Columnas.ListaColumnas()
         o_columns.nueva("NUMBER", _("N."), 52, align_center=True)
@@ -296,14 +296,13 @@ class WBase(QtWidgets.QWidget):
         self.pgn.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.pgn.font_type(puntos=configuration.x_pgn_fontpoints)
         self.pgn.set_right_button_without_rows(True)
-        # self.pgn.setSizePolicy(QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Expanding))
 
         # # Blancas y negras
         f = Controles.FontType(puntos=configuration.x_sizefont_players, peso=750)
-        self.lb_player_white = Controles.LB(self).relative_width(n_ancho_labels).align_center().set_font(f).set_wrap()
+        self.lb_player_white = Controles.LB(self).align_center().set_font(f).set_wrap()
         self.configuration.set_property(self.lb_player_white, "white")
 
-        self.lb_player_black = Controles.LB(self).relative_width(n_ancho_labels).align_center().set_font(f).set_wrap()
+        self.lb_player_black = Controles.LB(self).align_center().set_font(f).set_wrap()
         self.configuration.set_property(self.lb_player_black, "black")
 
         # # Capturas
@@ -317,15 +316,22 @@ class WBase(QtWidgets.QWidget):
         self.bt_capt = (Controles.PB(self, self.captures_symbol(), self.captures_mouse_pressed)
                         .set_font_type(puntos=14)).relative_width(10)
 
-        n_ancho_capt = ((self.pgn.anchoColumnas() + 20) - self.bt_capt.width() - 2) // 2
+        width_pgn = self.pgn.anchoColumnas() + 18
+        n_ancho_capt = (width_pgn - self.bt_capt.width() - 2) // 2
         self.lb_capt_white.setFixedWidth(n_ancho_capt)
         self.lb_capt_black.setFixedWidth(n_ancho_capt)
+
+        n_width_name_players = width_pgn // 2 - 1
+
+        self.lb_player_white.setFixedWidth(n_width_name_players)
+        self.lb_player_black.setFixedWidth(n_width_name_players)
 
         # Relojes
         f = Controles.FontType(puntos=26, peso=500)
 
         def lbReloj():
-            lb = Controles.LB(self, "00:00").set_font(f).align_center().anchoMinimo(n_ancho_labels)
+            lb = Controles.LB(self, "00:00").set_font(f).align_center()
+            lb.setFixedWidth(n_width_name_players)
             lb.setFrameStyle(QtWidgets.QFrame.Box | QtWidgets.QFrame.Raised)
             self.configuration.set_property(lb, "clock")
             return lb
@@ -430,6 +436,8 @@ class WBase(QtWidgets.QWidget):
         self.tb.update()
         self.tb.setEnabled(True)
         QTUtil.refresh_gui()
+        if not self.configuration.x_tb_orientation_horizontal:
+            Controles.equalize_toolbar_buttons(self.tb)
 
         return self.tb
 
@@ -505,16 +513,16 @@ class WBase(QtWidgets.QWidget):
             col_white.ancho = new_width
             col_black.ancho = new_width
             self.pgn.set_widthsColumnas()
-            n_ancho_pgn = self.pgn.anchoColumnas() + 20
+            n_ancho_pgn = self.pgn.anchoColumnas() + 18
             self.pgn.setMinimumWidth(n_ancho_pgn)
             self.manager.configuration.x_pgn_width = n_ancho_pgn
             self.manager.configuration.graba()
-            n_ancho_labels = n_ancho_pgn // 2
-            self.lb_player_white.setFixedWidth(n_ancho_labels)
-            self.lb_player_black.setFixedWidth(n_ancho_labels)
-            n_ancho_labels -= self.bt_capt.width() // 2 + 2
-            self.lb_capt_white.setFixedWidth(n_ancho_labels)
-            self.lb_capt_black.setFixedWidth(n_ancho_labels)
+            n_ancho_labels = n_ancho_pgn // 2 - 1
+            for lb in (self.lb_player_white, self.lb_player_black, self.lb_clock_white, self.lb_clock_black):
+                lb.setFixedWidth(n_ancho_labels)
+            n_ancho_capt = n_ancho_labels - self.bt_capt.width() // 2
+            self.lb_capt_white.setFixedWidth(n_ancho_capt)
+            self.lb_capt_black.setFixedWidth(n_ancho_capt)
 
     def grid_tecla_control(self, grid, k, is_shift, is_control, is_alt):
         self.key_pressed("G", k)

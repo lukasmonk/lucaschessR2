@@ -42,7 +42,7 @@ class Opponent:
         self.initialdivision = division
 
     def name(self):
-        return _F(self.opponent.name)
+        return self.opponent.name
 
     def elo(self):
         return self.opponent.elo
