@@ -18,7 +18,6 @@ class AnalysisBar(QtWidgets.QWidget):
         self.timer = None
         self.activated = False
         self.value_objective = 0
-        self.acercando = False
         self.aeval = AnalysisEval.AnalysisEval()
         self.interval = Code.configuration.x_analyzer_mstime_refresh_ab
 
@@ -27,6 +26,8 @@ class AnalysisBar(QtWidgets.QWidget):
         self.progressbar.setRange(0, 10000)
         self.progressbar.setValue(5000)
         self.progressbar.setTextVisible(False)
+
+        self.animation = QtCore.QPropertyAnimation(self.progressbar, b"value")
 
         self.lb_value_up = Controles.LB(self).set_font_type(puntos=7).align_center()
         self.lb_value_down = Controles.LB(self).set_font_type(puntos=7).align_center()
@@ -177,25 +178,29 @@ class AnalysisBar(QtWidgets.QWidget):
     def update_value(self, value):
         if not self.activated:
             return
-        if value > 10000:
-            value = 10000
-        elif value < 0:
-            value = 0
-        self.value_objective = value
-        if not self.acercando:
-            self.goto_objective()
+        self.value_objective = max(0, min(value, 10000))
+        self.goto_objective()
 
     def goto_objective(self):
         if not self.engine_manager or not self.activated:
-            self.acercando = False
+            self.animation.stop()
             return
         value = self.progressbar.value()
         if value != self.value_objective:
-            velocidad = max(abs(self.value_objective - value) // 50, 1)
-            self.acercando = True
-            add = +1 if self.value_objective > value else -1
-            self.progressbar.setValue(value + add * velocidad)
-            self.update()
-            QtCore.QTimer.singleShot(2, self.goto_objective)
-        else:
-            self.acercando = False
+            delta = abs(self.value_objective - value)
+
+            # entre 300ms (pequeños) y 2000ms (grandes)
+            duration = min(max(300 + delta * 0.1, 300), 2000)
+            if delta < 500:
+                curve = QtCore.QEasingCurve.Type.OutQuad
+            elif delta < 2500:
+                curve = QtCore.QEasingCurve.Type.OutCubic
+            else:
+                curve = QtCore.QEasingCurve.Type.OutQuint
+
+            self.animation.stop()
+            self.animation.setStartValue(value)
+            self.animation.setEndValue(self.value_objective)
+            self.animation.setDuration(int(duration))
+            self.animation.setEasingCurve(curve)
+            self.animation.start()
