@@ -727,8 +727,6 @@ class WGames(QtWidgets.QWidget):
         submenu.separador()
         submenu.opcion(self.tw_importar_pgn_rem, _("Remove comments and variations"), Iconos.PuntoRojo())
         menu.separador()
-        menu.opcion(self.tw_importar_db, _("From other database"), Iconos.Database())
-        menu.separador()
         submenu = menu.submenu(_("Paste PGN"), Iconos.Pegar16())
         submenu.opcion(self.tw_paste_pgn, _("Complete"), Iconos.PuntoVerde())
         submenu.separador()

@@ -100,14 +100,10 @@ class ManagerVariations(Manager.Manager):
 
     def run_action(self, key):
         if key == TB_ACCEPT:
-            self.accepted = True
-            # self.resultado =
-            self.procesador.close_engines()
-            self.main_window.accept()
+            self.close_processes(True)
 
         elif key == TB_CANCEL:
-            self.procesador.close_engines()
-            self.main_window.reject()
+            self.close_processes(False)
 
         elif key == TB_TAKEBACK:
             self.takeback()
@@ -165,14 +161,21 @@ class ManagerVariations(Manager.Manager):
         else:
             return None
 
-    def final_x(self):
+    def close_processes(self, accept: bool):
+        self.accepted = accept
         self.procesador.close_engines()
-        self.main_window.reject()
+        self.main_window.activate_analysis_bar(False)
+        if accept:
+            self.main_window.accept()
+        else:
+            self.main_window.reject()
+
+    def final_x(self):
+        self.close_processes(False)
         return False
 
     def final_x0(self):
-        self.procesador.close_engines()
-        self.main_window.reject()
+        self.close_processes(False)
         return False
 
     def place_in_movement(self, movenum):

@@ -23,12 +23,12 @@ sys.path.insert(0, os.path.realpath(os.curdir))
 folder_resources = os.path.realpath("../Resources")
 folder_root = os.path.realpath("..")
 
-pending = Util.opj(folder_root, "bin", "pending.py")
-if os.path.isfile(pending):
-    with open(pending, "rt") as f:
-        for linea in f:
-            exec(linea.rstrip())
-    os.remove(pending)
+# pending = Util.opj(folder_root, "bin", "pending.py")
+# if os.path.isfile(pending):
+#     with open(pending, "rt") as f:
+#         for linea in f:
+#             exec(linea.rstrip())
+#     os.remove(pending)
 
 
 def path_resource(*lista):
@@ -142,7 +142,7 @@ def relative_root(path):
 
 
 BASE_VERSION = "B"  # Para el control de updates que necesitan reinstalar entero
-VERSION = "R 2.21-FP-9a"
+VERSION = "R 2.21-FP10"
 DEBUG = False
 DEBUG_ENGINES = False
 
