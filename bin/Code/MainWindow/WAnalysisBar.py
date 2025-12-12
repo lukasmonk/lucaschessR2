@@ -83,18 +83,20 @@ class AnalysisBar(QtWidgets.QWidget):
                 self.engine_manager.ac_final(0)
 
     def set_game(self, game):
-        self.timer.stop()
-        self.game = game
-        self.xpv = game.xpv()
+        if self.engine_manager:
+            self.timer.stop()
+            self.game = game
+            self.xpv = game.xpv()
 
-        self.timer.start(self.interval)
+            self.timer.start(self.interval)
 
-        self.engine_manager.ac_final(0)
-        self.engine_manager.ac_inicio(game)
+            self.engine_manager.ac_final(0)
+            self.engine_manager.ac_inicio(game)
 
     def show_score(self, txt):
-        self.lb_value_up.set_text(txt)
-        self.lb_value_down.set_text(txt)
+        if self.isVisible():
+            self.lb_value_up.set_text(txt)
+            self.lb_value_down.set_text(txt)
 
     def current_bestmove(self):
         rm = None
@@ -105,45 +107,46 @@ class AnalysisBar(QtWidgets.QWidget):
         return rm
 
     def control_state(self):
-        if self.engine_manager:
-            mrm = self.engine_manager.ac_estado()
-            if mrm:
+        if self.isVisible():
+            if self.engine_manager:
+                mrm = self.engine_manager.ac_estado()
+                if mrm:
 
-                rm = mrm.rm_best()
+                    rm = mrm.rm_best()
 
-                cp = rm.centipawns_abs()
+                    cp = rm.centipawns_abs()
 
-                tooltip = None
-                if not rm.is_white:
-                    cp = -cp
-                ev = int(self.aeval.lv(cp) * 100)
+                    tooltip = None
+                    if not rm.is_white:
+                        cp = -cp
+                    ev = int(self.aeval.lv(cp) * 100)
 
-                self.show_score(rm.abbrev_text_base1())
-                self.update_value(ev)
+                    self.show_score(rm.abbrev_text_base1())
+                    self.update_value(ev)
 
-                if tooltip is None:
-                    pgn = Game.pv_pgn(self.game.last_position.fen(), rm.pv)
-                    main = f"{rm.abbrev_text_base1()} (^{rm.depth})"
-                    li = pgn.split(" ")
-                    if len(li) > 0:
-                        sli = []
-                        if not rm.is_white:
-                            sli.append(li[0])
-                            del li[0]
-                        for pos in range(0, len(li), 2):
-                            txt = li[pos]
-                            if pos < len(li) - 1:
-                                txt += " " + li[pos + 1]
-                            sli.append(txt)
-                        pgn = "\n".join(sli)
-                    tooltip = main + "\n" + pgn
-                    self.setToolTip(tooltip)
+                    if tooltip is None:
+                        pgn = Game.pv_pgn(self.game.last_position.fen(), rm.pv)
+                        main = f"{rm.abbrev_text_base1()} (^{rm.depth})"
+                        li = pgn.split(" ")
+                        if len(li) > 0:
+                            sli = []
+                            if not rm.is_white:
+                                sli.append(li[0])
+                                del li[0]
+                            for pos in range(0, len(li), 2):
+                                txt = li[pos]
+                                if pos < len(li) - 1:
+                                    txt += " " + li[pos + 1]
+                                sli.append(txt)
+                            pgn = "\n".join(sli)
+                        tooltip = main + "\n" + pgn
+                        self.setToolTip(tooltip)
 
-            else:
-                self.setToolTip("")
-                self.show_score("")
-                self.engine_manager.ac_final(0)
-                self.timer.stop()
+                else:
+                    self.setToolTip("")
+                    self.show_score("")
+                    self.timer.stop()
+                    self.engine_manager.ac_final(0)
 
     def configure(self):
         configuration = Code.configuration

@@ -653,7 +653,7 @@ class WPlayAgainstEngine(LCDialog.LCDialog):
             nodes = EngineRun.nodes_maia(maia_level)
             self.ed_nodes.ponInt(nodes)
 
-        if self.rival.is_external:
+        if self.rival.is_type_external():
             name = self.rival.key
             if self.rival.elo:
                 name = f"{name} ({self.rival.elo})"

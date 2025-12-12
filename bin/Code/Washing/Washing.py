@@ -144,7 +144,7 @@ class Washing:
     def total_engines(self, configuration):
         n = 0
         for k, m in configuration.dic_engines.items():
-            if 0 < m.elo < 3000 and not m.is_external:
+            if 0 < m.elo < 3000 and not m.is_type_external():
                 n += 2
         return n
 
@@ -167,7 +167,7 @@ class Washing:
 
         li = []
         for k, m in configuration.dic_engines.items():
-            if 0 < m.elo < 3000 and not m.is_external:
+            if 0 < m.elo < 3000 and not m.is_type_external():
                 for color in (True, False):
                     if (m.key, color) not in st:
                         engine = WEngine(m.key, m.name, m.elo, color)

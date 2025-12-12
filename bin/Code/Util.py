@@ -3,13 +3,12 @@ import collections
 import datetime
 import glob
 import hashlib
-import inspect
 import os
-import sys
-import stat
 import pickle
 import random
 import shutil
+import stat
+import sys
 import time
 import urllib.request
 import uuid
@@ -61,6 +60,7 @@ def remove_folder_files(folder: str) -> bool:
         pass
     return not os.path.isdir(folder)
 
+
 def is_linux() -> bool:
     return sys.platform.startswith("linux")
 
@@ -73,6 +73,7 @@ def create_folder(folder: str) -> bool:
         return True
     except:
         return False
+
 
 def check_folders(folder: str) -> bool:
     if folder:
@@ -150,15 +151,34 @@ def temporary_file(path_temp: str, ext: str) -> str:
             return fich
 
 
-def list_vars_values(obj, li_exclude: [list, None] = None):
+def list_vars_values(obj, li_exclude=None):
     if li_exclude is None:
         li_exclude = []
-    li = []
-    for name, value in inspect.getmembers(obj):
-        if "__" not in name and name not in li_exclude:
-            if not inspect.ismethod(value):
-                li.append((name, value))
-    return li
+
+    li_vars = []
+
+    inst_dict = obj.__dict__
+    cls = obj.__class__
+
+    for name, value in inst_dict.items():
+        if name in li_exclude:
+            continue
+
+        # 1. Si el atributo existe también en la clase, podría ser descriptor/property
+        cls_attr = cls.__dict__.get(name)
+
+        # 2. Excluir properties, métodos, funciones y descriptores
+        if isinstance(cls_attr, property):
+            continue
+        if callable(cls_attr):
+            continue
+        if hasattr(cls_attr, "__get__") or hasattr(cls_attr, "__set__") or hasattr(cls_attr, "__delete__"):
+            continue
+
+        # Es variable pura
+        li_vars.append((name, value))
+
+    return li_vars
 
 
 def restore_list_vars_values(obj, li_vars_values):

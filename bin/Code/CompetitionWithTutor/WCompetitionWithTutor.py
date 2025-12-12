@@ -104,7 +104,7 @@ def dame_categoria(w_parent, configuration, procesador):
         for rv in grupo.li_rivales:
             si_actual = rv.key == rival.key
             ico = ico_actual if si_actual else ico_m
-            if rv.is_external:
+            if rv.is_type_external():
                 name = rv.nombre_ext()
             else:
                 name = rv.name

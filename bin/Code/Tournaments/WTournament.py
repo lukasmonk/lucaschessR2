@@ -662,7 +662,7 @@ class WTournament(LCDialog.LCDialog):
         me = Tournament.EngineTournament()
         me.pon_huella(self.torneo)
         me.restore(resp.save())
-        if me.is_external:
+        if me.is_type_external():
             me.alias = me.key
         else:
             me.alias = me.key = me.name

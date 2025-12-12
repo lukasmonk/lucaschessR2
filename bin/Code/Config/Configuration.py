@@ -821,22 +821,23 @@ class Configuration:
         return Util.opj(self.folder_translations(), "%s.po" % self.x_translator)
 
     def list_internal_engines(self):
-        li = [cm for k, cm in self.dic_engines.items() if not cm.is_external]
+        li = [cm for k, cm in self.dic_engines.items() if not cm.is_type_external()]
         li = sorted(li, key=lambda cm: cm.name)
         return li
 
     def list_external_engines(self):
-        li = [cm for k, cm in self.dic_engines.items() if cm.is_external]
+        li = [cm for k, cm in self.dic_engines.items() if cm.is_type_external()]
         return li
 
     def read_external_engines(self):
         li = Util.restore_pickle(self.file_external_engines())
-        if li:
+        if li and len(li) > 0:
             from Code.Engines import Engines
 
             for x in li:
                 eng = Engines.Engine()
-                if not eng.restore(x):
+                eng.set_extern()
+                if not eng.restore(x, is_extern=True):
                     continue
 
                 if eng.exists():
@@ -845,18 +846,17 @@ class Configuration:
                     while eng.key in self.dic_engines:
                         n += 1
                         eng.key = "%s-%d" % (key, n)
-                    eng.set_extern()
                     self.dic_engines[eng.key] = eng
 
     def reread_external_engines(self):
-        self.dic_engines = {k: cm for k, cm in self.dic_engines.items() if not cm.is_external}
+        self.dic_engines = {k: cm for k, cm in self.dic_engines.items() if not cm.is_type_external()}
         self.read_external_engines()
 
     def list_engines(self, si_externos=True):
         li = []
         for k, v in self.dic_engines.items():
             name = v.name
-            if v.is_external:
+            if v.is_type_external():
                 if not si_externos:
                     continue
                 name += " *"

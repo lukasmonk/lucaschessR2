@@ -380,6 +380,7 @@ class ThanksTo:
             ("Dan Brad", _("Permission of author")),
             ("Tamer64", _("Permission of author")),
             ("Luis", _("Permission of author")),
+            ("Tamer Karaketin", _("Permission of author")),
         ]
         for autor, licencia in li:
             txt += "<tr>"
@@ -516,6 +517,11 @@ class ThanksTo:
                 '''Free for personal non commercial use.<br>
                 True Type Font by Eric Bentzen for diagrams<br> and figurine notation. 
                 Based on the familiar<br>design from the East German "Sportverlag"'''
+            ),
+            (
+                "Shahi-Ivory-Brown<br>Shahi-White-Gray",
+                '<a href="https://github.com/TamerKaratekin/shahi-chess-shatranj-font">Tamer Karaketin</a>',
+                'Free for personal, educational,<br>non-profit, and commercial use'
             ),
         ]
         salto = len(li) // 2

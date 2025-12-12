@@ -112,6 +112,8 @@ class MainWindow(LCDialog.LCDialog):
             if self.manager.final_x0():
                 Code.procesador.reset()
             event.ignore()
+            return
+        self.save_video()
 
     def onTopWindow(self):
         self.onTop = not self.onTop
@@ -398,7 +400,8 @@ class MainWindow(LCDialog.LCDialog):
     def active_game(self, si_activar, si_reloj):
         self.base.active_game(si_activar, si_reloj)
         if not self.board.siF11:
-            self.ajustaTamH()
+            if not self.siInformacionPGN:
+                self.ajustaTamH()
 
     def set_data_clock(self, bl, rb, ng, rn):
         self.base.set_data_clock(bl, rb, ng, rn)

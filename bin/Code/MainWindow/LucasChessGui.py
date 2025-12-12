@@ -129,6 +129,14 @@ def run_gui(procesador):
 
     InitApp.init_app_style(app, configuration)
 
+    if configuration.x_translator != "en":
+        translator = QtCore.QTranslator()
+        translations_path = QtCore.QLibraryInfo.location(QtCore.QLibraryInfo.TranslationsPath)
+        # Why: Qt solo traduce acciones internas si encuentra el qm correcto.
+        path_qm = f"qtbase_{configuration.x_translator}.qm"
+        if translator.load(path_qm, translations_path):
+            app.installTranslator(translator)
+
     procesador.iniciar_gui()
 
     Code.garbage_collector = GarbageCollector.GarbageCollector()

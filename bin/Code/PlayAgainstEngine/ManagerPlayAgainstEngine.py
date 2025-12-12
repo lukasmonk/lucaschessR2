@@ -110,7 +110,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
     opening_line = None
     play_while_win = None
     limit_pww = 90
-    dic_reject = {"opening_line": 0, "book_rival": 0, "book_player": 0}
+    dic_reject: dict
     cache_analysis = {}
     with_takeback = True
     seconds_per_move = 0
@@ -132,11 +132,12 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             self.start_message(nomodal=Code.eboard and Code.is_linux)  # nomodal: problema con eboard
             self.start_pending_continue = False
 
-
         self.play_next_move()
 
     def base_inicio(self, dic_var):
         self.reinicio = dic_var
+
+        self.dic_reject = {"opening_line": 0, "book_rival": 0, "book_player": 0}
 
         self.cache = dic_var.get("cache", {})
         self.cache_analysis = dic_var.get("cache_analysis", {})
@@ -1070,7 +1071,8 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                 return
             move = Move.Move(self.game, position_before=self.game.last_position.copia())
             move.analysis = mrm, 0
-            Analysis.show_analysis(self.procesador, self.xanalyzer, move, self.board.is_white_bottom, 0, must_save=False)
+            Analysis.show_analysis(self.procesador, self.xanalyzer, move, self.board.is_white_bottom, 0,
+                                   must_save=False)
             if self.hints:
                 self.hints -= 1
                 self.show_hints()
@@ -1353,7 +1355,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             self.board.remove_arrows()
             self.premove = None
 
-    def pww_centipawns_lost(self, mrm:EngineResponse.MultiEngineResponse, rm_user: EngineResponse.EngineResponse):
+    def pww_centipawns_lost(self, mrm: EngineResponse.MultiEngineResponse, rm_user: EngineResponse.EngineResponse):
         if len(self.game.li_moves) == 0:
             best = mrm.best_rm_ordered()
             return best.score_abs5() - rm_user.score_abs5()
@@ -1595,7 +1597,6 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             self.rendirse(with_question=False)
             return
 
-
         self.enable_toolbar()
         self.play_next_move()
         return True
@@ -1660,19 +1661,19 @@ class ManagerPlayAgainstEngine(Manager.Manager):
             comment += _("Tutor") + ": %s\n" % self.xtutor.name
             comment += _("Number of moves") + ":%d\n" % j_num
             comment += _("Same move") + ":%d (%0.2f%%)\n" % (j_same, j_same * 1.0 / j_num)
-            comment += _("Accepted") + ":%d (%0.2f%%) %s: %0.2f\n" % (
+            comment += _("Accepted") + ":%d (%0.2f%%)\n -> %s: %0.2f\n" % (
                 nt_accept,
-                nt_accept * 1.0 / j_num,
+                nt_accept * 100.0 / j_num,
                 _("Average centipawns lost"),
                 st_accept * 1.0 / nt_accept if nt_accept else 0.0,
             )
-            comment += _("Rejected") + ":%d (%0.2f%%) %s: %0.2f\n" % (
+            comment += _("Rejected") + ":%d (%0.2f%%)\n -> %s: %0.2f\n" % (
                 nt_reject,
-                nt_reject * 1.0 / j_num,
+                nt_reject * 100.0 / j_num,
                 _("Average centipawns lost"),
                 st_reject * 1.0 / nt_reject if nt_reject else 0.0,
             )
-            comment += _("Total") + ":%d (100%%) %s: %0.2f\n" % (
+            comment += _("Total") + ":%d (100%%)\n -> %s: %0.2f\n" % (
                 j_num,
                 _("Average centipawns lost"),
                 j_sum * 1.0 / j_num,

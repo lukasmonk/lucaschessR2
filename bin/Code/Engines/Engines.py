@@ -9,6 +9,7 @@ from Code.Engines import EngineRunDirect
 from Code.QT import QTVarios
 from Code.SQL import UtilSQL
 
+
 class Engine:
 
     def __init__(self, key="", autor="", version="", url="", path_exe="", args=None):
@@ -49,13 +50,15 @@ class Engine:
         self.nodes_compatible = ok
 
     def is_nodes_compatible(self):
-        return self.is_external if self.nodes_compatible is None else self.nodes_compatible
+        return self.is_type_external() if self.nodes_compatible is None else self.nodes_compatible
 
     def save(self):
-        return Util.save_obj_pickle(self, li_exclude=["ICON",])
+        return Util.save_obj_pickle(self, li_exclude=["ICON", ])
 
-    def restore(self, txt):
+    def restore(self, txt, is_extern=False):
         Util.restore_obj_pickle(self, txt)
+        if is_extern:
+            self.set_extern()
         if self.parent_external:
             conf_parent = Code.configuration.dic_engines.get(self.parent_external)
             if conf_parent:
@@ -74,17 +77,12 @@ class Engine:
     def set_extern(self):
         self.type = ENG_EXTERNAL
 
-    @property
-    def is_external(self):
+    def is_type_external(self):
         return self.type == ENG_EXTERNAL
-
-    @is_external.setter
-    def is_external(self, value):
-        self.type = ENG_EXTERNAL if value else ENG_INTERNAL
 
     def nombre_ext(self, ext_with_symbol=True):
         name = self.name
-        if self.is_external:
+        if self.is_type_external():
             name = self.key
             if ext_with_symbol:
                 name += " 📡"
@@ -204,21 +202,23 @@ class Engine:
         return self.path_exe
 
     def remove_uci_options(self):
-        path_uci_options = self.path_exe + ".uci_options"
-        Util.remove_file(path_uci_options)
+        if self.type == ENG_EXTERNAL:
+            path_uci_options = os.path.join(Code.configuration.folder_config, "uci_options1.sqlite")
+            with UtilSQL.DictTextSQL(path_uci_options) as dbuci:
+                del dbuci[self.key_engine()]
 
     def key_engine(self):
-        if self.type == ENG_INTERNAL:
-            return "maia" if self.alias.startswith("maia") else self.alias
-        else:
+        if self.type == ENG_EXTERNAL:
             stat = os.stat(self.path_exe)
             return f"{os.path.basename(self.path_exe)}_{stat.st_size}_{stat.st_mtime}"
+        else:
+            return "maia" if self.alias.startswith("maia") else self.alias
 
     def read_uci_options(self):
-        if self.type == ENG_INTERNAL:
-            path_uci_options = os.path.join(Code.folder_OS, "uci_options1.sqlite")
-        else:
+        if self.type == ENG_EXTERNAL:
             path_uci_options = os.path.join(Code.configuration.folder_config, "uci_options1.sqlite")
+        else:
+            path_uci_options = os.path.join(Code.folder_OS, "uci_options1.sqlite")
 
         with UtilSQL.DictTextSQL(path_uci_options) as dbuci:
             key = self.key_engine()
@@ -287,7 +287,7 @@ class Engine:
         return hash(self.alias + self.key)
 
     def list_to_show(self, wowner):
-        li: list = [ f'{_("Name")} = {self.name}', f'{_("Key")} = {self.key}']
+        li: list = [f'{_("Name")} = {self.name}', f'{_("Key")} = {self.key}']
         if self.key != self.alias:
             li.append(f'{_("Alias")} = {self.alias}')
         li.append(f'{self.path_exe}')
@@ -321,6 +321,7 @@ class Engine:
                     submenu.separador()
                     submenu.opcion(None, op)
         menu.lanza()
+
 
 class OpcionUCI:
     name = ""

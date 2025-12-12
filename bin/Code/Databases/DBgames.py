@@ -169,51 +169,38 @@ class DBgames:
         self.cache[rowid] = reg
 
     def interchange(self, nfila, si_up):
-        rowid = self.li_row_ids[nfila]
-        if si_up:
-            # buscamos el mayor, menor que rowid
-            fil_other = None
-            rowid_other = -1
-            for fil0, rowid0 in enumerate(self.li_row_ids):
-                if rowid0 < rowid:
-                    if rowid0 > rowid_other:
-                        fil_other = fil0
-                        rowid_other = rowid0
-            if fil_other is None:
-                return None
-        else:
-            # buscamos el menor, mayor que rowid
-            fil_other = None
-            rowid_other = 999999999999
-            for fil0, rowid0 in enumerate(self.li_row_ids):
-                if rowid0 > rowid:
-                    if rowid0 < rowid_other:
-                        fil_other = fil0
-                        rowid_other = rowid0
-            if fil_other is None:
-                return None
-        # Hay que intercambiar rowid, con rowid_other
-        select_all = ",".join(self.li_fields)
-        cursor = self.conexion.execute("SELECT %s FROM Games WHERE rowid =%d" % (select_all, rowid))
-        reg = cursor.fetchone()
-        cursor = self.conexion.execute("SELECT %s FROM Games WHERE rowid =%d" % (select_all, rowid_other))
-        reg_other = cursor.fetchone()
+        fil_other = nfila-1 if si_up else nfila+1
+        if fil_other <0 or fil_other >= len(self.li_row_ids):
+            return nfila
 
-        # Problema con error por XPV unico cuando se intercambia, en RowidOther ponemos un xpv ficticio
-        sql = "UPDATE Games SET XPV=? WHERE ROWID = %d" % rowid_other
-        self.conexion.execute(sql, ("?????",))
+        rowid1 = self.li_row_ids[nfila]
+        rowid2 = self.li_row_ids[fil_other]
 
-        update_all = ",".join(["%s=?" % campo for campo in self.li_fields])
-        sql = "UPDATE Games SET %s" % update_all + " WHERE ROWID = %d"
+        columns = self.lista_campos()
+        cols_sql = ", ".join(columns)
 
-        self.conexion.execute(sql % rowid, reg_other)
-        self.conexion.execute(sql % rowid_other, reg)
+        self.conexion.execute("BEGIN IMMEDIATE")
+        cursor = self.conexion.cursor()
+        cursor.execute(f"SELECT {cols_sql} FROM Games WHERE rowid = ?", (rowid1,))
+        datos_a = [elem for elem in cursor.fetchone()]
+
+        cursor.execute(f"SELECT {cols_sql} FROM Games WHERE rowid = ?", (rowid2,))
+        datos_b = [elem for elem in cursor.fetchone()]
+
+        update_cols = ",". join([f"{field} = ? " for field in columns])
+
+        update_query = f"UPDATE Games SET {update_cols} WHERE rowid = ?"
+        cursor.execute(update_query, datos_b + [rowid1,])
+        cursor.execute(update_query, datos_a + [rowid2,])
+
         self.conexion.commit()
 
-        self.addcache(rowid, reg_other)
-        self.addcache(rowid_other, reg)
+        for rowid in (rowid1, rowid2):
+            if rowid in self.cache:
+                del self.cache[rowid]
 
         return fil_other
+
 
     def get_rowid(self, nfila):
         return self.li_row_ids[nfila]

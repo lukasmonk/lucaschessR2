@@ -269,10 +269,10 @@ def read_engines(folder_engines):
 
     if is64:
         if is_bmi2:
-            cm = mas("lc0", "The LCZero Authors", "v0.32", "https://github.com/LeelaChessZero", "lc0_dnnl.exe", 3300,
+            cm = mas("lc0", "The LCZero Authors", "v0.32.1", "https://github.com/LeelaChessZero", "lc0_dnnl.exe", 3300,
                      nodes_compatible=True, emulate_movetime=True)
         else:
-            cm = mas("lc0", "The LCZero Authors", "v0.32", "https://github.com/LeelaChessZero", "lc0.exe", 3300,
+            cm = mas("lc0", "The LCZero Authors", "v0.32.1", "https://github.com/LeelaChessZero", "lc0.exe", 3300,
                      nodes_compatible=True, emulate_movetime=True)
         cm.set_uci_option("Threads", "2")
         cm.set_multipv(10, 500)

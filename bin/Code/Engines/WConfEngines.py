@@ -356,6 +356,7 @@ class WConfExternals(QtWidgets.QWidget):
             return
 
         # Editamos
+        me.set_extern()
         w = WEngineFast(self, self.lista_motores, me)
         if w.exec_():
             self.lista_motores.append(me)
@@ -450,6 +451,7 @@ class WConfExternals(QtWidgets.QWidget):
             return
 
         me = Code.configuration.buscaRival(resp).clone()
+        me.set_extern()
         w = WEngineFast(self, self.lista_motores, me)
         if w.exec_():
             me.parent_external = me.key

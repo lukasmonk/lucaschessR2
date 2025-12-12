@@ -1265,7 +1265,7 @@ class Manager:
         self.main_window.base.tb.setDisabled(True)
         self.is_analyzing = True
         activate_analisisbar = False
-        if self.main_window.is_active_analysisbar:
+        if self.main_window.with_analysis_bar:
             activate_analisisbar = True
             self.main_window.activate_analysis_bar(False)
         AnalysisGame.analysis_game(self)
