@@ -156,7 +156,6 @@ def list_vars_values(obj, li_exclude=None):
         li_exclude = []
 
     li_vars = []
-
     inst_dict = obj.__dict__
     cls = obj.__class__
 
@@ -167,16 +166,20 @@ def list_vars_values(obj, li_exclude=None):
         # 1. Si el atributo existe también en la clase, podría ser descriptor/property
         cls_attr = cls.__dict__.get(name)
 
-        # 2. Excluir properties, métodos, funciones y descriptores
-        if isinstance(cls_attr, property):
-            continue
-        if callable(cls_attr):
-            continue
-        if hasattr(cls_attr, "__get__") or hasattr(cls_attr, "__set__") or hasattr(cls_attr, "__delete__"):
+        # 2. Excluir properties, métodos, funciones y descriptores (como ya lo haces)
+        if isinstance(cls_attr, property) or callable(cls_attr) or \
+                (hasattr(cls_attr, "__get__") or hasattr(cls_attr, "__set__") or hasattr(cls_attr, "__delete__")):
             continue
 
-        # Es variable pura
-        li_vars.append((name, value))
+        # 3. VERIFICAR si el valor de la variable es pickleable
+        try:
+            # Intenta serializar el valor. Si falla, lanza PicklingError (o a veces TypeError)
+            pickle.dumps(value)
+            # Si tiene éxito, es una variable pura y pickleable
+            li_vars.append((name, value))
+        except (pickle.PicklingError, TypeError):
+            # El objeto (e.g., un widget de PySide6) no es serializable. Lo excluímos.
+            pass
 
     return li_vars
 
