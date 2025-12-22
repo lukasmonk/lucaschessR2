@@ -10,6 +10,8 @@ from Code.SQL import UtilSQL
 
 
 class EngineTournament(Engines.Engine):
+    BOOK_BY_DEFAULT, BOOK_ENGINE = "*", "-"
+
     def __init__(self):
         Engines.Engine.__init__(self, "", "", "", "", "")
 
@@ -21,7 +23,7 @@ class EngineTournament(Engines.Engine):
 
         self.elo_current = None
 
-        self.book = "-"  # "*":por defecto "-":el propio del engine otro:path to book polyglot
+        self.book = self.BOOK_ENGINE  # "*":por defecto "-":el propio del engine otro:path to book polyglot
         self.bookRR = BOOK_RANDOM_PROPORTIONAL
 
         # listas de huellas
@@ -44,6 +46,8 @@ class EngineTournament(Engines.Engine):
     def copiar(self, torneo):
         otro = EngineTournament()
         otro.restore(self.save())
+        otro.book = self.book
+        otro.book_rr = self.book_rr
         otro.pon_huella(torneo)
         otro.key += "-1"
         otro.alias = otro.key
@@ -56,15 +60,11 @@ class EngineTournament(Engines.Engine):
 
         return otro
 
-    def book(self, valor=None):
-        if valor is not None:
-            self.book = valor
-        return self.book
+    def set_book(self, valor):
+        self.book = valor
 
-    def bookRR(self, valor=None):
-        if valor is not None:
-            self.bookRR = valor
-        return self.bookRR
+    def set_book_rr(self, valor):
+        self.bookRR = valor
 
     def set_depth(self, valor=None):
         if valor is not None:
@@ -154,6 +154,7 @@ class GameTournament(object):
         if self.minutos:
             def wdec(x):
                 return ("%f" % x).rstrip("0").rstrip(".")
+
             if self.seconds_per_move:
                 return "%s+%s" % (wdec(self.minutos * 60), wdec(self.seconds_per_move))
             else:

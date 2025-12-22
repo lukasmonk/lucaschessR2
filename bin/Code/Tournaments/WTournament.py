@@ -41,7 +41,7 @@ class WTournament(LCDialog.LCDialog):
         LCDialog.LCDialog.__init__(self, w_parent, titulo, icono, extparam)
 
         self.configuration = Code.configuration
-        self.internal_engines = SelectEngines.SelectEngines(w_parent)
+        self.internal_engines = None
 
         # Datos
 
@@ -655,6 +655,9 @@ class WTournament(LCDialog.LCDialog):
     #     self.rotulos_tabs()
 
     def eng_import(self):
+        if self.internal_engines is None:
+            self.internal_engines = SelectEngines.SelectEngines(self)
+
         resp = self.internal_engines.menu(self)
         if not resp:
             return
