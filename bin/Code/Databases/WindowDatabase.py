@@ -1,3 +1,5 @@
+import os
+
 from PySide2 import QtWidgets, QtCore
 
 from Code.Databases import WDB_Games, WDB_Summary, WDB_Players, WDB_InfoMove, DBgames, WDB_GUtils, WDB_Perfomance
@@ -5,7 +7,7 @@ from Code.QT import Colocacion
 from Code.QT import Controles
 from Code.QT import Iconos
 from Code.QT import LCDialog
-from Code.QT import QTVarios
+from Code.QT import QTVarios, QTUtil2
 
 
 class WBDatabase(LCDialog.LCDialog):
@@ -16,6 +18,7 @@ class WBDatabase(LCDialog.LCDialog):
         titulo = _("Temporary database") if self.is_temporary else _("Database")
         LCDialog.LCDialog.__init__(self, w_parent, titulo, icono, extparam)
         self.owner = w_parent
+        self.setAcceptDrops(True)
 
         self.procesador = procesador
         self.configuration = procesador.configuration
@@ -192,3 +195,25 @@ class WBDatabase(LCDialog.LCDialog):
             self.db_games.close()
         self.reiniciar = True
         self.accept()
+
+    def dropEvent(self, event):
+        mime_data = event.mimeData()
+        if mime_data.hasUrls():
+            li = mime_data.urls()
+            if len(li) > 0:
+                paths = [elem.path().strip("/") for elem in li]
+                paths = [path for path in paths if path.lower().endswith(".pgn")]
+                if paths:
+                    if QTUtil2.pregunta(self,
+                                           f'{_("Import")}:\n'
+                                           f'{", ".join([os.path.basename(path) for path in paths])}'
+                                           f'\n\n{_("Are you sure?")}'):
+                        self.wgames.tw_importar_pgn(paths)
+
+    def dragEnterEvent(self, event):
+        mime_data = event.mimeData()
+        if mime_data.hasUrls():
+            li = mime_data.urls()
+            path = li[0].path().strip("/")
+            if path.lower().endswith(".pgn"):
+                event.accept()

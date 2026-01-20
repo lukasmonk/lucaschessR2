@@ -549,7 +549,7 @@ class Manager:
             if self.main_window.siInformacionPGN:
                 if (row == 0 and column.key == "NUMBER") or row < 0:
                     self.main_window.put_informationPGN(self.game, None, nom_opening)
-                else:
+                elif move:
                     move_check = move
                     move_check.pos_in_game = pos_move
                     self.main_window.put_informationPGN(None, move_check, nom_opening)

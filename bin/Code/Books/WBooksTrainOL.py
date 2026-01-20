@@ -538,9 +538,6 @@ class WBooksTrainOLHistory(LCDialog.LCDialog):
 
         self.grid.gotop()
 
-    def grid_doble_click(self, grid, row, column):
-        self.empezar()
-
     def grid_num_datos(self, grid):
         return len(self.reg.li_trainings)
 

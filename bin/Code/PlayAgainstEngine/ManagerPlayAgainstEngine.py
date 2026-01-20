@@ -1,5 +1,4 @@
 import os
-import sys
 import time
 
 import FasterCode
@@ -312,7 +311,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
 
             self.disable_user_time = dic_var.get("DISABLEUSERTIME", False)
             if self.disable_user_time:
-                secs_extra = sys.maxsize
+                secs_extra = 3 * 60 * 60  # 3 horas
                 self.tc_player.set_displayed(False)
 
             self.tc_player.config_clock(self.max_seconds, self.seconds_per_move, zeitnot, secs_extra)

@@ -719,6 +719,7 @@ class Game:
             del self.li_moves[-1]
             ndel += 1
         self.assign_opening()
+        self.remove_result()
         return ndel
 
     def remove_only_last_movement(self):
@@ -727,8 +728,15 @@ class Game:
             del self.li_moves[-1]
             self.set_unknown()
             self.assign_opening()
+            self.remove_result()
             return move
         return None
+
+    def remove_result(self):
+        self.del_tag("TERMINATION")
+        self.del_tag("RESULT")
+        self.termination = TERMINATION_UNKNOWN
+        self.result = RESULT_UNKNOWN
 
     def copia(self, hastaJugada=None):
         p = Game()

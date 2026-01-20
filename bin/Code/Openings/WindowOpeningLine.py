@@ -1015,9 +1015,7 @@ class WLines(LCDialog.LCDialog):
 
         elif k in (QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace):
             row, col = self.glines.current_position()
-            if col.key == "LINE":
-                self.borrar()
-            else:
+            if col.key != "LINE":
                 self.borrar_move()
 
         elif k == QtCore.Qt.Key_Up:

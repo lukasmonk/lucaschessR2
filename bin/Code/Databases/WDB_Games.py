@@ -1658,7 +1658,12 @@ class WGames(QtWidgets.QWidget):
             if not files:
                 return
         else:
-            files = [path_pgn, ]
+            if type(path_pgn) is list:
+                files = path_pgn
+            else:
+                files = [
+                    path_pgn,
+                ]
 
         dl_tmp = QTVarios.ImportarFicheroPGN(self)
         if self.db_games.allows_duplicates:

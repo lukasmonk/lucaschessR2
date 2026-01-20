@@ -15,6 +15,7 @@ class AnalysisBar(QtWidgets.QWidget):
         self.w_parent = w_parent
         self.board = board
         self.engine_manager = None
+        self.with_limits = False
         self.timer = None
         self.activated = False
         self.value_objective = 0
@@ -43,7 +44,8 @@ class AnalysisBar(QtWidgets.QWidget):
         self.previous_board = None
         self.set_board_position()
 
-        layout = Colocacion.V().control(self.lb_value_up).espacio(-6).control(self.progressbar).espacio(-6).control(self.lb_value_down).margen(0)
+        layout = Colocacion.V().control(self.lb_value_up).espacio(-6).control(self.progressbar).espacio(-6).control(
+            self.lb_value_down).margen(0)
         self.setLayout(layout)
 
     def set_board_position(self):
@@ -60,7 +62,10 @@ class AnalysisBar(QtWidgets.QWidget):
         self.setVisible(ok)
         if ok:
             if self.engine_manager is None:
-                self.engine_manager = Code.procesador.analyzer_clone(0, 0, 1)
+                self.engine_manager = Code.procesador.analyzer_clone(Code.configuration.x_analyzer_mstime_ab,
+                                                                     Code.configuration.x_analyzer_depth_ab, 1)
+                self.with_limits = (Code.configuration.x_analyzer_mstime_ab > 0 or
+                                    Code.configuration.x_analyzer_depth_ab > 0)
                 self.engine_manager.set_priority_very_low()
             if self.timer is None:
                 self.timer = QtCore.QTimer()
@@ -91,7 +96,10 @@ class AnalysisBar(QtWidgets.QWidget):
             self.timer.start(self.interval)
 
             self.engine_manager.ac_final(0)
-            self.engine_manager.ac_inicio(game)
+            if self.with_limits:
+                self.engine_manager.ac_inicio_limit(game)
+            else:
+                self.engine_manager.ac_inicio(game)
 
     def show_score(self, txt):
         if self.isVisible():
@@ -169,6 +177,8 @@ class AnalysisBar(QtWidgets.QWidget):
         configuration.x_analyzer_mstime_ab *= 1000
         configuration.graba()
 
+        self.activate(False)
+        self.activate(True)
         self.set_game(self.game)
         self.set_board_position()
 

@@ -107,7 +107,7 @@ class Procesador:
         self.wiki = "https://chessionate.com/lucaswiki"
 
         self.main_window = None
-        # self.kibitzers_manager = KibitzersManager.Manager(self)
+        self.kibitzers_manager = KibitzersManager.Manager(self)
 
     def start_with_user(self, user):
         self.user = user
