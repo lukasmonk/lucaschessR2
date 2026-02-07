@@ -1235,7 +1235,7 @@ class DBgames:
             self.db_stat.commit()
 
     def has_positions(self):
-        return self.allows_positions
+        return self.has_field("FEN")
 
     def has_field(self, field):
         return field.upper() in self.st_fields

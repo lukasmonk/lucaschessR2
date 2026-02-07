@@ -265,7 +265,7 @@ class WTournamentRun(QtWidgets.QWidget):
             self.configuration.set_property(self.lb_clock[side], "clock")
 
         # Rotulos de informacion
-        self.lbRotulo2 = Controles.LB(self)
+        self.lbRotulo2 = Controles.LB(self).set_wrap()
         self.lbRotulo2.setStyleSheet("border: 1px solid gray;")
         self.lbRotulo3 = Controles.LB(self).set_wrap().set_fixed_lines(3)
 

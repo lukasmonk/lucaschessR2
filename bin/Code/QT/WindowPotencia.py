@@ -28,11 +28,12 @@ def lee_1_linea_mfn(linea):
     dic = Util.SymbolDict()
     game = Game.Game()
     for x in cabs.split("|"):
-        sp = x.index(" ")
-        k = x[:sp]
-        v = x[sp+1:]
-        dic[k] = v
-        game.set_tag(k, v)
+        if " " in x:
+            sp = x.index(" ")
+            k = x[:sp]
+            v = x[sp + 1:]
+            dic[k] = v
+            game.set_tag(k, v)
     game.read_pv(pv)
     event = dic["Event"]
     site = dic["Site"]
@@ -47,7 +48,7 @@ def lee_1_linea_mfn(linea):
 
 
 def lee_linea_mfn():
-    npos = random.randint(0, 15000-1)
+    npos = random.randint(0, 15000 - 1)
     with open(Code.path_resource("IntFiles", "games.mfn"), "rt", encoding="utf-8") as f:
         for num, linea in enumerate(f):
             if num == npos:
@@ -440,19 +441,28 @@ class WPotenciaBase(LCDialog.LCDialog):
             self.ghistorico.gotop()
             self.ghistorico.refresh()
 
-    def grid_doble_click(self, grid, fil, col):
-        self.repetir(fil)
+    def grid_doble_click(self, _grid, row, _obj_column):
+        self.repeat_row(row)
 
-    def repetir(self, fil=None):
-        if fil is None:
-            fil = self.ghistorico.recno()
-            if fil < 0:
-                return
-        reg = self.historico[fil]
+    def repetir(self):
+        row = self.ghistorico.recno()
+        if row >= 0:
+            self.repeat_row(row)
+
+    def repeat_row(self, row):
+        reg = self.historico[row]
         linea = reg.LINE
         if linea:
-            w = WPotencia(self, self.engine, self.seconds, self.min_min, self.min_max, linea, reg.REF)
-            w.exec_()
+            w = WPotencia(
+                self,
+                self.engine,
+                self.seconds,
+                self.min_min,
+                self.min_max,
+                linea,
+                reg.REF,
+            )
+            w.exec()
             self.ghistorico.gotop()
             self.ghistorico.refresh()
 

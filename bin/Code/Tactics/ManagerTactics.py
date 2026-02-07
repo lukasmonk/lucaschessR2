@@ -34,13 +34,14 @@ class ManagerTactics(Manager.Manager):
         self.ayudas_iniciales = 0
         self.requested_help = False
         self.is_competitive = False
-        self.game_obj, self.game_base = self.tactic.work_read_position()
         self.reiniciar()
 
     def reiniciar(self):
         if self.reiniciando:
             return
         self.reiniciando = True
+
+        self.game_obj, self.game_base = self.tactic.work_read_position()
 
         self.main_window.activaInformacionPGN(True)
 

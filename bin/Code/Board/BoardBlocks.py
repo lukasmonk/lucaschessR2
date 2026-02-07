@@ -2,13 +2,13 @@ from PySide2 import QtCore, QtWidgets
 
 
 class BloqueEspSC(QtWidgets.QGraphicsItem):
-    def __init__(self, escena, bloqueDatos):
+    def __init__(self, escena, bloque_datos):
 
         self.nAlrededor = 5
 
         super(BloqueEspSC, self).__init__()
 
-        self.bloqueDatos = bloqueDatos
+        self.bloqueDatos = bloque_datos
 
         self.board = escena.parent()
 
@@ -18,7 +18,7 @@ class BloqueEspSC(QtWidgets.QGraphicsItem):
 
         # self.rect = QtCore.QRectF( p.x, p.y, p.ancho, p.alto )
         self.rect = QtCore.QRectF(0, 0, p.ancho, p.alto)
-        self.angulo = bloqueDatos.physical_pos.angulo
+        self.angulo = bloque_datos.physical_pos.angulo
         if self.angulo:
             self.rotate(self.angulo)
 
@@ -26,13 +26,20 @@ class BloqueEspSC(QtWidgets.QGraphicsItem):
         escena.addItem(self)
         self.escena = escena
 
-        if bloqueDatos.siMovible:
+        if bloque_datos.siMovible:
             self.board.registraMovible(self)
 
-        self.setZValue(bloqueDatos.physical_pos.orden)
-        self.setOpacity(bloqueDatos.opacity)
+        self.setZValue(bloque_datos.physical_pos.orden)
+        self.setOpacity(bloque_datos.opacity)
 
         self.activa(False)
+        self._lichess = False
+
+    def is_lichess(self):
+        return self._lichess
+
+    def set_lichess(self):
+        self._lichess = True
 
     def activa(self, siActivar):
         self.siActivo = siActivar

@@ -29,7 +29,7 @@ class Eboard:
         self.working_time = time.time()
 
     def envia(self, quien, dato):
-        # assert prln(quien, dato, self.dispatch)
+        # assert prln("envia", quien, dato, self.dispatch)
         return self.dispatch(quien, dato)
 
     def set_position(self, position):

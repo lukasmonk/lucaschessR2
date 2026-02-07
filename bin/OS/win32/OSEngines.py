@@ -1,7 +1,6 @@
 import platform
 
 import FasterCode
-
 from Code import Util
 from Code.Engines import Engines
 
@@ -224,8 +223,6 @@ def read_engines(folder_engines):
     t32_64 = "64" if is64 else "32"
     is_bmi2 = FasterCode.bmi2() == 1 if is64 else False
 
-
-
     if is64:
         try:
             mas("patricia", "Adam Kulju", "4 v2",
@@ -280,10 +277,10 @@ def read_engines(folder_engines):
     cm = mas(
         "stockfish",
         " T. Romstad, M. Costalba, J. Kiiski, G. Linscott",
-        f"17.1 {t32_64}",
+        f"18 {t32_64}",
         "https://stockfishchess.org/",
-        f"Stockfish-17.1-{t32_64}.exe",
-        3611,
+        f"Stockfish-18-{t32_64}.exe",
+        3650,
         nodes_compatible=True
     )
     cm.set_uci_option("Ponder", "false")
@@ -317,20 +314,20 @@ def dict_engines_fixed_elo(folder_engines):
     d = read_engines(folder_engines)
     dic = {}
     li_engines = [
-            ("amyan", 1000, 2400),
-            ("stockfish", 1400, 3000),
-            ("rhetoric", 1300, 2600),
-            ("cheng", 800, 2500),
-            ("greko", 1600, 2400),
-            ("hamsters", 1000, 2000),
-            ("rybka", 1200, 2400),
-            ("ufim", 700, 2000),
-            ("texel", 700, 2500),
-            ("fox", 1000, 2700),
+        ("amyan", 1000, 2400),
+        ("stockfish", 1400, 3000),
+        ("rhetoric", 1300, 2600),
+        ("cheng", 800, 2500),
+        ("greko", 1600, 2400),
+        ("hamsters", 1000, 2000),
+        ("rybka", 1200, 2400),
+        ("ufim", 700, 2000),
+        ("texel", 700, 2500),
+        ("fox", 1000, 2700),
     ]
     is64 = platform.machine().endswith("64")
     if is64:
-        li_engines.append( ("patricia", 500, 3000))
+        li_engines.append(("patricia", 500, 3000))
 
     for nm, xfrom, xto in li_engines:
         for elo in range(xfrom, xto + 100, 100):

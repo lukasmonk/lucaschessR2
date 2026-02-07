@@ -139,11 +139,12 @@ class ControlGrid(QtCore.QAbstractTableModel):
 
         flag = QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable
         column = self.oColumnasR.column(index.column())
-        if column.is_editable:
-            flag |= QtCore.Qt.ItemIsEditable
+        if column:
+            if column.is_editable:
+                flag |= QtCore.Qt.ItemIsEditable
 
-        if column.is_checked:
-            flag |= QtCore.Qt.ItemIsUserCheckable
+            if column.is_checked:
+                flag |= QtCore.Qt.ItemIsUserCheckable
         return flag
 
     def setData(self, index, valor, role=QtCore.Qt.EditRole):

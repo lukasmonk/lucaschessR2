@@ -773,6 +773,7 @@ class Guion:
         li_previos = self.board.lista_movibles()
         self.board.borraMovibles()
         for tp, bloquedatos in li_previos:
+
             esta = False
             for reg in lista:
                 if tp == reg["_tp"]:

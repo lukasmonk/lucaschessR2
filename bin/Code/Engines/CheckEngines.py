@@ -10,7 +10,7 @@ import Code
 from Code import Util
 from Code.QT import QTUtil2
 
-STOCKFISH_KEY = "STOCKFISH17.1"
+STOCKFISH_KEY = "STOCKFISH18"
 
 
 def process_running(pid):

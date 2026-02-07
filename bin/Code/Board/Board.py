@@ -2381,6 +2381,8 @@ class Board(QtWidgets.QGraphicsView):
         if self.dicMovibles:
             li = []
             for k, v in self.dicMovibles.items():
+                if v.is_lichess():
+                    continue
                 xobj = str(v)
                 if "Marco" in xobj:
                     tp = TabVisual.TP_MARCO
@@ -2676,7 +2678,9 @@ class Board(QtWidgets.QGraphicsView):
             elem.opacity = 0.8
             elem.tamFrontera = self.tamFrontera
 
-            self.registraMovible(self.creaCircle(elem))
+            circle_sc = self.creaCircle(elem)
+            circle_sc.set_lichess()
+            self.registraMovible(circle_sc)
 
         for arrow in arrows:
             elem = BoardTypes.Flecha()
@@ -2699,7 +2703,9 @@ class Board(QtWidgets.QGraphicsView):
             elem.ordenVista = 5
             elem.tamFrontera = self.tamFrontera
 
-            self.registraMovible(self.creaFlecha(elem))
+            arrow_sc = self.creaFlecha(elem)
+            arrow_sc.set_lichess()
+            self.registraMovible(arrow_sc)
 
 
 class WTamBoard(QtWidgets.QDialog):
