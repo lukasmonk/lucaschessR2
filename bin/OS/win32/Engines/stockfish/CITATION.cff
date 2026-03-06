@@ -1,23 +1,60 @@
-# This CITATION.cff file was generated with cffinit.
-# Visit https://bit.ly/cffinit to generate yours today!
-
-cff-version: 1.2.0
-title: Stockfish
-message: >-
-  Please cite this software using the metadata from this
-  file.
-type: software
-authors:
-  - name: The Stockfish developers (see AUTHORS file)
-repository-code: 'https://github.com/official-stockfish/Stockfish'
-url: 'https://stockfishchess.org/'
-repository-artifact: 'https://stockfishchess.org/download/'
-abstract: Stockfish is a free and strong UCI chess engine.
-keywords:
-  - chess
-  - artificial intelligence (AI)
-  - tree search
-  - alpha-beta search
-  - neural networks (NN)
-  - efficiently updatable neural networks (NNUE)
-license: GPL-3.0
+>> setoption name SyzygyPath value H:/lucaschessR6/Resources/OS/windows
+<< info string Found 0 WDL and 0 DTZ tablebase files (up to 0-man).
+>> isready
+<< readyok
+>> ucinewgame
+<< info string Found 0 WDL and 0 DTZ tablebase files (up to 0-man).
+>> isready
+<< readyok
+>> position startpos moves e2e4
+>> isready
+<< readyok
+>> go depth 3
+<< info string Available processors: 0-3
+<< info string Using 1 thread
+<< info string NNUE evaluation using nn-c288c895ea92.nnue (125MiB, (102384, 1024, 15, 32, 1))
+<< info string NNUE evaluation using nn-37f18f62d772.nnue (6MiB, (22528, 128, 15, 32, 1))
+<< info string Network replica 1: Shared memory.
+<< info depth 1 seldepth 2 multipv 1 score cp -29 nodes 22 nps 22000 hashfull 0 tbhits 0 time 1 pv e7e5
+<< info depth 2 seldepth 3 multipv 1 score cp -12 nodes 49 nps 49000 hashfull 0 tbhits 0 time 1 pv e7e5
+<< info depth 3 seldepth 6 multipv 1 score cp -39 nodes 788 nps 394000 hashfull 0 tbhits 0 time 2 pv d7d5 e4d5 d8d5 d2d4
+<< bestmove d7d5 ponder e4d5
+>> position startpos moves e2e4 d7d5 g1h3
+>> isready
+<< readyok
+>> go depth 3
+<< info string Available processors: 0-3
+<< info string Using 1 thread
+<< info string NNUE evaluation using nn-c288c895ea92.nnue (125MiB, (102384, 1024, 15, 32, 1))
+<< info string NNUE evaluation using nn-37f18f62d772.nnue (6MiB, (22528, 128, 15, 32, 1))
+<< info string Network replica 1: Shared memory.
+<< info depth 1 seldepth 3 multipv 1 score cp 90 nodes 33 nps 33000 hashfull 0 tbhits 0 time 1 pv d5e4
+<< info depth 2 seldepth 4 multipv 1 score cp 108 nodes 70 nps 35000 hashfull 0 tbhits 0 time 2 pv d5e4
+<< info depth 3 seldepth 4 multipv 1 score cp 120 nodes 130 nps 65000 hashfull 0 tbhits 0 time 2 pv d5e4 d2d3
+<< bestmove d5e4 ponder d2d3
+>> position startpos moves e2e4 d7d5 g1h3 d5e4 b1c3
+>> isready
+<< readyok
+>> go depth 3
+<< info string Available processors: 0-3
+<< info string Using 1 thread
+<< info string NNUE evaluation using nn-c288c895ea92.nnue (125MiB, (102384, 1024, 15, 32, 1))
+<< info string NNUE evaluation using nn-37f18f62d772.nnue (6MiB, (22528, 128, 15, 32, 1))
+<< info string Network replica 1: Shared memory.
+<< info depth 1 seldepth 7 multipv 1 score cp 111 nodes 47 nps 47000 hashfull 0 tbhits 0 time 1 pv g8f6
+<< info depth 2 seldepth 4 multipv 1 score cp 123 nodes 91 nps 45500 hashfull 0 tbhits 0 time 2 pv g8f6
+<< info depth 3 seldepth 5 multipv 1 score cp 140 nodes 149 nps 74500 hashfull 0 tbhits 0 time 2 pv g8f6 d2d4 c8h3 g2h3
+<< bestmove g8f6 ponder d2d4
+>> position startpos moves e2e4 d7d5 g1h3 d5e4 b1c3 g8f6 f1e2
+>> isready
+<< readyok
+>> go depth 3
+<< info string Available processors: 0-3
+<< info string Using 1 thread
+<< info string NNUE evaluation using nn-c288c895ea92.nnue (125MiB, (102384, 1024, 15, 32, 1))
+<< info string NNUE evaluation using nn-37f18f62d772.nnue (6MiB, (22528, 128, 15, 32, 1))
+<< info string Network replica 1: Shared memory.
+<< info depth 1 seldepth 7 multipv 1 score cp 197 nodes 55 nps 55000 hashfull 0 tbhits 0 time 1 pv c8h3 g2h3
+<< info depth 2 seldepth 3 multipv 1 score cp 197 nodes 93 nps 93000 hashfull 0 tbhits 0 time 1 pv c8h3 g2h3
+<< info depth 3 seldepth 4 multipv 1 score cp 191 nodes 132 nps 132000 hashfull 0 tbhits 0 time 1 pv c8h3 g2h3 c7c6
+<< bestmove c8h3 ponder g2h3

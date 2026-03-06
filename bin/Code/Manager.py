@@ -374,7 +374,7 @@ class Manager:
         if self.configuration.x_mouse_shortcuts is None:
             return
 
-        if self.configuration.x_mouse_shortcuts is not None:
+        if not self.configuration.x_mouse_shortcuts:
             if li_destinos:
                 self.atajosRatonOrigen = a1h8
                 self.atajosRatonDestino = None

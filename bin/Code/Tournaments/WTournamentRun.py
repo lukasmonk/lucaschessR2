@@ -1,3 +1,4 @@
+import os
 import time
 
 from PySide2 import QtWidgets, QtCore
@@ -143,7 +144,8 @@ class WTournamentRun(QtWidgets.QWidget):
 
         self.slow_pieces = self.torneo.slow_pieces()
 
-        self.setWindowTitle("%s - %s %d" % (self.torneo.name(), _("Worker"), int(file_work[-5:])))
+        self.title = "%s - %s %d" % (self.torneo.name(), _("Worker"), int(file_work[-5:]))
+        self.setWindowTitle(self.title)
         self.setWindowIcon(Iconos.Torneos())
 
         # Toolbar
@@ -302,9 +304,31 @@ class WTournamentRun(QtWidgets.QWidget):
 
     def looking_for_work(self):
         if self.torneo:
+            lock_file = Util.opj(Code.configuration.temporary_folder(), "tournament.lock")
+
+            def adquirir_lock(timeout=5):
+                inicio = time.time()
+                while True:
+                    try:
+                        # O_CREAT | O_EXCL falla si el archivo ya existe → atómico
+                        fd = os.open(lock_file, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+                        os.write(fd, str(os.getpid()).encode())
+                        os.close(fd)
+                        return True
+                    except FileExistsError:
+                        if time.time() - inicio > timeout:
+                            return False
+                        time.sleep(0.1)
+
+            def liberar_lock():
+                os.remove(lock_file)
+
+            adquirir_lock()
             self.tournament_game = self.torneo.get_game_queued(self.file_work)
+            liberar_lock()
             if self.tournament_game is None:
                 return
+            self.setWindowTitle(f"{self.title} (#{self.tournament_game.id_game})")
             self.procesa_game()
             if not self.is_closed:
                 self.looking_for_work()

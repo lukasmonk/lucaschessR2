@@ -137,10 +137,6 @@ class Information(QtWidgets.QWidget):
             cpws_lost, mate = self.move.get_points_lost_mate()
             if (cpws_lost is not None and cpws_lost > 0) or mate is not None:
                 analysis_depth = self.move.analysis[0].li_rm[0].depth
-                # img = "🚨"
-                # img = "⛛"
-                # img = "⛔"
-                # img = "🚫"
                 img = "↓"
                 if mate is not None:
                     if cpws_lost:

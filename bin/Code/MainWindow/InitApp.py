@@ -14,8 +14,9 @@ def init_app_style(app, configuration):
     path = Code.path_resource("Styles", file + ".qss")
     if not os.path.isfile(path):
         configuration.x_style_mode = "By default"
+        file = configuration.x_style_mode
         configuration.graba()
-        path = Code.path_resource("Styles", configuration.x_style_mode + ".qss")
+        path = Code.path_resource("Styles", file + ".qss")
 
     path_colors = Code.path_resource("Styles", file + ".colors")
     Code.dic_colors = Util.ini_base2dic(path_colors)

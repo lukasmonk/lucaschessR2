@@ -346,7 +346,6 @@ class ManagerEntPos(Manager.Manager):
             self.xrival.stop()
         if self.is_analyzing:
             self.xtutor.stop()
-        self.main_window.activaInformacionPGN(False)
         self.the_next(
             self.pos_training,
             self.num_trainings,

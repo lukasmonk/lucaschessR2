@@ -299,6 +299,7 @@ class WEndingsGTB(LCDialog.LCDialog):
         dic["KEY"] = self.key
         self.configuration.write_variables("endingsGTB", dic)
         num_positions = self.db.read_key(self.key, order)
+        self.grid.gotop()
         self.grid.refresh()
 
         pos = 0

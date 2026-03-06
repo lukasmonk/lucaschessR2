@@ -280,7 +280,7 @@ def read_engines(folder_engines):
         f"18 {t32_64}",
         "https://stockfishchess.org/",
         f"Stockfish-18-{t32_64}.exe",
-        3650,
+        3700,
         nodes_compatible=True
     )
     cm.set_uci_option("Ponder", "false")

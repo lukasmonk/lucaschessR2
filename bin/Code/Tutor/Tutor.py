@@ -236,9 +236,12 @@ class Tutor:
         elif que == "Libre":
             self.analiza(quien)
         elif que == "Tiempo":
-            tb = eval("self.w.tb" + quien)
-            posMax = eval("self.max_" + quien)
-            self.move_timed(funcion, tb, posMax)
+            try:
+                tb = eval("self.w.tb" + quien)
+                pos_max = eval("self.max_" + quien)
+                self.move_timed(funcion, tb, pos_max)
+            except AttributeError:
+                pass
 
     def move_timed(self, funcion, tb, pos_max):
         if self.is_moving_time:
