@@ -528,9 +528,10 @@ class Board(QtWidgets.QGraphicsView):
             else:
                 cajon = BoardTypes.Caja()
                 cajon.colorRelleno = self.colorExterior
-        self.ancho = ancho = cajon.physical_pos.alto = cajon.physical_pos.ancho = (
-                self.width_square * 8 + self.margenCentro * 2 + self.tamFrontera * 2
-        )
+        ancho = int(round(self.width_square * 8 + self.margenCentro * 2 + self.tamFrontera * 2))
+        self.ancho = ancho
+        cajon.physical_pos.alto = ancho
+        cajon.physical_pos.ancho = ancho
         cajon.physical_pos.orden = 1
         cajon.tipo = QtCore.Qt.NoPen
         self.setFixedSize(ancho, ancho)

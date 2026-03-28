@@ -9,15 +9,15 @@ from Code.Board import Eboard
 from Code.QT import QTUtil2, SelectFiles
 
 WEBUPDATES = "https://lucaschess.pythonanywhere.com/static/updater/updates_%s.txt" % (
-    "win32" if Code.is_windows else "linux"
+    "win32" if Code.is_windows else Code.platform_dir
 )
 
 WEBUPDATES_EBOARD_VERSION = "https://lucaschess.pythonanywhere.com/static/updater/version_eboards_%s.txt" % (
-    "win32" if Code.is_windows else "linux"
+    "win32" if Code.is_windows else Code.platform_dir
 )
 
 WEBUPDATES_EBOARD_ZIP = "https://lucaschess.pythonanywhere.com/static/updater/eboards_%s.zip" % (
-    "win32" if Code.is_windows else "linux"
+    "win32" if Code.is_windows else Code.platform_dir
 )
 
 

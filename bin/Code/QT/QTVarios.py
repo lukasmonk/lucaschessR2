@@ -860,10 +860,9 @@ class MensajeFide(QtWidgets.QDialog):
         self.mostrar()
 
     def colocaCentrado(self, owner):
-        self.move(
-            owner.x() + owner.width() / 2 - self.width() / 2,
-            owner.y() + owner.height() / 2 - self.height() / 2,
-        )
+        x = int(round(owner.x() + owner.width() / 2 - self.width() / 2))
+        y = int(round(owner.y() + owner.height() / 2 - self.height() / 2))
+        self.move(x, y)
         QTUtil.refresh_gui()
         self.show()
         QTUtil.refresh_gui()

@@ -270,7 +270,7 @@ def paintArrow(painter, bf):
 
     color = QtGui.QColor(bf.color)
     pen = QtGui.QPen()
-    pen.setWidth(bf.grosor)
+    pen.setWidth(int(round(bf.grosor)))
     pen.setColor(color)
     pen.setStyle(bf.tipoqt())
     if bf.redondeos:

@@ -1,0 +1,14 @@
+chardet
+sortedcontainers
+python-chess
+pillow
+PyQt5
+cython
+psutil
+polib
+deep_translator
+requests
+urllib3
+idna
+certifi
+bs4

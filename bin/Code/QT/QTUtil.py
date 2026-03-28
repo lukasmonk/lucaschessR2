@@ -123,15 +123,17 @@ def center_on_desktop(window):
     """
     screen_geometry = get_screen_geometry(window)
     size = window.geometry()
-    window.move((screen_geometry.width() - size.width()) / 2, (screen_geometry.height() - size.height()) / 2)
+    x = int(round((screen_geometry.width() - size.width()) / 2))
+    y = int(round((screen_geometry.height() - size.height()) / 2))
+    window.move(x, y)
 
 
 def center_on_widget(window):
     parent_geometry = window.parent().geometry()
     child_geometry = window.geometry()
 
-    x = (parent_geometry.width() - child_geometry.width()) / 2
-    y = (parent_geometry.height() - child_geometry.height()) / 2
+    x = int(round((parent_geometry.width() - child_geometry.width()) / 2))
+    y = int(round((parent_geometry.height() - child_geometry.height()) / 2))
 
     window.move(window.parent().mapToGlobal(QtCore.QPoint(x, y)))
 
@@ -303,4 +305,3 @@ def get_width_text(widget, text):
 def get_height_text(widget, text):
     metrics = QtGui.QFontMetrics(widget.font())
     return metrics.boundingRect(text).height()
-

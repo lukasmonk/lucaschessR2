@@ -87,6 +87,13 @@ def check_stockfish(window, check_again):
         if not check_again:
             return True
 
+    if Code.is_macos:
+        ok = check_engine(conf_stockfish.path_exe)
+        if ok:
+            conf_stockfish.name = "stockfish"
+            Code.configuration.write_variables(STOCKFISH_KEY, {"NAME": conf_stockfish.name})
+        return ok
+
     seek = "64" if platform.machine().endswith("64") else "32"
     Code.procesador.close_engines()
 

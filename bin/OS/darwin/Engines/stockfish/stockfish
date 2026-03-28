@@ -1,0 +1,20 @@
+#!/bin/sh
+set -eu
+
+if [ -n "${LUCASCHESS_STOCKFISH:-}" ] && [ -x "${LUCASCHESS_STOCKFISH}" ]; then
+    exec "${LUCASCHESS_STOCKFISH}" "$@"
+fi
+
+stockfish_path=""
+if command -v stockfish >/dev/null 2>&1; then
+    stockfish_path="$(command -v stockfish)"
+fi
+
+for candidate in "$stockfish_path" /opt/homebrew/bin/stockfish /usr/local/bin/stockfish; do
+    if [ -n "$candidate" ] && [ -x "$candidate" ]; then
+        exec "$candidate" "$@"
+    fi
+done
+
+echo "Stockfish not found. Run setup_macos.command first." >&2
+exit 1

@@ -65,6 +65,14 @@ def is_linux() -> bool:
     return sys.platform.startswith("linux")
 
 
+def is_windows() -> bool:
+    return sys.platform.startswith("win")
+
+
+def is_macos() -> bool:
+    return sys.platform == "darwin"
+
+
 def create_folder(folder: str) -> bool:
     try:
         os.mkdir(folder)

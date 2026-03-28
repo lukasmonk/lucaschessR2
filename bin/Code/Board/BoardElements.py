@@ -54,7 +54,7 @@ class CajaSC(BloqueSC):
         bl = self.bloqueCaja
         pen = QtGui.QPen()
         pen.setColor(QTUtil.qtColor(bl.color))
-        pen.setWidth(bl.grosor)
+        pen.setWidth(int(round(bl.grosor)))
         pen.setStyle(bl.tipoqt())
         painter.setPen(pen)
         if bl.colorRelleno != -1:
@@ -80,7 +80,7 @@ class CirculoSC(BloqueSC):
         bl = self.bloqueCirculo
         pen = QtGui.QPen()
         pen.setColor(QtGui.QColor(bl.color))
-        pen.setWidth(bl.grosor)
+        pen.setWidth(int(round(bl.grosor)))
         pen.setStyle(bl.tipoqt())
         painter.setPen(pen)
         if bl.colorRelleno != -1:
@@ -124,7 +124,7 @@ class TextoSC(BloqueSC):
         self.bloqueDatos = self.bloqueTexto = bloqueTexto
 
         self.font = Controles.FontType(txt=str(bloqueTexto.font_type))
-        self.font.setPixelSize(bloqueTexto.font_type.puntos)
+        self.font.setPixelSize(int(round(bloqueTexto.font_type.puntos)))
         self.textOption = QtGui.QTextOption(QTUtil.qt_alignment(bloqueTexto.alineacion))
         self.rutina = rutina
 

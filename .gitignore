@@ -1,2 +1,11 @@
 UserData/
-
+.venv/
+.DS_Store
+__pycache__/
+*.py[cod]
+bin/bug.log
+bin/_fastercode/source/FasterCode.c
+bin/_fastercode/source/FasterCode.pyx
+bin/_fastercode/source/FasterCode*.so
+bin/_fastercode/source/libirina.a
+bin/_fastercode/source/build/

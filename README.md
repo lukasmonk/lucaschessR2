@@ -38,6 +38,24 @@ Dependencies
 * bs4
 
 
+macOS Runtime
+-------------
+
+macOS support is kept in-repo through the dedicated launcher and setup flow:
+
+* `requirements-macos.txt` installs the macOS runtime dependencies.
+* `setup_macos.command` creates `.venv`, installs the dependencies, and builds `FasterCode`.
+* `LucasChess.command` launches the app and rebuilds `FasterCode` if the macOS module is missing.
+* `bin/OS/darwin/Engines/stockfish/stockfish` resolves a local or Homebrew `stockfish` binary.
+
+Typical macOS setup:
+
+1. Install Python 3.12.
+2. Install Homebrew.
+3. Run `./setup_macos.command`.
+4. Run `./LucasChess.command`.
+
+
 
 Links
 -----
@@ -66,6 +84,5 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 USA
 
 See the file "LICENSE" for details.
-
 
 

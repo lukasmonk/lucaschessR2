@@ -483,7 +483,7 @@ class DragBanda(QtWidgets.QWidget):
 
         drag = QtGui.QDrag(self)
         drag.setMimeData(mime_data)
-        drag.setHotSpot(QtCore.QPoint(pixmap.width() / 2, pixmap.height() / 2))
+        drag.setHotSpot(QtCore.QPoint(pixmap.width() // 2, pixmap.height() // 2))
         drag.setPixmap(pixmap)
 
         drag.exec_(QtCore.Qt.MoveAction)

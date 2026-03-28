@@ -192,7 +192,12 @@ class Configuration:
 
         self.x_cursor_thinking = True
 
-        self.x_rival_inicial = "rocinante" if Code.is_linux else "irina"
+        if Code.is_linux:
+            self.x_rival_inicial = "rocinante"
+        elif Code.is_windows:
+            self.x_rival_inicial = "irina"
+        else:
+            self.x_rival_inicial = "stockfish"
 
         self.tutor_default = "stockfish"
         self.x_tutor_clave = self.tutor_default
@@ -309,6 +314,8 @@ class Configuration:
                 self._dic_books = {}
 
                 def add_folder(folder):
+                    if not os.path.isdir(folder):
+                        return
                     entry: os.DirEntry
                     for entry in os.scandir(folder):
                         if entry.is_dir():

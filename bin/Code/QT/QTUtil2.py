@@ -581,10 +581,9 @@ class BarraProgreso(QtWidgets.QProgressDialog):
 
     def mostrar(self):
         if self.owner:
-            self.move(
-                self.owner.x() + (self.owner.width() - self.width()) / 2,
-                self.owner.y() + (self.owner.height() - self.height()) / 2,
-            )
+            x = int(round(self.owner.x() + (self.owner.width() - self.width()) / 2))
+            y = int(round(self.owner.y() + (self.owner.height() - self.height()) / 2))
+            self.move(x, y)
         self.show()
         return self
 

@@ -14,7 +14,17 @@ if current_dir:
 
 lucas_chess = None  # asignado en Translate
 
-folder_OS = Util.opj(current_dir, "OS", sys.platform)
+is_linux = Util.is_linux()
+is_windows = Util.is_windows()
+is_macos = Util.is_macos()
+
+platform_dir = "linux"
+if is_windows:
+    platform_dir = "win32"
+elif is_macos:
+    platform_dir = "darwin"
+
+folder_OS = Util.opj(current_dir, "OS", platform_dir)
 
 folder_engines = Util.opj(folder_OS, "Engines")
 sys.path.insert(0, folder_OS)
@@ -38,15 +48,15 @@ def path_resource(*lista):
     return os.path.realpath(p)
 
 
-is_linux = Util.is_linux()
-is_windows = not is_linux
-
-
 def startfile(path: str) -> bool:
     try:
         path = os.path.abspath(path)
         if is_windows:
             os.startfile(path)
+        elif is_macos:
+            subprocess.Popen(
+                ["open", path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
+            )
         else:  # Linux
             opener = None
 
@@ -94,7 +104,7 @@ tbookPTZ = path_resource("Openings", "fics15.bin")
 tbookI = path_resource("Openings", "irina.bin")
 xtutor = None
 
-font_mono = "Courier New" if is_windows else "Mono"
+font_mono = "Courier New" if is_windows else ("Menlo" if is_macos else "Mono")
 
 list_engine_managers = None
 

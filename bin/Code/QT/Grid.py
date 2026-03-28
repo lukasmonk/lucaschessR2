@@ -228,7 +228,9 @@ class HeaderFontVertical(Header):
         data = self._get_data(index)
         painter.rotate(-90)
         painter.setFont(self._font)
-        painter.drawText(-rect.height() + self._margin, rect.left() + (rect.width() + self._descent) / 2, data)
+        x = -rect.height() + self._margin
+        y = int(round(rect.left() + (rect.width() + self._descent) / 2))
+        painter.drawText(x, y, data)
 
     def sizeHint(self):
         if self._height:

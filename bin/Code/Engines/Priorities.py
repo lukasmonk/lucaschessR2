@@ -7,14 +7,14 @@ class Priorities:
     def __init__(self):
         self.normal, self.low, self.verylow, self.high, self.veryhigh = range(5)
 
-        if Code.is_linux:
-            p_normal = 0
-            p_low, p_verylow = 10, 20
-            p_high, p_veryhigh = -10, -20
-        else:
+        if Code.is_windows:
             p_normal = psutil.NORMAL_PRIORITY_CLASS
             p_low, p_verylow = psutil.BELOW_NORMAL_PRIORITY_CLASS, psutil.IDLE_PRIORITY_CLASS
             p_high, p_veryhigh = psutil.ABOVE_NORMAL_PRIORITY_CLASS, psutil.HIGH_PRIORITY_CLASS
+        else:
+            p_normal = 0
+            p_low, p_verylow = 10, 20
+            p_high, p_veryhigh = -10, -20
 
         self.values = [p_normal, p_low, p_verylow, p_high, p_veryhigh]
 
