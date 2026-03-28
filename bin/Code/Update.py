@@ -8,16 +8,22 @@ from Code import Util
 from Code.Board import Eboard
 from Code.QT import QTUtil2, SelectFiles
 
-WEBUPDATES = "https://lucaschess.pythonanywhere.com/static/updater/updates_%s.txt" % (
-    "win32" if Code.is_windows else Code.platform_dir
+UPDATE_CHANNEL = None
+if Code.is_windows:
+    UPDATE_CHANNEL = "win32"
+elif Code.is_linux:
+    UPDATE_CHANNEL = "linux"
+
+WEBUPDATES = None if UPDATE_CHANNEL is None else (
+    "https://lucaschess.pythonanywhere.com/static/updater/updates_%s.txt" % UPDATE_CHANNEL
 )
 
-WEBUPDATES_EBOARD_VERSION = "https://lucaschess.pythonanywhere.com/static/updater/version_eboards_%s.txt" % (
-    "win32" if Code.is_windows else Code.platform_dir
+WEBUPDATES_EBOARD_VERSION = None if UPDATE_CHANNEL is None else (
+    "https://lucaschess.pythonanywhere.com/static/updater/version_eboards_%s.txt" % UPDATE_CHANNEL
 )
 
-WEBUPDATES_EBOARD_ZIP = "https://lucaschess.pythonanywhere.com/static/updater/eboards_%s.zip" % (
-    "win32" if Code.is_windows else Code.platform_dir
+WEBUPDATES_EBOARD_ZIP = None if UPDATE_CHANNEL is None else (
+    "https://lucaschess.pythonanywhere.com/static/updater/eboards_%s.zip" % UPDATE_CHANNEL
 )
 
 
@@ -65,6 +71,9 @@ def update_file(titulo, urlfichero, tam):
 
 
 def update_eboard(main_window):
+    if not WEBUPDATES_EBOARD_VERSION or not WEBUPDATES_EBOARD_ZIP:
+        return
+
     version_local = Eboard.version()
 
     ftxt = Code.configuration.temporary_file("txt")
@@ -107,6 +116,10 @@ def update_eboard(main_window):
 
 
 def update(main_window):
+    if not WEBUPDATES:
+        QTUtil2.message_bold(main_window, _("Automatic updates are not available for this macOS runtime"))
+        return False
+
     if Code.configuration.x_digital_board:
         if Code.eboard:
             Code.eboard.deactivate()
@@ -151,6 +164,9 @@ def update(main_window):
 
 
 def test_update(procesador):
+    if not WEBUPDATES:
+        return
+
     current_version = Code.VERSION.replace(" ", "0").replace(".", "")[1:].encode()
     base_version = Code.BASE_VERSION.encode()
     nresp = 0

@@ -51,9 +51,10 @@ macOS support is kept in-repo through the dedicated launcher and setup flow:
 Typical macOS setup:
 
 1. Install Python 3.12.
-2. Install Homebrew.
-3. Run `./setup_macos.command`.
-4. Run `./LucasChess.command`.
+2. Install Xcode Command Line Tools with `xcode-select --install`.
+3. Install Homebrew.
+4. Run `./setup_macos.command`.
+5. Run `./LucasChess.command`.
 
 
 
@@ -84,5 +85,4 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 USA
 
 See the file "LICENSE" for details.
-
 

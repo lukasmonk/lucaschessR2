@@ -1,10 +1,24 @@
 #!/bin/sh
 set -eu
 
-PYTHON_BIN="${1:-python3.12}"
+PYTHON_BIN_INPUT="${1:-python3.12}"
 ROOT_DIR="$(CDPATH= cd -- "$(dirname -- "$0")/../.." && pwd)"
 SOURCE_DIR="$ROOT_DIR/bin/_fastercode/source"
 TARGET_DIR="$ROOT_DIR/bin/OS/darwin"
+
+case "$PYTHON_BIN_INPUT" in
+    */*)
+        PYTHON_BIN="$(CDPATH= cd -- "$(dirname -- "$PYTHON_BIN_INPUT")" && pwd)/$(basename -- "$PYTHON_BIN_INPUT")"
+        ;;
+    *)
+        PYTHON_BIN="$(command -v "$PYTHON_BIN_INPUT" || true)"
+        ;;
+esac
+
+if [ -z "${PYTHON_BIN:-}" ] || [ ! -x "$PYTHON_BIN" ]; then
+    echo "Python interpreter not found: $PYTHON_BIN_INPUT" >&2
+    exit 1
+fi
 
 mkdir -p "$TARGET_DIR"
 

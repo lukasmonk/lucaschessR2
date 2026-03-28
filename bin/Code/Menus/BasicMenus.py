@@ -475,7 +475,7 @@ def menu_information(procesador):
     menu.separador()
     menu.opcion("mail", _("Contact") + " (%s)" % "lukasmonk@gmail.com", Iconos.Mail())
     menu.separador()
-    if procesador.configuration.is_main:
+    if procesador.configuration.is_main and not Code.is_macos:
         menu.separador()
         menu.opcion("actualiza", _("Check for updates"), Iconos.Update())
         # submenu = menu.submenu(_("Updates"), Iconos.Update())

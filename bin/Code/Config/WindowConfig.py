@@ -52,8 +52,9 @@ def options(parent, configuration):
     form.separador()
     form.checkbox(_("Preventing system crashes when playing"), configuration.x_prevention_crashes)
 
-    form.separador()
-    form.checkbox(_("Check for updates at startup"), configuration.x_check_for_update)
+    if not Code.is_macos:
+        form.separador()
+        form.checkbox(_("Check for updates at startup"), configuration.x_check_for_update)
 
     form.add_tab(_("General"))
 

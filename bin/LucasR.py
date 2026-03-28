@@ -13,7 +13,7 @@ import lucaschess_compat
 warnings.simplefilter("ignore")
 lucaschess_compat.install()
 lucaschess_compat.ensure_fastercode()
-import Code
+import Code  # noqa: E402
 
 n_args = len(sys.argv)
 if n_args == 1:

@@ -14,6 +14,11 @@ if ! command -v brew >/dev/null 2>&1; then
     exit 1
 fi
 
+if ! command -v cc >/dev/null 2>&1 || ! command -v ar >/dev/null 2>&1; then
+    echo "C build tools are not available. Install Xcode Command Line Tools first."
+    exit 1
+fi
+
 python3.12 -m venv .venv
 source .venv/bin/activate
 python -m pip install --disable-pip-version-check wheel setuptools
