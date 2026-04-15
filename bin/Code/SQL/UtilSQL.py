@@ -19,7 +19,9 @@ class DictSQL(object):
 
         self.conexion = sqlite3.connect(path_db)
 
-        self.conexion.execute("CREATE TABLE IF NOT EXISTS %s( KEY TEXT PRIMARY KEY, VALUE BLOB );" % tabla)
+        self.conexion.execute(
+            "CREATE TABLE IF NOT EXISTS %s( KEY TEXT PRIMARY KEY, VALUE BLOB );" % tabla
+        )
 
         cursor = self.conexion.execute("SELECT KEY FROM %s" % self.tabla)
         self.li_keys = [reg[0] for reg in cursor.fetchall()]
@@ -122,7 +124,9 @@ class DictSQL(object):
             self.conexion = None
 
     def keys(self, si_ordenados=False, si_reverse=False):
-        return sorted(self.li_keys, reverse=si_reverse) if si_ordenados else self.li_keys
+        return (
+            sorted(self.li_keys, reverse=si_reverse) if si_ordenados else self.li_keys
+        )
 
     def get(self, key, default=None):
         key = str(key)
@@ -182,7 +186,9 @@ class DictSQLRawExclusive(object):
         self.tabla = tabla
         self.conexion = sqlite3.connect(path_db, isolation_level="EXCLUSIVE")
 
-        self.conexion.execute("CREATE TABLE IF NOT EXISTS %s( KEY TEXT PRIMARY KEY, VALUE BLOB );" % tabla)
+        self.conexion.execute(
+            "CREATE TABLE IF NOT EXISTS %s( KEY TEXT PRIMARY KEY, VALUE BLOB );" % tabla
+        )
 
         cursor = self.conexion.execute("SELECT KEY FROM %s" % self.tabla)
         self.li_keys = [reg[0] for reg in cursor.fetchall()]
@@ -363,6 +369,7 @@ class ListSQL:
 
     def refresh(self):
         self.li_row_ids = self.read_rowids()
+        self.cache = {}
 
     def add_cache(self, key, obj):
         if self.max_cache:
@@ -483,7 +490,9 @@ class ListSQLBig:
 
     def lista(self, rev):
         self._conexion.commit()
-        cursor = self._conexion.execute(f"SELECT DATA FROM {self.tabla} ORDER BY DATA" + " DESC;" if rev else ";")
+        cursor = self._conexion.execute(
+            f"SELECT DATA FROM {self.tabla} ORDER BY DATA" + " DESC;" if rev else ";"
+        )
         while True:
             row = cursor.fetchone()
             if row:
@@ -493,7 +502,9 @@ class ListSQLBig:
 
 
 class ListObjSQL(ListSQL):
-    def __init__(self, path_file, class_storage, tabla="datos", max_cache=2048, reversed=False):
+    def __init__(
+        self, path_file, class_storage, tabla="datos", max_cache=2048, reversed=False
+    ):
         self.class_storage = class_storage
         ListSQL.__init__(self, path_file, tabla, max_cache, reversed)
 
@@ -678,7 +689,9 @@ class DictBig(object):
 
     def test_memory(self):
         ps = psutil.virtual_memory()
-        if ps.available < (512 * 1024 * 1024) or Util.memory_python() > (512 * 1024 * 1024):
+        if ps.available < (512 * 1024 * 1024) or Util.memory_python() > (
+            512 * 1024 * 1024
+        ):
             self.db = DictBigDB()
         else:
             self.test_mem = 50_000
@@ -768,7 +781,9 @@ class DictBig(object):
 class DictBigDB(object):
     def __init__(self):
         self.conexion = sqlite3.connect(Code.configuration.temporary_file("dbdb"))
-        self.conexion.execute("CREATE TABLE IF NOT EXISTS DATA( KEY TEXT PRIMARY KEY, VALUE BLOB );")
+        self.conexion.execute(
+            "CREATE TABLE IF NOT EXISTS DATA( KEY TEXT PRIMARY KEY, VALUE BLOB );"
+        )
         self.conexion.execute("PRAGMA journal_mode=REPLACE")
         self.conexion.execute("PRAGMA synchronous=OFF")
         self.conexion.execute("PRAGMA locking_mode=EXCLUSIVE")
@@ -788,7 +803,9 @@ class DictBigDB(object):
 
     def __setitem__(self, key, value):
         xvalue = pickle.dumps(value)
-        self.conexion.execute("REPLACE INTO DATA (KEY, VALUE) VALUES (?,?)", (key, xvalue))
+        self.conexion.execute(
+            "REPLACE INTO DATA (KEY, VALUE) VALUES (?,?)", (key, xvalue)
+        )
 
     def __delitem__(self, key):
         sql = "DELETE FROM DATA WHERE KEY= ?"
@@ -817,7 +834,9 @@ class DictBigDB(object):
         self.close()
 
     def __iter__(self):
-        self.cursor_iter = self.conexion.execute("SELECT KEY,VALUE FROM DATA ORDER BY KEY")
+        self.cursor_iter = self.conexion.execute(
+            "SELECT KEY,VALUE FROM DATA ORDER BY KEY"
+        )
         self.pos_iter = 0
         self.max_iter = 0
         return self
@@ -834,11 +853,12 @@ class DictBigDB(object):
         return k, pickle.loads(v)
 
 
-
 def check_table_in_db(path_db: str, table: str):
     conexion = sqlite3.connect(path_db)
     cursor = conexion.cursor()
-    cursor.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name=?", (table,))
+    cursor.execute(
+        "SELECT count(name) FROM sqlite_master WHERE type='table' AND name=?", (table,)
+    )
     resp = cursor.fetchone()[0] == 1
     conexion.close()
     return resp
@@ -871,7 +891,9 @@ class DictTextSQL(object):
 
         self.conexion = sqlite3.connect(path_db)
 
-        self.conexion.execute("CREATE TABLE IF NOT EXISTS %s( KEY TEXT PRIMARY KEY, VALUE TEXT );" % tabla)
+        self.conexion.execute(
+            "CREATE TABLE IF NOT EXISTS %s( KEY TEXT PRIMARY KEY, VALUE TEXT );" % tabla
+        )
 
         cursor = self.conexion.execute("SELECT KEY FROM %s" % self.tabla)
         self.li_keys = [reg[0] for reg in cursor.fetchall()]
@@ -954,7 +976,9 @@ class DictTextSQL(object):
             self.conexion = None
 
     def keys(self, si_ordenados=False, si_reverse=False):
-        return sorted(self.li_keys, reverse=si_reverse) if si_ordenados else self.li_keys
+        return (
+            sorted(self.li_keys, reverse=si_reverse) if si_ordenados else self.li_keys
+        )
 
     def get(self, key, default=None):
         key = str(key)

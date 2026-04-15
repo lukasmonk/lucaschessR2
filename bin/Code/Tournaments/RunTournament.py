@@ -25,6 +25,7 @@ def run(user, file_tournament, file_work):
 
     InitApp.init_app_style(app, configuration)
 
-    w = WTournamentRun.WTournamentRun(file_tournament, file_work)
+    Util.remove_file(file_work)
+    w = WTournamentRun.WTournamentRun(file_tournament)
     w.show()
     w.looking_for_work()

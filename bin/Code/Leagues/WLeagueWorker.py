@@ -1,3 +1,4 @@
+import os
 import sqlite3
 import time
 
@@ -377,6 +378,8 @@ class WLeagueWorker(QtWidgets.QWidget):
         self.is_closed = True
         Code.list_engine_managers.close_all()
         self.close()
+        QtWidgets.QApplication.quit()
+        os._exit(0)
 
     def cancel_match(self):
         self.is_closed = True

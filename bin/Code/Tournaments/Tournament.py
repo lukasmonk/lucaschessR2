@@ -1,5 +1,6 @@
 import os
 import random
+import psutil
 
 import Code
 from Code import Util
@@ -316,27 +317,28 @@ class Tournament:
     def game_queued(self, pos):
         return self.db_games_queued[pos]
 
-    def get_game_queued(self, file_worker):
+    def get_game_queued(self):
         self.db_games_queued.refresh()
         num_queued = self.num_games_queued()
         if num_queued > 0:
             li = list(range(num_queued))
-            random.shuffle(li)
             for pos in li:
                 game = self.game_queued(pos)
                 if game.worker is None:
                     if game.minutos is None:
                         continue
-                    game.worker = file_worker
+                    game.worker = str(os.getpid())
                     self.db_games_queued[pos] = game
                     return game
-                elif Util.same_path(file_worker, game.worker):
-                    return game
                 else:
-                    if Util.remove_file(game.worker):
-                        game.worker = file_worker
-                        self.db_games_queued[pos] = game
-                        return game
+                    try:
+                        if psutil.pid_exists(int(game.worker)):
+                            continue
+                    except:
+                        pass
+                    game.worker = str(os.getpid())
+                    self.db_games_queued[pos] = game
+                    return game
         return None
 
     def game_finished(self, pos):

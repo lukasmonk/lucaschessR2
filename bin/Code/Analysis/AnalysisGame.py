@@ -522,7 +522,10 @@ FILESW=%s:100
                     fen = move.position_before.fen()
 
                     if self.with_variations and allow_add_variations:
-                        if not move.analisis2variantes(self.alm, self.delete_previous):
+                        rem_previous = self.delete_previous
+                        if rem_previous and move.analysis is None:
+                            rem_previous = False
+                        if not move.analisis2variantes(self.alm, rem_previous):
                             move.remove_all_variations()
 
                     ok_blunder = nag in self.kblunders_condition_list

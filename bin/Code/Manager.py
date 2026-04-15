@@ -992,6 +992,9 @@ class Manager:
             self.must_be_autosaved = False
 
     def show_info_extra(self):
+        self.capturasActivable = True
+        self.activatable_info = True
+
         key = "SHOW_INFO_EXTRA_" + DICT_GAME_TYPES[self.game_type]
         dic = self.configuration.read_variables(key)
 
@@ -1405,10 +1408,10 @@ class Manager:
                 self.board.put_arrow_sc(move.from_sq, move.to_sq)
                 if Code.configuration.x_show_bestmove:
                     move = self.game.move(nj)
-                    mrm: EngineResponse.MultiEngineResponse
-                    mrm, pos = move.analysis
                     if not move.analysis:
                         return
+                    mrm: EngineResponse.MultiEngineResponse
+                    mrm, pos = move.analysis
                     rm0 = mrm.best_rm_ordered()
                     self.board.put_arrow_scvar([(rm0.from_sq, rm0.to_sq)])
 
@@ -1969,7 +1972,6 @@ class Manager:
             getattr(self, "help_to_move")()
             return None
 
-
         elif resp == "analizar":
             self.analizar()
             return None
@@ -2312,7 +2314,7 @@ class Manager:
                         si_ceros = False
                         break
                 if si_ceros:
-                    mrm = self.xtutor.analiza(self.game.last_position.fen(), None, 7)
+                    mrm = self.xtutor.analiza(self.game.last_position.fen())
                     rm = mrm.best_rm_ordered()
                     if abs(rm.centipawns_abs()) < 15:
                         si_acepta = True

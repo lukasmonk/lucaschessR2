@@ -35,7 +35,6 @@ from Code.QT import Grid
 from Code.QT import Iconos
 from Code.QT import QTUtil
 from Code.QT import QTVarios
-from Code.SQL import UtilSQL
 from Code.Sound import Sound
 from Code.Tournaments import Tournament
 
@@ -68,14 +67,14 @@ class TournamentRun:
     def tournament(self):
         return Tournament.Tournament(self.file_tournament)
 
-    def get_game_queued(self, file_work):
+    def get_game_queued(self):
         with self.tournament() as torneo:
             self.run_name = torneo.name()
             self.run_drawRange = torneo.draw_range()
             self.run_drawMinPly = torneo.draw_min_ply()
             self.run_resign = torneo.resign()
             self.run_bookDepth = torneo.book_depth()
-            game_tournament = torneo.get_game_queued(file_work)
+            game_tournament = torneo.get_game_queued()
             return game_tournament
 
     def fen_norman(self):
@@ -128,23 +127,22 @@ class ProcesadorBar:
 
 
 class WTournamentRun(QtWidgets.QWidget):
-    tc_white: TimeControl
-    tc_black: TimeControl
+    tc_white: TimeControl.TimeControl
+    tc_black: TimeControl.TimeControl
     next_control: int
 
-    def __init__(self, file_tournament, file_work):
+    def __init__(self, file_tournament):
         QtWidgets.QWidget.__init__(self)
 
         Code.list_engine_managers = EngineManager.ListEngineManagers()
         Code.list_engine_managers.check_active_logs()
 
-        self.torneo = TournamentRun(file_tournament)  # Tournament.Tournament(file_tournament)
-        self.file_work = file_work
-        self.db_work = UtilSQL.ListSQL(file_work)
-
+        self.torneo = TournamentRun(
+            file_tournament
+        )  # Tournament.Tournament(file_tournament)
         self.slow_pieces = self.torneo.slow_pieces()
 
-        self.title = "%s - %s %d" % (self.torneo.name(), _("Worker"), int(file_work[-5:]))
+        self.title = self.torneo.name()
         self.setWindowTitle(self.title)
         self.setWindowIcon(Iconos.Torneos())
 
@@ -230,10 +228,16 @@ class WTournamentRun(QtWidgets.QWidget):
         o_columnas.nueva("NUMBER", _("N."), 52, align_center=True)
         with_figurines = configuration.x_pgn_withfigurines
         o_columnas.nueva(
-            "WHITE", _("White"), n_ancho_color, edicion=Delegados.EtiquetaPGN(True if with_figurines else None)
+            "WHITE",
+            _("White"),
+            n_ancho_color,
+            edicion=Delegados.EtiquetaPGN(True if with_figurines else None),
         )
         o_columnas.nueva(
-            "BLACK", _("Black"), n_ancho_color, edicion=Delegados.EtiquetaPGN(False if with_figurines else None)
+            "BLACK",
+            _("Black"),
+            n_ancho_color,
+            edicion=Delegados.EtiquetaPGN(False if with_figurines else None),
         )
         self.grid_pgn = Grid.Grid(self, o_columnas, siCabeceraMovible=False)
         self.grid_pgn.setMinimumWidth(n_ancho_pgn)
@@ -245,9 +249,13 @@ class WTournamentRun(QtWidgets.QWidget):
         f = Controles.FontType(puntos=configuration.x_sizefont_players, peso=750)
         self.lb_player = {}
         for side in (WHITE, BLACK):
-            self.lb_player[side] = Controles.LB(self).relative_width(n_ancho_labels).align_center()
+            self.lb_player[side] = (
+                Controles.LB(self).relative_width(n_ancho_labels).align_center()
+            )
             self.lb_player[side].align_center().set_font(f).set_wrap()
-            self.lb_player[side].setFrameStyle(QtWidgets.QFrame.Box | QtWidgets.QFrame.Raised)
+            self.lb_player[side].setFrameStyle(
+                QtWidgets.QFrame.Box | QtWidgets.QFrame.Raised
+            )
 
         self.configuration.set_property(self.lb_player[WHITE], "white")
         self.configuration.set_property(self.lb_player[BLACK], "black")
@@ -263,7 +271,9 @@ class WTournamentRun(QtWidgets.QWidget):
                 .align_center()
                 .anchoMinimo(n_ancho_labels)
             )
-            self.lb_clock[side].setFrameStyle(QtWidgets.QFrame.Box | QtWidgets.QFrame.Raised)
+            self.lb_clock[side].setFrameStyle(
+                QtWidgets.QFrame.Box | QtWidgets.QFrame.Raised
+            )
             self.configuration.set_property(self.lb_clock[side], "clock")
 
         # Rotulos de informacion
@@ -273,10 +283,20 @@ class WTournamentRun(QtWidgets.QWidget):
 
         # Layout
         ly_color = Colocacion.G()
-        ly_color.controlc(self.lb_player[WHITE], 0, 0).controlc(self.lb_player[BLACK], 0, 1)
-        ly_color.controlc(self.lb_clock[WHITE], 1, 0).controlc(self.lb_clock[BLACK], 1, 1)
+        ly_color.controlc(self.lb_player[WHITE], 0, 0).controlc(
+            self.lb_player[BLACK], 0, 1
+        )
+        ly_color.controlc(self.lb_clock[WHITE], 1, 0).controlc(
+            self.lb_clock[BLACK], 1, 1
+        )
 
-        ly_v = Colocacion.V().otro(ly_color).control(self.grid_pgn).control(self.lbRotulo2).control(self.lbRotulo3)
+        ly_v = (
+            Colocacion.V()
+            .otro(ly_color)
+            .control(self.grid_pgn)
+            .control(self.lbRotulo2)
+            .control(self.lbRotulo3)
+        )
         ly_v.margen(7)
 
         return ly_v
@@ -304,34 +324,13 @@ class WTournamentRun(QtWidgets.QWidget):
 
     def looking_for_work(self):
         if self.torneo:
-            lock_file = Util.opj(Code.configuration.temporary_folder(), "tournament.lock")
-
-            def adquirir_lock(timeout=5):
-                inicio = time.time()
-                while True:
-                    try:
-                        # O_CREAT | O_EXCL falla si el archivo ya existe → atómico
-                        fd = os.open(lock_file, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
-                        os.write(fd, str(os.getpid()).encode())
-                        os.close(fd)
-                        return True
-                    except FileExistsError:
-                        if time.time() - inicio > timeout:
-                            return False
-                        time.sleep(0.1)
-
-            def liberar_lock():
-                os.remove(lock_file)
-
-            adquirir_lock()
-            self.tournament_game = self.torneo.get_game_queued(self.file_work)
-            liberar_lock()
+            self.tournament_game = self.torneo.get_game_queued()
             if self.tournament_game is None:
                 return
             self.setWindowTitle(f"{self.title} (#{self.tournament_game.id_game})")
             self.procesa_game()
             if not self.is_closed:
-                self.looking_for_work()
+                QtCore.QTimer.singleShot(100, self.looking_for_work)
 
     def procesa_game(self):
         self.pon_estado(ST_PLAYING)
@@ -469,12 +468,10 @@ class WTournamentRun(QtWidgets.QWidget):
         if self.torneo:
             Code.list_engine_managers.close_all()
             self.torneo.close()
-            self.db_work.close()
             self.torneo = None
-            self.db_work = None
-            Util.remove_file(self.file_work)
             self.close()
-
+        QtWidgets.QApplication.quit()
+        os._exit(0)
 
     def closeEvent(self, event):
         self.terminar()
@@ -616,7 +613,9 @@ class WTournamentRun(QtWidgets.QWidget):
         analysis = None
         bk = self.book[is_white]
         if bk:
-            move_found, from_sq, to_sq, promotion = self.select_book_move(bk, self.bookRR[is_white])
+            move_found, from_sq, to_sq, promotion = self.select_book_move(
+                bk, self.bookRR[is_white]
+            )
             if not move_found:
                 self.book[is_white] = None
 
@@ -633,13 +632,20 @@ class WTournamentRun(QtWidgets.QWidget):
             if xrival.is_fixed():
                 mrm = xrival.play_fixed_tourney(self.game)
             else:
-                mrm = xrival.play_time_tourney(self.game, time_pending_white, time_pending_black, self.seconds_per_move)
+                mrm = xrival.play_time_tourney(
+                    self.game,
+                    time_pending_white,
+                    time_pending_black,
+                    self.seconds_per_move,
+                )
             if self.state == ST_PAUSE:
                 self.pause_clock(is_white)
                 self.board.borraMovibles()
                 return True
             time_seconds = self.stop_clock(is_white)
-            clock_seconds = self.tc_white.pending_time if is_white else self.tc_black.pending_time
+            clock_seconds = (
+                self.tc_white.pending_time if is_white else self.tc_black.pending_time
+            )
 
             if mrm is None:
                 return False
@@ -649,11 +655,19 @@ class WTournamentRun(QtWidgets.QWidget):
             promotion = rm.promotion
             analysis = mrm, 0
 
-        ok, mens, move = Move.get_game_move(self.game, self.game.last_position, from_sq, to_sq, promotion)
+        ok, mens, move = Move.get_game_move(
+            self.game, self.game.last_position, from_sq, to_sq, promotion
+        )
         if not move:
             if not self.clocks_finished():
-                self.game.set_termination(TERMINATION_ADJUDICATION,
-                                          RESULT_WIN_BLACK if self.current_side == WHITE else RESULT_WIN_WHITE)
+                self.game.set_termination(
+                    TERMINATION_ADJUDICATION,
+                    (
+                        RESULT_WIN_BLACK
+                        if self.current_side == WHITE
+                        else RESULT_WIN_WHITE
+                    ),
+                )
             return False
         if time_seconds:
             move.set_time_ms(time_seconds * 1000.0)
@@ -708,7 +722,11 @@ class WTournamentRun(QtWidgets.QWidget):
         if move.in_the_opening:
             indicador_inicial = "R"
 
-        pgn = move.pgn_figurines() if self.configuration.x_pgn_withfigurines else move.pgn_translated()
+        pgn = (
+            move.pgn_figurines()
+            if self.configuration.x_pgn_withfigurines
+            else move.pgn_translated()
+        )
 
         return pgn, color, info, indicador_inicial, st_nags
 
@@ -719,7 +737,11 @@ class WTournamentRun(QtWidgets.QWidget):
             p = Game.Game(self.game.last_position)
             p.read_pv(rm.pv)
             rm.is_white = self.game.last_position.is_white
-            txt = "<b>[%s]</b> (%s) %s" % (rm.name, rm.abbrev_text(), p.pgn_translated())
+            txt = "<b>[%s]</b> (%s) %s" % (
+                rm.name,
+                rm.abbrev_text(),
+                p.pgn_translated(),
+            )
             self.lbRotulo3.set_text(txt)
             self.show_pv(rm.pv, 1)
         return self.set_clock()
@@ -737,7 +759,12 @@ class WTournamentRun(QtWidgets.QWidget):
         if self.clocks_finished():
             return True
 
-        if self.state != ST_PLAYING or self.is_closed or self.game_finished() or self.game.is_finished():
+        if (
+                self.state != ST_PLAYING
+                or self.is_closed
+                or self.game_finished()
+                or self.game.is_finished()
+        ):
             self.game.set_result()
             return True
 
@@ -827,7 +854,9 @@ class WTournamentRun(QtWidgets.QWidget):
                         # Maxima distancia = 9.9 ( 9,89... sqrt(7**2+7**2)) = 4 seconds
                         dist = (dc ** 2 + df ** 2) ** 0.5
                         seconds = 4.0 * dist / (9.9 * rapidez)
-                    cpu.move_piece(movim[1], movim[2], is_exclusive=False, seconds=seconds)
+                    cpu.move_piece(
+                        movim[1], movim[2], is_exclusive=False, seconds=seconds
+                    )
 
             if seconds is None:
                 seconds = 1.0

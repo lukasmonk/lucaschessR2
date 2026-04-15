@@ -69,7 +69,14 @@ def create_folder(folder: str) -> bool:
     try:
         os.mkdir(folder)
         if is_linux():
-            os.chmod(folder, stat.S_IRWXU | stat.S_IRGRP | stat.S_IXGRP | stat.S_IROTH | stat.S_IXOTH)
+            os.chmod(
+                folder,
+                stat.S_IRWXU
+                | stat.S_IRGRP
+                | stat.S_IXGRP
+                | stat.S_IROTH
+                | stat.S_IXOTH,
+            )
         return True
     except:
         return False
@@ -81,7 +88,14 @@ def check_folders(folder: str) -> bool:
             try:
                 os.makedirs(folder, exist_ok=True)
                 if is_linux():
-                    os.chmod(folder, stat.S_IRWXU | stat.S_IRGRP | stat.S_IXGRP | stat.S_IROTH | stat.S_IXOTH)
+                    os.chmod(
+                        folder,
+                        stat.S_IRWXU
+                        | stat.S_IRGRP
+                        | stat.S_IXGRP
+                        | stat.S_IROTH
+                        | stat.S_IXOTH,
+                    )
             except:
                 return False
     return True
@@ -92,7 +106,9 @@ def check_folders_filepath(filepath):
 
 
 def same_path(path1: str, path2: str) -> bool:
-    return os.path.abspath(path1) == os.path.abspath(path2)
+    return os.path.normcase(os.path.abspath(path1)) == os.path.normcase(
+        os.path.abspath(path2)
+    )
 
 
 def norm_path(path):
@@ -167,8 +183,15 @@ def list_vars_values(obj, li_exclude=None):
         cls_attr = cls.__dict__.get(name)
 
         # 2. Excluir properties, métodos, funciones y descriptores (como ya lo haces)
-        if isinstance(cls_attr, property) or callable(cls_attr) or \
-                (hasattr(cls_attr, "__get__") or hasattr(cls_attr, "__set__") or hasattr(cls_attr, "__delete__")):
+        if (
+            isinstance(cls_attr, property)
+            or callable(cls_attr)
+            or (
+                hasattr(cls_attr, "__get__")
+                or hasattr(cls_attr, "__set__")
+                or hasattr(cls_attr, "__delete__")
+            )
+        ):
             continue
 
         # 3. VERIFICAR si el valor de la variable es pickleable
@@ -215,7 +238,7 @@ def ini_dic(file: str) -> dict:
                     n = line.find("=")
                     if n:
                         key = line[:n].strip()
-                        value = line[n + 1:].strip()
+                        value = line[n + 1 :].strip()
                         dic[key] = value
     return dic
 
@@ -226,7 +249,7 @@ def today():
 
 def huella() -> str:
     unique_part = uuid.uuid4().bytes
-    time_part = int(time.time()).to_bytes(4, byteorder='big')
+    time_part = int(time.time()).to_bytes(4, byteorder="big")
     combined = time_part + unique_part
     return base64.urlsafe_b64encode(combined).decode().replace("=", "")
 
@@ -317,7 +340,14 @@ def stod(txt):
 
 
 def dtosext(f):
-    return "%04d%02d%02d%02d%02d%02d" % (f.year, f.month, f.day, f.hour, f.minute, f.second)
+    return "%04d%02d%02d%02d%02d%02d" % (
+        f.year,
+        f.month,
+        f.day,
+        f.hour,
+        f.minute,
+        f.second,
+    )
 
 
 def dtostr_hm(f):
@@ -327,7 +357,12 @@ def dtostr_hm(f):
 def stodext(txt):
     if txt and len(txt) == 14 and txt.isdigit():
         return datetime.datetime(
-            int(txt[:4]), int(txt[4:6]), int(txt[6:8]), int(txt[8:10]), int(txt[10:12]), int(txt[12:])
+            int(txt[:4]),
+            int(txt[4:6]),
+            int(txt[6:8]),
+            int(txt[8:10]),
+            int(txt[10:12]),
+            int(txt[12:]),
         )
     return None
 
@@ -357,7 +392,7 @@ def ini2dic(file):
                         n = linea.find("=")
                         if n > 0:
                             clave1 = linea[:n].strip()
-                            valor = linea[n + 1:].strip()
+                            valor = linea[n + 1 :].strip()
                             dic[clave1] = valor
 
     return dic_base
@@ -385,7 +420,7 @@ def ini_base2dic(file, rfind_equal=False):
                     n = linea.rfind("=") if rfind_equal else linea.find("=")
                     if n:
                         key = linea[:n].strip()
-                        valor = linea[n + 1:].strip()
+                        valor = linea[n + 1 :].strip()
                         dic[key] = valor
 
     return dic
@@ -769,7 +804,7 @@ def div_list(xlist, max_group):
     xfrom = 0
     li_groups = []
     while xfrom < nlist:
-        li_groups.append(xlist[xfrom: xfrom + max_group])
+        li_groups.append(xlist[xfrom : xfrom + max_group])
         xfrom += max_group
     return li_groups
 
@@ -797,12 +832,12 @@ def fen_fen64(fen):
 
 
 def randomize():
-    random.seed(int.from_bytes(os.urandom(4), 'little'))
+    random.seed(int.from_bytes(os.urandom(4), "little"))
 
 
 def file_crc(ruta_archivo):
     crc = 0
-    with open(ruta_archivo, 'rb') as f:
+    with open(ruta_archivo, "rb") as f:
         while True:
             chunk = f.read(4096)
             if not chunk:

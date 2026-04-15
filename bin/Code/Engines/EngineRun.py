@@ -11,7 +11,11 @@ from PySide2 import QtCore
 
 import Code
 from Code import Util
-from Code.Base.Constantes import BOOK_BEST_MOVE, BOOK_RANDOM_UNIFORM, BOOK_RANDOM_PROPORTIONAL
+from Code.Base.Constantes import (
+    BOOK_BEST_MOVE,
+    BOOK_RANDOM_UNIFORM,
+    BOOK_RANDOM_PROPORTIONAL,
+)
 from Code.Books import Books
 from Code.Engines import EngineResponse
 from Code.Engines import Priorities
@@ -19,7 +23,16 @@ from Code.QT import QTUtil2
 
 
 class RunEngine:
-    def __init__(self, name, exe, li_options_uci=None, num_multipv=0, priority=None, args=None, log=None):
+    def __init__(
+        self,
+        name,
+        exe,
+        li_options_uci=None,
+        num_multipv=0,
+        priority=None,
+        args=None,
+        log=None,
+    ):
         self.log = None
         if log:
             self.log_open(log)
@@ -236,7 +249,11 @@ class RunEngine:
         os.chdir(self.direxe)  # to fix problems with non ascii folders
 
         self.process = subprocess.Popen(
-            self.args, stdout=subprocess.PIPE, stdin=subprocess.PIPE, startupinfo=startupinfo, env=env
+            self.args,
+            stdout=subprocess.PIPE,
+            stdin=subprocess.PIPE,
+            startupinfo=startupinfo,
+            env=env,
         )
         os.chdir(curdir)
 
@@ -255,7 +272,9 @@ class RunEngine:
         self.start_engine()
 
         self.stdout_lock = threading.Lock()
-        stdout_thread = threading.Thread(target=self.xstdout_thread, args=(self.process.stdout, self.stdout_lock))
+        stdout_thread = threading.Thread(
+            target=self.xstdout_thread, args=(self.process.stdout, self.stdout_lock)
+        )
         stdout_thread.daemon = True
         stdout_thread.start()
 
@@ -287,7 +306,10 @@ class RunEngine:
                     subprocess.call(["taskkill", "/F", "/T", "/PID", str(self.pid)])
                 else:
                     os.kill(self.pid, signal.SIGTERM)
-                sys.stderr.write("INFO X CLOSE: except - the engine %s won't close properly.\n" % self.exe)
+                sys.stderr.write(
+                    "INFO X CLOSE: except - the engine %s won't close properly.\n"
+                    % self.exe
+                )
 
             self.pid = None
 
@@ -301,7 +323,7 @@ class RunEngine:
             self.log = None
 
     def dispatch(self):
-        QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.ExcludeUserInputEvents)
+        QtCore.QCoreApplication.processEvents()
         if self.gui_dispatch:
             tm = time.time()
             if tm - self.ultDispatch < self.minDispatch:
@@ -447,8 +469,14 @@ class RunEngine:
         return self.mrm
 
     def set_game_position(self, game, njg=99999):
-        pos_inicial = "startpos" if game.is_fen_initial() else "fen %s" % game.first_position.fen()
-        li = [move.movimiento().lower() for n, move in enumerate(game.li_moves) if n < njg]
+        pos_inicial = (
+            "startpos"
+            if game.is_fen_initial()
+            else "fen %s" % game.first_position.fen()
+        )
+        li = [
+            move.movimiento().lower() for n, move in enumerate(game.li_moves) if n < njg
+        ]
         moves = " moves %s" % (" ".join(li)) if li else ""
         if not li:
             self.ucinewgame()
@@ -537,7 +565,17 @@ class RunEngine:
                 rm = self.mrm.best_rm_ordered()
         return self.ac_estado()
 
-    def analysis_stable(self, game, njg, ktime, kdepth, is_savelines, st_centipawns, st_depths, st_timelimit):
+    def analysis_stable(
+        self,
+        game,
+        njg,
+        ktime,
+        kdepth,
+        is_savelines,
+        st_centipawns,
+        st_depths,
+        st_timelimit,
+    ):
         self.set_game_position(game, njg)
         self.reset()
         if is_savelines:
@@ -564,7 +602,11 @@ class RunEngine:
 
         if st_timelimit == 0:
             st_timelimit = 999999
-        while not self.mrm.is_stable(st_centipawns, st_depths) and self.gui_dispatch(None) and st_timelimit > 0.0:
+        while (
+            not self.mrm.is_stable(st_centipawns, st_depths)
+            and self.gui_dispatch(None)
+            and st_timelimit > 0.0
+        ):
             time.sleep(0.1)
             st_timelimit -= 0.1
             lee()
@@ -585,7 +627,11 @@ class RunEngine:
         self.reset()
         self.put_line("uci")
         li, self.uci_ok = self.wait_list("uciok", 10000)
-        self.uci_lines = [x for x in li if x.startswith("id ") or x.startswith("option name")] if self.uci_ok else []
+        self.uci_lines = (
+            [x for x in li if x.startswith("id ") or x.startswith("option name")]
+            if self.uci_ok
+            else []
+        )
 
     def set_option(self, name, value):
         if value:
@@ -597,7 +643,9 @@ class RunEngine:
         self.set_game_position(game)
         return self.seek_bestmove(max_time, max_depth, False)
 
-    def bestmove_nodes_game(self, game, njg, max_time, max_depth, nodes, is_savelines=False):
+    def bestmove_nodes_game(
+        self, game, njg, max_time, max_depth, nodes, is_savelines=False
+    ):
         self.set_game_position(game, njg)
         return self.seek_bestmove_nodes(max_time, max_depth, nodes, is_savelines)
 
@@ -650,7 +698,9 @@ class RunEngine:
     def not_humanize(self):
         self.end_time_humanize = None
 
-    def play_bestmove_time(self, play_return, game, time_white, time_black, inc_time_move):
+    def play_bestmove_time(
+        self, play_return, game, time_white, time_black, inc_time_move
+    ):
         env = "go wtime %d btime %d" % (time_white, time_black)
         if inc_time_move:
             env += " winc %d binc %d" % (inc_time_move, inc_time_move)
@@ -664,7 +714,7 @@ class RunEngine:
         elif max_time:
             if self.emulate_movetime:
                 env += " infinite"
-                self.set_max_time_current(max_time/1000)
+                self.set_max_time_current(max_time / 1000)
             else:
                 env += " movetime %d" % max_time
         self.play_with_return(play_return, game, env, max_time, max_depth)
@@ -679,16 +729,35 @@ def nodes_maia(level: int) -> int:
     if not Code.configuration.x_maia_nodes_exponential:
         return 1
     dic_nodes = {
-        1100: 1, 1200: 2, 1300: 5, 1400: 12,
-        1500: 30, 1600: 60, 1700: 130, 1800: 300,
-        1900: 450, 2200: 800
+        1100: 1,
+        1200: 2,
+        1300: 5,
+        1400: 12,
+        1500: 30,
+        1600: 60,
+        1700: 130,
+        1800: 300,
+        1900: 450,
+        2200: 800,
     }
     return dic_nodes.get(level, 1)
 
 
 class MaiaEngine(RunEngine):
-    def __init__(self, name, exe, li_options_uci=None, num_multipv=0, priority=None, args=None, log=None, level=0):
-        RunEngine.__init__(self, name, exe, li_options_uci, num_multipv, priority, args, log)
+    def __init__(
+        self,
+        name,
+        exe,
+        li_options_uci=None,
+        num_multipv=0,
+        priority=None,
+        args=None,
+        log=None,
+        level=0,
+    ):
+        RunEngine.__init__(
+            self, name, exe, li_options_uci, num_multipv, priority, args, log
+        )
         self.stopping = False
         self.level = level
 
@@ -711,7 +780,9 @@ class MaiaEngine(RunEngine):
 
         self.nodes = nodes_maia(level)
 
-    def play_bestmove_time(self, play_return, game, time_white, time_black, inc_time_move):
+    def play_bestmove_time(
+        self, play_return, game, time_white, time_black, inc_time_move
+    ):
         if self.test_book(game):
             play_return(self.mrm)
             return
@@ -735,7 +806,9 @@ class MaiaEngine(RunEngine):
 
     def test_book(self, game):
         if len(game) < 30:
-            pv = self.book.eligeJugadaTipo(game.last_position.fen(), random.choice(self.book_select))
+            pv = self.book.eligeJugadaTipo(
+                game.last_position.fen(), random.choice(self.book_select)
+            )
             if pv:
                 self.mrm.dispatch(f"bestmove {pv}")
                 self.mrm.ordena()

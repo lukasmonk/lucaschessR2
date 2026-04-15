@@ -182,7 +182,9 @@ class Book:
             pc = "%0.02f%%" % (w * 100.0 / total,) if total else ""
             from_sq, to_sq, promotion = pv[:2], pv[2:4], pv[4:]
             pgn = position.pgn_translated(from_sq, to_sq, promotion)
-            lista_jugadas.append([from_sq, to_sq, promotion, "%-5s -%7s -%7d" % (pgn, pc, w), 1.0 * w / maxim])
+            lista_jugadas.append([from_sq, to_sq, promotion,
+                                  "%-5s -%7s -%7d" % (pgn, pc, w),
+                                  1.0 * w / maxim if maxim else 0])
         return lista_jugadas
 
     def alm_list_moves(self, fen):

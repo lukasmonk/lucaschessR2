@@ -202,6 +202,8 @@ class WHorses(LCDialog.LCDialog):
         self.procesador = owner.procesador
         self.configuration = self.procesador.configuration
 
+        self.dic_min_moves = {}
+
         self.test = test
 
         # Board
@@ -244,7 +246,6 @@ class WHorses(LCDialog.LCDialog):
         self.board.set_side_bottom(True)
         self.board.set_position(self.cpInicial)
         self.board.remove_arrows()
-        self.min_moves = 0
         self.timer = time.time()
         self.moves = 0
         self.hints = 0
@@ -256,12 +257,11 @@ class WHorses(LCDialog.LCDialog):
         self.lbMoves.set_text('<font color="%s">%d/%d</font>' % (color, self.movesParcial, self.numMoves))
 
     def ponSiguiente(self):
-
         posDesde = self.camino[0 if self.baseUnica else self.current_position]
         posHasta = self.camino[self.current_position + 1]
         tlist = FasterCode.li_n_min(posDesde, posHasta, self.celdas_ocupadas)
         self.numMoves = len(tlist[0]) - 1
-        self.min_moves += self.numMoves
+        self.dic_min_moves[posHasta] = self.numMoves
         self.movesParcial = 0
 
         cp = self.cpInicial.copia()
@@ -291,6 +291,8 @@ class WHorses(LCDialog.LCDialog):
         seconds = int(time.time() - self.timer)
         self.historico.append(Util.today(), self.moves, seconds, self.hints)
 
+        min_moves = sum(value for value in self.dic_min_moves.values())
+
         QTUtil2.message_bold(
             self,
             "<b>%s<b><ul><li>%s: <b>%d</b> (%s=%d) </li><li>%s: <b>%d</b></li><li>%s: <b>%d</b></li></ul>"
@@ -299,7 +301,7 @@ class WHorses(LCDialog.LCDialog):
                 _("Moves"),
                 self.moves,
                 _("Minimum"),
-                self.min_moves,
+                min_moves,
                 _("Second(s)"),
                 seconds,
                 _("Hints"),

@@ -661,8 +661,11 @@ class Tactic:
         ok, game_obj = Game.pgn_game('[FEN "%s"]\n%s' % (fen, solucion))
 
         game_base = None
-        if len(li) > 3:
-            txt = li[3].replace("]", "]\n").replace(" [", "[")
+        if len(li) > 3 and li[3].strip():
+            txt = li[3].strip()
+            if txt[0] != "[":
+                txt = f'[Event "?"] {txt}'
+            txt = txt.replace("]", "]\n").replace(" [", "[")
             ok, game_base = Game.pgn_game(txt)
             if ok:
                 cp = Position.Position()

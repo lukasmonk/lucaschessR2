@@ -270,7 +270,7 @@ class Move:
         return li
 
     def pgnEN(self):
-        resto = self.resto()
+        resto = self.resto().strip()
         if resto:
             if resto[0] not in "?!":
                 resto = " " + resto
