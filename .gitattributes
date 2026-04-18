@@ -1,0 +1,5 @@
+*.nnue filter=lfs diff=lfs merge=lfs -text
+\# filter=lfs diff=lfs merge=lfs -text
+ya filter=lfs diff=lfs merge=lfs -text
+estß filter=lfs diff=lfs merge=lfs -text
+hecho filter=lfs diff=lfs merge=lfs -text

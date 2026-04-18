@@ -329,8 +329,7 @@ class WTournamentRun(QtWidgets.QWidget):
                 return
             self.setWindowTitle(f"{self.title} (#{self.tournament_game.id_game})")
             self.procesa_game()
-            if not self.is_closed:
-                QtCore.QTimer.singleShot(100, self.looking_for_work)
+            self.looking_for_work()
 
     def procesa_game(self):
         self.pon_estado(ST_PLAYING)
