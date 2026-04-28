@@ -141,6 +141,8 @@ class Eboard:
                 path_so = Util.opj(path_eboards, "libhos.so")
             elif self.name == "Chessnut Move":
                 path_so = Util.opj(path_eboards, "libmov.so")
+            elif self.name == "Cynus":
+                path_so = Util.opj(path_eboards, "libcyn.so")
             else:
                 path_so = Util.opj(path_eboards, "libucb.so")
             if os.path.isfile(path_so):
@@ -218,6 +220,8 @@ class Eboard:
                     path_dll = Util.opj(path_eboards, "HOS_DLL.dll")
                 elif self.name == "Chessnut Move":
                     path_dll = Util.opj(path_eboards, "MOV_DLL.dll")
+                elif self.name == "Cynus":
+                    path_dll = Util.opj(path_eboards, "CYN_DLL.dll")
                 else:
                     path_dll = Util.opj(path_eboards, "UCB_DLL.dll")
                 if os.path.isfile(path_dll):
@@ -422,6 +426,8 @@ class Eboard:
             return Iconos.Chessnut()
         elif board == "Chessnut Move":
             return Iconos.Chessnut()
+        elif board == "Cynus":
+            return Iconos.Manya()
         elif board == "HOS Sensory":
             return Iconos.HOS()
         elif board == "iChessOne":

@@ -147,6 +147,8 @@ class DictSQL(object):
                     for btxt_wrong, btxt_correct in self.li_breplaces_pickle:
                         dato = dato.replace(btxt_wrong, btxt_correct)
                     dic[key] = pickle.loads(dato)
+            except ModuleNotFoundError:
+                pass
         return dic
 
     def pack(self):

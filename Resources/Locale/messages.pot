@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2026-04-15 13:39+0200\n"
+"POT-Creation-Date: 2026-04-28 16:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -283,7 +283,7 @@ msgstr ""
 #: .\Kibitzers\WindowKibitzers.py:414 .\Leagues\EditPlayers.py:20
 #: .\Leagues\EditPlayers.py:81 .\Leagues\WLeagueConfig.py:64
 #: .\Leagues\WLeagueConfig.py:294 .\Leagues\WLeagues.py:50
-#: .\Leagues\WLeagues.py:119 .\Openings\POLAnalisisTree.py:401
+#: .\Leagues\WLeagues.py:119 .\Openings\POLAnalisisTree.py:398
 #: .\Openings\POLShortcuts.py:123 .\Openings\WindowOpeningLines.py:35
 #: .\Openings\WindowOpeningLines.py:246 .\Openings\WindowOpeningLines.py:256
 #: .\Openings\WindowOpeningLines.py:309 .\Openings\WindowOpenings.py:307
@@ -487,7 +487,7 @@ msgstr ""
 
 #: .\Analysis\Analysis.py:48 .\Analysis\AnalysisGame.py:276
 #: .\Analysis\RunAnalysis.py:555 .\Analysis\WindowAnalysisVariations.py:47
-#: .\Base\Move.py:573 .\BestMoveTraining\BMT.py:64
+#: .\Base\Move.py:575 .\BestMoveTraining\BMT.py:64
 #: .\BestMoveTraining\WindowBMTtrain.py:698 .\Endings\ManagerMate.py:324
 #: .\Endings\ManagerMate.py:483 .\MainWindow\WBase.py:262
 #: .\QT\WindowDailyTest.py:42 .\QT\WindowHorses.py:127
@@ -500,7 +500,7 @@ msgstr ""
 #: .\Analysis\AnalysisGame.py:620 .\Analysis\AnalysisGame.py:631
 #: .\Analysis\WindowAnalysis.py:482 .\Analysis\WindowAnalysisParam.py:155
 #: .\Analysis\WindowAnalysisParam.py:197 .\Analysis\WindowAnalysisParam.py:405
-#: .\Base\Move.py:575 .\Books\WBooksTrainOL.py:402 .\Books\WPolyglot.py:49
+#: .\Base\Move.py:577 .\Books\WBooksTrainOL.py:402 .\Books\WPolyglot.py:49
 #: .\CountsCaptures\WRunCaptures.py:128 .\CountsCaptures\WRunCounts.py:112
 #: .\Databases\WDB_Summary.py:283 .\Engines\STS.py:532
 #: .\Engines\WConfEngines.py:253 .\Engines\WConfEngines.py:574
@@ -1030,8 +1030,8 @@ msgstr ""
 #: .\Board\Board.py:926 .\Board\Board.py:2737 .\Board\WBoardColors.py:327
 #: .\Board\WBoardColors.py:348 .\Board\WBoardColors.py:416
 #: .\Competitions\ManagerFideFics.py:274 .\Config\WindowConfig.py:89
-#: .\Config\WindowConfig.py:109 .\Config\WindowConfig.py:156
-#: .\Config\WindowConfig.py:189 .\Databases\WDB_Games.py:1098
+#: .\Config\WindowConfig.py:109 .\Config\WindowConfig.py:157
+#: .\Config\WindowConfig.py:190 .\Databases\WDB_Games.py:1098
 #: .\Databases\WDB_Utils.py:373 .\Engines\WConfEngines.py:65
 #: .\Engines\WEngines.py:361 .\Engines\WEngines.py:420
 #: .\Engines\WindowSTS.py:429 .\Expeditions\WindowEverest.py:63
@@ -1408,7 +1408,7 @@ msgstr ""
 msgid "Start from the end of the game"
 msgstr ""
 
-#: .\Analysis\WindowAnalysisParam.py:255 .\Config\WindowConfig.py:146
+#: .\Analysis\WindowAnalysisParam.py:255 .\Config\WindowConfig.py:147
 #: .\Manager.py:1905
 msgid "Show graphics"
 msgstr ""
@@ -2261,12 +2261,12 @@ msgid "Number"
 msgstr ""
 
 #: .\Board\WBoardColors.py:440 .\Board\WBoardColors.py:1550
-#: .\Config\WindowConfig.py:159
+#: .\Config\WindowConfig.py:160
 msgid "Font"
 msgstr ""
 
 #: .\Board\WBoardColors.py:450 .\Board\WBoardColors.py:1551
-#: .\Config\WindowConfig.py:165 .\Config\WindowConfig.py:170
+#: .\Config\WindowConfig.py:166 .\Config\WindowConfig.py:171
 msgid "Bold"
 msgstr ""
 
@@ -2404,7 +2404,7 @@ msgid "Discard"
 msgstr ""
 
 #: .\Books\ManagerTrainBooks.py:65 .\Config\Configuration.py:378
-#: .\Config\WindowConfig.py:366 .\Config\WindowConfig.py:370
+#: .\Config\WindowConfig.py:367 .\Config\WindowConfig.py:371
 #: .\Databases\WDB_Perfomance.py:273 .\Databases\WDB_Players.py:265
 #: .\Databases\WDB_Players.py:396 .\Leagues\WLeague.py:107
 #: .\Leagues\WLeague.py:222 .\Menus\MenuTrainings.py:149
@@ -2911,7 +2911,7 @@ msgstr ""
 msgid "New polyglot book"
 msgstr ""
 
-#: .\Books\WFactory.py:83 .\Openings\POLAnalisisTree.py:412
+#: .\Books\WFactory.py:83 .\Openings\POLAnalisisTree.py:409
 #: .\Openings\WindowOpeningLines.py:319
 msgid "This file already exists"
 msgstr ""
@@ -3077,7 +3077,7 @@ msgid "Loss"
 msgstr ""
 
 #: .\Competitions\ManagerElo.py:349 .\Competitions\ManagerElo.py:374
-#: .\Config\WindowConfig.py:213 .\Engines\SelectEngines.py:44
+#: .\Config\WindowConfig.py:214 .\Engines\SelectEngines.py:44
 #: .\Engines\SelectEngines.py:298 .\Engines\WEngines.py:280
 #: .\Menus\BasicMenus.py:210
 msgid "Lucas-Elo"
@@ -3091,7 +3091,7 @@ msgstr ""
 msgid "Fics-player"
 msgstr ""
 
-#: .\Competitions\ManagerFideFics.py:82 .\Config\WindowConfig.py:219
+#: .\Competitions\ManagerFideFics.py:82 .\Config\WindowConfig.py:220
 #: .\Menus\BasicMenus.py:242 .\QT\QTVarios.py:780
 msgid "Fics-Elo"
 msgstr ""
@@ -3104,7 +3104,7 @@ msgstr ""
 msgid "Fide-player"
 msgstr ""
 
-#: .\Competitions\ManagerFideFics.py:92 .\Config\WindowConfig.py:221
+#: .\Competitions\ManagerFideFics.py:92 .\Config\WindowConfig.py:222
 #: .\Menus\BasicMenus.py:245 .\QT\QTVarios.py:834
 msgid "Fide-Elo"
 msgstr ""
@@ -3117,7 +3117,7 @@ msgstr ""
 msgid "Lichess-player"
 msgstr ""
 
-#: .\Competitions\ManagerFideFics.py:102 .\Config\WindowConfig.py:223
+#: .\Competitions\ManagerFideFics.py:102 .\Config\WindowConfig.py:224
 #: .\Menus\BasicMenus.py:248
 msgid "Lichess-Elo"
 msgstr ""
@@ -3148,7 +3148,7 @@ msgid "book move"
 msgstr ""
 
 #: .\Competitions\ManagerMicElo.py:228 .\Competitions\ManagerMicElo.py:336
-#: .\Competitions\ManagerWicker.py:226 .\Config\WindowConfig.py:215
+#: .\Competitions\ManagerWicker.py:226 .\Config\WindowConfig.py:216
 #: .\Menus\BasicMenus.py:212
 msgid "Tourney-Elo"
 msgstr ""
@@ -3157,7 +3157,7 @@ msgstr ""
 msgid "New Tourney-Elo"
 msgstr ""
 
-#: .\Competitions\ManagerWicker.py:336 .\Config\WindowConfig.py:217
+#: .\Competitions\ManagerWicker.py:336 .\Config\WindowConfig.py:218
 #: .\Engines\SelectEngines.py:41 .\Engines\WEngines.py:300
 #: .\Menus\BasicMenus.py:214
 msgid "The Wicker Park Tourney"
@@ -3171,7 +3171,7 @@ msgstr ""
 msgid "General configuration"
 msgstr ""
 
-#: .\Config\WindowConfig.py:22 .\Config\WindowConfig.py:366
+#: .\Config\WindowConfig.py:22 .\Config\WindowConfig.py:367
 msgid "Player's name"
 msgstr ""
 
@@ -3221,7 +3221,7 @@ msgstr ""
 msgid "Check for updates at startup"
 msgstr ""
 
-#: .\Config\WindowConfig.py:58 .\Config\WindowConfig.py:158
+#: .\Config\WindowConfig.py:58 .\Config\WindowConfig.py:159
 #: .\Procesador.py:690
 msgid "General"
 msgstr ""
@@ -3309,7 +3309,7 @@ msgstr ""
 msgid "Forward"
 msgstr ""
 
-#: .\Config\WindowConfig.py:107 .\Config\WindowConfig.py:197
+#: .\Config\WindowConfig.py:107 .\Config\WindowConfig.py:198
 msgid "Scroll direction with the mouse wheel"
 msgstr ""
 
@@ -3410,167 +3410,171 @@ msgstr ""
 msgid "DGT"
 msgstr ""
 
-#: .\Config\WindowConfig.py:138
+#: .\Config\WindowConfig.py:137
+msgid "Manya Cynus"
+msgstr ""
+
+#: .\Config\WindowConfig.py:139
 msgid "Digital board"
 msgstr ""
 
-#: .\Config\WindowConfig.py:141
+#: .\Config\WindowConfig.py:142
 msgid "Show configuration icon"
 msgstr ""
 
-#: .\Config\WindowConfig.py:142 .\Director\WindowTabVMarkers.py:70
+#: .\Config\WindowConfig.py:143 .\Director\WindowTabVMarkers.py:70
 #: .\Director\WindowTabVMarkers.py:71
 msgid "Top"
 msgstr ""
 
-#: .\Config\WindowConfig.py:142 .\Director\WindowTabVMarkers.py:72
+#: .\Config\WindowConfig.py:143 .\Director\WindowTabVMarkers.py:72
 #: .\Director\WindowTabVMarkers.py:73
 msgid "Bottom"
 msgstr ""
 
-#: .\Config\WindowConfig.py:143
+#: .\Config\WindowConfig.py:144
 msgid "Configuration icon position"
 msgstr ""
 
-#: .\Config\WindowConfig.py:146
+#: .\Config\WindowConfig.py:147
 msgid "Show icon"
 msgstr ""
 
-#: .\Config\WindowConfig.py:146
+#: .\Config\WindowConfig.py:147
 msgid "Show nothing"
 msgstr ""
 
-#: .\Config\WindowConfig.py:147
+#: .\Config\WindowConfig.py:148
 msgid "When position has graphic information"
 msgstr ""
 
-#: .\Config\WindowConfig.py:149 .\Manager.py:1706
+#: .\Config\WindowConfig.py:150 .\Manager.py:1706
 msgid "Live graphics with the right mouse button"
 msgstr ""
 
-#: .\Config\WindowConfig.py:151
+#: .\Config\WindowConfig.py:152
 msgid "Boards"
 msgstr ""
 
-#: .\Config\WindowConfig.py:160 .\Config\WindowConfig.py:164
-#: .\Config\WindowConfig.py:169 .\Config\WindowConfig.py:183
-#: .\Config\WindowConfig.py:194
+#: .\Config\WindowConfig.py:161 .\Config\WindowConfig.py:165
+#: .\Config\WindowConfig.py:170 .\Config\WindowConfig.py:184
+#: .\Config\WindowConfig.py:195
 msgid "Font size"
 msgstr ""
 
-#: .\Config\WindowConfig.py:163
+#: .\Config\WindowConfig.py:164
 msgid "Menus"
 msgstr ""
 
-#: .\Config\WindowConfig.py:168
+#: .\Config\WindowConfig.py:169
 msgid "Toolbars"
 msgstr ""
 
-#: .\Config\WindowConfig.py:172
+#: .\Config\WindowConfig.py:173
 msgid "Only display the icon"
 msgstr ""
 
-#: .\Config\WindowConfig.py:173
+#: .\Config\WindowConfig.py:174
 msgid "Only display the text"
 msgstr ""
 
-#: .\Config\WindowConfig.py:174
+#: .\Config\WindowConfig.py:175
 msgid "The text appears beside the icon"
 msgstr ""
 
-#: .\Config\WindowConfig.py:175
+#: .\Config\WindowConfig.py:176
 msgid "The text appears under the icon"
 msgstr ""
 
-#: .\Config\WindowConfig.py:177
+#: .\Config\WindowConfig.py:178
 msgid "Icons"
 msgstr ""
 
-#: .\Config\WindowConfig.py:178 .\Engines\WConfEngines.py:592
+#: .\Config\WindowConfig.py:179 .\Engines\WConfEngines.py:592
 #: .\Engines\WConfEngines.py:593 .\Engines\WConfEngines.py:594
 msgid "Horizontal"
 msgstr ""
 
-#: .\Config\WindowConfig.py:178 .\Engines\WConfEngines.py:595
+#: .\Config\WindowConfig.py:179 .\Engines\WConfEngines.py:595
 msgid "Vertical"
 msgstr ""
 
-#: .\Config\WindowConfig.py:179
+#: .\Config\WindowConfig.py:180
 msgid "Main Toolbar Orientation"
 msgstr ""
 
-#: .\Config\WindowConfig.py:182
+#: .\Config\WindowConfig.py:183
 msgid "Message windows"
 msgstr ""
 
-#: .\Config\WindowConfig.py:185 .\Config\WindowConfig.py:209
+#: .\Config\WindowConfig.py:186 .\Config\WindowConfig.py:210
 msgid "Appearance"
 msgstr ""
 
-#: .\Config\WindowConfig.py:191
+#: .\Config\WindowConfig.py:192
 msgid "PGN table"
 msgstr ""
 
-#: .\Config\WindowConfig.py:192 .\QT\GridEditCols.py:45
+#: .\Config\WindowConfig.py:193 .\QT\GridEditCols.py:45
 msgid "Width"
 msgstr ""
 
-#: .\Config\WindowConfig.py:193
+#: .\Config\WindowConfig.py:194
 msgid "Height of each row"
 msgstr ""
 
-#: .\Config\WindowConfig.py:195
+#: .\Config\WindowConfig.py:196
 msgid "PGN always in English"
 msgstr ""
 
-#: .\Config\WindowConfig.py:196
+#: .\Config\WindowConfig.py:197
 msgid "PGN with figurines"
 msgstr ""
 
-#: .\Config\WindowConfig.py:200
+#: .\Config\WindowConfig.py:201
 msgid "Enable captured material window by default"
 msgstr ""
 
-#: .\Config\WindowConfig.py:201
+#: .\Config\WindowConfig.py:202
 msgid "Enable information panel by default"
 msgstr ""
 
-#: .\Config\WindowConfig.py:202
+#: .\Config\WindowConfig.py:203
 msgid "Enable analysis bar by default"
 msgstr ""
 
-#: .\Config\WindowConfig.py:204
+#: .\Config\WindowConfig.py:205
 msgid "Font size of information labels"
 msgstr ""
 
-#: .\Config\WindowConfig.py:205 .\Databases\WindowDatabase.py:63
+#: .\Config\WindowConfig.py:206 .\Databases\WindowDatabase.py:63
 #: .\Leagues\EditPlayers.py:15 .\Leagues\WLeague.py:355
 #: .\Leagues\WLeagueConfig.py:216 .\PlayHuman\WPlayHuman.py:41
 #: .\Swiss\WSwissConfig.py:209
 msgid "Players"
 msgstr ""
 
-#: .\Config\WindowConfig.py:207
+#: .\Config\WindowConfig.py:208
 msgid "Enable high dpi scaling"
 msgstr ""
 
-#: .\Config\WindowConfig.py:225
+#: .\Config\WindowConfig.py:226
 msgid "Change elos"
 msgstr ""
 
-#: .\Config\WindowConfig.py:330 .\Config\WindowConfig.py:341
+#: .\Config\WindowConfig.py:331 .\Config\WindowConfig.py:342
 msgid "Are you sure %s is the correct driver ?"
 msgstr ""
 
-#: .\Config\WindowConfig.py:331 .\Config\WindowConfig.py:342
+#: .\Config\WindowConfig.py:332 .\Config\WindowConfig.py:343
 msgid "WARNING: selecting the wrong driver might cause damage to your board."
 msgstr ""
 
-#: .\Config\WindowConfig.py:332 .\Config\WindowConfig.py:343
+#: .\Config\WindowConfig.py:333 .\Config\WindowConfig.py:344
 msgid "Proceed at your own risk."
 msgstr ""
 
-#: .\Config\WindowConfig.py:344
+#: .\Config\WindowConfig.py:345
 msgid "Please read the driver's user manual at:"
 msgstr ""
 
@@ -3614,7 +3618,7 @@ msgstr ""
 #: .\Coordinates\CoordinatesWrite.py:79
 #: .\Coordinates\WRunCoordinatesBasic.py:83
 #: .\CountsCaptures\WCountsCaptures.py:126 .\LearnGame\WindowLearnGame.py:775
-#: .\Openings\POLAnalisisTree.py:393
+#: .\Openings\POLAnalisisTree.py:390
 msgid "Ended"
 msgstr ""
 
@@ -4570,7 +4574,7 @@ msgstr ""
 msgid "for a training by repetition"
 msgstr ""
 
-#: .\Databases\WDB_Utils.py:696 .\Openings\POLAnalisisTree.py:421
+#: .\Databases\WDB_Utils.py:696 .\Openings\POLAnalisisTree.py:418
 #: .\Openings\WindowOpeningLine.py:569
 msgid "Created"
 msgstr ""
@@ -8486,7 +8490,7 @@ msgstr ""
 msgid "Next position with more than one alternative"
 msgstr ""
 
-#: .\Openings\POLAnalisisTree.py:301 .\Openings\POLAnalisisTree.py:401
+#: .\Openings\POLAnalisisTree.py:301 .\Openings\POLAnalisisTree.py:398
 msgid "Create a new opening line from this branch"
 msgstr ""
 

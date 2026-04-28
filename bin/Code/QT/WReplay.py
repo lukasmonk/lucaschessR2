@@ -78,7 +78,7 @@ def param_replay(configuration, parent, with_previous_next) -> bool:
 
 
 class Replay:
-    def __init__(self, manager, next_game=None):
+    def __init__(self, manager, next_game=None, rapidez=None):
         dic_var = read_params()
         self.manager = manager
         self.procesador = manager.procesador
@@ -90,8 +90,13 @@ class Replay:
         self.if_start = dic_var["START"]
         self.if_beep = dic_var["BEEP"]
         self.if_custom_sounds = dic_var["CUSTOM_SOUNDS"]
-        self.rapidez = 1.0
+        self.rapidez = rapidez or 1.0
         self.next_game = next_game
+        self.cpu = self.procesador.cpu
+        self.timer_next_move = QtCore.QTimer()
+        self.timer_next_move.setSingleShot(True)
+        self.timer_next_move.timeout.connect(self.show_current)
+        self.generation = 0
 
         self.previous_visible_capturas = self.main_window.siCapturas
         self.previous_visible_information = self.main_window.siInformacionPGN
@@ -121,25 +126,41 @@ class Replay:
         self.li_moves = self.manager.game.li_moves
         self.current_position = 0 if self.if_start else self.jugInicial
         self.initial_position = self.current_position
-
         self.stopped = False
 
         self.show_information()
+        self.reset_to_current()
 
-        if self.seconds_before > 0.0:
-            if self.li_moves:
-                move = self.li_moves[self.current_position]
-                self.board.set_position(move.position_before)
-                if not self.sleep_refresh(self.seconds_before):
-                    return
+    def reset_to_current(self):
+        if self.stopped or self.current_position >= len(self.li_moves):
+            return
 
-        self.show_current()
+        self.timer_next_move.stop()
 
-    def sleep_refresh(self, seconds):
+        self.board.remove_arrows()
+        self.board.borraMovibles()
+        if self.board.arrow_sc:
+            self.board.arrow_sc.hide()
+
+        move = self.li_moves[self.current_position]
+        self.board.set_position(move.position_before)
+
+        num = self.current_position
+        if self.starts_with_black:
+            num += 1
+        row = int(num / 2)
+        self.main_window.pgnColocate(row, move.position_before.is_white)
+        self.main_window.base.pgn_refresh()
+        self.manager.put_view()
+        QTUtil.refresh_gui()
+
+        self.timer_next_move.start(int(self.seconds_before * 1000) + 10)
+
+    def sleep_refresh(self, seconds, expected_gen=None):
         ini_time = time.time()
         while (time.time() - ini_time) < seconds:
             QTUtil.refresh_gui()
-            if self.stopped:
+            if self.stopped or (expected_gen is not None and self.generation != expected_gen):
                 return False
             time.sleep(0.01)
         return True
@@ -160,27 +181,28 @@ class Replay:
         QTUtil.refresh_gui()
 
     def show_current(self):
+        gen = self.generation
         if self.stopped or self.current_position >= len(self.li_moves):
             return
 
         move = self.li_moves[self.current_position]
         # self.board.set_position(move.position_before)
         if self.current_position > self.initial_position:
-            if not self.sleep_refresh(self.seconds / self.rapidez):
+            if not self.sleep_refresh(self.seconds / self.rapidez, gen):
                 return
 
         li_movs = [("b", move.to_sq), ("m", move.from_sq, move.to_sq)]
         if move.position.li_extras:
             li_movs.extend(move.position.li_extras)
         self.move_the_pieces(li_movs)
-
-        QtCore.QTimer.singleShot(10, self.skip)
+        if gen == self.generation and not self.stopped:
+            self.skip()
 
     def move_the_pieces(self, li_movs):
+        gen = self.generation
         if self.stopped:
             return
-        cpu = self.procesador.cpu
-        cpu.reset()
+        self.cpu.reset()
         secs = None
 
         move = self.li_moves[self.current_position]
@@ -203,7 +225,7 @@ class Replay:
                     dist = (dc ** 2 + df ** 2) ** 0.5
                     rp = self.rapidez if self.rapidez > 1.0 else 1.0
                     secs = 4.0 * dist / (9.9 * rp)
-                cpu.move_piece(from_sq, to_sq, secs)
+                self.cpu.move_piece(from_sq, to_sq, secs)
         # return
         if secs is None:
             secs = 1.0
@@ -211,14 +233,17 @@ class Replay:
         # segundo los borrados
         for movim in li_movs:
             if movim[0] == "b":
-                cpu.remove_piece_insecs(movim[1], secs)
+                self.cpu.remove_piece_insecs(movim[1], secs)
 
         # tercero los cambios
         for movim in li_movs:
             if movim[0] == "c":
-                cpu.change_piece(movim[1], movim[2], is_exclusive=True)
+                self.cpu.change_piece(movim[1], movim[2], is_exclusive=True)
 
-        cpu.run_lineal()
+        self.cpu.run_lineal()
+        if self.generation != gen or self.stopped:
+            return
+
         wait_seconds = 0.0
         if self.if_custom_sounds:
             wait_seconds = Code.runSound.play_list_seconds(move.sounds_list())
@@ -267,6 +292,7 @@ class Replay:
                 self.show_information()
 
     def terminar(self):
+        self.timer_next_move.stop()
         self.stopped = True
         self.main_window.pon_toolbar(self.antAcciones)
         self.manager.ponRutinaAccionDef(None)
@@ -284,7 +310,9 @@ class Replay:
         self.rapidez *= 1.2
 
     def pausa(self):
+        self.timer_next_move.stop()
         self.stopped = True
+        self.cpu.reset()
         self.show_pause(False, True)
 
     def seguir(self):
@@ -292,22 +320,27 @@ class Replay:
         self.current_position += 1
         self.stopped = False
         self.show_pause(True, False)
-        self.show_current()
+        self.timer_next_move.start(0)
 
     def repetir(self):
-        self.current_position = 0 if self.if_start else self.jugInicial
+        self.timer_next_move.stop()
+        self.stopped = True
+        self.cpu.reset()
+        self.generation += 1
+        self.current_position = self.initial_position
         self.show_pause(True, False)
-        if self.stopped:
-            self.stopped = False
-            self.show_current()
+        self.stopped = False
+        self.reset_to_current()
 
     def skip(self):
+        gen = self.generation
         if self.stopped:
             return
         self.current_position += 1
         if self.current_position >= self.num_moves:
             if self.next_game:
                 if self.next_game():
+                    self.generation += 1
                     self.jugInicial = 0
                     self.current_position = 0
                     self.initial_position = 0
@@ -315,15 +348,12 @@ class Replay:
                     self.antAcciones = self.main_window.get_toolbar()
                     self.main_window.pon_toolbar(self.li_acciones, separator=False)
                     self.li_moves = self.manager.game.li_moves
+                    self.starts_with_black = self.manager.game.starts_with_black
                     self.num_moves = len(self.li_moves)
-                    if self.seconds_before > 0.0:
-                        move = self.li_moves[self.current_position]
-                        self.board.set_position(move.position_before)
-                        if not self.sleep_refresh(self.seconds_before):
-                            return
-                    self.show_current()
+                    self.reset_to_current()
                     return
             self.stopped = True
             self.show_pause(False, False)
         else:
-            self.show_current()
+            if gen == self.generation:
+                self.timer_next_move.start(0)

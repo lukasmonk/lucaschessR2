@@ -23,7 +23,7 @@ class Move:
         self.analysis = None
         self.position_before = position_before
         self.position = position
-        self.in_the_opening = False
+        self._in_the_opening = None
         self.from_sq = from_sq if from_sq else ""
         self.to_sq = to_sq if to_sq else ""
         self.promotion = promotion if promotion else ""
@@ -45,11 +45,15 @@ class Move:
 
         self.elo_avg = 0
 
+    @property
+    def in_the_opening(self) -> bool:
+        if self._in_the_opening is None:
+            fenm2 = self.position.fenm2()
+            self._in_the_opening = OpeningsStd.ap.is_book_fenm2(fenm2)
+        return self._in_the_opening
+
     def is_book_move(self):
-        if self.in_the_opening or self.is_book:
-            return True
-        fenm2 = self.position.fenm2()
-        return OpeningsStd.ap.is_book_fenm2(fenm2)
+        return self.is_book or self.in_the_opening
 
     def set_time_ms(self, ms):
         self.time_ms = ms
@@ -370,7 +374,7 @@ class Move:
         return Position.distancia(self.from_sq, self.to_sq)
 
     def save(self):
-        dic = {"move": self.movimiento(), "in_the_opening": self.in_the_opening}
+        dic = {"move": self.movimiento()}
         if len(self.variations):
             dic["variations"] = self.variations.save()
         if self.comment:
@@ -398,8 +402,6 @@ class Move:
         cp = self.position_before.copia()
         cp.play(self.from_sq, self.to_sq, self.promotion)
         self.position = cp
-
-        self.in_the_opening = dic["in_the_opening"]
 
         if "variations" in dic:
             self.variations.restore(dic["variations"])

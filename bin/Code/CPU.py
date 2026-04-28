@@ -14,11 +14,18 @@ class CPU:
         self.ultimaID = 0
         self.timer = None
         self.dicTareas = collections.OrderedDict()
+        self.stopped = False
 
     def reset(self):
+        self.stopped = True
         self.ultimaID = 0
+        if self.timer:
+            self.timer.stop()
+            del self.timer
+            self.timer = None
         self.timer = None
         self.dicTareas = collections.OrderedDict()
+        self.stopped = False
 
     def new_id(self):
         self.ultimaID += 1
@@ -75,10 +82,10 @@ class CPU:
         self.timer.start(self.ms_step)
 
     def stop(self):
-        if self.timer:
-            self.timer.stop()
-            del self.timer
-            self.timer = None
+        # if self.timer:
+        #     self.timer.stop()
+        #     del self.timer
+        #     self.timer = None
         self.reset()
 
     def run_lineal(self):
@@ -100,7 +107,8 @@ class CPU:
             if is_exclusive:
                 if n_pasos:
                     continue  # Hay que esperar a que terminen todos los anteriores
-
+            if self.stopped:
+                break
             is_the_last = tarea.unPaso()
             n_pasos += 1
             if is_the_last:

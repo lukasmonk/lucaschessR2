@@ -133,23 +133,17 @@ class ListaOpeningsStd:
         game.pending_opening = True
 
         without = 0
-        last_move_opening = -1
         for nj, move in enumerate(game.li_moves):
             fm2 = move.position.fenm2()
             if fm2 in self.st_fenm2_test:
                 if fm2 in self.dic_fenm2_op:
                     game.opening = self.dic_fenm2_op[fm2]
-                last_move_opening = nj
 
             else:
                 without += 1
                 if without == 10:
                     game.pending_opening = False
                     break
-
-        if last_move_opening >= 0:
-            for np in range(last_move_opening+1):
-                game.move(np).in_the_opening = True
 
     def list_possible_openings(self, game):
         li_openings = []

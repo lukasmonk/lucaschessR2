@@ -316,7 +316,9 @@ class WAnalisisGraph(LCDialog.LCDialog):
                 nagc = move.nag_color[1]
                 color = Nags.nag_color(nagc)
             else:
-                fenm2 = move.position_before.get_fenm2()
+                pbefore = move.position_before.copia()
+                pbefore.play(from_sq, to_sq, promotion)
+                fenm2 = pbefore.fenm2()
             is_book = OpeningsStd.ap.is_book_fenm2(fenm2)
             book = "O" if is_book else None
 

@@ -134,6 +134,7 @@ def options(parent, configuration):
     ]
     if Code.is_windows:
         li_db.insert(5, (_("DGT"), "DGT"))
+        li_db.insert(10, (_("Manya Cynus") + x, "Cynus"))
 
     form.combobox(_("Digital board"), li_db, configuration.x_digital_board)
 

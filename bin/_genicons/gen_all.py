@@ -45,7 +45,6 @@ def haz_sepia(origen):
     subprocess.call(li)
 
 
-
 def haz_green_pil(origen):
     img = Image.open(origen)
     width, height = img.size

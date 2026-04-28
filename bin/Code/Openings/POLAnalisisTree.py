@@ -317,14 +317,11 @@ class TabTree(QtWidgets.QWidget):
         if resp == "remove":
             self.remove_branch(item)
             return
-        if resp.startswith("delbranches"):
-            self.delbranches_num(item, "white" in resp)
-            return
         if resp == "create":
             self.create_from_branch(item)
             return
         if resp == "analysis":
-            self.tabsAnalisis.panelOpening.grid_doble_click(None, None, None)
+            self.wlines.grid_doble_click(None, None, None)
             return
 
         quien = si_expand = None
@@ -425,7 +422,7 @@ class TabTree(QtWidgets.QWidget):
         lipv = data_item.list_pv()
         a1h8 = " ".join(lipv)
         pgn = data_item.game_translated()
-        if not self.tabsAnalisis.panelOpening.remove_pv(pgn, a1h8):
+        if not self.wlines.remove_pv(pgn, a1h8):
             return
 
         parent = item.parent()
