@@ -3015,6 +3015,12 @@ def pmHOS():
 def HOS():
     return iget("HOS")
 
+def pmManya():
+    return iget("pmManya")
+
+def Manya():
+    return iget("Manya")
+
 def pmRodent():
     return iget("pmRodent")
 
