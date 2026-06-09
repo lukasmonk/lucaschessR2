@@ -292,11 +292,13 @@ def var2zip(var):
 def zip2var(blob):
     if blob is None:
         return None
-    try:
-        varp = zlib.decompress(blob)
-        return pickle.loads(varp)
-    except:
-        return None
+    varp = zlib.decompress(blob)
+    return pickle.loads(varp)
+    # try:
+    #     varp = zlib.decompress(blob)
+    #     return pickle.loads(varp)
+    # except:
+    #     return None
 
 
 def zip2var_change_import(blob, li_replace):

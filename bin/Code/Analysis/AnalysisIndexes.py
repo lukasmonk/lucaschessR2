@@ -337,8 +337,8 @@ def gen_indexes(game, elos, elos_form, alm):
     prc = "%"
 
     li_indices = [
-        (_("Average lost scores"), f"{average[True]:.02f}{cpt}", f"{average[False]:0.02f}{cpt}",
-         f"{average_t:0.02f}{cpt}"),
+        (_("Average lost scores"), f"{average[True]:.02f} {cpt}", f"{average[False]:0.02f} {cpt}",
+         f"{average_t:0.02f} {cpt}"),
         (_("Domination"), f"{domination[True]:.02f}%", f"{domination[False]:.02f}%", ""),
         (_("Complexity"), xac(complexity[True]), xac(complexity[False]), xac(complexity_t)),
         (_("Efficient mobility"), xac(efficientmobility[True]), xac(efficientmobility[False]),

@@ -417,7 +417,7 @@ FILESW=%s:100
                     return
 
                 move = game.move(mov)
-                if xlibro_aperturas.get_list_moves(move.position.fen()):
+                if xlibro_aperturas.si_esta(move.position_before.fen(), move.movimiento()):
                     move.is_book = True
                     st_borrar.add(mov)
                     continue

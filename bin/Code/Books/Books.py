@@ -299,6 +299,15 @@ class Book:
 
         return li_resp
 
+    def si_esta(self, fen, move):
+        lista_jugadas = self.get_list_moves(fen)
+        if lista_jugadas:
+            for apdesde, aphasta, appromotion, nada, nada1 in lista_jugadas:
+                mx = apdesde + aphasta + appromotion
+                if mx.strip().lower() == move:
+                    return True
+        return False
+
 
 class Libro(Book):  # Cambio de denominación, error en restore wplayagainst engine
     pass

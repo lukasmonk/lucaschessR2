@@ -31,15 +31,14 @@ class RegWorkMap:
 
     def _save(self):
         dic = {}
-        for x in dir(self):
-            if not x.startswith("_"):
-                v = getattr(self, x)
-                dic[x] = v
+        for name, value in Util.list_vars_values(self):
+            dic[name] = value
         return dic
 
     def _restore(self, dic):
         for k, v in dic.items():
-            setattr(self, k, v)
+            if k in ("iso", "name", "border", "elo", "assoc", "donePV"):
+                setattr(self, k, v)
 
 
 def ld_countries(mapa):
@@ -372,7 +371,8 @@ def ld_countries(mapa):
         lista.append(alm)
 
     dic = {alm.iso: alm for alm in lista}
-    return dic
+    dic_names = {alm.iso: alm.name for alm in lista}
+    return dic, dic_names
 
 
 class DBWorkMap(SQLBase.DBBase):
@@ -518,7 +518,7 @@ class WorkMap:
         self.info = None
         self.done = None
 
-        self.dic = ld_countries(mapa)
+        self.dic, self.dic_names = ld_countries(mapa)
 
         self.data_activo()
 
@@ -639,7 +639,7 @@ class WorkMap:
         if column == "TYPE":
             return "5" if self.listaGrid[row].donePV else "1"  # 5 = Azul 1 = Gris
         else:
-            return self.listaGrid[row].name
+            return self.dic_names[self.listaGrid[row].iso]
 
     def set_aim_row(self, row):
         self.aim = self.listaGrid[row].iso
