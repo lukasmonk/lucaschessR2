@@ -1,0 +1,8 @@
+FUTURE EBOARD UPDATES REQUIRE LUCAS CHESS VERSION R6 TO BE INSTALLED.
+
+Version 34: The Pegasus driver now allows for renamed boards and the Cynus driver has better take back processing (showing the move on the board's display).
+Version 33: Updated the Manya Cynus driver. It now connects more reliably and also shows the pieces to replace on take backs.
+Version 32: New driver for the Manya Cynus robot board.
+Version 31: Fixed Square Off Pro connection.
+Version 30: Fixed a problem in loading the BLE library.
+Version 29: New driver Chessnut Move. Replaced the SimpleBLE library with the ipWorksBLE.

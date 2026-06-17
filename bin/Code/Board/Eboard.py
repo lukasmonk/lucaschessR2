@@ -152,7 +152,7 @@ class Eboard:
                     driver = None
                     from Code.QT import QTUtil2
 
-                    if self.name == "Chessnut":
+                    if self.name.startswith("Chessnut"):
                         QTUtil2.message(
                             None,
                             """It is not possible to install the driver for the board, one way to solve the problem is to install the libraries:

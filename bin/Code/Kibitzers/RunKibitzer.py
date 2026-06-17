@@ -5,7 +5,7 @@ from PySide2 import QtWidgets
 
 import Code
 from Code import Util
-from Code.Base import Game
+from Code.Base import Game, Position
 from Code.Base.Constantes import (
     KIB_GAVIOTA,
     KIBRUN_GAME,
@@ -146,10 +146,13 @@ class CPU:
             if self.kibitzer.pointofview == KIB_BEFORE_MOVE:
                 self.last_move = game.remove_only_last_movement()
             if self.tipo == KIB_THREATS:
-                last_position = game.last_position
-                last_position.is_white = not last_position.is_white
-                game_threat = Game.Game(first_position=last_position)
-                self.ventana.orden_game_original(game_threat)
+                last_position: Position.Position = game.last_position
+                if not last_position.is_check():
+                    last_position.is_white = not last_position.is_white
+                    game_threat = Game.Game(first_position=last_position)
+                    self.ventana.orden_game_original(game_threat)
+                else:
+                    self.ventana.orden_game_original(game)
             else:
                 self.ventana.orden_game_original(game)
 
